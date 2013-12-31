@@ -141,7 +141,7 @@ module EOL
         EOL::Sparql::Client.if_connection_fails_return({}) do
           result = query("SELECT ?uri, COUNT(DISTINCT ?association) as ?count
             WHERE {
-              ?association <#{Rails.configuration.uri_association_type}> ?uri .
+              ?association eol:associationType ?uri .
               FILTER (isURI(?uri))
             }
             GROUP BY ?uri
@@ -170,7 +170,7 @@ module EOL
           result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
             WHERE {
               ?measurement dwc:measurementType ?uri .
-              ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+              ?measurement eol:measurementOfTaxon ?measurementOfTaxon .
               FILTER ( ?measurementOfTaxon = 'true' ) .
               FILTER (isURI(?uri))
             }

@@ -34,8 +34,8 @@ class KnownUri < ActiveRecord::Base
     { celsius:     Rails.configuration.uri_obo + 'UO_0000027'},
     { days:        Rails.configuration.uri_obo + 'UO_0000033'},
     { years:       Rails.configuration.uri_obo + 'UO_0000036'},
-    { tenth_c:     Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius'},
-    { log10_grams: Rails.configuration.schema_terms_prefix + 'log10gram'}
+    { tenth_c:     Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius'},
+    { log10_grams: Rails.configuration.uri_term_prefix + 'log10gram'}
   ]
 
   acts_as_list
@@ -90,8 +90,8 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000033', name: 'days' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' },
-                  { uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
-                  { uri: Rails.configuration.schema_terms_prefix + 'log10gram', name: 'log10 grams' } ]
+                  { uri: Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
+                  { uri: Rails.configuration.uri_term_prefix + 'log10gram', name: 'log10 grams' } ]
 
   # This gets called a LOT.  ...Like... a *lot* a lot. But...
   # DO NOT make a class variable and forget about it. We will need to flush the cache frequently as we
@@ -127,6 +127,9 @@ class KnownUri < ActiveRecord::Base
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
       replace_with_uri(row, :unit_of_measure_uri, known_uris)
+      replace_with_uri(row, :statistical_method, known_uris)
+      replace_with_uri(row, :sex, known_uris)
+      replace_with_uri(row, :life_stage, known_uris)
       if row[:attribute].to_s == Rails.configuration.uri_association_type && taxon_id = taxon_concept_id(row[:value])
         row[:target_taxon_concept_id] = taxon_id
       end
@@ -162,6 +165,10 @@ class KnownUri < ActiveRecord::Base
 
   def has_units?
     ! allowed_units.empty?
+  end
+
+  def value?
+    uri_type_id == UriType.value.id
   end
 
   def unknown?

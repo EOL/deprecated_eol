@@ -1,9 +1,36 @@
 class TaxonDataExemplarPicker
 
   @max_rows = EolConfig.max_taxon_data_exemplars rescue 8
+  @max_values_per_row = EolConfig.max_taxon_data_exemplar_values_per_row rescue 3
 
   def self.max_rows
     @max_rows
+  end
+
+  def self.max_values_per_row
+    @max_values_per_row
+  end
+
+  def self.group_and_sort_data_points(data_point_uris)
+    data_point_uris.delete_if{ |dp| dp.predicate_uri.blank? }
+    grouped_points = data_point_uris.uniq.sort.group_by(&:grouping_factors)
+    # Creating a hash which contains the above groups, indexed by some representative
+    # of the group that we can use for display purposes
+    # { representative => [ data_point_uris: ..., show_more: true/false ] }
+    final_hash = {}
+    grouped_points.each do |grouped_by, data_point_uris|
+      representative = data_point_uris.first
+      final_hash[representative] = {}
+      final_hash[representative][:data_point_uris] = data_point_uris[0...TaxonDataExemplarPicker::max_values_per_row]
+      if data_point_uris.length > TaxonDataExemplarPicker::max_values_per_row
+        final_hash[representative][:show_more] = true
+      end
+    end
+    final_hash
+  end
+
+  def self.count_rows_in_set(data_set)
+    data_set.collect(&:grouping_factors).uniq.length
   end
 
   def initialize(taxon_data)
@@ -12,14 +39,15 @@ class TaxonDataExemplarPicker
   end
 
   # Note - returns nil if the connection to the triplestore is bad.
-  # TODO - why are we taking an argument, here? We HAVE the TaxonData, and thus the data set.
-  def pick(taxon_data_set)
-    return nil unless taxon_data_set # This occurs if the connection to the triplestore is broken or bad.
-    # TODO - Might be wise here to grab exemplars first; if there are enough to fill the list, no need to load all the data.
-    taxon_data_set = reject_bad_known_uris(taxon_data_set)
-    taxon_data_set = reject_hidden(taxon_data_set)
-    taxon_data_set = reject_exemplars(taxon_data_set)
-    pick_exemplars(taxon_data_set.uniq.sort)
+  def pick
+    @taxon_data_set = @taxon_data.get_data.clone
+    return nil unless @taxon_data_set # This occurs if the connection to the triplestore is broken or bad.
+    @exemplar_data_points = exemplar_data_points
+    reject_excluded_known_uris
+    reject_hidden_data_point_uris
+    reject_excluded_data_point_uris
+    reduce_size_of_results
+    TaxonDataExemplarPicker.group_and_sort_data_points(@taxon_data_set)
   end
 
   # For posterity, here were the four that used to be hard-coded here:
@@ -27,58 +55,42 @@ class TaxonDataExemplarPicker
   #   'http://iobis.org/minaou',
   #   'http://iobis.org/maxdate',
   #   'http://iobis.org/mindate'
-  def reject_bad_known_uris(taxon_data_set)
+  def reject_excluded_known_uris
     uris_to_reject = KnownUri.excluded_from_exemplars.select('uri').map(&:uri)
-    taxon_data_set.delete_if do |data_point_uri|
+    @taxon_data_set.delete_if do |data_point_uri|
       if data_point_uri.predicate_known_uri
         uris_to_reject.detect{ |uri| data_point_uri.predicate_known_uri.matches(uri) }
       else
         uris_to_reject.include?(data_point_uri.predicate)
       end
     end
-    taxon_data_set
   end
 
-  def reject_exemplars(taxon_data_set)
+  def reject_excluded_data_point_uris
     # TODO - (Possibly) cache this.
     exemplars_to_reject = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).excluded
-    taxon_data_set.delete_if do |data_point_uri|
+    @taxon_data_set.delete_if do |data_point_uri|
       exemplars_to_reject.any? { |ex| data_point_uri.id == ex.data_point_uri.id }
     end
-    taxon_data_set
   end
 
-  def reject_hidden(taxon_data_set)
-    taxon_data_set.delete_if do |data_point_uri|
+  def reject_hidden_data_point_uris
+    @taxon_data_set.delete_if do |data_point_uri|
       data_point_uri.hidden?
     end
-    taxon_data_set
   end
 
-  # TODO - this should really return the categorized set.
-  # TODO - this should also account for all the values in the categorized set... we only want some from each category.
-  # TODO - this seems to be modifying the actual set of data on the source TaxonData object. Stop that.
-  def pick_exemplars(taxon_data_set)
-    return taxon_data_set if taxon_data_set.categorized.keys.count <= TaxonDataExemplarPicker.max_rows # No need to load anything, otherise...
-    # TODO - this should have an #include in it, but I'm being lazy:
-    curated_exemplars = TaxonDataExemplar.included.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
-    # Curators have selected so many "good" rows, we're just going to show them all. NOTE this can exeed the limit! (but, at
-    # the time of this writing, there is another check in the view that stops it from showing them all.).
-    if curated_exemplars.count >= TaxonDataExemplarPicker.max_rows
-      return taxon_data_set.delete_if { |data_point_uri| ! curated_exemplars.include?(data_point_uri) }
+  def reduce_size_of_results
+    reduced_set, more_points = @taxon_data_set.partition{ |point| @exemplar_data_points.include?(point) }
+    more_points.sort!
+    while TaxonDataExemplarPicker.count_rows_in_set(reduced_set) < TaxonDataExemplarPicker.max_rows && ! more_points.empty?
+      reduced_set << more_points.shift
     end
-    # If we're still here (and this is common), we have too many, can curators haven't selected enough to fill the allowed slots:
-    while(taxon_data_set.categorized.keys.count > TaxonDataExemplarPicker.max_rows) do
-      taxon_data_set.delete_at(index_of_last_non_exemplar(taxon_data_set, curated_exemplars))
-    end
-    taxon_data_set
+    @taxon_data_set = reduced_set
   end
 
-  def index_of_last_non_exemplar(taxon_data_set, curated_exemplars)
-    (taxon_data_set.count - 1).downto(0).each do |i|
-      next if curated_exemplars.include?(taxon_data_set[i])
-      return i
-    end
+  def exemplar_data_points
+    TaxonDataExemplar.included.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
   end
 
 end

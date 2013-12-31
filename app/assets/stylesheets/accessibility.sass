@@ -1426,6 +1426,7 @@ ul.tabs
     background-color: #f1f4dc
     border: 1px solid #ccd399
     padding: 3pt 8pt
+#content > .site_column
   #suggestions
     width: 360px
     height: 24em
@@ -1534,6 +1535,13 @@ ul.tabs
           &.def:hover
             .info_icon
               @include hover_info_icon(15)
+          .stat
+            color: #93a4b0
+            font-size: 12px
+            &:before
+              content: '('
+            &:after
+              content: ')'
         td
           padding: 5px 7px 5px 0
           font-weight: 500
@@ -1900,7 +1908,7 @@ ul.glossary li, .info.tip
 .small_site_warning
   font-style: italic
   font-size: 0.87em
-  margin: 0 0 0.5em 0
+  margin: 0 1.5em .75em 1.5em
   color: $nearly_black
 
 textarea

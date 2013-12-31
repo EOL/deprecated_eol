@@ -158,7 +158,6 @@ module TaxaHelper
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
         define(tag_type, uri, options[:search_link])
       end
-      label = format_data_value(display_label, options)
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         if current_user.min_curator_level?(:full)
           if options[:exemplar]
@@ -167,7 +166,8 @@ module TaxaHelper
             haml_concat image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
           end
         end
-        haml_concat raw(label)
+        haml_concat raw(format_data_value(display_label, options))
+        haml_concat display_text_for_modifiers(options[:modifiers])
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
           define(tag_type, uri, options[:search_link])
           info_icon if options[:val]
@@ -228,6 +228,12 @@ module TaxaHelper
     end
     text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless data_point_uri.new_record?
+    # displaying context such as life stage, sex.... The overview tab will include the statistical modifier
+    modifiers = data_point_uri.context_labels
+    if options[:include_statistical_method] && data_point_uri.statistical_method_label
+      modifiers.unshift(data_point_uri.statistical_method_label)
+    end
+    text_for_row_value += display_text_for_modifiers(modifiers)
     text_for_row_value
   end
 
@@ -235,6 +241,16 @@ module TaxaHelper
     haml_tag "a.info_icon" do
       haml_concat "&emsp;" # Width doesn't seem to work.  :|
     end
+  end
+
+  def display_text_for_modifiers(modifiers)
+    if modifiers && ! modifiers.empty?
+      modifiers = modifiers.compact.uniq
+      unless modifiers.empty?
+        return "<span class='stat'>#{modifiers.join(', ')}</span>"
+      end
+    end
+    ''
   end
 
   def define(tag_type, uri, search_link)

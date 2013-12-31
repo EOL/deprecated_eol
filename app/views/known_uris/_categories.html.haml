@@ -7,5 +7,3 @@
   - TocItem.for_uris(current_language).sort_by(&:label).each do |category|
     %li.category{id: "category_#{category.id}"}
       = link_to category.label, known_uris_path(category_id: category.id), remote: true
-    %li.child
-      -# Empty by default.

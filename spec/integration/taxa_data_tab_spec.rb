@@ -34,30 +34,27 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th span", text: 'Weight')
+    body.should have_selector("table.data th div.term", text: 'Weight')
     body.should have_selector("table.data td", text: '12,345.0')
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
-    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@measurement.uri)}']", text: "see this record in Virtuoso")
   end
 
   it 'should display harvested associations' do
     @association.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th span", text: 'Preys On')
+    body.should have_selector("table.data th div.term", text: 'Preys On')
     body.should have_selector("table.data td a[href='/pages/#{@target_taxon_concept.id}/data']", text: @target_taxon_concept.title_canonical)
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
-    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@association.uri)}']", text: "see this record in Virtuoso")
   end
 
   it 'should display user added data' do
     @user_added_data.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th span", text: 'Length')
+    body.should have_selector("table.data th div.term", text: 'Length')
     body.should have_selector("table.data td", text: '9,999.0')
     body.should include("provided by <a href=\"/users/#{@user.id}\">#{@user.full_name}</a>")
-    # body.should have_selector("li a[href='#{$VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(@user_added_data.uri)}']", text: "see this record in Virtuoso")
   end
 
   it 'should display known uri labels when available' do
@@ -111,7 +108,7 @@ describe 'Taxa data tab basic tests' do
     body.should have_tag("form#new_user_added_data")
     body.should have_tag("form#new_user_added_data input[@type='submit']", value: "submit data value")
     within(:xpath, '//form[@id="new_user_added_data"]') do
-      fill_in 'user_added_data_predicate', with: Rails.configuration.schema_terms_prefix + 'testingadddata'
+      fill_in 'user_added_data_predicate', with: Rails.configuration.uri_term_prefix + 'testingadddata'
       fill_in 'user_added_data_object', with: 'testingadddata_value'
       click_button "submit data value"
     end

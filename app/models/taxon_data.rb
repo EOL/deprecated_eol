@@ -57,18 +57,19 @@ class TaxonData < TaxonUserClassificationFilter
     else
       # this is strange, but in order to properly do sorts, limits, and offsets there should be a subquery
       # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
-      query = "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id WHERE { "
-      query += "SELECT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
+      query = "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id WHERE { "
+      query += "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
     end
     query += " WHERE {
       GRAPH ?graph {
         ?data_point_uri dwc:measurementType ?attribute .
         ?data_point_uri dwc:measurementValue ?value .
-        ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+        ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
         FILTER ( ?measurementOfTaxon = 'true' ) .
-        OPTIONAL {
-          ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri .
-        } . "
+        OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
+        OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+        OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
+        OPTIONAL { ?data_point_uri dwc:sex ?sex } . "
     # numerical range search term
     if options[:from] && options[:to]
       query += "FILTER(xsd:float(?value) >= xsd:float(#{options[:from]}) AND xsd:float(?value) <= xsd:float(#{options[:to]})) . "
@@ -151,9 +152,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
   def get_data_for_overview
-    picker = TaxonDataExemplarPicker.new(self)
-    # TODO - why call/pass #get_data when we passed self above?
-    picker.pick(get_data)
+    picker = TaxonDataExemplarPicker.new(self).pick
   end
 
   def distinct_predicates
@@ -189,16 +188,17 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def measurement_data(options = {})
-    selects = "?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
+    selects = "?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
     query = "
       SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?graph {
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value .
-          OPTIONAL {
-            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
-          }
+          OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
+          OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+          OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
+          OPTIONAL { ?data_point_uri dwc:sex ?sex }
         } .
         {
           ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
@@ -207,7 +207,7 @@ class TaxonData < TaxonUserClassificationFilter
         UNION {
           ?data_point_uri dwc:occurrenceID ?occurrence .
           ?occurrence dwc:taxonID ?taxon .
-          ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
           FILTER ( ?measurementOfTaxon = 'true' ) .
           GRAPH ?resource_mappings_graph {
             ?taxon dwc:taxonConceptID ?taxon_concept_id .
@@ -234,14 +234,14 @@ class TaxonData < TaxonUserClassificationFilter
           ?target_occurrence dwc:taxonID ?value .
           {
             ?data_point_uri dwc:occurrenceID ?occurrence .
-            ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?target_occurrence .
-            ?data_point_uri <#{Rails.configuration.uri_association_type}> ?attribute
+            ?data_point_uri eol:targetOccurrenceID ?target_occurrence .
+            ?data_point_uri eol:associationType ?attribute
           }
           UNION
           {
             ?data_point_uri dwc:occurrenceID ?target_occurrence .
-            ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?occurrence .
-            ?data_point_uri <#{Rails.configuration.uri_association_type}> ?inverse_attribute
+            ?data_point_uri eol:targetOccurrenceID ?occurrence .
+            ?data_point_uri eol:associationType ?inverse_attribute
           }
         } .
         OPTIONAL {
@@ -267,7 +267,7 @@ class TaxonData < TaxonUserClassificationFilter
           ?occurrence dwc:taxonID ?taxon .
           ?taxon dwc:taxonConceptID ?descendant_concept_id .
           ?data_point_uri dwc:occurrenceID ?occurrence .
-          ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
           FILTER ( ?measurementOfTaxon = 'true' ) .
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value .

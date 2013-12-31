@@ -28,7 +28,10 @@ class DataPointUri < ActiveRecord::Base
   has_many :all_comments, class_name: Comment.to_s, through: :all_versions, primary_key: :uri, source: :comments
   has_many :taxon_data_exemplars
 
-  attr_accessor :metadata, :references
+  attr_accessor :metadata, :references,
+    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
+    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
+    :sex, :sex_known_uri, :sex_known_uri_id
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
     # There are potentially hundreds or thousands of DataPointUri inserts happening here.
@@ -83,7 +86,10 @@ class DataPointUri < ActiveRecord::Base
     virtuoso_to_data_point_mapping = {
       attribute: :predicate,
       unit_of_measure_uri: :unit_of_measure,
-      value: :object }
+      value: :object,
+      statistical_method: :statistical_method,
+      life_stage: :life_stage,
+      sex: :sex }
     virtuoso_to_data_point_mapping.each do |virtuoso_response_key, data_point_uri_key|
       next if row[virtuoso_response_key].blank?
       # this requires that
@@ -197,7 +203,7 @@ class DataPointUri < ActiveRecord::Base
             ?parent_uri dwc:occurrenceID ?occurrence .
             ?occurrence ?attribute ?value .
           } UNION {
-            ?measurement <#{Rails.configuration.uri_parent_measurement_id}> ?parent_uri .
+            ?measurement eol:parentMeasurementID ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
@@ -206,11 +212,11 @@ class DataPointUri < ActiveRecord::Base
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
-            OPTIONAL { ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon } .
+            OPTIONAL { ?measurement eol:measurementOfTaxon ?measurementOfTaxon } .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
-            ?measurement <#{Rails.configuration.uri_association_id}> ?parent_uri .
+            ?measurement eol:associationID ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
@@ -220,10 +226,10 @@ class DataPointUri < ActiveRecord::Base
             ?event ?attribute ?value .
           }
           FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
-                                     dwc:measurementID, <#{Rails.configuration.uri_reference_id}>,
-                                     <#{Rails.configuration.uri_target_occurence}>, dwc:taxonID, dwc:eventID,
-                                     <#{Rails.configuration.uri_association_type}>,
-                                     dwc:measurementUnit, dwc:occurrenceID, <#{Rails.configuration.uri_measurement_of_taxon}>)
+                                     dwc:measurementID, eol:referenceID,
+                                     eol:targetOccurrenceID, dwc:taxonID, dwc:eventID,
+                                     eol:associationType,
+                                     dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
                   ) .
           FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
         }
@@ -253,7 +259,7 @@ class DataPointUri < ActiveRecord::Base
             ?data_point_uri dwc:occurrenceID ?occurrence .
             ?data_point_uri dwc:measurementType ?attribute .
             ?data_point_uri dwc:measurementValue ?value .
-            ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+            ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
             ?occurrence dwc:taxonID ?taxon_id .
             FILTER ( ?measurementOfTaxon = 'true' ) .
             OPTIONAL {
@@ -295,8 +301,8 @@ class DataPointUri < ActiveRecord::Base
       WHERE {
         GRAPH ?graph {
           {
-            ?parent_uri <#{Rails.configuration.uri_reference_id}> ?reference .
-            ?reference a <#{Rails.configuration.uri_reference}>
+            ?parent_uri eolreference:referenceID ?reference .
+            ?reference a eolreference:Reference
             #{options.join("\n")}
             FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
           }
@@ -492,8 +498,13 @@ class DataPointUri < ActiveRecord::Base
     taxon_data_exemplars.select(&:excluded?).any?
   end
 
+  # Sort by: position of known_uri, rules of exclusion, and finally value display string
   def <=>(other)
-    if included? && ! other.included?
+    this_position = predicate_known_uri ? (1.0 / predicate_known_uri.position) : 0
+    other_position = other.predicate_known_uri ? (1.0 / other.predicate_known_uri.position) : 0
+    if this_position != other_position
+      other_position <=> this_position
+    elsif included? && ! other.included?
       -1
     elsif other.included? && ! included?
       1
@@ -502,10 +513,34 @@ class DataPointUri < ActiveRecord::Base
     elsif other.excluded? && ! excluded?
       -1
     else
-      # TODO - really, this should sort on the predicate first, value second. ...We never need that, but it still violates
-      # principle of least surprise:
-      value_uri_or_blank <=> other.value_uri_or_blank
+      value_string <=> other.value_string
     end
+  end
+
+  # Grouping the results by combination of predicate and statistical method
+  def grouping_factors
+    group_by = [ predicate_known_uri || predicate_uri ]
+    # group_by << statistical_method_label if statistical_method_label
+    group_by
+  end
+
+  def statistical_method_label
+    return statistical_method_known_uri.label if statistical_method_known_uri
+    return statistical_method if statistical_method && !EOL::Sparql.is_uri?(statistical_method)
+  end
+
+  def life_stage_label
+    return life_stage_known_uri.label if life_stage_known_uri
+    return life_stage if life_stage && !EOL::Sparql.is_uri?(life_stage)
+  end
+
+  def sex_label
+    return sex_known_uri.label if sex_known_uri
+    return sex if sex && !EOL::Sparql.is_uri?(sex)
+  end
+
+  def context_labels
+    return [ life_stage_label, sex_label ].compact
   end
 
 private
@@ -561,13 +596,13 @@ private
         ending_unit:      KnownUri.years.uri,
         function:         lambda { |v| v / 365 },
         required_minimum: 1.0 },
-      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius' ],
+      { starting_units:   [ Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius' ],
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v / 10 } },
-      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'log10gram' ],
+      { starting_units:   [ Rails.configuration.uri_term_prefix + 'log10gram' ],
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| 10 ** v } },
-      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'squareMicrometer' ],
+      { starting_units:   [ Rails.configuration.uri_term_prefix + 'squareMicrometer' ],
         ending_unit:      Rails.configuration.uri_obo + 'UO_0000082',                   # square millimeter
         function:         lambda { |v| v / 1000000 },
         required_minimum: 1.0 },
@@ -580,7 +615,7 @@ private
         function:         lambda { |v| v / 10000 },
         required_minimum: 1.0 },
       { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000080' ],               # square meter
-        ending_unit:      Rails.configuration.schema_terms_prefix + 'squarekilometer',  # square kilometer
+        ending_unit:      Rails.configuration.uri_term_prefix + 'squarekilometer',  # square kilometer
         function:         lambda { |v| v / 1000000 },
         required_minimum: 1.0 }
     ]

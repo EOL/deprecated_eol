@@ -72,6 +72,30 @@ describe 'taxa/data/index' do
       expect(rendered).to have_tag('span', text: /chucks/)
     end
 
+    it "should show statistical method" do
+      assign(:data_point_uris, [ DataPointUri.gen(predicate: 'Itspredicate', statistical_method: 'Itsmethod') ])
+      render
+      expect(rendered).to have_tag('span.stat', text: /Itsmethod/)
+    end
+
+    it "should show life stage" do
+      assign(:data_point_uris, [ DataPointUri.gen(life_stage: 'Itslifestage') ])
+      render
+      expect(rendered).to have_tag('span.stat', text: /Itslifestage/)
+    end
+
+    it "should show sex" do
+      assign(:data_point_uris, [ DataPointUri.gen(sex: 'Itssex') ])
+      render
+      expect(rendered).to have_tag('span.stat', text: /Itssex/)
+    end
+
+    it "should show sex and life stage together" do
+      assign(:data_point_uris, [ DataPointUri.gen(life_stage: 'Itslifestage', sex: 'Itssex') ])
+      render
+      expect(rendered).to have_tag('span.stat', text: /Itslifestage, Itssex/)
+    end
+
     context 'search' do
 
       it "should include attribute drop-down" do

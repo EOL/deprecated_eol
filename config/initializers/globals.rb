@@ -12,12 +12,12 @@ Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
 # TAXON DATA configuration settings:
 
 Rails.configuration.uri_prefix = 'http://eol.org/schema/'
-Rails.configuration.schema_terms_prefix = 'http://eol.org/schema/terms/'
-Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources"
+Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}terms/"
+Rails.configuration.uri_reference_prefix = "#{Rails.configuration.uri_prefix}reference/"
+Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources/"
 Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"
 Rails.configuration.uri_allowed_val = "#{Rails.configuration.uri_prefix}allowedValue"
 Rails.configuration.uri_allowed_unit = "#{Rails.configuration.uri_prefix}allowedUnit"
-Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}terms/"
 Rails.configuration.uri_supplier = "#{Rails.configuration.uri_term_prefix}supplier"
 Rails.configuration.uri_target_occurence = "#{Rails.configuration.uri_prefix}targetOccurrenceID"
 Rails.configuration.uri_reference = "#{Rails.configuration.uri_prefix}reference/Reference"

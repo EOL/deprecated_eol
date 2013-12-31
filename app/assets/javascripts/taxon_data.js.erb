@@ -79,15 +79,15 @@ EOL.disable_button = function($button) {
 };
 
 EOL.attribute_is_not_okay = function() {
-  $('input#user_added_data_predicate').addClass('problems');
+  $('input.predicate_autocomplete').addClass('problems');
   $('#new_uri_warning').show();
   EOL.disable_measurement_input();
 };
 
 EOL.attribute_is_okay = function() {
-  $('input#user_added_data_predicate').removeClass('problems');
+  $('input.predicate_autocomplete').removeClass('problems');
   $('#new_uri_warning').hide();
-  if ($('#predicate_uri_type').val() == 'measurement' && $('#user_added_data_predicate').val() != '') {
+  if ($('#predicate_uri_type').val() == 'measurement' && $('.predicate_autocomplete').val() != '') {
     $('fieldset.unit_of_measure').fadeIn(100);
   } else {
     EOL.disable_measurement_input();
@@ -168,8 +168,8 @@ EOL.sort_glossary = function(a, b) {
 }
 
 EOL.enable_suggestions_hover = function() {
-  $('input#user_added_data_predicate').parent().hover(function() {
-    if (!$('ul.ui-autocomplete').is(':visible') && $('input#user_added_data_predicate').val() == '') {
+  $('input.predicate_autocomplete').parent().hover(function() {
+    if (!$('ul.ui-autocomplete').is(':visible') && $('input.predicate_autocomplete').val() == '') {
       $('div#suggestions').show();
     } else $('div#suggestions').hide();
   }, function () {
@@ -178,7 +178,7 @@ EOL.enable_suggestions_hover = function() {
 }
 
 EOL.disable_suggestions_hover = function() {
-  $('input#user_added_data_predicate').parent().unbind('hover');
+  $('input.predicate_autocomplete').parent().unbind('hover');
 }
 
 function update_input_id_and_name(form, new_id) {
@@ -252,9 +252,9 @@ $(function() {
     });
   });
 
-  $('div#suggestions').appendTo($('input#user_added_data_predicate').parent());
+  $('div#suggestions').appendTo($('input.predicate_autocomplete').parent());
 
-  $('input#user_added_data_predicate').keyup(function(e) {
+  $('input.predicate_autocomplete').keyup(function(e) {
     var key = e.keyCode || e.which;
     // it was the return key that was pressed, likely the user
     // choosing an autocomplete value from the list, so do nothing
@@ -263,11 +263,11 @@ $(function() {
     if ($field.val() != '') {
       $('div#suggestions').hide();
     }
-    if ($('#user_added_data_predicate_known_uri_id').val() != '') {
-      $('#user_added_data_predicate_known_uri_id').val('');
+    if ($('input.predicate_known_uri_id').val() != '') {
+      $('input.predicate_known_uri_id').val('');
       EOL.attribute_is_not_okay();
     }
-    if ($field.val() == '' || $('#user_added_data_predicate_known_uri_id').val() != '') {
+    if ($field.val() == '' || $('input.predicate_known_uri_id').val() != '') {
       EOL.attribute_is_okay();
     } else EOL.attribute_is_not_okay();
   }).focus(function() {
@@ -308,8 +308,8 @@ $(function() {
 
   $('li.attribute').live('click', function() {
     var span = $(this).find('.name');
-    $('#user_added_data_predicate').val(span.text());
-    $('#user_added_data_predicate_known_uri_id').val(span.data('id'));
+    $('input.predicate_autocomplete').val(span.text());
+    $('input.predicate_known_uri_id').val(span.data('id'));
     $('#predicate_uri_type').val(span.data('uri_type'));
     $('#user_added_data_has_values').val(span.data('has_values'));
     EOL.attribute_is_okay();
@@ -317,7 +317,7 @@ $(function() {
   });
 
   // any chosen autocomplete value is legitimate
-  $('#user_added_data_predicate').bind('railsAutocomplete.select', function(event, data){
+  $('input.predicate_autocomplete').bind('railsAutocomplete.select', function(event, data){
     EOL.attribute_is_okay();
   });
 
@@ -335,7 +335,7 @@ $(function() {
     // for the primary measurement, always autocomplete with the value in the text input. The other
     // autocomplete fields will search on ' ' to show always show the pick-list on focus. The primary
     // measurment field will show the custom selector when the field is empty
-    if ($(this).attr('id') == 'user_added_data_predicate') {
+    if ($(this).hasClass('predicate_autocomplete')) {
       $(this).autocomplete("search", $(this).val());
     } else $(this).autocomplete("search", ' ');
   });
@@ -346,7 +346,7 @@ $(function() {
     // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
     if (key === 37 || key === 38 || key === 39 || key === 40) return;
     if ($(this).val() == '') {
-      if ($(this).attr('id') == 'user_added_data_predicate') {
+      if ($(this).hasClass('predicate_autocomplete')) {
         $('div#suggestions').show();
       } else $(this).autocomplete("search", ' ');
     }

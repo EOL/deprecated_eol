@@ -42,7 +42,7 @@ describe TaxonData do
 
   it 'should select the list of fields we want' do
     @prep_string.should
-      match(/SELECT \?data_point_uri, \?attribute, \?value, \?taxon_concept_id, \?unit_of_measure_uri/)
+      match(/SELECT \?data_point_uri, \?attribute, \?value, \?taxon_concept_id, \?unit_of_measure_uri, \?statistical_method, \?life_stage, \?sex/)
   end
 
   it 'should select where some default stuff is expected' do
@@ -52,7 +52,7 @@ describe TaxonData do
       "?taxon_id dwc:taxonConceptID ?taxon_concept_id",
       "?data_point_uri dwc:measurementType ?attribute .",
       "?data_point_uri dwc:measurementValue ?value .",
-      "?data_point_uri dwc:measurementUnit ?unit_of_measure_uri ."
+      "OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } ."
     ].each do |expectation|
       @prep_string.should match(Regexp.quote(expectation))
     end
@@ -95,11 +95,10 @@ describe TaxonData do
 
   it 'should populate categories on #get_data'
 
-  it '#get_data_for_overview should call get_data and use TaxonDataExemplarPicker' do
+  it '#get_data_for_overview should use TaxonDataExemplarPicker' do
     picker = TaxonDataExemplarPicker.new(@taxon_data) # Note this is before we add #should_receive.
     TaxonDataExemplarPicker.should_receive(:new).with(@taxon_data).and_return(picker)
-    @taxon_data.should_receive(:get_data).and_return('wow')
-    picker.should_receive(:pick).with('wow').and_return('back here')
+    picker.should_receive(:pick).and_return('back here')
     @taxon_data.get_data_for_overview.should == 'back here'
   end
 

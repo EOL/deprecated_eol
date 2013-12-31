@@ -65,7 +65,7 @@ describe 'Structured Data Factories' do
       a = DataAssociation.new(@default_options)
       a.turtle.should include('a <http://eol.org/schema/Association>')
       a.turtle.should include('dwc:taxonID ')
-      a.turtle.should include("<#{Rails.configuration.uri_target_occurence}> ")
+      a.turtle.should include('eol:targetOccurrenceID ')
     end
 
     it 'should be able to interact with the triplestore' do

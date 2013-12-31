@@ -7,6 +7,15 @@ def create_known_uri(params)
   new_instance
 end
 
+def expect_measurement_types
+  EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).at_least(1).times.and_return(KnownUri.measurements)
+end
+
+def expect_no_measurement_types
+  EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).at_least(1).times.and_return([])
+end
+
+
 # TODO - this isn't a controller spec, it's an integration spec. Move it.
 describe KnownUrisController do
 
@@ -118,18 +127,29 @@ describe KnownUrisController do
 
     # the method allows an empty search, but the JS will only call this method when there are at least 2 characters
     it 'should return all measurements when there is no term' do
+      expect_measurement_types
       KnownUri.measurements.length.should == 2
       get :autocomplete_known_uri_predicates, :term => ''
       assigns[:known_uris].should == KnownUri.measurements
     end
 
     it 'should allow searches within measurements' do
+      expect_measurement_types
       debugger if KnownUri.unit_of_measure.allowed_values.length == 9 # What's the extra one and how should we clear it out?
       get :autocomplete_known_uri_predicates, :term => 'mass'
       assigns[:known_uris].should == [ @mass ]
       get :autocomplete_known_uri_predicates, :term => 'http://'
       assigns[:known_uris].should == KnownUri.measurements
     end
+
+    it 'should only return results for valid measurements' do
+      expect_no_measurement_types
+      get :autocomplete_known_uri_predicates, :term => 'mass'
+      assigns[:known_uris].should == [ ]
+      get :autocomplete_known_uri_predicates, :term => 'http://'
+      assigns[:known_uris].should == [ ]
+    end
+
   end
 
   describe 'GET autocomplete_known_uri_units' do
@@ -241,13 +261,13 @@ describe KnownUrisController do
       expect { get :autocomplete_known_uri_values }.not_to raise_error
     end
 
-    it 'should return nothing when there is no predicate' do
+    it 'should return global matches when there is no predicate' do
       get :autocomplete_known_uri_values, :term => ''
       assigns[:known_uris].should == [ ]
       get :autocomplete_known_uri_values, :term => 'male'
-      assigns[:known_uris].should == [ ]
+      assigns[:known_uris].should == [ @male, @female ]
       get :autocomplete_known_uri_values, :term => 'http://'
-      assigns[:known_uris].should == [ ]
+      assigns[:known_uris].should == KnownUri.values.sort_by(&:position)
     end
 
     it 'should return a list of visible allowed values when given a predicate' do

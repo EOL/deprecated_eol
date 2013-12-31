@@ -162,7 +162,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: Rails.configuration.schema_terms_prefix + 'added_predicate',
+        attribute: Rails.configuration.uri_term_prefix + 'added_predicate',
         value: 'Added Value')
     end
     let(:data_activity_re) { /added data to/ }
@@ -175,7 +175,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: Rails.configuration.schema_terms_prefix + 'data_to_hide',
+        attribute: Rails.configuration.uri_term_prefix + 'data_to_hide',
         value: 'Tohide Value')
       hide_row
     end
@@ -189,7 +189,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: Rails.configuration.schema_terms_prefix + 'data_to_unhide',
+        attribute: Rails.configuration.uri_term_prefix + 'data_to_unhide',
         value: 'Tounhide Value')
       hide_row
       unhide_row
@@ -204,7 +204,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: Rails.configuration.schema_terms_prefix + 'for_quick_facts',
+        attribute: Rails.configuration.uri_term_prefix + 'for_quick_facts',
         value: 'Tofacts Value')
       add_to_quick_facts
     end
@@ -218,7 +218,7 @@ describe 'DataPointUris' do
     before :all do
       reset
       @user_added_data = add_data(
-        attribute: Rails.configuration.schema_terms_prefix + 'for_comments',
+        attribute: Rails.configuration.uri_term_prefix + 'for_comments',
         value: 'Tocomment Value')
       comment('testing annotations')
     end

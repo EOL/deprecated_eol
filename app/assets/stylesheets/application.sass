@@ -2306,6 +2306,7 @@ ul.content_partner_contacts
 
 #data_search
   .filters
+    padding: 15px 25px 5px
     fieldset
       dd
         input[type=submit]
@@ -3054,9 +3055,16 @@ ul#permissions
         text-align: right
       td
         padding: 0 0 1.1em 1em
-      &.last
+      &:last-child
         td
           padding: 0 0 0.2em 1em
+      .stat
+        color: #93a4b0
+        font-size: 12px
+        &:before
+          content: '('
+        &:after
+          content: ')'
   div.see_more
     colspan: 2
     text-align: center

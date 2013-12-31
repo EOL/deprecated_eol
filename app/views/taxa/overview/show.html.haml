@@ -115,14 +115,14 @@
     #data_summary.article
       .header
         %h3= I18n.t(:data_summary_header_with_count, count: @all_data_point_uris_count)
-        - unless @overview_data_point_uris.blank?
-          = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @all_data_point_uris_count)), taxon_data_path)
+        - unless @overview_data.blank?
+          = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @all_data_point_uris_count)), taxon_data_path(@overview))
       .small_site_warning= I18n.t(:beta_warning_small)
-      - if @overview_data_point_uris.blank? && @range_data.blank?
+      - if @overview_data.blank? && @range_data.blank?
         .empty
-          %p= I18n.t(@overview_data_point_uris ? :taxon_data_empty : :data_server_unavailable)
+          %p= I18n.t(@overview_data ? :taxon_data_empty : :data_server_unavailable)
       - else
-        = render(partial: 'taxa/data/overview_summary', locals: { data_point_uris: @overview_data_point_uris, range_data: @range_data })
+        = render(partial: 'taxa/data/overview_summary', locals: { overview_data: @overview_data, range_data: @range_data })
   -# TODO - It probably shouldn't be THAT different for a selected hierarchy entry view and a regular taxon view.
   -# Figure out why there's so much extra, here.
   - if @overview.classification_filter?

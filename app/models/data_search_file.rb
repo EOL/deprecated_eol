@@ -126,7 +126,7 @@ class DataSearchFile < ActiveRecord::Base
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
-    end10
+    end
     if @overflow
       csv << [ Sanitize.clean(I18n.t(:data_search_limit, count: LIMIT)) ]
     end

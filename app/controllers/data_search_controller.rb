@@ -7,7 +7,6 @@ class DataSearchController < ApplicationController
 
   # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL
   def index
-    if params[:attribute]
     prepare_search_parameters(params)
     respond_to do |format|
       format.html do

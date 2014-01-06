@@ -1603,6 +1603,11 @@ uk:
   content_partner_resource_harvest_event_not_published: Не опубліковано
   content_partner_resource_harvest_event_previously_published: Раніше опубліковано
   content_partner_resource_harvest_event_publish_pending: В очікуванні публікації
+  content_partner_resource_harvest_event_update_successful_notice: Подія збору даних для %{resource_title} успішно оновлена.
+  content_partner_resource_harvest_event_update_unsuccessful_error: На жаль, трапилася помилка. Подія збору даних для %{resource_title} не була оновлена.
+  content_partner_resource_harvest_events_empty: Не знайдено жодної події збору даних.
+  content_partner_resource_harvest_events_for_resource_subheader: Події збору даних для ресурсу %{resource_title}
+  content_partner_resource_harvest_events_see_all_link: Переглянути усі <span class="assistive">події збору даних</span>
   content_partner_resource_hierarchy_browsable: Для перегляду
   content_partner_resource_hierarchy_complete_false: Ця ієрархія не задана як перевірена. Відповідні записи можуть розглядатися як одне поняття.
   content_partner_resource_hierarchy_edit_link: Змінити
@@ -1632,6 +1637,7 @@ uk:
   content_partner_resource_vetted_true: Так
   content_partner_resource_view_link: Перегляд
   content_partner_resources_header: Ресурси
+  content_partner_resources_information: Ресурси - це набори даних, доступних для збирання Енциклопедією життя. Зібрані дані інтегровані в базу даних Енциклопедії життя і служать громадськості через  веб-сайт ЕЖ і API. Файли ресурсів або будуть завантажуватися безпосередньо Енциклопедією життя, або, якщо ви зробите файл ресурсів доступним на громадському веб-сервері, ЕЖ зможе автоматично отримувати дані через регулярні проміжки часу, які ви можете визначити. Кожен файл ресурсів має бути у форматі <a href="%{eol_transfer_schema_url}">схема передачі ЕЖ</a>
   content_partner_resources_link: Ресурси &amp; контакти
   content_partner_resources_link_back_to: повернутися до ресурсів та контактів
   content_partner_resources_policy_information: Перед додаванням ваших ресурсів даних, будь ласка, ознайомтеся з наступним змістом партнерської угоди про умови користування.
@@ -1645,6 +1651,7 @@ uk:
   content_partner_statistics_empty: Статистичні дані не знайдено за %{month_name} %{year}.
   content_partner_statistics_link: Статистика використання
   content_partner_statistics_month_label: Місяць
+  content_partner_statistics_summary_caption: Підсумок статистики використання для сторінок таксонів, які містять вміст, наданий %{partner_name}, відносно загального використання веб-сайту ЕЖ.
   content_partner_statistics_taxa_page_caption: Детальна статистика використання для сторінок таксонів, що містять відомості, надані %{partner_name}.
   content_partner_statistics_year_label: Рік
   content_partner_status_empty: Невідомий статус
@@ -2120,7 +2127,9 @@ uk:
       min_master_curators_only: На жаль, доступ обмежений кураторами ЕЖ з мінімальним рівнем Майстра.
       no_access: На жаль, доступ обмежено.
   excluded_icon_tip: Рядки, позначені піктограмою виключення %{excluded_icon}, ніколи не будуть показані на сторінках огляду таксону.
+  expand_all_children: розгорнути усіх нащадків
   explore: індекс
+  explore_what_we_know_about_taxon: Пізнайте, що ЕЖ знає про %{taxon}.
   export_curator_csv_link: "[експортувати всіх кураторів як CSV]"
   export_this_list_as_csv: Експортувати цей список як CSV
   external_link_header: Зовнішнє посилання
@@ -2289,6 +2298,10 @@ uk:
   google_scholar: Google Академія
   grant_full_curator_link: Дозвіл
   grant_permission: дозвіл
+  harvest_id: ІД збору
+  harvesting_processes_log: Журнал процесів збору
+  harvests_for: Збори для %{resource}
+  has_colon: "Має:"
   hello_user: Привіт %{user}
   help: довідка
   helpers: 
@@ -2561,6 +2574,8 @@ uk:
   hierarchy_node_missing: На жаль, відсутні дані для цього вузла.
   hierarchy_updated: Ієрархія оновлена
   home: Головна
+  home_page_cache_last_cleared_on: Кеш головної сторінки востаннє очищено %{date}
+  home_page_link_advisory_information: Це посилання переадресує вас на головну сторінку веб-сайту Енциклопедії життя
   html_format: (Формат HTML)
   id: ІД
   image: Зображення
@@ -2689,6 +2704,7 @@ uk:
   language_with_count: "%{language} (%{count})"
   languages: Мови
   last_updated: Останнє оновлення
+  last_updated_time_ago: Останнє оновлення %{time_passed} тому
   layouts: 
     v2: 
       application: 

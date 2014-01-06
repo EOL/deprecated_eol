@@ -180,8 +180,10 @@ oc:
         label: Labellat
         request_publish: Demandar una publicacion
       known_uri: 
+        clade_exemplar: Utilizar coma exemple de plaja de clad
         description: Descripcion
         exclude_from_exemplars: Exclure de Faches en brèu
+        group_by_clade: Utilizar per de plajas de clad
         name: Nom
         toc_items: Categorias
         uri: URI
@@ -1206,6 +1208,7 @@ oc:
   calculate_averages_slow: Calcular de mejanas (lent)
   call_api: Apelar l'API
   cancel: Anullar
+  cancel_and_delete: anullar e suprimir
   cancel_split: Anullar
   cannot_be_associated_with_both_a_user_and_a_community: Pòt pas èsser associat a l'encòp a un utilizaire e a una comunautat
   cannot_be_empty: pòt pas èsser void.
@@ -1226,6 +1229,7 @@ oc:
   citation: Citacion
   citation_example: Fisher, Brian. « Pogonomyrmex anergismus Cole, 1954. » Enciclopèdia de la vida, disponible sus <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accedit lo 15 de genièr de 2009.
   citing_link: Citacion
+  clade: Clad
   classification_already_preferred: "Error : Aquesta classificacion es ja estada marcada coma preferida."
   classification_button_help: Seleccionatz la classificacion que representa lo melhor la pagina existenta çaijós, e clicatz sul boton "utilizar coma modèl" correspondent. Per anullar tota l’operacion, clicatz sus "anullar".
   classification_curation_pending: Conservacion en espèra. Aquesta classificacion poiriá èsser desplaçada cap a una autra pagina dins un avenidor pròche.
@@ -1772,6 +1776,7 @@ oc:
   data_column_value_uri: Valor URI
   data_database_colon: "Donadas :"
   data_glossary: Glossari de las donadas
+  data_link_to_record: Ligam cap a aqueste enregistrament
   data_logging_active: Jornalizacion de las donadas activa
   data_master_database_colon: "Donadas mèstras :"
   data_measurement_subtable_summary: Donadas suplementàrias sus la mesura d'aqueste fach.
@@ -1807,6 +1812,8 @@ oc:
   data_point_uri_summary_name: donadas sus %{taxon}
   data_provided_by_content_partner: "Font : %{whom}"
   data_provided_by_user: provesit per %{whom}
+  data_ranges: Plajas de donadas
+  data_ranges_subheader: Plajas per aqueste clad
   data_reference_subtable_summary: Referéncias suplementàrias sus aqueste fach.
   data_row_add_exemplar_button: apondre als Faches en brèu
   data_row_excluded_from_overview_notice: "Nòta : aquesta linha es estada levada dels faches en brèu."
@@ -1818,10 +1825,13 @@ oc:
   data_search_destroyed: Aqueste prètzfach serà pas mai efectuat.
   data_search_link: Cercar de donadas scientificas dins EdlV
   data_search_refine_field_label: Afinar la recèrca de donadas
+  data_search_refine_placeholder: per ex. 10 a 50
   data_show_n_more_rows: Afichar NNN de mai…
   data_subtab_about: A prepaus de
   data_subtab_glossary: Glossari
   data_summary_header: Faches en brèu
+  data_tab_curator_excluded: levat dels Faches en brèu
+  data_tab_curator_exemplar: apondut als Faches en brèu
   data_tab_curator_key_excluded: "%{image} suprimida dels <a href='%{link}'>Faches marcants</a>"
   data_tab_curator_key_exemplar: "%{image} aponduda als <a href='%{link}'>Faches marcants</a>"
   data_usage_reports: Rapòrts d’utilizacion de las donadas
@@ -1923,7 +1933,10 @@ oc:
   discover_link: Descobrir
   displaying_numerical_range: Afichatge de %{start_number} a %{end_number} sus %{total}
   do_you_want_to_be_a_curator: Volètz èsser un conservator ?
-  donation_amount_legend: Causissètz lo montant que voldriatz donar
+  donate_link: Donar
+  donation_agree: acceptar
+  donation_amount: "Total :"
+  donation_amount_legend: Causissètz lo montant que voldriatz donar uèi ?
   donation_amount_other_label: Autre
   donation_confirmation: Confirmacion de don
   donation_error_no_amount: Seleccionar un montant de don.
@@ -1932,6 +1945,8 @@ oc:
   donation_sponsorship_content_title: Pairinatge de contengut
   donation_sponsorship_fellowships_title: Borsas
   donation_sponsorship_infrastructure_title: Infrastructuras de basa
+  donation_title: Far un don a l’Enciclopèdia de la Vida
+  donation_transaction_details_amount: "Montant :"
   done_already: Ja efectuat
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Afichar pas las datas d’inscripcion desconegudas (utilizaires V1, totes abans lo 5 de genièr de 2009)
   download_data: Telecargar las donadas
@@ -2086,6 +2101,7 @@ oc:
   filter_by_status_trusted_option: Fisable
   filter_by_status_unreviewed_option: Pas supervisat
   filter_by_status_untrusted_option: pas fisables
+  filter_by_subject: Filtrar per subjècte
   filter_by_type: Filtrar per tipe
   filter_by_type_all_option: Totes los tipes
   filter_by_type_all_option_with_count: Totes los tipes (%{count})
@@ -2616,10 +2632,12 @@ oc:
   key: Clau
   known_uri_category_header: Categorias
   known_uri_created: URI apondut.
-  known_uri_label_allowed_unit: a una unitat de mesura
+  known_uri_label_allowed_unit: permet una unitat de
   known_uri_label_allowed_val: permet una valor de
+  known_uri_label_equivalent: es equivalent a
+  known_uri_label_indirectly_equivalent: es indirèctament equivalent a
   known_uri_label_inverse: es l’invèrse de
-  known_uri_label_unit: a una unitat de mesura
+  known_uri_label_unit: a una unitat per defaut de
   known_uri_missing_translation: Pas tradusit, modificatz-lo
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
@@ -2744,6 +2762,7 @@ oc:
   license_cc_by_sa_2_5: Creative Commons paternitat – partiment a l’identic 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons paternitat – partiment a l’identic 3.0 (CC BY-SA 3.0)
   license_cc_zero: Creative Commons — CC0 1.0 Universal
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: Licéncia de documentacion liura GNU (GNU FDL)
   license_gnu_gpl: Licéncia publica generala GNU (GNU GPL)
   license_no_known_copyright_restrictions: Cap de restriccion de dreches d’autor pas coneguda
@@ -2761,6 +2780,7 @@ oc:
   link_name: Nom del ligam
   link_not_associated_with_any_published_entries: Aqueste ligam es pas associat a cap de las taxinomias publicadas.
   link_rating: Quòta del ligam
+  link_to_this_term: ligam cap a aqueste tèrme
   links_with_count: 
     one: "%{count} ligam"
     other: "%{count} ligams"
@@ -3210,6 +3230,7 @@ oc:
   quarterly: Trimestral
   rails_databases: Bancas de donadas Rails
   rails_environment: Environament Rails
+  range: Plaja
   rank_recognized_by_agent: "%{rank} reconegut per %{agent}"
   rank_recognized_by_agent_colon: "<b>%{rank}</b> reconegut per %{agent} :"
   rank_recognized_by_from_source: "%{rank} reconegut per %{agent} dins %{source}"
@@ -3274,6 +3295,9 @@ oc:
     see_all_activity: Vejatz totas vòstras activitats precedentas sus vòstra pagina d’utilizaire <a href='%{activity_url}' style='color:#195184'></a>.
     someone_commented_on_something: <b>%{who}</b> a comentat <b>%{what}</b>.
     unsubscribe: Connectatz-vos e modificatz vòstres paramètres de corrièr electronic dempuèi <a href='%{email_prefs_url}' style='color:#195184'>vòstra pagina de preferéncias de notificacion</a> o <a href='%{unsubscribe_url}' style='color:#195184'>desinscrivissètz-vos de TOTAS las notificacions de l’EdlV sens vos connectar</a>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: Vòstre telecargament es prèst !
   recent_updates: Mesas a jorn recentas
   recently_used_link: Utilizat recentament
   recently_visited: Visitat recentament
@@ -3281,6 +3305,7 @@ oc:
   recognized_by_as_a_rank: "%{recognized_by} coma un %{taxon_rank}"
   recognized_by_from_source: "%{recognized_by} dins %{source}"
   recognized_by_from_source_as_a_rank: "%{recognized_by} dins %{source} coma un %{taxon_rank}"
+  record_count: Nombre d’enregistraments
   record_not_found: "[enregistrament pas trobat]"
   reference: Referéncia
   references_cabs_colon: "Referéncias :"
@@ -3357,12 +3382,14 @@ oc:
   search_term_reports: Rapòrt suls critèris de recèrca
   search_term_reports_title: Rapòrt suls critèris de recèrca
   search_the_site: Recercar sul site
+  searching_within_clade: dins %{clade_name}
   see_all_activity_combinations: Veire totas las combinasons d’activitat dempuèi 5 minutas
   see_all_maps_link: Veire totas las mapas
   see_all_media_link: Veire totes los mèdias
   see_all_of_your_collections: Veire totas vòstras colleccions
   see_all_of_your_communities: Veire totas vòstras comunautats
   see_in_data_glossary: veire dins lo glossari de las donadas
+  see_in_glossary_tab: veire dins l’onglet glossari
   see_more_on_the_data_tab: ne veire mai dins l’onglet de donadas
   see_notes: veire las nòtas
   see_this_record_in_virtuoso: afichar aqueste enregistrament dins Virtuoso
@@ -3485,6 +3512,7 @@ oc:
   subject: Subjècte
   submit: Validar
   submit_term: Condicion de mandadís
+  submitting: Pacientatz...
   suggested_attributes: "Atributs suggerits :"
   suggested_result_page_id: "Identificant de pagina de resultat suggerit :"
   suggested_results_avg: Mejana dels resultats suggerits
@@ -3782,6 +3810,7 @@ oc:
         meta_title_with_common_name: Riquesa de %{preferred_common_name} (%{scientific_name})
         tweet_text: Marca d’abondància per %{scientific_name}
   taxa_column_header: Taxons
+  taxa_count: Nombre de taxons
   taxa_with_count: 
     one: "%{count} taxon"
     other: "%{count} taxons"
@@ -4191,11 +4220,13 @@ oc:
     saved_searches: 
       actions_head: Accions
       attribute_head: Atribut
-      complete_head: Acabar ?
+      complete_head: Complet ?
       created_head: Creat
       download: telecargar
       is_complete: Òc
       is_not_complete: Non
+      page_title: Recèrcas enregistradas
+      processing: tractament
       query_empty: void
       query_head: Requèsta
       refresh: actualizar

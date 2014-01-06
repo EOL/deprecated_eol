@@ -1,6 +1,7 @@
 # Messages for Korean (한국어)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: 102orion
 # Author: Clockoon
 # Author: Csparr
 # Author: Cwt96
@@ -136,7 +137,7 @@ ko:
         pages_with_BHL_links_only: BHL 링크만 있는 문서
         pages_with_at_least_a_curatorial_action: 큐레이션 행위가 있는 문서
         pages_with_at_least_a_trusted_object: 신뢰할 수 있는 개체가 있는 문서
-        pages_with_content: 콘텐츠가 있는 문서
+        pages_with_content: 내용이 있는 문서
         pages_with_image: 그림이 있는 문서
         pages_with_image_no_text: 그림은 있지만 텍스트는 없는 문서
         pages_with_map: 지도가 있는 문서
@@ -888,7 +889,7 @@ ko:
   admin_content_page_delete_confirmation: "\"%{page_name}\" 문서와 모든 번역을 삭제하겠습니까? 삭제한 문서는 되살릴 수 없습니다."
   admin_content_page_delete_successful_notice: "%{page_name} 문서와 관련된 번역을 삭제했습니다."
   admin_content_page_edit_header: <em>%{page_name}</em> 문서에 대한 기본 문서 정보 업데이트
-  admin_content_page_new_header: 새 콘텐츠 문서 만들기
+  admin_content_page_new_header: 새 내용 문서 만들기
   admin_content_page_new_link: 새 문서 만들기
   admin_content_page_new_tip: 이 문서에 대한 기본 정보를 입력하세요. 고유 이름은 %{required_icon}(을)를 필요합니다.
   admin_content_page_not_active: 게시하지 않음
@@ -897,9 +898,9 @@ ko:
   admin_content_page_sort_order_updated: 문서 순가가 바뀌었습니다.
   admin_content_page_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em></a> 문서를 성공적으로 업데이트했습니다.
   admin_content_page_update_unsuccessful_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
-  admin_content_pages_empty: 콘텐츠 문서를 찾을 수 없습니다.
-  admin_content_pages_link: 콘텐츠 관리
-  admin_content_pages_page_title: "관리: 콘텐츠 관리"
+  admin_content_pages_empty: 내용 문서를 찾을 수 없습니다.
+  admin_content_pages_link: 내용 관리
+  admin_content_pages_page_title: "관리: 내용 관리"
   admin_content_partners_index_header: 콘텐츠 파트너
   admin_content_partners_link: 콘텐츠 파트너
   admin_content_partners_notifications_link: 알림
@@ -1414,8 +1415,8 @@ ko:
       see_all_eol_news: <span class="assistive">eol 뉴스</span> 더 보기
       see_all_recent_activites: <span class="assistive">지난 주 활동에 대해</span> 더 보기
       see_all_statistics: <span class="assistive">EOL 통계</span> 더 보기
-  content_has_been_updated: 콘텐츠를 업데이트했습니다.
-  content_notes_not_shown_to_us: "콘텐츠 참고 (사용자에게 보여지지 않음):"
+  content_has_been_updated: 내용을 업데이트했습니다.
+  content_notes_not_shown_to_us: "내용 참고 (사용자에게 보여지지 않음):"
   content_partner: 콘텐츠 파트너
   content_partner_about_header: "%{partner_name} 정보"
   content_partner_admin_index_link_back_to: 파트너 관리하기로 돌아가기
@@ -1468,8 +1469,8 @@ ko:
   content_partner_filter_option_vetted_no: 아니오
   content_partner_filter_option_vetted_yes: 예
   content_partner_filter_published: 게시함
-  content_partner_has_unpublished_content_false: 게시하지 않은 콘텐츠 없음
-  content_partner_has_unpublished_content_true: 게시하지 않은 콘텐츠
+  content_partner_has_unpublished_content_false: 게시하지 않은 내용 없음
+  content_partner_has_unpublished_content_true: 게시하지 않은 내용
   content_partner_homepage_link: 파트너 웹사이트에 방문하기
   content_partner_latest_published_harvest_event_time_ago: 최근 %{time_passed} 전에 업데이트함;
   content_partner_logo_alt_text: "%{partner_name} 콘텐츠 파트너에 대한 로고"
@@ -1545,7 +1546,7 @@ ko:
   content_partner_resources_header: 자료
   content_partner_resources_link: 자료 및 연락
   content_partner_resources_link_back_to: 자료 및 연락으로 돌아가기
-  content_partner_statistics_column_header_provider_count: 제공자 콘텐츠를 포함한 문서
+  content_partner_statistics_column_header_provider_count: 제공자 내용을 포함한 문서
   content_partner_statistics_column_header_provider_proportion: 제공자 비율
   content_partner_statistics_column_header_statistic: "%{year}년 %{month_name} 달에 측정한 통계"
   content_partner_statistics_column_header_taxa_page_page_views: 문서 보기
@@ -1583,18 +1584,18 @@ ko:
   content_partners_with_count: 
     one: 콘텐츠 파트너 %{count}개
     other: 콘텐츠 파트너 %{count}개
-  content_server_full_url: 콘텐츠 서버 전체 URL
-  content_servers: 콘텐츠 서버
-  content_setting_colon: "콘텐츠 설정:"
+  content_server_full_url: 내용 서버 전체 URL
+  content_servers: 내용 서버
+  content_setting_colon: "내용 설정:"
   content_summary_table_caption: "%{taxon_name} 이름과 %{hierarchy_label} 레이블의 자손과 연결된 내용의 요약"
   content_summary_table_count_column_header: 갯수
   content_summary_table_type_descendants_row: 자손 수
-  content_summary_table_type_status_column_header: 콘텐츠 종류와 상태
+  content_summary_table_type_status_column_header: 내용 유형과 상태
   content_summary_table_type_trusted_images_row: 신뢰할 수 있는 그림 수
   content_summary_table_type_trusted_text_row: 신뢰할 수 있는 텍스트 항목 수
   content_summary_table_type_unreviewed_images_row: 검토하지 않은 그림 수
   content_summary_table_type_unreviewed_text_row: 검토하지 않은 텍스트 항목 수
-  content_type: 콘텐츠 종류
+  content_type: 내용 유형
   content_upload_restrictions_note: (크기가 10 MB 보다 작아야 파일이 올려집니다, 즉 그림의 크기 다시 조절은 수행되지 않습니다)
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: 기여
@@ -1792,7 +1793,7 @@ ko:
   dato_edit_text_button: 이 문서 편집
   dato_edit_text_title: 문서 편집
   dato_location_created: "위치 만듦: %{loc}"
-  dato_new_edit_user_text_fieldset_content_header: 문서 콘텐츠
+  dato_new_edit_user_text_fieldset_content_header: 문서 내용
   dato_new_edit_user_text_fieldset_information_header: 문서 정보
   dato_new_edit_user_text_link_fieldset_content_header: 링크 데이터
   dato_new_text_for_taxon_page_title: <i>%{taxon}</i>로 문서 추가
@@ -1823,12 +1824,13 @@ ko:
   do_you_want_to_be_a_curator: 큐레이터가 되겠습니까
   donate_link: 기부
   donation_agree: 동의
+  donation_amount: "합계:"
   donation_amount_legend: 기부할 금액을 선택하세요
   donation_amount_other_label: 기타
   donation_confirmation: 기부 확인
   donation_error_no_amount: 기부 금액을 선택하세요.
   donation_error_only_numbers: 숫자만 사용하여 금액을 입력하세요.
-  donation_sponsorship_content_title: 콘텐츠 후원
+  donation_sponsorship_content_title: 내용 후원
   donation_sponsorship_fellowships_title: 동호회
   donation_sponsorship_infrastructure_title: 핵심 인프라
   done_already: 이미 완료
@@ -2201,7 +2203,7 @@ ko:
         user_id: 콘텐츠 파트너 자세한 사항 관리자
       content_partner_agreement: 
         mou_url: 계약 파일 URL <small>(대체 선택 사항)</small>
-        mou_url_more: 선택적으로 이 파트너의 계약을 포함하는 파일에 대한 URL을 입력하세요. 이 파일은 다른 계약 텍스트보다 우선 적용됩니다. EOL 콘텐츠 서버에 파일(예를 들어 PDF 파일)을 저장하고 싶은 경우 처음에 URL을 얻으려면 <a href="%{upload_content_url}">파일을 올릴</a> 수 있습니다.
+        mou_url_more: 선택적으로 이 파트너의 계약을 포함하는 파일에 대한 URL을 입력하세요. 이 파일은 다른 계약 텍스트보다 우선 적용됩니다. EOL 내용 서버에 파일(예를 들어 PDF 파일)을 저장하고 싶은 경우 처음에 URL을 얻으려면 <a href="%{upload_content_url}">파일을 올릴</a> 수 있습니다.
       content_partner_contact: 
         email_reports_frequency_hours_more: 데이터 또는 데이터 집합과 관련된 분류 문서에 덧글이나 큐레이터 행동이 있다면 이메일 보고서가 보내집니다.
       data_object: 
@@ -2468,7 +2470,7 @@ ko:
   import_once: 한번에 가져오기
   in_collection: 모음집
   in_community: 공동체에서
-  in_providing_its_content_to_eo: EOL에 콘텐츠를 제공해,
+  in_providing_its_content_to_eo: EOL에 내용을 제공해,
   in_this_data_type: "이 %{data_type}에서:"
   inappropriate: 부적절
   inaturalist_tab_label: iNaturalist 관찰
@@ -2602,7 +2604,7 @@ ko:
   leave_a_comment: 덧글 남기기
   leave_community_button: 이 공동체 남기기
   leave_reply: 답글 남기기
-  left_content_area: 왼쪽 콘텐츠 영역
+  left_content_area: 왼쪽 내용 영역
   license: 라이선스
   license_all_rights_reserved: 모든 권리 소유
   license_cc_by: 크리에이티브 커먼즈 저작자표시 (CC BY)
@@ -2666,7 +2668,7 @@ ko:
   logo_header: 로고
   logout: 로그아웃
   looking_up_url: URL 찾는 중...
-  main_content_area: "주요 콘텐츠 영역:"
+  main_content_area: "주요 내용 영역:"
   main_database_colon: "주요:"
   main_master_database_colon: "주요 마스터:"
   main_species_page_link_with_spaces: " &nbsp;&nbsp; 종 문서>>"
@@ -2878,11 +2880,11 @@ ko:
   notifier: 
     activity_log_empty: 큐레이터의 최근 행위가 없습니다.
     activity_on_content_partner_content: 
-      message: "최근 덧글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 콘텐츠에 대한 큐레이트 행동을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.\n\n질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다\n\n큐레이트 행동:\n%{curator_activity_log}\n\n데이터 개체에 대한 덧글:\n%{data_object_comments}\n\n데이터와 연관된 문서에 대한 덧글:\n%{page_comments}"
-      subject: "%{partner_full_name} 콘텐츠 파트너에 의해 생명의 백과사전에 제공한 콘텐츠에 대한 최근 활동의 요약입니다"
+      message: "최근 덧글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 행동을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.\n\n질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다\n\n큐레이트 행동:\n%{curator_activity_log}\n\n데이터 개체에 대한 덧글:\n%{data_object_comments}\n\n데이터와 연관된 문서에 대한 덧글:\n%{page_comments}"
+      subject: "%{partner_full_name} 콘텐츠 파트너에 의해 생명의 백과사전에 제공한 내용에 대한 최근 활동의 요약입니다"
     activity_on_user_content: 
-      message: "%{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 콘텐츠에 최근 덧글과 큐레이트 행동을 요약한  EOL에서 자동으로 보낸 이메일입니다.\n\n질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다\n\n\n큐레이트 행동:\n%{curator_activity_log}\n\n데이터 개체에 대한 덧글:\n%{data_object_comments}\n\n데이터와 연관된 문서에 대한 덧글:\n%{page_comments}"
-      subject: 생명의 백과사전에 추가한 콘텐츠에 대한 최근 활동의 요약
+      message: "%{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 덧글과 큐레이트 행동을 요약한  EOL에서 자동으로 보낸 이메일입니다.\n\n질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다\n\n\n큐레이트 행동:\n%{curator_activity_log}\n\n데이터 개체에 대한 덧글:\n%{data_object_comments}\n\n데이터와 연관된 문서에 대한 덧글:\n%{page_comments}"
+      subject: 생명의 백과사전에 추가한 내용에 대한 최근 활동의 요약
     activity_user_added_association_for_taxon_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 연관을 추가했습니다:\n%{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})\n%{action_date}."
     activity_user_added_association_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 %{action_date}에\n%{object_name} (%{object_url})에 대해 알 수 없는 연관을 추가했습니다."
     activity_user_marked_data_object_as_inappropriate_on_date: "%{curator_level} %{users_name} (%{users_url})(은)는 부적절함으로 표시했습니다:\n%{object_name} (%{object_url})\n%{action_date}."
@@ -3145,7 +3147,7 @@ ko:
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> 사용자가 <b>%{dato_title}</b> (%{dato_type} #%{dato_id})에 %{activity_name} 행동을 수행했습니다."
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> 사용자가 <b>%{taxon_concept}</b> (%{taxon_overview_url})에 %{activity_name} 행동을 수행했습니다.
     data_object_activity_article_added_by_user: <b>%{user_name}</b> 사용자가 <b>%{taxon_concept}</b> (%{taxon_details_url})에 %{dato_title}(으)로 부르는 문서를 추가했습니다.
-    data_object_title: "%{who} 사용자가 EOL에 새 콘텐츠를 추가했습니다"
+    data_object_title: "%{who} 사용자가 EOL에 새 내용을 추가했습니다"
     default_subject: EOL에 대한 최근 활동
     intro: 여기에 %{time}에 EOL 활동 알림이 있습니다
     intro_immediately: "%{name} 안녕하세요 —"
@@ -3636,11 +3638,11 @@ ko:
           tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 데이터 제공자"
         meta_description: "%{scientific_name} 자료와 파트너 인용문입니다."
         meta_description_with_common_name: "%{preferred_common_name} 자료와 %{scientific_name}에 대한 파트너 인용문입니다."
-        meta_keywords: "%{scientific_name} 자료, %{scientific_name} 콘텐츠 제공자"
-        meta_keywords_with_common_name: "%{preferred_common_name} 자료, %{preferred_common_name} 콘텐츠 제공자, %{scientific_name} 자료, %{scientific_name} 콘텐츠 제공자"
-        meta_title: "%{scientific_name}에 대한 콘텐츠 자료"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 콘텐츠 자료"
-        tweet_text: "%{scientific_name}에 대한 콘텐츠 자료"
+        meta_keywords: "%{scientific_name} 자료, %{scientific_name} 내용 제공자"
+        meta_keywords_with_common_name: "%{preferred_common_name} 자료, %{preferred_common_name} 내용 제공자, %{scientific_name} 자료, %{scientific_name} 내용 제공자"
+        meta_title: "%{scientific_name}에 대한 내용 자료"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 내용 자료"
+        tweet_text: "%{scientific_name}에 대한 내용 자료"
     updates: 
       show: 
         hierarchy_entry: 
@@ -3690,7 +3692,7 @@ ko:
   taxon_newsfeed: 분류 뉴스 피드
   taxon_not_found_error: "\"%{taxon}\"(을)를 찾을 수 없습니다"
   taxon_nucleotide_sequences_link: 염기 서열
-  taxon_page_content_disclaimer: EOL 내용은 여러 콘텐츠 제공자로부터 자동으로 조립됩니다. 따라서 때때로 EOL에서 찾는 문서의 내용이 앞뒤가 맞지 않을 수도 있습니다.
+  taxon_page_content_disclaimer: EOL 내용은 여러 내용 제공자로부터 자동으로 조립됩니다. 따라서 때때로 EOL에서 찾는 문서의 내용이 앞뒤가 맞지 않을 수도 있습니다.
   taxon_page_content_disclaimer_header: 면책 조항
   taxon_page_content_disclaimer_suggest_improvement: 개선하도록 요청하려면 문서에 덧글을 남겨주세요. 감사합니다!
   taxon_partner_links_empty_learn_more_link: 콘텐츠 파트너가 되는 방법 알아보기
@@ -3701,7 +3703,7 @@ ko:
   taxon_related_organizations_link: 관련 기관
   taxon_selected_from_search_res: 검색 결과에서 선택한 분류
   taxon_suggested: 제안한 분류
-  taxonomic_summary_of_content: 콘텐츠의 분류 요약
+  taxonomic_summary_of_content: 내용의 분류 요약
   technical_functions: 기술적인 기능
   term_cannot_be_left_blank: 용어는 비워둘 수 없습니다
   term_for_search_admin_ui: 약관
@@ -3837,9 +3839,9 @@ ko:
   updated_member: 구성원을 성공적으로 업데이트했습니다.
   updates: 업데이트
   upload: 올리기
-  upload_content: 콘텐츠 올리기
+  upload_content: 내용 올리기
   uploaded_by: 올린이
-  uploaded_content: 올린 콘텐츠
+  uploaded_content: 올린 내용
   uploaded_on: 올린 곳
   uri: URI
   url: URL

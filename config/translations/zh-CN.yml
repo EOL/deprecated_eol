@@ -7,6 +7,7 @@
 # Author: Hzy980512
 # Author: Liangent
 # Author: Linforest
+# Author: Linxue9786
 # Author: Liuxinyu970226
 # Author: Luotiancheng
 # Author: Qiyue2001
@@ -32,6 +33,7 @@ zh-CN:
     other: 总共 %{count}条术语与您的标准匹配。
   about_eol: 关于EOL
   about_resources: 关于资源
+  about_resources_body: 我们欢迎您提供有关此种生物或生物组群的第三方网站链接。例如提供识别关键词、 新闻故事、 博客、 以及教育和公民科学资源的网站。
   about_resources_title: 外部资源的链接
   account_information: 帐户信息
   account_information_menu: 帐户信息
@@ -199,11 +201,15 @@ zh-CN:
         label: 标签
         request_publish: 请求发布
       known_uri: 
+        clade_exemplar: 作为样例克拉德范围使用
         description: 描述
+        exclude_from_exemplars: 从快讯中排除
+        group_by_clade: 用于克拉德范围
         name: 名称
         toc_items: 分类
         uri: URI
         uri_type: URI形式
+        value_is_text: 值不能为URL，只能是文本
       known_uri_relationship: 
         from_known_uri_id: 主题URI
         relationship_uri: 关系URI
@@ -248,6 +254,7 @@ zh-CN:
         auto_publish: 自动发布
         bibliographic_citation: 书目引用
         dataset: 数据集文件
+        dataset_hosted_url: 源数据集 （本地拷贝）
         dataset_license_id: 授权协议
         dataset_rights_holder: 权利持有人
         dataset_rights_statement: 权利声明
@@ -328,6 +335,8 @@ zh-CN:
         less_than: 
           other: 必需小于%{count}
         less_than_or_equal_to: 必需小于或等于%{count}
+        models: 
+          inaccessible: 无法访问
         not_a_number: 不是一个数字
         not_an_integer: 必需是整数
         odd: 必需是奇数
@@ -357,7 +366,7 @@ zh-CN:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: 不允许的 - 只能有一个度量单位
+              only_one_measurement: 不允许的 - 只能有一个默认单位
             to_known_uri_id: 
               must_be_different: 必须是跟主题不同的URI
               must_be_known_uri: 必须是一个已知的URI
@@ -920,6 +929,7 @@ zh-CN:
   calculate_averages_slow: 计算平均值（慢）
   call_api: 联络API
   cancel: 取消
+  cancel_and_delete: 取消并删除
   cancel_split: 取消
   cannot_be_associated_with_both_a_user_and_a_community: 无法同时与用户和社区建立关联
   cannot_be_empty: 不能为空。
@@ -1022,6 +1032,8 @@ zh-CN:
         meta_title: "%{collection_name} 新闻"
         tweet_text: "%{collection_name} 新闻"
     show: 
+      meta_description_default: 标题为 %{collection_name} 的生物大百科全书合集。
+      meta_description_default_focus_collection: 题为 %{collection_name}的生物大百科全书重点收藏。
       meta_description_default_watch_collection: 一个生命百科的监视列表：%{collection_name}。
       meta_keywords: 生命百科收藏%{collection_name}
   collections_filter: 收藏
@@ -1422,6 +1434,7 @@ zh-CN:
   data_column_val_uri: URI值
   data_database_colon: 数据：
   data_glossary: 数据词汇表
+  data_link_to_record: 链接到此记录
   data_logging_active: 数据日志激活
   data_master_database_colon: 主数据库名：
   data_object: 数据项
@@ -1448,7 +1461,11 @@ zh-CN:
       meta_supplier_default: 一个贡献者
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
+  data_ranges: 数据范围
   data_row_hide_button: 隐藏行
+  data_search_files: 
+    file_ready_for_download: 您现在可以在<a href='%{download_url}'>%{download_url}</a>下载您最近要求的搜索"%{known_uri_label}"。
+  data_search_refine_placeholder: 例如 10 到 50
   data_show_n_more_rows: 展示NNN更多......
   data_subtab_about: 关于
   data_subtab_glossary: 术语表
@@ -1550,9 +1567,13 @@ zh-CN:
   discover_link: 探索
   displaying_numerical_range: 显示%{total}中的%{start_number} &mdash; %{end_number}
   do_you_want_to_be_a_curator: 您想成为管理员吗
-  donation_amount_legend: 请选择您的捐赠金额
+  donate_link: 捐助
+  donation_agree: 同意
+  donation_amount: 总计：
+  donation_amount_legend: 今天你想捐赠多少？
   donation_amount_other_label: 其他
   donation_confirmation: 捐赠确认
+  donation_confirmation_head: 我们非常感谢你的贡献！
   donation_error_no_amount: 请选择捐款的金额。
   donation_error_only_numbers: "\"请输入金额,仅允许使用数字。\""
   donation_introduction_paragraph_one: EOL每天都在成长。我们鼓励您来探索EOL和使用EOL所提供的便利。我们请求您通过贡献您的内容、专业知识和资金来保持EOL的快速发展。
@@ -1563,6 +1584,9 @@ zh-CN:
   donation_sponsorship_fellowships_title: 奖学金
   donation_sponsorship_infrastructure_title: 核心基础结构
   donation_sponsorship_preamble: "\"如果您想了解更多有关赞助的项目，或想要再次赠送礼品，请通过<a href=\"\"mailto:%{email_address}\""
+  donation_title: 捐助Encyclopedia of Life
+  donation_transaction_details_amount: 金额：
+  donations_more_ways_title: 还有很多方法可以帮助EOL成长
   done_already: 已完成
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 不显示未知的注册日期（V1版本用户，在2009年1月5日之前）
   download_data: 下载数据
@@ -1977,6 +2001,7 @@ zh-CN:
         active: 已发布
         active_more: 已发布的页面将在选定的日期和时间公开可见。如果你想要阻止普通用户查看该页面任何语言的版本，请取消选中<em>已发布</em>。
         page_name: 独特名称<small>（仅小写ISO基本拉丁文字数字字符和下划线）</small>
+        page_name_more: 请为该新闻页面输入一个独特的，自我描述性的，有意义的持续性标识符。你输入的名称用于生成该新闻页面的URL，例如独特名称<em>terms_of_use</em>将被转化为URL <em>http://eol.org/info/terms_of_use</em>。
       open_authentication: 
         connect: 添加
         connected: 已连接
@@ -2008,14 +2033,18 @@ zh-CN:
         active_translation_more: 已发布的网页将公开可见。如果要防止一般用户查看此页的本版本，取消选中<em>已发布</em>。
         language_id: 语言
         left_content_more: （可选）添加带导航链接的无序列表。使用类名称<code>active</code>以便高亮显示当前页面的链接，即当<code>:id</code>是当前页面ID或唯一名称以及<code>:title</code>是可以描述页面梗概的标题时使用<code>&lt;li class="active"&gt;&lt;a href="/info/:id"&gt;:title&lt;/a&gt;&lt;/li&gt;</code>（<strong>注：所有连接EOL CMS页面的连接应以一个左斜线开头：<code>/info/:id</code></strong>）。要进行这些更改您将需要编辑HTML源代码，通过在编辑器中选择<em>Source</em>以执行此操作。
-        main_content_more: 在正文区输入主要内容。使用<em>格式</em>下拉列表选择相应的语义文本元素，例如：选择<em>Heading 2</em>作为二级标题。注意：页面题目为一级标题，因此在正文区以<em>Heading 2</em>开始您的标题。
+        main_content_more: 在正文区域中输入新闻页面内容。使用<em>格式</em>下拉列表来选择适当的语义文本元素，例如选择<em>标题 2</em>作为次级标题 。注：保留<em>标题 1</em>作为新闻页面总标题，正文区域标题应始于<em>标题 2</em>。选择将<em>源</em>切换到 HTML 源代码浏览，这样您能够手动插入和编辑 HTML 。
         meta_description_more: 提供一个简短的描述，用以概括本页内容的关键概念。该描述有时会被搜索引擎用于检查相关性和直接列于搜索结果中。
         meta_keywords_more: 输入能最好反应该页内容的关键词或者短语，以逗号间隔。搜索引擎有时候使用这些关键词和短语来评估页面与搜素条目的相关性。
         title_more: 内容的标题会显示在页面的标题区域。标题应该包括一些与内容最相关的关键词。
       translated_news_item: 
         active_translation: 已出版
         active_translation_more: 已发布的网页将公开可见，除非网页自身是不公开的。如果要防止一般用户查看此页的本版本，取消选中<em>已发布</em>。
+        body_more: 在正文区域中输入新闻页面内容。使用<em>格式</em>下拉列表来选择适当的语义文本元素，例如选择<em>标题 2</em>作为次级标题 。注：保留<em>标题 1</em>作为新闻页面总标题，所以正文区域标题始于<em>标题 2</em>。选择将<em>源</em>切换到 HTML 源代码浏览，这样您能够手动插入和编辑 HTML 。
         language_id: 语言
+        meta_description_more: 提供一个简短的描述，用以概括本页新闻内容的关键概念。该描述有时会被网页搜索引擎用于检查相关性并列于搜索结果中。
+        meta_keywords_more: 输入最能反应该页新闻内容的关键词及短语，以逗号间隔。有时候网页搜索引擎使用这些关键词和关键短语来评估新闻页面与搜素条目的相关性。
+        title_more: 新闻内容的标题会显示在页面的标题区域。该标题应该包括与内容最相关的一些关键词。
       user: 
         agreed_with_terms: "\"我同意<a href=\"\"%{terms_url}\"\">使用条款</a>\""
         api_key_more: "\"查看更多<a href=\"\"%{api_docs_url}\"\">给API调用添加密钥</a>的详细信息。\""
@@ -2029,6 +2058,7 @@ zh-CN:
         credentials_more_successful_assistant_curator: 助理管理员的工作业绩
         curation_application: 成为管理员
         curation_application_more: 如果您希望更改您的管理权限，请提交一个申请，然后等待我们的审核。
+        curation_priveleges_credentials: 资历证明<small>（只限于全面及专业管理人员）</small>
         curator_level: 您目前是%{curator_level_with_indefinite_article}。
         curator_scope: 管理范围
         curator_scope_more: 请说明您的专长范围。例如：“婆罗洲的啮齿动物”，“三级营养关系”，“鱼类的保护问题”。这么做是为了告知EOL社区，而不会限制您的管理权限。
@@ -2255,10 +2285,38 @@ zh-CN:
   just_pages_with_pictures_and_text: 仅包含图片和文本的页面
   known_uri_category_header: 分类
   known_uri_created: URI已加入。
-  known_uri_label_unit: 有计量单位
+  known_uri_label_unit: 有默认单位
   known_uri_name_and_uri: "%{name}（%{uri}）"
+  known_uri_relationships: 
+    create_failed: "\"抱歉, 出现了一个错误, 关联无法添加。\""
+    created: 关联被成功创建
+    deleted: 关联被成功删除
   known_uris: 
     add_a_relationship: 添加关系
+    attribution_placeholder_text: 源于都柏林核心的例子 ；请参阅 http://dublincore.org/usage/terms/history/#contributorT-001。
+    comment_placeholder_text: 例如：一个贡献者的例子包括个人、 组织机构或一项服务。
+    definition_placeholder_text: 例如：一个有责任对资源做出贡献的实体。
+    equivalent_to: 等价关系
+    import_successful: 本体条件已被成功导入
+    more_than_one_field_mapped_to_type: 多个特性被绘制到"%{type}"
+    name_placeholder_text: 例如：参与者
+    no_results: 被选择的统计数据没有结果
+    ontology_information_url_placeholder_text: 例如 http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: 例如 http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_field_types: 请为每个属性选择一个映射
+    please_select_from_the_menu: 请从上面的菜单中选择
+    please_select_uris_to_import: 请选择 URIs 导入
+    preferred_for_equivalence_group: 首选的
+    relationships_from_this_uri: 由这个URI引出的关系
+    relationships_to_this_uri: 与这个URI的关系
+    select: 选择
+    select_a_category_to_view_stats: 选择一个目录类别来查看资料信息
+    select_a_preferred_uri_for_this_group: 选择一个更好的 URI
+    unrecognized_association_types: 关联类型无法识别的 URI
+    unrecognized_measurement_types: 测量类型无法识别的 URI
+    unrecognized_measurement_units: 测量单位无法识别的 URI
+    unrecognized_measurement_values: 测量价值无法识别的 URI
+    uri_placeholder_text: 例如 http://purl.org/dc/terms/contributor
   known_uris_page_title: EOL上有关数据的URI
   label: 标签
   language: 语言：
@@ -2306,6 +2364,7 @@ zh-CN:
         learn_more_link_trees: 树木
         learn_more_link_viruses: 病毒
         learn_more_link_worms: 虫
+        questions_link_binomial_nomenclature: 二项式的命名规则是什么？
         questions_link_biodiversity: 生物多样性是什么？
         questions_link_biological_classification: 生物分类是什么？
         questions_link_contributing_to_research: 我可以为研究做什么？
@@ -2363,6 +2422,7 @@ zh-CN:
   limits_the_number_of_returned_text_objects: 限定返回的文字数量
   limits_the_number_of_returned_video_objects: 限定返回的视频对量
   link_name: 链接名称
+  link_not_associated_with_any_published_entries: 此链接是不与任何已发布的分类群相关联。
   link_rating: 链接评分
   list_newsletter_emails: 新闻订阅者邮件清单
   list_of_activity_combinations: 已持续活跃5分钟的用户列表
@@ -2629,6 +2689,7 @@ zh-CN:
     signature_with_contact_us_link: "如果您遇到任何问题，请与我们联系%{url}。\n\n生命百科团队"
     signature_with_species_pages_group_contact: "如果您有任何疑问，请与我们联系%{species_pages_group_email}。\n\n生命百科团队"
     unsubscribed_to_notifications: 
+      message: "您来自生物大百科全书的订阅通知已被成功取消。您可以更改您的电子邮件设置或在<a href='%{email_prefs_url}'>您通知首选项页</a>。申请订阅通知\n\n要更多了解有关如何使用 EOL，包括如何创建 EOL 合集、参与EOL 社团和贡献内容，请访问我们的帮助页面 http://eol.org/help。"
       subject: 很可惜您要离开⋯
     user_activated: 
       message: "欢迎来到网络生命大百科（EOL）并感谢您的注册。请注意，您的用户名是%{username}，有关您个人信息的网络地址是%{profile_url}。您可以从http://eol.org/login登录您的帐户。\n\n如果希望了解更多关于如何使用EOL，包括如何创建EOL收藏，参与EOL社区以及为EOL提供数据，请访问我们的帮助页面http://eol.org/help。"
@@ -2792,6 +2853,7 @@ zh-CN:
   quarterly: 按季度
   rails_databases: Rails数据库
   rails_environment: Rails环境
+  range: 范围
   rank_recognized_by_agent: "%{rank} 被 %{agent} 确定"
   rank_recognized_by_agent_colon: "<b>%{rank}</b> 被 %{agent}确认:"
   rank_recognized_by_from_source: 在 %{source}中，%{rank}被 %{agent}确定
@@ -2834,6 +2896,7 @@ zh-CN:
     community_activity_user_joined: 用户 <b>%{user_name}</b> 加入了<b>%{community_name}</b>社区。
     community_activity_user_left: 用户 <b>%{user_name}</b> 离开了<b>%{community_name}</b>社区。
     community_activity_user_made_member_a_manager: 用户 <b>%{user_name}</b> 设定<b>%{member_name}</b> 为社区的 <b>%{community_name}</b>管理员。
+    contact_us_link: 如果您遇到任何问题，请使用<a href='http://eol.org/contact_us' style='color:#195184'>联系我们</a>。
     curator_activity_log_title: "%{who} 管理了一些信息"
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> 对<b>%{dato_title}</b> 完成了%{activity_name}(%{dato_type} #%{dato_id})。"
     curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> 对<b>%{taxon_concept}</b>完成了 %{activity_name}(%{taxon_overview_url})。
@@ -2847,6 +2910,11 @@ zh-CN:
     see_all_activity: 在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。
     someone_commented_on_something: <b>%{who}</b>评论了 <b>%{what}</b>。
     unsubscribe: 登录并在<a href='%{email_prefs_url}' style='color:#195184'>您的通知首选项页面</a>或<a href='%{unsubscribe_url}' style='color:#195184'>更新您的电子邮件设置以退订从EOL的所有自动通知而无需登录</a>。
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: 你的下载已就绪！
+      message: 您可以通过访问页面<a href='%{download_link}'>保存搜索选项卡在您的个人资料的</a>，下载这个以及其他下载内容。
+      subject: 您的EOL 搜索已做好下载准备
   recent_updates: 最近更新
   recently_visited: 最近访问
   recipients: 收件人
@@ -2971,6 +3039,7 @@ zh-CN:
       meta_title: 登录
       problems_signing_in_with_connected_accounts: 与您关联账户的登录问题？
       problems_signing_in_with_eol_authentication: 忘记密码？
+      tip: 现有使用者吗？在您的个人资料设定中将您的 EOL 帐户与 Facebook、 谷歌等连接到一起。一旦连接成功，您可以使用它们来登录到 EOL。
   set_as_exemplar: 设置为范例
   share_a_collection: 分享一个收藏
   show: 显示
@@ -3118,19 +3187,44 @@ zh-CN:
         meta_title: 对%{scientific_name}感兴趣的用户
         meta_title_with_common_name: 对%{preferred_common_name} (%{scientific_name})感兴趣的用户
         tweet_text: 对%{scientific_name}感兴趣的用户
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_description: " %{scientific_name}的图片、 录像和录音资讯按%{hierarchy_provider}分类。在生物大百科全书中您可以找到其图像、 照片、 电影和声音资料。"
+          meta_description_no_data: 生物大百科全书中没有提供按%{hierarchy_provider}分类界定为 %{scientific_name}的可分析的数据资料。EOL 邀请您提供 %{scientific_name}的有关数据。
+          meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何可分析性数据。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的数据信息。
+          meta_description_with_common_name_with_topics: 科学家已经收集了按%{hierarchy_provider}分类界定为 %{preferred_common_name}的哪些数据？%{scientific_name}的可分析数据包括有关%{topics}的信息。
+          meta_keywords: " 按%{hierarchy_provider}分类界定为%{scientific_name}的可分析数据是%{scientific_name}的相关信息。"
+          meta_keywords_with_common_name: 按 %{hierarchy_provider}分类界定为%{preferred_common_name} 的可分析性数据
+          meta_title: 有关%{hierarchy_provider}分类界定为%{scientific_name}的可分析性数据
+          meta_title_with_common_name: 有关%{hierarchy_provider}分类界定为%{preferred_common_name}  (%{scientific_name} %)的可分析数据资料
+          tweet_text: 有关%{hierarchy_provider}分类界定为%{scientific_name}的可分析性数据
+        meta_description: " %{scientific_name}的图片、 录像和录音资讯。在生物大百科全书中您可以找到其图像、 照片、 电影和声音资料。"
+        meta_description_no_data: 生物大百科全书中没有提供%{scientific_name}的可分析性数据资料。EOL 邀请您提供 %{scientific_name}的有关数据。
+        meta_description_with_common_name_no_data: 生物大百科全书中没有提供任何{Preferred_common_name}，又称为 %{scientific_name}的可分析性数据资料。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的相关数据信息。
+        meta_description_with_common_name_with_topics: 科学家已经收集了%{preferred_common_name}的哪些数据？%{scientific_name}的可分析性数据资料包括有关%{topics}的信息。
+        meta_keywords: "%{scientific_name}的可分析性数据资料，%{scientific_name}的有关信息"
+        meta_keywords_with_common_name: "%{preferred_common_name}的可分析性数据资料"
+        meta_title: "%{scientific_name} 可分析性数据资料"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})的可分析性数据资料"
+        tweet_text: "%{scientific_name}的可分析性数据资料"
     details: 
       index: 
         hierarchy_entry: 
           meta_description: 关于%{scientific_name}的信息，分类系统由网络生命大百科的 %{hierarchy_provider}提供
+          meta_description_no_data: 生物大百科全书中对由%{hierarchy_provider}分类界定的 %{scientific_name}没有提供相关资讯。EOL 邀请您提供有关 %{scientific_name}的信息，包括养护、 分布、 生态、 栖息地、 形态等。
           meta_description_with_chapter_list: 关于%{scientific_name}的信息，分类系统由网络生命大百科的 %{hierarchy_provider}提供。包括%{scientific_name}的%{chapter_list}信息。
           meta_description_with_common_name: "\"关于%{preferred_common_name}的信息,学名是 %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。\""
+          meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何资讯。EOL 邀请你提供有关 %{preferred_common_name} ({scientific_name} %)的信息，例如养护、 分布、 生态、 栖息地、 形态等。
           meta_description_with_common_name_with_chapter_list: "\"关于%{preferred_common_name}的信息,学名是 %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。包括%{chapter_list}的信息。\""
           meta_title: 关于%{scientific_name}的信息，分类系统由 %{hierarchy_provider}提供
           meta_title_with_common_name: 关于%{preferred_common_name}的信息 (%{scientific_name}，分类系统由 %{hierarchy_provider}提供)
           tweet_text: 关于%{scientific_name}的信息，分类系统由 %{hierarchy_provider}提供
         meta_description: 网络生命大百科中关于%{scientific_name}的信息
+        meta_description_no_data: 生物大百科全书中没有提供任何有关 %{scientific_name}的资讯。EOL 邀请您提供有关 %{scientific_name}的信息， 例如养护、 分布、 生态、 栖息地、 形态等。
         meta_description_with_chapter_list: 网络生命大百科中关于%{scientific_name}的信息。包括%{chapter_list}。
         meta_description_with_common_name: 关于%{preferred_common_name}的信息，在网络生命大百科中为%{scientific_name}。
+        meta_description_with_common_name_no_data: 生物大百科全书中对被 %hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何资讯。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的信息，例如养护、 分布、 生态、 栖息地、 形态等。
         meta_description_with_common_name_with_chapter_list: 关于%{preferred_common_name}的信息，在网络生命大百科中为%{scientific_name}。包括%{chapter_list}的信息
         meta_title: 关于%{scientific_name}的信息
         meta_title_with_common_name: 关于%{preferred_common_name}(%{scientific_name})的事实
@@ -3140,7 +3234,7 @@ zh-CN:
         hierarchy_entry: 
           meta_description: 网络生命大百科中关于%{scientific_name}的文献和信息，分类系统由%{hierarchy_provider}提供。阅读在网络生命大百科中关于%{scientific_name} 的文章。
           meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和信息，分类系统由网络生命大百科的%{hierarchy_provider}提供。阅读在网络生命大百科中关于%{preferred_common_name}的文章。"
-          meta_title: 生物多样性遗传图书馆中%{scientific_name}的引用的文献（学名由%{scientific_nam}提供）
+          meta_title: 生物多样性遗产图书馆中关于%{scientific_name}的文献资料，由%hierarchy_provider}分类界定
           meta_title_with_common_name: 生物多样性遗传图书馆中%{preferred_common_name}（%{scientific_name}）的引用的文献（学名由%{scientific_nam}提供）
           tweet_text: 来自于#BHL 的关于%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供
         meta_title: 生物多样性遗传图书馆中%{scientific_name}的引用
@@ -3154,7 +3248,7 @@ zh-CN:
         meta_description: 网络生命大百科中关于%{scientific_name}的文献和信息。阅读在网络生命大百科中关于%{scientific_name} 的文章。
         meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和信息。阅读在网络生命大百科中关于%{preferred_common_name}的文章。"
         meta_keywords: "%{scientific_name}的条目、%{scientific_name}的图书、%{scientific_name}的书目、%{scientific_name}的作品"
-        meta_keywords_with_common_name: 关于%{preferred_common_name}的信息，%{preferred_common_name}的文献，%{preferred_common_name}的文章
+        meta_keywords_with_common_name: "%{preferred_common_name} 文章、 %{preferred_common_name} 书籍、 %{preferred_common_name} 文学作品、 %{scientific_name} 文章、 %{scientific_name}书籍、 %{scientific_name} 文献目录、 %{scientific_name} 文学作品"
         meta_title: 关于%{scientific_name}的文章和书籍
         meta_title_with_common_name: 关于%{preferred_common_name}（%{scientific_name}）的文章和书籍
         tweet_text: "%{scientific_name}的文章和书籍"
@@ -3165,11 +3259,13 @@ zh-CN:
           meta_description_with_common_name: "%{preferred_common_name}是在哪里发现的？它们生活在哪里？关于%{scientific_name}在地球上哪里生活以及原产地在哪里的地理信息。分类系统由 %{hierarchy_provider}提供。"
           meta_title: "%{scientific_name}的地图，分类系统由%{hierarchy_provider}提供"
           meta_title_with_common_name: "%{preferred_common_name}的地图（%{scientific_name}，分类系统由%{hierarchy_provider}提供）"
-          tweet_text: "%{scientific_name}的地图，分类系统由%{hierarchy_provider}提供"
-        meta_description: "%{scientific_name}在全球的分布地和原产地的地理信息。"
-        meta_description_with_common_name: "%{preferred_common_name}是在哪里发现的？它们生活在哪里？关于%{scientific_name}在地球上哪里生活以及原产地在哪里的地理信息。"
-        meta_keywords: "%{scientific_name} 原始生存地的生境"
-        meta_keywords_with_common_name: "%{preferred_common_name} 原始生存地的生境 \\"
+          tweet_text: 由%{hierarchy_provider}界定分类的%{scientific_name}地图
+        meta_description: 有关%{scientific_name}的地理信息。其在整个世界的生存地区。
+        meta_description_no_data: " 生物大百科全书中没有提供任何关于%{scientific_name}的地理信息。EOL 邀请提供有关%{scientific_name}的地图。"
+        meta_description_with_common_name: "%{preferred_common_name}是在哪里被发现的？它们生活在哪里？关于%{scientific_name}的地理信息。其在世界范围内的生存地区。"
+        meta_description_with_common_name_no_data: 生物大百科全书中没有提供任何%{preferred_common_name}，又称为 %{scientific_name}的地理信息。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的相关地图。
+        meta_keywords: "%{scientific_name} 的栖息地，即其在哪里生活。"
+        meta_keywords_with_common_name: "%{preferred_common_name}的栖息地，即其在哪里生活"
         meta_title: " %{scientific_name}的生境"
         meta_title_with_common_name: "%{preferred_common_name}(%{scientific_name})的生境 \\"
         tweet_text: "%{scientific_name}的地图"
@@ -3183,13 +3279,15 @@ zh-CN:
           meta_title: "\"%{scientific_name}的音频,影片及照片(分类信息由%{hierarchy_provider}提供）\""
           meta_title_with_common_name: "\" %{preferred_common_name}的音频,影片及图像(%{scientific_name}的分类信息由%{hierarchy_provider}提供）\""
           tweet_text: "%{scientific_name}的媒体，分类系统由%{hierarchy_provider}提供"
-        meta_description: "%{scientific_name}的图片和视频"
+        meta_description: " %{scientific_name}的图片、 录像和录音资讯。在生物大百科全书中您可以找到其图像、 照片、 电影和声音资料。"
+        meta_description_no_data: 生物大百科全书中没有提供%{scientific_name}的多媒体信息。EOL 邀请您提供有关%{scientific_name}的图像，录像或声音资料。
         meta_description_with_common_name: "%{preferred_common_name}的图片和视频 也就是%{scientific_name}"
+        meta_description_with_common_name_no_data: 生物大百科全书中没有提供任何有关{Preferred_common_name}，又称为 %{scientific_name}的多媒体信息。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的图像，录像或声音资料。
         meta_keywords: "%{scientific_name}的图片，%{scientific_name}的视频，%{scientific_name}的图像，%{scientific_name}的视频，%{scientific_name}的照片，媒体"
         meta_keywords_with_common_name: "%{preferred_common_name}的图片，%{preferred_common_name}的视频，%{preferred_common_name}的图像，%{preferred_common_name}的视频，%{preferred_common_name}的照片，媒体"
-        meta_title: "%{preferred_common_name}的图片或视频(%{scientific_name})"
-        meta_title_with_common_name: "%{preferred_common_name}的图片或视频(%{scientific_name})"
-        tweet_text: "%{scientific_name}的媒体"
+        meta_title: "%{scientific_name}的图片，视频或音频信息-(%{scientific_name})图像，图片，影像及声音信息"
+        meta_title_with_common_name: "%{preferred_common_name} ({scientific_name} %)的图片、 视频和 音频资料- %{preferred_common_name} (%{scientific_name})的图像、 照片、 电影 & 声音的资料"
+        tweet_text: 有关%{scientific_name}的相片，视频和音频资料
     names: 
       common_names: 
         hierarchy_entry: 
@@ -3209,14 +3307,14 @@ zh-CN:
         tweet_text: "%{scientific_name}的俗名"
       index: 
         hierarchy_entry: 
-          meta_description: 由%{hierarchy_provider}提供分类的%{scientific_name}的分类，分类系统和相关的学名。
-          meta_description_with_common_name: 由%{hierarchy_provider}提供分类的%{preferred_common_name}（又称为%{scientific_name}）的分类，分类系统和学名。
+          meta_description: 由%{hierarchy_provider}分类界定为%{scientific_name}的分类方法科学名称。
+          meta_description_with_common_name: 由%{hierarchy_provider}分类界定为%{preferred_common_name}（又称为%{scientific_name}）的分类方法和科学名称。
           tweet_text: 与%{scientific_name}相关的名称，分类系统由%{hierarchy_provider}提供
-        meta_description: "%{scientific_name}的分类等级和学名。"
-        meta_description_with_common_name: "%{preferred_common_name}的分类等级和学名，又称为%{scientific_name}。"
-        meta_title: 与%{scientific_name}相关的名称
-        meta_title_with_common_name: 与%{preferred_common_name} 相关的名称(%{scientific_name})
-        tweet_text: 与%{scientific_name}相关的名称
+        meta_description: " %{scientific_name}的分类法和科学名称。 %{scientific_name}的生物学分类和相关名称。"
+        meta_description_with_common_name: " %{preferred_common_name}，也被称为 %{scientific_name}的分类法，生物学分类和科学名称。与 %{preferred_common_name}相关的生物学分类和名称。"
+        meta_title: "%{scientific_name}的分类学信息-生物学分类及名称"
+        meta_title_with_common_name: "%{preferred_common_name}(%{scientific_name})的分类学信息-生物学分类及名称"
+        tweet_text: "%{scientific_name}的分类信息"
       synonyms: 
         hierarchy_entry: 
           meta_description: 由%{hierarchy_provider}提供分类的与%{scientific_name}关联的异名。
@@ -3234,6 +3332,20 @@ zh-CN:
         meta_title_with_common_name: " %{preferred_common_name}的异名 (%{scientific_name})"
         tweet_text: "%{scientific_name}的异名"
     overview: 
+      hierarchy_entry: 
+        meta_description: 生物大百科全书中由 %{hierarchy_provider}认定的%{scientific_name}相关信息摘要。
+        meta_description_with_common_name: 生物大百科全书中由 %{hierarchy_provider}认定的%{preferred_common_name}, 又称为 %{scientific_name}相关信息摘要。
+        meta_keywords: 由%{hierarchy_provider}认定为%{scientific_name}，按%{hierarchy_provider}分类界定为%{scientific_name}
+        meta_keywords_with_common_name: 由%{hierarchy_provider}认定为%{scientific_name}，按%{hierarchy_provider}分类界定为%{scientific_name}
+        meta_title: "%{scientific_name}名称由%{hierarchy_provider}分类界定"
+        meta_title_with_common_name: "%{preferred_common_name}(%{scientific_name}由 %{hierarchy_provider}分类界定"
+        tweet_text: 对%{hierarchy_provider}分类界定为%{scientific_name}的概述
+      meta_description: 生物大百科全书中关于%{scientific_name}的信息
+      meta_description_with_common_name: 生物大百科全书中有关%{preferred_common_name}，学名为%{scientific_name}的信息。
+      meta_keywords: 关于%{scientific_name}的信息,%{scientific_name}的信息
+      meta_keywords_with_common_name: 有关%{scientific_name}的信息，有关%{preferred_common_name}的信息,% {scientific_name}的信息和事实，%{preferred_common_name}的 信息
+      meta_title: "%{scientific_name}-有关%{scientific_name}的信息"
+      meta_title_with_common_name: "%{preferred_common_name} ({scientific_name} %)- 有关%{preferred_common_name}的信息"
       tweet_text: 关于 %{scientific_name} 信息
     resources: 
       biomedical_terms: 
@@ -3301,7 +3413,7 @@ zh-CN:
         meta_keywords: "\"%{scientific_name}的状态, %{scientific_name}的统计, %{scientific_name}的数据\""
         meta_keywords_with_common_name: "\"%{preferred_common_name}的状态, %{preferred_common_name}的统计,  %{preferred_common_name}的数据\""
         meta_title: "%{scientific_name}的丰富度"
-        meta_title_with_common_name: "%{scientific_name}(%{scientific_name})的丰富度"
+        meta_title_with_common_name: "%{preferred_common_name}(%{scientific_name})的内容丰富程度"
         tweet_text: " %{scientific_name}的丰富度数值"
   taxa_column_header: 分类单元
   taxa_with_count: 
@@ -3405,6 +3517,7 @@ zh-CN:
   this_is_a_focus_collection_for_community: 这是 %{community}关注的焦点。
   this_is_the_breakdown_of_chapt: 这是对章节、子章节及相应的物种介绍模块目录的细分。
   this_is_the_label_that_will_be_used_for_attribution: 这是用作属性的标签
+  this_link_cannot_be_curated_because_unpublished: 因为其尚未发表，所以不能策划此链接。
   this_link_is_unpublished: 此链接尚未发布。
   this_map_cannot_be_curated_because_unpublished: 本地图不能被管理，因为它尚未发布。
   this_map_is_unpublished: 该地图尚未发布。
@@ -3523,10 +3636,19 @@ zh-CN:
     other: 提名了%{count}篇维基百科的文章
   user_added_data: 
     add_data_header: 贡献您自己的数据
+    add_metadata_header: 附加信息
+    additional_fields: 有关此记录的数据
+    create_failed: 无法添加您的数据：%{errors}
+    create_successful: 数据已被成功添加
+    delete_successful: 数据已被成功删除
     edit_data_header: 编辑您的数据
     edit_metadata_header: 编辑元数据
+    new_field: 新的领域......
     new_value: 值
+    source_field_helper: 将参考文献或 URL 添加到在线数据资源库。
+    submit_data: 提交数据值
     update_failed: 无法更新您的数据：%{errors}
+    update_successful: 数据已被成功更新
   user_agent: 用户代理
   user_already_active_notice: 您的帐户已激活，请登录。
   user_comment: 用户评论
@@ -3580,7 +3702,7 @@ zh-CN:
         meta_title: "%{user_full_name} 内容提供者"
         tweet_text: "%{user_full_name} 内容提供者"
     edit: 
-      form_tip_account: 要登陆EOL，您需要用户名和密码，或者您可以连接一个第三方帐户。如果您没有关联的帐户，用户名和密码是必填的，但是如果您想改变现有的密码，只需要输入一个新的密码即可。电子邮件地址和首选语言对所有用户都是必须的。
+      form_tip_account: 要登录到EOL，您需要用户名和密码，或者您可以连接一个第三方帐户。如果您没有关联帐户，用户名和密码是必填的，但是如果您想改变现有的密码，只需在此输入新密码即可。电子邮件地址和首选语言对所有用户都是必须的(%{required_icon}) 。
       form_tip_account_oauth: 所有用户都需要电子邮件地址和首选语言%{required_icon} 。
       form_tip_curation: 资历和管理范围对助理管理员是可选的，但对专业和高级管理员是必须的 %{required_icon}
       form_tip_profile: "%{required_icon}标记的项对一般用户是可选的，但对管理员是必须的。"
@@ -3620,6 +3742,7 @@ zh-CN:
       errors: 
         facebook: 
           add_connection_failed_account_already_connected: "\"抱歉，我们不能关联您的Facebook帐户到您的EOL帐户，您的Facebook帐户已经被关联到<a href=\"\"%{existing_eol_account_url}\"\">一个EOL帐户</a>。\""
+          login_failed_not_connected: 很抱歉，我们找不到您的 Facebook 帐户和 EOL 之间的连接。如果您已经有一个 EOL 帐户，请使用其他凭证<a href="%{login_url}">登录到 EOL</a>，然后在您的EOL个人资料设置中连接您的 Facebook 帐户。如果你还没有 EOL 帐户请<a href="%{register_url}">完成 EOL 注册</a>来创建一个账户。
           missing_attributes: 抱歉，访问您Facebook帐户的详细信息时存在问题。
           new_authentication_not_added: 抱歉，出现了一个错误，我们无法连接您的Facebook账户。
           not_authorized_to_add_authentication: 抱歉，我们没有关联您Facebook帐户的授权。
@@ -3628,6 +3751,7 @@ zh-CN:
           signup_failed_account_already_connected: "\"抱歉，我们不能为您建立一个新的EOL帐户与您的Facebook帐户关联，它已经关联到一个<a href=\"\"%{existing_eol_account_url}\"\">EOL帐户</a>。您想<a href=\"\"%{login_url}\"\">登陆</a> 吗？\""
         google: 
           add_connection_failed_account_already_connected: "\"抱歉，我们不能关联您的Google帐户到您的EOL帐户，您的Google帐户已经被关联到<a href=\"\"%{existing_eol_account_url}\"\">一个EOL帐户</a>。\""
+          login_failed_not_connected: 很抱歉，我们找不到您的 Google 帐户和 EOL 之间的连接。如果您已经有一个 EOL 帐户，请使用其他凭证<a href="%{login_url}">登录到 EOL</a>，然后在您的EOL个人资料设置中连接您的 Google 帐户。如果你还没有申请 EOL 帐户，请<a href="%{register_url}">完成 EOL 注册</a>来创建一个账户。
           missing_attributes: 抱歉，访问您Google帐户的详细信息时存在问题。
           new_authentication_not_added: 抱歉，出现了一个错误，我们无法连接您的Google账户。
           not_authorized_to_add_authentication: 抱歉，我们没有关联您Google帐户的授权。
@@ -3640,6 +3764,7 @@ zh-CN:
         remove_connection_failed: 抱歉，出现了一个错误，我们无法删除连接。
         twitter: 
           add_connection_failed_account_already_connected: "\"抱歉，我们不能关联您的Twitter帐户到您的EOL帐户，您的Twitter帐户已经被关联到<a href=\"\"%{existing_eol_account_url}\"\">一个EOL帐户</a>。\""
+          login_failed_not_connected: 很抱歉，我们找不到您的 Twitter 帐户和 EOL 之间的连接。如果您已经有一个 EOL 帐户，请使用其他凭证<a href="%{login_url}">登录到 EOL</a>，然后在您的EOL个人资料设置中连接您的 Twitter 帐户。如果你还没有 EOL 帐户，请<a href="%{register_url}">完成 EOL 注册</a>来创建一个账户。
           missing_attributes: 抱歉，访问您Twitter帐户的详细信息时存在问题。
           new_authentication_not_added: 抱歉，出现了一个错误，我们无法连接您的Twitter 账户。
           not_authorized_to_add_authentication: 抱歉，我们没有关联您Twitter帐户的授权。
@@ -3648,6 +3773,7 @@ zh-CN:
           signup_failed_account_already_connected: "\"抱歉，我们不能为您建立一个新的EOL帐户与您的Twitter帐户连接，它已经关联到一个<a href=\"\"%{existing_eol_account_url}\"\">EOL帐户</a>。您想替换 <a href=\"\"%{login_url}\"\">登陆</a> 吗？\""
         yahoo: 
           add_connection_failed_account_already_connected: "\"抱歉，我们不能关联您的Yahoo!帐户到您的EOL帐户，您的Yahoo!帐户已经被关连到<a href=\"\"%{existing_eol_account_url}\"\">一个EOL帐户</a>。\""
+          login_failed_not_connected: 很抱歉，我们找不到您的 Yahoo！ 帐户和 EOL 之间的连接。如果您已经有一个 EOL 帐户，请使用其他凭证<a href="%{login_url}">登录到 EOL</a>，然后在您的EOL个人资料设置中连接您的 Yahoo！ 帐户。如果你还没有 EOL 帐户，请<a href="%{register_url}">完成 EOL 注册</a>来创建一个账户。
           missing_attributes: 抱歉，访问您Yahoo!帐户的详细信息时存在问题。
           new_authentication_not_added: 抱歉，出现了一个错误，我们无法连接您的Yahoo!账户。
           not_authorized_to_add_authentication: 抱歉，我们没有关联您Yahoo!帐户的授权。
@@ -3682,6 +3808,8 @@ zh-CN:
       yahoo: Yahoo!
     pending: 
       header: 感谢您注册 ！
+      verify_email_instructions: <strong>请确认您的电子邮件地址</strong>。一条确认短信已发送至您所提供的电子邮件地址。要完成注册过程并成为 EOL 成员，请单击包含在该电子邮件中的链接地址。谢谢！
+      verify_email_tip: 请注意帐户激活电子邮件<em>经常</em>被电子邮件过滤器标记为垃圾邮件。如果您在一个小时内没有收到该邮件，检查您的垃圾邮件文件夹。
     recover_account: 
       errors: 
         temporary_login_user_not_found: 抱歉，无法找到您要恢复的EOL帐户，请申请一个新的电子邮件来恢复您的帐户。
@@ -3692,7 +3820,7 @@ zh-CN:
       form_tip: 要找回您的EOL帐户，需要输入与该帐户关联的电子邮件地址。如果您在一个小时内没有收到找回帐户的电子邮件，请检查您的垃圾邮件文件夹。
       meta_title: 恢复帐户
       notices: 
-        recovery_email_sent: 账户恢复详细说明的邮件已经发送。若您一个小时内没有收到该邮件，请检查您的垃圾邮件过滤器。
+        recovery_email_sent: 帐户恢复邮件已发送至您的电子邮箱，其中含有进一步说明。请将 %{from_address} 添加到安全发件人列表中，如果您在一个小时内没有收到该邮件，请检查您的垃圾邮件过滤器。
         temporarily_logged_in_update_authentication_details: 您被允许临时登录以恢复帐号，请修改您的密码并更新您的关联账户以确保您可以成功登录。
     recover_account_choose_account: 
       errors: 
@@ -3700,9 +3828,32 @@ zh-CN:
       form_header: 恢复帐户
       form_tip: 有几个使用电子邮件<em>%{email}</em>注册的帐户，请选择您想恢复访问的帐户。
       legend_choose_account: 选择账户
+    saved_searches: 
+      actions_head: 操作
+      attribute_head: 属性
+      complete_head: 完成？
+      created_head: 已创建
+      download: 下载
+      empty: 您没有已保存的搜索。请访问<a href='%{data_search_url}'>数据搜索页</a>来执行并保存搜索。
+      index: 
+        meta_description: "%{user_full_name} 已保存的搜索。"
+        meta_title: "%{user_full_name} 已保存的搜索"
+      is_complete: 是
+      is_not_complete: 否
+      page_title: 已保存的搜索
+      processing: 处理中
+      query_empty: 空
+      query_head: 查询
+      refresh: 刷新
+      row_count: 数目
+      updated_head: 最近操作
     show: 
       meta_description: 网络生命大百科中%{user_full_name}的会员信息。
       meta_description_curator: 网络生命大百科中%{curator_level} %{user_full_name}的会员信息
+    unsubscribe_notifications: 
+      already_unsubscribed: 您已取消告知邮件。
+      unsubscribe_notifications_failed: 对不起，发生了错误，用户不能取消告知邮件。
+      unsubscribed_notifications_successfully: 您已经成功取消告知邮件。
   users_about_me_header: 关于我
   users_content_partners_header: 内容合作伙伴
   users_content_partners_information: "\"EOL内容合作伙伴为个人或者组织，它们通过EOL与全世界分享它们的生物多样性数据。了解更多关于<a href=\"\"%{more_url}\"\">EOL内容合作伙伴</a>。\""

@@ -43,6 +43,8 @@ module Eol
     Rails.configuration.active_languages =
       %w[ar de en es fr gl ko mk ms nl nb oc pt-br sr sr-Latn sv tl uk zh-Hans zh-Hant]
 
+    Rails.configuration.use_secure_acceptance = false
+
     # We're only loading 'en.yml' by default, here. See the other environments for how to "turn on" all the other YML files.
     # This makes startup times SO MUCH FASTER.
     if ENV.has_key?('LOCALE')

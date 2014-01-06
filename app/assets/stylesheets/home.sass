@@ -57,7 +57,7 @@ body
       font-weight: 200
       text-align: center
     form
-      width: 390px
+      width: 416px
       padding: 4px
       +border-radius(180px)
       background: rgba(255, 255, 255, .5)
@@ -72,13 +72,15 @@ body
         background-image: image-url("v2/icon_search_home.png")
         float: left
       input[type="submit"]
+        margin-left: 6px
         min-width: 40px
         min-height: 40px
         font-size: 1.08em
         line-height: 38px
         +box-shadow(0 0 4px rgba(0, 0, 0, .6))
-        float: right
         padding: 0 4px
+      input[formaction]
+        font-size: 0.91em
     .session
       position: absolute
       right: 30px

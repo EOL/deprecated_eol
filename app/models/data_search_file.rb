@@ -8,7 +8,8 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :language
   belongs_to :known_uri
 
-  LIMIT = 5000
+  PER_PAGE = 2000 # Number of results we feel confident to process at one time (ie: one query for each)
+  PAGE_LIMIT = 5 # Maximum number of "pages" of data to allow in one file.
 
   def build_file
     unless hosted_file_exists?
@@ -70,20 +71,27 @@ class DataSearchFile < ActiveRecord::Base
     Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
 
-  # TODO - when we get around to upping the LIMIT, we should probably break this up into chunks.
   def get_data(options = {})
     # NOTE - for testing on staging:
-    # q = '' ; uri = 'http://iobis.org/minphosphate' ; from = nil ; to = nil ; sort = nil ; LIMIT = 12 ; options = {} ; user = User.first
-    # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
-    @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
-      sort: sort, per_page: LIMIT, for_download: true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
-    # TODO - handle the case where results are empty.
+    # q = '' ; uri = 'http://iobis.org/minphosphate' ; from = nil ; to = nil ; sort = nil ; PER_PAGE = 12 ; options = {} ; user = User.first
     rows = []
-    DataPointUri.assign_bulk_metadata(@results, user.language)
-    DataPointUri.assign_bulk_references(@results, user.language)
-    @results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(user.language)
+    page = 1
+    # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
+    results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
+                               per_page: PER_PAGE, for_download: true)
+    until (page * PER_PAGE >= results.total_entries) || page > PAGE_LIMIT
+      DataPointUri.assign_bulk_metadata(results, user.language)
+      DataPointUri.assign_bulk_references(results, user.language)
+      results.each do |data_point_uri|
+        rows << data_point_uri.to_hash(user.language)
+      end
+      if page * PER_PAGE < results.total_entries
+        page += 1
+        results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
+                                   page: page, per_page: PER_PAGE, for_download: true)
+      end
     end
+    @overflow = true if page > PAGE_LIMIT
     rows
   end
 
@@ -116,9 +124,6 @@ class DataSearchFile < ActiveRecord::Base
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
-    end
-    if @results.total_entries > LIMIT
-      csv << [ Sanitize.clean(I18n.t(:data_beta_search_limit, count: LIMIT)) ]
     end
   end
 

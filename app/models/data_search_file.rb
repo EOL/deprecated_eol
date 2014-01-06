@@ -11,6 +11,7 @@ class DataSearchFile < ActiveRecord::Base
 
   PER_PAGE = 2000 # Number of results we feel confident to process at one time (ie: one query for each)
   PAGE_LIMIT = 5 # Maximum number of "pages" of data to allow in one file.
+  LIMIT = PAGE_LIMIT * PER_PAGE
 
   def build_file
     unless hosted_file_exists?
@@ -81,13 +82,14 @@ class DataSearchFile < ActiveRecord::Base
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
     results = TaxonData.search(querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
                                per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri)
+    # TODO - we should also check to see if the job has been canceled.
     until (page * PER_PAGE >= results.total_entries) || page > PAGE_LIMIT
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|
         rows << data_point_uri.to_hash(user.language)
       end
-      if page * PER_PAGE < results.total_entries
+      if results.total_pages < results.current_page
         page += 1
         results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
                                    page: page, per_page: PER_PAGE, for_download: true)
@@ -126,6 +128,9 @@ class DataSearchFile < ActiveRecord::Base
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
+    end10
+    if @overflow
+      csv << [ Sanitize.clean(I18n.t(:data_search_limit, count: LIMIT)) ]
     end
   end
 

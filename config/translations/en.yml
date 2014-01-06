@@ -3244,9 +3244,9 @@ en:
   data: "Data"
   data_about_subtab_header: "About Data on EOL"
   data_about_subtab_content: "<p><a href='/traitbank'>TraitBank</a>™ gathers data and metadata from multiple sources into a single, fully-referenced and semantically accessible taxon-centric view.</p><p><a href='/contact_us?subject=Contribute'>Contact us</a> for more information on sharing data sets with EOL or to recommend a data set for inclusion into TraitBank.</p><p><a href='/users/register'>Register for a free account</a> or <a href='/login'>sign in</a> to comment on the data.</p><p>Funding for the development of EOL computable data functionality provided by the Alfred P. Sloan Foundation, the John D. and Catherine T. MacArthur Foundation, and from EOL users around the world. <a href='/contact_us?subject=TraitBank'>Contact the EOL Secretariat</a> for more information on TraitBank™.</p>"
-  data_beta_search_limit:
-    one: "Data search downloads are <i>temporarily</i> limited to %{count} result."
-    other: "Data search downloads are <i>temporarily</i> limited to %{count} results."
+  data_search_limit:
+    one: "Data search downloads are limited to %{count} result."
+    other: "Data search downloads are limited to %{count} results."
   data_about_this_record: "Data about this record"
   data_attribute_select_prompt: "-- select an attribute --"
   data_column_tc_id: "EOL page ID"

@@ -344,6 +344,8 @@ en:
         to_known_uri_id: "Target URI"
         to_known_uri: "Target URI"
         relationship_uri: "Relationship URI"
+      location:
+        location: "Location"
       open_authentication:
         created_at: "Created"
         guid: "GUID"
@@ -626,6 +628,8 @@ en:
         complete_more: "A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms. <strong>Warning: Do not change this attribute unless you are certain of the status of homonyms in the hierarchy, doing so could jeopardize the integrity of the data.</strong>"
         request_publish: "Publish requested"
         request_publish_more: "Indicates whether there is a pending request to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
+      location:
+        location: "Location"
       news_item:
         active: "Published"
         active_more: "Published news items will be publicly visible on the selected date and time. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this news item in any language."
@@ -758,6 +762,8 @@ en:
       hierarchy:
         update: "Update hierarchy"
         request_publish: "Request to promote hierarchy"
+      location:
+        create: "Find taxa"
       name:
         create: "Add name"
         update: "Update name"
@@ -3841,6 +3847,8 @@ en:
   literature_links_link: "Literature links"
   literature_references: "Literature references"
   location_colon: "Location:"
+  locations:
+    what_lives_near_here_question: "What lives near here?"
   login_required_button: "Login required"
   logging_database_colon: "Logging:"
   login: "login"

@@ -1,9 +1,12 @@
 class LocationsController < ApplicationController
 
+  layout 'v2/basic'
+
   # GET /locations/new
   # GET /locations/new.json
   def new
     @location = Location.new
+    @page_title = I18n.t('locations.what_lives_near_here_question')
 
     respond_to do |format|
       format.html # new.html.erb

@@ -7,7 +7,6 @@ class DataSearchController < ApplicationController
 
   # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL
   def index
-    if params[:attribute]
     prepare_search_parameters(params)
     respond_to do |format|
       format.html do
@@ -49,8 +48,8 @@ class DataSearchController < ApplicationController
     # Look up attribute based on query
     unless EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
       @attribute_known_uri = KnownUri.by_name(options[:q].split.first)
-      @attribute = @attribute_known_uri.uri
-      options[:q] = ''
+      @attribute = @attribute_known_uri.uri if @attribute_known_uri
+      @querystring = options[:q] = ''
     else
       @attribute_known_uri = KnownUri.find_by_uri(@attribute)
     end

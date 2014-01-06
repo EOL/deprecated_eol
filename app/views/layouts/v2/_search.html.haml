@@ -1,4 +1,5 @@
 -# TODO = the "q: ''" in this search url is superfluous, but without it the path is not built...
+-# suspect it should be: = form_tag search_url, method: 'get', role: 'search', id: 'simple_search' do
 %form{ id: "simple_search", action: search_url(q: ''), method: "get", role: "search" }
   %h2.assistive= I18n.t(:search_the_site)
   %fieldset
@@ -10,6 +11,7 @@
         name: 'q', 'min-length' => 3
 
     %input{ type: "submit", name: "search", value: I18n.t(:go), data_error: I18n.t(:must_provide_search_term_error), data_unchanged: I18n.t(:search_placeholder) }
+    %input{ type: "submit", name: "data_search", value: I18n.t(:data), data_error: I18n.t(:must_provide_search_term_error), data_unchanged: I18n.t(:search_placeholder), formaction: data_search_url }
 
   - if @logged_search_id
     = hidden_field_tag :search_log_id, @logged_search_id

@@ -599,7 +599,7 @@ Eol::Application.routes.draw do
     get 'last_ten_minutes'
   end
 
-  resources :locations, only: [:new, :create, :edit, :udpate]
+  resources :locations, only: [:new, :create]
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation

@@ -1,9 +1,6 @@
 # first created -> highest priority.
 Eol::Application.routes.draw do
 
-  resources :locations
-
-
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
@@ -601,6 +598,8 @@ Eol::Application.routes.draw do
   resource :curator_activity_logs, :only => 'index' do
     get 'last_ten_minutes'
   end
+
+  resources :locations, only: [:new, :create, :edit, :udpate]
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation

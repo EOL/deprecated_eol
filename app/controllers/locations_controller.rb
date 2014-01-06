@@ -1,25 +1,4 @@
 class LocationsController < ApplicationController
-  # GET /locations
-  # GET /locations.json
-  def index
-    @locations = Location.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @locations }
-    end
-  end
-
-  # GET /locations/1
-  # GET /locations/1.json
-  def show
-    @location = Location.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @location }
-    end
-  end
 
   # GET /locations/new
   # GET /locations/new.json
@@ -69,15 +48,4 @@ class LocationsController < ApplicationController
     end
   end
 
-  # DELETE /locations/1
-  # DELETE /locations/1.json
-  def destroy
-    @location = Location.find(params[:id])
-    @location.destroy
-
-    respond_to do |format|
-      format.html { redirect_to locations_url }
-      format.json { head :no_content }
-    end
-  end
 end

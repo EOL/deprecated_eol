@@ -1,5 +1,8 @@
 require 'spec_helper'
 
 describe Location do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  let(:model){ Location.new({:location => 'Woods Hole, MA 02543'}) }
+  it_behaves_like "ActiveModel"
+
 end

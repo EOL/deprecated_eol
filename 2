@@ -22,8 +22,8 @@ class DataSearchFile < ActiveRecord::Base
       # we should not email them when the process has finished
       if hosted_file_exists? && instance_still_exists?
         send_completion_email
+        update_attributes(completed_at: Time.now.utc)
       end
-      update_attributes(completed_at: Time.now.utc)
     end
   end
 
@@ -130,11 +130,9 @@ class DataSearchFile < ActiveRecord::Base
   # TODO - this fails locally (ie: in development). Fix? Or explain how to configure?
   def upload_file
     puts "++ #upload_file"
-    where = local_file_url
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-      where = uploaded_file_url
+      update_attributes(hosted_file_url: (Rails.configuration.local_services ? uploaded_file_url : (Rails.configuration.hosted_dataset_path + uploaded_file_url)))
     end
-    update_attributes(hosted_file_url: (Rails.configuration.local_services ? where : (Rails.configuration.hosted_dataset_path + where)))
   end
 
   def csv_builder(csv, col_heads, rows)
@@ -149,7 +147,6 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def send_completion_email
-    puts "++ #send_completion_email"
     RecentActivityMailer.data_search_file_download_ready(self).deliver
   end
 

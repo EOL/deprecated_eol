@@ -6,7 +6,11 @@ class DataFileMaker
     puts "++ DataFileMaker: #{args.values.join(', ')}"
     # TODO - error-handling.
     if DataSearchFile.exists?(args["data_file_id"])
-      DataSearchFile.find(args["data_file_id"]).build_file
+      begin
+        DataSearchFile.find(args["data_file_id"]).build_file
+      rescue => e
+        puts "   FAILED: #{e.message}"
+      end
     else
       puts "   Data file #{args["data_file_id"]} doesn't exist, assuming canceled."
     end

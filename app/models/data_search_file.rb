@@ -84,8 +84,6 @@ class DataSearchFile < ActiveRecord::Base
   def get_data(options = {})
     puts "++ #get_data"
     # TODO - we should also check to see if the job has been canceled.
-    begin # Always do this at least once...
-    # TODO - handle the case where results are empty.
     rows = []
     page = 1
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.

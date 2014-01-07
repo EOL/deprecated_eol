@@ -1,4 +1,5 @@
 - content_for :main do
+  - limited = (@results.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_search_limit, count:   DataSearchFile::LIMIT) : nil
   #page_heading
     .site_column
       .hgroup
@@ -11,12 +12,12 @@
       .page_actions
         %ul
           - if @results && !@results.blank?
-            %li.data_download{"data-alert" => ((@results.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_search_limit, count: DataSearchFile::LIMIT) : nil)}
+            %li.data_download{"data-alert" => limited}
               = link_to I18n.t(:download_data), download_data_search_path(params: params), method: :post, :class => 'button'
   #content
     .site_column
       #data_search
-        = render partial: 'shared/beta_warning', locals: { note: I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) }
+        = render partial: 'shared/beta_warning', locals: { note: limited }
         = render 'data_search/filters'
         #search_results
           #main

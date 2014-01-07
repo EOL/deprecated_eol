@@ -81,7 +81,7 @@ class DataSearchFile < ActiveRecord::Base
     results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
                                per_page: PER_PAGE, for_download: true)
     # TODO - we should also check to see if the job has been canceled.
-    until (page * PER_PAGE >= results.total_entries) || page > PAGE_LIMIT
+    begin # Always do this at least once...
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|
@@ -92,7 +92,7 @@ class DataSearchFile < ActiveRecord::Base
         results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
                                    page: page, per_page: PER_PAGE, for_download: true)
       end
-    end
+    end until (page * PER_PAGE >= results.total_entries) || page > PAGE_LIMIT
     @overflow = true if page > PAGE_LIMIT
     rows
   end
@@ -116,6 +116,7 @@ class DataSearchFile < ActiveRecord::Base
     update_attributes(row_count: rows.count)
   end
 
+  # TODO - this fails locally (ie: in development). Fix? Or explain how to configure?
   def upload_file
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
       update_attributes(hosted_file_url: (Rails.configuration.local_services ? uploaded_file_url : (Rails.configuration.hosted_dataset_path + uploaded_file_url)))

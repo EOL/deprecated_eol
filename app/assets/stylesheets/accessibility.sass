@@ -21,7 +21,7 @@
 /* Use the ~30K JPG form on the homepage image instead of the ~500K transparent PNG */
 body.home
   > #header
-    background: transparent url(image-path("v2/bg_home_earth.jpg")) 50% 100% no-repeat
+    background: transparent image-url("v2/bg_home_earth.jpg") 50% 100% no-repeat
 
 
 /** Busy indicator for JS submitted forms e.g. exemplar image **/
@@ -100,14 +100,14 @@ form
     &.dataset
       legend.required
         font-weight: bold
-        background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+        background: image-url("v2/icon_required.png") 0 45% no-repeat
         padding-left: 10px
         margin-left: -10px
 /** Styles for form required (HR overrides) and form validation errors (custom no equivalent from HR)  **/
 form
   dt.required
     label
-      background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+      background: image-url("v2/icon_required.png") 0 45% no-repeat
       padding-left: 10px
       margin-left: -10px
 
@@ -211,7 +211,7 @@ form#switch_hierarchy_entry
           padding: 5px 20px
   a
     &.pdf
-      background: url(image-path("v2/icon_pdf.png")) right top no-repeat
+      background: image-url("v2/icon_pdf.png") right top no-repeat
       padding: 0 20px 3px 0
   ul
     &.grid
@@ -441,7 +441,7 @@ form, #content .site_column
               margin: 0 10px
       &.sound
         .figure
-          background: $nearly_black url(image-path("v2/icon_sound_tabs.png")) no-repeat 50% 20%
+          background: $nearly_black image-url("v2/icon_sound_tabs.png") no-repeat 50% 20%
           color: $light_blue
           a
             color: $light_blue
@@ -470,7 +470,7 @@ form, #content .site_column
 
       &.video
         .figure
-          background: url(image-path("v2/icon_videos_tabs.png")) no-repeat 50% 20% transparent
+          background: image-url("v2/icon_videos_tabs.png") no-repeat 50% 20% transparent
           border: 1px solid $grayblue
           width: 158px
           height: 123px
@@ -481,7 +481,7 @@ form, #content .site_column
             width: 158px
             height: 123px
             z-index: 3
-            background: url(image-path("v2/video_play.png")) no-repeat 50% 50% transparent
+            background: image-url("v2/video_play.png") no-repeat 50% 50% transparent
       form
         display: block
         clear: both
@@ -561,7 +561,7 @@ p.flag, span.flag
         text-indent: -8685px
         overflow: hidden
         width: 0
-        background: transparent url(image-path("v2/icon_stars.png")) 0 100% repeat-x
+        background: transparent image-url("v2/icon_stars.png") 0 100% repeat-x
 #worklist
   #task
     .rating, .average_rating
@@ -773,17 +773,11 @@ p.flag, span.flag
 #header
   .session
     img
-      +max_dimensions($logo_size_secondary, $logo_size_secondary)
-#collections_summary, #communities_summary, #curators_summary
-  ul
-    li
-      >a
-        >img
-          +max_dimensions($logo_size_secondary, $logo_size_secondary)
+      +set_dimensions($logo_size_secondary, $logo_size_secondary)
 #collection
   &.main_container
     .taxon>img
-      +max_dimensions($logo_size_standout, $logo_size_standout)
+      +set_dimensions($logo_size_standout, $logo_size_standout)
   .collections
     .article
       >.header
@@ -807,11 +801,11 @@ p.flag, span.flag
 #page_heading
   &.with_image, &.profile
     img
-      +max_dimensions($logo_size_standout, $logo_size_standout)
+      +set_dimensions($logo_size_standout, $logo_size_standout)
 #sidebar
   .collection_list, .collection_contributors, .content_partner_managers
     img
-      +max_dimensions($logo_size_tertiary, $logo_size_tertiary)
+      +set_dimensions($logo_size_tertiary, $logo_size_tertiary)
   .inat_top_contributors
     margin: 0 0 20px 0
     table
@@ -901,7 +895,7 @@ ul
   &.object_list
     li
       img
-        +max_dimensions($logo_size_primary, $logo_size_primary)
+        +set_dimensions($logo_size_primary, $logo_size_primary)
 form
   &.comment
     img
@@ -934,15 +928,6 @@ table.standard
   h2
     font-size: 1.3em
     margin: 2em 0 0.5em
-  input[type="text"]
-    // Sorry, not taking the time to find the right way to do this.
-    background-color: white
-    background-image: -moz-linear-gradient(100% 100% 90deg, white, $lightest_blue)
-    border: 1px solid $grayblue
-    font: 1em Helvetica,Arial,sans-serif
-    height: 22px
-    padding: 2px 5px
-    width: 248px
   ul
     border-top: 1px solid $nearly_black
   li img
@@ -1072,7 +1057,7 @@ a.other_actions
 
 .cms_page
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_info_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_info_tabs.png") 50% 50% no-repeat
 
 #taxon_maps #media_list
   padding: 0
@@ -1166,7 +1151,7 @@ body#prelaunch #footer ul.social_media
     tr.pending
       background-color: #ffeeee
     td.preferred
-      background: url(image-path("v2/icon_required.png")) 7px 1em no-repeat
+      background: image-url("v2/icon_required.png") 7px 1em no-repeat
     td.preferred_entry_selector
       width: 8%
     td.rank
@@ -1334,7 +1319,7 @@ table.classifications
     a
       color: #979
   td.excluded
-    background: url(image-path("v2/icon_excluded.png")) 7px 13px no-repeat
+    background: image-url("v2/icon_excluded.png") 7px 13px no-repeat
   td.untranslated
     color: #8b0000
   table.standard
@@ -1379,6 +1364,8 @@ table.classifications
 ul.tabs
   .end_section
     margin-bottom: 20px
+  .start_section
+    margin-top: 20px
 
 .main_container .empty.about
   text-align: left
@@ -1403,6 +1390,7 @@ ul.tabs
     margin: 0
 
 #content > .site_column > .add_content
+  clear: both
   margin: 3em 6em
   form.user_added_data
     fieldset.main
@@ -1438,6 +1426,7 @@ ul.tabs
     background-color: #f1f4dc
     border: 1px solid #ccd399
     padding: 3pt 8pt
+#content > .site_column
   #suggestions
     width: 360px
     height: 24em
@@ -1484,8 +1473,9 @@ ul.tabs
     @include info_item_with_background($size)
 
 @mixin info_item_with_background($size)
-  background: url(image-path("v2/icon_info_tabs.png")) ($size - 12.5px) ($size - 13px) no-repeat
+  background: image-url("v2/icon_info_tabs.png") ($size - 12.5px) ($size - 13px) no-repeat
   background-size: $size + px $size + px
+  display: inline-block
 
 #taxon_data, #data_comments
   position: relative
@@ -1494,6 +1484,8 @@ ul.tabs
     display: none
   table.data
     margin: 0px 0px 30px 0px
+    .info_icon
+      background: none
     tbody
       border-bottom: 1px solid $grayblue
       border-top: 1px solid $grayblue
@@ -1506,8 +1498,7 @@ ul.tabs
           width: 11px
           padding-left: 4px
         .info_icon
-          width: 18px
-          background: none
+          width: 20px
         th
           color: $darker_blue
           font-weight: normal
@@ -1515,20 +1506,16 @@ ul.tabs
           width: 203px
           vertical-align: top
           padding-top: 4pt
-          padding-right: 20px
-          .info_icon
-            position: absolute
-            left: 181px
         .info
           .close
             float: right
             height: 13px
             width: 13px
             text-decoration: none
-            background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+            background: $lightest_blue image-url("v2/icon_remove.png") 2px 2px no-repeat
             border: 1px solid $light_blue
             &:hover
-              background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+              background: #fff image-url("v2/icon_remove.png") 2px 2px no-repeat
           .uri
             font-size: 0.75em
             text-align: right
@@ -1541,26 +1528,20 @@ ul.tabs
             font-size: 0.75em
             margin: 0.75em 0.5em
             line-height: 1.5em
-        th.predicate
+        th.predicate, td.val
           .info_icon
-            float: right
-            &.active
+            &.def.active
               @include info_item_with_background(15)
-          &:hover
-            @include hover_info_icon(15)
-        td.val
-          .info_icon
-            &.active
-              @include info_item_with_background(14)
-          &:hover
+          &.def:hover
             .info_icon
-              @include hover_info_icon(14)
-        span.excluded
-          padding-left: 10px
-          background: url(image-path("v2/icon_excluded.png")) 0px 4px no-repeat
-        span.exemplar
-          padding-left: 10px
-          background: url(image-path("v2/icon_required.png")) 0px 4px no-repeat
+              @include hover_info_icon(15)
+          .stat
+            color: #93a4b0
+            font-size: 12px
+            &:before
+              content: '('
+            &:after
+              content: ')'
         td
           padding: 5px 7px 5px 0
           font-weight: 500
@@ -1664,17 +1645,6 @@ ul.tabs
       border-bottom: 1px solid $grayblue
       background-color: #f6f8fa
   table.data.search
-    tbody
-      tr
-        th
-          .info_icon
-            position: absolute
-            left: 412px
-      table.meta
-        tr th
-          .info_icon
-            position: absolute
-            left: 384px
     th
       width: 150px
     span.source
@@ -1695,7 +1665,7 @@ ul.tabs
         height: 50px
         float: left
         margin-right: 10px
-        background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat
+        background: $fieldset_light_blue image-url("v2/icon_taxa_tabs.png") 50% 50% no-repeat
         border: 1px solid $grayblue
         img
           width: 50px
@@ -1704,28 +1674,22 @@ ul.tabs
         margin-left: 10px
         line-height: 120%
   table.data table.meta
+    position: relative
     line-height: 90%
     width: 80%
     margin: 0px auto
     padding: 0px 0px 15px
+    .info_icon
+      width: 15px
+      margin-left: 4px
+      &.active
+        @include info_item_with_background(13)
+    &.def:hover
+      @include hover_info_icon(13)
     td
-      padding: 0px 5px !important
       width: 60%
-      .info_icon
-        float: none
-        display: inline-block
-        &.active
-          @include info_item_with_background(13)
-      &:hover
-        @include hover_info_icon(13)
     th
-      padding: 0 13px 0 0 !important
-      .info_icon
-        left: 303px
-        &.active
-          @include info_item_with_background(13)
-      &:hover
-        @include hover_info_icon(13)
+      padding: 0 !important
     caption
       text-align: center !important
       font-weight: bold
@@ -1745,6 +1709,32 @@ ul.tabs
       text-align: center
       width: 50%
       float: left
+
+// Helps position the (?) icon in various places. ...want to keep these together:
+table.categorized
+  th.predicate
+    .term
+      width: 164px
+    .info_icon
+      float: right
+  table.meta
+    th
+      .term
+        width: 219px
+      .info_icon
+        float: right
+table.search
+  th.predicate
+    .term
+      width: 148px
+    .info_icon
+      float: right
+  table.meta
+    th
+      .term
+        width: 279px
+      .info_icon
+        float: right
 
 .tip
   display: none
@@ -1778,19 +1768,19 @@ ul.tabs
       height: 13px
       width: 13px
       text-decoration: none
-      background: $lightest_blue url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+      background: $lightest_blue image-url("v2/icon_remove.png") 2px 2px no-repeat
       border: 1px solid $light_blue
-      &:hover
-        background: #fff url(image-path("v2/icon_remove.png")) 2px 2px no-repeat
+      &.def:hover
+        background: #fff image-url("v2/icon_remove.png") 2px 2px no-repeat
 .add_content
   .add_data
     margin-bottom: 1.2em
     a
       padding-left: 11px
-      background: #fff url(image-path("arrow_fold_right.png")) 0px 4px no-repeat
+      background: #fff image-url("arrow_fold_right.png") 0px 4px no-repeat
     a.open
       padding-left: 11px
-      background: #fff url(image-path("arrow_fold_down.png")) 0px 4px no-repeat
+      background: #fff image-url("arrow_fold_down.png") 0px 4px no-repeat
 
 // Sick and tired of the language drop-down being too narrow for some languages:
 #header
@@ -1815,16 +1805,24 @@ span.info
     overflow: hidden
     border-bottom: 1px solid $darker_blue
     margin-bottom: 10px
+    clear: both
     h3
       color: $darker_blue
       float: left
-      margin-left: 10px
       padding: 20px 0px 0px
       font-size: 3em
+    h2
+      color: $darker_blue
+      float: left
+      margin-left: 0px
+      padding: 0px
+      font-size: 1.5em
+      font-weight: normal
   ul.helpers
     float: right
     font-size: .9em
     width: 100%
+    margin-top: 8px
     a
       color: $darker_gray
       text-decoration: none
@@ -1838,15 +1836,14 @@ span.info
         display: none
     li + li
       border: 0px
-      border-right: 1px solid $darker_gray
-      margin-right: 10px
-      padding-right: 10px
-  li
-    margin-bottom: 16px
-.glossary li+li
+      &:after
+        color: $darker_gray
+        content: "\2022\0000a0"
+        margin: 0 5px 0 9px
+ul.glossary li+li
   border-top: 1px dotted $light_blue
   padding-top: 8px
-.glossary li, .info.tip
+ul.glossary li, .info.tip
   dt
     color: $darker_blue
     font-weight: normal
@@ -1871,6 +1868,18 @@ span.info
   .hint
     font-size: 0.8em
     line-height: 0.3em
+#known_uris.glossary ul.chapters
+  float: left
+  width: 50%
+  li
+    line-height: 20px
+    margin-left: 10px
+    margin-bottom: 0px
+    &.selected
+      font-weight: bold
+    a
+      color: inherit
+      text-decoration: none
 
 // Since the data search is full-width, the normal search needed this:
 .filtered_search
@@ -1899,7 +1908,7 @@ span.info
 .small_site_warning
   font-style: italic
   font-size: 0.87em
-  margin: 0 0 0.5em 0
+  margin: 0 1.5em .75em 1.5em
   color: $nearly_black
 
 textarea
@@ -1911,3 +1920,63 @@ textarea
       margin-left: 0
       li
         list-style-type: none
+ul.object_list, ul.ui-autocomplete
+  + .footer
+    border-top: 1px solid #394651
+    padding-top: 12px
+    margin: 0
+  li
+    padding: 10px
+    overflow: hidden
+    line-height: 160%
+    color: $lighter_text_color
+    & + li
+      border-top: 1px solid #d7dadc
+    .annotation
+      clear: both
+      padding-top: 5px
+      p
+        margin: 0 0 10px 0
+    span.icon
+      width: 68px
+      height: 68px
+      border: 1px solid $grayblue
+      float: left
+      margin: 0 20px 0 0
+    h4
+      margin-top: 15px
+      font-size: 1.2em
+      a
+        color: #28323a
+        text-decoration: none
+        &:hover
+          text-decoration: underline
+    img
+      float: right
+      border: 1px solid #394651
+    &.taxon
+      small
+        font-weight: bold
+        display: block
+        margin-top: 8px
+      h4
+        margin: 0
+      .alternate_name
+        .label
+          font-weight: bold
+
+ul.ui-autocomplete
+  li.taxon.ui-menu-item
+    font-size: .8em
+    img
+      +max_dimensions($logo_size_primary, $logo_size_primary)
+    small
+      margin-top: 4px
+    span.icon
+      margin: 0px 10px 0px 0px
+    h4
+      font-size: 1.4em
+      font-weight: normal
+    img
+      float: left
+      margin: 0px 10px 0px 0px

@@ -7,5 +7,5 @@
     %ul
       - @recently_visited_collections.each do |rvc|
         %li
-          = link_to image_tag(rvc.logo_url, :alt => ''), rvc
+          = link_to image_tag(rvc.logo_url, :alt => '', width: 35, height: 35), rvc
           %h4= link_to rvc.name, rvc

@@ -658,12 +658,6 @@ br:
   average_rating_value_of_total: "Emdroadur keitat :  %{rating} sur %{total}"
   back: Distreiñ
   back_to_profile: Distreiñ d'ar profil
-  background_processes_attribute_head: Perzh
-  background_processes_complete_head: Echuiñ ?
-  background_processes_created_head: Krouet
-  background_processes_download: pellgargañ
-  background_processes_is_not_complete: Ket
-  background_processes_query_head: Reked
   began: en deus kroget
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Gweladennit ar "Biodiversity Heritage Library"
@@ -940,7 +934,7 @@ br:
   content_partner_resource_hierarchy_not_browsable: Na c'haller ket furchal
   content_partner_resource_hierarchy_request_publish: Reked o c'hortoz
   content_partner_resource_hierarchy_unknown: Dianav
-  content_partner_resource_hierarchy_update_successful_notice: Hizivaet eo bat an urzhaz.
+  content_partner_resource_hierarchy_update_successful_notice: Hizivaet eo bet an urzhaz.
   content_partner_resource_hierarchy_update_unsuccessful_error: Digarezit, ur fazo zo bet, n'eo ket bet hizivaet an urzhaz.
   content_partner_resource_new_link: Ouzhpennañ ur mammenn nevez
   content_partner_resource_new_subheader: Ouzhpennañ ur mammenn nevez
@@ -1165,7 +1159,6 @@ br:
   did_you_mean: "C'hoant ho peus da lavaret : %{suggestions} ?"
   disabled_for_now: DIWEREDEKAET EVIT AR MARE
   discover_link: Dizoleiñ
-  donate: Ober un donezon
   donation_amount_legend: Dibabit ar sammad a fellfe deoc'h reiñ
   donation_amount_other_label: All
   donation_confirmation: Kadarnaat an donezon
@@ -1711,7 +1704,6 @@ br:
   known_uri_relationships: 
     deleted: Dilamet eo bet an darempred
   known_uris: 
-    relationships: Darempredoù
     select_a_category_to_view_stats: "Diuzañ ur rummad evit gwelet ar stadegoù :"
   label: Label
   language: "Yezh :"

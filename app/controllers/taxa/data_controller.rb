@@ -1,17 +1,22 @@
 class Taxa::DataController < TaxaController
 
+  helper DataSearchHelper # Because we include one of its partials.
+
   before_filter :restrict_to_data_viewers
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :load_data
   before_filter :load_glossary
   before_filter :add_page_view_log_entry
 
+  # GET /pages/:taxon_id/data/index
   def index
     @assistive_section_header = I18n.t(:assistive_data_header)
     @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
     @selected_data_point_uri_id = params.delete(:data_point_uri_id)
     @toc_id = params[:toc_id]
     @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
+    @querystring = ''
+    @sort = ''
     current_user.log_activity(:viewed_taxon_concept_data, taxon_concept_id: @taxon_concept.id)
     respond_to do |format|
       format.html {}
@@ -19,10 +24,19 @@ class Taxa::DataController < TaxaController
     end
   end
 
+  # GET /pages/:taxon_id/data/about
   def about
+    @toc_id = 'about'
   end
 
+  # GET /pages/:taxon_id/data/glossary
   def glossary
+    @toc_id = 'glossary'
+  end
+
+  # GET /pages/:taxon_id/data/ranges
+  def ranges
+    @toc_id = 'ranges'
   end
 
 protected
@@ -37,8 +51,11 @@ protected
   def load_data
     # Sad that we need to load all of this for the about and glossary tabs, but TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
+    @range_data = @taxon_data.ranges_of_values
     @data_point_uris = @taxon_page.data.get_data
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
+    @include_other_category = !@data_point_uris.empty? && (@data_point_uris.detect{ |d|
+      d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? })
   end
 
   def load_glossary
@@ -46,7 +63,7 @@ protected
       ( @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri) +
         @data_point_uris.select{ |dp| ! dp.object_known_uri.blank? }.collect(&:object_known_uri) +
         @data_point_uris.select{ |dp| ! dp.unit_of_measure_known_uri.blank? }.collect(&:unit_of_measure_known_uri)).compact.uniq
-      : nil
+      : []
   end
 
 end

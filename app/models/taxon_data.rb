@@ -5,6 +5,7 @@ class TaxonData < TaxonUserClassificationFilter
   extend EOL::Sparql::SafeConnection
 
   DEFAULT_PAGE_SIZE = 30
+  MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
 
   # TODO - this doesn't belong here; it has nothing to do with a taxon concept. Move to a DataSearch class. Fix the
   # controller.
@@ -51,22 +52,24 @@ class TaxonData < TaxonUserClassificationFilter
     options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
     options[:page] ||= 1
     if options[:only_count]
-      query = "SELECT COUNT(*) as ?count"
+      query = "SELECT COUNT(*) as ?count WHERE { "
+      query += "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
     else
       # this is strange, but in order to properly do sorts, limits, and offsets there should be a subquery
       # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
-      query = "SELECT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id WHERE { "
-      query += "SELECT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
+      query = "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id WHERE { "
+      query += "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
     end
     query += " WHERE {
       GRAPH ?graph {
         ?data_point_uri dwc:measurementType ?attribute .
         ?data_point_uri dwc:measurementValue ?value .
-        ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+        ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
         FILTER ( ?measurementOfTaxon = 'true' ) .
-        OPTIONAL {
-          ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri .
-        } . "
+        OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
+        OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+        OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
+        OPTIONAL { ?data_point_uri dwc:sex ?sex } . "
     # numerical range search term
     if options[:from] && options[:to]
       query += "FILTER(xsd:float(?value) >= xsd:float(#{options[:from]}) AND xsd:float(?value) <= xsd:float(#{options[:to]})) . "
@@ -76,7 +79,7 @@ class TaxonData < TaxonUserClassificationFilter
     # string search term
     elsif options[:querystring] && ! options[:querystring].strip.empty?
       matching_known_uris = KnownUri.search(options[:querystring])
-      query += "FILTER(( !isURI(?value) && REGEX(?value, '#{options[:querystring]}', 'i'))"
+      query += "FILTER(( REGEX(?value, '(^|\\\\W)#{options[:querystring]}(\\\\W|$)', 'i'))"
       unless matching_known_uris.empty?
         query << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
       end
@@ -92,14 +95,24 @@ class TaxonData < TaxonUserClassificationFilter
         ?taxon_id dwc:taxonConceptID ?taxon_concept_id
       } UNION {
         ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
-      } }"
+      }"
+    if options[:taxon_concept]
+      query += " .
+        ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{options[:taxon_concept].id}> .
+        ?t dwc:parentNameUsageID+ ?parent_taxon .
+        ?t dwc:taxonConceptID ?taxon_concept_id . ";
+    end
+    query += " }"
     unless options[:only_count]
       if options[:sort] == 'asc'
         query += " ORDER BY ASC(xsd:float(?value))"
       elsif options[:sort] == 'desc'
         query += " ORDER BY DESC(xsd:float(?value))"
       end
-      query += "} LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
+    end
+    query += "} "
+    unless options[:only_count]
+      query += " LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
     end
     return query
   end
@@ -124,8 +137,8 @@ class TaxonData < TaxonUserClassificationFilter
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
     if_connection_fails_return(nil) do
-      return @taxon_data_set if @taxon_data_set
-      taxon_data_set = TaxonDataSet.new(data, taxon_concept_id: taxon_concept.id, language: user.language)
+      return @taxon_data_set.dup if @taxon_data_set
+      taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept_id: taxon_concept.id, language: user.language)
       taxon_data_set.sort
       known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
       KnownUri.preload_associations(known_uris,
@@ -139,26 +152,53 @@ class TaxonData < TaxonUserClassificationFilter
 
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
   def get_data_for_overview
-    picker = TaxonDataExemplarPicker.new(self)
-    # TODO - why call/pass #get_data when we passed self above?
-    picker.pick(get_data)
+    picker = TaxonDataExemplarPicker.new(self).pick
   end
 
-  def data
+  def distinct_predicates
+    get_data.collect{ |d| d.predicate }.compact.uniq
+  end
+
+  def has_range_data
+    ! ranges_of_values.empty?
+  end
+
+  def ranges_of_values
+    return [] unless should_show_clade_range_data
+    results = EOL::Sparql.connection.query(prepare_range_query)
+    KnownUri.add_to_data(results)
+    results.each do |result|
+      [ :min, :max ].each do |m|
+        result[m] = result[m].value.to_f if result[m].is_a?(RDF::Literal)
+        result[m] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(result).merge(object: result[m]))
+        result[m].convert_units
+      end
+    end
+    results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
+  end
+
+  def ranges_for_overview
+    ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
+  end
+
+  private
+
+  def raw_data
     (measurement_data + association_data).delete_if { |k,v| k[:attribute].blank? }
   end
 
   def measurement_data(options = {})
-    selects = "?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
+    selects = "?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
     query = "
       SELECT DISTINCT #{selects}
       WHERE {
         GRAPH ?graph {
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value .
-          OPTIONAL {
-            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
-          }
+          OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
+          OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+          OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
+          OPTIONAL { ?data_point_uri dwc:sex ?sex }
         } .
         {
           ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
@@ -167,7 +207,7 @@ class TaxonData < TaxonUserClassificationFilter
         UNION {
           ?data_point_uri dwc:occurrenceID ?occurrence .
           ?occurrence dwc:taxonID ?taxon .
-          ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
           FILTER ( ?measurementOfTaxon = 'true' ) .
           GRAPH ?resource_mappings_graph {
             ?taxon dwc:taxonConceptID ?taxon_concept_id .
@@ -194,14 +234,14 @@ class TaxonData < TaxonUserClassificationFilter
           ?target_occurrence dwc:taxonID ?value .
           {
             ?data_point_uri dwc:occurrenceID ?occurrence .
-            ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?target_occurrence .
-            ?data_point_uri <#{Rails.configuration.uri_association_type}> ?attribute
+            ?data_point_uri eol:targetOccurrenceID ?target_occurrence .
+            ?data_point_uri eol:associationType ?attribute
           }
           UNION
           {
             ?data_point_uri dwc:occurrenceID ?target_occurrence .
-            ?data_point_uri <#{Rails.configuration.uri_target_occurence}> ?occurrence .
-            ?data_point_uri <#{Rails.configuration.uri_association_type}> ?inverse_attribute
+            ?data_point_uri eol:targetOccurrenceID ?occurrence .
+            ?data_point_uri eol:associationType ?inverse_attribute
           }
         } .
         OPTIONAL {
@@ -212,6 +252,34 @@ class TaxonData < TaxonUserClassificationFilter
       }
       LIMIT 800"
     EOL::Sparql.connection.query(query)
+  end
+
+  def prepare_range_query(options = {})
+    query = "
+      SELECT ?attribute, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
+        COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
+        MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
+      WHERE {
+        ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+        ?t dwc:parentNameUsageID+ ?parent_taxon .
+        ?t dwc:taxonConceptID ?descendant_concept_id .
+        OPTIONAL {
+          ?occurrence dwc:taxonID ?taxon .
+          ?taxon dwc:taxonConceptID ?descendant_concept_id .
+          ?data_point_uri dwc:occurrenceID ?occurrence .
+          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
+          FILTER ( ?measurementOfTaxon = 'true' ) .
+          ?data_point_uri dwc:measurementType ?attribute .
+          ?data_point_uri dwc:measurementValue ?value .
+          OPTIONAL {
+            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
+          }
+        } .
+        FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
+      }
+      GROUP BY ?attribute ?unit_of_measure_uri
+      ORDER BY DESC(?min)"
+    query
   end
 
 end

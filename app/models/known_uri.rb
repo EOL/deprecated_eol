@@ -12,6 +12,7 @@ class KnownUri < ActiveRecord::Base
   GRAPH_NAME = Rails.configuration.known_uri_graph
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
+  extend EOL::LocalCacheable
   include EOL::CuratableAssociation
 
   include Enumerated
@@ -33,8 +34,8 @@ class KnownUri < ActiveRecord::Base
     { celsius:     Rails.configuration.uri_obo + 'UO_0000027'},
     { days:        Rails.configuration.uri_obo + 'UO_0000033'},
     { years:       Rails.configuration.uri_obo + 'UO_0000036'},
-    { tenth_c:     Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius'},
-    { log10_grams: Rails.configuration.schema_terms_prefix + 'log10gram'}
+    { tenth_c:     Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius'},
+    { log10_grams: Rails.configuration.uri_term_prefix + 'log10gram'}
   ]
 
   acts_as_list
@@ -59,7 +60,8 @@ class KnownUri < ActiveRecord::Base
   attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
     :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :uri_type, :uri_type_id,
     :translations, :exclude_from_exemplars, :name, :known_uri_relationships_as_subject, :attribution,
-    :ontology_information_url, :ontology_source_url, :position, :exemplar_for_same_as
+    :ontology_information_url, :ontology_source_url, :position, :group_by_clade, :clade_exemplar,
+    :exemplar_for_same_as, :value_is_text
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -88,15 +90,14 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000033', name: 'days' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' },
-                  { uri: Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
-                  { uri: Rails.configuration.schema_terms_prefix + 'log10gram', name: 'log10 grams' } ]
+                  { uri: Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
+                  { uri: Rails.configuration.uri_term_prefix + 'log10gram', name: 'log10 grams' } ]
 
   # This gets called a LOT.  ...Like... a *lot* a lot. But...
-  # DO NOT make a class variable for this because we will need to flush the cache frequently as we
-  # add/remove accepted values for UnitOfMeasure. We need to keep it in a central cache, rather than
-  # in a class variable on each app server
+  # DO NOT make a class variable and forget about it. We will need to flush the cache frequently as we
+  # add/remove accepted values for UnitOfMeasure. Use the cached_with_local_timeout method
   def self.unit_of_measure
-    cached('unit_of_measure') do
+    cached_with_local_timeout('unit_of_measure') do
       KnownUri.where(uri: Rails.configuration.uri_measurement_unit).includes({ known_uri_relationships_as_subject: :to_known_uri } ).first
     end
   end
@@ -121,14 +122,29 @@ class KnownUri < ActiveRecord::Base
   def self.add_to_data(rows)
     known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
-      { known_uri_relationships_as_target: :from_known_uri } ])
+      { known_uri_relationships_as_target: :from_known_uri }, :toc_items ])
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
       replace_with_uri(row, :unit_of_measure_uri, known_uris)
+      replace_with_uri(row, :statistical_method, known_uris)
+      replace_with_uri(row, :sex, known_uris)
+      replace_with_uri(row, :life_stage, known_uris)
       if row[:attribute].to_s == Rails.configuration.uri_association_type && taxon_id = taxon_concept_id(row[:value])
         row[:target_taxon_concept_id] = taxon_id
       end
+    end
+  end
+
+  def self.uris_for_clade_aggregation
+    cached('uris_for_clade_aggregation') do
+      KnownUri.where(group_by_clade: true).collect(&:uri)
+    end
+  end
+
+  def self.uris_for_clade_exemplars
+    cached('uris_for_clade_exemplars') do
+      KnownUri.where(clade_exemplar: true).collect(&:uri)
     end
   end
 
@@ -149,6 +165,10 @@ class KnownUri < ActiveRecord::Base
 
   def has_units?
     ! allowed_units.empty?
+  end
+
+  def value?
+    uri_type_id == UriType.value.id
   end
 
   def unknown?

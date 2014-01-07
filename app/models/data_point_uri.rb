@@ -28,7 +28,10 @@ class DataPointUri < ActiveRecord::Base
   has_many :all_comments, class_name: Comment.to_s, through: :all_versions, primary_key: :uri, source: :comments
   has_many :taxon_data_exemplars
 
-  attr_accessor :metadata
+  attr_accessor :metadata, :references,
+    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
+    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
+    :sex, :sex_known_uri, :sex_known_uri_id
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
     # There are potentially hundreds or thousands of DataPointUri inserts happening here.
@@ -83,7 +86,10 @@ class DataPointUri < ActiveRecord::Base
     virtuoso_to_data_point_mapping = {
       attribute: :predicate,
       unit_of_measure_uri: :unit_of_measure,
-      value: :object }
+      value: :object,
+      statistical_method: :statistical_method,
+      life_stage: :life_stage,
+      sex: :sex }
     virtuoso_to_data_point_mapping.each do |virtuoso_response_key, data_point_uri_key|
       next if row[virtuoso_response_key].blank?
       # this requires that
@@ -197,7 +203,7 @@ class DataPointUri < ActiveRecord::Base
             ?parent_uri dwc:occurrenceID ?occurrence .
             ?occurrence ?attribute ?value .
           } UNION {
-            ?measurement <#{Rails.configuration.uri_parent_measurement_id}> ?parent_uri .
+            ?measurement eol:parentMeasurementID ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
@@ -206,11 +212,11 @@ class DataPointUri < ActiveRecord::Base
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
-            OPTIONAL { ?measurement <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon } .
+            OPTIONAL { ?measurement eol:measurementOfTaxon ?measurementOfTaxon } .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
             FILTER (?measurementOfTaxon != 'true')
           } UNION {
-            ?measurement <#{Rails.configuration.uri_association_id}> ?parent_uri .
+            ?measurement eol:associationID ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
@@ -220,10 +226,10 @@ class DataPointUri < ActiveRecord::Base
             ?event ?attribute ?value .
           }
           FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
-                                     dwc:measurementID, <#{Rails.configuration.uri_reference_id}>,
-                                     <#{Rails.configuration.uri_target_occurence}>, dwc:taxonID, dwc:eventID,
-                                     <#{Rails.configuration.uri_association_type}>,
-                                     dwc:measurementUnit, dwc:occurrenceID, <#{Rails.configuration.uri_measurement_of_taxon}>)
+                                     dwc:measurementID, eol:referenceID,
+                                     eol:targetOccurrenceID, dwc:taxonID, dwc:eventID,
+                                     eol:associationType,
+                                     dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
                   ) .
           FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
         }
@@ -253,7 +259,7 @@ class DataPointUri < ActiveRecord::Base
             ?data_point_uri dwc:occurrenceID ?occurrence .
             ?data_point_uri dwc:measurementType ?attribute .
             ?data_point_uri dwc:measurementValue ?value .
-            ?data_point_uri <#{Rails.configuration.uri_measurement_of_taxon}> ?measurementOfTaxon .
+            ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
             ?occurrence dwc:taxonID ?taxon_id .
             FILTER ( ?measurementOfTaxon = 'true' ) .
             OPTIONAL {
@@ -269,27 +275,43 @@ class DataPointUri < ActiveRecord::Base
     TaxonDataSet.new(occurrence_measurement_rows, preload: false)
   end
 
+  def get_references(language)
+    DataPointUri.assign_references(self, language)
+    references
+  end
+
+  def self.assign_bulk_references(data_point_uris, language)
+    data_point_uris.each_slice(1000){ |d| assign_references(d, language) }
+  end
+
   # NOTE - User-added data references aren't added with these URIs and therefore don't get "seen" by this method.
   # TODO - (low priority) fix that; we should get user-added references.
-  def get_references(language)
+  def self.assign_references(data_point_uris, language)
+    data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
+    uris_to_lookup = data_point_uris.select{ |d| d.references.nil? }.collect(&:uri)
+    return if uris_to_lookup.empty?
     options = []
     # TODO - no need to keep rebuilding this, put it in a class variable.
     Rails.configuration.optional_reference_uris.each do |var, url|
       options << "OPTIONAL { ?reference <#{url}> ?#{var} } ."
     end
     query = "
-      SELECT DISTINCT ?identifier ?publicationType ?full_reference ?primaryTitle ?title ?pages ?pageStart ?pageEnd
+      SELECT DISTINCT ?parent_uri ?identifier ?publicationType ?full_reference ?primaryTitle ?title ?pages ?pageStart ?pageEnd
          ?volume ?edition ?publisher ?authorList ?editorList ?created ?language ?uri ?doi ?localityName
       WHERE {
         GRAPH ?graph {
           {
-            <#{uri}> <#{Rails.configuration.uri_reference_id}> ?reference .
-            ?reference a <#{Rails.configuration.uri_reference}>
+            ?parent_uri eolreference:referenceID ?reference .
+            ?reference a eolreference:Reference
             #{options.join("\n")}
+            FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
           }
         }
       }"
-    EOL::Sparql.connection.query(query)
+    reference_rows = EOL::Sparql.connection.query(query)
+    data_point_uris.each do |d|
+      d.references = reference_rows.select{ |row| row[:parent_uri] == d.uri }
+    end
   end
 
   def show(user)
@@ -330,7 +352,8 @@ class DataPointUri < ActiveRecord::Base
       return false
     end
     DataPointUri.conversions.select{ |c| c[:starting_units].include?(unit_known_uri.uri) }.each do |c|
-      potential_new_value = c[:function].call(self.object.to_f)
+      current_value = self.object.is_a?(RDF::Literal) ? self.object.value.to_f : self.object.to_f
+      potential_new_value = c[:function].call(current_value)
       next if c[:required_minimum] && potential_new_value < c[:required_minimum]
       self.original_unit_of_measure = unit_of_measure
       self.original_unit_of_measure_known_uri = unit_of_measure_known_uri
@@ -361,19 +384,16 @@ class DataPointUri < ActiveRecord::Base
   # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
   # this model class.
   def to_hash(language = Language.default, options = {})
-    tc = options[:taxa] && options[:taxa].map(&:id).include?(taxon_concept_id) ?
-      options[:taxa].detect { |tc| tc.id == taxon_concept_id } : # Yay! They cached it for us.
-      taxon_concept # Load it. This will be painful.
-    hash = if tc
+    hash = if taxon_concept
              {
       # Taxon Concept ID:
       I18n.t(:data_column_tc_id) => taxon_concept_id,
       # WAIT - # Some classification context (stealing from search for now):
       # WAIT - I18n.t(:data_column_classification_summary) => taxon_concept.entry.preferred_classification_summary,
       # Scientific Name:
-      I18n.t(:data_column_sci_name) => tc.nil? ? '' : tc.title_canonical,
+      I18n.t(:data_column_sci_name) => taxon_concept.nil? ? '' : taxon_concept.title_canonical,
       # Common Name:
-      I18n.t(:data_column_common_name) => tc.nil? ? '' : tc.preferred_common_name_in_language(language)
+      I18n.t(:data_column_common_name) => taxon_concept.nil? ? '' : taxon_concept.preferred_common_name_in_language(language)
              }
            else
              {}
@@ -401,7 +421,7 @@ class DataPointUri < ActiveRecord::Base
       hash[I18n.t(:data_column_resource)] =
         # Ewww. TODO - as I say at the start of the method, this really belongs in a view:
         Rails.application.routes.url_helpers.content_partner_resource_url(resource.content_partner, resource,
-                                                                          host: options[:host])
+                                                                          host: $SITE_DOMAIN_OR_IP)
     end
     metadata = get_metadata(language)
     unless metadata.empty?
@@ -478,8 +498,13 @@ class DataPointUri < ActiveRecord::Base
     taxon_data_exemplars.select(&:excluded?).any?
   end
 
+  # Sort by: position of known_uri, rules of exclusion, and finally value display string
   def <=>(other)
-    if included? && ! other.included?
+    this_position = predicate_known_uri ? (1.0 / predicate_known_uri.position) : 0
+    other_position = other.predicate_known_uri ? (1.0 / other.predicate_known_uri.position) : 0
+    if this_position != other_position
+      other_position <=> this_position
+    elsif included? && ! other.included?
       -1
     elsif other.included? && ! included?
       1
@@ -488,10 +513,34 @@ class DataPointUri < ActiveRecord::Base
     elsif other.excluded? && ! excluded?
       -1
     else
-      # TODO - really, this should sort on the predicate first, value second. ...We never need that, but it still violates
-      # principle of least surprise:
-      value_uri_or_blank <=> other.value_uri_or_blank
+      value_string <=> other.value_string
     end
+  end
+
+  # Grouping the results by combination of predicate and statistical method
+  def grouping_factors
+    group_by = [ predicate_known_uri || predicate_uri ]
+    # group_by << statistical_method_label if statistical_method_label
+    group_by
+  end
+
+  def statistical_method_label
+    return statistical_method_known_uri.label if statistical_method_known_uri
+    return statistical_method if statistical_method && !EOL::Sparql.is_uri?(statistical_method)
+  end
+
+  def life_stage_label
+    return life_stage_known_uri.label if life_stage_known_uri
+    return life_stage if life_stage && !EOL::Sparql.is_uri?(life_stage)
+  end
+
+  def sex_label
+    return sex_known_uri.label if sex_known_uri
+    return sex if sex && !EOL::Sparql.is_uri?(sex)
+  end
+
+  def context_labels
+    return [ life_stage_label, sex_label ].compact
   end
 
 private
@@ -547,13 +596,13 @@ private
         ending_unit:      KnownUri.years.uri,
         function:         lambda { |v| v / 365 },
         required_minimum: 1.0 },
-      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'onetenthdegreescelsius' ],
+      { starting_units:   [ Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius' ],
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v / 10 } },
-      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'log10gram' ],
+      { starting_units:   [ Rails.configuration.uri_term_prefix + 'log10gram' ],
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| 10 ** v } },
-      { starting_units:   [ Rails.configuration.schema_terms_prefix + 'squareMicrometer' ],
+      { starting_units:   [ Rails.configuration.uri_term_prefix + 'squareMicrometer' ],
         ending_unit:      Rails.configuration.uri_obo + 'UO_0000082',                   # square millimeter
         function:         lambda { |v| v / 1000000 },
         required_minimum: 1.0 },
@@ -566,7 +615,7 @@ private
         function:         lambda { |v| v / 10000 },
         required_minimum: 1.0 },
       { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000080' ],               # square meter
-        ending_unit:      Rails.configuration.schema_terms_prefix + 'squarekilometer',  # square kilometer
+        ending_unit:      Rails.configuration.uri_term_prefix + 'squarekilometer',  # square kilometer
         function:         lambda { |v| v / 1000000 },
         required_minimum: 1.0 }
     ]

@@ -7,7 +7,6 @@ class DataGlossaryController < ApplicationController
   # GET /data_glossary
   def show
     @page_title = I18n.t(:data_glossary)
-    @known_uris = KnownUri.all.delete_if { |ku| ku.name.blank? }
   end
 
 end

@@ -734,6 +734,32 @@ describe TaxonConcept do
     tc.outlinks.detect{ |o| o[:outlink_url] == 'http://eol.org/' }.should_not be_nil
   end
 
+  it 'should know what is a species_or_below?' do
+    # HE.rank_id cannot be NULL
+    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0')).species_or_below?).to eq(false)
+    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'genus'))).species_or_below?).to eq(false)
+    # there are lots of ranks which are considered species or below
+    expect(Rank.italicized_labels.length).to be >= 60
+    Rank.italicized_labels[0..5].each do |rank_label|
+      clear_rank_caches
+      expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: rank_label))).species_or_below?).to eq(true)
+    end
+  end
+
+  it 'should know when to should_show_clade_range_data' do
+    # has some descendants, but not too many
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc.should_receive(:number_of_descendants).and_return(100)
+    expect(tc.should_show_clade_range_data).to eq(true)
+    # has a right amount descendants, but is a species or below
+    clear_rank_caches
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'species')))
+    expect(tc.should_show_clade_range_data).to eq(false)
+    # has too many descendants
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc.should_receive(:number_of_descendants).and_return(TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES + 1)
+    expect(tc.should_show_clade_range_data).to eq(false)
+  end
 
   describe '#split_classifications' do
 

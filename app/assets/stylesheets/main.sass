@@ -33,7 +33,7 @@ $light_grey: #ccc
   display: block
 
 body
-  background: white url(image-path("bg_body.gif")) center top repeat-y
+  background: white image-url("bg_body.gif") center top repeat-y
   font: 12px / 18px Arial, Helvetica, sans-serif
   color: #333333
 
@@ -104,7 +104,7 @@ h2
   height: 90px
   padding-top: 21px
   z-index: 999
-  background: url(image-path("bg_header.gif")) left top repeat-x
+  background: image-url("bg_header.gif") left top repeat-x
   h1
     float: left
     a
@@ -119,7 +119,7 @@ h2
         top: 0
         width: 100%
         height: 100%
-        background: url(image-path("eol_logo_header.png")) left top no-repeat
+        background: image-url("eol_logo_header.png") left top no-repeat
   #personal-space
     padding: 8px 0 0 10px
     width: 310px
@@ -162,10 +162,10 @@ ul#global-navigation
       text-decoration: none
       &.dropdown
         padding-right: 14px
-        background: url(image-path("m_gn_dropdown.gif")) right top no-repeat
+        background: image-url("m_gn_dropdown.gif") right top no-repeat
   ul li a.dropdown:active
     padding-right: 14px
-    background: white url(image-path("m_gn_dropdown_hover.gif")) right top no-repeat
+    background: white image-url("m_gn_dropdown_hover.gif") right top no-repeat
     color: black
   li
     ul
@@ -198,7 +198,7 @@ ul#global-navigation
         text-transform: uppercase
       li a
         &:hover
-          background: url(image-path("bg_gn_dropdown.gif")) left top no-repeat
+          background: image-url("bg_gn_dropdown.gif") left top no-repeat
           width: 158px
         em
           position: absolute
@@ -271,7 +271,7 @@ ul#global-navigation
 
 .page-separator
   height: 18px
-  background-image: url(image-path("bg_page_title-white.gif"))
+  background-image: image-url("bg_page_title-white.gif")
   background-repeat: repeat-x
 
 @mixin seperator-template($color)
@@ -398,7 +398,7 @@ div.number_of_active_curators, div.total_number_of_curators
   position: relative
   width: 982px
   height: 435px
-  background: url(image-path("bg_media_center.gif")) left top repeat-x
+  background: image-url("bg_media_center.gif") left top repeat-x
   z-index: 1000
 
 div#media-videos
@@ -454,15 +454,15 @@ ul#tab_media_center
         height: 100%
         background: white
     &#image a span
-      background: url(image-path("mc_nav_images.gif")) left top no-repeat
+      background: image-url("mc_nav_images.gif") left top no-repeat
     &#sounds a span
-      background: url(image-path("mc_nav_sounds.gif")) left top no-repeat
+      background: image-url("mc_nav_sounds.gif") left top no-repeat
     &#maps a span
-      background: url(image-path("mc_nav_maps.gif")) left top no-repeat
+      background: image-url("mc_nav_maps.gif") left top no-repeat
     &#videos a span
-      background: url(image-path("mc_nav_videos.gif")) left top no-repeat
+      background: image-url("mc_nav_videos.gif") left top no-repeat
     &#taxa-comments a span
-      background: url(image-path("mc_nav_comments.gif")) left top no-repeat
+      background: image-url("mc_nav_comments.gif") left top no-repeat
     &#image a:hover span, &#sounds a:hover span, &#maps a:hover span, &#videos a:hover span, &#taxa-comments a:hover span
       background-position: left -30px
     &#image a.active span, &#sounds a.active span, &#maps a.active span, &#videos a.active span, &#taxa-comments a.active span
@@ -513,7 +513,7 @@ ul#tab_media_center
             top: 0
             width: 100%
             height: 100%
-            background: #99cc00 url(image-path("bg_contribute.gif")) center top no-repeat
+            background: #99cc00 image-url("bg_contribute.gif") center top no-repeat
       select
         margin: 7px 0 7px 7px
         width: 207px
@@ -529,7 +529,7 @@ ul#tab_media_center
       height: 48px
       background-color: #f4f4f4
       &.selected, &:hover
-        background: url(image-path("bg_thumbs.gif")) left top no-repeat
+        background: image-url("bg_thumbs.gif") left top no-repeat
       img
         padding: 0
         margin: 0
@@ -549,7 +549,7 @@ ul#tab_media_center
   width: 210px
   height: 21px
   border-bottom: 1px solid #cccccc
-  background: white url(image-path("bg_mc_navigation.gif")) center top no-repeat
+  background: white image-url("bg_mc_navigation.gif") center top no-repeat
   &.no-pagination
     background: none
   span
@@ -570,7 +570,7 @@ ul#tab_media_center
     padding-left: 15px
     width: 50px
     text-align: left
-    background: url(image-path("arrow_left.gif")) 7px 5px no-repeat
+    background: image-url("arrow_left.gif") 7px 5px no-repeat
   & #noback
     float: left
     padding-left: 15px
@@ -588,7 +588,7 @@ ul#tab_media_center
     padding-right: 15px
     width: 55px
     text-align: right
-    background: url(image-path("arrow_right.gif")) 60px 5px no-repeat
+    background: image-url("arrow_right.gif") 60px 5px no-repeat
 
 @mixin text-warning-box($border, $background)
   margin-bottom: 1em
@@ -877,7 +877,7 @@ ul#tab_taxonomic_browser
   border: 0
   margin: 5px
   padding: 0
-  background: url(image-path("bg.gif")) top
+  background: image-url("bg.gif") top
   font-size: 12px
   overflow: auto
 
@@ -943,7 +943,7 @@ li.current_kingdom
   line-height: 345px
   text-align: center
   overflow: auto
-  background-image: url(image-path("eol_logo_gray.gif"))
+  background-image: image-url("eol_logo_gray.gif")
   background-position: center
   background-repeat: no-repeat
 
@@ -988,9 +988,9 @@ li.current_kingdom
     border-top: 5px solid #e6e7e8
     padding-bottom: 10px
   #page-content-bgfauxinside
-    background-image: url(image-path("faux_columns_no_rt.gif"))
+    background-image: image-url("faux_columns_no_rt.gif")
   #page-content-bgfaux
-    background: white url(image-path("page_content_bgfaux.gif")) center top repeat-y
+    background: white image-url("page_content_bgfaux.gif") center top repeat-y
     clear: both
   #page-content
     form
@@ -1199,7 +1199,7 @@ ul
         line-height: 21px
         color: #959595
         text-decoration: none
-        background: url(image-path("toc.gif")) 20px 1px no-repeat
+        background: image-url("toc.gif") 20px 1px no-repeat
         &.bold
           font-weight: 700
       &.nested
@@ -1208,13 +1208,13 @@ ul
       font-weight: bold
 
 .add_text_button
-  background: url(image-path("icons/dual-states/add-text.png")) 0px 0px no-repeat
+  background: image-url("icons/dual-states/add-text.png") 0px 0px no-repeat
   width: 20px
   height: 22px
   float: right
   padding-right: 7px
   &:hover
-    background: url(image-path("icons/dual-states/add-text.png")) 0px -32px no-repeat
+    background: image-url("icons/dual-states/add-text.png") 0px -32px no-repeat
 
 ul#toc li.add_text
   height: 24px
@@ -1237,7 +1237,7 @@ ul#toc li
     &:hover, &.active
       text-decoration: none
       color: #666666
-      background: url(image-path("toc_hover.gif")) 20px 1px no-repeat
+      background: image-url("toc_hover.gif") 20px 1px no-repeat
   &.li-sub a
     width: 190px
     display: block
@@ -1495,11 +1495,11 @@ label
 
 input.invalid
   border-color: #b00000
-  background: #fff3f3 url(image-path("stop.png")) no-repeat 98% 50%
+  background: #fff3f3 image-url("stop.png") no-repeat 98% 50%
 
 textarea.invalid
   border-color: #b00000
-  background: #fff3f3 url(image-path("stop.png")) no-repeat 100% 0
+  background: #fff3f3 image-url("stop.png") no-repeat 100% 0
 
 fieldset.warn
   border-color: #555555
@@ -1594,7 +1594,7 @@ input.warn, textarea.warn
   margin-left: auto
   margin-right: auto
   margin-bottom: 20px
-  background: white url(image-path("homepage/faux_columns.gif")) repeat-y 50% 0
+  background: white image-url("homepage/faux_columns.gif") repeat-y 50% 0
 
 #home-center-content
   padding: 10px
@@ -1628,14 +1628,14 @@ input.warn, textarea.warn
     margin-right: 10px
 
 .bulletlist
-  list-style-image: url(image-path("homepage/bullet_icon.gif")) !important
+  list-style-image: image-url("homepage/bullet_icon.gif") !important
   margin: 20px 0 0 30px
   padding: 0
   &.strong
     font-weight: bold
 
 #home-content-wrap .helplist
-  list-style-image: url(image-path("homepage/bullet_icon.gif"))
+  list-style-image: image-url("homepage/bullet_icon.gif")
   margin: 20px 0 0 30px
   padding: 0
 
@@ -1848,13 +1848,13 @@ li
     width: 22px
     display: inline-block
   &.unpublished_icon
-    background-image: url(image-path("icons/unpublished.png"))
+    background-image: image-url("icons/unpublished.png")
   &.published_icon
-    background-image: url(image-path("icons/published.png"))
+    background-image: image-url("icons/published.png")
   &.inappropriate_icon
-    background-image: url(image-path("icons/inappropriate.png"))
+    background-image: image-url("icons/inappropriate.png")
   &.invisible_icon
-    background-image: url(image-path("icons/invisible.png"))
+    background-image: image-url("icons/invisible.png")
 
 #media-images #large-image #large-image-buttons #right-image-buttons
   float: right
@@ -2060,27 +2060,27 @@ div.text_curation_close
 .comment-button-image
   position: relative
   float: left
-  background: transparent url(image-path("icons/icons.gif")) no-repeat -72px 0px
+  background: transparent image-url("icons/icons.gif") no-repeat -72px 0px
   &:hover
-    background: transparent url(image-path("icons/icons.gif")) no-repeat -72px -32px
+    background: transparent image-url("icons/icons.gif") no-repeat -72px -32px
 
 .comment-button-image a
   text-decoration: none
 
 .curate-button-image
-  background: transparent url(image-path("icons/icons.gif")) no-repeat -23px 0px
+  background: transparent image-url("icons/icons.gif") no-repeat -23px 0px
   &:hover
-    background: transparent url(image-path("icons/icons.gif")) no-repeat -23px -32px
+    background: transparent image-url("icons/icons.gif") no-repeat -23px -32px
 
 .thumbs-up-image
-  background: transparent url(image-path("icons/dual-states/thumbs_up.png")) no-repeat 0px 0px
+  background: transparent image-url("icons/dual-states/thumbs_up.png") no-repeat 0px 0px
   &:hover
-    background: transparent url(image-path("icons/dual-states/thumbs_up.png")) no-repeat 0px -32px
+    background: transparent image-url("icons/dual-states/thumbs_up.png") no-repeat 0px -32px
 
 .thumbs-down-image
-  background: transparent url(image-path("icons/dual-states/thumbs_down.png")) no-repeat 0px 0px
+  background: transparent image-url("icons/dual-states/thumbs_down.png") no-repeat 0px 0px
   &:hover
-    background: transparent url(image-path("icons/dual-states/thumbs_down.png")) no-repeat 0px -32px
+    background: transparent image-url("icons/dual-states/thumbs_down.png") no-repeat 0px -32px
 
 #image-ratings
   display: none

@@ -15,6 +15,8 @@ describe 'taxa/data/index' do
     assign(:categories, TocItem.for_uris(Language.english).select{ |toc| @taxon_page.data.categories.include?(toc) })
     assign(:toc_id, nil)
     assign(:supress_disclaimer, true)
+    assign(:range_data, [])
+    assign(:glossary_terms, [])
   end
 
   before(:all) do

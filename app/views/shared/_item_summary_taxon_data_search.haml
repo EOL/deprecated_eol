@@ -6,7 +6,7 @@
   - if image = taxon_concept.exemplar_or_best_image_from_solr
     - if thumb = image.thumb_or_object('88_88')
       %span.icon
-        = link_to image_tag(thumb), taxon_link
+        = link_to image_tag(thumb, width: 68, height: 68), taxon_link
   - else
     = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), taxon_link, :class => 'icon'
   - if taxon_concept.entry and taxon_concept.entry.respond_to?(:preferred_classification_summary)

@@ -1247,7 +1247,6 @@ it:
   details_title: Dettagli
   development_version_name: EOL V2 Beta
   did_you_mean: "Forse intendevi: %{suggestions} ?"
-  donate: Fai una donazione
   donation_amount_legend: Scegli l'importo che vuoi donare
   donation_amount_other_label: Altro
   donation_confirmation: Conferma donazione
@@ -1774,6 +1773,7 @@ it:
   leave_a_comment: Lascia un commento
   leave_community_button: Lascia questa comunità
   leave_reply: Lascia una risposta
+  legend: "Legenda:"
   license: Licenza
   license_all_rights_reserved: Tutti i diritti riservati.
   license_cc_by: Creative Commons Attribuzione (CC BY)

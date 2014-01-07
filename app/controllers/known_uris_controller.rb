@@ -21,8 +21,8 @@ class KnownUrisController < ApplicationController
       @uri_type ||= params.has_key?(:uri_type_id) ? UriType.find(params[:uri_type_id]) : UriType.measurement
       wheres[:uri_type_id] = @uri_type.id
     end
-    @known_uris = KnownUri.includes([:uri_type, :toc_items, :translated_known_uris]).where(wheres).
-      paginate(page: params[:page], order: 'position', per_page: 500)
+    @known_uris = KnownUri.includes([:uri_type, :toc_items, :translated_known_uris, known_uri_relationships_as_subject: :to_known_uri]).where(wheres).
+      paginate(page: params[:page], order: 'known_uris.position', per_page: 500)
     respond_to do |format|
       format.html do
       end
@@ -200,7 +200,7 @@ class KnownUrisController < ApplicationController
   # is a term, so do a basic search and filter on measurement type
   def autocomplete_known_uri_predicates
     @known_uris = search_known_uris_by_name_or_uri(params[:term])
-    @known_uris.delete_if{ |ku| ku.uri_type_id != UriType.measurement.id }
+    @known_uris.delete_if{ |ku| ku.uri_type_id != UriType.measurement.id || ! EOL::Sparql.connection.all_measurement_type_known_uris.include?(ku) }
     render_autocomplete_results
   end
 
@@ -243,16 +243,18 @@ class KnownUrisController < ApplicationController
   # specified values as a pick list. Only autocomplete within values specified for the predicate
   def autocomplete_known_uri_values
     lookup_predicate
-    if @predicate
-      if params[:term].strip.blank?
-        if @predicate && @predicate.has_values?
-          @known_uris = @predicate.allowed_values.select{ |ku| ku.visible? }
-        else
-          @known_uris = []
-        end
+    if params[:term].blank? || params[:term].strip.blank?
+      if @predicate && @predicate.has_values?
+        @known_uris = @predicate.allowed_values.select{ |ku| ku.visible? }
       else
-        @known_uris = search_known_uris_by_name_or_uri(params[:term])
+        @known_uris = []
+      end
+    else
+      @known_uris = search_known_uris_by_name_or_uri(params[:term])
+      if @predicate
         @known_uris.delete_if{ |ku| ! @predicate.allowed_values.include?(ku) }
+      else
+        @known_uris.delete_if{ |ku| ! ku.value? }
       end
     end
     render_autocomplete_results
@@ -262,9 +264,10 @@ class KnownUrisController < ApplicationController
 
   def render_autocomplete_results
     @known_uris ||= []
-    KnownUri.preload_associations(@known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri } ])
     @known_uris.uniq!
     @known_uris.sort_by!(&:position)
+    @known_uris = @known_uris[0..20]
+    KnownUri.preload_associations(@known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri } ])
     render json: @known_uris.compact.uniq.collect{ |k| { id: k.id, value: k.name,
       label: "#{k.name} (#{k.uri})", uri_type: k.has_units? ? 'measurement' : nil,
       has_values: k.has_values? ? '1' : nil }}.to_json
@@ -339,6 +342,8 @@ class KnownUrisController < ApplicationController
     Rails.cache.delete("eol/sparql/client/all_measurement_type_uris")
     Rails.cache.delete("eol/sparql/client/all_measurement_type_known_uris")
     Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
+    Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
+    Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
   end
 
 end

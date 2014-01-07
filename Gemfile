@@ -70,7 +70,7 @@ gem 'acts_as_list', '0.3.0' # Used for drag-and-drop reordering of KnownUri inst
 gem 'acts_as_tree_rails3', '0.1.0' # We use this for a few of our tree-like models, such as TocItem and CollectionType.
 gem 'biodiversity', '3.1.2' # "used for generation of scientific names with ranks on the species page"
 gem 'cityhash', '0.8.1' # Used by identity_cache to speed up the creation of hash keys.
-gem 'ckeditor', '3.7.3' # We use this in many places, such as creating data objects, to allow rich text editing.
+gem 'ckeditor', '4.0.7' # We use this in many places, such as creating data objects, to allow rich text editing.
 gem 'coffee-rails', '3.2.2' # TODO - do we actually use this? If so, it helps make simplified JS, for Ajax responses.
 gem 'composite_primary_keys', '5.0.13' # We have lots of tables with CPK, so we need this.
 gem 'dalli', '2.6.4' # Memcached handler. This is what handles ALL of our caching, so learn this.
@@ -80,6 +80,7 @@ gem 'email_spec', '1.4.0' # For testing emails within RSpec.
 gem 'escape' # provides several HTML/URI/shell escaping functions - TODO - I don't think we need this?
 gem 'ezcrypto' # TODO - remove this, I don't think we use it.
 gem 'haml', '4.0.4' # This is how we handle ALL of our HTML, you need to learn this.
+gem 'ruby-hmac', '0.4.0' # Used ONLY for CyberSource donations. ...but I'm not sure how best to group this gem otherwise.
 gem 'identity_cache', '0.0.4' # Used to cache objects in a robust way.
 gem 'indifferent-variable-hash', '0.1.0' # TODO - remove this, Rails has something like this baked in. I forget what it's called.
 gem 'invert'  # A quick way to array.sort.reverse.

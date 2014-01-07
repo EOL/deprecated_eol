@@ -4,46 +4,22 @@
       .hgroup
         %h1= @results ? I18n.t(:search_results) : I18n.t(:search)
         - search_term_to_show = [ @attribute, @querystring ].delete_if{ |t| t.blank? }.join(' : ')
-        %h2= @results ? raw(I18n.t(:count_results_for_search_term, :count => @results.total_entries, :search_term => h(search_term_to_show))) : ''
+        %h2
+          = @results ? raw(I18n.t(:count_results_for_search_term, count: @results.total_entries, search_term: h(search_term_to_show))) : ''
+          - if @taxon_concept
+            = raw I18n.t(:searching_within_clade, clade_name: link_to("#{@taxon_concept.title_canonical_italicized}", taxon_overview_url(@taxon_concept)))
       .page_actions
         %ul
           - if @results && !@results.blank?
-            %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
-              = link_to I18n.t(:download_data), url_for(params: params.merge(format: "csv")), :class => 'button'
-            %li.data_download{"data-alert" => I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT)}
-              -# NOTE - not translating "background" because we do NOT want to keep that when we go live!!
-              = link_to I18n.t(:download_data) + " (background)", url_for(params: params.merge(format: "js")), :class => 'button', remote: true
+            %li.data_download{"data-alert" => ((@results.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) : nil)}
+              = link_to I18n.t(:download_data), download_data_search_path(params: params), method: :post, :class => 'button'
   #content
     .site_column
       #data_search
         = render partial: 'shared/beta_warning', locals: { note: I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) }
-        .filters
-          = form_tag data_search_path, :method => 'get' do
-            %fieldset
-              %dl
-                %dt
-                  %label= I18n.t('activerecord.attributes.user_added_data.predicate')
-                %dd
-                  - select_options = { "-- " + I18n.t('activerecord.attributes.user_added_data.predicate') + " --" => nil }.
-                  -   merge(Hash[[nil, nil] + EOL::Sparql.connection.all_measurement_type_known_uris.collect do |uri|
-                  -     label = uri.is_a?(KnownUri) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
-                  -     [ truncate(label.firstcap, :length => 35), uri.is_a?(KnownUri) ? uri.uri : uri ]
-                  -   end.sort_by{ |k,v| k.nil? ? '' : k } ] )
-                  = select_tag(:attribute, options_for_select(select_options, @attribute))
-              %dl
-                %dt
-                  %label= I18n.t(:data_search_refine_field_label)
-                %dd
-                  = search_field_tag(:q, @querystring, :size => 40, :placeholder => 'e.g. 10 to 50')
-              %dl
-                %dt
-                  %label= I18n.t(:sort_by)
-                %dd
-                  - sort_options = { "-- " + I18n.t(:sort_by) + " --" => nil, I18n.t(:sort_by_value_ascending) => 'asc', I18n.t(:sort_by_value_descending) => 'desc' }
-                  = select_tag(:sort, options_for_select(sort_options, @sort))
-                  = submit_tag I18n.t(:search) unless @wildcard_search
+        = render 'data_search/filters'
         #search_results
           #main
             = yield
 
-= render :file => 'layouts/v2/application'
+= render file: 'layouts/v2/application'

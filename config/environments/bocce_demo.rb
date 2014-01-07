@@ -53,4 +53,8 @@ Eol::Application.configure do
   end
 
   require "ruby-debug"
+
+  require File.expand_path('../../../lib/initializer_additions', __FILE__)
+  InitializerAdditions.add("environments/#{Rails.env}_eol_org")
+
 end

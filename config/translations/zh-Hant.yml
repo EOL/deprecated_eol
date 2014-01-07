@@ -4256,7 +4256,7 @@ zh-Hant:
   who_registered_before: 至
   who_registered_from: 註冊於
   wikipedia_queue_create_successful_notice: 維基百科文章 %{article} 的修訂版 %{rev} 已被依序等待輸入。
-  wikipedia_queue_create_unsuccessful_error: 抱歉，出現了錯誤，維基百科文章未被依序等待輸入。<br/>修訂內容的網址必須符合http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: 抱歉，出現了錯誤，維基百科文章未被依序等待輸入。<br />修訂內容的網址必須符合http://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: 尋找維基百科文章的修訂版本網址：
   wikipedia_queue_new_instructions_step_four: 從您的瀏覽器中複製修訂版本網址，然後將其貼到此處顯示的維基百科輸入申請單中。修訂版本網址看起來應該像：<a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_instructions_step_one: 請至維基百科的文章頁面，例如：<a rel="nofollow" href="http://en.wikipedia.org/w/index.php?title=Giraffe">http://en.wikipedia.org/w/index.php?title=Giraffe</a>

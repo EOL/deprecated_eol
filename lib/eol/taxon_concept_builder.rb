@@ -136,7 +136,11 @@ module EOL
     end
 
     def gen_he
-      @he    = build_entry_in_hierarchy(:parent_id => @parent_hierarchy_entry_id)
+      if @he
+        @he.update_column(:taxon_concept_id, @tc.id)
+      else
+        @he ||= build_entry_in_hierarchy(:parent_id => @parent_hierarchy_entry_id)
+      end
       HarvestEventsHierarchyEntry.gen(:hierarchy_entry => @he, :harvest_event => @event)
       # TODO - Create some references here ... just a string and an associated identifier (like a URL)
     end
@@ -363,6 +367,7 @@ module EOL
       @toc          = options[:toc]             || default_toc_option
       @vetted       = (options[:vetted] and ['trusted', 'untrusted', 'unknown'].include? options[:vetted]) ? options[:vetted] : 'trusted'
       @youtube      = options[:youtube]
+      @he           = options[:hierarchy_entry]
     end
 
     def default_toc_option

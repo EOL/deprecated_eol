@@ -364,6 +364,11 @@ module EOL
         log.key.should == user.api_key
         log.user_id.should == user.id
       end
+
+      def clear_rank_caches
+        Rank.class_variable_set('@@italicized_rank_ids', nil)
+        Rails.cache.delete(Rank.cached_name_for('italicized'))
+      end
     end
   end
 end

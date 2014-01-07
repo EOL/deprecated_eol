@@ -53,6 +53,7 @@ Eol::Application.routes.draw do
       collection do
         get 'about'
         get 'glossary'
+        get 'ranges'
       end
     end
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
@@ -68,6 +69,7 @@ Eol::Application.routes.draw do
         collection do
           get 'about'
           get 'glossary'
+          get 'ranges'
         end
       end
       resources :communities, :only => [:index], :controller => 'taxa/communities' do
@@ -257,6 +259,11 @@ Eol::Application.routes.draw do
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index], :controller => 'users/content_partners'
+    resources :saved_searches, :only => [:index, :destroy], :controller => 'users/saved_searches' do
+      member do
+        get 'refresh'
+      end
+    end
     resources :open_authentications, :only => [:index, :new, :update, :destroy], :controller => 'users/open_authentications'
   end
 
@@ -382,6 +389,8 @@ Eol::Application.routes.draw do
   resource :data_search, :only => [:index], :controller => 'data_search' do
     collection do
       get 'index'
+      get 'download'
+      post 'download'
     end
   end
 
@@ -412,6 +421,13 @@ Eol::Application.routes.draw do
   resource :taxon_concept_exemplar_image, only: :create
 
   resource :data_glossary, :only => :show, :controller => 'data_glossary'
+
+  resource :search, :controller => 'search' do
+    collection do
+      get 'autocomplete_taxon'
+      get 'index'
+    end
+  end
 
   # Putting these after the complex resources because they are less common.
   resources :tasks, :task_states, :task_names, :random_images
@@ -452,8 +468,11 @@ Eol::Application.routes.draw do
   match '/expire/:id' => 'content#expire_single', :id => /\w+/, :as => 'expire'
   match '/expire_taxon/:id' => 'content#expire_taxon', :id => /\d+/, :as => 'expire_taxon'
   match '/expire_taxa/:id' => 'content#expire_multiple', :id => /\d+/, :as => 'expire_taxa'
-  match '/donate' => 'content#donate', :as => 'donate'
   match '/language' => 'content#language', :as => 'language'
+
+  resources :donations, except: [:index, :destroy]
+  # TODO - remove this:
+  match 'content/donate_complete' => 'content#donate_complete'
 
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
@@ -595,7 +614,6 @@ Eol::Application.routes.draw do
   match 'api/:action/:version/:id' => 'api', :version =>  /\d\.\d/
 
   match 'content/random_homepage_images' => 'content#random_homepage_images'
-  match 'content/donate_complete' => 'content#donate_complete'
   match 'content/file/:id' => 'content#file'
   match '/maintenance' => 'content#maintenance', :as => 'maintenance'
 

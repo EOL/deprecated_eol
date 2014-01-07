@@ -1,16 +1,26 @@
-- cache('glossary_in_lang_' + current_language.iso_code, :expires_in => 10.minutes) do
+- cache('glossary_in_lang_' + current_language.iso_code, expires_in: 10.minutes) do
+  - known_uris = KnownUri.includes(:toc_items).all.delete_if { |ku| ku.name.blank? }
   #content
     #known_uris.site_column.glossary
       = render 'shared/beta_warning'
       - a_to_z = ('A'..'Z').to_a
       - a_to_zero = a_to_z + [ '0' ]
       %h3
-        = raw a_to_zero.collect{ |letter| link_to(letter == '0' ? '#' : letter, '#' + letter) }.join("&nbsp;&nbsp;")
-      - a_to_zero.each do |letter|
-        %a{ name: letter }
-        .chapter_marker
-          %h3= letter == '0' ? '#' : letter
-        %ul.glossary
-          - uris_for_this_chapter = @known_uris.select{ |ku| letter == '0' ? ( ! a_to_z.include?(ku.name.firstcap[0])) : ku.name.firstcap[0] == letter }
-          - uris_for_this_chapter.sort_by { |ku| ku.name.downcase }.each do |ku|
-            = render(partial: 'known_uris/definition', locals: { known_uri: ku, top_link: true, attribution: true, search_link: true })
+        = raw a_to_zero.collect{ |letter| link_to(letter == '0' ? '#' : letter, data_glossary_url(anchor: letter)) }.join("&nbsp;&nbsp;")
+      .chapter_marker
+        %h2= I18n.t(:filter_by_subject)
+      %form
+        - TocItem.used_by_known_uris.each_slice(5) do |chapter_set|
+          %ul.chapters
+            - chapter_set.each do |toc_item|
+              %li{ 'data-toc-id' => toc_item.id }
+                %input{ type: 'checkbox', name: 'toc_id[]', value: toc_item.id }
+                %label= link_to toc_item.label, data_glossary_url(toc_id: toc_item.id)
+        - a_to_zero.each do |letter|
+          %a{ name: letter }
+          .chapter_marker
+            %h3= letter == '0' ? '#' : letter
+          %ul.glossary
+            - uris_for_this_chapter = known_uris.select{ |ku| letter == '0' ? ( ! a_to_z.include?(ku.name.firstcap[0])) : ku.name.firstcap[0] == letter }
+            - uris_for_this_chapter.sort_by { |ku| ku.name.downcase }.each do |ku|
+              = render(partial: 'known_uris/definition', locals: { known_uri: ku, top_link: true, attribution: true, search_link: true, glossary_permalink: true })

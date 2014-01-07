@@ -1,4 +1,9 @@
 class SearchController < ApplicationController
+
+  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
+    only: :autocomplete_taxon
+  after_filter :set_cache_headers, only: :autocomplete_taxon
+
   layout 'v2/search'
 
   @@results_per_page = 25
@@ -117,6 +122,23 @@ class SearchController < ApplicationController
     @logged_search_id = logged_search.nil? ? '' : logged_search.id
   end
 
+  def autocomplete_taxon
+    @querystring = params[:term].strip
+    if @querystring.blank? || @querystring.length < 3 || @querystring.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)
+      json = {}
+    else
+      results = EOL::Solr::SiteSearch.simple_taxon_search(@querystring, language: current_language)
+      json = results.collect do |result|
+        { id: result['instance'].id,
+          value: result['instance'].title_canonical,
+          label: render_to_string(
+            partial: 'shared/item_summary_taxon_autocomplete', locals: { item: result['instance'], search_result: result } )
+        }
+      end.delete_if{ |r| r[:value].blank? }.to_json
+    end
+    render json: json
+  end
+
   private
 
   # if the first returned taxon has a score greater than 3, and
@@ -141,4 +163,11 @@ class SearchController < ApplicationController
     end
     first_taxon
   end
+
+  def set_cache_headers
+    return if response.status != 200
+    # 604,800 seconds == 1 week
+    expires_in 604800, public: true
+  end
+
 end

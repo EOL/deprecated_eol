@@ -37,7 +37,7 @@ describe 'Home page' do
   it 'should include the search box, for names and tags (defaulting to names)' do
     @homepage_with_foundation.should have_tag('form') do
       with_tag('#simple_search') do
-        with_tag('input#q')
+        with_tag('input[name="q"]')
       end
     end
   end

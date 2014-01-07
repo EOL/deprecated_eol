@@ -12,12 +12,12 @@ Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
 # TAXON DATA configuration settings:
 
 Rails.configuration.uri_prefix = 'http://eol.org/schema/'
-Rails.configuration.schema_terms_prefix = 'http://eol.org/schema/terms/'
-Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources"
+Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}terms/"
+Rails.configuration.uri_reference_prefix = "#{Rails.configuration.uri_prefix}reference/"
+Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources/"
 Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"
 Rails.configuration.uri_allowed_val = "#{Rails.configuration.uri_prefix}allowedValue"
 Rails.configuration.uri_allowed_unit = "#{Rails.configuration.uri_prefix}allowedUnit"
-Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}terms/"
 Rails.configuration.uri_supplier = "#{Rails.configuration.uri_term_prefix}supplier"
 Rails.configuration.uri_target_occurence = "#{Rails.configuration.uri_prefix}targetOccurrenceID"
 Rails.configuration.uri_reference = "#{Rails.configuration.uri_prefix}reference/Reference"
@@ -75,6 +75,9 @@ Rails.configuration.data_search_file_full_path = "#{Rails.public_path}#{Rails.co
 
 Rails.configuration.hosted_dataset_path = 'http://localhost/eol_php_code/applications/content_server/datasets/'
 
+Rails.configuration.local_services = false
+
+
 # -------------------------------------------------------------------------
 # OLD STUFF...          PLEASE DON'T DO THIS ANYMORE.  :|
 
@@ -91,11 +94,11 @@ $PRODUCTION_MODE = Rails.env.production? || Rails.env.staging? || Rails.env.sync
 $IMAGE_LIMIT = 200
 
 # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-$CONTENT_SERVERS = ['http://localhost/']
+$CONTENT_SERVER = 'http://localhost/'
+$SINGLE_DOMAIN_CONTENT_SERVER = 'http://localhost/'
 $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
 $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
 $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"
-$SINGLE_DOMAIN_CONTENT_SERVER = 'http://localhost/'
 $SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the content server
 
 # MEDIA CENTER CONFIGURATION

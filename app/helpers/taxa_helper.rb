@@ -147,25 +147,48 @@ module TaxaHelper
     !taxon_concept_ancestors_for_association.blank? && taxon_concept_ancestors_for_association.include?(taxon_concept.id)
   end
 
-  def display_uri(uri, tag_type = :span, options = {})
+  # TODO - this has gotten sloppy.  Refactor.
+  def display_uri(uri, options = {})
     options[:search_link] = true unless options.has_key?(:search_link)
-    uri_components = (uri.is_a?(Hash) ? uri : EOL::Sparql.uri_components(uri))
-    tag_type = "#{tag_type}.#{options[:class]}" if options[:class]
+    display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
+    tag_type = (options[:define] && ! options[:val]) ? 'div' : 'span'
+    tag_type << ".#{options[:class]}" if options[:class]
     capture_haml do
+      info_icon if options[:define] && ! options[:val]
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
         define(tag_type, uri, options[:search_link])
       end
-      label = format_data_value(uri_components[:label].to_s, options)
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
-        haml_concat raw(label)
+        if current_user.min_curator_level?(:full)
+          if options[:exemplar]
+            haml_concat image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar))
+          elsif options[:excluded]
+            haml_concat image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
+          end
+        end
+        haml_concat raw(format_data_value(display_label, options))
+        haml_concat display_text_for_modifiers(options[:modifiers])
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
           define(tag_type, uri, options[:search_link])
+          info_icon if options[:val]
         end
       end
     end
   end
 
+  def display_association(data_point_uri, options = {})
+    taxon_link = options[:link_to_overview] ?
+      taxon_overview_path(data_point_uri.target_taxon_concept) :
+      taxon_data_path(data_point_uri.target_taxon_concept)
+    if c = data_point_uri.target_taxon_concept.preferred_common_name_in_language(current_language)
+      link_to c, taxon_link
+    else
+      link_to raw(data_point_uri.target_taxon_concept.title_canonical), taxon_link
+    end
+  end
+
   def format_data_value(value, options={})
+    value = value.is_a?(DataValue) ? value.label.to_s : value.to_s
     if value.is_numeric?
       if value.is_float?
         if value.to_f < 0.1
@@ -193,26 +216,41 @@ module TaxaHelper
     # and each one needs a different ID if we want them all to have tooltips)
     text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{options[:id] || data_point_uri.anchor}'>"
     if data_point_uri.association?
-      taxon_link = options[:link_to_overview] ?
-        taxon_overview_path(data_point_uri.target_taxon_concept) :
-        taxon_data_path(data_point_uri.target_taxon_concept)
-      if c = data_point_uri.target_taxon_concept.preferred_common_name_in_language(current_language)
-        text_for_row_value += link_to c, taxon_link
-      else
-        text_for_row_value += link_to raw(data_point_uri.target_taxon_concept.title_canonical), taxon_link
-      end
+      text_for_row_value += display_association(data_point_uri, options)
     else
-      text_for_row_value += display_uri(data_point_uri.object_uri, :span, options).to_s
+      text_for_row_value += display_uri(data_point_uri.object_uri, options.merge(val: true)).to_s
     end
     # displaying unit of measure
     if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)
-      text_for_row_value += " " + display_uri(uri_components)
+      text_for_row_value += " " + display_uri(uri_components, val: true)
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
-      text_for_row_value += " " + display_uri(uri_components)
+      text_for_row_value += " " + display_uri(uri_components, val: true)
     end
     text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless data_point_uri.new_record?
+    # displaying context such as life stage, sex.... The overview tab will include the statistical modifier
+    modifiers = data_point_uri.context_labels
+    if options[:include_statistical_method] && data_point_uri.statistical_method_label
+      modifiers.unshift(data_point_uri.statistical_method_label)
+    end
+    text_for_row_value += display_text_for_modifiers(modifiers)
     text_for_row_value
+  end
+
+  def info_icon
+    haml_tag "a.info_icon" do
+      haml_concat "&emsp;" # Width doesn't seem to work.  :|
+    end
+  end
+
+  def display_text_for_modifiers(modifiers)
+    if modifiers && ! modifiers.empty?
+      modifiers = modifiers.compact.uniq
+      unless modifiers.empty?
+        return "<span class='stat'>#{modifiers.join(', ')}</span>"
+      end
+    end
+    ''
   end
 
   def define(tag_type, uri, search_link)

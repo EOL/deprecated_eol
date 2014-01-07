@@ -262,7 +262,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # If *any* of the associated HEs are species or below, we consider this to be a species:
   def species_or_below?
-    published_hierarchy_entries.detect { |he| he.species_or_below? }
+    published_hierarchy_entries.detect { |he| he.species_or_below? } ? true : false
   end
 
   def outlinks
@@ -938,6 +938,11 @@ class TaxonConcept < ActiveRecord::Base
       common_name: preferred_common_name_in_language(Language.default),
       thumbnail: thumb
     )
+  end
+
+  def should_show_clade_range_data
+    return false if species_or_below?
+    number_of_descendants.between?(2, TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES)
   end
 
 private

@@ -4,11 +4,19 @@ $('div#flashes p').fadeOut('slow', function() { $(this).remove(); } );
 var $row = $('tr#<%= @taxon_data_exemplar.data_point_uri.anchor %>');
 if($row.length > 0) {
   var $additional = $row.next().find('div.additional_commands');
-  if ($row.find('> th span').length <= 0) {
+  if ($row.find('> th div').length <= 0) {
     $row.find('> th').append('<span>&nbsp;</span>');
   }
   <% if @taxon_data_exemplar.exclude? %>
-    $row.find('> th span').removeClass('exemplar').addClass('excluded');
+    var $div = $row.find('> th div');
+    if ($div.length > 0) {
+      var $icon = $div.find('img');
+      if ($icon.length > 0) {
+        $icon.attr('src', '<%= asset_path('v2/icon_excluded.png') %>');
+      } else {
+        $div.prepend('<%= image_tag('v2/icon_excluded.png') %>');
+      }
+    }
     $additional.find('a.remove_exemplar').hide();
     var $add = $additional.find('a.add_exemplar');
     if($add.length > 0) {
@@ -19,7 +27,15 @@ if($row.length > 0) {
     $additional.find('span.note').show(); // Won't always work, but might as well do it when it's low-hanging fruit.
     $('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:data_row_exemplar_removed) %></p>");
   <% else %>
-    $row.find('> th span').removeClass('excluded').addClass('exemplar');
+    var $div = $row.find('> th div');
+    if ($div.length > 0) {
+      var $icon = $div.find('img');
+      if ($icon.length > 0) {
+        $icon.attr('src', '<%= asset_path('v2/icon_required.png') %>');
+      } else {
+        $div.prepend('<%= image_tag('v2/icon_required.png') %>');
+      }
+    }
     $additional.find('a.add_exemplar').hide()
     var $remove = $additional.find('a.remove_exemplar');
     if($remove.length > 0) {

@@ -2,6 +2,8 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Adata80
+# Author: Amire80
+# Author: Antohabio
 # Author: Aygulka
 # Author: CM3X
 # Author: CoderSI
@@ -22,8 +24,13 @@ ru:
   0_or_1: 0 или 1
   a_taxon: таксон
   about_eol: О EOL
+  about_resources: О ресурсах
+  about_resources_title: Ссылки на внешние ресурсы
   account_information: Информация профиля
+  account_information_menu: Сведения об учетной записи
+  action: Действие
   action_not_available_error: К сожалению, это действие недоступно.
+  actions: Действия
   activerecord: 
     attributes: 
       collection: 
@@ -38,12 +45,12 @@ ru:
         refs: Ссылки
         sort_field: Сортировать по
       collection_job: 
-        overwrite: Заменить повторяющиеся
+        overwrite: Заменить повторы
       comment: 
         body: Комментарий
       community: 
         description: Описание сообщества
-        logo: Закачать логотип
+        logo: Загрузить логотип
         name: Название сообщества
       contact: 
         comments: Сообщение
@@ -66,7 +73,7 @@ ru:
         homepage: URL-адрес проекта
         id: ID
         notes: Примечания проекта
-        public: Общее
+        public: Общий
         resources: Ресурсы
         user_id: Управляется
         vetted: Проверены
@@ -147,6 +154,8 @@ ru:
         rich_pages: Насыщенные страницы
         rich_redhotlist_pages: Насыщенные популярные страницы
         total_associations: Ассоциации
+        total_measurement_types: Типы измерений
+        total_measurements: Измерения
         total_taxa_with_data: Страницы с данными
         total_user_added_data: Добавленные пользователем данные
         udo_published: Добавленный пользователем текст
@@ -158,10 +167,10 @@ ru:
         name: Имя на форуме
       forum_category: 
         description: Описание <small>(необязательно)</small>
-        title: "Название категории:"
+        title: Название категории
       forum_post: 
         subject: Тема
-        text: Текст
+        text: Текст сообщения
       forum_topic: 
         subject: Тема
         text: Текст сообщения
@@ -172,11 +181,14 @@ ru:
         complete: Полнота
         description: Описание
         descriptive_label: Описательные метки
-        label: Обозначение
+        label: Ярлык
         request_publish: Запрос публикации
       known_uri: 
         description: Описание
+        name: Имя
         toc_items: Категории
+        uri: URI
+        uri_type: Тип URI
       name: 
         string: Имя
       news_item: 
@@ -189,7 +201,7 @@ ru:
         comment_on_my_collection: Комментарий на управляемой вами коллекции
         comment_on_my_community: Комментарий в одном из сообществ, в котором вы числитесь
         comment_on_my_contribution: Комментарии или кураторские действия на вашем вкладе
-        comment_on_my_profile: Комментарий в вашем профиле
+        comment_on_my_profile: Комментарий к вашему профилю
         comment_on_my_watched_item: Комментарии к объектам, таксонам, коллекциям или сообществам в вашем списке наблюдения
         curation_on_my_watched_item: Кураторские действия на объектах, таксонах, коллекциях или сообществах в вашем списке наблюдения
         eol_newsletter: Отправлять мне ежеквартальную рассылку новостей EOL
@@ -293,6 +305,8 @@ ru:
         invalid: недопустимо
         less_than: должно быть меньше %{count}
         less_than_or_equal_to: должно быть меньше или равно %{count}
+        models: 
+          inaccessible: недоступна
         not_a_number: не является числом
         not_an_integer: должно быть целым числом
         odd: должно быть нечетным
@@ -351,6 +365,8 @@ ru:
   add_a_new_topic_area: Добавить новую тему
   add_a_new_user: Добавить нового пользователя
   add_a_taxon_association_label: Добавить сопоставление таксона
+  add_another_metadata_field: Добавить новое поле для метаданных
+  add_article_to_page_button: Добавить статью
   add_association_submit_button: добавить ассоциацию
   add_brief_summary_to_page_link_button: Добавить краткое описание на эту страницу
   add_citizen_science_resources_to_page_link_button: Добавить научную ссылку на эту страницу
@@ -361,7 +377,9 @@ ru:
   add_identification_resources_to_page_link_button: Добавить идентификационные ресурсы на эту страницу
   add_item_to_new_collection: Добавить "%{item}" в новую коллекцию
   add_language: Добавить язык
+  add_link_to_page_button: Добавить ссылку
   add_new_association_link: Добавить новую ассоциацию
+  add_new_known_uri_link: Добавить новый URI
   add_new_tag_suggestion: Добавить новый тег
   add_page: Добавить страницу
   add_sub_chapter: Добавить подраздел
@@ -408,6 +426,7 @@ ru:
   admin_home: административная панель
   admin_information: Это новая консоль администрирования для EOL V2. Находится в процессе передачи функции администрирования от V1. Если раздел администрации, который вы ищете, отсутствует в списке пожалуйста, посетите <a href="/administrator">старую консоль администрирования</a>.
   admin_link: Обзор
+  admin_news_link: Новости
   admin_notes_not_visible_to_user: "Примечания администратора (не видны пользователю):"
   admin_page_title: "Администрация: Обзор"
   admin_spam_delete: Удалить спам
@@ -424,6 +443,7 @@ ru:
   admin_translated_content_page_new_tip: Язык, заголовок и текст %{required_icon} обязательны.
   admin_translated_content_page_update_successful_notice: "%{language} перевод для <a href=\"#%{anchor}\"><em>%{page_name}</em></a> был обновлен."
   admin_translated_content_page_update_unsuccessful_error: Извините, произошла ошибка, перевод не был обновлен.
+  admin_translated_news_item_active: Опубликовано
   admin_translated_news_item_new_link: Добавить перевод
   admin_user_delete_successful_notice: Пользователь был удален
   admin_user_hide_successful_notice: Пользователь был скрыт
@@ -467,6 +487,7 @@ ru:
   all: все
   all_apis_return_by_default_an_xml_response: "Все API-интерфейсы возвращают стандартный XML-ответ. Методы API могут быть вызваны без расширения формата для получения XML-ответа, и добавление расширения XML даст идентичные ответ:"
   all_articles: Все статьи
+  all_categories: Все
   all_changes: Все изменения
   all_collections: Все коллекции
   all_comments_entered_by_users: Все комментарии, введенные пользователями на веб-сайте будут отсортированы ниже, обратно по времени создания.
@@ -507,6 +528,7 @@ ru:
   are_you_sure_this_action_cannot_be_undone: Вы уверены? Это действие невозможно отменить.
   article_from: статья от
   article_more_about: Узнать больше об этой статье
+  article_rating: Рейтинг статьи
   assistive_details_header: Детали
   assistive_literature_header: Литература
   assistive_maps_header: Карты
@@ -540,6 +562,9 @@ ru:
   back: Назад
   back_to_profile: Вернуться к профилю
   began: Начало
+  beta_warning_header: Вы используете функцию бета-теста
+  beta_warning_note_header: "Примечание:"
+  bhl: Библиотека наследия биоразнообразия
   bhl_publication: Публикации BHL
   bi_monthly: Два раза в месяц
   biodiversity_heritage_library: Библиотека наследия биоразнообразия
@@ -597,6 +622,7 @@ ru:
   collection_name_cannot_be_blank: Имя коллекции не может быть пустым
   collection_name_label: Название коллекции
   collection_newsfeed: Новости коллекции
+  collection_rating: Рейтинг коллекции
   collections: 
     editors: 
       show: 
@@ -676,6 +702,7 @@ ru:
   community_members: Члены сообщества
   community_name_label: Название сообщества
   community_newsfeed: Канал новостей сообщества
+  community_rating: Рейтинг сообщества
   community_removed_by_owner: Это сообщество было удалено его владельцем.
   community_tab_collections_header: Коллекции
   community_tab_communities_description: Сообщества являются группами участников EOL, которые собрались вместе, чтобы поделиться своими интересами и опытом. Сообщества EOL организуются вокруг одной или нескольких коллекций EOL и предлагает участникам возможность сосредоточить внимание на темах, представляющих общий интерес. Более подробная информация о сообществах EOL, в том числе инструкции для создания собственной, доступна на <a href='/info/communities'>странице справки</a>.
@@ -719,10 +746,37 @@ ru:
   content_partner_agreement_signed_successful_notice: Вы успешно согласились с условиями контент-партнера, теперь вы можете добавить данные.
   content_partner_agreement_subheader: Соглашение контент-партнера
   content_partner_column_header_partner: Партнер
+  content_partner_contact_edit_page_subheader: Редактировать контакт
+  content_partner_contact_new_link: Добавить новый контакт
   content_partner_contact_new_page_subheader: Добавить контакт
+  content_partner_contact_update_successful_notice: Контакт успешно обновлен.
+  content_partner_contact_update_unsuccessful_error: Извините, произошла ошибка, контакт не был обновлен.
+  content_partner_contacts_header: Контакты
+  content_partner_current_agreement_create_link: Создать новый
+  content_partner_current_agreement_edit_link: Редактировать
+  content_partner_current_agreement_not_accepted: Пока не принято
+  content_partner_data_description_empty: Никто ещё не добавил описание предоставляемых данных.
+  content_partner_data_description_header: Описание данных
   content_partner_filter_option_vetted_no: Нет
   content_partner_filter_option_vetted_yes: Да
+  content_partner_managed_by_header: Управляется
   content_partner_new_link: Добавить нового контент-партнера
+  content_partner_new_page_subheader: Добавить нового контент-партнера
+  content_partner_public_false: Частный
+  content_partner_public_true: Общий
+  content_partner_resource_auto_publish_false: Нет
+  content_partner_resource_auto_publish_true: Да
+  content_partner_resource_collections_header: Коллекции
+  content_partner_resource_edit_link: Редактировать
+  content_partner_resource_edit_subheader: Править исходный текст
+  content_partner_resource_edit_with_type_link: Править исходный текст
+  content_partner_resource_hierarchy_edit_link: Редактировать
+  content_partner_resource_resource_status_new: Создано
+  content_partner_resource_vetted_false: Нет
+  content_partner_resource_vetted_true: Да
+  content_partner_resource_view_link: Просмотр
+  content_partner_resources_header: Ресурсы
+  content_partner_statistics_year_label: Год
   content_partners: 
     edit: 
       meta_title: Изменить %{partner_name}
@@ -739,6 +793,7 @@ ru:
         meta_keywords: Статистика %{partner_name}, использование %{partner_name}
         meta_title: Статистика %{partner_name}
         tweet_text: Статистика использования %{partner_name}
+  content_type: Тип содержимого
   create_child_page: Создать дочернюю страницу
   curator_level: Уровень куратора
   curator_level_with_indefinite_article_assistant_curator: <strong>помощник куратора</strong>
@@ -820,7 +875,6 @@ ru:
     previous: Назад
   dato_create_cancel: Отмена
   delete: удалить
-  donate: Внести пожертвование
   edit: редактировать
   encyclopedia_of_life: Энциклопедия жизни
   eol_news: Новости EOL
@@ -951,9 +1005,9 @@ ru:
         name: Ваше имя
       content_page: 
         active: Опубликовано
-        active_more: Опубликованные страницы будет публично видимыми. Снимите галочку <em>опубликовано</em>, если вы хотите запретить общий просмотр этой страницы на любом языке.
-        page_name: Уникальное имя <small>(только строчные латинских буквенно-цифровые символы и подчеркивания)</small>
-        page_name_more: Введите уникальный, самоописывающий, конструктивный и стойкий идентификатор для этой страницы. Введенное здесь имя будет использоваться для создания URL-адреса для этой страницы, например уникальное имя <em>terms_of_use</em> преобразуется в URL-адрес <em>http://eol.org/info/terms_of_use</em>.
+        active_more: Опубликованные страницы будут общедоступны. Снимите галочку <em>опубликовано</em>, если вы хотите запретить общий просмотр этой страницы на любом языке.
+        page_name: Уникальное имя <small>(только строчные латинские буквенно-цифровые символы и подчеркивания)</small>
+        page_name_more: Введите уникальный, ясный, конструктивный и стойкий идентификатор для этой страницы. Введенное здесь имя будет использоваться для создания URL-адреса для этой страницы, например уникальное имя <em>terms_of_use</em> преобразуется в URL-адрес <em>http://eol.org/info/terms_of_use</em>.
         parent_content_page_id: Родитель
         parent_content_page_id_more: При необходимости выберите родительскую страницу, в которую эта страница должна быть вложена.
       content_partner: 
@@ -991,7 +1045,7 @@ ru:
         source_url: URL-адрес исходного объекта данных
         toc_item: Подраздел
       data_object_link: 
-        description: Описание <small>(некоторые HTML-разметки Допускается)</small>
+        description: Описание <small>(HTML-разметка частично разрешена)</small>
         link_type: Категория
         source_url: URL-адрес ссылки
         toc_item: Тема
@@ -1001,21 +1055,21 @@ ru:
         download_all: Все <small>(включая записи со всех страниц)</small>
       google_analytics_partner_summaries: 
         page_views: Просмотров страниц <small>(число посещений страниц)</small>
-        taxa_pages: Страницы <small>(количество страниц)</small>
+        taxa_pages: Страницы <small>(число страниц)</small>
         taxa_pages_viewed: Просмотрено страниц <small>(число страниц, просмотренных посетителями)</small>
         time_on_page: Общее время, проведенное на страницах <small>(часов)</small>
-        unique_page_views: Уникальных просмотров <small>(число посетителей просмотревших страницы)</small>
+        unique_page_views: Уникальных просмотров <small>(число посетителей, просмотревших страницы)</small>
       harvest_event: 
         began_at: Началась
         completed_at: Завершено
-        first_published_at: Впервые опубликован
+        first_published_at: Впервые опубликовано
         publish_more: Содержимое отмеченное урожаем будет публиковаться не сразу.
         published_at: Опубликовано
         published_status: Состояние
       hierarchy: 
         browsable_more: Отметьте "Просматриваемая" чтобы посодействовать тому, чтобы эта иерархия стала одной из основных для просмотра на EOL.
         browsable_status_with_colon: "Статуса \"Просматриваемая\":"
-        complete: Прокурировано
+        complete: Проверено куратором
         complete_more: "Прокурированная иерархия предполагает, что каждая запись уникальна, то есть соответствующие строки имени будут рассматриваться как омонимы. <strong>ПРЕДУПРЕЖДЕНИЕ: Не изменяйте этот атрибут, если вы не уверены, что в иерархии есть омонимы, иначе это может поставить под угрозу целостность данных.</strong>"
         request_publish: Запрос публикации
         request_publish_more: Указывает, ожидается ли запрос на рекламу этой иерархии, для становления одним из основных для просмотра иерархий на EOL.
@@ -1194,6 +1248,9 @@ ru:
         update: Сохранить данные профиля
       wikipedia_queue: 
         create: Отправить запрос
+  image_map_of_taxon: Карта %{taxon_name}
+  image_map_rating: Рейтинг карты
+  image_rating: Рейтинг изображения
   images: Иллюстрации
   indexed: Индексированные
   jsonp_by_adding_a_callback_parameter: ... и JSONP, добавив параметр обратного вызова
@@ -1203,7 +1260,6 @@ ru:
     deleted: Связь была успешно удалена
   known_uris: 
     please_select_from_the_menu: Пожалуйста, выберите из меню выше
-    relationships: Связи
     select_a_category_to_view_stats: "Выберите категорию, чтобы посмотреть статистику:"
   language: "Язык:"
   languages: Языки
@@ -1279,9 +1335,12 @@ ru:
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_public_domain: Общественное достояние
+  link_rating: Рейтинг ссылки
   location: Местоположение
   login_hidden_user_message: Учетная запись %{given_name} больше не активна
   logo_header: Логотип
+  map_of_taxon: Карта %{taxon_name}
+  map_rating: Рейтинг карты
   members: 
     index: 
       meta_description: Участники сообщества %{community_name}, сообщество Encyclopedia of Life, сообщество энциклопедии жизни.
@@ -1411,6 +1470,7 @@ ru:
   pages_admin_section_link: Администраторы
   pages_with_pictures_and_text: Страницы с иллюстрациями и текстом
   password_colon: "Пароль:"
+  person_rating: Рейтинг пользователя
   please_return_to_eol_homepage: Пожалуйста, вернитесь на главную страницу EOL
   recent_activities: 
     index: 
@@ -1475,10 +1535,15 @@ ru:
   show_in_overview: показать в описании
   sign_out: Выйти
   skip_to_content: Перейти к данным
+  sound_rating: Рейтинг звукового файла
   source_url: URL источника
   supplier: Поставщик
   taxa: 
     communities: 
+      collections: 
+        meta_description: Коллекции, содержащие %{scientific_name}.
+        meta_description_with_common_name: Коллекции, содержащие %{preferred_common_name} (%{scientific_name}).
+        meta_title: Коллекции %{scientific_name}.
       curators: 
         meta_title: Кураторы %{scientific_name}
         meta_title_with_common_name: Эксперты по %{preferred_common_name} (%{scientific_name})
@@ -1529,6 +1594,7 @@ ru:
   taxon_education_header: Образовательные ресурсы
   taxon_education_link: Образовательные ресурсы
   taxon_page_content_disclaimer_header: Отказ от ответственности
+  taxon_rating: Рейтинг таксона
   terms_agreement_form_submit: Я согласен
   text_capital: Текст
   thank_you: Спасибо
@@ -1614,6 +1680,10 @@ ru:
   user_activity_stats_header: Активность
   user_activity_stats_objects_curated_dropdown: Курированные объекты
   user_activity_stats_taxa_comments_dropdown: Прокомментированные таксоны
+  user_added_data: 
+    new_value: Значение
+    update_failed: "Невозможно обновить ваши данные: %{errors}"
+    update_successful: Данные успешно обновлены
   user_agent: Браузер
   user_already_active_notice: Ваша учетная запись уже активна, пожалуйста, авторизуйтесь.
   user_comment: Комментарий пользователя
@@ -1639,6 +1709,8 @@ ru:
       sign_up_with_twitter_assistive: Зарегистрироваться на EOL с помощью учетной записи Twitter.
       sign_up_with_yahoo_assistive: Зарегистрироваться на EOL с помощью учетной записи Yahoo.
     newsfeeds: 
+      activity: 
+        meta_title: Лента активности %{user_full_name}
       activity_link: активность
       comments_link: комментарии
       newsfeed_link: канал новостей
@@ -1673,6 +1745,8 @@ ru:
   vetted: Проверены
   video_from: видео от
   video_object: Видеообъекты
+  video_of_taxon: Видео %{taxon_name}
+  video_rating: Рейтинг видео
   video_title_not_available_in_language: Заголовок не доступен на %{language}
   videos_with_count: 
     few: "%{count} видеозаписи"

@@ -823,7 +823,6 @@ cs:
   development_version_name: EOL V2 Beta
   did_you_mean: "Nemysleli jste: %{suggestions} ?"
   disabled_for_now: V SOUČASNOSTI DEAKTIVOVÁNO
-  donate: Darovat
   donation_amount_legend: Zvolte sumu kterou chcete darovat
   donation_amount_other_label: Ostatní
   donation_confirmation: Potvrzení darování

@@ -4,6 +4,7 @@
 # Author: Hooshmand.hasannia
 # Author: Leyth
 # Author: Omnia
+# Author: Reza1615
 # Author: Surena
 fa: 
   translated_activities-name-activity_id-19: نمایه
@@ -118,6 +119,7 @@ fa:
   translated_ranks-label-rank_id-106: فرم
   translated_ranks-label-rank_id-107: فرم
   translated_ranks-label-rank_id-112: ژن
+  translated_ranks-label-rank_id-113: ژن.
   translated_ranks-label-rank_id-118: سرده
   translated_ranks-label-rank_id-183: فرمانرو
   translated_ranks-label-rank_id-266: راسته
@@ -196,6 +198,7 @@ fa:
   translated_synonym_relations-label-synonym_relation_id-65: مترادف سرده
   translated_synonym_relations-label-synonym_relation_id-66: بازنمایی دیگر
   translated_synonym_relations-label-synonym_relation_id-68: گل‌پروری
+  translated_table_of_contents-label-table_of_contents_id-1: چشم‌انداز
   translated_table_of_contents-label-table_of_contents_id-13: نام‌های متداول
   translated_table_of_contents-label-table_of_contents_id-194: اندازه
   translated_table_of_contents-label-table_of_contents_id-2: خلاصه

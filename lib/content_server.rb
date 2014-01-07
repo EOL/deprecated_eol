@@ -1,42 +1,13 @@
 # This is, quite simply, a class to round-robin our asset servers, so that their load is equally distributed (in theory).
 class ContentServer
 
-  @@next = 0 # This reults in the second entry being used first.  I'm okay with that; it's arbitrary where we begin.
   @@cache_url_re = /(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/
-
-  def self.next
-    @@next += 1
-    @@next = 0 if @@next > $CONTENT_SERVERS.length - 1
-    return $CONTENT_SERVERS[@@next]
-  end
-  
-  # this method will reliably return the same host for a given
-  # asset, maintaining a decent amount of randomization. Designed
-  # to avoid serving the same asset from different hosts in order
-  # to improve caching
-  def self.host_for(cache_url)
-    # get ascii value of last character
-    last_ascii_value = cache_url.to_s.getbyte(-1)
-    # get the remainder of ASCII %(mod) LENGTH and use it as the array index
-    $CONTENT_SERVERS[ (last_ascii_value % $CONTENT_SERVERS.length)]
-  end
-  
-
-  def self.logo_path(url, size = nil)
-    return self.blank if url.blank?
-    logo_size = (size == "large") ? "_large.png" : "_small.png"
-    if $CONTENT_SERVER_AGENT_LOGOS_PATH =~ /^http/
-      "#{$CONTENT_SERVER_AGENT_LOGOS_PATH}#{url}#{logo_size}"
-    else
-      "#{self.next}#{$CONTENT_SERVER_AGENT_LOGOS_PATH}#{url}#{logo_size}"
-    end
-  end
 
   def self.cache_path(cache_url, options={})
     if options[:specified_content_host]
       (options[:specified_content_host] + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
     else
-      (self.host_for(cache_url) + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+      $CONTENT_SERVER + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url)
     end
   end
 
@@ -50,7 +21,7 @@ class ContentServer
 
   def self.uploaded_content_url(url, ext)
     return self.blank if url.blank?
-    ($SINGLE_DOMAIN_CONTENT_SERVER + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(url) + ext)
+    $SINGLE_DOMAIN_CONTENT_SERVER + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(url) + ext
   end
 
   # only uploading logos
@@ -104,9 +75,7 @@ class ContentServer
   def self.upload_data_search_file(file_url, data_search_file_id)
     return nil if file_url.blank?
     return nil if data_search_file_id.blank?
-    env_name = Rails.env.to_s
-    env_name = 'staging' if Rails.env.staging_dev?
-    env_name = 'bocce_demo' if Rails.env.bocce_demo_dev?
+    return file_url if Rails.configuration.local_services
     parameters = "function=upload_dataset&data_search_file_id=#{data_search_file_id}&file_path=#{file_url}"
     call_file_upload_api_with_parameters(parameters, "upload data search file service")
   end

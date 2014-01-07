@@ -440,8 +440,6 @@ sr:
   average_rating_value_of_total: "Просечна оцена: %{rating} од %{total}"
   back: Назад
   back_to_profile: Назад на профил
-  background_processes_is_complete: Да
-  background_processes_is_not_complete: Не
   began: Почетак
   belongs_in_count_communities: 
     one: Припада %{count} заједници
@@ -988,7 +986,6 @@ sr:
   discover_link: Откријте
   displaying_numerical_range: Приказ %{start_number} — %{end_number} од %{total}
   do_you_want_to_be_a_curator: Желите ли да будете кустос
-  donate: Приложи
   donation_amount_legend: Изаберите износ који желите да приложите
   donation_amount_other_label: Друго
   donation_confirmation: Потврда за добровољни прилог
@@ -2624,7 +2621,7 @@ sr:
   who_registered_before: до
   who_registered_from: ко се уписао из
   wikipedia_queue_create_successful_notice: Чланак %{article} измена %{rev} из Википедије је стављена у ред за увоз.
-  wikipedia_queue_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ставим Википедијин чланак у ред за увоз.<br/>Адреса измене се мора поклапати са https://en.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
+  wikipedia_queue_create_unsuccessful_error: Нажалост, дошло је до грешке. Не могу да ставим Википедијин чланак у ред за увоз.<br />Адреса измене се мора поклапати са https://en.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
   wikipedia_queue_new_instructions_intro: "Да бисте добили адресу измене Википедијиног чланка:"
   wikipedia_queue_new_instructions_step_four: "Копирајте адресу измене из прегледача у приказани образац за увоз из Википедије. Адреса измене треба да буде у следећем облику: <a href=\"https://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931\">https://sr.wikipedia.org/w/index.php?title=Пингвин&oldid=4663931</a>"
   wikipedia_queue_new_instructions_step_one: Идите на страницу Википедије, нпр. <a href="https://sr.wikipedia.org/w/index.php?title=Пингвин">https://sr.wikipedia.org/w/index.php?title=Пингвин</a>

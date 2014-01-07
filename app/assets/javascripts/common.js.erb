@@ -240,6 +240,46 @@ $(function() {
     });
   });
 
+  // makes sure that as the user types we can enable/disable autocomplete depending
+  // on the search term. This helps get rid of results of the search term is deleted
+  $('input#autocomplete_q[data-autocomplete]').keyup(function(e) {
+    var key = e.keyCode || e.which;
+    // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
+    if (key === 37 || key === 38 || key === 39 || key === 40) return;
+    $(".ui-autocomplete").fadeOut(50);
+    var value = $.trim($(this).val()).replace(/\s+/," ");;
+    // making sure the search term is at least 3 characters and every word has at least 3 characters
+    if (value.length < 3 || value.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)) {
+      $(".ui-autocomplete").hide();
+      $(this).autocomplete('disable');
+      return false;
+    } else {
+      if($(this).autocomplete('option').disabled === true) {
+        $(this).autocomplete('enable');
+        $(this).autocomplete('search', value);
+      }
+    }
+  });
+
+  // this ensures that anytime the autocomplete field loses focus and gains it again,
+  // we will initiate the autocomplete and give the user results
+  $('input#autocomplete_q[data-autocomplete]').bind('focus', function() {
+    // this bit ensures that HTML returned by the autocomplete method is rendered
+    // as HTML and not as plain text
+    $('input#autocomplete_q[data-autocomplete]').data('ui-autocomplete')._renderItem = function( ul, item) {
+      return $( "<li class='taxon'></li>" )
+        .data( "item.autocomplete", item )
+        .append( $( "<a></a>" ).html( item.label ) )
+        .appendTo( ul );
+    };
+    var value = $.trim($(this).val()).replace(/\s+/," ");;
+    if(value == $(this).attr('title')) value = '';
+    if (value.length >= 3 && !value.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)) $(this).autocomplete('search', value);
+    return false;
+  });
+
+
+
   // TODO - generalize this with the other modals...
   $('#collection_items .editable .edit a').modal({
     beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
@@ -314,8 +354,8 @@ $(function() {
 
   // this method is used to grab more images for the march of life before callback
   function loadMoreMarchOfLife(curr, next, opts) {
-    // on the first pass, addSlide is undefined (plugin hasn't yet created the fn); 
-    // when we're finshed adding slides we'll null it out again 
+    // on the first pass, addSlide is undefined (plugin hasn't yet created the fn);
+    // when we're finshed adding slides we'll null it out again
     if (!opts.addSlide) return;
 
     cycle_list_item = $(this).closest('li');
@@ -323,7 +363,7 @@ $(function() {
     if(number_of_images_in_li < 10) {
       // call to get more images
       $.getJSON('content/random_homepage_images?count=5', function(data) {
-        // make sure there were no errors, 
+        // make sure there were no errors,
         if(!data['error']) {
           for(i = 0 ; i < data.length ; i++) {
             image_data = data[i];
@@ -338,9 +378,9 @@ $(function() {
               alt_text = scientific_name;
               opts.addSlide('<a href="'+ image_data['taxon_page_path'] + '"><img src="' +
                 image_data['image_url'] +
-                '" alt="' + alt_text + 
-                '" data-scientific_name="' + scientific_name + 
-                '" data-common_name="' + common_name + 
+                '" alt="' + alt_text +
+                '" data-scientific_name="' + scientific_name +
+                '" data-common_name="' + common_name +
                 '" width="130" height="130"/></a>');
               // since we had to add a slide we need to change the index of the next slide
               opts.nextSlide = opts.currSlide + 1;
@@ -357,11 +397,11 @@ $(function() {
 
   function enable_mouseover_alt_text_for_march_of_life() {
     // properly shows the march of life name on mouseover
-    $(".thumbnails li img").unbind().mouseover(function() { 
+    $(".thumbnails li img").unbind().mouseover(function() {
       initiate_alt_text_for_march_of_life($(this));
     });
   }
-  
+
   function initiate_alt_text_for_march_of_life(img) {
     var $e = img.parent().parent();
     if ($e.length > 0) {
@@ -402,7 +442,7 @@ $(function() {
 
   // Search should not allow you to search without a term:
   $("#simple_search :submit").on('click', function() {
-    var $q = $("#simple_search :submit").closest('form').find('#q');
+    var $q = $("#simple_search :submit").closest('form').find('input[type="text"]');
     if ($q.val() == $(this).attr('data_unchanged')) {
       $q.css('color', '#aa0000').val($(this).attr('data_error')).on('click', function() { $(this).val('').css('color', 'black').unbind('click'); });
       return(false);
@@ -437,8 +477,8 @@ $(function() {
       $('#collection_items :checkbox').parent().show();
     }
   });
-  
-  
+
+
   $('#main .media video embed').each(function() {
     var test_video = document.createElement('video');
     cant_play_video = (!test_video.canPlayType || !test_video.canPlayType('video/mp4'));
@@ -447,10 +487,10 @@ $(function() {
       video.parent().html(video.html());
     }
   });
-  
-  
+
+
   (function($inat_link) {
-    $inat_link.attr('href', function() { 
+    $inat_link.attr('href', function() {
       auth_provider = $('.inat_observations_header a.button').attr('href').split("&")[1];
       if (typeof auth_provider != "undefined") {
         return this.href + '?' + auth_provider;
@@ -483,7 +523,7 @@ $(function() {
       $date_form.data('datepicker_opts'),
       { isRTL: ($('body').css('direction') == 'rtl') ? true : false,
         showOn: "button",
-        buttonImage: "/assets/v2/icon_calendar.png",
+        buttonImage: '<%= asset_path "v2/icon_calendar.png" %>',
         buttonImageOnly: true,
         minDate: new Date(2012, 2 - 1, 17),
         maxDate: new Date() }
@@ -507,7 +547,7 @@ $(function() {
       }));
     });
   })($("#statistics"));
-  
+
   $('input.clear_on_focus').each(function() { $(this).val($(this).attr('data-default')); });
   $('input.clear_on_focus').siblings().each(function() { $(this).on('click', function() {
     if ($(this).prop('checked')) {

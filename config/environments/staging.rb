@@ -50,4 +50,8 @@ Eol::Application.configure do
   config.action_mailer.asset_host = "http://staging.eol.org"
 
   require "ruby-debug"
+
+  require File.expand_path('../../../lib/initializer_additions', __FILE__)
+  InitializerAdditions.add("environments/#{Rails.env}_eol_org")
+
 end

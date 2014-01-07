@@ -9,6 +9,7 @@
 # Author: Leosls
 # Author: Luckas
 # Author: Luckas Blade
+# Author: Mordecaista
 # Author: TheGabrielZaum
 # Author: Tuliouel
 pt-BR: 
@@ -153,6 +154,14 @@ pt-BR:
         rich_pages: Páginas ricas
         rich_redhotlist_pages: Lista de páginas ricas vermelhas
         rich_redhotlist_pages_percentage: Lista de páginas ricas vermelhas %
+        total_association_types: Tipos de Associação
+        total_associations: Associações
+        total_measurement_types: Modo da medição
+        total_measurements: Medidas
+        total_occurrences: Ocorrências
+        total_taxa_with_data: Páginas com dados
+        total_triples: Triplos
+        total_user_added_data: Dados adicionados pelo usuário
         udo_published: Texto enviado pelo usuário
         udo_published_by_curators: Texto curador-apresentada
         udo_published_by_non_curators: Texto não-curador-apresentada
@@ -179,7 +188,17 @@ pt-BR:
         label: Rótulo
         request_publish: Solicitar a publicação
       known_uri: 
+        description: Descrição
+        exclude_from_exemplars: Excluir dos Fatos Rápidos
         name: Nome
+        toc_items: Categorias
+        uri: URI
+        uri_type: Tipo de URI
+      known_uri_relationship: 
+        from_known_uri_id: URI tema
+        relationship_uri: URI de relacionamento
+        to_known_uri: URI alvo
+        to_known_uri_id: URI alvo
       name: 
         string: Nome
       news_item: 
@@ -210,6 +229,7 @@ pt-BR:
         guid: GUID
         provider: Provedor de terceiros
         secret: Secreto
+        token: Símbolo
         updated_at: Última atualização
         user_id: ID de usuário
         verified_at: Última verificação
@@ -218,6 +238,11 @@ pt-BR:
         auto_publish: Auto-publicação
         bibliographic_citation: Citação bibliográfica
         dataset: Arquivo de conjunto de dados
+        dataset_hosted_url: Fonte de conjunto de dados (cópia local)
+        dataset_license_id: Licença
+        dataset_rights_holder: Detentor dos direitos
+        dataset_rights_statement: Declaração dos direitos
+        dataset_source_url: Fonte de Dados Original
         description: Descrição de recursos
         dwc_archive_url: Darwin Core Arquivo URL
         harvest_events: Eventos de colheita
@@ -237,6 +262,9 @@ pt-BR:
         meta_description: Descrição de metadados
         meta_keywords: Palavras-chave de metadados
         title: Título
+      translated_known_uri: 
+        comment: Comentário
+        definition: Definição
       translated_news_item: 
         active_translation: Publicado
         body: Corpo
@@ -263,6 +291,13 @@ pt-BR:
         requested_curator_level_id: Nível desejado de curadoria
         tag_line: Lema
         username: Nome de usuário
+      user_added_data: 
+        object: Valor
+        predicate: Atributo
+        user: Adicionado por
+      user_added_data_metadata: 
+        object: Valor
+        predicate: Atributo
     errors: 
       format: "%{attribute} %{message}"
       full_messages: 
@@ -310,6 +345,18 @@ pt-BR:
             publish: 
               inclusion: só é permitido para o evento mais recente da colheita e somente se esse evento não estiver publicado
         inaccessible: O registro não pôde ser salvo porque estava inválido. Verifique os erros de validação e reenvie.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: tem que ser uma <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bem formada
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: não permitido - só pode haver uma unidade de medida
+            to_known_uri_id: 
+              must_be_different: tem que ser diferente do que a URI tema
+              must_be_known_uri: tem que ser uma URI conhecida
+              must_be_measurement: tem que ser uma unidade de medida
         open_authentications: 
           guid_provider_must_be_unique: a conta de terceiro já está conectada com uma conta EOL
           provider_user_id_must_be_unique: apenas uma conta de cada provedor de terceiro pode ser conectada a uma conta EOL
@@ -325,6 +372,22 @@ pt-BR:
             dwc_archive_url: 
               inaccessible: é inacessível, a URL deve ser acessível ao público
               invalid: é inválido, deveria ser um TAR.GZIP, TAR.GZ, TGZ ou arquivo ZIP
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: tem que ser uma <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bem formada
+              namespace: Foi usado um namespace que não foi reconhecido
+            subject: 
+              must_be_uri: tem que ser uma <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bem formada
+              namespace: Foi usado um namespace que não foi reconhecido
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: tem que ser uma <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bem formada
+              namespace: Foi usado um namespace que não foi reconhecido
+            subject: 
+              must_be_uri: tem que ser uma <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a> bem formada
+              namespace: Foi usado um namespace que não foi reconhecido
       template: 
         body: "Os seguintes campos falha na validação:"
         header: 
@@ -1579,6 +1642,7 @@ pt-BR:
   creative_commons: Creative Commons
   credentials: Credenciais
   credentials_colon: "Credenciais:"
+  crop_image: Recortar imagem
   curated: Curadoria
   curated_association_update_button: Salvar alterações
   curation_comment: Comentário de Curadoria
@@ -1627,13 +1691,33 @@ pt-BR:
   daily: Diariamente
   darwin_core: Darwin Core
   dashboard: Painel de controle
+  data: Dados
+  data_about_subtab_header: Sobre os dados no EOL
+  data_about_this_record: Dados sobre este registro
+  data_column_classification_summary: Resumo da Classificação
+  data_column_common_name: Nome comum
+  data_column_measurement: Medidas
+  data_column_measurement_uri: URI de medição
+  data_column_sci_name: Nome Científico
+  data_column_source: Fonte
+  data_column_tc_id: ID da página EOL
+  data_column_units: Unidades (normalizada)
+  data_column_units_uri: Unidades URI (normalizada)
+  data_column_value: Valor
+  data_column_value_uri: URI de valor
   data_database_colon: "Dados:"
+  data_glossary: Glossário de dados
   data_logging_active: Registro ativo de dados
   data_master_database_colon: "Dados principais:"
+  data_measurement_subtable_summary: Dados adicionais sobre a medida deste fato.
+  data_metadata_subtable_summary: Dados adicionais sobre este fato.
   data_object: Objeto de dados
   data_object_ignore: ignorar este item
   data_object_not_associated_with_any_hierarchies: Este objeto de dados não está associado com nenhuma hierarquia.
   data_object_reference: Referência de objeto de dados
+  data_object_toc_items_list: 
+    one: Aparece sobre %{quoted_toc_titles}
+    other: Aparece sobre %{quoted_toc_titles}
   data_object_undo_ignore: remover da lista de ignorados
   data_objects: 
     show: 
@@ -1653,6 +1737,15 @@ pt-BR:
       meta_supplier_default: um colaborador
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
+  data_overview_table_caption: Fatos rápidos
+  data_point_uri_source_missing: falta a fonte
+  data_point_uri_summary_name: dados sobre %{taxon}
+  data_provided_by_content_partner: "Fonte: %{whom}"
+  data_provided_by_user: provido por %{whom}
+  data_reference_subtable_summary: Referências adicionais sobre este fato.
+  data_row_excluded_from_overview_notice: "Nota: Esta linha foi excluída dos fatos rápidos."
+  data_row_exemplar_added: Fato rápido adicionado.
+  data_row_exemplar_removed: Fato rápido removido.
   data_usage_reports: Relatórios de uso de dados
   date_caps: Data
   date_uploaded: Data de envio
@@ -1757,7 +1850,6 @@ pt-BR:
   discover_link: Descobrir
   displaying_numerical_range: Mostrando %{start_number} &mdash; %{end_number} de %{total}
   do_you_want_to_be_a_curator: Você quer ser um curador?
-  donate: Faça uma doação
   donation_amount_legend: Escolha a quantidade que gostaria de doar
   donation_amount_other_label: Outro
   donation_confirmation: Confirmação de doação
@@ -1846,6 +1938,10 @@ pt-BR:
       menu_link: Estatísticas de curador
       page_header: Estatísticas de curador
       page_title: Estatísticas
+    data: 
+      menu_link: Dados
+      page_header: Estatísticas de Dados
+      page_title: Estatísticas
     data_objects: 
       menu_link: Objetos de dados
       page_header: Estatisticas de Objetos de Dados
@@ -1863,8 +1959,12 @@ pt-BR:
       page_header: Cobertura Marinha em EOL
       page_title: Estatísticas
     page_richness: 
+      menu_link: Páginas ricas
+      page_header: Estatísticas de Páginas Ricas
       page_title: Estatísticas
     users_data_objects: 
+      menu_link: Texto enviado pelo usuário
+      page_header: Estatísticas de Textos Enviados pelos Usuários
       page_title: Estatísticas
     warnings: 
       stats_unavailable_for_date: Desculpe, as estatísticas não estão disponíveis para %{date}. Por favor, escolha outra data.
@@ -2122,6 +2222,7 @@ pt-BR:
         user_id: Detalhes do parceiro de conteúdo gerido por
       content_partner_agreement: 
         mou_url: URL do arquivo <small>(opcional alternativo)</small>
+        mou_url_more: Opcionalmente digite uma URL para o arquivo contendo o acordo do parceiro. Esse arquivo irá sobreescrever qualquer outro texto de acordo. Se você gostaria de salvar o arquivo (por exemplo em um arquivo PDF) no servidor de conteúdo EOL primeiro <a href="%{upload_content_url}">faça upload do arquivo</a>, para obter a URL.
       content_partner_contact: 
         email_reports_frequency_hours_more: Relatórios de e-mail são enviadas apenas se houver comentários ou ações de curadores em seus dados ou em páginas táxon relevantes para o seu conjunto de dados.
       data_object: 
@@ -2450,6 +2551,36 @@ pt-BR:
   just_pages_with_pictures_and_text: Apenas as páginas com imagens e texto
   keep_split_entry_from_this_entry: Mantenha separada esta entrada
   key: Chave
+  known_uri_relationships: 
+    create_failed: Desculpe, ocorreu um erro, a relação não pode ser adicionada.
+    created: Relacionamento criado com sucesso
+    deleted: A relação foi excluída com sucesso
+  known_uris: 
+    add_a_relationship: Adicionar uma Relação
+    attribution_placeholder_text: "ex.: do Dublin Core; veja http://dublincore.org/usage/terms/history/#contributorT-001."
+    comment_placeholder_text: "ex.: Exemplos de um contribuidor são: uma pessoa, uma organização, ou um serviço."
+    definition_placeholder_text: "ex.: Uma entidade responsável por fazer contribuições para o recurso."
+    equivalent_to: Relações equivalentes
+    import_successful: Ontologia de termos importada com sucesso
+    more_than_one_field_mapped_to_type: Mais de um atributo está mapeado para "%{type}"
+    name_placeholder_text: "ex.: Contribuidor"
+    no_results: Não há resultados para a estatística selecionada
+    ontology_information_url_placeholder_text: "ex.: http://dublincore.org/documents/dcmi-terms/"
+    ontology_source_url_placeholder_text: "ex.: http://dublincore.org/2012/06/14/dcterms.rdf"
+    please_select_field_types: Por favor selecione um mapeamento para cada atributo
+    please_select_from_the_menu: Por favor selecione do menu acima
+    please_select_uris_to_import: Por favor seleciona as URIs para importar
+    preferred_for_equivalence_group: Preferido
+    relationships_from_this_uri: Relações a partir desta URI
+    relationships_to_this_uri: Relações para esta URI
+    select: Selecionar
+    select_a_category_to_view_stats: "Selecione uma categoria para ver as estatísticas:"
+    select_a_preferred_uri_for_this_group: Selecione uma URI preferida
+    unrecognized_association_types: URIs de tipos de associação não reconhecidas
+    unrecognized_measurement_types: URIs de tipos de medidas não reconhecidas
+    unrecognized_measurement_units: URIs de unidades de medidas não reconhecidas
+    unrecognized_measurement_values: URIs de valor de medidas não reconhecidas
+    uri_placeholder_text: "ex.: http://purl.org/dc/terms/contributor"
   label: Etiqueta
   language: "Idioma:"
   language_selector_advisory_information: Esta é uma lista de línguas em que o conteúdo do site está disponível. Para mudar a língua atual, selecione uma língua alternativa a partir desta lista.
@@ -2797,6 +2928,8 @@ pt-BR:
     content_partner_resource_created: 
       message: "Esta é uma notificação do sistema EOL automatizado para as páginas de grupo de espécies. O usuário %{user_full_name} adicionou um novo recurso %{resource_title} para conteúdo de parceiro %{partner_full_name}, detalhes a seguir:\n\nUsuário: %{user_full_name}\nE-mail: %{user_email}\nURL do perfil: %{user_profile_url}\n\nParceiro: %{partner_full_name}\nURL do parceiro de recursos: %{partner_resources_url}\n\nRecurso: %{resource_title}\nURL do recurso: %{resource_url}\nCriado: %{resource_created_at_date}\nEstado: %{resource_status}"
       subject: Usuário EOL %{user_full_name} adicionou novo recurso %{resource_title} para conteúdo de parceiro %{partner_full_name}
+    content_partner_resource_force_harvest_request: 
+      message: "Esta é uma notificação do sistema EOL automatizado para as páginas de grupo de espécies. O usuário %{user_full_name} adicionou um novo recurso %{resource_title} para conteúdo de parceiro %{partner_full_name}, detalhes a seguir:\n\nUsuário: %{user_full_name}\nE-mail: %{user_email}\nURL do perfil: %{user_profile_url}\n\nParceiro: %{partner_full_name}\nURL do parceiro de recursos: %{partner_resources_url}\n\nRecurso: %{resource_title}\nURL do recurso: %{resource_url}\nAtualizado: %{resource_updated_at_date}\nEstado: %{resource_status}"
     content_partner_resource_hierarchy_publish_request: 
       message: "Esta é uma notificação do sistema automatizado EOL para as páginas grupo de espécies. Usuário %{user_full_name} solicitou que uma hierarquia associada com recurso %{resource_title}, pertencente ao parceiro de conteúdo %{partner_full_name}, ser promovido (publicado) a uma hierarquia navegável em EOL, detalhes a seguir:\n\nUsuário: %{user_full_name}\nE-mail: %{user_email}\nURL do perfil: %{user_profile_url}\n\nParceiro: %{partner_full_name}\nURL do Parceiro de Recurso: %{partner_resources_url}\n\nRecurso: %{resource_title}\nURL do recurso: %{resource_url}\nURL para editar a hierarquia: %{hierarchy_edit_url}"
       subject: Usuário EOL %{user_full_name} solicitou uma promoção na hierarquia para o recurso %{resource_title} pertencente ao parceiro de conteúdo %{partner_full_name}
@@ -3199,6 +3332,12 @@ pt-BR:
         meta_title: Pessoas interessadas em %{scientific_name}
         meta_title_with_common_name: Pessoas interessadas em %{preferred_common_name} (%{scientific_name})
         tweet_text: Pessoas interessadas em %{scientific_name}
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_description: Fotos, vídeos e áudios de %{scientific_name} classificados por %{hierarchy_provider}. Procurar imagens, fotos, filmes e sons de %{scientific_name} na Enciclopédia da Vida.
+          meta_title: Dados computáveis de %{scientific_name} classificados por %{hierarchy_provider}
+        tweet_text: Dados computáveis de %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -3588,6 +3727,21 @@ pt-BR:
   user_activity_stats_wikipedia_nominated: 
     one: "%{count} Artigo da Wikipédia nomeado"
     other: "%{count} Artigos da Wikipédia nomeados"
+  user_added_data: 
+    add_data_header: Contribuir com seus dados
+    add_metadata_header: Informações Adicionais
+    additional_fields: Dados sobre este registro
+    create_failed: "Não foi possível adicionar seus dados: %{errors}"
+    create_successful: Dados adicionados com sucesso
+    delete_successful: Os dados foram excluídos com sucesso
+    edit_data_header: Editar seus dados
+    edit_metadata_header: Editar metadados
+    new_field: Novo campo...
+    new_value: Valor
+    source_field_helper: Adicionar literatura de referência ou URL para recurso online
+    submit_data: submeter valor dos dados
+    update_failed: "Não foi possível atualizar seus dados: %{errors}"
+    update_successful: Dados atualizados com sucesso
   user_agent: Agente de usuário
   user_already_active_notice: Sua conta já está ativa, faça o login.
   user_comment: Comentário de usuário

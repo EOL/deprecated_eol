@@ -1,6 +1,9 @@
 class ContentController < ApplicationController
 
+  DONATION_MIN = 1.0
+
   include ActionView::Helpers::SanitizeHelper
+  include ActionView::Helpers::NumberHelper
 
   caches_page :tc_api
 
@@ -210,45 +213,7 @@ class ContentController < ApplicationController
     end
   end
 
-  # TODO - this is entirely non-portable and should be enabled or disabled based on local configuration. In fact, it
-  # would be even better if it were its own application. Yes, really.
-  def donate
-    @page_title = I18n.t(:donate)
-    if request.post?
-      current_user.log_activity(:made_donation)
-    else
-      current_user.log_activity(:viewed_donation)
-    end
-
-    return if request.post? == false
-
-    donation = params[:donation]
-
-    @other_amount = donation[:amount].gsub(",", "").to_f
-    @preset_amount = donation[:preset_amount]
-
-    if @preset_amount.nil?
-      flash.now[:error] =  I18n.t(:donation_error_no_amount)
-      return
-    end
-
-    if (@preset_amount == "other" && @other_amount == 0)
-      flash.now[:error] =  I18n.t(:donation_error_only_numbers)
-      return
-    end
-
-    @donation_amount = @preset_amount.to_f > 0 ? @preset_amount.to_f : @other_amount
-
-    @page_title = I18n.t(:donation_confirmation) if @donation_amount > 0
-
-    # This is actually calling the PHP service, because Cybersource gave us a PHP library (
-    # CyberSource::InsertSignature3 ) to handle the creation of the input elements.  Yeesh.
-    # http://www.cybersource.com/developers/develop/integration_methods/simple_order_and_soap_toolkit_api/
-    parameters = 'function=InsertSignature3&version=2&amount=' + @donation_amount.to_s + '&type=sale&currency=usd'
-    @form_elements = EOLWebService.call(parameters: parameters)
-
-  end
-  
+  # TODO - remove this
   def donate_complete
   end
 

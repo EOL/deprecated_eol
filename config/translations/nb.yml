@@ -1518,7 +1518,6 @@ nb:
   discover_link: Oppdag
   displaying_numerical_range: Viser %{start_number} &mdash; %{end_number} av %{total}
   do_you_want_to_be_a_curator: Vil du bli en kurator
-  donate: Doner
   donation_amount_legend: Velg beløpet du vil donere
   donation_amount_other_label: Annet
   donation_confirmation: Doneringsbekreftelse

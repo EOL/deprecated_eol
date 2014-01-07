@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Dream
+# Author: Hkjacksonhk
 # Author: Liuxinyu970226
 # Author: Shangkuanlc
 # Author: Taieol
@@ -192,7 +193,10 @@ zh-TW:
         label: 標籤
         request_publish: 要求發布
       known_uri: 
+        clade_exemplar: 使用作為樣例克拉德範圍
         description: 說明
+        exclude_from_exemplars: 從快速事實中排除
+        group_by_clade: 為克拉德範圍使用
         name: 名稱
         toc_items: 分類
         uri: URI
@@ -1847,7 +1851,6 @@ zh-TW:
   discover_link: 發現
   displaying_numerical_range: 顯示 %{total} 中的 %{start_number} &ndash；%{end_number}
   do_you_want_to_be_a_curator: 您想成為一位蒐藏經理嗎
-  donate: 捐贈
   donation_amount_legend: 請選擇您的捐款金額
   donation_amount_other_label: 其他
   donation_confirmation: 捐款確認
@@ -4276,7 +4279,7 @@ zh-TW:
   who_registered_before: 至
   who_registered_from: 註冊於
   wikipedia_queue_create_successful_notice: 維基百科文章 %{article} 的修訂版 %{rev} 已被依序等待輸入。
-  wikipedia_queue_create_unsuccessful_error: 抱歉，出現了錯誤，維基百科文章未被依序等待輸入。<br/>修訂內容的網址必須符合https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_create_unsuccessful_error: 抱歉，出現了錯誤，維基百科文章未被依序等待輸入。<br />修訂內容的網址必須符合https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
   wikipedia_queue_new_instructions_intro: 尋找維基百科文章的修訂版本網址：
   wikipedia_queue_new_instructions_step_four: 從您的瀏覽器中複製修訂版本網址，然後將其貼到此處顯示的維基百科輸入申請單中。修訂版本網址看起來應該像：<a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_instructions_step_one: 請至維基百科的文章頁面，例如：<a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>

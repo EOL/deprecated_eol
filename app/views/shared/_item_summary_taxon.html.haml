@@ -4,7 +4,7 @@
 - unless view_style == 'list'
   - if image = item.exemplar_or_best_image_from_solr
     - if thumb = image.thumb_or_object('88_88')
-      = link_to image_tag(thumb), path
+      = link_to image_tag(thumb, width: 88, height: 88), path
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), path
 - unless ['gallery','list'].include?(view_style)
   - if item.entry and item.entry.respond_to?(:preferred_classification_summary)

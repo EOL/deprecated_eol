@@ -1061,7 +1061,6 @@ pt:
   disabled_for_now: DESABILITADO POR AGORA
   discover_link: Descobrir
   displaying_numerical_range: Mostrando %{start_number} &mdash; %{end_number} de %{total}
-  donate: Faça uma doação
   donation_amount_legend: Escolha a quantidade que gostaria de doar
   donation_amount_other_label: Outro
   donation_confirmation: Confirmação de doação

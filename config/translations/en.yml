@@ -1878,6 +1878,9 @@ en:
     update_failed: "Unable to update your data: %{errors}"
   data_search_files:
     file_ready_for_download: "The search you recently requested for \"%{known_uri_label}\" can now be downloaded at <a href='%{download_url}'>%{download_url}</a>."
+    from: "Lowest Value"
+    to: "Highest Value"
+    unit_uri: "Unit of Measure"
   # end of views scope
   this_article_cannot_be_curated_because_unpublished: "This article cannot be curated because it is unpublished."
   this_article_is_unpublished: "This article is unpublished."
@@ -4017,6 +4020,7 @@ en:
   not_applicable: "not applicable"
   not_evaluated: "Not evaluated"
   not_recognized_by_available_hierarchies: "Not recognized by any of the available classifications"
+  not_specified: "not specified"
   not_yet_implemented_error: "Sorry, that feature has not been implemented yet."
   note: "Note:"
   note_about_homonym_problems: "Note: Only change this attribute if you are certain - unchecking this could cause serious homonym problems"

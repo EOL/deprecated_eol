@@ -4,6 +4,9 @@ describe 'layouts/v2/data_search' do
 
   before(:all) do
     Language.create_english
+    Vetted.create_enumerated
+    Visibility.create_enumerated
+    KnownUri.create_enumerated
     @user = EOL::AnonymousUser.new(Language.default)
   end
 
@@ -25,6 +28,7 @@ describe 'layouts/v2/data_search' do
       assign(:select_options, [['attributed', 1]])
       assign(:wildcard_search, false)
       assign(:meta_data, {title: 'titular'})
+      assign(:units_for_select, KnownUri.default_units_for_form_select)
     end
 
     it "should include a drop-down with all attributes" do

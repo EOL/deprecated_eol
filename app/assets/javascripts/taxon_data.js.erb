@@ -233,6 +233,23 @@ EOL.enable_hover_list_items = function() {
   );
 }
 
+// change the list of units based on the currently selected attribute
+EOL.update_unit_select_options = function(known_uri_id) {
+  // call the 'autocomplete' method with the given predicate ID (or no predicate ID to get back all units)
+  $.ajax({
+    url: '/known_uris/autocomplete_known_uri_units?predicate_known_uri_id=' + known_uri_id,
+    dataType: 'json',
+    success: function(response) {
+      // remove all but the first option, which is not specified
+      $('select#unit').find('option:gt(0)').remove();
+      $.each(response, function(key, unit_data) {
+        // add back the units applicable to the selected attribute
+        $('select#unit').append($('<option></option>').attr("value", unit_data.uri).text(unit_data.value));
+      });
+    }
+  });
+};
+
 $(function() {
 
   $('.has_many').each(function() {
@@ -466,6 +483,11 @@ $(function() {
       $('ul.glossary li[data-toc-id~="' + li.attr('data-toc-id') + '"]').show();
     }
     return false;
+  });
+
+  // change the list of units based on the currently selected attribute
+  $('#data_search select#attribute').on('change', function() {
+    EOL.update_unit_select_options($(this).find(":selected").data('known_uri_id'));
   });
 
 });

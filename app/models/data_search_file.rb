@@ -1,12 +1,13 @@
 class DataSearchFile < ActiveRecord::Base
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
-    :completed_at, :hosted_file_url, :row_count
+    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id
   attr_accessor :results
 
   belongs_to :user
   belongs_to :language
   belongs_to :known_uri
+  belongs_to :taxon_concept
 
   LIMIT = 5000
 
@@ -75,8 +76,9 @@ class DataSearchFile < ActiveRecord::Base
     # NOTE - for testing on staging:
     # q = '' ; uri = 'http://iobis.org/minphosphate' ; from = nil ; to = nil ; sort = nil ; LIMIT = 12 ; options = {} ; user = User.first
     # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
-    @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
-      sort: sort, per_page: LIMIT, for_download: true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
+    @results = TaxonData.search(querystring: q, attribute: uri, min_value: from, max_value: to,
+      sort: sort, per_page: LIMIT, for_download: true, taxon_concept: taxon_concept, unit: unit_uri)
+    # TODO - if we KEEP pagination, make this value more sane (and put page back in).
     # TODO - handle the case where results are empty.
     rows = []
     DataPointUri.assign_bulk_metadata(@results, user.language)

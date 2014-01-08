@@ -89,9 +89,9 @@ describe KnownUrisController do
     end
 
     # the method allows an empty search, but the JS will only call this method when there are at least 2 characters
-    it 'should return all KnownUris by default' do
+    it 'should not return any KnownUris without a search term by default' do
       get :autocomplete_known_uri_search, :term => ''
-      assigns[:known_uris].should == KnownUri.all.sort_by(&:position)
+      assigns[:known_uris].should == []
     end
 
     # the method allows an empty search, but the JS will only call this method when there are at least 2 characters
@@ -165,9 +165,9 @@ describe KnownUrisController do
       expect { get :autocomplete_known_uri_units, term: 'foo' }.not_to raise_error
     end
 
-    it 'should return nothing when there is no term and no predicate' do
+    it 'should return all visible units when there is no term and no predicate' do
       get :autocomplete_known_uri_units, :term => ''
-      assigns[:known_uris].should == [ ]
+      assigns[:known_uris].should == KnownUri.default_units_for_form_select
     end
 
     it 'should return a list of visible allowed units when given a predicate' do
@@ -267,7 +267,7 @@ describe KnownUrisController do
       get :autocomplete_known_uri_values, :term => 'male'
       assigns[:known_uris].should == [ @male, @female ]
       get :autocomplete_known_uri_values, :term => 'http://'
-      assigns[:known_uris].should == KnownUri.values.sort_by(&:position)
+      assigns[:known_uris].should == KnownUri.values.sort
     end
 
     it 'should return a list of visible allowed values when given a predicate' do

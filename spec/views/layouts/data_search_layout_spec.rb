@@ -1,4 +1,4 @@
-require 'spec_helper'# {{{# }}}
+require 'spec_helper'
 
 describe 'layouts/v2/data_search' do
 

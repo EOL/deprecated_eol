@@ -49,8 +49,14 @@ class DataSearchController < ApplicationController
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
     @page = options[:page] || 1
     @taxon_concept = TaxonConcept.find_by_id(options[:taxon_concept_id])
-    @attribute = nil unless EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
-    @attribute_known_uri = KnownUri.find_by_uri(@attribute)
+    # Look up attribute based on query
+    unless @querystring.blank? || EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
+      @attribute_known_uri = KnownUri.by_name(@querystring.split.first)
+      @attribute = @attribute_known_uri.uri if @attribute_known_uri
+      @querystring = options[:q] = ''
+    else
+      @attribute_known_uri = KnownUri.find_by_uri(@attribute)
+    end
     if @attribute_known_uri && ! @attribute_known_uri.units_for_form_select.empty?
       @units_for_select = @attribute_known_uri.units_for_form_select
     else

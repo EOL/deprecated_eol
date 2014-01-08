@@ -7,6 +7,8 @@ module DataSearchHelper
     elsif @taxon_concept # NOTE - I didn't write this, but I think the intent here is to get ONLY attributes with numeric values:
       measurement_uris = TaxonData.new(@taxon_concept, current_user).ranges_of_values.collect{ |r| r[:attribute] }
     else
+      # NOTE - because we're pulling this from Sparql, user-added known uris may or may not be included (seems not, from my local
+      # tests, but I suspect it only matters in test env's)
       measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris
     end
     # TODO - this could be greatly simplified with duck-typing.  :|

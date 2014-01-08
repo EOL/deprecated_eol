@@ -1,4 +1,5 @@
 -# TODO = the "q: ''" in this search url is superfluous, but without it the path is not built...
+-# suspect it should be: = form_tag search_url, method: 'get', role: 'search', id: 'simple_search' do
 %form{ id: "simple_search", action: search_url(q: ''), method: "get", role: "search" }
   %h2.assistive= I18n.t(:search_the_site)
   %fieldset

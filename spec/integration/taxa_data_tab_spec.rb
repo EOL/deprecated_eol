@@ -34,7 +34,7 @@ describe 'Taxa data tab basic tests' do
     @measurement.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th div.term", text: 'Weight')
+    body.should have_selector("table.data th div", text: 'Weight')
     body.should have_selector("table.data td", text: '12,345.0')
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
   end
@@ -43,7 +43,7 @@ describe 'Taxa data tab basic tests' do
     @association.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th div.term", text: 'Preys On')
+    body.should have_selector("table.data th div", text: 'Preys On')
     body.should have_selector("table.data td a[href='/pages/#{@target_taxon_concept.id}/data']", text: @target_taxon_concept.title_canonical)
     body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
   end
@@ -52,7 +52,7 @@ describe 'Taxa data tab basic tests' do
     @user_added_data.update_triplestore
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector("table.data tr")
-    body.should have_selector("table.data th div.term", text: 'Length')
+    body.should have_selector("table.data th div", text: 'Length')
     body.should have_selector("table.data td", text: '9,999.0')
     body.should include("provided by <a href=\"/users/#{@user.id}\">#{@user.full_name}</a>")
   end

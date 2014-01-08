@@ -12,7 +12,7 @@
         %dt
           %label= I18n.t(:data_search_refine_field_label)
         %dd
-          = search_field_tag(:q, @querystring, size: 27, placeholder: I18n.t(:data_search_refine_placeholder))
+          = search_field_tag(:q, @querystring, size: 27)
       - if show_clade
         %dl
           %dt

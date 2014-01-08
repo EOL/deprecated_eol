@@ -84,8 +84,6 @@ class DataSearchFile < ActiveRecord::Base
   def get_data(options = {})
     puts "++ #get_data"
     # NOTE - for testing on staging:
-    # TODO - if we KEEP pagination, make this value more sane (and put page back in).
-    # TODO - handle the case where results are empty.
     rows = []
     page = 1
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.

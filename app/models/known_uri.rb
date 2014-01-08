@@ -103,8 +103,16 @@ class KnownUri < ActiveRecord::Base
   end
 
   # TODO - this field is not currently indexed. If we keep doing this, it will need to be, to speed things up:
+  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
+  # really used.  ...So I'm calling it from Sparql:
   def self.by_name(name)
-    TranslatedKnownUri.where(["name LIKE ?", "%#{name}%"]).joins(:known_uri).first.try(:known_uri)
+    # TODO - eventually we want more than just the first.
+    # TODO - we should whitelist the name.
+    uris = EOL::Sparql.connection.all_measurement_type_known_uris.
+      select { |uri| uri.is_a?(KnownUri) }.
+      sort_by(&:position).
+      select { |k| (k.respond_to?(:name) ? k.name : k ) =~ /#{name}/i }.
+      first
   end
 
   def self.custom(name, language)

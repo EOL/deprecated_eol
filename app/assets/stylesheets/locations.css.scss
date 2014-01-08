@@ -1,5 +1,43 @@
 @import "mixins";
 
+@function px_to_em($number) {
+  @return (1em / 12) * $number;
+}
+
+@mixin item_summary {
+  clear: both;
+  overflow: hidden;
+  padding: px_to_em(10) px_to_em(10) px_to_em(10) px_to_em(160);
+  border-top: 1px solid #d7dadc;
+  &:first-child {
+    border-top: none;
+  }
+  > a {
+    &:first-child {
+      float: left;
+      margin-left: -1 * px_to_em(150);
+      display: block;
+      width: px_to_em(130);
+    }
+  }
+  img {
+    max-width: 100%;
+  }
+  small {
+    font-weight: bold;
+  }
+  h4 {
+    font-size: 1.2em;
+    a {
+      text-decoration: none;
+      color: #28323a;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
 form {
   &.googly {
     background: $light_blue;
@@ -14,22 +52,27 @@ form {
     dd, p {
       padding: 0.5em;
     }
-    .feedback {
-      background-color: white;
-      background-color: rgba(255, 255, 255, 0.6);
-      margin-right: 10%;
-      position: absolute;
-      top: 20%;
-      left: 10%;
-      line-height: 150%;
-      z-index: 1;
-      p {
-        opacity: 1;
-      }
-    }
     .map {
       width: 100%;
       height: (1em / 12) * 400;
     }
+  }
+}
+.feedback {
+  line-height: 150%;
+  p {
+    background-color: yellow;
+    align: center;
+    padding: px_to_em(10);
+    &.error {
+      background-color: red;
+    }
+  }
+}
+
+.results {
+  line-height: 160%;
+  li {
+    @include item_summary();
   }
 }

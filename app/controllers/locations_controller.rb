@@ -21,13 +21,21 @@ class LocationsController < ApplicationController
   # POST /locations.json
   def create
     @location = Location.new(params[:location])
+    @location.load_taxa({ language_id: current_language.id })
 
     respond_to do |format|
-      if @location.save
-        format.html { redirect_to @location, notice: 'Location was successfully created.' }
-        format.json { render json: @location, status: :created, location: @location }
+      if @location.valid?
+        format.html { render action: 'new' }
+        format.json { render json: { html: render_to_string(
+                                       partial: 'taxa',
+                                       formats: [:html]
+                                     ),
+                                     location: @location
+                             },
+                             status:   :ok
+                    }
       else
-        format.html { render action: "new" }
+        format.html { render action: 'new' }
         format.json { render json: @location.errors, status: :unprocessable_entity }
       end
     end

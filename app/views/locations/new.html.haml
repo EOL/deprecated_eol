@@ -1,6 +1,11 @@
-= content_for :head do
+- content_for :head do
   = stylesheet_link_tag 'locations'
+- content_for :social_sharing do
+  = render :partial => 'shared/social_sharing'
 
 #content
   .site_column
     = render 'form'
+    .feedback
+    .results
+      = render 'taxa'

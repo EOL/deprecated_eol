@@ -1,0 +1,4 @@
+- self.formats = [:json, :html]
+%li
+  = render partial: 'shared/item_summary_taxon',
+    locals: { item: taxon, icon: false, thumb_size: 130 }

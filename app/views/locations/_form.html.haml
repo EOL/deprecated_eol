@@ -1,9 +1,11 @@
 = form_for @location, { builder: ApplicationHelper::EolFormBuilder } do |f|
   = f.hidden_field :latitude
   = f.hidden_field :longitude
+  = f.hidden_field :index
   %fieldset.content
     %dl
       %dt= f.label :location
       %dd= f.text_field :location
   %fieldset.actions
     = f.submit
+  .map

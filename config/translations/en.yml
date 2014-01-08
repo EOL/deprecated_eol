@@ -503,6 +503,10 @@ en:
           attributes:
             uri:
               must_be_uri: "must be a well-formed <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
+        location:
+          attributes:
+            response:
+              invalid: "is invalid, taxa cannot be loaded at this time"
         open_authentications:
           guid_provider_must_be_unique: "the third-party account is already connected with an EOL account"
           provider_user_id_must_be_unique: "only one account from each third-party provider can be connected to an EOL account"
@@ -3850,6 +3854,8 @@ en:
   locations:
     errors:
       unknown_location: "Sorry, we can't find that location. Try entering an address and selecting from the suggestions. Or you can enter latitude and longitude in the decimal degrees format e.g. 41.5267, -70.6631."
+    notices:
+      looking_for_taxa: "Looking for taxa..."
     what_lives_here_question: "What lives here?"
   login_required_button: "Login required"
   logging_database_colon: "Logging:"

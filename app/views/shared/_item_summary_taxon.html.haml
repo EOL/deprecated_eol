@@ -1,11 +1,14 @@
 - view_style ||= 'default'
 - search_result = nil unless defined?(search_result)
 - path = taxon_overview_path(item)
+- icon = true unless defined?(icon)
+- thumb_size ||= 88
 - unless view_style == 'list'
   - if image = item.exemplar_or_best_image_from_solr
-    - if thumb = image.thumb_or_object('88_88')
-      = link_to image_tag(thumb, width: 88, height: 88), path
-  = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), path
+    - if thumb = image.thumb_or_object("#{thumb_size}_#{thumb_size}")
+      = link_to image_tag(thumb, width: thumb_size, height: thumb_size), path
+  - if icon
+    = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_taxon_assistive)}), path
 - unless ['gallery','list'].include?(view_style)
   - if item.entry and item.entry.respond_to?(:preferred_classification_summary)
     %small= link_to item.entry.preferred_classification_summary, path

@@ -9,7 +9,7 @@ if (!EOL.Locations) {
     locations: [],
     add: function(loc) {
       var length = EOL.Locations.locations.push(loc);
-      EOL.Locations.locations[length - 1].index = length - 1;
+      EOL.Locations.locations[length - 1].elements.index.val(length - 1);
     },
     ready: function() {
       for (var i=0; i < EOL.Locations.locations.length; i++) {
@@ -39,7 +39,9 @@ if (!EOL.Locations) {
       lng:      0,
       loc:      null,
       map:      null,
-      feedback: null
+      feedback: null,
+      index:    null,
+      results:  null
     };
     this.provider = null;
     this.zoom     = 13;
@@ -48,26 +50,16 @@ if (!EOL.Locations) {
     this.point    = null;
     this.location = null;
     this.scripts  = [];
-    this.index    = null;
     this.latMax   = 85.05115;
     this.latMin   = -85.05115;
     this.lngMax   = 180;
     this.lngMin   = -180;
+    this.taxa     = null;
 
     jQuery.extend(this, settings);
 
-    if (typeof this.elements.feedback === 'undefined') {
-      this.elements.feedback = jQuery('<div/>', { class: 'feedback' });
-      this.elements.feedback.appendTo(this.elements.form);
-    }
-    if (typeof this.elements.map === 'undefined') {
-      this.elements.map = jQuery('<div/>', {
-        class: 'map'
-      });
-      this.elements.map.appendTo(this.elements.form);
-    }
-
   };
+
   EOL.Location.prototype.LATLNG_REGEX = new RegExp(
     <%= Location::LATLNG_REGEX.inspect %>
   );
@@ -87,9 +79,42 @@ if (!EOL.Locations) {
            lng >= this.lngMin;
   }
 
-  EOL.Location.prototype.notifyUser = function(message, attributes) {
+  EOL.Location.prototype.submit = function() {
+    this.addFeedback("<%= I18n.t('locations.notices.looking_for_taxa') %>", {
+      class: 'notice results'
+    });
+    $.ajax({
+      type:        'POST',
+      url:         this.elements.form.attr('action'),
+      data:        this.elements.form.serialize(),
+      dataType:    'json',
+      success:     function(results) {
+        EOL.Locations.locations[results.location.index].addResults(results);
+      },
+      error:       function(error) {
+        // fixme what to do in an error?
+        console.log(error);
+      }
+    });
+  }
+
+  EOL.Location.prototype.clearFeedback = function() {
+    this.elements.feedback.empty();
+  };
+
+  EOL.Location.prototype.addFeedback = function(message, attributes) {
+    this.elements.feedback.empty();
     jQuery('<p/>', attributes).html(message).appendTo(this.elements.feedback);
   }
+
+  EOL.Location.prototype.clearResults = function() {
+    this.elements.results.empty();
+  };
+
+  EOL.Location.prototype.addResults = function(results) {
+    this.clearFeedback();
+    this.elements.results.empty().append(results.html);
+  };
 
   EOL.Location.prototype.ready = function() {
     throw 'You must implement a ready method in your subclass.';
@@ -139,7 +164,7 @@ if (!EOL.Locations) {
     });
     this.location = new google.maps.places.Autocomplete(
       this.elements.loc[0],
-      { index: this.index }
+      { index: this.elements.index.val() }
     );
     google.maps.event.addListener(
       this.location,
@@ -155,7 +180,8 @@ if (!EOL.Locations) {
   };
 
   EOL.GoogleLocation.prototype.locationChanged = function() {
-    this.elements.feedback.empty();
+    this.clearResults();
+    this.clearFeedback();
     this.marker.setVisible(false);
     var place = this.location.getPlace(),
         lat   = null,
@@ -172,8 +198,8 @@ if (!EOL.Locations) {
       // user has input something we don't recognise
       // fixme do something sensible here e.g. provide feedback or try to
       // geocode whatever has been entered
-      this.notifyUser("<%= I18n.t('locations.errors.unknown_location') %>", {
-          class: 'error'
+      this.addFeedback("<%= I18n.t('locations.errors.unknown_location') %>", {
+          class: 'error location'
       });
       return;
     }
@@ -183,6 +209,7 @@ if (!EOL.Locations) {
     lng = (lng == this.lngMin) ? this.lngMin + 0.001 : lng;
     this.elements.lat.val(lat);
     this.elements.lng.val(lng);
+    this.submit(); // 'submit' the form behind the scenes
     this.point = new google.maps.LatLng(lat, lng);
     this.map.setCenter(this.point);
     this.marker.setPosition(this.point);
@@ -195,10 +222,14 @@ $(document).ready(function() {
   if ($('#new_location').length > 0) {
     EOL.Locations.add(new EOL.GoogleLocation({
       elements: {
-        form: $('#new_location'),
-        lat:  $('#new_location input[name="location[latitude]"]'),
-        lng:  $('#new_location input[name="location[longitude]"]'),
-        loc:  $('#new_location input[name="location[location]"]'),
+        form:     $('#new_location'),
+        lat:      $('#new_location input[name="location[latitude]"]'),
+        lng:      $('#new_location input[name="location[longitude]"]'),
+        loc:      $('#new_location input[name="location[location]"]'),
+        index:    $('#new_location input[name="location[index]"]'),
+        map:      $('#new_location .map'),
+        results:  $('.results'),
+        feedback: $('.feedback')
       }
     }));
   }

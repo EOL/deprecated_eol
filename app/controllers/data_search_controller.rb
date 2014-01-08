@@ -51,7 +51,7 @@ class DataSearchController < ApplicationController
     @taxon_concept = TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
     unless @querystring.blank? || EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
-      @attribute_known_uri = KnownUri.by_name(@querystring.split.first)
+      @attribute_known_uri = KnownUri.by_name(@querystring)
       @attribute = @attribute_known_uri.uri if @attribute_known_uri
       @querystring = options[:q] = ''
     else

@@ -11,7 +11,6 @@
         name: 'q', 'min-length' => 3
 
     %input{ type: "submit", name: "search", value: I18n.t(:go), data_error: I18n.t(:must_provide_search_term_error), data_unchanged: I18n.t(:search_placeholder) }
-    %input{ type: "submit", name: "data_search", value: I18n.t(:data), data_error: I18n.t(:must_provide_search_term_error), data_unchanged: I18n.t(:search_placeholder), formaction: data_search_url }
 
   - if @logged_search_id
     = hidden_field_tag :search_log_id, @logged_search_id

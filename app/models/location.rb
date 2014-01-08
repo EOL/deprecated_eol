@@ -6,7 +6,9 @@ class Location
   include ActiveModel::Conversion
   extend ActiveModel::Naming
 
-  attr_accessor :location
+  LATLNG_REGEX = /^[ ]*?([-+]?\d{1,2}(?:[.]\d*)?)[, ]+([-+]?\d{1,3}(?:[.]\d*)?)[ .]*?$/
+
+  attr_accessor :location, :latitude, :longitude
 
   def initialize(attributes = {})
     attributes.each do |name, value|

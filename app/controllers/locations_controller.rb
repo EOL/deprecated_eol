@@ -5,11 +5,14 @@ class LocationsController < ApplicationController
   # GET /locations/new
   # GET /locations/new.json
   def new
-    @location = Location.new
-    @page_title = I18n.t('locations.what_lives_near_here_question')
+    @location = Location.new({
+      latitude: 41.5267,
+      longitude: -70.6631
+    })
+    @page_title = I18n.t('locations.what_lives_here_question')
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @location }
     end
   end

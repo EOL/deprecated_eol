@@ -3848,7 +3848,9 @@ en:
   literature_references: "Literature references"
   location_colon: "Location:"
   locations:
-    what_lives_near_here_question: "What lives near here?"
+    errors:
+      unknown_location: "Sorry, we can't find that location. Try entering an address and selecting from the suggestions. Or you can enter latitude and longitude in the decimal degrees format e.g. 41.5267, -70.6631."
+    what_lives_here_question: "What lives here?"
   login_required_button: "Login required"
   logging_database_colon: "Logging:"
   login: "login"

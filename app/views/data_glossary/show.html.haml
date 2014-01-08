@@ -2,7 +2,6 @@
   - known_uris = KnownUri.includes(:toc_items).all.delete_if { |ku| ku.name.blank? }
   #content
     #known_uris.site_column.glossary
-      = render 'shared/beta_warning'
       - a_to_z = ('A'..'Z').to_a
       - a_to_zero = a_to_z + [ '0' ]
       %h3

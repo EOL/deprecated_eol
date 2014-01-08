@@ -17,7 +17,6 @@
   #content
     .site_column
       #data_search
-        = render partial: 'shared/beta_warning', locals: { note: I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) }
         = render 'data_search/filters'
         #search_results
           #main

@@ -192,7 +192,7 @@ class KnownUrisController < ApplicationController
 
   # search for any URI by name or URI
   def autocomplete_known_uri_search
-    @known_uris = search_known_uris_by_name_or_uri(params[:term])
+    @known_uris = params[:term].blank? ? [] : search_known_uris_by_name_or_uri(params[:term])
     render_autocomplete_results
   end
 
@@ -209,9 +209,10 @@ class KnownUrisController < ApplicationController
   # KnownUri which is a unit of measure value URI
   def autocomplete_known_uri_units
     lookup_predicate
-    if params[:term].strip.blank?
-      if @predicate && @predicate.has_units?
-        @known_uris = @predicate.allowed_units.select{ |ku| ku.visible? }
+    if params[:term].blank? || params[:term].strip.blank?
+      @known_uris = @predicate ? @predicate.units_for_form_select : []
+      if @known_uris.blank?
+        @known_uris = KnownUri.default_units_for_form_select
       end
     else
       @known_uris = search_known_uris_by_name_or_uri(params[:term])
@@ -265,10 +266,10 @@ class KnownUrisController < ApplicationController
   def render_autocomplete_results
     @known_uris ||= []
     @known_uris.uniq!
-    @known_uris.sort_by!(&:position)
+    @known_uris.sort!
     @known_uris = @known_uris[0..20]
     KnownUri.preload_associations(@known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri } ])
-    render json: @known_uris.compact.uniq.collect{ |k| { id: k.id, value: k.name,
+    render json: @known_uris.compact.uniq.collect{ |k| { id: k.id, value: k.name, uri: k.uri,
       label: "#{k.name} (#{k.uri})", uri_type: k.has_units? ? 'measurement' : nil,
       has_values: k.has_values? ? '1' : nil }}.to_json
   end

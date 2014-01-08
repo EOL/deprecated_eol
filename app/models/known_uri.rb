@@ -28,7 +28,7 @@ class KnownUri < ActiveRecord::Base
     { grams:       Rails.configuration.uri_obo + 'UO_0000021'},
     { kilograms:   Rails.configuration.uri_obo + 'UO_0000009'},
     { millimeters: Rails.configuration.uri_obo + 'UO_0000016'},
-    { centimeters: Rails.configuration.uri_obo + 'UO_0000015'}, # Is 15 correct?  Or 81?
+    { centimeters: Rails.configuration.uri_obo + 'UO_0000015'}, # Is 15 correct?  answer: 15 is correct
     { meters:      Rails.configuration.uri_obo + 'UO_0000008'},
     { kelvin:      Rails.configuration.uri_obo + 'UO_0000012'},
     { celsius:     Rails.configuration.uri_obo + 'UO_0000027'},
@@ -151,6 +151,18 @@ class KnownUri < ActiveRecord::Base
     cached('uris_for_clade_exemplars') do
       KnownUri.where(clade_exemplar: true).collect(&:uri)
     end
+  end
+
+  def self.default_units_for_form_select
+    KnownUri.unit_of_measure.allowed_values.select{ |k| k.visible? }.sort
+  end
+
+  def units_for_form_select
+    unit_uris = allowed_units.select{ |ku| ku.visible? }
+    if default_unit = implied_unit_of_measure
+      unit_uris << default_unit
+    end
+    unit_uris.sort
   end
 
   def allowed_values
@@ -317,6 +329,15 @@ class KnownUri < ActiveRecord::Base
     return [] if term.length < 3
     TranslatedKnownUri.where(language_id: options[:language].id).
       where("name REGEXP '(^| )#{term}( |$)'").includes(:known_uri).collect(&:known_uri).compact.uniq
+  end
+
+  # Sort by: position of known_uri, rules of exclusion, and finally value display string
+  def <=>(other)
+    if visible? != other.visible?
+      visible? ? 0 : 1
+    else
+      position <=> other.position
+    end
   end
 
   private

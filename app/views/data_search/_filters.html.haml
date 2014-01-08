@@ -12,7 +12,7 @@
         %dt
           %label= I18n.t(:data_search_refine_field_label)
         %dd
-          = search_field_tag(:q, @querystring, size: 27, placeholder: I18n.t(:data_search_refine_placeholder))
+          = search_field_tag(:q, @querystring, size: 27)
       - if show_clade
         %dl
           %dt
@@ -25,7 +25,24 @@
         %dt
           %label= I18n.t(:sort_by)
         %dd
-          - sort_options = { "-- " + I18n.t(:sort_by) + " --" => nil, I18n.t(:sort_by_value_ascending) => 'asc', I18n.t(:sort_by_value_descending) => 'desc' }
+          - sort_options = { I18n.t(:sort_by_value_ascending) => 'asc', I18n.t(:sort_by_value_descending) => 'desc' }
           = select_tag(:sort, options_for_select(sort_options, @sort))
+    %fieldset.opts
+      %dl
+        %dt
+          %label= I18n.t('data_search_files.from')
+        %dd
+          = search_field_tag(:min, @min_value)
+      %dl
+        %dt
+          %label= I18n.t('data_search_files.to')
+        %dd
+          = search_field_tag(:max, @max_value)
+      %dl
+        %dt
+          %label= I18n.t('data_search_files.unit_uri')
+        %dd
+          - sort_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
+          = select_tag(:unit, options_for_select(sort_options, @unit))
     %fieldset.actions
       = submit_tag I18n.t(:search) unless @wildcard_search

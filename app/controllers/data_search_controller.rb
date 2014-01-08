@@ -32,9 +32,10 @@ class DataSearchController < ApplicationController
 
   def create_data_search_file
     DataSearchFile.create!(
-      q: @querystring, uri: @attribute, from: @from, to: @to,
+      q: @querystring, uri: @attribute, from: @min_value, to: @max_value,
       sort: @sort, known_uri: @attribute_known_uri, language: current_language,
-      user: current_user
+      user: current_user, taxon_concept_id: (@taxon_concept ? @taxon_concept.id : nil),
+      unit_uri: @unit
     )
   end
 
@@ -42,7 +43,10 @@ class DataSearchController < ApplicationController
     @hide_global_search = true
     @querystring = options[:q]
     @attribute = options[:attribute]
-    @sort = options[:sort]
+    @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'
+    @unit = options[:unit].blank? ? nil : options[:unit]
+    @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
+    @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
     @page = options[:page] || 1
     @taxon_concept = TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
@@ -53,19 +57,13 @@ class DataSearchController < ApplicationController
     else
       @attribute_known_uri = KnownUri.find_by_uri(@attribute)
     end
-    @from, @to = nil, nil
-    # we must at least have an attribute to perform a Virtuoso query, otherwise it would be too slow
-    unless @attribute.blank?
-      if @querystring && matches = @querystring.match(/^([^ ]+) to ([^ ]+)$/)
-        from = matches[1]
-        to = matches[2]
-        if from.is_numeric? && to.is_numeric?
-          @from, @to = [ from.to_f, to.to_f ].sort
-        end
-      end
+    if @attribute_known_uri && ! @attribute_known_uri.units_for_form_select.empty?
+      @units_for_select = @attribute_known_uri.units_for_form_select
+    else
+      @units_for_select = KnownUri.default_units_for_form_select
     end
-    @search_options = { querystring: @querystring, attribute: @attribute, from: @from, to: @to,
-      sort: @sort, language: current_language, taxon_concept: @taxon_concept }
+    @search_options = { querystring: @querystring, attribute: @attribute, min_value: @min_value, max_value: @max_value,
+      unit: @unit, sort: @sort, language: current_language, taxon_concept: @taxon_concept }
   end
 
 end

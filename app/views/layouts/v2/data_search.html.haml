@@ -3,11 +3,12 @@
     .site_column
       .hgroup
         %h1= @results ? I18n.t(:search_results) : I18n.t(:search)
-        - search_term_to_show = [ @attribute, @querystring ].delete_if{ |t| t.blank? }.join(' : ')
+        - search_term_to_show = [ (@attribute_known_uri ? @attribute_known_uri.label.firstcap : @attribute),
+          @querystring ].delete_if{ |t| t.blank? }.join(' : ')
         %h2
           = @results ? raw(I18n.t(:count_results_for_search_term, count: @results.total_entries, search_term: h(search_term_to_show))) : ''
           - if @taxon_concept
-            = raw I18n.t(:searching_within_clade, clade_name: link_to("#{@taxon_concept.title_canonical_italicized}", taxon_overview_url(@taxon_concept)))
+            = raw I18n.t(:searching_within_clade, clade_name: link_to(raw("#{@taxon_concept.title_canonical_italicized}"), taxon_overview_url(@taxon_concept)))
       .page_actions
         %ul
           - if @results && !@results.blank?

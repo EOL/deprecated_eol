@@ -5,7 +5,7 @@
     %fieldset.opts
       %dl
         %dt
-          %label= I18n.t('activerecord.attributes.user_added_data.predicate')
+          %label.required= I18n.t('activerecord.attributes.user_added_data.predicate')
         %dd
           = select_tag(:attribute, data_search_attribute_options)
       %dl
@@ -46,3 +46,4 @@
           = select_tag(:unit, options_for_select(sort_options, @unit))
     %fieldset.actions
       = submit_tag I18n.t(:search) unless @wildcard_search
+    .note= raw(I18n.t(:data_search_filter_tip, :required_icon => image_tag('v2/icon_required.png')))

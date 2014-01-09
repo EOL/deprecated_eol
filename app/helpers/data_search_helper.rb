@@ -1,7 +1,7 @@
 module DataSearchHelper
 
   def data_search_attribute_options
-    select_options = [ I18n.t(:not_specified), nil ]
+    select_options = [ I18n.t(:data_attribute_select_prompt), nil ]
     if @taxon_data # All of the attributes on this data:
       measurement_uris = @taxon_data.get_data.map(&:predicate_uri)
     elsif @taxon_concept # NOTE - I didn't write this, but I think the intent here is to get ONLY attributes with numeric values:

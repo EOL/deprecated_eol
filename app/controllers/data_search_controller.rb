@@ -5,7 +5,7 @@ class DataSearchController < ApplicationController
 
   layout 'v2/data_search'
 
-  # TODO - pass in a known_uri_id when we have it, to avoid the ugly URL
+  # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index
     prepare_search_parameters(params)
     respond_to do |format|
@@ -43,6 +43,10 @@ class DataSearchController < ApplicationController
     @hide_global_search = true
     @querystring = options[:q]
     @attribute = options[:attribute]
+    # TODO - this duplicates logic from the helper; fix:
+    # NOTE - this avoids incorrect "warning" messages:
+    @attribute = nil if options[:attribute] == I18n.t(:data_attribute_select_prompt) || @attribute.blank?
+    @attribute_missing = @attribute.nil? && params.has_key?(:attribute) 
     @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'
     @unit = options[:unit].blank? ? nil : options[:unit]
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil

@@ -5,7 +5,7 @@ module DataSearchHelper
     if @taxon_data # All of the attributes on this data:
       measurement_uris = @taxon_data.get_data.map(&:predicate_uri)
     elsif @taxon_concept # NOTE - I didn't write this, but I think the intent here is to get ONLY attributes with numeric values:
-      measurement_uris = TaxonData.new(@taxon_concept, current_user).ranges_of_values.collect{ |r| r[:attribute] }
+      measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept)
     else
       # NOTE - because we're pulling this from Sparql, user-added known uris may not be included. However, it's superior to
       # KnownUri insomuch as it ensures that KnownUris with NO data are ignored.

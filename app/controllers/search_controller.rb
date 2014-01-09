@@ -125,6 +125,7 @@ class SearchController < ApplicationController
   end
 
   def autocomplete_taxon
+    @from_site_search = !! params[:site_search]
     @querystring = params[:term].strip
     if @querystring.blank? || @querystring.length < 3 || @querystring.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)
       json = {}

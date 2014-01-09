@@ -75,8 +75,9 @@ class TaxonData < TaxonUserClassificationFilter
       builder = EOL::Sparql::UnitQueryBuilder.new(options[:unit], options[:min_value], options[:max_value])
       query += builder.sparql_query_filters
     # numerical range search term
-    elsif options[:min_value] && options[:max_value]
-      query += "FILTER(xsd:float(?value) >= xsd:float(#{options[:min_value]}) AND xsd:float(?value) <= xsd:float(#{options[:max_value]})) . "
+    elsif options[:min_value] || options[:max_value]
+      query += "FILTER(xsd:float(?value) >= xsd:float(#{options[:min_value]})) . " if options[:min_value]
+      query += "FILTER(xsd:float(?value) <= xsd:float(#{options[:max_value]})) . " if options[:max_value]
     # exact numerical search term
     elsif options[:querystring] && options[:querystring].is_numeric?
       query += "FILTER(xsd:float(?value) = xsd:float(#{options[:querystring]})) . "
@@ -101,15 +102,7 @@ class TaxonData < TaxonUserClassificationFilter
         ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
       }"
     if options[:taxon_concept]
-      query += " .
-        OPTIONAL {
-          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{options[:taxon_concept].id}> .
-          ?parent_taxon dwc:taxonConceptID ?parent_taxon_concept_id .
-          ?t dwc:parentNameUsageID+ ?parent_taxon .
-          ?t dwc:taxonConceptID ?taxon_concept_id
-        } .
-        FILTER(?parent_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{options[:taxon_concept].id}> ||
-               ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{options[:taxon_concept].id}>)"
+      query += taxon_query_clauses(options[:taxon_concept].id)
     end
     query += " }"
     unless options[:only_count]
@@ -124,6 +117,18 @@ class TaxonData < TaxonUserClassificationFilter
       query += " LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
     end
     return query
+  end
+
+  def self.taxon_query_clauses(taxon_concept_id)
+    " .
+      OPTIONAL {
+        ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}> .
+        ?parent_taxon dwc:taxonConceptID ?parent_taxon_concept_id .
+        ?t dwc:parentNameUsageID+ ?parent_taxon .
+        ?t dwc:taxonConceptID ?taxon_concept_id
+      } .
+      FILTER(?parent_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}> ||
+             ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}>)"
   end
 
   def downloadable?

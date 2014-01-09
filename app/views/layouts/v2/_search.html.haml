@@ -5,8 +5,9 @@
   %fieldset
     %label.assistive{ for: :q }= I18n.t(:search_field_label)
     .text#data_search
-      = text_field 'q', autocomplete_taxon_search_path,
+      = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
         placeholder: I18n.t(:search_placeholder),
+        'data-include-site_search' => 'form#simple_search',
         maxlength: "250", title: I18n.t(:search_input_advisory_information),
         name: 'q', 'min-length' => 3
 

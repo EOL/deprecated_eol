@@ -454,6 +454,10 @@ $(function() {
     }
   });
 
+  $('ul.ui-autocomplete li a.ui-corner-all').live('click', function() {
+    $(this).find('a.taxon_link')[0].click();
+  });
+
   // uncheck media list filter All when other options are selected
   $("#sidebar input[type=checkbox][value!='all']").on('click', function() {
     $("#sidebar input[type=checkbox][value='all'][name='"+ $(this).attr('name') +"']").prop("checked", false);

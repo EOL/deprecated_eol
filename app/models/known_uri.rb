@@ -102,9 +102,26 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
-  # TODO - this field is not currently indexed. If we keep doing this, it will need to be, to speed things up:
-  def self.by_name(name)
-    TranslatedKnownUri.where(["name LIKE ?", "%#{name}%"]).joins(:known_uri).first.try(:known_uri)
+  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
+  # really used.  ...So I'm calling it from Sparql:
+  def self.by_name(input)
+    normal_re = /[^a-zA-Z0-9 ]/
+    name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...
+    uris = EOL::Sparql.connection.all_measurement_type_known_uris.
+      select { |uri| uri.is_a?(KnownUri) }.
+      sort_by(&:position)
+    exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name }.first
+    return exact_match if exact_match
+    return uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(name) }.first unless name =~ / /
+    # If you're still here, it's because you have multiple words and no "exact" matches. (q.v.: "high habitat breadth")
+    # Ideally we would use super-cool search algorithms here that would recognize "high habitat breadth" is a better match to
+    # "habitat breadth" than it is to "habitat", but we don't have time to be that smart right now:
+    split_name = name.split
+    split_name.each do |subname|
+      match = uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(subname) }.first
+      return match if match
+    end
+    nil
   end
 
   def self.custom(name, language)

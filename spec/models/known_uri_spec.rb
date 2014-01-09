@@ -12,10 +12,54 @@ describe KnownUri do
 
   context '#by_name' do
 
-    it 'should find any match' do # NOTE - it doesn't matter which one it finds.
-      uri1 = KnownUri.custom('flubber', Language.default)
-      uri2 = KnownUri.custom('flubbed it', Language.default)
-      expect([uri1, uri2]).to include(KnownUri.by_name('flub'))
+    before(:each) do
+      @uri1 = double(KnownUri, position: 1, name: 'baz boozer')
+      allow(@uri1).to receive(:is_a?).with(KnownUri).and_return(true)
+      @uri2 = double(KnownUri, position: 2, name: 'bar baz')
+      allow(@uri2).to receive(:is_a?).with(KnownUri).and_return(true)
+      @uri3 = double(KnownUri, position: 3, name: 'Foo bar')
+      allow(@uri3).to receive(:is_a?).with(KnownUri).and_return(true)
+      @uris = [@uri1, @uri2, @uri3]
+    end
+
+    it 'should find an exact match' do
+      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      expect(KnownUri.by_name('bar baz')).to eq(@uri2)
+    end
+
+    it 'should ignore case' do
+      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      expect(KnownUri.by_name('foo BAR')).to eq(@uri3)
+    end
+
+    it 'should ignore extra space' do
+      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      expect(KnownUri.by_name('Foo    bar')).to eq(@uri3)
+    end
+
+    it 'should match the first single word' do
+      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      expect(KnownUri.by_name('bar')).to eq(@uri2) # Not 3...
+    end
+
+    it 'should match one word of many words' do
+      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      expect(KnownUri.by_name('this bar dude')).to eq(@uri2)
+    end
+
+    it 'should ignore symbols' do
+      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      expect(KnownUri.by_name('foo$#')).to eq(@uri3)
+    end
+
+    it 'should return nil with no match' do
+      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return([])
+      expect(KnownUri.by_name('anything')).to be_nil
+    end
+
+    it 'should ignore sparql results that are not URIs' do
+      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(['perfect'])
+      expect(KnownUri.by_name('perfect')).to be_nil
     end
 
   end

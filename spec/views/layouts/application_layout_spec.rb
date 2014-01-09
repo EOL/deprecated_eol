@@ -26,11 +26,6 @@ describe 'layouts/v2/application' do
       expect(rendered).to have_tag('input[name=search]')
     end
 
-    it "should include data search" do
-      render
-      expect(rendered).to have_tag("input[formaction='#{data_search_url}']")
-    end
-
   end
 
 end

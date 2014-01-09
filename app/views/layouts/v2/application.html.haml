@@ -59,6 +59,18 @@
           = yield :main
           /========================
 
+    #banner
+      %p
+        %strong= I18n.t(:traitbank_intro)
+        = I18n.t(:traitbank_description)
+        &nbsp;
+        %small •
+        &nbsp;
+        = link_to I18n.t(:traitbank_info_page), cms_page_path(516) # NOTE - sorry this Is hard-coded, but it's temporary...
+        &nbsp;
+        %small •
+        &nbsp;
+        = link_to I18n.t(:traitbank_data_search), data_search_path
     #header
       .section
         %h1= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }

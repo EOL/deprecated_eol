@@ -3,4 +3,8 @@
 .about_subtab{ style: style }
   %h3= I18n.t(:data_about_subtab_header)
   .explain
-    = raw I18n.t(:data_about_subtab_content, img: image_tag('v2/icon_info_tabs.png', size: '14x14'))
+    = raw I18n.t(:data_about_subtab_content,
+      img: image_tag('v2/icon_info_tabs.png', size: '14x14'),
+      user_register_url: new_user_path,
+      contact_contribute_url: contact_us_path(subject: 'Contribute'),
+      contact_traitbank_url: contact_us_path(subject: 'TraitBank'))

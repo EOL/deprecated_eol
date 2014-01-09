@@ -3243,7 +3243,22 @@ en:
   dashboard: "Dashboard"
   data: "Data"
   data_about_subtab_header: "About Data on EOL"
-  data_about_subtab_content: "<p>Data and metadata are gathered from multiple sources into a single, fully-referenced and semantically accessible taxon-centric view.</p><p>To see additional details on any data value, click on the data value. Click on the %{img} symbol for a definition of the data type.</p><p>You must be logged in to EOL to leave a comment, input data, provenance, URIs and other data directly to EOL. You may need to <a href='/users/register'>register for a free EOL account,</a> first. If you would like to recommend a data set for inclusion in EOL, or if you have data sets you would like to share through EOL, please contact us at <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Funding for the development of EOL computable data functionality provided by the Alfred P. Sloan Foundation, the John D. and Catherine T.  MacArthur Foundation, and from EOL users around the world. To learn more about the TraitBank™ project, please contact <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>"
+  data_about_subtab_content: >
+    <p>Data and metadata are gathered from multiple sources into a single,
+    fully-referenced and semantically accessible taxon-centric view.</p>
+    <p>To see additional details on any data value, click on the data value.
+    Click on the %{img} symbol for a definition of the data type.</p>
+    <p>You must be logged in to EOL to leave a comment, input data, provenance,
+    URIs and other data directly to EOL. You may need to
+    <a href="%{user_register_url}">register for a free EOL account,</a>
+    first. If you would like to recommend a data set for inclusion in EOL, or
+    if you have data sets you would like to share through EOL, please
+    <a href="%{contact_contribute_url}">contact us</a>.</p>
+    <p>Funding for the development of EOL computable data functionality
+    provided by the Alfred P. Sloan Foundation, the John D. and Catherine
+    T. MacArthur Foundation, and from EOL users around the world. To
+    learn more about the TraitBank™ project, please
+    <a href="%{contact_traitbank_url}">contact the EOL Secretariat</a>.</p>
   data_beta_search_limit:
     one: "Data search downloads are <i>temporarily</i> limited to %{count} result."
     other: "Data search downloads are <i>temporarily</i> limited to %{count} results."

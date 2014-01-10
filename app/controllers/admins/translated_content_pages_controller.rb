@@ -36,21 +36,26 @@ class Admins::TranslatedContentPagesController < AdminsController
 
   # PUT /admin/content_pages/:content_page_id/translations/:id
   def update
-    @translated_content_page = TranslatedContentPage.find(params[:id])
-    if @translated_content_page.update_attributes(params[:translated_content_page])
-      @content_page = ContentPage.find(params[:content_page_id], include: :translations)
-      @content_page.last_update_user_id = current_user.id
-      @content_page.save
-      flash[:notice] = I18n.t(:admin_translated_content_page_update_successful_notice,
-                              page_name: @content_page.page_name,
-                              language: @translated_content_page.language.label,
-                              anchor: @content_page.page_name.gsub(' ', '_').downcase)
-      redirect_to admin_content_pages_path(anchor: @content_page.page_name.gsub(' ', '_').downcase)
-    else
-      @content_page = ContentPage.find(params[:content_page_id], include: :translations)
-      flash.now[:error] = I18n.t(:admin_translated_content_page_update_unsuccessful_error)
-      set_translated_content_page_edit_options
-      render :edit
+    if @translated_content_page = TranslatedContentPage.find(params[:id])
+      older_version = @translated_content_page.dup
+      if @translated_content_page.update_attributes(params[:translated_content_page])
+        @content_page = ContentPage.find(params[:content_page_id], include: :translations)
+        @content_page.last_update_user_id = current_user.id
+        @content_page.save
+        archive_fields = older_version.attributes.delete_if{ |k,v| [ 'id', 'active_translation' ].include?(k) }.
+          merge(translated_content_page_id: older_version.id, original_creation_date: older_version.created_at)
+        TranslatedContentPageArchive.create(archive_fields)
+        flash[:notice] = I18n.t(:admin_translated_content_page_update_successful_notice,
+                                page_name: @content_page.page_name,
+                                language: @translated_content_page.language.label,
+                                anchor: @content_page.page_name.gsub(' ', '_').downcase)
+        redirect_to admin_content_pages_path(anchor: @content_page.page_name.gsub(' ', '_').downcase)
+      else
+        @content_page = ContentPage.find(params[:content_page_id], include: :translations)
+        flash.now[:error] = I18n.t(:admin_translated_content_page_update_unsuccessful_error)
+        set_translated_content_page_edit_options
+        render :edit
+      end
     end
   end
 

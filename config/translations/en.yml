@@ -3269,7 +3269,8 @@ en:
   data_column_raw_units_uri: "Raw Units URI (normalized)"
   data_column_source: "Source"
   data_database_colon: "Data:"
-  data_disclaimer: "EOL's <a href='/traitbank'>TraitBank</a> assembles data records from many providers. See %{info_icon} for data definitions. Select data row for full details and to see and leave comments. EOL's software chooses data for the overview box; <a href='/curators'>curators</a> can adjust choices."
+  data_disclaimer: "<a href='/traitbank'>TraitBank</a> assembles data records from many providers. Select a row for more details
+  about the record."
   data_glossary: "Data Glossary"
   data_link_to_record: "Link to this record"
   data_logging_active: "Data Logging Active"
@@ -4653,7 +4654,7 @@ en:
   total_searches: "Total searches:"
   total: "Total"
   traitbank_intro: "Introducing <a href='/traitbank'>TraitBank</a>:"
-  traitbank_description: "search millions of data points on EOL"
+  traitbank_description: "search millions of data records on EOL"
   traitbank_info_page: "Learn more"
   traitbank_data_search: "Search data"
   translation_information_header: "Translation information"

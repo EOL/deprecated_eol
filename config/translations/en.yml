@@ -3642,7 +3642,7 @@ en:
   glossary: "Glossary"
   glossary_is_empty: "(glossary is empty)"
   glossary_subhead: "Glossary"
-  glossary_subtab_help_text: "**in progress**. This is where the glossary help text will go with we have it. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+  glossary_subtab_help_text: "These terms may be used on EOL data tabs. Many terms are defined by specialists. To contribute new terms, consider <a href='/info/cp_plan_export'>uploading data</a> or <a href='%{url}'>contact us</a>."
   glossary_term: "term"
   glossary_terms: "Glossary Terms"
   go_back: "go back"

@@ -3269,6 +3269,7 @@ en:
   data_column_raw_units_uri: "Raw Units URI (normalized)"
   data_column_source: "Source"
   data_database_colon: "Data:"
+  data_disclaimer: "EOL's <a href='/traitbank'>TraitBank</a> assembles data records from many providers. See %{info_icon} for data definitions. Select data row for full details and to see and leave comments. EOL's software chooses data for the overview box; <a href='/curators'>curators</a> can adjust choices."
   data_glossary: "Data Glossary"
   data_link_to_record: "Link to this record"
   data_logging_active: "Data Logging Active"

@@ -393,13 +393,18 @@ $(function() {
       $('#taxon_data .empty').hide();
       $('.glossary_subtab').hide();
       $('.help_text').hide();
+      $('.data_disclaimer').hide();
+      $('.filters').hide();
       if ($(this).parent().hasClass('about')) $('.about_subtab').show()
       else if ($(this).parent().hasClass('glossary')) $('.glossary_subtab').show()
       else if ($(this).parent().hasClass('ranges')) $('.ranges_subtab').show()
     } else if ($(this).parent().hasClass('all')) { // Acts as a reset button/link
+      $('.data_disclaimer').show();
       $('#taxon_data .empty').show();
       EOL.show_data_tables($('table.data'));
     } else {
+      $('.data_disclaimer').show();
+      $('.filters').show();
       EOL.hide_data_tables($('table.data'));
       EOL.show_data_tables($('table.data[data-toc-id="' + $(this).attr('data-toc-id') + '"]'));
     }

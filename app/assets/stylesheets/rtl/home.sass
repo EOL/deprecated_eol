@@ -25,9 +25,16 @@
   a
     color: inherit
 
+/* BANNER - remove this block: */
+body.home
+  border-top: 5.4em solid #0a0f13
+  #banner
+    background-color: #d1e163
+    height: 1.7em
+
 body
-  border-color: #0a0f13
   background: #0a0f13 image-url("v2/bg_stars.png") repeat
+  border-color: #0a0f13
   > #header
     position: relative
     height: 563px
@@ -195,6 +202,15 @@ body
     .news
       float: right
       width: 520px
+      .details
+        li, blockquote
+          margin: 0 40px 0 0
+        ol
+          li
+            list-style: decimal
+        ul
+          li
+            list-style: disc
     .stats
       h3
         position: relative
@@ -357,3 +373,6 @@ body#prelaunch
     font-size: 1.2em
     font-weight: bold
     margin: 0 0 10px 0
+.taxon
+  span.icon
+    background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat

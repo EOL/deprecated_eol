@@ -8,7 +8,7 @@
   = render partial: 'about', locals: { hidden: true }
   -# NOTE - we want this to appear on every subtab:
   .data_disclaimer
-    %p.explain= I18n.t(:data_disclaimer, info_icon: image_tag('v2/icon_info_tabs.png', size: '12x12')).html_safe
+    %p.explain= I18n.t(:data_disclaimer).html_safe
   = render 'data_search/filters', { show_clade: false }
   - if @data_point_uris.blank?
     .empty

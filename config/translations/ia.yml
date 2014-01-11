@@ -323,7 +323,6 @@ ia:
       user: conto
   activity: Activitate
   activity_log_empty: Nulle persona ha ancora fornite actualisationes.
-  activity_log_empty_learn_more_link: Apprende como contribuer
   activity_logs: 
     collection_activity_log: 
       add_editor: 

@@ -362,7 +362,6 @@ ko:
       user: 계정
   activity: 활동
   activity_log_empty: 아직 제공한 업데이트가 없습니다.
-  activity_log_empty_learn_more_link: 기여하는 방법 알아보기
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1696,6 +1695,7 @@ ko:
   data_column_sci_name: 학명
   data_column_source: 출처
   data_database_colon: "날짜:"
+  data_link_to_record: 이 레코드에 연결
   data_logging_active: 데이터 기록 활동
   data_master_database_colon: "데이터 마스터:"
   data_object: 데이터 개체
@@ -1724,6 +1724,7 @@ ko:
       meta_supplier_default: 기여자
       meta_title: "%{supplier}에서 %{dato_title}"
       tweet_text: "%{supplier}에서 %{dato_title}"
+  data_search_refine_placeholder: 예) 10 ~ 50
   data_subtab_glossary: 용어집
   data_usage_reports: 데이터 사용 보고서
   date_caps: 날짜

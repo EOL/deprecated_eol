@@ -194,7 +194,6 @@ sr-Latn:
       user: nalog
   activity: Aktivnost
   activity_log_empty: Još niko nije pružio dogradnje.
-  activity_log_empty_learn_more_link: Saznajte kako da doprinesete
   activity_user_created_text: <strong>%{user}</strong> dodade tekst u „%{object_name}“ na „%{taxon_concept}“.
   activity_user_updated_text: <strong>%{user}</strong> izmeni tekst objekta „%{object_name}“ na „%{taxon_concept}“.
   add: Dodaj

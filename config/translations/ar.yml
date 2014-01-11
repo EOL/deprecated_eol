@@ -343,7 +343,6 @@ ar:
       user: حساب
   activity: النشاط
   activity_log_empty: لم يتم إضافة تحديثات بعد.
-  activity_log_empty_learn_more_link: تعرف على كيفية المشاركة
   activity_logs: 
     collection_activity_log: 
       add_editor: 

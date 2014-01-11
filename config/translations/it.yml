@@ -361,7 +361,6 @@ it:
       user: account
   activity: Attività
   activity_log_empty: Nessuno ha fornito aggiornamenti ancora.
-  activity_log_empty_learn_more_link: Ulteriori informazioni su come contribuire
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1247,7 +1246,7 @@ it:
   details_title: Dettagli
   development_version_name: EOL V2 Beta
   did_you_mean: "Forse intendevi: %{suggestions} ?"
-  donation_amount_legend: Scegli l'importo che vuoi donare
+  donation_amount_legend: Con quanto vorresti contribuire oggi?
   donation_amount_other_label: Altro
   donation_confirmation: Conferma donazione
   donation_error_no_amount: Seleziona l'importo della donazione.

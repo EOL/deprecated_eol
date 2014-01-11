@@ -397,7 +397,6 @@ pt-BR:
       user: conta
   activity: Atividade
   activity_log_empty: Ninguém forneceu atualizações ainda.
-  activity_log_empty_learn_more_link: Saiba como contribuir
   activity_logs: 
     collection_activity_log: 
       add_editor: 

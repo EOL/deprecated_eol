@@ -379,7 +379,6 @@ oc:
       user: compte
   activity: Activitat
   activity_log_empty: Degun a pas encara provesit cap de mesas a jorn.
-  activity_log_empty_learn_more_link: Aprenètz cossí contribuir
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1829,7 +1828,6 @@ oc:
   data_show_n_more_rows: Afichar NNN de mai…
   data_subtab_about: A prepaus de
   data_subtab_glossary: Glossari
-  data_summary_header: Faches en brèu
   data_tab_curator_excluded: levat dels Faches en brèu
   data_tab_curator_exemplar: apondut als Faches en brèu
   data_tab_curator_key_excluded: "%{image} suprimida dels <a href='%{link}'>Faches marcants</a>"
@@ -2926,7 +2924,6 @@ oc:
   must_be_checked_in_to_view: "- deu èsser verificat per èsser visualizat"
   must_be_less_than_128_characters_long: deu èsser inferior a 128 caractèrs.
   must_be_logged_in: Vos cal èsser connectat per efectuar aquesta accion.
-  must_provide_attribute_for_search_error: Vos cal seleccionar un atribut de recercar.
   must_provide_search_term_error: Vos cal entrar un critèri de recèrca.
   my_activity: Mon activitat
   my_info: Mas informacions

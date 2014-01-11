@@ -336,7 +336,6 @@ gl:
       user: conta
   activity: Actividade
   activity_log_empty: Ninguén proporcionou actualización ningunha aínda.
-  activity_log_empty_learn_more_link: Descubre como contribuír
   activity_logs: 
     collection_activity_log: 
       add_editor: 

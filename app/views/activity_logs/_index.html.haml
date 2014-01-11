@@ -9,7 +9,7 @@
     -if @filter.blank?
       %p= raw I18n.t(:activity_log_empty)
       - unless @latest_published_revision.nil?
-        %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_url('contribute')
+        %p= link_to I18n.t(:learn_how_to_contribute), cms_page_url('contribute')
     -else
       %p= raw I18n.t(:no_record_found_matching_your_criteria)
 - else

@@ -84,9 +84,9 @@
               &bull;&ensp;
               = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), method: :delete, confirm: I18n.t('this_cannot_be_undone_are_you_sure')
       = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: data_point_uri }
-      -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
       - if current_user.min_curator_level?(:full)
         .additional_commands.clearfix
+          %p.note= I18n.t(:annotation_note).html_safe
           - if data_point_uri.visible?
             - hide_link =  data_point_uri_hide_path(data_point_uri)
             = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true

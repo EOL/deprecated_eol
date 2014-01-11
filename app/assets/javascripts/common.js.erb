@@ -228,18 +228,6 @@ $(function() {
     $collection.find('input[name="commit_filter"]').hide();
   })($("#collection"));
 
-  $("#simple_search input[placeholder]").each(function() {
-    var $e = $(this),
-        placeholder = $e.attr("placeholder");
-    $e.removeAttr("placeholder").val(placeholder);
-    $e.bind("focus blur", function(e) {
-      if (e.type === "focus" && $e.val() === placeholder) $e.val("");
-      else {
-        if (!$e.val()) $e.val(placeholder);
-      }
-    });
-  });
-
   // makes sure that as the user types we can enable/disable autocomplete depending
   // on the search term. This helps get rid of results of the search term is deleted
   $('input#autocomplete_q[data-autocomplete]').keyup(function(e) {

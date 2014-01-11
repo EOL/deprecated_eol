@@ -325,7 +325,6 @@ nb:
       user: konto
   activity: Aktivitet
   activity_log_empty: Ingen har sendt inn oppdateringer ennå.
-  activity_log_empty_learn_more_link: Lær hvordan du kan bidra
   activity_logs: 
     collection_activity_log: 
       add_editor: 

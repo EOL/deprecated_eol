@@ -260,7 +260,6 @@ sr:
       user: налог
   activity: Активност
   activity_log_empty: Још нико није пружио доградње.
-  activity_log_empty_learn_more_link: Сазнајте како да допринесете
   activity_user_created_text: <strong>%{user}</strong> је додао текст у „%{object_name}“ на „%{taxon_concept}“.
   activity_user_updated_text: <strong>%{user}</strong> измени текст објекта „%{object_name}“ на „%{taxon_concept}“.
   add: Додај

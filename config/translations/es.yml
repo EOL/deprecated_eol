@@ -22,6 +22,7 @@
 # Author: Mor
 # Author: Ovruni
 # Author: Penarc
+# Author: Peter Bowman
 # Author: Rbcastroc
 # Author: Sampalahnuk
 # Author: Shirayuki
@@ -429,7 +430,6 @@ es:
       user: cuenta
   activity: Actividad
   activity_log_empty: Nadie ha proporcionado actualizaciones todavía.
-  activity_log_empty_learn_more_link: Aprende cómo contribuir
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1915,7 +1915,6 @@ es:
   data_ranges_subheader: Rangos para este Clado
   data_reference_subtable_summary: Referencias adicionales sobre este hecho.
   data_row_add_exemplar_button: Agregar a hechos rápidos
-  data_row_arrow_alt: Alternar entre mostrar y ocultar los detalles adicionales sobre este hecho, si tiene javascript activado.
   data_row_excluded_from_overview_notice: "Nota: esta fila ha sido excluida de los hechos rápidos."
   data_row_exemplar_added: Hecho rápido agregado.
   data_row_exemplar_removed: Hecho rápido eliminado.
@@ -1927,6 +1926,9 @@ es:
   data_search_explanation: Utilice la búsqueda de datos de EOL para encontrar elementos que coincidan con '%{term}' en observaciones,<br />mediciones y otras afirmaciones científicas.
   data_search_files: 
     file_ready_for_download: La búsqueda que recientemente solicitó para "%{known_uri_label}" ahora puede descargarse en <a href='%{download_url}'>%{download_url}</a>.
+    from: Valor mínimo
+    to: Valor máximo
+    unit_uri: Unidad de medida
   data_search_files_with_count: 
     one: "%{count} búsqueda guardada"
     other: "%{count} búsquedas guardadas"
@@ -1936,11 +1938,11 @@ es:
     other: Aún hay %{count} trabajos esperando a ser procesados (pueden o no pueden ser los suyos). Puede visitar la <a href='%{data_search_url}'>página de búsqueda de datos</a> para realizar otra búsqueda.
     zero: No hay trabajos pendientes. Si su trabajo no está completo, algo salió mal. Puede visitar la <a href='%{data_search_url}'>página de búsqueda de datos</a> para realizar otra búsqueda.
   data_search_refine_field_label: Refinar búsqueda de datos
+  data_search_refine_placeholder: por ejemplo de 10 a 50
   data_server_unavailable: Los datos en EOL no están disponibles. Por favor compruebe después más adelante. Disculpe las molestias.
   data_show_n_more_rows: Mostrar NNN más...
   data_subtab_about: Acerca de
   data_subtab_glossary: Glosario
-  data_summary_header: Hechos Rápidos
   data_summary_header_with_count: 
     one: EOL tiene datos para 1 rasgo
     other: EOL tiene datos para %{count} rasgos
@@ -3133,7 +3135,6 @@ es:
   must_be_checked_in_to_view: "- debe comprobarse para poder verlo"
   must_be_less_than_128_characters_long: debe tener menos de 128 caracteres.
   must_be_logged_in: Debe haber iniciado una sesión para realizar esta acción.
-  must_provide_attribute_for_search_error: Debe seleccionar un atributo para buscar.
   must_provide_search_term_error: Debe introducir un término de búsqueda.
   my_activity: Mi actividad
   my_info: Mi información
@@ -3215,6 +3216,7 @@ es:
   not_published_yet: no publicado todavía
   not_recognized_by_available_hierarchies: No reconocido por ninguna de las clasificaciones disponibles
   not_shown_on_the_website_note: (no aparece en el sitio Web o en un enlace URL, con fines informativos únicamente)
+  not_specified: sin especificar
   not_yet_implemented_error: Lo sentimos, esta función no ha sido implementada.
   note: "Nota:"
   note_about_homonym_problems: "NOTA: cambiar este atributo sólo si está seguro - restaurarlo después del cambio podría causar serios problemas de homonimia"
@@ -4176,6 +4178,7 @@ es:
   the_count_represents_the_total: El valor numérico representa el número de objetos de datos publicados bajo la respectiva categoría SPM del tema.
   the_cp_count_info: El valor numérico representa el número total de socios de contenidos con objetos de datos publicados bajo la categoría SPM respectiva del tema.
   the_darwin_core_taxon_elements: Los "Darwin Core Taxon elements" (dwct:Taxon) bajo 'additionalInformation' incluyen identificadores para nodos en jerarquía que EOL indexa. Ellos contienen un dc:identifier que es el ID único para el taxón <i>en la base de datos del proveedor</i>.
+  the_data_object_id_can_be: el parámetro ID puede ser un número entero (un objeto DataObject de versión ID) o un GUID de 16 caracteres que devolverá la última versión de ese objeto
   the_file_was_uploaded: Se actualizó el archivo
   the_following_bibliography: La siguiente bibliografía se ha generado al reunir todas las referencias proporcionadas por nuestros socios de contenidos. Es posible que haya duplicación de información.
   the_following_users_were_prese: "Los siguientes usuarios recibieron la ventana emergente de la encuesta y respondieron a la petición de realizarla, como se muestra a continuación:"

@@ -309,7 +309,6 @@ tl:
       user: akawnt
   activity: Gawain
   activity_log_empty: Wala pang nagbibigay ng mga pagsasapanahon.
-  activity_log_empty_learn_more_link: Matuto kung paano mag-ambag
   activity_logs: 
     collection_activity_log: 
       add_editor: 

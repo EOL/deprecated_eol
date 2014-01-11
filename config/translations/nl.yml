@@ -415,7 +415,6 @@ nl:
       user: gebruiker
   activity: Activiteit
   activity_log_empty: Niemand heeft de gegevens nog bijgewerkt.
-  activity_log_empty_learn_more_link: Hoe u kunt bijdragen
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1901,7 +1900,6 @@ nl:
   data_ranges_subheader: Bereiken voor deze clade
   data_reference_subtable_summary: Aanvullende referenties over dit feit.
   data_row_add_exemplar_button: Toevoegen aan snelle feiten
-  data_row_arrow_alt: Schakelen tussen het weergeven en verbergen van de aanvullende informatie van dit feit (vereist JavaScript).
   data_row_excluded_from_overview_notice: "Opmerking: deze rij is uitgesloten van snelle feiten."
   data_row_exemplar_added: Snel feit toegevoegd.
   data_row_exemplar_removed: Snel feit verwijderd.
@@ -1927,7 +1925,6 @@ nl:
   data_show_n_more_rows: NNN meer weergeven...
   data_subtab_about: Over
   data_subtab_glossary: Woordenlijst
-  data_summary_header: Snelle feiten
   data_summary_header_with_count: 
     one: EOL heeft gegevens voor één eigenschap
     other: EOL heeft gegevens voor %{count} eigenschappen
@@ -3116,7 +3113,6 @@ nl:
   must_be_checked_in_to_view: "- moet aangevinkt zijn om te kunnen bekijken"
   must_be_less_than_128_characters_long: moet minder dan 128 tekens lang zijn.
   must_be_logged_in: U moet aangemeld zijn om deze handeling uit te voeren.
-  must_provide_attribute_for_search_error: U moet een eigenschap selecteren om op te zoeken.
   must_provide_search_term_error: U moet een zoekterm invoeren.
   my_activity: Mijn activiteit
   my_info: Mijn gegevens

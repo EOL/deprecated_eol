@@ -91,12 +91,13 @@ class DataSearchFile < ActiveRecord::Base
                                per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri)
     # TODO - we should also check to see if the job has been canceled.
     begin # Always do this at least once...
+      puts "++ ... page #{page}"
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|
         rows << data_point_uri.to_hash(user.language)
       end
-      if results.total_pages < results.current_page
+      if (page * PER_PAGE < results.total_entries)
         page += 1
         results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
                                    page: page, per_page: PER_PAGE, for_download: true)

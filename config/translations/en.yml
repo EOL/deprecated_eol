@@ -3338,7 +3338,7 @@ en:
   data_server_unavailable: "Data on EOL is temporarily unavailable. Please check back later. Sorry for any inconvenience."
   data_show_n_more_rows: "Show NNN more..."
   data_subtab_about: "About"
-  data_subtab_glossary: "Glossary"
+  data_subtab_glossary: "Glossary for %{taxon}"
   data_summary_header_with_count:
     zero: "EOL has no trait data"
     one: "EOL has data for 1 trait"
@@ -4366,7 +4366,7 @@ en:
   see_all_editors_with_count:
     one: "See the %{count} manager"
     other: "See all %{count} managers"
-  see_in_data_glossary: "see in data glossary"
+  see_in_data_glossary: "explore full data glossary"
   see_in_glossary_tab: "see in glossary tab"
   see_notes: "see notes"
   see_more_on_the_data_tab: "see more on the data tab"

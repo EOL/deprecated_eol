@@ -56,7 +56,7 @@ def comment(text)
   visit(taxon_data_path(@taxon_concept))
   within(:xpath, "//tr[@id='data_point_#{@user_added_data.id}']/following::tr") do
     fill_in 'comment_body', with: text
-    click_button "post annotation"
+    click_button "post comment"
   end
 end
 

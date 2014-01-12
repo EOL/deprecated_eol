@@ -1,3 +1,5 @@
+#encoding: utf-8
+
 class DataSearchController < ApplicationController
 
   before_filter :restrict_to_data_viewers
@@ -8,6 +10,12 @@ class DataSearchController < ApplicationController
   # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index
     prepare_search_parameters(params)
+    prepare_suggested_searches
+
+    unless @taxon_concept.blank? || TaxonData.clade_is_searchable?(@taxon_concept)
+      flash.now[:notice] = I18n.t('data_search.notice.clade_too_big',
+        taxon_name: @taxon_concept.title_canonical_italicized.html_safe).html_safe
+    end
     respond_to do |format|
       format.html do
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
@@ -43,9 +51,6 @@ class DataSearchController < ApplicationController
     @hide_global_search = true
     @querystring = options[:q]
     @attribute = options[:attribute]
-    # TODO - this duplicates logic from the helper; fix:
-    # NOTE - this avoids incorrect "warning" messages:
-    @attribute = nil if options[:attribute] == I18n.t(:data_attribute_select_prompt) || @attribute.blank?
     @attribute_missing = @attribute.nil? && params.has_key?(:attribute) 
     @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'
     @unit = options[:unit].blank? ? nil : options[:unit]
@@ -68,6 +73,35 @@ class DataSearchController < ApplicationController
     end
     @search_options = { querystring: @querystring, attribute: @attribute, min_value: @min_value, max_value: @max_value,
       unit: @unit, sort: @sort, language: current_language, taxon_concept: @taxon_concept }
+  end
+
+  def prepare_suggested_searches
+    @suggested_searches = [
+      { label_key: 'search_suggestion_whale_mass',
+        params: {
+          utf8: '✓',
+          sort: 'desc',
+          min: 10000,
+          taxon_concept_id: 7649,
+          attribute: 'http://eol.org/schema/terms/pantheria_5-1_AdultBodyMass_g',
+          unit: 'http://purl.obolibrary.org/obo/UO_0000009' }},
+      { label_key: 'search_suggestion_cavity_nests',
+        params: {
+          q: 'cavity',
+          attribute: 'http://eol.org/schema/terms/NestType' }},
+      { label_key: 'search_suggestion_diatom_shape',
+        params: {
+          attribute: 'http://eol.org/schema/terms/DiatomShape' }},
+      { label_key: 'search_suggestion_images_of_dinophyceae',
+        params: {
+          taxon_concept_id: 4758,
+          attribute: 'http://eol.org/schema/terms/NumberImagesInEOL' }},
+      { label_key: 'search_suggestion_wingspan',
+        params: {
+          sort: 'asc',
+          taxon_concept_id: 8021,
+          attribute: 'http://www.owl-ontologies.com/unnamed.owl#Wingspan' }}
+    ]
   end
 
 end

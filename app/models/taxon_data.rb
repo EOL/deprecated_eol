@@ -6,6 +6,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   DEFAULT_PAGE_SIZE = 30
   MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
+  MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 50000
 
   # TODO - this doesn't belong here; it has nothing to do with a taxon concept. Move to a DataSearch class. Fix the
   # controller.
@@ -129,6 +130,10 @@ class TaxonData < TaxonUserClassificationFilter
       } .
       FILTER(?parent_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}> ||
              ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}>)"
+  end
+
+  def self.clade_is_searchable?(taxon_concept)
+    taxon_concept.number_of_descendants <= TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
   end
 
   def downloadable?

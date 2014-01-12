@@ -5,18 +5,12 @@
 
 =ie7-hack($property, $ie7-value)
   *#{$property}: #{$ie7-value}
+=ie7-friendly-inline-block
+  display: inline-block
+  *display: inline
+  zoom: 1
 
-/**
- * Changes required for HR sass files:
- *   - replace image-path("<image name> with /images/v2/<image name>")
- *   - replace #profile_edit with form.edit_user
- *
- *
- * Temporary placement of needed CSS for V2
- * I don't want to edit/add to HashRocket's SASS files until they are done making changes
- * so I am temporarily adding some CSS here needed for V2 demo. This CSS should be integrated
- * into HashRocket SASS if it is still needed when design work is complete.
- */
+// todo refactor sass
 
 /* Use the ~30K JPG form on the homepage image instead of the ~500K transparent PNG */
 body.home
@@ -1990,3 +1984,122 @@ ul.ui-autocomplete
       min-height: 75px
     .ui-state-focus
       background-image: none
+
+#data_search
+  #search_results #main
+    clear: both
+    float: none
+  dd p
+    line-height: 170%
+    padding-left: 10px
+  form
+    position: relative
+  input[type="search"]
+    +input
+    -webkit-appearance: none
+  .copy
+    h3
+      position: relative
+      font-size: 1.4em
+    h4
+      font-size: 1.3em
+      font-weight: normal
+      margin-top: 10px
+      + p
+        margin-top: -10px
+    h5
+      margin: 10px 0 20px
+    p
+      max-width: 70%
+    dl, dd
+      margin: 0
+    dd p
+      margin-bottom: 0
+    ul
+      margin-left: 30px
+      margin-right: 0
+    li
+      margin: 4px 0 0
+      line-height: 180%
+      a
+        +ie7-friendly-inline-block
+  .sort
+    clear: both
+  .vital, .actions
+    margin: 0
+    padding: 40px
+    background: $fieldset_light_blue
+    border: 1px solid $grayblue
+  .vital
+    padding-right: 150px
+    label
+      font-size: 1.4em
+      position: relative
+      top: 2px
+    fieldset, dl, dt, dd, > a
+      margin: 0
+      padding: 0
+      +ie7-friendly-inline-block
+    dt, dd
+      padding-right: 1em
+    .summarize_input
+      width: 100%
+      display: block
+      clear: both
+      word-break: break-all
+      position: absolute
+      +ie7-hack(position, relative)
+      dt, dd
+        display: block
+        float: left
+      dt
+        height: 40px
+        max-width: 30%
+        font-weight: normal
+      dd
+        max-width: 60%
+  .extras
+    zoom: 1
+    display: block
+    margin: 0
+    position: relative
+    padding: 30px 40px
+    border: 1px solid #ccd399
+    border-width: 0 1px 1px
+    background: #f1f4dc
+    fieldset, > h3
+      margin-right: 30%
+    label
+      text-transform: uppercase
+      color: $loafer_text_color
+      &[for="sort"]
+        +screenreader-accessible
+    .suggestions
+      margin: 0
+      position: absolute
+      top: 30px
+      right: 30px
+      width: 38%
+    .range
+      width: 30%
+      float: left
+      input[type="search"], input[type="text"] /* its an ie7 thing */
+        width: 90%
+  .actions
+    border-top-width: 0
+    input
+      font-size: 1.4em
+      font-weight: normal
+      line-height: 160%
+      letter-spacing: 1px
+      +gradient-bg(#394651, #28323a)
+      border-color: #28323a
+      color: white
+    &.prominent
+      position: absolute
+      top: 0
+      right: 0
+      background: none
+      border: none
+      padding-top: 35px
+

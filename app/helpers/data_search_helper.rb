@@ -1,7 +1,7 @@
 module DataSearchHelper
 
   def data_search_attribute_options
-    select_options = [ I18n.t(:data_attribute_select_prompt), nil ]
+    select_options = []
     if @taxon_data # All of the attributes on this data:
       measurement_uris = @taxon_data.get_data.map(&:predicate_uri)
     elsif @taxon_concept # NOTE - I didn't write this, but I think the intent here is to get ONLY attributes with numeric values:
@@ -22,7 +22,25 @@ module DataSearchHelper
           { 'data-known_uri_id' => uri.respond_to?(:id) ? uri.id : nil } ]
       end
     end.compact.sort_by{ |o| o.first }.uniq
+    if @attribute.nil?
+      @attribute = select_options.select{|o| o[0] =~ /^[A-Z]/}.first[1] rescue nil
+    end
     options_for_select(select_options, @attribute)
+  end
+
+  def data_search_results_summary
+    search_term_to_show = [
+      (@attribute_known_uri ? @attribute_known_uri.label.firstcap : @attribute),
+      @querystring ].delete_if{ |t| t.blank? }.join(' : ')
+    summary = I18n.t(:count_results_for_search_term,
+      count: @results.total_entries,
+      search_term: h(search_term_to_show))
+    if @taxon_concept
+      summary << ' ' + I18n.t(:searching_within_clade,
+        clade_name: link_to(raw(@taxon_concept.title_canonical_italicized),
+        taxon_overview_url(@taxon_concept)))
+    end
+    raw summary
   end
 
 end

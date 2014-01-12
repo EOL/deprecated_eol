@@ -602,6 +602,22 @@ en:
         source_url: "Link URL"
         toc_item: "Subject"
         link_type: "Category"
+      data_search:
+        attribute: "Select an attribute"
+        max: "Highest value"
+        max_placeholder: "Enter a number"
+        max_placeholder_disabled: "Range disabled"
+        min: "Lowest value"
+        min_placeholder: "Enter a number"
+        min_placeholder_disabled: "Range disabled"
+        q: "Specific value"
+        q_placeholder: "Enter a word, phrase or number"
+        q_placeholder_disabled: "Range entered, specific value disabled"
+        q_more: "For example heterotrophic."
+        taxon_name: "Taxon group"
+        taxon_name_placeholder: "Enter the name of a taxon group"
+        taxon_name_more: "For example Trochilidae or Whales."
+        unit: "Unit of measure"
       eol_statistic:
         date_one: "Date"
         date_two: "Date"
@@ -1200,6 +1216,12 @@ en:
         questions_link_indicator_species: What is an indicator species?
         questions_link_model_organism: What is a model organism?
         questions_link_contributing_to_research: How can I contribute to research?
+      data_search:
+        page_header: "Search TraitBank"
+        page_header_results: "TraitBank Search Results"
+      taxa:
+        search_within_clade: "Search within clade"
+        search_traitbank: "Search TraitBank"
   members:
     index:
       meta_description: "Members of %{community_name}, an Encyclopedia of Life community."
@@ -3248,7 +3270,6 @@ en:
     one: "Data search downloads are <i>temporarily</i> limited to %{count} result."
     other: "Data search downloads are <i>temporarily</i> limited to %{count} results."
   data_about_this_record: "Data about this record"
-  data_attribute_select_prompt: "-- select an attribute --"
   data_column_tc_id: "EOL page ID"
   data_column_sci_name: "Scientific Name"
   data_column_common_name: "Common Name"
@@ -3306,24 +3327,28 @@ en:
   data_row_additional_detail_loading_alt: "Loading additional detail"
   data_row_hide_button: "Hide Row"
   data_row_unhide_button: "Unhide Row"
-  data_search_header: "Data Search"
-  data_search_results_header: "Data Search Results"
+  data_search:
+    form:
+      header_assistive: "Search form"
+      input_summary_intro: "Additional search criteria"
+      or_range_header: "Or, enter a range"
+      refine_search_header: "Refine your search (optional)"
+      search_suggestions_header_colon: "Not sure where to start? <small>Try one of the following data searches:</small>"
+      search_suggestion_whale_mass: "Which whales weigh more than 10,000 kg?"
+      search_suggestion_diatom_shape: "What are the various shapes of diatoms?"
+      search_suggestion_cavity_nests: "Which species build cavity nests?"
+      search_suggestion_wingspan: "Which hummingbirds have the smallest wingspan?"
+      search_suggestion_images_of_dinophyceae: "Which dinoflagellates pages have the most images?"
+      search_tools_show_link: "Search tools"
+      search_tools_hide_link: "Hide search tools"
+      search_value_or_range_header: "Search for a specific value or range"
+      search_within_taxon_group_header: "Search within a taxon group"
+      search_within_taxon_group_intro_with_count:
+        other: "Searching within a taxon group is currently limited to groups with less than %{count} taxa. <a href=\"%{contact_us_tech_url}\">Contact us</a> to find out more about searching larger groups."
+      sort_header: "Sort the results"
+    notice:
+      clade_too_big: "Sorry, the taxon group %{taxon_name} is too large to search within."
   data_search_link: "Search scientific data on EOL"
-  data_search_attribute_label: "For the trait"
-  data_search_refine_field_label: "search for,"
-  data_search_sort_label: "sorted by"
-  data_search_from_label: "or values from"
-  data_search_to_label: "to"
-  data_search_units_label: "(units)"
-  data_search_refine_placeholder: "e.g. heterotrophic"
-  data_search_clade_label: "within"
-  data_search_must_provide_attribute: "You need to select an attribute to search on."
-  data_search_suggestions: "Not sure where to start? You might try one of the following data searches:"
-  data_search_suggestion_whale_mass: "Which whales weigh more than 10,000 kg?"
-  data_search_suggestion_diatom_shape: "What are the various shapes of diatoms?"
-  data_search_suggestion_cavity_nests: "Which species build cavity nests?"
-  data_search_suggestion_wingspan: "Which birds have the smallest wingspan?"
-  data_search_suggestion_images_of_dinophyceae: "Which dinoflagellates pages have the most images?"
   data_search_queue_pending:
     zero: "There are no jobs pending. If your job is not complete, something went wrong. You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."
     one: "There is still %{count} job waiting to be processed (it may or may not be yours). You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."
@@ -3331,7 +3356,6 @@ en:
   data_search_explanation: "Use EOL's data search to find items matching '%{term}' in observations,<br />measurements and other scientific assertions."
   data_search_attribute: "Search EOL's data about \"%{attribute}\" in observations,<br />measurements and other scientific assertions."
   data_search_destroyed: "This job will no longer be processed."
-  data_search_filter_tip: "Note: trait is required (%{required_icon})"
   data_search_files_with_count:
     one: "%{count} saved search"
     other: "%{count} saved searches"

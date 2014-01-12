@@ -1,33 +1,26 @@
+- content_for :head do
+  = javascript_include_tag 'data_search'
 - content_for :main do
   #page_heading
     .site_column
       .hgroup
-        %h1= @attribute_known_uri.blank? ? I18n.t(:data_search_header) : I18n.t(:data_search_results_header)
-        %h2
-          - search_term_to_show = [ (@attribute_known_uri ? @attribute_known_uri.label.firstcap : @attribute),
-            @querystring ].delete_if{ |t| t.blank? }.join(' : ')
-          = @results.blank? ? '' : raw(I18n.t(:count_results_for_search_term, count: @results.total_entries, search_term: h(search_term_to_show)))
-          - if @taxon_concept
-            = raw I18n.t(:searching_within_clade, clade_name: link_to(raw("#{@taxon_concept.title_canonical_italicized}"), taxon_overview_url(@taxon_concept)))
+        - if @attribute.blank?
+          %h1= t('.page_header')
+        - else
+          %h1= t('.page_header_results')
+          %h2= data_search_results_summary
       .page_actions
         %ul
           - if @results && !@results.blank?
             %li.data_download{"data-alert" => ((@results.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) : nil)}
-              = link_to I18n.t(:download_data), download_data_search_path(params: params), method: :post, :class => 'button'
+              = link_to I18n.t(:download_data),
+                download_data_search_path(params: params),
+                method: :post, :class => 'button'
+      = render :partial => 'shared/flash_messages'
   #content
     .site_column
-      #data_search
-        - if @results && ! @attribute # Data is available and they are landing here for the first time, give an intro:
-          .copy
-            = I18n.t(:data_search_suggestions)
-            %ul
-              %li= link_to I18n.t(:data_search_suggestion_whale_mass), '/data_search?utf8=✓&taxon_concept_id=7649&attribute=http%3A%2F%2Feol.org%2Fschema%2Fterms%2Fpantheria_5-1_AdultBodyMass_g&q=&taxon_name=Cetacea&sort=desc&min=10000&max=&unit=http%3A%2F%2Fpurl.obolibrary.org%2Fobo%2FUO_0000009&commit=Search'
-              -# TODO - we should also have a separate link to define that term
-              %li= link_to I18n.t(:data_search_suggestion_cavity_nests).html_safe, '/data_search?attribute=http%3A%2F%2Feol.org%2Fschema%2Fterms%2FNestType&q=cavity'
-              %li= link_to I18n.t(:data_search_suggestion_diatom_shape), '/data_search?attribute=http%3A%2F%2Feol.org%2Fschema%2Fterms%2FDiatomShape'
-              %li= link_to I18n.t(:data_search_suggestion_images_of_dinophyceae), 'data_search?taxon_concept_id=4758&attribute=http%3A%2F%2Feol.org%2Fschema%2Fterms%2FNumberImagesInEOL&taxon_name=Dinophyceae'
-              %li= link_to I18n.t(:data_search_suggestion_wingspan), '/data_search?taxon_concept_id=695&attribute=http%3A%2F%2Fwww.owl-ontologies.com%2Funnamed.owl%23Wingspan&taxon_name=Aves&sort=asc'
-        = render 'data_search/filters'
+      #data_search{data: {results_total: @results.blank? ? 0 : @results.total_entries}}
+        = render 'data_search/form'
         #search_results
           #main
             = yield

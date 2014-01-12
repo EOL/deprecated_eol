@@ -2,10 +2,7 @@
   - if @results
     - if @attribute
       .empty
-        %p= I18n.t(:no_results_for_search_term, search_term: @querystring)
-    - elsif @attribute_missing
-      .empty
-        %p= I18n.t(:data_search_must_provide_attribute)
+        %p= data_search_results_summary
   - else
     .empty
       %p= I18n.t(:data_server_unavailable)

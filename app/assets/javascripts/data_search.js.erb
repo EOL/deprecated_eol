@@ -1,0 +1,209 @@
+
+(function ($) {
+
+  // IE doesn't support trim
+  if (typeof String.prototype.trim !== 'function') {
+    String.prototype.trim = function() {
+      return this.replace(/^\s+|\s+$/g, '');
+    }
+  }
+
+  // combatting browsers that insist on display: block after fadeIn
+  $.fn.fadeInline = function(options) {
+    var defaults = {
+          duration: 200,
+          display:  'inline-block'
+        },
+        settings = $.extend(defaults, options);
+    return this.each(function() {
+      $(this).css({ opacity: 0, display: settings.display })
+        .fadeTo(settings.duration, 1);
+    });
+  };
+
+  // custom jQuery plugin to summarize form input
+  $.fn.summarizeInput = function(options) {
+
+    var defaults = {
+          truncate:  0,
+          panel:     $(this),
+          container: $('<p/>', { 'class': 'summarize_input' }),
+          wrapper:   $('<span/>'),
+          exclude:   {}
+          // using exclude { inputName: ['value', 'value'] } e.g:
+          // { a: ['x', 'y'], b: [] }
+          // exclude from summary input[name="a"] if this.value is x or y
+          // exclude from summary input[name="b"] regardless of value
+        },
+        settings = $.extend(defaults, options);
+
+    return this.each(function() {
+      var labels  = $(this).find('label'),
+          inputs  = $(this).find(':input'),
+          summary = []
+          output  = '';
+
+      inputs.each(function() {
+        var name    = this.name,
+            label   = $.grep(labels, function(l, i) {
+              return $(l).attr('for') == name;
+            })[0],
+            value   = (this.type == 'select-one') ?
+              $(this.selectedOptions).text() : this.value,
+            exclude = typeof settings.exclude[name] != 'undefined' &&
+              (settings.exclude[name].length == 0 ||
+              $.inArray(this.value, settings.exclude[name]) == 0);
+
+        if (value && !exclude) {
+          summary.push([
+            $(label).text(),
+            (settings.truncate > 0 && value.length > settings.truncate) ?
+              value.substr(0, settings.truncate) + '\u2026' : value
+          ]);
+        }
+      });
+
+      if (summary.length > 0) {
+        for (i in summary) {
+          summary[i] = summary[i].join(': ');
+        }
+        settings.wrapper.text(summary.join('; ')).appendTo(settings.container);
+        settings.container.hide().appendTo(settings.panel).fadeIn(500);
+      }
+    });
+  };
+
+  $(function() {
+
+    (function(dataSearch){
+
+      // enforce either specific values or data range
+      var watch = {
+            q:    dataSearch.find('input[name="q"]'),
+            min:  dataSearch.find('input[name="min"]'),
+            max:  dataSearch.find('input[name="max"]')
+          },
+          unit = dataSearch.find('select[name="unit"]'),
+          disabledPlaceholders = {
+            q:   '<%= I18n.t("helpers.label.data_search.q_placeholder_disabled") %>',
+            min: '<%= I18n.t("helpers.label.data_search.min_placeholder_disabled") %>',
+            max: '<%= I18n.t("helpers.label.data_search.max_placeholder_disabled") %>'
+          };
+
+      function adjustPlaceholders() {
+        for (var name in watch) {
+          if (watch[name].is(':disabled')) {
+            if (watch[name].attr('placeholder') != disabledPlaceholders[name]) {
+              watch[name].attr('placeholder', disabledPlaceholders[name]);
+            }
+          }
+          else {
+            if (watch[name].attr('placeholder') != watch[name].data('placeholder')) {
+              watch[name].attr('placeholder', watch[name].data('placeholder'));
+            }
+          }
+        }
+      }
+
+      function eitherOr(event) {
+        console.log(event.type);
+        event.stopImmediatePropagation();
+        watch.min.prop('disabled', watch.q.val().trim());
+        watch.max.prop('disabled', watch.q.val().trim());
+        unit.prop('disabled', watch.q.val().trim());
+        watch.q.prop('disabled',
+          watch.min.val().trim() || watch.max.val().trim()
+        );
+        // sanity check in the highly unlikely event that we disabled everything
+        if ( watch.min.is(':disabled') &&
+             watch.max.is(':disabled') &&
+             watch.q.is(':disabled') ) {
+          watch.q(':disabled', false);
+        }
+
+        adjustPlaceholders();
+      }
+
+      for (var name in watch) {
+        // save placeholder text
+        watch[name].data('placeholder', watch[name].attr('placeholder'));
+        watch[name].on('keyup input paste', {n: name}, eitherOr);
+        watch[name].keyup();
+      }
+
+      // show/hide extra fields
+      if (dataSearch.data('results-total') > 0) {
+        var vital     = dataSearch.find('.vital'),
+            extras    = dataSearch.find('.extras'),
+            actions   = dataSearch.find('fieldset.actions'),
+            link      = $('<a/>', { href: '#' }),
+            summarize = {
+              truncate:   50,
+              panel:      vital,
+              container:  $('<dl/>', { 'class': 'summarize_input' })
+                .append($('<dt/>')
+                  .append($('<a/>', {
+                    href: '#',
+                    text: '<%= I18n.t("data_search.form.input_summary_intro") %>'
+                  }))
+                ),
+              wrapper:   $('<dd/>'),
+              exclude:   {
+                sort: [],
+                unit: ['']
+              }
+            };
+
+        link.hide().appendTo(vital);
+
+        function adjustSummarizeExclude() {
+          if (!watch.min.val().trim() && !watch.max.val().trim()) {
+            summarize.exclude.unit = [];
+          }
+        }
+
+        function hide() {
+          if (!actions.hasClass('prominent')) {
+            actions.fadeOut(100, function() {
+              $(this).addClass('prominent').fadeIn(200);
+            });
+          }
+          adjustSummarizeExclude();
+          extras.slideUp(500, function() {
+            link.fadeOut(200, function() {
+              $(this).text(
+                '<%= I18n.t("data_search.form.search_tools_show_link") %>'
+              ).fadeInline();
+            });
+          }).summarizeInput(summarize);
+        }
+
+        function show() {
+          extras.slideDown(500, function() {
+            link.fadeOut(200, function() {
+              $(this).text(
+                '<%= I18n.t("data_search.form.search_tools_hide_link") %>'
+              ).fadeInline();
+            });
+            summarize.container.fadeOut(500, function() {
+              summarize.wrapper.remove();
+              $(this).detach();
+            });
+          });
+        }
+
+        $.each([link, summarize.container.find('a')], function(i, l) {
+          l.accessibleClick(function() {
+            (extras.is(':visible')) ? hide() : show();
+            return false;
+          });
+        });
+
+        hide();
+      }
+
+    })($('#data_search'));
+  });
+
+
+}(jQuery));

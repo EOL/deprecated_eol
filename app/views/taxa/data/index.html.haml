@@ -9,7 +9,6 @@
   -# NOTE - we want this to appear on every subtab:
   .data_disclaimer
     %p.explain= I18n.t(:data_disclaimer).html_safe
-  = render 'data_search/filters', { show_clade: false }
   - if @data_point_uris.blank?
     .empty
       - if @taxon_data.bad_connection?

@@ -119,4 +119,12 @@ describe 'Taxa data tab basic tests' do
     visit('/logout')
   end
 
+  describe "search" do
+    context "clade is searchable" do
+      it "should include link to search within clade"
+    end
+    context "clade is not searchable" do
+      it "should include link to search TraitBank without clade"
+    end
+  end
 end

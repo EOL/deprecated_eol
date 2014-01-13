@@ -15,21 +15,24 @@ EOL.replace_tab_state = function(tab_link) {
 }
 
 EOL.change_tab_state = function(tab_link, type) {
-  if (!(typeof history.pushState === "undefined")) {
-    // Sadly, just pulling the class(es) from the parent node doesn't work; it can have several. We might add IDs to the links
-    // later, though, to make this cleaner.
-    var pclass;
-    if (tab_link.parent().hasClass('glossary')) {
-      pclass = 'glossary';
-    } else if (tab_link.parent().hasClass('about')) {
-      pclass = 'about';
-    } else {
-      pclass = 'all'; // a kind of "default"... it will check toc first, anyway.
-    }
-    if (type == 'replace') {
-      history.replaceState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
-    } else {
-      history.pushState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
+  if ($('#content .data ul.subtabs').length > 0) {
+    // Only allow this on pages with data tabs:
+    if (!(typeof history.pushState === "undefined")) {
+      // Sadly, just pulling the class(es) from the parent node doesn't work; it can have several. We might add IDs to the links
+      // later, though, to make this cleaner.
+      var pclass = {};
+      if (tab_link.parent().hasClass('glossary')) {
+        pclass = 'glossary';
+      } else if (tab_link.parent().hasClass('about')) {
+        pclass = 'about';
+      } else {
+        pclass = 'all'; // a kind of "default"... it will check toc first, anyway.
+      }
+      if (type == 'replace') {
+        history.replaceState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
+      } else {
+        history.pushState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
+      }
     }
   }
 }
@@ -332,11 +335,6 @@ EOL.update_unit_select_options = function(known_uri_id) {
 
 $(function() {
 
-  if (!(typeof history.pushState === "undefined")) {
-    var active_tab = $('#tabs_sidebar.data ul .active a');
-    EOL.replace_tab_state(active_tab);
-  }
-
   $('.has_many').each(function() {
     var $subform = $(this).clone();
     $subform.find('.once').remove();
@@ -563,5 +561,10 @@ $(function() {
     }
     EOL.switch_subtab(old_tab, {skip_push: true});
   };
+
+  if (!(typeof history.pushState === "undefined")) {
+    var active_tab = $('#tabs_sidebar.data ul .active a');
+    EOL.replace_tab_state(active_tab);
+  }
 
 });

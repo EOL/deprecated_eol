@@ -85,9 +85,9 @@
           },
           unit = dataSearch.find('select[name="unit"]'),
           disabledPlaceholders = {
-            q:   '<%= I18n.t("helpers.label.data_search.q_placeholder_disabled") %>',
-            min: '<%= I18n.t("helpers.label.data_search.min_placeholder_disabled") %>',
-            max: '<%= I18n.t("helpers.label.data_search.max_placeholder_disabled") %>'
+            q:   watch.q.data('disabled-placeholder'),
+            min: watch.min.data('disabled-placeholder'),
+            max: watch.max.data('disabled-placeholder')
           };
 
       function adjustPlaceholders() {
@@ -106,7 +106,6 @@
       }
 
       function eitherOr(event) {
-        console.log(event.type);
         event.stopImmediatePropagation();
         watch.min.prop('disabled', watch.q.val().trim());
         watch.max.prop('disabled', watch.q.val().trim());
@@ -144,7 +143,7 @@
                 .append($('<dt/>')
                   .append($('<a/>', {
                     href: '#',
-                    text: '<%= I18n.t("data_search.form.input_summary_intro") %>'
+                    text: extras.data('summary-intro')
                   }))
                 ),
               wrapper:   $('<dd/>'),
@@ -171,9 +170,7 @@
           adjustSummarizeExclude();
           extras.slideUp(500, function() {
             link.fadeOut(200, function() {
-              $(this).text(
-                '<%= I18n.t("data_search.form.search_tools_show_link") %>'
-              ).fadeInline();
+              $(this).text(extras.data('show')).fadeInline();
             });
           }).summarizeInput(summarize);
         }
@@ -181,9 +178,7 @@
         function show() {
           extras.slideDown(500, function() {
             link.fadeOut(200, function() {
-              $(this).text(
-                '<%= I18n.t("data_search.form.search_tools_hide_link") %>'
-              ).fadeInline();
+              $(this).text(extras.data('hide')).fadeInline();
             });
             summarize.container.fadeOut(500, function() {
               summarize.wrapper.remove();

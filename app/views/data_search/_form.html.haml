@@ -9,7 +9,9 @@
           = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
         %dd
           = select_tag(:attribute, data_search_attribute_options)
-  .extras
+  .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
+    show: I18n.t("data_search.form.search_tools_show_link"),
+    hide: I18n.t("data_search.form.search_tools_hide_link")}}
     .suggestions
       %h3= raw t('.search_suggestions_header_colon')
       %ul
@@ -40,7 +42,9 @@
           = label_tag :q, I18n.t(:q, scope: helperstscope)
         %dd
           = search_field_tag(:q, @querystring,
-            placeholder: I18n.t(:q_placeholder, scope: helperstscope))
+            placeholder: I18n.t(:q_placeholder, scope: helperstscope),
+            data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
+            scope: helperstscope)})
           %p= I18n.t(:q_more, scope: helperstscope)
       %h5= t('.or_range_header')
       %dl.range
@@ -48,13 +52,17 @@
           = label_tag :min, I18n.t(:min, scope: helperstscope)
         %dd
           = search_field_tag(:min, @min_value,
-            placeholder: I18n.t(:min_placeholder, scope: helperstscope))
+            placeholder: I18n.t(:min_placeholder, scope: helperstscope),
+            data: {disabled_placeholder: I18n.t(:min_placeholder_disabled,
+            scope: helperstscope)})
       %dl.range
         %dt
           = label_tag :max, I18n.t(:max, scope: helperstscope)
         %dd
           = search_field_tag(:max, @max_value,
-            placeholder: I18n.t(:max_placeholder, scope: helperstscope))
+            placeholder: I18n.t(:max_placeholder, scope: helperstscope),
+            data: {disabled_placeholder: I18n.t(:max_placeholder_disabled,
+            scope: helperstscope)})
       %dl.range
         %dt
           = label_tag :unit, I18n.t(:unit, scope: helperstscope)

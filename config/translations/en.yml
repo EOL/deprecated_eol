@@ -3344,7 +3344,7 @@ en:
       search_value_or_range_header: "Search for a specific value or range"
       search_within_taxon_group_header: "Search within a taxon group"
       search_within_taxon_group_intro_with_count:
-        other: "Searching within a taxon group is currently limited to groups with less than %{count} taxa. <a href=\"%{contact_us_tech_url}\">Contact us</a> to find out more about searching larger groups."
+        other: "Searching within a taxon group is currently limited to groups with fewer than %{count} taxa. <a href=\"%{contact_us_tech_url}\">Contact us</a> to find out more about searching larger groups."
       sort_header: "Sort the results"
     notice:
       clade_too_big: "Sorry, the taxon group %{taxon_name} is too large to search within."

@@ -11,7 +11,7 @@
     taxon_group: @taxon_concept.title_canonical,
     scope: helperstscope) } : {}
 %h3.assistive= t('.header')
-= form_tag data_search_path, method: 'get', class: 'copy' do
+= form_tag data_search_path, method: 'get', class: 'copy', id: 'traitbank_search' do
   = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
   .vital
     %fieldset

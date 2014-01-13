@@ -106,7 +106,6 @@
       }
 
       function eitherOr(event) {
-        console.log(event.type);
         event.stopImmediatePropagation();
         watch.min.prop('disabled', watch.q.val().trim());
         watch.max.prop('disabled', watch.q.val().trim());

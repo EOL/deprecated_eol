@@ -615,8 +615,9 @@ en:
         q_placeholder_disabled: "Range entered, specific value disabled"
         q_more: "For example heterotrophic."
         taxon_name: "Taxon group"
-        taxon_name_placeholder: "Enter the name of a taxon group"
-        taxon_name_more: "For example Trochilidae or Whales."
+        taxon_name_placeholder: "Enter taxon group name to select group"
+        taxon_name_placeholder_too_big: "%{taxon_group} removed, enter and select a new group"
+        taxon_name_more: "For example enter Trochilidae or Whales and select the matching group."
         unit: "Unit of measure"
       eol_statistic:
         date_one: "Date"
@@ -3347,7 +3348,7 @@ en:
         other: "Searching within a taxon group is currently limited to groups with fewer than %{count} taxa. <a href=\"%{contact_us_tech_url}\">Contact us</a> to find out more about searching larger groups."
       sort_header: "Sort the results"
     notice:
-      clade_too_big: "Sorry, the taxon group %{taxon_name} is too large to search within."
+      clade_too_big: "Sorry, the taxon group %{taxon_name} is too large to filter by and was removed from the search. The results shown are not filtered by %{taxon_name}."
   data_search_link: "Search scientific data on EOL"
   data_search_queue_pending:
     zero: "There are no jobs pending. If your job is not complete, something went wrong. You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."

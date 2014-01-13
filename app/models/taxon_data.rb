@@ -141,6 +141,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def self.taxon_query_clauses(taxon_concept)
+    return '' unless taxon_concept && TaxonData.is_clade_searchable?(taxon_concept)
     taxon_concept ? " .
         OPTIONAL {
           ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
@@ -160,7 +161,7 @@ class TaxonData < TaxonUserClassificationFilter
     #     ?t dwc:taxonConceptID ?taxon_concept_id . " : ""
   end
 
-  def self.clade_is_searchable?(taxon_concept)
+  def self.is_clade_searchable?(taxon_concept)
     taxon_concept.number_of_descendants <= TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
   end
 

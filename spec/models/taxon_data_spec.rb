@@ -67,7 +67,8 @@ describe TaxonData do
     @taxon_data.get_data
   end
 
-  it '#clade_is_searchable? should know if clade is searchable'
+  it '#taxon_query_clauses should return empty if clade is not searchable'
+  it '#is_clade_searchable? should know if clade is searchable'
 
   it 'should populate sources from resources' do
     resource_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, resource_id: @resource.id,

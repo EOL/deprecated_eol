@@ -1,7 +1,18 @@
 - helperstscope = [:helpers, :label, :data_search]
+- # NOTE altering taxon concept defaults if its not searchable but keeping
+- #      variable intact, in case it is still needed... we could just remove it
+- if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
+  - taxon_concept_id = @taxon_concept.id
+  - taxon_name = { value: @taxon_concept.title_canonical, data: {} }
+- else
+  - taxon_concept_id = nil
+  - taxon_name = { value: nil }
+  - taxon_name[:data] = @taxon_concept ?  { too_big_placeholder: I18n.t(:taxon_name_placeholder_too_big,
+    taxon_group: @taxon_concept.title_canonical,
+    scope: helperstscope) } : {}
 %h3.assistive= t('.header')
 = form_tag data_search_path, method: 'get', class: 'copy' do
-  = hidden_field_tag :taxon_concept_id, (@taxon_concept ? @taxon_concept.id : nil)
+  = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
   .vital
     %fieldset
       %dl
@@ -32,8 +43,9 @@
           = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
             name: 'taxon_name', 'min-length' => 3, type: 'search',
             update_elements: { id: '#taxon_concept_id' },
-            value: (@taxon_concept ? @taxon_concept.title_canonical : nil),
-            placeholder: I18n.t(:taxon_name_placeholder, scope: helperstscope)
+            value: taxon_name[:value],
+            placeholder: I18n.t(:taxon_name_placeholder, scope: helperstscope),
+            data: taxon_name[:data]
           %p= I18n.t(:taxon_name_more, scope: helperstscope)
     %fieldset
       %h4= t('.search_value_or_range_header')
@@ -41,34 +53,34 @@
         %dt
           = label_tag :q, I18n.t(:q, scope: helperstscope)
         %dd
-          = search_field_tag(:q, @querystring,
+          = search_field_tag :q, @querystring,
             placeholder: I18n.t(:q_placeholder, scope: helperstscope),
             data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
-            scope: helperstscope)})
+            scope: helperstscope)}
           %p= I18n.t(:q_more, scope: helperstscope)
       %h5= t('.or_range_header')
       %dl.range
         %dt
           = label_tag :min, I18n.t(:min, scope: helperstscope)
         %dd
-          = search_field_tag(:min, @min_value,
+          = search_field_tag :min, @min_value,
             placeholder: I18n.t(:min_placeholder, scope: helperstscope),
             data: {disabled_placeholder: I18n.t(:min_placeholder_disabled,
-            scope: helperstscope)})
+            scope: helperstscope)}
       %dl.range
         %dt
           = label_tag :max, I18n.t(:max, scope: helperstscope)
         %dd
-          = search_field_tag(:max, @max_value,
+          = search_field_tag :max, @max_value,
             placeholder: I18n.t(:max_placeholder, scope: helperstscope),
             data: {disabled_placeholder: I18n.t(:max_placeholder_disabled,
-            scope: helperstscope)})
+            scope: helperstscope)}
       %dl.range
         %dt
           = label_tag :unit, I18n.t(:unit, scope: helperstscope)
         %dd
           - unit_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
-          = select_tag(:unit, options_for_select(unit_options, @unit))
+          = select_tag :unit, options_for_select(unit_options, @unit)
     %fieldset.sort
       %h4= t('.sort_header')
       %dl
@@ -77,6 +89,6 @@
         %dd
           - sort_options = { I18n.t(:sort_by_value_ascending) => 'asc',
             I18n.t(:sort_by_value_descending) => 'desc' }
-          = select_tag(:sort, options_for_select(sort_options, @sort))
+          = select_tag :sort, options_for_select(sort_options, @sort)
   %fieldset.actions
     = submit_tag I18n.t(:search)

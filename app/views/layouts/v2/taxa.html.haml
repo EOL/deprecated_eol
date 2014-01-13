@@ -30,7 +30,7 @@
           / - if @taxon_data && @taxon_data.downloadable?
           /   %li
           /     = link_to I18n.t(:download_data), taxon_overview_path(@taxon_page), :class => 'button', :onclick => 'return false'
-          - if controller_name == 'data' && TaxonData.clade_is_searchable?(@taxon_concept)
+          - if controller_name == 'data' && @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
             = link_to t('.search_within_clade'),
               data_search_path(taxon_concept_id: @taxon_concept),
               class: 'button traitbank'

@@ -12,7 +12,7 @@ class DataSearchController < ApplicationController
     prepare_search_parameters(params)
     prepare_suggested_searches
 
-    unless @taxon_concept.blank? || TaxonData.clade_is_searchable?(@taxon_concept)
+    if @taxon_concept && !TaxonData.is_clade_searchable?(@taxon_concept)
       flash.now[:notice] = I18n.t('data_search.notice.clade_too_big',
         taxon_name: @taxon_concept.title_canonical_italicized.html_safe).html_safe
     end

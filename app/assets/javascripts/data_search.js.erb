@@ -77,7 +77,6 @@
 
     (function(dataSearch){
 
-      // enforce either specific values or data range
       var watch = {
             q:    dataSearch.find('input[name="q"]'),
             min:  dataSearch.find('input[name="min"]'),
@@ -88,7 +87,9 @@
             q:   watch.q.data('disabled-placeholder'),
             min: watch.min.data('disabled-placeholder'),
             max: watch.max.data('disabled-placeholder')
-          };
+          },
+          taxon = dataSearch.find('input[name="taxon_name"]'),
+          taxonTooBigPlaceholder = taxon.data('too-big-placeholder');
 
       function adjustPlaceholders() {
         for (var name in watch) {
@@ -123,8 +124,20 @@
         adjustPlaceholders();
       }
 
+      // temporarily change placeholder if we removed taxon during search
+      if (typeof taxonTooBigPlaceholder === 'string' &&
+          taxonTooBigPlaceholder.length > 0) {
+        taxon.data('placeholder', taxon.attr('placeholder'));
+        taxon.attr('placeholder', taxonTooBigPlaceholder);
+        taxon.one('keyup input paste', function() {
+          // switch placeholder back once user starts to use the field
+          taxon.attr('placeholder', taxon.data('placeholder'));
+        });
+      }
+
+      // watch range and value inputs for changes and disable either or
       for (var name in watch) {
-        // save placeholder text
+        // save original placeholder text, we'll need to get it back later
         watch[name].data('placeholder', watch[name].attr('placeholder'));
         watch[name].on('keyup input paste', {n: name}, eitherOr);
         watch[name].keyup();

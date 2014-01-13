@@ -36,7 +36,9 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def hosted_file_exists?
-    hosted_file_url && EOLWebService.url_accepted?(hosted_file_url)
+    # TODO: go back to using content server
+    # hosted_file_url && EOLWebService.url_accepted?(hosted_file_url)
+    local_file_url && EOLWebService.url_accepted?(local_file_url)
   end
 
   def complete?
@@ -118,11 +120,13 @@ class DataSearchFile < ActiveRecord::Base
 
   # TODO - this fails locally (ie: in development). Fix? Or explain how to configure?
   def upload_file
-    where = local_file_path
-    if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-      where = uploaded_file_url
-    end
-    update_attributes(hosted_file_url: (Rails.configuration.local_services ? where : (Rails.configuration.hosted_dataset_path + where)))
+    # where = local_file_path
+    # if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
+    #   where = uploaded_file_url
+    # end
+    # update_attributes(hosted_file_url: (Rails.configuration.local_services ? where : (Rails.configuration.hosted_dataset_path + where)))
+    # TODO: go back to using content server
+    update_attributes(hosted_file_url: local_file_url)
   end
 
   def csv_builder(csv, col_heads, rows)

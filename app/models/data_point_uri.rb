@@ -585,6 +585,18 @@ private
         function:         lambda { |v| v / 1000 },
         reverse_function: lambda { |v| v * 1000 },
         required_minimum: 1.0 },
+      { starting_units:   [ 'http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C64555' ],  # decigram
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v / 10 },
+        reverse_function: lambda { |v| v * 10 } },
+      { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#US_pound' ],  # pound
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v * 453.592 },
+        reverse_function: lambda { |v| v / 453.592 } },
+      { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#US_ounce' ],  # ounce
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v * 28.3495 },
+        reverse_function: lambda { |v| v / 28.3495 } },
       { starting_units:   [ KnownUri.grams.uri, 'http://adw.org/g', 'http://anage.org/g' ],
         ending_unit:      KnownUri.kilograms.uri,
         function:         lambda { |v| v / 1000 },
@@ -595,6 +607,14 @@ private
         function:         lambda { |v| v / 10 },
         reverse_function: lambda { |v| v * 10 },
         required_minimum: 1.0 },
+      { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#foot' ],      # foot
+        ending_unit:      KnownUri.centimeters.uri,
+        function:         lambda { |v| v * 30.48 },
+        reverse_function: lambda { |v| v / 30.48 } },
+      { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#inch' ],      # inch
+        ending_unit:      KnownUri.centimeters.uri,
+        function:         lambda { |v| v * 2.54 },
+        reverse_function: lambda { |v| v / 2.54 } },
       { starting_units:   [ KnownUri.centimeters.uri ],
         ending_unit:      KnownUri.meters.uri,
         function:         lambda { |v| v / 100 },
@@ -613,17 +633,21 @@ private
         ending_unit:      KnownUri.celsius.uri,
         function:         lambda { |v| v / 10 },
         reverse_function: lambda { |v| v * 10 } },
+      { starting_units:   [ 'http://purl.obolibrary.org/obo/UO_0000195' ],                      # farenheight
+        ending_unit:      KnownUri.celsius.uri,
+        function:         lambda { |v| (((v - 32) * 5) / 9) },
+        reverse_function: lambda { |v| (((v * 9) / 5) + 32) } },
       { starting_units:   [ Rails.configuration.uri_term_prefix + 'log10gram' ],
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| 10 ** v },
         reverse_function: lambda { |v| Math::log10(v) } },
-      { starting_units:   [ Rails.configuration.uri_term_prefix + 'squareMicrometer' ], # square micrometer
-        ending_unit:      Rails.configuration.uri_obo + 'UO_0000082',                   # square millimeter
+      { starting_units:   [ Rails.configuration.uri_term_prefix + 'squareMicrometer' ],         # square micrometer
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000082',                           # square millimeter
         function:         lambda { |v| v / 1000000 },
         reverse_function: lambda { |v| v * 1000000 },
         required_minimum: 1.0 },
-      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000082' ],               # square millimeter
-        ending_unit:      Rails.configuration.uri_obo + 'UO_0000081',                   # square centimeter
+      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000082' ],                       # square millimeter
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000081',                           # square centimeter
         function:         lambda { |v| v / 100 },
         reverse_function: lambda { |v| v * 100 },
         required_minimum: 1.0 },

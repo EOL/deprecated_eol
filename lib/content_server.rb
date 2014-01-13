@@ -1,4 +1,5 @@
 # This is, quite simply, a class to round-robin our asset servers, so that their load is equally distributed (in theory).
+# TODO - do something when there are NO content servers, ie: in development.
 class ContentServer
 
   @@cache_url_re = /(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/

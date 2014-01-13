@@ -7,7 +7,7 @@
     - if @include_other_category
       %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), taxon_data_path(@taxon_data, toc_id: 'other'), 'data-toc-id' => 'other'
     - unless @range_data.empty?
-      %li.ranges.start_section{ class: (@toc_id == 'ranges') ? 'active' : nil }= link_to I18n.t(:data_ranges), ranges_taxon_data_path(@taxon_page)
+      %li.ranges{ class: (@toc_id == 'ranges') ? 'active' : nil }= link_to I18n.t(:data_ranges), ranges_taxon_data_path(@taxon_page)
     - unless @glossary_terms.empty?
-      %li.glossary.start_section{ class: (@toc_id == 'glossary') ? 'active' : nil }= link_to I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe, glossary_taxon_data_path(@taxon_page)
+      %li.glossary.start_section{ class: (@toc_id == 'glossary') ? 'active' : nil }= link_to I18n.t(:glossary_subhead).html_safe, glossary_taxon_data_path(@taxon_page)
     %li.about{ class: [(@toc_id == 'about') ? 'active' : nil, (@glossary_terms.empty? ? 'start_section' : nil) ] }= link_to I18n.t(:data_subtab_about), about_taxon_data_path(@taxon_page)

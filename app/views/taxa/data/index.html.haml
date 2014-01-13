@@ -7,8 +7,8 @@
   %h3.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
   = render partial: 'about', locals: { hidden: true }
   -# NOTE - we want this to appear on every subtab:
-  .data_disclaimer
-    %p.explain= I18n.t(:data_disclaimer).html_safe
+  .help_text
+    %p= I18n.t(:data_disclaimer).html_safe
   - if @data_point_uris.blank?
     .empty
       - if @taxon_data.bad_connection?

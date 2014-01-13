@@ -1,19 +1,19 @@
 class DataSearchFile < ActiveRecord::Base
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
-    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id
+    :completed_at, :hosted_file_url, :row_count
   attr_accessor :results
 
   belongs_to :user
   belongs_to :language
   belongs_to :known_uri
-  belongs_to :taxon_concept
 
-  PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
-  PAGE_LIMIT = 200 # Maximum number of "pages" of data to allow in one file.
+  PER_PAGE = 2000 # Number of results we feel confident to process at one time (ie: one query for each)
+  PAGE_LIMIT = 5 # Maximum number of "pages" of data to allow in one file.
   LIMIT = PAGE_LIMIT * PER_PAGE
 
   def build_file
+    puts "++ #build_file"
     unless hosted_file_exists?
       write_file
       upload_file
@@ -22,12 +22,13 @@ class DataSearchFile < ActiveRecord::Base
       # we should not email them when the process has finished
       if hosted_file_exists? && instance_still_exists?
         send_completion_email
+        update_attributes(completed_at: Time.now.utc)
       end
-      update_attributes(completed_at: Time.now.utc)
     end
   end
 
   def csv(options = {})
+    puts "++ #csv"
     rows = get_data(options)
     col_heads = get_headers(rows)
     CSV.generate do |csv|
@@ -36,18 +37,22 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def hosted_file_exists?
+    puts "++ #hosted_file_exists?"
     hosted_file_url && EOLWebService.url_accepted?(hosted_file_url)
   end
 
   def complete?
+    puts "++ #complete?"
     ! completed_at.nil?
   end
 
   def instance_still_exists?
+    puts "++ #instance_still_exists?"
     !! DataSearchFile.find_by_id(id)
   end
 
   def filename
+    puts "++ #filename"
     return @filename if @filename
     @filename = "something.csv"
     if known_uri
@@ -63,6 +68,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def local_file_url
+    puts "++ #local_file_url"
     ip_with_port = $IP_ADDRESS_OF_SERVER.dup
     "http://" + ip_with_port + Rails.configuration.data_search_file_rel_path.sub(/:id/, id.to_s)
   end
@@ -70,16 +76,19 @@ class DataSearchFile < ActiveRecord::Base
   private
 
   def local_file_path
+    puts "++ #local_file_path"
     Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
 
   def get_data(options = {})
-    # TODO - we should also check to see if the job has been canceled.
+    puts "++ #get_data"
+    # NOTE - for testing on staging:
+    # q = '' ; uri = 'http://iobis.org/minphosphate' ; from = nil ; to = nil ; sort = nil ; PER_PAGE = 12 ; options = {} ; user = User.first
     rows = []
     page = 1
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
-    results = TaxonData.search(querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
-                               per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri)
+    results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
+                               per_page: PER_PAGE, for_download: true)
     # TODO - we should also check to see if the job has been canceled.
     begin # Always do this at least once...
       DataPointUri.assign_bulk_metadata(results, user.language)
@@ -87,7 +96,7 @@ class DataSearchFile < ActiveRecord::Base
       results.each do |data_point_uri|
         rows << data_point_uri.to_hash(user.language)
       end
-      if (page * PER_PAGE < results.total_entries)
+      if results.total_pages < results.current_page
         page += 1
         results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
                                    page: page, per_page: PER_PAGE, for_download: true)
@@ -98,6 +107,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def get_headers(rows)
+    puts "++ #get_headers"
     col_heads = Set.new
     rows.each do |row|
       col_heads.merge(row.keys)
@@ -108,6 +118,7 @@ class DataSearchFile < ActiveRecord::Base
   # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file for users of Excel. q.v.:
   # http://stackoverflow.com/questions/9886705/how-to-write-bom-marker-to-a-file-in-ruby
   def write_file
+    puts "++ #write_file"
     rows = get_data
     col_heads = get_headers(rows)
     CSV.open(local_file_path, 'wb') do |csv|
@@ -118,14 +129,14 @@ class DataSearchFile < ActiveRecord::Base
 
   # TODO - this fails locally (ie: in development). Fix? Or explain how to configure?
   def upload_file
-    where = local_file_path
+    puts "++ #upload_file"
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-      where = uploaded_file_url
+      update_attributes(hosted_file_url: (Rails.configuration.local_services ? uploaded_file_url : (Rails.configuration.hosted_dataset_path + uploaded_file_url)))
     end
-    update_attributes(hosted_file_url: (Rails.configuration.local_services ? where : (Rails.configuration.hosted_dataset_path + where)))
   end
 
   def csv_builder(csv, col_heads, rows)
+    puts "++ #csv_builder"
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...

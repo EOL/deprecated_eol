@@ -245,6 +245,7 @@ $(function() {
       if($(this).autocomplete('option').disabled === true) {
         $(this).autocomplete('enable');
         $(this).autocomplete('search', value);
+        EOL.turn_global_search_autocomplete_results_into_links();
       }
     }
   });
@@ -440,10 +441,6 @@ $(function() {
       $q.css('color', '#aa0000').fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn).fadeOut(blinkOut).fadeIn(blinkIn);
       return(false);
     }
-  });
-
-  $('ul.ui-autocomplete li a.ui-corner-all').live('click', function() {
-    $(this).find('a.taxon_link')[0].click();
   });
 
   // uncheck media list filter All when other options are selected
@@ -718,4 +715,13 @@ EOL.after_onload_JS = function(jsFile) {
     if (w.addEventListener) { w.addEventListener("load", go, false); }
     else if (w.attachEvent) { w.attachEvent("onload",go); }
   }(window, document, 'script'));
+};
+
+EOL.turn_global_search_autocomplete_results_into_links = function() {
+  $('#simple_search input#autocomplete_q').autocomplete({
+    select: function( event, ui ) {
+      var taxon_link = $(ui.item.label).find('a').attr('href');
+      window.location = taxon_link;
+    }
+  });
 };

@@ -482,7 +482,11 @@ class DataPointUri < ActiveRecord::Base
       val = EOL::Sparql.uri_components(object_uri)[:label].to_s # TODO - see if we need that #to_s; seems redundant.
       if val.is_numeric?
         # float values can be rounded off to 2 decimal places
-        val = val.to_f.round(2) if val.is_float?
+        if val.is_float?
+          val = val.to_f.round(2)
+        else
+          val = val.to_i
+        end
       else
         # other values may have links embedded in them (references, citations, etc.)
         val.add_missing_hyperlinks

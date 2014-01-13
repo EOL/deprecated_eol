@@ -52,84 +52,112 @@ class TaxonData < TaxonUserClassificationFilter
   def self.prepare_search_query(options={})
     options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
     options[:page] ||= 1
-    if options[:only_count]
-      query = "SELECT COUNT(*) as ?count WHERE { "
-      query += "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
-    else
-      # this is strange, but in order to properly do sorts, limits, and offsets there should be a subquery
-      # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
-      query = "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id WHERE { "
-      query += "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
-    end
-    query += " WHERE {
-      GRAPH ?graph {
-        ?data_point_uri dwc:measurementType ?attribute .
-        ?data_point_uri dwc:measurementValue ?value .
-        ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
-        FILTER ( ?measurementOfTaxon = 'true' ) .
-        OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
-        OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
-        OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
-        OPTIONAL { ?data_point_uri dwc:sex ?sex } . "
-    # numerical range search with units
-    if options[:unit] && (options[:min_value] || options[:max_value])
-      builder = EOL::Sparql::UnitQueryBuilder.new(options[:unit], options[:min_value], options[:max_value])
-      query += builder.sparql_query_filters
-    # numerical range search term
-    elsif options[:min_value] || options[:max_value]
-      query += "FILTER(xsd:float(?value) >= xsd:float(#{options[:min_value]})) . " if options[:min_value]
-      query += "FILTER(xsd:float(?value) <= xsd:float(#{options[:max_value]})) . " if options[:max_value]
-    # exact numerical search term
-    elsif options[:querystring] && options[:querystring].is_numeric?
-      query += "FILTER(xsd:float(?value) = xsd:float(#{options[:querystring]})) . "
-    # string search term
-    elsif options[:querystring] && ! options[:querystring].strip.empty?
-      matching_known_uris = KnownUri.search(options[:querystring])
-      query += "FILTER(( REGEX(?value, '(^|\\\\W)#{options[:querystring]}(\\\\W|$)', 'i'))"
-      unless matching_known_uris.empty?
-        query << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
-      end
-      query += ") . "
-    end
-    if options[:attribute]
-      query += "FILTER(?attribute = <#{options[:attribute]}>) . "
-    end
-    query += "} .
-      {
-        ?data_point_uri dwc:occurrenceID ?occurrence_id .
-        ?occurrence_id dwc:taxonID ?taxon_id .
-        ?taxon_id dwc:taxonConceptID ?taxon_concept_id
-      } UNION {
-        ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
-      }"
-    if options[:taxon_concept]
-      query += taxon_query_clauses(options[:taxon_concept].id)
-    end
-    query += " }"
-    unless options[:only_count]
-      if options[:sort] == 'asc'
-        query += " ORDER BY ASC(xsd:float(?value))"
-      elsif options[:sort] == 'desc'
-        query += " ORDER BY DESC(xsd:float(?value))"
-      end
-    end
-    query += "} "
-    unless options[:only_count]
-      query += " LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
-    end
+    query = "
+        #{ select_clause(options) }
+        WHERE {
+          GRAPH ?graph {
+            ?data_point_uri dwc:measurementType ?attribute .
+            ?data_point_uri dwc:measurementValue ?value .
+            ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
+            FILTER ( ?measurementOfTaxon = 'true' ) .
+            OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
+            OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+            #{ filter_clauses(options) }
+            #{ attribute_filter(options) }
+          } .
+          {
+            ?data_point_uri dwc:occurrenceID ?occurrence_id .
+            ?occurrence_id dwc:taxonID ?taxon_id .
+            ?taxon_id dwc:taxonConceptID ?taxon_concept_id
+            OPTIONAL { ?occurrence_id dwc:lifeStage ?life_stage } .
+            OPTIONAL { ?occurrence_id dwc:sex ?sex } .
+          } UNION {
+            ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
+            OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
+            OPTIONAL { ?data_point_uri dwc:sex ?sex } .
+          }
+          #{ taxon_query_clauses(options[:taxon_concept]) }
+        }
+        #{ order_clause(options) }
+      }
+      #{ limit_clause(options) }"
     return query
   end
 
-  def self.taxon_query_clauses(taxon_concept_id)
-    " .
-      OPTIONAL {
-        ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}> .
-        ?parent_taxon dwc:taxonConceptID ?parent_taxon_concept_id .
-        ?t dwc:parentNameUsageID+ ?parent_taxon .
-        ?t dwc:taxonConceptID ?taxon_concept_id
-      } .
-      FILTER(?parent_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}> ||
-             ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}>)"
+  def self.select_clause(options)
+    if options[:only_count]
+      "SELECT COUNT(*) as ?count WHERE {
+        SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id"
+    else
+      # this is strange, but in order to properly do sorts, limits, and offsets there should be a subquery
+      # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
+      "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id WHERE {
+        SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
+    end
+  end
+
+  def self.filter_clauses(options)
+    filter_clauses = ""
+    # numerical range search with units
+    if options[:unit] && (options[:min_value] || options[:max_value])
+      builder = EOL::Sparql::UnitQueryBuilder.new(options[:unit], options[:min_value], options[:max_value])
+      filter_clauses += builder.sparql_query_filters
+    # numerical range search term
+    elsif options[:min_value] || options[:max_value]
+      filter_clauses += "FILTER(xsd:float(?value) >= xsd:float(#{options[:min_value]})) . " if options[:min_value]
+      filter_clauses += "FILTER(xsd:float(?value) <= xsd:float(#{options[:max_value]})) . " if options[:max_value]
+    # exact numerical search term
+    elsif options[:querystring] && options[:querystring].is_numeric?
+      filter_clauses += "FILTER(xsd:float(?value) = xsd:float(#{options[:querystring]})) . "
+    # string search term
+    elsif options[:querystring] && ! options[:querystring].strip.empty?
+      matching_known_uris = KnownUri.search(options[:querystring])
+      filter_clauses += "FILTER(( REGEX(?value, '(^|\\\\W)#{options[:querystring]}(\\\\W|$)', 'i'))"
+      unless matching_known_uris.empty?
+        filter_clauses << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
+      end
+      filter_clauses += ") . "
+    end
+    filter_clauses
+  end
+
+  def self.limit_clause(options)
+    options[:only_count] ? "" : "LIMIT #{options[:per_page]} OFFSET #{((options[:page].to_i - 1) * options[:per_page])}"
+  end
+
+  def self.order_clause(options)
+    unless options[:only_count]
+      if options[:sort] == 'asc'
+        "ORDER BY ASC(xsd:float(?value))"
+      elsif options[:sort] == 'desc'
+        "ORDER BY DESC(xsd:float(?value))"
+      end
+    end
+    ""
+  end
+
+  def self.attribute_filter(options)
+    options[:attribute] ? "FILTER(?attribute = <#{options[:attribute]}>) . " : ""
+  end
+
+  def self.taxon_query_clauses(taxon_concept)
+    taxon_concept ? " .
+        OPTIONAL {
+          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?parent_taxon dwc:taxonConceptID ?parent_taxon_concept_id .
+          ?t dwc:parentNameUsageID+ ?parent_taxon .
+          ?t dwc:taxonConceptID ?taxon_concept_id
+        } .
+        FILTER(?parent_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> ||
+               ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)" : ""
+
+    ## TODO: this is too slow. Maybe try a UNION instead. Here is the original attempt:
+    ## This will only get descendants of a node, does not include the node
+    # taxon_concept ? " .
+    #     ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+    #     ?parent_taxon dwc:taxonConceptID ?parent_taxon_concept_id .
+    #     ?t dwc:parentNameUsageID+ ?parent_taxon .
+    #     ?t dwc:taxonConceptID ?taxon_concept_id . " : ""
   end
 
   def self.clade_is_searchable?(taxon_concept)
@@ -216,12 +244,12 @@ class TaxonData < TaxonUserClassificationFilter
           ?data_point_uri dwc:measurementValue ?value .
           OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
           OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
-          OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
-          OPTIONAL { ?data_point_uri dwc:sex ?sex }
         } .
         {
           ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
           FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
+          OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
+          OPTIONAL { ?data_point_uri dwc:sex ?sex }
         }
         UNION {
           ?data_point_uri dwc:occurrenceID ?occurrence .
@@ -232,6 +260,8 @@ class TaxonData < TaxonUserClassificationFilter
             ?taxon dwc:taxonConceptID ?taxon_concept_id .
             FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
           }
+          OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
+          OPTIONAL { ?occurrence dwc:sex ?sex }
         }
       }
       LIMIT 800"

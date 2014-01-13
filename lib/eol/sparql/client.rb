@@ -46,7 +46,9 @@ module EOL
       def query(query, options = {})
         results = []
         begin
-          # puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
+          if Rails.configuration.respond_to?('show_sparql_queries') && Rails.configuration.show_sparql_queries
+            puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
+          end
           sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
         rescue ArgumentError => e
           # NOTE - this catch is caused by going through the demo for setting up the DAV user/directory. You've got to manually delete that

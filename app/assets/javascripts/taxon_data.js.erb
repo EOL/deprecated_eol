@@ -26,8 +26,6 @@ EOL.change_tab_state = function(tab_link, type) {
     } else {
       pclass = 'all'; // a kind of "default"... it will check toc first, anyway.
     }
-    console.log("++ Push: ");
-    console.log("  ...pclass: "+pclass);
     if (type == 'replace') {
       history.replaceState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
     } else {
@@ -37,8 +35,6 @@ EOL.change_tab_state = function(tab_link, type) {
 }
 
 EOL.switch_subtab = function(which, options) {
-  console.log("++ Switch Subtab: ");
-  console.log(which);
   $('.about_subtab').hide();
   $('.glossary_subtab').hide();
   $('.ranges_subtab').hide();
@@ -556,18 +552,13 @@ $(function() {
   });
 
   window.onpopstate = function(e) {
-    console.log("++ popstate:");
-    console.log(e);
     if (e.state == null) {
-      console.log("... null: ");
       return;
     }
     var old_tab;
     if (e.state.toc == undefined) {
-      console.log("... pclass: "+e.state.pclass);
       old_tab = $('#tabs_sidebar.data li.'+e.state.pclass+' a');
     } else {
-      console.log("... toc: "+e.state.toc);
       old_tab = $('#tabs_sidebar.data ul a[data-toc-id='+e.state.toc+']');
     }
     EOL.switch_subtab(old_tab, {skip_push: true});

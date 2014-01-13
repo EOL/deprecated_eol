@@ -14,7 +14,6 @@ class DataSearchFile < ActiveRecord::Base
   LIMIT = PAGE_LIMIT * PER_PAGE
 
   def build_file
-    puts "++ #build_file"
     unless hosted_file_exists?
       write_file
       upload_file
@@ -29,7 +28,6 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def csv(options = {})
-    puts "++ #csv"
     rows = get_data(options)
     col_heads = get_headers(rows)
     CSV.generate do |csv|
@@ -38,22 +36,18 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def hosted_file_exists?
-    puts "++ #hosted_file_exists?"
     hosted_file_url && EOLWebService.url_accepted?(hosted_file_url)
   end
 
   def complete?
-    puts "++ #complete?"
     ! completed_at.nil?
   end
 
   def instance_still_exists?
-    puts "++ #instance_still_exists?"
     !! DataSearchFile.find_by_id(id)
   end
 
   def filename
-    puts "++ #filename"
     return @filename if @filename
     @filename = "something.csv"
     if known_uri
@@ -69,7 +63,6 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def local_file_url
-    puts "++ #local_file_url"
     ip_with_port = $IP_ADDRESS_OF_SERVER.dup
     "http://" + ip_with_port + Rails.configuration.data_search_file_rel_path.sub(/:id/, id.to_s)
   end
@@ -77,12 +70,10 @@ class DataSearchFile < ActiveRecord::Base
   private
 
   def local_file_path
-    puts "++ #local_file_path"
     Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
 
   def get_data(options = {})
-    puts "++ #get_data"
     # TODO - we should also check to see if the job has been canceled.
     rows = []
     page = 1
@@ -91,7 +82,6 @@ class DataSearchFile < ActiveRecord::Base
                                per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri)
     # TODO - we should also check to see if the job has been canceled.
     begin # Always do this at least once...
-      puts "++ ... page #{page}"
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|
@@ -108,7 +98,6 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def get_headers(rows)
-    puts "++ #get_headers"
     col_heads = Set.new
     rows.each do |row|
       col_heads.merge(row.keys)
@@ -119,7 +108,6 @@ class DataSearchFile < ActiveRecord::Base
   # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file for users of Excel. q.v.:
   # http://stackoverflow.com/questions/9886705/how-to-write-bom-marker-to-a-file-in-ruby
   def write_file
-    puts "++ #write_file"
     rows = get_data
     col_heads = get_headers(rows)
     CSV.open(local_file_path, 'wb') do |csv|
@@ -130,8 +118,7 @@ class DataSearchFile < ActiveRecord::Base
 
   # TODO - this fails locally (ie: in development). Fix? Or explain how to configure?
   def upload_file
-    puts "++ #upload_file"
-    where = local_file_url
+    where = local_file_path
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
       where = uploaded_file_url
     end
@@ -139,7 +126,6 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def csv_builder(csv, col_heads, rows)
-    puts "++ #csv_builder"
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
@@ -150,7 +136,6 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def send_completion_email
-    puts "++ #send_completion_email"
     RecentActivityMailer.data_search_file_download_ready(self).deliver
   end
 

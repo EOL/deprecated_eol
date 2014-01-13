@@ -1,8 +1,10 @@
 - hidden = false unless hidden == true
 - style = hidden ? 'display: none' : nil
 .ranges_subtab{ style: style }
+  .help_text
+    %p= I18n.t(:data_ranges_subtab_help_text)
   .header_underlined
-    %h3= I18n.t(:data_ranges_subheader)
+    %h3= I18n.t(:data_ranges)
   %table.standard
     %caption.assistive= I18n.t(:data_overview_table_caption)
     %thead

@@ -46,21 +46,26 @@ EOL.switch_subtab = function(which, options) {
     $('#taxon_data .empty').hide();
     $('.glossary_subtab').hide();
     $('.help_text').hide();
-    $('.data_disclaimer').hide();
     $('.filters').hide();
     if (which.parent().hasClass('about')) $('.about_subtab').show()
-    else if (which.parent().hasClass('glossary')) $('.glossary_subtab').show()
-    else if (which.parent().hasClass('ranges')) $('.ranges_subtab').show()
+    else if (which.parent().hasClass('glossary')) {
+      $('.glossary_subtab').show();
+      $('.glossary_subtab .help_text').show();
+    }
+    else if (which.parent().hasClass('ranges')) {
+      $('.ranges_subtab').show()
+      $('.ranges_subtab .help_text').show()
+    }
   } else if (which.parent().hasClass('all')) { // Acts as a reset button/link
-    $('.data_disclaimer').show();
     $('.filters').show();
     $('#taxon_data .empty').show();
+    $('#taxon_data > .help_text').show();
     EOL.show_data_tables($('table.data'));
   } else {
-    $('.data_disclaimer').show();
     $('.filters').show();
     EOL.hide_data_tables($('table.data'));
     EOL.show_data_tables($('table.data[data-toc-id="' + which.attr('data-toc-id') + '"]'));
+    $('#taxon_data > .help_text').show();
   }
   which.parent().parent().find('li').removeClass('active');
   which.parent().addClass('active');
@@ -292,7 +297,7 @@ EOL.limit_data_rows = function() {
       $nested_set.filter(':last').after(
         '<tr data-type="' + type + '" class="data nested more"><th></th><td><a href="#" class="more">' +
         $('table.data').attr('data-more').replace('NNN', ($nested_set.length-EOL.max_meta_rows)) +
-        '</a></td></tr>');
+        '</a></td><td></td><td></td></tr>');
       $('tr.more a.more').unbind('click').on('click', function() {
         var $parent_row = $(this).closest('tr');
         $('tr.data[data-type="' + $parent_row.attr('data-type') +'"]').show();

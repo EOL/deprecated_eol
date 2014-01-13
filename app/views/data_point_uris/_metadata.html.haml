@@ -17,12 +17,14 @@
       - references.each_with_index do |d, i|
         - row_id = "#{header_id}_ref_#{i}"
         %tr
-          %th{id: "#{row_id}_h"}= I18n.t(:reference)
+          %th{id: "#{row_id}_h"}
+            = I18n.t(:reference)
+            - info_icon
           %td{id: "#{row_id}_d"}= raw d[:full_reference].to_s.add_missing_hyperlinks
     %tr
       %th
         = I18n.t(:data_link_to_record)
-        %span.info_icon= '&emsp;&emsp;&emsp;&emsp;'.html_safe
+        - info_icon
       - link = taxon_data_url(data_point_uri.taxon_concept, anchor: data_point_uri.anchor)
       %td= link_to link, link
   - if other_measurements = data_point_uri.get_other_occurrence_measurements(current_language)

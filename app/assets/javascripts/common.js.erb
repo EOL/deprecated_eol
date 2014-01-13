@@ -431,7 +431,7 @@ $(function() {
   // Search should not allow you to search without a term:
   $("#simple_search :submit").on('click', function() {
     var $q = $("#simple_search :submit").closest('form').find('input[type="text"]');
-    if ($q.val() == $(this).attr('data_unchanged')) {
+    if ($q.val() == $(this).attr('data_unchanged') || $q.val() == '') {
       $q.css('color', '#aa0000').val($(this).attr('data_error')).on('click', function() { $(this).val('').css('color', 'black').unbind('click'); });
       return(false);
     } else if ($q.val() == $(this).attr('data_error')) {

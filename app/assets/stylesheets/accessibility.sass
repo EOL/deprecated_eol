@@ -1996,6 +1996,14 @@ ul.ui-autocomplete
   input[type="search"]
     +input
     -webkit-appearance: none
+  input[type="submit"]
+    font-size: 1.4em
+    font-weight: normal
+    line-height: 160%
+    letter-spacing: 1px
+    +gradient-bg(#394651, #28323a)
+    border-color: #28323a
+    color: white
   .copy
     h3
       position: relative
@@ -2086,19 +2094,7 @@ ul.ui-autocomplete
         width: 90%
   .actions
     border-top-width: 0
-    input
-      font-size: 1.4em
-      font-weight: normal
-      line-height: 160%
-      letter-spacing: 1px
-      +gradient-bg(#394651, #28323a)
-      border-color: #28323a
-      color: white
-    &.prominent
-      position: absolute
-      top: 0
-      right: 0
-      background: none
-      border: none
-      padding-top: 35px
-
+  .prominent_actions
+    position: absolute
+    top: 35px
+    right: 40px

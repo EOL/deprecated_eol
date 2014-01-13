@@ -77,7 +77,8 @@
 
     (function(dataSearch){
 
-      var watch = {
+      var vital = dataSearch.find('.vital'),
+          watch = {
             q:    dataSearch.find('input[name="q"]'),
             min:  dataSearch.find('input[name="min"]'),
             max:  dataSearch.find('input[name="max"]')
@@ -90,6 +91,16 @@
           },
           taxon = dataSearch.find('input[name="taxon_name"]'),
           taxonTooBigPlaceholder = taxon.data('too-big-placeholder');
+
+      // add an extra submit button for convenience
+      $('<fieldset/>', {
+        class: 'prominent_actions',
+        html: $('<legend/>', {
+          class: 'assistive',
+          text: 'Additional search submit'
+        })}).append(dataSearch.find('input[type="submit"]').clone()
+        .attr('title', 'Search now or move on to add more search criteria'))
+        .appendTo(vital);
 
       function adjustPlaceholders() {
         for (var name in watch) {
@@ -143,10 +154,9 @@
         watch[name].keyup();
       }
 
-      // show/hide extra fields
+      // if we have some results show/hide extra fields
       if (dataSearch.data('results-total') > 0) {
-        var vital     = dataSearch.find('.vital'),
-            extras    = dataSearch.find('.extras'),
+        var extras    = dataSearch.find('.extras'),
             actions   = dataSearch.find('fieldset.actions'),
             link      = $('<a/>', { href: '#' }),
             summarize = {
@@ -175,11 +185,7 @@
         }
 
         function hide() {
-          if (!actions.hasClass('prominent')) {
-            actions.fadeOut(100, function() {
-              $(this).addClass('prominent').fadeIn(200);
-            });
-          }
+          actions.fadeOut(200);
           adjustSummarizeExclude();
           extras.slideUp(500, function() {
             link.fadeOut(200, function() {
@@ -198,6 +204,7 @@
               $(this).detach();
             });
           });
+          actions.fadeIn(500);
         }
 
         $.each([link, summarize.container.find('a')], function(i, l) {

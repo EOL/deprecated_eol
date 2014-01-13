@@ -171,8 +171,7 @@
                 ),
               wrapper:   $('<dd/>'),
               exclude:   {
-                sort: [],
-                unit: ['']
+                sort: []
               }
             };
 
@@ -181,6 +180,9 @@
         function adjustSummarizeExclude() {
           if (!watch.min.val().trim() && !watch.max.val().trim()) {
             summarize.exclude.unit = [];
+          }
+          else if (typeof summarize.exclude.unit !== 'undefined') {
+            delete summarize.exclude.unit;
           }
         }
 

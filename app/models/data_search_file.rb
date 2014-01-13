@@ -121,8 +121,8 @@ class DataSearchFile < ActiveRecord::Base
     where = local_file_path
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
       where = uploaded_file_url
+      update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
     end
-    update_attributes(hosted_file_url: (Rails.configuration.local_services ? where : (Rails.configuration.hosted_dataset_path + where)))
   end
 
   def csv_builder(csv, col_heads, rows)

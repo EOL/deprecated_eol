@@ -79,11 +79,10 @@ class DataSearchController < ApplicationController
     @suggested_searches = [
       { label_key: 'search_suggestion_whale_mass',
         params: {
-          utf8: '✓',
           sort: 'desc',
           min: 10000,
           taxon_concept_id: 7649,
-          attribute: 'http://eol.org/schema/terms/pantheria_5-1_AdultBodyMass_g',
+          attribute: 'http://purl.obolibrary.org/obo/VT_0001259',
           unit: 'http://purl.obolibrary.org/obo/UO_0000009' }},
       { label_key: 'search_suggestion_cavity_nests',
         params: {

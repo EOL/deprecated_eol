@@ -98,5 +98,5 @@
             = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: data_point_uri.taxon_concept.id), method: :post, class: "add_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
           - if excluded && ! for_search
             %span.note= I18n.t(:data_row_excluded_from_overview_notice)
-        - else
+        - elsif logged_in?
           %p.note= I18n.t(:annotation_note).html_safe

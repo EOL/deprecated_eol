@@ -219,7 +219,7 @@ EOL.toggle_actions_row = function(data_row) {
             var uri = $(this).find('.uri').text();
             EOL.create_info_dialog(this);
             // only add the term if it is not already in the glossary
-            $('.glossary_subtab ul.glossary:not(:contains("' + uri + '"))').append('<li>'+html+'</li>');
+            $('.glossary_subtab ul.glossary:not(:contains("' + uri + '"))').append(html);
           });
           // sort the glossary now that new items have been added to the end
           $(".glossary_subtab ul.glossary > li").sort(EOL.sort_glossary).appendTo('.glossary_subtab ul.glossary');

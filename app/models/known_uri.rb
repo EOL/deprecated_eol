@@ -174,6 +174,10 @@ class KnownUri < ActiveRecord::Base
     KnownUri.unit_of_measure.allowed_values.select{ |k| k.visible? }.sort
   end
 
+  def self.glossary_terms
+    KnownUri.includes(:toc_items).all.delete_if { |ku| ku.name.blank? || ( ku.measurement? && ! EOL::Sparql.connection.all_measurement_type_known_uris.include?(ku)) }
+  end
+
   def units_for_form_select
     unit_uris = allowed_units.select{ |ku| ku.visible? }
     if default_unit = implied_unit_of_measure
@@ -199,6 +203,10 @@ class KnownUri < ActiveRecord::Base
 
   def has_units?
     ! allowed_units.empty?
+  end
+
+  def measurement?
+    uri_type_id == UriType.measurement.id
   end
 
   def value?

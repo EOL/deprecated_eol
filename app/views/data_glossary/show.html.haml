@@ -1,5 +1,5 @@
 - cache('glossary_in_lang_' + current_language.iso_code, expires_in: 10.minutes) do
-  - known_uris = KnownUri.includes(:toc_items).all.delete_if { |ku| ku.name.blank? }
+  - known_uris = KnownUri.glossary_terms
   #content
     #known_uris.site_column.glossary
       - a_to_z = ('A'..'Z').to_a

@@ -197,6 +197,7 @@ class TaxonData < TaxonUserClassificationFilter
       @taxon_data_set = taxon_data_set
       raise EOL::Exceptions::SparqlDataEmpty if taxon_data_set.nil?
     end
+    @taxon_data_set
   end
 
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.

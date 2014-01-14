@@ -1742,7 +1742,7 @@ en:
       actions_head: "Actions"
       is_complete: "Yes"
       is_not_complete: "No"
-      query_empty: "empty"
+      query_empty: "(no filters)"
       processing: "processing"
       refresh: "refresh"
       row_count: "Count"

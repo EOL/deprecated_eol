@@ -16,7 +16,7 @@ module EOL
         return(what) if bad_connection?
         begin
           yield
-        rescue Net::HTTP::Persistent::Error, SPARQL::Client::ClientError
+        rescue Net::HTTP::Persistent::Error, SPARQL::Client::ClientError, EOL::Exceptions::SparqlDataEmpty
           @bad_connection = Time.now
           return(what)
         end

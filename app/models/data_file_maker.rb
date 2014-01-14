@@ -3,7 +3,7 @@ class DataFileMaker
   @queue = 'data'
 
   def self.perform(args)
-    puts "++ DataFileMaker: #{args.values.join(', ')}"
+    puts "++ #{Time.now.strftime('%F %T')} DataFileMaker: #{args.values.join(', ')}"
     # TODO - error-handling.
     if DataSearchFile.exists?(args["data_file_id"])
       begin

@@ -126,11 +126,12 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def self.order_clause(options)
+    pp options
     unless options[:only_count]
       if options[:sort] == 'asc'
-        "ORDER BY ASC(xsd:float(?value))"
+        return "ORDER BY ASC(xsd:float(?value))"
       elsif options[:sort] == 'desc'
-        "ORDER BY DESC(xsd:float(?value))"
+        return "ORDER BY DESC(xsd:float(?value))"
       end
     end
     ""

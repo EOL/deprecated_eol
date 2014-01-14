@@ -616,7 +616,7 @@ en:
         q_more: "For example heterotrophic."
         taxon_name: "Taxon group"
         taxon_name_placeholder: "Enter taxon group name to select group"
-        taxon_name_placeholder_too_big: "%{taxon_group} removed, enter and select a new group"
+        taxon_name_placeholder_value_removed: "%{taxon_group} removed, select new group"
         taxon_name_more: "For example enter Trochilidae or Whales and select the matching group."
         unit: "Unit of measure"
       eol_statistic:
@@ -3332,6 +3332,7 @@ en:
     form:
       header_assistive: "Search form"
       input_summary_intro: "Additional search criteria"
+      new_search_link: "Start a new search"
       or_range_header: "Or, enter a range"
       refine_search_header: "Refine your search (optional)"
       search_suggestions_header_colon: "Not sure where to start? <small>Try one of the following data searches:</small>"
@@ -3349,6 +3350,7 @@ en:
       sort_header: "Sort the results"
     notice:
       clade_too_big: "Sorry, the taxon group %{taxon_name} is too large to filter by and was removed from the search. The results shown are not filtered by %{taxon_name}."
+      clade_has_no_data: "No one has contributed data records for taxon group %{taxon_name} yet. <a href=\"%{contribute_path}\">Be the first to contribute</a>."
   data_search_link: "Search scientific data on EOL"
   data_search_queue_pending:
     zero: "There are no jobs pending. If your job is not complete, something went wrong. You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."

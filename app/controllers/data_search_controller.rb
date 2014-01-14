@@ -2,6 +2,8 @@
 
 class DataSearchController < ApplicationController
 
+  include ActionView::Helpers::TextHelper
+
   before_filter :restrict_to_data_viewers
   before_filter :allow_login_then_submit, only: :download
 
@@ -10,14 +12,19 @@ class DataSearchController < ApplicationController
   # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index
     prepare_search_parameters(params)
+    prepare_attribute_options
     prepare_suggested_searches
 
-    if @taxon_concept && !TaxonData.is_clade_searchable?(@taxon_concept)
-      flash.now[:notice] = I18n.t('data_search.notice.clade_too_big',
-        taxon_name: @taxon_concept.title_canonical_italicized.html_safe).html_safe
-    end
     respond_to do |format|
       format.html do
+        if @taxon_concept && !TaxonData.is_clade_searchable?(@taxon_concept)
+          flash.now[:notice] = I18n.t('data_search.notice.clade_too_big',
+            taxon_name: @taxon_concept.title_canonical_italicized.html_safe).html_safe
+        elsif @clade_has_no_data
+          flash.now[:notice] = I18n.t('data_search.notice.clade_has_no_data',
+            taxon_name: @taxon_concept.title_canonical_italicized.html_safe,
+            contribute_path: cms_page_path('contribute')).html_safe
+        end
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
       end
     end
@@ -102,5 +109,51 @@ class DataSearchController < ApplicationController
           attribute: 'http://www.owl-ontologies.com/unnamed.owl#Wingspan' }}
     ]
   end
+
+  # todo improve this hacky way of handling empty attributes
+  def prepare_attribute_options
+    @attribute_options = []
+    if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
+      # Get URIs (attributes) that this clade has measurements or facts for.
+      # NOTE excludes associations URIs e.g. preys upon.
+      measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept)
+      @attribute_options = convert_uris_to_options(measurement_uris)
+      @clade_has_no_data = true if @attribute_options.empty?
+    end
+
+    if @attribute_options.empty?
+      # NOTE - because we're pulling this from Sparql, user-added known uris may not be included. However, it's superior to
+      # KnownUri insomuch as it ensures that KnownUris with NO data are ignored.
+      measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris
+      @attribute_options = convert_uris_to_options(measurement_uris)
+    end
+
+    if @attribute.nil?
+      # NOTE we should (I assume) only get nil attribute when the user first
+      #      loads the search, so for that context we select an example default,
+      #      starting with [A-Z] seems more readable. If my assumption is wrong
+      #      then we should rethink this and tell the user why attribute is nil
+      match = @attribute_options.select{|o| o[0] =~ /^[A-Z]/}
+      @attribute_default = match.first[1] unless match.empty?
+    end
+  end
+
+  private
+
+  def convert_uris_to_options(measurement_uris)
+    # TODO - this could be greatly simplified with duck-typing.  :|
+    measurement_uris.collect do |uri|
+      label = uri.respond_to?(:name) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
+      if label.nil?
+        nil
+      else
+        [ truncate(label.firstcap, length: 30),
+          uri.respond_to?(:uri) ? uri.uri : uri,
+          { 'data-known_uri_id' => uri.respond_to?(:id) ? uri.id : nil } ]
+      end
+    end.compact.sort_by{ |o| o.first }.uniq
+  end
+
+
 
 end

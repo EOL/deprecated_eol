@@ -1,15 +1,17 @@
 - helperstscope = [:helpers, :label, :data_search]
 - # NOTE altering taxon concept defaults if its not searchable but keeping
 - #      variable intact, in case it is still needed... we could just remove it
-- if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
+- if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept) && !@clade_has_no_data
   - taxon_concept_id = @taxon_concept.id
   - taxon_name = { value: @taxon_concept.title_canonical, data: {} }
 - else
   - taxon_concept_id = nil
   - taxon_name = { value: nil }
-  - taxon_name[:data] = @taxon_concept ?  { too_big_placeholder: I18n.t(:taxon_name_placeholder_too_big,
-    taxon_group: @taxon_concept.title_canonical,
-    scope: helperstscope) } : {}
+  - if @taxon_concept
+    - if !TaxonData.is_clade_searchable?(@taxon_concept) || @clade_has_no_data
+      - taxon_name[:data] = { value_removed_placeholder: I18n.t(:taxon_name_placeholder_value_removed,
+        taxon_group: @taxon_concept.title_canonical,
+        scope: helperstscope) }
 %h3.assistive= t('.header')
 = form_tag data_search_path, method: 'get', class: 'copy', id: 'traitbank_search' do
   = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
@@ -19,7 +21,8 @@
         %dt
           = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
         %dd
-          = select_tag(:attribute, data_search_attribute_options)
+          = select_tag(:attribute, options_for_select(@attribute_options,
+            @attribute || @attribute_default))
   .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
     show: I18n.t("data_search.form.search_tools_show_link"),
     hide: I18n.t("data_search.form.search_tools_hide_link")}}
@@ -92,3 +95,4 @@
           = select_tag :sort, options_for_select(sort_options, @sort)
   %fieldset.actions
     = submit_tag I18n.t(:search)
+    = link_to t('.new_search_link'), data_search_path

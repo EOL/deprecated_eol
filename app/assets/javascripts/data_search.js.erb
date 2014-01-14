@@ -89,8 +89,10 @@
             min: watch.min.data('disabled-placeholder'),
             max: watch.max.data('disabled-placeholder')
           },
-          taxon = dataSearch.find('input[name="taxon_name"]'),
-          taxonTooBigPlaceholder = taxon.data('too-big-placeholder');
+          taxonName = dataSearch.find('input[name="taxon_name"]'),
+          valueRemovedPlaceholders = {
+            taxonName: taxonName.data('value-removed-placeholder')
+          };
 
       // add an extra submit button for convenience
       $('<fieldset/>', {
@@ -136,13 +138,13 @@
       }
 
       // temporarily change placeholder if we removed taxon during search
-      if (typeof taxonTooBigPlaceholder === 'string' &&
-          taxonTooBigPlaceholder.length > 0) {
-        taxon.data('placeholder', taxon.attr('placeholder'));
-        taxon.attr('placeholder', taxonTooBigPlaceholder);
-        taxon.one('keyup input paste', function() {
+      if (typeof valueRemovedPlaceholders.taxonName === 'string' &&
+          valueRemovedPlaceholders.taxonName.length > 0) {
+        taxonName.data('placeholder', taxonName.attr('placeholder'));
+        taxonName.attr('placeholder', valueRemovedPlaceholders.taxonName);
+        taxonName.one('keyup input paste', function() {
           // switch placeholder back once user starts to use the field
-          taxon.attr('placeholder', taxon.data('placeholder'));
+          taxonName.attr('placeholder', taxonName.data('placeholder'));
         });
       }
 

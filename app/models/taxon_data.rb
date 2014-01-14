@@ -195,6 +195,7 @@ class TaxonData < TaxonUserClassificationFilter
                                       { known_uri_relationships_as_target: :from_known_uri } ] )
       @categories = known_uris.flat_map(&:toc_items).uniq.compact
       @taxon_data_set = taxon_data_set
+      raise EOL::Exceptions::SparqlDataEmpty if taxon_data_set.nil?
     end
   end
 
@@ -204,7 +205,6 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def distinct_predicates
-    return [] if get_data.nil? # TODO - This may indicate that virtuoso has a problem, though...
     get_data.collect{ |d| d.predicate }.compact.uniq
   end
 

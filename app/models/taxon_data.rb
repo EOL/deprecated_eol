@@ -6,7 +6,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   DEFAULT_PAGE_SIZE = 30
   MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
-  MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 50000
+  MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 25000
 
   # TODO - this doesn't belong here; it has nothing to do with a taxon concept. Move to a DataSearch class. Fix the
   # controller.

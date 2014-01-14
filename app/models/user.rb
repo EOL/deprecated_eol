@@ -915,6 +915,8 @@ public
         self.curator_verdict_by = options[:by]
         self.curator_verdict_at = Time.now
         self.curator_approved   = 1
+        self.credentials ||= "Approved by admin" # NOTE - ASSUMING this method is admin-only!
+        self.curator_scope ||= "N/A"             # NOTE - same...
       end
       self.save
       Notifier.curator_approved(self).deliver unless $LOADING_BOOTSTRAP || Rails.env.development?

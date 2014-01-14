@@ -2638,7 +2638,7 @@ en:
   amount: "Amount"
   an_unknown_user: "An unknown user"
   annotation_submit: "post comment"
-  annotation_note: "Comments will be shared with<br />data providers (if available)."
+  annotation_note: "Comments will be shared with data providers (if available)."
   annotation_body_default: "add a question or comment ..."
   anonymous_user_full_name: 'Anonymous User'
   anonymous_user_given_name: 'Anonymous'

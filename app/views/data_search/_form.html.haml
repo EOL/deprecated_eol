@@ -21,8 +21,8 @@
         %dt
           = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
         %dd
-          = select_tag(:attribute, options_for_select(@attribute_options,
-            @attribute || @attribute_default))
+          -# TODO - || [] is lame here, fix:
+          = select_tag(:attribute, options_for_select(@attribute_options || [], @attribute || @attribute_default))
   .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
     show: I18n.t("data_search.form.search_tools_show_link"),
     hide: I18n.t("data_search.form.search_tools_hide_link")}}

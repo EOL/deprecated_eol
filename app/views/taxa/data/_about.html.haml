@@ -3,9 +3,10 @@
 .about_subtab{ style: style }
   %h3= I18n.t(:data_about_subtab_header)
   .explain
-    -# TODO - this should include the "sign in" link, with a proper return_to URL.
     = raw I18n.t(:data_about_subtab_content,
-      img: image_tag('v2/icon_info_tabs.png', size: '14x14'),
       user_register_url: new_user_path,
-      contact_contribute_url: contact_us_path(subject: 'Contribute'),
-      contact_traitbank_url: contact_us_path(subject: 'TraitBank'))
+      traitbank_path: cms_page_path('traitbank'),
+      contact_contribute_path: contact_us_path(subject: 'Contribute'),
+      contact_traitbank_path: contact_us_path(subject: 'TraitBank'),
+      register_path: new_user_path,
+      login_path: login_path(return_to: current_url))

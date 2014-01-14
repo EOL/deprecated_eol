@@ -165,12 +165,7 @@
               truncate:   50,
               panel:      vital,
               container:  $('<dl/>', { 'class': 'summarize_input' })
-                .append($('<dt/>')
-                  .append($('<a/>', {
-                    href: '#',
-                    text: extras.data('summary-intro')
-                  }))
-                ),
+                .append($('<dt/>').append(extras.data('summary-intro'))),
               wrapper:   $('<dd/>'),
               exclude:   {
                 sort: []

@@ -65,7 +65,7 @@ module TaxaHelper
     partner_label = hierarchy.display_title
     links.empty? ? partner_label : links.join(', ')
   end
-  
+
   def hierarchy_entry_display_attribution(hierarchy_entry, options={})
     # on the overview page we show he rank first (Species recognized by ...)
     # otherwise we show the rank last (... as a Species)
@@ -102,7 +102,7 @@ module TaxaHelper
     end
     return hierarchy_label
   end
-  
+
   def common_name_display_attribution(common_name_display)
     agent_names = common_name_display.agents.map do |a|
       if a.user
@@ -112,7 +112,7 @@ module TaxaHelper
       end
     end
     hierarchy_labels = common_name_display.hierarchies.map { |h| hierarchy_display_title(h, show_link: false) }
-    
+
     all_attribution = (agent_names + hierarchy_labels).compact.uniq.sort.join(', ')
     # This is *kind of* a hack.  Long, long ago, we kinda mangled our data by not having synonym IDs
     # for uBio names, so uBio became the 'default' common name provider
@@ -259,6 +259,12 @@ module TaxaHelper
         haml_concat render(partial: 'known_uris/definition', locals: { known_uri: uri, search_link: search_link, glossary_link: true })
       end
     end
+  end
+
+  def is_clade_searchable?
+    @taxon_concept &&
+    TaxonData.is_clade_searchable?(@taxon_concept) &&
+    (!@data_point_uris.blank? || !@range_data.blank?)
   end
 
 end

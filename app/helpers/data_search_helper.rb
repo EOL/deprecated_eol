@@ -1,6 +1,7 @@
 module DataSearchHelper
 
   def data_search_results_summary
+    return "" if @results.nil?
     search_term_to_show = [
       (@attribute_known_uri ? @attribute_known_uri.label.firstcap : @attribute),
       @querystring ].delete_if{ |t| t.blank? }.join(' : ')

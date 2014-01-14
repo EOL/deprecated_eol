@@ -204,6 +204,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def distinct_predicates
+    return [] if get_data.nil?
     get_data.collect{ |d| d.predicate }.compact.uniq
   end
 

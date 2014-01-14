@@ -613,11 +613,11 @@ en:
         q: "Specific value"
         q_placeholder: "Enter a word, phrase or number"
         q_placeholder_disabled: "Range entered, specific value disabled"
-        q_more: "For example heterotrophic."
+        q_more: "For example, heterotrophic."
         taxon_name: "Taxon group"
         taxon_name_placeholder: "Enter taxon group name to select group"
         taxon_name_placeholder_value_removed: "%{taxon_group} removed, select new group"
-        taxon_name_more: "For example enter Trochilidae or Whales and select the matching group."
+        taxon_name_more: "For example, enter Trochilidae or Whales and select the matching group."
         unit: "Unit of measure"
       eol_statistic:
         date_one: "Date"
@@ -3331,7 +3331,7 @@ en:
   data_search:
     form:
       header_assistive: "Search form"
-      input_summary_intro: "Additional search criteria"
+      input_summary_intro: "Selected search options"
       new_search_link: "Start a new search"
       or_range_header: "Or, enter a range"
       refine_search_header: "Refine your search (optional)"
@@ -3341,8 +3341,8 @@ en:
       search_suggestion_cavity_nests: "Which species build cavity nests?"
       search_suggestion_wingspan: "Which hummingbirds have the smallest wingspan?"
       search_suggestion_images_of_dinophyceae: "Which dinoflagellates pages have the most images?"
-      search_tools_show_link: "Search tools"
-      search_tools_hide_link: "Hide search tools"
+      search_tools_show_link: "Show search options"
+      search_tools_hide_link: "Hide search options"
       search_value_or_range_header: "Search for a specific value or range"
       search_within_taxon_group_header: "Search within a taxon group"
       search_within_taxon_group_intro_with_count:

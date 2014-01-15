@@ -36,7 +36,7 @@ describe 'Taxa data tab basic tests' do
     body.should have_selector("table.data tr")
     body.should have_selector("table.data th div", text: 'Weight')
     body.should have_selector("table.data td", text: '12,345.0')
-    body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
+    body.should include("Supplier: <a href=\"/content_partners/#{@resource.content_partner_id}")
   end
 
   it 'should display harvested associations' do
@@ -45,7 +45,7 @@ describe 'Taxa data tab basic tests' do
     body.should have_selector("table.data tr")
     body.should have_selector("table.data th div", text: 'Preys On')
     body.should have_selector("table.data td a[href='/pages/#{@target_taxon_concept.id}/data']", text: @target_taxon_concept.title_canonical)
-    body.should include("Source: <a href=\"/content_partners/#{@resource.content_partner_id}")
+    body.should include("Supplier: <a href=\"/content_partners/#{@resource.content_partner_id}")
   end
 
   it 'should display user added data' do

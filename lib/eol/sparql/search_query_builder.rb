@@ -50,7 +50,7 @@ module EOL
       # representing the final Sparql search query
       def prepare_query
         if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
-          inner_query = EOL::Sparql::SearchQueryBuilder.build_query_with_taxon_filter(@taxon_concept.id, inner_select_clause, where_clause, order_clause, nil)
+          inner_query = EOL::Sparql::SearchQueryBuilder.build_query_with_taxon_filter(@taxon_concept.id, inner_select_clause, where_clause, order_clause)
         else
           inner_query = EOL::Sparql::SearchQueryBuilder.build_query(inner_select_clause, where_clause, order_clause, nil)
         end

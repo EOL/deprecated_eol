@@ -1,0 +1,27 @@
+.filters
+  = form_for @location, { id: nil, class: nil } do |f|
+    = f.hidden_field :latitude
+    = f.hidden_field :location
+    = f.hidden_field :longitude
+    = f.hidden_field :index
+    %fieldset
+      - # FIXME i18n
+      %legend Filter by taxon group
+      %ul
+        - @location.taxon_groups.each do |group, taxon_concept_ids|
+          %li{class: taxon_concept_ids.size > 0 ? nil : 'no_result' }
+            %label
+              - # FIXME label should appear before checkbox
+              = check_box_tag "taxon_groups[]",
+                group.downcase.tr(' ', '_'),
+                @params[:taxon_groups].include?(group.to_s.camelize),
+                disabled: taxon_concept_ids.empty?
+              = "#{group} (#{taxon_concept_ids.size})"
+    %fieldset.actions
+      - # FIXME i18n
+      = f.submit 'Filter'
+
+    %h4= t('.taxa_count', count: @location.taxon_concepts.size)
+
+
+

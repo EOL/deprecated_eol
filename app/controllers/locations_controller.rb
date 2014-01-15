@@ -10,7 +10,6 @@ class LocationsController < ApplicationController
       longitude: -70.6631
     })
     @page_title = I18n.t('locations.what_lives_here_question')
-
     respond_to do |format|
       format.html
       format.json { render json: @location }
@@ -27,13 +26,7 @@ class LocationsController < ApplicationController
       if @location.valid?
         format.html { render action: 'new' }
         format.json { render json: { html: render_to_string(
-                                       partial: 'taxa',
-                                       formats: [:html]
-                                     ),
-                                     location: @location
-                             },
-                             status:   :ok
-                    }
+          partial: 'taxa', formats: [:html]), location: @location }, status: :ok}
       else
         format.html { render action: 'new' }
         format.json { render json: @location.errors, status: :unprocessable_entity }

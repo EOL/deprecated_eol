@@ -344,8 +344,6 @@ en:
         to_known_uri_id: "Target URI"
         to_known_uri: "Target URI"
         relationship_uri: "Relationship URI"
-      location:
-        location: "Location"
       open_authentication:
         created_at: "Created"
         guid: "GUID"
@@ -651,6 +649,8 @@ en:
         request_publish_more: "Indicates whether there is a pending request to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
       location:
         location: "Location"
+        latitude: "Latitude"
+        longitude: "Longitude"
       news_item:
         active: "Published"
         active_more: "Published news items will be publicly visible on the selected date and time. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this news item in any language."
@@ -740,6 +740,9 @@ en:
       wikipedia_queue:
         revision_url: "Revision URL <small>(e.g. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>"
         revision_url_more: "By entering a Wikipedia revision URL you are requesting that EOL ingests that particular revision as vetted. It will replace the current version of that article in EOL if we have it already."
+    placeholder:
+      location:
+        location: 'Enter a location'
     select:
       prompt: "Please select"
     submit:
@@ -3907,9 +3910,13 @@ en:
   location_colon: "Location:"
   locations:
     errors:
-      unknown_location: "Sorry, we can't find that location. Try entering an address and selecting from the suggestions. Or you can enter latitude and longitude in the decimal degrees format e.g. 41.5267, -70.6631."
+      unknown_location: "Sorry, we can't find the location %{location}. If you are looking for a particular address, try selecting one of the suggested addresses close to the location you are interested in. Or you can enter latitude and longitude in decimal degrees e.g. 41.5267, -70.6631."
+    filters:
+      taxa_count:
+        one: "%{count} taxon found"
+        other: "%{count} taxa found"
     notices:
-      looking_for_taxa: "Looking for taxa..."
+      searching_for_taxa: "Please wait, searching for taxa near %{location}"
     what_lives_here_question: "What lives here?"
   login_required_button: "Login required"
   logging_database_colon: "Logging:"

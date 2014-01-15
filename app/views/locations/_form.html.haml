@@ -1,11 +1,17 @@
-= form_for @location, { builder: ApplicationHelper::EolFormBuilder } do |f|
+= form_for @location, builder: ApplicationHelper::EolFormBuilder do |f|
   = f.hidden_field :latitude
   = f.hidden_field :longitude
   = f.hidden_field :index
   %fieldset.content
     %dl
       %dt= f.label :location
-      %dd= f.text_field :location
+      %dd= f.text_field :location,
+        autocomplete: 'on',
+        placeholder: I18n.t('helpers.placeholder.location.location'),
+        data: { feedback: { searching: I18n.t('locations.notices.searching_for_taxa',
+        location: '[x]'), indicator: image_path('v2/loading.gif'),
+        unknown: I18n.t('locations.errors.unknown_location',
+        location: '[x]') }}
   %fieldset.actions
     = f.submit
   .map

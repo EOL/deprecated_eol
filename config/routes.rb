@@ -600,6 +600,7 @@ Eol::Application.routes.draw do
   end
 
   resources :locations, only: [:new, :create]
+  get 'near_here', to: 'locations#new'
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation

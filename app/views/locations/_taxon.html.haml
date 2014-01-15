@@ -1,4 +1,5 @@
 - self.formats = [:json, :html]
-%li
+- html_class = @location.taxon_groups.collect{|k,v| k.downcase.tr(' ', '_') if v.include?(taxon.id.to_s)}.compact.first
+%li{class: html_class}
   = render partial: 'shared/item_summary_taxon',
     locals: { item: taxon, icon: false, thumb_size: 130 }

@@ -1,4 +1,5 @@
 - self.formats = [:json, :html]
 - unless @location.taxon_concepts.blank?
-  %ul
+  = render partial: 'filters'
+  %ul.taxa
     = render partial: 'taxon', collection: @location.taxon_concepts

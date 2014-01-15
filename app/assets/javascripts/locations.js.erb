@@ -2,236 +2,294 @@
 
 if (!EOL) { var EOL = {}; }
 
-if (!EOL.Locations) {
+(function($) {
 
-  // Track locations so we can let them know when environment is ready to go
-  EOL.Locations = {
-    locations: [],
-    add: function(loc) {
-      var length = EOL.Locations.locations.push(loc);
-      EOL.Locations.locations[length - 1].elements.index.val(length - 1);
-    },
-    ready: function() {
-      for (var i=0; i < EOL.Locations.locations.length; i++) {
-        EOL.Locations.locations[i].ready();
-      }
-    }
-  };
+  if (!EOL.Feedback) {
 
+    EOL.Feedback = {
 
+      container: null,
 
-  // A pseudo abstract class, not intended to be called directly
-  EOL.Location = function() {
-    throw 'Pseudo abstract class, you must use subclass.'
-  };
-
-  EOL.Location.prototype._create = function(settings) {
-    var required = ['form', 'lat', 'lng', 'loc'];
-    for (var i=0; i < required.length; i++) {
-      if (typeof settings.elements[required[i]] === 'undefined') {
-        throw new TypeError('Element ' + required[i] + ' is missing.');
-      }
-    }
-
-    this.elements =  {
-      form:     null,
-      lat:      0,
-      lng:      0,
-      loc:      null,
-      map:      null,
-      feedback: null,
-      index:    null,
-      results:  null
-    };
-    this.provider = null;
-    this.zoom     = 13;
-    this.map      = null;
-    this.marker   = null;
-    this.point    = null;
-    this.location = null;
-    this.scripts  = [];
-    this.latMax   = 85.05115;
-    this.latMin   = -85.05115;
-    this.lngMax   = 180;
-    this.lngMin   = -180;
-    this.taxa     = null;
-
-    jQuery.extend(this, settings);
-
-  };
-
-  EOL.Location.prototype.LATLNG_REGEX = new RegExp(
-    <%= Location::LATLNG_REGEX.inspect %>
-  );
-
-  EOL.Location.prototype.loadScripts = function() {
-    for (i=0; i < this.scripts.length; ++i) {
-      $.getScript(this.scripts[i]);
-    }
-  };
-
-  EOL.Location.prototype.validLatLng = function(lat, lng) {
-    return !isNaN(parseFloat(lat)) &&
-           !isNaN(parseFloat(lng)) &&
-           lat <= this.latMax &&
-           lat >= this.latMin &&
-           lng <= this.lngMax &&
-           lng >= this.lngMin;
-  }
-
-  EOL.Location.prototype.submit = function() {
-    this.addFeedback("<%= I18n.t('locations.notices.looking_for_taxa') %>", {
-      class: 'notice results'
-    });
-    $.ajax({
-      type:        'POST',
-      url:         this.elements.form.attr('action'),
-      data:        this.elements.form.serialize(),
-      dataType:    'json',
-      success:     function(results) {
-        EOL.Locations.locations[results.location.index].addResults(results);
+      clear: function() {
+        EOL.Feedback.container.empty();
       },
-      error:       function(error) {
-        // fixme what to do in an error?
-        console.log(error);
+
+      add: function(options, indicator) {
+        indicator = (typeof indicator === 'undefined') ? '' : indicator
+        EOL.Feedback.container.empty();
+        $('<p/>', options).prepend(indicator).appendTo(EOL.Feedback.container);
       }
-    });
+    }
   }
 
-  EOL.Location.prototype.clearFeedback = function() {
-    this.elements.feedback.empty();
-  };
+  if (!EOL.Locations) {
 
-  EOL.Location.prototype.addFeedback = function(message, attributes) {
-    this.elements.feedback.empty();
-    jQuery('<p/>', attributes).html(message).appendTo(this.elements.feedback);
-  }
-
-  EOL.Location.prototype.clearResults = function() {
-    this.elements.results.empty();
-  };
-
-  EOL.Location.prototype.addResults = function(results) {
-    this.clearFeedback();
-    this.elements.results.empty().append(results.html);
-  };
-
-  EOL.Location.prototype.ready = function() {
-    throw 'You must implement a ready method in your subclass.';
-  };
-
-
-
-
-  // GoogleLocation subclass of EOL.Location
-  EOL.GoogleLocation = function(settings) {
-
-    this._create(settings);
-
-    this.provider  = 'google';
-    this.apiKey    = '<%= GOOGLE_API_KEY %>';
-    this.sensor    = 'true';
-    this.libraries = ['places'];
-
-    this._setup();
-  };
-
-  EOL.GoogleLocation.prototype = Object.create(EOL.Location.prototype);
-
-  EOL.GoogleLocation.prototype._setup = function() {
-    if (typeof(google) === 'undefined') {
-      this.scripts.push(
-        'https://maps.googleapis.com/maps/api/js?' +
-        'key=' + this.apiKey +
-        '&libraries=' + this.libraries.join(',') +
-        '&sensor=' + this.sensor +
-        '&callback=EOL.Locations.ready'
-      );
-      this.loadScripts();
-    }
-  };
-
-  EOL.GoogleLocation.prototype.ready = function() {
-    this.point = new google.maps.LatLng(
-      this.elements.lat.val(), this.elements.lng.val()
-    );
-    this.map = new google.maps.Map(this.elements.map[0], {
-      zoom:   this.zoom,
-      center: this.point
-    });
-    this.marker = new google.maps.Marker({
-      map: this.map
-    });
-    this.location = new google.maps.places.Autocomplete(
-      this.elements.loc[0],
-      { index: this.elements.index.val() }
-    );
-    google.maps.event.addListener(
-      this.location,
-      'place_changed',
-      function() {
-        EOL.Locations.locations[this.index].locationChanged();
+    // Track locations so we can let them know when environment is ready to go
+    EOL.Locations = {
+      locations: [],
+      add: function(loc) {
+        var length = EOL.Locations.locations.push(loc);
+        EOL.Locations.locations[length - 1].elements.index.val(length - 1);
+      },
+      ready: function() {
+        for (var i=0; i < EOL.Locations.locations.length; i++) {
+          EOL.Locations.locations[i].ready();
+        }
       }
-    );
-    // hijax form submit
-    this.elements.form.addClass('googly').submit(function (event) {
-      event.preventDefault();
-    });
-  };
+    };
 
-  EOL.GoogleLocation.prototype.locationChanged = function() {
-    this.clearResults();
-    this.clearFeedback();
-    this.marker.setVisible(false);
-    var place = this.location.getPlace(),
-        lat   = null,
-        lng   = null;
-    if (typeof place.geometry !== 'undefined') {
-      lat = place.geometry.location.lat();
-      lng = place.geometry.location.lng();
+    // A pseudo abstract class, not intended to be called directly
+    EOL.Location = function() {
+      throw 'Pseudo abstract class, you must use subclass.'
+    };
+
+    EOL.Location.prototype._create = function(settings) {
+      var required = ['form', 'lat', 'lng', 'loc'];
+      for (var i=0; i < required.length; i++) {
+        if (typeof settings.elements[required[i]] === 'undefined') {
+          throw new TypeError('Element ' + required[i] + ' is missing.');
+        }
+      }
+
+      this.elements =  {
+        form:     null,
+        lat:      0,
+        lng:      0,
+        loc:      null,
+        map:      null,
+        index:    null,
+        results:  null
+      };
+      this.provider = null;
+      this.zoom     = 13;
+      this.map      = null;
+      this.marker   = null;
+      this.point    = null;
+      this.location = null;
+      this.scripts  = [];
+      this.latMax   = 85.05115;
+      this.latMin   = -85.05115;
+      this.lngMax   = 180;
+      this.lngMin   = -180;
+      this.taxa     = null;
+
+      $.extend(this, settings);
+
+    };
+
+    EOL.Location.prototype.LATLNG_REGEX = new RegExp(
+      <%= Location::LATLNG_REGEX.inspect %>
+    );
+
+    EOL.Location.prototype.loadScripts = function() {
+      for (i=0; i < this.scripts.length; ++i) {
+        $.getScript(this.scripts[i]);
+      }
+    };
+
+    EOL.Location.prototype.validLatLng = function(lat, lng) {
+      return !isNaN(parseFloat(lat)) &&
+             !isNaN(parseFloat(lng)) &&
+             lat <= this.latMax &&
+             lat >= this.latMin &&
+             lng <= this.lngMax &&
+             lng >= this.lngMin;
     }
-    else if (matches = place.name.match(this.LATLNG_REGEX)) {
-      lat = parseFloat(matches[1]);
-      lng = parseFloat(matches[2]);
-    }
-    if (!this.validLatLng(lat, lng)) {
-      // user has input something we don't recognise
-      // fixme do something sensible here e.g. provide feedback or try to
-      // geocode whatever has been entered
-      this.addFeedback("<%= I18n.t('locations.errors.unknown_location') %>", {
-          class: 'error location'
+
+    EOL.Location.prototype.filterTaxa = function() {
+      var filters = {
+            groups: []
+          };
+      this.elements.filters.find('input[name="taxon_groups[]"]').each(function() {
+        if (this.checked) {
+          filters.groups.push($(this).val());
+        };
       });
-      return;
+
+      this.taxa.each(function() {
+        if ($.inArray($(this).attr('class'), filters.groups) > -1) {
+          $(this).fadeIn(200);
+        }
+        else {
+          $(this).fadeOut(200);
+        }
+      });
+
+      console.log(filters.groups);
+
+    };
+
+    EOL.Location.prototype.findTaxa = function() {
+      EOL.Feedback.add({
+          html: this.elements.loc.data('feedback').searching
+                  .replace('[x]', this.elements.loc.val()),
+          class: 'notice results'
+        },
+        $('<img/>', {
+          src: this.elements.loc.data('feedback').indicator,
+          alt: '',
+          class: 'loading'
+        })
+      );
+
+      $.ajax({
+        type:        'POST',
+        url:         this.elements.form.attr('action'),
+        data:        this.elements.form.serialize(),
+        dataType:    'json',
+        success:     function(results, successCode, xhr) {
+          EOL.Locations.locations[results.location.index].addResults(results);
+        },
+        error:       function(xhr, errorType, error) {
+          // FIXME i18n
+          EOL.Feedback.add({
+            html: "Sorry, there was an unexpected server error. Please " +
+              "<a href=\"/contact_us?Subject=Tech\">contact us</a> " +
+              "if it persists.",
+            class: 'error results'
+          });
+        }
+      });
     }
 
-    // Google can't seem to handle markers on lng boundary so we adjust
-    lng = (lng == this.lngMax) ? this.lngMax - 0.001 : lng;
-    lng = (lng == this.lngMin) ? this.lngMin + 0.001 : lng;
-    this.elements.lat.val(lat);
-    this.elements.lng.val(lng);
-    this.submit(); // 'submit' the form behind the scenes
-    this.point = new google.maps.LatLng(lat, lng);
-    this.map.setCenter(this.point);
-    this.marker.setPosition(this.point);
-    this.marker.setVisible(true);
-  };
+    EOL.Location.prototype.clearResults = function() {
+      this.elements.results.empty();
+    };
 
-}
+    EOL.Location.prototype.addResults = function(results) {
+      EOL.Feedback.clear();
+      this.elements.results.empty().append(results.html);
+      this.elements.filters = $('.filters form');
+      this.taxa = this.elements.results.find('.taxa li');
+      // hijack form submit
+      var loc = this;
+      this.elements.filters.submit(function(event) {
+        loc.filterTaxa();
+        event.preventDefault();
+        event.stopPropagation();
+      });
+    };
 
-$(document).ready(function() {
-  if ($('#new_location').length > 0) {
-    EOL.Locations.add(new EOL.GoogleLocation({
-      elements: {
-        form:     $('#new_location'),
-        lat:      $('#new_location input[name="location[latitude]"]'),
-        lng:      $('#new_location input[name="location[longitude]"]'),
-        loc:      $('#new_location input[name="location[location]"]'),
-        index:    $('#new_location input[name="location[index]"]'),
-        map:      $('#new_location .map'),
-        results:  $('.results'),
-        feedback: $('.feedback')
+    EOL.Location.prototype.ready = function() {
+      throw 'You must implement a ready method in your subclass.';
+    };
+
+
+
+
+    // GoogleLocation subclass of EOL.Location
+    EOL.GoogleLocation = function(settings) {
+
+      this._create(settings);
+
+      this.provider  = 'google';
+      this.apiKey    = '<%= GOOGLE_API_KEY %>';
+      this.sensor    = 'true';
+      this.libraries = ['places'];
+
+      this._setup();
+    };
+
+    EOL.GoogleLocation.prototype = Object.create(EOL.Location.prototype);
+
+    EOL.GoogleLocation.prototype._setup = function() {
+      if (typeof(google) === 'undefined') {
+        this.scripts.push(
+          'https://maps.googleapis.com/maps/api/js?' +
+          'key=' + this.apiKey +
+          '&libraries=' + this.libraries.join(',') +
+          '&sensor=' + this.sensor +
+          '&callback=EOL.Locations.ready'
+        );
+        this.loadScripts();
       }
-    }));
-  }
-});
+    };
 
+    EOL.GoogleLocation.prototype.ready = function() {
+      this.point = new google.maps.LatLng(
+        this.elements.lat.val(), this.elements.lng.val()
+      );
+      this.map = new google.maps.Map(this.elements.map[0], {
+        zoom:   this.zoom,
+        center: this.point
+      });
+      this.marker = new google.maps.Marker({
+        map: this.map
+      });
+      this.location = new google.maps.places.Autocomplete(
+        this.elements.loc[0],
+        { index: this.elements.index.val() }
+      );
+      google.maps.event.addListener(
+        this.location,
+        'place_changed',
+        function() {
+          EOL.Locations.locations[this.index].locationChanged();
+        }
+      );
+      // hijax form submit
+      this.elements.form.addClass('googly').submit(function (event) {
+        event.preventDefault();
+      });
+    };
+
+    EOL.GoogleLocation.prototype.locationChanged = function() {
+      this.clearResults();
+      EOL.Feedback.clear();
+      this.marker.setVisible(false);
+      var place = this.location.getPlace(),
+          lat   = null,
+          lng   = null;
+      if (typeof place.geometry !== 'undefined') {
+        lat = place.geometry.location.lat();
+        lng = place.geometry.location.lng();
+      }
+      else if (matches = place.name.match(this.LATLNG_REGEX)) {
+        lat = parseFloat(matches[1]);
+        lng = parseFloat(matches[2]);
+      }
+      if (!this.validLatLng(lat, lng)) {
+        // user has input something we don't recognise
+        // TODO its possible user did not select a suggestion but the location is
+        //      valid so potentially we could try to geocode it here
+        //      'looking for location'
+        EOL.Feedback.add({
+          html: this.elements.loc.data('feedback').unknown
+            .replace('[x]', this.elements.loc.val()),
+          class: 'error location'
+        });
+        return;
+      }
+
+      // Google can't seem to handle markers on lng boundary so we adjust
+      lng = (lng == this.lngMax) ? this.lngMax - 0.001 : lng;
+      lng = (lng == this.lngMin) ? this.lngMin + 0.001 : lng;
+      this.elements.lat.val(lat);
+      this.elements.lng.val(lng);
+      this.findTaxa();
+      this.point = new google.maps.LatLng(lat, lng);
+      this.map.setCenter(this.point);
+      this.marker.setPosition(this.point);
+      this.marker.setVisible(true);
+    };
+
+  }
+
+  $(function() {
+    if ($('#new_location').length > 0) {
+      EOL.Feedback.container = $('.feedback');
+      EOL.Locations.add(new EOL.GoogleLocation({
+        elements: {
+          form:     $('#new_location'),
+          lat:      $('#new_location input[name="location[latitude]"]'),
+          lng:      $('#new_location input[name="location[longitude]"]'),
+          loc:      $('#new_location input[name="location[location]"]'),
+          index:    $('#new_location input[name="location[index]"]'),
+          map:      $('#new_location .map'),
+          results:  $('.results')
+        }
+      }));
+    }
+  });
+
+}(jQuery));

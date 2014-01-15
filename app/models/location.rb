@@ -12,7 +12,7 @@ class Location
   LATLNG_REGEX = /^[ ]*?([-+]?\d{1,2}(?:[.]\d*)?)[, ]+([-+]?\d{1,3}(?:[.]\d*)?)[ .]*?$/
 
   attr_accessor :location, :latitude, :longitude, :taxon_concepts,
-                :index, :response
+                :index, :response, :taxon_groups
   attr_reader   :errors
 
   def initialize(attributes = {})
@@ -34,8 +34,11 @@ class Location
         ids = response['results'].collect do |g|
           g['species'].collect{|t| t['eol_page_id'].to_i}
         end.compact.flatten.uniq
+        @taxon_groups = Hash[ response['results'].map do |g|
+          [ g['class'], g['species'].collect{|s| s['eol_page_id']}.compact.uniq ]
+        end ]
         @taxon_concepts = TaxonConcept.where(id: ids)
-        TaxonConcept.preload_for_shared_summary(@taxon_concepts, {})
+        TaxonConcept.preload_for_shared_summary(@taxon_concepts, options)
         return
       end
     rescue OpenURI::HTTPError => e

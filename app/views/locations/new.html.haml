@@ -1,6 +1,7 @@
 - content_for :head do
   = stylesheet_link_tag 'locations'
-- content_for :social_sharing do
+  = javascript_include_tag 'locations'
+-# content_for :social_sharing do
   = render :partial => 'shared/social_sharing'
 
 #content

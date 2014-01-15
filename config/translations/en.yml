@@ -3288,7 +3288,7 @@ en:
   data_column_units_uri: "Units URI (normalized)"
   data_column_raw_units: "Raw Units (direct from source)"
   data_column_raw_units_uri: "Raw Units URI (normalized)"
-  data_column_source: "Source"
+  data_column_source: "Supplier"
   data_database_colon: "Data:"
   data_disclaimer: "<a href='/traitbank'>TraitBank</a> assembles data records from many providers. Select a row for more details
   about the record."
@@ -3310,7 +3310,7 @@ en:
   data_point_uri_source_missing: "source missing"
   data_point_uri_summary_name: "data about %{taxon}"
   data_provided_by_user: "provided by %{whom}"
-  data_provided_by_content_partner: "Source: %{whom}"
+  data_provided_by_content_partner: "Supplier: %{whom}"
   data_ranges: "Data summaries"
   data_ranges_subheader: "Data summaries for this Taxonomic Group"
   data_ranges_subtab_help_text: "For some attributes EOL determines the span of values available for a taxon across all sources."

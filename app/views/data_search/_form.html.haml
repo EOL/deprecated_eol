@@ -62,7 +62,7 @@
             data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
             scope: helperstscope)}
           %p= I18n.t(:q_more, scope: helperstscope)
-      %h5= t('.or_range_header')
+      %h5= t('.or_range_header').html_safe
       %dl.range
         %dt
           = label_tag :min, I18n.t(:min, scope: helperstscope)

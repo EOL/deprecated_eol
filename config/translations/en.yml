@@ -3333,7 +3333,7 @@ en:
       header_assistive: "Search form"
       input_summary_intro: "Selected search options"
       new_search_link: "Start a new search"
-      or_range_header: "Or, enter a range"
+      or_range_header: "Or <span class=\"assistive\">enter a range</span>"
       refine_search_header: "Refine your search (optional)"
       search_suggestions_header: "Not sure where to start?"
       search_suggestions_subheader_colon: "Try one of the following data searches:"

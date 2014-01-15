@@ -73,6 +73,22 @@ describe DataPointUri do
     d.object_uri.should == known_uri
   end
 
+  it 'should use the master for get_references' do
+    DataPointUri.should_receive(:with_master).and_return(true)
+    DataPointUri.gen.get_references(Language.english)
+  end
+
+  it 'should use the master for get_metadata' do
+    DataPointUri.should_receive(:with_master).and_return(true)
+    DataPointUri.gen.get_metadata(Language.english)
+  end
+
+  it 'should use the master for get_other_occurrence_measurements' do
+    DataPointUri.should_receive(:with_master).and_return(true)
+    DataPointUri.gen.get_other_occurrence_measurements(Language.english)
+  end
+
+
   context 'with grams as unit of measure' do
 
     let(:with_grams) { DataPointUri.gen(unit_of_measure_known_uri: nil, unit_of_measure: 'grams') }

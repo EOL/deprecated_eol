@@ -51,7 +51,7 @@ protected
   def load_data
     # Sad that we need to load all of this for the about and glossary tabs, but TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
-    @range_data = @taxon_data.ranges_of_values
+    @range_data = [] # @taxon_data.ranges_of_values
     @data_point_uris = @taxon_page.data.get_data
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     @include_other_category = !@data_point_uris.empty? && (@data_point_uris.detect{ |d|
@@ -63,7 +63,8 @@ protected
     @glossary_terms = @data_point_uris ?
       ( @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri) +
         @data_point_uris.select{ |dp| ! dp.object_known_uri.blank? }.collect(&:object_known_uri) +
-        @data_point_uris.select{ |dp| ! dp.unit_of_measure_known_uri.blank? }.collect(&:unit_of_measure_known_uri)).compact.uniq
+        @data_point_uris.select{ |dp| ! dp.unit_of_measure_known_uri.blank? }.collect(&:unit_of_measure_known_uri) +
+        @range_data.collect{ |r| r[:attribute] }).compact.uniq
       : []
   end
 

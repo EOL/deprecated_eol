@@ -114,8 +114,13 @@
   - if current_user.can_see_data?
     #data_summary.article
       .header
-        %h3= I18n.t(:data_summary_header_with_count, count: @all_data_point_uris_count)
-        - unless @overview_data.blank?
+        - if @all_data_point_uris_count == 0 && ! @range_data.blank?
+          %h3= I18n.t(:data_summary_ranges_header_with_count)
+        - else
+          %h3= I18n.t(:data_summary_header_with_count, count: @all_data_point_uris_count)
+        - if @overview_data.blank? && ! @range_data.blank?
+          = link_to(raw(I18n.t(:see_all_data_summaries)), ranges_taxon_data_path(@overview))
+        - elsif ! @overview_data.blank
           = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @all_data_point_uris_count)), taxon_data_path(@overview))
       - if @overview_data.blank? && @range_data.blank?
         .empty

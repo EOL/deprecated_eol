@@ -25,7 +25,7 @@
               - if outlink
                 %tr
                   %td
-                    - logo = image_tag(outlink[:hierarchy].resource.content_partner.logo_url, alt: "") rescue agent_logo(outlink[:hierarchy].agent, "small")
+                    - logo = outlink[:hierarchy].resource ? image_tag(outlink[:hierarchy].resource.content_partner.logo_url, alt: "") : image_tag('v2/logos/partner_default.png')
                     - if outlink[:hierarchy].url.blank?
                       - if cp = outlink[:hierarchy].content_partner
                         = link_to logo, cp

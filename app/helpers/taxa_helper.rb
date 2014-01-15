@@ -268,7 +268,7 @@ module TaxaHelper
   def is_clade_searchable?
     @taxon_concept &&
     TaxonData.is_clade_searchable?(@taxon_concept) &&
-    (!@data_point_uris.blank? || !@range_data.blank?)
+    !EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept).empty?
   end
 
 end

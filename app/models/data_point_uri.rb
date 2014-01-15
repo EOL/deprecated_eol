@@ -629,6 +629,11 @@ private
         function:         lambda { |v| v / 365.2425 },
         reverse_function: lambda { |v| v * 365.2425 },
         required_minimum: 1.0 },
+      { starting_units:   [ 'http://purl.obolibrary.org/obo/UO_0000035' ],                      # months
+        ending_unit:      KnownUri.years.uri,
+        function:         lambda { |v| v / 12 },
+        reverse_function: lambda { |v| v * 12 },
+        required_minimum: 1.0 },
       { starting_units:   [ Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius' ],
         ending_unit:      KnownUri.celsius.uri,
         function:         lambda { |v| v / 10 },

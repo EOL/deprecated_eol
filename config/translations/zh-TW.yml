@@ -356,7 +356,6 @@ zh-TW:
       user: 帳號
   activity: 活動
   activity_log_empty: 尚無人提供更新。
-  activity_log_empty_learn_more_link: 學習如何作出貢獻
   activity_logs: 
     collection_activity_log: 
       add_editor: 

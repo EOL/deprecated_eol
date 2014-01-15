@@ -323,7 +323,6 @@ ms:
       user: akaun
   activity: Kegiatan
   activity_log_empty: Kemas kini belum disediakan.
-  activity_log_empty_learn_more_link: Pelajari cara untuk menyumbang
   activity_user_created_text: <strong>%{user}</strong> membubuh teks pada "%{object_name}" di "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> mengemas kini teks "%{object_name}" pada "%{taxon_concept}".
   add: Tambahkan
@@ -1723,6 +1722,7 @@ ms:
   learn_about_contributing: Bagaimanakah saya boleh menyumbang?
   learn_about_eol: Bagaimanakah saya boleh menggunakan EOL?
   learn_about_joining: Bagaimanakah saya boleh menyertai?
+  learn_how_to_contribute: Pelajari bagaimana anda boleh menyumbang
   learn_more_about_communities_link: Ketahui lebih lanjut tentang Komuniti
   learn_more_about_names_for_this_taxon: ketahui lebih lanjut tentang nama-nama takson ini
   learn_more_link: (%{learn_more})

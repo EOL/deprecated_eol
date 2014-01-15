@@ -613,16 +613,20 @@ form.select_content_partner
     margin: 0
 
 body
+  /*border-top: 2.7em solid #d1e163 /* BANNER - remove this */ */
   > #central
     margin-top: 9.4em
+    /* margin-top: 13.9em /* BANNER - was 9.4em */ */
   > #header
     position: absolute
     top: $global_nav_height
     left: 0
     width: 100%
     background: #394651
+    /* border-top: 2.7em solid #28323a /* BANNER - remove this */ */
     .section
       height: 9.4em
+      /* height: 11.2em /* BANNER - was: 9.4em */ */
       .global_navigation
         top: -2em
         ul.nav
@@ -915,7 +919,7 @@ body
       &.active
         border-bottom: 1px solid #ffffff
         background: #fff
-        margin-bottom: 0px 
+        margin-bottom: 0
 #tabs_sidebar
   float: left
   position: relative
@@ -1339,7 +1343,6 @@ body
         font-weight: bold
         &.actions
           float: none
-
   .main_container
     border: none
     padding: 0
@@ -2130,7 +2133,7 @@ ul.content_partner_contacts
               span
                 margin: 0 5px
 
-#worklist, #data_search, #taxon_data
+#worklist
   .filters
     overflow: hidden
     padding: 15px 25px
@@ -2146,10 +2149,6 @@ ul.content_partner_contacts
             color: #667309
         dd
           padding: 0
-#data_search
-  fieldset
-    dl
-      width: 25%
 #worklist
   .filters
     fieldset.actions
@@ -2303,30 +2302,6 @@ ul.content_partner_contacts
             font-weight: bold
       textarea
         width: 486px
-
-#data_search
-  .filters
-    padding: 15px 25px 5px
-    fieldset
-      dd
-        input[type=submit]
-          margin-left: 4em
-
-#taxon_data
-  .filters
-    padding: 0px 14px 7px 14px
-    fieldset.opts
-      width: 605px
-      float: left
-      dl
-        width: 200px
-        max-width: 200px
-        dd
-          select
-            max-width: 175px
-    fieldset.actions
-      input
-        margin: 14px 0 0 0
 
 #media_list
   #sidebar
@@ -3060,7 +3035,6 @@ ul#permissions
           padding: 0 0 0.2em 1em
       .stat
         color: #93a4b0
-        font-size: 12px
         &:before
           content: '('
         &:after
@@ -3088,9 +3062,11 @@ ul#permissions
       font-size: 1.3em
       color: $nearly_black
 div.definition
-  padding: 15px 15px 30px
+  padding: 15px
   margin: 10px 0px
   border: 1px solid $grayblue
   background: $fieldset_light_blue
   li
     margin: 0px
+#curation_legend.help_text
+  display: inline-block

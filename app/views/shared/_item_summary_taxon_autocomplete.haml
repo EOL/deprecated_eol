@@ -1,29 +1,32 @@
 - search_result = nil unless defined?(search_result)
 - path = taxon_overview_path(item)
 - has_thumbnail = false
-- if image = item.exemplar_or_best_image_from_solr
-  - if thumb = image.thumb_or_object('88_88')
-    = image_tag(thumb)
-    - has_thumbnail = true
-- unless has_thumbnail
-  = content_tag(:span, '', {class: 'icon', title: I18n.t(:item_type_taxon_assistive)})
-- if item.entry and item.entry.respond_to?(:preferred_classification_summary)
-  %small= item.entry.preferred_classification_summary
-%h4
-  = raw(truncate(item.collected_name, length: 64))
-- subtitle = item.preferred_common_name_in_language(current_language)
-- unless subtitle.blank?
-  = subtitle.firstcap
-- # we need the search result object, and the best match can't be in the title or subtitle
-- if search_result && @querystring # This was a search result... perhaps we should be more intelligent about this.
-  - querystring = Regexp.escape(@querystring.downcase)
-  - unless querystring.blank? || |
-    item.collected_name.downcase.match(querystring) || |
-    (subtitle && subtitle.downcase.match(querystring))  |
-    %p.alternate_name
-      %span.label
-        - if [ 'PreferredCommonName', 'CommonName' ].include?(search_result['keyword_type'])
-          = I18n.t("alternative_common_name_colon")
-        - else
-          = I18n.t("alternative_name_colon")
-      = search_result['best_keyword_match'].firstcap
+.taxon_autocomplete
+  - if image = item.exemplar_or_best_image_from_solr
+    - if thumb = image.thumb_or_object('88_88')
+      = image_tag(thumb)
+      - has_thumbnail = true
+  - unless has_thumbnail
+    = content_tag(:span, '', {class: 'icon', title: I18n.t(:item_type_taxon_assistive)})
+  - if item.entry and item.entry.respond_to?(:preferred_classification_summary)
+    %small= item.entry.preferred_classification_summary
+  %h4
+    = raw(truncate(item.collected_name, length: 64))
+  - subtitle = item.preferred_common_name_in_language(current_language)
+  - unless subtitle.blank?
+    = subtitle.firstcap
+  - if @from_site_search
+    = link_to "", taxon_overview_url(item), class: 'taxon_link'
+  - # we need the search result object, and the best match can't be in the title or subtitle
+  - if search_result && @querystring # This was a search result... perhaps we should be more intelligent about this.
+    - querystring = Regexp.escape(@querystring.downcase)
+    - unless querystring.blank? || |
+      item.collected_name.downcase.match(querystring) || |
+      (subtitle && subtitle.downcase.match(querystring))  |
+      %p.alternate_name
+        %span.label
+          - if [ 'PreferredCommonName', 'CommonName' ].include?(search_result['keyword_type'])
+            = I18n.t("alternative_common_name_colon")
+          - else
+            = I18n.t("alternative_name_colon")
+        = search_result['best_keyword_match'].firstcap

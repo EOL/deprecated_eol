@@ -395,7 +395,6 @@ pt:
       user: conta
   activity: Atividade
   activity_log_empty: Ninguém forneceu atualizações ainda.
-  activity_log_empty_learn_more_link: Saiba como contribuir
   activity_user_created_text: <strong>%{user}</strong> adicionou texto a "%{object_name}" em "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> atualizou o texto de "%{object_name}" em "%{taxon_concept}".
   add: Adicionar

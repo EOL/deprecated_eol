@@ -1,8 +1,8 @@
 -# NOTE - these links don't actually work ATM; you need an attribute. TODO - it should eventually work though, right?  :D
 - view_style ||= 'default'
 - attribute ||= nil
-- attribute = nil unless attribute.is_a?(TranslatedKnownUri) && attribute.known_uri && ! attribute.name.blank?
-- link = attribute ? data_search_path(attribute: attribute.known_uri.uri) : data_search_path(q: query)
+- attribute = nil unless attribute.respond_to?(:name) && attribute.respond_to?(:uri) && ! attribute.name.blank?
+- link = attribute ? data_search_path(attribute: attribute.uri) : data_search_path(q: query)
 - unless view_style == 'list'
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:data_search_link)}), link # TODO - that I18n.
 %h4

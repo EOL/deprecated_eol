@@ -1,14 +1,17 @@
 class DataSearchFile < ActiveRecord::Base
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
-    :completed_at, :hosted_file_url, :row_count
+    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id
   attr_accessor :results
 
   belongs_to :user
   belongs_to :language
   belongs_to :known_uri
+  belongs_to :taxon_concept
 
-  LIMIT = 5000
+  PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
+  PAGE_LIMIT = 200 # Maximum number of "pages" of data to allow in one file.
+  LIMIT = PAGE_LIMIT * PER_PAGE
 
   def build_file
     unless hosted_file_exists?
@@ -19,8 +22,8 @@ class DataSearchFile < ActiveRecord::Base
       # we should not email them when the process has finished
       if hosted_file_exists? && instance_still_exists?
         send_completion_email
-        update_attributes(completed_at: Time.now.utc)
       end
+      update_attributes(completed_at: Time.now.utc)
     end
   end
 
@@ -70,20 +73,27 @@ class DataSearchFile < ActiveRecord::Base
     Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
 
-  # TODO - when we get around to upping the LIMIT, we should probably break this up into chunks.
   def get_data(options = {})
-    # NOTE - for testing on staging:
-    # q = '' ; uri = 'http://iobis.org/minphosphate' ; from = nil ; to = nil ; sort = nil ; LIMIT = 12 ; options = {} ; user = User.first
-    # TODO - really, we shouldn't use pagination at all, here. But that's a huge change. For now, use big limits.
-    @results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to,
-      sort: sort, per_page: LIMIT, for_download: true) # TODO - if we KEEP pagination, make this value more sane (and put page back in).
-    # TODO - handle the case where results are empty.
+    # TODO - we should also check to see if the job has been canceled.
     rows = []
-    DataPointUri.assign_bulk_metadata(@results, user.language)
-    DataPointUri.assign_bulk_references(@results, user.language)
-    @results.each do |data_point_uri|
-      rows << data_point_uri.to_hash(user.language)
-    end
+    page = 1
+    # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
+    results = TaxonData.search(querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
+                               per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri)
+    # TODO - we should also check to see if the job has been canceled.
+    begin # Always do this at least once...
+      DataPointUri.assign_bulk_metadata(results, user.language)
+      DataPointUri.assign_bulk_references(results, user.language)
+      results.each do |data_point_uri|
+        rows << data_point_uri.to_hash(user.language)
+      end
+      if (page * PER_PAGE < results.total_entries)
+        page += 1
+        results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
+                                   page: page, per_page: PER_PAGE, for_download: true)
+      end
+    end until (page * PER_PAGE >= results.total_entries) || page > PAGE_LIMIT
+    @overflow = true if page > PAGE_LIMIT
     rows
   end
 
@@ -106,9 +116,12 @@ class DataSearchFile < ActiveRecord::Base
     update_attributes(row_count: rows.count)
   end
 
+  # TODO - this fails locally (ie: in development). Fix? Or explain how to configure?
   def upload_file
+    where = local_file_path
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-      update_attributes(hosted_file_url: (Rails.configuration.local_services ? uploaded_file_url : (Rails.configuration.hosted_dataset_path + uploaded_file_url)))
+      where = uploaded_file_url
+      update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
     end
   end
 
@@ -117,8 +130,8 @@ class DataSearchFile < ActiveRecord::Base
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
     end
-    if @results.total_entries > LIMIT
-      csv << [ Sanitize.clean(I18n.t(:data_beta_search_limit, count: LIMIT)) ]
+    if @overflow
+      csv << [ Sanitize.clean(I18n.t(:data_search_limit, count: LIMIT)) ]
     end
   end
 

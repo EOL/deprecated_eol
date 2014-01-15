@@ -22,6 +22,25 @@ a
   margin: 0 auto
 
 body
+  > #banner /* BANNER - of course, remove this entire node... */
+    position: absolute
+    top: 0
+    z-index: 900
+    width: 100%
+    padding: 6px
+    border-bottom: 2px solid #667309
+    p
+      font-family: Helvetica Neue, Helvetica, Arial, san-serif
+      font-weight: 300
+      text-align: center
+      font-size: 1.33em
+      color: #394351
+      strong
+        font-weight: 500
+      a
+        font-weight: 500
+        text-decoration: none
+        color: #004e00
   > #header
     a
       color: #ffffff
@@ -357,6 +376,8 @@ body
       background: #62707d
       border-color: #394651
       color: #fff
+  em
+    font-style: normal
   a
     text-decoration: none
     background: $fieldset_light_blue
@@ -369,7 +390,7 @@ body
   span
     &.previous_page,
     &.next_page
-      color: #616e7a
+      color: $darker_blue
     &.disabled
       font-weight: normal
       color: #CAD3DB

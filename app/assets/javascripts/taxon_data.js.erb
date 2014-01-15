@@ -4,6 +4,79 @@ var _TOOLTIP_OPEN = false;
 
 EOL.max_meta_rows = 10;
 
+// Allows us to remember which tab we're on:
+EOL.push_tab_state = function(tab_link) {
+  EOL.change_tab_state(tab_link, 'push');
+}
+
+// Allows us to remember which tab we're on:
+EOL.replace_tab_state = function(tab_link) {
+  EOL.change_tab_state(tab_link, 'replace');
+}
+
+EOL.change_tab_state = function(tab_link, type) {
+  if ($('#content .data ul.subtabs').length > 0) {
+    // Only allow this on pages with data tabs:
+    if (!(typeof history.pushState === "undefined")) {
+      // Sadly, just pulling the class(es) from the parent node doesn't work; it can have several. We might add IDs to the links
+      // later, though, to make this cleaner.
+      var pclass = {};
+      if (tab_link.parent().hasClass('glossary')) {
+        pclass = 'glossary';
+      } else if (tab_link.parent().hasClass('about')) {
+        pclass = 'about';
+      } else {
+        pclass = 'all'; // a kind of "default"... it will check toc first, anyway.
+      }
+      if (type == 'replace') {
+        history.replaceState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
+      } else {
+        history.pushState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
+      }
+    }
+  }
+}
+
+EOL.switch_subtab = function(which, options) {
+  $('.about_subtab').hide();
+  $('.glossary_subtab').hide();
+  $('.ranges_subtab').hide();
+  if (which.parent().hasClass('about') || which.parent().hasClass('glossary') || which.parent().hasClass('ranges')) {
+    EOL.hide_data_tables($('table.data'));
+    $('#taxon_data .empty').hide();
+    $('.glossary_subtab').hide();
+    $('.help_text').hide();
+    $('.filters').hide();
+    if (which.parent().hasClass('about')) $('.about_subtab').show()
+    else if (which.parent().hasClass('glossary')) {
+      $('.glossary_subtab').show();
+      $('.glossary_subtab .help_text').show();
+    }
+    else if (which.parent().hasClass('ranges')) {
+      $('.ranges_subtab').show()
+      $('.ranges_subtab .help_text').show()
+    }
+  } else if (which.parent().hasClass('all')) { // Acts as a reset button/link
+    $('.filters').show();
+    $('#taxon_data .empty').show();
+    $('#taxon_data > .help_text').show();
+    EOL.show_data_tables($('table.data'));
+  } else {
+    $('.filters').show();
+    EOL.hide_data_tables($('table.data'));
+    EOL.show_data_tables($('table.data[data-toc-id="' + which.attr('data-toc-id') + '"]'));
+    $('#taxon_data > .help_text').show();
+  }
+  which.parent().parent().find('li').removeClass('active');
+  which.parent().addClass('active');
+  // Reset other aspects of the table:
+  $('table.data tr.open').removeClass('open');
+  $('table.data .fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
+  $('table.meta').hide();
+  EOL.limit_data_rows();
+  // if ( ! options || ! options['skip_push']) EOL.push_tab_state(which);
+}
+
 EOL.create_info_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
   var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
@@ -117,15 +190,24 @@ EOL.toggle_actions_row = function(data_row) {
   var $next_row = data_row.next();
   var $next_row_data = $next_row.children('td');
   var $table = data_row.next().find('table.meta');
+  $folder.parent().attr({
+    title: '<%= I18n.t(:data_row_additional_detail_assistive_js) %>'
+  });
   if ($next_row.is(":visible")) {
-    $folder.attr('src', '<%= asset_path "arrow_fold_right.png" %>');
+    $folder.attr({
+      src: '<%= asset_path "arrow_fold_right.png" %>',
+      alt: '<%= I18n.t(:data_row_additional_detail_show_alt) %>'
+    });
     $next_row.hide();
     $table.hide();
   } else {
     var data_point_id = data_row.attr('id');
     // the metadata table hasn't been loaded yet, so load it dynamically
     if (data_row.data('loading') != true && data_row.data('loaded') != true) {
-      $folder.attr('src', '<%= asset_path "indicator_arrows_black.gif" %>');
+      $folder.attr({
+        src: '<%= asset_path "indicator_arrows_black.gif" %>',
+        alt: '<%= I18n.t(:data_row_additional_detail_loading_alt) %>'
+      });
       data_row.data('loading', true);
       $.ajax({
         url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
@@ -137,7 +219,7 @@ EOL.toggle_actions_row = function(data_row) {
             var uri = $(this).find('.uri').text();
             EOL.create_info_dialog(this);
             // only add the term if it is not already in the glossary
-            $('.glossary_subtab ul.glossary:not(:contains("' + uri + '"))').append('<li>'+html+'</li>');
+            $('.glossary_subtab ul.glossary:not(:contains("' + uri + '"))').append(html);
           });
           // sort the glossary now that new items have been added to the end
           $(".glossary_subtab ul.glossary > li").sort(EOL.sort_glossary).appendTo('.glossary_subtab ul.glossary');
@@ -145,7 +227,10 @@ EOL.toggle_actions_row = function(data_row) {
         },
         error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
         complete: function() {
-          $folder.attr('src', '<%= asset_path "arrow_fold_down.png" %>');
+          $folder.attr({
+            src: '<%= asset_path "arrow_fold_down.png" %>',
+            alt: '<%= I18n.t(:data_row_additional_detail_hide_alt) %>'
+          });
           $next_row.show();
           EOL.yank_glossary_terms($next_row);
           $table.show();
@@ -156,7 +241,10 @@ EOL.toggle_actions_row = function(data_row) {
       });
     } else if(data_row.data('loading') != true)
     {
-      $folder.attr('src', '<%= asset_path "arrow_fold_down.png" %>');
+      $folder.attr({
+        src: '<%= asset_path "arrow_fold_down.png" %>',
+        alt: '<%= I18n.t(:data_row_additional_detail_hide_alt) %>'
+      });
       $next_row.show();
       $table.show();
     }
@@ -209,7 +297,7 @@ EOL.limit_data_rows = function() {
       $nested_set.filter(':last').after(
         '<tr data-type="' + type + '" class="data nested more"><th></th><td><a href="#" class="more">' +
         $('table.data').attr('data-more').replace('NNN', ($nested_set.length-EOL.max_meta_rows)) +
-        '</a></td></tr>');
+        '</a></td><td></td><td></td></tr>');
       $('tr.more a.more').unbind('click').on('click', function() {
         var $parent_row = $(this).closest('tr');
         $('tr.data[data-type="' + $parent_row.attr('data-type') +'"]').show();
@@ -232,6 +320,23 @@ EOL.enable_hover_list_items = function() {
     }
   );
 }
+
+// change the list of units based on the currently selected attribute
+EOL.update_unit_select_options = function(known_uri_id) {
+  // call the 'autocomplete' method with the given predicate ID (or no predicate ID to get back all units)
+  $.ajax({
+    url: '/known_uris/autocomplete_known_uri_units?predicate_known_uri_id=' + known_uri_id,
+    dataType: 'json',
+    success: function(response) {
+      // remove all but the first option, which is not specified
+      $('select#unit').find('option:gt(0)').remove();
+      $.each(response, function(key, unit_data) {
+        // add back the units applicable to the selected attribute
+        $('select#unit').append($('<option></option>').attr("value", unit_data.uri).text(unit_data.value));
+      });
+    }
+  });
+};
 
 $(function() {
 
@@ -353,31 +458,7 @@ $(function() {
   });
 
   $('#tabs_sidebar.data ul.subtabs a').on('click', function() {
-    $('.about_subtab').hide();
-    $('.glossary_subtab').hide();
-    $('.ranges_subtab').hide();
-    if ($(this).parent().hasClass('about') || $(this).parent().hasClass('glossary') || $(this).parent().hasClass('ranges')) {
-      EOL.hide_data_tables($('table.data'));
-      $('#taxon_data .empty').hide();
-      $('.glossary_subtab').hide();
-      $('.help_text').hide();
-      if ($(this).parent().hasClass('about')) $('.about_subtab').show()
-      else if ($(this).parent().hasClass('glossary')) $('.glossary_subtab').show()
-      else if ($(this).parent().hasClass('ranges')) $('.ranges_subtab').show()
-    } else if ($(this).parent().hasClass('all')) { // Acts as a reset button/link
-      $('#taxon_data .empty').show();
-      EOL.show_data_tables($('table.data'));
-    } else {
-      EOL.hide_data_tables($('table.data'));
-      EOL.show_data_tables($('table.data[data-toc-id="' + $(this).attr('data-toc-id') + '"]'));
-    }
-    $(this).parent().parent().find('li').removeClass('active');
-    $(this).parent().addClass('active');
-    // Reset other aspects of the table:
-    $('table.data tr.open').removeClass('open');
-    $('table.data .fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
-    $('table.meta').hide();
-    EOL.limit_data_rows();
+    EOL.switch_subtab($(this));
     return(false);
   });
 
@@ -467,5 +548,23 @@ $(function() {
     }
     return false;
   });
+
+  // change the list of units based on the currently selected attribute
+  $('#data_search select#attribute').on('change', function() {
+    EOL.update_unit_select_options($(this).find(":selected").data('known_uri_id'));
+  });
+
+  window.onpopstate = function(e) {
+    if (e.state == null) return;
+    var old_tab;
+    if (e.state.toc == undefined) old_tab = $('#tabs_sidebar.data li.'+e.state.pclass+' a');
+    else old_tab = $('#tabs_sidebar.data ul a[data-toc-id='+e.state.toc+']');
+    EOL.switch_subtab(old_tab, {skip_push: true});
+  };
+
+  if (!(typeof history.pushState === "undefined")) {
+    var active_tab = $('#tabs_sidebar.data ul .active a');
+    if(active_tab !== undefined && active_tab.length > 0) EOL.replace_tab_state(active_tab);
+  }
 
 });

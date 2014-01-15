@@ -117,7 +117,6 @@
         %h3= I18n.t(:data_summary_header_with_count, count: @all_data_point_uris_count)
         - unless @overview_data.blank?
           = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @all_data_point_uris_count)), taxon_data_path(@overview))
-      .small_site_warning= I18n.t(:beta_warning_small)
       - if @overview_data.blank? && @range_data.blank?
         .empty
           %p= I18n.t(@overview_data ? :taxon_data_empty : :data_server_unavailable)

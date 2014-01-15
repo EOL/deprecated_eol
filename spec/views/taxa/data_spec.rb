@@ -9,6 +9,7 @@ describe 'taxa/data/index' do
     Visibility.create_enumerated
     License.create_enumerated
     ContentPartnerStatus.create_enumerated
+    KnownUri.create_enumerated
   end
 
   before(:each) do
@@ -30,6 +31,7 @@ describe 'taxa/data/index' do
     assign(:glossary_terms, [])
     assign(:range_data, [])
     assign(:include_other_category, true)
+    assign(:units_for_select, KnownUri.default_units_for_form_select)
     user = double(User)
     user.stub(:min_curator_level?) { false }
     user.stub(:watch_collection) { nil }
@@ -94,32 +96,6 @@ describe 'taxa/data/index' do
       assign(:data_point_uris, [ DataPointUri.gen(life_stage: 'Itslifestage', sex: 'Itssex') ])
       render
       expect(rendered).to have_tag('span.stat', text: /Itslifestage, Itssex/)
-    end
-
-    context 'search' do
-
-      it "should include attribute drop-down" do
-        render
-        expect(rendered).to have_tag('select#attribute')
-      end
-
-      # Nasty test, sorry. Method chains.  ...TODO - that's a bad smell; we should make the code clearer.
-      it 'should include all attributes from the TaxonData' do
-        taxon_data = double(TaxonData, taxon_concept: @taxon_concept, bad_connection?: false)
-        kuri1 = double(KnownUri, name: 'Hi')
-        kuri2 = double(KnownUri, name: 'There')
-        kuri3 = double(KnownUri, name: 'Friend')
-        pred1 = double(DataPointUri, predicate_uri: kuri1)
-        pred2 = double(DataPointUri, predicate_uri: kuri2)
-        pred3 = double(DataPointUri, predicate_uri: kuri3)
-        taxon_data.stub(:get_data) { [pred1, pred2, pred3] }
-        assign(:taxon_data, taxon_data)
-        render
-        expect(rendered).to have_tag('option', text: 'Hi')
-        expect(rendered).to have_tag('option', text: 'There')
-        expect(rendered).to have_tag('option', text: 'Friend')
-      end
-
     end
 
   end

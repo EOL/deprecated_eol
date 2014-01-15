@@ -9,6 +9,7 @@ $lightest_blue: #f0f4f7
 $light_blue: #e2e9ef
 $grayblue: #cad3db
 $darker_blue: #616e7a
+$logo_blue: #7aa6cb
 $loafer_text_color: #828d33
 $lighter_text_color: #5f6c76
 $fieldset_light_blue: #f3f7fa
@@ -50,12 +51,11 @@ $fieldset_light_blue: #f3f7fa
   background-image: -webkit-gradient(linear, left top, left top, color-stop(0, $color2), color-stop(1, $color1))
   background-image: -webkit-linear-gradient(left, $color2 0%, $color1 100%)
   background-image: linear-gradient(to right, $color2 0%, $color1 100%)
-
-= button($from: #ffffff, $to: #d7dde1)
+= button($from: white, $to: #d7dde1)
   padding: 5px 10px 6px 10px
   overflow: visible
   font: bold 1.08em Helvetica, Arial, sans-serif
-  color: #394651
+  color: $nearly_black
   text-transform: lowercase
   text-decoration: none
   border: 1px solid $to - #111111
@@ -86,14 +86,14 @@ $fieldset_light_blue: #f3f7fa
   height: 22px
   padding: 2px 5px
   font: normal 1em Helvetica, Arial, sans-serif
-  border: 1px solid #cad3db
-  +gradient-bg(#f0f4f7, #ffffff)
+  border: 1px solid $grayblue
+  +gradient-bg($lightest_blue, white)
 = textarea
   padding: 8px
   font: normal 1em Helvetica, Arial, sans-serif
-  color: #394651
-  border: 1px solid #cad3db
-  +gradient-bg(#f0f4f7, #ffffff)
+  color: $nearly_black
+  border: 1px solid $grayblue
+  +gradient-bg($lightest_blue, white)
 = underline-on-hover
   text-decoration: none
   &:hover

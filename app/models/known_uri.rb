@@ -28,7 +28,7 @@ class KnownUri < ActiveRecord::Base
     { grams:       Rails.configuration.uri_obo + 'UO_0000021'},
     { kilograms:   Rails.configuration.uri_obo + 'UO_0000009'},
     { millimeters: Rails.configuration.uri_obo + 'UO_0000016'},
-    { centimeters: Rails.configuration.uri_obo + 'UO_0000015'}, # Is 15 correct?  Or 81?
+    { centimeters: Rails.configuration.uri_obo + 'UO_0000015'}, # Is 15 correct?  answer: 15 is correct
     { meters:      Rails.configuration.uri_obo + 'UO_0000008'},
     { kelvin:      Rails.configuration.uri_obo + 'UO_0000012'},
     { celsius:     Rails.configuration.uri_obo + 'UO_0000027'},
@@ -102,6 +102,28 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
+  # really used.  ...So I'm calling it from Sparql:
+  def self.by_name(input)
+    normal_re = /[^a-zA-Z0-9 ]/
+    name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...
+    uris = EOL::Sparql.connection.all_measurement_type_known_uris.
+      select { |uri| uri.is_a?(KnownUri) }.
+      sort_by(&:position)
+    exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name }.first
+    return exact_match if exact_match
+    return uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(name) }.first unless name =~ / /
+    # If you're still here, it's because you have multiple words and no "exact" matches. (q.v.: "high habitat breadth")
+    # Ideally we would use super-cool search algorithms here that would recognize "high habitat breadth" is a better match to
+    # "habitat breadth" than it is to "habitat", but we don't have time to be that smart right now:
+    split_name = name.split
+    split_name.each do |subname|
+      match = uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(subname) }.first
+      return match if match
+    end
+    nil
+  end
+
   def self.custom(name, language)
     known_uri = KnownUri.find_or_create_by_uri(BASE + EOL::Sparql.to_underscore(name))
     translated_known_uri =
@@ -148,6 +170,22 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def self.default_units_for_form_select
+    KnownUri.unit_of_measure.allowed_values.select{ |k| k.visible? }.sort
+  end
+
+  def self.glossary_terms
+    KnownUri.includes(:toc_items).all.delete_if { |ku| ku.name.blank? || ( ku.measurement? && ! EOL::Sparql.connection.all_measurement_type_known_uris.include?(ku)) }
+  end
+
+  def units_for_form_select
+    unit_uris = allowed_units.select{ |ku| ku.visible? }
+    if default_unit = implied_unit_of_measure
+      unit_uris << default_unit
+    end
+    unit_uris.sort
+  end
+
   def allowed_values
     # using .select here instead of the scope .allowed_values as the scope does not work on preloaded relationships
     @allowed_values ||= known_uri_relationships_as_subject.select{ |r|
@@ -165,6 +203,10 @@ class KnownUri < ActiveRecord::Base
 
   def has_units?
     ! allowed_units.empty?
+  end
+
+  def measurement?
+    uri_type_id == UriType.measurement.id
   end
 
   def value?
@@ -312,6 +354,15 @@ class KnownUri < ActiveRecord::Base
     return [] if term.length < 3
     TranslatedKnownUri.where(language_id: options[:language].id).
       where("name REGEXP '(^| )#{term}( |$)'").includes(:known_uri).collect(&:known_uri).compact.uniq
+  end
+
+  # Sort by: position of known_uri, rules of exclusion, and finally value display string
+  def <=>(other)
+    if visible? != other.visible?
+      visible? ? 0 : 1
+    else
+      position <=> other.position
+    end
   end
 
   private

@@ -395,7 +395,6 @@ sv:
       user: konto
   activity: Aktivitet
   activity_log_empty: Ingen har lämnat uppdateringar ännu.
-  activity_log_empty_learn_more_link: Lär dig hur du bidrar
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1797,6 +1796,8 @@ sv:
   data_search_destroyed: Detta jobb kommer inte längre bearbetas.
   data_search_files: 
     file_ready_for_download: Sökningen du nyligen begärde för "%{known_uri_label}" kan nu laddas ned på <a href='%{download_url}'>%{download_url}</a>.
+    to: Högsta värdet
+    unit_uri: Måttenhet
   data_search_files_with_count: 
     one: "%{count} sparad sökning"
     other: "%{count} sparade sökningar"
@@ -1805,7 +1806,6 @@ sv:
   data_show_n_more_rows: Visa NNN fler...
   data_subtab_about: Om
   data_subtab_glossary: Ordlista
-  data_summary_header: Snabbfakta
   data_tab_curator_excluded: togs bort från snabbfakta
   data_tab_curator_exemplar: lades till i snabbfakta
   data_tab_curator_key_excluded: "%{image} togs bort från <a href='%{link}'>snabbfakta</a>"
@@ -2672,6 +2672,7 @@ sv:
   learn_about_contributing: Hur kan jag bidra?
   learn_about_eol: Hur kan jag använda EOL?
   learn_about_joining: Hur kan jag bli medlem?
+  learn_how_to_contribute: Lär dig hur du kan bidra
   learn_more_about_communities_link: Läs mer om gemenskaper
   learn_more_about_names_for_this_taxon: Lär dig mer om namn för detta taxon
   learn_more_link: (%{learn_more})

@@ -34,6 +34,7 @@ zh-CN:
   about_eol: 关于EOL
   about_resources: 关于资源
   about_resources_body: 我们欢迎您提供有关此种生物或生物组群的第三方网站链接。例如提供识别关键词、 新闻故事、 博客、 以及教育和公民科学资源的网站。
+  about_resources_notice: Note&mdash;所有链接必须遵循 EOL 的使用条款并接受策展人的审核。<br>如果您有任何关于资料来源的疑问，请<a href='%{contact_us_link}'>与我们取得联系</a>。
   about_resources_title: 外部资源的链接
   account_information: 帐户信息
   account_information_menu: 帐户信息
@@ -410,7 +411,6 @@ zh-CN:
       user: 账户
   activity: 活动
   activity_log_empty: 暂无人提供更新。
-  activity_log_empty_learn_more_link: 了解如作些贡献
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -421,7 +421,12 @@ zh-CN:
         user_of_collection: <strong>%{user}</strong> 被添加为“%{collection}”收藏的管理员。
         user_of_it: <strong>%{user}</strong> 被添加为管理员。
       bulk_add: 
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: 一个未知用户向一个未知收藏夹添加了大批项目。
+        an_unknown_user_added_bulk_items_to_collection: 一个未知用户向"%{collection}"收藏夹添加了大批项目.
         an_unknown_user_added_bulk_items_to_it: 未知的用户批量添加项目。
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{用户}</strong>向未知文件夹添加了大批项目。
+        user_added_bulk_items_to_collection: <strong>%{用户}</strong>向 "%{collection}"文件夹添加了大批项目。
+        user_of_it: <strong>%{用户}</strong>添加了大批项目。
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: 一个未知用户为未知收藏添加了一个未知项。
         an_unknown_user_added_an_unknown_item_to_collection: 一个未知用户为“%{collection}”收藏添加了一个未知项。
@@ -595,6 +600,23 @@ zh-CN:
         user_preferred_classification_on_taxon: <strong>%{user}</strong> 将 “%{provider}”提供的分类系统标为 “%{taxon}”的首选系统。
       reasons_to_hide: 隐藏的原因： %{reasons}
       reasons_to_untrust: 不信任的原因： %{reasons}
+      remove_association: 
+        an_unknown_user_disassociated_an_older_data_object_from_an_unknown_association: 一名未知用户从"%{data_object}"旧版本中删除了一个关联。
+        an_unknown_user_disassociated_an_older_data_object_from_association: 一名未知用户在“%{data_object}”和“%{association}”之间删除了一个关联。
+        an_unknown_user_disassociated_an_unknown_data_object_from_an_unknown_association: 一名未知用户删除了一个未知关联。
+        an_unknown_user_disassociated_an_unknown_data_object_from_association: 一名未知用户删除了未知数据项目和“%{association}”之间的一个关联。
+        an_unknown_user_disassociated_data_object_from_an_unknown_association: 一名未知用户删除了在“%{data_object}”和未知页面之间的一个关联。
+        an_unknown_user_disassociated_data_object_from_association: 一名未知用户删除了“%{data_object}”和“%{association}”之间的一个关联。
+        an_unknown_user_disassociated_it_from_an_unknown_association: 一名未知用户删除了一个未知页面的关联。
+        an_unknown_user_disassociated_it_from_association: 一个未知用户删除了一个“%{association}”关联。
+        user_disassociated_an_older_data_object_from_an_unknown_association: <strong>%{user}</strong>删除了旧版本“%{data_object}”和未知页面之间的一个关联。
+        user_disassociated_an_older_data_object_from_association: <strong>%{user}</strong>删除了旧版本“%{data_object}”和“%{association}”之间添加的一个关联。
+        user_disassociated_an_unknown_data_object_from_an_unknown_association: <strong>%{user}</strong> 删除了一个未知关联。
+        user_disassociated_an_unknown_data_object_from_association: <strong>%{user}</strong>删除了未知数据对象和“%{association}”之间的一个关联。
+        user_disassociated_data_object_from_an_unknown_association: <strong>%{user}</strong>删除了“%{data_object}” 和未知页面之间的一个关联。
+        user_disassociated_data_object_from_association: <strong>%{user}</strong>删除了“%{data_object}” 和 “%{association}”之间的一个关联。
+        user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong>删除了一个未知页面关联。
+        user_disassociated_it_from_association: <strong>%{user}</strong> 删除了一个“%{association}”关联。
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据项 “%{data_object}” 标为可见状态。
         an_unknown_user_showed_an_older_data_object_on_association: 一个未知用户在 “%{association}” 页面将旧版本的数据项 “%{data_object}” 标为可见状态。
@@ -945,7 +967,7 @@ zh-CN:
   change_rating_to_3_of_5: 更改评分为3（满分为5）
   change_rating_to_4_of_5: 更改评分为4（满分为5）
   change_rating_to_5_of_5: 更改评分为5（满分为5）
-  check_this_to_browse_eol_by_the_hierarchy: "\"如果此勾选框已选,用户则可以使用分类系统浏览EOL\""
+  check_this_to_browse_eol_by_the_hierarchy: （如果选择此复选框，分类选项将会显示在名字标签上而不用使用“显示所有分类”）
   choose_collection_header: 选择收藏
   citation: 引用
   citation_example: 费舍尔，布莱恩. "Pogonomyrmex anergismus Cole, 1954." 生命百科，<a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. 2009年1月15日.
@@ -1429,8 +1451,8 @@ zh-CN:
   data_column_common_name: 原始名称
   data_column_source: 来源
   data_column_tc_id: EOL页面ID
-  data_column_units: 单位
-  data_column_val: 值
+  data_column_units: 单位（已规范化）
+  data_column_val: 值（已规范化）
   data_column_val_uri: URI值
   data_database_colon: 数据：
   data_glossary: 数据词汇表
@@ -1465,6 +1487,9 @@ zh-CN:
   data_row_hide_button: 隐藏行
   data_search_files: 
     file_ready_for_download: 您现在可以在<a href='%{download_url}'>%{download_url}</a>下载您最近要求的搜索"%{known_uri_label}"。
+    from: 最低值
+    to: 最高值
+    unit_uri: 度量单位
   data_search_refine_placeholder: 例如 10 到 50
   data_show_n_more_rows: 展示NNN更多......
   data_subtab_about: 关于
@@ -1576,7 +1601,7 @@ zh-CN:
   donation_confirmation_head: 我们非常感谢你的贡献！
   donation_error_no_amount: 请选择捐款的金额。
   donation_error_only_numbers: "\"请输入金额,仅允许使用数字。\""
-  donation_introduction_paragraph_one: EOL每天都在成长。我们鼓励您来探索EOL和使用EOL所提供的便利。我们请求您通过贡献您的内容、专业知识和资金来保持EOL的快速发展。
+  donation_introduction_paragraph_one: 我们鼓励您来探索EOL和使用EOL所提供的便利。我们请求您通过贡献您的内容、专业知识和资金来保持EOL的快速发展。
   donation_introduction_paragraph_two: 您对网络生命大百科的慷慨资助，支持我们为全球提供地球上生命的知识。
   donation_sponsorship_content_description: "\"对分类树上特定分支感兴趣的捐助者，可以对EOL寻找和获取新的内容提供资金支持。奖励可以针对建立物种页收藏，内容既可以很宽泛，如北美的哺乳动物或巴西的鸟类，也可以很具体，如旧金山海湾的海狮或\"\"新世界食品\""
   donation_sponsorship_content_title: 内容赞助
@@ -2934,7 +2959,7 @@ zh-CN:
     other: "%{count}项已从收藏中移除。"
   reply: 回复
   request: 请求
-  request_mailing_list_colon: 请求邮件列表；
+  request_mailing_list_colon: 不愿接受电子邮件的用户：
   required_form_element: 必需的
   reset_password_enter_new_password_notice: 这是一次性的登录，请输入一个新密码继续。
   reset_password_instructions_sent_to_user_notice: 重设您的帐户<em>%{username}</em> 密码的说明已经发送到您的电子邮箱。
@@ -3012,7 +3037,7 @@ zh-CN:
   see_all_of_your_collections: 查看您的所有收藏
   see_all_of_your_communities: 查看您的所有社区
   see_all_updates_with_count_html: 
-    other: 查看<span class=�assistive>该页面的所有%{count}个更新</span>
+    other: 查看<span class=�assistive>该页面的%{count}个更新</span>
   see_in_data_glossary: 在数据词汇表中查阅
   see_notes: 查看注释
   select_a_hierarchy_around_whic: 选择一个分类树用以组织内容概要：
@@ -3105,13 +3130,13 @@ zh-CN:
   source_information_header: 来源信息
   source_url: 来源网址
   special_collection: 专题收藏
-  special_collections_cannot_be_destroyed: 该收藏是特殊的，不能被删除。
+  special_collections_cannot_be_destroyed: 此收藏是与其社区关联的唯一收藏，不能删除。
   species: 物种
   species_curated: 物种管理
   species_profile_model: 物种简介模块
   species_profile_model_cp_count_title: 物种简介模块-内容合作伙伴的数量
   species_profile_model_dato_count_title: 物种简介模块-数据项的数量
-  split_into_new_concept: 拆分为新概念
+  split_into_new_concept: 拆分为新页面
   spm_category: 物种介绍模块目录
   spm_category_objects_count: 物种介绍模块目录 - 对象的数量
   spm_category_partner_count: 物种介绍模块目录 - 合作伙伴的数量
@@ -3468,7 +3493,7 @@ zh-CN:
   text_with_count: 
     other: "%{count}篇文章"
   thank_you: 感谢您
-  thank_you_for_your_generous_support: 感谢您的大力支持
+  thank_you_for_your_generous_support: 感谢您的大力支持！
   thanks_for_donation: 感谢您对生命大百科的支持，您的信息已经被提交并将处理。
   thanks_for_your_time: 感谢您花费时间，
   the_amount_entered_was: 输入的金额为：%{number}美元

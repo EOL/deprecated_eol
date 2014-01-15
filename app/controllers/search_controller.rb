@@ -22,7 +22,9 @@ class SearchController < ApplicationController
     params[:q] = @querystring
 
     # TODO - this is not currently indexed. If we keep doing this, it will need to be, to speed things up:
-    @attribute = TranslatedKnownUri.where(["name LIKE ?", "%#{@querystring.split.first}%"]).first
+    unless @querystring.blank?
+      @attribute = TranslatedKnownUri.where(["name LIKE ?", "%#{@querystring.split.first}%"]).first
+    end
 
     if request.format == Mime::XML
       return redirect_to controller: "api", action: "search", id: @querystring
@@ -123,6 +125,7 @@ class SearchController < ApplicationController
   end
 
   def autocomplete_taxon
+    @from_site_search = !! params[:site_search]
     @querystring = params[:term].strip
     if @querystring.blank? || @querystring.length < 3 || @querystring.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)
       json = {}

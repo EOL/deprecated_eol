@@ -39,7 +39,7 @@ end
 def add_to_quick_facts
   visit(taxon_data_path(@taxon_concept))
   within(:xpath, "//div[a[@href='/taxon_data_exemplars?id=#{@user_added_data.id}&taxon_concept_id=#{@taxon_concept.id}']]") do
-    click_link "add to Quick Facts"
+    click_link I18n.t(:data_row_add_exemplar_button)
     sleep(1)
   end
 end
@@ -48,7 +48,7 @@ def remove_from_quick_facts
   visit(taxon_data_path(@taxon_concept))
   within(:xpath, "//div[a[@href='/#{taxon_data_exemplars_path(id: @user_added_data.id,
     taxon_concept_id: @taxon_concept.id, exclude: true)}']]") do
-    click_link "remove Quick Facts"
+    click_link I18n.t(:data_row_remove_exemplar_button)
   end
 end
 
@@ -56,7 +56,7 @@ def comment(text)
   visit(taxon_data_path(@taxon_concept))
   within(:xpath, "//tr[@id='data_point_#{@user_added_data.id}']/following::tr") do
     fill_in 'comment_body', with: text
-    click_button "post annotation"
+    click_button "post comment"
   end
 end
 

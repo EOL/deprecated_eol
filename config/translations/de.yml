@@ -416,7 +416,6 @@ de:
       user: Konto
   activity: Aktivität
   activity_log_empty: Bislang hat noch niemand Aktualisierungen vorgenommen.
-  activity_log_empty_learn_more_link: Informieren Sie sich, wie sie hier beitragen können
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1833,7 +1832,7 @@ de:
   darwin_core: Darwin Core
   dashboard: Übersichtsseite
   data: Daten
-  data_about_subtab_content: <p>Daten und Metadaten werden von mehreren Quellen in eine einzelne, vollreferenzierte und semantisch zugängliche taxonzentrische Ansicht gesammelt.</p><p>Um zusätzliche Einzelheiten zu einem beliebigen Datenwert anzusehen, klicken Sie auf den Wert. Klicken Sie für eine Definition des Datentyps auf das Symbol %{img}.</p><p>Sie müssen bei EOL angemeldet sein, um einen Kommentar zu hinterlassen oder Daten, Quellen, URIs und andere Daten direkt in EOL einzugeben. Sie müssen sich <a href='/users/register'>zuerst kostenlos für ein EOL-Benutzerkonto registrieren</a>. Falls Sie einen Datensatz der EOL empfehlen oder Datensätze von EOL teilen wollen, kontaktieren Sie uns bitte unter <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Finanzierung der Funktionalitätsentwicklung für die kalkulierbaren EOL-Daten durch die Alfred P. Sloan Foundation, die John D. and Catherine T. MacArthur Foundation und EOL-Nutzer auf der ganzen Welt. Um mehr über das TraitBank™-Projekt zu erfahren, kontaktieren Sie uns bitte unter <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
+  data_about_subtab_content: <p>Daten und Metadaten werden von mehreren Quellen in eine einzelne, vollreferenzierte und semantisch zugängliche taxonzentrische Ansicht gesammelt.</p> <p>Um zusätzliche Einzelheiten zu einem beliebigen Datenwert anzusehen, klicken Sie auf den Wert. Klicken Sie für eine Definition des Datentyps auf das Symbol %{img}.</p> <p>Sie müssen bei EOL angemeldet sein, um einen Kommentar zu hinterlassen oder Daten, Quellen, URIs und andere Daten direkt in EOL einzugeben. Sie müssen sich <a href='%{user_register_url}'>zuerst kostenlos für ein EOL-Benutzerkonto registrieren</a>. Falls Sie einen Datensatz der EOL empfehlen oder Datensätze von EOL teilen wollen, <a href='%{contact_contribute_url}'>kontaktieren</a> Sie uns bitte.</p> <p>Finanzierung der Funktionalitätsentwicklung für die kalkulierbaren EOL-Daten durch die Alfred P. Sloan Foundation, die John D. and Catherine T. MacArthur Foundation und EOL-Nutzer auf der ganzen Welt. Um mehr über das TraitBank™-Projekt zu erfahren, kontaktieren Sie bitte das <a href='%{contact_traitbank_url}'>EOL-Sekretariat</a>.</p>
   data_about_subtab_header: Über Daten auf EOL
   data_about_this_record: Daten über diese Aufzeichnung
   data_beta_search_limit: 
@@ -1901,7 +1900,6 @@ de:
   data_ranges_subheader: Bereiche für diese Klade
   data_reference_subtable_summary: Zusätzliche Nachweise über diese Tatsache.
   data_row_add_exemplar_button: zu den Schnellen Tatsachen hinzufügen
-  data_row_arrow_alt: Zwischen Anzeigen und Ausblenden von zusätzlichen Einzelheiten über diese Tatsache umschalten, falls JavaScript aktiviert.
   data_row_excluded_from_overview_notice: "Hinweis: Diese Zeile wurde von den schnellen Tatsachen ausgeschlossen."
   data_row_exemplar_added: Schnelle Tatsache hinzugefügt.
   data_row_exemplar_removed: Schnelle Tatsache entfernt.
@@ -1913,6 +1911,9 @@ de:
   data_search_explanation: Die EOL-Datensuche verwenden zum Auffinden von Objekten mit der Übereinstimmung „%{term}“ in Beobachtungen,<br />Messungen und anderen wissenschaftlichen Behauptungen.
   data_search_files: 
     file_ready_for_download: Die kürzlich angefragte Suche nach „%{known_uri_label}“ kann jetzt unter <a href='%{download_url}'>%{download_url}</a> heruntergeladen werden.
+    from: Niedrigster Wert
+    to: Höchster Wert
+    unit_uri: Maßeinheit
   data_search_files_with_count: 
     one: Eine gespeicherte Suche
     other: "%{count} gespeicherte Suchen"
@@ -1927,7 +1928,6 @@ de:
   data_show_n_more_rows: NNN weitere anzeigen …
   data_subtab_about: Über
   data_subtab_glossary: Glossar
-  data_summary_header: Schnelle Tatsachen
   data_summary_header_with_count: 
     one: EOL hat Daten für eine Eigenschaft
     other: EOL hat Daten für %{count} Eigenschaften
@@ -3118,7 +3118,6 @@ de:
   must_be_checked_in_to_view: "- muss selektiert sein, um es sehen zu können"
   must_be_less_than_128_characters_long: muss weniger als 128 Zeichen lang sein.
   must_be_logged_in: Um diese Aktion ausführen zu können, muss man angemeldet sein.
-  must_provide_attribute_for_search_error: Sie müssen zum Suchen ein Attribut auswählen.
   must_provide_search_term_error: Sie müssen einen Suchbegriff eingeben.
   my_activity: Meine Aktivitäten
   my_info: Informationen zu mir
@@ -3200,6 +3199,7 @@ de:
   not_published_yet: bislang noch unveröffentlicht
   not_recognized_by_available_hierarchies: Von keiner der zur Verfügung stehenden Klassifikationen abgedeckt
   not_shown_on_the_website_note: (wird nicht auf der Website oder zur URL angezeigt, nur zur Informationszwecken)
+  not_specified: nicht angegeben
   not_yet_implemented_error: Diese Funktion steht leider noch nicht zur Verfügung.
   note: "Anmerkung:"
   note_about_homonym_problems: "HINWEIS: Ändern sie dieses Attribut nur, sofern Sie sich sicher sind. Es zu deaktivieren könnte schwerwiegenden Probleme bei Homonymen verursachen."

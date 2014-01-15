@@ -59,7 +59,7 @@ describe 'taxa/overview/show' do
 
     it "should NOT show quick facts when the user doesn't have access (FOR NOW)" do
       render
-      expect(rendered).to_not match /#{I18n.t(:data_summary_header)}/
+      expect(rendered).to_not match /#{I18n.t(:data_summary_header_with_count, count: 0)}/
     end
 
   end
@@ -78,7 +78,7 @@ describe 'taxa/overview/show' do
 
     it "should show quick facts" do
       render
-      expect(rendered).to match /EOL has no trait data/
+      expect(rendered).to match /#{I18n.t(:data_summary_header_with_count, count: 0)}/
     end
 
     it "should have a show more link when a row has more data" do

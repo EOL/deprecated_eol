@@ -46,7 +46,9 @@ module EOL
       def query(query, options = {})
         results = []
         begin
-          # puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
+          if Rails.configuration.respond_to?('show_sparql_queries') && Rails.configuration.show_sparql_queries
+            puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
+          end
           sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
         rescue ArgumentError => e
           # NOTE - this catch is caused by going through the demo for setting up the DAV user/directory. You've got to manually delete that
@@ -87,6 +89,14 @@ module EOL
       def all_measurement_type_known_uris
         self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris", :expires_in => 1.day) do
           all_uris = all_measurement_type_uris
+          all_known_uris = KnownUri.find_all_by_uri(all_uris)
+          all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } || uri }
+        end
+      end
+
+      def all_measurement_type_known_uris_for_clade(taxon_concept)
+        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris_for_clade/#{taxon_concept.id}", :expires_in => 1.day) do
+          all_uris = counts_of_all_measurement_type_uris_in_clade(taxon_concept).collect{ |k,v| k }
           all_known_uris = KnownUri.find_all_by_uri(all_uris)
           all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } || uri }
         end
@@ -177,6 +187,37 @@ module EOL
             GROUP BY ?uri
             ORDER BY DESC(?count)
           ")
+          group_counts_by_uri(result)
+        end
+      end
+
+      def counts_of_all_measurement_type_uris_in_clade(taxon_concept)
+        common_clause = "
+          ?measurement dwc:measurementType ?uri .
+          ?measurement eol:measurementOfTaxon ?measurementOfTaxon .
+          ?measurement dwc:occurrenceID ?occurrence_id .
+          ?occurrence_id dwc:taxonID ?taxon_id .
+          ?taxon_id dwc:taxonConceptID ?taxon_concept_id .
+          FILTER ( ?measurementOfTaxon = 'true' ) .
+          FILTER (isURI(?uri))"
+        EOL::Sparql::Client.if_connection_fails_return({}) do
+          result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count WHERE {
+              {
+                SELECT ?uri, ?measurement WHERE {
+                  #{ common_clause } .
+                  ?taxon_id dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
+                }
+              } UNION {
+                SELECT ?uri, ?measurement WHERE {
+                  #{ common_clause } .
+                  ?parent_taxon dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
+                  ?t dwc:parentNameUsageID+ ?parent_taxon .
+                  ?t dwc:taxonConceptID ?taxon_concept_id
+                }
+              }
+            }
+            GROUP BY ?uri
+            ORDER BY DESC(?count)")
           group_counts_by_uri(result)
         end
       end

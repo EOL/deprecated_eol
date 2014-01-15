@@ -42,7 +42,11 @@
   %td.val{ headers: header_id, id: "#{header_id}_d" }
     %span.fold
       - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
-      = link_to(image_tag(arrow_file_name, title: I18n.t(:data_row_arrow_alt)), taxon_data_path(data_point_uri.taxon_concept, data_point_uri_id: data_point_uri.id, anchor: data_point_uri.anchor))
+      = link_to(image_tag(arrow_file_name,
+        alt: I18n.t(:data_row_additional_detail_alt)),
+        taxon_data_path(data_point_uri.taxon_concept,
+        data_point_uri_id: data_point_uri.id, anchor: data_point_uri.anchor),
+        title: I18n.t(:data_row_additional_detail_assistive))
     = raw display_text_for_data_point_uri(data_point_uri, define: :after)
   %td.source
     %span.source
@@ -80,9 +84,8 @@
               &bull;&ensp;
               = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), method: :delete, confirm: I18n.t('this_cannot_be_undone_are_you_sure')
       = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: data_point_uri }
-      -# TODO - this clearly needs duck-typing, as it is ridiculous to repeat onesself so much.
-      - if current_user.min_curator_level?(:full)
-        .additional_commands.clearfix
+      .additional_commands.clearfix
+        - if current_user.min_curator_level?(:full)
           - if data_point_uri.visible?
             - hide_link =  data_point_uri_hide_path(data_point_uri)
             = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
@@ -95,3 +98,5 @@
             = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: data_point_uri.taxon_concept.id), method: :post, class: "add_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
           - if excluded && ! for_search
             %span.note= I18n.t(:data_row_excluded_from_overview_notice)
+        - elsif logged_in?
+          %p.note= I18n.t(:annotation_note).html_safe

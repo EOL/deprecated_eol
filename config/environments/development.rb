@@ -44,6 +44,8 @@ Eol::Application.configure do
 
   config.logger = Logger.new(STDOUT)
 
+  Rails.configuration.show_sparql_queries = false
+
 end
 
 # TODO - Where do these go, now?  :S

@@ -412,7 +412,6 @@ uk:
       user: Акаунт
   activity: Діяльність
   activity_log_empty: Ніхто не надав оновлень.
-  activity_log_empty_learn_more_link: Дізнайтеся, як зробити свій внесок
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1872,7 +1871,6 @@ uk:
   data_show_n_more_rows: Показати понад 10 рядків...
   data_subtab_about: Про
   data_subtab_glossary: Глосарій
-  data_summary_header: Швидкі Факти
   data_tab_curator_excluded: вилучено з швидких фактів
   data_tab_curator_exemplar: додано до Швидких Фактів
   data_tab_curator_key_excluded: "%{image} вилучено з <a href='%{link}'>Швидких фактів</a>"

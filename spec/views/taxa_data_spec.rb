@@ -17,12 +17,14 @@ describe 'taxa/data/index' do
     assign(:supress_disclaimer, true)
     assign(:range_data, [])
     assign(:glossary_terms, [])
+    assign(:units_for_select, KnownUri.default_units_for_form_select)
   end
 
   before(:all) do
     Visibility.create_enumerated
     Vetted.create_enumerated
     CuratorLevel.create_enumerated
+    KnownUri.create_enumerated
     Language.create_english # :\
     @anonymous = EOL::AnonymousUser.new('en')
     @curator = FactoryGirl.create(:curator)

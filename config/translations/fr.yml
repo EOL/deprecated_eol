@@ -16,6 +16,7 @@
 # Author: Linedwell
 # Author: Ljubinka
 # Author: Lucky
+# Author: Manohisoa
 # Author: McDutchie
 # Author: Metroitendo
 # Author: Moyg
@@ -406,7 +407,6 @@ fr:
       user: compte
   activity: Activité
   activity_log_empty: Personne n’a encore fourni de mises à jour.
-  activity_log_empty_learn_more_link: Apprenez comment contribuer
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -1801,7 +1801,7 @@ fr:
   darwin_core: Darwin Core
   dashboard: Tableau de bord
   data: Données
-  data_about_subtab_content: <p>Les données et les métadonnées sont collectées depuis différentes sources dans une vue centrée sur les taxons unique, complètement référencée et accessible sémantiquement.</p><p>Pour voir des détails supplémentaires sur n’importe quelle valeur de donnée, cliquez que le symbole %{img} pour une définition du type de donnée.</p><p>Vous devez être connecté à EdlV pour laisser un commentaire, entrer des données d’information, de provenance, d’URIs ou autres, directement dans EdlV. Vous aurez besoin de <a href='/users/register'>vous isncrire pour un compte EdlV libre</a>, en premier lieu. Si vous aimeriez recommander un ensemble de données à inclure dans EdlV, ou si vous avez des ensemble des données que vous aimeriez partager via EdlV, veuillez nous contacter à <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Le financement pour le développement de la fonctionnalité de données calculables de EdlV provient de la fondation Alfred P. Sloan, de la fondation John D. et Catherine T. MacArthur, et des utilisateurs de EdlV dans le monde entier. Pour en savoir plus sur le projet TraitBank™, veuillez contacter <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
+  data_about_subtab_content: <p>Les données et les métadonnées sont collectées depuis différentes sources dans une vue centrée sur les taxons unique, complètement référencée et accessible sémantiquement.</p> <p>Pour voir des détails supplémentaires sur n’importe quelle valeur de donnée, cliquez que le symbole %{img} pour une définition du type de donnée.</p> <p>Vous devez être connecté à EdlV pour laisser un commentaire, entrer des données d’information, de provenance, d’URIs ou autres, directement dans EdlV. Vous aurez besoin de <a href='/users/register'>vous isncrire pour un compte EdlV libre</a>, en premier lieu. Si vous aimeriez recommander un ensemble de données à inclure dans EdlV, ou si vous avez des ensemble des données que vous aimeriez partager via EdlV, veuillez <a href="%{contact_contribute_url}">nous contacter</a>.</p> <p>Le financement pour le développement de la fonctionnalité de données calculables de EdlV provient de la fondation Alfred P. Sloan, de la fondation John D. et Catherine T. MacArthur, et des utilisateurs de EdlV dans le monde entier. Pour en savoir plus sur le projet TraitBank™, veuillez <a href="%{contact_traitbank_url}">contacter le secrétariat de EdlV</a>.</p>
   data_about_subtab_header: À propos des données de EdlV
   data_about_this_record: Données sur cet enregistrement
   data_beta_search_limit: 
@@ -1869,7 +1869,6 @@ fr:
   data_ranges_subheader: Plages pour ce cladus
   data_reference_subtable_summary: Références supplémentaires sur ce fait.
   data_row_add_exemplar_button: ajouter aux Faits en bref
-  data_row_arrow_alt: Basculer entre afficher et masquer les détails supplémentaires sur ce fait, si vous avez JavaScript activé.
   data_row_excluded_from_overview_notice: "Note : cette ligne a été enlevée des faits en bref."
   data_row_exemplar_added: Fait en bref ajouté.
   data_row_exemplar_removed: Fait en bref supprimé.
@@ -1881,6 +1880,9 @@ fr:
   data_search_explanation: Utiliser la recherche de données de EdlV pour trouver des éléments correspondant à '%{term}' dans les observations,<br />les mesures et les autres assertions scientifiques.
   data_search_files: 
     file_ready_for_download: La recherche que vous avez récemment demandée pour « %{known_uri_label} » peut maintenant être téléchargée depuis <a href='%{download_url}'>%{download_url}</a>.
+    from: Valeur la plus basse
+    to: Valeur la plus haute
+    unit_uri: Unité de mesure
   data_search_files_with_count: 
     one: "%{count} recherche enregistrée"
     other: "%{count} recherches enregistrées"
@@ -1895,7 +1897,6 @@ fr:
   data_show_n_more_rows: Afficher NNN de plus…
   data_subtab_about: À propos de
   data_subtab_glossary: Glossaire
-  data_summary_header: Faits en bref
   data_summary_header_with_count: 
     one: EdlV a des données sur un caractère
     other: EdlV a des données sur %{count} caractère
@@ -3072,7 +3073,6 @@ fr:
   must_be_checked_in_to_view: "- doit être vérifié pour être visualisé"
   must_be_less_than_128_characters_long: doit être inférieur à 128 caractères.
   must_be_logged_in: Vous devez être connecté pour effectuer cette action.
-  must_provide_attribute_for_search_error: Vous devez sélectionner un attribut à rechercher.
   must_provide_search_term_error: Vous devez entrer un critère de recherche.
   my_activity: Mon activité
   my_info: Mes infos
@@ -3154,6 +3154,7 @@ fr:
   not_published_yet: pas encore publié
   not_recognized_by_available_hierarchies: Non reconnu par l’une des classifications disponibles
   not_shown_on_the_website_note: (non affiché sur le site web ou dans un lien URL, uniquement à des fins d’information)
+  not_specified: non spécifié
   not_yet_implemented_error: Désolé, cette fonctionnalité n’a pas encore été réalisée.
   note: "Note :"
   note_about_homonym_problems: "NOTE : ne modifiez cet attribut que si vous êtes certain de ce que vous faites - le désactiver pourrait provoquer de graves problèmes d’homonymes"

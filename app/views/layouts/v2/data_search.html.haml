@@ -1,23 +1,27 @@
+- content_for :head do
+  = javascript_include_tag 'data_search'
 - content_for :main do
   #page_heading
     .site_column
       .hgroup
-        %h1= @results ? I18n.t(:search_results) : I18n.t(:search)
-        - search_term_to_show = [ @attribute, @querystring ].delete_if{ |t| t.blank? }.join(' : ')
-        %h2
-          = @results ? raw(I18n.t(:count_results_for_search_term, count: @results.total_entries, search_term: h(search_term_to_show))) : ''
-          - if @taxon_concept
-            = raw I18n.t(:searching_within_clade, clade_name: link_to("#{@taxon_concept.title_canonical_italicized}", taxon_overview_url(@taxon_concept)))
+        - if @attribute.blank?
+          %h1= t('.page_header')
+        - else
+          %h1= t('.page_header_results')
+          %h2= data_search_results_summary
       .page_actions
         %ul
           - if @results && !@results.blank?
-            %li.data_download{"data-alert" => ((@results.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) : nil)}
-              = link_to I18n.t(:download_data), download_data_search_path(params: params), method: :post, :class => 'button'
+            - limited = (@results.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_search_limit, count:   DataSearchFile::LIMIT) : nil
+            %li.data_download{"data-alert" => limited}
+              = link_to I18n.t(:download_data),
+                download_data_search_path(params: params),
+                method: :post, :class => 'button'
+      = render :partial => 'shared/flash_messages'
   #content
     .site_column
-      #data_search
-        = render partial: 'shared/beta_warning', locals: { note: I18n.t(:data_beta_search_limit, count: DataSearchFile::LIMIT) }
-        = render 'data_search/filters'
+      #data_search{data: {results_total: @results.blank? ? 0 : @results.total_entries}}
+        = render 'data_search/form'
         #search_results
           #main
             = yield

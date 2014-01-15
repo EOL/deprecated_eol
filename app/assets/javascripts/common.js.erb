@@ -228,18 +228,6 @@ $(function() {
     $collection.find('input[name="commit_filter"]').hide();
   })($("#collection"));
 
-  $("#simple_search input[placeholder]").each(function() {
-    var $e = $(this),
-        placeholder = $e.attr("placeholder");
-    $e.removeAttr("placeholder").val(placeholder);
-    $e.bind("focus blur", function(e) {
-      if (e.type === "focus" && $e.val() === placeholder) $e.val("");
-      else {
-        if (!$e.val()) $e.val(placeholder);
-      }
-    });
-  });
-
   // makes sure that as the user types we can enable/disable autocomplete depending
   // on the search term. This helps get rid of results of the search term is deleted
   $('input#autocomplete_q[data-autocomplete]').keyup(function(e) {
@@ -257,6 +245,7 @@ $(function() {
       if($(this).autocomplete('option').disabled === true) {
         $(this).autocomplete('enable');
         $(this).autocomplete('search', value);
+        EOL.turn_global_search_autocomplete_results_into_links();
       }
     }
   });
@@ -443,7 +432,7 @@ $(function() {
   // Search should not allow you to search without a term:
   $("#simple_search :submit").on('click', function() {
     var $q = $("#simple_search :submit").closest('form').find('input[type="text"]');
-    if ($q.val() == $(this).attr('data_unchanged')) {
+    if ($q.val() == $(this).attr('data_unchanged') || $q.val() == '') {
       $q.css('color', '#aa0000').val($(this).attr('data_error')).on('click', function() { $(this).val('').css('color', 'black').unbind('click'); });
       return(false);
     } else if ($q.val() == $(this).attr('data_error')) {
@@ -726,4 +715,13 @@ EOL.after_onload_JS = function(jsFile) {
     if (w.addEventListener) { w.addEventListener("load", go, false); }
     else if (w.attachEvent) { w.attachEvent("onload",go); }
   }(window, document, 'script'));
+};
+
+EOL.turn_global_search_autocomplete_results_into_links = function() {
+  $('#simple_search input#autocomplete_q').autocomplete({
+    select: function( event, ui ) {
+      var taxon_link = $(ui.item.label).find('a').attr('href');
+      window.location = taxon_link;
+    }
+  });
 };

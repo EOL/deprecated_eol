@@ -12,6 +12,6 @@
       = f.hidden_field :user_id
       = f.hidden_field :parent_type
       = f.hidden_field :parent_id
-    %fieldset
+    %fieldset.annotation
       = f.text_field :body, class: 'has_default', :placeholder => I18n.t(:annotation_body_default)
       = submit_tag I18n.t(:annotation_submit)

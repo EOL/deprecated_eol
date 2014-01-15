@@ -144,6 +144,7 @@ br:
         rich_redhotlist_pages_percentage: Pajennoù pennroll ruz pinvidik
         total_associations: Kevredigezhioù
         total_taxa_with_data: Pajennoù gant roadennoù
+        total_user_added_data: Roadennoù ouzhpennet gant an implijer
         udo_published: Testenn pourchaset gant an implijer
         udo_published_by_curators: Testenn pourchaset gant ur mirour
         udo_published_by_non_curators: Testenn pourchaset gant un den n'eo ket mirour
@@ -173,7 +174,12 @@ br:
         description: Deskrivadur
         name: Anv
         toc_items: Rummadoù
+        uri: URI
         uri_type: Seurt URI
+      known_uri_relationship: 
+        relationship_uri: URI an darempred
+        to_known_uri: URI pal
+        to_known_uri_id: URI pal
       name: 
         string: Anv
       news_item: 
@@ -212,6 +218,8 @@ br:
         auto_publish: Embann ent emgefre
         bibliographic_citation: Arroud levrlennadurel
         dataset: Restr eus ar c'hoari roadennoù
+        dataset_license_id: Aotre-implijout
+        dataset_rights_holder: Perc'henn ar gwirioù
         description: Deskrivadur ar vammenn
         dwc_archive_url: URL eus an diell Darwin Core
         harvest_events: Dastum an darvoudoù
@@ -232,6 +240,7 @@ br:
         meta_keywords: gerioù alc'hwez ar metaroadennoù
         title: Titl
       translated_known_uri: 
+        comment: Evezhiadenn
         definition: Termenadur
       translated_news_item: 
         active_translation: "\nEmbannet"
@@ -310,6 +319,7 @@ br:
         known_uri_relationship: 
           attributes: 
             to_known_uri_id: 
+              must_be_known_uri: a rank bezañ un URI anavezet
               must_be_measurement: a rank bezañ un unanenn vuzuliañ
         open_authentications: 
           guid_provider_must_be_unique: Ar gont trede zo kevreet gant ur gont KAB dija
@@ -335,7 +345,6 @@ br:
       user: kont
   activity: Obererezh
   activity_log_empty: N'eus bet pourchaset hizivadennoù gant den ebet c'hoazh.
-  activity_log_empty_learn_more_link: Deskit penaos harpañ
   activity_logs: 
     collection_activity_log: 
       add_editor: 
@@ -454,6 +463,7 @@ br:
   add_a_new_term: Ouzhpennañ un termen nevez
   add_a_new_topic_area: Ouzhpennañ un tem nevez
   add_a_new_user: Ouzhpennañ un implijer nevez
+  add_another_metadata_field: Ouzhpennañ ur vaezienn metaroadennoù nevez
   add_article_instead: ouzhpennit ur pennad, kentoc'h
   add_article_to_page_button: "Ouzhpennañ ur pennad:"
   add_association_submit_button: ouzhpennañ ar gevredigezh
@@ -465,6 +475,7 @@ br:
   add_link_instead: ouzhpennañ ul liamm, kentoc'h
   add_link_to_page_button: Ouzhpennañ ul liamm
   add_new_association_link: Ouzhpennañ ur gevredigezh nevez
+  add_new_known_uri_link: Ouzhpennañ un URI nevez
   add_page: Ouzhpennañ ur bajenn
   add_sub_chapter: Ouzhpennañ un isrannad
   add_to_a_community: Ouzhpennañ d'ur gumuniezh
@@ -512,9 +523,11 @@ br:
   admin_news_item_new_link: Krouiñ un elfenn titouriñ
   admin_news_item_new_tip: Ebarzhit an titouroù diazez diwar-benn  ar bajenn-mañ.  Un anv hepken zo %{required_icon}&nbsp;rekis.
   admin_news_item_not_active: Diembann
+  admin_news_items_empty: N'eus ket bet kavet elfennoù nevez.
   admin_news_items_page_title: "Melestradurezh : Keleier"
   admin_news_link: Keleier
   admin_notes_not_visible_to_user: "Notennoù melestradurel (ne c'hall ket an implijer gwelet anezho) :"
+  admin_option_changed: Talvoud kemmet.
   admin_page_title: "Merañ : Brassell"
   admin_spam_delete: Diverkañ ar strob
   admin_statistics_link: Stadegoù
@@ -580,6 +593,7 @@ br:
   agent: Gwazour
   all: an holl
   all_articles: An holl bennadoù
+  all_categories: An holl
   all_changes: An holl gemmoù
   all_collections: An holl dastumadoù
   all_communities: An holl gumuniezhioù
@@ -606,6 +620,7 @@ br:
   an_unknown_user: Un implijer dianav
   and: ha(g)
   and_between_form_items: ha(g)
+  annotation_body_default: ouzhpennañ ur goulenn pe un evezhiadenn...
   annotation_cabs_colon: "Notennadur :"
   anonymous_user_full_name: Implijer dizanv
   anonymous_user_given_name: Dizanv
@@ -623,6 +638,7 @@ br:
   articles_with_count: 
     one: "%{count} Pennad"
     other: "%{count} Pennad"
+  assistive_data_header: Fedoù & Titouroù
   assistive_details_header: Munudoù
   assistive_literature_header: Lennegezh
   assistive_maps_header: Kartennoù
@@ -659,6 +675,7 @@ br:
   back: Distreiñ
   back_to_profile: Distreiñ d'ar profil
   began: en deus kroget
+  beta_warning_note_header: "Notenn :"
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Gweladennit ar "Biodiversity Heritage Library"
   bhl_publication: Embannadur BHL
@@ -677,6 +694,7 @@ br:
   calculate_averages_slow: Jediñ keidennoù (gorrek)
   call_api: Gervel an API
   cancel: Nullañ
+  cancel_and_delete: nullañ ha dilemel
   cancel_split: Nullañ
   cannot_be_associated_with_both_a_user_and_a_community: Ne c'hall ket bezañ kevredet war u ndro ouzh un implijer hag ouzh ur gumuniezh
   cannot_be_empty: n'hall ket chom goullo
@@ -711,6 +729,7 @@ br:
   clicked_time: Eur glikañ
   close_this_window_to_return_to_edit_window: SERRIT AR PRENESTR-MAÑ EVIT DISTREIÑ D'AR PRENESTR KEMMAÑ
   cms_available_in_languages: "Ar bajenn-mañ a c'haller kavout en :"
+  cms_editor: Aozer CMS
   cms_missing_content_title: Mankout a ra an droidigezh
   collect_item: Elfenn zastum
   collect_items: Elfennoù dastum
@@ -892,6 +911,7 @@ br:
   content_partner_data_description_header: Deskrivadur ar roadenn
   content_partner_default_description: Ur c'heveler endalc'h Kelc'hgeriadur ar Vuhez.
   content_partner_edit_link: Dargemmañ ar c'heveler endalc'h
+  content_partner_filter_option_published_latest_harvest_not_published: Embannet da ziwezhañ
   content_partner_filter_option_published_latest_harvest_published: Embannet da ziwezhañ
   content_partner_filter_option_published_never_harvested: N'eo ket bet eostet biskoazh
   content_partner_filter_option_published_never_published: Chomet diembann
@@ -1061,10 +1081,15 @@ br:
       meta_description_map: Kartenn - %{dato_description}
       meta_description_sound: Son - %{dato_description}
       meta_description_video: Video - %{dato_description}
+      meta_supplier_default: ur c'henlabourer
       meta_title: "%{dato_title} eus %{supplier}"
       tweet_text: "%{dato_title} eus %{supplier}"
   data_point_uri_source_missing: ar vammenn a vank
   data_provided_by_content_partner: "Mammenn: %{whom}"
+  data_search_files: 
+    from: Talvoud izelañ
+    to: Talvoud uhelañ
+    unit_uri: Unanenn vuzuliañ
   data_subtab_about: Diwar-benn
   data_subtab_glossary: Geriaoueg
   date_caps: Deiziad
@@ -1702,8 +1727,17 @@ br:
   known_uri_category_header: Rummadoù
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
+    create_failed: Digarezit, ur fazi zo bet, n'eo ket bet ouzhpennet a darempred.
+    created: Krouet eo bet an darempred
     deleted: Dilamet eo bet an darempred
   known_uris: 
+    add_a_relationship: Ouzhpennañ un darempred
+    equivalent_to: Darempredoù kevatalded
+    name_placeholder_text: da sk. Kenlabourer
+    ontology_information_url_placeholder_text: da sk. http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: da sk. http://dublincore.org/2012/06/14/dcterms.rdf
+    preferred_for_equivalence_group: Gwellañ-deuet
+    select: diuzañ
     select_a_category_to_view_stats: "Diuzañ ur rummad evit gwelet ar stadegoù :"
   label: Label
   language: "Yezh :"
@@ -2082,6 +2116,9 @@ br:
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Gwelit ho holl oberoù kent %{activity_url} war ho pajenn implijer <a href='%{activity_url}' style='color:#195184'></a>
     someone_commented_on_something: <b>%{who}</b> en deus displeget <b>%{what}</b>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: Prest eo ho pellgargadenn !
   recent_updates: Hizivadennoù diwezhañ
   recently_visited: Gweladennet nevez zo
   recipients: Degemererien
@@ -2390,7 +2427,18 @@ br:
   user_activity_stats_articles_added_dropdown: Pennadoù ouzhpennet
   user_activity_stats_header: Obererezh
   user_added_data: 
+    add_data_header: Degas ho roadennoù deoc'h-c'hwi
+    add_metadata_header: Titouroù ouzhpenn
+    additional_fields: Roadennoù diwar-benn an enrolladenn-mañ
+    create_failed: "Ne c'haller ket ouzhpennañ ho roadennoù : %{errors}"
+    create_successful: Ouzhpennet eo bet ar roadennoù
+    delete_successful: Dilamet eo bet ar roadennoù
+    edit_data_header: Aozañ ho roadennoù
+    edit_metadata_header: Aozañ ar metaroadennoù
+    new_field: Maezienn nevez...
     new_value: Talvoud
+    update_failed: "Ne c'haller ket ouzhpennañ ho roadennoù : %{errors}"
+    update_successful: Hizivaet eo bat ar roadennoù
   user_already_active_notice: Oberiant eo ho kont dija, kevreit, mar plij
   user_id: ID an implijer
   user_no_longer_active_message: An implijer-mañ n'eo ket oberiant ken
@@ -2480,6 +2528,21 @@ br:
     recover_account_choose_account: 
       form_header: Adtapout ar gont
       legend_choose_account: "\nDibab ur gont"
+    saved_searches: 
+      actions_head: Oberoù
+      attribute_head: Perzh
+      complete_head: Echuiñ ?
+      created_head: Krouet
+      download: pellgargañ
+      is_complete: Ya
+      is_not_complete: Ket
+      page_title: Enklaskoù enrollet
+      processing: o tretañ
+      query_empty: goullo
+      query_head: Reked
+      refresh: freskaat
+      row_count: Kontañ
+      updated_head: Ober diwezhañ
   users_about_me_header: Diwar ma fenn
   users_form_account_header: Ho kont
   users_my_info_header: Ma zitouroù

@@ -1,26 +1,7 @@
 .article
   - if @taxon_page.has_map?
-    = javascript_include_tag 'swfobject.js'
-    #map_image
-    :javascript
-      var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9");
-      so.addParam("allowFullScreen", "true");
-      so.addParam("wmode", "transparent");
-      so.addVariable("swf", "");
-      so.addVariable("taxon_id", #{@taxon_page.gbif_map_id});
-      so.addVariable("data_server_endpoint", '#{$MAP_DATA_SERVER_ENDPOINT}');
-      so.addVariable("gmap_key", '#{$GOOGLE_MAP_API_KEY}');
-      var tileServers = new Array();
-      tileServers[0] = '#{$MAP_TILE_SERVER_1}';
-      tileServers[1] = '#{$MAP_TILE_SERVER_2}';
-      tileServers[2] = '#{$MAP_TILE_SERVER_3}';
-      tileServers[3] = '#{$MAP_TILE_SERVER_4}';
-      so.addVariable("zoom", 2);
-      so.addVariable("center_lat", 20);
-      so.addVariable("center_lon", 0);
-
-      so.addVariable("tile_servers", tileServers);
-      so.write("map_image");
+    %iframe{ src: "http://cdn.gbif.org/v0.9/map/index.html?type=TAXON&key=#{@taxon_page.gbif_map_id}&resolution=4&default_zoom=2&style=ocean",
+      frameborder: 0, allowfullscreen: true, height: '500px', width: '100%' }
     %p
       = raw(I18n.t(:gbif_occurrence_disclaimer))
-      = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://data.gbif.org/species/#{@taxon_page.gbif_map_id}/", rel: :nofollow
+      = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://www.gbif.org/species/#{@taxon_page.gbif_map_id}", rel: :nofollow

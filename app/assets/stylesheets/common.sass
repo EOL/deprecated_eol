@@ -6,6 +6,7 @@ body
   font-size: 75%
   color: #394651
   border-top: $global_nav_height solid #28323a
+  /* border-top: $global_nav_height solid #d1e163   BANNER - remove this */
   min-width: 940px
 body, html
   background: #394651
@@ -18,6 +19,25 @@ a
   margin: 0 auto
 
 body
+  #banner /* BANNER - of course, remove this entire node... */
+    position: absolute
+    top: 0
+    z-index: 900
+    width: 100%
+    padding: 6px 0px
+    border-bottom: 2px solid #667309
+    p
+      font-family: Helvetica Neue, Helvetica, Arial, san-serif
+      font-weight: 300
+      text-align: center
+      font-size: 1.33em
+      color: #394351
+      strong
+        font-weight: 500
+      a
+        font-weight: 500
+        text-decoration: none
+        color: #004e00
   > #header
     a
       color: #ffffff
@@ -129,7 +149,7 @@ body
         margin: 0 10px 0 0
         +border-radius(180px)
         +gradient-bg(#ccd2d7, #fefeff)
-      input[type="text"]
+      input[type="text"], input[type="search"]
         width: 175px
         height: 1.5em
         padding: 6px 5px 6px 38px

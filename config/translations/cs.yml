@@ -349,7 +349,6 @@ cs:
       user: účet
   activity: Činnost
   activity_log_empty: Nikdo ještě neposkytl aktualizace.
-  activity_log_empty_learn_more_link: Informace jak přispět
   activity_logs: 
     collection_activity_log: 
       create: 

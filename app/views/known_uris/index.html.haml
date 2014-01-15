@@ -3,7 +3,6 @@
   = javascript_include_tag "known_uris"
 #content
   #known_uris.site_column
-    = render 'shared/beta_warning'
     - unless @known_uris.empty?
       = will_paginate @known_uris
     - if @uri_type

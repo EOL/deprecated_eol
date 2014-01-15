@@ -10,7 +10,10 @@ class DataPointUri < ActiveRecord::Base
   attr_accessible :string, :vetted_id, :visibility_id, :vetted, :visibility, :uri, :taxon_concept_id,
     :class_type, :predicate, :object, :unit_of_measure, :user_added_data_id, :resource_id,
     :predicate_known_uri_id, :object_known_uri_id, :unit_of_measure_known_uri_id,
-    :predicate_known_uri, :object_known_uri, :unit_of_measure_known_uri
+    :predicate_known_uri, :object_known_uri, :unit_of_measure_known_uri,
+    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
+    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
+    :sex, :sex_known_uri, :sex_known_uri_id
 
   belongs_to :taxon_concept
   belongs_to :vetted
@@ -479,7 +482,11 @@ class DataPointUri < ActiveRecord::Base
       val = EOL::Sparql.uri_components(object_uri)[:label].to_s # TODO - see if we need that #to_s; seems redundant.
       if val.is_numeric?
         # float values can be rounded off to 2 decimal places
-        val = val.to_f.round(2) if val.is_float?
+        if val.is_float?
+          val = val.to_f.round(2)
+        else
+          val = val.to_i
+        end
       else
         # other values may have links embedded in them (references, citations, etc.)
         val.add_missing_hyperlinks
@@ -576,47 +583,83 @@ private
       { starting_units:   [ KnownUri.milligrams.uri ],
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v / 1000 },
+        reverse_function: lambda { |v| v * 1000 },
         required_minimum: 1.0 },
+      { starting_units:   [ 'http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#C64555' ],  # decigram
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v / 10 },
+        reverse_function: lambda { |v| v * 10 } },
+      { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#US_pound' ],  # pound
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v * 453.592 },
+        reverse_function: lambda { |v| v / 453.592 } },
+      { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#US_ounce' ],  # ounce
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v * 28.3495 },
+        reverse_function: lambda { |v| v / 28.3495 } },
       { starting_units:   [ KnownUri.grams.uri, 'http://adw.org/g', 'http://anage.org/g' ],
         ending_unit:      KnownUri.kilograms.uri,
         function:         lambda { |v| v / 1000 },
+        reverse_function: lambda { |v| v * 1000 },
         required_minimum: 1.0 },
       { starting_units:   [ KnownUri.millimeters.uri, 'http://adw.org/mm' ],
         ending_unit:      KnownUri.centimeters.uri,
         function:         lambda { |v| v / 10 },
+        reverse_function: lambda { |v| v * 10 },
         required_minimum: 1.0 },
+      { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#foot' ],      # foot
+        ending_unit:      KnownUri.centimeters.uri,
+        function:         lambda { |v| v * 30.48 },
+        reverse_function: lambda { |v| v / 30.48 } },
+      { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#inch' ],      # inch
+        ending_unit:      KnownUri.centimeters.uri,
+        function:         lambda { |v| v * 2.54 },
+        reverse_function: lambda { |v| v / 2.54 } },
       { starting_units:   [ KnownUri.centimeters.uri ],
         ending_unit:      KnownUri.meters.uri,
         function:         lambda { |v| v / 100 },
+        reverse_function: lambda { |v| v * 100 },
         required_minimum: 1.0 } ,
       { starting_units:   [ KnownUri.kelvin.uri, 'http://anage.org/k' ],
         ending_unit:      KnownUri.celsius.uri,
-        function:         lambda { |v| v - 273.15 } },
+        function:         lambda { |v| v - 273.15 },
+        reverse_function: lambda { |v| v + 273.15 } },
       { starting_units:   [ KnownUri.days.uri, 'http://anage.org/days', 'http://eol.org/schema/terms/day' ],
         ending_unit:      KnownUri.years.uri,
-        function:         lambda { |v| v / 365 },
+        function:         lambda { |v| v / 365.2425 },
+        reverse_function: lambda { |v| v * 365.2425 },
         required_minimum: 1.0 },
       { starting_units:   [ Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius' ],
-        ending_unit:      KnownUri.grams.uri,
-        function:         lambda { |v| v / 10 } },
+        ending_unit:      KnownUri.celsius.uri,
+        function:         lambda { |v| v / 10 },
+        reverse_function: lambda { |v| v * 10 } },
+      { starting_units:   [ 'http://purl.obolibrary.org/obo/UO_0000195' ],                      # farenheight
+        ending_unit:      KnownUri.celsius.uri,
+        function:         lambda { |v| (((v - 32) * 5) / 9) },
+        reverse_function: lambda { |v| (((v * 9) / 5) + 32) } },
       { starting_units:   [ Rails.configuration.uri_term_prefix + 'log10gram' ],
         ending_unit:      KnownUri.grams.uri,
-        function:         lambda { |v| 10 ** v } },
-      { starting_units:   [ Rails.configuration.uri_term_prefix + 'squareMicrometer' ],
-        ending_unit:      Rails.configuration.uri_obo + 'UO_0000082',                   # square millimeter
+        function:         lambda { |v| 10 ** v },
+        reverse_function: lambda { |v| Math::log10(v) } },
+      { starting_units:   [ Rails.configuration.uri_term_prefix + 'squareMicrometer' ],         # square micrometer
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000082',                           # square millimeter
         function:         lambda { |v| v / 1000000 },
+        reverse_function: lambda { |v| v * 1000000 },
         required_minimum: 1.0 },
-      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000082' ],               # square millimeter
-        ending_unit:      Rails.configuration.uri_obo + 'UO_0000081',                   # square centimeter
+      { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000082' ],                       # square millimeter
+        ending_unit:      Rails.configuration.uri_obo + 'UO_0000081',                           # square centimeter
         function:         lambda { |v| v / 100 },
+        reverse_function: lambda { |v| v * 100 },
         required_minimum: 1.0 },
       { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000081' ],               # square centimeter
         ending_unit:      Rails.configuration.uri_obo + 'UO_0000080',                   # square meter
         function:         lambda { |v| v / 10000 },
+        reverse_function: lambda { |v| v * 10000 },
         required_minimum: 1.0 },
       { starting_units:   [ Rails.configuration.uri_obo + 'UO_0000080' ],               # square meter
-        ending_unit:      Rails.configuration.uri_term_prefix + 'squarekilometer',  # square kilometer
+        ending_unit:      Rails.configuration.uri_term_prefix + 'squarekilometer',      # square kilometer
         function:         lambda { |v| v / 1000000 },
+        reverse_function: lambda { |v| v * 1000000 },
         required_minimum: 1.0 }
     ]
     KnownUri.find_all_by_uri(@@conversions.collect{ |c| c[:ending_unit] }).each do |known_uri|

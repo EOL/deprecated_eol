@@ -19,11 +19,12 @@ class DataSearchController < ApplicationController
       format.html do
         if @taxon_concept && !TaxonData.is_clade_searchable?(@taxon_concept)
           flash.now[:notice] = I18n.t('data_search.notice.clade_too_big',
-            taxon_name: @taxon_concept.title_canonical_italicized.html_safe).html_safe
+            taxon_name: @taxon_concept.title_canonical_italicized.html_safe,
+            contactus_tech_path: contact_us_path(subject: 'Tech')).html_safe
         elsif @clade_has_no_data
           flash.now[:notice] = I18n.t('data_search.notice.clade_has_no_data',
             taxon_name: @taxon_concept.title_canonical_italicized.html_safe,
-            contribute_path: cms_page_path('contribute')).html_safe
+            contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
       end

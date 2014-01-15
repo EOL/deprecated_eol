@@ -36,9 +36,16 @@
         modifiers: [ data_point_uri.statistical_method_label ])
     - else
       - if data_point_uri.statistical_method_label
-        %span.stat= data_point_uri.statistical_method_label
-        -# including an info_icon (which will remain blank) for spacing
-        - info_icon
+        %span.stat
+          = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+          = data_point_uri.statistical_method_label
+          -# Note the '-' here is *needed* because of the haml_cat used in the method:
+          - info_icon
+      - else
+        %span
+          = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+          -# Note the '-' here is *needed* because of the haml_cat used in the method:
+          - info_icon
   %td.val{ headers: header_id, id: "#{header_id}_d" }
     %span.fold
       - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'

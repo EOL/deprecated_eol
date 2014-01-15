@@ -159,19 +159,23 @@ module TaxaHelper
         define(tag_type, uri, options[:search_link])
       end
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
-        if current_user.min_curator_level?(:full)
-          if options[:exemplar]
-            haml_concat image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar))
-          elsif options[:excluded]
-            haml_concat image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
-          end
-        end
+        haml_concat add_exemplar_or_excluded_icon(options)
         haml_concat raw(format_data_value(display_label, options))
         haml_concat display_text_for_modifiers(options[:modifiers])
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
           define(tag_type, uri, options[:search_link])
           info_icon if options[:val]
         end
+      end
+    end
+  end
+
+  def add_exemplar_or_excluded_icon(options)
+    if current_user.min_curator_level?(:full)
+      if options[:exemplar]
+        image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar))
+      elsif options[:excluded]
+        image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
       end
     end
   end

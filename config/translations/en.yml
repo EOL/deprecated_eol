@@ -3350,8 +3350,8 @@ en:
         other: "Searching within a taxon group is currently limited to groups with fewer than %{count} taxa. <a href=\"%{contact_us_tech_url}\">Contact us</a> to find out more about searching larger groups."
       sort_header: "Sort the results"
     notice:
-      clade_too_big: "Sorry, the taxon group %{taxon_name} is too large to filter by and was removed from the search. The results shown are not filtered by %{taxon_name}."
-      clade_has_no_data: "No one has contributed data records for taxon group %{taxon_name} yet. <a href=\"%{contribute_path}\">Be the first to contribute</a>."
+      clade_too_big: "Sorry, the results shown are not filtered by %{taxon_name} because it is too large. Choose a smaller group or <a href=\"%{contactus_tech_path}\">contact us</a> for assistance."
+      clade_has_no_data: "No one has contributed data records for taxon group %{taxon_name} yet. <a href=\"%{contribute_path}\">Learn how to contribute</a>."
   data_search_link: "Search scientific data on EOL"
   data_search_queue_pending:
     zero: "There are no jobs pending. If your job is not complete, something went wrong. You can visit the <a href='%{data_search_url}'>data search page</a> to make another search."

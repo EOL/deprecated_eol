@@ -3293,6 +3293,7 @@ en:
   data_column_source: "Supplier"
   data_database_colon: "Data:"
   data_glossary: "Data Glossary"
+  data_glossary_contribute: "To contribute new terms to this glossary, <a href=%{url}>consider uploading data</a>."
   data_link_to_record: "Link to this record"
   data_logging_active: "Data Logging Active"
   data_master_database_colon: "Data Master:"

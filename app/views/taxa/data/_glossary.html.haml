@@ -3,8 +3,6 @@
 - glossary_terms = @glossary_terms || glossary_terms || []
 - unless @glossary_terms.blank?
   .glossary_subtab{ style: style }
-    .help_text
-      %p= I18n.t(:glossary_subtab_help_text, url: contact_us_path(subject: 'Contribute')).html_safe
     .header_underlined
       %h3= I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe
     %ul.glossary

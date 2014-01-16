@@ -231,7 +231,7 @@ class DataPointUri < ActiveRecord::Base
             ?event ?attribute ?value .
           }
           FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
-                                     dwc:measurementID, eol:referenceID,
+                                     dwc:measurementID, eolreference:referenceID,
                                      eol:targetOccurrenceID, dwc:taxonID, dwc:eventID,
                                      eol:associationType,
                                      dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)

@@ -9,7 +9,7 @@
       .chapter_marker
         %h2= I18n.t(:filter_by_subject)
       %form
-        - TocItem.used_by_known_uris.each_slice(5) do |chapter_set|
+        - TocItem.used_by_known_uris.each_slice(6) do |chapter_set|
           %ul.chapters
             - chapter_set.each do |toc_item|
               %li{ 'data-toc-id' => toc_item.id }

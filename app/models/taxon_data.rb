@@ -95,7 +95,8 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def distinct_predicates
-    get_data.collect{ |d| d.predicate }.compact.uniq
+    ( get_data.collect{ |d| d.predicate }.compact + 
+      ranges_of_values.collect{ |r| r[:attribute] } ).uniq
   end
 
   def has_range_data

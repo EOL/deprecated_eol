@@ -78,8 +78,9 @@ class DataSearchFile < ActiveRecord::Base
     rows = []
     page = 1
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
-    results = TaxonData.search(querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
-                               per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri)
+    search_parameters = { querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
+                          per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri }
+    results = TaxonData.search(search_parameters)
     # TODO - we should also check to see if the job has been canceled.
     begin # Always do this at least once...
       DataPointUri.assign_bulk_metadata(results, user.language)
@@ -89,10 +90,11 @@ class DataSearchFile < ActiveRecord::Base
       end
       if (page * PER_PAGE < results.total_entries)
         page += 1
-        results = TaxonData.search(querystring: q, attribute: uri, from: from, to: to, sort: sort,
-                                   page: page, per_page: PER_PAGE, for_download: true)
+        results = TaxonData.search(search_parameters.merge(page: page))
+      else
+        break
       end
-    end until (page * PER_PAGE >= results.total_entries) || page > PAGE_LIMIT
+    end until ((page - 1) * PER_PAGE >= results.total_entries) || page > PAGE_LIMIT
     @overflow = true if page > PAGE_LIMIT
     rows
   end

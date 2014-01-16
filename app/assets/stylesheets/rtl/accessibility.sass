@@ -1838,7 +1838,10 @@ span.info
     font-weight: 600
   ul
     li
-      margin-top: 4px
+      &.end_section
+        margin-bottom: 20px
+      &.start_section
+        margin-top: 20px
 .glossary
   h3
     font-size: 1.6em
@@ -1855,17 +1858,17 @@ span.info
       padding: 20px 0px 0px
       font-size: 3em
     h2
-      color: $darker_blue
+      color: #394651
       float: right
       margin-right: 0px
       padding: 0px
       font-size: 1.5em
       font-weight: normal
+      margin-bottom: 0px !important
   ul.helpers
     float: left
     font-size: .9em
     width: 100%
-    margin-top: 8px
     a
       color: $darker_gray
       text-decoration: none
@@ -1883,9 +1886,12 @@ span.info
         color: $darker_gray
         content: "\2022\0000a0"
         margin: 0 9px 0 5px
+ul.glossary li
+  padding-bottom: 10px
 ul.glossary li+li
   border-top: 1px dotted $light_blue
-  padding-top: 8px
+  padding-top: 10px
+  margin-top: 5px
 ul.glossary li, .info.tip
   dt
     color: $darker_blue

@@ -153,6 +153,7 @@ describe 'Data Object Page' do
     click_button "find taxa"
     click_button "add association" # If this fails, make sure you have Solr running!
     page.body.should have_tag("a[href='#{remove_association_path(@dato_no_comments.id, @to_add_tc.entry.id)}']")
+    expect(page).to have_content(I18n.t(:association_added_flash))
     visit('/logout')
   end
 

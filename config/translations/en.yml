@@ -2709,6 +2709,7 @@ en:
   associated_with_map_header: "On the latest map"
   associated_with_sound_header: "In the latest audio"
   associated_with_video_header: "In the latest video"
+  association_added_flash: "Association added. It may require a few minutes for the page(s) to update."
   association_trusted_for_taxa:
     one: "Trusted for:"
     other: "Trusted for:"

@@ -37,10 +37,9 @@
     - else
       - if data_point_uri.statistical_method_label
         = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
-        %span.stat
-          = data_point_uri.statistical_method_label
-          -# Note the '-' here is *needed* because of the haml_cat used in the method:
-          - info_icon
+        %span.stat= data_point_uri.statistical_method_label
+        -# Note the '-' here is *needed* because of the haml_cat used in the method:
+        - info_icon
       - else
         %span
           = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)

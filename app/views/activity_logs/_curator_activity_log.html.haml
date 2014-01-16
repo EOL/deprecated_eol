@@ -188,6 +188,5 @@
   - data_point_uri = nil
 - if data_point_uri
   %blockquote{:cite => h(item.user.full_name)}
-    = display_uri(data_point_uri.predicate_uri)
-    \:
+    = display_uri(data_point_uri.predicate_uri, succeed: ':')
     = raw display_text_for_data_point_uri(data_point_uri)

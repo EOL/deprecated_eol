@@ -9,12 +9,13 @@
       .chapter_marker
         %h2= I18n.t(:filter_by_subject)
       %form
-        - TocItem.used_by_known_uris.each_slice(5) do |chapter_set|
+        - TocItem.used_by_known_uris.each_slice(6) do |chapter_set|
           %ul.chapters
             - chapter_set.each do |toc_item|
               %li{ 'data-toc-id' => toc_item.id }
                 %input{ type: 'checkbox', name: 'toc_id[]', value: toc_item.id }
                 %label= link_to toc_item.label, data_glossary_url(toc_id: toc_item.id)
+        %p.explain= I18n.t(:data_glossary_contribute, url: cms_page_url('contribute', anchor: 'data')).html_safe
         - a_to_zero.each do |letter|
           %a{ name: letter }
           .chapter_marker

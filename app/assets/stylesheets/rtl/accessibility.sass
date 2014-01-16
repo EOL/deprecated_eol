@@ -859,6 +859,7 @@ p.flag, span.flag
             margin: 0 0 4px
             line-height: 120%
             &.owner
+              min-height: 1.2em
               padding-right: 85px
         .attribution
           margin: 0
@@ -1507,7 +1508,7 @@ ul.tabs
     @include info_item_with_background($size)
 
 @mixin info_item_with_background($size)
-  background: image-url("v2/icon_info_tabs.png") ($size - 12.5px) ($size - 13px) no-repeat
+  background: image-url("v2/icon_more_info.png") ($size - 12.5px) ($size - 13px) no-repeat
   background-size: $size + px $size + px
   display: inline-block
 
@@ -1835,7 +1836,10 @@ span.info
     font-weight: 600
   ul
     li
-      margin-top: 4px
+      &.end_section
+        margin-bottom: 20px
+      &.start_section
+        margin-top: 20px
 .glossary
   h3
     font-size: 1.6em
@@ -1852,17 +1856,17 @@ span.info
       padding: 20px 0px 0px
       font-size: 3em
     h2
-      color: $darker_blue
+      color: #394651
       float: right
       margin-right: 0px
       padding: 0px
       font-size: 1.5em
       font-weight: normal
+      margin-bottom: 0px !important
   ul.helpers
     float: left
     font-size: .9em
     width: 100%
-    margin-top: 8px
     a
       color: $darker_gray
       text-decoration: none
@@ -1880,9 +1884,12 @@ span.info
         color: $darker_gray
         content: "\2022\0000a0"
         margin: 0 9px 0 5px
+ul.glossary li
+  padding-bottom: 10px
 ul.glossary li+li
   border-top: 1px dotted $light_blue
-  padding-top: 8px
+  padding-top: 10px
+  margin-top: 5px
 ul.glossary li, .info.tip
   dt
     color: $darker_blue
@@ -2051,8 +2058,6 @@ ul.ui-autocomplete
         margin-top: 10px
         + p
           margin-top: -10px
-      h5
-        margin: 10px 0 20px
       p
         max-width: 70%
       dl, dd
@@ -2100,6 +2105,9 @@ ul.ui-autocomplete
           height: 40px
           max-width: 30%
           font-weight: normal
+          padding-left: 0
+          &:after
+            content: '\2014'
         dd
           max-width: 60%
     .extras
@@ -2111,10 +2119,12 @@ ul.ui-autocomplete
       border: 1px solid #ccd399
       border-width: 0 1px 1px
       background: #f1f4dc
-      dl, h5
+      dl
         padding-right: 20px
       h5
-        text-transform: lowercase
+        margin: 0 0 10px
+        text-transform: uppercase
+        padding-right: 60px
       fieldset, > h3
         margin-left: 30%
       label

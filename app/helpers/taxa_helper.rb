@@ -149,6 +149,7 @@ module TaxaHelper
 
   # TODO - this has gotten sloppy.  Refactor.
   def display_uri(uri, options = {})
+    options[:succeed] ||= ''
     options[:search_link] = true unless options.has_key?(:search_link)
     display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
     tag_type = (options[:define] && ! options[:val]) ? 'div' : 'span'
@@ -159,19 +160,23 @@ module TaxaHelper
         define(tag_type, uri, options[:search_link])
       end
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
-        if current_user.min_curator_level?(:full)
-          if options[:exemplar]
-            haml_concat image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar))
-          elsif options[:excluded]
-            haml_concat image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
-          end
-        end
-        haml_concat raw(format_data_value(display_label, options))
+        haml_concat add_exemplar_or_excluded_icon(options)
+        haml_concat raw(format_data_value(display_label, options)) + options[:succeed]
         haml_concat display_text_for_modifiers(options[:modifiers])
         if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
           define(tag_type, uri, options[:search_link])
           info_icon if options[:val]
         end
+      end
+    end
+  end
+
+  def add_exemplar_or_excluded_icon(options)
+    if current_user.min_curator_level?(:full)
+      if options[:exemplar]
+        image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar))
+      elsif options[:excluded]
+        image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
       end
     end
   end
@@ -264,7 +269,7 @@ module TaxaHelper
   def is_clade_searchable?
     @taxon_concept &&
     TaxonData.is_clade_searchable?(@taxon_concept) &&
-    (!@data_point_uris.blank? || !@range_data.blank?)
+    !EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept).empty?
   end
 
 end

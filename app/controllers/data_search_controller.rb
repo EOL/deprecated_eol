@@ -19,11 +19,12 @@ class DataSearchController < ApplicationController
       format.html do
         if @taxon_concept && !TaxonData.is_clade_searchable?(@taxon_concept)
           flash.now[:notice] = I18n.t('data_search.notice.clade_too_big',
-            taxon_name: @taxon_concept.title_canonical_italicized.html_safe).html_safe
+            taxon_name: @taxon_concept.title_canonical_italicized.html_safe,
+            contactus_tech_path: contact_us_path(subject: 'Tech')).html_safe
         elsif @clade_has_no_data
           flash.now[:notice] = I18n.t('data_search.notice.clade_has_no_data',
             taxon_name: @taxon_concept.title_canonical_italicized.html_safe,
-            contribute_path: cms_page_path('contribute')).html_safe
+            contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
       end
@@ -82,6 +83,11 @@ class DataSearchController < ApplicationController
       unit: @unit, sort: @sort, language: current_language, taxon_concept: @taxon_concept }
   end
 
+  # TODO - this should be In the DB with an admin/master curator UI behind it. I would also add a "comment" to that model, when
+  # we build it, which would populate a flash message after the search is run; that would allow things like "notice how this
+  # search specifies a URI as the query" and the like, calling out specific features of each search.
+  #
+  # That said, we will have to consider how to deal with I18n, both for the "comment" and for the label.
   def prepare_suggested_searches
     @suggested_searches = [
       { label_key: 'search_suggestion_whale_mass',
@@ -97,16 +103,12 @@ class DataSearchController < ApplicationController
           attribute: 'http://eol.org/schema/terms/NestType' }},
       { label_key: 'search_suggestion_diatom_shape',
         params: {
-          attribute: 'http://eol.org/schema/terms/DiatomShape' }},
-      { label_key: 'search_suggestion_images_of_dinophyceae',
+          attribute: 'http://purl.obolibrary.org/obo/OBA_0000052',
+          taxon_concept_id: 3685 }},
+      { label_key: 'search_suggestion_blue_flowers',
         params: {
-          taxon_concept_id: 4758,
-          attribute: 'http://eol.org/schema/terms/NumberImagesInEOL' }},
-      { label_key: 'search_suggestion_wingspan',
-        params: {
-          sort: 'asc',
-          taxon_concept_id: 8021,
-          attribute: 'http://www.owl-ontologies.com/unnamed.owl#Wingspan' }}
+          q: 'http://purl.obolibrary.org/obo/PATO_0000318',
+          attribute: 'http://purl.obolibrary.org/obo/TO_0000537' }}
     ]
   end
 

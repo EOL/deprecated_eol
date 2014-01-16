@@ -12,7 +12,7 @@ describe TaxonData do
     ContentPartnerStatus.create_enumerated
     @taxon_concept = TaxonConcept.gen
     @user = User.gen
-    @prep_string = TaxonData.prepare_search_query(querystring: 'foo')
+    @prep_string = EOL::Sparql::SearchQueryBuilder.prepare_search_query(querystring: 'foo')
     @resource = Resource.gen
     @user_added_data = UserAddedData.gen(subject: @taxon_concept)
     @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
@@ -36,38 +36,11 @@ describe TaxonData do
     foo = TaxonData.search(querystring: 'whatever', attribute: 'anything')
   end
 
-  it 'should create a count query' do
-    TaxonData.prepare_search_query(only_count: true, querystring: 'foo').should match(/SELECT COUNT\(\*\) as \?count/)
-  end
-
-  it 'should select the list of fields we want' do
-    @prep_string.should
-      match(/SELECT \?data_point_uri, \?attribute, \?value, \?taxon_concept_id, \?unit_of_measure_uri, \?statistical_method, \?life_stage, \?sex/)
-  end
-
-  it 'should select where some default stuff is expected' do
-    [
-      "?data_point_uri dwc:occurrenceID ?occurrence_id .",
-      "?occurrence_id dwc:taxonID ?taxon_id .",
-      "?taxon_id dwc:taxonConceptID ?taxon_concept_id",
-      "?data_point_uri dwc:measurementType ?attribute .",
-      "?data_point_uri dwc:measurementValue ?value .",
-      "OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } ."
-    ].each do |expectation|
-      @prep_string.should match(Regexp.quote(expectation))
-    end
-  end
-
-  it '#prepare_search_query should filter from and to'
-  it '#prepare_search_query should handle numeric query strings'
-  it '#prepare_search_query should filter by regex by default'
-
   it '#get_data should get data from #raw_data' do
     @taxon_data.should_receive(:raw_data).and_return([])
     @taxon_data.get_data
   end
 
-  it '#taxon_query_clauses should return empty if clade is not searchable'
   it '#is_clade_searchable? should know if clade is searchable'
 
   it 'should populate sources from resources' do

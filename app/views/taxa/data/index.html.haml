@@ -6,18 +6,29 @@
 .main_container#taxon_data
   %h3.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
   = render partial: 'about', locals: { hidden: true }
-  -# NOTE - we want this to appear on every subtab:
-  .help_text
-    %p= I18n.t(:data_disclaimer).html_safe
   - if @data_point_uris.blank?
     .empty
       - if @taxon_data.bad_connection?
         %p= I18n.t(:data_server_unavailable)
       - else
         %p
-          = I18n.t(:taxon_data_empty)
-          = link_to I18n.t(:learn_how_to_contribute), cms_page_url('contribute')
+          = I18n.t(:taxon_data_tab_empty, taxon: @taxon_page.scientific_name).html_safe
+          - unless @range_data.blank?
+            = raw I18n.t(:however_there_are_summaries, summary_url: ranges_taxon_data_path(@taxon_page))
+          = link_to I18n.t(:learn_how_to_contribute), cms_page_url('contribute', anchor: 'data')
   - else
+    -# NOTE - we want this to appear on every subtab:
+    .help_text
+      %p
+        - if is_clade_searchable?
+          = t('.data_disclaimer_with_searchable_clade',
+            traitbank_info_path: cms_page_path('traitbank'),
+            traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
+            taxon_name: @taxon_page.scientific_name).html_safe
+        - else
+          = t('.data_disclaimer',
+            traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
+            traitbank_info_path: cms_page_path('traitbank')).html_safe
     - category_toc_items = @data_point_uris.collect{ |d| d.predicate_known_uri ? d.predicate_known_uri.toc_items : nil }.flatten.compact.uniq.sort_by(&:view_order)
     - if @include_other_category
       -# adding nil here to represent no TOC, i.e. the 'other' cagtegory

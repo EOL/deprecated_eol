@@ -9,6 +9,8 @@
 - cache "#{en_type}/attribution/#{I18n.locale}/#{data_object.id}" do
   = render partial: 'data_objects/license', locals: { data_object: data_object }  unless en_type == 'link'
   .copy
+    -# TODO attribute styles in taxon media gallery rely on there being a
+    -#      p.owner element, we should remove this dependency.
     %p.owner
       = raw data_object.owner || "&nbsp;"
     = render partial: 'data_objects/supplier', locals: { data_object: data_object, minimal: true }

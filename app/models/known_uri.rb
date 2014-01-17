@@ -1,10 +1,12 @@
 # encoding: utf-8
-# A curated, translated relationship between a URI and a "human-readable" string describing the intent of the URI.
-# I'm going to use Curatable for now, even though vetted probably won't ever be used. ...It might be, and it makes
-# this easier than splitting up that class.
+
+# A curated, translated relationship between a URI and a "human-readable" string describing the intent of the URI.  I'm going to
+# use Curatable for now, even though vetted probably won't ever be used. ...It might be, and it makes this easier than splitting
+# up that class.
 #
-# TODO - this class has gotten too large. Break it up. In particular, I notice there are a LOT of class methods. Perhaps that logic belongs
-# elsewhere.
+# TODO - this class has gotten too large. Break it up. In particular, I notice there are a LOT of class methods. Perhaps that
+# logic belongs elsewhere.
+
 class KnownUri < ActiveRecord::Base
 
   BASE = Rails.configuration.uri_term_prefix
@@ -111,17 +113,18 @@ class KnownUri < ActiveRecord::Base
       select { |uri| uri.is_a?(KnownUri) }.
       sort_by(&:position)
     exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name }.first
-    return exact_match if exact_match
-    return uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(name) }.first unless name =~ / /
+    # TODO - this is a little odd, now that we're returning an array. Re-think: do you really want this?
+    return [exact_match] if exact_match
+    return uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(name) } unless name =~ / /
     # If you're still here, it's because you have multiple words and no "exact" matches. (q.v.: "high habitat breadth")
     # Ideally we would use super-cool search algorithms here that would recognize "high habitat breadth" is a better match to
     # "habitat breadth" than it is to "habitat", but we don't have time to be that smart right now:
     split_name = name.split
+    matches = []
     split_name.each do |subname|
-      match = uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(subname) }.first
-      return match if match
+      matches << uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(subname) }
     end
-    nil
+    matches
   end
 
   def self.custom(name, language)

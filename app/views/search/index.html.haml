@@ -23,14 +23,12 @@
         :next_label => next_label, |
         :page_links=>false
     %ul.object_list
-      - if @all_results.blank? # || @all_results.count < 4
-        -#%li{:class => 'data'}
-        -#=   render "shared/item_summary_data_teaser", { attribute: @attribute, query: @querystring }
+      - if ! @attributes.blank? && @all_results.current_page == 1 # Only show data results on the first page.
+        - @attributes.each do |attribute|
+          %li{:class => 'data'}
+          = render "shared/item_summary_data_teaser", { attribute: attribute, query: @querystring }
       - @all_results.each_with_index do |result, i|
         - result_instance = result['instance']
-        - if false # i == 3
-          %li{:class => 'data'}
-            = render "shared/item_summary_data_teaser", { attribute: @attribute, query: @querystring }
         - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.
           - en_type = en_type(result_instance)
           %li{:class => en_type}

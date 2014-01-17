@@ -15,6 +15,11 @@ module EOL
         builder.prepare_query
       end
 
+      def self.prepare_graph_data_query(options)
+        builder = EOL::Sparql::SearchQueryBuilder.new(options)
+        builder.prepare_graph_query
+      end
+
       # Basic query assembler
       def self.build_query(select, where, order, limit)
         "#{ select } WHERE {
@@ -59,6 +64,28 @@ module EOL
         EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, nil, limit_clause)
       end
 
+      # Instance method to put together all the pieces and return a string
+      # representing the final Sparql search query
+      def prepare_graph_query
+        if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
+          inner_query = EOL::Sparql::SearchQueryBuilder.build_query_with_taxon_filter(
+            @taxon_concept.id,
+            'SELECT ?attribute ?value ?unit_of_measure_uri ?taxon_concept_id ?data_point_uri ?scientificName',
+            graph_data_where_clause,
+            nil)
+        else
+          inner_query = EOL::Sparql::SearchQueryBuilder.build_query(
+          'SELECT ?attribute ?value ?unit_of_measure_uri ?taxon_concept_id ?data_point_uri ?scientificName',
+            graph_data_where_clause,
+            nil, nil)
+        end
+        EOL::Sparql::SearchQueryBuilder.build_query(
+          'SELECT ?attribute ?value ?unit_of_measure_uri ?taxon_concept_id ?data_point_uri ?scientificName',
+            inner_query,
+            order_clause,
+            'LIMIT 350')
+      end
+
       def where_clause
         "GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
@@ -74,6 +101,19 @@ module EOL
           OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
           OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
           #{ filter_clauses }"
+      end
+
+      def graph_data_where_clause
+        "?data_point_uri dwc:measurementType ?attribute .
+         #{ attribute_filter }
+         ?data_point_uri dwc:measurementValue ?value .
+         ?data_point_uri eol:measurementOfTaxon eolterms:true .
+         ?data_point_uri dwc:occurrenceID ?occurrence_id .
+         ?occurrence_id dwc:taxonID ?taxon_id .
+         ?taxon_id dwc:taxonConceptID ?taxon_concept_id .
+         ?taxon_id dwc:scientificName ?scientificName .
+         OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
+         #{ filter_clauses }"
       end
 
       def outer_select_clause

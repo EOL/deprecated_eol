@@ -27,6 +27,7 @@ class DataSearchController < ApplicationController
             contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
+        @graph_results = TaxonData.get_graph_data(@search_options.merge(page: @page, per_page: 30))
       end
     end
   end

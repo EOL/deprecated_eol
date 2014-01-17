@@ -19,6 +19,35 @@
     %h3= raw(I18n.t(:displaying_numerical_range_eol_records_with_count, start_number: start_number, end_number: end_number, count: @results.total_entries))
     = will_paginate @results, previous_label: previous_label, next_label: next_label, page_links: false
   #taxon_data
+    = javascript_include_tag 'https://www.google.com/jsapi'
+    :javascript
+      google.load("visualization", "1", { packages:["corechart"] });
+      google.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var dataTable = new google.visualization.DataTable()
+        dataTable.addColumn('string', 'Taxon');
+        dataTable.addColumn('number', 'Value');
+        dataTable.addColumn({ type: 'string', role: 'tooltip', p: { html: true } });
+        dataTable.addColumn({ type: 'string', role: 'style' });
+        var data = [
+          #{
+            @graph_results.collect do |d|
+              "[ '', #{ d[:value] }, \"#{ data_graph_result_html(d) }\", 'opacity: 0.8' ]"
+            end.join(', ')
+          }
+        ];
+        dataTable.addRows(data);
+        var options = {
+          tooltip: { isHtml: true },
+          bar: { groupWidth: '100%' },
+          hAxis: { title: 'Taxon' },
+          vAxis: { title: '#{ @attribute_known_uri ? @attribute_known_uri.name : "Value" }' },
+          legend: 'none'
+        };
+        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+        chart.draw(dataTable, options);
+      }
+    #chart_div{ style: "width: 900px, height: 500px;" }
     %table.standard.data.search
       - @results.each_with_index do |data_point_uri, index|
         = render partial: 'data_point_uris/display_rows', locals: { data_point_uri: data_point_uri, for_search: true,

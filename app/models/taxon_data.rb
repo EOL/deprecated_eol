@@ -50,6 +50,22 @@ class TaxonData < TaxonUserClassificationFilter
     end
   end
 
+  def self.get_graph_data(options)
+    if_connection_fails_return(nil) do
+      options[:language] ||= Language.default
+      results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_graph_data_query(options))
+      KnownUri.add_to_data(results)
+      r = results.collect do |row|
+        data_point_uri = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row))
+        data_point_uri.convert_units
+        row.merge({ data_point_uri: data_point_uri })
+      end
+      DataPointUri.preload_associations(r.collect{ |a| a[:data_point_uri] }, :taxon_concept)
+      TaxonConcept.load_common_names_in_bulk(r.collect{ |a| a[:data_point_uri].taxon_concept }, options[:language].id)
+      r
+    end
+  end
+
   def self.is_clade_searchable?(taxon_concept)
     taxon_concept.number_of_descendants <= TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
   end

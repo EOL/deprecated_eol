@@ -16,4 +16,13 @@ module DataSearchHelper
     raw summary
   end
 
+  def data_graph_result_html(result)
+    html = "<div class='google_chart'><a href='#{ result[:taxon_concept_id] }/data'>#{ result[:scientificName] }</a><br/>"
+    subtitle = result[:data_point_uri].taxon_concept.preferred_common_name_in_language(current_language)
+    unless subtitle.blank?
+      html += "#{subtitle}<br/>"
+    end
+    html += "#{ display_text_for_data_point_uri(result[:data_point_uri]).gsub(/\n/,'') }</div>"
+  end
+
 end

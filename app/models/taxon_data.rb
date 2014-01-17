@@ -110,16 +110,18 @@ class TaxonData < TaxonUserClassificationFilter
 
   def ranges_of_values
     return [] unless should_show_clade_range_data
-    results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
-    KnownUri.add_to_data(results)
-    results.each do |result|
-      [ :min, :max ].each do |m|
-        result[m] = result[m].value.to_f if result[m].is_a?(RDF::Literal)
-        result[m] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(result).merge(object: result[m]))
-        result[m].convert_units
+    EOL::Sparql::Client.if_connection_fails_return({}) do
+    results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
+      KnownUri.add_to_data(results)
+      results.each do |result|
+        [ :min, :max ].each do |m|
+          result[m] = result[m].value.to_f if result[m].is_a?(RDF::Literal)
+          result[m] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(result).merge(object: result[m]))
+          result[m].convert_units
+        end
       end
+      results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
     end
-    results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
   end
 
   def ranges_for_overview

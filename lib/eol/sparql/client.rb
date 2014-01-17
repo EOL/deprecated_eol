@@ -50,6 +50,9 @@ module EOL
             puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
           end
           sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
+        rescue Errno::ECONNREFUSED => e
+          logger.error "** ERROR: Virtuoso Connection refused: #{e.message}"
+          raise EOL::Exceptions::SparqlDataEmpty # This gets caught by our code gracefully.
         rescue ArgumentError => e
           # NOTE - this catch is caused by going through the demo for setting up the DAV user/directory. You've got to manually delete that
           # later!

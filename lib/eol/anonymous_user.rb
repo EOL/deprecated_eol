@@ -40,6 +40,7 @@ module EOL
     end
 
     def can_see_data?
+      return false if ENV["NO_DATA"]
       EolConfig.all_users_can_see_data rescue false
     end
 

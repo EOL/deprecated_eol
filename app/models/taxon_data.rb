@@ -217,6 +217,7 @@ class TaxonData < TaxonUserClassificationFilter
             ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
           }
         } .
+        FILTER( bound(?attribute) ) .
         FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
       }
       GROUP BY ?attribute ?unit_of_measure_uri

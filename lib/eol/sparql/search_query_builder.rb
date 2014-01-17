@@ -30,7 +30,7 @@ module EOL
       def self.build_query_with_taxon_filter(taxon_concept_id, select, where, order)
         "{
           #{ select } WHERE {
-            #{ where } .
+            #{ where }
             ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}> .
             ?parent_taxon dwc:taxonConceptID ?parent_taxon_concept_id .
             ?t dwc:parentNameUsageID+ ?parent_taxon .
@@ -39,7 +39,7 @@ module EOL
           #{ order ? order : '' }
         } UNION {
           #{ select } WHERE {
-            #{ where } .
+            #{ where }
             ?taxon_id dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}>
           }
           #{ order ? order : '' }
@@ -62,9 +62,10 @@ module EOL
       def where_clause
         "GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
+            #{ attribute_filter }
           } .
           ?data_point_uri dwc:measurementValue ?value .
-          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
+          ?data_point_uri eol:measurementOfTaxon eolterms:true .
           ?data_point_uri dwc:occurrenceID ?occurrence_id .
           ?occurrence_id dwc:taxonID ?taxon_id .
           ?taxon_id dwc:taxonConceptID ?taxon_concept_id .
@@ -72,9 +73,7 @@ module EOL
           OPTIONAL { ?occurrence_id dwc:sex ?sex } .
           OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
           OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
-          FILTER ( ?measurementOfTaxon = 'true' ) .
-          #{ filter_clauses }
-          #{ attribute_filter }"
+          #{ filter_clauses }"
       end
 
       def outer_select_clause
@@ -130,7 +129,7 @@ module EOL
       end
 
       def attribute_filter
-        @attribute ? "FILTER(?attribute = <#{ @attribute }>)" : ""
+        @attribute ? "?data_point_uri dwc:measurementType <#{ @attribute }> ." : ""
       end
     end
   end

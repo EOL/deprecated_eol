@@ -217,9 +217,8 @@ class DataPointUri < ActiveRecord::Base
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
-            OPTIONAL { ?measurement eol:measurementOfTaxon ?measurementOfTaxon } .
+            FILTER NOT EXISTS { ?measurement eol:measurementOfTaxon eolterms:true } .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
-            FILTER (?measurementOfTaxon != 'true')
           } UNION {
             ?measurement eol:associationID ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
@@ -257,7 +256,7 @@ class DataPointUri < ActiveRecord::Base
   def get_other_occurrence_measurements(language)
     DataPointUri.with_master do
       query = "
-        SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id
+        SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id ?measurementOfTaxon
         WHERE {
           GRAPH ?graph {
             {
@@ -267,7 +266,6 @@ class DataPointUri < ActiveRecord::Base
               ?data_point_uri dwc:measurementValue ?value .
               ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
               ?occurrence dwc:taxonID ?taxon_id .
-              FILTER ( ?measurementOfTaxon = 'true' ) .
               OPTIONAL {
                 ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
               }
@@ -275,7 +273,7 @@ class DataPointUri < ActiveRecord::Base
           }
           ?taxon_id dwc:taxonConceptID ?taxon_concept_id
         }"
-      occurrence_measurement_rows = EOL::Sparql.connection.query(query)
+      occurrence_measurement_rows = EOL::Sparql.connection.query(query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
       # if there is only one response, then it is the original measurement
       return nil if occurrence_measurement_rows.length <= 1
       TaxonDataSet.new(occurrence_measurement_rows, preload: false)
@@ -525,6 +523,10 @@ class DataPointUri < ActiveRecord::Base
       1
     elsif other.excluded? && ! excluded?
       -1
+    elsif value_string.is_a?(String) && ! other.value_string.is_a?(String)
+      -1
+    elsif other.value_string.is_a?(String) && ! value_string.is_a?(String)
+      1
     else
       value_string <=> other.value_string
     end

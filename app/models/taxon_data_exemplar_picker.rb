@@ -40,6 +40,7 @@ class TaxonDataExemplarPicker
 
   # Note - returns nil if the connection to the triplestore is bad.
   def pick
+    return nil if @taxon_data.get_data.nil? # The server is down.
     @taxon_data_set = @taxon_data.get_data.clone
     return nil unless @taxon_data_set # This occurs if the connection to the triplestore is broken or bad.
     @exemplar_data_points = exemplar_data_points

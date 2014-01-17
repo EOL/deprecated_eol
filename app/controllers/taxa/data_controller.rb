@@ -54,7 +54,8 @@ protected
     @range_data = @taxon_data.ranges_of_values
     @data_point_uris = @taxon_page.data.get_data
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
-    @include_other_category = !@data_point_uris.empty? && (@data_point_uris.detect{ |d|
+    -# NOTE @data_point_uris can be nil. Don't use #empty? here.
+    @include_other_category = !@data_point_uris.blank? && (@data_point_uris.detect{ |d|
       d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? })
     @units_for_select = KnownUri.default_units_for_form_select
   end

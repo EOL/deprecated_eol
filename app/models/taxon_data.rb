@@ -85,8 +85,8 @@ class TaxonData < TaxonUserClassificationFilter
       @categories = known_uris.flat_map(&:toc_items).uniq.compact
       @taxon_data_set = taxon_data_set
       raise EOL::Exceptions::SparqlDataEmpty if taxon_data_set.nil?
+      @taxon_data_set
     end
-    @taxon_data_set
   end
 
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
@@ -95,8 +95,12 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def distinct_predicates
-    ( get_data.collect{ |d| d.predicate }.compact + 
-      ranges_of_values.collect{ |r| r[:attribute] } ).uniq
+    if data = get_data
+      ( data.collect{ |d| d.predicate }.compact + 
+        ranges_of_values.collect{ |r| r[:attribute] } ).uniq
+    else
+      return []
+    end
   end
 
   def has_range_data

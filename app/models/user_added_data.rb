@@ -98,7 +98,7 @@ class UserAddedData < ActiveRecord::Base
     "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject.id.to_s + ">" +
     "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +
     "; dwc:measurementValue " + EOL::Sparql.enclose_value(object) +
-    "; eol:measurementOfTaxon " + EOL::Sparql.enclose_value('true')
+    "; eol:measurementOfTaxon eolterms:true"
   end
 
   # Needed when commentable:

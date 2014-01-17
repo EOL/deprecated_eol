@@ -109,7 +109,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   def ranges_of_values
     return [] unless should_show_clade_range_data
-    results = EOL::Sparql.connection.query(prepare_range_query)
+    results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
     KnownUri.add_to_data(results)
     results.each do |result|
       [ :min, :max ].each do |m|
@@ -151,8 +151,7 @@ class TaxonData < TaxonUserClassificationFilter
         UNION {
           ?data_point_uri dwc:occurrenceID ?occurrence .
           ?occurrence dwc:taxonID ?taxon .
-          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
-          FILTER ( ?measurementOfTaxon = 'true' ) .
+          ?data_point_uri eol:measurementOfTaxon eolterms:true .
           GRAPH ?resource_mappings_graph {
             ?taxon dwc:taxonConceptID ?taxon_concept_id .
             FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
@@ -202,29 +201,25 @@ class TaxonData < TaxonUserClassificationFilter
 
   def prepare_range_query(options = {})
     query = "
-      SELECT ?attribute, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
+      SELECT ?attribute, ?measurementOfTaxon, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
         COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
         MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
       WHERE {
         ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
         ?t dwc:parentNameUsageID+ ?parent_taxon .
         ?t dwc:taxonConceptID ?descendant_concept_id .
+        ?occurrence dwc:taxonID ?taxon .
+        ?taxon dwc:taxonConceptID ?descendant_concept_id .
+        ?data_point_uri dwc:occurrenceID ?occurrence .
+        ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
+        ?data_point_uri dwc:measurementType ?attribute .
+        ?data_point_uri dwc:measurementValue ?value .
         OPTIONAL {
-          ?occurrence dwc:taxonID ?taxon .
-          ?taxon dwc:taxonConceptID ?descendant_concept_id .
-          ?data_point_uri dwc:occurrenceID ?occurrence .
-          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
-          FILTER ( ?measurementOfTaxon = 'true' ) .
-          ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value .
-          OPTIONAL {
-            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
-          }
-        } .
-        FILTER( bound(?attribute) ) .
+          ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
+        }
         FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
       }
-      GROUP BY ?attribute ?unit_of_measure_uri
+      GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
       ORDER BY DESC(?min)"
     query
   end

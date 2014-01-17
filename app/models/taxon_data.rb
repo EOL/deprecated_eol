@@ -55,7 +55,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def downloadable?
-    ! bad_connection? && ! get_data.empty? 
+    ! bad_connection? && ! get_data.blank? 
   end
 
   def topics

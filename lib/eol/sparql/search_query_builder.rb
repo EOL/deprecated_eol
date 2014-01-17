@@ -30,7 +30,7 @@ module EOL
       def self.build_query_with_taxon_filter(taxon_concept_id, select, where, order)
         "{
           #{ select } WHERE {
-            #{ where } .
+            #{ where }
             ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}> .
             ?parent_taxon dwc:taxonConceptID ?parent_taxon_concept_id .
             ?t dwc:parentNameUsageID+ ?parent_taxon .
@@ -39,7 +39,7 @@ module EOL
           #{ order ? order : '' }
         } UNION {
           #{ select } WHERE {
-            #{ where } .
+            #{ where }
             ?taxon_id dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}>
           }
           #{ order ? order : '' }

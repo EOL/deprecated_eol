@@ -525,7 +525,7 @@ class DataPointUri < ActiveRecord::Base
       -1
     elsif value_string.is_a?(String) && ! other.value_string.is_a?(String)
       -1
-    elsif other.value_string.is_a?(String) && value_string.is_a?(String)
+    elsif other.value_string.is_a?(String) && ! value_string.is_a?(String)
       1
     else
       value_string <=> other.value_string

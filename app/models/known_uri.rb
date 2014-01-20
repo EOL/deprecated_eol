@@ -121,9 +121,14 @@ class KnownUri < ActiveRecord::Base
     # "habitat breadth" than it is to "habitat", but we don't have time to be that smart right now:
     split_name = name.split
     matches = []
+    # TODO - this is almost certainly slower than other algorithms; replace
     split_name.each do |subname|
-      matches << uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(subname) }
+      uris.each do |known_uri|
+        matches << known_uri if known_uri.name.gsub(normal_re, '').split.map(&:downcase).include?(subname)
+      end
     end
+    puts "++ matches:"
+    pp matches
     matches
   end
 

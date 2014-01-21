@@ -81,6 +81,7 @@ gem 'escape' # provides several HTML/URI/shell escaping functions - TODO - I don
 gem 'ezcrypto' # TODO - remove this, I don't think we use it.
 gem 'haml', '4.0.4' # This is how we handle ALL of our HTML, you need to learn this.
 gem 'ruby-hmac', '0.4.0' # Used ONLY for CyberSource donations. ...but I'm not sure how best to group this gem otherwise.
+gem RUBY_VERSION >= '2.0' ? 'i18nema' : 'i18nema19'
 gem 'identity_cache', '0.0.4' # Used to cache objects in a robust way.
 gem 'indifferent-variable-hash', '0.1.0' # TODO - remove this, Rails has something like this baked in. I forget what it's called.
 gem 'invert'  # A quick way to array.sort.reverse.

@@ -25,23 +25,25 @@
       google.setOnLoadCallback(drawChart);
       function drawChart() {
         var dataTable = new google.visualization.DataTable()
-        dataTable.addColumn('string', 'Taxon');
+        dataTable.addColumn('string', null);
         dataTable.addColumn('number', 'Value');
         dataTable.addColumn({ type: 'string', role: 'tooltip', p: { html: true } });
         dataTable.addColumn({ type: 'string', role: 'style' });
         var data = [
           #{
             @graph_results.collect do |d|
-              "[ '', #{ d[:value] }, \"#{ data_graph_result_html(d) }\", 'opacity: 0.8' ]"
+              "[ '', #{ d[:value] }, \"#{ data_graph_result_html(d).gsub(/"/, '\"') }\", 'opacity: 0.8' ]\n"
             end.join(', ')
           }
         ];
         dataTable.addRows(data);
         var options = {
-          tooltip: { isHtml: true },
+          tooltip: { isHtml: true, trigger: 'selection, focus' },
           bar: { groupWidth: '100%' },
-          hAxis: { title: 'Taxon' },
-          vAxis: { title: '#{ @attribute_known_uri ? @attribute_known_uri.name : "Value" }' },
+          titlePosition: 'none',
+          hAxis: { textPosition: 'none', title: null },
+          vAxis: { title: null },
+          chartArea: { width: '90%', height: '80%' },
           legend: 'none'
         };
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));

@@ -80,10 +80,10 @@ module EOL
             nil, nil)
         end
         EOL::Sparql::SearchQueryBuilder.build_query(
-          'SELECT ?attribute ?value ?unit_of_measure_uri ?taxon_concept_id ?data_point_uri ?scientificName',
+          'SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?taxon_concept_id ?data_point_uri ?scientificName',
             inner_query,
             order_clause,
-            'LIMIT 350')
+            limit_clause(450))
       end
 
       def where_clause
@@ -153,8 +153,8 @@ module EOL
         filter_clauses
       end
 
-      def limit_clause
-        @only_count ? "" : "LIMIT #{ @per_page } OFFSET #{ ((@page.to_i - 1) * @per_page) }"
+      def limit_clause(per_page = @per_page)
+        @only_count ? "" : "LIMIT #{ per_page } OFFSET #{ ((@page.to_i - 1) * @per_page) }"
       end
 
       def order_clause

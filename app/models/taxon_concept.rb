@@ -127,6 +127,7 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConcept.preload_associations(taxon_concepts, includes)
     unless options[:skip_ancestry]
       he = taxon_concepts.collect do |tc|
+        next if tc.nil?
         if tc.preferred_entry && ! tc.preferred_entry.hierarchy_entry.preferred_classification_summary?
           tc.preferred_entry.hierarchy_entry
         end

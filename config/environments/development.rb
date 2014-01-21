@@ -44,7 +44,7 @@ Eol::Application.configure do
 
   config.logger = Logger.new(STDOUT)
 
-  Rails.configuration.show_sparql_queries = false
+  Rails.configuration.show_sparql_queries = true
 
 end
 

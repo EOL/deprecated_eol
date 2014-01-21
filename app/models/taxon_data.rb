@@ -43,6 +43,7 @@ class TaxonData < TaxonUserClassificationFilter
         DataPointUri.preload_associations(data_point_uris, :taxon_concept)
         TaxonConcept.preload_for_shared_summary(data_point_uris.collect(&:taxon_concept), language_id: options[:language].id)
       end
+      data_point_uris.delete_if{ |dp| dp.taxon_concept.nil? }
       TaxonConcept.load_common_names_in_bulk(data_point_uris.collect(&:taxon_concept), options[:language].id)
       WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
          pager.replace(data_point_uris)
@@ -52,6 +53,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   def self.get_graph_data(options)
     if_connection_fails_return(nil) do
+      return [] if options[:attribute].blank? # TODO - remove this when we allow other searches!
       options[:language] ||= Language.default
       results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_graph_data_query(options))
       KnownUri.add_to_data(results)
@@ -60,6 +62,7 @@ class TaxonData < TaxonUserClassificationFilter
         data_point_uri.convert_units
         row.merge({ data_point_uri: data_point_uri })
       end
+      r.delete_if{ |a| a[:data_point_uri].nil? || a[:data_point_uri].taxon_concept.nil? }
       DataPointUri.preload_associations(r.collect{ |a| a[:data_point_uri] }, :taxon_concept)
       TaxonConcept.load_common_names_in_bulk(r.collect{ |a| a[:data_point_uri].taxon_concept }, options[:language].id)
       r

@@ -7,7 +7,7 @@ if($next.hasClass('child')) {
     $that.remove();
   }
 } else {
-  $("#category_<%= @category.id %>").after('<%= escape_javascript render(partial: 'index') %>');
+  $("#category_<%= @category.id %>").after('<%= escape_javascript render('index') %>');
   var $next = $("#category_<%= @category.id %>").next();
   while($next.hasClass('child')) {
     $next.show();

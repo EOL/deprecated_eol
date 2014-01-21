@@ -12,10 +12,10 @@
         - unless action_name == 'edit'
           .page_actions
             %ul
-              %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @user }
+              %li= render 'shared/add_to_my_collection', { :item => @user }
               %li= link_to I18n.t(:edit_my_profile), edit_user_path(@user), :class => "button" if @user.id == current_user.id
               %li= link_to I18n.t(:make_an_editor), choose_editor_target_collections_path(:user_id => @user.id), :class => "button collect" if logged_in? && @user.id != current_user.id
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
   #content
     .site_column
       - if @user && @user.id && (['show', 'index', 'comments', 'activity'].include?(action_name))

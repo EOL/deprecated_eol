@@ -1,5 +1,5 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #profile_activity.main_container
   .article.list.updates
     .heading
@@ -23,6 +23,6 @@
         %fieldset.actions
           = submit_tag I18n.t(:filter_button)
     - if @filter == "curated_taxa"
-      = render :partial => 'users/activities/taxa_curated', :locals => {:taxon_concept_ids => @curated_taxa_ids}
+      = render 'users/activities/taxa_curated', {:taxon_concept_ids => @curated_taxa_ids}
     - else
-      = render :partial => 'activity_logs/index', :locals => {:log => @user_activity_log}
+      = render 'activity_logs/index', {:log => @user_activity_log}

@@ -12,9 +12,9 @@
         .page_actions
           %ul
             - unless current_user.watch_collection && @collection.id == current_user.watch_collection.id || params[:action] == "edit"
-              %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @collection, :my_collection => current_user.watch_collection }
+              %li= render 'shared/add_to_my_collection', { :item => @collection, :my_collection => current_user.watch_collection }
             = yield :additional_page_actions
-        = render :partial => 'shared/flash_messages'
+        = render 'shared/flash_messages'
     #content
       .site_column{:id => @site_column_id, :class => @site_column_class}
         = yield
@@ -23,7 +23,7 @@
       .site_column
         .hgroup
           %h1= @page_title || I18n.t(:collections_page_title)
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
 
     #content
       .site_column

@@ -3,19 +3,19 @@
 - if ancestors.blank?
   - node_class = ancestors.nil? ? nil : 'current'
   %li.node
-    = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => hierarchy_entry, :node_class => node_class})
+    = render('navigation/node_name_stats', { :hierarchy_entry => hierarchy_entry, :node_class => node_class})
     - children = HierarchyEntry.sort_by_name(hierarchy_entry.children)
     - unless children.blank?
       %ul.branch
         - for child in children
           - if expand && !child.is_leaf?
-            = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :expand => expand, :hierarchy_entry => child, :expanded => true})
+            = render('navigation/node_with_ancestry_stats', { :expand => expand, :hierarchy_entry => child, :expanded => true})
           - else
             %li.node
-              = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => child})
+              = render('navigation/node_name_stats', { :hierarchy_entry => child})
 - else
   - ancestor = ancestors.shift
   %li.node
-    = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => ancestor})
+    = render('navigation/node_name_stats', { :hierarchy_entry => ancestor})
     %ul.branch
-      = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry})
+      = render('navigation/node_with_ancestry_stats', { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry})

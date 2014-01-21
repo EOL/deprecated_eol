@@ -7,7 +7,7 @@
   = hidden_field_tag :return_to, current_url
   = hidden_field_tag :submit_to, '/collection_items/' unless logged_in?
   - if render_taxon_overview_collection_summary
-    = render(:partial => 'taxa/collections_summary_empty', :locals => { :render_taxon_overview_collection_summary => true })
+    = render('taxa/collections_summary_empty', { :render_taxon_overview_collection_summary => true })
   - else
     %fieldset.actions
       = submit_tag I18n.t(:add_to_my_collection_button), :class => 'button'

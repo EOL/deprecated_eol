@@ -4,4 +4,4 @@
   = link_to I18n.t(:login_to_the_website_as, :username => @user.username), login_as_user_administrator_user_path(@user), :data => { :confirm => I18n.t(:admin_login_confirmation, :name => @user.username) }
 = eol_lang_error_messages_for :user if request.post?
 = form_for @user, :url => {:action=>'update', :id => params[:id]}, :html => {:id => 'page_form'} do |f|
-  = render :partial => 'form', :locals => {:f=>f}
+  = render 'form', {:f=>f}

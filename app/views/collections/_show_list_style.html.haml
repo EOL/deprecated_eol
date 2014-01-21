@@ -2,4 +2,4 @@
   - @collection_items.each do |item|
     - item_type = en_type(item)
     %li{:class => item_type}
-      = render :partial => 'collection_items/show', :locals => { collection_item: item, item_type: item_type, view_style: 'list' }
+      = render 'collection_items/show', { collection_item: item, item_type: item_type, view_style: 'list' }

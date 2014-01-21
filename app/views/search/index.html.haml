@@ -25,20 +25,19 @@
     %ul.object_list
       - if @all_results.blank? # || @all_results.count < 4
         -#%li{:class => 'data'}
-        -#=   render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
+        -#=   render "shared/item_summary_data_teaser", { attribute: @attribute, query: @querystring }
       - @all_results.each_with_index do |result, i|
         - result_instance = result['instance']
         - if false # i == 3
           %li{:class => 'data'}
-            = render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
+            = render "shared/item_summary_data_teaser", { attribute: @attribute, query: @querystring }
         - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.
           - en_type = en_type(result_instance)
           %li{:class => en_type}
             - if ['image_map', 'image', 'video', 'sound'].include?(en_type)
-              = render :partial => "shared/item_summary_media", :locals => { :item => result_instance,
-                :en_type => en_type, :search_result => result }
+              = render "shared/item_summary_media", { :item => result_instance, :en_type => en_type, :search_result => result }
             - elsif ! en_type.blank?
-              = render :partial => "shared/item_summary_#{en_type}", :locals => { :item => result_instance,
+              = render "shared/item_summary_#{en_type}", { :item => result_instance,
                 :search_result => result }
     .footer
       = will_paginate @all_results, |

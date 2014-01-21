@@ -1,19 +1,19 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #profile_collections.main_container
   .collections
     .heading
       %h3= I18n.t(:watch_list)
       = link_to I18n.t(:what_is_this_question), cms_page_path('watch_list')
     %ul.object_list
-      = render :partial => 'collections/collection_summary', :locals => { :collection => @user.watch_collection }
+      = render 'collections/collection_summary', { :collection => @user.watch_collection }
     .heading
       %h3= I18n.t(:collections_with_count, :count => @published_collections.size)
       - if @published_collections.size > 1
-        = render :partial => 'shared/sort_by_date_form'
+        = render 'shared/sort_by_date_form'
       - else
         = link_to I18n.t(:what_is_this_question), cms_page_path('collections')
     - unless @published_collections.empty?
       %ul.object_list
         - @published_collections.each do |collection|
-          = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => true }
+          = render 'collections/collection_summary', { :collection => collection, :show_description => true }

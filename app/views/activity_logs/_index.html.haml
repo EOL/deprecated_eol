@@ -18,7 +18,7 @@
       %li{:id => "#{item.class.name}-#{item.id}"}
         - if item.class.name == "Comment" # Aggravating, but comments do everything differently.
           .editable
-            = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :editable => editable, :actual_date => actual_date, :display_curator => display_curator}
+            = render 'activity_logs/comment', {:item => item, :truncate_comments => truncate_comments, :editable => editable, :actual_date => actual_date, :display_curator => display_curator}
         - else
           - if item.user.nil?
             = image_tag(User.new.logo_url(:small), :class => 'no_user', width: 48, height: 48)
@@ -26,7 +26,7 @@
             = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
               :posters_name => h(item.user.full_name)), width: 48, height: 48), user_url(item.user), :class => 'avatar'
           .details
-            = render :partial => "activity_logs/#{item.class.name.underscore}", :locals => {:item => item, :display_curator => display_curator}
+            = render "activity_logs/#{item.class.name.underscore}", {:item => item, :display_curator => display_curator}
             %p.meta
               - if actual_date
                 = raw I18n.l(item.created_at, :format => :long_utc)

@@ -26,7 +26,7 @@
           = yield :page_actions
           - if current_user.is_admin? && !request.referer.blank? && request.referer.match(/\/admin\/content_partners/)
             %li= link_to I18n.t(:content_partner_admin_index_link_back_to), request.referer
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
       - if display_content_partners_navigation?
         %ul.nav
           %li{:class => resource_is_active('contentpartnerscontroller')}= link_to I18n.t(:content_partner_overview_link), content_partner_path(@partner)

@@ -3,7 +3,7 @@
 
 #content_partner_show.site_column
   #sidebar
-    = render :partial => 'content_partners/resources/collections_summary'
+    = render 'content_partners/resources/collections_summary'
   .main_container
     - if @harvest_events.blank?
       .empty

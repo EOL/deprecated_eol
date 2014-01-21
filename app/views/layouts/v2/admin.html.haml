@@ -10,7 +10,7 @@
           %h2= raw(@page_subheader)
         - unless @page_description.blank?
           %p= @page_description
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
       .page_actions
         &nbsp;
       - if display_admins_navigation?

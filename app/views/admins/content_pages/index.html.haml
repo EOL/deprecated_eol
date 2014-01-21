@@ -10,7 +10,7 @@
       = link_to I18n.t(:admin_content_page_new_link), new_admin_content_page_path, :class => 'button'
     %ul
       - @content_pages.each do |content_page|
-        = render :partial => 'item_summary',
-          :locals => { :content_page => content_page, :block_of_pages => @content_pages }
+        = render 'item_summary',
+          { :content_page => content_page, :block_of_pages => @content_pages }
 
 

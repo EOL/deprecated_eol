@@ -12,7 +12,7 @@
             %p= sanitize @community.description.balance_tags
         .page_actions
           %ul
-            %li= render :partial => 'shared/add_to_my_collection', :locals => { :item => @community }
+            %li= render 'shared/add_to_my_collection', { :item => @community }
             - if @current_member
               %li
                 - if @current_member.manager? && @community.members.managers.count <= 1
@@ -28,7 +28,7 @@
       - else
         .hgroup
           %h1= @page_title || I18n.t(:communities_page_title)
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
   #content
     .site_column
       - if @community && @community.published? && @community.id && controller.action_name != 'edit'

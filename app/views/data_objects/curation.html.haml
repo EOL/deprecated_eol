@@ -1,4 +1,4 @@
-= render :partial => 'curation_js'
+= render 'curation_js'
 - title ||= true        # Allows a cleaner interface when we need it (ie: Curator Central)
 - if @data_object.text?
   .text_curation_close
@@ -13,7 +13,7 @@
       = image_tag('indicator_arrows_black.gif')
       Please wait
   
-    = render :partial => 'curation', :locals => { :data_object => @data_object }
+    = render 'curation', { :data_object => @data_object }
     .buttons.action-value
       = submit_tag I18n.t("save")
       %input.cancel-button{ :type => "button", :value => I18n.t("cancel") }

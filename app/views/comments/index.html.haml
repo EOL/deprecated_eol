@@ -6,5 +6,5 @@
           %tbody
             %tr.comments
               %td
-                = render partial: 'comments/for_data', locals: { comments: @parent.comments,
+                = render 'comments/for_data', { comments: @parent.comments,
                   parent: @parent }

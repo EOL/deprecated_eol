@@ -9,7 +9,7 @@
       = content_page_form.hidden_field :last_update_user_id, :value => current_user.id
       %fieldset
         %p.tip= raw I18n.t(:admin_translated_content_page_edit_tip, :required_icon => image_tag('v2/icon_required.png', :alt => ''))
-        = render :partial => 'translated_content_page_fieldset', :locals => {:content_page_form => content_page_form}
+        = render 'translated_content_page_fieldset', {:content_page_form => content_page_form}
 
       %fieldset.actions
         = content_page_form.submit I18n.t('helpers.submit.translated_content_page.update')

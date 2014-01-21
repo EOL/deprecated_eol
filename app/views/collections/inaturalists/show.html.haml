@@ -3,18 +3,18 @@
   - auth_provider_question = "?#{@embed_auth_provider}"
   - auth_provider_ampersand = "&#{@embed_auth_provider}"
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 - editable = @collection.editable_by?(current_user)
 = content_for :additional_page_actions do
-  = render :partial => 'collections/editable_actions', :locals => { :editable => editable }
+  = render 'collections/editable_actions', { :editable => editable }
 #tabs_sidebar
-  = render :partial => 'collections/filter_by_item_type'
+  = render 'collections/filter_by_item_type'
 #sidebar
   - unless @inaturalist_project_observations.blank?
     .inat_top_contributors
       %h3= t('.top_contributors')
       = javascript_include_tag "http://www.inaturalist.org/projects/#{@inaturalist_project_id}/contributors.widget"
-  = render :partial => 'collections/recently_visited'
+  = render 'collections/recently_visited'
 #inat_observations.main_container
   .inat_observations_header
     = link_to(t('.add_observations'), 

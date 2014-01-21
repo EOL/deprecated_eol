@@ -17,7 +17,7 @@
               = link_to I18n.t(:download_data),
                 download_data_search_path(params: params),
                 method: :post, :class => 'button'
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
   #content
     .site_column
       #data_search{data: {results_total: @results.blank? ? 0 : @results.total_entries}}

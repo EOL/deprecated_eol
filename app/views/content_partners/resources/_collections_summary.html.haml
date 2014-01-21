@@ -6,11 +6,11 @@
   .collection_list
     %h3= I18n.t(:content_partner_resource_collection_header)
     %ul.collection.list
-      = render :partial => 'collections/collection_summary',
-        :locals => { :collection => @resource.collection, :show_description => false }
+      = render 'collections/collection_summary',
+        { :collection => @resource.collection, :show_description => false }
 - unless @resource.preview_collection.blank?
   .collection_list
     %h3= I18n.t(:content_partner_resource_preview_collection_header)
     %ul.collection.list
-      = render :partial => 'collections/collection_summary',
-        :locals => { :collection => @resource.preview_collection, :show_description => false }
+      = render 'collections/collection_summary',
+        { :collection => @resource.preview_collection, :show_description => false }

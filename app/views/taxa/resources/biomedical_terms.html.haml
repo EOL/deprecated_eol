@@ -1,7 +1,7 @@
 - content_for :social_sharing do
-  = render partial: 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_resources
-  = render partial: 'menu'
+  = render 'menu'
   #biomedical_terms.main_container
     .copy
       %h3= I18n.t(:biomedical_terms)
@@ -10,7 +10,7 @@
           scientific_name: @taxon_concept.summary_name,
           ligercat_url: 'http://ligercat.ubio.org',
           mesh_url: 'http://www.ncbi.nlm.nih.gov/sites/entrez?db=mesh'))
-    = render partial: '/shared/embed_external_page', locals: { height: '200', width: '100%', url: "http://ligercat.ubio.org/eol/#{@taxon_concept.id}.cloud" }
+    = render '/shared/embed_external_page', { height: '200', width: '100%', url: "http://ligercat.ubio.org/eol/#{@taxon_concept.id}.cloud" }
     .attribution.copy
       %h4= I18n.t(:source_and_additional_information)
       %p

@@ -3,11 +3,11 @@
     - if current_user.is_admin?
       = form_for [@partner, @agreement], :url => content_partner_agreements_path do |form|
         %fieldset
-          = render :partial => 'modify_agreement', :locals => { :form => form }
+          = render 'modify_agreement', { :form => form }
         %fieldset.actions
           = form.submit I18n.t('helpers.submit.content_partner_agreement.update')
           = link_to I18n.t(:content_partner_agreement_cancel_new_agreement_link), @partner
     - else
       .copy
         %p= I18n.t(:content_partner_resources_policy_information)
-        = render :partial => 'sign_agreement'
+        = render 'sign_agreement'

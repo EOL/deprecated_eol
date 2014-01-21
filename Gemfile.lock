@@ -161,8 +161,6 @@ GEM
       multi_xml (>= 0.5.2)
     httpauth (0.2.0)
     i18n (0.6.5)
-    i18nema19 (0.0.8)
-      i18n (>= 0.5)
     identity_cache (0.0.4)
       activerecord (~> 3.2.12)
       activesupport (~> 3.2.12)
@@ -399,7 +397,6 @@ DEPENDENCIES
   haml (= 4.0.4)
   haml-rails
   hipchat
-  i18nema19
   identity_cache (= 0.0.4)
   indifferent-variable-hash (= 0.1.0)
   invert

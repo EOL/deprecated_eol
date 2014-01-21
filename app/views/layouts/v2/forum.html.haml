@@ -19,7 +19,7 @@
             = link_to(@topic.forum.name, @topic.forum)
         - else
           %h1= I18n.t('forums.forums_heading')
-    = render :partial => 'shared/flash_messages'
+    = render 'shared/flash_messages'
   #content
     .site_column
       = yield

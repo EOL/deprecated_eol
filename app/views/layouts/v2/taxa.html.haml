@@ -1,5 +1,5 @@
 - content_for :main do
-  = render :partial => 'taxa/classification_selector' if @taxon_page.classification_filter?
+  = render 'taxa/classification_selector' if @taxon_page.classification_filter?
   #page_heading.with_nav
     .site_column
       .hgroup
@@ -20,7 +20,7 @@
       .page_actions
         %ul
           %li
-            = render :partial => 'shared/add_to_my_collection', :locals => { :item => @taxon_concept, :my_collection => current_user.watch_collection }
+            = render 'shared/add_to_my_collection', { :item => @taxon_concept, :my_collection => current_user.watch_collection }
           - if @taxon_page.can_be_reindexed?
             %li= link_to(I18n.t(:reindex_page_button), taxon_reindexing_url(@taxon_page), :method => :post, :class => "button reindex")
           - if @show_add_link_buttons
@@ -30,7 +30,7 @@
           / - if @taxon_data && @taxon_data.downloadable?
           /   %li
           /     = link_to I18n.t(:download_data), taxon_overview_path(@taxon_page), :class => 'button', :onclick => 'return false'
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
 
       - if @taxon_page.classification_filter?
         %p#citation.status

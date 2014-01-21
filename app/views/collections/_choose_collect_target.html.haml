@@ -43,9 +43,9 @@
         %h2= I18n.t(:or_add_it_to_an_existing_collection)
       %fieldset
         %ul
-          = render :partial => 'collections_list_item', :locals => { :collection => current_user.watch_collection, :has_item => current_user.watch_collection.has_item?(@item) }
+          = render 'collections_list_item', { :collection => current_user.watch_collection, :has_item => current_user.watch_collection.has_item?(@item) }
           - collections.reject {|c| c.id == current_user.watch_collection.id }.each do |collection|
-            = render :partial => 'collections_list_item', :locals => { :collection => collection, :has_item => collection.has_item?(@item) }
+            = render 'collections_list_item', { :collection => collection, :has_item => collection.has_item?(@item) }
       %fieldset.actions
         = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')
         = submit_tag(params[:for] ? I18n.t(params[:for]) : I18n.t(:collect_item))

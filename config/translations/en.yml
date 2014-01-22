@@ -3190,6 +3190,9 @@ en:
   count_results_for_search_term:
     one: "%{count} result for <em>%{search_term}</em>"
     other: "%{count} results for <em>%{search_term}</em>"
+  count_results_for_traitbank:
+    one: "%{count} TraitBank result"
+    other: "%{count} TraitBank results"
   create_account: "create an account"
   create_a_new_collection: "Create a new collection"
   create_community_unsuccessful_error: "Sorry, an error occurred, your community was not created. Please ensure all fields are completed correctly."
@@ -3269,6 +3272,7 @@ en:
   data: "Data"
   data_about_subtab_header: "About Data on EOL"
   data_about_subtab_content: "<p><a href=\"%{traitbank_path}\">TraitBank</a> gathers data and metadata from multiple sources into a single, fully-referenced and semantically accessible taxon-centric view.</p><p><a href=\"%{contact_contribute_path}\">Contact us</a> for more information on sharing data sets with EOL or to recommend a data set for inclusion into TraitBank.</p><p><a href=\"%{register_path}\">Register for a free account</a> or <a href=\"%{login_path}\">sign in</a> to comment on the data.</p><p>Funding for the development of EOL computable data functionality provided by the Alfred P. Sloan Foundation, the John D. and Catherine T. MacArthur Foundation, and from EOL users around the world. <a href=\"%{contact_traitbank_path}\">Contact the EOL Secretariat</a> for more information on TraitBank.</p>"
+  data_results_only_for_search: "TraitBank results for \"%{search_term}\""
   data_search_limit:
     one: "Data search downloads are limited to %{count} result."
     other: "Data search downloads are limited to %{count} results."
@@ -3354,8 +3358,10 @@ en:
       clade_too_big: "Sorry, the results shown are not filtered by %{taxon_name} because it is too large. Choose a smaller group or <a href=\"%{contactus_tech_path}\">contact us</a> for assistance."
       clade_has_no_data: "No one has contributed data records for %{taxon_name} yet. <a href=\"%{contribute_path}\">Learn how to contribute</a>."
   data_search_link: "Search scientific data on EOL"
+  data_search_teaser: "%{attribute} data in TraitBank"
   data_search_explanation: "Use EOL's data search to find items matching '%{term}' in observations,<br />measurements and other scientific assertions."
-  data_search_attribute: "Search EOL's data about \"%{attribute}\" in observations,<br />measurements and other scientific assertions."
+  data_search_match_explain: "Your search term \"%{term}\" matches the TraitBank attribute %{attribute}."
+  data_search_attribute: "Search TraitBank for records with %{attribute} data"
   data_search_destroyed: "This job will no longer be processed."
   data_search_files_with_count:
     one: "%{count} saved search"

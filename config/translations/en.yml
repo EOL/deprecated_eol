@@ -3427,7 +3427,6 @@ en:
   did_you_mean: "Did you mean: %{suggestions} ?"
   disabled_for_now: "DISABLED FOR NOW"
   discover_link: "Discover"
-  displaying_numerical_range: "Displaying %{start_number} &ndash; %{end_number} of %{total}"
   displaying_numerical_range_eol_records_with_count:
     one: "Displaying the %{count} record on EOL"
     other: "Displaying %{start_number} &ndash; %{end_number} of %{count} records on EOL"
@@ -4198,6 +4197,9 @@ en:
   pagination_previous_with_count:
     one: "see previous %{count}"
     other: "see previous %{count}"
+  pagination_range_with_count:
+    one: "Displaying the %{count} record"
+    other: "Displaying %{start_number} &ndash; %{end_number} of %{count}"
   parameters: "Parameters"
   partner_information: "Partner information"
   partner_page: "partner page"

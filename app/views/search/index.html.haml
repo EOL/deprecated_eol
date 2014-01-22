@@ -1,4 +1,4 @@
-- unless @suggestions.blank?
+count unless @suggestions.blank?
   = raw(I18n.t(:did_you_mean, :suggestions => @suggestions[0..5].map{ |s| link_to s.firstcap, search_path(:q => s) }.join(", ")))
 - unless @all_results.blank?
   - previous_label = (@all_results.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, :count => @all_results.per_page)
@@ -20,7 +20,7 @@
           - else 
             = I18n.t(:data_results_only_for_search, search_term: @querystring)
         - else
-          = raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries))
+          = raw(I18n.t(:pagination_range_with_count, :start_number => start_number, :end_number => end_number, :count => @all_results.total_entries))
       = will_paginate @all_results, |
         :previous_label => previous_label, |
         :next_label => next_label, |

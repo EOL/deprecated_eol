@@ -131,8 +131,6 @@ class KnownUri < ActiveRecord::Base
         matches << known_uri if known_uri.name.gsub(normal_re, '').split.map(&:downcase).include?(subname)
       end
     end
-    puts "++ matches:"
-    pp matches
     matches
   end
 

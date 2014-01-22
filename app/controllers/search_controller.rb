@@ -13,7 +13,6 @@ class SearchController < ApplicationController
   def index
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
-    params[:type] = ['all']
     params[:type] = ['taxon_concept'] if params[:mobile_search] # Mobile search is limited to taxa for now
     @sort_by = params[:sort_by]
     @params_type = params[:type]

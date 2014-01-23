@@ -6,7 +6,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem 'rvm-capistrano', '1.2.7' # For deploys.
   gem 'capybara', '1.1.3' # We use this *extensively* in testing for user-like behavior. Learn this.
   gem 'daemons', '1.1.9' # This allows tasks to run in the background, like Solr.
-  gem 'factory_girl_rails', '4.1.0' # We use this *extensively* in testing to create "real" models. Learn this.
+  gem 'factory_girl_rails', '4.3.0' # We use this *extensively* in testing to create "real" models. Learn this.
   gem 'faker', '1.1.2' # We use this for creating "realistic" names for testing / bootstrapping.
   gem 'haml-rails' # Just for rails generators.
   gem 'optiflag', '0.7' # Handles command-line arguments. We currently only use this for Solr tasks.

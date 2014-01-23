@@ -174,9 +174,9 @@ module TaxaHelper
   def add_exemplar_or_excluded_icon(options)
     if current_user.min_curator_level?(:full)
       if options[:exemplar]
-        image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar))
+        image_tag('v2/icon_required.png', title: I18n.t(:data_tab_curator_exemplar), alt: I18n.t(:data_tab_curator_exemplar))
       elsif options[:excluded]
-        image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))
+        image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded), alt: I18n.t(:data_tab_curator_excluded))
       end
     end
   end

@@ -92,7 +92,10 @@ describe "Communities" do
     it_should_behave_like 'communities all users'
     context 'visiting create community' do
       it 'should require login' do
-        lambda { get new_community_path(collection_id: @collection.id) }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
+        # TODO - this is wrong; you can't use capybara to test that a CONTROLLER is raising an exception. Move this test to a
+        # controller spec.
+        # lambda { get new_community_path(collection_id: @collection.id) }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
+        pending
       end
     end
     context 'visiting show community' do

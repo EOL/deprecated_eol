@@ -12,17 +12,6 @@ module EOL
   module RSpec
     module Helpers
 
-      # returns a connection for each of our databases, eg: 1 for Data, 1 for Logging ...
-      # TODO - this is not a nice abstract way of getting the list of connections we have.  We should generalize.
-      def all_connections
-        begin
-          EOL::DB.all_connections
-        rescue => e
-          load 'lib/eol_data.rb' # Weird that this happens (in the middle of specs, no less), but it does.
-          EOL::DB.all_connections
-        end
-      end
-
       # call truncate_all_tables but make sure it only
       # happens once in the Process
       def truncate_all_tables_once
@@ -44,7 +33,7 @@ module EOL
       def truncate_all_tables(options = {})
         options[:skip_empty_tables] = true if options[:skip_empty_tables].nil?
         options[:verbose] ||= false
-        all_connections.uniq.each do |conn|
+        EOL::DB.all_connections.uniq.each do |conn|
           count = 0
           conn.tables.each do |table|
             next if table == 'schema_migrations'
@@ -228,7 +217,7 @@ module EOL
       end
 
       def load_scenario_with_caching(name)
-        loader = EOL::ScenarioLoader.new(name, all_connections)
+        loader = EOL::ScenarioLoader.new(name, EOL::DB.all_connections)
         # TODO - this may want to check if it NEEDS loading, here, and then truncate the tables before proceeding, if it
         # does.
         loader.load_with_caching

@@ -66,7 +66,7 @@ module Eol
     else
       config.i18n.load_path += Dir[Rails.root.join('config', 'translations', 'en.yml').to_s]
     end
-    # config.i18n.default_locale = :de
+    config.i18n.enforce_available_locales = true # Silences warnings about this having a deprecated default.
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"

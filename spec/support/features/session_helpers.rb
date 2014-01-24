@@ -1,4 +1,4 @@
-module Integration
+module Features
   module SessionHelpers
 
       def login_as(user, options = {})

@@ -16,7 +16,7 @@ def expect_no_measurement_types
 end
 
 
-# TODO - this isn't a controller spec, it's an integration spec. Move it.
+# TODO - this isn't a controller spec, it's a feature spec. Move it.
 describe KnownUrisController do
 
   before(:all) do

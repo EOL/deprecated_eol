@@ -3,11 +3,11 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe 'Errors' do
   # NOTE: Middleware exceptions e.g. MySQL Unknown Database will be caught by ActionController::Failsafe
   # and will render static /public/500.html. They will not reach ApplicationController and will not
-  # render error view, thus they are not covered in this integration test.
+  # render error view, thus they are not covered in this feature test.
   before(:all) do
-    unless @admin = User.find_by_username('errors_integration_testing')
+    unless @admin = User.find_by_username('errors_features_testing')
       load_foundation_cache
-      @admin = User.gen(username: 'errors_integration_testing', admin: true)
+      @admin = User.gen(username: 'errors_features_testing', admin: true)
     end
   end
 

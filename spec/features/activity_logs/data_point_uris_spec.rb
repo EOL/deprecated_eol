@@ -8,7 +8,7 @@ def reset
 end
 
 def add_data(options = {})
-  # this sequence is tested in /integration/taxa_data_tab_spec.rb
+  # this sequence is tested in /features/taxa_data_tab_spec.rb
   login_as @user
   visit(taxon_data_path(@taxon_concept))
   within(:xpath, '//form[@id="new_user_added_data"]') do

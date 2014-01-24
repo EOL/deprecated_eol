@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require 'spec_helper'
 require 'nokogiri'
 
 # NOTE - I hate this spec. It's really, really hard to debug when something goes wrong. ...if anything is actually wrong.  In
@@ -14,10 +14,9 @@ require 'nokogiri'
 # expect, since we're setting it), nor "save_and_open_page"... I'm at a loss. Nor can I find a guide online for how this type
 # of test came about.
 #
-# UPDATE 2: I've decided that, as someone said (not sure where): "feature specs..." (we call them integration specs) "...should
-# be about *behaviour*, not about *structure*."  ...Use view specs for structure; they are much, much faster (and easier to
-# write). I've taken this to heart and am moving the non-behaviour specs out of this file. ...which, I'm guessing, will be all of
-# them...  :\
+# UPDATE 2: I've decided that, as someone said (not sure where): "feature specs should be about *behaviour*, not about
+# *structure*."  ...Use view specs for structure; they are much, much faster (and easier to write). I've taken this to heart and
+# am moving the non-behaviour specs out of this file. ...which, I'm guessing, will be all of them...  :\
 
 def remove_classification_filter_if_used
   begin

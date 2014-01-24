@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe ApplicationController do
 
-  # Ideally these test cases should be covered by integration tests but since coverage is poor
+  # Ideally these test cases should be covered by feature tests but since coverage is poor
   # unit testing is helpful to document expected behaviours of application controller methods.
 
   before(:all) do

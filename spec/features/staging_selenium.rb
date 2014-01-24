@@ -2,7 +2,7 @@
 #
 # You run this with:
 #
-#    LOCALE=active rspec spec/integration/staging_selenium.rb --format documentation
+#    LOCALE=active rspec spec/features/staging_selenium.rb --format documentation
 #
 require File.dirname(__FILE__) + '/../spec_helper'
 require 'capybara'

@@ -4,8 +4,8 @@ Eol::Application.routes.draw do
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
-  # Permanent redirects should be second in routes file (according to whom? -- I can't corroborate this).
-  match '/podcast' => redirect('http://education.eol.org/podcast')
+  # Permanent redirects. Position them before any routes they take precedence over.
+  match '/podcast' => redirect('http://podcast.eol.org/podcast')
   match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")
   match '/pages/:taxon_id/images' => redirect("/pages/%{taxon_id}/media")
   match '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")

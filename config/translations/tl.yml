@@ -1665,7 +1665,6 @@ tl:
   did_you_mean: "Ibig mo bang sabihin: %{suggestions} ?"
   disabled_for_now: HINDI PINAGAGANA SA NGAYON
   discover_link: Tumuklas
-  displaying_numerical_range: Ipinapakita ang %{start_number} &mdash; %{end_number}
   do_you_want_to_be_a_curator: Nais mo bang maging isang kurador
   donation_amount_legend: Piliin ang kabuuang halaga na nais mong iabuloy
   donation_amount_other_label: Iba pa

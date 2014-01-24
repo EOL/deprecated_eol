@@ -1848,7 +1848,6 @@ zh-TW:
   did_you_mean: 您的意思是：%{suggestions} ？
   disabled_for_now: 目前禁用
   discover_link: 發現
-  displaying_numerical_range: 顯示 %{total} 中的 %{start_number} &ndash；%{end_number}
   do_you_want_to_be_a_curator: 您想成為一位蒐藏經理嗎
   donation_amount_legend: 請選擇您的捐款金額
   donation_amount_other_label: 其他

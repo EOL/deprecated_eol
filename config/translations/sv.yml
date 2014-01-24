@@ -191,7 +191,7 @@ sv:
         request_publish: Begär publicering
       known_uri: 
         description: Beskrivning
-        exclude_from_exemplars: Uteslut från snabbfakta
+        exclude_from_exemplars: Uteslut från översikt
         name: Namn
         toc_items: Kategorier
         uri: URI
@@ -293,7 +293,7 @@ sv:
         username: Användarnamn
       user_added_data: 
         object: Värde
-        predicate: Attribut
+        predicate: Egenskap
         user: Lades till av
       user_added_data_metadata: 
         object: Värde
@@ -1093,6 +1093,8 @@ sv:
   and_between_form_items: och
   annotation_body_default: lägg till en fråga eller kommentar...
   annotation_cabs_colon: "Anmärkning:"
+  annotation_note: Kommentarer kommer att delas med<br />dataleverantörer (om det är tillgängligt).
+  annotation_submit: skicka kommentar
   annotations_with_count: 
     one: "%{count} anmärkning"
     other: "%{count} anmärkningar"
@@ -1188,7 +1190,6 @@ sv:
   beta_warning_body: De flesta användarna kan inte se eller använda denna funktion, som är under aktiv utveckling. Prestanda och data kan vara oförutsägbar men vi erbjuder dig att utforska den. Var god fyll i vår <a href='https://www.surveymonkey.com/s/9FDTDQP'>undersökning</a> efter du har granskat vår datakapacitet.
   beta_warning_header: Du använder en testfunktion i betastadiet
   beta_warning_note_header: "OBS:"
-  beta_warning_small: Observera att detta är en testfunktion i betastadiet och kan vara oförutsägbar.
   bhl_partner_footer: Besök Biodiversity Heritage Library
   bhl_publication: BHL-publikation
   bi_monthly: Varannan månad
@@ -1229,6 +1230,7 @@ sv:
   citation: Citation
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, tillgänglig från <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Läst 15 Jan 2009.
   citing_link: Citera
+  clade: Taxonomisk grupp
   classification_already_preferred: "Fel: Denna klassificering har redan markerats som föredragen."
   classification_curation_split_comment_with_count: 
     one: "%{count} klassifikation från denna sida har <a href='%{url}'>delats upp till en egen sida</a>."
@@ -1780,18 +1782,22 @@ sv:
       meta_supplier_default: en bidragsgivare
       meta_title: "%{dato_title} från %{supplier}"
       tweet_text: "%{dato_title} från %{supplier}"
-  data_overview_table_caption: Snabbfakta
+  data_overview_table_caption: Egenskapsdata
   data_point_uri_source_missing: källa saknas
   data_point_uri_summary_name: data om %{taxon}
   data_provided_by_content_partner: "Källa: %{whom}"
   data_provided_by_user: tillhandahållen av %{whom}
   data_reference_subtable_summary: Ytterligare referenser om denna fakta.
-  data_row_add_exemplar_button: lägg till i snabbfakta
-  data_row_excluded_from_overview_notice: "OBS: Denna rad har uteslutits från snabbfakta."
-  data_row_exemplar_added: Snabbfakta lades till.
-  data_row_exemplar_removed: Snabbfakta togs bort.
+  data_row_add_exemplar_button: lägg till i översikt
+  data_row_additional_detail_alt: Ytterligare detaljer
+  data_row_additional_detail_hide_alt: Dölj ytterligare detaljer
+  data_row_additional_detail_loading_alt: Läser in ytterligare detaljer
+  data_row_additional_detail_show_alt: Visa ytterligare detaljer
+  data_row_excluded_from_overview_notice: "OBS: Denna rad har uteslutits från översikten."
+  data_row_exemplar_added: Lades till i översikt.
+  data_row_exemplar_removed: Togs bort från översikt.
   data_row_hide_button: Dölj rad
-  data_row_remove_exemplar_button: ta bort från snabbfakta
+  data_row_remove_exemplar_button: ta bort från översikt
   data_row_unhide_button: Visa rad
   data_search_destroyed: Detta jobb kommer inte längre bearbetas.
   data_search_files: 
@@ -1802,14 +1808,17 @@ sv:
     one: "%{count} sparad sökning"
     other: "%{count} sparade sökningar"
   data_search_link: Sök vetenskaplig data på EOL
-  data_search_refine_placeholder: t.ex. 10 till 50
   data_show_n_more_rows: Visa NNN fler...
   data_subtab_about: Om
-  data_subtab_glossary: Ordlista
-  data_tab_curator_excluded: togs bort från snabbfakta
-  data_tab_curator_exemplar: lades till i snabbfakta
-  data_tab_curator_key_excluded: "%{image} togs bort från <a href='%{link}'>snabbfakta</a>"
-  data_tab_curator_key_exemplar: "%{image} lade till i <a href='%{link}'>snabbfakta</a>"
+  data_subtab_glossary: Ordlista för %{taxon}
+  data_summary_header_with_count: 
+    one: EOL har data för 1 egenskap
+    other: EOL har data för %{count} egenskaper
+    zero: EOL har ingen egenskapsdata
+  data_tab_curator_excluded: Uteslöts från översikt
+  data_tab_curator_exemplar: Visas i översikt
+  data_tab_curator_key_excluded: "%{image} togs bort från <a href='%{link}'>översikt</a>"
+  data_tab_curator_key_exemplar: "%{image} lade till i <a href='%{link}'>översikt</a>"
   data_usage_reports: Användningsrapporter för data
   date_caps: Datum
   date_uploaded: Uppladdningsdatum
@@ -1905,7 +1914,6 @@ sv:
   did_you_mean: "Menade du: %{suggestions} ?"
   disabled_for_now: INAKTIVERAD FÖR NU
   discover_link: Upptäck
-  displaying_numerical_range: Visar %{start_number} &mdash; %{end_number}
   do_you_want_to_be_a_curator: Vill du bli en kurator
   donate_link: Donera
   donation_agree: godkänn
@@ -2378,6 +2386,7 @@ sv:
         email_settings_submit: e-postinställningar
         entered_password: Lösenord <small>(4- 16 tecken)</small>
         generate_api_key: Begär en API-nyckel
+        generate_api_key_more: Om du är intresserad av att använda EOL:s API kan du generera en API-nyckel för att identifiera din applikation. Läs mer om att <a href="%{api_docs_url}">lägga till en nyckel till dina API-anrop</a>.
         logo: Ladda upp ett nytt foto
         new_password: Nytt lösenord <small>(4 - 16 tecken)</small>
         new_password_confirmation: Nytt lösenord <small>(bekräftelse)</small>
@@ -2608,6 +2617,7 @@ sv:
     preferred_for_equivalence_group: Föredragen
     select: välj
     select_a_category_to_view_stats: "Välj en kategori att visa statistik för:"
+    select_a_preferred_uri_for_this_group: Välj en föredragen URI
     uri_placeholder_text: t.ex. http://purl.org/dc/terms/contributor
   known_uris_none: Ingen har lagt till någon URI för denna typ.
   label: Etikett
@@ -2672,7 +2682,7 @@ sv:
   learn_about_contributing: Hur kan jag bidra?
   learn_about_eol: Hur kan jag använda EOL?
   learn_about_joining: Hur kan jag bli medlem?
-  learn_how_to_contribute: Lär dig hur du kan bidra
+  learn_how_to_contribute: Läs om hur man bidrar.
   learn_more_about_communities_link: Läs mer om gemenskaper
   learn_more_about_names_for_this_taxon: Lär dig mer om namn för detta taxon
   learn_more_link: (%{learn_more})
@@ -3403,8 +3413,8 @@ sv:
   sort_by_status_option: Status
   sort_by_title_ascending: Titel stigande
   sort_by_title_descending: Titel fallande
-  sort_by_value_ascending: Stigande värde
-  sort_by_value_descending: Fallande värde
+  sort_by_value_ascending: Lägsta värde först
+  sort_by_value_descending: Högsta värde först
   sort_by_year_ascending: År stigande
   sort_by_year_descending: År fallande
   sort_collection_by_label: Sortera samling efter
@@ -3510,14 +3520,15 @@ sv:
       index: 
         hierarchy_entry: 
           meta_description: Bilder, video och ljud om %{scientific_name} som klassificeras av %{hierarchy_provider}. Hitta bilder, foton, filmer och ljud om %{scientific_name} på Encyclopedia of Life.
-          meta_title: Beräkningsbar data för %{scientific_name} som är klassificerad av %{hierarchy_provider}
-          meta_title_with_common_name: Beräkningsbar data för %{preferred_common_name} som är klassificerad av %{hierarchy_provider} (%{scientific_name})
-          tweet_text: Beräkningsbar data för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_description_with_common_name_with_topics: Vilken data har forskare samlat ihop för %{preferred_common_name} som klassificeras av %{hierarchy_provider}? Egenskapsdata om %{scientific_name} inklusive information om %{topics}.
+          meta_title: Egenskapsdata för %{scientific_name} som är klassificerad av %{hierarchy_provider}
+          meta_title_with_common_name: Egenskapsdata för %{preferred_common_name} som är klassificerad av %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Egenskapsdata för %{scientific_name} som är klassificerad av %{hierarchy_provider}
         meta_description: Bilder, videor och ljud om %{scientific_name}. Hitta bilder, foton, filmer och ljud om %{scientific_name} på Encyclopedia of Life.
         meta_description_no_data: Ingen beräkningsbar data finns tillgänglig för %{scientific_name} i Encyclopedia of Life. EOL välkomnar dig till att bidra kartor för %{scientific_name}.
-        meta_title: Beräkningsbar data för %{scientific_name}
-        meta_title_with_common_name: Beräkningsbar data för %{preferred_common_name} (%{scientific_name})
-        tweet_text: Beräkningsbar data för %{scientific_name}
+        meta_title: Egenskapsdata för %{scientific_name}
+        meta_title_with_common_name: Egenskapsdata för %{preferred_common_name} (%{scientific_name})
+        tweet_text: Egenskapsdata för %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -3836,6 +3847,8 @@ sv:
     one: "%{count} objekt"
     other: totalt %{count} objekt
   total_searches: "Totala sökningar:"
+  traitbank_info_page: Läs mer
+  traitbank_intro: "Introducerar <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: Översättning har tagits bort
   translation_information_header: Översättningsinformation
   translation_log: Frekvenshistogram för i18n-nyckel

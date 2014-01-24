@@ -1086,7 +1086,6 @@ ar:
   belongs_in_count_communities: 
     one: "ينتمي إلى %{count} مجتمع "
     other: "ينتمي إلى %{count} مجتمع "
-  beta_warning_small: يرجى ملاحظة أن هذه الميزة في مرحلتها الاختبارية، وقد تتصرف بشكل غير متوقع.
   bhl_publication: إصدار لمكتبة التنوع الحيوي
   bi_monthly: نصف شهريًّا
   biodiversity_heritage_library: مكتبة تراث التنوع البيولوجي
@@ -1670,7 +1669,6 @@ ar:
       meta_supplier_default: مساهم
       meta_title: "%{dato_title} من %{supplier}"
       tweet_text: "%{dato_title} من %{supplier}"
-  data_search_refine_field_label: تنقيح البحث في البيانات
   data_usage_reports: تقارير استخدام البيانات
   date_caps: التاريخ
   date_uploaded: تحميل التاريخ
@@ -1772,7 +1770,6 @@ ar:
   did_you_mean: "هل تقصد: %{suggestions}؟"
   disabled_for_now: معطل حاليًّا
   discover_link: استكشف
-  displaying_numerical_range: عرض %{start_number} &mdash; %{end_number} من %{total}
   do_you_want_to_be_a_curator: هل تريد أن تصبح مشرفًا
   donation_amount_legend: أختر القيمة التي تود التبرع بها
   donation_amount_other_label: أخرى

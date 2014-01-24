@@ -1515,7 +1515,6 @@ nb:
   development_version_name: EOL V2 Beta
   did_you_mean: "Mente du: %{suggestions} ?"
   discover_link: Oppdag
-  displaying_numerical_range: Viser %{start_number} &mdash; %{end_number} av %{total}
   do_you_want_to_be_a_curator: Vil du bli en kurator
   donation_amount_legend: Velg beløpet du vil donere
   donation_amount_other_label: Annet

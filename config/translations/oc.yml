@@ -1184,7 +1184,6 @@ oc:
     other: Aparten a %{count} Comunautats
   beta_warning_header: Utilizatz una foncionalitat en bèta-tèst
   beta_warning_note_header: "Nòta :"
-  beta_warning_small: Notatz plan que s’agís d’una foncionalitat en bèta-tèst e que pòt èsser imprevisibla.
   bhl: "''Biodiversity Heritage Library''"
   bhl_partner_footer: Visitatz la Biodiversity Heritage Library
   bhl_publication: Publicacion de ''BHL''
@@ -1823,8 +1822,6 @@ oc:
   data_row_unhide_button: Amagar pas mai la linha
   data_search_destroyed: Aqueste prètzfach serà pas mai efectuat.
   data_search_link: Cercar de donadas scientificas dins EdlV
-  data_search_refine_field_label: Afinar la recèrca de donadas
-  data_search_refine_placeholder: per ex. 10 a 50
   data_show_n_more_rows: Afichar NNN de mai…
   data_subtab_about: A prepaus de
   data_subtab_glossary: Glossari
@@ -1929,7 +1926,6 @@ oc:
   did_you_mean: "Voliatz dire : %{suggestions} ?"
   disabled_for_now: DESACTIVAT PEL MOMENT
   discover_link: Descobrir
-  displaying_numerical_range: Afichatge de %{start_number} a %{end_number} sus %{total}
   do_you_want_to_be_a_curator: Volètz èsser un conservator ?
   donate_link: Donar
   donation_agree: acceptar
@@ -3596,7 +3592,7 @@ oc:
         meta_description_no_data: Cap de donada calculabla es pas disponibla per %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de donadas per %{scientific_name}.
         meta_keywords: donadas calculablas de %{scientific_name}, informacions sus %{scientific_name}
         meta_keywords_with_common_name: donadas calculablas sus %{preferred_common_name}
-        meta_title: Donadas calculablas per %{scientific_name}
+        meta_title: Donadas de trach per %{scientific_name}
         meta_title_with_common_name: Donadas calculablas per %{preferred_common_name} (%{scientific_name})
         tweet_text: Donadas calculablas per %{scientific_name}
     details: 
@@ -3816,7 +3812,6 @@ oc:
   taxon_citizen_science_header: Ligams Scientifics Personals
   taxon_citizen_science_link: Ligams scientifics personals
   taxon_concept_stats: Estatisticas del concèpte de taxon
-  taxon_data_empty: Degun a pas encara contribuit a cap de fach sus aquesta pagina.
   taxon_data_header: Donadas a prepaus de %{taxon}
   taxon_details_empty: Degun a pas encara contribuit a cap de detalh sus aquesta pagina.
   taxon_details_empty_in_this_language: Degun a pas encara contribuit sus cap de detalh sus aquesta pagina dins aquesta lenga.

@@ -184,8 +184,10 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def get_metadata(language)
-    DataPointUri.assign_metadata(self, language)
-    metadata
+    DataPointUri.with_master do
+      DataPointUri.assign_metadata(self, language)
+      metadata
+    end
   end
 
   def self.assign_bulk_metadata(data_point_uris, language)
@@ -215,9 +217,8 @@ class DataPointUri < ActiveRecord::Base
             ?measurement dwc:occurrenceID ?occurrence .
             ?measurement dwc:measurementType ?attribute .
             ?measurement dwc:measurementValue ?value .
-            OPTIONAL { ?measurement eol:measurementOfTaxon ?measurementOfTaxon } .
+            FILTER NOT EXISTS { ?measurement eol:measurementOfTaxon eolterms:true } .
             OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
-            FILTER (?measurementOfTaxon != 'true')
           } UNION {
             ?measurement eol:associationID ?parent_uri .
             ?measurement dwc:measurementType ?attribute .
@@ -229,7 +230,7 @@ class DataPointUri < ActiveRecord::Base
             ?event ?attribute ?value .
           }
           FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
-                                     dwc:measurementID, eol:referenceID,
+                                     dwc:measurementID, eolreference:referenceID,
                                      eol:targetOccurrenceID, dwc:taxonID, dwc:eventID,
                                      eol:associationType,
                                      dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
@@ -253,34 +254,37 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def get_other_occurrence_measurements(language)
-    query = "
-      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id
-      WHERE {
-        GRAPH ?graph {
-          {
-            <#{uri}> dwc:occurrenceID ?occurrence .
-            ?data_point_uri dwc:occurrenceID ?occurrence .
-            ?data_point_uri dwc:measurementType ?attribute .
-            ?data_point_uri dwc:measurementValue ?value .
-            ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
-            ?occurrence dwc:taxonID ?taxon_id .
-            FILTER ( ?measurementOfTaxon = 'true' ) .
-            OPTIONAL {
-              ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
+    DataPointUri.with_master do
+      query = "
+        SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?data_point_uri ?graph ?taxon_concept_id ?measurementOfTaxon
+        WHERE {
+          GRAPH ?graph {
+            {
+              <#{uri}> dwc:occurrenceID ?occurrence .
+              ?data_point_uri dwc:occurrenceID ?occurrence .
+              ?data_point_uri dwc:measurementType ?attribute .
+              ?data_point_uri dwc:measurementValue ?value .
+              ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
+              ?occurrence dwc:taxonID ?taxon_id .
+              OPTIONAL {
+                ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
+              }
             }
           }
-        }
-        ?taxon_id dwc:taxonConceptID ?taxon_concept_id
-      }"
-    occurrence_measurement_rows = EOL::Sparql.connection.query(query)
-    # if there is only one response, then it is the original measurement
-    return nil if occurrence_measurement_rows.length <= 1
-    TaxonDataSet.new(occurrence_measurement_rows, preload: false)
+          ?taxon_id dwc:taxonConceptID ?taxon_concept_id
+        }"
+      occurrence_measurement_rows = EOL::Sparql.connection.query(query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
+      # if there is only one response, then it is the original measurement
+      return nil if occurrence_measurement_rows.length <= 1
+      TaxonDataSet.new(occurrence_measurement_rows, preload: false)
+    end
   end
 
   def get_references(language)
-    DataPointUri.assign_references(self, language)
-    references
+    DataPointUri.with_master do
+      DataPointUri.assign_references(self, language)
+      references
+    end
   end
 
   def self.assign_bulk_references(data_point_uris, language)
@@ -519,6 +523,10 @@ class DataPointUri < ActiveRecord::Base
       1
     elsif other.excluded? && ! excluded?
       -1
+    elsif value_string.is_a?(String) && ! other.value_string.is_a?(String)
+      -1
+    elsif other.value_string.is_a?(String) && ! value_string.is_a?(String)
+      1
     else
       value_string <=> other.value_string
     end
@@ -628,6 +636,11 @@ private
         ending_unit:      KnownUri.years.uri,
         function:         lambda { |v| v / 365.2425 },
         reverse_function: lambda { |v| v * 365.2425 },
+        required_minimum: 0.999 },  # this is so 365 days gets converted/rounded to 1 year
+      { starting_units:   [ 'http://purl.obolibrary.org/obo/UO_0000035' ],                      # months
+        ending_unit:      KnownUri.years.uri,
+        function:         lambda { |v| v / 12 },
+        reverse_function: lambda { |v| v * 12 },
         required_minimum: 1.0 },
       { starting_units:   [ Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius' ],
         ending_unit:      KnownUri.celsius.uri,

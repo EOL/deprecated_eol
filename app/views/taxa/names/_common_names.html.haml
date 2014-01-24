@@ -4,9 +4,10 @@
     %p= I18n.t(:names_common_empty)
 - else
   %h3.assistive= I18n.t(:names_common_list_by_language_assistive_header)
-  %p.help_text
-    = raw(I18n.t(:name_preferred_for_language_help_tip,
-      icon: image_tag("v2/icon_required.png", alt: I18n.t(:name_preferred_for_language_yes), class: 'indicator')))
+  - if @common_names.any? { |n| n.preferred }
+    %p.help_text
+      = raw(I18n.t(:name_preferred_for_language_help_tip,
+        icon: image_tag("v2/icon_required.png", alt: I18n.t(:name_preferred_for_language_yes), class: 'indicator')))
   - names_by_language.each_with_index do |language_names_pair, index|
     - language = language_names_pair[0]
     - names = language_names_pair[1]

@@ -1,8 +1,8 @@
-= render :partial => 'menu'
+= render 'menu'
 #statistics_overall.main_container
   .copy
     %h2= t(".page_header")
-  = render :partial => 'download_form'
+  = render 'download_form'
   = will_paginate @stats, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next)
   - @stats.each do |s|
     %table.standard

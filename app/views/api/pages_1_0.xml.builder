@@ -42,6 +42,6 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
   end
 
   @json_response['dataObjects'].each do |data_object|
-    xml << render(:partial => 'data_object_1_0', :layout => false, :locals => { :data_object_hash => data_object, :taxon_concept_id => @json_response['identifier'] } )
+    xml << render(partial: 'data_object_1_0', layout: false, layout: { :data_object_hash => data_object, :taxon_concept_id => @json_response['identifier'] } )
   end
 end

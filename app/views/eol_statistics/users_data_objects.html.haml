@@ -1,4 +1,4 @@
-= render :partial => 'report', :locals => { :report_attributes => [[:data_objects_texts],
+= render 'report', { :report_attributes => [[:data_objects_texts],
   [:udo_published, :udo_published_by_curators, :udo_published_by_non_curators]],
   :emphasize_indexes => [0] }
 

@@ -7,11 +7,11 @@
       %h4= dato.object_title
     .meta.learn_more
       %p= link_to I18n.t("#{link_object ? 'link' : 'article'}_more_about"), data_object_path(dato)
-    = render partial: 'data_objects/data_object_article', locals: { data_object: dato , show_view_source: 'false', link_object: link_object }
+    = render 'data_objects/data_object_article', { data_object: dato , show_view_source: 'false', link_object: link_object }
     .meta.attribution
-      = render partial: 'data_objects/attribution_minimal', locals: { data_object: dato }
+      = render 'data_objects/attribution_minimal', { data_object: dato }
     %p.flag{class: item_status_class }= item_status_label
-    = render partial: 'data_objects/rating', locals: { data_object: dato, hide_user_rating: true }
+    = render 'data_objects/rating', { data_object: dato, hide_user_rating: true }
     %div.actions
       %p
         - if dato.comments.length > 0

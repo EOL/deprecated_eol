@@ -9,4 +9,4 @@
     .collection_list
       %h3= I18n.t(:endorsed_collections)
       %p= I18n.t(:manager_endorse_collections_suggestion)
-  = render :partial => 'form', :locals => {:submit_label => I18n.t(:save) }
+  = render 'form', {:submit_label => I18n.t(:save) }

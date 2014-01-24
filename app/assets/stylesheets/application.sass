@@ -235,6 +235,9 @@ ul.tabs
     &.links
       a
         background: transparent image-url("v2/icon_links_tabs.png") 6px 9px no-repeat
+    &.data
+      a
+        background: transparent image-url("v2/icon_data_tabs.png") 6px 9px no-repeat
   &.with_icons
     li
       font-size: 1.16em
@@ -474,6 +477,7 @@ table.standard
 
 .explain
   text-align: left
+  padding: 15px
   p
     margin: 0.5em 0
 
@@ -557,7 +561,7 @@ table.standard
 
 .data
   span.icon
-    background: $fieldset_light_blue image-url("v2/icon_collections.png") 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_data.png") 50% 50% no-repeat
 .taxon
   span.icon
     background: $fieldset_light_blue image-url("v2/icon_taxa_tabs.png") 50% 50% no-repeat
@@ -613,20 +617,18 @@ form.select_content_partner
     margin: 0
 
 body
-  /*border-top: 2.7em solid #d1e163 /* BANNER - remove this */ */
+  border-top: 2.7em solid #d1e163 /* BANNER - remove this */
   > #central
-    margin-top: 9.4em
-    /* margin-top: 13.9em /* BANNER - was 9.4em */ */
+    margin-top: 13.9em /* BANNER - was 9.4em */
   > #header
     position: absolute
     top: $global_nav_height
     left: 0
     width: 100%
     background: #394651
-    /* border-top: 2.7em solid #28323a /* BANNER - remove this */ */
+    border-top: 2.7em solid #28323a /* BANNER - remove this */
     .section
-      height: 9.4em
-      /* height: 11.2em /* BANNER - was: 9.4em */ */
+      height: 11.2em /* BANNER - was: 9.4em */
       .global_navigation
         top: -2em
         ul.nav
@@ -2930,7 +2932,7 @@ ul.spotlite-matches
     position: absolute
     &.facebook
       z-index: 888
-      margin-left: 90px
+      margin-left: 140px
 
 .news_details
   li, blockquote
@@ -3028,9 +3030,12 @@ ul#permissions
       th
         width: 40%
         text-align: right
+        padding-bottom: 1.1em
       td
         padding: 0 0 1.1em 1em
       &:last-child
+        th
+          padding-bottom: .2em
         td
           padding: 0 0 0.2em 1em
       .stat

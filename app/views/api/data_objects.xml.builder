@@ -8,5 +8,5 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
   "xmlns:geo" => "http://www.w3.org/2003/01/geo/wgs84_pos#",
   "xsi:schemaLocation" => "http://www.eol.org/transfer/content/0.3 http://services.eol.org/schema/content_0_3.xsd" do                                                                                                               
   
-  xml << render(:partial => 'data_object', :layout => false, :locals => { :object_hash => @details_hash } )
+  xml << render(partial: 'data_object', layout: false, locals: { :object_hash => @details_hash } )
 end

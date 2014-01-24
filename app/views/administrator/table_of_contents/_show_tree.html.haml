@@ -1,3 +1,4 @@
+-# NOTE - this Haml file is REALLY OLD and should NOT be used as an exemplar. At all. Embedded JS, to say the least...
 %div#edit_toc
   %table.toc_editor{:cellspacing => '2px', :cellpadding => '2px', :border => '1px #cccccc'}
     %tr
@@ -23,23 +24,20 @@
           - if toc == @whole_tree.first || (toc.is_sub? && @whole_tree[index-1] && @whole_tree[index-1].is_major?)
             = image_tag('arrow_blank.gif') + image_tag('arrow_blank.gif')
           - else
-            %a{:href => '', :onclick => "javascript:toc_move_up(#{toc.id}, true); return false;"}><
-              = image_tag('arrow_way_up.gif', :alt => I18n.t("move_to_top"), :title => I18n.t("move_to_top"))
-            %a{:href => '', :onclick => "javascript:toc_move_up(#{toc.id}, false); return false;"}><
-              = image_tag('arrow_up.gif', :alt => I18n.t("move_up"), :title => I18n.t("move_up"))
+            %a{:href => '', :onclick => "javascript:toc_move_up(#{toc.id}, true); return false;"}= image_tag('arrow_way_up.gif', :alt => I18n.t("move_to_top"), :title => I18n.t("move_to_top"))
+            %a{:href => '', :onclick => "javascript:toc_move_up(#{toc.id}, false); return false;"}= image_tag('arrow_up.gif', :alt => I18n.t("move_up"), :title => I18n.t("move_up"))
           - if toc.id == last_toc_chapter.id || (toc.is_sub? && @whole_tree[index+1] && @whole_tree[index+1].is_major?)
             = image_tag('arrow_blank.gif') + image_tag('arrow_blank.gif')
           - else
-            %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, false); return false;"}><
-              = image_tag('arrow_down.gif', :alt => I18n.t("move_down"), :title => I18n.t("move_down"))
-            %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, true); return false;"}><
-              = image_tag('arrow_way_down.gif', :alt => I18n.t("move_to_bottom"), :title => I18n.t("move_to_bottom"))
+            %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, false); return false;"}= image_tag('arrow_down.gif', :alt => I18n.t("move_down"), :title => I18n.t("move_down"))
+            %a{:href => '', :onclick => "javascript:toc_move_down(#{toc.id}, true); return false;"}= image_tag('arrow_way_down.gif', :alt => I18n.t("move_to_bottom"), :title => I18n.t("move_to_bottom"))
 
           - if !toc.label.blank?
-            %span{:id => "toc_label_#{toc.id}"}><
-              = raw("&nbsp;" + toc.label + "&nbsp;")
-              %a{:href => '', :onclick => %Q[javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;]}
-                = image_tag('pencil.png', :alt => I18n.t(:edit), :title => I18n.t(:edit), :style => 'float: right; margin: 0px;')
+            %span{:id => "toc_label_#{toc.id}"}
+              &nbsp;
+              = toc.label.html_safe
+              &nbsp;
+              %a{:href => '', :onclick => %Q[javascript:toc_edit_label(#{toc.id}, "#{toc.label}"); return false;]}= image_tag('pencil.png', :alt => I18n.t(:edit), :title => I18n.t(:edit), :style => 'float: right; margin: 0px;')
 
         %td{:class => cell2_class, :valign => 'top'}
           - unless toc.info_items.empty?

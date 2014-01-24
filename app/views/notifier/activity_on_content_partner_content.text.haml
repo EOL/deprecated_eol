@@ -3,9 +3,9 @@
 = t('.message', :partner_full_name => @content_partner.full_name,
   :species_pages_group_email => $SPECIES_PAGES_GROUP_EMAIL_ADDRESS,
   :partner_profile_url => content_partner_url(@content_partner, :host => $SITE_DOMAIN_OR_IP),
-  :curator_activity_log => render(:partial => 'curator_activity_log', :locals => {:actions => @activity[:actions]}),
-  :data_object_comments =>  render(:partial => 'comments', :locals => {:comments => @activity[:object_comments]}),
-  :page_comments =>  render(:partial => 'comments', :locals => {:comments => @activity[:page_comments]}))
+  :curator_activity_log => render('curator_activity_log', {:actions => @activity[:actions]}),
+  :data_object_comments =>  render('comments', {:comments => @activity[:object_comments]}),
+  :page_comments =>  render('comments', {:comments => @activity[:page_comments]}))
 :plain
 = I18n.t(:signature_with_species_pages_group_contact, :species_pages_group_email => $SPECIES_PAGES_GROUP_EMAIL_ADDRESS,
   :scope => :notifier)

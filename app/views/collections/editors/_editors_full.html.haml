@@ -1,4 +1,4 @@
--# This is a "full view" version of the "managed_by" partial which used to appear in the sidebar (but shouldn't anymore).
+-# This is a "full view" version of the "managed_by" which used to appear in the sidebar (but shouldn't anymore).
 - communities = @collection.maintained_by.select {|c| c.is_a? Community }.uniq
 - users = @collection.maintained_by.select {|c| c.is_a? User }
 - if communities.count <= 0 && users.count <= 0

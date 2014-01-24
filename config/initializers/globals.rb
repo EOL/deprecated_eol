@@ -15,6 +15,7 @@ Rails.configuration.uri_prefix = 'http://eol.org/schema/'
 Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}terms/"
 Rails.configuration.uri_reference_prefix = "#{Rails.configuration.uri_prefix}reference/"
 Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources/"
+Rails.configuration.uri_true = "#{Rails.configuration.uri_term_prefix}true"
 Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"
 Rails.configuration.uri_allowed_val = "#{Rails.configuration.uri_prefix}allowedValue"
 Rails.configuration.uri_allowed_unit = "#{Rails.configuration.uri_prefix}allowedUnit"

@@ -1,13 +1,13 @@
 - content_for :social_sharing do
-  = render partial: 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_resources
-  = render partial: 'menu'
+  = render 'menu'
   #taxon_detail
     #main.main_container
       %h3= I18n.t(:taxon_identification_resources_header)
       .section
         - unless @contents.blank?
-          = render partial: 'taxa/details/category_content', locals: { content: @contents }
+          = render 'taxa/details/category_content', { content: @contents }
         - else
           .empty
             %p= I18n.t(:taxon_identification_resources_empty)

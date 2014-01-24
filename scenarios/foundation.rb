@@ -129,7 +129,8 @@ MimeType.gen_if_not_exists(label: 'video/x-flv')
 MimeType.gen_if_not_exists(label: 'video/quicktime')
 MimeType.gen_if_not_exists(label: 'audio/mpeg')
 MimeType.gen_if_not_exists(label: 'audio/x-wav')
-
+MimeType.gen_if_not_exists(label: 'video/mp4')
+MimeType.gen_if_not_exists(label: 'video/mpeg')
 
 # create_if_not_exists These don't exist yet, but will in the future:
 # create_if_not_exists NormalizedQualifier label: 'Name'

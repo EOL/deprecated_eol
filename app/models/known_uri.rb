@@ -1,10 +1,12 @@
 # encoding: utf-8
-# A curated, translated relationship between a URI and a "human-readable" string describing the intent of the URI.
-# I'm going to use Curatable for now, even though vetted probably won't ever be used. ...It might be, and it makes
-# this easier than splitting up that class.
+
+# A curated, translated relationship between a URI and a "human-readable" string describing the intent of the URI.  I'm going to
+# use Curatable for now, even though vetted probably won't ever be used. ...It might be, and it makes this easier than splitting
+# up that class.
 #
-# TODO - this class has gotten too large. Break it up. In particular, I notice there are a LOT of class methods. Perhaps that logic belongs
-# elsewhere.
+# TODO - this class has gotten too large. Break it up. In particular, I notice there are a LOT of class methods. Perhaps that
+# logic belongs elsewhere.
+
 class KnownUri < ActiveRecord::Base
 
   BASE = Rails.configuration.uri_term_prefix
@@ -104,6 +106,10 @@ class KnownUri < ActiveRecord::Base
 
   # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
   # really used.  ...So I'm calling it from Sparql:
+  #
+  # TODO - I'm not sure #all_measurement_type_known_uris searches user-added data points.  :| That *might* be intentional (to
+  # exclude them from search options), but I'm not aware of that requirement; if so, that query will need to be extended into a
+  # new method, here.
   def self.by_name(input)
     normal_re = /[^a-zA-Z0-9 ]/
     name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...
@@ -111,17 +117,21 @@ class KnownUri < ActiveRecord::Base
       select { |uri| uri.is_a?(KnownUri) }.
       sort_by(&:position)
     exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name }.first
-    return exact_match if exact_match
-    return uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(name) }.first unless name =~ / /
+    # TODO - this is a little odd, now that we're returning an array. Re-think: do you really want this?
+    return [exact_match] if exact_match
+    return uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(name) } unless name =~ / /
     # If you're still here, it's because you have multiple words and no "exact" matches. (q.v.: "high habitat breadth")
     # Ideally we would use super-cool search algorithms here that would recognize "high habitat breadth" is a better match to
     # "habitat breadth" than it is to "habitat", but we don't have time to be that smart right now:
     split_name = name.split
+    matches = []
+    # TODO - this is almost certainly slower than other algorithms (particularly indexing); replace
     split_name.each do |subname|
-      match = uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(subname) }.first
-      return match if match
+      uris.each do |known_uri|
+        matches << known_uri if known_uri.name.gsub(normal_re, '').split.map(&:downcase).include?(subname)
+      end
     end
-    nil
+    matches
   end
 
   def self.custom(name, language)

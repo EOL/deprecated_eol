@@ -5,7 +5,8 @@ class Users::SavedSearchesController < UsersController
   before_filter :must_be_able_to_edit_this_user
 
   def index
-    @background_processes = DataSearchFile.where(user_id: @user.id).order('updated_at desc')
+    # NOTE this #joins avoids the problem where known_uri can be nil. Don't remove it unless you choose to clean that mess:
+    @background_processes = DataSearchFile.where(user_id: @user.id).joins(:known_uri).order('updated_at desc')
     @rel_canonical_href = user_saved_searches_url(@user)
   end
 

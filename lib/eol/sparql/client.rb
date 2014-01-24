@@ -50,6 +50,9 @@ module EOL
             puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
           end
           sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
+        rescue Errno::ECONNREFUSED => e
+          logger.error "** ERROR: Virtuoso Connection refused: #{e.message}"
+          raise EOL::Exceptions::SparqlDataEmpty # This gets caught by our code gracefully.
         rescue ArgumentError => e
           # NOTE - this catch is caused by going through the demo for setting up the DAV user/directory. You've got to manually delete that
           # later!
@@ -180,8 +183,7 @@ module EOL
           result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
             WHERE {
               ?measurement dwc:measurementType ?uri .
-              ?measurement eol:measurementOfTaxon ?measurementOfTaxon .
-              FILTER ( ?measurementOfTaxon = 'true' ) .
+              ?measurement eol:measurementOfTaxon eolterms:true .
               FILTER (isURI(?uri))
             }
             GROUP BY ?uri
@@ -198,17 +200,16 @@ module EOL
           ?measurement dwc:occurrenceID ?occurrence_id .
           ?occurrence_id dwc:taxonID ?taxon_id .
           ?taxon_id dwc:taxonConceptID ?taxon_concept_id .
-          FILTER ( ?measurementOfTaxon = 'true' ) .
           FILTER (isURI(?uri))"
         EOL::Sparql::Client.if_connection_fails_return({}) do
-          result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count WHERE {
+          result = query("SELECT ?uri, ?measurementOfTaxon, COUNT(DISTINCT ?measurement) as ?count WHERE {
               {
-                SELECT ?uri, ?measurement WHERE {
+                SELECT ?uri, ?measurement, ?measurementOfTaxon WHERE {
                   #{ common_clause } .
                   ?taxon_id dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
                 }
               } UNION {
-                SELECT ?uri, ?measurement WHERE {
+                SELECT ?uri, ?measurement, ?measurementOfTaxon WHERE {
                   #{ common_clause } .
                   ?parent_taxon dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
                   ?t dwc:parentNameUsageID+ ?parent_taxon .
@@ -216,8 +217,8 @@ module EOL
                 }
               }
             }
-            GROUP BY ?uri
-            ORDER BY DESC(?count)")
+            GROUP BY ?uri ?measurementOfTaxon
+            ORDER BY DESC(?count)").delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
           group_counts_by_uri(result)
         end
       end

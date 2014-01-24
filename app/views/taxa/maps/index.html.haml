@@ -1,5 +1,5 @@
 - content_for :social_sharing do
-  = render partial: 'shared/social_sharing'
+  = render 'shared/social_sharing'
 .site_column#taxon_maps
   - if ! @taxon_concept.has_map? && @maps.blank?
     .empty
@@ -7,7 +7,7 @@
       %p= link_to I18n.t(:maps_empty_contribute_instructions), cms_page_path('partners')
   - if @taxon_concept.has_map?
     #map
-      = render partial: 'maps'
+      = render 'maps'
   - unless @maps.blank?
     #media_list
       .article
@@ -21,8 +21,8 @@
               = item.best_title
               .figure
                 %a{ data: { data_object_id: item.id }, class: item_status_class, href: data_object_path(item) }
-                  = render partial: "data_objects/data_object_image",
-                    locals: { data_object: item, thumbnail: true, size: '260_190' }
-              = render partial: 'data_objects/rating', locals: { data_object: item, minimal: true }
+                  = render "data_objects/data_object_image",
+                    { data_object: item, thumbnail: true, size: '260_190' }
+              = render 'data_objects/rating', { data_object: item, minimal: true }
               %p.flag{class: item_status_class }= item_status_label
-              = render partial: 'shared/add_to_my_collection', locals: { item: item, my_collection: current_user.watch_collection }
+              = render 'shared/add_to_my_collection', { item: item, my_collection: current_user.watch_collection }

@@ -43,6 +43,7 @@ describe 'taxa/data/index' do
     view.stub(:current_user) { user }
     view.stub(:current_language) { Language.default }
     view.stub(:logged_in?) { false }
+    view.stub(:is_clade_searchable?) { true }
   end
 
   context 'with data' do

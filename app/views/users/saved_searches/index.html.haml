@@ -1,5 +1,5 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #profile_saved_searches.main_container
   #background_processes.site_column
     -# TODO - pagination
@@ -42,6 +42,3 @@
                     = link_to(I18n.t('users.saved_searches.refresh'), refresh_user_saved_search_path(process.user, process))
                   - else
                     = link_to(I18n.t(:cancel_and_delete), user_saved_search_path(process.user, process), method: :delete, confirm: I18n.t(:are_you_sure))
-        - if defined?(Resque) && Resque && Resque.info && i = Resque.queues.index("data")
-          .article.copy
-            %p= raw I18n.t(:data_search_queue_pending, count: Resque.size(Resque.queues[i]), data_search_url: data_search_url)

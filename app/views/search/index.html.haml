@@ -14,31 +14,30 @@
       - start_number = (@all_results.current_page - 1) * @all_results.per_page + 1
       - end_number = [ (start_number + @all_results.per_page - 1), @all_results.total_entries ].min
       %h3
-        - if @all_results.blank? # TODO - we should redirect them automatically with a message explaining what happened...
-          = I18n.t(:no_results_for_search_term, search_term: @querystring)
+        - if @all_results.blank?
+          - if @attributes.blank? || ! search_data?
+            = I18n.t(:no_results_for_search_term, search_term: @querystring)
+          - else 
+            = I18n.t(:data_results_only_for_search, search_term: @querystring)
         - else
-          = raw(I18n.t(:displaying_numerical_range, :start_number => start_number, :end_number => end_number, :total => @all_results.total_entries))
+          = raw(I18n.t(:pagination_range_with_count, :start_number => start_number, :end_number => end_number, :count => @all_results.total_entries))
       = will_paginate @all_results, |
         :previous_label => previous_label, |
         :next_label => next_label, |
         :page_links=>false
     %ul.object_list
-      - if @all_results.blank? # || @all_results.count < 4
-        -#%li{:class => 'data'}
-        -#=   render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
+      - if search_data? && ! @attributes.blank? && @all_results.current_page == 1 # Only show data results on the first page.
+        - @attributes.each do |attribute|
+          %li{:class => 'data'}= render "shared/item_summary_data_teaser", { attribute: attribute, query: @querystring }
       - @all_results.each_with_index do |result, i|
         - result_instance = result['instance']
-        - if false # i == 3
-          %li{:class => 'data'}
-            = render partial: "shared/item_summary_data_teaser", locals: { attribute: @attribute, query: @querystring }
         - unless result_instance.nil? # TODO: result_instance is sometimes nil - remove this comment if that is okay, or fix if not.
           - en_type = en_type(result_instance)
           %li{:class => en_type}
             - if ['image_map', 'image', 'video', 'sound'].include?(en_type)
-              = render :partial => "shared/item_summary_media", :locals => { :item => result_instance,
-                :en_type => en_type, :search_result => result }
+              = render "shared/item_summary_media", { :item => result_instance, :en_type => en_type, :search_result => result }
             - elsif ! en_type.blank?
-              = render :partial => "shared/item_summary_#{en_type}", :locals => { :item => result_instance,
+              = render "shared/item_summary_#{en_type}", { :item => result_instance,
                 :search_result => result }
     .footer
       = will_paginate @all_results, |

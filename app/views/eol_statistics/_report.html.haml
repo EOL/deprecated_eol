@@ -1,10 +1,10 @@
 #content.cms_page
   .site_column
     .nav
-      = render :partial => 'menu'
+      = render 'menu'
     #statistics.main_container
       %h2= t(:page_header, :scope => controller_action_scope)
-      = render :partial => 'dates_form'
+      = render 'dates_form'
       %dl
         - report_attributes.each_with_index do |attributes, index|
           - attributes.each do |stat|

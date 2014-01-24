@@ -1,7 +1,7 @@
 - content_for :social_sharing do
-  = render partial: 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_resources
-  = render partial: 'menu'
+  = render 'menu'
   #nucleotide_sequences.main_container
     .copy
       %h3= I18n.t(:nucleotide_sequences)

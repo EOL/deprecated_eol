@@ -254,7 +254,7 @@ class DataObjectsController < ApplicationController
     clear_cached_media_count_and_exemplar(he)
     @data_object.update_solr_index
     log_action(cdohe, :add_association)
-    redirect_to data_object_path(@data_object), status: :moved_permanently
+    redirect_to data_object_path(@data_object), status: :moved_permanently, notice: I18n.t(:association_added_flash)
   end
 
   def add_association

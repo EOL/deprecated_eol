@@ -4,7 +4,7 @@
       .hgroup
         - @page_title ||= page_title
         %h1= @page_title
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
       .page_actions
         -# This is cheating: it makes the javascript work bother here and on the users page.
 

@@ -36,9 +36,15 @@
         modifiers: [ data_point_uri.statistical_method_label ])
     - else
       - if data_point_uri.statistical_method_label
+        = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
         %span.stat= data_point_uri.statistical_method_label
-        -# including an info_icon (which will remain blank) for spacing
+        -# Note the '-' here is *needed* because of the haml_cat used in the method:
         - info_icon
+      - else
+        %span
+          = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+          -# Note the '-' here is *needed* because of the haml_cat used in the method:
+          - info_icon
   %td.val{ headers: header_id, id: "#{header_id}_d" }
     %span.fold
       - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
@@ -63,7 +69,7 @@
 %tr{ class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
   %td{ colspan: colspan }
     - if row_is_selected
-      = render partial: 'data_point_uris/metadata', locals: { data_point_uri: data_point_uri, header_id: header_id }
+      = render 'data_point_uris/metadata', { data_point_uri: data_point_uri, header_id: header_id }
     .actions
       %ul
         %li
@@ -83,7 +89,7 @@
             %li
               &bull;&ensp;
               = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), method: :delete, confirm: I18n.t('this_cannot_be_undone_are_you_sure')
-      = render partial: 'comments/for_data', locals: { comments: comments, data_point_instance: data_point_uri }
+      = render 'comments/for_data', { comments: comments, data_point_instance: data_point_uri }
       .additional_commands.clearfix
         - if current_user.min_curator_level?(:full)
           - if data_point_uri.visible?

@@ -20,13 +20,13 @@
   .translations
     %ul
       - content_page.translations.each do |translated_content_page|
-        = render :partial => 'admins/translated_content_pages/item_summary',
-          :locals => { :translated_content_page => translated_content_page, :content_page => content_page }
+        = render 'admins/translated_content_pages/item_summary',
+          { :translated_content_page => translated_content_page, :content_page => content_page }
     = link_to I18n.t(:admin_translated_content_page_new_link),
       new_admin_content_page_translation_path(content_page)
 
   - unless content_page.children.empty?
     %ul
       - content_page.children.each do |child_page|
-        = render :partial => 'admins/content_pages/item_summary',
-          :locals => { :content_page => child_page, :block_of_pages => content_page.children }
+        = render 'admins/content_pages/item_summary',
+          { :content_page => child_page, :block_of_pages => content_page.children }

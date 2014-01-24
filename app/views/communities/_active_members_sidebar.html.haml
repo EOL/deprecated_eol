@@ -7,4 +7,4 @@
   - else
     %ul
       - most_active.each do |member|
-        = render :partial => 'members/member_summary', :locals => {:member => member, :minimal => true}
+        = render 'members/member_summary', {:member => member, :minimal => true}

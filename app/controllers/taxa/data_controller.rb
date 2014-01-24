@@ -54,8 +54,8 @@ protected
     @range_data = @taxon_data.ranges_of_values
     @data_point_uris = @taxon_page.data.get_data
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
-    @include_other_category = !@data_point_uris.empty? && (@data_point_uris.detect{ |d|
-      d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? })
+    @include_other_category = @data_point_uris &&
+      @data_point_uris.detect { |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? }
     @units_for_select = KnownUri.default_units_for_form_select
   end
 
@@ -63,7 +63,8 @@ protected
     @glossary_terms = @data_point_uris ?
       ( @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri) +
         @data_point_uris.select{ |dp| ! dp.object_known_uri.blank? }.collect(&:object_known_uri) +
-        @data_point_uris.select{ |dp| ! dp.unit_of_measure_known_uri.blank? }.collect(&:unit_of_measure_known_uri)).compact.uniq
+        @data_point_uris.select{ |dp| ! dp.unit_of_measure_known_uri.blank? }.collect(&:unit_of_measure_known_uri) +
+        @range_data.collect{ |r| r[:attribute] }).compact.uniq
       : []
   end
 

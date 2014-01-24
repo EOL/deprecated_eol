@@ -8,7 +8,7 @@
     %ul
       - @members.select {|m| m.manager? }.each do |manager|
         - revoke = @current_member && @current_member.manager? && manager.user.id != current_user.id
-        = render :partial => 'members/member_summary', :locals => {:member => manager, :revoke => revoke}
+        = render 'members/member_summary', {:member => manager, :revoke => revoke}
 - if @nonmanagers.count > 0
   .article.list
     .heading
@@ -19,4 +19,4 @@
     %ul
       - @members.select {|m| !m.manager? }.each do |member|
         - grant = @current_member && @current_member.manager? && member.user.id != current_user.id
-        = render :partial => 'members/member_summary', :locals => {:member => member, :grant => grant}
+        = render 'members/member_summary', {:member => member, :grant => grant}

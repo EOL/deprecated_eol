@@ -2,4 +2,4 @@
   .copy
     %h3= I18n.t(:create_community_about_heading)
     %p= I18n.t(:create_community_about_text, :collection_name => @collection.name)
-  = render :partial => 'form', :locals => { :submit_label => I18n.t(:create_community) }
+  = render 'form', { :submit_label => I18n.t(:create_community) }

@@ -207,10 +207,10 @@ fr:
         label: Libellé
         request_publish: Demander une publication
       known_uri: 
-        clade_exemplar: Utiliser comme exemple de plage de cladus
+        clade_exemplar: Utiliser comme exemple de plage de groupe taxonomique
         description: Description
-        exclude_from_exemplars: Exclure des Faits en bref
-        group_by_clade: Utiliser pour des plages de cladus
+        exclude_from_exemplars: Exclure de la vue d’ensemble
+        group_by_clade: Utiliser pour des plages de groupes taxonomiques
         name: Nom
         toc_items: Catégories
         uri: URI
@@ -315,7 +315,7 @@ fr:
         username: Nom d’utilisateur
       user_added_data: 
         object: Valeur
-        predicate: Attribut
+        predicate: Trait
         user: Ajouté par
       user_added_data_metadata: 
         object: Valeur
@@ -1117,7 +1117,8 @@ fr:
   and_between_form_items: et
   annotation_body_default: ajouter une question ou un commentaire…
   annotation_cabs_colon: "Annotation :"
-  annotation_submit: publier une annotation
+  annotation_note: Les commentaires seront partagés avec<br />les fournisseurs de données (s’ils sont disponibles).
+  annotation_submit: publier un commentaire
   annotations_with_count: 
     one: "%{count} annotation"
     other: "%{count} annotations"
@@ -1214,7 +1215,6 @@ fr:
   beta_warning_body: La plupart des utilisateurs ne peuvent pas voir ou utiliser cette fonctionnalité, qui est encore en développement. Les performances et les résultats peuvent être imprévisibles, mais nous vous invitons à la découvrir. Veuillez remplir notre <a href='https://www.surveymonkey.com/s/9FDTDQP'>sondage</a> après avoir testé notre potentiel de données.
   beta_warning_header: Vous utilisez une fonctionnalité en bêta-test
   beta_warning_note_header: "Note :"
-  beta_warning_small: Notez bien qu’il s’agit d’une fonctionnalité en bêta-test et qu’elle peut être imprévisible.
   bhl: "''Biodiversity Heritage Library''"
   bhl_partner_footer: Visitez la ''Biodiversity Heritage Library''
   bhl_publication: Publication de ''BHL''
@@ -1260,7 +1260,7 @@ fr:
   citation: Citation
   citation_example: Fisher, Brian. « Pogonomyrmex anergismus Cole, 1954. » Encyclopédie de la vie, disponible sur <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accédé le 15 janvier 2009.
   citing_link: Citation
-  clade: Cladus
+  clade: Groupe taxonomique
   classification_already_preferred: "Erreur: Cette classification a déjà été marquée comme préférée."
   classification_button_help: Veuillez sélectionner la classification qui représente le mieux la page existante ci-dessous, et cliquez sur le bouton "utiliser comme modèle" correspondant. Pour annuler toute l’opération, cliquez sur "annuler".
   classification_curation_pending: Conservation en attente. Cette classification pourrait être déplacée vers une autre page dans un proche avenir.
@@ -1801,12 +1801,9 @@ fr:
   darwin_core: Darwin Core
   dashboard: Tableau de bord
   data: Données
-  data_about_subtab_content: <p>Les données et les métadonnées sont collectées depuis différentes sources dans une vue centrée sur les taxons unique, complètement référencée et accessible sémantiquement.</p> <p>Pour voir des détails supplémentaires sur n’importe quelle valeur de donnée, cliquez que le symbole %{img} pour une définition du type de donnée.</p> <p>Vous devez être connecté à EdlV pour laisser un commentaire, entrer des données d’information, de provenance, d’URIs ou autres, directement dans EdlV. Vous aurez besoin de <a href='/users/register'>vous isncrire pour un compte EdlV libre</a>, en premier lieu. Si vous aimeriez recommander un ensemble de données à inclure dans EdlV, ou si vous avez des ensemble des données que vous aimeriez partager via EdlV, veuillez <a href="%{contact_contribute_url}">nous contacter</a>.</p> <p>Le financement pour le développement de la fonctionnalité de données calculables de EdlV provient de la fondation Alfred P. Sloan, de la fondation John D. et Catherine T. MacArthur, et des utilisateurs de EdlV dans le monde entier. Pour en savoir plus sur le projet TraitBank™, veuillez <a href="%{contact_traitbank_url}">contacter le secrétariat de EdlV</a>.</p>
+  data_about_subtab_content: <p><a href='/traitbank'>TraitBank</a>™ collecte des données et des métadonnées depuis de nombreuses sources dans une vue unique, centrée sur les taxons, complètement référencée et accessible sémantiquement.</p><p><a href='/users/register'>Inscrivez-vous pour obtenir un compte libre</a> ou <a href='/login'>connectez-vous</a> pour laisser un commentaire sur les données.</p><p>Le financement pour le développement de la fonctionnalité de données calculables de EdlV a été fournie par la fondation Alfred P. Sloan, la fondation John D. et Catherine T. MacArthur, et des utilisateurs de EdlV dans le monde entier. <a href='/contact_us?subject=TraitBank'>Contactez le secrétariat de EdlV</a> pour plus d’information sur TraitBank™.</p>
   data_about_subtab_header: À propos des données de EdlV
   data_about_this_record: Données sur cet enregistrement
-  data_beta_search_limit: 
-    one: Les téléchargements des recherches de données sont <i>temporairement</i> limités à %{count} résultat.
-    other: Les téléchargements des recherches de données sont <i>temporairement</i> limités à %{count} résultats.
   data_column_classification_summary: Sommaire de la classification
   data_column_common_name: Nom courant
   data_column_measurement: Mesure
@@ -1860,20 +1857,26 @@ fr:
       meta_supplier_default: un contributeur
       meta_title: "%{dato_title} de %{supplier}"
       tweet_text: "%{dato_title} de %{supplier}"
-  data_overview_table_caption: Faits en bref
+  data_overview_table_caption: Données du trait
   data_point_uri_source_missing: source manquante
   data_point_uri_summary_name: données sur %{taxon}
   data_provided_by_content_partner: "Source : %{whom}"
   data_provided_by_user: fourni par %{whom}
   data_ranges: Plages de données
-  data_ranges_subheader: Plages pour ce cladus
+  data_ranges_subheader: Plages pour ce groupe taxonomique
   data_reference_subtable_summary: Références supplémentaires sur ce fait.
-  data_row_add_exemplar_button: ajouter aux Faits en bref
-  data_row_excluded_from_overview_notice: "Note : cette ligne a été enlevée des faits en bref."
-  data_row_exemplar_added: Fait en bref ajouté.
-  data_row_exemplar_removed: Fait en bref supprimé.
+  data_row_add_exemplar_button: ajouter à la Vue d’ensemble
+  data_row_additional_detail_alt: Détails supplémentaires
+  data_row_additional_detail_assistive: Charger les métadonnées sur ce fait
+  data_row_additional_detail_assistive_js: Basculer entre afficher et masquer les métadonnées sur ce fait.
+  data_row_additional_detail_hide_alt: Masquer les détails supplémentaires
+  data_row_additional_detail_loading_alt: Chargement des détails supplémentaires
+  data_row_additional_detail_show_alt: Afficher les détails supplémentaires
+  data_row_excluded_from_overview_notice: "Note : cette ligne a été enlevée de la vue d’ensemble."
+  data_row_exemplar_added: Ajouté à la vue d’ensemble.
+  data_row_exemplar_removed: Supprimé de la vue d’ensemble.
   data_row_hide_button: Masquer la ligne
-  data_row_remove_exemplar_button: enlever des Faits en bref
+  data_row_remove_exemplar_button: enlever de la Vue d’ensemble
   data_row_unhide_button: Ne plus masquer la ligne
   data_search_attribute: Rechercher les données de EdlV concernant  « %{attribute} » dans les observations,<br />les mesures et les autres assertions scientifiques.
   data_search_destroyed: Cette tâche ne sera plus effectuée.
@@ -1887,25 +1890,19 @@ fr:
     one: "%{count} recherche enregistrée"
     other: "%{count} recherches enregistrées"
   data_search_link: Chercher des données scientifiques dans EdlV
-  data_search_queue_pending: 
-    one: Il y a encore %{count} tâche en attente de traitement (elle peut être ou non à vous). Vous pouvez aller sur <a href='%{data_search_url}'>la page de recherche de données</a> pour effectuer une autre recherche.
-    other: Il y a encore %{count} tâches en attente de traitement (elles peuvent être ou non à vous). Vous pouvez aller sur <a href='%{data_search_url}'>la page de recherche de données</a> pour effectuer une autre recherche.
-    zero: Il n’y a aucune tâche en cours. Si votre tâche n’est pas terminée, quelque chose s’est mal passé. Vous pouvez aller sur <a href='%{data_search_url}'>la page de recherche de données</a> pour effectuer une autre recherche.
-  data_search_refine_field_label: Affiner la recherche de données
-  data_search_refine_placeholder: par ex. 10 à 50
   data_server_unavailable: Les données sur EdlV sont temporairement indisponibles. Veuillez réessayer ultérieurement. Nous sommes désolés pour la gêne occasionnée.
   data_show_n_more_rows: Afficher NNN de plus…
   data_subtab_about: À propos de
-  data_subtab_glossary: Glossaire
+  data_subtab_glossary: Glossaire pour %{taxon}
   data_summary_header_with_count: 
     one: EdlV a des données sur un caractère
     other: EdlV a des données sur %{count} caractère
     zero: EdlV n’a pas de données de caractère
-  data_tab_curator_excluded: supprimé des Faits en bref
-  data_tab_curator_exemplar: ajouté aux Faits en bref
-  data_tab_curator_key_excluded: "%{image} supprimée des <a href='%{link}'>Faits marquants</a>"
-  data_tab_curator_key_exemplar: "%{image} ajoutée aux <a href='%{link}'>Faits marquants</a>"
-  data_table_summary: "Données calculables pour %{taxon}. Chaque ligne de données est un fait distinct, fourni par un partenaire de contenu ou un utilisateur. Chaque valeur peut inclure un tableau synthétisant les métadonnées sur le fait : où il a été récupéré, quels sont les droits sur les données, etc. Cliquez sur la ligne pour afficher ces métadonnées. Cliquez de nouveau pour les masquer. Afficher les métadonnées affiche aussi les annotations et permet aux utilisateurs d’ajouter leurs propres annotations si nécessaire. Les conservateurs ont accès à des fonctions supplémentaires lors de l’affichage des métadonnées."
+  data_tab_curator_excluded: Exclu de la Vue d’ensemble
+  data_tab_curator_exemplar: Affiché dans la Vue d’ensemble
+  data_tab_curator_key_excluded: "%{image} supprimée de la <a href='%{link}'>Vue d’ensemble</a>"
+  data_tab_curator_key_exemplar: "%{image} ajoutée à la <a href='%{link}'>Vue d’ensemble</a>"
+  data_table_summary: "Données de trait pour %{taxon}. Chaque ligne de données est un fait distinct, fourni par un partenaire de contenu ou un utilisateur. Chaque valeur peut inclure un tableau synthétisant les métadonnées sur le fait : où il a été récupéré, quels sont les droits sur les données, etc. Cliquez sur la ligne pour afficher ces métadonnées. Cliquez de nouveau pour les masquer. Afficher les métadonnées affiche aussi les annotations et permet aux utilisateurs d’ajouter leurs propres annotations si nécessaire. Les conservateurs ont accès à des fonctions supplémentaires lors de l’affichage des métadonnées."
   data_usage_reports: Rapports d’utilisation des données
   date_caps: Date
   date_uploaded: Date de téléversement
@@ -2008,7 +2005,6 @@ fr:
   did_you_mean: "Vouliez-vous dire : %{suggestions} ?"
   disabled_for_now: DÉSACTIVÉ POUR L’INSTANT
   discover_link: Découvrir
-  displaying_numerical_range: Affichage de %{start_number} à %{end_number} sur %{total}
   do_you_want_to_be_a_curator: Voulez-vous être un conservateur ?
   donate_link: Donner
   donation_agree: accepter
@@ -2351,7 +2347,6 @@ fr:
   glossary: Glossaire
   glossary_is_empty: (le glossaire est vide)
   glossary_subhead: Glossaire
-  glossary_subtab_help_text: "**en cours**. C’est l’endroit où le texte d’aide du glossaire va quand nous l’avons. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   glossary_term: condition
   glossary_terms: Termes du glossaire
   go: Aller
@@ -2865,6 +2860,7 @@ fr:
   learn_about_contributing: Comment puis-je contribuer ?
   learn_about_eol: Comment puis-je utiliser l’EdlV ?
   learn_about_joining: Comment puis-je me joindre ?
+  learn_how_to_contribute: Apprendre comment contribuer.
   learn_more_about_communities_link: En savoir plus sur les communautés
   learn_more_about_names_for_this_taxon: en savoir plus sur les noms pour ce taxon
   learn_more_link: (%{learn_more})
@@ -3608,7 +3604,7 @@ fr:
   see_all_updates_with_count_html: 
     one: Voir la <span class="assistive">%{count} mise à jour de cette page.</span>
     other: Voir toutes les <span class="assistive">%{count} mises à jour de cette page.</span>
-  see_in_data_glossary: afficher dans le glossaire des données
+  see_in_data_glossary: explorer la totalité du glossaire des données
   see_in_glossary_tab: voir dans l’onglet glossaire
   see_more_on_the_data_tab: afficher davantage dans l’onglet de données
   see_notes: voir les notes
@@ -3691,8 +3687,8 @@ fr:
   sort_by_status_option: Statut
   sort_by_title_ascending: Titre croissant
   sort_by_title_descending: Titre décroissant
-  sort_by_value_ascending: Valeur croissante
-  sort_by_value_descending: Valeur décroissante
+  sort_by_value_ascending: Petites valeurs en premier
+  sort_by_value_descending: Grandes valeurs en premier
   sort_by_year_ascending: Année croissante
   sort_by_year_descending: Année décroissante
   sort_collection_by_label: Trier la collection par
@@ -3819,21 +3815,21 @@ fr:
           meta_description: Les images, vidéos et fichiers audio de %{scientific_name} tel que classé selon %{hierarchy_provider}. Trouver des images, des photos, des films et des sons de %{scientific_name} dans l’Encyclopédie de la Vie.
           meta_description_no_data: Aucune donnée calculable n’est disponible pour %{scientific_name} tel que classé selon %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données pour %{scientific_name}.
           meta_description_with_common_name_no_data: Aucune donnée calculable n’est disponible pour %{preferred_common_name} selon la classification de %{hierarchy_provider}, appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données pour %{preferred_common_name} (%{scientific_name}).
-          meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collecté pour %{preferred_common_name} tel que classé selon %{hierarchy_provider} ? Données calculables à propos de %{scientific_name} comprenant des informations sur %{topics}.
+          meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collecté pour %{preferred_common_name} tel que classé selon %{hierarchy_provider} ? Données de trait à propos de %{scientific_name} comprenant des informations sur %{topics}.
           meta_keywords: données calculables de %{scientific_name} selon la classification de %{hierarchy_provider}, informations sur %{scientific_name}
           meta_keywords_with_common_name: données calculables de %{preferred_common_name} selon la classification de %{hierarchy_provider}
-          meta_title: Données calcupables pour %{scientific_name} selon la classification de %{hierarchy_provider}
-          meta_title_with_common_name: Données calculables pour %{preferred_common_name} selon la classification de %{hierarchy_provider} (%{scientific_name})
-          tweet_text: Données calculables pour %{scientific_name} selon la classification de %{hierarchy_provider}
+          meta_title: Données de trait pour %{scientific_name} selon la classification de %{hierarchy_provider}
+          meta_title_with_common_name: Données de trait pour %{preferred_common_name} selon la classification de %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Données de trait pour %{scientific_name} selon la classification de %{hierarchy_provider}
         meta_description: Images, vidéos et fichiers sons de %{scientific_name}. Trouver des images, des photos, des films et des sons de %{scientific_name} dans l’Encyclopédie de la Vie.
         meta_description_no_data: Aucune données calculable n’est disponible pour %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des données pour %{scientific_name}.
         meta_description_with_common_name_no_data: Aucune donnée calculable n’est disponible pour %{preferred_common_name} appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des données sur %{preferred_common_name} (%{scientific_name}).
-        meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collectées pour %{preferred_common_name} ? Données calculables sur %{scientific_name} comprenant des informations sur %{topics}.
+        meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collectées pour %{preferred_common_name} ? Données de trait sur %{scientific_name} comprenant des informations sur %{topics}.
         meta_keywords: données calculables de %{scientific_name}, informations sur %{scientific_name}
         meta_keywords_with_common_name: données calculables sur %{preferred_common_name}
-        meta_title: Données calculables pour %{scientific_name}
-        meta_title_with_common_name: Données calculables pour %{preferred_common_name} (%{scientific_name})
-        tweet_text: Données calculables pour %{scientific_name}
+        meta_title: Données de trait pour %{scientific_name}
+        meta_title_with_common_name: Données de trait pour %{preferred_common_name} (%{scientific_name})
+        tweet_text: Données de trait pour %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -4053,7 +4049,6 @@ fr:
   taxon_citizen_science_resources_empty: Personne n’a encore contribué avec un lien scientifique personnel pour cette page.
   taxon_common_names_subtab_explanation: Beaucoup de personnes ne connaissent les organismes que par leurs noms communs, ou noms « vernaculaires ». À la différence des noms scientifiques, les noms communs sont presque toujours différents pour des interlocuteurs de langues différentes. Ils peuvent aussi varier régionalement pour une même langue. Cet onglet montre tous les noms communs fournis à EdlV pour cet organisme par divers fournisseurs, y compris les conservateurs de EdlV. Actuellement, nous ne pouvons définir qu’un seul nom commun préféré par langue sur une page EdlV donnée, mais tous les noms peuvent être recherchés.
   taxon_concept_stats: Statistiques du concept de taxon
-  taxon_data_empty: Personne n’a encore contribué à des faits sur cette page.
   taxon_data_header: Données concernant %{taxon}
   taxon_details_empty: Personne n’a encore contribué à un détail sur cette page.
   taxon_details_empty_in_this_language: Personne n’a contribué sur aucun détail de cette page dans cette langue.
@@ -4197,6 +4192,10 @@ fr:
     one: "%{count} élément"
     other: "%{count} éléments au total"
   total_searches: "Total des recherches :"
+  traitbank_data_search: Rechercher des données
+  traitbank_description: rechercher parmi des millions d’enregistrements de données de EdlV
+  traitbank_info_page: En savoir plus
+  traitbank_intro: "Introduction à <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: Traduction a été supprimée
   translation_information_header: Renseignements de traduction
   translation_log: Histogramme des clés d’i18n

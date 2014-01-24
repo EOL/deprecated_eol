@@ -1,11 +1,10 @@
 - hidden = false unless hidden == true
 - style = hidden ? 'display: none' : nil
 - glossary_terms = @glossary_terms || glossary_terms || []
-.glossary_subtab{ style: style }
-  .help_text
-    %p= I18n.t(:glossary_subtab_help_text, url: contact_us_path(subject: 'Contribute')).html_safe
-  .header_underlined
-    %h3= I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe
-  %ul.glossary
-    - glossary_terms.sort_by{ |kn| kn.name.downcase }.each do |known_uri|
-      = render(partial: 'known_uris/definition', locals: { known_uri: known_uri, glossary_link: true, attribution: true, search_link: true })
+- unless @glossary_terms.blank?
+  .glossary_subtab{ style: style }
+    .header_underlined
+      %h3= I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe
+    %ul.glossary
+      - glossary_terms.sort_by{ |kn| kn.name.downcase }.each do |known_uri|
+        = render('known_uris/definition', { known_uri: known_uri, glossary_link: true, attribution: true, search_link: true })

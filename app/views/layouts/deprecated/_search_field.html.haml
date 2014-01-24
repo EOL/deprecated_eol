@@ -8,7 +8,7 @@
       %input.search_image{ :name => "search_image", :title => "Find", :value => "", :type => "submit" }
       = image_tag("indicator_arrows_black.gif", :style => "display:none;", :id => "top_search_spinner")
   .search_options
-    = render :partial => "/shared/google_custom_search_params"
+    = render "/shared/google_custom_search_params"
     = radio_button_tag("search_type", "text", (['text', nil].include? @search_type))
     Names
     = radio_button_tag("search_type", "tag", @search_type == "tag")

@@ -1,10 +1,10 @@
 - content_for :social_sharing do
-  = render partial: 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_literature
-  = render partial: 'literature_menu'
+  = render 'literature_menu'
   .main_container
     .copy
-      = render partial: 'bhl_header'
+      = render 'bhl_header'
       - if @bhl_title_results && @bhl_title_results[:total] > 0
         %table.standard
           %thead

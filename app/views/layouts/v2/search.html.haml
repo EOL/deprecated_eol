@@ -3,8 +3,13 @@
     .site_column
       .hgroup
         %h1= @querystring.blank? ? I18n.t(:search) : I18n.t(:search_results)
+        - subhead = []
         - unless @querystring.blank?
-          %h2= raw(I18n.t(:count_results_for_search_term, :count => @all_results.total_entries, :search_term => h(@querystring)))
+          - subhead << I18n.t(:count_results_for_search_term, count: @all_results.total_entries, search_term: h(@querystring))
+        - if defined?(@attributes) && ! @attributes.blank?
+          - subhead << I18n.t(:count_results_for_traitbank, count: @attributes.count)
+        - unless subhead.empty?
+          %h2= subhead.to_sentence.html_safe
   #content
     .site_column
       #search_results
@@ -17,10 +22,11 @@
                   %label= I18n.t(:filter_by_type)
                 %dd
                   %ul
-                    - [:all, :taxon_concept, :image, :video, :sound, :text, :link, :user, :community, :collection, :content_page].each do |opt|
+                    - [:all, :taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community, :collection, :content_page].each do |opt|
                       - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
                       - count ||= 0
                       - item_class = (@wildcard_search || count == 0) ? 'no_results' : nil
+                      - item_class = nil if opt == :data && defined?(@attributes) && ! @attributes.empty?
                       %li{ :class => item_class }
                         %label
                           = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),

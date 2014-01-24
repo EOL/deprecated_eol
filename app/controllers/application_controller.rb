@@ -117,7 +117,13 @@ class ApplicationController < ActionController::Base
 
   def current_url(remove_querystring = true)
     if remove_querystring
-      current_url = URI.parse(request.url)
+      current_url = begin
+                      URI.parse(request.url)
+                    rescue => e
+                      URI.parse(request.url.gsub(/[^-A-Za-z0-9_\/]/, ''))
+                    ensure
+                      ''
+                    end
       current_url.query = nil
       current_url.to_s
     else

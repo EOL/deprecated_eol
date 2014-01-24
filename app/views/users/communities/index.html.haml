@@ -1,5 +1,5 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #profile_communities.main_container
   .communities
     .heading
@@ -9,4 +9,4 @@
     - unless @communities.blank?
       %ul.object_list
         - @communities.each do |community|
-          = render :partial => 'communities/community_summary', :locals => { :community => community, :show_description => true }
+          = render 'communities/community_summary', { :community => community, :show_description => true }

@@ -9,11 +9,11 @@
   #page_heading{ :class => heading_class }
     .site_column
       .hgroup
-        = render :partial => 'content/breadcrumbs'
+        = render 'content/breadcrumbs'
         %h1= page_title
         = yield :social_sharing
         - unless page_description.blank?
           %p= page_description
-      = render :partial => 'shared/flash_messages'
+      = render 'shared/flash_messages'
   = yield
 = render :file => 'layouts/v2/application'

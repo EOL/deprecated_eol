@@ -198,10 +198,10 @@ uk:
         label: Позначення
         request_publish: Запит на публікацію
       known_uri: 
-        clade_exemplar: Вживати як зразок діапазону клади
+        clade_exemplar: Вживати як зразок діапазону таксономічної групи
         description: Опис
-        exclude_from_exemplars: Вилучити з швидких фактів
-        group_by_clade: Вживати для діапазону клад
+        exclude_from_exemplars: Вилучити з Огляду
+        group_by_clade: Вживати для діапазону таксономічних груп
         name: Ім'я
         toc_items: Категорії
         uri: URI
@@ -306,7 +306,7 @@ uk:
         username: Ім'я користувача
       user_added_data: 
         object: Значення
-        predicate: Атрибут
+        predicate: Риса
         user: Додано
       user_added_data_metadata: 
         object: Значення
@@ -1121,7 +1121,8 @@ uk:
   and_between_form_items: та
   annotation_body_default: додавати питання або коментарі...
   annotation_cabs_colon: "Анотація:"
-  annotation_submit: розмістити анотацію
+  annotation_note: Коментарі будуть поширені через <br />постачальників даних (при наявності).
+  annotation_submit: опублікувати коментар
   annotations_with_count: 
     one: "%{count} анотація"
     other: "%{count} анотації"
@@ -1221,7 +1222,6 @@ uk:
   beta_warning_body: Більшість користувачів не можуть бачити або використовувати цю функцію, яка знаходиться в стадії активного розвитку. Продуктивність і дані можуть бути непередбачуваними, але ми запрошуємо вас вивчити. Будь ласка, заповніть наше <a href='https://www.surveymonkey.com/s/9FDTDQP'>опитування</a> після вивчення наших можливостей обробка даних.
   beta_warning_header: Ви використовуєте функцію бета-тестування
   beta_warning_note_header: "Примітка:"
-  beta_warning_small: Будь ласка, зверніть увагу, що це бета-тестування функції і може бути непередбачуваним.
   bhl: Бібліотека спадщини біорозмаїття
   bhl_partner_footer: Відвідайте бібліотеку спадщини біорізноманіття
   bhl_publication: Публікації BHL
@@ -1263,7 +1263,7 @@ uk:
   choose_collection_header: Обрати колекцію
   citation: Цитата
   citing_link: Цитуючи
-  clade: Клада
+  clade: Таксономічна група
   classification_already_preferred: "Помилка: Ця класифікація вже було позначена як краща."
   classification_button_help: Виберіть класифікацію, котра найкраще відображає наявну сторінку нижче і натисніть відповідну "використовувати в якості зразка". Щоб повністю скасувати операцію, натисніть кнопку "Скасувати".
   classification_curation_pending: Очікує курирування. Ця класифікації може бути переміщена до іншої сторінки у найближчому майбутньому.
@@ -1397,6 +1397,11 @@ uk:
   collections_link: Колекції
   collections_page_title: Колекції
   collections_summary_empty: Ця сторінка ще не є у жодній збірці.
+  collections_with_count: 
+    few: "%{count} збірки"
+    many: "%{count} збірок"
+    one: "%{count} збірка"
+    other: "%{count} збірки"
   comment: Коментар
   comment_added_notice: Коментар успішно доданий.
   comment_body_label: Ваш коментар
@@ -1791,9 +1796,6 @@ uk:
   data: Дані
   data_about_subtab_header: Про дані у ЕЖ
   data_about_this_record: Дані про цей запис
-  data_beta_search_limit: 
-    one: Дані пошуку завантажень <i>тимчасово</i> обмежені %{count} результатом.
-    other: Дані пошуку завантажень  <i>тимчасово</i> обмежені %{count} результатами.
   data_column_classification_summary: Підсумок класифікації
   data_column_common_name: Загальна назва
   data_column_measurement: Вимірювання
@@ -1841,40 +1843,41 @@ uk:
       meta_supplier_default: учасник
       meta_title: "%{dato_title} від %{supplier}"
       tweet_text: "%{dato_title} від %{supplier}"
-  data_overview_table_caption: Швидкі факти
+  data_overview_table_caption: Характерні дані
   data_point_uri_source_missing: джерело відсутнє
   data_point_uri_summary_name: дані про %{taxon}
   data_provided_by_content_partner: "Джерело: %{whom}"
   data_provided_by_user: надано %{whom}
   data_ranges: Діапазони даних
-  data_ranges_subheader: Діапазони для цього кладу
+  data_ranges_subheader: Діапазони для цієї таксономічної групи
   data_reference_subtable_summary: Додаткові посилання про цей факт.
-  data_row_add_exemplar_button: додати до Швидких Фактів
-  data_row_excluded_from_overview_notice: "Примітка: цей рядок було виключено з швидких фактів."
-  data_row_exemplar_added: Додано швидкий факт.
-  data_row_exemplar_removed: Вилучено швидкий факт.
+  data_row_add_exemplar_button: додати до огляду
+  data_row_excluded_from_overview_notice: "Примітка: цей рядок було виключено з огляду."
+  data_row_exemplar_added: Додано до огляду.
+  data_row_exemplar_removed: Вилучено із огляду.
   data_row_hide_button: Приховати рядок
-  data_row_remove_exemplar_button: вилучити з швидких фактів
+  data_row_remove_exemplar_button: вилучити з огляду
   data_row_unhide_button: Відобразити рядок
   data_search_destroyed: Ця робота більше не буде оброблятися.
   data_search_files: 
     file_ready_for_download: Пошук, який ви нещодавно запросили за "%{known_uri_label}", можна завантажити за адресою <a href='%{download_url}'>%{download_url}</a>.
+    from: Найменше значення
+    to: Найбільше значення
+    unit_uri: Одиниця виміру
   data_search_files_with_count: 
     few: "%{count} збережені пошуки"
     many: "%{count} збережені пошуки"
     one: "%{count} збережений пошук"
     other: "%{count} збережені пошуки"
   data_search_link: Пошук наукових даних на ЕЖ
-  data_search_refine_field_label: Уточнити дані пошуку
-  data_search_refine_placeholder: наприклад, від 10 до 50
   data_server_unavailable: Дані про ЕЖ тимчасово недоступні. Будь ласка, завітайте пізніше. Вибачте за завдані незручності.
   data_show_n_more_rows: Показати понад 10 рядків...
   data_subtab_about: Про
-  data_subtab_glossary: Глосарій
-  data_tab_curator_excluded: вилучено з швидких фактів
-  data_tab_curator_exemplar: додано до Швидких Фактів
-  data_tab_curator_key_excluded: "%{image} вилучено з <a href='%{link}'>Швидких фактів</a>"
-  data_tab_curator_key_exemplar: "%{image} додано до <a href='%{link}'>Швидких фактів</a>"
+  data_subtab_glossary: Глосарій для %{taxon}
+  data_tab_curator_excluded: Вилучено з огляду
+  data_tab_curator_exemplar: Показано у огляді
+  data_tab_curator_key_excluded: "%{image} вилучено з <a href='%{link}'>Огляд</a>"
+  data_tab_curator_key_exemplar: "%{image} додано до <a href='%{link}'>Огляду</a>"
   data_usage_reports: Звіти про використання даних
   date_caps: Дата
   date_uploaded: Дата завантаження
@@ -1973,7 +1976,6 @@ uk:
   did_you_mean: "Ви мали на увазі: %{suggestions} ?"
   disabled_for_now: ВИМКНЕНО
   discover_link: Пізнати
-  displaying_numerical_range: Відображається %{start_number} &ndash; %{end_number} of %{total}
   do_you_want_to_be_a_curator: Ви хочете бути куратором
   donate_link: Пожертвувати
   donation_agree: згоден
@@ -3188,7 +3190,7 @@ uk:
     default_subject: Останні дії на EOL
     intro: Ось Ваш виклад активності ЕЖ за %{time}
     intro_immediately: Привіт, %{name} —
-    intro_weekly: Ось виклад вашої діяльності на EOL за минулий тиждень %{ending}
+    intro_weekly: Ось виклад вашої діяльності на ЕЖ за тиждень %{ending}
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Переглянути усю попередню діяльність на <a href='%{activity_url}' style='color:#195184'>стрічці новин у вашій сторінці користувача</a>.
     someone_commented_on_something: <b>%{who}</b> вже прокоментував на <b>%{what}</b>.
@@ -3260,7 +3262,7 @@ uk:
   see_all_media_link: Переглянути усі медіа
   see_all_of_your_collections: Переглянути всі збірки
   see_all_of_your_communities: Переглянути всі ваші громади
-  see_in_data_glossary: переглянути у глосарію даних
+  see_in_data_glossary: переглянути увесь глосарій даних
   see_more_on_the_data_tab: див. більше на вкладці Дані
   see_notes: див. примітки
   see_this_record_in_virtuoso: див. цей запис у Virtuoso
@@ -3321,8 +3323,8 @@ uk:
   sort_by_status_option: Статусом
   sort_by_title_ascending: Заголовком по зростанню
   sort_by_title_descending: Заголовком по спаданню
-  sort_by_value_ascending: Значенням по зростанню
-  sort_by_value_descending: Значенням по спаданню
+  sort_by_value_ascending: Спершу найнижчі значення
+  sort_by_value_descending: Спершу найвищі значення
   sort_by_year_ascending: Роком по зростанню
   sort_by_year_descending: Роком по спаданню
   sort_field: "Поле сортування:"
@@ -3414,21 +3416,21 @@ uk:
           meta_description: Фотографії, відео і аудіо %{scientific_name} прокласифіковані за %{hierarchy_provider}. Знайдіть зображення, фотографії, фільми і звуки %{scientific_name} у "Енциклопедії Життя".
           meta_description_no_data: Немає доступних обчислених даних для %{scientific_name} прокласифікованих за %{hierarchy_provider} в "Енциклопедії Життя". EOL запрошує вас внести дані для %{scientific_name}.
           meta_description_with_common_name_no_data: Немає доступних обчислених даних для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести дані для %{preferred_common_name} (%{scientific_name}).
-          meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name} прокласифікованого за %{hierarchy_provider}? Обчислювані дані про %{scientific_name}, включаючи інформацію про %{topics}.
+          meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name} прокласифікованого за %{hierarchy_provider}? Характерні дані про %{scientific_name}, включаючи інформацію про %{topics}.
           meta_keywords: Обчислювані дані %{scientific_name} прокласифікованого за %{hierarchy_provider}, інформація про %{scientific_name}
           meta_keywords_with_common_name: Обчислювані дані %{preferred_common_name} прокласифікованого за %{hierarchy_provider}
-          meta_title: Обчислювані дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
-          meta_title_with_common_name: Обчислювані дані для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} (%{scientific_name})
-          tweet_text: Обчислювані дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+          meta_title: Характерні дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
+          meta_title_with_common_name: Характерні дані для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Характерні дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
         meta_description: Фотографії, відео і аудіо %{scientific_name}. Знайдіть зображення, фотографії, фільми і звуки %{scientific_name} у "Енциклопедії Життя".
         meta_description_no_data: Немає доступних обчислених даних для %{scientific_name}  в "Енциклопедії Життя". EOL запрошує вас внести дані для %{scientific_name}.
         meta_description_with_common_name_no_data: Немає доступних обчислених даних для %{preferred_common_name} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести дані для %{preferred_common_name} (%{scientific_name}).
-        meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name}? Обчислювані дані про %{scientific_name}, включаючи інформацію про %{topics}.
+        meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name}? Характерні дані про %{scientific_name}, включаючи інформацію про %{topics}.
         meta_keywords: обчислювані дані %{scientific_name}, інформація про %{scientific_name}
         meta_keywords_with_common_name: обчислювані дані %{preferred_common_name}
-        meta_title: Обчислювані дані для %{scientific_name}
-        meta_title_with_common_name: Обчислювані дані для %{preferred_common_name} (%{scientific_name})
-        tweet_text: Обчислювані дані для %{scientific_name}
+        meta_title: Характерні дані для %{scientific_name}
+        meta_title_with_common_name: Характерні дані для %{preferred_common_name} (%{scientific_name})
+        tweet_text: Характерні дані для %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -3663,6 +3665,11 @@ uk:
   text_object: Текстовий об'єкт
   text_summary_empty_header: Короткий підсумок
   text_summary_more_link: Читати повний запис
+  text_with_count: 
+    few: "%{count} статті"
+    many: "%{count} статей"
+    one: "%{count} стаття"
+    other: "%{count} статті"
   thank_you: Дякуємо
   thank_you_for_your_generous_support: Дякуємо вам за щедру підтримку!
   thanks_for_donation: Дякуємо вам за підтримку Енциклопедії життя. Ваша інформація вже надіслана і буде оброблена.

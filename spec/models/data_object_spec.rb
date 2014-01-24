@@ -223,26 +223,48 @@ describe DataObject do
     end
   end
 
-  it 'should use object_url if non-flash' do
-    @dato.data_type = DataType.gen_if_not_exists(label: 'AnythingButFlash')
-    @dato.video_url.should == @dato.object_url
-  end
+  describe '#video_url' do
+    it 'should use .ogg file extension for .ogv files' do
+      ogg = DataObject.gen(object_url: 'http://example.ogv',
+                           object_cache_url: 123,
+                           data_type: DataType.video)
+      ogg.video_url.should =~ /ogg$/
+    end
+
+    it 'should still work* when object url is to a php file' do
+      # *it barely works, its totally unreliable and needs to be fixed
+      d = DataObject.gen(object_url: 'http://example.php',
+                         object_cache_url: 123,
+                         data_type: DataType.video,
+                         mime_type: MimeType.mp4)
+      d.video_url.should =~ /mp4$/
+      d.mime_type = MimeType.mov
+      d.video_url.should =~ /mov$/
+      d.mime_type = MimeType.mpeg
+      d.video_url.should =~ /mpeg$/
+    end
+
+    it 'should use object_url if non-flash' do
+      @dato.data_type = DataType.gen_if_not_exists(label: 'AnythingButFlash')
+      @dato.video_url.should == @dato.object_url
+    end
 
 
-  it 'should use object_cache_url (plus .flv) if available' do
-    @flash_dato.video_url.should =~ @content_server_match
-    @flash_dato.video_url.should =~ /\.flv$/
-  end
+    it 'should use object_cache_url (plus .flv) if available' do
+      @flash_dato.video_url.should =~ @content_server_match
+      @flash_dato.video_url.should =~ /\.flv$/
+    end
 
-  it 'should return empty string if no thumbnail (when Flash)' do
-    @dato.object_cache_url = nil
-    @dato.video_url.should == ''
-    @dato.object_cache_url = ''
-    @dato.video_url.should == ''
-  end
+    it 'should return empty string if no thumbnail (when Flash)' do
+      @dato.object_cache_url = nil
+      @dato.video_url.should == ''
+      @dato.object_cache_url = ''
+      @dato.video_url.should == ''
+    end
 
-  it 'should use content servers' do
-    @flash_dato.video_url.should match(@content_server_match)
+    it 'should use content servers' do
+      @flash_dato.video_url.should match(@content_server_match)
+    end
   end
 
   # 'Gofas, S.; Le Renard, J.; Bouchet, P. (2001). Mollusca, <B><I>in</I></B>: Costello, M.J. <i>et al.</i> (Ed.) (2001). <i>European register of marine species: a check-list of the marine species in Europe and a bibliography of guides to their identification.'

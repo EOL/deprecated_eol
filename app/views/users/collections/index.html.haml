@@ -10,7 +10,16 @@
     .heading
       %h3= I18n.t(:collections_with_count, :count => @published_collections.size)
       - if @published_collections.size > 1
-        = render 'shared/sort_by_date_form'
+        = form_tag({}, :class => 'filter', :method => :get) do
+          %fieldset
+            %dl
+              %dt
+                = label_tag :sort_by, I18n.t(:sort_by_label)
+              %dd
+                - selected = params[:sort_by].nil? ? :alpha : params[:sort_by].to_sym
+                = select_tag :sort_by, options_for_select(@sorts, selected)
+          %fieldset.actions
+            = submit_tag I18n.t(:sort_by_button)
       - else
         = link_to I18n.t(:what_is_this_question), cms_page_path('collections')
     - unless @published_collections.empty?

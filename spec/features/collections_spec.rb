@@ -110,7 +110,8 @@ describe "Collections" do
     # See 9853360275ad5f3b673c4ba86379397d32efa805 if you want this back:
     # it 'should show resource preview collections on the user profile page to the owner'
 
-    it 'should allow EOL administrators and owners to view unpublished collections' do
+    # TODO - there are multiple assertions here that should be grouped differently.
+    it 'should show removed message when unpublished' do
       @collection.update_column(:published, false)
       @collection.update_column(:view_style_id, ViewStyle.annotated.id)
       if @collection.resource_preview.blank?
@@ -120,22 +121,23 @@ describe "Collections" do
       end
       @collection.reload
       visit logout_path
-      lambda { visit collection_path(@collection) }.should raise_error(EOL::Exceptions::MustBeLoggedIn)
+      visit collection_path(@collection)
+      expect(page).to have_content(I18n.t(:collection_was_removed_by_owner))
       user = User.gen(admin: false)
       login_as user
-      referrer = current_path
-      lambda { visit collection_path(@collection) }.should raise_error(EOL::Exceptions::SecurityViolation)
+      visit collection_path(@collection)
+      expect(page).to have_content(I18n.t(:collection_was_removed_by_owner))
 
       admin = User.gen(admin: true)
       login_as admin
       visit collection_path(@collection)
       body.should have_tag('h1', text: @collection.name)
-      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.collected_item)}']")
+      expect(page).to have_content(I18n.t(:collection_was_removed_by_owner))
 
       login_as @collection.users.first
       visit collection_path(@collection)
+      expect(page).to have_content(I18n.t(:collection_was_removed_by_owner))
       body.should have_tag('h1', text: @collection.name)
-      body.should have_tag("ul.object_list li a[href='#{data_object_path(@collection.collection_items.first.collected_item)}']")
     end
 
   end

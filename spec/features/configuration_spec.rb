@@ -6,7 +6,7 @@ describe 'Configuration' do
     load_foundation_cache
     @tiger_name = 'Tiger'
     @taxon_concept = build_taxon_concept(common_names: [@tiger_name])
-    recreate_solr_indexes
+    SolrHelpers.recreate_solr_indexes
   end
 
   describe ' : DataLogging' do

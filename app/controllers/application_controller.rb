@@ -477,6 +477,7 @@ class ApplicationController < ActionController::Base
     rescue_action_in_public(exception)
   end
 
+  # TODO - this doesn't belong in a controller. Move it to a lib or a model.
   def fetch_external_page_title
     data = {}
     success = nil
@@ -485,6 +486,7 @@ class ApplicationController < ActionController::Base
     begin
       url = params[:url]
       url = "http://" + url unless url =~ /^[a-z]{3,5}:\/\//i
+      debugger
       response = Net::HTTP.get_response(URI.parse(url))
       if (response.code == "301" || response.code == "302" || response.code == "303") && response.kind_of?(Net::HTTPRedirection)
         response = Net::HTTP.get_response(URI.parse(response['location']))

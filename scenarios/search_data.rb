@@ -6,11 +6,10 @@ require Rails.root + '/lib/eol_data'
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
 
-require 'spec/eol_spec_helpers'
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::RSpec::Helpers
+include EOL::Builders
 
 def animal_kingdom
   @animal_kingdom ||= build_taxon_concept(:canonical_form => 'Animals',

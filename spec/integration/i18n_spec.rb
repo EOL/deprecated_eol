@@ -11,7 +11,7 @@ describe 'Switching Languages' do
   
   it 'should use the default language' do
     visit('/logout')
-    I18n.locale.to_s.should == Language.default.iso_code
+    I18n.locale.to_s.should == Language.default_code
   end
   
   it 'should set the default language' do
@@ -28,8 +28,8 @@ describe 'Switching Languages' do
     login_as @user_fr
     I18n.locale.to_s.should == 'fr'
     visit('/set_language?language=en')
-    I18n.locale.to_s.should == Language.default.iso_code
+    I18n.locale.to_s.should == Language.default_code
     visit('/')
-    @user_fr.reload.language.iso_code.should == Language.default.iso_code
+    @user_fr.reload.language.iso_code.should == Language.default_code
   end
 end

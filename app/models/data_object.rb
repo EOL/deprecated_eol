@@ -1119,7 +1119,7 @@ class DataObject < ActiveRecord::Base
     options[:language] ||= Language.default
     return true if toc_item.label(options[:language].iso_code).downcase == object_title.downcase
     if options[:language] != Language.default
-      return true if toc_item.label(Language.default.iso_code).downcase == object_title.downcase
+      return true if toc_item.label(Language.default_code).downcase == object_title.downcase
     end
   end
 

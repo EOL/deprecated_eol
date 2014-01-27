@@ -161,6 +161,8 @@ class TaxonUserClassificationFilter
   def common_names_count
     return @common_name_count if @common_name_count
     if _hierarchy_entry
+      # TODO - this can't be right. We're passing in the HE id as if it were a TC id... and the code doesn't seem to account for
+      # it, so ... I don't know what this is actually doing.  (?!) ...This is probably low-priority, though.  :\
       @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(hierarchy_entry.id)
     else
       @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(taxon_concept.id, nil)

@@ -46,7 +46,7 @@ describe 'Taxa worklist' do
     
     assistant_curator = build_curator(@taxon_concept, level: :assistant)
     login_as(assistant_curator)
-    expect { visit taxon_worklist_path(@taxon_concept) }.to_not raise_error(EOL::Exceptions::SecurityViolation)
+    expect { visit taxon_worklist_path(@taxon_concept) }.to_not raise_error
   end
   
   it 'should show filters, tasks list and selected task' do

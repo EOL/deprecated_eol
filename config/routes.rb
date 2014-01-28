@@ -472,6 +472,8 @@ Eol::Application.routes.draw do
 
   resources :donations, except: [:index, :destroy]
   get '/donate', to: redirect('/donations/new')
+  get '/donation', to: redirect('/donations/new')
+  get '/donations', to: redirect('/donations/new')
   # TODO - remove this:
   match 'content/donate_complete' => 'content#donate_complete'
 

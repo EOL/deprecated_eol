@@ -57,7 +57,7 @@
           taxon_literature_path(@taxon_page)
         %li{:class => resource_is_active('updates')}= link_to raw(I18n.t(:updates)), taxon_updates_path(@taxon_page)
         %li{:class => resource_is_active('worklist')}= link_to raw(I18n.t(:worklist)),
-          taxon_worklist_path(@taxon_page) if current_user.min_curator_level?(:full)
+          taxon_worklist_path(@taxon_page) if current_user.is_curator?
 
   #content
     .site_column

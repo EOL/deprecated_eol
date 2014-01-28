@@ -1,3 +1,4 @@
+# C'mon, guys.  Is it REALLY that hard to put your translation variables in alphabetical order?  Please do.
 en:
   date:
     formats:
@@ -3680,7 +3681,6 @@ en:
   get_help_choosing_a_subject: "Get help choosing a subject"
   get_help_choosing_a_subchapter: "Get help choosing a subchapter"
   get_more_tasks: "get more tasks"
-  method_to_get_metadata_about_the_hierarchy: "given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa"
   given_name_colon: "Given Name:"
   data_object_api_description: "Given the identifier for a data object this API will return all metadata about the object as submitted to EOL by the contributing content partner. The content partner is cited in the first agent element and has the role of 'partner'."
   given_the_vast_number: "Given the vast number of scientific and common names (nearly 20 million in total) it is a difficult task to provide a user with exactly the species they are hoping to find. For example there are several bird species of named Robin (American Robin, Alpine Robin, Smoky Robin), and several fish species named Robin, and a taxonomist named Robin who has named dozens of species. We have included an 'exact' parameter to return only results whose name matches the search term in its entirety, but we cannot guarantee the returned taxa are taxa you intended to find. We are continuously trying to improve the relevancy of our search results so expect some improvements to search ordering in the near future."
@@ -3741,6 +3741,7 @@ en:
   image_cropped_notice: "Image was cropped successfully."
   image_crop_failed_error: "Sorry, an error occurred, the image could not be cropped."
   image_is_no_longer_available: "Image is no longer available"
+  image_map_from: "map from"
   image_not_found: "Image not found"
   image_object: "Image object"
   image_objects_will_contain_two_mediaurl_elements: "Image objects will contain two 'mediaURL' elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (preserving the aspect ratio) if the original image is larger than 460 pixels wide or 345 pixels in height."
@@ -3952,7 +3953,6 @@ en:
   manager_parens: "(manager)"
   map_from: "map from"
   master_curators_may_add_data: "Master curators may add data:"
-  image_map_from: "map from"
   maps_with_count:
     one: "%{count} Map"
     other: "%{count} Maps"
@@ -3991,6 +3991,8 @@ en:
   meta_title_site_name: "Encyclopedia of Life"
   method: "Method"
   methods: "Methods"
+  method_to_get_metadata_about_the_hierarchy: "given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa"
+  missing_interpolation_argument_error: "[translation incomplete]"
   monthly: "Monthly"
   more: "more"
   more_children_with_count:

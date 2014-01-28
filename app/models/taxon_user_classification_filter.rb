@@ -161,7 +161,7 @@ class TaxonUserClassificationFilter
   def common_names_count
     return @common_name_count if @common_name_count
     if _hierarchy_entry
-      @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(hierarchy_entry.id)
+      @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(taxon_concept.id, hierarchy_entry.id)
     else
       @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(taxon_concept.id, nil)
     end

@@ -57,7 +57,11 @@ module Eol
       when 'all'
         config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "*.yml").to_s]
       else
-        config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "#{ENV['LOCALE']}.yml").to_s]
+        if #{ENV['LOCALE']} =~ /,/
+          config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{#{ENV['LOCALE']}}.yml").to_s]
+        else
+          config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "#{ENV['LOCALE']}.yml").to_s]
+        end
       end
     else
       config.i18n.load_path += Dir[Rails.root.join('config', 'translations', 'en.yml').to_s]

@@ -82,6 +82,10 @@ class Language < ActiveRecord::Base
     end
   end
 
+  def self.default_code
+    Language.default.iso_639_1
+  end
+
   def self.default
     @@default ||= cached('default') do
       self.english_for_migrations # Slightly weird, but... as it implies... needed for migrations.

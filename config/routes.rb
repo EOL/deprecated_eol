@@ -471,6 +471,7 @@ Eol::Application.routes.draw do
   match '/language' => 'content#language', :as => 'language'
 
   resources :donations, except: [:index, :destroy]
+  get '/donate', to: redirect('/donations/new')
   # TODO - remove this:
   match 'content/donate_complete' => 'content#donate_complete'
 

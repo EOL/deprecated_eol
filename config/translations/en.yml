@@ -3359,9 +3359,7 @@ en:
       clade_too_big: "Sorry, the results shown are not filtered by %{taxon_name} because it is too large. Choose a smaller group or <a href=\"%{contactus_tech_path}\">contact us</a> for assistance."
       clade_has_no_data: "No one has contributed data records for %{taxon_name} yet. <a href=\"%{contribute_path}\">Learn how to contribute</a>."
   data_search_link: "Search scientific data on EOL"
-  data_search_teaser: "%{attribute} data in TraitBank"
   data_search_explanation: "Use EOL's data search to find items matching '%{term}' in observations,<br />measurements and other scientific assertions."
-  data_search_match_explain: "Your search term \"%{term}\" matches the TraitBank attribute %{attribute}."
   data_search_attribute: "Search TraitBank for records with %{attribute} data"
   data_search_destroyed: "This job will no longer be processed."
   data_search_files_with_count:
@@ -3605,7 +3603,7 @@ en:
   filter_by_type_image_option_with_count:
     one: "Images (%{count})"
     other: "Images (%{count})"
-  filter_by_type_data_option: "TraitBank data"
+  filter_by_type_data_option: "Traits"
   filter_by_type_link_option: "Links"
   filter_by_type_text_option: "Articles"
   filter_by_type_user_option: "People"
@@ -3748,6 +3746,9 @@ en:
   inappropriate: "Inappropriate"
   inaturalist_tab_label: "iNaturalist Observations"
   include_all_metadata: "include all metadata for data objects"
+  including_traitbank_count:
+    one: ", including %{count} TraitBank attribute"
+    other: ", including %{count} TraitBank attributes"
   in_collection: "in collection"
   in_community: "in community"
   info_item: "Info item"

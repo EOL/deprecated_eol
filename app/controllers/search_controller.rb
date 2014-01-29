@@ -10,6 +10,8 @@ class SearchController < ApplicationController
 
   helper_method :search_data?
 
+  # NOTE - this is confusing, but it wasn't worth renaming the variable: "all_results" does not include traitbank results.
+  # @attributes contains the traitbank results. If you really want "all" results, you need to combine the two.
   def index
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
@@ -77,6 +79,7 @@ class SearchController < ApplicationController
 
     set_canonical_urls(for: {q: @querystring, show_all: true}, paginated: @all_results,
                        url_method: :search_url)
+    @combined_results_count = @all_results.total_entries + @attributes.count
   end
 
   # there are various object types which can be the only result. This method handles redirecting to all of them

@@ -92,7 +92,7 @@ describe 'Search' do
   it 'should return a helpful message if no results' do
     # TaxonConcept.should_receive(:search_with_pagination).at_least(1).times.and_return([])
     visit("/search?q=bozo")
-    page.should have_selector('h2', text: "0 results for bozo")
+    expect(page).to have_content(I18n.t(:no_results_for_search_term, search_term: 'bozo'))
   end
 
   it 'should place suggested search results at the top of the list' do
@@ -181,11 +181,11 @@ describe 'Search' do
   it 'should return all results when not filtering' do
     visit("/search?q=#{@name_for_all_types}")
     current_path.should match /^\/search/
-    body.should have_selector('h2', text: "8 results for #{@name_for_all_types}")
+    expect(page).to have_content("8 results for #{@name_for_all_types}")
 
     visit search_path(q: @name_for_all_types, type: ['all'])
     current_path.should match /^\/search/
-    body.should have_selector('h2', text: "8 results for #{@name_for_all_types}")
+    expect(page).to have_content("8 results for #{@name_for_all_types}")
   end
 
   it 'should filter by collection' do

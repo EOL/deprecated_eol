@@ -8,6 +8,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem 'daemons', '1.1.9' # This allows tasks to run in the background, like Solr.
   gem 'factory_girl_rails', '4.3.0' # We use this *extensively* in testing to create "real" models. Learn this.
   gem 'faker', '1.2.0' # We use this for creating "realistic" names for testing / bootstrapping.
+  gem 'fuubar' # This improves formatting of specs. Not including a version because updates are probably good.
   gem 'haml-rails' # Just for rails generators.
   gem 'optiflag', '0.7' # Handles command-line arguments. We currently only use this for Solr tasks.
   gem 'rspec-rails', '2.14' # This is what we use for testing. Learn it.

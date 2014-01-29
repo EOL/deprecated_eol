@@ -1361,7 +1361,7 @@ en:
   recent_activity_mailer:
     data_search_file_download_ready:
       subject: "Your EOL search is ready for downloading"
-      message: "You can download this and other downloads by visiting the <a href='%{download_link}'>saved searches tab in your profile</a>."
+      message: "You can view this and other downloads by visiting the <a href='%{download_link}'>data downloads tab in your profile</a>."
       header: "Your download is ready!"
   sessions:
     new:
@@ -1729,14 +1729,18 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Content Partners"
         tweet_text: "%{user_full_name} content partners"
-    saved_searches:
+    data_downloads:
       index:
-        meta_description: "%{user_full_name} saved searches."
+        meta_description: "Data downloads requested by %{user_full_name}."
         meta_keywords: ""
-        meta_title: "%{user_full_name} Saved Searches"
-      empty: "You have no saved searches. Visit the <a href='%{data_search_url}'>data search page</a> to perform and save searches."
+        meta_title: "%{user_full_name} Data Downloads"
+        tweet_text: "%{user_full_name} data downloads"
+      header_with_count:
+        one: "Data download"
+        other: "%{count} Data downloads"
+      empty: "You have no downloads. You can <a href='%{data_search_url}'>search for data</a> and request to download the results."
       download: "download"
-      page_title: "Saved Searches"
+      page_title: "Data Downloads"
       query_head: "Query"
       attribute_head: "Attribute"
       created_head: "Created"
@@ -1749,6 +1753,7 @@ en:
       processing: "processing"
       refresh: "refresh"
       row_count: "Count"
+      search_again: "search again"
     edit:
       form_tip_account: "To sign in to EOL you either need an EOL username and password, or you can connect a third-party account. Username and password are required if you do not have a connected account, however only enter a new password here if you'd like to change your existing one. Email address and preferred language are required (%{required_icon}) for all users."
       form_tip_account_oauth: "Email address and preferred language are required %{required_icon} for all users."
@@ -2977,6 +2982,7 @@ en:
     one: "Belongs to %{count} community"
     other: "Belongs to %{count} communities"
   completed: "Completed"
+  completed_colon: "Completed:"
   confirm_delete_community: "Are you sure you want to delete this community? Remaining members will still be able to see it and the newsfeed will be maintained, but it will not show up in searches or on taxon pages, and will no longer be editable."
   confirm_leave: "Are you sure you want to leave this community?"
   confirm_password_colon: "Confirm Password:"
@@ -3363,8 +3369,8 @@ en:
   data_search_attribute: "Search TraitBank for records with %{attribute} data"
   data_search_destroyed: "This job will no longer be processed."
   data_search_files_with_count:
-    one: "%{count} saved search"
-    other: "%{count} saved searches"
+    one: "%{count} data download"
+    other: "%{count} data downloads"
   data_server_unavailable: "Data on EOL is temporarily unavailable. Please check back later. Sorry for any inconvenience."
   data_show_n_more_rows: "Show NNN more..."
   data_subtab_about: "About"
@@ -3559,6 +3565,8 @@ en:
       admin_or_master_curators_only: "Sorry, access is restricted to EOL Administrators and EOL Curators with a minimum curator level of Master."
       no_access: "Sorry, access is restricted."
   expand_all_children: "expand all children"
+  expired: "Expired"
+  expires_in_colon: "Expires in:"
   explore: "Explore"
   explore_what_we_know_about_taxon: "Explore what EOL knows about %{taxon}."
   export_curator_csv_link: "[export all curators as CSV]"
@@ -4527,6 +4535,7 @@ en:
   submit: "Submit"
   submit_term: "Submit Term"
   submitting: "Please wait…"
+  submitted_colon: "Submitted:"
   suggested_attributes: "Suggested attributes:"
   suggested_result_page_id: "Suggested Result Page ID:"
   suggested_results_avg: "Suggested Results avg"

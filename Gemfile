@@ -33,6 +33,7 @@ group :test, :development do
   gem 'guard-zeus', require: false # Auto-testing with zeus (IFF you have it installed)
   gem 'guard-bundler', require: false # automatically install/update your gem bundle when needed
   gem 'guard-rspec', require: false # Auto-testing
+  gem 'guard-cucumber', require: false # for guard-zeus to work properly
   gem 'launchy' # Allows save_and_open_page in specs, very, very handy!
   gem 'pry-rails' # rails console has additional commands: show-models, show-routes --grep use
   gem 'pry-rescue' # Better debugging. Raise an error in pry console and use cd-cause to get to the error point, use edit

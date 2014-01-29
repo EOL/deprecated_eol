@@ -2,7 +2,6 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
 
 require Rails.root.join('spec', 'eol_spec_helpers')
 require Rails.root.join('spec', 'custom_matchers')

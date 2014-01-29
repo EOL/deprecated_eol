@@ -1,0 +1,50 @@
+- content_for :social_sharing do
+  = render 'shared/social_sharing'
+#profile_data_downloads.main_container
+  #background_processes.site_column
+    -# TODO - pagination
+    .heading
+      %h3
+        = I18n.t('users.data_downloads.header_with_count', :count => @background_processes.size)
+    - if @background_processes.empty?
+      .empty
+        %p= raw I18n.t('users.data_downloads.empty', data_search_url: data_search_url)
+    - else
+      .list.updates
+        %ul.feed.object_list
+          - @background_processes.each do |search_file|
+            - redo_search_url = data_search_url(attribute: search_file.uri, q: search_file.q,
+              min: search_file.from, max: search_file.to, taxon_concept_id: search_file.taxon_concept_id,
+              unit: search_file.unit_uri, sort: search_file.sort)
+            %li.data{ class: (! search_file.complete?) ? 'pending' : nil }
+              = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:data_search_link)}), redo_search_url
+              %h4
+                - title = search_file.known_uri.name.firstcap
+                = link_to title, redo_search_url
+                - unless search_file.complete?
+                  %span.message= I18n.t('users.data_downloads.processing')
+              - summary_parts = data_search_file_summary(search_file)
+              - unless summary_parts.empty?
+                = raw summary_parts.join(", ")
+              - if search_file.complete?
+                %p.meta
+                  = raw I18n.t(:completed_colon)
+                  = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(search_file.completed_at))
+                  &bull;
+                  - if search_file.expired?
+                    %span.expired= raw I18n.t(:expired)
+                  - else
+                    = raw I18n.t(:expires_in_colon)
+                    = distance_of_time_in_words(Time.now, search_file.expires_at)
+              - else
+                %p.meta
+                  = raw I18n.t(:submitted_colon)
+                  = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(search_file.updated_at))
+              %ul.actions
+                - if search_file.complete?
+                  - if search_file.downloadable?
+                    %li= link_to(I18n.t('users.data_downloads.download'), search_file.hosted_file_url)
+                  %li= link_to(I18n.t(:delete), user_data_download_path(search_file.user, search_file), method: :delete, confirm: I18n.t(:are_you_sure))
+                - else
+                  %li= link_to(I18n.t(:cancel_and_delete), user_data_download_path(search_file.user, search_file), method: :delete, confirm: I18n.t(:are_you_sure))
+                %li= link_to(I18n.t('users.data_downloads.search_again'), redo_search_url)

@@ -110,6 +110,8 @@ class KnownUri < ActiveRecord::Base
   # TODO - I'm not sure #all_measurement_type_known_uris searches user-added data points.  :| That *might* be intentional (to
   # exclude them from search options), but I'm not aware of that requirement; if so, that query will need to be extended into a
   # new method, here.
+  #
+  # NOTE - diff this file with b9e79274f5430663af87508457a6a14e850c13f5 for the previous implementation (partial word matches).
   def self.by_name(input)
     normal_re = /[^a-zA-Z0-9 ]/
     name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...
@@ -119,19 +121,7 @@ class KnownUri < ActiveRecord::Base
     exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name }.first
     # TODO - this is a little odd, now that we're returning an array. Re-think: do you really want this?
     return [exact_match] if exact_match
-    return uris.select { |k| k.name.gsub(normal_re, '').split.map(&:downcase).include?(name) } unless name =~ / /
-    # If you're still here, it's because you have multiple words and no "exact" matches. (q.v.: "high habitat breadth")
-    # Ideally we would use super-cool search algorithms here that would recognize "high habitat breadth" is a better match to
-    # "habitat breadth" than it is to "habitat", but we don't have time to be that smart right now:
-    split_name = name.split
-    matches = []
-    # TODO - this is almost certainly slower than other algorithms (particularly indexing); replace
-    split_name.each do |subname|
-      uris.each do |known_uri|
-        matches << known_uri if known_uri.name.gsub(normal_re, '').split.map(&:downcase).include?(subname)
-      end
-    end
-    matches
+    return uris.select { |k| k.name.gsub(normal_re, '') =~ /#{name}/i }
   end
 
   def self.custom(name, language)

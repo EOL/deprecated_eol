@@ -43,11 +43,6 @@ describe KnownUri do
       expect(KnownUri.by_name('bar').first).to eq(@uri2) # Not 3...
     end
 
-    it 'should match one word of many words' do
-      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
-      expect(KnownUri.by_name('this bar dude').first).to eq(@uri2)
-    end
-
     it 'should ignore symbols' do
       EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('foo$#').first).to eq(@uri3)

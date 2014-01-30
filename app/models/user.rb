@@ -935,11 +935,11 @@ public
 
   # NOTE: Careful!  The next three methods are for checking the EXACT curator level.  See also #min_curator_level?.
   def master_curator?
-    self.curator_level_id == CuratorLevel.master.id
+    self.curator_level_id && self.curator_level_id == CuratorLevel.master.id
   end
 
   def full_curator?
-    self.curator_level_id == CuratorLevel.full.id
+    self.curator_level_id && self.curator_level_id == CuratorLevel.full.id
   end
 
   def assistant_curator?

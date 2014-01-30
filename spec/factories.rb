@@ -686,9 +686,13 @@ FactoryGirl.define do
   end
 
   factory :data_search_file do
-    association :known_uri
-    association :user
-    uri { "http://example.com/#{generate(:string)}" }
+    association   :known_uri
+    association   :user
+    uri           { "http://example.com/#{generate(:string)}" }
+    row_count     10
+    created_at    Time.now
+    updated_at    Time.now
+    completed_at  Time.now
   end
 
   factory :data_type do

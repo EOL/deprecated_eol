@@ -487,7 +487,6 @@ class ApplicationController < ActionController::Base
       url = params[:url]
       url = "http://" + url unless url =~ /^[a-z]{3,5}:\/\//i
       response = Net::HTTP.get_response(URI.parse(url))
-      debugger if $FOO
       if (response.code == "301" || response.code == "302" || response.code == "303") && response.kind_of?(Net::HTTPRedirection)
         response = Net::HTTP.get_response(URI.parse(response['location']))
       end

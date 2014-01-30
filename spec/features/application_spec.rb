@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 # TODO - these are fragile tests. We should mock the responses: we shouldn't have to be connected to get these, and
 # we shouldn't have to change our tests if, say, CNN changes its title.

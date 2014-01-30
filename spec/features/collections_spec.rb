@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 #TODO: test connection with Solr: filter, sort, total results, paging, etc
 

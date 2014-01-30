@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 # TODO - it's entirely feasible to remove foundation from this MODEL spec.
 

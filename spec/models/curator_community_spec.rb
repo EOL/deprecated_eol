@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 def clear_curator_community_cache
   Rails.cache.delete('test/communities/name/EOL_Curators')

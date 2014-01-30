@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 def test_and_reset_downloadable
   expect(@search_file.downloadable?).to eq(false)

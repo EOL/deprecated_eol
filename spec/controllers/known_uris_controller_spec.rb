@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def create_known_uri(params)
   new_instance = KnownUri.create(uri: params[:uri], uri_type_id: params[:uri_type_id],

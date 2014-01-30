@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def create_curator_for_taxon_concept(tc)
   curator = build_curator(tc)

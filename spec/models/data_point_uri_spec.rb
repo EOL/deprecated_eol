@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 def make_and_convert(options)
   d = DataPointUri.new(options)

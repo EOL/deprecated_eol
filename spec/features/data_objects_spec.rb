@@ -1,5 +1,5 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 # TODO - these specs only pass when they're all passing. If one fails, the data isn't reset.
 

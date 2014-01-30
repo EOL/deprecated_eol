@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe 'Errors' do
   # NOTE: Middleware exceptions e.g. MySQL Unknown Database will be caught by ActionController::Failsafe

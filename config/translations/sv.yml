@@ -1093,7 +1093,7 @@ sv:
   and_between_form_items: och
   annotation_body_default: lägg till en fråga eller kommentar...
   annotation_cabs_colon: "Anmärkning:"
-  annotation_note: Kommentarer kommer att delas med<br />dataleverantörer (om det är tillgängligt).
+  annotation_note: Kommentarer kommer att delas med dataleverantörer (om det är tillgängligt).
   annotation_submit: skicka kommentar
   annotations_with_count: 
     one: "%{count} anmärkning"
@@ -1748,7 +1748,7 @@ sv:
   data_column_name: Mätningsetikett
   data_column_raw_value: Råvärde (direkt från källan)
   data_column_sci_name: Vetenskapligt namn
-  data_column_source: Källa
+  data_column_source: Leverantör
   data_column_tc_id: EOL sid-ID
   data_column_units: Enheter (normaliserat)
   data_column_val: Värde (normaliserat)
@@ -1785,7 +1785,7 @@ sv:
   data_overview_table_caption: Egenskapsdata
   data_point_uri_source_missing: källa saknas
   data_point_uri_summary_name: data om %{taxon}
-  data_provided_by_content_partner: "Källa: %{whom}"
+  data_provided_by_content_partner: "Leverantör: %{whom}"
   data_provided_by_user: tillhandahållen av %{whom}
   data_reference_subtable_summary: Ytterligare referenser om denna fakta.
   data_row_add_exemplar_button: lägg till i översikt
@@ -1815,8 +1815,8 @@ sv:
     one: EOL har data för 1 egenskap
     other: EOL har data för %{count} egenskaper
     zero: EOL har ingen egenskapsdata
-  data_tab_curator_excluded: Uteslöts från översikt
-  data_tab_curator_exemplar: Visas i översikt
+  data_tab_curator_excluded: Denna rad har tagits bort från fliken Översikt.
+  data_tab_curator_exemplar: Denna rad har lagts till i fliken Översikt.
   data_tab_curator_key_excluded: "%{image} togs bort från <a href='%{link}'>översikt</a>"
   data_tab_curator_key_exemplar: "%{image} lade till i <a href='%{link}'>översikt</a>"
   data_usage_reports: Användningsrapporter för data
@@ -4155,25 +4155,6 @@ sv:
       form_header: Återställ konto
       form_tip: Det finns flera konton som är registrerade med e-postadressen <em>%{email}</em>. Var god välj det konto som lösenordet ska återställas för.
       legend_choose_account: Välj ett konto
-    saved_searches: 
-      actions_head: Åtgärder
-      attribute_head: Attribut
-      complete_head: Slutförd?
-      created_head: Skapades
-      download: ladda ned
-      empty: Du har inga sparade sökningar. Besök <a href='%{data_search_url}'>sidan för datasökningar</a> för att utföra och spara sökningar.
-      index: 
-        meta_description: "%{user_full_name}s sparade sökningar."
-        meta_title: "%{user_full_name}s sparade sökningar"
-      is_complete: Ja
-      is_not_complete: Nej
-      page_title: Sparade sökningar
-      processing: bearbetar
-      query_empty: tom
-      query_head: Fråga
-      refresh: uppdatera
-      row_count: Antal
-      updated_head: Senaste åtgärd
     show: 
       meta_description: Medlemsprofil för %{user_full_name} på Encyclopedia of Life.
       meta_description_curator: Medlemsprofil för %{curator_level} %{user_full_name} på Encyclopedia of Life.

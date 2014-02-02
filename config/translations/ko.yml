@@ -1737,6 +1737,10 @@ ko:
   data_row_additional_detail_show_alt: 추가 정보 표시
   data_row_exemplar_removed: 개요에서 제거되었습니다.
   data_row_remove_exemplar_button: 개요에서 제거
+  data_search: 
+    form: 
+      new_search_link: 새 검색 시작
+      search_value_or_range_header: 특정 값이나 범위 검색
   data_search_files: 
     unit_uri: 측정 단위
   data_subtab_glossary: "%{taxon}에 대한 용어집"
@@ -2240,6 +2244,13 @@ ko:
         link_type: 분류
         source_url: 링크 URL
         toc_item: 제목
+      data_search: 
+        attribute: 속성 선택
+        max: 가장 높은 값
+        max_placeholder: 숫자를 입력하세요
+        min: 가장 낮은 값
+        q: 지정 값
+        q_placeholder_disabled: 범위 입력됨, 값 지정 비활성화
       eol_statistic: 
         date_one: 날짜
         date_two: 날짜
@@ -3291,6 +3302,7 @@ ko:
   see_all_updates_with_count_html: 
     one: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 보기
     other: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 모두 보기
+  see_in_data_glossary: 전체 데이터 용어집 찾아보기
   see_notes: 참고 보기
   select_an_item_from_the_menu: 메뉴에서 항목을 선택하세요
   select_colon: "선택:"
@@ -3485,6 +3497,7 @@ ko:
         hierarchy_entry: 
           meta_title: "%{hierarchy_provider}로 분류된 %{scientific_name} 의 특성 자료"
         meta_title: "%{scientific_name}의 특성 데이터"
+        tweet_text: "%{scientific_name}의 특성 데이터"
     details: 
       index: 
         hierarchy_entry: 
@@ -4116,10 +4129,6 @@ ko:
       form_header: 계정 복구
       form_tip: <em>%{email}</em> 이메일 주소로 등록한 계정 여러 개가 있습니다. 복구하고자 하는 계정을 선택하세요.
       legend_choose_account: 계정 선택
-    saved_searches: 
-      attribute_head: 특성
-      download: 다운로드
-      is_not_complete: 아니오
     show: 
       meta_description: 생명의 백과사전에서 %{user_full_name}에 대한 구성원 프로필
       meta_description_curator: 생명의 백과사전에서 %{curator_level} %{user_full_name}에 대한 구성원 프로필

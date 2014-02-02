@@ -4209,21 +4209,6 @@ oc:
       form_header: Recuperar lo compte
       form_tip: I a mantun compte enregistrats amb aquesta adreça de corrièr electronic <em>%{email}</em>, seleccionatz lo que ne volètz recuperar l'accès.
       legend_choose_account: Causir un compte
-    saved_searches: 
-      actions_head: Accions
-      attribute_head: Atribut
-      complete_head: Complet ?
-      created_head: Creat
-      download: telecargar
-      is_complete: Òc
-      is_not_complete: Non
-      page_title: Recèrcas enregistradas
-      processing: tractament
-      query_empty: void
-      query_head: Requèsta
-      refresh: actualizar
-      row_count: Compte
-      updated_head: Darrièra accion
     show: 
       meta_description: Perfil de membre per %{user_full_name} dins l'Enciclopèdia de la Vida
       meta_description_curator: Perfil de membre per %{curator_level} %{user_full_name} dins l'Enciclopèdia de la Vida

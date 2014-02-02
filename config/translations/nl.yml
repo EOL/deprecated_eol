@@ -4546,25 +4546,6 @@ nl:
       form_header: Wachtwoord vergeten
       form_tip: Er zijn meerdere gebruikers ingeschreven met het e-mailadres <em>%{email}</em>. Selecteer de gebruiker waar u weer toegang toe wilt krijgen.
       legend_choose_account: Kies een gebruiker
-    saved_searches: 
-      actions_head: Handelingen
-      attribute_head: Eigenschap
-      complete_head: Compleet?
-      created_head: Aangemaakt
-      download: downloaden
-      empty: U hebt geen opgeslagen zoekopdrachten. Ga naar de <a href='%{data_search_url}'>pagina gegevens zoeken</a> om zoekopdrachten uit te voeren en op te slaan.
-      index: 
-        meta_description: Opgeslagen zoekopdrachten van %{user_full_name}.
-        meta_title: Opgeslagen zoekopdrachten van %{user_full_name}.
-      is_complete: Ja
-      is_not_complete: Nee
-      page_title: Opgeslagen zoekopdrachten
-      processing: bezig met verwerken
-      query_empty: leeg
-      query_head: Zoekopdracht
-      refresh: vernieuwen
-      row_count: Aantal
-      updated_head: Laatste handeling
     show: 
       meta_description: Gebruikersprofiel voor %{user_full_name} bij Encyclopedia of Life.
       meta_description_curator: Gebruikersprofiel voor %{curator_level} %{user_full_name} bij Encyclopedia of Life.

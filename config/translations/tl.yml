@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: AnakngAraw
+# Author: Jewel457
 # Author: TheSleepyhollow02
 tl: 
   0_1_or_2: 0, 1 o 2
@@ -1571,6 +1572,11 @@ tl:
       meta_supplier_default: isang tagapag-ambag
       meta_title: "%{dato_title} mula sa %{supplier}"
       tweet_text: "%{dato_title} mula sa %{supplier}"
+  data_search: 
+    form: 
+      new_search_link: Magsimula ng panibagong paghahanap
+      search_suggestion_blue_flowers: Anong mga halaman ang may mga asul na bulaklak?
+  data_tab_curator_exemplar: Ang hilerang ito ay idinagdag sa Overview tab.
   data_usage_reports: Mga Ulat sa Paggamit ng Dato
   date_caps: Petsa
   date_uploaded: Petsa noong ikarga nang paitaas
@@ -1995,6 +2001,13 @@ tl:
         rights_statement_more: Pagpapahayag ng mga karapatan sa paggamit ayon sa hinihingi ng mga lisensiyang Creative Commons Attribution (CC-BY), mangyaring ipahayag ang pagbanggit <q cite="http://creativecommons.org/licenses/by/3.0"> batay sa pamamaraan na tinukoy ng may-akda o ng tagapaglisensiya</q>.
         source_url: URL papunta sa orihinal na bagay na pangdato
         toc_item: Kabahaging kabanata
+      data_search: 
+        max: Pinakamataas na halaga
+        max_placeholder: Maglagay ng bilang
+        min: Pinakamababang halaga
+        q_placeholder: Maglagay ng salita, parirala o bilang
+        taxon_name_more: Halimbawa, ipasok ang Trochilidae o mga Pating at piliin ang umaakmang grupo.
+        taxon_name_placeholder_value_removed: "%{taxon_group}tinanggal, pumili ng bagong grupo"
       eol_statistic: 
         date_one: Petsa
         date_two: Petsa

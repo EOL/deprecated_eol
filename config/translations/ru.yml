@@ -476,8 +476,10 @@ ru:
   admin_home: административная панель
   admin_information: Это новая консоль администрирования для EOL V2. Находится в процессе передачи функции администрирования от V1. Если раздел администрации, который вы ищете, отсутствует в списке пожалуйста, посетите <a href="/administrator">старую консоль администрирования</a>.
   admin_link: Обзор
+  admin_news_item_active: Опубликовано
   admin_news_link: Новости
   admin_notes_not_visible_to_user: "Примечания администратора (не видны пользователю):"
+  admin_option_changed: Значение изменено.
   admin_page_title: "Администрация: Обзор"
   admin_spam_delete: Удалить спам
   admin_statistics_link: Статистика
@@ -569,9 +571,11 @@ ru:
   anonymous_user_given_name: Аноним
   anonymous_user_tag_line: Не выполнен вход
   any_integer: любое целое число
+  any_string: любая строка
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Кликните здесь</a>, чтобы получить доступ к бета-тестированию нового форумов EOL. Ваши замечания приветствуются.
+  api_cache_time_to_live_parameter: количество секунд, в течение которых вы хотите, чтоб ответ был закэширован
   api_docs_collections_description: Если вы укажите идентификатор для коллекции, API возвратит все метаданные о коллекции и элементах, которые он содержит. Список элементов можно фильтровать по типу элемента и сортировать по перечисленным атрибутам. Некоторые элементы будут содержать необязательный атрибут «sort_field» («поле сортировки»). Поле сортировки является пользовательской строкой, которая является специальной аннотацией к элементу коллекции. Это может быть любая строка символов, но если это дата, она должна соответствовать формату ГГГГ-ММ-ДД. Элементы таксонов будут содержать «richness_score» («очки полноты»). Полнота представляет собой показатель, представленный как целое число между 0 и 100, где более высоким числом обозначают страницу с более полным содержанием и с большим количеством источников. Подробнее о таксоне полноты смотрите на вкладке обновления страницы таксонов, например %{richness_url}.
   application_version_advisory_information: Версия приложения
   are_you_sure: Вы уверены?
@@ -579,6 +583,7 @@ ru:
   article_from: статья от
   article_more_about: Узнать больше об этой статье
   article_rating: Рейтинг статьи
+  assistive_data_header: Факты и информация
   assistive_details_header: Детали
   assistive_literature_header: Литература
   assistive_maps_header: Карты
@@ -608,6 +613,7 @@ ru:
   audio_unmute: включить звук
   authoritative_information: достоверная информация
   available: доступно
+  average_rating: средний рейтинг
   average_rating_value_of_total: "Средняя оценка: %{rating} из %{total}"
   back: Назад
   back_to_profile: Вернуться к профилю
@@ -788,7 +794,11 @@ ru:
   content_has_been_updated: Содержимое было обновлено.
   content_notes_not_shown_to_us: "Примечания (не показаны для пользователя):"
   content_partner: Контент-партнер
+  content_partner_about_header: О %{partner_name}
   content_partner_admin_index_link_back_to: вернуться к управлению партнерами
+  content_partner_administration_notes_empty: Заметок администрации нет.
+  content_partner_administration_notes_header: Заметки администрации
+  content_partner_administration_settings_header: Параметры администрирования
   content_partner_agreement_cancel_edit_agreement_link: Отмена
   content_partner_agreement_cancel_new_agreement_link: Отмена
   content_partner_agreement_cancel_sign_agreement_link: Отмена
@@ -809,24 +819,39 @@ ru:
   content_partner_data_description_header: Описание данных
   content_partner_filter_option_vetted_no: Нет
   content_partner_filter_option_vetted_yes: Да
+  content_partner_filter_published: Опубликовано
+  content_partner_homepage_link: Посетить сайт партнёра
   content_partner_managed_by_header: Управляется
   content_partner_new_link: Добавить нового контент-партнера
   content_partner_new_page_subheader: Добавить нового контент-партнера
   content_partner_public_false: Частный
   content_partner_public_true: Общий
+  content_partner_resource_about_header: О ресурсе
   content_partner_resource_auto_publish_false: Нет
   content_partner_resource_auto_publish_true: Да
   content_partner_resource_collections_header: Коллекции
   content_partner_resource_edit_link: Редактировать
   content_partner_resource_edit_subheader: Править исходный текст
   content_partner_resource_edit_with_type_link: Править исходный текст
+  content_partner_resource_harvest_event_not_published: Не опубликовано
+  content_partner_resource_harvest_event_previously_published: Ранее опубликовано
   content_partner_resource_hierarchy_edit_link: Редактировать
+  content_partner_resource_hierarchy_unknown: Неизвестно
+  content_partner_resource_new_link: Добавить новый ресурс
+  content_partner_resource_new_subheader: Добавить новый ресурс
   content_partner_resource_resource_status_new: Создано
   content_partner_resource_vetted_false: Нет
   content_partner_resource_vetted_true: Да
   content_partner_resource_view_link: Просмотр
   content_partner_resources_header: Ресурсы
+  content_partner_statistics_column_header_taxa_page_page_views: Просмотров страницы
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Время на странице (секунд)
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Уникальных просмотров страницы
+  content_partner_statistics_column_header_total_count: Все страницы
+  content_partner_statistics_link: Статистика использования
+  content_partner_statistics_month_label: Месяц
   content_partner_statistics_year_label: Год
+  content_partner_status_empty: Неизвестное состояние
   content_partners: 
     edit: 
       meta_title: Изменить %{partner_name}
@@ -844,12 +869,18 @@ ru:
         meta_title: Статистика %{partner_name}
         tweet_text: Статистика использования %{partner_name}
   content_type: Тип содержимого
+  could_not_find_user: Вы не являетесь членом этого сообщества.
+  create_a_community: Создать сообщество
   create_child_page: Создать дочернюю страницу
+  create_community: Создать сообщество
+  create_community_about_heading: О создании сообщества
+  curated_association_update_button: Сохранить изменения
   curator_level: Уровень куратора
   curator_level_with_indefinite_article_assistant_curator: <strong>помощник куратора</strong>
   curator_level_with_indefinite_article_full_curator: <strong>полный куратор</strong>
   curator_level_with_indefinite_article_master_curator: <strong>главный куратор</strong>
   current_language: "Язык: %{iso_code}"
+  data_column_value: Значение
   data_objects: 
     show: 
       meta_description_article: Статья - %{dato_description}
@@ -868,10 +899,18 @@ ru:
       meta_supplier_default: участник
       meta_title: "%{dato_title} от %{supplier}"
       tweet_text: "%{dato_title} от %{supplier}"
+  data_row_hide_button: Скрыть строку
+  data_row_unhide_button: Показать строку
+  data_search: 
+    form: 
+      header_assistive: Форма поиска
+      input_summary_intro: Выбранные параметры поиска
+      new_search_link: Начать новый поиск
   data_search_files: 
     from: Наименьшее значение
     to: Наибольшее значение
     unit_uri: Единица измерения
+  date_caps: Дата
   datepicker: 
     close: Закрыть
     current: Сегодня
@@ -928,10 +967,24 @@ ru:
     next: Далее
     previous: Назад
   dato_create_cancel: Отмена
+  dato_edit_cancel: Отмена
+  default: По умолчанию
   delete: удалить
+  delete_firstcap: Удалить
+  description: Описание
+  details: Подробности
+  details_title: Подробности
+  did_you_mean: "Вы имели в виду: %{suggestions}?"
+  donate_link: Пожертвовать
+  donation_amount: Всегоː
+  donation_transaction_details_amount: "Сумма:"
   edit: редактировать
+  edit_comment: Редактировать комментарий
+  edit_comment_lowercase: редактировать комментарий
+  edit_community: Редактировать сообщество
   encyclopedia_of_life: Энциклопедия жизни
   eol_news: Новости EOL
+  eol_pages: Страницы
   eol_statistics: 
     comparing_dates: <span class="assistive">Сравнение</span> <span class="date_one">%{date_one}</span> <span class="assistive">и</span> <span class="date_two">%{date_two}</span>
     content_partners: 
@@ -972,8 +1025,39 @@ ru:
       page_title: Статистика
     warnings: 
       stats_unavailable_for_date: К сожалению статистические данные не доступны для %{date}. Пожалуйста, выберите другую дату.
+  error_500_page_title: Ой!
+  error_default_page_title: Ой!
+  example_colon: "Пример:"
+  exception: Исключение
+  exceptions: 
+    security_violations: 
+      default: Доступ запрещён.
   explore: Ознакомление
   external_link_header: Внешняя ссылка
+  external_link_icon_alt_text: Внешняя ссылка.
+  facebook: Facebook
+  file: Файл
+  file_size: Размер файла
+  filter_button: Фильтр
+  filter_by_day: Фильтр по дням
+  filter_by_type_all_option: Все типы
+  filter_by_type_collection_option: Коллекции
+  filter_by_type_comment_option: Комментарии
+  filter_by_type_community_option: Сообщества
+  filter_by_type_image_option: Изображения
+  filter_by_type_link_option: Ссылки
+  filter_by_type_sound_option: Звуки
+  filter_by_type_text_option: Статьи
+  filter_by_type_user_option: Люди
+  filter_by_type_video_option: Видео
+  filter_newsfeed_option_collections: Коллекции
+  filter_newsfeed_option_community: Сообщество
+  filter_newsfeed_option_messages: Комментарии
+  filter_newsfeed_option_watchlist: Список наблюдения
+  flickr: Flickr
+  flipboard: Flipboard
+  forgot_password_form_cancel: Отмена
+  forgot_password_form_choose_username_legend: Выберите учётную запись
   forums: 
     actions: Действия
     administration: Администрация
@@ -1039,7 +1123,15 @@ ru:
     update_failed: Извините, произошла ошибка, форум не может быть добавлен.
     update_successful: Форум успешно обновлен.
     views: Просмотров
+  frequency: Частота
+  frequency_daily: Ежедневно
+  frequency_monthly: Ежемесячно
+  frequency_never: Никогда
+  frequency_weekly: Еженедельно
   global_navigation: Общая навигация
+  glossary: Глоссарий
+  glossary_subhead: Глоссарий
+  google: Google
   help: Помощь
   helpers: 
     label: 
@@ -1103,6 +1195,17 @@ ru:
         link_type: Категория
         source_url: URL-адрес ссылки
         toc_item: Тема
+      data_search: 
+        attribute: Выберите атрибут
+        max: Наибольшее значение
+        max_placeholder: Введите число
+        max_placeholder_disabled: Диапазон отключен
+        min: Наименьшее значение
+        min_placeholder: Введите число
+        min_placeholder_disabled: Диапазон отключен
+        q: Конкретное значение
+        q_placeholder: Введите слово, фразу или число
+        unit: Единица измерения
       eol_statistic: 
         date_one: Дата
         date_two: Дата
@@ -1302,13 +1405,30 @@ ru:
         update: Сохранить данные профиля
       wikipedia_queue: 
         create: Отправить запрос
+  id: ID
+  image: Изображение
   image_map_of_taxon: Карта %{taxon_name}
   image_map_rating: Рейтинг карты
   image_rating: Рейтинг изображения
   images: Иллюстрации
   indexed: Индексированные
+  internal_ip_address: внутренний IP-адрес
+  ip: IP
+  ip_address: IP-адрес
+  item_type_article: Статья
+  item_type_collection: Коллекция
+  item_type_community: Сообщество
+  item_type_image: Изображение
+  item_type_image_map: Карта
+  item_type_link: Ссылка
+  item_type_map: Карта
+  item_type_person: Человек
+  item_type_sound: Звуки
+  item_type_video: Видео
   jsonp_by_adding_a_callback_parameter: ... и JSONP, добавив параметр обратного вызова
   just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
+  key: Ключ
+  known_uri_category_header: Категории
   known_uri_relationships: 
     create_failed: Извините, произошла ошибка, связь нельзя добавить
     created: Связь была успешно создана
@@ -1390,6 +1510,8 @@ ru:
         questions_link_model_organism: Что такое модельный организм?
         questions_link_naming_species: Как называют виды?
         questions_link_species: Что такое вид?
+  learn_more_link: (%{learn_more})
+  learn_more_lowercase: узнать больше
   license: Лицензия
   license_all_rights_reserved: Все права защищены
   license_cc_by: Creative Commons Attribution (CC BY)
@@ -1413,10 +1535,13 @@ ru:
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_public_domain: Общественное достояние
+  licensing: Лицензирование
   link_rating: Рейтинг ссылки
+  literature_header: Примечания
   location: Местоположение
   login_hidden_user_message: Учетная запись %{given_name} больше не активна
   logo_header: Логотип
+  logout: Выйти
   map_of_taxon: Карта %{taxon_name}
   map_rating: Рейтинг карты
   members: 
@@ -1468,6 +1593,7 @@ ru:
       taxon_overview: Описание таксона
       videos: Видео
   monthly: Ежемесячно
+  more: далее
   more_children_with_count: еще %{count}
   more_siblings_with_count: 
     one: "%{count} сиблинг"
@@ -1862,17 +1988,6 @@ ru:
       meta_title: Восстановить учётную запись
     recover_account_choose_account: 
       form_header: Восстановить учётную запись
-    saved_searches: 
-      actions_head: Действия
-      attribute_head: Атрибут
-      download: загрузить
-      is_complete: Да
-      is_not_complete: Нет
-      query_empty: пусто
-      query_head: Запрос
-      refresh: обновить
-      row_count: Количество
-      updated_head: Последнее действие
   users_about_me_header: Обо мне
   users_content_partners_header: Контент-партнеры
   users_curation_header: Квалификации куратора

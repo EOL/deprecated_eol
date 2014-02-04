@@ -46,7 +46,7 @@ class Administrator::ContentUploadController < AdminController
 private
 
   def upload_file(content_upload)
-    ip_with_port = $IP_ADDRESS_OF_SERVER.dup
+    ip_with_port = request.ip # TODO - would this be easier with request#host_with_port ?
     ip_with_port += ":" + request.port.to_s unless ip_with_port.match(/:[0-9]+$/)
     parameters = 'function=admin_upload&file_path=http://' + ip_with_port + $CONTENT_UPLOAD_PATH + content_upload.id.to_s + "."  + content_upload.attachment_file_name.split(".")[-1]
     response = EOLWebService.call(parameters: parameters)

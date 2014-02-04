@@ -61,8 +61,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def local_file_url
-    ip_with_port = $IP_ADDRESS_OF_SERVER.dup
-    "http://" + ip_with_port + Rails.configuration.data_search_file_rel_path.sub(/:id/, id.to_s)
+    "http://" + $SITE_DOMAIN_OR_IP + Rails.configuration.data_search_file_rel_path.sub(/:id/, id.to_s)
   end
 
   def unit_known_uri
@@ -128,7 +127,6 @@ class DataSearchFile < ActiveRecord::Base
     update_attributes(row_count: rows.count)
   end
 
-  # TODO - this fails locally (ie: in development). Fix? Or explain how to configure?
   def upload_file
     where = local_file_path
     if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)

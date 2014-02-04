@@ -182,8 +182,7 @@ $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners'
 # $REFERENCE_PARSER_PID = **the email address of the crossref user account**
 
 #Server's IP address
-$IP_ADDRESS_OF_SERVER = EOLWebService.local_ip
-$SITE_DOMAIN_OR_IP = $IP_ADDRESS_OF_SERVER #domain name for url links communicated outside, for example for emails
+$SITE_DOMAIN_OR_IP = "eol.org" #domain name for url links communicated outside, for example for emails
 
 # Default values for some language-dependent strings used by models:
 $CURATOR_ROLE_NAME   = 'Curator'

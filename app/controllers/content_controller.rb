@@ -26,6 +26,7 @@ class ContentController < ApplicationController
     @home_page = true
     @explore_taxa = safely_shuffle(RandomHierarchyImage.random_set_cached)
     @rich_pages_path = language_dependent_collection_path
+    debugger
     current_user.log_activity(:viewed_home_page)
     periodically_recalculate_homepage_parts
   end

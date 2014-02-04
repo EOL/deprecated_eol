@@ -90,8 +90,8 @@ class DataSearchFile < ActiveRecord::Base
     search_parameters = { querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
                           per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri }
     results = TaxonData.search(search_parameters)
-    # TODO - we should also check to see if the job has been canceled.
     begin # Always do this at least once...
+      break unless DataSearchFile.exists?(dsf) # Someone canceled the job.
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|

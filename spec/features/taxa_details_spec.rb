@@ -1,5 +1,4 @@
 require "spec_helper"
-require 'nokogiri'
 
 describe 'Taxa details' do
   before(:all) do

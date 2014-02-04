@@ -1,5 +1,4 @@
 require "spec_helper"
-require 'nokogiri'
 
 def add_language_to_name(name, language)
   name[:language_label] = language.label

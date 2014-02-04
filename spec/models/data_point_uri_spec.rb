@@ -9,6 +9,14 @@ end
 describe DataPointUri do
   before(:all) do
     load_foundation_cache
+    # These don't cut it. Sigh. Some data from foundation really IS needed, but shouldn't be.
+    # Language.create_english
+    # Vetted.create_enumerated
+    # Visibility.create_enumerated
+    # ContentPartnerStatus.create_enumerated
+    # License.create_enumerated
+    # UriType.create_enumerated
+    # KnownUri.create_enumerated
   end
 
   it 'should hide/show user_added_data when hidden/show' do

@@ -267,6 +267,7 @@ def create_known_uri(params)
   instance
 end
 
+# PLEASE DON'T MODIFY THIS BLOCK.  I eventually want to replace it with KnownUri.create_enumerated.
 default_known_uris =
     [ { parent: { uri: Rails.configuration.uri_measurement_unit, name: 'Unit of Measure', uri_type_id: UriType.metadata.id },
         values: [ { uri: 'http://purl.obolibrary.org/obo/UO_0000022', name: 'milligrams' },

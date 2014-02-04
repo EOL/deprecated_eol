@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-require File.dirname(__FILE__) + '/../eol_spec_helpers'
+require "spec_helper"
 
 describe UsersController do
 

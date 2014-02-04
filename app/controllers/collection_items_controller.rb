@@ -55,7 +55,7 @@ class CollectionItemsController < ApplicationController
         if redirect_object.is_a?(Curator)
           redirect_object = user_url(redirect_object)
         end
-        redirect_to redirect_object
+        redirect_to redirect_object, notice: flash[:notice]
       end
       format.js do
         # this means we came from the collections summary on the overview page,

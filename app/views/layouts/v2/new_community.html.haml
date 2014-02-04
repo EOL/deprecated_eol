@@ -7,7 +7,7 @@
       .hgroup
         %h1= h @collection.name
         %h2= I18n.t(:create_community_around_this_collection_header)
-    = render :partial => 'shared/flash_messages'
+    = render 'shared/flash_messages'
   #content
     = yield
 = render :file => 'layouts/v2/application'

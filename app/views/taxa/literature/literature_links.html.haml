@@ -1,10 +1,10 @@
 - content_for :social_sharing do
-  = render partial: 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_literature
-  = render partial: 'literature_menu'
+  = render 'literature_menu'
   #taxon_detail
     #main.main_container
       %h3= I18n.t(:literature_links)
       .section
         - unless @literature_links_contents.blank?
-          = render partial: 'taxa/resources/link_objects', locals: { content: @literature_links_contents }
+          = render 'taxa/resources/link_objects', { content: @literature_links_contents }

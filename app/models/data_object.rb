@@ -490,6 +490,7 @@ class DataObject < ActiveRecord::Base
   def sound_url
     if !object_cache_url.blank? && !object_url.blank?
       filename_extension = File.extname(object_url).downcase
+      # TODO get file extension during harvest so we don't have to guess here
       # we store audio as ogg, not oga
       filename_extension = '.ogg' if filename_extension == '.oga'
       return (ContentServer.cache_path(object_cache_url) + filename_extension) unless filename_extension.blank?
@@ -505,7 +506,24 @@ class DataObject < ActiveRecord::Base
 
   def video_url
     if !object_cache_url.blank? && !object_url.blank?
-      filename_extension = File.extname(object_url).downcase
+      filename_extension = File.extname(Addressable::URI.parse(object_url).omit(:query).to_s).downcase
+      # TODO get file extension during harvest so we don't have to guess here
+      # the following addresses issues where object url is not directly a media path
+      # we could reverse this and whitelist file extensions we know are ok
+      if ['.php'].include? filename_extension
+        # unreliably guess file extension from user provided mime type
+        if (extensions = Rack::Mime::MIME_TYPES.select{|k, v| v == mime_type.label})
+          unless extensions.empty?
+            if extensions.keys.include?('.mp4')
+              filename_extension = '.mp4'
+            elsif extensions.keys.include?('.mov')
+              filename_extension = '.mov'
+            else
+              filename_extension = extensions.first[0]
+            end
+          end
+        end
+      end
       # we store video as ogg, not ogv
       filename_extension = '.ogg' if filename_extension == '.ogv'
       return ContentServer.cache_path(object_cache_url) + filename_extension
@@ -1101,7 +1119,7 @@ class DataObject < ActiveRecord::Base
     options[:language] ||= Language.default
     return true if toc_item.label(options[:language].iso_code).downcase == object_title.downcase
     if options[:language] != Language.default
-      return true if toc_item.label(Language.default.iso_code).downcase == object_title.downcase
+      return true if toc_item.label(Language.default_code).downcase == object_title.downcase
     end
   end
 

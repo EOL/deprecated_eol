@@ -204,7 +204,7 @@ zh-CN:
       known_uri: 
         clade_exemplar: 作为样例克拉德范围使用
         description: 描述
-        exclude_from_exemplars: 从快讯中排除
+        exclude_from_exemplars: 从概述中排除
         group_by_clade: 用于克拉德范围
         name: 名称
         toc_items: 分类
@@ -310,7 +310,7 @@ zh-CN:
         username: 用户名
       user_added_data: 
         object: 值
-        predicate: 属性
+        predicate: 特征
         user: 加入自
       user_added_data_metadata: 
         object: 值
@@ -860,6 +860,7 @@ zh-CN:
   and: 和
   and_between_form_items: 和
   annotation_cabs_colon: 注释：
+  annotation_submit: 发表评论
   anonymous_user_full_name: 匿名用户
   anonymous_user_given_name: 匿名
   anonymous_user_tag_line: 未登录
@@ -972,6 +973,7 @@ zh-CN:
   citation: 引用
   citation_example: 费舍尔，布莱恩. "Pogonomyrmex anergismus Cole, 1954." 生命百科，<a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. 2009年1月15日.
   citing_link: 引用
+  clade: 分类组
   classification_already_preferred: 错误：该分类系统已被标为首选系统。
   classification_from_agent_chosen_by_curator: 由%{curator}选择的%{agent}提供的分类
   classification_preferred_for_taxon: 首选
@@ -1483,17 +1485,30 @@ zh-CN:
       meta_supplier_default: 一个贡献者
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
+  data_provided_by_content_partner: 供应商：%{whom}
   data_ranges: 数据范围
+  data_row_add_exemplar_button: 添加到概述
+  data_row_additional_detail_alt: 额外详细信息
+  data_row_additional_detail_hide_alt: 隐藏额外详细信息
+  data_row_additional_detail_loading_alt: 正在载入额外详细信息
+  data_row_additional_detail_show_alt: 显示额外详细信息
+  data_row_exemplar_removed: 已从概述中移除。
   data_row_hide_button: 隐藏行
+  data_row_remove_exemplar_button: 从概述中移除
+  data_search: 
+    form: 
+      new_search_link: 开始一次新搜索
   data_search_files: 
     file_ready_for_download: 您现在可以在<a href='%{download_url}'>%{download_url}</a>下载您最近要求的搜索"%{known_uri_label}"。
     from: 最低值
     to: 最高值
     unit_uri: 度量单位
-  data_search_refine_placeholder: 例如 10 到 50
   data_show_n_more_rows: 展示NNN更多......
   data_subtab_about: 关于
-  data_subtab_glossary: 术语表
+  data_subtab_glossary: "%{taxon}的术语表"
+  data_summary_ranges_header_with_count: EOL拥有汇总数据
+  data_tab_curator_excluded: 已从概述中排除
+  data_tab_curator_exemplar: 在概述中显示
   data_usage_reports: 数据使用报告
   date_caps: 日期
   date_uploaded: 上传日期
@@ -1590,7 +1605,6 @@ zh-CN:
   did_you_mean: 您的意思是：%{suggestions} ？
   disabled_for_now: 现在禁用
   discover_link: 探索
-  displaying_numerical_range: 显示%{total}中的%{start_number} &mdash; %{end_number}
   do_you_want_to_be_a_curator: 您想成为管理员吗
   donate_link: 捐助
   donation_agree: 同意
@@ -1998,6 +2012,12 @@ zh-CN:
         link_type: 类别
         source_url: 链接URL：
         toc_item: 主题
+      data_search: 
+        max: 最高值
+        max_placeholder: 输入一个数字
+        min: 最小值
+        min_placeholder: 输入一个数字
+        q_placeholder: 输入一个单词、词组或数字
       eol_statistic: 
         date_one: 日期
         date_two: 日期
@@ -2405,6 +2425,7 @@ zh-CN:
   learn_about_contributing: 如何做出贡献？
   learn_about_eol: 如何使用EOL？
   learn_about_joining: 如何加入EOL？
+  learn_how_to_contribute: 了解如何作出贡献。
   learn_more_about_communities_link: 深入了解社区
   learn_more_about_names_for_this_taxon: 深入了解分类阶元的名字
   learn_more_link: (%{learn_more})
@@ -2653,6 +2674,7 @@ zh-CN:
   not_published_yet: 暂未发布
   not_recognized_by_available_hierarchies: 未被任何可用的分类系统确认
   not_shown_on_the_website_note: (不在网站或链接显示，仅用于提示)
+  not_specified: 未指定
   not_yet_implemented_error: "\"抱歉, 该特性还没有被实现。\""
   note: 注意：
   note_about_homonym_problems: 注意：仅在您肯定的情况下修改这个属性 - 不选此项会导致严重的同物异名问题
@@ -3038,7 +3060,7 @@ zh-CN:
   see_all_of_your_communities: 查看您的所有社区
   see_all_updates_with_count_html: 
     other: 查看<span class=�assistive>该页面的%{count}个更新</span>
-  see_in_data_glossary: 在数据词汇表中查阅
+  see_in_data_glossary: 浏览完整的数据词汇表
   see_notes: 查看注释
   select_a_hierarchy_around_whic: 选择一个分类树用以组织内容概要：
   select_an_item_from_the_menu: 从菜单选择一项
@@ -3108,6 +3130,7 @@ zh-CN:
   sort_by_status_option: 状态
   sort_by_title_ascending: 按标题升序
   sort_by_title_descending: 按标题降序
+  sort_by_value_ascending: 低值优先
   sort_by_year_ascending: 按年代升序
   sort_by_year_descending: 按年代降序
   sort_collection_by_label: 排序项（收藏）
@@ -3232,7 +3255,7 @@ zh-CN:
         meta_keywords_with_common_name: "%{preferred_common_name}的可分析性数据资料"
         meta_title: "%{scientific_name} 可分析性数据资料"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})的可分析性数据资料"
-        tweet_text: "%{scientific_name}的可分析性数据资料"
+        tweet_text: "%{scientific_name}的特征数据"
     details: 
       index: 
         hierarchy_entry: 
@@ -3575,6 +3598,8 @@ zh-CN:
   total_items_with_count: 
     other: 总计%{count}项
   total_searches: 全部搜索次数：
+  traitbank_data_search: 搜索数据
+  traitbank_info_page: 了解更多
   translation_deleted: 翻译已删除
   translation_information_header: 翻译信息
   translation_log: 国际化关键频率分布直方图
@@ -3853,25 +3878,6 @@ zh-CN:
       form_header: 恢复帐户
       form_tip: 有几个使用电子邮件<em>%{email}</em>注册的帐户，请选择您想恢复访问的帐户。
       legend_choose_account: 选择账户
-    saved_searches: 
-      actions_head: 操作
-      attribute_head: 属性
-      complete_head: 完成？
-      created_head: 已创建
-      download: 下载
-      empty: 您没有已保存的搜索。请访问<a href='%{data_search_url}'>数据搜索页</a>来执行并保存搜索。
-      index: 
-        meta_description: "%{user_full_name} 已保存的搜索。"
-        meta_title: "%{user_full_name} 已保存的搜索"
-      is_complete: 是
-      is_not_complete: 否
-      page_title: 已保存的搜索
-      processing: 处理中
-      query_empty: 空
-      query_head: 查询
-      refresh: 刷新
-      row_count: 数目
-      updated_head: 最近操作
     show: 
       meta_description: 网络生命大百科中%{user_full_name}的会员信息。
       meta_description_curator: 网络生命大百科中%{curator_level} %{user_full_name}的会员信息

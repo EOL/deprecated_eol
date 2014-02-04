@@ -202,10 +202,10 @@ de:
         label: Bezeichnung
         request_publish: Veröffentlichung anfragen
       known_uri: 
-        clade_exemplar: Als Muster-Kladenbereich verwenden
+        clade_exemplar: Als Muster-Taxonomiegruppenbereich verwenden
         description: Beschreibung
-        exclude_from_exemplars: Von den Schnellen Tatsachen ausschließen
-        group_by_clade: Für Kladenbereiche verwenden
+        exclude_from_exemplars: Von der Übersicht ausschließen
+        group_by_clade: Für Taxonomiegruppenbereiche verwenden
         name: Name
         toc_items: Kategorien
         uri: URI
@@ -310,7 +310,7 @@ de:
         username: Nutzername
       user_added_data: 
         object: Wert
-        predicate: Attribut
+        predicate: Eigenschaft
         user: Hinzugefügt von
       user_added_data_metadata: 
         object: Wert
@@ -1126,7 +1126,8 @@ de:
   and_between_form_items: und
   annotation_body_default: eine Frage oder einen Kommentar hinzufügen …
   annotation_cabs_colon: "Annotation:"
-  annotation_submit: Anmerkung speichern
+  annotation_note: Kommentare werden mit Datenprovidern geteilt (falls verfügbar).
+  annotation_submit: Kommentar speichern
   annotations_with_count: 
     one: Eine Anmerkung
     other: "%{count} Anmerkungen"
@@ -1189,6 +1190,7 @@ de:
   associated_with_map_header: Auf der aktuellsten Karte
   associated_with_sound_header: In der aktuellsten Audiodatei
   associated_with_video_header: Im aktuellsten Video
+  association_added_flash: Zuordnung hinzugefügt. Es kann einige Minuten dauern, bis die Seite(n) aktualisiert ist/sind.
   association_hidden_for_taxa: 
     other: "Versteckt für:"
   association_trusted_for_taxa: 
@@ -1225,7 +1227,6 @@ de:
   beta_warning_body: Die meisten Nutzer können diese Funktion nicht sehen oder verwenden, da sie sich unter aktiver Entwicklung befindet. Die Leistung und Daten können unberechenbar sein, aber Sie sind zur Erkundung eingeladen. Nachdem Sie unsere Datenfähigkeiten überprüft haben, bitten wir Sie, unsere <a href='https://www.surveymonkey.com/s/9FDTDQP'>Umfrage</a> auszufüllen.
   beta_warning_header: Sie verwenden eine Betatestfunktion
   beta_warning_note_header: "Hinweis:"
-  beta_warning_small: Bitte beachten Sie, dass dies eine unberechenbare Betatestfunktion sein kann.
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Die Biodiversity Heritage Library besuchen
   bhl_publication: BHL-Veröffentlichung
@@ -1271,7 +1272,7 @@ de:
   citation: Zitierung
   citation_example: "Fisher, Brian: „Pogonomyrmex anergismus Cole, 1954.“ Enzyklopädie des Lebens, von <a href=\"http://eol.org/pages/460427\" target=\"_blank\">http://eol.org/pages/460427</a>. Abgerufen am 15. Jan. 2009."
   citing_link: Zitieren
-  clade: Klade
+  clade: Taxonomiegruppe
   classification_already_preferred: Diese Klassifikation wurde bereits als bevorzugt markiert.
   classification_button_help: Bitte wählen Sie die Klassifikation aus, welche die vorhandene Seite unten am besten darstellt. Klicken Sie danach auf die entsprechende Schaltfläche „als beispielhaft verwenden“. Auf „Abbrechen“ klicken, um diese Aktion abzubrechen.
   classification_curation_pending: Kuratierung ausstehend. Diese Klassifikation kann nur zu einer anderen Seite in naher Zukunft verschoben werden.
@@ -1507,6 +1508,7 @@ de:
   community_tab_communities_description: Gemeinschaften Sie Gruppen von EOL-Nutzern, die zusammenkommen, um ihre gemeinsamen Interessen und Kompetenzen zusammenzuführen. EOL-Gemeinschaften bilden sich um eine oder mehrere EOL-Sammlung und ermöglichen es so den Nutzern, einen Schwerpunkt auf gemeinsame Interessen zu setzen. Weitere Informationen zu EOL-Gemeinschaften, einschließlich der Anleitung, wie eine gegründet werden kann, sind auf der <a href='/info/communities'>Hilfeseite</a> verfügbar.
   community_tab_curators_description: Kuratoren sind EOL-Nutzer, die über Kompetenzen in Biologie verfügen und ihre Zeit dazu nutzen die Inhalte bei EOL zu prüfen, um so sicherzustellen, dass die einsehbaren Informationen richtig und von hoher Qualität sind.
   completed: Abgeschlossen
+  completed_colon: "Abgeschlossen:"
   confirm_delete_community: Sind Sie sicher, dass Sie diese Gemeinschaft löschen möchten? Den verbliebenen Mitgliedern wird es weiterhin möglich sein, sie zu sehen, und auch der Nachrichtenfeed wird aufrecht erhalten. Die Gemeinschaft wird allerdings nicht mehr bei den Suchergebnissen oder auf den Seiten zu Taxa angezeigt. Auch wird sie nicht länger bearbeitbar sein.
   confirm_leave: Sind Sie sich sicher, dass Sie diese Gemeinschaft verlassen möchten?
   confirm_password_colon: "Passwort bestätigen:"
@@ -1755,6 +1757,9 @@ de:
   count_results_for_search_term: 
     one: "%{count} Ergebnis zu <em>%{search_term}</em>"
     other: "%{count} Ergebnisse zu <em>%{search_term}</em>"
+  count_results_for_traitbank: 
+    one: Ein TraitBank-Ergebnis
+    other: "%{count} TraitBank-Ergebnisse"
   create_a_collection: Eine Sammlung erstellen
   create_a_community: Eine Gemeinschaft gründen
   create_a_community_login_advisory: Vor dem Erstellen dieser Gemeinschaft werden Sie gebeten werden, sich anzumelden.
@@ -1832,12 +1837,9 @@ de:
   darwin_core: Darwin Core
   dashboard: Übersichtsseite
   data: Daten
-  data_about_subtab_content: <p>Daten und Metadaten werden von mehreren Quellen in eine einzelne, vollreferenzierte und semantisch zugängliche taxonzentrische Ansicht gesammelt.</p> <p>Um zusätzliche Einzelheiten zu einem beliebigen Datenwert anzusehen, klicken Sie auf den Wert. Klicken Sie für eine Definition des Datentyps auf das Symbol %{img}.</p> <p>Sie müssen bei EOL angemeldet sein, um einen Kommentar zu hinterlassen oder Daten, Quellen, URIs und andere Daten direkt in EOL einzugeben. Sie müssen sich <a href='%{user_register_url}'>zuerst kostenlos für ein EOL-Benutzerkonto registrieren</a>. Falls Sie einen Datensatz der EOL empfehlen oder Datensätze von EOL teilen wollen, <a href='%{contact_contribute_url}'>kontaktieren</a> Sie uns bitte.</p> <p>Finanzierung der Funktionalitätsentwicklung für die kalkulierbaren EOL-Daten durch die Alfred P. Sloan Foundation, die John D. and Catherine T. MacArthur Foundation und EOL-Nutzer auf der ganzen Welt. Um mehr über das TraitBank™-Projekt zu erfahren, kontaktieren Sie bitte das <a href='%{contact_traitbank_url}'>EOL-Sekretariat</a>.</p>
+  data_about_subtab_content: <p><a href="%{traitbank_path}">TraitBank</a> sammelt Daten und Metadaten von mehreren Quellen in eine einzelne, vollreferenzierte und semantisch zugängliche taxonzentrische Ansicht.</p><p><a href="%{contact_contribute_path}">Kontaktieren Sie uns</a> für weitere Informationen zum Teilen von Datensätzen mit EOL oder zum Empfehlen eines Datensatzes zur Einbindung in TraitBank.</p><p><a href="%{register_path}">Registrieren Sie sich für ein kostenloses Benutzerkonto</a> oder <a href="%{login_path}">melden Sie sich an</a>, um die Daten zu kommentieren.</p><p>Finanzierung der Funktionalitätsentwicklung für die kalkulierbaren EOL-Daten durch die Alfred P. Sloan Foundation, die John D. and Catherine T. MacArthur Foundation und EOL-Nutzer auf der ganzen Welt. <a href="%{contact_traitbank_path}">Kontaktieren Sie das EOL-Sekretariat</a> für weitere Informationen zu TraitBank.</p>
   data_about_subtab_header: Über Daten auf EOL
   data_about_this_record: Daten über diese Aufzeichnung
-  data_beta_search_limit: 
-    one: Die Datensuchdownloads sind <i>vorübergehend</i> auf ein Ergebnis beschränkt.
-    other: Die Datensuchdownloads sind <i>vorübergehend</i> auf %{count} Ergebnisse beschränkt.
   data_column_classification_summary: Klassifikationszusammenfassung
   data_column_common_name: Gebräuchlicher Name
   data_column_measurement: Messung
@@ -1849,7 +1851,7 @@ de:
   data_column_raw_value: Rohwert (direkt von der Quelle)
   data_column_resource: Inhaltspartner-Quellen-URL
   data_column_sci_name: Wissenschaftlicher Name
-  data_column_source: Quelle
+  data_column_source: Anbieter
   data_column_tc_id: EOL-Seitenkennung
   data_column_units: Einheiten (normalisiert)
   data_column_units_uri: Einheiten-URI (normalisiert)
@@ -1859,6 +1861,7 @@ de:
   data_column_value_uri: Wert-URI
   data_database_colon: "Datenbanken (Daten):"
   data_glossary: Datenglossar
+  data_glossary_contribute: Um neue Begriffe diesem Glossar hinzuzufügen, erwägen Sie, <a href=%{url}>Daten hochzuladen</a>.
   data_link_to_record: Link zu dieser Aufzeichnung
   data_logging_active: Datenprotokollierung aktiv
   data_master_database_colon: "Hauptdatenbanken (Daten):"
@@ -1891,22 +1894,53 @@ de:
       meta_supplier_default: ein Mitwirkender
       meta_title: "%{dato_title} von %{supplier}"
       tweet_text: "%{dato_title} von %{supplier}"
-  data_overview_table_caption: Schnelle Tatsachen
+  data_overview_table_caption: Eigenschaftsdaten
   data_point_uri_source_missing: Quelle fehlt
   data_point_uri_summary_name: Daten über %{taxon}
-  data_provided_by_content_partner: "Quelle: %{whom}"
+  data_provided_by_content_partner: "Anbieter: %{whom}"
   data_provided_by_user: bereitgestellt von %{whom}
-  data_ranges: Datenbereiche
-  data_ranges_subheader: Bereiche für diese Klade
+  data_ranges: Datenzusammenfassungen
+  data_ranges_subheader: Datenzusammenfassungen für diese Taxonomiegruppe
+  data_ranges_subtab_help_text: Für einige Attribute bestimmt EOL die Wertespanne, die für ein Taxon durch alle Quellen verfügbar ist.
   data_reference_subtable_summary: Zusätzliche Nachweise über diese Tatsache.
-  data_row_add_exemplar_button: zu den Schnellen Tatsachen hinzufügen
-  data_row_excluded_from_overview_notice: "Hinweis: Diese Zeile wurde von den schnellen Tatsachen ausgeschlossen."
-  data_row_exemplar_added: Schnelle Tatsache hinzugefügt.
-  data_row_exemplar_removed: Schnelle Tatsache entfernt.
+  data_results_only_for_search: TraitBank-Ergebnisse für „%{search_term}“
+  data_row_add_exemplar_button: zur Übersicht hinzufügen
+  data_row_additional_detail_alt: Zusätzliche Einzelheit
+  data_row_additional_detail_assistive: Metadaten über diese Tatsache laden.
+  data_row_additional_detail_assistive_js: Zwischen dem Anzeigen und dem Ausblenden der Metadaten über diese Tatsache umschalten.
+  data_row_additional_detail_hide_alt: Zusätzliche Einzelheit ausblenden
+  data_row_additional_detail_loading_alt: Lade zusätzliche Einzelheit
+  data_row_additional_detail_show_alt: Zusätzliche Einzelheit anzeigen
+  data_row_excluded_from_overview_notice: "Hinweis: Diese Zeile wurde von der Übersicht ausgeschlossen."
+  data_row_exemplar_added: Zur Übersicht hinzugefügt.
+  data_row_exemplar_removed: Von der Übersicht entfernt.
   data_row_hide_button: Zeile ausblenden
-  data_row_remove_exemplar_button: von den Schnellen Tatsachen entfernen
+  data_row_remove_exemplar_button: von der Übersicht entfernen
   data_row_unhide_button: Zeile einblenden
-  data_search_attribute: EOL-Daten nach „%{attribute}“ in Beobachtungen,<br />Messungen und anderen wissenschaftlichen Behauptungen durchsuchen.
+  data_search: 
+    form: 
+      header_assistive: Suchformular
+      input_summary_intro: Ausgewählte Suchoptionen
+      new_search_link: Eine neue Suche starten
+      or_range_header: Oder <span class="assistive">geben Sie einen Bereich an</span>
+      refine_search_header: Verfeinern Sie Ihre Suche (optional)
+      search_suggestion_blue_flowers: Welche Pflanzen haben blaue Blüten?
+      search_suggestion_cavity_nests: Welche Arten bauen Hohlnester?
+      search_suggestion_diatom_shape: Was sind die verschiedenen Formen von Kieselalgen?
+      search_suggestion_whale_mass: Welche Wale wiegen mehr als 10.000 kg?
+      search_suggestions_header: Nicht sicher, wo Sie anfangen sollen?
+      search_suggestions_subheader_colon: "Versuchen Sie eine der folgenden Datensuchen:"
+      search_tools_hide_link: Suchoptionen verstecken
+      search_tools_show_link: Suchoptionen anzeigen
+      search_value_or_range_header: Nach einem speziellen Wert oder Bereich suchen
+      search_within_taxon_group_header: Innerhalb einer Taxongruppe suchen
+      search_within_taxon_group_intro_with_count: 
+        other: Die Suche innerhalb einer Taxongruppe ist derzeit auf Gruppen mit weniger als %{count} Taxa beschränkt. <a href="%{contact_us_tech_url}">Kontaktieren Sie uns</a>, um mehr über das Auffinden größerer Gruppen zu erfahren.
+      sort_header: Die Ergebnisse sortieren
+    notice: 
+      clade_has_no_data: Es hat noch keiner Datensätze für %{taxon_name} beigesteuert. <a href="%{contribute_path}">Erfahren Sie, wie man einen Beitrag leisten kann</a>.
+      clade_too_big: Leider werden die angezeigten Ergebnisse nicht nach %{taxon_name} gefiltert, da sie zu groß ist. Wählen Sie eine kleinere Gruppe oder <a href="%{contactus_tech_path}">kontaktieren Sie uns</a>, um Hilfe zu erhalten.
+  data_search_attribute: TraitBank für Datensätze mit %{attribute}-Daten durchsuchen
   data_search_destroyed: Dieser Auftrag wird nicht mehr verarbeitet.
   data_search_explanation: Die EOL-Datensuche verwenden zum Auffinden von Objekten mit der Übereinstimmung „%{term}“ in Beobachtungen,<br />Messungen und anderen wissenschaftlichen Behauptungen.
   data_search_files: 
@@ -1915,28 +1949,26 @@ de:
     to: Höchster Wert
     unit_uri: Maßeinheit
   data_search_files_with_count: 
-    one: Eine gespeicherte Suche
-    other: "%{count} gespeicherte Suchen"
+    one: Ein Datendownload
+    other: "%{count} Datendownloads"
+  data_search_limit: 
+    one: Datensuchdownloads sind beschränkt auf ein Ergebnis.
+    other: Datensuchdownloads sind beschränkt auf %{count} Ergebnisse.
   data_search_link: Wissenschaftliche Daten auf EOL suchen
-  data_search_queue_pending: 
-    one: Es wartet noch ein Auftrag auf seine Verarbeitung (es kann Ihr Auftrag sein oder nicht). Sie können die <a href='%{data_search_url}'>Datensuchseite</a> besuchen, um eine andere Suche durchzuführen.
-    other: Es warten noch %{count} Aufträge auf ihre Verarbeitung (es können Ihre Aufträge sein oder nicht). Sie können die <a href='%{data_search_url}'>Datensuchseite</a> besuchen, um eine andere Suche durchzuführen.
-    zero: Es gibt keine ausstehenden Aufträge. Falls Ihr Auftrag nicht vollständig ist, ist etwas schiefgelaufen. Sie können die <a href='%{data_search_url}'>Datensuchseite</a> besuchen, um eine andere Suche durchzuführen.
-  data_search_refine_field_label: Datensuche verfeinern
-  data_search_refine_placeholder: z.&nbsp;B. 10 bis 50
   data_server_unavailable: Die Daten auf EOL sind vorübergehend nicht verfügbar. Bitte später erneut versuchen. Wir bitten um Verständnis für diese Unannehmlichkeit.
   data_show_n_more_rows: NNN weitere anzeigen …
   data_subtab_about: Über
-  data_subtab_glossary: Glossar
+  data_subtab_glossary: Glossar für %{taxon}
   data_summary_header_with_count: 
     one: EOL hat Daten für eine Eigenschaft
     other: EOL hat Daten für %{count} Eigenschaften
     zero: EOL hat keine Eigenschaftsdaten
-  data_tab_curator_excluded: von den Schnellen Tatsachen entfernt
-  data_tab_curator_exemplar: zu den Schnellen Tatsachen hinzugefügt
-  data_tab_curator_key_excluded: "%{image} von den <a href='%{link}'>Schnellen Tatsachen</a> entfernt"
-  data_tab_curator_key_exemplar: "%{image} zu den <a href='%{link}'>Schnellen Tatsachen</a> hinzugefügt"
-  data_table_summary: "Kalkulierbare Daten für %{taxon}. Jede Datenzeile ist eine separate Tatsache, zur Verfügung gestellt durch einen Inhaltspartner oder Nutzer. Jeder Wert könnte eine verschachtelte Tabelle enthalten, die Metadaten über die Tatsache zusammenfasst: wo sie gesammelt wurden, was die Rechte für die Daten sind und ähnliches. Klicken Sie auf die Zeile, um diese Metadaten anzuzeigen. Zum Ausblenden erneut klicken. Angezeigte Metadaten zeigen auch Anmerkungen und ermöglichen es Nutzern, nach Bedarf ihre eigenen Anmerkungen hinzuzufügen. Kuratoren haben bei angezeigten Metadaten zusätzliche Funktionen."
+  data_summary_ranges_header_with_count: EOL hat Zusammenfassungsdaten
+  data_tab_curator_excluded: Diese Zeile wurde vom Übersichtsreiter entfernt.
+  data_tab_curator_exemplar: Diese Zeile wurde dem Übersichtsreiter hinzugefügt.
+  data_tab_curator_key_excluded: "%{image} von der <a href='%{link}'>Übersicht</a> entfernt"
+  data_tab_curator_key_exemplar: "%{image} zur <a href='%{link}'>Übersicht</a> hinzugefügt"
+  data_table_summary: "Eigenschaftsdaten für %{taxon}. Jede Datenzeile ist eine separate Tatsache, zur Verfügung gestellt durch einen Inhaltspartner oder Nutzer. Jeder Wert könnte eine verschachtelte Tabelle enthalten, die Metadaten über die Tatsache zusammenfasst: wo sie gesammelt wurden, was die Rechte für die Daten sind und ähnliches. Klicken Sie auf die Zeile, um diese Metadaten anzuzeigen. Zum Ausblenden erneut klicken. Angezeigte Metadaten zeigen auch Anmerkungen und ermöglichen es Nutzern, nach Bedarf ihre eigenen Anmerkungen hinzuzufügen. Kuratoren haben bei angezeigten Metadaten zusätzliche Funktionen."
   data_usage_reports: Datennutzungsbericht
   date_caps: Datum
   date_uploaded: Hochladedatum
@@ -2039,7 +2071,9 @@ de:
   did_you_mean: "Meinten Sie: %{suggestions}?"
   disabled_for_now: MOMENTAN DEAKTIVIERT
   discover_link: Entdecken
-  displaying_numerical_range: Von %{start_number} bis %{end_number} von %{total} anzeigen
+  displaying_numerical_range_eol_records_with_count: 
+    one: Ein Datensatz auf EOL anzeigen
+    other: Die Datensätze %{start_number} &ndash; %{end_number} von %{count} auf EOL anzeigen
   do_you_want_to_be_a_curator: Möchten Sie ein Kurator werden?
   donate_link: Spenden
   donation_agree: zustimmen
@@ -2212,6 +2246,8 @@ de:
       no_access: Leider ist der Zugriff beschränkt.
   excluded_icon_tip: Zeilen, die mit dem Symbol %{excluded_icon} gekennzeichnet sind, werden nie auf Taxonübersichtsseiten angezeigt.
   expand_all_children: alle untergeordneten Objekte expandieren
+  expired: Abgelaufen
+  expires_in_colon: "Läuft ab in:"
   explore: Entdecken
   explore_what_we_know_about_taxon: Erkunden Sie was EOL zu %{taxon} verfügbar hat.
   export_curator_csv_link: "[alle Kuratoren im CSV-Format exportieren]"
@@ -2254,6 +2290,7 @@ de:
   filter_by_type_comment_option: Kommentare
   filter_by_type_community_option: Gemeinschaften
   filter_by_type_content_page_option: EOL-Informationsseiten
+  filter_by_type_data_option: Eigenschaften
   filter_by_type_image_option: Bilder
   filter_by_type_image_option_with_count: 
     one: "%{count} Bild"
@@ -2394,7 +2431,6 @@ de:
   glossary: Glossar
   glossary_is_empty: (Glossar ist leer)
   glossary_subhead: Glossar
-  glossary_subtab_help_text: "**in Vorbereitung**. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   glossary_term: Begriff
   glossary_terms: Glossarbegriffe
   go: Los
@@ -2481,6 +2517,23 @@ de:
         link_type: Kategorie
         source_url: URL des Links
         toc_item: Betreff
+      data_search: 
+        attribute: Ein Attribut auswählen
+        max: Höchster Wert
+        max_placeholder: Zahl eingeben
+        max_placeholder_disabled: Bereich deaktiviert
+        min: Niedrigster Wert
+        min_placeholder: Zahl eingeben
+        min_placeholder_disabled: Bereich deaktiviert
+        q: Spezieller Wert
+        q_more: Zum Beispiel heterotroph.
+        q_placeholder: Geben Sie ein Wort, einen Ausdruck oder eine Zahl ein.
+        q_placeholder_disabled: Bereich eingegeben, spezieller Wert deaktiviert
+        taxon_name: Taxongruppe
+        taxon_name_more: Geben Sie beispielsweise Trochilidae oder Wale ein und wählen Sie die passende Gruppe aus.
+        taxon_name_placeholder: Geben Sie den Namen der Taxongruppe an, um die Gruppe auszuwählen.
+        taxon_name_placeholder_value_removed: "%{taxon_group} entfernt, neue Gruppe auswählen"
+        unit: Maßeinheit
       eol_statistic: 
         date_one: Datum
         date_two: Datum
@@ -2696,6 +2749,7 @@ de:
   home: Startseite
   home_page_cache_last_cleared_on: Cache der Hauptseite wurde letztmalig am %{date} geleert
   home_page_link_advisory_information: Dieser Link führt zur Hauptseite der Enzyklopädie des Lebens.
+  however_there_are_summaries: Allerdings <a href='%{summary_url}'>fasst EOL Daten von Untergruppen zusammen</a>.
   html_format: (HTML-Format)
   html_format_with_left_col: (HTML-Format. Nur eingeben, sofern Sie eine Spalte auf der linken Seite haben möchten. Ansonsten bitte frei lassen.)
   id: Kennung
@@ -2740,6 +2794,9 @@ de:
   inappropriate: Ungeeignet
   inaturalist_tab_label: Beobachtungen von iNaturalist
   include_all_metadata: alle Metadaten zu Datenobjekten einbeziehen
+  including_traitbank_count: 
+    one: ", einschließlich einem TraitBank-Attribut"
+    other: ", einschließlich %{count} TraitBank-Attributen"
   indexed: Indexiert
   info_item: Information
   info_items_col_header: Informationen
@@ -2763,6 +2820,8 @@ de:
   item_not_updated_in_collection_error: Es ist leider ein Fehler aufgetreten, so dass das Sammlungsobjekt nicht aktualisiert werden konnte.
   item_type_article: Artikel
   item_type_article_assistive: Dieses Objekt ist ein Artikel
+  item_type_cms_page: Informationen über EOL
+  item_type_cms_page_assistive: Dieser Artikel ist informatorischer Inhalt über EOL
   item_type_collection: Sammlung
   item_type_collection_assistive: Dieses Objekt ist eine Sammlung
   item_type_community: Gemeinschaft
@@ -2902,12 +2961,19 @@ de:
         questions_link_model_organism: Was ist ein Modellorganismus?
         questions_link_naming_species: Wie werden Arten benannt?
         questions_link_species: Was ist eine Art?
+      data_search: 
+        page_header: TraitBank durchsuchen
+        page_header_results: Suchergebnisse von TraitBank
+      taxa: 
+        search_traitbank: TraitBank durchsuchen
+        search_within_clade: Innerhalb der Klade suchen
   learn_about_collections: Wie kann ich eine erstellen?
   learn_about_communities: Wie kann ich teilnehmen?
   learn_about_content_partners: Wie kann ich einer werden?
   learn_about_contributing: Wie kann ich mitarbeiten?
   learn_about_eol: Wie kann ich EOL nutzen?
   learn_about_joining: Wie kann ich mitmachen?
+  learn_how_to_contribute: Erfahren Sie, wie Sie beitragen können.
   learn_more_about_communities_link: Erfahren Sie mehr über Gemeinschaften
   learn_more_about_names_for_this_taxon: Erfahren Sie mehr über Namen für dieses Taxon
   learn_more_link: (%{learn_more})
@@ -3058,6 +3124,7 @@ de:
   method: Methode
   method_to_get_metadata_about_the_hierarchy: nach Angabe einer Hierarchiekennung wird diese Methode die Metadaten der Hierarchie und Ihre Basistaxa ausgeben
   methods: Methoden
+  missing_interpolation_argument_error: "[Übersetzung unvollständig]"
   mobile: 
     contents: 
       explore_eol: EOL durchstöbern
@@ -3377,6 +3444,9 @@ de:
   pagination_previous_with_count: 
     one: vorherige ansehen
     other: vorherige %{count} ansehen
+  pagination_range_with_count: 
+    one: Ein Datensatz wird angezeigt
+    other: Die Datensätze %{start_number} &ndash; %{end_number} von %{count} werden angezeigt
   parameters: Parameter
   partner: Partner
   partner_information: Partnerinformationen
@@ -3518,7 +3588,7 @@ de:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Ihr Download ist fertig!
-      message: Sie können diese und andere Suchen durch den Besuch des <a href='%{download_link}'>Reiters für gespeicherte Suchen in Ihrem Profil</a> herunterladen.
+      message: Sie können diese und andere Suchen durch den Besuch des <a href='%{download_link}'>Reiters für Datendownloads in Ihrem Profil</a> ansehen.
       subject: Ihre EOL-Suche ist bereit zum Herunterladen
   recent_updates: Letzte Aktualisierungen
   recently_used_link: Kürzlich verwendet
@@ -3636,6 +3706,7 @@ de:
   see_all_communities_with_count_html: 
     one: <span class="assistive">Die Gemeinschaft ansehen, die ihren Schwerpunkt auf diesem Taxon hat.</span>
     other: <span class="assistive">Die %{count} Gemeinschaften ansehen, die ihren Schwerpunkt auf diesem Taxon haben.</span>
+  see_all_data_summaries: Alle <span class="assistive">Datenzusammenfassungen für dieses Taxon</span> ansehen.
   see_all_data_with_count_html: 
     one: Die <span class="assistive">Eigenschaft für dieses Taxon</span> ansehen.
     other: Alle <span class="assistive">%{count} Eigenschaften für dieses Taxon</span> ansehen.
@@ -3653,7 +3724,7 @@ de:
   see_all_updates_with_count_html: 
     one: Die <span class="assistive">Aktualisierung dieser Seite</span> ansehen.
     other: Alle <span class="assistive">%{count} Aktualisierungen dieser Seite</span> ansehen.
-  see_in_data_glossary: siehe Datenglossar
+  see_in_data_glossary: vollständiges Datenglossar durchsuchen
   see_in_glossary_tab: siehe Glossar-Reiter
   see_more_on_the_data_tab: siehe mehr auf dem Datenreiter
   see_notes: Anmerkungen ansehen
@@ -3736,8 +3807,8 @@ de:
   sort_by_status_option: Status
   sort_by_title_ascending: Titel aufsteigend
   sort_by_title_descending: Titel absteigend
-  sort_by_value_ascending: Wert aufsteigend
-  sort_by_value_descending: Wert absteigend
+  sort_by_value_ascending: Niedrige Werte zuerst
+  sort_by_value_descending: Hohe Werte zuerst
   sort_by_year_ascending: Jahr aufsteigend
   sort_by_year_descending: Jahr absteigend
   sort_collection_by_label: Sammlung sortieren nach
@@ -3786,6 +3857,7 @@ de:
   subject: Betreff
   submit: Speichern
   submit_term: Begriff speichern
+  submitted_colon: "Eingereicht:"
   submitting: Bitte warten …
   suggested_attributes: "Vorgeschlagene Attribute:"
   suggested_result_page_id: "Kennung der Seite mit den vorgeschlagenen Ergebnissen:"
@@ -3860,25 +3932,27 @@ de:
         tweet_text: Menschen, die sich für %{scientific_name} interessieren
     data: 
       index: 
+        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> stellt Datensätze von vielen Anbietern zusammen. Wählen Sie für weitere Einzelheiten über den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">durchsuchen Sie TraitBank</a>.
+        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> stellt Datensätze von vielen Anbietern zusammen. Wählen Sie für weitere Einzelheiten über den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">suchen Sie innerhalb %{taxon_name}</a>.
         hierarchy_entry: 
           meta_description: Bilder, Videos und Audios von %{scientific_name}, wie von %{hierarchy_provider} klassifiziert. Finden Sie Bilder, Fotos, Filme und Sounds von %{scientific_name} bei der Enzyklopädie des Lebens.
           meta_description_no_data: Es sind keine kalkulierbaren Daten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{scientific_name} beizusteuern.
           meta_description_with_common_name_no_data: Es sind keine kalkulierbaren Daten für %{preferred_common_name} (auch bekannt als %{scientific_name}), wie von %{hierarchy_provider} klassifiziert, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{preferred_common_name} (%{scientific_name}) beizusteuern.
-          meta_description_with_common_name_with_topics: Welche Daten haben Wissenschaftler für %{preferred_common_name}, wie von %{hierarchy_provider} klassifiziert, gesammelt? Kalkulierbare Daten über %{scientific_name} einschließlich Informationen über %{topics}.
+          meta_description_with_common_name_with_topics: Welche Daten haben Wissenschaftler für %{preferred_common_name}, wie von %{hierarchy_provider} klassifiziert, gesammelt? Eigenschaftsdaten über %{scientific_name} einschließlich Informationen über %{topics}.
           meta_keywords: Kalkulierbare Daten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert, Informationen über %{scientific_name}
           meta_keywords_with_common_name: Kalkulierbare Daten für %{preferred_common_name}, wie von %{hierarchy_provider} klassifiziert
-          meta_title: Kalkulierbare Daten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert
-          meta_title_with_common_name: Kalkulierbare Daten für %{preferred_common_name} (%{scientific_name}), wie von %{hierarchy_provider} klassifiziert
-          tweet_text: Kalkulierbare Daten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert.
+          meta_title: Eigenschaftsdaten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert
+          meta_title_with_common_name: Eigenschaftsdaten für %{preferred_common_name} (%{scientific_name}), wie von %{hierarchy_provider} klassifiziert
+          tweet_text: Eigenschaftsdaten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert.
         meta_description: Bilder, Videos und Audios von %{scientific_name}. Finden Sie Bilder, Fotos, Filme und Sounds von %{scientific_name} bei der Enzyklopädie des Lebens.
         meta_description_no_data: Es sind keine kalkulierbaren Daten für %{scientific_name} in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{scientific_name} beizusteuern.
         meta_description_with_common_name_no_data: Es sind keine kalkulierbaren Daten für %{preferred_common_name}, auch bekannt als %{scientific_name}, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{preferred_common_name} (%{scientific_name}) beizusteuern.
-        meta_description_with_common_name_with_topics: Welche Daten haben Wissenschaftler für %{preferred_common_name} gesammelt? Kalkulierbare Daten über %{scientific_name} einschließlich Informationen über %{topics}.
+        meta_description_with_common_name_with_topics: Welche Daten haben Wissenschaftler für %{preferred_common_name} gesammelt? Eigenschaftsdaten über %{scientific_name} einschließlich Informationen über %{topics}.
         meta_keywords: Kalkulierbare Daten über %{scientific_name}, Informationen über %{scientific_name}
         meta_keywords_with_common_name: Kalkulierbare Daten für %{preferred_common_name}
-        meta_title: Kalkulierbare Daten für %{scientific_name}
-        meta_title_with_common_name: Kalkulierbare Daten für %{preferred_common_name} (%{scientific_name})
-        tweet_text: Kalkulierbare Daten für %{scientific_name}
+        meta_title: Eigenschaftsdaten für %{scientific_name}
+        meta_title_with_common_name: Eigenschaftsdaten für %{preferred_common_name} (%{scientific_name})
+        tweet_text: Eigenschaftsdaten für %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -4098,8 +4172,9 @@ de:
   taxon_citizen_science_resources_empty: Bislang wurden auf dieser Seite noch keine Links zu „Wissenschaft für Bürger“ hinzugefügt.
   taxon_common_names_subtab_explanation: Viele Menschen kennen Organismen nur unter ihrem Trivialnamen oder „umgangssprachlichen“ Namen. Anders als wissenschaftliche Namen sind Trivialnamen fast immer für Sprecher unterschiedlicher Sprachen unterschiedlich. Dies kann auch innerhalb einer Sprache regional variieren. Dieser Reiter zeigt alle Trivialnamen der EOL für diesen Organismus aus einer Vielzahl von Anbietern, einschließlich EOL-Kuratoren. Derzeit können wir nur einen Trivialnamen pro Sprache für eine EOL-Seite festlegen, jedoch sollten alle Namen auffindbar sein.
   taxon_concept_stats: Statistiken zum Taxonkonzept
-  taxon_data_empty: Bisher hat noch keiner Tatsachen für diese Seite beigesteuert.
   taxon_data_header: Daten über %{taxon}
+  taxon_data_overview_empty: Es hat noch keiner Datensätze für %{taxon} beigesteuert.
+  taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a> stellt Datensätze von vielen Anbietern zusammen. Bisher hat noch keiner Datensätze für %{taxon} beigesteuert.
   taxon_details_empty: Bislang hat noch niemand Einzelheiten für diese Seite zur Verfügung gestellt.
   taxon_details_empty_in_this_language: Es hat niemand Einzelheiten für diese Seite in dieser Sprache beigetragen.
   taxon_education_empty: Bislang hat noch niemand Bildungsmittel für diese Seite zur Verfügung gestellt.
@@ -4242,6 +4317,10 @@ de:
     one: Insgesamt ein Objekt
     other: Insgesamt %{count} Objekte
   total_searches: "Gesamtzahl der Suchen:"
+  traitbank_data_search: Daten suchen
+  traitbank_description: Millionen von Datensätzen auf EOL durchsuchen
+  traitbank_info_page: Mehr erfahren
+  traitbank_intro: "Einführung von <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: Die Übersetzung wurde gelöscht
   translation_information_header: Übersetzungsinformationen
   translation_log: I18N-Haufigkeitsdiagramm
@@ -4437,6 +4516,30 @@ de:
         meta_description: Inhaltspartner mit denen %{user_full_name} in Verbindung steht.
         meta_title: Inhaltspartner von %{user_full_name}
         tweet_text: Inhaltspartner von %{user_full_name}
+    data_downloads: 
+      actions_head: Aktionen
+      attribute_head: Attribut
+      complete_head: Vollständig?
+      created_head: Erstellt
+      download: herunterladen
+      empty: Sie haben keine Downloads. Sie können <a href='%{data_search_url}'>nach Daten suchen</a> und die Ergebnisse herunterladen.
+      header_with_count: 
+        one: Datendownload
+        other: "%{count} Datendownloads"
+      index: 
+        meta_description: Datendownloads von %{user_full_name}.
+        meta_title: Datendownloads von %{user_full_name}
+        tweet_text: Datendownloads von %{user_full_name}
+      is_complete: Ja
+      is_not_complete: Nein
+      page_title: Datendownloads
+      processing: verarbeitend
+      query_empty: (keine Filter)
+      query_head: Abfrage
+      refresh: aktualisieren
+      row_count: Anzahl
+      search_again: erneut suchen
+      updated_head: Letzte Aktion
     edit: 
       form_tip_account: Um sich bei der EOL anmelden zu können, benötigen Sie entweder einen Nutzernamen mit Passwort, oder Sie verknüpfen ein Drittanbieterkonto. Nutzername und Passwort sind zwingend notwendig, sofern Sie kein Drittanbieterkonto verknüpft haben. Geben Sie hier lediglich ein neues Passwort an, sofern Sie Ihr bestehendes ändern möchten. Die Angabe einer E-Mail-Adresse sowie einer bevorzugten Sprache sind für alle Nutzer verpflichtend (%{required_icon}).
       form_tip_account_oauth: Die E-Mail-Adresse und die bevorzugte Sprache müssen %{required_icon} von allen Nutzern angegeben werden.
@@ -4564,25 +4667,6 @@ de:
       form_header: Konto bergen
       form_tip: Es gibt mehrere Konten, die mit der E-Mail-Adresse <em>%{email}</em> registriert sind. Bitte wählen Sie das Konto, das geborgen werden soll.
       legend_choose_account: Ein Nutzerkonto auswählen
-    saved_searches: 
-      actions_head: Aktionen
-      attribute_head: Attribut
-      complete_head: Vollständig?
-      created_head: Erstellt
-      download: herunterladen
-      empty: Sie haben keine gespeicherten Suchen. Besuchen Sie die <a href='%{data_search_url}'>Datensuchseite</a>, um Suchen auszuführen und zu speichern.
-      index: 
-        meta_description: Gespeicherte Suchen von %{user_full_name}.
-        meta_title: Gespeicherte Suchen von %{user_full_name}
-      is_complete: Ja
-      is_not_complete: Nein
-      page_title: Gespeicherte Suchen
-      processing: verarbeiten
-      query_empty: leer
-      query_head: Abfrage
-      refresh: aktualisieren
-      row_count: Anzahl
-      updated_head: Letzte Aktion
     show: 
       meta_description: Mitgliedsprofil von %{user_full_name} auf der Enzyklopädie des Lebens (EOL).
       meta_description_curator: Mitgliedsprofil von %{curator_level} %{user_full_name} auf der Enzyklopädie des Lebens (EOL).

@@ -1,5 +1,8 @@
 # encoding: utf-8
 # sets up a basic foundation - enough data to run the application, but no content
+include TruncateHelpers
+include VirtuosoHelpers
+
 truncate_all_tables(skip_empty_tables: false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
 drop_all_virtuoso_graphs
 
@@ -129,7 +132,8 @@ MimeType.gen_if_not_exists(label: 'video/x-flv')
 MimeType.gen_if_not_exists(label: 'video/quicktime')
 MimeType.gen_if_not_exists(label: 'audio/mpeg')
 MimeType.gen_if_not_exists(label: 'audio/x-wav')
-
+MimeType.gen_if_not_exists(label: 'video/mp4')
+MimeType.gen_if_not_exists(label: 'video/mpeg')
 
 # create_if_not_exists These don't exist yet, but will in the future:
 # create_if_not_exists NormalizedQualifier label: 'Name'
@@ -148,6 +152,7 @@ RefIdentifierType.gen_if_not_exists(label: 'doi')
 iucn_hierarchy = Hierarchy.gen_if_not_exists(label: 'IUCN')
 iucn_resource = Resource.gen_if_not_exists(title: 'Initial IUCN Import', hierarchy: iucn_hierarchy, content_partner: iucn_content_parter, acesspoint_url: "http://eol.org/api/ping.xml")
 iucn_agent = Agent.iucn
+
 raise "IUCN is nil" if iucn_agent.nil?
 raise "IUCN Resource is nil" if iucn_resource.nil?
 

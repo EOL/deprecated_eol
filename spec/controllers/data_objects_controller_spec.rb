@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def data_object_create_edit_variables_should_be_assigned
   assigns[:data_object].should be_a(DataObject)

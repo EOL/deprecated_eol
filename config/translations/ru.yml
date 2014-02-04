@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Adata80
+# Author: Alexandr Efremov
 # Author: Amire80
 # Author: Antohabio
 # Author: Aygulka
@@ -151,12 +152,17 @@ ru:
         published_unreviewed_resources: Опубликованные нерецензированные ресурсы
         redhotlist_pages: Популярные страницы
         rich_hotlist_pages: Насыщенные популярные страницы
+        rich_hotlist_pages_percentage: Насыщенные высокорейтинговые страницы%
         rich_pages: Насыщенные страницы
         rich_redhotlist_pages: Насыщенные популярные страницы
+        rich_redhotlist_pages_percentage: Насыщенные красные высокорейтинговые страницы%
+        total_association_types: Типы ассоциаций
         total_associations: Ассоциации
         total_measurement_types: Типы измерений
         total_measurements: Измерения
+        total_occurrences: Вхождения
         total_taxa_with_data: Страницы с данными
+        total_triples: Тройки
         total_user_added_data: Добавленные пользователем данные
         udo_published: Добавленный пользователем текст
         udo_published_by_curators: Текст, предоставленный куратором
@@ -184,11 +190,20 @@ ru:
         label: Ярлык
         request_publish: Запрос публикации
       known_uri: 
+        clade_exemplar: Использовать как образец диапазона таксономической группы
         description: Описание
+        exclude_from_exemplars: Удалить из Обзора
+        group_by_clade: Использовать для диапазона таксономических групп
         name: Имя
         toc_items: Категории
         uri: URI
         uri_type: Тип URI
+        value_is_text: Значения не будут URI, только текст
+      known_uri_relationship: 
+        from_known_uri_id: Тема URI
+        relationship_uri: Связи URI
+        to_known_uri: Целевой URI
+        to_known_uri_id: Целевой URI
       name: 
         string: Имя
       news_item: 
@@ -228,9 +243,11 @@ ru:
         auto_publish: Авто-публикация
         bibliographic_citation: Библиографическая ссылка
         dataset: Файл набора данных
+        dataset_hosted_url: Набор исходных данных (локальная копия)
         dataset_license_id: Лицензия
         dataset_rights_holder: Правообладатель
         dataset_rights_statement: Заявление о правах
+        dataset_source_url: Оригинальный источник данных
         description: Описание ресурса
         dwc_archive_url: URL-адрес архива Darwin Core
         harvest_events: Урожай
@@ -281,7 +298,7 @@ ru:
         username: Имя пользователя
       user_added_data: 
         object: Значение
-        predicate: Атрибут
+        predicate: Черта
         user: Добавил(а)
       user_added_data_metadata: 
         object: Значение
@@ -331,6 +348,18 @@ ru:
             publish: 
               inclusion: только для последних событий, и только если эти события уже не опубликованы
         inaccessible: Запись не может быть сохранена, потому что она была неправильной. Проверьте наличие ошибок и повторите.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: запрещено - может быть только одна типичная единица
+            to_known_uri_id: 
+              must_be_different: URI должен отличаться от темы URI
+              must_be_known_uri: должен быть известен URI
+              must_be_measurement: должна быть единица измерения
         open_authentications: 
           guid_provider_must_be_unique: сторонняя учетная запись уже связана с учетной записью EOL
           provider_user_id_must_be_unique: только одна учетная запись от каждого стороннего поставщика может быть подключена к учетной записи EOL
@@ -346,6 +375,22 @@ ru:
             dwc_archive_url: 
               inaccessible: недоступно, URL-адрес должен быть публично доступным
               invalid: неверно, он должен указывать на файл TAR.GZIP, TAR.GZ, TGZ или ZIP
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
+              namespace: используется пространство имен, не обнаружено
+            subject: 
+              must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
+              namespace: используется пространство имен, не обнаружено
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
+              namespace: используется пространство имен, не обнаружено
+            subject: 
+              must_be_uri: должен быть правильно сформирован <a href='https://ru.wikipedia.org/wiki/URI'>URI</a>
+              namespace: используется пространство имен, не обнаружено
       template: 
         body: "Следующие поля не прошли проверку:"
         header: 
@@ -353,6 +398,11 @@ ru:
           other: найдено %{count} ошибок проверки
     models: 
       user: Учетная запись
+  activity: Действия
+  activity_logs: 
+    collection_activity_log: 
+      remove_all: 
+        user_cleared_it: <strong>%{user}</strong> удалил все элементы.
   add: Добавить
   add_a_collection_to_a_community: Добавить "%{collection}" в сообщество
   add_a_comment: Добавьте комментарий.
@@ -426,8 +476,10 @@ ru:
   admin_home: административная панель
   admin_information: Это новая консоль администрирования для EOL V2. Находится в процессе передачи функции администрирования от V1. Если раздел администрации, который вы ищете, отсутствует в списке пожалуйста, посетите <a href="/administrator">старую консоль администрирования</a>.
   admin_link: Обзор
+  admin_news_item_active: Опубликовано
   admin_news_link: Новости
   admin_notes_not_visible_to_user: "Примечания администратора (не видны пользователю):"
+  admin_option_changed: Значение изменено.
   admin_page_title: "Администрация: Обзор"
   admin_spam_delete: Удалить спам
   admin_statistics_link: Статистика
@@ -519,9 +571,11 @@ ru:
   anonymous_user_given_name: Аноним
   anonymous_user_tag_line: Не выполнен вход
   any_integer: любое целое число
+  any_string: любая строка
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Кликните здесь</a>, чтобы получить доступ к бета-тестированию нового форумов EOL. Ваши замечания приветствуются.
+  api_cache_time_to_live_parameter: количество секунд, в течение которых вы хотите, чтоб ответ был закэширован
   api_docs_collections_description: Если вы укажите идентификатор для коллекции, API возвратит все метаданные о коллекции и элементах, которые он содержит. Список элементов можно фильтровать по типу элемента и сортировать по перечисленным атрибутам. Некоторые элементы будут содержать необязательный атрибут «sort_field» («поле сортировки»). Поле сортировки является пользовательской строкой, которая является специальной аннотацией к элементу коллекции. Это может быть любая строка символов, но если это дата, она должна соответствовать формату ГГГГ-ММ-ДД. Элементы таксонов будут содержать «richness_score» («очки полноты»). Полнота представляет собой показатель, представленный как целое число между 0 и 100, где более высоким числом обозначают страницу с более полным содержанием и с большим количеством источников. Подробнее о таксоне полноты смотрите на вкладке обновления страницы таксонов, например %{richness_url}.
   application_version_advisory_information: Версия приложения
   are_you_sure: Вы уверены?
@@ -529,6 +583,7 @@ ru:
   article_from: статья от
   article_more_about: Узнать больше об этой статье
   article_rating: Рейтинг статьи
+  assistive_data_header: Факты и информация
   assistive_details_header: Детали
   assistive_literature_header: Литература
   assistive_maps_header: Карты
@@ -558,6 +613,7 @@ ru:
   audio_unmute: включить звук
   authoritative_information: достоверная информация
   available: доступно
+  average_rating: средний рейтинг
   average_rating_value_of_total: "Средняя оценка: %{rating} из %{total}"
   back: Назад
   back_to_profile: Вернуться к профилю
@@ -738,7 +794,11 @@ ru:
   content_has_been_updated: Содержимое было обновлено.
   content_notes_not_shown_to_us: "Примечания (не показаны для пользователя):"
   content_partner: Контент-партнер
+  content_partner_about_header: О %{partner_name}
   content_partner_admin_index_link_back_to: вернуться к управлению партнерами
+  content_partner_administration_notes_empty: Заметок администрации нет.
+  content_partner_administration_notes_header: Заметки администрации
+  content_partner_administration_settings_header: Параметры администрирования
   content_partner_agreement_cancel_edit_agreement_link: Отмена
   content_partner_agreement_cancel_new_agreement_link: Отмена
   content_partner_agreement_cancel_sign_agreement_link: Отмена
@@ -759,24 +819,39 @@ ru:
   content_partner_data_description_header: Описание данных
   content_partner_filter_option_vetted_no: Нет
   content_partner_filter_option_vetted_yes: Да
+  content_partner_filter_published: Опубликовано
+  content_partner_homepage_link: Посетить сайт партнёра
   content_partner_managed_by_header: Управляется
   content_partner_new_link: Добавить нового контент-партнера
   content_partner_new_page_subheader: Добавить нового контент-партнера
   content_partner_public_false: Частный
   content_partner_public_true: Общий
+  content_partner_resource_about_header: О ресурсе
   content_partner_resource_auto_publish_false: Нет
   content_partner_resource_auto_publish_true: Да
   content_partner_resource_collections_header: Коллекции
   content_partner_resource_edit_link: Редактировать
   content_partner_resource_edit_subheader: Править исходный текст
   content_partner_resource_edit_with_type_link: Править исходный текст
+  content_partner_resource_harvest_event_not_published: Не опубликовано
+  content_partner_resource_harvest_event_previously_published: Ранее опубликовано
   content_partner_resource_hierarchy_edit_link: Редактировать
+  content_partner_resource_hierarchy_unknown: Неизвестно
+  content_partner_resource_new_link: Добавить новый ресурс
+  content_partner_resource_new_subheader: Добавить новый ресурс
   content_partner_resource_resource_status_new: Создано
   content_partner_resource_vetted_false: Нет
   content_partner_resource_vetted_true: Да
   content_partner_resource_view_link: Просмотр
   content_partner_resources_header: Ресурсы
+  content_partner_statistics_column_header_taxa_page_page_views: Просмотров страницы
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Время на странице (секунд)
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Уникальных просмотров страницы
+  content_partner_statistics_column_header_total_count: Все страницы
+  content_partner_statistics_link: Статистика использования
+  content_partner_statistics_month_label: Месяц
   content_partner_statistics_year_label: Год
+  content_partner_status_empty: Неизвестное состояние
   content_partners: 
     edit: 
       meta_title: Изменить %{partner_name}
@@ -794,12 +869,18 @@ ru:
         meta_title: Статистика %{partner_name}
         tweet_text: Статистика использования %{partner_name}
   content_type: Тип содержимого
+  could_not_find_user: Вы не являетесь членом этого сообщества.
+  create_a_community: Создать сообщество
   create_child_page: Создать дочернюю страницу
+  create_community: Создать сообщество
+  create_community_about_heading: О создании сообщества
+  curated_association_update_button: Сохранить изменения
   curator_level: Уровень куратора
   curator_level_with_indefinite_article_assistant_curator: <strong>помощник куратора</strong>
   curator_level_with_indefinite_article_full_curator: <strong>полный куратор</strong>
   curator_level_with_indefinite_article_master_curator: <strong>главный куратор</strong>
   current_language: "Язык: %{iso_code}"
+  data_column_value: Значение
   data_objects: 
     show: 
       meta_description_article: Статья - %{dato_description}
@@ -818,6 +899,18 @@ ru:
       meta_supplier_default: участник
       meta_title: "%{dato_title} от %{supplier}"
       tweet_text: "%{dato_title} от %{supplier}"
+  data_row_hide_button: Скрыть строку
+  data_row_unhide_button: Показать строку
+  data_search: 
+    form: 
+      header_assistive: Форма поиска
+      input_summary_intro: Выбранные параметры поиска
+      new_search_link: Начать новый поиск
+  data_search_files: 
+    from: Наименьшее значение
+    to: Наибольшее значение
+    unit_uri: Единица измерения
+  date_caps: Дата
   datepicker: 
     close: Закрыть
     current: Сегодня
@@ -874,10 +967,24 @@ ru:
     next: Далее
     previous: Назад
   dato_create_cancel: Отмена
+  dato_edit_cancel: Отмена
+  default: По умолчанию
   delete: удалить
+  delete_firstcap: Удалить
+  description: Описание
+  details: Подробности
+  details_title: Подробности
+  did_you_mean: "Вы имели в виду: %{suggestions}?"
+  donate_link: Пожертвовать
+  donation_amount: Всегоː
+  donation_transaction_details_amount: "Сумма:"
   edit: редактировать
+  edit_comment: Редактировать комментарий
+  edit_comment_lowercase: редактировать комментарий
+  edit_community: Редактировать сообщество
   encyclopedia_of_life: Энциклопедия жизни
   eol_news: Новости EOL
+  eol_pages: Страницы
   eol_statistics: 
     comparing_dates: <span class="assistive">Сравнение</span> <span class="date_one">%{date_one}</span> <span class="assistive">и</span> <span class="date_two">%{date_two}</span>
     content_partners: 
@@ -918,8 +1025,39 @@ ru:
       page_title: Статистика
     warnings: 
       stats_unavailable_for_date: К сожалению статистические данные не доступны для %{date}. Пожалуйста, выберите другую дату.
+  error_500_page_title: Ой!
+  error_default_page_title: Ой!
+  example_colon: "Пример:"
+  exception: Исключение
+  exceptions: 
+    security_violations: 
+      default: Доступ запрещён.
   explore: Ознакомление
   external_link_header: Внешняя ссылка
+  external_link_icon_alt_text: Внешняя ссылка.
+  facebook: Facebook
+  file: Файл
+  file_size: Размер файла
+  filter_button: Фильтр
+  filter_by_day: Фильтр по дням
+  filter_by_type_all_option: Все типы
+  filter_by_type_collection_option: Коллекции
+  filter_by_type_comment_option: Комментарии
+  filter_by_type_community_option: Сообщества
+  filter_by_type_image_option: Изображения
+  filter_by_type_link_option: Ссылки
+  filter_by_type_sound_option: Звуки
+  filter_by_type_text_option: Статьи
+  filter_by_type_user_option: Люди
+  filter_by_type_video_option: Видео
+  filter_newsfeed_option_collections: Коллекции
+  filter_newsfeed_option_community: Сообщество
+  filter_newsfeed_option_messages: Комментарии
+  filter_newsfeed_option_watchlist: Список наблюдения
+  flickr: Flickr
+  flipboard: Flipboard
+  forgot_password_form_cancel: Отмена
+  forgot_password_form_choose_username_legend: Выберите учётную запись
   forums: 
     actions: Действия
     administration: Администрация
@@ -985,7 +1123,15 @@ ru:
     update_failed: Извините, произошла ошибка, форум не может быть добавлен.
     update_successful: Форум успешно обновлен.
     views: Просмотров
+  frequency: Частота
+  frequency_daily: Ежедневно
+  frequency_monthly: Ежемесячно
+  frequency_never: Никогда
+  frequency_weekly: Еженедельно
   global_navigation: Общая навигация
+  glossary: Глоссарий
+  glossary_subhead: Глоссарий
+  google: Google
   help: Помощь
   helpers: 
     label: 
@@ -1049,6 +1195,17 @@ ru:
         link_type: Категория
         source_url: URL-адрес ссылки
         toc_item: Тема
+      data_search: 
+        attribute: Выберите атрибут
+        max: Наибольшее значение
+        max_placeholder: Введите число
+        max_placeholder_disabled: Диапазон отключен
+        min: Наименьшее значение
+        min_placeholder: Введите число
+        min_placeholder_disabled: Диапазон отключен
+        q: Конкретное значение
+        q_placeholder: Введите слово, фразу или число
+        unit: Единица измерения
       eol_statistic: 
         date_one: Дата
         date_two: Дата
@@ -1248,19 +1405,60 @@ ru:
         update: Сохранить данные профиля
       wikipedia_queue: 
         create: Отправить запрос
+  id: ID
+  image: Изображение
   image_map_of_taxon: Карта %{taxon_name}
   image_map_rating: Рейтинг карты
   image_rating: Рейтинг изображения
   images: Иллюстрации
   indexed: Индексированные
+  internal_ip_address: внутренний IP-адрес
+  ip: IP
+  ip_address: IP-адрес
+  item_type_article: Статья
+  item_type_collection: Коллекция
+  item_type_community: Сообщество
+  item_type_image: Изображение
+  item_type_image_map: Карта
+  item_type_link: Ссылка
+  item_type_map: Карта
+  item_type_person: Человек
+  item_type_sound: Звуки
+  item_type_video: Видео
   jsonp_by_adding_a_callback_parameter: ... и JSONP, добавив параметр обратного вызова
   just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
+  key: Ключ
+  known_uri_category_header: Категории
   known_uri_relationships: 
+    create_failed: Извините, произошла ошибка, связь нельзя добавить
     created: Связь была успешно создана
     deleted: Связь была успешно удалена
   known_uris: 
+    add_a_relationship: Добавить связь
+    attribution_placeholder_text: Например, с Dublin Core, см. http://dublincore.org/usage/terms/history/#contributorT-001.
+    comment_placeholder_text: Например, данные участника, включая лицо, организацию или службу.
+    definition_placeholder_text: например. Организация, ответственная за внесение вкладов в ресурс.
+    equivalent_to: связи равносильности
+    import_successful: Онтологические термины успешно импортированы
+    more_than_one_field_mapped_to_type: Более одного атрибута сопоставлено с ​​"%{type}"
+    name_placeholder_text: Например, участник
+    no_results: Нет результатов для выбранной статистики
+    ontology_information_url_placeholder_text: например, http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: например, http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_field_types: Пожалуйста, выберите отображение для каждого атрибута
     please_select_from_the_menu: Пожалуйста, выберите из меню выше
+    please_select_uris_to_import: Пожалуйста, выберите импорт URI
+    preferred_for_equivalence_group: Предпочтения
+    relationships_from_this_uri: Связи с этого URI
+    relationships_to_this_uri: Связи с этим URI
+    select: Выбрать
     select_a_category_to_view_stats: "Выберите категорию, чтобы посмотреть статистику:"
+    select_a_preferred_uri_for_this_group: Выберите желаемый URI
+    unrecognized_association_types: Неопознанный тип ассоциации URIs
+    unrecognized_measurement_types: Неопознанный тип измерения URIs
+    unrecognized_measurement_units: Не распознанная единица измерения URIs
+    unrecognized_measurement_values: Не распознанное значение измерения URIs
+    uri_placeholder_text: например, http://purl.org/dc/terms/contributor
   language: "Язык:"
   languages: Языки
   layouts: 
@@ -1312,6 +1510,8 @@ ru:
         questions_link_model_organism: Что такое модельный организм?
         questions_link_naming_species: Как называют виды?
         questions_link_species: Что такое вид?
+  learn_more_link: (%{learn_more})
+  learn_more_lowercase: узнать больше
   license: Лицензия
   license_all_rights_reserved: Все права защищены
   license_cc_by: Creative Commons Attribution (CC BY)
@@ -1335,10 +1535,13 @@ ru:
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_public_domain: Общественное достояние
+  licensing: Лицензирование
   link_rating: Рейтинг ссылки
+  literature_header: Примечания
   location: Местоположение
   login_hidden_user_message: Учетная запись %{given_name} больше не активна
   logo_header: Логотип
+  logout: Выйти
   map_of_taxon: Карта %{taxon_name}
   map_rating: Рейтинг карты
   members: 
@@ -1390,6 +1593,7 @@ ru:
       taxon_overview: Описание таксона
       videos: Видео
   monthly: Ежемесячно
+  more: далее
   more_children_with_count: еще %{count}
   more_siblings_with_count: 
     one: "%{count} сиблинг"
@@ -1435,6 +1639,12 @@ ru:
     content_partner_resource_created: 
       message: "Это уведомление автоматизированной системы ЭЖ для группы \"Страницы видов\". Пользователь %{user_full_name} создал новый ресурс %{resource_title} контенту партнера %{partner_full_name}, подробности ниже:\n\nПользователь: %{user_full_name}\nE-mail: %{user_email}\nURL профиля: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nПартнеров ресурсов URL: %{partner_resources_url}\n\nРесурс: %{resource_title}\nРесурсов URL: %{resource_url}\nСоздано: %{resource_created_at_date}\nСтатус: %{resource_status}"
       subject: Пользователь ЭЖ %{user_full_name} добавил новый ресурс %{resource_title} контенту партнера %{partner_full_name}
+    content_partner_resource_force_harvest_request: 
+      message: "Это сообщение автоматизированной системы ЭЖ для группы \"Страницы видов\". Пользователь %{user_full_name} запросил урожай для ресурса %{resource_title}, который принадлежит партнеру по содержанию %{partner_full_name}, подробности ниже:\n\nПользователь: %{user_full_name}\nЭл.почта: %{user_email}\nURL профиля: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nURL ресурсов партнера: %{partner_resources_url}\n\nРесурс: %{resource_title}\nURL ресурса: %{resource_url}\nОбновлено: %{resource_updated_at_date}\nСтатус: %{resource_status}"
+      subject: Пользователь %{user_full_name} запросил урожай для ресурса %{resource_title}, который принадлежит партнеру по содержанию %{partner_full_name}
+    content_partner_resource_hierarchy_publish_request: 
+      message: "Это сообщение автоматизированной системы ЭЖ для группы \"Страницы видов\". Пользователь %{user_full_name} подал запрос, иерархия связана с ресурсом %{resource_title}, который по содержанию принадлежит партнеру %{partner_full_name}, может продвигаться (опубликоваться) в обзорной иерархии на ЭЖ, подробности ниже:\n\nПользователь: %{user_full_name}\nЭл.почта: %{user_email}\nURL профиля: %{user_profile_url}\n\nПартнер: %{partner_full_name}\nURL ресурсов партнера: %{partner_resources_url}\n\nРесурс: %{resource_title}\nURL ресурсов: %{resource_url}\nURL редактирования иерархии: %{hierarchy_edit_url}"
+      subject: Пользователь ЭЖ %{user_full_name} запросил иерархическое продвижение для ресурса %{resource_title}, который принадлежит по содержанию партнеру %{partner_full_name}
     content_partner_statistics_reminder: 
       message: Это автоматическое напоминание от Энциклопедии Жизни. Веб-статистика использования данных, поставляемых в EOL от %{partner_full_name} за %{month} %{year} теперь доступна в %{partner_statistics_url}.
       subject: Напоминание статистики использования Энциклопедии Жизни для %{partner_full_name} за %{month} %{year}
@@ -1461,6 +1671,7 @@ ru:
       message: "Энциклопедия Жизни (http://eol.org) получила запрос для восстановления Вашей учетной записи. Если этот запрос делали не Вы, проигнорируйте это сообщение.\n\nСсылка ниже дает одноразовую возможность сменить пароль или добавить связь с другими аккаунтами, которые Вы можете использовать для авторизации в будущем:\n\n %{temporary_login_url}\n\nПожалуйста, обратите внимание, что срок действия этой ссылки истекает через 24 часа, по истечении этого времени Вы можете посетить %{recover_account_url} для запроса новой ссылки восстановления учетной записи на случай если трудности с авторизацией сохранились."
       subject: Восстановить аккаунт Энциклопедии Жизни
     user_updated_email_preferences: 
+      message: "Это сообщение автоматизированной системы ЭЖ. Пользователь %{user_full_name}(%{user_profile_url}) обновил свой ​​адрес электронной почты или настройки списка.\n\nПредыдущие параметры:\nЭл. почта: %{previous_email}\nПараметры списка рассылки: %{previous_mailing_list_preference}\n\nОбновлено на:\nЭл. почта: %{updated_email}\nПараметры списка рассылки: %{updated_mailing_list_preference} \nОбновленоː %{updated_at}"
       subject: пользователь ЭЖ  %{user_full_name} изменил свой адрес электронной почты или настройки списка рассылки
     user_verification: 
       message: "Спасибо за регистрацию в Энциклопедии Жизни.Перейдите по следующей ссылке, чтобы завершить регистрацию и активировать Вашу учетную запись:\n\n%{verification_url}\n\nПосле активации вашей учетной записи вы получите сообщение электронной почты с подтверждением."
@@ -1475,6 +1686,7 @@ ru:
   recent_activities: 
     index: 
       list_header: За последние 7 дней
+      meta_keywords: деятельность сообщества eol, последняя деятельность eol, деятельность энциклопедии жизни
       meta_title: Активность сообщества EOL
       page_title: Активность сообщества EOL
   recent_activity: 
@@ -1490,30 +1702,44 @@ ru:
     bulk_community_activity_with_count: 
       one: Обновление в %{to}
       other: "%{count} обновлений в  %{to}"
+    bulk_community_joins_with_count: 
+      one: Новый член присоединился к %{community}
+      other: "%{count}новые члены присоединились к %{community}"
     bulk_curation_with_count: 
       one: Кураторы сделали улучшение в %{to}
       other: Кураторы сделали %{count} улучшений в %{to}
+    collection_activity_by_user: <b>%{user_name}</b> выполнил %{activity_name} в сборнике <b>%{collection_name}</b>.
     collection_activity_log_title: "%{who} изменил коллекцию"
+    collection_activity_user_added_item: "<b>%{user_name}</b> добавил %{collected_item_type} #%{collected_item_id} к <b>%{collection_name}</b>."
     collection_activity_user_watching_recipient: <b>%{user_name}</b> наблюдает за Вами.
     comment_body_brief: "%{body} - %{author}"
     comment_link: Просмотр комментариев на EOL
     comment_title: "%{who} прокомментировал %{what}"
     comment_title_your_newsfeed: "%{who} оставил комментарий в Вашей новостной ленте"
+    community_activity_by_user: <b>%{user_name}</b> выполнил %{activity_name} в сообществе <b>%{community_name}</b>.
     community_activity_log_title: "%{who} изменил сообщество"
     community_activity_user_joined: Пользователь <b>%{user_name}</b> присоединился к сообществу <b>%{community_name}</b>.
     community_activity_user_left: Пользователю <b>%{user_name}</b> покинул сообщество <b>%{community_name}</b>.
     community_activity_user_made_member_a_manager: Пользователь <b>%{user_name}</b> сделал <b>%{member_name}</b> руководителем сообщества <b>%{community_name}</b>.
     contact_us_link: Если вы испытываете какие-либо проблемы, пожалуйста, <a href='http://eol.org/contact_us' style='color:#195184'>свяжитесь с нами</a>.
     curator_activity_log_title: "%{who} откурировал кое-что"
+    curator_activity_on_data_object_by_user: "<b>%{user_name}</b> выполнил действие %{activity_name} на <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
+    curator_activity_on_taxon_concept_by_user: <b>%{user_name}</b> выполнил действие %{activity_name} на <b>%{taxon_concept}</b> (%{taxon_overview_url}).
     data_object_activity_article_added_by_user: <b>%{user_name}</b> добавил статью %{dato_title} к <b>%{taxon_concept}</b> (%{taxon_details_url}).
     data_object_title: "%{who} добавил новый контент в ЭЖ"
     default_subject: Последние данные по активности на EOL
     intro: Вот Ваш дайджест активности ЭЖ за %{time}
     intro_immediately: Привет, %{name} —
+    intro_weekly: Вот изложение вашей деятельности на ЭЖ за неделю %{ending}
     reply_to_comment_body_brief: "%{reply_to_author} %{body} - %{author}"
     see_all_activity: Просмотреть всю активность на <a href='%{activity_url}' style='color:#195184'>странице новостей пользователя</a>.
     someone_commented_on_something: <b>%{who}</b> прокомментировал <b>%{what}</b>.
     unsubscribe: Войти в систему и изменить настройки электронной почты на <a href='%{email_prefs_url}' style='color:#195184'>странице настройки уведомлений</a> или <a href='%{unsubscribe_url}' style='color:#195184'>отказаться от всех автоматических уведомлений EOL без входа в систему</a>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: Загрузка готова!
+      message: Вы можете скачать это и другое, посетив <a href='%{download_link}'>вкладку сохраненных поисков в вашем профиле</a>.
+      subject: Ваш поиск ЭЖ - готов к загрузке
   references_cabs_colon: "Примечания:"
   rights: Права
   rights_holder: Правообладатель
@@ -1541,20 +1767,32 @@ ru:
   taxa: 
     communities: 
       collections: 
+        hierarchy_entry: 
+          meta_description: Подборки, содержащие %{scientific_name} проклассифицированы %{hierarchy_provider}.
+          meta_description_with_common_name: Подборки, содержащие %{preferred_common_name} (%{scientific_name} проклассифицировано %{hierarchy_provider})
         meta_description: Коллекции, содержащие %{scientific_name}.
         meta_description_with_common_name: Коллекции, содержащие %{preferred_common_name} (%{scientific_name}).
         meta_title: Коллекции %{scientific_name}.
+        meta_title_with_common_name: Коллекции по теме %{preferred_common_name}(%{scientific_name})
+        tweet_text: Коллекции по теме %{scientific_name}
       curators: 
         meta_title: Кураторы %{scientific_name}
         meta_title_with_common_name: Эксперты по %{preferred_common_name} (%{scientific_name})
         tweet_text: Кураторы %{scientific_name}
       index: 
         hierarchy_entry: 
+          meta_description: Обмениваться информацией и опытом на %{scientific_name} проклассифицированому %{hierarchy_provider}.
+          meta_description_with_common_name: Обмениваться информацией и опытом на %{preferred_common_name} (%{scientific_name}) проклассифицированому %{hierarchy_provider}.
           meta_keywords: "%{scientific_name} сообщество, %{hierarchy_provider}"
           meta_title: Люди, интересующиеся %{scientific_name} отсортированные по %{hierarchy_provider}
+          meta_title_with_common_name: Люди, заинтересованные в %{preferred_common_name} (%{scientific_name} проклассифицировано %{hierarchy_provider})
+          tweet_text: Люди, заинтересованные в %{scientific_name} проклассифицированы по %{hierarchy_provider}
         meta_description: Заинтересованы в %{scientific_name}? Присоединяйтесь к экспертам %{scientific_name} и делитесь собственными наблюдениями относительно %{scientific_name} в Энциклопедии Жизни.
+        meta_description_with_common_name: Заинтересованы в %{preferred_common_name} (%{scientific_name})? Присоединяйтесь к экспертам %{preferred_common_name} и поделитесь с ними своими наблюдениями %{preferred_common_name} на Энциклопедии Жизни.
         meta_keywords: сообщество %{scientific_name}
+        meta_keywords_with_common_name: "%{preferred_common_name} сообщество, %{scientific_name} сообщество"
         meta_title: Люди, заинтересованные в %{scientific_name}
+        meta_title_with_common_name: Люди, заинтересованные в %{preferred_common_name} (%{scientific_name})
         tweet_text: Люди, заинтересованные в %{scientific_name}
     details: 
       index: 
@@ -1565,6 +1803,7 @@ ru:
     literature: 
       show: 
         meta_title: Статьи и книги о %{scientific_name}
+        meta_title_with_common_name: Статьи и книги о %{preferred_common_name} (%{scientific_name})
         tweet_text: Статьи и книги о %{scientific_name}
     maps: 
       show: 
@@ -1681,6 +1920,11 @@ ru:
   user_activity_stats_objects_curated_dropdown: Курированные объекты
   user_activity_stats_taxa_comments_dropdown: Прокомментированные таксоны
   user_added_data: 
+    add_metadata_header: Дополнительная информация
+    create_failed: "Не удаётся добавить ваши данные: %{errors}"
+    create_successful: Данные были успешно добавлены
+    delete_successful: Данные успешно удалены
+    new_field: Новое поле…
     new_value: Значение
     update_failed: "Невозможно обновить ваши данные: %{errors}"
     update_successful: Данные успешно обновлены
@@ -1699,6 +1943,18 @@ ru:
   username: Имя участника
   username_colon: "Имя участника:"
   users: 
+    activities: 
+      show: 
+        meta_title: Деятельность %{user_full_name}
+        tweet_text: деятельность %{user_full_name}
+    collections: 
+      index: 
+        meta_title: Коллекции %{user_full_name}
+        tweet_text: коллекции %{user_full_name}
+    communities: 
+      index: 
+        meta_title: Сообщества %{user_full_name}
+        tweet_text: сообщества %{user_full_name}
     new: 
       complete_registration_header: Завершить регистрацию на EOL
       create_user_header: Создание новой учетной записи <abbr title="Encyclopedia of Life">EOL</abbr>
@@ -1727,6 +1983,11 @@ ru:
       yahoo: Yahoo!
     pending: 
       header: Спасибо за регистрацию!
+    recover_account: 
+      form_header: Восстановить учётную запись
+      meta_title: Восстановить учётную запись
+    recover_account_choose_account: 
+      form_header: Восстановить учётную запись
   users_about_me_header: Обо мне
   users_content_partners_header: Контент-партнеры
   users_curation_header: Квалификации куратора

@@ -12,6 +12,7 @@ class DataSearchFile < ActiveRecord::Base
   PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
   PAGE_LIMIT = 200 # Maximum number of "pages" of data to allow in one file.
   LIMIT = PAGE_LIMIT * PER_PAGE
+  EXPIRATION_TIME = 2.weeks
 
   def build_file
     unless hosted_file_exists?
@@ -36,7 +37,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def hosted_file_exists?
-    hosted_file_url && EOLWebService.url_accepted?(hosted_file_url)
+    !! (hosted_file_url && EOLWebService.url_accepted?(hosted_file_url))
   end
 
   def complete?
@@ -47,24 +48,33 @@ class DataSearchFile < ActiveRecord::Base
     !! DataSearchFile.find_by_id(id)
   end
 
-  def filename
-    return @filename if @filename
-    @filename = "something.csv"
-    if known_uri
-      @filename = "#{known_uri.name}"
-      @filename += "_f#{from}" unless from.blank?
-      @filename += "-#{to}" unless to.blank?
-      @filename += "_sort_#{sort}" unless sort.blank?
-      @filename += ".csv"
-    else
-      # TODO - handle other filename cases (ie: when there is no attribute known_uri) as needed. Right now, that's impossible.
-    end
-    @filename
+  def downloadable?
+    complete? && ! ( expired? || row_count.blank? || row_count == 0)
+  end
+
+  def expired?
+    Time.now > expires_at
+  end
+
+  def expires_at
+    completed_at + EXPIRATION_TIME
   end
 
   def local_file_url
     ip_with_port = $IP_ADDRESS_OF_SERVER.dup
     "http://" + ip_with_port + Rails.configuration.data_search_file_rel_path.sub(/:id/, id.to_s)
+  end
+
+  def unit_known_uri
+    KnownUri.find_by_uri(unit_uri)
+  end
+
+  def from_as_data_point
+    DataPointUri.new(object: from, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
+  end
+
+  def to_as_data_point
+    DataPointUri.new(object: to, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
   end
 
   private

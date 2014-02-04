@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def overviews_do_show
   get :show, :id => @testy[:taxon_concept].id.to_i

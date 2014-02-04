@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe CollectionItem do
 
@@ -27,7 +27,7 @@ describe CollectionItem do
     CollectionItem.last.annotation.should be_blank
   end
   
-  # TODO - change here to use Solr or leave that to the collection integration spec?
+  # TODO - change here to use Solr or leave that to the collection feature spec?
   it 'should be able to sort collection items by newest/oldest'
 
 end

@@ -29,7 +29,7 @@
             = I18n.t(:and_between_form_items)
             = select_tag "visibility_id_#{data_object_taxon.id}", options_for_select(Visibility.for_curating_selects, data_object_taxon.visibility_id)
           - if data_object_taxon.by_curated_association?
-            = render :partial => 'data_objects/supplier', :locals => { :association_supplied_by_user => data_object_taxon.associated_by_curator, :data_object => data_object }
+            = render 'data_objects/supplier', { :association_supplied_by_user => data_object_taxon.associated_by_curator, :data_object => data_object }
           - reasons = [] # TODO - Ummmn... why did we combine reasons?!? Explain or fix.
           - if data_object_taxon.untrusted?
             - reasons = data_object_taxon.untrust_reason_ids

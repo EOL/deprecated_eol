@@ -1225,7 +1225,6 @@ nl:
   beta_warning_body: De meeste gebruikers kunnen deze functie, die actief wordt ontwikkeld, niet zien of gebruiken. Prestaties en gegevens zijn wellicht onvoorspelbaar, maar wij nodigen u uit om de functie te verkennen. Vul alstublieft onze <a href='https://www.surveymonkey.com/s/9FDTDQP'>vragenlijst</a> in nadat u onze datamogelijkheden hebt verkend.
   beta_warning_header: U gebruikt een bètatestfunctie
   beta_warning_note_header: "Opmerking:"
-  beta_warning_small: Houd er rekening mee dat dit een bètatestfunctie is en dat het gedrag onvoorspelbaar kan zijn.
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Bezoek de Biodiversity Heritage Library
   bhl_publication: BHL-publicatie
@@ -1835,9 +1834,6 @@ nl:
   data_about_subtab_content: <p>Gegevens en metadata zijn verzameld uit meerdere bronnen in een enkele, volledig van referenties voorzien en semantisch toegankelijke taxongeoriënteerde weergave.</p><p>Om extra details te zien voor elke gegevenswaarde, klikt u op de gegevenswaarde. Klik op het symbool %{img} voor een definitie van het gegevenstype.</p><p>U moet zijn aangemeld bij EOL om te kunnen reageren, gegevens, herkomst, URI's en overige gegevens rechtstreeks aan EOL toe te kunnen voegen. Wellicht moet u eerst <a href='/users/register'>registreren voor een gratis gebruiker bij EOL</a>. Als u ons een dataset wilt aanraden voor opname in EOL, of als u gegevenssets hebt die u wilt delen via EOL, neem dan contact met ons op via <a href='mailto:eolpages@eol.org'>eolpages@eol.org</a>.</p><p>Financiering voor de ontwikkeling van berekenbare gegevensfunctionaliteit van EOL is aangeboden de Alfred P. Sloan Foundation, de John D. en Catherine T.  MacArthur Foundation, en door gebruikers van EOL van over de hele wereld. Als u meer informatie wilt over over het project TraitBank™, neem dan contact op met <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
   data_about_subtab_header: Over gegevens op EOL
   data_about_this_record: Gegevens over dit record
-  data_beta_search_limit: 
-    one: Downloads voor zoekopdachten naar gegevens zijn <i>tijdelijk</i> beperkt tot één resultaat.
-    other: Downloads voor zoekopdachten naar gegevens zijn <i>tijdelijk</i> beperkt tot %{count} resultaten.
   data_column_classification_summary: Classificatiesamenvatting
   data_column_common_name: Algemene naam
   data_column_measurement: Meting
@@ -1915,12 +1911,6 @@ nl:
     one: Eén opgeslagen zoekopdracht
     other: "%{count} opgeslagen zoekopdrachten"
   data_search_link: Wetenschappelijke gegevens zoeken op EOL
-  data_search_queue_pending: 
-    one: Er wacht nog één taak op afhandeling (dit is niet per se een taak voor u). U kunt op de <a href='%{data_search_url}'>pagina voor het zoeken naar gegevens</a> nog een zoekopdracht aanmaken.
-    other: Er wachten nog %{count} taken op afhandeling (dit zijn niet per se taken voor u). U kunt op de <a href='%{data_search_url}'>pagina voor het zoeken naar gegevens</a> nog een zoekopdracht aanmaken.
-    zero: Er zijn geen nog af te handelen taken. Als uw taak niet is afgehandeld, dan is er iets misgegaan. U kunt op de <a href='%{data_search_url}'>pagina voor het zoeken naar gegevens</a> nog een zoekopdracht aanmaken.
-  data_search_refine_field_label: Zoekopdracht voor gegevens verfijnen
-  data_search_refine_placeholder: bijvoorbeeld 10 tot 50
   data_server_unavailable: Gegevens op EOL zijn tijdelijk helaas niet beschikbaar. Controleer het later nog eens.
   data_show_n_more_rows: NNN meer weergeven...
   data_subtab_about: Over
@@ -2035,7 +2025,6 @@ nl:
   did_you_mean: "Bedoelde u: %{suggestions}?"
   disabled_for_now: Op dit moment niet beschikbaar
   discover_link: Ontdekken
-  displaying_numerical_range: Items %{start_number} tot %{end_number} van %{total}
   do_you_want_to_be_a_curator: Wilt u conservator worden
   donate_link: Doneren
   donation_agree: akkoord
@@ -4092,7 +4081,6 @@ nl:
   taxon_citizen_science_resources_empty: Niemand heeft nog burgerwetenschap bijgedragen voor deze pagina.
   taxon_common_names_subtab_explanation: Veel mensen kennen organismen alleen door de gewone namen of volkstaalnamen. In tegenstelling tot de wetenschappelijke namen zijn gewone namen bijna altijd verschillend voor sprekers van verschillende talen. Zij kunnen ook variëren naar regio binnen een taal. In dit tabblad worden alle gewone namen die EOL zijn aangeleverd voor een organisme weergegeven, met inbegrip van namen die zijn ingevoerd door conservatoren van EOL. Momenteel is het alleen mogelijk één voorkeursnaam per taal in te stellen voor een bepaalde pagina in EOL, maar alleen namen zijn via zoeken te vinden.
   taxon_concept_stats: Taxonconceptstatistieken
-  taxon_data_empty: Niemand heeft nog feiten aan deze pagina bijgedragen.
   taxon_data_header: Gegevens over %{taxon}
   taxon_details_empty: Er heeft nog niemand bijgedragen aan deze pagina.
   taxon_details_empty_in_this_language: Niemand heeft nog bijgedragen aan deze pagina in deze taal.
@@ -4558,25 +4546,6 @@ nl:
       form_header: Wachtwoord vergeten
       form_tip: Er zijn meerdere gebruikers ingeschreven met het e-mailadres <em>%{email}</em>. Selecteer de gebruiker waar u weer toegang toe wilt krijgen.
       legend_choose_account: Kies een gebruiker
-    saved_searches: 
-      actions_head: Handelingen
-      attribute_head: Eigenschap
-      complete_head: Compleet?
-      created_head: Aangemaakt
-      download: downloaden
-      empty: U hebt geen opgeslagen zoekopdrachten. Ga naar de <a href='%{data_search_url}'>pagina gegevens zoeken</a> om zoekopdrachten uit te voeren en op te slaan.
-      index: 
-        meta_description: Opgeslagen zoekopdrachten van %{user_full_name}.
-        meta_title: Opgeslagen zoekopdrachten van %{user_full_name}.
-      is_complete: Ja
-      is_not_complete: Nee
-      page_title: Opgeslagen zoekopdrachten
-      processing: bezig met verwerken
-      query_empty: leeg
-      query_head: Zoekopdracht
-      refresh: vernieuwen
-      row_count: Aantal
-      updated_head: Laatste handeling
     show: 
       meta_description: Gebruikersprofiel voor %{user_full_name} bij Encyclopedia of Life.
       meta_description_curator: Gebruikersprofiel voor %{curator_level} %{user_full_name} bij Encyclopedia of Life.

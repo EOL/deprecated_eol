@@ -9,14 +9,14 @@
               =I18n.t("browsing_branch_colon")
             - ancestors = @hierarchy_entry.ancestors + [ @hierarchy_entry ]
             - hierarchy_entry = ancestors.pop
-            = render(:partial => 'navigation/node_with_ancestry_stats', :locals => { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+            = render('navigation/node_with_ancestry_stats', { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
           %br
           %b
             =I18n.t("hierarchy_roots_colon")
           - for kingdom in @hierarchy.kingdoms
             %li.node.bold
-              = render(:partial => 'navigation/node_name_stats', :locals => { :hierarchy_entry => kingdom })
+              = render('navigation/node_name_stats', { :hierarchy_entry => kingdom })
           - unless @hierarchy_entry.nil?
             %td{ :width => '50%', :valign => 'top' }
               - if metric = @hierarchy_entry.taxon_concept.taxon_concept_metric
-                = render(:partial => '/administrator/stats/taxon_metrics', :locals => { :metric => metric })
+                = render('/administrator/stats/taxon_metrics', { :metric => metric })

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 # TODO - UHHH... a LOT.  I just added this because I thought it was trivially easy to check the change I was
 # making... and was kinda shocked that we didn't have a spec for extensions already. So... really... we should.  :|

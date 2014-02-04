@@ -17,7 +17,7 @@
         %td= link_to forum.name, forum_path(forum)
         %td= forum.number_of_topics
         %td= forum.number_of_posts
-        %td= render :partial => 'forums/posts/summary', :locals => { :post => forum.last_post, :display_title => :topic }
+        %td= render 'forums/posts/summary', { :post => forum.last_post, :display_title => :topic }
         - if current_user.is_admin?
           %td.actions
             = button_to raw(I18n.t('forums.buttons.move_up')), move_up_forum_path(forum)

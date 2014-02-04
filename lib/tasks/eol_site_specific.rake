@@ -12,18 +12,18 @@ namespace :eol do
         if status =~ /working directory clean/
           puts ".. Working directory clean."
           puts ".. Removing existing links (before update, so deleted files won't have links):"
-          puts ".. Using #{config_dir} config directory."
+          print ".. Using #{config_dir} config directory"
           Dir.glob(site_dir + "/#{config_dir}/**/*").each do |file|
             if FileTest::file? file
               file_name = file.gsub("#{site_dir}/#{config_dir}/", 'config/')
               file_link = Rails.root.join(file_name)
               if FileTest.exists?(file_link)
-                puts "   #{file_name}"
+                print "."
                 FileUtils::rm file_link
               end
             end
           end
-          puts ".. Updating:"
+          puts "\n.. Updating:"
           sh "cd #{site_dir}; git pull"
         else
           raise "** ERROR: you have made changes to #{site_dir} and I don't want to overwrite them."
@@ -45,7 +45,7 @@ namespace :eol do
   task :site_specific => :checkout_repository do
     puts "++ Adding links to site-specific files..."
     config_dir = ENV["CONFIG_DIR"] || 'rails3_config'
-    puts ".. Using #{config_dir} config directory."
+    print ".. Using #{config_dir} config directory"
     Dir.glob(site_dir + "/#{config_dir}/**/*").each do |file|
       if FileTest::file? file
         file_name = file.gsub("#{site_dir}/#{config_dir}/", 'config/')
@@ -56,12 +56,13 @@ namespace :eol do
         begin
           FileUtils::ln_s file, file_link
         rescue => e
-          puts "** WARING:"
+          puts "\n** WARING:"
           puts e.message
         end
-        puts "   #{file_name}"
+        print "."
       end
     end
+    puts "\n"
   end
 
   desc 'removes links to site-speific files and deletes their repository from vendor'

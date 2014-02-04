@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 # Surprisingly simple. ...That's because most of the work is (still) being done by TaxonConcept (which is really just calling Solr in
 # complex ways).  :\

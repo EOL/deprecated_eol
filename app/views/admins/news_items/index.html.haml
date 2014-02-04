@@ -11,5 +11,5 @@
     = will_paginate @news_items 
     %ul
       - @news_items.each do |news_item|
-        = render :partial => 'item_summary',
-          :locals => { :news_item => news_item, :block_of_pages => @news_items }
+        = render 'item_summary',
+          { :news_item => news_item, :block_of_pages => @news_items }

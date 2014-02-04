@@ -8,23 +8,24 @@ class SearchController < ApplicationController
 
   @@results_per_page = 25
 
+  helper_method :search_data?
+
+  # NOTE - this is confusing, but it wasn't worth renaming the variable: "all_results" does not include traitbank results.
+  # @attributes contains the traitbank results. If you really want "all" results, you need to combine the two.
   def index
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
-    params[:type] = ['all'] if params[:type].include?('all')
     params[:type] = ['taxon_concept'] if params[:mobile_search] # Mobile search is limited to taxa for now
     @sort_by = params[:sort_by]
     @params_type = params[:type]
-    @params_type = ['all'] if @params_type.include?('all')
+    @params_type = ['all'] if @params_type.map(&:downcase).include?('all')
     @params_type.map!{ |t| t.camelize }
     @querystring = params[:q] || params[:id] || params[:mobile_search]
     params[:id] = nil
     params[:q] = @querystring
 
-    # TODO - this is not currently indexed. If we keep doing this, it will need to be, to speed things up:
-    unless @querystring.blank?
-      @attribute = TranslatedKnownUri.where(["name LIKE ?", "%#{@querystring.split.first}%"]).first
-    end
+    @attributes = []
+    @attributes = KnownUri.by_name(@querystring) if search_data?
 
     if request.format == Mime::XML
       return redirect_to controller: "api", action: "search", id: @querystring
@@ -68,7 +69,7 @@ class SearchController < ApplicationController
       # case here, probably by re-submitting the search (because, at least in the case I saw, the next load of the page was fine).
       if params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results.first, total_results: 1, params: params)
-      elsif params[:show_all].blank? && @params_type[0].downcase == 'all' && @all_results.total_entries > 1 && @all_results.length > 1 &&
+      elsif params[:show_all].blank? && @params_type[0] == 'All' && @all_results.total_entries > 1 && @all_results.length > 1 &&
         superior_result = pick_superior_result(@all_results)
         redirect_to_page(superior_result, total_results: @all_results.total_entries, params: params)
       end
@@ -78,6 +79,7 @@ class SearchController < ApplicationController
 
     set_canonical_urls(for: {q: @querystring, show_all: true}, paginated: @all_results,
                        url_method: :search_url)
+    @combined_results_count = @all_results.total_entries + @attributes.count
   end
 
   # there are various object types which can be the only result. This method handles redirecting to all of them
@@ -171,6 +173,12 @@ class SearchController < ApplicationController
     return if response.status != 200
     # 604,800 seconds == 1 week
     expires_in 604800, public: true
+  end
+
+  def search_data?
+    return false if @querystring.blank?
+    return true if @params_type.include?('All') || @params_type.include?('Data')
+    false
   end
 
 end

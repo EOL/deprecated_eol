@@ -3,7 +3,7 @@
     .article.copy
       = form_for @partner, :builder => ApplicationHelper::EolFormBuilder, :html => { :multipart => true } do |partner_form|
         = validation_errors_for(@partner)
-        = render :partial => 'partner_fieldset', :locals => { :partner_form => partner_form }
+        = render 'partner_fieldset', { :partner_form => partner_form }
         %fieldset.actions
           = partner_form.submit I18n.t('helpers.submit.content_partner.create')
           = link_to I18n.t(:cancel), @partner.user.nil? ? @partner : user_content_partners_path(@partner.user)

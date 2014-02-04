@@ -6,6 +6,7 @@
 # Author: Csparr
 # Author: Cwt96
 # Author: Hym411
+# Author: Jskang
 # Author: Priviet
 # Author: 아라
 ko: 
@@ -188,6 +189,7 @@ ko:
         request_publish: 게시 요청
       known_uri: 
         description: 설명
+        exclude_from_exemplars: 개요에서 제외
         name: 이름
         toc_items: 분류
         uri: URI
@@ -1036,6 +1038,7 @@ ko:
   and: 그리고
   and_between_form_items: 그리고
   annotation_cabs_colon: "주석:"
+  annotation_submit: 덧글 남기기
   anonymous_user_full_name: 익명 사용자
   anonymous_user_given_name: 익명
   anonymous_user_tag_line: 로그인하지 않음
@@ -1164,6 +1167,7 @@ ko:
   citation: 인용
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." 생명의 백과사전, <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>에서 사용할 수 있습니다. 2009년 1월 15일에 접근했습니다.
   citing_link: 인용하기
+  clade: 분류 그룹
   classification_already_preferred: "오류: 이 분류는 이미 선호함으로 표시했습니다."
   classification_curation_pending: 큐레이션이 대기 중입니다. 이 분류는 가까운 미래에 다른 문서로 이동할 수 있습니다.
   classification_curation_split_comment_with_count: 
@@ -1724,8 +1728,23 @@ ko:
       meta_supplier_default: 기여자
       meta_title: "%{supplier}에서 %{dato_title}"
       tweet_text: "%{supplier}에서 %{dato_title}"
-  data_search_refine_placeholder: 예) 10 ~ 50
-  data_subtab_glossary: 용어집
+  data_overview_table_caption: 특성 데이터
+  data_row_add_exemplar_button: 개요에 추가
+  data_row_additional_detail_alt: 추가 세부 정보
+  data_row_additional_detail_assistive: 이 사실에 대한 메타 데이터 불러오기
+  data_row_additional_detail_hide_alt: 추가 세부 정보 숨기기
+  data_row_additional_detail_loading_alt: 추가 세부 정보 불러오기
+  data_row_additional_detail_show_alt: 추가 정보 표시
+  data_row_exemplar_removed: 개요에서 제거되었습니다.
+  data_row_remove_exemplar_button: 개요에서 제거
+  data_search: 
+    form: 
+      new_search_link: 새 검색 시작
+      search_value_or_range_header: 특정 값이나 범위 검색
+  data_search_files: 
+    unit_uri: 측정 단위
+  data_subtab_glossary: "%{taxon}에 대한 용어집"
+  data_tab_curator_exemplar: 개요에 표시됨
   data_usage_reports: 데이터 사용 보고서
   date_caps: 날짜
   date_uploaded: 올린 날짜
@@ -1801,7 +1820,7 @@ ko:
   dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
   dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
   dato_update_users_text_not_owner_exception: 이 텍스트 개체의 원저자만 편집할 수 있습니다.
-  default: 기본값
+  default: 기본 값
   default_focus_collection_name_from_community: "%{name}의 집중"
   default_watch_collection_name: "%{username} 사용자의 주시문서 목록"
   definition: 정의
@@ -1821,7 +1840,6 @@ ko:
   did_you_mean: "이것을 찾으셨나요: %{suggestions} ?"
   disabled_for_now: 지금 비활성화
   discover_link: 발견
-  displaying_numerical_range: "%{total}개 중 %{start_number} &ndash; %{end_number} 보기"
   do_you_want_to_be_a_curator: 큐레이터가 되겠습니까
   donate_link: 기부
   donation_agree: 동의
@@ -2226,6 +2244,13 @@ ko:
         link_type: 분류
         source_url: 링크 URL
         toc_item: 제목
+      data_search: 
+        attribute: 속성 선택
+        max: 가장 높은 값
+        max_placeholder: 숫자를 입력하세요
+        min: 가장 낮은 값
+        q: 지정 값
+        q_placeholder_disabled: 범위 입력됨, 값 지정 비활성화
       eol_statistic: 
         date_one: 날짜
         date_two: 날짜
@@ -2233,7 +2258,7 @@ ko:
       google_analytics_partner_summaries: 
         page_views: 방문한 문서 <small>(문서에 방문한 수)</small>
         taxa_pages: 문서 <small>(문서 수)</small>
-        taxa_pages_viewed: 보여진 문서 <small>(방문자가 본 문서 수)</small>
+        taxa_pages_viewed: 봤던 문서 <small>(방문자가 본 문서 수)</small>
         time_on_page: 문서에 보낸 총 시간 <small>(시간)</small>
         unique_page_views: 방문한 고유 문서<small>(문서를 보는 방문자 수)</small>
       harvest_event: 
@@ -2598,6 +2623,7 @@ ko:
   learn_about_contributing: 어떻게 기여할 수 있나요?
   learn_about_eol: 어떻게 EOL을 사용할 수 있나요?
   learn_about_joining: 어떻게 가입할 수 있나요?
+  learn_how_to_contribute: 기여하는 방법 알아보기
   learn_more_about_communities_link: 공동체에 대해 더 알아보기
   learn_more_about_names_for_this_taxon: 이 분류에 대한 이름에 대해 더 알아보기
   learn_more_link: (%{learn_more})
@@ -2832,7 +2858,7 @@ ko:
   news_available_in_languages: "이 문서는 다음 언어로 읽을 수 있습니다:"
   news_date: 뉴스 날짜
   news_item: 뉴스 항목
-  news_item_date_as_shown_to_user: "사용자한테 보여지는 뉴스 항목 날짜 (RSS 피드에만 시간이 보임):"
+  news_item_date_as_shown_to_user: "사용자한테 보이는 뉴스 항목 날짜 (RSS 피드에만 시간이 보임):"
   news_item_is_visible_on_website_after_this_time: "이 시간 이후 뉴스 항목을 웹 사이트에서 보입니다:"
   news_item_title: 뉴스 항목
   news_items: 
@@ -2865,6 +2891,7 @@ ko:
   not_evaluated: 평가하지 않음
   not_published_yet: 아직 게시하지 않았습니다.
   not_recognized_by_available_hierarchies: 어떠한 사용할 수 있는 분류를 인정하지 않았습니다
+  not_specified: 지정되지 않음
   not_yet_implemented_error: 죄송합니다, 해당 기능은 아직 구현되지 않았습니다.
   note: "참고:"
   note_about_homonym_problems: "참고: 확신할 때에만 이 특성을 바꾸세요 - 선택을 해제하면 심각한 동음이의어 문제가 발생할 수 있습니다"
@@ -3275,6 +3302,7 @@ ko:
   see_all_updates_with_count_html: 
     one: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 보기
     other: <span class="assistive">이 문서에 대한 업데이트 %{count}개</span> 모두 보기
+  see_in_data_glossary: 전체 데이터 용어집 찾아보기
   see_notes: 참고 보기
   select_an_item_from_the_menu: 메뉴에서 항목을 선택하세요
   select_colon: "선택:"
@@ -3350,6 +3378,8 @@ ko:
   sort_by_status_option: 상태
   sort_by_title_ascending: 제목 오름차순
   sort_by_title_descending: 제목 내림차순
+  sort_by_value_ascending: 낮은 값을 먼저
+  sort_by_value_descending: 높은 값을 먼저
   sort_by_year_ascending: 년도 오름차순
   sort_by_year_descending: 년도 내림차순
   sort_collection_by_label: 모음집 정렬 기준
@@ -3462,6 +3492,12 @@ ko:
         meta_title: "%{scientific_name}에 관심 있는 사람"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 관심 있는 사람"
         tweet_text: "%{scientific_name}에 관심 있는 사람"
+    data: 
+      index: 
+        hierarchy_entry: 
+          meta_title: "%{hierarchy_provider}로 분류된 %{scientific_name} 의 특성 자료"
+        meta_title: "%{scientific_name}의 특성 데이터"
+        tweet_text: "%{scientific_name}의 특성 데이터"
     details: 
       index: 
         hierarchy_entry: 
@@ -3793,6 +3829,9 @@ ko:
     one: 항목 %{count}개
     other: 총 항목 %{count}개
   total_searches: "전체 검색:"
+  traitbank_data_search: 데이터 찾기
+  traitbank_info_page: 더 알아보기
+  traitbank_intro: " <a href='/traitbank'>TraitBank</a> 소개:"
   translation_deleted: 번역이 삭제됨
   translation_information_header: 번역 정보
   translation_log: 국제화(I18n) 주요 빈도 히스토그램
@@ -4090,10 +4129,6 @@ ko:
       form_header: 계정 복구
       form_tip: <em>%{email}</em> 이메일 주소로 등록한 계정 여러 개가 있습니다. 복구하고자 하는 계정을 선택하세요.
       legend_choose_account: 계정 선택
-    saved_searches: 
-      attribute_head: 특성
-      download: 다운로드
-      is_not_complete: 아니오
     show: 
       meta_description: 생명의 백과사전에서 %{user_full_name}에 대한 구성원 프로필
       meta_description_curator: 생명의 백과사전에서 %{curator_level} %{user_full_name}에 대한 구성원 프로필
@@ -4119,7 +4154,7 @@ ko:
   validation_error: 유효성 검사 오류
   validation_following_fields: "다음 필드에 문제가 있었습니다:"
   value: 값
-  value_default: (기본값)
+  value_default: (기본 값)
   value_empty: (비었음)
   values: 값
   version_1_0_uses_fields_from_the_latest_version: 버전 1.0은 %{link} 스키마의 최신 버전에서 필드를 사용합니다

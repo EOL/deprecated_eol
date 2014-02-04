@@ -31,4 +31,4 @@
       .references
         %ul
           - data_object.published_refs.each do |ref|
-            = render :partial => "refs/show_as_list_item", :locals => { :ref => ref }
+            = render "refs/show_as_list_item", { :ref => ref }

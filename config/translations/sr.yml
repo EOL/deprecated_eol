@@ -983,7 +983,6 @@ sr:
   did_you_mean: Да нисте мислили на %{suggestions}?
   disabled_for_now: ЗАСАД ОНЕМОГУЋЕН
   discover_link: Откријте
-  displaying_numerical_range: Приказ %{start_number} — %{end_number} од %{total}
   do_you_want_to_be_a_curator: Желите ли да будете кустос
   donation_amount_legend: Изаберите износ који желите да приложите
   donation_amount_other_label: Друго

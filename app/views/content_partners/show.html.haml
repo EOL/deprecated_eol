@@ -1,5 +1,5 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 = content_for :page_actions do
   - if current_user.can_update?(@partner)
     %li= link_to I18n.t(:content_partner_edit_link), edit_content_partner_path(@partner), :class => "button"
@@ -7,7 +7,7 @@
 #content_partner_show.site_column
   #sidebar
     .content_partner_managers
-      = render :partial => 'managed_by'
+      = render 'managed_by'
     .collection_list
       %h3= I18n.t(:collections_with_count, :count => @partner_collections.size)
       - if @partner_collections.blank?
@@ -16,7 +16,7 @@
       - else
         %ul.collection.list
           - @partner_collections.each do |collection|
-            = render :partial => 'collections/collection_summary', :locals => { :collection => collection, :show_description => false }
+            = render 'collections/collection_summary', { :collection => collection, :show_description => false }
 
     - if current_user.can_update?(@partner)
       %h3= I18n.t(:content_partner_notes_header)

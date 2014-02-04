@@ -9,7 +9,7 @@
       = news_item_form.hidden_field :last_update_user_id, :value => current_user.id
       %fieldset
         %p.tip= raw(I18n.t(:admin_translated_news_item_edit_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
-        = render :partial => 'translated_news_item_fieldset', :locals => {:news_item_form => news_item_form}
+        = render 'translated_news_item_fieldset', {:news_item_form => news_item_form}
 
       %fieldset.actions
         = news_item_form.submit I18n.t('helpers.submit.translated_news_item.update')

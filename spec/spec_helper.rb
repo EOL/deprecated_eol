@@ -2,9 +2,12 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+require 'capybara/rspec'
+require 'webmock/rspec'
+# TODO - use config to allow: Rails.configuration.the_host_names_for_those_two
+WebMock.disable_net_connect!(:allow_localhost => true) # Selenium and Virtuoso.
 
-require Rails.root.join('spec', 'eol_spec_helpers')
+# TODO - this is lame and means we're doing something wrong. Figure out the intent and fix it:
 require Rails.root.join('spec', 'custom_matchers')
 
 require 'email_spec'
@@ -21,17 +24,25 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.verbose = false
 
 RSpec.configure do |config|
+  # TODO - these are ancient includes; try removing them. I doubt we need them anymore.
   include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
   include EOL::DB   # this gives us access to methods that handle transactions
-  include EOL::RSpec::Helpers
+  include TruncateHelpers # ...We want to truncate the tables once here.  # TODO - really? Shouldn't specs handle this as needed?
 
   config.include FactoryGirl::Syntax::Methods
 
   config.use_transactional_fixtures = false
 
+  # It's a complex project, so, yeah, we have a LOT of helpers:
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
-  config.include(Capybara, :type => :integration)
+  config.include(TruncateHelpers) # Used quite often to clear database. TODO - replace this with database_cleaner
+  config.include(VirtuosoHelpers) # Used often to clear triple store.
+  config.include(ScenarioHelpers) # Of course, this is used to load scenarios nicely.
+  config.include(OauthHelpers) # Of course, this is used to load scenarios nicely. # TODO - only one spec uses these methods
+                               # outside of controller specs, so restrivt this to controller specs and move/change that spec.
+                               # spec/lib/eol/open_auth_spec.rb use #stub_oauth_requests
+  config.include(EOL::Builders) # Used to build taxa, data objects, etc.
 
   truncate_all_tables_once
 

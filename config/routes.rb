@@ -4,8 +4,8 @@ Eol::Application.routes.draw do
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
-  # Permanent redirects should be second in routes file (according to whom? -- I can't corroborate this).
-  match '/podcast' => redirect('http://education.eol.org/podcast')
+  # Permanent redirects. Position them before any routes they take precedence over.
+  match '/podcast' => redirect('http://podcast.eol.org/podcast')
   match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")
   match '/pages/:taxon_id/images' => redirect("/pages/%{taxon_id}/media")
   match '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")
@@ -259,11 +259,7 @@ Eol::Application.routes.draw do
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index], :controller => 'users/content_partners'
-    resources :saved_searches, :only => [:index, :destroy], :controller => 'users/saved_searches' do
-      member do
-        get 'refresh'
-      end
-    end
+    resources :data_downloads, :only => [:index, :destroy], :controller => 'users/data_downloads'
     resources :open_authentications, :only => [:index, :new, :update, :destroy], :controller => 'users/open_authentications'
   end
 
@@ -471,6 +467,9 @@ Eol::Application.routes.draw do
   match '/language' => 'content#language', :as => 'language'
 
   resources :donations, except: [:index, :destroy]
+  get '/donate', to: redirect('/donations/new')
+  get '/donation', to: redirect('/donations/new')
+  get '/donations', to: redirect('/donations/new')
   # TODO - remove this:
   match 'content/donate_complete' => 'content#donate_complete'
 

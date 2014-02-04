@@ -1,3 +1,4 @@
+# C'mon, guys.  Is it REALLY that hard to put your translation variables in alphabetical order?  Please do.
 en:
   date:
     formats:
@@ -1360,7 +1361,7 @@ en:
   recent_activity_mailer:
     data_search_file_download_ready:
       subject: "Your EOL search is ready for downloading"
-      message: "You can download this and other downloads by visiting the <a href='%{download_link}'>saved searches tab in your profile</a>."
+      message: "You can view this and other downloads by visiting the <a href='%{download_link}'>data downloads tab in your profile</a>."
       header: "Your download is ready!"
   sessions:
     new:
@@ -1728,14 +1729,18 @@ en:
         meta_keywords: ""
         meta_title: "%{user_full_name} Content Partners"
         tweet_text: "%{user_full_name} content partners"
-    saved_searches:
+    data_downloads:
       index:
-        meta_description: "%{user_full_name} saved searches."
+        meta_description: "Data downloads requested by %{user_full_name}."
         meta_keywords: ""
-        meta_title: "%{user_full_name} Saved Searches"
-      empty: "You have no saved searches. Visit the <a href='%{data_search_url}'>data search page</a> to perform and save searches."
+        meta_title: "%{user_full_name} Data Downloads"
+        tweet_text: "%{user_full_name} data downloads"
+      header_with_count:
+        one: "Data download"
+        other: "%{count} Data downloads"
+      empty: "You have no downloads. You can <a href='%{data_search_url}'>search for data</a> and request to download the results."
       download: "download"
-      page_title: "Saved Searches"
+      page_title: "Data Downloads"
       query_head: "Query"
       attribute_head: "Attribute"
       created_head: "Created"
@@ -1748,6 +1753,7 @@ en:
       processing: "processing"
       refresh: "refresh"
       row_count: "Count"
+      search_again: "search again"
     edit:
       form_tip_account: "To sign in to EOL you either need an EOL username and password, or you can connect a third-party account. Username and password are required if you do not have a connected account, however only enter a new password here if you'd like to change your existing one. Email address and preferred language are required (%{required_icon}) for all users."
       form_tip_account_oauth: "Email address and preferred language are required %{required_icon} for all users."
@@ -2709,6 +2715,7 @@ en:
   associated_with_map_header: "On the latest map"
   associated_with_sound_header: "In the latest audio"
   associated_with_video_header: "In the latest video"
+  association_added_flash: "Association added. It may require a few minutes for the page(s) to update."
   association_trusted_for_taxa:
     one: "Trusted for:"
     other: "Trusted for:"
@@ -2975,6 +2982,7 @@ en:
     one: "Belongs to %{count} community"
     other: "Belongs to %{count} communities"
   completed: "Completed"
+  completed_colon: "Completed:"
   confirm_delete_community: "Are you sure you want to delete this community? Remaining members will still be able to see it and the newsfeed will be maintained, but it will not show up in searches or on taxon pages, and will no longer be editable."
   confirm_leave: "Are you sure you want to leave this community?"
   confirm_password_colon: "Confirm Password:"
@@ -3189,6 +3197,9 @@ en:
   count_results_for_search_term:
     one: "%{count} result for <em>%{search_term}</em>"
     other: "%{count} results for <em>%{search_term}</em>"
+  count_results_for_traitbank:
+    one: "%{count} TraitBank result"
+    other: "%{count} TraitBank results"
   create_account: "create an account"
   create_a_new_collection: "Create a new collection"
   create_community_unsuccessful_error: "Sorry, an error occurred, your community was not created. Please ensure all fields are completed correctly."
@@ -3268,6 +3279,7 @@ en:
   data: "Data"
   data_about_subtab_header: "About Data on EOL"
   data_about_subtab_content: "<p><a href=\"%{traitbank_path}\">TraitBank</a> gathers data and metadata from multiple sources into a single, fully-referenced and semantically accessible taxon-centric view.</p><p><a href=\"%{contact_contribute_path}\">Contact us</a> for more information on sharing data sets with EOL or to recommend a data set for inclusion into TraitBank.</p><p><a href=\"%{register_path}\">Register for a free account</a> or <a href=\"%{login_path}\">sign in</a> to comment on the data.</p><p>Funding for the development of EOL computable data functionality provided by the Alfred P. Sloan Foundation, the John D. and Catherine T. MacArthur Foundation, and from EOL users around the world. <a href=\"%{contact_traitbank_path}\">Contact the EOL Secretariat</a> for more information on TraitBank.</p>"
+  data_results_only_for_search: "TraitBank results for \"%{search_term}\""
   data_search_limit:
     one: "Data search downloads are limited to %{count} result."
     other: "Data search downloads are limited to %{count} results."
@@ -3354,11 +3366,11 @@ en:
       clade_has_no_data: "No one has contributed data records for %{taxon_name} yet. <a href=\"%{contribute_path}\">Learn how to contribute</a>."
   data_search_link: "Search scientific data on EOL"
   data_search_explanation: "Use EOL's data search to find items matching '%{term}' in observations,<br />measurements and other scientific assertions."
-  data_search_attribute: "Search EOL's data about \"%{attribute}\" in observations,<br />measurements and other scientific assertions."
+  data_search_attribute: "Search TraitBank for records with %{attribute} data"
   data_search_destroyed: "This job will no longer be processed."
   data_search_files_with_count:
-    one: "%{count} saved search"
-    other: "%{count} saved searches"
+    one: "%{count} data download"
+    other: "%{count} data downloads"
   data_server_unavailable: "Data on EOL is temporarily unavailable. Please check back later. Sorry for any inconvenience."
   data_show_n_more_rows: "Show NNN more..."
   data_subtab_about: "About"
@@ -3368,8 +3380,8 @@ en:
     one: "EOL has data for 1 trait"
     other: "EOL has data for %{count} traits"
   data_summary_ranges_header_with_count: "EOL has summary data"
-  data_tab_curator_exemplar: "Shown in Overview"
-  data_tab_curator_excluded: "Excluded from Overview"
+  data_tab_curator_exemplar: "This row has been added to the Overview tab."
+  data_tab_curator_excluded: "This row has been removed from the Overview tab."
   data_tab_curator_key_exemplar: "%{image} added to <a href='%{link}'>Overview</a>"
   data_tab_curator_key_excluded: "%{image} removed from <a href='%{link}'>Overview</a>"
   data_table_summary: "Trait data for %{taxon}. Each row of data is a separate fact, provided by a content partner or user. Each value might include a nested table summarizing metadata about the fact: where it was collected, what the rights to the data are, and the like. Click on the row to show this metadata. Click again to hide it. Showing metadata also shows annotations and allows users to add their own annotations as needed. Curators have additional functions when showing metadata."
@@ -3420,7 +3432,6 @@ en:
   did_you_mean: "Did you mean: %{suggestions} ?"
   disabled_for_now: "DISABLED FOR NOW"
   discover_link: "Discover"
-  displaying_numerical_range: "Displaying %{start_number} &ndash; %{end_number} of %{total}"
   displaying_numerical_range_eol_records_with_count:
     one: "Displaying the %{count} record on EOL"
     other: "Displaying %{start_number} &ndash; %{end_number} of %{count} records on EOL"
@@ -3554,6 +3565,8 @@ en:
       admin_or_master_curators_only: "Sorry, access is restricted to EOL Administrators and EOL Curators with a minimum curator level of Master."
       no_access: "Sorry, access is restricted."
   expand_all_children: "expand all children"
+  expired: "Expired"
+  expires_in_colon: "Expires in:"
   explore: "Explore"
   explore_what_we_know_about_taxon: "Explore what EOL knows about %{taxon}."
   export_curator_csv_link: "[export all curators as CSV]"
@@ -3598,6 +3611,7 @@ en:
   filter_by_type_image_option_with_count:
     one: "Images (%{count})"
     other: "Images (%{count})"
+  filter_by_type_data_option: "Traits"
   filter_by_type_link_option: "Links"
   filter_by_type_text_option: "Articles"
   filter_by_type_user_option: "People"
@@ -3660,7 +3674,6 @@ en:
   get_help_choosing_a_subject: "Get help choosing a subject"
   get_help_choosing_a_subchapter: "Get help choosing a subchapter"
   get_more_tasks: "get more tasks"
-  method_to_get_metadata_about_the_hierarchy: "given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa"
   given_name_colon: "Given Name:"
   data_object_api_description: "Given the identifier for a data object this API will return all metadata about the object as submitted to EOL by the contributing content partner. The content partner is cited in the first agent element and has the role of 'partner'."
   given_the_vast_number: "Given the vast number of scientific and common names (nearly 20 million in total) it is a difficult task to provide a user with exactly the species they are hoping to find. For example there are several bird species of named Robin (American Robin, Alpine Robin, Smoky Robin), and several fish species named Robin, and a taxonomist named Robin who has named dozens of species. We have included an 'exact' parameter to return only results whose name matches the search term in its entirety, but we cannot guarantee the returned taxa are taxa you intended to find. We are continuously trying to improve the relevancy of our search results so expect some improvements to search ordering in the near future."
@@ -3721,6 +3734,7 @@ en:
   image_cropped_notice: "Image was cropped successfully."
   image_crop_failed_error: "Sorry, an error occurred, the image could not be cropped."
   image_is_no_longer_available: "Image is no longer available"
+  image_map_from: "map from"
   image_not_found: "Image not found"
   image_object: "Image object"
   image_objects_will_contain_two_mediaurl_elements: "Image objects will contain two 'mediaURL' elements - the first being the URL of the image on the provider's website, and the second is the URL of the cached version of the media hosted on an EOL server. The EOL version of the image will have been resized (preserving the aspect ratio) if the original image is larger than 460 pixels wide or 345 pixels in height."
@@ -3740,6 +3754,9 @@ en:
   inappropriate: "Inappropriate"
   inaturalist_tab_label: "iNaturalist Observations"
   include_all_metadata: "include all metadata for data objects"
+  including_traitbank_count:
+    one: ", including %{count} TraitBank attribute"
+    other: ", including %{count} TraitBank attributes"
   in_collection: "in collection"
   in_community: "in community"
   info_item: "Info item"
@@ -3922,7 +3939,6 @@ en:
   manager_parens: "(manager)"
   map_from: "map from"
   master_curators_may_add_data: "Master curators may add data:"
-  image_map_from: "map from"
   maps_with_count:
     one: "%{count} Map"
     other: "%{count} Maps"
@@ -3961,6 +3977,8 @@ en:
   meta_title_site_name: "Encyclopedia of Life"
   method: "Method"
   methods: "Methods"
+  method_to_get_metadata_about_the_hierarchy: "given a hierarchy identifier, this method returns metadata about the hierarchy and lists the root taxa"
+  missing_interpolation_argument_error: "[translation incomplete]"
   monthly: "Monthly"
   more: "more"
   more_children_with_count:
@@ -4190,6 +4208,9 @@ en:
   pagination_previous_with_count:
     one: "see previous %{count}"
     other: "see previous %{count}"
+  pagination_range_with_count:
+    one: "Displaying the %{count} record"
+    other: "Displaying %{start_number} &ndash; %{end_number} of %{count}"
   parameters: "Parameters"
   partner_information: "Partner information"
   partner_page: "partner page"
@@ -4514,6 +4535,7 @@ en:
   submit: "Submit"
   submit_term: "Submit Term"
   submitting: "Please wait…"
+  submitted_colon: "Submitted:"
   suggested_attributes: "Suggested attributes:"
   suggested_result_page_id: "Suggested Result Page ID:"
   suggested_results_avg: "Suggested Results avg"

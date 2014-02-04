@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 # I couldn't help but notice while writing this spec that having a class/module that built Solr requests would have
 # saved me a LOT of trouble ... and made everything much, much clearer. 

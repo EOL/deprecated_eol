@@ -26,8 +26,10 @@ class DataSearchController < ApplicationController
             taxon_name: @taxon_concept.title_canonical_italicized.html_safe,
             contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
+        t = Time.now
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
         @graph_results = TaxonData.get_graph_data(@search_options.merge(page: @page, per_page: 30))
+        log_data_search(time_in_seconds: Time.now - t)
       end
     end
   end
@@ -40,20 +42,15 @@ class DataSearchController < ApplicationController
     end
     prepare_search_parameters(search_params)
     df = create_data_search_file
-    flash[:notice] = I18n.t(:file_download_pending, link: user_saved_searches_path(current_user.id))
+    flash[:notice] = I18n.t(:file_download_pending, link: user_data_downloads_path(current_user.id))
     Resque.enqueue(DataFileMaker, data_file_id: df.id)
-    redirect_to user_saved_searches_path(current_user.id)
+    redirect_to user_data_downloads_path(current_user.id)
   end
 
   private
 
   def create_data_search_file
-    DataSearchFile.create!(
-      q: @querystring, uri: @attribute, from: @min_value, to: @max_value,
-      sort: @sort, known_uri: @attribute_known_uri, language: current_language,
-      user: current_user, taxon_concept_id: (@taxon_concept ? @taxon_concept.id : nil),
-      unit_uri: @unit
-    )
+    DataSearchFile.create!(@data_search_file_options)
   end
 
   def prepare_search_parameters(options)
@@ -69,9 +66,11 @@ class DataSearchController < ApplicationController
     @taxon_concept = TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
     unless @querystring.blank? || EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
-      @attribute_known_uri = KnownUri.by_name(@querystring)
-      @attribute = @attribute_known_uri.uri if @attribute_known_uri
-      @querystring = options[:q] = ''
+      @attribute_known_uri = KnownUri.by_name(@querystring).first
+      if @attribute_known_uri
+        @attribute = @attribute_known_uri.uri
+        @querystring = options[:q] = ''
+      end
     else
       @attribute_known_uri = KnownUri.find_by_uri(@attribute)
     end
@@ -82,6 +81,10 @@ class DataSearchController < ApplicationController
     end
     @search_options = { querystring: @querystring, attribute: @attribute, min_value: @min_value, max_value: @max_value,
       unit: @unit, sort: @sort, language: current_language, taxon_concept: @taxon_concept }
+    @data_search_file_options = { q: @querystring, uri: @attribute, from: @min_value, to: @max_value,
+      sort: @sort, known_uri: @attribute_known_uri, language: current_language,
+      user: current_user, taxon_concept_id: (@taxon_concept ? @taxon_concept.id : nil),
+      unit_uri: @unit }
   end
 
   # TODO - this should be In the DB with an admin/master curator UI behind it. I would also add a "comment" to that model, when
@@ -141,8 +144,6 @@ class DataSearchController < ApplicationController
     end
   end
 
-  private
-
   def convert_uris_to_options(measurement_uris)
     # TODO - this could be greatly simplified with duck-typing.  :|
     measurement_uris.collect do |uri|
@@ -157,6 +158,24 @@ class DataSearchController < ApplicationController
     end.compact.sort_by{ |o| o.first }.uniq
   end
 
+  # Add an entry to the database recording the number of results and time of search operation
+  def log_data_search(options = {})
+    # We are logging when there is only a TaxonConceptID - that will occur if a users clicks on a search
+    # link from the data tab on a taxon page. In that case, a search is NOT performed, but we are
+    # creating a log to capture the time it takes to populate the attribute list.
+    # For every log which has an attribute, a search WILL have been performed
+    if params[:attribute] || params[:taxon_concept_id]
+      DataSearchLog.create(
+        @data_search_file_options.merge({
+          clade_was_ignored: (@taxon_concept && ! TaxonData.is_clade_searchable?(@taxon_concept)) ? true : false,
+          user_id: ( logged_in? ? current_user.id : nil ),
+          number_of_results: @results.total_entries,
+          time_in_seconds: options[:time_in_seconds],
+          ip_address: request.remote_ip
+        })
+      )
+    end
+  end
 
 
 end

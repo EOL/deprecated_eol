@@ -2528,21 +2528,6 @@ br:
     recover_account_choose_account: 
       form_header: Adtapout ar gont
       legend_choose_account: "\nDibab ur gont"
-    saved_searches: 
-      actions_head: Oberoù
-      attribute_head: Perzh
-      complete_head: Echuiñ ?
-      created_head: Krouet
-      download: pellgargañ
-      is_complete: Ya
-      is_not_complete: Ket
-      page_title: Enklaskoù enrollet
-      processing: o tretañ
-      query_empty: goullo
-      query_head: Reked
-      refresh: freskaat
-      row_count: Kontañ
-      updated_head: Ober diwezhañ
   users_about_me_header: Diwar ma fenn
   users_form_account_header: Ho kont
   users_my_info_header: Ma zitouroù

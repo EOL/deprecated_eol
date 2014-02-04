@@ -191,10 +191,10 @@ mk:
         label: Ознака
         request_publish: Побарај објавување
       known_uri: 
-        clade_exemplar: Користи како урнек за кладен опсег
+        clade_exemplar: Користи како урнек за опсег на таксономски групи
         description: Опис
-        exclude_from_exemplars: Изземи од „Накратко“
-        group_by_clade: Користи за кладни опсези
+        exclude_from_exemplars: Изземи од „Преглед“
+        group_by_clade: Користи за опсези од таксономски групи
         name: Име
         toc_items: Категории
         uri: URI
@@ -299,7 +299,7 @@ mk:
         username: Корисничко име
       user_added_data: 
         object: Вредност
-        predicate: Атрибут
+        predicate: Одлика
         user: Додадено од
       user_added_data_metadata: 
         object: Вредност
@@ -1115,7 +1115,8 @@ mk:
   and_between_form_items: и
   annotation_body_default: додај прашање или коментар ...
   annotation_cabs_colon: "Прибелешка:"
-  annotation_submit: поднеси прибелешка
+  annotation_note: Коментарите ќе ги споделиме со добавувачите на податоци (ако ги има).
+  annotation_submit: објави коментар
   annotations_with_count: 
     one: "%{count} прибелешка"
     other: "%{count} прибелешки"
@@ -1178,6 +1179,7 @@ mk:
   associated_with_map_header: На најновата карта
   associated_with_sound_header: На најновата аудиоснимка
   associated_with_video_header: На најновата видеоснимка
+  association_added_flash: Поврзаноста е додадена. На страниците може да им треба некоја минута за да се подноват.
   association_hidden_for_taxa: 
     one: "Скриен за:"
     other: "Скриени за:"
@@ -1215,7 +1217,6 @@ mk:
   beta_warning_body: Највеќето корисници не можат да ја видат и користат оваа функција, која е во фаза на разработка. Може да работи непредвидливо, но добредојдени сте да ја истражите. Пополнете ја нашата <a href='https://www.surveymonkey.com/s/9FDTDQP'>анкета</a> откако ќе ги оцените нашите податочни способности.
   beta_warning_header: Користите пробна бета-функција
   beta_warning_note_header: "Напомена:"
-  beta_warning_small: Имајте предвид дека ова е пробна бета-функција и може да се однесува непредвидливо.
   bhl: Библиотека на биоразновидносно наследство
   bhl_partner_footer: Посетете ја Библиотеката на биоразновидносно наследство
   bhl_publication: Дело од BHL
@@ -1261,7 +1262,7 @@ mk:
   citation: Наведување
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, достапно на <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. консултирано на 15 јануари 2009.
   citing_link: Наведување
-  clade: Клад
+  clade: Таксономска група
   classification_already_preferred: "ГРЕШКА: Оваа класификација е веќе означена како претпочитана."
   classification_button_help: Подолу изберете класификација што најдобро ја претставува постоечката страница, па стиснете на соодветното копче „користи како пример“. Ако сакате целосно да ја откажете постапката, стиснете на „откажи“.
   classification_curation_pending: Згрижувањето е во исчекување. Класификацијата во блиска иднина може да се премести на друга страница.
@@ -1745,6 +1746,9 @@ mk:
   count_results_for_search_term: 
     one: "%{count} резултат за <em>%{search_term}</em>"
     other: "%{count} резултати за <em>%{search_term}</em>"
+  count_results_for_traitbank: 
+    one: Еден резултат од TraitBank
+    other: "%{count} резултати од TraitBank"
   create_a_collection: Создај збирка
   create_a_community: Создајте заедница
   create_a_community_login_advisory: Пред да ја создадете заедницата, ќе ви биде побарано да се најавите
@@ -1822,12 +1826,9 @@ mk:
   darwin_core: Darwin Core
   dashboard: Контролна табла
   data: Податоци
-  data_about_subtab_content: <p>Податоците и метаподатоците се добиваат од повеќе разни извори и се ставаат во единствен семантички пристапен таксонски преглед со сите потребни наводи.</p><p>За да погледате дополнителни подробности за секоја податочна вредност, стиснете на неа. Стиснете на симболот %{img} за да ја добиете определбата на податочниот тип.</p><p>Мора да сте најавени за да коментирате, внесувате податоци, потекло, URI-ја и други податоци непосредно во EOL. Може најпрвин да треба да се <a href="%{user_register_url}">регистрирате на EOL,</a>. Доколку би сакале да предложите податочен збир за да се стави во EOL, или пак имате такви збирови кои сакате да ги споделите преку EOL, тогаш <a href="%{contact_contribute_url}">обратете ни се</a>.</p><p>Средствата за разработка на можноста за пресметливи податоци на EOL ги обезбедија фондациите „Алфред П. Слоун“ и „Џон Д. и Кетрин Т. Мекартур“, како и корисници на EOL ширум светот. За да дознаете повеќе за проектот TraitBank™, <a href="%{contact_traitbank_url}">обратете се кај Секретаријатот на EOL</a>.</p>
+  data_about_subtab_content: <p><a href="%{traitbank_path}">TraitBank</a>™ собира податоци и метаподатоци од повеќе разни извори и ги претставува во единствен семантички достапен таксономски преглед со сите потребни наводи.</p><p><a href="%{contact_contribute_path}">Обратете ни се</a> ако сакате да дознаете како да споделувате податочни збирови со EOL или пак ако сакате да препорачате некој податочен збир да биде вклучен во TraitBank.</p><p><a href="%{register_path}">Направете бесплатна сметка</a> или <a href="%{login_path}">најавете се</a> за да коментирате на податоците.</p><p>Средствата за разработката на функцијата за пресметливи податоци на EOL ги обезбедија фондациите „Алфред П. Слоун“ и „Џон Д. и Кетрин Т. Мекартур“, како и самите корисници на EOL ширум светот. Повеќе информации за TraitBank™ ќе добиете ако му се <a href="%{contact_traitbank_path}">обратите на Секретаријатот на EOL</a>.</p>
   data_about_subtab_header: За податоците на EOL
   data_about_this_record: Податоци за овој запис
-  data_beta_search_limit: 
-    one: Преземањето на пребарани податоци е <i>привремено</i> ограничено на еден резултат.
-    other: Преземањето на пребарани податоци е <i>привремено</i> ограничено на %{count} резултати.
   data_column_classification_summary: Краток преглед на класификацијата
   data_column_common_name: Народно име
   data_column_measurement: Мерење
@@ -1839,7 +1840,7 @@ mk:
   data_column_raw_value: Сирова вредност (непосредно од изворот)
   data_column_resource: URL на соработникот во содржините
   data_column_sci_name: Научно име
-  data_column_source: Извор
+  data_column_source: Добавувач
   data_column_tc_id: Назнака на страницата на EOL
   data_column_units: Единици (нормализирано)
   data_column_units_uri: URI на единиците (нормализирано)
@@ -1849,6 +1850,7 @@ mk:
   data_column_value_uri: URI на вредноста
   data_database_colon: "Податочна:"
   data_glossary: Поимник за податоци
+  data_glossary_contribute: За да ставите нови поими во поимникот, <a href=%{url}>ви препорачуваме да подигнете податоци</a>.
   data_link_to_record: Врска до записов
   data_logging_active: Заведување на податоци е активно
   data_master_database_colon: "Податочна матична:"
@@ -1881,22 +1883,53 @@ mk:
       meta_supplier_default: учесник
       meta_title: "%{dato_title} од %{supplier}"
       tweet_text: "%{dato_title} од %{supplier}"
-  data_overview_table_caption: Накратко
+  data_overview_table_caption: Податоци за одлики
   data_point_uri_source_missing: недостасува извор
   data_point_uri_summary_name: податоци за %{taxon}
-  data_provided_by_content_partner: "Извор: %{whom}"
+  data_provided_by_content_partner: "Добавувач: %{whom}"
   data_provided_by_user: доставено од %{whom}
-  data_ranges: Податочни опсези
-  data_ranges_subheader: Опсези за кладов
+  data_ranges: Резимирани податоци
+  data_ranges_subheader: Резимирани податоци за оваа таксономска група
+  data_ranges_subtab_help_text: Кај некои атрибути, EOL го одредува опсегот на вредности на располагање за даден таксон по сите извори.
   data_reference_subtable_summary: Дополнителни наводи за овој факт.
-  data_row_add_exemplar_button: додај во „Накратко“
-  data_row_excluded_from_overview_notice: "Напомена: овој ред е изземен од „Накратко“."
-  data_row_exemplar_added: Додаден факт во „Накратко“.
-  data_row_exemplar_removed: Отстранет факт од „Накратко“.
+  data_results_only_for_search: Резултати на TraitBank за „%{search_term}“
+  data_row_add_exemplar_button: додај во „Преглед“
+  data_row_additional_detail_alt: Дополнителни подробности
+  data_row_additional_detail_assistive: Вчитај метаподатоци за овој факт.
+  data_row_additional_detail_assistive_js: Прикажи или скриј метаподатоци за овој факт.
+  data_row_additional_detail_hide_alt: Скриј дополнителни подробности
+  data_row_additional_detail_loading_alt: Ги вчитувам дополнителните подробности
+  data_row_additional_detail_show_alt: Прикажи дополнителни подробности
+  data_row_excluded_from_overview_notice: "Напомена: овој ред е изземен од „Преглед“."
+  data_row_exemplar_added: Додадено во „Преглед“.
+  data_row_exemplar_removed: Отстрането од „Преглед“.
   data_row_hide_button: Скриј ред
-  data_row_remove_exemplar_button: отстрани од „Накратко“
+  data_row_remove_exemplar_button: отстрани од „Преглед“
   data_row_unhide_button: Прикажи ред
-  data_search_attribute: Пребарајте ги податоците на EOL што се однесуваат на „%{attribute}“ во набљудувањата,<br />мерењата и други научни наоди
+  data_search: 
+    form: 
+      header_assistive: Образец за пребарување
+      input_summary_intro: Избрани поставки за пребарувањето
+      new_search_link: Започнете ново пребарување
+      or_range_header: Или пак <span class="assistive">внесете опсег</span>
+      refine_search_header: Уточнете го пребарувањето (незадолжително)
+      search_suggestion_blue_flowers: Кои растенијата имаат сини цвеќиња?
+      search_suggestion_cavity_nests: Кои видови се гнездат во шуплини?
+      search_suggestion_diatom_shape: Какви сè облици имаат дијатомите?
+      search_suggestion_whale_mass: Кои китови тежат преку 10.000 кг?
+      search_suggestions_header: Не знаете каде да почнете?
+      search_suggestions_subheader_colon: "Пробајте некој од следниве податочни пребарувања:"
+      search_tools_hide_link: Скриј поставки за пребарување
+      search_tools_show_link: Прикажи поставки за пребарување
+      search_value_or_range_header: Пребарајте конкретна вредост или опсег
+      search_within_taxon_group_header: Пребарајте во таксонска група
+      search_within_taxon_group_intro_with_count: 
+        other: Пребарувањето во таксонска група засега е ограничено на групи со помалку од %{count} таксони. <a href="%{contact_us_tech_url}">Обратете ни се</a> за да дозаете повеќе за пребарување по поголеми групи.
+      sort_header: Подредување на резултатите
+    notice: 
+      clade_has_no_data: Засега никој нема ставено податочни записи за %{taxon_name}. <a href="%{contribute_path}">Дознајте како да ставите</a>.
+      clade_too_big: Нажалост, прикажаните резултати не се исфилтрирани по %{taxon_name} бидејќи се премногу. Одберете помала група или <a href="%{contactus_tech_path}">обратете ни се</a> за помош.
+  data_search_attribute: Пребарајте податоци на %{attribute} во записите на TraitBank
   data_search_destroyed: Оваа задача повеќе нема да се обработува.
   data_search_explanation: Послужете се со алатката за пребарување на податоци за да добиете ставки за „%{term}“ во набљудувањата,<br />мерењата и други научни наоди.
   data_search_files: 
@@ -1907,26 +1940,24 @@ mk:
   data_search_files_with_count: 
     one: Едно зачувано пребарување
     other: "%{count} зачувани пребарувања"
+  data_search_limit: 
+    one: Преземањата на пребарани податоци се ограничени на еден резултат.
+    other: Преземањата на пребарани податоци се ограничени на %{count} резултати.
   data_search_link: Пребарајте научни податоци на EOL
-  data_search_queue_pending: 
-    one: Имате уште една задача што чека на обработка (може да е ваша, а може и не). Можете да ја посетите <a href='%{data_search_url}'>страницата за пребарување податоци</a> за да направите друго пребарување.
-    other: Имате уште %{count} задачи што чекаат на обработка (може да се ваши, а може и не). Можете да ја посетите <a href='%{data_search_url}'>страницата за пребарување податоци</a> за да направите друго пребарување.
-    zero: Нема задачи во исчекување. Ако вашата задача е недовршена, тогаш нешто не е во ред. Можете да ја посетите <a href='%{data_search_url}'>страницата за пребарување податоци</a> за да направите друго пребарување.
-  data_search_refine_field_label: Уточнување на пребарувањето
-  data_search_refine_placeholder: на пр. од 10 до 50
   data_server_unavailable: Податоците на EOL се привремено недостапни. Навратата се подоцна. Се извинуваме за непријатноста.
   data_show_n_more_rows: Прикажи уште БББ...
   data_subtab_about: За нас
-  data_subtab_glossary: Поимник
+  data_subtab_glossary: Поимник за %{taxon}
   data_summary_header_with_count: 
     one: EOL има податоци за една особина
     other: EOL има податоци за %{count} особини
     zero: EOL нема патека за особини
-  data_tab_curator_excluded: отстрането од „Накратко“
-  data_tab_curator_exemplar: додадено во „Накратко“
-  data_tab_curator_key_excluded: "%{image} отстрането од <a href='%{link}'>„Накратко“</a>."
-  data_tab_curator_key_exemplar: "%{image} додадено во <a href='%{link}'>„Накратко“</a>."
-  data_table_summary: "Пресметливи податоци за %{taxon}. Секој ред податоци е посебен факт, доставен од соучесник во содржините или корисник. Секоја вредност може да содржи вметната табела со краток преглед на метаподатоците за тој факт: каде се добиени, кои се правата на нив и сл. Стиснете на редот за да ги видите тие метаподатоци. Можете да ги скриете ако повторно стиснете на редот. Тогаш се прикажувааат и прибелешките, со можност за додавање на свои, по потреба. Кустосите имаат дополнителни функции при приказ на метаподатоци."
+  data_summary_ranges_header_with_count: EOL има резимирани податоци
+  data_tab_curator_excluded: Овој ред е отстранет од јазичето „Преглед“
+  data_tab_curator_exemplar: Овој ред е додаден во јазичето „Преглед“
+  data_tab_curator_key_excluded: "%{image} отстрането од „<a href='%{link}'>Преглед</a>“."
+  data_tab_curator_key_exemplar: "%{image} додадено во „<a href='%{link}'>Преглед</a>“."
+  data_table_summary: "Податоци за одлики на %{taxon}. Секој ред податоци е посебен факт, доставен од соучесник во содржините или корисник. Секоја вредност може да содржи вметната табела со краток преглед на метаподатоците за тој факт: каде се добиени, кои се правата на нив и сл. Стиснете на редот за да ги видите тие метаподатоци. Можете да ги скриете ако повторно стиснете на редот. Тогаш се прикажувааат и прибелешките, со можност за додавање на свои, по потреба. Кустосите имаат дополнителни функции при приказ на метаподатоци."
   data_usage_reports: Извештаи за користење на податоци
   date_caps: Датум
   date_uploaded: Датум на подигање
@@ -2029,7 +2060,9 @@ mk:
   did_you_mean: "Дали мислевте на: %{suggestions} ?"
   disabled_for_now: ЗАСЕГА ОНЕВОЗМОЖЕНО
   discover_link: Откријте
-  displaying_numerical_range: Приказ на %{start_number} &mdash; %{end_number}
+  displaying_numerical_range_eol_records_with_count: 
+    one: Го прикажувам едниот запис на EOL
+    other: Прикажувам %{start_number} &ndash; %{end_number} од вкупно %{count} записи на EOL
   do_you_want_to_be_a_curator: Дали сакате да бидете кустос
   donate_link: Дарувајте
   donation_agree: се согласувам
@@ -2244,6 +2277,7 @@ mk:
   filter_by_type_comment_option: Коментари
   filter_by_type_community_option: Заедници
   filter_by_type_content_page_option: Информативни страници на EOL
+  filter_by_type_data_option: Податоци од TraitBank
   filter_by_type_image_option: Слики
   filter_by_type_image_option_with_count: 
     one: Слики (%{count})
@@ -2384,7 +2418,6 @@ mk:
   glossary: Поимник
   glossary_is_empty: (поимникот е празен)
   glossary_subhead: Поимник
-  glossary_subtab_help_text: "**во тек**. Овде ќе стои текстот за помошта во поимникот, кога ќе го имаме. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
   glossary_term: поим
   glossary_terms: Поими во поимникот
   go: Оди
@@ -2471,6 +2504,23 @@ mk:
         link_type: Категорија
         source_url: URL на врската
         toc_item: Наслов
+      data_search: 
+        attribute: Одберете атрибут
+        max: Највисока вредност
+        max_placeholder: Внесете број
+        max_placeholder_disabled: Опсегот е оневозможен
+        min: Најниска вредност
+        min_placeholder: Внесете број
+        min_placeholder_disabled: Опсегот е оневозможен
+        q: Конкретна вредност
+        q_more: На пр. хетеротрофен
+        q_placeholder: Внесете збор, израз или број
+        q_placeholder_disabled: Внесен е опсег, а конкретната вредност е оневозможена
+        taxon_name: Таксонска група
+        taxon_name_more: На пр., внесете Trochilidae или китови и одберете ја складната група.
+        taxon_name_placeholder: Внесете име на таксонската група за да одберете некоја
+        taxon_name_placeholder_value_removed: "%{taxon_group} е отстранета, одберете нова група"
+        unit: Мерна единица
       eol_statistic: 
         date_one: Датум
         date_two: Датум
@@ -2686,6 +2736,7 @@ mk:
   home: Почетна
   home_page_cache_last_cleared_on: Кешот на домашната страница е последен пат исчистен на %{date}
   home_page_link_advisory_information: Оваа врска ќе Ве доведе до домашната страница на Енциклопедијата на живиот свет
+  however_there_are_summaries: Меѓутоа, <a href='%{summary_url}'>EOL дава резиме на податоци од подгрупи</a>.
   html_format: (HTML формат)
   html_format_with_left_col: (HTML ФОРМАТ - внесете само ако сакате да имате колона во левиот дел од страницата; во спротивно оставете го празно)
   id: Назнака (ID)
@@ -2753,6 +2804,8 @@ mk:
   item_not_updated_in_collection_error: Нажалост, се појави грешка. Не можев да го подновам експонатот.
   item_type_article: Статија
   item_type_article_assistive: Овој експонат е статија
+  item_type_cms_page: Информации за EOL
+  item_type_cms_page_assistive: Оваа ставка претставува информативна содржина за EOL
   item_type_collection: Збирка
   item_type_collection_assistive: Овој експонат е збирка
   item_type_community: Заедница
@@ -2892,13 +2945,19 @@ mk:
         questions_link_model_organism: Што е тоа моделен организам?
         questions_link_naming_species: Како се именуваат видовите?
         questions_link_species: Што е тоа вид?
+      data_search: 
+        page_header: Пребарување по TraitBank
+        page_header_results: Резултати од TraitBank
+      taxa: 
+        search_traitbank: Пребарување по TraitBank
+        search_within_clade: Пребарување во кладот
   learn_about_collections: Како да направам збирка?
   learn_about_communities: Како можам да учествувам?
   learn_about_content_partners: Како да станам соучесник?
   learn_about_contributing: Како можам да придонесувам?
   learn_about_eol: Како да ја користам EOL?
   learn_about_joining: Како да ви се придружам?
-  learn_how_to_contribute: Дознајте како да придонесувате
+  learn_how_to_contribute: Дознајте како да учествувате.
   learn_more_about_communities_link: Дознајте повеќе за Заедниците
   learn_more_about_names_for_this_taxon: дознајте повеќе за имињата на овој таксон
   learn_more_link: (%{learn_more})
@@ -3347,7 +3406,7 @@ mk:
   page_results_avg: Резултати на страницата (прос.)
   page_statistics: Статистики за страници
   page_statistics_and_tools: статистики за страниците и алатки
-  page_statistics_explanation: <p>EOL автоматски пресметува некои статистики за нејзините страници. Пресметката се повторува секој ден или на два дена</p><h5>Оценка на содржајноста</h5><p>Оценката на содржајноста се состои од повеќе различни фактори како:<ul><li>колку текст има во една страница</li><li>колку слики, снимки и карти се на располагање</li><li>колку различни тематики се покриени</li><li>колку различни извори учествуваат во информациите</li></ul></p><p>Покрај ова, игра улога и фактот дали информациите се проверени. Ако една страница веќе има мултимедијални содржини и текст, просто додавајќи уште такви содржини може да не ја промени оценката на содржајноста.</p><p>Оценката се движи од 0 до 100, со тоа што посодржајните страници имаат повисока оценка. не грижете се, разликите од неколку бода не се така важни. Со време може да се случи да го смениме начинот на пресметување на оценката за да биде подобар одраз на вашто искуство на EOL. Ви препорачуваме да ги искажувате вашите критики со коментари на страниците што мислите дека се погрешно оценети.</p><h5>Доверливи слики</h5><p>Ги содржи сите доверливи слики за оваа страница и страниците што фигурираат во класификацијата под оваа страница. Тука се вбројуваат сликите преземени од доверливи соучесници како и соучесници од типот на Flickr и Заедничката Ризница на Викимедија, во кои искажал доверба кустос на EOL.</p><h5>Непроверени слики</h5><p>Ги содржи сите непроверени слики за оваа страница и страниците што фигурираат во класификацијата под оваа страница. Некои од соучесниците нудат голем број на висококвалитетни слики што може да се подобри од доверливите, но едноставно не се проверени. Тука не се вбројуваат сликите за кои кустос на EOL одлучил дека се недоверливи.</p><h5>Доверливи статии</h5><p>Ги опфаќа сите доверливи текстуални статии во јазичето за подробности на страницава и неколку статии во јазичето за ресурси. Тука спаѓаат текстуални статии преземени од доверливи соучесици, но и статиите кои се непосреден придонес на EOL нејзините членови или статии од Википедија за кои кустос на EOL одлучил дека се доверливи. Не се вбројуваат статиите на страници што фигурираат на класификацијата под оваа страница.</p><h5>Непроверени статии</h5><p>Ги опфаќа сите непроверени текстуални статии во јазичето за подробности на страницава и неколку статии во јазичето за ресурси. Тука спаѓаат текстуални статии преземени од доверливи соучесици и статиите од Википедија што чекаат да бидат проверени од кустос на EOL. Не се вбројуваат статиите на страници што фигурираат на класификацијата под оваа страница.
+  page_statistics_explanation: <p>EOL автоматски пресметува некои статистики за нејзините страници. Пресметката се повторува секој ден или на два дена</p><h5>Оценка на содржајноста</h5><p>Оценката на содржајноста се состои од повеќе различни фактори како:<ul><li>колку текст има во една страница</li><li>колку слики, снимки и карти се на располагање</li><li>колку различни тематики се покриени</li><li>колку различни извори учествуваат во информациите</li></ul></p><p>Покрај ова, игра улога и фактот дали информациите се проверени. Ако една страница веќе има мултимедијални содржини и текст, просто додавајќи уште такви содржини може да не ја промени оценката на содржајноста.</p><p>Оценката се движи од 0 до 100, со тоа што посодржајните страници имаат повисока оценка. не грижете се, разликите од неколку бода не се така важни. Со време може да се случи да го смениме начинот на пресметување на оценката за да биде подобар одраз на вашто искуство на EOL. Ви препорачуваме да ги искажувате вашите критики со коментари на страниците што мислите дека се погрешно оценети.</p><h5>Доверливи слики</h5><p>Ги содржи сите доверливи слики за оваа страница и страниците што фигурираат во класификацијата под оваа страница. Тука се вбројуваат сликите преземени од доверливи соучесници како и соучесници од типот на Flickr и Ризницата на Викимедија, во кои искажал доверба кустос на EOL.</p><h5>Непроверени слики</h5><p>Ги содржи сите непроверени слики за оваа страница и страниците што фигурираат во класификацијата под оваа страница. Некои од соучесниците нудат голем број на висококвалитетни слики што може да се подобри од доверливите, но едноставно не се проверени. Тука не се вбројуваат сликите за кои кустос на EOL одлучил дека се недоверливи.</p><h5>Доверливи статии</h5><p>Ги опфаќа сите доверливи текстуални статии во јазичето за подробности на страницава и неколку статии во јазичето за ресурси. Тука спаѓаат текстуални статии преземени од доверливи соучесици, но и статиите кои се непосреден придонес на EOL нејзините членови или статии од Википедија за кои кустос на EOL одлучил дека се доверливи. Не се вбројуваат статиите на страници што фигурираат на класификацијата под оваа страница.</p><h5>Непроверени статии</h5><p>Ги опфаќа сите непроверени текстуални статии во јазичето за подробности на страницава и неколку статии во јазичето за ресурси. Тука спаѓаат текстуални статии преземени од доверливи соучесици и статиите од Википедија што чекаат да бидат проверени од кустос на EOL. Не се вбројуваат статиите на страници што фигурираат на класификацијата под оваа страница.
   page_urls: "URL на стран.:"
   page_views_th: Посети
   pages_admin_section_link: Администратори
@@ -3368,6 +3427,9 @@ mk:
   pagination_previous_with_count: 
     one: погл. претход. %{count}}
     other: погл. претход. %{count}
+  pagination_range_with_count: 
+    one: Го прикажувам едниот запис
+    other: Прикажувам %{start_number} &ndash; %{end_number} од вкупно %{count}
   parameters: Параметри
   partner: Соучесник
   partner_information: Информации за соучесникот
@@ -3627,6 +3689,7 @@ mk:
   see_all_communities_with_count_html: 
     one: Погледајте ја <span class="assistive">%{count} заедницата посветена на овој таксон.</span>
     other: Погледајте ги сите <span class="assistive">%{count} заедници посветени на овој таксон.</span>
+  see_all_data_summaries: Погледајте ги сите <span class="assistive">резимирани податоци за овој таксон.</span>
   see_all_data_with_count_html: 
     one: View <span class="assistive">едната особина за овој таксон.</span>
     other: Погледајте ги сите <span class="assistive">%{count} особини за овој таксон.</span>
@@ -3644,7 +3707,7 @@ mk:
   see_all_updates_with_count_html: 
     one: Погледајте ја оваа <span class="assistive">%{count} измена на страницава.</span>
     other: Погледајте ги сите <span class="assistive">%{count} измени на страницава.</span>
-  see_in_data_glossary: погледај во поимник за податоци
+  see_in_data_glossary: истражете го целиот податочен поимник
   see_in_glossary_tab: погледајте во јазичето со поимник
   see_more_on_the_data_tab: погледајте повеќе во јазичето за податоци
   see_notes: вид. белешки
@@ -3727,8 +3790,8 @@ mk:
   sort_by_status_option: Статус
   sort_by_title_ascending: Наслов - растечки
   sort_by_title_descending: Наслов - опаѓачки
-  sort_by_value_ascending: Нагорна вредност
-  sort_by_value_descending: Надолна вредност
+  sort_by_value_ascending: Прво ниски вредности
+  sort_by_value_descending: Прво високи вредности
   sort_by_year_ascending: Година - растечки
   sort_by_year_descending: Година - опаѓачки
   sort_collection_by_label: Подреди ја збирката по
@@ -3851,25 +3914,27 @@ mk:
         tweet_text: Луѓе што се интересираат за %{scientific_name}
     data: 
       index: 
+        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни записи од многу разни добавувачи. ОДберете ред за да видите повеќе за записот, или пак <a href="%{traitbank_search_path}">пребарајте ја TraitBank</a>.
+        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни записи од многу разни добавувачи. ОДберете ред за да видите повеќе за записот, или пак <a href="%{traitbank_search_path}">пребарајте во рамките на %{taxon_name}</a>.
         hierarchy_entry: 
           meta_description: Слики, видеа и аудио од %{scientific_name} според класификацијата на %{hierarchy_provider}. Пронајдете слики, филмови и звуци од %{scientific_name} на Енциклопедијата на живиот свет.
           meta_description_no_data: Немаме на располагање пресметливи податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}. EOL ве поканува да ги доставите.
           meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема на располагање пресметливи податоци за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}. EOL ве поканува да придонесете со ваши податоци за %{preferred_common_name} (%{scientific_name}).
-          meta_description_with_common_name_with_topics: Какви сè податоци собрале научниците за %{preferred_common_name} според класификацијата на %{hierarchy_provider}? Пресметливи податоци за %{scientific_name}, меѓу кои и информации за %{topics}.
+          meta_description_with_common_name_with_topics: Какви сè податоци собрале научниците за %{preferred_common_name} според класификацијата на %{hierarchy_provider}? Податоци за одлики на %{scientific_name}, меѓу кои и информации за %{topics}.
           meta_keywords: пресметливи податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}, информации за %{scientific_name}
           meta_keywords_with_common_name: пресметливи податоци за %{preferred_common_name} според класификацијата на %{hierarchy_provider}
-          meta_title: Пресметливи податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}
-          meta_title_with_common_name: Пресметливи податоци за %{preferred_common_name} според класификацијата на %{hierarchy_provider} (%{scientific_name})
-          tweet_text: Пресметливи податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}
+          meta_title: Податоци за одлики на %{scientific_name} според класификацијата на %{hierarchy_provider}
+          meta_title_with_common_name: Податоци за одлики на %{preferred_common_name} според класификацијата на %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Податоци за одлики на %{scientific_name} според класификацијата на %{hierarchy_provider}
         meta_description: Слики, видеа и аудио од %{scientific_name}. Пронајдете слики, филмови и звуци од %{scientific_name} на Енциклопедијата на живиот свет.
         meta_description_no_data: Енциклопедијата на живиот свет нема пресметливи информации за %{scientific_name}. EOL ве поканува да учествувате со ваши пресметливи податоци за %{scientific_name}.
         meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема пресметливи информации за %{preferred_common_name} (%{scientific_name}). EOL ве поканува да учествувате со ваши пресметливи податоци за %{preferred_common_name} (%{scientific_name}).
-        meta_description_with_common_name_with_topics: Какви сè податоци собрале научниците за %{preferred_common_name}? Пресметливи податоци за %{scientific_name}, меѓу кои и информации за %{topics}.
+        meta_description_with_common_name_with_topics: Какви сè податоци собрале научниците за %{preferred_common_name}? Податоци за одлики на %{scientific_name}, меѓу кои и информации за %{topics}.
         meta_keywords: пресметливи податоци за %{scientific_name}, информации за %{scientific_name}
         meta_keywords_with_common_name: пресметливи податоци за %{preferred_common_name}
-        meta_title: Пресметливи податоци за %{scientific_name}
-        meta_title_with_common_name: Пресметливи податоци за %{preferred_common_name} (%{scientific_name})
-        tweet_text: Пресметливи податоци за %{scientific_name}
+        meta_title: Податоци за одлики на %{scientific_name}
+        meta_title_with_common_name: Податоци за одлики на %{preferred_common_name} (%{scientific_name})
+        tweet_text: Податоци за одлики на %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -4089,8 +4154,9 @@ mk:
   taxon_citizen_science_resources_empty: Досега никој нема ставено врски за граѓанска наука.
   taxon_common_names_subtab_explanation: Многумина ги познаваат организмите само по нивните народни (тривијални) имиња. За разлика од научното, народното име се разликува во речиси секој јазик, па дури и да има различни варијанти во различни делови од земјата. Во јазичево се наведени сите народни имиња на овој организам што ни се доставени на EOL од најразлични добавувачи, вклучувајќи ги нашите кустоси. Засега на поединечните страници можеме да зададеме само по едно претпочитано народно име за секој јазик, но можете да пребарувате по сите имиња.
   taxon_concept_stats: Статистики за таксонски концепти
-  taxon_data_empty: Досега никој нема поставено факти на оваа страница.
   taxon_data_header: Податоци за %{taxon}
+  taxon_data_overview_empty: Досега никој не ставил податочни записи за %{taxon}.
+  taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a> собира податочни записи од многу добавувачи. Досега никој не ставил податочни записи за %{taxon}.
   taxon_details_empty: Сè уште никој нема внесено податоци за овој таксон.
   taxon_details_empty_in_this_language: Досега никој нема внесено податоци на страницава на овој јазик.
   taxon_education_empty: Досега никој нема ставено образовни ресурси на оваа страница.
@@ -4233,6 +4299,10 @@ mk:
     one: "%{count} експонат"
     other: вкупно %{count} експонати
   total_searches: "Вкупно пребарувања:"
+  traitbank_data_search: Пребарај податоци
+  traitbank_description: пребарајте по милиони податочни записи на EOL
+  traitbank_info_page: Дознајте повеќе
+  traitbank_intro: "Ви ја претставуваме <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: Преводот е избришан
   translation_information_header: Информации за преводот
   translation_log: Хистограм на честотата на I18n-клучеви
@@ -4555,25 +4625,6 @@ mk:
       form_header: Повраток на сметка
       form_tip: Адресата <em>%{email}</em> фигурира на повеќе сметки. Одберете која од нив сакате да ја повратите.
       legend_choose_account: Одберете сметка
-    saved_searches: 
-      actions_head: Дејства
-      attribute_head: Атрибут
-      complete_head: Готово?
-      created_head: Создадено
-      download: преземи
-      empty: Немате зачувани пребарувања. Посетете ја <a href='%{data_search_url}'>страницата за пребарување на податоци</a> за да вршите пребарувања и да ги зачувате.
-      index: 
-        meta_description: Зачувани пребарувања на %{user_full_name}.
-        meta_title: Зачувани пребарувања на %{user_full_name}
-      is_complete: Да
-      is_not_complete: Не
-      page_title: Зачувани пребарувања
-      processing: се обработува
-      query_empty: празно
-      query_head: Барање
-      refresh: превчитај
-      row_count: Број
-      updated_head: Последно дејство
     show: 
       meta_description: Членски профил на %{user_full_name} во Енциклопедијата на живиот свет.
       meta_description_curator: Членски профил на %{curator_level} %{user_full_name} во Енциклопедијата на живиот свет.

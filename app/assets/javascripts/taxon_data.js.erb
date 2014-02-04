@@ -7,17 +7,17 @@ EOL.max_meta_rows = 10;
 // Allows us to remember which tab we're on:
 EOL.push_tab_state = function(tab_link) {
   EOL.change_tab_state(tab_link, 'push');
-}
+};
 
 // Allows us to remember which tab we're on:
 EOL.replace_tab_state = function(tab_link) {
   EOL.change_tab_state(tab_link, 'replace');
-}
+};
 
 EOL.change_tab_state = function(tab_link, type) {
   if ($('#content .data ul.subtabs').length > 0) {
     // Only allow this on pages with data tabs:
-    if (!(typeof history.pushState === "undefined")) {
+    if (typeof history.pushState !== "undefined") {
       // Sadly, just pulling the class(es) from the parent node doesn't work; it can have several. We might add IDs to the links
       // later, though, to make this cleaner.
       var pclass = {};
@@ -35,7 +35,7 @@ EOL.change_tab_state = function(tab_link, type) {
       }
     }
   }
-}
+};
 
 EOL.switch_subtab = function(which, options) {
   $('.about_subtab').hide();
@@ -47,14 +47,15 @@ EOL.switch_subtab = function(which, options) {
     $('.glossary_subtab').hide();
     $('.help_text').hide();
     $('.filters').hide();
-    if (which.parent().hasClass('about')) $('.about_subtab').show()
-    else if (which.parent().hasClass('glossary')) {
+    if (which.parent().hasClass('about')) {
+      $('.about_subtab').show();
+    } else if (which.parent().hasClass('glossary')) {
       $('.glossary_subtab').show();
       $('.glossary_subtab .help_text').show();
     }
     else if (which.parent().hasClass('ranges')) {
-      $('.ranges_subtab').show()
-      $('.ranges_subtab .help_text').show()
+      $('.ranges_subtab').show();
+      $('.ranges_subtab .help_text').show();
     }
   } else if (which.parent().hasClass('all')) { // Acts as a reset button/link
     $('.filters').show();
@@ -75,7 +76,7 @@ EOL.switch_subtab = function(which, options) {
   $('table.meta').hide();
   EOL.limit_data_rows();
   // if ( ! options || ! options['skip_push']) EOL.push_tab_state(which);
-}
+};
 
 EOL.create_info_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
@@ -107,7 +108,7 @@ EOL.enable_data_tab_glossary_links = function(info) {
       }, 100);
     });
   }
-}
+};
 
 EOL.enable_info_dialogs = function(tip) {
   tip.unbind('click')
@@ -125,7 +126,7 @@ EOL.enable_info_dialogs = function(tip) {
           function() {
             $('.site_column').on('click', function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
           }
-        ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false) } );
+        ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false); } );
       }
     });
   // making sure the info icons show when anywhere on the row is moused over
@@ -160,7 +161,7 @@ EOL.attribute_is_not_okay = function() {
 EOL.attribute_is_okay = function() {
   $('input.predicate_autocomplete').removeClass('problems');
   $('#new_uri_warning').hide();
-  if ($('#predicate_uri_type').val() == 'measurement' && $('.predicate_autocomplete').val() != '') {
+  if ($('#predicate_uri_type').val() == 'measurement' && $('.predicate_autocomplete').val() !== '') {
     $('fieldset.unit_of_measure').fadeIn(100);
   } else {
     EOL.disable_measurement_input();
@@ -170,7 +171,7 @@ EOL.attribute_is_okay = function() {
 EOL.disable_measurement_input = function() {
   $('fieldset.unit_of_measure').fadeOut(100);
   $('fieldset.unit_of_measure input').val('');
-}
+};
 
 EOL.hide_data_tables = function(tables) {
   tables.hide();
@@ -203,7 +204,7 @@ EOL.toggle_actions_row = function(data_row) {
   } else {
     var data_point_id = data_row.attr('id');
     // the metadata table hasn't been loaded yet, so load it dynamically
-    if (data_row.data('loading') != true && data_row.data('loaded') != true) {
+    if (data_row.data('loading') !== true && data_row.data('loaded') !== true) {
       $folder.attr({
         src: '<%= asset_path "indicator_arrows_black.gif" %>',
         alt: '<%= I18n.t(:data_row_additional_detail_loading_alt) %>'
@@ -239,7 +240,7 @@ EOL.toggle_actions_row = function(data_row) {
           $folder.attr('src', '<%= asset_path "arrow_fold_down.png" %>');
         }
       });
-    } else if(data_row.data('loading') != true)
+    } else if(data_row.data('loading') !== true)
     {
       $folder.attr({
         src: '<%= asset_path "arrow_fold_down.png" %>',
@@ -249,27 +250,27 @@ EOL.toggle_actions_row = function(data_row) {
       $table.show();
     }
   }
-}
+};
 
 EOL.sort_glossary = function(a, b) {
   return ($(b).find('dt').text()) < ($(a).find('dt').text()) ? 1 : -1;
-}
+};
 
 EOL.enable_suggestions_hover = function() {
   $('input.predicate_autocomplete').parent().hover(function() {
-    if (!$('ul.ui-autocomplete').is(':visible') && $('input.predicate_autocomplete').val() == '') {
+    if (!$('ul.ui-autocomplete').is(':visible') && $('input.predicate_autocomplete').val() === '') {
       $('div#suggestions').show();
     } else $('div#suggestions').hide();
   }, function () {
     $('div#suggestions').hide();
   });
-}
+};
 
 EOL.disable_suggestions_hover = function() {
   $('input.predicate_autocomplete').parent().unbind('hover');
-}
+};
 
-function update_input_id_and_name(form, new_id) {
+EOL.update_input_id_and_name = function(form, new_id) {
   form.find('input').each(function() {
     $(this).attr('id', $(this).attr('id').replace(/\d+/, new_id));
     $(this).attr('name', $(this).attr('name').replace(/\d+/, new_id));
@@ -284,7 +285,7 @@ function update_input_id_and_name(form, new_id) {
       $(this).attr('data-update-elements', $(this).attr('data-update-elements').replace(/\d+/, new_id));
     }
   });
-}
+};
 
 EOL.limit_data_rows = function() {
   $('table.data tr.more').remove();
@@ -319,7 +320,7 @@ EOL.enable_hover_list_items = function() {
       $(this).find('li.hover').hide();
     }
   );
-}
+};
 
 // change the list of units based on the currently selected attribute
 EOL.update_unit_select_options = function(known_uri_id) {
@@ -345,12 +346,12 @@ $(function() {
     $subform.find('.once').remove();
     var last_input = $(this).closest('form').find('input[id^=user_added_data_user_added_data_metadata_attributes]').filter(':last');
     var highest_field_id = parseInt(last_input.attr('id').match(/(\d+)/)[1]);
-    update_input_id_and_name($subform, highest_field_id += 1);
+    EOL.update_input_id_and_name($subform, highest_field_id += 1);
     $subform.appendTo($(this)).addClass('subform').hide();
     $(this).append('<span class="add"><a href="#">'+$(this).attr('data-another')+'</a></span>');
     $(this).find('.add a').on('click', function() {
       $subform.clone().insertBefore($(this).parent()).show();
-      update_input_id_and_name($subform, highest_field_id += 1);
+      EOL.update_input_id_and_name($subform, highest_field_id += 1);
       var form_h = $('.has_many_expandable').height();
       $('.has_many_expandable').height(form_h + $subform.height());
       return(false);
@@ -364,19 +365,19 @@ $(function() {
     // it was the return key that was pressed, likely the user
     // choosing an autocomplete value from the list, so do nothing
     if (key === 13) return;
-    var $field = $(this)
-    if ($field.val() != '') {
+    var $field = $(this);
+    if ($field.val() !== '') {
       $('div#suggestions').hide();
     }
-    if ($('input.predicate_known_uri_id').val() != '') {
+    if ($('input.predicate_known_uri_id').val() !== '') {
       $('input.predicate_known_uri_id').val('');
       EOL.attribute_is_not_okay();
     }
-    if ($field.val() == '' || $('input.predicate_known_uri_id').val() != '') {
+    if ($field.val() === '' || $('input.predicate_known_uri_id').val() !== '') {
       EOL.attribute_is_okay();
     } else EOL.attribute_is_not_okay();
   }).focus(function() {
-    if ($(this).val() == '') {
+    if ($(this).val() === '') {
       $('div#suggestions').show();
     }
   });
@@ -432,7 +433,7 @@ $(function() {
     if ($(this).data('autocomplete').match(/known_uri_values/)) {
       var value_toggle = $(this).closest('div').find('input[id*="has_values"]:first');
       if (value_toggle.length > 0) {
-        if (value_toggle.val() == '1') $(this).autocomplete('enable');
+        if (value_toggle.val() === '1') $(this).autocomplete('enable');
         else $(this).autocomplete('disable');
       }
     }
@@ -450,7 +451,7 @@ $(function() {
     var key = e.keyCode || e.which;
     // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
     if (key === 37 || key === 38 || key === 39 || key === 40) return;
-    if ($(this).val() == '') {
+    if ($(this).val() === '') {
       if ($(this).hasClass('predicate_autocomplete')) {
         $('div#suggestions').show();
       } else $(this).autocomplete("search", ' ');
@@ -464,7 +465,7 @@ $(function() {
 
   EOL.limit_data_rows();
 
-  if (location.hash != "") {
+  if (location.hash !== "") {
     var name  = location.hash.replace(/\?.*$/, '');
     var $row = $(name);
     $row.click();
@@ -486,17 +487,17 @@ $(function() {
   $('#sortable').sortable({
     placeholder: "placeholder", items: "tr:not(.headers)", helper: 'clone', tolerance: 'pointer',
     update: function(e, ui) {
-      $.post("/known_uris/sort", { known_uris: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') })
+      $.post("/known_uris/sort", { known_uris: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') });
     }
   }).disableSelection();
 
   $('#sortable a.to_top').on('click', function() {
-    $.post("/known_uris/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') })
+    $.post("/known_uris/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') });
     return(false);
   });
 
   $('#sortable a.to_bottom').on('click', function() {
-    $.post("/known_uris/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') })
+    $.post("/known_uris/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') });
     return(false);
   });
 
@@ -507,7 +508,7 @@ $(function() {
 
   $('.add_content .article').hide();
   $('.add_content .add_data a').on('click', function() {
-    var $article = $('.add_content .article')
+    var $article = $('.add_content .article');
     if ($article.is(':visible')) {
       $(this).removeClass('open');
       $('.add_content .article').hide();
@@ -532,17 +533,17 @@ $(function() {
     if(li.hasClass('selected')) {
       li.removeClass('selected');
       // for some reason the setTimeout is needed when the checkbox is the one clicked
-      setTimeout(function() { checkbox.prop('checked', false) }, 5);
-      if(chapters.find('li.selected').length == 0) $('ul.glossary > li').show();
+      setTimeout(function() { checkbox.prop('checked', false); }, 5);
+      if(chapters.find('li.selected').length === 0) $('ul.glossary > li').show();
       else {
         // using the attributeContainsWord selector ~= here
         $('ul.glossary li[data-toc-id~="' + li.attr('data-toc-id') + '"]').hide();
       }
     } else
     {
-      if(chapters.find('li.selected').length == 0) $('ul.glossary > li').hide();
-      li.addClass('selected')
-      setTimeout(function() { checkbox.prop('checked', true) }, 5);
+      if(chapters.find('li.selected').length === 0) $('ul.glossary > li').hide();
+      li.addClass('selected');
+      setTimeout(function() { checkbox.prop('checked', true); }, 5);
       // using the attributeContainsWord selector ~= here
       $('ul.glossary li[data-toc-id~="' + li.attr('data-toc-id') + '"]').show();
     }
@@ -555,14 +556,14 @@ $(function() {
   });
 
   window.onpopstate = function(e) {
-    if (e.state == null) return;
+    if (e.state === null) return;
     var old_tab;
-    if (e.state.toc == undefined) old_tab = $('#tabs_sidebar.data li.'+e.state.pclass+' a');
+    if (e.state.toc === undefined) old_tab = $('#tabs_sidebar.data li.'+e.state.pclass+' a');
     else old_tab = $('#tabs_sidebar.data ul a[data-toc-id='+e.state.toc+']');
     EOL.switch_subtab(old_tab, {skip_push: true});
   };
 
-  if (!(typeof history.pushState === "undefined")) {
+  if (typeof history.pushState !== "undefined") {
     var active_tab = $('#tabs_sidebar.data ul .active a');
     if(active_tab !== undefined && active_tab.length > 0) EOL.replace_tab_state(active_tab);
   }

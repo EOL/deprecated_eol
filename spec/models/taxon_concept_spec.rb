@@ -1,5 +1,5 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def build_secondary_iucn_hierarchy_and_resource
   Agent.iucn.user ||= User.gen(agent: Agent.iucn)

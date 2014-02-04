@@ -1,10 +1,10 @@
 # This is a scenario to simulate a bunch of activity with comunities and users, to demonstrate searching capabilities
 # within those concepts. It builds on the bootstrap scenario, to re-use a few of its concepts.
 
-require Rails.root.join('spec', 'eol_spec_helpers')
 require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
-include EOL::RSpec::Helpers
+include EOL::Builders
+include ScenarioHelpers # Allows us to load other scenarios
 
 load_foundation_cache
 

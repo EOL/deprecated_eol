@@ -41,6 +41,9 @@ class TaxonData < TaxonUserClassificationFilter
         taxon_data_set = TaxonDataSet.new(results)
         data_point_uris = taxon_data_set.data_point_uris
         DataPointUri.preload_associations(data_point_uris, :taxon_concept)
+        # This next line is for catching a rare case, seen in development, when the concept
+        # referred to by Virtuoso is not in the database
+        data_point_uris.delete_if{ |dp| dp.taxon_concept.nil? }
         TaxonConcept.preload_for_shared_summary(data_point_uris.collect(&:taxon_concept), language_id: options[:language].id)
       end
       data_point_uris.delete_if{ |dp| dp.taxon_concept.nil? }

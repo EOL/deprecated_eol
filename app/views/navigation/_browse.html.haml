@@ -6,10 +6,10 @@
         =I18n.t("browsing_branch_colon")
       - ancestors = @hierarchy_entry.ancestors
       - hierarchy_entry = ancestors.pop
-      = render(:partial => 'navigation/node_with_ancestry', :locals => { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
+      = render('navigation/node_with_ancestry', { :expand => expand, :ancestors => ancestors, :hierarchy_entry => hierarchy_entry })
     %br
     %b
       =I18n.t("hierarchy_roots_colon")
     - for kingdom in @hierarchy_entry.hierarchy.kingdoms
       %li.node
-        = render(:partial => 'navigation/node_name', :locals => { :hierarchy_entry => kingdom })
+        = render('navigation/node_name', { :hierarchy_entry => kingdom })

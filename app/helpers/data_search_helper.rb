@@ -28,4 +28,28 @@ module DataSearchHelper
     html
   end
 
+  def data_search_file_summary(search_file)
+    summary_parts = []
+    unless search_file.q.blank?
+      summary_parts << [ I18n.t('helpers.label.data_search.q'), search_file.q ].join(": ")
+    end
+    if search_file.taxon_concept
+      summary_parts << [ I18n.t('helpers.label.data_search.taxon_name'),
+                link_to(raw(search_file.taxon_concept.title_canonical_italicized),
+                  taxon_overview_url(search_file.taxon_concept)) ].join(": ")
+    end
+    unless search_file.from.nil?
+      summary_parts << [ I18n.t('helpers.label.data_search.min'),
+                display_text_for_data_point_uri(search_file.from_as_data_point) ].join(": ")
+    end
+    unless search_file.to.nil?
+      summary_parts << [ I18n.t('helpers.label.data_search.max'),
+                display_text_for_data_point_uri(search_file.to_as_data_point) ].join(": ")
+    end
+    if search_file.complete?
+      summary_parts << "Total results: #{number_with_delimiter(search_file.row_count || 0)}"
+    end
+    summary_parts
+  end
+
 end

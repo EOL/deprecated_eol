@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 # TODO.  Sorry, there's just way too much to do here to bother right now.  It was completely wrong, before.
 # TODO - make sure all of these methods are actually USED.  I'm not so sure.

@@ -14,7 +14,7 @@
   .translations
     %ul
       - news_item.translations.each do |translated_news_item|
-        = render :partial => 'admins/translated_news_items/item_summary',
-          :locals => { :translated_news_item => translated_news_item, :news_item => news_item }
+        = render 'admins/translated_news_items/item_summary',
+          { :translated_news_item => translated_news_item, :news_item => news_item }
     = link_to I18n.t(:admin_translated_news_item_new_link),
       new_admin_news_item_translation_path(news_item)

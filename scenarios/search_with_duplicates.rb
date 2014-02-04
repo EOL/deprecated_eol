@@ -9,12 +9,11 @@
 # ---
 # dependencies: [ :foundation ]
 
-require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::RSpec::Helpers
+include EOL::Builders
 
 results = {}
 

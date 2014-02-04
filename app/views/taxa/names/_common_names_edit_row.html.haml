@@ -12,10 +12,9 @@
 %td
   = raw(common_name_display_attribution(name))
 %td{class: 'vet_common_name'}
+  - name.vetted = Vetted.untrusted if name.vetted == Vetted.inappropriate
+  = select_tag("#{name.unique_id}", options_for_select(@common_name_vet_options, name.vetted.id.to_s),
+    {data_url: vet_common_name_taxon_name_path(taxon_id: @taxon_concept.id, id: name.name.id, language_id: name.language.id, unique_id: name.unique_id, vetted_id: 'REPLACE_ME')})
   - if synonym_id = name.synonym_id_for_user(current_user)
     = link_to( I18n.t(:delete), delete_taxon_names_path(@taxon_page, synonym_id: synonym_id),
       data: { confirm: I18n.t(:are_you_sure) })
-  - else
-    - name.vetted = Vetted.untrusted if name.vetted == Vetted.inappropriate
-    = select_tag("#{name.unique_id}", options_for_select(@common_name_vet_options, name.vetted.id.to_s),
-      {data_url: vet_common_name_taxon_name_path(taxon_id: @taxon_concept.id, id: name.name.id, language_id: name.language.id, unique_id: name.unique_id, vetted_id: 'REPLACE_ME')})

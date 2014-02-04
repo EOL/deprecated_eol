@@ -10,7 +10,8 @@
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
-    %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
+    - # Google Webmaster Tools verification. Must persist to maintain verified ownership.
+    %meta{ name: 'google-site-verification', content: 'lgSVZdLE0qfuWJnvwdMUzYge1rSxfozVLGUys1XTknw' }
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
@@ -74,7 +75,7 @@
     #header
       .section
         %h1= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }
-        = render :partial => '/layouts/v2/global_navigation'
+        = render '/layouts/v2/global_navigation'
         .actions
           .language
             %p{ :class => I18n.locale.to_s, :title => I18n.t(:selected_language_advisory_information) }
@@ -89,11 +90,11 @@
                     { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
         - if @home_page
           %h2= I18n.t(:global_access_tagline)
-        = render :partial => "/layouts/v2/search" unless @hide_global_search
+        = render "/layouts/v2/search" unless @hide_global_search
         - if logged_in?
-          = render :partial => 'sessions/session_summary'
+          = render 'sessions/session_summary'
         - elsif $ALLOW_USER_LOGINS
-          = render :partial => 'shared/join_eol'
+          = render 'shared/join_eol'
         - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
           .session
             %p= I18n.t(:user_system_down)
@@ -103,12 +104,12 @@
           %h3.assistive= I18n.t(:explore)
           .thumbnails
             %ul
-              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 0, :total => 6 }
-              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 1, :total => 6 }
-              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 2, :total => 6 }
-              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 3, :total => 6 }
-              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 4, :total => 6 }
-              = render :partial => '/content/march_of_life_item', :locals => { :explore_taxa => @explore_taxa, :index => 5, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 0, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 1, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 2, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 3, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 4, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 5, :total => 6 }
             .term
               .site_column
                 %p
@@ -120,7 +121,7 @@
           = yield :main
 
     #footer{ :role => "contentinfo" }
-      = render :partial => '/layouts/v2/footer'
+      = render '/layouts/v2/footer'
       = yield :footer
     = javascript_include_tag 'head.load.min'
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS

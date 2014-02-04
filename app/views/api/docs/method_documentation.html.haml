@@ -15,9 +15,9 @@
       %h3= I18n.t('description')
       %p= raw @api_method.description
 
-      = render :partial => 'api/docs/parameters'
+      = render 'api/docs/parameters'
 
       %h3= I18n.t('test_it_out')
-      = render :partial => 'api/docs/api_test_form'
+      = render 'api/docs/api_test_form'
       #api_test_url{ :style => 'display:none' }
       %code#api_test_result{ :style => 'display:none' }

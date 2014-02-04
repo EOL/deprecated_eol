@@ -4,7 +4,13 @@
       .hgroup
         %h1= @querystring.blank? ? I18n.t(:search) : I18n.t(:search_results)
         - unless @querystring.blank?
-          %h2= raw(I18n.t(:count_results_for_search_term, :count => @all_results.total_entries, :search_term => h(@querystring)))
+          - subhead = I18n.t(:count_results_for_search_term, count: @combined_results_count, search_term: h(@querystring))
+          - if defined?(@attributes) && ! @attributes.blank?
+            -# NOTE - I know, you are not supposed to combine terms for I18n because grammars differ in terms of where to add
+            -# these things. However, this is one of those complicated exceptions where there are TWO counts, and I want both
+            -# of them to be aware of pluralization, so I'm assuming we can always combine the "including" bit afterwards.
+            - subhead << I18n.t(:including_traitbank_count, count: @attributes.count)
+          = subhead.html_safe
   #content
     .site_column
       #search_results
@@ -17,10 +23,11 @@
                   %label= I18n.t(:filter_by_type)
                 %dd
                   %ul
-                    - [:all, :taxon_concept, :image, :video, :sound, :text, :link, :user, :community, :collection, :content_page].each do |opt|
+                    - [:all, :taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community, :collection, :content_page].each do |opt|
                       - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
                       - count ||= 0
                       - item_class = (@wildcard_search || count == 0) ? 'no_results' : nil
+                      - item_class = nil if opt == :data && defined?(@attributes) && ! @attributes.empty?
                       %li{ :class => item_class }
                         %label
                           = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),

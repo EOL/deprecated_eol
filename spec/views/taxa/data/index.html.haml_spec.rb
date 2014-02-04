@@ -69,11 +69,10 @@ describe 'taxa/data/index' do
 
   end
 
-  describe 'other tests' do # Sorry, there was a SECOND file for this spec, and this was the content; fix! TODO
+  context 'logged in with data' do
 
     before(:each) do
-      # TODO - generalize these extends for the other view specs.
-      @taxon_concept = double(TaxonConcept, id: 1)
+      @taxon_concept = build_stubbed(TaxonConcept)
       @taxon_concept.stub(:latest_version) { @taxon_concept }
       taxon_data = double(TaxonData, taxon_concept: @taxon_concept, bad_connection?: false)
       taxon_data.stub(:get_data) { [] }
@@ -91,14 +90,8 @@ describe 'taxa/data/index' do
       assign(:range_data, [])
       assign(:include_other_category, true)
       assign(:units_for_select, KnownUri.default_units_for_form_select)
-      user = double(User)
-      user.stub(:min_curator_level?) { false }
-      user.stub(:watch_collection) { nil }
+      user = build_stubbed(User)
       user.stub(:can_see_data?) { true }
-      user.stub(:can_update?) { false } # This user won't own anything.
-      user.stub(:is_admin?) { false }
-      view.stub(:meta_open_graph_data).and_return([])
-      view.stub(:tweet_data).and_return({})
       view.stub(:current_user) { user }
       view.stub(:current_language) { Language.default }
       view.stub(:logged_in?) { false }

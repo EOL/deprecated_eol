@@ -1138,6 +1138,10 @@ FactoryGirl.define do
     split_from     0
   end
 
+  factory :taxon_data do
+
+  end
+
   factory :taxon_concept_exemplar_image do
     association :taxon_concept
     association :data_object

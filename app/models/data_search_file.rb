@@ -91,7 +91,7 @@ class DataSearchFile < ActiveRecord::Base
                           per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri }
     results = TaxonData.search(search_parameters)
     begin # Always do this at least once...
-      break unless DataSearchFile.exists?(dsf) # Someone canceled the job.
+      break unless DataSearchFile.exists?(self) # Someone canceled the job.
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|

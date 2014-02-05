@@ -58,7 +58,6 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @page_subheader = I18n.t(:content_partner_resource_edit_subheader)
   end
 
-  # TODO - isn't this dupilcated code with lib/content_server.rb ?
   # PUT /content_partners/:content_partner_id/resources/:id
   def update
     ContentPartner.with_master do

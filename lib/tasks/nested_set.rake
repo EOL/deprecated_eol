@@ -1,5 +1,3 @@
-require 'eol_data'
-
 namespace :eol do
   namespace :data do
     

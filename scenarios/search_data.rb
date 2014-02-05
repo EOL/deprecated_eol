@@ -2,7 +2,6 @@
 # To load this scenario:
 # rake truncate && rake scenarios:load NAME=foundation,search_data
 #
-require Rails.root + '/lib/eol_data'
 class EOL::NestedSet; end
 EOL::NestedSet.send :extend, EOL::Data
 

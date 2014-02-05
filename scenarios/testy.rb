@@ -215,6 +215,6 @@ build_tc_with_one_image(testy, :has_one_image, :the_one_image)
 build_tc_with_one_image(testy, :has_one_unpublished_image, :the_one_unpublished_image, :published => 0)
 build_tc_with_one_image(testy, :has_one_hidden_image, :the_one_hidden_image, :visibility => Visibility.invisible)
 
-flatten_hierarchies
+EOL::Data.flatten_hierarchies
 
 EOL::TestInfo.save('testy', testy)

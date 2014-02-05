@@ -14,8 +14,6 @@ require 'email_spec'
 require 'eol_scenarios'
 EolScenario.load_paths = [ Rails.root.join('scenarios') ]
 
-require 'eol_data'
-
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -24,9 +22,6 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.verbose = false
 
 RSpec.configure do |config|
-  # TODO - these are ancient includes; try removing them. I doubt we need them anymore.
-  include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
-  include EOL::DB   # this gives us access to methods that handle transactions
   include TruncateHelpers # ...We want to truncate the tables once here.  # TODO - really? Shouldn't specs handle this as needed?
 
   config.include FactoryGirl::Syntax::Methods

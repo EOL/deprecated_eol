@@ -36,7 +36,7 @@ describe 'Curation' do
     @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_num_curators = @taxon_concept.acting_curators.length
     make_all_nested_sets
-    flatten_hierarchies
+    EOL::Data.flatten_hierarchies
 
     visit("/pages/#{@taxon_concept.id}")
     @default_page  = source

@@ -1,9 +1,9 @@
-# Methods to assist in the truncation of tables for specs, scenarios, and other administrative tasks. Probably not wise to use
-# this in production.
+# Methods to assist in the truncation of tables for specs, scenarios, and other administrative tasks. Probably not
+# wise to use this in production.
 #
 # Note this is a module that should be INCLUDED. These aren't class methods.
 module TruncateHelpers
-  
+
   # call truncate_all_tables but make sure it only happens once in the Process
   # TODO - why?  Any spec that needs truncated tables should probably truncate tables. (Most do.) Smells of a hack.
   def truncate_all_tables_once

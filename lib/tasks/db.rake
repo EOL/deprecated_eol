@@ -1,5 +1,3 @@
-require Rails.root.join('lib', 'eol_data')
-
 namespace :eol do
   namespace :db do
     desc 'Drop all of the the databases, re-create them, and then bootstrap them.'

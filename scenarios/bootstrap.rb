@@ -586,7 +586,7 @@ ContentTable.create_details
 
 make_all_nested_sets
 rebuild_collection_type_nested_set
-flatten_hierarchies
+EOL::Data.flatten_hierarchies
 
 DataObject.connection.execute("UPDATE data_objects SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")
 Comment.connection.execute("UPDATE comments SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")

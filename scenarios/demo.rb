@@ -335,7 +335,7 @@ end
 puts "Re-indexing.  Hang on, almost there."
 make_all_nested_sets
 rebuild_collection_type_nested_set
-flatten_hierarchies
+EOL::Data.flatten_hierarchies
 
 EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value

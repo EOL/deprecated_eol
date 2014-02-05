@@ -82,7 +82,7 @@ describe 'API:pages' do
     @taxon_concept.add_data_object(@object)
 
     make_all_nested_sets
-    flatten_hierarchies
+    EOL::Data.flatten_hierarchies
 
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild

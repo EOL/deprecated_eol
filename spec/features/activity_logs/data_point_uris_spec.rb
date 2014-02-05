@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../spec_helper'
+require "spec_helper"
 
 def reset
   drop_all_virtuoso_graphs
@@ -71,7 +71,7 @@ describe 'DataPointUris' do
     @user.grant_permission(:see_data)
     @collection = @user.watch_collection
     @collection.add(@taxon_concept)
-    flatten_hierarchies
+    EOL::Data.flatten_hierarchies
   end
 
   def expect_data_feed(options = {})

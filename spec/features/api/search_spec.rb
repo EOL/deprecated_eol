@@ -14,7 +14,7 @@ describe 'API:search' do
     SearchSuggestion.gen(taxon_id: @dog.id, term: @dog_name)
     SearchSuggestion.gen(taxon_id: @wolf.id, term: @dog_name)
     make_all_nested_sets
-    flatten_hierarchies
+    EOL::Data.flatten_hierarchies
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
   end
 

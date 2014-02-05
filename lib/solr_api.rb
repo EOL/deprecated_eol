@@ -61,7 +61,7 @@ class SolrAPI
     @file_delimiter = '|'
     @multi_value_delimiter = ';'
     csv_path_random_bit = 10.times.map{ rand(10) }.join
-    @stream_url = "http://" + $SITE_DOMAIN_OR_IP + "/files/solr_import_file_#{csv_path_random_bit}.csv"
+    @stream_url = "http://#{EOL::Server.ip_address}/files/solr_import_file_#{csv_path_random_bit}.csv"
     @csv_path = Rails.root.join(Rails.public_path, 'files', "solr_import_file_#{csv_path_random_bit}.csv")
   end
 

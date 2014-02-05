@@ -61,7 +61,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def local_file_url
-    "http://" + $SITE_DOMAIN_OR_IP + Rails.configuration.data_search_file_rel_path.sub(/:id/, id.to_s)
+    "http://" + EOL::Server.ip_address + Rails.configuration.data_search_file_rel_path.sub(/:id/, id.to_s)
   end
 
   def unit_known_uri

@@ -2,6 +2,9 @@
 # friggin' globals.  That said, we may want to adopt the simple, popular, SimpleConfig:
 # https://github.com/lukeredpath/simpleconfig
 
+#Server's IP address
+Rails.configuration.site_domain = "eol.org" #domain name for url links communicated outside, for example for emails
+
 # If you're testing a new feature, they will be asked to go here to provide feedback:
 Rails.configuration.beta_test_feedback_link = 'https://www.surveymonkey.com/s/9FDTDQP'
 
@@ -180,9 +183,6 @@ $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners'
 # $REFERENCE_PARSING_ENABLED = false
 # $REFERENCE_PARSER_ENDPOINT = **the URL of the reference parsing script**
 # $REFERENCE_PARSER_PID = **the email address of the crossref user account**
-
-#Server's IP address
-$SITE_DOMAIN_OR_IP = "eol.org" #domain name for url links communicated outside, for example for emails
 
 # Default values for some language-dependent strings used by models:
 $CURATOR_ROLE_NAME   = 'Curator'

@@ -8,7 +8,7 @@ class CollectionBuilder
     col = Collection.gen
     if opts[:taxa] && ( ! defined?(@@taxa_for_collections) || @@taxa_for_collections.size <= opts[:taxa])
       while @@taxa_for_collections.size < opts[:taxa] do
-        @@taxa_for_collections << build_taxon_concept
+        @@taxa_for_collections << FactoryGirl.build_stubbed(TaxonConcept)
       end
     end
     if opts[:taxa]

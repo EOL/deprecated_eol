@@ -3,7 +3,7 @@
 - else
   - actions.each do |action|
     - users_name = h strip_tags(action.user.full_name)
-    - users_url = user_url(action.user, :host => $SITE_DOMAIN_OR_IP)
+    - users_url = user_url(action.user, :host => EOL::Server.domain)
     - users_curator_level = action.user.curator_level.translated_label rescue 'User'
     - action_date = format_date_time(action.created_at)
     - # We check to make sure the action.data_object association is 'real' i.e. curator_activity_logs.target_id == data_objects.id
@@ -24,7 +24,7 @@
         - en_activity_name = 'removed_association'
       - unless en_activity_name.nil?
         - object_name = h strip_tags(action.data_object.summary_name)
-        - object_url = data_object_url(action.data_object, :host => $SITE_DOMAIN_OR_IP)
+        - object_url = data_object_url(action.data_object, :host => EOL::Server.domain)
         - taxon_name = nil
         - if en_activity_name == 'trusted' || en_activity_name == 'untrusted'
           - # TODO: This switch is a bandaid and should probably be moved to the CAL model and the methods there for getting taxon/hierarchy entry fixed.
@@ -33,16 +33,16 @@
           - when ChangeableObjectType.users_data_object.id
             - taxon_concept = action.data_object.users_data_object.taxon_concept rescue nil
             - taxon_name = taxon_concept.title_canonical rescue nil
-            - taxon_url = taxon_url(taxon_concept, :host => $SITE_DOMAIN_OR_IP) rescue ''
+            - taxon_url = taxon_url(taxon_concept, :host => EOL::Server.domain) rescue ''
           - when ChangeableObjectType.data_object.id
             - # For legacy trust/untrust actions on data_object I don't think we have an associated hierarchy entry, for new actions the COT should be data_objects_hierarchy_entry
             - taxon_name = nil
           - when ChangeableObjectType.data_objects_hierarchy_entry.id
             - taxon_name = action.hierarchy_entry.name.string rescue nil
-            - taxon_url = taxon_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
+            - taxon_url = taxon_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => EOL::Server.domain) rescue ''
           - when ChangeableObjectType.curated_data_objects_hierarchy_entry.id
             - taxon_name = action.hierarchy_entry.name.string rescue nil
-            - taxon_url = taxon_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => $SITE_DOMAIN_OR_IP) rescue ''
+            - taxon_url = taxon_entry_url(action.hierarchy_entry.taxon_concept, action.hierarchy_entry, :host => EOL::Server.domain) rescue ''
         - if taxon_name.nil?
           - if en_activity_name == 'added_association' || en_activity_name == 'removed_association'
             = I18n.t("activity_user_#{en_activity_name}_on_date", :users_name => users_name, :users_url => users_url, :object_name => object_name, :object_url => object_url, :action_date => action_date, :scope => :notifier, :curator_level => users_curator_level)

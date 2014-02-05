@@ -44,7 +44,7 @@ describe "Google Analytics Stats Page" do
    now = Time.now.utc - 2.months
    year = @year - 1
    month = @month - 1
-   month = 12 if month = 0
+   month = 12 if month == 0
    partner_summary = GoogleAnalyticsPartnerSummary.gen(year: year, month: month, user: @user)
    summary = GoogleAnalyticsSummary.gen(year: year, month: month)
    page_stats = GoogleAnalyticsPageStat.gen(year: year, month: month, taxon_concept: @taxon_concept )

@@ -2,7 +2,7 @@
 #
 # This is  NOT meant for production!  It's meant for administrative tasks like specs and scenarios.
 # 
-# NOTE - Taxon Concepts are too complex to include here ( TODO - weird ).  See EOL::TaxonConceptBuilder for that.
+# NOTE - Taxon Concepts are too complex to include here ( TODO - weird ).  See TaxonConceptBuilder for that.
 #
 # IMPORTANT NOTE - There is a HUGE section after the module which monkey-patches our models. TODO - reconsider.
 module EOL
@@ -47,8 +47,7 @@ module EOL
     end
 
     def build_taxon_concept(options = {})
-      tc_builder = EOL::TaxonConceptBuilder.new(options)
-      return tc_builder.tc
+      TaxonConceptBuilder.build(options)
     end
 
     # TODO - stop using this and switch to either #gen_curator or #build_curator.

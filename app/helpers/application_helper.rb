@@ -334,43 +334,6 @@ module ApplicationHelper
     text
   end
 
-  # for creating a group of image buttons
-  #
-  # Usage:
-  #   <% image_button_group 'some-buttons' do |group| %>
-  #     <%= group.image_button 'button1', '/some/path' %>
-  #     <%= group.image_button 'button2', '/some/path' %>
-  #   <% end %>
-  #
-  # This renders the shared/_image_button_group partial (for the whole group)
-  # and, for each image_button, it renders the shared/_image_button partial
-  #
-  def image_button_group name, &block
-    group        = ImageButtonGroup.new name, self
-    buttons_html = capture(group, &block)
-    group_html   = capture(group) do
-      render partial: 'shared/image_button_group', locals: { group: group, buttons_html: buttons_html }
-    end
-    concat group_html, block.binding
-  end
-
-  # class used for an image_button_group
-  #
-  # when you say <%= group.image_button %> you're calling #image_button
-  # on an instance of ImageButtonGroup
-  #
-  class ImageButtonGroup
-    attr_accessor :name
-    def initialize name, action_view
-      @name = name
-      @action_view = action_view
-    end
-    def image_button name, path
-      # "image_button group #{@name}, #{name} => #{path}"
-      @action_view.render partial: 'shared/image_button', locals: { group: self, name: name, path: path }
-    end
-  end
-
   # returns a string that can be used as a CSS class, given an object
   def css_class value
     value.to_s.strip.downcase.gsub(' ','') # TODO update to strip out all non alphanumeric characters

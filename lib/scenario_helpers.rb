@@ -7,7 +7,7 @@ module ScenarioHelpers
   end
 
   def load_scenario_with_caching(name)
-    loader = EOL::ScenarioLoader.new(name, EOL::DB.all_connections)
+    loader = EOL::ScenarioLoader.new(name, EOL::Db.all_connections)
     # TODO - this may want to check if it NEEDS loading, here, and then truncate the tables before proceeding, if it
     # does.
     loader.load_with_caching

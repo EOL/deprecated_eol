@@ -44,7 +44,7 @@ describe 'Search' do
 
     Capybara.reset_sessions!
     visit('/logout')
-    make_all_nested_sets
+    EOL::Data.make_all_nested_sets
     EOL::Data.flatten_hierarchies
     ci_solr_api = SolrAPI.new($SOLR_SERVER, $SOLR_COLLECTION_ITEMS_CORE)
     ci_solr_api.delete_all_documents

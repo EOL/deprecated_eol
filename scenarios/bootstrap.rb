@@ -584,8 +584,8 @@ end
 ContentTable.delete_all
 ContentTable.create_details
 
-make_all_nested_sets
-rebuild_collection_type_nested_set
+EOL::Data.make_all_nested_sets
+EOL::Data.rebuild_collection_type_nested_set
 EOL::Data.flatten_hierarchies
 
 DataObject.connection.execute("UPDATE data_objects SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")

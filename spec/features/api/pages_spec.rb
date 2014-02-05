@@ -81,7 +81,7 @@ describe 'API:pages' do
     @object.refs << Ref.gen(full_reference: 'second reference')
     @taxon_concept.add_data_object(@object)
 
-    make_all_nested_sets
+    EOL::Data.make_all_nested_sets
     EOL::Data.flatten_hierarchies
 
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild

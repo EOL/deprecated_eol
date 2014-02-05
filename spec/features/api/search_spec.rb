@@ -13,7 +13,7 @@ describe 'API:search' do
     @dog2 = build_taxon_concept(scientific_name: "Canis dog", common_names: [ "doggy" ])
     SearchSuggestion.gen(taxon_id: @dog.id, term: @dog_name)
     SearchSuggestion.gen(taxon_id: @wolf.id, term: @dog_name)
-    make_all_nested_sets
+    EOL::Data.make_all_nested_sets
     EOL::Data.flatten_hierarchies
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
   end

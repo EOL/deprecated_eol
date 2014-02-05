@@ -1,6 +1,6 @@
 module EOL
 
-  module DB
+  module Db
 
     @@db_defaults = {
       :charset   => ENV['CHARSET']   || 'utf8',
@@ -34,22 +34,22 @@ module EOL
     def self.drop
       raise "This action is ONLY available in the development and test environments." unless
         Rails.env.development? || Rails.env.development_master? || Rails.env.test? || Rails.env.test_master?
-      EOL::DB.all_connections.each do |connection|
+      EOL::Db.all_connections.each do |connection|
         connection.drop_database connection.current_database
       end
     end
 
     def self.recreate
-      EOL::DB.drop
-      EOL::DB.create
+      EOL::Db.drop
+      EOL::Db.create
       Rake::Task['scenarios:clear_tmp'].invoke
       Rake::Task['db:migrate'].invoke
     end
 
     def self.rebuild
       Rake::Task['solr:start'].invoke
-      EOL::DB.recreate
-      EOL::DB.clear_temp
+      EOL::Db.recreate
+      EOL::Db.clear_temp
       # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:
       Rake::Task['solr:start'].invoke
       ENV['NAME'] = 'bootstrap'
@@ -68,22 +68,15 @@ module EOL
     end
 
     def start_transactions
-      EOL::DB.all_connections.each do |conn|
+      EOL::Db.all_connections.each do |conn|
         Thread.current['open_transactions'] ||= 0
         Thread.current['open_transactions'] += 1
         conn.begin_db_transaction
       end
     end
 
-    def commit_transactions
-      EOL::DB.all_connections.each do |conn|
-        conn.commit_db_transaction
-        conn.begin_db_transaction if conn.open_transactions > 0
-      end
-    end
-
     def rollback_transactions
-      EOL::DB.all_connections.each do |conn|
+      EOL::Db.all_connections.each do |conn|
         conn.rollback_db_transaction
         Thread.current['open_transactions'] = 0
       end

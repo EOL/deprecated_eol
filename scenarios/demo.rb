@@ -333,8 +333,8 @@ users.each_with_index do |user, i|
 end
 
 puts "Re-indexing.  Hang on, almost there."
-make_all_nested_sets
-rebuild_collection_type_nested_set
+EOL::Data.make_all_nested_sets
+EOL::Data.rebuild_collection_type_nested_set
 EOL::Data.flatten_hierarchies
 
 EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild

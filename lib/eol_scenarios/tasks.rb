@@ -31,7 +31,7 @@ namespace :scenarios do
     if ENV['NAME']
       names = ENV['NAME'].split(',')
       names.each do |name|
-        loader = EOL::ScenarioLoader.new(name, EOL::DB.all_connections)
+        loader = EOL::ScenarioLoader.new(name, EOL::Db.all_connections)
         loader.load_with_caching
       end
     else

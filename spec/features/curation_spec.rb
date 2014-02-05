@@ -10,8 +10,12 @@ describe 'Curation' do
   before(:all) do
     load_foundation_cache
     Capybara.reset_sessions!
-    commit_transactions # Curators are not recognized if transactions are being used, thanks to a lovely
-                        # cross-database join.  You can't rollback, because of the EolScenario stuff.  [sigh]
+    # Curators are not recognized if transactions are being used, thanks to a lovely
+    # cross-database join.  You can't rollback, because of the EolScenario stuff.  [sigh]
+    EOL::Db.all_connections.each do |conn|
+      conn.commit_db_transaction
+      conn.begin_db_transaction if conn.open_transactions > 0
+    end
     @common_names_toc_id = TocItem.common_names.id
     @parent_hierarchy_entry = HierarchyEntry.gen(hierarchy_id: Hierarchy.default.id)
     @taxon_concept   = build_taxon_concept(parent_hierarchy_entry_id: @parent_hierarchy_entry.id)
@@ -35,7 +39,7 @@ describe 'Curation' do
                                                          vetted: Vetted.trusted, preferred: false)
     @first_curator = create_curator_for_taxon_concept(@taxon_concept)
     @default_num_curators = @taxon_concept.acting_curators.length
-    make_all_nested_sets
+    EOL::Data.make_all_nested_sets
     EOL::Data.flatten_hierarchies
 
     visit("/pages/#{@taxon_concept.id}")

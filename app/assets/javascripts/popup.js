@@ -8,16 +8,16 @@ if (!EOL.init_popup_overlays) {
     $('a[rel].popup-link').each(function() {
       $(this).overlay({
         fixed: false,
-        // Sorry this is hack-ish. The top of an overlay is ALWAYS (argh) relative to the *current* position of the window.  We
-        // don't want that, but we can't get rid of it (easily).
+        // Sorry this is hack-ish. The top of an overlay is ALWAYS (argh) relative to the *current* position of the
+        // window.  We don't want that, but we can't get rid of it (easily).
         onBeforeLoad: function() {
           var overlay = this.getOverlay();
           $('body').append(overlay);
           var wrapper = overlay.find(".contentWrap");
           var trigger = this.getTrigger();
-          var x = trigger.offset()['left'] + trigger.width();
+          var x = trigger.offset().left + trigger.width();
           if(x > 800) { x = 800; }
-          var y = trigger.offset()['top'] + trigger.height();
+          var y = trigger.offset().top + trigger.height();
           // This doesn't work.  Why not? TODO - overlay.offset({top:y, left:x});
           overlay.animate({
             top: y,

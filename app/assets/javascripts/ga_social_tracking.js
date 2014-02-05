@@ -112,7 +112,7 @@ _ga.extractParamFromUri_ = function(uri, paramName) {
   if (!uri) {
     return;
   }
-  var uri = uri.split('#')[0];  // Remove anchor.
+  uri = uri.split('#')[0];  // Remove anchor.
   var parts = uri.split('?');  // Check for query params.
   if (parts.length == 1) {
     return;
@@ -122,6 +122,7 @@ _ga.extractParamFromUri_ = function(uri, paramName) {
   // Find url param.
   paramName += '=';
   var params = query.split('&');
+  // NOTE - jshint says "Expected a conditional expression and instead saw an assignment." not sure how to fix.
   for (var i = 0, param; param = params[i]; ++i) {
     if (param.indexOf(paramName) === 0) {
       return unescape(param.split('=')[1]);

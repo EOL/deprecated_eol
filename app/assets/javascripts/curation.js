@@ -3,10 +3,10 @@ if(!EOL.Curation) { EOL.Curation = {}; }
 
 EOL.Curation.form_is_valid = function(form) {
   var untrusted_option_checked  = $('#' + form.attr('data-data_object_id') + '_vetted_id_' + EOL.Curation.UNTRUSTED_ID).is(':checked');   
-  var comment_empty             = form.find('.curation-comment-box').val() == "";   
-  var untrust_reasons_unchecked = form.find('.untrust_reason:checked').siblings().map(function(){return this.innerHTML}).get() == ""; 
+  var comment_empty             = form.find('.curation-comment-box').val() === "";
+  var untrust_reasons_unchecked = form.find('.untrust_reason:checked').siblings().map(function(){return this.innerHTML;}).get() === ''; 
   return untrusted_option_checked ? !(comment_empty && untrust_reasons_unchecked) : true; 
-}
+};
 
 // Invisible icons on text:
 EOL.Curation.update_icons = function(data_object_id, visibility_id) {
@@ -71,7 +71,7 @@ $(document).ready(function() {
       type: 'PUT',
       dataType: 'json',
       beforeSend: function(xhr) {
-	    if(EOL.Curation.form_is_valid(form)) {
+      if(EOL.Curation.form_is_valid(form)) {
           xhr.setRequestHeader("Accept", "text/javascript"); // Sorry, not sure why this xhr wasn't auto-js, but it wasn't.
           submit.attr('disabled', 'disabled');
           the_comment.attr('disabled', 'disabled');

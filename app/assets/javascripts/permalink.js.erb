@@ -1,20 +1,23 @@
 //= require 'worklist_curation'
 $(function() {
 
+  // TODO - this looks duplicated with media_list.js.erb
   (function($main) {
     $main.find("a.jp-play").each(function() {
+      var media;
+      var supplied;
       switch($(this).attr('data-mime-type')) {
         case 'audio/mpeg':
-          var media = { mp3: $(this).attr('href') };
-          var supplied = "mp3";
+          media = { mp3: $(this).attr('href') };
+          supplied = "mp3";
           break;
         case 'application/ogg':
-          var media = { oga: $(this).attr('href') };
-          var supplied = "oga";
+          media = { oga: $(this).attr('href') };
+          supplied = "oga";
           break;
         default:
           // Mime type unknown
-          var media = {};
+          media = {};
       }
       $("#player").jPlayer({
         swfPath: '<%= asset_path "jplayer/js" %>',

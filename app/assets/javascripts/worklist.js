@@ -9,7 +9,7 @@ EOL.init_worklist_behaviors = function() {
   init_curation();
   $("#tasks li").unbind('click');
   $('#tasks li').on('click', function() {
-    if($('#tasks li.active span.indicator').html() != '') {
+    if($('#tasks li.active span.indicator').html() !== '') {
       $('#tasks li.active span.indicator').removeClass('invisible');
     }
 
@@ -106,7 +106,7 @@ function update_active_indicator(message) {
   init_comments();
 }
 function init_comments() {
-  if (EOL.init_comment_behaviours != undefined) {
+  if (EOL.init_comment_behaviours !== undefined) {
     // This ends up getting called twice on page-load, but we really do need it here for when a new task is loaded.
     EOL.init_comment_behaviours();
     // Added on 4.30.12 to fix #WEB-3551
@@ -116,7 +116,7 @@ function init_comments() {
   }
 }
 function init_curation() {
-  if (EOL.init_curation_behaviours != undefined) {
+  if (EOL.init_curation_behaviours !== undefined) {
     // This ends up getting called twice on page-load, but we really do need it here for when a new task is loaded.
     EOL.init_curation_behaviours();
   }

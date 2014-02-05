@@ -17,7 +17,7 @@ $(document).ready(function() {
     .on('click', function() {
       var num_left_entries = $("#left_panel .entry_details").length;
       var num_right_entries = $("#right_panel .entry_details").length;
-      if(num_left_entries == 0 || num_right_entries == 0) {
+      if(num_left_entries === 0 || num_right_entries === 0) {
         alert('You can only merge two concepts');
         return;
       }
@@ -44,7 +44,7 @@ $(document).ready(function() {
     )
     .mouseup(function(event, ui) {
       if(typeof dragged_div == "undefined") { alert('fail1'); return; }
-      if(dragged_div == null) { alert('fail2'); return; }
+      if(dragged_div === null) { alert('fail2'); return; }
 
       previously_dragged_div = dragged_div;
       dragged_div.css('z-index', 10);
@@ -142,7 +142,7 @@ function add_drag_events_to_selector(input) {
     })
     .mouseup(function(event, ui) {
       if(typeof dragged_div == "undefined") { return; }
-      if(dragged_div == null) { return; }
+      if(dragged_div === null) { return; }
 
       previously_dragged_div = dragged_div;
       dragged_div.css('z-index', 10);

@@ -23,7 +23,7 @@ if (!EOL.init_common_name_behaviors) {
     $("#add_common_name_button").on('click', function() {
       var name = $.trim($("#name_name_string").val());
       var language = $("#name_language").val();
-      if (name != '') {
+      if (name !== '') {
         // TODO - i18n (put this in the view and show/hide it, duh)
         i_agree = confirm("Create a new common name?\n\nYou can always delete it later");
         if (i_agree) {
@@ -48,5 +48,5 @@ function vet_common_name(tc_id, lang_id, name_id, select_tag_id, he_id)
   document.getElementById('form_name_id').value = name_id;
   document.getElementById('form_vetted_id').value = y[x].value;
   document.getElementById('form_hierarchy_entry_id').value = he_id;
-  document.forms['vet_common_name_form'].submit();
+  document.forms.vet_common_name_form.submit();
 }

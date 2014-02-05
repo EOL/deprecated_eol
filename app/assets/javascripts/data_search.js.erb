@@ -5,7 +5,7 @@
   if (typeof String.prototype.trim !== 'function') {
     String.prototype.trim = function() {
       return this.replace(/^\s+|\s+$/g, '');
-    }
+    };
   }
 
   // combatting browsers that insist on display: block after fadeIn
@@ -40,7 +40,7 @@
     return this.each(function() {
       var labels  = $(this).find('label'),
           inputs  = $(this).find(':input'),
-          summary = []
+          summary = [];
           output  = '';
 
       inputs.each(function() {
@@ -51,8 +51,8 @@
             value   = (this.type == 'select-one') ?
               $(this.selectedOptions).text() : this.value,
             exclude = typeof settings.exclude[name] != 'undefined' &&
-              (settings.exclude[name].length == 0 ||
-              $.inArray(this.value, settings.exclude[name]) == 0);
+              (settings.exclude[name].length === 0 ||
+              $.inArray(this.value, settings.exclude[name]) === 0);
 
         if (value && !exclude) {
           summary.push([
@@ -64,7 +64,7 @@
       });
 
       if (summary.length > 0) {
-        for (i in summary) {
+        for (var i in summary) {
           summary[i] = summary[i].join(': ');
         }
         settings.wrapper.text(summary.join('; ')).appendTo(settings.container);
@@ -174,16 +174,16 @@
 
         link.hide().appendTo(vital);
 
-        function adjustSummarizeExclude() {
+        adjustSummarizeExclude = function() {
           if (!watch.min.val().trim() && !watch.max.val().trim()) {
             summarize.exclude.unit = [];
           }
           else if (typeof summarize.exclude.unit !== 'undefined') {
             delete summarize.exclude.unit;
           }
-        }
+        };
 
-        function hide() {
+        hide = function() {
           actions.fadeOut(200);
           adjustSummarizeExclude();
           extras.slideUp(500, function() {
@@ -191,9 +191,9 @@
               $(this).text(extras.data('show')).fadeInline();
             });
           }).summarizeInput(summarize);
-        }
+        };
 
-        function show() {
+        show = function() {
           extras.slideDown(500, function() {
             link.fadeOut(200, function() {
               $(this).text(extras.data('hide')).fadeInline();
@@ -204,11 +204,12 @@
             });
           });
           actions.fadeIn(500);
-        }
+        };
 
         $.each([link, summarize.container.find('a')], function(i, l) {
           l.accessibleClick(function() {
-            (extras.is(':visible')) ? hide() : show();
+            // The following is considered invalid by jshint, but I don't like alternatives:
+            extras.is(':visible') ? hide() : show();
             return false;
           });
         });

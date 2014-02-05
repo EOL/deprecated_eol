@@ -69,7 +69,7 @@ if (!EOL.Text.already_loaded) {
     show_missing_text_error_if_empty: function() {
       // error handling, just make sure there's a description
       textarea_val = $.trim($('textarea#data_object_description').val());
-      if(textarea_val == '') {
+      if(textarea_val === '') {
         $('#missing_text_error').fadeIn().delay(2000).fadeOut();
         return true;
       } else {

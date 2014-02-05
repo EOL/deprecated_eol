@@ -19,10 +19,10 @@ if ((version >= 5.5) && (document.body.filters)) {
          if (img.align == "left") { imgStyle = "float:left;" + imgStyle; }
          if (img.align == "right") { imgStyle = "float:right;" + imgStyle; }
          if (img.parentElement.href) { imgStyle = "cursor:hand;" + imgStyle; }
-         var strNewHTML = "<span " + imgID + imgClass + imgTitle
-           + " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";"
-           + "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader"
-           + "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>";
+         var strNewHTML = "<span " + imgID + imgClass + imgTitle +
+           " style=\"" + "width:" + img.width + "px; height:" + img.height + "px;" + imgStyle + ";" +
+           "filter:progid:DXImageTransform.Microsoft.AlphaImageLoader" +
+           "(src=\'" + img.src + "\', sizingMethod='scale');\"></span>";
          img.outerHTML = strNewHTML;
          i = i-1;
       }

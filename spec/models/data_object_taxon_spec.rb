@@ -1,5 +1,4 @@
 require "spec_helper"
-require File.dirname(__FILE__) + '/../scenario_helpers'
 
 # Handles the associations between a data object and its taxon concepts.
 describe DataObjectTaxon do

@@ -1,5 +1,4 @@
 require "spec_helper"
-require File.dirname(__FILE__) + '/../scenario_helpers'
 
 describe DataObject do
 

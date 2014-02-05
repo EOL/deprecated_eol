@@ -3,16 +3,10 @@ require "rake"
 
 describe 'Sitemaps' do
   before(:all) do
-    load_foundation_cache
-    
-    License.destroy_all
-    ContentPage.destroy_all
-    Community.destroy_all
-    Collection.destroy_all
-    ContentPartner.destroy_all
-    User.destroy_all
-    TaxonConcept.destroy_all
-    DataObject.destroy_all
+    User.delete_all
+    ContentPartnerStatus.create_enumerated
+    Vetted.create_enumerated
+    DataType.create_enumerated
     
     @objects_to_include = []
     @objects_to_exclude = []

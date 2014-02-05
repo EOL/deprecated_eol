@@ -51,6 +51,14 @@ module EOL
       return tc_builder.tc
     end
 
+    # TODO - stop using this and switch to either #gen_curator or #build_curator.
+    def create_curator
+      curator = User.gen(:username => 'curator_for_tc', :password => 'password', :credentials => 'Curator', :curator_scope => 'very scoped')
+      curator.grant_curator
+      curator.save!
+      return curator
+    end
+
     # A dumbed-down version of #build_curator
     def gen_curator(options = {})
       options = {

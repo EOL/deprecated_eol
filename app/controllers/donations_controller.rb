@@ -4,7 +4,7 @@ class DonationsController < ApplicationController
 
   before_filter :set_page_title
 
-  layout 'v2/basic'
+  layout 'basic'
 
   DONATION_MIN = 1.0
 

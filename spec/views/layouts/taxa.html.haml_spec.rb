@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "layouts/v2/taxa" do
+describe "layouts/taxa" do
 
   before(:all) do
     Language.create_english

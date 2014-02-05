@@ -2,7 +2,7 @@ class PermissionsController < ApplicationController
 
   before_filter :restrict_to_admins
 
-  layout 'v2/permissions'
+  layout 'permissions'
 
   # GET /permissions
   # GET /permissions.json

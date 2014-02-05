@@ -323,6 +323,6 @@ private
   end
   
   def which_layout
-    action_name == 'index' ? 'v2/basic' : 'v2/info'
+    action_name == 'index' ? 'basic' : 'info'
   end
 end

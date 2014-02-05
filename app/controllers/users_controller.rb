@@ -435,11 +435,11 @@ private
   def users_layout # choose an appropriate views layout for an action
     case action_name
     when 'recover_account', 'terms_agreement', 'new', 'pending', 'activated'
-      'v2/sessions'
+      'sessions'
     when 'curation_privileges'
-      'v2/basic'
+      'basic'
     else
-      'v2/users'
+      'users'
     end
   end
 
@@ -447,7 +447,7 @@ private
     @user.clear_entered_password if @user
     flash.now[:error] = I18n.t(:create_user_unsuccessful_error)
     flash.now[:error] << I18n.t(:recaptcha_incorrect_error_with_anchor, recaptcha_anchor: 'recaptcha_widget_div') unless verify_recaptcha
-    render action: :new, layout: 'v2/sessions'
+    render action: :new, layout: 'sessions'
   end
 
   def failed_to_update_user
@@ -455,7 +455,7 @@ private
     flash.now[:error] = I18n.t(:update_user_unsuccessful_error)
     if params[:commit_curation_privileges_put]
       instantiate_variables_for_curation_privileges
-      render :curation_privileges, layout: 'v2/basic'
+      render :curation_privileges, layout: 'basic'
     else
       instantiate_variables_for_edit
       render :edit

@@ -1,6 +1,6 @@
 class Users::NotificationsController < UsersController
 
-  layout 'v2/basic'
+  layout 'basic'
 
   # GET /users/:user_id/notification/edit
   def edit

@@ -1,6 +1,6 @@
 class AdminsController < ApplicationController
 
-  layout 'v2/admin'
+  layout 'admin'
 
   before_filter :check_authentication
   before_filter :restrict_to_admins

@@ -4,7 +4,7 @@ class SearchController < ApplicationController
     only: :autocomplete_taxon
   after_filter :set_cache_headers, only: :autocomplete_taxon
 
-  layout 'v2/search'
+  layout 'search'
 
   @@results_per_page = 25
 

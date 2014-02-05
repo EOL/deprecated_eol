@@ -4,7 +4,7 @@ class RecentActivityMailer < ActionMailer::Base
   default from: $NO_REPLY_EMAIL_ADDRESS
   default content_type: 'text/html'
 
-  layout "v2/email"
+  layout "email"
 
   def recent_activity(user, notes, fqz) # :immediately, :daily, :weekly are the only values allowed.
     @user = user

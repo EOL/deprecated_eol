@@ -2,7 +2,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
   before_filter :check_authentication
 
-  layout 'v2/partners'
+  layout 'partners'
 
   # GET /content_partners/:content_partner_id/resources
   def index

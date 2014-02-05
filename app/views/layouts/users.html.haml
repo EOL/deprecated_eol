@@ -32,4 +32,4 @@
               %li{:class => resource_is_active('data_downloads')}= link_to I18n.t(:data_search_files_with_count, :count => @user.data_search_files.count), user_data_downloads_path(@user)
       = yield
 
-= render :file => 'layouts/v2/application'
+= render :file => 'layouts/application'

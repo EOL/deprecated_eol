@@ -75,7 +75,7 @@
     #header
       .section
         %h1= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }
-        = render '/layouts/v2/global_navigation'
+        = render '/layouts/global_navigation'
         .actions
           .language
             %p{ :class => I18n.locale.to_s, :title => I18n.t(:selected_language_advisory_information) }
@@ -90,7 +90,7 @@
                     { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
         - if @home_page
           %h2= I18n.t(:global_access_tagline)
-        = render "/layouts/v2/search" unless @hide_global_search
+        = render "/layouts/search" unless @hide_global_search
         - if logged_in?
           = render 'sessions/session_summary'
         - elsif $ALLOW_USER_LOGINS
@@ -121,7 +121,7 @@
           = yield :main
 
     #footer{ :role => "contentinfo" }
-      = render '/layouts/v2/footer'
+      = render '/layouts/footer'
       = yield :footer
     = javascript_include_tag 'head.load.min'
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS

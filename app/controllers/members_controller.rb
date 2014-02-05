@@ -1,6 +1,6 @@
 class MembersController < ApplicationController
 
-  layout 'v2/communities'
+  layout 'communities'
 
   before_filter :load_community_and_current_member
   before_filter :load_member, except: [:index]

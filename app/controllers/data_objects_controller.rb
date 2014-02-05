@@ -390,11 +390,11 @@ private
     return false if request.xhr?
     case action_name
     when 'edit'
-      'v2/basic'
+      'basic'
     when 'add_association'
-      'v2/association'
+      'association'
     else
-      'v2/data'
+      'data'
     end
   end
 
@@ -455,7 +455,7 @@ private
       @page_description = I18n.t(:dato_edit_text_page_description)
       # Be kind, rewind:
       @data_object.attributes = params[:data_object] # Sets them, doesn't save them.
-      render action: 'edit', layout: 'v2/basic'
+      render action: 'edit', layout: 'basic'
     else
       # Someone PUT directly to /data_objects/NNN with no params.  (Which is... weird.  But hey.)
       redirect_to edit_data_object_path(@data_object)

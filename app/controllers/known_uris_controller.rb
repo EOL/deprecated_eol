@@ -11,7 +11,7 @@ class KnownUrisController < ApplicationController
     only: AUTOCOMPLETE_ACTIONS
   after_filter :clear_cache, only: [ :create, :update, :destroy, :import_ontology ]
 
-  layout 'v2/basic'
+  layout 'basic'
 
   def index
     wheres = { translated_known_uris: { language_id: [current_language.id, Language.default.id] } }

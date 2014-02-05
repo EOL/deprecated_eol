@@ -1,6 +1,6 @@
 class Users::OpenAuthenticationsController < UsersController
 
-  layout 'v2/basic'
+  layout 'basic'
 
   skip_before_filter :redirect_if_already_logged_in
   skip_before_filter :extend_for_open_authentication

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'layouts/v2/application' do
+describe 'layouts/application' do
 
   before(:all) do
     Language.create_english

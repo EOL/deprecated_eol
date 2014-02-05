@@ -571,7 +571,7 @@ protected
         format.html do
           @error_page_title = I18n.t("error_#{status_code}_page_title", default: [:error_default_page_title, "Error."])
           @status_code = status_code
-          render layout: 'v2/errors', template: 'content/error', status: status_code
+          render layout: 'errors', template: 'content/error', status: status_code
         end
         format.js do
           render layout: false, template: 'content/error', status: status_code
@@ -579,7 +579,7 @@ protected
         format.all do
           @error_page_title = I18n.t("error_#{status_code}_page_title", default: [:error_default_page_title, "Error."])
           @status_code = status_code
-          render layout: 'v2/errors', template: 'content/error', status: status_code, formats: 'html', content_type: Mime::HTML.to_s
+          render layout: 'errors', template: 'content/error', status: status_code, formats: 'html', content_type: Mime::HTML.to_s
         end
       end
     end

@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
 
-  layout 'v2/basic'
+  layout 'basic'
   
   def index
     redirect_to contact_us_path

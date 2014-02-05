@@ -1,5 +1,5 @@
 class Api::DocsController < ApiController
-  layout 'v2/basic'
+  layout 'basic'
   skip_before_filter :handle_key, :set_default_format_to_xml
   before_filter :set_locale, :set_navigation_menu
 

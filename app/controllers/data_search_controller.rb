@@ -7,7 +7,7 @@ class DataSearchController < ApplicationController
   before_filter :restrict_to_data_viewers
   before_filter :allow_login_then_submit, only: :download
 
-  layout 'v2/data_search'
+  layout 'data_search'
 
   # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index

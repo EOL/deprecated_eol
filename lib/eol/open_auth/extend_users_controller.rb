@@ -62,7 +62,7 @@ module EOL
           redirect_to user_newsfeed_path(@user, :success => session[:conversion_code])
         else
           flash.now[:error] = I18n.t(:create_user_unsuccessful_error)
-          render :action => :new, :layout => 'v2/sessions'
+          render :action => :new, :layout => 'sessions'
         end
       end
 

@@ -3,7 +3,7 @@ class CollectionItemsController < ApplicationController
   before_filter :allow_login_then_submit, only: [:create]
   before_filter :find_collection_item, only: [:show, :update, :edit]
 
-  layout 'v2/collections'
+  layout 'collections'
 
   def show
     return access_denied unless current_user.can_update?(@collection_item)

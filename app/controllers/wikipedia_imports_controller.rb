@@ -1,6 +1,6 @@
 class WikipediaImportsController < ApplicationController
 
-  layout 'v2/basic'
+  layout 'basic'
 
   before_filter :check_authentication
 

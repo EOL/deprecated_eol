@@ -113,9 +113,9 @@ private
   def content_partners_layout
     case action_name
     when 'index', 'new'
-      'v2/basic'
+      'basic'
     else
-      'v2/partners'
+      'partners'
     end
   end
 

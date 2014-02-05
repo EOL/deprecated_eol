@@ -1,6 +1,6 @@
 class Forums::CategoriesController < ForumsController
 
-  layout 'v2/forum'
+  layout 'forum'
   before_filter :restrict_to_admins
   before_filter :allow_login_then_submit, only: [:create]
 

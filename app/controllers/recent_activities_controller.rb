@@ -1,6 +1,6 @@
 class RecentActivitiesController < ApplicationController
 
-  layout 'v2/basic'
+  layout 'basic'
 
   def index
     @page_title = I18n.t(:page_title, scope: [:recent_activities, :index])

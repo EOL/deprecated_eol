@@ -4,7 +4,7 @@ class CollectionJobsController < ApplicationController
   before_filter :create_collection_if_asked
   before_filter :read_collection_job_from_params
 
-  layout 'v2/choose_collect_target'
+  layout 'choose_collect_target'
 
   def create
     return redirect_to(@collection_job.collection, notice: I18n.t(:error_no_items_selected)) unless

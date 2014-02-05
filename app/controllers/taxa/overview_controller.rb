@@ -1,6 +1,6 @@
 class Taxa::OverviewController < TaxaController
 
-  layout 'v2/taxa'
+  layout 'taxa'
 
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
 

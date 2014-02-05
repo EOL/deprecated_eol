@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'layouts/v2/data_search' do
+describe 'layouts/data_search' do
 
   before(:all) do
     Language.create_english

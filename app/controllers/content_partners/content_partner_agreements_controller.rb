@@ -2,7 +2,7 @@ class ContentPartners::ContentPartnerAgreementsController < ContentPartnersContr
 
   before_filter :check_authentication
 
-  layout 'v2/partners'
+  layout 'partners'
 
   # GET /content_partners/:content_partner_id/agreements/new
   def new

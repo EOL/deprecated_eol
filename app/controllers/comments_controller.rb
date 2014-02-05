@@ -134,9 +134,9 @@ private
     return false if request.xhr?
     case action_name
     when 'update', 'edit'
-      'v2/basic'
+      'basic'
     when 'index'
-      'v2/data_comments'
+      'data_comments'
     end
   end
 

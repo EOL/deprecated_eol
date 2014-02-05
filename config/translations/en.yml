@@ -1170,60 +1170,59 @@ en:
     create_failed: "Sorry, an error occurred, the relationship could not be added."
     deleted: "Relationship was successfully deleted"
   layouts:
-    v2:
-      application:
-        header_about: About EOL
-        header_learn_more: Learn more about
-        header_questions: Tell me more
-        about_link_what_is_eol: What is EOL?
-        about_link_eol_blog: The EOL Blog
-        about_link_discover: Discover
-        about_link_statistics: Statistics
-        about_link_glossary: Glossary
-        about_link_podcasts: Podcasts
-        about_link_donate: Donate to EOL
-        about_link_citing: Citing EOL
-        about_link_help: Help
-        about_link_terms_of_use: Terms of Use
-        about_link_contact_us: Contact Us
-        learn_more_link_animals: Animals
-        learn_more_link_mammals: Mammals
-        learn_more_link_birds: Birds
-        learn_more_link_amphibians: Amphibians
-        learn_more_link_reptiles: Reptiles
-        learn_more_link_fish: Fishes
-        learn_more_link_worms: Worms
-        learn_more_link_invertebrates: Invertebrates
-        learn_more_link_crustaceans: Crustaceans
-        learn_more_link_mollusks: Mollusks
-        learn_more_link_insects: Insects
-        learn_more_link_spiders: Spiders
-        learn_more_link_plants: Plants
-        learn_more_link_flowering_plants: Flowering Plants
-        learn_more_link_trees: Trees
-        learn_more_link_fungi: Fungi
-        learn_more_link_mushrooms: Mushrooms
-        learn_more_link_molds: Molds
-        learn_more_link_bacteria: Bacteria
-        learn_more_link_protists: Protists
-        learn_more_link_archaea: Archaea
-        learn_more_link_viruses: Viruses
-        questions_link_biodiversity: What is biodiversity?
-        questions_link_species: What is a species?
-        questions_link_discovering_species: How are species discovered?
-        questions_link_naming_species: How are species named?
-        questions_link_binomial_nomenclature: What is binomial nomenclature?
-        questions_link_biological_classification: What is a biological classification?
-        questions_link_invasive_species: What is an invasive species?
-        questions_link_indicator_species: What is an indicator species?
-        questions_link_model_organism: What is a model organism?
-        questions_link_contributing_to_research: How can I contribute to research?
-      data_search:
-        page_header: "Search TraitBank"
-        page_header_results: "TraitBank Search Results"
-      taxa:
-        search_within_clade: "Search within clade"
-        search_traitbank: "Search TraitBank"
+    application:
+      header_about: About EOL
+      header_learn_more: Learn more about
+      header_questions: Tell me more
+      about_link_what_is_eol: What is EOL?
+      about_link_eol_blog: The EOL Blog
+      about_link_discover: Discover
+      about_link_statistics: Statistics
+      about_link_glossary: Glossary
+      about_link_podcasts: Podcasts
+      about_link_donate: Donate to EOL
+      about_link_citing: Citing EOL
+      about_link_help: Help
+      about_link_terms_of_use: Terms of Use
+      about_link_contact_us: Contact Us
+      learn_more_link_animals: Animals
+      learn_more_link_mammals: Mammals
+      learn_more_link_birds: Birds
+      learn_more_link_amphibians: Amphibians
+      learn_more_link_reptiles: Reptiles
+      learn_more_link_fish: Fishes
+      learn_more_link_worms: Worms
+      learn_more_link_invertebrates: Invertebrates
+      learn_more_link_crustaceans: Crustaceans
+      learn_more_link_mollusks: Mollusks
+      learn_more_link_insects: Insects
+      learn_more_link_spiders: Spiders
+      learn_more_link_plants: Plants
+      learn_more_link_flowering_plants: Flowering Plants
+      learn_more_link_trees: Trees
+      learn_more_link_fungi: Fungi
+      learn_more_link_mushrooms: Mushrooms
+      learn_more_link_molds: Molds
+      learn_more_link_bacteria: Bacteria
+      learn_more_link_protists: Protists
+      learn_more_link_archaea: Archaea
+      learn_more_link_viruses: Viruses
+      questions_link_biodiversity: What is biodiversity?
+      questions_link_species: What is a species?
+      questions_link_discovering_species: How are species discovered?
+      questions_link_naming_species: How are species named?
+      questions_link_binomial_nomenclature: What is binomial nomenclature?
+      questions_link_biological_classification: What is a biological classification?
+      questions_link_invasive_species: What is an invasive species?
+      questions_link_indicator_species: What is an indicator species?
+      questions_link_model_organism: What is a model organism?
+      questions_link_contributing_to_research: How can I contribute to research?
+    data_search:
+      page_header: "Search TraitBank"
+      page_header_results: "TraitBank Search Results"
+    taxa:
+      search_within_clade: "Search within clade"
+      search_traitbank: "Search TraitBank"
   members:
     index:
       meta_description: "Members of %{community_name}, an Encyclopedia of Life community."

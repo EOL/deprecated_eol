@@ -1,6 +1,6 @@
 class EolStatisticsController < ApplicationController
 
-  layout 'v2/basic'
+  layout 'basic'
 
   # GET /statistics
   def index

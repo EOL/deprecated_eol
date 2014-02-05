@@ -1,6 +1,6 @@
 class CommunitiesController < ApplicationController
 
-  layout 'v2/communities'
+  layout 'communities'
 
   before_filter :allow_login_then_submit, only: [:join]
   before_filter :load_community_and_dependent_vars, except: [:index, :new, :create, :choose, :make_editors]
@@ -27,7 +27,7 @@ class CommunitiesController < ApplicationController
 
   def new
     @page_title = I18n.t(:create_a_community)
-    render action: 'new', layout: 'v2/new_community'
+    render action: 'new', layout: 'new_community'
   end
 
   def edit
@@ -57,7 +57,7 @@ class CommunitiesController < ApplicationController
       redirect_to(community_newsfeed_path(@community), notice: notice, status: :moved_permanently)
     else
       flash.now[:error] = I18n.t(:create_community_unsuccessful_error)
-      render action: "new", layout: 'v2/new_community'
+      render action: "new", layout: 'new_community'
     end
   end
 
@@ -144,7 +144,7 @@ class CommunitiesController < ApplicationController
     @communities = current_user.members.managers.map {|m| m.community }.compact
     @page_title = I18n.t(:add_a_collection_to_a_community, collection: @collection.name)
     respond_to do |format|
-      format.html { render '_choose', layout: 'v2/collections' }
+      format.html { render '_choose', layout: 'collections' }
       format.js   { render partial: 'choose' }
     end
   end

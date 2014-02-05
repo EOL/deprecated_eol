@@ -1,6 +1,6 @@
 class UserAddedDataController < ApplicationController
 
-  layout 'v2/basic'
+  layout 'basic'
 
   before_filter :check_authentication, only: [ :create, :edit, :update, :destroy ]
   before_filter :restrict_to_admins_and_master_curators # NOTE - this restriction should be removed when we release this feature, of course.

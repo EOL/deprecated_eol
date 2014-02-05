@@ -1,6 +1,6 @@
 class ForumsController < ApplicationController
 
-  layout 'v2/forum'
+  layout 'forum'
   before_filter :must_be_allowed_to_view_forum
   before_filter :allow_login_then_submit, only: [ :create ]
   before_filter :restrict_to_admins, only: [ :create, :destroy, :move_up, :move_down ]

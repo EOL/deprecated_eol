@@ -1,6 +1,6 @@
 - # FIXME: Check this caching works, also we're caching the application version number, will cache expire on deploy?
 - cache(:controller => "/content", :part => "footer_#{current_language.iso_639_1}") do
-  - t_scope ||= [:layouts, :v2, :application]
+  - t_scope ||= [:layouts, :application]
   .section
     %h2.assistive= I18n.t(:site_information)
     .wrapper

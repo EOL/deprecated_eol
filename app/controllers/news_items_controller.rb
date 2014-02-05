@@ -1,6 +1,6 @@
 class NewsItemsController < ApplicationController
   
-  layout 'v2/basic'
+  layout 'basic'
   
   # GET /news_items
   def index

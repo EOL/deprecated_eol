@@ -15,7 +15,7 @@ class CollectionsController < ApplicationController
   before_filter :load_item, only: [:choose_editor_target, :choose_collect_target, :create]
   before_filter :restrict_to_admins, only: :reindex
 
-  layout 'v2/collections'
+  layout 'collections'
 
   def show
     # TODO - this line should be somewhere else:
@@ -170,7 +170,7 @@ class CollectionsController < ApplicationController
     raise EOL::Exceptions::NoCollectionsApply if @collections.blank?
     @page_title = I18n.t(:make_user_an_editor_title, user: @item.summary_name)
     respond_to do |format|
-      format.html { render 'choose_editor_target', layout: 'v2/users' }
+      format.html { render 'choose_editor_target', layout: 'users' }
       format.js   { render partial: 'choose_editor_target' }
     end
   end
@@ -184,7 +184,7 @@ class CollectionsController < ApplicationController
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|
       format.html do
-        render 'choose_collect_target', layout: 'v2/choose_collect_target'
+        render 'choose_collect_target', layout: 'choose_collect_target'
       end
       format.js { render partial: 'choose_collect_target' }
     end

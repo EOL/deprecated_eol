@@ -3,7 +3,7 @@ class Collections::InaturalistsController < CollectionsController
   skip_before_filter :user_able_to_edit_collection
   skip_before_filter :build_collection_items
 
-  layout 'v2/collections'
+  layout 'collections'
 
   def show
     @inaturalist_project_id = @collection.inaturalist_project_info['id']

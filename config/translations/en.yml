@@ -504,7 +504,7 @@ en:
               must_be_uri: "must be a well-formed <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>"
         location:
           attributes:
-            response:
+            result:
               invalid: "is invalid, taxa cannot be loaded at this time"
         open_authentications:
           guid_provider_must_be_unique: "the third-party account is already connected with an EOL account"
@@ -650,6 +650,7 @@ en:
         request_publish_more: "Indicates whether there is a pending request to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
       location:
         location: "Location"
+        location_more: "Enter an address, for example, <em>Woods Hole, MA, USA</em>. Or enter latitude and longitude in decimal degrees, for example, <em>41.5267, -70.6631</em>."
         latitude: "Latitude"
         longitude: "Longitude"
       news_item:

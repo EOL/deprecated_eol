@@ -15,11 +15,11 @@ if (!EOL) { var EOL = {}; }
       },
 
       add: function(options, indicator) {
-        indicator = (typeof indicator === 'undefined') ? '' : indicator
+        indicator = (typeof indicator === 'undefined') ? '' : indicator;
         EOL.Feedback.container.empty();
         $('<p/>', options).prepend(indicator).appendTo(EOL.Feedback.container);
       }
-    }
+    };
   }
 
   if (!EOL.Locations) {
@@ -40,7 +40,7 @@ if (!EOL) { var EOL = {}; }
 
     // A pseudo abstract class, not intended to be called directly
     EOL.Location = function() {
-      throw 'Pseudo abstract class, you must use subclass.'
+      throw 'Pseudo abstract class, you must use subclass.';
     };
 
     EOL.Location.prototype._create = function(settings) {
@@ -82,7 +82,7 @@ if (!EOL) { var EOL = {}; }
     );
 
     EOL.Location.prototype.loadScripts = function() {
-      for (i=0; i < this.scripts.length; ++i) {
+      for (var i=0; i < this.scripts.length; ++i) {
         $.getScript(this.scripts[i]);
       }
     };
@@ -94,7 +94,7 @@ if (!EOL) { var EOL = {}; }
              lat >= this.latMin &&
              lng <= this.lngMax &&
              lng >= this.lngMin;
-    }
+    };
 
     EOL.Location.prototype.filterTaxa = function() {
       var filters = {
@@ -103,7 +103,7 @@ if (!EOL) { var EOL = {}; }
       this.elements.filters.find('input[name="taxon_groups[]"]').each(function() {
         if (this.checked) {
           filters.groups.push($(this).val());
-        };
+        }
       });
 
       this.taxa.each(function() {
@@ -150,7 +150,7 @@ if (!EOL) { var EOL = {}; }
           });
         }
       });
-    }
+    };
 
     EOL.Location.prototype.clearResults = function() {
       this.elements.results.empty();
@@ -237,9 +237,10 @@ if (!EOL) { var EOL = {}; }
       this.clearResults();
       EOL.Feedback.clear();
       this.marker.setVisible(false);
-      var place = this.location.getPlace(),
-          lat   = null,
-          lng   = null;
+      var place   = this.location.getPlace(),
+          lat     = null,
+          lng     = null,
+          matches = null;
       if (typeof place.geometry !== 'undefined') {
         lat = place.geometry.location.lat();
         lng = place.geometry.location.lng();

@@ -81,6 +81,7 @@ gem 'ar-octopus', '0.4.0', :git => "git://github.com/pleary/octopus.git", :branc
 gem 'email_spec', '1.4.0' # For testing emails within RSpec.
 gem 'escape' # provides several HTML/URI/shell escaping functions - TODO - I don't think we need this?
 gem 'ezcrypto' # TODO - remove this, I don't think we use it.
+gem 'geocoder', '1.1.9' # Used by lives here feature for server side geocoding
 gem 'haml', '4.0.4' # This is how we handle ALL of our HTML, you need to learn this.
 gem 'ruby-hmac', '0.4.0' # Used ONLY for CyberSource donations. ...but I'm not sure how best to group this gem otherwise.
 gem 'identity_cache', '0.0.4' # Used to cache objects in a robust way.

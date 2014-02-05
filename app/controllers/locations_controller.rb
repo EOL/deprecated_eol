@@ -19,8 +19,7 @@ class LocationsController < ApplicationController
   # POST /locations
   # POST /locations.json
   def create
-    @location = Location.new(params[:location])
-    @location.load_taxa({ language_id: current_language.id })
+    @location = Location.new(params[:location].merge({ language_id: current_language.id }))
 
     respond_to do |format|
       if @location.valid?

@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-require File.dirname(__FILE__) + '/../scenario_helpers'
+require "spec_helper"
 
 describe 'Curating Associations' do
 

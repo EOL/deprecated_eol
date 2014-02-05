@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-require 'nokogiri'
+require "spec_helper"
 
 def add_language_to_name(name, language)
   name[:language_label] = language.label

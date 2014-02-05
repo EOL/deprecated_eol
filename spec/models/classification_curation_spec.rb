@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe ClassificationCuration do
 
@@ -18,103 +18,97 @@ describe ClassificationCuration do
                     hierarchy_entries: @hierarchy_entries }
   end
 
+  let(:pre_split) { ClassificationCuration.new(@split_args) }
+  let(:pre_merge) { ClassificationCuration.new(@merge_args) }
+  let(:pre_move)  { ClassificationCuration.new(@move_args) }
+  let(:split)     { ClassificationCuration.create(@split_args) }
+  let(:php_split) { ClassificationCuration.create(@split_args) }
+
   before(:each) do
     # Disable interfaces to other classes: we don't want any funny business...
     CodeBridge.stub(:split_entry)
     CodeBridge.stub(:merge_taxa)
     CodeBridge.stub(:move_entry)
     Resque.stub(:enqueue)
-    # simpler specs by creating these first:
-    @pre_split = ClassificationCuration.new(@split_args)
-    @pre_merge = ClassificationCuration.new(@merge_args)
-    @pre_move  = ClassificationCuration.new(@move_args)
-    @split = ClassificationCuration.create(@split_args)
-    @merge = ClassificationCuration.create(@merge_args)
-    @move  = ClassificationCuration.create(@move_args)
-    @php_split  = ClassificationCuration.create(@split_args)
-    @php_split.hierarchy_entry_moves.each { |move| move.update_attributes(completed_at: Time.now) }
-    @php_merged = ClassificationCuration.create(@merge_args.merge(source_id: @merged_source.id))
-    @merged_source.update_attributes(supercedure_id: @target.id) # Fakes a merge
-    @php_moved  = ClassificationCuration.create(@move_args)
-    @php_moved.hierarchy_entry_moves.each { |move| move.update_attributes(completed_at: Time.now) }
+    php_split.hierarchy_entry_moves.each { |move| move.update_attributes(completed_at: Time.now) }
   end
 
   it 'should call bridge after creation' do
-    @pre_split.should_receive(:bridge).and_return(nil)
-    @pre_split.save
+    pre_split.should_receive(:bridge).and_return(nil)
+    pre_split.save
   end
 
   it 'should know when it is a split' do
-    @pre_split.split?.should be_true
+    pre_split.split?.should be_true
   end
 
   it 'should know when it is a move' do
-    @pre_move.move?.should be_true
+    pre_move.move?.should be_true
   end
 
   it 'should know when it is a merge' do
-    @pre_merge.merge?.should be_true
+    pre_merge.merge?.should be_true
   end
 
   it '#split should split all hierarchy entries from source taxon concept through CodeBridge' do
     # Typically, you call ClassificationCuration by passing in an array of hierarchy_entries. We fake that:
-    @pre_split.stub(:hierarchy_entries).and_return(@hierarchy_entries)
+    pre_split.stub(:hierarchy_entries).and_return(@hierarchy_entries)
     CodeBridge.should_receive(:split_entry).exactly(@hierarchy_entries.length).times.and_return(nil)
     CodeBridge.should_not_receive(:merge_taxa)
     CodeBridge.should_not_receive(:move_entry)
-    @pre_split.save
+    pre_split.save
   end
 
   it '#merge should merge both taxa (source and target) through CodeBridge' do
     # Typically, you call ClassificationCuration by passing in an array of hierarchy_entries. We fake that:
-    @pre_merge.stub(:hierarchy_entries).and_return(@hierarchy_entries)
+    pre_merge.stub(:hierarchy_entries).and_return(@hierarchy_entries)
     CodeBridge.should_not_receive(:split_entry)
     CodeBridge.should_receive(:merge_taxa).once.and_return(nil)
     CodeBridge.should_not_receive(:move_entry)
-    @pre_merge.save
+    pre_merge.save
   end
 
   it '#move should move all hierarchy entries from source taxon concept through CodeBridge' do
     # Typically, you call ClassificationCuration by passing in an array of hierarchy_entries. We fake that:
-    @pre_move.stub(:hierarchy_entries).and_return(@hierarchy_entries)
+    pre_move.stub(:hierarchy_entries).and_return(@hierarchy_entries)
     CodeBridge.should_not_receive(:split_entry)
     CodeBridge.should_not_receive(:merge_taxa)
     CodeBridge.should_receive(:move_entry).exactly(@hierarchy_entries.length).times.and_return(nil)
-    @pre_move.save
+    pre_move.save
   end
 
   it '#check_status_and_notify should reindex taxa and log completion' do
-    @php_split.should_receive(:reindex_taxa).and_return(nil)
-    @php_split.should_receive(:log_completion).and_return(nil)
-    @php_split.check_status_and_notify
+    php_split.should_receive(:reindex_taxa).and_return(nil)
+    php_split.should_receive(:log_completion).and_return(nil)
+    php_split.check_status_and_notify
   end
 
   it '#check_status_and_notify should NOT reindex taxa and log completion if not ready' do
-    @split.should_not_receive(:reindex_taxa)
-    @split.should_not_receive(:log_completion)
-    @split.check_status_and_notify
+    split.should_not_receive(:reindex_taxa)
+    split.should_not_receive(:log_completion)
+    split.check_status_and_notify
   end
 
   it '#check_status_and_notify should reindex taxa and log completion ONCE' do
-    @php_split.check_status_and_notify
-    @php_split.should_not_receive(:reindex_taxa)
-    @php_split.should_not_receive(:log_completion)
-    @php_split.check_status_and_notify
+    php_split.check_status_and_notify
+    php_split.should_not_receive(:reindex_taxa)
+    php_split.should_not_receive(:log_completion)
+    php_split.check_status_and_notify
   end
 
   it '#check_status_and_notify should log errors if there were any' do
-    @php_split.hierarchy_entry_moves.second.update_attributes(error: "Something horrible")
-    @php_split.check_status_and_notify
+    php_split.hierarchy_entry_moves.second.update_attributes(error: "Something horrible")
+    php_split.check_status_and_notify
     @source.comments.select {|c| c.body =~ /Something horrible/}.should_not be_empty
   end
 
   it 'should know where a split ended up' do
     move = double(HierarchyEntryMove)
-    @split.should_receive(:hierarchy_entry_moves).and_return([move])
+    split.should_receive(:hierarchy_entry_moves).and_return([move])
     entry = double(HierarchyEntry)
     move.should_receive(:hierarchy_entry).and_return(entry)
     entry.should_receive(:taxon_concept).and_return(:this)
-    @split.split_to.should == :this
+    split.split_to.should == :this
   end
 
   # TODO - I lost momentum, here. Thoughts:

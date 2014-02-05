@@ -1,8 +1,7 @@
-require Rails.root.join('spec', 'eol_spec_helpers')
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::RSpec::Helpers
+include EOL::Builders
 
 # Add some comments for testing re-harvesting preserves such things:
 def add_comments_to_reharvested_data_objects(tc)
@@ -57,11 +56,4 @@ def add_comments_to_reharvested_data_objects(tc)
   new_image_dato.comment(user, 'lovely comment added after re-harvesting to the image')
   invis_image = new_image_dato.comment(user, 'even wittier invisible comments on image after the harvest was redone.')
   invis_image.hide user
-end
-
-def create_curator
-  curator = User.gen(:username => 'curator_for_tc', :password => 'password', :credentials => 'Curator', :curator_scope => 'very scoped')
-  curator.grant_curator
-  curator.save!
-  return curator
 end

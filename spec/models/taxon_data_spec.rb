@@ -1,5 +1,5 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe TaxonData do
 
@@ -18,10 +18,8 @@ describe TaxonData do
     @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
   end
 
-  before(:each) do
-    @mock_row = { data_point_uri: @data_point_uri.uri }
-    @taxon_data = TaxonData.new(@taxon_concept, @user)
-  end
+  let(:mock_row) { { data_point_uri: @data_point_uri.uri } }
+  let(:taxon_data) { TaxonData.new(@taxon_concept, @user) }
 
   it 'should NOT run any queries on blank search' do
     EOL::Sparql.connection.should_not_receive(:query)
@@ -37,8 +35,8 @@ describe TaxonData do
   end
 
   it '#get_data should get data from #raw_data' do
-    @taxon_data.should_receive(:raw_data).and_return([])
-    @taxon_data.get_data
+    taxon_data.should_receive(:raw_data).and_return([])
+    taxon_data.get_data
   end
 
   it '#is_clade_searchable? should know if clade is searchable'
@@ -46,25 +44,25 @@ describe TaxonData do
   it 'should populate sources from resources' do
     resource_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, resource_id: @resource.id,
       uri: 'http://resource_data/', user_added_data_id: nil)
-    @mock_row[:data_point_uri] = resource_data_point_uri.uri
-    @mock_row[:graph] = "http://eol.org/resources/#{@resource.id}"
-    @taxon_data.should_receive(:raw_data).and_return([@mock_row])
-    taxon_data_set = @taxon_data.get_data
+    mock_row[:data_point_uri] = resource_data_point_uri.uri
+    mock_row[:graph] = "http://eol.org/resources/#{@resource.id}"
+    taxon_data.should_receive(:raw_data).and_return([mock_row])
+    taxon_data_set = taxon_data.get_data
     taxon_data_set.first.source.should == @resource.content_partner
   end
 
   it 'should populate sources from user_added_data' do
     user_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, user_added_data_id: @user_added_data.id,
       uri: @user_added_data.uri, resource_id: nil)
-    @mock_row[:data_point_uri] = user_data_point_uri.uri
-    @taxon_data.should_receive(:raw_data).and_return([@mock_row])
-    taxon_data_set = @taxon_data.get_data
+    mock_row[:data_point_uri] = user_data_point_uri.uri
+    taxon_data.should_receive(:raw_data).and_return([mock_row])
+    taxon_data_set = taxon_data.get_data
     taxon_data_set.first.source.should == @user_added_data.user
   end
 
   it 'should add known uris to the rows' do
     KnownUri.should_receive(:add_to_data)
-    @taxon_data.get_data
+    taxon_data.get_data
   end
 
   it 'should preload known_uris'
@@ -72,15 +70,15 @@ describe TaxonData do
   it 'should populate categories on #get_data'
 
   it '#get_data_for_overview should use TaxonDataExemplarPicker' do
-    picker = TaxonDataExemplarPicker.new(@taxon_data) # Note this is before we add #should_receive.
-    TaxonDataExemplarPicker.should_receive(:new).with(@taxon_data).and_return(picker)
+    picker = TaxonDataExemplarPicker.new(taxon_data) # Note this is before we add #should_receive.
+    TaxonDataExemplarPicker.should_receive(:new).with(taxon_data).and_return(picker)
     picker.should_receive(:pick).and_return('back here')
-    @taxon_data.get_data_for_overview.should == 'back here'
+    taxon_data.get_data_for_overview.should == 'back here'
   end
 
   it 'should call #get_data if categories are not set' do
-    @taxon_data.should_receive(:get_data).and_return(1)
-    @taxon_data.categories
+    taxon_data.should_receive(:get_data).and_return(1)
+    taxon_data.categories
   end
 
 end

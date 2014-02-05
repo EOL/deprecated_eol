@@ -39,7 +39,7 @@ class TaxonConceptCacheClearing
   # NOTE - this can take a long time if there are many media!
   def self.clear_media(taxon_concept)
     # NOTE - needs to pass in a curator (any type will do); nothing is logged as being from that user, so this is okay:
-    media = TaxonMedia.new(taxon_concept, User.curator.first, per_page: 1000).each do |dato|
+    media = TaxonMedia.new(taxon_concept, User.curators.first, per_page: 1000).each do |dato|
       DataObject.find(dato).update_solr_index # Find needed because it doesn't have all attributes otherwise.
     end
   end

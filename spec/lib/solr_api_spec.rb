@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def test_xml(xml, node, data)
   result = xml.xpath("/add/doc/field[@name='#{node}']").map {|n| n.content }

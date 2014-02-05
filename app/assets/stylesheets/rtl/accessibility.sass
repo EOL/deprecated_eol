@@ -142,7 +142,7 @@ form
           font-weight: normal
   label, span
     &.errors
-      color: #e84226
+      color: $negative_red
   span
     &.errors
       font-weight: normal
@@ -592,7 +592,7 @@ p.flag, span.flag
     border-color: #f2d2cc
     background: #ffeae6
     a
-      color: #E84226
+      color: $negative_red
 
 /** Hierarchy Entry classification browser does not have styles from HR
   * HR assumes a list of classifications, where each top level list item is the container
@@ -1032,7 +1032,7 @@ a.other_actions
         margin: 0 0 0 10px
       .collection_name_error
         display: none
-        color: #e84226
+        color: $negative_red
   input[type="submit"]
     padding-right: 20px
     padding-left: 20px
@@ -1225,7 +1225,7 @@ input[type="password"]
       &.new_collection
         .collection_name_error
           display: none
-          color: #e84226
+          color: $negative_red
 #please_wait
   display: none
 table.classifications
@@ -1972,7 +1972,7 @@ ul.object_list, ul.ui-autocomplete
     border-top: 1px solid #394651
     padding-top: 12px
     margin: 0
-  li
+  > li
     padding: 10px
     overflow: hidden
     line-height: 160%
@@ -2011,7 +2011,23 @@ ul.object_list, ul.ui-autocomplete
       .alternate_name
         .label
           font-weight: bold
-
+#background_processes
+  ul.object_list
+    h4
+      margin-top: 5px
+      .message
+        display: inline-block
+        font-size: .8em
+        &:before
+          content: "\2022\0000a0"
+    li.pending
+      background: $fieldset_light_blue
+    p.meta
+      clear: none
+    ul.actions
+      li
+        a
+          padding: 0px
 ul.ui-autocomplete
   li.taxon.ui-menu-item
     font-size: .8em

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 describe EolStatistic do
   before(:all) do
     @first = EolStatistic.gen(created_at: Time.now - 1.month)

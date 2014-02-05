@@ -8,10 +8,10 @@
 #
 #---
 
-require Rails.root.join('spec', 'eol_spec_helpers')
 require Rails.root.join('spec', 'scenario_helpers')
 # This gives us the ability to build taxon concepts:
-include EOL::RSpec::Helpers
+include EOL::Builders
+include ScenarioHelpers # Allows us to load other scenarios
 
 def build_big_tc(testy)
   build_taxon_concept(

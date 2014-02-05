@@ -4,7 +4,7 @@ module EOL
 
     attr_reader :tc
 
-    include EOL::RSpec::Helpers
+    include EOL::Builders # Allows us to build data objects, users, and the like...
 
     # == Options:
     #

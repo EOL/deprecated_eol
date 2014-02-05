@@ -41,9 +41,9 @@ class DataSearchController < ApplicationController
     end
     prepare_search_parameters(search_params)
     df = create_data_search_file
-    flash[:notice] = I18n.t(:file_download_pending, link: user_saved_searches_path(current_user.id))
+    flash[:notice] = I18n.t(:file_download_pending, link: user_data_downloads_path(current_user.id))
     Resque.enqueue(DataFileMaker, data_file_id: df.id)
-    redirect_to user_saved_searches_path(current_user.id)
+    redirect_to user_data_downloads_path(current_user.id)
   end
 
   private

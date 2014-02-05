@@ -274,7 +274,7 @@ p.status
     border-color: #f2d2cc
     background: #ffeae6
     strong
-      color: #e84226
+      color: $negative_red
 
 .copy
   h2
@@ -419,31 +419,6 @@ table.standard
     blockquote, p
       line-height: 140%
       padding: 0 0 8px 0
-      &.meta
-        font-size: .75em
-        font-weight: bold
-        text-transform: uppercase
-        color: #62707d
-        padding: 0
-    ul.actions
-      li
-        display: inline
-        font-size: .9em
-        font-weight: bold
-        text-transform: lowercase
-        a
-          display: inline-block
-          padding: 5px 0
-          margin: 0 5px 0 0
-        form
-          margin: 0
-          padding: 0
-          display: inline
-          input[type="submit"]
-            +button_styled_as_hyperlink
-            font-weight: bold
-            padding: 5px 0
-            margin: 0 5px 0 0
     li
       form
         &.edit_comment
@@ -456,6 +431,36 @@ table.standard
             width: 430px
             height: 60px
             +textarea
+.article.updates, ul.object_list
+  blockquote, p
+    &.meta
+      font-size: .75em
+      font-weight: bold
+      text-transform: uppercase
+      color: #62707d
+      padding: 0
+      span.expired
+        display: inline-block
+        color: #B40404
+  ul.actions
+    li
+      display: inline
+      font-size: .9em
+      font-weight: bold
+      text-transform: lowercase
+      a
+        display: inline-block
+        padding: 5px 0
+        margin: 0 5px 0 0
+      form
+        margin: 0
+        padding: 0
+        display: inline
+        input[type="submit"]
+          +button_styled_as_hyperlink
+          font-weight: bold
+          padding: 5px 0
+          margin: 0 5px 0 0
 
 .empty, .copy .empty, .explain
   padding: 15px 15px 10px 15px
@@ -1278,15 +1283,6 @@ body
         a
           color: #27282B
           +underline-on-hover
-#profile_saved_searches
-  padding: 40px
-  .site_column
-    display: table-cell
-  table.standard
-    tr
-      &.pending
-        color: #aaa
-        background-color: #f8f8f8
 
 #content_partner
   padding: 40px

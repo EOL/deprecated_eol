@@ -54,7 +54,7 @@ class ContentPartnersController < ApplicationController
     @partner = ContentPartner.new(params[:content_partner])
     access_denied unless current_user.can_create?(@partner)
     if @partner.save
-      upload_logo(@partner) unless params[:content_partner][:logo].blank?
+      upload_logo(request.ip, @partner) unless params[:content_partner][:logo].blank?
       Notifier.content_partner_created(@partner, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
       redirect_to content_partner_resources_path(@partner), status: :moved_permanently
@@ -85,7 +85,7 @@ class ContentPartnersController < ApplicationController
     access_denied unless current_user.can_update?(@partner)
     if @partner.update_attributes(params[:content_partner])
       EOL::GlobalStatistics.clear('content_partners') # Needs to be re-calculated.
-      upload_logo(@partner) unless params[:content_partner][:logo].blank?
+      upload_logo(request.ip, @partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_update_successful_notice)
       redirect_to @partner, status: :moved_permanently
     else

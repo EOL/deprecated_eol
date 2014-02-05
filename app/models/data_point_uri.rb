@@ -428,7 +428,7 @@ class DataPointUri < ActiveRecord::Base
       hash[I18n.t(:data_column_resource)] =
         # Ewww. TODO - as I say at the start of the method, this really belongs in a view:
         Rails.application.routes.url_helpers.content_partner_resource_url(resource.content_partner, resource,
-                                                                          host: $SITE_DOMAIN_OR_IP)
+                                                                          host: EOL::Server.domain)
     end
     metadata = get_metadata(language)
     unless metadata.empty?

@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 # make sure our scenarios work!  we want the spec suite to fail
 # if any of these scenarios don't work properly.  these are critical

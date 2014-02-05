@@ -17,6 +17,7 @@
 # Author: Raoli
 # Author: Ribez
 # Author: Rippitippi
+# Author: Rosh
 # Author: Semiramide
 # Author: Viscontino
 # Author: Ximo17
@@ -286,7 +287,7 @@ it:
         username: Nome utente
       user_added_data: 
         object: Valore
-        predicate: Attributo
+        predicate: Tratto
       user_added_data_metadata: 
         object: Valore
         predicate: Attributo

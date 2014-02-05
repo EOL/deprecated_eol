@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-require Rails.root.join('spec', 'eol_spec_helpers.rb')
-include EOL::RSpec::Helpers
+include EOL::Builders
 
 load_scenario_with_caching(:bootstrap)
 

@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-require File.dirname(__FILE__) + '/../scenario_helpers'
+require "spec_helper"
 
 describe DataObject do
 
@@ -129,7 +128,7 @@ describe DataObject do
    new_image_dato.data_rating.should eql(2.0)
  end
 
- it 'ratings should verify uniqueness of pair guid/user in users_data_objects_ratings' do
+ it 'verifies unique guids per user' do
    UsersDataObjectsRating.delete_all
    d = DataObject.gen
    u = User.gen

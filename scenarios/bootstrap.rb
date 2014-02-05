@@ -18,12 +18,12 @@ $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
 # this scenario
 $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS = true
 
-require Rails.root.join('spec', 'eol_spec_helpers.rb')
 require Rails.root.join('spec', 'scenario_helpers.rb')
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::RSpec::Helpers
+include EOL::Builders
+include ScenarioHelpers # Allows us to load other scenarios
 
 load_foundation_cache
 

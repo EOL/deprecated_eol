@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 def make_and_convert(options)
   d = DataPointUri.new(options)
@@ -9,6 +9,14 @@ end
 describe DataPointUri do
   before(:all) do
     load_foundation_cache
+    # These don't cut it. Sigh. Some data from foundation really IS needed, but shouldn't be.
+    # Language.create_english
+    # Vetted.create_enumerated
+    # Visibility.create_enumerated
+    # ContentPartnerStatus.create_enumerated
+    # License.create_enumerated
+    # UriType.create_enumerated
+    # KnownUri.create_enumerated
   end
 
   it 'should hide/show user_added_data when hidden/show' do
@@ -27,7 +35,7 @@ describe DataPointUri do
   end
 
   it 'should sort exemplars first' do
-    uris = FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1)
+    uris = DataPointUri.skip_url_validations { FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1) }
     last = uris.last
     expect(uris.sort.first).to_not eq(last)
     last.taxon_data_exemplars << TaxonDataExemplar.new(data_point_uri: last, exclude: false, taxon_concept_id: 1)
@@ -35,7 +43,7 @@ describe DataPointUri do
   end
 
   it 'should sort excluded last' do
-    uris = FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1)
+    uris = DataPointUri.skip_url_validations { FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1) }
     first = uris.first
     expect(uris.sort.last).to_not eq(first)
     first.taxon_data_exemplars << TaxonDataExemplar.new(data_point_uri: first, exclude: true, taxon_concept_id: 1)

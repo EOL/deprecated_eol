@@ -1,7 +1,7 @@
 = I18n.t(:greeting_dear_name_with_comma, :name => @content_partner_contact.full_name, :scope => :notifier)
 :plain
 = t('.message', :partner_full_name => @content_partner.full_name,
-  :partner_statistics_url => content_partner_statistics_url(@content_partner, :host => $SITE_DOMAIN_OR_IP),
+  :partner_statistics_url => content_partner_statistics_url(@content_partner, :host => EOL::Server.domain),
   :month => @month, :year => @year)
 :plain
 = I18n.t(:signature_with_species_pages_group_contact, :species_pages_group_email => $SPECIES_PAGES_GROUP_EMAIL_ADDRESS,

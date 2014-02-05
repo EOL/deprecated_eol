@@ -1,5 +1,8 @@
 # encoding: utf-8
 # sets up a basic foundation - enough data to run the application, but no content
+include TruncateHelpers
+include VirtuosoHelpers
+
 truncate_all_tables(skip_empty_tables: false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
 drop_all_virtuoso_graphs
 
@@ -149,6 +152,7 @@ RefIdentifierType.gen_if_not_exists(label: 'doi')
 iucn_hierarchy = Hierarchy.gen_if_not_exists(label: 'IUCN')
 iucn_resource = Resource.gen_if_not_exists(title: 'Initial IUCN Import', hierarchy: iucn_hierarchy, content_partner: iucn_content_parter, acesspoint_url: "http://eol.org/api/ping.xml")
 iucn_agent = Agent.iucn
+
 raise "IUCN is nil" if iucn_agent.nil?
 raise "IUCN Resource is nil" if iucn_resource.nil?
 
@@ -263,6 +267,7 @@ def create_known_uri(params)
   instance
 end
 
+# PLEASE DON'T MODIFY THIS BLOCK.  I eventually want to replace it with KnownUri.create_enumerated.
 default_known_uris =
     [ { parent: { uri: Rails.configuration.uri_measurement_unit, name: 'Unit of Measure', uri_type_id: UriType.metadata.id },
         values: [ { uri: 'http://purl.obolibrary.org/obo/UO_0000022', name: 'milligrams' },

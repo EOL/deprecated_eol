@@ -4,7 +4,7 @@ if(!EOL.MediaCenter) { EOL.MediaCenter = {}; }
 EOL.MediaCenter.image_hash = {};
 
 EOL.MediaCenter.update_thumbnail_icons = function(element) {
-  var data_object_id = element.readAttribute('data-data_object_id');
+  var data_object_id = element.readAttribute('data-data-object-id');
   var image = EOL.MediaCenter.image_hash[data_object_id];
 
   $$('a#thumbnail_'+data_object_id+' .inappropriate_icon')[0].hide();

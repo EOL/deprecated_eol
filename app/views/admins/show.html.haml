@@ -4,7 +4,7 @@
     %p= raw(I18n.t(:admin_information))
   .actions
     %p.data
-      = check_box_tag('eol_config', 'all_users_can_see_data', (EolConfig.all_users_can_see_data rescue false), 'data-href' => change_eol_configs_path(parameter: 'all_users_can_see_data'))
+      = check_box_tag('eol_config', 'all_users_can_see_data', (EolConfig.all_users_can_see_data rescue false), data: { href: change_eol_configs_path(parameter: 'all_users_can_see_data') })
       = I18n.t(:admin_option_all_users_can_see_data)
   %p
     %br

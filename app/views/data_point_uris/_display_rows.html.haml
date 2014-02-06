@@ -14,7 +14,7 @@
 - taxon_link = taxon_data_path(taxon_concept)
 - colspan = 4
 - colspan = 5 if for_search
-%tr{ id: data_point_uri.anchor, class: (classes + ['data']).join(' '), 'data-type' => type_index.nil? ? nil : "type_#{type_index}" }
+%tr{ id: data_point_uri.anchor, class: (classes + ['data']).join(' '), data: { type: type_index.nil? ? nil : "type_#{type_index}" } }
   -# search results get the taxon image and taxon name
   - if for_search
     %td.taxon

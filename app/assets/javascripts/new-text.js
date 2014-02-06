@@ -79,7 +79,7 @@ if (!EOL.Text.already_loaded) {
 
     // In several cases, we need to know which data object we're currently editing/adding:
     data_object_id: function() {
-      return EOL.Text.form().data('data_object_id');
+      return EOL.Text.form().data('data-object-id');
     },
 
     // For when the user wants to submit added/edited text.

@@ -12,7 +12,7 @@
         - TocItem.used_by_known_uris.each_slice(6) do |chapter_set|
           %ul.chapters
             - chapter_set.each do |toc_item|
-              %li{ 'data-toc-id' => toc_item.id }
+              %li{ data: { 'toc-id' => toc_item.id } }
                 %input{ type: 'checkbox', name: 'toc_id[]', value: toc_item.id }
                 %label= link_to toc_item.label, data_glossary_url(toc_id: toc_item.id)
         %p.explain= I18n.t(:data_glossary_contribute, url: cms_page_url('contribute', anchor: 'data')).html_safe

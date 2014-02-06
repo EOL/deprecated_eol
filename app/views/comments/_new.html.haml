@@ -27,6 +27,6 @@
       = f.text_area :body, :rows => rows, :cols => cols
       -# TODO: uncomment this when it gets the go ahead %p= f.allowed_html_help_tip
   %fieldset.actions
-    = submit_tag(I18n.t(:post_comment), :'data-reply' => I18n.t(:leave_reply), :'data-cancel' => I18n.t(:cancel))
+    = submit_tag(I18n.t(:post_comment), data: { reply: I18n.t(:leave_reply), cancel: I18n.t(:cancel) })
     - if local_assigns.has_key?(:cancel) && cancel
       = link_to I18n.t(:cancel), current_url, :class => 'cancel'

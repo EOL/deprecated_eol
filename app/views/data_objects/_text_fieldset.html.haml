@@ -25,7 +25,7 @@
         = label_tag 'data_object[source_url]', I18n.t("helpers.label.data_object_link.source_url")
       %dd.link_object
         = f.text_field :source_url
-        %span.errors{ "data-pending_message" => I18n.t(:looking_up_url) }
+        %span.errors{ data: { pending_message: I18n.t(:looking_up_url) } }
     %dt
       = f.label :object_title
     %dd

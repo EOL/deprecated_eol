@@ -2,7 +2,7 @@ if(!EOL) { EOL = {}; }
 if(!EOL.Curation) { EOL.Curation = {}; }
 
 EOL.Curation.form_is_valid = function(form) {
-  var untrusted_option_checked  = $('#' + form.data('data_object_id') + '_vetted_id_' + EOL.Curation.UNTRUSTED_ID).is(':checked');   
+  var untrusted_option_checked  = $('#' + form.data('data-object-id') + '_vetted_id_' + EOL.Curation.UNTRUSTED_ID).is(':checked');   
   var comment_empty             = form.find('.curation-comment-box').val() === "";
   var untrust_reasons_unchecked = form.find('.untrust_reason:checked').siblings().map(function(){return this.innerHTML;}).get() === ''; 
   return untrusted_option_checked ? !(comment_empty && untrust_reasons_unchecked) : true; 
@@ -10,13 +10,13 @@ EOL.Curation.form_is_valid = function(form) {
 
 // Invisible icons on text:
 EOL.Curation.update_icons = function(data_object_id, visibility_id) {
-  $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').hide();
-  $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').hide();
+  $('ul[data-data-object-id='+data_object_id+'] li.invisible_icon').hide();
+  $('ul[data-data-object-id='+data_object_id+'] li.inappropriate_icon').hide();
   // NOTE: show() doesn't work for image thumbnails, because the diplay ends up with the wrong value.
   if(visibility_id == EOL.Curation.INVISIBLE_ID) {
-    $('ul[data-data_object_id='+data_object_id+'] li.invisible_icon').css({display: 'inline-block'});
+    $('ul[data-data-object-id='+data_object_id+'] li.invisible_icon').css({display: 'inline-block'});
   } else if(visibility_id == EOL.Curation.INAPPROPRIATE_ID) {
-    $('ul[data-data_object_id='+data_object_id+'] li.inappropriate_icon').css({display: 'inline-block'});
+    $('ul[data-data-object-id='+data_object_id+'] li.inappropriate_icon').css({display: 'inline-block'});
   }
 };
 // Update the image(s) now that it's been curated:

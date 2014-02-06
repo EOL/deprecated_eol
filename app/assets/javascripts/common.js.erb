@@ -175,7 +175,7 @@ $(function() {
           data: data,
           dataType: 'json',
           beforeSend: function(xhr) {
-            $(".link_object span.errors").text($(".link_object span.errors").data('pending_message'));
+            $(".link_object span.errors").text($(".link_object span.errors").data('pending-message'));
           },
           success: function(data) {
             if(data.exception === true) {
@@ -368,8 +368,8 @@ $(function() {
               opts.addSlide('<a href="'+ image_data.taxon_page_path + '"><img src="' +
                 image_data.image_url +
                 '" alt="' + alt_text +
-                '" data-scientific_name="' + scientific_name +
-                '" data-common_name="' + common_name +
+                '" data-scientific-name="' + scientific_name +
+                '" data-common-name="' + common_name +
                 '" width="130" height="130"/></a>');
               // since we had to add a slide we need to change the index of the next slide
               opts.nextSlide = opts.currSlide + 1;
@@ -402,12 +402,12 @@ $(function() {
         right_pos = right_pos - 15;
       }
       var line_height = 'inherit';
-      if(img.data("common_name") === null || img.data("common_name") === '') {
+      if(img.data("common-name") === null || img.data("common-name") === '') {
         line_height = $thumbs.find(".term .site_column").css("height");
       }
-      var name_html = '<span class="scientific">' + img.data("scientific_name") + '</span>';
-      if(img.data("common_name") !== null && img.data("common_name") !== '') {
-        name_html += '<span class="common">' + img.data("common_name") + '</span>';
+      var name_html = '<span class="scientific">' + img.data("scientific-name") + '</span>';
+      if(img.data("common-name") !== null && img.data("common-name") !== '') {
+        name_html += '<span class="common">' + img.data("common-name") + '</span>';
       }
       term_p.css({
         textAlign: 'center'

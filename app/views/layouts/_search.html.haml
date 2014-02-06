@@ -5,6 +5,7 @@
   %fieldset
     %label.assistive{ for: :q }= I18n.t(:search_field_label)
     .text
+      -# TODO - what is data-include-site_search for?  I don't see it referenced anywhere. Can we remove it?
       = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
         placeholder: I18n.t(:search_placeholder),
         'data-include-site_search' => 'form#simple_search',

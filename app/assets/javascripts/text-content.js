@@ -83,7 +83,7 @@ $.extend(EOL.Text, {
     // slide in text comments
     $('div.text_buttons div.comment_button a').unbind('click');
     $('div.text_buttons div.comment_button a').on('click', function(e) {
-      data_object_id = $(this).data('data_object_id');
+      data_object_id = $(this).data('data-object-id');
       textCommentsDiv = "text-comments-wrapper-" + data_object_id;
       textCommentsWrapper = "#" + textCommentsDiv;
       $.ajax({
@@ -98,7 +98,7 @@ $.extend(EOL.Text, {
     // Curate text:
     $('div.text_buttons div.curate_button a').unbind('click');
     $('div.text_buttons div.curate_button a').on('click', function(e) {
-      data_object_id = $(this).data('data_object_id');
+      data_object_id = $(this).data('data-object-id');
       textCuration = "text-curation-" + data_object_id;
       textCurationWrapper = "#text-curation-wrapper-" + data_object_id;
       $.ajax({

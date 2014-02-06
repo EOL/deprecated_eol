@@ -36,7 +36,7 @@
             - elsif item.is_a?(CuratorActivityLog) && item.is_for_type?(:data_point_uri)
             - elsif item.user && item.respond_to?(:link_to) && item.link_to
               %ul.actions
-                %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+                %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", data: { 'reply-to' => item.user.full_name, 'reply-to-type' => item.class.name, 'reply-to-id' => item.id })
   - unless hide_pagination
     = will_paginate log, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 2, :outer_window => 2

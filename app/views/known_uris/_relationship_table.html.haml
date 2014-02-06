@@ -1,8 +1,8 @@
-- relationships = [] unless defined?(relationships)
-- relationship_type = '' unless defined?(relationship_type)
-- label = '' unless defined?(label)
-- if defined?(known_uri) && ! relationships.empty?
-  %label= label
+- relationships = [] unless local_assigns.has_key?(:relationships)
+- relationship_type = '' unless local_assigns.has_key?(:relationship_type)
+- rel_label = '' unless local_assigns.has_key?(:rel_label)
+- if local_assigns.has_key?(:known_uri) && ! relationships.empty?
+  %label= rel_label
   %table.relations
     - relationships.each do |relationship|
       - from_uri = relationship.from_known_uri

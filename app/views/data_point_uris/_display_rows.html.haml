@@ -4,7 +4,7 @@
 - excluded = false if excluded.nil?
 - row_is_selected = false unless row_is_selected == true
 - for_search = false unless for_search == true
-- if defined? header_id
+- if local_assigns.has_key?(:header_id)
   - first_of_type = header_id
 - else
   - header_id = nil

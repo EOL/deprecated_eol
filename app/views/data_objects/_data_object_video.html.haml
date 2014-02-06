@@ -1,7 +1,7 @@
 - data_object ||= @data_object
 - taxon_concept ||= @taxon_concept
 - size ||= '260_190'
-- if defined?(thumbnail) && thumbnail
+- if local_assigns.has_key?(:thumbnail) && thumbnail
   - if data_object.has_thumbnail?
     - alt ||= alternative_text(data_object, "video", taxon_concept)
     %a{ :data => { :data_object_id => data_object.id }, :href => data_object_path(data_object) }

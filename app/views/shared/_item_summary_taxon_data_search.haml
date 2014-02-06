@@ -2,7 +2,7 @@
   - taxon_concept = data_point_uri.taxon_concept
   - taxon_link = taxon_data_path(taxon_concept)
   - view_style ||= 'default'
-  - search_result = nil unless defined?(search_result)
+  - search_result = nil unless local_assigns.has_key?(:search_result)
   - if image = taxon_concept.exemplar_or_best_image_from_solr
     - if thumb = image.thumb_or_object('88_88')
       %span.icon

@@ -23,7 +23,7 @@
           %tr
             %td{class: name.preferred ? 'preferred' : nil,
               title: name.preferred ? I18n.t(:name_preferred_for_language_yes) : nil}
-              = (defined?(language) && language == 'English') ? raw(name.name_string.capitalize_all_words) : raw(name.name_string)
+              = (local_assigns.has_key?(:language) && language == 'English') ? raw(name.name_string.capitalize_all_words) : raw(name.name_string)
             %td
               = raw(common_name_display_attribution(name))
             %td

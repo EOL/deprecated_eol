@@ -5,7 +5,7 @@
 -# text-heavy collections and search results.  That said, there is one caveat:
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
 - view_style ||= 'default'
-- search_result = nil unless defined?(search_result)
+- search_result = nil unless local_assigns.has_key?(:search_result)
 - path = data_object_path(item)
 - cache "article/summary/#{view_style}/#{I18n.locale}/#{item.id}" do
   - unless view_style == 'list'

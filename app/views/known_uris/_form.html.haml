@@ -55,11 +55,11 @@
           = I18n.t(:yes_answer)
 - unless known_uri.new_record?
   .fieldset_form
-    = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.equivalence_relationships, label: I18n.t('known_uris.equivalent_to'), relationship_type: :equivalence }
+    = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.equivalence_relationships, rel_label: I18n.t('known_uris.equivalent_to'), relationship_type: :equivalence }
     - unless known_uri.non_equivalence_as_target.empty?
-      = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.non_equivalence_as_target, label: I18n.t('known_uris.relationships_to_this_uri') }
+      = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.non_equivalence_as_target, rel_label: I18n.t('known_uris.relationships_to_this_uri') }
     - unless known_uri.non_equivalence_as_subject.empty?
-      = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.non_equivalence_as_subject, label: I18n.t('known_uris.relationships_from_this_uri') }
+      = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.non_equivalence_as_subject, rel_label: I18n.t('known_uris.relationships_from_this_uri') }
     = form_for KnownUriRelationship.new do |tr|
       = tr.hidden_field :from_known_uri_id, value: known_uri.id
       %label= I18n.t('known_uris.add_a_relationship')

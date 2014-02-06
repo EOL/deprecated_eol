@@ -1,14 +1,14 @@
 - name ||= nil #scope
 -# This is STUPID.  But I don't have the time to make it all right... so this is using the same logic (basically) as
 -# the _common_names_edit view to pull out the single name we actually want.! - TODO (fix)
-- if defined?(common_names) && defined?(language) && defined?(name_id)
+- if local_assigns.has_key?(:common_names) && local_assigns.has_key?(:language) && local_assigns.has_key?(:name_id)
   - common_names_by_language(common_names, current_language.id).each do |language_names_pair|
     - next unless language_names_pair[0] == language
     - name = language_names_pair[1].select {|n| n.name.id == name_id }.first
 %td{class: 'preferred_name_selector'}
   = radio_button_tag 'preferred_name_id', name.name.id, name.preferred ? TRUE : FALSE
 %td
-  = (defined?(language) && language == 'English') ? raw(name.name_string.capitalize_all_words) : raw(name.name_string)
+  = (local_assigns.has_key?(:language) && language == 'English') ? raw(name.name_string.capitalize_all_words) : raw(name.name_string)
 %td
   = raw(common_name_display_attribution(name))
 %td{class: 'vet_common_name'}

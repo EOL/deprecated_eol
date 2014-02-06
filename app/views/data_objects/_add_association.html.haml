@@ -1,4 +1,4 @@
-- search_result = nil unless defined?(search_result)
+- search_result = nil unless local_assigns.has_key?(:search_result)
 - if image = item.exemplar_or_best_image_from_solr && image && image.thumb_or_object('88_88')
   = link_to image_tag(image.thumb_or_object('88_88')), taxon_overview_path(item)
 - else

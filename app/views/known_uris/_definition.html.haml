@@ -1,9 +1,9 @@
 - known_uri ||= nil
-- search_link = false unless defined?(search_link)
-- top_link = false unless defined?(top_link)
-- glossary_link = false unless defined?(glossary_link)
-- attribution = false unless defined?(attribution)
-- glossary_permalink = false unless defined?(glossary_permalink)
+- search_link = false unless local_assigns.has_key?(:search_link)
+- top_link = false unless local_assigns.has_key?(:top_link)
+- glossary_link = false unless local_assigns.has_key?(:glossary_link)
+- attribution = false unless local_assigns.has_key?(:attribution)
+- glossary_permalink = false unless local_assigns.has_key?(:glossary_permalink)
 %li{ id: known_uri.anchor, 'data-toc-id' => known_uri.toc_items.collect(&:id).join(' ') }
   %dt
     = known_uri.name.firstcap

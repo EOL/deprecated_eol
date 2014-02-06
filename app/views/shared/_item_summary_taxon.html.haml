@@ -1,5 +1,5 @@
 - view_style ||= 'default'
-- search_result = nil unless defined?(search_result)
+- search_result = nil unless local_assigns.has_key?(:search_result)
 - path = taxon_overview_path(item)
 - unless view_style == 'list'
   - if image = item.exemplar_or_best_image_from_solr

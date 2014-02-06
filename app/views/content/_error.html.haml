@@ -7,7 +7,7 @@
       :error => error, :default => [:error_default_description, fallback_description]))
   - rescue
     = fallback_description
-- if defined?(@modal) && @modal
+- if @modal
   %p
     %a.close{:href => "#"}= I18n.t(:go_back)
 - elsif status_code == 404

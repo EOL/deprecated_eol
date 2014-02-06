@@ -1,6 +1,6 @@
 .metadata
   - data_point_uri ||= @data_point_uri
-  - unless defined? header_id
+  - unless local_assigns.has_key?(:header_id)
     - header_id = data_point_uri.anchor
   - metadata = data_point_uri.get_metadata(current_language)
   - references = data_point_uri.get_references(current_language)

@@ -19,5 +19,5 @@
     - if maintainers = collection.maintained_by
       = I18n.t(:maintained_by)
       = raw(collection.maintained_by.map {|by| link_to truncate(by.summary_name, :length => 64), link_to_item(by) }.to_sentence)
-    - if defined?(annotation) && !annotation.blank?
+    - if local_assigns.has_key?(:annotation) && !annotation.blank?
       %p= annotation

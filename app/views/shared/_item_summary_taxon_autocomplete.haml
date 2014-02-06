@@ -1,4 +1,4 @@
-- search_result = nil unless defined?(search_result)
+- search_result = nil unless local_assigns.has_key?(:search_result)
 - path = taxon_overview_path(item)
 - has_thumbnail = false
 .taxon_autocomplete

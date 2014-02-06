@@ -104,6 +104,12 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def self.clear_uri_caches
+    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
+    Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
+    Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
+  end
+
   # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
   # really used.  ...So I'm calling it from Sparql:
   #

@@ -6,6 +6,12 @@ module EOL
       extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
       extend EOL::LocalCacheable
 
+      def self.clear_uri_caches
+        Rails.cache.delete("eol/sparql/client/all_measurement_type_uris")
+        Rails.cache.delete("eol/sparql/client/all_measurement_type_known_uris")
+        # TODO - clear taxon-specific caches. ...but we don't store the names, yet.
+      end
+
       def initialize(options={})
         @endpoint_uri = options[:endpoint_uri]
         @username = options[:username]
@@ -98,6 +104,7 @@ module EOL
       end
 
       def all_measurement_type_known_uris_for_clade(taxon_concept)
+        # TODO - cache a list of taxon_concept ids that have been cached, so we can clear them
         self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris_for_clade/#{taxon_concept.id}", :expires_in => 1.day) do
           all_uris = counts_of_all_measurement_type_uris_in_clade(taxon_concept).collect{ |k,v| k }
           all_known_uris = KnownUri.find_all_by_uri(all_uris)

@@ -340,11 +340,8 @@ class KnownUrisController < ApplicationController
   end
 
   def clear_cache
-    Rails.cache.delete("eol_sparql_client_all_measurement_type_uris")
-    Rails.cache.delete("eol_sparql_client_all_measurement_type_known_uris")
-    Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
-    Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
-    Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
+    EOL::Sparql::Client.clear_uri_caches
+    KnownUri.clear_uri_caches
   end
 
 end

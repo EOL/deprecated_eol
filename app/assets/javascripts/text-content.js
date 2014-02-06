@@ -55,7 +55,7 @@ $.extend(EOL.Text, {
         // If this is not a toc item we're allowed to add text to, we need to do some cleanup:
         if($('#new_text_toc_text').attr('href').indexOf('toc_id=none') != -1) {
           $('.cpc-content').children().not('#insert_text_popup').slideUp(400).delay(100).remove();
-          $.ajax({url:$('#new_text_toc_text').attr('data-change_toc_url'), type:'post'});
+          $.ajax({url:$('#new_text_toc_text').data('change_toc_url'), type:'post'});
         }
         $('#insert_text_popup .popup-content').html(response);
       },
@@ -83,7 +83,7 @@ $.extend(EOL.Text, {
     // slide in text comments
     $('div.text_buttons div.comment_button a').unbind('click');
     $('div.text_buttons div.comment_button a').on('click', function(e) {
-      data_object_id = $(this).attr('data-data_object_id');
+      data_object_id = $(this).data('data_object_id');
       textCommentsDiv = "text-comments-wrapper-" + data_object_id;
       textCommentsWrapper = "#" + textCommentsDiv;
       $.ajax({
@@ -98,7 +98,7 @@ $.extend(EOL.Text, {
     // Curate text:
     $('div.text_buttons div.curate_button a').unbind('click');
     $('div.text_buttons div.curate_button a').on('click', function(e) {
-      data_object_id = $(this).attr('data-data_object_id');
+      data_object_id = $(this).data('data_object_id');
       textCuration = "text-curation-" + data_object_id;
       textCurationWrapper = "#text-curation-wrapper-" + data_object_id;
       $.ajax({

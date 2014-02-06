@@ -2,7 +2,7 @@ if(!EOL) { EOL = {}; }
 if(!EOL.Curation) { EOL.Curation = {}; }
 
 EOL.Curation.form_is_valid = function(form) {
-  var untrusted_option_checked  = $('#' + form.attr('data-data_object_id') + '_vetted_id_' + EOL.Curation.UNTRUSTED_ID).is(':checked');   
+  var untrusted_option_checked  = $('#' + form.data('data_object_id') + '_vetted_id_' + EOL.Curation.UNTRUSTED_ID).is(':checked');   
   var comment_empty             = form.find('.curation-comment-box').val() === "";
   var untrust_reasons_unchecked = form.find('.untrust_reason:checked').siblings().map(function(){return this.innerHTML;}).get() === ''; 
   return untrusted_option_checked ? !(comment_empty && untrust_reasons_unchecked) : true; 
@@ -62,7 +62,7 @@ EOL.Curation.post_curate_text = function(args, page_type) {
 $(document).ready(function() {
   $('form.curation_form input[type="submit"]').on('click', function() {
     var form = $(this).closest('form');
-    var page_type = form.attr('data-page_type');
+    var page_type = form.data('page_type');
     form.find('div.processing').show();
     submit = form.find(':submit');
     the_comment = form.find('textarea');

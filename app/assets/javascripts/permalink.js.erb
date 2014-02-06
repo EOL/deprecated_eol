@@ -6,7 +6,7 @@ $(function() {
     $main.find("a.jp-play").each(function() {
       var media;
       var supplied;
-      switch($(this).attr('data-mime-type')) {
+      switch($(this).data('mime-type')) {
         case 'audio/mpeg':
           media = { mp3: $(this).attr('href') };
           supplied = "mp3";

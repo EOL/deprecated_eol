@@ -40,7 +40,7 @@ if (!EOL.Text.already_loaded) {
       $('select#data_objects_toc_category_toc_id').unbind('change');
       $('select#data_objects_toc_category_toc_id').change(function() {
         $.ajax({
-          url: $(this).attr('data-change_toc_url'),
+          url: $(this).data('change_toc_url'),
           success: function(response) { EOL.Text.show_response_text_and_cleanup(response); },
           data: EOL.Text.form().serialize()
         });
@@ -79,7 +79,7 @@ if (!EOL.Text.already_loaded) {
 
     // In several cases, we need to know which data object we're currently editing/adding:
     data_object_id: function() {
-      return EOL.Text.form().attr('data-data_object_id');
+      return EOL.Text.form().data('data_object_id');
     },
 
     // For when the user wants to submit added/edited text.
@@ -112,7 +112,7 @@ if (!EOL.Text.already_loaded) {
       EOL.Text.remove_preview();
       // TODO - the data is hacky ... why isn't it this way in the data-preview_url?
       $.ajax({
-        url: $(button).attr('data-preview_url'),
+        url: $(button).data('preview_url'),
         type: 'POST',
         beforeSend: function() { EOL.Text.disable_form(); },
         success: function(response) {

@@ -72,7 +72,7 @@ $(function() {
             li;
         if ($e.is("[data-thumb]")) {
           li = "<li><a href=\"#\"><img src=\"" +
-                    $e.attr("data-thumb") + "\" alt=\"" + $e.attr("alt") +
+                    $e.data("thumb") + "\" alt=\"" + $e.attr("alt") +
                     "\" /></a></li>";
         }
         else { li = placeholder; }
@@ -175,7 +175,7 @@ $(function() {
           data: data,
           dataType: 'json',
           beforeSend: function(xhr) {
-            $(".link_object span.errors").text($(".link_object span.errors").attr('data-pending_message'));
+            $(".link_object span.errors").text($(".link_object span.errors").data('pending_message'));
           },
           success: function(data) {
             if(data.exception === true) {
@@ -274,7 +274,7 @@ $(function() {
     beforeSend: function() { $('#collection_items .editable a').fadeTo(225, 0.3); },
     beforeShow: function() {
       $('form.edit_collection_item :submit').on('click', function() {
-        EOL.ajax_submit($(this), { update: $('li#collection_item_'+$(this).attr('data-id')+' div.editable') });
+        EOL.ajax_submit($(this), { update: $('li#collection_item_'+$(this).data('id')+' div.editable') });
         $('#collection_items_edit a.close').click();
         return(false);
       });
@@ -402,12 +402,12 @@ $(function() {
         right_pos = right_pos - 15;
       }
       var line_height = 'inherit';
-      if(img.attr("data-common_name") === null || img.attr("data-common_name") === '') {
+      if(img.data("common_name") === null || img.data("common_name") === '') {
         line_height = $thumbs.find(".term .site_column").css("height");
       }
-      var name_html = '<span class="scientific">' + img.attr("data-scientific_name") + '</span>';
-      if(img.attr("data-common_name") !== null && img.attr("data-common_name") !== '') {
-        name_html += '<span class="common">' + img.attr("data-common_name") + '</span>';
+      var name_html = '<span class="scientific">' + img.data("scientific_name") + '</span>';
+      if(img.data("common_name") !== null && img.data("common_name") !== '') {
+        name_html += '<span class="common">' + img.data("common_name") + '</span>';
       }
       term_p.css({
         textAlign: 'center'
@@ -538,21 +538,21 @@ $(function() {
     });
   })($("#statistics"));
 
-  $('input.clear_on_focus').each(function() { $(this).val($(this).attr('data-default')); });
+  $('input.clear_on_focus').each(function() { $(this).val($(this).data('default')); });
   $('input.clear_on_focus').siblings().each(function() { $(this).on('click', function() {
     if ($(this).prop('checked')) {
       $(this).siblings().focus();
     }
   });});
   $('input.clear_on_focus').on('focus', function() {
-    if ($(this).val() == $(this).attr('data-default')) {
+    if ($(this).val() == $(this).data('default')) {
       $(this).val('');
       EOL.check_siblings(this, true);
     }
   });
   $('input.clear_on_focus').on('blur', function() {
-    if ($(this).val() === '' || $(this).val() == $(this).attr('data-default')) {
-      $(this).val($(this).attr('data-default'));
+    if ($(this).val() === '' || $(this).val() == $(this).data('default')) {
+      $(this).val($(this).data('default'));
       EOL.check_siblings(this, false);
     }
   });

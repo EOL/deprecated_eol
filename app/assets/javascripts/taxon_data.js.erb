@@ -29,9 +29,9 @@ EOL.change_tab_state = function(tab_link, type) {
         pclass = 'all'; // a kind of "default"... it will check toc first, anyway.
       }
       if (type == 'replace') {
-        history.replaceState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
+        history.replaceState({ pclass: pclass, toc: tab_link.data('toc-id') }, null, tab_link.attr('href'));
       } else {
-        history.pushState({ pclass: pclass, toc: tab_link.attr('data-toc-id') }, null, tab_link.attr('href'));
+        history.pushState({ pclass: pclass, toc: tab_link.data('toc-id') }, null, tab_link.attr('href'));
       }
     }
   }
@@ -65,7 +65,7 @@ EOL.switch_subtab = function(which, options) {
   } else {
     $('.filters').show();
     EOL.hide_data_tables($('table.data'));
-    EOL.show_data_tables($('table.data[data-toc-id="' + which.attr('data-toc-id') + '"]'));
+    EOL.show_data_tables($('table.data[data-toc-id="' + which.data('toc-id') + '"]'));
     $('#taxon_data > .help_text').show();
   }
   which.parent().parent().find('li').removeClass('active');
@@ -115,7 +115,7 @@ EOL.enable_info_dialogs = function(tip) {
     .on('click', function() {
       $('.site_column').unbind('click');
       var $link = $(this);
-      var $info = $('#info_'+$(this).attr('data-info'));
+      var $info = $('#info_'+$(this).data('info'));
       if ($info.is(':visible')) {
         $info.hide('fast');
       } else {
@@ -275,14 +275,14 @@ EOL.update_input_id_and_name = function(form, new_id) {
     $(this).attr('id', $(this).attr('id').replace(/\d+/, new_id));
     $(this).attr('name', $(this).attr('name').replace(/\d+/, new_id));
     // these 3 fields are used in autocompleting of metadata
-    if ($(this).attr('data-id-element')) {
-      $(this).attr('data-id-element', $(this).attr('data-id-element').replace(/\d+/, new_id));
+    if ($(this).data('id-element')) {
+      $(this).data('id-element', $(this).data('id-element').replace(/\d+/, new_id));
     }
-    if ($(this).attr('data-include-predicate_known_uri_id')) {
-      $(this).attr('data-include-predicate_known_uri_id', $(this).attr('data-include-predicate_known_uri_id').replace(/\d+/, new_id));
+    if ($(this).data('include-predicate_known_uri_id')) {
+      $(this).data('include-predicate_known_uri_id', $(this).data('include-predicate_known_uri_id').replace(/\d+/, new_id));
     }
-    if ($(this).attr('data-update-elements')) {
-      $(this).attr('data-update-elements', $(this).attr('data-update-elements').replace(/\d+/, new_id));
+    if ($(this).data('update-elements')) {
+      $(this).data('update-elements', $(this).data('update-elements').replace(/\d+/, new_id));
     }
   });
 };
@@ -290,18 +290,18 @@ EOL.update_input_id_and_name = function(form, new_id) {
 EOL.limit_data_rows = function() {
   $('table.data tr.more').remove();
   $('table.data tr.data.first_of_type:visible').each(function() {
-    var type = $(this).attr('data-type');
+    var type = $(this).data('type');
     var $nested_set = $(this).closest('table').find('tr[data-type="' + type + '"]:visible');
     if ($nested_set.length > EOL.max_meta_rows) {
       var $index = 1;
       $nested_set.each(function() { if ($index > EOL.max_meta_rows) $(this).hide(); $index++; });
       $nested_set.filter(':last').after(
         '<tr data-type="' + type + '" class="data nested more"><th></th><td><a href="#" class="more">' +
-        $('table.data').attr('data-more').replace('NNN', ($nested_set.length-EOL.max_meta_rows)) +
+        $('table.data').data('more').replace('NNN', ($nested_set.length-EOL.max_meta_rows)) +
         '</a></td><td></td><td></td></tr>');
       $('tr.more a.more').unbind('click').on('click', function() {
         var $parent_row = $(this).closest('tr');
-        $('tr.data[data-type="' + $parent_row.attr('data-type') +'"]').show();
+        $('tr.data[data-type="' + $parent_row.data('type') +'"]').show();
         $parent_row.remove();
         return(false);
       });
@@ -348,7 +348,7 @@ $(function() {
     var highest_field_id = parseInt(last_input.attr('id').match(/(\d+)/)[1]);
     EOL.update_input_id_and_name($subform, highest_field_id += 1);
     $subform.appendTo($(this)).addClass('subform').hide();
-    $(this).append('<span class="add"><a href="#">'+$(this).attr('data-another')+'</a></span>');
+    $(this).append('<span class="add"><a href="#">'+$(this).data('another')+'</a></span>');
     $(this).find('.add a').on('click', function() {
       $subform.clone().insertBefore($(this).parent()).show();
       EOL.update_input_id_and_name($subform, highest_field_id += 1);
@@ -522,7 +522,7 @@ $(function() {
   EOL.enable_hover_list_items();
 
   $('.page_actions .data_download a').on('click', function() {
-    window.alert($(this).parent().attr('data-alert').replace(/<\/?[^>]+>/g, ''));
+    window.alert($(this).parent().data('alert').replace(/<\/?[^>]+>/g, ''));
   });
 
   $('#known_uris.glossary ul.chapters li').find('a, input').on('click', function(e) {
@@ -537,7 +537,7 @@ $(function() {
       if(chapters.find('li.selected').length === 0) $('ul.glossary > li').show();
       else {
         // using the attributeContainsWord selector ~= here
-        $('ul.glossary li[data-toc-id~="' + li.attr('data-toc-id') + '"]').hide();
+        $('ul.glossary li[data-toc-id~="' + li.data('toc-id') + '"]').hide();
       }
     } else
     {
@@ -545,7 +545,7 @@ $(function() {
       li.addClass('selected');
       setTimeout(function() { checkbox.prop('checked', true); }, 5);
       // using the attributeContainsWord selector ~= here
-      $('ul.glossary li[data-toc-id~="' + li.attr('data-toc-id') + '"]').show();
+      $('ul.glossary li[data-toc-id~="' + li.data('toc-id') + '"]').show();
     }
     return false;
   });

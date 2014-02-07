@@ -29,8 +29,10 @@ class Taxa::NamesController < TaxaController
 
     @assistive_section_header = I18n.t(:assistive_names_classifications_header)
     common_names_count
-    render action: 'classifications'
-
+    respond_to do |format|
+      format.html { render action: 'classifications' }
+      format.js {}
+    end
   end
 
   # GET /pages/:taxon_id/names

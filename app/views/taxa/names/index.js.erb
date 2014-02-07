@@ -1,0 +1,4 @@
+$('#taxon_names').fadeOut(200, function() {
+    $(this).html("<%= escape_javascript(render('classifications')) %>");
+    $(this).fadeIn(200);
+});

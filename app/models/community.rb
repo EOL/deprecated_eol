@@ -112,7 +112,7 @@ class Community < ActiveRecord::Base
   # TODO - errr... I'm guessing this is expensive.  Fix.
   # the .reduce(:+) adds all the values of the array, thus counting all the items in all collections
   def all_items_in_all_collections_count
-    @all_items_count ||= collections.map { |c| c.cached_count }.reduce(:+)
+    @all_items_count ||= collections.map { |c| c.collection_items_count }.reduce(:+)
   end
   
   def cached_count_members

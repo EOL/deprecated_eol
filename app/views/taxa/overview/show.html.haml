@@ -77,9 +77,8 @@
             = link_to image_tag(collection.logo_url(:small), alt: '', width: 48, height: 48), collection_path(collection)
             .details
               %h4= link_to collection.name, collection_path(collection)
-              -# NOTE - Sometimes we cache the counts of the collections with fewer queries... (but not always).
               -# NOTE - -1 because we're counting items *other* than this page...
-              %p= I18n.t(:other_collection_items_with_count, count: collection.cached_count - 1 )
+              %p= I18n.t(:other_collection_items_with_count, count: collection.collection_items_count - 1 )
     - else
       .header
         %h3= I18n.t(:collections_summary_header_with_count, count: 0)

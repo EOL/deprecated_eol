@@ -28,6 +28,9 @@ class CollectionItem < ActiveRecord::Base
   after_update   :update_collection_relevance_if_annotation_switched
   before_destroy :remove_collection_item_from_solr
 
+  # Keeps an accurate count of items:
+  counter_culture :collection
+
   # Information about how collection items interface with solr and views and the like...
   def self.types
     @types ||= { taxa:        { facet: 'TaxonConcept', i18n_key: "taxa" },

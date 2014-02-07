@@ -750,15 +750,20 @@ class TaxonConcept < ActiveRecord::Base
 
   def uses_preferred_entry?(he)
     if preferred_entry.blank?
-      ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(self)
-      if ctcpe
-        create_preferred_entry(ctcpe.hierarchy_entry)
+      if published_taxon_concept_preferred_entry
+        create_preferred_entry(published_taxon_concept_preferred_entry.hierarchy_entry)
       else
         return nil
       end
     end
     preferred_entry.hierarchy_entry_id == he.id &&
       CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id)
+  end
+
+  # This does more than just loading the tcpe: it ensures the entry is there, valid, published, and finds
+  # the "correct" version of it, if there are several. TODO - is it possible to do this with rails scopes?
+  def published_taxon_concept_preferred_entry
+    @published_taxon_concept_preferred_entry ||= CuratedTaxonConceptPreferredEntry.for_taxon_concept(self)
   end
 
   # Avoid re-loading the deep_published_hierarchy_entries from the DB:

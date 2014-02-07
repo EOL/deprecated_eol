@@ -167,9 +167,10 @@ private
     @all_collections ||= published_containing_collections.select{ |c| !c.watch_collection? }
   end
 
+  # NOTE this actully returns a taxon_concept_preferred_entry, not a "classification". TODO - rename.
   def curator_chosen_classification
     return @curator_chosen_classification if defined?(@curator_chosen_classification)
-    @curator_chosen_classification = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
+    @curator_chosen_classification = taxon_concept.published_taxon_concept_preferred_entry
   end
 
   def iucn

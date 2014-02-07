@@ -154,5 +154,3 @@
           - link = taxon_names_path(@taxon_page, all: '1')
           .classification_actions
             %p= link_to(I18n.t(:show_all_other_classifications_with_count, count: @other_hierarchy_entries.count), link, id: 'show_other_classifications')
-
--# TODO undo-ability

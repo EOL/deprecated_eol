@@ -79,7 +79,7 @@ private
     TaxonConceptCacheClearing.clear_overview_article_by_id(taxon_concept.id)
     clear_exemplar_image
     TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: taxon_concept.id)
-    ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
+    ctcpe = taxon_concept.published_taxon_concept_preferred_entry
     taxon_concept.create_preferred_entry(ctcpe.hierarchy_entry) if ctcpe
   end
 

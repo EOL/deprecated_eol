@@ -164,7 +164,7 @@ describe 'Taxa page' do
       # first after language is switched.
       # English by default
       expect(page).to have_css('h4', text: "English")
-      expect(page).to have_content(@common_names.first.name_string.capitalize_all_words)
+      expect(page).to have_content(@common_names.first.name_string)
       expect(page).to have_content(@common_names.first.agents.first.full_name)
       expect(page).to have_content(Vetted.find_by_id(@common_names.first.vetted.id).label)
     end

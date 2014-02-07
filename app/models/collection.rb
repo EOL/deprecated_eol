@@ -118,7 +118,6 @@ class Collection < ActiveRecord::Base
                                                                     klass: what.class.name))
       end
     collection_items << item = CollectionItem.create(collected_item: what, name: name, collection: self, added_by_user: opts[:user])
-    set_relevance
     item # Convenience.  Allows us to know the collection_item created and possibly chain it.
   end
 
@@ -203,6 +202,7 @@ class Collection < ActiveRecord::Base
     special_collection_id && special_collection_id == SpecialCollection.watch.id
   end
 
+  # This is somewhat expensive (can take a second to run), so use sparringly.
   def set_relevance
     Resque.enqueue(CollectionRelevanceCalculator, id)
   end

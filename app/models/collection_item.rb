@@ -60,7 +60,6 @@ class CollectionItem < ActiveRecord::Base
     EOL::Solr::CollectionItemsCoreRebuilder.remove_collection_items([self])
   end
 
-  # This is somewhat expensive (can take a second to run), so use sparringly.
   def update_collection_relevance
     collection.set_relevance if collection
   end

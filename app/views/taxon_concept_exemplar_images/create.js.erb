@@ -1,0 +1,4 @@
+$('#sidebar img').attr('src', '<%= @taxon_concept_exemplar_image.data_object.thumb_or_object('260_190') %>');
+$('.busy').removeClass('busy');
+$('form.taxon_concept_exemplar_image input:radio').prop('checked', false);
+$('form.taxon_concept_exemplar_image input#taxon_concept_exemplar_image_data_object_id_<%= @taxon_concept_exemplar_image.data_object_id %>').prop('checked', true);

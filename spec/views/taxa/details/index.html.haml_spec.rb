@@ -94,7 +94,7 @@ describe 'taxa/details/index' do
   context 'logged in' do
 
     before(:each) do
-      user = double(User)
+      user = build_stubbed(User)
       user.stub(:min_curator_level?) { false }
       user.stub(:watch_collection) { nil }
       user.stub(:can_update?) { false } # This user won't own anything.

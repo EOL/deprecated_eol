@@ -47,6 +47,11 @@ class TaxonMedia < TaxonUserClassificationFilter
     @media.each { |img| yield(img) }
   end
 
+  def rating_for_guid(guid)
+    @ratings ||= user.ratings_for_guids(@media.map(&:guid))
+    @ratings[guid] || 0
+  end
+
   private
 
   # NOTE - Once you call this (with options), those options are preserved and you cannot call this with different
@@ -114,11 +119,6 @@ class TaxonMedia < TaxonUserClassificationFilter
       @media.map! { |m| (m.guid == image.guid && m.id != image.id) ? image : m }
     end
     TaxonUserClassificationFilter.preload_details(@media, user)
-  end
-
-  # Used to get ratings... which is a little lame.  :|
-  def guids
-    @media.map(&:guid)
   end
 
 end

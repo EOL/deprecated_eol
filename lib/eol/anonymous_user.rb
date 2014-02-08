@@ -18,7 +18,12 @@ module EOL
     end
 
     # They have never rated anything!
-    def rating_for_object_guids(*args)
+    def rating_for_guid(*args)
+      0
+    end
+
+    # They have never rated anything!
+    def ratings_for_guids(*args)
       {}
     end
 

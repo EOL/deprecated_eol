@@ -131,11 +131,6 @@ class TaxonData < TaxonUserClassificationFilter
     ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
   end
 
-  def rating_for_guid(guid)
-    @ratings ||= user.rating_for_object_guids(guids)
-    @ratings[guid]
-  end
-
   private
 
     def raw_data

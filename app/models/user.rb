@@ -547,16 +547,16 @@ class User < ActiveRecord::Base
     errors.add('username', I18n.t(:username_taken, name: username)) unless User.unique_user?(username, id)
   end
 
-  def rating_for_object_guid(guid)
-    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, order: 'id desc')
+  def rating_for_guid(guid)
+    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, order: 'id desc').rating || 0
   end
 
-  def rating_for_object_guids(guids)
+  def ratings_for_guids(guids)
     return_ratings = {}
     ratings = UsersDataObjectsRating.find_all_by_data_object_guid_and_user_id(guids, self.id, order: 'id desc')
     ratings.each do |udor|
       next if return_ratings[udor.data_object_guid]
-      return_ratings[udor.data_object_guid] = udor
+      return_ratings[udor.data_object_guid] = udor.rating
     end
     return_ratings
   end

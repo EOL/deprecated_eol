@@ -9,8 +9,7 @@
 - user_rating = if @taxon_media # We have a cache of a bunch of ratings...
   - @taxon_media.rating_for_guid(data_object.guid)
 - else
-  - data_object.rating_from_user(current_user)
-- user_rating ||= 0
+  - data_object.rating_from_user(current_user).try(:rating) || 0 # TODO - change it to retunr hte rating
 - minimal ||= false
 - assistive_or_nil = minimal ? 'assistive' : nil
 - hide_user_rating ||= false

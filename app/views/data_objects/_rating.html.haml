@@ -6,10 +6,10 @@
 - en_type ||= en_type(data_object)
 - total = 5
 - average_rating = data_object.safe_rating
-- if @taxon_media # We have a cache of a bunch of ratings...
-  - user_rating = @taxon_media.rating_for_guid(data_object.guid)
+- user_rating = if @taxon_media # We have a cache of a bunch of ratings...
+  - @taxon_media.rating_for_guid(data_object.guid)
 - else
-  - user_rating = data_object.rating_from_user(current_user)
+  - data_object.rating_from_user(current_user)
 - user_rating ||= 0
 - minimal ||= false
 - assistive_or_nil = minimal ? 'assistive' : nil

@@ -15,16 +15,6 @@ describe TaxonMedia do
     @media = TaxonMedia.new(@taxon_concept, @user)
   end
 
-  it 'should get applied ratings from the specified user' do
-    @user.should_receive(:rating_for_object_guids).and_return('hi')
-    build_media
-    @media.applied_ratings.should == 'hi'
-  end
-
-  it 'should get empty ratings from an anonymous user' do
-    TaxonMedia.new(@taxon_concept, EOL::AnonymousUser.new('en')).applied_ratings.should == {}
-  end
-
   it "should know if it's empty" # This is not simple to test; juice wasn't worth the squeeze and I didn't want to keep bad code. :\
 
   it 'should have an array of media to pass to will_paginate' do

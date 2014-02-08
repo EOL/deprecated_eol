@@ -26,10 +26,6 @@ class TaxonMedia < TaxonUserClassificationFilter
     get_media
   end
 
-  def applied_ratings
-    user.is_a?(EOL::AnonymousUser) ? {} : user.rating_for_object_guids(guids)
-  end
-
   def empty?
     @media.total_entries == 0
   end

@@ -75,7 +75,6 @@ module EOL
           :members => [],
           :min_curator_level? => false,
           :nil? => true,
-          :rating_for_object_guids => nil,
           :save => false,
           :short_name => I18n.t(:anonymous_user_given_name),
           :tag_line => I18n.t(:anonymous_user_tag_line),

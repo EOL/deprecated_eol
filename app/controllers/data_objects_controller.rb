@@ -191,7 +191,6 @@ class DataObjectsController < ApplicationController
       end
       format.html { redirect_back_or_default }
       format.js do
-        @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
         render partial: 'rating', locals: { data_object: @data_object, reload_ajax_rating: true,
           minimal: params[:minimal] == 'true' ? true : false }
       end
@@ -217,7 +216,6 @@ class DataObjectsController < ApplicationController
     @translations = @data_object.available_translations_data_objects(current_user, nil)
     @translations.delete_if{ |t| t.language.nil? } unless @translations.nil?
     @image_source = get_image_source if @data_object.is_image?
-    @current_user_ratings = logged_in? ? current_user.rating_for_object_guids([@data_object.guid]) : {}
     @page = params[:page]
     @activity_log = @data_object.activity_log(ids: @revisions.collect{ |r| r.id }, page: @page || nil, user: current_user)
     set_canonical_urls(for: @data_object, paginated: @activity_log, url_method: :data_object_url)

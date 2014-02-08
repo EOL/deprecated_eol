@@ -309,8 +309,8 @@ class DataObject < ActiveRecord::Base
   end
 
   def rating_from_user(u)
-    ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
-    return ratings_from_user[0] unless ratings_from_user.blank?
+    return nil if u.is_a?(EOL::AnonymousUser)
+    users_data_objects_ratings.where(user_id: u.id).first
   end
 
   def safe_rating

@@ -2588,54 +2588,53 @@ zh-TW:
   last_updated: 最後更新
   last_updated_time_ago: 最後一次更新是 %{time_passed} 之前
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: 引用EOL
-        about_link_contact_us: 聯絡我們
-        about_link_discover: 發現
-        about_link_donate: 資助EOL
-        about_link_eol_blog: EOL部落格
-        about_link_glossary: 詞彙表
-        about_link_help: 幫助
-        about_link_podcasts: Podcasts
-        about_link_statistics: 統計數據
-        about_link_terms_of_use: 使用條款
-        about_link_what_is_eol: EOL是什麼？
-        header_about: 關於EOL
-        header_learn_more: 深入瞭解有關
-        header_questions: 請提供更多資料
-        learn_more_link_amphibians: 兩生類
-        learn_more_link_animals: 動物
-        learn_more_link_archaea: 古生菌
-        learn_more_link_bacteria: 細菌
-        learn_more_link_birds: 鳥類
-        learn_more_link_crustaceans: 甲殼類
-        learn_more_link_fish: 魚類
-        learn_more_link_flowering_plants: 開花植物
-        learn_more_link_fungi: 真菌
-        learn_more_link_insects: 昆蟲
-        learn_more_link_invertebrates: 無脊椎動物
-        learn_more_link_mammals: 哺乳動物
-        learn_more_link_molds: 黴菌
-        learn_more_link_mollusks: 軟體動物
-        learn_more_link_mushrooms: 菇類
-        learn_more_link_plants: 植物
-        learn_more_link_protists: 原生生物
-        learn_more_link_reptiles: 爬蟲類
-        learn_more_link_spiders: 蜘蛛
-        learn_more_link_trees: 樹木
-        learn_more_link_viruses: 病毒
-        learn_more_link_worms: 蠕蟲類
-        questions_link_binomial_nomenclature: 什麼是二名法？
-        questions_link_biodiversity: 什麼是生物多樣性？
-        questions_link_biological_classification: 什麼是生物分類系統？
-        questions_link_contributing_to_research: 我要如何對研究作出貢獻？
-        questions_link_discovering_species: 物種如何被發現？
-        questions_link_indicator_species: 什麼是指標物種？
-        questions_link_invasive_species: 什麼是入侵種？
-        questions_link_model_organism: 什麼是模式生物？
-        questions_link_naming_species: 物種如何被命名？
-        questions_link_species: 什麼是一個物種？
+    application: 
+      about_link_citing: 引用EOL
+      about_link_contact_us: 聯絡我們
+      about_link_discover: 發現
+      about_link_donate: 資助EOL
+      about_link_eol_blog: EOL部落格
+      about_link_glossary: 詞彙表
+      about_link_help: 幫助
+      about_link_podcasts: Podcasts
+      about_link_statistics: 統計數據
+      about_link_terms_of_use: 使用條款
+      about_link_what_is_eol: EOL是什麼？
+      header_about: 關於EOL
+      header_learn_more: 深入瞭解有關
+      header_questions: 請提供更多資料
+      learn_more_link_amphibians: 兩生類
+      learn_more_link_animals: 動物
+      learn_more_link_archaea: 古生菌
+      learn_more_link_bacteria: 細菌
+      learn_more_link_birds: 鳥類
+      learn_more_link_crustaceans: 甲殼類
+      learn_more_link_fish: 魚類
+      learn_more_link_flowering_plants: 開花植物
+      learn_more_link_fungi: 真菌
+      learn_more_link_insects: 昆蟲
+      learn_more_link_invertebrates: 無脊椎動物
+      learn_more_link_mammals: 哺乳動物
+      learn_more_link_molds: 黴菌
+      learn_more_link_mollusks: 軟體動物
+      learn_more_link_mushrooms: 菇類
+      learn_more_link_plants: 植物
+      learn_more_link_protists: 原生生物
+      learn_more_link_reptiles: 爬蟲類
+      learn_more_link_spiders: 蜘蛛
+      learn_more_link_trees: 樹木
+      learn_more_link_viruses: 病毒
+      learn_more_link_worms: 蠕蟲類
+      questions_link_binomial_nomenclature: 什麼是二名法？
+      questions_link_biodiversity: 什麼是生物多樣性？
+      questions_link_biological_classification: 什麼是生物分類系統？
+      questions_link_contributing_to_research: 我要如何對研究作出貢獻？
+      questions_link_discovering_species: 物種如何被發現？
+      questions_link_indicator_species: 什麼是指標物種？
+      questions_link_invasive_species: 什麼是入侵種？
+      questions_link_model_organism: 什麼是模式生物？
+      questions_link_naming_species: 物種如何被命名？
+      questions_link_species: 什麼是一個物種？
   learn_about_collections: 如何建立一個典藏？
   learn_about_communities: 如何參與社群活動？
   learn_about_content_partners: 如何成為一個內容合作夥伴？

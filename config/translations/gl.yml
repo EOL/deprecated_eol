@@ -2582,54 +2582,53 @@ gl:
   last_updated: Última actualización
   last_updated_time_ago: Última actualización hai %{time_passed}
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Citar a EOL
-        about_link_contact_us: Contacta con nós
-        about_link_discover: Descubrir
-        about_link_donate: Doar á EOL
-        about_link_eol_blog: O blogue da EOL
-        about_link_glossary: Glosario
-        about_link_help: Axuda
-        about_link_podcasts: Podcasts
-        about_link_statistics: Estatísticas
-        about_link_terms_of_use: Termos de uso
-        about_link_what_is_eol: Que é a EOL?
-        header_about: Acerca da EOL
-        header_learn_more: Máis información
-        header_questions: Máis información
-        learn_more_link_amphibians: Anfibios
-        learn_more_link_animals: Animais
-        learn_more_link_archaea: Arqueas
-        learn_more_link_bacteria: Bacterias
-        learn_more_link_birds: Aves
-        learn_more_link_crustaceans: Crustáceos
-        learn_more_link_fish: Peixes
-        learn_more_link_flowering_plants: Anxiospermas
-        learn_more_link_fungi: Fungos
-        learn_more_link_insects: Insectos
-        learn_more_link_invertebrates: Invertebrados
-        learn_more_link_mammals: Mamíferos
-        learn_more_link_molds: Mofos
-        learn_more_link_mollusks: Moluscos
-        learn_more_link_mushrooms: Cogomelos
-        learn_more_link_plants: Plantas
-        learn_more_link_protists: Protistas
-        learn_more_link_reptiles: Réptiles
-        learn_more_link_spiders: Arañas
-        learn_more_link_trees: Árbores
-        learn_more_link_viruses: Virus
-        learn_more_link_worms: Vermes
-        questions_link_binomial_nomenclature: Que é a nomenclatura binomial?
-        questions_link_biodiversity: Que é a biodiversidade?
-        questions_link_biological_classification: Que é unha clasificación biolóxica?
-        questions_link_contributing_to_research: Como podo contribuír á investigación?
-        questions_link_discovering_species: Como se descobren as especies?
-        questions_link_indicator_species: Que é unha especie indicadora?
-        questions_link_invasive_species: Que é unha especie invasora?
-        questions_link_model_organism: Que é un organismo modelo?
-        questions_link_naming_species: Como se lles dá nome ás especies?
-        questions_link_species: Que é unha especie?
+    application: 
+      about_link_citing: Citar a EOL
+      about_link_contact_us: Contacta con nós
+      about_link_discover: Descubrir
+      about_link_donate: Doar á EOL
+      about_link_eol_blog: O blogue da EOL
+      about_link_glossary: Glosario
+      about_link_help: Axuda
+      about_link_podcasts: Podcasts
+      about_link_statistics: Estatísticas
+      about_link_terms_of_use: Termos de uso
+      about_link_what_is_eol: Que é a EOL?
+      header_about: Acerca da EOL
+      header_learn_more: Máis información
+      header_questions: Máis información
+      learn_more_link_amphibians: Anfibios
+      learn_more_link_animals: Animais
+      learn_more_link_archaea: Arqueas
+      learn_more_link_bacteria: Bacterias
+      learn_more_link_birds: Aves
+      learn_more_link_crustaceans: Crustáceos
+      learn_more_link_fish: Peixes
+      learn_more_link_flowering_plants: Anxiospermas
+      learn_more_link_fungi: Fungos
+      learn_more_link_insects: Insectos
+      learn_more_link_invertebrates: Invertebrados
+      learn_more_link_mammals: Mamíferos
+      learn_more_link_molds: Mofos
+      learn_more_link_mollusks: Moluscos
+      learn_more_link_mushrooms: Cogomelos
+      learn_more_link_plants: Plantas
+      learn_more_link_protists: Protistas
+      learn_more_link_reptiles: Réptiles
+      learn_more_link_spiders: Arañas
+      learn_more_link_trees: Árbores
+      learn_more_link_viruses: Virus
+      learn_more_link_worms: Vermes
+      questions_link_binomial_nomenclature: Que é a nomenclatura binomial?
+      questions_link_biodiversity: Que é a biodiversidade?
+      questions_link_biological_classification: Que é unha clasificación biolóxica?
+      questions_link_contributing_to_research: Como podo contribuír á investigación?
+      questions_link_discovering_species: Como se descobren as especies?
+      questions_link_indicator_species: Que é unha especie indicadora?
+      questions_link_invasive_species: Que é unha especie invasora?
+      questions_link_model_organism: Que é un organismo modelo?
+      questions_link_naming_species: Como se lles dá nome ás especies?
+      questions_link_species: Que é unha especie?
   learn_about_collections: Como podo crear unha?
   learn_about_communities: Como podo participar?
   learn_about_content_partners: Como podo converterme nun?

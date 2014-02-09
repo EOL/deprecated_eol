@@ -2628,54 +2628,53 @@ sv:
   last_updated: Senaste uppdaterad
   last_updated_time_ago: Senast uppdaterad för %{time_passed} sedan
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Citera EOL
-        about_link_contact_us: Kontakta oss
-        about_link_discover: Upptäck
-        about_link_donate: Donera till EOL
-        about_link_eol_blog: EOL-bloggen
-        about_link_glossary: Ordlista
-        about_link_help: Hjälp
-        about_link_podcasts: Poddsändningar
-        about_link_statistics: Statistik
-        about_link_terms_of_use: Användarvillkor
-        about_link_what_is_eol: Vad är EOL?
-        header_about: Om EOL
-        header_learn_more: Lär dig mer om
-        header_questions: Berätta mer
-        learn_more_link_amphibians: Groddjur
-        learn_more_link_animals: Djur
-        learn_more_link_archaea: Arkéer
-        learn_more_link_bacteria: Bakterier
-        learn_more_link_birds: Fåglar
-        learn_more_link_crustaceans: Skaldjur
-        learn_more_link_fish: Fiskar
-        learn_more_link_flowering_plants: Fröväxter
-        learn_more_link_fungi: Hussvampar
-        learn_more_link_insects: Insekter
-        learn_more_link_invertebrates: Ryggradslösa djur
-        learn_more_link_mammals: Däggdjur
-        learn_more_link_molds: Mögel
-        learn_more_link_mollusks: Blötdjur
-        learn_more_link_mushrooms: Svampar
-        learn_more_link_plants: Plantor
-        learn_more_link_protists: Protister
-        learn_more_link_reptiles: Reptiler
-        learn_more_link_spiders: Spindlar
-        learn_more_link_trees: Träd
-        learn_more_link_viruses: Virus
-        learn_more_link_worms: Maskar
-        questions_link_binomial_nomenclature: Vad är binomial nomenklatur?
-        questions_link_biodiversity: Vad är biodiversitet?
-        questions_link_biological_classification: Vad är en biologisk klassifikation?
-        questions_link_contributing_to_research: Hur kan jag bidra till forskning?
-        questions_link_discovering_species: Hur upptäcks arter?
-        questions_link_indicator_species: Vad är en indikatorart?
-        questions_link_invasive_species: Vad är en invasiv art?
-        questions_link_model_organism: Vad är en modellorganism?
-        questions_link_naming_species: Hur namnges arter?
-        questions_link_species: Vad är en art?
+    application: 
+      about_link_citing: Citera EOL
+      about_link_contact_us: Kontakta oss
+      about_link_discover: Upptäck
+      about_link_donate: Donera till EOL
+      about_link_eol_blog: EOL-bloggen
+      about_link_glossary: Ordlista
+      about_link_help: Hjälp
+      about_link_podcasts: Poddsändningar
+      about_link_statistics: Statistik
+      about_link_terms_of_use: Användarvillkor
+      about_link_what_is_eol: Vad är EOL?
+      header_about: Om EOL
+      header_learn_more: Lär dig mer om
+      header_questions: Berätta mer
+      learn_more_link_amphibians: Groddjur
+      learn_more_link_animals: Djur
+      learn_more_link_archaea: Arkéer
+      learn_more_link_bacteria: Bakterier
+      learn_more_link_birds: Fåglar
+      learn_more_link_crustaceans: Skaldjur
+      learn_more_link_fish: Fiskar
+      learn_more_link_flowering_plants: Fröväxter
+      learn_more_link_fungi: Hussvampar
+      learn_more_link_insects: Insekter
+      learn_more_link_invertebrates: Ryggradslösa djur
+      learn_more_link_mammals: Däggdjur
+      learn_more_link_molds: Mögel
+      learn_more_link_mollusks: Blötdjur
+      learn_more_link_mushrooms: Svampar
+      learn_more_link_plants: Plantor
+      learn_more_link_protists: Protister
+      learn_more_link_reptiles: Reptiler
+      learn_more_link_spiders: Spindlar
+      learn_more_link_trees: Träd
+      learn_more_link_viruses: Virus
+      learn_more_link_worms: Maskar
+      questions_link_binomial_nomenclature: Vad är binomial nomenklatur?
+      questions_link_biodiversity: Vad är biodiversitet?
+      questions_link_biological_classification: Vad är en biologisk klassifikation?
+      questions_link_contributing_to_research: Hur kan jag bidra till forskning?
+      questions_link_discovering_species: Hur upptäcks arter?
+      questions_link_indicator_species: Vad är en indikatorart?
+      questions_link_invasive_species: Vad är en invasiv art?
+      questions_link_model_organism: Vad är en modellorganism?
+      questions_link_naming_species: Hur namnges arter?
+      questions_link_species: Vad är en art?
   learn_about_collections: Hur kan jag skapa en?
   learn_about_communities: Hur kan jag delta?
   learn_about_content_partners: Hur blir jag en?
@@ -2718,7 +2717,7 @@ sv:
   license_no_known_copyright_restrictions: Inga kända upphovsrättsliga begränsningar
   license_none: Ingen
   license_not_applicable: Licens är inte tillämplig
-  license_public_domain: Allmän egendom
+  license_public_domain: Public Domain
   licensing: Licensiering
   link_more_about: Läs mer om denna länk
   link_name: Länknamn
@@ -3155,7 +3154,7 @@ sv:
   provider: Leverantör
   providers: Leverantörer
   public: Offentlig
-  public_domain: allmän egendom
+  public_domain: Public Domain
   publish: publicera
   publish_after_utc: Publicera efter (UTC)
   publish_changes: Publiceringsändringar

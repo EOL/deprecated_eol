@@ -2913,60 +2913,59 @@ de:
   last_updated: Zuletzt aktualisiert
   last_updated_time_ago: Letztmalig vor %{time_passed} aktualisiert
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: EOL zitieren
-        about_link_contact_us: Kontaktieren Sie uns
-        about_link_discover: Entdecken
-        about_link_donate: An EOL spenden
-        about_link_eol_blog: Blog der EOL
-        about_link_glossary: Glossar
-        about_link_help: Hilfe
-        about_link_podcasts: Podcasts
-        about_link_statistics: Statistiken
-        about_link_terms_of_use: Nutzungsbedingungen
-        about_link_what_is_eol: Was ist EOL?
-        header_about: Über EOL
-        header_learn_more: Erfahren Sie mehr über
-        header_questions: Erzählen Sie mir mehr
-        learn_more_link_amphibians: Amphibien
-        learn_more_link_animals: Tiere
-        learn_more_link_archaea: Archaeen
-        learn_more_link_bacteria: Bakterien
-        learn_more_link_birds: Vögel
-        learn_more_link_crustaceans: Krebstiere
-        learn_more_link_fish: Fische
-        learn_more_link_flowering_plants: Blütenpflanzen
-        learn_more_link_fungi: Pilze
-        learn_more_link_insects: Insekten
-        learn_more_link_invertebrates: Wirbellose
-        learn_more_link_mammals: Säugetiere
-        learn_more_link_molds: Schimmel
-        learn_more_link_mollusks: Weichtiere
-        learn_more_link_mushrooms: Pilze
-        learn_more_link_plants: Pflanzen
-        learn_more_link_protists: Protisten
-        learn_more_link_reptiles: Reptilien
-        learn_more_link_spiders: Spinnen
-        learn_more_link_trees: Bäume
-        learn_more_link_viruses: Viren
-        learn_more_link_worms: Würmer
-        questions_link_binomial_nomenclature: Was ist eine binominale Nomenklatur?
-        questions_link_biodiversity: Was ist Biodiversität?
-        questions_link_biological_classification: Was ist eine biologische Klassifizierung?
-        questions_link_contributing_to_research: Wie kann ich zur Forschung beitragen?
-        questions_link_discovering_species: Wie werden Arten entdeckt?
-        questions_link_indicator_species: Was ist eine Indikatorart?
-        questions_link_invasive_species: Was ist eine invasive Art?
-        questions_link_model_organism: Was ist ein Modellorganismus?
-        questions_link_naming_species: Wie werden Arten benannt?
-        questions_link_species: Was ist eine Art?
-      data_search: 
-        page_header: TraitBank durchsuchen
-        page_header_results: Suchergebnisse von TraitBank
-      taxa: 
-        search_traitbank: TraitBank durchsuchen
-        search_within_clade: Innerhalb der Klade suchen
+    application: 
+      about_link_citing: EOL zitieren
+      about_link_contact_us: Kontaktieren Sie uns
+      about_link_discover: Entdecken
+      about_link_donate: An EOL spenden
+      about_link_eol_blog: Blog der EOL
+      about_link_glossary: Glossar
+      about_link_help: Hilfe
+      about_link_podcasts: Podcasts
+      about_link_statistics: Statistiken
+      about_link_terms_of_use: Nutzungsbedingungen
+      about_link_what_is_eol: Was ist EOL?
+      header_about: Über EOL
+      header_learn_more: Erfahren Sie mehr über
+      header_questions: Erzählen Sie mir mehr
+      learn_more_link_amphibians: Amphibien
+      learn_more_link_animals: Tiere
+      learn_more_link_archaea: Archaeen
+      learn_more_link_bacteria: Bakterien
+      learn_more_link_birds: Vögel
+      learn_more_link_crustaceans: Krebstiere
+      learn_more_link_fish: Fische
+      learn_more_link_flowering_plants: Blütenpflanzen
+      learn_more_link_fungi: Pilze
+      learn_more_link_insects: Insekten
+      learn_more_link_invertebrates: Wirbellose
+      learn_more_link_mammals: Säugetiere
+      learn_more_link_molds: Schimmel
+      learn_more_link_mollusks: Weichtiere
+      learn_more_link_mushrooms: Pilze
+      learn_more_link_plants: Pflanzen
+      learn_more_link_protists: Protisten
+      learn_more_link_reptiles: Reptilien
+      learn_more_link_spiders: Spinnen
+      learn_more_link_trees: Bäume
+      learn_more_link_viruses: Viren
+      learn_more_link_worms: Würmer
+      questions_link_binomial_nomenclature: Was ist eine binominale Nomenklatur?
+      questions_link_biodiversity: Was ist Biodiversität?
+      questions_link_biological_classification: Was ist eine biologische Klassifizierung?
+      questions_link_contributing_to_research: Wie kann ich zur Forschung beitragen?
+      questions_link_discovering_species: Wie werden Arten entdeckt?
+      questions_link_indicator_species: Was ist eine Indikatorart?
+      questions_link_invasive_species: Was ist eine invasive Art?
+      questions_link_model_organism: Was ist ein Modellorganismus?
+      questions_link_naming_species: Wie werden Arten benannt?
+      questions_link_species: Was ist eine Art?
+    data_search: 
+      page_header: TraitBank durchsuchen
+      page_header_results: Suchergebnisse von TraitBank
+    taxa: 
+      search_traitbank: TraitBank durchsuchen
+      search_within_clade: Innerhalb der Klade suchen
   learn_about_collections: Wie kann ich eine erstellen?
   learn_about_communities: Wie kann ich teilnehmen?
   learn_about_content_partners: Wie kann ich einer werden?

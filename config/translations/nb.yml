@@ -1179,6 +1179,7 @@ nb:
   community_rating: Brukersamfunnsvurdering
   community_tab_collections_header: Samlinger
   completed: Fullført
+  completed_colon: "Ferdigstilt:"
   confirm_password_colon: "Bekreft passord:"
   contact: Kontakt
   contact_information: Kontaktinformasjon
@@ -1425,6 +1426,9 @@ nb:
       meta_supplier_default: en bidragsyter
       meta_title: "%{dato_title} fra %{supplier}"
       tweet_text: "%{dato_title} fra %{supplier}"
+  data_search_files_with_count: 
+    one: "%{count} datanedlasting"
+    other: "%{count} datanedlastinger"
   date_caps: Dato
   date_uploaded: Opplastingsdato
   datepicker: 
@@ -1610,6 +1614,7 @@ nb:
     security_violations: 
       default: Tilgang nektet.
   expand_all_children: utvid alle underordnede objekter
+  expires_in_colon: "Utløper om:"
   explore: Utforsk
   export_this_list_as_csv: Eksporter denne listen som CSV
   external_link_header: Ekstern lenke
@@ -1637,6 +1642,7 @@ nb:
   filter_by_type_comment_option: Kommentarer
   filter_by_type_community_option: Brukersamfunn
   filter_by_type_content_page_option: Om EOL
+  filter_by_type_data_option: Karaktertrekk
   filter_by_type_image_option: Bilder
   filter_by_type_link_option: Lenker
   filter_by_type_name_option: Navn
@@ -2055,6 +2061,9 @@ nb:
   in_this_data_type: "i denne %{data_type}:"
   inappropriate: Upassende
   inaturalist_tab_label: iNaturalist-observasjoner
+  including_traitbank_count: 
+    one: ", inkluderer , %{count} TraitBank-attributt"
+    other: ", inkluderer %{count} TraitBank-attributter"
   indexed: Indeksert
   internal_ip_address: intern IP-adresse
   inverse_sort: Omvendt sortering
@@ -2104,54 +2113,53 @@ nb:
   last_updated: Sist oppdatert
   last_updated_time_ago: Sist oppdatert %{time_passed} siden
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Sitere EOL
-        about_link_contact_us: Kontakt oss
-        about_link_discover: Oppdag
-        about_link_donate: Doner til EOL
-        about_link_eol_blog: EOL-bloggen
-        about_link_glossary: Ordliste
-        about_link_help: Hjelp
-        about_link_podcasts: Podcaster
-        about_link_statistics: Statistikker
-        about_link_terms_of_use: Bruksvilkår
-        about_link_what_is_eol: Hva er EOL?
-        header_about: Om EOL
-        header_learn_more: Lær mer om
-        header_questions: Jeg vil vite mer
-        learn_more_link_amphibians: Amfibier
-        learn_more_link_animals: Dyr
-        learn_more_link_archaea: Arkéer
-        learn_more_link_bacteria: Bakterier
-        learn_more_link_birds: Fugler
-        learn_more_link_crustaceans: Krepsdyr
-        learn_more_link_fish: Fisker
-        learn_more_link_flowering_plants: Dekkfrøede planter
-        learn_more_link_fungi: Sopper
-        learn_more_link_insects: Insekter
-        learn_more_link_invertebrates: Virvelløse dyr
-        learn_more_link_mammals: Pattedyr
-        learn_more_link_molds: Muggsopper
-        learn_more_link_mollusks: Bløtdyr
-        learn_more_link_mushrooms: Sopper
-        learn_more_link_plants: Planter
-        learn_more_link_protists: Protister
-        learn_more_link_reptiles: Reptiler
-        learn_more_link_spiders: Edderkopper
-        learn_more_link_trees: Trær
-        learn_more_link_viruses: Virus
-        learn_more_link_worms: Ormer
-        questions_link_binomial_nomenclature: Hva er binomial nomenklatur?
-        questions_link_biodiversity: Hva er biodiversitet?
-        questions_link_biological_classification: Hva er en biologisk klassifikasjon?
-        questions_link_contributing_to_research: Hvordan kan jeg bidra til forskning?
-        questions_link_discovering_species: Hvordan blir arter oppdaget?
-        questions_link_indicator_species: Hva er en indikatorart?
-        questions_link_invasive_species: Hva er en invasiv art?
-        questions_link_model_organism: Hva er en modellorganisme?
-        questions_link_naming_species: Hvordan navngis arter?
-        questions_link_species: Hva er en art?
+    application: 
+      about_link_citing: Sitere EOL
+      about_link_contact_us: Kontakt oss
+      about_link_discover: Oppdag
+      about_link_donate: Doner til EOL
+      about_link_eol_blog: EOL-bloggen
+      about_link_glossary: Ordliste
+      about_link_help: Hjelp
+      about_link_podcasts: Podcaster
+      about_link_statistics: Statistikker
+      about_link_terms_of_use: Bruksvilkår
+      about_link_what_is_eol: Hva er EOL?
+      header_about: Om EOL
+      header_learn_more: Lær mer om
+      header_questions: Jeg vil vite mer
+      learn_more_link_amphibians: Amfibier
+      learn_more_link_animals: Dyr
+      learn_more_link_archaea: Arkéer
+      learn_more_link_bacteria: Bakterier
+      learn_more_link_birds: Fugler
+      learn_more_link_crustaceans: Krepsdyr
+      learn_more_link_fish: Fisker
+      learn_more_link_flowering_plants: Dekkfrøede planter
+      learn_more_link_fungi: Sopper
+      learn_more_link_insects: Insekter
+      learn_more_link_invertebrates: Virvelløse dyr
+      learn_more_link_mammals: Pattedyr
+      learn_more_link_molds: Muggsopper
+      learn_more_link_mollusks: Bløtdyr
+      learn_more_link_mushrooms: Sopper
+      learn_more_link_plants: Planter
+      learn_more_link_protists: Protister
+      learn_more_link_reptiles: Reptiler
+      learn_more_link_spiders: Edderkopper
+      learn_more_link_trees: Trær
+      learn_more_link_viruses: Virus
+      learn_more_link_worms: Ormer
+      questions_link_binomial_nomenclature: Hva er binomial nomenklatur?
+      questions_link_biodiversity: Hva er biodiversitet?
+      questions_link_biological_classification: Hva er en biologisk klassifikasjon?
+      questions_link_contributing_to_research: Hvordan kan jeg bidra til forskning?
+      questions_link_discovering_species: Hvordan blir arter oppdaget?
+      questions_link_indicator_species: Hva er en indikatorart?
+      questions_link_invasive_species: Hva er en invasiv art?
+      questions_link_model_organism: Hva er en modellorganisme?
+      questions_link_naming_species: Hvordan navngis arter?
+      questions_link_species: Hva er en art?
   learn_about_collections: Hvordan kan jeg opprette en?
   learn_about_communities: Hvordan kan jeg delta?
   learn_about_content_partners: Hvordan kan jeg bli en?
@@ -3068,6 +3076,20 @@ nb:
         meta_description: "%{user_full_name} innholdspartner-knytninger."
         meta_title: "%{user_full_name} Innholdspartnere"
         tweet_text: "%{user_full_name} innholdspartnere"
+    data_downloads: 
+      actions_head: Handlinger
+      attribute_head: Attributt
+      complete_head: Ferdigstilt?
+      empty: You har ingen nedlastinger. Du kan <a href='%{data_search_url}'> søke etter data</a> og be om nedlasting av funnene.
+      index: 
+        tweet_text: Datanedlasting for %{user_full_name}
+      is_complete: Ja
+      is_not_complete: Nei
+      processing: behandler
+      refresh: oppfrisk
+      row_count: Antall
+      search_again: nytt søk
+      updated_head: Siste handling
     edit: 
       form_tip_account: For å logge på EOL trenger du enten et EOL-brukernavn og -passord, eller du kan koble til en tredjepartskonto. Brukernavn og passord er påkrevd hvis du ikke har en tilkoblet konto, men kun angi et nytt passord her hvis du ønsker å endre det eksisterende. E-postadresse og foretrukket språk er påkrevd (%{required_icon}) for alle brukere.
       form_tip_account_oauth: E-postadresse og foretrukket språk er påkrevd %{required_icon} for alle brukere.

@@ -1128,10 +1128,10 @@ mk:
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">Стиснете тука</a> за да појдете на бета-испробување на новите форуми на EOL. Би го ценеле вашето мислење за нив.
-  api_cache_time_to_live_parameter: колку секунди одговорот да седи во кешот
+  api_cache_time_to_live_parameter: колку секунди одговорот да седи во меѓускладот
   api_docs_collections_description: Кога ќе му се зададе назнака на збирка, овој API ќе ги даде сите метаподатоци за збирката и експонатите што ги содржи. Списокот на експонати може да се филтрира по тип и да се подредува по наведените атрибути. Некои експонати ќе го содржат изборниот атрибут „sort_field“ (подредување на поле). Овој атрибут е низа што ја става корисникот и претставува посебна прибелешка за експонатот. Може да биде низа од знаци, но ако е датум, тогаш мора да се запише во форматот ГГГГ-ММ-ДД. Експонатите од еден таксон ќе содржат бодување за содржајност. Содржајноста ќе се изразува со број од 0 до 100 - што повеќе различни извори, тоа е повисока оценката. Прочитајте за содржајност на таксоните во јазичето за актуелности (поднови) на таксонската страница (на пр. %{richness_url}).
   api_refer_to_the_getting_started_page: На страницата <a href="%{link}">Како да почнете</a> ќе најдете примери за употреба на прилогот (API) на EOL, условите на употреба и како да се пријавите за API-клуч.
-  api_results_can_be_cached: Одговорот од секој повик на API може да се задржи (кешира) извесно време, кое можете да го укажете. Може да се стави параметар „cache_ttl“ чија вредност е бројот на секунди на задршка. Ова ќе создаде HTTP-заглавија што означуваат дека резултатот треба да се складира во прелистувачите, а одговорот ќе биде складиран во опслужувачите на EOL во укажаното времетраење. Ако вредноста на  „cache_ttl“ се измени, првото барање со новата вредност нема да влезе во складиштето, но понатамошните барања ќе го надигнат новоскладираниот одговор.
+  api_results_can_be_cached: Одговорот од секој повик на API може да се задржи (меѓускладира, кешира) извесно време, кое можете да го укажете. Може да се стави параметар „cache_ttl“ чија вредност е бројот на секунди на задршка. Ова ќе создаде HTTP-заглавија што означуваат дека резултатот треба да се складира во прелистувачите, а одговорот ќе биде складиран во опслужувачите на EOL во укажаното времетраење. Ако вредноста на  „cache_ttl“ се измени, првото барање со новата вредност нема да влезе во складиштето, но понатамошните барања ќе го надигнат новоскладираниот одговор.
   application_version_advisory_information: Верзија на програмот
   are_you_sure: Дали сте сигурни?
   are_you_sure_this_action_cannot_be_undone: Дали сте сигурни? Ова дејство е неповратно.
@@ -1234,8 +1234,8 @@ mk:
   build_communities: Изградба на заедници
   by_caps: Од
   by_scientific_name_table_header: по Научно име
-  cache_store: Складиште на кеш
-  caching_results: Резултати од кешот
+  cache_store: Чувалиште на меѓускладот
+  caching_results: Меѓускладирање на резултати
   calculate_averages_slow: Пресметај просеци (бавно)
   call_api: Повикај API
   cancel: Откажи
@@ -1299,7 +1299,7 @@ mk:
     one: "%{count} Класификација"
     other: "%{count} Класификации"
   clear_all_non_species_pages: Исчисти ги сите страници што не се за видови
-  clear_entire_cache_store: Исчисти го сето складиште на кеш
+  clear_entire_cache_store: Исчисти го сето чувалиште на меѓускладот
   clear_species_page: Исчисти ја страницата за вид
   click: Стисок
   click_on_a_user_to_view_the_users_detailed_profile: Стиснете на корисник за да го погледате неговиот подробен профил. Стиснете на видот за да ја погледате страницата кајшто има текст (тука можете да се вратите со копчето „назад“ на прелистувачот).
@@ -1498,6 +1498,7 @@ mk:
   community_tab_communities_description: Заедниците се групи на членови на EOL што ги обединуваат исти интереси и стручност. Тие се организирани по збирки, овозможувајќи има на членовите да се посветат на теми за кои делат интерес. Повеќе информации за заедниците, вклучувајќи како да создадете ваша заедница, ќе најдете на <a href='/info/communities'>страницата  за помош</a>.
   community_tab_curators_description: Кустосите се корисници на EOL со стручност од областа набиологијата што одвојуваат од своето време за да ги проверуваат содржините на EOL. Така ќе знаете дека она што го гледате дека точно и квалитетно.
   completed: Завршено
+  completed_colon: "Направено:"
   confirm_delete_community: Дали сте сигурни дека сакате да ја избришете оваа заедница? Преостанатите членови сепак ќе можат да ја гледаат. Каналот со новости ќе продолжи да работи, но нема да се прикажува во пребарувањата и таксонските страници и повеќе нема да може да се уредува.
   confirm_leave: Дали сте сигурни дека сакате да ја напуштите заедницава?
   confirm_password_colon: Потврди лозинка
@@ -1938,8 +1939,8 @@ mk:
     to: Највисока вредност
     unit_uri: Мерна единица
   data_search_files_with_count: 
-    one: Едно зачувано пребарување
-    other: "%{count} зачувани пребарувања"
+    one: Едно преземање на податоци
+    other: "%{count} преземања на податоци"
   data_search_limit: 
     one: Преземањата на пребарани податоци се ограничени на еден резултат.
     other: Преземањата на пребарани податоци се ограничени на %{count} резултати.
@@ -2235,6 +2236,8 @@ mk:
       no_access: Нажалост, пристапот е ограичен.
   excluded_icon_tip: Редовите означени за иконата за изземање %{excluded_icon} никогаш нема да се прикажуваат во прегледните страници на таксоните.
   expand_all_children: отвори ги сите поттаксони
+  expired: Истечено
+  expires_in_colon: "Истекува за:"
   explore: Истражете
   explore_what_we_know_about_taxon: Истражете што сè знае EOL за таксонот %{taxon}.
   export_curator_csv_link: "[извези ги сите кустоси како CSV]"
@@ -2277,7 +2280,7 @@ mk:
   filter_by_type_comment_option: Коментари
   filter_by_type_community_option: Заедници
   filter_by_type_content_page_option: Информативни страници на EOL
-  filter_by_type_data_option: Податоци од TraitBank
+  filter_by_type_data_option: Одлики
   filter_by_type_image_option: Слики
   filter_by_type_image_option_with_count: 
     one: Слики (%{count})
@@ -2393,7 +2396,7 @@ mk:
     update_failed: Нажалост, се појави грешка. Не можав да го подновам форумот.
     update_successful: Форумот е успешно подновен
     views: Посети
-  fragment_caching_enabled: Кеширањето на поделоци е овозможено
+  fragment_caching_enabled: Меѓудкласирањето на поделоци е овозможено
   frequency: Честота
   frequency_daily: Дневно
   frequency_monthly: Месечно
@@ -2734,7 +2737,7 @@ mk:
   hierarchy_selector_drop_down_list_label: Ова е натписот што ќе фигурира во паѓачкиот список за избирање на хиерархијата
   hierarchy_updated: Хиерархијата е подновена
   home: Почетна
-  home_page_cache_last_cleared_on: Кешот на домашната страница е последен пат исчистен на %{date}
+  home_page_cache_last_cleared_on: Меѓускладот на домашната страница е последен пат исчистен на %{date}
   home_page_link_advisory_information: Оваа врска ќе Ве доведе до домашната страница на Енциклопедијата на живиот свет
   however_there_are_summaries: Меѓутоа, <a href='%{summary_url}'>EOL дава резиме на податоци од подгрупи</a>.
   html_format: (HTML формат)
@@ -2758,7 +2761,7 @@ mk:
   image_not_associated_with_any_published_entries: Оваа слика не е поврзана со ниеден објавен таксон.
   image_not_found: Сликата не е пронајдена
   image_object: Сликовен објект
-  image_objects_will_contain_two_mediaurl_elements: Објектите што се слики ќе содржат два елемента „mediaURL“ - првиот е URL-адреса на сликата на мрежното место на добавувачот, а вториот е URL-адреса на кешираната верзија вдомена на опслужувачот на EOL. Верзијата на EOL ќе биде со изменета големина (запазувајќи ја сразмерноста) ако изворната слика е поголема од 460 пиксели во ширина и 345 пиксели во висина.
+  image_objects_will_contain_two_mediaurl_elements: Објектите што се слики ќе содржат два елемента „mediaURL“ — првиот е URL-адреса на сликата на мрежното место на добавувачот, а вториот е URL-адреса на меѓускладираната верзија вдомена на опслужувачот на EOL. Верзијата на EOL ќе биде со изменета големина (запазувајќи ја сразмерноста) ако изворната слика е поголема од 460 пиксели во ширина и 345 пиксели во висина.
   image_of_taxon: Слика од %{taxon_name}
   image_rating: Оценка на сликата
   image_title_with_taxa: Слика на %{taxa}
@@ -2781,6 +2784,9 @@ mk:
   inappropriate: Несоодветни
   inaturalist_tab_label: Набњудувања од iNaturalist
   include_all_metadata: вклучи ги сите метаподатоци за податочните објекти
+  including_traitbank_count: 
+    one: ", вклучувајќи еден атрибут од TraitBank"
+    other: ", вклучувајќи %{count} атрибути од TraitBank"
   indexed: Индексирано
   info_item: Инфообјект
   info_items_col_header: Инфообјекти
@@ -2897,60 +2903,59 @@ mk:
   last_updated: Последна актуелност
   last_updated_time_ago: Последната измена е направена пред %{time_passed}
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Наведување на EOL
-        about_link_contact_us: Контактирајте нè
-        about_link_discover: Откријте
-        about_link_donate: Дајте доброволен прилог за EOL
-        about_link_eol_blog: Блогот на EOL
-        about_link_glossary: Поимник
-        about_link_help: Помош
-        about_link_podcasts: Подкастови
-        about_link_statistics: Статистики
-        about_link_terms_of_use: Услови на употреба
-        about_link_what_is_eol: Што е EOL?
-        header_about: За EOL
-        header_learn_more: Дознајте повеќе
-        header_questions: Сакам да знам повеќе
-        learn_more_link_amphibians: Водоземци
-        learn_more_link_animals: Животни
-        learn_more_link_archaea: Археи
-        learn_more_link_bacteria: Бактерии
-        learn_more_link_birds: Птици
-        learn_more_link_crustaceans: Ракови
-        learn_more_link_fish: Риби
-        learn_more_link_flowering_plants: Цветни растенија
-        learn_more_link_fungi: Габи
-        learn_more_link_insects: Инсекти
-        learn_more_link_invertebrates: Без’рбетници
-        learn_more_link_mammals: Цицачи
-        learn_more_link_molds: Мувли
-        learn_more_link_mollusks: Мекотелци
-        learn_more_link_mushrooms: Печурки
-        learn_more_link_plants: Растенија
-        learn_more_link_protists: Протисти
-        learn_more_link_reptiles: Влекачи
-        learn_more_link_spiders: Пајаци
-        learn_more_link_trees: Дрва
-        learn_more_link_viruses: Вируси
-        learn_more_link_worms: Црви
-        questions_link_binomial_nomenclature: Што е тоа биномна номенклатура?
-        questions_link_biodiversity: Што е тоа биоразновидност?
-        questions_link_biological_classification: Што е тоа биолошка класификација?
-        questions_link_contributing_to_research: Како можам да имам удел во истражувањата?
-        questions_link_discovering_species: Како се откриваат видовите?
-        questions_link_indicator_species: Што е тоа показателски вид?
-        questions_link_invasive_species: Што е тоа инвазивен вид?
-        questions_link_model_organism: Што е тоа моделен организам?
-        questions_link_naming_species: Како се именуваат видовите?
-        questions_link_species: Што е тоа вид?
-      data_search: 
-        page_header: Пребарување по TraitBank
-        page_header_results: Резултати од TraitBank
-      taxa: 
-        search_traitbank: Пребарување по TraitBank
-        search_within_clade: Пребарување во кладот
+    application: 
+      about_link_citing: Наведување на EOL
+      about_link_contact_us: Контактирајте нè
+      about_link_discover: Откријте
+      about_link_donate: Дајте доброволен прилог за EOL
+      about_link_eol_blog: Блогот на EOL
+      about_link_glossary: Поимник
+      about_link_help: Помош
+      about_link_podcasts: Подкастови
+      about_link_statistics: Статистики
+      about_link_terms_of_use: Услови на употреба
+      about_link_what_is_eol: Што е EOL?
+      header_about: За EOL
+      header_learn_more: Дознајте повеќе
+      header_questions: Сакам да знам повеќе
+      learn_more_link_amphibians: Водоземци
+      learn_more_link_animals: Животни
+      learn_more_link_archaea: Археи
+      learn_more_link_bacteria: Бактерии
+      learn_more_link_birds: Птици
+      learn_more_link_crustaceans: Ракови
+      learn_more_link_fish: Риби
+      learn_more_link_flowering_plants: Цветни растенија
+      learn_more_link_fungi: Габи
+      learn_more_link_insects: Инсекти
+      learn_more_link_invertebrates: Без’рбетници
+      learn_more_link_mammals: Цицачи
+      learn_more_link_molds: Мувли
+      learn_more_link_mollusks: Мекотелци
+      learn_more_link_mushrooms: Печурки
+      learn_more_link_plants: Растенија
+      learn_more_link_protists: Протисти
+      learn_more_link_reptiles: Влекачи
+      learn_more_link_spiders: Пајаци
+      learn_more_link_trees: Дрва
+      learn_more_link_viruses: Вируси
+      learn_more_link_worms: Црви
+      questions_link_binomial_nomenclature: Што е тоа биномна номенклатура?
+      questions_link_biodiversity: Што е тоа биоразновидност?
+      questions_link_biological_classification: Што е тоа биолошка класификација?
+      questions_link_contributing_to_research: Како можам да имам удел во истражувањата?
+      questions_link_discovering_species: Како се откриваат видовите?
+      questions_link_indicator_species: Што е тоа показателски вид?
+      questions_link_invasive_species: Што е тоа инвазивен вид?
+      questions_link_model_organism: Што е тоа моделен организам?
+      questions_link_naming_species: Како се именуваат видовите?
+      questions_link_species: Што е тоа вид?
+    data_search: 
+      page_header: Пребарување по TraitBank
+      page_header_results: Резултати од TraitBank
+    taxa: 
+      search_traitbank: Пребарување по TraitBank
+      search_within_clade: Пребарување во кладот
   learn_about_collections: Како да направам збирка?
   learn_about_communities: Како можам да учествувам?
   learn_about_content_partners: Како да станам соучесник?
@@ -3108,6 +3113,7 @@ mk:
   method: Метод
   method_to_get_metadata_about_the_hierarchy: кога ќе му се зададе хиерархиска назнака овој метод дава метаподатоци за хиерархијата и ги наведува основните таксони
   methods: Методи
+  missing_interpolation_argument_error: "[преводот е нецелосен]"
   mobile: 
     contents: 
       explore_eol: Истражете ја EOL
@@ -3571,7 +3577,7 @@ mk:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Преземањето е спремно!
-      message: Можете да го преземете ова и други преземања ако појдете во <a href='%{download_link}'>јазичето за зачувани пребарувања во вашиот профил</a>.
+      message: Можете да го погледате ова и други преземања ако појдете во <a href='%{download_link}'>јазичето за преземени податоци во вашиот профил</a>.
       subject: Вашето пребарување по EOL е спремно за преземање
   recent_updates: Најнови актуелности
   recently_used_link: Неодамна употребени
@@ -3840,6 +3846,7 @@ mk:
   subject: предмет
   submit: Поднеси
   submit_term: Поднеси поим
+  submitted_colon: "Поднесено:"
   submitting: Почекајте...
   suggested_attributes: "Предложени атрибути:"
   suggested_result_page_id: "Назнака за страницата на предложените резултати:"
@@ -4498,6 +4505,30 @@ mk:
         meta_description: Врски со соучесници во содржините на %{user_full_name}
         meta_title: Соучесници во содржините на %{user_full_name}
         tweet_text: Соучесници во содржините на %{user_full_name}
+    data_downloads: 
+      actions_head: Дејства
+      attribute_head: Атрибут
+      complete_head: Готово?
+      created_head: Создадено
+      download: преземи
+      empty: Немате преземања. Можете да <a href='%{data_search_url}'>пребарате податоци</a> и да побарате преземање на резултатите.
+      header_with_count: 
+        one: Преземање на податоци
+        other: "%{count} преземања на податоци"
+      index: 
+        meta_description: Преземања на податоци побарани од %{user_full_name}.
+        meta_title: "%{user_full_name} Преземања на податоци"
+        tweet_text: "%{user_full_name} преземања на податоци"
+      is_complete: Да
+      is_not_complete: Не
+      page_title: Преземања на податоци
+      processing: се обработува
+      query_empty: (без филтри)
+      query_head: Барање
+      refresh: превчитај
+      row_count: Број
+      search_again: барај повторно
+      updated_head: Последно дејство
     edit: 
       form_tip_account: За да се најавите на EOL ќе ви треба корисничко име и лозинка на самата EOL, или пак со поврзување на надворешна сметка. Корисничкото име и лозинката се бараат само ако немате поврзана надворешна сметка, но тука нова лозинка треба да внесете само ако сакате да ја смените постоечката. Сите корисници мора (%{required_icon}) да наведат е-пошта и претпочитан јазик.
       form_tip_account_oauth: Сите корисници мора %{required_icon} да наведат е-пошта и претпочитан јазик.

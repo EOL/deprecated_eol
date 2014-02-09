@@ -1491,6 +1491,7 @@ uk:
   community_tab_communities_description: Спільноти є групами учасників EOL, які зібралися разом, щоб поділитися своїми інтересами і досвідом. Спільноти EOL організуються навколо однієї або декількох збірок ЕЖ і пропонують учасникам можливість зосередити увагу на темах, які становлять спільний інтерес. Детальніша інформація про спільноти ЕЖ, в тому числі вказівки для створення власної, доступна на <a href='/info/communities'>сторінці довідки</a>.
   community_tab_curators_description: Куратори - це користувачі ЕЖ з біологічними знаннями, які віддають свій час на перевірку вмісту ЕЖ, гарантуючи, що усе побачене вами є точним і високоякісним.
   completed: Готово
+  completed_colon: "Завершено:"
   confirm_leave: Ви впевнені, що хочете вийти з цієї громади?
   confirm_password_colon: "Підтвердження пароля:"
   contact: Контакт
@@ -1852,12 +1853,29 @@ uk:
   data_ranges_subheader: Зведені дані для цієї таксономічної групи
   data_reference_subtable_summary: Додаткові посилання про цей факт.
   data_row_add_exemplar_button: додати до огляду
+  data_row_additional_detail_alt: Додаткові відомості
+  data_row_additional_detail_hide_alt: Приховати додаткові подробиці
+  data_row_additional_detail_loading_alt: Завантаження додаткових відомостей
+  data_row_additional_detail_show_alt: Показати додаткові подробиці
   data_row_excluded_from_overview_notice: "Примітка: цей рядок було виключено з огляду."
   data_row_exemplar_added: Додано до огляду.
   data_row_exemplar_removed: Вилучено із огляду.
   data_row_hide_button: Приховати рядок
   data_row_remove_exemplar_button: вилучити з огляду
   data_row_unhide_button: Відобразити рядок
+  data_search: 
+    form: 
+      header_assistive: Форму пошуку
+      input_summary_intro: Вибрані параметри пошуку
+      new_search_link: Почати новий пошук
+      search_suggestion_diatom_shape: Які різні форми діатомових водоростей?
+      search_suggestion_whale_mass: Які китів важать більше, ніж 10 000 кг?
+      search_suggestions_header: Не впевнені, з чого почати?
+      search_suggestions_subheader_colon: "Спробуйте один з наступних пошуків даних:"
+      search_tools_hide_link: Приховати параметри пошуку
+      search_tools_show_link: Показати параметри пошуку
+      search_value_or_range_header: Пошук певного значення або діапазону
+      sort_header: Сортувати результати
   data_search_destroyed: Ця робота більше не буде оброблятися.
   data_search_files: 
     file_ready_for_download: Пошук, який ви нещодавно запросили за "%{known_uri_label}", можна завантажити за адресою <a href='%{download_url}'>%{download_url}</a>.
@@ -1865,10 +1883,10 @@ uk:
     to: Найбільше значення
     unit_uri: Одиниця виміру
   data_search_files_with_count: 
-    few: "%{count} збережені пошуки"
-    many: "%{count} збережені пошуки"
-    one: "%{count} збережений пошук"
-    other: "%{count} збережені пошуки"
+    few: "%{count} завантажені дані"
+    many: "%{count} завантажених даних"
+    one: "%{count} завантажене дане"
+    other: "%{count} завантажені дані"
   data_search_link: Пошук наукових даних на ЕЖ
   data_server_unavailable: Дані про ЕЖ тимчасово недоступні. Будь ласка, завітайте пізніше. Вибачте за завдані незручності.
   data_show_n_more_rows: Показати понад 10 рядків...
@@ -2375,7 +2393,14 @@ uk:
         min_placeholder: Введіть число
         min_placeholder_disabled: Діапазон вимкнено
         q: Певне значення
+        q_more: Наприклад, гетеротрофи.
         q_placeholder: Введіть слово, фразу або число
+        q_placeholder_disabled: Введено діапазон, конкретне значення неможливе
+        taxon_name: Група таксону
+        taxon_name_more: Наприклад, введіть Trochilidae або кити і виберіть відповідну групу.
+        taxon_name_placeholder: Введіть назву групи таксону для вибору групи
+        taxon_name_placeholder_value_removed: "%{taxon_group} видалено, виберіть нову групу"
+        unit: Одиниця виміру
       eol_statistic: 
         date_one: Дата
         date_two: Дата
@@ -2716,54 +2741,59 @@ uk:
   last_updated: Останнє оновлення
   last_updated_time_ago: Останнє оновлення %{time_passed} тому
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Цитування EOL
-        about_link_contact_us: Зв'яжіться з нами
-        about_link_discover: Пізнати
-        about_link_donate: Пожертвувати EOL
-        about_link_eol_blog: Блоґ EOL
-        about_link_glossary: Словник
-        about_link_help: Допомога
-        about_link_podcasts: Подкасти
-        about_link_statistics: Статистика
-        about_link_terms_of_use: Умови використання
-        about_link_what_is_eol: Що таке EOL?
-        header_about: Про EOL
-        header_learn_more: Дізнайтеся більше про
-        header_questions: Розкажіть мені більше
-        learn_more_link_amphibians: Земноводні
-        learn_more_link_animals: Тварини
-        learn_more_link_archaea: Археї
-        learn_more_link_bacteria: Бактерії
-        learn_more_link_birds: Птахи
-        learn_more_link_crustaceans: Ракоподібні
-        learn_more_link_fish: Риби
-        learn_more_link_flowering_plants: Квіткові рослини
-        learn_more_link_fungi: Гриби
-        learn_more_link_insects: Комахи
-        learn_more_link_invertebrates: Безхребетні
-        learn_more_link_mammals: Ссавці
-        learn_more_link_molds: Плісінь
-        learn_more_link_mollusks: Молюски
-        learn_more_link_mushrooms: Гриби
-        learn_more_link_plants: Рослини
-        learn_more_link_protists: Найпростіші
-        learn_more_link_reptiles: Рептилії
-        learn_more_link_spiders: Павуки
-        learn_more_link_trees: Дерева
-        learn_more_link_viruses: Віруси
-        learn_more_link_worms: Червяки
-        questions_link_binomial_nomenclature: Що таке біноміальна номенклатура?
-        questions_link_biodiversity: Що таке біорозмаїття?
-        questions_link_biological_classification: Що таке біологічна класифікація?
-        questions_link_contributing_to_research: Як я можу брати участь у дослідженнях?
-        questions_link_discovering_species: Як відкривають види?
-        questions_link_indicator_species: Що таке індикатор видів?
-        questions_link_invasive_species: Що таке інвазійний вид?
-        questions_link_model_organism: Що таке модельний організм?
-        questions_link_naming_species: Як називають види?
-        questions_link_species: Що таке вид?
+    application: 
+      about_link_citing: Цитування EOL
+      about_link_contact_us: Зв'яжіться з нами
+      about_link_discover: Пізнати
+      about_link_donate: Пожертвувати EOL
+      about_link_eol_blog: Блоґ EOL
+      about_link_glossary: Словник
+      about_link_help: Допомога
+      about_link_podcasts: Подкасти
+      about_link_statistics: Статистика
+      about_link_terms_of_use: Умови використання
+      about_link_what_is_eol: Що таке EOL?
+      header_about: Про EOL
+      header_learn_more: Дізнайтеся більше про
+      header_questions: Розкажіть мені більше
+      learn_more_link_amphibians: Земноводні
+      learn_more_link_animals: Тварини
+      learn_more_link_archaea: Археї
+      learn_more_link_bacteria: Бактерії
+      learn_more_link_birds: Птахи
+      learn_more_link_crustaceans: Ракоподібні
+      learn_more_link_fish: Риби
+      learn_more_link_flowering_plants: Квіткові рослини
+      learn_more_link_fungi: Гриби
+      learn_more_link_insects: Комахи
+      learn_more_link_invertebrates: Безхребетні
+      learn_more_link_mammals: Ссавці
+      learn_more_link_molds: Плісінь
+      learn_more_link_mollusks: Молюски
+      learn_more_link_mushrooms: Гриби
+      learn_more_link_plants: Рослини
+      learn_more_link_protists: Найпростіші
+      learn_more_link_reptiles: Рептилії
+      learn_more_link_spiders: Павуки
+      learn_more_link_trees: Дерева
+      learn_more_link_viruses: Віруси
+      learn_more_link_worms: Червяки
+      questions_link_binomial_nomenclature: Що таке біноміальна номенклатура?
+      questions_link_biodiversity: Що таке біорозмаїття?
+      questions_link_biological_classification: Що таке біологічна класифікація?
+      questions_link_contributing_to_research: Як я можу брати участь у дослідженнях?
+      questions_link_discovering_species: Як відкривають види?
+      questions_link_indicator_species: Що таке індикатор видів?
+      questions_link_invasive_species: Що таке інвазійний вид?
+      questions_link_model_organism: Що таке модельний організм?
+      questions_link_naming_species: Як називають види?
+      questions_link_species: Що таке вид?
+    data_search: 
+      page_header: Пошук TraitBank
+      page_header_results: Результати пошуку TraitBank
+    taxa: 
+      search_traitbank: Пошук TraitBank
+      search_within_clade: Пошук серед кладу
   learn_about_collections: Як я можу створити збірки?
   learn_about_communities: Як я можу взяти участь?
   learn_about_content_partners: Як я можу стати партнером?
@@ -3208,7 +3238,7 @@ uk:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Завантаження готове!
-      message: Ви зможете завантажити це та інше, відвідавши <a href='%{download_link}'>вкладку збережених пошуків у вашому профілі</a>.
+      message: Ви зможете переглянути це та інше, відвідавши <a href='%{download_link}'>вкладку завантаження даних у вашому профілі</a>.
       subject: Ваш пошук ЕЖ - готовий до завантаження
   recent_updates: Останні оновлення
   recently_used_link: Недавно використані
@@ -3844,6 +3874,25 @@ uk:
         meta_description: асоціації контент-партнера %{user_full_name}.
         meta_title: Контент-партнери %{user_full_name}
         tweet_text: контент-партнери %{user_full_name}
+    data_downloads: 
+      actions_head: Дії
+      attribute_head: Атрибут
+      complete_head: Завершити?
+      created_head: Створено
+      download: завантажити
+      index: 
+        meta_title: Завантаження даних користувачем %{user_full_name}
+        tweet_text: завантаження даних користувачем %{user_full_name}
+      is_complete: Так
+      is_not_complete: Ні
+      page_title: Завантаження даних
+      processing: обробка
+      query_empty: (без фільтрів)
+      query_head: Запит
+      refresh: оновити
+      row_count: Число
+      search_again: шукати знову
+      updated_head: Остання дія
     edit: 
       form_tip_account: Для входу у ЕЖ вам потрібне ім'я користувача ЕЖ і пароль, або можна підключити обліковий запис сторонніх служб. Ім'я користувача та пароль потрібні, якщо у вас немає підключеного облікового запису, однак, досить лише ввести новий пароль тут, якщо ви б хотіли змінити існуючий. Адреса електронної пошти та бажана мова є необхідними (%{required_icon}) для всіх користувачів.
       form_tip_account_oauth: Адреса електронної пошти і бажана мова потрібні %{required_icon} для всіх користувачів.

@@ -1525,6 +1525,7 @@ es:
   community_tab_communities_description: Las comunidades son grupos de miembros de EOL que se reúnen para compartir sus intereses y experiencia. Las comunidades de EOL se organizan alrededor de una o más colecciones, y ofrecen a sus miembros una forma de centrarse sobre temas de interés común. Más información sobre las comunidades de EOL, incluidas las instrucciones para crear la suya propia, está disponible en la <a href='/info/communities'>página de ayuda</a>.
   community_tab_curators_description: Los supervisores son usuarios de EOL con experiencia en biología que dedican su tiempo para revisar el contenido que aparece en EOL, asegurando que lo que aparece es exacto y de buena calidad.
   completed: Completado
+  completed_colon: "Completado:"
   confirm_delete_community: ¿Está saguaro de que desae borer esta comunidad? Los miembros restantes todavía podrán verla y los newsfeed se mantendrán, pero no se mostrará en las búsquedas o en páginas de taxones, y no se podrán editor más.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
   confirm_password_colon: "Confirmar contraseña:"
@@ -1965,8 +1966,8 @@ es:
     to: Valor máximo
     unit_uri: Unidad de medida
   data_search_files_with_count: 
-    one: "%{count} búsqueda guardada"
-    other: "%{count} búsquedas guardadas"
+    one: "%{count} descarga de datos"
+    other: "%{count} descargas de datos"
   data_search_limit: 
     one: Las descargas de búsqueda de datos están limitadas a%{count} resultado.
     other: Las descargas de búsqueda de datos están limitadas a %{count} resultados.
@@ -2262,6 +2263,8 @@ es:
       no_access: Lo sentimos, el acceso está restringido.
   excluded_icon_tip: Las filas marcadas con el ícono de excluido %{excluded_icon} nunca será mostrado en el taxón de descripción de páginas.
   expand_all_children: expandir todas las dependencias
+  expired: Caducado
+  expires_in_colon: "Caduca el:"
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar qué sabe EOL de %{taxon}.
   export_curator_csv_link: "[exportar todos los supervisores en formato CSV]"
@@ -2304,7 +2307,7 @@ es:
   filter_by_type_comment_option: Comentarios
   filter_by_type_community_option: Comunidades
   filter_by_type_content_page_option: Acerca de EOL
-  filter_by_type_data_option: Datos de TraitBank
+  filter_by_type_data_option: Características
   filter_by_type_image_option: Imágenes
   filter_by_type_image_option_with_count: 
     one: Imágenes (%{count})
@@ -2810,6 +2813,9 @@ es:
   inappropriate: Inapropiado
   inaturalist_tab_label: Observaciones iNaturalistas
   include_all_metadata: incluir todos los metadatos para objetos de datos
+  including_traitbank_count: 
+    one: ", incluyendo %{count} atributo de TraitBank"
+    other: ", incluyendo % {count} atributos de TraitBank"
   indexed: Indexado
   info_item: Elemento de información
   info_items_col_header: Elementos de información
@@ -2926,60 +2932,59 @@ es:
   last_updated: Última actualización
   last_updated_time_ago: Última actualización hace %{time_passed}
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Citar a EOL
-        about_link_contact_us: Contáctanos
-        about_link_discover: Descubrir
-        about_link_donate: Donar a EOL
-        about_link_eol_blog: El Blog de EOL
-        about_link_glossary: Glosario
-        about_link_help: Ayuda
-        about_link_podcasts: Podcasts
-        about_link_statistics: Estadísticas
-        about_link_terms_of_use: Condiciones de Uso
-        about_link_what_is_eol: ¿Qué es EOL?
-        header_about: Acerca de EOL
-        header_learn_more: Más información sobre
-        header_questions: Más información
-        learn_more_link_amphibians: Anfibios
-        learn_more_link_animals: Animales
-        learn_more_link_archaea: Arqueas
-        learn_more_link_bacteria: Bacterias
-        learn_more_link_birds: Aves
-        learn_more_link_crustaceans: Crustáceos
-        learn_more_link_fish: Peces
-        learn_more_link_flowering_plants: Angiospermas
-        learn_more_link_fungi: Hongos
-        learn_more_link_insects: Insectos
-        learn_more_link_invertebrates: Invertebrados
-        learn_more_link_mammals: Mamíferos
-        learn_more_link_molds: Levaduras
-        learn_more_link_mollusks: Moluscos
-        learn_more_link_mushrooms: Setas
-        learn_more_link_plants: Plantas
-        learn_more_link_protists: Protistas
-        learn_more_link_reptiles: Reptiles
-        learn_more_link_spiders: Arácnidos
-        learn_more_link_trees: Árboles
-        learn_more_link_viruses: Virus
-        learn_more_link_worms: Gusanos
-        questions_link_binomial_nomenclature: ¿Qué es la nomenclatura binomial?
-        questions_link_biodiversity: ¿Qué es la biodiversidad?
-        questions_link_biological_classification: ¿Qué es una clasificación biológica?
-        questions_link_contributing_to_research: ¿Cómo puedo contribuir a la investigación?
-        questions_link_discovering_species: ¿Cómo se descubren las especies?
-        questions_link_indicator_species: ¿Qué es una especie indicadora?
-        questions_link_invasive_species: ¿Qué es una especie invasora?
-        questions_link_model_organism: ¿Qué es un organismo modelo?
-        questions_link_naming_species: ¿Cómo se denominan las especies?
-        questions_link_species: ¿Qué es una especie?
-      data_search: 
-        page_header: Búsqueda TraitBank
-        page_header_results: Resultados de la búsqueda TraitBank
-      taxa: 
-        search_traitbank: Buscar en TraitBank
-        search_within_clade: Buscar dentro del clado
+    application: 
+      about_link_citing: Citar a EOL
+      about_link_contact_us: Contáctanos
+      about_link_discover: Descubrir
+      about_link_donate: Donar a EOL
+      about_link_eol_blog: El Blog de EOL
+      about_link_glossary: Glosario
+      about_link_help: Ayuda
+      about_link_podcasts: Podcasts
+      about_link_statistics: Estadísticas
+      about_link_terms_of_use: Condiciones de Uso
+      about_link_what_is_eol: ¿Qué es EOL?
+      header_about: Acerca de EOL
+      header_learn_more: Más información sobre
+      header_questions: Más información
+      learn_more_link_amphibians: Anfibios
+      learn_more_link_animals: Animales
+      learn_more_link_archaea: Arqueas
+      learn_more_link_bacteria: Bacterias
+      learn_more_link_birds: Aves
+      learn_more_link_crustaceans: Crustáceos
+      learn_more_link_fish: Peces
+      learn_more_link_flowering_plants: Angiospermas
+      learn_more_link_fungi: Hongos
+      learn_more_link_insects: Insectos
+      learn_more_link_invertebrates: Invertebrados
+      learn_more_link_mammals: Mamíferos
+      learn_more_link_molds: Levaduras
+      learn_more_link_mollusks: Moluscos
+      learn_more_link_mushrooms: Setas
+      learn_more_link_plants: Plantas
+      learn_more_link_protists: Protistas
+      learn_more_link_reptiles: Reptiles
+      learn_more_link_spiders: Arácnidos
+      learn_more_link_trees: Árboles
+      learn_more_link_viruses: Virus
+      learn_more_link_worms: Gusanos
+      questions_link_binomial_nomenclature: ¿Qué es la nomenclatura binomial?
+      questions_link_biodiversity: ¿Qué es la biodiversidad?
+      questions_link_biological_classification: ¿Qué es una clasificación biológica?
+      questions_link_contributing_to_research: ¿Cómo puedo contribuir a la investigación?
+      questions_link_discovering_species: ¿Cómo se descubren las especies?
+      questions_link_indicator_species: ¿Qué es una especie indicadora?
+      questions_link_invasive_species: ¿Qué es una especie invasora?
+      questions_link_model_organism: ¿Qué es un organismo modelo?
+      questions_link_naming_species: ¿Cómo se denominan las especies?
+      questions_link_species: ¿Qué es una especie?
+    data_search: 
+      page_header: Búsqueda TraitBank
+      page_header_results: Resultados de la búsqueda TraitBank
+    taxa: 
+      search_traitbank: Buscar en TraitBank
+      search_within_clade: Buscar dentro del clado
   learn_about_collections: ¿Cómo puedo crear una?
   learn_about_communities: ¿Cómo puedo participar?
   learn_about_content_partners: ¿Cómo puedo convertirme en uno?
@@ -3137,6 +3142,7 @@ es:
   method: Método
   method_to_get_metadata_about_the_hierarchy: dado un identificador de jerarquía, este método devuelve los metadatos sobre la jerarquía y lista los taxones en la raíz
   methods: Métodos
+  missing_interpolation_argument_error: "[traducción incompleta]"
   mobile: 
     contents: 
       explore_eol: Explorar EOL
@@ -3600,7 +3606,7 @@ es:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: ¡Su descarga está lista!
-      message: Puede descargar esta y otras descargas visitando la <a href='%{download_link}'>pestaña de búsquedas guardadas en su perfil</a>.
+      message: Puede ver esta y otras descargas visitando la <a href='%{download_link}'>pestaña de descargas en su perfil</a>.
       subject: Su búsqueda EOL está lista para descargar
   recent_updates: Actualizaciones recientes
   recently_used_link: Recientemente usado
@@ -3869,6 +3875,7 @@ es:
   subject: subject
   submit: Enviar
   submit_term: Enviar término
+  submitted_colon: "Enviado:"
   submitting: Espere un momento…
   suggested_attributes: "Atributos sugeridos:"
   suggested_result_page_id: "Identificador de la página de resultados sugeridos:"
@@ -4527,6 +4534,30 @@ es:
         meta_description: asociaciones de socios de contenido de %{user_full_name}.
         meta_title: socios de contenido de %{user_full_name}
         tweet_text: socios de contenido de %{user_full_name}
+    data_downloads: 
+      actions_head: Acciones
+      attribute_head: Atributo
+      complete_head: ¿Completa?
+      created_head: Creado
+      download: descargar
+      empty: No tiene descargas. Puede <a href='%{data_search_url}'>buscar datos</a> y solicitar la descarga de los resultados.
+      header_with_count: 
+        one: descarga de datos
+        other: "%{count} descargas de datos"
+      index: 
+        meta_description: Descarga de datos solicitada por %{user_full_name}.
+        meta_title: Descargas de datos de %{user_full_name}
+        tweet_text: descargas de datos de %{user_full_name}
+      is_complete: Sí
+      is_not_complete: 'No'
+      page_title: Descarga de datos
+      processing: procesando
+      query_empty: (sin filtros)
+      query_head: Consulta
+      refresh: actualizar
+      row_count: Conteo
+      search_again: buscar de nuevo
+      updated_head: Última acción
     edit: 
       form_tip_account: Para iniciar sesión en EOL necesitas un nombre de usuario y una contraseña de EOL, o puedes conectarte a una cuenta externa. El nombre de usuario y la contraseña son necesarios si no tienes una cuenta conectada, sin embargo introduce una nueva contraseña aquí sólo si te gustaría cambiar la existente. Especificar la dirección de correo electrónico y el idioma de preferencia es necesario (%{required_icon}) para todos los usuarios.
       form_tip_account_oauth: Es necesario especificar la dirección de correo electrónico y el idioma de preferencia %{required_icon} para todos los usuarios.

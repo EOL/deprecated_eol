@@ -2371,54 +2371,53 @@ zh-CN:
   last_updated: 最后更新
   last_updated_time_ago: 最后一次更新于%{time_passed}之前
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: 停滞指引
-        about_link_contact_us: 联系我们
-        about_link_discover: 发现
-        about_link_donate: 资助EOL
-        about_link_eol_blog: EOL博客
-        about_link_glossary: 术语表
-        about_link_help: 帮助
-        about_link_podcasts: 播客
-        about_link_statistics: 统计
-        about_link_terms_of_use: 使用条款
-        about_link_what_is_eol: EOL是什么？
-        header_about: 关于EOL
-        header_learn_more: 了解更多
-        header_questions: 告诉我更多
-        learn_more_link_amphibians: 两栖类
-        learn_more_link_animals: 动物
-        learn_more_link_archaea: 古生菌
-        learn_more_link_bacteria: 细菌
-        learn_more_link_birds: 鸟类
-        learn_more_link_crustaceans: 甲壳类动物
-        learn_more_link_fish: 鱼类
-        learn_more_link_flowering_plants: 开花植物
-        learn_more_link_fungi: 真菌
-        learn_more_link_insects: 昆虫
-        learn_more_link_invertebrates: 无脊椎动物
-        learn_more_link_mammals: 哺乳动物
-        learn_more_link_molds: 模具
-        learn_more_link_mollusks: 软体动物
-        learn_more_link_mushrooms: 蘑菇
-        learn_more_link_plants: 植物
-        learn_more_link_protists: 生物体
-        learn_more_link_reptiles: 爬虫类动物
-        learn_more_link_spiders: 蜘蛛
-        learn_more_link_trees: 树木
-        learn_more_link_viruses: 病毒
-        learn_more_link_worms: 虫
-        questions_link_binomial_nomenclature: 二项式的命名规则是什么？
-        questions_link_biodiversity: 生物多样性是什么？
-        questions_link_biological_classification: 生物分类是什么？
-        questions_link_contributing_to_research: 我可以为研究做什么？
-        questions_link_discovering_species: 物种是如何发现的？
-        questions_link_indicator_species: 指标物种是什么？
-        questions_link_invasive_species: 外来物种是什么？
-        questions_link_model_organism: 模式物种是什么？
-        questions_link_naming_species: 物种是如何命名的？
-        questions_link_species: 物种是什么？
+    application: 
+      about_link_citing: 停滞指引
+      about_link_contact_us: 联系我们
+      about_link_discover: 发现
+      about_link_donate: 资助EOL
+      about_link_eol_blog: EOL博客
+      about_link_glossary: 术语表
+      about_link_help: 帮助
+      about_link_podcasts: 播客
+      about_link_statistics: 统计
+      about_link_terms_of_use: 使用条款
+      about_link_what_is_eol: EOL是什么？
+      header_about: 关于EOL
+      header_learn_more: 了解更多
+      header_questions: 告诉我更多
+      learn_more_link_amphibians: 两栖类
+      learn_more_link_animals: 动物
+      learn_more_link_archaea: 古生菌
+      learn_more_link_bacteria: 细菌
+      learn_more_link_birds: 鸟类
+      learn_more_link_crustaceans: 甲壳类动物
+      learn_more_link_fish: 鱼类
+      learn_more_link_flowering_plants: 开花植物
+      learn_more_link_fungi: 真菌
+      learn_more_link_insects: 昆虫
+      learn_more_link_invertebrates: 无脊椎动物
+      learn_more_link_mammals: 哺乳动物
+      learn_more_link_molds: 模具
+      learn_more_link_mollusks: 软体动物
+      learn_more_link_mushrooms: 蘑菇
+      learn_more_link_plants: 植物
+      learn_more_link_protists: 生物体
+      learn_more_link_reptiles: 爬虫类动物
+      learn_more_link_spiders: 蜘蛛
+      learn_more_link_trees: 树木
+      learn_more_link_viruses: 病毒
+      learn_more_link_worms: 虫
+      questions_link_binomial_nomenclature: 二项式的命名规则是什么？
+      questions_link_biodiversity: 生物多样性是什么？
+      questions_link_biological_classification: 生物分类是什么？
+      questions_link_contributing_to_research: 我可以为研究做什么？
+      questions_link_discovering_species: 物种是如何发现的？
+      questions_link_indicator_species: 指标物种是什么？
+      questions_link_invasive_species: 外来物种是什么？
+      questions_link_model_organism: 模式物种是什么？
+      questions_link_naming_species: 物种是如何命名的？
+      questions_link_species: 物种是什么？
   learn_about_collections: 如何创建一个收藏？
   learn_about_communities: 如何参与到社区活动？
   learn_about_content_partners: 如何成为内容合作伙伴？

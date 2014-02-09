@@ -18,6 +18,7 @@
 # Author: Nemo bis
 # Author: Okras
 # Author: Orsa
+# Author: Putnik
 # Author: Sprinter
 # Author: Александр Сигачёв
 ru: 
@@ -764,6 +765,7 @@ ru:
   community_tab_communities_description: Сообщества являются группами участников EOL, которые собрались вместе, чтобы поделиться своими интересами и опытом. Сообщества EOL организуются вокруг одной или нескольких коллекций EOL и предлагает участникам возможность сосредоточить внимание на темах, представляющих общий интерес. Более подробная информация о сообществах EOL, в том числе инструкции для создания собственной, доступна на <a href='/info/communities'>странице справки</a>.
   community_tab_curators_description: Кураторы — это пользователи EOL с биологическим опытом, которые отдают свое время на проверку содержание EOL, обеспечивая, чтобы то, что вы видите, был точным и очень качественным.
   completed: Завершено
+  completed_colon: "Завершено:"
   confirm_leave: Вы уверены, что вы хотите покинуть это сообщество?
   confirm_password_colon: "Подтверждение пароля:"
   contact: Контактная информация
@@ -906,6 +908,10 @@ ru:
       header_assistive: Форма поиска
       input_summary_intro: Выбранные параметры поиска
       new_search_link: Начать новый поиск
+      search_tools_hide_link: Скрыть параметры поиска
+      search_tools_show_link: Показать параметры поиска
+      search_value_or_range_header: Искать конкретное значение или диапазон
+      sort_header: Сортировать результаты
   data_search_files: 
     from: Наименьшее значение
     to: Наибольшее значение
@@ -1032,6 +1038,8 @@ ru:
   exceptions: 
     security_violations: 
       default: Доступ запрещён.
+  expired: Истекает
+  expires_in_colon: "Истекает:"
   explore: Ознакомление
   external_link_header: Внешняя ссылка
   external_link_icon_alt_text: Внешняя ссылка.
@@ -1044,6 +1052,7 @@ ru:
   filter_by_type_collection_option: Коллекции
   filter_by_type_comment_option: Комментарии
   filter_by_type_community_option: Сообщества
+  filter_by_type_data_option: Черты
   filter_by_type_image_option: Изображения
   filter_by_type_link_option: Ссылки
   filter_by_type_sound_option: Звуки
@@ -1205,6 +1214,7 @@ ru:
         min_placeholder_disabled: Диапазон отключен
         q: Конкретное значение
         q_placeholder: Введите слово, фразу или число
+        taxon_name: Группа таксонов
         unit: Единица измерения
       eol_statistic: 
         date_one: Дата
@@ -1462,54 +1472,53 @@ ru:
   language: "Язык:"
   languages: Языки
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Цитировать ЭЖ
-        about_link_contact_us: Как с нами связаться
-        about_link_discover: Узнать больше
-        about_link_donate: Пожертвовать для ЭЖ
-        about_link_eol_blog: Блог EOL
-        about_link_glossary: Глоссарий
-        about_link_help: Помощь
-        about_link_podcasts: Подкасты
-        about_link_statistics: Статистика
-        about_link_terms_of_use: Условия использования
-        about_link_what_is_eol: Что такое EOL?
-        header_about: О EOL
-        header_learn_more: Узнайте больше о
-        header_questions: Расскажите мне больше
-        learn_more_link_amphibians: Амфибиях
-        learn_more_link_animals: Животные
-        learn_more_link_archaea: Археях
-        learn_more_link_bacteria: Бактериях
-        learn_more_link_birds: Птицы
-        learn_more_link_crustaceans: Ракообразных
-        learn_more_link_fish: Рыбы
-        learn_more_link_flowering_plants: Цветах
-        learn_more_link_fungi: Грибах
-        learn_more_link_insects: Насекомых
-        learn_more_link_invertebrates: Беспозвоночных
-        learn_more_link_mammals: Млекопитающих
-        learn_more_link_molds: Плесени
-        learn_more_link_mollusks: Моллюсках
-        learn_more_link_mushrooms: Грибы
-        learn_more_link_plants: Растениях
-        learn_more_link_protists: Простейших
-        learn_more_link_reptiles: Рептилиях
-        learn_more_link_spiders: Пауки
-        learn_more_link_trees: Деревья
-        learn_more_link_viruses: Вирусах
-        learn_more_link_worms: Червях
-        questions_link_binomial_nomenclature: Что такое бинарное название?
-        questions_link_biodiversity: Что такое биоразнообразие?
-        questions_link_biological_classification: Что такое биологическая систематика?
-        questions_link_contributing_to_research: Как я могу содействовать научно-исследовательской работе?
-        questions_link_discovering_species: Как открывают виды?
-        questions_link_indicator_species: Что такое индикатор видов?
-        questions_link_invasive_species: Что такое инвазивный вид?
-        questions_link_model_organism: Что такое модельный организм?
-        questions_link_naming_species: Как называют виды?
-        questions_link_species: Что такое вид?
+    application: 
+      about_link_citing: Цитировать ЭЖ
+      about_link_contact_us: Как с нами связаться
+      about_link_discover: Узнать больше
+      about_link_donate: Пожертвовать для ЭЖ
+      about_link_eol_blog: Блог EOL
+      about_link_glossary: Глоссарий
+      about_link_help: Помощь
+      about_link_podcasts: Подкасты
+      about_link_statistics: Статистика
+      about_link_terms_of_use: Условия использования
+      about_link_what_is_eol: Что такое EOL?
+      header_about: О EOL
+      header_learn_more: Узнайте больше о
+      header_questions: Расскажите мне больше
+      learn_more_link_amphibians: Амфибиях
+      learn_more_link_animals: Животные
+      learn_more_link_archaea: Археях
+      learn_more_link_bacteria: Бактериях
+      learn_more_link_birds: Птицы
+      learn_more_link_crustaceans: Ракообразных
+      learn_more_link_fish: Рыбы
+      learn_more_link_flowering_plants: Цветах
+      learn_more_link_fungi: Грибах
+      learn_more_link_insects: Насекомых
+      learn_more_link_invertebrates: Беспозвоночных
+      learn_more_link_mammals: Млекопитающих
+      learn_more_link_molds: Плесени
+      learn_more_link_mollusks: Моллюсках
+      learn_more_link_mushrooms: Грибы
+      learn_more_link_plants: Растениях
+      learn_more_link_protists: Простейших
+      learn_more_link_reptiles: Рептилиях
+      learn_more_link_spiders: Пауки
+      learn_more_link_trees: Деревья
+      learn_more_link_viruses: Вирусах
+      learn_more_link_worms: Червях
+      questions_link_binomial_nomenclature: Что такое бинарное название?
+      questions_link_biodiversity: Что такое биоразнообразие?
+      questions_link_biological_classification: Что такое биологическая систематика?
+      questions_link_contributing_to_research: Как я могу содействовать научно-исследовательской работе?
+      questions_link_discovering_species: Как открывают виды?
+      questions_link_indicator_species: Что такое индикатор видов?
+      questions_link_invasive_species: Что такое инвазивный вид?
+      questions_link_model_organism: Что такое модельный организм?
+      questions_link_naming_species: Как называют виды?
+      questions_link_species: Что такое вид?
   learn_more_link: (%{learn_more})
   learn_more_lowercase: узнать больше
   license: Лицензия
@@ -1738,7 +1747,7 @@ ru:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Загрузка готова!
-      message: Вы можете скачать это и другое, посетив <a href='%{download_link}'>вкладку сохраненных поисков в вашем профиле</a>.
+      message: Вы можете посмотреть эту и другие загрузки, посетив <a href='%{download_link}'>вкладку загрузок данных в вашем профиле</a>.
       subject: Ваш поиск ЭЖ - готов к загрузке
   references_cabs_colon: "Примечания:"
   rights: Права
@@ -1955,6 +1964,20 @@ ru:
       index: 
         meta_title: Сообщества %{user_full_name}
         tweet_text: сообщества %{user_full_name}
+    data_downloads: 
+      actions_head: Действия
+      attribute_head: Атрибут
+      complete_head: Завершено?
+      created_head: Создано
+      is_complete: Да
+      is_not_complete: Нет
+      page_title: Загрузка данных
+      processing: обработка
+      query_head: Запрос
+      refresh: обновить
+      row_count: Количество
+      search_again: искать снова
+      updated_head: Последнее действие
     new: 
       complete_registration_header: Завершить регистрацию на EOL
       create_user_header: Создание новой учетной записи <abbr title="Encyclopedia of Life">EOL</abbr>

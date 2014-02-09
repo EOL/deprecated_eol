@@ -695,6 +695,7 @@ ms:
   community_tab_communities_description: Komuniti merupakan kumpulan ahli EOL yang bersatu untuk berkongsi minat dan kepakaran. Komuniti EOL ditubuhkan berkisarkan setidak-tidaknya suatu koleksi EOL, dan menawarkan cara untuk para ahli bertumpu pada topik-topik yang diminati bersama. Maklumat lanjut tentang komuniti EOL, termasuk arahan untuk menubuhkan komuniti sendiri, terdapat di <a href='/info/communities'>halaman bantuan</a>.
   community_tab_curators_description: Kurator merupakan pengguna EOL berkepakaran biologi yang meluangkan masa untuk meneliti kandungan yang anda lihat di EOL demi ketepatan dan mutu tinggi.
   completed: Siap
+  completed_colon: "Siap:"
   confirm_delete_community: Adakah anda benar-benar mahu menghapuskan komuniti ini? Ahli-ahli yang masih tinggal akan masih dapat melihatnya dan suapan berita akan dikekalkan, tetapi ia tidak akan muncul dalam hasil carian atau halaman takson, dan tidak boleh disunting lagi.
   confirm_leave: Adakah anda benar-benar ingin meninggalkan komuniti ini?
   confirm_password_colon: "Sahkan Kata Laluan:"
@@ -971,6 +972,16 @@ ms:
       meta_supplier_default: seorang penyumbang
       meta_title: "%{dato_title} daripada %{supplier}"
       tweet_text: "%{dato_title} daripada %{supplier}"
+  data_provided_by_content_partner: "Pembekal: %{whom}"
+  data_search: 
+    form: 
+      new_search_link: Mulakan pencarian baru
+      refine_search_header: Perhalusi carian anda (pilihan)
+      search_suggestion_blue_flowers: Tumbuh-tumbuhan yang mana berbunga biru?
+      search_suggestions_subheader_colon: "Cuba salah satu carian data yang berikut:"
+  data_search_attribute: Cari rekod dengan data %{attribute} di TraitBank
+  data_search_files_with_count: "%{count} muat turunan data"
+  data_summary_ranges_header_with_count: EOL mempunyai data rumusan
   data_usage_reports: Laporan Penggunaan Data
   date_caps: Tarikh
   date_uploaded: Tarikh muat naik
@@ -1059,6 +1070,9 @@ ms:
   development_version_name: EOL V2 Beta
   did_you_mean: "Adakah anda bermaksud: %{suggestions} ?"
   disabled_for_now: DIMATIKAN BUAT MASA INI
+  displaying_numerical_range_eol_records_with_count: 
+    one: Memaparkan %{count} rekod di EOL
+    other: Memaparkan %{start_number} &ndash; %{end_number} daripada %{count} rekod di EOL
   donation_amount_legend: Pilih jumlah yang ingin anda dermakan
   donation_amount_other_label: Lain-lain
   donation_confirmation: Pengesahan Pendermaan
@@ -1159,6 +1173,8 @@ ms:
   every_method_can_also_return_json_response: Setiap kaedah juga boleh memulangkan respons JSON dengan penambahan sambungan .json
   example_colon: "Contoh:"
   expand_all_children: kembangkan semua anak
+  expired: Tamat tempoh
+  expires_in_colon: "Tamat tempoh:"
   explore: Jelajah
   explore_what_we_know_about_taxon: Jelajahi apa yang yang diketahui oleh EOL tentang %{taxon}.
   export_this_list_as_csv: Eksport senarai ini dalam bentuk CSV
@@ -1184,6 +1200,7 @@ ms:
   filter_by_type_all_option_with_count: Semua jenis (%{count})
   filter_by_type_collection_option: Koleksi
   filter_by_type_community_option: Komuniti
+  filter_by_type_data_option: Ciri-ciri
   filter_by_type_image_option: Gambar
   filter_by_type_image_option_with_count: Gambar (%{count})
   filter_by_type_photosynth_option: Fotosint
@@ -1370,6 +1387,15 @@ ms:
         link_type: Kategori
         source_url: URL pautan
         toc_item: Subjek
+      data_search: 
+        max: Nilai tertinggi
+        max_placeholder: Masukkan nombor
+        min: Nilai terendah
+        min_placeholder: Masukkan nombor
+        q_more: Contohnya, heterotrophic.
+        q_placeholder: Masukkan perkataan, ungkapan atau nombor
+        taxon_name_placeholder_value_removed: "%{taxon_group} dibuang, piluh kumpulan baru"
+        unit: Unit ukuran
       eol_statistic: 
         date_one: Tarikh
         date_two: Tarikh
@@ -1613,6 +1639,7 @@ ms:
   in_this_data_type: "dalam %{data_type} ini:"
   inappropriate: Tidak Sesuai
   include_all_metadata: sertakan semua metadata untuk objek data
+  including_traitbank_count: ", termasuk %{count} atribut TraitBank"
   indexed: Berindeks
   information_for_any_audience: Maklumat am untuk semua
   information_intended_for_beginners: Maklumat khusus untuk orang baru
@@ -1667,54 +1694,55 @@ ms:
   languages: Bahasa
   last_updated_time_ago: Kali terakhir dikemaskini pada %{time_passed} lalu
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Memetik EOL
-        about_link_contact_us: Hubungi Kami
-        about_link_discover: Terokai
-        about_link_donate: Derma kepada EOL
-        about_link_eol_blog: Blog EOL
-        about_link_glossary: Glosari
-        about_link_help: Bantuan
-        about_link_podcasts: Podkas
-        about_link_statistics: Statistik
-        about_link_terms_of_use: Syarat-Syarat Penggunaan
-        about_link_what_is_eol: EOL itu apa?
-        header_about: Perihal EOL
-        header_learn_more: Ketahui lebih lanjut tentang
-        header_questions: Beritahu saya banyak lagi
-        learn_more_link_amphibians: Amfibia
-        learn_more_link_animals: Haiwan
-        learn_more_link_archaea: Arkea
-        learn_more_link_bacteria: Bakteria
-        learn_more_link_birds: Burung
-        learn_more_link_crustaceans: Krustasia
-        learn_more_link_fish: Ikan
-        learn_more_link_flowering_plants: Tumbuhan Berbunga
-        learn_more_link_fungi: Kulat
-        learn_more_link_insects: Serangga
-        learn_more_link_invertebrates: Invertebrata
-        learn_more_link_mammals: Mamalia
-        learn_more_link_molds: Kulapuk
-        learn_more_link_mollusks: Moluska
-        learn_more_link_mushrooms: Cendawan
-        learn_more_link_plants: Tumbuhan
-        learn_more_link_protists: Protis
-        learn_more_link_reptiles: Reptilia
-        learn_more_link_spiders: Labah-labah
-        learn_more_link_trees: Pokok
-        learn_more_link_viruses: Virus
-        learn_more_link_worms: Cacing
-        questions_link_binomial_nomenclature: Apakah itu tatanama binomial?
-        questions_link_biodiversity: Apakah itu biodiversiti?
-        questions_link_biological_classification: Apakah itu pengelasan biologi?
-        questions_link_contributing_to_research: Bagaimana saya boleh menyumbang kepada penyelidikan?
-        questions_link_discovering_species: Bagaimanakah spesies ditemui?
-        questions_link_indicator_species: Apakah itu spesies penunjuk?
-        questions_link_invasive_species: Apakah itu spesies invasif?
-        questions_link_model_organism: Apakah itu organisma contoh?
-        questions_link_naming_species: Bagaimanakah spesies dinamai?
-        questions_link_species: Apakah itu spesies?
+    application: 
+      about_link_citing: Memetik EOL
+      about_link_contact_us: Hubungi Kami
+      about_link_discover: Terokai
+      about_link_donate: Derma kepada EOL
+      about_link_eol_blog: Blog EOL
+      about_link_glossary: Glosari
+      about_link_help: Bantuan
+      about_link_podcasts: Podkas
+      about_link_statistics: Statistik
+      about_link_terms_of_use: Syarat-Syarat Penggunaan
+      about_link_what_is_eol: EOL itu apa?
+      header_about: Perihal EOL
+      header_learn_more: Ketahui lebih lanjut tentang
+      header_questions: Beritahu saya banyak lagi
+      learn_more_link_amphibians: Amfibia
+      learn_more_link_animals: Haiwan
+      learn_more_link_archaea: Arkea
+      learn_more_link_bacteria: Bakteria
+      learn_more_link_birds: Burung
+      learn_more_link_crustaceans: Krustasia
+      learn_more_link_fish: Ikan
+      learn_more_link_flowering_plants: Tumbuhan Berbunga
+      learn_more_link_fungi: Kulat
+      learn_more_link_insects: Serangga
+      learn_more_link_invertebrates: Invertebrata
+      learn_more_link_mammals: Mamalia
+      learn_more_link_molds: Kulapuk
+      learn_more_link_mollusks: Moluska
+      learn_more_link_mushrooms: Cendawan
+      learn_more_link_plants: Tumbuhan
+      learn_more_link_protists: Protis
+      learn_more_link_reptiles: Reptilia
+      learn_more_link_spiders: Labah-labah
+      learn_more_link_trees: Pokok
+      learn_more_link_viruses: Virus
+      learn_more_link_worms: Cacing
+      questions_link_binomial_nomenclature: Apakah itu tatanama binomial?
+      questions_link_biodiversity: Apakah itu biodiversiti?
+      questions_link_biological_classification: Apakah itu pengelasan biologi?
+      questions_link_contributing_to_research: Bagaimana saya boleh menyumbang kepada penyelidikan?
+      questions_link_discovering_species: Bagaimanakah spesies ditemui?
+      questions_link_indicator_species: Apakah itu spesies penunjuk?
+      questions_link_invasive_species: Apakah itu spesies invasif?
+      questions_link_model_organism: Apakah itu organisma contoh?
+      questions_link_naming_species: Bagaimanakah spesies dinamai?
+      questions_link_species: Apakah itu spesies?
+    data_search: 
+      page_header_results: Hasil Pencarian TraitBank
   learn_about_collections: Bagaimana untuk membuat koleksi?
   learn_about_communities: Bagaimanakah saya boleh mengambil bahagian?
   learn_about_content_partners: Bagaimanakah saya boleh jadi rakan kongsi?
@@ -1818,6 +1846,7 @@ ms:
   method: Kaedah
   method_to_get_metadata_about_the_hierarchy: dengan pengenal pasti hierarki, kaedah ini memulangkan metadata mengenai hierarki dan menyenaraikan takson-takson akar
   methods: Kaedah
+  missing_interpolation_argument_error: "[terjemahan tidak lengkap]"
   mobile: 
     contents: 
       explore_eol: Jelajahi EOL
@@ -2120,6 +2149,9 @@ ms:
     see_all_activity: Lihat semua kegiatan terdahulu di <a href='%{activity_url}' style='color:#195184'>halaman suapan berita pengguna anda</a>.
     someone_commented_on_something: <b>%{who}</b> telah mengulas <b>%{what}</b>.
     unsubscribe: Log masuk dan ubah tetapan e-mel anda di <a href='%{email_prefs_url}' style='color:#195184'>halaman keutamaan pemberitahuan anda</a> atau <a href='%{unsubscribe_url}' style='color:#195184'>berhenti melanggan SEMUA pemberitahuan EOL automatik tanpa log masuk</a>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      message: Anda boleh melihat muat turunan ini dan yang lain dengan melawat <a href='%{download_link}'>tab muat turunan data di profil anda</a>.
   recent_updates: Kemas kini terkini
   recently_visited: Kunjungan terkini
   recognized_by_as_a_rank: "%{recognized_by} sebagai %{taxon_rank}"
@@ -2262,6 +2294,7 @@ ms:
   stat: Stat
   subject: subjek
   submit: Serahkan
+  submitted_colon: "Dikemukakan:"
   supplier: Pembekal
   supplier_allcaps: "PEMBEKAL:"
   supplier_colon: "Pembekal:"
@@ -2534,6 +2567,7 @@ ms:
   taxa_with_count: "%{count} takson"
   taxon: takson
   taxon_biomedical_terms_link: Istilah bioperubatan
+  taxon_data_overview_empty: Belum ada sesiapa yang menyumbangkan rekod data untuk %{taxon}.
   taxon_details_empty: Takson ini belum mendapat sebarang butiran.
   taxon_education_empty: Halaman ini belum mendapat sebarang sumber pendidikan.
   taxon_education_header: Sumber Pendidikan
@@ -2693,6 +2727,30 @@ ms:
         meta_description: Persekutuan rakan kongsi %{user_full_name}.
         meta_title: Rakan Kongsi Kandungan %{user_full_name}
         tweet_text: Rakan kongsi kandungan %{user_full_name}
+    data_downloads: 
+      actions_head: tindakan
+      attribute_head: Atribut
+      complete_head: Siap?
+      created_head: Dicipta
+      download: muat turun
+      empty: Anda tidak mempunyai muat turunan. Anda boleh <a href='%{data_search_url}'>mencari data</a> dan memohon untuk memuat turun hasil-hasilnya.
+      header_with_count: 
+        one: Muat turunan data
+        other: "%{count} muat turunan data"
+      index: 
+        meta_description: Muat turunan data yang diminta oleh %{user_full_name}.
+        meta_title: Muat Turunan Data %{user_full_name}
+        tweet_text: Muat turunan data %{user_full_name}
+      is_complete: Ya
+      is_not_complete: Tidak
+      page_title: Muat Turunan Data
+      processing: sedang memproses
+      query_empty: (tiada penapis)
+      query_head: Pertanyaan
+      refresh: muat semula
+      row_count: Kiraan
+      search_again: cari semula
+      updated_head: Tindakan Terkini
     edit: 
       form_tip_account: Untuk mendaftar masuk ke EOL, anda memerlukan nama pengguna EOL dengan kata laluan, ataupun anda boleh menyambungkan akaun pihak ketiga. Nama pengguna dan kata laluan diperlukan jika anda tiada akaun yang bersambung, tetapi jika anda ingin menukar kata laluan, hanya taipkan kata laluan baru di sini. Semua pengguna dikehendaki menyatakan alamat e-mel dan bahasa keutamaan  (%{required_icon}).
       form_tip_account_oauth: Semua pengguna dikehendaki menyatakan alamat e-mel dan bahasa keutamaan  (%{required_icon}).

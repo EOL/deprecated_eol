@@ -2323,51 +2323,50 @@ tl:
   last_updated: Huling Naisapanahon
   last_updated_time_ago: Huling naisapanahon noong %{time_passed} na ang nakalipas
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Pagbanggit sa EOL
-        about_link_contact_us: Makipag-ugnayan sa amin
-        about_link_discover: Tuklasin
-        about_link_donate: Mag-abuloy sa EOL
-        about_link_eol_blog: Ang Blog ng EOL
-        about_link_help: Tulong
-        about_link_statistics: Estadistika
-        about_link_terms_of_use: Mga Hinihingi sa Paggamit
-        about_link_what_is_eol: Ano ba ang EOL?
-        header_about: Patungkol sa EOL
-        header_learn_more: Umalam ng mas marami pang patungkol sa
-        header_questions: Sabihan ako ng mas marami pa
-        learn_more_link_amphibians: Mga Ampibyano
-        learn_more_link_animals: Mga Hayop
-        learn_more_link_archaea: Archaea
-        learn_more_link_bacteria: Mga Bakterya
-        learn_more_link_birds: Mga Ibon
-        learn_more_link_crustaceans: Mga Krustasyano
-        learn_more_link_fish: Mga Isda
-        learn_more_link_flowering_plants: Mga Halamang Namumulaklak
-        learn_more_link_fungi: Mga Halamang-Singaw
-        learn_more_link_insects: Mga Kulisap
-        learn_more_link_invertebrates: Mga Walang Gulugod
-        learn_more_link_mammals: Mga Mamalya
-        learn_more_link_molds: Mga Amag
-        learn_more_link_mollusks: Mga Moluska
-        learn_more_link_mushrooms: Mga Kabute
-        learn_more_link_plants: Mga Halaman
-        learn_more_link_protists: Mga Protista
-        learn_more_link_reptiles: Mga Reptilya
-        learn_more_link_spiders: Mga Gagamba
-        learn_more_link_trees: Mga Puno
-        learn_more_link_viruses: Mga Birus
-        questions_link_binomial_nomenclature: Ano ba ang kapangalanang dalawahan ang pangalan?
-        questions_link_biodiversity: Ano ba ang biyodibersidad?
-        questions_link_biological_classification: Ano ba ang isang kauriang pambiyolohiya?
-        questions_link_contributing_to_research: Paano ba ako makakapag-ambag sa pananaliksik?
-        questions_link_discovering_species: Paano ba natutuklasan ang mga espesye?
-        questions_link_indicator_species: Ano ba ang isang espesyeng pampahiwatig?
-        questions_link_invasive_species: Ano ba ang isang espesyeng mapanlusob?
-        questions_link_model_organism: Ano ba ang isang organismong huwaran?
-        questions_link_naming_species: Paano ba pinapangalanan ang mga espesye?
-        questions_link_species: Ano ba ang isang espesye?
+    application: 
+      about_link_citing: Pagbanggit sa EOL
+      about_link_contact_us: Makipag-ugnayan sa amin
+      about_link_discover: Tuklasin
+      about_link_donate: Mag-abuloy sa EOL
+      about_link_eol_blog: Ang Blog ng EOL
+      about_link_help: Tulong
+      about_link_statistics: Estadistika
+      about_link_terms_of_use: Mga Hinihingi sa Paggamit
+      about_link_what_is_eol: Ano ba ang EOL?
+      header_about: Patungkol sa EOL
+      header_learn_more: Umalam ng mas marami pang patungkol sa
+      header_questions: Sabihan ako ng mas marami pa
+      learn_more_link_amphibians: Mga Ampibyano
+      learn_more_link_animals: Mga Hayop
+      learn_more_link_archaea: Archaea
+      learn_more_link_bacteria: Mga Bakterya
+      learn_more_link_birds: Mga Ibon
+      learn_more_link_crustaceans: Mga Krustasyano
+      learn_more_link_fish: Mga Isda
+      learn_more_link_flowering_plants: Mga Halamang Namumulaklak
+      learn_more_link_fungi: Mga Halamang-Singaw
+      learn_more_link_insects: Mga Kulisap
+      learn_more_link_invertebrates: Mga Walang Gulugod
+      learn_more_link_mammals: Mga Mamalya
+      learn_more_link_molds: Mga Amag
+      learn_more_link_mollusks: Mga Moluska
+      learn_more_link_mushrooms: Mga Kabute
+      learn_more_link_plants: Mga Halaman
+      learn_more_link_protists: Mga Protista
+      learn_more_link_reptiles: Mga Reptilya
+      learn_more_link_spiders: Mga Gagamba
+      learn_more_link_trees: Mga Puno
+      learn_more_link_viruses: Mga Birus
+      questions_link_binomial_nomenclature: Ano ba ang kapangalanang dalawahan ang pangalan?
+      questions_link_biodiversity: Ano ba ang biyodibersidad?
+      questions_link_biological_classification: Ano ba ang isang kauriang pambiyolohiya?
+      questions_link_contributing_to_research: Paano ba ako makakapag-ambag sa pananaliksik?
+      questions_link_discovering_species: Paano ba natutuklasan ang mga espesye?
+      questions_link_indicator_species: Ano ba ang isang espesyeng pampahiwatig?
+      questions_link_invasive_species: Ano ba ang isang espesyeng mapanlusob?
+      questions_link_model_organism: Ano ba ang isang organismong huwaran?
+      questions_link_naming_species: Paano ba pinapangalanan ang mga espesye?
+      questions_link_species: Ano ba ang isang espesye?
   learn_about_collections: Paano ako makakalikha ng isa?
   learn_about_communities: Paano ako makakalahok?
   learn_about_content_partners: Paano ako magiging ganiyan?

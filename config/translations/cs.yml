@@ -1309,54 +1309,53 @@ cs:
   language: "Jazyk:"
   languages: Jazyky
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Citace EOL
-        about_link_contact_us: Kontaktujte nás
-        about_link_discover: Poznejte
-        about_link_donate: Přispějte na EOL
-        about_link_eol_blog: EOL Blog
-        about_link_glossary: Glosář
-        about_link_help: Pomoc
-        about_link_podcasts: Podcasty
-        about_link_statistics: Statistika
-        about_link_terms_of_use: Podmínky užití
-        about_link_what_is_eol: Co je EOL?
-        header_about: O EOL
-        header_learn_more: Dozvědět se více o
-        header_questions: Chci vědět víc
-        learn_more_link_amphibians: Obojživelníci
-        learn_more_link_animals: Źivočichové
-        learn_more_link_archaea: Archea
-        learn_more_link_bacteria: Bakterie
-        learn_more_link_birds: Ptáci
-        learn_more_link_crustaceans: Korýši
-        learn_more_link_fish: Ryby
-        learn_more_link_flowering_plants: Kvetoucí rostliny
-        learn_more_link_fungi: Houby
-        learn_more_link_insects: Hmyz
-        learn_more_link_invertebrates: Bezobratlí
-        learn_more_link_mammals: Savci
-        learn_more_link_molds: Plísně
-        learn_more_link_mollusks: Měkkýši
-        learn_more_link_mushrooms: Houby
-        learn_more_link_plants: Rostliny
-        learn_more_link_protists: Prvoci
-        learn_more_link_reptiles: Plazi
-        learn_more_link_spiders: Pavouci
-        learn_more_link_trees: Stromy
-        learn_more_link_viruses: Viry
-        learn_more_link_worms: Červi
-        questions_link_binomial_nomenclature: Co je binomická nomenklatura?
-        questions_link_biodiversity: Co je to biodiverzita?
-        questions_link_biological_classification: Co je biologická klasifikace?
-        questions_link_contributing_to_research: Jak mohu přispět k výzkumu?
-        questions_link_discovering_species: Jak jsou druhy objevovány?
-        questions_link_indicator_species: Co je indikátor druhu?
-        questions_link_invasive_species: Co je invazivní druh?
-        questions_link_model_organism: Co je modelový organismus?
-        questions_link_naming_species: Jak jsou druhy pojmenovávány?
-        questions_link_species: Co je to druh?
+    application: 
+      about_link_citing: Citace EOL
+      about_link_contact_us: Kontaktujte nás
+      about_link_discover: Poznejte
+      about_link_donate: Přispějte na EOL
+      about_link_eol_blog: EOL Blog
+      about_link_glossary: Glosář
+      about_link_help: Pomoc
+      about_link_podcasts: Podcasty
+      about_link_statistics: Statistika
+      about_link_terms_of_use: Podmínky užití
+      about_link_what_is_eol: Co je EOL?
+      header_about: O EOL
+      header_learn_more: Dozvědět se více o
+      header_questions: Chci vědět víc
+      learn_more_link_amphibians: Obojživelníci
+      learn_more_link_animals: Źivočichové
+      learn_more_link_archaea: Archea
+      learn_more_link_bacteria: Bakterie
+      learn_more_link_birds: Ptáci
+      learn_more_link_crustaceans: Korýši
+      learn_more_link_fish: Ryby
+      learn_more_link_flowering_plants: Kvetoucí rostliny
+      learn_more_link_fungi: Houby
+      learn_more_link_insects: Hmyz
+      learn_more_link_invertebrates: Bezobratlí
+      learn_more_link_mammals: Savci
+      learn_more_link_molds: Plísně
+      learn_more_link_mollusks: Měkkýši
+      learn_more_link_mushrooms: Houby
+      learn_more_link_plants: Rostliny
+      learn_more_link_protists: Prvoci
+      learn_more_link_reptiles: Plazi
+      learn_more_link_spiders: Pavouci
+      learn_more_link_trees: Stromy
+      learn_more_link_viruses: Viry
+      learn_more_link_worms: Červi
+      questions_link_binomial_nomenclature: Co je binomická nomenklatura?
+      questions_link_biodiversity: Co je to biodiverzita?
+      questions_link_biological_classification: Co je biologická klasifikace?
+      questions_link_contributing_to_research: Jak mohu přispět k výzkumu?
+      questions_link_discovering_species: Jak jsou druhy objevovány?
+      questions_link_indicator_species: Co je indikátor druhu?
+      questions_link_invasive_species: Co je invazivní druh?
+      questions_link_model_organism: Co je modelový organismus?
+      questions_link_naming_species: Jak jsou druhy pojmenovávány?
+      questions_link_species: Co je to druh?
   learn_about_collections: Jak můžu vytvořit nový?
   learn_about_communities: Jak se můžu zapojit?
   learn_about_content_partners: Jak se jím můžu stát?

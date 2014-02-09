@@ -1728,40 +1728,39 @@ it:
   last_updated: Ultimo aggiornamento
   last_updated_time_ago: Ultimo aggiornamento %{time_passed} fa
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Cita EOL
-        about_link_contact_us: Contattaci
-        about_link_discover: Scopri
-        about_link_donate: Dona ad EOL
-        about_link_help: Aiuto
-        about_link_statistics: Statistiche
-        about_link_terms_of_use: Condizioni d'uso
-        about_link_what_is_eol: Che cosa è EOL?
-        header_about: Informazioni su EOL
-        learn_more_link_amphibians: Anfibi
-        learn_more_link_animals: Animali
-        learn_more_link_archaea: Archaea
-        learn_more_link_bacteria: Batteri
-        learn_more_link_birds: Uccelli
-        learn_more_link_crustaceans: Crostacei
-        learn_more_link_fish: Pesci
-        learn_more_link_flowering_plants: Piante da fiore
-        learn_more_link_fungi: Funghi
-        learn_more_link_insects: Insetti
-        learn_more_link_invertebrates: Invertebrati
-        learn_more_link_mammals: Mammiferi
-        learn_more_link_mollusks: Molluschi
-        learn_more_link_mushrooms: Funghi
-        learn_more_link_plants: Piante
-        learn_more_link_protists: Protisti
-        learn_more_link_reptiles: Rettili
-        learn_more_link_spiders: Ragni
-        learn_more_link_trees: Alberi
-        learn_more_link_viruses: Virus
-        questions_link_biodiversity: Che cos'è la biodiversità?
-        questions_link_discovering_species: Quante sono le specie scoperte?
-        questions_link_species: Che cos'è una specie?
+    application: 
+      about_link_citing: Cita EOL
+      about_link_contact_us: Contattaci
+      about_link_discover: Scopri
+      about_link_donate: Dona ad EOL
+      about_link_help: Aiuto
+      about_link_statistics: Statistiche
+      about_link_terms_of_use: Condizioni d'uso
+      about_link_what_is_eol: Che cosa è EOL?
+      header_about: Informazioni su EOL
+      learn_more_link_amphibians: Anfibi
+      learn_more_link_animals: Animali
+      learn_more_link_archaea: Archaea
+      learn_more_link_bacteria: Batteri
+      learn_more_link_birds: Uccelli
+      learn_more_link_crustaceans: Crostacei
+      learn_more_link_fish: Pesci
+      learn_more_link_flowering_plants: Piante da fiore
+      learn_more_link_fungi: Funghi
+      learn_more_link_insects: Insetti
+      learn_more_link_invertebrates: Invertebrati
+      learn_more_link_mammals: Mammiferi
+      learn_more_link_mollusks: Molluschi
+      learn_more_link_mushrooms: Funghi
+      learn_more_link_plants: Piante
+      learn_more_link_protists: Protisti
+      learn_more_link_reptiles: Rettili
+      learn_more_link_spiders: Ragni
+      learn_more_link_trees: Alberi
+      learn_more_link_viruses: Virus
+      questions_link_biodiversity: Che cos'è la biodiversità?
+      questions_link_discovering_species: Quante sono le specie scoperte?
+      questions_link_species: Che cos'è una specie?
   learn_about_collections: Come posso crearne uno?
   learn_about_communities: Come posso partecipare?
   learn_about_content_partners: Come si fa a diventarlo?

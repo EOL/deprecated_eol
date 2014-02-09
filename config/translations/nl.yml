@@ -201,10 +201,10 @@ nl:
         label: Label
         request_publish: Verzoek publicatie
       known_uri: 
-        clade_exemplar: Gebruiken als exemplarisch cladebereik
+        clade_exemplar: Gebruiken als exemplarisch taxonomische groepsbereik
         description: Beschrijving
-        exclude_from_exemplars: Uitsluiten van "Snelle feiten"
-        group_by_clade: Gebruiken voor cladebereiken
+        exclude_from_exemplars: Uitsluiten van overzicht
+        group_by_clade: Gebruiken voor taxonomische groepsbereiken
         name: Naam
         toc_items: Categorieën
         uri: URI
@@ -1125,7 +1125,7 @@ nl:
   and_between_form_items: en
   annotation_body_default: vraag of reactie toevoegen...
   annotation_cabs_colon: "Annotatie:"
-  annotation_submit: annotatie plaatsen
+  annotation_submit: reactie plaatsen
   annotations_with_count: 
     one: Eén annotatie
     other: "%{count} annotaties"
@@ -1270,7 +1270,7 @@ nl:
   citation: Referentie
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia of Life, available from <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>. Accessed 15 Jan 2009.
   citing_link: Citeren
-  clade: Clade
+  clade: Taxonomische groep
   classification_already_preferred: "Fout: deze classificatie als is al gemarkeerd als voorkeursclassificatie."
   classification_button_help: Selecteer de classificatie die het best op de onderstaande pagina van toepassing is en klik op de bijbehorende knop "als exemplarisch gebruiken". Om de handeling helemaal te annuleren, klikt u op de knop "Annuleren".
   classification_curation_pending: In afwachting van conservering. Deze classificatie kan in de nabije toekomst nog veranderen naar een andere pagina.
@@ -1506,6 +1506,7 @@ nl:
   community_tab_communities_description: Gemeenschappen zijn groepen waar leden van EOL samenkomen om hun interesses en expertise te delen. Gemeenschappen van EOL zijn georganiseerd rondom één of meer EOL-verzamelingen en bieden leden een manier om zich te concentreren op onderwerpen die hun gezamenlijke interesse hebben. Meer informatie over EOL-gemeenschappen, zoals instructies voor het aanmaken van uw eigen gemeenschap, is beschikbaar op de <a href='/info/communities'>hulppagina</a>.
   community_tab_curators_description: Conservatoren zijn EOL-gebruikers met biologische expertise die hun tijd beschikbaar stellen om de inhoud van EOL te controleren, om ervoor te zorgen dat wat u ziet correct en van hoge kwaliteit is.
   completed: Voltooid
+  completed_colon: "Voltooid:"
   confirm_delete_community: Weet u zeker dat u deze gemeenschap wilt verwijderen? De leden kunnen de gemeenschap daarna nog steeds en het nieuwsoverzicht wordt bijgehouden, maar beiden worden niet langer weergegeven in zoekopdrachten of op taxonpagina's, en zijn niet langer te bewerken.
   confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: "Wachtwoord bevestigen:"
@@ -1907,6 +1908,9 @@ nl:
   data_search_explanation: "Gebruik de functie gegevens zoeken van EOL om items over \"%{term}\" te vinden in<br />\nobservaties, metingen en andere wetenschappelijke beweringen."
   data_search_files: 
     file_ready_for_download: Uw recente zoekopdracht voor "%{known_uri_label}" kan nu gedownload worden op <a href='%{download_url}'>%{download_url}</a>.
+    from: Laagste waarde
+    to: Hoogste waarde
+    unit_uri: Maateenheid
   data_search_files_with_count: 
     one: Eén opgeslagen zoekopdracht
     other: "%{count} opgeslagen zoekopdrachten"
@@ -2465,6 +2469,18 @@ nl:
         link_type: Categorie
         source_url: Koppelings-URL
         toc_item: Onderwerp
+      data_search: 
+        attribute: Selecteer een eigenschap
+        max: Hoogste waarde
+        max_placeholder: Voer een getal in
+        max_placeholder_disabled: Bereik uitgeschakeld
+        min: Laagste waarde
+        min_placeholder: Voer een getal in
+        min_placeholder_disabled: Bereik uitgeschakeld
+        q: Specifieke waarde
+        q_placeholder: Voer een woord, zin of een aantal in
+        taxon_name: Taxongroep
+        unit: Maateenheid
       eol_statistic: 
         date_one: Datum
         date_two: Datum
@@ -2838,54 +2854,53 @@ nl:
   last_updated: Laatst bijgewerkt
   last_updated_time_ago: "%{time_passed} geleden voor het laatst bijgewerkt"
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: EOL citeren
-        about_link_contact_us: Contact opnemen
-        about_link_discover: Ontdekken
-        about_link_donate: Doneren aan EOL
-        about_link_eol_blog: De EOL-blog
-        about_link_glossary: Woordenlijst
-        about_link_help: Hulp
-        about_link_podcasts: Podcasts
-        about_link_statistics: Statistieken
-        about_link_terms_of_use: Gebruiksvoorwaarden
-        about_link_what_is_eol: Wat is EOL?
-        header_about: Over EOL
-        header_learn_more: Meer te weten komen
-        header_questions: Vertel me meer
-        learn_more_link_amphibians: Amfibieën
-        learn_more_link_animals: Dieren
-        learn_more_link_archaea: Archaea
-        learn_more_link_bacteria: Bacteriën
-        learn_more_link_birds: Vogels
-        learn_more_link_crustaceans: Schaaldieren
-        learn_more_link_fish: Vissen
-        learn_more_link_flowering_plants: Bedektzadigen
-        learn_more_link_fungi: Schimmels
-        learn_more_link_insects: Insecten
-        learn_more_link_invertebrates: Ongewervelden
-        learn_more_link_mammals: Zoogdieren
-        learn_more_link_molds: Schimmels
-        learn_more_link_mollusks: Weekdieren
-        learn_more_link_mushrooms: Paddestoelen
-        learn_more_link_plants: Planten
-        learn_more_link_protists: Protisten
-        learn_more_link_reptiles: Reptielen
-        learn_more_link_spiders: Spinnen
-        learn_more_link_trees: Bomen
-        learn_more_link_viruses: Virussen
-        learn_more_link_worms: Wormen
-        questions_link_binomial_nomenclature: Wat is de binomiale nomenclatuur?
-        questions_link_biodiversity: Wat is biodiversiteit?
-        questions_link_biological_classification: Wat is een biologische classificatie?
-        questions_link_contributing_to_research: Hoe kan ik bijdragen aan onderzoek?
-        questions_link_discovering_species: Hoe zijn soorten ontdekt?
-        questions_link_indicator_species: Wat is een indicatorsoort?
-        questions_link_invasive_species: Wat is een invasieve soort?
-        questions_link_model_organism: Wat is een modelorganisme?
-        questions_link_naming_species: Hoe heten soorten?
-        questions_link_species: Wat is een soort?
+    application: 
+      about_link_citing: EOL citeren
+      about_link_contact_us: Contact opnemen
+      about_link_discover: Ontdekken
+      about_link_donate: Doneren aan EOL
+      about_link_eol_blog: De EOL-blog
+      about_link_glossary: Woordenlijst
+      about_link_help: Hulp
+      about_link_podcasts: Podcasts
+      about_link_statistics: Statistieken
+      about_link_terms_of_use: Gebruiksvoorwaarden
+      about_link_what_is_eol: Wat is EOL?
+      header_about: Over EOL
+      header_learn_more: Meer te weten komen
+      header_questions: Vertel me meer
+      learn_more_link_amphibians: Amfibieën
+      learn_more_link_animals: Dieren
+      learn_more_link_archaea: Archaea
+      learn_more_link_bacteria: Bacteriën
+      learn_more_link_birds: Vogels
+      learn_more_link_crustaceans: Schaaldieren
+      learn_more_link_fish: Vissen
+      learn_more_link_flowering_plants: Bedektzadigen
+      learn_more_link_fungi: Schimmels
+      learn_more_link_insects: Insecten
+      learn_more_link_invertebrates: Ongewervelden
+      learn_more_link_mammals: Zoogdieren
+      learn_more_link_molds: Schimmels
+      learn_more_link_mollusks: Weekdieren
+      learn_more_link_mushrooms: Paddestoelen
+      learn_more_link_plants: Planten
+      learn_more_link_protists: Protisten
+      learn_more_link_reptiles: Reptielen
+      learn_more_link_spiders: Spinnen
+      learn_more_link_trees: Bomen
+      learn_more_link_viruses: Virussen
+      learn_more_link_worms: Wormen
+      questions_link_binomial_nomenclature: Wat is de binomiale nomenclatuur?
+      questions_link_biodiversity: Wat is biodiversiteit?
+      questions_link_biological_classification: Wat is een biologische classificatie?
+      questions_link_contributing_to_research: Hoe kan ik bijdragen aan onderzoek?
+      questions_link_discovering_species: Hoe zijn soorten ontdekt?
+      questions_link_indicator_species: Wat is een indicatorsoort?
+      questions_link_invasive_species: Wat is een invasieve soort?
+      questions_link_model_organism: Wat is een modelorganisme?
+      questions_link_naming_species: Hoe heten soorten?
+      questions_link_species: Wat is een soort?
   learn_about_collections: Hoe kan ik er een aanmaken?
   learn_about_communities: Hoe kan ik deelnemen?
   learn_about_content_partners: Hoe kan ik er een worden?
@@ -3501,7 +3516,7 @@ nl:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Uw download staat klaar!
-      message: U kunt deze en andere downloads downloaden door het bezoeken van het <a href='%{download_link}'>tabblad opgeslagen zoekopdrachten in uw profiel</a>.
+      message: U kunt deze en andere downloads bekijken door het bezoeken van het <a href='%{download_link}'>tabblad "Gegevensdownloads" in uw profiel</a>.
       subject: Uw zoekopdracht bij EOL kan gedownload worden
   recent_updates: Recente updates
   recently_used_link: Recent gebruikt
@@ -4419,6 +4434,22 @@ nl:
         meta_description: Contentpartnerrelaties van %{user_full_name}
         meta_title: Contentpartners van %{user_full_name}
         tweet_text: Contentpartners van %{user_full_name}
+    data_downloads: 
+      actions_head: Handelingen
+      attribute_head: Eigenschap
+      complete_head: Compleet?
+      created_head: Aangemaakt
+      download: downloaden
+      is_complete: Ja
+      is_not_complete: Nee
+      page_title: Gegevensdownloads
+      processing: bezig met verwerken
+      query_empty: (geen filters)
+      query_head: Zoekopdracht
+      refresh: vernieuwen
+      row_count: Aantal
+      search_again: opnieuw zoeken
+      updated_head: Laatste handeling
     edit: 
       form_tip_account: Om bij EOL aan te melden heeft u een gebruikernaam en wachtwoord van EOL nodig, of u kunt aanmelden met een gebruiker van een derde partij. Gebruikersnaam en wachtwoord zijn nodig als u geen gekoppelde gebruiker hebt. Voer hier alleen een nieuw wachtwoord in als u uw bestaande wachtwoord wilt wijzigen. E-mailadres en voorkeurstaal zijn verplicht (%{required_icon}) voor alle gebruikers.
       form_tip_account_oauth: E-mailadres en voorkeurstaal zijn verplicht (%{required_icon}) voor alle gebruikers.

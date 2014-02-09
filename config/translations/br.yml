@@ -1746,53 +1746,52 @@ br:
   last_updated: Hizivaet da ziwezhañ
   last_updated_time_ago: Hizivaet da ziwezhañ %{time_passed} zo
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Menegiñ KAV
-        about_link_contact_us: Mont e darempred ganeomp
-        about_link_discover: Dizoleiñ
-        about_link_donate: Reiñ da gKAB
-        about_link_eol_blog: Blog KAB
-        about_link_glossary: Geriaoueg
-        about_link_help: Skoazell
-        about_link_podcasts: Podskignadoù
-        about_link_statistics: Stadegoù
-        about_link_terms_of_use: Termenoù implijout
-        about_link_what_is_eol: Petra eo KAB ?
-        header_about: Diwar-benn EOL
-        header_learn_more: Gouzout hiroc'h diwar-benn
-        header_questions: Lavarout muioc'h din
-        learn_more_link_amphibians: Divelfenneged
-        learn_more_link_animals: Loened
-        learn_more_link_archaea: Archaea
-        learn_more_link_bacteria: Bbakterie
-        learn_more_link_birds: Laboused
-        learn_more_link_crustaceans: Kresteneged
-        learn_more_link_fish: Pesked
-        learn_more_link_flowering_plants: Plant gant bleunioù
-        learn_more_link_fungi: Foue
-        learn_more_link_insects: Amprevaned
-        learn_more_link_invertebrates: Divellkeineged
-        learn_more_link_mammals: Bronneged
-        learn_more_link_molds: Louedadurioù
-        learn_more_link_mollusks: Blotviled
-        learn_more_link_mushrooms: Kebell-touseg
-        learn_more_link_plants: Plant
-        learn_more_link_protists: Protozoed
-        learn_more_link_reptiles: Stlejviled
-        learn_more_link_spiders: Kevnid
-        learn_more_link_trees: Gwez
-        learn_more_link_viruses: Viruzoù
-        learn_more_link_worms: Preñved
-        questions_link_binomial_nomenclature: Petra eo an nomenkladur biominel?
-        questions_link_biodiversity: Petra eo ar vevliesseurted ?
-        questions_link_biological_classification: Petra eo ur renkadur biologel?
-        questions_link_contributing_to_research: Penaos e c'hallan kemer perzh en enklask ?
-        questions_link_discovering_species: Penaos eo bet dizoloet ar spesadgoù ?
-        questions_link_invasive_species: Petra eo ur spesad aloubus?
-        questions_link_model_organism: Petra eo un organeg patrom ?
-        questions_link_naming_species: Penaos eo bet anvet ar spesadoù?
-        questions_link_species: Petra eo ur spesad ?
+    application: 
+      about_link_citing: Menegiñ KAV
+      about_link_contact_us: Mont e darempred ganeomp
+      about_link_discover: Dizoleiñ
+      about_link_donate: Reiñ da gKAB
+      about_link_eol_blog: Blog KAB
+      about_link_glossary: Geriaoueg
+      about_link_help: Skoazell
+      about_link_podcasts: Podskignadoù
+      about_link_statistics: Stadegoù
+      about_link_terms_of_use: Termenoù implijout
+      about_link_what_is_eol: Petra eo KAB ?
+      header_about: Diwar-benn EOL
+      header_learn_more: Gouzout hiroc'h diwar-benn
+      header_questions: Lavarout muioc'h din
+      learn_more_link_amphibians: Divelfenneged
+      learn_more_link_animals: Loened
+      learn_more_link_archaea: Archaea
+      learn_more_link_bacteria: Bbakterie
+      learn_more_link_birds: Laboused
+      learn_more_link_crustaceans: Kresteneged
+      learn_more_link_fish: Pesked
+      learn_more_link_flowering_plants: Plant gant bleunioù
+      learn_more_link_fungi: Foue
+      learn_more_link_insects: Amprevaned
+      learn_more_link_invertebrates: Divellkeineged
+      learn_more_link_mammals: Bronneged
+      learn_more_link_molds: Louedadurioù
+      learn_more_link_mollusks: Blotviled
+      learn_more_link_mushrooms: Kebell-touseg
+      learn_more_link_plants: Plant
+      learn_more_link_protists: Protozoed
+      learn_more_link_reptiles: Stlejviled
+      learn_more_link_spiders: Kevnid
+      learn_more_link_trees: Gwez
+      learn_more_link_viruses: Viruzoù
+      learn_more_link_worms: Preñved
+      questions_link_binomial_nomenclature: Petra eo an nomenkladur biominel?
+      questions_link_biodiversity: Petra eo ar vevliesseurted ?
+      questions_link_biological_classification: Petra eo ur renkadur biologel?
+      questions_link_contributing_to_research: Penaos e c'hallan kemer perzh en enklask ?
+      questions_link_discovering_species: Penaos eo bet dizoloet ar spesadgoù ?
+      questions_link_invasive_species: Petra eo ur spesad aloubus?
+      questions_link_model_organism: Petra eo un organeg patrom ?
+      questions_link_naming_species: Penaos eo bet anvet ar spesadoù?
+      questions_link_species: Petra eo ur spesad ?
   learn_about_collections: Penaos e c'hellan krouiñ unan ?
   learn_about_communities: Penaos e c'hellan kemer perzh ?
   learn_about_content_partners: Penaos e c'hellan dont da vezañ unan anezho ?

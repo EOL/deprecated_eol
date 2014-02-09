@@ -180,14 +180,15 @@ oc:
         label: Labellat
         request_publish: Demandar una publicacion
       known_uri: 
-        clade_exemplar: Utilizar coma exemple de plaja de clad
+        clade_exemplar: Utilizar coma exemple de plaja de grop taxonomic
         description: Descripcion
-        exclude_from_exemplars: Exclure de Faches en brèu
-        group_by_clade: Utilizar per de plajas de clad
+        exclude_from_exemplars: Exclure de la vista d'ensemble
+        group_by_clade: Utilizar per de plajas de gropes taxonomics
         name: Nom
         toc_items: Categorias
         uri: URI
         uri_type: Tipe d’URI
+        value_is_text: Las valors seràn pas d'URIs, solament de tèxte
       known_uri_relationship: 
         from_known_uri_id: URI del subjècte
         relationship_uri: URI de la relacion
@@ -287,7 +288,7 @@ oc:
         username: Nom d'utilizaire
       user_added_data: 
         object: Valor
-        predicate: Atribut
+        predicate: Trach
         user: Apondut per
       user_added_data_metadata: 
         object: Valor
@@ -2319,6 +2320,18 @@ oc:
         link_type: Categoria
         source_url: Ligam URL
         toc_item: Subjècte
+      data_search: 
+        attribute: Seleccionar un atribut
+        max: Valor la mai nauta
+        max_placeholder: Entrar un nombre
+        max_placeholder_disabled: Plaja desactivada
+        min: Valor la mai bassa
+        min_placeholder: Entrar un nombre
+        min_placeholder_disabled: Plaja desactivada
+        q: Valor especifica
+        q_placeholder: Entrar un mot, una frasa o un nombre
+        taxon_name: Grop de taxon
+        unit: Unitat de mesura
       eol_statistic: 
         date_one: Data
         date_two: Data
@@ -2641,12 +2654,15 @@ oc:
   known_uri_updated: URI mes a jorn.
   known_uris: 
     add_a_relationship: Apondre una relacion
+    attribution_placeholder_text: per ex. dempuèi lo centre de Dublin ; veire http://dublincore.org/usage/terms/history/#contributorT-001.
     definition_placeholder_text: per ex. Una entitat susceptibla d’aportar de contribucions a la ressorsa.
     equivalent_to: Relacions d’equivaléncia
     import_successful: Tèrmes d’ontologia importats corrèctament
     more_than_one_field_mapped_to_type: Mai d’un atribut correspond a « %{type} »
     name_placeholder_text: per ex. Contributor
     no_results: I a pas cap de resultat per l'estatistica seleccionada
+    ontology_information_url_placeholder_text: per ex. http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: per ex. http://dublincore.org/2012/06/14/dcterms.rdf
     please_select_field_types: Seleccionatz una correspondéncia per cada atribut
     please_select_from_the_menu: Seleccionatz dempuèi lo menú çaisús
     please_select_uris_to_import: Seleccionatz los URIs d’impòrt
@@ -2672,54 +2688,59 @@ oc:
   last_updated: Darrièra mesa a jorn
   last_updated_time_ago: Darrièra mesa a jorn i a %{time_passed}
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Citar EdlV
-        about_link_contact_us: Nos contactar
-        about_link_discover: Descobrir
-        about_link_donate: Far un don a l’EdlV
-        about_link_eol_blog: Lo blog de EdlV
-        about_link_glossary: Glossari
-        about_link_help: Ajuda
-        about_link_podcasts: Podcasts
-        about_link_statistics: Estatisticas
-        about_link_terms_of_use: Condicions d'utilizacion
-        about_link_what_is_eol: Qu’es aquò l’EdlV ?
-        header_about: A prepaus de l’EdlV
-        header_learn_more: Ne saber mai sus
-        header_questions: Me'n dire mai sus
-        learn_more_link_amphibians: Anfibians
-        learn_more_link_animals: Animals
-        learn_more_link_archaea: Arqueobactèris
-        learn_more_link_bacteria: Bactèris
-        learn_more_link_birds: Ausèls
-        learn_more_link_crustaceans: Crustacèus
-        learn_more_link_fish: Peisses
-        learn_more_link_flowering_plants: Plantas de flors
-        learn_more_link_fungi: Fungi
-        learn_more_link_insects: Insèctes
-        learn_more_link_invertebrates: Invertebrats
-        learn_more_link_mammals: Mamifèrs
-        learn_more_link_molds: Moisiduras
-        learn_more_link_mollusks: Mollusques
-        learn_more_link_mushrooms: Campairòls
-        learn_more_link_plants: Plantas
-        learn_more_link_protists: Protozoaris
-        learn_more_link_reptiles: Reptils
-        learn_more_link_spiders: Aranhas
-        learn_more_link_trees: Arbres
-        learn_more_link_viruses: Viruses
-        learn_more_link_worms: Vèrms
-        questions_link_binomial_nomenclature: Qu’es aquò la nomenclatura binomiala ?
-        questions_link_biodiversity: Qu’es aquò la biodiversitat ?
-        questions_link_biological_classification: Qu’es aquò una classificacion biologica ?
-        questions_link_contributing_to_research: Cossí pòdi contribuir a la recèrca ?
-        questions_link_discovering_species: Cossí las espécias son descobèrtas ?
-        questions_link_indicator_species: Qu’es aquò una espècia indicatritz ?
-        questions_link_invasive_species: Qu’es aquò una espècia invasiva ?
-        questions_link_model_organism: Qu’es aquò un organisme modèl ?
-        questions_link_naming_species: Cossí las espècias son nomenadas ?
-        questions_link_species: Qu’es aquò una espècia ?
+    application: 
+      about_link_citing: Citar EdlV
+      about_link_contact_us: Nos contactar
+      about_link_discover: Descobrir
+      about_link_donate: Far un don a l’EdlV
+      about_link_eol_blog: Lo blog de EdlV
+      about_link_glossary: Glossari
+      about_link_help: Ajuda
+      about_link_podcasts: Podcasts
+      about_link_statistics: Estatisticas
+      about_link_terms_of_use: Condicions d'utilizacion
+      about_link_what_is_eol: Qu’es aquò l’EdlV ?
+      header_about: A prepaus de l’EdlV
+      header_learn_more: Ne saber mai sus
+      header_questions: Me'n dire mai sus
+      learn_more_link_amphibians: Anfibians
+      learn_more_link_animals: Animals
+      learn_more_link_archaea: Arqueobactèris
+      learn_more_link_bacteria: Bactèris
+      learn_more_link_birds: Ausèls
+      learn_more_link_crustaceans: Crustacèus
+      learn_more_link_fish: Peisses
+      learn_more_link_flowering_plants: Plantas de flors
+      learn_more_link_fungi: Fungi
+      learn_more_link_insects: Insèctes
+      learn_more_link_invertebrates: Invertebrats
+      learn_more_link_mammals: Mamifèrs
+      learn_more_link_molds: Moisiduras
+      learn_more_link_mollusks: Mollusques
+      learn_more_link_mushrooms: Campairòls
+      learn_more_link_plants: Plantas
+      learn_more_link_protists: Protozoaris
+      learn_more_link_reptiles: Reptils
+      learn_more_link_spiders: Aranhas
+      learn_more_link_trees: Arbres
+      learn_more_link_viruses: Viruses
+      learn_more_link_worms: Vèrms
+      questions_link_binomial_nomenclature: Qu’es aquò la nomenclatura binomiala ?
+      questions_link_biodiversity: Qu’es aquò la biodiversitat ?
+      questions_link_biological_classification: Qu’es aquò una classificacion biologica ?
+      questions_link_contributing_to_research: Cossí pòdi contribuir a la recèrca ?
+      questions_link_discovering_species: Cossí las espécias son descobèrtas ?
+      questions_link_indicator_species: Qu’es aquò una espècia indicatritz ?
+      questions_link_invasive_species: Qu’es aquò una espècia invasiva ?
+      questions_link_model_organism: Qu’es aquò un organisme modèl ?
+      questions_link_naming_species: Cossí las espècias son nomenadas ?
+      questions_link_species: Qu’es aquò una espècia ?
+    data_search: 
+      page_header: Recercar dins TraitBank
+      page_header_results: Resultats de recèrca dins TraitBank
+    taxa: 
+      search_traitbank: Recercar dins TraitBank
+      search_within_clade: Recercar dins un clad
   learn_about_collections: Cossí ne pòdi crear una ?
   learn_about_communities: Cossí pòdi participar ?
   learn_about_content_partners: Cossí pòdi venir un d'eles ?
@@ -4082,6 +4103,22 @@ oc:
         meta_description: associacions partenàrias de contengut %{user_full_name}.
         meta_title: Partenaris de Contengut %{user_full_name}
         tweet_text: partenaris de contengut %{user_full_name}
+    data_downloads: 
+      actions_head: Accions
+      attribute_head: Atribut
+      complete_head: Complet ?
+      created_head: Creat
+      download: telecargar
+      is_complete: Òc
+      is_not_complete: Non
+      page_title: Telecargaments de donadas
+      processing: en tractament
+      query_empty: (pas cap de filtre)
+      query_head: Requèsta
+      refresh: refrescar
+      row_count: Nombre
+      search_again: cercar tornarmai
+      updated_head: Darrièra accion
     edit: 
       form_tip_account: Per vos connectar a EdlV, vos cal aver un nom d’utilizaire e un senhal de EdlV, o alara vos connectar amb un compte tèrç. Lo nom d’utilizaire e lo senhal son obligatòris s’avètz pas cap de compte de connectat ; pasmens, picatz solament un senhal novèl aicí se volètz modificar çò existent. L’adreça de corrièr electronic e la lenga preferida son obligatòrias (%{required_icon}) per totes los utilizaires.
       form_tip_account_oauth: Adreça de corrièr electronic e lenga per defaut son requesidas %{required_icon} per totes los utilizaires.

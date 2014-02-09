@@ -2569,54 +2569,53 @@ ko:
   last_updated: 최근 업데이트
   last_updated_time_ago: 최근 %{time_passed} 전에 업데이트함
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: EOL 인용하기
-        about_link_contact_us: 문의하기
-        about_link_discover: 발견
-        about_link_donate: EOL 기부
-        about_link_eol_blog: EOL 블로그
-        about_link_glossary: 용어집
-        about_link_help: 도움말
-        about_link_podcasts: 팟캐스트
-        about_link_statistics: 통계
-        about_link_terms_of_use: 이용 약관
-        about_link_what_is_eol: EOL은 무엇입니까?
-        header_about: EOL 소개
-        header_learn_more: 더 알아보기
-        header_questions: 더 말하기
-        learn_more_link_amphibians: 양서류
-        learn_more_link_animals: 동물
-        learn_more_link_archaea: 고세균
-        learn_more_link_bacteria: 박테리아
-        learn_more_link_birds: 조류
-        learn_more_link_crustaceans: 갑각류
-        learn_more_link_fish: 어류
-        learn_more_link_flowering_plants: 속씨식물
-        learn_more_link_fungi: 진균류
-        learn_more_link_insects: 곤충
-        learn_more_link_invertebrates: 무척추동물
-        learn_more_link_mammals: 포유류
-        learn_more_link_molds: 곰팡이
-        learn_more_link_mollusks: 연체동물
-        learn_more_link_mushrooms: 버섯
-        learn_more_link_plants: 식물
-        learn_more_link_protists: 원생생물
-        learn_more_link_reptiles: 파충류
-        learn_more_link_spiders: 거미
-        learn_more_link_trees: 나무
-        learn_more_link_viruses: 바이러스
-        learn_more_link_worms: 벌레
-        questions_link_binomial_nomenclature: 학명은 무엇입니까?
-        questions_link_biodiversity: 생물 다양성이 무엇입니까?
-        questions_link_biological_classification: 생물학적 분류는 무엇입니까?
-        questions_link_contributing_to_research: 어떻게 연구에 기여할 수 있나요?
-        questions_link_discovering_species: 어떻게 종을 발견합니까?
-        questions_link_indicator_species: 지표종은 무엇입니까?
-        questions_link_invasive_species: 침입종은 무엇입니까?
-        questions_link_model_organism: 모범 생물체는 무엇입니까?
-        questions_link_naming_species: 어떻게 종 이름을 짓습니까?
-        questions_link_species: 종은 무엇입니까?
+    application: 
+      about_link_citing: EOL 인용하기
+      about_link_contact_us: 문의하기
+      about_link_discover: 발견
+      about_link_donate: EOL 기부
+      about_link_eol_blog: EOL 블로그
+      about_link_glossary: 용어집
+      about_link_help: 도움말
+      about_link_podcasts: 팟캐스트
+      about_link_statistics: 통계
+      about_link_terms_of_use: 이용 약관
+      about_link_what_is_eol: EOL은 무엇입니까?
+      header_about: EOL 소개
+      header_learn_more: 더 알아보기
+      header_questions: 더 말하기
+      learn_more_link_amphibians: 양서류
+      learn_more_link_animals: 동물
+      learn_more_link_archaea: 고세균
+      learn_more_link_bacteria: 박테리아
+      learn_more_link_birds: 조류
+      learn_more_link_crustaceans: 갑각류
+      learn_more_link_fish: 어류
+      learn_more_link_flowering_plants: 속씨식물
+      learn_more_link_fungi: 진균류
+      learn_more_link_insects: 곤충
+      learn_more_link_invertebrates: 무척추동물
+      learn_more_link_mammals: 포유류
+      learn_more_link_molds: 곰팡이
+      learn_more_link_mollusks: 연체동물
+      learn_more_link_mushrooms: 버섯
+      learn_more_link_plants: 식물
+      learn_more_link_protists: 원생생물
+      learn_more_link_reptiles: 파충류
+      learn_more_link_spiders: 거미
+      learn_more_link_trees: 나무
+      learn_more_link_viruses: 바이러스
+      learn_more_link_worms: 벌레
+      questions_link_binomial_nomenclature: 학명은 무엇입니까?
+      questions_link_biodiversity: 생물 다양성이 무엇입니까?
+      questions_link_biological_classification: 생물학적 분류는 무엇입니까?
+      questions_link_contributing_to_research: 어떻게 연구에 기여할 수 있나요?
+      questions_link_discovering_species: 어떻게 종을 발견합니까?
+      questions_link_indicator_species: 지표종은 무엇입니까?
+      questions_link_invasive_species: 침입종은 무엇입니까?
+      questions_link_model_organism: 모범 생물체는 무엇입니까?
+      questions_link_naming_species: 어떻게 종 이름을 짓습니까?
+      questions_link_species: 종은 무엇입니까?
   learn_about_collections: 어떻게 만들 수 있나요?
   learn_about_communities: 어떻게 참여할 수 있나요?
   learn_about_content_partners: 어떻게 될 수 있나요?

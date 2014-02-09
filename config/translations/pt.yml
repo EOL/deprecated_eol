@@ -5,6 +5,7 @@
 # Author: Giro720
 # Author: GoEThe
 # Author: Hamilton Abreu
+# Author: Imperadeiro98
 # Author: Leosls
 # Author: Luckas
 # Author: Luckas Blade
@@ -35,7 +36,7 @@ pt:
         description: Descrição da coleção
         logo: Imagem principal da coleção
         name: Nome da coleção
-        show_references: Referências (texto ou URL)
+        show_references: Referências (Texto ou URL)
         sort_style_id: Direção de ordenação por defeito
       collection_item: 
         annotation: Anotação
@@ -51,7 +52,7 @@ pt:
         name: Nome da comunidade
       contact: 
         comments: Mensagem
-        contact_subject_id: Assunto contacto
+        contact_subject_id: Assunto da contactação
         email: E-mail
         name: Nome
       content_page: 
@@ -1142,6 +1143,8 @@ pt:
     security_violations: 
       default: Acesso negado.
   expand_all_children: expandir todos os descendentes
+  expired: Expirado
+  expires_in_colon: "Expira em:"
   explore: Explorar
   explore_what_we_know_about_taxon: Explore o que EOL conhece sobre %{taxon}.
   export_this_list_as_csv: Exportar esta lista como CSV
@@ -1582,32 +1585,31 @@ pt:
   last_updated: Ultima atualização
   last_updated_time_ago: Última atualização há %{time_passed}
   layouts: 
-    v2: 
-      application: 
-        about_link_glossary: Glossário
-        about_link_help: Ajuda
-        about_link_podcasts: Podcasts
-        about_link_statistics: Estatísticas
-        about_link_terms_of_use: Termos de uso
-        learn_more_link_amphibians: Anfíbios
-        learn_more_link_animals: Animais
-        learn_more_link_bacteria: Bactérias
-        learn_more_link_birds: Aves
-        learn_more_link_crustaceans: Crustáceos
-        learn_more_link_fish: Peixes
-        learn_more_link_flowering_plants: Plantas com flor
-        learn_more_link_fungi: Fungos
-        learn_more_link_insects: Insetos
-        learn_more_link_invertebrates: Invertebrados
-        learn_more_link_mammals: Mamíferos
-        learn_more_link_molds: Mofos
-        learn_more_link_mollusks: Moluscos
-        learn_more_link_mushrooms: Cogumelos
-        learn_more_link_plants: Plantas
-        learn_more_link_protists: Protistas
-        learn_more_link_reptiles: Répteis
-        learn_more_link_spiders: Aranhas
-        learn_more_link_trees: Árvores
+    application: 
+      about_link_glossary: Glossário
+      about_link_help: Ajuda
+      about_link_podcasts: Podcasts
+      about_link_statistics: Estatísticas
+      about_link_terms_of_use: Termos de uso
+      learn_more_link_amphibians: Anfíbios
+      learn_more_link_animals: Animais
+      learn_more_link_bacteria: Bactérias
+      learn_more_link_birds: Aves
+      learn_more_link_crustaceans: Crustáceos
+      learn_more_link_fish: Peixes
+      learn_more_link_flowering_plants: Plantas com flor
+      learn_more_link_fungi: Fungos
+      learn_more_link_insects: Insetos
+      learn_more_link_invertebrates: Invertebrados
+      learn_more_link_mammals: Mamíferos
+      learn_more_link_molds: Mofos
+      learn_more_link_mollusks: Moluscos
+      learn_more_link_mushrooms: Cogumelos
+      learn_more_link_plants: Plantas
+      learn_more_link_protists: Protistas
+      learn_more_link_reptiles: Répteis
+      learn_more_link_spiders: Aranhas
+      learn_more_link_trees: Árvores
   learn_about_collections: Como posso criar uma?
   learn_about_communities: Como posso participar?
   learn_about_content_partners: Como me posso tornar um?
@@ -1910,6 +1912,7 @@ pt:
   stats: Estatísticas
   subject: assunto
   submit: Enviar
+  submitted_colon: "Submetido:"
   synonym: Sinônimo
   synonyms_with_count: 
     one: "%{count} sinônimo"
@@ -1977,6 +1980,18 @@ pt:
   username: Nome de utilizador
   username_colon: "Nome de utilizador:"
   users: 
+    data_downloads: 
+      actions_head: Ações
+      complete_head: Completar?
+      created_head: Criado
+      download: download
+      empty: Você não tem nenhum download. Pode <a href='%{data_search_url}'>pesquisar por dados</a> e pedir para baixá-los.
+      is_complete: Sim
+      is_not_complete: Não
+      query_empty: (sem filtros)
+      refresh: atualizar
+      search_again: pesquisar novamente
+      updated_head: Última Ação
     new: 
       create_user_header: Criar uma nova conta <abbr title="Encyclopedia of Life">EOL</abbr>
     newsfeeds: 

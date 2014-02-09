@@ -2462,54 +2462,53 @@ ar:
   last_updated: آخر تحديث
   last_updated_time_ago: أخر تحديث منذ %{time_passed}
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: نقلا عن موسوعة الحياة
-        about_link_contact_us: إتصل بنا
-        about_link_discover: أكتشف
-        about_link_donate: تبرع لصالح موسوعة الحياة
-        about_link_eol_blog: مدونة موسوعة الحياة
-        about_link_glossary: قائمة المصطلحات
-        about_link_help: المساعدة
-        about_link_podcasts: حلقات البودكاست
-        about_link_statistics: الإحصائيات
-        about_link_terms_of_use: شروط الاستخدام
-        about_link_what_is_eol: ما هي موسوعة الحياة؟
-        header_about: عن موسوعة الحياة
-        header_learn_more: أطلع على مزيد من المعلومات حول
-        header_questions: أطلعني على المزيد
-        learn_more_link_amphibians: البرمائيات
-        learn_more_link_animals: الحيوانات
-        learn_more_link_archaea: البَدْئِيَات
-        learn_more_link_bacteria: البكتيريا
-        learn_more_link_birds: الطيور
-        learn_more_link_crustaceans: القشريات
-        learn_more_link_fish: السمك
-        learn_more_link_flowering_plants: النباتات المزهرة
-        learn_more_link_fungi: الفطريات
-        learn_more_link_insects: الحشرات
-        learn_more_link_invertebrates: اللافقاريات
-        learn_more_link_mammals: الثدييات
-        learn_more_link_molds: القوالب
-        learn_more_link_mollusks: الرخويات
-        learn_more_link_mushrooms: عَيْشُ الغراب
-        learn_more_link_plants: النباتات
-        learn_more_link_protists: الأولانيات
-        learn_more_link_reptiles: الزواحف
-        learn_more_link_spiders: العناكب
-        learn_more_link_trees: الأشجار
-        learn_more_link_viruses: الفيروسات
-        learn_more_link_worms: الديدان
-        questions_link_binomial_nomenclature: ما هي التسميات ذات الحدين؟
-        questions_link_biodiversity: ما هو التنوع البيولوجي؟
-        questions_link_biological_classification: ما هو التصنيف البيولوجي؟
-        questions_link_contributing_to_research: كيف يمكنني المساهمة في البحث؟
-        questions_link_discovering_species: كيف تكتشف الأنواع؟
-        questions_link_indicator_species: ما هو مؤشر الأنواع؟
-        questions_link_invasive_species: ما هي الأنواع الغازية؟
-        questions_link_model_organism: ما هو الكائن النموذج؟
-        questions_link_naming_species: كيف تلقب الأنواع؟
-        questions_link_species: ماهي الأنواع؟
+    application: 
+      about_link_citing: نقلا عن موسوعة الحياة
+      about_link_contact_us: إتصل بنا
+      about_link_discover: أكتشف
+      about_link_donate: تبرع لصالح موسوعة الحياة
+      about_link_eol_blog: مدونة موسوعة الحياة
+      about_link_glossary: قائمة المصطلحات
+      about_link_help: المساعدة
+      about_link_podcasts: حلقات البودكاست
+      about_link_statistics: الإحصائيات
+      about_link_terms_of_use: شروط الاستخدام
+      about_link_what_is_eol: ما هي موسوعة الحياة؟
+      header_about: عن موسوعة الحياة
+      header_learn_more: أطلع على مزيد من المعلومات حول
+      header_questions: أطلعني على المزيد
+      learn_more_link_amphibians: البرمائيات
+      learn_more_link_animals: الحيوانات
+      learn_more_link_archaea: البَدْئِيَات
+      learn_more_link_bacteria: البكتيريا
+      learn_more_link_birds: الطيور
+      learn_more_link_crustaceans: القشريات
+      learn_more_link_fish: السمك
+      learn_more_link_flowering_plants: النباتات المزهرة
+      learn_more_link_fungi: الفطريات
+      learn_more_link_insects: الحشرات
+      learn_more_link_invertebrates: اللافقاريات
+      learn_more_link_mammals: الثدييات
+      learn_more_link_molds: القوالب
+      learn_more_link_mollusks: الرخويات
+      learn_more_link_mushrooms: عَيْشُ الغراب
+      learn_more_link_plants: النباتات
+      learn_more_link_protists: الأولانيات
+      learn_more_link_reptiles: الزواحف
+      learn_more_link_spiders: العناكب
+      learn_more_link_trees: الأشجار
+      learn_more_link_viruses: الفيروسات
+      learn_more_link_worms: الديدان
+      questions_link_binomial_nomenclature: ما هي التسميات ذات الحدين؟
+      questions_link_biodiversity: ما هو التنوع البيولوجي؟
+      questions_link_biological_classification: ما هو التصنيف البيولوجي؟
+      questions_link_contributing_to_research: كيف يمكنني المساهمة في البحث؟
+      questions_link_discovering_species: كيف تكتشف الأنواع؟
+      questions_link_indicator_species: ما هو مؤشر الأنواع؟
+      questions_link_invasive_species: ما هي الأنواع الغازية؟
+      questions_link_model_organism: ما هو الكائن النموذج؟
+      questions_link_naming_species: كيف تلقب الأنواع؟
+      questions_link_species: ماهي الأنواع؟
   learn_about_collections: كيف أنشئ مجموعة؟
   learn_about_communities: كيف أشترك؟
   learn_about_content_partners: كيف أصبح شريكا فى المحتوى؟

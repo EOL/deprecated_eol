@@ -1,6 +1,7 @@
 # Messages for Swedish (svenska)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Jopparn
 # Author: Liftarn
 # Author: McDutchie
 # Author: Ufred
@@ -103,12 +104,12 @@ sv:
   translated_licenses-description-license_id-31: Vissa rättigheter reserverade
   translated_licenses-description-license_id-32: Vissa rättigheter reserverade
   translated_licenses-description-license_id-33: Vissa rättigheter reserverade
-  translated_licenses-description-license_id-34: Allmän egendom
-  translated_licenses-description-license_id-35: Allmän egendom
+  translated_licenses-description-license_id-34: Public Domain
+  translated_licenses-description-license_id-35: Public Domain
   translated_licenses-description-license_id-36: Vissa rättigheter reserverade
   translated_licenses-description-license_id-37: Vissa rättigheter reserverade
   translated_licenses-description-license_id-38: Vissa rättigheter reserverade
-  translated_licenses-description-license_id-39: Allmän egendom
+  translated_licenses-description-license_id-39: Public Domain
   translated_licenses-description-license_id-4: Vissa rättigheter reserverade
   translated_licenses-description-license_id-42: Vissa rättigheter reserverade
   translated_licenses-description-license_id-43: Licens är inte tillämplig

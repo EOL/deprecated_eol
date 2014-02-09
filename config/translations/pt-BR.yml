@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Alcali
 # Author: Dianakc
+# Author: Elival
 # Author: Giro720
 # Author: Gusta
 # Author: Jesielt
@@ -321,6 +322,8 @@ pt-BR:
           one: deve ser menor que %{count}
           other: deve ser menor que %{count}
         less_than_or_equal_to: deve ser inferior ou igual a %{count}
+        models: 
+          inaccessible: é inacessível
         not_a_number: não é um número
         not_an_integer: deve ser um número inteiro
         odd: deve ser ímpar
@@ -352,7 +355,7 @@ pt-BR:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: não permitido - só pode haver uma unidade de medida
+              only_one_measurement: não é permitido - só pode haver uma unidade padrão
             to_known_uri_id: 
               must_be_different: tem que ser diferente do que a URI tema
               must_be_known_uri: tem que ser uma URI conhecida
@@ -2242,6 +2245,23 @@ pt-BR:
         link_type: Categoria
         source_url: Link URL
         toc_item: Assunto
+      data_search: 
+        attribute: Selecione um atributo
+        max: Valor máximo
+        max_placeholder: Introduza um número
+        max_placeholder_disabled: Faixa desabilitada
+        min: Valor mínimo
+        min_placeholder: Introduza um número
+        min_placeholder_disabled: Faixa desabilitada
+        q: Valor específico
+        q_more: Por exemplo, heterotrófico.
+        q_placeholder: Introduza uma palavra, frase ou número
+        q_placeholder_disabled: Faixa introduzida, valor específico desabilitado
+        taxon_name: Grupo de taxonomia
+        taxon_name_more: Por exemplo, introduza Trochilidae ou Baleias e selecione um grupo correspondente
+        taxon_name_placeholder: Introduza o nome do grupo de taxonomia para o grupo selecionado
+        taxon_name_placeholder_value_removed: "%{taxon_group}removido, selecione novo grupo"
+        unit: Unidade de medida
       eol_statistic: 
         date_one: Data
         date_two: Data
@@ -2587,54 +2607,53 @@ pt-BR:
   last_updated: Última Atualização
   last_updated_time_ago: Última atualização há %{time_passed}
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Citando EOL
-        about_link_contact_us: Fale Conosco
-        about_link_discover: Descobrir
-        about_link_donate: Doações para EOL
-        about_link_eol_blog: O Blog EOL
-        about_link_glossary: Glossário
-        about_link_help: Ajuda
-        about_link_podcasts: Podcasts
-        about_link_statistics: Estatísticas
-        about_link_terms_of_use: Termos de uso
-        about_link_what_is_eol: O que é EOL?
-        header_about: Sobre EOL
-        header_learn_more: Saiba mais sobre
-        header_questions: Conte-me mais
-        learn_more_link_amphibians: Anfíbios
-        learn_more_link_animals: Animais
-        learn_more_link_archaea: Archaea
-        learn_more_link_bacteria: Bactérias
-        learn_more_link_birds: Aves
-        learn_more_link_crustaceans: Crustáceos
-        learn_more_link_fish: Peixes
-        learn_more_link_flowering_plants: Plantas com flor
-        learn_more_link_fungi: Fungos
-        learn_more_link_insects: Insetos
-        learn_more_link_invertebrates: Invertebrados
-        learn_more_link_mammals: Mamíferos
-        learn_more_link_molds: Mofos
-        learn_more_link_mollusks: Moluscos
-        learn_more_link_mushrooms: Cogumelos
-        learn_more_link_plants: Plantas
-        learn_more_link_protists: Protistas
-        learn_more_link_reptiles: Répteis
-        learn_more_link_spiders: Aranhas
-        learn_more_link_trees: Árvores
-        learn_more_link_viruses: Vírus
-        learn_more_link_worms: Vermes
-        questions_link_binomial_nomenclature: O que é nomenclatura binomial?
-        questions_link_biodiversity: O que é biodiversidade?
-        questions_link_biological_classification: O que é uma classificação biológica?
-        questions_link_contributing_to_research: Como posso contribuir para a pesquisa?
-        questions_link_discovering_species: Como as espécies são descobertas?
-        questions_link_indicator_species: O que é uma espécie indicadora?
-        questions_link_invasive_species: O que é uma espécie invasora?
-        questions_link_model_organism: O que é um organismo modelo?
-        questions_link_naming_species: Como são chamadas as espécies?
-        questions_link_species: O que é uma espécie?
+    application: 
+      about_link_citing: Citando EOL
+      about_link_contact_us: Fale Conosco
+      about_link_discover: Descobrir
+      about_link_donate: Doações para EOL
+      about_link_eol_blog: O Blog EOL
+      about_link_glossary: Glossário
+      about_link_help: Ajuda
+      about_link_podcasts: Podcasts
+      about_link_statistics: Estatísticas
+      about_link_terms_of_use: Termos de uso
+      about_link_what_is_eol: O que é EOL?
+      header_about: Sobre EOL
+      header_learn_more: Saiba mais sobre
+      header_questions: Conte-me mais
+      learn_more_link_amphibians: Anfíbios
+      learn_more_link_animals: Animais
+      learn_more_link_archaea: Archaea
+      learn_more_link_bacteria: Bactérias
+      learn_more_link_birds: Aves
+      learn_more_link_crustaceans: Crustáceos
+      learn_more_link_fish: Peixes
+      learn_more_link_flowering_plants: Plantas com flor
+      learn_more_link_fungi: Fungos
+      learn_more_link_insects: Insetos
+      learn_more_link_invertebrates: Invertebrados
+      learn_more_link_mammals: Mamíferos
+      learn_more_link_molds: Mofos
+      learn_more_link_mollusks: Moluscos
+      learn_more_link_mushrooms: Cogumelos
+      learn_more_link_plants: Plantas
+      learn_more_link_protists: Protistas
+      learn_more_link_reptiles: Répteis
+      learn_more_link_spiders: Aranhas
+      learn_more_link_trees: Árvores
+      learn_more_link_viruses: Vírus
+      learn_more_link_worms: Vermes
+      questions_link_binomial_nomenclature: O que é nomenclatura binomial?
+      questions_link_biodiversity: O que é biodiversidade?
+      questions_link_biological_classification: O que é uma classificação biológica?
+      questions_link_contributing_to_research: Como posso contribuir para a pesquisa?
+      questions_link_discovering_species: Como as espécies são descobertas?
+      questions_link_indicator_species: O que é uma espécie indicadora?
+      questions_link_invasive_species: O que é uma espécie invasora?
+      questions_link_model_organism: O que é um organismo modelo?
+      questions_link_naming_species: Como são chamadas as espécies?
+      questions_link_species: O que é uma espécie?
   learn_about_collections: Como posso criar uma?
   learn_about_communities: Como posso participar?
   learn_about_content_partners: Como eu posso me tornar um?

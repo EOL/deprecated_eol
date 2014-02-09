@@ -1489,6 +1489,7 @@ fr:
   community_tab_communities_description: Les communautés sont des groupes d’utilisateurs de l’EdlV qui se réunissent pour partager leurs intérêts et leur expertise. Les communautés EdlV s’organisent autour d’une ou plusieurs collections EdlV et offrent à leurs membres un moyen de se concentrer sur des sujets de préoccupation commune. Davantage d’informations sur les communautés EdlV, y compris les instructions pour créer la vôtre, sont disponibles sur la <a href='/info/communities'>page d’aide</a>.
   community_tab_curators_description: Les conservateurs sont des utilisateurs de l’EdlV ayant une expertise en biologie et qui consacrent une part de leur temps pour superviser les contenus de l’EdlV afin de s’assurer que ce que vous voyez soit exact et de haute qualité.
   completed: Terminé
+  completed_colon: "Terminé :"
   confirm_delete_community: Êtes-vous sûr de vouloir supprimer cette communauté ? Les membres restants pourront toujours la voir et le flux de nouveautés sera maintenu, mais elle ne s’affichera pas dans les recherches ou sur les pages de taxinomie, et ne sera plus modifiable.
   confirm_leave: Êtes-vous sûr de vouloir quitter cette communauté ?
   confirm_password_colon: "Confirmez le mot de passe :"
@@ -1903,7 +1904,8 @@ fr:
       search_value_or_range_header: Rechercher une valeur spécifique ou une plage
       search_within_taxon_group_header: Rechercher dans un groupe de taxons
       search_within_taxon_group_intro_with_count: 
-        other: La recherche dans un groupe de taxons est actuellement limitée à des groupes ayant moins de %{count} taxon. <a href="%{contact_us_tech_url}">Contactez-nous</a> pour en savoir plus sur la recherche sur de plus gros groupes.
+        one: La recherche dans un groupe de taxons est actuellement limitée à des groupes ayant moins de %{count} taxon. <a href="%{contact_us_tech_url}">Contactez-nous</a> pour en savoir plus sur la recherche sur de plus gros groupes.
+        other: La recherche dans un groupe de taxons est actuellement limitée à des groupes ayant moins de %{count} taxons. <a href="%{contact_us_tech_url}">Contactez-nous</a> pour en savoir plus sur la recherche sur de plus gros groupes.
       sort_header: Trier les résultats
     notice: 
       clade_has_no_data: Personne n’a encore contribué à des enregistrements de données pour %{taxon_name}. <a href="%{contribute_path}">Apprenez comment contribuer</a>.
@@ -1917,8 +1919,8 @@ fr:
     to: Valeur la plus haute
     unit_uri: Unité de mesure
   data_search_files_with_count: 
-    one: "%{count} recherche enregistrée"
-    other: "%{count} recherches enregistrées"
+    one: "%{count} téléchargement de données"
+    other: "%{count} téléchargements de données"
   data_search_limit: 
     one: Les téléchargements de recherche de données sont limités à %{count} résultat.
     other: Les téléchargements de recherche de données sont limités à %{count} résultats.
@@ -2211,6 +2213,8 @@ fr:
       no_access: Désolé, l’accès est restreint.
   excluded_icon_tip: Les lignes marquées avec l’icône d’exclusion %{excluded_icon} ne seront jamais affichées dans les pages de présentation des taxons.
   expand_all_children: Développer tous les enfants
+  expired: Expiré
+  expires_in_colon: "Expire dans :"
   explore: à découvrir
   explore_what_we_know_about_taxon: Découvrez ce que l’EdlV sait de %{taxon}.
   export_curator_csv_link: "[exporter tous les conservateurs en CSV]"
@@ -2250,7 +2254,7 @@ fr:
   filter_by_type_comment_option: Commentaires
   filter_by_type_community_option: Communautés
   filter_by_type_content_page_option: À propos de l’EdlV
-  filter_by_type_data_option: Données de TraitBank
+  filter_by_type_data_option: Traits
   filter_by_type_image_option: Images
   filter_by_type_image_option_with_count: Images (%{count})
   filter_by_type_link_option: Liens
@@ -2748,6 +2752,9 @@ fr:
   inappropriate: Inapproprié
   inaturalist_tab_label: Observations iNaturalist
   include_all_metadata: inclus toutes les métadonnées pour les objets de données
+  including_traitbank_count: 
+    one: ", y compris %{count} attribut de TraitBank"
+    other: ", y compris %{count} attributs de TraitBank"
   indexed: Indexé
   info_item: Élément d’information
   info_items_col_header: Éléments d’information
@@ -2864,60 +2871,59 @@ fr:
   last_updated: Dernière mise à jour
   last_updated_time_ago: Dernière mise à jour il y a %{time_passed}
   layouts: 
-    v2: 
-      application: 
-        about_link_citing: Citer EdlV
-        about_link_contact_us: Nous contacter
-        about_link_discover: Découvrir
-        about_link_donate: Donner à l’EdlV
-        about_link_eol_blog: Le blog de EdlV
-        about_link_glossary: Glossaire
-        about_link_help: Aide
-        about_link_podcasts: Podcasts
-        about_link_statistics: Statistiques
-        about_link_terms_of_use: Conditions d’utilisation
-        about_link_what_is_eol: Qu’est-ce que l’EdlV ?
-        header_about: À propos de l’EdlV
-        header_learn_more: En apprendre plus sur
-        header_questions: M’en dire plus sur
-        learn_more_link_amphibians: Amphibiens
-        learn_more_link_animals: Animaux
-        learn_more_link_archaea: Archées
-        learn_more_link_bacteria: Bactéries
-        learn_more_link_birds: Oiseaux
-        learn_more_link_crustaceans: Crustacés
-        learn_more_link_fish: Poissons
-        learn_more_link_flowering_plants: Plantes à fleurs
-        learn_more_link_fungi: Fungi
-        learn_more_link_insects: Insectes
-        learn_more_link_invertebrates: Invertébrés
-        learn_more_link_mammals: Mammifères
-        learn_more_link_molds: Moisissure
-        learn_more_link_mollusks: Mollusques
-        learn_more_link_mushrooms: Champignons
-        learn_more_link_plants: Plantes
-        learn_more_link_protists: Protozoaires
-        learn_more_link_reptiles: Reptiles
-        learn_more_link_spiders: Araignées
-        learn_more_link_trees: Arbres
-        learn_more_link_viruses: Virus
-        learn_more_link_worms: Vers
-        questions_link_binomial_nomenclature: Qu’est-ce que la nomenclature binomiale?
-        questions_link_biodiversity: Qu’est ce que la biodiversité ?
-        questions_link_biological_classification: Qu’est-ce qu’une classification biologique?
-        questions_link_contributing_to_research: Comment puis-je contribuer à la recherche ?
-        questions_link_discovering_species: Comment les espèces sont découvertes ?
-        questions_link_indicator_species: Qu’est-ce qu’une espèce indicatrice?
-        questions_link_invasive_species: Qu’est ce qu’une espèce invasive ?
-        questions_link_model_organism: Qu’est-ce qu’un organisme modèle?
-        questions_link_naming_species: Comment les espèces sont nommées ?
-        questions_link_species: Qu’est ce qu’une espèce ?
-      data_search: 
-        page_header: Rechercher dans TraitBank
-        page_header_results: Résultats de recherche dans TraitBank
-      taxa: 
-        search_traitbank: Rechercher dans TraitBank
-        search_within_clade: Rechercher dans un cladus
+    application: 
+      about_link_citing: Citer EdlV
+      about_link_contact_us: Nous contacter
+      about_link_discover: Découvrir
+      about_link_donate: Donner à l’EdlV
+      about_link_eol_blog: Le blog de EdlV
+      about_link_glossary: Glossaire
+      about_link_help: Aide
+      about_link_podcasts: Podcasts
+      about_link_statistics: Statistiques
+      about_link_terms_of_use: Conditions d’utilisation
+      about_link_what_is_eol: Qu’est-ce que l’EdlV ?
+      header_about: À propos de l’EdlV
+      header_learn_more: En apprendre plus sur
+      header_questions: M’en dire plus sur
+      learn_more_link_amphibians: Amphibiens
+      learn_more_link_animals: Animaux
+      learn_more_link_archaea: Archées
+      learn_more_link_bacteria: Bactéries
+      learn_more_link_birds: Oiseaux
+      learn_more_link_crustaceans: Crustacés
+      learn_more_link_fish: Poissons
+      learn_more_link_flowering_plants: Plantes à fleurs
+      learn_more_link_fungi: Fungi
+      learn_more_link_insects: Insectes
+      learn_more_link_invertebrates: Invertébrés
+      learn_more_link_mammals: Mammifères
+      learn_more_link_molds: Moisissure
+      learn_more_link_mollusks: Mollusques
+      learn_more_link_mushrooms: Champignons
+      learn_more_link_plants: Plantes
+      learn_more_link_protists: Protozoaires
+      learn_more_link_reptiles: Reptiles
+      learn_more_link_spiders: Araignées
+      learn_more_link_trees: Arbres
+      learn_more_link_viruses: Virus
+      learn_more_link_worms: Vers
+      questions_link_binomial_nomenclature: Qu’est-ce que la nomenclature binomiale?
+      questions_link_biodiversity: Qu’est ce que la biodiversité ?
+      questions_link_biological_classification: Qu’est-ce qu’une classification biologique?
+      questions_link_contributing_to_research: Comment puis-je contribuer à la recherche ?
+      questions_link_discovering_species: Comment les espèces sont découvertes ?
+      questions_link_indicator_species: Qu’est-ce qu’une espèce indicatrice?
+      questions_link_invasive_species: Qu’est ce qu’une espèce invasive ?
+      questions_link_model_organism: Qu’est-ce qu’un organisme modèle?
+      questions_link_naming_species: Comment les espèces sont nommées ?
+      questions_link_species: Qu’est ce qu’une espèce ?
+    data_search: 
+      page_header: Rechercher dans TraitBank
+      page_header_results: Résultats de recherche dans TraitBank
+    taxa: 
+      search_traitbank: Rechercher dans TraitBank
+      search_within_clade: Rechercher dans un cladus
   learn_about_collections: Comment puis-je en créer une ?
   learn_about_communities: Comment puis-je participer ?
   learn_about_content_partners: Comment puis-je devenir l’un d’eux ?
@@ -3075,6 +3081,7 @@ fr:
   method: Méthode
   method_to_get_metadata_about_the_hierarchy: avec un identifiant de hiérarchie donné, cette méthode retourne des métadonnées à propos de la hiérarchie et liste les taxons racines
   methods: Méthodes
+  missing_interpolation_argument_error: "[traduction incomplète]"
   mobile: 
     contents: 
       explore_eol: Explorez l’EdlV
@@ -3536,7 +3543,7 @@ fr:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Votre téléchargement est prêt !
-      message: Vous pouvez télécharger ceci et d’autres choses en visitant <a href='%{download_link}'>l’onglet recherches enregistrées dans votre profil</a>.
+      message: Vous pouvez afficher ceci et d’autres téléchargements en visitant <a href='%{download_link}'>l’onglet des téléchargements de données dans votre profil</a>.
       subject: Votre recherche EdlV est prête à être téléchargée
   recent_updates: Mises à jour récentes
   recently_used_link: Récemment utilisé
@@ -3805,6 +3812,7 @@ fr:
   subject: sujet
   submit: Valider
   submit_term: Condition d’envoi
+  submitted_colon: "Soumis :"
   submitting: Veuillez patienter…
   suggested_attributes: "Attributs suggérés :"
   suggested_result_page_id: "Identifiant de page de résultat suggéré :"
@@ -4463,6 +4471,30 @@ fr:
         meta_description: associations partenaires de contenu %{user_full_name}.
         meta_title: Partenaires de Contenu %{user_full_name}
         tweet_text: partenaires de contenu %{user_full_name}
+    data_downloads: 
+      actions_head: Actions
+      attribute_head: Attribut
+      complete_head: Complet ?
+      created_head: Créé
+      download: télécharger
+      empty: Vous n’avez aucun téléchargement. Vous pouvez <a href='%{data_search_url}'>rechercher des données</a> et demander à télécharger les résultats.
+      header_with_count: 
+        one: Téléchargement de données
+        other: "%{count} téléchargements de données"
+      index: 
+        meta_description: Téléchargements de données demandés par %{user_full_name}.
+        meta_title: Téléchargements de données de %{user_full_name}
+        tweet_text: téléchargements de données de %{user_full_name}
+      is_complete: Oui
+      is_not_complete: Non
+      page_title: Téléchargements de données
+      processing: en traitement
+      query_empty: (aucun filtre)
+      query_head: Requête
+      refresh: rafraîchir
+      row_count: Nombre
+      search_again: chercher de nouveau
+      updated_head: Dernière action
     edit: 
       form_tip_account: Pour vous connecter à EdlV, vous devez doit avoir un nom d’utilisateur et un mot de passe de EdlV, soit vous connecter avec un compte tiers. Le nom d’utilisateur et le mot de passe sont obligatoires si vous n’avez pas de compte connecté; toutefois, saisissez seulement un nouveau mot de passe ici si vous voulez modifier l’existant. L’adresse de courriel et la langue préférée sont obligatoires (%{required_icon}) pour tous les utilisateurs.
       form_tip_account_oauth: Adresse de courriel et langue par défaut sont requis %{required_icon} pour tous les utilisateurs.

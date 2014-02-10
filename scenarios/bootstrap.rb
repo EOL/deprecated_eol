@@ -622,6 +622,9 @@ TaxonConcept.where('published = 1').each do |tc|
   end
 end
 
+datauser = User.gen(username: 'datamama')
+datauser.grant_permission(:see_data)
+
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value
 $SKIP_CREATING_ACTIVITY_LOGS_FOR_COMMENTS = false
 

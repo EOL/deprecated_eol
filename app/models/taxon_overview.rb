@@ -87,7 +87,7 @@ class TaxonOverview < TaxonUserClassificationFilter
       communities_sorted_by_member_count = member_counts.keys.map { |collection_id| taxon_concept.communities.detect { |c| c.id == collection_id } }
       communities_sorted_by_member_count[0..COMMUNITIES_TO_SHOW-1]
                  end
-    Community.preload_associations(best_three, :collections, select: { collections: :id })
+    Community.preload_associations(best_three, :collections, select: { collections: [:id, :collection_items_count] })
     return best_three
   end
 

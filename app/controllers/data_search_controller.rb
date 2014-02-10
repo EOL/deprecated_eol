@@ -11,6 +11,7 @@ class DataSearchController < ApplicationController
 
   # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index
+    @page_title = I18n.t('data_search.page_title')
     prepare_search_parameters(params)
     prepare_attribute_options
     prepare_suggested_searches

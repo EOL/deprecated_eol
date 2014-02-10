@@ -10,16 +10,16 @@
     %meta{ :charset => "utf-8" }
     - # HTML4 charset declaration, might go when browsers catch up with html5
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
+    - unless @meta_data[:description].blank?
+      %meta{ :name => "description", :content => h(raw(truncate(strip_tags(@meta_data[:description]), :length => 160))) }
+    - unless @meta_data[:keywords].blank?
+      %meta{ :name => "keywords", :content => h(raw(strip_tags(@meta_data[:keywords]))) }
     - # Google Webmaster Tools verification. Must persist to maintain verified ownership.
     %meta{ name: 'google-site-verification', content: 'lgSVZdLE0qfuWJnvwdMUzYge1rSxfozVLGUys1XTknw' }
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
     %meta{ :name => "app_version", :content => full_version }
-    - unless @meta_data[:description].blank?
-      %meta{ :name => "description", :content => h(raw(truncate(strip_tags(@meta_data[:description]), :length => 160))) }
-    - unless @meta_data[:keywords].blank?
-      %meta{ :name => "keywords", :content => h(raw(strip_tags(@meta_data[:keywords]))) }
     - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
       %meta{ :property => "fb:app_id", :content => $FACEBOOK_APP_ID }
     - if $PINTEREST_VERIFICATION_CODE

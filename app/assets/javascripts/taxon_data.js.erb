@@ -281,8 +281,9 @@ EOL.update_input_id_and_name = function(form, new_id) {
     if ($(this).data('include-predicate_known_uri_id')) {
       $(this).data('include-predicate_known_uri_id', $(this).data('include-predicate_known_uri_id').replace(/\d+/, new_id));
     }
-    if ($(this).data('update-elements')) {
-      $(this).data('update-elements', $(this).data('update-elements').replace(/\d+/, new_id));
+    // Using attr instead of data here because data treats the value as JSON and we want it as a string:
+    if ($(this).attr('data-update-elements')) {
+      $(this).attr('data-update-elements', $(this).attr('data-update-elements').replace(/\d+/, new_id));
     }
   });
 };

@@ -222,6 +222,7 @@ $EOL_YOUTUBE_ACCOUNT    = "http://www.youtube.com/user/EncyclopediaOfLife/"
 $EOL_PINTEREST_ACCOUNT  = "http://pinterest.com/eoflife/"
 $EOL_VIMEO_ACCOUNT      = "http://vimeo.com/groups/encyclopediaoflife"
 $EOL_FLIPBOARD_ACCOUNT  = "http://flip.it/eol"
+$EOL_GOOGLE_PLUS_ACCOUNT  = "//plus.google.com/+encyclopediaoflife?prsrc=3"
 
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'

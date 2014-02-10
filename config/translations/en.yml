@@ -1220,6 +1220,8 @@ en:
     data_search:
       page_header: "Search TraitBank"
       page_header_results: "TraitBank Search Results"
+    footer:
+      google_plus: Encyclopedia of Life on Google+
     taxa:
       search_within_clade: "Search within clade"
       search_traitbank: "Search TraitBank"

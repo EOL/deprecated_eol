@@ -67,6 +67,9 @@
           %li= link_to I18n.t(:pinterest), $EOL_PINTEREST_ACCOUNT, :class => "pinterest", :rel => :nofollow
           %li= link_to I18n.t(:vimeo), $EOL_VIMEO_ACCOUNT, :class => "vimeo", :rel => :nofollow
           %li= link_to I18n.t(:flipboard), $EOL_FLIPBOARD_ACCOUNT, :class => "flipboard", :rel => :nofollow
+          %li= link_to image_tag("//ssl.gstatic.com/images/icons/gplus-32.png", size: "25", alt: t('.google_plus')),
+            $EOL_GOOGLE_PLUS_ACCOUNT,
+            class: 'google_plus', rel: 'publisher'
       .questions
         %h6= t('header_questions', :scope => t_scope)
         %ul

@@ -51,6 +51,14 @@ EOL.check_siblings = function(of, val) {
   catch(err) { /* Don't care if this fails. */ }
 };
 
+EOL.preferred_entry_selector_sumbit = function() {
+  // This may warrant its own JS, but it's tiny, so it was easy enough to stick here:
+  $('td.preferred_entry_selector input[type="radio"]:not(:checked)').on('click', function() {
+    var form = $(this).closest('form');
+    form.submit();
+  });
+};
+
 $(function() {
 
   $(".heading form.filter, form.select_submit").find(".actions").hide().find(":submit").end().end().find("select")
@@ -499,11 +507,7 @@ $(function() {
     }).not(":checked").closest("dt").next("dd").hide();
   })($("#content_partner_resources"));
 
-  // This may warrant its own JS, but it's tiny, so it was easy enough to stick here:
-  $('td.preferred_entry_selector input[type="radio"]:not(:checked)').on('click', function() {
-    var form = $(this).closest('form');
-    form.submit();
-  });
+  EOL.preferred_entry_selector_sumbit();
 
   // EOL Statistics initialise date picker
   (function($statistics) {

@@ -92,7 +92,7 @@ gem 'json', '1.8.1' # For APIs that want to return JSON.
 gem 'macaddr' # For creating UUIDs that are unique to the machine that makes them.
 gem 'mime-types', '1.25' # For handling the many differnt types of files to serve, such as videos.
 gem 'mysql2', '0.3.14' # This is our database. You might want this.
-gem 'newrelic_rpm', '>3.5.3' # For gathering tons of awesome stats about the site
+gem 'newrelic_rpm', '>3.7.2' # For gathering tons of awesome stats about the site
 gem 'oauth', '0.4.7' # Logging in via Facebook and Twitter, older version.
 gem 'oauth2', '0.8.0' # Logging in via Facebook and Twitter
 gem 'paperclip', '3.3.1' # Uploading files, such as icons for users and collections.

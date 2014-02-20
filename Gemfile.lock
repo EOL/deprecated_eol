@@ -224,7 +224,7 @@ GEM
     net-ssh (2.6.1)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
-    newrelic_rpm (3.5.3.25)
+    newrelic_rpm (3.7.2.195)
     nokogiri (1.5.5)
     nunes (0.3.0)
     oauth (0.4.7)
@@ -429,7 +429,7 @@ DEPENDENCIES
   macaddr
   mime-types (= 1.25)
   mysql2 (= 0.3.14)
-  newrelic_rpm (> 3.5.3)
+  newrelic_rpm (> 3.7.2)
   nokogiri (= 1.5.5)
   nunes (= 0.3.0)
   oauth (= 0.4.7)

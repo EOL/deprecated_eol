@@ -41,7 +41,6 @@ describe 'taxa/overview/show' do
     assign(:overview, double(TaxonOverview))
     assign(:overview_data, { })
     assign(:range_data, { })
-    assign(:all_data_point_uris_count, data.count)
     assign(:assistive_section_header, 'assist my overview')
     assign(:rel_canonical_href, 'some canonical stuff')
     assign(:overview, overview)

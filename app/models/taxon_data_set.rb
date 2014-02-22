@@ -1,15 +1,16 @@
-# Basically, I made this quick little class because the sort method required in two places and it didn't belong in one or t'other.
+# Basically, I made this quick little class because the sort method required in two places and it didn't belong in
+# one or t'other.
 class TaxonDataSet
 
   include Enumerable
 
   def initialize(rows, options = {})
-    @virtuoso_results = rows
-    @taxon_concept_id = options[:taxon_concept_id]
+    virtuoso_results = rows
+    taxon_concept_id = options[:taxon_concept_id]
     @language = options[:language] || Language.default
-    KnownUri.add_to_data(@virtuoso_results)
-    DataPointUri.preload_data_point_uris!(@virtuoso_results, @taxon_concept_id)
-    @data_point_uris = @virtuoso_results.collect{ |r| r[:data_point_instance] }
+    KnownUri.add_to_data(virtuoso_results)
+    DataPointUri.preload_data_point_uris!(virtuoso_results, taxon_concept_id)
+    @data_point_uris = virtuoso_results.collect{ |r| r[:data_point_instance] }
     unless options[:preload] == false
       DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
       DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
@@ -17,7 +18,6 @@ class TaxonDataSet
       TaxonConcept.load_common_names_in_bulk(@data_point_uris.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)
     end
     convert_units
-    @data_point_uris # TODO - try removing this... #initialize doesn't really "return" anything anyway.
   end
 
   # NOTE - this is not provided by Enumerable

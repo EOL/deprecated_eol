@@ -92,6 +92,7 @@ class TaxonData < TaxonUserClassificationFilter
     end
   end
 
+  # TODO - spec for can see data check
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
   def get_data_for_overview
     return nil unless user.can_see_data?
@@ -128,6 +129,7 @@ class TaxonData < TaxonUserClassificationFilter
     end
   end
 
+  # TODO - spec for can see data check
   def ranges_for_overview
     return nil unless user.can_see_data?
     ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }

@@ -305,7 +305,6 @@ module EOL
         url << '&sort=score+desc'
         # add paging
         url << '&rows=10'
-        puts url
         res = open(url).read
         json = JSON.load(res)
         results = []

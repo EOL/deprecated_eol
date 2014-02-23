@@ -546,11 +546,11 @@ protected
     if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
       ErrorLog.create(
         url: env['REQUEST_URI'],
-        ip_address: request.remote_ip,
+        ip_address: EOL::Server.ip_address,
         user_agent: request.user_agent,
         user_id: logged_in? ? current_user.id : 0,
         exception_name: exception.to_s,
-        backtrace: "Application Server: #{request.host_with_port}\r\n" + exception.backtrace.join("\r\n")
+        backtrace: "Application Server: #{EOL::Server.ip_address}\r\n" + exception.backtrace.join("\r\n")
       )
       # Notify New Relic about exception
       NewRelic::Agent.notice_error(exception) if $PRODUCTION_MODE

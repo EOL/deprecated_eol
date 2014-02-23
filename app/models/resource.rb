@@ -172,9 +172,10 @@ class Resource < ActiveRecord::Base
     @latest_harvest
   end
 
-  def upload_resource_to_content_master!(ip_with_port, port = nil)
+  def upload_resource_to_content_master!(port = nil)
     if self.accesspoint_url.blank?
       self.resource_status = ResourceStatus.uploaded
+      ip_with_port = EOL::Server.ip_address.dup
       ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
       file_url = "http://" + ip_with_port + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1]
     else

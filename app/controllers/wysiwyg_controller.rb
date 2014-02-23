@@ -40,6 +40,6 @@ class WysiwygController < ApplicationController
     File.open("public/" + path, "wb", 0664) do |fp|
       FileUtils.copy_stream(temp_file, fp)
     end
-    ContentServer.upload_content(request.ip, path, request.port.to_s)
+    ContentServer.upload_content(path, request.port.to_s)
   end
 end

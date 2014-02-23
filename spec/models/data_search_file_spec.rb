@@ -9,6 +9,12 @@ end
 
 describe DataSearchFile do
 
+  before(:all) do
+    Visibility.create_enumerated
+    ContentPartnerStatus.create_enumerated
+    License.create_enumerated
+  end
+
   before(:each) do
     @search_file = DataSearchFile.gen
   end
@@ -32,7 +38,7 @@ describe DataSearchFile do
     expect(@search_file.hosted_file_exists?).to eq(false)
   end
 
-  it 'should known when downloadable?' do
+  it 'should know when downloadable?' do
     @search_file.completed_at = nil
     test_and_reset_downloadable
     @search_file.row_count = 0
@@ -43,11 +49,28 @@ describe DataSearchFile do
     test_and_reset_downloadable
   end
 
-  it 'should known when expired?' do
+  it 'should know when expired?' do
     @search_file.completed_at = Time.now
     expect(@search_file.expired?).to eq(false)
     @search_file.completed_at = Time.now - DataSearchFile::EXPIRATION_TIME
     expect(@search_file.expired?).to eq(true)
+  end
+
+  it 'removes hidden rows' do
+    uris = []
+    uris << DataPointUri.gen
+    uris << DataPointUri.gen
+    uris << DataPointUri.gen
+    uris << DataPointUri.gen(visibility: Visibility.invisible)
+    expect(uris.last.hidden?).to be_true # Just a sanity check; this isn't really needed.
+    uris.should_receive(:total_entries).and_return(4)
+    names = uris.map { |n| n.source.name } # The uris array WILL BE MODIFIED, so we can't test off of it directly.
+    TaxonData.should_receive(:search).and_return(uris)
+    csv = @search_file.csv
+    expect(csv).to match(names.first)
+    expect(csv).to match(names.second)
+    expect(csv).to match(names.third)
+    expect(csv).to_not include(names.last)
   end
 
 end

@@ -90,6 +90,9 @@ class DataSearchFile < ActiveRecord::Base
     search_parameters = { querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
                           per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri }
     results = TaxonData.search(search_parameters)
+    # TODO - we should probably add a "hidden" column to the file and allow admins/master curators to see those
+    # rows, (as long as they are marked as hidden). For now, though, let's just remove the rows:
+    results = results.delete_if { |r| r.hidden? }
     begin # Always do this at least once...
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
       DataPointUri.assign_bulk_metadata(results, user.language)

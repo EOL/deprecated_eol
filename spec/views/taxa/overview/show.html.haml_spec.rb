@@ -15,6 +15,7 @@ describe 'taxa/overview/show' do
     # TODO - generalize these extends for the other view specs.
     taxon_concept = double(TaxonConcept)
     taxon_concept.stub(:id) { 1 }
+    taxon_data = double(TaxonData, distinct_predicates: [])
     data = double(TaxonDataSet)
     data.stub(:categorize) { {} }
     data.stub(:count) { 0 }
@@ -37,6 +38,7 @@ describe 'taxa/overview/show' do
     overview.stub(:activity_log) { [].paginate } # CHEAT!  :D
     taxon_page = double(TaxonPage)
     taxon_page.stub(:scientific_name) { 'Aus bus' }
+    taxon_page.stub(:data) { taxon_data }
     assign(:taxon_page, taxon_page)
     assign(:overview, double(TaxonOverview))
     assign(:overview_data, { })

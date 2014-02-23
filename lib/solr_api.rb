@@ -45,7 +45,6 @@ class SolrAPI
     !test_connection.schema_hash.blank?
   end
 
-
   def initialize(server_url = nil, core = nil)
     @server_url = server_url
     @core = core

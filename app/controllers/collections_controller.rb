@@ -101,7 +101,7 @@ class CollectionsController < ApplicationController
     name_change = params[:collection][:name] != @collection.name
     description_change = params[:collection][:description] != @collection.description
     if @collection.update_attributes(params[:collection])
-      upload_logo(request.ip, @collection) unless params[:collection][:logo].blank?
+      upload_logo(@collection) unless params[:collection][:logo].blank?
       flash[:notice] = I18n.t(:collection_updated_notice, collection_name: @collection.name) if
         params[:collection] # NOTE - when we sort, we don't *actually* update params...
       redirect_to params.merge!(action: 'show').except(*unnecessary_keys_for_redirect), status: :moved_permanently

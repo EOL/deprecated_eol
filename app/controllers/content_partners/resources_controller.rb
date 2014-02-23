@@ -31,7 +31,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @resource = @partner.resources.build(params[:resource])
     access_denied unless current_user.can_create?(@resource)
     if @resource.save
-      @resource.upload_resource_to_content_master!(request.ip, request.port.to_s)
+      @resource.upload_resource_to_content_master!(request.port.to_s)
       unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
         if @resource.resource_status_id = ResourceStatus.validation_failed.id
           flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
@@ -75,7 +75,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     end
     if @resource.update_attributes(params[:resource])
       if upload_required
-        @resource.upload_resource_to_content_master!(request.ip, request.port.to_s)
+        @resource.upload_resource_to_content_master!(request.port.to_s)
         unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
           if @resource.resource_status_id = ResourceStatus.validation_failed.id
             flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)

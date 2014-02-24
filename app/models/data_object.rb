@@ -310,7 +310,9 @@ class DataObject < ActiveRecord::Base
 
   def rating_from_user(u)
     return nil if u.is_a?(EOL::AnonymousUser)
-    users_data_objects_ratings.where(user_id: u.id).first
+    # more often than not ratings will have been preloaded, so a .detect
+    # is faster than a .where here
+    users_data_objects_ratings.detect{ |udor| udor.user_id == u.id }
   end
 
   def safe_rating

@@ -6,7 +6,7 @@
         simple helper to auto-generate the appropriate link.
       - case link
       - when :partner_links
-        %li= link_to(I18n.t(:taxon_partner_links_link), taxon_resources_path(@details))
+        %li= link_to(I18n.t(:taxon_partner_links_link), partner_links_taxon_resources_url(@details))
       - when :identification_resources
         %li= link_to(I18n.t(:taxon_identification_resources_link),
           identification_resources_taxon_resources_path(@details))

@@ -72,7 +72,7 @@ class TaxonDetails < TaxonUserClassificationFilter
   def literature_references_links
     return @literature_references_links if defined? @literature_references_links
     @literature_references_links = []
-    @literature_references_links << :literature_references if Ref.literature_references_for?(taxon_concept.id)
+    @literature_references_links << :literature_references
     @literature_references_links << :literature_links if link_type_ids.include?(LinkType.paper.id)
     @literature_references_links
   end
@@ -83,6 +83,11 @@ class TaxonDetails < TaxonUserClassificationFilter
     else
       []
     end
+  end
+
+  def rating_for_guid(guid)
+    @ratings ||= Hash[ @details.collect{ |d| [ d.guid, d.rating_from_user(user) ] } ]
+    @ratings[guid] || 0
   end
 
 private
@@ -124,7 +129,7 @@ private
       licenses: '*',
       users_data_objects_ratings: '*' }
     DataObject.preload_associations(text_objects, [ :users_data_objects_ratings, :comments, :license,
-      { published_refs: :ref_identifiers }, :translations, :data_object_translation, { toc_items: :info_items },
+      { published_refs: { ref_identifiers: :ref_identifier_type } }, :translations, :data_object_translation, { toc_items: :info_items },
       { data_objects_hierarchy_entries: [ { hierarchy_entry: { hierarchy: { resource: :content_partner } } },
         :vetted, :visibility ] },
       { curated_data_objects_hierarchy_entries: :hierarchy_entry }, :users_data_object,

@@ -34,6 +34,7 @@ Eol::Application.routes.draw do
   match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
+  match '/favicon' => redirect('/assets/favicon.ico')
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
   match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
 

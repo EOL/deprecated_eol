@@ -55,6 +55,14 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
+  def self.initialize_labels_in_language(data_point_uris, language = Language.default)
+    data_point_uris.each do |data_point_uri|
+      # calling value_string now while we have the proper language for loading the proper
+      # translations and common names. This will cache the value for use later, such as in sorting
+      data_point_uri.value_string(language)
+    end
+  end
+
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
   def self.replace_licenses_with_mock_known_uris(metadata_rows, language)
     metadata_rows.each do |row|
@@ -478,25 +486,28 @@ class DataPointUri < ActiveRecord::Base
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
   def value_string(lang = Language.default)
+    return @value_string unless @value_string.blank?
+    @value_string = nil
     if association? && target_taxon_concept
-      common = target_taxon_concept.preferred_common_name_in_language(lang)
-      return target_taxon_concept.title_canonical if common.blank?
-      common
+      if common_name = target_taxon_concept.preferred_common_name_in_language(lang)
+        @value_string = common_name
+      else
+        @value_string = target_taxon_concept.title_canonical
+      end
     else
       val = EOL::Sparql.uri_components(object_uri)[:label].to_s # TODO - see if we need that #to_s; seems redundant.
       if val.is_numeric?
         # float values can be rounded off to 2 decimal places
         if val.is_float?
-          val = val.to_f.round(2)
+          @value_string = val.to_f.round(2)
         else
-          val = val.to_i
+          @value_string = val.to_i
         end
-      else
-        # other values may have links embedded in them (references, citations, etc.)
-        val.add_missing_hyperlinks
       end
-      val
+      # other values may have links embedded in them (references, citations, etc.)
+      @value_string = val.add_missing_hyperlinks
     end
+    return @value_string
   end
 
   # NOTE - Sadly, when using scopes here, it loads each scope for each instance, separately. (WTF?) So I'm not using scopes, I'm

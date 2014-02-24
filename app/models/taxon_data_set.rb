@@ -15,6 +15,7 @@ class TaxonDataSet
       DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
         [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ])
       TaxonConcept.load_common_names_in_bulk(@data_point_uris.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)
+      DataPointUri.initialize_labels_in_language(@data_point_uris, @language)
     end
     convert_units
     @data_point_uris # TODO - try removing this... #initialize doesn't really "return" anything anyway.

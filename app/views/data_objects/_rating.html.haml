@@ -6,8 +6,12 @@
 - en_type ||= en_type(data_object)
 - total = 5
 - average_rating = data_object.safe_rating
-- user_rating = if @taxon_media # We have a cache of a bunch of ratings...
+- user_rating = if hide_user_rating
+  - nil # user_rating isn't used when we hide_user_rating
+- elsif @taxon_media # We have a cache of a bunch of ratings...
   - @taxon_media.rating_for_guid(data_object.guid)
+- elsif @details # We have a cache of a bunch of ratings...
+  - @details.rating_for_guid(data_object.guid)
 - else
   - data_object.rating_from_user(current_user).try(:rating) || 0 # TODO - change it to retunr hte rating
 - minimal ||= false

@@ -2779,7 +2779,8 @@ pt-BR:
       tweet_text: "%{member_name} membro de %{community_name}"
   members_like_you: Membros como você
   members_with_count: 
-    other: um=%{count} membro
+    one: "%{count} membro"
+    other: "%{count} membros"
   members_with_count_semi_colon: 
     one: "%{count} membro;"
     other: "%{count} membros;"

@@ -18,7 +18,7 @@ class Users::CollectionsController < UsersController
     if sort_by == :rev
       @published_collections.reverse!
     elsif sort_by == :oldest
-      @published_collections = @published_collections.sort_by(&:created_at)
+      @published_collections = @published_collections.sort_by { |c| c.created_at.to_i } # NOTE - to_i required; otherwise "comparison of NilClass"
     elsif sort_by == :newest
       @published_collections = @published_collections.sort_by { |c| - c.created_at.to_i }
     end

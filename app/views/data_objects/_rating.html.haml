@@ -1,5 +1,6 @@
 - # Note: this is shared between data object and taxa pages
 - reload_ajax_rating ||= false
+- hide_user_rating ||= false
 - if reload_ajax_rating
   :javascript
     EOL.enableRatings();
@@ -16,7 +17,6 @@
   - data_object.rating_from_user(current_user).try(:rating) || 0 # TODO - change it to retunr hte rating
 - minimal ||= false
 - assistive_or_nil = minimal ? 'assistive' : nil
-- hide_user_rating ||= false
 .ratings
   - title = I18n.t("#{en_type}_rating")
   - if minimal || hide_user_rating

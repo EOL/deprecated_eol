@@ -15,6 +15,9 @@
 # Ignore guard (which is an auto-tester):
 Guardfile
 
+# Ignore simplecov:
+coverage
+
 # Older stuff:
 *.bundle
 *.o

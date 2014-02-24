@@ -60,7 +60,7 @@ describe Users::OpenAuthenticationsController do
     it 'should redirect to authorize uri when adding connection to Twitter' do
       stub_oauth_requests
       get :new, { :user_id => @user.id, :oauth_provider => 'twitter' }, {:user_id => @user.id}
-      response.header['Location'].should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+      response.header['Location'].should =~ /https:\/\/api.twitter.com\/oauth\/authenticate/
     end
     it 'should redirect to authorize uri when adding connection to Yahoo' do
       stub_oauth_requests

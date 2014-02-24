@@ -1,4 +1,7 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+# NOTE - This really really really needs to be at the very tippity-top of the file.  Leave it here.
+require 'simplecov'
+SimpleCov.start
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'

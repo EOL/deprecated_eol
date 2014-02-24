@@ -207,15 +207,6 @@ describe TaxonDetails do
     should_get_sym_when_links_include(:multimedia_links, :multimedia)
   end
 
-  it '#literature_references_links should be blank by default' do
-    @details.literature_references_links.should == []
-  end
-
-  it '#literature_references_links should include literature_references if there is a literature_references_for the TC' do
-    Ref.should_receive(:literature_references_for?).with(@taxon_concept.id).and_return(true)
-    @details.literature_references_links.should include(:literature_references)
-  end
-
   it '#literature_references_links should include literature_links when it incudes paper link_types' do
     EOL::Solr::DataObjects.should_receive(:unique_link_type_ids).and_return([LinkType.paper.id])
     @details.literature_references_links.should include(:literature_links)

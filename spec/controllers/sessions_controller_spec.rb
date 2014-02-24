@@ -50,7 +50,7 @@ describe SessionsController do
       it 'should redirect to authorize uri before log in with Twitter' do
         stub_oauth_requests
         post :new, { :oauth_provider => 'twitter' }
-        response.header['Location'].should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+        response.header['Location'].should =~ /https:\/\/api.twitter.com\/oauth\/authenticate/
       end
       it 'should redirect to authorize uri before log with Yahoo' do
         stub_oauth_requests

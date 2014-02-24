@@ -10,8 +10,10 @@ describe TaxonData do
     ResourceStatus.create_enumerated
     SpecialCollection.create_enumerated
     ContentPartnerStatus.create_enumerated
+    Permission.create_enumerated
     @taxon_concept = TaxonConcept.gen
     @user = User.gen
+    @user.grant_permission(:see_data)
     @prep_string = EOL::Sparql::SearchQueryBuilder.prepare_search_query(querystring: 'foo')
     @resource = Resource.gen
     @user_added_data = UserAddedData.gen(subject: @taxon_concept)
@@ -68,6 +70,13 @@ describe TaxonData do
   it 'should preload known_uris'
 
   it 'should populate categories on #get_data'
+
+  it 'should return nil if the user cannot see data' do
+    user = User.gen
+    user.revoke_permission(:see_data) # Shouldn't have it, but just in case.
+    hidden_taxon_data = TaxonData.new(@taxon_concept, user)
+    expect(hidden_taxon_data.get_data_for_overview).to be_nil
+  end
 
   it '#get_data_for_overview should use TaxonDataExemplarPicker' do
     picker = TaxonDataExemplarPicker.new(taxon_data) # Note this is before we add #should_receive.

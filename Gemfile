@@ -83,6 +83,7 @@ gem 'email_spec', '1.4.0' # For testing emails within RSpec.
 gem 'escape' # provides several HTML/URI/shell escaping functions - TODO - I don't think we need this?
 gem 'ezcrypto' # TODO - remove this, I don't think we use it.
 gem 'haml', '4.0.4' # This is how we handle ALL of our HTML, you need to learn this.
+gem 'redis-namespace', '1.2.2' # http://www.rubysec.com/advisories/OSVDB-96425/ TODO - this can be removed once we update redis/resque.
 gem 'ruby-hmac', '0.4.0' # Used ONLY for CyberSource donations. ...but I'm not sure how best to group this gem otherwise.
 gem 'identity_cache', '0.0.4' # Used to cache objects in a robust way.
 gem 'indifferent-variable-hash', '0.1.0' # TODO - remove this, Rails has something like this baked in. I forget what it's called.
@@ -107,5 +108,5 @@ gem 'statsd-ruby', '1.2.1' # For recording various stats around the site.
 gem 'uglifier', '2.3.1' # For smaller JS when assets are compiled
 gem 'unicorn', '4.4.0' # This is our webserver
 gem 'uuid', '2.3.5' # Used when creating data objects
-gem 'will_paginate', '3.0.4' # Used ALL OVER THE SITE for pagination.
+gem 'will_paginate', '~> 3.0' # Used ALL OVER THE SITE for pagination.
 gem 'nunes', '0.3.0'  # This makes it easier to handle statsd

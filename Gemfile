@@ -66,7 +66,7 @@ group :assets do
   gem 'turbo-sprockets-rails3', '0.3.4' # This is supposed to minimize the re-building of assets. AFAICT, it isn't working for us.
 end
 
-gem 'rails', '3.2.15'
+gem 'rails', '3.2.17'
 
 gem 'acts_as_list', '0.3.0' # Used for drag-and-drop reordering of KnownUri instances. ...We could be making wider use of this.
 gem 'acts_as_tree_rails3', '0.1.0' # We use this for a few of our tree-like models, such as TocItem and CollectionType.

@@ -45,11 +45,11 @@ module OauthHelpers
                                       "last_name": "GoogleFamily",
                                       "first_name": "GoogleGiven" }')
     # Twitter
-    stub_request(:post, "http://api.twitter.com/oauth/request_token").
+    stub_request(:post, "https://api.twitter.com/oauth/request_token").
                 to_return(:status => 200,
                           :headers => {},
                           :body => "oauth_token=key&oauth_token_secret=secret")
-    stub_request(:post, "http://api.twitter.com/oauth/access_token").
+    stub_request(:post, "https://api.twitter.com/oauth/access_token").
                 to_return(:status => 200,
                           :headers => {},
                           :body => "oauth_token=key&oauth_token_secret=secret")

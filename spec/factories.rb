@@ -895,9 +895,9 @@ FactoryGirl.define do
   end
 
   factory :known_uri do
-    vetted        { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-    visibility    { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
-    uri           { "http://eol.org/known_uri/" + generate(:guid) }
+    vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
+    uri         { "http://eol.org/known_uri/" + generate(:guid) }
   end
 
   factory :known_uri_allowed_unit, class: KnownUriRelationship do

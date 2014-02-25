@@ -3375,7 +3375,7 @@ en:
   data_search_files_with_count:
     one: "%{count} data download"
     other: "%{count} data downloads"
-  data_search_row_hidden: "This row has been hidden by curators."
+  data_search_row_hidden: "Curators have hidden this row of data."
   data_server_unavailable: "Data on EOL is temporarily unavailable. Please check back later. Sorry for any inconvenience."
   data_show_n_more_rows: "Show NNN more..."
   data_subtab_about: "About"

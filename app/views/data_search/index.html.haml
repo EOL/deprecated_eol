@@ -24,7 +24,7 @@
         - if data_point_uri.hidden?
           -# This is a "placeholder" for a hidden row.
           %tr{id: data_point_uri.anchor, class: "data hidden"}
-            %td{colspan: 5}
+            %td.placeholder{colspan: 5}
               = I18n.t(:data_search_row_hidden)
         - else
           = render 'data_point_uris/display_rows', { data_point_uri: data_point_uri, for_search: true,

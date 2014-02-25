@@ -3,10 +3,11 @@ require 'simplecov'
 SimpleCov.start do
   add_group "Models", "app/models"
   add_group "Controllers", "app/controllers"
-  add_group "Views", "app/views"
   add_group "Libraries", "lib"
+  add_group "Helpers", "app/helpers"
   add_filter "custom_matchers"
   add_filter "/initializers/"    # TODO - really, we should be testing these. ...But for now, I'm excluding them because many are one-offs.
+  add_filter "spec/"
 end
 
 ENV["RAILS_ENV"] ||= 'test'

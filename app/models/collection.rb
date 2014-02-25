@@ -135,6 +135,10 @@ class Collection < ActiveRecord::Base
     collection_items.taxa
   end
 
+  def taxa_count
+    taxa.count
+  end
+
   def maintained_by
     (users + communities).compact.uniq
   end

@@ -22,7 +22,7 @@ class CollectionRelevanceCalculator
   # This should set the relevance attribute score between 0 and 100.  Use this sparringly, it's expensive to calculate:
   def set_relevance
     return 0 if collection.watch_collection? # Watch collections are irrelevant.
-    @taxa_count = collection.collection_items.taxa.count
+    @taxa_count = collection.taxa_count
     return 0 if @taxa_count <= 0 # Collections with no taxa (ie: friend lists and the like) are irrelevant.
     # Each sub-category should return a score between 1 and 100:
     score = (calculate_feature_relevance * 0.4) + (calculate_taxa_relevance * 0.4) + (calculate_item_relevance * 0.2)
@@ -59,7 +59,7 @@ class CollectionRelevanceCalculator
 
   # Extremely focused list = high score ... too many taxa = not as relevant.
   def calculate_taxa_relevance
-    taxa = @taxa_count || collection.collection_items.taxa.count
+    taxa = @taxa_count || collection.taxa_count
     score = case taxa
             when 0
               0 # No taxa = irrelvant. Really, you shouldn't get here.

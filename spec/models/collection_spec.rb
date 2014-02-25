@@ -200,13 +200,26 @@ describe Collection do
     collection.maintained_by.should include(community)
   end
 
+  it '#taxa returns taxa collection_items' do
+    collection = Collection.gen
+    items = []
+    items.should_receive(:taxa).and_return(["this"])
+    collection.should_receive(:collection_items).and_return(items)
+    expect(collection.taxa).to eq(["this"])
+  end
+
+  it '#taxa_count counts taxa' do
+    collection = Collection.gen
+    collection.should_receive(:taxa).and_return([1,2,3])
+    expect(collection.taxa_count).to eq(3)
+  end
+
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'
   # should know when it is "special" TODO - do we need this anymore?  I don't think so...
   # should know when it is a resource collection.
   # should use DataObject#image_cache_path to handle logo_url at 88 pixels when small.
   # should use DataObject#image_cache_path to handle logo_url at 130 pixels when default.
   # should use v2/logos/collection_default.png when logo_url has no image.
-  # should know its #taxa elements
   # should know when it is maintained by a user
   # should know when it is maintained by a community
   # should know if it has an item.

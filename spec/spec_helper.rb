@@ -1,6 +1,13 @@
 # NOTE - This really really really needs to be at the very tippity-top of the file.  Leave it here.
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_group "Models", "app/models"
+  add_group "Controllers", "app/controllers"
+  add_group "Views", "app/views"
+  add_group "Libraries", "lib"
+  add_filter "custom_matchers"
+  add_filter "/initializers/"    # TODO - really, we should be testing these. ...But for now, I'm excluding them because many are one-offs.
+end
 
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)

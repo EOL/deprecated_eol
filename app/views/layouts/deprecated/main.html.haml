@@ -1,7 +1,6 @@
 !!!
 %html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
   %head
-    %meta{ :name => "verify-v1", :content => "mJIytYT6a+K1y+bCmD1wr1ge+4Q63O0YfTHCYWwkzaY=" }
     %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
     %meta{ :content => "en-us", "http-equiv" => "Content-Language" }
     %title
@@ -13,6 +12,8 @@
       - elsif (@taxon_concept && t = @taxon_concept.title)
         - page_title =  I18n.t(:eol_colon)+"#{t} - #{page_title}"
       &= strip_tags(page_title)
+    - # Google Webmaster Tools verification. Must persist to maintain verified ownership.
+    %meta{ name: 'google-site-verification', content: 'lgSVZdLE0qfuWJnvwdMUzYge1rSxfozVLGUys1XTknw' }
     %meta{ :content => "no", "http-equiv" => "imagetoolbar" }
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     %meta{ :content => "IE=EmulateIE7", "http-equiv" => "X-UA-Compatible" }

@@ -91,7 +91,10 @@ GEM
     ckeditor (3.7.3)
       mime-types
       orm_adapter
-    cocaine (0.4.2)
+    climate_control (0.0.3)
+      activesupport (>= 3.0)
+    cocaine (0.5.3)
+      climate_control (>= 0.0.3, < 1.0)
     coderay (1.0.9)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
@@ -236,11 +239,10 @@ GEM
       rack (~> 1.2)
     optiflag (0.7)
     orm_adapter (0.4.0)
-    paperclip (3.3.1)
+    paperclip (4.1.1)
       activemodel (>= 3.0.0)
-      activerecord (>= 3.0.0)
       activesupport (>= 3.0.0)
-      cocaine (~> 0.4.0)
+      cocaine (~> 0.5.3)
       mime-types
     parallel (0.9.1)
     polyglot (0.3.4)
@@ -439,7 +441,7 @@ DEPENDENCIES
   oauth (= 0.4.7)
   oauth2 (= 0.8.0)
   optiflag (= 0.7)
-  paperclip (= 3.3.1)
+  paperclip (= 4.1.1)
   pry-rails
   pry-rescue
   pry-stack_explorer

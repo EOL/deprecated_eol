@@ -230,12 +230,12 @@ describe Collection do
   context 'when using content server for thumbnails' do
 
     before do
-      Rails.configuration.use_content_server_for_thumnails = true
+      Rails.configuration.use_content_server_for_thumbnails = true
     end
 
     # TODO - can we *ensure* this runs?
     after do
-      Rails.configuration.use_content_server_for_thumnails = false
+      Rails.configuration.use_content_server_for_thumbnails = false
     end
 
     it 'uses 88x88 image cache for small icons' do

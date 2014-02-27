@@ -42,7 +42,8 @@ class TaxonConcept < ActiveRecord::Base
   # TODO: this is just an alias of the above so all collectable entities have this association
   has_many :containing_collections, through: :collection_items, source: :collection
   has_many :published_containing_collections, through: :collection_items, source: :collection, conditions: 'published = 1',
-    select: 'collections.id, collections.name, collections.collection_items_count, special_collection_id, relevance, logo_cache_url', include: :communities
+    select: 'collections.id, collections.name, collections.collection_items_count, special_collection_id, relevance, logo_file_name, logo_cache_url',
+    include: :communities
   has_many :preferred_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
   has_many :preferred_common_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
   has_many :denormalized_common_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=1'

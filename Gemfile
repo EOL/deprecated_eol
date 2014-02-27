@@ -97,7 +97,7 @@ gem 'mysql2', '0.3.14' # This is our database. You might want this.
 gem 'newrelic_rpm', '>3.7.2' # For gathering tons of awesome stats about the site
 gem 'oauth', '0.4.7' # Logging in via Facebook and Twitter, older version.
 gem 'oauth2', '0.8.0' # Logging in via Facebook and Twitter
-gem 'paperclip', '3.3.1' # Uploading files, such as icons for users and collections.
+gem 'paperclip', '4.1.1' # Uploading files, such as icons for users and collections.
 gem 'rails_autolink', '1.1.5' # Adding links to user-entered text.
 gem 'rails3-jquery-autocomplete', '1.0.11', :git => "git://github.com/pleary/rails3-jquery-autocomplete.git" # Autocomplete Ajax.
 gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails' # An empathy test to see if you're a human, when creating an account.

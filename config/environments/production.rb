@@ -2,7 +2,7 @@ Eol::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # Use content servers for thumbnails. This implies that upload_image will work (ie: you have a PHP server up and running).
-  Rails.configuration.use_content_server_for_thumnails = true
+  Rails.configuration.use_content_server_for_thumbnails = true
 
   # Code is not reloaded between requests
   config.cache_classes = true

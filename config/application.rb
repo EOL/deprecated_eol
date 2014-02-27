@@ -113,7 +113,7 @@ module Eol
     )
 
     # By default, we use local thumbnails:
-    Rails.configuration.use_content_server_for_thumnails = false
+    Rails.configuration.use_content_server_for_thumbnails = false
     
     config.exceptions_app = ->(env) { ApplicationController.action(:rescue_from_exception).call(env) }
   end

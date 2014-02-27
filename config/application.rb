@@ -111,6 +111,9 @@ module Eol
       'EOL::Exceptions::SecurityViolation' => :forbidden,
       'OpenURI::HTTPError'                 => :bad_request
     )
+
+    # By default, we use local thumbnails:
+    Rails.configuration.use_content_server_for_thumnails = false
     
     config.exceptions_app = ->(env) { ApplicationController.action(:rescue_from_exception).call(env) }
   end

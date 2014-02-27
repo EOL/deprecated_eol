@@ -80,6 +80,8 @@ class DataObject < ActiveRecord::Base
   before_validation :default_values
   after_create :clean_values
 
+  scope :images, -> { where(data_type_id: DataType.image.id) }
+
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
 

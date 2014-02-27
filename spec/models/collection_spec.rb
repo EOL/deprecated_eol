@@ -214,12 +214,53 @@ describe Collection do
     expect(collection.taxa_count).to eq(3)
   end
 
+  it 'has a default image' do
+    collection = Collection.gen(logo_file_name: '', logo_cache_url: nil)
+    expect(collection.logo_url).to eq("v2/logos/collection_default.png")
+  end
+
+  it 'calls ImageManipulation to get image name' do
+    #cache_url doesn't matter here, but cannot be nil:
+    collection = Collection.gen(logo_file_name: 'this.ext', logo_cache_url: 1)
+    allow(ImageManipulation).to receive(:local_file_name) { "hithere" }
+    expect(collection.logo_url).to match /hithere/
+    expect(ImageManipulation).to have_received(:local_file_name).with(collection)
+  end
+
+  context 'when using content server for thumbnails' do
+
+    before do
+      Rails.configuration.use_content_server_for_thumnails = true
+    end
+
+    # TODO - can we *ensure* this runs?
+    after do
+      Rails.configuration.use_content_server_for_thumnails = false
+    end
+
+    it 'uses 88x88 image cache for small icons' do
+      image_cache = Faker::Eol.image
+      collection = Collection.gen(logo_cache_url: image_cache)
+      allow(DataObject).to receive(:image_cache_path) { "helloagain" }
+      expect(collection.logo_url('small')).to match /helloagain/
+      # TODO - this is a little fragile... we know too much when we specify the arguments, here, but I really want to check the 88x88:
+      expect(DataObject).to have_received(:image_cache_path).with(image_cache, '88_88', specified_content_host: nil)
+    end
+
+    it 'uses 130x130 image cache' do
+      image_cache = Faker::Eol.image
+      collection = Collection.gen(logo_cache_url: image_cache)
+      allow(DataObject).to receive(:image_cache_path) { "suchfun" }
+      expect(collection.logo_url).to match /suchfun/
+      # TODO - this is a little fragile... we know too much when we specify the arguments, here, but I really want to check the 130:
+      expect(DataObject).to have_received(:image_cache_path).with(image_cache, '130_130', specified_content_host: nil)
+    end
+
+  end
+
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'
   # should know when it is "special" TODO - do we need this anymore?  I don't think so...
   # should know when it is a resource collection.
-  # should use DataObject#image_cache_path to handle logo_url at 88 pixels when small.
-  # should use DataObject#image_cache_path to handle logo_url at 130 pixels when default.
-  # should use v2/logos/collection_default.png when logo_url has no image.
   # should know when it is maintained by a user
   # should know when it is maintained by a community
   # should know if it has an item.

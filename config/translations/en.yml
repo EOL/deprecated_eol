@@ -4329,6 +4329,15 @@ en:
   reset_password_instructions_sent_to_user_notice: "Instructions for resetting the password on your account <em>%{username}</em> have been sent to your email address."
   reset_password_token_expired_error: "Sorry, your password has not been reset. The link provided has expired, please fill out and submit the forgot password form again to receive a new link."
   resource: "Resource"
+  resource_import_frequency:
+    once: "Import once"
+    weekly: "Weekly"
+    monthly: "Monthly"
+    bimonthly: "Bi-monthly"
+    quarterly: "Quarterly"
+    hours_with_count:
+      one: "%{count} hour"
+      other: "%{count} hours"
   resource_hint_dataset_source_url: "(URL of the original source of the dataset, such as a paper or study)"
   resource_hint_dataset_rights: "(applies to the dataset <i>as a whole</i>; not applicable in all jurisdictions)"
   resource_hint_default_rights: "(applies by default to items <i>in</i> the dataset)"

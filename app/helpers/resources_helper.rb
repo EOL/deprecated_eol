@@ -1,21 +1,19 @@
 module ResourcesHelper
 
   def frequency(hours)
-    freq = ''
     case hours
-      when 0
-        freq = 'Import Once'
-      when 7 * 24
-        freq = 'Weekly'  
-      when 30 * 24
-        freq = 'Monthly'  
-      when 60 * 24
-        freq = 'Bi-Monthly'  
-      when 91 * 24
-        freq = 'Quarterly'  
-      else
-        freq = hours.blank? ? '' : "#{hours} hours" 
+    when 0
+      I18n.t("resource_import_frequency.once")
+    when 7 * 24
+      I18n.t("resource_import_frequency.weekly")
+    when 30 * 24
+      I18n.t("resource_import_frequency.monthly")
+    when 60 * 24
+      I18n.t("resource_import_frequency.bimonthly")
+    when 91 * 24
+      I18n.t("resource_import_frequency.quarterly")
+    else
+      hours.nil? ? '' : I18n.t("resource_import_frequency.hours_with_count", count: hours)
     end
-    freq
   end
 end

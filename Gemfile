@@ -65,6 +65,8 @@ end
 
 group :assets do
   gem 'turbo-sprockets-rails3', '0.3.4' # This is supposed to minimize the re-building of assets. AFAICT, it isn't working for us.
+  gem 'compass-rails', '~> 1.1' # Our scss framework manager with lots of mixins.
+  gem 'susy', '~> 1.0' # Ous scss "grid" or layout manager with more mixins.
 end
 
 gem 'rails', '3.2.17'

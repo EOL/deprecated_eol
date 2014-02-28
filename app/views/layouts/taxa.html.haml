@@ -6,7 +6,7 @@
         %h1.scientific_name
           = raw @scientific_name
           - unless @assistive_section_header.blank?
-            %span.assistive= " &mdash; #{@assistive_section_header}"
+            %span.assistive= raw " &mdash; #{@assistive_section_header}"
         - unless @preferred_common_name.blank?
           %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
             = raw @preferred_common_name

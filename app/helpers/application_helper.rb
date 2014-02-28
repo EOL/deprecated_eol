@@ -210,21 +210,26 @@ module ApplicationHelper
   def stylesheet_include_i18n_merged(stylesheet, options = {})
     code = ''
     # get the replacements
-    language_css_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}.css")
-    language_sass_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}.sass")
-    if File.exists?(language_css_path) || File.exists?(language_sass_path)
+    if find_stylesheet_lang_variants(stylesheet)
       code += stylesheet_link_tag("languages/#{I18n.locale}/#{stylesheet}", options)
     else
       code += stylesheet_link_tag(stylesheet, options)
     end
     
     # get the additions
-    language_css_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}_include.css")
-    language_sass_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}_include.sass")
-    if File.exists?(language_css_path) || File.exists?(language_sass_path)
+    if find_stylesheet_lang_variants("#{stylesheet}_include")
       code += stylesheet_link_tag("languages/#{I18n.locale}/#{stylesheet}_include", options)
     end
     return raw(code)
+  end
+
+  # TODO - test this
+  def find_stylesheet_lang_variants(stylesheet)
+    ['css', 'sass', 'scss', 'css.scss', 'css.sass'].each do |ext|
+      path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}.#{ext}")
+      return path if File.exists?(path)
+    end
+    return nil
   end
 
   # Version of error_messages_for that displays translated error messages

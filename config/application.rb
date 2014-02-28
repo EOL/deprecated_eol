@@ -116,5 +116,9 @@ module Eol
     Rails.configuration.use_content_server_for_thumbnails = false
     
     config.exceptions_app = ->(env) { ApplicationController.action(:rescue_from_exception).call(env) }
+
+    # Compass plugins:
+    config.compass.require "susy"
+
   end
 end

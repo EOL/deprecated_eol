@@ -14,11 +14,9 @@
 # See the comments at the top of the Taxon for more information on this.  I include there a basic biological
 # definition of what a Taxon is.
 
-require 'model_query_helper'
 require 'eol/activity_loggable'
 
 class TaxonConcept < ActiveRecord::Base
-  include ModelQueryHelper
   include EOL::ActivityLoggable
 
   belongs_to :vetted

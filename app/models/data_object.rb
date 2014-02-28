@@ -1,7 +1,6 @@
 require 'set'
 require 'uuid'
 require 'erb'
-require 'model_query_helper'
 require 'eol/activity_loggable'
 
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one
@@ -11,7 +10,6 @@ class DataObject < ActiveRecord::Base
   MAXIMUM_RATING = 5.0
   MINIMUM_RATING = 0.5
 
-  include ModelQueryHelper
   include EOL::ActivityLoggable
   include IdentityCache
 

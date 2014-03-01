@@ -6,7 +6,10 @@ SimpleCov.start do
   add_group "Libraries", "lib"
   add_group "Helpers", "app/helpers"
   add_filter "custom_matchers"
-  add_filter "/initializers/"    # TODO - really, we should be testing these. ...But for now, I'm excluding them because many are one-offs.
+  # TODO - really, we should be testing these. ...But for now, I'm excluding them because many are one-offs:
+  add_filter "/initializers/"
+  # TODO - really, we should be testing these too, but we want to re-write them. They are ancient:
+  add_filter "/administrator/"
   add_filter "spec/"
 end
 

@@ -1,5 +1,7 @@
 class ContentPartners::ContentPartnerContactsController < ContentPartnersController
 
+  # TODO - there's a lot of duplication here that could be fixed with before_filters and the like.
+
   before_filter :check_authentication
 
   layout 'partners'
@@ -8,7 +10,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
   def new
     @partner = ContentPartner.find(params[:content_partner_id])
     @contact = @partner.content_partner_contacts.build
-    access_denied unless current_user.can_create?(@contact)
+    access_denied && return unless current_user.can_create?(@contact)
     set_new_contact_options
   end
 
@@ -16,7 +18,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
   def create
     @partner = ContentPartner.find(params[:content_partner_id])
     @contact = @partner.content_partner_contacts.build(params[:content_partner_contact])
-    access_denied unless current_user.can_create?(@contact)
+    access_denied && return unless current_user.can_create?(@contact)
     if @contact.save
       flash[:notice] = I18n.t(:content_partner_contact_create_successful_notice)
       redirect_to content_partner_resources_path(@partner), status: :moved_permanently
@@ -31,7 +33,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
   def edit
     @partner = ContentPartner.find(params[:content_partner_id])
     @contact = @partner.content_partner_contacts.find(params[:id])
-    access_denied unless current_user.can_update?(@contact)
+    access_denied && return unless current_user.can_update?(@contact)
     set_edit_contact_options
   end
 
@@ -39,7 +41,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
   def update
     @partner = ContentPartner.find(params[:content_partner_id])
     @contact = @partner.content_partner_contacts.find(params[:id])
-    access_denied unless current_user.can_update?(@contact)
+    access_denied && return unless current_user.can_update?(@contact)
     if @contact.update_attributes(params[:content_partner_contact])
       flash[:notice] = I18n.t(:content_partner_contact_update_successful_notice)
       redirect_to content_partner_resources_path(@partner), status: :moved_permanently
@@ -53,7 +55,7 @@ class ContentPartners::ContentPartnerContactsController < ContentPartnersControl
   def delete
     @partner = ContentPartner.find(params[:content_partner_id])
     @contact = @partner.content_partner_contacts.find(params[:id])
-    access_denied unless current_user.can_delete?(@contact)
+    access_denied && return unless current_user.can_delete?(@contact)
     if @partner.content_partner_contacts.delete(@contact)
       flash[:notice] = I18n.t(:content_partner_contact_delete_successful_notice)
       redirect_to content_partner_resources_path(@partner), status: :moved_permanently

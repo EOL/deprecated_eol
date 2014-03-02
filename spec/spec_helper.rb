@@ -10,6 +10,7 @@ SimpleCov.start do
   add_filter "/initializers/"
   # TODO - really, we should be testing these too, but we want to re-write them. They are ancient:
   add_filter "/administrator/"
+  add_filter "controllers/admins/"
   add_filter "spec/"
 end
 

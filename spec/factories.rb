@@ -360,29 +360,8 @@ FactoryGirl.define do
     homepage        ''
     full_name       { generate(:first_name) << ' ' << FactoryGirl.generate(:last_name) }
   end
-  factory :content_partner_contact do
-    association :content_partner
-    association :contact_role
-    given_name  { generate(:string) }
-    family_name { generate(:string) }
-    full_name   { "#{given_name} #{family_name}" }
-    email       { "#{given_name}.#{family_name}@example.com".downcase }
-    homepage    'http://whatever.org'
-    address     '1234 Doesntmatter St'
-    title       'Call me SIR'
-    telephone   '555-222-1111'
-  end
-
-  factory :contact_role do
-  end
-
-  factory :content_partner_data_type do
-  end
 
   factory :agent_role do
-  end
-
-  factory :content_partner_status do
   end
 
   factory :agents_data_object do
@@ -483,6 +462,9 @@ FactoryGirl.define do
     comments        %w( foo bar )
   end
 
+  factory :contact_role do
+  end
+
   factory :contact_subject do
     recipients { generate(:string) }
     active     true
@@ -495,27 +477,6 @@ FactoryGirl.define do
     sort_order           1
     last_update_user_id  1 # This *should* be the admin, and we don't *really* care otherwise.
     active               1
-  end
-
-  factory :translated_content_page do
-    association         :content_page
-    language            { Language.english }
-    title               'Test Content Page'
-    left_content        { "<h3>This is Left Content in a #{title}</h3>" }
-    main_content        { "<h1>Main Content for #{title} ROCKS!</h1>" }
-    meta_keywords       { "keywords for #{title}"}
-    meta_description    { "description for #{title}"}
-    active_translation  1
-  end
-
-  factory :topic_area do
-    email   'user@domain.com'
-  end
-
-  factory :translated_topic_area do
-    association       :topic_area
-    language          { Language.english }
-    label             'Topic Label'
   end
 
   factory :content_partner do
@@ -531,6 +492,25 @@ FactoryGirl.define do
   factory :content_partner_agreement do
     is_current          true
     body                'The agreement body.'
+  end
+
+  factory :content_partner_contact do
+    association :content_partner
+    association :contact_role
+    given_name  { generate(:string) }
+    family_name { generate(:string) }
+    full_name   { "#{given_name} #{family_name}" }
+    email       { "#{given_name}.#{family_name}@example.com".downcase }
+    homepage    'http://whatever.org'
+    address     '1234 Doesntmatter St'
+    title       'Call me SIR'
+    telephone   '555-222-1111'
+  end
+
+  factory :content_partner_data_type do
+  end
+
+  factory :content_partner_status do
   end
 
   factory :content_upload do
@@ -1192,6 +1172,27 @@ FactoryGirl.define do
     association :taxon_concept
     association :data_object
     view_order  1
+  end
+
+  factory :translated_content_page do
+    association         :content_page
+    language            { Language.english }
+    title               'Test Content Page'
+    left_content        { "<h3>This is Left Content in a #{title}</h3>" }
+    main_content        { "<h1>Main Content for #{title} ROCKS!</h1>" }
+    meta_keywords       { "keywords for #{title}"}
+    meta_description    { "description for #{title}"}
+    active_translation  1
+  end
+
+  factory :topic_area do
+    email   'user@domain.com'
+  end
+
+  factory :translated_topic_area do
+    association       :topic_area
+    language          { Language.english }
+    label             'Topic Label'
   end
 
   factory :translated_activity do

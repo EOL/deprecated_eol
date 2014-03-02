@@ -18,11 +18,9 @@ module EOL
       end
     end
 
-    # TODO - this won't work if the DB wasn't there before the task. That's why #recreate works (and it calls this), but #create
-    # doesn't, on it's own. It needs to find the name via the config, not via the models. rewite.
     def self.create
-      arb_conf = ActiveRecord::Base.configurations[Rails.env.to_s]
-      log_conf = LoggingModel.configurations["#{Rails.env}_logging"]
+      arb_conf = Rails.configuration.database_configuration[Rails.env.to_s]
+      log_conf = Rails.configuration.database_configuration["#{Rails.env}_logging"]
       ActiveRecord::Base.establish_connection({'database' => ''}.reverse_merge!(arb_conf))
       ActiveRecord::Base.connection.create_database(arb_conf['database'], arb_conf.reverse_merge!(@@db_defaults))
       ActiveRecord::Base.establish_connection(arb_conf)
@@ -42,7 +40,7 @@ module EOL
     def self.recreate
       EOL::Db.drop
       EOL::Db.create
-      Rake::Task['scenarios:clear_tmp'].invoke
+      EOL::Db.clear_temp
       Rake::Task['db:migrate'].invoke
     end
 
@@ -51,9 +49,7 @@ module EOL
       EOL::Db.recreate
       EOL::Db.clear_temp
       # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:
-      Rake::Task['solr:start'].invoke
       ENV['NAME'] = 'bootstrap'
-      Rake::Task['scenarios:clear_tmp'].invoke
       Rake::Task['scenarios:load'].invoke
       Rake::Task['solr:rebuild_all'].invoke
     end
@@ -62,7 +58,7 @@ module EOL
       Rake::Task['solr:start'].invoke
       Rake::Task['truncate'].invoke
       ENV['NAME'] = 'bootstrap'
-      Rake::Task['scenarios:clear_tmp'].invoke
+      EOL::Db.clear_temp
       Rake::Task['scenarios:load'].invoke
       Rake::Task['solr:rebuild_all'].invoke
     end

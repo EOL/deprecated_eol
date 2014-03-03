@@ -8,12 +8,8 @@ unless defined?(Rake)
 
   unless defined?(Rake::Task)
     module Rake
-      module Task
+      class Task
         def self.[](name)
-          @hash ||= {}
-          return @hash[name] if @hash.has_key?(name)
-          # For stubbing
-          @hash[name] = Object.new
         end
       end
     end
@@ -22,6 +18,15 @@ unless defined?(Rake)
 end
 
 describe EOL::Db do
+
+  before(:all) { @rake_task_hash = {} }
+
+  before do
+    allow(Rake::Task).to receive(:[]) do |name|
+      # For stubbing
+      @rake_task_hash[name] ||= Object.new
+    end
+  end
 
   describe '.all_connections' do
 

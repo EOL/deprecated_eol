@@ -1,4 +1,8 @@
-# NOTE - This is an EXCEEDINGLY expensive calculation! It can take several seconds for a single collection... much longer with huge collections...
+# NOTE - This is an EXCEEDINGLY expensive calculation! It can take several seconds for a single collection... much
+# longer with huge collections...
+#
+# You should only ever run this in the background.  Seriously.  Don't make users wait for this!
+
 class CollectionRelevanceCalculator
 
   @queue = :notifications # TODO - something else?
@@ -6,13 +10,13 @@ class CollectionRelevanceCalculator
   attr_accessor :collection
 
   def self.perform(id)
-    puts "++ #{Time.now.strftime("%F %T")} - CollectionRelevanceCalculator performing for collection ##{id}."
+    Rails.logger.info "++ #{Time.now.strftime("%F %T")} - CollectionRelevanceCalculator performing for collection ##{id}."
     begin
       CollectionRelevanceCalculator.new(Collection.find(id)).set_relevance
     rescue => e
-      puts "++ #{Time.now.strftime("%F %T")} - ERROR: #{e.message}\n  #{e.backtrace[0..10].join("\n  ")})."
+      Rails.logger.info "++ #{Time.now.strftime("%F %T")} - ERROR: #{e.message}\n #{e.backtrace[0..10].join("\n  ")})."
     end
-    puts "++ #{Time.now.strftime("%F %T")} - Done."
+    Rails.logger.info "++ #{Time.now.strftime("%F %T")} - Done."
   end
 
   def initialize(collection)

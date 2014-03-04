@@ -6,7 +6,7 @@ describe PrepareAndSendNotifications do
     expect(PrepareAndSendNotifications.class_eval { @queue }).to eq(:notifications)
   end
 
-  describe '#perform' do
+  describe '.perform' do
 
     context 'after notifications already sent' do
 

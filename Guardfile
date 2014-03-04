@@ -5,8 +5,14 @@ guard "bundler" do
   watch("Gemfile")
 end
 
-# ZEUS: guard 'rspec', zeus: true, bundler: false, cli: "--format nested --fail-fast" do
-guard 'rspec', bundler: false, cli: "--format nested --fail-fast", all_after_pass: false, all_on_start: false do
+guard('rspec',
+      # Running zeus disables notifications. :\ see:
+      # https://github.com/Springest/terminal-notifier-guard/issues/2
+      # zeus: true,
+      bundler: false,
+      cli: "--format nested --fail-fast",
+      all_after_pass: false,
+      all_on_start: false) do
   watch(%r{^spec/.+_spec\.rb$})
   watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
   watch('spec/spec_helper.rb')  { "spec" }
@@ -25,5 +31,6 @@ guard 'rspec', bundler: false, cli: "--format nested --fail-fast", all_after_pas
   # Turnip features and steps
   watch(%r{^spec/acceptance/(.+)\.feature$})
   watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
+
 end
 

@@ -30,24 +30,28 @@ module EOL
     #
     # TODO LOW_PRIO - the arguments to this method are lame and should be options with reasonable defaults.
     def build_hierarchy_entry(depth, tc, name, options = {})
-      he = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default, # TODO - This should *really*
-                                # be the H associated with the Resource that's being "harvested"... technically, CoL
-                                # shouldn't even have Data Objects. Hierarchy.last may be clever enough, really.  I
-                                # just don't want to change this *right now*--I have other problems...
-                              :parent_id     => options[:parent_id] || 0,
-                              :identifier    => options[:identifier] || '',
-                              :depth         => depth,
-                              # Cheating. As long as *we* created Ranks with a scenario, this works:
-                              :rank_id       => options[:rank_id] || 0,
-                              :vetted_id       => options[:vetted_id] || Vetted.trusted.id,
-                              :taxon_concept => tc,
-                              :name          => name)
-      # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as partner roles
-      return he
+      ActiveRecord::Base.transaction do
+        he = HierarchyEntry.gen(:hierarchy     => options[:hierarchy] || Hierarchy.default, # TODO - This should *really*
+                                  # be the H associated with the Resource that's being "harvested"... technically, CoL
+                                  # shouldn't even have Data Objects. Hierarchy.last may be clever enough, really.  I
+                                  # just don't want to change this *right now*--I have other problems...
+                                :parent_id     => options[:parent_id] || 0,
+                                :identifier    => options[:identifier] || '',
+                                :depth         => depth,
+                                # Cheating. As long as *we* created Ranks with a scenario, this works:
+                                :rank_id       => options[:rank_id] || 0,
+                                :vetted_id       => options[:vetted_id] || Vetted.trusted.id,
+                                :taxon_concept => tc,
+                                :name          => name)
+        # TODO - Create two AgentsHierarchyEntry(ies); you want "Source Database" and "Compiler" as partner roles
+        return he
+      end
     end
 
     def build_taxon_concept(options = {})
-      TaxonConceptBuilder.build(options)
+      ActiveRecord::Base.transaction do
+        TaxonConceptBuilder.build(options)
+      end
     end
 
     # TODO - stop using this and switch to either #gen_curator or #build_curator.

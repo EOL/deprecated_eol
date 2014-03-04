@@ -17,26 +17,28 @@ include ScenarioHelpers # Allows us to load other scenarios
 
 load_foundation_cache
 
-communities = {}
-communities[:user_non_member] = User.gen
-communities[:name_of_create_button] = 'Create'
+ActiveRecord::Base.transaction do
+  communities = {}
+  communities[:user_non_member] = User.gen
+  communities[:name_of_create_button] = 'Create'
 
-# @community has all expected data including feeds
-communities[:community] = Community.gen
-communities[:user_community_administrator] = User.gen
-communities[:user_community_member] = User.gen
-communities[:community].initialize_as_created_by(communities[:user_community_administrator])
-communities[:community_member] = communities[:community].add_member(communities[:user_community_member])
-communities[:feed_body_1] = "Something"
-communities[:feed_body_2] = "Something Else"
-communities[:feed_body_3] = "Something More"
-communities[:tc1] = build_taxon_concept
-communities[:tc2] = build_taxon_concept
-communities[:community].focuses.first.add(communities[:tc1])
-communities[:community].focuses.first.add(communities[:tc2])
+  # @community has all expected data including feeds
+  communities[:community] = Community.gen
+  communities[:user_community_administrator] = User.gen
+  communities[:user_community_member] = User.gen
+  communities[:community].initialize_as_created_by(communities[:user_community_administrator])
+  communities[:community_member] = communities[:community].add_member(communities[:user_community_member])
+  communities[:feed_body_1] = "Something"
+  communities[:feed_body_2] = "Something Else"
+  communities[:feed_body_3] = "Something More"
+  communities[:tc1] = build_taxon_concept
+  communities[:tc2] = build_taxon_concept
+  communities[:community].focuses.first.add(communities[:tc1])
+  communities[:community].focuses.first.add(communities[:tc2])
 
-# Empty community, no feeds
-communities[:empty_community] = Community.gen
-communities[:before_all_check] = User.gen(:username => 'communities_scenario')
+  # Empty community, no feeds
+  communities[:empty_community] = Community.gen
+  communities[:before_all_check] = User.gen(:username => 'communities_scenario')
 
-EOL::TestInfo.save('communities', communities)
+  EOL::TestInfo.save('communities', communities)
+end

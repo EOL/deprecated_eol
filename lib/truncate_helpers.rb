@@ -17,7 +17,7 @@ module TruncateHelpers
 
   # truncates all tables in all databases
   def truncate_all_tables(options = {})
-    options[:skip_empty_tables] = true if options[:skip_empty_tables].nil?
+    options[:skip_empty_tables] = true unless options[:skip_empty_tables] === false
     options[:verbose] ||= false
     EOL::Db.all_connections.uniq.each do |conn|
       count = 0
@@ -39,9 +39,11 @@ module TruncateHelpers
   end
 
   def truncate_table(conn, table, skip_if_empty)
-    # run_command = skip_if_empty ? conn.execute("SELECT 1 FROM #{table} LIMIT 1").num_rows > 0 : true
-    # conn.execute "TRUNCATE TABLE `#{table}`" if run_command
-    conn.execute "TRUNCATE TABLE `#{table}`"
+    run_command = if skip_if_empty
+      result = conn.execute("SELECT SQL_NO_CACHE 1 FROM #{table} LIMIT 1")
+      result.first
+    end
+    conn.execute "TRUNCATE TABLE `#{table}`" if run_command
   end
 
 end

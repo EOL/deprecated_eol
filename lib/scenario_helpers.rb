@@ -1,4 +1,7 @@
-# For loading scenarios. 
+# For loading scenarios.
+
+include TruncateHelpers
+
 module ScenarioHelpers
 
   def load_foundation_cache

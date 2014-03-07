@@ -30,6 +30,7 @@ class TocItem < ActiveRecord::Base
 
   class << self 
 
+    # TODO - sure, we can code this with english labels, but it should STORE ids.
     def exclude_editable
       ['Barcode', 'Wikipedia', 'Education', 'Nucleotide Sequences', 'Database and Repository Coverage']
     end
@@ -56,7 +57,7 @@ class TocItem < ActiveRecord::Base
 
     def bhl
       # because TocItems are cached with info_items already loaded, we need to have the InfoItem class loaded
-      # before this block. The only way I could see was to just reference the model here, which removed those errors
+      # before this block.
       InfoItem
       cached_find_translated(:label, 'Biodiversity Heritage Library', include: [ :info_items, { parent: :info_items } ])
     end
@@ -210,8 +211,7 @@ class TocItem < ActiveRecord::Base
     def selectable_toc
       InfoItem
       cached("selectable_toc/#{I18n.locale}") {
-        excluded = TocItem.exclude_editable
-        all = TocItem.find(:all, include: :info_items).select {|toc|
+        TocItem.find(:all, include: :info_items).select {|toc|
           toc.allow_user_text?
         }.sort_by { |toc| toc.label.to_s }
       }

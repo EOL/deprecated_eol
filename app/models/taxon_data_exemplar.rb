@@ -13,10 +13,12 @@ class TaxonDataExemplar < ActiveRecord::Base
                                  taxon_concept_id: what.taxon_concept_id)
   end
 
+  # TODO - Because of warnings, it's not clear to me that this ever actually works.  Check.
   def excluded?
     exclude == true
   end
 
+  # TODO - Because of warnings, it's not clear to me that this ever actually works.  Check.
   def included?
     exclude == false
   end

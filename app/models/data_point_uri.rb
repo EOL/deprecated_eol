@@ -1,8 +1,9 @@
 # encoding: utf-8
 # Gives us a SQL representation of a triple stored in the SparQL Database, so we can do rails-y things with it.
 
-# TODO - it is really unclear how predicate and object work... how do I set them in tests, how do I know if they are URIs, why are there sixteen flavors of
-# each?  ...This needs to be re-engineered.
+# TODO - it is really unclear how predicate and object work... how do I set them in tests, how do I know if they are
+# URIs, why are there sixteen flavors of each?  ...This needs to be re-engineered.
+
 class DataPointUri < ActiveRecord::Base
 
   include EOL::CuratableAssociation

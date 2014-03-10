@@ -45,14 +45,14 @@ describe DataSearchFile do
     test_and_reset_downloadable
     @search_file.row_count = nil
     test_and_reset_downloadable
-    @search_file.completed_at = Time.now - DataSearchFile::EXPIRATION_TIME
+    @search_file.completed_at = 1.minute.ago - DataSearchFile::EXPIRATION_TIME
     test_and_reset_downloadable
   end
 
   it 'should know when expired?' do
     @search_file.completed_at = Time.now
     expect(@search_file.expired?).to eq(false)
-    @search_file.completed_at = Time.now - DataSearchFile::EXPIRATION_TIME
+    @search_file.completed_at = 1.minute.ago - DataSearchFile::EXPIRATION_TIME
     expect(@search_file.expired?).to eq(true)
   end
 

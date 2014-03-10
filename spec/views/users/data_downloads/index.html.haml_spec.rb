@@ -112,7 +112,8 @@ describe 'users/data_downloads/index' do
 
   context 'expired downloads' do
     before(:each) do
-      data_search_file.completed_at = Time.now - DataSearchFile::EXPIRATION_TIME
+      # NOTE - I had to make this 1 minute ago instead of Time.now. ...I assume that's not a problem.
+      data_search_file.completed_at = 1.minute.ago - DataSearchFile::EXPIRATION_TIME
       assign(:background_processes, [ data_search_file ])
     end
 

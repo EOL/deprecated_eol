@@ -590,7 +590,11 @@ ActiveRecord::Base.transaction do
   EOL::Data.rebuild_collection_type_nested_set
   EOL::Data.flatten_hierarchies
 
-  DataObject.connection.execute("UPDATE data_objects SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")
+  begin
+    DataObject.connection.execute("UPDATE data_objects SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")
+  rescue ActiveRecord::StatementInvalid # Because DST can create hours that don't exist.  Yes, really.
+    DataObject.connection.execute("UPDATE data_objects SET updated_at = DATE_SUB(DATE_SUB(NOW(), INTERVAL id HOUR), INTERVAL 1 WEEK)")
+  end
   Comment.connection.execute("UPDATE comments SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")
 
   (-12..12).each do |n|

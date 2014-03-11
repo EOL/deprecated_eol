@@ -79,10 +79,8 @@ describe DataSearchHelper do
         helper.data_search_file_summary(search_file).join(" ") # Just need to check things as a string; don't much care about the array here.
       end
 
-      # TODO - this (and the following) I18n checks really need to change. They were poorly coded.
       it 'labels the query' do
-        expect(summary).to include(I18n.t('helpers.label.data_search.q'))
-        expect(summary).to include("queried")
+        expect(summary).to include(I18n.t('helpers.label.data_search.q_with_val', val: "queried"))
       end
 
       it 'labels the taxon' do
@@ -91,18 +89,15 @@ describe DataSearchHelper do
       end
 
       it 'labels the from' do
-        expect(summary).to include(I18n.t('helpers.label.data_search.min'))
-        expect(summary).to include("245")
+        expect(summary).to include(I18n.t('helpers.label.data_search.min_with_val', val: 245))
       end
 
       it 'labels the to' do
-        expect(summary).to include(I18n.t('helpers.label.data_search.max'))
-        expect(summary).to include("489")
+        expect(summary).to include(I18n.t('helpers.label.data_search.max_with_val', val: 489))
       end
 
       it 'marks it as complete with delimited row count' do
-        expect(summary).to include("Total results:")
-        expect(summary).to include("10,347")
+        expect(summary).to include(I18n.t('helpers.label.data_search.total_results', total: "10,347"))
       end
 
     end

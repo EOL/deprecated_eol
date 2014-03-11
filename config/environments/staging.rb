@@ -1,6 +1,9 @@
 Eol::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # Use content servers for thumbnails. This implies that upload_image will work (ie: you have a PHP server up and running).
+  Rails.configuration.use_content_server_for_thumbnails = true
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.

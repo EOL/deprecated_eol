@@ -202,10 +202,10 @@ zh-CN:
         label: 标签
         request_publish: 请求发布
       known_uri: 
-        clade_exemplar: 作为样例克拉德范围使用
+        clade_exemplar: 作为分类组别范围的样本
         description: 描述
         exclude_from_exemplars: 从概述中排除
-        group_by_clade: 用于克拉德范围
+        group_by_clade: 用于分类组别范围
         name: 名称
         toc_items: 分类
         uri: URI
@@ -1149,6 +1149,7 @@ zh-CN:
   community_tab_communities_description: 社区是由一群EOL会员组成的团体，会员之间分享自己的兴趣和专长。EOL社区围绕一个或多个收藏组织起来，并向会员提供一种方式以关注一些他们共同关心的主题。有关EOL社区的更多信息，包括如何创建自己的社区，请查看<a href='/info/communities'>帮助页面</a>。
   community_tab_curators_description: 管理员是EOL中具有生物学专业知识的一类用户，他们花时间对EOL的内容进行审核，保证您所看到的信息是准确的，高质量的。
   completed: 已完成
+  completed_colon: 完成：
   confirm_delete_community: 您确认要删除这个社区？社区的其他会员还可以浏览该社区的内容，但是该社区的内容已经不能进行查询和显示在物种页面，也无法在进行编辑。
   confirm_leave: 您确认要离开这个社区？
   confirm_password_colon: 确认密码：
@@ -1486,7 +1487,7 @@ zh-CN:
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
   data_provided_by_content_partner: 供应商：%{whom}
-  data_ranges: 数据范围
+  data_ranges: 数据总结
   data_row_add_exemplar_button: 添加到概述
   data_row_additional_detail_alt: 额外详细信息
   data_row_additional_detail_hide_alt: 隐藏额外详细信息
@@ -1497,7 +1498,12 @@ zh-CN:
   data_row_remove_exemplar_button: 从概述中移除
   data_search: 
     form: 
+      header_assistive: 搜索表单
       new_search_link: 开始一次新搜索
+      or_range_header: 或<span class="assistive">输入范围</span>
+      search_suggestions_header: 不确定从何开始？
+      search_tools_hide_link: 隐藏搜索选项
+      search_tools_show_link: 显示搜索选项
   data_search_files: 
     file_ready_for_download: 您现在可以在<a href='%{download_url}'>%{download_url}</a>下载您最近要求的搜索"%{known_uri_label}"。
     from: 最低值
@@ -2013,11 +2019,22 @@ zh-CN:
         source_url: 链接URL：
         toc_item: 主题
       data_search: 
+        attribute: 选择一个属性
         max: 最高值
         max_placeholder: 输入一个数字
+        max_placeholder_disabled: 禁用范围
         min: 最小值
         min_placeholder: 输入一个数字
+        min_placeholder_disabled: 禁用范围
+        q: 特定值
+        q_more: 例如，异养的。
         q_placeholder: 输入一个单词、词组或数字
+        q_placeholder_disabled: 输入的范围，禁用的特定值
+        taxon_name: 分类群组
+        taxon_name_more: 例如，输入蜂鸟或鲸，并选择与之相匹配的组别。
+        taxon_name_placeholder: 输入分类组的名称来选择其所属组别
+        taxon_name_placeholder_value_removed: "%{taxon_group} 已被删除，请选择新的组别"
+        unit: 度量单位
       eol_statistic: 
         date_one: 日期
         date_two: 日期
@@ -2294,6 +2311,7 @@ zh-CN:
   item_not_updated_in_collection_error: "\"抱歉,出现一个错误，收藏的条目无法更新。\""
   item_type_article: 文章
   item_type_article_assistive: 此项是一篇文章
+  item_type_cms_page: EOL相关信息
   item_type_collection: 收藏
   item_type_collection_assistive: 此项是一件藏品
   item_type_community: 小组
@@ -2418,6 +2436,12 @@ zh-CN:
       questions_link_model_organism: 模式物种是什么？
       questions_link_naming_species: 物种是如何命名的？
       questions_link_species: 物种是什么？
+    data_search: 
+      page_header: 搜索TraitBank
+      page_header_results: TraitBank 搜索结果
+    taxa: 
+      search_traitbank: 搜索 TraitBank
+      search_within_clade: 在分化支内搜索
   learn_about_collections: 如何创建一个收藏？
   learn_about_communities: 如何参与到社区活动？
   learn_about_content_partners: 如何成为内容合作伙伴？
@@ -2553,6 +2577,7 @@ zh-CN:
   method: 方法
   method_to_get_metadata_about_the_hierarchy: 如果给出分类系统的标识符，本方法可以获取所有关于本分类系统和所列根阶元的元数据
   methods: 方法
+  missing_interpolation_argument_error: "[翻译不完整]"
   mobile: 
     contents: 
       explore_eol: 搜索EOL
@@ -2959,7 +2984,7 @@ zh-CN:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: 你的下载已就绪！
-      message: 您可以通过访问页面<a href='%{download_link}'>保存搜索选项卡在您的个人资料的</a>，下载这个以及其他下载内容。
+      message: 您可以通过访问<a href='%{download_link}'>数据下载选项卡，在您的配置文件中</a>查看这个和其他下载内容。
       subject: 您的EOL 搜索已做好下载准备
   recent_updates: 最近更新
   recently_visited: 最近访问
@@ -3242,7 +3267,6 @@ zh-CN:
           meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何可分析性数据。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的数据信息。
           meta_description_with_common_name_with_topics: 科学家已经收集了按%{hierarchy_provider}分类界定为 %{preferred_common_name}的哪些数据？%{scientific_name}的可分析数据包括有关%{topics}的信息。
           meta_keywords: " 按%{hierarchy_provider}分类界定为%{scientific_name}的可分析数据是%{scientific_name}的相关信息。"
-          meta_keywords_with_common_name: 按 %{hierarchy_provider}分类界定为%{preferred_common_name} 的可分析性数据
           meta_title: 有关%{hierarchy_provider}分类界定为%{scientific_name}的可分析性数据
           meta_title_with_common_name: 有关%{hierarchy_provider}分类界定为%{preferred_common_name}  (%{scientific_name} %)的可分析数据资料
           tweet_text: 有关%{hierarchy_provider}分类界定为%{scientific_name}的可分析性数据
@@ -3750,6 +3774,22 @@ zh-CN:
         meta_description: "%{user_full_name}内容提供者的关联。"
         meta_title: "%{user_full_name} 内容提供者"
         tweet_text: "%{user_full_name} 内容提供者"
+    data_downloads: 
+      actions_head: 操作
+      attribute_head: 属性
+      complete_head: 完成？
+      created_head: 已创建
+      download: 下载
+      index: 
+        meta_title: "%{user_full_name}数据下载"
+        tweet_text: "%{user_full_name}数据下载"
+      is_complete: 是
+      is_not_complete: 否
+      page_title: 数据下载
+      query_head: 查询
+      refresh: 刷新
+      row_count: 計數
+      search_again: 重新搜尋
     edit: 
       form_tip_account: 要登录到EOL，您需要用户名和密码，或者您可以连接一个第三方帐户。如果您没有关联帐户，用户名和密码是必填的，但是如果您想改变现有的密码，只需在此输入新密码即可。电子邮件地址和首选语言对所有用户都是必须的(%{required_icon}) 。
       form_tip_account_oauth: 所有用户都需要电子邮件地址和首选语言%{required_icon} 。

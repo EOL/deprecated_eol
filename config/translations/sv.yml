@@ -1451,6 +1451,7 @@ sv:
   community_removed_by_owner: Denna gemenskap har tagits bort av sin ägare.
   community_tab_collections_header: Samlingar
   completed: Färdig
+  completed_colon: "Slutfördes:"
   confirm_delete_community: Vill du verkligen radera denna gemenskap? Återstående medlemmar kommer fortfarande att kunna se den och nyhetsflödet kommer att bevaras, men det kommer inte att visas i sökningar eller på taxonsidor och kommer inte längre att kunna redigeras.
   confirm_leave: Är du säker på att du vill lämna denna gemenskap?
   confirm_password_colon: "Bekräfta lösenord:"
@@ -1788,6 +1789,7 @@ sv:
   data_provided_by_content_partner: "Leverantör: %{whom}"
   data_provided_by_user: tillhandahållen av %{whom}
   data_reference_subtable_summary: Ytterligare referenser om denna fakta.
+  data_results_only_for_search: TraitBank-resultat för "%{search_term}"
   data_row_add_exemplar_button: lägg till i översikt
   data_row_additional_detail_alt: Ytterligare detaljer
   data_row_additional_detail_hide_alt: Dölj ytterligare detaljer
@@ -1799,14 +1801,30 @@ sv:
   data_row_hide_button: Dölj rad
   data_row_remove_exemplar_button: ta bort från översikt
   data_row_unhide_button: Visa rad
+  data_search: 
+    form: 
+      header_assistive: Sökformulär
+      input_summary_intro: Valda sökalternativ
+      new_search_link: Starta en ny sökning
+      search_suggestion_blue_flowers: Vilka plantor har blåa blommor?
+      search_suggestion_whale_mass: Vilka valar väger mer än 10,000 kg?
+      search_suggestions_header: Inte säker på var du ska börja?
+      search_suggestions_subheader_colon: "Prova en av följande datasökningar:"
+      search_tools_hide_link: Dölj sökalternativ
+      search_tools_show_link: Visa sökalternativ
+      sort_header: Sortera resultatet
   data_search_destroyed: Detta jobb kommer inte längre bearbetas.
   data_search_files: 
     file_ready_for_download: Sökningen du nyligen begärde för "%{known_uri_label}" kan nu laddas ned på <a href='%{download_url}'>%{download_url}</a>.
+    from: Lägsta värdet
     to: Högsta värdet
     unit_uri: Måttenhet
   data_search_files_with_count: 
-    one: "%{count} sparad sökning"
-    other: "%{count} sparade sökningar"
+    one: "%{count} datanedladdning"
+    other: "%{count} datanedladdningar"
+  data_search_limit: 
+    one: Nedladdningar av datasökningar är begränsad till %{count} resultat.
+    other: Nedladdningar av datasökningar är begränsade till %{count} resultat.
   data_search_link: Sök vetenskaplig data på EOL
   data_show_n_more_rows: Visa NNN fler...
   data_subtab_about: Om
@@ -2065,6 +2083,8 @@ sv:
       no_access: Tyvärr, åtkomst är begränsad.
   excluded_icon_tip: Rader markerade med undantagsikonen %{excluded_icon} kommer aldrig visas på översiktssidorna för taxon.
   expand_all_children: expandera alla undersidor
+  expired: Upphört
+  expires_in_colon: "Upphör om:"
   explore: Utforska
   explore_what_we_know_about_taxon: Utforska vad EOL vet om %{taxon}.
   export_curator_csv_link: "[exportera alla kuratorer som CSV]"
@@ -2310,6 +2330,20 @@ sv:
         link_type: Kategori
         source_url: Länk-URL
         toc_item: Ämne
+      data_search: 
+        attribute: Välj ett attribut
+        max: Högsta värdet
+        max_placeholder: Ange ett nummer
+        max_placeholder_disabled: Räckvidd inaktiverad
+        min: Lägsta värdet
+        min_placeholder: Ange ett nummer
+        min_placeholder_disabled: Räckvidd inaktiverad
+        q: Särskilt värde
+        q_placeholder: Ange ett ord, fras eller nummer
+        taxon_name: Taxongrupp
+        taxon_name_more: Till exempel, ange kolibri eller valar och välj den överensstämmande gruppen.
+        taxon_name_placeholder_value_removed: "%{taxon_group} borttagen, välj ny grupp"
+        unit: Måttenhet
       eol_statistic: 
         date_one: Datum
         date_two: Datum
@@ -2500,6 +2534,7 @@ sv:
   home: Hem
   home_page_cache_last_cleared_on: Hemsidans cache rensades senast den %{date}
   home_page_link_advisory_information: Denna länk tar dig till startsidan för Encyclopedia Of Life
+  however_there_are_summaries: Men <a href='%{summary_url}'>EOL sammanfattar data from undergrupper</a>.
   html_format: (HTML-format)
   html_format_with_left_col: (HTML-FORMAT, ange endast om du vill ha en vänsterkolumn på sidan, lämna den tom annars)
   id: ID
@@ -2562,6 +2597,7 @@ sv:
   item_not_updated_in_collection_error: Tyvärr, ett fel uppstod. Samlingsobjektet kunde inte uppdateras.
   item_type_article: Artikel
   item_type_article_assistive: Detta objekt är en artikel
+  item_type_cms_page: Information om EOL
   item_type_collection: Samling
   item_type_collection_assistive: Detta objekt är en samling
   item_type_community: Gemenskapen
@@ -2675,6 +2711,11 @@ sv:
       questions_link_model_organism: Vad är en modellorganism?
       questions_link_naming_species: Hur namnges arter?
       questions_link_species: Vad är en art?
+    data_search: 
+      page_header: Sök TraitBank
+      page_header_results: Sökresultat från TraitBank
+    taxa: 
+      search_traitbank: Sök TraitBank
   learn_about_collections: Hur kan jag skapa en?
   learn_about_communities: Hur kan jag delta?
   learn_about_content_partners: Hur blir jag en?
@@ -2813,6 +2854,7 @@ sv:
   meta_title_site_name: Encyclopedia of Life
   method: Metod
   methods: Metoder
+  missing_interpolation_argument_error: "[översättning ofullständig]"
   mobile: 
     contents: 
       explore_eol: Utforska EOL
@@ -2943,6 +2985,7 @@ sv:
   not_evaluated: Inte utvärderad
   not_published_yet: inte publicerad ännu
   not_recognized_by_available_hierarchies: Känns inte igen av några tillgängliga klassifikationer
+  not_specified: inte specificerat
   not_yet_implemented_error: Tyvärr, den där funktionen har inte implementerats ännu.
   note: "OBS:"
   note_all_times_utc: Observera att alla tider är UTC (Greenwich Mean Time)
@@ -3164,6 +3207,7 @@ sv:
   punctuation_comma: ","
   punctuation_semi_colon: ;
   quarterly: Kvartalsvis
+  range: Räckvidd
   rank_recognized_by_agent: "%{rank} som känns igen av %{agent}"
   rank_recognized_by_agent_colon: "<b>%{rank}</b> som känns igen av %{agent}:"
   rank_recognized_by_from_source: "%{rank} som känns igen av %{agent} i %{source}"
@@ -3231,7 +3275,7 @@ sv:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Din nedladdning är redo!
-      message: Du kan ladda ned denna och andra nedladdningar genom att besöka <a href='%{download_link}'>fliken för sparade sökningar i din profil</a>.
+      message: Du kan se denna och andra nedladdningar genom att besöka <a href='%{download_link}'>fliken för datanedladdningar i din profil</a>.
       subject: Din EOL-sökning är redo för nedladdning
   recent_updates: Senaste uppdateringar
   recently_used_link: Nyligen använt
@@ -3321,6 +3365,7 @@ sv:
   see_all_communities_with_count_html: 
     one: Se <span class="assistive">%{count} gemenskap</span> som framhäver denna sida.
     other: Se alla <span class="assistive">%{count} gemenskaperna</span> som framhäver denna sida.
+  see_all_data_summaries: Se alla <span class="assistive">datasammanfattningar för detta taxon.</span>
   see_all_data_with_count_html: 
     one: Visa <span class="assistive">the %{count} egenskap för detta taxon.</span>
     other: Se alla <span class="assistive">%{count} egenskaper för detta taxon.</span>
@@ -3910,6 +3955,7 @@ sv:
   us_dollars_50: US $50
   use_as_examplar_button: använd som exemplar
   use_as_examplar_note_preferred: "OBS: Denna klassificering är föredragen. Du vill förmodligen använda den här."
+  used_for_friendly_url_note: (används för att generera en användarvänlig länk för användare, kan inte innehålla blanksteg eller specialtecken)
   user: Användare
   user_activation_successful_notice: Välkommen och tack för att du gick med i Encyclopedia Of Life-gruppen. Ditt konto med användarnamnet <em>%{username}</em> är nu aktivt. Var god logga in.
   user_activity_click_on_the_numbers: Klicka på siffrorna för att se respektive aktivitetsflöde.
@@ -4034,6 +4080,27 @@ sv:
         meta_description: "%{user_full_name}s associationer med innehållspartner."
         meta_title: "%{user_full_name} innehållspartners"
         tweet_text: "%{user_full_name} innehållspartners"
+    data_downloads: 
+      actions_head: Åtgärder
+      attribute_head: Attribut
+      complete_head: Slutförd?
+      created_head: Skapades
+      download: ladda ned
+      empty: Du har inga nedladdningar. Du kan <a href='%{data_search_url}'>söka efter data</a> och begära att ladda ned resultaten.
+      header_with_count: 
+        one: Datanedladdning
+        other: "%{count} datanedladdningar"
+      index: 
+        meta_description: Datanedladdningar begärd av %{user_full_name}.
+      is_complete: Ja
+      is_not_complete: Nej
+      page_title: Datanedladdningar
+      processing: bearbetar
+      query_empty: (inga filter)
+      refresh: uppdatera
+      row_count: Antal
+      search_again: sök igen
+      updated_head: Senaste åtgärd
     edit: 
       form_tip_account_oauth: E-postadress och föredraget språk är nödvändigt %{required_icon} för alla användare.
       form_tip_profile: Objekt markerade som nödvändigt %{required_icon} är valfria för vanliga användare men är nödvändiga för kuratorer.

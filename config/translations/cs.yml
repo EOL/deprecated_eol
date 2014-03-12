@@ -223,6 +223,9 @@ cs:
         auto_publish: Automaticky zveřejnit
         bibliographic_citation: Bibliografická citace
         dataset: Soubor dat
+        dataset_license_id: Licence
+        dataset_rights_holder: Držitel práv
+        dataset_rights_statement: Informace o právech
         description: Popis zdroje
         dwc_archive_url: URL Darwin Core archivu
         harvest_events: Sklizeň události
@@ -301,6 +304,8 @@ cs:
           one: musí být méně než %{count}
           other: musí být méně než %{count}
         less_than_or_equal_to: musí být menší než nebo rovno %{count}
+        models: 
+          inaccessible: je nepřístupné
         not_a_number: není číslo
         not_an_integer: musí být celé číslo
         odd: musí být liché číslo
@@ -325,6 +330,14 @@ cs:
             publish: 
               inclusion: je povoleno pouze pro poslední událost sklizně, a to pouze v případě, že tato událost není již zveřejněna
         inaccessible: Záznam nelze uložit, protože je neplatný. Zkontrolujte chyby ověření a uložte znovu.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: musí být správně utvořený <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+        known_uri_relationship: 
+          attributes: 
+            to_known_uri_id: 
+              must_be_known_uri: musí být známý URI
         open_authentications: 
           guid_provider_must_be_unique: účet třetí strany je již propojen s účtem EOL
           provider_user_id_must_be_unique: s EOL může být propojen pouze jeden účet od každého poskytovatele
@@ -340,6 +353,22 @@ cs:
             dwc_archive_url: 
               inaccessible: je nedostupné, URL musí být veřejně dostupná
               invalid: je neplatná, měl by poukázat na TAR.GZIP, TAR.GZ, TGZ nebo ZIP soubor
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: musí být správně utvořený <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: používá jmenný prostor, který nebyl rozpoznán
+            subject: 
+              must_be_uri: musí být správně utvořený <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: používá jmenný prostor, který nebyl rozpoznán
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: musí být správně utvořený <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: používá jmenný prostor, který nebyl rozpoznán
+            subject: 
+              must_be_uri: musí být správně utvořený <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: používá jmenný prostor, který nebyl rozpoznán
       template: 
         body: "Následující pole neprošla kontrolou:"
         header: 
@@ -540,7 +569,7 @@ cs:
           one: "%{count} pozorovaný taxon"
           other: "%{count} pozorovaných taxonů"
         top_contributors: Nejlepší přispěvatelé z iNaturalist
-        tweet_text: "%{název_sbírky} - pozorování iNaturalist"
+        tweet_text: "%{collection_name} - pozorování iNaturalist"
         view_all_observations_on_inaturalist: Prohlédnout všechna pozorování z %{project_title} na iNaturalist
         view_more_observations_on_inaturalist: Prohlédni další pozorování z %{project_title} na iNaturalist
         view_project_on_inaturalist: Zobrazit %{project_title} na iNaturalist
@@ -552,7 +581,7 @@ cs:
         tweet_text: "%{collection_name} - Zprávy"
     show: 
       meta_description_default: Sbírka Encyklopedie života nazvaná %{collection_name}.
-      meta_description_default_focus_collection: Zaměření sbírky Encyclopedie Života s názvem % {název_sbírky}.
+      meta_description_default_focus_collection: Zaměření sbírky Encyclopedie Života s názvem %{collection_name}.
       meta_description_default_watch_collection: "Sledovací seznam Encyklopedie života: %{collection_name}."
       meta_keywords: "%{collection_name}, sbírka Encyklopedie života"
   collections_summary_empty: Tato stránka ještě není v žádné sbírce.
@@ -873,6 +902,10 @@ cs:
       menu_link: Kurátorská statistika
       page_header: Kurátorská statistika
       page_title: Statistika
+    data: 
+      menu_link: Údaje
+      page_header: Statistika údajů
+      page_title: Statistika
     data_objects: 
       menu_link: Datové objekty
       page_header: Statistika datových objektů
@@ -949,6 +982,7 @@ cs:
     buttons: 
       delete: smazat
       edit: upravit
+      link: odkaz
       reply: odpovědět
     categories: 
       create: Vytvořit kategorii
@@ -1081,6 +1115,22 @@ cs:
         link_type: Kategorie
         source_url: URL odkazu
         toc_item: Předmět
+      data_search: 
+        max: Nejvyšší hodnota
+        max_placeholder: Zadejte číslo
+        max_placeholder_disabled: Rozsah znemožněn
+        min: Nejnižší hodnota
+        min_placeholder: Zadejte číslo
+        min_placeholder_disabled: Rozsah znemožněn
+        q: Konkrétní hodnota
+        q_more: Například heterotrofní.
+        q_placeholder: Zadejte slovo, frázi nebo číslo
+        q_placeholder_disabled: Vložen rozsah, konkrétní hodnota znemožněna
+        taxon_name: Skupina taxonu
+        taxon_name_more: Zadejte například Trochilidae nebo velryby a vyberte odpovídající skupinu.
+        taxon_name_placeholder: Zadejte název taxonu skupiny pro výběr skupiny
+        taxon_name_placeholder_value_removed: "% {taxon_group} odstraněna, vyberte novou skupinu"
+        unit: Měrná jednotka
       eol_statistic: 
         date_one: Datum
         date_two: Datum
@@ -1095,17 +1145,30 @@ cs:
         began_at: Zahájeno
         completed_at: Dokončeno
         first_published_at: Poprvé publikováno
+        publish_more: Označuje výběr dat pro zveřejnění, obsah nebude bezprostředně zveřejněn.
         published_at: Zveřejněno
         published_status: Stav
+      hierarchy: 
+        browsable_more: Zaškrtněte "Prohledávatelná", aby se tato hierarchie stala primární prohledávatelnou hierarchií EOL
+        browsable_status_with_colon: "Stav \"Prohledávatelná\":"
+        complete: Spravováno
+        complete_more: "Spravovaná hierarchie předpokládá, že každá položka má být jedinečné, tudíž odpovídající jmenné řetězce budou považovány za homonyma. <strong>Upozornění: Neměňte tento atribut, pokud si nejste jisti statusem homonym v hierarchii, mohli byste tak ohrozit integritu dat.</strong>"
+        request_publish: Požádáno o zveřejnění
+        request_publish_more: Označuje, zda existuje čekající žádost o povýšení této hierarchie na jednu z primárních prohledávatelných hierarchií na EOL.
+      news_item: 
+        active: Zveřejněno
+        active_more: Zveřejněné zprávy budou veřejně viditelné ve zvolený den a čas. Pokud chcete zabránit běžným uživatelům v zobrazení verzí této stránky v libovolném jazyce, zrušte zaškrtnutí políčka <em>zvěřejněno</em> .
+        page_name: Jedinečný název <small>(pouze malé ISO alfanumerické znaky základní latinky a podtržítka)</small>
       open_authentication: 
         connect: Přidat
+        connected: Připojeno
       resource: 
         accesspoint_url: URL Datasetu
-        accesspoint_url_existing_remove: Tento zdroj je v současnosti zaváděn z URL, která končí <em>% {accesspoint_url}</em>. Nahrajte soubor, pokud chcete odebrat existující adresu URL a místo toho načíst zdroj ze souboru (není doporučeno).
+        accesspoint_url_existing_remove: Tento zdroj je v současnosti zaváděn z URL, která končí <em>%{accesspoint_url}</em>. Nahrajte soubor, pokud chcete odebrat existující adresu URL a místo toho načíst zdroj ze souboru (nedoporučuje se).
         administration_settings: Správa nastavení <small>(viditelné pouze správcům EOL)</small>
         dataset: Dataset
-        dataset_existing_remove: Soubor <em>% {název_souboru}</em> je v současné době spojen s tímto zdrojem. Zadejte adresu URL, pokud chcete nahradit stávající <em>% {název_souboru}</em> soubor a místo toho načíst zdroj z adresy URL doporučeno).
-        dataset_existing_replace: Soubor <em>% {název_souboru}</em> je v současné době spojen s tímto zdrojem. Nahrajte nový soubor, abyste nahradili stávající soubor <em>% {název_souboru}</em> .
+        dataset_existing_remove: Soubor <em>%{file_name}</em> je v současné době spojen s tímto zdrojem. Zadejte adresu URL, pokud chcete nahradit stávající <em>%{file_name}</em> soubor a místo toho načíst zdroj z adresy URL (doporučeno).
+        dataset_existing_replace: Soubor <em>%{file_name}</em> je v současné době spojen s tímto zdrojem. Nahrajte nový soubor, abyste nahradili stávající soubor <em>%{file_name}</em> .
         dwc_archive_url: "Pokud existuje archiv Darwin Core spojený s tímto zdrojem, zadejte adresu URL zde <small>(TAR.GZIP, TAR.GZ nebo pouze TGZ)</small>:"
         hierarchy: Hierarchie
         latest_harvest_event: Poslední sklizně
@@ -1151,7 +1214,7 @@ cs:
         curation_application: Staňte se kurátorem
         curation_application_more: Pokud chcete upravit kurátorská oprávnění, podejte si žádost a ověříme vaši způsobilost.
         curation_priveleges_credentials: Pověření <small>(pouze plní a hlavní kurátoři)</small>
-        curator_level: Nacházíte se v současné době % {curator_level_with_indefinite_article}.
+        curator_level: V současnosti jste %{curator_level_with_indefinite_article}.
         curator_scope: Rozsah kuratury
         curator_scope_more: "Uveďte rozsah svých znalostí. Například: \"Hlodavci Borneo\", \"Tri-trofické interakce\" nebo \"Problémy s konzervací ryb\". Toto neomezí vaši možnost vést projekty, ale informuje společenství EOL."
         email: E-mailová adresa
@@ -1305,6 +1368,14 @@ cs:
   item_type_video_assistive: Tato položka je video
   join_community_button: Přidat se k této komunitě
   join_eol_community_html: Staňte se součástí komunity <abbr title="Encyclopedia of Life">EOL</abbr>!
+  known_uris: 
+    add_a_relationship: Přidat vztah
+    equivalent_to: Vztahy ekvivalence
+    import_successful: Ontologické pojmy úspěšně importovány
+    more_than_one_field_mapped_to_type: K typu "%{type}" je přiřazen více než jeden atribut
+    no_results: Ke zvolené statistice nejsou žádné výsledky
+    please_select_field_types: Vyberte prosím přiřazení ke každému atributu
+    please_select_from_the_menu: Vyberte prosím z nabídky nahoře
   label: Popisek
   language: "Jazyk:"
   languages: Jazyky

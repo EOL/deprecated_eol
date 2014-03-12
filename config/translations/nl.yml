@@ -1,6 +1,7 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Arent
 # Author: B4bol4t
 # Author: Breghtje
 # Author: Carsrac
@@ -201,9 +202,9 @@ nl:
         label: Label
         request_publish: Verzoek publicatie
       known_uri: 
-        clade_exemplar: Gebruiken als exemplarisch taxonomische groepsbereik
+        clade_exemplar: Gebruiken als exemplarisch taxonomisch groepsbereik
         description: Beschrijving
-        exclude_from_exemplars: Uitsluiten van overzicht
+        exclude_from_exemplars: Weglaten in het overzicht
         group_by_clade: Gebruiken voor taxonomische groepsbereiken
         name: Naam
         toc_items: Categorieën
@@ -2478,7 +2479,7 @@ nl:
         min_placeholder: Voer een getal in
         min_placeholder_disabled: Bereik uitgeschakeld
         q: Specifieke waarde
-        q_placeholder: Voer een woord, zin of een aantal in
+        q_placeholder: Voer een woord, zin of getal in
         taxon_name: Taxongroep
         unit: Maateenheid
       eol_statistic: 
@@ -3864,7 +3865,6 @@ nl:
           meta_description_with_common_name_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit gegevens bij te dragen voor %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Welke gegevens hebben wetenschappers verzameld voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}? Berekenbare gegevens over %{scientific_name}, inclusief informatie over %{topics}.
           meta_keywords: "%{scientific_name} als ingedeeld door %{hierarchy_provider} berekenbare gegevens, informatie over %{scientific_name}"
-          meta_keywords_with_common_name: "%{preferred_common_name} als ingedeeld door %{hierarchy_provider} berekenbare gegevens"
           meta_title: Berekenbare gegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Berekenbare gegevens voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider} (%{scientific_name})
           tweet_text: Berekenbare gegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}

@@ -3895,7 +3895,6 @@ fr:
           meta_description_with_common_name_no_data: Aucune donnée calculable n’est disponible pour %{preferred_common_name} selon la classification de %{hierarchy_provider}, appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données pour %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collecté pour %{preferred_common_name} tel que classé selon %{hierarchy_provider} ? Données de trait à propos de %{scientific_name} comprenant des informations sur %{topics}.
           meta_keywords: données calculables de %{scientific_name} selon la classification de %{hierarchy_provider}, informations sur %{scientific_name}
-          meta_keywords_with_common_name: données calculables de %{preferred_common_name} selon la classification de %{hierarchy_provider}
           meta_title: Données de trait pour %{scientific_name} selon la classification de %{hierarchy_provider}
           meta_title_with_common_name: Données de trait pour %{preferred_common_name} selon la classification de %{hierarchy_provider} (%{scientific_name})
           tweet_text: Données de trait pour %{scientific_name} selon la classification de %{hierarchy_provider}

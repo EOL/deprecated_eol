@@ -10,6 +10,7 @@
 # Author: Pig1995z
 # Author: SteveR
 # Author: Ua2004
+# Author: Максим Підліснюк
 # Author: Тест
 uk: 
   0_1_or_2: 0, 1 або 2
@@ -1181,6 +1182,7 @@ uk:
   associated_with_map_header: На останній карті
   associated_with_sound_header: У останньому аудіо
   associated_with_video_header: У останньому відео
+  association_added_flash: Асоціацію додано. Це може зайняти декілька хвилин для оновлення сторінки(ок).
   association_hidden_for_taxa: 
     few: "Приховані для:"
     many: "Прихованих для:"
@@ -1498,7 +1500,10 @@ uk:
   contact_information: Контактна інформація
   contact_updated: Контакт оновлений
   contact_us: зв'язатися з нами
+  contact_us_functions: Зв'яжіться з нами - Функцій
   contact_us_link: Зв'язатися з нами
+  contact_us_submissions: Зв'яжіться з нами - Матеріали
+  contact_us_topics: Зв'яжіться з нами - Теми
   contacts: 
     errors: 
       message_not_sent: Вибачте, сталася помилка, ваше повідомлення невідправлено.
@@ -1729,6 +1734,7 @@ uk:
   correct_donation_message_with_link: Якщо цю інформацію визначено неправильно, будь ласка, <a href='%{link}'>поверніться назад</a> для внесення змін.
   could_not_find_collection_error: Вибачте, ця збірка не може бути знайдена.
   could_not_find_user: Ви вже не є членом цієї спільноти.
+  count: Кількість
   count_results_for_search_term: 
     few: "%{count} результати для <em>%{search_term}</em>"
     many: "%{count} результатів для <em>%{search_term}</em>"
@@ -3452,13 +3458,14 @@ uk:
         tweet_text: Люди, зацікавлені в %{scientific_name}
     data: 
       index: 
+        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> збирає записи даних із багатьох постачальників. Виберіть рядок для подробиць про запис або <a href="%{traitbank_search_path}">шукайте TraitBank</a>.
+        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> збирає записи даних із багатьох постачальників. Виберіть рядок для подробиць про запис або <a href="%{traitbank_search_path}">шукайте у %{taxon_name}</a>.
         hierarchy_entry: 
           meta_description: Фотографії, відео і аудіо %{scientific_name} прокласифіковані за %{hierarchy_provider}. Знайдіть зображення, фотографії, фільми і звуки %{scientific_name} у "Енциклопедії Життя".
           meta_description_no_data: Немає доступних обчислених даних для %{scientific_name} прокласифікованих за %{hierarchy_provider} в "Енциклопедії Життя". EOL запрошує вас внести дані для %{scientific_name}.
           meta_description_with_common_name_no_data: Немає доступних обчислених даних для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести дані для %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name} прокласифікованого за %{hierarchy_provider}? Характерні дані про %{scientific_name}, включаючи інформацію про %{topics}.
           meta_keywords: Обчислювані дані %{scientific_name} прокласифікованого за %{hierarchy_provider}, інформація про %{scientific_name}
-          meta_keywords_with_common_name: Обчислювані дані %{preferred_common_name} прокласифікованого за %{hierarchy_provider}
           meta_title: Характерні дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
           meta_title_with_common_name: Характерні дані для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} (%{scientific_name})
           tweet_text: Характерні дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
@@ -3880,7 +3887,12 @@ uk:
       complete_head: Завершити?
       created_head: Створено
       download: завантажити
+      empty: У вас немає завантажень. Ви можете <a href='%{data_search_url}'>шукати дані</a> і подати запит на завантаження результатів.
+      header_with_count: 
+        one: Завантаження даних
+        other: "%{count} Завантаження даних"
       index: 
+        meta_description: Завантаження даних на прохання %{user_full_name}.
         meta_title: Завантаження даних користувачем %{user_full_name}
         tweet_text: завантаження даних користувачем %{user_full_name}
       is_complete: Так

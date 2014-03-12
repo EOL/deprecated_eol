@@ -3939,7 +3939,6 @@ de:
           meta_description_with_common_name_no_data: Es sind keine kalkulierbaren Daten für %{preferred_common_name} (auch bekannt als %{scientific_name}), wie von %{hierarchy_provider} klassifiziert, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{preferred_common_name} (%{scientific_name}) beizusteuern.
           meta_description_with_common_name_with_topics: Welche Daten haben Wissenschaftler für %{preferred_common_name}, wie von %{hierarchy_provider} klassifiziert, gesammelt? Eigenschaftsdaten über %{scientific_name} einschließlich Informationen über %{topics}.
           meta_keywords: Kalkulierbare Daten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert, Informationen über %{scientific_name}
-          meta_keywords_with_common_name: Kalkulierbare Daten für %{preferred_common_name}, wie von %{hierarchy_provider} klassifiziert
           meta_title: Eigenschaftsdaten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert
           meta_title_with_common_name: Eigenschaftsdaten für %{preferred_common_name} (%{scientific_name}), wie von %{hierarchy_provider} klassifiziert
           tweet_text: Eigenschaftsdaten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert.

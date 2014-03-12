@@ -11,6 +11,7 @@
 # Author: Gianfranco
 # Author: Inskatolata
 # Author: Luigipiccoli
+# Author: Maria victoria
 # Author: Mishatk
 # Author: Nemo bis
 # Author: Ontsed
@@ -110,16 +111,16 @@ it:
       eol_statistic: 
         active_curators: Curatori attivi
         base_pages: Pagine base
-        collections_count: Collezioni
+        collections_count: raccolte
         communities_count: Comunità
         content_partners: Fornitori di contenuti
         content_partners_with_published_resources: Con risorse pubblicate
-        content_partners_with_published_trusted_resources: Con risorse pubblicate ed attendibili
+        content_partners_with_published_trusted_resources: Pubblicato con le risorse di fiducia
         created_at: Creato il
         curator_actions_in_the_last_30_days: Azioni del curatore negli ultimi 30 giorni
         curators: Curatori
         curators_assistant: Assistenti curatore
-        curators_full: Curatori completi
+        curators_full: " tutti i curatori"
         curators_master: Curatori master
         data_objects: Oggetti dati
         data_objects_images: Oggetti immagine
@@ -132,6 +133,8 @@ it:
         data_objects_untrusted: Oggetti dati non attendibili
         data_objects_videos: Oggetti video
         hotlist_pages: Pagine preferite
+        lifedesk_data_objects: LifeDesks dati elementi
+        lifedesk_taxa: LifeDesks taxa
         marine_pages: Pagine marine
         marine_pages_in_col: Pagine marine trovate in CoL
         marine_pages_with_objects: Pagine marine con elementi di dati
@@ -146,7 +149,7 @@ it:
         pages_with_BHL_links_only: Pagine con solo collegamento BHL
         pages_with_at_least_a_curatorial_action: Pagine con azione curatoriale
         pages_with_at_least_a_trusted_object: Pagine con oggetti attendibili
-        pages_with_content: Pagine con contenuto
+        pages_with_content: Pagine con testo
         pages_with_image: Pagine con immagini
         pages_with_image_no_text: Pagine con un immagine ma senza testo
         pages_with_map: Pagine con mappa
@@ -163,12 +166,17 @@ it:
         published_unreviewed_resources: Risorse pubblicate non revisionate
         redhotlist_pages: Pagine altamente preferite
         rich_hotlist_pages: Pagine preferite più ricche
+        rich_hotlist_pages_percentage: elenco completo percentuale pagine
         rich_pages: Pagine ricche di contenuti
         rich_redhotlist_pages: Pagine altamente preferite più ricche
+        rich_redhotlist_pages_percentage: elenco in rosso completo percentuale pagine
         total_association_types: Tipi di associazione
         total_associations: Associazioni
+        total_measurement_types: Tipi di misurazione
         total_measurements: Misurazioni
         total_occurrences: Occorrenze
+        total_taxa_with_data: Pagine con dati
+        total_triples: Triple
         total_user_added_data: Dati aggiunti dall'utente
         udo_published: Testo inviato da utenti
         udo_published_by_curators: Testo inviato da curatori
@@ -196,11 +204,20 @@ it:
         label: Etichetta
         request_publish: Richiesta di pubblicazione
       known_uri: 
+        clade_exemplar: Utilizzare come modello nella gamma Gruppo Tassonomico
         description: Descrizione
+        exclude_from_exemplars: esclude dalla visione
+        group_by_clade: Utilizzare per scelta del Gruppo Tassonomico
         name: Nome
         toc_items: Categorie
         uri: URI
         uri_type: Tipo di URI
+        value_is_text: I valori non saranno gli URI, solo testo
+      known_uri_relationship: 
+        from_known_uri_id: Oggetto URI
+        relationship_uri: Parentela
+        to_known_uri: URI di destinazione
+        to_known_uri_id: Target URI
       name: 
         string: Nome
       news_item: 
@@ -236,9 +253,17 @@ it:
         user_id: ID utente
         verified_at: Ultima verifica
       resource: 
+        accesspoint_url: Dataset URL
         auto_publish: Auto-pubblica
         bibliographic_citation: Citazione bibliografica
+        dataset: File DataSet
+        dataset_hosted_url: Fonte del set di dati (copia locale)
+        dataset_license_id: Licenza
+        dataset_rights_holder: Titolare dei diritti
+        dataset_rights_statement: Dichiarazione dei diritti
+        dataset_source_url: Origine Dei Dati
         description: Descrizione delle risorse
+        dwc_archive_url: Darwin Core Archivio URL
         harvest_events: Raccolta di eventi
         hierarchy: Gerarchia
         language_id: Lingua predefinita
@@ -288,6 +313,7 @@ it:
       user_added_data: 
         object: Valore
         predicate: Tratto
+        user: Aggiunto da
       user_added_data_metadata: 
         object: Valore
         predicate: Attributo
@@ -314,6 +340,8 @@ it:
           one: deve essere minore di %{count}
           other: devono essere minori di %{count}
         less_than_or_equal_to: deve essere minore o uguale a %{count}
+        models: 
+          inaccessible: è inaccessibile
         not_a_number: non è un numero
         not_an_integer: deve essere un numero intero
         odd: deve essere dispari
@@ -338,6 +366,18 @@ it:
             publish: 
               inclusion: è permesso solo per l'ultimo evento del raccolto, e solo se questo evento non è già stato pubblicato
         inaccessible: Il record potrebbe non salvarsi perchè non valido. Controllare gli errori di validazione e inviare nuovamente.
+        known_uri: 
+          attributes: 
+            uri: 
+              must_be_uri: deve essere ben formulato <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+        known_uri_relationship: 
+          attributes: 
+            relationship_uri: 
+              only_one_measurement: non ammessi - ci può essere solo una unità di misura predefinita
+            to_known_uri_id: 
+              must_be_different: deve essere diverso dal Soggetto URI
+              must_be_known_uri: deve essere un URI conosciuto
+              must_be_measurement: deve essere una unità di misura
         open_authentications: 
           guid_provider_must_be_unique: l'account di terze parti è già connesso con un account EOL
           provider_user_id_must_be_unique: solo un account da ciascun fornitore di terze parti può essere connesso ad un account EOL
@@ -353,6 +393,18 @@ it:
             dwc_archive_url: 
               inaccessible: è inaccessibile, l'URL deve essere accessibile al pubblico
               invalid: non è valido, deve puntare ad un file TAR.GZIP, TAR.GZ , TGZ o ZIP
+        user_added_data: 
+          attributes: 
+            predicate: 
+              must_be_uri: deve essere ben formulato <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: utilizzato uno spazio dei nomi che non è stato riconosciuto
+            subject: 
+              must_be_uri: deve essere ben formulato <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
+              namespace: utilizzato uno spazio dei nomi che non è stato riconosciuto
+        user_added_data_metadata: 
+          attributes: 
+            predicate: 
+              must_be_uri: deve essere ben formulato <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
       template: 
         body: "Convalida non riuscita per i seguenti campi:"
         header: 
@@ -1472,9 +1524,15 @@ it:
         logo_new: "Carica un nuovo logo:"
         notes: Note di progetto <small>(private)</small>
         oldest_published_harvest_event: Pubblicato la prima volta
+        public_more: " I profili pubblici del content partner,sono visibili a tutti ed informazioni sul partner sono incluse nela lista dei content partner. Deselezionare questa opzione per escludere i dettagli dei contenuti partner dall'elenco e limitare l'accesso al profilo, dall'utente che ha creato il contenuto partner e agli amministratori EOL."
         user_id: Dettagli sui contenuti dei partner sono gestiti da
+      content_partner_agreement: 
+        mou_url: Accordo del file URL <small>(alternativa opzionale)</small>
+      content_partner_contact: 
+        email_reports_frequency_hours_more: Rapporti e-mail vengono inviati solo se ci sono stati commenti o azioni del curatore sui suoi dati o sulle pagine taxon, rilevanti nell'insieme dei suoi dati.
       data_object: 
         bibliographic_citation: Citazione bibliografica
+        bibliographic_citation_more: Una citazione consigliata per questa informazione quale  riferimento bibliografico, include dettagli sufficienti per identificare i dati in maniera più chiara possibile.
         description: Testo <small>(alcuni tag HTML sono consentiti)</small>
         license_id: Licenza
         license_id_more: Leggi la <a href="%{policy_url}">politica sulla licenza EOL</a>
@@ -1483,6 +1541,7 @@ it:
         rights_holder: Detentore dei diritti
         rights_holder_more: Specificare una persona o un'organizzazione che sia proprietaria o che gestisca i diritti di questi dati. Se si lascia vuoto questo campo, assumeremo che tu sei il titolare dei diritti per tutte le licenze, eccetto il Dominio Pubblico. Il Dominio Pubblico non richiede un titolare dei diritti.
         rights_statement: Dichiarazione dei diritti
+        rights_statement_more: Dichiarazione di diritti di utilizzo, come richiesto dalla licenze Creative Commons Attribuzione (CC-BY), si prega di indicare attribuzione <q cite="http://creativecommons.org/licenses/by/3.0">nel modo specificato dall'autore o garante</q>.
         source_url: URL all'oggetto dati originale
         toc_item: Sottocapitolo
       data_object_link: 
@@ -1490,6 +1549,23 @@ it:
         link_type: Categoria
         source_url: Collegamento URL
         toc_item: Oggetto
+      data_search: 
+        attribute: Selezionare un attributo
+        max: Valore massimo
+        max_placeholder: Immettere un numero
+        max_placeholder_disabled: Scelta disabilitata
+        min: Valore più basso
+        min_placeholder: Immettere un numero
+        min_placeholder_disabled: Scelta disabilitata
+        q: Valore specifico
+        q_more: Per esempio, eterotrofi.
+        q_placeholder: Inserire una parola, una frase o un numero
+        q_placeholder_disabled: Scelta inserita, valore specifico disabilitato
+        taxon_name: Gruppo taxon
+        taxon_name_more: Ad esempio, immettere Trochilidae o balene e selezionare il gruppo corrispondente.
+        taxon_name_placeholder: Inserisci il nome del gruppo taxon per selezionare il gruppo
+        taxon_name_placeholder_value_removed: "%{taxon_group} rimosso, seleziona nuovo gruppo"
+        unit: Unità di misura
       eol_statistic: 
         date_one: Data
         date_two: Data

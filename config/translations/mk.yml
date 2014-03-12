@@ -1600,7 +1600,7 @@ mk:
   content_partner_overview_link: Преглед на соучесникот
   content_partner_overview_link_back_to: назад на преглед на соучесникот
   content_partner_profile_menu: Профил на соучесникот
-  content_partner_public_false: Приватен
+  content_partner_public_false: Личен
   content_partner_public_true: Јавен
   content_partner_registered_time_ago: Регистриран пред %{time_passed};
   content_partner_reports: Извештаи за соучесникот
@@ -2123,7 +2123,7 @@ mk:
   edit_upload: Уреди подигнато
   edit_user_details_instructions: "Подолу уредете ги корисничките подробности. На корисников можете да му испратите порака од самиот систем: подолу стиснете на „прикажи поле за е-пошта“ и напишете ја содржината на пораката. Внесете нова лозинка само ако сакате да ја смените постоечката, инаку оставете го полето празно."
   edit_username: Уреди %{username}
-  edit_web_users: уреди интернет-корисници
+  edit_web_users: уреди семрежни корисници
   edited_colon: "уредено:"
   editors_tab_label: Раководители
   email: Е-пошта
@@ -2471,7 +2471,7 @@ mk:
       content_partner: 
         created_at: Регистриран
         current_agreement: Тековен договор
-        description_of_data: Опис на податоците <small>(приватно)</small>
+        description_of_data: Опис на податоците <small>(лично)</small>
         description_of_data_more: Наведете со кој тип на информации располагате, колку објекти имате и на кои организми се однесуваат. Исто така наведете дали тие се собрани или проверени од стручни лица или стручна заедница.
         display_name: Име за приказ <small>(незадолжително)</small>
         display_name_more: Наведете алтернативно јавно видливо име за употреба наместо вашето <em>Име на проектот</em>.
@@ -2479,7 +2479,7 @@ mk:
         latest_published_harvest_event: Последно објавен
         logo_current: "Тековно лого:"
         logo_new: "Подигни ново лого:"
-        notes: Белешки за проектот <small>(приватно)</small>
+        notes: Белешки за проектот <small>(лично)</small>
         oldest_published_harvest_event: Првично објавен
         public_more: Јавните профили на соучесниците во содржините се видливи за секого. Информации за секој соучесник ќе најдете во списокот на соучесници. Отштиклирајте го ова ако сакате да нема подробности во списокот и да го ограничите пристапот до профилот корисникот, т.е. да може да пристапи само оној што го создал соучесникот и администраторите на EOL.
         user_id: "Со подробностите за соучесникот раководи:"
@@ -3929,7 +3929,6 @@ mk:
           meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема на располагање пресметливи податоци за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}. EOL ве поканува да придонесете со ваши податоци за %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Какви сè податоци собрале научниците за %{preferred_common_name} според класификацијата на %{hierarchy_provider}? Податоци за одлики на %{scientific_name}, меѓу кои и информации за %{topics}.
           meta_keywords: пресметливи податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}, информации за %{scientific_name}
-          meta_keywords_with_common_name: пресметливи податоци за %{preferred_common_name} според класификацијата на %{hierarchy_provider}
           meta_title: Податоци за одлики на %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Податоци за одлики на %{preferred_common_name} според класификацијата на %{hierarchy_provider} (%{scientific_name})
           tweet_text: Податоци за одлики на %{scientific_name} според класификацијата на %{hierarchy_provider}
@@ -4443,7 +4442,7 @@ mk:
     submit_data: поднеси податочна вредност
     update_failed: "Не можам да ги изменам податоците: %{errors}"
     update_successful: Податоците се успешно изменети
-  user_agent: Кориснички агент
+  user_agent: Кориснички извршител
   user_already_active_notice: Вашата сметка е веќе активна. Најавете се.
   user_comment: Кориснички коментар
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> коментираше на страницата на корисник што е отстранет:"
@@ -4455,7 +4454,7 @@ mk:
   user_comments: Кориснички коментари
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: Корисничка назнака
-  user_index_intro: Сите интернет-корисници регистрирани на системот се прикажани подолу, подредени по обратен редослед на регистрација. Имајте предвид дека датумите на регистрациите направени пред EOL вер. 2 (5 јануари 2009) се недостапнио. Стиснете на корисничко име за да го уредите тој корисник.
+  user_index_intro: Сите семрежни корисници регистрирани на системот се прикажани подолу, подредени по обратен редослед на регистрација. Имајте предвид дека датумите на регистрациите направени пред EOL вер. 2 (5 јануари 2009) се недостапнио. Стиснете на корисничко име за да го уредите тој корисник.
   user_joined_community_on_date: "%{username} ѝ се придружи оваа заедница на %{date}."
   user_joined_when: „%{user}“ се зачлени %{when}
   user_left_comment_on_date: "%{username} напиша коментар на %{date}."
@@ -4736,7 +4735,7 @@ mk:
   watch_list: Набљудувања
   watch_list_newsfeed: Канал на списокот на набљудувања
   web_service_base_url: Основна URL-адреса на мреж. служб.
-  web_users: Интернет-корисници
+  web_users: Семрежни корисници
   weekly: Неделно
   welcome: Добредојдовте
   welcome_and_you_were_logged_out: Добредојдовте на новата EOL! Се појави проблем со вашето најавување, па затоа ве одјавивме. Но старите податоци за најава би требало да работат следниот пат. Се извинуваме!

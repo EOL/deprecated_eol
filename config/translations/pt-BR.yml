@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Alcali
+# Author: Anaclaudiaml
 # Author: Dianakc
 # Author: Elival
 # Author: Giro720
@@ -189,12 +190,15 @@ pt-BR:
         label: Rótulo
         request_publish: Solicitar a publicação
       known_uri: 
+        clade_exemplar: Usar como modelo de classificação para Grupo Taxonômico
         description: Descrição
-        exclude_from_exemplars: Excluir dos Fatos Rápidos
+        exclude_from_exemplars: Excluir da Visão Global
+        group_by_clade: Usar para Grupos de Classe Taxonômica
         name: Nome
         toc_items: Categorias
         uri: URI
         uri_type: Tipo de URI
+        value_is_text: Os valores não serão URLs, somente texto
       known_uri_relationship: 
         from_known_uri_id: URI tema
         relationship_uri: URI de relacionamento
@@ -294,7 +298,7 @@ pt-BR:
         username: Nome de usuário
       user_added_data: 
         object: Valor
-        predicate: Atributo
+        predicate: Traço
         user: Adicionado por
       user_added_data_metadata: 
         object: Valor
@@ -2280,6 +2284,7 @@ pt-BR:
         published_at: Publicado
         published_status: Estado
       hierarchy: 
+        browsable_more: Verificar a navegabilidade para prover esta hierarquia para se tornar uma das primárias hierarquias navagaveis no EOL.
         browsable_status_with_colon: "Estado navegável:"
         complete: Curadoria
         complete_more: "A hierarquia de curadoria assume que cada entrada se destina a ser única, ou seja, sequências correspondentes de nomes serão tratados como homônimos. <strong>Aviso: não altere este atributo menos que você esteja Un certain do estado de homônimos na hierarquia, isso poderia comprometer a integridade dos dados.</strong>"
@@ -2321,12 +2326,14 @@ pt-BR:
         active_translation_more: Traduções publicadas serão publicamente visíveis, a menos que a própria página seja inédita. Desmarque <em>publicado</em> se você quiser impedir que usuários em geral vejam esta versão da página.
         language_id: Língua
         left_content_more: "(Opcional) Adicionar uma lista não-ordenada de links de navegação. Use o nome da classe <code>active</code> para destacar o link da página atual, ou seja, <code>&lt;li class=\"active\"&gt;&lt;a href=\"/info/:id\"&gt;:title&lt;/a&gt;&lt;/li&gt;</code> onde <code>:id</code> é o ID da página atual ou o nome único e <code>:title</code> é o título descritivo da página (<strong>Nota: Todos os links para páginas EOL CMS deve começar com uma barra: <code>/info/:id</code></strong>). Para fazer essas alterações você precisará editar o código-fonte HTML diretamente, faça isso selecionando <em>Fonte</em> na barra de ferramentas do editor."
+        main_content_more: "Entre o conteúdo da página principal no áera do corpo. Use o <em>Formato</em> menu para selecionar os elementos de texto semânticos apropriados, escolha por exemplo <em>Cabeçalho 2</em> para um segundo nível de cabeçalho. Observe: <em>Cabeçalho 1</em> é reservado para o título da página, então cabeçalhos dentro da área do corpo começam com <em>Cabeçalho 2</em>. Selecione <em>Fonte</em> para selecionar o modo de exibição que permite a você manualmente inserir e edit HTML."
         meta_description_more: Forneça uma breve descrição, resumindo os conceitos-chave do conteúdo da página. Esta descrição é por vezes utilizada pelos motores de busca da Web quer para verificar a relevância como para listar nos resultados de pesquisas.
         meta_keywords_more: Escreva uma lista separada por vírgulas de palavras e frases curtas que melhor reflitam o conteúdo da página. Essas palavras-chave e conceitos-chave são por vezes usados por motores de busca da Web para avaliar a relevância da página em relação aos termos de pesquisa.
         title_more: O título deste conteúdo aparecerá na área de cabeçalho da página. O título deve incluir palavras-chave mais relevantes para o conteúdo.
       translated_news_item: 
         active_translation: Publicado
         active_translation_more: Traduções publicadas estarão visíveis publicamente, a menos que a própria notícia é inédita. Desmarque <em>publicado</em> se você quiser impedir que usuários em geral de ver esta versão da notícia.
+        body_more: "Insira os novos itens de conteúdo na área do corpo. Use o <em>Formato</em> menu para selecionar os elementos de textos semânticos apropriados, escolhe por exemplo <em>Cabeçalho 2</em>para um segundo nível de cabeçalho. Observe: <em>Cabeçalho 1</em> é reservado para novos itens no título, então cabeçalhos na área do corpo começam com <em>Cabeçalho 2</em>. Selecione <em>Fonte</em> para alterar para o modo de exibição de código HTML que permite a você manualmente inserir e aditar HTML."
         language_id: Língua
         meta_description_more: Forneça uma breve descrição, resumindo os conceitos-chave do conteúdo da notícia. Esta descrição é por vezes utilizada pelos motores de busca da Web, tanto para verificar a relevância e a lista de resultados de pesquisas.
         meta_keywords_more: Digite uma lista separada por vírgulas de palavras e frases curtas que melhor refletem o conteúdo da notícia. Essas palavras-chave e frases são por vezes utilizada pelos motores de busca da Web para avaliar a relevância da notícia contra os termos de pesquisa.
@@ -2344,6 +2351,7 @@ pt-BR:
         credentials_more_successful_assistant_curator: História de sucesso como um curador adjunto.
         curation_application: Torne-se um curador
         curation_application_more: Se gostaria de modificar os seus privilégios de curadoria, basta apresentar um pedido e reveremos a sua elegibilidade.
+        curation_priveleges_credentials: Credenciais <small>(apenas curadores completos e mestres)</small>
         curator_level: Você está atualmente %{curator_level_with_indefinite_article}.
         curator_scope: âmbito de curadoria
         curator_scope_more: "Por favor indique o âmbito da sua competência. Por exemplo: \"Roedores de Bornéu\", \"Interações tri-tróficas\" ou \"Problemas de conservação nos peixes\". Isto não irá limitar a sua capacidade de curadoria, mas será informativo para a comunidade EOL."
@@ -2654,6 +2662,11 @@ pt-BR:
       questions_link_model_organism: O que é um organismo modelo?
       questions_link_naming_species: Como são chamadas as espécies?
       questions_link_species: O que é uma espécie?
+    data_search: 
+      page_header: Procure TraitBanks
+      page_header_results: Resultados da pesquisa TraitBank
+    taxa: 
+      search_traitbank: Pesquisa Traitbank
   learn_about_collections: Como posso criar uma?
   learn_about_communities: Como posso participar?
   learn_about_content_partners: Como eu posso me tornar um?
@@ -2948,11 +2961,13 @@ pt-BR:
       subject: Usuário EOL %{user_full_name} adicionou novo recurso %{resource_title} para conteúdo de parceiro %{partner_full_name}
     content_partner_resource_force_harvest_request: 
       message: "Esta é uma notificação do sistema EOL automatizado para as páginas de grupo de espécies. O usuário %{user_full_name} adicionou um novo recurso %{resource_title} para conteúdo de parceiro %{partner_full_name}, detalhes a seguir:\n\nUsuário: %{user_full_name}\nE-mail: %{user_email}\nURL do perfil: %{user_profile_url}\n\nParceiro: %{partner_full_name}\nURL do parceiro de recursos: %{partner_resources_url}\n\nRecurso: %{resource_title}\nURL do recurso: %{resource_url}\nAtualizado: %{resource_updated_at_date}\nEstado: %{resource_status}"
+      subject: Usuário EOL %{user_full_name} solicitou uma promoção na hierarquia para o recurso %{resource_title} pertencente ao parceiro de conteúdo %{partner_full_name}
     content_partner_resource_hierarchy_publish_request: 
       message: "Esta é uma notificação do sistema automatizado EOL para as páginas grupo de espécies. Usuário %{user_full_name} solicitou que uma hierarquia associada com recurso %{resource_title}, pertencente ao parceiro de conteúdo %{partner_full_name}, ser promovido (publicado) a uma hierarquia navegável em EOL, detalhes a seguir:\n\nUsuário: %{user_full_name}\nE-mail: %{user_email}\nURL do perfil: %{user_profile_url}\n\nParceiro: %{partner_full_name}\nURL do Parceiro de Recurso: %{partner_resources_url}\n\nRecurso: %{resource_title}\nURL do recurso: %{resource_url}\nURL para editar a hierarquia: %{hierarchy_edit_url}"
       subject: Usuário EOL %{user_full_name} solicitou uma promoção na hierarquia para o recurso %{resource_title} pertencente ao parceiro de conteúdo %{partner_full_name}
     content_partner_statistics_reminder: 
       message: Este é um lembrete de e-mail automatizado da Enciclopédia da Vida. Estatísticas de utilização da Web para dados fornecidos a EOL por %{partner_full_name} durante %{month} %{year} estão agora disponíveis em %{partner_statistics_url}.
+      subject: Relatório de estatísticas de uso da Enciclopédia da Vida %{partner_full_name}, %{month} %{year}
     curator_approved: 
       message: "Obrigado por solicitar privilégios de curador %{curator_level}. O seu pedido foi aprovado.\n\nPara mais informações sobre as funções de curadoria e que estão disponíveis para você, visite http://eol.org/curators."
       subject: Foi aprovado para uso privilégios de curador %{curator_level} da Enciclopédia da Vida
@@ -3161,6 +3176,11 @@ pt-BR:
     see_all_activity: Veja toda a atividade anterior em <a href='%{activity_url}' style='color:#195184'>sua página de usuário e feed de notícias</a>.
     someone_commented_on_something: <b>%{who}</b> comentou sobre <b>%{what}</b>.
     unsubscribe: Login e alterar as configurações de e-mail em <a href='%{email_prefs_url}' style='color:#195184'>sua página de preferências de notificação</a> or <a href='%{unsubscribe_url}' style='color:#195184'>cancelar a inscrição de todas as notificações EOL automatizadas sem login</a>.
+  recent_activity_mailer: 
+    data_search_file_download_ready: 
+      header: O seu download está pronto!
+      message: Você pode ver este e outros downloads visitando a <a href='%{download_link}'>aba de downloads no seu perfil</a>.
+      subject: Sua pesquisa EOL está pronta para baixar
   recent_updates: Atualizações recentes
   recently_visited: Visitei recentemente
   recipients: Destinatários
@@ -3352,9 +3372,19 @@ pt-BR:
         tweet_text: Pessoas interessadas em %{scientific_name}
     data: 
       index: 
+        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> Reúne os registros de dados de diversos provedores. Selecione uma linha para mais detalhes sobre os registros, ou<a href="%{traitbank_search_path}">Pesquisa TraitBank</a>.
+        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> Reúne os registros dos dados de provedores diversos. Selecione uma linha para mais detalhes sobre os registros, ou <a href="%{traitbank_search_path}">buscar dentro de %{taxon_name}</a>.
         hierarchy_entry: 
           meta_description: Fotos, vídeos e áudios de %{scientific_name} classificados por %{hierarchy_provider}. Procurar imagens, fotos, filmes e sons de %{scientific_name} na Enciclopédia da Vida.
-          meta_title: Dados computáveis de %{scientific_name} classificados por %{hierarchy_provider}
+          meta_description_no_data: Não há dados computáveis disponíveis para %{scientific_name} classificados por %{hierarchy_provider} na Enciclopédia da Vida. EOl convida você a contribuir com dados para %{scientific_name}.
+          meta_description_with_common_name_with_topics: Que dados foram coletados pelos cientistas para %{preferred_common_name} classificados por %{hierarchy_provider}? Traço de dados sobre %{scientific_name}incluindo informação sobre %{topics}.
+          meta_keywords: "%{scientific_name} conhecido por %{hierarchy_provider}dados computáveis, informações sobre %{scientific_name}"
+          meta_title: Fatos sobre %{scientific_name} classificada por %{hierarchy_provider}
+          tweet_text: Estatísticas sobre %{scientific_name} como classificada por %{hierarchy_provider}
+        meta_description: Fotos, vídeos e áudios de %{scientific_name}. Procurar imagens, fotos, filmes e sons de %{scientific_name} na Enciclopédia da Vida.
+        meta_description_no_data: Nenhuma informação geográfica está disponível de %{scientific_name} na Enciclopédia da Vida. EOL convida você a contribuir para mapas de %{scientific_name}.
+        meta_keywords: "%{scientific_name} dados computaveis, informações sobre %{scientific_name}"
+        meta_keywords_with_common_name: "%{preferred_common_name} dados computáveis"
         tweet_text: Dados computáveis de %{scientific_name}
     details: 
       index: 
@@ -3439,12 +3469,15 @@ pt-BR:
     names: 
       common_names: 
         hierarchy_entry: 
+          meta_description: Antigos nomes associados com %{scientific_name} classificado por %{hierarchy_provider}.
+          meta_description_with_common_name: Um nome antigo para %{scientific_name}é %{preferred_common_name}. Encontre  quais outros nomes antigos estão associados com %{scientific_name} classificado por %{hierarchy_provider}.
           meta_keywords: Nomes vernaculares de %{scientific_name}
           meta_keywords_with_common_name: Nome científico de %{preferred_common_name}, Nomes vernaculares de %{scientific_name}
           meta_title: Nomes vernaculares de %{scientific_name} como classificada por %{hierarchy_provider}
           meta_title_with_common_name: Nomes vernaculares de %{preferred_common_name} (%{scientific_name} como classificada por %{hierarchy_provider})
           tweet_text: Nomes comuns de %{scientific_name} como classificada por %{hierarchy_provider}
         meta_description: Nomes comuns para %{scientific_name}.
+        meta_description_with_common_name: O nome científico para %{preferred_common_name} é %{scientific_name}. Descubra quais outros nomes comuns para %{scientific_name} são.
         meta_keywords: Nomes comuns para %{scientific_name}
         meta_keywords_with_common_name: Nomes comuns para %{scientific_name}, Nome científico para %{preferred_common_name}
         meta_title: Nomes comuns para %{scientific_name}
@@ -3452,8 +3485,13 @@ pt-BR:
         tweet_text: Nomes comuns para %{scientific_name}
       index: 
         hierarchy_entry: 
+          meta_description: Taxonomias e nomes científicos para %{scientific_name} classificado por %{hierarchy_provider}.
+          meta_description_with_common_name: Tazonomias e nomes científicos para os %{preferred_common_name}, também chamados de %{scientific_name} classificados por %{hierarchy_provider}.
           tweet_text: Nomes relacionados com %{scientific_name} como classificada por %{hierarchy_provider}
         meta_description: Taxonomias e nomes científicos de %{scientific_name}. Classificações biológicas e nomes relacionados ao %{scientific_name}.
+        meta_description_with_common_name: Taxonomias, classificação biológica e nomes científicos para os %{preferred_common_name},também chamados %{scientific_name}.Classificações Biológicas  e nomes relacionados a%{preferred_common_name}.
+        meta_title: Informação Taxonômica para %{scientific_name} - Classificações Biológicas e Nomes
+        meta_title_with_common_name: Informações Taxonômicas para %{preferred_common_name} (%{scientific_name}) - Classificações Biológicas e Nomes
         tweet_text: Informações taxonômica sobre %{scientific_name}
       synonyms: 
         hierarchy_entry: 
@@ -3462,6 +3500,7 @@ pt-BR:
           meta_keywords: Sinônimos de %{scientific_name}
           meta_keywords_with_common_name: Sinônimos de %{preferred_common_name}, Sinônimos de %{scientific_name}
           meta_title: Sinônimos de %{scientific_name} como classificada por %{hierarchy_provider}
+          meta_title_with_common_name: "%{preferred_common_name} Sinônimos (%{scientific_name} classificados por %{hierarchy_provider})"
           tweet_text: Sinônimos de %{scientific_name} como classificada por %{hierarchy_provider}
         meta_description: Sinônimos de %{scientific_name}.
         meta_description_with_common_name: Sinônimos de %{preferred_common_name}, cientificamente conhecido como %{scientific_name}.
@@ -3515,6 +3554,14 @@ pt-BR:
         hierarchy_entry: 
           meta_description: Lista de provedores e dados de origem de %{scientific_name} como classificada por %{hierarchy_provider}.
           meta_description_with_common_name: Lista de provedores e dados de origem de %{preferred_common_name} (%{scientific_name} como classificada por %{hierarchy_provider}).
+          meta_keywords: "%{scientific_name} provedores de dados, %{scientific_name} fonte de dados"
+          meta_keywords_with_common_name: "%{preferred_common_name} provedores de dados, %{preferred_common_name} fonte de dados, %{scientific_name} provedores de dados, %{scientific_name} fonte de dados"
+          meta_title: Provedores de dados para %{scientific_name} classificado por %{hierarchy_provider}
+          meta_title_with_common_name: Provedores de dados para %{preferred_common_name} classificados por %{hierarchy_provider}
+          tweet_text: Provedores de dados para %{scientific_name} classificado por %{hierarchy_provider}
+        meta_description: "%{scientific_name} fontes e citações de parceiros."
+        meta_description_with_common_name: "%{preferred_common_name} fontes e citações de parceiros para %{scientific_name}."
+        meta_keywords: "%{scientific_name} fontes, %{scientific_name} provedores de conteúdo"
         meta_title: Recursos de conteúdo sobre %{scientific_name}
         meta_title_with_common_name: Recursos de conteúdo sobre %{preferred_common_name} (%{scientific_name})
         tweet_text: Recursos de conteúdo sobre %{scientific_name}

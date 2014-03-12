@@ -52,7 +52,7 @@ pt:
         name: Nome da comunidade
       contact: 
         comments: Mensagem
-        contact_subject_id: Assunto da contactação
+        contact_subject_id: Assunto do contacto
         email: E-mail
         name: Nome
       content_page: 
@@ -100,7 +100,7 @@ pt:
         content_partners_with_published_resources: Com recursos publicados
         content_partners_with_published_trusted_resources: Com recursos publicados confiáveis
         created_at: Criado em
-        curator_actions_in_the_last_30_days: Ações do curador nos últimos 30 dias
+        curator_actions_in_the_last_30_days: Ações de curadores nos últimos 30 dias
         curators: Curadores
         curators_assistant: Curadores Assistentes
         curators_full: Curadores Plenos
@@ -124,11 +124,11 @@ pt:
         marine_pages_with_objects_vetted: Páginas marinhas com objetos de dados confiáveis
         members_count: Membros
         newly_published_resources_in_the_last_30_days: Recém publicado no último mês
-        objects_curated_in_the_last_30_days: Objetos curados nos últimos 30 dias
+        objects_curated_in_the_last_30_days: Objetos com curadoria nos últimos 30 dias
         pages_count: Número total de páginas
         pages_curated_by_active_curators: Páginas com curadoria de curadores ativos
         pages_with_BHL_links: Páginas com ligações à BHL
-        pages_with_BHL_links_no_text: Páginas sem texto com ligações à BHL
+        pages_with_BHL_links_no_text: Páginas com ligações à BHL mas sem texto
         pages_with_BHL_links_only: Páginas com ligações à BHL apenas
         pages_with_at_least_a_curatorial_action: Páginas com ação curatorial
         pages_with_at_least_a_trusted_object: Páginas com objeto de confiança
@@ -188,7 +188,7 @@ pt:
         request_publish: Solicitar publicação
       known_uri: 
         description: Descrição
-        exclude_from_exemplars: Excluir de Factos Rápidos
+        exclude_from_exemplars: Excluir da Visão geral
         name: Nome
         toc_items: Categorias
         uri: URI
@@ -289,10 +289,10 @@ pt:
         permissions: Permissões
         requested_curator_level_id: Nível desejado de curadoria
         tag_line: Lema
-        username: Nome de usuário
+        username: Nome de utilizador
       user_added_data: 
         object: Valor
-        predicate: Atributo
+        predicate: Traço
         user: Adicionado por
       user_added_data_metadata: 
         object: Valor
@@ -351,7 +351,7 @@ pt:
         known_uri_relationship: 
           attributes: 
             relationship_uri: 
-              only_one_measurement: não permitido - só pode haver uma unidade de medida
+              only_one_measurement: não permitido - só pode haver uma unidade padrão
             to_known_uri_id: 
               must_be_different: deve ser diferente do URI do Sujeito
               must_be_known_uri: deve ser um URI Conhecido
@@ -364,13 +364,13 @@ pt:
             accesspoint_url: 
               blank: não pode ficar em branco, a menos que carregue um arquivo de recurso em vez
               inaccessible: é inacessível, o URL deve ser acessível ao público
-              invalid: é inválido, deveria ser um XML, XML.GZIP, XML.GZ ou arquivo ZIP
+              invalid: é inválido, deveria ser um ficheiro XML, XML.GZIP, XML.GZ ou ZIP
             dataset: 
               blank: não pode estar em branco a não ser que em vez forneça um URL do conjunto de dados
-              wrong_type: é o tipo errado, deveria ser um GZIP, TAR, ZIP ou arquivo XML
+              wrong_type: é o tipo errado, deveria ser um ficheiro GZIP, TAR, ZIP ou XML
             dwc_archive_url: 
               inaccessible: é inacessível, o URL deve ser acessível ao público
-              invalid: é inválido, deveria ser um TAR.GZIP, TAR.GZ, TGZ ou arquivo ZIP
+              invalid: é inválido, deveria ser um ficheiro TAR.GZIP, TAR.GZ, TGZ ou ZIP
         user_added_data: 
           attributes: 
             predicate: 
@@ -553,11 +553,11 @@ pt:
   assistive_taxon_community_header: Comunidade
   assistive_updates_header: Atualizações
   associated_submit_button: associado
-  associated_with_article_header: Associado com
+  associated_with_article_header: No mais recente artigo
   associated_with_header: Associado com
-  associated_with_image_header: Nesta imagem
-  associated_with_sound_header: Associado com
-  associated_with_video_header: Neste vídeo
+  associated_with_image_header: Na mais recente imagem
+  associated_with_sound_header: No mais recente áudio
+  associated_with_video_header: No mais recente vídeo
   associations_more_link: mais <span class="assistive">associações de taxon</span>
   attribute: Atributo
   audio_current_time_assistive: Com JavaScript habilitado, isto indicará a atual posição de reprodução do ficheiro de áudio em minutos e segundos.
@@ -726,7 +726,7 @@ pt:
     other: "%{count} Contribuições"
   community_destroyed: Eliminou esta comunidade. Ela não aparecerá mais em páginas taxonómicas ou em pesquisas.
   community_empty_notice: Esta comunidade não tem membros.
-  community_focus: Foco de comunidade
+  community_focus: Coleções geridas
   community_focus_items_with_count: 
     one: "%{count} item"
     other: "%{count} itens"
@@ -798,7 +798,7 @@ pt:
   content_partner_has_unpublished_content_false: Nenhum conteúdo não publicado
   content_partner_has_unpublished_content_true: Conteúdo não publicado
   content_partner_homepage_link: Visite o site parceiro
-  content_partner_latest_published_harvest_event_time_ago: Colhido pela última vez há %{time_passed}
+  content_partner_latest_published_harvest_event_time_ago: Atualizada há %{time_passed} atrás;
   content_partner_logo_alt_text: Logótipo do parceiro de conteúdo %{partner_name}
   content_partner_managed_by_header: Gerido por
   content_partner_new_edit_form_profile_header: Informações de perfil do parceiro de conteúdo
@@ -813,7 +813,7 @@ pt:
   content_partner_overview_link_back_to: voltar à visão geral do parceiro
   content_partner_public_false: Privado
   content_partner_public_true: Público
-  content_partner_registered_time_ago: Registado há %{time_passed}
+  content_partner_registered_time_ago: Registado há %{time_passed} atrás;
   content_partner_resource_about_header: Sobre o recurso
   content_partner_resource_auto_publish_false: Não
   content_partner_resource_auto_publish_true: Sim
@@ -1039,7 +1039,7 @@ pt:
   dato_new_text_for_taxon_page_title: Adicionar um artigo a <i>%{taxon}</i>
   dato_new_text_page_description: Obrigado por contribuir para a EOL. O seu artigo será adicionado à sua Lista de Vigilância para que possa acompanhar qualquer conversa relacionada a ele e verificar o seu estado de curadoria.
   dato_update_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser atualizado.
-  dato_update_users_text_not_owner_exception: Não é possível actualizar o texto DataObject de que o utilizador actual não seja dono
+  dato_update_users_text_not_owner_exception: Somente o autor original do conteúdo deste texto pode editá-lo.
   default: Por defeito
   default_focus_collection_name_from_community: Foco de %{name}
   default_watch_collection_name: Páginas vigiadas por %{username}
@@ -1060,7 +1060,7 @@ pt:
   did_you_mean: "Você quis dizer: %{suggestions} ?"
   disabled_for_now: DESABILITADO POR AGORA
   discover_link: Descobrir
-  donation_amount_legend: Escolha a quantidade que gostaria de doar
+  donation_amount_legend: Quanto gostaria de contribuir hoje?
   donation_amount_other_label: Outro
   donation_confirmation: Confirmação de doação
   donation_error_no_amount: Por favor, selecione um valor de doação.
@@ -1074,7 +1074,7 @@ pt:
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Itens duplicados foram ignorados.
   each_method_documentation_page_has_formatted_responses: A página de documentação de cada método tem um exemplo de respostas formatadas quer em XML como em JSON.
-  edit: Editar
+  edit: editar
   edit_collection_details: Editar detalhes da coleção
   edit_collection_details_header: Editar detalhes da coleção
   edit_comment: Editar comentário
@@ -1154,7 +1154,7 @@ pt:
   false_label: Falso
   family_name_colon: "Apelido:"
   feedback: Comentários
-  file: Arquivo
+  file: Ficheiro
   file_id: ID do arquivo
   file_size: Tamanho do arquivo
   fill_in_a_message_below_to_send_email_to_user: "Preencha a mensagem abaixo para mandar um e-mail a este usuário a partir do site. A mensagem será enviada quando enviar o formulário:"
@@ -1881,7 +1881,7 @@ pt:
   punctuation_comma: ","
   punctuation_semi_colon: ;
   recent_activity: 
-    intro_immediately: Olá, % {nome} —
+    intro_immediately: Olá, %{name} -
   references_cabs_colon: "Referências:"
   remove: Remover
   reply: Responder
@@ -1972,7 +1972,9 @@ pt:
   us_dollars_35: 35$ US
   us_dollars_50: 50$ US
   user: Utilizador
-  user_activity_stats_articles_added: Artigos adicionados
+  user_activity_stats_articles_added: 
+    one: "%{count} artigo adicionado"
+    other: "%{count} artigos adicionados"
   user_activity_stats_articles_added_dropdown: Artigos adicionados
   user_activity_stats_header: Atividade
   user_activity_stats_objects_curated: Objectos curados

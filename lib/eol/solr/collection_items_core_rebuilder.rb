@@ -212,8 +212,11 @@ module EOL
             'date_modified'       => updated_at,
             'title'               => SolrAPI.text_filter(title),
             'richness_score'      => richness_score,
-            'data_rating'         => data_object_rating,
-            'sort_field'          => SolrAPI.text_filter(sort_field) }
+            'data_rating'         => data_object_rating
+          }
+          # Don't even add the sort field unless it has something in it; it MUST be *missing* in order to sort last.
+          # TODO - try passing nil if it's blank, perhaps that's enough for it to be missing.
+          self.objects_to_send_to_solr.last['sort_field'] = SolrAPI.text_filter(sort_field) unless sort_field.blank?
           collection_ids_added[collection_item_id] = true
         end
       end

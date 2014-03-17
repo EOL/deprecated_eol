@@ -590,12 +590,21 @@ ActiveRecord::Base.transaction do
   EOL::Data.rebuild_collection_type_nested_set
   EOL::Data.flatten_hierarchies
 
-  begin
-    DataObject.connection.execute("UPDATE data_objects SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")
-  rescue ActiveRecord::StatementInvalid # Because DST can create hours that don't exist.  Yes, really.
-    DataObject.connection.execute("UPDATE data_objects SET updated_at = DATE_SUB(DATE_SUB(NOW(), INTERVAL id HOUR), INTERVAL 1 WEEK)")
+  # NOTE - don't use DATE_SUB in MySQL.  It's retarded when it comes to DST.  This is never run in prod, so...
+  DataObject.all.each do |dato|
+    begin
+      dato.update_attribute(:updated_at, dato.id.hours.ago) 
+    rescue ActiveRecord::StatementInvalid
+      dato.update_attribute(:updated_at, (dato.id + 2).hours.ago) 
+    end
   end
-  Comment.connection.execute("UPDATE comments SET updated_at = DATE_SUB(NOW(), INTERVAL id HOUR)")
+  Comment.all.each do |comment|
+    begin
+      comment.update_attribute(:updated_at, comment.id.hours.ago)
+    rescue ActiveRecord::StatementInvalid
+      comment.update_attribute(:updated_at, (comment.id + 2).hours.ago)
+    end
+  end
 
   (-12..12).each do |n|
     date = n.month.ago

@@ -14,6 +14,12 @@ class ContentUpload < ActiveRecord::Base
     url: $CONTENT_UPLOAD_PATH,
     default_url: "/assets/blank.gif"
 
+  validates_attachment_content_type :attachment,
+    content_type: ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png', 'application/msword', 'application/vnd.ms-excel',
+      'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+      'application/vnd.openxmlformats-officedocument.presentationml.slideshow', 'application/vnd.openxmlformats-officedocument.presentationml.slide',
+      'application/msonenote', 'application/pdf', 'application/x-pdf']
   validates_attachment_presence :attachment  
   validates_attachment_size :attachment, in: 0..10.0.megabyte
 

@@ -3,6 +3,8 @@ class Ckeditor::AttachmentFile < Ckeditor::Asset
                     url: "/ckeditor_assets/attachments/:id/:filename",
                     path: ":rails_root/public/ckeditor_assets/attachments/:id/:filename"
   
+  validates_attachment_content_type :data,
+    content_type: ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png']
   validates_attachment_size :data, less_than: 100.megabytes
   validates_attachment_presence :data
 	

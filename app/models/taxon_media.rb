@@ -35,7 +35,7 @@ class TaxonMedia < TaxonUserClassificationFilter
   end
 
   def end
-    @end ||= [ (start + @per_page.to_i - 1), @media.media_count ].min
+    @end ||= [ (start + @per_page.to_i - 1), media_count ].min
   end
 
   # You'll pass this to will_paginate.

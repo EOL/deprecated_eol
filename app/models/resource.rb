@@ -44,7 +44,7 @@ class Resource < ActiveRecord::Base
   VALID_RESOURCE_CONTENT_TYPES = ['application/x-gzip', 'application/x-tar', 'text/xml', 'application/vnd.ms-excel',
                                   'application/xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                                   'application/zip']
-  validate :validate_dataset_mime_type
+  validates_attachment_content_type :dataset, content_type: VALID_RESOURCE_CONTENT_TYPES, if: :validate_dataset_mime_type?
   validates_presence_of :title, :license_id
   validates_presence_of :refresh_period_hours, if: :accesspoint_url_provided?
   validates_presence_of :accesspoint_url, unless: :dataset_file_provided?
@@ -211,14 +211,8 @@ private
     end
   end
   
-  def validate_dataset_mime_type
-    return true if dataset.blank? || dataset.original_filename.blank?
-    require 'mime/types'
-    mime_types = MIME::Types.type_for(dataset.original_filename)
-    if first_type = mime_types.first
-      return true if VALID_RESOURCE_CONTENT_TYPES.include? first_type.to_s
-    end
-    errors[:base] << I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
+  def validate_dataset_mime_type?
+    ! dataset.blank? && ! dataset.original_filename.blank?
   end
   
   def accesspoint_url_provided?

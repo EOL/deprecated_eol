@@ -111,6 +111,8 @@ class User < ActiveRecord::Base
     default_url: "/assets/blank.gif",
     if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
   
+  # TODO - these :if procs are probably really old (from an old migration) and can go:
+  # TODO - I18n is wrong here
   validates_attachment_content_type :logo,
     content_type: ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
     message: "image is not a valid image type",

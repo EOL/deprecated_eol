@@ -24,7 +24,7 @@ describe EOL::Solr::ActivityLog do
     def stub_response(resp)
       @result = []
       @result.stub(:read).and_return(resp)
-      EOL::Solr::ActivityLog.stub(:open).and_return(@result)
+      allow(EOL::Solr::ActivityLog).to receive(:open) { @result }
     end
 
     def call_arbitrary_query

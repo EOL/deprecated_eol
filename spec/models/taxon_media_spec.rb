@@ -15,8 +15,6 @@ describe TaxonMedia do
     @media = TaxonMedia.new(@taxon_concept, @user)
   end
 
-  it "should know if it's empty" # This is not simple to test; juice wasn't worth the squeeze and I didn't want to keep bad code. :\
-
   it 'should have an array of media to pass to will_paginate' do
     a = [DataObject.gen].paginate
     # NOTE - data_objects_from_solr is called in other places (for example, to get the exemplar image), but we don't care:
@@ -71,6 +69,37 @@ describe TaxonMedia do
     # NOTE - this fails in the full test suite, occassionally.  Not sure why.  You might wanna check on that.
     build_media
     @media.paginated.should == array
+  end
+
+  # TODO - really, a lot of the above tests could be done with stubbing rather than reading the DB. Fix.
+  context 'stubbed' do 
+
+    describe '#empty?' do
+
+      context 'with no media' do
+
+        let(:taxon_media) do
+          allow(@taxon_concept).to receive(:data_objects_from_solr) { [].paginate }
+          TaxonMedia.new(@taxon_concept, @user)
+        end
+
+        it 'knows it is empty' do
+          expect(taxon_media.empty?).to be_true
+        end
+
+      end
+
+      context 'with media' do
+
+        let(:taxon_media) do
+          allow(@taxon_concept).to receive(:data_objects_from_solr) { [].paginate }
+          TaxonMedia.new(@taxon_concept, @user)
+        end
+
+      end
+
+    end
+
   end
 
 end

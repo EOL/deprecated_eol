@@ -16,10 +16,9 @@ class Taxa::MediaController < TaxaController
     current_user.log_activity(:viewed_taxon_concept_media, taxon_concept_id: @taxon_concept.id)
   end
 
-protected
-
+  # Can't test this if private:
   def meta_description
-    @meta_description ||= t(".meta_description#{scoped_variables_for_translations[:preferred_common_name] ? '_with_common_name' : ''}#{@media.blank? ? '_no_data' : ''}", scoped_variables_for_translations.dup)
+    @meta_description ||= t(".meta_description#{scoped_variables_for_translations[:preferred_common_name] ? '_with_common_name' : ''}#{@taxon_media.empty? ? '_no_data' : ''}", scoped_variables_for_translations.dup)
   end
 
 end

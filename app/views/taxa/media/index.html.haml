@@ -21,7 +21,7 @@
         %p= link_to I18n.t(:media_list_empty_contribute_instructions), cms_page_path('contribute')
     - else
       .header
-        %h3= raw(I18n.t(:pagination_range_with_count, start_number: @taxon_media.start, end_number: @taxon_media.end, count: @taxon_media.paginated.total_entries))
+        %h3= raw(I18n.t(:pagination_range_with_count, start_number: @taxon_media.start, end_number: @taxon_media.end, count: @taxon_media.media_count))
         = will_paginate @taxon_media.paginated, previous_label: I18n.t(:pagination_previous), next_label: I18n.t(:pagination_next),
           inner_window: 2, outer_window: 2
       %ul.media
@@ -38,7 +38,7 @@
                   { data_object: item, thumbnail: true, size: '260_190' }
               - if item.data_type_id == DataType.image.id && @taxon_media.can_set_exemplars?
                 .overlay
-                = form_for(TaxonConceptExemplarImage.new(taxon_concept: @taxon_page.taxon_concept), url: taxon_concept_exemplar_image_path, html: { class: 'taxon_concept_exemplar_image' }, remote: true) do |f|
+                = form_for(TaxonConceptExemplarImage.new(taxon_concept: @taxon_media.taxon_concept), url: taxon_concept_exemplar_image_path, html: { class: 'taxon_concept_exemplar_image' }, remote: true) do |f|
                   = f.hidden_field :taxon_concept_id
                   %label
                     = f.radio_button :data_object_id, item.id, { checked: (!@taxon_media.image.blank? && @taxon_media.image.id == item.id) }

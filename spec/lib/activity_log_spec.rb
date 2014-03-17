@@ -15,64 +15,70 @@ describe EOL::ActivityLog do
     @default_options = { per_page: 20, page: 1 }
   end
 
+  before do
+    allow(EOL::Solr::ActivityLog).to receive(:search_with_pagination)
+  end
+
   it '#global should delegate to #find with nil source' do
-    EOL::ActivityLog.should_receive(:find).with(nil, {per_page: 3}).and_return(nil)
+    allow(EOL::ActivityLog).to receive(:find)
     EOL::ActivityLog.global(3)
+    expect(EOL::ActivityLog).to have_received(:find).with(nil, {per_page: 3})
   end
 
   it '#global should deafult to $ACTIVITIES_ON_HOME_PAGE per_page' do
-    EOL::ActivityLog.should_receive(:find).with(nil, {per_page: $ACTIVITIES_ON_HOME_PAGE}).and_return(nil)
+    allow(EOL::ActivityLog).to receive(:find)
     EOL::ActivityLog.global
+    expect(EOL::ActivityLog).to have_received(:find).with(nil, {per_page: $ACTIVITIES_ON_HOME_PAGE})
   end
 
   it '#find should delegate to EOL::Solr::ActivityLog.global_activities(options) with nil source' do
-    EOL::Solr::ActivityLog.should_receive(:global_activities).and_return(nil)
+    allow(EOL::Solr::ActivityLog).to receive(:global_activities)
     EOL::ActivityLog.find(nil)
+    expect(EOL::Solr::ActivityLog).to have_received(:global_activities)
   end
 
   it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for RecentActivitiesController' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     EOL::ActivityLog.find(RecentActivitiesController.new)
+    expect(EOL::Solr::ActivityLog).to have_received(:search_with_pagination)
   end
 
   it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for User' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     EOL::ActivityLog.find(User.new)
+    expect(EOL::Solr::ActivityLog).to have_received(:search_with_pagination)
   end
 
   it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for Community' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     EOL::ActivityLog.find(Community.new)
+    expect(EOL::Solr::ActivityLog).to have_received(:search_with_pagination)
   end
 
   it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for Collection' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     EOL::ActivityLog.find(Collection.new)
+    expect(EOL::Solr::ActivityLog).to have_received(:search_with_pagination)
   end
 
   it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for DataObject' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     EOL::ActivityLog.find(DataObject.new)
+    expect(EOL::Solr::ActivityLog).to have_received(:search_with_pagination)
   end
 
   it '#find should delegate to EOL::Solr::ActivityLog#search_with_pagination for TaxonConcept' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     EOL::ActivityLog.find(TaxonConcept.gen)
+    expect(EOL::Solr::ActivityLog).to have_received(:search_with_pagination)
   end
 
   it '#find should delegate to ...#search_with_pagination with reasonable defaults for other classes' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).with("feed_type_affected:NOTHING",
-                                                                        @default_options)
     EOL::ActivityLog.find(NewKindOfThing.new)
+    expect(EOL::Solr::ActivityLog).to have_received(:search_with_pagination).with("feed_type_affected:NOTHING",
+                                                                                  @default_options)
   end
 
   it '#find should follow supercedure for TaxonConcepts' do
-    # TODO - stub this method. I tried, it didn't work, didn't care enough to dig right now:
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     tc = TaxonConcept.gen
-    tc.stub(:id).and_return(1234)
-    TaxonConcept.should_receive(:where).with("supercedure_id = 1234").and_return(TaxonConcept.scoped)
+    allow(tc).to receive(:id) { 1234 }
+    allow(TaxonConcept).to receive(:where) { TaxonConcept.scoped }
     EOL::ActivityLog.find(tc)
+    expect(TaxonConcept).to have_received(:where).with("supercedure_id = 1234")
   end
 
   # Yeah, right... like we're going to test this easily:
@@ -80,18 +86,19 @@ describe EOL::ActivityLog do
 
   # Brittle test... but this is a bad smell; the code is sloppy.
   it '#find should limit data object ids to 500' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     ids_array = []
-    ids_array.stub(:blank?).and_return(false)
-    ids_array.should_receive(:[]).with(0...500).and_return([])
+    allow(ids_array).to receive(:blank?) { false }
+    allow(ids_array).to receive(:[]).with(0...500) { [] }
     EOL::ActivityLog.find(DataObject.new, ids: ids_array)
+    expect(ids_array).to have_received(:[]).with(0...500)
+    expect(EOL::Solr::ActivityLog).to have_received(:search_with_pagination)
   end
 
   it '#find should at least look at the focuses for communities (we trust it is searching on them as well)' do
-    EOL::Solr::ActivityLog.should_receive(:search_with_pagination).and_return(nil)
     community = Community.new
-    community.should_receive(:focuses).and_return([])
+    allow(community).to receive(:focuses) { [] }
     EOL::ActivityLog.find(community)
+    expect(community).to have_received(:focuses)
   end
 
   # I don't want to test this here; too tightly coupled with the actual Solr query.

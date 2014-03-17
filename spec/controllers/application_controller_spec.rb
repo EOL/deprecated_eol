@@ -71,7 +71,7 @@ describe ApplicationController do
     # a public method and we need the response from the request process for testing the redirected_to
     it 'should not redirect to login, register or logout pages when user is logged in' do
       user = User.gen
-      controller.stub(:check_user_agreed_with_terms).and_return(nil)
+      allow(controller).to receive(:check_user_agreed_with_terms)
       [login_url, new_user_url, logout_url].each do |url|
         get :redirect_back_or_default, nil, {:user_id => user.id, :return_to => url}
         response.header['Location'].should_not == url

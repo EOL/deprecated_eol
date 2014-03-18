@@ -100,17 +100,13 @@ describe 'taxa/data/index' do
 
     context 'with data' do
 
-      # TODO - this is too much setup, and indicates that the view is doing too much work. I agree. Fix it.
       before(:each) do
-        # TODO - all this FG nonsense could be condensed to a single FG factory. It's too much.
         @chucks = FactoryGirl.build(:known_uri_unit)
         tku = FactoryGirl.build(:translated_known_uri, name: 'chucks', known_uri: @chucks)
-        taxon_concept = double(TaxonConcept, id: 1)
-        taxon_concept.stub(:latest_version) { taxon_concept }
+        taxon_concept = build_stubbed(TaxonConcept)
         dpu = DataPointUri.gen(unit_of_measure_known_uri: @chucks,
                               object: "2.354",
                               taxon_concept: taxon_concept,
-                              taxon_concept_id: 1, # Doesn't matter, but this matches above
                               vetted: Vetted.trusted,
                               visibility: Visibility.visible)
         assign(:data_point_uris, [dpu])

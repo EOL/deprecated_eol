@@ -25,7 +25,6 @@ private
     return nil if project_id.nil?
     return nil if project_id == "[DATA MISSING]" # TODO - lame. We should have a way to express this.  :|
     url = "http://www.inaturalist.org/observations/project/#{project_id}.json?per_page=20"
-    debugger if url =~ /DATA MISSING/ # Errr... the return if nil clearly didn't work; why?!
     response = Net::HTTP.get(URI.parse(url))
     JSON.parse(response)
   end

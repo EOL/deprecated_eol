@@ -271,7 +271,6 @@ module EOL
           # TODO - the overview_text_for_user does a better job of handling anonymous users if you don't pass a user at all:
           user = User.new(:language => Language.default)
           exemplar_text = taxon_concept.overview_text_for_user(user)
-          debugger if $FOO
           promote_exemplar!(exemplar_text, text_objects, options)
           text_objects
         end

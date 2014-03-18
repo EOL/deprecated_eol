@@ -48,7 +48,6 @@
         - data_for_this_category = category_toc_item.nil? ?
         -   @data_point_uris.select{ |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? } :
         -   @data_point_uris.select{ |d| d.predicate_known_uri && d.predicate_known_uri.toc_items.include?(category_toc_item) }
-        - debugger
         - data_for_this_category.each do |data_point_uri|
           - classes = []
           - first_of_type = data_point_uri.predicate != last_attribute

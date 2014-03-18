@@ -2264,24 +2264,24 @@ it:
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Informazioni su %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life
-          meta_description_no_data: Nessun fatto è disponibile su %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life. EOL ti invita a contribuire con fatti riguardo a %{scientific_name} come conservazione, distribuzione, ecologia, habitat, morfologia ed altro ancora.
-          meta_description_with_chapter_list: Informazioni su %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life. Include informazioni %{chapter_list} per %{scientific_name}.
-          meta_description_with_common_name: Informazioni su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life.
-          meta_description_with_common_name_no_data: Nessun fatto è disponibile su %{preferred_common_name} conosciuto anche come %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life. EOL ti invita a contribuire con fatti riguardo a %{preferred_common_name} (%{scientific_name}) come conservazione, distribuzione, ecologia, habitat, morfologia ed altro ancora.
-          meta_description_with_common_name_with_chapter_list: Informazioni su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life. Include informazioni %{chapter_list}.
-          meta_title: Informazioni su %{scientific_name} classificato da %{hierarchy_provider}
-          meta_title_with_common_name: Informazioni su %{preferred_common_name} (%{scientific_name} classificato da %{hierarchy_provider})
-          tweet_text: Informazioni su %{scientific_name} classificato da %{hierarchy_provider}
-        meta_description: Fatti riguardo a %{scientific_name} in Encyclopedia of Life
-        meta_description_no_data: Nessun fatto è disponibile su %{scientific_name} in Encyclopedia of Life. EOL ti invita a contribuire con fatti riguardo a %{scientific_name} come conservazione, distribuzione, ecologia, habitat, morfologia ed altro ancora.
-        meta_description_with_chapter_list: Informazioni su %{scientific_name} in Encyclopedia of Life. Include informazioni %{chapter_list}.
-        meta_description_with_common_name: Fatti riguardo a %{preferred_common_name}, scientificamente conosciuto come %{scientific_name}.
-        meta_description_with_common_name_no_data: Nessun fatto è disponibile su %{preferred_common_name} conosciuto anche come %{scientific_name} in Encyclopedia of Life. EOL ti invita a contribuire con fatti riguardo a %{preferred_common_name} (%{scientific_name}) come conservazione, distribuzione, ecologia, habitat, morfologia ed altro ancora.
-        meta_description_with_common_name_with_chapter_list: Informazioni su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} in Encyclopedia of Life. Include informazioni %{chapter_list}.
-        meta_title: Fatti a proposito di %{scientific_name}
-        meta_title_with_common_name: Fatti a proposito di %{preferred_common_name} (%{scientific_name})
-        tweet_text: Fatti a proposito di %{scientific_name}
+          meta_description: Descrizioni ed articoli su %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life
+          meta_description_no_data: Nessun articolo è disponibile su %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life. EOL ti invita a contribuire con articoli riguardo a %{scientific_name} come conservazione, distribuzione, ecologia, habitat, morfologia ed altro ancora.
+          meta_description_with_chapter_list: Descrizioni ed articoli su %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life. Include %{chapter_list} per %{scientific_name}.
+          meta_description_with_common_name: Descrizioni ed articoli su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life.
+          meta_description_with_common_name_no_data: Nessun articolo è disponibile su %{preferred_common_name} conosciuto anche come %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life. EOL ti invita a contribuire con articoli riguardo a %{preferred_common_name} (%{scientific_name}) come conservazione, distribuzione, ecologia, habitat, morfologia ed altro ancora.
+          meta_description_with_common_name_with_chapter_list: Descrizioni ed articoli su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} classificato da %{hierarchy_provider} in Encyclopedia of Life. Include %{chapter_list}.
+          meta_title: Descrizioni ed articoli su %{scientific_name} classificato da %{hierarchy_provider}
+          meta_title_with_common_name: Descrizioni ed articoli su %{preferred_common_name} (%{scientific_name} classificato da %{hierarchy_provider})
+          tweet_text: Articoli su %{scientific_name} classificato da %{hierarchy_provider}
+        meta_description: Descrizioni e articoli su %{scientific_name} in Encyclopedia of Life
+        meta_description_no_data: Nessun articolo è disponibile su %{scientific_name} in Encyclopedia of Life. EOL ti invita a contribuire con articoli riguardo a %{scientific_name} come conservazione, distribuzione, ecologia, habitat, morfologia ed altro ancora.
+        meta_description_with_chapter_list: Descrizioni ed articoli su %{scientific_name} in Encyclopedia of Life. Include %{chapter_list}.
+        meta_description_with_common_name: Descrizioni e articoli su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} in Encyclopedia of Life.
+        meta_description_with_common_name_no_data: Nessun articolo è disponibile su %{preferred_common_name} conosciuto anche come %{scientific_name} in Encyclopedia of Life. EOL ti invita a contribuire con articoli riguardo a %{preferred_common_name} (%{scientific_name}) come conservazione, distribuzione, ecologia, habitat, morfologia ed altro ancora.
+        meta_description_with_common_name_with_chapter_list: Descrizioni ed articoli su %{preferred_common_name}, scientificamente conosciuto come %{scientific_name} in Encyclopedia of Life. Include %{chapter_list}.
+        meta_title: Descrizioni e articoli su %{scientific_name}
+        meta_title_with_common_name: Descrizioni e articoli su %{preferred_common_name} (%{scientific_name})
+        tweet_text: Articoli su %{scientific_name}
     literature: 
       show: 
         hierarchy_entry: 

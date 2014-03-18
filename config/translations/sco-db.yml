@@ -12,7 +12,7 @@ sco:
   translated_activities-name-activity_id-55: galus
   translated_activities-name-activity_id-56: delyte
   translated_activities-name-activity_id-57: rate
-  translated_activities-name-activity_id-58: trysted
+  translated_activities-name-activity_id-58: lippened
   translated_activities-name-activity_id-59: onreviewed
   translated_activities-name-activity_id-63: collect
   translated_activities-name-activity_id-64: remuiv
@@ -76,7 +76,7 @@ sco:
   translated_contact_subjects-title-contact_subject_id-31: Contreebute eimages, videos or soonds
   translated_contact_subjects-title-contact_subject_id-32: Media requests (interviews, press speirnis, logo requests)
   translated_contact_subjects-title-contact_subject_id-33: Mak ae financial donâtion
-  translated_contact_subjects-title-contact_subject_id-34: Technical speirins (problems wi rak, wabsite functionâlitie)
+  translated_contact_subjects-title-contact_subject_id-34: Techneecal speirins (problems wi rake, wabsite functionalitie)
   translated_contact_subjects-title-contact_subject_id-35: General feedback
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendin
   translated_content_partner_statuses-label-content_partner_status_id-2: Acteeve
@@ -352,11 +352,11 @@ sco:
   translated_user_identities-label-user_identity_id-5: ae profeessional scienteest
   translated_vetted-label-vetted_id-0: Onknown
   translated_vetted-label-vetted_id-4: Ontrysted
-  translated_vetted-label-vetted_id-5: Trysted
+  translated_vetted-label-vetted_id-5: Lippened
   translated_vetted-label-vetted_id-6: Galus
   translated_view_styles-name-view_style_id-1: Leet
   translated_view_styles-name-view_style_id-2: Gallarie
   translated_view_styles-name-view_style_id-3: Annotated
   translated_visibilities-label-visibility_id-0: Onveesible
   translated_visibilities-label-visibility_id-1: Veesible
-  translated_visibilities-label-visibility_id-2: Preview
+  translated_visibilities-label-visibility_id-2: Luik ower

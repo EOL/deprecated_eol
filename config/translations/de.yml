@@ -1940,6 +1940,7 @@ de:
     notice: 
       clade_has_no_data: Es hat noch keiner Datensätze für %{taxon_name} beigesteuert. <a href="%{contribute_path}">Erfahren Sie, wie man einen Beitrag leisten kann</a>.
       clade_too_big: Leider werden die angezeigten Ergebnisse nicht nach %{taxon_name} gefiltert, da sie zu groß ist. Wählen Sie eine kleinere Gruppe oder <a href="%{contactus_tech_path}">kontaktieren Sie uns</a>, um Hilfe zu erhalten.
+    page_title: TraitBank durchsuchen
   data_search_attribute: TraitBank für Datensätze mit %{attribute}-Daten durchsuchen
   data_search_destroyed: Dieser Auftrag wird nicht mehr verarbeitet.
   data_search_explanation: Die EOL-Datensuche verwenden zum Auffinden von Objekten mit der Übereinstimmung „%{term}“ in Beobachtungen,<br />Messungen und anderen wissenschaftlichen Behauptungen.
@@ -1955,6 +1956,7 @@ de:
     one: Datensuchdownloads sind beschränkt auf ein Ergebnis.
     other: Datensuchdownloads sind beschränkt auf %{count} Ergebnisse.
   data_search_link: Wissenschaftliche Daten auf EOL suchen
+  data_search_row_hidden: Ein Kurator hat diese Datenzeile versteckt.
   data_server_unavailable: Die Daten auf EOL sind vorübergehend nicht verfügbar. Bitte später erneut versuchen. Wir bitten um Verständnis für diese Unannehmlichkeit.
   data_show_n_more_rows: NNN weitere anzeigen …
   data_subtab_about: Über
@@ -2924,6 +2926,7 @@ de:
       about_link_podcasts: Podcasts
       about_link_statistics: Statistiken
       about_link_terms_of_use: Nutzungsbedingungen
+      about_link_traitbank: Was ist TraitBank?
       about_link_what_is_eol: Was ist EOL?
       header_about: Über EOL
       header_learn_more: Erfahren Sie mehr über
@@ -2963,6 +2966,8 @@ de:
     data_search: 
       page_header: TraitBank durchsuchen
       page_header_results: Suchergebnisse von TraitBank
+    footer: 
+      google_plus: Enzyklopädie des Lebens auf Google+
     taxa: 
       search_traitbank: TraitBank durchsuchen
       search_within_clade: Innerhalb der Klade suchen
@@ -3624,6 +3629,15 @@ de:
   resource_hint_dataset_rights: (gilt für den Datensatz <i>als Ganzes</i>; nicht in allen Rechtssystemen anwendbar)
   resource_hint_dataset_source_url: (URL der Originaldatensatzquelle, wie ein Papier oder eine Studie)
   resource_hint_default_rights: (gilt standardmäßig für Objekte <i>im</i> Datensatz)
+  resource_import_frequency: 
+    bimonthly: Halbmonatlich
+    hours_with_count: 
+      one: Eine Stunde
+      other: "%{count} Stunden"
+    monthly: Monatlich
+    once: Einmal importieren
+    quarterly: Vierteljährlich
+    weekly: Wöchentlich
   resources: Quellen
   response: Antwort
   response_formats: Antwortformate
@@ -3934,44 +3948,45 @@ de:
         data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> stellt Datensätze von vielen Anbietern zusammen. Wählen Sie für weitere Einzelheiten über den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">durchsuchen Sie TraitBank</a>.
         data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> stellt Datensätze von vielen Anbietern zusammen. Wählen Sie für weitere Einzelheiten über den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">suchen Sie innerhalb %{taxon_name}</a>.
         hierarchy_entry: 
-          meta_description: Bilder, Videos und Audios von %{scientific_name}, wie von %{hierarchy_provider} klassifiziert. Finden Sie Bilder, Fotos, Filme und Sounds von %{scientific_name} bei der Enzyklopädie des Lebens.
-          meta_description_no_data: Es sind keine kalkulierbaren Daten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{scientific_name} beizusteuern.
-          meta_description_with_common_name_no_data: Es sind keine kalkulierbaren Daten für %{preferred_common_name} (auch bekannt als %{scientific_name}), wie von %{hierarchy_provider} klassifiziert, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{preferred_common_name} (%{scientific_name}) beizusteuern.
-          meta_description_with_common_name_with_topics: Welche Daten haben Wissenschaftler für %{preferred_common_name}, wie von %{hierarchy_provider} klassifiziert, gesammelt? Eigenschaftsdaten über %{scientific_name} einschließlich Informationen über %{topics}.
-          meta_keywords: Kalkulierbare Daten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert, Informationen über %{scientific_name}
-          meta_title: Eigenschaftsdaten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert
-          meta_title_with_common_name: Eigenschaftsdaten für %{preferred_common_name} (%{scientific_name}), wie von %{hierarchy_provider} klassifiziert
-          tweet_text: Eigenschaftsdaten für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert.
-        meta_description: Bilder, Videos und Audios von %{scientific_name}. Finden Sie Bilder, Fotos, Filme und Sounds von %{scientific_name} bei der Enzyklopädie des Lebens.
-        meta_description_no_data: Es sind keine kalkulierbaren Daten für %{scientific_name} in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{scientific_name} beizusteuern.
-        meta_description_with_common_name_no_data: Es sind keine kalkulierbaren Daten für %{preferred_common_name}, auch bekannt als %{scientific_name}, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Daten für %{preferred_common_name} (%{scientific_name}) beizusteuern.
-        meta_description_with_common_name_with_topics: Welche Daten haben Wissenschaftler für %{preferred_common_name} gesammelt? Eigenschaftsdaten über %{scientific_name} einschließlich Informationen über %{topics}.
-        meta_keywords: Kalkulierbare Daten über %{scientific_name}, Informationen über %{scientific_name}
-        meta_keywords_with_common_name: Kalkulierbare Daten für %{preferred_common_name}
-        meta_title: Eigenschaftsdaten für %{scientific_name}
-        meta_title_with_common_name: Eigenschaftsdaten für %{preferred_common_name} (%{scientific_name})
-        tweet_text: Eigenschaftsdaten für %{scientific_name}
+          meta_description: Tatsachen über %{scientific_name}, wie von %{hierarchy_provider} in der Enzyklopädie des Lebens klassifiziert.
+          meta_description_no_data: Es sind keine Tatsachen für %{scientific_name}, wie von %{hierarchy_provider} klassifiziert, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Tatsachen über %{scientific_name} beizusteuern.
+          meta_description_with_common_name: Tatsachen über %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, wie von %{hierarchy_provider} klassifiziert, in der Enzyklopädie des Lebens.
+          meta_description_with_common_name_no_data: Es sind keine Tatsachen für %{preferred_common_name}, auch bekannt als %{scientific_name}, wie von %{hierarchy_provider} in der Enzyklopädie des Lebens klassifiziert, verfügbar. EOL lädt Sie ein, Daten und Tatsachen über %{preferred_common_name} (%{scientific_name}) beizusteuern.
+          meta_description_with_common_name_with_topics: Tatsachen über %{preferred_common_name}, wie von %{hierarchy_provider} klassifiziert? Eigenschaftsdaten über %{scientific_name} einschließlich Informationen über %{topics}.
+          meta_title: Tatsachen über %{scientific_name}, wie von %{hierarchy_provider} klassifiziert
+          meta_title_with_common_name: Tatsachen über %{preferred_common_name} (%{scientific_name}), wie von %{hierarchy_provider} klassifiziert
+          tweet_text: Tatsachen über %{scientific_name}, wie von %{hierarchy_provider} klassifiziert.
+        meta_description: Tatsachen über %{scientific_name} einschließlich Messungen und Eigenschaften für %{scientific_name}. Kalkulierbare Daten für %{scientific_name} von wissenschaftlichen Forschungen, zur Verfügung gestellt von Wissenschaftlern.
+        meta_description_no_data: Es sind keine Tatsachen für %{scientific_name} in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Tatsachen über %{scientific_name} beizusteuern.
+        meta_description_with_common_name: Tatsachen über %{preferred_common_name} einschließlich Messungen und Eigenschaften für %{preferred_common_name} (wissenschaftlich bekannt als %{scientific_name}). Kalkulierbare Daten für %{scientific_name} von wissenschaftlichen Forschungen, zur Verfügung gestellt von Wissenschaftlern.
+        meta_description_with_common_name_no_data: Es sind keine Tatsachen über %{preferred_common_name}, auch bekannt als %{scientific_name}, in der Enzyklopädie des Lebens vorhanden. EOL lädt Sie ein, Tatsachen über %{preferred_common_name} (%{scientific_name}) beizusteuern.
+        meta_description_with_common_name_with_topics: Tatsachen über %{preferred_common_name} einschließlich Messungen und Eigenschaften für %{preferred_common_name} (wissenschaftlich bekannt als %{scientific_name}). Kalkulierbare Daten für %{scientific_name} einschließlich %{topics} von wissenschaftlichen Forschungen, zur Verfügung gestellt von Wissenschaftlern.
+        meta_keywords: "%{scientific_name} Tatsachen,Tatsachen über %{scientific_name},%{scientific_name} Eigenschaften,Eigenschaften von %{scientific_name},%{scientific_name} Messungen,Messungen für %{scientific_name},%{scientific_name} Tatsache,Tatsache über %{scientific_name},%{scientific_name} Eigenschaft,Eigenschaft von %{scientific_name},%{scientific_name} Messung,Messung für %{scientific_name}"
+        meta_keywords_with_common_name: "%{preferred_common_name} Tatsachen,Tatsachen über %{preferred_common_name},%{preferred_common_name} Eigenschaften,Eigenschaften von %{preferred_common_name},%{preferred_common_name} Messungen,Messungen für %{preferred_common_name},%{scientific_name} Tatsachen,Tatsachen über %{scientific_name},%{scientific_name} Eigenschaften,Eigenschaften von %{scientific_name},%{scientific_name} Messungen,Messungen für %{scientific_name},%{preferred_common_name} Tatsachen,Tatsachen über %{preferred_common_name},%{preferred_common_name} Eigenschaft,Eigenschaft von %{preferred_common_name},%{preferred_common_name} Messung,Messung für %{preferred_common_name},%{scientific_name} Tatsache,Tatsache über %{scientific_name},%{scientific_name} Eigenschaft,Eigenschaft von %{scientific_name},%{scientific_name} Messung,Messung für %{scientific_name}"
+        meta_title: Messungen und Tatsachen über %{scientific_name}
+        meta_title_with_common_name: Messungen und Tatsachen über %{preferred_common_name} (%{scientific_name})
+        tweet_text: Tatsachen über %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
-          meta_description_no_data: Es sind keine Fakten zu %{scientific_name}, wie von %{hierarchy_provider} in der Enzyklopädie des Lebens (EOL) klassifiziert, verfügbar. EOL lädt Sie ein, weitere Fakten zu %{scientific_name} bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
-          meta_description_with_chapter_list: Informationen zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch Informationen zu %{chapter_list} über %{scientific_name}.
-          meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
-          meta_description_with_common_name_no_data: Es sind keine Fakten zu %{preferred_common_name} verfügbar, auch bekannt als %{scientific_name}, wie von %{hierarchy_provider} in der Enzyklopädie des Lebens (EOL) eingestuft. EOL lädt Sie ein, weitere Fakten zu %{preferred_common_name} (%{scientific_name}) bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
-          meta_description_with_common_name_with_chapter_list: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch Informationen zu %{chapter_list}.
-          meta_title: Informationen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-          meta_title_with_common_name: Informationen zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
-          tweet_text: Informationen zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
-        meta_description_no_data: Es sind keine Fakten zu %{scientific_name} in der Enzyklopädie des Lebens (EOL) verfügbar. EOL lädt Sie ein, weitere Fakten zu %{scientific_name} bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
-        meta_description_with_chapter_list: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Enthält Informationen zu %{chapter_list}.
-        meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
-        meta_description_with_common_name_no_data: Es sind keine Fakten zu %{preferred_common_name}, auch bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL) verfügbar. EOL lädt Sie ein, weitere Fakten zu %{preferred_common_name} (%{scientific_name}) bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
-        meta_description_with_common_name_with_chapter_list: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Enthält auch Informationen zu %{chapter_list}.
-        meta_title: Fakten zu %{scientific_name}
-        meta_title_with_common_name: Fakten zu %{preferred_common_name} (%{scientific_name})
-        tweet_text: Informationen zu %{scientific_name}
+          meta_description: Beschreibungen und Artikel zu %{scientific_name} in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_no_data: Es sind keine Artikel zu %{scientific_name}, wie von %{hierarchy_provider} in der Enzyklopädie des Lebens (EOL) klassifiziert, verfügbar. EOL lädt Sie ein, weitere Artikel zu %{scientific_name} bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
+          meta_description_with_chapter_list: Beschreibungen und Artikel zu %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch %{chapter_list} über %{scientific_name}.
+          meta_description_with_common_name: Beschreibungen und Artikel zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_description_with_common_name_no_data: Es sind keine Artikel zu %{preferred_common_name} verfügbar, auch bekannt als %{scientific_name}, wie von %{hierarchy_provider} in der Enzyklopädie des Lebens (EOL) eingestuft. EOL lädt Sie ein, weitere Artikel zu %{preferred_common_name} (%{scientific_name}) bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
+          meta_description_with_common_name_with_chapter_list: Beschreibungen und Artikel zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, entsprechend der Klassifizierung in der Enzyklopädie des Lebens (EOL) durch %{hierarchy_provider}. Enthält auch %{chapter_list}.
+          meta_title: Beschreibungen und Artikel zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          meta_title_with_common_name: Beschreibungen und Artikel zu %{preferred_common_name} (%{scientific_name}), entsprechend der Klassifizierung durch %{hierarchy_provider}.
+          tweet_text: Artikel zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
+        meta_description: Beschreibungen und Artikel zu %{scientific_name} in der Enzyklopädie des Lebens (EOL).
+        meta_description_no_data: Es sind keine Artikel zu %{scientific_name} in der Enzyklopädie des Lebens (EOL) verfügbar. EOL lädt Sie ein, weitere Artikel zu %{scientific_name} bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
+        meta_description_with_chapter_list: Beschreibungen und Artikel zu %{scientific_name} in der Enzyklopädie des Lebens (EOL). Enthält %{chapter_list}.
+        meta_description_with_common_name: Beschreibungen und Artikel zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL).
+        meta_description_with_common_name_no_data: Es sind keine Artikel zu %{preferred_common_name}, auch bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL) verfügbar. EOL lädt Sie ein, weitere Artikel zu %{preferred_common_name} (%{scientific_name}) bezüglich Erhaltung, Verbreitung, Ökologie, Lebensraum, Morphologie und mehr beizutragen.
+        meta_description_with_common_name_with_chapter_list: Beschreibungen und Artikel zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL). Enthält auch %{chapter_list}.
+        meta_title: Beschreibungen und Artikel zu %{scientific_name}
+        meta_title_with_common_name: Beschreibungen und Artikel zu %{preferred_common_name} (%{scientific_name})
+        tweet_text: Artikel zu %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 

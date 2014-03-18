@@ -3650,21 +3650,21 @@ oc:
     data: 
       index: 
         hierarchy_entry: 
-          meta_description: Los imatges, vidèos e fichièrs àudio de %{scientific_name} tals coma classats segon %{hierarchy_provider}. Trobar d'imatges, de fòtos, de filmes e de sons de %{scientific_name} dins l’Enciclopèdia de la Vida.
+          meta_description: Faches a prepaus de %{scientific_name} tals coma classat segon %{hierarchy_provider} dins l’Enciclopèdia de la Vida.
           meta_description_no_data: Cap de donada calculabla es pas disponibla per %{scientific_name} tal coma classat segon %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a las donadas per %{scientific_name}.
           meta_description_with_common_name_no_data: Cap de donada calculabla es pas disponibla per %{preferred_common_name}, segon la classificacion de  %{hierarchy_provider}, apelat tanben %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a las donadas per %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Quinas donadas los scientifics an collectat per %{preferred_common_name} tal coma classat segon %{hierarchy_provider} ? Donadas de trach a prepaus de %{scientific_name} que comprenon d'informacions sus %{topics}.
-          meta_keywords: donadas calculablas de %{scientific_name} segon la classificacion de %{hierarchy_provider}, informacions sus %{scientific_name}
-          meta_title: Donadas de trach per %{scientific_name} segon la classificacion de %{hierarchy_provider}
+          meta_keywords: "-"
+          meta_title: Faches a prepaus de %{scientific_name} segon la classificacion de %{hierarchy_provider}
           meta_title_with_common_name: Donadas de trach per %{preferred_common_name} segon la classificacion de %{hierarchy_provider} (%{scientific_name})
           tweet_text: Donadas de trach per %{scientific_name} segon la classificacion de %{hierarchy_provider}
         meta_description: Imatges, vidèos e fichièrs de sons de %{scientific_name}. Trobar d'imatges, d'imatges, de fòtos, de filmes e de sons de %{scientific_name} dins l’Enciclopèdia de la vida.
         meta_description_no_data: Cap de donada calculabla es pas disponibla per %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de donadas per %{scientific_name}.
         meta_keywords: donadas calculablas de %{scientific_name}, informacions sus %{scientific_name}
         meta_keywords_with_common_name: donadas calculablas sus %{preferred_common_name}
-        meta_title: Donadas de trach per %{scientific_name}
-        meta_title_with_common_name: Donadas de trach per %{preferred_common_name} (%{scientific_name})
-        tweet_text: Donadas de trach per %{scientific_name}
+        meta_title: Mesuras e faches per %{scientific_name}
+        meta_title_with_common_name: Mesuras e faches per %{preferred_common_name} (%{scientific_name})
+        tweet_text: Faches a prepaus de %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
@@ -3674,18 +3674,18 @@ oc:
           meta_description_with_common_name: Informacion sul %{preferred_common_name}, scientificament apelat %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida.
           meta_description_with_common_name_no_data: Cap de fach es pas disponible per %{preferred_common_name}, apelat tanben %{scientific_name} segon la classificacion per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de faches a prepaus de %{preferred_common_name} (%{scientific_name}), coma sa conservacion, sa reparticion, son ecologia, son abitat, sa morfologia, etc.
           meta_description_with_common_name_with_chapter_list: Informacion sul (sus la) %{preferred_common_name}, scientificament apelat (-ada) %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. Comprend d'informacions sus %{chapter_list}.
-          meta_title: Informacion sus %{scientific_name} tal coma classat per %{hierarchy_provider}
-          meta_title_with_common_name: Informacion sul %{preferred_common_name} (%{scientific_name} tal coma classat per %{hierarchy_provider})
+          meta_title: Descripcions e articles sus %{scientific_name} tal coma classat per %{hierarchy_provider}
+          meta_title_with_common_name: Descripcions e articles sul %{preferred_common_name} (%{scientific_name} tal coma classat per %{hierarchy_provider})
           tweet_text: Informacion sus %{scientific_name} tal coma classat per %{hierarchy_provider}
-        meta_description: Informacion sus %{scientific_name} dins l’Enciclopèdia de la Vida
+        meta_description: Descripcions e articles sus %{scientific_name} dins l’Enciclopèdia de la Vida
         meta_description_no_data: Cap de fach es pas disponible per %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de faches a prepaus de %{scientific_name}, coma sa Conservacion, sa Reparticion, son Ecologia, son Abitat, sa Morfologia e mai.
         meta_description_with_chapter_list: Informacion sus %{scientific_name} dins l’Enciclopèdia de la Vida. Compren d'informacions sus %{chapter_list}.
         meta_description_with_common_name: Informacion sus %{preferred_common_name}, scientificament apelat %{scientific_name} dins l’Enciclopèdia de la Vida.
         meta_description_with_common_name_no_data: Cap de fach es pas disponible per %{preferred_common_name}, apelat tanben %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convidat a provesir dels faches a prepaus de %{preferred_common_name} (%{scientific_name}), coma sa conservacion, sa reparticion, son ecologia, son abitat, sa morfologia, etc.
         meta_description_with_common_name_with_chapter_list: Informacion sus %{preferred_common_name}, scientificament apelat %{scientific_name} dins l’Enciclopèdia de la Vida. Compren d'informacions sus %{chapter_list}.
-        meta_title: Faches a prepaus de %{scientific_name}
-        meta_title_with_common_name: Faches a prepaus de %{preferred_common_name} (%{scientific_name})
-        tweet_text: Faches a prepaus de %{scientific_name}
+        meta_title: Descripcions e articles a prepaus de %{scientific_name}
+        meta_title_with_common_name: Descripcions e articles a prepaus lo %{preferred_common_name} (%{scientific_name})
+        tweet_text: Articles a prepaus de %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 

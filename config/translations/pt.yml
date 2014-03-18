@@ -1610,6 +1610,8 @@ pt:
       learn_more_link_reptiles: Répteis
       learn_more_link_spiders: Aranhas
       learn_more_link_trees: Árvores
+    footer: 
+      google_plus: Encyclopedia of Life no Google+
   learn_about_collections: Como posso criar uma?
   learn_about_communities: Como posso participar?
   learn_about_content_partners: Como me posso tornar um?
@@ -1886,6 +1888,8 @@ pt:
   remove: Remover
   reply: Responder
   reset_password_enter_new_password_notice: A senha usada só é válida para esta sessão, por favor entre nova senha para continuar.
+  resource_import_frequency: 
+    once: Importar uma vez
   resources: Recursos
   response_formats: Formatos de resposta
   results: Resultados

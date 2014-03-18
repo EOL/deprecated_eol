@@ -17,6 +17,7 @@
 # Author: Ljubinka
 # Author: Lucky
 # Author: Manohisoa
+# Author: Maxim21
 # Author: McDutchie
 # Author: Metroitendo
 # Author: Moyg
@@ -1910,6 +1911,7 @@ fr:
     notice: 
       clade_has_no_data: Personne n’a encore contribué à des enregistrements de données pour %{taxon_name}. <a href="%{contribute_path}">Apprenez comment contribuer</a>.
       clade_too_big: Désolé, les résultats affichés ne sont pas filtrés par %{taxon_name} car il est trop gros. Choisissez un groupe plus petit ou <a href="%{contactus_tech_path}">contactez-nous</a> pour de l’aide.
+    page_title: Rechercher dans TraitBank
   data_search_attribute: Rechercher dans TraitBank pour des enregistrements avec les données %{attribute}
   data_search_destroyed: Cette tâche ne sera plus effectuée.
   data_search_explanation: Utiliser la recherche de données de EdlV pour trouver des éléments correspondant à '%{term}' dans les observations,<br />les mesures et les autres assertions scientifiques.
@@ -1925,6 +1927,7 @@ fr:
     one: Les téléchargements de recherche de données sont limités à %{count} résultat.
     other: Les téléchargements de recherche de données sont limités à %{count} résultats.
   data_search_link: Chercher des données scientifiques dans EdlV
+  data_search_row_hidden: Un conservateur a masqué cette ligne de données.
   data_server_unavailable: Les données sur EdlV sont temporairement indisponibles. Veuillez réessayer ultérieurement. Nous sommes désolés pour la gêne occasionnée.
   data_show_n_more_rows: Afficher NNN de plus…
   data_subtab_about: À propos de
@@ -2483,6 +2486,7 @@ fr:
         min: Valeur la plus basse
         min_placeholder: Entrer un nombre
         min_placeholder_disabled: Plage désactivée
+        min_with_val: "Valeur la plus basse : %{val}"
         q: Valeur spécifique
         q_more: Par exemple, hétérotrophe.
         q_placeholder: Entrer un mot, une phrase ou un nombre
@@ -2882,6 +2886,7 @@ fr:
       about_link_podcasts: Podcasts
       about_link_statistics: Statistiques
       about_link_terms_of_use: Conditions d’utilisation
+      about_link_traitbank: Qu’est-ce que TraitBank ?
       about_link_what_is_eol: Qu’est-ce que l’EdlV ?
       header_about: À propos de l’EdlV
       header_learn_more: En apprendre plus sur
@@ -2921,6 +2926,8 @@ fr:
     data_search: 
       page_header: Rechercher dans TraitBank
       page_header_results: Résultats de recherche dans TraitBank
+    footer: 
+      google_plus: Encyclopédie de la Vie sur Google+
     taxa: 
       search_traitbank: Rechercher dans TraitBank
       search_within_clade: Rechercher dans un cladus
@@ -3580,6 +3587,15 @@ fr:
   resource_hint_dataset_rights: (s’applique à l’ensemble de données <i>comme un tout</i> ; non applicable dans toutes les juridictions)
   resource_hint_dataset_source_url: (URL de la source d’origine de l’ensemble de données, comme une publication ou une étude)
   resource_hint_default_rights: (s’applique par défaut aux éléments <i>dans</i> l’ensemble de données)
+  resource_import_frequency: 
+    bimonthly: Deux fois par mois
+    hours_with_count: 
+      one: Toutes les heures
+      other: Toutes les %{count} heures
+    monthly: Par mois
+    once: Importer une fois
+    quarterly: Par trimestre
+    weekly: Par semaine
   resources: Ressources
   response: Réponse
   response_formats: Formats de réponse
@@ -3890,44 +3906,46 @@ fr:
         data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> assemble des enregistrements de données de nombreux fournisseurs. Sélectionnez une ligne pour plus de détails sur l’enregistrement, ou <a href="%{traitbank_search_path}">recherchez dans TraitBank</a>.
         data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> rassemble des enregistrements de données de nombreux fournisseurs. Sélectionnez une ligne pour plus de détails sur l’enregistrement, ou <a href="%{traitbank_search_path}">recherchez dans %{taxon_name}</a>.
         hierarchy_entry: 
-          meta_description: Les images, vidéos et fichiers audio de %{scientific_name} tel que classé selon %{hierarchy_provider}. Trouver des images, des photos, des films et des sons de %{scientific_name} dans l’Encyclopédie de la Vie.
-          meta_description_no_data: Aucune donnée calculable n’est disponible pour %{scientific_name} tel que classé selon %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données pour %{scientific_name}.
-          meta_description_with_common_name_no_data: Aucune donnée calculable n’est disponible pour %{preferred_common_name} selon la classification de %{hierarchy_provider}, appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données pour %{preferred_common_name} (%{scientific_name}).
-          meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collecté pour %{preferred_common_name} tel que classé selon %{hierarchy_provider} ? Données de trait à propos de %{scientific_name} comprenant des informations sur %{topics}.
+          meta_description: Faits à propos de %{scientific_name} tel que classé selon %{hierarchy_provider} dans l’Encyclopédie de la Vie.
+          meta_description_no_data: Aucun fait n’est disponible pour %{scientific_name} tel que classé selon %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux faits à propos de %{scientific_name}.
+          meta_description_with_common_name: Faits à propos de %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classifié par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
+          meta_description_with_common_name_no_data: Aucun fait n’est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} selon la classification de %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données et aux faits à propos de %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Faits à propos de %{preferred_common_name} tel que classé selon %{hierarchy_provider} ? Données de trait à propos de %{scientific_name} comprenant des informations sur %{topics}.
           meta_keywords: données calculables de %{scientific_name} selon la classification de %{hierarchy_provider}, informations sur %{scientific_name}
-          meta_title: Données de trait pour %{scientific_name} selon la classification de %{hierarchy_provider}
-          meta_title_with_common_name: Données de trait pour %{preferred_common_name} selon la classification de %{hierarchy_provider} (%{scientific_name})
-          tweet_text: Données de trait pour %{scientific_name} selon la classification de %{hierarchy_provider}
-        meta_description: Images, vidéos et fichiers sons de %{scientific_name}. Trouver des images, des photos, des films et des sons de %{scientific_name} dans l’Encyclopédie de la Vie.
-        meta_description_no_data: Aucune données calculable n’est disponible pour %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des données pour %{scientific_name}.
-        meta_description_with_common_name_no_data: Aucune donnée calculable n’est disponible pour %{preferred_common_name} appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des données sur %{preferred_common_name} (%{scientific_name}).
-        meta_description_with_common_name_with_topics: Quelles données les scientifiques ont-ils collectées pour %{preferred_common_name} ? Données de trait sur %{scientific_name} comprenant des informations sur %{topics}.
-        meta_keywords: données calculables de %{scientific_name}, informations sur %{scientific_name}
-        meta_keywords_with_common_name: données calculables sur %{preferred_common_name}
-        meta_title: Données de trait pour %{scientific_name}
-        meta_title_with_common_name: Données de trait pour %{preferred_common_name} (%{scientific_name})
-        tweet_text: Données de trait pour %{scientific_name}
+          meta_title: Faits à propos de %{scientific_name} selon la classification de %{hierarchy_provider}
+          meta_title_with_common_name: Faits à propos de %{preferred_common_name} (%{scientific_name} selon la classification de %{hierarchy_provider})
+          tweet_text: Faits à propos de %{scientific_name} selon la classification de %{hierarchy_provider}
+        meta_description: Faits de %{scientific_name}, incluant des mesures et des traits sur %{scientific_name}. Données calculables pour %{scientific_name} de recherches scientifiques fournies par des scientifiques.
+        meta_description_no_data: Aucun fait n’est disponible pour %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des faits à propos de %{scientific_name}.
+        meta_description_with_common_name: Faits à propos de %{preferred_common_name} incluant des mesures et des traits sur %{preferred_common_name} (appelé scientifiquement %{scientific_name}). Données calculables pour %{scientific_name} de recherches scientifiques fournies par des scientifiques.
+        meta_description_with_common_name_no_data: Aucun fait n’est disponible pour %{preferred_common_name} appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des faits à propos de %{preferred_common_name} (%{scientific_name}).
+        meta_description_with_common_name_with_topics: Faits à propos de %{preferred_common_name}, comprenant des mesures et des traits sur %{preferred_common_name} (appelé scientifiquement %{scientific_name}). Données calculables sur %{scientific_name} comprenant des %{topics} de recherche scientifique fournies par des scientifiques.
+        meta_keywords: Faits à propos de %{scientific_name}, faits sur about %{scientific_name},traits sur %{scientific_name}, traits de %{scientific_name},mesures de %{scientific_name}, mesures pour %{scientific_name}, fait sur %{scientific_name}, fait à propos de %{scientific_name}, trait sur %{scientific_name}, trait de %{scientific_name}, mesure sur %{scientific_name}, mesure pour %{scientific_name}
+        meta_keywords_with_common_name: faits sur %{preferred_common_name}, faits à propos de %{preferred_common_name}, traits de %{preferred_common_name}, traits sur %{preferred_common_name}, mesures de %{preferred_common_name}, mesures pour %{preferred_common_name}, faits de %{scientific_name}, faits à propos de %{scientific_name}, traits de %{scientific_name}, traits sur %{scientific_name}, mesures de %{scientific_name}, mesures pour %{scientific_name}, fait sur %{preferred_common_name}, fait à propos de %{preferred_common_name}, trait de %{preferred_common_name}, trait sur %{preferred_common_name}, mesure de %{preferred_common_name}, mesure pour %{preferred_common_name}, fait de %{scientific_name}, fait à propos de %{scientific_name}, trait de %{scientific_name}, trait sur %{scientific_name}, mesure de %{scientific_name}, mesure pour %{scientific_name}
+        meta_title: Mesures et faits pour %{scientific_name}
+        meta_title_with_common_name: Mesures et faits pour %{preferred_common_name} (%{scientific_name})
+        tweet_text: Faits à propos de %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie
-          meta_description_no_data: Aucun fait n’est disponible pour %{scientific_name} classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer à propos de %{scientific_name} comme la Conservation, la Répartition, l’Ecologie, l’Habitat, la Morphologie et davantage.
-          meta_description_with_chapter_list: Information sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Inclut les informations %{chapter_list} pour %{scientific_name}.
-          meta_description_with_common_name: Information sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
-          meta_description_with_common_name_no_data: Aucun fait n’est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} selon la classification par %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des faits à propos de %{preferred_common_name} (%{scientific_name}), comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
-          meta_description_with_common_name_with_chapter_list: Information sur le(la) %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
-          meta_title: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
-          meta_title_with_common_name: Information sur le %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
-          tweet_text: Information sur %{scientific_name} tel que classé par %{hierarchy_provider}
-        meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie
-        meta_description_no_data: Aucun fait n’est disponible pour %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des faits à propos de %{scientific_name}, comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
-        meta_description_with_chapter_list: Information sur %{scientific_name} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
-        meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie.
-        meta_description_with_common_name_no_data: Aucun fait n’est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des faits à propos de %{preferred_common_name} (%{scientific_name}), comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
-        meta_description_with_common_name_with_chapter_list: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie. Comprend des informations sur %{chapter_list}.
-        meta_title: Faits concernant %{scientific_name}
-        meta_title_with_common_name: Faits concernant %{preferred_common_name} (%{scientific_name})
-        tweet_text: Informations concernant %{scientific_name}
+          meta_description: Descriptions et articles sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie
+          meta_description_no_data: Aucun article n’est disponible pour %{scientific_name} classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer à des articles à propos de %{scientific_name} comme la Conservation, la Répartition, l’Ecologie, l’Habitat, la Morphologie et davantage.
+          meta_description_with_chapter_list: Descriptions et articles sur %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Inclut %{chapter_list} pour %{scientific_name}.
+          meta_description_with_common_name: Descriptions et articles sur le %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
+          meta_description_with_common_name_no_data: Aucun article n’est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} selon la classification par %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des articles à propos de %{preferred_common_name} (%{scientific_name}), comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
+          meta_description_with_common_name_with_chapter_list: Descriptions et articles sur le(la) %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} tel que classé par %{hierarchy_provider} dans l’Encyclopédie de la Vie. Comprend %{chapter_list}.
+          meta_title: Descriptions et articles sur %{scientific_name} tel que classé par %{hierarchy_provider}
+          meta_title_with_common_name: Descriptions et articles sur le %{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})
+          tweet_text: Articles sur %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description: Descriptions et articles sur %{scientific_name} dans l’Encyclopédie de la Vie
+        meta_description_no_data: Aucun article n’est disponible pour %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des articles à propos de %{scientific_name}, comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
+        meta_description_with_chapter_list: Descriptions et articles sur %{scientific_name} dans l’Encyclopédie de la Vie. Comprend %{chapter_list}.
+        meta_description_with_common_name: Descriptions et articles sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_description_with_common_name_no_data: Aucun article n’est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} dans l’Encyclopédie de la Vie. EdlV vous invite à fournir des articles à propos de %{preferred_common_name} (%{scientific_name}), comme sa conservation, sa répartition, son écologie, son habitat, sa morphologie, etc.
+        meta_description_with_common_name_with_chapter_list: Descriptions et articles sur le(la) %{preferred_common_name}, scientifiquement appelé(e) %{scientific_name} dans l’Encyclopédie de la Vie. Comprend %{chapter_list}.
+        meta_title: Descriptions et articles concernant %{scientific_name}
+        meta_title_with_common_name: Descriptions et articles concernant le %{preferred_common_name} (%{scientific_name})
+        tweet_text: Articles concernant %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 

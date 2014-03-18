@@ -2758,6 +2758,7 @@ uk:
       about_link_podcasts: Подкасти
       about_link_statistics: Статистика
       about_link_terms_of_use: Умови використання
+      about_link_traitbank: Що таке TraitBank?
       about_link_what_is_eol: Що таке EOL?
       header_about: Про EOL
       header_learn_more: Дізнайтеся більше про
@@ -2797,6 +2798,8 @@ uk:
     data_search: 
       page_header: Пошук TraitBank
       page_header_results: Результати пошуку TraitBank
+    footer: 
+      google_plus: Енциклопедія Життя на Google+
     taxa: 
       search_traitbank: Пошук TraitBank
       search_within_clade: Пошук серед кладу
@@ -3269,6 +3272,10 @@ uk:
   resource_hint_dataset_rights: (застосовується для даних <i>в цілому</i>; не застосовується у всіх юрисдикціях)
   resource_hint_dataset_source_url: (URL першоджерела набору даних, таких як стаття або дослідження)
   resource_hint_default_rights: (застосовується типово для елементів <i>у</i> наборі даних)
+  resource_import_frequency: 
+    monthly: Щомісячно
+    quarterly: Щоквартально
+    weekly: Щотижня
   resources: Ресурси
   response: Відповідь
   response_formats: Формати відповіді
@@ -3461,8 +3468,8 @@ uk:
         data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> збирає записи даних із багатьох постачальників. Виберіть рядок для подробиць про запис або <a href="%{traitbank_search_path}">шукайте TraitBank</a>.
         data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> збирає записи даних із багатьох постачальників. Виберіть рядок для подробиць про запис або <a href="%{traitbank_search_path}">шукайте у %{taxon_name}</a>.
         hierarchy_entry: 
-          meta_description: Фотографії, відео і аудіо %{scientific_name} прокласифіковані за %{hierarchy_provider}. Знайдіть зображення, фотографії, фільми і звуки %{scientific_name} у "Енциклопедії Життя".
-          meta_description_no_data: Немає доступних обчислених даних для %{scientific_name} прокласифікованих за %{hierarchy_provider} в "Енциклопедії Життя". EOL запрошує вас внести дані для %{scientific_name}.
+          meta_description: Факти про %{scientific_name} прокласифіковані за %{hierarchy_provider} у "Енциклопедії Життя".
+          meta_description_no_data: Немає доступних фактів для %{scientific_name} прокласифікованих за %{hierarchy_provider} в "Енциклопедії Життя". ЕЖ запрошує вас внести факти про %{scientific_name}.
           meta_description_with_common_name_no_data: Немає доступних обчислених даних для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести дані для %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name} прокласифікованого за %{hierarchy_provider}? Характерні дані про %{scientific_name}, включаючи інформацію про %{topics}.
           meta_keywords: Обчислювані дані %{scientific_name} прокласифікованого за %{hierarchy_provider}, інформація про %{scientific_name}

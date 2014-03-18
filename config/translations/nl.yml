@@ -4217,7 +4217,7 @@ nl:
   time_ago: "%{time_passed} geleden"
   title: Titel
   to_process_your_donation_please_proceed: Om uw donatie te verwerken ga u door
-  to_remedy_this: Om dit te verhelpen sluiten we inactieve gebruikers af en vragen we u op eol.org een nieuwe gebruiker aan te maken. Als u de bevestiging per e-mail hebt ontvangen, klik dan op koppeling om uw gebruiker te bevestigen.
+  to_remedy_this: Om dit te verhelpen sluiten we inactieve gebruikers af en vragen we u op eol.org een nieuwe gebruiker aan te maken. Als u de bevestiging per e-mail hebt ontvangen, klik dan op de koppeling om uw gebruiker te bevestigen.
   to_send_email_enter_text: Voer hieronder tekst in en klik op "Verzenden" om deze gebruiker een e-mail te sturen.
   to_submit_a_species_photograph_for: Om een foto voor %{taxon} toe te voegen, kunt u de foto's sturen naar %{flickr_link}  en de aanwijzingen volgen op de startpagina van die groep.
   toc: Inhoudsopgave

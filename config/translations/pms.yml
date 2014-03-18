@@ -1291,6 +1291,7 @@ pms:
       about_link_podcasts: Podcasts
       about_link_statistics: Statìstiche
       about_link_terms_of_use: Condission d'utilisassion
+      about_link_traitbank: Lòn ch'a l'é TraitBank?
       about_link_what_is_eol: Lòn ch'a l'é l'EdV?
       header_about: A propòsit ëd l'EdV
       header_learn_more: Për savèjne 'd pì
@@ -1330,6 +1331,8 @@ pms:
     data_search: 
       page_header: Sërché an TraitBank
       page_header_results: Arzultà d'arserca an TraitBank
+    footer: 
+      google_plus: Encuclopedìa dla Vita su Google+
     taxa: 
       search_traitbank: Sërché an TraitBank
       search_within_clade: Sërché ant un clad
@@ -1544,14 +1547,15 @@ pms:
         data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> a sambla dj'argistrassion ëd dàit ëd vàire fornidor. Ch'a selession-a na linia për pi 'd detaj an sl'argistrassion, o <a href="%{traitbank_search_path}">ch'a sërca an  TraitBank</a>.
         data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> a sambla dj'argistrassion ëd dàit da vàire fornidor. Ch'a selession-a n alinia për pi 'd detaj an sl'argistrassion, o <a href="%{traitbank_search_path}">ch'a sërca an %{taxon_name}</a>.
         hierarchy_entry: 
-          meta_description: Le plance, ij filmà e j'archivi sonor ëd %{scientific_name} tanme classificà da %{hierarchy_provider}. Trové dle plance, dle fòto, dij film e dij son ëd %{scientific_name} ant l'Enciclopedìa dla Vita.
-          meta_description_no_data: Gnun dàit calcolàbil a l'é disponìbil për {scientific_name} tanme classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita. EdV a lo anvita a contribuì ai dàit për %{scientific_name}.
-          meta_description_with_common_name_no_data: Gnun dàit calcolàbil a l'é disponìbil për %{preferred_common_name} coma classificà da %{hierarchy_provider} ciamà ëdcò %{scientific_name} ant l'Enciclopedìa dla Vita. EdV a l'anvita a contribuì ai dàit për %{preferred_common_name} (%{scientific_name}).
-          meta_description_with_common_name_with_topics: Che dait ij siensià a l'han cujì për %{preferred_common_name} tanme classificà da %{hierarchy_provider}? Dàit ëd caraterìstiche a propòsit ëd %{scientific_name} comprendent d'anformassion su %{topics}.
+          meta_description: Fàit a propòsit ëd %{scientific_name} tanme classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita.
+          meta_description_no_data: Gnun fàit a l'é disponìbil për {scientific_name} tanme classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita. EdV a lo anvita a contribuì ai fàit a propòsit ëd %{scientific_name}.
+          meta_description_with_common_name: Fàit a propòsit ëd %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} coma classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita.
+          meta_description_with_common_name_no_data: Gnun fàit a l'é disponìbil për %{preferred_common_name} ciamà ëdcò %{scientific_name} conforma a la classificassion ëd %{hierarchy_provider}  ant l'Enciclopedìa dla Vita. EdV a l'anvita a contribuì ai dàit e ai fàit për %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Fàit a propòsit ëd %{preferred_common_name} tanme classificà da %{hierarchy_provider}? Dàit ëd caraterìstiche a propòsit ëd %{scientific_name} comprendent d'anformassion su %{topics}.
           meta_keywords: dàit calcolàbil ëd %{scientific_name} tanme classificà da %{hierarchy_provider}, anformassion su %{scientific_name}
-          meta_title: Dàit ëd caraterìstica për %{scientific_name} tanme classificà da %{hierarchy_provider}
-          meta_title_with_common_name: Dàit ëd caraterìstica për %{preferred_common_name} as classified by %{hierarchy_provider} (%{scientific_name})
-          tweet_text: Dàit ëd caraterìstica për %{scientific_name} tanme classificà da %{hierarchy_provider}
+          meta_title: Fàit a propòsit ëd %{scientific_name} tanme classificà da %{hierarchy_provider}
+          meta_title_with_common_name: Fàit a propòsit ëd %{preferred_common_name} tanme classificà da %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Fàit a propòsit ëd %{scientific_name} tanme classificà da %{hierarchy_provider}
         meta_description: Plance, filmà e document sonor ëd %{scientific_name}. Trové dle plance, dle fòto, dij film e dij son ëd %{scientific_name} ant l'Enciclopedìa dla Vita.
         meta_description_no_data: Gnun dàit calcolàbil a l'é disponìbil për %{scientific_name} ant l'Enciclopedìa dla Vita. EdV a l'anvita a fornì dij dàit për %{scientific_name}.
         meta_description_with_common_name_no_data: Gnun dàit calcolàbil a l'é disponìbil për %{preferred_common_name} conossù ëdcò tanme %{scientific_name} ant l'Enciclopedìa dla Vita. EdV a l'anvita a fornì dij dàit su %{preferred_common_name} (%{scientific_name}).

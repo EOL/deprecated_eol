@@ -1930,6 +1930,7 @@ mk:
     notice: 
       clade_has_no_data: Засега никој нема ставено податочни записи за %{taxon_name}. <a href="%{contribute_path}">Дознајте како да ставите</a>.
       clade_too_big: Нажалост, прикажаните резултати не се исфилтрирани по %{taxon_name} бидејќи се премногу. Одберете помала група или <a href="%{contactus_tech_path}">обратете ни се</a> за помош.
+    page_title: Преварај по TraitBank
   data_search_attribute: Пребарајте податоци на %{attribute} во записите на TraitBank
   data_search_destroyed: Оваа задача повеќе нема да се обработува.
   data_search_explanation: Послужете се со алатката за пребарување на податоци за да добиете ставки за „%{term}“ во набљудувањата,<br />мерењата и други научни наоди.
@@ -1945,6 +1946,7 @@ mk:
     one: Преземањата на пребарани податоци се ограничени на еден резултат.
     other: Преземањата на пребарани податоци се ограничени на %{count} резултати.
   data_search_link: Пребарајте научни податоци на EOL
+  data_search_row_hidden: Кустос го скри овој ред со податоци.
   data_server_unavailable: Податоците на EOL се привремено недостапни. Навратата се подоцна. Се извинуваме за непријатноста.
   data_show_n_more_rows: Прикажи уште БББ...
   data_subtab_about: За нас
@@ -2512,17 +2514,22 @@ mk:
         max: Највисока вредност
         max_placeholder: Внесете број
         max_placeholder_disabled: Опсегот е оневозможен
+        max_with_val: "Највисока вредност: %{val}"
         min: Најниска вредност
         min_placeholder: Внесете број
         min_placeholder_disabled: Опсегот е оневозможен
+        min_with_val: "Најниска вредност: %{val}"
         q: Конкретна вредност
         q_more: На пр. хетеротрофен
         q_placeholder: Внесете збор, израз или број
         q_placeholder_disabled: Внесен е опсег, а конкретната вредност е оневозможена
+        q_with_val: "Конкретна вредност: %{val}"
         taxon_name: Таксонска група
         taxon_name_more: На пр., внесете Trochilidae или китови и одберете ја складната група.
         taxon_name_placeholder: Внесете име на таксонската група за да одберете некоја
         taxon_name_placeholder_value_removed: "%{taxon_group} е отстранета, одберете нова група"
+        taxon_name_with_val: "Таксонска група: %{val}"
+        total_results: "Вкупно резултати: %{total}"
         unit: Мерна единица
       eol_statistic: 
         date_one: Датум
@@ -2914,6 +2921,7 @@ mk:
       about_link_podcasts: Подкастови
       about_link_statistics: Статистики
       about_link_terms_of_use: Услови на употреба
+      about_link_traitbank: Што е тоа TraitBank?
       about_link_what_is_eol: Што е EOL?
       header_about: За EOL
       header_learn_more: Дознајте повеќе
@@ -2953,6 +2961,8 @@ mk:
     data_search: 
       page_header: Пребарување по TraitBank
       page_header_results: Резултати од TraitBank
+    footer: 
+      google_plus: Енциклопедија на живиот свет на Google+
     taxa: 
       search_traitbank: Пребарување по TraitBank
       search_within_clade: Пребарување во кладот
@@ -3614,6 +3624,15 @@ mk:
   resource_hint_dataset_rights: (се однесува на податочниотзбир <i>во целина</i>; не важи за сите земји)
   resource_hint_dataset_source_url: (URL на изворот на податочниот збир, како труд или студија)
   resource_hint_default_rights: (по основно се однесува на елементи <i>во</i> податочниот збир)
+  resource_import_frequency: 
+    bimonthly: Двомесечно
+    hours_with_count: 
+      one: "%{count} час"
+      other: "%{count} часа"
+    monthly: Месечно
+    once: Увези еднаш
+    quarterly: Тримесечно
+    weekly: Неделно
   resources: Извори
   response: Одговор
   response_formats: Формати на одговор
@@ -3924,44 +3943,46 @@ mk:
         data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни записи од многу разни добавувачи. ОДберете ред за да видите повеќе за записот, или пак <a href="%{traitbank_search_path}">пребарајте ја TraitBank</a>.
         data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни записи од многу разни добавувачи. ОДберете ред за да видите повеќе за записот, или пак <a href="%{traitbank_search_path}">пребарајте во рамките на %{taxon_name}</a>.
         hierarchy_entry: 
-          meta_description: Слики, видеа и аудио од %{scientific_name} според класификацијата на %{hierarchy_provider}. Пронајдете слики, филмови и звуци од %{scientific_name} на Енциклопедијата на живиот свет.
-          meta_description_no_data: Немаме на располагање пресметливи податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}. EOL ве поканува да ги доставите.
-          meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема на располагање пресметливи податоци за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}. EOL ве поканува да придонесете со ваши податоци за %{preferred_common_name} (%{scientific_name}).
-          meta_description_with_common_name_with_topics: Какви сè податоци собрале научниците за %{preferred_common_name} според класификацијата на %{hierarchy_provider}? Податоци за одлики на %{scientific_name}, меѓу кои и информации за %{topics}.
+          meta_description: Факти за %{scientific_name} според класификацијата на %{hierarchy_provider}. Пронајдете слики, филмови и звуци од %{scientific_name} во Енциклопедијата на живиот свет.
+          meta_description_no_data: Немаме на располагање факти за %{scientific_name} според класификацијата на %{hierarchy_provider}. EOL ве поканува да ги доставите.
+          meta_description_with_common_name: Факти за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider} на Енциклопедијата на живиот свет.
+          meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема на располагање факти за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}. EOL ве поканува да придонесете со ваши факти за %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Факти за %{preferred_common_name} според класификацијата на %{hierarchy_provider}? Податоци за одлики на %{scientific_name}, меѓу кои и информации за %{topics}.
           meta_keywords: пресметливи податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}, информации за %{scientific_name}
-          meta_title: Податоци за одлики на %{scientific_name} според класификацијата на %{hierarchy_provider}
-          meta_title_with_common_name: Податоци за одлики на %{preferred_common_name} според класификацијата на %{hierarchy_provider} (%{scientific_name})
-          tweet_text: Податоци за одлики на %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Слики, видеа и аудио од %{scientific_name}. Пронајдете слики, филмови и звуци од %{scientific_name} на Енциклопедијата на живиот свет.
-        meta_description_no_data: Енциклопедијата на живиот свет нема пресметливи информации за %{scientific_name}. EOL ве поканува да учествувате со ваши пресметливи податоци за %{scientific_name}.
-        meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема пресметливи информации за %{preferred_common_name} (%{scientific_name}). EOL ве поканува да учествувате со ваши пресметливи податоци за %{preferred_common_name} (%{scientific_name}).
-        meta_description_with_common_name_with_topics: Какви сè податоци собрале научниците за %{preferred_common_name}? Податоци за одлики на %{scientific_name}, меѓу кои и информации за %{topics}.
-        meta_keywords: пресметливи податоци за %{scientific_name}, информации за %{scientific_name}
-        meta_keywords_with_common_name: пресметливи податоци за %{preferred_common_name}
-        meta_title: Податоци за одлики на %{scientific_name}
-        meta_title_with_common_name: Податоци за одлики на %{preferred_common_name} (%{scientific_name})
-        tweet_text: Податоци за одлики на %{scientific_name}
+          meta_title: Факти за %{scientific_name} според класификацијата на %{hierarchy_provider}
+          meta_title_with_common_name: Факти на %{preferred_common_name} според класификацијата на %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Факти за %{scientific_name} според класификацијата на %{hierarchy_provider}
+        meta_description: Факти за %{scientific_name}, меѓу кои и мерења и одлики на %{scientific_name}. Пресметливи податоци за %{scientific_name} од истражувања на научниците.
+        meta_description_no_data: Енциклопедијата на живиот свет нема факти за %{scientific_name}. EOL ве поканува да учествувате со ваши факти за %{scientific_name}.
+        meta_description_with_common_name: Факти за %{preferred_common_name}, вклучувајќи мерења и одлики на %{preferred_common_name} (%{scientific_name}). Пресметливи податоци за %{scientific_name} од истражувања на научниците.
+        meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема факти за %{preferred_common_name} (%{scientific_name}). EOL ве поканува да учествувате со ваши факти за %{preferred_common_name} (%{scientific_name}).
+        meta_description_with_common_name_with_topics: Факти за %{preferred_common_name}, меѓу кои и мерењља и одлики на %{preferred_common_name} (%{scientific_name}). Пресметливи податоци за %{scientific_name}, меѓу кои и %{topics} од истражувања на научниците.
+        meta_keywords: факти за %{scientific_name},факти за %{scientific_name},одлики на %{scientific_name},одлики за %{scientific_name},мерење за %{scientific_name},мерења на %{scientific_name}, факт за %{scientific_name},факти за одлика на %{scientific_name},одлики на %{scientific_name},одлика за %{scientific_name},мерење на %{scientific_name},мерење за %{scientific_name}
+        meta_keywords_with_common_name: факти за %{preferred_common_name}, факти %{preferred_common_name},одлики %{preferred_common_name},одлики на %{preferred_common_name},мерења на %{preferred_common_name},мерења за %{preferred_common_name},факти %{scientific_name},факти за %{scientific_name},одлики на %{scientific_name},одлики за %{scientific_name},мерења на %{scientific_name},мерења за %{scientific_name},факт %{preferred_common_name},факт за %{preferred_common_name},одлика на%{preferred_common_name},одлика за %{preferred_common_name},мерење на %{preferred_common_name},мерење за %{preferred_common_name},факт %{scientific_name},факт за %{scientific_name},одлика %{scientific_name},одлика на %{scientific_name},мерење %{scientific_name},мерење за %{scientific_name}
+        meta_title: Мерења и факти за %{scientific_name}
+        meta_title_with_common_name: Мерења и факти за %{preferred_common_name} (%{scientific_name})
+        tweet_text: Факти за %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет
+          meta_description: Описи и статии за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет
           meta_description_no_data: Енциклопедијата на живиот свет нема факти на располагање за %{scientific_name} според класификацијата на %{hierarchy_provider}. EOL ве поканува да учествувате за %{scientific_name} како негова заштита, ареал, екологија, живеалиште, морфологија и други информации.
-          meta_description_with_chapter_list: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Содржи информации од %{chapter_list} за %{scientific_name}.
-          meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет."
-          meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема факти на располагање за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}. EOL ве поканува да учествувате со факти за %{preferred_common_name} (%{scientific_name}) како неговата заштита, ареал, екологија, живеалиште, морфологија и други информации.
-          meta_description_with_common_name_with_chapter_list: "Информации за %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
-          meta_title: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider}
-          meta_title_with_common_name: Информации за %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
-          tweet_text: Информации за %{scientific_name} според класификацијата на %{hierarchy_provider}
-        meta_description: Информации за %{scientific_name} во Енциклопедијата на живиот свет
-        meta_description_no_data: Немаме факти на располагање за %{scientific_name}. EOL ве поканува да учествувате со факти за %{scientific_name} како неговата заштита, ареал, екологија, живеалиште, морфологија и други информации.
-        meta_description_with_chapter_list: Информации за %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}.
-        meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
-        meta_description_with_common_name_no_data: Немаме факти на располагање за %{preferred_common_name} (%{scientific_name}). EOL ве поканува да учествувате со факти за %{preferred_common_name} (%{scientific_name}) како негова заштита, ареал, екологија, живеалиште, морфологија и други информации.
-        meta_description_with_common_name_with_chapter_list: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
-        meta_title: Факти за %{scientific_name}
-        meta_title_with_common_name: Факти за %{preferred_common_name} (%{scientific_name})
-        tweet_text: Информации за %{scientific_name}
+          meta_description_with_chapter_list: Описи и статии за %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Содржи информации од %{chapter_list} за %{scientific_name}.
+          meta_description_with_common_name: "Описи и статии за %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет."
+          meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема статии на располагање за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}. EOL ве поканува да учествувате со статии за %{preferred_common_name} (%{scientific_name}) како неговата заштита, ареал, екологија, живеалиште, морфологија и други информации.
+          meta_description_with_common_name_with_chapter_list: "Описи и статии за %{preferred_common_name}, научно: %{scientific_name} според класификацијата на %{hierarchy_provider} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
+          meta_title: Описи и статии за %{scientific_name} според класификацијата на %{hierarchy_provider}
+          meta_title_with_common_name: Описи и статии за %{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})
+          tweet_text: Статии за %{scientific_name} според класификацијата на %{hierarchy_provider}
+        meta_description: Описи и статии за %{scientific_name} во Енциклопедијата на живиот свет
+        meta_description_no_data: Немаме статии на располагање за %{scientific_name}. EOL ве поканува да учествувате со статии за %{scientific_name} како неговата заштита, ареал, екологија, живеалиште, морфологија и други информации.
+        meta_description_with_chapter_list: Описи и статии за %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}.
+        meta_description_with_common_name: "Описи и статии за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
+        meta_description_with_common_name_no_data: Немаме статии на располагање за %{preferred_common_name} (%{scientific_name}). EOL ве поканува да учествувате со статии за %{preferred_common_name} (%{scientific_name}) како негова заштита, ареал, екологија, живеалиште, морфологија и други информации.
+        meta_description_with_common_name_with_chapter_list: "Описи и статии за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет. Содржи информации за %{chapter_list}."
+        meta_title: Описи и статии за %{scientific_name}
+        meta_title_with_common_name: Описи и статии за %{preferred_common_name} (%{scientific_name})
+        tweet_text: Статии за %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 

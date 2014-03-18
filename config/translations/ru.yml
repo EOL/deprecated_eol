@@ -12,6 +12,7 @@
 # Author: Dr&mx
 # Author: Eleferen
 # Author: Express2000
+# Author: Ilnur efende
 # Author: Iluvatar
 # Author: Lunacy1911
 # Author: Lvova
@@ -1483,6 +1484,7 @@ ru:
       about_link_podcasts: Подкасты
       about_link_statistics: Статистика
       about_link_terms_of_use: Условия использования
+      about_link_traitbank: Что такое TraitBank?
       about_link_what_is_eol: Что такое EOL?
       header_about: О EOL
       header_learn_more: Узнайте больше о
@@ -1519,6 +1521,13 @@ ru:
       questions_link_model_organism: Что такое модельный организм?
       questions_link_naming_species: Как называют виды?
       questions_link_species: Что такое вид?
+    data_search: 
+      page_header: Поиск по TraitBank
+      page_header_results: Результаты поиска по TraitBank
+    footer: 
+      google_plus: Энциклопедия жизни в Google+
+    taxa: 
+      search_traitbank: Поиск по TraitBank
   learn_more_link: (%{learn_more})
   learn_more_lowercase: узнать больше
   license: Лицензия
@@ -1803,12 +1812,15 @@ ru:
         meta_title: Люди, заинтересованные в %{scientific_name}
         meta_title_with_common_name: Люди, заинтересованные в %{preferred_common_name} (%{scientific_name})
         tweet_text: Люди, заинтересованные в %{scientific_name}
+    data: 
+      index: 
+        tweet_text: Факты о %{scientific_name}
     details: 
       index: 
-        meta_description: Факты о %{scientific_name} в Энциклопедии жизни
-        meta_title: Факты о %{scientific_name}
-        meta_title_with_common_name: Факты о %{preferred_common_name} (%{scientific_name})
-        tweet_text: Факты о %{scientific_name}
+        meta_description: Описания и статьи о %{scientific_name} в Энциклопедии жизни
+        meta_title: Описания и статьи о %{scientific_name}
+        meta_title_with_common_name: Описания и статьи о %{preferred_common_name} (%{scientific_name})
+        tweet_text: Статьи о %{scientific_name}
     literature: 
       show: 
         meta_title: Статьи и книги о %{scientific_name}

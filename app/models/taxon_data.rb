@@ -157,9 +157,10 @@ class TaxonData < TaxonUserClassificationFilter
           ?occurrence dwc:taxonID ?taxon .
           ?data_point_uri eol:measurementOfTaxon eolterms:true .
           ?taxon dwc:taxonConceptID ?taxon_concept_id .
+          FILTER ( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>) .
         }
       }
-      LIMIT 50000"
+      LIMIT 100"
     results = EOL::Sparql.connection.query(query)
     KnownUri.add_to_data(results)
     Resource.add_to_data(results)

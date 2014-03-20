@@ -37,6 +37,10 @@ class ApiController < ApplicationController
   def collections
   end
 
+  def ggi
+    request.format = 'json'
+  end
+
   def ping_host
     request.format = 'json'
     respond_to do |format|

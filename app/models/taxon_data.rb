@@ -8,6 +8,14 @@ class TaxonData < TaxonUserClassificationFilter
   MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
   MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 60000
 
+  GGI_URIS = [
+    'http://eol.org/schema/terms/NumberRichSpeciesPagesInEOL',
+    'http://eol.org/schema/terms/NumberOfSequencesInGenBank',
+    'http://eol.org/schema/terms/NumberRecordsInGBIF',
+    'http://eol.org/schema/terms/NumberRecordsInBOLD',
+    'http://eol.org/schema/terms/NumberPublicRecordsInBOLD',
+    'http://eol.org/schema/terms/NumberSpecimensInGGBN' ]
+
   # TODO - this doesn't belong here; it has nothing to do with a taxon concept. Move to a DataSearch class. Fix the
   # controller.
   def self.search(options={})
@@ -133,6 +141,29 @@ class TaxonData < TaxonUserClassificationFilter
   def ranges_for_overview
     return nil unless user.can_see_data?
     ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
+  end
+
+  def data_for_ggi
+    query = "
+      SELECT DISTINCT ?attribute ?value ?data_point_uri ?graph ?taxon_concept_id
+      WHERE {
+        GRAPH ?graph {
+          ?data_point_uri dwc:measurementType ?attribute .
+          ?data_point_uri dwc:measurementValue ?value .
+          FILTER ( ?attribute IN (<#{TaxonData::GGI_URIS.join(">,<")}>))
+        } .
+        {
+          ?data_point_uri dwc:occurrenceID ?occurrence .
+          ?occurrence dwc:taxonID ?taxon .
+          ?data_point_uri eol:measurementOfTaxon eolterms:true .
+          ?taxon dwc:taxonConceptID ?taxon_concept_id .
+        }
+      }
+      LIMIT 50000"
+    results = EOL::Sparql.connection.query(query)
+    KnownUri.add_to_data(results)
+    Resource.add_to_data(results)
+    results
   end
 
   private

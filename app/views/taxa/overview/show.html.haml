@@ -12,10 +12,13 @@
               %p= I18n.t(:media_summary_empty)
               %p= link_to I18n.t(:media_summary_empty_contribute_instructions), cms_page_path('contribute')
       - else
-        - @overview.media.each do |item|
-          .image
-            %a{href: data_object_path(item.id)}
-              %img{src: item.thumb_or_object('580_360'), alt: alternative_text(item, en_type(item), @overview.taxon_concept),
+        - @overview.media.each_with_index do |item, i|
+          -# all but the first image should be hidden
+          - opacity = (i > 0) ? 0 : 1
+          - zindex = (i > 0) ? -1 : 1
+          .image{ style: "opacity:#{opacity}; z-index: #{zindex};" }
+            %a{ href: data_object_path(item.id) }
+              %img{ src: item.thumb_or_object('580_360'), alt: alternative_text(item, en_type(item), @overview.taxon_concept),
                 data: { data_object_id: item.id, thumb: item.thumb_or_object('98_68') }}
             .details
               .copy

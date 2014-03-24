@@ -66,9 +66,7 @@ describe 'Staging', js: true do
     page.should have_content("Displaying 26 – 50 of") # Still don't care how many.
     check "type_taxon_concept"
     click_button "Filter"
-    within('#page_heading') do
-      expect(page).to have_tag('h2', text: /\d{3} results for tiger/)
-    end
+    expect(page).to have_tag('.hgroup', text: /[^0-9]\d{3} results for/)
   end
 
   it 'should find jrice' do

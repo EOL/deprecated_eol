@@ -225,6 +225,10 @@ ActiveRecord::Base.transaction do
     label: 'IdentificationResources', toc_item: description)
   InfoItem.gen_if_not_exists(schema_value: 'http://www.eol.org/voc/table_of_contents#Wikipedia',
     label: 'Wikipedia', toc_item: wikipedia)
+  InfoItem.gen_if_not_exists(schema_value: 'http://rs.tdwg.org/ontology/voc/SPMInfoItems#DiagnosticDescription',
+    label: 'Diagnostic Description', toc_item: description)
+  InfoItem.gen_if_not_exists(schema_value: 'http://eol.org/schema/eol_info_items.xml#Taxonomy',
+    label: 'Taxonomy', toc_item: description)
 
   ServiceType.gen_if_not_exists(label: 'EOL Transfer Schema')
 

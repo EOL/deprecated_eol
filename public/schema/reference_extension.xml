@@ -5,6 +5,8 @@
             xsi:schemaLocation="http://rs.gbif.org/extension/ http://rs.gbif.org/schema/extension.xsd"
             xmlns:dc="http://purl.org/dc/terms/"
             dc:title="EOL References Extension 1.0"
+            dc:description="This extension draws from BIBO (http://bibliontology.com/), Dublin Core and others to gather information about citations and bibliographic references."
+            dc:relation="http://eol.org/info/cp_archives"
             name="EOLReferencesExtension"
             namespace="http://www.eol.org/schema/transfer#"
             rowType="http://eol.org/schema/reference/Reference">

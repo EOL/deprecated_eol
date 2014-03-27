@@ -66,9 +66,7 @@ describe 'Staging', js: true do
     page.should have_content("Displaying 26 – 50 of") # Still don't care how many.
     check "type_taxon_concept"
     click_button "Filter"
-    within('#page_heading') do
-      expect(page).to have_tag('h2', text: /\d{3} results for tiger/)
-    end
+    expect(page).to have_tag('.hgroup', text: /[^0-9]\d{3} results for/)
   end
 
   it 'should find jrice' do
@@ -128,43 +126,38 @@ describe 'Staging', js: true do
     visit_with_auth "/logout"
   end
 
-  if (false) # TEMP - disabling this because it was causing FB errors. ...we need to get the server config'd to use FB correctly.
-    it 'should handle comments correctly' do
-      visit_with_auth "/logout"
-      visit_with_auth "/pages/1089042"
-      test_text = "Whatever dude, #{FactoryGirl.generate(:string)}" # Otherwise we get a duplicate warning...
-      bad_text = 'QWERQWERQWER'
-      more_text = 'Yay!'
-      link_stuff = 'http://whatever.org and one starting with www.google.com and a third marked up using <a href="something.edu">this</a>.'
-      fill_in 'comment_body', with: test_text + link_stuff
-      click_button 'Post Comment'
-      fill_in 'session_username_or_email', with: Rails.configuration.acceptance_curator[:username]
-      fill_in 'session_password', with: Rails.configuration.acceptance_curator[:password]
-      click_button 'Sign in'
-      page.should have_content test_text # It won't have link_stuff 'cause it's too long...
-      page.should have_content I18n.t(:comment_added_notice)
-      visit_with_auth "/pages/1089042/updates"
-      within("ul.feed") do
-        page.should have_selector 'a[href="http://whatever.org"]'
-        page.should have_selector 'a[href="http://www.google.com"]'
-        page.should have_selector 'a[href="something.edu"]', text: 'this'
-        click_link 'Edit' # There should only be one...
-        fill_in 'comment_body', with: bad_text
-        click_link 'Cancel'
-        page.should_not have_content bad_text
-        click_link 'Edit'
-        fill_in 'comment_body', with: more_text
-        click_button 'save comment'
-        page.should have_content more_text
-        click_link 'Edit'
-        click_link 'Cancel'
-        click_button 'delete'
-        page.driver.browser.switch_to.alert.dismiss
-        page.should have_content more_text
-        click_button 'delete'
-        page.driver.browser.switch_to.alert.accept
-        page.should_not have_content more_text
-      end
+  it 'should handle comments correctly' do
+    visit_with_auth "/logout"
+    visit_with_auth "/users/1/newsfeed"
+    test_text = "Whatever dude, #{FactoryGirl.generate(:string)} #{rand(100)} #{rand(100)} " # Otherwise we get a duplicate warning...
+    bad_text = 'QWERQWERQWER'
+    more_text = 'Yay!'
+    link_stuff = 'http://whatever.org and one starting with www.google.com and a third marked up using <a href="something.edu">this</a>.'
+    fill_in 'comment_body', with: test_text + link_stuff
+    click_button 'Post Comment'
+    fill_in 'session_username_or_email', with: Rails.configuration.acceptance_curator[:username]
+    fill_in 'session_password', with: Rails.configuration.acceptance_curator[:password]
+    click_button 'Sign in'
+    page.should have_content test_text # It won't have link_stuff 'cause it's too long...
+    page.should have_content I18n.t(:comment_added_notice)
+    visit_with_auth "/pages/1089042/updates"
+    within("ul.feed") do
+      page.should have_selector 'a[href="http://whatever.org"]'
+      page.should have_selector 'a[href="http://www.google.com"]'
+      page.should have_selector 'a[href="something.edu"]', text: 'this'
+      click_link 'edit' # There should only be one...
+      fill_in 'comment_body', with: bad_text
+      click_link 'Cancel'
+      page.should_not have_content bad_text
+      click_link 'edit'
+      fill_in 'comment_body', with: more_text
+      click_button 'save comment'
+      page.should have_content more_text
+      click_link 'edit'
+      click_link 'Cancel'
+      page.driver.accept_js_prompts!
+      click_button 'delete'
+      page.should_not have_content more_text
     end
   end
 

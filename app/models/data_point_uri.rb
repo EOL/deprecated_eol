@@ -154,6 +154,51 @@ class DataPointUri < ActiveRecord::Base
     "data_point_#{id}"
   end
 
+  def to_jsonld
+    jsonld = {
+      '@id' => uri,
+      '@type' => measurement? ? 'dwc:MeasurementOrFact' : 'eol:Association',
+      'dwc:taxonID' => 'http://eol.org/pages/' + taxon_concept_id.to_s }
+    if value = DataPointUri.jsonld_value_from_string_or_known_uri(predicate_known_uri || predicate)
+      type_key = measurement? ? 'dwc:measurementType' : 'eol:associationType'
+      jsonld[type_key] = value
+    end
+    if association?
+      jsonld['eol:targetTaxonID'] = 'http://eol.org/pages/' + object.to_s
+    elsif value = DataPointUri.jsonld_value_from_string_or_known_uri(object_known_uri || object)
+      jsonld['dwc:measurementValue'] = value
+    end
+    if value = DataPointUri.jsonld_value_from_string_or_known_uri(unit_of_measure_known_uri || unit_of_measure)
+      jsonld['dwc:measurementUnit'] = value
+    end
+    if value = DataPointUri.jsonld_value_from_string_or_known_uri(life_stage_known_uri || life_stage)
+      jsonld['dwc:lifeStage'] = value
+    end
+    if value = DataPointUri.jsonld_value_from_string_or_known_uri(sex_known_uri || sex)
+      jsonld['dwc:sex'] = value
+    end
+    if value = DataPointUri.jsonld_value_from_string_or_known_uri(statistical_method_known_uri || statistical_method)
+      jsonld['eolterms:statisticalMethod'] = value
+    end
+    jsonld
+  end
+
+  def self.jsonld_value_from_string_or_known_uri(string_or_known_uri)
+    if string_or_known_uri
+      if string_or_known_uri.is_a?(KnownUri)
+        { 'rdfs:label' => { 'en' => string_or_known_uri.label('en') }, '@id' => string_or_known_uri.uri }
+      else
+        if EOL::Sparql.is_uri?(string_or_known_uri)
+          { '@id' => string_or_known_uri }
+        elsif implied_unit = EOL::Sparql.implied_unit_of_measure_for_uri(string_or_known_uri)
+          { 'rdfs:label' => { 'en' => implied_unit.label('en') }, '@id' => implied_unit.uri }
+        else
+          "#{string_or_known_uri}"
+        end
+      end
+    end
+  end
+
   def source
     return user_added_data.user if user_added_data
     return resource.content_partner if resource

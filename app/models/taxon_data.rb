@@ -77,7 +77,7 @@ class TaxonData < TaxonUserClassificationFilter
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
     if_connection_fails_return(nil) do
-      return @taxon_data_set.dup if @taxon_data_set
+      return @taxon_data_set.dup if defined?(@taxon_data_set)
       taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept_id: taxon_concept.id, language: user.language)
       taxon_data_set.sort
       known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
@@ -115,17 +115,18 @@ class TaxonData < TaxonUserClassificationFilter
 
   def ranges_of_values
     return [] unless should_show_clade_range_data
+    return @ranges_of_values if defined?(@ranges_of_values)
     EOL::Sparql::Client.if_connection_fails_return({}) do
-    results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
-      KnownUri.add_to_data(results)
-      results.each do |result|
-        [ :min, :max ].each do |m|
-          result[m] = result[m].value.to_f if result[m].is_a?(RDF::Literal)
-          result[m] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(result).merge(object: result[m]))
-          result[m].convert_units
+      results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
+        KnownUri.add_to_data(results)
+        results.each do |result|
+          [ :min, :max ].each do |m|
+            result[m] = result[m].value.to_f if result[m].is_a?(RDF::Literal)
+            result[m] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(result).merge(object: result[m]))
+            result[m].convert_units
         end
       end
-      results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
+      @ranges_of_values = results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
     end
   end
 

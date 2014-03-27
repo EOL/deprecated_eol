@@ -5,6 +5,8 @@
             xsi:schemaLocation="http://rs.gbif.org/extension/ http://rs.gbif.org/schema/extension.xsd"
             xmlns:dc="http://purl.org/dc/terms/"
             dc:title="EOL Media Extension 1.0"
+            dc:description="This extension draws from Audubon Core, Dublin Core and others to gather information about text and multimedia. It was designed to contain all the metadata that is required to be indexed by the Encyclopedia of Life (EOL), but this extension is hopefully general enough to be useful to all text and media providers and consumers."
+            dc:relation="http://eol.org/info/cp_archives"
             name="EOLMediaExtension"
             namespace="http://www.eol.org/schema/transfer#"
             rowType="http://eol.org/schema/media/Document">

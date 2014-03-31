@@ -445,6 +445,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   pry-stack_explorer
+  rack-ssl (= 1.3.3)
   rails (= 3.2.17)
   rails3-jquery-autocomplete (= 1.0.11)!
   rails_autolink (= 1.1.5)

@@ -1,6 +1,7 @@
 # Messages for Persian (فارسی)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Ebraminio
 # Author: Hooshmand.hasannia
 # Author: Leyth
 # Author: Omnia
@@ -147,7 +148,7 @@ fa:
   translated_resource_statuses-label-resource_status_id-2: بارگذاری شد
   translated_resource_statuses-label-resource_status_id-3: بارگذاری انجام نشد
   translated_resource_statuses-label-resource_status_id-4: منتقل شده به سرور محتوا
-  translated_resource_statuses-label-resource_status_id-5: تاییدشده
+  translated_resource_statuses-label-resource_status_id-5: تأییدشده
   translated_resource_statuses-label-resource_status_id-6: اعتبار سنجی انجام نشد
   translated_resource_statuses-label-resource_status_id-7: در حال پردازش
   translated_resource_statuses-label-resource_status_id-8: پردازش

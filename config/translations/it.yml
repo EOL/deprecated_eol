@@ -13,6 +13,7 @@
 # Author: Luigipiccoli
 # Author: Maria victoria
 # Author: Mishatk
+# Author: Nastoshka
 # Author: Nemo bis
 # Author: Ontsed
 # Author: Raoli
@@ -1282,6 +1283,7 @@ it:
   dato_edit_text_title: Modifica articolo
   dato_new_edit_user_text_fieldset_content_header: Contenuto articolo
   dato_new_edit_user_text_fieldset_information_header: Informazioni articolo
+  dato_new_edit_user_text_form_tip: Il tuo articolo completato sarà pubblicato alla pagina del taxon. Se non sei un curatore, sarà contrassegnato come "da verificare" fino a quando un curatore non lo verificherà. Sottocapitolo, testo, linguaggio e licenza sono richiesti (%{required_icon}), tutti gli altri campi sono facoltativi. Se selezioni CC BY come licenza (attribuzione) devi includere un titolare dei diritti o lasciare vuoto per usare il tuo nome completo. Le licenze di pubblico dominio non necessitano di un titolare di diritti. Per ulteriore assistenza leggi <a href="%{add_article_help_url}">un aiuto per aggiungere un articolo</a>.
   dato_new_text_for_taxon_page_title: Aggiungi un articolo a <i>%{taxon}</i>
   dato_update_user_text_error: Spiacenti, si è verificato un errore, l'articolo non è stato aggiornato.
   default: Predefinito
@@ -2374,6 +2376,11 @@ it:
         meta_title: Sinonimi di %{scientific_name}
         meta_title_with_common_name: Sinonimi di %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinonimi di %{scientific_name}
+    overview: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Una sintesi delle informazioni su % {scientific_name} come riconosciuto % {hierarchy_provider} nella Enciclopedia della vita.
+          meta_title: "%{scientific_name} classificato da %{hierarchy_provider}"
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

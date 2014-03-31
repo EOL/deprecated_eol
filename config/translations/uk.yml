@@ -2922,7 +2922,6 @@ uk:
       videos: Відео
   moderator_colon: "Модератор:"
   monthly: Щомісячно
-  more: більше
   more_taxa_with_attribute: побачити всі таксони з цим атрибутом
   most_active_members: Найактивніші учасники
   move: Перемістити
@@ -3082,7 +3081,6 @@ uk:
   or_move_them_to_existing_collection: або перемістіть їх до існуючої збірки
   original: "ОРИГІНАЛЬНИЙ:"
   original_object: Оригінальний об'єкт
-  other_category: Інший
   other_collection_items_with_count: 
     few: "%{count} інші елементи"
     many: "%{count} інших елементів"
@@ -3472,7 +3470,6 @@ uk:
           meta_description_no_data: Немає доступних фактів для %{scientific_name} прокласифікованих за %{hierarchy_provider} в "Енциклопедії Життя". ЕЖ запрошує вас внести факти про %{scientific_name}.
           meta_description_with_common_name_no_data: Немає доступних обчислених даних для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує вас внести дані для %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Які дані вчені вже зібрали для %{preferred_common_name} прокласифікованого за %{hierarchy_provider}? Характерні дані про %{scientific_name}, включаючи інформацію про %{topics}.
-          meta_keywords: Обчислювані дані %{scientific_name} прокласифікованого за %{hierarchy_provider}, інформація про %{scientific_name}
           meta_title: Характерні дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
           meta_title_with_common_name: Характерні дані для %{preferred_common_name} прокласифікованого за %{hierarchy_provider} (%{scientific_name})
           tweet_text: Характерні дані для %{scientific_name} прокласифікованого за %{hierarchy_provider}
@@ -3608,22 +3605,6 @@ uk:
         meta_title: Синоніми %{scientific_name}
         meta_title_with_common_name: Синоніми %{preferred_common_name} (%{scientific_name})
         tweet_text: Синоніми %{scientific_name}
-    overview: 
-      hierarchy_entry: 
-        meta_description: Короткий виклад інформації про %{scientific_name} визнаного %{hierarchy_provider} у Енциклопедії життя.
-        meta_description_with_common_name: Короткий виклад інформації про %{preferred_common_name}, також відомого як %{scientific_name} розпізнаного %{hierarchy_provider} у Енциклопедії життя.
-        meta_keywords: "%{scientific_name} визнаний %{hierarchy_provider} %{scientific_name} прокласифікований %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} визнаний %{hierarchy_provider} %{scientific_name} прокласифікований %{hierarchy_provider}"
-        meta_title: "%{scientific_name} прокласифікований %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} прокласифікований %{hierarchy_provider})"
-        tweet_text: Огляд %{scientific_name}, прокласифікованого за %{hierarchy_provider}
-      meta_description: Інформація на %{scientific_name} в "Енциклопедії Життя".
-      meta_description_with_common_name: Інформація про %{preferred_common_name}, відомого у науці як %{scientific_name} у Енциклопедії життя.
-      meta_keywords: інформація про  %{scientific_name}, інформація %{scientific_name}
-      meta_keywords_with_common_name: інформація про %{scientific_name}, інформація про  %{preferred_common_name}, інформація і факти %{scientific_name}, інформація %{preferred_common_name}
-      meta_title: "%{scientific_name} - Інформація на %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Інформація на %{preferred_common_name}"
-      tweet_text: Інформація про %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

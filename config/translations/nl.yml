@@ -2957,6 +2957,7 @@ nl:
   link_not_associated_with_any_published_entries: Deze koppeling is niet gekoppeld aan gepubliceerde taxa.
   link_rating: Rang van de koppeling
   link_to_this_term: koppeling naar deze term
+  link_to_top_of_page: naar boven
   links_with_count: 
     one: Eén koppeling
     other: "%{count} koppelingen"
@@ -3086,7 +3087,6 @@ nl:
       videos: Video's
   moderator_colon: "Moderator:"
   monthly: Maandelijks
-  more: meer
   more_children_with_count: 
     one: nog één...
     other: "%{count} meer..."
@@ -3330,7 +3330,7 @@ nl:
   or_move_them_to_existing_collection: of verplaats ze naar een bestaande verzameling
   original: "Origineel:"
   original_object: Oorspronkelijke object
-  other_category: Andere
+  other_category_subtab: Overige
   other_collection_items_with_count: 
     one: "%{count} ander item"
     other: "%{count} andere items"
@@ -3636,7 +3636,7 @@ nl:
     one: De <span class="assistive">gemeenschap met focus op dit taxon</span> bekijken.
     other: Alle <span class="assistive">%{count} gemeenschappen met focus op dit taxon</span> bekijken.
   see_all_data_with_count_html: 
-    one: <span class="assistive">De eigenschap voor dit taxon</span>bekijken.
+    one: <span class="assistive">De eigenschap voor dit taxon</span> bekijken.
     other: Alle <span class="assistive">%{count} eigenschappen voor dit taxon</span> bekijken.
     zero: De gegevenstab <span class="assistive">voor dit taxon bekijken.</span>
   see_all_editors_with_count: 
@@ -3693,6 +3693,7 @@ nl:
   show_email_message_area: "[gebied voor e-mailbericht weergeven]"
   show_full_tree: volledige boomstructuur weergeven...
   show_in_overview: weergeven in overzicht
+  show_more_row_data_link: meer
   show_status_message: Statusbericht weergeven
   show_tasks: taken weergeven
   show_warning_message: Waarschuwing weergeven
@@ -3864,7 +3865,6 @@ nl:
           meta_description_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{scientific_name} geclassificeerd door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om gegevens voor %{scientific_name} bij te dragen.
           meta_description_with_common_name_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit gegevens bij te dragen voor %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Welke gegevens hebben wetenschappers verzameld voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}? Berekenbare gegevens over %{scientific_name}, inclusief informatie over %{topics}.
-          meta_keywords: "%{scientific_name} als ingedeeld door %{hierarchy_provider} berekenbare gegevens, informatie over %{scientific_name}"
           meta_title: Berekenbare gegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Berekenbare gegevens voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider} (%{scientific_name})
           tweet_text: Berekenbare gegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
@@ -4000,22 +4000,6 @@ nl:
         meta_title: Synoniemen van %{scientific_name}
         meta_title_with_common_name: Synoniemen van %{preferred_common_name} (%{scientific_name})
         tweet_text: Synoniemen van %{scientific_name}
-    overview: 
-      hierarchy_entry: 
-        meta_description: Een samenvatting van de gegevens over %{scientific_name} als erkend door %{hierarchy_provider} in Encyclopedia of Life.
-        meta_description_with_common_name: Een samenvatting van de gegevens over %{preferred_common_name}, ook bekend als %{scientific_name} als erkend door %{hierarchy_provider} in Encyclopedia of Life.
-        meta_keywords: "%{scientific_name} erkend door %{hierarchy_provider}, %{scientific_name} ingedeeld door %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} erkend door %{hierarchy_provider}, %{scientific_name} ingedeeld door %{hierarchy_provider}"
-        meta_title: "%{scientific_name} ingedeeld door %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} als ingedeeld door %{hierarchy_provider})"
-        tweet_text: Overzicht van %{scientific_name} als ingedeeld door %{hierarchy_provider}
-      meta_description: Gegevens over %{scientific_name} in Encyclopedia of Life.
-      meta_description_with_common_name: Informatie over %{preferred_common_name}, wetenschappelijk bekend als %{scientific_name} in Encyclopedia of Life.
-      meta_keywords: gegevens over %{scientific_name},informatie over %{scientific_name}
-      meta_keywords_with_common_name: info over %{scientific_name},info over %{preferred_common_name},gegevens en feiten over %{scientific_name},informatie over %{preferred_common_name}
-      meta_title: "%{scientific_name} - Gegevens over %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informatie over %{preferred_common_name}"
-      tweet_text: Informatie over %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -4226,7 +4210,6 @@ nl:
   too_many_descendants_to_curate_with_count: 
     one: "Fout: uw conservering kan niet verwerkt worden door het automatische systeem. Er is één afstammeling, meer dan het maximale aantal."
     other: "Fout: uw conservering kan niet verwerkt worden door het automatische systeem. Er zijn %{count} afstammelingen, meer dan het maximale aantal."
-  top: naar boven
   topic: Onderwerp
   topic_area: Aandachtsgebied
   topics_avilable_to_contact_us_info: De volgende onderwerpen zijn beschikbaar via de contactpagina. U kunt onderwerpen toevoegen of bewerken en voor ieder onderwerp een e-mailadres instellen. Alle wijzigingen worden onmiddellijk actief.

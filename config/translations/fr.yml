@@ -10,8 +10,10 @@
 # Author: Euloiix
 # Author: Gomoko
 # Author: Hashar
+# Author: Immortal
 # Author: Jean-Frédéric
 # Author: Johann Grimm
+# Author: John Trololo
 # Author: Joshuajohnlee
 # Author: Linedwell
 # Author: Ljubinka
@@ -2483,6 +2485,7 @@ fr:
         max: Valeur la plus haute
         max_placeholder: Entrer un nombre
         max_placeholder_disabled: Plage désactivée
+        max_with_val: "Valeur la plus haute : %{val}"
         min: Valeur la plus basse
         min_placeholder: Entrer un nombre
         min_placeholder_disabled: Plage désactivée
@@ -2491,10 +2494,13 @@ fr:
         q_more: Par exemple, hétérotrophe.
         q_placeholder: Entrer un mot, une phrase ou un nombre
         q_placeholder_disabled: Plage saisie, valeur spécifique désactivée
+        q_with_val: "Valeur spécifique : %{val}"
         taxon_name: Groupe de taxon
         taxon_name_more: Par exemple, entrer Trochilidés ou Baleines et sélectionner le groupe correspondant.
         taxon_name_placeholder: Entrer le nom d’un groupe de taxon pour sélectionner le groupe
         taxon_name_placeholder_value_removed: "%{taxon_group} supprimé, sélectionner un nouveau groupe"
+        taxon_name_with_val: "Groupe de taxons : %{val}"
+        total_results: "Total des résultats : %{total}"
         unit: Unité de mesure
       eol_statistic: 
         date_one: Date
@@ -2987,6 +2993,7 @@ fr:
   link_not_associated_with_any_published_entries: Ce lien n'est associé avec aucune taxonomie publiée.
   link_rating: Cote du lien
   link_to_this_term: lien vers ce terme
+  link_to_top_of_page: haut
   links_with_count: 
     one: "%{count} lien"
     other: "%{count} liens"
@@ -3117,7 +3124,6 @@ fr:
       videos: Vidéos
   moderator_colon: "Modérateur :"
   monthly: Mensuel
-  more: plus
   more_children_with_count: "%{count} de plus…"
   more_siblings_with_count: 
     one: "%{count} frère de plus…"
@@ -3360,7 +3366,7 @@ fr:
   or_move_them_to_existing_collection: ou les déplacer dans une collection existante
   original: "ORIGINE :"
   original_object: Objet d’origine
-  other_category: Autre
+  other_category_subtab: Autre
   other_collection_items_with_count: 
     one: "%{count} autre élément"
     other: "%{count} autres éléments"
@@ -3681,7 +3687,7 @@ fr:
   see_all_data_with_count_html: 
     one: Afficher <span class="assistive">le fait %{count} pour ce taxon.</span>
     other: Afficher tous <span class="assistive">les %{count} faits pour ce taxon.</span>
-    zero: Afficher l’onglet de données<span class="assistive">pour ce taxon.</span>
+    zero: Afficher l’onglet de données <span class="assistive">pour ce taxon.</span>
   see_all_editors_with_count: 
     one: Voir le %{count} gestionnaire
     other: Voir tous les %{count} gestionnaires
@@ -3736,6 +3742,7 @@ fr:
   show_email_message_area: "[afficher la zone de message de courriel]"
   show_full_tree: arbre complet
   show_in_overview: afficher comme aperçu
+  show_more_row_data_link: plus
   show_status_message: Montrer message de statut
   show_tasks: tâches
   show_warning_message: Afficher le message d’avertissement
@@ -3911,7 +3918,6 @@ fr:
           meta_description_with_common_name: Faits à propos de %{preferred_common_name}, scientifiquement appelé %{scientific_name} tel que classifié par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
           meta_description_with_common_name_no_data: Aucun fait n’est disponible pour %{preferred_common_name}, appelé aussi %{scientific_name} selon la classification de %{hierarchy_provider} dans l’Encyclopédie de la Vie. EdlV vous invite à contribuer aux données et aux faits à propos de %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Faits à propos de %{preferred_common_name} tel que classé selon %{hierarchy_provider} ? Données de trait à propos de %{scientific_name} comprenant des informations sur %{topics}.
-          meta_keywords: données calculables de %{scientific_name} selon la classification de %{hierarchy_provider}, informations sur %{scientific_name}
           meta_title: Faits à propos de %{scientific_name} selon la classification de %{hierarchy_provider}
           meta_title_with_common_name: Faits à propos de %{preferred_common_name} (%{scientific_name} selon la classification de %{hierarchy_provider})
           tweet_text: Faits à propos de %{scientific_name} selon la classification de %{hierarchy_provider}
@@ -4049,21 +4055,22 @@ fr:
         meta_title_with_common_name: Synonymes du (de la) %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonymes de %{scientific_name}
     overview: 
-      hierarchy_entry: 
-        meta_description: Un résumé des informations concernant %{scientific_name}, tel que classé par %{hierarchy_provider}, dans l’Encyclopédie de la Vie.
-        meta_description_with_common_name: Un résumé des informations concernant %{preferred_common_name}, scientifiquement appelé %{scientific_name}, tel que classé par %{hierarchy_provider}, dans l’Encyclopédie de la Vie.
-        meta_keywords: "%{scientific_name} tel que reconnu par %{hierarchy_provider}, %{scientific_name} tel que classé par %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} tel que reconnu par %{hierarchy_provider}, %{scientific_name} tel que classé par %{hierarchy_provider}"
-        meta_title: "%{scientific_name} tel que classé par %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} tel que classé par %{hierarchy_provider})"
-        tweet_text: Vue d’ensemble de %{scientific_name} tel que classé par %{hierarchy_provider}
-      meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie.
-      meta_description_with_common_name: Information sur %{preferred_common_name}, scientifiquement appelé %{scientific_name} dans l’Encyclopédie de la Vie.
-      meta_keywords: info sur %{scientific_name}, information sur %{scientific_name}
-      meta_keywords_with_common_name: info sur %{scientific_name}, info sur %{preferred_common_name}, information et faits sur %{scientific_name}, information sur %{preferred_common_name}
-      meta_title: "%{scientific_name} - Information sur %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information sur %{preferred_common_name}"
-      tweet_text: Information sur %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: Un résumé des informations sur %{scientific_name} tel que reconnu par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
+          meta_description_with_common_name: Un résumé des informations sur %{preferred_common_name}, appelé aussi %{scientific_name} tel que reconnu par %{hierarchy_provider} dans l’Encyclopédie de la Vie.
+          meta_keywords: "%{scientific_name} tel que reconnu par %{hierarchy_provider}, %{scientific_name} classé par %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} tel que reconnu par %{hierarchy_provider}, %{scientific_name} classé par %{hierarchy_provider}"
+          meta_title: "%{scientific_name} classé par %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classé par %{hierarchy_provider})"
+          tweet_text: Vue d’ensemble de %{scientific_name} tel que classé par %{hierarchy_provider}
+        meta_description: Information sur %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_description_with_common_name: Information sur %{preferred_common_name}, appelé scientifiquement %{scientific_name} dans l’Encyclopédie de la Vie.
+        meta_keywords: info sur %{scientific_name}, information sur %{scientific_name}
+        meta_keywords_with_common_name: info sur %{scientific_name}, info sur %{preferred_common_name}, information et faits sur %{scientific_name}, information sur %{preferred_common_name}
+        meta_title: "%{scientific_name} - Information sur %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information sur %{preferred_common_name}"
+        tweet_text: Information sur %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -4231,7 +4238,7 @@ fr:
   the_xml_search_response_implements: La réponse XML à la recherche implémente le format de réponse OpenSearch à l’aide d’Atom 1.0. Voyez %{link} pour la spécification complète de OpenSearch
   there_are_currently_no_members_in_this_community: Il n’y a actuellement aucun membre dans cette communauté.
   there_is_no_singular_eol: Il n’y a pas de hiérarchie taxinomique unique dans l’EdlV ; EdlV indexe plutôt plusieurs hiérarchies et les compare pour déterminer quels nœuds font référence au même taxon. Ces éléments taxons représentent les nœuds de ces hiérarchies, c’est pourquoi il en existe potentiellement plusieurs pour une page donnée de l’EdlV. Reportez-vous à la documentation sur l’IPA %{link} pour plus d’informations.
-  this_area_shows_all_submission: Ce domaine montre toutes les soumissions entrées via les pages Contactez-nous ou Support de contact. Pour afficher les entrées, sélectionnez la rubrique ci-dessous ou <a href=%{link}>exportez toutes les entrées dans un fichier CSV</a>
+  this_area_shows_all_submission: Ce domaine montre toutes les soumissions entrées via les pages Contactez-nous ou Support de contact. Pour afficher les entrées, sélectionnez la rubrique ci-dessous ou <a href=%{link}>exportez toutes les entrées dans un fichier CSV</a>.
   this_article_cannot_be_curated_because_unpublished: Cet article ne peut pas être supervisé parce qu’il n’est pas publié.
   this_article_is_unpublished: Cet article n’est pas publié.
   this_cannot_be_undone_are_you_sure: Annulation impossible; êtes-vous sûr?
@@ -4276,7 +4283,6 @@ fr:
   too_many_descendants_to_curate_with_count: 
     one: "ERREUR: Votre conservation n’a pas pu être traitée via le système automatisé. Il y a %{count} descendant, ce qui dépasse le maximum autorisé."
     other: "ERREUR: Votre conservation n’a pas pu être traitée via le système automatisé. Il y a %{count} descendants, ce qui dépasse le maximum autorisé."
-  top: haut
   topic: Rubrique
   topic_area: Sujet
   topics_avilable_to_contact_us_info: Les domaines de thème suivantes sont disponibles depuis la page Contactez-nous. Vous pouvez ajouter ou modifier des domaines thématiques et leurs adresses de courriel correspondante. Toutes les modifications sont faites immédiatement.

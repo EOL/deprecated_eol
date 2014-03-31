@@ -1656,7 +1656,7 @@ zh-CN:
   edit_permission_header: 编辑权限：%{permission}
   edit_search_suggestion: 编辑搜索建议
   edit_search_suggestions: 编辑搜索建议
-  edit_table_of_contents: 编辑内容表
+  edit_table_of_contents: 编辑目录
   edit_tag_suggestions: 编辑标签建议
   edit_the_topic_area_intro: 编辑下面的主题区和邮箱地址，并点击激活框以在网站联系页面上显示给用户。
   edit_the_user_s_comment_below: 编辑下面的用户评论。
@@ -2606,7 +2606,6 @@ zh-CN:
       videos: 视频
   moderator_colon: "版主:"
   monthly: 每月
-  more: 更多
   more_children_with_count: 
     other: 还有%{count}...
   more_siblings_with_count: 
@@ -2826,7 +2825,6 @@ zh-CN:
   or_move_them_to_existing_collection: 或者将其移动到一个已存在的收藏
   original: 原始：
   original_object: 原始项
-  other_category: 其他
   other_collection_items_with_count: 
     other: "%{count}个其它项"
   other_community_items_with_count: 
@@ -3266,7 +3264,6 @@ zh-CN:
           meta_description_no_data: 生物大百科全书中没有提供按%{hierarchy_provider}分类界定为 %{scientific_name}的可分析的数据资料。EOL 邀请您提供 %{scientific_name}的有关数据。
           meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何可分析性数据。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的数据信息。
           meta_description_with_common_name_with_topics: 科学家已经收集了按%{hierarchy_provider}分类界定为 %{preferred_common_name}的哪些数据？%{scientific_name}的可分析数据包括有关%{topics}的信息。
-          meta_keywords: " 按%{hierarchy_provider}分类界定为%{scientific_name}的可分析数据是%{scientific_name}的相关信息。"
           meta_title: 有关%{hierarchy_provider}分类界定为%{scientific_name}的可分析性数据
           meta_title_with_common_name: 有关%{hierarchy_provider}分类界定为%{preferred_common_name}  (%{scientific_name} %)的可分析数据资料
           tweet_text: 有关%{hierarchy_provider}分类界定为%{scientific_name}的可分析性数据
@@ -3402,22 +3399,6 @@ zh-CN:
         meta_title: "%{scientific_name}的异名"
         meta_title_with_common_name: " %{preferred_common_name}的异名 (%{scientific_name})"
         tweet_text: "%{scientific_name}的异名"
-    overview: 
-      hierarchy_entry: 
-        meta_description: 生物大百科全书中由 %{hierarchy_provider}认定的%{scientific_name}相关信息摘要。
-        meta_description_with_common_name: 生物大百科全书中由 %{hierarchy_provider}认定的%{preferred_common_name}, 又称为 %{scientific_name}相关信息摘要。
-        meta_keywords: 由%{hierarchy_provider}认定为%{scientific_name}，按%{hierarchy_provider}分类界定为%{scientific_name}
-        meta_keywords_with_common_name: 由%{hierarchy_provider}认定为%{scientific_name}，按%{hierarchy_provider}分类界定为%{scientific_name}
-        meta_title: "%{scientific_name}名称由%{hierarchy_provider}分类界定"
-        meta_title_with_common_name: "%{preferred_common_name}(%{scientific_name}由 %{hierarchy_provider}分类界定"
-        tweet_text: 对%{hierarchy_provider}分类界定为%{scientific_name}的概述
-      meta_description: 生物大百科全书中关于%{scientific_name}的信息
-      meta_description_with_common_name: 生物大百科全书中有关%{preferred_common_name}，学名为%{scientific_name}的信息。
-      meta_keywords: 关于%{scientific_name}的信息,%{scientific_name}的信息
-      meta_keywords_with_common_name: 有关%{scientific_name}的信息，有关%{preferred_common_name}的信息,% {scientific_name}的信息和事实，%{preferred_common_name}的 信息
-      meta_title: "%{scientific_name}-有关%{scientific_name}的信息"
-      meta_title_with_common_name: "%{preferred_common_name} ({scientific_name} %)- 有关%{preferred_common_name}的信息"
-      tweet_text: 关于 %{scientific_name} 信息
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3610,7 +3591,6 @@ zh-CN:
   toc: 目录
   toc_entry_col_header: 目录条目
   toc_no_longer_available: 目录信息不再可用
-  top: 置顶
   topic: 主题
   topic_area: 主题区域
   topics_avilable_to_contact_us_info: 下面的主题区域可从联系我们的页面获得。您可以增加或者编辑主题区域以及相应的邮件地址。所有的更新都是即时的。

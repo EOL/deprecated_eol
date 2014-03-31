@@ -1028,17 +1028,22 @@ pms:
         max: Valor pi àut
         max_placeholder: Buté un nùmer
         max_placeholder_disabled: Antërval disabilità
+        max_with_val: "Valor pi àut: %{val}"
         min: Valor pi bass
         min_placeholder: Buté un nùmer
         min_placeholder_disabled: Antërval disabilità
+        min_with_val: "Valor pi bass: %{val}"
         q: Valor ëspessìfich
         q_more: Për esempi, eterotròfich.
         q_placeholder: Buté na paròla, na fras o un nùmer
         q_placeholder_disabled: Antërval anserì, valor ëspessìfich disabilità
+        q_with_val: "Valor ëspessìfich: %{val}"
         taxon_name: Partìa tassonòmica
         taxon_name_more: Për esempi, buté Trochilidae o Balen-e e selessioné la partìa corëspondenta.
         taxon_name_placeholder: Anserì ël nòm ëd na partìa tassonòmica për selessioné la partìa
         taxon_name_placeholder_value_removed: "%{taxon_group} gavà, selessioné na neuva partìa"
+        taxon_name_with_val: "Partìa ëd tassonomìe: %{val}"
+        total_results: "Total dj'arzultà: %{total}"
         unit: Unità dë mzura
       eol_statistic: 
         date_one: Dàita
@@ -1552,18 +1557,18 @@ pms:
           meta_description_with_common_name: Fàit a propòsit ëd %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} coma classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita.
           meta_description_with_common_name_no_data: Gnun fàit a l'é disponìbil për %{preferred_common_name} ciamà ëdcò %{scientific_name} conforma a la classificassion ëd %{hierarchy_provider}  ant l'Enciclopedìa dla Vita. EdV a l'anvita a contribuì ai dàit e ai fàit për %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Fàit a propòsit ëd %{preferred_common_name} tanme classificà da %{hierarchy_provider}? Dàit ëd caraterìstiche a propòsit ëd %{scientific_name} comprendent d'anformassion su %{topics}.
-          meta_keywords: dàit calcolàbil ëd %{scientific_name} tanme classificà da %{hierarchy_provider}, anformassion su %{scientific_name}
           meta_title: Fàit a propòsit ëd %{scientific_name} tanme classificà da %{hierarchy_provider}
           meta_title_with_common_name: Fàit a propòsit ëd %{preferred_common_name} tanme classificà da %{hierarchy_provider} (%{scientific_name})
           tweet_text: Fàit a propòsit ëd %{scientific_name} tanme classificà da %{hierarchy_provider}
-        meta_description: Plance, filmà e document sonor ëd %{scientific_name}. Trové dle plance, dle fòto, dij film e dij son ëd %{scientific_name} ant l'Enciclopedìa dla Vita.
-        meta_description_no_data: Gnun dàit calcolàbil a l'é disponìbil për %{scientific_name} ant l'Enciclopedìa dla Vita. EdV a l'anvita a fornì dij dàit për %{scientific_name}.
-        meta_description_with_common_name_no_data: Gnun dàit calcolàbil a l'é disponìbil për %{preferred_common_name} conossù ëdcò tanme %{scientific_name} ant l'Enciclopedìa dla Vita. EdV a l'anvita a fornì dij dàit su %{preferred_common_name} (%{scientific_name}).
-        meta_description_with_common_name_with_topics: Che dàit ij siensià a l'han cujì për %{preferred_common_name}? Dàit ëd caraterìstica su %{scientific_name} comprendent dj'anformassion su %{topics}.
-        meta_keywords: dàit calcolàbij ëd %{scientific_name}, anformassion su %{scientific_name}
-        meta_keywords_with_common_name: dàit calcolàbij su %{preferred_common_name}
-        meta_title: Dàit ëd caraterìstica për %{scientific_name}
-        meta_title_with_common_name: Dàit ëd caraterìstica për %{preferred_common_name} (%{scientific_name})
+        meta_description: Fàit ëd %{scientific_name}, con mzure e caraterìstiche për %{scientific_name}. Dàit calcolàbij për %{scientific_name} da d'arserche sientìfiche fornìe da siensià.
+        meta_description_no_data: Gnun fàit a l'é disponìbil për %{scientific_name} ant l'Enciclopedìa dla Vita. EdV a l'anvita a fornì dij fàit për %{scientific_name}.
+        meta_description_with_common_name: Fàit a propòsit ëd %{preferred_common_name} comprèise dle mzure e dle caraterìstiche ëd %{preferred_common_name} (conossù da na mira sientìfica come %{scientific_name}). Dàit calcolàbij për %{scientific_name} da arserche sientìfiche fornìe da 'd siensià.
+        meta_description_with_common_name_no_data: Gnun fàitl a l'é disponìbil për %{preferred_common_name} conossù ëdcò tanme %{scientific_name} ant l'Enciclopedìa dla Vita. EdV a l'anvita a fornì dij fàit su %{preferred_common_name} (%{scientific_name}).
+        meta_description_with_common_name_with_topics: Fàit a propòsit ëd %{preferred_common_name}, comprèise dle mzure e dle caraterìstiche su %{preferred_common_name} (conossì da na mira sientìfica tanme %{scientific_name}). Dàit calcolàbij su %{scientific_name} comprendent dij %{topics} da l'arserca sientìfica fornì da dij siensià.
+        meta_keywords: Fàit ëd %{scientific_name}, fàit a propòsit ëd %{scientific_name},caraterìstiche ëd %{scientific_name}, caraterìstiche ëd %{scientific_name},mzure ëd %{scientific_name}, mzure për %{scientific_name}, fàit su %{scientific_name}, fàit a propòsit ëd %{scientific_name}, caraterìstiche ëd %{scientific_name}, caraterìstiche ëd %{scientific_name}, mzure su %{scientific_name}, mzure për %{scientific_name}
+        meta_keywords_with_common_name: fàit su %{preferred_common_name}, fàit a propòsit ëd %{preferred_common_name}, caraterìstiche ëd %{preferred_common_name}, caraterìstiche ëd %{preferred_common_name}, mzure ëd %{preferred_common_name}, mzure për %{preferred_common_name}, fàit ëd %{scientific_name}, fàit a propòsit ëd %{scientific_name}, caraterìstiche ëd %{scientific_name}, caraterìstiche ëd %{scientific_name}, mzure ëd %{scientific_name}, mzure për %{scientific_name}, fàit su %{preferred_common_name}, fàit a propòsit ëd %{preferred_common_name}, caraterìstica ëd %{preferred_common_name}, caraterìstica ëd %{preferred_common_name}, mzura ëd %{preferred_common_name}, mzura për %{preferred_common_name}, fàit ëd %{scientific_name}, fàit a propòsit ëd %{scientific_name}, caraterìstica ëd %{scientific_name}, caraterìstica ëd %{scientific_name}, mzura ëd %{scientific_name}, mzura për %{scientific_name}
+        meta_title: Mzure e fàit për %{scientific_name}
+        meta_title_with_common_name: Mzure e fàit për %{preferred_common_name} (%{scientific_name})
         tweet_text: Dàit ëd caraterìstica për %{scientific_name}
     details: 
       index: 
@@ -1688,22 +1693,6 @@ pms:
         meta_title: Sinònim ëd %{scientific_name}
         meta_title_with_common_name: Sinònim dël %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinònim ëd %{scientific_name}
-    overview: 
-      hierarchy_entry: 
-        meta_description: Un resumé dj'anformassion a propòsit ëd %{scientific_name}, tanme arconossù da %{hierarchy_provider}, ant l'Enciclopedìa dla Vita.
-        meta_description_with_common_name: Un resumé dj'anformassion a proposit ëd %{preferred_common_name}, ciamà ëdcò %{scientific_name}, tanme arconossù da %{hierarchy_provider}, ant l'Enciclopedìa dla Vita.
-        meta_keywords: "%{scientific_name} arconossù da %{hierarchy_provider}, %{scientific_name} classificà da %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} arconossù da %{hierarchy_provider}, %{scientific_name} classificà da %{hierarchy_provider}"
-        meta_title: "%{scientific_name} Classificà da %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Classificà da %{hierarchy_provider})"
-        tweet_text: Vista d'ansem ëd %{scientific_name} tanme classificà da %{hierarchy_provider}
-      meta_description: Anformassion ansima a %{scientific_name} ant l'Enciclopedìa dla Vita.
-      meta_description_with_common_name: Anformassion su %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} ant l'Enciclopedìa dla Vita.
-      meta_keywords: anformassion ansima a %{scientific_name}, anformassion ëd %{scientific_name}
-      meta_keywords_with_common_name: anformassion su %{scientific_name}, anformassion su %{preferred_common_name}, anformassion e fàit ëd %{scientific_name}, anformassion ëd %{preferred_common_name}
-      meta_title: "%{scientific_name} - Anformassion su %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Anformassion su %{preferred_common_name}"
-      tweet_text: Anformassion su %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

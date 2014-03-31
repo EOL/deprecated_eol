@@ -2543,17 +2543,22 @@ es:
         max: Valor máximo
         max_placeholder: Introduzca un número
         max_placeholder_disabled: Rango deshabilitado
+        max_with_val: "Valor máximo: %{val}"
         min: Valor mínimo
         min_placeholder: Introduzca un número
         min_placeholder_disabled: Rango deshabilitado
+        min_with_val: "Valor mínimo: %{val}"
         q: Valor específico
         q_more: Por ejemplo, heterótrofos.
         q_placeholder: Introduzca una palabra, frase o número
         q_placeholder_disabled: Rango ingresado, valor específico deshabilitado
+        q_with_val: "Valor específico: %{val}"
         taxon_name: Grupo de taxonomía
         taxon_name_more: Por ejemplo, escriba Trochilidae o ballenas y seleccione el grupo correspondiente.
         taxon_name_placeholder: Introduzca el nombre del grupo de taxonomía para seleccionar grupo
         taxon_name_placeholder_value_removed: "%{taxon_group} borrado, seleccione un nuevo grupo"
+        taxon_name_with_val: "Grupo de taxonomía: %{val}"
+        total_results: "Resultados totales: %{total}"
         unit: Unidad de medida
       eol_statistic: 
         date_one: Fecha
@@ -3046,6 +3051,7 @@ es:
   link_not_associated_with_any_published_entries: Este enlace no está asociado con ninguno de los taxones publicados.
   link_rating: Clasificación de enlace
   link_to_this_term: enlace a este término
+  link_to_top_of_page: arriba
   links_with_count: 
     one: "%{count} enlace"
     other: "%{count} enlaces"
@@ -3176,7 +3182,6 @@ es:
       videos: Vídeos
   moderator_colon: "Moderador:"
   monthly: Mensualmente
-  more: más
   more_children_with_count: 
     one: "%{count} más..."
     other: "%{count} más..."
@@ -3421,7 +3426,7 @@ es:
   or_move_them_to_existing_collection: o moverlos a una colección existente
   original: "ORIGINAL:"
   original_object: Objeto original
-  other_category: Otro
+  other_category_subtab: Otro
   other_collection_items_with_count: 
     one: "%{count} otro elemento"
     other: "%{count} otros elementos"
@@ -3797,6 +3802,7 @@ es:
   show_email_message_area: "[mostrar el área de mensajes de correo electrónico]"
   show_full_tree: Mostra el árbol completo
   show_in_overview: mostrar en el Resumen
+  show_more_row_data_link: más
   show_status_message: Mostrar mensaje de estado
   show_tasks: mostrar las tareas
   show_warning_message: Mostrar mensaje de advertencia
@@ -3981,7 +3987,7 @@ es:
         meta_description_with_common_name_no_data: No hay hechos disponibles para %{preferred_common_name} también conocido como %{scientific_name} en la Enciclopedia de la vida. EOL le invita a aportar hechos sobre %{preferred_common_name} (% {scientific_name}).
         meta_description_with_common_name_with_topics: Hechos de %{preferred_common_name} incluyendo las mediciones y los rasgos para %{preferred_common_name} (conocida científicamente como %{scientific_name}). Datos computables para %{scientific_name} incluyendo %{topics} de la investigación científica proporcionada por científicos.
         meta_keywords: Hechos de %{scientific_name}, hechos acerca de %{scientific_name}, rasgos de %{scientific_name}, rasgos de %{scientific_name}, mediciones de %{scientific_name}, mediciones para %{scientific_name}, hecho de %{scientific_name}, hecho sobre %{scientific_name}, rasgo de %{scientific_name}, rasgo de %{scientific_name}, medición de %{scientific_name}, medición para %{scientific_name}
-        meta_keywords_with_common_name: datos computables de %{preferred_common_name}
+        meta_keywords_with_common_name: hechos de %{preferred_common_name}, hechos sobre %{preferred_common_name}, rasgos de %{preferred_common_name}, rasgos de %{preferred_common_name}, mediciones de %{preferred_common_name}, mediciones para %{preferred_common_name},hechos de %{scientific_name}, hechos sobre %{scientific_name}, rasgos de %{scientific_name}, rasgos de %{scientific_name}, mediciones de %{scientific_name}, mediciones para %{scientific_name}, hecho de %{preferred_common_name}, hecho sobre %{preferred_common_name}, rasgo de %{preferred_common_name}, rasgo de %{preferred_common_name}, medición de %{preferred_common_name}, medición para %{preferred_common_name}, hecho de %{scientific_name}, hecho sobre %{scientific_name}, rasgo de %{scientific_name}, rasgo de %{scientific_name}, medición de %{scientific_name}, medición para %{scientific_name}
         meta_title: Mediciones y hechos sobre %{scientific_name}
         meta_title_with_common_name: Mediciones y hechos sobre %{preferred_common_name} (%{scientific_name})
         tweet_text: Hechos sobre %{scientific_name}
@@ -4109,21 +4115,22 @@ es:
         meta_title_with_common_name: Sinónimos de %{preferred_common_name}  (%{scientific_name})
         tweet_text: Sinónimos de %{scientific_name}
     overview: 
-      hierarchy_entry: 
-        meta_description: Un resumen de información sobre %{scientific_name} tal como fue reconocido por %{hierarchy_provider} en la Encyclopedia of Life.
-        meta_description_with_common_name: Un resumen de información sobre %{preferred_common_name}, también conocido como %{scientific_name} tal como fue reconocido por %{hierarchy_provider} en la Encyclopedia of Life.
-        meta_keywords: "%{scientific_name} reconocido por %{hierarchy_provider}, {scientific_name} clasificado por %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} reconocido por %{hierarchy_provider}, {scientific_name} clasificado por %{hierarchy_provider}"
-        meta_title: "%{scientific_name} Clasificado por %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Clasificado por %{hierarchy_provider})"
-        tweet_text: Resumen sobre %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
-      meta_description: Información sobre %{scientific_name} en la Encyclopedia of Life.
-      meta_description_with_common_name: Información sobre %{preferred_common_name}, conocida científicamente como %{scientific_name} en la Encyclopedia of Life.
-      meta_keywords: información sobre %{scientific_name}, información sobre %{scientific_name}
-      meta_keywords_with_common_name: información sobre %{scientific_name}, información sobre %preferred_common_name}, información y hechos sobre %{scientific_name}, información sobre %{preferred_common_name}
-      meta_title: "%{scientific_name} - Información sobre %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Información sobre %{preferred_common_name}"
-      tweet_text: Información sobre %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: Un resumen de información sobre %{scientific_name} tal como fue reconocido por %{hierarchy_provider} en la Enciclopedia de la vida.
+          meta_description_with_common_name: Un resumen de información sobre %{preferred_common_name}, también conocido como %{scientific_name} tal como fue reconocido por %{hierarchy_provider} en la Enciclopedia de la vida.
+          meta_keywords: "%{scientific_name} reconocido por %{hierarchy_provider}, {scientific_name} clasificado por %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} reconocido por %{hierarchy_provider}, {scientific_name} clasificado por %{hierarchy_provider}"
+          meta_title: "%{scientific_name} clasificado por %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} clasificado por %{hierarchy_provider})"
+          tweet_text: Resumen de %{scientific_name} tal como fue clasificado por %{hierarchy_provider}
+        meta_description: Información de %{scientific_name} en la enciclopedia de la vida.
+        meta_description_with_common_name: Información sobre %{preferred_common_name}, conocido científicamente como %{scientific_name} en la Enciclopedia de la vida.
+        meta_keywords: información sobre %{scientific_name}, información sobre %{scientific_name}
+        meta_keywords_with_common_name: información sobre %{scientific_name}, información sobre %{preferred_common_name}, información y hechos sobre %{scientific_name}, información sobre %{preferred_common_name}
+        meta_title: "%{scientific_name} - Información sobre %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Información sobre %{preferred_common_name}"
+        tweet_text: Información sobre %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -4291,7 +4298,7 @@ es:
   the_xml_search_response_implements: La respuesta a una búsqueda implementa el formato de respuesta OpenSearch usando Atom 1.0. Ver la especificación OpenSearch completa en %{link}
   there_are_currently_no_members_in_this_community: Actualmente no hay miembros en esta comunidad.
   there_is_no_singular_eol: No existe una jerarquía taxonómica única de EOL, más bien, EOL indexa muchas jerarquías y las compara para establecer cuáles nodos se refieren a los mismos taxones. Estos elementos de taxón representan nodos de la jerarquía, por lo cual podría haber varios para una página dada de EOL. Para más información, revise la documentación sobre el API en %{link}.
-  this_area_shows_all_submission: Esta zona muestra todos los envíos introducidos mediante las páginas de contacto. Para ver las entradas, seleccione el tema a continuación o <a href=%{link}>exportar todas las entradas como un archivo CSV</a>
+  this_area_shows_all_submission: Esta zona muestra todos los envíos introducidos mediante las páginas de contacto. Para ver las entradas, seleccione el tema a continuación o <a href=%{link}>exportar todas las entradas como un archivo CSV</a>.
   this_article_cannot_be_curated_because_unpublished: Este artículo no puede ser supervisado porque no ha sido publicado.
   this_article_is_unpublished: Este artículo no ha sido publicado.
   this_cannot_be_undone_are_you_sure: Está acción no puede deshacer; ¿está seguro?
@@ -4336,7 +4343,6 @@ es:
   too_many_descendants_to_curate_with_count: 
     one: "ERROR: No se puede procesar su conservación a través del sistema automatizado. Hay %{count} descendiente, lo que supera el máximo permitido."
     other: "ERROR: No se puede procesar su conservación a través del sistema automatizado. Hay %{count} descendientes, lo que supera el máximo permitido."
-  top: arriba
   topic: Tema
   topic_area: Área temática
   topics_avilable_to_contact_us_info: Las siguientes áreas temáticas están disponibles desde la página de contacto.  Puede agregar o editar áreas temáticas y sus correspondientes direcciones de correo electrónico.  Todos los cambios se realizan inmediatamente.

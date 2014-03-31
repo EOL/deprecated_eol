@@ -3658,22 +3658,6 @@ zh-TW:
         meta_title: "%{scientific_name} 的同物異名"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) 的同物異名"
         tweet_text: "%{scientific_name} 的同物異名"
-    overview: 
-      hierarchy_entry: 
-        meta_description: 生命大百科中有關 %{scientific_name} 的資訊總結；該分類是由 %{hierarchy_provider} 認定
-        meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 亦即 %{scientific_name} 的資訊總結；該分類是由 %{hierarchy_provider} 認定
-        meta_keywords: 由 %{hierarchy_provider} 認定的 %{scientific_name}，由 %{hierarchy_provider} 分類的 %{scientific_name}
-        meta_keywords_with_common_name: 由 %{hierarchy_provider} 認定的 %{scientific_name}，由 %{hierarchy_provider} 分類的 %{scientific_name}
-        meta_title: 由 %{hierarchy_provider} 分類的 %{scientific_name}
-        meta_title_with_common_name: 由 %{hierarchy_provider} 分類的 %{preferred_common_name} (%{scientific_name})
-        tweet_text: 由 %{hierarchy_provider} 分類的 %{scientific_name} 概要
-      meta_description: 生命大百科中有關 %{scientific_name} 的資訊
-      meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 的資訊，其學名是 %{scientific_name}
-      meta_keywords: 有關 %{scientific_name} 的資訊，%{scientific_name} 的資訊
-      meta_keywords_with_common_name: 有關 %{scientific_name} 的資訊，有關 %{preferred_common_name} 的資訊，%{scientific_name} 的資訊，%{preferred_common_name} 的資訊
-      meta_title: "%{scientific_name} - 有關 %{scientific_name} 的資訊"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - 有關 %{preferred_common_name} 的資訊"
-      tweet_text: 有關 %{scientific_name} 的資訊
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

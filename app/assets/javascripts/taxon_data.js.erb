@@ -391,9 +391,12 @@ $(function() {
 
   $('table.data tr.actions').hide().prev().find('.fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
 
-  $('table.data tr.data:not(.hidden)').on('click',
+  $('table.data tr.data').on('click',
     function(e) {
-      if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
+      // Abort if the row is hidden (and in a data search table; it's fine if it's on a data tab):
+      if ($(e).hasClass('hidden') && $(e).closest('table.search').length > 0) return;
+      // Abort if it's a legitimate link (which will handle itself):
+      if ($(e.target).closest('a').length) return;
       EOL.toggle_actions_row($(this));
     });
 

@@ -393,11 +393,24 @@ $(function() {
 
   $('table.data tr.data').on('click',
     function(e) {
+      var $targ;
+      if (e.target) $targ = $(e.target);
+      else if (e.srcElement) $targ = $(e.srcElement);
+      // Grab the TR if they clicked on something lower. Seems odd that this happens, but it does (it's usually a TD).
+      if (! $targ.is("tr")) $targ = $targ.closest('tr');
+      console.log("Here.");
       // Abort if the row is hidden (and in a data search table; it's fine if it's on a data tab):
-      if ($(e).hasClass('hidden') && $(e).closest('table.search').length > 0) return;
+      if ($targ.hasClass('hidden') && $targ.closest('table.search').length > 0) return;
+      console.log($targ);
+      console.log("e ID: "+$targ.attr('id'));
+      console.log("hidden: "+$targ.hasClass('hidden'));
+      console.log("&& search: "+$targ.closest('table.search').length + ' > 0');
+      console.log("Continuing, wasn't hidden.");
       // Abort if it's a legitimate link (which will handle itself):
-      if ($(e.target).closest('a').length) return;
-      EOL.toggle_actions_row($(this));
+      if ($targ.closest('a').length) return;
+      console.log("Continuing, wasn't a link.");
+      EOL.toggle_actions_row($targ);
+      console.log("Done.");
     });
 
   $('table.data tr.actions td .metadata').live('click',

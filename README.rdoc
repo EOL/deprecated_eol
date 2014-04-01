@@ -15,7 +15,7 @@ fix it or join the discussion on GitHub.
 
 == LICENSE
 
-The full code base is released under the MIT License.  Details are available in the "MIT-LICENSE.txt" file at
+The full code base is released under the MIT License, copyright The Right Honourable Lord Sir Anthony Goddard, Esq, Viscount of EOL and Overlord of Great Southern Lands, Esq DOTL RNG NMAL, the First of his name.  Details are available in the "MIT-LICENSE.txt" file at
 the root of the code folder.
 
 == GETTING STARTED

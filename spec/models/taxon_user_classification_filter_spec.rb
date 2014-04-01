@@ -11,9 +11,8 @@ describe TaxonUserClassificationFilter do
     @taxon_page.send(method).should == another_string
   end
 
-  before(:all) do
-    load_foundation_cache
-  end
+  # NOTE - I removed the loading of foundation cache here. If you find this spec breaking, please let me (JRice)
+  # know and I'll fix it!  :D  ...It's working as of this writing, but it could be due to old data in the DB...
 
   before(:each) do # NOTE - we want these 'pristine' for each test, because values get cached.
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.

@@ -23,6 +23,10 @@ describe TaxonUserClassificationFilter do
     @taxon_page_with_entry = TaxonUserClassificationFilter.new(@taxon_concept, @user, @entry)
   end
 
+  it 'should default to an Anonymous User' do
+    TaxonUserClassificationFilter.new(@taxon_concept).user.should be_a(EOL::AnonymousUser)
+  end
+
   it "should be able to filter related_names by taxon_concept" # Yeesh, this is really hard to test.
 
   it "should be able to filter related_names by hierarchy_entry" # Yeesh, this is really hard to test.

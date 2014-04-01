@@ -11,9 +11,9 @@ class TaxonUserClassificationFilter
 
   attr_reader :taxon_concept, :user
 
-  def initialize(taxon_concept, user, hierarchy_entry = nil) 
+  def initialize(taxon_concept, user = nil, hierarchy_entry = nil) 
     @taxon_concept = taxon_concept
-    @user = user # TODO - this should probably default to EOL::AnonymousUser
+    @user = user || EOL::AnonymousUser.new(Language.default)
     @_hierarchy_entry = hierarchy_entry
     after_initialize
   end

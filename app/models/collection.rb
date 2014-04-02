@@ -122,11 +122,11 @@ class Collection < ActiveRecord::Base
   end
 
   def logo_url(size = 'large', specified_content_host = nil)
-    if logo_file_name.blank? && logo_cache_url.blank?
-      return "v2/logos/collection_default.png"
-    elsif ! Rails.configuration.use_content_server_for_thumbnails
+    if !logo_file_name.blank? && ! Rails.configuration.use_content_server_for_thumbnails
       # TODO - adding the filename shouldn't be necessary. I think it's because we specify the URL when we define the attachment, above. Fix.
       logo.url + ImageManipulation.local_file_name(self)
+    elsif logo_cache_url.blank?
+      return "v2/logos/collection_default.png"
     elsif size.to_s == 'small'
       DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host: specified_content_host)
     else

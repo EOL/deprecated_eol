@@ -1170,8 +1170,7 @@ private
   # With no options, this sorts by best vetted status.
   def raw_associations(options = {})
     assocs = filter_associations(data_objects_hierarchy_entries, options)
-    assocs += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
-      assocs.empty? || options.empty?
+    assocs += filter_associations(all_curated_data_objects_hierarchy_entries, options)
     if assocs.empty? || options.empty?
       return [] if options[:hierarchy_entry] # Can't match this on UDO, so there were none.
       if users_data_object
@@ -1181,7 +1180,7 @@ private
     end
     assocs.compact!
     return [] if assocs.empty?
-    assocs.sort_by { |a| a.vetted && a.vetted.view_order }
+    assocs.sort_by { |a| [ a.visibility && a.visibility.view_order, a.vetted && a.vetted.view_order ] }
   end
 
   # To retrieve an exact association(if exists) for the given taxon concept,
@@ -1193,8 +1192,11 @@ private
     return @association_with_taxon_or_best_vetted[taxon_concept.id] if
       @association_with_taxon_or_best_vetted.has_key?(taxon_concept.id)
     assoc = raw_association(taxon_concept: taxon_concept)
-    return @association_with_taxon_or_best_vetted[taxon_concept.id] = assoc unless assoc.blank?
-    return @association_with_taxon_or_best_vetted[taxon_concept.id] = raw_association
+    if assoc.blank?
+      return @association_with_taxon_or_best_vetted[taxon_concept.id] = raw_association
+    else
+      return @association_with_taxon_or_best_vetted[taxon_concept.id] = assoc
+    end
   end
 
   def filter_associations(assocs, options = {})

@@ -13,7 +13,7 @@ class TaxonUserClassificationFilter
 
   def initialize(taxon_concept, user, hierarchy_entry = nil) 
     @taxon_concept = taxon_concept
-    @user = user
+    @user = user # TODO - this should probably default to EOL::AnonymousUser
     @_hierarchy_entry = hierarchy_entry
     after_initialize
   end

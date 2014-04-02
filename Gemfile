@@ -67,6 +67,8 @@ group :assets do
   gem 'turbo-sprockets-rails3', '0.3.4' # This is supposed to minimize the re-building of assets. AFAICT, it isn't working for us.
 end
 
+# IMPORTANT NOTE - any time you update Rails, you really need to double-check our monkey-patches in lib/select_with_preload_include
+# (in addition to the usual tests).
 gem 'rails', '3.2.17'
 
 gem 'acts_as_list', '0.3.0' # Used for drag-and-drop reordering of KnownUri instances. ...We could be making wider use of this.
@@ -75,6 +77,8 @@ gem 'biodiversity', '3.1.2' # "used for generation of scientific names with rank
 gem 'cityhash', '0.8.1' # Used by identity_cache to speed up the creation of hash keys.
 gem 'ckeditor', '3.7.3' # We use this in many places, such as creating data objects, to allow rich text editing.
 gem 'coffee-rails', '3.2.2' # TODO - do we actually use this? If so, it helps make simplified JS, for Ajax responses.
+# IMPORTANT NOTE - any time you update CPK, you really need to double-check our monkey-patches in lib/select_with_preload_include
+# (in addition to the usual tests).
 gem 'composite_primary_keys', '5.0.13' # We have lots of tables with CPK, so we need this.
 gem 'counter_culture', '0.1.19' # Used for cached counts of associations, better than rails default.
 gem 'dalli', '2.6.4' # Memcached handler. This is what handles ALL of our caching, so learn this.

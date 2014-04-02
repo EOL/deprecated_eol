@@ -5,7 +5,7 @@
     - @categories.each do |cat|
       %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, taxon_data_path(@taxon_data, toc_id: cat.id), data: { toc_id: cat.id }
     - if @include_other_category
-      %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category), taxon_data_path(@taxon_data, toc_id: 'other'), data: { toc_id:  'other' }
+      %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category_subtab), taxon_data_path(@taxon_data, toc_id: 'other'), data: { toc_id:  'other' }
     - unless @range_data.empty?
       %li.ranges{ class: (@toc_id == 'ranges') ? 'active' : nil }= link_to I18n.t(:data_ranges), ranges_taxon_data_path(@taxon_page)
     - unless @glossary_terms.empty?

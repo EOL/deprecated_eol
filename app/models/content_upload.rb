@@ -19,7 +19,7 @@ class ContentUpload < ActiveRecord::Base
       'application/vnd.ms-powerpoint', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
       'application/vnd.openxmlformats-officedocument.presentationml.slideshow', 'application/vnd.openxmlformats-officedocument.presentationml.slide',
-      'application/msonenote', 'application/pdf', 'application/x-pdf']
+      'application/msonenote', 'application/pdf', 'application/x-pdf', 'application/zip', 'multipart/x-gzip']
   validates_attachment_presence :attachment  
   validates_attachment_size :attachment, in: 0..10.0.megabyte
 

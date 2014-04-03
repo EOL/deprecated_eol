@@ -7,12 +7,16 @@ def test_and_reset_downloadable
   expect(@search_file.downloadable?).to eq(true)
 end
 
+def make_and_convert(options)
+  d = DataPointUri.new(options)
+  d.convert_units
+  d
+end
+
 describe DataSearchFile do
 
   before(:all) do
-    Visibility.create_enumerated
-    ContentPartnerStatus.create_enumerated
-    License.create_enumerated
+    load_foundation_cache
   end
 
   before(:each) do
@@ -71,6 +75,26 @@ describe DataSearchFile do
     expect(csv).to match(names.second)
     expect(csv).to match(names.third)
     expect(csv).to_not include(names.last)
+  end
+
+  it 'handles converted units' do
+    uris = [ make_and_convert(object: 1000, unit_of_measure_known_uri: KnownUri.milligrams) ]
+    uris.should_receive(:total_entries).and_return(1)
+    TaxonData.should_receive(:search).and_return(uris)
+    csv = @search_file.csv
+    expect(csv).to include("1.0")
+    expect(csv).to include("grams")
+    expect(csv).to include("1000")
+    expect(csv).to include("milligrams")
+  end
+
+  it 'maintains original unit even when not converted' do
+    uris = [ make_and_convert(object: 500, unit_of_measure_known_uri: KnownUri.milligrams) ]
+    uris.should_receive(:total_entries).and_return(1)
+    TaxonData.should_receive(:search).and_return(uris)
+    csv = @search_file.csv
+    # there are two places to see units - converted and original value columns
+    expect(csv).to match(/(500.*milligrams.*){2}/)
   end
 
 end

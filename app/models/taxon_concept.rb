@@ -444,19 +444,6 @@ class TaxonConcept < ActiveRecord::Base
     jsonld
   end
 
-  def vernacular_name_jsonld
-    common_names.collect do |tcn|
-      vernacular_jsonld = { '@type' => 'gbif:VernacularName',
-                            '@context' => { '@language' => tcn.language.iso_639_1 },
-                            'dwc:vernacularName' => tcn.name.string,
-                            'dwc:taxonID' => 'http://eol.org/pages/' + id.to_s }
-      if tcn.preferred == 1
-        vernacular_jsonld['gbif:isPreferredName'] = true
-      end
-      vernacular_jsonld
-    end
-  end
-
   def comment(user, body)
     comment = comments.create user: user, body: body
     user.comments.reload # be friendly - update the user's comments automatically

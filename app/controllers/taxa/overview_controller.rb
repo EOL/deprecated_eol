@@ -35,7 +35,7 @@ class Taxa::OverviewController < TaxaController
                 } }
     data = @data.get_data
     @jsonld['@graph'] = [ @taxon_concept.to_jsonld ]
-    @jsonld['@graph'] += @taxon_concept.vernacular_name_jsonld
+    @jsonld['@graph'] += @taxon_concept.common_names.collect{ |tcn| tcn.to_jsonld }
     @jsonld['@graph'] += data.collect{ |d| d.to_jsonld }
     @jsonld['@graph']
   end

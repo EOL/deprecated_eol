@@ -15,6 +15,8 @@ describe ClassificationsController do
     CuratedTaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{@taxon_concept.id}")
   end
 
+  # TODO - this is written as a feature spec.
+
   it 'should work, dammit' do
     session[:user_id] = @curator.id
     post :create, :taxon_concept_id => @taxon_concept.id, :hierarchy_entry_id => @hierarchy_entry.id

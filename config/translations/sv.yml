@@ -340,7 +340,7 @@ sv:
         data_object: 
           attributes: 
             rights_holder: 
-              blank: kan inte vara tom för att CC-BY-licens
+              blank: kan inte vara tom för en CC BY-licens
               inclusion: måste vara tomt för en licens i allmän egendom
         inaccessible: Posten kunde inte sparas eftersom den var ogiltigt. Kontrollera valideringsfel och skicka igen.
         known_uri: 
@@ -1906,7 +1906,7 @@ sv:
   dato_location_created: "Plats skapad: %{loc}"
   dato_new_edit_user_text_fieldset_content_header: Artikelinnehåll
   dato_new_edit_user_text_fieldset_information_header: Artikelinformation
-  dato_new_edit_user_text_form_tip: Din slutförda artikel kommer att läggas upp på taxonsidan. Om du inte är en kurator kommer den bli markerad som "ogranskad" tills en kurator granskar den. Underkapitel, text språk och licens krävs (%{required_icon}), alla andra fält är valfria. Om du väljer licensen CC-BY (Attribution), var god inkludera en rättighetshållare eller lämna tomt för att använda ditt hela namn. Allmän egendom-licenser kräver inte en rättighetshållare. För mer hjälp, läs <a href="%{add_article_help_url}">hjälp om att lägga till artiklar</a>.
+  dato_new_edit_user_text_form_tip: Din slutförda artikel kommer att läggas upp på taxonsidan. Om du inte är en kurator kommer den bli markerad som "ogranskad" tills en kurator granskar den. Underkapitel, text språk och licens krävs (%{required_icon}), alla andra fält är valfria. Om du väljer licensen CC BY (Erkännande), var god inkludera en rättighetshållare eller lämna tomt för att använda ditt hela namn. Allmän egendom-licenser kräver inte en rättighetshållare. För mer hjälp, läs <a href="%{add_article_help_url}">hjälp om att lägga till artiklar</a>.
   dato_new_edit_user_text_link_fieldset_content_header: Länkdata
   dato_new_text_for_taxon_page_title: Lägg en artikel till <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Lägg en länk till <i>%{taxon}</i>
@@ -2343,6 +2343,7 @@ sv:
         taxon_name: Taxongrupp
         taxon_name_more: Till exempel, ange kolibri eller valar och välj den överensstämmande gruppen.
         taxon_name_placeholder_value_removed: "%{taxon_group} borttagen, välj ny grupp"
+        taxon_name_with_val: "Taxongrupp: %{val}"
         unit: Måttenhet
       eol_statistic: 
         date_one: Datum
@@ -2883,7 +2884,6 @@ sv:
       videos: Videoklipp
   moderator_colon: "Moderator:"
   monthly: Månatligen
-  more: mer
   more_children_with_count: 
     one: "%{count} mer..."
     other: "%{count} mer..."
@@ -3103,7 +3103,6 @@ sv:
   or_move_them_to_existing_collection: eller flytta dem till en befintlig samling
   original: "ORIGINAL:"
   original_object: Originalobjekt
-  other_category: Övrigt
   other_collection_items_with_count: 
     one: "%{count} andra objekt"
     other: "%{count} andra objekt"
@@ -3367,7 +3366,7 @@ sv:
     other: Se alla <span class="assistive">%{count} gemenskaperna</span> som framhäver denna sida.
   see_all_data_summaries: Se alla <span class="assistive">datasammanfattningar för detta taxon.</span>
   see_all_data_with_count_html: 
-    one: Visa <span class="assistive">the %{count} egenskap för detta taxon.</span>
+    one: Visa <span class="assistive">egenskapen för detta taxon.</span>
     other: Se alla <span class="assistive">%{count} egenskaper för detta taxon.</span>
     zero: Visa datafliken <span class="assistive">för detta taxon.</span>
   see_all_editors_with_count: 
@@ -3694,21 +3693,22 @@ sv:
         meta_title_with_common_name: Synonymer för %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonym för %{scientific_name}
     overview: 
-      hierarchy_entry: 
-        meta_description: En sammanfattning av information om %{scientific_name} som känns igen av %{hierarchy_provider} i Encyclopedia of Life.
-        meta_description_with_common_name: En sammanfattning av information om %{preferred_common_name}, även känd som %{scientific_name} som känns igen av %{hierarchy_provider} i Encyclopedia of Life.
-        meta_keywords: "%{scientific_name} känns igen av %{hierarchy_provider}, {scientific_name} som klassificeras av %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} känns igen av %{hierarchy_provider}, %{scientific_name} klassificerad av %{hierarchy_provider}"
-        meta_title: "%{scientific_name} Klassificerad av %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Klassificerad av %{hierarchy_provider})"
-        tweet_text: Översikt över %{scientific_name} som klassificeras av %{hierarchy_provider}
-      meta_description: Information om %{scientific_name} i Encyclopedia of Life.
-      meta_description_with_common_name: Information om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life.
-      meta_keywords: info om %{scientific_name},%{scientific_name}information
-      meta_keywords_with_common_name: information om %{scientific_name}, information om  %{preferred_common_name}, information och fakta om %{scientific_name}, information om %{preferred_common_name}
-      meta_title: "%{scientific_name} - Information om %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information om %{preferred_common_name}"
-      tweet_text: Information om %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: En sammanfattning av information om %{scientific_name} som känns igen av %{hierarchy_provider} i Encyclopedia of Life.
+          meta_description_with_common_name: En sammanfattning av information om %{preferred_common_name}, även känd som %{scientific_name} som känns igen av %{hierarchy_provider} i Encyclopedia of Life.
+          meta_keywords: "%{scientific_name} känns igen av %{hierarchy_provider}, {scientific_name} som klassificeras av %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} känns igen av %{hierarchy_provider}, {scientific_name} som klassificeras av %{hierarchy_provider}"
+          meta_title: "%{scientific_name} Klassificerad av %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} Klassificerad av %{hierarchy_provider})"
+          tweet_text: Översikt över %{scientific_name} som klassificeras av %{hierarchy_provider}
+        meta_description: Information om %{scientific_name} i Encyclopedia of Life.
+        meta_description_with_common_name: Information om %{preferred_common_name}, vetenskapligt känd som %{scientific_name} i Encyclopedia of Life.
+        meta_keywords: info om %{scientific_name},%{scientific_name}information
+        meta_keywords_with_common_name: information om %{scientific_name}, information om  %{preferred_common_name}, information och fakta om %{scientific_name}, information om %{preferred_common_name}
+        meta_title: "%{scientific_name} - Information om %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Information om %{preferred_common_name}"
+        tweet_text: Information om %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3880,7 +3880,6 @@ sv:
   title: Titel
   to_process_your_donation_please_proceed: För att behandla din donation går du vidare
   to_send_email_enter_text: För att skicka e-post till denna användare, skriv in texten nedan och klicka på 'Skicka'.
-  top: toppen
   topic: Ämne
   topic_area: Ämnesområde
   total: Totalt

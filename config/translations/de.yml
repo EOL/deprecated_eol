@@ -2524,17 +2524,22 @@ de:
         max: Höchster Wert
         max_placeholder: Zahl eingeben
         max_placeholder_disabled: Bereich deaktiviert
+        max_with_val: "Höchster Wert: %{val}"
         min: Niedrigster Wert
         min_placeholder: Zahl eingeben
         min_placeholder_disabled: Bereich deaktiviert
+        min_with_val: "Niedrigster Wert: %{val}"
         q: Spezieller Wert
         q_more: Zum Beispiel heterotroph.
         q_placeholder: Geben Sie ein Wort, einen Ausdruck oder eine Zahl ein.
         q_placeholder_disabled: Bereich eingegeben, spezieller Wert deaktiviert
+        q_with_val: "Bestimmter Wert: %{val}"
         taxon_name: Taxongruppe
         taxon_name_more: Geben Sie beispielsweise Trochilidae oder Wale ein und wählen Sie die passende Gruppe aus.
         taxon_name_placeholder: Geben Sie den Namen der Taxongruppe an, um die Gruppe auszuwählen.
         taxon_name_placeholder_value_removed: "%{taxon_group} entfernt, neue Gruppe auswählen"
+        taxon_name_with_val: "Taxongruppe: %{val}"
+        total_results: "Gesamtanzahl der Ergebnisse: %{total}"
         unit: Maßeinheit
       eol_statistic: 
         date_one: Datum
@@ -3027,6 +3032,7 @@ de:
   link_not_associated_with_any_published_entries: Dieser Link ist mit keinem veröffentlichten Taxon verknüpft.
   link_rating: Bewertung des Links
   link_to_this_term: Link zu diesem Begriff
+  link_to_top_of_page: nach oben
   links_with_count: 
     one: "%{count} Link"
     other: "%{count} Links"
@@ -3157,7 +3163,6 @@ de:
       videos: Videos
   moderator_colon: "Moderator:"
   monthly: Monatlich
-  more: mehr
   more_children_with_count: 
     one: "%{count} mehr …"
     other: "%{count} mehr …"
@@ -3402,7 +3407,7 @@ de:
   or_move_them_to_existing_collection: oder verschieben Sie sie in eine vorhandene Sammlung
   original: "ORIGINAL:"
   original_object: Originalobjekt
-  other_category: Andere
+  other_category_subtab: Andere
   other_collection_items_with_count: 
     one: "%{count} weiteres Objekt"
     other: "%{count} weitere Objekte"
@@ -3778,6 +3783,7 @@ de:
   show_email_message_area: "[Textbereich der E-Mail anzeigen]"
   show_full_tree: Die gesamte Gliederung anzeigen …
   show_in_overview: in der Übersicht anzeigen
+  show_more_row_data_link: mehr
   show_status_message: Statusmeldung anzeigen
   show_tasks: Aufgaben anzeigen
   show_warning_message: Warnmeldung anzeigen
@@ -4090,21 +4096,22 @@ de:
         meta_title_with_common_name: Synonyme zu %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonyme zu %{scientific_name}
     overview: 
-      hierarchy_entry: 
-        meta_description: Eine Zusammenfassung der Informationen zu %{scientific_name} in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_description_with_common_name: Eine Zusammenfassung der Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name}, in der Enzyklopädie des Lebens (EOL), entsprechend der Klassifizierung durch %{hierarchy_provider}.
-        meta_keywords: "%{scientific_name} anerkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} erkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
-        meta_title: "%{scientific_name} klassifiziert von %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}, klassifiziert von %{hierarchy_provider})"
-        tweet_text: Überblick zu %{scientific_name}, entsprechend der Klassifizierung durch %{hierarchy_provider}.
-      meta_description: Information auf %{scientific_name} in der Enzyklopädie des Lebens.
-      meta_description_with_common_name: Informationen zu %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name} in der Enzyklopädie des Lebens.
-      meta_keywords: Informationen zu %{scientific_name},%{scientific_name}-Informationen
-      meta_keywords_with_common_name: Informationen zu %{scientific_name},Informationen zu %{preferred_common_name},%{scientific_name}-Informationen und Fakten,%{preferred_common_name}-Informationen
-      meta_title: "%{scientific_name} - Informationen zu %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informationen zu %{preferred_common_name}"
-      tweet_text: Information auf %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: Eine Zusammenfassung von Informationen über %{scientific_name}, wie von %{hierarchy_provider} anerkannt, in der Enzyklopädie des Lebens.
+          meta_description_with_common_name: Eine Zusammenfassung von Informationen über %{preferred_common_name}, auch bekannt als %{scientific_name} wie von %{hierarchy_provider} anerkannt in der Enzyklopädie des Lebens.
+          meta_keywords: "%{scientific_name} anerkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} anerkannt von %{hierarchy_provider}, %{scientific_name} klassifiziert von %{hierarchy_provider}"
+          meta_title: "%{scientific_name} klassifiziert von %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} klassifiziert von %{hierarchy_provider})"
+          tweet_text: Übersicht von %{scientific_name}, wie von %{hierarchy_provider} klassifiziert
+        meta_description: Informationen zu %{scientific_name} in der Enzyklopädie des Lebens.
+        meta_description_with_common_name: Informationen über %{preferred_common_name}, wissenschaftlich bekannt als %{scientific_name} in der Enzyklopädie des Lebens.
+        meta_keywords: Informationen zu %{scientific_name},%{scientific_name} Informationen
+        meta_keywords_with_common_name: Informationen über %{scientific_name},Informationen über %{preferred_common_name},%{scientific_name} Informationen und Tatsachen,%{preferred_common_name} Informationen
+        meta_title: "%{scientific_name} – Informationen zu %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) – Informationen zu %{preferred_common_name}"
+        tweet_text: Informationen zu %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -4317,7 +4324,6 @@ de:
   too_many_descendants_to_curate_with_count: 
     one: "FEHLER: Ihre Kuratierung konnte aufgrund des automatisierten Systems nicht verarbeitet werden. Es gibt ein untergeordnetes Objekt, das das erlaubte Maximum überschritten hat."
     other: "FEHLER: Ihre Kuratierung konnte aufgrund des automatisierten Systems nicht verarbeitet werden. Es gibt %{count} untergeordnete Objekte, die das erlaubte Maximum überschritten haben."
-  top: oben
   topic: Thema
   topic_area: Themenbereich
   topics_avilable_to_contact_us_info: Die folgenden Themengebiete sind über die Kontaktseite verfügbar. Sie können Themengebiete, sowie die entsprechenden E-Mail-Adressen, hinzufügen oder bearbeiten. Alle Änderungen werden sofort wirksam.

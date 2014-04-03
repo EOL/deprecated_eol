@@ -38,7 +38,8 @@ class DataPointUri < ActiveRecord::Base
   attr_accessor :metadata, :references,
     :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
     :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
-    :sex, :sex_known_uri, :sex_known_uri_id
+    :sex, :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure, :original_unit_of_measure_known_uri,
+    :original_value
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
     # There are potentially hundreds or thousands of DataPointUri inserts happening here.
@@ -421,28 +422,13 @@ class DataPointUri < ActiveRecord::Base
       next if c[:required_minimum] && potential_new_value < c[:required_minimum]
       self.original_unit_of_measure = unit_of_measure
       self.original_unit_of_measure_known_uri = unit_of_measure_known_uri
+      self.original_value = self.object
       self.object = potential_new_value
       self.unit_of_measure = c[:ending_unit].uri
       self.unit_of_measure_known_uri = c[:ending_unit]
       return true
     end
     false
-  end
-
-  def original_unit_of_measure=(val)
-    @original_unit_of_measure = val
-  end
-
-  def original_unit_of_measure
-    @original_unit_of_measure || unit_of_measure
-  end
-
-  def original_unit_of_measure_known_uri=(val)
-    @original_unit_of_measure_known_uri = val
-  end
-
-  def original_unit_of_measure_known_uri
-    @original_unit_of_measure_known_uri || unit_of_measure_known_uri
   end
 
   # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
@@ -473,11 +459,11 @@ class DataPointUri < ActiveRecord::Base
     # Units URI:
     hash[I18n.t(:data_column_units_uri)] = units_uri
     # Raw value:
-    hash[I18n.t(:data_column_raw_value)] = DataValue.new(object_uri).label
+    hash[I18n.t(:data_column_raw_value)] = DataValue.new(original_value || object_uri).label
     # Raw Units:
-    hash[I18n.t(:data_column_raw_units)] = original_units_safe(:label)
+    hash[I18n.t(:data_column_raw_units)] = original_units_safe(:label, default_return: nil) || units_safe(:label)
     # Raw Units URI:
-    hash[I18n.t(:data_column_raw_units_uri)] = original_units_uri
+    hash[I18n.t(:data_column_raw_units_uri)] = original_units_uri(default_return: nil) || units_uri
     # Source:
     hash[I18n.t(:data_column_source)] = source.try(:name) || ''
     # Resource:
@@ -521,16 +507,16 @@ class DataPointUri < ActiveRecord::Base
     units_safe(:uri)
   end
 
-  def original_units_uri
-    original_units_safe(:uri)
+  def original_units_uri(options = {})
+    original_units_safe(:uri, options)
   end
 
   def units_safe(attr)
-    _units_safe(units, attr)
+    _units_safe(units, attr, options = {})
   end
 
-  def original_units_safe(attr)
-    _units_safe(original_units, attr)
+  def original_units_safe(attr, options = {})
+    _units_safe(original_units, attr, options)
   end
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
@@ -637,8 +623,9 @@ private
     end
   end
 
-  def _units_safe(which, attr)
-    which && which.has_key?(attr) ? which[attr] : ''
+  def _units_safe(which, attr, options = {})
+    options[:default_return] = '' unless options.has_key?(:default_return)
+    which && which.has_key?(attr) ? which[attr] : options[:default_return]
   end
 
   def self.conversions

@@ -1226,7 +1226,7 @@ ko:
   collection_destroyed: 모음집을 삭제했습니다.
   collection_error_no_items_selected: "오류: 항목을 선택하지 않아 어떠한 행동도 하지 않았습니다."
   collection_image: 모음집 그림
-  collection_is_empty: 이 모음집은 현재 비어있습니다.
+  collection_is_empty: 이 모음집은 현재 비어 있습니다.
   collection_item_edit_by_javascript_not_authorized_error: 죄송합니다, 이 모음집 항목을 편집할 수 있는 권한이 없습니다. 이 모음집의 소유자나 편집자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
   collection_item_edit_page_title: <em>%{collection_name}</em> 모음집에 항목 편집
   collection_item_not_found_error: 해당 모음집 항목을 찾을 수 없습니다.
@@ -3676,22 +3676,6 @@ ko:
         meta_title: "%{scientific_name}의 동의어"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})의 동의어"
         tweet_text: "%{scientific_name}의 동의어"
-    overview: 
-      hierarchy_entry: 
-        meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 인정한 %{scientific_name}에 대한 정보 요약입니다.
-        meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해 인정한 %{preferred_common_name}라고도 알려진 %{scientific_name}에 대한 정보 요약입니다.
-        meta_keywords: "%{hierarchy_provider}에 의해 인정한 %{scientific_name}, %{hierarchy_provider}에 의해 분류한 %{scientific_name}"
-        meta_keywords_with_common_name: "%{hierarchy_provider}에 의해 인정한 %{scientific_name}, %{hierarchy_provider}에 의해 분류한 %{scientific_name}"
-        meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
-        tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}의 둘러보기"
-      meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 정보입니다.
-      meta_description_with_common_name: 생명의 백과사전에서 과학적으로 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 정보입니다.
-      meta_keywords: "%{scientific_name}에 대한 정보,%{scientific_name} 정보"
-      meta_keywords_with_common_name: "%{scientific_name}에 대한 정보,%{preferred_common_name}에 대한 정보,%{scientific_name} 정보와 사실, %{preferred_common_name} 정보"
-      meta_title: "%{scientific_name} - %{scientific_name}에 대한 정보"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - %{preferred_common_name}에 대한 정보"
-      tweet_text: "%{scientific_name}에 대한 정보"
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3873,7 +3857,6 @@ ko:
   too_many_descendants_to_curate_with_count: 
     one: "오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과 하는 하위 %{count}개가 있습니다."
     other: "오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과 하는 하위 %{count}개가 있습니다."
-  top: 맨 위로
   topic: 주제
   topic_area: 주제 영역
   total: 총계

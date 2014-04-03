@@ -3661,22 +3661,6 @@ gl:
         meta_title: Sinónimos de %{scientific_name}
         meta_title_with_common_name: Sinónimos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinónimos de %{scientific_name}
-    overview: 
-      hierarchy_entry: 
-        meta_description: Un resumo da información sobre %{scientific_name}, segundo o recoñeceu %{hierarchy_provider}, na Enciclopedia da vida.
-        meta_description_with_common_name: Un resumo da información sobre %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo o recoñeceu %{hierarchy_provider}, na Enciclopedia da vida.
-        meta_keywords: "%{scientific_name} recoñecido por %{hierarchy_provider}, %{scientific_name} clasificado por %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} recoñecido por %{hierarchy_provider}, %{scientific_name} clasificado por %{hierarchy_provider}"
-        meta_title: "%{scientific_name} clasificado por %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} clasificado por %{hierarchy_provider})"
-        tweet_text: Vista xeral de %{scientific_name}, segundo o clasificou %{hierarchy_provider}
-      meta_description: Información sobre %{scientific_name} na Enciclopedia da vida
-      meta_description_with_common_name: Información sobre %{preferred_common_name}, cientificamente coñecido como %{scientific_name}, na Enciclopedia da vida.
-      meta_keywords: información sobre %{scientific_name}
-      meta_keywords_with_common_name: información sobre %{scientific_name}, información sobre %{preferred_common_name}
-      meta_title: "%{scientific_name} - Información sobre %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Información sobre %{preferred_common_name}"
-      tweet_text: Información sobre %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

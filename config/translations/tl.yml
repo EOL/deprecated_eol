@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: AnakngAraw
 # Author: Jewel457
+# Author: Jojit fb
 # Author: TheSleepyhollow02
 tl: 
   0_1_or_2: 0, 1 o 2
@@ -231,7 +232,7 @@ tl:
         disable_email_notifications: Huwag akong padalhan ng ANUMANG mga pagsasapanahon sa pamamagitan ng e-liham
         email: Tirahang e-liham
         email_confirmation: Tirahan ulit ng e-liham <small>(upang makatiyak)</small>
-        entered_password: Hudyat
+        entered_password: Password
         entered_password_confirmation: Hudyat uli <small>(upang makatiyak)</small>
         family_name: Apelyido
         full_name: Buong pangalan
@@ -2060,7 +2061,7 @@ tl:
         resource_url_or_file_url: Ikarga ang pinagkunan mula sa URL
         title: Pangalan ng napagkunan
       session: 
-        password: Hudyat
+        password: Password
         remember_me: Panatilihing nakalagda ako sa loob ng 2 mga linggo
         username_or_email: Pangalan ng tagagamit o tirahan ng e-liham
       translated_content_page: 
@@ -2815,7 +2816,7 @@ tl:
   partner_information: Kabatiran sa kawaksi
   partner_page: pahina ng kawaksi
   partner_web_site_colon: "Pook sa Sangkasaputan ng Kawaksi:"
-  password_colon: "Hudyat:"
+  password_colon: "Password:"
   password_must_be_4to16_characters: Ang haba ng hudya ay dapat na nasa pagitan ng 4 at 16 mga panitik.
   pause: huminto saglit
   people_with_count: 

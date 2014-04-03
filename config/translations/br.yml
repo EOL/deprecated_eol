@@ -1923,7 +1923,6 @@ br:
       videos: Videoioù
   moderator_colon: Habaskaer
   monthly: Bep miz
-  more: muioc'h
   most_active_members: Izili oberiantañ
   move: Dilec'hiañ
   move_down: Diskenn
@@ -2028,7 +2027,6 @@ br:
   or_move_them_to_existing_collection: pe o dilec'hiañ d'un dastumad zo anezhañ c'hoazh
   original: "ORIN :"
   original_object: Traezhenn orin
-  other_category: All
   other_us_dollars_amount: "All : US$"
   outlink: Liamm diavaez
   overview: Brassell
@@ -2322,10 +2320,6 @@ br:
         meta_title: Heñvelsterioù da %{scientific_name}
         meta_title_with_common_name: Heñvelsterioù da %{preferred_common_name} (%{scientific_name})
         tweet_text: Heñvelsterioù da %{scientific_name}
-    overview: 
-      meta_description: Titouroù diwar-benn %{scientific_name} e Kelc'hgeriadur ar Vuhez.
-      meta_title: "%{scientific_name} - Titouroù diwar-benn %{scientific_name}"
-      tweet_text: Titouroù diwar-benn %{scientific_name}
     resources: 
       biomedical_terms: 
         tweet_text: Termenoù bevvezegel evit %{scientific_name}
@@ -2393,7 +2387,6 @@ br:
   this_video_is_unpublished: N'eo ket embannet ar video-mañ.
   title: Titl
   toc: TAOLENN
-  top: krec'h
   total: Hollad
   translation_deleted: Diverket eo bet an droidigezh
   translation_information_header: Titouroù treiñ

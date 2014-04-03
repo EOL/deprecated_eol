@@ -1,4 +1,5 @@
 class ForumPost < ActiveRecord::Base
+  establish_connection(Rails.env)
 
   belongs_to :forum_topic
   belongs_to :user

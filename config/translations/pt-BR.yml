@@ -3378,7 +3378,6 @@ pt-BR:
           meta_description: Fotos, vídeos e áudios de %{scientific_name} classificados por %{hierarchy_provider}. Procurar imagens, fotos, filmes e sons de %{scientific_name} na Enciclopédia da Vida.
           meta_description_no_data: Não há dados computáveis disponíveis para %{scientific_name} classificados por %{hierarchy_provider} na Enciclopédia da Vida. EOl convida você a contribuir com dados para %{scientific_name}.
           meta_description_with_common_name_with_topics: Que dados foram coletados pelos cientistas para %{preferred_common_name} classificados por %{hierarchy_provider}? Traço de dados sobre %{scientific_name}incluindo informação sobre %{topics}.
-          meta_keywords: "%{scientific_name} conhecido por %{hierarchy_provider}dados computáveis, informações sobre %{scientific_name}"
           meta_title: Fatos sobre %{scientific_name} classificada por %{hierarchy_provider}
           tweet_text: Estatísticas sobre %{scientific_name} como classificada por %{hierarchy_provider}
         meta_description: Fotos, vídeos e áudios de %{scientific_name}. Procurar imagens, fotos, filmes e sons de %{scientific_name} na Enciclopédia da Vida.
@@ -3509,22 +3508,6 @@ pt-BR:
         meta_title: Sinônimos de %{scientific_name}
         meta_title_with_common_name: Sinônimos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinônimos de %{scientific_name}
-    overview: 
-      hierarchy_entry: 
-        meta_description: Um resumo das informações sobre %{scientific_name} tal como reconhecido pela %{hierarchy_provider} na Enciclopédia da Vida.
-        meta_description_with_common_name: Um resumo das informações sobre %{preferred_common_name}, também conhecido como %{scientific_name} tal como reconhecido pela %{hierarchy_provider} na Enciclopédia da Vida.
-        meta_keywords: "%{scientific_name} reconhecido por %{hierarchy_provider}, %{scientific_name} classificada por %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} reconhecido por %{hierarchy_provider}, %{scientific_name} classificada por %{hierarchy_provider}"
-        meta_title: "%{scientific_name} classificada por %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classificada por %{hierarchy_provider})"
-        tweet_text: Resumo sobre %{scientific_name} como classificada por %{hierarchy_provider}
-      meta_description: Informações sobre %{scientific_name} na Enciclopédia da Vida.
-      meta_description_with_common_name: Informações sobre %{preferred_common_name}, cientificamente conhecido como %{scientific_name} na Enciclopédia da Vida.
-      meta_keywords: informações sobre %{scientific_name}, informações sobre %{scientific_name}
-      meta_keywords_with_common_name: informações sobre %{scientific_name}, informações sobre %{preferred_common_name}, informações e fatos sobre %{scientific_name}, informações sobre %{preferred_common_name}
-      meta_title: "%{scientific_name} - Informações sobre %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informações sobre %{preferred_common_name}"
-      tweet_text: Informações sobre %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

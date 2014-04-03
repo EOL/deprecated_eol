@@ -2480,22 +2480,6 @@ ms:
         meta_title: Sinonim %{scientific_name}
         meta_title_with_common_name: Sinonim-sinonim %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinonim-Sinonim %{scientific_name}
-    overview: 
-      hierarchy_entry: 
-        meta_description: Ringkasan maklumat tentang %{scientific_name} sebagaimana yang diakui oleh %{hierarchy_provider} di Encyclopedia of Life.
-        meta_description_with_common_name: Ringkasan maklumat tentang %{preferred_common_name} atau juga dikenali sebagai %{scientific_name} sebagaimana yang diakui oleh %{hierarchy_provider} di Encyclopedia of Life.
-        meta_keywords: "%{scientific_name} yang diakui oleh %{hierarchy_provider}, %{scientific_name} yang dikelaskan oleh %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} yang diakui oleh %{hierarchy_provider}, %{scientific_name} yang dikelaskan oleh %{hierarchy_provider}"
-        meta_title: "%{scientific_name} yang Dikelaskan oleh %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} yang Dikelaskan oleh %{hierarchy_provider})"
-        tweet_text: "%{scientific_name} yg Dikelaskan oleh %{hierarchy_provider}"
-      meta_description: Maklumat tentang %{scientific_name} di Encyclopedia of Life.
-      meta_description_with_common_name: Maklumat tentang %{preferred_common_name} atau nama saintifiknya %{scientific_name} di Encyclopedia of Life.
-      meta_keywords: info %{scientific_name}, maklumat %{scientific_name}
-      meta_keywords_with_common_name: info %{scientific_name}, info %{preferred_common_name}, fakta  %{scientific_name}, maklumat %{preferred_common_name}
-      meta_title: "%{scientific_name} - Maklumat tentang %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Maklumat tentang %{preferred_common_name}"
-      tweet_text: Maklumat ttg %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

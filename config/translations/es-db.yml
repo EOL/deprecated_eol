@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: Armando-Martin
 # Author: Erick mata
+# Author: Fitoschido
 # Author: Fortega
 # Author: Maumau
 # Author: Sampalahnuk
@@ -295,7 +296,7 @@ es:
   translated_table_of_contents-label-table_of_contents_id-305: Sinónimos
   translated_table_of_contents-label-table_of_contents_id-306: Estadísticas de páginas
   translated_table_of_contents-label-table_of_contents_id-307: Resumen de Contenido
-  translated_table_of_contents-label-table_of_contents_id-308: Descripción Completa
+  translated_table_of_contents-label-table_of_contents_id-308: Descripción detallada
   translated_table_of_contents-label-table_of_contents_id-309: Distribución
   translated_table_of_contents-label-table_of_contents_id-310: Desarrollo
   translated_table_of_contents-label-table_of_contents_id-311: Recursos de identificación

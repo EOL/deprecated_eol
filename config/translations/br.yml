@@ -143,7 +143,9 @@ br:
         rich_redhotlist_pages: Pajennoù pennroll ruz pinvidik
         rich_redhotlist_pages_percentage: Pajennoù pennroll ruz pinvidik
         total_associations: Kevredigezhioù
+        total_measurement_types: Doareoù muzuliañ
         total_measurements: Muzulioù
+        total_occurrences: Reveziadennoù
         total_taxa_with_data: Pajennoù gant roadennoù
         total_user_added_data: Roadennoù ouzhpennet gant an implijer
         udo_published: Testenn pourchaset gant an implijer
@@ -293,6 +295,8 @@ br:
         invalid: zo direizh
         less_than: a rank bezañ bihanoc'h eget %{count}
         less_than_or_equal_to: a rank bezañ bihanoc'h pe par da %{count}
+        models: 
+          inaccessible: ne c'haller ket mont dezhañ
         not_a_number: n'eo ket un niver
         not_an_integer: a rank bezañ anterin
         odd: a rank bezañ ampar
@@ -1388,6 +1392,7 @@ br:
         other: "%{count} kemennadenn"
       replying_to_post: "O respont da :"
       topic_and_post_delete_successful: Dilamet eo bet ar gemennadenn hag an neudennad
+      update_failed: Digarezit, c'hoarvezet ez eus ur fazi ha n'eus ket bet gallet hizivaat ar gemennadenn.
       update_successful: Hizivaet eo bet ar gemennadenn
     posts_heading: Kemennadennoù
     replies: Respontoù
@@ -1491,6 +1496,18 @@ br:
         link_type: Rummad
         source_url: URL al liamm
         toc_item: Danvez
+      data_search: 
+        max: Talvoud uhelañ
+        max_placeholder: Ebarzhiñ un niver
+        max_with_val: "Talvoud uhelañ : %{val}"
+        min: Talvoud izelañ
+        min_placeholder: Ebarzhiñ un niver
+        min_with_val: "Talvoud izelañ : %{val}"
+        q: Talvoud difer
+        q_placeholder: Ebarzhiñ ur ger, ur frazenn pe un niver
+        q_with_val: "Talvoud difer : %{val}"
+        taxon_name_more: Da skouer, ebarzhit Trochilidae pe Balumed ha diuzit ar strollad a glot ganto.
+        unit: Unanenn vuzuliañ
       eol_statistic: 
         date_one: Deiziad
         date_two: Deiziad
@@ -2205,6 +2222,7 @@ br:
   sound_from: son eus
   sound_from_supplier: Son digant %{whom}
   sound_of: Son digant
+  sound_of_taxon: Son eus %{taxon_name}
   sound_rating: Priziadenn ar son
   source: Mammenn
   source_colon: "Mammenn :"
@@ -2260,12 +2278,15 @@ br:
         meta_title: Tud dedennet gant %{scientific_name}
         meta_title_with_common_name: Tud dedennet gant %{preferred_common_name} (%{scientific_name})
         tweet_text: Tud dedennet gant %{scientific_name}
+    data: 
+      index: 
+        tweet_text: Fedoù diwar-benn %{scientific_name}
     details: 
       index: 
         meta_description: Fedoù diwar-benn %{scientific_name} e Kelc'hgeriadur ar vuhez
-        meta_title: Fedoù diwar-benn %{scientific_name}
-        meta_title_with_common_name: Fedoù diwar-benn %{preferred_common_name} (%{scientific_name})
-        tweet_text: Fedoù diwar-benn %{scientific_name}
+        meta_title: Deskrivadurioù ha pennadoù diwar-benn %{scientific_name}
+        meta_title_with_common_name: Deskrivadurioù ha pennadoù diwar-benn %{preferred_common_name} (%{scientific_name})
+        tweet_text: Pennadoù diwar-benn %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 
@@ -2296,12 +2317,13 @@ br:
       index: 
         hierarchy_entry: 
           meta_description: Skeudennoù ha videoioù eus %{scientific_name}  evel ma vezont rummet e %{hierarchy_provider}.
+          meta_title: Sonioù, filmoù & luc'hskeudennoù eus %{scientific_name} evel m'int bet renket gant %{hierarchy_provider}
         tweet_text: Skeudennoù, videoioù ha sonioù eus %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
           meta_keywords: Anvioù lec'hel evit %{scientific_name}
-          meta_keywords_with_common_name: Anv skiantel evit %{preferred_common_name), anvioù lec'hel evit %{scientific_name}
+          meta_keywords_with_common_name: Anv skiantel evit %{preferred_common_name}, anvioù lec'hel evit %{scientific_name}
           meta_title: Anvioù pobek eus %{scientific_name} rummet gant %{hierarchy_provider}
           meta_title_with_common_name: Anvioù poblek eus %{preferred_common_name} (%{scientific_name} rummet gant %{hierarchy_provider})
           tweet_text: "\nAnvioù pobek eus %{scientific_name} rummet gant %{hierarchy_provider}"
@@ -2309,6 +2331,9 @@ br:
         meta_description_with_common_name: "%{scientific_name} eo anv skiantel  ar %{preferred_common_name}. Dizoleiet e anvioù poblek all."
         meta_keywords: Anvioù poblek evit %{scientific_name}.
         meta_keywords_with_common_name: Anvioù boutin %{hierarchy_provider, anv skiantel %{preferred_common_name}
+        meta_title: Anvioù poblek evit %{scientific_name}.
+        meta_title_with_common_name: Anvioù poblek evit %{preferred_common_name} (%{scientific_name})
+        tweet_text: Anvioù poblek evit %{scientific_name}.
       synonyms: 
         hierarchy_entry: 
           meta_keywords: Heñvelsterioù %{scientific_name}
@@ -2320,10 +2345,21 @@ br:
         meta_title: Heñvelsterioù da %{scientific_name}
         meta_title_with_common_name: Heñvelsterioù da %{preferred_common_name} (%{scientific_name})
         tweet_text: Heñvelsterioù da %{scientific_name}
+    overview: 
+      show: 
+        meta_description: Titouroù diwar-benn %{scientific_name} e Kelc'hgeriadur ar Vuhez.
+        meta_title: "%{scientific_name} - Titouroù diwar-benn %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Titouroù diwar-benn %{preferred_common_name}"
+        tweet_text: Titouroù diwar-benn %{scientific_name}
     resources: 
       biomedical_terms: 
         tweet_text: Termenoù bevvezegel evit %{scientific_name}
+      education: 
+        meta_title: Danvez deskiñ evit %{scientific_name}
+        meta_title_with_common_name: Danvez deskiñ evit %{preferred_common_name} (%{scientific_name})
+        tweet_text: Danvez deskiñ evit %{scientific_name}
       identification_resources: 
+        meta_title: Danvez anaout evit %{scientific_name}
         meta_title_with_common_name: Danvezioùt-anaout evit %{preferred_common_name} (%{scientific_name})
         tweet_text: danvezioù-anaout evit %{scientific_name}
       show: 
@@ -2333,7 +2369,7 @@ br:
     updates: 
       show: 
         hierarchy_entry: 
-          meta_title: Hizivadurioù evit {scientific_name} evel ma vezont rummet gant  %{hierarchy_provider}
+          meta_title: Hizivadennoù evit %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
           meta_title_with_common_name: Hizivadurioù %{preferred_common_name} (%{scientific_name} rummet gant r %{hierarchy_provider})
           tweet_text: Hizivadurioù  %{scientific_name} rummet gant %{hierarchy_provider}
         meta_description: Nevezentioù ha hizivadennoù evit %{scientific_name}.
@@ -2345,6 +2381,7 @@ br:
       statistics: 
         hierarchy_entry: 
           meta_title: Stadegoù evit %{scientific_name} evel m'eo bet renket gant %{hierarchy_provider}
+        meta_description: Stadegoù ha roadennoù diwar-benn %{scientific_name} e Kelc'hgeriadur ar Vuhez.
   taxa_column_header: Taksonoù
   taxon: takson
   taxon_multimedia_links_link: Liammoù liesvedia
@@ -2456,6 +2493,26 @@ br:
         meta_description: Kumuniezht %{user_full_name} zo un ezel anezhi.
         meta_title: Kumuniezhioù %{user_full_name}
         tweet_text: kumuniezhioù %{user_full_name}
+    data_downloads: 
+      actions_head: Oberoù
+      attribute_head: Perzh
+      complete_head: Echuiñ ?
+      created_head: Krouet
+      download: pellgargañ
+      index: 
+        meta_description: Pellgargadennoù roadennoù goulennet gant %{user_full_name}.
+        meta_title: Pellgargadennoù roadennoù gant %{user_full_name}
+        tweet_text: Pellgargadennoù roadennoù gant %{user_full_name}
+      is_complete: Ya
+      is_not_complete: Ket
+      page_title: Pellgargadennoù roadennoù
+      processing: o tretañ
+      query_empty: (sil ebet)
+      query_head: Reked
+      refresh: freskaat
+      row_count: Kontañ
+      search_again: klask adarre
+      updated_head: Ober diwezhañ
     new: 
       complete_registration_header: Echuit ho koumanant KAV
       create_user_header: Krouiñ ur gont nevez evit <abbr title="Kelc'hgeriadur ar Vuhez">KAV</abbr>
@@ -2497,6 +2554,7 @@ br:
       facebook: Facebook
       google: Google
       index: 
+        connected_last_verified: Kevreet ; Gwiriet da ziwezhañ %{time_passed} zo ;
         connected_unverified: Kevreet; n'eo ket gwiriet;
         not_connected: N'eo ket kevreet;
         page_title: Kontoù kevreet
@@ -2506,6 +2564,8 @@ br:
           new_authentication_added: Ouzhpennet eo bet an dilesadur Facebook d'ho kont.
         google: 
           new_authentication_added: Dilesadur Google zo bet ouzhpennet d'ho kont.
+        twitter: 
+          new_authentication_added: Ouzhpennet eo bet an dilesadur Twitter d'ho kont.
         yahoo: 
           new_authentication_added: Ouzhpennet eo bet an dilesadur Yahoo! d'ho kont.
       twitter: Twitter

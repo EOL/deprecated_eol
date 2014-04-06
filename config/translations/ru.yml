@@ -564,6 +564,7 @@ ru:
   already_a_member_question: Уже зарегистрированы?
   already_member_of_community: Вы уже являетесь членом этого сообщества.
   alternate_classification: Альтернативные классификации
+  alternative_name_colon: "Альтернативное название:"
   amount: Сумма
   an_unknown_user: Неизвестный пользователь
   and: и
@@ -2046,6 +2047,7 @@ ru:
   value_default: (по умолчанию)
   value_empty: (пусто)
   values: Значения
+  versions_colon: "Версии:"
   vetted: Проверены
   video_from: видео от
   video_object: Видеообъекты

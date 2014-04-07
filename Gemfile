@@ -58,7 +58,7 @@ group :development do
 end
 
 group :test do
-  gem 'webmock', '1.8.11' # Mock calls to remote APIs, like Open Authentication.
+  gem 'webmock', '1.8.11', require: false # Mock calls to remote APIs, like Open Authentication.
   gem 'rspec-html-matchers', '0.4.3' # Adds #with_tag for tests. Requires nokogiri.
   gem 'simplecov', '~> 0.7.1', require: false
 end

@@ -160,7 +160,7 @@ es:
         pages_curated_by_active_curators: Páginas supervisadas por supervisores activos
         pages_with_BHL_links: Páginas con enlaces BHL
         pages_with_BHL_links_no_text: Páginas con enlaces BHL pero sin texto
-        pages_with_BHL_links_only: Páginas sólo con enlaces BHL
+        pages_with_BHL_links_only: Páginas solo con enlaces BHL
         pages_with_at_least_a_curatorial_action: Páginas con acción de mantenimiento
         pages_with_at_least_a_trusted_object: Páginas con objeto de confianza
         pages_with_content: Páginas con contenido
@@ -1275,7 +1275,7 @@ es:
   cannot_curate_association_in_preview_mode: La asociación %{name} no puede ser supervisada porque está siendo previsualizada después de una recogida.
   cannot_expand_children: no se pueden expandir las dependencias
   cannot_find_member: No se puede encontrar un miembro con este identificador.
-  cannot_index_collection_item_type_error: No se puede indexar un elemento de la colección de un %{type}
+  cannot_index_collection_item_type_error: No se puede indizar un elemento de colección de un %{type}
   categories_title: "Seleccione una categoría, luego un atributo:"
   category_suggestions: "Si no está seguro de cuáles URIs usar para los atributos o valores, los siguientes enlaces proporcionan algunas sugerencias de URIs elegidas por curadores de EOL:"
   change: Cambiar
@@ -2823,7 +2823,7 @@ es:
   including_traitbank_count: 
     one: ", incluyendo %{count} atributo de TraitBank"
     other: ", incluyendo % {count} atributos de TraitBank"
-  indexed: Indexado
+  indexed: Indizado
   info_item: Elemento de información
   info_items_col_header: Elementos de información
   information_for_any_audience: Información para todos los públicos
@@ -3680,7 +3680,7 @@ es:
   return_references_for_the_page_taxon: Entregar todos los nombres vernáculos del taxon de la página
   return_synonyms_for_the_page_taxon: devuelve todos los sinónimos de el taxón de la página
   returns_all_metadata_about_a_particular_collection: Devuelve todos los metadatos sobre una colección particular y los elementos que contiene indexados por EOL
-  returns_all_metadata_about_a_particular_data_object: retorna todos los metadatos sobre un objeto de datos particuar (texto, imagen o vídeo) indexado por EOL
+  returns_all_metadata_about_a_particular_data_object: devuelve todos los metadatos sobre un objeto de datos particuar (texto, imagen o vídeo) indizado por EOL
   returns_either_a_positive_or_negative_response: retorna una respuesta positiva (indicando que los API están funcionales), o una respuesta negativa, o del todo nada (indicando que en ese momento los APIs no están funcionales).
   revisions: Revisiones
   revoke_full_curator_link: Revocar

@@ -1,3 +1,4 @@
+require_relative '../../spec/spec_helper' if Rails.env == 'test'
 module EOL
   class ScenarioLoader
 

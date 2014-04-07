@@ -5,6 +5,7 @@
 # Author: Eitvys200
 # Author: Ignas693
 # Author: Mantak111
+# Author: Swanas
 lt: 
   translated_activities-name-activity_id-19: profilis
   translated_activities-name-activity_id-50: nepatikimas
@@ -30,6 +31,8 @@ lt:
   translated_agent_roles-label-agent_role_id-2: Autorius
   translated_agent_roles-label-agent_role_id-21: teikėjas
   translated_agent_roles-label-agent_role_id-22: Vertėjas
+  translated_agent_roles-label-agent_role_id-23: Mokslinis recenzentas
+  translated_agent_roles-label-agent_role_id-24: Kalbų recenzentas
   translated_agent_roles-label-agent_role_id-3: Kompiliatorius
   translated_agent_roles-label-agent_role_id-4: Kompozitorius
   translated_agent_roles-label-agent_role_id-5: Autorius
@@ -45,18 +48,40 @@ lt:
   translated_collection_types-label-collection_type_id-11: Nuorodos
   translated_collection_types-label-collection_type_id-12: Literatūra
   translated_collection_types-label-collection_type_id-13: Taksonomija
+  translated_collection_types-label-collection_type_id-14: Molekulės dalies kodai
   translated_collection_types-label-collection_type_id-15: Aprašymas
   translated_collection_types-label-collection_type_id-16: Paveikslėliai
+  translated_collection_types-label-collection_type_id-17: Paplitimas
+  translated_collection_types-label-collection_type_id-18: Apsaugos būsena
   translated_collection_types-label-collection_type_id-19: Vardo informacija
+  translated_collection_types-label-collection_type_id-2: Molekulės dalies kodai
+  translated_collection_types-label-collection_type_id-20: Molekulės duomenys
+  translated_collection_types-label-collection_type_id-21: Terminologija
   translated_collection_types-label-collection_type_id-22: Garsai
   translated_collection_types-label-collection_type_id-23: Nuorodos
   translated_collection_types-label-collection_type_id-24: Literatūra
   translated_collection_types-label-collection_type_id-3: Aprašymas
   translated_collection_types-label-collection_type_id-4: Paveikslėliai
+  translated_collection_types-label-collection_type_id-5: Paplitimas
+  translated_collection_types-label-collection_type_id-6: Apsaugos būsena
   translated_collection_types-label-collection_type_id-7: Vardo informacija
+  translated_collection_types-label-collection_type_id-8: Molekulės duomenys
+  translated_collection_types-label-collection_type_id-9: Terminologija
   translated_contact_roles-label-contact_role_id-1: Pagrindinis Kontaktas
   translated_contact_roles-label-contact_role_id-2: Administracinės Kontaktai
   translated_contact_roles-label-contact_role_id-3: Techninis Kontaktas
+  translated_contact_subjects-title-contact_subject_id-24: Narystė ir registracija
+  translated_contact_subjects-title-contact_subject_id-25: Naudojimosi sąlygos ir licencijavimas
+  translated_contact_subjects-title-contact_subject_id-26: Mokymasis ir švietimas
+  translated_contact_subjects-title-contact_subject_id-27: Tapti turinio partneriu
+  translated_contact_subjects-title-contact_subject_id-28: Turinio partnerių parama
+  translated_contact_subjects-title-contact_subject_id-29: Kuratoriaus parama
+  translated_contact_subjects-title-contact_subject_id-30: Pataisyti (rašyba ir gramatika, vaizdai, informacija)
+  translated_contact_subjects-title-contact_subject_id-31: Prisidėti nuotraukomis, vaizdo ar garso įrašais
+  translated_contact_subjects-title-contact_subject_id-32: Žiniasklaidos užklausos (interviu, spaudos užklausos, logotipo užklausos)
+  translated_contact_subjects-title-contact_subject_id-33: Paremti finansiškai
+  translated_contact_subjects-title-contact_subject_id-34: Techniniai klausimai (problemos su paieška, tinklalapio darbu)
+  translated_contact_subjects-title-contact_subject_id-35: Bendro pobūdžio atsiliepimai
   translated_content_partner_statuses-label-content_partner_status_id-1: Laukiama
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktyvus
   translated_content_partner_statuses-label-content_partner_status_id-3: Suarchyvuota
@@ -93,6 +118,8 @@ lt:
   translated_licenses-description-license_id-7: Kai kurios teisės saugomos
   translated_licenses-description-license_id-8: Kai kurios teisės saugomos
   translated_licenses-description-license_id-9: Kai kurios teisės saugomos
+  translated_ranks-label-rank_id-106: forma
+  translated_ranks-label-rank_id-107: forma
   translated_ranks-label-rank_id-183: karalystė
   translated_ranks-label-rank_id-266: tvarka
   translated_ranks-label-rank_id-317: skyrius

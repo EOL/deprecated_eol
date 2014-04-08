@@ -63,15 +63,10 @@ module EOL
                 'source' => result_hash[:resource].title,
                 'measurementType' => result_hash[:attribute].uri,
                 'label' => result_hash[:attribute].name,
-                'measurementValue' => result_hash[:value].to_s.to_i,
-                'score' => rand(0.. 1.0).round(2)
+                'measurementValue' => result_hash[:value].to_s.to_i
               }
             end
 
-            ######
-            return_hash['number_of_families'] = 11
-            return_hash['namePublishedIn'] = "Chaimanee, Y., D. Jolly, M.Benammi, P.Tafforeau, D. Duzer, I.Moussa, and J.-J. Jaeger. 2003. A Middle Miocene hominoid from Thailand and orangutan origins. Nature 422(6927):61-65."
-            return_hash['ggiTotalScore'] = taxon_concept.taxon_concept_metric ? taxon_concept.taxon_concept_metric.richness_score : 0
           end
           return return_hash
         end

@@ -1,4 +1,5 @@
 class Forum < ActiveRecord::Base
+  establish_connection(Rails.env)
 
   belongs_to :forum_category
   belongs_to :last_post, class_name: 'ForumPost', foreign_key: :last_post_id

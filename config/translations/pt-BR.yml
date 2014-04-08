@@ -12,6 +12,7 @@
 # Author: Luckas
 # Author: Luckas Blade
 # Author: Mordecaista
+# Author: Rodrigo codignoli
 # Author: TheGabrielZaum
 # Author: Tuliouel
 pt-BR: 
@@ -1284,6 +1285,9 @@ pt-BR:
         observer_with_link: "Observador: %{observer_link}"
         recent_observations: Observações recentes
         some_taxon: Algo
+        taxa_observed: 
+          one: "%{count} taxa observada"
+          other: "%{count} taxa observada"
         top_contributors: Maiores Contribuintes iNaturalist
         tweet_text: "%{collection_name} Observações iNaturalist"
         view_all_observations_on_inaturalist: Ver todas as observações de %{project_title} em iNaturalist
@@ -2254,17 +2258,22 @@ pt-BR:
         max: Valor máximo
         max_placeholder: Introduza um número
         max_placeholder_disabled: Faixa desabilitada
+        max_with_val: "Valor maximo: %{val}"
         min: Valor mínimo
         min_placeholder: Introduza um número
         min_placeholder_disabled: Faixa desabilitada
+        min_with_val: "Valor minimo: %{val}"
         q: Valor específico
         q_more: Por exemplo, heterotrófico.
         q_placeholder: Introduza uma palavra, frase ou número
         q_placeholder_disabled: Faixa introduzida, valor específico desabilitado
+        q_with_val: "Valor especifico: %{val}"
         taxon_name: Grupo de taxonomia
         taxon_name_more: Por exemplo, introduza Trochilidae ou Baleias e selecione um grupo correspondente
         taxon_name_placeholder: Introduza o nome do grupo de taxonomia para o grupo selecionado
         taxon_name_placeholder_value_removed: "%{taxon_group}removido, selecione novo grupo"
+        taxon_name_with_val: "Grupo de taxonomia: %{val}"
+        total_results: "Resultados: %{total}"
         unit: Unidade de medida
       eol_statistic: 
         date_one: Data
@@ -2626,6 +2635,7 @@ pt-BR:
       about_link_podcasts: Podcasts
       about_link_statistics: Estatísticas
       about_link_terms_of_use: Termos de uso
+      about_link_traitbank: O que é TraitBank?
       about_link_what_is_eol: O que é EOL?
       header_about: Sobre EOL
       header_learn_more: Saiba mais sobre
@@ -2665,8 +2675,11 @@ pt-BR:
     data_search: 
       page_header: Procure TraitBanks
       page_header_results: Resultados da pesquisa TraitBank
+    footer: 
+      google_plus: Encyclopedia of Life no Google+
     taxa: 
       search_traitbank: Pesquisa Traitbank
+      search_within_clade: Busque nas páginas
   learn_about_collections: Como posso criar uma?
   learn_about_communities: Como posso participar?
   learn_about_content_partners: Como eu posso me tornar um?
@@ -3352,6 +3365,7 @@ pt-BR:
           tweet_text: Curadores de %{scientific_name} como classificada por %{hierarchy_provider}
         meta_description_with_common_name: Peritos de %{preferred_common_name} (também conhecido pelos peritos como %{scientific_name}) que monitoram seus dados na Enciclopédia da Vida.
         meta_keywords: Peritos em %{scientific_name}, curadores de %{scientific_name}
+        meta_keywords_with_common_name: Coleções de %{preferred_common_name}, observações de %{preferred_common_name}, Coleções de %{scientific_name}, observações de %{scientific_name}
         meta_title: Curadores de %{scientific_name}
         meta_title_with_common_name: Peritos em %{preferred_common_name} (%{scientific_name})
         tweet_text: Curadores de %{scientific_name}
@@ -3375,13 +3389,15 @@ pt-BR:
         data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> Reúne os registros de dados de diversos provedores. Selecione uma linha para mais detalhes sobre os registros, ou<a href="%{traitbank_search_path}">Pesquisa TraitBank</a>.
         data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a> Reúne os registros dos dados de provedores diversos. Selecione uma linha para mais detalhes sobre os registros, ou <a href="%{traitbank_search_path}">buscar dentro de %{taxon_name}</a>.
         hierarchy_entry: 
-          meta_description: Fotos, vídeos e áudios de %{scientific_name} classificados por %{hierarchy_provider}. Procurar imagens, fotos, filmes e sons de %{scientific_name} na Enciclopédia da Vida.
-          meta_description_no_data: Não há dados computáveis disponíveis para %{scientific_name} classificados por %{hierarchy_provider} na Enciclopédia da Vida. EOl convida você a contribuir com dados para %{scientific_name}.
+          meta_description: Fatos sobre %{scientific_name} como classificada por %{hierarchy_provider} na Enciclopédia da Vida
+          meta_description_no_data: Não há dados disponíveis para %{scientific_name} classificados por %{hierarchy_provider} na Enciclopédia da Vida. EOl convida você a contribuir com dados para %{scientific_name}.
+          meta_description_with_common_name: Fatos sobre o %{preferred_common_name}, cientificamente conhecido como %{scientific_name} como classificada por %{hierarchy_provider} na Enciclopédia da Vida.
+          meta_description_with_common_name_no_data: Não ha fatos disponiveis para %{preferred_common_name} tambem conhecido como %{scientific_name} classificado como%{hierarchy_provider} na Enciclopedia da vida. EOL convida você a contribuir com dados e fatos sobre %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Que dados foram coletados pelos cientistas para %{preferred_common_name} classificados por %{hierarchy_provider}? Traço de dados sobre %{scientific_name}incluindo informação sobre %{topics}.
-          meta_keywords: "%{scientific_name} conhecido por %{hierarchy_provider}dados computáveis, informações sobre %{scientific_name}"
-          meta_title: Fatos sobre %{scientific_name} classificada por %{hierarchy_provider}
-          tweet_text: Estatísticas sobre %{scientific_name} como classificada por %{hierarchy_provider}
-        meta_description: Fotos, vídeos e áudios de %{scientific_name}. Procurar imagens, fotos, filmes e sons de %{scientific_name} na Enciclopédia da Vida.
+          meta_title: Fatos sobre %{scientific_name} classificado por %{hierarchy_provider}
+          meta_title_with_common_name: Fatos sobre %{preferred_common_name} (%{scientific_name} como classificada por %{hierarchy_provider})
+          tweet_text: Fatos sobre %{scientific_name} como classificada por %{hierarchy_provider}
+        meta_description: "%{scientific_name} fatos incluindo medidas e traits para %{scientific_name}. Dados computados sobre %{scientific_name} de pesquisas cientificas providas por cientistas."
         meta_description_no_data: Nenhuma informação geográfica está disponível de %{scientific_name} na Enciclopédia da Vida. EOL convida você a contribuir para mapas de %{scientific_name}.
         meta_keywords: "%{scientific_name} dados computaveis, informações sobre %{scientific_name}"
         meta_keywords_with_common_name: "%{preferred_common_name} dados computáveis"
@@ -3509,22 +3525,6 @@ pt-BR:
         meta_title: Sinônimos de %{scientific_name}
         meta_title_with_common_name: Sinônimos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinônimos de %{scientific_name}
-    overview: 
-      hierarchy_entry: 
-        meta_description: Um resumo das informações sobre %{scientific_name} tal como reconhecido pela %{hierarchy_provider} na Enciclopédia da Vida.
-        meta_description_with_common_name: Um resumo das informações sobre %{preferred_common_name}, também conhecido como %{scientific_name} tal como reconhecido pela %{hierarchy_provider} na Enciclopédia da Vida.
-        meta_keywords: "%{scientific_name} reconhecido por %{hierarchy_provider}, %{scientific_name} classificada por %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} reconhecido por %{hierarchy_provider}, %{scientific_name} classificada por %{hierarchy_provider}"
-        meta_title: "%{scientific_name} classificada por %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classificada por %{hierarchy_provider})"
-        tweet_text: Resumo sobre %{scientific_name} como classificada por %{hierarchy_provider}
-      meta_description: Informações sobre %{scientific_name} na Enciclopédia da Vida.
-      meta_description_with_common_name: Informações sobre %{preferred_common_name}, cientificamente conhecido como %{scientific_name} na Enciclopédia da Vida.
-      meta_keywords: informações sobre %{scientific_name}, informações sobre %{scientific_name}
-      meta_keywords_with_common_name: informações sobre %{scientific_name}, informações sobre %{preferred_common_name}, informações e fatos sobre %{scientific_name}, informações sobre %{preferred_common_name}
-      meta_title: "%{scientific_name} - Informações sobre %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informações sobre %{preferred_common_name}"
-      tweet_text: Informações sobre %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

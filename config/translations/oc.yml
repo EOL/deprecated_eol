@@ -1089,6 +1089,7 @@ oc:
   and_between_form_items: e
   annotation_body_default: apondre una question o un comentari…
   annotation_cabs_colon: "Anotacion :"
+  annotation_note: Los comentaris seràn partejats amb los provesidors de donadas (se son disponibles).
   annotation_submit: publicar un comentari
   annotations_with_count: 
     one: "%{count} anotacion"
@@ -1657,6 +1658,7 @@ oc:
         tweet_text: estatisticas d’utilizacion de %{partner_name}
   content_partners_empty: Cap de partenari es pas estat trobat.
   content_partners_link: Partenaris de contengut
+  content_partners_page_description: Los partenaris de l’Enciclopèdia de la Vida possedisson una granda quantitat d’informacion a prepaus de la biodiversitat sus lors pròpris sites Internet o dins lors bancas de donadas, que partejan tanben amb l’EdlV. Presam vivament lors apòrts critics a la mission de l’EdlV e vos encoratjam a n'aprene mai sus eles. Ne saber mai suls <a href="%{more_url}">partenaris de contengut</a>.
   content_partners_page_title: Partenaris de contengut
   content_server_full_url: URL completa del servidor de contengut
   content_servers: Servidors de contengut
@@ -1686,6 +1688,9 @@ oc:
   could_not_find_collection_error: O planhèm, impossible de trobar aquesta colleccion.
   could_not_find_user: Sètz pas un membre d'aquesta comunautat.
   count: Quantitat
+  count_results_for_traitbank: 
+    one: "%{count} resultat dins TraitBank"
+    other: "%{count} resultats dins TraitBank"
   create_a_collection: Crear una colleccion
   create_a_community: Crear una comunautat
   create_a_community_login_advisory: Vos demandarem de vos identificar abans de crear vòstra comunautat
@@ -1776,6 +1781,7 @@ oc:
   data_column_value_uri: Valor URI
   data_database_colon: "Donadas :"
   data_glossary: Glossari de las donadas
+  data_glossary_contribute: Per contribuir amb de tèrmes novèls dins aqueste glossari, <a href=%{url}>pensatz a importar de donadas</a>.
   data_link_to_record: Ligam cap a aqueste enregistrament
   data_logging_active: Jornalizacion de las donadas activa
   data_master_database_colon: "Donadas mèstras :"
@@ -1847,15 +1853,26 @@ oc:
       search_value_or_range_header: Recercar una valor especifica o una plaja
       search_within_taxon_group_header: Recercar dins un grop de taxons
       sort_header: Triar los resultats
+    page_title: Recercar dins TraitBank
+  data_search_attribute: Recercar dins TraitBank per d'enregistraments amb las donadas %{attribute}
   data_search_destroyed: Aqueste prètzfach serà pas mai efectuat.
+  data_search_explanation: Utilizar la recèrca de donadas d'EdlV per trobar d'elements que correspondon a '%{term}' dins las observacions,<br />las mesuras e las autras assercions scientificas.
   data_search_files: 
     from: Valor la mai bassa
     to: Valor la mai nauta
     unit_uri: Unitat de mesura
+  data_search_files_with_count: 
+    one: "%{count} Telecargament de donadas"
+    other: "%{count} telecargaments de donadas"
   data_search_link: Cercar de donadas scientificas dins EdlV
+  data_search_row_hidden: Un conservator a amagat aquesta linha de donadas.
   data_show_n_more_rows: Afichar NNN de mai…
   data_subtab_about: A prepaus de
   data_subtab_glossary: Glossari per %{taxon}
+  data_summary_header_with_count: 
+    one: EdlV a de donadas sus un caractèr
+    other: EdlV a de donadas sus %{count} caractèrs
+    zero: EdlV a pas de donadas de caractèr
   data_summary_ranges_header_with_count: EdlV a de donadas resumidas
   data_tab_curator_excluded: Aquesta linha es estada suprimida de l’onglet Vista d’ensemble.
   data_tab_curator_exemplar: Aquesta linha es estada aponduda a l’onglet Vista d’ensemble.
@@ -1966,6 +1983,7 @@ oc:
   donation_amount_other_label: Autre
   donation_confirmation: Confirmacion de don
   donation_confirmation_head: Presam vòstra contribucion !
+  donation_error_minimum: Del fach dels còstes de tractament, lo montant minimum dels dons es de %{min}.
   donation_error_no_amount: Seleccionar un montant de don.
   donation_error_only_numbers: Entratz un montant en utilizant pas que de chifras.
   donation_intro_span: EdlV grossís cada jorn
@@ -2131,7 +2149,7 @@ oc:
   filter_by_status_inappropriate_option: Inapropriat
   filter_by_status_trusted_option: Fisable
   filter_by_status_unreviewed_option: Pas supervisat
-  filter_by_status_untrusted_option: pas fisables
+  filter_by_status_untrusted_option: Pas fisables
   filter_by_subject: Filtrar per subjècte
   filter_by_type: Filtrar per tipe
   filter_by_type_all_option: Totes los tipes
@@ -2177,6 +2195,7 @@ oc:
   forgot_password: Ai doblidat mon senhal
   forgot_password_form_cancel: Anullar
   forgot_password_form_choose_username_blank_error: Seleccionatz lo compte que ne volètz reïnicializar lo senhal.
+  forgot_password_form_choose_username_instructions: I a mantun compte associat a l’email <em>%{email}</em>, mercé de causir lo compte pel qual volètz reïnicializar lo senhal.
   forgot_password_form_choose_username_legend: Causir un compte
   forgot_password_form_header: Reïnicializar lo senhal
   forgot_password_form_helper: Notatz plan que los corrièrs electronics de reïnicializacion de senhals son <em>sovent</em> marcats coma 'Spam' pels filtres de corrièr electronic. Verificatz vòstre dorsièr de spams s'avètz pas recebut vòstre corrièr d'aicí una ora.
@@ -2362,17 +2381,22 @@ oc:
         max: Valor la mai nauta
         max_placeholder: Entrar un nombre
         max_placeholder_disabled: Plaja desactivada
+        max_with_val: "Valor la mai nauta : %{val}"
         min: Valor la mai bassa
         min_placeholder: Entrar un nombre
         min_placeholder_disabled: Plaja desactivada
+        min_with_val: "Valor la mai bassa : %{val}"
         q: Valor especifica
         q_more: Per exemple, eterotròp.
         q_placeholder: Entrar un mot, una frasa o un nombre
         q_placeholder_disabled: Plaja picada, valor especifica desactivada
+        q_with_val: "Valor especifica : %{val}"
         taxon_name: Grop de taxon
         taxon_name_more: Per exemple, entrar Troquilids o Balenas e seleccionar lo grop correspondent.
         taxon_name_placeholder: Entrar lo nom d’un grop de taxon per seleccionar lo grop
         taxon_name_placeholder_value_removed: "%{taxon_group} suprimit, seleccionar un grop novèl"
+        taxon_name_with_val: "Grop de taxons : %{val}"
+        total_results: "Total dels resultats : %{total}"
         unit: Unitat de mesura
       eol_statistic: 
         date_one: Data
@@ -2585,6 +2609,7 @@ oc:
   home: Acuèlh
   home_page_cache_last_cleared_on: Escondedor de la pagina d’acuèlh escafat lo còp passat a %{date}
   home_page_link_advisory_information: Aqueste ligam vos menarà a la pagina d’acuèlh del site de l’Enciclopèdia de la vida
+  however_there_are_summaries: Pasmens, <a href='%{summary_url}'>EdlV resumís las donadas dels sosgropes</a>.
   html_format: (format HTML)
   html_format_with_left_col: (FORMAT HTML, de picar solament se volètz aver una colomna a esquèrra sus la pagina, siquenon de daissar blanc)
   id: Identificant
@@ -2622,6 +2647,9 @@ oc:
   inappropriate: Inapropriat
   inaturalist_tab_label: Observacions iNaturalist
   include_all_metadata: inclutz totas las metadonadas pels objèctes de donadas
+  including_traitbank_count: 
+    one: ", inclús %{count} atribut de TraitBank"
+    other: ", incluses %{count} atributs de TraitBank"
   indexed: Indexat
   info_item: Element d’informacion
   info_items_col_header: Elements d’informacion
@@ -2671,6 +2699,7 @@ oc:
   items_with_count_semi_colon: 
     one: "%{count} element;"
     other: "%{count} elements;"
+  iucn_red_list_status_advisory_information: Aqueste ligam vos menarà sul site web de l’Union internacionala per la Conservacion de la Natura (UICN) ont poiretz trobar mai d’informacions sus la lista roja de las espècias menaçadas de l’UICN.
   join_community_button: Rejónher aquesta comunautat
   join_eol_button_html: Rejonhètz <abbr title="Enciclopèdia de la Vida">EdlV</abbr> ara
   join_eol_community_html: Far partida de la comunautat <abbr title="Enciclopèdia de la Vida">EdlV</abbr> !
@@ -2744,6 +2773,7 @@ oc:
       about_link_podcasts: Podcasts
       about_link_statistics: Estatisticas
       about_link_terms_of_use: Condicions d'utilizacion
+      about_link_traitbank: Qu’es aquò TraitBank ?
       about_link_what_is_eol: Qu’es aquò l’EdlV ?
       header_about: A prepaus de l’EdlV
       header_learn_more: Ne saber mai sus
@@ -2774,7 +2804,7 @@ oc:
       questions_link_biodiversity: Qu’es aquò la biodiversitat ?
       questions_link_biological_classification: Qu’es aquò una classificacion biologica ?
       questions_link_contributing_to_research: Cossí pòdi contribuir a la recèrca ?
-      questions_link_discovering_species: Cossí las espécias son descobèrtas ?
+      questions_link_discovering_species: Cossí las espècias son descobèrtas ?
       questions_link_indicator_species: Qu’es aquò una espècia indicatritz ?
       questions_link_invasive_species: Qu’es aquò una espècia invasiva ?
       questions_link_model_organism: Qu’es aquò un organisme modèl ?
@@ -2783,6 +2813,8 @@ oc:
     data_search: 
       page_header: Recercar dins TraitBank
       page_header_results: Resultats de recèrca dins TraitBank
+    footer: 
+      google_plus: Enciclopèdia de la Vida sus Google+
     taxa: 
       search_traitbank: Recercar dins TraitBank
       search_within_clade: Recercar dins un clad
@@ -2842,6 +2874,7 @@ oc:
   link_not_associated_with_any_published_entries: Aqueste ligam es pas associat a cap de las taxinomias publicadas.
   link_rating: Quòta del ligam
   link_to_this_term: ligam cap a aqueste tèrme
+  link_to_top_of_page: naut
   links_with_count: 
     one: "%{count} ligam"
     other: "%{count} ligams"
@@ -2850,6 +2883,7 @@ oc:
   listing_collections: Lista de las colleccions
   lists_the_identifiers_for_all_hierarchies: fa la lista dels identificants per totas las ierarquias provesidas pels partenaris de contengut
   literature: Literatura
+  literature_bhl_information: La bibliografia seguenta es estada generada per de servicis automatizats. BHL utiliza d'aisinas taxonomicas de rensenhament per localizar, verificar e enregistrar los noms scientifics situats dins lo tèxte de cada pagina numerizada de la colleccion numerica de BHL.
   literature_bhl_link: Consultar la bibliografia eissida de BHL
   literature_empty: Cap de referéncia pas trobat.
   literature_header: Referéncias
@@ -2967,7 +3001,6 @@ oc:
       videos: Vidèos
   moderator_colon: "Moderator :"
   monthly: Mesadièr
-  more: mai
   more_children_with_count: "%{count} de mai…"
   more_siblings_with_count: 
     one: "%{count} fraire mai…"
@@ -3035,6 +3068,7 @@ oc:
   news_missing_content_message: O planhèm, aquesta pagina es pas disponibla per la lenga seleccionada %{selected_language}.
   news_missing_content_title: Traduccion mancanta
   newsfeed: Fial de novèlas
+  newsfeed_help_for_profile: Lo fial de novèlas Perfil EdlV regropa los messatges daissats a son proprietari pels autres membres, los convits de las comunautats EdlV, e las mesas a jorn associadas als elements de la lista de seguiment EdlV del proprietari.
   newsfeed_help_for_taxon: Lo fial de novèlas per aquesta pagina de taxon de l’EdlV regropa las mesas a jorn associadas als elements qu'i son afichats, incluses las accions de conservacion e los comentaris dels utilizaires de l’EdlV.
   next: Seguent
   no_active_members: L’activitat es pas encara sufisenta.
@@ -3050,7 +3084,7 @@ oc:
   no_related_names: Cap de nom es pas ligat a aqueste taxon pel moment.
   no_results_for_search_term: Pas cap de resultat per « %{search_term} »
   no_survey_responses_are_availa: Cap de responsa a un sondatge es pas disponibla.
-  no_tasks_found: Cap de prètfach pas trobat
+  no_tasks_found: Cap de prètzfach pas trobat
   no_uploaded_content_is_available: Cap de contengut telecargat es pas disponible.
   no_users_matched_search: Cap d'utilizaire disponible correspond pas a vòstres critèris de recèrca.
   none: pas cap
@@ -3184,7 +3218,7 @@ oc:
   or_move_them_to_existing_collection: o los desplaçar dins una colleccion existenta
   original: "ORIGINA :"
   original_object: Objècte d’origina
-  other_category: Autres
+  other_category_subtab: Autre
   other_collection_items_with_count: 
     one: "%{count} autre element"
     other: "%{count} autres elements"
@@ -3360,6 +3394,7 @@ oc:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Vòstre telecargament es prèst !
+      message: Podètz afichar aquò e d’autres telecargaments en visitant <a href='%{download_link}'>l’onglet dels telecargaments de donadas dins vòstre perfil</a>.
       subject: Vòstra recèrca EdlV es prèsta per èsser telecargada
   recent_updates: Mesas a jorn recentas
   recently_used_link: Utilizat recentament
@@ -3394,6 +3429,15 @@ oc:
   resource_hint_dataset_rights: (s’aplica a l’ensemble de donadas <i>coma un tot</i> ; pas aplicable dins totas las juridiccions)
   resource_hint_dataset_source_url: (URL de la font d’origina de l’ensemble de donadas, coma una publicacion o un estudi)
   resource_hint_default_rights: (s’aplica per defaut als elements <i>dins</i> l’ensemble de donadas)
+  resource_import_frequency: 
+    bimonthly: Dos còps per mes
+    hours_with_count: 
+      one: Cada ora
+      other: Cada %{count} oras
+    monthly: Per mes
+    once: Importar un còp
+    quarterly: Per trimèstre
+    weekly: Per setmana
   resources: Ressorsas
   response: Responsa
   response_formats: Formats de responsa
@@ -3488,6 +3532,7 @@ oc:
   show_email_message_area: "[afichar la zòna de messatge de corrièr electronic]"
   show_full_tree: arbre complet
   show_in_overview: afichar coma apercebut
+  show_more_row_data_link: mai
   show_status_message: Far veire lo messatge d'estatut
   show_tasks: prètzfaches
   show_warning_message: Afichar lo messatge d’avertiment
@@ -3649,40 +3694,42 @@ oc:
         tweet_text: Personas interessadas per %{scientific_name}
     data: 
       index: 
+        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> assembla d'enregistraments de donadas de fòrça provesidors. Seleccionatz una linha per mai de detalhs sus l’enregistrament, o <a href="%{traitbank_search_path}">recercatz dins TraitBank</a>.
         hierarchy_entry: 
           meta_description: Faches a prepaus de %{scientific_name} tals coma classat segon %{hierarchy_provider} dins l’Enciclopèdia de la Vida.
-          meta_description_no_data: Cap de donada calculabla es pas disponibla per %{scientific_name} tal coma classat segon %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a las donadas per %{scientific_name}.
-          meta_description_with_common_name_no_data: Cap de donada calculabla es pas disponibla per %{preferred_common_name}, segon la classificacion de  %{hierarchy_provider}, apelat tanben %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a las donadas per %{preferred_common_name} (%{scientific_name}).
-          meta_description_with_common_name_with_topics: Quinas donadas los scientifics an collectat per %{preferred_common_name} tal coma classat segon %{hierarchy_provider} ? Donadas de trach a prepaus de %{scientific_name} que comprenon d'informacions sus %{topics}.
-          meta_keywords: "-"
+          meta_description_no_data: Cap de fach es pas disponible per %{scientific_name} tal coma classat segon %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a las donadas per %{scientific_name}.
+          meta_description_with_common_name: Faches a prepaus de %{preferred_common_name}, scientificament apelat %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida.
+          meta_description_with_common_name_no_data: Cap de fach es pas disponible per %{preferred_common_name}, segon la classificacion de  %{hierarchy_provider}, apelat tanben %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a las donadas per %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Faches a prepaus de %{preferred_common_name} tal coma classat segon %{hierarchy_provider} ? Donadas de trach a prepaus de %{scientific_name} que comprenon d'informacions sus %{topics}.
           meta_title: Faches a prepaus de %{scientific_name} segon la classificacion de %{hierarchy_provider}
-          meta_title_with_common_name: Donadas de trach per %{preferred_common_name} segon la classificacion de %{hierarchy_provider} (%{scientific_name})
-          tweet_text: Donadas de trach per %{scientific_name} segon la classificacion de %{hierarchy_provider}
-        meta_description: Imatges, vidèos e fichièrs de sons de %{scientific_name}. Trobar d'imatges, d'imatges, de fòtos, de filmes e de sons de %{scientific_name} dins l’Enciclopèdia de la vida.
-        meta_description_no_data: Cap de donada calculabla es pas disponibla per %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de donadas per %{scientific_name}.
-        meta_keywords: donadas calculablas de %{scientific_name}, informacions sus %{scientific_name}
-        meta_keywords_with_common_name: donadas calculablas sus %{preferred_common_name}
+          meta_title_with_common_name: Faches a prepaus de %{preferred_common_name} segon la classificacion de %{hierarchy_provider} (%{scientific_name})
+          tweet_text: Faches a prepaus de %{scientific_name} segon la classificacion de %{hierarchy_provider}
+        meta_description: Faches de %{scientific_name}, qu'incluisson de mesuras e de traches sus %{scientific_name}. Donadas calculablas per %{scientific_name} de recèrcas scientificas provesidas per de scientifics.
+        meta_description_no_data: Cap de fach es pas disponible per %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de donadas per %{scientific_name}.
+        meta_description_with_common_name_with_topics: Faches a prepaus de %{preferred_common_name}, que comprenon de mesuras e de traches sus %{preferred_common_name} (apelat scientificament %{scientific_name}). Donadas calculablas sus %{scientific_name} que comprenon de %{topics} de recèrca scientifica provesidas per de scientifics.
+        meta_keywords: Faches a prepaus de %{scientific_name}, faches sus %{scientific_name},traches sus %{scientific_name}, traches de %{scientific_name},mesuras de %{scientific_name}, mesuras per %{scientific_name}, fach sus %{scientific_name}, fach a prepaus de %{scientific_name}, trach sus %{scientific_name}, trach de %{scientific_name}, mesura sus %{scientific_name}, mesura per %{scientific_name}
+        meta_keywords_with_common_name: faches sus %{preferred_common_name}, faches a prepaus de %{preferred_common_name}, traches de %{preferred_common_name}, traches sur %{preferred_common_name}, mesuras de %{preferred_common_name}, mesuras per %{preferred_common_name}, faches de %{scientific_name}, faches a prepaus de %{scientific_name}, traches de %{scientific_name}, traches sus %{scientific_name}, mesuras de %{scientific_name}, mesuras per %{scientific_name}, fach sus %{preferred_common_name}, fach a prepaus de %{preferred_common_name}, trach de %{preferred_common_name}, trach sus %{preferred_common_name}, mesura de %{preferred_common_name}, mesura per %{preferred_common_name}, fach de %{scientific_name}, fach a prepaus de %{scientific_name}, trach de %{scientific_name}, trach sus %{scientific_name}, mesura de %{scientific_name}, mesura per %{scientific_name}
         meta_title: Mesuras e faches per %{scientific_name}
         meta_title_with_common_name: Mesuras e faches per %{preferred_common_name} (%{scientific_name})
         tweet_text: Faches a prepaus de %{scientific_name}
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: Informacion sus %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida
-          meta_description_no_data: Cap de fach es pas disponible per %{scientific_name} classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a prepaus de %{scientific_name} coma la Conservacion, la Reparticion, l’Ecologia, l’Abitat, la Morfologia e mai.
-          meta_description_with_chapter_list: Informacion sus %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. Inclutz las informacions %{chapter_list} per %{scientific_name}.
-          meta_description_with_common_name: Informacion sul %{preferred_common_name}, scientificament apelat %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida.
-          meta_description_with_common_name_no_data: Cap de fach es pas disponible per %{preferred_common_name}, apelat tanben %{scientific_name} segon la classificacion per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de faches a prepaus de %{preferred_common_name} (%{scientific_name}), coma sa conservacion, sa reparticion, son ecologia, son abitat, sa morfologia, etc.
-          meta_description_with_common_name_with_chapter_list: Informacion sul (sus la) %{preferred_common_name}, scientificament apelat (-ada) %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. Comprend d'informacions sus %{chapter_list}.
+          meta_description: Descripcions e articles sus %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida
+          meta_description_no_data: Cap d'article es pas disponible per %{scientific_name} classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a contribuir a prepaus de %{scientific_name} coma la Conservacion, la Conservacion, la Reparticion, l’Ecologia, l’Abitat, la Morfologia e mai.
+          meta_description_with_chapter_list: Descripcions e articles sus %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. Inclutz %{chapter_list} per %{scientific_name}.
+          meta_description_with_common_name: Descripcions e articles sul %{preferred_common_name}, scientificament apelat %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida.
+          meta_description_with_common_name_no_data: Cap d'article es pas disponible per %{preferred_common_name}, apelat tanben %{scientific_name} segon la classificacion per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de faches a prepaus de %{preferred_common_name} (%{scientific_name}), coma sa conservacion, sa reparticion, son ecologia, son abitat, sa morfologia, etc.
+          meta_description_with_common_name_with_chapter_list: Descripcions e articles sul %{preferred_common_name}, scientificament apelat %{scientific_name} tal coma classat per %{hierarchy_provider} dins l’Enciclopèdia de la Vida. Compren %{chapter_list}.
           meta_title: Descripcions e articles sus %{scientific_name} tal coma classat per %{hierarchy_provider}
           meta_title_with_common_name: Descripcions e articles sul %{preferred_common_name} (%{scientific_name} tal coma classat per %{hierarchy_provider})
-          tweet_text: Informacion sus %{scientific_name} tal coma classat per %{hierarchy_provider}
+          tweet_text: Articles sus %{scientific_name} tal coma classat per %{hierarchy_provider}
         meta_description: Descripcions e articles sus %{scientific_name} dins l’Enciclopèdia de la Vida
-        meta_description_no_data: Cap de fach es pas disponible per %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de faches a prepaus de %{scientific_name}, coma sa Conservacion, sa Reparticion, son Ecologia, son Abitat, sa Morfologia e mai.
-        meta_description_with_chapter_list: Informacion sus %{scientific_name} dins l’Enciclopèdia de la Vida. Compren d'informacions sus %{chapter_list}.
-        meta_description_with_common_name: Informacion sus %{preferred_common_name}, scientificament apelat %{scientific_name} dins l’Enciclopèdia de la Vida.
-        meta_description_with_common_name_no_data: Cap de fach es pas disponible per %{preferred_common_name}, apelat tanben %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convidat a provesir dels faches a prepaus de %{preferred_common_name} (%{scientific_name}), coma sa conservacion, sa reparticion, son ecologia, son abitat, sa morfologia, etc.
-        meta_description_with_common_name_with_chapter_list: Informacion sus %{preferred_common_name}, scientificament apelat %{scientific_name} dins l’Enciclopèdia de la Vida. Compren d'informacions sus %{chapter_list}.
+        meta_description_no_data: Cap d'article es pas disponible per %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convida a provesir de faches a prepaus de %{scientific_name}, coma sa Conservacion, sa Reparticion, son Ecologia, son Abitat, sa Morfologia e mai.
+        meta_description_with_chapter_list: Descripcions e articles sus %{scientific_name} dins l’Enciclopèdia de la Vida. Compren %{chapter_list}.
+        meta_description_with_common_name: Descripcions e articles sus %{preferred_common_name}, scientificament apelat %{scientific_name} dins l’Enciclopèdia de la Vida.
+        meta_description_with_common_name_no_data: Cap d'article es pas disponible per %{preferred_common_name}, apelat tanben %{scientific_name} dins l’Enciclopèdia de la Vida. EdlV vos convidat a provesir d'articles a prepaus de %{preferred_common_name} (%{scientific_name}), coma sa conservacion, sa reparticion, son ecologia, son abitat, sa morfologia, etc.
+        meta_description_with_common_name_with_chapter_list: Decripcions e articles sus %{preferred_common_name}, scientificament apelat %{scientific_name} dins l’Enciclopèdia de la Vida. Compren d'informacions sus %{chapter_list}.
         meta_title: Descripcions e articles a prepaus de %{scientific_name}
         meta_title_with_common_name: Descripcions e articles a prepaus lo %{preferred_common_name} (%{scientific_name})
         tweet_text: Articles a prepaus de %{scientific_name}
@@ -3789,21 +3836,22 @@ oc:
         meta_title_with_common_name: Sinonimes del (de la) %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinonimes de %{scientific_name}
     overview: 
-      hierarchy_entry: 
-        meta_description: Un resumit de las informacions a prepaus de %{scientific_name}, tal coma classat per %{hierarchy_provider}, dins l’Enciclopèdia de la Vida.
-        meta_description_with_common_name: Un resumit de las informacions a prepaus de %{preferred_common_name}, scientificament apelat %{scientific_name}, tal coma classat per %{hierarchy_provider}, dins l’Enciclopèdia de la Vida.
-        meta_keywords: "%{scientific_name} tal coma reconegut per %{hierarchy_provider}, %{scientific_name} tal coma classat per %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} tal coma reconegut per %{hierarchy_provider}, %{scientific_name} tal coma classat per %{hierarchy_provider}"
-        meta_title: "%{scientific_name} tal coma classat per %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} tal coma classat per %{hierarchy_provider})"
-        tweet_text: Vista d’ensemble de %{scientific_name} tal coma classat per %{hierarchy_provider}
-      meta_description: Informacion sus %{scientific_name} dins l’Enciclopèdia de la Vida.
-      meta_description_with_common_name: Informacion sus %{preferred_common_name}, scientificament apelat %{scientific_name} dins l’Enciclopèdia de la Vida.
-      meta_keywords: info sus %{scientific_name}, informacion sus %{scientific_name}
-      meta_keywords_with_common_name: info sus %{scientific_name}, info sus %{preferred_common_name}, informacion e faches sus %{scientific_name}, informacion sus %{preferred_common_name}
-      meta_title: "%{scientific_name} - Informacion sus %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informacion sus %{preferred_common_name}"
-      tweet_text: Informacion sus %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: Un resumit de las informacions a prepaus de %{scientific_name}, tal coma classat per %{hierarchy_provider}, dins l’Enciclopèdia de la Vida.
+          meta_description_with_common_name: Un resumit de las informacions a prepaus de %{preferred_common_name}, scientificament apelat %{scientific_name}, tal coma classat per %{hierarchy_provider}, dins l’Enciclopèdia de la Vida.
+          meta_keywords: "%{scientific_name} tal coma reconegut per %{hierarchy_provider}, %{scientific_name} classat per %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} tal coma reconegut per %{hierarchy_provider}, %{scientific_name} classat per %{hierarchy_provider}"
+          meta_title: "%{scientific_name} classat per %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classat per %{hierarchy_provider})"
+          tweet_text: Vista d’ensemble de %{scientific_name} tal coma classat per %{hierarchy_provider}
+        meta_description: Informacion sus %{scientific_name} dins l’Enciclopèdia de la Vida.
+        meta_description_with_common_name: Informacion sus %{preferred_common_name}, scientificament apelat %{scientific_name} dins l’Enciclopèdia de la Vida.
+        meta_keywords: info sus %{scientific_name}, informacion sus %{scientific_name}
+        meta_keywords_with_common_name: info sus %{scientific_name}, info sus %{preferred_common_name}, informacion e faches sus %{scientific_name}, informacion sus %{preferred_common_name}
+        meta_title: "%{scientific_name} - Informacion sus %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informacion sus %{preferred_common_name}"
+        tweet_text: Informacion sus %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3881,8 +3929,10 @@ oc:
   taxon_biomedical_terms_link: Tèrmes biomedicals
   taxon_citizen_science_header: Ligams Scientifics Personals
   taxon_citizen_science_link: Ligams scientifics personals
+  taxon_common_names_subtab_explanation: Fòrça monde coneisson pas los organismes que per lors noms comuns, o noms « vernaculars ». A la diferéncia dels noms scientifics, los noms comuns son gaireben totjorn diferents per d'interlocutors de lengas diferentas. Tanben pòdon variar regionalament per una meteissa lenga. Aqueste onglet fa veire totes los noms comuns provesits a EdlV per aqueste organisme per divèrses provesidors, incluses los conservators d'EdlV. Actualament, podèm pas definir qu’un sol nom comun preferit per lenga sus una pagina EdlV donada, mas totes los noms pòdon èsser recercats.
   taxon_concept_stats: Estatisticas del concèpte de taxon
   taxon_data_header: Donadas a prepaus de %{taxon}
+  taxon_data_overview_empty: Degun a pas encara contribuit a cap d'enregistrament de donadas per %{taxon}.
   taxon_details_empty: Degun a pas encara contribuit a cap de detalh sus aquesta pagina.
   taxon_details_empty_in_this_language: Degun a pas encara contribuit sus cap de detalh sus aquesta pagina dins aquesta lenga.
   taxon_education_empty: Degun a pas encara contribuit a cap de ressorsa d'educacion sus aquesta pagina.
@@ -3905,9 +3955,11 @@ oc:
   taxon_partner_links_link: Ligams cap a un partenari
   taxon_rating: Evaluacion del taxon
   taxon_recognized_by: Taxon reconegut per %{whom}
+  taxon_related_names_subtab_explanation: Los noms dins aqueste onglet presentan un apercebut de las relacions d'aqueste grop amb los autres dins l’arbre de la vida, en se basant sus las ierarquias de classificacion provesidas pels partenaris de classificacion d'EdlV. « Parents » son de gropes mai inclusius un nivèl en dessús de la ierarquia. « Enfants » son los sosgropes del grop actual. Dins la taula de las classificacion, podètz utilizar lo ligam « afichar totas las classificacions » per veire una lista completa de totas las ierarquias provesidas per nòstres partenaris. Aquò pòt comprene de noms ligats suplementaris que son pas meses en evidéncia aicí.
   taxon_related_organizations_link: Organizacions connèxas
   taxon_selected_from_search_res: Taxon seleccionat a partir dels resultats de la recèrca
   taxon_suggested: Taxon suggerit
+  taxon_synonyms_subtab_explanation: De còps, los taxonomistas crèan de noms novèls per de gropes qu'an ja un nom. O pòdon far perque son pas al corrent del nom d’origina, o perque pòdon pensar que l’organisme davant eles aparten a un grop diferent mentre qu’es pas lo cas. Se dos noms o mai son trobats e s’aplican al meteis grop, son considerats coma sinonims. Dins la màger part dels cases, lo primièr nom garda la prioritat e es considerat coma lo nom valid e acceptat. Pasmens, i pòt aver d'excepcions, e es pas totjorn aisit de determinar lo qual, dins una lista de sinonims, deuriá èsser considerat coma valid o acceptat. Aicí, fasèm la lista dels sinonims provesits a EdlV per nòstres partenaris de classificacion. I incluissèm tanben de versions del nom que se referisson fòrt probablament al meteis grop, per exemple, d'errors d’ortografia dins la literatura o divèrsas variantas de la paternitat associada al nom.
   taxonomic_summary_of_content: Resumit taxinomic del contengut
   technical_functions: Foncions tecnicas
   term_cannot_be_left_blank: Lo critèri pòt pas èsser daissat void
@@ -3936,6 +3988,7 @@ oc:
   the_content_could_not_be_displ: Impossible d’afichar lo contengut.
   the_content_was_updated: Lo contengut es estat mes a jorn.
   the_file_was_uploaded: Lo fichièr es estat mandat.
+  the_following_bibliography: La bibliografia seguenta es estada generada en reünissent totas las referéncias provesidas per nòstres partenaris de contengut. I pòt aver de doblons.
   the_glossary_term_was_successf: Lo tèrme del glossari es estat mes a jorn amb succès.
   the_image_from_this_source_has_not_been_reviewed: L’imatge d'aquesta font es pas estat examinat.
   the_image_from_this_source_is_not_trusted: L’imatge d'aquesta font es pas fisable.
@@ -3947,18 +4000,23 @@ oc:
   the_suggested_page_to_direct_users_to_link: la pagina suggerida cap a la quala cal dirigir los utilizaires
   the_topic_was_updated: Lo subjècte es estat mes a jorn.
   the_user_was_updated: L'utilizaire es estat mes a jorn.
+  the_user_who_performed_this_action_was_removed: L’utilizaire qu'a executat aquesta accion es estat suprimit.
+  there_are_currently_no_members_in_this_community: Actualament, i a pas cap de membre dins aquesta comunautat.
   this_article_cannot_be_curated_because_unpublished: Aqueste article pòt pas èsser supervisat perque es pas publicat.
   this_article_is_unpublished: Aqueste article es pas publicat.
   this_cannot_be_undone_are_you_sure: Anullacion impossibla ; sètz segur ?
   this_collection_has_no_managers: Aquesta colleccion a pas cap de gestionari.
   this_comment_was_deleted: Aqueste comentari es estat suprimit.
+  this_community_has_no_endorsed_collections: Aquesta comunautat a pas encara pres en carga cap de colleccion.
   this_community_has_no_focus_list: Aquesta comunautat a pas cap de lista de discussion.
   this_community_was_deleted: Aquesta comunautat es estada suprimida per son proprietari.
+  this_does_not_necessarily_mean: "* aquò significa pas necessàriament que las connexions son utilizadas, mas simplament que son definidas dins lo fichièr database.yml --- vos cal verificar lo fichièr \"config/environments/%{env}.rb\" per veire se las connexions son parametradas"
   this_image_cannot_be_curated_because_unpublished: Aqueste imatge pòt pas èsser supervisat perque es pas publicat.
   this_image_is_unpublished: Aqueste imatge es pas publicat.
   this_image_map_cannot_be_curated_because_unpublished: Aquesta mapa pòt pas èsser supervisada perque es pas publicada.
   this_image_map_is_unpublished: Aquesta mapa es pas publicada.
   this_is_a_focus_collection_for_community: Es lo centre d’interès de %{community}.
+  this_is_the_label_that_will_be_used_for_attribution: Es lo libellat que serà utilizat per l’atribucion
   this_link_cannot_be_curated_because_unpublished: Aqueste ligam pòt pas èsser supervisat perque es pas publicat.
   this_link_is_unpublished: Aqueste ligam es pas publicat.
   this_map_cannot_be_curated_because_unpublished: Aquesta mapa pòt pas èsser supervisada perque es pas publicada.
@@ -3968,6 +4026,7 @@ oc:
   this_sound_is_unpublished: Aqueste son es pas publicat.
   this_video_cannot_be_curated_because_unpublished: Aquesta vidèo pòt pas èsser supervisada perque es pas publicada.
   this_video_is_unpublished: Aquesta vidèo es pas publicada.
+  threat_status_header_colon: "Estat de menaça <abbr title=\"Union internacionala per la conservacion de la natura\">UICN</abbr> :"
   thumbnail_page_colon: "pagina de vinheta :"
   time_ago: i a %{time_passed}
   title: Títol
@@ -3975,7 +4034,6 @@ oc:
   toc: ENSENHADOR
   toc_entry_col_header: Entrada de l'ensenhador
   toc_no_longer_available: L'informacion de l'ensenhador es pas mai disponibla
-  top: naut
   topic: Rubrica
   topic_area: Subjècte
   total: Total
@@ -3985,6 +4043,7 @@ oc:
     other: "%{count} elements al total"
   total_searches: "Total de las recèrcazs :"
   traitbank_data_search: Recercar de donadas
+  traitbank_description: recercar demest de milions d’enregistraments de donadas d'EdlV
   traitbank_info_page: Ne saber mai
   traitbank_intro: "Introduccion a <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: La traduccion es estada suprimida
@@ -4323,10 +4382,14 @@ oc:
   users_form_account_header: Vòstre compte
   users_form_curation_header: Diplòmas de supervisor
   users_form_profile_info_header: Informacions del perfil public
+  users_member_of_count_communities: 
+    one: Membre de %{count} comunautat
+    other: Membre de %{count} comunautats
   users_my_info_header: Mas informacions
   users_that_can_edit_this_collection: Urilizaires que pòdon gerir aquesta colleccion
   using_the_site: Utilizacion del site
   validation_error: Error de validacion
+  validation_following_fields: "I a de problèmas amb los camps seguents :"
   value: Valor
   value_default: (per defaut)
   value_empty: (void)
@@ -4361,6 +4424,7 @@ oc:
   view_image_source: Veire la font de l’imatge
   view_in_classification: veire dins lo classament
   view_map_source: Veire la font de la mapa
+  view_only_pages_with_at_least_a_picture_or_piece_of_text: Veire solament las paginas amb al mens un imatge o un tròç de tèxte
   view_sound_source: Afichar la font àudio
   view_source: Afichar la font
   view_this_hierarchy: afichar aquesta ierarquia
@@ -4387,6 +4451,7 @@ oc:
   who_registered_before: cap a
   who_registered_from: qual s’es inscrich dempuèi
   wikipedia_queue_create_successful_notice: La modificacion %{rev} de l’article %{article} de Wikipèdia es estada mesa en espèra per l’importacion.
+  wikipedia_queue_new_instructions_intro: "Per trobar l’URL de la revision d’un article de Wikipèdia :"
   wikipedia_queue_new_page_title: Demandar l’importacion d’un article de Wikipèdia
   will_paginate: 
     next_label: Seguent →
@@ -4405,6 +4470,7 @@ oc:
   you_have_been_logged_out: Sètz estat desconnectat.
   you_joined_community: Avètz rejunt aquesta comunautat amb succès.
   you_left_community: Avètz quitat aquesta comunautat amb succès.
+  your_browser_does_not_support: Vòstre navigador supòrta pas la vidèo HTML5.
   your_current_rating_0_of_5: "Vòstra quòta actuala : 0 sus 5"
   your_current_rating_1_of_5: "Vòstra quòta actuala : 1 sus 5"
   your_current_rating_2_of_5: "Vòstra quòta actuala : 2 sus 5"

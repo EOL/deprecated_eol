@@ -1818,6 +1818,7 @@ pt:
   or_copy_them_to_existing_collection: ou copie-os para uma colecção existente
   or_email_education: Ou, envie sua sugestão para %{link}.
   or_move_them_to_existing_collection: ou mova-os para uma colecção existente
+  other_category_subtab: Outra
   other_collection_items_with_count: 
     one: "%{count} outro item"
     other: "%{count} outros itens"
@@ -1909,6 +1910,7 @@ pt:
   search_field_synonym: Sinônimo
   select_colon: "Selecionar:"
   send: Enviar
+  show_more_row_data_link: mais
   sort_by_richness_option: Riqueza
   source_colon: "Fonte:"
   species: Espécie

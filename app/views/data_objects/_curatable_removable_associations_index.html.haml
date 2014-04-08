@@ -20,7 +20,9 @@
           - else
             - show_curation_submit = true
             %legend= link_to raw(data_object_taxon.italicized_name), taxon_overview_path(data_object_taxon.taxon_concept_id)
-            - if data_object_taxon.can_be_deleted_by?(current_user)
+            - if data_object_taxon.can_be_deleted_by?(current_user) && !data_object_taxon.users_data_object?
+              -# NOTE: Not allowing remove association for UsersDataObject because
+              -#       its broken and/or never worked see WEB-4982
               .remove_association
                 = link_to I18n.t(:remove_data_object_association),
                   remove_association_path(:id => data_object.id, :hierarchy_entry_id => data_object_taxon.id),

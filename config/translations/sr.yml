@@ -2565,6 +2565,7 @@ sr:
   value_empty: (празно)
   values: Вредности
   version_1_0_uses_fields_from_the_latest_version: прво издање користи поља из последњег издања шеме %{link}
+  versions_colon: "Верзије:"
   vetted: Проверено
   video_alt_text: Овај %{vetted_status} видео-снимак представља таксон %{taxon_name}
   video_from: видео из

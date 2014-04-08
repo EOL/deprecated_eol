@@ -4,6 +4,7 @@
 # Author: Bjankuloski06
 # Author: Rancher
 # Author: Shirayuki
+# Author: Монтехристо
 mk: 
   0_1_or_2: 0, 1 или 2
   0_or_1: 0 или 1
@@ -2642,8 +2643,8 @@ mk:
         username: Корисничко име <small>(4 - 32 знаци)</small>
         username_or_email: Корисничко име или е-пошта
       wikipedia_queue: 
-        revision_url: URL-адреса на ревизијата <small>(на пр. https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424)</small>
-        revision_url_more: Внесувајќи ја URL-адресата на ревизијата од Википедија, барате од EOL да ја преземе таа верзија како проверена. Со ова ќе ја замените тековната верзија на таа статија на EOL, ако има таква.
+        revision_url: URL-адреса на преработката <small>(на пр. https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424)</small>
+        revision_url_more: Внесувајќи ја URL-адресата на преработката од Википедија, барате од EOL да ја преземе таа верзија како проверена. Со ова ќе ја замените тековната верзија на таа статија на EOL, ако има таква.
     select: 
       prompt: Одберете
     submit: 
@@ -3022,6 +3023,7 @@ mk:
   link_not_associated_with_any_published_entries: Оваа врска не е поврзана со ниеден објавен таксон.
   link_rating: Оценка за врската
   link_to_this_term: врска до овој поим
+  link_to_top_of_page: најгоре
   links_with_count: 
     one: "%{count} врска"
     other: "%{count} врски"
@@ -3152,7 +3154,6 @@ mk:
       videos: Видеа
   moderator_colon: "Модератор:"
   monthly: Месечно
-  more: уште
   more_children_with_count: 
     one: Уште %{count}...
     other: Уште %{count}...
@@ -3397,7 +3398,7 @@ mk:
   or_move_them_to_existing_collection: или преместете ги во некоја постоечка збирка
   original: "ИЗВОРНО:"
   original_object: Изворен објект
-  other_category: Друго
+  other_category_subtab: Друго
   other_collection_items_with_count: 
     one: "%{count} друг експонат"
     other: "%{count} други експонати"
@@ -3653,7 +3654,7 @@ mk:
   returns_all_metadata_about_a_particular_collection: ги дава сите метаподатоци за дадена збирка и објектите што ги содржи индексирани од EOL
   returns_all_metadata_about_a_particular_data_object: ги дава сите метаподатоци за даден податочен објект (текст, слика или видеоснимка) што е индексиран од EOL
   returns_either_a_positive_or_negative_response: дава или позитивен одговор (означувајќи дека API-прилозите се функционални) или негативен одговор, или пак ништо (означувајќи дека API-прилозите моментално не се функционални).
-  revisions: Ревизии
+  revisions: Преработки
   revoke_full_curator_link: Одземи
   revoke_manager_link: Одземи улога „раководител“
   revoke_permission: одземи
@@ -3716,9 +3717,9 @@ mk:
     other: Погледајте ги сите <span class="assistive">%{count} заедници посветени на овој таксон.</span>
   see_all_data_summaries: Погледајте ги сите <span class="assistive">резимирани податоци за овој таксон.</span>
   see_all_data_with_count_html: 
-    one: View <span class="assistive">едната особина за овој таксон.</span>
-    other: Погледајте ги сите <span class="assistive">%{count} особини за овој таксон.</span>
-    zero: Погледајте го јазичето со податоци<span class="assistive">за овој таксон.</span>
+    one: Погледајте ја <span class="assistive">одликата на овој таксон.</span>
+    other: Погледајте ги сите <span class="assistive">%{count} одлики на овој таксон.</span>
+    zero: Погледајте го јазичето со податоци <span class="assistive">за овој таксон.</span>
   see_all_editors_with_count: 
     one: Погледајте го раководителот
     other: Погледајте ги сите %{count} раководители
@@ -3773,6 +3774,7 @@ mk:
   show_email_message_area: "[прикажи поле за е-пошта]"
   show_full_tree: прикажи цело дрво
   show_in_overview: прикажи во Прегледот
+  show_more_row_data_link: повеќе
   show_status_message: Прик. статусна порака
   show_tasks: прикажи задачи
   show_warning_message: Прикажи предупредување
@@ -3948,7 +3950,6 @@ mk:
           meta_description_with_common_name: Факти за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider} на Енциклопедијата на живиот свет.
           meta_description_with_common_name_no_data: Енциклопедијата на живиот свет нема на располагање факти за %{preferred_common_name} (%{scientific_name}) според класификацијата на %{hierarchy_provider}. EOL ве поканува да придонесете со ваши факти за %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Факти за %{preferred_common_name} според класификацијата на %{hierarchy_provider}? Податоци за одлики на %{scientific_name}, меѓу кои и информации за %{topics}.
-          meta_keywords: пресметливи податоци за %{scientific_name} според класификацијата на %{hierarchy_provider}, информации за %{scientific_name}
           meta_title: Факти за %{scientific_name} според класификацијата на %{hierarchy_provider}
           meta_title_with_common_name: Факти на %{preferred_common_name} според класификацијата на %{hierarchy_provider} (%{scientific_name})
           tweet_text: Факти за %{scientific_name} според класификацијата на %{hierarchy_provider}
@@ -4086,21 +4087,22 @@ mk:
         meta_title_with_common_name: Синоними на %{preferred_common_name} (%{scientific_name})
         tweet_text: Синоними на %{scientific_name}
     overview: 
-      hierarchy_entry: 
-        meta_description: Преглед на информациите за %{scientific_name} признаено од %{hierarchy_provider} во Енциклопедијата на живиот свет.
-        meta_description_with_common_name: Преглед на информациите за %{preferred_common_name} (%{scientific_name}) признаено од %{hierarchy_provider} во Енциклопедијата на живиот свет.
-        meta_keywords: "%{scientific_name} признаено од %{hierarchy_provider}, %{scientific_name} според класификацијата на %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} признаено од %{hierarchy_provider}, %{scientific_name} според класификацијата на %{hierarchy_provider}"
-        meta_title: "%{scientific_name} според класификацијата на %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})"
-        tweet_text: Преглед на %{scientific_name} според класификацијата на %{hierarchy_provider}
-      meta_description: Информации за %{scientific_name} во Енциклопедијата на живиот свет.
-      meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
-      meta_keywords: инфо за %{scientific_name}, информации за %{scientific_name}
-      meta_keywords_with_common_name: инфромации за %{scientific_name},инфо за %{preferred_common_name},информации и факти за %{scientific_name}, информации за %{preferred_common_name}
-      meta_title: "%{scientific_name} - Информации за %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Информации за %{preferred_common_name}"
-      tweet_text: Информации за %{scientific_name}
+      show: 
+        hierarchy_entry: 
+          meta_description: Преглед на информациите за %{scientific_name} признаено од %{hierarchy_provider} во Енциклопедијата на живиот свет.
+          meta_description_with_common_name: Преглед на информациите за %{preferred_common_name} (%{scientific_name}) признаено од %{hierarchy_provider} во Енциклопедијата на живиот свет.
+          meta_keywords: "%{scientific_name} признаено од %{hierarchy_provider}, %{scientific_name} според класификацијата на %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} признаено од %{hierarchy_provider}, %{scientific_name} според класификацијата на %{hierarchy_provider}"
+          meta_title: "%{scientific_name} според класификацијата на %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} според класификацијата на %{hierarchy_provider})"
+          tweet_text: Преглед на %{scientific_name} според класификацијата на %{hierarchy_provider}
+        meta_description: Информации за %{scientific_name} во Енциклопедијата на живиот свет.
+        meta_description_with_common_name: "Информации за %{preferred_common_name}, научно: %{scientific_name} во Енциклопедијата на живиот свет."
+        meta_keywords: инфо за %{scientific_name}, информации за %{scientific_name}
+        meta_keywords_with_common_name: инфромации за %{scientific_name},инфо за %{preferred_common_name},информации и факти за %{scientific_name}, информации за %{preferred_common_name}
+        meta_title: "%{scientific_name} - Информации за %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Информации за %{preferred_common_name}"
+        tweet_text: Информации за %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -4268,7 +4270,7 @@ mk:
   the_xml_search_response_implements: Пребарувањето со XML-одговори го спроведува форматот на одговори OpenSearch користејќи Atom 1.0. Подробен технички опис на OpenSearch ќе најдете на %{link}
   there_are_currently_no_members_in_this_community: Заедницата моментално нема членови.
   there_is_no_singular_eol: EOL нема една единствена таксономска хиерархија, туку индексира повеќе разни хиерархии и меѓусебно ги споредува за да определи кои јазли се однесуваат на еден ист таксон. Овие таксонски елементи ги претставуваат споменатите хиерархиски јазли, и затоа може да се јават неколку од нив на една страница на EOL. Повеќе информации ќе најдете во документацијата на API-прилогот на %{link} .
-  this_area_shows_all_submission: Во овој дел се наведени сите поднесувања преку страниците за контакт на личности и медиуми. За да ги проверите ставките, одберете тема подолу или <a href=%{link}>извезете ги сите ставки во CSV-податотека</a>
+  this_area_shows_all_submission: Во овој дел се наведени сите поднесувања преку страниците за контакт на личности и медиуми. За да ги проверите ставките, одберете тема подолу или <a href=%{link}>извезете ги сите ставки во CSV-податотека</a>.
   this_article_cannot_be_curated_because_unpublished: Оваа статија не може да се згрижи бидејќи не е објавена.
   this_article_is_unpublished: Оваа статија е необјавена.
   this_cannot_be_undone_are_you_sure: Ова е неповратно. Дали сте сигурни?
@@ -4313,7 +4315,6 @@ mk:
   too_many_descendants_to_curate_with_count: 
     one: "ГРЕШКА: Вашето згрижување не може да се обработи преку автоматскиот систем. Има %{count} потомок, што ја надминува границата на дозволеното."
     other: "ГРЕШКА: Вашето згрижување не може да се обработи преку автоматскиот систем. Има %{count} потомци, што ја надминува границата на дозволеното."
-  top: најгоре
   topic: Тема
   topic_area: Тематска област
   topics_avilable_to_contact_us_info: Следниве тематски области достапни од страницата „Котактирајте нè“. Можете да додавате нови или да ги уредувате постоечките тематски области и нивните е-поштенски адреси. Сите измени се вршат веднаш.
@@ -4766,14 +4767,14 @@ mk:
   what_is_this_question: Што е ова?
   who_registered_before: до
   who_registered_from: кој се регистрираше од
-  wikipedia_queue_create_successful_notice: Статијата %{article} ревизија %{rev} од Википедија е ставена во редицата за увоз.
-  wikipedia_queue_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја ставам статијата од Википедија во редицата на чекање за увоз.<br />URL-адресата на ревизијата мора да се совпаѓа со https://mk.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
-  wikipedia_queue_new_instructions_intro: "За да ја добиете URL-адресата на ревизија на некоја статија на Википедија:"
-  wikipedia_queue_new_instructions_step_four: "Ископирајте ја URL-адресата на ревизијата од прелистувачот и вметнете ја во прикажаниот образец за увоз од Википедија. URL-адресата треба да биде од следниов облик: <a href=\"https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424\">https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424</a>"
+  wikipedia_queue_create_successful_notice: Статијата %{article} преработка %{rev} од Википедија е ставена во редицата за увоз.
+  wikipedia_queue_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја ставам статијата од Википедија во редицата на чекање за увоз.<br />URL-адресата на преработката мора да се совпаѓа со https://mk.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
+  wikipedia_queue_new_instructions_intro: "За да ја добиете URL-адресата на преработка на некоја статија на Википедија:"
+  wikipedia_queue_new_instructions_step_four: "Ископирајте ја URL-адресата на преработката од прелистувачот и вметнете ја во прикажаниот образец за увоз од Википедија. URL-адресата треба да биде од следниов облик: <a href=\"https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424\">https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424</a>"
   wikipedia_queue_new_instructions_step_one: Одете на страницата на Википедија, на пр. <a href="https://mk.wikipedia.org/w/index.php?title=Тигар">https://mk.wikipedia.org/w/index.php?title=Тигар</a>
-  wikipedia_queue_new_instructions_step_three: Стиснете на ставката „Постојана врска“ во менито. Ова е URL-адреса на тековната ревизија на статијата, каде ќе можете да ги добиете и претходните верзии.
+  wikipedia_queue_new_instructions_step_three: Стиснете на ставката „Постојана врска“ во менито. Ова е URL-адреса на тековната преработка на статијата, каде ќе можете да ги добиете и претходните верзии.
   wikipedia_queue_new_instructions_step_two: Отворете го менито „Алатник“ и во него ќе најдете ставка „Постојана врска“.
-  wikipedia_queue_new_intro: Поднесете ревизија на статија од Википедија за вметнување (преземање) во EOL како проверен текстуален објект.
+  wikipedia_queue_new_intro: Поднесете преработка на статија од Википедија за вметнување (преземање) во EOL како проверен текстуален објект.
   wikipedia_queue_new_page_title: Барање за увоз на статија од Википедија
   will_find_taxon_pages_matching_the_search_term: ќе најде страници од таксонот ако пребараното точно се совпаѓа со претпочитаното име, некој од синонимите или народното име
   will_paginate: 

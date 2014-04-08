@@ -1,4 +1,5 @@
 class ForumTopic < ActiveRecord::Base
+  establish_connection(Rails.env)
 
   belongs_to :forum
   belongs_to :user

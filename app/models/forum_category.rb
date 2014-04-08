@@ -1,4 +1,5 @@
 class ForumCategory < ActiveRecord::Base
+  establish_connection(Rails.env)
 
   belongs_to :user
   has_many :forums

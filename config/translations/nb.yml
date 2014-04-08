@@ -2884,22 +2884,6 @@ nb:
         meta_title: Synonymer for %{scientific_name}.
         meta_title_with_common_name: Synonymer for %{preferred_common_name} (%{scientific_name})
         tweet_text: Synonymer for %{scientific_name}.
-    overview: 
-      hierarchy_entry: 
-        meta_description: Et sammendrag av informasjon om %{scientific_name} som identifisert av %{hierarchy_provider} i Encyclopedia of Life.
-        meta_description_with_common_name: Et sammendrag av informasjon om %{preferred_common_name}, også kjent som %{scientific_name} som identifisert av %{hierarchy_provider} i Encyclopedia of Life.
-        meta_keywords: "% {scientific_name} identifisert av %{hierarchy_provider}, %{scientific_name} klassifisert av %{hierarchy_provider}"
-        meta_keywords_with_common_name: "%{scientific_name} identifisert av %{hierarchy_provider} %{scientific_name} klassifisert av %{hierarchy_provider}"
-        meta_title: "%{scientific_name} klassifisert av %{hierarchy_provider}"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} klassifisert av %{hierarchy_provider})"
-        tweet_text: Oversikt over %{scientific_name} som klassifisert av %{hierarchy_provider}
-      meta_description: Informasjon om %{scientific_name} i Encyclopedia of Life.
-      meta_description_with_common_name: Informasjon om %{preferred_common_name}, vitenskapelig kjent som %{scientific_name} i Encyclopedia of Life.
-      meta_keywords: info om %{scientific_name},%{scientific_name}-informasjon
-      meta_keywords_with_common_name: info om %{scientific_name},info om %{preferred_common_name},%{scientific_name}-informasjon og fakta, %{preferred_common_name}-informasjon
-      meta_title: "% {scientific_name} - Informasjon om %{scientific_name}"
-      meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Informasjon om %{preferred_common_name}"
-      tweet_text: Informasjon om %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

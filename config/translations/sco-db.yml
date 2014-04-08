@@ -41,12 +41,12 @@ sco:
   translated_audiences-label-audience_id-3: Bairnies
   translated_collection_types-label-collection_type_id-1: Taxænomie
   translated_collection_types-label-collection_type_id-10: Soonds
-  translated_collection_types-label-collection_type_id-11: Links
+  translated_collection_types-label-collection_type_id-11: Airtins
   translated_collection_types-label-collection_type_id-12: Leeterature
   translated_collection_types-label-collection_type_id-13: Taxænomie
   translated_collection_types-label-collection_type_id-14: Molecular baur codes
   translated_collection_types-label-collection_type_id-15: Descreeption
-  translated_collection_types-label-collection_type_id-16: Eimages
+  translated_collection_types-label-collection_type_id-16: Eemages
   translated_collection_types-label-collection_type_id-17: Distreebution
   translated_collection_types-label-collection_type_id-18: Conservâtion status
   translated_collection_types-label-collection_type_id-19: Name informâtion
@@ -54,10 +54,10 @@ sco:
   translated_collection_types-label-collection_type_id-20: Molecular data
   translated_collection_types-label-collection_type_id-21: Nomenclature
   translated_collection_types-label-collection_type_id-22: Soonds
-  translated_collection_types-label-collection_type_id-23: Links
+  translated_collection_types-label-collection_type_id-23: Airtins
   translated_collection_types-label-collection_type_id-24: Leeterature
   translated_collection_types-label-collection_type_id-3: Descreeption
-  translated_collection_types-label-collection_type_id-4: Eimages
+  translated_collection_types-label-collection_type_id-4: Eemages
   translated_collection_types-label-collection_type_id-5: Distreebution
   translated_collection_types-label-collection_type_id-6: Conservâtion status
   translated_collection_types-label-collection_type_id-7: Name informâtion
@@ -73,7 +73,7 @@ sco:
   translated_contact_subjects-title-contact_subject_id-28: Content pairtner support
   translated_contact_subjects-title-contact_subject_id-29: Curater support
   translated_contact_subjects-title-contact_subject_id-30: Mak ae correction (speelin n graimmer, eemages, information)
-  translated_contact_subjects-title-contact_subject_id-31: Contreebute eimages, videos or soonds
+  translated_contact_subjects-title-contact_subject_id-31: Contreebute eemages, videos or soonds
   translated_contact_subjects-title-contact_subject_id-32: Media requests (interviews, press speirnis, logo requests)
   translated_contact_subjects-title-contact_subject_id-33: Mak ae financial donâtion
   translated_contact_subjects-title-contact_subject_id-34: Techneecal speirins (problems wi rake, wabsite functionalitie)
@@ -83,12 +83,12 @@ sco:
   translated_content_partner_statuses-label-content_partner_status_id-3: Archyved
   translated_content_partner_statuses-label-content_partner_status_id-4: Onacteeve
   translated_content_tables-label-content_table_id-1: Details
-  translated_data_types-label-data_type_id-1: Eimage
+  translated_data_types-label-data_type_id-1: Eemage
   translated_data_types-label-data_type_id-10: Map
   translated_data_types-label-data_type_id-2: Soond
   translated_data_types-label-data_type_id-3: Tex
   translated_data_types-label-data_type_id-4: Video
-  translated_data_types-label-data_type_id-5: GBIF Eimage
+  translated_data_types-label-data_type_id-5: GBIF Eemage
   translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YooTube
@@ -181,7 +181,7 @@ sco:
   translated_resource_statuses-label-resource_status_id-9: Processin Failed
   translated_service_types-label-service_type_id-1: EOL Transfer Schema
   translated_service_types-label-service_type_id-2: Ither
-  translated_sort_styles-name-sort_style_id-1: Recyntlie Added
+  translated_sort_styles-name-sort_style_id-1: Recyntlie Eikit
   translated_sort_styles-name-sort_style_id-2: Auldest
   translated_sort_styles-name-sort_style_id-3: Alphabetical
   translated_sort_styles-name-sort_style_id-4: Reverse Alphabetical
@@ -322,12 +322,12 @@ sco:
   translated_table_of_contents-label-table_of_contents_id-335: Legislâtion
   translated_table_of_contents-label-table_of_contents_id-336: Notes
   translated_table_of_contents-label-table_of_contents_id-337: Educâtion
-  translated_table_of_contents-label-table_of_contents_id-338: Educâtion Links
+  translated_table_of_contents-label-table_of_contents_id-338: Education Airtins
   translated_table_of_contents-label-table_of_contents_id-339: Educâtion Resoorces
   translated_table_of_contents-label-table_of_contents_id-34: Comments
   translated_table_of_contents-label-table_of_contents_id-340: Secontair Schuil Lab Series
   translated_table_of_contents-label-table_of_contents_id-341: Ceetizen Science
-  translated_table_of_contents-label-table_of_contents_id-342: Ceetizen Science links
+  translated_table_of_contents-label-table_of_contents_id-342: Ceetizen Sciance airtins
   translated_table_of_contents-label-table_of_contents_id-343: Biodiversitie Heritage Librie
   translated_table_of_contents-label-table_of_contents_id-344: Data
   translated_table_of_contents-label-table_of_contents_id-345: Data Soorces

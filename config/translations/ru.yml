@@ -564,6 +564,7 @@ ru:
   already_a_member_question: Уже зарегистрированы?
   already_member_of_community: Вы уже являетесь членом этого сообщества.
   alternate_classification: Альтернативные классификации
+  alternative_name_colon: "Альтернативное название:"
   amount: Сумма
   an_unknown_user: Неизвестный пользователь
   and: и
@@ -1210,12 +1211,21 @@ ru:
         max: Наибольшее значение
         max_placeholder: Введите число
         max_placeholder_disabled: Диапазон отключен
+        max_with_val: "Наибольшее значение: %{val}"
         min: Наименьшее значение
         min_placeholder: Введите число
         min_placeholder_disabled: Диапазон отключен
+        min_with_val: "Наименьшее значение: %{val}"
         q: Конкретное значение
+        q_more: К примеру, гетеротрофная.
         q_placeholder: Введите слово, фразу или число
+        q_placeholder_disabled: Введён диапазон, конкретное значение отключено
+        q_with_val: "Конкретное значение: %{val}"
         taxon_name: Группа таксонов
+        taxon_name_placeholder: Введите имя группы таксонов для выбора группы
+        taxon_name_placeholder_value_removed: "%{taxon_group} удалена, выберите новую группу"
+        taxon_name_with_val: "Группа таксонов: %{val}"
+        total_results: "Всего результатов: %{total}"
         unit: Единица измерения
       eol_statistic: 
         date_one: Дата
@@ -1611,7 +1621,6 @@ ru:
       taxon_overview: Описание таксона
       videos: Видео
   monthly: Ежемесячно
-  more: далее
   more_children_with_count: еще %{count}
   more_siblings_with_count: 
     one: "%{count} сиблинг"
@@ -2038,6 +2047,7 @@ ru:
   value_default: (по умолчанию)
   value_empty: (пусто)
   values: Значения
+  versions_colon: "Версии:"
   vetted: Проверены
   video_from: видео от
   video_object: Видеообъекты

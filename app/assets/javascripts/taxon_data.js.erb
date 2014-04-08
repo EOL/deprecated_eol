@@ -391,10 +391,18 @@ $(function() {
 
   $('table.data tr.actions').hide().prev().find('.fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
 
-  $('table.data tr.data:not(.hidden)').on('click',
+  $('table.data tr.data').on('click',
     function(e) {
-      if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
-      EOL.toggle_actions_row($(this));
+      var $targ;
+      if (e.target) $targ = $(e.target);
+      else if (e.srcElement) $targ = $(e.srcElement);
+      // Grab the TR if they clicked on something lower. Seems odd that this happens, but it does (it's usually a TD).
+      if (! $targ.is("tr")) $targ = $targ.closest('tr');
+      // Abort if the row is hidden (and in a data search table; it's fine if it's on a data tab):
+      if ($targ.hasClass('hidden') && $targ.closest('table.search').length > 0) return;
+      // Abort if it's a legitimate link (which will handle itself):
+      if ($targ.closest('a').length) return;
+      EOL.toggle_actions_row($targ);
     });
 
   $('table.data tr.actions td .metadata').live('click',

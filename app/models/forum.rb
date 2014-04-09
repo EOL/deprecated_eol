@@ -23,15 +23,11 @@ class Forum < ActiveRecord::Base
 
   def update_last_post_and_count
     update_attributes(last_post_id: open_topics.maximum('forum_posts.id'))
-    # TODO - is this correct? I didn't want to change it, in case it was used in some unexpected way.
-    # ...It seems like this should be counting the *posts*, not the topics:
     update_attributes(number_of_posts: open_topics.count)
-    # I added this line because specs were breaking (and it seemed to make sense):
-    update_attributes(number_of_topics: open_topics.count)
   end
 
   def open_topics
-    forum_topics.visible.includes(:forum_posts).where("forum_posts.deleted_at IS NULL")
+    forum_topics.visible.joins(:forum_posts).where("forum_posts.deleted_at IS NULL")
   end
 
   private

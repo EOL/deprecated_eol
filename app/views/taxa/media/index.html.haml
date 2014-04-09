@@ -2,6 +2,8 @@
   = javascript_include_tag 'exemplar_image.js'
 = content_for :footer do
   = javascript_include_tag 'media_list'
+- content_for :social_sharing do
+  = render 'shared/social_sharing'
 
 #media_list
   #sidebar.filters

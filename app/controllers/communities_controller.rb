@@ -235,6 +235,11 @@ protected
     }).freeze
   end
 
+  def meta_open_graph_image_url
+    @meta_open_graph_image_url ||= @community ?
+      view_context.image_tag(@community.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+  end
+
 private
 
   def load_community_and_dependent_vars

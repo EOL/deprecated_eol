@@ -1,3 +1,5 @@
+- content_for :social_sharing do
+  = render 'shared/social_sharing'
 .site_column#taxon_maps
   - if ! @taxon_concept.has_map? && @maps.blank?
     .empty

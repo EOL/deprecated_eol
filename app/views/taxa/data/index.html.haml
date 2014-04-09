@@ -1,3 +1,6 @@
+- content_for :social_sharing do
+  - unless @taxon_data.bad_connection?
+    = render 'shared/social_sharing'
 -# TODO - These should actually be links to filtered versions of this page, for accessibility.
 = render 'menu', { ajax: true }
 .main_container#taxon_data

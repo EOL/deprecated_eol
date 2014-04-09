@@ -2,6 +2,8 @@
 - if @embed_auth_provider
   - auth_provider_question = "?#{@embed_auth_provider}"
   - auth_provider_ampersand = "&#{@embed_auth_provider}"
+- content_for :social_sharing do
+  = render 'shared/social_sharing'
 - editable = @collection.editable_by?(current_user)
 = content_for :additional_page_actions do
   = render 'collections/editable_actions', { :editable => editable }

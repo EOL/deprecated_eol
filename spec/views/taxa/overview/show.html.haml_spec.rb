@@ -46,6 +46,8 @@ describe 'taxa/overview/show' do
     assign(:assistive_section_header, 'assist my overview')
     assign(:rel_canonical_href, 'some canonical stuff')
     assign(:overview, overview)
+    view.stub(:meta_open_graph_data).and_return([])
+    view.stub(:tweet_data).and_return({})
     view.stub(:current_language) { Language.default }
     view.stub(:current_url) { 'http://yes.we/really_have/this-helper.method' }
   end

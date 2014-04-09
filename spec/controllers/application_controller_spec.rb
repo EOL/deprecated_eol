@@ -29,6 +29,14 @@ describe ApplicationController do
     @controller.send(:meta_data).should be_a(Hash)
   end
 
+  it "should define default open graph tag values" do
+    @controller.send(:meta_open_graph_data).should be_a(Hash)
+  end
+
+  it "should define default tweet data values" do
+    @controller.send(:tweet_data).should be_a(Hash)
+  end
+
   it "should store a copy of the original unmodified request params" do
     @controller.send(:original_request_params).should be_a(Hash)
   end

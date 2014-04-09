@@ -1,6 +1,8 @@
 !!! XML
 !!! 5
-%html{ "xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml" }
+%html{ "xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml",
+  'xmlns:fb' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns/fb#" : nil,
+  'xmlns:og' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns#" : nil }
   %head
     - @meta_data ||= meta_data
     %title<
@@ -18,6 +20,8 @@
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
     %meta{ :name => "app_version", :content => full_version }
+    - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
+      %meta{ :property => "fb:app_id", :content => $FACEBOOK_APP_ID }
     - if $PINTEREST_VERIFICATION_CODE
       %meta{ :name => "p:domain_verify", :content => $PINTEREST_VERIFICATION_CODE }
 
@@ -126,6 +130,30 @@
         _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
         _gaq.push(['_trackPageview']);
         EOL.after_onload_JS(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js');
+      - if $ENABLED_SOCIAL_PLUGINS
+        :javascript
+          head.ready("ga.js", function() {
+            head.js('#{ asset_path('ga_social_tracking.js') }');
+            head.ready('#{ File.basename(asset_path('ga_social_tracking.js')) }', function() {
+              var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
+              var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
+              if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}",""); }
+              if (twitter) { EOL.loadTwitter(); }
+            });
+          });
+    - elsif $ENABLED_SOCIAL_PLUGINS
+      -# NOTE: channel_facebook_url may want to be added to EOL.loadFacebook (second argument), but it's not defined
+      -# anywhere that I can find, so I'm removing it for now.
+      :javascript
+        head.ready("ga.js", function() {
+          head.js('#{ asset_path('ga_social_tracking.js') }');
+          head.ready('#{ File.basename(asset_path('ga_social_tracking.js')) }', function() {
+            var facebook = "#{$ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? true : nil};"
+            var twitter = "#{$ENABLED_SOCIAL_PLUGINS.include?(:twitter) ? true : nil};"
+            if (facebook) { EOL.loadFacebook("#{$FACEBOOK_APP_ID}",""); }
+            if (twitter) { EOL.loadTwitter(); }
+          });
+        });
     - if $GOOGLE_UNIVERSAL_ANALYTICS_ID && $ENABLE_ANALYTICS
       :javascript
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

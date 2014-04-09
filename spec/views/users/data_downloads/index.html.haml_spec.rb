@@ -18,6 +18,8 @@ describe 'users/data_downloads/index' do
   subject{ render }
 
   before(:each) do
+    view.stub(:meta_open_graph_data) { {} }
+    view.stub(:tweet_data) { {} }
     view.stub(:current_user) { user }
   end
 

@@ -401,6 +401,11 @@ protected
       t(".meta_description_curator", translation_vars.merge({default: t(".meta_description", translation_vars)}))
   end
 
+  def meta_open_graph_image_url
+    @meta_open_graph_image_url ||= @user ?
+      view_context.image_tag(@user.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+  end
+
   def clear_session_partial
     if @user && @user == current_user
       expire_fragment("sessions_#{current_user.id}")

@@ -6,6 +6,7 @@
         .hgroup
           %h1= h @collection.name
           %p= I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(@collection.updated_at))
+          = yield :social_sharing
           - unless sanitize(@collection.description).blank?
             %p= sanitize @collection.description.balance_tags
         .page_actions

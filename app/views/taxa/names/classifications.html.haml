@@ -1,3 +1,5 @@
+- content_for :social_sharing do
+  = render 'shared/social_sharing'
 - if current_user.min_curator_level?(:full)
   = javascript_include_tag 'curation'
 = render 'classifications'

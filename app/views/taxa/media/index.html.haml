@@ -2,6 +2,9 @@
   = javascript_include_tag 'exemplar_image.js'
 = content_for :footer do
   = javascript_include_tag 'media_list'
+- content_for :social_sharing do
+  = render 'shared/social_sharing'
+
 #media_list
   #sidebar.filters
     = image_tag @taxon_media.image.thumb_or_object('260_190'), alt: '' unless @taxon_media.image.blank?

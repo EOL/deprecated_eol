@@ -4,6 +4,9 @@
 
 - en_type ||= en_type(@data_object)
 - for_worklist ||= false
+- content_for :social_sharing do
+  - unless for_worklist
+    = render 'shared/social_sharing'
 - # TODO: Looks like HR have moved from using article to text css class - need to check across the site and adjust en_type
 #permalink{:class => (en_type == 'article' || en_type == 'link') ? 'text' : en_type}
   = render "show", { :for_worklist => for_worklist }

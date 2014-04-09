@@ -7,7 +7,6 @@ describe 'taxa/media/index' do
 
   before do
     assign(:taxon_page, double(TaxonPage))
-    assign(:meta_open_graph_data, []) # TODO - this is only needed when ENABLED_SOCIAL_PLUGINS includes :facebook  - test that
   end
 
   context 'with media' do

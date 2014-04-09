@@ -626,38 +626,6 @@ protected
     @meta_keywords ||= t(".meta_keywords", scoped_variables_for_translations.dup)
   end
 
-  def tweet_data(text = nil, hashtags = nil, lang = I18n.locale.to_s, via = $TWITTER_USERNAME)
-    return @tweet_data unless @tweet_data.blank?
-    if text.nil?
-      translation_vars = scoped_variables_for_translations.dup
-      translation_vars[:default] = meta_title if translation_vars[:default].blank?
-      text = I18n.t(:tweet_text, translation_vars)
-    end
-    @tweet_data = {lang: lang, via: via, hashtags: hashtags,
-                   text: text}.delete_if{ |k, v| v.blank? }
-  end
-  helper_method :tweet_data
-
-  def meta_open_graph_data
-    @meta_open_graph_data ||= {
-      'og:url' => meta_open_graph_url,
-      'og:site_name' => I18n.t(:encyclopedia_of_life),
-      'og:type' => 'website', # TODO: we may want to extend to other types depending on the page see http://ogp.me/#types
-      'og:title' => meta_data[:title],
-      'og:description' => meta_data[:description],
-      'og:image' => (!meta_open_graph_image_url.blank? && meta_open_graph_image_url != '#') ? meta_open_graph_image_url : view_context.image_url('v2/logo_open_graph_default.png')
-    }.delete_if{ |k, v| v.blank? }
-  end
-  helper_method :meta_open_graph_data
-
-  def meta_open_graph_url
-    @meta_open_graph_url ||= request.url
-  end
-
-  def meta_open_graph_image_url
-    @meta_open_graph_image_url ||= nil
-  end
-
   # You should pass in :for (the object page you're on), :paginated (a collection of WillPaginate results), and
   # :url_method (to the object's page--don't use *_path, use *_url).
   def set_canonical_urls(options = {})

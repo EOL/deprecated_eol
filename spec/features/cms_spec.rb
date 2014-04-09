@@ -38,7 +38,6 @@ describe 'CMS' do
       visit "/info/#{content_page.id}"
       page.should_not have_tag("meta[name='keywords']")
       page.should_not have_tag("meta[name='description']")
-      page.should_not have_tag("meta[property='og:description']")
 
       english_translation.meta_keywords = "Some English keywords"
       english_translation.meta_description = "Some English description"
@@ -46,7 +45,6 @@ describe 'CMS' do
       visit "/info/#{content_page.id}"
       page.should have_tag("meta[name='keywords'][content='#{english_translation.meta_keywords}']")
       page.should have_tag("meta[name='description'][content='#{english_translation.meta_description}']")
-      page.should have_tag("meta[property='og:description'][content='#{english_translation.meta_description}']")
 
       arabic_translation = TranslatedContentPage.gen(content_page: content_page, active_translation: true, language: Language.from_iso('ar'),
         meta_keywords: nil, meta_description: nil)
@@ -55,7 +53,6 @@ describe 'CMS' do
       # meta tags are specific to language, so the Arabic article won't start out with any
       page.should_not have_tag("meta[name='keywords']")
       page.should_not have_tag("meta[name='description']")
-      page.should_not have_tag("meta[property='og:description']")
 
       arabic_translation.meta_keywords = "Some Arabic keywords"
       arabic_translation.meta_description = "Some Arabic description"
@@ -63,7 +60,6 @@ describe 'CMS' do
       visit "/info/#{content_page.id}"
       page.should have_tag("meta[name='keywords'][content='#{arabic_translation.meta_keywords}']")
       page.should have_tag("meta[name='description'][content='#{arabic_translation.meta_description}']")
-      page.should have_tag("meta[property='og:description'][content='#{arabic_translation.meta_description}']")
     end
   end
 end

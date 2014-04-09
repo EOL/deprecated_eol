@@ -103,11 +103,6 @@ protected
     }).freeze
   end
 
-  def meta_open_graph_image_url
-    @meta_open_graph_image_url ||=  @partner ?
-      view_context.image_tag(@partner.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
-  end
-
 private
 
   def content_partners_layout

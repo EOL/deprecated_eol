@@ -18,7 +18,6 @@
             = @data_object.owner.html_safe || "&nbsp;"
         - else
           %p= raw(@page_description)
-        = yield :social_sharing
       .page_actions
         %ul
           %li

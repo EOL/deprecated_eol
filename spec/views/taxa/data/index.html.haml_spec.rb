@@ -34,11 +34,6 @@ describe 'taxa/data/index' do
     @taxon = TaxonConcept.gen()
   end
 
-  before(:each) do
-    view.stub(:meta_open_graph_data).and_return([])
-    view.stub(:tweet_data).and_return({})
-  end
-
   describe '(logged out)' do
 
     before(:each) do

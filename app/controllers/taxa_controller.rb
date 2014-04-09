@@ -106,11 +106,6 @@ protected
     @meta_keywords = [keywords, additional_keywords.presence].compact.join(', ')
   end
 
-  def meta_open_graph_image_url
-    @meta_open_graph_image_url ||= (@taxon_concept && dato = @taxon_concept.exemplar_or_best_image_from_solr) ?
-       dato.thumb_or_object('260_190', specified_content_host: $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
-  end
-
 private
 
   def instantiate_taxon_page

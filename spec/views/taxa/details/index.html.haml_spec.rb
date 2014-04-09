@@ -39,8 +39,6 @@ describe 'taxa/details/index' do
     taxon_page = double(TaxonPage)
     assign(:taxon_page, taxon_page)
     assign(:details, details)
-    view.stub(:meta_open_graph_data).and_return([])
-    view.stub(:tweet_data).and_return({})
     view.stub(:current_language) { Language.default }
   end
 

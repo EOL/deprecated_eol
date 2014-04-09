@@ -7,7 +7,6 @@
         = image_tag @community.logo_url, :alt => ""
         .hgroup
           %h1= h @community.name
-          = yield :social_sharing
           - unless sanitize(@community.description).blank?
             %p= sanitize @community.description.balance_tags
         .page_actions

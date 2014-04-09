@@ -1,13 +1,12 @@
-- if false
-  - # Social sharing buttons e.g. Facebook Like
-  - # NOTE: ASSUMES ONLY ONE BUTTON PER PAGE
-  - unless $ENABLED_SOCIAL_PLUGINS.blank?
-    = content_for :head_meta do
-      - # We only define OpenGraph meta tags if we have social sharing buttons on the page
-      - # @see http://developers.facebook.com/docs/opengraph/
-      - # TODO: Define custom object types for biodiversity namespaces e.g. species?
-      - # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
-      - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
-        - meta_open_graph_data.each do |property, content|
-          - content = h(raw(truncate(strip_tags(content), :length => 300))) if ['og:title', 'og:description'].include?(property)
-          %meta{ :property => property, :content => content }
+- # Social sharing buttons e.g. Facebook Like
+- # NOTE: ASSUMES ONLY ONE BUTTON PER PAGE
+- unless $ENABLED_SOCIAL_PLUGINS.blank?
+  = content_for :head_meta do
+    - # We only define OpenGraph meta tags if we have social sharing buttons on the page
+    - # @see http://developers.facebook.com/docs/opengraph/
+    - # TODO: Define custom object types for biodiversity namespaces e.g. species?
+    - # TODO: Define og:locale, and og:locale:alternate. Note format expected includes region e.g. "en_US"
+    - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook)
+      - meta_open_graph_data.each do |property, content|
+        - content = h(raw(truncate(strip_tags(content), :length => 300))) if ['og:title', 'og:description'].include?(property)
+        %meta{ :property => property, :content => content }

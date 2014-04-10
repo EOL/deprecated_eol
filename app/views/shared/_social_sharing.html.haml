@@ -1,5 +1,8 @@
-- # Social sharing buttons e.g. Facebook Like
-- # NOTE: ASSUMES ONLY ONE BUTTON PER PAGE
+-# When you FB-like or tweet a page, we want some additional metadata available.
+-# This makes for a cleaner post.
+-# ATM, this is a partial for historical reasons; probably better if we just
+-# set variables to say "add the metadata", and move this to the application
+-# layout.
 - unless $ENABLED_SOCIAL_PLUGINS.blank?
   = content_for :head_meta do
     - # We only define OpenGraph meta tags if we have social sharing buttons on the page

@@ -3448,7 +3448,7 @@ en:
     other: "Displaying %{start_number} &ndash; %{end_number} of %{count} records on EOL"
   donation_title: "Donating to the Encyclopedia of Life"
   donation_confirmation: "Please Confirm Your Donation"
-  donation_you_are_about_to: "You are about to donate to the Encyclopedia of Life. Please press \"agree\" to continue to a secure payment processing site, where you will be asked to enter your credit card informaiton. Use your browser's \"back\" button to cancel."
+  donation_you_are_about_to: "You are about to donate to the Encyclopedia of Life. Please press \"agree\" to continue to a secure payment processing site, where you will be asked to enter your credit card informaiton."
   donation_agree: "agree"
   donate_link: "Donate"
   donation_amount: "Total:"

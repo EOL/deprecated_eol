@@ -37,8 +37,6 @@ class ContentServer
     call_file_upload_api_with_parameters(parameters, "content partner logo upload service")
   end
 
-  # NOTE - specs stop here. YOU WERE HERE
-
   # only uploading resources
   # returns [status, message]
   def self.upload_resource(file_url, resource_id)
@@ -58,14 +56,15 @@ class ContentServer
         return [resource_status, error]
       # response is an error
       elsif response["response"].key? "error"
-        error = response["response"]["error"]
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => "content partner dataset service failed", :backtrace => parameters) if $ERROR_LOGGING
-        return [ResourceStatus.validation_failed, nil]
+        return [ResourceStatus.validation_failed, response["response"]["error"]]
       end
     end
     [ResourceStatus.validation_failed, nil]
   end
 
+  # TODO - these are hard-coded exceptions for OUR environment, just to appease the conventions of PHP. The exceptions should be there, not here, if they
+  # exist at all.
   def self.update_data_object_crop(data_object_id, x, y, w)
     return nil if data_object_id.blank?
     return nil if x.blank?

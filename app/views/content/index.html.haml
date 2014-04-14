@@ -19,25 +19,25 @@
       %ul
         %li.taxon
           %dl
-            %dd= number_with_delimiter(EOL::GlobalStatistics.find("taxon_concepts"), :delimiter => ",")
             %dt= link_to I18n.t(:eol_pages), @rich_pages_path
+            %dd= number_with_delimiter(EOL::GlobalStatistics.find("taxon_concepts"), :delimiter => ",")
         %li.users
           %dl
-            %dd= number_with_delimiter(EOL::GlobalStatistics.find("users"), :delimiter => ",")
             %dt= link_to I18n.t(:members_like_you), search_path(:q => '*', :type => ['user'])
+            %dd= number_with_delimiter(EOL::GlobalStatistics.find("users"), :delimiter => ",")
         %li.collections
           %dl
-            %dd= number_with_delimiter(EOL::GlobalStatistics.find("collections"), :delimiter => ",")
             %dt= link_to I18n.t(:collections_link), search_path(:q => '*', :type => ['collection'])
+            %dd= number_with_delimiter(EOL::GlobalStatistics.find("collections"), :delimiter => ",")
         %li.communities
           %dl
-            %dd= number_with_delimiter(EOL::GlobalStatistics.find("communities"), :delimiter => ",")
             %dt= link_to I18n.t(:communities_link), search_path(:q => '*', :type => ['community'])
+            %dd= number_with_delimiter(EOL::GlobalStatistics.find("communities"), :delimiter => ",")
         %li.images
           %dl
-            %dd= number_with_delimiter(EOL::GlobalStatistics.find("images"), :delimiter => ",")
             %dt= link_to I18n.t(:images), search_path(:q => '*', :type => ['image'])
+            %dd= number_with_delimiter(EOL::GlobalStatistics.find("images"), :delimiter => ",")
         %li.partners
           %dl
-            %dd= number_with_delimiter(EOL::GlobalStatistics.find("content_partners"), :delimiter => ",")
             %dt= link_to I18n.t(:content_partners_link), content_partners_path
+            %dd= number_with_delimiter(EOL::GlobalStatistics.find("content_partners"), :delimiter => ",")

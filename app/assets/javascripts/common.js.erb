@@ -40,6 +40,23 @@ EOL.prep_flashes = function() {
   }
 };
 
+EOL.flash_warning = function(text) {
+  var speed = 400;
+  var $p = $('div#flashes')
+    .append("<p class='status notice' style='display:none;'>"+text+"</p>")
+    .find('p');
+  // HACK! Hacky hack-hack from Hackensburg... without this, we get artifacts
+  // from the border in Chrome (only a problem sliding down):
+  var $header = $('#page_heading');
+  var border = $header.css('border');
+  console.log("Border: "+border);
+  $header.css('border', 'none');
+  $p
+    .slideDown(speed, function() { $header.css('border', border); } )
+    .delay(5000)
+    .slideUp(speed, function() { this.remove(); } );
+}
+
 EOL.check_siblings = function(of, val) {
   try { $($(of).siblings()).prop('checked', val); }
   catch(err) { /* Don't care if this fails. */ }

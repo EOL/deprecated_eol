@@ -10,7 +10,7 @@
         %dd= f.text_field :uri, placeholder: I18n.t('known_uris.uri_placeholder_text')
         %dt= nested.label :name
         %dd= nested.text_field :name, placeholder: I18n.t('known_uris.name_placeholder_text')
-    %fieldset.left_column
+    %fieldset
       %dl
         %dt= nested.label :definition
         %dd= nested.text_area :definition, rows: 3, placeholder: I18n.t('known_uris.definition_placeholder_text')
@@ -28,11 +28,9 @@
           %ul
             - TocItem.for_uris(current_language).each do |toc_item|
               %li
-                = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, known_uri.toc_items.include?(toc_item)
-                = toc_item.label
-      %fieldset.actions
-        = f.submit I18n.t(:save)
-        = link_to I18n.t(:cancel), known_uris_url
+                %label
+                  = check_box_tag "known_uri[toc_item_ids][]", toc_item.id, known_uri.toc_items.include?(toc_item)
+                  = toc_item.label
     %fieldset
       %dl
         %dt= nested.label :attribution
@@ -43,18 +41,29 @@
         %dd= f.text_field :ontology_source_url, placeholder: I18n.t('known_uris.ontology_source_url_placeholder_text')
         %dt= f.label :group_by_clade
         %dd
-          = f.check_box :group_by_clade
-          = I18n.t(:yes_answer)
+          %label
+            = f.check_box :group_by_clade
+            = I18n.t(:yes_answer)
         %dt= f.label :clade_exemplar
         %dd
-          = f.check_box :clade_exemplar
-          = I18n.t(:yes_answer)
+          %label
+            = f.check_box :clade_exemplar
+            = I18n.t(:yes_answer)
         %dt= f.label :value_is_text
         %dd
-          = f.check_box :value_is_text
-          = I18n.t(:yes_answer)
+          %label
+            = f.check_box :value_is_text
+            = I18n.t(:yes_answer)
+    %fieldset.actions
+      = f.submit I18n.t(:save)
+      = link_to I18n.t(:cancel), known_uris_url
 - unless known_uri.new_record?
-  .fieldset_form
+  .known_uri__relationships
+    .header
+      %h2= I18n.t('known_uris.relationships')
+    - if known_uri.equivalence_relationships.empty? && known_uri.non_equivalence_as_target.empty? && known_uri.non_equivalence_as_subject.empty?
+      .copy
+        %p= I18n.t('known_uris.no_relationships')
     = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.equivalence_relationships, rel_label: I18n.t('known_uris.equivalent_to'), relationship_type: :equivalence }
     - unless known_uri.non_equivalence_as_target.empty?
       = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.non_equivalence_as_target, rel_label: I18n.t('known_uris.relationships_to_this_uri') }
@@ -62,11 +71,21 @@
       = render 'relationship_table', { known_uri: known_uri, relationships: known_uri.non_equivalence_as_subject, rel_label: I18n.t('known_uris.relationships_from_this_uri') }
     = form_for KnownUriRelationship.new do |tr|
       = tr.hidden_field :from_known_uri_id, value: known_uri.id
-      %label= I18n.t('known_uris.add_a_relationship')
-      %p
-        = known_uri.label
-        = tr.select :relationship_uri, options_for_select(KnownUriRelationship.translated_relationship_types)
-        = tr.hidden_field :to_known_uri_id
-        = autocomplete_field :autocomplete, 'to_known_uri', autocomplete_known_uri_search_known_uris_path, id_element: "#known_uri_relationship_to_known_uri_id",
-          value: (tr.object.to_known_uri.uri rescue '')
+      %fieldset
+        .header
+          %h3
+            = I18n.t('known_uris.add_a_relationship')
+        %dl
+          %dt
+            %strong= I18n.t('helpers.label.known_uri_relationship.from_known_uri')
+          %dd= known_uri.label
+          %dt= tr.label :relationship_uri
+          %dd= tr.select :relationship_uri, options_for_select(KnownUriRelationship.translated_relationship_types)
+          = tr.hidden_field :to_known_uri_id
+          %dt= tr.label :to_known_uri
+          %dd= autocomplete_field :autocomplete, 'to_known_uri',
+            autocomplete_known_uri_search_known_uris_path,
+            id_element: "#known_uri_relationship_to_known_uri_id",
+            value: (tr.object.to_known_uri.uri rescue '')
+      %fieldset.actions
         = tr.submit I18n.t(:submit)

@@ -649,6 +649,10 @@ en:
         complete_more: "A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms. <strong>Warning: Do not change this attribute unless you are certain of the status of homonyms in the hierarchy, doing so could jeopardize the integrity of the data.</strong>"
         request_publish: "Publish requested"
         request_publish_more: "Indicates whether there is a pending request to promote this hierarchy to become one of the primary browsable hierarchies on EOL."
+      known_uri_relationship:
+        from_known_uri: "For known URI"
+        relationship_uri: "Select relationship"
+        to_known_uri: "Enter and select target URI"
       news_item:
         active: "Published"
         active_more: "Published news items will be publicly visible on the selected date and time. Uncheck <em>published</em> if you want to prevent general users from viewing versions of this news item in any language."
@@ -1150,9 +1154,11 @@ en:
     import_successful: "Ontology terms imported successfully"
     more_than_one_field_mapped_to_type: "More than one attribute is mapped to \"%{type}\""
     no_results: "There are no results for the selected statistic"
+    no_relationships: "No relationships were found for this URI."
     please_select_field_types: "Please select a mapping for each attribute"
     please_select_from_the_menu: "Please select from the menu above"
     please_select_uris_to_import: "Please select the URIs import"
+    relationships: "Relationships"
     relationships_from_this_uri: "Relationships from this URI"
     relationships_to_this_uri: "Relationships to this URI"
     select_a_category_to_view_stats: "Select a category to view stats:"

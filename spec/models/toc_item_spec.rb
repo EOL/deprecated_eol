@@ -2,6 +2,10 @@ require "spec_helper"
 
 describe TocItem do
 
+  before(:all) do
+    Visibility.create_enumerated
+  end
+
   it 'should allow user submitted text' do
     toc_item = TocItem.gen(info_items: [InfoItem.gen])
     toc_item.allow_user_text?.should be_true

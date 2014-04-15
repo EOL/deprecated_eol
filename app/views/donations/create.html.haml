@@ -12,11 +12,12 @@
         - amount = number_to_currency(params['amount'])
         - params.each do |pair|
           = hidden_field_tag pair.first, pair.last
-        %label.big
-          = I18n.t(:donation_amount)
-          = amount
+        %dl.total
+          %dt= I18n.t(:donation_amount)
+          %dd= amount
         %fieldset.actions
           = submit_tag I18n.t(:donation_agree)
+          = link_to I18n.t(:cancel), new_donation_path
     %p{ style: "background:url(https://h.online-metrix.net/fp/clear.png?org_id=#{sa[:org_id]}&session_id=#{session_id}#{params[:signed_date_time]}&m=1);" }
       -# Using a non-breaking space because <p>s don't render in some browsers if they don't have content:
       &nbsp;

@@ -1,4 +1,5 @@
 class TocItem < ActiveRecord::Base
+
   self.table_name = 'table_of_contents'
   
   uses_translations(foreign_key: 'table_of_contents_id')
@@ -10,6 +11,7 @@ class TocItem < ActiveRecord::Base
   has_and_belongs_to_many :content_tables, join_table: 'content_table_items', foreign_key: 'toc_id'
   has_and_belongs_to_many :known_uris
 
+  # TODO - let's make this a constant, like FOR_URIS.
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
 
   FOR_URIS = [
@@ -27,7 +29,6 @@ class TocItem < ActiveRecord::Base
     'Database and Repository Coverage'
   ]
 
-
   class << self 
 
     # TODO - sure, we can code this with english labels, but it should STORE ids.
@@ -42,6 +43,7 @@ class TocItem < ActiveRecord::Base
     end
 
     # This is downright evil. ...But at least we cache it.  :|
+    # Counts the number of (visible) data objects for each toc item.
     def count_objects
       counts = []
       count_hash = TocItem.connection.select_rows("select toc.id, count(*) from table_of_contents toc
@@ -55,9 +57,9 @@ class TocItem < ActiveRecord::Base
       return counts
     end
 
+    # because TocItems are cached with info_items already loaded, we need to have the InfoItem class loaded
+    # before these blocks.
     def bhl
-      # because TocItems are cached with info_items already loaded, we need to have the InfoItem class loaded
-      # before this block.
       InfoItem
       cached_find_translated(:label, 'Biodiversity Heritage Library', include: [ :info_items, { parent: :info_items } ])
     end
@@ -73,6 +75,9 @@ class TocItem < ActiveRecord::Base
       InfoItem
       @@related_names ||= cached_find_translated(:label, 'Related Names', include: [ :info_items, { parent: :info_items } ])
     end
+
+    # TODO - specs.  YOU WERE HERE.
+
     def synonyms
       InfoItem
       cached('synonyms') do

@@ -1156,7 +1156,7 @@ en:
     no_results: "There are no results for the selected statistic"
     no_relationships: "No relationships were found for this URI."
     please_select_field_types: "Please select a mapping for each attribute"
-    please_select_from_the_menu: "Please select from the menu above"
+    please_select_category_for_stats: "Please select a category to view statistics."
     please_select_uris_to_import: "Please select the URIs import"
     relationships: "Relationships"
     relationships_from_this_uri: "Relationships from this URI"

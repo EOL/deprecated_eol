@@ -16,4 +16,4 @@
   <% end %>
 <% end %>
 EOL.prep_flashes();
-$('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:known_uris_sorted) %></p>").find('p').delay('5000').fadeOut('slow');
+EOL.flash_warning("<%= escape_javascript I18n.t(:known_uris_sorted) %>");

@@ -12,6 +12,7 @@ class KnownUri < ActiveRecord::Base
   BASE = Rails.configuration.uri_term_prefix
   TAXON_RE = Rails.configuration.known_taxon_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
+  URIS_TO_LEAVE_AS_STRINGS = [ 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate' ]
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable
@@ -369,6 +370,11 @@ class KnownUri < ActiveRecord::Base
     else
       position <=> other.position
     end
+  end
+
+  def treat_as_string?
+    return true if KnownUri::URIS_TO_LEAVE_AS_STRINGS.include?(uri)
+    false
   end
 
   private

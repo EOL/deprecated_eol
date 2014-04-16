@@ -39,8 +39,8 @@ it:
     one: Un totale di %{count} termine è stato trovato che soddisfa i tuoi criteri di ricerca.
     other: Un totale di %{count} termini sono stati trovati che soddisfano i tuoi criteri di ricerca.
   about_eol: Informazioni su EOL
-  account_information: Informazioni sull'account
-  account_information_menu: Informazioni sull'account
+  account_information: Informazioni sull'utenza
+  account_information_menu: Informazioni sull'utenza
   account_registered_but_not_ready_try_later: La tua registrazione è avvenuta correttamente ma il sistema non è pronto per l'accesso. Riprova tra cinque minuti.
   action: Azione
   action_not_available_error: Spiacenti, quest'azione non è disponibile.

@@ -1,19 +1,19 @@
 require "spec_helper"
 
-def test_and_reset_downloadable
-  expect(@search_file.downloadable?).to eq(false)
-  @search_file.completed_at = Time.now
-  @search_file.row_count = 10
-  expect(@search_file.downloadable?).to eq(true)
-end
-
-def make_and_convert(options)
-  d = DataPointUri.new(options)
-  d.convert_units
-  d
-end
-
 describe DataSearchFile do
+
+  def test_and_reset_downloadable
+    expect(@search_file.downloadable?).to eq(false)
+    @search_file.completed_at = Time.now
+    @search_file.row_count = 10
+    expect(@search_file.downloadable?).to eq(true)
+  end
+
+  def make_and_convert(options)
+    d = DataPointUri.new(options)
+    d.convert_units
+    d
+  end
 
   before(:all) do
     load_foundation_cache

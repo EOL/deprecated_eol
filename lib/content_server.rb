@@ -32,8 +32,8 @@ class ContentServer
   def self.upload_content(path_from_root, port = nil)
     ip_with_port = EOL::Server.ip_address.dup
     ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
-    path_from_root = URI.encode(URI.encode(path_from_root))
-    parameters = 'function=upload_content&file_path=http://' + ip_with_port + path_from_root
+    # NOTE - This used to call URI.encode *twice*. If you put that back, _explain why_.
+    parameters = "function=upload_content&file_path=http://#{ip_with_port}#{URI.encode(path_from_root)}"
     call_file_upload_api_with_parameters(parameters, "content partner logo upload service")
   end
 
@@ -56,14 +56,15 @@ class ContentServer
         return [resource_status, error]
       # response is an error
       elsif response["response"].key? "error"
-        error = response["response"]["error"]
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => "content partner dataset service failed", :backtrace => parameters) if $ERROR_LOGGING
-        return [ResourceStatus.validation_failed, nil]
+        return [ResourceStatus.validation_failed, response["response"]["error"]]
       end
     end
     [ResourceStatus.validation_failed, nil]
   end
 
+  # TODO - these are hard-coded exceptions for OUR environment, just to appease the conventions of PHP. The exceptions should be there, not here, if they
+  # exist at all.
   def self.update_data_object_crop(data_object_id, x, y, w)
     return nil if data_object_id.blank?
     return nil if x.blank?

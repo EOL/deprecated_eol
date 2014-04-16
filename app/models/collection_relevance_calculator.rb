@@ -35,6 +35,8 @@ class CollectionRelevanceCalculator
     collection.update_attributes(relevance: score.to_i)
   end
 
+private
+
   def calculate_feature_relevance
     features = count_containing_collections(is_featured: true)
     times_featured_score = case features

@@ -3,8 +3,7 @@
     - for translated_news_item in translated_news_items
       %li
         .details.news_details
-          %p
-            %b= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)
+          %h4= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)
           - news_item_length = 300
           %p= raw(translated_news_item.body.truncate_html(:length => news_item_length, :omission => I18n.t(:truncated_news_item_omission,
             :link => news_item_path(translated_news_item.news_item_id))))

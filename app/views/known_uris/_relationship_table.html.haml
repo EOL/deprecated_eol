@@ -2,7 +2,7 @@
 - relationship_type = '' unless local_assigns.has_key?(:relationship_type)
 - rel_label = '' unless local_assigns.has_key?(:rel_label)
 - if local_assigns.has_key?(:known_uri) && ! relationships.empty?
-  %label= rel_label
+  %h3= rel_label
   %table.relations
     - relationships.each do |relationship|
       - from_uri = relationship.from_known_uri
@@ -26,7 +26,7 @@
           %td.uri= link_to known_uri.uri.pretty_url(30), edit_known_uri_path(known_uri)
           %td.actions
   - if relationship_type == :equivalence
-    %label= I18n.t('known_uris.select_a_preferred_uri_for_this_group')
+    %h3= I18n.t('known_uris.select_a_preferred_uri_for_this_group')
     %table.relations
       - known_uri.equivalence_group.each do |equivalent_uri|
         %tr
@@ -40,4 +40,4 @@
           %td.relation
           %td.label
           %td.uri
-    
+

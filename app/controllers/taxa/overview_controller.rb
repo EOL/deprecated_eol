@@ -9,11 +9,35 @@ class Taxa::OverviewController < TaxaController
 
   def show
     @overview = @taxon_page.overview
-    @overview_data = @taxon_page.data.get_data_for_overview
-    @range_data = @taxon_page.data.ranges_for_overview
+    @data = @taxon_page.data
+    @overview_data = @data.get_data_for_overview
+    @range_data = @data.ranges_for_overview
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = taxon_overview_url(@overview)
+    make_json_ld
     current_user.log_activity(:viewed_taxon_concept_overview, taxon_concept_id: @taxon_concept.id)
+  end
+
+  private
+
+  def make_json_ld
+    @jsonld = { '@context' => {
+                  'dc' => 'http://purl.org/dc/terms/',
+                  'dwc' => 'http://rs.tdwg.org/dwc/terms/',
+                  'eol' => 'http://eol.org/schema/',
+                  'eolterms' => 'http://eol.org/schema/terms/',
+                  'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
+                  'gbif' => 'http://rs.gbif.org/terms/1.0/',
+                  'dwc:taxonID' => { '@type' => '@id' },
+                  'eol:associationType' => { '@type' => '@id' },
+                  'dwc:vernacularName' => { '@container' => '@language' },
+                  'rdfs:label' => { '@container' => '@language' }
+                } }
+    data = @data.get_data
+    @jsonld['@graph'] = [ @taxon_concept.to_jsonld ]
+    @jsonld['@graph'] += @taxon_concept.common_names.collect{ |tcn| tcn.to_jsonld }
+    @jsonld['@graph'] += data.collect{ |d| d.to_jsonld }
+    @jsonld['@graph']
   end
 
 end

@@ -18,6 +18,16 @@ class TaxonConceptName < ActiveRecord::Base
     end
   end
 
+  def to_jsonld
+    jsonld = { '@type' => 'gbif:VernacularName',
+                          'dwc:vernacularName' => { language.iso_639_1 => name.string },
+                          'dwc:taxonID' => 'http://eol.org/pages/' + taxon_concept_id.to_s }
+    if preferred?
+      jsonld['gbif:isPreferredName'] = true
+    end
+    jsonld
+  end
+
   # TODO - why pass in by_whom, here? We don't use it. I'm assuming it's a duck-type for now and leaving it, but...
   # TODO - we should actually update the instance, not just the DB. True, in practice we don't care, but it
   # hardhly violates the principle of least surprise (I wasted 15 minutes with a test because of it).

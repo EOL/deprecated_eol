@@ -433,6 +433,17 @@ class TaxonConcept < ActiveRecord::Base
     "TaxonConcept ##{id}: #{title}"
   end
 
+  def to_jsonld
+    jsonld = { '@id' => 'http://eol.org/pages/' + id.to_s,
+               '@type' => 'dwc:Taxon',
+               'dwc:scientificName' => entry.name.string,
+               'dwc:taxonRank' => (entry.rank) ? entry.rank.label : nil }
+    if parent = entry.parent
+      jsonld['dwc:parentNameUsageID'] = 'http://eol.org/pages/' + parent.taxon_concept_id.to_s
+    end
+    jsonld
+  end
+
   def comment(user, body)
     comment = comments.create user: user, body: body
     user.comments.reload # be friendly - update the user's comments automatically

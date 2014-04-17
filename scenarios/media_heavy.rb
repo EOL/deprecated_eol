@@ -44,7 +44,7 @@ ActiveRecord::Base.transaction do
   2.times { sounds << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
   2.times { youtube << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
 
-  data[:taxon_concept] = build_taxon_concept(:canonical_form => data[:canonical_form], :common_name => data[:common_name],
+  data[:taxon_concept] = build_taxon_concept(:canonical_form => data[:canonical_form], :common_names => [ data[:common_name] ],
                                              :images => images, :flash => flash, :sounds => sounds, :youtube => youtube,
                                              :toc => text)
 

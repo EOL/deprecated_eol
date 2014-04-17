@@ -148,6 +148,10 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def self.taxon_uri(taxon_concept)
+    UserAddedData::SUBJECT_PREFIX + taxon_concept.id.to_s
+  end
+
   def self.add_to_data(rows)
     known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },

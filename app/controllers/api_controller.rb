@@ -41,6 +41,10 @@ class ApiController < ApplicationController
     request.format = 'json'
   end
 
+  def traits
+    request.format = 'json'
+  end
+
   def ping_host
     request.format = 'json'
     respond_to do |format|
@@ -67,16 +71,19 @@ class ApiController < ApplicationController
   def default_render
     # if this api_method is blank, and error should already have been rendered
     return if @api_method.blank?
-    begin
+    if Rails.env.development? || Rails.env.test_dev?
       @json_response = @api_method.call(params)
-    rescue ActiveRecord::RecordNotFound => e
-      return render_error(e.message, 404)
-    rescue EOL::Exceptions::ApiException => e
-      return render_error(e.message)
-    rescue => e
-      return render_error('Sorry, there was a problem')
+    else
+      begin
+        @json_response = @api_method.call(params)
+      rescue ActiveRecord::RecordNotFound => e
+        return render_error(e.message, 404)
+      rescue EOL::Exceptions::ApiException => e
+        return render_error(e.message)
+      rescue => e
+        return render_error('Sorry, there was a problem')
+      end
     end
-
     # create an API Log entry, except for the ping method
     unless params[:action] == 'ping'
       create_api_log(params.merge({ id: params[:id] }))

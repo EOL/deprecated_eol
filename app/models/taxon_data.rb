@@ -144,6 +144,9 @@ class TaxonData < TaxonUserClassificationFilter
     ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
   end
 
+  # we only need a set number of attributes for GGI, and we know there are no associations
+  # so it is more efficient to have a custom query to gather these data. We might be able
+  # to generalize this, for example if we return search results for multiple attributes
   def data_for_ggi
     query = "
       SELECT DISTINCT ?attribute ?value ?data_point_uri ?graph ?taxon_concept_id

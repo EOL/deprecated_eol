@@ -33,16 +33,6 @@ module EOL
             best_image = taxon_concept.exemplar_or_best_image_from_solr
             return_hash['bestImage'] = best_image ? EOL::Api::DataObjects::V1_0.prepare_hash(best_image, details: true) : {}
 
-            return_hash['ancestors'] = []
-            taxon_concept.entry.kingdom_and_immediate_parent.each do |entry|
-              next unless entry
-              return_hash['ancestors'] << {
-                'identifier' => entry.taxon_concept_id,
-                'scientificName' => entry.name.string,
-                'taxonRank' => entry.rank ? entry.rank.label : nil
-              }
-            end
-
             return_hash['vernacularNames'] = []
             taxon_concept.common_names.each do |tcn|
               lang = tcn.language ? tcn.language.iso_639_1 : ''

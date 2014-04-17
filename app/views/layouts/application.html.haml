@@ -128,6 +128,8 @@
       %script{ type: 'application/ld+json' }
         :plain
           #{ JSON.pretty_generate(@jsonld) }
+    - elsif @jsonld_url
+      %script{ type: 'application/ld+json', src: @jsonld_url, defer: true }
     - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS
       :javascript
         var _gaq = _gaq || [];

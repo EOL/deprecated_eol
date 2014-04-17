@@ -147,7 +147,7 @@ private
   end
 
   def toc(options = {})
-    @toc_items ||= TocItem.table_of_contents_for_text(details)
+    @toc_items ||= TocItem.toc_for_data_objects(details)
     options[:under] ?
       @toc_items.select { |toc_item| toc_item.parent_id == options[:under].id } :
       @toc_items

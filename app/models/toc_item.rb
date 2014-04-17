@@ -11,9 +11,10 @@ class TocItem < ActiveRecord::Base
   has_and_belongs_to_many :content_tables, join_table: 'content_table_items', foreign_key: 'toc_id'
   has_and_belongs_to_many :known_uris
 
-  # TODO - let's make this a constant, like FOR_URIS.
+  # TODO - Remove this. Instead, just validate uniqueness.
   @@reserved_toc_labels = ['Biodiversity Heritage Library', 'Content Partners', 'Names and Taxonomy', 'Related Names', 'Synonyms', 'Common Names', 'Page Statistics', 'Content Summary', 'Education', 'Barcode', 'Wikipedia', 'Biomedical Terms', 'Literature References', 'Nucleotide Sequences']
 
+  # TODO - turn this into a field in the DB.
   FOR_URIS = [
     'Distribution',
     'Physical Description',
@@ -58,7 +59,13 @@ class TocItem < ActiveRecord::Base
     end
 
     # because TocItems are cached with info_items already loaded, we need to have the InfoItem class loaded
-    # before these blocks.
+    # before these #cached_find_translated calls.
+    def find_by_en_label(label)
+      InfoItem
+      cached_find_translated(:label, label, include: [ :info_items, { parent: :info_items } ])
+    end
+
+    # TODO - maybe these should be generalized, hey?
     def bhl
       InfoItem
       cached_find_translated(:label, 'Biodiversity Heritage Library', include: [ :info_items, { parent: :info_items } ])
@@ -75,23 +82,6 @@ class TocItem < ActiveRecord::Base
       InfoItem
       @@related_names ||= cached_find_translated(:label, 'Related Names', include: [ :info_items, { parent: :info_items } ])
     end
-
-    # TODO - specs.  YOU WERE HERE.
-
-    def synonyms
-      InfoItem
-      cached('synonyms') do
-        r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, include: [ :info_items, { parent: :info_items } ]).select{ |t| t.label('en') == 'Synonyms' }
-        r.blank? ? nil : r[0]
-      end
-    end
-    def common_names
-      InfoItem
-      cached('common_names') do
-        r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, include: [ :info_items, { parent: :info_items } ]).select{ |t| t.label('en') == 'Common Names' }
-        r.blank? ? nil : r[0]
-      end
-    end
     def page_statistics
       InfoItem
       cached_find_translated(:label, 'Page Statistics', include: [ :info_items, { parent: :info_items } ])
@@ -104,21 +94,10 @@ class TocItem < ActiveRecord::Base
       InfoItem
       cached_find_translated(:label, 'Overview', include: [ :info_items, { parent: :info_items } ])
     end
-    def possible_overview_ids
-      [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].map(&:id)
-    end
-    # There are multiple education chapters - one is the parent of the others (but we don't care which is which, here)
-    def education_chapters
-      cached_find_translated(:label, 'Education', 'en', find_all: true)
-    end
     def education_resources
       InfoItem
       cached_find_translated(:label, 'Education Resources', include: [ :info_items, { parent: :info_items } ])
     end
-    def education_for_resources_tab
-      TocItem.education_chapters + [ TocItem.education_resources ]
-    end
-
     def identification_resources
       InfoItem
       @@identification_resources ||= cached_find_translated(:label, 'Identification Resources', include: [ :info_items, { parent: :info_items } ])
@@ -159,11 +138,37 @@ class TocItem < ActiveRecord::Base
       InfoItem
       cached_find_translated(:label, 'Distribution', include: [ :info_items, { parent: :info_items } ])
     end
-    def find_by_en_label(label)
+
+    def synonyms
       InfoItem
-      cached_find_translated(:label, label, include: [ :info_items, { parent: :info_items } ])
+      cached('synonyms') do
+        r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, include: [ :info_items, { parent: :info_items } ]).select{ |t| t.label('en') == 'Synonyms' }
+        r.blank? ? nil : r[0]
+      end
+    end
+    def common_names
+      InfoItem
+      cached('common_names') do
+        r = TocItem.find_all_by_parent_id(self.name_and_taxonomy.id, include: [ :info_items, { parent: :info_items } ]).select{ |t| t.label('en') == 'Common Names' }
+        r.blank? ? nil : r[0]
+      end
     end
 
+    def possible_overview_ids
+      [TocItem.brief_summary, TocItem.comprehensive_description, TocItem.distribution].map(&:id)
+    end
+
+    # There are multiple education chapters - one is the parent of the others (but we don't care which is which, here)
+    def education_chapters
+      cached_find_translated(:label, 'Education', 'en', find_all: true)
+    end
+
+    def education_for_resources_tab
+      # NOTE - education_chapters is an array; education_resources is an item.
+      TocItem.education_chapters << TocItem.education_resources
+    end
+
+    # TODO - really, this list should be in a config of some kind.
     def exclude_from_details
       @@exclude_from_details ||= cached('exclude_from_details') do
         temp = []
@@ -189,10 +194,10 @@ class TocItem < ActiveRecord::Base
     end
 
     def last_major_chapter
-      TocItem.find_all_by_parent_id(0, order: 'view_order desc')[0]
+      TocItem.where(parent_id: 0).order('view_order desc').first
     end
 
-    def swap_enries(toc1, toc2)
+    def swap_entries(toc1, toc2)
       return unless toc1.class==TocItem && toc2.class==TocItem
       return if toc1.is_major? != toc2.is_major?
 
@@ -223,23 +228,26 @@ class TocItem < ActiveRecord::Base
     end
 
     def roots
-      TocItem.find_all_by_parent_id(0, order: 'view_order', include: :info_items)
+      TocItem.where(parent_id: 0).order('view_order').includes(:info_items)
     end
 
     def whole_tree
       TocItem.all(order: 'view_order', include: :info_items)
     end
 
+    # TODO -we should NOT assume English, here.
+    # TODO - remove this (and the functionality from the admin console). I
+    # just proved (writing specs) that it had been broken, and NO ONE HAS
+    # NOTICED. Clearly we don't need it.  ...and it's sloppy.
     def add_major_chapter(new_label)
       return if new_label.blank?
       max_view_order = TocItem.connection.select_values("SELECT max(view_order) FROM table_of_contents")[0].to_i
       next_view_order = max_view_order + 1
-      new_toc_item_id = TocItem.create(parent_id: 0, view_order: next_view_order)
+      new_toc_item = TocItem.create(parent_id: 0, view_order: next_view_order)
       TranslatedTocItem.create(table_of_contents_id: new_toc_item.id, language_id: Language.english.id, label: new_label)
     end
 
-    # this just gets the TOCitems and their parents for the text given, sorted by view_order
-    def table_of_contents_for_text(text_objects)
+    def toc_for_data_objects(text_objects)
       DataObject.preload_associations(text_objects, { toc_items: :parent })
       toc = []
       text_objects.each do |obj|
@@ -251,9 +259,7 @@ class TocItem < ActiveRecord::Base
           end
         end
       end
-      toc.compact!
-      toc.uniq!
-      toc.sort_by(&:view_order)
+      toc.uniq.sort_by(&:view_order)
     end
 
     def for_uris(lang)
@@ -264,8 +270,9 @@ class TocItem < ActiveRecord::Base
       end.compact
     end
 
+    # TODO - #distinct instead of #uniq, when we're Rails 4.
     def used_by_known_uris
-      TocItem.joins(:known_uris).group('table_of_contents.id').order(:view_order)
+      TocItem.joins(:known_uris).order(:view_order).uniq
     end
 
   end
@@ -313,14 +320,14 @@ class TocItem < ActiveRecord::Base
       if all_the_way
         move_to_last
       elsif chapter_after = next_of_type
-        TocItem.swap_enries(self, chapter_after)
+        TocItem.swap_entries(self, chapter_after)
       end
     else  # sub chapter
       if all_the_way
         move_to_last
       elsif next_toc = next_of_type
         if next_toc.is_sub?
-          TocItem.swap_enries(self, next_toc)
+          TocItem.swap_entries(self, next_toc)
         end
       end
     end
@@ -331,14 +338,14 @@ class TocItem < ActiveRecord::Base
       if all_the_way
         move_to_first
       elsif chapter_before = previous_of_type
-        TocItem.swap_enries(chapter_before, self)
+        TocItem.swap_entries(chapter_before, self)
       end
     else  # sub chapter
       if all_the_way
         move_to_first
       elsif previous_toc = previous_of_type
         if previous_toc.is_sub?
-          TocItem.swap_enries(previous_toc, self)
+          TocItem.swap_entries(previous_toc, self)
         end
       end
     end

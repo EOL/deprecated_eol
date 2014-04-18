@@ -25,14 +25,6 @@ class TranslatedContentPage < ActiveRecord::Base
     title + " (" + self.language.iso_639_1 + ")"
   end
 
-  def content_is_blank?
-    self.main_content.blank? && self.left_content.blank?
-  end
-
-  def left_content_is_blank?
-    self.left_content.blank?
-  end
-
   def page_url
     return self.page_name.gsub(' ', '_').downcase
   end

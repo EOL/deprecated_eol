@@ -26,6 +26,7 @@ class SearchLog < LazyLoggingModel
 
   end
 
+  # NOTE - this is only used by admins, and we might remove it.
   def self.click_times_by_taxon_concept_id(taxon_concept_id, start_date = nil, end_date = nil)
     sql=["select
             case

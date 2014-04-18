@@ -267,7 +267,7 @@ class TocItem < ActiveRecord::Base
       @for_uris ||= {}
       @for_uris[lang] ||= FOR_URIS.map do
         |label| TocItem.cached_find_translated(:label, label, lang)
-      end.compact
+      end.flatten.compact
     end
 
     # TODO - #distinct instead of #uniq, when we're Rails 4.

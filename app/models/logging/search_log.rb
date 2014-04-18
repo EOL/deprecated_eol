@@ -17,16 +17,13 @@ class SearchLog < LazyLoggingModel
      }
      opts[:user_id] = user.id unless user.nil?
 
-     result = create_log opts.merge(params)
+     begin
+       create opts.merge(params)
+     rescue => e
+       Rails.logger.warn("Bogus invocation of SearchLog creation function by user #{user.id}")
+       Rails.logger.warn(e.message)
+     end
 
-     return result
-
-  end
-
-  def self.create_log(opts)
-    Rails.logger.warn('Bogus invocation of SearchLog creation function!') and return if opts.nil?
-    l = SearchLog.create opts
-    return l
   end
 
   def self.click_times_by_taxon_concept_id(taxon_concept_id, start_date = nil, end_date = nil)

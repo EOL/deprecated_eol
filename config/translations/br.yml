@@ -147,6 +147,7 @@ br:
         total_measurements: Muzulioù
         total_occurrences: Reveziadennoù
         total_taxa_with_data: Pajennoù gant roadennoù
+        total_triples: Triadoù
         total_user_added_data: Roadennoù ouzhpennet gant an implijer
         udo_published: Testenn pourchaset gant an implijer
         udo_published_by_curators: Testenn pourchaset gant ur mirour
@@ -175,6 +176,7 @@ br:
         request_publish: Goulenn un embann
       known_uri: 
         description: Deskrivadur
+        exclude_from_exemplars: Skarzhañ eus ar gwel hollek
         name: Anv
         toc_items: Rummadoù
         uri: URI
@@ -223,6 +225,8 @@ br:
         dataset: Restr eus ar c'hoari roadennoù
         dataset_license_id: Aotre-implijout
         dataset_rights_holder: Perc'henn ar gwirioù
+        dataset_rights_statement: Disklêriadur ar gwirioù
+        dataset_source_url: Mammenn ar roadennoù orin
         description: Deskrivadur ar vammenn
         dwc_archive_url: URL eus an diell Darwin Core
         harvest_events: Dastum an darvoudoù
@@ -377,6 +381,7 @@ br:
         user_created_it: "\n<strong>%{user}</strong> en deus en krouet."
       other_actions: 
         an_unknown_user_modified_an_unknown_collection: Un implijer dianav en deus kemmet un dastumad dianav.
+        an_unknown_user_modified_collection: Un implijer dianav en deus kemmet an dastumad "%{collection}".
         user_modified_an_unknown_collection: <strong>%{user}</strong> en deus kemmet un dastumad dianav.
         user_modified_collection: <strong>%{user}</strong> en deus kemmet an dastumad "%{collection}".
       remove: 
@@ -445,6 +450,25 @@ br:
         user_modified_an_unknown_community: <strong>%{user}</strong> en deus daskemmet ur gumuniezh dianav.
         user_modified_community: <strong>%{user}</strong> en deus daskemmet  ar gumuniezh "%{community}".
     curator_activity_log: 
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Un implijer dianav en deus ouzhpennet un anv poblek dianav en ur yezh dianav d'ur bajenn dianav.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: Un implijer dianav en deus ouzhpennet un anv poblek dianav en ur yezh dianav.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: Un implijer dianav en deus ouzhpennet un anv poblek dianav en ur yezh dianav da "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: Un implijer dianav en deus ouzhpennet un anv poblek e %{language} d'ur bajenn dianav.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: Un implijer dianav en deus ouzhpennet un anv poblek dianav e %{language}.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: Un implijer dianav en deus ouzhpennet un anv poblek dianav e %{language} da "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: Un implijer dianav en deus ouzhpennet an anv poblek "%{name}" en ur yezh dianav d'ur bajenn dianav.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: Un implijer dianav en deus ouzhpennet an anv poblek "%{name}" en ur yezh dianav da "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: Un implijer dianav en deus ouzhpennet an anv poblek "%{name}" e %{language} d'ur bajenn dianav.
+        an_unknown_user_added_name_in_language_to_taxon: Un implijer dianav en deus ouzhpennet an anv poblek "%{name}" e %{language} da "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> en deus ouzhpennet un anv poblek dianav en ur yezh dianav d'ur bajenn dianav.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> en deus ouzhpennet un anv poblek dianav en ur yezh dianav da "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> en deus ouzhpennet un anv poblek e %{language} d'ur bajenn dianav.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> en deus ouzhpennet un anv poblek dianav e %{language} da "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> en deus ouzhpennet an anv poblek "%{name}" en ur yezh dianav d'ur bajenn dianav.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> en deus ouzhpennet an anv poblek "%{name}" en ur yezh dianav da "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> en deus ouzhpennet an anv poblek "%{name}" e %{language} d'ur bajenn dianav.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> en deus ouzhpennet an anv poblek "%{name}" e %{language} da "%{taxon}".
       classification_curation: 
         merge: 
           an_unknown_user_merged_to_an_unknown_taxon: Un implijer dianav en deus kendeuzet div bajenn dianav.
@@ -452,11 +476,26 @@ br:
           user_merged_to_an_unknown_taxon: <strong>%{user}</strong> en deus mesket div bajenn dianav.
           user_merged_to_it: <strong>%{user}</strong> en deus mesket ur bajenn all gant homañ.
           user_merged_to_taxon: <strong>%{user}</strong> en deus mesket ur bajenn all gant %{target}.
+      data_point_uri: 
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Un implijer dianav en deus divizet diskouez roadennoù war ur bajenn dianav.
+        an_unknown_user_unhide_data_on_taxon: Un implijer dianav en deus divizet diskouez roadennoù diwar-benn "%{taxon}".
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> en deus divizet kuzhat roadennoù war ur bajenn dianav.
+        user_hide_data_on_taxon: <strong>%{user}</strong> en deus divizet kuzhat roadennoù diwar-benn "%{taxon}".
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> en deus divizet diskouez roadennoù war ur bajenn dianav.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> en deus divizet diskouez roadennoù diwar-benn "%{taxon}".
       merge: 
         an_unknown_user_merged_unknown_entry_to_it: Un implijer dianav en deus ouzhpennet ur rummatadur dianav.
         user_merged_unknown_entry_to_it: <strong>%{user}</strong> en deus ouzhpennet ur rummatadur dianav.
       reasons_to_hide: "Abegoù evit kuzhat : %{reasons}"
       reasons_to_untrust: "Abegoù da zisfiziañ : %{reasons}"
+      user_added_data: 
+        an_unknown_user_update_data_on_an_unknown_taxon: Un implijer dianav en deus ouzhpennet roadennoù d'ur bajenn dianav.
+        an_unknown_user_update_data_on_taxon: Un implijer dianav en deus hizivaet roadennoù diwar-benn "%{taxon}".
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> en deus hizivaet roadennoù war ur bajenn dianav.
+        user_update_data_on_taxon: <strong>%{user}</strong> en deus hizivaet roadennoù diwar-benn "%{taxon}".
+  activity_user_created_data: <strong>%{user}</strong> en deus ouzhpennet roadennoù diwar-benn « %{object_name} » da « %{taxon_concept} ».
+  activity_user_created_link: <strong>%{user}</strong> en deus ouzhpennet ul liamm war-du "%{object_name}" da "%{taxon_concept}".
+  activity_user_created_text: <strong>%{user}</strong> en deus ouzhpennet testenn da « %{object_name} » war « %{taxon_concept} ».
   add: Ouzhpennañ
   add_a_collection_to_a_community: Ouzgpennañ "%{collection}" d'ur gumuniezh
   add_a_comment: Ouzhpennañ un evezhiadenn.
@@ -551,6 +590,8 @@ br:
   admin_translated_news_item_active: Embannet
   admin_translated_news_item_create_successful_notice: Ouzhpennet ez eus bet un droidigezh da <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: Ho tigarez, c'hoarvezet ez eus ur fazi ha n'eus ket bet gallet ouzhpennañ an droidigezh.
+  admin_translated_news_item_edit_subheader: Kemmañ an droidigezh e %{language} eus <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: An titl ha korf ar bajenn zo  %{required_icon}&nbsp;rekis.
   admin_translated_news_item_new_header: Dibabit ur yezh hag ouzhpennit an endalc'h
   admin_translated_news_item_new_link: Ouzhpennañ un droidigezh
   admin_translated_news_item_new_subheader: Ouzhpennañ un droidigezh da <em>%{page_name}</em>
@@ -620,6 +661,7 @@ br:
   already_a_member_question: Ezel oc'h dija ?
   already_member_of_community: Un ezel eus ar gumuniezh-mañ oc'h dija.
   alternate_classification: Rummatadur all
+  alternative_common_name_colon: "Anv poblek all :"
   alternative_name_colon: "Anv all :"
   amount: Sammad
   an_unknown_user: Un implijer dianav
@@ -696,6 +738,7 @@ br:
   by_caps: Gant
   by_scientific_name_table_header: dre anvioù skiantel
   cache_store: Stok ar c'hrubuilh
+  caching_results: Lakaat an disoc'hoù er c'hrubuilh
   calculate_averages_slow: Jediñ keidennoù (gorrek)
   call_api: Gervel an API
   cancel: Nullañ
@@ -831,6 +874,7 @@ br:
     other: "%{count} evezhiadenn"
   common_name: Anv-boutin
   common_name_avg: Keidenn an anvioù-boutin
+  common_name_exists: An anv poblek <em>%{name_string}</em> zo anezhañ dija
   communities: 
     collections: 
       index: 
@@ -857,10 +901,12 @@ br:
   community_logo_alt_text: Logo evit ar gumuniezh %{community_name}
   community_members: Izili ar gumuniezh
   community_name_label: Anv ar gumuniezh
+  community_not_destroyed_error: Digarezit, ur gudenn zo bet ha n'eo ket bet dilamet ar gumuniezh.
   community_rating: Priziadenn gant ar gumuniezh
   community_removed_by_owner: Lamet eo bet ar gumuniezh-mañ gant he ferc'henn.
   community_tab_collections_header: Dastumadoù
   completed: Graet
+  completed_colon: "Echuet :"
   confirm_leave: Ha sur oc'h e fell deoc'h kuitaat ar gumuniezh-mañ ?
   confirm_password_colon: "Kadarnaat ar ger-tremen :"
   contact: Darempred
@@ -899,6 +945,7 @@ br:
   content_partner_contact_delete_unsuccessful_error: Digarezit, ur fazi a zo bet, n'eo ket bet dilamet an darempred.
   content_partner_contact_edit_link: Kemmañ an darempred
   content_partner_contact_edit_page_subheader: Kemmañ an darempred
+  content_partner_contact_new_edit_form_tip: Rekis %{required_icon} eo an anv-bihan, an anv hag ar chomlec'h postel
   content_partner_contact_new_link: Ouzhpennañ un darempred nevez
   content_partner_contact_new_page_subheader: Ouzhpennañ un darempred
   content_partner_contact_update_successful_notice: Hizivaet eo bet an darempred.
@@ -1014,6 +1061,7 @@ br:
   content_summary_table_type_unreviewed_images_row: Niver a skeudennoù n'int ket bet kontrollet
   content_summary_table_type_unreviewed_text_row: Niver a elfennoù testenn n'int ket bet adwelet
   content_type: Seurt endalc'had
+  content_upload_url: http://%{domain}%{upload_attachment}
   contribute: Kemer perzh
   copy: Eilañ
   copy_of_name: Eilenn %{name}
@@ -1049,14 +1097,17 @@ br:
   curation_reason_placeholder: Munudoù ouzhpenn (diret)
   curator: mirour
   curator_admin_index_help: Klikit war un anv implijer evit gwelet profil an implijer dre ar munud. Gallout a rit kemmañ an aotreoù goursellet el live clade war pajennoù profil an implijerien. Ma vez troc'het an testenioù, klikit warno evit astenn ha diskwel an testenioù a-bezh.
+  curator_colon: "Mirour :"
   curator_level: Live goursellet
   curator_level_assistant_curator: Eilmirour
+  curator_level_master_curator: Mestr-mirour
   curator_level_with_indefinite_article_assistant_curator: un <strong>eilmirour</strong>
   curator_level_with_indefinite_article_full_curator: ur <strong>mestr-mirour</strong>
   curator_level_with_indefinite_article_master_curator: ur <strong>mestr-mirourr</strong>
   curator_profile: profil ar c'hulator
   curator_profile_menu: Profil ar c'hulator
   curator_question: Mirour ?
+  curator_status_changed_by: Statud mirour kemmet gant %{user} d'an %{date}
   curators: Mirourien
   curators_summary_learn_more_link: Deskit penaos mirout
   current_language: "Yezh : %{iso_code}"
@@ -1064,13 +1115,19 @@ br:
   currently_published: embannet evit bremañ
   daily: Bemdez
   dashboard: Taolenn-vourzh
+  data: Roadennoù
+  data_about_subtab_header: Diwar-benn ar roadennoù e KAV
   data_column_common_name: Anv-boutin
+  data_column_measurement: Muzul
   data_column_sci_name: Anv skiantel
   data_column_val: Talvoudenn
   data_column_value: Talvoudenn
   data_database_colon: "Roadennoù :"
+  data_glossary: Geriaoueg ar roadennoù
   data_master_database_colon: "Roadennoù pennañ :"
+  data_metadata_subtable_summary: Roadennoù ouzhpenn diwar-benn ar fed-mañ.
   data_object_ignore: ober vann deus an elfenn-mañ
+  data_object_undo_ignore: tennañ diwar ar roll dianavezout
   data_objects: 
     show: 
       meta_description_article: Pennad - %{dato_description}
@@ -1090,13 +1147,30 @@ br:
       meta_title: "%{dato_title} eus %{supplier}"
       tweet_text: "%{dato_title} eus %{supplier}"
   data_point_uri_source_missing: ar vammenn a vank
-  data_provided_by_content_partner: "Mammenn: %{whom}"
+  data_point_uri_summary_name: roadennoù diwar-benn %{taxon}
+  data_provided_by_content_partner: "Pourchaser : %{whom}"
+  data_provided_by_user: pourchaset gant %{whom}
+  data_ranges: Diverradurioù ar roadennoù
+  data_reference_subtable_summary: Daveoù ouzhpenn diwar-benn ar fed-mañ.
+  data_search: 
+    form: 
+      header_assistive: Furmskrid klask
+      new_search_link: Kregiñ gant un enklask nevez
+      or_range_header: Pe <span class="assistive">ebarzhiñ un takad</span>
+      refine_search_header: Finaat hoc'h enklask (diret)
+      search_suggestion_blue_flowers: Peseurt plant o deus bleunioù glas ?
+      search_suggestions_header: N'ouzoc'h ket pelec'h kregiñ ?
+      search_tools_hide_link: Kuzhat an dibarzhioù klask
+      search_tools_show_link: Diskouez an dibarzhioù klask
+      sort_header: Renkañ an disoc'hoù
   data_search_files: 
     from: Talvoud izelañ
     to: Talvoud uhelañ
     unit_uri: Unanenn vuzuliañ
+  data_search_link: Klask roadennoù skiantel e KAV
+  data_show_n_more_rows: Diskouez NNN ouzhpenn...
   data_subtab_about: Diwar-benn
-  data_subtab_glossary: Geriaoueg
+  data_subtab_glossary: Geriaoueg evit %{taxon}
   date_caps: Deiziad
   date_uploaded: Deiziad enporzhiañ
   datepicker: 
@@ -1189,14 +1263,22 @@ br:
   did_you_mean: "C'hoant ho peus da lavaret : %{suggestions} ?"
   disabled_for_now: DIWEREDEKAET EVIT AR MARE
   discover_link: Dizoleiñ
-  donation_amount_legend: Dibabit ar sammad a fellfe deoc'h reiñ
+  donate_link: Ober un donezon
+  donation_agree: mat eo din
+  donation_amount: "Hollad :"
+  donation_amount_legend: Peseurt sammad a fell deoc'h reiñ hiziv ?
   donation_amount_other_label: All
   donation_confirmation: Kadarnaat an donezon
   donation_error_no_amount: Diuzit sammad an donezon, mar plij.
   donation_error_only_numbers: Ebarzhit ur sammad dre implijout niveroù hepken, mar plij.
+  donation_intro_span: Bemdez e vez KAV o kreskiñ
   donation_sponsorship_fellowships_title: Kenvreuriezhoù
   donation_sponsorship_infrastructure_title: Danframmoù diazez
+  donation_title: Ober un donezon da Gelc'hgeriadur ar Vuhez
+  donation_transaction_details_amount: "Sammad :"
+  donations_more_ways_title: Bez' ez eus doareoù all da sikour KAV da greskiñ
   done_already: Bet graet dija
+  download_data: Pellgargañ roadennoù
   download_wav_file: Pellgargañ ar restr WAV
   dublin_core: Dublin Core
   edit: aozañ
@@ -1497,16 +1579,25 @@ br:
         source_url: URL al liamm
         toc_item: Danvez
       data_search: 
+        attribute: Diuzañ un doare
         max: Talvoud uhelañ
         max_placeholder: Ebarzhiñ un niver
+        max_placeholder_disabled: Takad diweredekaet
         max_with_val: "Talvoud uhelañ : %{val}"
         min: Talvoud izelañ
         min_placeholder: Ebarzhiñ un niver
+        min_placeholder_disabled: Takad diweredekaet
         min_with_val: "Talvoud izelañ : %{val}"
         q: Talvoud difer
+        q_more: Da skouer, heterotrofek.
         q_placeholder: Ebarzhiñ ur ger, ur frazenn pe un niver
         q_with_val: "Talvoud difer : %{val}"
+        taxon_name: Strollad taksonoù
         taxon_name_more: Da skouer, ebarzhit Trochilidae pe Balumed ha diuzit ar strollad a glot ganto.
+        taxon_name_placeholder: Ebarzhit anv ar strollad taksonoù evit diuzañ ar strollad
+        taxon_name_placeholder_value_removed: "%{taxon_group} tennet, diuzañ ur strollad nevez"
+        taxon_name_with_val: "Strollad taksonoù : %{val}"
+        total_results: "Hollad an disoc'hoù : %{total}"
         unit: Unanenn vuzuliañ
       eol_statistic: 
         date_one: Deiziad
@@ -1530,6 +1621,9 @@ br:
         browsable_status_with_colon: "Statud merdeiñ :"
         complete: Naetaet
         request_publish: Embann goulennet
+      known_uri_relationship: 
+        from_known_uri: Evit un URI anavezet
+        relationship_uri: Diuzañ un darempred
       news_item: 
         active: Embannet
         page_name: Anv dibar<small>(sifroù pe lizherennoù ISO latin diazez hag islinennet hepken)</small>
@@ -1680,12 +1774,14 @@ br:
   hide: kuzhat
   hierarchies_title: Urzhazoù
   hierarchy: Urzhaz
+  hierarchy_node_missing: Digarezit, diank eo roadennoù ar skoulm-mañ.
   hierarchy_roots_colon: "Gwrizioù urzhaz :"
   hierarchy_updated: Urzhaz hizivaet
   home: Degemer
   html_format: (furmad HTML)
   id: ID
   image: Skeudenn
+  image_crop_failed_error: Digarezit, c'hoarvezet ez eus ur fazi ha n'eus ket bet gallet krennañ ar skeudenn.
   image_cropped_notice: Krennet eo bet ar skeudenn.
   image_from_supplier: Skeudenn digant %{whom}
   image_is_no_longer_available: Ne c'haller ket tapout ar skeudenn ken
@@ -1715,10 +1811,16 @@ br:
   invite_members_label: Pediñ izili
   ip: IP
   ip_address: Chomlec'h IP
+  item_added_to_collection_notice: Ouzhpennet eo bet an elfenn d'an dastumad <em>%{collection_name}</em>
+  item_added_to_watch_collection_notice: "\"%{item_name}\" zo bet ouzhpennet da %{collection_name}."
   item_details_missing: Digarezit, ur fazi zo bet, n'eus ket bet gallet adtapout munudoù an elfenn.
   item_not_added_already_in_collection: Ouzhpennet eo bet c'hoazh an draezenn-mañ d'an dastumad.
+  item_not_added_to_collection_error: Digarezit, c'hoarvezet ez eus ur fazi, n'eus ket bet gallet ouzhpennañ an elfenn diuzet d'an dastumad.
+  item_not_added_to_itself_notice: Digarezit, ne c'hallit ket ouzhpennañ an dastumad <em>%{collection_name}</em> dezhañ e-unan.
+  item_not_updated_in_collection_error: Digarezit, c'hoarvezet ez eus ur fazi ha n'eus ket bet gallet hizivaat an elfenn dastumad.
   item_type_article: Pennad
   item_type_article_assistive: Ur pennad eo an draezenn-mañ
+  item_type_cms_page: Titouroù diwar-benn KAV
   item_type_collection: Dastumad
   item_type_collection_assistive: Ur dastumad eo an draezenn-mañ
   item_type_community: Kumuniezh
@@ -1743,6 +1845,7 @@ br:
   json_response: Respont JSON
   key: Alc'hwez
   known_uri_category_header: Rummadoù
+  known_uri_label_equivalent: zo kevatal da
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
     create_failed: Digarezit, ur fazi zo bet, n'eo ket bet ouzhpennet a darempred.
@@ -1751,12 +1854,19 @@ br:
   known_uris: 
     add_a_relationship: Ouzhpennañ un darempred
     equivalent_to: Darempredoù kevatalded
+    import_successful: Termenoù ontologiezh enporzhiet da vat
     name_placeholder_text: da sk. Kenlabourer
+    no_relationships: N'eus bet kavet darempred ebet evit an URI-mañ.
+    no_results: N'eus disoc'h ebet evit at stadeg diuzet
     ontology_information_url_placeholder_text: da sk. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: da sk. http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_category_for_stats: Diuzit ur rummad evit gwelet ar stadegoù, mar plij.
     preferred_for_equivalence_group: Gwellañ-deuet
+    relationships: Darempredoù
     select: diuzañ
     select_a_category_to_view_stats: "Diuzañ ur rummad evit gwelet ar stadegoù :"
+    uri_placeholder_text: da sk. http://purl.org/dc/terms/contributor
+  known_uris_sorted: Urzh hizivaet.
   label: Label
   language: "Yezh :"
   language_with_count: "%{language} (%{count})"
@@ -1775,6 +1885,7 @@ br:
       about_link_podcasts: Podskignadoù
       about_link_statistics: Stadegoù
       about_link_terms_of_use: Termenoù implijout
+      about_link_traitbank: Petra eo TraitBank ?
       about_link_what_is_eol: Petra eo KAB ?
       header_about: Diwar-benn EOL
       header_learn_more: Gouzout hiroc'h diwar-benn
@@ -1810,6 +1921,10 @@ br:
       questions_link_model_organism: Petra eo un organeg patrom ?
       questions_link_naming_species: Penaos eo bet anvet ar spesadoù?
       questions_link_species: Petra eo ur spesad ?
+    data_search: 
+      page_header: Furchal TraitBank
+    taxa: 
+      search_traitbank: Furchal TraitBank
   learn_about_collections: Penaos e c'hellan krouiñ unan ?
   learn_about_communities: Penaos e c'hellan kemer perzh ?
   learn_about_content_partners: Penaos e c'hellan dont da vezañ unan anezho ?
@@ -1822,6 +1937,7 @@ br:
   leave_a_comment: Lezel un evezhiadenn
   leave_community_button: Kuitaat ar gumuniezh-mañ
   leave_reply: Kuitaat ar respont
+  legend: "Alc'hwez :"
   license: Aotre-implijout
   license_all_rights_reserved: Pep gwir miret strizh
   license_cc_by: Creative Commons Deroadenn (CC BY)
@@ -1837,10 +1953,13 @@ br:
   license_cc_by_nc_sa_2_0: Creative Commons Deroadenn Angenwerzhel Kenrannañ Heñvel 2.0 (CC BY-NC-SA 2.0)
   license_cc_by_nc_sa_2_5: Creative Commons Deroadenn Angenwerzhel Kenrannañ Heñvel 2.5 (CC BY-NC-SA 2.5)
   license_cc_by_nc_sa_3_0: Creative Commons Deroadenn Angenwerzhel Kenrannañ Heñvel 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: Creative Commons Deroadenn Kenrannañ Heñvel (CC BY-SA 1.0)
   license_cc_by_sa_1_0: Creative Commons Deroadenn Kenrannañ Heñvel 1.0 (CC BY-SA 1.0)
   license_cc_by_sa_2_0: Creative Commons Deroadenn Anavezout ha kenrannañ par-ouzh-par 2.0 (CC BY-SA 2.0)
   license_cc_by_sa_2_5: Creative Commons Deroadenn Kenrannañ Heñvel 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: Creative Commons Deroadenn Kenrannañ Heñvel 3.0 (CC BY-SA 3.0)
+  license_cc_zero: Creative Commons — CC0
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Hollvedel
   license_gnu_fdl: Aotre-implijout Teuliaouiñ Frank GNU (GNU FDL)
   license_gnu_gpl: Aotre-implijout foran hollek GNU (GNU GPL)
   license_none: Hini ebet
@@ -1848,6 +1967,7 @@ br:
   license_public_domain: Domani foran
   link_more_about: Gouzout hiroc'h diwar-benn al liamm-mañ
   link_name: Anv al liamm
+  link_to_top_of_page: krec'h
   links_with_count: 
     one: "%{count} liamm"
     other: "%{count} liamm"
@@ -1869,6 +1989,8 @@ br:
   logo_header: Logo
   logout: Digevreañ
   main_database_colon: "Pennañ :"
+  main_master_database_colon: "Mestr pennañ :"
+  main_species_page_link_with_spaces: " &nbsp;&nbsp; pajenn ar spesad>>"
   maintained_by: kempennet gant
   make_an_editor: krouiñ ur merour
   manage_your_profile: Merañ ho profil
@@ -1889,6 +2011,7 @@ br:
     one: "%{count} Media"
     other: "%{count} Media"
   member_of: "ezel eus :"
+  member_of_professional_society_credential_option: Ezel eus ur c'hevredad micherel
   members: 
     index: 
       meta_description: Izili eus %{community_name}, ur gumuniezh eus Kelc'hgeriadur ar Vuhez.
@@ -1913,6 +2036,7 @@ br:
   meta_title_site_name: Holloueziadur ar Vuhez
   method: Hentenn
   methods: Hentennoù
+  missing_interpolation_argument_error: (troidigezh diglok)
   mobile: 
     contents: 
       explore_eol: Ergerzhit KaV
@@ -1954,9 +2078,12 @@ br:
   my_info: Ma zitouroù
   name: Anv
   name_colon: "Anv :"
+  name_preferred_for_language_help_tip: "%{icon} a verk an anv gwellañ-deuet evit pep yezh."
+  name_preferred_for_language_yes: Gwellañ-deuet
   name_preferred_taxonomically_for_source_yes: Gwellañ-deuet
   names: Anvioù
   names_children_column_header: Bugale
+  names_common_list_by_language_assistive_header: Anvioù poblek listennet dre yezh
   names_et_al: "%{names}, ha kement zo."
   names_filter: Anvioù
   names_name_column_header: Anv
@@ -1974,13 +2101,17 @@ br:
       meta_keywords: Keleier EOL, keleier eus Kelc'hgeriadur ar Vuhez
       meta_title: Keleier EOL
       page_title: Keleier EOL
+  news_missing_content_message: Digarezit, ne c'haller ket kavout ar bajenn-mañ er yezh diuzet %{selected_language}.
   news_missing_content_title: Mankout a ra an droidigezh
   next: War-lerc'h
+  "no": Ket
   no_active_members: N'eus ket bet trawalc'h a obererezh c'hoazh.
   no_answer: Ket
+  no_results_for_search_term: Disoc'h ebet evit "%{search_term}"
   none: hini ebet
   not_evaluated: N'eo ket bet priziet
   not_published_yet: n'eo ket embannet c'hoazh
+  not_specified: n'eo ket diferet
   note: "Notenn :"
   notes: Notennoù
   notes_not_shown_to_user: "Notennoù (n'int ket diskouezet d'an implijer) :"
@@ -2056,6 +2187,7 @@ br:
   page_statistics_and_tools: stadegoù ar bajenn hag ostilhoù
   page_urls: "URL(où) ar bajenn :"
   pages_admin_section_link: Merourien
+  pages_curator_section_link: Mirourien
   pages_title: Daveennoù
   pages_with_count: 
     one: "%{count}"
@@ -2067,29 +2199,41 @@ br:
   pagination_previous: Kent
   parameters: Arventennoù
   partner: Keveler
+  partner_information: Titouroù diwar-benn ar c'heveler
+  partner_web_site_colon: "Lec'hienn web ar c'heveler :"
   password_colon: "Ger-tremen :"
   pause: ehan
   percentage_of_children_with_images: "% a vugale gant skeudennoù"
   permission_granted: Aotre roet.
   permission_revoked: Aotre torret.
+  permissions_list_header: Aotreoù war KAV
   person_rating: Priziadenn an den
+  personal_profile_menu: Profil personel
+  please_confirm_your_donation_details: Kadarnait munudoù ho tonezon, mar plij
+  please_refresh: Freskait ho merdeer, mar plij, evit gwelet doare diwezhañ lec'hienn web KAV
   please_return_to_eol_homepage: Distroit da bajenn degemer KaV, mar plij
   please_wait: Gortozit mar plij...
+  posts_from_year: Kemennadennoù eus %{year}
+  preferred_common_name_advisory_information: Anv poblek gwellañ-deuet evit an takson-mañ.
   preview: rakwelet
   preview_changes: Rakwelet ar c'hemmoù
   previously_published: embannet dija
   profile: Profil
   profile_colon: "Profil :"
+  profile_picture: Skeudenn ar profil
   project: Raktres
   provider: Pourvezer
   providers: Pourvezerien
   public: Foran
   public_domain: domani foran
   publish: embann
+  publish_changes: Embann ar c'hemmoù
+  publish_requested: Embann goulennet
   published: Embannet
   published_parens: (Embannet)
   punctuation_comma: ","
   punctuation_semi_colon: ;
+  quarterly: Bep tri miz
   recent_activities: 
     index: 
       list_header: Ar 7 devezh ziwezhañ
@@ -2134,9 +2278,16 @@ br:
   recent_activity_mailer: 
     data_search_file_download_ready: 
       header: Prest eo ho pellgargadenn !
+      subject: Prest eo hoc'h enklask KAV da vezañ pellgarget
   recent_updates: Hizivadennoù diwezhañ
+  recently_used_link: Implijet nevez zo
   recently_visited: Gweladennet nevez zo
   recipients: Degemererien
+  recognized_by_as_a_rank: "%{recognized_by} evel un %{taxon_rank}"
+  recognized_by_from_source: "%{recognized_by} e-barzh %{source}"
+  recognized_by_from_source_as_a_rank: "%{recognized_by} e-barzh %{source} evel un %{taxon_rank}"
+  record_count: Niver a enrolladennoù
+  record_not_found: "[n'eo ket bet kavet an enrolladenn]"
   reference: Daveenn
   references_cabs_colon: "Daveennoù :"
   reindex_page_button: Advenegeriñ ar bajenn
@@ -2147,8 +2298,16 @@ br:
   required: Rekis
   required_form_element: Rekis
   resource: Mammenn
+  resource_import_frequency: 
+    bimonthly: Div wech ar miz
+    monthly: Bep miz
+    once: Enporzhiañ ur wech
+    quarterly: Bep tri miz
+    weekly: Bep sizhun
   resources: Mammennoù
   response: Respont
+  response_formats: Fumradoù ar respont
+  resque_status_header: "Statud Resque :"
   results: Disoc'hoù
   results_per_page: "Disoc'hoù dre bajenn :"
   return: distreiñ
@@ -2157,6 +2316,7 @@ br:
   revoke_permission: terriñ
   rights: Gwirioù
   save: Enrollañ
+  save_comment_lowercase: enrollañ an evezhiadenn
   save_curated_association_submit_button: Enrollañ ar gevredigezh
   save_email_settings: enrollañ an arventennoù postelerezh
   scientific_name: Anv skiantel
@@ -2164,15 +2324,19 @@ br:
   search_by_term_page_title: "Klask: %{term}"
   search_field_common_name: Anv-boutin
   search_field_label: Furchal KaV
+  search_field_preferred_common_name: Anv poblek gwellañ-deuet
+  search_field_preferred_scientific: Anv skiantel gwellañ-deuet
   search_field_synonym: Heñvelster
   search_next_label: War-lerc'h
   search_placeholder: Klask e-barzh EOL ...
   search_previous_label: Kent
   search_results: Disoc'hoù enklask
   search_the_site: Klask el lec'hienn
+  searching_within_clade: e-barzh %{clade_name}
   see_all_maps_link: Gwelet an holl gartennoù
   see_all_media_link: Gwelet an holl vediaoù
   see_all_of_your_collections: Gwelet hoc'h holl zastumadoù
+  see_all_of_your_communities: Gwelet hoc'h holl gumuniezhoù
   see_notes: gwelet an notennoù
   select_colon: "Diuzañ :"
   select_topic: Dibabit ur sujed
@@ -2196,7 +2360,9 @@ br:
   share_a_collection: Rannañ un dastumad
   show: Diskouez
   show_full_tree: diskouez ar wezenn glok...
+  show_more_row_data_link: muioc'h
   show_status_message: Diskouez ar gemennadenn statud
+  showing_all_error_logs: Diskouez <b>an holl fazioù</b>
   shown_to_the_user_parens: (diskouezet d'an implijer)
   sign_in: Kevreañ
   sign_out: Digevreañ
@@ -2218,6 +2384,8 @@ br:
   sort_by_reverse_alphabetical_option: Dre urzh kontrol al lizherenneg
   sort_by_richness_option: Pinvidigezh
   sort_by_status_option: Statud
+  sort_by_value_ascending: Talvoudoù izel da gentañ
+  sort_by_value_descending: Talvoudoù uhel da gentañ
   sound_file: Restr son
   sound_from: son eus
   sound_from_supplier: Son digant %{whom}
@@ -2262,7 +2430,12 @@ br:
         meta_title_with_common_name: Dastumoù %{preferred_common_name} (%{scientific_name})
         tweet_text: Dastumoù %{scientific_name}
       curators: 
+        hierarchy_entry: 
+          meta_title: Mirourien eus %{scientific_name} evel m'int bet urzhiet gant %{hierarchy_provider}
+          tweet_text: Mirourien eus %{scientific_name} evel m'int bet urzhiet gant %{hierarchy_provider}
+        meta_title: Mirourienj eus %{scientific_name}
         meta_title_with_common_name: Mailhed war %{preferred_common_name} (%{scientific_name})
+        tweet_text: Mirourien eus %{scientific_name}
       index: 
         hierarchy_entry: 
           meta_description: Rannañ an titouroù hag ar prizachañ e %{scientific_name}, %{hierarchy_provider} evel ma vezont rummet gant %{hierarchy_provider}.
@@ -2280,10 +2453,21 @@ br:
         tweet_text: Tud dedennet gant %{scientific_name}
     data: 
       index: 
+        hierarchy_entry: 
+          meta_description: Fedoù diwar-benn %{scientific_name} evel m'int bet renket gant %{hierarchy_provider} e Kelc'hgeriadur ar Vuhez
+          meta_title: Fedoù diwar-benn %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
+          meta_title_with_common_name: Fedoù diwar-benn %{preferred_common_name} (%{scientific_name} evel m'int bet renket gant %{hierarchy_provider})
+          tweet_text: Fedoù diwar-benn %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
+        meta_title: Muzulioù ha fedoù diwar-benn %{scientific_name}
+        meta_title_with_common_name: Muzulioù ha fedoù diwar-benn  %{preferred_common_name} (%{scientific_name})
         tweet_text: Fedoù diwar-benn %{scientific_name}
     details: 
       index: 
-        meta_description: Fedoù diwar-benn %{scientific_name} e Kelc'hgeriadur ar vuhez
+        hierarchy_entry: 
+          meta_title: Deskrivadurioù ha pennadoù diwar-benn %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
+          meta_title_with_common_name: Deskrivadurioù ha pennadoù diwar-benn %{preferred_common_name} (%{scientific_name} evel m'int bet renket gant %{hierarchy_provider})
+          tweet_text: Pennadoù diwar-benn %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
+        meta_description: Deskrivadurioù ha pennadoù diwar-benn %{scientific_name} e Kelc'hgeriadur ar vuhez
         meta_title: Deskrivadurioù ha pennadoù diwar-benn %{scientific_name}
         meta_title_with_common_name: Deskrivadurioù ha pennadoù diwar-benn %{preferred_common_name} (%{scientific_name})
         tweet_text: Pennadoù diwar-benn %{scientific_name}
@@ -2293,9 +2477,10 @@ br:
           meta_description: Lennegezh ha titouroù BHL a denn da %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider} e Kelc'hgeriadur ar Vuhez. Lennit ar pennadoù BHL a denn da %{scientific_name} e Kelc'hgeriadur ar Vuhez.
           meta_description_with_common_name: Lennegezh ha titouroù BHL a denn da %{preferred_common_name}, anvet ivez %{scientific_name} evel ma vezont rummet gant  %{hierarchy_provider} e Kelc'hgeriadur ar Vuhez. Lennit ar pennadoù BHL a denn da %{preferred_common_name}e Kelc'hgeriadur ar Vuhez.
           meta_title: Lennegezh BHL e %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
-          meta_title_with_common_name: Lennegezh BHL e %{preferred_common_name} evel ma vezont rummet gant %{hierarchy_provider}
+          meta_title_with_common_name: Lennegezh BHL e %{preferred_common_name} (%{scientific_name}evel ma vezont rummet gant %{hierarchy_provider})
           tweet_text: "Lennegezh eus #BHL e %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}"
         meta_title: Arroudoù BHL evit %{scientific_name}
+        meta_title_with_common_name: Daveoù BHL evit %{preferred_common_name} (%{scientific_name})
       show: 
         hierarchy_entry: 
           meta_title: Lennegezh e %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
@@ -2309,7 +2494,9 @@ br:
         hierarchy_entry: 
           meta_title: Kartennoù eus %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
           meta_title_with_common_name: Kartennoù eus %{preferred_common_name} %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
+          tweet_text: Kartennoù evit %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
         meta_description: Titouroù douaroniel diwar-benn %{scientific_name}. Lec'hioù a vevont enno er bed.
+        meta_keywords: Lec'hioù-annez %{scientific_name}, pelec'h emañ %{scientific_name} o vevañ
         meta_title: Kartennoù evit %{scientific_name}
         meta_title_with_common_name: Kartennoù evit %{preferred_common_name} (%{scientific_name})
         tweet_text: Kartenn evit %{scientific_name}
@@ -2318,10 +2505,12 @@ br:
         hierarchy_entry: 
           meta_description: Skeudennoù ha videoioù eus %{scientific_name}  evel ma vezont rummet e %{hierarchy_provider}.
           meta_title: Sonioù, filmoù & luc'hskeudennoù eus %{scientific_name} evel m'int bet renket gant %{hierarchy_provider}
+          tweet_text: Mediaoù gant %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
         tweet_text: Skeudennoù, videoioù ha sonioù eus %{scientific_name}
     names: 
       common_names: 
         hierarchy_entry: 
+          meta_description: Anvioù poblek liammet ouzh %{scientific_name} evel m'int bet renket gant %{hierarchy_provider}.
           meta_keywords: Anvioù lec'hel evit %{scientific_name}
           meta_keywords_with_common_name: Anv skiantel evit %{preferred_common_name}, anvioù lec'hel evit %{scientific_name}
           meta_title: Anvioù pobek eus %{scientific_name} rummet gant %{hierarchy_provider}
@@ -2334,9 +2523,14 @@ br:
         meta_title: Anvioù poblek evit %{scientific_name}.
         meta_title_with_common_name: Anvioù poblek evit %{preferred_common_name} (%{scientific_name})
         tweet_text: Anvioù poblek evit %{scientific_name}.
+      index: 
+        hierarchy_entry: 
+          tweet_text: Anvioù a denn da %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
+        tweet_text: Titouroù taksonomek evit %{scientific_name}
       synonyms: 
         hierarchy_entry: 
           meta_keywords: Heñvelsterioù %{scientific_name}
+          meta_keywords_with_common_name: Heñvelsterioù eus %{preferred_common_name}, heñvelsterioù eus %{scientific_name}
           tweet_text: Heñvelsterioù da  %{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}
         meta_description: Heñvelsterioù da %{scientific_name}.
         meta_description_with_common_name: Heñvelsterioù da %{preferred_common_name}, zo %{scientific_name} e anv skiantel.
@@ -2347,14 +2541,23 @@ br:
         tweet_text: Heñvelsterioù da %{scientific_name}
     overview: 
       show: 
+        hierarchy_entry: 
+          meta_title: "%{scientific_name} renket gant %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} renket gant %{hierarchy_provider})"
         meta_description: Titouroù diwar-benn %{scientific_name} e Kelc'hgeriadur ar Vuhez.
         meta_title: "%{scientific_name} - Titouroù diwar-benn %{scientific_name}"
         meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Titouroù diwar-benn %{preferred_common_name}"
         tweet_text: Titouroù diwar-benn %{scientific_name}
     resources: 
       biomedical_terms: 
+        meta_title: Termenoù bevvezegel evit %{scientific_name}
+        meta_title_with_common_name: Termenoù bevvezegel evit %{preferred_common_name} (%{scientific_name})
         tweet_text: Termenoù bevvezegel evit %{scientific_name}
       education: 
+        hierarchy_entry: 
+          meta_title: Binvioù deskiñ evit %{scientific_name} evel m'int bet renket gant %{hierarchy_provider}
+          meta_title_with_common_name: Binvioù deskiñ evit %{preferred_common_name} (%{scientific_name} evel m'int bet renket gant %{hierarchy_provider})
+          tweet_text: Binvioù deskiñ evit %{scientific_name} evel m'int bet renket gant %{hierarchy_provider}
         meta_title: Danvez deskiñ evit %{scientific_name}
         meta_title_with_common_name: Danvez deskiñ evit %{preferred_common_name} (%{scientific_name})
         tweet_text: Danvez deskiñ evit %{scientific_name}
@@ -2362,10 +2565,15 @@ br:
         meta_title: Danvez anaout evit %{scientific_name}
         meta_title_with_common_name: Danvezioùt-anaout evit %{preferred_common_name} (%{scientific_name})
         tweet_text: danvezioù-anaout evit %{scientific_name}
+      nucleotide_sequences: 
+        meta_title: Sekañsoù nukleotid evit %{scientific_name}
+        meta_title_with_common_name: Sekañsoù nukleotid evit %{preferred_common_name} (%{scientific_name})
+        tweet_text: Sekañsoù nukleotid evit %{scientific_name}
       show: 
         hierarchy_entry: 
           meta_description: Roll ar bourchaserien hag ar roadennoù tarzh evit %{scientific_name} evel ma'z int rummet gant %{hierarchy_provider}.
           meta_description_with_common_name: Roll ar bourchaserien hag ar roadennoù tarzh evit %{preferred_common_name} (%{scientific_name} evel ma vezont rummet gant %{hierarchy_provider}).
+          meta_title: Pourchaserien roadennoù evit %{scientific_name} evel m'int renket gant  %{hierarchy_provider}
     updates: 
       show: 
         hierarchy_entry: 
@@ -2415,6 +2623,7 @@ br:
   this_image_is_unpublished: N'eo ket embannet ar skeudenn-mañ.
   this_image_map_cannot_be_curated_because_unpublished: Ne c'hall ket ar gartenn-mañ bezañ goursellet rak n'eo ket embannet.
   this_image_map_is_unpublished: N'eo ket embannet ar gartenn-mañ.
+  this_link_cannot_be_curated_because_unpublished: Ne c'haller ket mirout al liamm-mañ rak n'eo ket embannet.
   this_link_is_unpublished: N'eo ket embannet al liamm-mañ.
   this_map_cannot_be_curated_because_unpublished: Ne c'hall ket ar gartenn-mañ bezañ goursellet rak n'eo ket embannet.
   this_map_is_unpublished: N'eo ket embannet ar gartenn-mañ.

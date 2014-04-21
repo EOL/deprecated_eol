@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Toliño
+# Author: Vivaelcelta
 gl: 
   translated_activities-name-activity_id-19: perfil
   translated_activities-name-activity_id-50: non é de confianza
@@ -166,7 +167,7 @@ gl:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familia
-  translated_resource_statuses-label-resource_status_id-1: Cargando
+  translated_resource_statuses-label-resource_status_id-1: Subindo
   translated_resource_statuses-label-resource_status_id-10: Publicado
   translated_resource_statuses-label-resource_status_id-11: Pendente de publicación
   translated_resource_statuses-label-resource_status_id-12: Pendente de anular a publicación

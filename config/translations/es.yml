@@ -32,6 +32,7 @@
 # Author: VegaDark
 # Author: Vivaelcelta
 es: 
+  0: después de que hayas revisado nuestra capacidad de datos."
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
   a_maximum_of_30_results_are_returned: se devuelven un máximo de 30 resultados por página. Este parámetro permite obtener más páginas de resultados si hay más de 30 resultados encontrados
@@ -2117,7 +2118,7 @@ es:
   donation_sponsorship_preamble: "Si quieres aprender obtener más información sobre los programas de patrocinio que hay disponibles o quieres hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">correo electrónico</a> o por teléfono al 1 (202) 633-8730 (en los Estados Unidos). Entre las oportunidades para donaciones específicas tenemos:"
   donation_title: Donar a la Enciclopedia de la Vida
   donation_transaction_details_amount: "Cantidad:"
-  donation_you_are_about_to: Está a punto de donar a la Enciclopedia de la Vida. Por favor, presione el botón "acepto" para continuar a sitio seguro de procesamiento de pagos, donde se le pedirá que introduzca la información de su tarjeta de crédito. Utilice el botón "atrás" de su navegador para cancelar.
+  donation_you_are_about_to: Está a punto de donar a la Enciclopedia de la Vida. Por favor, presione el botón "acepto" para continuar a sitio seguro de procesamiento de pagos, donde se le pedirá que introduzca la información de su tarjeta de crédito.
   donations_more_ways_title: Hay muchas maneras de ayudar a crecer EOL
   donations_temporarily_disabled: Estamos apenados, pero actualmente no se aceptan donaciones en línea. Póngase en contacto con la Secretaría de EOL en 'secretariat arroba eol.org' para hacer una donación.
   done_already: Ya lo ha hecho
@@ -2584,6 +2585,10 @@ es:
         complete_more: "Una jerarquía de supervisión asume que cada entrada está destinada a ser única, es decir, las cadenas que coinciden en el nombre serán tratadas como homónimas. <strong>Advertencia: no cambie este atributo a menos que esté seguro de la condición de homónimos en la jerarquía, haciéndolo así que podría poner en peligro la integridad de los datos.</strong>"
         request_publish: Publicar lo solicitado
         request_publish_more: Indica si existe una solicitud pendiente para promover esta jerarquía hasta convertirla en una de las principales jerarquías navegables en EOL.
+      known_uri_relationship: 
+        from_known_uri: Para URI conocido
+        relationship_uri: Seleccionar relación
+        to_known_uri: Introducir y seleccionar URI de destino
       news_item: 
         active: Publicado
         active_more: Las noticias publicadas serán visibles públicamente en la fecha y hora seleccionadas. Desmarca <em>publicado</em> si deseas impedir que los usuarios generales vean versiones de esta noticia en cualquier idioma.
@@ -2910,13 +2915,15 @@ es:
     import_successful: Términos de ontología importados con éxito
     more_than_one_field_mapped_to_type: Más de un atributo está asignado a "%{type}"
     name_placeholder_text: por ejemplo, Colaborador
+    no_relationships: No hay relaciones encontradas para este URI.
     no_results: No hay resultados para la estadística seleccionada
     ontology_information_url_placeholder_text: por ejemplo http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: por ejemplo http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_category_for_stats: Selecciona una categoría para ver las estadísticas.
     please_select_field_types: Por favor, seleccione una asignación para cada atributo
-    please_select_from_the_menu: Por favor, seleccione del menú de arriba
     please_select_uris_to_import: Por favor seleccione la importación de URI
     preferred_for_equivalence_group: Preferido
+    relationships: Relaciones
     relationships_from_this_uri: Relaciones de este URI
     relationships_to_this_uri: Relaciones a este URI
     select: seleccionar
@@ -3269,6 +3276,7 @@ es:
   newsfeed_help_for_taxon: El suministro de noticias de esta página Taxón EOL recoge cambios asociados con elementos que aparecen en ella, incluyendo las acciones de comisario y los comentarios de los usuarios de EOL.
   newsfeed_help_for_watchlist: La lista Watch EOL Newsfeed reúne actualizaciones asociadas con los elementos en la lista del propietario Watch EOL, incluidas las actividades de su propietario.
   next: Siguiente
+  "no": 'No'
   no_active_members: No ha habido suficiente actividad todavía.
   no_answer: 'No'
   no_classificaitons_selected: No hay clasificaciones seleccionadas. No hay nada que trasladar.
@@ -4365,6 +4373,7 @@ es:
   translation_saved: Se ha guardado la traducción
   translations_submit: Mira la traducción
   trigger_search_term_entered_by: ejecutar el término de búsqueda introducido por el usuario
+  "true": Verdadero
   true_label: Verdadero
   truncated_comment_omission: ... <a href='%{link}'>más</a>
   truncated_comment_omission_linkless: ...
@@ -4387,6 +4396,8 @@ es:
   unknown_data_object_title: Objeto de datos desconocido
   unknown_hierarchy: Jerarquía desconocida
   unknown_type_not_associated_with_any_published_entries: Estos datos no están asociados con ninguno de los taxones publicados.
+  unpredictable but we invite you to explore: 
+    " Please fill out our <a href='https": //www.surveymonkey.com/s/9FDTDQP'>encuesta</a>
   unpublished: Sin publicar
   unpublished_collections_with_count: 
     one: "%{count} ocultar colección"

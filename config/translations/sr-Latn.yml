@@ -2284,6 +2284,7 @@ sr-Latn:
   value_empty: (prazno)
   values: Vrednosti
   version_1_0_uses_fields_from_the_latest_version: prvo izdanje koristi polja iz poslednjeg izdanja šeme %{link}
+  versions_colon: "Verzije:"
   vetted: Provereno
   video_alt_text: Ovaj %{vetted_status} video-snimak predstavlja takson %{taxon_name}
   video_from: video iz

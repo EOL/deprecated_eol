@@ -1306,6 +1306,7 @@ it:
   donation_confirmation: Conferma donazione
   donation_error_no_amount: Seleziona l'importo della donazione.
   donation_error_only_numbers: Si prega di inserire una quantità utilizzando solo numeri.
+  donation_you_are_about_to: Stai per donare alla Enciclopedia della Vita. Premi "accetto" per passare ad un sito di pagamenti sicuri, dove ti verrà chiesto di inserire i dati della tua carta di credito.
   edit: modifica
   edit_comment: Modifica commento
   edit_comment_lowercase: modifica commento
@@ -1592,6 +1593,10 @@ it:
         complete_more: "Per un'accurata gerarchia si assume che ogni voce sia univoca, quindi la corrispondenza del nome delle stringhe saranno trattati come omonimi. <strong>Attenzione: non modificare questo attributo a meno che non si è certi dello stato degli omonimi nella gerarchia, facendo ciò potrebbe compromettere l'integrità dei dati.</strong>"
         request_publish: Pubblicazione richiesta
         request_publish_more: Indica se c'è una richiesta in sospeso per promuovere questa gerarchia a diventare una delle gerarchie navigabili principali su EOL.
+      known_uri_relationship: 
+        from_known_uri: Per un URI conosciuto
+        relationship_uri: Seleziona una relazione
+        to_known_uri: Immetti e seleziona un target URI
       news_item: 
         active: Pubblicato
       open_authentication: 
@@ -1799,6 +1804,9 @@ it:
   join_eol_community_html: Entra a far parte della comunità <abbr title="Encyclopedia of Life">EOL</abbr>
   jsonp_by_adding_a_callback_parameter: ... e JSONP con l'aggiunta di un parametro di callback
   just_pages_with_pictures_and_text: Solo quelle pagine con immagini e testo
+  known_uris: 
+    no_relationships: Non sono state trovate relazioni con questo URI
+    please_select_category_for_stats: Seleziona una categoria per vedere le statistiche.
   label: Etichetta
   language: "Lingua:"
   language_with_count: "%{language} (%{count})"

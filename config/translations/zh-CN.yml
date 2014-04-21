@@ -9,6 +9,7 @@
 # Author: Linforest
 # Author: Linxue9786
 # Author: Liuxinyu970226
+# Author: Liye
 # Author: Luotiancheng
 # Author: Qiyue2001
 # Author: Shandongfx
@@ -1631,6 +1632,7 @@ zh-CN:
   donation_sponsorship_preamble: "\"如果您想了解更多有关赞助的项目，或想要再次赠送礼品，请通过<a href=\"\"mailto:%{email_address}\""
   donation_title: 捐助Encyclopedia of Life
   donation_transaction_details_amount: 金额：
+  donation_you_are_about_to: 您将捐助生命百科。请点击“统计”以前往安全的支付页面，您会被要求输入信用卡信息。
   donations_more_ways_title: 还有很多方法可以帮助EOL成长
   done_already: 已完成
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 不显示未知的注册日期（V1版本用户，在2009年1月5日之前）
@@ -2026,14 +2028,18 @@ zh-CN:
         min: 最小值
         min_placeholder: 输入一个数字
         min_placeholder_disabled: 禁用范围
+        min_with_val: "最低值: %{val}"
         q: 特定值
         q_more: 例如，异养的。
         q_placeholder: 输入一个单词、词组或数字
         q_placeholder_disabled: 输入的范围，禁用的特定值
+        q_with_val: "特定值: %{val}"
         taxon_name: 分类群组
         taxon_name_more: 例如，输入蜂鸟或鲸，并选择与之相匹配的组别。
         taxon_name_placeholder: 输入分类组的名称来选择其所属组别
         taxon_name_placeholder_value_removed: "%{taxon_group} 已被删除，请选择新的组别"
+        taxon_name_with_val: "分类组: %{val}"
+        total_results: "总的结果: %{total}"
         unit: 度量单位
       eol_statistic: 
         date_one: 日期
@@ -2059,6 +2065,10 @@ zh-CN:
         complete_more: "已审核的分类树假定每一个分类节点都是唯一的，例如：名称字符串相同的物种会被认为是异物同名。<strong>警告: 请不要更改这个属性，除非您已确认分类树中的异物同名状态，这么做会破坏数据的完整性。</strong>"
         request_publish: 发布已请求
         request_publish_more: 表明是否有待定的请求，申请将此分类树设置为EOL中的可浏览的基本分类系统。
+      known_uri_relationship: 
+        from_known_uri: 用于已知URI
+        relationship_uri: 选择关系
+        to_known_uri: 输入并选择目标URI
       news_item: 
         active: 已发布
         active_more: 已发布的页面将在选定的日期和时间公开可见。如果你想要阻止普通用户查看该页面任何语言的版本，请取消选中<em>已发布</em>。
@@ -2363,13 +2373,15 @@ zh-CN:
     import_successful: 本体条件已被成功导入
     more_than_one_field_mapped_to_type: 多个特性被绘制到"%{type}"
     name_placeholder_text: 例如：参与者
+    no_relationships: 没有找到用于此URI的关系。
     no_results: 被选择的统计数据没有结果
     ontology_information_url_placeholder_text: 例如 http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: 例如 http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_category_for_stats: 请选定一个类别来查看统计信息。
     please_select_field_types: 请为每个属性选择一个映射
-    please_select_from_the_menu: 请从上面的菜单中选择
     please_select_uris_to_import: 请选择 URIs 导入
     preferred_for_equivalence_group: 首选的
+    relationships: 关联
     relationships_from_this_uri: 由这个URI引出的关系
     relationships_to_this_uri: 与这个URI的关系
     select: 选择
@@ -2400,6 +2412,7 @@ zh-CN:
       about_link_podcasts: 播客
       about_link_statistics: 统计
       about_link_terms_of_use: 使用条款
+      about_link_traitbank: 什么是TraitBank！
       about_link_what_is_eol: EOL是什么？
       header_about: 关于EOL
       header_learn_more: 了解更多
@@ -2439,6 +2452,8 @@ zh-CN:
     data_search: 
       page_header: 搜索TraitBank
       page_header_results: TraitBank 搜索结果
+    footer: 
+      google_plus: Google+ 是生命百科全书
     taxa: 
       search_traitbank: 搜索 TraitBank
       search_within_clade: 在分化支内搜索
@@ -3291,30 +3306,30 @@ zh-CN:
         meta_description: 网络生命大百科中关于%{scientific_name}的信息
         meta_description_no_data: 生物大百科全书中没有提供任何有关 %{scientific_name}的资讯。EOL 邀请您提供有关 %{scientific_name}的信息， 例如养护、 分布、 生态、 栖息地、 形态等。
         meta_description_with_chapter_list: 网络生命大百科中关于%{scientific_name}的信息。包括%{chapter_list}。
-        meta_description_with_common_name: 关于%{preferred_common_name}的信息，在网络生命大百科中为%{scientific_name}。
+        meta_description_with_common_name: 关于%{preferred_common_name}的描述和文章，在网络生命大百科中为%{scientific_name}。
         meta_description_with_common_name_no_data: 生物大百科全书中对被 %hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何资讯。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的信息，例如养护、 分布、 生态、 栖息地、 形态等。
-        meta_description_with_common_name_with_chapter_list: 关于%{preferred_common_name}的信息，在网络生命大百科中为%{scientific_name}。包括%{chapter_list}的信息
-        meta_title: 关于%{scientific_name}的信息
-        meta_title_with_common_name: 关于%{preferred_common_name}(%{scientific_name})的事实
-        tweet_text: 关于%{scientific_name}的信息
+        meta_description_with_common_name_with_chapter_list: 关于%{preferred_common_name}的描述，在网络生命大百科中为%{scientific_name}。包括%{chapter_list}
+        meta_title: 关于%{scientific_name}的说明和文章
+        meta_title_with_common_name: 关于%{preferred_common_name}(%{scientific_name})的说明和文章
+        tweet_text: 关于%{scientific_name}的文章
     literature: 
       bhl: 
         hierarchy_entry: 
           meta_description: 网络生命大百科中关于%{scientific_name}的文献和信息，分类系统由%{hierarchy_provider}提供。阅读在网络生命大百科中关于%{scientific_name} 的文章。
           meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和信息，分类系统由网络生命大百科的%{hierarchy_provider}提供。阅读在网络生命大百科中关于%{preferred_common_name}的文章。"
-          meta_title: 生物多样性遗产图书馆中关于%{scientific_name}的文献资料，由%hierarchy_provider}分类界定
-          meta_title_with_common_name: 生物多样性遗传图书馆中%{preferred_common_name}（%{scientific_name}）的引用的文献（学名由%{scientific_nam}提供）
+          meta_title: 生物多样性遗产图书馆中关于%{scientific_name}的文献资料，由%{hierarchy_provider}分类界定
+          meta_title_with_common_name: 生物多样性遗传图书馆中%{preferred_common_name}（%{scientific_name}）的引用的文献（学名由%{hierarchy_provider}提供）
           tweet_text: 来自于#BHL 的关于%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供
         meta_title: 生物多样性遗传图书馆中%{scientific_name}的引用
-        meta_title_with_common_name: BHL中关于%{preferred_common_name}的参考文献（%{scientific_nam}）
+        meta_title_with_common_name: BHL中关于%{preferred_common_name}的参考文献（%{scientific_name}）
         tweet_text: 来自于#BHL 的关于%{scientific_name}的文献
       show: 
         hierarchy_entry: 
           meta_title: "%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供"
           meta_title_with_common_name: 关于%{preferred_common_name}的书籍 (%{scientific_name}的分类 由%{hierarchy_provider}提供)
           tweet_text: "%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供"
-        meta_description: 网络生命大百科中关于%{scientific_name}的文献和信息。阅读在网络生命大百科中关于%{scientific_name} 的文章。
-        meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和信息。阅读在网络生命大百科中关于%{preferred_common_name}的文章。"
+        meta_description: 网络生命大百科中关于%{scientific_name}的文献和书籍。阅读在网络生命大百科中关于%{scientific_name} 的文献。
+        meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和书籍。阅读在网络生命大百科中关于%{preferred_common_name}的文献。"
         meta_keywords: "%{scientific_name}的条目、%{scientific_name}的图书、%{scientific_name}的书目、%{scientific_name}的作品"
         meta_keywords_with_common_name: "%{preferred_common_name} 文章、 %{preferred_common_name} 书籍、 %{preferred_common_name} 文学作品、 %{scientific_name} 文章、 %{scientific_name}书籍、 %{scientific_name} 文献目录、 %{scientific_name} 文学作品"
         meta_title: 关于%{scientific_name}的文章和书籍

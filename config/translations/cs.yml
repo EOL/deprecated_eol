@@ -1375,7 +1375,6 @@ cs:
     more_than_one_field_mapped_to_type: K typu "%{type}" je přiřazen více než jeden atribut
     no_results: Ke zvolené statistice nejsou žádné výsledky
     please_select_field_types: Vyberte prosím přiřazení ke každému atributu
-    please_select_from_the_menu: Vyberte prosím z nabídky nahoře
   label: Popisek
   language: "Jazyk:"
   languages: Jazyky

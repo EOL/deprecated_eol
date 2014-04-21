@@ -3,6 +3,7 @@
 # Export driver: syck-pecl
 # Author: McDutchie
 # Author: Toliño
+# Author: Vivaelcelta
 gl: 
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
@@ -3928,7 +3929,7 @@ gl:
   updated_community: A comunidade actualizouse correctamente
   updated_member: O membro actualizouse correctamente.
   updates: Actualizacións
-  upload: Cargar
+  upload: Subir
   upload_content: cargar contidos
   upload_logo_help_text: Esta será a imaxe principal que representará a comunidade; pode ser calquera cousa que queiras.
   uploaded_by: Cargado por

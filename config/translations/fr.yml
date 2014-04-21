@@ -33,6 +33,7 @@
 # Author: Wyz
 # Author: Zcqsc06
 fr: 
+  0: après avoir examiné nos capacités de données. »
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
   a_maximum_of_30_results_are_returned: un maximum de 30 résultats est renvoyé par page. Ce paramètre vous permet de ramener davantage de pages de résultats s'il y en a plus de 30
@@ -2073,7 +2074,7 @@ fr:
   donation_sponsorship_preamble: "Si vous désirez en savoir davantage sur les programmes spécifiques disponibles pour le parrainage, ou souhaitez faire un don récurrent, veuillez contacter le Secrétariat de l’Encyclopédie de la Vie par <a href=\"mailto:%{email_address}\">courriel</a> ou par téléphone au 1 (202) 633-8730 (aux États-Unis). Les occasions pour des dons ciblés comprennent :"
   donation_title: Faire un don à l’Encyclopédie de la Vie
   donation_transaction_details_amount: "Montant :"
-  donation_you_are_about_to: Vous êtes sur le point de faire un don à l’Encyclopédie de la Vie. Veuillez appuyer sur « Accepter » pour continuer vers un site de paiement sécurisé, où il vous sera demandé d’entrer vos coordonnées bancaires. Utilisez le bouton « Retour » du navigateur pour annuler.
+  donation_you_are_about_to: Vous êtes sur le point de faire un don à l’Encyclopédie de la Vie. Veuillez appuyer sur « Accepter » pour continuer vers un site de paiement sécurisé, où il vous sera demandé d’entrer vos coordonnées bancaires.
   donations_more_ways_title: Il, y a d autres moyens d aider EdlV à grandir
   donations_temporarily_disabled: Nous sommes profondément désolés, mais les dons ne sont actuellement pas acceptées en ligne. Veuillez contacter le secrétariat de EdlV à 'secretariat at eol.org' pour faire un don.
   done_already: Déjà effectué
@@ -2526,6 +2527,10 @@ fr:
         complete_more: "Une hiérarchie supervisée suppose que chaque entrée est unique, c’est-à-dire que les chaînes de nom correspondantes seront traitées comme des homonymes. <strong>AVERTISSEMENT : ne modifiez pas cet attribut sauf si vous êtes certain de la cohérence des homonymes dans la hiérarchie car cela pourrait compromettre l’intégrité des données.</strong>"
         request_publish: Publication demandée
         request_publish_more: Indique si une hiérarchie est en demande de promotion pour qu’elle devienne l’une des principales hiérarchies navigables sur l’EdlV.
+      known_uri_relationship: 
+        from_known_uri: Pour un URI connu
+        relationship_uri: Sélectionner une relation
+        to_known_uri: Entrer et sélectionner un URI cible
       news_item: 
         active: Publié
         active_more: Les éléments d’actualité publiés seront visibles publiquement à la date et l’heure souhaitées. Décochez <em>publié</em> pour empêcher les utilisateurs courants de voir les versions de cet élément d’actualité dans toutes les langues.
@@ -2852,13 +2857,15 @@ fr:
     import_successful: Termes d’ontologie bien importés
     more_than_one_field_mapped_to_type: Plus d’un attribut correspond à « %{type} »
     name_placeholder_text: par ex. Contributeur
+    no_relationships: Aucune relation n’a été trouvée pour cet URI.
     no_results: Il n’y a aucun résultat pour la statistique sélectionnée
     ontology_information_url_placeholder_text: par ex. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: par ex. http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_category_for_stats: Veuillez sélectionner une catégorie pour afficher les statistiques.
     please_select_field_types: Veuillez sélectionner une correspondance pour chaque attribut
-    please_select_from_the_menu: Veuillez sélectionner depuis le menu ci-dessus
     please_select_uris_to_import: Veuillez sélectionner les URIs d’import
     preferred_for_equivalence_group: Préféré
+    relationships: Relations
     relationships_from_this_uri: Relations depuis cette URI
     relationships_to_this_uri: Relations vers cette URI
     select: sélectionner
@@ -3209,6 +3216,7 @@ fr:
   newsfeed_help_for_taxon: Le fil de nouvelles pour cette page de taxon de l’EdlV regroupe les mises à jour associées aux éléments qui y sont affichés, y compris les actions de conservation et les commentaires des utilisateurs de l’EdlV.
   newsfeed_help_for_watchlist: Le fil de nouvelles de la liste de suivi EdlV regroupe les mises à jour associées aux éléments de la liste de suivi EdlV du propriétaire, y compris les activités du propriétaire.
   next: Suivant
+  "no": Non
   no_active_members: L’activité n’est pas encore suffisante.
   no_answer: Non
   no_classificaitons_selected: Aucune classification sélectionnée. Il n’y a rien à déplacer.
@@ -4305,6 +4313,7 @@ fr:
   translation_saved: Traduction a été enregistrée
   translations_submit: Voir traduction
   trigger_search_term_entered_by: déclencher le critère de recherche saisi par l’utilisateur
+  "true": Vrai
   true_label: Vrai
   truncated_comment_omission: ... <a href='%{link}'>plus</a>
   truncated_comment_omission_linkless: ...
@@ -4327,6 +4336,8 @@ fr:
   unknown_data_object_title: Objet de donnée inconnu
   unknown_hierarchy: Hiérarchie inconnue
   unknown_type_not_associated_with_any_published_entries: Ces données ne sont associées à aucune des taxinomies publiées.
+  unpredictable but we invite you to explore: 
+    " Please fill out our <a href='https": //www.surveymonkey.com/s/9FDTDQP'>sondage</a>
   unpublished: Non publié
   unpublished_collections_with_count: 
     one: "%{count} collection cachée"

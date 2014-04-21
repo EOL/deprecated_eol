@@ -6,6 +6,7 @@
 # Author: Shirayuki
 # Author: Монтехристо
 mk: 
+  0: откако ќе ги прегледате нашите податочни можности“
   0_1_or_2: 0, 1 или 2
   0_or_1: 0 или 1
   a_maximum_of_30_results_are_returned: по страница се прикажуваат највеќе 30 резултати. Со овој параметар можете да добиете повеќе страници во резултатите ако имате над 30 совпаѓања
@@ -2091,7 +2092,7 @@ mk:
   donation_sponsorship_preamble: "Ако сакате да дознаете повеќе за конкретните програми на кои им требаат покровители, или сакате да давате редовен прилог, обратете се на Секретаријатот на Енциклопедијата на живиот свет <a href=\"mailto:%{email_address}\">по е-пошта</a> или телефонски, на 1 (202) 633-8730 (во САД). Ова се можностите а наменски прилози:"
   donation_title: Дарување за Енциклопедијата на живиот свет
   donation_transaction_details_amount: "Износ:"
-  donation_you_are_about_to: Дарувате за Енциклопедијата на живиот свет. Стиснете на „се согласувам“ за да продолжите кон безбедното плаќање, каде ќе треба да внесете податоци од кредитната картичка. Ако сакате да откажете, послужете се со копчето „назад“ во прелистувачот.
+  donation_you_are_about_to: Дарувате за Енциклопедијата на живиот свет. Стиснете на „се согласувам“ за да продолжите кон безбедното плаќање, каде ќе треба да внесете податоци од кредитната картичка.
   donations_more_ways_title: Постојат и други начини да го потпомогнете растот на EOL
   donations_temporarily_disabled: Многу ни е жал, но засега не прифаќаме уплати преку мрежни места. Обратете се во Секретаријатот на EOL на 'secretariat мајмунче eol.org' за да дарувате.
   done_already: Веќе сторено
@@ -2556,6 +2557,10 @@ mk:
         complete_more: "Згрижената хиерархија работи под претпоставка дека секој запис е засебен, т.е. исти низи во имињата се сметаат за синонимни. <strong>ПРЕДУПРЕДУВАЊЕ: Не менувајте го овој атрибут доколку не сте сигурни за статусот на хомонимите во хиерархијата. Во спротивно можете да ја расипете целовидноста на податоците.</strong>"
         request_publish: Објавувањето е побарано
         request_publish_more: Укажува дали во исчекување има барање хиерархијата да се унапреди во една од главните прелистливи хиерархии на EOL.
+      known_uri_relationship: 
+        from_known_uri: За позната URI
+        relationship_uri: Одберете однос
+        to_known_uri: Внесете и одберете целна URI
       news_item: 
         active: Објавено
         active_more: Објавените новости ќе бидат јавно видливи на одбраниот датум и време. Отштиклирајте го <em>објавено</em> ако сакате оваа верзија на страницата да не биде видлива за општото корисништво.
@@ -2882,13 +2887,15 @@ mk:
     import_successful: Онтолошките поими се успешно увезени
     more_than_one_field_mapped_to_type: На „%{type}“ му е зададен повеќе од еден атрибут
     name_placeholder_text: на пр. Учесник
+    no_relationships: Не пронајдов односи за оваа URI.
     no_results: Нема резултати за одбраната статистика
     ontology_information_url_placeholder_text: на пр. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: на пр. http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_category_for_stats: Одберете категорија за да ги погледате статистиките.
     please_select_field_types: Задајте му значење на секој атрибут
-    please_select_from_the_menu: Изберете од менито погоре
     please_select_uris_to_import: Изберете URI-ја за увоз
     preferred_for_equivalence_group: Претпочитана
+    relationships: Односи
     relationships_from_this_uri: Односи од оваа URI
     relationships_to_this_uri: Односи до оваа URI
     select: одбери
@@ -3241,6 +3248,7 @@ mk:
   newsfeed_help_for_taxon: Каналот за оваа таксонска страница собира актуелности поврзани експонатите во неа, вклучувајќи ги постапките на кустосите и коментарите од корисниците на EOL.
   newsfeed_help_for_watchlist: Каналот за списокот на набљудувања собира актуелности поврзани со објектите на списокот на набљудувања на сопственикот, вклучувајќи ги и неговите активности.
   next: Следно
+  "no": Не
   no_active_members: Сè уште нема активности.
   no_answer: не
   no_classificaitons_selected: Немате избрано класификации. Нема што да се премести.
@@ -4337,6 +4345,7 @@ mk:
   translation_saved: Преводот е зачуван
   translations_submit: Погл. превод
   trigger_search_term_entered_by: повикувачки поим што го внел корисникот
+  "true": Точно
   true_label: Точно
   truncated_comment_omission: ... <a href='%{link}'>повеќе</a>
   truncated_comment_omission_linkless: ...
@@ -4359,6 +4368,8 @@ mk:
   unknown_data_object_title: Непознат податочен објект
   unknown_hierarchy: Непозната хиерархија
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
+  unpredictable but we invite you to explore: 
+    " Please fill out our <a href='https": //www.surveymonkey.com/s/9FDTDQP'>анкета</a>
   unpublished: Необјавено
   unpublished_collections_with_count: 
     one: "%{count} скриена збирка"

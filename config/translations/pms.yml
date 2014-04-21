@@ -1069,6 +1069,10 @@ pms:
         complete_more: "Na gerarchìa cudìa a supon che minca vos a sia concepìa për esse ùnica, visadì le stringhe ëd nòm corëspondent a saran tratà tanme omònim. <strong>AVERTENSA: ch'a modìfica pa cost atribù gavà s'a l'é sigur ëd lë statù dj'omònim ant la gerarchìa, përchè sòn a podrìa compromëtte l'antëgrità dij dàit.</strong>"
         request_publish: Publicassion ciamà
         request_publish_more: A mostra s'a-i é n'arcesta pendenta për promeuve sa gerarchìa për fela ven-e un-a dle prinsipaj gerarchìe navigàbij ansima a l'EDV.
+      known_uri_relationship: 
+        from_known_uri: Për n'URI conossù
+        relationship_uri: Selessioné na relassion
+        to_known_uri: Intré e selessioné n'URI bërsaj
       news_item: 
         active: Publicà
         active_more: Le neuve publicà a saran visìbij da tuti a la dàita e l'ora selessionà. Ch'a gava la marca a <em>publicà</em> s'a veul nen che n'utent genérich a peula vëdde dle version ëd coste neuve an na lenga qualsëssìa.
@@ -1267,13 +1271,15 @@ pms:
     import_successful: Tèrmin d'ontologìa amportà për da bin
     more_than_one_field_mapped_to_type: Pi 'd n'atribù a rëspond a «%{type}»
     name_placeholder_text: për esempi Contibutor
+    no_relationships: Gnun-a relassion a l'é staite trovà për cost URI.
     no_results: A-i é gnun arzultà për la statìstica selessionà
     ontology_information_url_placeholder_text: për esempi http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: për esempi http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_category_for_stats: Për piasì, ch'a selession-a na categorìa pr'ës-ciairé le statìstiche.
     please_select_field_types: Për piasì, ch'a selession-a na rëspondensa për minca atribù
-    please_select_from_the_menu: Për piasì, cha selession-a da lë mnu sì-dzora
     please_select_uris_to_import: Për piasì, ch'a selession-a j'URI d'amportassion
     preferred_for_equivalence_group: Preferì
+    relationships: Relassion
     relationships_from_this_uri: Relassion da cost URI
     relationships_to_this_uri: Relassion vers costa URI
     select: selessioné
@@ -1578,19 +1584,19 @@ pms:
           meta_description_with_chapter_list: Descrission e artìcoj a propòsit ëd %{scientific_name} tanme classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita. A anclud %{chapter_list} për %{scientific_name}.
           meta_description_with_common_name: Descrission e artìcoj a propòsit ëd %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} coma classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita.
           meta_description_with_common_name_no_data: A-i é gnun-e artìcoj disponìbij për %{preferred_common_name} conossù ëdcò tanme %{scientific_name} coma classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita. L'EdV a l'anvita a contribuì con dj'artìcoj a propòsit ëd %{preferred_common_name} (%{scientific_name}) tanme la Conservassion, la Distribussion, l'Ecologìa, l'Ambient, la Morfologìa e d'àutr.
-          meta_description_with_common_name_with_chapter_list: Anformassion ansima a %{preferred_common_name}, conossù da na mira sientìfica coma %{scientific_name} tanme classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita. A conten d'anformassion ansima a %{chapter_list}.
-          meta_title: Anformassion ansima a %{scientific_name} tanme classificà da %{hierarchy_provider}
-          meta_title_with_common_name: Anformassion ansima a %{preferred_common_name} (%{scientific_name} tanme classificà da %{hierarchy_provider})
-          tweet_text: Anformassion ansima a %{scientific_name} tanme classificà da %{hierarchy_provider}
-        meta_description: Anformassion ansima a %{scientific_name} ant l'Enciclopedìa dla Vita
-        meta_description_no_data: A-i é gnun-a anformassion disponìbil për %{scientific_name} ant l'Enciclopedìa dla Vita. L'EdV a l'anvita a contribuì con d'anformassion su %{scientific_name} tanme la Conservassion, la Distribussion, l'Ecologìa, l'Ambient, la Morfologìa e via fòrt.
-        meta_description_with_chapter_list: Anformassion ansima a %{scientific_name} ant l'Enciclopedìa dla Vita. A comprendo dj'anformassion ansima a %{chapter_list}.
-        meta_description_with_common_name: Anformassion ansima a %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} ant l'Enciclopedìa dla Vita.
-        meta_description_with_common_name_no_data: A-i é gnun-a anformassion disponìbil për %{preferred_common_name} ëdcò conossù tanme %{scientific_name} ant l'Enciclopedìa dla Vita. L'EdV a l'anvita a contribuì con d'anformassion ansima a %{preferred_common_name} (%{scientific_name}) tanme la Conservassion, la Distribussion, l'Ecologìa, l'Ambient, la Morfologìa e via fòrt.
-        meta_description_with_common_name_with_chapter_list: Anformassion a propòsit êd %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} ant l'Enciclopedìa dla Vita. A conten dj'anformassion ansima a %{chapter_list}.
-        meta_title: Anformassion a propòsit ëd %{scientific_name}
-        meta_title_with_common_name: Anformassion a propòsit ëd %{preferred_common_name} (%{scientific_name})
-        tweet_text: Anformassion a propòsit ëd %{scientific_name}
+          meta_description_with_common_name_with_chapter_list: Descrission e artìcoj an sël %{preferred_common_name}, conossù da na mira sientìfica coma %{scientific_name} tanme classificà da %{hierarchy_provider} ant l'Enciclopedìa dla Vita. A conten %{chapter_list}.
+          meta_title: Descrission e artìcoj ansima a %{scientific_name} tanme classificà da %{hierarchy_provider}
+          meta_title_with_common_name: Descrission e artìcoj an sël %{preferred_common_name} (%{scientific_name} tanme classificà da %{hierarchy_provider})
+          tweet_text: Artìcoj ansima a %{scientific_name} tanme classificà da %{hierarchy_provider}
+        meta_description: Descrission e artìcoj ansima a %{scientific_name} ant l'Enciclopedìa dla Vita
+        meta_description_no_data: A-i é gnun artìcoj disponìbij për %{scientific_name} ant l'Enciclopedìa dla Vita. L'EdV a l'anvita a contribuì con d'artìcoj a propòsit ëd %{scientific_name} tanme la Conservassion, la Distribussion, l'Ecologìa, l'Ambient, la Morfologìa e via fòrt.
+        meta_description_with_chapter_list: Descrission e artìcoj ansima a %{scientific_name} ant l'Enciclopedìa dla Vita. A comprend %{chapter_list}.
+        meta_description_with_common_name: Descrission e artìcoj ansima a %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} ant l'Enciclopedìa dla Vita.
+        meta_description_with_common_name_no_data: A-i é gnun-a artìcol disponìbil për %{preferred_common_name} ëdcò conossù tanme %{scientific_name} ant l'Enciclopedìa dla Vita. L'EdV a l'anvita a contribuì con d'artìcoj ansima a %{preferred_common_name} (%{scientific_name}) tanme la Conservassion, la Distribussion, l'Ecologìa, l'Ambient, la Morfologìa e via fòrt.
+        meta_description_with_common_name_with_chapter_list: Descrission e artìcoj a propòsit êd %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} ant l'Enciclopedìa dla Vita. A conten %{chapter_list}.
+        meta_title: Descrission e artìcoj a propòsit ëd %{scientific_name}
+        meta_title_with_common_name: Descrission e artìcoj a propòsit dël %{preferred_common_name} (%{scientific_name})
+        tweet_text: Artìcoj a propòsit dël %{scientific_name}
     literature: 
       bhl: 
         hierarchy_entry: 
@@ -1693,6 +1699,11 @@ pms:
         meta_title: Sinònim ëd %{scientific_name}
         meta_title_with_common_name: Sinònim dël %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinònim ëd %{scientific_name}
+    overview: 
+      show: 
+        hierarchy_entry: 
+          meta_description: Un resumé dj'anformassion a propòsit ëd %{scientific_name}, tanme arconossù da %{hierarchy_provider}, ant l'Enciclopedìa dla Vita.
+          meta_description_with_common_name: Un resumé dj'anformassion a proposit ëd %{preferred_common_name}, ciamà ëdcò %{scientific_name}, tanme arconossù da %{hierarchy_provider}, ant l'Enciclopedìa dla Vita.
     resources: 
       biomedical_terms: 
         hierarchy_entry: 

@@ -405,23 +405,23 @@ sv:
         user_of_collection: <strong>%{user}</strong> lades till som en hanterare av samlingen "%{collection}".
         user_of_it: <strong>%{user}</strong> lade till som användare.
       bulk_add: 
-        an_unknown_user_added_bulk_items_to_an_unknown_collection: En okänd användare lade till flera objekt till en okänd samling.
+        an_unknown_user_added_bulk_items_to_an_unknown_collection: En okänd användare lade till flera objekt i en okänd samling.
         an_unknown_user_added_bulk_items_to_collection: En okänd användare lade till flera objekt till samlingen "%{collection}".
         an_unknown_user_added_bulk_items_to_it: En okänd användare lade till flera objekt.
-        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> lade till flera objekt till en okänd samling.
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> lade till flera objekt i en okänd samling.
         user_added_bulk_items_to_collection: <strong>%{user}</strong> lade till flera objekt till samlingen "%{collection}".
         user_of_it: <strong>%{user}</strong> lade till flera objekt.
       collect: 
-        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En okänd användare lade till ett okänt objekt till en okänd samling.
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: En okänd användare lade till ett okänt objekt i en okänd samling.
         an_unknown_user_added_an_unknown_item_to_collection: En okänd användare lade till ett okänt objekt till samlingen "%{collection}".
         an_unknown_user_added_an_unknown_item_to_it: En okänd användare lade till ett okänt objekt.
-        an_unknown_user_added_item_to_an_unknown_collection: En okänd användare lade till "%{item}" till en okänd samling.
+        an_unknown_user_added_item_to_an_unknown_collection: En okänd användare lade till "%{item}" i en okänd samling.
         an_unknown_user_added_item_to_collection: En okänd användare lade till "%{item}" till samlingen "%{collection}".
         an_unknown_user_added_item_to_it: En okänd användare lade till "%{item}".
-        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> lade till ett okänt objekt till en okänd samling.
+        user_added_an_unknown_item_to_an_unknown_collection: <strong>%{user}</strong> lade till ett okänt objekt i en okänd samling.
         user_added_an_unknown_item_to_collection: <strong>%{user}</strong> lade till ett okänt objekt till samlingen "%{collection}".
         user_added_an_unknown_item_to_it: <strong>%{user}</strong> lade till ett okänt objekt.
-        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> lade till "%{item}" till en okänd samling.
+        user_added_item_to_an_unknown_collection: <strong>%{user}</strong> lade till "%{item}" i en okänd samling.
         user_added_item_to_collection: <strong>%{user}</strong> lade till "%{item}" till samlingen "%{collection}".
         user_added_item_to_it: <strong>%{user}</strong> lade till "%{item}".
       create: 
@@ -464,9 +464,9 @@ sv:
         an_unknown_user_added_an_unknown_manager_to_community: En okänd användare lade till en okänd hanterare till gemenskapen "%{community}".
         an_unknown_user_added_manager_to_an_unknown_community: En okänd användare lade till "%{manager}" som en hanterare till en okänd gemenskap.
         an_unknown_user_added_manager_to_community: En okänd användare lade till "%{manager}" som en hanterare till gemenskapen "%{community}".
-        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> lade till en okänd hanterare till en okänd samling.
+        user_added_an_unknown_manager_to_an_unknown_community: <strong>%{user}</strong> lade till en okänd hanterare i en okänd samling.
         user_added_an_unknown_manager_to_community: <strong>%{user}</strong> lade till en okänd hanterare till gemenskapen "%{community}".
-        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> lade till "%{manager}" till en okänd samling.
+        user_added_manager_to_an_unknown_community: <strong>%{user}</strong> lade till "%{manager}" i en okänd samling.
         user_added_manager_to_community: <strong>%{user}</strong> lade till "%{manager}" som en hanterare av gemenskapen "%{community}".
       change_description: 
         an_unknown_user_changed_the_description_of_an_unknown_community: En okänd användare ändrade beskrivningen av en okänd gemenskap.
@@ -923,7 +923,7 @@ sv:
   add_collection_to_community: Lägg till samling i gemenskapen
   add_education_resources_to_page_link_button: Lägg till utbildningsresurser till denna sida
   add_identification_resources_to_page_link_button: Lägg till identifieringsresurser till denna sida
-  add_item_to_new_collection: Lägg till "%{item}" till en ny samling
+  add_item_to_new_collection: Lägg till "%{item}" i en ny samling
   add_language: Lägg till språk
   add_link_instead: lägg till en länk i stället
   add_link_to_page_button: Lägg till en länk
@@ -1756,6 +1756,7 @@ sv:
   data_column_value: Värde
   data_database_colon: "Data:"
   data_glossary: Dataordlista
+  data_link_to_record: Länk till denna post
   data_logging_active: Dataloggning aktiv
   data_object: Dataobjekt
   data_object_ignore: ignorera detta objekt
@@ -1807,12 +1808,22 @@ sv:
       input_summary_intro: Valda sökalternativ
       new_search_link: Starta en ny sökning
       search_suggestion_blue_flowers: Vilka plantor har blåa blommor?
+      search_suggestion_cavity_nests: Vilka arter bygger håliga bon?
+      search_suggestion_diatom_shape: Vilka är de olika formerna av kiselalger?
       search_suggestion_whale_mass: Vilka valar väger mer än 10,000 kg?
       search_suggestions_header: Inte säker på var du ska börja?
       search_suggestions_subheader_colon: "Prova en av följande datasökningar:"
       search_tools_hide_link: Dölj sökalternativ
       search_tools_show_link: Visa sökalternativ
+      search_within_taxon_group_header: Sök inom en taxongrupp
+      search_within_taxon_group_intro_with_count: 
+        other: Sökning inom en taxongrupp är för närvarande begränsat till grupper med färre än %{count} taxa. <a href="%{contact_us_tech_url}">Kontakta oss</a> för att ta reda på mer om att söka i större grupper.
       sort_header: Sortera resultatet
+    notice: 
+      clade_has_no_data: Ingen har bidragit dataposter för %{taxon_name} ännu. <a href="%{contribute_path}">Läs om hur man bidrar</a>.
+      clade_too_big: Tyvärr, resultaten som visas filtreras inte av %{taxon_name} eftersom den inte är för stor. Välj en mindre grupp eller <a href="%{contactus_tech_path}">kontakta oss</a> för hjälp.
+    page_title: Sök TraitBank
+  data_search_attribute: Sök TraitBank för poster med %{attribute}data
   data_search_destroyed: Detta jobb kommer inte längre bearbetas.
   data_search_files: 
     file_ready_for_download: Sökningen du nyligen begärde för "%{known_uri_label}" kan nu laddas ned på <a href='%{download_url}'>%{download_url}</a>.
@@ -1826,6 +1837,8 @@ sv:
     one: Nedladdningar av datasökningar är begränsad till %{count} resultat.
     other: Nedladdningar av datasökningar är begränsade till %{count} resultat.
   data_search_link: Sök vetenskaplig data på EOL
+  data_search_row_hidden: En kurator har dolt denna datarad.
+  data_server_unavailable: Data på EOL är för tillfället otillgängligt. Var god kom tillbaka senare. Beklagar för eventuella olägenheter.
   data_show_n_more_rows: Visa NNN fler...
   data_subtab_about: Om
   data_subtab_glossary: Ordlista för %{taxon}
@@ -1833,6 +1846,7 @@ sv:
     one: EOL har data för 1 egenskap
     other: EOL har data för %{count} egenskaper
     zero: EOL har ingen egenskapsdata
+  data_summary_ranges_header_with_count: EOL har sammanfattningsdata
   data_tab_curator_excluded: Denna rad har tagits bort från fliken Översikt.
   data_tab_curator_exemplar: Denna rad har lagts till i fliken Översikt.
   data_tab_curator_key_excluded: "%{image} togs bort från <a href='%{link}'>översikt</a>"
@@ -1932,6 +1946,9 @@ sv:
   did_you_mean: "Menade du: %{suggestions} ?"
   disabled_for_now: INAKTIVERAD FÖR NU
   discover_link: Upptäck
+  displaying_numerical_range_eol_records_with_count: 
+    one: Visa den enda posten på EOL
+    other: Visar %{start_number} &ndash; %{end_number} av %{count} poster på EOL
   do_you_want_to_be_a_curator: Vill du bli en kurator
   donate_link: Donera
   donation_agree: godkänn
@@ -2071,14 +2088,17 @@ sv:
   error_log: Fellogg
   error_log_detail: Fellogg detalj
   error_logging_active: Felloggning aktiv
+  error_updating_user: Ett fel uppstod när denna användares post uppdaterades
   error_watch_collections_cannot_be_shared: Bevakade samlingar kan inte delas
   example_colon: "Exempel:"
   exception: Undantag
   exceptions: 
     security_violations: 
+      administrators_only: Tyvärr, åtkomst är begränsad till EOL:s administratörer.
       default: Åtkomst nekad.
       hidden_user_login: Tyvärr, inloggningen är inaktiverad för detta konto.
       hidden_user_recover_account: Tyvärr, återställning har inaktiverats för detta konto.
+      hidden_user_temporary_login: Tyvärr, återställning och inloggning har inaktiverats för detta konto.
       inactive_user_login: Tyvärr, detta konto är ännu inte aktivt. Om du inte fick en bekräftelse via e-post när du registrerade dig, var god återställ ditt konto för att verifiera din e-postadress och aktivera ditt konto.
       no_access: Tyvärr, åtkomst är begränsad.
   excluded_icon_tip: Rader markerade med undantagsikonen %{excluded_icon} kommer aldrig visas på översiktssidorna för taxon.
@@ -2335,15 +2355,20 @@ sv:
         max: Högsta värdet
         max_placeholder: Ange ett nummer
         max_placeholder_disabled: Räckvidd inaktiverad
+        max_with_val: "Högsta värde: %{val}"
         min: Lägsta värdet
         min_placeholder: Ange ett nummer
         min_placeholder_disabled: Räckvidd inaktiverad
+        min_with_val: "Lägsta värde: %{val}"
         q: Särskilt värde
         q_placeholder: Ange ett ord, fras eller nummer
+        q_with_val: "Specifikt värde: %{val}"
         taxon_name: Taxongrupp
         taxon_name_more: Till exempel, ange kolibri eller valar och välj den överensstämmande gruppen.
+        taxon_name_placeholder: Ange taxongruppens namn för att välja grupp
         taxon_name_placeholder_value_removed: "%{taxon_group} borttagen, välj ny grupp"
         taxon_name_with_val: "Taxongrupp: %{val}"
+        total_results: "Totala resultat: %{total}"
         unit: Måttenhet
       eol_statistic: 
         date_one: Datum
@@ -2397,10 +2422,13 @@ sv:
         active_translation: Publicerad
         active_translation_more: Publicerade översättningar kommer att visas offentligt, såvida sidan själv inte är opublicerad. Avmarkera <em>publicerad</em> om du vill förhindra att allmänna användare kan se denna version av sidan.
         language_id: Språk
+        meta_description_more: Ge en kort beskrivning som sammanfattar de viktigaste begreppen i sidans innehåll. Denna beskrivning används ibland av webbsökmotorer både för relevanskontroll och för att listas upp bland sökmotorns resultat.
       translated_news_item: 
         active_translation: Publicerad
         active_translation_more: Publicerade översättningar kommer att offentligt visas, såvida inte nyhetsobjektet självt är opublicerad. Avmarkera <em>publicerad</em> om du vill förhindra att allmänna användare kan se denna version av nyhetsobjektet.
+        body_more: "Skriv nyhetsobjektets innehåll i innehållsområdet. Använd rullgardinslisten <em>Format</em> för att välja lämpliga semantiska textelement; t.ex. välj <em>Rubrik 2</em> för en rubrik av andra nivån. OBS: <em>Rubrik 1</em> är reserverad till nyhetsobjektets titel, så rubriker i innehållsområdet börjar med <em>Rubrik 2</em>. Välj <em>Källa</em> för att växla mellan HTML-källkodsvyn som låter dig manuellt infoga och redigera HTML."
         language_id: Språk
+        meta_description_more: Ge en kort beskrivning som sammanfattar de viktigaste begreppen i nyhetsobjektets innehåll. Denna beskrivning används ibland av webbsökmotorer både för relevanskontroll och för att listas upp bland sökmotorns resultat.
         title_more: Titeln på detta nyhetsobjekt kommer att visas i sidhuvudet på sidan. Titeln bör innehålla nyckelord som är mest relevanta för innehållet.
       user: 
         agreed_with_terms: Jag godkänner <a href="%{terms_url}">användarvillkoren</a>
@@ -2599,6 +2627,7 @@ sv:
   item_type_article: Artikel
   item_type_article_assistive: Detta objekt är en artikel
   item_type_cms_page: Information om EOL
+  item_type_cms_page_assistive: Detta objekt är informativt innehåll om EOL
   item_type_collection: Samling
   item_type_collection_assistive: Detta objekt är en samling
   item_type_community: Gemenskapen
@@ -2650,8 +2679,8 @@ sv:
     ontology_information_url_placeholder_text: t.ex. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: t.ex. http://dublincore.org/2012/06/14/dcterms.rdf
     please_select_field_types: Var god välj en mappning för varje attribut
-    please_select_from_the_menu: Var god välj från menyn ovan
     preferred_for_equivalence_group: Föredragen
+    relationships: Relationer
     select: välj
     select_a_category_to_view_stats: "Välj en kategori att visa statistik för:"
     select_a_preferred_uri_for_this_group: Välj en föredragen URI
@@ -2715,6 +2744,8 @@ sv:
     data_search: 
       page_header: Sök TraitBank
       page_header_results: Sökresultat från TraitBank
+    footer: 
+      google_plus: Encyclopedia of Life på Google+
     taxa: 
       search_traitbank: Sök TraitBank
   learn_about_collections: Hur kan jag skapa en?
@@ -2813,6 +2844,7 @@ sv:
   maps_with_count: 
     one: "%{count} karta"
     other: "%{count} kartor"
+  master_curators_may_add_data: "Mästerkuratorer kan lägga till data:"
   matching_users_found_with_count: 
     one: Totalt %{count} användare hittades som stämmer överens med dina söktermer.
     other: Totalt %{count} användare hittades som stämmer överens med dina söktermer.
@@ -2944,6 +2976,7 @@ sv:
   new_news_item: Nytt nyhetsobjekt
   new_search_suggestion: Nya sökförslag
   new_upload: Ny uppladdning
+  new_uri_warning: Termen du håller på att lägga till är inte en rekommenderad EOL-term.
   new_user: Ny användare
   news_and_event_links: Nyheter- och händelselänkar
   news_archive_page: nyhetsarkivsida
@@ -3103,6 +3136,7 @@ sv:
   or_move_them_to_existing_collection: eller flytta dem till en befintlig samling
   original: "ORIGINAL:"
   original_object: Originalobjekt
+  other_category_subtab: Övrigt
   other_collection_items_with_count: 
     one: "%{count} andra objekt"
     other: "%{count} andra objekt"
@@ -3307,6 +3341,15 @@ sv:
   reset_password_instructions_sent_to_user_notice: Instruktioner för att återställa lösenordet för ditt konto <em>%{username}</em> har skickats till din e-postadress.
   reset_password_token_expired_error: Tyvärr, ditt lösenord har inte blivit återställt. Den bifogade länken har upphört att gälla. Var god fyll i och skicka formuläret för glömt lösenord igen för att få en ny länk.
   resource: Resurs
+  resource_import_frequency: 
+    bimonthly: Varannan månad
+    hours_with_count: 
+      one: "%{count} timme"
+      other: "%{count} timmar"
+    monthly: Varje månad
+    once: Importera en gång
+    quarterly: Varje kvartal
+    weekly: Varje vecka
   resources: Resurser
   response: Svar
   response_formats: Svarformat
@@ -3418,6 +3461,7 @@ sv:
   show_email_message_area: "[visa område för e-postmeddelande]"
   show_full_tree: visa hela trädet
   show_in_overview: Visa i översikt
+  show_more_row_data_link: mer
   show_status_message: Visa statusmeddelande
   show_tasks: visa uppgifter
   show_warning_message: Visa varningsmeddelande
@@ -3563,6 +3607,7 @@ sv:
       index: 
         hierarchy_entry: 
           meta_description: Fakta om %{scientific_name} som klassificeras av %{hierarchy_provider} i Encyclopedia of Life.
+          meta_description_with_common_name_no_data: Inga fakta finns tillgänglig för %{preferred_common_name} även känd som %{scientific_name} som klassificeras av %{hierarchy_provider} i Encyclopedia of Life. EOL välkomnar dig till att bidra fakta om %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Fakta om %{preferred_common_name} som klassificeras av %{hierarchy_provider}? Egenskapsdata om %{scientific_name} inklusive information om %{topics}.
           meta_title: Fakta om %{scientific_name} som är klassificerad av %{hierarchy_provider}
           meta_title_with_common_name: Fakta om %{preferred_common_name} (%{scientific_name} som är klassificerad av %{hierarchy_provider})
@@ -3890,6 +3935,8 @@ sv:
     one: "%{count} objekt"
     other: totalt %{count} objekt
   total_searches: "Totala sökningar:"
+  traitbank_data_search: Sök data
+  traitbank_description: sök bland miljoner dataposter på EOL
   traitbank_info_page: Läs mer
   traitbank_intro: "Introducerar <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: Översättning har tagits bort
@@ -3975,6 +4022,9 @@ sv:
   user_activity_stats_common_names_removed: 
     one: "%{count} borttaget vanligt namn"
     other: "%{count} borttagna vanliga namn"
+  user_activity_stats_data_added: 
+    one: "%{count} datapost lades till"
+    other: "%{count} dataposter lades till"
   user_activity_stats_data_added_dropdown: Data lades till
   user_activity_stats_header: Aktivitet
   user_activity_stats_objects_curated: 
@@ -4091,6 +4141,8 @@ sv:
         other: "%{count} datanedladdningar"
       index: 
         meta_description: Datanedladdningar begärd av %{user_full_name}.
+        meta_title: "%{user_full_name}s datanedladdningar"
+        tweet_text: "%{user_full_name}s datanedladdningar"
       is_complete: Ja
       is_not_complete: Nej
       page_title: Datanedladdningar
@@ -4306,7 +4358,11 @@ sv:
   who_registered_from: som registrerade från
   wikipedia_queue_create_successful_notice: Wikipedia-artikeln %{article}, version %{rev} har placerats i kö för importering.
   wikipedia_queue_create_unsuccessful_error: Tyvärr, ett fel uppstod. Wikipedia-artikeln lades inte i kö för importering.<br />Versionsadressen måste matcha https://en.wikipedia.org/w/index.php?title=*TITLE*&oldid=*OLDID*
+  wikipedia_queue_new_instructions_intro: "För att hitta webbadressen till sidversionen av en Wikipediaartikel:"
+  wikipedia_queue_new_instructions_step_four: Kopiera sidversionens webbadress från din webbläsare och klistra in den i formuläret för Wikipedia-importbegäran som visas här, Webbadressen till sidversionen bör likna någonting som <a rel="nofollow" href="https://sv.wikipedia.org/w/index.php?title=Giraff&oldid=24970425">https://sv.wikipedia.org/w/index.php?title=Giraff&oldid=24970425</a>
   wikipedia_queue_new_instructions_step_one: Gå till artikelsidan på Wikipedia, t.ex. <a href="https://en.wikipedia.org/w/index.php?title=Giraffe">https://en.wikipedia.org/w/index.php?title=Giraffe</a>
+  wikipedia_queue_new_instructions_step_three: Följ menyobjektet 'Permanent link'. Detta är webbadressen till den aktuella sidversionen och kommer att ta dig till den aktuella versionen av artikeln där du kan navigera till tidigare versioner.
+  wikipedia_queue_new_instructions_step_two: Expandera menyn 'Verktyg' som finns i navigeringskolumnen och där inne bör du se menyobjektet 'Permanent länk'.
   wikipedia_queue_new_page_title: Begär ett importtillstånd för en Wikipedia-artikel
   will_paginate: 
     next_label: Nästa &#8594;
@@ -4325,6 +4381,7 @@ sv:
   you_have_been_logged_out: Du har blivit utloggad.
   you_joined_community: Du har gått med i denna gemenskap.
   you_left_community: Du har lämnat denna gemenskap.
+  you_must_be_comfortable: Du måste vara bekväm med HTML om du vill skapa hyperlänkar eller använda formatering.
   you_removed_the_member_from_the_community: Du har tagit bort denna medlem från gemenskapen.
   your_browser_does_not_support: Din webbläsare stöder inte HTML5-videoklipp.
   your_current_rating_0_of_5: "Ditt nuvarande betyg: 0 av 5"

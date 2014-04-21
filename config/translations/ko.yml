@@ -30,9 +30,9 @@ ko:
   account_information: 계정 정보
   account_information_menu: 계정 정보
   account_registered_but_not_ready_try_later: 계정은 등록했지만 접근할 준비가 되지 않았습니다. 5분 후에 다시 시도하세요.
-  action: 행위
-  action_not_available_error: 죄송합니다, 해당 행위은 사용할 수 없습니다.
-  actions: 행위
+  action: 동작
+  action_not_available_error: 죄송합니다, 해당 동작은 사용할 수 없습니다.
+  actions: 동작
   active: 활발
   active_colon: "활발:"
   activerecord: 
@@ -911,8 +911,8 @@ ko:
   admin_content_partners_notifications_statistics_reminder_send_confirmation: 모든 콘텐츠 파트너에게 웹 사용 통계 알림 이메일을 보내겠습니까?
   admin_content_partners_notifications_statistics_reminder_send_submit: 알림 보내기
   admin_content_partners_page_title: "관리: 콘텐츠 파트너 관리"
-  admin_content_partners_statistics_date_from_label: 보낸 사람
-  admin_content_partners_statistics_date_to_label: 받는 사람
+  admin_content_partners_statistics_date_from_label: 보낸이
+  admin_content_partners_statistics_date_to_label: 받는이
   admin_content_partners_statistics_first_published_caption: "%{date_from}과 %{date_to} 사이에 콘텐츠 파트너가 첫 게시한 자료입니다."
   admin_content_partners_statistics_first_published_download_csv_submit: CSV로 다운로드
   admin_content_partners_statistics_first_published_empty: "%{date_from}과 %{date_to} 사이에 첫 게시한 콘텐츠 파트너 자료가 없습니다."
@@ -1641,7 +1641,7 @@ ko:
   create_community_about_text: "\"%{collection_name}\"의 내용 주위에 공동체를 만드려고 합니다. 모든 사용자는 공동체에 가입할 수 있지만 \"관리자\" 자격을 부여한 구성원만 공동체 자체나 공동체와 관련된 모음집을 편집할 수 있게 됩니다."
   create_community_around_this_collection_header: 이 모음집 주위의 공동체 만들기
   create_community_button: 공동체 만들기
-  create_community_unsuccessful_error: 죄송합니다,에러가 발생하여 당신의 커뮤니티가 생성되지 않았습니다. 모든 필드를 올바르게 작성했는지 확인하시기 바랍ㄴ디ㅏ.
+  create_community_unsuccessful_error: 죄송합니다, 오류가 발생해 공동체가 만들어지지 않았습니다. 모든 필드가 올바르게 채워졌는지 확인하세요.
   create_user_unsuccessful_error: 죄송합니다, 오류가 발생해 새 계정을 만들지 않았습니다. 모든 필드가 올바르게 채워졌는지 확인하세요.
   created: 만들어짐
   created_at: 만든 곳
@@ -1654,7 +1654,7 @@ ko:
   crop_image: 그림 자르기
   crop_image_thumbnails: 그림 자르기 섬네일
   curated: 큐레이트됨
-  curated_association_update_button: 바뀐 사항 저장
+  curated_association_update_button: 바뀜 저장
   curated_objects_of: "%{name}의 큐레이트한 개체"
   curated_species_of: "%{name}의 큐레이트한 종"
   curation_comment: 큐레이션 덧글
@@ -1763,7 +1763,7 @@ ko:
       search_value_or_range_header: 특정 값이나 범위 검색
       search_within_taxon_group_header: 분류 그룹 내에서 검색
       search_within_taxon_group_intro_with_count: 
-        other: Taxon 그룹 내에서 검색 하는 것은 현재 % {count} taxa보다 적은 그룹으로 제한됩니다. 더 큰 그룹을 검색하는 것에 대해 더 알아보려면 <a href="%{contact_us_tech_url}">문의해보세요</a>
+        other: 분류 그룹 안에서 검색하는 것은 현재 %{count} 분류보다 적은 그룹으로 제한됩니다. 더 많은 그룹을 검색하는 것에 대해 더 알아보려면 <a href="%{contact_us_tech_url}">문의해주세요</a>.
       sort_header: 결과 정렬
     notice: 
       clade_too_big: 죄송합니다. %{taxon_name} 필터가 너무 크기 때문에 결과를 표시할 수 없습니다. 더 작은 그룹을 선택하거나 도움을 <a href="%{contactus_tech_path}">요청</a> 해보세요.
@@ -1776,7 +1776,7 @@ ko:
   data_subtab_glossary: "%{taxon}에 대한 용어집"
   data_summary_ranges_header_with_count: EOL이 요약 데이터를 가지고 있습니다
   data_tab_curator_excluded: 이 행을 개요 탭에서 제거했습니다.
-  data_tab_curator_exemplar: 개요에 표시됨
+  data_tab_curator_exemplar: 이 행을 개요 탭에 추가했습니다.
   data_usage_reports: 데이터 사용 보고서
   date_caps: 날짜
   date_uploaded: 올린 날짜
@@ -1838,7 +1838,7 @@ ko:
   dato_create_cancel: 취소
   dato_create_user_link_error: 죄송합니다, 오류가 발생해 링크를 추가할 수 없습니다.
   dato_create_user_text_error: 죄송합니다, 오류가 발생해 문서를 추가할 수 없습니다.
-  dato_create_user_text_validation_error: 올바르게 양식을 완료했는지 확인하세요.
+  dato_create_user_text_validation_error: 올바르게 양식을 채웠는지 확인하세요.
   dato_edit_cancel: 취소
   dato_edit_link_button: 이 링크 편집
   dato_edit_link_title: 링크 편집
@@ -2107,7 +2107,7 @@ ko:
   forgot_password_form_username_or_email_blank_error: 비밀번호를 재설정할 사용자 이름이나 이메일 주소를 입력하세요.
   form_validation_errors_for_attribute_assistive: 이 요소에 유효성 검사 오류가 있습니다
   forums: 
-    actions: 행위
+    actions: 동작
     administration: 관리
     buttons: 
       delete: 삭제
@@ -2595,7 +2595,7 @@ ko:
   items_with_count_semi_colon: 
     one: 항목 %{count}개;
     other: 항목 %{count}개;
-  join_community_button: 이 커뮤니티에 가입하기
+  join_community_button: 이 공동체에 가입하기
   join_eol_button_html: <abbr title="Encyclopedia of Life; 생명의 백과사전">EOL</abbr>에 지금 가입하기
   join_eol_community_html: <abbr title="Encyclopedia of Life; 생명의 백과사전">EOL</abbr> 공동체의 일원이 되세요!
   joined_mailing_list: 메일링 리스트에 가입한 구성원만.
@@ -3492,7 +3492,7 @@ ko:
   synonyms_with_count: 
     one: 동의어 %{count}개
     other: 동의어 %{count}개
-  table_column_header_actions: 행위
+  table_column_header_actions: 동작
   table_of_contents: 목차
   table_of_contents_breakdown: 목차 현황
   table_of_contents_breakdown_title: 목차 현황
@@ -3550,30 +3550,30 @@ ko:
     data: 
       index: 
         hierarchy_entry: 
-          meta_title: "%{hierarchy_provider}로 분류된 %{scientific_name} 의 특성 자료"
-        meta_title: "%{scientific_name}의 특성 데이터"
-        tweet_text: "%{scientific_name}의 특성 데이터"
+          meta_title: "%{hierarchy_provider}(으)로 분류된 %{scientific_name}에 대한 사실"
+        meta_title: "%{scientific_name}에 대한 측정과 사실"
+        tweet_text: "%{scientific_name}에 대한 사실"
     details: 
       index: 
         hierarchy_entry: 
-          meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 사실
-          meta_description_no_data: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 존재하는 사실이 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 사실을 기여하는 데 초대합니다.
-          meta_description_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 사실입니다. %{scientific_name}에 대한 %{chapter_list} 정보를 포함합니다.
-          meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 사실입니다.
-          meta_description_with_common_name_no_data: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}라고도 알려진 %{preferred_common_name}에 존재하는 사실이 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에 대한 사실을 기여하는 데 초대합니다.
-          meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 사실입니다. %{chapter_list}에 대한 사실을 포함합니다.
-          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 사실"
-          meta_title_with_common_name: "%{preferred_common_name}에 대한 사실 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
-          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 사실"
-        meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 사실
-        meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 존재하는 사실이 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 사실을 기여하는 데 초대합니다.
-        meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 사실입니다. %{chapter_list}에 대한 사실을 포함합니다.
-        meta_description_with_common_name: 생명의 백과사전에서 과학적으로 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 사실입니다.
-        meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도 알려진 %{preferred_common_name}에 존재하는 사실이 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에 대한 사실을 기여하는 데 초대합니다.
-        meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 과학적으로 %{scientific_name}라고도 알려진 %{preferred_common_name}에 대한 사실입니다. %{chapter_list}에 대한 사실을 포함합니다.
-        meta_title: "%{scientific_name}에 대한 사실"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 사실"
-        tweet_text: "%{scientific_name}에 대한 사실"
+          meta_description: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 설명과 문서
+          meta_description_no_data: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 존재하는 문서가 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 문서를 기여하는 데 초대합니다.
+          meta_description_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 설명과 문서입니다. %{scientific_name}에 대한 %{chapter_list}(을)를 포함합니다.
+          meta_description_with_common_name: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 설명과 문서입니다.
+          meta_description_with_common_name_no_data: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 %{scientific_name}라고도 알려진 %{preferred_common_name}에 존재하는 문서가 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에 대한 문서를 기여하는 데 초대합니다.
+          meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 %{hierarchy_provider}에 의해 분류한 과학적으로 %{scientific_name}라고로 알려진 %{preferred_common_name}에 대한 설명과 문서입니다. %{chapter_list}(을)를 포함합니다.
+          meta_title: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 설명과 문서"
+          meta_title_with_common_name: "%{preferred_common_name}에 대한 설명과 문서 (%{hierarchy_provider}에 의해 분류한 %{scientific_name})"
+          tweet_text: "%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 문서"
+        meta_description: 생명에 백과사전에서 %{scientific_name}에 대한 설명과 문서
+        meta_description_no_data: 생명의 백과사전에서 %{scientific_name}에 존재하는 문서가 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{scientific_name}에 대한 문서를 기여하는 데 초대합니다.
+        meta_description_with_chapter_list: 생명의 백과사전에서 %{scientific_name}에 대한 설며오가 문서입니다. %{chapter_list}(을)를 포함합니다.
+        meta_description_with_common_name: 생명의 백과사전에서 과학적으로 %{scientific_name}라고 알려진 %{preferred_common_name}에 대한 설명과 문서입니다.
+        meta_description_with_common_name_no_data: 생명의 백과사전에서 %{scientific_name}라고도 알려진 %{preferred_common_name}에 존재하는 문서가 없습니다. EOL은 보전, 유통, 생태, 서식지, 형태론 그리고 더 많은 것과 같은 %{preferred_common_name} (%{scientific_name})에 대한 문서를 기여하는 데 초대합니다.
+        meta_description_with_common_name_with_chapter_list: 생명의 백과사전에서 과학적으로 %{scientific_name}라고도 알려진 %{preferred_common_name}에 대한 설명과 문서입니다. %{chapter_list}(을)를 포함합니다.
+        meta_title: "%{scientific_name}에 대한 설명과 문서"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})에 대한 설명과 문서"
+        tweet_text: "%{scientific_name}에 대한 문서"
     literature: 
       bhl: 
         hierarchy_entry: 
@@ -3804,7 +3804,7 @@ ko:
   thank_you_for_your_generous_support: 관대한 지원에 감사합니다!
   thanks_for_donation: 생명의 백과 사전에 지원해 주어서 감사합니다.  정보가 제출되었으며 처리됩니다.
   thanks_for_your_time: 시간을 내어 주셔서 감사합니다,
-  the_amount_entered_was: "입력한 금액 : 미화 %{number}"
+  the_amount_entered_was: "입력한 금액: %{number} 미국 달러"
   the_comment_was_successfully_deleted: 덧글을 성공적으로 삭제했습니다.
   the_comment_was_successfully_updated: 덧글을 성공적으로 업데이트했습니다.
   the_content_could_not_be_displ: 컨텐츠를 볼 수 없습니다.
@@ -3911,7 +3911,7 @@ ko:
   update_language: 언어 업데이트
   update_page: 문서 업데이트
   update_user_successful_notice: 계정을 성공적으로 업데이트했습니다.
-  update_user_unsuccessful_error: 죄송합니다, 오류가 발생해 계정을 업데이트하지 않았습니다. 모든 필드가 올바르게 완료했는지 확인하시기 바랍니다.
+  update_user_unsuccessful_error: 죄송합니다, 오류가 발생해 계정을 업데이트하지 않았습니다. 모든 필드가 올바르게 채워졌는지 확인하세요.
   updated: 업데이트됨
   updated_colon: "업데이트됨:"
   updated_community: 공동체를 성공적으로 업데이트했습니다.
@@ -4042,7 +4042,7 @@ ko:
         meta_title: "%{user_full_name} 콘텐츠 파트너"
         tweet_text: "%{user_full_name} 콘텐츠 파트너"
     data_downloads: 
-      actions_head: 동작
+      actions_head: 행동
       attribute_head: 특성
       complete_head: 다 되었습니까?
       created_head: 만들어짐

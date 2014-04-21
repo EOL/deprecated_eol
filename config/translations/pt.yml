@@ -624,7 +624,7 @@ pt:
   click_on_a_username_to_view_the_users_detailed_profile: Clique em um nome de usuário para ver o perfil detalhado de um usuário, clique no tipo de dados para ver o objeto que foi comentado (use o botão Voltar do seu navegador para voltar aqui), clique em "editar" para editar o comentário ou clique em "apagar" para eliminar permanentemente o comentário.
   close_this_window_to_return_to_edit_window: FECHE ESTA JANELA PARA VOLTAR À JANELA DE EDIÇÃO
   cms_available_in_languages: "Esta página está disponível em:"
-  cms_missing_content_message: Pedimos desculpa, mas esta página não está disponível nesta língua.
+  cms_missing_content_message: Pedimos desculpa, mas esta página não está disponível no idioma selecionado %{selected_language}.
   cms_missing_content_title: Falta a tradução
   collect_item: Coletar item
   collection_created_notice: Coleção <em>%{collection_name}</em> criada com sucesso.
@@ -1577,6 +1577,8 @@ pt:
   jsonp_by_adding_a_callback_parameter: ... e JSONP, adicionando um parâmetro de retorno (callback)
   just_pages_with_pictures_and_text: Apenas as páginas com imagens e texto
   key: Chave
+  known_uris: 
+    please_select_category_for_stats: Por favor, selecione uma categoria para ver as estatísticas.
   label: Etiqueta
   language: "Língua:"
   language_selector_advisory_information: Esta é uma lista de línguas em que o conteúdo do site está disponível. Para mudar a língua atual, selecione uma língua alternativa a partir desta lista.
@@ -2016,7 +2018,7 @@ pt:
   users_form_account_header: Sua conta
   value_default: (padrão)
   value_empty: (vazio)
-  versions_colon: "Versão:"
+  versions_colon: "Versões:"
   visible_title: Visível
   visitors: Visitantes
   vivisimo: Vivisimo

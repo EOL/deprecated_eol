@@ -61,6 +61,8 @@ public/files/solr_import_file_*.csv
 public/javascripts/*packaged.js
 public/opensearch.xml
 public/search.xml
+public/falo_data.json
+public/falo_mappings.json
 public/stylesheets/*packaged.css
 public/uploads/data_search_files/*
 public/uploads/datasets/*

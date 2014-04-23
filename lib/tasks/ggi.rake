@@ -2,7 +2,7 @@ namespace :ggi do
   desc 'Create a JSON file with GGI data for all taxa in FALO'
   task :create_data_file => :environment do
     all_data = [ ]
-    ids = Resource.find_by_title('Animal Diversity Web Descriptions').hierarchy.hierarchy_entries.collect(&:taxon_concept_id)
+    ids = Resource.find_by_title('FALO Classification').hierarchy.hierarchy_entries.collect(&:taxon_concept_id)
     ids.each do |id|
       all_data << get_ggi_json_bocce(id)
       puts id

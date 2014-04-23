@@ -1,23 +1,24 @@
 namespace :ggi do
-  desc 'Craete a single file with all GGI data in it'
-  task :create_file => :environment do
-    # this whole section for IDs will eventually read from the database
-    # and not a text file. We just need to harvest the FALO resource first
-    ids =  [ ]
-    File.open(File.dirname(__FILE__) + '/../../tmp/falo_ids.txt', "r") do |f|
-      f.each_line do |line|
-        id = line.strip.to_i
-        ids << id if id && id != 0
-      end
-    end
+  desc 'Create a JSON file with GGI data for all taxa in FALO'
+  task :create_data_file => :environment do
     all_data = [ ]
-    ids[0...10].each do |id|
+    ids = Resource.find_by_title('Animal Diversity Web Descriptions').hierarchy.hierarchy_entries.collect(&:taxon_concept_id)
+    ids.each do |id|
       all_data << get_ggi_json_bocce(id)
       puts id
     end
     file_contents = '[' + all_data.map{ |d| d.to_json }.join(",\n") + ']'
     File.open(File.dirname(__FILE__) + '/../../public/falo_data.json', "w") do |f|
       f.write(file_contents)
+    end
+  end
+
+  desc 'Create a JSON file with FALO IDs mapped to EOL IDs'
+  task :create_mapping_file => :environment do
+    File.open(File.dirname(__FILE__) + '/../../public/falo_mappings.json', "w") do |f|
+      f.write(Resource.find_by_title('FALO Classification').hierarchy.hierarchy_entries.map{ |he|
+        { falo_id: he.identifier, eol_id: he.taxon_concept_id }
+      }.to_json)
     end
   end
 end

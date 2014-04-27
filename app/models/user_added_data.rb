@@ -29,8 +29,9 @@ class UserAddedData < ActiveRecord::Base
   after_update :update_data_point_uri
   after_update :update_triplestore
 
-  attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object, :user_added_data_metadata_attributes, :deleted_at,
-    :visibility, :visibility_id, :vetted, :vetted_id, :predicate_known_uri_id, :object_known_uri_id, :has_values
+  attr_accessible :subject, :subject_type, :subject_id, :user, :user_id, :predicate, :object,
+    :user_added_data_metadata_attributes, :deleted_at, :visibility, :visibility_id, :vetted,
+    :vetted_id, :predicate_known_uri_id, :object_known_uri_id, :has_values
 
   attr_accessor :predicate_known_uri_id
   attr_accessor :object_known_uri_id

@@ -22,7 +22,7 @@ end
 
 def hide_row
   visit(taxon_data_path(@taxon_concept))
-  within(:xpath, "//div[a[@href='#{data_point_uri_hide_path(@user_added_data)}']]") do
+  within("##{@user_added_data.data_point_uri.anchor}_actions") do
     click_link "Hide Row"
     sleep(1)
   end
@@ -30,7 +30,7 @@ end
 
 def unhide_row
   visit(taxon_data_path(@taxon_concept))
-  within(:xpath, "//div[a[@href='#{data_point_uri_unhide_path(@user_added_data)}']]") do
+  within("##{@user_added_data.data_point_uri.anchor}_actions") do
     click_link "Unhide Row"
     sleep(1)
   end
@@ -38,7 +38,7 @@ end
 
 def add_to_quick_facts
   visit(taxon_data_path(@taxon_concept))
-  within(:xpath, "//div[a[@href='/taxon_data_exemplars?id=#{@user_added_data.id}&taxon_concept_id=#{@taxon_concept.id}']]") do
+  within("##{@user_added_data.data_point_uri.anchor}_actions") do
     click_link I18n.t(:data_row_add_exemplar_button)
     sleep(1)
   end
@@ -46,8 +46,7 @@ end
 
 def remove_from_quick_facts
   visit(taxon_data_path(@taxon_concept))
-  within(:xpath, "//div[a[@href='/#{taxon_data_exemplars_path(id: @user_added_data.id,
-    taxon_concept_id: @taxon_concept.id, exclude: true)}']]") do
+  within("##{@user_added_data.data_point_uri.anchor}_actions") do
     click_link I18n.t(:data_row_remove_exemplar_button)
   end
 end

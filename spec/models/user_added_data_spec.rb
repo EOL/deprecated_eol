@@ -2,8 +2,9 @@ require "spec_helper"
 
 describe UserAddedData do
 
+  # TODO - this spec runs really slowly. Figure out why and fix it.
+
   before(:all) do
-    load_foundation_cache
     @test_user = User.gen
     @test_subject_concept = TaxonConcept.gen
     @test_predicate = 'http://somethinguseful.com/fake_ontology'
@@ -15,6 +16,40 @@ describe UserAddedData do
       user:         @test_user
     }
     @uad = UserAddedData.gen
+  end
+
+  describe '#turtle' do
+
+    let(:predicate) { 'predicated upon' }
+    let(:object) { 'of my affection' }
+    let(:user_added_data) { build_stubbed(UserAddedData) }
+    let(:user_added_data_metadata) do
+      UserAddedDataMetadata.new(predicate: predicate,
+                                object: object,
+                                user_added_data: user_added_data)
+    end
+    subject { user_added_data_metadata.turtle }
+
+    before do
+      # Easier than building a valid uri on the model:
+      allow(user_added_data).to receive(:uri) { 'this uri' }
+      allow(EOL::Sparql).to receive(:enclose_value) { |arg| "#{arg} enclosed" }
+    end
+    
+    it 'makes a tag of the uri' do
+      expect(subject).to match(/<#{user_added_data.uri}>/)
+    end
+
+    it 'encloses the predicate' do
+      expect(subject).to match(/#{predicate} enclosed/)
+      expect(EOL::Sparql).to have_received(:enclose_value).with(predicate)
+    end
+
+    it 'encloses the object' do
+      expect(subject).to match(/#{object} enclosed/)
+      expect(EOL::Sparql).to have_received(:enclose_value).with(object)
+    end
+
   end
 
   it 'should create a valid user added data instance' do

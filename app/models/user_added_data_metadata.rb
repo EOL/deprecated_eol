@@ -25,10 +25,6 @@ class UserAddedDataMetadata < ActiveRecord::Base
     UserAddedDataMetadata.new(predicate: SUPPLIER_URI, object: user.full_name)
   end
 
-  def self.default_license
-    UserAddedDataMetadata.new(predicate: LICENSE_URI, object: License.default.source_url)
-  end
-
   def self.default_source
     UserAddedDataMetadata.new(predicate: SOURCE_URI)
   end
@@ -38,7 +34,7 @@ class UserAddedDataMetadata < ActiveRecord::Base
   end
 
   def turtle
-    "<#{user_added_data.uri}> " + EOL::Sparql.enclose_value(predicate) + " " + EOL::Sparql.enclose_value(object)
+    "<#{user_added_data.uri}> #{EOL::Sparql.enclose_value(predicate)} #{EOL::Sparql.enclose_value(object)}"
   end
 
   def add_to_triplestore

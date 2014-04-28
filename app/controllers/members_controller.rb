@@ -101,11 +101,13 @@ private
 
   def restrict_edit
     @current_member ||= current_user.member_of(@community)
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end
 
   def restrict_delete
     @current_member ||= current_user.member_of(@community)
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end
 

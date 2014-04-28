@@ -589,6 +589,7 @@ private
   def user_able_to_view_collection
     unless @collection && current_user.can_read?(@collection)
       if logged_in?
+        # TODO - second argument to constructor should be an I18n key for a human-readable error.
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to Collection with ID=#{@collection.id}"
       else
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to Collection with id=#{@collection.id}"
@@ -600,6 +601,7 @@ private
   def user_able_to_edit_collection
     unless @collection && current_user.can_edit_collection?(@collection)
       if logged_in?
+        # TODO - second argument to constructor should be an I18n key for a human-readable error.
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to Collection with ID=#{@collection.id}"
       else
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have edit access to Collection with id=#{@collection.id}"

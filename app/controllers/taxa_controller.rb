@@ -122,8 +122,10 @@ private
     @taxon_concept = TaxonConcept.find(tc_id)
     unless @taxon_concept.published?
       if logged_in?
+        # TODO - second argument to constructor should be an I18n key for a human-readable error.
         raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}"
       else
+        # TODO - second argument to constructor should be an I18n key for a human-readable error.
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have access to TaxonConcept with ID=#{@taxon_concept.id}"
       end
     end

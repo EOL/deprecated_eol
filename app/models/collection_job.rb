@@ -25,6 +25,7 @@ class CollectionJob < ActiveRecord::Base
   validate :user_can_edit_targets, unless: :remove?
 
   def run
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation unless valid?
     affected = method(command).call # Call the method with the name in the 'command' value.
     count = affected.respond_to?(:length) ? affected.length : affected

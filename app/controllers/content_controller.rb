@@ -113,6 +113,7 @@ class ContentController < ApplicationController
     if ! @content.nil? && ! current_user.can_read?(@content) && ! logged_in?
       raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to ContentPage with ID=#{@content.id}"
     elsif ! current_user.can_read?(@content)
+      # TODO - second argument to constructor should be an I18n key for a human-readable error.
       raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to ContentPage with ID=#{@content.id}"
     else # page exists so now we look for actual content i.e. a translated page
       if @content.translations.blank?
@@ -121,6 +122,7 @@ class ContentController < ApplicationController
         translations_available_to_user = @content.translations.select{|t| current_user.can_read?(t)}.compact
         if translations_available_to_user.blank?
           if logged_in?
+            # TODO - second argument to constructor should be an I18n key for a human-readable error.
             raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to any TranslatedContentPage with content_page_id=#{@content.id}"
           else
             raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to any TranslatedContentPage with content_page_id=#{@content.id}"

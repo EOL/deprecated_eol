@@ -151,6 +151,7 @@ class CommunitiesController < ApplicationController
 
   def revoke_editor
     collection = Collection.find(params[:collection_id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation if collection.watch_collection?
     raise EOL::Exceptions::SecurityViolation if @community.collections.count <= 1
     @community.collections.delete(collection)
@@ -259,6 +260,7 @@ private
 
   def restrict_edit
     @current_member ||= current_user.member_of(@community)
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
   end
 

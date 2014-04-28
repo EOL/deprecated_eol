@@ -26,6 +26,7 @@ class Forums::CategoriesController < ForumsController
   # GET /forum_categories/:id/edit
   def edit
     @category = ForumCategory.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}" unless current_user.can_update?(@category)
   end

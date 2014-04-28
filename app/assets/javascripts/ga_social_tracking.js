@@ -1,3 +1,4 @@
+// TODO - I don't think EOL needs this anymore. Remove it.
 // Copyright 2011 Google Inc. All Rights Reserved.
 // @see http://code.google.com/p/analytics-api-samples/source/browse/trunk/src/tracking/javascript/v5/social/ga_social_tracking.js
 /**

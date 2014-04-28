@@ -9,6 +9,7 @@ class CollectionRelevanceCalculator
 
   attr_accessor :collection
 
+  # TODO - this logging is miserable and doesn't cover enough. Improve.
   def self.perform(id)
     Rails.logger.info "++ #{Time.now.strftime("%F %T")} - CollectionRelevanceCalculator performing for collection ##{id}."
     begin

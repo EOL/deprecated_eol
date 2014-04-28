@@ -1,6 +1,9 @@
 source 'https://rubygems.org'
 
+# TODO - convert all of these specifc versions to use the first two digits.
+
 group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
+  # TODO - update capistrano
   gem 'capistrano', '2.13.5' # For deploys.
   gem 'capistrano-unicorn-pleary', '=0.1.6.1' # For deploys. Note we've customized it...
   gem 'rvm-capistrano', '1.2.7' # For deploys.
@@ -13,6 +16,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem 'optiflag', '0.7' # Handles command-line arguments. We currently only use this for Solr tasks.
   gem 'rspec-rails', '2.14' # This is what we use for testing. Learn it.
   gem 'ruby-prof', '0.11.2' # Used to measure performance.
+  # TODO - update nokogiri
   gem 'nokogiri', '1.5.5' # Yeah, I know this has given us grief in the past.  :\ Trying things out, is all.
 end
 
@@ -26,7 +30,8 @@ group :staging, :bocce_demo do
 end
 
 group :development, :staging_dev, :staging_dev_cache, :bocce_demo_dev, :test_dev do
-  gem 'webrick', '1.3.1' # TODO - do we still need this?  I doubt it.
+  # TODO - do we still need this?  I doubt it; remove it, see what breaks. :)
+  gem 'webrick', '1.3.1'
 end
 
 # NOT versioning these, since they really are for development (and test) only:
@@ -58,6 +63,7 @@ group :development do
 end
 
 group :test do
+  # TODO - update webmock
   gem 'webmock', '1.8.11', require: false # Mock calls to remote APIs, like Open Authentication.
   gem 'rspec-html-matchers', '0.4.3' # Adds #with_tag for tests. Requires nokogiri.
   gem 'simplecov', '~> 0.7.1', require: false
@@ -78,6 +84,7 @@ gem 'acts_as_tree_rails3', '0.1.0' # We use this for a few of our tree-like mode
 gem 'biodiversity', '3.1.2' # "used for generation of scientific names with ranks on the species page"
 gem 'cityhash', '0.8.1' # Used by identity_cache to speed up the creation of hash keys.
 gem 'ckeditor', '3.7.3' # We use this in many places, such as creating data objects, to allow rich text editing.
+# TODO - update or remove this.
 gem 'coffee-rails', '3.2.2' # TODO - do we actually use this? If so, it helps make simplified JS, for Ajax responses.
 # IMPORTANT NOTE - any time you update CPK, you really need to double-check our monkey-patches in lib/select_with_preload_include
 # (in addition to the usual tests).
@@ -100,20 +107,28 @@ gem 'json', '1.8.1' # For APIs that want to return JSON.
 gem 'macaddr' # For creating UUIDs that are unique to the machine that makes them.
 gem 'mime-types', '1.25' # For handling the many differnt types of files to serve, such as videos.
 gem 'mysql2', '0.3.14' # This is our database. You might want this.
+# TODO - update newrelic_rpm
 gem 'newrelic_rpm', '>3.7.2' # For gathering tons of awesome stats about the site
+# TODO - update oauth ... do we even still use v1?
 gem 'oauth', '0.4.7' # Logging in via Facebook and Twitter, older version.
 gem 'oauth2', '0.8.0' # Logging in via Facebook and Twitter
 gem 'paperclip', '4.1.1' # Uploading files, such as icons for users and collections.
 gem 'rails_autolink', '1.1.5' # Adding links to user-entered text.
 gem 'rails3-jquery-autocomplete', '1.0.11', :git => "git://github.com/pleary/rails3-jquery-autocomplete.git" # Autocomplete Ajax.
+# TODO - update recaptcha.
 gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails' # An empathy test to see if you're a human, when creating an account.
+# TODO - update resque. (and redis)
 gem 'resque', '1.23.0', :require => 'resque/server' # For background jobs, like email notifications and classification curation
 gem 'sanitize', '2.0.3' # To clean up user-enter HTML.
 gem 'sass-rails', '3.2.5' # To make CSS easier to write.
+# TODO - update sparql-client
 gem 'sparql-client', '1.0.4.1' # For the data tab
 gem 'statsd-ruby', '1.2.1' # For recording various stats around the site.
 gem 'uglifier', '2.3.1' # For smaller JS when assets are compiled
+# TODO - update unicorn.
 gem 'unicorn', '4.4.0' # This is our webserver
+# TODO - update uuid
 gem 'uuid', '2.3.5' # Used when creating data objects
+# TODO - update will_paginate
 gem 'will_paginate', '~> 3.0' # Used ALL OVER THE SITE for pagination.
 gem 'nunes', '0.3.0'  # This makes it easier to handle statsd

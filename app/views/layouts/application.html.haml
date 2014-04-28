@@ -46,6 +46,8 @@
       = stylesheet_include_i18n_merged 'application_pack', :media => "all"
     /[if IE 7]
       = stylesheet_include_i18n_merged 'ie7', :media => "all"
+    -# TODO - Try loading jQuery from a CDN like http://code.jQuery.com/jQuery-latest.min.js …Though I don’t want to use “latest”. … :)
+
     = javascript_include_tag 'application'
 
     = csrf_meta_tags
@@ -153,6 +155,7 @@
       %noscript
         %div{ :style => "display: none;" }
           %img{ :src => "http://pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "" }
+    -# TODO - update webtrends? http://help.webtrends.com/en/jstag/v9_to_v10_upgrade.html
     - if $ENABLE_WEBTRENDS
       = javascript_include_tag :webtrends
       :javascript

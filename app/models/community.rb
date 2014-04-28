@@ -109,7 +109,7 @@ class Community < ActiveRecord::Base
     }.compact[0..3]
   end
 
-  # TODO - errr... I'm guessing this is expensive.  Fix.
+  # TODO - use counter_culture to cache this.
   # the .reduce(:+) adds all the values of the array, thus counting all the items in all collections
   def all_items_in_all_collections_count
     @all_items_count ||= collections.map { |c| c.collection_items_count }.reduce(:+)

@@ -5,6 +5,7 @@ require(File.join(File.dirname(__FILE__), 'config', 'boot'))
 
 require 'rake'
 require 'rake/testtask'
+# TODO - remove this (and the gem from the Gemfile.) We don't use it.
 require 'rake/rdoctask'
 
 require 'tasks/rails'

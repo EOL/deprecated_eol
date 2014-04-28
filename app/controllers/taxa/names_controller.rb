@@ -34,6 +34,7 @@ class Taxa::NamesController < TaxaController
     common_names_count
     respond_to do |format|
       format.html { render action: 'classifications' }
+      # TODO - this reloads the WHOLE tab... we should probably break it down a bit.
       format.js {}
     end
   end

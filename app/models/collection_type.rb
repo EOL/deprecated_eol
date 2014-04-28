@@ -1,7 +1,7 @@
 # I'm not entirely sure what this is, but it has something to do with outlinks to content partners. You'll see it being used by
 # #hierarchy_outlink_collection_types, which is a helper method, and that's used on the taxa resources / partners tab.
 #
-# TODO - explain this class.  :\
+# TODO - explain this class.  :\  ...Or remove it.
 class CollectionType < ActiveRecord::Base
   uses_translations
   acts_as_tree order: 'lft'

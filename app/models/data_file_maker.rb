@@ -2,6 +2,7 @@ class DataFileMaker
 
   @queue = 'data'
 
+  # TODO - logging here is bad; improve.
   def self.perform(args)
     puts "++ #{Time.now.strftime('%F %T')} DataFileMaker: #{args.values.join(', ')}"
     # Once upon a time, a job was skipped because it didn't exist... but it should have.

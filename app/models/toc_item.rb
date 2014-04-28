@@ -264,8 +264,8 @@ class TocItem < ActiveRecord::Base
 
     def for_uris(lang)
       lang = lang.iso_code if lang.respond_to?(:iso_code)
-      @for_uris ||= {}
-      @for_uris[lang] ||= FOR_URIS.map do
+      @@for_uris ||= {}
+      @@for_uris[lang] ||= FOR_URIS.map do
         |label| TocItem.cached_find_translated(:label, label, lang)
       end.flatten.compact
     end

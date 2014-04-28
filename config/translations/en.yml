@@ -2600,9 +2600,9 @@ en:
   admin_information: "This is the new administration console for EOL V2. We are in the process of transferring administration functionality from V1. If the administration section you are looking for is not listed please visit the <a href=\"/administrator\">V1 Administration Console</a>."
   admin_options_warning: "Changes here may require 10 minutes to take effect."
   admin_option_all_users_can_see_data: "All users can see data, not just users with permission"
-  admin_option_changed: "Value changed."
   admin_link: "Overview"
   admin_page_title: "Administration: Overview"
+  admin_simple_actions_header: "Simple Actions:"
   admin_statistics_link: "Statistics"
   admin_translated_content_page_create_successful_notice: "Translation has been added to <a href=\"#%{anchor}\"><em>%{page_name}</em></a>"
   admin_translated_content_page_create_unsuccessful_error: "Sorry, an error occurred, the translation could not be added."
@@ -2630,6 +2630,7 @@ en:
   admin_translated_news_item_not_active: "Unpublished"
   admin_translated_news_item_update_successful_notice: "%{language} translation for <a href=\"#%{anchor}\"><em>%{page_name}</em></a> has been updated."
   admin_translated_news_item_update_unsuccessful_error: "Sorry, an error occurred, the translation could not be updated."
+  admin_updated_config: "Updated config for %{name}"
   agent: "Agent"
   all: "all"
   all_apis_return_by_default_an_xml_response: "All APIs return by default an XML response. The API methods may be called without a format extension to get the XML response, and adding an XML extension will give an identical response:"
@@ -4317,6 +4318,8 @@ en:
   recognized_by_from_source_as_a_rank: '%{recognized_by} in %{source} as a %{taxon_rank}'
   record_count: "Record Count"
   record_not_found: "[record not found]"
+  recount_collection_items: "Re-count collection items (fix bad item counts; this may take several minutes)"
+  recount_collection_items_done: "Finished re-count of collection items."
   reference: "Reference"
   related_names_with_count:
     one: "%{count} related name"

@@ -289,6 +289,9 @@ Eol::Application.routes.draw do
   end
 
   resource :admin, :only => [:show] do
+    collection do
+      get :recount_collection_items
+    end
     resources :content_pages, :controller => 'admins/content_pages' do
       member do
         post 'move_up'
@@ -573,7 +576,7 @@ Eol::Application.routes.draw do
 
   resources :eol_configs, only: :update do
     collection do
-      get 'change'
+      post 'change'
     end
   end
 

@@ -9,6 +9,10 @@ class EolConfigsController < ApplicationController
     val = true if val == 'true'
     @sco.value = val
     @sco.save
+    respond_to do |format|
+      format.html {}
+      format.js {}
+    end
   end
 
 end

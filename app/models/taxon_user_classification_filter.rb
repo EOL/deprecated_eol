@@ -136,6 +136,8 @@ class TaxonUserClassificationFilter
     hierarchy_entry_or_taxon_concept.rank_label
   end
 
+  # TODO - review. Passing around this hash seems complicated and tightly-coupled.
+  # ...smells to me like this could (and should) simply be two separate methods.
   def related_names
     @related_names ||=
       {'parents' => build_related_names_hash(get_related_names(:parents)),

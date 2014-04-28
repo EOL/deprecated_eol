@@ -1,3 +1,4 @@
+# TODO - remove activated_on ...or start using it.
 class Language < ActiveRecord::Base
   uses_translations(foreign_key: 'original_language_id')
   belongs_to :language_group, foreign_key: :language_group_id

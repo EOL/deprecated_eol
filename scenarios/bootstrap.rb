@@ -7,6 +7,7 @@
 #     $ rake scenarios:show NAME=bootstrap
 #---
 
+# TODO - port scenarios to Rails' baked-in seeds.
 $LOADING_BOOTSTRAP = true
 
 # We turn off Solr and reindex the whole lot at the end - its faster that way

@@ -1,3 +1,6 @@
+# TODO - consider sunspot. it's widely used, nicely documented, handles boost, has a nice DSL, includes highlights. Autocomplete, RSpec matchers and
+# DelayedJob plugins avilable. It could greatly simplify EOL's code.
+
 module EOL
   module Solr
     def self.query_lucene(solr_endpoint, query, options = {})

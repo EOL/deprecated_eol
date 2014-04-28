@@ -15,13 +15,6 @@ describe TocItem do
   before(:all) do
     Visibility.create_enumerated
     Language.create_english
-    # TODO - make this method directly available in specs
-    ClassVariableHelper.clear_class_variables
-  end
-
-  after(:all) do
-    # We were having problems where the doubles were getting cached (!)
-    ClassVariableHelper.clear_class_variables
   end
 
   it 'should allow user submitted text' do

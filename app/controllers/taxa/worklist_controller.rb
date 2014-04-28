@@ -5,6 +5,7 @@ class Taxa::WorklistController < TaxaController
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry
 
+  # TODO - (very) long method; is this all really needed? Review.
   def show
     @page = params[:page] ||= 1
     @sort_by = params[:sort_by] ||= 'newest'

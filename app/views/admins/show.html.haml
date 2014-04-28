@@ -2,10 +2,16 @@
 #admin_overview.main_container
   .article.copy
     %p= raw(I18n.t(:admin_information))
-  .actions
-    %p.data
-      = check_box_tag('eol_config', 'all_users_can_see_data', (EolConfig.all_users_can_see_data rescue false), data: { href: change_eol_configs_path(parameter: 'all_users_can_see_data') })
-      = I18n.t(:admin_option_all_users_can_see_data)
+    %h3= I18n.t(:admin_simple_actions_header)
+    .actions
+      %ul
+        %li.data
+          = form_tag(change_eol_configs_path, remote: true) do
+            = hidden_field_tag(:parameter, 'all_users_can_see_data')
+            - val = EolConfig.all_users_can_see_data rescue false
+            = check_box_tag('value', val, val)
+            = I18n.t(:admin_option_all_users_can_see_data)
+        %li= link_to(I18n.t(:recount_collection_items), recount_collection_items_admin_path)
   %p
     %br
   - if defined?(Resque) && Resque && Resque.info

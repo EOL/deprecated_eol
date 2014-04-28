@@ -85,6 +85,9 @@ module ApplicationHelper
 
   # Used in V2 to return class for active navigation tabs. 
   def resource_is_active(action)
+    puts "+" * 100
+    puts "action"
+    puts "Controller: #{controller.controller_name} / Action: #{controller.action_name}"
     return "active" if
         action == "#{controller.controller_name}/#{controller.action_name}" ||
         action == controller.controller_name ||

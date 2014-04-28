@@ -98,6 +98,8 @@ class DataSearchFile < ActiveRecord::Base
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|
+        # TODO - Whoa! Even when I ran “dpu.to_hash[some_val]”, even though it
+        # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
         rows << data_point_uri.to_hash(user.language)
       end
       if (page * PER_PAGE < results.total_entries)

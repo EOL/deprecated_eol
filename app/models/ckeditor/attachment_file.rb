@@ -1,3 +1,4 @@
+# TODO - remove this. I don't think we use it anymore.
 class Ckeditor::AttachmentFile < Ckeditor::Asset
   has_attached_file :data,
                     url: "/ckeditor_assets/attachments/:id/:filename",

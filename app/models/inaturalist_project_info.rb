@@ -45,6 +45,7 @@ module InaturalistProjectInfo
     # gun, your foot. These methods are not (directly) tested and are subject to change.
 
     # NOTE: In the view, we also create a background JQuery call to cache the entire list.
+    # TODO - switch to using INATURALIST_COLLECTION_API_PREFIX !  It's Wwaaaaaaaay faster!
     def get_directly(id)
       InaturalistProjectInfo.get_inat_response(source:"#{Rails.configuration.inat_project_prefix}#{id}").first
     rescue => e

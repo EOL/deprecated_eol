@@ -1,3 +1,4 @@
+# TODO - this needs a way to *clear* the cache, too. :\
 module EOL
   module LocalCacheable
 

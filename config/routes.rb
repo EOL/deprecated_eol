@@ -489,6 +489,7 @@ Eol::Application.routes.draw do
   match '/data_objects/:id/remove_association/:hierarchy_entry_id' => 'data_objects#remove_association',
     :as => 'remove_association'
 
+  # TODO - make these resources
   # Named taxon routes:
   match '/pages/:id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title', :as => 'bhl_title'
   match '/pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title',

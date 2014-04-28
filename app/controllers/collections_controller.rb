@@ -1,6 +1,8 @@
 # NOTE - we use these commit_* button names because we don't want to parse the I18n of the button name (hard).
 class CollectionsController < ApplicationController
 
+  # TODO - review these. There are too many and as a result there's some redundancy in, for example, checking whether the user is logged in on unpublished
+  # collections
   before_filter :login_with_open_authentication, only: :show
   before_filter :modal, only: [:choose_editor_target, :choose_collect_target]
   before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]

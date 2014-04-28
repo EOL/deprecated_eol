@@ -60,6 +60,8 @@ RSpec.configure do |config|
   config.after(:each) do
     Rails.cache.clear if Rails.cache
     I18n.locale = :en
+    # TODO - make this method directly available in specs
+    ClassVariableHelper.clear_class_variables
   end
 
   # If true, the base class of anonymous controllers will be inferred

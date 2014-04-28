@@ -63,6 +63,7 @@ class ApplicationController < ActionController::Base
   def allow_login_then_submit
     unless logged_in?
       # TODO: Can we delete the submitted data if the user doesn't login or signup?
+      # TODO - can we generalize this and the associated code for handling POSTs before login?
       session[:submitted_data] = params
       # POST request should provide a submit_to URL so that we can redirect to the correct action with a GET.
       submit_to = params[:submit_to] || current_url
@@ -298,8 +299,10 @@ class ApplicationController < ActionController::Base
     session[:user_id] = nil
   end
 
+  # TODO - review the session-management code. It seems quite convoluted.
   def logged_in?
-    session[:user_id] && current_user.active? # NOTE - the active check is to stop spammers from continuing to comment. Sigh.
+    # NOTE - the active check is to stop spammers from continuing to comment. Sigh.
+    session[:user_id] && current_user.active?
   end
 
   def check_authentication
@@ -473,6 +476,7 @@ class ApplicationController < ActionController::Base
     Rails.cache.delete('homepage/activity_logs_expiration') if Rails.cache
   end
 
+  # TODO - review. This seems quite convoluted; it's certainly obfuscated.
   def rescue_from_exception(exception = env['action_dispatch.exception'])
     rescue_action_in_public(exception)
   end

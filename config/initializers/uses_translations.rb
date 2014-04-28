@@ -1,3 +1,7 @@
+# TODO - move this to a library (and load it here if you must).
+
+# TODO - review: relying on the database for translations is quite convoluted;
+# would we be better-off putting these into a translated YAML file?
 module ActiveRecord
   class Base
     class << self

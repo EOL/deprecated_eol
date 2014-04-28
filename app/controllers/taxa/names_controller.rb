@@ -7,6 +7,7 @@ class Taxa::NamesController < TaxaController
   before_filter :load_hierarchy_entries, only: [ :related_names, :common_names, :synonyms ]
   before_filter :parse_classification_controller_params, only: :index
 
+  # TODO - there's too much logic here. Consider a Classifications class to use as presenter.
   def index
 
     session[:split_hierarchy_entry_id] = params[:split_hierarchy_entry_id] if params[:split_hierarchy_entry_id]

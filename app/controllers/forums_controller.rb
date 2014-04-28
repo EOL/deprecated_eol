@@ -46,6 +46,7 @@ class ForumsController < ApplicationController
   # GET /forums/:id/edit
   def edit
     @forum = Forum.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to Forum with ID=#{@forum.id}" unless current_user.can_update?(@forum)
   end
@@ -53,6 +54,7 @@ class ForumsController < ApplicationController
   # PUT /forums/:id
   def update
     @forum = Forum.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to Forum with ID=#{@forum.id}" unless current_user.can_update?(@forum)
     if @forum.update_attributes(params[:forum])
@@ -110,6 +112,7 @@ class ForumsController < ApplicationController
   def must_be_allowed_to_view_forum
     return if Rails.env.test?
     if current_user.blank?
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
       raise EOL::Exceptions::SecurityViolation,
         "Must be logged in and sufficient priveleges to access to Forum"
     end

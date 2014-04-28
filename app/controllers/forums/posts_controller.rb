@@ -54,6 +54,7 @@ class Forums::PostsController < ForumsController
   # GET /forums/:forum_id/topics/:topic_id/posts/:id/edit
   def edit
     @post = ForumPost.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}" unless current_user.can_update?(@post)
   end
@@ -61,6 +62,7 @@ class Forums::PostsController < ForumsController
   # PUT /forums/:forum_id/topics/:topic_id/posts/:id
   def update
     @post = ForumPost.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}" unless current_user.can_update?(@post)
     if @post.update_attributes(params[:forum_post])
@@ -78,6 +80,7 @@ class Forums::PostsController < ForumsController
   def destroy
     @post = ForumPost.find(params[:id])
     topic = @post.forum_topic
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}" unless current_user.can_delete?(@post)
     if @post.topic_starter? && @post.forum_topic.forum_posts.visible.count > 1

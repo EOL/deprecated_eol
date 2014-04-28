@@ -8,6 +8,7 @@ class Users::OpenAuthenticationsController < UsersController
   # GET /users/:user_id/open_authentications
   def index
     @user = User.find(params[:user_id], include: :open_authentications)
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have permission to view open authentications"\
       " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
@@ -24,6 +25,7 @@ class Users::OpenAuthenticationsController < UsersController
     end
 
     @user = User.find(params[:user_id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have permission to add open authentications"\
       " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
@@ -86,6 +88,7 @@ class Users::OpenAuthenticationsController < UsersController
   def destroy
     @user = User.find(params[:user_id], include: :open_authentications)
     open_authentication = OpenAuthentication.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have"\
       " permission to remove OpenAuthentication with ID=#{open_authentication.id} connected to"\
       " User with ID=#{@user.id}" unless current_user.can_delete?(open_authentication)

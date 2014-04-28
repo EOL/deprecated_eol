@@ -33,6 +33,7 @@ class UserAddedDataController < ApplicationController
   def edit
     @user_added_data = UserAddedData.find(params[:id])
     unless current_user.can_update?(@user_added_data)
+      # TODO - second argument to constructor should be an I18n key for a human-readable error.
       raise EOL::Exceptions::SecurityViolation,
         "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}"
     end
@@ -43,6 +44,7 @@ class UserAddedDataController < ApplicationController
     delete_empty_metadata
     @user_added_data = UserAddedData.find(params[:id])
     unless current_user.can_update?(@user_added_data)
+      # TODO - second argument to constructor should be an I18n key for a human-readable error.
       raise EOL::Exceptions::SecurityViolation,
         "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}"
     end
@@ -61,6 +63,7 @@ class UserAddedDataController < ApplicationController
   # DELETE /user_added_data/:id
   def destroy
     user_added_data = UserAddedData.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}" unless current_user.can_delete?(user_added_data)
     user_added_data.update_attributes({ deleted_at: Time.now })

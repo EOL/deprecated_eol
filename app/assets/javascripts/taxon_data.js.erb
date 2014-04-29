@@ -112,7 +112,9 @@ EOL.enable_data_tab_glossary_links = function(info) {
 
 EOL.enable_info_dialogs = function(tip) {
   tip.unbind('click')
-    .on('click', function() {
+    .on('click', function(e) {
+      // this will make sure we don't open rows when clicking info icons
+      e.stopPropagation();
       $('.site_column').unbind('click');
       var $link = $(this);
       var $info = $('#info_'+$(this).data('info'));
@@ -401,7 +403,10 @@ $(function() {
       // Abort if the row is hidden (and in a data search table; it's fine if it's on a data tab):
       if ($targ.hasClass('hidden') && $targ.closest('table.search').length > 0) return;
       // Abort if it's a legitimate link (which will handle itself):
-      if ($targ.closest('a').length) return;
+      if ($(e.target).is('a')) {
+        e.stopPropagation();
+        return;
+      }
       EOL.toggle_actions_row($targ);
     });
 

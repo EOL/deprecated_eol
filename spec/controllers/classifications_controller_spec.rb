@@ -21,6 +21,11 @@ describe ClassificationsController do
     session[:user_id] = @curator.id
     post :create, :taxon_concept_id => @taxon_concept.id, :hierarchy_entry_id => @hierarchy_entry.id
     # 'and only have one CTCPE'
+    if CuratedTaxonConceptPreferredEntry.count("taxon_concept_id = #{@taxon_concept.id}") > 1
+      puts "...There are an extra two CuratedTaxonConceptPreferredEntrys for TC #{@taxon_concept.id}, aren't there?"
+      puts "...Please investigate as to why, since we should be deleting them before each spec."
+      debugger
+    end
     CuratedTaxonConceptPreferredEntry.count("taxon_concept_id = #{@taxon_concept.id}").should == 1
     ctcpe = CuratedTaxonConceptPreferredEntry.last
     # 'and the CTCPE should point to the right things'

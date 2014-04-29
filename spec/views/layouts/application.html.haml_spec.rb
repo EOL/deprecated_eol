@@ -17,13 +17,20 @@ describe 'layouts/application' do
 
   context 'with results' do
 
-    before(:each) do
-      # Later
+    before do
+      allow(EolConfig).to receive(:banner_i18n_key).and_raise(ActiveRecord::RecordNotFound)
     end
 
-    it "should include search" do
-      render
-      expect(rendered).to have_tag('input[name=search]')
+    subject { render ; rendered }
+
+    it { should have_tag('input[name=search]') }
+    it { should have_tag('#banner') }
+    # NOTE - this tests that the EolConfig.banner_i18n_key uses a default:
+    it { should match(I18n.t(:traitbank_banner)) }
+
+    it 'calls banner_i18n_key' do
+      subject
+      expect(EolConfig).to have_received(:banner_i18n_key)
     end
 
   end

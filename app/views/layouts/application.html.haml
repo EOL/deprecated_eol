@@ -63,17 +63,23 @@
           /========================
 
     #banner
-      %p
-        %strong= I18n.t(:traitbank_intro).html_safe
-        = I18n.t(:traitbank_description)
-        &nbsp;
-        %small •
-        &nbsp;
-        = link_to I18n.t(:traitbank_info_page), '/traitbank'
-        &nbsp;
-        %small •
-        &nbsp;
-        = link_to I18n.t(:traitbank_data_search), data_search_path
+      .site_column
+        - translation_key = EolConfig.banner_i18n_key rescue :traitbank_banner
+        %p= I18n.t(translation_key).html_safe
+    - if false
+      #banner
+        .site_column
+          %p
+            %strong= I18n.t(:traitbank_intro).html_safe
+            = I18n.t(:traitbank_description)
+            &nbsp;
+            %small •
+            &nbsp;
+            = link_to I18n.t(:traitbank_info_page), '/traitbank'
+            &nbsp;
+            %small •
+            &nbsp;
+            = link_to I18n.t(:traitbank_data_search), data_search_path
     #header
       .section
         %h1= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }

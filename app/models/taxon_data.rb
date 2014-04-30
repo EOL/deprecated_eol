@@ -14,7 +14,8 @@ class TaxonData < TaxonUserClassificationFilter
     'http://eol.org/schema/terms/NumberRecordsInGBIF',
     'http://eol.org/schema/terms/NumberRecordsInBOLD',
     'http://eol.org/schema/terms/NumberPublicRecordsInBOLD',
-    'http://eol.org/schema/terms/NumberSpecimensInGGBN' ]
+    'http://eol.org/schema/terms/NumberSpecimensInGGBN',
+    'http://eol.org/schema/terms/NumberReferencesInBHL' ]
 
   # TODO - this doesn't belong here; it has nothing to do with a taxon concept. Move to a DataSearch class. Fix the
   # controller.

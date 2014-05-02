@@ -10,7 +10,7 @@
         placeholder: I18n.t(:search_placeholder),
         'data-include-site_search' => 'form#simple_search',
         maxlength: "250", title: I18n.t(:search_input_advisory_information),
-        name: 'q', 'min-length' => 3
+        name: 'q', 'data-min-length' => 3
 
     %input{ type: "submit", name: "search", value: I18n.t(:go), data_error: I18n.t(:must_provide_search_term_error), data_unchanged: I18n.t(:search_placeholder) }
 

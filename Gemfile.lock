@@ -9,7 +9,7 @@ GIT
 
 GIT
   remote: git://github.com/pleary/rails3-jquery-autocomplete.git
-  revision: bb7b9e1c7dce0c87db383438e47e2ee6754f1d72
+  revision: 24f0f2750931f9f4e1ce1c89c2514140bfd58fa8
   specs:
     rails3-jquery-autocomplete (1.0.11)
       rails (~> 3.0)

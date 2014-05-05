@@ -159,13 +159,13 @@ class DataPointUri < ActiveRecord::Base
     jsonld = {
       '@id' => uri,
       '@type' => measurement? ? 'dwc:MeasurementOrFact' : 'eol:Association',
-      'dwc:taxonID' => 'http://eol.org/pages/' + taxon_concept_id.to_s }
+      'dwc:taxonID' => KnownUri.taxon_uri(taxon_concept_id) }
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(predicate_known_uri || predicate)
       type_key = measurement? ? 'dwc:measurementType' : 'eol:associationType'
       jsonld[type_key] = value
     end
     if association?
-      jsonld['eol:targetTaxonID'] = 'http://eol.org/pages/' + object.to_s
+      jsonld['eol:targetTaxonID'] = KnownUri.taxon_uri(object)
     elsif value = DataPointUri.jsonld_value_from_string_or_known_uri(object_known_uri || object)
       jsonld['dwc:measurementValue'] = value
     end

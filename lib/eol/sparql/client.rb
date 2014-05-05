@@ -213,12 +213,12 @@ module EOL
               {
                 SELECT ?uri, ?measurement, ?measurementOfTaxon WHERE {
                   #{ common_clause } .
-                  ?taxon_id dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
+                  ?taxon_id dwc:taxonConceptID <#{ KnownUri.taxon_uri(taxon_concept) }> .
                 }
               } UNION {
                 SELECT ?uri, ?measurement, ?measurementOfTaxon WHERE {
                   #{ common_clause } .
-                  ?parent_taxon dwc:taxonConceptID <http://eol.org/pages/#{taxon_concept.id}> .
+                  ?parent_taxon dwc:taxonConceptID <#{ KnownUri.taxon_uri(taxon_concept) }> .
                   ?t dwc:parentNameUsageID+ ?parent_taxon .
                   ?t dwc:taxonConceptID ?taxon_concept_id
                 }

@@ -21,7 +21,7 @@ class TaxonConceptName < ActiveRecord::Base
   def to_jsonld
     jsonld = { '@type' => 'gbif:VernacularName',
                           'dwc:vernacularName' => { language.iso_639_1 => name.string },
-                          'dwc:taxonID' => 'http://eol.org/pages/' + taxon_concept_id.to_s }
+                          'dwc:taxonID' => KnownUri.taxon_uri(taxon_concept_id) }
     if preferred?
       jsonld['gbif:isPreferredName'] = true
     end

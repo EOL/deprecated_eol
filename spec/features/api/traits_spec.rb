@@ -20,15 +20,15 @@ describe 'API:traits' do
   end
 
 
-  it 'should create an API log including API key' do
+  it 'creates an API log including an API key' do
     user = User.gen(api_key: User.generate_key)
     check_api_key("/api/traits/#{@taxon_concept.id}?key=#{user.api_key}", user)
   end
 
-  it 'pages should be able to render a JSON response' do
+  it 'renders a JSON response' do
     response = get_as_json("/api/traits/1.0/#{@taxon_concept.id}")
     response.class.should == Hash
-    expect(response['@context'].length).to eq(10)
+    expect(response['@context'].length).to eq(14)
     expect(response['@graph'].length).to eq(3)
     expect(response['@graph'][0]['@id']).to eq(KnownUri.taxon_uri(@taxon_concept))
     expect(response['@graph'][0]['dwc:scientificName']).to eq(@taxon_concept.entry.name.string)

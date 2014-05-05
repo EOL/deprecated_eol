@@ -25,15 +25,15 @@
               - if outlink
                 %tr
                   %td
-                    - logo = outlink[:hierarchy].resource ? image_tag(outlink[:hierarchy].resource.content_partner.logo_url, alt: "") : image_tag('v2/logos/partner_default.png')
-                    - if outlink[:hierarchy].url.blank?
-                      - if cp = outlink[:hierarchy].content_partner
+                    - logo = outlink[:hierarchy_entry].hierarchy.resource ? image_tag(outlink[:hierarchy_entry].hierarchy.resource.content_partner.logo_url, alt: "") : image_tag('v2/logos/partner_default.png')
+                    - if outlink[:hierarchy_entry].hierarchy.url.blank?
+                      - if cp = outlink[:hierarchy_entry].hierarchy.content_partner
                         = link_to logo, cp
                       - else
                         = logo
                     - else
-                      = link_to logo, outlink[:hierarchy].url
+                      = link_to logo, outlink[:hierarchy_entry].hierarchy.url
                   %td
-                    = outlink[:hierarchy].display_title
+                    = outlink[:hierarchy_entry].hierarchy.display_title
                   %td
-                    = link_to hierarchy_outlink_collection_types(outlink[:hierarchy]), outlink[:outlink_url], rel: :nofollow
+                    = link_to hierarchy_outlink_collection_types(outlink[:hierarchy_entry].hierarchy), outlink[:outlink_url], rel: :nofollow

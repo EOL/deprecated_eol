@@ -203,21 +203,27 @@ class HierarchyEntry < ActiveRecord::Base
     )
   end
 
-  def outlink
+  def outlink_hash
     return nil if published != 1 && visibility_id != Visibility.visible.id
-    this_hierarchy = hierarchy
+    if url = outlink_url
+      return { hierarchy_entry: self, outlink_url: url }
+    end
+  end
+
+  def outlink_url
     if !source_url.blank?
-      return {hierarchy_entry: self, hierarchy: this_hierarchy, outlink_url: source_url }
-    elsif !this_hierarchy.outlink_uri.blank?
+      # if the link is Wikipedia this will remove the revision ID
+      return source_url.gsub(/&oldid=[0-9]+$/, '')
+    elsif hierarchy && !hierarchy.outlink_uri.blank?
       # if the hierarchy outlink_uri expects an ID
-      if matches = this_hierarchy.outlink_uri.match(/%%ID%%/)
+      if matches = hierarchy.outlink_uri.match(/%%ID%%/)
         # .. and the ID exists
         unless identifier.blank?
-          return {hierarchy_entry: self, hierarchy: this_hierarchy, outlink_url: this_hierarchy.outlink_uri.gsub(/%%ID%%/, identifier) }
+          return hierarchy.outlink_uri.gsub(/%%ID%%/, identifier)
         end
       else
         # there was no %%ID%% pattern in the outlink_uri, but its not blank so its a generic URL for all entries
-        return {hierarchy_entry: self, hierarchy: this_hierarchy, outlink_url: this_hierarchy.outlink_uri }
+        return hierarchy.outlink_uri
       end
     end
   end
@@ -258,5 +264,12 @@ class HierarchyEntry < ActiveRecord::Base
     [ root_ancestor, immediate_parent ]
   end
 
+  def mapping_jsonld
+    { '@type' => 'dwc:ResourceRelationship',
+      'dwc:resourceID' => KnownUri.taxon_uri(taxon_concept_id),
+      'dwc:relationshipOfResource' => 'foaf:isPrimaryTopicOf',
+      'dwc:relatedResourceID' => outlink_url,
+      'dwc:relationshipAccordingTo' => 'http://eol.org' }
+  end
 
 end

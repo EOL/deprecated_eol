@@ -26,22 +26,7 @@ class Taxa::OverviewController < TaxaController
   private
 
   def make_json_ld
-    @jsonld = { '@context' => {
-                  'dc' => 'http://purl.org/dc/terms/',
-                  'dwc' => 'http://rs.tdwg.org/dwc/terms/',
-                  'eol' => 'http://eol.org/schema/',
-                  'eolterms' => 'http://eol.org/schema/terms/',
-                  'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
-                  'gbif' => 'http://rs.gbif.org/terms/1.0/',
-                  'dwc:taxonID' => { '@type' => '@id' },
-                  'eol:associationType' => { '@type' => '@id' },
-                  'dwc:vernacularName' => { '@container' => '@language' },
-                  'rdfs:label' => { '@container' => '@language' }
-                } }
-    @jsonld['@graph'] = [ @taxon_concept.to_jsonld ]
-    @jsonld['@graph'] += @taxon_concept.common_names.collect{ |tcn| tcn.to_jsonld }
-    @jsonld['@graph'] += @data.get_data.collect{ |d| d.to_jsonld }
-    @jsonld['@graph']
+    @jsonld = EOL::Api::Traits::V1_0.prepare_hash(@taxon_concept, data: @data)
   end
 
 end

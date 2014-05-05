@@ -281,29 +281,11 @@ class TaxonConcept < ActiveRecord::Base
       order: 'id DESC'
     )
     entries_for_this_concept.each do |he|
-      next if all_outlinks.detect{ |o| o[:hierarchy] == he.hierarchy }
-      next if he.published != 1 && he.visibility_id != Visibility.visible.id
-      if !he.source_url.blank?
-        all_outlinks << { hierarchy_entry: he, hierarchy: he.hierarchy, outlink_url: he.source_url }
-      elsif he.hierarchy && !he.hierarchy.outlink_uri.blank?
-        # if the hierarchy outlink_uri expects an ID
-        if matches = he.hierarchy.outlink_uri.match(/%%ID%%/)
-          # .. and the ID exists
-          unless he.identifier.blank?
-            all_outlinks << { hierarchy_entry: he, hierarchy: he.hierarchy, outlink_url: he.hierarchy.outlink_uri.gsub(/%%ID%%/, he.identifier) }
-          end
-        else
-          # there was no %%ID%% pattern in the outlink_uri, but its not blank so its a generic URL for all entries
-          all_outlinks << { hierarchy_entry: he, hierarchy: he.hierarchy, outlink_url: he.hierarchy.outlink_uri }
-        end
+      next if all_outlinks.detect{ |o| o[:hierarchy_entry].hierarchy == he.hierarchy }
+      if outlink_hash = he.outlink_hash
+        all_outlinks << outlink_hash
       end
     end
-
-    # if the link is Wikipedia this will remove the revision ID
-    all_outlinks.each do |ol|
-      ol[:outlink_url].gsub!(/&oldid=[0-9]+$/, '')
-    end
-
     return all_outlinks
   end
 
@@ -434,12 +416,13 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def to_jsonld
-    jsonld = { '@id' => 'http://eol.org/pages/' + id.to_s,
+    itis_or_other_entry = entry(Hierarchy.itis)
+    jsonld = { '@id' => KnownUri.taxon_uri(id),
                '@type' => 'dwc:Taxon',
-               'dwc:scientificName' => entry.name.string,
-               'dwc:taxonRank' => (entry.rank) ? entry.rank.label : nil }
-    if parent = entry.parent
-      jsonld['dwc:parentNameUsageID'] = 'http://eol.org/pages/' + parent.taxon_concept_id.to_s
+               'dwc:scientificName' => itis_or_other_entry.name.string,
+               'dwc:taxonRank' => (itis_or_other_entry.rank) ? itis_or_other_entry.rank.label : nil }
+    if parent = itis_or_other_entry.parent
+      jsonld['dwc:parentNameUsageID'] = KnownUri.taxon_uri(parent.taxon_concept_id)
     end
     jsonld
   end

@@ -97,6 +97,12 @@ class Hierarchy < ActiveRecord::Base
     end
   end
 
+  def self.wikipedia
+    @@wikipedia ||= cached('wikipedia') do
+      Hierarchy.find_by_label('Wikipedia', order: 'id desc')
+    end
+  end
+
   def self.browsable_for_concept(taxon_concept)
     Hierarchy.joins(:hierarchy_entries).select('hierarchies.id, hierarchies.label, hierarchies.descriptive_label').
       where(['hierarchies.browsable = 1 AND hierarchy_entries.taxon_concept_id = ?', taxon_concept.id])

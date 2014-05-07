@@ -4,6 +4,7 @@ namespace :ggi do
     all_data = [ ]
     ids = Resource.find_by_title('FALO Classification').hierarchy.hierarchy_entries.collect(&:taxon_concept_id)
     ids.each do |id|
+      puts "Fetching API for #{id}"
       all_data << get_ggi_json_bocce(id)
     end
     file_contents = '[' + all_data.map{ |d| d.to_json }.join(",\n") + ']'

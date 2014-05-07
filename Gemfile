@@ -132,3 +132,5 @@ gem 'uuid', '2.3.5' # Used when creating data objects
 # TODO - update will_paginate
 gem 'will_paginate', '~> 3.0' # Used ALL OVER THE SITE for pagination.
 gem 'nunes', '0.3.0'  # This makes it easier to handle statsd
+gem 'execjs', '2.0.2'  # needed to run rake tasks in cron
+gem 'therubyracer', '0.10.2'  # needed to run rake tasks in cron

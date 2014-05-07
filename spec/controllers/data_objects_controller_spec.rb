@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def data_object_create_edit_variables_should_be_assigned
   assigns[:data_object].should be_a(DataObject)
@@ -35,7 +35,7 @@ describe DataObjectsController do
   describe 'POST create' do
     it 'should instantiate references' do
       TocItem.gen_if_not_exists(:label => 'overview')
-      post :create, { :taxon_id => 1, :references => "Test reference.",
+      post :create, { :taxon_id => @taxon_concept.id, :references => "Test reference.",
                       :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
                                         :object_title => "Test Article", :language_id => Language.english.id.to_s,
                                         :description => "Test text", :license_id => License.public_domain.id.to_s} },
@@ -53,7 +53,7 @@ describe DataObjectsController do
     end
     it 'should create Link objects and prefix URLs with http://' do
       TocItem.gen_if_not_exists(:label => 'overview')
-      post :create, { :taxon_id => 1, :commit_link => true,
+      post :create, { :taxon_id => @taxon_concept.id, :commit_link => true,
                       :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
                                         :link_types => { :id => LinkType.blog.id.to_s }, :source_url => 'eol.org',
                                         :object_title => "Link to EOL", :language_id => Language.english.id.to_s,
@@ -108,7 +108,7 @@ describe DataObjectsController do
       response.should redirect_to(login_url)
 
       expect { get :crop, { :id => @image.id }, { :user => @user, :user_id => @user.id } }.
-        to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == "min_assistant_curators_only"}
+        to raise_error(EOL::Exceptions::SecurityViolation) {|e| e.flash_error_key.should == :min_assistant_curators_only}
     end
 
     it 'should allow access to curators' do

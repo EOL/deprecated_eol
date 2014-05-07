@@ -1,6 +1,6 @@
 if(!EOL) { var EOL = {}; }
 EOL.handle_special_anchors_in_location_hash = function() {
-  if(location.hash != "") {
+  if(location.hash !== "") {
     var name  = location.hash.replace(/#/, '').replace(/\?.*$/, '');
     var reply = name.replace('reply-to-', '');
     if (name == reply) {
@@ -11,7 +11,7 @@ EOL.handle_special_anchors_in_location_hash = function() {
   }
 };
 EOL.highlight_comment = function(el, reply) {
-  if($(el).size() == 0) {
+  if($(el).size() === 0) {
     return false;
   }
   var dest = $(el).offset().top;
@@ -27,12 +27,12 @@ EOL.reply_to = function($el) {
   var redirected = EOL.jump_to_comment($('#'+href.replace(/^.*#reply-to-/, '')), href, true);
   if(!redirected) {
     var $form = $('form#new_comment');
-    if ($form.size() == 0) { // No form on this page.
+    if ($form.size() === 0) { // No form on this page.
       EOL.redirect_to_comment_source(href);
     } else {
       $("html,body").animate({ scrollTop: $form.offset().top }, 650);
       EOL.add_reply_details($form, $el);
-      $('a#reply-cancel').click(function( event ) {
+      $('a#reply-cancel').on('click', function( event ) {
         event.preventDefault();
         EOL.reset_reply_details($form);
       });
@@ -63,8 +63,8 @@ EOL.follow_reply = function(el) {
   EOL.jump_to_comment($(href), href, false);
 };
 EOL.redirect_to_comment_source = function(href, reply) {
-  window.location = '/activity_logs/find/'+href.replace(/^.*-(\d+)$/, '\$1')+'?'+
-    $.param({type: href.replace(/^.*[#-]([^-]+)-\d+$/, '\$1'), reply: reply});
+  window.location = '/activity_logs/find/'+href.replace(/^.*-(\d+)$/, '$1')+'?'+
+    $.param({type: href.replace(/^.*[#-]([^-]+)-\d+$/, '$1'), reply: reply});
 };
 // I'm trying to keep this one minimal: it just checks that the first two parts of each of the paths match, not
 // caring about sub-paths (like 'newsfeed').  Note that [0] is ignored, since it's blank:
@@ -80,7 +80,7 @@ EOL.close_enough = function(href) {
   return(false);
 };
 EOL.jump_to_comment = function(target, href, reply) {
-  if (target.size() == 0 || reply && ! EOL.close_enough(href)) {
+  if (target.size() === 0 || reply && ! EOL.close_enough(href)) {
     EOL.redirect_to_comment_source(href, reply);
     return(true);
   } else {
@@ -95,19 +95,19 @@ EOL.init_comment_behaviours = function() {
   var $feed = $("ul.feed");
   var $goto_source_links = $feed.find("blockquote a[href^=#]");
   $goto_source_links.unbind("click");
-  $goto_source_links.click(function( event ) {
+  $goto_source_links.on('click', function( event ) {
     event.preventDefault();
     EOL.follow_reply($(this));
   });
   var $reply_links = $feed.find("ul.actions li.reply a");
   $reply_links.unbind("click");
-  $reply_links.click(function( event ) {
+  $reply_links.on('click', function( event ) {
     event.preventDefault();
     EOL.reply_to($(this));
   });
   var $edit_comment_links = $feed.find("ul.actions a.edit_comment");
   $edit_comment_links.unbind("click");
-  $edit_comment_links.click(function( event ) {
+  $edit_comment_links.on('click', function( event ) {
     event.preventDefault();
     $(this).closest("ul.actions").hide();
     var $details = $(this).closest(".editable").find('blockquote').hide().end().find(".details");
@@ -119,20 +119,20 @@ EOL.init_comment_behaviours = function() {
   });
   var $cancel_edit_links = $feed.find(".comment_edit_form a");
   $cancel_edit_links.unbind("click");
-  $cancel_edit_links.click(function( event ) {
+  $cancel_edit_links.on('click', function( event ) {
     event.preventDefault();
     $(this).closest(".comment_edit_form").hide().closest('li').find('ul.actions').show().end().find('blockquote').show().end().end().remove();
   });
   var $submit_edit_buttons = $feed.find(".comment_edit_form input[type='submit']");
   $submit_edit_buttons.unbind("click");
-  $submit_edit_buttons.click(function( event ) {
+  $submit_edit_buttons.on('click', function( event ) {
     event.preventDefault();
     EOL.ajax_submit($(this));
     return(false); // JRice added this 1/30/12.  See the comment with this date, above, for an explanation.
   });
   var $delete_comment_links = $feed.find("form.delete_comment input[type='submit']");
   $delete_comment_links.unbind("click");
-  $delete_comment_links.click(function( event ) {
+  $delete_comment_links.on('click', function( event ) {
     event.preventDefault();
     if (confirm($(this).data('confirmation'))) {
       EOL.ajax_submit($(this));

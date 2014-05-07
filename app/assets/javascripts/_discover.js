@@ -115,8 +115,8 @@ var discover = {
 			var meta = obj.find(".discover_meta");
 			var paginator = obj.find(".discover_slideshow_paginator .pages");
 			
-			obj.find(".discover_slideshow_prev").click(discover.handleSlideshowPrevious);
-			obj.find(".discover_slideshow_next").click(discover.handleSlideshowNext);
+			obj.find(".discover_slideshow_prev").on('click', discover.handleSlideshowPrevious);
+			obj.find(".discover_slideshow_next").on('click', discover.handleSlideshowNext);
 			
 			var num = obj.find(".discover_slideshow_item").length;
 			meta.append("<div class='discover_num'>"+num+"</div>"); // save it
@@ -149,7 +149,7 @@ var discover = {
 				insert = "";
 			}
 			
-			paginator.find("a").click(discover.handleSlideshowPaginator);
+			paginator.find("a").on('click', discover.handleSlideshowPaginator);
 		});
 	},	
 	
@@ -160,7 +160,7 @@ var discover = {
 	},
 	
 	buildPrint: function() {
-		$("#discover_print").click(function(e) {
+		$("#discover_print").on('click', function(e) {
 			e.preventDefault();
 			window.print();
 		});
@@ -174,7 +174,7 @@ var discover = {
 		});
 		
 		// link the default link text to the first photo
-		$(".discover_galleryLink").click(function(e) {
+		$(".discover_galleryLink").on('click', function(e) {
 			e.preventDefault();
 			var id = $(this).attr("id");
 			$("#"+id+"_content a:first").click();

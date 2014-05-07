@@ -1,0 +1,85 @@
+- # FIXME: Check this caching works, also we're caching the application version number, will cache expire on deploy?
+- cache(:controller => "/content", :part => "footer_#{current_language.iso_639_1}") do
+  - t_scope ||= [:layouts, :application]
+  .section
+    %h2.assistive= I18n.t(:site_information)
+    .wrapper
+      .about
+        %h6= t('header_about', :scope => t_scope)
+        %ul
+          %li= link_to t('about_link_what_is_eol', :scope => t_scope), about_path
+          %li= link_to t('about_link_traitbank', :scope => t_scope), '/traitbank'
+          %li= link_to t('about_link_eol_blog', :scope => t_scope), 'http://blog.eol.org'
+          %li= link_to t('about_link_discover', :scope => t_scope), discover_path
+          %li= link_to t('about_link_statistics', :scope => t_scope), statistics_path
+          %li= link_to t('about_link_glossary', :scope => t_scope), cms_page_path('glossary')
+          %li= link_to t('about_link_podcasts', :scope => t_scope), 'http://podcast.eol.org/podcast'
+          - if Rails.configuration.use_secure_acceptance
+            %li= link_to I18n.t(:donate_link), new_donation_path
+          %li= link_to t('about_link_citing', :scope => t_scope), cms_page_path('citing')
+          %li= link_to t('about_link_help', :scope => t_scope), help_path
+          %li= link_to t('about_link_terms_of_use', :scope => t_scope), terms_of_use_path
+          %li= link_to t('about_link_contact_us', :scope => t_scope), contact_us_path
+      .learn_more
+        %h6= t('header_learn_more', :scope => t_scope)
+        %ul
+          %li
+            %ul
+              %li= link_to t('learn_more_link_animals', :scope => t_scope), cms_page_path('animals')
+              %li= link_to t('learn_more_link_mammals', :scope => t_scope), cms_page_path('mammals')
+              %li= link_to t('learn_more_link_birds', :scope => t_scope), cms_page_path('birds')
+              %li= link_to t('learn_more_link_amphibians', :scope => t_scope), cms_page_path('amphibians')
+              %li= link_to t('learn_more_link_reptiles', :scope => t_scope), cms_page_path('reptiles')
+              %li= link_to t('learn_more_link_fish', :scope => t_scope), cms_page_path('fishes')
+          %li
+            %ul
+              %li= link_to t('learn_more_link_invertebrates', :scope => t_scope), cms_page_path('invertebrates')
+              %li= link_to t('learn_more_link_crustaceans', :scope => t_scope), cms_page_path('crustaceans')
+              %li= link_to t('learn_more_link_mollusks', :scope => t_scope), cms_page_path('mollusks')
+              %li= link_to t('learn_more_link_insects', :scope => t_scope), cms_page_path('insects')
+              %li= link_to t('learn_more_link_spiders', :scope => t_scope), cms_page_path('spiders')
+              %li= link_to t('learn_more_link_worms', :scope => t_scope), cms_page_path('worms')
+          %li
+            %ul
+              %li= link_to t('learn_more_link_plants', :scope => t_scope), cms_page_path('plants')
+              %li= link_to t('learn_more_link_flowering_plants', :scope => t_scope), cms_page_path('flowering_plants')
+              %li= link_to t('learn_more_link_trees', :scope => t_scope), cms_page_path('trees')
+            %ul
+              %li= link_to t('learn_more_link_fungi', :scope => t_scope), cms_page_path('fungi')
+              %li= link_to t('learn_more_link_mushrooms', :scope => t_scope), cms_page_path('mushrooms')
+              %li= link_to t('learn_more_link_molds', :scope => t_scope), cms_page_path('molds')
+          %li
+            %ul
+              %li= link_to t('learn_more_link_bacteria', :scope => t_scope), cms_page_path('bacteria')
+            %ul
+              %li= link_to t('learn_more_link_protists', :scope => t_scope), cms_page_path('protists')
+            %ul
+              %li= link_to t('learn_more_link_archaea', :scope => t_scope), cms_page_path('archaea')
+            %ul
+              %li= link_to t('learn_more_link_viruses', :scope => t_scope), cms_page_path('viruses')
+        .partners
+          %h6= link_to I18n.t(:bhl), 'http://www.biodiversitylibrary.org/'
+          %p= I18n.t(:bhl_partner_footer)
+        %ul.social_media
+          %li= link_to I18n.t(:twitter), $EOL_TWITTER_ACCOUNT, :class => "twitter", :rel => :nofollow
+          %li= link_to I18n.t(:facebook), $EOL_FACEBOOK_ACCOUNT, :class => "facebook", :rel => :nofollow
+          %li= link_to I18n.t(:flickr), $EOL_FLICKR_ACCOUNT, :class => "flickr", :rel => :nofollow
+          %li= link_to I18n.t(:youtube), $EOL_YOUTUBE_ACCOUNT, :class => "youtube", :rel => :nofollow
+          %li= link_to I18n.t(:pinterest), $EOL_PINTEREST_ACCOUNT, :class => "pinterest", :rel => :nofollow
+          %li= link_to I18n.t(:vimeo), $EOL_VIMEO_ACCOUNT, :class => "vimeo", :rel => :nofollow
+          %li= link_to I18n.t(:flipboard), $EOL_FLIPBOARD_ACCOUNT, :class => "flipboard", :rel => :nofollow
+          %li= link_to image_tag("//ssl.gstatic.com/images/icons/gplus-32.png", size: "25", alt: t('.google_plus')),
+            $EOL_GOOGLE_PLUS_ACCOUNT,
+            class: 'google_plus', rel: 'publisher'
+      .questions
+        %h6= t('header_questions', :scope => t_scope)
+        %ul
+          %li= link_to t('questions_link_biodiversity', :scope => t_scope), cms_page_path('about_biodiversity')
+          %li= link_to t('questions_link_species', :scope => t_scope),  cms_page_path('species_concepts')
+          %li= link_to t('questions_link_discovering_species', :scope => t_scope), cms_page_path('discovering_diversity')
+          %li= link_to t('questions_link_naming_species', :scope => t_scope), cms_page_path('naming_species')
+          %li= link_to t('questions_link_biological_classification', :scope => t_scope), cms_page_path('taxonomy_phylogenetics')
+          %li= link_to t('questions_link_invasive_species', :scope => t_scope), cms_page_path('invasive_species')
+          %li= link_to t('questions_link_indicator_species', :scope => t_scope), cms_page_path('indicator_species')
+          %li= link_to t('questions_link_model_organism', :scope => t_scope), cms_page_path('model_organism')
+          %li= link_to t('questions_link_contributing_to_research', :scope => t_scope), cms_page_path('contribute_research')

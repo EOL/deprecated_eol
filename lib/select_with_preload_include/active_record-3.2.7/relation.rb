@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# EOL: only change is to add ", :select => select_values"
+# EOL: only change is to add "new_options" to the Preloader.
 module ActiveRecord
   # = Active Record Relation
   class Relation

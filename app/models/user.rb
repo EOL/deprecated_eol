@@ -1,5 +1,5 @@
 # Note that email is NOT a unique field: one email address is allowed to have multiple accounts.
-# NOTE this inherist from MASTER.  All queries against a user need to be up-to-date, since this contains config information
+# NOTE this inherits from MASTER.  All queries against a user need to be up-to-date, since this contains config information
 # which can change quickly.  There is a similar clause in the execute() method in the connection proxy for masochism.
 
 require 'eol/activity_loggable'
@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   establish_connection(Rails.env)
 
   include EOL::ActivityLoggable
+  include IdentityCache
 
   belongs_to :language
   belongs_to :agent
@@ -19,34 +20,36 @@ class User < ActiveRecord::Base
   has_many :members
   has_many :comments
   has_many :users_data_objects
-  has_many :collection_items, :as => :collected_item
-  has_many :containing_collections, :through => :collection_items, :source => :collection
-  has_and_belongs_to_many :collections, :conditions => 'collections.published = 1'
-  has_and_belongs_to_many :collections_including_unpublished, :class_name => Collection.to_s
+  has_many :collection_items, as: :collected_item
+  has_many :containing_collections, through: :collection_items, source: :collection
+  has_and_belongs_to_many :collections, conditions: 'collections.published = 1'
+  has_and_belongs_to_many :collections_including_unpublished, class_name: Collection.to_s
   has_many :permissions_users
   has_many :permissions, through: :permissions_users
-  has_many :communities, :through => :members
+  has_many :communities, through: :members
   has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
-  has_many :resources, :through => :content_partners
+  has_many :resources, through: :content_partners
   has_many :users_user_identities
-  has_many :user_identities, :through => :users_user_identities
+  has_many :user_identities, through: :users_user_identities
   has_many :worklist_ignored_data_objects
   has_many :pending_notifications
-  has_many :open_authentications, :dependent => :destroy
+  has_many :open_authentications, dependent: :destroy
   has_many :forum_posts
+  has_many :user_added_data, class_name: UserAddedData.to_s
+  has_many :data_search_files
 
   has_many :content_partners
   has_one :user_info
   has_one :notification
 
-  scope :admins, :conditions => ['admin IS NOT NULL']
-  scope :curators, :conditions => 'curator_level_id is not null'
+  scope :admins, conditions: ['admin IS NOT NULL']
+  scope :curators, conditions: 'curator_level_id is not null'
 
   before_save :check_credentials
   before_save :encrypt_password
-  before_save :remove_blank_username, :unless => :eol_authentication?
-  before_save :instantly_approve_curator_level, :if => :curator_level_can_be_instantly_approved?
+  before_save :remove_blank_username, unless: :eol_authentication?
+  before_save :instantly_approve_curator_level, if: :curator_level_can_be_instantly_approved?
   after_save :update_watch_collection_name
   after_save :clear_cache
 
@@ -61,40 +64,40 @@ class User < ActiveRecord::Base
 
   @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
 
-  validate :ensure_unique_username_against_master, :if => :eol_authentication?
+  validate :ensure_unique_username_against_master, if: :eol_authentication?
 
-  validates_presence_of :given_name, :if => :given_name_required?
-  validates_presence_of :family_name, :if => :first_last_names_required?
-  validates_presence_of :username, :if => :eol_authentication?
+  validates_presence_of :given_name, if: :given_name_required?
+  validates_presence_of :family_name, if: :first_last_names_required?
+  validates_presence_of :username, if: :eol_authentication?
 
-  validates_length_of :username, :within => 4..32, :if => :eol_authentication?
-  validates_length_of :entered_password, :within => 4..16, :if => :password_validation_required?
+  validates_length_of :username, within: 4..32, if: :eol_authentication?
+  validates_length_of :entered_password, within: 4..16, if: :password_validation_required?
 
-  validates_confirmation_of :entered_password, :if => :password_validation_required?
+  validates_confirmation_of :entered_password, if: :password_validation_required?
 
-  validates_format_of :email, :with => @email_format_re
-  validates_confirmation_of :email, :if => :email_confirmation_required?
+  validates_format_of :email, with: @email_format_re
+  validates_confirmation_of :email, if: :email_confirmation_required?
 
-  validates_acceptance_of :agreed_with_terms, :accept => true
+  validates_acceptance_of :agreed_with_terms, accept: true
 
 # CURATOR CLASS DECLARATIONS - TODO - extract:
 
-  belongs_to :curator_verdict_by, :class_name => "User", :foreign_key => :curator_verdict_by_id
+  belongs_to :curator_verdict_by, class_name: "User", foreign_key: :curator_verdict_by_id
   belongs_to :curator_level
-  belongs_to :requested_curator_level, :class_name => CuratorLevel.to_s, :foreign_key => :requested_curator_level_id
+  belongs_to :requested_curator_level, class_name: CuratorLevel.to_s, foreign_key: :requested_curator_level_id
 
-  has_many :curators_evaluated, :class_name => "User", :foreign_key => :curator_verdict_by_id
+  has_many :curators_evaluated, class_name: "User", foreign_key: :curator_verdict_by_id
   has_many :curator_activity_logs
-  has_many :curator_activity_logs_on_data_objects, :class_name => CuratorActivityLog.to_s,
-           :conditions =>
+  has_many :curator_activity_logs_on_data_objects, class_name: CuratorActivityLog.to_s,
+           conditions:
              Proc.new { "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}" }
   has_many :classification_curations
 
   after_create :join_curator_community_if_curator
 
-  validates_presence_of :curator_verdict_at, :if => Proc.new { |obj| !obj.curator_verdict_by.blank? }
-  validates_presence_of :credentials, :if => :curator_attributes_required?
-  validates_presence_of :curator_scope, :if => :curator_attributes_required?
+  validates_presence_of :curator_verdict_at, if: Proc.new { |obj| !obj.curator_verdict_by.blank? }
+  validates_presence_of :credentials, if: :curator_attributes_required?
+  validates_presence_of :curator_scope, if: :curator_attributes_required?
 
   attr_accessor :curator_request
 
@@ -103,26 +106,28 @@ class User < ActiveRecord::Base
 
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
-    :path => $LOGO_UPLOAD_DIRECTORY,
-    :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/assets/blank.gif",
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    path: $LOGO_UPLOAD_DIRECTORY,
+    url: $LOGO_UPLOAD_PATH,
+    default_url: "/assets/blank.gif",
+    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
   
+  # TODO - these :if procs are probably really old (from an old migration) and can go:
+  # TODO - I18n is wrong here
   validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :message => "image is not a valid image type",
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    content_type: ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+    message: "image is not a valid image type",
+    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+  validates_attachment_size :logo, in: 0..$LOGO_UPLOAD_MAX_SIZE,
+    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
 
-  index_with_solr :keywords => [:username, :full_name]
+  index_with_solr keywords: [:username, :full_name]
 
   attr_accessor :entered_password, :entered_password_confirmation, :email_confirmation
 
   # Aaaaactually, this also preps the icon and tagline, since that's commonly shown with the title.
   def self.load_for_title_only(load_these)
     User.find(load_these,
-      :select => 'id, given_name, family_name, curator_level_id, username, logo_cache_url, tag_line')
+      select: 'id, given_name, family_name, curator_level_id, username, logo_cache_url, tag_line')
   end
 
   def self.sort_by_name(users)
@@ -196,21 +201,20 @@ class User < ActiveRecord::Base
   def self.unique_user?(username, id = nil)
     User.with_master do
       if id.nil?
-        User.count(:conditions => ['username = ?', username]) == 0
+        User.count(conditions: ['username = ?', username]) == 0
       else
-        User.count(:conditions => ['username = ? AND id <> ?', username, id]) == 0
+        User.count(conditions: ['username = ? AND id <> ?', username, id]) == 0
       end
     end
   end
 
   def self.cached(id)
-    # TODO: removing the cache for Rails 3 because it was causing problems
-    User.find(id, :include => :agent)
+    User.fetch(id)
   end
 
   # Note: this is only for Staging to help determine how to show cropped images
   def self.a_somewhat_recent_user
-    @@a_somewhat_recent_user ||= User.find(:all, :order => 'id desc', :limit => 30).last
+    @@a_somewhat_recent_user ||= User.find(:all, order: 'id desc', limit: 30).last
   end
 
   # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
@@ -272,7 +276,7 @@ class User < ActiveRecord::Base
   def build_watch_collection
     c = Collection.count_by_sql("SELECT COUNT(*) FROM collections c JOIN collections_users cu ON (c.id = cu.collection_id) WHERE cu.user_id = #{self.id} AND c.special_collection_id = #{SpecialCollection.watch.id}")
     if c == 0
-      collections << collection = Collection.create(:name => I18n.t(:default_watch_collection_name, :username => self.full_name.titleize), :special_collection_id => SpecialCollection.watch.id)
+      collections << collection = Collection.create(name: I18n.t(:default_watch_collection_name, username: self.full_name.titleize), special_collection_id: SpecialCollection.watch.id)
       return collection
     end
     return nil # Didn't build one.
@@ -288,8 +292,8 @@ class User < ActiveRecord::Base
     set = Set.new
     # DataObject needs a lot to find its TC, so we preload all of those:
     Comment.preload_associations(comments.select { |c| c.parent_type == 'DataObject' },
-      { :parent => [ { :data_objects_hierarchy_entries => [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { :users_data_object => :vetted } ] },
-      :select => [ { :data_objects => :id } ])
+      { parent: [ { data_objects_hierarchy_entries: [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { users_data_object: :vetted } ] },
+      select: [ { data_objects: :id } ])
     comments.each do |comment|
       next unless comment.parent_id # Not worth checking...
       # NOTE - We're avoiding instantiating the parent unless it's a DataObject, so if we add new Comment parent
@@ -306,6 +310,11 @@ class User < ActiveRecord::Base
 
   def total_comment_submitted
     return comments.count
+  end
+
+  def total_data_submitted
+    return user_added_data.where(visibility_id: Visibility.visible.id, vetted_id: [Vetted.trusted.id, Vetted.unknown.id],
+      deleted_at: nil).count
   end
 
   def total_wikipedia_nominated
@@ -334,6 +343,13 @@ class User < ActiveRecord::Base
     resource.can_be_deleted_by?(self)
   end
 
+  def can_see_data?
+    return false if ENV["NO_DATA"] # Trumps all other settings
+    return true if (EolConfig.all_users_can_see_data rescue false)
+    return true if can?(:see_data)
+    false
+  end
+
   def can_manage_community?(community)
     if member = member_of(community) # Not a community she's even in.
       return true if community && member.manager? # She's a manager
@@ -355,7 +371,7 @@ class User < ActiveRecord::Base
   end
 
   def grant_admin
-    self.update_attributes(:admin => true)
+    self.update_attributes(admin: true)
   end
 
   def grant_permission(perm)
@@ -431,7 +447,7 @@ class User < ActiveRecord::Base
   # Returns an array of data objects submitted by this user.  NOT USED ANYWHERE.  This is a convenience method for
   # developers to use.
   def all_submitted_datos
-    UsersDataObject.find(:all, :conditions => "user_id = #{self[:id]}").map {|udo| DataObject.find(udo.data_object_id) }
+    UsersDataObject.find(:all, conditions: "user_id = #{self[:id]}").map {|udo| DataObject.find(udo.data_object_id) }
   end
 
   def self.count_submitted_datos(user_id = nil)
@@ -530,33 +546,33 @@ class User < ActiveRecord::Base
   end
 
   def ensure_unique_username_against_master
-    errors.add('username', I18n.t(:username_taken, :name => username)) unless User.unique_user?(username, id)
+    errors.add('username', I18n.t(:username_taken, name: username)) unless User.unique_user?(username, id)
   end
 
-  def rating_for_object_guid(guid)
-    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, :order => 'id desc')
+  def rating_for_guid(guid)
+    UsersDataObjectsRating.find_by_data_object_guid_and_user_id(guid, self.id, order: 'id desc').rating || 0
   end
 
-  def rating_for_object_guids(guids)
+  def ratings_for_guids(guids)
     return_ratings = {}
-    ratings = UsersDataObjectsRating.find_all_by_data_object_guid_and_user_id(guids, self.id, :order => 'id desc')
+    ratings = UsersDataObjectsRating.find_all_by_data_object_guid_and_user_id(guids, self.id, order: 'id desc')
     ratings.each do |udor|
       next if return_ratings[udor.data_object_guid]
-      return_ratings[udor.data_object_guid] = udor
+      return_ratings[udor.data_object_guid] = udor.rating
     end
     return_ratings
   end
 
   # This is *very* generalized and tracks nearly everything:
   def log_activity(what, options = {})
-    UserActivityLog.log(what, options.merge(:user => self)) if self.id && self.id != 0
+    UserActivityLog.log(what, options.merge(user: self)) if self.id && self.id != 0
   end
 
   def join_community(community)
     return unless community
     member = Member.find_by_community_id_and_user_id(community.id, id)
     unless member
-      member = Member.create!(:user_id => id, :community_id => community.id)
+      member = Member.create!(user_id: id, community_id: community.id)
       self.members << member
     end
     member
@@ -582,9 +598,9 @@ class User < ActiveRecord::Base
     if logo_cache_url.blank?
       return "v2/logos/user_default.png"
     elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', :specified_content_host => specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host: specified_content_host)
     else
-      DataObject.image_cache_path(logo_cache_url, '130_130', :specified_content_host => specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host: specified_content_host)
     end
   end
 
@@ -605,7 +621,7 @@ class User < ActiveRecord::Base
     @all_collections ||= {}
     return @all_collections[as_user] if @all_collections.has_key?(as_user)
     editable_collections = collections_including_unpublished.reject { |c| c.watch_collection? }
-    editable_collections += Collection.joins(:communities => :members).where(['user_id = ? AND manager = 1', id])
+    editable_collections += Collection.joins(communities: :members).where(['user_id = ? AND manager = 1', id])
     editable_collections = [watch_collection] + editable_collections.sort_by { |c| c.name.downcase }.uniq
     if as_user.is_a?(User)
       editable_collections.delete_if { |c| ! as_user.can_read?(c) }
@@ -649,7 +665,7 @@ class User < ActiveRecord::Base
   end
 
   def hide_data_objects
-    data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
+    data_objects = UsersDataObject.find_all_by_user_id(self.id, include: :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
       data_object.update_column(:published, 0)
       data_object.update_solr_index
@@ -657,7 +673,7 @@ class User < ActiveRecord::Base
   end
 
   def unhide_data_objects
-    data_objects = UsersDataObject.find_all_by_user_id(self.id, :include => :data_object).collect{|udo| udo.data_object}.uniq
+    data_objects = UsersDataObject.find_all_by_user_id(self.id, include: :data_object).collect{|udo| udo.data_object}.uniq
     data_objects.each do |data_object|
       data_object.update_column(:published, 1)
       data_object.update_solr_index
@@ -706,20 +722,22 @@ class User < ActiveRecord::Base
   # WARNING: Before you go and try to make notification_count and message_count use the same query and then filter
   # the results to count each type, rcognize (!) that they each use their own :after clause.  So be careful.
   def notification_count
-    self.activity_log(:news => true, :filter => 'all',
-      :after => self.last_notification_at,
-      :skip_loading_instances => true).count
+    activity_log(news: true, filter: 'all',
+      after: self.last_notification_at,
+      skip_loading_instances: true,
+      user: self).count
   end
 
   def message_count
-    self.activity_log(:news => true, :filter => 'messages',
-      :after => self.last_message_at,
-      :skip_loading_instances => true).count
+    activity_log(news: true, filter: 'messages',
+      after: self.last_message_at,
+      skip_loading_instances: true,
+      user: self).count
   end
 
   def add_as_recipient_if_listening_to(notification_type, recipients)
     if frequency = self.listening_to?(notification_type)
-      recipients << { :user => self, :notification_type => notification_type, :frequency => frequency }
+      recipients << { user: self, notification_type: notification_type, frequency: frequency }
     end
   end
 
@@ -794,7 +812,7 @@ private
   def update_watch_collection_name
     collection = self.watch_collection rescue nil
     unless collection.blank?
-      collection.name = I18n.t(:default_watch_collection_name, :username => self.full_name.titleize)
+      collection.name = I18n.t(:default_watch_collection_name, username: self.full_name.titleize)
       collection.save!
     end
   end
@@ -828,7 +846,7 @@ private
   end
 
   def add_email_notification
-    Notification.create(:user_id => self.id)
+    Notification.create(user_id: self.id)
   end
 
 # CURATOR METHODS - TODO - extract
@@ -850,19 +868,23 @@ public
     object.unvet(self) if object and object.respond_to? :unvet and can_curate? object
   end
 
+  def revoke_admin
+    self.update_attributes(admin: false)
+  end
+
   def revoke_curator
     # TODO: This is weird, if we are revoking the curator access why not call update_attributes once and
     # add if-else loop to check if it successfully updated the attributes.
     unless curator_level_id == nil
-      self.update_attributes(:curator_level_id => nil)
+      self.update_attributes(curator_level_id: nil)
     end
     self.leave_community(CuratorCommunity.get) if self.is_member_of?(CuratorCommunity.get)
-    self.update_attributes(:curator_verdict_by => nil,
-                           :curator_verdict_at => nil,
-                           :requested_curator_level_id => nil,
-                           :credentials => '', # Cannot be nil in the DB.
-                           :curator_scope => '', # Ditto.
-                           :curator_approved => false)
+    self.update_attributes(curator_verdict_by: nil,
+                           curator_verdict_at: nil,
+                           requested_curator_level_id: nil,
+                           credentials: '', # Cannot be nil in the DB.
+                           curator_scope: '', # Ditto.
+                           curator_approved: false)
   end
   alias revoke_curatorship revoke_curator
 
@@ -896,12 +918,14 @@ public
         self.curator_verdict_by = options[:by]
         self.curator_verdict_at = Time.now
         self.curator_approved   = 1
+        self.credentials ||= "Approved by admin" # NOTE - ASSUMING this method is admin-only!
+        self.curator_scope ||= "N/A"             # NOTE - same...
       end
       self.save
-      Notifier.curator_approved(self).deliver unless $LOADING_BOOTSTRAP
+      Notifier.curator_approved(self).deliver unless $LOADING_BOOTSTRAP || Rails.env.development?
       join_curator_community_if_curator unless was_curator
     end
-    self.update_attributes(:requested_curator_level_id => nil) # Not using validations; don't care if user is valid
+    self.update_attributes(requested_curator_level_id: nil) # Not using validations; don't care if user is valid
     self
   end
 
@@ -913,11 +937,11 @@ public
 
   # NOTE: Careful!  The next three methods are for checking the EXACT curator level.  See also #min_curator_level?.
   def master_curator?
-    self.curator_level_id == CuratorLevel.master.id
+    self.curator_level_id && self.curator_level_id == CuratorLevel.master.id
   end
 
   def full_curator?
-    self.curator_level_id == CuratorLevel.full.id
+    self.curator_level_id && self.curator_level_id == CuratorLevel.full.id
   end
 
   def assistant_curator?
@@ -940,7 +964,7 @@ public
   end
 
   def last_curator_activity
-    last = CuratorActivityLog.find_by_user_id(id, :order => 'created_at DESC', :limit => 1)
+    last = CuratorActivityLog.find_by_user_id(id, order: 'created_at DESC', limit: 1)
     return nil if last.nil?
     return last.created_at
   end

@@ -4,7 +4,7 @@ class Users::CommunitiesController < UsersController
 
   # GET /users/:user_id/communities
   def index
-    @user = User.find(params[:user_id], :include => { :members => :community })
+    @user = User.find(params[:user_id], include: { members: :community })
     redirect_if_user_is_inactive
     preload_user_associations
     if params[:sort_by] == 'newest' || params[:sort_by].nil?

@@ -3,8 +3,8 @@ module EOL
     module Synonyms
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
-        BRIEF_DESCRIPTION = Proc.new { I18n.t(:returns_all_metadata_about_a_particular_collection) }
-        DESCRIPTION = Proc.new { I18n.t(:api_docs_collections_description) }
+        BRIEF_DESCRIPTION = ""
+        DESCRIPTION = ""
         PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(

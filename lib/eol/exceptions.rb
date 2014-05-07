@@ -24,6 +24,8 @@ module EOL
     class SecurityViolation < StandardError
       attr_accessor :flash_error_key, :flash_error_scope
       attr_writer :flash_error
+      # TODO - While the flash_error_key is nice, it's not flexible, since you can't pass in interpolated variables.
+      # Review and re-factor... I suspect we could generalize this code a bit as it's used in (many) controllers.
       def initialize(msg = nil, flash_error_key = :default, flash_error_scope = [:exceptions, :security_violations])
         if msg.is_a?(Array)
           super(msg[0])
@@ -41,6 +43,7 @@ module EOL
                                 :default => I18n.t('exceptions.security_violations.default'))
       end
     end
+    class SparqlDataEmpty < StandardError; end
     class TooManyDescendantsToCurate < StandardError; end
     class UnknownFeedType < StandardError; end
     class WrongCurator < StandardError; end

@@ -3,7 +3,7 @@ module EOL
 
     attr_reader :dato
 
-    include EOL::RSpec::Helpers
+    include EOL::Builders
 
     # Builds a DataObject and creates all of the ancillary relationships.  Returns the DataObject.
     #

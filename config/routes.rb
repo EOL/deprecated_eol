@@ -4,8 +4,8 @@ Eol::Application.routes.draw do
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
-  # Permanent redirects should be second in routes file (according to whom? -- I can't corroborate this).
-  match '/podcast' => redirect('http://education.eol.org/podcast')
+  # Permanent redirects. Position them before any routes they take precedence over.
+  match '/podcast' => redirect('http://podcast.eol.org/podcast')
   match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")
   match '/pages/:taxon_id/images' => redirect("/pages/%{taxon_id}/media")
   match '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")
@@ -34,7 +34,9 @@ Eol::Application.routes.draw do
   match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
+  match '/favicon' => redirect('/assets/favicon.ico')
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
+  match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
 
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
@@ -51,6 +53,8 @@ Eol::Application.routes.draw do
     resources :data, :only => [:index], :controller => 'taxa/data' do
       collection do
         get 'about'
+        get 'glossary'
+        get 'ranges'
       end
     end
     resources :hierarchy_entries, :as => 'entries', :only => [:show] do
@@ -65,6 +69,8 @@ Eol::Application.routes.draw do
       resources :data, :only => [:index], :controller => 'taxa/data' do
         collection do
           get 'about'
+          get 'glossary'
+          get 'ranges'
         end
       end
       resources :communities, :only => [:index], :controller => 'taxa/communities' do
@@ -254,6 +260,7 @@ Eol::Application.routes.draw do
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index], :controller => 'users/content_partners'
+    resources :data_downloads, :only => [:index, :destroy], :controller => 'users/data_downloads'
     resources :open_authentications, :only => [:index, :new, :update, :destroy], :controller => 'users/open_authentications'
   end
 
@@ -277,10 +284,14 @@ Eol::Application.routes.draw do
       get 'marine'
       get 'page_richness'
       get 'users_data_objects'
+      get 'data'
     end
   end
 
   resource :admin, :only => [:show] do
+    collection do
+      get :recount_collection_items
+    end
     resources :content_pages, :controller => 'admins/content_pages' do
       member do
         post 'move_up'
@@ -344,7 +355,11 @@ Eol::Application.routes.draw do
   resources :known_uris do
     collection do
       get 'categories'
-      get 'autocomplete_known_uri_uri'
+      get 'autocomplete_known_uri_search'
+      get 'autocomplete_known_uri_units'
+      get 'autocomplete_known_uri_metadata'
+      get 'autocomplete_known_uri_predicates'
+      get 'autocomplete_known_uri_values'
       get 'show_stats'
       post 'import_ontology'
       post 'sort'
@@ -352,6 +367,7 @@ Eol::Application.routes.draw do
     member do
       put 'unhide'
       put 'hide'
+      put 'set_as_exemplar_for_same_as'
     end
   end
 
@@ -359,8 +375,6 @@ Eol::Application.routes.draw do
   end
 
   resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do
-    get :autocomplete_known_uri_uri, :on => :collection
-    get :autocomplete_translated_known_uri_name, :on => :collection
   end
 
   resources :taxon_data_exemplars, :only => [ :create ]
@@ -375,6 +389,8 @@ Eol::Application.routes.draw do
   resource :data_search, :only => [:index], :controller => 'data_search' do
     collection do
       get 'index'
+      get 'download'
+      post 'download'
     end
   end
 
@@ -387,15 +403,10 @@ Eol::Application.routes.draw do
     end
   end
 
+  resources :data_search_files, only: [:index, :destroy]
+
   # Old V1 admin search logs:
   resources :search_logs, :controller => 'administrator/search_logs'
-
-  # Facebook integration
-  resources :facebook, :only => [:index] do
-    collection do
-      get 'channel'
-    end
-  end
 
   resources :news_items, :only => [:index, :show] do
     resources :translated_news_items, :as => :translations, :except => [:show, :index]
@@ -409,7 +420,16 @@ Eol::Application.routes.draw do
     end
   end
 
-  resource :taxon_concept_exemplar_image, only: :update
+  resource :taxon_concept_exemplar_image, only: :create
+
+  resource :data_glossary, :only => :show, :controller => 'data_glossary'
+
+  resource :search, :controller => 'search' do
+    collection do
+      get 'autocomplete_taxon'
+      get 'index'
+    end
+  end
 
   # Putting these after the complex resources because they are less common.
   resources :tasks, :task_states, :task_names, :random_images
@@ -424,6 +444,11 @@ Eol::Application.routes.draw do
   resources :sessions, :only => [:new, :create, :destroy]
   resources :wikipedia_imports, :only => [:new, :create] # Curator tool to request import of wikipedia pages
   resources :permissions, :only => [:index, :show]
+  resource :feeds do
+    member do
+      get :partner_curation, :defaults => { :format => 'atom' }
+    end
+  end
 
   # Miscellaneous named routes:
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'
@@ -431,7 +456,6 @@ Eol::Application.routes.draw do
   match '/loggertest' => 'content#loggertest' # This is used for configuring logs and log levels.
   match '/version' => 'content#version'
   match '/boom' => 'content#boom'
-  match '/check_connection' => 'content#check_connection'
   match '/test_timeout/:time' => 'content#test_timeout'
 
   # Named application routes:
@@ -446,8 +470,14 @@ Eol::Application.routes.draw do
   match '/expire/:id' => 'content#expire_single', :id => /\w+/, :as => 'expire'
   match '/expire_taxon/:id' => 'content#expire_taxon', :id => /\d+/, :as => 'expire_taxon'
   match '/expire_taxa/:id' => 'content#expire_multiple', :id => /\d+/, :as => 'expire_taxa'
-  match '/donate' => 'content#donate', :as => 'donate'
   match '/language' => 'content#language', :as => 'language'
+
+  resources :donations, except: [:index, :destroy]
+  get '/donate', to: redirect('/donations/new')
+  get '/donation', to: redirect('/donations/new')
+  get '/donations', to: redirect('/donations/new')
+  # TODO - remove this:
+  match 'content/donate_complete' => 'content#donate_complete'
 
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
@@ -471,6 +501,7 @@ Eol::Application.routes.draw do
   match '/data_objects/:id/remove_association/:hierarchy_entry_id' => 'data_objects#remove_association',
     :as => 'remove_association'
 
+  # TODO - make these resources
   # Named taxon routes:
   match '/pages/:id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title', :as => 'bhl_title'
   match '/pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title',
@@ -486,6 +517,7 @@ Eol::Application.routes.draw do
   match '/citing' => 'content#show', :defaults => {:id => 'citing'}, :as => 'citing'
   match '/privacy' => 'content#show', :defaults => {:id => 'privacy'}, :as => 'privacy'
   match '/curators' => 'content#show', :defaults => {:id => 'curators'}, :as => 'curators'
+  match '/traitbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank'
   match '/curators/*ignore' => 'content#show', :defaults => {:id => 'curators'}
   match '/info/:id' => 'content#show', :as => 'cms_page'
   match '/info/*crumbs' => 'content#show', :as => 'cms_crumbs'
@@ -551,6 +583,12 @@ Eol::Application.routes.draw do
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end
 
+  resources :eol_configs, only: :update do
+    collection do
+      post 'change'
+    end
+  end
+
   resource :navigation, :controller => 'navigation' do
     member do
       get 'browse_stats'
@@ -561,6 +599,10 @@ Eol::Application.routes.draw do
     member do
       post 'upload_image'
     end
+  end
+
+  resource :curator_activity_logs, :only => 'index' do
+    get 'last_ten_minutes'
   end
 
   # Named API Routes:
@@ -578,7 +620,6 @@ Eol::Application.routes.draw do
   match 'api/:action/:version/:id' => 'api', :version =>  /\d\.\d/
 
   match 'content/random_homepage_images' => 'content#random_homepage_images'
-  match 'content/donate_complete' => 'content#donate_complete'
   match 'content/file/:id' => 'content#file'
   match '/maintenance' => 'content#maintenance', :as => 'maintenance'
 

@@ -1,31 +1,37 @@
-$logo_size_standout: 88
+$aa_darker_gray: #607584
+$banner_background_color: #d1e163
+$darker_blue: #616e7a
+$darker_gray: #93a4b0
+$fieldset_light_blue: #f3f7fa
+$global_nav_height: 2.7em !default
+$grayblue: #cad3db
+$light_blue: #e2e9ef
+$lighter_text_color: #444d54
+$lightest_blue: #f0f4f7
+$logo_blue: #7aa6cb
 $logo_size_primary: 68
 $logo_size_secondary: 48
+$logo_size_standout: 88
 $logo_size_tertiary: 35
-$global_nav_height: 2.7em !default
-$nearly_black: #394651
-$darker_gray: #93a4b0
-$light_blue: #e2e9ef
-$grayblue: #cad3db
-$darker_blue: #616e7a
 $loafer_text_color: #828d33
-$lighter_text_color: #5f6c76
-$fieldset_light_blue: #f3f7fa
+$nearly_black: #394651
+$negative_red: #e84226
+
 = border-radius($radius)
   -moz-border-radius: $radius
   border-radius: $radius
-= border-top-right-radius($radius)
-  -moz-border-radius-topright: $radius
-  border-top-right-radius: $radius
 = border-top-left-radius($radius)
   -moz-border-radius-topleft: $radius
   border-top-left-radius: $radius
-= border-bottom-right-radius($radius)
-  -moz-border-radius-bottomright: $radius
-  border-bottom-right-radius: $radius
+= border-top-right-radius($radius)
+  -moz-border-radius-topright: $radius
+  border-top-right-radius: $radius
 = border-bottom-left-radius($radius)
   -moz-border-radius-bottomleft: $radius
   border-bottom-left-radius: $radius
+= border-bottom-right-radius($radius)
+  -moz-border-radius-bottomright: $radius
+  border-bottom-right-radius: $radius
 = box-shadow($arguments)
   -webkit-box-shadow: $arguments
   -moz-box-shadow: $arguments
@@ -35,15 +41,20 @@ $fieldset_light_blue: #f3f7fa
   filter: alpha(opacity=$val*100)
 = gradient-bg($color1, $color2)
   background-color: $color2
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#{ie-hex-str($color1)}', endColorstr='#{ie-hex-str($color2)}')
-  background-image: -moz-linear-gradient(100% 100% 90deg, $color2, $color1)
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($color1), to($color2))
+  background-image: -ms-linear-gradient(top, $color1 0%, $color2 100%)
+  background-image: -moz-linear-gradient(top, $color1 0%, $color2 100%)
+  background-image: -o-linear-gradient(top, $color1 0%, $color2 100%)
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, $color1), color-stop(1, $color2))
+  background-image: -webkit-linear-gradient(top, $color1 0%, $color2 100%)
+  background-image: linear-gradient(to bottom, $color1 0%, $color2 100%)
 = gradient-bg-horizontal($color1, $color2)
   background-color: $color2
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr='#{ie-hex-str($color1)}', endColorstr='#{ie-hex-str($color2)}')
-  background-image: -moz-linear-gradient(100% 100% 180deg, $color2, $color1)
-  background-image: -webkit-gradient(linear, left center, right center, from($color1), to($color2))
-
+  background-image: -ms-linear-gradient(right, $color2 0%, $color1 100%)
+  background-image: -moz-linear-gradient(right, $color2 0%, $color1 100%)
+  background-image: -o-linear-gradient(right, $color2 0%, $color1 100%)
+  background-image: -webkit-gradient(linear, right top, left top, color-stop(0, $color2), color-stop(1, $color1))
+  background-image: -webkit-linear-gradient(right, $color2 0%, $color1 100%)
+  background-image: linear-gradient(to left, $color2 0%, $color1 100%)
 = button($from: white, $to: #d7dde1)
   padding: 5px 10px 6px 10px
   overflow: visible
@@ -80,13 +91,13 @@ $fieldset_light_blue: #f3f7fa
   padding: 2px 5px
   font: normal 1em Helvetica, Arial, sans-serif
   border: 1px solid $grayblue
-  +gradient-bg(#f0f4f7, white)
+  +gradient-bg($lightest_blue, white)
 = textarea
   padding: 8px
   font: normal 1em Helvetica, Arial, sans-serif
   color: $nearly_black
   border: 1px solid $grayblue
-  +gradient-bg(#f0f4f7, white)
+  +gradient-bg($lightest_blue, white)
 = underline-on-hover
   text-decoration: none
   &:hover
@@ -96,6 +107,9 @@ $fieldset_light_blue: #f3f7fa
   max-height: #{$height}px
   width: expression(this.width > #{$width} ? "#{$width}px" : true)
   height: expression(this.height > #{$height} ? "#{$height}px" : true)
+= set_dimensions($width, $height)
+  width: #{$width}px
+  height: #{$height}px
 = screenreader_accessible
   position: absolute
   left: -999em

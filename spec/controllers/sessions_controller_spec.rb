@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe SessionsController do
 
@@ -7,7 +7,7 @@ describe SessionsController do
            (@connected_user = User.find_by_username('oauth_session_controller_spec'))
       truncate_all_tables
       Language.create_english
-      CuratorLevel.create_defaults
+      CuratorLevel.create_enumerated
       @user = User.gen(:username => 'session_controller_spec', :password => 'password')
       @connected_user = User.gen(:username => 'oauth_session_controller_spec')
       @connected_user.open_authentications_attributes = [{ :provider => 'facebook',
@@ -50,7 +50,7 @@ describe SessionsController do
       it 'should redirect to authorize uri before log in with Twitter' do
         stub_oauth_requests
         post :new, { :oauth_provider => 'twitter' }
-        response.header['Location'].should =~ /http:\/\/api.twitter.com\/oauth\/authenticate/
+        response.header['Location'].should =~ /https:\/\/api.twitter.com\/oauth\/authenticate/
       end
       it 'should redirect to authorize uri before log with Yahoo' do
         stub_oauth_requests

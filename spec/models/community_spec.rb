@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Community do
 
@@ -9,13 +9,13 @@ describe Community do
   end
 
   it 'should validate the name' do
-    c = Community.new(:name => '', :description => @description)
+    c = Community.new(name: '', description: @description)
     c.valid?.should_not be_true
-    c = Community.new(:name => 'x'*129, :description => @description)
+    c = Community.new(name: 'x'*129, description: @description)
     c.valid?.should_not be_true
-    c = Community.gen(:name => 'already there')
+    c = Community.gen(name: 'already there')
     c.valid?.should be_true
-    c = Community.new(:name => 'already there', :description => @description)
+    c = Community.new(name: 'already there', description: @description)
     c.valid?.should_not be_true
   end
 
@@ -30,7 +30,7 @@ describe Community do
 
   it "should create a new instance given valid attributes" do
     count = Community.count
-    c = Community.create!(:name => @name, :description => @description)
+    c = Community.create!(name: @name, description: @description)
     Community.count.should == count + 1
     Community.last.name.should == @name
     Community.last.description.should == @description

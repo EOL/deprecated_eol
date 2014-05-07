@@ -1,0 +1,363 @@
+# Messages for Korean (한국어)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Idh0854
+# Author: 아라
+ko: 
+  translated_activities-name-activity_id-19: 프로필
+  translated_activities-name-activity_id-50: 신뢰할 수 없음
+  translated_activities-name-activity_id-51: 보이기
+  translated_activities-name-activity_id-52: 만들기
+  translated_activities-name-activity_id-53: 숨기기
+  translated_activities-name-activity_id-54: 업데이트
+  translated_activities-name-activity_id-55: 부적절
+  translated_activities-name-activity_id-56: 삭제
+  translated_activities-name-activity_id-57: 평가
+  translated_activities-name-activity_id-58: 신뢰할 수 있음
+  translated_activities-name-activity_id-59: 검토되지 않음
+  translated_activities-name-activity_id-63: 수집
+  translated_activities-name-activity_id-64: 제거
+  translated_agent_roles-label-agent_role_id-1: 애니메이터
+  translated_agent_roles-label-agent_role_id-10: 프로젝트
+  translated_agent_roles-label-agent_role_id-11: 게시자
+  translated_agent_roles-label-agent_role_id-12: 보고자
+  translated_agent_roles-label-agent_role_id-13: 출처
+  translated_agent_roles-label-agent_role_id-14: 출처 데이터베이스
+  translated_agent_roles-label-agent_role_id-15: 사람에게 문의
+  translated_agent_roles-label-agent_role_id-16: 기여자
+  translated_agent_roles-label-agent_role_id-2: 저자
+  translated_agent_roles-label-agent_role_id-21: 제공자
+  translated_agent_roles-label-agent_role_id-22: 번역자
+  translated_agent_roles-label-agent_role_id-23: 과학적 검토자
+  translated_agent_roles-label-agent_role_id-24: 어학적 검토자
+  translated_agent_roles-label-agent_role_id-3: 컴파일러
+  translated_agent_roles-label-agent_role_id-4: 작곡가
+  translated_agent_roles-label-agent_role_id-5: 만든이
+  translated_agent_roles-label-agent_role_id-6: 감독자
+  translated_agent_roles-label-agent_role_id-7: 편집자
+  translated_agent_roles-label-agent_role_id-8: 삽화가
+  translated_agent_roles-label-agent_role_id-9: 촬영자
+  translated_audiences-label-audience_id-1: 전문가
+  translated_audiences-label-audience_id-2: 일반 대중
+  translated_audiences-label-audience_id-3: 자식
+  translated_collection_types-label-collection_type_id-1: 분류
+  translated_collection_types-label-collection_type_id-10: 소리
+  translated_collection_types-label-collection_type_id-11: 링크
+  translated_collection_types-label-collection_type_id-12: 문헌
+  translated_collection_types-label-collection_type_id-13: 분류
+  translated_collection_types-label-collection_type_id-14: 분자 바코드
+  translated_collection_types-label-collection_type_id-15: 설명
+  translated_collection_types-label-collection_type_id-16: 그림
+  translated_collection_types-label-collection_type_id-17: 배포
+  translated_collection_types-label-collection_type_id-18: 보존 상태
+  translated_collection_types-label-collection_type_id-19: 이름 정보
+  translated_collection_types-label-collection_type_id-2: 분자 바코드
+  translated_collection_types-label-collection_type_id-20: 분자 데이터
+  translated_collection_types-label-collection_type_id-21: 명명법
+  translated_collection_types-label-collection_type_id-22: 소리
+  translated_collection_types-label-collection_type_id-23: 링크
+  translated_collection_types-label-collection_type_id-24: 문헌
+  translated_collection_types-label-collection_type_id-3: 설명
+  translated_collection_types-label-collection_type_id-4: 그림
+  translated_collection_types-label-collection_type_id-5: 배포
+  translated_collection_types-label-collection_type_id-6: 보존 상태
+  translated_collection_types-label-collection_type_id-7: 이름 정보
+  translated_collection_types-label-collection_type_id-8: 분자 데이터
+  translated_collection_types-label-collection_type_id-9: 명명법
+  translated_contact_roles-label-contact_role_id-1: 주요 연락처
+  translated_contact_roles-label-contact_role_id-2: 행정 연락처
+  translated_contact_roles-label-contact_role_id-3: 기술 연락처
+  translated_contact_subjects-title-contact_subject_id-24: 구성원과 등록
+  translated_contact_subjects-title-contact_subject_id-25: 이용 약관 및 라이선스
+  translated_contact_subjects-title-contact_subject_id-26: 학습 및 교육
+  translated_contact_subjects-title-contact_subject_id-27: 콘텐츠 파트너 되기
+  translated_contact_subjects-title-contact_subject_id-28: 콘텐츠 파트너 지원
+  translated_contact_subjects-title-contact_subject_id-29: 큐레이터 지원
+  translated_contact_subjects-title-contact_subject_id-30: 수정하기 (맞춤법 및 문법, 그림, 정보)
+  translated_contact_subjects-title-contact_subject_id-31: 그림, 동영상 또는 소리 기여
+  translated_contact_subjects-title-contact_subject_id-32: 미디어 요청 (인터뷰, 보도 문의, 로고 요청)
+  translated_contact_subjects-title-contact_subject_id-33: 재정적 기부
+  translated_contact_subjects-title-contact_subject_id-34: 기술적인 질문 (검색, 웹사이트 기능 문제)
+  translated_contact_subjects-title-contact_subject_id-35: 일반적인 피드백
+  translated_content_partner_statuses-label-content_partner_status_id-1: 보류 중
+  translated_content_partner_statuses-label-content_partner_status_id-2: 활성
+  translated_content_partner_statuses-label-content_partner_status_id-3: 보존
+  translated_content_partner_statuses-label-content_partner_status_id-4: 비활성
+  translated_content_tables-label-content_table_id-1: 자세한 사항
+  translated_data_types-label-data_type_id-1: 그림
+  translated_data_types-label-data_type_id-10: 지도
+  translated_data_types-label-data_type_id-2: 소리
+  translated_data_types-label-data_type_id-3: 텍스트
+  translated_data_types-label-data_type_id-4: 동영상
+  translated_data_types-label-data_type_id-5: GBIF 그림
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: 플래시
+  translated_data_types-label-data_type_id-8: 유튜브
+  translated_licenses-description-license_id-1: 권리 보유 안함
+  translated_licenses-description-license_id-2: "&#169; 모든 권리 보유"
+  translated_licenses-description-license_id-29: 일부 권리 보유
+  translated_licenses-description-license_id-3: 일부 권리 보유
+  translated_licenses-description-license_id-30: 일부 권리 보유
+  translated_licenses-description-license_id-31: 일부 권리 보유
+  translated_licenses-description-license_id-32: 일부 권리 보유
+  translated_licenses-description-license_id-33: 일부 권리 보유
+  translated_licenses-description-license_id-34: 퍼블릭 도메인
+  translated_licenses-description-license_id-35: 퍼블릭 도메인
+  translated_licenses-description-license_id-36: 일부 권리 보유
+  translated_licenses-description-license_id-37: 일부 권리 보유
+  translated_licenses-description-license_id-38: 일부 권리 보유
+  translated_licenses-description-license_id-39: 퍼블릭 도메인
+  translated_licenses-description-license_id-4: 일부 권리 보유
+  translated_licenses-description-license_id-42: 일부 권리 보유
+  translated_licenses-description-license_id-43: 라이선스가 적용되지 않음
+  translated_licenses-description-license_id-5: 일부 권리 보유
+  translated_licenses-description-license_id-6: 일부 권리 보유
+  translated_licenses-description-license_id-7: 일부 권리 보유
+  translated_licenses-description-license_id-8: 일부 권리 보유
+  translated_licenses-description-license_id-9: 일부 권리 보유
+  translated_ranks-label-rank_id-106: 품종
+  translated_ranks-label-rank_id-107: 품종
+  translated_ranks-label-rank_id-112: 속
+  translated_ranks-label-rank_id-113: 속
+  translated_ranks-label-rank_id-118: 속
+  translated_ranks-label-rank_id-169: 하목
+  translated_ranks-label-rank_id-175: 하종
+  translated_ranks-label-rank_id-183: 계
+  translated_ranks-label-rank_id-266: 목
+  translated_ranks-label-rank_id-280: 문
+  translated_ranks-label-rank_id-313: 섹선
+  translated_ranks-label-rank_id-314: 섹션
+  translated_ranks-label-rank_id-317: 섹션
+  translated_ranks-label-rank_id-324: 시리즈
+  translated_ranks-label-rank_id-332: 종
+  translated_ranks-label-rank_id-333: 종
+  translated_ranks-label-rank_id-335: 종
+  translated_ranks-label-rank_id-352: 아과
+  translated_ranks-label-rank_id-370: 아강
+  translated_ranks-label-rank_id-375: 아문
+  translated_ranks-label-rank_id-383: 아과
+  translated_ranks-label-rank_id-390: 아종
+  translated_ranks-label-rank_id-391: 아종
+  translated_ranks-label-rank_id-394: 아종
+  translated_ranks-label-rank_id-396: 아계
+  translated_ranks-label-rank_id-399: 아목
+  translated_ranks-label-rank_id-401: 아문
+  translated_ranks-label-rank_id-408: 아섹션
+  translated_ranks-label-rank_id-411: 아시리즈
+  translated_ranks-label-rank_id-413: 아종
+  translated_ranks-label-rank_id-414: 아종
+  translated_ranks-label-rank_id-415: 아종
+  translated_ranks-label-rank_id-422: 아족
+  translated_ranks-label-rank_id-463: 상과
+  translated_ranks-label-rank_id-472: 상문
+  translated_ranks-label-rank_id-494: 족
+  translated_ranks-label-rank_id-503: 등급 없음
+  translated_ranks-label-rank_id-51: 강
+  translated_ranks-label-rank_id-512: 다양성
+  translated_ranks-label-rank_id-513: 다양성
+  translated_ranks-label-rank_id-517: 다양성
+  translated_ranks-label-rank_id-518: 다양성
+  translated_ranks-label-rank_id-562: 잡속
+  translated_ranks-label-rank_id-563: 잡종
+  translated_ranks-label-rank_id-564: 잡아종
+  translated_ranks-label-rank_id-565: 잡다양성
+  translated_ranks-label-rank_id-74: 문
+  translated_ranks-label-rank_id-85: 과
+  translated_ranks-label-rank_id-86: 과
+  translated_ranks-label-rank_id-91: 과
+  translated_ranks-label-rank_id-92: 과
+  translated_ranks-label-rank_id-99: 과
+  translated_resource_statuses-label-resource_status_id-1: 올리는 중
+  translated_resource_statuses-label-resource_status_id-10: 게시함
+  translated_resource_statuses-label-resource_status_id-11: 게시 보류 중
+  translated_resource_statuses-label-resource_status_id-12: 게시 안함 보류 중
+  translated_resource_statuses-label-resource_status_id-13: 강제 수확
+  translated_resource_statuses-label-resource_status_id-2: 올려짐
+  translated_resource_statuses-label-resource_status_id-3: 올리기 실패
+  translated_resource_statuses-label-resource_status_id-4: 내용 서버로 이동함
+  translated_resource_statuses-label-resource_status_id-5: 확인됨
+  translated_resource_statuses-label-resource_status_id-6: 확인 실패
+  translated_resource_statuses-label-resource_status_id-7: 처리 중
+  translated_resource_statuses-label-resource_status_id-8: 처리함
+  translated_resource_statuses-label-resource_status_id-9: 처리 실패
+  translated_service_types-label-service_type_id-1: EOL 전송 스키마
+  translated_service_types-label-service_type_id-2: 기타
+  translated_sort_styles-name-sort_style_id-1: 최근 추가됨
+  translated_sort_styles-name-sort_style_id-2: 오래됨
+  translated_sort_styles-name-sort_style_id-3: 알파벳순
+  translated_sort_styles-name-sort_style_id-4: 알파벳 역순
+  translated_sort_styles-name-sort_style_id-5: 풍부
+  translated_sort_styles-name-sort_style_id-6: 평가
+  translated_statuses-label-status_id-1: 넣음
+  translated_statuses-label-status_id-2: 업데이트됨
+  translated_statuses-label-status_id-3: 바뀌지 않음
+  translated_statuses-label-status_id-4: 다시 사용함
+  translated_synonym_relations-label-synonym_relation_id-1: 동의어
+  translated_synonym_relations-label-synonym_relation_id-10: 젠뱅크 동의어
+  translated_synonym_relations-label-synonym_relation_id-11: 관련 부분
+  translated_synonym_relations-label-synonym_relation_id-12: 포함
+  translated_synonym_relations-label-synonym_relation_id-13: 잘못된 명칭
+  translated_synonym_relations-label-synonym_relation_id-14: 맞춤법 잘못
+  translated_synonym_relations-label-synonym_relation_id-15: 텔레오모프 (teleomorph)
+  translated_synonym_relations-label-synonym_relation_id-16: 애매한 동의어
+  translated_synonym_relations-label-synonym_relation_id-17: 잘못 쓰이는 이름
+  translated_synonym_relations-label-synonym_relation_id-18: 일시적으로 허용한 이름
+  translated_synonym_relations-label-synonym_relation_id-19: 허용한 이름
+  translated_synonym_relations-label-synonym_relation_id-2: 공통 이름
+  translated_synonym_relations-label-synonym_relation_id-20: 데이터베이스 유물
+  translated_synonym_relations-label-synonym_relation_id-21: 기타, 덧글 참고
+  translated_synonym_relations-label-synonym_relation_id-22: 정향 진화의 변종 (잘못된 철자)
+  translated_synonym_relations-label-synonym_relation_id-23: 오용
+  translated_synonym_relations-label-synonym_relation_id-24: 거부된 이름
+  translated_synonym_relations-label-synonym_relation_id-25: 동음이의어 (위법)
+  translated_synonym_relations-label-synonym_relation_id-26: 프로 파테
+  translated_synonym_relations-label-synonym_relation_id-27: 불필요한 이름 바꾸기 (위법)
+  translated_synonym_relations-label-synonym_relation_id-28: 잃어버린 이름
+  translated_synonym_relations-label-synonym_relation_id-29: 연소 동의어
+  translated_synonym_relations-label-synonym_relation_id-3: 약어
+  translated_synonym_relations-label-synonym_relation_id-30: 사용할 수 없는 데이터베이스 유물
+  translated_synonym_relations-label-synonym_relation_id-31: 불필요한 바꾸기
+  translated_synonym_relations-label-synonym_relation_id-32: 후속 이름/조합
+  translated_synonym_relations-label-synonym_relation_id-33: 사용할 수 없는 잘못된 문헌 철자
+  translated_synonym_relations-label-synonym_relation_id-34: 원래 이름/조합
+  translated_synonym_relations-label-synonym_relation_id-35: 사용할 수 없는 잘못된 원래 철자
+  translated_synonym_relations-label-synonym_relation_id-36: 연소 동음이의어
+  translated_synonym_relations-label-synonym_relation_id-37: 동음이의어 & 연소 동의어
+  translated_synonym_relations-label-synonym_relation_id-38: 사용할 수 없는 판결에 의한 억압
+  translated_synonym_relations-label-synonym_relation_id-39: 정당한 교정
+  translated_synonym_relations-label-synonym_relation_id-4: 아나모프 (anamorph)
+  translated_synonym_relations-label-synonym_relation_id-40: 사용할 수 없는 기타
+  translated_synonym_relations-label-synonym_relation_id-41: 사용할 수 없는 노출된 이름
+  translated_synonym_relations-label-synonym_relation_id-42: 불명성
+  translated_synonym_relations-label-synonym_relation_id-43: 잘못 게시한 기타
+  translated_synonym_relations-label-synonym_relation_id-44: 유효하지 않게 게시한 노출된 이름
+  translated_synonym_relations-label-synonym_relation_id-45: 바지오님 (basionym)
+  translated_synonym_relations-label-synonym_relation_id-46: 이형 동명어
+  translated_synonym_relations-label-synonym_relation_id-47: 동형 동명어
+  translated_synonym_relations-label-synonym_relation_id-48: 사용할 수 없는 이름
+  translated_synonym_relations-label-synonym_relation_id-49: 올바른 이름
+  translated_synonym_relations-label-synonym_relation_id-5: 블래스트 이름
+  translated_synonym_relations-label-synonym_relation_id-50: 올바름
+  translated_synonym_relations-label-synonym_relation_id-51: 승인함
+  translated_synonym_relations-label-synonym_relation_id-52: 권위
+  translated_synonym_relations-label-synonym_relation_id-53: 게시하지 않는 이름
+  translated_synonym_relations-label-synonym_relation_id-54: 주관적인 동의어
+  translated_synonym_relations-label-synonym_relation_id-55: 잘못된 권위 정보
+  translated_synonym_relations-label-synonym_relation_id-56: 잘못된 맞춤법
+  translated_synonym_relations-label-synonym_relation_id-57: 대체 맞춤법
+  translated_synonym_relations-label-synonym_relation_id-58: 어휘 변종
+  translated_synonym_relations-label-synonym_relation_id-59: 동의어 (objective = homotypic)
+  translated_synonym_relations-label-synonym_relation_id-6: 동등한 이름
+  translated_synonym_relations-label-synonym_relation_id-60: 동의어 (subjective = heterotypic)
+  translated_synonym_relations-label-synonym_relation_id-61: 객관적인 동의어
+  translated_synonym_relations-label-synonym_relation_id-62: 수석 동의어
+  translated_synonym_relations-label-synonym_relation_id-63: 승인하지 않음
+  translated_synonym_relations-label-synonym_relation_id-64: 잘못됨
+  translated_synonym_relations-label-synonym_relation_id-65: 속 동의어
+  translated_synonym_relations-label-synonym_relation_id-66: 대체 표현
+  translated_synonym_relations-label-synonym_relation_id-67: 종 인퀴렌다 (species inquirenda)
+  translated_synonym_relations-label-synonym_relation_id-68: 원예
+  translated_synonym_relations-label-synonym_relation_id-7: 젠뱅크 약어
+  translated_synonym_relations-label-synonym_relation_id-8: 젠뱅크 아나모프 (genbank anamorph)
+  translated_synonym_relations-label-synonym_relation_id-9: 젠뱅크 공통 이름
+  translated_table_of_contents-label-table_of_contents_id-1: 둘러보기
+  translated_table_of_contents-label-table_of_contents_id-13: 공통 이름
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: 문헌 참고
+  translated_table_of_contents-label-table_of_contents_id-194: 크기
+  translated_table_of_contents-label-table_of_contents_id-2: 간단한 요약
+  translated_table_of_contents-label-table_of_contents_id-218: 분산
+  translated_table_of_contents-label-table_of_contents_id-221: 손해
+  translated_table_of_contents-label-table_of_contents_id-225: 웹에서
+  translated_table_of_contents-label-table_of_contents_id-226: 콘텐츠 파트너
+  translated_table_of_contents-label-table_of_contents_id-227: 웹에서 검색
+  translated_table_of_contents-label-table_of_contents_id-24: 해설
+  translated_table_of_contents-label-table_of_contents_id-242: 일반 생태학
+  translated_table_of_contents-label-table_of_contents_id-244: 참고 문헌
+  translated_table_of_contents-label-table_of_contents_id-251: 이익
+  translated_table_of_contents-label-table_of_contents_id-267: 형태학
+  translated_table_of_contents-label-table_of_contents_id-278: 참고 문헌
+  translated_table_of_contents-label-table_of_contents_id-285: 협회
+  translated_table_of_contents-label-table_of_contents_id-286: 보존 상태
+  translated_table_of_contents-label-table_of_contents_id-289: 진화
+  translated_table_of_contents-label-table_of_contents_id-292: 닮음
+  translated_table_of_contents-label-table_of_contents_id-293: 진단 설명
+  translated_table_of_contents-label-table_of_contents_id-296: 관리
+  translated_table_of_contents-label-table_of_contents_id-297: 영양 전략
+  translated_table_of_contents-label-table_of_contents_id-299: 교육
+  translated_table_of_contents-label-table_of_contents_id-3: 물리적 설명
+  translated_table_of_contents-label-table_of_contents_id-300: 위키백과
+  translated_table_of_contents-label-table_of_contents_id-303: 이름과 분류
+  translated_table_of_contents-label-table_of_contents_id-304: 관련 이름
+  translated_table_of_contents-label-table_of_contents_id-305: 동의어
+  translated_table_of_contents-label-table_of_contents_id-306: 문서 통계
+  translated_table_of_contents-label-table_of_contents_id-307: 내용 요약
+  translated_table_of_contents-label-table_of_contents_id-308: 종합 설명
+  translated_table_of_contents-label-table_of_contents_id-309: 분포
+  translated_table_of_contents-label-table_of_contents_id-310: 개발
+  translated_table_of_contents-label-table_of_contents_id-311: 식별 리소스
+  translated_table_of_contents-label-table_of_contents_id-312: 마이그레이션 (이행)
+  translated_table_of_contents-label-table_of_contents_id-313: 질병과 기생충
+  translated_table_of_contents-label-table_of_contents_id-314: 인구 생물학
+  translated_table_of_contents-label-table_of_contents_id-315: 생명 역사 및 행동
+  translated_table_of_contents-label-table_of_contents_id-316: 행동
+  translated_table_of_contents-label-table_of_contents_id-317: 순환계
+  translated_table_of_contents-label-table_of_contents_id-318: 생애 주기
+  translated_table_of_contents-label-table_of_contents_id-319: 수명
+  translated_table_of_contents-label-table_of_contents_id-320: 생식
+  translated_table_of_contents-label-table_of_contents_id-321: 성장
+  translated_table_of_contents-label-table_of_contents_id-322: 화석 역사
+  translated_table_of_contents-label-table_of_contents_id-323: 계통 분류학 또는 계통학
+  translated_table_of_contents-label-table_of_contents_id-324: 기능 조정
+  translated_table_of_contents-label-table_of_contents_id-325: 생리학과 세포 생물학
+  translated_table_of_contents-label-table_of_contents_id-326: 분자 생물학과 유전학
+  translated_table_of_contents-label-table_of_contents_id-327: 생리학
+  translated_table_of_contents-label-table_of_contents_id-328: 세포 생물학
+  translated_table_of_contents-label-table_of_contents_id-329: 유전학
+  translated_table_of_contents-label-table_of_contents_id-33: 트렌드
+  translated_table_of_contents-label-table_of_contents_id-330: 염기 서열
+  translated_table_of_contents-label-table_of_contents_id-331: 바코드
+  translated_table_of_contents-label-table_of_contents_id-332: 게놈
+  translated_table_of_contents-label-table_of_contents_id-333: 분자 생물학
+  translated_table_of_contents-label-table_of_contents_id-334: 위협
+  translated_table_of_contents-label-table_of_contents_id-335: 입법
+  translated_table_of_contents-label-table_of_contents_id-336: 참고
+  translated_table_of_contents-label-table_of_contents_id-337: 교육
+  translated_table_of_contents-label-table_of_contents_id-338: 교육 링크
+  translated_table_of_contents-label-table_of_contents_id-339: 교육 자료
+  translated_table_of_contents-label-table_of_contents_id-34: 덧글
+  translated_table_of_contents-label-table_of_contents_id-340: 고등학교 연구소 시리즈
+  translated_table_of_contents-label-table_of_contents_id-341: 시민 과학
+  translated_table_of_contents-label-table_of_contents_id-342: 시민 과학 링크
+  translated_table_of_contents-label-table_of_contents_id-343: 생물 다양성 유산 도서관
+  translated_table_of_contents-label-table_of_contents_id-344: 데이터
+  translated_table_of_contents-label-table_of_contents_id-345: 데이터 원본
+  translated_table_of_contents-label-table_of_contents_id-346: 생명 공학 용어
+  translated_table_of_contents-label-table_of_contents_id-347: 분류
+  translated_table_of_contents-label-table_of_contents_id-348: 종류 정보
+  translated_table_of_contents-label-table_of_contents_id-4: 생태학
+  translated_table_of_contents-label-table_of_contents_id-41: 서식지
+  translated_table_of_contents-label-table_of_contents_id-5: 진화 및 계통 분류학
+  translated_table_of_contents-label-table_of_contents_id-6: 인간과 생태계와의 관련성
+  translated_table_of_contents-label-table_of_contents_id-7: 참고와 더 많은 정보
+  translated_table_of_contents-label-table_of_contents_id-8: 보존
+  translated_untrust_reasons-label-untrust_reason_id-1: 오인
+  translated_untrust_reasons-label-untrust_reason_id-2: 잘못됨/오해
+  translated_untrust_reasons-label-untrust_reason_id-3: 낮은 품질
+  translated_untrust_reasons-label-untrust_reason_id-4: 중복
+  translated_untrust_reasons-label-untrust_reason_id-5: 기타
+  translated_user_identities-label-user_identity_id-1: 애호가
+  translated_user_identities-label-user_identity_id-2: 학생
+  translated_user_identities-label-user_identity_id-3: 교육자
+  translated_user_identities-label-user_identity_id-4: 시민 과학자
+  translated_user_identities-label-user_identity_id-5: 전문 과학자
+  translated_vetted-label-vetted_id-0: 알 수 없음
+  translated_vetted-label-vetted_id-4: 신뢰할 수 없음
+  translated_vetted-label-vetted_id-5: 신뢰할 수 있음
+  translated_vetted-label-vetted_id-6: 부적절
+  translated_view_styles-name-view_style_id-1: 목록
+  translated_view_styles-name-view_style_id-2: 갤러리
+  translated_view_styles-name-view_style_id-3: 주석
+  translated_visibilities-label-visibility_id-0: 보이지 않음
+  translated_visibilities-label-visibility_id-1: 보임
+  translated_visibilities-label-visibility_id-2: 미리 보기

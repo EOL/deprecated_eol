@@ -8,12 +8,11 @@ module EOL
         options[:page]        ||= 1
         options[:per_page]    ||= 30
         options[:per_page]      = 30 if options[:per_page] == 0
-        options[:group_field] ||= 'activity_log_unique_key'
 
         response = solr_search(query, options)
-        total_results = response['grouped'][options[:group_field]]['ngroups']
+        total_results = response['grouped']['activity_log_unique_key']['ngroups']
         results = []
-        response['grouped'][options[:group_field]]['groups'].each do |g|
+        response['grouped']['activity_log_unique_key']['groups'].each do |g|
           results << g['doclist']['docs'][0]
         end
 
@@ -31,7 +30,6 @@ module EOL
       def self.global_activities(options = {})
         options[:page]        ||= 1
         options[:per_page]    = 100
-        options[:group_field] = 'activity_log_unique_key'
 
         found_user_ids = {}
         docs_to_return = []
@@ -40,10 +38,10 @@ module EOL
         # activity logs until we have the result set we want, or until there are no more results
         while docs_to_return.length < 6
           response = solr_search('*:* NOT action_keyword:unlock', options)
-          total_results = response['grouped'][options[:group_field]]['ngroups']
+          total_results = response['grouped']['activity_log_unique_key']['ngroups']
           break if total_results == 0
           results = []
-          response['grouped'][options[:group_field]]['groups'].each do |g|
+          response['grouped']['activity_log_unique_key']['groups'].each do |g|
             results << g['doclist']['docs'][0]
           end
 
@@ -110,10 +108,10 @@ module EOL
               nil
             end
           end.compact
-          if users 
+          if users
             type_and_ids_to_send['UserNews'] = users.collect{ |c| c.id }
           end
-          
+
           solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
           type_and_ids_to_send.each do |feed_type, ids|
             ids = ids.uniq.delete_if{ |id| id.blank? || id == 0 }
@@ -128,7 +126,7 @@ module EOL
           return nil
         end
       end
-      
+
       def self.rebuild_comments_logs
         start = Comment.minimum('id')
         max_id = Comment.maximum('id') + 20 # just in case some get added while this is running
@@ -209,6 +207,8 @@ module EOL
           })
         EOL::Solr.add_standard_instance_to_docs!(CommunityActivityLog,
           docs.select{ |d| d['activity_log_type'] == 'CommunityActivityLog' }, 'activity_log_id')
+        EOL::Solr.add_standard_instance_to_docs!(UserAddedData,
+          docs.select{ |d| d['activity_log_type'] == 'UserAddedData' }, 'activity_log_id')
         EOL::Solr.add_standard_instance_to_docs!(UsersDataObject,
           docs.select{ |d| d['activity_log_type'] == 'UsersDataObject' }, 'activity_log_id',
           :includes => [
@@ -217,7 +217,6 @@ module EOL
             :user ],
           :selects => { :data_objects => '*', :taxon_concepts => [ :id ],
             :hierarchy_entries => '*', :users => '*' })
-
         # remove the activity log (and possibly mess with results per page and pagination)
         # if the referenced object doesn't exist
         docs.delete_if do |d|
@@ -226,24 +225,27 @@ module EOL
         end
       end
 
-      # TODO - Couldn't we simplify a whole lot of this with #to_params?
       def self.solr_search(query, options = {})
-        options[:sort_by] ||= 'date_created+desc'
-        options[:group_field] ||= 'activity_log_unique_key'
-        # add date-after:
-        url =  $SOLR_SERVER + $SOLR_ACTIVITY_LOGS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
-        url << CGI.escape(query)
-        unless options[:specific_time].blank?
-          url << "&fq=date_created:[NOW/DAY-7DAY+TO+NOW/DAY%2B1DAY]"
+        unless options[:user] && options[:user].can_see_data?
+          query += " NOT action_keyword:DataPointUri NOT action_keyword:UserAddedData NOT activity_log_type:UserAddedData"
         end
-        url << "&sort=#{options[:sort_by]}&fl=activity_log_type,activity_log_id,user_id,date_created"
-        url << "&group=true&group.field=#{options[:group_field]}&group.ngroups=true"
-        # add paging
-        limit  = options[:per_page] ? options[:per_page].to_i : 10
+        per_page  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
-        offset = (page - 1) * limit
-        url << '&start=' << URI.encode(offset.to_s)
-        url << '&rows='  << URI.encode(limit.to_s)
+        offset = (page - 1) * per_page
+        parameters = options.dup
+        parameters[:sort] = options[:sort_by] || 'date_created+desc'
+        parameters[:fl] = 'activity_log_type,activity_log_id,user_id,date_created'
+        parameters[:group] = 'true'
+        parameters['group.field'] = 'activity_log_unique_key'
+        parameters['group.ngroups'] = 'true'
+        parameters[:start] = offset
+        parameters[:rows] = per_page
+        parameters[:fq] = "date_created:[NOW/DAY-#{options[:recent_days]}DAY+TO+NOW/DAY%2B1DAY]" if options[:recent_days]
+        parameters.delete_if{ |k,v| ! [ :sort, :fl, :group, 'group.field', 'group.ngroups',
+                                        :start, :rows, :fq].include?(k) }
+        url =  $SOLR_SERVER + $SOLR_ACTIVITY_LOGS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}")
+        # unescaping the parameters since the brackets in :fq need to remain
+        url << CGI.escape(query) << "&" << CGI.unescape(parameters.to_param())
         res = open(url).read
         JSON.load res
       end

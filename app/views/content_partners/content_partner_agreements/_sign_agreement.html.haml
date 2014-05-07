@@ -1,6 +1,6 @@
-= form_for [@partner, @agreement], :url => content_partner_agreements_path do |form|
+= form_for @agreement do |form|
   %fieldset
-    = @agreement.body
+    = raw @agreement.body
     = form.hidden_field :body, :value => @agreement.body
     = form.hidden_field :created_at, :value => @agreement.created_at
     %dl

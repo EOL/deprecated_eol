@@ -1,5 +1,5 @@
 class Api::DocsController < ApiController
-  layout 'v2/basic'
+  layout 'basic'
   skip_before_filter :handle_key, :set_default_format_to_xml
   before_filter :set_locale, :set_navigation_menu
 
@@ -47,15 +47,16 @@ class Api::DocsController < ApiController
   private
 
   def default_render
-    render :template => 'api/docs/method_documentation'
+    render template: 'api/docs/method_documentation'
   end
 
   def set_navigation_menu
-    api_overview = ContentPage.find_by_page_name('api_overview', :include => :translations)
+    api_overview = ContentPage.find_by_page_name('api_overview', include: :translations)
     unless api_overview.blank?
       translation = api_overview.translations.select{|t| t.language_id == current_language.id}.compact
       translation = api_overview.translations.select{|t| t.language_id == Language.english.id}.compact if translation.blank?
       @navigation_menu = translation.first.left_content rescue nil
+      @navigation_menu.gsub!(/ class=['"]active['"]/, ' ')
       if params[:action] == "index"
         @navigation_menu.gsub!(/<li>\s+(<a href=\"\/api\">)/, "<li class='active'>\\1")
       else

@@ -1,44 +1,137 @@
 @import "common"
 
-div.fieldset_form
-  padding: 20px 20px 10px 20px
-  margin-top: 20px
+#known_uris
+  position: relative
+  .pagination
+    width: 40%
+    margin-left: 60%
+    + ul
+      border: none
+    &:first-child
+      position: absolute
+      top : 0
+      right: 0
+      + ul
+        margin-top: 0
+  .ui-sortable-helper
+    margin-top: 3em
+    background-color: #eee
+    padding: 6px
+    border: 1px dashed #aaa
+  .placeholder
+    height: 5em
+    line-height: 1.2em
+    background-color: #ffe
+    border: 1px dashed #eea
+  table.standard
+    thead
+      line-height: 250%
+      tr
+        border-color: #93a4b0 #93a4b0 #cad3db
+        th
+          background: none
+    tbody tr
+      border-color: #cad3db #93a4b0
+      &:last-child
+        border-color: #93a4b0
+  table.uris
+    table-layout: fixed
+    width: 100%
+    th
+      &:nth-of-type(1)
+        width: 30%
+      &:nth-of-type(2)
+        width: 15%
+      &:nth-of-type(3)
+        width: 15%
+      &:nth-of-type(4)
+        width: 20%
+      &:nth-of-type(5)
+        width: 15%
+      &:nth-of-type(6)
+        width: 5%
+  tr.hidden
+    background-color: #efefef
+    color: #666666
+    a
+      color: #7597B5
+  tr.unknown
+    background-color: #fcc
+    color: #855
+    a
+      color: #979
+  td, th
+    display: table-cell
+    -ms-word-break: break-all
+    word-wrap: break-word
+  td.excluded
+    background: image-url("v2/icon_excluded.png") 7px 13px no-repeat
+  td.untranslated
+    color: #8b0000
+ul.actions .button
+  line-height: 260%
+h2
+  margin-top: 1em
+  line-height: 200%
+form
+  .actions
+    input[type=submit]
+      font-size: 1em
+  &.edit_known_uri, &.new_known_uri
+    fieldset
+      padding-bottom: 40px
+      &.primary
+        font-size: 1.6em
+        clear: both
+        dt
+          width: 150px
+          float: left
+        input
+          width: 500px
+      &:nth-of-type(2), &:nth-of-type(3)
+        float: left
+        width: 50%
+      &.actions
+        padding-top: 20px
+        clear: both
+        border-top: 1px solid $grayblue
+.known_uri__relationships
+  clear: both
+  padding: 40px
   background: $fieldset_light_blue
   border: 1px solid $grayblue
-  label
-    font-size: 1.08em
-    font-weight: bold
-  ul
+  table
+    width: 100%
     padding: 10px
-    li
-      line-height: 25px
-      div.actions
-        float: right
+    word-break: break-all
+    tr
+      height: 23px
+    td
+      &.label
         width: 100px
-        margin: 0px 0px 0px 20px
+      &.uri
+        width: 220px
+        overflow: hidden
+      &.actions
+        width: 50px
+        margin: 0 0 0 20
         form
-          margin: 0px
+          margin: 0
           div
             margin: auto
-    .underline
-      text-decoration: underline
-  fieldset
-    dt
-      font-size: 1.08em
-      font-weight: bold
+    &.relations
+      span.relation, span.label, span.uri
+      span.relation
+        display: inline-block
+        width: 120px
+        text-decoration: underline
+      span.label
+        display: inline-block
+        width: 220px
+        font-weight: bold
 #stats_report
   table
-    margin: 10px 0px
-#sortable
-  td.actions
-    width: 180px
-#import_ontology
-  dt
-    display: none
-  dd
-    float: left
-    margin-right: 10px
-  margin: 30px 0px 70px
+    margin: 10px 0
 table.ontology
   tr
     &.ignored
@@ -63,3 +156,14 @@ table.ontology
   span.language
     font-size: .7em
     color: #777777
+#import_ontology
+  form
+    padding: 20px 0
+  fieldset
+    float: none
+    border: none
+    padding: 0
+    margin: 0
+  input[type=submit]
+    font-size: 1.1em
+    padding: 5px 10px 6px

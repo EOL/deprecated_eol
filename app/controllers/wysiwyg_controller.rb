@@ -26,7 +26,7 @@ class WysiwygController < ApplicationController
     if @final_file_path.blank?
       raise "Could not process image upload"
     end
-    render :layout => false
+    render layout: false
   end
 
   private

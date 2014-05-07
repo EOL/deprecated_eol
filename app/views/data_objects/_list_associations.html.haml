@@ -8,15 +8,15 @@
 
   - if data_object.published?
     - if current_user.min_curator_level?(:full)
-      = render :partial => 'data_objects/curatable_removable_associations_index', :locals => { :data_object => data_object }
+      = render 'data_objects/curatable_removable_associations_index', { :data_object => data_object }
     - elsif current_user.assistant_curator? || current_user == data_object.user
-      = render :partial => 'data_objects/removable_associations_index', :locals => { :data_object => data_object }
+      = render 'data_objects/removable_associations_index', { :data_object => data_object }
     - else
-      = render :partial => 'data_objects/readonly_associations_index', :locals => { :data_object => data_object, :en_type => en_type }
+      = render 'data_objects/readonly_associations_index', { :data_object => data_object, :en_type => en_type }
       - unless for_worklist
         = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision) unless @latest_published_revision.id == data_object.id
   - else
-    = render :partial => 'data_objects/readonly_associations_index', :locals => { :data_object => data_object, :en_type => en_type }
+    = render 'data_objects/readonly_associations_index', { :data_object => data_object, :en_type => en_type }
     .copy
       - unless current_user.min_curator_level?(:assistant) || current_user == data_object.user
         %p= I18n.t("this_#{en_type}_is_unpublished")
@@ -29,4 +29,4 @@
     %p.toc_items= I18n.t(:data_object_toc_items_list, quoted_toc_titles: data_object.toc_items.map { |ti| %("#{ti.label}") }.to_sentence, count: toc_count)
 
   - if for_worklist
-    = render :partial => 'data_objects/ignore', :locals => { :data_object => @data_object }
+    = render 'data_objects/ignore', { :data_object => @data_object }

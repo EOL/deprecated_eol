@@ -15,7 +15,7 @@ class StructuredData
     @predicate = options.delete(:predicate)
     @object = options.delete(:object)
     @resource = options.delete(:resource)
-    @graph_name = options.delete(:graph_name) || "http://eol.org/resources/#{@resource.id}"
+    @graph_name = options.delete(:graph_name) || "#{Rails.configuration.uri_resources_prefix}#{@resource.id}"
     @mappings_graph_name = "#{@graph_name}/mappings"
     @unique_id = Digest::MD5.hexdigest(self.inspect)
     @taxon_uri = taxon_uri_for(@subject)

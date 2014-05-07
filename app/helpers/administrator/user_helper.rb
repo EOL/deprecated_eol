@@ -1,2 +1,0 @@
-module Administrator::UserHelper
-end

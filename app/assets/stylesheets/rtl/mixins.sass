@@ -5,12 +5,16 @@ $logo_size_tertiary: 35
 $global_nav_height: 2.7em !default
 $nearly_black: #394651
 $darker_gray: #93a4b0
+$lightest_blue: #f0f4f7
 $light_blue: #e2e9ef
 $grayblue: #cad3db
 $darker_blue: #616e7a
+$logo_blue: #7aa6cb
 $loafer_text_color: #828d33
 $lighter_text_color: #5f6c76
 $fieldset_light_blue: #f3f7fa
+$negative_red: #e84226
+$banner_background_color: #d1e163
 = border-radius($radius)
   -moz-border-radius: $radius
   border-radius: $radius
@@ -35,20 +39,25 @@ $fieldset_light_blue: #f3f7fa
   filter: alpha(opacity=$val*100)
 = gradient-bg($color1, $color2)
   background-color: $color2
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#{ie-hex-str($color1)}', endColorstr='#{ie-hex-str($color2)}')
-  background-image: -moz-linear-gradient(100% 100% 90deg, $color2, $color1)
-  background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from($color1), to($color2))
+  background-image: -ms-linear-gradient(top, $color1 0%, $color2 100%)
+  background-image: -moz-linear-gradient(top, $color1 0%, $color2 100%)
+  background-image: -o-linear-gradient(top, $color1 0%, $color2 100%)
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, $color1), color-stop(1, $color2))
+  background-image: -webkit-linear-gradient(top, $color1 0%, $color2 100%)
+  background-image: linear-gradient(to bottom, $color1 0%, $color2 100%)
 = gradient-bg-horizontal($color1, $color2)
   background-color: $color2
-  filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr='#{ie-hex-str($color1)}', endColorstr='#{ie-hex-str($color2)}')
-  background-image: -moz-linear-gradient(100% 100% 180deg, $color2, $color1)
-  background-image: -webkit-gradient(linear, right center, left center, from($color1), to($color2))
-
-= button($from: #ffffff, $to: #d7dde1)
+  background-image: -ms-linear-gradient(left, $color2 0%, $color1 100%)
+  background-image: -moz-linear-gradient(left, $color2 0%, $color1 100%)
+  background-image: -o-linear-gradient(left, $color2 0%, $color1 100%)
+  background-image: -webkit-gradient(linear, left top, left top, color-stop(0, $color2), color-stop(1, $color1))
+  background-image: -webkit-linear-gradient(left, $color2 0%, $color1 100%)
+  background-image: linear-gradient(to right, $color2 0%, $color1 100%)
+= button($from: white, $to: #d7dde1)
   padding: 5px 10px 6px 10px
   overflow: visible
   font: bold 1.08em Helvetica, Arial, sans-serif
-  color: #394651
+  color: $nearly_black
   text-transform: lowercase
   text-decoration: none
   border: 1px solid $to - #111111
@@ -79,14 +88,14 @@ $fieldset_light_blue: #f3f7fa
   height: 22px
   padding: 2px 5px
   font: normal 1em Helvetica, Arial, sans-serif
-  border: 1px solid #cad3db
-  +gradient-bg(#f0f4f7, #ffffff)
+  border: 1px solid $grayblue
+  +gradient-bg($lightest_blue, white)
 = textarea
   padding: 8px
   font: normal 1em Helvetica, Arial, sans-serif
-  color: #394651
-  border: 1px solid #cad3db
-  +gradient-bg(#f0f4f7, #ffffff)
+  color: $nearly_black
+  border: 1px solid $grayblue
+  +gradient-bg($lightest_blue, white)
 = underline-on-hover
   text-decoration: none
   &:hover
@@ -96,6 +105,9 @@ $fieldset_light_blue: #f3f7fa
   max-height: #{$height}px
   width: expression(this.width > #{$width} ? "#{$width}px" : true)
   height: expression(this.height > #{$height} ? "#{$height}px" : true)
+= set_dimensions($width, $height)
+  width: #{$width}px
+  height: #{$height}px
 = screenreader_accessible
   position: absolute
   right: -999em

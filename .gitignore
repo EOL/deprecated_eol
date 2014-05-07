@@ -6,11 +6,18 @@
 
 # Ignore bundler config
 /.bundle
+/bundle_bin
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 .sass-cache/
+
+# Ignore guard (which is an auto-tester):
+Guardfile
+
+# Ignore simplecov:
+coverage
 
 # Older stuff:
 *.bundle
@@ -31,17 +38,17 @@ config/deploy.rb
 config/environments/integration_local.rb
 config/environments/labs1.rb
 config/environments/staging_test.rb
-config/environments/local.*
 config/environments/staging_dev_private.rb
 config/environments/bocce_demo_dev.rb
 config/environments/dev_cache.rb
 config/environments/dev_cache_rails3.rb
 config/environments/test_dev.rb
-config/shards.yml
-config/remi-deploy.rb
+config/environments/local.rb
 config/resque.yml
+config/shards.yml
 config/systems/
 config/newrelic.yml
+config/shards.yml
 db/*_structure.sql
 db/schema.rb
 db/structure.sql
@@ -49,11 +56,15 @@ doc/app
 lang/tmp.yml
 log/*.txt
 public/feeds
+public/*csv
 public/files/solr_import_file_*.csv
 public/javascripts/*packaged.js
 public/opensearch.xml
 public/search.xml
+public/falo_data.json
+public/falo_mappings.json
 public/stylesheets/*packaged.css
+public/uploads/data_search_files/*
 public/uploads/datasets/*
 public/uploads/Image/*
 public/uploads/images/collection_icons/*

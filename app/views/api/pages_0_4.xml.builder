@@ -10,23 +10,23 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
   "xsi:schemaLocation" => "http://www.eol.org/transfer/content/0.3 http://services.eol.org/schema/content_0_3.xsd" do
 
   xml.taxon do
-    xml.dc :identifier, @json_response['identifier']
-    xml.dwc :ScientificName, @json_response['scientificName']
+    xml.dc :identifier, @json_response['identifier'] if @json_response['identifier']
+    xml.dwc :ScientificName, @json_response['scientificName'] if @json_response['scientificName']
 
     @json_response['synonyms'].each do |synonym|
       xml.synonym synonym['synonym'], :relationship => synonym['relationship']
-    end
+    end if @json_response['synonyms']
 
     @json_response['vernacularNames'].each do |common_name|
       attributes = {}
       attributes['xml:lang'.to_sym] = common_name['language'] unless common_name['language'].blank?
       attributes[:eol_preferred] = common_name['eol_preferred'] unless common_name['eol_preferred'].blank?
       xml.commonName common_name['vernacularName'], attributes
-    end
+    end if @json_response['vernacularNames']
 
     @json_response['references'].each do |ref|
       xml.reference ref
-    end
+    end if @json_response['references']
 
     xml.additionalInformation do
       @json_response['taxonConcepts'].each do |tc|
@@ -62,10 +62,10 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
           end
         end
       end
-    end
+    end if @json_response['taxonConcepts']
 
     @json_response['dataObjects'].each do |data_object|
-      xml << render(:partial => 'data_object', :layout => false, :locals => { :data_object_hash => data_object } )
-    end
+      xml << render(partial: 'data_object', layout: false, locals: { :data_object_hash => data_object } )
+    end if @json_response['dataObjects']
   end
 end

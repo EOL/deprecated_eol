@@ -2,13 +2,13 @@ class SessionsController < ApplicationController
 
   include EOL::Login
 
-  layout 'v2/sessions'
+  layout 'sessions'
 
-  before_filter :redirect_if_already_logged_in, :only => [:new, :create]
-  before_filter :check_user_agreed_with_terms, :except => [:destroy]
-  before_filter :extend_for_open_authentication, :only => [:new, :create]
+  before_filter :redirect_if_already_logged_in, only: [:new, :create]
+  before_filter :check_user_agreed_with_terms, except: [:destroy]
+  before_filter :extend_for_open_authentication, only: [:new, :create]
 
-  rescue_from EOL::Exceptions::OpenAuthUnauthorized, :with => :oauth_unauthorized_rescue
+  rescue_from EOL::Exceptions::OpenAuthUnauthorized, with: :oauth_unauthorized_rescue
 
   # GET /sessions/new or named route /login
   def new
@@ -24,6 +24,7 @@ class SessionsController < ApplicationController
     if success && user.is_a?(User)
       # credentials good but user may still be inactive or hidden, we'll check during log_in
       log_in user
+      expire_fragment("sessions_#{user.id}")
       redirect_back_or_default(user_newsfeed_path(user))
     else
       # bad credentials or user missing
@@ -40,10 +41,11 @@ class SessionsController < ApplicationController
 
   # DELETE /sessions/:id or named route /logout
   def destroy
+    # puts "*" * 100
+    # puts "** #{params[:return_to]}"
     log_out
-    store_location(params[:return_to])
     flash[:notice] = I18n.t(:you_have_been_logged_out)
-    redirect_back_or_default
+    redirect_back_or_default(params[:return_to])
   end
 
 private
@@ -62,7 +64,7 @@ private
   def oauth_unauthorized_rescue
     error_scope = [:users, :open_authentications, :errors]
     error_scope << @open_auth.provider if !@open_auth.nil? && !@open_auth.provider.nil?
-    flash[:error] = I18n.t(:not_authorized_to_login, :scope => error_scope)
+    flash[:error] = I18n.t(:not_authorized_to_login, scope: error_scope)
     redirect_back_or_default login_url
   end
 

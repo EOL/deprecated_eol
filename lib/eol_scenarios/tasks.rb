@@ -19,13 +19,19 @@ end
 
 namespace :scenarios do
 
+  desc 'clear out the temp files created by scenarios.'
+  task :clear_tmp => :environment do
+    ls = Dir.glob(Rails.root.join('tmp', '*sql')) + Dir.glob(Rails.root.join('tmp', '*yml'))
+    ls.each { |file| File.delete(file) }
+  end
+
   desc 'scenarios:load NAME=foo OR NAME=a,b,c'
   task :load => :environment do
     puts "called scenarios:load" if EolScenario.verbose
     if ENV['NAME']
       names = ENV['NAME'].split(',')
       names.each do |name|
-        loader = EOL::ScenarioLoader.new(name, EOL::DB.all_connections)
+        loader = EOL::ScenarioLoader.new(name, EOL::Db.all_connections)
         loader.load_with_caching
       end
     else

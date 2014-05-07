@@ -4,11 +4,13 @@
 -# routines.  ...So we're going to try this out for articles for a while... it should speed up some of the common
 -# text-heavy details tabs and overviews.  That said, there is one caveat:
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
-- # TODO: Refactor attribution partials to make better use of model and/or helper methods as they have all gone a little wild.
+- # TODO: Refactor attribution s to make better use of model and/or helper methods as they have all gone a little wild.
 - en_type ||= en_type(data_object)
 - cache "#{en_type}/attribution/#{I18n.locale}/#{data_object.id}" do
-  = render :partial => 'data_objects/license', :locals => { :data_object => data_object }  unless en_type == 'link'
+  = render 'data_objects/license', { data_object: data_object }  unless en_type == 'link'
   .copy
+    -# TODO attribute styles in taxon media gallery rely on there being a
+    -#      p.owner element, we should remove this dependency.
     %p.owner
-      = render :partial => 'data_objects/owner', :locals => { :data_object => data_object, :linked => true }
-    = render :partial => 'data_objects/supplier', :locals => { :data_object => data_object, :minimal => true }
+      = raw data_object.owner || "&nbsp;"
+    = render 'data_objects/supplier', { data_object: data_object, minimal: true }

@@ -1,23 +1,22 @@
-# Represents a group of HierarchyEntry instances that we consider "the same".  This amounts to a vague idea
-# of a taxon, which we serve as a single page.
+# Represents a group of HierarchyEntry instances that we consider "the same".  This amounts to a vague idea of
+# a taxon, which we serve as a single page.
 #
-# We get different interpretations of taxa from our partners (ContentPartner), often differing slightly
-# and referring to basically the same thing, so TaxonConcept was created as a means to reconcile the
-# variant definitions of what are essentially the same Taxon. We currently store basic Taxon we receive
-# from data imports in the +hierarchy_entries+ table and we also store taxonomic hierarchies (HierarchyEntry) in the
+# We get different interpretations of taxa from our partners (ContentPartner), often differing slightly and
+# referring to basically the same thing, so TaxonConcept was created as a means to reconcile the variant
+# definitions of what are essentially the same Taxon. We currently store basic Taxon we receive from data
+# imports in the +hierarchy_entries+ table and we also store taxonomic hierarchies (HierarchyEntry) in the
 # +hierarchy_entries+ table. Currently TaxonConcept are groups of one or many HierarchyEntry. We will
 # eventually create hierarchy_entries for each entry in the taxa table (Taxon).
 #
 # It is worth mentioning that the "eol.org/pages/nnnn" route is a misnomer.  Those IDs are, for the
 # time-being, pointing to TaxonConcept, not pages.
 #
-# See the comments at the top of the Taxon for more information on this.
-# I include there a basic biological definition of what a Taxon is.
-require 'model_query_helper'
+# See the comments at the top of the Taxon for more information on this.  I include there a basic biological
+# definition of what a Taxon is.
+
 require 'eol/activity_loggable'
 
 class TaxonConcept < ActiveRecord::Base
-  include ModelQueryHelper
   include EOL::ActivityLoggable
 
   belongs_to :vetted
@@ -25,41 +24,43 @@ class TaxonConcept < ActiveRecord::Base
   attr_accessor :entries # TODO - this is used by DataObjectsController#add_association (and its partial) and probably shouldn't be.
 
   has_many :hierarchy_entries
-  has_many :scientific_synonyms, :through => :hierarchy_entries
-  has_many :published_hierarchy_entries, :class_name => HierarchyEntry.to_s,
-    :conditions => Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}" }
+  has_many :scientific_synonyms, through: :hierarchy_entries
+  has_many :published_hierarchy_entries, class_name: HierarchyEntry.to_s,
+    conditions: Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}" }
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :curator_activity_logs
   has_many :taxon_concept_names
-  has_many :comments, :as => :parent
-  has_many :names, :through => :taxon_concept_names
-  has_many :ranks, :through => :hierarchy_entries
+  has_many :comments, as: :parent
+  has_many :names, through: :taxon_concept_names
+  has_many :ranks, through: :hierarchy_entries
   has_many :google_analytics_partner_taxa
-  has_many :collection_items, :as => :collected_item
-  has_many :collections, :through => :collection_items
+  has_many :collection_items, as: :collected_item
+  has_many :collections, through: :collection_items
   # TODO: this is just an alias of the above so all collectable entities have this association
-  has_many :containing_collections, :through => :collection_items, :source => :collection
-  has_many :preferred_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
-  has_many :preferred_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
-  has_many :denormalized_common_names, :class_name => TaxonConceptName.to_s, :conditions => 'taxon_concept_names.vern=1'
+  has_many :containing_collections, through: :collection_items, source: :collection
+  has_many :published_containing_collections, through: :collection_items, source: :collection, conditions: 'published = 1',
+    select: 'collections.id, collections.name, collections.collection_items_count, special_collection_id, relevance, logo_file_name, logo_cache_url',
+    include: :communities
+  has_many :preferred_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=0 AND taxon_concept_names.preferred=1'
+  has_many :preferred_common_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=1 AND taxon_concept_names.preferred=1'
+  has_many :denormalized_common_names, class_name: TaxonConceptName.to_s, conditions: 'taxon_concept_names.vern=1'
   has_many :users_data_objects
-  has_many :flattened_ancestors, :class_name => TaxonConceptsFlattened.to_s
-  has_many :superceded_taxon_concepts, :class_name => TaxonConcept.to_s, :foreign_key => "supercedure_id"
+  has_many :flattened_ancestors, class_name: TaxonConceptsFlattened.to_s
+  has_many :superceded_taxon_concepts, class_name: TaxonConcept.to_s, foreign_key: "supercedure_id"
+  has_many :taxon_data_exemplars
 
   has_one :taxon_classifications_lock
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
   has_one :taxon_concept_exemplar_article
-  has_one :preferred_entry, :class_name => 'TaxonConceptPreferredEntry'
+  has_one :preferred_entry, class_name: 'TaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
 
-  attr_accessor :includes_unvetted # true or false indicating if this taxon concept has any unvetted/unknown data objects
+  attr_accessor :common_names_in_language
 
-  attr_reader :has_media, :length_of_images, :length_of_videos, :length_of_sounds
-
-  index_with_solr :keywords => [ :scientific_names_for_solr, :common_names_for_solr ]
+  index_with_solr keywords: [ :scientific_names_for_solr, :common_names_for_solr ]
 
   def self.prepare_cache_classes
     TaxonConceptExemplarImage
@@ -80,7 +81,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def self.load_for_title_only(load_these)
-    TaxonConcept.find(load_these, :include => [:hierarchy_entries])
+    TaxonConcept.find(load_these, include: [:hierarchy_entries])
   end
 
   def self.default_solr_query_parameters(solr_query_parameters)
@@ -103,7 +104,6 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
     solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
     solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
-    solr_query_parameters[:skip_preload] ||= false  # if true, we will do less preload of associations
     
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
@@ -116,6 +116,27 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:user] ||= nil
     solr_query_parameters[:facet_by_resource] ||= false  # this will add a facet parameter to the solr query
     return solr_query_parameters
+  end
+
+  def self.preload_for_shared_summary(taxon_concepts, options)
+    includes = [
+      { preferred_entry:
+        { hierarchy_entry: [ { name: :ranked_canonical_form }, :hierarchy ] } },
+      { taxon_concept_exemplar_image: { data_object:
+        { data_objects_hierarchy_entries: [ :hierarchy_entry, :vetted, :visibility ] } } } ]
+    TaxonConcept.preload_associations(taxon_concepts, includes)
+    unless options[:skip_ancestry]
+      he = taxon_concepts.collect do |tc|
+        if tc.preferred_entry && ! tc.preferred_entry.hierarchy_entry.preferred_classification_summary?
+          tc.preferred_entry.hierarchy_entry
+        end
+      end.flatten.compact
+      HierarchyEntry.preload_associations(he, { flattened_ancestors: { ancestor: :name } } )
+    end
+    if options[:language_id] && ! options[:skip_common_names]
+      # loading the names for the preferred common names in the user's language
+      TaxonConcept.load_common_names_in_bulk(taxon_concepts, options[:language_id])
+    end
   end
 
   # Some TaxonConcepts are "superceded" by others, and we need to follow the chain (up to a sane limit):
@@ -134,16 +155,42 @@ class TaxonConcept < ActiveRecord::Base
   end
   class << self; alias_method_chain :find, :supercedure ; end
 
-  def preferred_common_name_in_language(language)
-    if preferred_common_names.loaded?
+  # this method is helpful when using preloaded taxon_concepts as preloading
+  # will not use the above find_with_supercedure to get the latest version
+  def latest_version
+    if supercedure_id && supercedure_id != 0
+      # using find will properly follow supercedureIDs
+      return TaxonConcept.find(id)
+    end
+    self
+  end
+
+  def self.load_common_names_in_bulk(taxon_concepts, language_id)
+    taxon_concepts_to_load = taxon_concepts.compact.select do |tc|
+      tc.common_names_in_language ||= {}
+      ! tc.common_names_in_language.has_key?(language_id)
+    end
+    names = Name.joins(:taxon_concept_names).
+      where('taxon_concept_names.taxon_concept_id' => taxon_concepts_to_load.collect(&:id)).
+      where("vern=1 AND preferred=1 AND language_id=#{language_id}").
+      select('names.*, taxon_concept_id')
+    taxon_concepts_to_load.each do |tc|
+      tc.common_names_in_language[language_id] = names.detect{ |n| n.taxon_concept_id == tc.id }
+    end
+  end
+
+  def preferred_common_name_in_language(language = Language.default)
+    if common_names_in_language && common_names_in_language.has_key?(language.id)
       # sometimes we preload preferred names in all languages for lots of taxa
-      best_name_in_language = preferred_common_names.detect { |c| c.language_id == language.id }
+      best_name_in_language = common_names_in_language[language.id]
     else
       # ...but if we don't, its faster to get only the one record in the current language
-      best_name_in_language = preferred_common_names.where("language_id = #{language.id}").first
+      if tcn = preferred_common_names.where("language_id = #{language.id}").first
+        best_name_in_language = tcn.name
+      end
     end
     if best_name_in_language
-      return best_name_in_language.name.string.capitalize_all_words_if_language_safe
+      return best_name_in_language.string.capitalize_all_words_if_language_safe
     end
   end
 
@@ -196,13 +243,6 @@ class TaxonConcept < ActiveRecord::Base
     User.find_all_by_id(curators)
   end
 
-  # The scientific name for a TC will be italicized if it is a species (or below) and will include attribution and varieties, etc:
-  # TODO - this is much slower than #title and should be removed.
-  def scientific_name(hierarchy = nil, italicize = true)
-    hierarchy ||= Hierarchy.default
-    quick_scientific_name(italicize && species_or_below? ? :italicized : :normal, hierarchy)
-  end
-
   # TODO - this should move to TaxonUserClassificationFilter or TaxonDetails or TaxonResources or something...
   # Returns nucleotide sequences HE
   def nucleotide_sequences_hierarchy_entry_for_taxon
@@ -222,52 +262,30 @@ class TaxonConcept < ActiveRecord::Base
 
   # If *any* of the associated HEs are species or below, we consider this to be a species:
   def species_or_below?
-    published_hierarchy_entries.detect { |he| he.species_or_below? }
+    published_hierarchy_entries.detect { |he| he.species_or_below? } ? true : false
   end
 
   def outlinks
     all_outlinks = []
-    used_hierarchies = []
     entries_for_this_concept = HierarchyEntry.find_all_by_taxon_concept_id(id,
-      :select => {
-        :hierarchy_entries => [ :published, :visibility_id, :identifier, :source_url, :hierarchy_id ],
-        :hierarchies => [ :label, :outlink_uri, :url, :id ],
-        :resources => [ :title, :id, :content_partner_id ],
-        :content_partners => '*',
-        :agents => [ :logo_cache_url, :full_name ],
-        :collection_types => '*',
-        :translated_collection_types => '*' },
-      :include => { :hierarchy => [ { :resource => :content_partner }, :agent, { :collection_types => :translations }]},
-      :conditions => "published = 1 and visibility_id = #{Visibility.visible.id}",
-      :group => :hierarchy_id
+      select: {
+        hierarchy_entries: [ :published, :visibility_id, :identifier, :source_url, :hierarchy_id ],
+        hierarchies: [ :label, :outlink_uri, :url, :id ],
+        resources: [ :title, :id, :content_partner_id ],
+        content_partners: '*',
+        agents: [ :logo_cache_url, :full_name ],
+        collection_types: '*',
+        translated_collection_types: '*' },
+      include: { hierarchy: [ { resource: :content_partner }, :agent, { collection_types: :translations }]},
+      conditions: "published = 1 AND visibility_id = #{Visibility.visible.id} AND vetted_id != #{Vetted.untrusted.id}",
+      order: 'id DESC'
     )
     entries_for_this_concept.each do |he|
-      next if used_hierarchies.include?(he.hierarchy)
-      next if he.published != 1 && he.visibility_id != Visibility.visible.id
-      if !he.source_url.blank?
-        all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.source_url }
-        used_hierarchies << he.hierarchy
-      elsif he.hierarchy && !he.hierarchy.outlink_uri.blank?
-        # if the hierarchy outlink_uri expects an ID
-        if matches = he.hierarchy.outlink_uri.match(/%%ID%%/)
-          # .. and the ID exists
-          unless he.identifier.blank?
-            all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.hierarchy.outlink_uri.gsub(/%%ID%%/, he.identifier) }
-            used_hierarchies << he.hierarchy
-          end
-        else
-          # there was no %%ID%% pattern in the outlink_uri, but its not blank so its a generic URL for all entries
-          all_outlinks << {:hierarchy_entry => he, :hierarchy => he.hierarchy, :outlink_url => he.hierarchy.outlink_uri }
-          used_hierarchies << he.hierarchy
-        end
+      next if all_outlinks.detect{ |o| o[:hierarchy_entry].hierarchy == he.hierarchy }
+      if outlink_hash = he.outlink_hash
+        all_outlinks << outlink_hash
       end
     end
-
-    # if the link is Wikipedia this will remove the revision ID
-    all_outlinks.each do |ol|
-      ol[:outlink_url].gsub!(/&oldid=[0-9]+$/, '')
-    end
-
     return all_outlinks
   end
 
@@ -276,6 +294,13 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConceptCacheClearing.clear(self) # NOTE - run this BEFORE clearing instance vars.
     clear_instance_variables
     super
+  end
+
+  def clear_instance_variables
+    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
+    (instance_variables - @@ar_instance_vars).each do |ivar|
+      remove_instance_variable(ivar)
+    end
   end
 
   def clear_for_data_object(data_object)
@@ -288,7 +313,7 @@ class TaxonConcept < ActiveRecord::Base
     return @cached_entry[hierarchy] if @cached_entry[hierarchy]
     raise "Cannot find a HierarchyEntry with anything but a Hierarchy" if hierarchy && !hierarchy.is_a?(Hierarchy)
     return preferred_entry.hierarchy_entry if preferred_entry_usable?(hierarchy)
-    TaxonConcept.preload_associations(self, :published_hierarchy_entries => [ :vetted, :hierarchy ])
+    TaxonConcept.preload_associations(self, published_hierarchy_entries: [ :vetted, :hierarchy ])
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
     @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries) if @all_entries.blank?
     best_entry = hierarchy ? 
@@ -325,27 +350,6 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # TODO - #title is much (!) faster.  Can we get rid of this entirely?
-  def quick_scientific_name(type = :normal, hierarchy = nil)
-    hierarchy_entry = entry(hierarchy)
-    # if hierarchy_entry is nil then this concept has no entries, and shouldn't be published
-    return nil if hierarchy_entry.nil?
-
-    search_type = case type
-      when :italicized  then {:name_field => 'n.italicized', :also_join => ''}
-      when :canonical   then {:name_field => 'cf.string',    :also_join => 'JOIN canonical_forms cf ON (n.canonical_form_id = cf.id)'}
-      else                   {:name_field => 'n.string',     :also_join => ''}
-    end
-
-    scientific_name_results = connection.execute(
-      "SELECT #{search_type[:name_field]} name, he.hierarchy_id source_hierarchy_id
-       FROM hierarchy_entries he JOIN names n ON (he.name_id = n.id) #{search_type[:also_join]}
-       WHERE he.id=#{hierarchy_entry.id}")
-
-    final_name = scientific_name_results.first.first.firstcap
-    return final_name
-  end
-
   def superceded_the_requested_id?
     @superceded_the_requested_id
   end
@@ -364,9 +368,9 @@ class TaxonConcept < ActiveRecord::Base
 
   def classifications
     hierarchy_entries.map do |entry|
-      { :name => entry.hierarchy.display_title,
-        :kingdom => entry.kingdom,
-        :parent => entry.parent
+      { name: entry.hierarchy.display_title,
+        kingdom: entry.kingdom,
+        parent: entry.parent
       }
     end
   end
@@ -411,9 +415,20 @@ class TaxonConcept < ActiveRecord::Base
     "TaxonConcept ##{id}: #{title}"
   end
 
-  # TODO - make a Commentable mixin
-  def comment user, body
-    comment = comments.create :user => user, :body => body
+  def to_jsonld
+    itis_or_other_entry = entry(Hierarchy.itis)
+    jsonld = { '@id' => KnownUri.taxon_uri(id),
+               '@type' => 'dwc:Taxon',
+               'dwc:scientificName' => itis_or_other_entry.name.string,
+               'dwc:taxonRank' => (itis_or_other_entry.rank) ? itis_or_other_entry.rank.label : nil }
+    if parent = itis_or_other_entry.parent
+      jsonld['dwc:parentNameUsageID'] = KnownUri.taxon_uri(parent.taxon_concept_id)
+    end
+    jsonld
+  end
+
+  def comment(user, body)
+    comment = comments.create user: user, body: body
     user.comments.reload # be friendly - update the user's comments automatically
     comment
   end
@@ -452,8 +467,8 @@ class TaxonConcept < ActiveRecord::Base
       relation  = SynonymRelation.find_by_translated(:label, 'common name')
       name_obj  = Name.create_common_name(name_string)
       raise "Common name not created" unless name_obj
-      Synonym.generate_from_name(name_obj, :agent => agent, :preferred => preferred, :language => language,
-                                 :entry => entry, :relation => relation, :vetted => vetted)
+      Synonym.generate_from_name(name_obj, agent: agent, preferred: preferred, language: language,
+                                 entry: entry, relation: relation, vetted: vetted)
     end
   end
 
@@ -470,8 +485,9 @@ class TaxonConcept < ActiveRecord::Base
     vet_synonyms(options)
   end
 
+  # TODO - this may belong on the TaxonOverview class (in modified form) and the TaxonCommunities class, if we create one...
   def communities
-    @communities ||= containing_collections.where(:published => true).includes(:communities).collect{ |c|
+    @communities ||= published_containing_collections.collect{ |c|
       c.communities.select{ |com| com.published? } }.flatten.compact.uniq
   end
 
@@ -489,7 +505,7 @@ class TaxonConcept < ActiveRecord::Base
         surrogates << he.name.string
       else
         preferred_names << he.name.string
-        preferred_names << he.name.canonical_form.string if he.name.canonical_form
+        preferred_names << he.title_canonical
       end
 
       he.scientific_synonyms.each do |s|
@@ -505,17 +521,17 @@ class TaxonConcept < ActiveRecord::Base
     return_keywords = []
     preferred_names = preferred_names.compact.uniq
     unless preferred_names.empty?
-      return_keywords << { :keyword_type => 'PreferredScientific', :keywords => preferred_names, :ancestor_taxon_concept_id => flattened_ancestor_ids }
+      return_keywords << { keyword_type: 'PreferredScientific', keywords: preferred_names, ancestor_taxon_concept_id: flattened_ancestor_ids }
     end
 
     syns = syns.compact.uniq
     unless syns.empty?
-      return_keywords << { :keyword_type => 'Synonym', :keywords => syns, :ancestor_taxon_concept_id => flattened_ancestor_ids }
+      return_keywords << { keyword_type: 'Synonym', keywords: syns, ancestor_taxon_concept_id: flattened_ancestor_ids }
     end
 
     surrogates = surrogates.compact.uniq
     unless surrogates.empty?
-      return_keywords << { :keyword_type => 'Surrogate', :keywords => surrogates, :ancestor_taxon_concept_id => flattened_ancestor_ids }
+      return_keywords << { keyword_type: 'Surrogate', keywords: surrogates, ancestor_taxon_concept_id: flattened_ancestor_ids }
     end
 
     return return_keywords
@@ -537,36 +553,23 @@ class TaxonConcept < ActiveRecord::Base
     common_names_by_language.each do |language, names|
       names = names.compact.uniq
       unless names.empty?
-        keywords <<  { :keyword_type => 'CommonName', :keywords => names, :language => language, :ancestor_taxon_concept_id => flattened_ancestor_ids }
+        keywords <<  { keyword_type: 'CommonName', keywords: names, language: language, ancestor_taxon_concept_id: flattened_ancestor_ids }
       end
     end
     return keywords
   end
 
+  # TODO - This should move to TaxonUserClassificationFilter, because it requires that information.
   def media_count(user, selected_hierarchy_entry = nil)
-    cache_key = "media_count_#{self.id}"
-    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
-    if user && user.is_curator?
-      cache_key += "_curator"
-    end
-    @media_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
-      best_images = self.data_objects_from_solr({
-        :per_page => 1,
-        :data_type_ids => DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
-        :vetted_types => user.vetted_types,
-        :visibility_types => user.visibility_types,
-        :ignore_translations => true,
-        :return_hierarchically_aggregated_objects => true
-      }).total_entries
-    end
+    @media_count ||= update_media_count(user: user, entry: selected_hierarchy_entry)
   end
 
-  def maps_count()
+  def maps_count
     # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
     # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be 
     # TaxonConceptCache, where we can handle both storing and clearing keys. That centralizes the logic,
     # and would allow us to put these two methods where they belong:
-    @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), :expires_in => 1.days) do
+    @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), expires_in: 1.days) do
       count = get_one_map_from_solr.total_entries
       count +=1 if self.has_map?
       count
@@ -575,34 +578,34 @@ class TaxonConcept < ActiveRecord::Base
 
   def get_one_map_from_solr
     data_objects_from_solr(
-      :page => 1, 
-      :per_page => 1,
-      :data_type_ids => DataType.image_type_ids,
-      :data_subtype_ids => DataType.map_type_ids,
-      :vetted_types => ['trusted', 'unreviewed'],
-      :visibility_types => ['visible'],
-      :ignore_translations => true,
-      :skip_preload => true
+      page: 1, 
+      per_page: 1,
+      data_type_ids: DataType.image_type_ids,
+      data_subtype_ids: DataType.map_type_ids,
+      vetted_types: ['trusted', 'unreviewed'],
+      visibility_types: ['visible'],
+      ignore_translations: true,
     )
   end
 
   # returns a DataObject, not a TaxonConceptExemplarImage
   def published_exemplar_image
-    return @published_exemplar_image if @published_exemplar_image_calculated # NOTE - weird, but ...
-    @published_exemplar_image_calculated = true # NOTE ...since @published_exemplar_image can be nil, we need this.
+    return @published_exemplar_image if defined?(@published_exemplar_image)
+    @published_exemplar_image = nil
     if concept_exemplar_image = taxon_concept_exemplar_image
       if the_best_image = concept_exemplar_image.data_object
-        if the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
-          unless the_best_image.published?
-            # best_image may end up being NIL, which means there is no published version
-            # of it anymore - the example is no longer available. We don't want to show
-            # unpublished exemplar images
-            the_best_image = the_best_image.latest_published_version_in_same_language
-          end
-          return @published_exemplar_image = the_best_image
+        # NOTE - using if-not rather than unless because I think that's clearer with the elsif
+        if ! the_best_image.published?
+          # Someone has selected an exemplar image which is now unpublished. Remove it.
+          concept_exemplar_image.destroy
+        # TODO - we should have a DataObject#visible_for_taxon_concept?(tc) method.
+        elsif the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
+          the_best_image = the_best_image.latest_published_version_in_same_language
+          @published_exemplar_image = the_best_image
         end
       end
     end
+    @published_exemplar_image
   end
 
   # returns a DataObject, not a TaxonConceptExemplarArticle
@@ -615,57 +618,55 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def exemplar_or_best_image_from_solr(selected_hierarchy_entry = nil)
+    return @exemplar_or_best_image_from_solr if @exemplar_or_best_image_from_solr
     cache_key = "best_image_id_#{self.id}"
     if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
       cache_key += "_#{selected_hierarchy_entry.id}"
     end
     TaxonConcept.prepare_cache_classes
-    best_image_id ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), :expires_in => 1.days) do
+    best_image_id ||= Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), expires_in: 1.days) do
       if published_exemplar_image
         published_exemplar_image.id
       else
         best_images = self.data_objects_from_solr({
-          :per_page => 1,
-          :sort_by => 'status',
-          :data_type_ids => DataType.image_type_ids,
-          :vetted_types => ['trusted', 'unreviewed'],
-          :visibility_types => ['visible'],
-          :published => true,
-          :skip_preload => true,
-          :return_hierarchically_aggregated_objects => true
+          per_page: 1,
+          sort_by: 'status',
+          data_type_ids: DataType.image_type_ids,
+          vetted_types: ['trusted', 'unreviewed'],
+          visibility_types: ['visible'],
+          published: true,
+          return_hierarchically_aggregated_objects: true
         })
         # if for some reason we get back unpublished objects (Solr out of date), try to get the latest published versions
         unless best_images.empty?
           unless best_images.first.published?
-            DataObject.replace_with_latest_versions!(best_images, :select => [ :description ])
+            DataObject.replace_with_latest_versions!(best_images, select: [ :description ])
           end
         end
         (best_images.empty?) ? 'none' : best_images.first.id
       end
     end
     return nil if best_image_id == 'none'
-    best_image = DataObject.find(best_image_id)
+    if @published_exemplar_image_calculated && @published_exemplar_image
+      best_image = @published_exemplar_image
+    else
+      best_image = DataObject.fetch(best_image_id)
+    end
     return nil unless best_image.published?
-    best_image
+    @exemplar_or_best_image_from_solr = best_image
   end
 
   # NOTE - If you call #images_from_solr with two different sets of options, you will get the same
   # results on the second as with the first, so you only get one shot!
   def images_from_solr(limit = 4, options = {})
-    unless options[:skip_preload] == false
-      options[:skip_preload] == true
-      options[:preload_select] == { :data_objects => [ :id, :guid, :language_id, :data_type_id ] }
-    end
     @images_from_solr ||= data_objects_from_solr({
-      :per_page => limit,
-      :sort_by => 'status',
-      :data_type_ids => DataType.image_type_ids,
-      :vetted_types => ['trusted', 'unreviewed'],
-      :visibility_types => 'visible',
-      :ignore_translations => options[:ignore_translations] || false,
-      :return_hierarchically_aggregated_objects => true,
-      :skip_preload => options[:skip_preload],
-      :preload_select => options[:preload_select]
+      per_page: limit,
+      sort_by: 'status',
+      data_type_ids: DataType.image_type_ids,
+      vetted_types: ['trusted', 'unreviewed'],
+      visibility_types: 'visible',
+      ignore_translations: options[:ignore_translations] || false,
+      return_hierarchically_aggregated_objects: true
     })
   end
 
@@ -673,17 +674,14 @@ class TaxonConcept < ActiveRecord::Base
   # want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
-    # TODO - rewrite query ... move to new class, perhaps?
-    iucn_objects = DataObject.find(:all, :joins => :data_objects_taxon_concepts,
-      :conditions => "`data_objects_taxon_concepts`.`taxon_concept_id` = #{id}
-        AND `data_objects`.`data_type_id` = #{DataType.iucn.id} AND `data_objects`.`published` = 1",
-      :order => "`data_objects`.`id` DESC")
-    my_iucn = iucn_objects.empty? ? nil : iucn_objects.first
-    @iucn = my_iucn.nil? ? DataObject.new(:source_url => 'http://www.iucnredlist.org/about', :description => I18n.t(:not_evaluated)) : my_iucn
+    my_iucn = data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
+    @iucn = my_iucn.nil? ? DataObject.new(source_url: 'http://www.iucnredlist.org/about', description: I18n.t(:not_evaluated)) : my_iucn
   end
 
-  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
-  # want to touch the API quite yet.
+  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview (though TaxonDetails needs access to the other
+  # method). ...But the API is using this and I don't want to touch the API quite yet.
+  # TODO - stop passing in a user, just a language. See #best_article_for_user and you'll see it essentially ignores the user
+  # entirely anyway (with reason).
   def overview_text_for_user(the_user)
     @overview_text_for_user ||= {}
     return @overview_text_for_user[the_user.id] if the_user && @overview_text_for_user[the_user.id]
@@ -699,13 +697,13 @@ class TaxonConcept < ActiveRecord::Base
     else
       article = best_article_for_user(the_user)
       expire_time = article.nil? ? 1.day : 1.week
-      Rails.cache.fetch(cached_key, :expires_in => expire_time) { article.nil? ? 0 : article.id }
+      Rails.cache.fetch(cached_key, expires_in: expire_time) { article.nil? ? 0 : article.id }
       @overview_text_for_user[the_user.id] = article
       return article
     end
   end
   
-  # TODO - this belongs in the same class as #overview_text_for_user.
+  # TODO - this belongs in the same class as #overview_text_for_user. ...But be aware this is also used in TaxonDetails.
   def text_for_user(the_user = nil, options = {})
     the_user ||= EOL::AnonymousUser.new(Language.default)
     options[:per_page] ||= 500
@@ -737,23 +735,28 @@ class TaxonConcept < ActiveRecord::Base
   def reindex_in_solr
     remove_from_index
     TaxonConcept.preload_associations(self, [
-      { :published_hierarchy_entries => [ { :name => :canonical_form },
-      { :scientific_synonyms => { :name => :canonical_form } },
-      { :common_names => [ :name, :language ] } ] } ] )
+      { published_hierarchy_entries: [ { name: :canonical_form },
+      { scientific_synonyms: { name: :canonical_form } },
+      { common_names: [ :name, :language ] } ] } ] )
     add_to_index
   end
 
   def uses_preferred_entry?(he)
     if preferred_entry.blank?
-      ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(self)
-      if ctcpe
-        create_preferred_entry(ctcpe.hierarchy_entry)
+      if published_taxon_concept_preferred_entry
+        create_preferred_entry(published_taxon_concept_preferred_entry.hierarchy_entry)
       else
         return nil
       end
     end
     preferred_entry.hierarchy_entry_id == he.id &&
       CuratedTaxonConceptPreferredEntry.find_by_hierarchy_entry_id_and_taxon_concept_id(he.id, self.id)
+  end
+
+  # This does more than just loading the tcpe: it ensures the entry is there, valid, published, and finds
+  # the "correct" version of it, if there are several. TODO - is it possible to do this with rails scopes?
+  def published_taxon_concept_preferred_entry
+    @published_taxon_concept_preferred_entry ||= CuratedTaxonConceptPreferredEntry.for_taxon_concept(self)
   end
 
   # Avoid re-loading the deep_published_hierarchy_entries from the DB:
@@ -768,8 +771,8 @@ class TaxonConcept < ActiveRecord::Base
 
   # NOTE - this is only used by the API
   def published_sorted_hierarchy_entries_for_api
-    entries = hierarchy_entries.where(:hierarchy_id => Hierarchy.available_via_api.collect(&:id))
-    HierarchyEntry.preload_associations(entries, [ :hierarchy, { :name => :canonical_form }, :rank ])
+    entries = hierarchy_entries.where(hierarchy_id: Hierarchy.available_via_api.collect(&:id))
+    HierarchyEntry.preload_associations(entries, [ :hierarchy, { name: :canonical_form }, :rank ])
     sort_and_preload_deeply_browsable_entries(entries)
   end
 
@@ -823,9 +826,9 @@ class TaxonConcept < ActiveRecord::Base
       classifications_locked?
     disallow_large_curations
     lock_classifications
-    ClassificationCuration.create(:user => options[:user],
-                                  :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
-                                  :source_id => id, :exemplar_id => options[:exemplar_id])
+    ClassificationCuration.create(user: options[:user],
+                                  hierarchy_entries: HierarchyEntry.find(hierarchy_entry_ids),
+                                  source_id: id, exemplar_id: options[:exemplar_id])
   end
 
   def merge_classifications(hierarchy_entry_ids, options = {})
@@ -840,11 +843,11 @@ class TaxonConcept < ActiveRecord::Base
     source_concept.disallow_large_curations
     lock_classifications
     source_concept.lock_classifications
-    ClassificationCuration.create(:user => options[:user],
-                                  :hierarchy_entries => HierarchyEntry.find(hierarchy_entry_ids),
-                                  :source_id => source_concept.id,
-                                  :target_id => id, :exemplar_id => options[:exemplar_id],
-                                  :forced => options[:forced] || options[:forced])
+    ClassificationCuration.create(user: options[:user],
+                                  hierarchy_entries: HierarchyEntry.find(hierarchy_entry_ids),
+                                  source_id: source_concept.id,
+                                  target_id: id, exemplar_id: options[:exemplar_id],
+                                  forced: options[:forced] || options[:forced])
   end
 
   def all_published_entries?(hierarchy_entry_ids)
@@ -853,7 +856,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def providers_match_on_merge(hierarchy_entry_ids)
     HierarchyEntry.select('hierarchy_entries.id, hierarchy_id, hierarchies.complete').joins(:hierarchy).
-      where(:hierarchy_entries => {:id => hierarchy_entry_ids}).each do |he|
+      where(hierarchy_entries: {id: hierarchy_entry_ids}).each do |he|
       break unless he.hierarchy.complete?
       hierarchy_entries.each do |my_he| # NOTE this is selecting the HEs ALREADY on this TC!
         # NOTE - error needs ENTRY id, not hierarchy id:
@@ -864,21 +867,16 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def published_browsable_hierarchy_entries
-    hierarchy_entries.joins(:hierarchy).where('hierarchy_entries.published=1 AND hierarchies.browsable=1')
-  end
-  
-  def published_browsable_visible_hierarchy_entries
-    hierarchy_entries.joins(:hierarchy).
-      where("hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id} AND hierarchies.browsable=1")
+    published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
   end
   
   def count_of_viewable_synonyms
-    Synonym.where(:hierarchy_entry_id => published_browsable_visible_hierarchy_entries.collect(&:id)).where(
+    Synonym.where(hierarchy_entry_id: published_browsable_hierarchy_entries.collect(&:id)).where(
       "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
   end
 
   def disallow_large_curations
-    max_curatable_descendants = SiteConfigurationOption.max_curatable_descendants rescue 10000
+    max_curatable_descendants = EolConfig.max_curatable_descendants rescue 10000
     raise EOL::Exceptions::TooManyDescendantsToCurate.new(number_of_descendants) if
       number_of_descendants > max_curatable_descendants
   end
@@ -898,19 +896,55 @@ class TaxonConcept < ActiveRecord::Base
   def create_preferred_entry(entry)
     return if entry.nil?
     TaxonConceptPreferredEntry.with_master do
-      TaxonConceptPreferredEntry.destroy_all(:taxon_concept_id => self.id)
-      TaxonConceptPreferredEntry.create(:taxon_concept_id => self.id, :hierarchy_entry_id => entry.id)
+      # TODO - this *can* (and did, at least once) fail in a race condition. Perhaps it should be in a transaction. Also, I worry
+      # that it is called too often. ...seems to be every page after every harvest, virtually. We should check on it.
+      TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: self.id)
+      TaxonConceptPreferredEntry.create(taxon_concept_id: self.id, hierarchy_entry_id: entry.id)
     end
+  end
+
+  # Public method, because we can do this from TaxonMedia:
+  # TODO - This should move to TaxonUserClassificationFilter, because it requires that information.
+  def update_media_count(options = {})
+    selected_hierarchy_entry = options[:entry]
+    cache_key = "media_count_#{self.id}"
+    cache_key += "_#{selected_hierarchy_entry.id}" if selected_hierarchy_entry && selected_hierarchy_entry.class == HierarchyEntry
+    if options[:user] && options[:user].is_curator?
+      cache_key += "_curator"
+    end
+    Rails.cache.delete(TaxonConcept.cached_name_for(cache_key)) if options[:with_count]
+    Rails.cache.fetch(TaxonConcept.cached_name_for(cache_key), expires_in: 1.days) do
+      if options[:with_count]
+        options[:with_count]
+      else
+        best_images = self.data_objects_from_solr({
+          per_page: 1,
+          data_type_ids: DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids,
+          vetted_types: options[:user].vetted_types,
+          visibility_types: options[:user].visibility_types,
+          ignore_translations: true,
+          return_hierarchically_aggregated_objects: true
+        }).total_entries
+      end
+    end
+  end
+
+  def as_json(options = {})
+    exemplar = exemplar_or_best_image_from_solr
+    thumb = exemplar.nil? ? '' : exemplar.thumb_or_object('88_88')
+    super(options.merge(except: [:split_from, :supercedure_id, :vetted_id])).merge(
+      scientific_name: title,
+      common_name: preferred_common_name_in_language(Language.default),
+      thumbnail: thumb
+    )
+  end
+
+  def should_show_clade_range_data
+    return false if species_or_below?
+    number_of_descendants.between?(2, TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES)
   end
 
 private
-
-  def clear_instance_variables
-    @@ar_instance_vars ||= TaxonConcept.new.instance_variables << :@mock_proxy # For tests
-    (instance_variables - @@ar_instance_vars).each do |ivar|
-      remove_instance_variable(ivar)
-    end
-  end
 
   # Assume this method is expensive.
   # TODO - this belongs in the same class as #overview_text_for_user
@@ -921,14 +955,14 @@ private
       # Sending User.new here since overview text should be the same for all users - curators
       # and admins should not see hidden text in the overview tab
       overview_text_objects = text_for_user(User.new, {
-        :per_page => 30,
-        :language_ids => the_user.language.all_ids,
-        :allow_nil_languages => (the_user.language.id == Language.default.id),
-        :toc_ids => TocItem.possible_overview_ids,
-        :filter_by_subtype => true })
+        per_page: 30,
+        language_ids: the_user.language.all_ids,
+        allow_nil_languages: (the_user.language.id == Language.default.id),
+        toc_ids: TocItem.possible_overview_ids,
+        filter_by_subtype: true })
       # TODO - really? #text_for_user returns unpublished articles?
       overview_text_objects.delete_if { |article| ! article.published? }
-      DataObject.preload_associations(overview_text_objects, { :data_objects_hierarchy_entries => [ :hierarchy_entry,
+      DataObject.preload_associations(overview_text_objects, { data_objects_hierarchy_entries: [ :hierarchy_entry,
         :vetted, :visibility ] })
       return nil if overview_text_objects.empty?
       DataObject.sort_by_rating(overview_text_objects, self).first
@@ -967,7 +1001,7 @@ private
 
   def taxon_concept_names_by_lang_id_and_name_id(id_for_lang, id_for_name)
     TaxonConceptName.scoped(
-      :conditions => ['taxon_concept_id = ? AND language_id = ? AND name_id = ?', id, id_for_lang, id_for_name]
+      conditions: ['taxon_concept_id = ? AND language_id = ? AND name_id = ?', id, id_for_lang, id_for_name]
     )
   end
 

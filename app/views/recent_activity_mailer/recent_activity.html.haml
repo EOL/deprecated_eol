@@ -31,9 +31,9 @@
       %h2= raw I18n.t("recent_activity.bulk_collection_activity_with_count", :count => items.count,
         :to => link_to(sanitize(collection.summary_name), collection_newsfeed_url(collection), :style => 'color:#195184'))
       - items.each do |item|
-        = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
-          :action => render(:partial => 'activity_logs/collection_activity_log',
-          :locals => { :item => item, :collection => collection, :link_style => 'color: #195184' }),
+        = render('recent_activity_mailer/iconed_activity', { :user => item.user,
+          :action => render('activity_logs/collection_activity_log',
+          { :item => item, :collection => collection, :link_style => 'color: #195184' }),
           :created_at => item.created_at })
   - when 'CommunityActivityLog'
     - grouped_notes[klass].group_by(&:community).each do |community, items_raw|
@@ -65,9 +65,9 @@
         %h2= raw I18n.t("recent_activity.bulk_community_activity_with_count", :count => nonjoins.count,
           :to => link_to(sanitize(community.summary_name), community_newsfeed_url(community), :style => 'color:#195184'))
         - nonjoins.each do |item|
-          = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
-            :action => render(:partial => 'activity_logs/community_activity_log',
-            :locals => { :item => item, :community => community, :link_style => 'color: #195184' }),
+          = render('recent_activity_mailer/iconed_activity', { :user => item.user,
+            :action => render('activity_logs/community_activity_log',
+            { :item => item, :community => community, :link_style => 'color: #195184' }),
             :created_at => item.created_at })
       %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}
   - when 'Comment' # Comments need to look at parents:
@@ -80,13 +80,13 @@
           :on => link_to(sanitize(parent.summary_name), link_to_newsfeed(parent), :style => 'color:#195184'))
       - comments.each do |comment|
         - if comment.reply? and comment.reply_to.respond_to?(:user)
-          = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => comment.user,
+          = render('recent_activity_mailer/iconed_activity', { :user => comment.user,
             :action => raw(I18n.t("recent_activity.reply_to_comment_body_brief", :body => comment.body,
             :reply_to_author => "@#{link_to(comment.reply_to.user.full_name, "#{link_to_newsfeed(parent)}##{comment.reply_to_type}-#{comment.reply_to_id}")}:",
             :author => link_to(sanitize(comment.user.full_name), user_url(comment.user), :style => 'color: #195184'))),
             :created_at => comment.created_at })
         - else
-          = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => comment.user,
+          = render('recent_activity_mailer/iconed_activity', { :user => comment.user,
             :action => raw(I18n.t("recent_activity.comment_body_brief", :body => comment.body,
               :author => raw(link_to(sanitize(comment.user.full_name), user_url(comment.user), :style => 'color: #195184')))),
             :created_at => comment.created_at })
@@ -100,15 +100,15 @@
           :to => link_to((taxon || dato).summary_name.html_safe, link_to_item(taxon || dato),
           :style => 'color:#195184')))
         - items.each do |item|
-          = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
-            :action => render(:partial => 'activity_logs/curator_activity_log',
-            :locals => { :item => item, :data_object => dato, :taxon_concept => taxon,
+          = render('recent_activity_mailer/iconed_activity', { :user => item.user,
+            :action => render('activity_logs/curator_activity_log',
+            { :item => item, :data_object => dato, :taxon_concept => taxon,
             :link_style => 'color: #195184' }),
             :created_at => item.created_at })
   - else # No further grouping required:
     - grouped_notes[klass].compact.each do |item|
-      = render(:partial => 'recent_activity_mailer/iconed_activity', :locals => { :user => item.user,
-        :action => render(:partial => "activity_logs/#{item.class.name.underscore}",
-        :locals => { :item => item, :link_style => 'color: #195184' }),
+      = render('recent_activity_mailer/iconed_activity', { :user => item.user,
+        :action => render("activity_logs/#{item.class.name.underscore}",
+        { :item => item, :link_style => 'color: #195184' }),
         :created_at => item.created_at })
   %hr{:style => "border: none; border-bottom: 1px solid #d2d9df;clear:both;"}

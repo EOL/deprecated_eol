@@ -14,4 +14,4 @@
           = details_hash['scientific_name']
       - for object in details_hash["data_objects"]
         - if data_object_details
-          = render(:partial => 'data_object', :layout => false, :locals => { :object_hash => object } )
+          = render('data_object', :layout => false, { :object_hash => object } )

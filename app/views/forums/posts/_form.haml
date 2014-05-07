@@ -5,7 +5,7 @@
   - submit_to_url = forum_topic_post_path(@post.forum_topic.forum, @post.forum_topic, @post)
 - else
   - submit_to_url = forum_topic_posts_path(@topic.forum, @topic)
-- default_text = @reply_to_post ? (render :partial => 'forums/posts/reply_text', :locals => { :post => @reply_to_post }) : nil
+- default_text = @reply_to_post ? (render 'forums/posts/reply_text', { :post => @reply_to_post }) : nil
 
 = form_for @post || ForumPost.new(:text => default_text), :url => submit_to_url,
   :html => { :class => 'boxed' }, :builder => ApplicationHelper::EolFormBuilder do |f|

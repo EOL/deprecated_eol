@@ -8,6 +8,9 @@ require "active_resource/railtie"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
+# Other Rails 1.9 libraries that needn't be gems:
+require 'csv'
+
 if defined?(Bundler)
   assets = %w(development test staging bocce_demo)
   assets << 'production' if Rails.env.production?
@@ -36,9 +39,34 @@ module Eol
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.
     # config.time_zone = 'Eastern Time (US & Canada)'
 
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
+    # Languages that we allow through the UI (setting this early for other config files to use):
+    Rails.configuration.active_languages =
+      %w[ar de en es fr gl ko mk ms nl nb oc pt-br sr sr-Latn sv tl uk zh-Hans zh-Hant]
+
+    Rails.configuration.use_secure_acceptance = false
+
+    # We're only loading 'en.yml' by default, here. See the other environments for how to "turn on" all the other YML files.
+    # This makes startup times SO MUCH FASTER.
+    if ENV.has_key?('LOCALE')
+      case ENV['LOCALE']
+      when 'none'
+        # Do nothing. You will have no translations available. Deal with it.
+      when 'active'
+        config.i18n.load_path += Dir[Rails.root.join('config', 'translations',
+                                                     "{#{Rails.configuration.active_languages.join(',')}}.yml").to_s]
+      when 'all'
+        config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "*.yml").to_s]
+      else
+        if #{ENV['LOCALE']} =~ /,/
+          config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{#{ENV['LOCALE']}}.yml").to_s]
+        else
+          config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "#{ENV['LOCALE']}.yml").to_s]
+        end
+      end
+    else
+      config.i18n.load_path += Dir[Rails.root.join('config', 'translations', 'en.yml').to_s]
+    end
+    config.i18n.enforce_available_locales = false # Silences warnings about this having a deprecated default, besides, we use our own.
 
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
@@ -83,6 +111,9 @@ module Eol
       'EOL::Exceptions::SecurityViolation' => :forbidden,
       'OpenURI::HTTPError'                 => :bad_request
     )
+
+    # By default, we use local thumbnails:
+    Rails.configuration.use_content_server_for_thumbnails = false
     
     config.exceptions_app = ->(env) { ApplicationController.action(:rescue_from_exception).call(env) }
   end

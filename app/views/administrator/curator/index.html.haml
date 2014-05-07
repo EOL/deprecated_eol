@@ -31,7 +31,7 @@
           = I18n.t(:by_caps)
       - @users.each do |user|
         %tr
-          = render :partial => 'administrator/curator/user_row', :locals => {:column_class => cycle('odd', 'even'), :user => user}
+          = render 'administrator/curator/user_row', {:column_class => cycle('odd', 'even'), :user => user}
     %br
     %form
       = will_paginate @users

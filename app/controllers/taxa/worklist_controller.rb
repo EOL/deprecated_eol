@@ -1,10 +1,11 @@
 class Taxa::WorklistController < TaxaController
 
   before_filter :check_authentication
-  before_filter :restrict_to_full_curators
+  before_filter :restrict_to_curators
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry
 
+  # TODO - (very) long method; is this all really needed? Review.
   def show
     @page = params[:page] ||= 1
     @sort_by = params[:sort_by] ||= 'newest'
@@ -40,18 +41,18 @@ class Taxa::WorklistController < TaxaController
       search_vetted_types = ['trusted', 'unreviewed', 'untrusted']
     end
     search_options = {
-      :page => @page,
-      :per_page => 16,
-      :sort_by => @sort_by,
-      :data_type_ids => data_type_ids,
-      :filter_by_subtype => filter_by_subtype,
-      :data_subtype_ids => data_subtype_ids ||= nil,
-      :vetted_types => search_vetted_types,
-      :visibility_types => [ @object_visibility ],
-      :return_hierarchically_aggregated_objects => true,
-      :user => current_user,
-      :resource_id => @resource_id,
-      :facet_by_resource => true
+      page: @page,
+      per_page: 16,
+      sort_by: @sort_by,
+      data_type_ids: data_type_ids,
+      filter_by_subtype: filter_by_subtype,
+      data_subtype_ids: data_subtype_ids ||= nil,
+      vetted_types: search_vetted_types,
+      visibility_types: [ @object_visibility ],
+      return_hierarchically_aggregated_objects: true,
+      user: current_user,
+      resource_id: @resource_id,
+      facet_by_resource: true
     }
     if @task_status == 'active'
       search_options[:curated_by_user] = false
@@ -63,9 +64,9 @@ class Taxa::WorklistController < TaxaController
     end
     
     @data_objects = @taxon_concept.data_objects_from_solr(search_options)
-    DataObject.preload_associations(@data_objects, [ { :hierarchy_entries => { :hierarchy => :agent } }, :data_type ] )
+    DataObject.preload_associations(@data_objects, [ { hierarchy_entries: { hierarchy: :agent } }, :data_type ] )
     @resource_counts = EOL::Solr::DataObjects.load_resource_facets(@taxon_concept.id,
-      search_options.merge({ :resource_id => nil })).sort_by{ |c| c[:resource].title.downcase }
+      search_options.merge({ resource_id: nil })).sort_by{ |c| c[:resource].title.downcase }
 
     @current_data_object = @data_objects.detect{ |ct| ct.id == params[:current].to_i } unless params[:current].blank?
     @current_data_object = @data_objects.first if @current_data_object.blank?
@@ -80,7 +81,7 @@ class Taxa::WorklistController < TaxaController
 
     unless params[:ajax].blank?
       params.delete(:ajax)
-      render(:partial => 'main_content')
+      render(partial: 'main_content')
       return
     end
   end
@@ -93,18 +94,18 @@ class Taxa::WorklistController < TaxaController
     params.delete(:action)
     params[:worklist_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
     params[:force_return_to] = taxon_worklist_data_object_path(@taxon_concept, @current_data_object)
-    render(:partial => 'curation_content')
+    render(partial: 'curation_content')
   end
   
   private
   def preload_object
     DataObject.preload_associations(@current_data_object,
-      [ { :data_object_translation => { :original_data_object => :language } },
-        { :translations => { :data_object => :language } },
-        { :agents_data_objects => [ :agent, :agent_role ] },
-        { :data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } },
-        { :curated_data_objects_hierarchy_entries => { :hierarchy_entry => [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
+      [ { data_object_translation: { original_data_object: :language } },
+        { translations: { data_object: :language } },
+        { agents_data_objects: [ :agent, :agent_role ] },
+        { data_objects_hierarchy_entries: { hierarchy_entry: [ :name, :taxon_concept, :vetted, :visibility ] } },
+        { curated_data_objects_hierarchy_entries: { hierarchy_entry: [ :name, :taxon_concept, :vetted, :visibility ] } } ] )
     @revisions = @current_data_object.revisions_by_date
-    @activity_log = @current_data_object.activity_log(:ids => @revisions.collect{ |r| r.id }, :page => @page || nil)
+    @activity_log = @current_data_object.activity_log(ids: @revisions.collect{ |r| r.id }, page: @page || nil, user: current_user)
   end
 end

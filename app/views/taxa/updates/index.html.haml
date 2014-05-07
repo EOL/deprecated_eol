@@ -1,13 +1,13 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_updates
-  = render :partial => 'menu'
+  = render 'menu'
   #main
     .main_container.update_feed
       .copy
         %p.help_text= I18n.t(:newsfeed_help_for_taxon)
-      = render(:partial => 'comments/new', :locals => { :parent => @taxon_concept })
+      = render('comments/new', { parent: @taxon_concept })
       .heading
         %h3= I18n.t(:newsfeed)
       .article.list.updates
-        = render(:partial => 'activity_logs/index', :locals => {:log => @taxon_activity_log })
+        = render('activity_logs/index', {log: @taxon_activity_log })

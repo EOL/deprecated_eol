@@ -8,7 +8,7 @@
           =I18n.t(:file_id)
       %td
         = @content_upload.id
-    = render :partial => 'form', :locals => {:f=>f}
+    = render 'form', {:f=>f}
     %tr
       %td
         %strong

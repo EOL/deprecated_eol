@@ -4,9 +4,10 @@
     %p= I18n.t(:names_common_empty)
 - else
   %h3.assistive= I18n.t(:names_common_list_by_language_assistive_header)
-  %p.help_text
-    = raw(I18n.t(:name_preferred_for_language_help_tip,
-      :icon => image_tag("v2/icon_required.png", :alt => I18n.t(:name_preferred_for_language_yes), :class => 'indicator')))
+  - if @common_names.any? { |n| n.preferred }
+    %p.help_text
+      = raw(I18n.t(:name_preferred_for_language_help_tip,
+        icon: image_tag("v2/icon_required.png", alt: I18n.t(:name_preferred_for_language_yes), class: 'indicator')))
   - names_by_language.each_with_index do |language_names_pair, index|
     - language = language_names_pair[0]
     - names = language_names_pair[1]
@@ -20,9 +21,9 @@
       %tbody
         - names.each do |name|
           %tr
-            %td{:class => name.preferred ? 'preferred' : nil,
-              :title => name.preferred ? I18n.t(:name_preferred_for_language_yes) : nil}
-              = (defined?(language) && language == 'English') ? raw(name.name_string.capitalize_all_words) : raw(name.name_string)
+            %td{class: name.preferred ? 'preferred' : nil,
+              title: name.preferred ? I18n.t(:name_preferred_for_language_yes) : nil}
+              = (local_assigns.has_key?(:language) && language == 'English') ? raw(name.name_string.capitalize_all_words) : raw(name.name_string)
             %td
               = raw(common_name_display_attribution(name))
             %td

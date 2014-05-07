@@ -35,6 +35,7 @@ class String
     if [:de, :en, :es, :fr, :nl].include?(I18n.locale.to_sym)
       capitalize_all_words
     else
+      debugger if Rails.env.test? && I18n.locale != :ko # Tests shouldn't get here (except one for :ko)
       self
     end
   end
@@ -102,7 +103,11 @@ module ActiveRecord
           else
             Rails.cache.delete(name) if Rails.cache.exist?(name)
             Rails.cache.fetch(name) do
-              yield
+              data_to_cache = yield
+              if data_to_cache.is_a?(ActiveRecord::Relation)
+                data_to_cache = data_to_cache.all
+              end
+              data_to_cache
             end
           end
         else

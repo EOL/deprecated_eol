@@ -6,12 +6,11 @@
 #
 # Please be very, very careful loading scenarios against large databases.
 
-require 'spec/eol_spec_helpers'
 require 'spec/scenario_helpers'
 # This gives us the ability to recalculate some DB values:
 include EOL::Data
 # This gives us the ability to build taxon concepts:
-include EOL::RSpec::Helpers
+include EOL::Builders
 
 
 def next_user_logo_cache_url
@@ -334,9 +333,9 @@ users.each_with_index do |user, i|
 end
 
 puts "Re-indexing.  Hang on, almost there."
-make_all_nested_sets
-rebuild_collection_type_nested_set
-flatten_hierarchies
+EOL::Data.make_all_nested_sets
+EOL::Data.rebuild_collection_type_nested_set
+EOL::Data.flatten_hierarchies
 
 EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = original_index_records_on_save_value

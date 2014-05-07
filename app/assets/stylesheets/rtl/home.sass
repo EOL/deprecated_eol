@@ -25,16 +25,23 @@
   a
     color: inherit
 
+/* BANNER - remove this block: */
+body.home
+  border-top: 5.4em solid #0a0f13
+  #banner
+    background-color: $banner_background_color
+    height: 1.7em
+
 body
+  background: #0a0f13 image-url("v2/bg_stars.png") repeat
   border-color: #0a0f13
-  background: #0a0f13 url(image-path("v2/bg_stars.png")) repeat
   > #header
     position: relative
     height: 563px
     color: #ffffff
     border-top: 1px solid #202427
     border-bottom: 1px solid #ccd4dd
-    background: transparent url(image-path("v2/bg_home_earth.png")) 50% 100% no-repeat
+    background: transparent image-url("v2/bg_home_earth.png") 50% 100% no-repeat
     .section
       position: relative
       height: 268px
@@ -46,7 +53,7 @@ body
       a
         width: 157px
         height: 115px
-        background-image: url(image-path("v2/languages/ar/logo_index.png"))
+        background-image: image-url("v2/languages/ar/logo_index.png")
     h2
       position: absolute
       right: 0
@@ -69,7 +76,7 @@ body
         height: 28px
         font-size: 1.5em
         line-height: 28px
-        background-image: url(image-path("v2/icon_search_home.png"))
+        background-image: image-url("v2/icon_search_home.png")
         background-position: 280px
         float: right
       input[type="submit"]
@@ -101,14 +108,14 @@ body
                 height: 25px
                 line-height: 25px
                 text-decoration: none
-                background: url(image-path("v2/icon_header_messages.png")) 18px 45% no-repeat #566572
+                background: image-url("v2/icon_header_messages.png") 18px 45% no-repeat #566572
                 padding: 0 24px 0 5px
                 &:hover
                   background-color: #667d91
               + li
                 margin-top: 1px
                 a
-                  background-image: url(image-path("v2/icon_header_notifications.png"))
+                  background-image: image-url("v2/icon_header_notifications.png")
                   background-position: 22px 50%
         img
           float: left
@@ -143,7 +150,7 @@ body
       bottom: 0
       z-index: 1
       width: 100%
-      background: transparent url(image-path("v2/bg_home_thumbnails.png")) repeat
+      background: transparent image-url("v2/bg_home_thumbnails.png") repeat
       background: rgba(255, 255, 255, .5)
       .term
         border-bottom-color: #ffffff
@@ -195,6 +202,15 @@ body
     .news
       float: right
       width: 520px
+      .details
+        li, blockquote
+          margin: 0 40px 0 0
+        ol
+          li
+            list-style: decimal
+        ul
+          li
+            list-style: disc
     .stats
       h3
         position: relative
@@ -216,31 +232,37 @@ body
           + li
             border-right: 1px solid #e5e8eb
           dl
+            position: relative
             padding-top: 65px
             background-repeat: no-repeat
             background-position: top center
             dt
+              margin-top: 2em
               font-size: .92em
             dd
+              position: absolute
+              top: 65px
+              right: 0
+              width: 100%
               font-size: 1.16em
           &.taxon
             dl
-              background-image: url(image-path("v2/icon_taxon.png"))
+              background-image: image-url("v2/icon_taxon.png")
           &.users
             dl
-              background-image: url(image-path("v2/icon_user.png"))
+              background-image: image-url("v2/icon_user.png")
           &.collections
             dl
-              background-image: url(image-path("v2/icon_collections.png"))
+              background-image: image-url("v2/icon_collections.png")
           &.images
             dl
-              background-image: url(image-path("v2/icon_images.png"))
+              background-image: image-url("v2/icon_images.png")
           &.partners
             dl
-              background-image: url(image-path("v2/icon_partners.png"))
+              background-image: image-url("v2/icon_partners.png")
           &.communities
             dl
-              background-image: url(image-path("v2/icon_community.png"))
+              background-image: image-url("v2/icon_community.png")
     .community
       float: left
       width: 380px
@@ -357,3 +379,6 @@ body#prelaunch
     font-size: 1.2em
     font-weight: bold
     margin: 0 0 10px 0
+.taxon
+  span.icon
+    background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat

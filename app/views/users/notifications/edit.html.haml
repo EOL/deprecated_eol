@@ -34,12 +34,6 @@
                 = notification.label :comment_on_my_community
               %dd
                 = notification.select :comment_on_my_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.comment_on_my_community.id)
-              - if false
-                -# Note that this distinction is NOT stored in the DB, so we cannot really handle it, yet:
-                %dt
-                  = notification.label :invitation_to_community
-                %dd
-                  = notification.select :invitation_to_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.invitation_to_community.id)
               %dt
                 = notification.label :made_me_a_manager
               %dd

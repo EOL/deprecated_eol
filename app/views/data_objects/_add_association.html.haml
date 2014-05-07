@@ -1,4 +1,4 @@
-- search_result = nil unless defined?(search_result)
+- search_result = nil unless local_assigns.has_key?(:search_result)
 - if image = item.exemplar_or_best_image_from_solr && image && image.thumb_or_object('88_88')
   = link_to image_tag(image.thumb_or_object('88_88')), taxon_overview_path(item)
 - else
@@ -17,9 +17,12 @@
               %input.button.associated(type="submit" value="#{I18n.t(:associated_submit_button)}")
           - else
             = form_tag("/data_objects/#{data_object.id}/save_association/#{he.id}",  :method => "post") do
-              = submit_tag I18n.t(:add_association_submit_button), :class => "button"
+              = submit_tag I18n.t(:add_association_submit_button), :class => "button", data: { disable_with: I18n.t(:submitting) }
           - if he.hierarchy.agent.homepage.blank?
-            = he.hierarchy.agent.full_name
+            - if he.hierarchy.content_partner.homepage.blank?
+              = he.hierarchy.content_partner.name
+            - else
+              = link_to he.hierarchy.content_partner.name, he.hierarchy.content_partner.homepage
           - else
             = link_to he.hierarchy.agent.full_name, he.hierarchy.agent.homepage
           - classification_summary = item.entry.preferred_classification_summary

@@ -1,11 +1,11 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe Curation do
 
   def association(vetted, visibility)
-    DataObjectsHierarchyEntry.delete_all(:data_object_id => @data_object.id, :hierarchy_entry_id => @entry.id)
-    dohe = DataObjectsHierarchyEntry.create(:data_object => @data_object, :hierarchy_entry => @entry,
-                                            :visibility => Visibility.send(visibility), :vetted => Vetted.send(vetted))
+    DataObjectsHierarchyEntry.delete_all(data_object_id: @data_object.id, hierarchy_entry_id: @entry.id)
+    dohe = DataObjectsHierarchyEntry.create(data_object: @data_object, hierarchy_entry: @entry,
+                                            visibility: Visibility.send(visibility), vetted: Vetted.send(vetted))
     DataObjectTaxon.new(dohe)
   end
 
@@ -32,9 +32,9 @@ describe Curation do
 
   before(:all) do
     load_foundation_cache
-    @user = User.gen(:curator_level => CuratorLevel.full, :credentials => 'whatever', :curator_scope => 'fun')
+    @user = User.gen(curator_level: CuratorLevel.full, credentials: 'whatever', curator_scope: 'fun')
     @taxon_concept = TaxonConcept.gen # This is really only used for the id.
-    @name = Name.gen(:string => 'this does not matter for these specs')
+    @name = Name.gen(string: 'this does not matter for these specs')
     @entry = HierarchyEntry.gen
     # TODO - I think these should be generalized:
     @misidentified = UntrustReason.misidentified
@@ -45,16 +45,16 @@ describe Curation do
 
   before(:each) do
     @data_object = DataObject.gen
-    @comment = Comment.gen(:parent => @data_object)
+    @comment = Comment.gen(parent: @data_object)
   end
 
   # TODO - we should be testing various kinds of associations, unforunately: DOHE, CDOHE, UsersDatos...
 
   it 'should know when invalid (with errors)' do
     curation = Curation.new(
-      :user => @user,
-      :association => association(:trusted, :visible),
-      :vetted => Vetted.untrusted
+      user: @user,
+      association: association(:trusted, :visible),
+      vetted: Vetted.untrusted
     )
     curation.valid?.should_not be_true
     curation.errors.should_not be_empty
@@ -62,10 +62,10 @@ describe Curation do
 
   it 'should know when valid (with empty errors)' do
     curation = Curation.new(
-      :user => @user,
-      :association => association(:trusted, :visible),
-      :comment => @comment,
-      :vetted => Vetted.trusted
+      user: @user,
+      association: association(:trusted, :visible),
+      comment: @comment,
+      vetted: Vetted.trusted
     )
     curation.valid?.should be_true
     curation.errors.should be_empty
@@ -73,11 +73,11 @@ describe Curation do
 
   it 'should make visibility hidden if curated as Untrusted' do
     curation = Curation.curate(
-      :user => @user,
-      :association => association(:trusted, :visible),
-      :vetted => Vetted.untrusted,
-      :visibility => Visibility.visible, # Note we *say* visible, here
-      :comment => @comment
+      user: @user,
+      association: association(:trusted, :visible),
+      vetted: Vetted.untrusted,
+      visibility: Visibility.visible, # Note we *say* visible, here
+      comment: @comment
     )
     find_association.invisible?.should be_true
   end
@@ -86,9 +86,9 @@ describe Curation do
     should_do_nothing(association(:untrusted, :invisible)) do |assoc|
       lambda do
         curation = Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :vetted => Vetted.trusted
+          user: @user,
+          association: assoc,
+          vetted: Vetted.trusted
         )
       end.should raise_error
     end
@@ -98,9 +98,9 @@ describe Curation do
     should_do_nothing(association(:untrusted, :invisible)) do |assoc|
       lambda do
         curation = Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :vetted => Vetted.unknown
+          user: @user,
+          association: assoc,
+          vetted: Vetted.unknown
         )
       end.should raise_error
     end
@@ -109,10 +109,10 @@ describe Curation do
   it 'should do nothing if nothing changed' do
     should_do_nothing(association(:trusted, :visible)) do |assoc|
       curation = Curation.curate(
-        :user => @user,
-        :association => assoc,
-        :vetted => Vetted.trusted,
-        :visibility => Visibility.visible
+        user: @user,
+        association: assoc,
+        vetted: Vetted.trusted,
+        visibility: Visibility.visible
       )
     end
   end
@@ -121,10 +121,10 @@ describe Curation do
     should_do_nothing(association(:untrusted, :preview)) do |assoc|
       lambda {
         curation = Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :comment => @comment,
-          :vetted => Vetted.trusted
+          user: @user,
+          association: assoc,
+          comment: @comment,
+          vetted: Vetted.trusted
         )
       }.should raise_error
     end
@@ -132,10 +132,10 @@ describe Curation do
 
   it 'should hide with CuratorActivityLog if needed' do
     curation = Curation.curate(
-      :user => @user,
-      :association => association(:trusted, :visible),
-      :visibility => Visibility.invisible,
-      :comment => @comment
+      user: @user,
+      association: association(:trusted, :visible),
+      visibility: Visibility.invisible,
+      comment: @comment
     )
     find_association.invisible?.should be_true
     the_curation_activities_on(@data_object).should include("hide")
@@ -143,9 +143,9 @@ describe Curation do
 
   it 'should show with CuratorActivityLog if needed' do
     curation = Curation.curate(
-      :user => @user,
-      :association => association(:trusted, :invisible),
-      :visibility => Visibility.visible
+      user: @user,
+      association: association(:trusted, :invisible),
+      visibility: Visibility.visible
     )
     find_association.visible?.should be_true
     the_curation_activities_on(@data_object).should include("show")
@@ -153,10 +153,10 @@ describe Curation do
 
   it 'should untrust with CuratorActivityLog if needed' do
     curation = Curation.curate(
-      :user => @user,
-      :association => association(:trusted, :invisible), # Not that it matters, but invisible causes less work here
-      :comment => @comment,
-      :vetted => Vetted.untrusted
+      user: @user,
+      association: association(:trusted, :invisible), # Not that it matters, but invisible causes less work here
+      comment: @comment,
+      vetted: Vetted.untrusted
     )
     find_association.untrusted?.should be_true
     the_curation_activities_on(@data_object).should include("untrusted")
@@ -164,9 +164,9 @@ describe Curation do
 
   it 'should trust with CuratorActivityLog if needed' do
     curation = Curation.curate(
-      :user => @user,
-      :association => association(:unknown, :visible),
-      :vetted => Vetted.trusted
+      user: @user,
+      association: association(:unknown, :visible),
+      vetted: Vetted.trusted
     )
     find_association.trusted?.should be_true
     the_curation_activities_on(@data_object).should include("trusted")
@@ -174,10 +174,10 @@ describe Curation do
 
   it 'should unreview with CuratorActivityLog if needed' do
     curation = Curation.curate(
-      :user => @user,
-      :association => association(:trusted, :visible),
-      :comment => @comment,
-      :vetted => Vetted.unknown
+      user: @user,
+      association: association(:trusted, :visible),
+      comment: @comment,
+      vetted: Vetted.unknown
     )
     find_association.unknown?.should be_true
     the_curation_activities_on(@data_object).should include("unreviewed")
@@ -187,9 +187,9 @@ describe Curation do
     should_do_nothing(association(:trusted, :invisible)) do |assoc|
       lambda {
         curation = Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :vetted => Vetted.untrusted
+          user: @user,
+          association: assoc,
+          vetted: Vetted.untrusted
         )
       }.should raise_error
     end
@@ -199,9 +199,9 @@ describe Curation do
     should_do_nothing(association(:trusted, :visible)) do |assoc|
       lambda {
         curation = Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :visibility => Visibility.invisible,
+          user: @user,
+          association: assoc,
+          visibility: Visibility.invisible,
         )
       }.should raise_error
     end
@@ -212,9 +212,9 @@ describe Curation do
     should_do_nothing(association(:trusted, :visible)) do |assoc|
       lambda {
         curation = Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :vetted => Vetted.last + 1,
+          user: @user,
+          association: assoc,
+          vetted: Vetted.last + 1,
         )
       }.should raise_error
     end
@@ -225,9 +225,9 @@ describe Curation do
     should_do_nothing(association(:trusted, :visible)) do |assoc|
       lambda {
         curation = Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :visibility => Visibility.last + 1,
+          user: @user,
+          association: assoc,
+          visibility: Visibility.last + 1,
         )
       }.should raise_error
     end
@@ -235,10 +235,10 @@ describe Curation do
 
   it 'should log untrusted with both reasons' do
     Curation.curate(
-      :user => @user,
-      :association => association(:trusted, :invisible), # Invisible ensures we don't also hide it.
-      :vetted => Vetted.untrusted,
-      :untrust_reason_ids => [@misidentified.id, @incorrect.id]
+      user: @user,
+      association: association(:trusted, :invisible), # Invisible ensures we don't also hide it.
+      vetted: Vetted.untrusted,
+      untrust_reason_ids: [@misidentified.id, @incorrect.id]
     )
     # NOTE - I'm not entirely comfortable with assuming the last log is the one we want, but hey:
     CuratorActivityLog.last.untrust_reasons.should include(@misidentified)
@@ -247,10 +247,10 @@ describe Curation do
 
   it 'should log hidden with both reasons' do
     Curation.curate(
-      :user => @user,
-      :association => association(:trusted, :visible),
-      :visibility => Visibility.invisible,
-      :hide_reason_ids => [@poor.id, @duplicate.id]
+      user: @user,
+      association: association(:trusted, :visible),
+      visibility: Visibility.invisible,
+      hide_reason_ids: [@poor.id, @duplicate.id]
     )
     # NOTE - I'm not entirely comfortable with assuming the last log is the one we want, but hey:
     CuratorActivityLog.last.untrust_reasons.should include(@poor)
@@ -263,10 +263,10 @@ describe Curation do
     should_do_nothing(association(:trusted, :invisible)) do |assoc| # Invisible ensures we don't also hide it.
       lambda {
         Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :vetted => Vetted.untrusted,
-          :untrust_reason_ids => [UntrustReason.last.id + 1]
+          user: @user,
+          association: assoc,
+          vetted: Vetted.untrusted,
+          untrust_reason_ids: [UntrustReason.last.id + 1]
         )
       }.should raise_error
     end
@@ -278,10 +278,10 @@ describe Curation do
     should_do_nothing(association(:trusted, :visible)) do |assoc|
       lambda {
         Curation.curate(
-          :user => @user,
-          :association => assoc,
-          :visibility => Visibility.invisible,
-          :hide_reason_ids => [UntrustReason.last.id + 1]
+          user: @user,
+          association: assoc,
+          visibility: Visibility.invisible,
+          hide_reason_ids: [UntrustReason.last.id + 1]
         )
       }.should raise_error
     end
@@ -290,9 +290,9 @@ describe Curation do
   it 'should NOT clear caches for a trust' do # ...or any other curation, but I'll check one for now.
     TaxonConceptCacheClearing.should_not_receive(:clear_for_data_object)
     curation = Curation.curate(
-      :user => @user,
-      :association => association(:untrusted, :visible),
-      :vetted => Vetted.trusted
+      user: @user,
+      association: association(:untrusted, :visible),
+      vetted: Vetted.trusted
     )
   end
 
@@ -302,10 +302,10 @@ describe Curation do
     assoc = association(:trusted, :visible)
     TaxonConceptCacheClearing.should_receive(:clear_for_data_object).with(assoc.taxon_concept, assoc.data_object).and_return(nil)
     curation = Curation.curate(
-      :user => @user,
-      :association => assoc,
-      :comment => @comment,
-      :visibility => Visibility.invisible
+      user: @user,
+      association: assoc,
+      comment: @comment,
+      visibility: Visibility.invisible
     )
   end
 

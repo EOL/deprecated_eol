@@ -11,14 +11,14 @@ module EOL
         options[:page]        ||= 1
         options[:per_page]    ||= 25
         options[:per_page]      = 25 if options[:per_page] == 0
-        
+
         response = solr_search(query, options)
-        
+
         total_results = response['grouped']['resource_unique_key']['ngroups']
         query_time = response['grouped']['QTime']
         return_hash = { :time => query_time,
                         :total => total_results }
-        
+
         return_hash[:results] = []
         response['grouped']['resource_unique_key']['groups'].each do |g|
           return_hash[:results] << g['doclist']['docs'][0]
@@ -28,14 +28,14 @@ module EOL
         return_hash[:results] = WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
            pager.replace(return_hash[:results])
         end
-        
+
         return_hash[:facets] = {}
         facets = response['facet_counts']['facet_fields']['resource_type']
         facets.each_with_index do |rt, index|
           next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
           return_hash[:facets][rt] = facets[index+1]
         end
-        
+
         return_hash[:suggestions] = []
         suggestions = response['spellcheck']['suggestions']
         unless suggestions.blank?
@@ -43,7 +43,7 @@ module EOL
             return_hash[:suggestions] << suggestion unless suggestion.downcase == query.downcase
           end
         end
-        
+
         return return_hash
       end
 
@@ -95,37 +95,40 @@ module EOL
       end
 
       def self.add_taxon_concept!(docs, options)
-        includes = [
-          { :preferred_entry => 
-            { :hierarchy_entry => { :name => :ranked_canonical_form } } }, 
-          :preferred_common_names ]
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = TaxonConcept.find_all_by_id(ids)
-        TaxonConcept.preload_associations(instances, includes)
+        TaxonConcept.preload_for_shared_summary(instances, :language_id => options[:language_id], :skip_ancestry => options[:skip_ancestry])
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
 
       def self.add_data_object!(docs, options)
-        # TODO: do some preloading
         ids = docs.map{ |d| d['resource_id'] }
         return if ids.blank?
         instances = DataObject.find_all_by_id(ids)
+        TaxonUserClassificationFilter.preload_details(instances)
         docs.each do |d|
           d['instance'] = instances.detect{ |i| i.id == d['resource_id'].to_i }
         end
       end
 
       def self.add_best_match_keywords!(docs, querystring)
-        querystring_set = querystring.normalize.split(' ').to_set
+        querystring_array = querystring.normalize.split(' ')
         docs.each_with_index do |d, index|
           best_match = nil
           best_intersection_size = 0
           d['keyword'].each do |k|
-            keyword_set  = k.normalize.split(' ').to_set
-            intersection_size = keyword_set.intersection(querystring_set).size
+            keyword_array  = k.normalize.split(' ')
+            intersection_size = 0
+            querystring_array.each do |qs|
+              keyword_array.each do |ks|
+                if ks.include?(qs)
+                  intersection_size += 1
+                end
+              end
+            end
             if intersection_size > best_intersection_size || best_intersection_size == 0
               best_match = k
               best_intersection_size = intersection_size
@@ -155,31 +158,31 @@ module EOL
           else
             lucene_query << "(keyword_exact:\"#{escaped_query}\"^5 OR #{self.keyword_field_for_term(query)}:\"#{escaped_query}\"~10^2)"
           end
-        
+
           # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
           search_suggestions(query, options[:exact]).each do |ss|
             lucene_query << " OR (resource_id:\"#{ss.taxon_id}\"^300 AND resource_type:TaxonConcept)"
           end
         end
-        
+
         # now compile all the query bits with proper logic
         url << CGI.escape(%Q[(#{lucene_query})])
-        
+
         if id = filter_by_taxon_concept_id(options)
           url << CGI.escape(%Q[ AND (ancestor_taxon_concept_id:#{id})])
         end
-        
+
         url << CGI.escape(%Q[ AND _val_:richness_score^200])
-        
+
         # add facet filtering
         if options[:type] && !options[:type].include?('all')
           options[:type].map!{ |t| t.camelize }
           url << '&fq=resource_type:' + CGI.escape(%Q[#{options[:type].join(' OR resource_type:')}])
         end
-        
+
         # add spellchecking - its using the spellcheck.q option because the main query main have gotten too complicated
         url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=500'
-        
+
         # add grouping and faceting
         url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on"
         # we also want to get back the relevancy score
@@ -192,7 +195,7 @@ module EOL
         elsif options[:sort_by] == 'score'
           url << '&sort=resource_weight+asc,score+desc'
         end
-        
+
         # add paging
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
@@ -211,7 +214,7 @@ module EOL
           suggested_results = SearchSuggestion.find_all_by_term_and_active(singular, true, :order => 'sort_order') +
                               SearchSuggestion.find_all_by_term_and_active(pluralized, true, :order => 'sort_order')
         end
-        
+
         # bacteria has a singular bacterium and a plural bacterias so we need to search on the original term too
         if exact || (querystring != pluralized && querystring != singular)
           suggested_results += SearchSuggestion.find_all_by_term_and_active(querystring, true, :order => 'sort_order')
@@ -247,17 +250,17 @@ module EOL
           else
             url << CGI.escape("(keyword_exact:\"#{escaped_query}\" OR #{self.keyword_field_for_term(query)}:\"#{escaped_query}\")")
           end
-          
+
           # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
           search_suggestions(query, options[:exact]).each do |ss|
             url << CGI.escape(" OR (resource_id:\"#{ss.taxon_id}\" AND resource_type:TaxonConcept)")
           end
         end
-        
+
         url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on&rows=0"
         res = open(url).read
         response = JSON.load(res)
-        
+
         facets = {}
         f = response['facet_counts']['facet_fields']['resource_type']
         f.each_with_index do |rt, index|
@@ -268,11 +271,50 @@ module EOL
         facets['All'] = total_results
         facets
       end
-      
+
       def self.keyword_field_for_term(search_term)
         return 'keyword_cn' if search_term.contains_chinese?
         return 'keyword_ar' if search_term.contains_arabic?
         'keyword'
+      end
+
+      def self.simple_taxon_search(query, options = {})
+        options[:language] ||= Language.default
+        url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
+        lucene_query = 'resource_type:TaxonConcept AND '
+        escaped_query = query.downcase.gsub(/"/, "\\\"")
+        escaped_query_words = escaped_query.split(' ')
+        # all words will be searched for in their entirety, the last word will have a wildcard appended to it
+        lucene_query << "((#{self.keyword_field_for_term(query)}:" + escaped_query_words.join(" AND #{self.keyword_field_for_term(query)}:") + "*)"
+        lucene_query << " OR keyword_exact:\"#{escaped_query}\"^100)"
+        lucene_query << " AND (language:sci OR  language:#{options[:language].iso_code})"
+
+        # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
+        search_suggestions(query, options[:exact]).each do |ss|
+          lucene_query = "((#{lucene_query}) OR (resource_id:\"#{ss.taxon_id}\"^300 AND resource_type:TaxonConcept))"
+        end
+
+        # now compile all the query bits with proper logic
+        url << CGI.escape(%Q[(#{lucene_query})])
+        url << CGI.escape(%Q[ AND _val_:richness_score^200])
+        # add grouping and faceting
+        url << "&group=true&group.field=resource_unique_key"
+        # we also want to get back the relevancy score
+        url << "&fl=resource_id,score,keyword,resource_type"
+        # add sorting
+        url << '&sort=score+desc'
+        # add paging
+        url << '&rows=10'
+        res = open(url).read
+        json = JSON.load(res)
+        results = []
+        json['grouped']['resource_unique_key']['groups'].each do |g|
+          results << g['doclist']['docs'][0]
+        end
+        add_best_match_keywords!(results, query)
+        add_resource_instances!(results, language_id: options[:language].id)
+        results.delete_if{ |r| r['instance'].blank? }
+        results
       end
     end
   end

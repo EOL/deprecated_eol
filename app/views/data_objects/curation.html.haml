@@ -1,4 +1,4 @@
-= render :partial => 'curation_js'
+= render 'curation_js'
 - title ||= true        # Allows a cleaner interface when we need it (ie: Curator Central)
 - if @data_object.text?
   .text_curation_close
@@ -7,13 +7,13 @@
   - if title
     %h1
       =I18n.t("object_curation")
-  %form.curation.curation_form{ :action => curate_data_object_path(@data_object), :'data-data_object_id' => @data_object.id,  :'data-data_object_type' => @data_object.data_type_id, :'data-page_type' => 'species_page' }
+  %form.curation.curation_form{ :action => curate_data_object_path(@data_object), data: { data_object_id: @data_object.id,  data_object_type: @data_object.data_type_id, page_type: 'species_page' } }
     = hidden_field_tag 'taxon_concept_id', params[:taxon_concept_id]
     .processing{ :style => "display:none;" }
       = image_tag('indicator_arrows_black.gif')
       Please wait
   
-    = render :partial => 'curation', :locals => { :data_object => @data_object }
+    = render 'curation', { :data_object => @data_object }
     .buttons.action-value
       = submit_tag I18n.t("save")
       %input.cancel-button{ :type => "button", :value => I18n.t("cancel") }

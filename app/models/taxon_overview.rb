@@ -51,20 +51,16 @@ class TaxonOverview < TaxonUserClassificationFilter
 
   def details?
     @has_details ||= taxon_concept.text_for_user(user,
-      :language_ids => [ user.language_id ],
-      :filter_by_subtype => true,
-      :allow_nil_languages => user.default_language?,
-      :toc_ids_to_ignore => TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
-      :per_page => 1
+      language_ids: [ user.language_id ],
+      filter_by_subtype: true,
+      allow_nil_languages: user.default_language?,
+      toc_ids_to_ignore: TocItem.exclude_from_details.collect { |toc_item| toc_item.id },
+      per_page: 1
     )
   end
 
   def summary?
     !@summary.blank?
-  end
-
-  def image
-    taxon_concept.exemplar_or_best_image_from_solr(hierarchy_entry)
   end
 
   def collections
@@ -76,8 +72,9 @@ class TaxonOverview < TaxonUserClassificationFilter
     all_collections.count
   end
 
-  # TODO - should we cache this?  Seems expensive for something that won't change often. It seems simple (to me) to at least denormalize the member count on the community
-  # model itself, which would save us the bigger query here. ...But that would be in addition to caching the results for this overview.
+  # TODO - should we cache this?  Seems expensive for something that won't change often. It seems simple (to me) to at least
+  # denormalize the member count on the community model itself, which would save us the bigger query here. ...But that would be
+  # in addition to caching the results for this overview.
   def communities
     # communities are sorted by the most number of members - descending order
     community_ids = taxon_concept.communities.map(&:id).compact
@@ -90,7 +87,7 @@ class TaxonOverview < TaxonUserClassificationFilter
       communities_sorted_by_member_count = member_counts.keys.map { |collection_id| taxon_concept.communities.detect { |c| c.id == collection_id } }
       communities_sorted_by_member_count[0..COMMUNITIES_TO_SHOW-1]
                  end
-    Community.preload_associations(best_three, :collections, :select => { :collections => :id })
+    Community.preload_associations(best_three, :collections, select: { collections: [:id, :collection_items_count] })
     return best_three
   end
 
@@ -107,7 +104,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   end
 
   def activity_log
-    @log ||= taxon_concept.activity_log(:per_page => 5)
+    @log ||= taxon_concept.activity_log(per_page: 5, user: user)
   end
 
   def map
@@ -135,33 +132,26 @@ class TaxonOverview < TaxonUserClassificationFilter
     "taxon_overview_#{taxon_concept.id}_#{user.language_abbr}"
   end
 
+  def media # Note this replaces the #media method on TaxonUserClassificationFilter.
+    @media
+  end
+
 private
 
   def after_initialize
     loadables = load_media.push(load_summary)
-    DataObject.replace_with_latest_versions_no_preload(loadables)
-    includes = [ {
-      :data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, { :hierarchy => { :resource => :content_partner } }, :taxon_concept ]
-      }, :vetted, :visibility ]
-    } ]
-    includes << { :all_curated_data_objects_hierarchy_entries =>
-      [ { :hierarchy_entry => [ :name, :hierarchy, :taxon_concept ] }, :vetted, :visibility, :user ] }
-    includes << :users_data_object
-    includes << :license
-    includes << { :agents_data_objects => [ { :agent => :user }, :agent_role ] }
-    DataObject.preload_associations(loadables, includes)
-    DataObject.preload_associations(loadables, :translations,
-                                    :conditions => "data_object_translations.language_id=#{user.language_id}")
+    TaxonUserClassificationFilter.preload_details(loadables, user)
+    DataObject.preload_associations(loadables, { agents_data_objects: [ { agent: :user }, :agent_role ] })
     @summary = loadables.pop
     @media = loadables
+    correct_bogus_exemplar_image
   end
 
   def load_media
     media ||= promote_exemplar_image(
       taxon_concept.images_from_solr(
         map? ? MEDIA_TO_SHOW-1 : MEDIA_TO_SHOW,
-        :ignore_translations => true
+        ignore_translations: true
       )
     ).compact
     media = media[0...MEDIA_TO_SHOW] if media.length > MEDIA_TO_SHOW
@@ -174,11 +164,13 @@ private
   end
 
   def all_collections
-    @all_collections ||= taxon_concept.collections.published.select{ |c| !c.watch_collection? }
+    @all_collections ||= published_containing_collections.select{ |c| !c.watch_collection? }
   end
 
+  # NOTE this actully returns a taxon_concept_preferred_entry, not a "classification". TODO - rename.
   def curator_chosen_classification
-    CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
+    return @curator_chosen_classification if defined?(@curator_chosen_classification)
+    @curator_chosen_classification = taxon_concept.published_taxon_concept_preferred_entry
   end
 
   def iucn
@@ -190,7 +182,7 @@ private
   def promote_exemplar_image(data_objects)
     return data_objects unless taxon_concept.published_exemplar_image
     data_objects.delete_if { |d| d.guid == taxon_concept.published_exemplar_image.guid }
-    data_objects.unshift(taxon_concept.published_exemplar_image)
+    data_objects.unshift(DataObject.find(taxon_concept.published_exemplar_image))
     data_objects
   end
 

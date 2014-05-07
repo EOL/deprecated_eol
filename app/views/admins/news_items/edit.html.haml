@@ -7,7 +7,7 @@
       = validation_errors_for(@news_item)
       %p.tip
         = raw(I18n.t(:admin_news_item_edit_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
-      = render :partial => 'news_item_fieldset', :locals => {:news_item_form => news_item_form}
+      = render 'news_item_fieldset', {:news_item_form => news_item_form}
 
       %fieldset.actions
         = news_item_form.submit I18n.t('helpers.submit.news_item.update')

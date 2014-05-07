@@ -11,8 +11,8 @@ class UserActivityLog < LazyLoggingModel
       raise "You cannot log activity without an activity argument (first arg)" unless act_symbol
       # I'm worried these won't work if they create, since we use insert_delayed on LoggingModel models...  Ick:
       act = Activity.find_or_create(act_symbol)
-      return UserActivityLog.create(:activity_id => act.id, :user_id => user.id, :value => options[:value],
-                                :taxon_concept_id => options[:taxon_concept_id])
+      return UserActivityLog.create(activity_id: act.id, user_id: user.id, value: options[:value],
+                                taxon_concept_id: options[:taxon_concept_id])
     end
   end
 
@@ -40,10 +40,10 @@ class UserActivityLog < LazyLoggingModel
       query << " AND al.activity_id = ? "
     end
     query << " ORDER BY al.id DESC "
-    if    (user_id == 'All' and activity_id == 'All') then self.paginate_by_sql [query], :page => page, :per_page => 30
-    elsif (user_id != 'All' and activity_id != 'All') then self.paginate_by_sql [query, user_id, activity_id], :page => page, :per_page => 30
-    elsif (user_id != 'All' and activity_id == 'All') then self.paginate_by_sql [query, user_id], :page => page, :per_page => 30
-    elsif (user_id == 'All' and activity_id != 'All') then self.paginate_by_sql [query, activity_id], :page => page, :per_page => 30
+    if    (user_id == 'All' and activity_id == 'All') then self.paginate_by_sql [query], page: page, per_page: 30
+    elsif (user_id != 'All' and activity_id != 'All') then self.paginate_by_sql [query, user_id, activity_id], page: page, per_page: 30
+    elsif (user_id != 'All' and activity_id == 'All') then self.paginate_by_sql [query, user_id], page: page, per_page: 30
+    elsif (user_id == 'All' and activity_id != 'All') then self.paginate_by_sql [query, activity_id], page: page, per_page: 30
     end
   end
 
@@ -52,7 +52,7 @@ class UserActivityLog < LazyLoggingModel
     FROM translated_activities a 
     JOIN user_activity_logs al ON a.activity_id = al.activity_id 
     GROUP BY a.name ORDER BY Count(a.activity_id) desc"
-    self.paginate_by_sql [query], :page => page, :per_page => 30
+    self.paginate_by_sql [query], page: page, per_page: 30
   end
 
   def self.most_common_combinations(activity_id)

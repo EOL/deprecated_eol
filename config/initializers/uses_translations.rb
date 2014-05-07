@@ -1,9 +1,13 @@
+# TODO - move this to a library (and load it here if you must).
+
+# TODO - review: relying on the database for translations is quite convoluted;
+# would we be better-off putting these into a translated YAML file?
 module ActiveRecord
   class Base
     class << self
       def uses_translations(options={})
         begin
-          translated_class = eval("Translated" + self.to_s)
+          translated_class = Kernel.const_get("Translated" + self.to_s)
           has_many :translations, :class_name => translated_class.to_s, :foreign_key => options[:foreign_key]
           default_scope :include => :translations
           const_set(:USES_TRANSLATIONS, true)
@@ -40,7 +44,7 @@ module ActiveRecord
                       return nil unless set_translation_language(l)
                     end
 
-                    return eval("translated_#{a}")
+                    return send("translated_#{a}")
                   end
                 end
               end
@@ -68,7 +72,7 @@ module ActiveRecord
             self.current_translation_language = language
             match[0].attributes.each do |a, v|
               # puts "SETTING #{self.class.class_name} #{a} to #{v}"
-              eval("self.translated_#{a} = v") unless a == 'id' || a == 'language_id'
+              send("translated_#{a}=", v) unless a == 'id' || a == 'language_id'
             end
           end
 
@@ -79,17 +83,21 @@ module ActiveRecord
                 options_language_iso = args[0]
               end
               options_hash = args.select{ |a| a && a.class == Hash && !a.blank? }.shift
-              options_include = options_hash[:include] unless options_hash.blank?
-              find_all = options_hash[:find_all] unless options_hash.blank?
+              options_include = options_hash ? Array(options_hash[:include]).compact : []
+              options_include << :translations # NOTE - you would think the default include applies, but it doesn't appear to be. :|
+              find_all = options_hash ? options_hash[:find_all] : false
               search_language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
               language_id = Language.id_from_iso(search_language_iso)
-              return nil if language_id.nil?
-
+              return nil if language_id.nil? # TODO - really, this should raise an exception. It means a whole language is missing.
               table = self::TRANSLATION_CLASS.table_name
               # find the record where the translated field is * and language is *
-              found = send("find", ((find_all === true) ? :all : :first), :joins => :translations,
+              found = find(find_all ? :all : :first, :joins => :translations,
                 :conditions => "`#{table}`.`#{field}` = '#{value}' AND `#{table}`.`language_id` = #{language_id}",
                 :include => options_include)
+              return nil if found.blank?
+              ids = found.is_a?(Array) ? found.map(&:id) : found.id
+              found = where(id: ids).includes(options_include)
+              return ids.is_a?(Array) ? found : found.first # Because the #where always returns an array...
             rescue => e
               # Language may not be defined yet
               puts e.message
@@ -103,10 +111,10 @@ module ActiveRecord
               options_language_iso = args[0]
             end
             options_hash = args.select{ |a| a && a.class == Hash && !a.blank? }.shift
-            find_all = options_hash[:find_all] unless options_hash.blank?
+            find_all = options_hash ? options_hash[:find_all] : false
             language_iso = options_language_iso || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
             cache_key = "#{field}/#{value}/#{language_iso}"
-            cache_key += "/all" if find_all === true
+            cache_key += "/all" if find_all
             cached(cache_key) do
               find_by_translated(field, value, language_iso, options_hash)
             end

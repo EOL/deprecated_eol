@@ -19,20 +19,20 @@ if (!EOL.Text.already_loaded) {
       });
       // Preview:
       $('input#preview_text').unbind('click');
-      $('input#preview_text').click(function() {
+      $('input#preview_text').on('click', function() {
         EOL.Text.preview_text(this);
         return false;
       });
       // Close the add-text window:
       $('#insert_text_popup a.close-button').unbind('click');
-      $('#insert_text_popup a.close-button').click(function() {
+      $('#insert_text_popup a.close-button').on('click', function() {
         $('#insert_text_popup').slideUp();
         EOL.Text.remove_preview();
         return false;
       });
       // Cancel adding text:
       $('input#cancel_edit_text').unbind('click');
-      $('input#cancel_edit_text').click(function() {
+      $('input#cancel_edit_text').on('click', function() {
         EOL.Text.cancel_edit();
         return false;
       });
@@ -40,14 +40,14 @@ if (!EOL.Text.already_loaded) {
       $('select#data_objects_toc_category_toc_id').unbind('change');
       $('select#data_objects_toc_category_toc_id').change(function() {
         $.ajax({
-          url: $(this).attr('data-change_toc_url'),
+          url: $(this).data('change_toc_url'),
           success: function(response) { EOL.Text.show_response_text_and_cleanup(response); },
           data: EOL.Text.form().serialize()
         });
       });
       // Give the user another reference field
-      $('div#add_user_text_references input#add_more_user_text_reference').unbind('click');
-      $('div#add_user_text_references input#add_more_user_text_reference').click(function(e) {
+      $('input#add_more_user_text_reference').unbind('click');
+      $('input#add_more_user_text_reference').on('click', function(e) {
         $('#add_user_text_references_input').append('<textarea rows="3" name="references[]" id="references[]" cols="33"/>');
         return false;
       });
@@ -69,7 +69,7 @@ if (!EOL.Text.already_loaded) {
     show_missing_text_error_if_empty: function() {
       // error handling, just make sure there's a description
       textarea_val = $.trim($('textarea#data_object_description').val());
-      if(textarea_val == '') {
+      if(textarea_val === '') {
         $('#missing_text_error').fadeIn().delay(2000).fadeOut();
         return true;
       } else {
@@ -79,7 +79,7 @@ if (!EOL.Text.already_loaded) {
 
     // In several cases, we need to know which data object we're currently editing/adding:
     data_object_id: function() {
-      return EOL.Text.form().attr('data-data_object_id');
+      return EOL.Text.form().data('data-object-id');
     },
 
     // For when the user wants to submit added/edited text.
@@ -112,7 +112,7 @@ if (!EOL.Text.already_loaded) {
       EOL.Text.remove_preview();
       // TODO - the data is hacky ... why isn't it this way in the data-preview_url?
       $.ajax({
-        url: $(button).attr('data-preview_url'),
+        url: $(button).data('preview_url'),
         type: 'POST',
         beforeSend: function() { EOL.Text.disable_form(); },
         success: function(response) {

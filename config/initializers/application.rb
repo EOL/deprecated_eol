@@ -12,3 +12,9 @@ $SOLR_ACTIVITY_LOGS_CORE = 'activity_logs'
 $SOLR_BHL_CORE = 'bhl'
 $SOLR_DIR    = File.join(Rails.root, 'solr', 'solr')
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
+
+# NOTE - 
+# The following fixes a problem with casting strings to XML which Gemnaisium says we're still vulnerable to:
+# ...We should probably remove this once we're sure our version of Rails (and all gems) are of sufficient
+# version to handle it.  ...That said, I don't think we ever need to parse params as XML, so I doubt it hurts:
+ActionDispatch::ParamsParser::DEFAULT_PARSERS.delete(Mime::XML) 

@@ -514,7 +514,7 @@ namespace :i18n do
 
       return_lang = Array.new
       files.each do |file|
-        lang_abbr = File.split(file)[-1].gsub("-db.yml", "").downcase
+        lang_abbr = File.split(file)[-1].gsub("-db.yml", "")
         return_lang << lang_abbr if lang_abbr != 'en'
       end
 
@@ -586,12 +586,16 @@ namespace :i18n do
       if (lang_id != 0)
         print "processing " + lang + " file"
         lang_keys = load_language_keys(lang)
-        puts " (#{lang_keys.keys.count})"
-        next if lang_keys.blank?
-        lang_keys.each do |pair|
-          (key, val) = pair
-          (table_name, column_name, identity_column_name, field_id) = key.split(db_field_delim)
-          insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, val)
+        if lang_keys.nil?
+          puts " (none)"
+        else
+          puts " (#{lang_keys.keys.count})"
+          next if lang_keys.blank?
+          lang_keys.each do |pair|
+            (key, val) = pair
+            (table_name, column_name, identity_column_name, field_id) = key.split(db_field_delim)
+            insert_or_update_db_value(table_name, column_name, identity_column_name, lang_id, field_id, val)
+          end
         end
       end
     end

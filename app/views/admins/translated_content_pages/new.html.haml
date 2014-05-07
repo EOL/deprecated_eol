@@ -8,7 +8,7 @@
       = validation_errors_for(@content_page)
       %fieldset
         %p.tip= raw I18n.t(:admin_translated_content_page_new_tip, :required_icon => image_tag('v2/icon_required.png', :alt => ''))
-        = render :partial => 'translated_content_page_fieldset', :locals => {:content_page_form => content_page_form}
+        = render 'translated_content_page_fieldset', {:content_page_form => content_page_form}
 
       %fieldset.actions
         = content_page_form.submit I18n.t('helpers.submit.translated_content_page.create')

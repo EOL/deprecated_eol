@@ -12,7 +12,7 @@ input[type="submit"]
 
 .help_text
   background: $fieldset_light_blue
-  border: 1px solid #cad3db
+  border: 1px solid $grayblue
   padding: 10px
   margin: 0 0 20px 0
   line-height: 140%
@@ -30,7 +30,7 @@ form
       label
         font-weight: bold
       small
-        color: #616e7a
+        color: $darker_blue
       p
         font-weight: normal
     dd
@@ -45,9 +45,11 @@ form
         +textarea
     input[type="radio"]
       margin: 0 0 0 5px
+  input.standard
+    +input
   label
     &.required
-      background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+      background: image-url("v2/icon_required.png") 0 45% no-repeat
       padding-right: 10px
       margin-right: -10px
     &.checkbox
@@ -79,10 +81,12 @@ form
           +gradient_bg(saturate(#e07f71 + #111111, 10%), saturate(#cd331e + #111111, 10%))
         &:active
           +gradient-bg(#e07f71, #cd331e)
+      &.with_case
+        text-transform: none
   .heading &.filter
     label
       text-transform: uppercase
-      color: #828d33
+      color: $loafer_text_color
     dl
       display: inline
       dt
@@ -104,7 +108,7 @@ form
   right: -1px
   z-index: 1
   padding: 0 20px
-  border: 1px solid #93a4b0
+  border: 1px solid $darker_gray
   border-width: 0 1px
   .heading
     position: relative
@@ -116,7 +120,7 @@ form
     h3, label
       font-weight: bold
       text-transform: uppercase
-      color: #828d33
+      color: $loafer_text_color
     h3, &.subnav ul
       + form, + a
         position: absolute
@@ -140,13 +144,13 @@ form
           &.active a
             background: #fff
           &.active a, a:hover
-            border: 1px solid #828d33
+            border: 1px solid $loafer_text_color
             color: #394651
           a
             padding: 5px
             display: block
             text-decoration: none
-            color: #828d33
+            color: $loafer_text_color
             background: #f5f7e7
             border: 1px solid #cfd5a9
       form
@@ -182,8 +186,8 @@ ul.tabs
   li
     margin: 0 0 1px 0
     font-weight: bold
-    border: 1px solid #cad3db
-    border-left-color: #93a4b0
+    border: 1px solid $grayblue
+    border-left-color: $darker_gray
     +border-top-right-radius(3px)
     +border-bottom-right-radius(3px)
     +gradient-bg-horizontal(#ffffff, #f0f4f7)
@@ -191,13 +195,13 @@ ul.tabs
       display: block
       padding: 7px 10px 6px 10px
       text-decoration: none
-      color: #616e7a
+      color: $darker_blue
     &:hover
-      border-color: #93a4b0
+      border-color: $darker_gray
       a
         color: #28323a
     &.active
-      border-color: #93a4b0
+      border-color: $darker_gray
       border-left-color: #ffffff
       +gradient-bg-horizontal(#fff, #fff)
       a
@@ -208,28 +212,31 @@ ul.tabs
         font-size: 1.14em
     &.taxa
       a
-        background: transparent url(image-path("v2/icon_taxa_tabs.png")) 158px 50% no-repeat
+        background: transparent image-url("v2/icon_taxa_tabs.png") 158px 50% no-repeat
     &.videos
       a
-        background: transparent url(image-path("v2/icon_videos_tabs.png")) 158px 10px no-repeat
+        background: transparent image-url("v2/icon_videos_tabs.png") 158px 10px no-repeat
     &.sounds
       a
-        background: transparent url(image-path("v2/icon_sounds_tabs.png")) 158px 50% no-repeat
+        background: transparent image-url("v2/icon_sounds_tabs.png") 158px 50% no-repeat
     &.images
       a
-        background: transparent url(image-path("v2/icon_images_tabs.png")) 158px 8px no-repeat
+        background: transparent image-url("v2/icon_images_tabs.png") 158px 8px no-repeat
     &.communities
       a
-        background: transparent url(image-path("v2/icon_communities_tabs.png")) 158px 16px no-repeat
+        background: transparent image-url("v2/icon_communities_tabs.png") 158px 16px no-repeat
     &.people
       a
-        background: transparent url(image-path("v2/icon_people_tabs.png")) 158px 10px no-repeat
+        background: transparent image-url("v2/icon_people_tabs.png") 158px 10px no-repeat
     &.collections
       a
-        background: transparent url(image-path("v2/icon_collections_tabs.png")) 158px 9px no-repeat
+        background: transparent image-url("v2/icon_collections_tabs.png") 158px 9px no-repeat
     &.articles
       a
-        background: transparent url(image-path("v2/icon_articles_tabs.png")) 158px 9px no-repeat
+        background: transparent image-url("v2/icon_articles_tabs.png") 158px 9px no-repeat
+    &.links
+      a
+        background: transparent image-url("v2/icon_links_tabs.png") 158px 9px no-repeat
   &.with_icons
     li
       font-size: 1.16em
@@ -258,7 +265,7 @@ p.status
     text-decoration: underline
     color: #809203
   &.neutral
-    border-color: #cad3db
+    border-color: $grayblue
     background: #f1f4f7
     strong
       color: #195184
@@ -281,6 +288,8 @@ p.status
   p
     margin: 0 0 15px 0
     line-height: 170%
+    img
+      margin-left: 0.5em
   dl
     margin: 0 40px 15px 40px
     line-height: 170%
@@ -303,7 +312,7 @@ p.status
     list-style-type: decimal
   blockquote
     background: #eff2f4
-    border: 1px solid #cad3db
+    border: 1px solid $grayblue
     margin: 0 -20px 25px -20px
     padding: 15px 20px 0 20px
   p, ul, ol, dl, blockquote
@@ -319,30 +328,32 @@ table.standard
   line-height: 170%
   thead
     tr
-      border: 1px solid #cad3db
+      border: 1px solid $grayblue
       th
         background: #eff2f4
         padding: 5px 20px
         font-weight: bold
-
+        text-align: right
   tbody
     tr
-      border: 1px solid #cad3db
+      border: 1px solid $grayblue
       td
         padding: 5px 20px
+
+.article .header, .header_underlined
+  overflow: hidden
+  padding: 0 0 0 10px
+  margin: 0 -10px 12px -10px
+  border-bottom: 1px solid #394651
+  h3
+    float: right
+    padding: 0 10px 3px 10px
+    font-size: 1.16em
+    border-bottom: 3px solid #394651
 
 .article
   padding: 0 10px 25px 10px
   .header
-    overflow: hidden
-    padding: 0 10px 0 0
-    margin: 0 -10px 12px -10px
-    border-bottom: 1px solid #394651
-    h3
-      float: right
-      padding: 0 10px 3px 10px
-      font-size: 1.16em
-      border-bottom: 3px solid #394651
     a
       float: left
       padding: 2px 0 0 0
@@ -372,11 +383,11 @@ table.standard
         line-height: 160%
         & + li
           border-top: 1px solid #d7dadc
-        > a > img, > img, > .editable > a > img
+        > a > img, > img, > .editable > a > img, img.no_user
           float: right
           margin: 15px 15px 0 10px
           border: 1px solid #394651
-          +max_dimensions($logo_size_secondary, $logo_size_secondary)
+          +set_dimensions($logo_size_secondary, $logo_size_secondary)
         .details
           margin: 15px 0 0 15px
           padding: 0
@@ -402,36 +413,6 @@ table.standard
             margin: 0 0 0 10px
           .details
             margin: 0
-  &.updates
-    padding: 0
-    blockquote, p
-      line-height: 140%
-      padding: 0 0 8px 0
-      &.meta
-        font-size: .75em
-        font-weight: bold
-        text-transform: uppercase
-        color: #62707d
-        padding: 0
-    ul.actions
-      li
-        display: inline
-        font-size: .9em
-        font-weight: bold
-        text-transform: lowercase
-        a
-          display: inline-block
-          padding: 5px 0
-          margin: 0 0 0 5px
-        form
-          margin: 0
-          padding: 0
-          display: inline
-          input[type="submit"]
-            +button_styled_as_hyperlink
-            font-weight: bold
-            padding: 5px 0
-            margin: 0 0 0 5px
     li
       form
         &.edit_comment
@@ -444,13 +425,45 @@ table.standard
             width: 430px
             height: 60px
             +textarea
-
-.empty, .copy .empty
+.article.updates, ul.object_list
+  padding: 0
+  blockquote, p
+    line-height: 140%
+    padding: 0 0 8px 0
+    &.meta
+      font-size: .75em
+      font-weight: bold
+      text-transform: uppercase
+      color: #62707d
+      padding: 0
+      span.expired
+        display: inline-block
+        color: #B40404
+  ul.actions
+    li
+      display: inline
+      font-size: .9em
+      font-weight: bold
+      text-transform: lowercase
+      a
+        display: inline-block
+        padding: 5px 0
+        margin: 0 0 0 5px
+      form
+        margin: 0
+        padding: 0
+        display: inline
+        input[type="submit"]
+          +button_styled_as_hyperlink
+          font-weight: bold
+          padding: 5px 0
+          margin: 0 0 0 5px
+.empty, .copy .empty, .explain
   padding: 15px 15px 10px 15px
   margin: 10px 0
   font-size: 1.16em
   text-align: center
-  border: 1px solid #cad3db
+  border: 1px solid $grayblue
   background: $fieldset_light_blue
   p
     margin: 0
@@ -463,6 +476,11 @@ table.standard
   input[type="submit"]
     padding: 5px 10px 6px 10px
 
+.explain
+  text-align: left
+  p
+    margin: 0.5em 0
+
 = star
   position: absolute
   top: 0
@@ -470,14 +488,13 @@ table.standard
   height: 13px
   font-size: 0
   text-indent: -8685px
-  text-decoration: none
   overflow: hidden
 .rating
   ul,
   ul a:hover,
   ul a:active,
   ul a:focus
-    background: transparent url(image-path("v2/icon_stars.png")) 0 100% repeat-x
+    background: transparent image-url("v2/icon_stars.png") 0 100% repeat-x
   ul
     float: right
     position: relative
@@ -492,7 +509,7 @@ table.standard
         &.current_rating_#{$i}
           +star
           width: 20% * $i
-          background: transparent url(image-path("v2/icon_stars.png")) 0 -26px repeat-x
+          background: transparent image-url("v2/icon_stars.png") 0 -26px repeat-x
     a
       +star
       &:hover, &:active, &:focus
@@ -522,14 +539,13 @@ table.standard
     float: right
     width: 84px
     height: 13px
-    background: transparent url(image-path("v2/icon_stars.png")) right 0 repeat-x
+    background: transparent image-url("v2/icon_stars.png") right 0 repeat-x
     p
       height: 12px
       font-size: 0
       margin: 0
       text-indent: -8685px
-      text-decoration: none
-      background: transparent url(image-path("v2/icon_stars.png")) right 50% repeat-x
+      background: transparent image-url("v2/icon_stars.png") right 50% repeat-x
     &.one
       p
         width: 20%
@@ -543,75 +559,36 @@ table.standard
       p
         width: 80%
 
+.data
+  span.icon
+    background: $fieldset_light_blue image-url("v2/icon_collections.png") 50% 50% no-repeat
 .taxon
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_taxa_tabs.png") 50% 50% no-repeat
 .video
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_videos_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_videos_tabs.png") 50% 50% no-repeat
 .image
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_images_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_images_tabs.png") 50% 50% no-repeat
 .community
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_communities_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_communities_tabs.png") 50% 50% no-repeat
 .person
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_people_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_people_tabs.png") 50% 50% no-repeat
 .collection
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_collections_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_collections_tabs.png") 50% 50% no-repeat
 .article
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_articles_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_articles_tabs.png") 50% 50% no-repeat
+.link
+  span.icon
+    background: $fieldset_light_blue image-url("v2/icon_links_tabs.png") 50% 50% no-repeat
 .sound
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_sound_tabs.png")) 50% 50% no-repeat
-
-ul.object_list
-  + .footer
-    border-top: 1px solid #394651
-    padding-top: 12px
-    margin: 0
-  li
-    padding: 10px
-    overflow: hidden
-    line-height: 160%
-    color: #5f6c76
-    & + li
-      border-top: 1px solid #d7dadc
-    .annotation
-      clear: both
-      padding-top: 5px
-      p
-        margin: 0 0 10px 0
-    span.icon
-      width: 68px
-      height: 68px
-      border: 1px solid #cad3db
-      float: right
-      margin: 0 0 0 20px
-    h4
-      margin-top: 15px
-      font-size: 1.2em
-      a
-        color: #28323a
-        text-decoration: none
-        &:hover
-          text-decoration: underline
-    img
-      float: left
-      border: 1px solid #394651
-    &.taxon
-      small
-        font-weight: bold
-        display: block
-        margin-top: 8px
-      h4
-        margin: 0
-      .alternate_name
-        .label
-          font-weight: bold
+    background: $fieldset_light_blue image-url("v2/icon_sound_tabs.png") 50% 50% no-repeat
 
 form.select_content_partner
   padding: 5px 0
@@ -630,7 +607,7 @@ form.select_content_partner
 
 .disclaimer
   clear: both
-  border-top: 1px solid #CAD3DB
+  border-top: 1px solid $grayblue
   padding-top: 10px
   margin-top: 40px
   p
@@ -641,22 +618,23 @@ form.select_content_partner
 
 body
   > #central
-    margin-top: 9.4em
+    margin-top: 13.9em /* BANNER - was 9.4em */
   > #header
     position: absolute
     top: $global_nav_height
     right: 0
     width: 100%
     background: #394651
+    border-top: 2.7em solid #28323a /* BANNER - remove this */
     .section
-      height: 9.4em
+      height: 11.2em /* BANNER - was: 9.4em */
       .global_navigation
         top: -2em
         ul.nav
           li:before
             color: #6f7e8b
       .actions
-        z-index: 5
+        z-index: 900
         top: -2.3em
         p
           border-color: #616b74
@@ -696,19 +674,19 @@ body
                   height: 25px
                   line-height: 25px
                   text-decoration: none
-                  background: url(image-path("v2/icon_header_messages.png")) 18px 45% no-repeat #566572
+                  background: image-url("v2/icon_header_messages.png") 18px 45% no-repeat #566572
                   padding: 0 24px 0 5px
                   &:hover
                     background-color: #667d91
                 + li
                   margin-top: 1px
                   a
-                    background-image: url(image-path("v2/icon_header_notifications.png"))
+                    background-image: image-url("v2/icon_header_notifications.png")
                     background-position: 22px 50%
           img
             float: left
             margin: 0 10px 0 0
-            border: 1px solid #cad3db
+            border: 1px solid $grayblue
           .details
             overflow: hidden
             padding: 5px 0 0 0
@@ -739,6 +717,8 @@ body
   background: #ffffff
   &.cms_page,
   &.newsfeed
+    h2
+      font-size: 1.4em
     .nav
       float: right
       margin: 0 0 0 20px
@@ -749,48 +729,48 @@ body
       ul
         li
           a
-            border: 1px solid #cad3db
+            border: 1px solid $grayblue
             margin: 0 0 1px 0
             display: block
             font-weight: bold
             padding: 7px 10px 6px 10px
             text-decoration: none
-            color: #616e7a
+            color: $darker_blue
             &:hover
-              border-color: #93a4b0
+              border-color: $darker_gray
           &.active
             a
-              border-color: #93a4b0
-              background: #e2e9ef
+              border-color: $darker_gray
+              background: $light_blue
               color: #394651
     .copy
       overflow: hidden
       padding: 40px 40px 25px 40px
-      border: 1px solid #cad3db
+      border: 1px solid $grayblue
       img
         float: left
         padding: 10px
-        border: 1px solid #cad3db
+        border: 1px solid $grayblue
         margin: 0 20px 20px 0
   &.newsfeed
     .article
       margin: 0 260px 20px 0
       padding: 20px
       h2
-        border-bottom: 1px solid #cad3db
+        border-bottom: 1px solid $grayblue
         padding: 0 10px 15px 10px
         margin: 0 -10px 15px -10px
       .meta
         font-weight: bold
         padding: 0
-        border-top: 1px solid #cad3db
+        border-top: 1px solid $grayblue
         padding: 15px 10px 0 10px
         margin: 15px -10px 0 -10px
 
 #page_heading
   padding: 10px 0 0 0
-  border-bottom: 1px solid #93a4b0
-  background: #e2e9ef
+  border-bottom: 1px solid $darker_gray
+  background: $light_blue
   .hgroup
     float: right
     width: 670px
@@ -825,7 +805,7 @@ body
     .hgroup
       padding: 20px 10px 20px 0
     .site_column
-      background: transparent url(image-path("v2/bg_discover-header.png")) -13% 50% no-repeat
+      background: transparent image-url("v2/bg_discover-header.png") -13% 50% no-repeat
   .site_column
     overflow: hidden
   h1
@@ -836,14 +816,14 @@ body
     margin: 5px 0 0 0
     font-size: 1.66em
     font-weight: normal
-    color: #5f6c76
+    color: $lighter_text_color
     small
       padding: 0 10px 0 0
       font-size: .6em
   p
     font-size: 1.08em
     line-height: 140%
-    color: #5f6c76
+    color: $lighter_text_color
     &.status
       color: #394651
     &.message
@@ -863,6 +843,8 @@ body
       margin: 0 0 10px 0
       & + li
         margin: 0
+      .link_button
+        margin-right: 10px
     a
       float: left
     form.button_to
@@ -895,7 +877,7 @@ body
       padding: 8px
       font: normal 1em Helvetica, Arial, sans-serif
       color: #394651
-      border: 1px solid #cad3db
+      border: 1px solid $grayblue
       width: 610px
     .page_actions
       padding-top: 10px
@@ -908,6 +890,8 @@ body
     textarea
       height: 40px
       margin: 0 0 10px 0
+
+#page_heading, #known_uris
   ul.nav
     clear: both
     position: relative
@@ -926,15 +910,16 @@ body
         font-size: 1.08em
         font-weight: bold
         text-decoration: none
-        color: #616e7a
+        color: $darker_blue
       &.active,
       &:hover
-        border-color: #93a4b0
+        border-color: $darker_gray
         a
           color: #28323a
       &.active
         border-bottom: 1px solid #ffffff
         background: #fff
+        margin-bottom: 0
 #tabs_sidebar
   float: right
   position: relative
@@ -1054,10 +1039,10 @@ body
         margin-left: -1px
       .checkbox
         float: left
-        border: 1px solid #cad3db
+        border: 1px solid $grayblue
         height: 68px
         line-height: 68px
-        padding: 0 0 0 3px
+        padding: 0 3px
       .editable
         clear: both
         margin: 0
@@ -1079,7 +1064,7 @@ body
         clear: both
         font-size: .9em
       .collection_item_form
-        margin: 10px 0 0 0
+        margin: 1.5em 0 0 0
         textarea
           display: block
           clear: both
@@ -1107,7 +1092,7 @@ body
         position: absolute
         right: 0
         top: 0
-        +max_dimensions($logo_size_standout, $logo_size_standout)
+        +set_dimensions($logo_size_standout, $logo_size_standout)
         z-index: 2
       h4
         +screenreader_accessible
@@ -1136,7 +1121,7 @@ body
         padding: 0
         width: 86px
         height: 86px
-        border: 1px solid #cad3db
+        border: 1px solid $grayblue
         margin: 0
         display: block
         z-index: 1
@@ -1145,7 +1130,7 @@ body
         clear: both
       .checkbox
         position: absolute
-        border: 1px solid #cad3db
+        border: 1px solid $grayblue
         top: 0
         right: 0
         padding: 8px
@@ -1155,7 +1140,7 @@ body
   ul.collection_names
     padding-bottom: 12px
     li
-      border-bottom: 1px solid #cad3db
+      border-bottom: 1px solid $grayblue
       overflow: hidden
       padding: 5px 10px
       .checkbox
@@ -1164,9 +1149,9 @@ body
       h4
         small
           font-weight: bold
-          color: #5F6C76
+          color: $lighter_text_color
 
-#collections_edit, #collection_items_edit
+#collections_edit
   width: 500px
   margin: 0 auto
   h2
@@ -1228,7 +1213,6 @@ body
         text-align: left
         dt
           float: right
-
 #profile_curator_info,
 #profile_content_partner
   width: 640px
@@ -1271,7 +1255,7 @@ body
           float: left
           text-align: left
         &.actions
-          border-top: 1px solid #CAD3DB
+          border-top: 1px solid $grayblue
 
 #profile_content_connections
   padding: 40px
@@ -1332,7 +1316,7 @@ body
         h4
           b
             font-size: .9em
-            color: #616e7a
+            color: $darker_blue
         p
           font-size: .9em
           line-height: 140%
@@ -1376,6 +1360,7 @@ body
           float: right
           width: 299px
           margin-left: 20px
+          margin-bottom: 40px
         dl
           line-height: 140%
           margin: 0 0 40px 0
@@ -1385,6 +1370,14 @@ body
             margin: 0 20px 5px 0
         &.processing_status
           clear: both
+      .group
+        h4
+          font-style: italic
+          font-weight: normal
+        dt
+          margin-right: 20px
+        dd
+          margin-right: 40px
   .empty
     font-size: 1em
   .agreement
@@ -1403,7 +1396,7 @@ body
       margin-bottom: 5px
   p
     &.resource_status
-      border: 1px solid #cad3db
+      border: 1px solid $grayblue
       background: #f1f4f7
       padding: 20px
       margin: 0 0 10px
@@ -1425,7 +1418,7 @@ ul.content_partner_contacts
     border: none
     padding: 0
   .header
-    border-top: 1px solid #CAD3DB
+    border-top: 1px solid $grayblue
     padding-top: 1em
     margin-top: 40px
   .heading
@@ -1462,7 +1455,7 @@ ul.content_partner_contacts
       &.resources
         padding-bottom: 20px
         > dd
-          border: 1px solid #cad3db
+          border: 1px solid $grayblue
           background: #eff2f4
           padding: 20px 30px 0 30px
           margin: 5px 40px 20px 40px
@@ -1506,7 +1499,7 @@ ul.content_partner_contacts
           float: right
           padding: 4px 0 0 5px
           cursor: pointer
-          background: url(image-path("v2/icon_remove.png")) no-repeat 5px center
+          background: image-url("v2/icon_remove.png") no-repeat 5px center
           padding-right: 17px
           margin: 0 0 5px 5px
           &:hover
@@ -1536,7 +1529,7 @@ ul.content_partner_contacts
         position: relative
         width: 33%
         &.preferred
-          background: url(image-path("v2/icon_required.png")) 7px 50% no-repeat
+          background: image-url("v2/icon_required.png") 7px 50% no-repeat
 #taxon_literature
   .main_container
     .bhl_description
@@ -1565,7 +1558,7 @@ ul.content_partner_contacts
           + td
             font-size: .9em
             line-height: 120%
-            color: #616E7A
+            color: $darker_blue
 
 #taxon
   float: right
@@ -1573,7 +1566,7 @@ ul.content_partner_contacts
   .gallery
     overflow: hidden
     padding: 20px 20px 10px 20px
-    border: 1px solid #cad3db
+    border: 1px solid $grayblue
     .images
       float: right
       position: relative
@@ -1612,8 +1605,8 @@ ul.content_partner_contacts
         width: 98px
         height: 68px
         margin: 0 0 10px 0
-        border: 1px solid #cad3db
-        background: #e2e9ef
+        border: 1px solid $grayblue
+        background: $light_blue
         overflow: hidden
         line-height: 68px
         text-align: center
@@ -1649,8 +1642,8 @@ ul.content_partner_contacts
       text-transform: lowercase
   p.languages
     padding: 2px 20px
-    border-top: 1px solid #cad3db
-    border-bottom: 1px solid #cad3db
+    border-top: 1px solid $grayblue
+    border-bottom: 1px solid $grayblue
     background: $fieldset_light_blue
     margin: 10px 0
     line-height: 160%
@@ -1711,7 +1704,7 @@ ul.content_partner_contacts
           > li
             + li
               border: none
-            > a > img
+            > a > img, img.no_user
               margin: 10px 0 0 10px
             .details
               margin: 10px 0 0 0
@@ -1768,8 +1761,8 @@ ul.content_partner_contacts
     overflow: hidden
     p.languages
       padding: 2px 20px
-      border-top: 1px solid #cad3db
-      border-bottom: 1px solid #cad3db
+      border-top: 1px solid $grayblue
+      border-bottom: 1px solid $grayblue
       background: $fieldset_light_blue
       margin: 0 0 20px 0
       line-height: 160%
@@ -1781,7 +1774,7 @@ ul.content_partner_contacts
       padding: 10px 20px
       margin: 0 0 20px 0
       text-transform: uppercase
-      color: #828d33
+      color: $loafer_text_color
       border: 1px solid #ccd399
       border-width: 1px 0
       background: #f1f4dc
@@ -1791,18 +1784,21 @@ ul.content_partner_contacts
         font-size: 2em
       > .article
         padding: 20px
-        border: 1px solid #cad3db
+        border: 1px solid $grayblue
         margin: 0 0 20px 0
         > h4
           font-size: 1.5em
         > .copy
-          border-top: 1px solid #cad3db
-          border-bottom: 1px solid #cad3db
+          border-top: 1px solid $grayblue
+          border-bottom: 1px solid $grayblue
           padding: 20px 10px 15px 10px
           margin: 0 -10px 20px -10px
           line-height: 170%
+          &.link
+            border: none
+            padding: 0px 10px 15px 10px
         > .references
-          border-bottom: 1px solid #cad3db
+          border-bottom: 1px solid $grayblue
           padding: 0 10px
           margin: 0 -10px 20px -10px
           line-height: 170%
@@ -1838,6 +1834,9 @@ ul.content_partner_contacts
           &.unreviewed
             border: 1px solid #677682
             background: #8695a1
+        > p.filing
+          float: left
+          margin-right: 30px
         > .average_rating
           float: right
           padding: 2px 0 0 40px
@@ -1875,6 +1874,7 @@ ul.content_partner_contacts
     float: right
     dl
       margin: 0
+      padding-right: 10px
     input[type="text"]
       +input
     textarea
@@ -1890,6 +1890,7 @@ ul.content_partner_contacts
         width: 282px
         height: 100px
     &.actions
+      padding-right: 8px
       clear: both
       width: 100%
       input[type="submit"]
@@ -1921,7 +1922,7 @@ ul.content_partner_contacts
       ul a:hover,
       ul a:active,
       ul a:focus
-        background-image: url(image-path("v2/icon_permalink-stars.png"))
+        background-image: image-url("v2/icon_permalink-stars.png")
       ul
         width: 100px
   .media
@@ -1929,10 +1930,15 @@ ul.content_partner_contacts
     width: 540px
     padding: 19px
     margin: 0 0 40px 0
-    border: 1px solid #cad3db
+    border: 1px solid $grayblue
     img
       display: block
       margin: 0 auto
+    p
+      padding-top: 8px
+      text-align: center
+    video
+      max-width: 540px
   &.image
     #main
       .article
@@ -1945,11 +1951,11 @@ ul.content_partner_contacts
         overflow: hidden
         padding: 40px
         margin: 0 0 40px 0
-        border: 1px solid #cad3db
+        border: 1px solid $grayblue
         .references
           margin: 20px 0 0 0
           padding: 20px 0 0 0
-          border-top: 1px solid #CAD3DB
+          border-top: 1px solid $grayblue
   #main
     clear: both
     float: right
@@ -2033,6 +2039,26 @@ ul.content_partner_contacts
         margin: 0 0 0 10px
         input
           margin: 0 0 0 3px
+  #crop_panel
+    height: 140px
+    .preview
+      float: left
+      margin-left: 10px
+      .title
+        padding: 0 0 4px 0
+        font-weight: bold
+    .crop_preview
+      overflow: hidden
+      border: 2px black solid
+      &.width_130
+        width: 130px
+        height: 130px
+      &.width_88
+        width: 88px
+        height: 88px
+  #crop_form
+    clear: both
+    padding: 4px 0 0 10px
 
 #permalink_add_association
   width: 700px
@@ -2086,13 +2112,13 @@ ul.content_partner_contacts
               &:hover
                 text-decoration: underline
           p
-            color: #5f6c76
+            color: $lighter_text_color
             margin: 0 0 10px 0
           ul
             li
               margin: 0 0 3px 0
               font-size: .9em
-              color: #5f6c76
+              color: $lighter_text_color
               form
                 display: inline
                 input[type="submit"]
@@ -2111,16 +2137,16 @@ ul.content_partner_contacts
     border-bottom: 1px solid #ccd399
     background: #f1f4dc
     fieldset
-      float: right
       dl
-        float: right
-        padding: 0 0 0 40px
+        float: left
         dt
           label
             text-transform: uppercase
             color: #667309
         dd
           padding: 0
+#worklist
+  .filters
     fieldset.actions
       margin: 10px 0 0 0
       input[type="submit"]
@@ -2149,7 +2175,7 @@ ul.content_partner_contacts
       float: right
       width: 360px
       margin: 0 0 25px 20px
-      border: 1px solid #93a4b0
+      border: 1px solid $darker_gray
       border-top: none
       border-bottom: none
       li
@@ -2160,18 +2186,18 @@ ul.content_partner_contacts
         padding: 10px
         cursor: pointer
         background: $fieldset_light_blue
-        border-top: 1px solid #93a4b0
+        border-top: 1px solid $darker_gray
         + li
           border-top: 1px solid #d7dadc
         &.last
-          border-bottom: 1px solid #93a4b0
+          border-bottom: 1px solid $darker_gray
         &:hover
           background-color: #ffffff
         p
           padding: 10px 0 0 0
           font-weight: bold
           line-height: 140%
-          color: #5f6c76
+          color: $lighter_text_color
           font-size: .92em
         a
           display: block
@@ -2183,7 +2209,7 @@ ul.content_partner_contacts
           width: 48px
           height: 48px
           margin: 0 0 0 10px
-          border: 1px solid #cad3db
+          border: 1px solid $grayblue
         span.indicator
           position: absolute
           left: -8px
@@ -2206,7 +2232,7 @@ ul.content_partner_contacts
             width: 7px
             height: 7px
             content: ""
-            background: transparent url(image-path("v2/bg_wrap-behind-tail.png")) 0 0 no-repeat
+            background: transparent image-url("v2/bg_wrap-behind-tail.png") 0 0 no-repeat
         img
           float: left
           border: 1px solid #394651
@@ -2224,7 +2250,7 @@ ul.content_partner_contacts
         &.active
           width: 340px
           padding-left: 30px
-          border: 1px solid #93a4b0
+          border: 1px solid $darker_gray
           border-right: none
           border-left-color: #ffffff
           background: #ffffff
@@ -2237,7 +2263,7 @@ ul.content_partner_contacts
   #task
     overflow: hidden
     padding: 19px
-    border: 1px solid #93a4b0
+    border: 1px solid $darker_gray
     #sidebar
       h3
         padding: 0 10px 3px 10px
@@ -2280,6 +2306,7 @@ ul.content_partner_contacts
   #main
     overflow: hidden
     .header
+      position: relative
       padding: 10px 0
       margin: 0 0 20px 0
       text-align: center
@@ -2314,7 +2341,7 @@ ul.content_partner_contacts
           z-index: 2
           padding: 10px
           font-weight: bold
-          background: transparent url(image-path("v2/bg_exemplar.png")) repeat
+          background: transparent image-url("v2/bg_exemplar.png") repeat
         &:hover
           label
             display: block
@@ -2324,7 +2351,7 @@ ul.content_partner_contacts
       &.inappropriate
         .figure
           .overlay
-            background: transparent url(image-path("v2/bg_media-inappropriate.png")) 50% 0 no-repeat
+            background: transparent image-url("v2/bg_media-inappropriate.png") 50% 0 no-repeat
           img
             +opacity(.5)
       &.untrusted
@@ -2346,6 +2373,7 @@ ul.content_partner_contacts
       .ratings
         > .rating
           display: none
+          float: right
           margin: 0 0 5px 0
         &:hover
           .average_rating
@@ -2358,6 +2386,7 @@ ul.content_partner_contacts
           .average_rating
             display: none
       .average_rating
+        float: right
         margin: 0 0 5px 0
       p.flag
         float: left
@@ -2386,7 +2415,6 @@ ul.content_partner_contacts
       clear: both
 #search_results
   #main
-    width: 700px
     float: left
     .header
       position: relative
@@ -2421,7 +2449,7 @@ ul.content_partner_contacts
       height: 68px
       margin: 0 0 0 20px
       border: 1px solid #cad3db
-      background: $fieldset_light_blue url(image-path("v2/icon_communities_tabs.png")) 50% 50% no-repeat
+      background: $fieldset_light_blue image-url("v2/icon_communities_tabs.png") 50% 50% no-repeat
     p
       padding: 6px 0 0 0
       font-weight: bold
@@ -2491,7 +2519,7 @@ ul.content_partner_contacts
       width: 380px
       margin-top: 30px
       background: $fieldset_light_blue
-      border: 1px solid #cad3db
+      border: 1px solid $grayblue
       padding: 20px 20px 0 20px
   .update_feed
     form.comment
@@ -2552,7 +2580,7 @@ ul.content_partner_contacts
           display: none
     dl
       position: relative
-      border: 1px solid #93a4b0
+      border: 1px solid $darker_gray
       line-height: 2.2em
       background: #f6f8fa
       margin: 0 0 40px 0
@@ -2578,8 +2606,8 @@ ul.content_partner_contacts
       dd
         margin: 0
         width: 160px
-        border-right: 1px solid #93a4b0
-        background: #e2e9ef
+        border-left: 1px solid $darker_gray
+        background: $light_blue
         float: right
         text-align: left
         position: relative
@@ -2591,10 +2619,10 @@ ul.content_partner_contacts
           float: left
           text-align: right
           border-right: none
-          border-left: 1px solid #93a4b0
+          border-right: 1px solid $darker_gray
         span
           display: block
-          background: #e2e9ef
+          background: $light_blue
           padding: 1px 20px
           line-height: 1.9em
           margin: 1px 0
@@ -2603,7 +2631,7 @@ ul.content_partner_contacts
           span
             background: #fff
             padding: 0 22px
-            border: 1px solid #93a4b0
+            border: 1px solid $darker_gray
             margin: 1px -3px
             color: #394651
 
@@ -2613,14 +2641,14 @@ ul.content_partner_contacts
     +textarea
 
 #content.session
-  background: #e2e9ef
+  background: $light_blue
   #sign_up, #sign_in, #recover_account
     overflow: hidden
     width: 640px
     min-height: 295px
     margin: 0 auto
     border: 1px solid #cad3db
-    background: #f0f4f7 url(image-path("v2/bg_sign-in.gif")) 0 0 no-repeat
+    background: #f0f4f7 image-url("v2/bg_sign-in.gif") 0 0 no-repeat
     padding-bottom: 40px
     h1
       font-size: 2em
@@ -2673,16 +2701,16 @@ ul.content_partner_contacts
             min-width: 155px
         &#new_user_facebook, &#new_session_facebook
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 0 no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 0 no-repeat
         &#new_user_twitter, &#new_session_twitter
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -34px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -34px no-repeat
         &#new_user_yahoo, &#new_session_yahoo
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -68px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -68px no-repeat
         &#new_user_google, &#new_session_google
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -102px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -102px no-repeat
       & + p
         clear: both
 
@@ -2741,7 +2769,7 @@ ul.content_partner_contacts
           list-style: none
           margin: 0 0 5px 0
           padding: 0 0 0 20px
-          background: transparent url(image-path('v2/icon_social_plugins.png')) no-repeat 0 0
+          background: transparent image-url('v2/icon_social_plugins.png') no-repeat 0 0
           background: none\9
           background-size: 16px
           line-height: 140%
@@ -2764,7 +2792,7 @@ ul.content_partner_contacts
         padding: 20px 20px 10px 20px
         margin-top: 20px
         background: $fieldset_light_blue
-        border: 1px solid #cad3db
+        border: 1px solid $grayblue
       p
         font-size: .9em
         padding-top: 5px
@@ -2777,7 +2805,7 @@ ul.content_partner_contacts
       clear: both
       float: none
       padding: 20px
-      border-top: 1px solid #cad3db
+      border-top: 1px solid $grayblue
       input[type="submit"]
         padding: 7px 10px
         margin: 0 0 0 10px
@@ -2794,7 +2822,7 @@ ul.content_partner_contacts
         h3
           font-size: 1.67em
           line-height: 150%
-          background: transparent url(image-path('v2/icon_social_plugins.png')) no-repeat 0 0
+          background: transparent image-url('v2/icon_social_plugins.png') no-repeat 0 0
           min-height: 31px
         p, h3
           padding-right: 40px
@@ -2822,7 +2850,7 @@ ul.content_partner_contacts
   > a
     display: block
     padding-top: 20px
-    border-top: 1px solid #cad3db
+    border-top: 1px solid $grayblue
 
 #contact_us
   width: 640px
@@ -2868,7 +2896,7 @@ ul.spotlite-matches
       font-size: 1.08em
       padding: 5px 10px 6px 10px
     ul
-      border: 1px solid #cad3db
+      border: 1px solid $grayblue
       height: 230px
       overflow-y: scroll
       margin: 0 0 20px 0
@@ -2882,7 +2910,7 @@ ul.spotlite-matches
         a, span
           font-size: .95em
         & + li
-          border-top: 1px solid #cad3db
+          border-top: 1px solid $grayblue
 
 #modal_layer
   display: none
@@ -2895,13 +2923,23 @@ ul.spotlite-matches
   width: 100%
   height: 100%
 
-#social_sharing
-  margin: 5px 0
-  min-height: 20px
-  > div
-    position: absolute
-    &.facebook
-      margin-right: 70px
+.news_details
+  li, blockquote
+    margin: 0 40px 0 0
+  ol
+    li
+      list-style: decimal
+  ul
+    li
+      list-style: disc
+
+#taxon_detail
+  .empty
+    .link_button
+      margin-right: 7px
+
+.auto_margin
+  margin: 0px auto
 
 #sidebar
   .ratings dl
@@ -2911,11 +2949,11 @@ ul.spotlite-matches
     overflow: hidden
     width: 300px
     dt
-      clear: left
+      clear: right
       float: right
       width: 100px
-      margin: 0 20px 5px 0
-      text-align: right
+      margin: 0 0 5px 20px
+      text-align: left
       text-transform: lowercase
     dd
       float: right
@@ -2924,13 +2962,13 @@ ul.spotlite-matches
       color: #82919e
       font-weight: normal
       > p
-        float: left
+        float: right
       > span
         display: block
         position: relative
         float: right
         margin: 0 0 0 10px
-        background: #e2e9ef
+        background: $light_blue
         border: 1px solid #c9cdd0
         width: 74px
         height: 10px
@@ -2940,8 +2978,91 @@ ul.spotlite-matches
         width: 76px
         height: 10px
         top: -1px
-        left: -1px
+        right: -1px
         border: 1px solid #7e90a0
         background: #93a4b2
     .rating
       margin-left: 10px
+ul#permissions
+  .can
+    font-weight: bold
+    a.grant
+      display: none
+    a.revoke
+      padding-right: 1em
+      display: inline
+      font-weight: normal
+  .cannot
+    font-weight: normal
+    a.grant
+      padding-right: 1em
+      display: inline
+      font-weight: normal
+    a.revoke
+      display: none
+.override_lowercase
+  text-transform: none !important
+#globalWrapper
+  .references
+    margin: 0 30px 15px !important
+    padding: 0px !important
+    border: none !important
+#data_summary
+  .data_div
+    border: 1px solid $grayblue
+    +gradient-bg($fieldset_light_blue, #fefeff)
+    padding: 10px 5px 10px
+  table
+    margin: 0px
+    tr
+      border: 0px
+      line-height: 100%
+      font-size: 1.0em
+      vertical-align: top
+      th
+        width: 40%
+        text-align: left
+        padding-bottom: 1.1em
+      td
+        padding: 0 1em 1.1em 0
+      &:last-child
+        th
+          padding-bottom: .2em
+        td
+          padding: 0 1em 0.2em 0
+      .stat
+        color: #93a4b0
+        &:before
+          content: '('
+        &:after
+          content: ')'
+  div.see_more
+    colspan: 2
+    text-align: center
+#search_results
+  .taxon_summary
+    width: 55%
+    float: left
+    a.icon
+      color: #cad3db
+  .data_summary
+    float: right
+    padding-top: 15px
+    text-align: right
+    width: 300px
+    .attribute
+      text-transform: uppercase
+      color: $darker_blue
+      font-weight: normal
+    .value
+      font-weight: 500
+      font-size: 1.3em
+      color: $nearly_black
+div.definition
+  padding: 15px 15px 30px
+  margin: 10px 0px
+  border: 1px solid $grayblue
+  background: $fieldset_light_blue
+  li
+    margin: 0px
+    padding: 15px

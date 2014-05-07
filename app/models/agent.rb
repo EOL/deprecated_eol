@@ -11,7 +11,7 @@ class Agent < ActiveRecord::Base
 
   # Because of the tables pluralization these may trip you up sometimes
   has_many :agents_synonyms
-  has_many :synonyms, :through => :agents_synonyms
+  has_many :synonyms, through: :agents_synonyms
 
   has_and_belongs_to_many :data_objects
 
@@ -56,15 +56,6 @@ class Agent < ActiveRecord::Base
 
   def self.boa
     cached_find(:full_name, 'Biology of Aging')
-  end
-
-  # override the logo_url column in the database to contruct the path on the content server
-  def logo_url(size = 'large')
-    ContentServer.logo_path(self.attributes['logo_cache_url'], size)
-  end
-
-  def self.logo_url_from_cache_url(logo_cache_url, size = 'large')
-    ContentServer.logo_path(logo_cache_url, size)
   end
 
   def shortened_full_name

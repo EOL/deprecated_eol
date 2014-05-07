@@ -1,0 +1,7 @@
+.site_warning
+  %h3= I18n.t(:beta_warning_header)
+  %p= I18n.t(:beta_warning_body, link: Rails.configuration.beta_test_feedback_link).html_safe
+  - if local_assigns.has_key?(:note) && ! note.blank?
+    %p.note
+      = I18n.t(:beta_warning_note_header)
+      = note.html_safe

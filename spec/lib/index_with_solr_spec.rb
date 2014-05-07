@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe 'Index With Solr' do
 
@@ -21,7 +21,7 @@ describe 'Index With Solr' do
     class GlossaryTerm < ActiveRecord::Base
       remove_index_with_solr
     end
-    gt = GlossaryTerm.create(:term => 'trust', :definition => 'Firm reliance on the integrity, ability, or character of a person or thing')
+    gt = GlossaryTerm.create(term: 'trust', definition: 'Firm reliance on the integrity, ability, or character of a person or thing')
     gt.respond_to?('add_to_index').should == false
     gt.respond_to?('remove_from_index').should == false
     gt.should_not_receive(:add_to_index)
@@ -31,9 +31,9 @@ describe 'Index With Solr' do
 
     # add callbacks and make sure they exist
     class GlossaryTerm < ActiveRecord::Base
-      index_with_solr :keywords => [:term, :definition]
+      index_with_solr keywords: [:term, :definition]
     end
-    gt = GlossaryTerm.create(:term => 'honor', :definition => 'integrity')
+    gt = GlossaryTerm.create(term: 'honor', definition: 'integrity')
     gt.respond_to?('add_to_index').should == true
     gt.respond_to?('remove_from_index').should == true
     gt.should_receive(:add_to_index)
@@ -45,7 +45,7 @@ describe 'Index With Solr' do
     class GlossaryTerm < ActiveRecord::Base
       remove_index_with_solr
     end
-    gt = GlossaryTerm.create(:term => 'bubble', :definition => 'sphere')
+    gt = GlossaryTerm.create(term: 'bubble', definition: 'sphere')
     gt.respond_to?('add_to_index').should == false
     gt.respond_to?('remove_from_index').should == false
     gt.should_not_receive(:add_to_index)
@@ -57,7 +57,7 @@ describe 'Index With Solr' do
   it 'should index the object on creation' do
     # add callbacks - they will exist for the remainder of the tests
     class GlossaryTerm < ActiveRecord::Base
-      index_with_solr :keywords => [:term, :definition]
+      index_with_solr keywords: [:term, :definition]
     end
 
     @solr_connection.delete_all_documents
@@ -66,7 +66,7 @@ describe 'Index With Solr' do
 
     term = 'funny'
     definition = 'my life'
-    gt = GlossaryTerm.create(:term => term, :definition => definition)
+    gt = GlossaryTerm.create(term: term, definition: definition)
     docs = @solr_connection.query_lucene('resource_type:GlossaryTerm')['response']['docs']
     docs.size.should == 2
 
@@ -83,13 +83,13 @@ describe 'Index With Solr' do
 
   it 'should update the index records on update' do
     class GlossaryTerm < ActiveRecord::Base
-      index_with_solr :keywords => [:term, :definition]
+      index_with_solr keywords: [:term, :definition]
     end
     
     @solr_connection.delete_all_documents
     term = 'trusted'
     definition = 'my mom'
-    gt = GlossaryTerm.create(:term => term, :definition => definition)
+    gt = GlossaryTerm.create(term: term, definition: definition)
     docs = @solr_connection.query_lucene('resource_type:GlossaryTerm AND keyword:trusted')['response']['docs']
     docs.size.should == 1
 
@@ -105,13 +105,13 @@ describe 'Index With Solr' do
   it 'should remove index records on destroy' do
     # add callbacks - they will exist for the remainder of the tests
     class GlossaryTerm < ActiveRecord::Base
-      index_with_solr :keywords => [:term, :definition]
+      index_with_solr keywords: [:term, :definition]
     end
     
     @solr_connection.delete_all_documents
     term = 'gravity'
     definition = 'downward pull'
-    gt = GlossaryTerm.create(:term => term, :definition => definition)
+    gt = GlossaryTerm.create(term: term, definition: definition)
     docs = @solr_connection.query_lucene('resource_type:GlossaryTerm AND keyword:gravity')['response']['docs']
     docs.size.should == 1
 
@@ -123,7 +123,7 @@ describe 'Index With Solr' do
   it 'should index based on methods as well as fields' do
     exception = false
     class GlossaryTerm < ActiveRecord::Base
-      index_with_solr :keywords => [:term, :definition, :some_new_method]
+      index_with_solr keywords: [:term, :definition, :some_new_method]
 
       def some_new_method
         term + " :: " + definition
@@ -132,7 +132,7 @@ describe 'Index With Solr' do
 
     term = 'missile'
     definition = 'rocket'
-    gt = GlossaryTerm.create(:term => term, :definition => definition)
+    gt = GlossaryTerm.create(term: term, definition: definition)
     docs = @solr_connection.query_lucene('resource_type:GlossaryTerm AND keyword:missile')['response']['docs']
     docs.size.should == 2
 
@@ -147,11 +147,11 @@ describe 'Index With Solr' do
   it 'should throw an error if the field to index on doesnt exist' do
     exception = false
     class GlossaryTerm < ActiveRecord::Base
-      index_with_solr :keywords => [:term, :definition, :some_nonsense]
+      index_with_solr keywords: [:term, :definition, :some_nonsense]
     end
 
     begin
-      gt = GlossaryTerm.create(:term => 'green', :definition => 'color')
+      gt = GlossaryTerm.create(term: 'green', definition: 'color')
     rescue Exception => e
       exception = e
     end

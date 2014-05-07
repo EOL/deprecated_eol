@@ -34,7 +34,7 @@
         - count += 1
         - if curation_action.affected_comment.parent_type == "TaxonConcept"
           - concept = TaxonConcept.find(curation_action.affected_comment.parent_id)
-          - name = concept.quick_scientific_name(:italicized)
+          - name = concept.title
         - else
           - name = ""
         %tr

@@ -1,12 +1,5 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
--# TODO - These should actually be links to filtered versions of this page, for accessibility.
-#tabs_sidebar.data
-  %ul.tabs.with_icons
-    - @categories.each do |cat|
-      %li= link_to cat.label, taxon_data_path(@taxon_data, :toc_id => cat.id)
-    %li= link_to I18n.t(:other_category), taxon_data_path(@taxon_data, :toc_id => 'other')
-    %li= link_to I18n.t(:all_categories), taxon_data_path(@taxon_data)
-    %li{ class: 'active about' }= link_to I18n.t(:data_about_subtab), '#'
+  = render 'shared/social_sharing'
+= render 'menu'
 .main_container#taxon_data
-  = render :partial => 'about'
+  = render 'about'

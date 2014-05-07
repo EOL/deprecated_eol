@@ -11,9 +11,9 @@ class TaxonUserClassificationFilter
 
   attr_reader :taxon_concept, :user
 
-  def initialize(taxon_concept, user, hierarchy_entry = nil) 
+  def initialize(taxon_concept, user = nil, hierarchy_entry = nil) 
     @taxon_concept = taxon_concept
-    @user = user
+    @user = user || EOL::AnonymousUser.new(Language.default)
     @_hierarchy_entry = hierarchy_entry
     after_initialize
   end
@@ -91,19 +91,20 @@ class TaxonUserClassificationFilter
   # nice, mangageable interface to all of the information we might want about a TaxonConcept.
   def method_missing(method, *args, &block)
     super unless taxon_concept.respond_to?(method)
-    class_eval { delegate method, :to => :taxon_concept } # Won't use method_missing next time!
+    class_eval { delegate method, to: :taxon_concept } # Won't use method_missing next time!
     taxon_concept.send(method, *args, &block)
   end
 
   # NOTE - these are only *browsable* hierarchies!
   def hierarchy_entries
     return @hierarchy_entries if @hierarchy_entries
+    TaxonConcept.preload_associations(taxon_concept, { published_hierarchy_entries: :hierarchy })
     @hierarchy_entries = taxon_concept.published_browsable_hierarchy_entries
     @hierarchy_entries = [_hierarchy_entry] if _hierarchy_entry && @hierarchy_entries.empty?
     HierarchyEntry.preload_associations(
       @hierarchy_entries,
-      [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ],
-      :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]}
+      [ { agents_hierarchy_entries: :agent }, :rank, { hierarchy: :agent } ],
+      select: {hierarchy_entries: [:id, :parent_id, :taxon_concept_id]}
     )
     @hierarchy_entries
   end
@@ -135,6 +136,8 @@ class TaxonUserClassificationFilter
     hierarchy_entry_or_taxon_concept.rank_label
   end
 
+  # TODO - review. Passing around this hash seems complicated and tightly-coupled.
+  # ...smells to me like this could (and should) simply be two separate methods.
   def related_names
     @related_names ||=
       {'parents' => build_related_names_hash(get_related_names(:parents)),
@@ -151,19 +154,26 @@ class TaxonUserClassificationFilter
   def common_names(options = {})
     return @common_names if @common_names
     if _hierarchy_entry
-      names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(hierarchy_entry.id, options)
+      @common_names = EOL::CommonNameDisplay.find_by_hierarchy_entry_id(hierarchy_entry.id, options)
     else
-      names = EOL::CommonNameDisplay.find_by_taxon_concept_id(taxon_concept.id, nil, options)
+      @common_names = EOL::CommonNameDisplay.find_by_taxon_concept_id(taxon_concept.id, nil, options)
     end
-    @common_names = names.select {|name| name.known_language? }
-    @common_names
+  end
+
+  def common_names_count
+    return @common_name_count if @common_name_count
+    if _hierarchy_entry
+      @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(taxon_concept.id, hierarchy_entry.id)
+    else
+      @common_name_count = EOL::CommonNameDisplay.count_by_taxon_concept_id(taxon_concept.id, nil)
+    end
   end
 
   # TODO - This belongs in TaxonMedia or the like:
   # NOTE - _hierarchy_entry can be nil
   def facets
     @facets ||= EOL::Solr::DataObjects.get_aggregated_media_facet_counts(
-      taxon_concept.id, :user => user
+      taxon_concept.id, user: user
     )
   end
 
@@ -176,8 +186,44 @@ class TaxonUserClassificationFilter
     @image ||= taxon_concept.exemplar_or_best_image_from_solr(_hierarchy_entry)
   end
 
+  # NOTE - this ONLY works on overview and media.
+  # TODO - move this to a mixin, which we can then call on those two.
+  def correct_bogus_exemplar_image
+    if image.nil? && ! @media.empty? && ! @media.first.map? 
+      TaxonConceptCacheClearing.clear_exemplar_image(taxon_concept)
+      @image = nil # Reload it the next time you need it.
+    end
+  end
+
   def text(options = {})
     taxon_concept.text_for_user(user, options)
+  end
+
+  # TODO - clearly this belongs in TaxonDetails...
+  # 10/2/13 - this has been turned into a class method and is used in multiple places including the API
+  # where we need a generic catch-all preload of info to present DataObject
+  def self.preload_details(data_objects, user = nil)
+    DataObject.replace_with_latest_versions!(data_objects, language_id: user ? user.language_id : nil, check_only_published: true)
+    includes = [ {
+      data_objects_hierarchy_entries: [ {
+        hierarchy_entry: [ { name: :ranked_canonical_form }, { hierarchy: { resource: :content_partner } }, { taxon_concept: :flattened_ancestors } ]
+      }, :vetted, :visibility ]
+    } ]
+    includes << {
+      all_curated_data_objects_hierarchy_entries: [ {
+        hierarchy_entry: [ :name, :hierarchy, { taxon_concept: :flattened_ancestors } ]
+      }, :vetted, :visibility, :user ]
+    }
+    DataObject.preload_associations(data_objects, includes, select: { content_partners: [ :id, :user_id, :full_name, :display_name, :homepage,
+      :public ]})
+    DataObject.preload_associations(data_objects, :users_data_object)
+    DataObject.preload_associations(data_objects, :license)
+    DataObject.preload_associations(data_objects, :language)
+    DataObject.preload_associations(data_objects, :mime_type)
+    DataObject.preload_associations(data_objects, :data_type)
+    DataObject.preload_associations(data_objects, :translations,
+                                    conditions: "data_object_translations.language_id = #{user.language_id}") if user
+    data_objects
   end
 
 private

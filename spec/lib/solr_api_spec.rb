@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def test_xml(xml, node, data)
   result = xml.xpath("/add/doc/field[@name='#{node}']").map {|n| n.content }
@@ -10,17 +10,17 @@ describe 'Solr API' do
   describe ': TaxonConcepts' do
     before(:all) do
       load_foundation_cache
-      Vetted.gen(:label => 'Trusted') unless Vetted.trusted
+      Vetted.gen(label: 'Trusted') unless Vetted.trusted
       trusted = Vetted.trusted
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
-      @data = { :common_name => ['Atlantic cod', 'Pacific cod'],
-                :preferred_scientific_name => ['Gadus mohua'],
-                :taxon_concept_id => ['1'],
-                :ancestor_taxon_concept_id => '3452345',
-                :top_image_id => '123',
-                :supercedure_id => 0, # This is not *required*, but the search specifies = 0, soooooo....
-                :vetted_id => trusted.id,
-                :published => 1 }
+      @data = { common_name: ['Atlantic cod', 'Pacific cod'],
+                preferred_scientific_name: ['Gadus mohua'],
+                taxon_concept_id: ['1'],
+                ancestor_taxon_concept_id: '3452345',
+                top_image_id: '123',
+                supercedure_id: 0, # This is not *required*, but the search specifies = 0, soooooo....
+                vetted_id: trusted.id,
+                published: 1 }
     end
   
     it 'should connect to solr server from environment' do
@@ -55,8 +55,8 @@ describe 'Solr API' do
       
       @solr.delete_all_documents
       @solr.get_results("*:*")['numFound'].should == 0
-      res = @solr.send_attributes({ 123 => { :vetted_id => 3, :published => 1 },
-                                    456 => { :vetted_id => 2, :published => 0, :nonsense => 'anything' } }, true, false)
+      res = @solr.send_attributes({ 123 => { vetted_id: 3, published: 1 },
+                                    456 => { vetted_id: 2, published: 0, nonsense: 'anything' } }, true, false)
       # send attributes will create a CSV file to send to Solr
       File.exists?(@solr.csv_path).should == true
       File.open(@solr.csv_path, "r") do |f|
@@ -88,7 +88,7 @@ describe 'Solr API' do
     end
   
     it 'should create the data object index' do
-      @taxon_concept = build_taxon_concept(:images => [{ :guid => 'a509ebdb2fc8083f3a33ea17985bae72', :published => 1 }])
+      @taxon_concept = build_taxon_concept(images: [{ guid: 'a509ebdb2fc8083f3a33ea17985bae72', published: 1 }])
       @data_object = DataObject.last
       @solr.build_data_object_index([@data_object])
       @solr.get_results("data_object_id:#{@data_object.id}")['numFound'].should == 1
@@ -104,9 +104,9 @@ describe 'Solr API' do
       ContentPage.delete_all
       @scientific_name = "Something unique"
       @common_name = "Name not yet used"
-      @test_taxon_concept = build_taxon_concept(:scientific_name => @scientific_name, :common_names => [@common_name])
+      @test_taxon_concept = build_taxon_concept(scientific_name: @scientific_name, common_names: [@common_name])
       TaxonConcept.connection.execute("commit")
-      TranslatedContentPage.gen(:title => "Test Content Page", :main_content => "Main Content Page", :left_content => "Left Content Page")
+      TranslatedContentPage.gen(title: "Test Content Page", main_content: "Main Content Page", left_content: "Left Content Page")
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
       @solr.delete_all_documents
     end
@@ -150,14 +150,14 @@ describe 'Solr API' do
       PageName.delete_all
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_BHL_CORE)
       @solr.delete_all_documents
-      @test_taxon_concept = build_taxon_concept(:bhl => [])
+      @test_taxon_concept = build_taxon_concept(bhl: [])
       
-      @publication = PublicationTitle.gen(:title => "Series publication title", :details => "publisher info",
-        :start_year => 1700, :end_year => 2011)
-      @title_item = TitleItem.gen(:publication_title => @publication, :volume_info => "v2. 1776")
-      @item_page = ItemPage.gen(:title_item => @title_item, :year => 1776, :volume => 2, :issue => 4, :prefix => "Page",
-        :number => 98)
-      PageName.gen(:item_page => @item_page, :name => @test_taxon_concept.entry.name)
+      @publication = PublicationTitle.gen(title: "Series publication title", details: "publisher info",
+        start_year: 1700, end_year: 2011)
+      @title_item = TitleItem.gen(publication_title: @publication, volume_info: "v2. 1776")
+      @item_page = ItemPage.gen(title_item: @title_item, year: 1776, volume: 2, issue: 4, prefix: "Page",
+        number: 98)
+      PageName.gen(item_page: @item_page, name: @test_taxon_concept.entry.name)
     end
     
     it 'should start with an empty core' do

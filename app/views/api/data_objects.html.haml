@@ -6,4 +6,4 @@
     = stylesheet_include_i18n_merged 'api'
   %body
     - unless @details_hash.blank?
-      = render(:partial => 'data_object', :layout => false, :locals => { :object_hash => @details_hash } )
+      = render('data_object', :layout => false, { :object_hash => @details_hash } )

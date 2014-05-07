@@ -1,11 +1,11 @@
 class NewsItemsController < ApplicationController
   
-  layout 'v2/basic'
+  layout 'basic'
   
   # GET /news_items
   def index
     @rel_canonical_href = root_url.sub!(/\/+$/,'')
-    @page_title = I18n.t(:page_title, :scope => [:news_items, :index])
+    @page_title = I18n.t(:page_title, scope: [:news_items, :index])
     @first_news_item = NewsItem.first
     @year = (params[:year] || Time.now.year).to_i
     @month = (params[:month] || Time.now.month).to_i
@@ -19,14 +19,14 @@ class NewsItemsController < ApplicationController
     end
     if current_user.news_in_preferred_language
       @translated_news_items = TranslatedNewsItem.find(
-        :conditions =>[ 'translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?
+        conditions: [ 'translated_news_items.language_id = ? and translated_news_items.active_translation=1 and news_items.active=1 and news_items.activated_on<=?
           and MONTH(news_items.display_date) = ? and YEAR(news_items.display_date) = ?', Language.from_iso(current_language.iso_639_1), DateTime.now.utc, @month, @year],
-        :joins => "inner join news_items on news_items.id = translated_news_items.news_item_id",
-        :order => 'news_items.display_date desc')
+        joins: "inner join news_items on news_items.id = translated_news_items.news_item_id",
+        order: 'news_items.display_date desc')
     else
-      news_items = NewsItem.find(:all, :conditions=>['news_items.active=1 and news_items.activated_on<=?
+      news_items = NewsItem.find(:all, conditions: ['news_items.active=1 and news_items.activated_on<=?
         and MONTH(news_items.display_date) = ? and YEAR(news_items.display_date) = ?', DateTime.now.utc, @month, @year],
-        :order=>'news_items.display_date desc', :include => :translations)
+        order: 'news_items.display_date desc', include: :translations)
       translated_news_items = []
       news_items.each do |news_item|
         translations = news_item.translations
@@ -47,16 +47,17 @@ class NewsItemsController < ApplicationController
     page_id = params[:id] # get the id parameter, which can be either a page ID # or a page name
 
     if page_id.is_int?
-      news_item = NewsItem.find(page_id, :include => :translations)
+      news_item = NewsItem.find(page_id, include: :translations)
     else # assume it's a page name
-      news_item = NewsItem.find_by_page_name(page_id, :include => :translations)
-      news_item ||= NewsItem.find_by_page_name(page_id.gsub(' ', '_'), :include => :translations) # will become obsolete once validation on page_name is in place
+      news_item = NewsItem.find_by_page_name(page_id, include: :translations)
+      news_item ||= NewsItem.find_by_page_name(page_id.gsub(' ', '_'), include: :translations) # will become obsolete once validation on page_name is in place
       raise ActiveRecord::RecordNotFound, "Couldn't find NewsItem with page_name=#{page_id}" if news_item.nil?
     end
 
     if ! news_item.nil? && ! current_user.can_read?(news_item) && ! logged_in?
       raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to NewsItem with ID=#{news_item.id}"
     elsif ! current_user.can_read?(news_item)
+      # TODO - second argument to constructor should be an I18n key for a human-readable error.
       raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to NewsItem with ID=#{news_item.id}"
     else # page exists so now we look for actual content i.e. a translated page
       if news_item.translations.blank?
@@ -65,8 +66,10 @@ class NewsItemsController < ApplicationController
         translations_available_to_user = news_item.translations.select{|t| current_user.can_read?(t)}.compact
         if translations_available_to_user.blank?
           if logged_in?
+            # TODO - second argument to constructor should be an I18n key for a human-readable error.
             raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to any TranslatedNewsItem with news_item_id=#{news_item.id}"
           else
+            # TODO - second argument to constructor should be an I18n key for a human-readable error.
             raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to any TranslatedNewsItem with news_item_id=#{news_item.id}"
           end
         else
@@ -76,7 +79,7 @@ class NewsItemsController < ApplicationController
           @translated_news_items = translations_available_to_user
           @translated_news_item = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
           @page_title = @translated_news_item.nil? ? I18n.t(:news_missing_content_title) : @translated_news_item.title
-          current_user.log_activity(:viewed_content_page_id, :value => page_id)
+          current_user.log_activity(:viewed_content_page_id, value: page_id)
           @rel_canonical_href = news_url(news_item)
         end
       end

@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-require File.dirname(__FILE__) + '/../scenario_helpers'
+require "spec_helper"
 
 describe 'Curating Associations' do
 
@@ -29,14 +28,14 @@ describe 'Curating Associations' do
     @dohe.save!
   end
 
-  # :vetted_id => vetted_method,
-  # :visibility_id => visibility_method,
-  # :untrust_reason_ids => untrust_reason_ids,
-  # :curate_vetted_status => true,
-  # :curate_visibility_status => true,
-  # :curation_comment => 'test curation comment.',
-  # :curation_comment_status => true,
-  # :changeable_object_type => 'data_object'
+  # vetted_id: vetted_method,
+  # visibility_id: visibility_method,
+  # untrust_reason_ids: untrust_reason_ids,
+  # curate_vetted_status: true,
+  # curate_visibility_status: true,
+  # curation_comment: 'test curation comment.',
+  # curation_comment_status: true,
+  # changeable_object_type: 'data_object'
 
   it 'should #trust a dohe' do
     @dohe.vetted_id = Vetted.untrusted.id # Current value IS trusted... blah.

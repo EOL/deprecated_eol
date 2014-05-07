@@ -1,11 +1,11 @@
 - if @collection.featuring_communities.length > 0
   .collection_contributors
-    = render :partial => 'collections/endorsed_by', :locals => { :collection => @collection }
+    = render 'collections/endorsed_by', { :collection => @collection }
 - unless @recently_visited_collections.blank?
   .collection_contributors
     %h3= I18n.t(:recently_visited)
     %ul
       - @recently_visited_collections.each do |rvc|
         %li
-          = link_to image_tag(rvc.logo_url, :alt => ''), rvc
+          = link_to image_tag(rvc.logo_url, :alt => '', width: 35, height: 35), rvc
           %h4= link_to rvc.name, rvc

@@ -1,25 +1,25 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe TaxonConceptExemplarArticle do
 
-  before :all do
-    truncate_all_tables
-    EolScenario.load :bootstrap
+  before do
+    TaxonConceptCacheClearing.stub(:clear_overview_article_by_id).and_return(nil)
   end
 
   it '#set_exemplar should add/update exemplar article record for taxon concept' do
-    taxon_concept = TaxonConcept.gen
-    DataType.gen_if_not_exists(:label => 'Text', :schema_value => 'http://purl.org/dc/dcmitype/Text')
-    data_object = DataObject.gen(:data_type_id => DataType.text.id, :published => 1)
-    TaxonConceptExemplarArticle.set_exemplar(taxon_concept.id, data_object.id)
+    TaxonConceptExemplarArticle.set_exemplar(567, 123)
     tcea = TaxonConceptExemplarArticle.last
-    tcea.taxon_concept_id.should == taxon_concept.id
-    tcea.data_object_id.should == data_object.id
-    new_data_object = DataObject.gen(:data_type_id => DataType.text.id, :published => 1)
-    TaxonConceptExemplarArticle.set_exemplar(taxon_concept.id, new_data_object.id)
+    tcea.taxon_concept_id.should == 567
+    tcea.data_object_id.should == 123
+    TaxonConceptExemplarArticle.set_exemplar(567, 789)
     tcea.reload
-    tcea.taxon_concept_id.should == taxon_concept.id
-    tcea.data_object_id.should == new_data_object.id
+    tcea.taxon_concept_id.should == 567
+    tcea.data_object_id.should == 789
+  end
+
+  it 'should clear cache' do
+    TaxonConceptCacheClearing.should_receive(:clear_overview_article_by_id).with(234)
+    TaxonConceptExemplarArticle.set_exemplar(234, 345)
   end
 
 end

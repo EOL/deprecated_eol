@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe TaxonDetails do
 
@@ -24,7 +24,7 @@ describe TaxonDetails do
   before(:all) do
     load_foundation_cache
     @taxon_concept = TaxonConcept.gen # Doesn't need to be anything fancy, here.
-    @native_entry = HierarchyEntry.gen(:taxon_concept => @taxon_concept)
+    @native_entry = HierarchyEntry.gen(taxon_concept: @taxon_concept)
     @entry = HierarchyEntry.gen
     @user = User.gen
   end
@@ -40,16 +40,16 @@ describe TaxonDetails do
   end
 
   it 'should know when it has articles in other languages' do
-    @details.should_receive(:count_by_language).and_return({:whatever => 1})
+    @details.should_receive(:count_by_language).and_return({whatever: 1})
     @details.articles_in_other_languages?.should be_true
   end
 
   # This looks more complicated than it is. It's actually pretty simple, if you read through it.
   it 'should have a count by language of approved languages (only)' do
-    english_article = DataObject.gen(:language => Language.first)
-    english_article.stub!(:approved_language?).and_return(true)
-    bad_article = DataObject.gen(:language => Language.last)
-    bad_article.stub!(:approved_language?).and_return(false)
+    english_article = DataObject.gen(language: Language.first)
+    english_article.stub(:approved_language?).and_return(true)
+    bad_article = DataObject.gen(language: Language.last)
+    bad_article.stub(:approved_language?).and_return(false)
     articles = [english_article, bad_article]
     @taxon_concept.should_receive(:text_for_user).and_return([english_article])
     DataObject.should_receive(:preload_associations).with([english_article], :language).and_return([english_article])
@@ -133,13 +133,13 @@ describe TaxonDetails do
 
   # This is pretty ugly, but it's hard to test block code, yeah?
   it '#each_toc_item should iterate through the nested toc items with its content' do
-    first_toc_item = TocItem.gen(:parent_id => 0)
+    first_toc_item = TocItem.gen(parent_id: 0)
     first_content  = DataObject.gen
     first_content.should_receive(:toc_items).at_least(1).times.and_return([first_toc_item])
-    child_toc_item = TocItem.gen(:parent_id => first_toc_item.id)
+    child_toc_item = TocItem.gen(parent_id: first_toc_item.id)
     child_content  = DataObject.gen
     child_content.should_receive(:toc_items).at_least(1).times.and_return([child_toc_item])
-    second_child_toc_item = TocItem.gen(:parent_id => first_toc_item.id)
+    second_child_toc_item = TocItem.gen(parent_id: first_toc_item.id)
     second_child_content  = DataObject.gen
     second_child_content.should_receive(:toc_items).at_least(1).times.and_return([second_child_toc_item])
     root_toc_item = TocItem.gen
@@ -178,7 +178,7 @@ describe TaxonDetails do
   end
 
   it '#resources_links should include education if toc includes them' do
-    should_get_sym_when_toc_includes(:education, :education_toc_ids)
+    should_get_sym_when_toc_includes(:education, :education_for_resources_tab)
   end
 
   it '#resources_links should include biomedical_terms if TC has a ligercat entry' do
@@ -205,15 +205,6 @@ describe TaxonDetails do
 
   it '#resources_links should include multimedia_links when it incudes multimedia link_types' do
     should_get_sym_when_links_include(:multimedia_links, :multimedia)
-  end
-
-  it '#literature_references_links should be blank by default' do
-    @details.literature_references_links.should == []
-  end
-
-  it '#literature_references_links should include literature_references if there is a literature_references_for the TC' do
-    Ref.should_receive(:literature_references_for?).with(@taxon_concept.id).and_return(true)
-    @details.literature_references_links.should include(:literature_references)
   end
 
   it '#literature_references_links should include literature_links when it incudes paper link_types' do

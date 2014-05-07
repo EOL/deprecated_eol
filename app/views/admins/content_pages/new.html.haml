@@ -8,11 +8,11 @@
 
       %p.tip
         = raw(I18n.t(:admin_content_page_new_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
-      = render :partial => 'content_page_fieldset', :locals => {:content_page_form => content_page_form}
+      = render 'content_page_fieldset', {:content_page_form => content_page_form}
 
       %fieldset
         %h3= I18n.t(:admin_translated_content_page_new_header)
-        = render :partial => 'admins/translated_content_pages/translated_content_page_fieldset'
+        = render 'admins/translated_content_pages/translated_content_page_fieldset'
 
       %fieldset.actions
         = content_page_form.submit I18n.t('helpers.submit.content_page.create')

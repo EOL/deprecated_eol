@@ -1,0 +1,14 @@
+- view_style ||= 'default'
+- attribute ||= nil
+- attribute = nil unless attribute.respond_to?(:name) && attribute.respond_to?(:uri) && ! attribute.name.blank?
+- link = attribute ? data_search_path(attribute: attribute.uri) : data_search_path(q: query)
+- unless ['gallery','list'].include?(view_style)
+  = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:data_search_link)}), link
+%h4
+  = link_to attribute.name.html_safe, link
+- if attribute
+  = truncate(attribute.definition.add_missing_hyperlinks, length: 75)
+  %br
+  = link_to I18n.t(:data_search_attribute, attribute: attribute.name).html_safe, link
+- else
+  = link_to I18n.t(:data_search_explanation, term: query).html_safe, link

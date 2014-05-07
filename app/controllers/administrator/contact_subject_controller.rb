@@ -1,6 +1,6 @@
 class Administrator::ContactSubjectController < AdminController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   before_filter :set_layout_variables
 
@@ -9,7 +9,7 @@ class Administrator::ContactSubjectController < AdminController
  def index
 
    @page_title = I18n.t("contact_us_topics")
-   @translated_contact_subjects = TranslatedContactSubject.find(:all,:order => 'title')
+   @translated_contact_subjects = TranslatedContactSubject.find(:all,order: 'title')
 
  end
 
@@ -33,9 +33,9 @@ class Administrator::ContactSubjectController < AdminController
    @contact_subject = ContactSubject.new(params[:contact_subject])
    if @contact_subject.save
      flash[:notice] = I18n.t("the_new_topic_was_created")
-     redirect_to :action => 'index', :status => :moved_permanently
+     redirect_to action: 'index', status: :moved_permanently
    else
-     render :action => 'new'
+     render action: 'new'
    end
 
  end
@@ -45,9 +45,9 @@ class Administrator::ContactSubjectController < AdminController
    @contact_subject = ContactSubject.find(params[:id])
    if @contact_subject.update_attributes(params[:contact_subject])
       flash[:notice] = I18n.t("the_topic_was_updated")
-      redirect_to :action => 'index', :status => :moved_permanently
+      redirect_to action: 'index', status: :moved_permanently
    else
-      render :action => 'edit'
+      render action: 'edit'
   end
 
  end

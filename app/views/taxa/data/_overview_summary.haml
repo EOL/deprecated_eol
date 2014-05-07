@@ -1,27 +1,26 @@
-- values_to_show_per_row = 3
-- rows_to_show = 10
+-# TODO - I probably didn't mark all the places in this view where we've got business logic. The whole view needs consideration.
 .data_div
   %table.standard.data
     %caption.assistive= I18n.t(:data_overview_table_caption)
-    -# TODO - this logic should be in the "model" (even if the model is a hash/array):
-    - unique_attributes = data.map { |r| r[:attribute] }.uniq
-    - unique_attributes.each_with_index do |attribute, index|
-      - row_class = (index == unique_attributes.length - 1) ? 'last' : nil
-      %tr{ :class => row_class }
-        %th= display_uri(attribute)
+    - @range_data.each_with_index do |range_data, index|
+      %tr
+        %th
+          = display_uri(range_data[:attribute], capitalize: true)
         %td
-          - rows_for_this_attribute = data.select{ |r| r[:attribute] == attribute }
-          - text_for_rows = rows_for_this_attribute.map do |r|
-            - display_text_for_structured_data_row(r, :taxon_concept => @taxon_concept, :link_to_overview => true)
-          -# TODO - This should REALLY be in the model: we don't want the *view* hiding things, since we want curators to specify them!
-          - if text_for_rows.length > values_to_show_per_row
-            - text_for_rows = text_for_rows.sort[0...values_to_show_per_row]
-            - text_for_rows << link_to(I18n.t(:more),
-              taxon_data_path(:toc_id => (attribute.is_a?(KnownUri) && attribute.toc_items.length > 0) ?  attribute.toc_items.first.id : nil,
-              :anchor => attribute.is_a?(KnownUri) ? attribute.uri : attribute))
-          = raw text_for_rows.join(", ").gsub(/<\/span>, /, ", </span>") # Clean up commas...
-      - if index >= rows_to_show - 1
-        - break
-  - if unique_attributes.length > rows_to_show
-    .see_more
-      = link_to(I18n.t(:see_more_on_the_data_tab), taxon_data_path)
+          - min_value = range_data[:min].object.round(2)
+          - if range_data[:min].unit_of_measure != range_data[:max].unit_of_measure
+            - uri_components = EOL::Sparql.explicit_measurement_uri_components(range_data[:min].unit_of_measure_uri)
+            - min_value = min_value.to_s + " " + display_uri(uri_components)
+          = raw [ min_value, display_text_for_data_point_uri(range_data[:max]) ].join(' - ')
+    - unless overview_data.empty?
+      - overview_data.each_with_index do |(row_representative, row_data), index|
+        %tr
+          %th= display_uri(row_representative.predicate_uri, capitalize: true)
+          %td
+            - text_for_rows = row_data[:data_point_uris].map do |data_point_uri|
+              - text = display_text_for_data_point_uri(data_point_uri, link_to_overview: true, include_statistical_method: true)
+            - if row_data[:show_more]
+              - text_for_rows << link_to(I18n.t(:show_more_row_data_link),
+                taxon_data_path(@overview, toc_id: (row_representative.is_a?(KnownUri) && row_representative.toc_items.length > 0) ? row_representative.toc_items.first.id : nil,
+                anchor: row_representative.is_a?(KnownUri) ? row_representative.uri : row_representative))
+            = raw text_for_rows.join("<br/>")

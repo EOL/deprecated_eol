@@ -1,7 +1,7 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_literature
-  = render :partial => 'literature_menu'
+  = render 'literature_menu'
   .main_container
     .copy
       - unless @references.blank?
@@ -12,5 +12,5 @@
           %p= I18n.t(:literature_empty)
       - else
         %ul.ref_list
-          - @references.each do |r|
-            %li= raw(r.full_reference)
+          - @references.each do |ref|
+            = render "refs/show_as_list_item", { ref: ref }

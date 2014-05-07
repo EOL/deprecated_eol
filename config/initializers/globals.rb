@@ -1,3 +1,90 @@
+# So, the new-fangled way to do configuration in Rails is Rails.configuration.WHATEVER.  ...So let's do that. It's better than
+# friggin' globals.  That said, we may want to adopt the simple, popular, SimpleConfig:
+# https://github.com/lukeredpath/simpleconfig
+
+#Server's IP address
+Rails.configuration.site_domain = "eol.org" #domain name for url links communicated outside, for example for emails
+
+# If you're testing a new feature, they will be asked to go here to provide feedback:
+Rails.configuration.beta_test_feedback_link = 'https://www.surveymonkey.com/s/9FDTDQP'
+
+# Collection configu settings:
+
+Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
+
+# TAXON DATA configuration settings:
+
+Rails.configuration.uri_prefix = 'http://eol.org/schema/'
+Rails.configuration.uri_term_prefix = "#{Rails.configuration.uri_prefix}terms/"
+Rails.configuration.uri_reference_prefix = "#{Rails.configuration.uri_prefix}reference/"
+Rails.configuration.uri_resources_prefix = "#{Rails.configuration.uri_prefix}resources/"
+Rails.configuration.uri_true = "#{Rails.configuration.uri_term_prefix}true"
+Rails.configuration.uri_uses_measurement = "#{Rails.configuration.uri_prefix}uses_measurement"
+Rails.configuration.uri_allowed_val = "#{Rails.configuration.uri_prefix}allowedValue"
+Rails.configuration.uri_allowed_unit = "#{Rails.configuration.uri_prefix}allowedUnit"
+Rails.configuration.uri_supplier = "#{Rails.configuration.uri_term_prefix}supplier"
+Rails.configuration.uri_target_occurence = "#{Rails.configuration.uri_prefix}targetOccurrenceID"
+Rails.configuration.uri_reference = "#{Rails.configuration.uri_prefix}reference/Reference"
+Rails.configuration.uri_reference_id = "#{Rails.configuration.uri_prefix}reference/referenceID"
+Rails.configuration.uri_association_id = "#{Rails.configuration.uri_prefix}associationID"
+Rails.configuration.uri_association_type = "#{Rails.configuration.uri_prefix}associationType"
+Rails.configuration.uri_measurement_of_taxon = "#{Rails.configuration.uri_prefix}measurementOfTaxon"
+Rails.configuration.uri_parent_measurement_id = "#{Rails.configuration.uri_prefix}parentMeasurementID"
+# DarwinCore
+Rails.configuration.uri_dwc = "http://rs.tdwg.org/dwc/terms/"
+Rails.configuration.uri_data_measurement = "#{Rails.configuration.uri_dwc}MeasurementOrFact"
+Rails.configuration.uri_measurement_unit = "#{Rails.configuration.uri_dwc}measurementUnit"
+# OBO
+Rails.configuration.uri_obo = "http://purl.obolibrary.org/obo/"
+# Dublin Core
+Rails.configuration.uri_dc = "http://purl.org/dc/terms/"
+Rails.configuration.uri_license = "#{Rails.configuration.uri_dc}license"
+Rails.configuration.uri_source = "#{Rails.configuration.uri_dc}source"
+Rails.configuration.uri_citation = "#{Rails.configuration.uri_dc}bibliographicCitation"
+# OWL
+Rails.configuration.uri_owl = 'http://www.w3.org/2002/07/owl#'
+Rails.configuration.uri_equivalent_property = "#{Rails.configuration.uri_owl}equivalentProperty"
+Rails.configuration.uri_inverse = "#{Rails.configuration.uri_owl}inverseOf"
+
+
+Rails.configuration.uri_prefix_user_added_data = "http://eol.org/pages/" # TODO - this should be a polymorphic hash, ie:
+                                # { taxon_concept: "http://eol.org/pages/", data_object: "http://eol.org/data_objects/" } ...etc...
+Rails.configuration.uri_prefix_association = "#{Rails.configuration.uri_prefix}Association"
+Rails.configuration.user_added_data_graph = "http://eol.org/user_data/"
+Rails.configuration.known_uri_graph = "http://eol.org/known_uris"
+Rails.configuration.known_taxon_uri_re = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.
+Rails.configuration.optional_reference_uris = { # Be careful changing these...  :)
+  identifier: "http://purl.org/dc/terms/identifier",
+  publicationType: "http://eol.org/schema/reference/publicationType",
+  full_reference: "http://eol.org/schema/reference/full_reference",
+  primaryTitle: "http://eol.org/schema/reference/primaryTitle",
+  title: "http://purl.org/dc/terms/title",
+  pages: "http://purl.org/ontology/bibo/pages",
+  pageStart: "http://purl.org/ontology/bibo/pageStart",
+  pageEnd: "http://purl.org/ontology/bibo/pageEnd",
+  volume: "http://purl.org/ontology/bibo/volume",
+  edition: "http://purl.org/ontology/bibo/edition",
+  publisher: "http://purl.org/dc/terms/publisher",
+  authorList: "http://purl.org/ontology/bibo/authorList",
+  editorList: "http://purl.org/ontology/bibo/editorList",
+  created: "http://purl.org/dc/terms/created",
+  language: "http://purl.org/dc/terms/language",
+  uri: "http://purl.org/ontology/bibo/uri",
+  doi: "http://purl.org/ontology/bibo/doi",
+  localityName: "http://schemas.talis.com/2005/address/schema#localityName"
+}
+
+Rails.configuration.data_search_file_rel_path = '/uploads/data_search_files/:id.csv'
+Rails.configuration.data_search_file_full_path = "#{Rails.public_path}#{Rails.configuration.data_search_file_rel_path}"
+
+Rails.configuration.hosted_dataset_path = 'http://localhost/eol_php_code/applications/content_server/datasets/'
+
+Rails.configuration.local_services = false
+
+
+# -------------------------------------------------------------------------
+# OLD STUFF...          PLEASE DON'T DO THIS ANYMORE.  :|
+
 # Moving all the (stupid) globals we used to have in the environment.rb file here.  But, really, we should find an
 # even better solution than this.
 
@@ -11,11 +98,11 @@ $PRODUCTION_MODE = Rails.env.production? || Rails.env.staging? || Rails.env.sync
 $IMAGE_LIMIT = 200
 
 # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-$CONTENT_SERVERS = ['http://localhost/']
+$CONTENT_SERVER = 'http://localhost/'
+$SINGLE_DOMAIN_CONTENT_SERVER = 'http://localhost/'
 $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
 $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
 $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"
-$SINGLE_DOMAIN_CONTENT_SERVER = 'http://localhost/'
 $SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the content server
 
 # MEDIA CENTER CONFIGURATION
@@ -45,7 +132,7 @@ $MAX_SEARCH_RESULTS = 200 # the maximum possible number of search results that c
 $USE_EXTERNAL_LINK_POPUPS = false # if set to true, then attribution and other links will create a pop-up javascript when linking to external sites
 $ALLOW_CURATOR_SELF_REG = true # set to allow curators to self-register
 $USE_SSL_FOR_LOGIN = false # set to true to force users to use SSL for the login and signup pages
-$ENABLED_SOCIAL_PLUGINS = [:facebook, :google, :twitter, :yahoo] # Enable open authentication and social sharing on the site e.g. Facebook Like button
+$ENABLED_SOCIAL_PLUGINS = [:facebook, :google, :twitter] # Enable open authentication and social sharing on the site e.g. Facebook Like button
 
 # DATA LOGGING CONFIGURATION
 $ENABLE_DATA_LOGGING = true # set to true to enable data usage and search term logging in logging database
@@ -97,10 +184,6 @@ $WEB_SERVICE_BASE_URL = '' # web service is used for importing content partners'
 # $REFERENCE_PARSER_ENDPOINT = **the URL of the reference parsing script**
 # $REFERENCE_PARSER_PID = **the email address of the crossref user account**
 
-#Server's IP address
-$IP_ADDRESS_OF_SERVER = EOLWebService.local_ip
-$SITE_DOMAIN_OR_IP = $IP_ADDRESS_OF_SERVER #domain name for url links communicated outside, for example for emails
-
 # Default values for some language-dependent strings used by models:
 $CURATOR_ROLE_NAME   = 'Curator'
 $ADMIN_ROLE_NAME     = 'Administrator'
@@ -129,8 +212,6 @@ $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
 $HOMEPAGE_NEWS_CACHE_TIME = 10  # minutes
 $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
 
-APPROVED_LANGUAGES = ['ar', 'de', 'en', 'es', 'fr', 'gl', 'ko', 'mk', 'nl', 'nb', 'sr', 'sr-Latn', 'tl', 'zh-Hans']
-
 $ENABLE_TRANSLATION_LOGS = false # This is expensive; DON'T do it by default!
 
 # Default values for some footer elements:
@@ -141,6 +222,7 @@ $EOL_YOUTUBE_ACCOUNT    = "http://www.youtube.com/user/EncyclopediaOfLife/"
 $EOL_PINTEREST_ACCOUNT  = "http://pinterest.com/eoflife/"
 $EOL_VIMEO_ACCOUNT      = "http://vimeo.com/groups/encyclopediaoflife"
 $EOL_FLIPBOARD_ACCOUNT  = "http://flip.it/eol"
+$EOL_GOOGLE_PLUS_ACCOUNT  = "//plus.google.com/+encyclopediaoflife?prsrc=3"
 
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'

@@ -3,7 +3,7 @@ class Collections::InaturalistsController < CollectionsController
   skip_before_filter :user_able_to_edit_collection
   skip_before_filter :build_collection_items
 
-  layout 'v2/collections'
+  layout 'collections'
 
   def show
     @inaturalist_project_id = @collection.inaturalist_project_info['id']
@@ -23,6 +23,7 @@ private
 
   def inaturalist_project_observations(project_id)
     return nil if project_id.nil?
+    return nil if project_id == "[DATA MISSING]" # TODO - lame. We should have a way to express this.  :|
     url = "http://www.inaturalist.org/observations/project/#{project_id}.json?per_page=20"
     response = Net::HTTP.get(URI.parse(url))
     JSON.parse(response)

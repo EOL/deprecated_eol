@@ -34,7 +34,7 @@ module EOL
     
     if self.defined_in_environment?(variable_name_string)
       return eval("$#{variable_name_string}")
-    elsif option = SiteConfigurationOption.find_by_parameter(variable_name_string) 
+    elsif option = EolConfig.find_by_parameter(variable_name_string) 
       return option.value
     end
     
@@ -49,7 +49,7 @@ module EOL
   
   def self.defined_in_database?(variable_name_string)
     #return false unless variable_name_string.match(/^[A-Z]+(_[A-Z]+)*$/i)
-    return true if SiteConfigurationOption.find_by_parameter(variable_name_string) 
+    return true if EolConfig.find_by_parameter(variable_name_string) 
     return false
   end
   

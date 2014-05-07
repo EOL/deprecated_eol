@@ -5,21 +5,21 @@
 -# text-heavy collections and search results.  That said, there is one caveat:
 -# if the dato gets more associations, it will not show them.  TODO - attempt to set up an observer to handle those.
 - view_style ||= 'default'
+- search_result = nil unless local_assigns.has_key?(:search_result)
+- path = data_object_path(item)
 - cache "article/summary/#{view_style}/#{I18n.locale}/#{item.id}" do
   - unless view_style == 'list'
-    = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_article_assistive)}), data_object_path(item)
+    = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_article_assistive)}), path
   %h4
-    = link_to item.collected_name.truncate_html(:length => 64), data_object_path(item)
+    = link_to item.collected_name.truncate_html(:length => 64), path
     - if view_style == 'list' && @filter.nil?
       %small= I18n.t(:item_type_article)
   - unless ['gallery','list'].include?(view_style)
-    - if he = item.first_hierarchy_entry(:include_preview_entries => true)
-      - secondary_title = I18n.t(:description_of) + ' ' + he.name.canonical_form.string
-    - if item.data_object_taxa(:published).length > 1
-      - secondary_title += ' ' + I18n.t(:and) + ' ' + I18n.t(:other_taxa_with_count, :count => item.data_object_taxa(:published).length - 1)
-    - if secondary_title.blank? && udo = item.users_data_object
-      - secondary_title = I18n.t(:description_of) + ' ' + udo.taxon_concept.entry.name.canonical_form.string rescue ""
-    - unless secondary_title.blank?
-      = link_to secondary_title, data_object_path(item)
+    - he = item.first_hierarchy_entry(:include_preview_entries => true)
+    - he ||= item.users_data_object && item.users_data_object.taxon_concept.entry
+    - if he 
+      - count = item.uncached_data_object_taxa(published: true).length - 1
+      - count = 0 if count < 1 # In rare cases, you'll get -1...
+      = link_to I18n.t(:article_secondary_description_with_others_count, taxon: he.title_canonical, count: count), path
       %br
     = raw(item.description_teaser)

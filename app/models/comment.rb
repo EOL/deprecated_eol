@@ -15,13 +15,13 @@ class Comment < ActiveRecord::Base
   include EOL::ActivityLogItem
 
   belongs_to :user # always always posted by a user.
-  belongs_to :parent, :polymorphic => true
-  belongs_to :reply_to, :polymorphic => true
+  belongs_to :parent, polymorphic: true
+  belongs_to :reply_to, polymorphic: true
   has_one :curator_activity_log # Because you can post a comment along with activity, and we want the two to have a
   # relationship in the DB, so we can report on it to content partners.
 
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
-  scope :visible, lambda { { :conditions => ['visible_at <= ?', 0.seconds.from_now] } }
+  scope :visible, lambda { { conditions: ['visible_at <= ?', 0.seconds.from_now] } }
 
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr
@@ -106,7 +106,7 @@ class Comment < ActiveRecord::Base
 
   def show(by)
     self.vetted_by = by if by
-    self.update_attributes(:visible_at => Time.now)
+    self.update_attributes(visible_at: Time.now)
 
     # re-index comment in solr
     log_activity_in_solr
@@ -114,7 +114,7 @@ class Comment < ActiveRecord::Base
 
   def hide(by)
     self.vetted_by = by if by
-    self.update_attributes(:visible_at => nil)
+    self.update_attributes(visible_at: nil)
 
     # remove comment from solr
     begin
@@ -139,7 +139,7 @@ class Comment < ActiveRecord::Base
   def taxon_concept_id
     return_t_c = case self.parent_type
      when 'TaxonConcept' then parent_id
-     when 'DataObject'   then parent.get_taxon_concepts(:published => :preferred).first.id
+     when 'DataObject'   then parent.get_taxon_concepts(published: :preferred).first.id
      else nil
     end
     raise "Don't know how to handle a parent type of #{self.parent_type} (or t_c was nil)" if return_t_c.nil?
@@ -170,6 +170,7 @@ class Comment < ActiveRecord::Base
     @notification_recipients = []
     add_recipient_user_making_comment(@notification_recipients)
     add_recipient_object_getting_commented_on(@notification_recipients)
+    add_recipient_object_taxon_ancestors(@notification_recipients)
     add_recipient_collections_containing_object_getting_commented_on(@notification_recipients)
     add_recipient_replied_to_user(@notification_recipients)
     add_recipient_collection_managers(@notification_recipients)
@@ -201,8 +202,8 @@ private
 
   def add_recipient_user_making_comment(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
-    recipients << { :user => self.user, :notification_type => :i_commented_on_something,
-                    :frequency => NotificationFrequency.never }
+    recipients << { user: self.user, notification_type: :i_commented_on_something,
+                    frequency: NotificationFrequency.never }
     # watch collection of user making comment
     recipients << self.user.watch_collection if self.user.watch_collection
   end
@@ -216,16 +217,23 @@ private
       # news feed of other types
       recipients << self.parent
     end
-    
+  end
+
+  def add_recipient_object_taxon_ancestors(recipients)
     if self.parent.respond_to?(:flattened_ancestor_ids)
       # page's ancestors
-      recipients << { :ancestor_ids => self.parent.flattened_ancestor_ids }
+      recipients << { ancestor_ids: self.parent.flattened_ancestor_ids }
     elsif self.parent.respond_to?(:data_object_taxa)
       # object's pages and pages' ancestors
       self.parent.data_object_taxa.each do |association|
         recipients << association.taxon_concept
-        recipients << { :ancestor_ids => association.taxon_concept.flattened_ancestor_ids } if
+        recipients << { ancestor_ids: association.taxon_concept.flattened_ancestor_ids } if
           association.taxon_concept.respond_to?(:flattened_ancestor_ids)
+      end
+    elsif self.parent.is_a?(DataPointUri)
+      if self.parent.taxon_concept
+        recipients << self.parent.taxon_concept
+        recipients << { ancestor_ids: self.parent.taxon_concept.flattened_ancestor_ids }
       end
     end
   end

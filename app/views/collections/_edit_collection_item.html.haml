@@ -1,4 +1,4 @@
-- # Partial to render parent collection form needed for nested collection item form within collection page.
+- # to render parent collection form needed for nested collection item form within collection page.
 - # Only used when JS is enabled. Its loaded via AJAX when user chooses to edit item, and is removed on submit or cancel.
 = form_for(@collection, :builder => ApplicationHelper::EolFormBuilder, :html => {:method => :put }) do |f|
-  = render :partial => 'collection_items/edit', :locals => { :collection_item => @collection_item, :item_type =>  en_type(@collection_item), :parent_form => f}
+  = render 'collection_items/edit', { :collection_item => @collection_item, :item_type =>  en_type(@collection_item), :parent_form => f}

@@ -1,6 +1,9 @@
 Eol::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  # Use content servers for thumbnails. This implies that upload_image will work (ie: you have a PHP server up and running).
+  Rails.configuration.use_content_server_for_thumbnails = true
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -43,10 +46,15 @@ Eol::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1
 
-  # TODO - consider this. If we want it, put it in. If we don't, remove this paragraph:
-  # config.i18n.fallbacks = true
+  unless ENV.has_key?('LOCALE')
+    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
+  end
 
   config.action_mailer.asset_host = "http://staging.eol.org"
 
   require "ruby-debug"
+
+  require File.expand_path('../../../lib/initializer_additions', __FILE__)
+  InitializerAdditions.add("environments/#{Rails.env}_eol_org")
+
 end

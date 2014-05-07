@@ -45,7 +45,6 @@ class SolrAPI
     !test_connection.schema_hash.blank?
   end
 
-
   def initialize(server_url = nil, core = nil)
     @server_url = server_url
     @core = core
@@ -61,7 +60,7 @@ class SolrAPI
     @file_delimiter = '|'
     @multi_value_delimiter = ';'
     csv_path_random_bit = 10.times.map{ rand(10) }.join
-    @stream_url = "http://" + $IP_ADDRESS_OF_SERVER + "/files/solr_import_file_#{csv_path_random_bit}.csv"
+    @stream_url = "http://#{EOL::Server.ip_address}/files/solr_import_file_#{csv_path_random_bit}.csv"
     @csv_path = Rails.root.join(Rails.public_path, 'files', "solr_import_file_#{csv_path_random_bit}.csv")
   end
 
@@ -247,7 +246,7 @@ class SolrAPI
     taxon_concepts.each do |taxon_concept|
       best_image = taxon_concept.exemplar_or_best_image_from_solr
       data[taxon_concept.id] = {:common_name => taxon_concept.all_common_names,
-               :preferred_scientific_name => [taxon_concept.scientific_name],
+               :preferred_scientific_name => [taxon_concept.title],
                :scientific_name => taxon_concept.all_scientific_names,
                :ancestor_taxon_concept_id => taxon_concept.flattened_ancestors.map {|a| a.ancestor_id },
                :vetted_id => taxon_concept.vetted_id,

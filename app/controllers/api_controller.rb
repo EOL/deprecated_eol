@@ -1,8 +1,9 @@
 class ApiController < ApplicationController
 
-  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms
+  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
+    :keep_home_page_fresh
   before_filter :set_default_format_to_xml
-  before_filter :get_api_method, :except => [ :ping_host, :render_test_response ]
+  before_filter :get_api_method, except: [ :ping_host, :render_test_response ]
   after_filter :set_cache_headers
 
   # most APIs use the `default_render` methods
@@ -36,10 +37,18 @@ class ApiController < ApplicationController
   def collections
   end
 
+  def ggi
+    request.format = 'json'
+  end
+
+  def traits
+    request.format = 'json'
+  end
+
   def ping_host
     request.format = 'json'
     respond_to do |format|
-      format.json { render :json => { 'response' => { 'host' => request.host, 'port' => request.port } } }
+      format.json { render json: { 'response' => { 'host' => request.host, 'port' => request.port } } }
     end
   end
 
@@ -48,7 +57,7 @@ class ApiController < ApplicationController
     code = JSON.pretty_generate(JSON.parse(code)) if code.is_json?
     respond_to do |format|
       format.js do
-        render :partial => "api/render_test_response", :locals => { :code => code }
+        render partial: "api/render_test_response", locals: { code: code }
       end
     end
   end
@@ -62,19 +71,22 @@ class ApiController < ApplicationController
   def default_render
     # if this api_method is blank, and error should already have been rendered
     return if @api_method.blank?
-    begin
+    if Rails.env.development? || Rails.env.test_dev?
       @json_response = @api_method.call(params)
-    rescue ActiveRecord::RecordNotFound => e
-      return render_error(e.message, 404)
-    rescue EOL::Exceptions::ApiException => e
-      return render_error(e.message)
-    rescue => e
-      return render_error('Sorry, there was a problem')
+    else
+      begin
+        @json_response = @api_method.call(params)
+      rescue ActiveRecord::RecordNotFound => e
+        return render_error(e.message, 404)
+      rescue EOL::Exceptions::ApiException => e
+        return render_error(e.message)
+      rescue => e
+        return render_error('Sorry, there was a problem')
+      end
     end
-
     # create an API Log entry, except for the ping method
     unless params[:action] == 'ping'
-      create_api_log(params.merge({ :id => params[:id] }))
+      create_api_log(params.merge({ id: params[:id] }))
     end
 
     # return the JSON object generated above, OR
@@ -85,8 +97,8 @@ class ApiController < ApplicationController
       else
         xml_template = "api/#{params[:action]}_#{@api_method::VERSION.tr('.', '_')}"
       end
-      format.xml { render :template => xml_template, :layout => false }
-      format.json { render :json => @json_response, :callback => params[:callback] }
+      format.xml { render template: xml_template, layout: false }
+      format.json { render json: @json_response, callback: params[:callback] }
     end
   end
 
@@ -117,8 +129,8 @@ class ApiController < ApplicationController
   def render_error(error_message, status_code = 500)
     # default response for all API errors, with XML or JSON repsonses
     respond_to do |format|
-      format.xml { render(:partial => 'error', :locals => { :error => error_message }, :status => status_code) }
-      format.json { render(:json => [ :error => error_message ], :callback => params[:callback], :status => status_code ) }
+      format.xml { render(partial: 'error', locals: { error: error_message }, status: status_code) }
+      format.json { render(json: [ error: error_message ], callback: params[:callback], status: status_code ) }
       # API docs might have an error too, but in that case raise to get the default HTML error handling
       format.html { raise }
     end
@@ -135,7 +147,7 @@ class ApiController < ApplicationController
       # between 0 and 1 year
       cache_seconds = params[:cache_ttl].to_i
       if cache_seconds >= 0 && cache_seconds < 31536000
-        expires_in cache_seconds.seconds, :public => true
+        expires_in cache_seconds.seconds, public: true
       end
     else
       response.cache_control.replace({})
@@ -149,13 +161,13 @@ class ApiController < ApplicationController
     user_id = user.is_a?(User) ? user.id : nil
 
     ApiLog.create(
-      :request_ip => request.remote_ip,
-      :request_uri => request.fullpath,
-      :method => params[:action],
-      :version => params[:version],
-      :format => params[:format],
-      :request_id => params[:id],
-      :key => api_key,
-      :user_id => user_id)
+      request_ip: request.remote_ip,
+      request_uri: request.fullpath,
+      method: params[:action],
+      version: params[:version],
+      format: params[:format],
+      request_id: params[:id],
+      key: api_key,
+      user_id: user_id)
   end
 end

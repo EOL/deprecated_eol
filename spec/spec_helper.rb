@@ -1,17 +1,33 @@
-# This file is copied to spec/ when you run 'rails generate rspec:install'
+# NOTE - This really really really needs to be at the very tippity-top of the file.  Leave it here.
+require 'simplecov'
+SimpleCov.start do
+  add_group "Models", "app/models"
+  add_group "Controllers", "app/controllers"
+  add_group "Libraries", "lib"
+  add_group "Helpers", "app/helpers"
+  add_filter "custom_matchers"
+  # TODO - really, we should be testing these. ...But for now, I'm excluding them because many are one-offs:
+  add_filter "/initializers/"
+  # TODO - really, we should be testing these too, but we want to re-write them. They are ancient:
+  add_filter "/administrator/"
+  add_filter "controllers/admins/"
+  add_filter "spec/"
+end
+
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
-require 'rspec/autorun'
+require 'capybara/rspec'
+require 'webmock/rspec'
+# TODO - use config to allow: Rails.configuration.the_host_names_for_those_two
+WebMock.disable_net_connect!(:allow_localhost => true) # Selenium and Virtuoso.
 
-require Rails.root.join('spec', 'eol_spec_helpers')
+# TODO - this is lame and means we're doing something wrong. Figure out the intent and fix it:
 require Rails.root.join('spec', 'custom_matchers')
 
 require 'email_spec'
 require 'eol_scenarios'
 EolScenario.load_paths = [ Rails.root.join('scenarios') ]
-
-require 'eol_data'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -21,21 +37,29 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.verbose = false
 
 RSpec.configure do |config|
-  include EOL::Data # this gives us access to methods that clean up our data (ie: lft/rgt values)
-  include EOL::DB   # this gives us access to methods that handle transactions
-  include EOL::RSpec::Helpers
+  include TruncateHelpers # ...We want to truncate the tables once here.  # TODO - really? Shouldn't specs handle this as needed?
 
   config.include FactoryGirl::Syntax::Methods
 
   config.use_transactional_fixtures = false
 
+  # It's a complex project, so, yeah, we have a LOT of helpers:
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
-  config.include(Capybara, :type => :integration)
+  config.include(TruncateHelpers) # Used quite often to clear database. TODO - replace this with database_cleaner
+  config.include(VirtuosoHelpers) # Used often to clear triple store.
+  config.include(ScenarioHelpers) # Of course, this is used to load scenarios nicely.
+  config.include(OauthHelpers) # Of course, this is used to load scenarios nicely. # TODO - only one spec uses these methods
+                               # outside of controller specs, so restrivt this to controller specs and move/change that spec.
+                               # spec/lib/eol/open_auth_spec.rb use #stub_oauth_requests
+  config.include(EOL::Builders) # Used to build taxa, data objects, etc.
 
   # Hmmn. We really want to clear the entire cache before EVERY test?  Okay...  :\
   config.after(:each) do
     Rails.cache.clear if Rails.cache
+    I18n.locale = :en
+    # TODO - make this method directly available in specs
+    ClassVariableHelper.clear_class_variables
   end
 
   # If true, the base class of anonymous controllers will be inferred
@@ -43,13 +67,14 @@ RSpec.configure do |config|
   # rspec-rails.
   config.infer_base_class_for_anonymous_controllers = false
 
-  # Run specs in random order to surface order dependencies. If you find an
-  # order dependency and want to debug it, you can fix the order by providing
-  # the seed, which is printed after each run.
-  #     --seed 1234        ( or --order rand:1234 )
-  # Or run in in the order they are declared in the file with
-  #     --order default
-  config.order = "random"
+  # NOTE - errr... this doesn't appear to be working, which is a shame. It would be handy!
+  config.after(:each, :type => :feature) do
+    if example.exception
+      artifact = save_page
+      puts "\n\"#{example.description}\" failed. Page saved to #{artifact}"
+    end
+  end
+
 end
 
 def wait_for_insert_delayed(&block)

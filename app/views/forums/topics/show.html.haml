@@ -4,6 +4,6 @@
 - else
   = will_paginate @posts, :renderer => ForumTopicLinkRenderer
   - @posts.each do |post|
-    = render :partial => 'forums/posts/show', :locals => { :post => post }
+    = render 'forums/posts/show', { :post => post }
   = will_paginate @posts, :renderer => ForumTopicLinkRenderer
-= render :partial => 'forums/posts/form'
+= render 'forums/posts/form'

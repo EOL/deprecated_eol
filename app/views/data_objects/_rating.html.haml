@@ -1,22 +1,22 @@
-- # Note: this partial is shared between data object and taxa pages
+- # Note: this is shared between data object and taxa pages
 - reload_ajax_rating ||= false
+- hide_user_rating ||= false
 - if reload_ajax_rating
   :javascript
     EOL.enableRatings();
 - en_type ||= en_type(data_object)
 - total = 5
 - average_rating = data_object.safe_rating
--# TODO - refactor this. Use duck-typing, at least.
-- if @current_user_ratings.nil?
-  - if rating_from_user = data_object.rating_from_user(current_user)
-    - user_rating = rating_from_user.rating
+- user_rating = if hide_user_rating
+  - nil # user_rating isn't used when we hide_user_rating
+- elsif @taxon_media # We have a cache of a bunch of ratings...
+  - @taxon_media.rating_for_guid(data_object.guid)
+- elsif @details # We have a cache of a bunch of ratings...
+  - @details.rating_for_guid(data_object.guid)
 - else
-  - if users_data_object_rating = @current_user_ratings[data_object.guid]
-    - user_rating = users_data_object_rating.rating
-- user_rating ||= 0
+  - data_object.rating_from_user(current_user).try(:rating) || 0 # TODO - change it to retunr hte rating
 - minimal ||= false
 - assistive_or_nil = minimal ? 'assistive' : nil
-- hide_user_rating ||= false
 .ratings
   - title = I18n.t("#{en_type}_rating")
   - if minimal || hide_user_rating

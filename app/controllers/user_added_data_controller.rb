@@ -1,13 +1,10 @@
 class UserAddedDataController < ApplicationController
 
-  layout 'v2/basic'
+  layout 'basic'
 
-  skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms, :only => :autocomplete_known_uri_uri
-  before_filter :check_authentication, :only => [ :create, :edit, :update, :destroy ]
-
-  # Doesn't seem to work unless it's here as WELL as taxon/data.
-  autocomplete :known_uri, :uri
-  autocomplete :translated_known_uri, :name
+  before_filter :check_authentication, only: [ :create, :edit, :update, :destroy ]
+  before_filter :restrict_to_admins_and_master_curators # NOTE - this restriction should be removed when we release this feature, of course.
+  before_filter :restrict_to_data_viewers
 
   # POST /user_added_data
   def create
@@ -21,6 +18,7 @@ class UserAddedDataController < ApplicationController
                                                                                 subject: subject))
     if @user_added_data.save
       flash[:notice] = I18n.t('user_added_data.create_successful')
+      log_action(:create)
     else
       # NOTE - we can't just use validation messages quite yet, since it's created in another controller. :\
       if @user_added_data.errors.any?
@@ -35,6 +33,7 @@ class UserAddedDataController < ApplicationController
   def edit
     @user_added_data = UserAddedData.find(params[:id])
     unless current_user.can_update?(@user_added_data)
+      # TODO - second argument to constructor should be an I18n key for a human-readable error.
       raise EOL::Exceptions::SecurityViolation,
         "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}"
     end
@@ -45,11 +44,13 @@ class UserAddedDataController < ApplicationController
     delete_empty_metadata
     @user_added_data = UserAddedData.find(params[:id])
     unless current_user.can_update?(@user_added_data)
+      # TODO - second argument to constructor should be an I18n key for a human-readable error.
       raise EOL::Exceptions::SecurityViolation,
         "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}"
     end
     if @user_added_data.update_attributes(params[:user_added_data])
       flash[:notice] = I18n.t('user_added_data.update_successful')
+      log_action(:update) unless @user_added_data.visibility_id == Visibility.invisible.id
     else
       flash[:error] = I18n.t('user_added_data.update_failed',
                              errors: @user_added_data.errors.full_messages.to_sentence)
@@ -62,9 +63,10 @@ class UserAddedDataController < ApplicationController
   # DELETE /user_added_data/:id
   def destroy
     user_added_data = UserAddedData.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}" unless current_user.can_delete?(user_added_data)
-    user_added_data.update_attributes({ :deleted_at => Time.now })
+    user_added_data.update_attributes({ deleted_at: Time.now })
     flash[:notice] = I18n.t('user_added_data.delete_successful')
     redirect_to taxon_data_path(user_added_data.taxon_concept_id)
   end
@@ -81,9 +83,11 @@ class UserAddedDataController < ApplicationController
         when UserAddedDataMetadata::SUPPLIER_URI
           v[:object] == current_user.full_name # No need to add this; it's in the DB already.
         when UserAddedDataMetadata::SOURCE_URI
-          v[:object] == I18n.t('user_added_data.source_field_helper')
+          v[:object].blank? || v[:object] == I18n.t('user_added_data.source_field_helper')
         when UserAddedDataMetadata::LICENSE_URI
           v[:object] == I18n.t(:license_none)
+        when UserAddedDataMetadata::MEASUREMENT_UNIT_URI
+          v[:object].blank?
         when I18n.t('user_added_data.new_field')
           true # They didn't add (or at least name) this one, just remove it.
         else
@@ -130,6 +134,16 @@ class UserAddedDataController < ApplicationController
     session[:rec_uris] ||= []
     session[:rec_uris].unshift(uri)
     session[:rec_uris] = session[:rec_uris].uniq[0..7]
+  end
+
+  def log_action(method)
+    CuratorActivityLog.create(
+      user_id: current_user.id,
+      changeable_object_type: ChangeableObjectType.user_added_data,
+      target_id: @user_added_data.id,
+      activity: Activity.send(method),
+      taxon_concept_id: @user_added_data.taxon_concept_id
+    )
   end
 
 end

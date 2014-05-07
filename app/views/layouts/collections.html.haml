@@ -1,0 +1,32 @@
+- content_for :main do
+  - if @collection
+    #page_heading.with_image
+      .site_column
+        = image_tag @collection.logo_url, :alt => I18n.t(:collection_image), width: 88, height: 88
+        .hgroup
+          %h1= h @collection.name
+          %p= I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(@collection.updated_at))
+          = yield :social_sharing
+          - unless sanitize(@collection.description).blank?
+            %p= sanitize @collection.description.balance_tags
+        .page_actions
+          %ul
+            - unless current_user.watch_collection && @collection.id == current_user.watch_collection.id || params[:action] == "edit"
+              %li= render 'shared/add_to_my_collection', { :item => @collection, :my_collection => current_user.watch_collection }
+            = yield :additional_page_actions
+        = render 'shared/flash_messages'
+    #content
+      .site_column{:id => @site_column_id, :class => @site_column_class}
+        = yield
+  - else
+    #page_heading.with_image
+      .site_column
+        .hgroup
+          %h1= @page_title || I18n.t(:collections_page_title)
+      = render 'shared/flash_messages'
+
+    #content
+      .site_column
+        = yield
+
+= render :file => 'layouts/application'

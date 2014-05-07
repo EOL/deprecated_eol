@@ -1,9 +1,9 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 describe EolStatistic do
   before(:all) do
-    @first = EolStatistic.gen(:created_at => Time.now - 1.month)
-    @second = EolStatistic.gen(:created_at => Time.now - 1.month + 1.day)
-    @latest = EolStatistic.gen(:created_at => Time.now)
+    @first = EolStatistic.gen(created_at: Time.now - 1.month)
+    @second = EolStatistic.gen(created_at: Time.now - 1.month + 1.day)
+    @latest = EolStatistic.gen(created_at: Time.now)
   end
 
   describe "#scopes" do
@@ -38,6 +38,10 @@ describe EolStatistic do
     it 'should select data objects stats' do
       stats = EolStatistic.data_objects
       EolStatistic.sorted_report_attributes(:data_objects).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
+    end
+    it 'should select data stats' do
+      stats = EolStatistic.data
+      EolStatistic.sorted_report_attributes(:data).map{|attribute| stats[0].has_attribute?(attribute).should be_true}
     end
     it 'should select something from a week ago' do
       stats = EolStatistic.at_least_one_week_ago(1).first

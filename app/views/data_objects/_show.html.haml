@@ -4,46 +4,46 @@
   %div{:class => (en_type == 'article' || en_type == 'link') ? 'article copy' : 'media'}
     - if @data_object.is_text? && ! @data_object.object_title.blank?
       %h2= raw @data_object.object_title
-    - if en_type == 'image_map' # dato is an image map and so uses image partial
-      = render :partial => "/data_objects/data_object_image", :locals => { :size => '580_360' }
-    - elsif en_type == 'link' # dato is a link and so uses article partial
-      = render :partial => "/data_objects/data_object_article", :locals => { :link_object => true }
+    - if en_type == 'image_map' # dato is an image map and so uses image 
+      = render "/data_objects/data_object_image", { :size => '580_360' }
+    - elsif en_type == 'link' # dato is a link and so uses article 
+      = render "/data_objects/data_object_article", { :link_object => true }
     - else
-      = render :partial => "/data_objects/data_object_#{en_type}", :locals => { :size => '580_360' }
+      = render "/data_objects/data_object_#{en_type}", { :size => '580_360' }
     = link_to_full_size
-  - unless @data_object.is_text? # NOTE - text description was already shown in partial above so we don't want to show it again.
-    = render :partial => '/data_objects/description', :locals => { :data_object => @data_object }
+  - unless @data_object.is_text? # NOTE - text description was already shown in above so we don't want to show it again.
+    = render '/data_objects/description', { :data_object => @data_object }
   - unless for_worklist
     - # For worklist we show updates below associations form not here.
     .article.list.updates
       .header
         %h3= I18n.t(:recent_updates)
       - if @latest_published_revision.nil? || @latest_published_revision.id == @data_object.id
-        = render :partial => '/activity_logs/index', :locals => { :log => @activity_log }
+        = render '/activity_logs/index', { :log => @activity_log }
         - unless @latest_published_revision.nil?
-          = render :partial => '/comments/new', :locals => { :parent => @data_object }
+          = render '/comments/new', { :parent => @data_object }
       - else
         .empty
           = link_to I18n.t(:view_current_version_link), data_object_path(@latest_published_revision)
 #sidebar
-  = render :partial => '/data_objects/list_associations', :locals => { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
+  = render '/data_objects/list_associations', { :data_object => @data_object, :en_type => en_type, :for_worklist => for_worklist }
   - if (current_user.is_curator? || current_user.is_admin?) && @latest_published_revision && @latest_published_revision.id == @data_object.id
-    = render :partial => '/data_objects/image_cropper', :locals => { :data_object => @data_object }
+    = render '/data_objects/image_cropper', { :data_object => @data_object }
   .article.source
     .header
       %h3= I18n.t(:source_information_header)
-    = render :partial => '/data_objects/attribution', :locals => { :supplier => true }
+    = render '/data_objects/attribution', { :supplier => true }
     = link_to_full_size
   - if @data_object.translated_from
     .article.source
       .header
         %h3= I18n.t(:translation_information_header)
-      = render :partial => 'data_objects/supplier', :locals => { :data_object => @data_object, :translation => true }
-      = render :partial => 'data_objects/agents', :locals => { :data_object => @data_object }
+      = render 'data_objects/supplier', { :data_object => @data_object, :translation => true }
+      = render 'data_objects/agents', { :data_object => @data_object }
   - unless for_worklist
-    = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type } if @latest_published_revision && @latest_published_revision.id == @data_object.id
+    = render '/data_objects/rating', { :data_object => @data_object, :en_type => en_type } if @latest_published_revision && @latest_published_revision.id == @data_object.id
   - else
-    = render :partial => '/data_objects/rating', :locals => { :data_object => @data_object, :en_type => en_type }
+    = render '/data_objects/rating', { :data_object => @data_object, :en_type => en_type }
   - if for_worklist
     - # For worklist we show updates here below the associations form, not above.
     .article.list.updates
@@ -52,10 +52,10 @@
       - @revisions ||= @data_object.revisions_by_date
       - @latest_published_revision ||= @data_object.latest_published_version_in_same_language
       - if @latest_published_revision && @latest_published_revision.id == @data_object.id
-        = render :partial => '/activity_logs/index', :locals => { :log => @activity_log }
-        = render :partial => '/comments/new', :locals => { :parent => @data_object }
+        = render '/activity_logs/index', { :log => @activity_log }
+        = render '/comments/new', { :parent => @data_object }
   - unless @revisions.blank?
-    = render :partial => '/data_objects/revisions', :locals => { :data_object => @data_object, :revisions => @revisions }
+    = render '/data_objects/revisions', { :data_object => @data_object, :revisions => @revisions }
   - if !@translations.blank? && @translations.length>1
     .article.list
       .header

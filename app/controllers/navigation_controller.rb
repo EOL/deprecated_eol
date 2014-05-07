@@ -8,12 +8,12 @@ class NavigationController < ApplicationController
     @taxon_page = TaxonPage.new(@taxon_concept, current_user, @selected_hierarchy_entry)
     @session_hierarchy = @taxon_page.hierarchy
     load_taxon_for_tree_view
-    render :layout => false, :partial => 'root_nodes'
+    render layout: false, partial: 'root_nodes'
   end
   
   def show_tree_view_for_selection
     load_taxon_for_tree_view
-    render :layout => false, :partial => 'tree_view_for_selection'
+    render layout: false, partial: 'tree_view_for_selection'
   end
   
   def browse
@@ -23,8 +23,8 @@ class NavigationController < ApplicationController
       return
     end
     @hierarchy = @hierarchy_entry.hierarchy
-    current_user.log_activity(:browsing_for_hierarchy_entry_id, :value => params[:id])
-    render :layout => false, :partial => 'browse', :locals => { :expand => expand }
+    current_user.log_activity(:browsing_for_hierarchy_entry_id, value: params[:id])
+    render layout: false, partial: 'browse', locals: { expand: expand }
   end
   
   def browse_stats
@@ -34,7 +34,7 @@ class NavigationController < ApplicationController
       return
     end
     @hierarchy = @hierarchy_entry.hierarchy
-    render :partial => 'browse_stats', :layout => false, :locals => { :expand => expand }
+    render partial: 'browse_stats', layout: false, locals: { expand: expand }
   end
   
   
@@ -42,7 +42,7 @@ class NavigationController < ApplicationController
   
   def load_taxon_for_tree_view
     @hierarchy_entry = HierarchyEntry.find(params[:id].to_i)
-    current_user.log_activity(:showing_tree_view_for_hierarchy_entry_id, :value => params[:id])
+    current_user.log_activity(:showing_tree_view_for_hierarchy_entry_id, value: params[:id])
   end
   
 end

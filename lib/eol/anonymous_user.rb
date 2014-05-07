@@ -18,7 +18,12 @@ module EOL
     end
 
     # They have never rated anything!
-    def rating_for_object_guids(*args)
+    def rating_for_guid(*args)
+      0
+    end
+
+    # They have never rated anything!
+    def ratings_for_guids(*args)
       {}
     end
 
@@ -37,6 +42,11 @@ module EOL
     # NOTE - returns self for convenience; objects can call things like #is_admin? on this object, but not on nil.
     def can_read?(object)
       object.respond_to?(:can_be_read_by?) ? object.can_be_read_by?(self) : false
+    end
+
+    def can_see_data?
+      return false if ENV["NO_DATA"]
+      EolConfig.all_users_can_see_data rescue false
     end
 
     def defaults
@@ -70,7 +80,6 @@ module EOL
           :members => [],
           :min_curator_level? => false,
           :nil? => true,
-          :rating_for_object_guids => nil,
           :save => false,
           :short_name => I18n.t(:anonymous_user_given_name),
           :tag_line => I18n.t(:anonymous_user_tag_line),

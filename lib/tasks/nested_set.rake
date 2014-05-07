@@ -1,5 +1,3 @@
-require 'eol_data'
-
 namespace :eol do
   namespace :data do
     
@@ -31,8 +29,7 @@ namespace :eol do
       end
 
       # Create our nested set data as appropriate.
-      include EOL::Data 
-      make_all_nested_sets
+      EOL::Data.make_all_nested_sets
 
       # Write the actual .yml file.
       File.open(f, 'w') do |file| 

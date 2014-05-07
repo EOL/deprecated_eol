@@ -1,0 +1,14 @@
+- content_for :main do
+  #page_heading{:class => display_admins_navigation? ? 'with_nav' : nil}
+    .site_column
+      .hgroup
+        - @page_title ||= page_title
+        %h1= @page_title
+      = render 'shared/flash_messages'
+      .page_actions
+        -# This is cheating: it makes the javascript work bother here and on the users page.
+
+  #content{:class => controller_name}
+    .site_column
+      = yield
+= render :file => 'layouts/application'

@@ -10,14 +10,14 @@ class Users::ActivitiesController < UsersController
     @page = params[:page]
     @filter = params[:filter]
     if @filter == "curated_taxa"
-      @curated_taxa_ids = Curator.taxon_concept_ids_curated(@user.id).paginate(:page => @page, :per_page => 20)
+      @curated_taxa_ids = Curator.taxon_concept_ids_curated(@user.id).paginate(page: @page, per_page: 20)
       # TODO: I think the use if the filter for curated taxa is weird since its not included in the filter list for the user
       # This also messes up SEO as filter all does not include this data.
       # TODO: we should provide unique meta data (title etc) for this filter's page
-      set_canonical_urls(:for => @user, :paginated => @curated_taxa_ids, :url_method => :user_activity_url)
+      set_canonical_urls(for: @user, paginated: @curated_taxa_ids, url_method: :user_activity_url)
     else
-      @user_activity_log = @user.activity_log(:page => @page, :filter => @filter)
-      set_canonical_urls(:for => @user, :paginated => @user_activity_log, :url_method => :user_activity_url)
+      @user_activity_log = @user.activity_log(page: @page, filter: @filter, user: current_user)
+      set_canonical_urls(for: @user, paginated: @user_activity_log, url_method: :user_activity_url)
     end
 
   end

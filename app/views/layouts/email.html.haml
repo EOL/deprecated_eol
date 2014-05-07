@@ -1,0 +1,23 @@
+!!!
+%html{ "xml:lang" => "en", :lang => "en", :xmlns => "http://www.w3.org/1999/xhtml" }
+  %head
+    %title
+      = yield :title
+  %body{ :bgcolor => "#e2e9ef", :style => "margin: 20px; font: 12px/160% Arial, sans-serif; color: #394651;" }
+    %table{ :cellspacing => "0", :height => "100%", :cellpadding => "0", :width => "100%" }
+      %tr
+        %td{ :align => "center", :valign => "middle"}
+          %table{ :cellspacing => "0", :cellpadding => '20', :height => "100%", :style => "border: 1px solid #394651" }
+            %tr
+              %td{ :style => 'background: #394651; text-align: center;'}
+                = image_tag("v2/logo.png", :alt => "", :style => "border: none;")
+            %tr
+              %td{:align => "left", :style => "color: #3f4b56; background: #fff;"}
+                = yield
+                - unless @show_activity_links_in_email === false
+                  %p= raw(I18n.t(:see_all_activity, :scope => :recent_activity, :activity_url => user_newsfeed_url(@user)))
+                  %p= raw(I18n.t(:unsubscribe, :scope => :recent_activity, :email_prefs_url => edit_user_notification_url(@user), :unsubscribe_url => unsubscribe_notifications_user_url(@user.id, @user.unsubscribe_key)))
+                %p= raw(I18n.t(:contact_us_link, :scope => :recent_activity))
+            %tr
+              %td{ :valign => 'baseline', :style => 'border-top: 1px solid #e2e9ef; padding: 20px 30px; background: #f8fcff;'}
+                = link_to image_tag("v2/logo_footer.png", :alt => "", :style => "border: none; float: right;"), root_url, :style => 'text-decoration: none;'

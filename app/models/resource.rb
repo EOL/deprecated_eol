@@ -1,22 +1,39 @@
+# A Resource is a dataset or compilation of media provided by a partner, harvested by EOL into data_objects and data_point_uris.
+# For example, a collection of images of butterflies.
+#
+# NOTES:
+#
+# The following fields store DEFAULT values for items IN the resource:
+#     license_id
+#     rights_holder 
+#     rights_statement
+# However, the resource ITSELF can be copyrightable in some jurisdictions, so the following apply to the resource as a whole:
+#     dataset_license_id
+#     dataset_rights_holder
+#     dataset_rights_statement
+#
+# accesspoint_url is THEIR hosted copy of the harvested resource.
+# dataset_source_url is the source of the data. ...Say... a paper.
+# dataset_hosted_url is OUR hosted copy of the resource.
+# dwc_archive_url is specific to LifeDesks, which refused to add taxonomy to their resource files
 class Resource < ActiveRecord::Base
-
-  # This class represents some notion of a set of data.  For example, a collection of images of butterflies.
 
   belongs_to :service_types
   belongs_to :license
+  belongs_to :dataset_license, class_name: 'License'
   belongs_to :language
   belongs_to :resource_status
   belongs_to :hierarchy
   belongs_to :content_partner
-  belongs_to :dwc_hierarchy, :foreign_key => 'dwc_hierarchy_id', :class_name => "Hierarchy"
+  belongs_to :dwc_hierarchy, class_name: 'Hierarchy'
   belongs_to :collection
-  belongs_to :preview_collection, :class_name => Collection.to_s, :foreign_key => :preview_collection_id
+  belongs_to :preview_collection, class_name: 'Collection'
 
   has_many :harvest_events
 
   has_attached_file :dataset,
-    :path => $DATASET_UPLOAD_DIRECTORY,
-    :url => $DATASET_URL_PATH
+    path: $DATASET_UPLOAD_DIRECTORY,
+    url: $DATASET_URL_PATH
 
   attr_accessor :latest_published_harvest_event
   attr_protected :latest_published_harvest_event
@@ -27,23 +44,23 @@ class Resource < ActiveRecord::Base
   VALID_RESOURCE_CONTENT_TYPES = ['application/x-gzip', 'application/x-tar', 'text/xml', 'application/vnd.ms-excel',
                                   'application/xml', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                                   'application/zip']
-  validate :validate_dataset_mime_type
+  validates_attachment_content_type :dataset, content_type: VALID_RESOURCE_CONTENT_TYPES, if: :validate_dataset_mime_type?
   validates_presence_of :title, :license_id
-  validates_presence_of :refresh_period_hours, :if => :accesspoint_url_provided?
-  validates_presence_of :accesspoint_url, :unless => :dataset_file_provided?
-  validates_format_of :accesspoint_url, :allow_blank => true, :allow_nil => true,
-                      :with => /(\.xml(\.gz|\.gzip)|\.tgz|\.zip|\.xls|\.xlsx|\.tar\.(gz|gzip))?/
-  validates_format_of :dwc_archive_url, :allow_blank => true, :allow_nil => true,
-                      :with => /(\.tar\.(gz|gzip)|\.tgz|\.zip)/
-  validates_length_of :title, :maximum => 255
-  validates_length_of :accesspoint_url, :allow_blank => true, :allow_nil => true, :maximum => 255
-  validates_length_of :dwc_archive_url, :allow_blank => true, :allow_nil => true, :maximum => 255
-  validates_length_of :description, :allow_blank => true, :allow_nil => true, :maximum => 255
-  validates_length_of :rights_holder, :allow_blank => true, :allow_nil => true, :maximum => 255
-  validates_length_of :rights_statement, :allow_blank => true, :allow_nil => true, :maximum => 400
-  validates_length_of :bibliographic_citation, :allow_blank => true, :allow_nil => true, :maximum => 400
+  validates_presence_of :refresh_period_hours, if: :accesspoint_url_provided?
+  validates_presence_of :accesspoint_url, unless: :dataset_file_provided?
+  validates_format_of :accesspoint_url, allow_blank: true, allow_nil: true,
+                      with: /(\.xml(\.gz|\.gzip)|\.tgz|\.zip|\.xls|\.xlsx|\.tar\.(gz|gzip))?/
+  validates_format_of :dwc_archive_url, allow_blank: true, allow_nil: true,
+                      with: /(\.tar\.(gz|gzip)|\.tgz|\.zip)/
+  validates_length_of :title, maximum: 255
+  validates_length_of :accesspoint_url, allow_blank: true, allow_nil: true, maximum: 255
+  validates_length_of :dwc_archive_url, allow_blank: true, allow_nil: true, maximum: 255
+  validates_length_of :description, allow_blank: true, allow_nil: true, maximum: 255
+  validates_length_of :rights_holder, allow_blank: true, allow_nil: true, maximum: 255
+  validates_length_of :rights_statement, allow_blank: true, allow_nil: true, maximum: 400
+  validates_length_of :bibliographic_citation, allow_blank: true, allow_nil: true, maximum: 400
   validates_each :accesspoint_url, :dwc_archive_url do |record, attr, value|
-    record.errors.add attr, I18n.t(:inaccessible, :scope => [:activerecord, :errors, :messages, :models]) unless value.blank? || EOLWebService.url_accepted?(value)
+    record.errors.add attr, I18n.t(:inaccessible, scope: [:activerecord, :errors, :messages, :models]) unless value.blank? || EOLWebService.url_accepted?(value)
   end
   validate :url_or_dataset_not_both
 
@@ -53,7 +70,7 @@ class Resource < ActiveRecord::Base
   end
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_read_by?(user)
-    content_partner.user_id == user.id || user.is_admin?
+    true # NOTE - this was changed on 2013-10-18 in order to allow users to see resource pages and get (c) info on them.
   end
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_updated_by?(user)
@@ -95,6 +112,15 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  def self.add_to_data(rows)
+    rows.each{ |r| r[:resource_id] = r[:graph].to_s.split("/").last }
+    resources = where(["id in (?)", rows.collect{ |r| r[:resource_id ] }.uniq ])
+    preload_associations(resources, [ :content_partner ])
+    rows.each do |row|
+      row[:resource] = resources.detect{ |r| r.id == row[:resource_id].to_i }
+    end
+  end
+
   # TODO - generalize this instance-variable reset.
   def reload
     @@ar_instance_vars ||= Resource.new.instance_variables << :mock_proxy # For tests
@@ -116,11 +142,11 @@ class Resource < ActiveRecord::Base
     # not using fetch as only want to set expiry when there is no harvest event
     if @oldest_published_harvest.nil? #cache miss
       @oldest_published_harvest = HarvestEvent.find(:first,
-        :conditions => ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-        :limit => 1, :order => 'published_at')
+        conditions: ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
+        limit: 1, order: 'published_at')
       if @oldest_published_harvest.nil?
         # resource not yet published store 0 in cache with expiry so we don't try to find it again for a while
-        Rails.cache.write(Resource.cached_name_for(cache_key), 0, :expires_in => 6.hours)
+        Rails.cache.write(Resource.cached_name_for(cache_key), 0, expires_in: 6.hours)
       else
         Rails.cache.write(Resource.cached_name_for(cache_key), @oldest_published_harvest)
       end
@@ -134,7 +160,7 @@ class Resource < ActiveRecord::Base
     return @latest_published_harvest if defined? @latest_published_harvest
     HarvestEvent
     cache_key = "latest_published_harvest_event_for_resource_#{id}"
-    @latest_published_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
+    @latest_published_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
       # Uses 0 instead of nil when setting for cache because cache treats nil as a miss
       HarvestEvent.where(["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id]). \
         order('published_at desc').first || 0
@@ -147,7 +173,7 @@ class Resource < ActiveRecord::Base
     return @latest_harvest if defined? @latest_harvest
     HarvestEvent
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
-    @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), :expires_in => 6.hours) do
+    @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
       # Use 0 instead of nil when setting for cache because cache treats nil as a miss
       HarvestEvent.where(resource_id: id).last || 0
     end
@@ -158,7 +184,7 @@ class Resource < ActiveRecord::Base
   def upload_resource_to_content_master!(port = nil)
     if self.accesspoint_url.blank?
       self.resource_status = ResourceStatus.uploaded
-      ip_with_port = $IP_ADDRESS_OF_SERVER.dup
+      ip_with_port = EOL::Server.ip_address.dup
       ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
       file_url = "http://" + ip_with_port + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1]
     else
@@ -194,14 +220,8 @@ private
     end
   end
   
-  def validate_dataset_mime_type
-    return true if dataset.blank? || dataset.original_filename.blank?
-    require 'mime/types'
-    mime_types = MIME::Types.type_for(dataset.original_filename)
-    if first_type = mime_types.first
-      return true if VALID_RESOURCE_CONTENT_TYPES.include? first_type.to_s
-    end
-    errors[:base] << I18n.t('activerecord.errors.models.resource.attributes.dataset.wrong_type')
+  def validate_dataset_mime_type?
+    ! dataset.blank? && ! dataset.original_filename.blank?
   end
   
   def accesspoint_url_provided?

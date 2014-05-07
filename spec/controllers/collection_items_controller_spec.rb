@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe CollectionItemsController do
 
@@ -24,6 +24,10 @@ describe CollectionItemsController do
         session[:user_id] = @collection_editor.id
         post :update, { :id => @collection_item.id, :collection_item => {:annotation => "New Annotation"} }
         @collection_item.reload
+        unless @collection_item.annotation == "New Annotation" # What happened?  Seems rare... must be another error.
+          debugger
+          puts "Huh?"
+        end
       }
       getter.should change(@collection_item, :annotation)
     end

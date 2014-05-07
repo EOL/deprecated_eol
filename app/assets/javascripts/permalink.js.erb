@@ -1,0 +1,34 @@
+//= require 'worklist_curation'
+$(function() {
+
+  // This looks duplicated with media_list.js.erb
+  (function($main) {
+    $main.find("a.jp-play").each(function() {
+      var media;
+      var supplied;
+      switch($(this).data('mime-type')) {
+        case 'audio/mpeg':
+          media = { mp3: $(this).attr('href') };
+          supplied = "mp3";
+          break;
+        case 'application/ogg':
+          media = { oga: $(this).attr('href') };
+          supplied = "oga";
+          break;
+        default:
+          // Mime type unknown
+          media = {};
+      }
+      $("#player").jPlayer({
+        swfPath: '<%= asset_path "jplayer/js" %>',
+        supplied: supplied,
+        cssSelectorAncestor: "#player_interface",
+        ready: function () {
+          $(this).jPlayer("setMedia", media);
+        }
+      });
+    });
+  })($("#main"));
+
+  EOL.init_curation_behaviours();
+});

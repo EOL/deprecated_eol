@@ -11,7 +11,7 @@ $(function(){
     aspectRatio: 1
   });
 
-  $target_image.closest('a').click(function(e) {
+  $target_image.closest('a').on('click', function(e) {
       e.preventDefault();
   });
 

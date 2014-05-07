@@ -1,0 +1,41 @@
+- content_for :main do
+  #page_heading
+    .site_column
+      .hgroup
+        %h1= @querystring.blank? ? I18n.t(:search) : I18n.t(:search_results)
+        - unless @querystring.blank?
+          - subhead = I18n.t(:count_results_for_search_term, count: @combined_results_count, search_term: h(@querystring))
+          - if @attributes && ! @attributes.blank?
+            -# NOTE - I know, you are not supposed to combine terms for I18n because grammars differ in terms of where to add
+            -# these things. However, this is one of those complicated exceptions where there are TWO counts, and I want both
+            -# of them to be aware of pluralization, so I'm assuming we can always combine the "including" bit afterwards.
+            - subhead << I18n.t(:including_traitbank_count, count: @attributes.count)
+          = subhead.html_safe
+  #content
+    .site_column
+      #search_results
+        #sidebar.filters
+          = form_tag('/search', :method => 'get', :id => 'main_search_type_filter') do
+            = hidden_field_tag :q, @querystring
+            %fieldset
+              %dl
+                %dt
+                  %label= I18n.t(:filter_by_type)
+                %dd
+                  %ul
+                    - [:all, :taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community, :collection, :content_page].each do |opt|
+                      - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
+                      - count ||= 0
+                      - item_class = (@wildcard_search || @combined_results_count == 0) ? 'no_results' : nil
+                      - item_class = nil if opt == :data && @attributes && ! @attributes.blank?
+                      %li{ :class => item_class }
+                        %label
+                          = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),
+                            { :name => "type[]", :id => "type_#{opt.to_s}"}
+                          = I18n.t("filter_by_type_#{opt}_option")
+            %fieldset.actions
+              = submit_tag I18n.t(:filter_button) unless @wildcard_search
+        #main
+          = yield
+
+= render :file => 'layouts/application'

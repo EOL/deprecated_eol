@@ -22,6 +22,26 @@ a
   margin: 0 auto
 
 body
+  > #banner /* BANNER - of course, remove this entire node... */
+    position: absolute
+    top: 0
+    z-index: 900
+    width: 100%
+    padding: 6px
+    background-color: $banner_background_color
+    border-bottom: 2px solid #667309
+    p
+      font-family: Helvetica Neue, Helvetica, Arial, san-serif
+      font-weight: 300
+      text-align: center
+      font-size: 1.33em
+      color: #394351
+      strong
+        font-weight: 500
+      a
+        font-weight: 500
+        text-decoration: none
+        color: #004e00
   > #header
     a
       color: #ffffff
@@ -49,7 +69,7 @@ body
         text-indent: -8685px
         text-decoration: none
         overflow: hidden
-        background: transparent url(image-path("v2/languages/ar/logo.png")) 0 0 no-repeat
+        background: transparent image-url("v2/languages/ar/logo.png") 0 0 no-repeat
     .section
       position: relative
       @extend .site_column
@@ -99,14 +119,14 @@ body
           &.print
             float: right
             a
-              background: transparent url(image-path("v2/icon_paper.png")) 111px 2px no-repeat
+              background: transparent image-url("v2/icon_paper.png") 111px 2px no-repeat
         .language
           float: right
           position: relative
           margin: 0 0 0 10px
           width: 100px
           a
-            background: transparent url(image-path("v2/icon_dropdown.png")) 84px 6px no-repeat
+            background: transparent image-url("v2/icon_dropdown.png") 84px 6px no-repeat
           ul
             display: none
             position: absolute
@@ -147,7 +167,7 @@ body
         color: #394651
         outline: none
         border: none
-        background: transparent url(image-path("v2/icon_search.png")) 190px 50% no-repeat
+        background: transparent image-url("v2/icon_search.png") 190px 50% no-repeat
       input[type="submit"]
         float: right
         min-width: 30px
@@ -236,7 +256,7 @@ body
                             + ul
                               a
                                 color: #b2c1cf
-            .version
+            .partners
               clear: both
               border: 1px solid #414c55
               background: #323f49
@@ -248,12 +268,12 @@ body
               a
                 display: block
                 float: right
-                width: 41px
+                width: 51px
                 height: 18px
                 text-indent: 8685px
                 overflow: hidden
-                background: transparent url(image-path("v2/logo_footer.png")) 0 0 no-repeat
-                margin: 0 0 0 30px
+                background: transparent image-url("bhl-logo-graphic.png") 0 0 no-repeat
+                margin: 0 0 0 20px
             ul.social_media
               float: right
               margin: 0
@@ -269,7 +289,7 @@ body
                   margin: 0 0 10px 0
                   text-indent: -8685px
                   overflow: hidden
-                  background: transparent url(image-path("v2/icon_social-media.png")) 0 0 no-repeat
+                  background: transparent image-url("v2/icon_social-media.png") 0 0 no-repeat
                   border: 1px solid #28323a
                   &.rss
                     background-position: right -25px
@@ -280,12 +300,17 @@ body
                   &.youtube
                     background-position: right -125px
                   &.pinterest
-                    background: #faf7f7 url(image-path("v2/icon_social-media.png")) 0 0 no-repeat
+                    background: #faf7f7 image-url("v2/icon_social-media.png") 0 0 no-repeat
                     background-position: right -150px
                   &.vimeo
                     background-position: right -175px
                   &.flipboard
                     background-position: right -200px
+                  &.google_plus
+                    background: none
+                    text-indent: 0
+                    img
+                      max-width: 100%
           &.questions
             float: none
             overflow: hidden
@@ -294,7 +319,7 @@ body
 
 .thumbnails
   padding: 10px 0 0 0
-  background: transparent url(image-path("v2/bg_thumbnails.png")) 0 0 repeat-x
+  background: transparent image-url("v2/bg_thumbnails.png") 0 0 repeat-x
   ul
     position: relative
     top: 1px
@@ -308,14 +333,14 @@ body
       img
         display: block
         padding: 5px
-        background: transparent url(image-path("v2/bg_home_thumbnails.png")) repeat
+        background: transparent image-url("v2/bg_home_thumbnails.png") repeat
         background: rgba(255, 255, 255, .4)
         width: 130px
         height: 130px
       &.last
         margin: 0
       &.hover
-        background: transparent url(image-path("v2/icon_home-thumb_active.png")) 50% 100% no-repeat
+        background: transparent image-url("v2/icon_home-thumb_active.png") 50% 100% no-repeat
         img
           background: rgba(255, 255, 255, .6)
   .term
@@ -357,6 +382,8 @@ body
       background: #62707d
       border-color: #394651
       color: #fff
+  em
+    font-style: normal
   a
     text-decoration: none
     background: $fieldset_light_blue
@@ -369,7 +396,7 @@ body
   span
     &.previous_page,
     &.next_page
-      color: #616e7a
+      color: $darker_blue
     &.disabled
       font-weight: normal
       color: #CAD3DB

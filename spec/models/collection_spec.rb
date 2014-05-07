@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 class CollectionBuilder
 
@@ -8,7 +8,7 @@ class CollectionBuilder
     col = Collection.gen
     if opts[:taxa] && ( ! defined?(@@taxa_for_collections) || @@taxa_for_collections.size <= opts[:taxa])
       while @@taxa_for_collections.size < opts[:taxa] do
-        @@taxa_for_collections << build_taxon_concept
+        @@taxa_for_collections << FactoryGirl.build_stubbed(TaxonConcept)
       end
     end
     if opts[:taxa]
@@ -49,9 +49,9 @@ describe Collection do
     end
 
     it 'should be valid when the same name is used by another user' do
-      c = Collection.gen(:name => 'Another name')
+      c = Collection.gen(name: 'Another name')
       c.users = [@another_user]
-      c = Collection.new(:name => 'Another name')
+      c = Collection.new(name: 'Another name')
       c.users = [@test_data[:user]]
       c.valid?.should be_true
     end
@@ -104,9 +104,9 @@ describe Collection do
       @community.initialize_as_created_by(@owner)
       @community.add_member(@someone_else)
       @community_collection = Collection.create(
-        :name => 'Nothing Else Matters',
-        :published => false,
-        :special_collection_id => nil)
+        name: 'Nothing Else Matters',
+        published: false,
+        special_collection_id: nil)
       @community.collections = [@community_collection]
     end
 
@@ -142,7 +142,7 @@ describe Collection do
 
   it 'should be able to add/modify/remove description' do
     description = "Valid description"
-    collection = Collection.gen(:name => 'A name', :description => description)
+    collection = Collection.gen(name: 'A name', description: description)
     collection.users = [@test_data[:user]]
     collection.description.should == description
     collection.description = "modified #{description}"
@@ -159,9 +159,9 @@ describe Collection do
   end
 
   it 'should get taxon counts for multiple collections' do
-    collection_1 = CollectionBuilder.gen(:taxa => 1, :users => 1)
-    collection_2 = CollectionBuilder.gen(:taxa => 2, :users => 1)
-    collection_3 = CollectionBuilder.gen(:taxa => 3, :users => 1)
+    collection_1 = CollectionBuilder.gen(taxa: 1, users: 1)
+    collection_2 = CollectionBuilder.gen(taxa: 2, users: 1)
+    collection_3 = CollectionBuilder.gen(taxa: 3, users: 1)
     collections = [collection_1, collection_2, collection_3]
     taxa_counts = Collection.get_taxa_counts(collections)
     taxa_counts[collections[0].id].should == 1
@@ -178,7 +178,7 @@ describe Collection do
   it 'should know what its default view style is' do
     collection = Collection.gen
     collection.view_style_or_default.should == ViewStyle.annotated
-    collection.update_attributes(:view_style => ViewStyle.gallery)
+    collection.update_attributes(view_style: ViewStyle.gallery)
     collection.reload
     collection.view_style_or_default.should == ViewStyle.gallery
   end
@@ -189,13 +189,78 @@ describe Collection do
     collection.inaturalist_project_info
   end
 
+  it 'should give a unique list of maintained_by' do
+    collection = Collection.gen
+    user = User.gen
+    community = Community.gen
+    2.times { collection.users << user }
+    2.times { collection.communities << community }
+    collection.maintained_by.length.should == 2
+    collection.maintained_by.should include(user)
+    collection.maintained_by.should include(community)
+  end
+
+  it '#taxa returns taxa collection_items' do
+    collection = Collection.gen
+    items = []
+    items.should_receive(:taxa).and_return(["this"])
+    collection.should_receive(:collection_items).and_return(items)
+    expect(collection.taxa).to eq(["this"])
+  end
+
+  it '#taxa_count counts taxa' do
+    collection = Collection.gen
+    collection.should_receive(:taxa).and_return([1,2,3])
+    expect(collection.taxa_count).to eq(3)
+  end
+
+  it 'has a default image' do
+    collection = Collection.gen(logo_file_name: '', logo_cache_url: nil)
+    expect(collection.logo_url).to eq("v2/logos/collection_default.png")
+  end
+
+  it 'calls ImageManipulation to get image name' do
+    #cache_url doesn't matter here, but cannot be nil:
+    collection = Collection.gen(logo_file_name: 'this.ext', logo_cache_url: 1)
+    allow(ImageManipulation).to receive(:local_file_name) { "hithere" }
+    expect(collection.logo_url).to match /hithere/
+    expect(ImageManipulation).to have_received(:local_file_name).with(collection)
+  end
+
+  context 'when using content server for thumbnails' do
+
+    before do
+      Rails.configuration.use_content_server_for_thumbnails = true
+    end
+
+    # TODO - can we *ensure* this runs?
+    after do
+      Rails.configuration.use_content_server_for_thumbnails = false
+    end
+
+    it 'uses 88x88 image cache for small icons' do
+      image_cache = Faker::Eol.image
+      collection = Collection.gen(logo_cache_url: image_cache)
+      allow(DataObject).to receive(:image_cache_path) { "helloagain" }
+      expect(collection.logo_url('small')).to match /helloagain/
+      # TODO - this is a little fragile... we know too much when we specify the arguments, here, but I really want to check the 88x88:
+      expect(DataObject).to have_received(:image_cache_path).with(image_cache, '88_88', specified_content_host: nil)
+    end
+
+    it 'uses 130x130 image cache' do
+      image_cache = Faker::Eol.image
+      collection = Collection.gen(logo_cache_url: image_cache)
+      allow(DataObject).to receive(:image_cache_path) { "suchfun" }
+      expect(collection.logo_url).to match /suchfun/
+      # TODO - this is a little fragile... we know too much when we specify the arguments, here, but I really want to check the 130:
+      expect(DataObject).to have_received(:image_cache_path).with(image_cache, '130_130', specified_content_host: nil)
+    end
+
+  end
+
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'
   # should know when it is "special" TODO - do we need this anymore?  I don't think so...
   # should know when it is a resource collection.
-  # should use DataObject#image_cache_path to handle logo_url at 88 pixels when small.
-  # should use DataObject#image_cache_path to handle logo_url at 130 pixels when default.
-  # should use v2/logos/collection_default.png when logo_url has no image.
-  # should know its #taxa elements
   # should know when it is maintained by a user
   # should know when it is maintained by a community
   # should know if it has an item.

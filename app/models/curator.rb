@@ -13,10 +13,10 @@ class Curator
   def self.taxa_synonyms_curated(user_id = nil)
     # list of taxa where user added, removed, curated (trust, untrust, inappropriate, unreview) a common name
     query = "activity_log_type:CuratorActivityLog AND feed_type_affected:Synonym AND user_id:#{user_id}"
-    results = EOL::Solr::ActivityLog.search_with_pagination(query, :filter => "names", :per_page => 999999, :page => 1, :skip_loading_instances => true)
+    results = EOL::Solr::ActivityLog.search_with_pagination(query, filter: "names", per_page: 999999, page: 1, skip_loading_instances: true)
     EOL::Solr.add_standard_instance_to_docs!(CuratorActivityLog,
       results.select{ |d| d['activity_log_type'] == 'CuratorActivityLog' }, 'activity_log_id',
-      :selects => { :curator_activity_logs => [ :id, :taxon_concept_id ] })
+      selects: { curator_activity_logs: [ :id, :taxon_concept_id ] })
     taxa = results.collect{ |r| r['instance']['taxon_concept_id'] }.uniq
   end
 

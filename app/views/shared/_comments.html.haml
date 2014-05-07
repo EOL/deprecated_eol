@@ -29,4 +29,4 @@
   - paginated_section(comments, opts ) do
     %ul.comments
       - comments.each do |comment|
-        = render :partial => 'comments/comment', :locals => {:comment => comment}
+        = render 'comments/comment', {:comment => comment}

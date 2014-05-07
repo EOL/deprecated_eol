@@ -1,8 +1,8 @@
-- # TODO: This partial has gone crazy, we should refactor and use model and/or helper methods to get supplier
+- # TODO: This has gone crazy, we should refactor and use model and/or helper methods to get supplier
 - # for different contexts.
 - association_supplied_by_user ||= nil
-- minimal = false unless defined?(minimal)
-- translation = false unless defined?(translation)
+- minimal = false unless local_assigns.has_key?(:minimal)
+- translation = false unless local_assigns.has_key?(:translation)
 - rel = controller_name == 'data_objects' ? :nofollow : nil
 %p
   - if association_supplied_by_user

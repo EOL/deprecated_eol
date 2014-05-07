@@ -1,10 +1,10 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe ContentUpload do
 
   before(:all) do
     ContentUpload.delete_all
-    CuratorLevel.create_defaults
+    CuratorLevel.create_enumerated
     @upload = ContentUpload.gen
   end
 
@@ -13,12 +13,12 @@ describe ContentUpload do
   end
 
   it 'should downcase the extension' do
-    u = ContentUpload.gen(:attachment_extension => 'JPG')
+    u = ContentUpload.gen(attachment_extension: 'JPG')
     u.ext.should == 'jpg'
   end
 
   it 'should turn jpeg extensions to jpg' do
-    u = ContentUpload.gen(:attachment_extension => '.jpeg')
+    u = ContentUpload.gen(attachment_extension: '.jpeg')
     u.ext.should == '.jpg'
   end
 

@@ -1,10 +1,10 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe UserPrimaryRole do
   before(:each) do
     @string = 'aaa'
     @valid_attributes = {
-      :name => @string.succ
+      name: @string.succ
     }
   end
 

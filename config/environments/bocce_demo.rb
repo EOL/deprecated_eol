@@ -21,6 +21,10 @@ Eol::Application.configure do
   # Compress JavaScripts and CSS
   config.assets.compress = true
 
+  # Allow removal of expired assets:
+  config.assets.handle_expiration = true
+  config.assets.expire_after 2.months
+
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
 
@@ -43,8 +47,14 @@ Eol::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1
 
-  # TODO - consider this. If we want it, put it in. If we don't, remove this paragraph:
-  # config.i18n.fallbacks = true
+  # Load all the active languages, and only the active languages:
+  unless ENV.has_key?('LOCALE') # They already told us what to load.
+    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{#{Rails.configuration.active_languages.join(',')}}.yml").to_s]
+  end
 
   require "ruby-debug"
+
+  require File.expand_path('../../../lib/initializer_additions', __FILE__)
+  InitializerAdditions.add("environments/#{Rails.env}_eol_org")
+
 end

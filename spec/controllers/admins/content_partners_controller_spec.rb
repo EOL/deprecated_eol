@@ -60,7 +60,8 @@ describe Admins::ContentPartnersController do
     end
     it 'should filter by partners that have no resources' do
       get :index, {:published => '5'}, { :user => @admin, :user_id => @admin.id }
-      assigns[:partners].should == [@cp_no_resources]
+      expect(assigns[:partners]).to include(@cp_no_resources)
+      expect(assigns[:partners]).not_to include(@cp_latest_published)
     end
   end
 
@@ -99,7 +100,7 @@ describe Admins::ContentPartnersController do
       contact = ContentPartnerContact.first(:include => { :content_partner => :user })
       last_month = Date.today - 1.month
       GoogleAnalyticsPartnerSummary.gen(:year => last_month.year, :month => last_month.month, :user => contact.content_partner.user)
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:content_partner_statistics_reminder).with(contact.content_partner, contact, Date::MONTHNAMES[last_month.month], last_month.year).
         and_return(mailer)

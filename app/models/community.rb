@@ -4,46 +4,41 @@ class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable
 
-  has_and_belongs_to_many :collections, :uniq => true
+  has_and_belongs_to_many :collections, uniq: true
 
   has_many :members
-  has_many :users, :through => :members
-  has_many :collection_items, :as => :collected_item # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
-  has_many :containing_collections, :through => :collection_items, :source => :collection
-  has_many :comments, :as => :parent
+  has_many :users, through: :members
+  has_many :collection_items, as: :collected_item # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
+  has_many :containing_collections, through: :collection_items, source: :collection
+  has_many :comments, as: :parent
 
-  scope :published, :conditions => 'published = 1'
-  
+  scope :published, conditions: 'published = 1'
+
   scope :in_group, lambda{ |group| {
-      :select=>"`photos`.*",
-      :joins=>"INNER JOIN `users` on `users`.id = `photos`.user_id INNER
+      select: "`photos`.*",
+      joins: "INNER JOIN `users` on `users`.id = `photos`.user_id INNER
   JOIN `groups_users` ON `users`.id = `groups_users`.user_id",
-      :conditions=>["`groups_users`.group_id = ?", group.id]
+      conditions: ["`groups_users`.group_id = ?", group.id]
     }}
-  
 
-  # These are for will_paginate:
-  cattr_reader :per_page
-  @@per_page = 30
-
-  validates_presence_of :name, :message => I18n.t(:cannot_be_empty)
-  validates_length_of :name, :maximum => 127, :message => I18n.t(:must_be_less_than_128_characters_long)
-  validates_uniqueness_of :name, :message => I18n.t(:has_already_been_taken), :if => Proc.new {|c| c.published? }
+  validates_presence_of :name, message: I18n.t(:cannot_be_empty)
+  validates_length_of :name, maximum: 127, message: I18n.t(:must_be_less_than_128_characters_long)
+  validates_uniqueness_of :name, message: I18n.t(:has_already_been_taken), if: Proc.new {|c| c.published? }
 
   # TODO: remove the :if condition after migrations are run in production
   has_attached_file :logo,
-    :path => $LOGO_UPLOAD_DIRECTORY,
-    :url => $LOGO_UPLOAD_PATH,
-    :default_url => "/assets/blank.gif",
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    path: $LOGO_UPLOAD_DIRECTORY,
+    url: $LOGO_UPLOAD_PATH,
+    default_url: "/assets/blank.gif",
+    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
   
   validates_attachment_content_type :logo,
-    :content_type => ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
-  validates_attachment_size :logo, :in => 0..$LOGO_UPLOAD_MAX_SIZE,
-    :if => Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    content_type: ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
+    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+  validates_attachment_size :logo, in: 0..$LOGO_UPLOAD_MAX_SIZE,
+    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
 
-  index_with_solr :keywords => [ :name ], :fulltexts => [ :description ]
+  index_with_solr keywords: [ :name ], fulltexts: [ :description ]
 
   alias :focuses :collections
   alias_attribute :summary_name, :name
@@ -66,13 +61,13 @@ class Community < ActiveRecord::Base
   # Auto-joins the user to the community, and makes that person the owner.
   def initialize_as_created_by(user)
     mem = add_member(user)
-    mem.update_attributes(:manager => true)
+    mem.update_attributes(manager: true)
     mem
   end
 
   # Returns the new member.
   def add_member(user, opts = {})
-    member = Member.create!(:user_id => user.id, :community_id => id)
+    member = Member.create!(user_id: user.id, community_id: id)
     members << member
     member
   end
@@ -100,9 +95,9 @@ class Community < ActiveRecord::Base
     if logo_cache_url.blank?
       return "v2/logos/community_default.png"
     elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', :specified_content_host => specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host: specified_content_host)
     else
-      DataObject.image_cache_path(logo_cache_url, '130_130', :specified_content_host => specified_content_host)
+      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host: specified_content_host)
     end
   end
 
@@ -114,14 +109,14 @@ class Community < ActiveRecord::Base
     }.compact[0..3]
   end
 
-  # TODO - errr... I'm guessing this is expensive.  Fix.
+  # TODO - use counter_culture to cache this.
   # the .reduce(:+) adds all the values of the array, thus counting all the items in all collections
   def all_items_in_all_collections_count
-    @all_items_count ||= collections.map { |c| c.cached_count }.reduce(:+)
+    @all_items_count ||= collections.map { |c| c.collection_items_count }.reduce(:+)
   end
   
   def cached_count_members
-    Rails.cache.fetch("communities/cached_count_members/#{self.id}", :expires_in => 10.minutes) do
+    Rails.cache.fetch("communities/cached_count_members/#{self.id}", expires_in: 10.minutes) do
       members.count
     end
   end

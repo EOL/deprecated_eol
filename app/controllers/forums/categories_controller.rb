@@ -1,8 +1,8 @@
 class Forums::CategoriesController < ForumsController
 
-  layout 'v2/forum'
+  layout 'forum'
   before_filter :restrict_to_admins
-  before_filter :allow_login_then_submit, :only => [:create]
+  before_filter :allow_login_then_submit, only: [:create]
 
   # GET /forum_categories/new
   def new
@@ -26,6 +26,7 @@ class Forums::CategoriesController < ForumsController
   # GET /forum_categories/:id/edit
   def edit
     @category = ForumCategory.find(params[:id])
+    # TODO - second argument to constructor should be an I18n key for a human-readable error.
     raise EOL::Exceptions::SecurityViolation,
       "User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}" unless current_user.can_update?(@category)
   end
@@ -64,8 +65,8 @@ class Forums::CategoriesController < ForumsController
     @category = ForumCategory.find(params[:id])
     if @next_lowest = ForumCategory.where("view_order < #{@category.view_order}").order("view_order desc").limit(1).first
       new_view_order = @next_lowest.view_order
-      @next_lowest.update_attributes(:view_order => @category.view_order)
-      @category.update_attributes(:view_order => new_view_order)
+      @next_lowest.update_attributes(view_order: @category.view_order)
+      @category.update_attributes(view_order: new_view_order)
       flash[:notice] = I18n.t('forums.categories.move_successful')
     else
       flash[:error] = I18n.t('forums.categories.move_failed')
@@ -78,8 +79,8 @@ class Forums::CategoriesController < ForumsController
     @category = ForumCategory.find(params[:id])
     if @next_highest = ForumCategory.where("view_order > #{@category.view_order}").order("view_order asc").limit(1).first
       new_view_order = @next_highest.view_order
-      @next_highest.update_attributes(:view_order => @category.view_order)
-      @category.update_attributes(:view_order => new_view_order)
+      @next_highest.update_attributes(view_order: @category.view_order)
+      @category.update_attributes(view_order: new_view_order)
       flash[:notice] = I18n.t('forums.categories.move_successful')
     else
       flash[:error] = I18n.t('forums.categories.move_failed')

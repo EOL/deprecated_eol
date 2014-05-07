@@ -1,13 +1,13 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 def build_secondary_iucn_hierarchy_and_resource
-  Agent.iucn.user ||= User.gen(:agent => Agent.iucn)
+  Agent.iucn.user ||= User.gen(agent: Agent.iucn)
   if Agent.iucn.user.content_partner.blank?
-    Agent.iucn.user.content_partners << ContentPartner.gen(:user => Agent.iucn.user)
+    Agent.iucn.user.content_partners << ContentPartner.gen(user: Agent.iucn.user)
   end
-  another_iucn_resource  = Resource.gen(:title  => 'Another IUCN', :content_partner => Agent.iucn.user.content_partners.first)
-  another_iucn_hierarchy = Hierarchy.gen(:label => 'Another IUCN')
+  another_iucn_resource  = Resource.gen(title: 'Another IUCN', content_partner: Agent.iucn.user.content_partners.first)
+  another_iucn_hierarchy = Hierarchy.gen(label: 'Another IUCN')
   return [another_iucn_hierarchy, another_iucn_resource]
 end
 
@@ -93,10 +93,10 @@ describe TaxonConcept do
   end
 
   it 'should show the common name from the current users language' do
-    lang = Language.gen_if_not_exists(:label => 'Ancient Egyptian')
-    user = User.gen(:language => lang)
+    lang = Language.gen_if_not_exists(label: 'Ancient Egyptian')
+    user = User.gen(language: lang)
     str  = 'Frebblebup'
-    @taxon_concept.add_common_name_synonym(str, :agent => user.agent, :language => lang)
+    @taxon_concept.add_common_name_synonym(str, agent: user.agent, language: lang)
     @taxon_concept.preferred_common_name_in_language(lang).should == str
   end
 
@@ -129,12 +129,12 @@ describe TaxonConcept do
   it 'should not throw an error if there are activity logs with user ID 0' do
     # creating a curator activity log with user_id = 0
     l = CuratorActivityLog.gen(
-      :user_id => 0,
-      :changeable_object_type => ChangeableObjectType.data_object,
-      :target_id => @taxon_concept.data_objects.last.id,
-      :taxon_concept => @taxon_concept,
-      :activity => Activity.trusted)
-    lambda { @taxon_concept.data_object_curators }.should_not raise_error
+      user_id: 0,
+      changeable_object_type: ChangeableObjectType.data_object,
+      target_id: @taxon_concept.data_objects.last.id,
+      taxon_concept: @taxon_concept,
+      activity: Activity.trusted)
+    expect { @taxon_concept.data_object_curators }.not_to raise_error
     @taxon_concept.data_object_curators.should == []
     l.destroy
   end
@@ -171,7 +171,7 @@ describe TaxonConcept do
 
   it 'should return available text objects for given toc items in order of preference and rating' do
     given_toc_items = [@testy[:toc_item_2], @testy[:brief_summary]]
-    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id] , :toc_ids => given_toc_items.collect(&:id))
+    results = @taxon_concept.data_objects_from_solr(data_type_ids: [ DataType.text.id] , toc_ids: given_toc_items.collect(&:id))
     results.each do |text|
       text.data_type_id.should == DataType.text.id
       diff = text.toc_items - given_toc_items
@@ -181,9 +181,9 @@ describe TaxonConcept do
 
   it 'should return a subset of text objects for each given toc item if option limit is set' do
     given_toc_items = [@testy[:toc_item_2], @testy[:toc_item_3]]
-    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id], :toc_ids => given_toc_items.collect(&:id))
+    results = @taxon_concept.data_objects_from_solr(data_type_ids: [ DataType.text.id], toc_ids: given_toc_items.collect(&:id))
     results.count.should == 3
-    results = @taxon_concept.data_objects_from_solr(:data_type_ids => [ DataType.text.id], :toc_ids => given_toc_items.collect(&:id), :per_page => 2)
+    results = @taxon_concept.data_objects_from_solr(data_type_ids: [ DataType.text.id], toc_ids: given_toc_items.collect(&:id), per_page: 2)
     results.count.should == 2
   end
 
@@ -211,8 +211,8 @@ describe TaxonConcept do
     common_names.count.should > 0
     # by hierarchy_entry
     hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries.first
-    taxon_concept_name = TaxonConceptName.gen(:vern => 1, :source_hierarchy_entry_id => hierarchy_entry.id, :taxon_concept_id => @taxon_concept.id)
-    common_names = @taxon_concept.common_names(:hierarchy_entry_id => hierarchy_entry.id)
+    taxon_concept_name = TaxonConceptName.gen(vern: 1, source_hierarchy_entry_id: hierarchy_entry.id, taxon_concept_id: @taxon_concept.id)
+    common_names = @taxon_concept.common_names(hierarchy_entry_id: hierarchy_entry.id)
     common_names.count.should > 0
   end
 
@@ -233,14 +233,14 @@ describe TaxonConcept do
   # ARE either trusted or unknown.  :|
   it 'should not return untrusted images to non-curators' do
     @taxon_concept.reload
-    @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids)).map { |item|
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(data_type_ids: DataType.image_type_ids)).map { |item|
       item.vetted_by_taxon_concept(@taxon_concept)
     }.uniq.should == [Vetted.trusted, Vetted.unknown]
   end
   
   it 'should return media sorted by trusted, unknown, untrusted' do
     @taxon_concept.reload
-    @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(:data_type_ids => DataType.image_type_ids, :vetted_types => ['trusted', 'unreviewed', 'untrusted'])).map { |item|
+    @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(data_type_ids: DataType.image_type_ids, vetted_types: ['trusted', 'unreviewed', 'untrusted'])).map { |item|
       item.vetted_by_taxon_concept(@taxon_concept)
     }.uniq.should == [Vetted.trusted, Vetted.unknown, Vetted.untrusted]
   end
@@ -256,10 +256,20 @@ describe TaxonConcept do
   it 'should create a common name as a preferred common name, if there are no other common names for the taxon' do
     tc = @tc_with_no_starting_common_names
     agent = Agent.last
-    tc.add_common_name_synonym('A name', :agent => agent, :language => Language.english)
+    tc.add_common_name_synonym('A name', agent: agent, language: Language.english)
+    # TODO - this test fails, and I think it's because the safe-language-capitalization thing isn't working. Investigate.
+    debugger unless tc.preferred_common_name_in_language(Language.english) == "A Name"
     tc.preferred_common_name_in_language(Language.english).should == "A Name"
-    tc.add_common_name_synonym("Another name", :agent => agent, :language => Language.english)
+    tc.add_common_name_synonym("Another name", agent: agent, language: Language.english)
     tc.preferred_common_name_in_language(Language.english).should == "A Name"
+  end
+
+  it 'should capitalize the common name' do
+    taxon = TaxonConcept.gen
+    name = double(Name)
+    name.stub(:string) { 'funky downcase thang' }
+    taxon.should_receive(:common_names_in_language).at_least(1).times.and_return({Language.default.id => name})
+    taxon.preferred_common_name_in_language.should == 'Funky Downcase Thang'
   end
 
   it 'should include the LigerCat TocItem when the TaxonConcept has one'
@@ -273,30 +283,30 @@ describe TaxonConcept do
   it 'should cite a vetted source for the page when there are both vetted and unvetted sources' do
     h_vetted = Hierarchy.gen()
     h_unvetted = Hierarchy.gen()
-    concept = TaxonConcept.gen(:published => 1, :vetted => Vetted.trusted)
+    concept = TaxonConcept.gen(published: 1, vetted: Vetted.trusted)
     concept.entry.should be_nil
 
     # adding an unvetted name and testing
-    unvetted_name = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Annnvettedname'),
-                      :string => 'Annnvettedname',
-                      :italicized => '<i>Annnvettedname</i>')
+    unvetted_name = Name.gen(canonical_form: cf = CanonicalForm.gen(string: 'Annnvettedname'),
+                      string: 'Annnvettedname',
+                      italicized: '<i>Annnvettedname</i>')
     he_unvetted = build_hierarchy_entry(0, concept, unvetted_name,
-                                :hierarchy => h_unvetted,
-                                :vetted_id => Vetted.unknown.id,
-                                :published => 1)
+                                hierarchy: h_unvetted,
+                                vetted_id: Vetted.unknown.id,
+                                published: 1)
     concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
     concept.entry.should_not be_nil
     concept.entry.id.should == he_unvetted.id
     concept.entry.name.string.should == unvetted_name.string
 
     # adding a vetted name and testing
-    vetted_name = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Avettedname'),
-                      :string => 'Avettedname',
-                      :italicized => '<i>Avettedname</i>')
+    vetted_name = Name.gen(canonical_form: cf = CanonicalForm.gen(string: 'Avettedname'),
+                      string: 'Avettedname',
+                      italicized: '<i>Avettedname</i>')
     he_vetted = build_hierarchy_entry(0, concept, vetted_name,
-                                :hierarchy => h_vetted,
-                                :vetted_id => Vetted.trusted.id,
-                                :published => 1)
+                                hierarchy: h_vetted,
+                                vetted_id: Vetted.trusted.id,
+                                published: 1)
     concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
     TaxonConceptPreferredEntry.delete_all(taxon_concept_id: concept.id)
     concept.reload
@@ -304,13 +314,13 @@ describe TaxonConcept do
     concept.entry.name.string.should == vetted_name.string
 
     # adding another unvetted name to test the vetted name remains
-    another_unvetted_name = Name.gen(:canonical_form => cf = CanonicalForm.gen(:string => 'Anotherunvettedname'),
-                      :string => 'Anotherunvettedname',
-                      :italicized => '<i>Anotherunvettedname</i>')
+    another_unvetted_name = Name.gen(canonical_form: cf = CanonicalForm.gen(string: 'Anotherunvettedname'),
+                      string: 'Anotherunvettedname',
+                      italicized: '<i>Anotherunvettedname</i>')
     he_anotherunvetted = build_hierarchy_entry(0, concept, another_unvetted_name,
-                                :hierarchy => h_vetted,
-                                :vetted_id => Vetted.unknown.id,
-                                :published => 1)
+                                hierarchy: h_vetted,
+                                vetted_id: Vetted.unknown.id,
+                                published: 1)
     concept = TaxonConcept.find(concept.id) # cheating so I can flush all the instance variables
     concept.entry.id.should == he_vetted.id
     concept.entry.name.string.should == vetted_name.string
@@ -327,7 +337,7 @@ describe TaxonConcept do
     syn_count = Synonym.count
     name_count = Name.count
 
-    @taxon_concept.add_common_name_synonym('any name', :agent => @agent, :language => Language.english)
+    @taxon_concept.add_common_name_synonym('any name', agent: @agent, language: Language.english)
 
     TaxonConceptName.count.should == tcn_count + 1
     Synonym.count.should == syn_count + 1
@@ -335,13 +345,13 @@ describe TaxonConcept do
   end
 
   it "add common name should mark first created name for a language as preferred automatically" do
-    language = Language.gen_if_not_exists(:label => "Russian")
+    language = Language.gen_if_not_exists(label: "Russian")
     weird_name = "Саблезубая сосиска"
-    s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
+    s = @taxon_concept.add_common_name_synonym(weird_name, agent: @agent, language: language)
     TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
     TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_true
     weird_name = "Голый землекоп"
-    s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
+    s = @taxon_concept.add_common_name_synonym(weird_name, agent: @agent, language: language)
     TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 2
     TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
   end
@@ -349,7 +359,7 @@ describe TaxonConcept do
   it "add common name should not mark first created name as preferred for unknown language" do
     language = Language.unknown
     weird_name = "Саблезубая сосискаasdfasd"
-    s = @taxon_concept.add_common_name_synonym(weird_name, :agent => @agent, :language => language)
+    s = @taxon_concept.add_common_name_synonym(weird_name, agent: @agent, language: language)
     TaxonConceptName.find_all_by_taxon_concept_id_and_language_id(@taxon_concept, language).size.should == 1
     TaxonConceptName.find_by_synonym_id(s.id).preferred?.should be_false
   end
@@ -373,7 +383,7 @@ describe TaxonConcept do
     syn_count = Synonym.count
     name_count = Name.count
 
-    syn = @taxon_concept.add_common_name_synonym(@name_string, :agent => Agent.find(@curator.agent_id), :language => Language.gen_if_not_exists(:label => "French"))
+    syn = @taxon_concept.add_common_name_synonym(@name_string, agent: Agent.find(@curator.agent_id), language: Language.gen_if_not_exists(label: "French"))
     TaxonConceptName.count.should == tcn_count + 1
     Synonym.count.should == syn_count + 1
     Name.count.should == name_count  # name wasn't new
@@ -397,12 +407,12 @@ describe TaxonConcept do
     end
 
     # first one should go in as preferred
-    first_syn = @testy[:empty_taxon_concept].add_common_name_synonym('First english name', :agent => @agent, :language => Language.english)
+    first_syn = @testy[:empty_taxon_concept].add_common_name_synonym('First english name', agent: @agent, language: Language.english)
     first_tcn = TaxonConceptName.find_by_synonym_id(first_syn.id)
     first_tcn.preferred?.should be_true
 
     # second should not be preferred
-    second_syn = @testy[:empty_taxon_concept].add_common_name_synonym('Second english name', :agent => @agent, :language => Language.english)
+    second_syn = @testy[:empty_taxon_concept].add_common_name_synonym('Second english name', agent: @agent, language: Language.english)
     second_tcn = TaxonConceptName.find_by_synonym_id(second_syn.id)
     second_tcn.preferred?.should be_false
 
@@ -414,8 +424,8 @@ describe TaxonConcept do
 
   it 'should untrust all synonyms and TCNs related to a TC when untrusted' do
     # Make them all "trusted" first:
-    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.trusted) }
-    @taxon_concept.vet_common_name(:vetted => Vetted.untrusted, :language_id => Language.english.id, :name_id => @name_obj.id, :user => @curator)
+    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(vetted: Vetted.trusted) }
+    @taxon_concept.vet_common_name(vetted: Vetted.untrusted, language_id: Language.english.id, name_id: @name_obj.id, user: @curator)
     @syn1.reload.vetted_id.should == Vetted.untrusted.id
     @syn2.reload.vetted_id.should == Vetted.untrusted.id
     @tcn1.reload.vetted_id.should == Vetted.untrusted.id
@@ -424,8 +434,8 @@ describe TaxonConcept do
 
   it 'should "unreview" all synonyms and TCNs related to a TC when unreviewed' do
     # Make them all "trusted" first:
-    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.trusted) }
-    @taxon_concept.vet_common_name(:vetted => Vetted.unknown, :language_id => Language.english.id, :name_id => @name_obj.id, :user => @curator)
+    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(vetted: Vetted.trusted) }
+    @taxon_concept.vet_common_name(vetted: Vetted.unknown, language_id: Language.english.id, name_id: @name_obj.id, user: @curator)
     @syn1.reload.vetted_id.should == Vetted.unknown.id
     @syn2.reload.vetted_id.should == Vetted.unknown.id
     @tcn1.reload.vetted_id.should == Vetted.unknown.id
@@ -434,8 +444,8 @@ describe TaxonConcept do
 
   it 'should trust all synonyms and TCNs related to a TC when trusted' do
     # Make them all "unknown" first:
-    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.unknown) }
-    @taxon_concept.vet_common_name(:vetted => Vetted.trusted, :language_id => Language.english.id, :name_id => @name_obj.id, :user => @curator)
+    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(vetted: Vetted.unknown) }
+    @taxon_concept.vet_common_name(vetted: Vetted.trusted, language_id: Language.english.id, name_id: @name_obj.id, user: @curator)
     @syn1.reload.vetted_id.should == Vetted.trusted.id
     @syn2.reload.vetted_id.should == Vetted.trusted.id
     @tcn1.reload.vetted_id.should == Vetted.trusted.id
@@ -444,8 +454,8 @@ describe TaxonConcept do
 
   it 'should inappropriate all synonyms and TCNs related to a TC when inappropriated' do
     # Make them all "unknown" first:
-    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(:vetted => Vetted.unknown) }
-    @taxon_concept.vet_common_name(:vetted => Vetted.inappropriate, :language_id => Language.english.id, :name_id => @name_obj.id, :user => @curator)
+    [@syn1, @syn2, @tcn1, @tcn2].each {|obj| obj.update_attributes!(vetted: Vetted.unknown) }
+    @taxon_concept.vet_common_name(vetted: Vetted.inappropriate, language_id: Language.english.id, name_id: @name_obj.id, user: @curator)
     @syn1.reload.vetted_id.should == Vetted.inappropriate.id
     @syn2.reload.vetted_id.should == Vetted.inappropriate.id
     @tcn1.reload.vetted_id.should == Vetted.inappropriate.id
@@ -463,11 +473,12 @@ describe TaxonConcept do
   # ...Also, the expression of this spec is ... awful.  But I'm in a rush.
   it 'should show comments from superceded taxa' do
     @testy[:superceded_comment].log_activity_in_solr # It doesn't seem to be, by default.
-    @taxon_concept.activity_log(:per_page => 500).select { |a| a["activity_log_type"] == "Comment"}.map { |c|
+    @taxon_concept.activity_log(per_page: 500).select { |a| a["activity_log_type"] == "Comment"}.map { |c|
       c["instance"].body }.should include(@testy[:superceded_comment].body)
   end
 
   it 'should return an exemplar' do
+    # Here
     @testy[:has_one_image].exemplar_or_best_image_from_solr.id.should == @testy[:the_one_image].id
   end
   
@@ -479,42 +490,69 @@ describe TaxonConcept do
     @testy[:has_one_hidden_image].exemplar_or_best_image_from_solr.should be_nil
   end
 
-  it 'should not return unpublished images as examplars' do
-    best_image = @testy[:has_one_image].exemplar_or_best_image_from_solr
-    best_image.published?.should == true
-    best_image.update_attribute('published', 0)
-    @testy[:has_one_image].reload
-    # when the best image is unpublished it should not be returned. At this point Solr hasn't been
-    # updated so it still things best_image is the best, but the code will check its published
-    # status, look for a later version, and if none exists then return nil
-    @testy[:has_one_image].exemplar_or_best_image_from_solr.should == nil
+  context '#published_exemplar_image' do
 
-    newer_version = DataObject.gen(:guid => best_image.guid, :language_id => best_image.language_id, :published => true)
-    @testy[:has_one_image].reload
-    # here Solr will return the original object, but then we will find the latest published version of it
-    @testy[:has_one_image].exemplar_or_best_image_from_solr.should == newer_version
-    newer_version.destroy
-    best_image.update_attribute('published', 1)
-    @testy[:has_one_image].reload
+    before(:each) do
+      @taxon_concept.clear_instance_variables
+    end
+
+    # A lot in this spec, but I'm okay with that...
+    it 'should return the latest published, visible data_object (and cache it)' do
+      latest = double(DataObject)
+      dato = double(DataObject, published?: true, visibility_by_taxon_concept: Visibility.visible,
+                                latest_published_version_in_same_language: latest)
+      tcei = double(TaxonConceptExemplarImage, data_object: dato)
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).exactly(1).times.and_return(tcei)
+      expect(@taxon_concept.published_exemplar_image).to eq(latest)
+      expect(@taxon_concept.published_exemplar_image).to eq(latest) # Checking a second time to ensure it's cached.
+    end
+
+    it 'should return nil if taxon_concept_exemplar_image is missing (and cache it)' do
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).exactly(1).times.and_return(nil)
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+    end
+
+    it 'should return nil if the data object is missing' do
+      tcei = double(TaxonConceptExemplarImage, data_object: nil)
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).exactly(1).times.and_return(tcei)
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+    end
+
+    it 'should destroy unpublished exemplars and return nil' do
+      dato = double(DataObject, published?: false)
+      tcei = double(TaxonConceptExemplarImage, data_object: dato)
+      tcei.should_receive(:destroy).and_return(nil)
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).and_return(tcei)
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+    end
+
+    it 'should return nil if image is invisible' do
+      dato = double(DataObject, published?: true, visibility_by_taxon_concept: Visibility.invisible)
+      tcei = double(TaxonConceptExemplarImage, data_object: dato)
+      @taxon_concept.should_receive(:taxon_concept_exemplar_image).and_return(tcei)
+      expect(@taxon_concept.published_exemplar_image).to be_nil
+    end
+
   end
 
   it 'should show overview text with no language only to users in the default language' do
-    user = User.gen(:language => Language.default)
+    user = User.gen(language: Language.default)
     @taxon_concept.overview_text_for_user(user).language_id.should == Language.default.id
     new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
     new_best_text.language_id.should == 0
 
-    user = User.gen(:language => Language.find_by_iso_639_1('fr'))
+    user = User.gen(language: Language.find_by_iso_639_1('fr'))
     new_best_text = @testy[:no_language_in_toc].overview_text_for_user(user)
     new_best_text.should be_nil
   end
 
   it 'should use the name from the specified hierarchy' do
     tc = TaxonConcept.gen
-    name1 = Name.gen(:string => "Name1")
-    he1 = HierarchyEntry.gen(:taxon_concept => tc, :name => name1, :hierarchy => Hierarchy.gen)
-    name2 = Name.gen(:string => "Name2")
-    he2 = HierarchyEntry.gen(:taxon_concept => tc, :name => name2, :hierarchy => Hierarchy.gen)
+    name1 = Name.gen(string: "Name1")
+    he1 = HierarchyEntry.gen(taxon_concept: tc, name: name1, hierarchy: Hierarchy.gen)
+    name2 = Name.gen(string: "Name2")
+    he2 = HierarchyEntry.gen(taxon_concept: tc, name: name2, hierarchy: Hierarchy.gen)
 
     tc.entry.should == he1
     tc.title.should == he1.name.string
@@ -539,7 +577,7 @@ describe TaxonConcept do
     # 'which does NOT accept arguments other than a Hierarchy'
     lambda { tc.entry(he) }.should raise_error
     # 'which uses preferred entry if available'
-    TaxonConceptPreferredEntry.create(:taxon_concept_id => tc.id, :hierarchy_entry_id => he.id)
+    TaxonConceptPreferredEntry.create(taxon_concept_id: tc.id, hierarchy_entry_id: he.id)
     tcpe = TaxonConceptPreferredEntry.last
     tc.entry.should == he
     # 'which is a singleton'
@@ -559,10 +597,10 @@ describe TaxonConcept do
     if published_visible_exemplar_article
       published_visible_exemplar_article.class.should == DataObject
     end
-    data_object = DataObject.gen(:data_type_id => DataType.text.id, :published => 1)
+    data_object = DataObject.gen(data_type_id: DataType.text.id, published: 1)
     data_object.taxon_concepts = [@taxon_concept]
-    DataObjectsHierarchyEntry.create(:hierarchy_entry_id => @taxon_concept.entry.id, :data_object_id => data_object.id,
-                                     :vetted_id => Vetted.trusted.id, :visibility_id => Visibility.visible.id)
+    DataObjectsHierarchyEntry.create(hierarchy_entry_id: @taxon_concept.entry.id, data_object_id: data_object.id,
+                                     vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
     TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, data_object.id)
     @taxon_concept.reload
     published_visible_exemplar_article = @taxon_concept.published_visible_exemplar_article_in_language(Language.default)
@@ -583,7 +621,7 @@ describe TaxonConcept do
     tc.entry.should == random_entry
 
     # adding a better entry
-    index_fungorum_entry = HierarchyEntry.gen(:hierarchy => Hierarchy.gen(:label => 'Index Fungorum'), :taxon_concept => tc)
+    index_fungorum_entry = HierarchyEntry.gen(hierarchy: Hierarchy.gen(label: 'Index Fungorum'), taxon_concept: tc)
     TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
     tc.reload
     tc.entry.should == index_fungorum_entry
@@ -595,22 +633,34 @@ describe TaxonConcept do
     tc.entry.should == index_fungorum_entry
 
     # not as good as IndexFungorum
-    paleo_entry = HierarchyEntry.gen(:hierarchy => Hierarchy.gen(:label => 'Paleobiology Database'), :taxon_concept => tc)
+    paleo_entry = HierarchyEntry.gen(hierarchy: Hierarchy.gen(label: 'Paleobiology Database'), taxon_concept: tc)
     TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
     tc.reload
     tc.entry.should == index_fungorum_entry
 
     # adding an even better entry
-    fishbase_entry = HierarchyEntry.gen(:hierarchy => Hierarchy.gen(:label => 'FishBase (Fish Species)'), :taxon_concept => tc)
+    fishbase_entry = HierarchyEntry.gen(hierarchy: Hierarchy.gen(label: 'FishBase (Fish Species)'), taxon_concept: tc)
     TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
     tc.reload
     tc.entry.should == fishbase_entry
 
     # adding an even better entry
-    col_entry = HierarchyEntry.gen(:hierarchy => Hierarchy.col, :taxon_concept => tc)
+    col_entry = HierarchyEntry.gen(hierarchy: Hierarchy.col, taxon_concept: tc)
     TaxonConceptPreferredEntry.delete_all("taxon_concept_id = #{tc.id}")
     tc.reload
     tc.entry.should == col_entry
+  end
+
+  it 'should know about communities as long as they are published' do
+    taxon_concept = TaxonConcept.gen
+    collection = Collection.gen
+    unpubs_collection = Collection.gen
+    collection.communities << Community.gen
+    unpubs_collection.communities << Community.gen(published: false)
+    taxon_concept.should_receive(:published_containing_collections).and_return([collection, unpubs_collection])
+    results = taxon_concept.communities
+    expect(results).to include(collection.communities.first)
+    expect(results).to_not include(unpubs_collection.communities.first)
   end
 
   it 'should not list duplicate communities' do
@@ -638,12 +688,77 @@ describe TaxonConcept do
     default_user_text.should_not == best_article
     default_user_text.language.should == default_user.language
 
-    arabic_user = User.gen(:language => arabic)
+    arabic_user = User.gen(language: arabic)
     arabic_user_text = @taxon_concept.send(:best_article_for_user, arabic_user)
     arabic_user_text.should == best_article
     arabic_user_text.language.should == arabic_user.language
     best_article.update_column(:language_id, Language.default.id)
     TaxonConceptExemplarArticle.destroy_all
+  end
+
+  it 'should generate proper outlinks when there are multiple entries for a hierarchy' do
+    tc = build_taxon_concept
+    tc.hierarchy_entries.destroy_all
+    tc.outlinks.count.should == 0
+    h1 = Hierarchy.gen
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: '')
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: 'http://eol.org/')
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: '')
+    tc.outlinks.count.should == 1
+    tc.outlinks.detect{ |o| o[:outlink_url] == 'http://eol.org/' }.should_not be_nil
+  end
+
+  it 'should use the outlink from the most recent entry from a hierarchy' do
+    tc = build_taxon_concept
+    tc.hierarchy_entries.destroy_all
+    tc.outlinks.count.should == 0
+    h1 = Hierarchy.gen
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: '')
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: 'http://eol.org/')
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: 'http://google.com/')
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: '')
+    tc.outlinks.count.should == 1
+    tc.outlinks.detect{ |o| o[:outlink_url] == 'http://google.com/' }.should_not be_nil
+  end
+
+  it 'should not use untrusted taxa for outlinks' do
+    tc = build_taxon_concept
+    tc.hierarchy_entries.destroy_all
+    tc.outlinks.count.should == 0
+    h1 = Hierarchy.gen
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: '')
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: 'http://eol.org/')
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: 'http://google.com/', vetted_id: Vetted.untrusted.id)
+    HierarchyEntry.gen(taxon_concept: tc, hierarchy: h1, source_url: '')
+    tc.outlinks.count.should == 1
+    tc.outlinks.detect{ |o| o[:outlink_url] == 'http://eol.org/' }.should_not be_nil
+  end
+
+  it 'should know what is a species_or_below?' do
+    # HE.rank_id cannot be NULL
+    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0')).species_or_below?).to eq(false)
+    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'genus'))).species_or_below?).to eq(false)
+    # there are lots of ranks which are considered species or below
+    expect(Rank.italicized_labels.length).to be >= 60
+    Rank.italicized_labels[0..5].each do |rank_label|
+      clear_rank_caches
+      expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: rank_label))).species_or_below?).to eq(true)
+    end
+  end
+
+  it 'should know when to should_show_clade_range_data' do
+    # has some descendants, but not too many
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc.should_receive(:number_of_descendants).and_return(100)
+    expect(tc.should_show_clade_range_data).to eq(true)
+    # has a right amount descendants, but is a species or below
+    clear_rank_caches
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'species')))
+    expect(tc.should_show_clade_range_data).to eq(false)
+    # has too many descendants
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc.should_receive(:number_of_descendants).and_return(TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES + 1)
+    expect(tc.should_show_clade_range_data).to eq(false)
   end
 
   describe '#split_classifications' do
@@ -653,7 +768,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+      EolConfig.stub(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do
@@ -662,14 +777,14 @@ describe TaxonConcept do
 
     it 'should not run if locked' do
       @taxon_concept.lock_classifications
-      lambda { @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar) }.should
+      lambda { @taxon_concept.split_classifications(@entries, user: @user, exemplar_id: @exemplar) }.should
         raise_error(EOL::Exceptions::ClassificationsLocked)
     end
 
     it 'should not run if too large' do
       lambda {
         TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(@too_many_descendants)
-        @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar)
+        @taxon_concept.split_classifications(@entries, user: @user, exemplar_id: @exemplar)
       }.should
         raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
     end
@@ -677,7 +792,7 @@ describe TaxonConcept do
     it 'should lock classifications and create a ClassificationCuration' do
       @taxon_concept.classifications_locked?.should_not be_true
       ClassificationCuration.should_receive(:create).and_return(nil)
-      @taxon_concept.split_classifications(@entries, :user => @user, :exemplar_id => @exemplar) 
+      @taxon_concept.split_classifications(@entries, user: @user, exemplar_id: @exemplar) 
       @taxon_concept.reload
       @taxon_concept.classifications_locked?.should be_true
     end
@@ -693,7 +808,7 @@ describe TaxonConcept do
       @entries = [@taxon_concept.hierarchy_entries.second.id]
       @max_descendants = 10
       @too_many_descendants = (0..@max_descendants).to_a
-      SiteConfigurationOption.stub!(:max_curatable_descendants).and_return(@max_descendants)
+      EolConfig.stub(:max_curatable_descendants).and_return(@max_descendants)
     end
 
     before(:each) do
@@ -704,35 +819,35 @@ describe TaxonConcept do
 
     it 'should not run if locked' do
       @taxon_concept.lock_classifications
-      lambda { @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
-                                                    :exemplar_id => @exemplar) }.should
+      lambda { @taxon_concept.merge_classifications(@entries, with: @with, user: @user,
+                                                    exemplar_id: @exemplar) }.should
         raise_error(EOL::Exceptions::ClassificationsLocked)
     end
 
     it 'should not run if the other concept is locked' do
       @with.lock_classifications
-      lambda { @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
-                                                    :exemplar_id => @exemplar) }.should
+      lambda { @taxon_concept.merge_classifications(@entries, with: @with, user: @user,
+                                                    exemplar_id: @exemplar) }.should
         raise_error(EOL::Exceptions::ClassificationsLocked)
     end
 
     it 'should not run if providers_match_on_merge' do
       lambda {
         @taxon_concept.should_receive(:providers_match_on_merge).and_return(1)
-        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user,
-                                             :exemplar_id => @exemplar) }.should
+        @taxon_concept.merge_classifications(@entries, with: @with, user: @user,
+                                             exemplar_id: @exemplar) }.should
         raise_error(EOL::Exceptions::ProvidersMatchOnMerge)
     end
 
     it 'SHOULD run if providers_match_on_merge but forced' do
       ClassificationCuration.should_receive(:create).and_return(nil)
-      @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
-                                           :exemplar_id => @exemplar)
+      @taxon_concept.merge_classifications(@entries, with: @with, user: @user, forced: true,
+                                           exemplar_id: @exemplar)
     end
 
     it 'should not run if merged to self' do
-      lambda { @taxon_concept.merge_classifications(@entries, :with => @taxon_concept, :user => @user, :forced => true,
-                                                    :exemplar_id => @exemplar) }.should
+      lambda { @taxon_concept.merge_classifications(@entries, with: @taxon_concept, user: @user, forced: true,
+                                                    exemplar_id: @exemplar) }.should
         raise_error(EOL::Exceptions::CannotMergeClassificationsToSelf)
     end
 
@@ -740,8 +855,8 @@ describe TaxonConcept do
       lambda {
         TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(@too_many_descendants)
         TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return(1)
-        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
-                                             :exemplar_id => @exemplar)
+        @taxon_concept.merge_classifications(@entries, with: @with, user: @user, forced: true,
+                                             exemplar_id: @exemplar)
       }.should
         raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
     end
@@ -750,8 +865,8 @@ describe TaxonConcept do
       lambda {
         TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return(@too_many_descendants)
         TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return(1)
-        @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
-                                             :exemplar_id => @exemplar)
+        @taxon_concept.merge_classifications(@entries, with: @with, user: @user, forced: true,
+                                             exemplar_id: @exemplar)
       }.should
         raise_error(EOL::Exceptions::TooManyDescendantsToCurate)
     end
@@ -760,8 +875,8 @@ describe TaxonConcept do
       TaxonConceptsFlattened.should_receive(:descendants_of).with(@taxon_concept.id).and_return([1])
       TaxonConceptsFlattened.should_receive(:descendants_of).with(@with.id).and_return([1])
       ClassificationCuration.should_receive(:create).and_return(nil)
-      @taxon_concept.merge_classifications(@entries, :with => @with, :user => @user, :forced => true,
-                                           :exemplar_id => @exemplar)
+      @taxon_concept.merge_classifications(@entries, with: @with, user: @user, forced: true,
+                                           exemplar_id: @exemplar)
     end
 
   end

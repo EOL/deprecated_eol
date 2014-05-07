@@ -8,37 +8,37 @@ class HierarchyEntry < ActiveRecord::Base
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
-  belongs_to :parent, :class_name => HierarchyEntry.to_s, :foreign_key => :parent_id
+  belongs_to :parent, class_name: HierarchyEntry.to_s, foreign_key: :parent_id
 
-  has_many :agents, :through => :agents_hierarchy_entries
+  has_many :agents, through: :agents_hierarchy_entries
   has_many :agents_hierarchy_entries
   has_many :top_images
   has_many :top_unpublished_images
   has_many :synonyms
-  has_many :scientific_synonyms, :class_name => Synonym.to_s,
-      :conditions => Proc.new { "synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
-  has_many :common_names, :class_name => Synonym.to_s,
-      :conditions => Proc.new { "synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})" }
-  has_many :flattened_ancestors, :class_name => HierarchyEntriesFlattened.to_s
+  has_many :scientific_synonyms, class_name: Synonym.to_s,
+      conditions: Proc.new { "synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
+  has_many :common_names, class_name: Synonym.to_s,
+      conditions: Proc.new { "synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})" }
+  has_many :flattened_ancestors, class_name: HierarchyEntriesFlattened.to_s
   has_many :curator_activity_logs
   has_many :hierarchy_entry_moves
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
-  has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'hierarchy_entries_refs',
-    :association_foreign_key => 'ref_id', :conditions => Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
-  has_and_belongs_to_many :ancestors, :class_name => HierarchyEntry.to_s, :join_table => 'hierarchy_entries_flattened',
-    :association_foreign_key => 'ancestor_id', :order => 'lft'
+  has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'hierarchy_entries_refs',
+    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
+  has_and_belongs_to_many :ancestors, class_name: HierarchyEntry.to_s, join_table: 'hierarchy_entries_flattened',
+    association_foreign_key: 'ancestor_id', order: 'lft'
   # Here is a way to find children and sort by name at the same time (this works for siblings too):
   # HierarchyEntry.find(38802334).children.includes(:name).order('names.string').limit(2)
-  has_many :children, :class_name => HierarchyEntry.to_s, :foreign_key => [:parent_id, :hierarchy_id], :primary_key => [:id, :hierarchy_id],
-    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
+  has_many :children, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:id, :hierarchy_id],
+    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
   # IMPORTANT: siblings will also return the entry itself. This is because it is not possible to use conditions which refer
   # to a single node when using this association in preloading. For example you cannot have a condition: where id != #{id}, because
   # ActiveRecord may not have a single 'id', it may have many if preloading for multiple entries at once. This will also not return siblings of
   # top level taxa. This is because many hierarchies have hundreds or thousands of roots and we don't want to risk showing all of them
-  has_many :siblings, :class_name => HierarchyEntry.to_s, :foreign_key => [:parent_id, :hierarchy_id], :primary_key => [:parent_id, :hierarchy_id],
-    :conditions => Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
+  has_many :siblings, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:parent_id, :hierarchy_id],
+    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
 
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }
@@ -60,7 +60,7 @@ class HierarchyEntry < ActiveRecord::Base
 
   # If you want to make a browsable tree of HEs, this might be a helpful method:
   def self.preload_deeply_browsable(set)
-    HierarchyEntry.preload_associations(set, [ { :agents_hierarchy_entries => :agent }, :rank, { :hierarchy => :agent } ], :select => {:hierarchy_entries => [:id, :parent_id, :taxon_concept_id]} )
+    HierarchyEntry.preload_associations(set, [ { agents_hierarchy_entries: :agent }, :rank, { hierarchy: :agent } ], select: {hierarchy_entries: [:id, :parent_id, :taxon_concept_id]} )
     set
   end
 
@@ -97,8 +97,10 @@ class HierarchyEntry < ActiveRecord::Base
     elsif name.canonical_form && !name.canonical_form.string.blank?
       @title_canonical = name.canonical_form.string.firstcap
     # finally just the name string
-    else
+    elsif name
       @title_canonical = name.string.firstcap
+    else
+      ""
     end
     @title_canonical
   end
@@ -184,8 +186,8 @@ class HierarchyEntry < ActiveRecord::Base
   def agent_from_hierarchy
     if h_agent = hierarchy.agent
       h_agent.full_name = hierarchy.label # To change the name from just "Catalogue of Life"
-      AgentsHierarchyEntry.new(:hierarchy_entry => self, :agent => h_agent,
-                               :agent_role => AgentRole.source, :view_order => 0)
+      AgentsHierarchyEntry.new(hierarchy_entry: self, agent: h_agent,
+                               agent_role: AgentRole.source, view_order: 0)
     else
       nil
     end
@@ -201,21 +203,27 @@ class HierarchyEntry < ActiveRecord::Base
     )
   end
 
-  def outlink
+  def outlink_hash
     return nil if published != 1 && visibility_id != Visibility.visible.id
-    this_hierarchy = hierarchy
+    if url = outlink_url
+      return { hierarchy_entry: self, outlink_url: url }
+    end
+  end
+
+  def outlink_url
     if !source_url.blank?
-      return {:hierarchy_entry => self, :hierarchy => this_hierarchy, :outlink_url => source_url }
-    elsif !this_hierarchy.outlink_uri.blank?
+      # if the link is Wikipedia this will remove the revision ID
+      return source_url.gsub(/&oldid=[0-9]+$/, '')
+    elsif hierarchy && !hierarchy.outlink_uri.blank?
       # if the hierarchy outlink_uri expects an ID
-      if matches = this_hierarchy.outlink_uri.match(/%%ID%%/)
+      if matches = hierarchy.outlink_uri.match(/%%ID%%/)
         # .. and the ID exists
         unless identifier.blank?
-          return {:hierarchy_entry => self, :hierarchy => this_hierarchy, :outlink_url => this_hierarchy.outlink_uri.gsub(/%%ID%%/, identifier) }
+          return hierarchy.outlink_uri.gsub(/%%ID%%/, identifier)
         end
       else
         # there was no %%ID%% pattern in the outlink_uri, but its not blank so its a generic URL for all entries
-        return {:hierarchy_entry => self, :hierarchy => this_hierarchy, :outlink_url => this_hierarchy.outlink_uri }
+        return hierarchy.outlink_uri
       end
     end
   end
@@ -228,16 +236,12 @@ class HierarchyEntry < ActiveRecord::Base
     return (rgt-lft == 1)
   end
 
-  def common_name_in_language(language)
-    preferred_in_language = taxon_concept.preferred_common_names.select{|tcn| tcn.language_id == language.id}
-    return name.string if preferred_in_language.blank?
-    preferred_in_language[0].name.string.firstcap
+  def preferred_classification_summary?
+    Rails.cache.exist?(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"))
   end
 
   def preferred_classification_summary
-    Rails.cache.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), :expires_in => 5.days) do
-      HierarchyEntry.preload_associations(self, { :flattened_ancestors => :ancestor }, :select =>
-        { :hierarchy_entries => [ :id, :name_id, :rank_id, :taxon_concept_id, :lft, :rgt ] })
+    Rails.cache.fetch(HierarchyEntry.cached_name_for("preferred_classification_summary_for_#{self.id}"), expires_in: 5.days) do
       root_ancestor, immediate_parent = kingdom_and_immediate_parent
       return '' if root_ancestor.blank?
       str_to_return = root_ancestor.name.string
@@ -257,10 +261,15 @@ class HierarchyEntry < ActiveRecord::Base
       immediate_parent = sorted_ancestors.pop.ancestor
     end
     immediate_parent = nil if immediate_parent == root_ancestor
-    entries_to_return = [root_ancestor, immediate_parent]
-    HierarchyEntry.preload_associations(entries_to_return, :name)
-    entries_to_return
+    [ root_ancestor, immediate_parent ]
   end
 
+  def mapping_jsonld
+    { '@type' => 'dwc:ResourceRelationship',
+      'dwc:resourceID' => KnownUri.taxon_uri(taxon_concept_id),
+      'dwc:relationshipOfResource' => 'foaf:isPrimaryTopicOf',
+      'dwc:relatedResourceID' => outlink_url,
+      'dwc:relationshipAccordingTo' => 'http://eol.org' }
+  end
 
 end

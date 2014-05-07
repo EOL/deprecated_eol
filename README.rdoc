@@ -81,6 +81,11 @@ integration, or...) environments, specify the RAILS_ENV:
 
   rake solr:build RAILS_ENV=test
 
+As of this writing, we were running the following version:
+
+  Solr Specification Version: 3.0.0.2011.06.21.10.13.24
+  Solr Implementation Version: 3.3-2011-06-21_10-11-05 1137925 - hudson - 2011-06-21 10:13:24
+
 === Installing and running memcached
 
 This project doesn't run without memcached.  The reason for this is that no other caching mechanism seems to properly

@@ -1,15 +1,18 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 - editable = @collection.editable_by?(current_user)
+-# TODO - russian-doll caching q.v. http://staging.eol.org/collections/744 - takes a LONG time to load.  :\
 -# TODO - move this Logic to the model:
 - items_editable = editable && ! @collection.is_resource_collection?
 = content_for :additional_page_actions do
-  = render :partial => 'collections/editable_actions', :locals => { :editable => editable }
+  = render 'collections/editable_actions', { :editable => editable }
+  - if current_user.is_admin? && @collection_results && @collection_results.is_a?(WillPaginate::Collection) && @collection_results.total_entries < Collection::REINDEX_LIMIT
+    %li= link_to I18n.t(:reindex_page_button), reindex_collection_path(@collection), :class => 'button'
 - if @collection_items.blank?
   #sidebar
     .collection_contributors
-      = render :partial => 'collections/managed_by', :locals => { :collection => @collection }
-    = render :partial => 'collections/recently_visited'
+      = render 'collections/managed_by', { :collection => @collection }
+    = render 'collections/recently_visited'
   #collection.main_container
     .empty
       %p= I18n.t(:collection_is_empty)
@@ -17,7 +20,7 @@
         = button_to I18n.t(:collection_delete_link), collection_url(@collection), :data => { :confirm => I18n.t(:collection_delete_link) }, :method => :delete
 - else
   #tabs_sidebar
-    = render :partial => 'collections/filter_by_item_type'
+    = render 'collections/filter_by_item_type'
   #collection.main_container
     .heading
       -# TODO - deal with this later. Really, these should be *links* and then JS should "clean them up" to make them look like drop-down. There's no *form* here, these
@@ -49,17 +52,17 @@
                   = f.submit I18n.t(command), :name => command
               - else
                 = f.submit I18n.t(:copy), :name => 'copy'
-        = render :partial => 'collections/recently_visited'
+        = render 'collections/recently_visited'
       - previous_label = (@collection_results.current_page == 1) ? '' : I18n.t(:pagination_previous)
       - next_label = (@collection_results.current_page == @collection_results.total_pages) ? '' : I18n.t(:pagination_next)
       = will_paginate @collection_results, :previous_label => previous_label, :next_label => next_label, :inner_window => 2, :outer_window => 2
       - case @view_as
       - when ViewStyle.gallery
-        = render :partial => 'collections/show_gallery_style'
+        = render 'collections/show_gallery_style'
       - when ViewStyle.list
-        = render :partial => 'collections/show_list_style'
+        = render 'collections/show_list_style'
       - else
-        = render :partial => 'collections/show_annotated_style', :locals => { editable: items_editable }
+        = render 'collections/show_annotated_style', { editable: items_editable }
       = will_paginate @collection_results, :previous_label => previous_label, :next_label => next_label, :inner_window => 2, :outer_window => 2
 
 - if InaturalistProjectInfo.needs_caching?

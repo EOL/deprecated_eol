@@ -1,5 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-require 'nokogiri'
+require "spec_helper"
 
 def add_language_to_name(name, language)
   name[:language_label] = language.label
@@ -92,7 +91,31 @@ describe TaxaHelper do
       result = helper.common_names_by_language(names, @language_a.id)
       result.length.should == @names.length
     end
+  end
 
+  it 'should format data values' do
+    expect(helper.format_data_value('111.1111')).to eq('111.11')
+    expect(helper.format_data_value('1111.1111')).to eq('1,111.11')
+    expect(helper.format_data_value('1000')).to eq('1,000')
+    expect(helper.format_data_value('1000.0')).to eq('1,000.0')
+    expect(helper.format_data_value('0.111')).to eq('0.11')
+    expect(helper.format_data_value('0.0111')).to eq('0.0111')
+    expect(helper.format_data_value('0.00111')).to eq('0.00111')
+    expect(helper.format_data_value('0.000111')).to eq('0.000111')
+    expect(helper.format_data_value('0.0000111')).to eq('1.11e-05')
+    expect(helper.format_data_value('0.00000111')).to eq('1.11e-06')
+    expect(helper.format_data_value('test')).to eq('test')
+    expect(helper.format_data_value('test', capitalize: true)).to eq('Test')
+    expect(helper.format_data_value('test with http://www.eol.org links')).
+      to eq('test with <a href="http://www.eol.org">http://www.eol.org</a> links')
+    expect(helper.format_data_value('test with www.eol.org links')).
+      to eq('test with <a href="http://www.eol.org">www.eol.org</a> links')
+  end
+
+  it 'should format leave strings alone' do
+    determined_date = KnownUri.gen_if_not_exists(uri: 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate')
+    expect(helper.format_data_value('1000')).to eq('1,000')
+    expect(helper.format_data_value('1000', value_for_known_uri: determined_date)).to eq('1000')
   end
 
 end

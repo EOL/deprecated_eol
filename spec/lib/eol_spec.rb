@@ -1,13 +1,13 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe 'EOL Lib' do
   describe ': Setting site configurations' do
     before :all do
-      SiteConfigurationOption.connection.execute('TRUNCATE TABLE site_configuration_options')
+      EolConfig.connection.execute('TRUNCATE TABLE site_configuration_options')
       @only_in_db = 'ONLY_IN_DB'
-      @only_in_db_instance = SiteConfigurationOption.gen(:parameter => @only_in_db, :value => 'anything')
+      @only_in_db_instance = EolConfig.gen(parameter: @only_in_db, value: 'anything')
       @nil_only_in_db = 'NIL_ONLY_IN_DB'
-      @nil_only_in_db_instance = SiteConfigurationOption.gen(:parameter => @nil_only_in_db, :value => nil)
+      @nil_only_in_db_instance = EolConfig.gen(parameter: @nil_only_in_db, value: nil)
       
       @only_in_environment = 'ONLY_IN_ENVIRONMENT'
       $ONLY_IN_ENVIRONMENT = 'some other value'
@@ -16,13 +16,13 @@ describe 'EOL Lib' do
     end
     
     after :all do
-      SiteConfigurationOption.connection.execute('TRUNCATE TABLE site_configuration_options')
+      EolConfig.connection.execute('TRUNCATE TABLE site_configuration_options')
     end
     
     it 'should only accept variables with letters and underscores' do
       bad_strings = ['with space', 'HAS_A_123NUMBER', 'WITH_@SPECIAL_CHARS', '1234']
       bad_strings.each do |str|
-        SiteConfigurationOption.gen(:parameter => str, :value => 'anything')
+        EolConfig.gen(parameter: str, value: 'anything')
         EOL.value_of_global(str).should == nil
       end
     end
@@ -43,7 +43,7 @@ describe 'EOL Lib' do
     
     it 'should default to using the value in the environment' do
       @in_both = 'IN_BOTH'
-      @in_both_instance = SiteConfigurationOption.gen(:parameter => @in_both, :value => 'db value')
+      @in_both_instance = EolConfig.gen(parameter: @in_both, value: 'db value')
       EOL.value_of_global(@in_both).should == @in_both_instance.value
       
       # environment variable takes presedence
@@ -56,7 +56,7 @@ describe 'EOL Lib' do
     
     it 'should be able to change or unset global variables' do
       @variable_name = 'TEST_UNSETTING'
-      @db_global = SiteConfigurationOption.gen(:parameter => @variable_name, :value => 'some value in db')
+      @db_global = EolConfig.gen(parameter: @variable_name, value: 'some value in db')
       EOL.value_of_global(@variable_name).should == @db_global.value
       
       @db_global.value = 'a changed value'
@@ -76,7 +76,7 @@ describe 'EOL Lib' do
       # its not possible to undefine a global variable in Ruby, so the value will remain nil here
       $TEST_UNSETTING = nil
       EOL.value_of_global(@variable_name).should == nil
-      @db_global = SiteConfigurationOption.gen(:parameter => @variable_name, :value => 'resurrected DB value')
+      @db_global = EolConfig.gen(parameter: @variable_name, value: 'resurrected DB value')
       EOL.value_of_global(@variable_name).should == nil
       
     end

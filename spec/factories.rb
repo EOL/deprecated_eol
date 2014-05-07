@@ -1,7 +1,19 @@
 # REMINDER: default model factories, eg. :user, should *only* generate required fields
 #
 # If you want a model loaded up with all kinds of goodies, make a different generator,
-# eg. :admin_user
+# eg. :admin (which is a user)
+
+
+#
+#
+#
+#
+#
+#                                     PLEASE KEEP FACTORIES ALPHABETICAL.
+#
+#
+#
+
 
 require 'factory_girl_rails'
 require 'faker'
@@ -206,23 +218,6 @@ FactoryGirl.define do
 
   sequence :user_logo do |n|
     FactoryGirl.generate(:image)
-    # # these are actual user logos. Maybe this is a little too creepy...
-    # @seq_user_logos ||= [
-    #   201209032100996, 201206010619858, 201108301124564, 201209131123367, 201209201670559, 201204062153065, 201208220446503,
-    #   201206050056867, 201109080925888, 201109060991698, 201202061348792, 201205091084288, 201109051425304, 201109071892419,
-    #   201207202042916, 201202180525653, 201109211486632, 201207250116098, 201109211947314, 201110200031345, 201110121134028,
-    #   201110110809609, 201201051619294, 201109070846749, 201109121995803, 201111100647263, 201109122037575, 201212151949841,
-    #   201109280526796, 201109071246178, 201201100038536, 201110261071625, 201206292130304, 201210032187420, 201302021965739,
-    #   201111102372344, 201208021627266, 201111030627443, 201301170023521, 201108151320319, 201206231106735, 201301170032250,
-    #   201109090094110, 201109300911433, 201109041794830, 201109091119726, 201209120981750, 201204130339962, 201108301152394,
-    #   201108301186694, 201202151569372, 201205092234051, 201108301130568, 201206061075376, 201207141259676, 201202170000390,
-    #   201108301174985, 201109221699392, 201201141826490, 201301210078677, 201108311267007, 201109071021919, 201209120995493,
-    #   201207062182820, 201201130107310, 201205281442371, 201211092316177, 201201181243478, 201301111155012, 201109060795675,
-    #   201110102336716, 201112162115261, 201205291743629, 201110111243910, 201208140962489, 201201171779234, 201110130287281,
-    #   201111290603727, 201205081688332, 201201271214439, 201208141143866, 201109051925723, 201111111538633, 201207310031838,
-    #   201208270799555, 201110282322639, 201108301118876, 201109102195555, 201109121264656, 201212261694777, 201112212300913,
-    #   201109121983097, 201111302274114, 201201130237910, 201109062317795, 201212181650360, 201110121778128, 201110130809928 ]
-    # @seq_user_logos[n % @seq_user_logos.length]
   end
 
   sequence :year do |n|
@@ -238,35 +233,37 @@ FactoryGirl.define do
     SecureRandom.uuid.gsub(/-/, '')
   end
 
+  # NOTE - if you want to "clean up" this block, please do NOT introduce newlines into the names. It mucks up regexes in tests.
   # Unique:
   sequence :scientific_name do |n|
     @seq_sci_name = ["Quibusdameli estculpaatus", "Estasperioreseli etquidemis", "Nesciunterox autrerumalis",
       "Voluptasalius optioerus", "Remrerumeron auteterus", "Veritatises idofficiisiae", "Accusamusalis pariatura",
       "Voluptateseri doloremosyne", "Autrecusandaees repudiandaeica", "Nihileri voluptasus", "Dignissimosii inutes",
-      "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia", "Earumeles
-      beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae",
+      "Fugais utharumatus", "Minuseli ullamens", "Dignissimosatus nobisosyne", "Expeditaalia evenietelia",
+      "Earumeles beataeata", "Culpaensis sapienteesi", "Utomnisesi sequialis", "Autaliquideri minimais", "Beataeelia etnemoiae",
       "Autema officiaalius", "Autemalius utsimiliqueesi", "Etconsequaturelia autenimalia", "Quoautesi natuseri",
-      "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus", "Molestiaeus
-      rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron",
+      "Voluptatumeri esseensis", "Ameti maioresis", "Ipsamalius distinctioerox", "Maximees veritatisatus",
+      "Molestiaeus rationealia", "Fugitens dolorealius", "Quisquamator sequieles", "Essees eaqueata", "Animiens atdoloribuseron",
       "Adaliasii iurea", "Nonnumquamerus numquamerus", "Autvoluptatesus temporaalis", "Excepturialia omnisa",
       "Estveroalia nihilata", "Quiincidunta culpaelia", "Providentalia estquaeratens", "Placeatalia uteosensis",
       "Ipsaensis architectoalius", "Deserunterox facererox", "Suntalia estsitalius", "Aliasosyne quiadipisciatus",
-      "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox
-      eligendii", "Eteaiae nullais"]
+      "Illoica exexplicaboalia", "Laboriosamerus quisis", "Optiois molestiasalia", "Ipsuma animius", "Quiserox eligendii",
+      "Eteaiae nullais"]
     pick = @seq_sci_name[n % @seq_sci_name.length]
     (n / @seq_sci_name.length).times { pick.succ! }
     pick
   end
 
+  # NOTE - if you want to "clean up" this block, please do NOT introduce newlines into the names. It mucks up regexes in tests.
   # Unique:
   sequence :common_name do |n|
     @seq_common_name = ["pink quaist", "ravenous clover", "red suntus", "darning needle", "tiger", "frizzlebek",
-      "purple dust crab", "cloud swallow", "spiny possom", "common desert mouse", "fisher", "chartruse turtle", "horny
-      toad", "scarlet vermillion", "Mozart's nemesis", "quick brown fox", "painted horse", "thirsty aphid", "bloody
-      eel", "fruit bat", "giant ostrich", "common rat", "cursed doormouse", "great shrimp", "stream newt", "blessed
-      sparrow", "ravenous eagle", "common titmouse", "least ferret", "raccoon", "papa bear", "brown hornet", "urban
-      crocidile", "classical enthusiast", "grungebutter", "bripplefoam frond", "elf's cup", "agitated harmonium", "stone
-      dragon", "Werner's mite", "green anole", "killer bee", "thistle", "paramecium", "scorpion king", "tarantula",
+      "purple dust crab", "cloud swallow", "spiny possom", "common desert mouse", "fisher", "chartruse turtle",
+      "horny toad", "scarlet vermillion", "Mozart's nemesis", "quick brown fox", "painted horse", "thirsty aphid",
+      "bloody eel", "fruit bat", "giant ostrich", "common rat", "cursed doormouse", "great shrimp", "stream newt",
+      "blessed sparrow", "ravenous eagle", "common titmouse", "least ferret", "raccoon", "papa bear", "brown hornet",
+      "urban crocidile", "classical enthusiast", "grungebutter", "bripplefoam frond", "elf's cup", "agitated harmonium",
+      "stone dragon", "Werner's mite", "green anole", "killer bee", "thistle", "paramecium", "scorpion king", "tarantula",
       "cardinal", "moon fungus", "upbeat chickadee", "amoeba"]
     pick = @seq_common_name[n % @seq_common_name.length]
     (n / @seq_common_name.length).times { pick.succ! }
@@ -303,7 +300,9 @@ FactoryGirl.define do
 
   # Not Unique (obviously, given the repetition in the array):
   sequence :attribution do |n|
-    @seq_attr = ["L.", "Linn.", "Linnaeus", "G. D'Amore", "R. Bergstrom", "L.", "Linn", "R. Cartwright", "L.", "Linn.", "Linnaeus", "N. Upton", "L. Carroll", "M. Port", "S. Posford", "Posford & Ram", "L.", "Linnaeus", "", "P. Leary", "Padderson", "Linnaeus", "L.", "M. Mayer"]
+    @seq_attr = ["L.", "Linn.", "Linnaeus", "G. D'Amore", "R. Bergstrom", "L.", "Linn", "R. Cartwright", "L.", "Linn.",
+      "Linnaeus", "N. Upton", "L. Carroll", "M. Port", "S. Posford", "Posford & Ram", "L.", "Linnaeus", "", "P. Leary",
+      "Padderson", "Linnaeus", "L.", "M. Mayer"]
     @seq_attr[n % @seq_attr.length]
   end
 
@@ -327,34 +326,42 @@ FactoryGirl.define do
   factory :activity do
   end
 
+  factory :admin, class: User do
+    admin                     true
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          false
+    curator_verdict_by_id     nil
+    curator_verdict_at        nil
+    curator_scope             ''
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          nil
+    logo_cache_url            { generate(:user_logo) }
+  end
+
   factory :agent do
     created_at      { 5.days.ago }
     homepage        ''
     full_name       { generate(:first_name) << ' ' << FactoryGirl.generate(:last_name) }
   end
-  factory :content_partner_contact do
-    association :content_partner
-    association :contact_role
-    given_name  { generate(:string) }
-    family_name { generate(:string) }
-    full_name   { "#{given_name} #{family_name}" }
-    email       { "#{given_name}.#{family_name}@example.com".downcase }
-    homepage    'http://whatever.org'
-    address     '1234 Doesntmatter St'
-    title       'Call me SIR'
-    telephone   '555-222-1111'
-  end
-
-  factory :contact_role do
-  end
-
-  factory :content_partner_data_type do
-  end
 
   factory :agent_role do
-  end
-
-  factory :content_partner_status do
   end
 
   factory :agents_data_object do
@@ -455,6 +462,9 @@ FactoryGirl.define do
     comments        %w( foo bar )
   end
 
+  factory :contact_role do
+  end
+
   factory :contact_subject do
     recipients { generate(:string) }
     active     true
@@ -469,41 +479,38 @@ FactoryGirl.define do
     active               1
   end
 
-  factory :translated_content_page do
-    association         :content_page
-    language            { Language.english }
-    title               'Test Content Page'
-    left_content        { "<h3>This is Left Content in a #{title}</h3>" }
-    main_content        { "<h1>Main Content for #{title} ROCKS!</h1>" }
-    meta_keywords       { "keywords for #{title}"}
-    meta_description    { "description for #{title}"}
-    active_translation  1
-  end
-
-  factory :topic_area do
-    email   'user@domain.com'
-  end
-
-  factory :translated_topic_area do
-    association       :topic_area
-    language          { Language.english }
-    label             'Topic Label'
-  end
-
   factory :content_partner do
-    full_name                           { generate(:string) }
-    association                         :user
-    description                         'Our Testing Content Partner'
-    description_of_data                 'Civil Protection!'
-    created_at                          { 5.days.ago }
-    public                              true
-    content_partner_status              { ContentPartnerStatus.find_by_translated(:label, 'Active') ||
-                                             ContentPartnerStatus.gen_if_not_exists(:label => 'Active') }
+    full_name              { generate(:string) }
+    association            :user
+    description            'Our Testing Content Partner'
+    description_of_data    'Civil Protection!'
+    created_at             { 5.days.ago }
+    public                 true
+    content_partner_status { ContentPartnerStatus.active }
   end
 
   factory :content_partner_agreement do
     is_current          true
     body                'The agreement body.'
+  end
+
+  factory :content_partner_contact do
+    association :content_partner
+    association :contact_role
+    given_name  { generate(:string) }
+    family_name { generate(:string) }
+    full_name   { "#{given_name} #{family_name}" }
+    email       { "#{given_name}.#{family_name}@example.com".downcase }
+    homepage    'http://whatever.org'
+    address     '1234 Doesntmatter St'
+    title       'Call me SIR'
+    telephone   '555-222-1111'
+  end
+
+  factory :content_partner_data_type do
+  end
+
+  factory :content_partner_status do
   end
 
   factory :content_upload do
@@ -512,6 +519,36 @@ FactoryGirl.define do
     description 'something cool.'
     attachment_file_name { link_name }
     attachment_extension '.jpg'
+  end
+
+  factory :curator, class: User do
+    admin                     false
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          true
+    curator_verdict_by_id     1
+    curator_verdict_at        { Time.now }
+    credentials               'Good stuff'
+    curator_scope             'Something important'
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          { CuratorLevel.full.id }
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :curator_activity do
@@ -552,10 +589,7 @@ FactoryGirl.define do
     mime_type              { MimeType.gen_if_not_exists(:label => 'image/jpeg') }
     object_title           ''
     language               { Language.english }
-    license                { License.gen_if_not_exists(:title => 'cc-by 3.0',
-                                          :description => 'Some rights reserved',
-                                          :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                                          :logo_url => 'cc_by_small.png') }
+    license                { License.cc }
     rights_statement       'Test rights statement'
     rights_holder          'Test rights holder'
     bibliographic_citation ''
@@ -624,13 +658,103 @@ FactoryGirl.define do
 
   factory :data_point_uri do
     association :taxon_concept
+    association :resource
+    association :user_added_data
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
     visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
     uri         { FactoryGirl.generate(:uri) }
   end
 
+  factory :data_search_file do
+    association   :known_uri
+    association   :user
+    uri           { "http://example.com/#{generate(:string)}" }
+    row_count     10
+    created_at    Time.now
+    updated_at    Time.now
+    completed_at  Time.now
+  end
+
   factory :data_type do
     schema_value ''
+  end
+
+  factory :eol_config do
+    parameter       { generate(:string) }
+    value           { true }
+  end
+
+  factory :eol_statistic do
+    members_count                                     { rand(100000) }
+    communities_count                                 { rand(100000) }
+    collections_count                                 { rand(100000) }
+    pages_count                                       { rand(100000) }
+    pages_with_content                                { rand(100000) }
+    pages_with_text                                   { rand(100000) }
+    pages_with_image                                  { rand(100000) }
+    pages_with_map                                    { rand(100000) }
+    pages_with_video                                  { rand(100000) }
+    pages_with_sound                                  { rand(100000) }
+    pages_without_text                                { rand(100000) }
+    pages_without_image                               { rand(100000) }
+    pages_with_image_no_text                          { rand(100000) }
+    pages_with_text_no_image                          { rand(100000) }
+    base_pages                                        { rand(100000) }
+    pages_with_at_least_a_trusted_object              { rand(100000) }
+    pages_with_at_least_a_curatorial_action           { rand(100000) }
+    pages_with_BHL_links                              { rand(100000) }
+    pages_with_BHL_links_no_text                      { rand(100000) }
+    pages_with_BHL_links_only                         { rand(100000) }
+    content_partners                                  { rand(100000) }
+    content_partners_with_published_resources         { rand(100000) }
+    content_partners_with_published_trusted_resources { rand(100000) }
+    published_resources                               { rand(100000) }
+    published_trusted_resources                       { rand(100000) }
+    published_unreviewed_resources                    { rand(100000) }
+    newly_published_resources_in_the_last_30_days     { rand(100000) }
+    data_objects                                      { rand(100000) }
+    data_objects_texts                                { rand(100000) }
+    data_objects_images                               { rand(100000) }
+    data_objects_videos                               { rand(100000) }
+    data_objects_sounds                               { rand(100000) }
+    data_objects_maps                                 { rand(100000) }
+    data_objects_trusted                              { rand(100000) }
+    data_objects_unreviewed                           { rand(100000) }
+    data_objects_untrusted                            { rand(100000) }
+    data_objects_trusted_or_unreviewed_but_hidden     { rand(100000) }
+    udo_published                                     { rand(100000) }
+    udo_published_by_curators                         { rand(100000) }
+    udo_published_by_non_curators                     { rand(100000) }
+    rich_pages                                        { rand(100000) }
+    hotlist_pages                                     { rand(100000) }
+    rich_hotlist_pages                                { rand(100000) }
+    redhotlist_pages                                  { rand(100000) }
+    rich_redhotlist_pages                             { rand(100000) }
+    pages_with_score_10_to_39                         { rand(100000) }
+    pages_with_score_less_than_10                     { rand(100000) }
+    curators                                          { rand(100000) }
+    curators_assistant                                { rand(100000) }
+    curators_full                                     { rand(100000) }
+    curators_master                                   { rand(100000) }
+    active_curators                                   { rand(100000) }
+    pages_curated_by_active_curators                  { rand(100000) }
+    objects_curated_in_the_last_30_days               { rand(100000) }
+    curator_actions_in_the_last_30_days               { rand(100000) }
+    lifedesk_taxa                                     { rand(100000) }
+    lifedesk_data_objects                             { rand(100000) }
+    marine_pages                                      { rand(100000) }
+    marine_pages_in_col                               { rand(100000) }
+    marine_pages_with_objects                         { rand(100000) }
+    marine_pages_with_objects_vetted                  { rand(100000) }
+    created_at                                        { 5.days.ago }
+    total_triples                                     { rand(100000) }
+    total_occurrences                                 { rand(100000) }
+    total_measurements                                { rand(100000) }
+    total_associations                                { rand(100000) }
+    total_measurement_types                           { rand(100000) }
+    total_association_types                           { rand(100000) }
+    total_taxa_with_data                              { rand(100000) }
+    total_user_added_data                             { rand(100000) }
   end
 
   factory :forum do
@@ -751,9 +875,35 @@ FactoryGirl.define do
   end
 
   factory :known_uri do
-    vetted        { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-    visibility    { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
-    uri           { "http://eol.org/known_uri/" + generate(:guid) }
+    vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
+    uri         { "http://eol.org/known_uri/" + generate(:guid) }
+  end
+
+  factory :known_uri_allowed_unit, class: KnownUriRelationship do
+    association :from_known_uri, :factory => :known_uri_measurement
+    association :to_known_uri, :factory => :known_uri_unit
+    relationship_uri { KnownUriRelationship::ALLOWED_UNIT_URI }
+  end
+
+  factory :known_uri_allowed_value, class: KnownUriRelationship do
+    association :from_known_uri, :factory => :known_uri_measurement
+    association :to_known_uri, :factory => :known_uri_value
+    relationship_uri { KnownUriRelationship::ALLOWED_VALUE_URI }
+  end
+
+  factory :known_uri_measurement, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.measurement }
+    uri { "http://example.com/#{generate(:string)}" }
+  end
+
+  factory :known_uri_unit, class: KnownUri do
+    vetted { Vetted.trusted }
+    visibility { Visibility.visible }
+    uri_type { UriType.value }
+    uri { "http://example.com/#{generate(:string)}" }
   end
 
   factory :known_uri_relationship do
@@ -784,6 +934,36 @@ FactoryGirl.define do
   end
 
   factory :link_type do
+  end
+
+  factory :master_curator, class: User do
+    admin                     false
+    remote_ip                 { "123.45.67.1#{rand(10)}" }
+    email                     { generate(:email) }
+    given_name                { generate(:first_name) }
+    family_name               { generate(:last_name) }
+    agent_id                  { FactoryGirl.create(:agent, :full_name => "#{given_name} #{family_name}").id }
+    language                  { Language.english }
+    username                  do
+      attempt = "#{given_name[0..0]}_#{family_name[0..9]}".gsub(/\s/, '_').downcase
+      while(User.find_by_username(attempt)) do
+        attempt.succ!
+      end
+      attempt
+    end
+    agreed_with_terms         true
+    active                    true
+    password                  'test password'
+    entered_password          { password }
+    curator_approved          true
+    curator_verdict_by_id     1
+    curator_verdict_at        { Time.now }
+    credentials               'Good stuff'
+    curator_scope             'Something important'
+    recover_account_token      nil
+    recover_account_token_expires_at  nil
+    curator_level_id          { CuratorLevel.master.id }
+    logo_cache_url            { generate(:user_logo) }
   end
 
   factory :member do
@@ -881,12 +1061,8 @@ FactoryGirl.define do
     auto_publish    false
     title           'Testing Resource'
     subject         'Test Resource Subject'
-    license         { License.find_by_title('cc-by 3.0') ||
-                        License.gen_if_not_exists(:title => 'cc-by 3.0',
-                                          :description => 'Some rights reserved',
-                                          :source_url => 'http://creativecommons.org/licenses/by/3.0/',
-                                          :logo_url => 'cc_by_small.png') }
-    resource_status { ResourceStatus.processed || ResourceStatus.gen_if_not_exists(:label => 'Processed') }
+    license         { License.cc }
+    resource_status { ResourceStatus.processed }
     accesspoint_url 'http://eol.org/opensearchdescription.xml' # Won't work without a real, live URL for an XML file
     refresh_period_hours 0
     resource_created_at 48.hours.ago
@@ -907,11 +1083,6 @@ FactoryGirl.define do
   end
 
   factory :service_type do
-  end
-
-  factory :site_configuration_option do
-    parameter       { generate(:string) }
-    value           { true }
   end
 
   factory :sort_style do
@@ -945,6 +1116,10 @@ FactoryGirl.define do
     vetted_id      0
     supercedure_id 0
     split_from     0
+  end
+
+  factory :taxon_data do
+
   end
 
   factory :taxon_concept_exemplar_image do
@@ -997,6 +1172,27 @@ FactoryGirl.define do
     association :taxon_concept
     association :data_object
     view_order  1
+  end
+
+  factory :translated_content_page do
+    association         :content_page
+    language            { Language.english }
+    title               'Test Content Page'
+    left_content        { "<h3>This is Left Content in a #{title}</h3>" }
+    main_content        { "<h1>Main Content for #{title} ROCKS!</h1>" }
+    meta_keywords       { "keywords for #{title}"}
+    meta_description    { "description for #{title}"}
+    active_translation  1
+  end
+
+  factory :topic_area do
+    email   'user@domain.com'
+  end
+
+  factory :translated_topic_area do
+    association       :topic_area
+    language          { Language.english }
+    label             'Topic Label'
   end
 
   factory :translated_activity do
@@ -1216,6 +1412,8 @@ FactoryGirl.define do
     predicate "http://somethinguseful.com/fake_ontology"
     object    { generate(:string) }
     association :user
+    vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
   end
 
   factory :user_added_data_metadata do
@@ -1287,71 +1485,6 @@ FactoryGirl.define do
     association :user
     year { generate(:year) }
     month { generate(:month) }
-  end
-
-  factory :eol_statistic do
-    members_count                                     { rand(100000) }
-    communities_count                                 { rand(100000) }
-    collections_count                                 { rand(100000) }
-    pages_count                                       { rand(100000) }
-    pages_with_content                                { rand(100000) }
-    pages_with_text                                   { rand(100000) }
-    pages_with_image                                  { rand(100000) }
-    pages_with_map                                    { rand(100000) }
-    pages_with_video                                  { rand(100000) }
-    pages_with_sound                                  { rand(100000) }
-    pages_without_text                                { rand(100000) }
-    pages_without_image                               { rand(100000) }
-    pages_with_image_no_text                          { rand(100000) }
-    pages_with_text_no_image                          { rand(100000) }
-    base_pages                                        { rand(100000) }
-    pages_with_at_least_a_trusted_object              { rand(100000) }
-    pages_with_at_least_a_curatorial_action           { rand(100000) }
-    pages_with_BHL_links                              { rand(100000) }
-    pages_with_BHL_links_no_text                      { rand(100000) }
-    pages_with_BHL_links_only                         { rand(100000) }
-    content_partners                                  { rand(100000) }
-    content_partners_with_published_resources         { rand(100000) }
-    content_partners_with_published_trusted_resources { rand(100000) }
-    published_resources                               { rand(100000) }
-    published_trusted_resources                       { rand(100000) }
-    published_unreviewed_resources                    { rand(100000) }
-    newly_published_resources_in_the_last_30_days     { rand(100000) }
-    data_objects                                      { rand(100000) }
-    data_objects_texts                                { rand(100000) }
-    data_objects_images                               { rand(100000) }
-    data_objects_videos                               { rand(100000) }
-    data_objects_sounds                               { rand(100000) }
-    data_objects_maps                                 { rand(100000) }
-    data_objects_trusted                              { rand(100000) }
-    data_objects_unreviewed                           { rand(100000) }
-    data_objects_untrusted                            { rand(100000) }
-    data_objects_trusted_or_unreviewed_but_hidden     { rand(100000) }
-    udo_published                                     { rand(100000) }
-    udo_published_by_curators                         { rand(100000) }
-    udo_published_by_non_curators                     { rand(100000) }
-    rich_pages                                        { rand(100000) }
-    hotlist_pages                                     { rand(100000) }
-    rich_hotlist_pages                                { rand(100000) }
-    redhotlist_pages                                  { rand(100000) }
-    rich_redhotlist_pages                             { rand(100000) }
-    pages_with_score_10_to_39                         { rand(100000) }
-    pages_with_score_less_than_10                     { rand(100000) }
-    curators                                          { rand(100000) }
-    curators_assistant                                { rand(100000) }
-    curators_full                                     { rand(100000) }
-    curators_master                                   { rand(100000) }
-    active_curators                                   { rand(100000) }
-    pages_curated_by_active_curators                  { rand(100000) }
-    objects_curated_in_the_last_30_days               { rand(100000) }
-    curator_actions_in_the_last_30_days               { rand(100000) }
-    lifedesk_taxa                                     { rand(100000) }
-    lifedesk_data_objects                             { rand(100000) }
-    marine_pages                                      { rand(100000) }
-    marine_pages_in_col                               { rand(100000) }
-    marine_pages_with_objects                         { rand(100000) }
-    marine_pages_with_objects_vetted                  { rand(100000) }
-    created_at                                        { 5.days.ago }
   end
 
 end

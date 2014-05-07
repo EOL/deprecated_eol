@@ -120,57 +120,59 @@ module EOL
 
         def self.prepare_hash(taxon_concept, params={})
           return_hash = {}
-          return_hash['identifier'] = taxon_concept.id
-          return_hash['scientificName'] = taxon_concept.entry.name.string
-          return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
+          unless taxon_concept.nil?
+            return_hash['identifier'] = taxon_concept.id
+            return_hash['scientificName'] = taxon_concept.entry.name.string
+            return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
 
-          return_hash['synonyms'] = []
-          if params[:synonyms]
-            taxon_concept.scientific_synonyms.each do |syn|
-              relation = syn.synonym_relation ? syn.synonym_relation.label : ''
-              return_hash['synonyms'] << {
-                'synonym' => syn.name.string,
-                'relationship' => relation
+            return_hash['synonyms'] = []
+            if params[:synonyms]
+              taxon_concept.scientific_synonyms.includes([ :name, :synonym_relation ]).each do |syn|
+                relation = syn.synonym_relation ? syn.synonym_relation.label : ''
+                return_hash['synonyms'] << {
+                  'synonym' => syn.name.string,
+                  'relationship' => relation
+                }
+              end
+            end
+
+            return_hash['vernacularNames'] = []
+            if params[:common_names]
+              taxon_concept.common_names.each do |tcn|
+                lang = tcn.language ? tcn.language.iso_639_1 : ''
+                common_name_hash = {
+                  'vernacularName' => tcn.name.string,
+                  'language'       => lang
+                }
+                preferred = (tcn.preferred == 1) ? true : nil
+                common_name_hash['eol_preferred'] = preferred unless preferred.blank?
+                return_hash['vernacularNames'] << common_name_hash
+              end
+            end
+
+            return_hash['references'] = []
+            if params[:references]
+              references = Ref.find_refs_for(taxon_concept.id)
+              references = Ref.sort_by_full_reference(references)
+              references.each do |r|
+                return_hash['references'] << r.full_reference
+              end
+              return_hash['references'].uniq!
+            end
+
+            return_hash['taxonConcepts'] = []
+            taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
+              entry_hash = {
+                'identifier'      => entry.id,
+                'scientificName'  => entry.name.string,
+                'nameAccordingTo' => entry.hierarchy.label,
+                'canonicalForm'   => (entry.name.canonical_form.string rescue '')
               }
+              entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
+              entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
+              entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
+              return_hash['taxonConcepts'] << entry_hash
             end
-          end
-
-          return_hash['vernacularNames'] = []
-          if params[:common_names]
-            taxon_concept.common_names.each do |tcn|
-              lang = tcn.language ? tcn.language.iso_639_1 : ''
-              common_name_hash = {
-                'vernacularName' => tcn.name.string,
-                'language'       => lang
-              }
-              preferred = (tcn.preferred == 1) ? true : nil
-              common_name_hash['eol_preferred'] = preferred unless preferred.blank?
-              return_hash['vernacularNames'] << common_name_hash
-            end
-          end
-
-          return_hash['references'] = []
-          if params[:references]
-            references = Ref.find_refs_for(taxon_concept.id)
-            references = Ref.sort_by_full_reference(references)
-            references.each do |r|
-              return_hash['references'] << r.full_reference
-            end
-            return_hash['references'].uniq!
-          end
-
-          return_hash['taxonConcepts'] = []
-          taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
-            entry_hash = {
-              'identifier'      => entry.id,
-              'scientificName'  => entry.name.string,
-              'nameAccordingTo' => entry.hierarchy.label,
-              'canonicalForm'   => (entry.name.canonical_form.string rescue '')
-            }
-            entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
-            entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
-            entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
-            return_hash['taxonConcepts'] << entry_hash
           end
 
           return_hash['dataObjects'] = []
@@ -186,7 +188,6 @@ module EOL
           solr_search_params = {}
           solr_search_params[:sort_by] = 'status'
           solr_search_params[:visibility_types] = ['visible']
-          solr_search_params[:skip_preload] = true
           if options[:vetted] == 1  # 1 = trusted
             solr_search_params[:vetted_types] = ['trusted']
           elsif options[:vetted] == 2  # 2 = everything except untrusted
@@ -209,6 +210,11 @@ module EOL
           map_objects = load_maps(taxon_concept, options, solr_search_params)
 
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
+          TaxonUserClassificationFilter.preload_details(all_data_objects)
+          # sorting after the preloading has happened
+          text_objects = sort_and_promote_text(taxon_concept, text_objects, options) if options[:text] && options[:text] > 0
+          all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
+
           if options[:iucn]
             # we create fake IUCN objects if there isn't a real one. Don't use those in the API
             iucn_object = taxon_concept.iucn
@@ -219,19 +225,18 @@ module EOL
           end
 
           # preload necessary associations for API response
-          DataObject.preload_associations(all_data_objects, [ { :data_objects_hierarchy_entries => [ :vetted, { :hierarchy_entry => { :hierarchy => :resource } } ] },
-            :curated_data_objects_hierarchy_entries, :data_type, :license, :language, :mime_type,
+          DataObject.preload_associations(all_data_objects, [
             :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs, :audiences ] )
           all_data_objects
         end
 
         def self.process_license_options!(options)
           if options[:licenses]
-            options[:licenses] = options[:licenses].split("|").map do |l|
+            options[:licenses] = options[:licenses].split("|").flat_map do |l|
               l = 'public domain' if l == 'pd'
               l = 'not applicable' if l == 'na'
               License.find(:all, :conditions => "title REGEXP '^#{l}([^-]|$)'")
-            end.flatten.compact
+            end.compact
           end
         end
 
@@ -242,8 +247,8 @@ module EOL
           if options[:subjects].blank? || options[:text_subjects].include?('overview') || options[:text_subjects].include?('all')
             options[:text_subjects] = nil
           else
-            options[:text_subjects] = options[:text_subjects].map{ |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.flatten.compact
-            options[:toc_items] = options[:text_subjects].map{ |ii| ii.toc_item }.flatten.compact
+            options[:text_subjects] = options[:text_subjects].flat_map { |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.compact
+            options[:toc_items] = options[:text_subjects].flat_map { |ii| ii.toc_item }.compact
           end
         end
 
@@ -256,13 +261,18 @@ module EOL
               :data_type_ids => DataType.text_type_ids,
               :filter_by_subtype => false
             }))
-            DataObject.preload_associations(text_objects, [ { :info_items => :translations } ] )
-            text_objects = DataObject.sort_by_rating(text_objects, taxon_concept)
-            user = User.new(:language => Language.default)
-            exemplar_text = taxon_concept.overview_text_for_user(user)
-            promote_exemplar!(exemplar_text, text_objects, options)
           end
           return text_objects
+        end
+
+        def self.sort_and_promote_text(taxon_concept, text_objects, options)
+          DataObject.preload_associations(text_objects, [ :toc_items, { :info_items => :translations } ] )
+          text_objects = DataObject.sort_by_rating(text_objects, taxon_concept)
+          # TODO - the overview_text_for_user does a better job of handling anonymous users if you don't pass a user at all:
+          user = User.new(:language => Language.default)
+          exemplar_text = taxon_concept.overview_text_for_user(user)
+          promote_exemplar!(exemplar_text, text_objects, options)
+          text_objects
         end
 
         def self.load_images(taxon_concept, options, solr_search_params)
@@ -295,8 +305,8 @@ module EOL
           # now add in the exemplar, and remove one if the array is now too large
           original_length = existing_objects_of_same_type.length
           # remove the exemplar if it is already in the list
-          existing_objects_of_same_type.delete_if{ |d| d.guid == exemplar_object.guid }
-          # prepend the exemplar if it exists
+          existing_objects_of_same_type.delete_if { |d| d.guid == exemplar_object.guid }
+          # prepend the exemplar
           existing_objects_of_same_type.unshift(exemplar_object)
           # if the exemplar increased the size of our image array, remove the last one
           existing_objects_of_same_type.pop if existing_objects_of_same_type.length > original_length && original_length != 0

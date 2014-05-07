@@ -5,15 +5,16 @@ class ApplicationController < ActionController::Base
 
   include ImageManipulation
   unless Rails.application.config.consider_all_requests_local
-    rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, :with => :rescue_from_exception
-    rescue_from ActionView::MissingTemplate, :with => :rescue_from_exception
+    rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, with: :rescue_from_exception
+    rescue_from ActionView::MissingTemplate, with: :rescue_from_exception
   end
 
-  before_filter :original_request_params, :except => [ :fetch_external_page_title ] # store unmodified copy of request params
-  before_filter :global_warning, :except => [ :fetch_external_page_title ]
-  before_filter :clear_any_logged_in_session, :except => [ :fetch_external_page_title ] unless $ALLOW_USER_LOGINS
-  before_filter :check_user_agreed_with_terms, :except => [ :fetch_external_page_title, :error ]
-  before_filter :set_locale, :except => [ :fetch_external_page_title ]
+  before_filter :original_request_params, except: [ :fetch_external_page_title ] # store unmodified copy of request params
+  before_filter :global_warning, except: [ :fetch_external_page_title ]
+  before_filter :clear_any_logged_in_session, except: [ :fetch_external_page_title ] unless $ALLOW_USER_LOGINS
+  before_filter :check_user_agreed_with_terms, except: [ :fetch_external_page_title, :error ]
+  before_filter :set_locale, except: [ :fetch_external_page_title ]
+  around_filter :send_to_statsd
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :keep_home_page_fresh
@@ -29,46 +30,50 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
-  # like.  And, yes, if there's a "real" error, they miss this message.  So what?
-  def global_warning
-    # using SiteConfigutation over an environment constant DOES require a query for EVERY REQUEST
-    # but the table is tiny (<5 rows right now) and the coloumn is indexed. But it also gives us the flexibility
-    # to display or remove a message within seconds which I think is worth it
-    # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
-    # NOTE: if there is no row for global_site_warning, or the value is nil, we will cache the integer 1 so prevent
-    # future lookups (when we check the cache and find a value of nil, it makes it look like the lookup was not cached)
-    warning = Rails.cache.fetch("application/global_site_warning", :expires_in => 10.minutes) do
-      sco = SiteConfigurationOption.find_by_parameter('global_site_warning')
-      (sco && sco.value) ? sco.value : 1
-    end
-
-    if warning && warning.class == String
-      flash.now[:error] = warning
+  def send_to_statsd
+    if $STATSD
+      if logged_in?
+        $STATSD.increment("logged_in")
+      else
+        $STATSD.increment("not_logged_in")
+      end
+      $STATSD.time("page_load_time.#{params[:controller]}.#{params[:action]}") do
+        yield
+      end
+    else
+      yield
     end
   end
 
+  # Continuously display a warning message.  This is used for things like "System Shutting down at 15 past" and the
+  # like.  And, yes, if there's a "real" error, they miss this message.  So what?
+  # NOTE - you can clear this quickly with EolConfig.clear_global_site_warning
+  def global_warning
+    # NOTE (!) if you set this value and don't see it change in 10 minutes, CHECK YOUR SLAVE LAG. It reads from slaves.
+    warning = EolConfig.global_site_warning
+    flash.now[:error] = warning if warning
+  end
+
   def set_locale
-    begin
-      I18n.locale = current_language.iso_639_1
-    rescue
-      I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
-    end
+    I18n.locale = current_language.iso_639_1
+  rescue
+    I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
   end
 
   def allow_login_then_submit
     unless logged_in?
       # TODO: Can we delete the submitted data if the user doesn't login or signup?
+      # TODO - can we generalize this and the associated code for handling POSTs before login?
       session[:submitted_data] = params
       # POST request should provide a submit_to URL so that we can redirect to the correct action with a GET.
       submit_to = params[:submit_to] || current_url
       respond_to do |format|
         format.html do
           flash[:notice] = I18n.t(:must_be_logged_in)
-          redirect_to login_path(:return_to => submit_to)
+          redirect_to login_path(return_to: submit_to)
         end
         format.js do
-          render :partial => 'content/must_login', :layout => false, :locals => { :return_to => submit_to }
+          render partial: 'content/must_login', layout: false, locals: { return_to: submit_to }
         end
       end
     end
@@ -79,7 +84,7 @@ class ApplicationController < ActionController::Base
     # NOTE - by default an exception (with no message) reports its class name as the message. We don't want that:
     flash[:warning] += " #{exception.message}" if exception && exception.message != exception.class.name
     session[:return_to] = request.url if params[:return_to].nil?
-    redirect_to(login_path, :return_to => params[:return_to])
+    redirect_to(login_path, return_to: params[:return_to])
   end
 
   def view_helper_methods
@@ -94,7 +99,7 @@ class ApplicationController < ActionController::Base
   end
 
   # store a given URL (defaults to current) in case we need to redirect back later
-  def store_location(url = url_for(:controller => controller_name, :action => action_name))
+  def store_location(url = url_for(controller: controller_name, action: action_name))
     # It's possible to create a redirection attack with a redirect to data: protocol... and possibly others, so:
     # Whitelisting redirection to our own site and relative paths.
     url = nil unless url =~ /\A([%2F\/]|#{root_url})/
@@ -113,7 +118,13 @@ class ApplicationController < ActionController::Base
 
   def current_url(remove_querystring = true)
     if remove_querystring
-      current_url = URI.parse(request.url)
+      current_url = begin
+                      URI.parse(request.url)
+                    rescue => e
+                      URI.parse(request.url.gsub(/[^-A-Za-z0-9_\/]/, ''))
+                    ensure
+                      ''
+                    end
       current_url.query = nil
       current_url.to_s
     else
@@ -139,7 +150,7 @@ class ApplicationController < ActionController::Base
       back_uri = back_uri.to_s
       back_uri = CGI.unescape(back_uri)
     else
-      back_uri = root_url(:protocol => 'http')
+      back_uri = root_url(protocol: 'http')
     end
     redirect_to back_uri
   end
@@ -149,9 +160,9 @@ class ApplicationController < ActionController::Base
     url_to_return = params[:return_to] ? CGI.unescape(params[:return_to]).strip : nil
     unless request.ssl? || local_request?
       if url_to_return && url_to_return[0...1] == '/'  #return to local url
-        redirect_to :protocol => "https://", :return_to => url_to_return, :method => request.method, :status => :moved_permanently
+        redirect_to protocol: "https://", return_to: url_to_return, method: request.method, status: :moved_permanently
       else
-        redirect_to :protocol => "https://", :method => request.method, :status => :moved_permanently
+        redirect_to protocol: "https://", method: request.method, status: :moved_permanently
       end
     end
   end
@@ -167,7 +178,7 @@ class ApplicationController < ActionController::Base
 
     url = params[:url]
     if url.nil?
-      render :nothing => true
+      render nothing: true
       return
     end
 
@@ -179,13 +190,13 @@ class ApplicationController < ActionController::Base
 
   def redirect_to_http_if_https
     if request.ssl?
-      redirect_to "http://" + request.host + request.request_uri, :status => :moved_permanently
+      redirect_to "http://" + request.host + request.request_uri, status: :moved_permanently
     end
   end
 
   def keep_home_page_fresh
     # expire home page fragment caches after specified internal to keep it fresh
-    if $CACHE_CLEARED_LAST.advance(:hours => $CACHE_CLEAR_IN_HOURS) < Time.now
+    if $CACHE_CLEARED_LAST.advance(hours: $CACHE_CLEAR_IN_HOURS) < Time.now
       expire_cache('home')
       $CACHE_CLEARED_LAST = Time.now()
     end
@@ -200,7 +211,6 @@ class ApplicationController < ActionController::Base
   def clear_all_caches
     Rails.cache.clear
     remove_cached_feeds
-    remove_cached_list_of_taxon_concepts
     # The docs warn about doing this, TODO - should we remove it?
     if ActionController::Base.cache_store.class == ActiveSupport::Cache::MemCacheStore
       ActionController::Base.cache_store.clear
@@ -245,7 +255,7 @@ class ApplicationController < ActionController::Base
 
   # send user back to the non-SSL version of the page
   def redirect_back_to_http
-    redirect_to :protocol => "http://", :status => :moved_permanently  if request.ssl?
+    redirect_to protocol: "http://", status: :moved_permanently  if request.ssl?
   end
 
   # Language Object for the current request.  Stored as an instance variable to speed things up for multiple calls.
@@ -289,8 +299,10 @@ class ApplicationController < ActionController::Base
     session[:user_id] = nil
   end
 
+  # TODO - review the session-management code. It seems quite convoluted.
   def logged_in?
-    session[:user_id]
+    # NOTE - the active check is to stop spammers from continuing to comment. Sigh.
+    session[:user_id] && current_user.active?
   end
 
   def check_authentication
@@ -310,7 +322,7 @@ class ApplicationController < ActionController::Base
   def must_log_in
     respond_to do |format|
       format.html { store_location; redirect_to login_url }
-      format.js   { render :partial => 'content/must_login', :layout => false }
+      format.js   { render partial: 'content/must_login', layout: false }
     end
     return false
   end
@@ -332,7 +344,21 @@ class ApplicationController < ActionController::Base
     raise EOL::Exceptions::SecurityViolation.new(
       "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
       " that is restricted to EOL assistant curators and above, and was disallowed.",
-      "min_assistant_curators_only") unless current_user.is_admin? || current_user.min_curator_level?(:assistant)
+      :min_assistant_curators_only) unless current_user.is_admin? || current_user.min_curator_level?(:assistant)
+  end
+
+  def restrict_to_admins_and_master_curators
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL master curators and above, and was disallowed.",
+      :admin_or_master_curators_only) unless current_user.is_admin? || current_user.min_curator_level?(:master)
+  end
+
+  def restrict_to_admins_and_cms_editors
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to EOL Administrators and CMS editors, and was disallowed.",
+      :administrators_only) unless current_user.is_admin? || current_user.can?(:edit_cms)
   end
 
   def restrict_to_master_curators
@@ -345,6 +371,13 @@ class ApplicationController < ActionController::Base
 
   def restrict_to_curators
     restrict_to_curators_of_level(:assistant)
+  end
+
+  def restrict_to_data_viewers
+    raise EOL::Exceptions::SecurityViolation.new(
+      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
+      " that is restricted to Data Viewers, and was disallowed.",
+      :no_access) unless current_user.can_see_data?
   end
 
   # A user is not authorized for the particular controller/action:
@@ -375,8 +408,10 @@ class ApplicationController < ActionController::Base
     update_current_language(language)
     if logged_in?
       # Don't want to worry about validations on the user; language is simple.  Just update it:
-      User.update_all({:language_id => language.id}, {:id => current_user.id})
+      User.update_all({language_id: language.id}, {id: current_user.id})
       current_user.clear_cache
+      current_user.expire_primary_index
+      expire_fragment("sessions_#{current_user.id}")
     end
     redirect_to(params[:return_to].blank? ? root_url : params[:return_to])
   end
@@ -399,7 +434,7 @@ class ApplicationController < ActionController::Base
     return if what === current_user
     watchlist = current_user.watch_collection
     if what.class == DataObject
-      all_revision_ids = DataObject.find_all_by_guid_and_language_id(what.guid, what.language_id, :select => 'id').map { |d| d.id }
+      all_revision_ids = DataObject.find_all_by_guid_and_language_id(what.guid, what.language_id, select: 'id').map { |d| d.id }
       collection_item = CollectionItem.where(['collection_id = ? AND collected_item_id IN (?) AND collected_item_type = ?',
                                              watchlist.id, all_revision_ids, what.class.name]).first
     else
@@ -407,7 +442,7 @@ class ApplicationController < ActionController::Base
     end
     if collection_item.nil?
       collection_item = begin # We do not care if this fails.
-        CollectionItem.create(:annotation => options[:annotation], :collected_item => what, :collection_id => watchlist.id)
+        CollectionItem.create(annotation: options[:annotation], collected_item: what, collection_id: watchlist.id)
       rescue => e
         Rails.logger.error "** ERROR COLLECTING: #{e.message} FROM #{e.backtrace.first}"
         nil
@@ -417,11 +452,11 @@ class ApplicationController < ActionController::Base
         flash[:notice] ||= ''
         flash[:notice] += ' '
         flash[:notice] += I18n.t(:item_added_to_watch_collection_notice,
-                                 :collection_name => self.class.helpers.link_to(watchlist.name,
+                                 collection_name: self.class.helpers.link_to(watchlist.name,
                                                                                 collection_path(watchlist)),
-                                 :item_name => what.summary_name)
-        CollectionActivityLog.create(:collection => watchlist, :user_id => current_user.id,
-                             :activity => Activity.collect, :collection_item => collection_item)
+                                 item_name: what.summary_name)
+        CollectionActivityLog.create(collection: watchlist, user_id: current_user.id,
+                             activity: Activity.collect, collection_item: collection_item)
       end
     end
   end
@@ -441,10 +476,12 @@ class ApplicationController < ActionController::Base
     Rails.cache.delete('homepage/activity_logs_expiration') if Rails.cache
   end
 
+  # TODO - review. This seems quite convoluted; it's certainly obfuscated.
   def rescue_from_exception(exception = env['action_dispatch.exception'])
     rescue_action_in_public(exception)
   end
 
+  # TODO - this doesn't belong in a controller. Move it to a lib or a model.
   def fetch_external_page_title
     data = {}
     success = nil
@@ -481,7 +518,7 @@ class ApplicationController < ActionController::Base
       data['exception'] = true
       data['message'] = I18n.t(:url_not_accessible)
     end
-    render :text => data.to_json
+    render text: data.to_json
   end
 
 protected
@@ -505,15 +542,19 @@ protected
       response_code = :not_found
     end
     render_exception_response(exception, response_code, status_code)
+    if $STATSD
+      $STATSD.increment 'all_errors'
+      $STATSD.increment "errors.#{exception.class.name.gsub(/[^A-Za-z0-9]+/, '_')}"
+    end
     # Log to database
     if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
       ErrorLog.create(
-        :url => env['REQUEST_URI'],
-        :ip_address => request.remote_ip,
-        :user_agent => request.user_agent,
-        :user_id => logged_in? ? current_user.id : 0,
-        :exception_name => exception.to_s,
-        :backtrace => "Application Server: " + $IP_ADDRESS_OF_SERVER + "\r\n" + exception.backtrace.join("\r\n")
+        url: env['REQUEST_URI'],
+        ip_address: EOL::Server.ip_address,
+        user_agent: request.user_agent,
+        user_id: logged_in? ? current_user.id : 0,
+        exception_name: exception.to_s,
+        backtrace: "Application Server: #{EOL::Server.ip_address}\r\n" + exception.backtrace.join("\r\n")
       )
       # Notify New Relic about exception
       NewRelic::Agent.notice_error(exception) if $PRODUCTION_MODE
@@ -532,17 +573,17 @@ protected
     else
       respond_to do |format|
         format.html do
-          @error_page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])
+          @error_page_title = I18n.t("error_#{status_code}_page_title", default: [:error_default_page_title, "Error."])
           @status_code = status_code
-          render :layout => 'v2/errors', :template => 'content/error', :status => status_code
+          render layout: 'errors', template: 'content/error', status: status_code
         end
         format.js do
-          render :layout => false, :template => 'content/error', :status => status_code
+          render layout: false, template: 'content/error', status: status_code
         end
         format.all do
-          @error_page_title = I18n.t("error_#{status_code}_page_title", :default => [:error_default_page_title, "Error."])
+          @error_page_title = I18n.t("error_#{status_code}_page_title", default: [:error_default_page_title, "Error."])
           @status_code = status_code
-          render :layout => 'v2/errors', :template => 'content/error', :status => status_code, :formats => 'html', :content_type => Mime::HTML.to_s
+          render layout: 'errors', template: 'content/error', status: status_code, formats: 'html', content_type: Mime::HTML.to_s
         end
       end
     end
@@ -558,18 +599,18 @@ protected
   # Defines base variables for use in scoped i18n calls, used by meta tag helper methods
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= {
-      :default => '',
-      :scope => controller_action_scope }.freeze # frozen to force use of dup, otherwise wrong vars get sent to i18n
+      default: '',
+      scope: controller_action_scope }.freeze # frozen to force use of dup, otherwise wrong vars get sent to i18n
   end
 
   def meta_data(title = meta_title, description = meta_description, keywords = meta_keywords)
-    @meta_data ||=  { :title => [
+    @meta_data ||=  { title: [
                       @home_page ? I18n.t(:meta_title_site_name) : title.presence,
-                      @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, :number => @rel_canonical_href_page_number) : nil,
+                      @rel_canonical_href_page_number ? I18n.t(:pagination_page_number, number: @rel_canonical_href_page_number) : nil,
                       @home_page ? title.presence : I18n.t(:meta_title_site_name)
                     ].compact.join(" - ").strip,
-                  :description => description,
-                  :keywords => keywords
+                  description: description,
+                  keywords: keywords
                 }.delete_if{ |k, v| v.nil? }
   end
   helper_method :meta_data
@@ -596,8 +637,8 @@ protected
       translation_vars[:default] = meta_title if translation_vars[:default].blank?
       text = I18n.t(:tweet_text, translation_vars)
     end
-    @tweet_data = {:lang => lang, :via => via, :hashtags => hashtags,
-                   :text => text}.delete_if{ |k, v| v.blank? }
+    @tweet_data = {lang: lang, via: via, hashtags: hashtags,
+                   text: text}.delete_if{ |k, v| v.blank? }
   end
   helper_method :tweet_data
 
@@ -627,10 +668,10 @@ protected
     page = rel_canonical_href_page_number(options[:paginated])
     parameters = []
     if options[:for].is_a? Hash
-      parameters << options[:for].merge(:page => page)
+      parameters << options[:for].merge(page: page)
     else
       parameters << options[:for] if options[:for]
-      parameters << {:page => page}
+      parameters << {page: page}
     end
     @rel_canonical_href = self.send(options[:url_method], *parameters)
     @rel_prev_href = rel_prev_href_params(options[:paginated]) ?
@@ -650,14 +691,14 @@ protected
   # NOTE - original_params is *never* passed in.
   def rel_prev_href_params(records, original_params = original_request_params.clone)
     @rel_prev_href_params ||= records.is_a?(WillPaginate::Collection) && records.previous_page ?
-      original_params.merge({ :page => records.previous_page }) : nil
+      original_params.merge({ page: records.previous_page }) : nil
   end
 
   # rel next href needs the current request params with current page number swapped out for the number of the next page
   # return nil if there is no next page
   def rel_next_href_params(records, original_params = original_request_params.clone)
     @rel_next_href_params ||= records.is_a?(WillPaginate::Collection) && records.next_page ?
-      original_params.merge({ :page => records.next_page }) : nil
+      original_params.merge({ page: records.next_page }) : nil
   end
 
   # Set in before filter and frozen so we have an unmodified copy of request params for use in rel link tags
@@ -673,11 +714,11 @@ protected
   end
 
   def page_title(scope = controller_action_scope)
-    @page_title ||= I18n.t(:page_title, :scope => scope, :default => '')
+    @page_title ||= I18n.t(:page_title, scope: scope, default: '')
   end
   helper_method :page_title
   def page_description(scope = controller_action_scope)
-    @page_description ||= I18n.t(:page_description, :scope => scope, :default => '')
+    @page_description ||= I18n.t(:page_description, scope: scope, default: '')
   end
   helper_method :page_description
 
@@ -762,7 +803,7 @@ private
         store_location(nil)
       else
         store_location(current_url)
-        redirect_to login_url(:oauth_provider => params[:oauth_provider].downcase) and return
+        redirect_to login_url(oauth_provider: params[:oauth_provider].downcase) and return
       end
     end
     redirect_to current_url # redirecting to remove oauth parameters from the URL
@@ -793,11 +834,6 @@ private
     FileUtils.rm_rf(Dir.glob(Rails.root.join(Rails.public_path, 'feeds', '*')))
   end
 
-  def remove_cached_list_of_taxon_concepts
-    FileUtils.rm_rf(Rails.root.join(Rails.public_path, 'content', 'tc_api', 'page'))
-    expire_page( :controller => 'content', :action => 'tc_api' )
-  end
-
   # Having a *temporary* logged in user, as opposed to reading the user from the cache, lets us change some values
   # (such as language or vetting) within the scope of a request *without* storing it the database.  So, for example,
   # when a URL includes "&vetted = true" (or some-such), we can serve that request with *temporary* user values that
@@ -815,16 +851,16 @@ private
       Language.find_active.each do |language|
         pages.each do |page|
           if page.class == ContentPage
-            expire_fragment(:controller => '/content', :part => "#{page.id.to_s }_#{language.iso_639_1}")
-            expire_fragment(:controller => '/content',
-                            :part => "#{page.page_url.underscore_non_word_chars.downcase}_#{language.iso_639_1}")
+            expire_fragment(controller: '/content', part: "#{page.id.to_s }_#{language.iso_639_1}")
+            expire_fragment(controller: '/content',
+                            part: "#{page.page_url.underscore_non_word_chars.downcase}_#{language.iso_639_1}")
             page.clear_all_caches rescue nil # TODO - still having some problem with ContentPage, not sure why.
           else
-            expire_fragment(:controller => '/content', :part => "#{page}_#{language.iso_639_1}")
+            expire_fragment(controller: '/content', part: "#{page}_#{language.iso_639_1}")
           end
           if page.class == ContentPage && page.page_url == 'home'
             Hierarchy.all.each do |h|
-              expire_fragment(:controller => '/content', :part => "home_#{language.iso_639_1}_#{h.id.to_s}") # this is because the home page fragment is dependent on the user's selected hierarchy entry ID, unlike the other content pages
+              expire_fragment(controller: '/content', part: "home_#{language.iso_639_1}_#{h.id.to_s}") # this is because the home page fragment is dependent on the user's selected hierarchy entry ID, unlike the other content pages
             end
           end
         end
@@ -845,13 +881,13 @@ private
     # To-do if elsif elsif elsif.. This works but it's not really elegant!
     if mobile_agent_request? && !mobile_url_request? && !mobile_disabled_by_session?
       if params[:controller] == "taxa/overviews" && params[:taxon_id]
-        redirect_to mobile_taxon_path(params[:taxon_id]), :status => :moved_permanently
+        redirect_to mobile_taxon_path(params[:taxon_id]), status: :moved_permanently
       elsif params[:controller] == "taxa/details" && params[:taxon_id]
-        redirect_to mobile_taxon_details_path(params[:taxon_id]), :status => :moved_permanently
+        redirect_to mobile_taxon_details_path(params[:taxon_id]), status: :moved_permanently
       elsif params[:controller] == "taxa/media" && params[:taxon_id]
-        redirect_to mobile_taxon_media_path(params[:taxon_id]), :status => :moved_permanently
+        redirect_to mobile_taxon_media_path(params[:taxon_id]), status: :moved_permanently
       else
-        redirect_to mobile_contents_path, :status => :moved_permanently
+        redirect_to mobile_contents_path, status: :moved_permanently
       end
     end
   end

@@ -12,7 +12,7 @@ twitter:
   key: $TWITTER_CONSUMER_KEY
   secret: $TWITTER_CONSUMER_SECRET
   params:
-    :site: 'http://api.twitter.com'
+    :site: 'https://api.twitter.com'
     :authorize_path: '/oauth/authenticate'
 google:
   type: 'OAuth2'

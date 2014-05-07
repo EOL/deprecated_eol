@@ -1,0 +1,17 @@
+- content_for :main do
+  - if @home_page
+    = render 'shared/flash_messages'
+  - else
+    #page_heading
+      .site_column
+        .hgroup
+          = render 'content/breadcrumbs'
+          %h1= page_title
+          - unless @page_subtitle.blank?
+            %h2= @page_subtitle
+          = yield :social_sharing
+          - unless page_description.blank?
+            %p= raw(page_description)
+        = render 'shared/flash_messages'
+  = yield
+= render :file => 'layouts/application'

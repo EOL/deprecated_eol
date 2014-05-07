@@ -1,0 +1,39 @@
+- content_for :main do
+  #page_heading{:class => display_content_partners_navigation? ? 'with_image with_nav' : 'with_image'}
+    .site_column
+      = image_tag @partner.logo_url, :alt => ""
+      .hgroup
+        %h1= h @partner.name
+        - if @page_subheader.blank?
+          %p
+            - unless @partner.oldest_published_harvest_events.blank?
+              = I18n.t(:content_partner_oldest_published_harvest_event_time_ago,
+                :time_passed => time_ago_in_words(@partner.oldest_published_harvest_events.first.published_at))
+            - unless @partner.latest_published_harvest_events.blank?
+              = I18n.t(:content_partner_latest_published_harvest_event_time_ago,
+                :time_passed => time_ago_in_words(@partner.latest_published_harvest_events.first.published_at))
+              - unless @partner.homepage.blank?
+                %br/
+            - unless @partner.homepage.blank?
+              = link_to @partner.homepage, @partner.homepage, :rel => :nofollow
+
+        - else
+          %h2= raw(@page_subheader)
+        = yield :social_sharing
+
+      .page_actions
+        %ul
+          = yield :page_actions
+          - if current_user.is_admin? && !request.referer.blank? && request.referer.match(/\/admin\/content_partners/)
+            %li= link_to I18n.t(:content_partner_admin_index_link_back_to), request.referer
+      = render 'shared/flash_messages'
+      - if display_content_partners_navigation?
+        %ul.nav
+          %li{:class => resource_is_active('contentpartnerscontroller')}= link_to I18n.t(:content_partner_overview_link), content_partner_path(@partner)
+          %li{:class => resource_is_active('statistics')}= link_to I18n.t(:content_partner_statistics_link), content_partner_statistics_path(@partner)
+          - if current_user.can_update?(@partner)
+            %li{:class => resource_is_active('resources')}= link_to raw(I18n.t(:content_partner_resources_link)), content_partner_resources_path(@partner)
+  #content
+    = yield
+
+= render :file => 'layouts/application'

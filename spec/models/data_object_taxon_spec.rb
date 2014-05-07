@@ -1,18 +1,17 @@
-require File.dirname(__FILE__) + '/../spec_helper'
-require File.dirname(__FILE__) + '/../scenario_helpers'
+require "spec_helper"
 
 # Handles the associations between a data object and its taxon concepts.
 describe DataObjectTaxon do
 
   before(:all) do
     # Mini-foundation. Perhaps we should extract this as a method in the spec helper:
-    DataType.create_defaults
-    License.create_defaults
-    CuratorLevel.create_defaults
-    Vetted.create_defaults
-    Visibility.create_defaults
-    Activity.create_defaults
-    ChangeableObjectType.create_defaults
+    DataType.create_enumerated
+    License.create_enumerated
+    CuratorLevel.create_enumerated
+    Vetted.create_enumerated
+    Visibility.create_enumerated
+    Activity.create_enumerated
+    ChangeableObjectType.create_enumerated
 
     @master = gen_curator(curator_level: CuratorLevel.master)
     @curator = gen_curator(curator_level: CuratorLevel.full)
@@ -75,7 +74,6 @@ describe DataObjectTaxon do
   end
 
   it 'should know any reasons given for hiding' do
-    $FOO = true
     @cdohe_reasons = [UntrustReason.gen, UntrustReason.gen]
     cal = CuratorActivityLog.gen(data_object_guid: @cdohe.guid,
                                  changeable_object_type: ChangeableObjectType.curated_data_objects_hierarchy_entry,
@@ -157,6 +155,40 @@ describe DataObjectTaxon do
   it 'should NOT be deletable if it was NOT curated' do
     @dohe_dot.can_be_deleted_by?(@master).should_not be_true
     @udo_dot.can_be_deleted_by?(@master).should_not be_true
+  end
+
+  it 'should default_sort properly' do
+    # published first
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(hierarchy_entry: HierarchyEntry.gen(published: 1))),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(hierarchy_entry: HierarchyEntry.gen(published: 0))),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(hierarchy_entry: HierarchyEntry.gen(published: 1)))
+      ]).should == [ a, c, b ]
+    # trusted, unknown, untrusted
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.unknown)),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.untrusted)),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted))
+      ]).should == [ c, a, b ]
+    # visible, invisible, preview
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(visibility: Visibility.invisible)),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(visibility: Visibility.preview)),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(visibility: Visibility.visible))
+      ]).should == [ c, a, b ]
+    # favor visibility over vetted
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted, visibility: Visibility.invisible)),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.unknown, visibility: Visibility.preview)),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.untrusted, visibility: Visibility.visible))
+      ]).should == [ c, a, b ]
+    # favor published over vetted
+    DataObjectTaxon.default_sort(
+      [ a = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted, visibility: Visibility.invisible)),
+        b = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.unknown, visibility: Visibility.preview)),
+        c = DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.untrusted, visibility: Visibility.visible,
+            hierarchy_entry: HierarchyEntry.gen(published: 0)))
+      ]).should == [ a, b, c ]
   end
   
 end

@@ -1,6 +1,6 @@
 class SearchSuggestion < ActiveRecord::Base
 
-  belongs_to :taxon_concept, :foreign_key => :taxon_id
+  belongs_to :taxon_concept, foreign_key: :taxon_id
 
   validates_presence_of :term, :language_label, :taxon_id
   validates_numericality_of :sort_order, :taxon_id

@@ -2,7 +2,7 @@
   .article.copy
     = form_for [@partner, @contact], :url => content_partner_contact_path, :builder => ApplicationHelper::EolFormBuilder do |contact_form|
       = validation_errors_for(@contact)
-      = render :partial => 'contact_fieldset', :locals => { :contact_form => contact_form }
+      = render 'contact_fieldset', { :contact_form => contact_form }
       %fieldset.actions
         = contact_form.submit I18n.t('helpers.submit.content_partner_contact.update')
         = link_to I18n.t(:cancel), content_partner_resources_path(@partner)

@@ -1,47 +1,52 @@
 class EolStatistic < ActiveRecord::Base
 
   scope :overall, lambda {
-    { :select => [:members_count, :communities_count, :collections_count,
+    { select: [ :members_count, :communities_count, :collections_count,
                   :pages_count, :pages_with_content, :pages_with_text, :pages_with_image,
                   :pages_with_map, :pages_with_video, :pages_with_sound, :pages_without_text,
                   :pages_without_image, :pages_with_image_no_text, :pages_with_text_no_image,
-                  :base_pages, :pages_with_at_least_a_trusted_object,
+                  :base_pages, :pages_with_at_least_a_trusted_object, :total_taxa_with_data,
                   :pages_with_at_least_a_curatorial_action, :pages_with_BHL_links,
-                  :pages_with_BHL_links_no_text, :pages_with_BHL_links_only, :created_at].join(', ') } }
+                  :pages_with_BHL_links_no_text, :pages_with_BHL_links_only, :created_at ].join(', ') } }
 
   scope :content_partners, lambda {
-    { :select => [:content_partners, :content_partners_with_published_resources,
+    { select: [ :content_partners, :content_partners_with_published_resources,
                   :content_partners_with_published_trusted_resources, :published_resources,
                   :published_trusted_resources, :published_unreviewed_resources,
-                  :newly_published_resources_in_the_last_30_days, :created_at].join(', ') } }
+                  :newly_published_resources_in_the_last_30_days, :created_at ].join(', ') } }
 
   scope :curators, lambda {
-    { :select => [:curators, :curators_assistant, :curators_full, :curators_master,
+    { select: [ :curators, :curators_assistant, :curators_full, :curators_master,
                   :active_curators, :pages_curated_by_active_curators,
                   :objects_curated_in_the_last_30_days,
-                  :curator_actions_in_the_last_30_days, :created_at].join(', ') } }
+                  :curator_actions_in_the_last_30_days, :created_at ].join(', ') } }
 
   scope :data_objects, lambda {
-    { :select => [:data_objects, :data_objects_texts, :data_objects_images,
+    { select: [ :data_objects, :data_objects_texts, :data_objects_images,
                   :data_objects_videos, :data_objects_sounds, :data_objects_maps,
                   :data_objects_trusted, :data_objects_unreviewed, :data_objects_untrusted,
-                  :data_objects_trusted_or_unreviewed_but_hidden, :created_at].join(', ') } }
+                  :data_objects_trusted_or_unreviewed_but_hidden, :created_at ].join(', ') } }
 
   scope :lifedesks, lambda {
-    { :select => [:lifedesk_taxa, :lifedesk_data_objects, :created_at].join(', ') } }
+    { select: [ :lifedesk_taxa, :lifedesk_data_objects, :created_at ].join(', ') } }
 
   scope :marine, lambda {
-    { :select => [:marine_pages, :marine_pages_in_col, :marine_pages_with_objects,
-                  :marine_pages_with_objects_vetted, :created_at].join(', ') } }
+    { select: [ :marine_pages, :marine_pages_in_col, :marine_pages_with_objects,
+                  :marine_pages_with_objects_vetted, :created_at ].join(', ') } }
 
   scope :page_richness, lambda {
-    { :select  => [:pages_count, :pages_with_content, :rich_pages, :hotlist_pages,
+    { select: [ :pages_count, :pages_with_content, :rich_pages, :hotlist_pages,
                    :rich_hotlist_pages, :redhotlist_pages, :rich_redhotlist_pages,
-                   :pages_with_score_10_to_39, :pages_with_score_less_than_10, :created_at].join(', ') } }
+                   :pages_with_score_10_to_39, :pages_with_score_less_than_10, :created_at ].join(', ') } }
 
   scope :users_data_objects, lambda {
-    { :select => [:data_objects_texts, :udo_published, :udo_published_by_curators,
-                  :udo_published_by_non_curators, :created_at].join(', ') } }
+    { select: [ :data_objects_texts, :udo_published, :udo_published_by_curators,
+                  :udo_published_by_non_curators, :created_at ].join(', ') } }
+
+  scope :data, lambda {
+    { select: [ :total_triples, :total_occurrences, :total_measurements, :total_associations,
+                  :total_measurement_types, :total_association_types, :total_taxa_with_data,
+                  :total_user_added_data, :created_at ].join(', ') } }
 
   # Retrieves stats for specific dates (i.e. stats reported within the 24 hours from midnight
   # to 23:59:59 of the day represented by each date, in other words not a range of 'from to' dates).
@@ -54,12 +59,12 @@ class EolStatistic < ActiveRecord::Base
       conditions_replacements["from#{i}".to_sym] = date.beginning_of_day
       conditions_replacements["to#{i}".to_sym] = date.end_of_day
     end
-    { :conditions => [conditions.join(' OR '), conditions_replacements] }
+    { conditions: [conditions.join(' OR '), conditions_replacements] }
   }
 
-  scope :at_least_one_week_ago, lambda {|limit| { :conditions => "created_at < '#{Time.now - 1.week}'", :order => 'created_at DESC', :limit => limit } }
+  scope :at_least_one_week_ago, lambda {|limit| { conditions: "created_at < '#{Time.now - 1.week}'", order: 'created_at DESC', limit: limit } }
 
-  scope :latest, lambda {|limit| { :order => 'created_at DESC', :limit => limit } }
+  scope :latest, lambda {|limit| { order: 'created_at DESC', limit: limit } }
 
   attr_accessor :greatest
 
@@ -109,6 +114,9 @@ class EolStatistic < ActiveRecord::Base
       [:data_objects, :data_objects_texts, :data_objects_images, :data_objects_videos,
        :data_objects_sounds, :data_objects_maps, :data_objects_trusted,
        :data_objects_unreviewed, :data_objects_untrusted, :data_objects_trusted_or_unreviewed_but_hidden, :created_at]
+    when :data
+      [:total_triples, :total_occurrences, :total_measurements, :total_associations,:total_measurement_types,
+       :total_association_types, :total_taxa_with_data,:total_user_added_data, :created_at]
     end
   end
 

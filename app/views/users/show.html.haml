@@ -1,5 +1,5 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #profile_info.main_container
   - unless @user.bio.blank?
     .article
@@ -54,6 +54,8 @@
         %dt= link_to I18n.t(:user_activity_stats_taxa_commented, :count => @user.taxa_commented.length), user_activity_path(@user, :filter => "taxa_comments")
         %dt= link_to I18n.t(:user_activity_stats_comment_submitted, :count => @user.total_comment_submitted), user_activity_path(@user, :filter => "comments")
         %dt= link_to I18n.t(:user_activity_stats_articles_added, :count => @user_submitted_text_count), user_activity_path(@user, :filter => "added_data_objects")
+        - if current_user.can_see_data?
+          %dt= link_to I18n.t(:user_activity_stats_data_added, :count => @user.total_data_submitted), user_activity_path(@user, :filter => "added_data")
     - if @user.is_curator?
       .article
         .header

@@ -8,9 +8,9 @@ EOL.init_worklist_behaviors = function() {
   init_comments();
   init_curation();
   $("#tasks li").unbind('click');
-  $('#worklist #tasks li').click(function() {
-    if($('#worklist #tasks li.active span.indicator').html() != '') {
-      $('#worklist #tasks li.active span.indicator').removeClass('invisible');
+  $('#tasks li').on('click', function() {
+    if($('#tasks li.active span.indicator').html() !== '') {
+      $('#tasks li.active span.indicator').removeClass('invisible');
     }
 
     $(this).closest('ul').find("li").removeClass("active");
@@ -22,7 +22,7 @@ EOL.init_worklist_behaviors = function() {
   });
 
   $('#worklist .filters form input[type=submit]').unbind('click');
-  $('#worklist .filters form input[type=submit]').click(function() {
+  $('#worklist .filters form input[type=submit]').on('click', function() {
     var $f = $(this).closest('form');
     $('<input>').attr({
         type: 'hidden',
@@ -33,8 +33,8 @@ EOL.init_worklist_behaviors = function() {
     return(false);
   });
 
-  $('#worklist #tasks p.more a').unbind('click');
-  $('#worklist #tasks p.more a').click(function() {
+  $('#tasks p.more a').unbind('click');
+  $('#tasks p.more a').on('click', function() {
     var $update = $(this).closest('#worklist');
     var current_link = $(this).attr('href');
     $(this).attr('href', current_link + (current_link.indexOf('?') != -1 ? "&ajax=1" : "?ajax=1"));
@@ -43,14 +43,14 @@ EOL.init_worklist_behaviors = function() {
   });
 
   $('#worklist #task .ratings .rating a').unbind('click');
-  $('#worklist #task .ratings .rating a').click(function() {
+  $('#worklist #task .ratings .rating a').on('click', function() {
     var $update = $(this).closest('div.ratings');
     EOL.ajax_submit($(this), {url: $(this).attr('href'), update: $update, type: 'GET', complete: function() { EOL.init_worklist_behaviors(); } });
     return(false);
   });
 
   $('#worklist #task form.comment input[type=submit]').unbind('click');
-  $('#worklist #task form.comment input[type=submit]').click(function() {
+  $('#worklist #task form.comment input[type=submit]').on('click', function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
     EOL.ajax_submit($(this).closest('form'), { update: $(this).closest('#task'), complete: function() { EOL.init_worklist_behaviors(); update_active_indicator('Commented'); } } );
@@ -58,7 +58,7 @@ EOL.init_worklist_behaviors = function() {
   });
 
   $('#worklist #task form.review_status input[type=submit]').unbind('click');
-  $('#worklist #task form.review_status input[type=submit]').click(function() {
+  $('#worklist #task form.review_status input[type=submit]').on('click', function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
     EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: function() { EOL.init_worklist_behaviors(); update_active_indicator('Saved'); } } );
@@ -66,7 +66,7 @@ EOL.init_worklist_behaviors = function() {
   });
 
   $('#worklist #task form.ignore_data_object input[type=submit]').unbind('click');
-  $('#worklist #task form.ignore_data_object input[type=submit]').click(function() {
+  $('#worklist #task form.ignore_data_object input[type=submit]').on('click', function() {
     var $f = $(this).closest('form');
     $f.find("#return_to").val($f.find("#worklist_return_to").val());
     EOL.ajax_submit($(this).closest('form'), {update: $(this).closest('#task'), complete: function() { EOL.init_worklist_behaviors(); update_active_indicator('Ignored'); } } );
@@ -86,27 +86,27 @@ function resize_task_panel() {
 }
 function update_active_indicator(message) {
   if(message == 'Saved') {
-    $('#worklist #tasks li.active').removeClass('ignored');
-    $('#worklist #tasks li.active').addClass('saved');
-    $('#worklist #tasks li.active span.indicator').html(message);
+    $('#tasks li.active').removeClass('ignored');
+    $('#tasks li.active').addClass('saved');
+    $('#tasks li.active span.indicator').html(message);
   }else if(message == 'Ignored') {
-    $('#worklist #tasks li.active').removeClass('saved');
-    if($('#worklist #tasks li.active').hasClass('ignored')) {
-      $('#worklist #tasks li.active').removeClass('ignored');
-      $('#worklist #tasks li.active span.indicator').html('');
+    $('#tasks li.active').removeClass('saved');
+    if($('#tasks li.active').hasClass('ignored')) {
+      $('#tasks li.active').removeClass('ignored');
+      $('#tasks li.active span.indicator').html('');
     }else
     {
-      $('#worklist #tasks li.active').addClass('ignored');
-      $('#worklist #tasks li.active span.indicator').html(message);
+      $('#tasks li.active').addClass('ignored');
+      $('#tasks li.active span.indicator').html(message);
     }
   }else
   {
-    $('#worklist #tasks li.active span.indicator').html(message);
+    $('#tasks li.active span.indicator').html(message);
   }
   init_comments();
 }
 function init_comments() {
-  if (EOL.init_comment_behaviours != undefined) {
+  if (EOL.init_comment_behaviours !== undefined) {
     // This ends up getting called twice on page-load, but we really do need it here for when a new task is loaded.
     EOL.init_comment_behaviours();
     // Added on 4.30.12 to fix #WEB-3551
@@ -116,7 +116,7 @@ function init_comments() {
   }
 }
 function init_curation() {
-  if (EOL.init_curation_behaviours != undefined) {
+  if (EOL.init_curation_behaviours !== undefined) {
     // This ends up getting called twice on page-load, but we really do need it here for when a new task is loaded.
     EOL.init_curation_behaviours();
   }

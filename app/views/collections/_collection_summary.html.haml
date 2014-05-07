@@ -14,10 +14,10 @@
       - elsif collection.communities.count > 1
         &bull;
         = raw(I18n.t(:from_communities, :communities => collection.communities.map {|community| link_to(truncate(community.name, :length => 64), community_path(community)) }.to_sentence ))
-    = I18n.t(:items_with_count_semi_colon, :count => collection.cached_count)
+    = I18n.t(:items_with_count_semi_colon, :count => collection.collection_items_count)
     = I18n.t(:last_updated_time_ago, :time_passed => time_ago_in_words(collection.updated_at))
     - if maintainers = collection.maintained_by
       = I18n.t(:maintained_by)
       = raw(collection.maintained_by.map {|by| link_to truncate(by.summary_name, :length => 64), link_to_item(by) }.to_sentence)
-    - if defined?(annotation) && !annotation.blank?
+    - if local_assigns.has_key?(:annotation) && !annotation.blank?
       %p= annotation

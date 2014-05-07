@@ -1,10 +1,10 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_literature
-  = render :partial => 'literature_menu'
+  = render 'literature_menu'
   .main_container
     .copy
-      = render :partial => 'bhl_header'
+      = render 'bhl_header'
       - if @bhl_title_results && @bhl_title_results[:total] > 0
         %table.standard
           %thead
@@ -17,19 +17,19 @@
             %tr
               %td
                 - first_result = @bhl_title_results[:results].first
-                = external_link_to([first_result['publication_title'], first_result['volume_info']].join(' ; '), "http://www.biodiversitylibrary.org/item/#{first_result['title_item_id']}", :rel => :nofollow)
+                = external_link_to([first_result['publication_title'], first_result['volume_info']].join(' ; '), "http://www.biodiversitylibrary.org/item/#{first_result['title_item_id']}", rel: :nofollow)
               %td
                 = first_result['year']
               %td
                 = first_result['details']
               %td.nowrap
-                = I18n.t(:pages_with_count, :count => @bhl_title_results[:total])
+                = I18n.t(:pages_with_count, count: @bhl_title_results[:total])
             - @bhl_title_results[:results].each do |r|
               %tr
                 %td
                   - link_text = [r['prefix'], r['number']].join(' ')
                   - link_text = I18n.t(:text_capital) if link_text.strip.blank?
-                  = external_link_to(link_text, "http://www.biodiversitylibrary.org/page/#{r['id']}", :rel => :nofollow)
+                  = external_link_to(link_text, "http://www.biodiversitylibrary.org/page/#{r['id']}", rel: :nofollow)
                 %td
                 %td
                 %td

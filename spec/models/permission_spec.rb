@@ -1,13 +1,17 @@
-require 'spec_helper'
+require "spec_helper"
 
 describe Permission do
+
+  before(:all) do
+    Language.create_english
+  end
 
   # NOTE - this is a tricky test. It actually also tests that symbols are stringified as expected, that translations
   # work, and of course, that all of the specific defaults we expect to see are really there:
   it 'should create defaults' do
     TranslatedPermission.delete_all
     Permission.delete_all
-    Permission.create_defaults
+    Permission.create_enumerated
     Permission.edit_permissions.should_not be_nil
     Permission.edit_permissions.name.should == "edit permissions"
     Permission.beta_test.should_not be_nil

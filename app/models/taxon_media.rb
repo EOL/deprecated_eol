@@ -5,6 +5,8 @@
 # Presenter objects, when appropriate.
 class TaxonMedia < TaxonUserClassificationFilter
 
+  attr_reader :type, :status, :per_page, :sort_by
+
   IMAGES_PER_PAGE  = $MAX_IMAGES_PER_PAGE # NOTE - misnomer. TODO - s/b IMAGES_PER_PAGE.
   MAXIMUM_IMAGES_PER_PAGE = 100 
 
@@ -24,20 +26,16 @@ class TaxonMedia < TaxonUserClassificationFilter
     get_media
   end
 
-  def applied_ratings
-    user.is_a?(EOL::AnonymousUser) ? {} : user.rating_for_object_guids(guids)
-  end
-
   def empty?
-    @media.total_entries == 0
+    media_count == 0
   end
 
   def start
-    @start ||= (@media.current_page - 1) * @per_page + 1
+    @start ||= (@page.to_i - 1) * @per_page.to_i + 1
   end
 
   def end
-    @end ||= [ (@media.start + @per_page - 1), @media.total_entries ].min
+    @end ||= [ (start + @per_page.to_i - 1), media_count ].min
   end
 
   # You'll pass this to will_paginate.
@@ -49,6 +47,11 @@ class TaxonMedia < TaxonUserClassificationFilter
     @media.each { |img| yield(img) }
   end
 
+  def rating_for_guid(guid)
+    @ratings ||= user.ratings_for_guids(@media.map(&:guid))
+    @ratings[guid] || 0
+  end
+
   private
 
   # NOTE - Once you call this (with options), those options are preserved and you cannot call this with different
@@ -56,20 +59,26 @@ class TaxonMedia < TaxonUserClassificationFilter
   def get_media
     set_statuses
     @media ||= taxon_concept.data_objects_from_solr(
-      :ignore_translations => true,
-      :return_hierarchically_aggregated_objects => true,
-      :page             => @page,
-      :per_page         => @per_page,
-      :sort_by          => @sort_by,
-      :data_type_ids    => data_type_ids,
-      :vetted_types     => @search_statuses,
-      :visibility_types => @visibility_statuses,
-      :skip_preload     => true,
-      # TODO - Juuuuuuuust out of curiosity... why do we set this if skip_preload is true?!  Find out and explain.  Or remove.
-      :preload_select   => { :data_objects => [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id,
-                                                :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id ] }
+      ignore_translations: true,
+      return_hierarchically_aggregated_objects: true,
+      page: @page,
+      per_page: @per_page,
+      sort_by: @sort_by,
+      data_type_ids: data_type_ids,
+      vetted_types: @search_statuses,
+      visibility_types: @visibility_statuses,
+      preload_select: { data_objects: [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
+                                              :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
+                                              :published ] }
     )
-    preload_media
+    repair_bad_counts(@media.total_entries) # Doing this before preload in the off chance that that method alters counts.
+    preload_media_details
+    correct_bogus_exemplar_image
+  end
+
+  def repair_bad_counts(count)
+    # NOTE: using #_hierarchy_entry because the value passed here should be nil when it's not specified.
+    @taxon_concept.update_media_count(user: user, entry: _hierarchy_entry, with_count: count)
   end
 
   def set_statuses
@@ -103,34 +112,13 @@ class TaxonMedia < TaxonUserClassificationFilter
     @data_type_ids
   end
 
-  def preload_media
+  def preload_media_details
     # There should not be an older revision of exemplar image on the media tab. But recently there were few cases
     # found. Replace older revision of the exemplar image from media with the latest published revision.
     if image # If there's no exemplar image, don't bother...
       @media.map! { |m| (m.guid == image.guid && m.id != image.id) ? image : m }
     end
-    DataObject.replace_with_latest_versions!(@media, :language_id => user.language_id)
-    includes = [ {
-      :data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
-      }, :vetted, :visibility ]
-    } ]
-    includes << {
-      :all_curated_data_objects_hierarchy_entries => [ {
-        :hierarchy_entry => [ :name, :hierarchy, { :taxon_concept => :flattened_ancestors } ]
-      }, :vetted, :visibility, :user ]
-    }
-    DataObject.preload_associations(@media, includes)
-    DataObject.preload_associations(@media, :users_data_object)
-    DataObject.preload_associations(@media, :language)
-    DataObject.preload_associations(@media, :mime_type)
-    DataObject.preload_associations(@media, :translations,
-                                    :conditions => "data_object_translations.language_id = #{user.language_id}")
-  end
-
-  # Used to get ratings... which is a little lame.  :|
-  def guids
-    @media.map(&:guid)
+    TaxonUserClassificationFilter.preload_details(@media, user)
   end
 
 end

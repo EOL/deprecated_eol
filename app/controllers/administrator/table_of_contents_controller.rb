@@ -9,21 +9,21 @@ class Administrator::TableOfContentsController < AdminController
   end
 
   def show_tree
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
   def move_up
     if toc = TocItem.find(params[:id])
       toc.move_up(params[:top] == "true")
     end
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
   def move_down
     if toc = TocItem.find(params[:id])
       toc.move_down(params[:bottom] == "true")
     end
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
   def create
@@ -34,7 +34,7 @@ class Administrator::TableOfContentsController < AdminController
         parent.add_child(params[:label])
       end
     end
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
   def update
@@ -44,15 +44,17 @@ class Administrator::TableOfContentsController < AdminController
         translated_toc_item.save
       end
     end
-    render :layout => false, :partial => 'show_tree'
+    render layout: false, partial: 'show_tree'
   end
 
 private
 
+  # TODO - this isn't really seeting the layout appropriately.  Ajax should set its layout as needed, and the variables here
+  # should be set in a before_filter
   def admin_unless_ajax
     @page_title = $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'
-    layout = (["show_tree"].include? action_name) ? nil : 'left_menu'
+    layout = (["show_tree"].include? action_name) ? nil : 'deprecated/left_menu'
   end
 
 end

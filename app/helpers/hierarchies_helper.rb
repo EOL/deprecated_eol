@@ -1,5 +1,6 @@
 module HierarchiesHelper
 
+  # NOTE - yes, we really want an ENGLISH string here. It's used for classes and I18n keys.
   def en_browsable_status(hierarchy)
     if hierarchy.blank?
       'unknown'
@@ -11,4 +12,5 @@ module HierarchiesHelper
       'not_browsable'
     end
   end
+
 end

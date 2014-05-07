@@ -9,14 +9,20 @@ class TaxonConceptCacheClearing
     TaxonConceptCacheClearing.new(taxon_concept).clear
   end
 
-  def self.clear_collections(taxon_concept)
-    TaxonConceptCacheClearing.new(taxon_concept).clear_collections
+  def self.clear_exemplar_image(taxon_concept)
+    TaxonConceptCacheClearing.new(taxon_concept).clear_exemplar_image
   end
 
   # TODO - this should really be for an Association, not a combo of these two:
   def self.clear_for_data_object(taxon_concept, data_object)
     TaxonConceptCacheClearing.new(taxon_concept).clear_for_data_object(data_object)
   end 
+
+  def self.clear_overview_article_by_id(tc_id)
+    Language.find_active.each do |lang|
+      Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{tc_id}_#{lang.id}"))
+    end
+  end
 
   def initialize(taxon_concept)
     @taxon_concept = taxon_concept
@@ -29,18 +35,11 @@ class TaxonConceptCacheClearing
     clear_images
   end
 
-  # This could be really painful. Be careful.
-  def clear_collections
-    taxon_concept.containing_collections.each do |collection|
-      EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
-    end
-  end
-
   # TODO - test
   # NOTE - this can take a long time if there are many media!
   def self.clear_media(taxon_concept)
     # NOTE - needs to pass in a curator (any type will do); nothing is logged as being from that user, so this is okay:
-    media = TaxonMedia.new(taxon_concept, User.curator.first, per_page: 1000).each do |dato|
+    media = TaxonMedia.new(taxon_concept, User.curators.first, per_page: 1000).each do |dato|
       DataObject.find(dato).update_solr_index # Find needed because it doesn't have all attributes otherwise.
     end
   end
@@ -66,6 +65,10 @@ class TaxonConceptCacheClearing
     clear_media_counts
   end
 
+  def clear_exemplar_image
+    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
+  end
+
 private
 
   def associated_entries
@@ -73,12 +76,10 @@ private
   end
 
   def clear_preferred_entry
-    Language.find_active.each do |lang|
-      Rails.cache.delete(TaxonConcept.cached_name_for("best_article_id_#{taxon_concept.id}_#{lang.id}"))
-    end
-    Rails.cache.delete(TaxonConcept.cached_name_for("best_image_id_#{taxon_concept.id}"))
+    TaxonConceptCacheClearing.clear_overview_article_by_id(taxon_concept.id)
+    clear_exemplar_image
     TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: taxon_concept.id)
-    ctcpe = CuratedTaxonConceptPreferredEntry.for_taxon_concept(taxon_concept)
+    ctcpe = taxon_concept.published_taxon_concept_preferred_entry
     taxon_concept.create_preferred_entry(ctcpe.hierarchy_entry) if ctcpe
   end
 

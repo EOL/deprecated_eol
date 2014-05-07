@@ -9,8 +9,16 @@ class Users::CollectionsController < UsersController
     preload_user_associations
     @published_collections = @user.published_collections(current_user)
     sort_by = params[:sort_by] && params[:sort_by].to_sym
-    if sort_by == :oldest
-      @published_collections = @published_collections.sort_by(&:created_at)
+    @sorts = {
+      I18n.t(:sort_by_alphabetical_option) => :alpha,
+      I18n.t(:sort_by_reverse_alphabetical_option) => :rev,
+      I18n.t(:sort_by_newest_option) => :newest,
+      I18n.t(:sort_by_oldest_option) => :oldest
+    }
+    if sort_by == :rev
+      @published_collections.reverse!
+    elsif sort_by == :oldest
+      @published_collections = @published_collections.sort_by { |c| c.created_at.to_i } # NOTE - to_i required; otherwise "comparison of NilClass"
     elsif sort_by == :newest
       @published_collections = @published_collections.sort_by { |c| - c.created_at.to_i }
     end

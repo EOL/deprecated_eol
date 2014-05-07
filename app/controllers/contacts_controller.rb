@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
 
-  layout 'v2/basic'
+  layout 'basic'
   
   def index
     redirect_to contact_us_path
@@ -17,8 +17,8 @@ class ContactsController < ApplicationController
       @contact.email = current_user.email
     end
     @subject = params[:subject] ? ContactSubject.find(:first,
-      :joins => "JOIN translated_contact_subjects tcs ON (contact_subjects.id=tcs.contact_subject_id)",
-      :conditions => "tcs.title like '#{params[:subject]}%'") : nil
+      joins: "JOIN translated_contact_subjects tcs ON (contact_subjects.id=tcs.contact_subject_id)",
+      conditions: "tcs.title like '#{params[:subject]}%'") : nil
   end
 
   # POST /contacts
@@ -44,7 +44,7 @@ private
   def failed_to_create_contact
     flash.now[:error] = I18n.t('contacts.errors.message_not_sent')
     flash.now[:error] << I18n.t(:recaptcha_incorrect_error_with_anchor,
-                                :recaptcha_anchor => 'recaptcha_widget_div') unless verify_recaptcha
+                                recaptcha_anchor: 'recaptcha_widget_div') unless verify_recaptcha
     page_title([:contacts, :new])
     render :new
   end

@@ -1,4 +1,4 @@
-- unless defined?(editable)
+- unless local_assigns.has_key?(:editable)
   - editable = true
 - truncate_comments ||= false
 - hide_pagination ||= false
@@ -9,33 +9,34 @@
     -if @filter.blank?
       %p= raw I18n.t(:activity_log_empty)
       - unless @latest_published_revision.nil?
-        %p= link_to I18n.t(:activity_log_empty_learn_more_link), cms_page_url('contribute')
+        %p= link_to I18n.t(:learn_how_to_contribute), cms_page_url('contribute')
     -else
       %p= raw I18n.t(:no_record_found_matching_your_criteria)
 - else
   %ul.feed
     - log.map {|l| l.is_a?(Hash) ? l['instance'] : l }.compact.each do |item|
       %li{:id => "#{item.class.name}-#{item.id}"}
-        - if item.class.name == "Comment" # Aggrivating, but comments do everything differently.
+        - if item.class.name == "Comment" # Aggravating, but comments do everything differently.
           .editable
-            = render :partial => 'activity_logs/comment', :locals => {:item => item, :truncate_comments => truncate_comments, :editable => editable, :actual_date => actual_date, :display_curator => display_curator}
+            = render 'activity_logs/comment', {:item => item, :truncate_comments => truncate_comments, :editable => editable, :actual_date => actual_date, :display_curator => display_curator}
         - else
           - if item.user.nil?
-            = image_tag(User.new.logo_url(:small), :class => 'no_user')
+            = image_tag(User.new.logo_url(:small), :class => 'no_user', width: 48, height: 48)
           - else
             = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
-              :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'
+              :posters_name => h(item.user.full_name)), width: 48, height: 48), user_url(item.user), :class => 'avatar'
           .details
-            %p
-              = render :partial => "activity_logs/#{item.class.name.underscore}", :locals => {:item => item, :display_curator => display_curator}
+            = render "activity_logs/#{item.class.name.underscore}", {:item => item, :display_curator => display_curator}
             %p.meta
               - if actual_date
                 = raw I18n.l(item.created_at, :format => :long_utc)
               - else
                 = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
-            - if item.user && item.link_to
+            - if item.is_a?(CuratorActivityLog) && item.is_for_type?(:user_added_data)
+            - elsif item.is_a?(CuratorActivityLog) && item.is_for_type?(:data_point_uri)
+            - elsif item.user && item.respond_to?(:link_to) && item.link_to
               %ul.actions
-                %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", :'data-reply-to' => item.user.full_name, :'data-reply-to-type' => item.class.name, :'data-reply-to-id' => item.id)
+                %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", data: { 'reply-to' => item.user.full_name, 'reply-to-type' => item.class.name, 'reply-to-id' => item.id })
   - unless hide_pagination
     = will_paginate log, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
       :inner_window => 2, :outer_window => 2

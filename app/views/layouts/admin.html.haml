@@ -1,0 +1,32 @@
+- content_for :head do
+  = stylesheet_include_i18n_merged 'admin_pack', :media => "all"
+- content_for :main do
+  #page_heading{:class => display_admins_navigation? ? 'with_nav' : nil}
+    .site_column
+      .hgroup
+        - @page_title ||= page_title
+        %h1= @page_title
+        - unless @page_subheader.blank?
+          %h2= raw(@page_subheader)
+        - unless @page_description.blank?
+          %p= @page_description
+      = render 'shared/flash_messages'
+      .page_actions
+        &nbsp;
+      - if display_admins_navigation?
+        - if current_user.is_admin?
+          %ul.nav
+            %li{:class => resource_is_active('admins/show')}= link_to I18n.t(:admin_link), admin_path
+            %li{:class => resource_is_active('content_pages')}= link_to I18n.t(:admin_content_pages_link), admin_content_pages_path
+            %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:admin_content_partners_link), admin_content_partners_path
+            %li{:class => resource_is_active('eol_statistics')}= link_to I18n.t(:admin_statistics_link), statistics_path
+            %li{:class => resource_is_active('news_items')}= link_to I18n.t(:admin_news_link), admin_news_items_path
+        - if current_user.can?(:edit_cms) && ! current_user.is_admin?
+          %ul.nav
+            %li{:class => resource_is_active('content_pages')}= link_to I18n.t(:admin_content_pages_link), admin_content_pages_path
+
+  #content{:class => controller_name}
+    .site_column
+      = yield
+
+= render :file => 'layouts/application'

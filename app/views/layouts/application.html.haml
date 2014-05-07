@@ -1,0 +1,160 @@
+!!! XML
+!!! 5
+%html{ "xml:lang" => I18n.locale, :lang => I18n.locale, :xmlns => "http://www.w3.org/1999/xhtml",
+  'xmlns:fb' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns/fb#" : nil,
+  'xmlns:og' => $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) ? "http://ogp.me/ns#" : nil }
+  %head
+    - @meta_data ||= meta_data
+    %title<
+      = h(raw(strip_tags(@meta_data[:title])))
+    %meta{ :charset => "utf-8" }
+    - # HTML4 charset declaration, might go when browsers catch up with html5
+    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "Content-type" }
+    - unless @meta_data[:description].blank?
+      %meta{ :name => "description", :content => h(raw(truncate(strip_tags(@meta_data[:description]), :length => 160))) }
+    - unless @meta_data[:keywords].blank?
+      %meta{ :name => "keywords", :content => h(raw(strip_tags(@meta_data[:keywords]))) }
+    - # Google Webmaster Tools verification. Must persist to maintain verified ownership.
+    %meta{ name: 'google-site-verification', content: 'lgSVZdLE0qfuWJnvwdMUzYge1rSxfozVLGUys1XTknw' }
+    - # Prevents generation of links to "smart tags"
+    %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
+    - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]
+    %meta{ :name => "app_version", :content => full_version }
+    - if $ENABLED_SOCIAL_PLUGINS && $ENABLED_SOCIAL_PLUGINS.include?(:facebook) && $FACEBOOK_APP_ID
+      %meta{ :property => "fb:app_id", :content => $FACEBOOK_APP_ID }
+    - if $PINTEREST_VERIFICATION_CODE
+      %meta{ :name => "p:domain_verify", :content => $PINTEREST_VERIFICATION_CODE }
+
+    - if @no_cache
+      %meta{ :content => "NO-CACHE", "http-equiv" => "CACHE-CONTROL" }
+      %meta{ :content => "NO-CACHE", "http-equiv" => "PRAGMA" }
+
+    = yield :head_meta
+    - unless @rel_canonical_href.blank?
+      %link{ :href => @rel_canonical_href, :rel => "canonical" }
+    - unless @rel_prev_href.blank?
+      %link{ :href => @rel_prev_href, :rel => "prev" }
+    - unless @rel_next_href.blank?
+      %link{ :href => @rel_next_href, :rel => "next" }
+    = favicon_link_tag 'favicon.ico'
+    %link{ :href => "/opensearchdescription.xml", :title => I18n.t("encyclopedia_of_life"), :rel => "search", :type => "application/opensearchdescription+xml" }
+
+
+    - if @home_page
+      = stylesheet_include_i18n_merged 'home_pack', :media => "all"
+    - else
+      = stylesheet_include_i18n_merged 'application_pack', :media => "all"
+    /[if IE 7]
+      = stylesheet_include_i18n_merged 'ie7', :media => "all"
+    -# TODO - Try loading jQuery from a CDN like http://code.jQuery.com/jQuery-latest.min.js …Though I don’t want to use “latest”. … :)
+
+    = javascript_include_tag 'application'
+
+    = csrf_meta_tags
+
+    = yield :head
+  %body{:class => @home_page ? 'home' : nil}
+    - unless @home_page
+      - # For accessibility and SEO on pages other than home page we want content to appear first in the markup.
+      #central
+        .section{ :role => "main" }
+          /========================
+          = yield :main
+          /========================
+
+    #banner
+      .site_column
+        - translation_key = EolConfig.banner_i18n_key rescue :traitbank_banner
+        %p= I18n.t(translation_key).html_safe
+    #header
+      .section
+        %h1= link_to I18n.t(:encyclopedia_of_life), root_url, { :title => I18n.t(:home_page_link_advisory_information) }
+        = render '/layouts/global_navigation'
+        .actions
+          .language
+            %p{ :class => I18n.locale.to_s, :title => I18n.t(:selected_language_advisory_information) }
+              = link_to language_path do
+                %span
+                  = current_language.source_form
+            %ul
+              - Language.approved_languages.each do |language|
+                %li{:class => language.iso_639_1}
+                  = link_to language.source_form,
+                    set_language_url(:language => language.iso_639_1, :return_to => current_url(false)),
+                    { :title => I18n.t(:switch_language_advisory_information, :language_label => language.source_form) }
+        - if @home_page
+          %h2= I18n.t(:global_access_tagline)
+        = render "/layouts/search" unless @hide_global_search
+        - if logged_in?
+          = render 'sessions/session_summary'
+        - elsif $ALLOW_USER_LOGINS
+          = render 'shared/join_eol'
+        - elsif $ALLOW_USER_LOGINS == false && @home_page.nil?
+          .session
+            %p= I18n.t(:user_system_down)
+
+      - if @home_page
+        - cache(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}") do
+          %h3.assistive= I18n.t(:explore)
+          .thumbnails
+            %ul
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 0, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 1, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 2, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 3, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 4, :total => 6 }
+              = render '/content/march_of_life_item', { :explore_taxa => @explore_taxa, :index => 5, :total => 6 }
+            .term
+              .site_column
+                %p
+                  -# the non-breaking space here gives the march of life name bar some height on page load
+                  &nbsp;
+    - if @home_page
+      #central
+        .section{ :role => "main" }
+          = yield :main
+
+    #footer{ :role => "contentinfo" }
+      = render '/layouts/footer'
+      = yield :footer
+    = javascript_include_tag 'head.load.min'
+    - if @jsonld
+      %script{ type: 'application/ld+json' }
+        :plain
+          #{ JSON.pretty_generate(@jsonld) }
+    - elsif @jsonld_url
+      %script{ type: 'application/ld+json', src: @jsonld_url, defer: true }
+    - if $GOOGLE_ANALYTICS_ID && $ENABLE_ANALYTICS
+      :javascript
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', '#{$GOOGLE_ANALYTICS_ID}']);
+        _gaq.push(['_trackPageview']);
+        EOL.after_onload_JS(('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js');
+    - if $GOOGLE_UNIVERSAL_ANALYTICS_ID && $ENABLE_ANALYTICS
+      :javascript
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+        ga('create', '#{$GOOGLE_UNIVERSAL_ANALYTICS_ID}', 'eol.org');
+        ga('send', 'pageview');
+    - if $QUANTCAST_ID && $ENABLE_QUANTCAST
+      :javascript
+        var _qevents = _qevents || [];
+        _qevents.push( { qacct:"#{$QUANTCAST_ID}"} );
+        EOL.after_onload_JS((document.location.protocol == 'https:' ? 'https://secure' : 'http://edge') + '.quantserve.com/quant.js');
+      %noscript
+        %div{ :style => "display: none;" }
+          %img{ :src => "http://pixel.quantserve.com/pixel/#{$QUANTCAST_ID}.gif", :height => "1", :width => "1", :alt => "" }
+    -# TODO - update webtrends? http://help.webtrends.com/en/jstag/v9_to_v10_upgrade.html
+    - if $ENABLE_WEBTRENDS
+      = javascript_include_tag :webtrends
+      :javascript
+        (function() {
+          var _tag=new WebTrends();
+          _tag.dcsGetId();
+          _tag.dcsCollect();
+        })();
+      %noscript
+        %div{ :style => "display: none;" }
+          %img{ :src => "http://logs1.smithsonian.museum/dcsg0chobadzpxfga2extd7pb_7c2s/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=9.4.0&amp;dcssip=www.eol.org", :height => "1", :width => "1", :alt => "", :id => "DCSIMG" }

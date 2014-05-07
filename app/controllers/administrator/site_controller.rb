@@ -1,6 +1,6 @@
 class Administrator::SiteController  < AdminController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   before_filter :set_layout_variables
 
@@ -16,17 +16,17 @@ class Administrator::SiteController  < AdminController
 
   def surveys
     @page_title = 'Survey Respondents'
-    @surveys = SurveyResponse.paginate(:order => 'created_at desc', :page => params[:page])
+    @surveys = SurveyResponse.paginate(order: 'created_at desc', page: params[:page])
     @all_surveys_count  = SurveyResponse.count
-    @no_surveys_count   = SurveyResponse.count(:conditions => ['user_response = ?','no'])
-    @yes_surveys_count  = SurveyResponse.count(:conditions => ['user_response = ?','yes'])
-    @done_surveys_count = SurveyResponse.count(:conditions => ['user_response = ?','done'])
+    @no_surveys_count   = SurveyResponse.count(conditions: ['user_response = ?','no'])
+    @yes_surveys_count  = SurveyResponse.count(conditions: ['user_response = ?','yes'])
+    @done_surveys_count = SurveyResponse.count(conditions: ['user_response = ?','done'])
   end
 
   # AJAX method to expire all non-species pages
   def clear_all
     unless request.xhr?
-      render :nothing => true
+      render nothing: true
       return
     end
     if clear_all_caches
@@ -34,25 +34,25 @@ class Administrator::SiteController  < AdminController
     else
       message = 'Caches could not be cleared'
     end
-    render :text => message, :layout => false
+    render text: message, layout: false
   end
 
   # AJAX method to expire all non-species pages
   def expire_all
     unless request.xhr?
-      render :nothing => true
+      render nothing: true
       return
     end
     expire_non_species_caches
     message = 'Non-species page caches cleared on ' + view_helper_methods.format_date_time($CACHE_CLEARED_LAST)
-    render :text => message, :layout => false
+    render text: message, layout: false
   end
 
   # AJAX method to expire all non-species pages
   def expire
     taxon_concept_id = params[:taxon_id]
     unless request.xhr? && !taxon_concept_id.blank?
-      render :nothing => true
+      render nothing: true
       return
     end
     message = '' # Scope.
@@ -62,7 +62,7 @@ class Administrator::SiteController  < AdminController
     rescue => e
       message = "Taxon ID #{taxon_concept_id} could not be expired: #{e.message}<br />"
     end
-    render :text => message, :layout => false
+    render text: message, layout: false
   end
 
 private

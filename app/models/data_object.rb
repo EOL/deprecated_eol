@@ -1,22 +1,20 @@
-
 require 'set'
 require 'uuid'
 require 'erb'
-require 'model_query_helper'
 require 'eol/activity_loggable'
 
 # Represents any kind of object imported from a ContentPartner, eg. an image, article, video, etc.  This is one
 # of our primary models, and an awful lot of work occurs here.
 class DataObject < ActiveRecord::Base
 
-  @@maximum_rating = 5.0
-  @@minimum_rating = 0.5
+  MAXIMUM_RATING = 5.0
+  MINIMUM_RATING = 0.5
 
-  include ModelQueryHelper
   include EOL::ActivityLoggable
+  include IdentityCache
 
   belongs_to :data_type
-  belongs_to :data_subtype, :class_name => DataType.to_s, :foreign_key => :data_subtype_id
+  belongs_to :data_subtype, class_name: DataType.to_s, foreign_key: :data_subtype_id
   belongs_to :language
   belongs_to :license
   belongs_to :mime_type
@@ -34,62 +32,63 @@ class DataObject < ActiveRecord::Base
   has_many :data_objects_hierarchy_entries
   has_many :data_objects_taxon_concepts
   has_many :curated_data_objects_hierarchy_entries
-  has_many :all_curated_data_objects_hierarchy_entries, :class_name => CuratedDataObjectsHierarchyEntry.to_s, :source => :curated_data_objects_hierarchy_entries, :foreign_key => :data_object_guid, :primary_key => :guid
-  has_many :comments, :as => :parent
+  has_many :all_curated_data_objects_hierarchy_entries, class_name: CuratedDataObjectsHierarchyEntry.to_s, source: :curated_data_objects_hierarchy_entries, foreign_key: :data_object_guid, primary_key: :guid
+  has_many :comments, as: :parent
   has_many :data_objects_harvest_events
-  has_many :harvest_events, :through => :data_objects_harvest_events
+  has_many :harvest_events, through: :data_objects_harvest_events
   has_many :data_objects_table_of_contents
   has_many :data_objects_info_items
-  has_many :info_items, :through => :data_objects_info_items
+  has_many :info_items, through: :data_objects_info_items
   has_many :taxon_concept_exemplar_images
   has_many :worklist_ignored_data_objects
-  has_many :collection_items, :as => :collected_item
-  has_many :containing_collections, :through => :collection_items, :source => :collection
-  has_many :translations, :class_name => DataObjectTranslation.to_s, :foreign_key => :original_data_object_id
-  has_many :curator_activity_logs, :foreign_key => :target_id,
-    :conditions => Proc.new { "changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
+  has_many :collection_items, as: :collected_item
+  has_many :containing_collections, through: :collection_items, source: :collection
+  has_many :translations, class_name: DataObjectTranslation.to_s, foreign_key: :original_data_object_id
+  has_many :curator_activity_logs, foreign_key: :target_id,
+    conditions: Proc.new { "changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
       ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(',') } )" }
-  has_many :users_data_objects_ratings, :foreign_key => 'data_object_guid', :primary_key => :guid
-  has_many :all_comments, :class_name => Comment.to_s, :through => :all_versions, :primary_key => :guid, :source => :comments
+  has_many :users_data_objects_ratings, foreign_key: 'data_object_guid', primary_key: :guid
+  has_many :all_comments, class_name: Comment.to_s, through: :all_versions, primary_key: :guid, source: :comments
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded
-  has_many :all_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :select => 'id, guid, language_id, data_type_id, created_at'
-  has_many :all_published_versions, :class_name => DataObject.to_s, :foreign_key => :guid, :primary_key => :guid, :order => "id desc",
-    :conditions => 'published = 1'
+  has_many :all_versions, class_name: DataObject.to_s, foreign_key: :guid, primary_key: :guid, select: 'id, guid, language_id, data_type_id, created_at, published'
+  has_many :all_published_versions, class_name: DataObject.to_s, foreign_key: :guid, primary_key: :guid, conditions: 'published = 1'
   has_many :image_crops
-  has_many :all_image_crops, :class_name => ImageCrop.to_s, :through => :all_versions, :primary_key => :guid, :source => :image_crops
+  has_many :all_image_crops, class_name: ImageCrop.to_s, through: :all_versions, primary_key: :guid, source: :image_crops
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
-  has_and_belongs_to_many :published_refs, :class_name => Ref.to_s, :join_table => 'data_objects_refs',
-    :association_foreign_key => 'ref_id', :conditions => Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
+  has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'data_objects_refs',
+    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
 
   has_and_belongs_to_many :agents
-  has_and_belongs_to_many :toc_items, :join_table => 'data_objects_table_of_contents', :association_foreign_key => 'toc_id'
+  has_and_belongs_to_many :toc_items, join_table: 'data_objects_table_of_contents', association_foreign_key: 'toc_id'
   has_and_belongs_to_many :taxon_concepts
 
   attr_accessor :vetted_by, :is_the_latest_published_revision # who changed the state of this object? (not persisted on DataObject but required by observer)
 
-  validates_presence_of :description, :if => :is_text?
-  validates_presence_of :source_url, :if => :is_link?
-  validates_presence_of :rights_holder, :if => :rights_required?
-  validates_inclusion_of :rights_holder, :in => '', :unless => :rights_required?
-  validates_length_of :rights_statement, :maximum => 300
+  validates_presence_of :description, if: :is_text?
+  validates_presence_of :source_url, if: :is_link?
+  validates_presence_of :rights_holder, if: :rights_required?
+  validates_inclusion_of :rights_holder, in: '', unless: :rights_required?
+  validates_length_of :rights_statement, maximum: 300
 
   before_validation :default_values
   after_create :clean_values
 
-  index_with_solr :keywords => [ :object_title, :rights_statement, :rights_holder,
-    :location, :bibliographic_citation, :agents_for_solr ], :fulltexts => [ :description ]
+  scope :images, -> { where(data_type_id: DataType.image.id) }
+
+  index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
+    :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
 
   def self.maximum_rating
-    @@maximum_rating
+    MAXIMUM_RATING
   end
 
   def self.minimum_rating
-    @@minimum_rating
+    MINIMUM_RATING
   end
 
   # this method is not just sorting by rating
@@ -100,9 +99,7 @@ class DataObject < ActiveRecord::Base
       type_order = obj.data_type_id
       toc_view_order = (!obj.is_text? || obj.toc_items.blank?) ? 0 : obj.toc_items[0].view_order
       vetted_view_order = obj_vetted.blank? ? 0 : obj_vetted.view_order
-      visibility_view_order = 2
-      visibility_view_order = 1 if obj_visibility && obj_visibility.id == Visibility.preview.id
-      visibility_view_order = 0 if obj_visibility.blank?
+      visibility_view_order = obj_visibility.blank? ? 0 : obj_visibility.view_order
       inverted_rating = obj.data_rating * -1 # Is this throwing an ArgumentError?  Restart your worker(s)!
       inverted_id = obj.id * -1
       sort = []
@@ -124,7 +121,7 @@ class DataObject < ActiveRecord::Base
       created_at
     end
   end
-  
+
   def self.sort_by_language_view_order_and_label(data_objects)
     data_objects.sort_by do |obj|
       obj.language ? [ obj.language.sort_order, obj.language.source_form ] : [ 0, 0 ]
@@ -190,9 +187,9 @@ class DataObject < ActiveRecord::Base
     return nil if obj.blank?
     return obj[0]
   end
-  
+
   def previous_revision
-    DataObject.find_by_guid_and_language_id(self.guid, self.language_id, :conditions => "id < #{self.id}", :order=> 'id desc', :limit => 1)
+    DataObject.find_by_guid_and_language_id(self.guid, self.language_id, conditions: "id < #{self.id}", order: 'id desc', limit: 1)
   end
 
   def self.image_cache_path(cache_url, size = '580_360', options={})
@@ -205,27 +202,26 @@ class DataObject < ActiveRecord::Base
   # fields (for example, language_id) and I got sick of adding them, so I just removed the select. Sorry.
   # TODO - this would probably be safer to do using ARel syntax, so we don't load anything until we need it.
   def self.load_for_title_only(find_these)
-    DataObject.find(find_these, :include => [:toc_items, :data_type])
+    DataObject.find(find_these, include: [:toc_items, :data_type])
   end
 
   def self.still_published?(data_object_id)
-    DataObject.find(data_object_id, :select => 'published').published?
+    DataObject.find(data_object_id, select: 'published').published?
   end
 
+  # TODO - there is a lot of replication (ha!) here with #replicate below. Extract.
   def self.create_user_text(params, options)
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
-    if object_is_a_link
-      params[:source_url] = "http://" + params[:source_url] unless params[:source_url] =~ /^[a-z]{3,5}:\/\//i
-    end
-    dato = DataObject.new(params.reverse_merge!({:published => true}))
+    params[:source_url] = DataObject.add_http_if_missing(params[:source_url]) if object_is_a_link
+    dato = DataObject.new(params.reverse_merge!({published: true}))
     if dato.save
       begin
         dato.toc_items = Array(TocItem.find(options[:toc_id]))
         dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
         if object_is_a_link
-          dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => dato, :link_type_id => options[:link_type_id])
+          dato.data_objects_link_type = DataObjectsLinkType.create(data_object: dato, link_type_id: options[:link_type_id])
         end
       rescue => e
         dato.update_column(:published, false)
@@ -243,16 +239,14 @@ class DataObject < ActiveRecord::Base
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
-    if object_is_a_link
-      params[:source_url] = "http://" + params[:source_url] unless params[:source_url] =~ /^[a-z]{3,5}:\/\//i
-    end
-    new_dato = DataObject.new(params.reverse_merge!(:guid => self.guid, :published => 1))
+    params[:source_url] = DataObject.add_http_if_missing(params[:source_url]) if object_is_a_link
+    new_dato = DataObject.new(params.reverse_merge!(guid: self.guid, published: 1))
     if new_dato.save
       begin
         new_dato.toc_items = Array(TocItem.find(options[:toc_id]))
         new_dato.unpublish_previous_revisions
         if object_is_a_link
-          new_dato.data_objects_link_type = DataObjectsLinkType.create(:data_object => new_dato, :link_type_id => options[:link_type_id])
+          new_dato.data_objects_link_type = DataObjectsLinkType.create(data_object: new_dato, link_type_id: options[:link_type_id])
         end
         # NOTE - associations will be preserved in their current vetted state by virtue of the GUID.
         # There was once code here to trust all associations, if the user was a curator or admin. We have since
@@ -270,14 +264,18 @@ class DataObject < ActiveRecord::Base
     new_dato
   end
 
+  def self.add_http_if_missing(source_url)
+    return "http://#{source_url}" unless source_url =~ /^[a-z]{3,5}:\/\//i
+    source_url
+  end
 
   def created_by_user?
     user != nil
   end
 
   def user
-    @udo ||= UsersDataObject.find_by_data_object_id(id)
-    @udo_user ||= @udo.nil? ? nil : User.find(@udo.user_id)
+    @udo ||= users_data_object
+    @udo_user ||= @udo.nil? ? nil : users_data_object.user
   end
   def user_id
     user.id
@@ -297,8 +295,8 @@ class DataObject < ActiveRecord::Base
         this_users_current_rating.update_column(:weight, user.rating_weight)
       end
     else
-      UsersDataObjectsRating.create(:data_object_guid => guid, :user_id => user.id,
-                                    :rating => new_rating, :weight => user.rating_weight)
+      UsersDataObjectsRating.create(data_object_guid: guid, user_id: user.id,
+                                    rating: new_rating, weight: user.rating_weight)
     end
 
     users_data_objects_ratings.reload
@@ -311,31 +309,31 @@ class DataObject < ActiveRecord::Base
   end
 
   def rating_from_user(u)
-    ratings_from_user = users_data_objects_ratings.select{ |udor| udor.user_id == u.id }
-    return ratings_from_user[0] unless ratings_from_user.blank?
+    return nil if u.is_a?(EOL::AnonymousUser)
+    # more often than not ratings will have been preloaded, so a .detect
+    # is faster than a .where here
+    users_data_objects_ratings.detect{ |udor| udor.user_id == u.id }
   end
 
   def safe_rating
-    return self.data_rating if self.data_rating >= @@minimum_rating && self.data_rating <= @@maximum_rating
+    return self.data_rating if self.data_rating >= MINIMUM_RATING && self.data_rating <= MAXIMUM_RATING
     Rails.logger.warn "!! WARNING: data object #{self.id} had a data_rating of #{self.data_rating}. Attempted fix:"
     rating = recalculate_rating
-    if rating <= @@minimum_rating
+    if rating <= MINIMUM_RATING
       Rails.logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
-      return @@minimum_rating
-    elsif rating > @@maximum_rating
+      return MINIMUM_RATING
+    elsif rating > MAXIMUM_RATING
       Rails.logger.error "** ERROR: data object #{self.id} had a *calculated* rating of #{rating}."
-      return @@maximum_rating
+      return MAXIMUM_RATING
     else
       return rating
     end
   end
 
-  # TODO - make a Commentable mixin
-  # Add a comment to this data object
   def comment(user, body)
-    comment = comments.create :user_id => user.id, :body => body
+    comment = comments.create user: user, body: body
     user.comments.reload # be friendly - update the user's comments automatically
-    return comment
+    comment
   end
 
   # Find the Agent (only one) that supplied this data object to EOL.
@@ -365,13 +363,21 @@ class DataObject < ActiveRecord::Base
   # 'owner' chooses someone responsible for this data object in order of preference
   # this method returns [OwnerName, OwnerUser || nil]
   def owner
-    # rights holder is preferred
-    return rights_holder_for_display, nil unless rights_holder_for_display.blank?
-    unless agents_data_objects.empty?
-      AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
-      if first_agent = agents_data_objects.first.agent
-        return first_agent.full_name, first_agent.user
+    return translated_from.owner if data_object_translation # Use the original owner when translated. TODO - image only?
+    if rights_holder_for_display.blank?
+      unless agents_data_objects.empty?
+        AgentsDataObject.sort_by_role_for_owner(agents_data_objects)
+        if first_agent = agents_data_objects.first.agent
+          return first_agent.full_name
+        end
       end
+      return ''
+    else # rights holder is preferred
+      owner = "#{rights_holder_for_display}"
+      unless license && license.is_public_domain?
+        return "&copy; #{owner}"
+      end
+      return owner
     end
   end
 
@@ -458,10 +464,7 @@ class DataObject < ActiveRecord::Base
       # this is just for Staging and can be removed for production. Staging uses a different
       # content server and needs to generate URLS with a different host for image crops
       is_crop = false
-      if Rails.env.staging? || Rails.env.staging_dev? || Rails.env.development?
-        is_crop = all_image_crops.detect{ |c| c.new_object_cache_url == object_cache_url && c.created_at > User.a_somewhat_recent_user.created_at }
-      end
-      return DataObject.image_cache_path(object_cache_url, size, options.merge({ :is_crop => is_crop }))
+      return DataObject.image_cache_path(object_cache_url, size, options.merge({ is_crop: is_crop }))
     else
       return nil # No image to show. You might want to alter your code to avoid this by using #has_thumbnail?
     end
@@ -489,6 +492,9 @@ class DataObject < ActiveRecord::Base
   def sound_url
     if !object_cache_url.blank? && !object_url.blank?
       filename_extension = File.extname(object_url).downcase
+      # TODO get file extension during harvest so we don't have to guess here
+      # we store audio as ogg, not oga
+      filename_extension = '.ogg' if filename_extension == '.oga'
       return (ContentServer.cache_path(object_cache_url) + filename_extension) unless filename_extension.blank?
     end
     if mime_type.id == MimeType.mp3.id
@@ -502,7 +508,26 @@ class DataObject < ActiveRecord::Base
 
   def video_url
     if !object_cache_url.blank? && !object_url.blank?
-      filename_extension = File.extname(object_url)
+      filename_extension = File.extname(Addressable::URI.parse(object_url).omit(:query).to_s).downcase
+      # TODO get file extension during harvest so we don't have to guess here
+      # the following addresses issues where object url is not directly a media path
+      # we could reverse this and whitelist file extensions we know are ok
+      if ['.php'].include? filename_extension
+        # unreliably guess file extension from user provided mime type
+        if (extensions = Rack::Mime::MIME_TYPES.select{|k, v| v == mime_type.label})
+          unless extensions.empty?
+            if extensions.keys.include?('.mp4')
+              filename_extension = '.mp4'
+            elsif extensions.keys.include?('.mov')
+              filename_extension = '.mov'
+            else
+              filename_extension = extensions.first[0]
+            end
+          end
+        end
+      end
+      # we store video as ogg, not ogv
+      filename_extension = '.ogg' if filename_extension == '.ogv'
       return ContentServer.cache_path(object_cache_url) + filename_extension
     elsif data_type.label('en') == 'Flash'
       return has_object_cache_url? ? ContentServer.cache_path(object_cache_url) + '.flv' : ''
@@ -586,21 +611,35 @@ class DataObject < ActiveRecord::Base
     "[DataObject id:#{id}]"
   end
 
+  def in_language?(comparison_language_id)
+    comparison_language_id = Language.default.id if comparison_language_id.blank? || comparison_language_id == 0
+    this_language_id = (language_id.blank? || language_id == 0) ? Language.default.id : language_id
+    this_language_id == comparison_language_id
+  end
+
+  def published_in_language?(comparison_language_id)
+    published? && in_language?(comparison_language_id)
+  end
+
   def latest_version_in_same_language(params = {})
     latest_version_in_language(language_id, params)
   end
-  
+
   def latest_version_in_language(chosen_language_id, params = {})
     return self if id.nil?
     chosen_language_id ||= language.id
     chosen_language_id = Language.english.id unless chosen_language_id && chosen_language_id != 0
     params[:check_only_published] = true unless params.has_key?(:check_only_published)
     if params[:check_only_published]
+      return self if published_in_language?(chosen_language_id)
       # sometimes all_published_versions, but if not I anted to set a default set of select fields. Rails AREL
       # will attempt to load the versions again if the select fields are not the same as already
       # loaded in all_published_versions. This is verbose, but its potentially saving loading all descriptions from all
       # versions so I think it is worth it. But there may be an easier way
-      versions_to_look_at_in_language = (all_published_versions.loaded?) ? all_published_versions : all_published_versions.select('id, guid, language_id, data_type_id, created_at')
+      unless all_published_versions.loaded?
+        DataObject.preload_associations(self, :all_published_versions, select: 'id, guid, language_id, data_type_id, created_at, published')
+      end
+      versions_to_look_at_in_language = all_published_versions
     else
       versions_to_look_at_in_language = all_versions
     end
@@ -618,9 +657,9 @@ class DataObject < ActiveRecord::Base
     else
       latest_version = DataObject.sort_by_created_date(versions_to_look_at_in_language).reverse.first
     end
-    latest_version = DataObject.find(latest_version.id)
     return nil if params[:check_only_published] && !latest_version.published?
-    latest_version
+    return self if latest_version == self
+    DataObject.find(latest_version.id)
   end
 
   def is_latest_published_version_in_same_language?
@@ -635,9 +674,9 @@ class DataObject < ActiveRecord::Base
   # a language == English, but other revisions have a language_id of 0. That explains some
   # of the complicated logic in this method
   def latest_published_version_in_same_language
-    @latest_published_version_in_same_language ||= latest_version_in_same_language(:check_only_published => true)
+    @latest_published_version_in_same_language ||= latest_version_in_same_language(check_only_published: true)
   end
-  
+
   # NOTE - You probably shouldn't be using these. It isn't really true that a data object has *one* visibility... it
   # has several. This is currently here only because the old API made that (false) assumption.
   def visibility
@@ -658,7 +697,7 @@ class DataObject < ActiveRecord::Base
     a = association_with_taxon_or_best_vetted(taxon_concept)
     return a ? a.visibility : a
   end
-  
+
   def vetted_by_taxon_concept(taxon_concept)
     a = association_with_taxon_or_best_vetted(taxon_concept)
     return a ? a.vetted : a
@@ -690,33 +729,34 @@ class DataObject < ActiveRecord::Base
     good_ids = [Visibility.visible.id]
     good_ids << Visibility.preview.id unless which[:preview] == false
     good_ids << Visibility.invisible.id if which[:invisible]
-    data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
+    uncached_data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
   end
 
   # The only filter allowed right now is :published.
   # This is obnoxiously expensive, so we cache it by default. See #uncached_data_object_taxa if you need it, but
   # consider clearing the cache instead...
-  def data_object_taxa(filter = nil)
-    DataObjectCaching.associations(self, filter)
+  def data_object_taxa(options = {})
+    DataObjectCaching.associations(self, options)
   end
-  alias :associations :data_object_taxa 
+  alias :associations :data_object_taxa
 
   # The only filter allowed right now is :published.
-  def uncached_data_object_taxa(filter = nil)
+  def uncached_data_object_taxa(options = {})
     @data_object_taxa ||= {}
-    return @data_object_taxa[filter] if @data_object_taxa.has_key?(filter)
-    assocs = filter == :published ? 
-      published_entries :
-      curated_hierarchy_entries
+    cache_key = Marshal.dump(options)
+    return @data_object_taxa[cache_key] if @data_object_taxa.has_key?(cache_key)
+    assocs = (options[:published] == true) ?
+      published_entries.clone :
+      curated_hierarchy_entries.clone
     assocs << DataObjectTaxon.new(latest_published_users_data_object) if latest_published_users_data_object
-    @data_object_taxa[filter] = assocs || []
-  end
-
-  # TODO - The only place this is used is app/controllers/feeds_controller.rb ...which doesn't actually seem
-  # terribly important (it's the partner feed). Can't we use the find-concept-by-hierarchy-entry using the
-  # partner's entry or something?
-  def first_concept_name
-    first_hierarchy_entry.name.string rescue nil
+    [ :vetted_id, :visibility_id ].each do |param|
+      if options[param]
+        values = options[param]
+        values = [ values ] if values.class == Fixnum
+        assocs.delete_if{ |a| ! values.include?(a.send(param)) }
+      end
+    end
+    @data_object_taxa[cache_key] = assocs || []
   end
 
   def first_hierarchy_entry(options={})
@@ -733,7 +773,7 @@ class DataObject < ActiveRecord::Base
   # NOTE - if you plan on calling this, you are behooved by adding object_title and data_type_id to your selects.
   def best_title
     return safe_object_title.html_safe unless safe_object_title.blank?
-    return toc_items.first.label.html_safe unless toc_items.blank? || toc_items.first.label.nil?
+    return toc_items.first.label.html_safe unless ! text? || toc_items.blank? || toc_items.first.label.nil?
     return image_title_with_taxa.html_safe if image?
     return safe_data_type.simple_type.html_safe if safe_data_type
     return I18n.t(:unknown_data_object_title).html_safe
@@ -755,7 +795,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def description_teaser
-    full_teaser = Sanitize.clean(description.truncate_html(:length => 300), :elements => %w[b i], :remove_contents => %w[table script]).strip
+    full_teaser = Sanitize.clean(description.truncate_html(length: 300), elements: %w[b i], remove_contents: %w[table script]).strip
     return nil if full_teaser.blank?
     truncated_teaser = full_teaser.split[0..10].join(' ').balance_tags
     truncated_teaser << '...' if full_teaser.length > truncated_teaser.length
@@ -773,14 +813,14 @@ class DataObject < ActiveRecord::Base
     if assoc = existing_association(hierarchy_entry)
       return assoc
     end
-    cdohe = CuratedDataObjectsHierarchyEntry.create(:hierarchy_entry_id => hierarchy_entry.id,
-                                                    :data_object_id => self.id, :user_id => user.id,
-                                                    :data_object_guid => self.guid,
-                                                    :vetted_id => vetted_id,
-                                                    :visibility_id => Visibility.visible.id)
+    cdohe = CuratedDataObjectsHierarchyEntry.create(hierarchy_entry_id: hierarchy_entry.id,
+                                                    data_object_id: self.id, user_id: user.id,
+                                                    data_object_guid: self.guid,
+                                                    vetted_id: vetted_id,
+                                                    visibility_id: Visibility.visible.id)
     if self.data_type == DataType.image
-      TopImage.find_or_create_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id, :view_order => 1)
-      TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id, :view_order => 1)
+      TopImage.find_or_create_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id, view_order: 1)
+      TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id, view_order: 1)
     end
     DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)
     revisions_by_date.each do |revision|
@@ -861,7 +901,7 @@ class DataObject < ActiveRecord::Base
     if latest_translations.length > 1
       DataObject.sort_by_language_view_order_and_label(latest_translations)
       if !taxon.nil?
-        dobjs = DataObject.filter_list_for_user(latest_translations, {:user => current_user, :taxon_concept => taxon})
+        dobjs = DataObject.filter_list_for_user(latest_translations, {user: current_user, taxon_concept: taxon})
       end
       return latest_translations
     end
@@ -926,8 +966,8 @@ class DataObject < ActiveRecord::Base
   # TODO - this seems odd to me. We essentially have two tables storing the same relationship, but one with extra info?
   def build_relationship_to_taxon_concept_by_user(taxon_concept, user)
     DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, self.id)
-    UsersDataObject.create(:user => user, :data_object => self,
-                           :taxon_concept => taxon_concept, :visibility => Visibility.visible)
+    UsersDataObject.create(user: user, data_object: self,
+                           taxon_concept: taxon_concept, visibility: Visibility.visible)
   end
 
   def revisions_by_date
@@ -939,10 +979,19 @@ class DataObject < ActiveRecord::Base
     default_selects = [ :id, :published, :language_id, :guid, :data_type_id, :data_subtype_id, :object_cache_url,
       :data_rating, :object_title, :rights_holder, :source_url, :license_id, :mime_type_id, :object_url,
       :thumbnail_cache_url, :created_at ]
-    DataObject.preload_associations(data_objects, [ :language, :all_published_versions ],
-      :select => {
-        :languages => '*',
-        :data_objects => default_selects | options[:select] } )
+    DataObject.preload_associations(data_objects, :language)
+    if options[:check_only_published]
+      # if we only want latest versions of published objects, then we should check to see if we
+      # have them already, and only preload the objects which are not already the latest versions in the language
+      objects_for_preloading = data_objects.compact.select{ |d| ! d.published_in_language?(options[:language_id]) }
+    else
+      objects_for_preloading = data_objects
+    end
+    DataObject.preload_associations(objects_for_preloading, :all_published_versions,
+      select: {
+        data_objects: default_selects | options[:select] } )
+    # sending data_objects and not objects_for_preloading as data_objects is the array which contains the instances
+    # that need the latest versions
     DataObject.replace_with_latest_versions_no_preload(data_objects, options)
   end
 
@@ -951,7 +1000,8 @@ class DataObject < ActiveRecord::Base
       if dato.blank? || !dato.is_a?(DataObject)
         dato
       else
-        latest = dato.latest_version_in_language(options[:language_id] || dato.language_id, :check_only_published => false)
+        latest = dato.latest_version_in_language(options[:language_id] || dato.language_id, options.reverse_merge(check_only_published: false))
+        latest = dato if latest.nil?
         latest.is_the_latest_published_revision = true
         latest
       end
@@ -959,7 +1009,7 @@ class DataObject < ActiveRecord::Base
   end
 
   def unpublish_previous_revisions
-    DataObject.find(:all, :conditions => "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
+    DataObject.find(:all, conditions: "id != #{self.id} AND guid = '#{self.guid}'").each do |dato|
       if dato.published?
         dato.update_column(:published, 0)
         dato.update_solr_index
@@ -983,7 +1033,7 @@ class DataObject < ActiveRecord::Base
   def reindex
     reload
     update_solr_index
-    data_object_taxa(:published).map(&:taxon_concept).each { |tc| tc.reindex if tc }
+    data_object_taxa(published: true).map(&:taxon_concept).each { |tc| tc.reindex if tc }
   end
 
   def can_be_deleted_by?(requestor)
@@ -1063,7 +1113,7 @@ class DataObject < ActiveRecord::Base
 
   # Used for notifications only. Expensive.
   def watch_collections_for_associated_taxa
-    data_object_taxa(:published).map(&:taxon_concept).map { |tc| tc.containing_collections.watch }.flatten
+    data_object_taxa(published: true).map(&:taxon_concept).flat_map { |tc| tc.containing_collections.watch }
   end
 
   def title_same_as_toc_label(toc_item, options = {})
@@ -1071,7 +1121,7 @@ class DataObject < ActiveRecord::Base
     options[:language] ||= Language.default
     return true if toc_item.label(options[:language].iso_code).downcase == object_title.downcase
     if options[:language] != Language.default
-      return true if toc_item.label(Language.default.iso_code).downcase == object_title.downcase
+      return true if toc_item.label(Language.default_code).downcase == object_title.downcase
     end
   end
 
@@ -1085,9 +1135,16 @@ private
 
   # This is relatively expensive... but accurate.
   def image_title_with_taxa
-    @image_title_with_taxa ||= I18n.t(:image_title_with_taxa,
-                                      taxa: data_object_taxa(:published).
-                                            map(&:italicized_unattributed_title).to_sentence)
+    return @image_title_with_taxa if @image_title_with_taxa
+    all_data_object_taxa = uncached_data_object_taxa(published: true)
+    visible_data_object_taxa = all_data_object_taxa.select{ |dot| dot.vetted != Vetted.untrusted }
+    if visible_data_object_taxa.empty?
+      @image_title_with_taxa ||= I18n.t(:image_title_without_taxa)
+    else
+      @image_title_with_taxa ||= I18n.t(:image_title_with_taxa,
+                                        taxa: visible_data_object_taxa.
+                                            map(&:title_canonical_italicized).to_sentence)
+    end
   end
 
   # TODO - this is quite lame. Best to re-think this. Perhaps a class that handles and cleans the DatoParams?
@@ -1096,14 +1153,14 @@ private
   def self.populate_rights_holder_or_data_subtype(params, options)
     return if options[:link_object]
     license = License.find(params[:license_id]) rescue nil
-    needs_rights = license && license.show_rights_holder? 
+    needs_rights = license && license.show_rights_holder?
     params[:rights_holder] = options[:user].full_name if needs_rights && params[:rights_holder].blank?
   end
 
   def self.set_subtype_if_link_object(params, options)
     params[:data_subtype_id] = DataType.link.id if options[:link_object]
   end
-  
+
   # NOTE - do NOT rename this "association", that appears to be a reserved Rails name.
   def raw_association(options = {})
     raw_associations(options).first
@@ -1113,8 +1170,7 @@ private
   # With no options, this sorts by best vetted status.
   def raw_associations(options = {})
     assocs = filter_associations(data_objects_hierarchy_entries, options)
-    assocs += filter_associations(all_curated_data_objects_hierarchy_entries, options) if
-      assocs.empty? || options.empty?
+    assocs += filter_associations(all_curated_data_objects_hierarchy_entries, options)
     if assocs.empty? || options.empty?
       return [] if options[:hierarchy_entry] # Can't match this on UDO, so there were none.
       if users_data_object
@@ -1124,7 +1180,7 @@ private
     end
     assocs.compact!
     return [] if assocs.empty?
-    assocs.sort_by { |a| a.vetted.view_order }
+    assocs.sort_by { |a| [ a.visibility && a.visibility.view_order, a.vetted && a.vetted.view_order ] }
   end
 
   # To retrieve an exact association(if exists) for the given taxon concept,
@@ -1135,9 +1191,12 @@ private
     @association_with_taxon_or_best_vetted ||= {}
     return @association_with_taxon_or_best_vetted[taxon_concept.id] if
       @association_with_taxon_or_best_vetted.has_key?(taxon_concept.id)
-    assoc = raw_association(:taxon_concept => taxon_concept)
-    return @association_with_taxon_or_best_vetted[taxon_concept.id] = assoc unless assoc.blank?
-    return @association_with_taxon_or_best_vetted[taxon_concept.id] = raw_association
+    assoc = raw_association(taxon_concept: taxon_concept)
+    if assoc.blank?
+      return @association_with_taxon_or_best_vetted[taxon_concept.id] = raw_association
+    else
+      return @association_with_taxon_or_best_vetted[taxon_concept.id] = assoc
+    end
   end
 
   def filter_associations(assocs, options = {})
@@ -1161,10 +1220,16 @@ private
     @curated_hierarchy_entries = []
     if latest_revision
       @curated_hierarchy_entries += latest_revision.data_objects_hierarchy_entries.compact.map do |dohe|
+        # this saves having to query for the data object later. I thought Rails would take
+        # care of this, but they it doesn't look like it does
+        dohe.data_object = self
         DataObjectTaxon.new(dohe)
       end
     end
     @curated_hierarchy_entries += all_curated_data_objects_hierarchy_entries.compact.map do |cdohe|
+      # this saves having to query for the data object later. I thought Rails would take
+      # care of this, but they it doesn't look like it does
+      cdohe.data_object = self
       DataObjectTaxon.new(cdohe)
     end
     @curated_hierarchy_entries.compact!
@@ -1181,7 +1246,7 @@ private
   end
 
   def is_subtype?(type)
-    reload unless self.has_attribute?(:data_subtype_id) 
+    reload unless self.has_attribute?(:data_subtype_id)
     DataType.send("#{type}_type_ids".to_sym).include?(data_subtype_id)
   end
 
@@ -1209,24 +1274,24 @@ private
 
   def add_recipient_user_making_object_modification(recipients, options = {})
     if options[:user]
-      recipients << { :user => options[:user], :notification_type => :i_created_something,
-                      :frequency => NotificationFrequency.never }
+      recipients << { user: options[:user], notification_type: :i_created_something,
+                      frequency: NotificationFrequency.never }
       recipients << options[:user].watch_collection if options[:user].watch_collection
     end
   end
-  
+
   def add_recipient_pages_affected(recipients, options = {})
     if options[:taxon_concept]
       recipients << options[:taxon_concept]
-      recipients << { :ancestor_ids => options[:taxon_concept].flattened_ancestor_ids }
+      recipients << { ancestor_ids: options[:taxon_concept].flattened_ancestor_ids }
     else
       self.curated_hierarchy_entries.each do |he|
         recipients << he.taxon_concept
-        recipients << { :ancestor_ids => he.taxon_concept.flattened_ancestor_ids }
+        recipients << { ancestor_ids: he.taxon_concept.flattened_ancestor_ids }
       end
     end
   end
-  
+
   def add_recipient_users_watching(recipients, options = {})
     if options[:taxon_concept]
       options[:taxon_concept].containing_collections.watch.each do |collection|
@@ -1270,7 +1335,7 @@ private
     self.bibliographic_citation = ERB::Util.h(self.bibliographic_citation)
     self.source_url             = ERB::Util.h(self.source_url)
   end
-  
+
   def rights_required?
     license.show_rights_holder?
   end

@@ -20,7 +20,7 @@
     %td.even
       =I18n.t("server_ip_address")
     %td.even
-      = $IP_ADDRESS_OF_SERVER
+      = EOL::Server.ip_address
   %tr
     %td.odd
       =I18n.t("rails_environment")
@@ -68,7 +68,7 @@
     %td.odd
       =I18n.t("content_servers")
     %td.odd
-      = $CONTENT_SERVERS.join(',')
+      = $CONTENT_SERVER
   %tr
     %td.even
       =I18n.t("allow_user_logins")
@@ -113,9 +113,9 @@
       %br
       Enter New Maintenance message:
       = form_tag({ :action=>'index' }, :method=>'get') do
-        - global_site_warning = SiteConfigurationOption.find_by_parameter('global_site_warning')
-        - global_site_warning_message = (global_site_warning && global_site_warning.value) ? global_site_warning.value : ""
-        = text_area_tag :taxon_id, global_site_warning_message, { :rows => 80, :cols => 3 }
+        - global_site_warning = EolConfig.global_site_warning
+        -# TODO - why is this field labeled 'taxon_id'?!? Does this form even work?  How?!
+        = text_area_tag :taxon_id, global_site_warning, { :rows => 80, :cols => 3 }
         %br
         = f.submit
       %br

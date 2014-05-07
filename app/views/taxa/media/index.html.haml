@@ -3,63 +3,65 @@
 = content_for :footer do
   = javascript_include_tag 'media_list'
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 
 #media_list
   #sidebar.filters
-    = image_tag @taxon_media.image.thumb_or_object('260_190'), :alt => '' unless @taxon_media.image.blank?
+    = image_tag @taxon_media.image.thumb_or_object('260_190'), alt: '' unless @taxon_media.image.blank?
     #filters
       %h3= I18n.t(:media)
-      = render :partial => "media_sort_filter"
+      = render "media_sort_filter"
   #main
     - if @taxon_media.empty?
       .empty
         - if @taxon_media.media_count == 0 # There was really nothing there to begin with...
           %p= I18n.t(:media_list_empty)
         - else # ...There's something available, but the current filter is hiding it...
-          %p= I18n.t(:media_list_empty_search) 
+          %p= I18n.t(:media_list_empty_search)
         %p= link_to I18n.t(:media_list_empty_contribute_instructions), cms_page_path('contribute')
     - else
       .header
-        %h3= raw(I18n.t(:displaying_numerical_range, :start_number => @taxon_media.start, :end_number => @taxon_media.end, :total => @taxon_media.total_entries))
-        = will_paginate @taxon_media.paginated, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
-          :inner_window => 2, :outer_window => 2
+        %h3= raw(I18n.t(:pagination_range_with_count, start_number: @taxon_media.start, end_number: @taxon_media.end, count: @taxon_media.media_count))
+        = will_paginate @taxon_media.paginated, previous_label: I18n.t(:pagination_previous), next_label: I18n.t(:pagination_next),
+          inner_window: 2, outer_window: 2
       %ul.media
         - @taxon_media.each_with_index do |item, index|
           - item_status_class, item_status_label = status_class_and_label_for_data_object(item)
           - en_type = en_type(item)
-          %li{:class => [index.modulo(4) == 0 ? 'first' : nil, en_type, item.has_thumbnail? ? nil : 'no_thumbnail'].compact.join(' ')}
+          %li{class: [index.modulo(4) == 0 ? 'first' : nil, en_type, item.has_thumbnail? ? nil : 'no_thumbnail'].compact.join(' ')}
             .figure
-              - if en_type == 'image_map' # dato is image map and so uses image partial
-                = render :partial => "data_objects/data_object_image",
-                  :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
+              - if en_type == 'image_map' # dato is image map and so uses image 
+                = render "data_objects/data_object_image",
+                  { data_object: item, thumbnail: true, size: '260_190' }
               - else # If en_type is blank, you're getting a bogus data object class. Restart your workers.
-                = render :partial => "data_objects/data_object_#{en_type}",
-                  :locals => { :data_object => item, :thumbnail => true, :size => '260_190' }
+                = render "data_objects/data_object_#{en_type}",
+                  { data_object: item, thumbnail: true, size: '260_190' }
               - if item.data_type_id == DataType.image.id && @taxon_media.can_set_exemplars?
                 .overlay
-                = form_for(TaxonConceptExemplarImage.new(taxon_concept: @taxon_page.taxon_concept), url: taxon_concept_exemplar_image_path, html: { class: 'taxon_concept_exemplar_image' }) do |f|
+                = form_for(TaxonConceptExemplarImage.new(taxon_concept: @taxon_media.taxon_concept), url: taxon_concept_exemplar_image_path, html: { class: 'taxon_concept_exemplar_image' }, remote: true) do |f|
                   = f.hidden_field :taxon_concept_id
                   %label
-                    = f.radio_button :data_object_id, item.id, { :checked => (!@taxon_media.image.blank? && @taxon_media.image.id == item.id) }
+                    = f.radio_button :data_object_id, item.id, { checked: (!@taxon_media.image.blank? && @taxon_media.image.id == item.id) }
                     = I18n.t(:set_as_exemplar)
                   %fieldset.actions
                     = f.submit I18n.t(:set_as_exemplar)
-            = render :partial => 'data_objects/rating', :locals => { :data_object => item, :minimal => true }
-            %p.flag{:class => item_status_class}= item_status_label
+            = render 'data_objects/rating', { data_object: item, minimal: true }
+            %p.flag{class: item_status_class}= item_status_label
             - vetted = item.vetted_by_taxon_concept(@taxon_media.taxon_concept)
             .associations
               - associated_with_taxa_names = []
-              - item.data_object_taxa.each do |association|
-                - if association.vetted == vetted && association_belongs_to_taxon_concept?(association, @taxon_media.taxon_concept)
+              -# we can use the uncached version here since the data we need will have been preloaded,
+              -# and the data from DataObjectCaching will need to get loaded, so this will be faster
+              - item.uncached_data_object_taxa.each do |association|
+                - if association.vetted == vetted && association_belongs_to_taxon_concept?(association, @taxon_concept)
                   - associated_with_taxa_names << association.italicized_name
               -# TODO: What should we do when this IS blank?
               - unless associated_with_taxa_names.blank?
-                = I18n.t("association_#{item_status_label.downcase}_for_taxa", :count => associated_with_taxa_names.count)
+                = I18n.t("association_#{item_status_label.downcase}_for_taxa", count: associated_with_taxa_names.count)
                 %ul
                   - associated_with_taxa_names.each do |assoc|
-                    %li= assoc
-            = render :partial => 'shared/add_to_my_collection', :locals => { :item => item, :my_collection => current_user.watch_collection }
+                    %li= raw assoc
+            = render 'shared/add_to_my_collection', { item: item, my_collection: current_user.watch_collection }
       .footer
-        = will_paginate @taxon_media.paginated, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
-          :inner_window => 4, :outer_window => 5
+        = will_paginate @taxon_media.paginated, previous_label: I18n.t(:pagination_previous), next_label: I18n.t(:pagination_next),
+          inner_window: 4, outer_window: 5

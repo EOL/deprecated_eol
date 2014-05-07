@@ -1,13 +1,13 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe HarvestEvent do
 
   before(:all) do
     load_foundation_cache
     resource = Resource.first
-    @previous_unpublished_harvest_event = HarvestEvent.gen(:resource => resource, :published_at => nil)
-    @latest_unpublished_harvest_event = HarvestEvent.gen(:resource => resource, :began_at => Time.now,
-                                                    :completed_at => Time.now, :published_at => nil)
+    @previous_unpublished_harvest_event = HarvestEvent.gen(resource: resource, published_at: nil)
+    @latest_unpublished_harvest_event = HarvestEvent.gen(resource: resource, began_at: Time.now,
+                                                    completed_at: Time.now, published_at: nil)
     @previous_unpublished_harvest_event.resource.reload
     @latest_unpublished_harvest_event.resource.reload
     Rails.cache.clear

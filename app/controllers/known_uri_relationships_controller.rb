@@ -24,6 +24,6 @@ class KnownUriRelationshipsController < ApplicationController
     @known_uri_relationship = KnownUriRelationship.find(params[:id])
     @known_uri_relationship.destroy
     flash[:notice] = I18n.t('known_uri_relationships.deleted')
-    redirect_to edit_known_uri_path(@known_uri_relationship.from_known_uri)
+    redirect_to request.referer
   end
 end

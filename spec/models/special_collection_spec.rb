@@ -1,9 +1,9 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe SpecialCollection do
 
   before(:all) do
-    SpecialCollection.create_all
+    SpecialCollection.create_enumerated
   end
 
   it 'should have a "focus" method' do

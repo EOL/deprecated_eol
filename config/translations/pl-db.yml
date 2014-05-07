@@ -1,0 +1,339 @@
+# Messages for Polish (polski)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Bartek50003
+# Author: Chrumps
+# Author: Cysioland
+# Author: Faren
+# Author: Mateuszek045
+# Author: Olgak85
+# Author: Ty221
+# Author: Woytecr
+pl: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: niezaufany
+  translated_activities-name-activity_id-51: pokaż
+  translated_activities-name-activity_id-52: utwórz
+  translated_activities-name-activity_id-53: ukryj
+  translated_activities-name-activity_id-54: aktualizuj
+  translated_activities-name-activity_id-55: nieodpowiedni
+  translated_activities-name-activity_id-56: usuń
+  translated_activities-name-activity_id-57: oceń
+  translated_activities-name-activity_id-58: zaufany
+  translated_activities-name-activity_id-59: nieprzejrzany
+  translated_activities-name-activity_id-63: zebrać
+  translated_activities-name-activity_id-64: usuń
+  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-10: Projekt
+  translated_agent_roles-label-agent_role_id-11: Wydawca
+  translated_agent_roles-label-agent_role_id-12: Dyktafon
+  translated_agent_roles-label-agent_role_id-13: Źródło
+  translated_agent_roles-label-agent_role_id-14: Baza danych źródła
+  translated_agent_roles-label-agent_role_id-15: Osoba kontaktowa
+  translated_agent_roles-label-agent_role_id-16: Współtwórca
+  translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-21: dostawca
+  translated_agent_roles-label-agent_role_id-22: Tłumacz
+  translated_agent_roles-label-agent_role_id-23: Recenzent Naukowy
+  translated_agent_roles-label-agent_role_id-24: Korektor lingwistyczny
+  translated_agent_roles-label-agent_role_id-3: Kompilator
+  translated_agent_roles-label-agent_role_id-4: Kompozytor
+  translated_agent_roles-label-agent_role_id-5: Twórca
+  translated_agent_roles-label-agent_role_id-6: Dyrektor
+  translated_agent_roles-label-agent_role_id-7: Edytor
+  translated_agent_roles-label-agent_role_id-8: Ilustrator
+  translated_agent_roles-label-agent_role_id-9: Fotograf
+  translated_audiences-label-audience_id-1: Użytkownicy zaawansowani
+  translated_audiences-label-audience_id-2: Ogół społeczeństwa
+  translated_audiences-label-audience_id-3: Dzieci
+  translated_collection_types-label-collection_type_id-1: Taksonomia
+  translated_collection_types-label-collection_type_id-10: Dźwięki
+  translated_collection_types-label-collection_type_id-11: Linki
+  translated_collection_types-label-collection_type_id-12: Literatura
+  translated_collection_types-label-collection_type_id-13: Taksonomia
+  translated_collection_types-label-collection_type_id-14: Molekularne kody kreskowe
+  translated_collection_types-label-collection_type_id-15: Opis
+  translated_collection_types-label-collection_type_id-16: Obrazy
+  translated_collection_types-label-collection_type_id-17: Dystrybucja
+  translated_collection_types-label-collection_type_id-18: Status ochronny
+  translated_collection_types-label-collection_type_id-19: Informacja o nazwie
+  translated_collection_types-label-collection_type_id-2: Molekularne kody kreskowe
+  translated_collection_types-label-collection_type_id-20: Dane molekularne
+  translated_collection_types-label-collection_type_id-21: Nomenklatura
+  translated_collection_types-label-collection_type_id-22: Dźwięki
+  translated_collection_types-label-collection_type_id-23: Odnośniki
+  translated_collection_types-label-collection_type_id-24: Literatura
+  translated_collection_types-label-collection_type_id-3: Opis
+  translated_collection_types-label-collection_type_id-4: Obrazy
+  translated_collection_types-label-collection_type_id-5: Dystrybucja
+  translated_collection_types-label-collection_type_id-6: Status ochronny
+  translated_collection_types-label-collection_type_id-7: Nazwa informacji
+  translated_collection_types-label-collection_type_id-8: Dane molekularne
+  translated_collection_types-label-collection_type_id-9: Nomenklatura
+  translated_contact_roles-label-contact_role_id-1: Pierwszy kontakt
+  translated_contact_roles-label-contact_role_id-2: Kontakt administracyjny
+  translated_contact_roles-label-contact_role_id-3: Kontakt techniczny
+  translated_contact_subjects-title-contact_subject_id-24: Członkostwo i rejestracja
+  translated_contact_subjects-title-contact_subject_id-25: Warunki korzystania i licencjonowanie
+  translated_contact_subjects-title-contact_subject_id-26: Nauka i edukacja
+  translated_contact_subjects-title-contact_subject_id-27: Zostań partnerem treści
+  translated_contact_subjects-title-contact_subject_id-28: Wsparcie dla partnerów treści
+  translated_contact_subjects-title-contact_subject_id-29: Wsparcie dla kuratorów
+  translated_contact_subjects-title-contact_subject_id-30: Dokonaj korekty (pisownia i gramatyka, zdjęcia, informacje)
+  translated_contact_subjects-title-contact_subject_id-31: Wnieś wkład do zdjęć, filmów lub dźwięków
+  translated_contact_subjects-title-contact_subject_id-32: Wnioski o media (wywiady, pytania prasowe, prośby o logo)
+  translated_contact_subjects-title-contact_subject_id-33: Dokonaj darowizny finansowej
+  translated_contact_subjects-title-contact_subject_id-34: Pytania techniczne (problemy z wyszukiwaniem, funkcjonalnością strony)
+  translated_contact_subjects-title-contact_subject_id-35: Opinie ogólne
+  translated_content_partner_statuses-label-content_partner_status_id-1: Oczekujące
+  translated_content_partner_statuses-label-content_partner_status_id-2: Aktywne
+  translated_content_partner_statuses-label-content_partner_status_id-3: Zarchiwizowane
+  translated_content_partner_statuses-label-content_partner_status_id-4: Nieaktywne
+  translated_content_tables-label-content_table_id-1: Szczegóły
+  translated_data_types-label-data_type_id-1: Obraz
+  translated_data_types-label-data_type_id-10: Mapa
+  translated_data_types-label-data_type_id-2: Dźwięk
+  translated_data_types-label-data_type_id-3: Tekst
+  translated_data_types-label-data_type_id-4: Wideo
+  translated_data_types-label-data_type_id-5: Obraz GBIF
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Nie ma praw zastrzeżonych
+  translated_licenses-description-license_id-2: "&#169; Wszelkie prawa zastrzeżone"
+  translated_licenses-description-license_id-29: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-3: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-30: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-31: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-32: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-33: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-34: Public Domain
+  translated_licenses-description-license_id-35: Public Domain
+  translated_licenses-description-license_id-36: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-37: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-38: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-39: Public Domain
+  translated_licenses-description-license_id-4: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-42: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-43: Licencja nie dotyczy
+  translated_licenses-description-license_id-5: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-6: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-7: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-8: Niektóre prawa zastrzeżone
+  translated_licenses-description-license_id-9: Niektóre prawa zastrzeżone
+  translated_ranks-label-rank_id-106: forma
+  translated_ranks-label-rank_id-107: forma
+  translated_ranks-label-rank_id-112: rodz
+  translated_ranks-label-rank_id-113: rodz.
+  translated_ranks-label-rank_id-118: rodzaj
+  translated_ranks-label-rank_id-169: Infra-rząd
+  translated_ranks-label-rank_id-175: infra-gatunek
+  translated_ranks-label-rank_id-183: królestwo
+  translated_ranks-label-rank_id-266: porządek
+  translated_ranks-label-rank_id-280: typ
+  translated_ranks-label-rank_id-313: sek
+  translated_ranks-label-rank_id-314: sek.
+  translated_ranks-label-rank_id-317: sekcja
+  translated_ranks-label-rank_id-324: seria
+  translated_ranks-label-rank_id-332: gat
+  translated_ranks-label-rank_id-333: gat.
+  translated_ranks-label-rank_id-335: gatunek
+  translated_ranks-label-rank_id-352: pod-rodzina
+  translated_ranks-label-rank_id-370: podklasa
+  translated_ranks-label-rank_id-375: pod-gromada
+  translated_ranks-label-rank_id-383: pod-rodzina
+  translated_ranks-label-rank_id-390: podrodzaj
+  translated_ranks-label-rank_id-391: podrodz.
+  translated_ranks-label-rank_id-394: podgrodzaj
+  translated_ranks-label-rank_id-396: podkrólestwo
+  translated_ranks-label-rank_id-399: podrząd
+  translated_ranks-label-rank_id-401: podtyp
+  translated_ranks-label-rank_id-408: podsekcja
+  translated_ranks-label-rank_id-411: sebseria
+  translated_ranks-label-rank_id-413: podgat
+  translated_ranks-label-rank_id-414: podgat.
+  translated_ranks-label-rank_id-415: podgatunek
+  translated_ranks-label-rank_id-422: podplemie
+  translated_ranks-label-rank_id-463: nadrodzina
+  translated_ranks-label-rank_id-472: nadtyp
+  translated_ranks-label-rank_id-494: plemię
+  translated_ranks-label-rank_id-503: nieocenione
+  translated_ranks-label-rank_id-51: Klasa
+  translated_ranks-label-rank_id-512: rożn
+  translated_ranks-label-rank_id-513: różn.
+  translated_ranks-label-rank_id-517: różnorodność
+  translated_ranks-label-rank_id-518: odmiany
+  translated_ranks-label-rank_id-562: nothogenus
+  translated_ranks-label-rank_id-563: krosgatunkowe
+  translated_ranks-label-rank_id-564: międzypodgatunkowe
+  translated_ranks-label-rank_id-565: międzyodmianowe
+  translated_ranks-label-rank_id-74: Oddział
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: rodz
+  translated_ranks-label-rank_id-92: rodz.
+  translated_ranks-label-rank_id-99: rodzina
+  translated_resource_statuses-label-resource_status_id-1: Przesyłanie
+  translated_resource_statuses-label-resource_status_id-10: Opublikowano
+  translated_resource_statuses-label-resource_status_id-11: Oczekiwanie na publikacje
+  translated_resource_statuses-label-resource_status_id-12: Oczekiwanie na cofnięcie publikacji
+  translated_resource_statuses-label-resource_status_id-13: siła zbiorów
+  translated_resource_statuses-label-resource_status_id-2: Przesłano
+  translated_resource_statuses-label-resource_status_id-3: Przesyłanie nie powiodło się
+  translated_resource_statuses-label-resource_status_id-4: Przeniesione do zawartości serwera
+  translated_resource_statuses-label-resource_status_id-5: Uwierzytelniono
+  translated_resource_statuses-label-resource_status_id-6: Uwierzytelnienie nieudane
+  translated_resource_statuses-label-resource_status_id-7: Trwa przetwarzanie
+  translated_resource_statuses-label-resource_status_id-8: Przetworzone
+  translated_resource_statuses-label-resource_status_id-9: Przetwarzanie nie powiodło się
+  translated_service_types-label-service_type_id-1: Schemat transferu EOL
+  translated_service_types-label-service_type_id-2: Inne
+  translated_sort_styles-name-sort_style_id-1: Ostatnio dodane
+  translated_sort_styles-name-sort_style_id-2: Najstarsze
+  translated_sort_styles-name-sort_style_id-3: Alfabetycznie
+  translated_sort_styles-name-sort_style_id-4: Odwróć porządek alfabetyczny
+  translated_sort_styles-name-sort_style_id-5: Bogactwo
+  translated_sort_styles-name-sort_style_id-6: Ocena
+  translated_statuses-label-status_id-1: Wprowadzono
+  translated_statuses-label-status_id-2: Zaktualizowano
+  translated_statuses-label-status_id-3: Bez zmian
+  translated_statuses-label-status_id-4: Ponowne użycie
+  translated_synonym_relations-label-synonym_relation_id-1: synonim
+  translated_synonym_relations-label-synonym_relation_id-10: synonim genbank
+  translated_synonym_relations-label-synonym_relation_id-11: częściowo
+  translated_synonym_relations-label-synonym_relation_id-12: zawiera
+  translated_synonym_relations-label-synonym_relation_id-13: błędna nazwa
+  translated_synonym_relations-label-synonym_relation_id-14: literówka
+  translated_synonym_relations-label-synonym_relation_id-15: teleomorph
+  translated_synonym_relations-label-synonym_relation_id-16: niejednoznaczny synonim
+  translated_synonym_relations-label-synonym_relation_id-17: niewłaściwa nazwa
+  translated_synonym_relations-label-synonym_relation_id-18: wstępnie zaakceptowana nazwa
+  translated_synonym_relations-label-synonym_relation_id-19: przyjętej nazwy
+  translated_synonym_relations-label-synonym_relation_id-2: nazwa pospolita
+  translated_synonym_relations-label-synonym_relation_id-20: artefakt bazy danych
+  translated_synonym_relations-label-synonym_relation_id-21: inne, zobacz komentarze
+  translated_synonym_relations-label-synonym_relation_id-22: ortograficzny wariant (literówki)
+  translated_synonym_relations-label-synonym_relation_id-23: niewłaściwie
+  translated_synonym_relations-label-synonym_relation_id-24: nazwa odrzucona
+  translated_synonym_relations-label-synonym_relation_id-3: akronim
+  translated_synonym_relations-label-synonym_relation_id-30: niedostępne, artefakt bazy danych
+  translated_synonym_relations-label-synonym_relation_id-31: niepotrzebne zastąpienie
+  translated_synonym_relations-label-synonym_relation_id-34: oryginalna nazwa/kombinacja
+  translated_synonym_relations-label-synonym_relation_id-39: nieuzasadniona poprawka
+  translated_synonym_relations-label-synonym_relation_id-4: anamorficzny
+  translated_synonym_relations-label-synonym_relation_id-40: niedostępne, inne
+  translated_synonym_relations-label-synonym_relation_id-45: oparty na poprzedniej nazwie
+  translated_synonym_relations-label-synonym_relation_id-48: nazwa niedostępna
+  translated_synonym_relations-label-synonym_relation_id-49: prawidłowa nazwa
+  translated_synonym_relations-label-synonym_relation_id-5: nazwa BLAST
+  translated_synonym_relations-label-synonym_relation_id-50: prawidłowo
+  translated_synonym_relations-label-synonym_relation_id-51: zaakceptowane
+  translated_synonym_relations-label-synonym_relation_id-52: władza
+  translated_synonym_relations-label-synonym_relation_id-56: niepoprawna pisownia
+  translated_synonym_relations-label-synonym_relation_id-57: wariant pisowni
+  translated_synonym_relations-label-synonym_relation_id-58: wariant leksykalny
+  translated_synonym_relations-label-synonym_relation_id-6: równoznaczna nazwa
+  translated_synonym_relations-label-synonym_relation_id-63: nie zaakceptowano
+  translated_synonym_relations-label-synonym_relation_id-64: nieprawidłowy
+  translated_synonym_relations-label-synonym_relation_id-7: skrót GenBanku
+  translated_table_of_contents-label-table_of_contents_id-1: Przegląd
+  translated_table_of_contents-label-table_of_contents_id-13: Nazwy pospolite
+  translated_table_of_contents-label-table_of_contents_id-14: Miedzynarodowa Unia Ochrony Przyrody
+  translated_table_of_contents-label-table_of_contents_id-17: Bibliografia
+  translated_table_of_contents-label-table_of_contents_id-194: Rozmiar
+  translated_table_of_contents-label-table_of_contents_id-2: Krótkie podsumowanie
+  translated_table_of_contents-label-table_of_contents_id-218: Rozporszenie
+  translated_table_of_contents-label-table_of_contents_id-221: Ryzyka
+  translated_table_of_contents-label-table_of_contents_id-225: W sieci
+  translated_table_of_contents-label-table_of_contents_id-226: Podobne treści
+  translated_table_of_contents-label-table_of_contents_id-227: Przeszukaj sieć
+  translated_table_of_contents-label-table_of_contents_id-24: Komentarz
+  translated_table_of_contents-label-table_of_contents_id-242: Ekologia ogólna
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliografie
+  translated_table_of_contents-label-table_of_contents_id-251: Profity
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologia
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografia
+  translated_table_of_contents-label-table_of_contents_id-285: Związki
+  translated_table_of_contents-label-table_of_contents_id-286: Status ochrony
+  translated_table_of_contents-label-table_of_contents_id-289: Ewolucja
+  translated_table_of_contents-label-table_of_contents_id-292: Podobne do
+  translated_table_of_contents-label-table_of_contents_id-293: Opis diagnostyczny
+  translated_table_of_contents-label-table_of_contents_id-296: Zarządzanie
+  translated_table_of_contents-label-table_of_contents_id-297: Miejsce w łańcuchu pokarmowym
+  translated_table_of_contents-label-table_of_contents_id-299: Edukacja
+  translated_table_of_contents-label-table_of_contents_id-3: Opis fizyczny
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Nazwy i taksonomia
+  translated_table_of_contents-label-table_of_contents_id-304: Powiązane nazwy
+  translated_table_of_contents-label-table_of_contents_id-305: Synonimy
+  translated_table_of_contents-label-table_of_contents_id-306: Statystyki strony
+  translated_table_of_contents-label-table_of_contents_id-307: Podsumowanie zawartości
+  translated_table_of_contents-label-table_of_contents_id-308: Opis szczegółowy
+  translated_table_of_contents-label-table_of_contents_id-309: Dystrybucja
+  translated_table_of_contents-label-table_of_contents_id-310: Rozwój
+  translated_table_of_contents-label-table_of_contents_id-311: Identyfikacja zasobów
+  translated_table_of_contents-label-table_of_contents_id-312: Migracja
+  translated_table_of_contents-label-table_of_contents_id-313: Choroby i pasożyty
+  translated_table_of_contents-label-table_of_contents_id-314: Biologia populacji
+  translated_table_of_contents-label-table_of_contents_id-315: Historia życia i zachowanie
+  translated_table_of_contents-label-table_of_contents_id-316: Zachowanie
+  translated_table_of_contents-label-table_of_contents_id-317: Cykliczność
+  translated_table_of_contents-label-table_of_contents_id-318: Cykl życia
+  translated_table_of_contents-label-table_of_contents_id-319: Długość życia
+  translated_table_of_contents-label-table_of_contents_id-320: Rozmnażanie
+  translated_table_of_contents-label-table_of_contents_id-321: Wzrost
+  translated_table_of_contents-label-table_of_contents_id-322: Historia skamielin
+  translated_table_of_contents-label-table_of_contents_id-323: Systematyka lub Filogeneza
+  translated_table_of_contents-label-table_of_contents_id-324: Funkcje adaptacyjne
+  translated_table_of_contents-label-table_of_contents_id-325: Fizjologa i biologia komórki
+  translated_table_of_contents-label-table_of_contents_id-326: Biologia molekularna i Genetyka
+  translated_table_of_contents-label-table_of_contents_id-327: Fizjologia
+  translated_table_of_contents-label-table_of_contents_id-328: Cytologia
+  translated_table_of_contents-label-table_of_contents_id-329: Genetyka
+  translated_table_of_contents-label-table_of_contents_id-33: Trendy
+  translated_table_of_contents-label-table_of_contents_id-330: Sekwencja nukleotydowa
+  translated_table_of_contents-label-table_of_contents_id-331: Kod kreskowy
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
+  translated_table_of_contents-label-table_of_contents_id-333: Biologia Molekularna
+  translated_table_of_contents-label-table_of_contents_id-334: Zagrożenia
+  translated_table_of_contents-label-table_of_contents_id-335: Ustawodawstwo
+  translated_table_of_contents-label-table_of_contents_id-336: Uwagi
+  translated_table_of_contents-label-table_of_contents_id-337: Edukacja
+  translated_table_of_contents-label-table_of_contents_id-338: Powiązane nauki
+  translated_table_of_contents-label-table_of_contents_id-339: Zasoby edukacji
+  translated_table_of_contents-label-table_of_contents_id-34: Komentarze
+  translated_table_of_contents-label-table_of_contents_id-340: Serie laboratoryjne szkół średnich
+  translated_table_of_contents-label-table_of_contents_id-341: Nauka mieszkanćow
+  translated_table_of_contents-label-table_of_contents_id-342: Powiązane nauki mieszkanców
+  translated_table_of_contents-label-table_of_contents_id-343: Biblioteka dziedzictwa różnorodności biologicznej
+  translated_table_of_contents-label-table_of_contents_id-344: Dane
+  translated_table_of_contents-label-table_of_contents_id-345: Źródła danych
+  translated_table_of_contents-label-table_of_contents_id-346: Warunki biomedyczne
+  translated_table_of_contents-label-table_of_contents_id-347: Taksonomia
+  translated_table_of_contents-label-table_of_contents_id-348: Rodzaje Informacji
+  translated_table_of_contents-label-table_of_contents_id-4: Ekologia
+  translated_table_of_contents-label-table_of_contents_id-41: Siedlisko
+  translated_table_of_contents-label-table_of_contents_id-5: "Ewolucja i Systematyka\nb"
+  translated_table_of_contents-label-table_of_contents_id-6: Znaczący dla ludzi i ekosystemów
+  translated_table_of_contents-label-table_of_contents_id-7: Odniesienia i więcej informacji
+  translated_table_of_contents-label-table_of_contents_id-8: Ochrona
+  translated_untrust_reasons-label-untrust_reason_id-1: pomyłkowy
+  translated_untrust_reasons-label-untrust_reason_id-2: nieprawidłowa/wprowadzająca w błąd
+  translated_untrust_reasons-label-untrust_reason_id-3: niska jakość
+  translated_untrust_reasons-label-untrust_reason_id-4: duplikat
+  translated_untrust_reasons-label-untrust_reason_id-5: Inne
+  translated_user_identities-label-user_identity_id-1: miłośnik
+  translated_user_identities-label-user_identity_id-2: uczeń
+  translated_user_identities-label-user_identity_id-3: nauczyciel
+  translated_user_identities-label-user_identity_id-4: Miejscowi naukowcy
+  translated_user_identities-label-user_identity_id-5: Profesjonalny naukowiec
+  translated_vetted-label-vetted_id-0: Nieznany
+  translated_vetted-label-vetted_id-4: Niezaufany
+  translated_vetted-label-vetted_id-5: Zaufany
+  translated_vetted-label-vetted_id-6: Niewłaściwy
+  translated_view_styles-name-view_style_id-1: Lista
+  translated_view_styles-name-view_style_id-2: Galeria
+  translated_view_styles-name-view_style_id-3: adnotowany
+  translated_visibilities-label-visibility_id-0: Niewidoczny
+  translated_visibilities-label-visibility_id-1: Widoczny
+  translated_visibilities-label-visibility_id-2: Podgląd

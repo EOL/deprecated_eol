@@ -45,9 +45,11 @@ form
         +textarea
     input[type="radio"]
       margin: 0 5px 0 0
+  input.standard
+    +input
   label
     &.required
-      background: url(image-path("v2/icon_required.png")) 0 45% no-repeat
+      background: image-url("v2/icon_required.png") 0 45% no-repeat
       padding-left: 10px
       margin-left: -10px
     &.checkbox
@@ -79,6 +81,8 @@ form
           +gradient_bg(saturate(#e07f71 + #111111, 10%), saturate(#cd331e + #111111, 10%))
         &:active
           +gradient-bg(#e07f71, #cd331e)
+      &.with_case
+        text-transform: none
   .heading &.filter
     label
       text-transform: uppercase
@@ -106,6 +110,7 @@ form
   padding: 0 17px
   border: 1px solid $darker_gray
   border-width: 0 1px
+  min-height: 17em
   .heading
     position: relative
     text-align: left
@@ -184,6 +189,7 @@ ul.tabs
     border-right-color: $darker_gray
     +border-top-left-radius(3px)
     +border-bottom-left-radius(3px)
+    -webkit-background-clip: padding-box
     +gradient-bg-horizontal(#ffffff, #f0f4f7)
     a
       display: block
@@ -206,31 +212,34 @@ ul.tabs
         font-size: 1.14em
     &.taxa
       a
-        background: transparent url(image-path("v2/icon_taxa_tabs.png")) 9px 50% no-repeat
+        background: transparent image-url("v2/icon_taxa_tabs.png") 9px 50% no-repeat
     &.videos
       a
-        background: transparent url(image-path("v2/icon_videos_tabs.png")) 11px 10px no-repeat
+        background: transparent image-url("v2/icon_videos_tabs.png") 11px 10px no-repeat
     &.sounds
       a
-        background: transparent url(image-path("v2/icon_sounds_tabs.png")) 14px 50% no-repeat
+        background: transparent image-url("v2/icon_sounds_tabs.png") 14px 50% no-repeat
     &.images
       a
-        background: transparent url(image-path("v2/icon_images_tabs.png")) 7px 8px no-repeat
+        background: transparent image-url("v2/icon_images_tabs.png") 7px 8px no-repeat
     &.communities
       a
-        background: transparent url(image-path("v2/icon_communities_tabs.png")) 8px 16px no-repeat
+        background: transparent image-url("v2/icon_communities_tabs.png") 8px 16px no-repeat
     &.people
       a
-        background: transparent url(image-path("v2/icon_people_tabs.png")) 9px 10px no-repeat
+        background: transparent image-url("v2/icon_people_tabs.png") 9px 10px no-repeat
     &.collections
       a
-        background: transparent url(image-path("v2/icon_collections_tabs.png")) 6px 8px no-repeat
+        background: transparent image-url("v2/icon_collections_tabs.png") 6px 8px no-repeat
     &.articles
       a
-        background: transparent url(image-path("v2/icon_articles_tabs.png")) 9px 9px no-repeat
+        background: transparent image-url("v2/icon_articles_tabs.png") 9px 9px no-repeat
     &.links
       a
-        background: transparent url(image-path("v2/icon_links_tabs.png")) 6px 9px no-repeat
+        background: transparent image-url("v2/icon_links_tabs.png") 6px 9px no-repeat
+    &.data
+      a
+        background: transparent image-url("v2/icon_data_tabs.png") 6px 9px no-repeat
   &.with_icons
     li
       font-size: 1.16em
@@ -267,7 +276,7 @@ p.status
     border-color: #f2d2cc
     background: #ffeae6
     strong
-      color: #e84226
+      color: $negative_red
 
 .copy
   h2
@@ -282,6 +291,8 @@ p.status
   p
     margin: 0 0 15px 0
     line-height: 170%
+    img
+      margin-right: 0.5em
   dl
     margin: 0 40px 15px 40px
     line-height: 170%
@@ -332,18 +343,20 @@ table.standard
       td
         padding: 5px 20px
 
+.article .header, .header_underlined
+  overflow: hidden
+  padding: 0 10px 0 0
+  margin: 0 -10px 12px -10px
+  border-bottom: 1px solid #394651
+  h3
+    float: left
+    padding: 0 10px 3px 10px
+    font-size: 1.16em
+    border-bottom: 3px solid #394651
+
 .article
   padding: 0 10px 25px 10px
   .header
-    overflow: hidden
-    padding: 0 10px 0 0
-    margin: 0 -10px 12px -10px
-    border-bottom: 1px solid #394651
-    h3
-      float: left
-      padding: 0 10px 3px 10px
-      font-size: 1.16em
-      border-bottom: 3px solid #394651
     a
       float: right
       padding: 2px 0 0 0
@@ -377,7 +390,7 @@ table.standard
           float: left
           margin: 15px 10px 0 15px
           border: 1px solid #394651
-          +max_dimensions($logo_size_secondary, $logo_size_secondary)
+          +set_dimensions($logo_size_secondary, $logo_size_secondary)
         .details
           margin: 15px 15px 0 0
           padding: 0
@@ -408,31 +421,6 @@ table.standard
     blockquote, p
       line-height: 140%
       padding: 0 0 8px 0
-      &.meta
-        font-size: .75em
-        font-weight: bold
-        text-transform: uppercase
-        color: #62707d
-        padding: 0
-    ul.actions
-      li
-        display: inline
-        font-size: .9em
-        font-weight: bold
-        text-transform: lowercase
-        a
-          display: inline-block
-          padding: 5px 0
-          margin: 0 5px 0 0
-        form
-          margin: 0
-          padding: 0
-          display: inline
-          input[type="submit"]
-            +button_styled_as_hyperlink
-            font-weight: bold
-            padding: 5px 0
-            margin: 0 5px 0 0
     li
       form
         &.edit_comment
@@ -445,8 +433,38 @@ table.standard
             width: 430px
             height: 60px
             +textarea
+.article.updates, ul.object_list
+  blockquote, p
+    &.meta
+      font-size: .75em
+      font-weight: bold
+      text-transform: uppercase
+      color: #62707d
+      padding: 0
+      span.expired
+        display: inline-block
+        color: #B40404
+  ul.actions
+    li
+      display: inline
+      font-size: .9em
+      font-weight: bold
+      text-transform: lowercase
+      a
+        display: inline-block
+        padding: 5px 0
+        margin: 0 5px 0 0
+      form
+        margin: 0
+        padding: 0
+        display: inline
+        input[type="submit"]
+          +button_styled_as_hyperlink
+          font-weight: bold
+          padding: 5px 0
+          margin: 0 5px 0 0
 
-.empty, .copy .empty
+.empty, .copy .empty, .explain
   padding: 15px 15px 10px 15px
   margin: 10px 0
   font-size: 1.16em
@@ -464,6 +482,12 @@ table.standard
   input[type="submit"]
     padding: 5px 10px 6px 10px
 
+.explain
+  text-align: left
+  padding: 15px
+  p
+    margin: 0.5em 0
+
 = star
   position: absolute
   top: 0
@@ -477,7 +501,7 @@ table.standard
   ul a:hover,
   ul a:active,
   ul a:focus
-    background: transparent url(image-path("v2/icon_stars.png")) 0 100% repeat-x
+    background: transparent image-url("v2/icon_stars.png") 0 100% repeat-x
   ul
     float: left
     position: relative
@@ -492,7 +516,7 @@ table.standard
         &.current_rating_#{$i}
           +star
           width: 20% * $i
-          background: transparent url(image-path("v2/icon_stars.png")) 0 -26px repeat-x
+          background: transparent image-url("v2/icon_stars.png") 0 -26px repeat-x
     a
       +star
       &:hover, &:active, &:focus
@@ -522,13 +546,13 @@ table.standard
     float: left
     width: 76px
     height: 13px
-    background: transparent url(image-path("v2/icon_stars.png")) 0 0 repeat-x
+    background: transparent image-url("v2/icon_stars.png") 0 0 repeat-x
     p
       height: 12px
       font-size: 0
       margin: 0
       text-indent: -8685px
-      background: transparent url(image-path("v2/icon_stars.png")) 0 50% repeat-x
+      background: transparent image-url("v2/icon_stars.png") 0 50% repeat-x
     &.one
       p
         width: 20%
@@ -542,79 +566,36 @@ table.standard
       p
         width: 80%
 
+.data
+  span.icon
+    background: $fieldset_light_blue image-url("v2/icon_data.png") 50% 50% no-repeat
 .taxon
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_taxa_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_taxa_tabs.png") 50% 50% no-repeat
 .video
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_videos_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_videos_tabs.png") 50% 50% no-repeat
 .image
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_images_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_images_tabs.png") 50% 50% no-repeat
 .community
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_communities_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_communities_tabs.png") 50% 50% no-repeat
 .person
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_people_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_people_tabs.png") 50% 50% no-repeat
 .collection
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_collections_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_collections_tabs.png") 50% 50% no-repeat
 .article
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_articles_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_articles_tabs.png") 50% 50% no-repeat
 .link
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_links_tabs.png")) 50% 50% no-repeat
+    background: $fieldset_light_blue image-url("v2/icon_links_tabs.png") 50% 50% no-repeat
 .sound
   span.icon
-    background: $fieldset_light_blue url(image-path("v2/icon_sound_tabs.png")) 50% 50% no-repeat
-
-ul.object_list
-  + .footer
-    border-top: 1px solid #394651
-    padding-top: 12px
-    margin: 0
-  li
-    padding: 10px
-    overflow: hidden
-    line-height: 160%
-    color: $lighter_text_color
-    & + li
-      border-top: 1px solid #d7dadc
-    .annotation
-      clear: both
-      padding-top: 5px
-      p
-        margin: 0 0 10px 0
-    span.icon
-      width: 68px
-      height: 68px
-      border: 1px solid $grayblue
-      float: left
-      margin: 0 20px 0 0
-    h4
-      margin-top: 15px
-      font-size: 1.2em
-      a
-        color: #28323a
-        text-decoration: none
-        &:hover
-          text-decoration: underline
-    img
-      float: right
-      border: 1px solid #394651
-    &.taxon
-      small
-        font-weight: bold
-        display: block
-        margin-top: 8px
-      h4
-        margin: 0
-      .alternate_name
-        .label
-          font-weight: bold
-
+    background: $fieldset_light_blue image-url("v2/icon_sound_tabs.png") 50% 50% no-repeat
 
 form.select_content_partner
   padding: 5px 0
@@ -644,22 +625,23 @@ form.select_content_partner
 
 body
   > #central
-    margin-top: 9.4em
+    margin-top: 16.6em /* BANNER - was 9.4em */
   > #header
     position: absolute
     top: $global_nav_height
     left: 0
     width: 100%
     background: #394651
+    border-top: 2.7em solid #28323a /* BANNER - remove this */
     .section
-      height: 9.4em
+      height: 11.2em /* BANNER - was: 9.4em */
       .global_navigation
         top: -2em
         ul.nav
           li:before
             color: #6f7e8b
       .actions
-        z-index: 5
+        z-index: 900
         top: -2.3em
         p
           border-color: #616b74
@@ -699,14 +681,14 @@ body
                   height: 25px
                   line-height: 25px
                   text-decoration: none
-                  background: url(image-path("v2/icon_header_messages.png")) 6px 45% no-repeat #566572
+                  background: image-url("v2/icon_header_messages.png") 6px 45% no-repeat #566572
                   padding: 0 5px 0 24px
                   &:hover
                     background-color: #667d91
                 + li
                   margin-top: 1px
                   a
-                    background-image: url(image-path("v2/icon_header_notifications.png"))
+                    background-image: image-url("v2/icon_header_notifications.png")
                     background-position: 9px 50%
           img
             float: right
@@ -742,6 +724,8 @@ body
   background: #ffffff
   &.cms_page,
   &.newsfeed
+    h2
+      font-size: 1.4em
     .nav
       float: left
       margin: 0 20px 0 0
@@ -831,7 +815,7 @@ body
     .hgroup
       padding: 20px 0 20px 10px
     .site_column
-      background: transparent url(image-path("v2/bg_discover-header.png")) 112% 50% no-repeat
+      background: transparent image-url("v2/bg_discover-header.png") 112% 50% no-repeat
   .site_column
     overflow: hidden
   h1
@@ -916,13 +900,15 @@ body
     textarea
       height: 40px
       margin: 0 0 10px 0
+
+#page_heading, #known_uris
   ul.nav
     clear: both
     position: relative
     bottom: -1px
     li
       float: left
-      margin: 0 1px 0 0
+      margin: 0 1px 1px 0
       border: 1px solid #d4dce2
       border-bottom: none
       +border-top-left-radius(2px)
@@ -943,6 +929,7 @@ body
       &.active
         border-bottom: 1px solid #ffffff
         background: #fff
+        margin-bottom: 0
 #tabs_sidebar
   float: left
   position: relative
@@ -1115,7 +1102,7 @@ body
         position: absolute
         left: 0
         top: 0
-        +max_dimensions($logo_size_standout, $logo_size_standout)
+        +set_dimensions($logo_size_standout, $logo_size_standout)
         z-index: 2
       h4
         +screenreader_accessible
@@ -1383,15 +1370,24 @@ body
           float: left
           width: 299px
           margin-right: 20px
+          margin-bottom: 40px
         dl
           line-height: 140%
-          margin: 0 0 40px 0
+          margin: 10px 0
           dt
             font-weight: bold
           dd
             margin: 0 0 5px 20px
         &.processing_status
           clear: both
+      .group
+        h4
+          font-style: italic
+          font-weight: normal
+        dt
+          margin-left: 20px
+        dd
+          margin-left: 40px
   .empty
     font-size: 1em
   .agreement
@@ -1513,7 +1509,7 @@ ul.content_partner_contacts
           float: left
           padding: 4px 5px
           cursor: pointer
-          background: url(image-path("v2/icon_remove.png")) no-repeat 5px center
+          background: image-url("v2/icon_remove.png") no-repeat 5px center
           padding-left: 17px
           margin: 0 5px 5px 0
           &:hover
@@ -1543,7 +1539,7 @@ ul.content_partner_contacts
         position: relative
         width: 33%
         &.preferred
-          background: url(image-path("v2/icon_required.png")) 7px 1em no-repeat
+          background: image-url("v2/icon_required.png") 7px 1em no-repeat
 #taxon_literature
   .main_container
     .bhl_description
@@ -1882,10 +1878,11 @@ ul.content_partner_contacts
 
 #text_object_new_edit
   fieldset
-    width: 640px
+    width: 630px
     float: left
     dl
       margin: 0
+      padding-left: 10px
     input[type="text"]
       +input
     textarea
@@ -1901,6 +1898,7 @@ ul.content_partner_contacts
         width: 282px
         height: 100px
     &.actions
+      padding-left: 8px
       clear: both
       width: 100%
       input[type="submit"]
@@ -1932,7 +1930,7 @@ ul.content_partner_contacts
       ul a:hover,
       ul a:active,
       ul a:focus
-        background-image: url(image-path("v2/icon_permalink-stars.png"))
+        background-image: image-url("v2/icon_permalink-stars.png")
       ul
         width: 100px
   .media
@@ -1947,6 +1945,8 @@ ul.content_partner_contacts
     p
       padding-top: 8px
       text-align: center
+    video
+      max-width: 540px
   &.image
     #main
       .article
@@ -2142,16 +2142,16 @@ ul.content_partner_contacts
     border-bottom: 1px solid #ccd399
     background: #f1f4dc
     fieldset
-      float: left
       dl
         float: left
-        padding: 0 40px 0 0
         dt
           label
             text-transform: uppercase
             color: #667309
         dd
           padding: 0
+#worklist
+  .filters
     fieldset.actions
       margin: 10px 0 0 0
       input[type="submit"]
@@ -2237,7 +2237,7 @@ ul.content_partner_contacts
             width: 7px
             height: 7px
             content: ""
-            background: transparent url(image-path("v2/bg_wrap-behind-tail.png")) 0 0 no-repeat
+            background: transparent image-url("v2/bg_wrap-behind-tail.png") 0 0 no-repeat
         img
           float: right
           border: 1px solid #394651
@@ -2344,7 +2344,7 @@ ul.content_partner_contacts
           z-index: 2
           padding: 10px
           font-weight: bold
-          background: transparent url(image-path("v2/bg_exemplar.png")) repeat
+          background: transparent image-url("v2/bg_exemplar.png") repeat
         &:hover
           label
             display: block
@@ -2354,7 +2354,7 @@ ul.content_partner_contacts
       &.inappropriate
         .figure
           .overlay
-            background: transparent url(image-path("v2/bg_media-inappropriate.png")) 50% 0 no-repeat
+            background: transparent image-url("v2/bg_media-inappropriate.png") 50% 0 no-repeat
           img
             +opacity(.5)
       &.untrusted
@@ -2417,8 +2417,6 @@ ul.content_partner_contacts
       clear: both
 #search_results
   #main
-    width: 700px
-    float: right
     .header
       position: relative
       padding: 10px 0
@@ -2452,7 +2450,7 @@ ul.content_partner_contacts
       height: 68px
       margin: 0 20px 0 0
       border: 1px solid $grayblue
-      background: $fieldset_light_blue url(image-path("v2/icon_communities_tabs.png")) 50% 50% no-repeat
+      background: $fieldset_light_blue image-url("v2/icon_communities_tabs.png") 50% 50% no-repeat
     p
       padding: 6px 0 0 0
       font-weight: bold
@@ -2651,7 +2649,7 @@ ul.content_partner_contacts
     min-height: 295px
     margin: 0 auto
     border: 1px solid $grayblue
-    background: #f0f4f7 url(image-path("v2/bg_sign-in.gif")) 0 0 no-repeat
+    background: #f0f4f7 image-url("v2/bg_sign-in.gif") 0 0 no-repeat
     padding-bottom: 40px
     h1
       font-size: 2em
@@ -2704,16 +2702,16 @@ ul.content_partner_contacts
             min-width: 155px
         &#new_user_facebook, &#new_session_facebook
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 0 no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 0 no-repeat
         &#new_user_twitter, &#new_session_twitter
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -34px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -34px no-repeat
         &#new_user_yahoo, &#new_session_yahoo
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -68px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -68px no-repeat
         &#new_user_google, &#new_session_google
           fieldset.actions
-            background: transparent url(image-path("v2/icon_social_plugins.png")) 0 -102px no-repeat
+            background: transparent image-url("v2/icon_social_plugins.png") 0 -102px no-repeat
       & + p
         clear: both
 
@@ -2772,7 +2770,7 @@ ul.content_partner_contacts
           list-style: none
           margin: 0 0 5px 0
           padding: 0 20px 0
-          background: transparent url(image-path("v2/icon_social_plugins.png")) no-repeat 0 0
+          background: transparent image-url("v2/icon_social_plugins.png") no-repeat 0 0
           background: none\9
           background-size: 16px
           line-height: 140%
@@ -2788,6 +2786,7 @@ ul.content_partner_contacts
             background-position: 0 -35px
     &.requests
       float: right
+      word-break: break-word /* This is a very thin column and doesn't work well in other langs without wordbreaks. */
       width: 218px
       margin: 0
       padding: 0
@@ -2825,7 +2824,7 @@ ul.content_partner_contacts
         h3
           font-size: 1.67em
           line-height: 150%
-          background: transparent url(image-path("v2/icon_social_plugins.png")) no-repeat 0 0
+          background: transparent image-url("v2/icon_social_plugins.png") no-repeat 0 0
           min-height: 31px
         p, h3
           padding-left: 40px
@@ -2926,14 +2925,6 @@ ul.spotlite-matches
   width: 100%
   height: 100%
 
-#social_sharing
-  margin: 5px 0
-  min-height: 20px
-  > div
-    position: absolute
-    &.facebook
-      margin-left: 90px
-
 .news_details
   li, blockquote
     margin: 0 0 0 40px
@@ -3030,11 +3021,20 @@ ul#permissions
       th
         width: 40%
         text-align: right
+        padding-bottom: 1.1em
       td
         padding: 0 0 1.1em 1em
-      &.last
+      &:last-child
+        th
+          padding-bottom: .2em
         td
           padding: 0 0 0.2em 1em
+      .stat
+        color: #93a4b0
+        &:before
+          content: '('
+        &:after
+          content: ')'
   div.see_more
     colspan: 2
     text-align: center
@@ -3057,3 +3057,12 @@ ul#permissions
       font-weight: 500
       font-size: 1.3em
       color: $nearly_black
+div.definition
+  padding: 15px
+  margin: 10px 0px
+  border: 1px solid $grayblue
+  background: $fieldset_light_blue
+  li
+    margin: 0px
+#curation_legend.help_text
+  display: inline-block

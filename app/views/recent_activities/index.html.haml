@@ -1,5 +1,5 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #content
   .site_column
     #recent_activities.main_container
@@ -25,4 +25,4 @@
                     [I18n.t(:communities_filter), 'communities'] ], @filter)
             %fieldset.actions
               = submit_tag I18n.t(:filter_button)
-        = render :partial => 'activity_logs/index', :locals => {:log => @log, :actual_date => true, :display_curator => true}
+        = render 'activity_logs/index', {:log => @log, :actual_date => true, :display_curator => true}

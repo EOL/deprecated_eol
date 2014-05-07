@@ -1,6 +1,6 @@
 class Administrator::SearchLogsController < AdminController
 
-  layout 'left_menu'
+  layout 'deprecated/left_menu'
 
   before_filter :set_layout_variables
 
@@ -15,14 +15,14 @@ class Administrator::SearchLogsController < AdminController
     @reverse       = params[:reverse]
     @averages      = params[:averages]
     @search_totals = SearchLog.totals
-    @search_report = SearchLog.paginated_report(:search_string => @search_string, :order => @order, :reverse => @reverse,
-                                                :averages => @averages, :page => params[:page], :per_page => params[:per_page])
+    @search_report = SearchLog.paginated_report(search_string: @search_string, order: @order, reverse: @reverse,
+                                                averages: @averages, page: params[:page], per_page: params[:per_page])
   end
 
   def show
     @page_title = I18n.t("search_term_detail_report")
     @search_term = params[:id]
-    @frequency = SearchLog.count(:conditions=>["search_term=?",@search_term])
+    @frequency = SearchLog.count(conditions: ["search_term=?",@search_term])
     @clicked_taxa = SearchLog.find_by_sql(["select distinct(taxon_concept_id),count(taxon_concept_id) as frequency from search_logs where search_term=? GROUP BY taxon_concept_id ORDER BY frequency desc",@search_term])
   end
 

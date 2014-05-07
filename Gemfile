@@ -1,84 +1,136 @@
 source 'https://rubygems.org'
 
+# TODO - convert all of these specifc versions to use the first two digits.
+
 group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
-  gem 'capistrano', '2.13.5'
-  gem 'capistrano-unicorn-pleary', '=0.1.6.1'
-  gem 'rvm-capistrano', '1.2.7'
-  gem 'capybara', '1.1.3'
-  gem 'daemons', '1.1.9'
-  gem 'debugger'
-  gem 'factory_girl_rails', '4.1.0'
-  gem 'faker', '1.1.2'
+  # TODO - update capistrano
+  gem 'capistrano', '2.13.5' # For deploys.
+  gem 'capistrano-unicorn-pleary', '=0.1.6.1' # For deploys. Note we've customized it...
+  gem 'rvm-capistrano', '1.2.7' # For deploys.
+  gem 'capybara', '1.1.3' # We use this *extensively* in testing for user-like behavior. Learn this.
+  gem 'daemons', '1.1.9' # This allows tasks to run in the background, like Solr.
+  gem 'factory_girl_rails', '4.3.0' # We use this *extensively* in testing to create "real" models. Learn this.
+  gem 'faker', '1.2.0' # We use this for creating "realistic" names for testing / bootstrapping.
+  gem 'fuubar' # This improves formatting of specs. Not including a version because updates are probably good.
   gem 'haml-rails' # Just for rails generators.
-  gem 'optiflag', '0.7'
-  gem 'rspec-rails', '2.11.4'
-  gem 'ruby-prof', '0.11.2'
-  gem 'spin', '0.5.3'
-  # These are only for the RDF-store tests:
-  gem 'sparql-client'
-  gem 'rdoc', '3.12'
+  gem 'optiflag', '0.7' # Handles command-line arguments. We currently only use this for Solr tasks.
+  gem 'rspec-rails', '2.14' # This is what we use for testing. Learn it.
+  gem 'ruby-prof', '0.11.2' # Used to measure performance.
+  # TODO - update nokogiri
   gem 'nokogiri', '1.5.5' # Yeah, I know this has given us grief in the past.  :\ Trying things out, is all.
-  gem 'statsd-ruby', '1.2.1'
+end
+
+# Essentially, this "group" is for everything except production:
+group :development, :test, :staging, :staging_dev, :test_dev, :bocce_demo, :bocce_demo_dev do
+  gem 'debugger' # Clearly, this is for debugging.  :)
 end
 
 group :staging, :bocce_demo do
-  gem 'debugger'
-  gem 'hipchat'
-  gem 'sparql-client'
-  gem 'statsd-ruby', '1.2.1'
+  gem 'hipchat' # We use this for deploy notifications.
 end
 
 group :development, :staging_dev, :staging_dev_cache, :bocce_demo_dev, :test_dev do
+  # TODO - do we still need this?  I doubt it; remove it, see what breaks. :)
   gem 'webrick', '1.3.1'
 end
 
-group :production do
-  gem 'therubyracer', '0.10.2'
-  gem 'execjs', '1.4.0'
+# NOT versioning these, since they really are for development (and test) only:
+group :test, :development do
+  gem 'guard-zeus', require: false # Auto-testing with zeus (IFF you have it installed)
+  gem 'guard-bundler', require: false # automatically install/update your gem bundle when needed
+  gem 'guard-rspec', require: false # Auto-testing
+  gem 'guard-cucumber', require: false # for guard-zeus to work properly
+  gem 'launchy' # Allows save_and_open_page in specs, very, very handy!
+  gem 'pry-rails' # rails console has additional commands: show-models, show-routes --grep use
+  gem 'pry-rescue' # Better debugging. Raise an error in pry console and use cd-cause to get to the error point, use edit
+    # to launch your editor, then try-again to ... uhh... try again. Use Ctrl-\ to break running code. run rescue rspec to
+    # get specs to pry errors automatically (but note try-again doesn't work from rspec). rescue rails server also uses pry.
+  gem 'pry-stack_explorer', require: false
+  gem 'terminal-notifier-guard' # Allows for OS X notifications about errors
+  gem 'binding_of_caller' # Used by Better Errors to give lots more information about errors in the browser.
+
+end
+
+# NOTE - if you are having trouble installing these, you can either:
+#        1) install qt (at the time of this writing, you must install the HEAD version: brew install qt --HEAD )
+#        2) don't bother with these gems (they are only needed for acceptance tests): bundle --without=acceptance
+group :acceptance do
+  gem 'capybara-webkit' # Used for "acceptance testing", includes javascript testing.
+end
+
+group :development do
+  gem 'better_errors' # NEVER EVER *EVER* run this in production. Ever. Don't. It will be immediately obvious what it does in dev.
 end
 
 group :test do
-  gem 'webmock', '1.8.11'
-  gem 'rspec-html-matchers', '0.3.5'
+  # TODO - update webmock
+  gem 'webmock', '1.8.11', require: false # Mock calls to remote APIs, like Open Authentication.
+  gem 'rspec-html-matchers', '0.4.3' # Adds #with_tag for tests. Requires nokogiri.
+  gem 'simplecov', '~> 0.7.1', require: false
 end
 
 group :assets do
-  gem 'turbo-sprockets-rails3', '0.3.4'
+  gem 'turbo-sprockets-rails3', '0.3.4' # This is supposed to minimize the re-building of assets. AFAICT, it isn't working for us.
 end
 
-gem 'rails', '3.2.13'
+# IMPORTANT NOTE - any time you update Rails, you really need to double-check our monkey-patches in lib/select_with_preload_include
+# (in addition to the usual tests).
+gem 'rails', '3.2.17'
+# NOTE - WHEN YOU UPDATE RAILS, remove the following line. We don't care about the version, per se, this is just to avoid CVE-2014-2538:
+gem 'rack-ssl', '1.3.3'
 
-gem 'acts_as_list', '0.2.0'
-gem 'acts_as_tree_rails3', '0.1.0'
-gem 'biodiversity19'
-gem 'ckeditor', '3.7.3'
-gem 'coffee-rails', '3.2.2'
-gem 'composite_primary_keys'
-gem 'dalli', '2.3.0'
-gem 'ar-octopus', '0.4.0', :git => "git://github.com/pleary/octopus.git", :branch => "0.4.0", :require => "octopus"
-gem 'email_spec', '1.4.0'
-gem 'escape', '0.0.4'
-gem 'ezcrypto', '0.7.2'
-gem 'haml', '3.1.7'
-gem 'indifferent-variable-hash', '0.1.0'
-gem 'invert', '0.1.0'
-gem 'jquery-rails', '2.1.3'
-gem 'json', '1.7.7'
-gem 'macaddr', '1.6.1'
-gem 'mime-types', '1.19'
-gem 'mysql2', '0.3.11'
-gem 'newrelic_rpm', '>3.5.3'
-gem 'oauth', '0.4.7'
-gem 'oauth2', '0.8.0'
-gem 'paperclip', '3.3.1'
-gem 'rails_autolink', '1.0.9'
-gem 'rails3-jquery-autocomplete', '1.0.11'
-gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails'
-gem 'resque', '1.23.0', :require => 'resque/server'
-gem 'sanitize', '2.0.3'
-gem 'sass-rails', '3.2.5'
-gem 'uglifier', '1.3.0'
-gem 'unicorn', '4.4.0'
-gem 'uuid', '2.3.5'
-gem 'will_paginate', '3.0.4'
-gem 'nunes', '0.3.0'
+gem 'acts_as_list', '0.3.0' # Used for drag-and-drop reordering of KnownUri instances. ...We could be making wider use of this.
+gem 'acts_as_tree_rails3', '0.1.0' # We use this for a few of our tree-like models, such as TocItem and CollectionType.
+gem 'biodiversity', '3.1.2' # "used for generation of scientific names with ranks on the species page"
+gem 'cityhash', '0.8.1' # Used by identity_cache to speed up the creation of hash keys.
+gem 'ckeditor', '3.7.3' # We use this in many places, such as creating data objects, to allow rich text editing.
+# TODO - update or remove this.
+gem 'coffee-rails', '3.2.2' # TODO - do we actually use this? If so, it helps make simplified JS, for Ajax responses.
+# IMPORTANT NOTE - any time you update CPK, you really need to double-check our monkey-patches in lib/select_with_preload_include
+# (in addition to the usual tests).
+gem 'composite_primary_keys', '5.0.13' # We have lots of tables with CPK, so we need this.
+gem 'counter_culture', '0.1.19' # Used for cached counts of associations, better than rails default.
+gem 'dalli', '2.6.4' # Memcached handler. This is what handles ALL of our caching, so learn this.
+# Octopus helps handle several databases at the same time, but we had to customize it for our needs:
+gem 'ar-octopus', '0.4.0', :git => "git://github.com/pleary/octopus.git", :branch => "0.4.0", :require => "octopus" 
+gem 'email_spec', '1.4.0' # For testing emails within RSpec.
+gem 'escape' # provides several HTML/URI/shell escaping functions - TODO - I don't think we need this?
+gem 'ezcrypto' # TODO - remove this, I don't think we use it.
+gem 'haml', '4.0.4' # This is how we handle ALL of our HTML, you need to learn this.
+gem 'redis-namespace', '1.2.2' # http://www.rubysec.com/advisories/OSVDB-96425/ TODO - this can be removed once we update redis/resque.
+gem 'ruby-hmac', '0.4.0' # Used ONLY for CyberSource donations. ...but I'm not sure how best to group this gem otherwise.
+gem 'identity_cache', '0.0.4' # Used to cache objects in a robust way.
+gem 'indifferent-variable-hash', '0.1.0' # TODO - remove this, Rails has something like this baked in. I forget what it's called.
+gem 'invert'  # A quick way to array.sort.reverse.
+gem 'jquery-rails', '2.1.3' # Of course, this helps almost all of our JS.
+gem 'json', '1.8.1' # For APIs that want to return JSON.
+gem 'macaddr' # For creating UUIDs that are unique to the machine that makes them.
+gem 'mime-types', '1.25' # For handling the many differnt types of files to serve, such as videos.
+gem 'mysql2', '0.3.14' # This is our database. You might want this.
+# TODO - update newrelic_rpm
+gem 'newrelic_rpm', '>3.7.2' # For gathering tons of awesome stats about the site
+# TODO - update oauth ... do we even still use v1?
+gem 'oauth', '0.4.7' # Logging in via Facebook and Twitter, older version.
+gem 'oauth2', '0.8.0' # Logging in via Facebook and Twitter
+gem 'paperclip', '4.1.1' # Uploading files, such as icons for users and collections.
+gem 'rails_autolink', '1.1.5' # Adding links to user-entered text.
+gem 'rails3-jquery-autocomplete', '1.0.11', :git => "git://github.com/pleary/rails3-jquery-autocomplete.git" # Autocomplete Ajax.
+# TODO - update recaptcha.
+gem 'recaptcha', '0.3.4', :require => 'recaptcha/rails' # An empathy test to see if you're a human, when creating an account.
+# TODO - update resque. (and redis)
+gem 'resque', '1.23.0', :require => 'resque/server' # For background jobs, like email notifications and classification curation
+gem 'sanitize', '2.0.3' # To clean up user-enter HTML.
+gem 'sass-rails', '3.2.5' # To make CSS easier to write.
+# TODO - update sparql-client
+gem 'sparql-client', '1.0.4.1' # For the data tab
+gem 'statsd-ruby', '1.2.1' # For recording various stats around the site.
+gem 'uglifier', '2.3.1' # For smaller JS when assets are compiled
+# TODO - update unicorn.
+gem 'unicorn', '4.4.0' # This is our webserver
+# TODO - update uuid
+gem 'uuid', '2.3.5' # Used when creating data objects
+# TODO - update will_paginate
+gem 'will_paginate', '~> 3.0' # Used ALL OVER THE SITE for pagination.
+gem 'nunes', '0.3.0'  # This makes it easier to handle statsd
+gem 'execjs', '2.0.2'  # needed to run rake tasks in cron
+gem 'therubyracer', '0.10.2'  # needed to run rake tasks in cron

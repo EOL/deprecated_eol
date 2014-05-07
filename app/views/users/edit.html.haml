@@ -90,7 +90,7 @@
             = user_form.text_field :email, { :maxlength => 100 }
     .fieldsets
       %fieldset.requests
-        - unless SiteConfigurationOption.exists?(:parameter => 'supress_activity_email')
+        - unless EolConfig.exists?(:parameter => 'supress_activity_email')
           %dl
             %dt
               = I18n.t('helpers.label.user.notification_settings')

@@ -5,8 +5,8 @@
 #content
   #known_uris.site_column
     %p.tip
-      = raw I18n.t(:reading_from_ontology, :ontology_uri => @ontology_uri)
-    = form_for KnownUri.new, :url => import_ontology_known_uris_path do |f|
+      = raw I18n.t(:reading_from_ontology, ontology_uri: @ontology_uri)
+    = form_for KnownUri.new, url: import_ontology_known_uris_path do |f|
       = hidden_field_tag :ontology_uri, @ontology_uri
       %table.standard.ontology
         %tr.header
@@ -22,7 +22,7 @@
                 = select_tag uri, options_for_select( options , params[uri])
         - @terms.each do |uri, metadata|
           - term_is_selected = (params[:selected_uris] && params[:selected_uris].include?(uri))
-          %tr{ :class => term_is_selected ? 'selected' : 'ignored' }
+          %tr{ class: term_is_selected ? 'selected' : 'ignored' }
             %td.checkbox
               = check_box_tag 'selected_uris[]', uri, term_is_selected
             %td.uri= uri

@@ -26,7 +26,7 @@
         - count += 1
         - if id then
           - concept = TaxonConcept.find(id)
-          - name = concept.quick_scientific_name(:italicized)
+          - name = concept.title
         - else
           - name=""    
         %tr

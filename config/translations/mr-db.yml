@@ -1,0 +1,297 @@
+# Messages for Marathi (मराठी)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Abhix
+# Author: Anudannagari
+# Author: Rdeshmuk
+# Author: Shubhamlanke
+# Author: Tusharawate
+# Author: V.narsikar
+# Author: Ydyashad
+mr: 
+  translated_activities-name-activity_id-19: रूपरेखा
+  translated_activities-name-activity_id-50: अविश्वासू
+  translated_activities-name-activity_id-51: दाखवा
+  translated_activities-name-activity_id-52: तयार करा
+  translated_activities-name-activity_id-53: लपवा
+  translated_activities-name-activity_id-54: अद्ययावत् करा
+  translated_activities-name-activity_id-55: अनुचित
+  translated_activities-name-activity_id-56: वगळा
+  translated_activities-name-activity_id-57: दर
+  translated_activities-name-activity_id-58: विश्वासू
+  translated_activities-name-activity_id-59: अपुनरावलोकीत
+  translated_activities-name-activity_id-63: जमा करा
+  translated_activities-name-activity_id-64: घालवा
+  translated_agent_roles-label-agent_role_id-1: सचेतनीकारक
+  translated_agent_roles-label-agent_role_id-10: प्रकल्प
+  translated_agent_roles-label-agent_role_id-11: प्रकाशक
+  translated_agent_roles-label-agent_role_id-12: अनुलेखक
+  translated_agent_roles-label-agent_role_id-13: स्रोत
+  translated_agent_roles-label-agent_role_id-14: स्रोत कोष
+  translated_agent_roles-label-agent_role_id-15: संपर्कासाठीची व्यक्ति
+  translated_agent_roles-label-agent_role_id-16: योगदानकर्ता
+  translated_agent_roles-label-agent_role_id-2: लेखक
+  translated_agent_roles-label-agent_role_id-21: पुरवठाकार
+  translated_agent_roles-label-agent_role_id-22: भाषांतरकार
+  translated_agent_roles-label-agent_role_id-23: वै़ज्ञानिक पुनरावलोकक
+  translated_agent_roles-label-agent_role_id-24: भाषिक पुनरावलोकक
+  translated_agent_roles-label-agent_role_id-3: संकलक
+  translated_agent_roles-label-agent_role_id-4: रचनाकार
+  translated_agent_roles-label-agent_role_id-5: निर्माता
+  translated_agent_roles-label-agent_role_id-6: निर्देशक
+  translated_agent_roles-label-agent_role_id-7: संपादक
+  translated_agent_roles-label-agent_role_id-8: लेखचित्रकार
+  translated_agent_roles-label-agent_role_id-9: छायाचित्रकार
+  translated_audiences-label-audience_id-1: निष्णात सदस्य
+  translated_audiences-label-audience_id-2: सामान्य जनता
+  translated_audiences-label-audience_id-3: मुले
+  translated_collection_types-label-collection_type_id-1: जैववर्गीकरणशास्त्र
+  translated_collection_types-label-collection_type_id-10: ध्वनि
+  translated_collection_types-label-collection_type_id-11: दुवे
+  translated_collection_types-label-collection_type_id-12: साहित्य
+  translated_collection_types-label-collection_type_id-13: जैववर्गीकरणशास्त्र
+  translated_collection_types-label-collection_type_id-14: रेण्वीय दंडिका-संकेत(मॉलीक्युलर बार कोडस्)
+  translated_collection_types-label-collection_type_id-15: वर्णन
+  translated_collection_types-label-collection_type_id-16: संचिका
+  translated_collection_types-label-collection_type_id-17: वितरण
+  translated_collection_types-label-collection_type_id-18: संधारण स्थिती
+  translated_collection_types-label-collection_type_id-19: नाम-माहिती
+  translated_collection_types-label-collection_type_id-2: रेण्वीय दंडिका-संकेत(मॉलीक्युलर बार कोडस्)
+  translated_collection_types-label-collection_type_id-20: रेण्वीय आकडेवारी
+  translated_collection_types-label-collection_type_id-21: नामकरण
+  translated_collection_types-label-collection_type_id-22: ध्वनी
+  translated_collection_types-label-collection_type_id-23: दुवे
+  translated_collection_types-label-collection_type_id-24: साहित्य
+  translated_collection_types-label-collection_type_id-3: वर्णन
+  translated_collection_types-label-collection_type_id-4: चित्रे
+  translated_collection_types-label-collection_type_id-5: वितरण
+  translated_collection_types-label-collection_type_id-6: संधारण स्थिती
+  translated_collection_types-label-collection_type_id-7: नाम-माहिती
+  translated_collection_types-label-collection_type_id-8: रेण्वीय आकडेवारी
+  translated_collection_types-label-collection_type_id-9: नामकरण
+  translated_contact_roles-label-contact_role_id-1: प्राथमिक संपर्क
+  translated_contact_roles-label-contact_role_id-2: प्रशासकीय संपर्क
+  translated_contact_roles-label-contact_role_id-3: तांत्रीक संपर्क
+  translated_contact_subjects-title-contact_subject_id-24: सदस्यत्व व नोंदणी
+  translated_contact_subjects-title-contact_subject_id-25: वापराचे अधिनियम व परवाना
+  translated_contact_subjects-title-contact_subject_id-26: अभ्यास व शिक्षण
+  translated_contact_subjects-title-contact_subject_id-27: आशय सहचर बना
+  translated_contact_subjects-title-contact_subject_id-28: आशय सहचराचे सहाय्य
+  translated_contact_subjects-title-contact_subject_id-29: अभिरक्षकाचे सहाय्य
+  translated_contact_subjects-title-contact_subject_id-30: दुरुस्ती करा (स्पेलिंग व व्याकरण,चित्रे,माहिती)
+  translated_contact_subjects-title-contact_subject_id-31: चित्रे,व्हीडिओज् व ध्वनींचे योगदान करा
+  translated_contact_subjects-title-contact_subject_id-32: माध्यमांसंबंधी विनंती (मुलाखाती,वर्तमानपत्राबाबत चौकशी, प्रतिक-चिन्हांबद्दल विनंती)
+  translated_contact_subjects-title-contact_subject_id-33: आर्थिक देणगी द्या
+  translated_contact_subjects-title-contact_subject_id-34: तांत्रीक प्रश्न (शोध व संकेतस्थळाच्या कार्यक्षमतेबद्दलच्या अडचणी)
+  translated_contact_subjects-title-contact_subject_id-35: सामान्य प्रतिक्रिया
+  translated_content_partner_statuses-label-content_partner_status_id-1: अनिर्णीत
+  translated_content_partner_statuses-label-content_partner_status_id-2: सक्रिय
+  translated_content_partner_statuses-label-content_partner_status_id-3: जुन्या दप्तरदाखल
+  translated_content_partner_statuses-label-content_partner_status_id-4: निष्क्रिय
+  translated_content_tables-label-content_table_id-1: तपशील
+  translated_data_types-label-data_type_id-1: चित्र
+  translated_data_types-label-data_type_id-10: नकाशा
+  translated_data_types-label-data_type_id-2: ध्वनि
+  translated_data_types-label-data_type_id-3: मजकूर
+  translated_data_types-label-data_type_id-4: ध्वनीचित्र
+  translated_data_types-label-data_type_id-5: जीबीआयएफ चित्र
+  translated_data_types-label-data_type_id-6: आययूसीएन
+  translated_data_types-label-data_type_id-7: लखलखाट (फ्लॅश)
+  translated_data_types-label-data_type_id-8: यूट्यूब
+  translated_licenses-description-license_id-1: अधिकार सुरक्षित नाहीत
+  translated_licenses-description-license_id-2: "&#169; सर्वाधिकार सुरक्षित"
+  translated_licenses-description-license_id-29: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-3: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-30: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-31: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-32: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-33: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-34: सार्वजनिक अधिक्षेत्र
+  translated_licenses-description-license_id-35: सार्वजनिक अधिक्षेत्र
+  translated_licenses-description-license_id-36: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-37: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-38: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-39: सार्वजनिक अधिक्षेत्र
+  translated_licenses-description-license_id-4: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-42: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-43: येथे परवाना लागू नाही
+  translated_licenses-description-license_id-5: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-6: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-7: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-8: काही अधिकार सुरक्षित
+  translated_licenses-description-license_id-9: काही अधिकार सुरक्षित
+  translated_ranks-label-rank_id-106: निवेदन
+  translated_ranks-label-rank_id-107: प्रपत्र
+  translated_ranks-label-rank_id-118: प्रजाति
+  translated_ranks-label-rank_id-183: कोटी
+  translated_ranks-label-rank_id-266: अनुक्रम
+  translated_ranks-label-rank_id-280: प्रसृष्टि
+  translated_ranks-label-rank_id-313: शाखा
+  translated_ranks-label-rank_id-314: शाखा
+  translated_ranks-label-rank_id-317: खंड
+  translated_ranks-label-rank_id-324: मालिका
+  translated_ranks-label-rank_id-335: प्राण्यांच्या जाति
+  translated_ranks-label-rank_id-352: उप-कूळ
+  translated_ranks-label-rank_id-370: उपवर्ग
+  translated_ranks-label-rank_id-375: उपविभाग
+  translated_ranks-label-rank_id-383: उपकूळ
+  translated_ranks-label-rank_id-390: उपप्रजाति
+  translated_ranks-label-rank_id-394: उपप्रजाति
+  translated_ranks-label-rank_id-396: उपकोटी
+  translated_ranks-label-rank_id-399: उप-क्रम
+  translated_ranks-label-rank_id-401: उपप्रसृष्टि
+  translated_ranks-label-rank_id-408: उप-खंड
+  translated_ranks-label-rank_id-411: उपमालिका
+  translated_ranks-label-rank_id-415: प्राण्यांच्या उपजाति
+  translated_ranks-label-rank_id-422: उपजमात
+  translated_ranks-label-rank_id-463: महाकूळ
+  translated_ranks-label-rank_id-472: महाप्रसृष्टि
+  translated_ranks-label-rank_id-494: जमात
+  translated_ranks-label-rank_id-503: अक्रमांकित
+  translated_ranks-label-rank_id-51: वर्ग
+  translated_ranks-label-rank_id-518: विविध प्रकार
+  translated_ranks-label-rank_id-74: विभाग
+  translated_ranks-label-rank_id-99: कूळ
+  translated_resource_statuses-label-resource_status_id-1: अपभारण
+  translated_resource_statuses-label-resource_status_id-10: प्रकाशित
+  translated_resource_statuses-label-resource_status_id-11: प्रकाशन स्थगित
+  translated_resource_statuses-label-resource_status_id-12: अप्रकाशित व स्थगित
+  translated_resource_statuses-label-resource_status_id-13: जबरी उपज
+  translated_resource_statuses-label-resource_status_id-2: अपभारीत
+  translated_resource_statuses-label-resource_status_id-3: अपभारण अयशस्वी
+  translated_resource_statuses-label-resource_status_id-4: आशय विदागारात(कंटेंट सर्व्हर) हलविले
+  translated_resource_statuses-label-resource_status_id-5: वैधीकृत
+  translated_resource_statuses-label-resource_status_id-6: वैधीकरण अयशस्वी
+  translated_resource_statuses-label-resource_status_id-7: प्रक्रियागत
+  translated_resource_statuses-label-resource_status_id-8: प्रक्रिया केली
+  translated_resource_statuses-label-resource_status_id-9: प्रक्रियाकरण अयशस्वी
+  translated_service_types-label-service_type_id-2: ईतर
+  translated_sort_styles-name-sort_style_id-1: नुकतेच जोडलेले
+  translated_sort_styles-name-sort_style_id-2: सर्वात जुने
+  translated_sort_styles-name-sort_style_id-3: वर्णक्रमीत
+  translated_sort_styles-name-sort_style_id-4: उलटीकडून वर्णक्रमीत
+  translated_sort_styles-name-sort_style_id-5: समृद्धता
+  translated_sort_styles-name-sort_style_id-6: मापन
+  translated_statuses-label-status_id-1: निविष्टीत
+  translated_statuses-label-status_id-2: अद्ययावत्
+  translated_statuses-label-status_id-3: अपरिवर्तित
+  translated_statuses-label-status_id-4: पुनर्वापरलेला
+  translated_synonym_relations-label-synonym_relation_id-1: समानार्थी
+  translated_synonym_relations-label-synonym_relation_id-11: चा भागात
+  translated_synonym_relations-label-synonym_relation_id-12: समाविष्टीत
+  translated_synonym_relations-label-synonym_relation_id-13: अपसंज्ञ
+  translated_synonym_relations-label-synonym_relation_id-14: चुकिचे स्पेलिंग
+  translated_synonym_relations-label-synonym_relation_id-16: संदिग्ध समानार्थक
+  translated_synonym_relations-label-synonym_relation_id-17: अनुपयोजित नाम
+  translated_synonym_relations-label-synonym_relation_id-18: तात्पुरते स्वीकृत नाम
+  translated_synonym_relations-label-synonym_relation_id-19: स्वीकृत नाम
+  translated_synonym_relations-label-synonym_relation_id-2: सर्वसाधारण नाव
+  translated_synonym_relations-label-synonym_relation_id-21: अन्य, टिप्पणी पहा
+  translated_synonym_relations-label-synonym_relation_id-23: अनुपयोजित
+  translated_synonym_relations-label-synonym_relation_id-24: त्यक्त नामे
+  translated_synonym_relations-label-synonym_relation_id-3: संक्षिप्त रूप
+  translated_synonym_relations-label-synonym_relation_id-30: अनुपलब्ध, कोष सत्याभास(डाटाबेस आर्टीफॅक्ट)
+  translated_synonym_relations-label-synonym_relation_id-31: अनावश्यक पुनर्स्थापन
+  translated_synonym_relations-label-synonym_relation_id-40: अनुपलब्ध, इतर
+  translated_synonym_relations-label-synonym_relation_id-43: अवैधरित्या प्रकाशित, ईतर
+  translated_synonym_relations-label-synonym_relation_id-48: अनुपलब्ध नाव
+  translated_synonym_relations-label-synonym_relation_id-49: वैध नाव
+  translated_synonym_relations-label-synonym_relation_id-5: उतस्फोटीत नाम
+  translated_synonym_relations-label-synonym_relation_id-50: वैध
+  translated_synonym_relations-label-synonym_relation_id-51: स्वीकृत
+  translated_synonym_relations-label-synonym_relation_id-52: अधिकार
+  translated_synonym_relations-label-synonym_relation_id-53: अप्रकाशित नाव
+  translated_synonym_relations-label-synonym_relation_id-55: चुकिची आधिकारीक माहिती
+  translated_synonym_relations-label-synonym_relation_id-56: चुकिचे स्पेलिंग
+  translated_synonym_relations-label-synonym_relation_id-57: स्पेलिंग पर्याय
+  translated_synonym_relations-label-synonym_relation_id-6: समकक्ष नाव
+  translated_synonym_relations-label-synonym_relation_id-63: अस्वीकृत
+  translated_synonym_relations-label-synonym_relation_id-64: अवैध
+  translated_synonym_relations-label-synonym_relation_id-66: पर्यायी प्रतिनिधित्व
+  translated_synonym_relations-label-synonym_relation_id-68: बागकामशास्त्रातील
+  translated_table_of_contents-label-table_of_contents_id-1: आढावा
+  translated_table_of_contents-label-table_of_contents_id-13: प्रचलित नावे
+  translated_table_of_contents-label-table_of_contents_id-17: साहित्यिक संदर्भ
+  translated_table_of_contents-label-table_of_contents_id-194: आकार
+  translated_table_of_contents-label-table_of_contents_id-2: संक्षिप्त सारांश
+  translated_table_of_contents-label-table_of_contents_id-218: पांगणे
+  translated_table_of_contents-label-table_of_contents_id-221: धोके
+  translated_table_of_contents-label-table_of_contents_id-225: माहीतीजालावर
+  translated_table_of_contents-label-table_of_contents_id-226: सामग्री जोडीदार
+  translated_table_of_contents-label-table_of_contents_id-227: माहीतीजालावर शोधा
+  translated_table_of_contents-label-table_of_contents_id-24: भाष्य
+  translated_table_of_contents-label-table_of_contents_id-242: प्रमुख पर्यावरणशास्त्र
+  translated_table_of_contents-label-table_of_contents_id-244: ग्रंथसूची
+  translated_table_of_contents-label-table_of_contents_id-251: फायदे
+  translated_table_of_contents-label-table_of_contents_id-278: ग्रंथसूची
+  translated_table_of_contents-label-table_of_contents_id-285: संलग्नता
+  translated_table_of_contents-label-table_of_contents_id-286: संरक्षण स्थिति
+  translated_table_of_contents-label-table_of_contents_id-289: उत्क्रांति
+  translated_table_of_contents-label-table_of_contents_id-292: च्यासारखे दिसते
+  translated_table_of_contents-label-table_of_contents_id-293: निदानात्मक माहिती
+  translated_table_of_contents-label-table_of_contents_id-296: नियोजन
+  translated_table_of_contents-label-table_of_contents_id-297: पोषक व्यूहरचना
+  translated_table_of_contents-label-table_of_contents_id-299: शिक्षण
+  translated_table_of_contents-label-table_of_contents_id-3: वर्णन
+  translated_table_of_contents-label-table_of_contents_id-303: नावे आणि वर्गीकरण
+  translated_table_of_contents-label-table_of_contents_id-304: संबंधित नावे
+  translated_table_of_contents-label-table_of_contents_id-305: समानार्थी
+  translated_table_of_contents-label-table_of_contents_id-306: लेख सांख्यिकी
+  translated_table_of_contents-label-table_of_contents_id-307: आशयाची माहिती
+  translated_table_of_contents-label-table_of_contents_id-308: परिपुर्ण वर्णन
+  translated_table_of_contents-label-table_of_contents_id-309: वाटप करणे
+  translated_table_of_contents-label-table_of_contents_id-310: उभारणी
+  translated_table_of_contents-label-table_of_contents_id-311: ओळखणी स्त्रोत
+  translated_table_of_contents-label-table_of_contents_id-312: देशांतरण
+  translated_table_of_contents-label-table_of_contents_id-314: लोकसंख्या जीवशास्त्र
+  translated_table_of_contents-label-table_of_contents_id-315: आयुष्याचा इतिहास व वागणुक
+  translated_table_of_contents-label-table_of_contents_id-316: वर्तणुक
+  translated_table_of_contents-label-table_of_contents_id-317: चक्रियता
+  translated_table_of_contents-label-table_of_contents_id-318: जीवन चक्र
+  translated_table_of_contents-label-table_of_contents_id-319: आयुष्याची संभाव्यता
+  translated_table_of_contents-label-table_of_contents_id-320: प्रजनन
+  translated_table_of_contents-label-table_of_contents_id-321: वाढ
+  translated_table_of_contents-label-table_of_contents_id-322: जीवाश्म इतिहास
+  translated_table_of_contents-label-table_of_contents_id-324: कार्यात्मक रूपांतरण
+  translated_table_of_contents-label-table_of_contents_id-327: मानसशास्र
+  translated_table_of_contents-label-table_of_contents_id-328: पेशी जीवशास्त्र
+  translated_table_of_contents-label-table_of_contents_id-329: प्रजननशास्त्र
+  translated_table_of_contents-label-table_of_contents_id-33: कल
+  translated_table_of_contents-label-table_of_contents_id-331: दंडिय-संकेत
+  translated_table_of_contents-label-table_of_contents_id-333: रेण्वीय जीवशास्त्र
+  translated_table_of_contents-label-table_of_contents_id-334: धोके
+  translated_table_of_contents-label-table_of_contents_id-336: टिपा
+  translated_table_of_contents-label-table_of_contents_id-337: शिक्षण
+  translated_table_of_contents-label-table_of_contents_id-338: शैक्षणिक दुवे
+  translated_table_of_contents-label-table_of_contents_id-339: शैक्षणिक उगमस्रोत
+  translated_table_of_contents-label-table_of_contents_id-34: आभिप्राय
+  translated_table_of_contents-label-table_of_contents_id-341: नागरिक शास्र
+  translated_table_of_contents-label-table_of_contents_id-343: जैवविविधतेचे परंपरागत वाचनालय
+  translated_table_of_contents-label-table_of_contents_id-344: माहिती
+  translated_table_of_contents-label-table_of_contents_id-345: माहिती स्त्रोत
+  translated_table_of_contents-label-table_of_contents_id-4: पारिस्थितिकी
+  translated_table_of_contents-label-table_of_contents_id-41: निवासक्षेत्र
+  translated_table_of_contents-label-table_of_contents_id-5: उत्क्रांती आणि वर्गिकरण
+  translated_table_of_contents-label-table_of_contents_id-6: मानव आणि पर्यावरण तन्त्राशी संबंधित
+  translated_table_of_contents-label-table_of_contents_id-7: संदर्भ आणि आधिक माहिती
+  translated_table_of_contents-label-table_of_contents_id-8: साठा
+  translated_untrust_reasons-label-untrust_reason_id-1: चुकिची ओळखण
+  translated_untrust_reasons-label-untrust_reason_id-2: चुकिचे/वामगत
+  translated_untrust_reasons-label-untrust_reason_id-3: निम्न दर्जाचे
+  translated_untrust_reasons-label-untrust_reason_id-4: प्रतिकृती
+  translated_untrust_reasons-label-untrust_reason_id-5: ईतर
+  translated_user_identities-label-user_identity_id-1: उत्साही
+  translated_user_identities-label-user_identity_id-2: विद्यार्थी
+  translated_user_identities-label-user_identity_id-3: शिक्षक
+  translated_user_identities-label-user_identity_id-4: नागरी वैज्ञानिक
+  translated_user_identities-label-user_identity_id-5: धंदेवाईक वैज्ञानिक
+  translated_vetted-label-vetted_id-0: माहीत नसलेले
+  translated_vetted-label-vetted_id-4: अविश्वसनिय
+  translated_vetted-label-vetted_id-5: विश्वासर्ह
+  translated_vetted-label-vetted_id-6: अयोग्य
+  translated_view_styles-name-view_style_id-1: यादी
+  translated_view_styles-name-view_style_id-2: दिर्घा
+  translated_view_styles-name-view_style_id-3: सटीप
+  translated_visibilities-label-visibility_id-0: अदृष्य
+  translated_visibilities-label-visibility_id-1: दृष्य
+  translated_visibilities-label-visibility_id-2: झलक

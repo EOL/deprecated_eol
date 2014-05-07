@@ -23,7 +23,7 @@ private
   def self.settings
     @@only_record ||= NotificationEmailerSettings.first
     if !@@only_record
-      @@only_record = NotificationEmailerSettings.create(:last_daily_emails_sent => Time.now(), :last_weekly_emails_sent => Time.now())
+      @@only_record = NotificationEmailerSettings.create(last_daily_emails_sent: Time.now(), last_weekly_emails_sent: Time.now())
     end
     @@only_record
   end

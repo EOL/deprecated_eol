@@ -9,18 +9,16 @@ class RandomHierarchyImage < ActiveRecord::Base
   belongs_to :hierarchy
   belongs_to :taxon_concept
 
-  has_many :taxon_concept_metrics, :primary_key => 'taxon_concept_id', :foreign_key => 'taxon_concept_id'
+  has_many :taxon_concept_metrics, primary_key: 'taxon_concept_id', foreign_key: 'taxon_concept_id'
 
   def self.random_set_cached
-    begin
-      RandomHierarchyImage.random_set_precache_class_loads
-      Rails.cache.fetch('homepage/random_images', :expires_in => 30.minutes) do
-        RandomHierarchyImage.random_set(12)
-      end
-    rescue TypeError => e
-      # TODO - FIXME  ... This appears to have to do with Rails.cache.fetch (obviously)... not sure why, though.
+    RandomHierarchyImage.random_set_precache_class_loads
+    Rails.cache.fetch('homepage/random_images', expires_in: 30.minutes) do
       RandomHierarchyImage.random_set(12)
     end
+  rescue TypeError => e
+    # TODO - FIXME  ... This appears to have to do with Rails.cache.fetch (obviously)... not sure why, though.
+    RandomHierarchyImage.random_set(12)
   end
 
   # Classes that MUST be loaded before attempting to cache random images.
@@ -73,24 +71,24 @@ class RandomHierarchyImage < ActiveRecord::Base
     end
 
     RandomHierarchyImage.preload_associations(random_images,
-      [ { :taxon_concept => [
-          { :preferred_entry => { :hierarchy_entry => [ :hierarchy, { :name => [ :canonical_form, :ranked_canonical_form ] } ] } },
-          { :taxon_concept_exemplar_image => :data_object },
-          { :preferred_common_names => :name } ] } ])
+      [ { taxon_concept: [
+          { preferred_entry: { hierarchy_entry: [ :hierarchy, { name: [ :canonical_form, :ranked_canonical_form ] } ] } },
+          { taxon_concept_exemplar_image: :data_object },
+          { preferred_common_names: :name } ] } ])
 
-    random_images = self.random_set(limit, nil, :size => options[:size]) if random_images.blank? && hierarchy
+    random_images = self.random_set(limit, nil, size: options[:size]) if random_images.blank? && hierarchy
     Rails.logger.warn "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
     return random_images
   end
 
   def self.min_id()
-    Rails.cache.fetch('random_hierarchy_image/min_id', :expires_in => 60.minutes) do
+    Rails.cache.fetch('random_hierarchy_image/min_id', expires_in: 60.minutes) do
       self.connection.select_value("select min(id) min from random_hierarchy_images").to_i
     end
   end
   
   def self.max_id()
-    Rails.cache.fetch('random_hierarchy_image/max_id', :expires_in => 60.minutes) do
+    Rails.cache.fetch('random_hierarchy_image/max_id', expires_in: 60.minutes) do
       self.connection.select_value("select max(id) min from random_hierarchy_images").to_i
     end
   end
@@ -98,7 +96,7 @@ class RandomHierarchyImage < ActiveRecord::Base
 
   def self.hierarchy_count(hierarchy)
     hierarchy ||= Hierarchy.default
-    Rails.cache.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", :expires_in => 60.minutes) do
+    Rails.cache.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", expires_in: 60.minutes) do
       self.connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
     end
   end

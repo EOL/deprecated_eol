@@ -1,0 +1,7 @@
+- content_for :main do
+  - unless flash.blank?
+    .site_column
+      = render 'shared/flash_messages'
+  #content.session
+    = yield
+= render :file => 'layouts/application'

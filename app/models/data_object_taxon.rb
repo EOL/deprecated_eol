@@ -12,6 +12,16 @@ class DataObjectTaxon
                 :data_object, :user, :hierarchy_entry_id, :vetted_id, :visibility_id, :user_id, :taxon_concept_id,
                 :data_object_id, :user_id
 
+  def self.default_sort(data_object_taxa)
+    data_object_taxa.sort_by do |dot|
+      vetted_view_order = dot.vetted.blank? ? 0 : dot.vetted.view_order
+      visibility_view_order = dot.visibility.blank? ? 0 : dot.visibility.view_order
+      [ (dot.published * -1),
+        visibility_view_order,
+        vetted_view_order ]
+    end
+  end
+
   def italicized_attributed_title
     taxon_concept.italicized_attributed_title
   end
@@ -34,6 +44,14 @@ class DataObjectTaxon
     source.is_a? UsersDataObject
   end
 
+  def data_objects_hierarchy_entry?
+    source.is_a? DataObjectsHierarchyEntry
+  end
+
+  def curated_data_objects_hierarchy_entry?
+    source.is_a? CuratedDataObjectsHierarchyEntry
+  end
+
   def published
     users_data_object? ? taxon_concept.published : hierarchy_entry.published
   end
@@ -52,7 +70,14 @@ class DataObjectTaxon
   def italicized_name
     users_data_object? ? taxon_concept.title : hierarchy_entry.italicized_name
   end
-  alias :title_canonical_italicized :italicized_name # TODO - I don't think we should use this, but we do.  :\
+
+  def title_canonical
+    users_data_object? ? taxon_concept.title_canonical : hierarchy_entry.title_canonical
+  end
+
+  def title_canonical_italicized
+    users_data_object? ? taxon_concept.title_canonical_italicized : hierarchy_entry.title_canonical_italicized
+  end
 
   # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See
   # DataObject.curated_hierarchy_entries

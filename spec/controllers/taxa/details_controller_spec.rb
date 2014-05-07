@@ -29,6 +29,27 @@ describe Taxa::DetailsController do
       assigns[:assistive_section_header].should be_a(String)
     end
 
+    it 'should add make an entry in the table of contents for Education Resources objects' do
+      taxon_concept = build_taxon_concept
+      get :index, :taxon_id => taxon_concept.id
+      assigns[:details].resources_links.include?(:education).should == false
+      education_object = DataObject.create(data_type: DataType.text, description: 'asd', published: 1)
+      taxon_concept.add_object_as_subject(education_object, 'Education Resources')
+      get :index, :taxon_id => taxon_concept.id
+      debugger unless assigns[:details].resources_links.include?(:education)
+      assigns[:details].resources_links.include?(:education).should == true
+    end
+
+    it 'should add make an entry in the table of contents for Education objects' do
+      taxon_concept = build_taxon_concept
+      get :index, :taxon_id => taxon_concept.id
+      assigns[:details].resources_links.include?(:education).should == false
+      education_object = DataObject.create(data_type: DataType.text, description: 'asd', published: 1)
+      taxon_concept.add_object_as_subject(education_object, 'Education')
+      get :index, :taxon_id => taxon_concept.id
+      assigns[:details].resources_links.include?(:education).should == true
+    end
+
   end
 
   describe 'GET set_article_as_exemplar' do

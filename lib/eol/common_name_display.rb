@@ -17,15 +17,19 @@ module EOL
 
     # NOTE - this uses TaxonConceptNames, and Synonyms.  TCN is a denormlized version of Synonyms.
     def self.find_by_taxon_concept_id(tc_id, hierarchy_entry_id = nil, options = {})
-      inc = [ :name, :language, :vetted, { :synonym => [ :agents, { :hierarchy => [ :resource, :agent ] } ] }, { :source_hierarchy_entry => :agents } ]
-      sel = { :taxon_concept_names => [ :preferred, :vetted_id, :name_id, :language_id, :vetted_id, :synonym_id ],
-              :synonyms => [ :id, :hierarchy_id ],
-              :hierarchies => [ :id, :agent_id ],
-              :agents_synonyms => '*',
-              :agents => '*',
-              :names => [ :id, :string],
-              :vetted => [ :id, :view_order],
-              :languages => '*' }
+      taxon_concept_names = lookup_by_taxon_concept_id(tc_id, hierarchy_entry_id, options)
+      preload_data_for_taxon_concept_names(taxon_concept_names)
+      display_names = taxon_concept_names.map do |tcn|
+        EOL::CommonNameDisplay.new(tcn)
+      end
+      EOL::CommonNameDisplay.group_by_name(display_names)
+    end
+
+    def self.count_by_taxon_concept_id(tc_id, hierarchy_entry_id = nil)
+      lookup_by_taxon_concept_id(tc_id, hierarchy_entry_id).collect{ |tcn| [tcn.name_id, tcn.language.id ] }.uniq.count
+    end
+
+    def self.lookup_by_taxon_concept_id(tc_id, hierarchy_entry_id = nil, options = {})
       conditions = nil
       if options[:name_id] && options[:language_id]
         conditions = "taxon_concept_names.name_id = #{options[:name_id]} AND taxon_concept_names.language_id = #{options[:language_id]}"
@@ -33,16 +37,25 @@ module EOL
       # the following find_alls join with :name to ensure a name instance exists, a fix for WEB-4480
       unless hierarchy_entry_id.blank?
         taxon_concept_names = TaxonConceptName.find_all_by_source_hierarchy_entry_id_and_vern(hierarchy_entry_id, 1,
-          :conditions => conditions, :joins => :name, :include => :name)
+          :conditions => conditions, :joins => :name)
       else
         taxon_concept_names = TaxonConceptName.find_all_by_taxon_concept_id_and_vern(tc_id, 1,
-          :conditions => conditions, :joins => :name, :include => :name)
+          :conditions => conditions, :joins => :name)
       end
+      TaxonConceptName.preload_associations(taxon_concept_names, :language)
+      taxon_concept_names.delete_if {|tcn| ! tcn.language.known_language? }
+    end
+
+    def self.preload_data_for_taxon_concept_names(taxon_concept_names)
+      inc = [ :name, :vetted, { :synonym => [ :agents, { :hierarchy => [ :resource, :agent ] } ] }, { :source_hierarchy_entry => :agents } ]
+      sel = { :taxon_concept_names => [ :preferred, :vetted_id, :name_id, :language_id, :vetted_id, :synonym_id ],
+              :synonyms => [ :id, :hierarchy_id ],
+              :hierarchies => [ :id, :agent_id ],
+              :agents_synonyms => '*',
+              :agents => '*',
+              :names => [ :id, :string],
+              :vetted => [ :id, :view_order] }
       TaxonConceptName.preload_associations(taxon_concept_names, inc, :select => sel)
-      display_names = taxon_concept_names.map do |tcn|
-        EOL::CommonNameDisplay.new(tcn)
-      end
-      EOL::CommonNameDisplay.group_by_name(display_names)
     end
 
     def self.find_by_hierarchy_entry_id(hierarchy_entry_id, options)
@@ -56,6 +69,7 @@ module EOL
       @language           = tcn.language
       @language           = Language.unknown if @language.blank? || Language.all_unknowns.include?(@language)
       @language_label     = @language.label rescue 'Unknown'
+      @language_label   ||= @language.source_form # There's no TranslatedLanguage. ...which is bad, but... let's account for it.
       @synonyms           = [ tcn.synonym ]
       @preferred          = tcn.preferred?
       @vetted             = tcn.vetted
@@ -84,10 +98,6 @@ module EOL
         previous = name
       end
       new_names
-    end
-
-    def known_language?
-      !(language.iso_639_1.blank? && language.iso_639_2.blank?)
     end
 
     def synonym_id_for_user(user)

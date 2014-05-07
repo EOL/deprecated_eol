@@ -13,9 +13,9 @@ module EOL
       find_activities(klass, source, options)
     end
 
-    def self.global(max = 0)
+    def self.global(max = 0, options = {})
       max = $ACTIVITIES_ON_HOME_PAGE if max <= 0
-      return find(nil, :per_page => max)
+      return find(nil, options.merge(:per_page => max))
     end
 
   private
@@ -95,6 +95,8 @@ module EOL
           query = "activity_log_type:CollectionActivityLog AND user_id:#{source.id}"
         elsif options[:filter] == 'communities'
           query = "activity_log_type:CommunityActivityLog AND user_id:#{source.id}"
+        elsif options[:filter] == 'added_data'
+          query = "activity_log_type:UserAddedData AND user_id:#{source.id}"
         end
       end
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
@@ -119,7 +121,7 @@ module EOL
         end
       end
       if options[:after] && options[:after].respond_to?(:utc)
-        query = "(#{query}) AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO NOW]"
+        query = "(#{query}) AND date_created:[#{options[:after].utc.strftime('%Y-%m-%dT%H:%M:%S')}Z TO *]"
       end
       results = EOL::Solr::ActivityLog.search_with_pagination(query, options)
     end

@@ -3,7 +3,8 @@
 - rows ||= 3
 - cols ||= 60
 %h4.assistive= I18n.t(:comment_new_title)
-= form_for Comment.new, :builder => ApplicationHelper::EolFormBuilder, :html => { :class => 'comment' } do |f|
+-# NOTE - the format:html is there UNTIL we get a format.js handler in the controller for the worklist. Keep it there for now.
+= form_for Comment.new, url: comments_path(format: :html), builder: ApplicationHelper::EolFormBuilder, html: { :class => 'comment' } do |f|
   = f.hidden_field :parent_type, :value => parent.class.name
   = f.hidden_field :parent_id, :value => parent.id
   = f.hidden_field :reply_to_type, :value => nil
@@ -26,6 +27,6 @@
       = f.text_area :body, :rows => rows, :cols => cols
       -# TODO: uncomment this when it gets the go ahead %p= f.allowed_html_help_tip
   %fieldset.actions
-    = submit_tag(I18n.t(:post_comment), :'data-reply' => I18n.t(:leave_reply), :'data-cancel' => I18n.t(:cancel))
-    - if defined?(cancel) && cancel
+    = submit_tag(I18n.t(:post_comment), data: { reply: I18n.t(:leave_reply), cancel: I18n.t(:cancel) })
+    - if local_assigns.has_key?(:cancel) && cancel
       = link_to I18n.t(:cancel), current_url, :class => 'cancel'

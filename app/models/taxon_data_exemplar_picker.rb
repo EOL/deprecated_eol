@@ -1,9 +1,36 @@
 class TaxonDataExemplarPicker
 
-  @max_rows = SiteConfigurationOption.max_taxon_data_exemplars rescue 8
+  @max_rows = EolConfig.max_taxon_data_exemplars rescue 8
+  @max_values_per_row = EolConfig.max_taxon_data_exemplar_values_per_row rescue 3
 
   def self.max_rows
     @max_rows
+  end
+
+  def self.max_values_per_row
+    @max_values_per_row
+  end
+
+  def self.group_and_sort_data_points(data_point_uris)
+    data_point_uris.delete_if{ |dp| dp.predicate_uri.blank? }
+    grouped_points = data_point_uris.uniq.sort.group_by(&:grouping_factors)
+    # Creating a hash which contains the above groups, indexed by some representative
+    # of the group that we can use for display purposes
+    # { representative => [ data_point_uris: ..., show_more: true/false ] }
+    final_hash = {}
+    grouped_points.each do |grouped_by, data_point_uris|
+      representative = data_point_uris.first
+      final_hash[representative] = {}
+      final_hash[representative][:data_point_uris] = data_point_uris[0...TaxonDataExemplarPicker::max_values_per_row]
+      if data_point_uris.length > TaxonDataExemplarPicker::max_values_per_row
+        final_hash[representative][:show_more] = true
+      end
+    end
+    final_hash
+  end
+
+  def self.count_rows_in_set(data_set)
+    data_set.collect(&:grouping_factors).uniq.length
   end
 
   def initialize(taxon_data)
@@ -11,12 +38,17 @@ class TaxonDataExemplarPicker
     @taxon_concept_id = taxon_data.taxon_concept.id
   end
 
-  def pick(rows)
-    # TODO - Might be wise here to grab exemplars first; if there are enough to fill the list, no need to load all the data.
-    rows = reject_bad_known_uris(rows)
-    rows = reject_hidden(rows)
-    rows = reject_exemplars(rows)
-    pick_exemplars(rows.uniq.sort)
+  # Note - returns nil if the connection to the triplestore is bad.
+  def pick
+    return nil if @taxon_data.get_data.nil? # The server is down.
+    @taxon_data_set = @taxon_data.get_data.clone
+    return nil unless @taxon_data_set # This occurs if the connection to the triplestore is broken or bad.
+    @exemplar_data_points = exemplar_data_points
+    reject_excluded_known_uris
+    reject_hidden_data_point_uris
+    reject_excluded_data_point_uris
+    reduce_size_of_results
+    TaxonDataExemplarPicker.group_and_sort_data_points(@taxon_data_set)
   end
 
   # For posterity, here were the four that used to be hard-coded here:
@@ -24,52 +56,42 @@ class TaxonDataExemplarPicker
   #   'http://iobis.org/minaou',
   #   'http://iobis.org/maxdate',
   #   'http://iobis.org/mindate'
-  def reject_bad_known_uris(rows)
+  def reject_excluded_known_uris
     uris_to_reject = KnownUri.excluded_from_exemplars.select('uri').map(&:uri)
-    rows.delete_if do |r|
-      if r[:attribute].is_a?(KnownUri)
-        uris_to_reject.detect{ |uri| r[:attribute].matches(uri) }
+    @taxon_data_set.delete_if do |data_point_uri|
+      if data_point_uri.predicate_known_uri
+        uris_to_reject.detect{ |uri| data_point_uri.predicate_known_uri.matches(uri) }
       else
-        uris_to_reject.include?(r[:attribute].to_s)
+        uris_to_reject.include?(data_point_uri.predicate)
       end
     end
-    rows
   end
 
-  def reject_exemplars(rows)
+  def reject_excluded_data_point_uris
     # TODO - (Possibly) cache this.
     exemplars_to_reject = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).excluded
-    rows.delete_if do |row|
-      exemplars_to_reject.any? { |ex| row[:data_point_instance].id == ex.data_point_uri.id }
+    @taxon_data_set.delete_if do |data_point_uri|
+      exemplars_to_reject.any? { |ex| data_point_uri.id == ex.data_point_uri.id }
     end
-    rows
   end
 
-  def reject_hidden(rows)
-    rows.delete_if do |row|
-      row[:data_point_instance].hidden?
+  def reject_hidden_data_point_uris
+    @taxon_data_set.delete_if do |data_point_uri|
+      data_point_uri.hidden?
     end
-    rows
   end
 
-  def pick_exemplars(rows)
-    return rows if rows.count <= TaxonDataExemplarPicker.max_rows # No need to load anything, otherise...
-    # TODO - this should have an #include in it, but I'm being lazy:
-    curated_exemplars = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
-    # NOTE the following clause assumes that exemplars will be deleted when rows are deleted:
-    return rows.select { |r| curated_exemplars.include?(r[:data_point_instance]) } if curated_exemplars.count >= TaxonDataExemplarPicker.max_rows
-    # If we're still here, we have too many.
-    while(rows.count > TaxonDataExemplarPicker.max_rows) do
-      rows.delete_at(index_of_last_non_exemplar(rows, curated_exemplars))
+  def reduce_size_of_results
+    reduced_set, more_points = @taxon_data_set.partition{ |point| @exemplar_data_points.include?(point) }
+    more_points.sort!
+    while TaxonDataExemplarPicker.count_rows_in_set(reduced_set) < TaxonDataExemplarPicker.max_rows && ! more_points.empty?
+      reduced_set << more_points.shift
     end
-    rows
+    @taxon_data_set = reduced_set
   end
 
-  def index_of_last_non_exemplar(rows, curated_exemplars)
-    (TaxonDataExemplarPicker.max_rows-1).downto(0).each do |i|
-      next if curated_exemplars.include?(rows[i][:data_point_instance])
-      return i
-    end
+  def exemplar_data_points
+    TaxonDataExemplar.included.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
   end
 
 end

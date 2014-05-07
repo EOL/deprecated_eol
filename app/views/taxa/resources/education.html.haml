@@ -1,7 +1,7 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #taxon_resources
-  = render :partial => 'menu'
+  = render 'menu'
   #taxon_detail
     #main.main_container
       %h3= I18n.t(:taxon_education_header)
@@ -9,8 +9,8 @@
         - if @contents.blank?
           .empty
             %p= I18n.t(:taxon_education_empty)
-            %p= link_to I18n.t(:add_education_resources_to_page_link_button), new_taxon_data_object_path(@taxon_concept, :toc => @add_article_toc_id), :class => 'button'
+            %p= link_to I18n.t(:add_education_resources_to_page_link_button), new_taxon_data_object_path(@taxon_concept, toc: @add_article_toc_id), class: 'button'
             - if $EDUCATION_EMAIL
-              %p= raw(I18n.t(:or_email_education, :link => link_to($EDUCATION_EMAIL, "mailto:#{$EDUCATION_EMAIL}")).firstcap)
+              %p= raw(I18n.t(:or_email_education, link: link_to($EDUCATION_EMAIL, "mailto:#{$EDUCATION_EMAIL}")).firstcap)
         - else
-          = render :partial => 'taxa/details/category_content', :locals => { :content => @contents }
+          = render 'taxa/details/category_content', { content: @contents }

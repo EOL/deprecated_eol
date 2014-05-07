@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe ContactsController do
 
@@ -6,7 +6,7 @@ describe ContactsController do
     unless @user = User.find_by_username('contacts_controller_spec')
       truncate_all_tables
       Language.create_english
-      CuratorLevel.create_defaults
+      CuratorLevel.create_enumerated
       @user = User.gen(:username => 'contacts_controller_spec')
       unless @contact_subject = ContactSubject.first
         @contact_subject = ContactSubject.gen_if_not_exists(:title => "Fake contact subject")
@@ -50,7 +50,7 @@ describe ContactsController do
     end
 
     it 'should not create or deliver email if record is invalid' do
-      controller.instance_eval { flash.stub!(:sweep) }
+      controller.instance_eval { flash.stub(:sweep) }
       Notifier.should_not_receive(:contact_us_auto_response)
       Notifier.should_not_receive(:contact_us_message)
       post :create
@@ -72,14 +72,14 @@ describe ContactsController do
     end
 
     it 'should send auto response email' do
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:contact_us_auto_response).and_return(mailer)
       post :create, @new_contact_params, { :user_id => 1 }
     end
 
     it 'should send feedback email' do
-      mailer = mock
+      mailer = double
       mailer.should_receive(:deliver)
       Notifier.should_receive(:contact_us_message).and_return(mailer)
       post :create, @new_contact_params, { :user_id => 1 }

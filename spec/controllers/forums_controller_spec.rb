@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe ForumsController do
 
@@ -25,22 +25,22 @@ describe ForumsController do
 
     it 'should allow admins to delete forums' do
       forum = Forum.gen
-      session[:user_id] = User.gen(:admin => 1)
-      lambda { post :destroy, :id => forum.id }.should_not raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = User.gen(:admin => 1).id
+      expect { post :destroy, :id => forum.id }.not_to raise_error
     end
 
     it 'should not allow unauthorized moving' do
       forum = Forum.gen
       session[:user_id] = nil
-      lambda { post :move_up, :id => forum.id }.should raise_error(EOL::Exceptions::SecurityViolation)
-      lambda { post :move_down, :id => forum.id }.should raise_error(EOL::Exceptions::SecurityViolation)
+      expect { post :move_up, :id => forum.id }.to raise_error(EOL::Exceptions::SecurityViolation)
+      expect { post :move_down, :id => forum.id }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
 
     it 'should allow admins to move forums' do
       forum = Forum.gen
-      session[:user_id] = User.gen(:admin => 1)
-      lambda { post :move_up, :id => forum.id }.should_not raise_error(EOL::Exceptions::SecurityViolation)
-      lambda { post :move_down, :id => forum.id }.should_not raise_error(EOL::Exceptions::SecurityViolation)
+      session[:user_id] = User.gen(:admin => 1).id
+      expect { post :move_up, :id => forum.id }.not_to raise_error
+      expect { post :move_down, :id => forum.id }.not_to raise_error
     end
 
     it 'should not allow unauthorized creating' do
@@ -50,7 +50,7 @@ describe ForumsController do
     end
 
     it 'should allow admins to create forums' do
-      session[:user_id] = User.gen(:admin => 1)
+      session[:user_id] = User.gen(:admin => 1).id
       get :create
       response.header["Location"].should_not =~ /\/login/
     end

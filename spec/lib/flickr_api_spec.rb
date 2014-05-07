@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 require('flickr_api')
 
 def set_net_http_expectation(name)
@@ -15,10 +15,10 @@ describe 'FlickrApi' do
     # http://www.flickr.com/photos/encyclopediaoflife/5416503569/ - a photo I use for testing for EOL
     @photo_id = 5416503569
     if defined? FLICKR_API_KEY && defined? FLICKR_TOKEN
-      @flickr_api = FlickrApi.new(:api_key => FLICKR_API_KEY,
-                                  :secret => FLICKR_SECRET,
-                                  :auth_frob => FLICKR_FROB,
-                                  :auth_token => FLICKR_TOKEN)
+      @flickr_api = FlickrApi.new(api_key: FLICKR_API_KEY,
+                                  secret: FLICKR_SECRET,
+                                  auth_frob: FLICKR_FROB,
+                                  auth_token: FLICKR_TOKEN)
       sleep 1
     else
       puts "** WARNING: YOU MUST DEFINE FLICKR_API_KEY (maybe you didn't checkout eol_private)"
@@ -50,7 +50,7 @@ describe 'FlickrApi' do
   end
 
   it 'should return nil of something goes wrong' do
-    test_api = FlickrApi.new(:api_key => 'nonsense')
+    test_api = FlickrApi.new(api_key: 'nonsense')
     error = false
     begin
       rsp = test_api.test_echo

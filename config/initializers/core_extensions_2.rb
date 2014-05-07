@@ -247,6 +247,10 @@ class String
     end
   end
 
+  def is_float?
+    is_numeric? && ! is_int?
+  end
+
   def cleanup_for_presentation
     self.gsub(/[_]{20,}/, ' ')
   end
@@ -254,10 +258,20 @@ class String
   def add_missing_hyperlinks
     # split on spaces, link any http which don't contain ,; and don't end in periods (end of sentences)
     self.split.map do |w|
-      w.gsub(/^(https?[^,;]+[^\.,;])/i, '<a href="\1">\1</a>').gsub(/^(www\.[a-z-]+\.[^,;]+[^\.,;])/i, '<a href="http://\1">\1</a>')
+      w.gsub(/^([\(\["]*)(https?[^,;]+[^\.,;\(\)\"])/i, '\1<a href="\2">\2</a>').
+        gsub(/^(www\.[a-z-]+\.[^,;\(\)\"]+[^\.,;\(\)\"])/i, '<a href="http://\1">\1</a>').
+        gsub(/^([\(\["]*)(10\.[0-9]{4,}\/[a-z0-9\/\.-]+)/i, '\1<a href="http://dx.doi.org/\2">\2</a>').
+        gsub(/^([\(\["]*)(doi:10\.[a-z0-9\/\.-]*)/i, '\1<a href="http://dx.doi.org/\2">\2</a>')
     end.join(' ')
   end
-  
+
+  def pretty_url(max_length = nil)
+    max_length = 20 unless max_length.nil? || max_length > 20
+    trimmed_url = self.sub('http://', '')
+    return trimmed_url if max_length.nil? || trimmed_url.length <= max_length
+    trimmed_url[0...10] + '...' + trimmed_url[(trimmed_url.length - max_length + 10)..-1]
+  end
+
   def contains_chinese?
     # sort of from http://stackoverflow.com/questions/2727804/how-to-determine-if-a-character-is-a-chinese-character
     list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")
@@ -439,6 +453,12 @@ class Float
 
   def floor_to(x)
     (self * 10**x).floor.to_f / 10**x
+  end
+
+  def sigfig_to_s(digits)
+    f = sprintf("%.#{digits - 1}e", self).to_f
+    i = f.to_i
+    (i == f ? i : f).to_s
   end
 end
 

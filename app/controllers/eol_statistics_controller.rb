@@ -1,6 +1,6 @@
 class EolStatisticsController < ApplicationController
 
-  layout 'v2/basic'
+  layout 'basic'
 
   # GET /statistics
   def index
@@ -42,6 +42,11 @@ class EolStatisticsController < ApplicationController
     get_stats(action_name)
   end
 
+  # GET /statistics/data
+  def data
+    get_stats(action_name)
+  end
+
   private
 
   def get_stats(report)
@@ -56,9 +61,9 @@ class EolStatisticsController < ApplicationController
       @stats_one = stats.select{|s| s.created_at.to_date == dates[:date_one]}.first
       @stats_two = stats.select{|s| s.created_at.to_date == dates[:date_two]}.first
       flash.now[:warning] = t('eol_statistics.warnings.stats_unavailable_for_date',
-        :date => dates[:date_one].strftime('%b %d, %Y')) if @stats_one.nil?
+        date: dates[:date_one].strftime('%b %d, %Y')) if @stats_one.nil?
       flash.now[:warning] = t('eol_statistics.warnings.stats_unavailable_for_date',
-        :date => dates[:date_two].strftime('%b %d, %Y')) if @stats_two.nil?
+        date: dates[:date_two].strftime('%b %d, %Y')) if @stats_two.nil?
     end
     @stats_two ||= EolStatistic.send(report).on_dates([Date.parse(params[:date_two_set])]).first if params[:date_two_set] # Fallback to the previously selected date if a newly selected date has no stats
     @stats_two ||= EolStatistic.send(report).latest(1).first # Default to latest stats

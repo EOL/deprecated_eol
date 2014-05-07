@@ -1,8 +1,8 @@
 class CommentsController < ApplicationController
 
   layout :comments_layout
-  before_filter :allow_login_then_submit, :only => [:create]
-  before_filter :allow_modify_comments, :only => [:edit, :update, :destroy]
+  before_filter :allow_login_then_submit, only: [:create]
+  before_filter :allow_modify_comments, only: [:edit, :update, :destroy]
 
   # NOTE - this was written, sadly, for data only. If you want this to do more, you'll need to re-write it.
   def index
@@ -32,6 +32,9 @@ class CommentsController < ApplicationController
       flash[:notice] = I18n.t(:duplicate_comment_warning)
     elsif @comment.save
       flash[:notice] = I18n.t(:comment_added_notice)
+      if $STATSD
+        $STATSD.increment 'comments'
+      end
       auto_collect(@comment.parent)
     else
       flash[:error] = I18n.t(:comment_not_added_error)
@@ -64,9 +67,9 @@ class CommentsController < ApplicationController
       end
       format.js do
         if current_user.can_update?(@comment)
-          render :partial => 'comments/edit', :locals => { :comment => @comment, :actual_date => actual_date }
+          render partial: 'comments/edit', locals: { comment: @comment, actual_date: actual_date }
         else
-          render :text => I18n.t(:comment_edit_by_javascript_not_authorized_error)
+          render text: I18n.t(:comment_edit_by_javascript_not_authorized_error)
         end
       end
     end
@@ -81,18 +84,18 @@ class CommentsController < ApplicationController
       respond_to do |format|
         format.html do
           flash[:notice] = I18n.t(:the_comment_was_successfully_updated)
-          redirect_to params[:return_to] || url_for(:action=>'index'), :status => :moved_permanently
+          redirect_to params[:return_to] || url_for(action: 'index'), status: :moved_permanently
         end
         format.js do
-          render :partial => 'activity_logs/comment', :locals => { :item => @comment, :actual_date => actual_date }
+          render partial: 'activity_logs/comment', locals: { item: @comment, actual_date: actual_date }
         end
       end
     else
       respond_to do |format|
-        format.js { render :text => I18n.t(:comment_not_updated_error) }
+        format.js { render text: I18n.t(:comment_not_updated_error) }
         format.html do
           flash[:error] = I18n.t(:comment_not_updated_error)
-          render :action => 'edit'
+          render action: 'edit'
         end
       end
     end
@@ -103,19 +106,19 @@ class CommentsController < ApplicationController
     # @comment set in before_filter :allow_modify_comments
     actual_date = params[:actual_date]
     actual_date ||= false
-    if @comment.update_attributes(:deleted => 1)
+    if @comment.update_attributes(deleted: 1)
       respond_to do |format|
         format.html do
           flash[:notice] = I18n.t(:the_comment_was_successfully_deleted)
           redirect_to params[:return_to] || referred_url
         end
         format.js do
-          render :partial => 'activity_logs/comment', :locals => { :item => @comment, :truncate_comments => false, :actual_date => actual_date }
+          render partial: 'activity_logs/comment', locals: { item: @comment, truncate_comments: false, actual_date: actual_date }
         end
       end
     else
       respond_to do |format|
-        format.js { render :text => I18n.t(:comment_not_deleted_error) }
+        format.js { render text: I18n.t(:comment_not_deleted_error) }
         format.html do
           flash[:error] = I18n.t(:comment_not_deleted_error)
           redirect_to params[:return_to] || referred_url
@@ -131,9 +134,9 @@ private
     return false if request.xhr?
     case action_name
     when 'update', 'edit'
-      'v2/basic'
+      'basic'
     when 'index'
-      'v2/data_comments'
+      'data_comments'
     end
   end
 

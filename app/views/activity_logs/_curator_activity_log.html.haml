@@ -22,7 +22,7 @@
   - translation_vars[:data_object] = link_to(item.data_object.summary_name, data_object_url(item.data_object),
     :style => link_style)
 - language_type = 'language'
-- if item.is_for_synonym?
+- if item.is_for_type?(:synonym)
   - if item.synonym.nil? || item.synonym.language.nil?
     - language_type = 'an_unknown_language'
   - else
@@ -38,7 +38,7 @@
     - translation_vars[:association] = link_to(raw(item.taxon_concept.title),
       taxon_url(item.taxon_concept), :style => link_style)
 - name_type = 'name'
-- if item.is_for_synonym?
+- if item.is_for_type?(:synonym)
   - if item.synonym.nil? || ! item.synonym.respond_to?(:name)
     - name_type = 'an_unknown_name'
   - else
@@ -47,14 +47,18 @@
 - if item.taxon_concept.nil? || ! item.taxon_concept.is_a?(TaxonConcept)
   - taxon_type = 'an_unknown_taxon'
 - else
-  - translation_vars[:taxon] = link_to(raw(item.taxon_concept.quick_scientific_name), taxon_url(item.taxon_concept),
-    :style => link_style)
+  - taxon_link = taxon_url(item.taxon_concept)
+  - if item.is_for_type?(:data_point_uri)
+    - taxon_link = link_to_item(item.data_point_uri)
+  - elsif item.is_for_type?(:user_added_data)
+    - taxon_link = link_to_item(item.user_added_data.data_point_uri)
+  - translation_vars[:taxon] = link_to(raw(item.taxon_concept.summary_name), taxon_link, :style => link_style)
 -# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):
 -# THE MERGE/SPLIT ACTIVITIES ARE LEGACY...
-- if item.activity_id == Activity.merge_classifications.id && item.changeable_object_type_id == ChangeableObjectType.taxon_concept.id
+- if item.activity_id == Activity.merge_classifications.id && item.is_for_type?(:taxon_concept)
   - tc = TaxonConcept.find(item.target_id) rescue nil
   - taxon_type = tc ? 'taxon' : 'an_unknown_taxon'
-  - translation_vars[:taxon] = link_to(tc.quick_scientific_name, taxon_url(tc), :style => link_style)
+  - translation_vars[:taxon] = link_to(tc.summary_name, taxon_url(tc), :style => link_style)
 - if (item.activity_id == Activity.split_classifications.id || item.activity_id == Activity.merge_classifications.id || item.activity_id == Activity.preferred_classification.id) && item.hierarchy_entry
   - provider = hierarchy_entry_display_attribution(HierarchyEntry.find(item.hierarchy_entry), :show_rank => false, :show_link => true)
   - if item.hierarchy_entry.has_source_database?
@@ -72,10 +76,13 @@
   - when Activity.show.id
     = raw I18n.t("show.#{user_type}_showed_#{data_object_type}_on_#{association_type}", translation_vars)
   - when Activity.hide.id
-    = raw I18n.t("hide.#{user_type}_hid_#{data_object_type}_on_#{association_type}", translation_vars)
-    - unless translation_vars[:reasons].empty? || bulk
-      %br/
-      = raw I18n.t(:reasons_to_hide, translation_vars)
+    - if item.is_for_type?(:data_point_uri)
+      = raw I18n.t("data_point_uri.#{user_type}_#{item.activity.name}_data_on_#{taxon_type}", translation_vars)
+    - else
+      = raw I18n.t("hide.#{user_type}_hid_#{data_object_type}_on_#{association_type}", translation_vars)
+      - unless translation_vars[:reasons].empty? || bulk
+        %br/
+        = raw I18n.t(:reasons_to_hide, translation_vars)
   - when Activity.unreviewed.id
     = raw I18n.t("unreviewed.#{user_type}_unreviewed_#{data_object_type}_on_#{association_type}", translation_vars)
   - when Activity.add_association.id
@@ -86,6 +93,11 @@
     = raw I18n.t("choose_exemplar_image.#{user_type}_chose_exemplar_#{data_object_type}_on_#{taxon_type}", translation_vars)
   - when Activity.choose_exemplar_article.id
     = raw I18n.t("choose_exemplar_article.#{user_type}_chose_exemplar_#{data_object_type}_on_#{taxon_type}", translation_vars)
+  - when Activity.set_exemplar_data.id
+    = raw I18n.t("data_point_uri.#{user_type}_set_exemplar_data_on_#{taxon_type}", translation_vars)
+  - when Activity.unhide.id
+    - if item.is_for_type?(:data_point_uri)
+      = raw I18n.t("data_point_uri.#{user_type}_#{item.activity.name}_data_on_#{taxon_type}", translation_vars)
   - when Activity.crop.id
     = raw I18n.t("crop.#{user_type}_cropped_#{data_object_type}", translation_vars)
   - when Activity.add_common_name.id
@@ -102,7 +114,7 @@
     - if item.classification_curation
       - translation_vars[:classifications] = item.classification_curation.hierarchy_entries.map {|he| he.hierarchy.display_title }.to_sentence
       - target_type = item.classification_curation.moved_to ? 'taxon' : 'an_unknown_taxon'
-      - translation_vars[:target] = item.classification_curation.moved_to ? link_to(item.classification_curation.moved_to.quick_scientific_name, taxon_url(item.classification_curation.moved_to), :style => link_style) : nil
+      - translation_vars[:target] = item.classification_curation.moved_to ? link_to(item.classification_curation.moved_to.summary_name, taxon_url(item.classification_curation.moved_to), :style => link_style) : nil
       - if item.classification_curation.split?
         - translation_vars[:to] = taxon_url(item.classification_curation.split_to)
         = raw I18n.t("classification_curation.split.#{user_type}_split_classifications_from_#{taxon_type}", translation_vars)
@@ -115,7 +127,7 @@
         - if source_tc.nil? || ! source_tc.is_a?(TaxonConcept)
           - taxon_type = 'an_unknown_taxon'
         - else
-          - translation_vars[:taxon] = link_to(source_tc.quick_scientific_name, taxon_url(source_tc), :style => link_style)
+          - translation_vars[:taxon] = link_to(source_tc.summary_name, taxon_url(source_tc), :style => link_style)
         = raw I18n.t("classification_curation.move.#{user_type}_moved_classifications_from_#{taxon_type}_to_#{target_type}", translation_vars)
     - else
       = raw I18n.t("classification_curation.#{user_type}_curated_unkown_classification_from_#{taxon_type}", translation_vars)
@@ -157,5 +169,24 @@
         = raw I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)
     - else
       = raw I18n.t("unlock_with_error.move_of_#{taxon_type}_unlocked_with_error", translation_vars)
+  - when Activity.create.id
+    - if item.is_for_type?(:user_added_data)
+      = raw I18n.t("user_added_data.#{user_type}_#{item.activity.name}_data_on_#{taxon_type}", translation_vars)
+  - when Activity.update.id
+    - if item.is_for_type?(:user_added_data)
+      = raw I18n.t("user_added_data.#{user_type}_#{item.activity.name}_data_on_#{taxon_type}", translation_vars)
   - else
     = raw I18n.t("other_actions.#{user_type}_curated_#{data_object_type}", translation_vars)
+
+-# placing a blockquote in the paragraph above caused the <p> to be truncated, and an empty <p></p>
+-# to be appended to the text, creating unnecessary whitespace
+- if item.is_for_type?(:data_point_uri)
+  - data_point_uri = item.data_point_uri
+- elsif item.is_for_type?(:user_added_data)
+  - data_point_uri = item.user_added_data.data_point_uri
+- else
+  - data_point_uri = nil
+- if data_point_uri
+  %blockquote{:cite => h(item.user.full_name)}
+    = display_uri(data_point_uri.predicate_uri, succeed: ':')
+    = raw display_text_for_data_point_uri(data_point_uri)

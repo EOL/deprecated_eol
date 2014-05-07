@@ -1,17 +1,17 @@
 - content_for :social_sharing do
-  = render :partial => 'shared/social_sharing'
+  = render 'shared/social_sharing'
 #sidebar
-  = render :partial => 'communities/active_members_sidebar'
+  = render 'communities/active_members_sidebar'
 #community_collections.main_container
   .heading
     %h3= I18n.t(:managed_collections_with_count, :count => @community.collections.count)
   %ul.object_list
     - @community.collections.each do |focus|
-      = render :partial => 'collections/collection_summary', :locals => { :collection => focus }
+      = render 'collections/collection_summary', { :collection => focus }
   - unless @community_collections.blank?
     .heading
       %h3= I18n.t(:endorsed_collections_with_count, :count => @community_collections.size)
-      = render :partial => 'shared/sort_by_date_form'
+      = render 'shared/sort_by_date_form'
     %ul.object_list
       - @community_collections.each do |ci|
-        = render :partial => 'collections/collection_summary', :locals => { :collection => ci.collected_item, :show_user => true, :annotation => ci.annotation }
+        = render 'collections/collection_summary', { :collection => ci.collected_item, :show_user => true, :annotation => ci.annotation }

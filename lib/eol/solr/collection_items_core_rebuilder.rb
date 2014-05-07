@@ -94,7 +94,7 @@ module EOL
           ci.collected_item_id, ci.collection_id, do.object_title, ci.sort_field, NULL, NULL,
           do.data_type_id, do.data_rating, ttoc.label
           FROM collection_items ci
-          JOIN data_objects do ON (ci.collected_item_id=do.id)
+          STRAIGHT_JOIN data_objects do ON (ci.collected_item_id=do.id)
           LEFT JOIN
             (table_of_contents toc JOIN data_objects_table_of_contents dotoc ON (toc.id=dotoc.toc_id)
             JOIN translated_table_of_contents ttoc ON (toc.id=ttoc.table_of_contents_id AND ttoc.language_id=#{Language.english.id}))
@@ -123,7 +123,7 @@ module EOL
         query = "SELECT ci.id, ci.annotation, ci.added_by_user_id, UNIX_TIMESTAMP(ci.created_at), UNIX_TIMESTAMP(ci.updated_at),
           ci.collected_item_id, ci.collection_id, u.username, ci.sort_field, NULL, NULL, NULL, NULL, NULL
           FROM collection_items ci
-          JOIN users u ON (ci.collected_item_id=u.id)
+          STRAIGHT_JOIN users u ON (ci.collected_item_id=u.id)
           WHERE collected_item_type='User'
           AND ci.id IN (#{collection_item_ids.join(',')})"
         collect_data_from_query(query, 'User')
@@ -133,7 +133,7 @@ module EOL
         query = "SELECT ci.id, ci.annotation, ci.added_by_user_id, UNIX_TIMESTAMP(ci.created_at), UNIX_TIMESTAMP(ci.updated_at),
           ci.collected_item_id, ci.collection_id, c.name, ci.sort_field, NULL, NULL, NULL, NULL, NULL
           FROM collection_items ci
-          JOIN communities c ON (ci.collected_item_id=c.id)
+          STRAIGHT_JOIN communities c ON (ci.collected_item_id=c.id)
           WHERE collected_item_type='Community'
           AND ci.id IN (#{collection_item_ids.join(',')})"
         collect_data_from_query(query, 'Community')
@@ -143,7 +143,7 @@ module EOL
         query = "SELECT ci.id, ci.annotation, ci.added_by_user_id, UNIX_TIMESTAMP(ci.created_at), UNIX_TIMESTAMP(ci.updated_at),
           ci.collected_item_id, ci.collection_id, c.name, ci.sort_field, NULL, NULL, NULL, NULL, NULL
           FROM collection_items ci
-          JOIN collections c ON (ci.collected_item_id=c.id)
+          STRAIGHT_JOIN collections c ON (ci.collected_item_id=c.id)
           WHERE collected_item_type='Collection'
           AND ci.id IN (#{collection_item_ids.join(',')})"
         collect_data_from_query(query, 'Collection')
@@ -174,8 +174,9 @@ module EOL
           data_object_title = row[14]
           object_type = row_type.dup
 
-          if object_type == 'TaxonConcept' && title.blank?
-            title = (name_string.blank?) ? 'zzz' : name_string
+          if object_type == 'TaxonConcept'
+            title = name_string unless name_string.blank?
+            title = 'zzz' if title.blank?
           end
 
           if object_type == "DataObject"
@@ -211,8 +212,11 @@ module EOL
             'date_modified'       => updated_at,
             'title'               => SolrAPI.text_filter(title),
             'richness_score'      => richness_score,
-            'data_rating'         => data_object_rating,
-            'sort_field'          => SolrAPI.text_filter(sort_field) }
+            'data_rating'         => data_object_rating
+          }
+          # Don't even add the sort field unless it has something in it; it MUST be *missing* in order to sort last.
+          # TODO - try passing nil if it's blank, perhaps that's enough for it to be missing.
+          self.objects_to_send_to_solr.last['sort_field'] = SolrAPI.text_filter(sort_field) unless sort_field.blank?
           collection_ids_added[collection_item_id] = true
         end
       end

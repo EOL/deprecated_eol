@@ -1,15 +1,14 @@
 class SynonymRelation < ActiveRecord::Base
+
   uses_translations
   has_many :synonyms
 
-  def self.synonym
-    cached_find_translated(:label, 'Synonym')
-  end
-  
+  include Enumerated
+  enumerated :label, [ 'Synonym', 'common name', 'genbank common name' ]
+
   def self.common_name_ids
     cached('common_names') do
-       [cached_find_translated(:label, 'common name'),
-        cached_find_translated(:label, 'genbank common name')].compact.collect{ |sr| sr.id }
+       [SynonymRelation.common_name, SynonymRelation.genbank_common_name].compact.map(&:id)
     end
   end
 

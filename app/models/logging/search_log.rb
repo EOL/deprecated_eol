@@ -11,24 +11,22 @@ class SearchLog < LazyLoggingModel
      return nil if params.blank?
 
      opts = {
-       :ip_address_raw => IpAddress.ip2int(request.remote_ip),
-       :user_agent => request.user_agent || 'unknown',
-       :path => request.url || 'unknown'
+       ip_address_raw: IpAddress.ip2int(request.remote_ip),
+       user_agent: request.user_agent || 'unknown',
+       path: request.url || 'unknown'
      }
      opts[:user_id] = user.id unless user.nil?
 
-     result = create_log opts.merge(params)
-
-     return result
+     begin
+       create opts.merge(params)
+     rescue => e
+       Rails.logger.warn("Bogus invocation of SearchLog creation function by user #{user.id}")
+       Rails.logger.warn(e.message)
+     end
 
   end
 
-  def self.create_log(opts)
-    Rails.logger.warn('Bogus invocation of SearchLog creation function!') and return if opts.nil?
-    l = SearchLog.create opts
-    return l
-  end
-
+  # NOTE - this is only used by admins, and we might remove it.
   def self.click_times_by_taxon_concept_id(taxon_concept_id, start_date = nil, end_date = nil)
     sql=["select
             case
@@ -71,7 +69,7 @@ class SearchLog < LazyLoggingModel
 
     sql = [sql]
     sql << "%#{options[:search_string]}%" unless options[:search_string].blank?
-    SearchLog.paginate_by_sql(ActiveRecord::Base.sanitize_sql_array(sql), :page => page, :per_page => per_page)
+    SearchLog.paginate_by_sql(ActiveRecord::Base.sanitize_sql_array(sql), page: page, per_page: per_page)
   end
 
   def self.totals

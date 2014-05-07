@@ -2,7 +2,7 @@ class PermissionsController < ApplicationController
 
   before_filter :restrict_to_admins
 
-  layout 'v2/permissions'
+  layout 'permissions'
 
   # GET /permissions
   # GET /permissions.json
@@ -20,7 +20,7 @@ class PermissionsController < ApplicationController
   # GET /permissions/1.json
   def show
     @permission = Permission.find(params[:id])
-    @page_title = I18n.t(:edit_permission_header, :permission => @permission.name)
+    @page_title = I18n.t(:edit_permission_header, permission: @permission.name)
 
 
     respond_to do |format|

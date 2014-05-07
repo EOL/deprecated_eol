@@ -1,9 +1,11 @@
-- # is this partial obsolete for v2?
-#media-maps.wrapper-mc.clearfix{ :style => "display: block; height: 399px;" }
+- # is this obsolete for v2?
+#media-maps.wrapper-mc.clearfix{ style: "display: block; height: 399px;" }
   %p.gbif_disclaimer
-    = external_link_to I18n.t(:gbif_occurrence_disclaimer), "http://data.gbif.org/species/#{@taxon_concept.gbif_map_id}/", :rel => :nofollow
-  #map-image{ :style => "display:block" }
+    = external_link_to I18n.t(:gbif_occurrence_disclaimer), "http://data.gbif.org/species/#{@taxon_concept.gbif_map_id}/", rel: :nofollow
+  #map-image{ style: "display:block" }
 -# TODO - swfobject is loaded on EVERY page load.  It shouldn't be.  Load it here and anywhere else it's req'd.
+-# TODO - upgrade swfobject
+-# TODO - move this JS to an asset
 :javascript
   var so = new SWFObject("/EOLSpeciesMap.swf", "swf", "100%", "100%", "9");
   so.addParam("allowFullScreen", "true");

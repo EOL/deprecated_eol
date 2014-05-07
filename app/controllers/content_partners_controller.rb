@@ -1,6 +1,6 @@
 class ContentPartnersController < ApplicationController
 
-  before_filter :check_authentication, :except => [:show, :index]
+  before_filter :check_authentication, except: [:show, :index]
 
   layout :content_partners_layout
 
@@ -18,7 +18,7 @@ class ContentPartnersController < ApplicationController
       'content_partners.full_name'
     end
     # TODO: Select is being ignored in the following. Appears to be when conditions added. Find a solution.
-    include = [ { :resources => [ :resource_status ] }, :content_partner_status, :content_partner_contacts ]
+    include = [ { resources: [ :resource_status ] }, :content_partner_status, :content_partner_contacts ]
     select = 'content_partners.id, content_partners.full_name, content_partners.display_name, content_partners.description,
               content_partners.homepage, content_partners.logo_cache_url, content_partners.logo_file_name,
               content_partners.logo_content_type, content_partners.logo_file_size, content_partners.created_at,
@@ -28,16 +28,16 @@ class ContentPartnersController < ApplicationController
     conditions_replacements = {}
     conditions_replacements[:name] = "%#{@name}%"
     @partners = ContentPartner.paginate(
-                  :page => params[:page],
-                  :per_page => 10,
-                  :select => select,
-                  :include => include,
-                  :conditions => [ conditions, conditions_replacements],
-                  :order => order)
+                  page: params[:page],
+                  per_page: 10,
+                  select: select,
+                  include: include,
+                  conditions: [ conditions, conditions_replacements],
+                  order: order)
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
-    @page_description = I18n.t(:content_partners_page_description, :more_url => cms_page_path('partners')).html_safe
-    set_canonical_urls(:paginated => @partners, :url_method => :content_partners_url)
+    @page_description = I18n.t(:content_partners_page_description, more_url: cms_page_path('partners')).html_safe
+    set_canonical_urls(paginated: @partners, url_method: :content_partners_url)
   end
 
   # GET /content_partners/new
@@ -57,7 +57,7 @@ class ContentPartnersController < ApplicationController
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       Notifier.content_partner_created(@partner, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_create_successful_notice)
-      redirect_to content_partner_resources_path(@partner), :status => :moved_permanently
+      redirect_to content_partner_resources_path(@partner), status: :moved_permanently
     else
       set_new_partner_options
       flash.now[:error] = I18n.t(:content_partner_create_unsuccessful_error)
@@ -67,7 +67,7 @@ class ContentPartnersController < ApplicationController
 
   # GET /content_partners/:id
   def show
-    @partner = ContentPartner.find(params[:id], :include => [{ :resources => :collection }, :content_partner_contacts ])
+    @partner = ContentPartner.find(params[:id], include: [{ resources: :collection }, :content_partner_contacts ])
     access_denied unless current_user.can_read?(@partner)
     @partner_collections = @partner.resources.collect{|r| r.collection}.compact
     @rel_canonical_href = content_partner_url(@partner)
@@ -87,7 +87,7 @@ class ContentPartnersController < ApplicationController
       EOL::GlobalStatistics.clear('content_partners') # Needs to be re-calculated.
       upload_logo(@partner) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_update_successful_notice)
-      redirect_to @partner, :status => :moved_permanently
+      redirect_to @partner, status: :moved_permanently
     else
       flash.now[:error] = I18n.t(:content_partner_update_unsuccessful_error)
       render :edit
@@ -97,8 +97,8 @@ class ContentPartnersController < ApplicationController
 protected
   def scoped_variables_for_translations
     @scoped_variables_for_translations ||= super.dup.merge({
-      :partner_name => @partner ? @partner.name : nil,
-      :partner_description => (@partner && description = @partner.description) ?
+      partner_name: @partner ? @partner.name : nil,
+      partner_description: (@partner && description = @partner.description) ?
         description : I18n.t(:content_partner_default_description)
     }).freeze
   end
@@ -113,9 +113,9 @@ private
   def content_partners_layout
     case action_name
     when 'index', 'new'
-      'v2/basic'
+      'basic'
     else
-      'v2/partners'
+      'partners'
     end
   end
 

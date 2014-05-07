@@ -43,10 +43,10 @@ module ApplicationHelper
       return nil
       tags = "p, em, strong, a, ul, ol, li" if tags.to_sym == :minimal
       tags = "p, em, strong, a, ul, ol, li, table, tr, td" if tags.to_sym == :all
-      return I18n.t(:allowed_html_tags, :comma_separated_tags => tags)
+      return I18n.t(:allowed_html_tags, comma_separated_tags: tags)
     end
 
-    private
+  private
 
     def errors_on?(method)
       @object.respond_to?(:errors) && @object.errors.respond_to?(:messages) && ! @object.errors.messages[method.to_sym].blank?
@@ -57,7 +57,7 @@ module ApplicationHelper
       errors = object.errors.messages[method.to_sym]
       if errors.any?
         errors = [errors] if errors.is_a? String
-        @template.content_tag(:span, { :class => 'errors' }){ " " + errors.join(", ") }
+        @template.content_tag(:span, { class: 'errors' }){ " " + errors.join(", ") }
       end
     end
   end
@@ -69,7 +69,7 @@ module ApplicationHelper
   # form.error_messages and form.error_messages_for are deprecated in Rails 3
   def validation_errors_for(resource, message = nil)
     if resource.errors.any?
-      message ||= I18n.t('activerecord.errors.template.header', :count => resource.errors.size, :model => '')
+      message ||= I18n.t('activerecord.errors.template.header', count: resource.errors.size, model: '')
       capture_haml do
         haml_tag 'fieldset#errors' do
           haml_tag :legend, message
@@ -139,22 +139,22 @@ module ApplicationHelper
   # figure out how to get that as fast as possible (alternative to Sanitize? No sanitizing at all?)
   def alternative_text(data_object, en_type, taxon_concept = nil)
     if taxon_concept && taxon_concept.class == TaxonConcept && title = taxon_concept.title_canonical
-      I18n.t("#{en_type}_of_taxon", :taxon_name => title)
+      I18n.t("#{en_type}_of_taxon", taxon_name: title)
     else
-      I18n.t("item_type_#{en_type}_assistive", :taxon_name => title)
+      I18n.t("item_type_#{en_type}_assistive", taxon_name: title)
     end
   end
 
   # A little onclick magic to make Ajaxy-links work before the page is fully loaded.  JS in the application.js file will
   # handle all the rest after the page is fully loaded (because of the class added to the link).
   # Use it like this:
-  #   link_to( I18n.t(:text) , "#", :class => 'ajax_delay_click', :onclick => ajax_delay_click)
+  #   link_to( I18n.t(:text) , "#", class: 'ajax_delay_click', onclick: ajax_delay_click)
   def ajax_delay_click
     %Q{javascript:$(this).addClass('delayed_click');$('#ajax-indicator').fadeIn();return false;}
   end
 
   def ajax_spinner
-    image_tag("indicator_arrows_black.gif", :alt =>  I18n.t(:please_wait) , :class => 'hidden spinner')
+    image_tag("indicator_arrows_black.gif", alt:  I18n.t(:please_wait) , class: 'hidden spinner')
   end
 
   def format_date_time(inTime,params={})
@@ -188,7 +188,7 @@ module ApplicationHelper
   end
 
   def external_link_icon
-    image_tag('external_link.png',{ :alt => I18n.t(:external_link_icon_alt_text) })
+    image_tag('external_link.png',{ alt: I18n.t(:external_link_icon_alt_text) })
   end
 
   def taxon_concept_comments_path(taxon_concept)
@@ -301,9 +301,9 @@ module ApplicationHelper
     return src if src.empty?
     project_name = hh(sanitize(agent.full_name))
     capture_haml do
-      haml_tag :img, {:width => params[:width], :height => params[:height],
-                      :src => src,  :border => 0, :alt => project_name,
-                      :title => project_name, :class => "agent_logo"}
+      haml_tag :img, {width: params[:width], height: params[:height],
+                      src: src,  border: 0, alt: project_name,
+                      title: project_name, class: "agent_logo"}
     end
   end
 
@@ -334,43 +334,6 @@ module ApplicationHelper
     text
   end
 
-  # for creating a group of image buttons
-  #
-  # Usage:
-  #   <% image_button_group 'some-buttons' do |group| %>
-  #     <%= group.image_button 'button1', '/some/path' %>
-  #     <%= group.image_button 'button2', '/some/path' %>
-  #   <% end %>
-  #
-  # This renders the shared/_image_button_group partial (for the whole group)
-  # and, for each image_button, it renders the shared/_image_button partial
-  #
-  def image_button_group name, &block
-    group        = ImageButtonGroup.new name, self
-    buttons_html = capture(group, &block)
-    group_html   = capture(group) do
-      render :partial => 'shared/image_button_group', :locals => { :group => group, :buttons_html => buttons_html }
-    end
-    concat group_html, block.binding
-  end
-
-  # class used for an image_button_group
-  #
-  # when you say <%= group.image_button %> you're calling #image_button
-  # on an instance of ImageButtonGroup
-  #
-  class ImageButtonGroup
-    attr_accessor :name
-    def initialize name, action_view
-      @name = name
-      @action_view = action_view
-    end
-    def image_button name, path
-      # "image_button group #{@name}, #{name} => #{path}"
-      @action_view.render :partial => 'shared/image_button', :locals => { :group => self, :name => name, :path => path }
-    end
-  end
-
   # returns a string that can be used as a CSS class, given an object
   def css_class value
     value.to_s.strip.downcase.gsub(' ','') # TODO update to strip out all non alphanumeric characters
@@ -391,7 +354,7 @@ module ApplicationHelper
   def define_term(term)
     if glossary_term = GlossaryTerm.find_by_term(term)
       @@TOOLTIP_GLOBAL_COUNT += 1
-      render :partial => '/popups/glossary_tooltip', :locals => {:term => term, :definition => glossary_term.definition, :element_id => "tooltip_#{@@TOOLTIP_GLOBAL_COUNT}"}
+      render partial: '/popups/glossary_tooltip', locals: {term: term, definition: glossary_term.definition, element_id: "tooltip_#{@@TOOLTIP_GLOBAL_COUNT}"}
     else
       return term
     end
@@ -401,8 +364,8 @@ module ApplicationHelper
     c = I18n.t(:cancel)
     url = back_or_home(url)
     capture_haml do
-      haml_tag :input, {:id => "cancel", :type => 'button', :name => c, :value => c,
-                        :onclick => "javascript:window.location='#{url.force_encoding('UTF-8')}';"}
+      haml_tag :input, {id: "cancel", type: 'button', name: c, value: c,
+                        onclick: "javascript:window.location='#{url.force_encoding('UTF-8')}';"}
     end
   end
 
@@ -465,7 +428,7 @@ module ApplicationHelper
       taxon_entry_overview_path(hierarchy_entry.taxon_concept_id, hierarchy_entry)
     node = link_to(raw(hierarchy_entry.italicized_name.firstcap), link)
     node << ' '
-    node << navigation_show_descendants_link(hierarchy_entry, options.reverse_merge(:link => link))
+    node << navigation_show_descendants_link(hierarchy_entry, options.reverse_merge(link: link))
   end
 
   def navigation_show_descendants_link(hierarchy_entry, options={})
@@ -480,7 +443,7 @@ module ApplicationHelper
       ''
     else
       open_tree_path = taxon_entry_tree_path(hierarchy_entry.taxon_concept_id, hierarchy_entry, options)
-      link_to('+', link, :class => 'show_tree', :data_url => open_tree_path)
+      link_to('+', link, class: 'show_tree', data_url: open_tree_path)
     end
   end
 
@@ -498,9 +461,9 @@ module ApplicationHelper
         "</li></ul>"
       html
     else
-      html = show_nodes([ hierarchy_entry ], options.merge(:current => true))
+      html = show_nodes([ hierarchy_entry ], options.merge(current: true))
       if options[:show_siblings]
-        html += show_nodes(options[:siblings], options.merge(:parent => hierarchy_entry.parent))
+        html += show_nodes(options[:siblings], options.merge(parent: hierarchy_entry.parent))
       end
       html
     end
@@ -512,20 +475,20 @@ module ApplicationHelper
       # using .nil? || == 0 here instead of .blank? because that would create a COUNT query,
       # but we need to load the data anyway, so a COUNT would be unnecessary and inefficient
       unless hierarchy_entries.nil? || hierarchy_entries.length == 0
-        haml_tag :ul, :class => 'branch' do
+        haml_tag :ul, class: 'branch' do
           # sort the array by name string
-          # TODO: we should really not get back ALL records from the DB then sort, see if sorting in the DB is faster
+          # TODO: we might test wether its faster to get back ALL records from the DB then sort, or sort directly in DB
           hierarchy_entries = HierarchyEntry.sort_by_name(hierarchy_entries)
           # limit the array to $max_children and iterate
           hierarchy_entries[0...options[:max_children]].each do |hierarchy_entry|
             haml_tag :li do
-              haml_tag :span, :class => (options[:current] ? 'current' : nil) do
+              haml_tag :span, class: (options[:current] ? 'current' : nil) do
                 haml_concat navigation_node(hierarchy_entry, options)
               end
               unless (options[:parent] && !options[:expand]) || hierarchy_entry.is_leaf?
                 # querying for the first $max_children children, ordered by name, and preloading the name strings all at once
                 children = hierarchy_entry.children.includes(:name).order('names.string').limit(options[:max_children])
-                haml_concat show_nodes(children, options.reject{ |k,v| k == :current }.merge(:parent => hierarchy_entry))
+                haml_concat show_nodes(children, options.reject{ |k,v| k == :current }.merge(parent: hierarchy_entry))
               end
             end
           end
@@ -534,14 +497,14 @@ module ApplicationHelper
           if parent = options[:parent]
             potential_entries_to_show = parent.children.count
             if options[:max_children] < potential_entries_to_show
-              haml_tag :li, :class => 'show_tree_count' do
-                haml_concat I18n.t(:more_children_with_count, :count => potential_entries_to_show - options[:max_children])
+              haml_tag :li, class: 'show_tree_count' do
+                haml_concat I18n.t(:more_children_with_count, count: potential_entries_to_show - options[:max_children])
                 full_link = options[:link_to_taxa] ?
-                  taxon_overview_path(parent.taxon_concept_id, :full => true) :
-                  taxon_entry_overview_path(parent.taxon_concept_id, parent, :full => true)
-                full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, :full => true, :link_to_taxa => options[:link_to_taxa],
-                  :show_siblings => options[:show_siblings], :show_hierarchy_label => options[:show_hierarchy_label])
-                haml_concat link_to(I18n.t(:show_full_tree), full_link, :class => 'show_tree', :data_url => full_data_link)
+                  taxon_overview_path(parent.taxon_concept_id, full: true) :
+                  taxon_entry_overview_path(parent.taxon_concept_id, parent, full: true)
+                full_data_link = taxon_entry_tree_path(parent.taxon_concept_id, parent, full: true, link_to_taxa: options[:link_to_taxa],
+                  show_siblings: options[:show_siblings], show_hierarchy_label: options[:show_hierarchy_label])
+                haml_concat link_to(I18n.t(:show_full_tree), full_link, class: 'show_tree', data_url: full_data_link)
               end
             end
           end

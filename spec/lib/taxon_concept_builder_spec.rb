@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require "spec_helper"
 
 describe 'build_taxon_concept (spec helper method)' do
 
@@ -11,10 +11,10 @@ describe 'build_taxon_concept (spec helper method)' do
     @taxon_concept_with_args = build_taxon_concept(
       :hierarchy       => @hierarchy,
       :event           => @event,
-      :scientific_name => @scientific_name
+      scientific_name: @scientific_name
     )
     @taxon_concept_naked = build_taxon_concept(
-      :images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => []
+      images: [], toc: [], flash: [], youtube: [], comments: [], bhl: []
     )
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
@@ -48,12 +48,12 @@ describe 'build_taxon_concept (spec helper method)' do
   end
 
   it 'should create a scientific name' do
-    @taxon_concept_naked.scientific_name.should_not be_nil
-    @taxon_concept_naked.scientific_name.should_not == ''
+    @taxon_concept_naked.title.should_not be_nil
+    @taxon_concept_naked.title.should_not == ''
   end
 
   it 'should create a scientific name when specified' do
-    @taxon_concept_with_args.scientific_name.should == @scientific_name
+    @taxon_concept_with_args.title.should == @scientific_name
   end
 
 end

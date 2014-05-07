@@ -394,12 +394,16 @@ Eol::Application.routes.draw do
     end
   end
 
-  resource :virtuoso, :controller => 'virtuoso' do
+  resources :virtuoso, :controller => 'virtuoso' do
+    member do
+      get 'load'
+    end
     collection do
       get 'data_tab'
       get 'overview_tab'
       get 'search'
       get 'insert_and_delete'
+      get 'load'
     end
   end
 

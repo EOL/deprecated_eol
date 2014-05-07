@@ -4,8 +4,7 @@ class VirtuosoController < ApplicationController
 
   # go to a random data tab
   def data_tab
-    number_of_concepts = TaxonConcept.count
-    taxon_concept = TaxonConcept.first(:offset => rand(number_of_concepts))
+    taxon_concept = RandomHierarchyImage.random_set(1).first.taxon_concept
     return redirect_to taxon_data_path(taxon_concept.id)
   end
 
@@ -21,6 +20,17 @@ class VirtuosoController < ApplicationController
     from = rand(10000)
     to = from + rand(10000 - from)
     return redirect_to data_search_path(:q => "#{from} to #{to}")
+  end
+
+  # perform some random range search
+  def load
+    # taxon_concept = RandomHierarchyImage.random_set(1).first.taxon_concept
+    taxon_concept = TaxonConcept.find_by_id(params[:id])
+    taxon_page = TaxonPage.new(taxon_concept)
+    taxon_data = taxon_page.data
+    taxon_data.ranges_of_values
+    taxon_data.raw_data
+    render text: "Ok"
   end
 
   # add then delete some random data from Virtuoso

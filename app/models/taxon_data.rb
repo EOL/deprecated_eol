@@ -172,11 +172,11 @@ class TaxonData < TaxonUserClassificationFilter
     results
   end
 
-  private
+  def raw_data
+    (measurement_data + association_data).delete_if { |k,v| k[:attribute].blank? }
+  end
 
-    def raw_data
-      (measurement_data + association_data).delete_if { |k,v| k[:attribute].blank? }
-    end
+  private
 
     def measurement_data(options = {})
       selects = "?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"

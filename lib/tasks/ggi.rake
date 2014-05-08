@@ -5,7 +5,9 @@ namespace :ggi do
     ids = Resource.find_by_title('FALO Classification').hierarchy.hierarchy_entries.collect(&:taxon_concept_id)
     ids.each do |id|
       puts "Fetching API for #{id}"
-      all_data << get_ggi_json_bocce(id)
+      if taxon_data = get_ggi_json_bocce(id)
+        all_data << taxon_data
+      end
     end
     file_contents = '[' + all_data.map{ |d| d.to_json }.join(",\n") + ']'
     File.open(File.dirname(__FILE__) + '/../../public/falo_data.json', "w") do |f|
@@ -35,5 +37,5 @@ def get_ggi_json_bocce(id)
   http = Net::HTTP.new(uri.host, uri.port)
   request = Net::HTTP::Get.new(uri.request_uri)
   request.basic_auth($WEBSITE_HTTP_USER, $WEBSITE_HTTP_PASSWORD) if $WEBSITE_HTTP_USER
-  return JSON.parse(http.request(request).body)
+  return (JSON.parse(http.request(request).body) rescue nil)
 end

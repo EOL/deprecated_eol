@@ -227,10 +227,10 @@ $EOL_GOOGLE_PLUS_ACCOUNT  = "//plus.google.com/+encyclopediaoflife?prsrc=3"
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
-$VIRTUOSO_USER = 'demo'
-$VIRTUOSO_PW = 'demo'
+$VIRTUOSO_USER = 'dba'
+$VIRTUOSO_PW = 'dba'
 $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
-$VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/xx/yy'
+$VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
 $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
 
 # Recaptcha Keys

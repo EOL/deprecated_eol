@@ -233,7 +233,6 @@ nl:
         curation_on_my_watched_item: Conservatorhandelingen op objecten, taxa, verzamelingen of gemeenschappen op uw volglijst
         eol_newsletter: Stuur me ieder kwartaal de nieuwsbrief van EOL
         i_am_being_watched: U bent toegevoegd aan de volglijst van een ander lid
-        invitation_to_community: Uitnodiging om lid te worden van een gemeenschap
         made_me_a_manager: U bent verzameling- of gemeenschapsbeheerder gemaakt
         member_joined_my_community: Een gemeenschap die u beheert heeft een nieuw lid
         member_joined_my_watched_community: Er zijn nieuwe leden in een gemeenschap waar u ook lid van bent
@@ -1022,7 +1021,6 @@ nl:
   admin_news_link: Nieuws
   admin_notes_not_visible_to_user: "Opmerkingen voor beheerders (niet zichtbaar voor gebruikers):"
   admin_option_all_users_can_see_data: Alle gebruiker kunnen gegevens zien, niet alleen gebruikers met rechten
-  admin_option_changed: Waarde gewijzigd.
   admin_options_warning: Het kan 10 minuten duren voor hier gemaakte wijzigingen zichtbaar zijn.
   admin_page_title: "Beheer: Overzicht"
   admin_spam_delete: Spam verwijderen
@@ -1894,8 +1892,8 @@ nl:
   data_point_uri_summary_name: gegevens over %{taxon}
   data_provided_by_content_partner: "Bron: %{whom}"
   data_provided_by_user: geleverd door %{whom}
-  data_ranges: Gegevensbereiken
-  data_ranges_subheader: Bereiken voor deze clade
+  data_ranges: Gegevenssamenvattingen
+  data_ranges_subheader: Gegevenssamenvattingen voor deze taxonomische groep
   data_reference_subtable_summary: Aanvullende referenties over dit feit.
   data_row_add_exemplar_button: Toevoegen aan snelle feiten
   data_row_excluded_from_overview_notice: "Opmerking: deze rij is uitgesloten van snelle feiten."
@@ -3861,9 +3859,9 @@ nl:
     data: 
       index: 
         hierarchy_entry: 
-          meta_description: Afbeeldingen, video's en audio van %{scientific_name} als ingedeeld door %{hierarchy_provider}. Zoek afbeeldingen, foto's, filmpjes en geluiden van %{scientific_name} bij de Encyclopedia of Life.
-          meta_description_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{scientific_name} geclassificeerd door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om gegevens voor %{scientific_name} bij te dragen.
-          meta_description_with_common_name_no_data: Er zijn geen berekenbare gegevens beschikbaar voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}, ook bekend als %{scientific_name} in de Encyclopedia of Life. EOL nodigt u uit gegevens bij te dragen voor %{preferred_common_name} (%{scientific_name}).
+          meta_description: Fieten over %{scientific_name} als ingedeeld door %{hierarchy_provider}in de Encyclopedia of Life.
+          meta_description_no_data: Er zijn geen feiten beschikbaar voor %{scientific_name} geclassificeerd door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten over %{scientific_name} bij te dragen.
+          meta_description_with_common_name_no_data: Er zijn geen feiten beschikbaar voor %{preferred_common_name} ook bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider} in de Encyclopedia of Life. EOL nodigt u uit om feiten over %{preferred_common_name} (%{scientific_name}) bij te dragen.
           meta_description_with_common_name_with_topics: Welke gegevens hebben wetenschappers verzameld voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider}? Berekenbare gegevens over %{scientific_name}, inclusief informatie over %{topics}.
           meta_title: Berekenbare gegevens voor %{scientific_name} als ingedeeld door %{hierarchy_provider}
           meta_title_with_common_name: Berekenbare gegevens voor %{preferred_common_name} als ingedeeld door %{hierarchy_provider} (%{scientific_name})
@@ -4662,6 +4660,7 @@ nl:
   will_find_taxon_pages_matching_the_search_term: vindt taxonpagina's als de voorkeursnaam, een synoniem of gewone naam precies overeen komt met de zoekterm
   will_paginate: 
     next_label: Volgende &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Vorige"
   worklist: Werklijst
   would_you_like_to_become_a_curator_notice: Wilt u conservator worden? U kunt toegang vragen op <a href='%{url}'>uw profielpagina</a>.

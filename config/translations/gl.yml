@@ -199,7 +199,6 @@ gl:
         curation_on_my_watched_item: Accións de conservación en obxectos, taxons, coleccións ou comunidades da túa lista de vixilancia
         eol_newsletter: Enviádeme o boletín trimestral da EOL
         i_am_being_watched: Fuches engadido á lista de vixilancia doutro membro
-        invitation_to_community: Invitación para unirse a unha comunidade
         made_me_a_manager: Fixéronte administrador dunha colección ou comunidade
         member_joined_my_community: Un novo membro uniuse a unha das comunidades que administras
         member_joined_my_watched_community: Novos membros uníronse a unha comunidade á que pertences
@@ -4284,6 +4283,7 @@ gl:
   will_find_taxon_pages_matching_the_search_term: atopará as páxinas de taxon se o nome preferido ou calquera sinónimo ou nome común coincide exactamente co termo de procura
   will_paginate: 
     next_label: Seguinte
+    page_gap: "&hellip;"
     previous_label: Anterior
   worklist: Lista de traballo
   would_you_like_to_become_a_curator_notice: Queres converterte nun conservador? Podes solicitar acceso na <a href='%{url}'>páxina do teu perfil</a>.

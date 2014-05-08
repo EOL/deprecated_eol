@@ -208,7 +208,6 @@ pms:
         curation_on_my_watched_item: Assion dël conservator ansima a j'oget, le tassonomìe, le colession o le comunità che chiel a ten sot-euj
         eol_newsletter: Mandeme ël boletin d'anformassion trimestral d'EOL
         i_am_being_watched: A l'é stàit giontà a la lista ëd lòn che n'àutr mèmber a ten sot-euj
-        invitation_to_community: Anvitassion a argionz-se a na comunità
         made_me_a_manager: A l'é stàit nominà mansé ëd colession o ëd comunità
         member_joined_my_community: A mèmber neuv a l'é gionzusse a la comunità che chiel a gestiss
         member_joined_my_watched_community: Dij neuv mèmber as son gionzusse a na comunità dont chiel a l'é mèmber
@@ -524,12 +523,15 @@ pms:
         an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: N'utent ësconossù a l'ha selessionà "%{data_object}" pr'ësmon-e na previsualisassion an s'na pàgina sconossùa.
         an_unknown_user_chose_exemplar_data_object_on_taxon: N'utent ësconossù a l'ha selessionà "%{data_object}" pr'ësmon-e na previsualisassion su "%{taxon}".
         an_unknown_user_chose_exemplar_it_on_an_unknown_taxon: N'utent ësconossù a l'ha selessionalo pr'ësmon-e na previsualisassion an s'na pàgina sconossùa.
+        an_unknown_user_chose_exemplar_it_on_taxon: N'utent ësconossù a l'ha selessionalo pr'ësmon-e na previsualisassion su "%{taxon}".
         user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha selessionà na veja version ëd "%{data_object}" pr'ësmon-e na previsualisassion an s'na pàgina sconossùa.
         user_chose_exemplar_an_older_data_object_on_taxon: <strong>%{user}</strong> a l'ha selessionà na veja version ëd "%{data_object}" pr'ësmon-e na previsualissassion su "%{taxon}".
         user_chose_exemplar_an_unknown_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha selessionà n'artìcol ësconossù pr'ësmon-e na previsualissassion an s'na pàgina sconossùa.
         user_chose_exemplar_an_unknown_data_object_on_taxon: <strong>%{user}</strong> a l'ha selessionà n'oget ëd dàit ësconossù pr'ësmon-e na previsualisassion su "%{taxon}".
         user_chose_exemplar_data_object_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha selessionà "%{data_object}" pr'ësmon-e na previsualisassion an s'na pàgina sconossùa.
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> a l'ha selessionà "%{data_object}" pr'ësmon-e na previsualisassion su "%{taxon}".
+        user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha selessionalo pr'ësmon-e na previsualisassion su na pàgina sconossùa.
+        user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> a l'ha selessionnalo pr'ësmon-e na previsualisassion su "%{taxon}".
       choose_exemplar_image: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: N'utent ësconossù a l'ha fissà na veja version ëd "%{data_object}" tanme esemplar an s'na pàgina sconossùa.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: N'utent ësconossù a l'ha fissà "%{data_object}" tanme esemplar su "%{taxon}".
@@ -547,6 +549,17 @@ pms:
         user_chose_exemplar_data_object_on_taxon: <strong>%{user}</strong> a l'ha fissà "%{data_object}" tanme esemplar su "%{taxon}".
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha fissalo tanme esemplar an s'na pàgina sconossùa.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> a l'ha fissalo tanme esemplar su "%{taxon}".
+      data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: N'utent ësconossù a l'ha sernù dë stërmé dij dàit an s'na pàgina sconossùa.
+        an_unknown_user_hide_data_on_taxon: N'utent ësconossù a l'ha sernù dë stërmé dij dàit su «%{taxon}».
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: N'utent ësconossù a l'ha butà dij dàit coma esempi an s'na pàgina sconossùa.
+        an_unknown_user_set_exemplar_data_on_taxon: N'utent ësconossù a l'ha butà dij dàit coma esempi su «%{taxon}».
+        an_unknown_user_unhide_data_on_an_unknown_taxon: N'utent ësconossù a l'ha sernù dë smon-e dij dàit an s'na pàgina sconossùa.
+        an_unknown_user_unhide_data_on_taxon: N'utent ësconossù a l'ha sernù dë smon-e dij dàit su «%{taxon}».
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha sernù dë stërmé dij dàit an s'na pàgina sconossùa.
+        user_hide_data_on_taxon: <strong>%{user}</strong> a l'ha sernù dë stërmé dij dàit su «%{taxon}».
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha butà dij dàit coma esempi su na pàgina sconossùa.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> a l'ha butà dij dàit coma esempi su «%{taxon}».
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma stërmà ant un contest ësconossù.
         an_unknown_user_hid_an_older_data_object_on_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma stërmà an sla pàgina "%{association}".
@@ -1704,6 +1717,18 @@ pms:
         hierarchy_entry: 
           meta_description: Un resumé dj'anformassion a propòsit ëd %{scientific_name}, tanme arconossù da %{hierarchy_provider}, ant l'Enciclopedìa dla Vita.
           meta_description_with_common_name: Un resumé dj'anformassion a proposit ëd %{preferred_common_name}, ciamà ëdcò %{scientific_name}, tanme arconossù da %{hierarchy_provider}, ant l'Enciclopedìa dla Vita.
+          meta_keywords: "%{scientific_name} arconossù da %{hierarchy_provider}, %{scientific_name} classificà da %{hierarchy_provider}"
+          meta_keywords_with_common_name: "%{scientific_name} arconossù da %{hierarchy_provider}, %{scientific_name} classificà da %{hierarchy_provider}"
+          meta_title: "%{scientific_name} classificà da %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classificà da %{hierarchy_provider})"
+          tweet_text: Vista d'ansem ëd %{scientific_name} tanme classificà da %{hierarchy_provider}
+        meta_description: Anformassion ansima a %{scientific_name} ant l'Enciclopedìa dla Vita.
+        meta_description_with_common_name: Anformassion su %{preferred_common_name}, conossù da na mira sientìfica tanme %{scientific_name} ant l'Enciclopedìa dla Vita.
+        meta_keywords: anformassion ansima a %{scientific_name}, anformassion su %{scientific_name}
+        meta_keywords_with_common_name: anformassion su %{scientific_name}, anformassion su %{preferred_common_name}, anformassion e fàit su %{scientific_name}, anformassion su %{preferred_common_name}
+        meta_title: "%{scientific_name} - Anformassion su %{scientific_name}"
+        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name}) - Anformassion su %{preferred_common_name}"
+        tweet_text: Anformassion su %{scientific_name}
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -1989,4 +2014,5 @@ pms:
   video_rating: Valutassion dël filmà
   will_paginate: 
     next_label: Sucessiv &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Precedent"

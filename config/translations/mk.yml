@@ -6,7 +6,6 @@
 # Author: Shirayuki
 # Author: Монтехристо
 mk: 
-  0: откако ќе ги прегледате нашите податочни можности“
   0_1_or_2: 0, 1 или 2
   0_or_1: 0 или 1
   a_maximum_of_30_results_are_returned: по страница се прикажуваат највеќе 30 резултати. Со овој параметар можете да добиете повеќе страници во резултатите ако имате над 30 совпаѓања
@@ -224,7 +223,6 @@ mk:
         curation_on_my_watched_item: Кустоски постапки врз експонатите, таксоните, збирките и заеднизите на вашиот список на набљудувања
         eol_newsletter: Испраќај ми тримесечен билтен
         i_am_being_watched: Додадени сте во списокот на набљудувања на друг член
-        invitation_to_community: Покана за зачленување во заедница
         made_me_a_manager: Назначени сте за раководител на збирка или заедница
         member_joined_my_community: Заедницата со која раководите има нов член
         member_joined_my_watched_community: Заедница во која членувате има нови членови
@@ -1013,9 +1011,9 @@ mk:
   admin_news_link: Новости
   admin_notes_not_visible_to_user: "Администраторски белешки (невидливи за корисникот):"
   admin_option_all_users_can_see_data: Податоците можат да ги гледаат сите корисници, а не само оние со дозвола.
-  admin_option_changed: Вредноста е изменета.
   admin_options_warning: Може да треба 10 за промените да стапат на сила.
   admin_page_title: Административна конзола
+  admin_simple_actions_header: "Прости дејства:"
   admin_spam_delete: Избриши спам
   admin_statistics_link: Статистики
   admin_translated_content_page_create_successful_notice: Додаден е превод на страницата <a href="#%{anchor}"><em>%{page_name}</em></a>
@@ -1044,6 +1042,7 @@ mk:
   admin_translated_news_item_not_active: Необјавено
   admin_translated_news_item_update_successful_notice: Преводот на %{language} на новоста <a href="#%{anchor}"><em>%{page_name}</em></a> е подновен.
   admin_translated_news_item_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да го подновам преводот.
+  admin_updated_config: Изменети постевеностите на %{name}
   admin_user_delete_successful_notice: Корисникот е избришан
   admin_user_hide_successful_notice: Корисникот е скриен
   admin_user_unhide_successful_notice: Корисникот е откриен
@@ -3248,7 +3247,6 @@ mk:
   newsfeed_help_for_taxon: Каналот за оваа таксонска страница собира актуелности поврзани експонатите во неа, вклучувајќи ги постапките на кустосите и коментарите од корисниците на EOL.
   newsfeed_help_for_watchlist: Каналот за списокот на набљудувања собира актуелности поврзани со објектите на списокот на набљудувања на сопственикот, вклучувајќи ги и неговите активности.
   next: Следно
-  "no": Не
   no_active_members: Сè уште нема активности.
   no_answer: не
   no_classificaitons_selected: Немате избрано класификации. Нема што да се премести.
@@ -3607,6 +3605,8 @@ mk:
   recognized_by_from_source_as_a_rank: "%{recognized_by} во %{source} како %{taxon_rank}"
   record_count: Број на записи
   record_not_found: "[записот не е пронајден]"
+  recount_collection_items: Преброј објекти во збирката (исправка на неисправни бројки; може да потрае неколку минути)
+  recount_collection_items_done: Пребројувањето заврши.
   reference: Навод
   references_cabs_colon: "Наводи:"
   reindex_page_button: Преиндексирај страница
@@ -4335,17 +4335,13 @@ mk:
     one: "%{count} експонат"
     other: вкупно %{count} експонати
   total_searches: "Вкупно пребарувања:"
-  traitbank_data_search: Пребарај податоци
-  traitbank_description: пребарајте по милиони податочни записи на EOL
-  traitbank_info_page: Дознајте повеќе
-  traitbank_intro: "Ви ја претставуваме <a href='/traitbank'>TraitBank</a>:"
+  traitbank_banner: <strong>Ви го претставуваме<a href='/traitbank'>TraitBank</a>:</strong> пребарување на милиони податочни записи на EOL &nbsp; <small>•</small> &nbsp; <a href='/traitbank'>Дознајте повеќе</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Пребарајте податоци</a>
   translation_deleted: Преводот е избришан
   translation_information_header: Информации за преводот
   translation_log: Хистограм на честотата на I18n-клучеви
   translation_saved: Преводот е зачуван
   translations_submit: Погл. превод
   trigger_search_term_entered_by: повикувачки поим што го внел корисникот
-  "true": Точно
   true_label: Точно
   truncated_comment_omission: ... <a href='%{link}'>повеќе</a>
   truncated_comment_omission_linkless: ...
@@ -4368,8 +4364,6 @@ mk:
   unknown_data_object_title: Непознат податочен објект
   unknown_hierarchy: Непозната хиерархија
   unknown_type_not_associated_with_any_published_entries: Овие податоци не се поврзани со ниеден објавен таксон.
-  unpredictable but we invite you to explore: 
-    " Please fill out our <a href='https": //www.surveymonkey.com/s/9FDTDQP'>анкета</a>
   unpublished: Необјавено
   unpublished_collections_with_count: 
     one: "%{count} скриена збирка"
@@ -4790,6 +4784,7 @@ mk:
   will_find_taxon_pages_matching_the_search_term: ќе најде страници од таксонот ако пребараното точно се совпаѓа со претпочитаното име, некој од синонимите или народното име
   will_paginate: 
     next_label: Следна &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Претходна"
   worklist: Работен список
   would_you_like_to_become_a_curator_notice: Дали би сакале да станете кустос? Кустоски пристап може да побарате на <a href='%{url}'>вашата профилна страница</a>.

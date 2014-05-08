@@ -201,7 +201,6 @@ br:
         curation_on_my_watched_item: Oberoù ar mirour war an traezoù, an taksonoù, an dastumadoù pe ar c'humuniezhioù eus ho roll heuliañ
         eol_newsletter: Kasit din lizher-kelaouiñ trimiziek EOL
         i_am_being_watched: Ouzhpennet oc'h bet e roll heuliañ un ezel all
-        invitation_to_community: Pedadenn d'en em gavout gant ur gumuniezh
         made_me_a_manager: Anvet oc'h bet da benn un dastumad pe ur gumuniezh
         member_joined_my_community: Un ezel nevez zo deuet gant  ur gumuniezh zo meret ganeoc'h
         member_joined_my_watched_community: Izili nevez o deus lakaket o anv en ur gumuniezh oc'h ezel anezhi
@@ -571,7 +570,6 @@ br:
   admin_news_items_page_title: "Melestradurezh : Keleier"
   admin_news_link: Keleier
   admin_notes_not_visible_to_user: "Notennoù melestradurel (ne c'hall ket an implijer gwelet anezho) :"
-  admin_option_changed: Talvoud kemmet.
   admin_page_title: "Merañ : Brassell"
   admin_spam_delete: Diverkañ ar strob
   admin_statistics_link: Stadegoù
@@ -2104,7 +2102,6 @@ br:
   news_missing_content_message: Digarezit, ne c'haller ket kavout ar bajenn-mañ er yezh diuzet %{selected_language}.
   news_missing_content_title: Mankout a ra an droidigezh
   next: War-lerc'h
-  "no": Ket
   no_active_members: N'eus ket bet trawalc'h a obererezh c'hoazh.
   no_answer: Ket
   no_results_for_search_term: Disoc'h ebet evit "%{search_term}"
@@ -2834,6 +2831,7 @@ br:
   wikipedia_queue_new_page_title: Goulenn enporzhiadur ur pennad eus Wikipedia
   will_paginate: 
     next_label: War-lerc'h &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Kent"
   worklist: Roll-labour
   xml_response: Respont XML

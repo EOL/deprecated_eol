@@ -234,7 +234,6 @@ zh-CN:
         curation_on_my_watched_item: 关于你的监视列表中的对象、分类、收藏或小组的管理操作
         eol_newsletter: 给我发送EOL季度通讯
         i_am_being_watched: 你已经被添加至其他成员的监视列表
-        invitation_to_community: 加入小组的邀请
         made_me_a_manager: 你已经是收藏或小组的管理者
         member_joined_my_community: 一名新成员加入了你管理的小组
         member_joined_my_watched_community: 有新成员已经加入你加入的小组
@@ -769,7 +768,6 @@ zh-CN:
   admin_news_items_page_title: 管理：新闻
   admin_news_link: 新闻
   admin_notes_not_visible_to_user: 管理员注释（对用户不可见）：
-  admin_option_changed: 值已更新。
   admin_page_title: 管理：概要
   admin_spam_delete: 删除垃圾
   admin_statistics_link: 统计
@@ -3616,8 +3614,6 @@ zh-CN:
   total_items_with_count: 
     other: 总计%{count}项
   total_searches: 全部搜索次数：
-  traitbank_data_search: 搜索数据
-  traitbank_info_page: 了解更多
   translation_deleted: 翻译已删除
   translation_information_header: 翻译信息
   translation_log: 国际化关键频率分布直方图
@@ -4008,6 +4004,7 @@ zh-CN:
   will_find_taxon_pages_matching_the_search_term: 如果搜索关键词与推荐名、异名或俗名完全匹配，就能找到相关的物种页
   will_paginate: 
     next_label: 下一条&#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; 前一条"
   worklist: 工作列表
   xml_response: XML 响应

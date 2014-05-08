@@ -202,7 +202,6 @@ ar:
         curation_on_my_watched_item: عمليات إشرافية على كائنات أو أصنوفات أو مجموعات أو مجتمعات في قائمة مراقباتك
         eol_newsletter: ارسل لي النشرة الإخبارية الفصلية
         i_am_being_watched: تمت إضافتك إلى قائمة مراقبات عضو آخر.
-        invitation_to_community: دعوة للانضمام إلى مجتمع
         made_me_a_manager: تم تعيينك مدير مجموعة أو مجتمع
         member_joined_my_community: عضو جديد انضم إلى مجتمع تديره
         member_joined_my_watched_community: أعضاء جدد انضموا إلى مجتمع تديره
@@ -4067,6 +4066,7 @@ ar:
   will_find_taxon_pages_matching_the_search_term: سوف يتم إيجاد صفحات الأصنوفة إذا ما كان الاسم  المفضل أو أي مرادف أو اسم شائع يطابق مصطلح البحث
   will_paginate: 
     next_label: التالى
+    page_gap: "&hellip;"
     previous_label: السابق
   worklist: قائمة العمل
   would_you_like_to_become_a_curator_notice: هل تود أن تصبح مشرفاََ؟ يمكنك طلب الحصول على إذن على <a href='%{url}'>صفحة ملفك الشخصي</a>.

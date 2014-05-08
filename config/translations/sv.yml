@@ -196,6 +196,7 @@ sv:
         toc_items: Kategorier
         uri: URI
         uri_type: URI-typ
+        value_is_text: Värden kommer inte vara URI:er, endast text
       known_uri_relationship: 
         from_known_uri_id: Ämnes-URI
         relationship_uri: Relations-URI
@@ -218,7 +219,6 @@ sv:
         curation_on_my_watched_item: Kuratorshandlingar för objekt, taxa, samlingar eller gemenskaper i din bevakningslista
         eol_newsletter: Skicka EOL-nyhetsbrevet till mig varje kvartal
         i_am_being_watched: Du har lagts till i en annan medlems bevakningslista
-        invitation_to_community: Inbjudan om att gå med i en gemenskap
         made_me_a_manager: Du har blivit en samlings- eller gemenskapshanterare
         member_joined_my_community: En ny medlem har gått med i en gemenskap som du hanterar
         member_joined_my_watched_community: Nya medlemmar har blivit medlem i en gemenskap där du är en medlem
@@ -620,10 +620,14 @@ sv:
       data_point_uri: 
         an_unknown_user_hide_data_on_an_unknown_taxon: En okänd användare valde att dölja data på en okänd sida.
         an_unknown_user_hide_data_on_taxon: En okänd användare valde att dölja data på "%{taxon}".
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: En okänd användare angav data som exemplar på en okänd sida.
+        an_unknown_user_set_exemplar_data_on_taxon: En okänd användare angav data som exemplar på "%{taxon}".
         an_unknown_user_unhide_data_on_an_unknown_taxon: En okänd användare valde att visa data på en okänd sida.
         an_unknown_user_unhide_data_on_taxon: En okänd användare valde att visa data på "%{taxon}".
         user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> valde att dölja data på en okänd sida.
         user_hide_data_on_taxon: <strong>%{user}</strong> valde att dölja data på "%{taxon}".
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> angav data som exemplar på en okänd sida.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> angav data som exemplar på "%{taxon}".
         user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> valde att visa data på en okänd sida.
         user_unhide_data_on_taxon: <strong>%{user}</strong> valde att visa data på "%{taxon}".
       hide: 
@@ -991,7 +995,6 @@ sv:
   admin_news_link: Nyheter
   admin_notes_not_visible_to_user: "Adminanteckningar (inte synliga för användare):"
   admin_option_all_users_can_see_data: Alla användare kan se data, inte bara användare med behörighet
-  admin_option_changed: Värdet ändrades.
   admin_options_warning: Ändringar här kan ta 10 minuter att träda i kraft.
   admin_page_title: Administrationskonsol
   admin_spam_delete: Radera spam
@@ -1482,6 +1485,7 @@ sv:
   content_notes_not_shown_to_us: "Innehållsanteckningar (visas inte för användare):"
   content_partner: Innehållspartner
   content_partner_about_header: Om %{partner_name}
+  content_partner_admin_index_link_back_to: gå tillbaka till partnerhantering
   content_partner_administration_notes_empty: Det finns inga administrationsanteckningar.
   content_partner_administration_notes_header: Administrationsanteckningar
   content_partner_administration_settings_header: Administrationsinställningar
@@ -1789,6 +1793,7 @@ sv:
   data_point_uri_summary_name: data om %{taxon}
   data_provided_by_content_partner: "Leverantör: %{whom}"
   data_provided_by_user: tillhandahållen av %{whom}
+  data_ranges: Datasammanfattningar
   data_reference_subtable_summary: Ytterligare referenser om denna fakta.
   data_results_only_for_search: TraitBank-resultat för "%{search_term}"
   data_row_add_exemplar_button: lägg till i översikt
@@ -1815,6 +1820,7 @@ sv:
       search_suggestions_subheader_colon: "Prova en av följande datasökningar:"
       search_tools_hide_link: Dölj sökalternativ
       search_tools_show_link: Visa sökalternativ
+      search_value_or_range_header: Sök efter ett specifikt värde eller intervall
       search_within_taxon_group_header: Sök inom en taxongrupp
       search_within_taxon_group_intro_with_count: 
         other: Sökning inom en taxongrupp är för närvarande begränsat till grupper med färre än %{count} taxa. <a href="%{contact_us_tech_url}">Kontakta oss</a> för att ta reda på mer om att söka i större grupper.
@@ -2124,6 +2130,7 @@ sv:
   file_download_pending: Det tar lite extra lång tid att skapa nedladdningen, så vi har startat ett bakgrundsjobb för den. Du kan <a href='%{link}'>kolla statusen för ditt jobb</a> när som helst.
   file_id: Fil-ID
   file_size: Filstorlek
+  fill_in_a_message_below_to_send_email_to_user: "Skriv ett meddelande nedan för att skicka ett e-postmeddelande till denna användare från webbplatsen. Meddelandet kommer att skickas när du skickar formuläret:"
   filter_button: Filtrera
   filter_by_day: Filtrera efter dag
   filter_by_status: Filtrera efter status
@@ -2262,6 +2269,8 @@ sv:
   from_community: från gemenskapen %{community}.
   gbif_map: GBIF-karta
   gbif_occurrence_learn_more_link: Kom åt dessa data genom GBIF-portalen.
+  get_help_choosing_a_subchapter: Få hjälp med att välja en underkapitel
+  get_help_choosing_a_subject: Få hjälp med att välja ett ämne
   get_more_tasks: hämta fler uppgifter
   given_name_colon: "Förnamn:"
   gives_access_to_a_single_hierarchy_indexed_by_eol: ger tillgång till en enda hierarki som indexeras av EOL och dess interna relationer
@@ -2392,6 +2401,10 @@ sv:
         complete: Kurerad
         request_publish: Publicering begärd
         request_publish_more: Anger om det finns en väntande begäran att befrämja denna hierarki för att bli en av de primära bläddringsbara hierarkierna på EOL.
+      known_uri_relationship: 
+        from_known_uri: För känd URI
+        relationship_uri: Välj relation
+        to_known_uri: Ange och välj mål-URI
       news_item: 
         active: Publicerad
         page_name: Unikt namn<small>(endast gemena ISO-baserade latinska bokstäver och understreck)</small>
@@ -2675,12 +2688,16 @@ sv:
     import_successful: Ontologitermer importerades
     more_than_one_field_mapped_to_type: Mer än ett attribut är mappat till "%{type}"
     name_placeholder_text: t.ex. bidragsgivare
+    no_relationships: Inga relationer hittades för denna URI.
     no_results: Det finns inga resultat för den valda statistiken
     ontology_information_url_placeholder_text: t.ex. http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: t.ex. http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_category_for_stats: Välj en kategori att visa statistik.
     please_select_field_types: Var god välj en mappning för varje attribut
     preferred_for_equivalence_group: Föredragen
     relationships: Relationer
+    relationships_from_this_uri: Relationer från denna URI
+    relationships_to_this_uri: Relationer till denna URI
     select: välj
     select_a_category_to_view_stats: "Välj en kategori att visa statistik för:"
     select_a_preferred_uri_for_this_group: Välj en föredragen URI
@@ -2797,6 +2814,7 @@ sv:
   link_not_associated_with_any_published_entries: Denna länk är inte associerad med någon publicerad taxa.
   link_rating: Länkbetyg
   link_to_this_term: länk till denna term
+  link_to_top_of_page: toppen
   links_with_count: 
     one: "%{count} länk"
     other: "%{count} länkar"
@@ -3009,6 +3027,7 @@ sv:
   no_related_names: Inga namn har blivit relaterade till detta taxon ännu.
   no_results_for_search_term: Inga resultat för "%{search_term}"
   no_search_suggestions_are_avai: Det finns inga sökresultat som motsvarar dina sökkriterier.
+  no_survey_responses_are_availa: Det finns ingen enkätsvar tillgängliga.
   no_tasks_found: Inga uppgifter hittades
   no_uploaded_content_is_available: Inget uppladdade innehåll finns tillgängligt.
   no_user_submitted_data_objects: Det finns inga användarinskickade dataobjekt som motsvarar dina sökkriterier.
@@ -3098,6 +3117,11 @@ sv:
   nucleotide_sequences_proteins_link: Visa protein och Nukleotidsekvenser i NCBI
   num_content_partners: Antal innehållspartners
   num_data_objects: Antal dataobjekt
+  number_of_taxa_at_this_entry: Antal taxa i denna post
+  number_of_trusted_images_at_this_entry: Antal pålitliga bilder i denna post
+  number_of_trusted_text_objects_at_this_entry: Antal pålitliga textobjekt i denna post
+  number_of_unreviewed_images_at_this_entry: Antal ogranskade bilder i denna post
+  number_of_unreviewed_text_objects_at_this_entry: Antal ogranskade textobjekt i denna post
   object: Objekt
   object_curated: Kurerade objekt.
   object_curation: Objektskurering
@@ -3425,6 +3449,7 @@ sv:
   see_all_updates_with_count_html: 
     one: Se <span class="assistive">%{count} uppdateringen för denna sida.</span>
     other: Se alla <span class="assistive">%{count} uppdateringarna för denna sida.</span>
+  see_more_on_the_data_tab: se mer i datafliken
   see_notes: se anteckningar
   select_an_item_from_the_menu: Välj ett objekt från menyn
   select_colon: "Välj:"
@@ -3858,6 +3883,7 @@ sv:
   taxon_related_organizations_link: Relaterade organisationer
   taxon_suggested: Taxon föreslagen
   technical_functions: Tekniska funktioner
+  term_cannot_be_left_blank: Termen kan inte vara tom
   term_for_search_admin_ui: Term
   term_is_already_def_error: "'%{term}' definieras redan"
   terms_agreement_form_fallback: Var god läs igenom och godkänn <a href="%{terms_url}">användarvillkoren</a> innan du loggar in på ditt konto.
@@ -3935,10 +3961,6 @@ sv:
     one: "%{count} objekt"
     other: totalt %{count} objekt
   total_searches: "Totala sökningar:"
-  traitbank_data_search: Sök data
-  traitbank_description: sök bland miljoner dataposter på EOL
-  traitbank_info_page: Läs mer
-  traitbank_intro: "Introducerar <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: Översättning har tagits bort
   translation_information_header: Översättningsinformation
   translation_log: Frekvenshistogram för i18n-nyckel
@@ -4366,6 +4388,7 @@ sv:
   wikipedia_queue_new_page_title: Begär ett importtillstånd för en Wikipedia-artikel
   will_paginate: 
     next_label: Nästa &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Föregående"
   worklist: Arbetslista
   would_you_like_to_become_a_curator_notice: Vill du bli en kurator? Du kan begära tillgång på <a href='%{url}'>din profilsida</a>.

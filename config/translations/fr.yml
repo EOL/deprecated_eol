@@ -33,7 +33,6 @@
 # Author: Wyz
 # Author: Zcqsc06
 fr: 
-  0: après avoir examiné nos capacités de données. »
   0_1_or_2: 0, 1 ou 2
   0_or_1: 0 ou 1
   a_maximum_of_30_results_are_returned: un maximum de 30 résultats est renvoyé par page. Ce paramètre vous permet de ramener davantage de pages de résultats s'il y en a plus de 30
@@ -242,7 +241,6 @@ fr:
         curation_on_my_watched_item: Actions du conservateur sur les objets, les taxons, les collections ou les communautés de votre liste de suivi
         eol_newsletter: Envoyez-moi le bulletin d’information trimestriel EdlV
         i_am_being_watched: Vous avez été ajouté à la liste de suivi d’un autre membre
-        invitation_to_community: Invitation à se joindre à une communauté
         made_me_a_manager: Vous avez été désigné responsable d’une collection ou d’une communauté
         member_joined_my_community: Un nouveau membre s’est joint à une communauté que vous gérez
         member_joined_my_watched_community: De nouveaux membres ont rejoint une communauté dont vous êtes membre
@@ -1017,9 +1015,9 @@ fr:
   admin_news_link: Actualités
   admin_notes_not_visible_to_user: "Notes d’administration (non visibles par l’utilisateur) :"
   admin_option_all_users_can_see_data: Tous les utilisateurs peuvent voir les données, pas seulement ceux avec une autorisation
-  admin_option_changed: Valeur modifiée.
   admin_options_warning: Les changements à cet endroit peuvent nécessiter jusqu’à dix minutes pour être effectifs.
   admin_page_title: "Administration : vue d’ensemble"
+  admin_simple_actions_header: "Actions simples :"
   admin_spam_delete: Supprimer les pourriels
   admin_statistics_link: Statistiques
   admin_translated_content_page_create_successful_notice: La traduction a été ajoutée à <a href="#%{anchor}"><em>%{page_name}</em></a>
@@ -1048,6 +1046,7 @@ fr:
   admin_translated_news_item_not_active: Non publié
   admin_translated_news_item_update_successful_notice: La traduction en %{language} de <a href="#%{anchor}"><em>%{page_name}</em></a> a été mise à jour.
   admin_translated_news_item_update_unsuccessful_error: Désolé, une erreur est survenue, la traduction n’a pas pu être mise à jour.
+  admin_updated_config: Configuration mise à jour pour %{name}
   admin_user_delete_successful_notice: Utilisateur a été supprimé
   admin_user_hide_successful_notice: Utilisateur a été masqué
   admin_user_unhide_successful_notice: L’utilisateur n’est plus masqué
@@ -3216,7 +3215,6 @@ fr:
   newsfeed_help_for_taxon: Le fil de nouvelles pour cette page de taxon de l’EdlV regroupe les mises à jour associées aux éléments qui y sont affichés, y compris les actions de conservation et les commentaires des utilisateurs de l’EdlV.
   newsfeed_help_for_watchlist: Le fil de nouvelles de la liste de suivi EdlV regroupe les mises à jour associées aux éléments de la liste de suivi EdlV du propriétaire, y compris les activités du propriétaire.
   next: Suivant
-  "no": Non
   no_active_members: L’activité n’est pas encore suffisante.
   no_answer: Non
   no_classificaitons_selected: Aucune classification sélectionnée. Il n’y a rien à déplacer.
@@ -3575,6 +3573,8 @@ fr:
   recognized_by_from_source_as_a_rank: "%{recognized_by} dans %{source} comme un %{taxon_rank}"
   record_count: Nombre d’enregistrements
   record_not_found: "[enregistrement non trouvé]"
+  recount_collection_items: Compter de nouveau les éléments de la collection (corrige les mauvais comptages d’élément ; cela peut prendre plusieurs minutes)
+  recount_collection_items_done: Fin du recomptage des éléments de la collection.
   reference: Référence
   references_cabs_colon: "Références :"
   reindex_page_button: Réindexer la page
@@ -4303,17 +4303,13 @@ fr:
     one: "%{count} élément"
     other: "%{count} éléments au total"
   total_searches: "Total des recherches :"
-  traitbank_data_search: Rechercher des données
-  traitbank_description: rechercher parmi des millions d’enregistrements de données de EdlV
-  traitbank_info_page: En savoir plus
-  traitbank_intro: "Introduction à <a href='/traitbank'>TraitBank</a>:"
+  traitbank_banner: <strong>Présentation de <a href='/traitbank'>TraitBank</a>:</strong> recherche dans des millions d’enregistrements dans EdlV &nbsp; <small>•</small> &nbsp; <a href='/traitbank'>En savoir plus</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Rechercher des données</a>
   translation_deleted: Traduction a été supprimée
   translation_information_header: Renseignements de traduction
   translation_log: Histogramme des clés d’i18n
   translation_saved: Traduction a été enregistrée
   translations_submit: Voir traduction
   trigger_search_term_entered_by: déclencher le critère de recherche saisi par l’utilisateur
-  "true": Vrai
   true_label: Vrai
   truncated_comment_omission: ... <a href='%{link}'>plus</a>
   truncated_comment_omission_linkless: ...
@@ -4336,8 +4332,6 @@ fr:
   unknown_data_object_title: Objet de donnée inconnu
   unknown_hierarchy: Hiérarchie inconnue
   unknown_type_not_associated_with_any_published_entries: Ces données ne sont associées à aucune des taxinomies publiées.
-  unpredictable but we invite you to explore: 
-    " Please fill out our <a href='https": //www.surveymonkey.com/s/9FDTDQP'>sondage</a>
   unpublished: Non publié
   unpublished_collections_with_count: 
     one: "%{count} collection cachée"
@@ -4758,6 +4752,7 @@ fr:
   will_find_taxon_pages_matching_the_search_term: trouvera les pages de taxon si le nom préféré ou un synonyme ou son nom vulgaire correspond exactement au critère de recherche
   will_paginate: 
     next_label: Suivant →
+    page_gap: ...
     previous_label: ← Précédent
   worklist: Liste des tâches
   would_you_like_to_become_a_curator_notice: Vous souhaitez devenir un conservateur ? Vous pouvez demander l’accès depuis <a href='%{url}'>votre page de profil</a>.

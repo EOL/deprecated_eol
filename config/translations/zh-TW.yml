@@ -218,7 +218,6 @@ zh-TW:
         curation_on_my_watched_item: 管理者對您觀察清單中物件、類群、典藏或社群所做的動作
         eol_newsletter: 請寄給我EOL的newsletter季刊
         i_am_being_watched: 您已經被加入至另一位會員的觀察清單
-        invitation_to_community: 邀請加入社群
         made_me_a_manager: 您已經成為典藏或社群的管理者
         member_joined_my_community: 有位新會員已加入您所管理的社群
         member_joined_my_watched_community: 有新會員加入您所參與的社群
@@ -1864,6 +1863,7 @@ zh-TW:
   donation_sponsorship_infrastructure_description: 為了將EOL的力量擺至全世界的人手中，我們歡迎任何大小贊助以支持此倡議之核心基礎建設及運作費用。
   donation_sponsorship_infrastructure_title: 核心基礎建設
   donation_sponsorship_preamble: 如果您想深入瞭解有關贊助的特定方案，或是想重複捐贈，請透過 <a href="mailto:%{email_address}">email</a> 或撥 1(202)633-8730(美國境內)聯絡生命大百科秘書處。專案贊助的機會包含：
+  donation_you_are_about_to: 您將捐贈生命百科全書。請按「同意」以經由安全支付站點繼續，您將在那裡輸入信用卡資訊。
   done_already: 已完成
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 不要顯示不明之註冊日期(V1使用者，全都在2009年1月5日前)
   download_wav_file: 下載WAV檔案

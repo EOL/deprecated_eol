@@ -187,7 +187,6 @@ nb:
         curation_on_my_watched_item: Kuratorhandlinger på objekter, taksa, samlinger eller brukersamfunn på din overvåkningsliste
         eol_newsletter: Send meg det kvartalvise EOL-nyhetsbrevet
         i_am_being_watched: Du ble lagt til et annet medlems overvåkningsliste
-        invitation_to_community: Invitasjon til å bli med i et brukersamfunn
         made_me_a_manager: Du har blitt gjort til administrator for en samling eller brukersamfunn
         member_joined_my_community: Et brukersamfunn du administrerer har fått et nytt medlem
         member_joined_my_watched_community: Nye medlemmer har blitt med i et brukersamfunn du er medlem av
@@ -3271,6 +3270,7 @@ nb:
   who_registered_before: til
   will_paginate: 
     next_label: Neste &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Forrige"
   worklist: Arbeidsliste
   would_you_like_to_become_a_curator_notice: Ønsker du å bli en kurator? Du kan be om tilgang på <a href='%{url}'>din profilside</a>.

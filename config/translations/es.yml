@@ -32,7 +32,6 @@
 # Author: VegaDark
 # Author: Vivaelcelta
 es: 
-  0: después de que hayas revisado nuestra capacidad de datos."
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
   a_maximum_of_30_results_are_returned: se devuelven un máximo de 30 resultados por página. Este parámetro permite obtener más páginas de resultados si hay más de 30 resultados encontrados
@@ -250,7 +249,6 @@ es:
         curation_on_my_watched_item: Acciones de supervisión en objetos, taxones, colecciones o comunidades de su lista de seguimiento
         eol_newsletter: Envienme el boletín trimestral de EOL
         i_am_being_watched: Ha sido agregado a la lista de seguimiento de otro miembro
-        invitation_to_community: Invitación para unirse a una comunidad
         made_me_a_manager: Ha sido hecho administrador de una colección o comunidad
         member_joined_my_community: Un nuevo miembro se ha unido a una comunidad que administra
         member_joined_my_watched_community: Nuevos miembros se han unido a una comunidad de la que usted es miembro
@@ -1039,7 +1037,6 @@ es:
   admin_news_link: Noticias
   admin_notes_not_visible_to_user: "Notas de Admin (no visibles para el usuario):"
   admin_option_all_users_can_see_data: Todos los usuarios pueden ver los datos, no sólo los usuarios con permiso
-  admin_option_changed: Valor cambiado.
   admin_options_warning: Los cambios aquí pueden tomar 10 minutos en hacer efecto.
   admin_page_title: Consola de Administración
   admin_spam_delete: Eliminar Spam
@@ -3276,7 +3273,6 @@ es:
   newsfeed_help_for_taxon: El suministro de noticias de esta página Taxón EOL recoge cambios asociados con elementos que aparecen en ella, incluyendo las acciones de comisario y los comentarios de los usuarios de EOL.
   newsfeed_help_for_watchlist: La lista Watch EOL Newsfeed reúne actualizaciones asociadas con los elementos en la lista del propietario Watch EOL, incluidas las actividades de su propietario.
   next: Siguiente
-  "no": 'No'
   no_active_members: No ha habido suficiente actividad todavía.
   no_answer: 'No'
   no_classificaitons_selected: No hay clasificaciones seleccionadas. No hay nada que trasladar.
@@ -4363,17 +4359,12 @@ es:
     one: "%{count} ítem"
     other: "%{count} total ítems"
   total_searches: "Búsquedas totales:"
-  traitbank_data_search: Búsqueda de datos
-  traitbank_description: buscar millones de registros de datos en EOL
-  traitbank_info_page: Más información
-  traitbank_intro: "Presentando <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: Se ha eliminado la traducción
   translation_information_header: Información de la traducción
   translation_log: Histograma de frecuencia clave i18n
   translation_saved: Se ha guardado la traducción
   translations_submit: Mira la traducción
   trigger_search_term_entered_by: ejecutar el término de búsqueda introducido por el usuario
-  "true": Verdadero
   true_label: Verdadero
   truncated_comment_omission: ... <a href='%{link}'>más</a>
   truncated_comment_omission_linkless: ...
@@ -4396,8 +4387,6 @@ es:
   unknown_data_object_title: Objeto de datos desconocido
   unknown_hierarchy: Jerarquía desconocida
   unknown_type_not_associated_with_any_published_entries: Estos datos no están asociados con ninguno de los taxones publicados.
-  unpredictable but we invite you to explore: 
-    " Please fill out our <a href='https": //www.surveymonkey.com/s/9FDTDQP'>encuesta</a>
   unpublished: Sin publicar
   unpublished_collections_with_count: 
     one: "%{count} ocultar colección"
@@ -4818,6 +4807,7 @@ es:
   will_find_taxon_pages_matching_the_search_term: encontrará páginas de taxón si el nombre preferido o cualquier sinónimo o nombre común coincide exactamente con el término buscado
   will_paginate: 
     next_label: Próxima &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Anterior"
   worklist: Lista de trabajo
   would_you_like_to_become_a_curator_notice: ¿Te gustaría convertirte en un conservador/a? Puedes solicitar acceso a <a href='%{url}'>tu página de perfil</a>.

@@ -195,7 +195,6 @@ ms:
         curation_on_my_watched_item: Tindakan kurator pada objek, takson, koleksi atau komuniti dalam senarai pantau anda
         eol_newsletter: Hantarkan saya surat berita EOL suku tahunan
         i_am_being_watched: Anda telah disertakan dalam senarai pantau ahli lain
-        invitation_to_community: Jemputan untuk menyertai komuniti
         made_me_a_manager: Anda telah menjadi pengurus koleksi atau komuniti
         member_joined_my_community: Seorang ahli baru telah menyertai sebuah komuniti dalam pengurusan anda
         member_joined_my_watched_community: Komuniti yang mana anda menjadi ahli telah disertai oleh ahli-ahli baru
@@ -2935,6 +2934,7 @@ ms:
   will_find_taxon_pages_matching_the_search_term: akan mencari halaman takson jika nama yang diutamakan atau sebarang sinonim atau nama am tepat-tepat sepadan dengan istilah carian
   will_paginate: 
     next_label: Seterusnya &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Sebelumnya"
   worklist: Senarai Kerja
   xml_response: Balasan XML

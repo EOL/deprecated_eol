@@ -230,7 +230,6 @@ uk:
         curation_on_my_watched_item: Дії кураторів з об'єктами, таксонами, колекціями або спільнотами в вашому списку спостереження
         eol_newsletter: Надсилати мені щоквартальні новини Енциклопедії Життя
         i_am_being_watched: Вас було додано до списку спостереження іншим користувачем
-        invitation_to_community: Запрошення приєднатися до спільноти
         made_me_a_manager: Вас призначено менеджером спільноти або колекції
         member_joined_my_community: Новий користувач приєднався до спільноти, якою ви керуєте
         member_joined_my_watched_community: Нові учасники приєдналися до спільноти, де ви також берете участь
@@ -1018,7 +1017,6 @@ uk:
   admin_news_link: Новини
   admin_notes_not_visible_to_user: "Нотатки адміністратора (не видно користувачеві):"
   admin_option_all_users_can_see_data: Всі користувачі можуть бачити дані, не тільки користувачі з дозволом
-  admin_option_changed: Змінилося значення.
   admin_options_warning: Зміни можуть вимагати 10 хвилин для набуття сили.
   admin_page_title: "Адміністрування: огляд"
   admin_spam_delete: Видалити спам
@@ -4139,6 +4137,7 @@ uk:
   who_registered_before: до
   will_paginate: 
     next_label: Наступні &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Попередній"
   worklist: Робочий список
   yahoo: Yahoo

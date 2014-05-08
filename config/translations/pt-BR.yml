@@ -222,7 +222,6 @@ pt-BR:
         curation_on_my_watched_item: Ações de curador em objetos, táxons, coleções ou comunidades em sua lista de avisos
         eol_newsletter: Me enviar um boletim trimestral da EOL
         i_am_being_watched: Você foi adicionado a lista de avisos de outro membro
-        invitation_to_community: Convite para participar de uma comunidade
         made_me_a_manager: Você se tornou gerente de uma coleção ou da comunidade
         member_joined_my_community: Um novo membro se juntou a comunidade que você gerencia
         member_joined_my_watched_community: Novos membros se juntaram a uma comunidade onde você é um membro
@@ -1859,6 +1858,7 @@ pt-BR:
   disabled_for_now: DESABILITADO NESTE MOMENTO
   discover_link: Descobrir
   do_you_want_to_be_a_curator: Você quer ser um curador?
+  donation_amount: "Total:"
   donation_amount_legend: Escolha a quantidade que gostaria de doar
   donation_amount_other_label: Outro
   donation_confirmation: Confirmação de doação
@@ -2586,6 +2586,7 @@ pt-BR:
   just_pages_with_pictures_and_text: Apenas as páginas com imagens e texto
   keep_split_entry_from_this_entry: Mantenha separada esta entrada
   key: Chave
+  known_uri_category_header: Categorias
   known_uri_relationships: 
     create_failed: Desculpe, ocorreu um erro, a relação não pode ser adicionada.
     created: Relacionamento criado com sucesso

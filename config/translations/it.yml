@@ -16,6 +16,7 @@
 # Author: Nastoshka
 # Author: Nemo bis
 # Author: Ontsed
+# Author: PeppeAeco
 # Author: Raoli
 # Author: Ribez
 # Author: Rippitippi
@@ -27,7 +28,7 @@ it:
   0_1_or_2: 0, 1 o 2
   0_or_1: 0 o 1
   a_pipe_delimited_list_of_licenses: una barra verticale | è usata come separatore nell'elenco delle licenze, o 'all' per ottenere gli oggetti con qualsiasi licenza. Licenze abbreviate in cc- sono tutte licenze %{creative_commons_link}. Visita il loro sito per ulteriori informazioni sulle varie licenze che offrono.
-  a_pipe_delimited_list_of_spm_info_item_subject_names: una barra verticale | è usata come separatore nell'elenco degli argomenti per elementi di informazione SPM, o 'all' per ottenere il testo su qualsiasi argomento
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "'overview' per ottenere la panoramica del testo (se esiste), una barra verticale | è usata come separatore nell'elenco degli argomenti da %{subjects_text} (ad esempio: TaxonBiology, FossilHistory), o 'all' per ottenere il testo su qualsiasi argomento. Restituisce sempre una panoramica del testo come primo risultato (se esistente nel contesto dato)."
   a_taxon: un taxon
   a_total_of_comment_were_found_matching_your_criteria: 
     one: Un totale di %{count} commento è stato trovato che soddisfa i tuoi criteri di ricerca.
@@ -236,7 +237,6 @@ it:
         curation_on_my_watched_item: Azioni dei curatori su oggetti, taxa, collezioni o comunità nei tuoi osservati speciali
         eol_newsletter: Inviami la newsletter trimestrale EOL
         i_am_being_watched: Sei stati aggiunto agli osservati speciali di un altro membro
-        invitation_to_community: Invito per unirsi ad una comunità
         made_me_a_manager: Sei stato nominato direttore di una collezione o comunità
         member_joined_my_community: Un nuovo membro si è unito ad una comunità che gestisci
         member_joined_my_watched_community: Nuovi membri che si sono uniti a comunità di cui sei membro
@@ -825,6 +825,7 @@ it:
   already_a_member_question: Sei già iscritto?
   already_member_of_community: Sei già un membro di questa comunità.
   alternate_classification: Classificazione alternativa
+  alternative_name_colon: "Nome alternativo:"
   amount: Somma
   an_unknown_user: Un utente sconosciuto
   and: e
@@ -834,7 +835,7 @@ it:
   anonymous_user_given_name: Anonimo
   anonymous_user_tag_line: Accesso non effettuato
   any_integer: qualsiasi numero intero
-  api_docs_collections_description: Dato l'identificatore per una collezione questa API restituirà tutti i metadati relativi alla collezione ed agli elementi che essa contiene. L'elenco di elementi può essere filtrato per tipo di elemento ed ordinato in base agli attributi elencati sopra.
+  api_docs_collections_description: "Dato l'identificatore per una collezione questa API restituirà tutti i metadati relativi alla collezione ed agli elementi che essa contiene. L'elenco di elementi può essere filtrato per tipo di elemento ed ordinato in base agli attributi elencati.\n\n\nAlcuni elementi conterranno un attributo facoltativo 'sort_field'. Il campo di ordinamento è una stringa fornita dall'utente, che è un'annotazione speciale su un elemento della collezione. Può essere una qualsiasi stringa di caratteri, ma se si tratta di una data, deve essere conforme al formato AAAA-MM-DD. Elementi taxon conterranno un 'richness_score'. La ricchezza è una rappresentazione metrica come numero intero tra 0 e 100, un numero più elevato indica una pagina con ricco contenuto da un'ampia varietà di fonti. Ulteriori informazioni sulla ricchezza dei taxon nella scheda aggiornamenti di una pagina taxon, ad esempio, %{richness_url}."
   application_version_advisory_information: Versione dell'applicazione
   are_you_sure: Sei sicuro?
   are_you_sure_this_action_cannot_be_undone: Sei sicuro? Questa azione non può essere annullata.
@@ -1159,7 +1160,7 @@ it:
   could_not_find_user: Non sei un membro di questa comunità.
   create_a_collection: Crea una raccolta
   create_a_community: Crea una comunità
-  create_account: crea un account
+  create_account: crea un'utenza
   create_collection_button: Crea collezione
   create_community: Crea comunità
   create_community_button: Crea comunità
@@ -1728,7 +1729,7 @@ it:
         update: Salvare le modifiche alla traduzione
       update: Aggiorna %{model}
       user: 
-        create: Crea profilo
+        create: Crea un'utenza
         curation_application: Applica
         curation_privileges: Invia la richiesta
         generate_api_key: Generare una chiave
@@ -2387,8 +2388,10 @@ it:
     overview: 
       show: 
         hierarchy_entry: 
-          meta_description: Una sintesi delle informazioni su % {scientific_name} come riconosciuto % {hierarchy_provider} nella Enciclopedia della vita.
+          meta_description: Una sintesi delle informazioni su %{scientific_name} come riconosciuto da %{hierarchy_provider} in Encyclopedia of Life.
+          meta_keywords_with_common_name: "%{scientific_name} riconosciuto da %{hierarchy_provider}, %{scientific_name} classificato da %{hierarchy_provider}"
           meta_title: "%{scientific_name} classificato da %{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name} classificato da %{hierarchy_provider})"
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -2687,6 +2690,7 @@ it:
   value_default: (predefinito)
   value_empty: (vuoto)
   values: Valori
+  versions_colon: "Versioni:"
   video_alt_text: Questa %{vetted_status} video è di %{taxon_name}
   video_from_supplier: Video da %{whom}
   video_not_associated_with_any_published_entries: Questo video non è associato ad alcun dei taxa pubblicati.
@@ -2700,6 +2704,7 @@ it:
   what_is_this_question: Che cos'è questo?
   will_paginate: 
     next_label: Successivo &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Precedente"
   yahoo: Yahoo
   year: Anno

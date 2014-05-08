@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: syck-pecl
+# Author: Das Schäfchen
 # Author: DeeKay
 # Author: Eloquence
 # Author: Exit91
@@ -16,7 +17,6 @@
 # Author: Purodha
 # Author: Tbleher
 de: 
-  0: nachdem Sie unsere Datenfähigkeiten überprüft haben.“
   0_1_or_2: 0, 1 oder 2
   0_or_1: 0 oder 1
   a_maximum_of_30_results_are_returned: maximal werden 30 Ergebnisse pro Seite zurückgegeben. Dieser Parameter erlaubt es Ihnen, mehrere Seiten mit Ergebnissen abzurufen, wenn es mehr als 30 Zeilen Treffer gibt.
@@ -234,7 +234,6 @@ de:
         curation_on_my_watched_item: Aktionen von Kuratoren zu Objekten, Taxa, Sammlungen oder Gemeinschaften auf Ihrer Beobachtungsliste.
         eol_newsletter: Senden Sie mir das vierteljährlich erscheinende EOL-Rundscheiben
         i_am_being_watched: Ihr Profil wurde der Beobachtungsliste eines anderen Mitglieds hinzugefügt.
-        invitation_to_community: Einladung in eine Gemeinschaft
         made_me_a_manager: Sie wurden zum Verwalter einer Sammlung oder Gemeinschaft gemacht.
         member_joined_my_community: Einer von Ihnen verwalteten Gemeinschaft ist ein neues Mitglied beigetreten
         member_joined_my_watched_community: Neue Mitglieder sind einer Gemeinschaft beigetreten, in der auch Sie Mitglied sind.
@@ -1023,9 +1022,9 @@ de:
   admin_news_link: Nachrichten
   admin_notes_not_visible_to_user: "Anmerkungen für Administratoren (für Nutzer nicht sichtbar):"
   admin_option_all_users_can_see_data: Alle Nutzer können Daten sehen, nicht nur solche mit Berechtigungen.
-  admin_option_changed: Wert geändert.
   admin_options_warning: Es dauert 10 Minuten, bis die Änderungen wirksam werden.
   admin_page_title: "Verwaltung: Übersicht"
+  admin_simple_actions_header: "Einfache Aktionen:"
   admin_spam_delete: Spam löschen
   admin_statistics_link: Statistiken
   admin_translated_content_page_create_successful_notice: Die Übersetzung wurde der Seite <a href="#%{anchor}"><em>%{page_name}</em></a> hinzugefügt.
@@ -1054,6 +1053,7 @@ de:
   admin_translated_news_item_not_active: Unveröffentlicht
   admin_translated_news_item_update_successful_notice: Die Übersetzung auf %{language} für die Seite <a href="#<span class=" notranslate"="">%{anchor}"><em>%{page_name}</em></a> wurde aktualisiert.
   admin_translated_news_item_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten, so dass die Nachricht nicht aktualisiert werden konnte.
+  admin_updated_config: Konfiguration für %{name} aktualisiert
   admin_user_delete_successful_notice: Der Nutzer wurde gelöscht.
   admin_user_hide_successful_notice: Nutzer wurde verborgen
   admin_user_unhide_successful_notice: Nutzer wurde sichtbar gemacht
@@ -3257,7 +3257,6 @@ de:
   newsfeed_help_for_taxon: Der Nachrichtenfeed dieser Seite zu einem Taxon sammelt die Aktualisierungen bezüglich der auf ihr dargestellten Objekte, einschließlich der Aktivitäten der Kuratoren sowie der Kommentare anderer Nutzer von EOL.
   newsfeed_help_for_watchlist: Der Nachrichtenfeed dieser Beobachtungsliste sammelt die Aktualisierungen bezüglich der Objekte, die sich auf der Beobachtungsliste ihres Besitzers befinden, einschließlich der Aktivitäten ihres Besitzers.
   next: Nächste
-  "no": Nein
   no_active_members: Bislang gab es noch keine ausreichenden Aktivitäten.
   no_answer: Nein
   no_classificaitons_selected: Es wurde keine Klassifikation ausgewählt. Es ist nichts zum Verschieben vorhanden.
@@ -3616,6 +3615,8 @@ de:
   recognized_by_from_source_as_a_rank: von %{recognized_by} auf %{source} als %{taxon_rank} anerkannt
   record_count: Aufzeichnungsanzahl
   record_not_found: "[Datensatz wurde nicht gefunden]"
+  recount_collection_items: Sammlungselemente erneut zählen (ungültige Zähler korrigieren; dies kann einige Minuten in Anspruch nehmen)
+  recount_collection_items_done: Erneute Zählung der Sammlungselemente abgeschlossen.
   reference: Nachweis
   references_cabs_colon: "Quellennachweise:"
   reindex_page_button: Seite reindizieren
@@ -3706,7 +3707,7 @@ de:
   search_placeholder: EOL durchsuchen …
   search_previous_label: Vorherige
   search_results: Suchergebnisse
-  search_suggestion_admin_intro: Dieser Bereich wird dazu genutzt Suchvorschläge für Nutzer zu erstellen. Man gibt einen Begriff, nach dem die Nutzer suchen können, sowie die Seite an, die vorgeschlagen werden soll. Suchvorschläge werden stets oberhalb der sonstigen Suchergebnisse angezeigt. Mehrere Suchvorschläge je Suchbegriff sind möglich.
+  search_suggestion_admin_intro: Dieser Bereich wird dazu genutzt, Suchvorschläge für Nutzer zu erstellen. Man gibt einen Begriff, nach dem die Nutzer suchen können, sowie die Seite an, die vorgeschlagen werden soll. Suchvorschläge werden stets oberhalb der sonstigen Suchergebnisse angezeigt. Mehrere Suchvorschläge je Suchbegriff sind möglich.
   search_suggestion_created: Der Suchvorschlag wurde erfolgreich erstellt.
   search_suggestion_updated: Der Suchvorschlag wurde erfolgreich erstellt.
   search_suggestions: Suchvorschläge
@@ -4344,17 +4345,13 @@ de:
     one: Insgesamt ein Objekt
     other: Insgesamt %{count} Objekte
   total_searches: "Gesamtzahl der Suchen:"
-  traitbank_data_search: Daten suchen
-  traitbank_description: Millionen von Datensätzen auf EOL durchsuchen
-  traitbank_info_page: Mehr erfahren
-  traitbank_intro: "Einführung von <a href='/traitbank'>TraitBank</a>:"
+  traitbank_banner: <strong>Einführung von <a href='/traitbank'>TraitBank</a>:</strong> Suche nach Millionen von Datensätzen in der EOL &nbsp; <small>•</small> &nbsp; <a href='/traitbank'>Mehr erfahren</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Daten durchsuchen</a>
   translation_deleted: Die Übersetzung wurde gelöscht
   translation_information_header: Übersetzungsinformationen
   translation_log: I18N-Haufigkeitsdiagramm
   translation_saved: Die Übersetzung wurde gespeichert
   translations_submit: Übersetzung anzeigen
   trigger_search_term_entered_by: den vom Nutzer eingegebenen Suchbegriff ansteuern
-  "true": Wahr
   true_label: Wahr
   truncated_comment_omission: … <a href='%{link}'>mehr</a>
   truncated_comment_omission_linkless: …
@@ -4377,8 +4374,6 @@ de:
   unknown_data_object_title: Unbekanntes Datenobjekt
   unknown_hierarchy: Unbekannte Hierarchie
   unknown_type_not_associated_with_any_published_entries: Diese Daten sind keinen veröffentlichten Taxa zugeordnet.
-  unpredictable but we invite you to explore: 
-    " Please fill out our <a href='https": //www.surveymonkey.com/s/9FDTDQP'>Umfrage</a>
   unpublished: Unveröffentlicht
   unpublished_collections_with_count: 
     one: Eine versteckte Sammlung
@@ -4799,6 +4794,7 @@ de:
   will_find_taxon_pages_matching_the_search_term: wird die Seiten von Taxa ermitteln, sofern der bevorzugte Name oder jedes Synonym oder jeder gebräuchliche Name genau dem Suchbegriff entspricht
   will_paginate: 
     next_label: Weiter &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Zurück"
   worklist: Arbeitsliste
   would_you_like_to_become_a_curator_notice: Möchten Sie gerne ein Kurator werden? Sie können diese Berechtigung über <a href='%{url}'>Ihre Profilseite</a> beantragen.

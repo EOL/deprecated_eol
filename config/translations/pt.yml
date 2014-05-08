@@ -215,7 +215,6 @@ pt:
         curation_on_my_watched_item: Acções de curadores sobre objectos, taxa, colecções ou comunidades na sua lista de páginas vigiadas
         eol_newsletter: Enviem-me a newsletter trimestral da EOL
         i_am_being_watched: Foi adicionado à lista de páginas vigiadas de outro membro
-        invitation_to_community: Convite para participar numa comunidade
         made_me_a_manager: Fizeram de si um gerente de uma coleção ou comunidade
         member_joined_my_community: Uma comunidade que gere tem um novo membro
         member_joined_my_watched_community: Novos membros aderiram a uma comunidade onde é membro
@@ -2026,6 +2025,7 @@ pt:
   welcome: Bem-vindo
   will_paginate: 
     next_label: Próximo
+    page_gap: "&hellip;"
     previous_label: Anterior
   yahoo: Yahoo
   year: Ano

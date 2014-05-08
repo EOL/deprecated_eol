@@ -2348,6 +2348,7 @@ sr-Latn:
   will_find_taxon_pages_matching_the_search_term: će pronaći taksonske stranice ako se željeni naziv, sinonim ili trivijalan naziv poklapa s traženim pojmom
   will_paginate: 
     next_label: Sledeće &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Prethodno"
   worklist: Radni spisak
   xml_response: XML odgovor

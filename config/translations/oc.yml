@@ -211,7 +211,6 @@ oc:
         curation_on_my_watched_item: Accions del conservator suls objèctes, los taxons, las colleccions o las comunautats de vòstra lista de seguiment
         eol_newsletter: Mandatz-me lo bulletin d’informacion trimestral EdlV
         i_am_being_watched: Sètz estat apondut a la lista de seguiment d’un autre membre
-        invitation_to_community: Convit a se jónher a una comunautat
         made_me_a_manager: Sètz estat designat responsable d’una colleccion o d’una comunautat
         member_joined_my_community: Un membre novèl a rejunt una comunautat que gerissètz
         member_joined_my_watched_community: De membres novèls an rejunt una comunautat que ne sètz membre
@@ -985,7 +984,6 @@ oc:
   admin_news_link: Actualitats
   admin_notes_not_visible_to_user: "Nòtas d’administracion (pas visiblas per l’utilizaire) :"
   admin_option_all_users_can_see_data: Totes los utilizaires pòdon veire las donadas, pas solament los qu'an una autorizacion
-  admin_option_changed: Valor modificada.
   admin_options_warning: Los cambiaments a aqueste endrech pòdon necessitar fins a dètz minutas per èsser efectius.
   admin_page_title: "Administracion : vista d’ensemble"
   admin_spam_delete: Suprimir los spams
@@ -4050,10 +4048,6 @@ oc:
     one: "%{count} element"
     other: "%{count} elements al total"
   total_searches: "Total de las recèrcazs :"
-  traitbank_data_search: Recercar de donadas
-  traitbank_description: recercar demest de milions d’enregistraments de donadas d'EdlV
-  traitbank_info_page: Ne saber mai
-  traitbank_intro: "Introduccion a <a href='/traitbank'>TraitBank</a>:"
   translation_deleted: La traduccion es estada suprimida
   translation_information_header: Entresenhas de traduccion
   translation_log: Istograma de las claus d’i18n

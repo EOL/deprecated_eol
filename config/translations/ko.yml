@@ -216,7 +216,6 @@ ko:
         curation_on_my_watched_item: 주시문서 목록에서 개체, 분류, 모음집, 또는 공동체에 대한 큐레이터 행위
         eol_newsletter: 분기별 EOL 뉴스 편지 보내기
         i_am_being_watched: 다른 구성원의 주시문서 목록에 추가했습니다
-        invitation_to_community: 공동체에 가입하도록 초대
         made_me_a_manager: 모음집이나 공동체 관리를 만들었습니다
         member_joined_my_community: 새 구성원이 당신이 관리하는 공동체에 가입했습니다
         member_joined_my_watched_community: 새 구성원이 당신이 구성원에 속한 공동체에 가입했습니다
@@ -937,7 +936,6 @@ ko:
   admin_news_items_page_title: "관리: 뉴스"
   admin_news_link: 뉴스
   admin_notes_not_visible_to_user: "관리자 참고 (사용자한테 보이지 않음):"
-  admin_option_changed: 값이 변경되었습니다.
   admin_page_title: "관리: 둘러보기"
   admin_spam_delete: 스팸 삭제
   admin_statistics_link: 통계
@@ -1852,7 +1850,7 @@ ko:
   dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
   dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
   dato_update_users_text_not_owner_exception: 이 텍스트 개체의 원저자만 편집할 수 있습니다.
-  default: 기본 값
+  default: 기본값
   default_focus_collection_name_from_community: "%{name}의 집중"
   default_watch_collection_name: "%{username} 사용자의 주시문서 목록"
   definition: 정의
@@ -2388,7 +2386,7 @@ ko:
         email_settings_submit: 이메일 설정
         entered_password: 비밀번호 <small>(4 - 16 글자)</small>
         generate_api_key: API 키 요청
-        generate_api_key_more: EOL API를 사용하는 데 관심이 있다면 어플리케이션을 식별하기 위한 API를 생성할 수 있습니다. <a href="%{api_docs_url}">API 호출에 키 추가</a>에 대해 더 참고하세요.
+        generate_api_key_more: EOL API를 사용하는 데 관심이 있다면 애플리케이션을 식별하기 위한 API를 생성할 수 있습니다. <a href="%{api_docs_url}">API 호출에 키 추가</a>에 대해 더 참고하세요.
         logo: 새 사진 올리기
         new_password: 새 비밀번호 <small>(4 - 16 글자)</small>
         new_password_confirmation: 새 비밀번호 <small>(확인 차원)</small>
@@ -3868,9 +3866,6 @@ ko:
     one: 항목 %{count}개
     other: 총 항목 %{count}개
   total_searches: "전체 검색:"
-  traitbank_data_search: 데이터 찾기
-  traitbank_info_page: 더 알아보기
-  traitbank_intro: " <a href='/traitbank'>TraitBank</a> 소개:"
   translation_deleted: 번역이 삭제됨
   translation_information_header: 번역 정보
   translation_log: 국제화(I18n) 주요 빈도 히스토그램
@@ -4217,7 +4212,7 @@ ko:
   validation_error: 유효성 검사 오류
   validation_following_fields: "다음 필드에 문제가 있었습니다:"
   value: 값
-  value_default: (기본 값)
+  value_default: (기본값)
   value_empty: (비었음)
   values: 값
   version_1_0_uses_fields_from_the_latest_version: 버전 1.0은 %{link} 스키마의 최신 버전에서 필드를 사용합니다
@@ -4284,6 +4279,7 @@ ko:
   wikipedia_queue_new_page_title: 위키백과 문서 가져오기 요청
   will_paginate: 
     next_label: 다음
+    page_gap: "&hellip;"
     previous_label: 이전
   worklist: 작업 목록
   would_you_like_to_become_a_curator_notice: 큐레이터가 되겠습니까? <a href='%{url}'>내 프로필 문서</a>에 접근을 요청할 수 있습니다.

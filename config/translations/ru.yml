@@ -16,6 +16,7 @@
 # Author: Iluvatar
 # Author: Lunacy1911
 # Author: Lvova
+# Author: Meshkov.a
 # Author: Nemo bis
 # Author: Okras
 # Author: Orsa
@@ -223,7 +224,6 @@ ru:
         curation_on_my_watched_item: Кураторские действия на объектах, таксонах, коллекциях или сообществах в вашем списке наблюдения
         eol_newsletter: Отправлять мне ежеквартальную рассылку новостей EOL
         i_am_being_watched: Вы были добавлены в список наблюдения другого участника
-        invitation_to_community: Приглашение присоединиться к сообществу
         made_me_a_manager: Вас сделали управляющим коллекции или сообщества
         member_joined_my_community: Новый участник присоединился к сообществу, которым вы управляете
         member_joined_my_watched_community: Новые участники присоединились к сообществу, в котором вы числитесь
@@ -481,7 +481,6 @@ ru:
   admin_news_item_active: Опубликовано
   admin_news_link: Новости
   admin_notes_not_visible_to_user: "Примечания администратора (не видны пользователю):"
-  admin_option_changed: Значение изменено.
   admin_page_title: "Администрация: Обзор"
   admin_spam_delete: Удалить спам
   admin_statistics_link: Статистика
@@ -1251,6 +1250,10 @@ ru:
         complete_more: "Прокурированная иерархия предполагает, что каждая запись уникальна, то есть соответствующие строки имени будут рассматриваться как омонимы. <strong>ПРЕДУПРЕЖДЕНИЕ: Не изменяйте этот атрибут, если вы не уверены, что в иерархии есть омонимы, иначе это может поставить под угрозу целостность данных.</strong>"
         request_publish: Запрос публикации
         request_publish_more: Указывает, ожидается ли запрос на рекламу этой иерархии, для становления одним из основных для просмотра иерархий на EOL.
+      known_uri_relationship: 
+        from_known_uri: Для известных URI
+        relationship_uri: Выберите связь
+        to_known_uri: Введите и выберите целевой URI
       news_item: 
         active: Опубликовано
         active_more: Опубликованные новости будут видны на выбранную дату и время. Снимите флажок <em>опубликовано</em> если вы хотите предотвратить просмотр этой новости для обычных пользователей на других языках.
@@ -1463,9 +1466,11 @@ ru:
     import_successful: Онтологические термины успешно импортированы
     more_than_one_field_mapped_to_type: Более одного атрибута сопоставлено с ​​"%{type}"
     name_placeholder_text: Например, участник
+    no_relationships: Связи не были найдены для данного URI.
     no_results: Нет результатов для выбранной статистики
     ontology_information_url_placeholder_text: например, http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: например, http://dublincore.org/2012/06/14/dcterms.rdf
+    please_select_category_for_stats: Пожалуйста, выберите категорию для просмотра статистики.
     please_select_field_types: Пожалуйста, выберите отображение для каждого атрибута
     please_select_uris_to_import: Пожалуйста, выберите импорт URI
     preferred_for_equivalence_group: Предпочтения
@@ -1823,6 +1828,7 @@ ru:
         tweet_text: Люди, заинтересованные в %{scientific_name}
     data: 
       index: 
+        meta_title: Измерения и факты о %{scientific_name}
         tweet_text: Факты о %{scientific_name}
     details: 
       index: 
@@ -1951,9 +1957,11 @@ ru:
   user_activity_stats_taxa_comments_dropdown: Прокомментированные таксоны
   user_added_data: 
     add_metadata_header: Дополнительная информация
+    additional_fields: Данные об этой записи
     create_failed: "Не удаётся добавить ваши данные: %{errors}"
     create_successful: Данные были успешно добавлены
     delete_successful: Данные успешно удалены
+    edit_data_header: Редактировать ваши данные
     new_field: Новое поле…
     new_value: Значение
     update_failed: "Невозможно обновить ваши данные: %{errors}"
@@ -1990,10 +1998,12 @@ ru:
       attribute_head: Атрибут
       complete_head: Завершено?
       created_head: Создано
+      download: скачать
       is_complete: Да
       is_not_complete: Нет
       page_title: Загрузка данных
       processing: обработка
+      query_empty: (без фильтров)
       query_head: Запрос
       refresh: обновить
       row_count: Количество
@@ -2023,15 +2033,31 @@ ru:
     open_authentications: 
       facebook: Facebook
       google: Google
+      index: 
+        not_connected: Не подключен;
+        page_title: Подключенные учетные записи
+        return_link: Вернуться, чтобы изменить профиль.
+      notices: 
+        facebook: 
+          new_authentication_added: Facebook аутентификация была добавлена к Вашему аккаунту.
+        google: 
+          new_authentication_added: Google аутентификация была добавлена к Вашему аккаунту.
+        twitter: 
+          new_authentication_added: Twitter аутентификация была добавлена к Вашему аккаунту.
+        yahoo: 
+          new_authentication_added: Yahoo! аутентификация была добавлена к Вашему аккаунту.
       twitter: Twitter
       yahoo: Yahoo!
     pending: 
       header: Спасибо за регистрацию!
     recover_account: 
+      errors: 
+        unable_to_update_token: Извините, произошла ошибка, и письмо не было отправлено, пожалуйста, попробуйте еще раз.
       form_header: Восстановить учётную запись
       meta_title: Восстановить учётную запись
     recover_account_choose_account: 
       form_header: Восстановить учётную запись
+      legend_choose_account: Выберите учётную запись
   users_about_me_header: Обо мне
   users_content_partners_header: Контент-партнеры
   users_curation_header: Квалификации куратора
@@ -2105,6 +2131,7 @@ ru:
   who_registered_from: которые зарегистрированы от
   will_paginate: 
     next_label: Вперед &#8594;
+    page_gap: "&hellip;"
     previous_label: "&#8592; Назад"
   worklist: Рабочий список
   xml_response: XML-ответ

@@ -537,6 +537,8 @@ describe DataObject do
     full_curator = build_curator(@taxon_concept, level: :full)
     master_curator = build_curator(@taxon_concept, level: :master)
     admin = User.gen(admin: 1)
+    # Without this, the data object will have errors (url not accessible):
+    allow(EOLWebService).to receive(:url_accepted?) { true }
     params = { data_type_id: DataType.text.id.to_s,
                license_id: nil,
                object_title: "",
@@ -552,6 +554,8 @@ describe DataObject do
     options[:user] = @user
     dato = DataObject.create_user_text(params, options)
     dato.link?.should be_true
+    expect(dato.users_data_object).to_not be_nil
+    dato.users_data_object.vetted_id.should == Vetted.unknown.id
     dato.users_data_object.vetted_id.should == Vetted.unknown.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = assistant_curator

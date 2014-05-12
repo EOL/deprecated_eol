@@ -210,7 +210,7 @@ class DataObject < ActiveRecord::Base
     DataObject.find(data_object_id, select: 'published').published?
   end
 
-  # TODO - there is a lot of replication (ha!) here with #replicate below. Extract.
+  # TODO - there is a lot of duplication here with #replicate below. Extract.
   def self.create_user_text(params, options)
     DataObject.set_subtype_if_link_object(params, options)
     DataObject.populate_rights_holder_or_data_subtype(params, options)

@@ -9,6 +9,10 @@ class TaxonConceptName < ActiveRecord::Base
   belongs_to :taxon_concept
   belongs_to :vetted
 
+  def can_be_deleted_by?(user)
+    agents.map(&:user).include?(user)
+  end
+
   def self.sort_by_language_and_name(taxon_concept_names)
     taxon_concept_names.compact.sort_by do |tcn|
       language_iso = tcn.language.blank? ? '' : tcn.language.iso_639_1

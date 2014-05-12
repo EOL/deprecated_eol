@@ -73,6 +73,21 @@ describe Taxa::NamesController do
       assigns[:taxon_concept].published_hierarchy_entries.first.scientific_synonyms.should be_a(Array)
       assigns[:taxon_concept].published_hierarchy_entries.first.scientific_synonyms.first.should be_a(Synonym)
     end
+
+  describe 'GET delete' do
+    it 'can be deleted only by the user that added the name' do
+      synonym = @testy[:taxon_concept].add_common_name_synonym(
+        'common name', agent: @testy[:curator].agent, language: Language.english)
+      new_user = build_curator(@testy[:taxon_concept])
+      controller.set_current_user = new_user
+      expect{ get :delete, taxon_id: @testy[:taxon_concept].id, synonym_id: synonym.id }.
+        to raise_error(EOL::Exceptions::SecurityViolation)
+      controller.set_current_user = @testy[:curator]
+      expect{ get :delete, taxon_id: @testy[:taxon_concept].id, synonym_id: synonym.id }.
+        not_to raise_error
+    end
+  end
+
   end
 
 end

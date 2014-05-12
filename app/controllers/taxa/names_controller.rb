@@ -3,7 +3,7 @@ class Taxa::NamesController < TaxaController
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :add_page_view_log_entry
   before_filter :set_vet_options, only: [:common_names, :vet_common_name]
-  before_filter :authentication_for_names, only: [ :create, :update ]
+  before_filter :authentication_for_names, only: [ :create, :update, :delete ]
   before_filter :load_hierarchy_entries, only: [ :related_names, :common_names, :synonyms ]
   before_filter :parse_classification_controller_params, only: :index
 
@@ -93,6 +93,9 @@ class Taxa::NamesController < TaxaController
     if synonym && @taxon_concept
       log_action(@taxon_concept, synonym, :remove_common_name)
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, @taxon_concept.id)
+      unless current_user.can_delete?(tcn)
+        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to Synonym with ID=#{synonym_id}"
+      end
       @taxon_concept.delete_common_name(tcn)
       @taxon_concept.reindex_in_solr
     end

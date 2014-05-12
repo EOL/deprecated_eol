@@ -75,7 +75,7 @@ end
 
 # IMPORTANT NOTE - any time you update Rails, you really need to double-check our monkey-patches in lib/select_with_preload_include
 # (in addition to the usual tests).
-gem 'rails', '3.2.17'
+gem 'rails', '3.2.18'
 # NOTE - WHEN YOU UPDATE RAILS, remove the following line. We don't care about the version, per se, this is just to avoid CVE-2014-2538:
 gem 'rack-ssl', '1.3.3'
 

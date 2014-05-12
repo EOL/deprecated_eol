@@ -68,7 +68,7 @@ module OauthHelpers
                 to_return(:status => 200,
                           :headers => {},
                           :body => "oauth_token=key&oauth_token_secret=secret&xoauth_yahoo_guid=yahoouserguid")
-    stub_request(:get, "http://social.yahooapis.com/v1/user/yahoouserguid/profile?format=json").
+    stub_request(:get, "https://social.yahooapis.com/v1/user/yahoouserguid/profile?format=json").
                 to_return(:status => 200,
                           :headers => {},
                           :body => '{ "profile": { "guid": "yahoouserguid",

@@ -8,7 +8,7 @@ module EOL
       end
 
       def basic_info
-        @basic_info ||= get_data("http://social.yahooapis.com/v1/user/#{access_token.params[:xoauth_yahoo_guid]}/profile?format=json")
+        @basic_info ||= get_data("https://social.yahooapis.com/v1/user/#{access_token.params[:xoauth_yahoo_guid]}/profile?format=json")
       end
 
       def user_attributes

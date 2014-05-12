@@ -1,8 +1,13 @@
+# NOTE - this is a little odd. It's got its own little set of SPARQL-writing functions, which really should be generalized and made available in the other
+# classes that might want to call SPARQL. That said, these methods could be better-generalized, too.
 module EOL
   module Sparql
     class SearchQueryBuilder
 
       def initialize(options)
+        # TODO - this is neat and all, but lacks transparency, since we don't
+        # know what options are available to .prepare_search_query. So, this
+        # should be a list of variables.
         options.each { |k,v| instance_variable_set("@#{k}", v) }
         @per_page ||= TaxonData::DEFAULT_PAGE_SIZE
         @page ||= 1
@@ -10,11 +15,17 @@ module EOL
 
       # Class method to build a query
       # This is likely the only thing that will get called outside this class
+      # 
+      # NOTE - options are (currently) every single instance variable you see
+      # in this class. (TODO - clarify)
       def self.prepare_search_query(options)
         builder = EOL::Sparql::SearchQueryBuilder.new(options)
         builder.prepare_query
       end
 
+      # TODO - this is only used in this lib, so could be a private method
+      # (but class methods cannot be private, soooo... decide what to do.)
+      #
       # Basic query assembler
       def self.build_query(select, where, order, limit)
         "#{ select } WHERE {

@@ -52,6 +52,7 @@ class Taxa::NamesController < TaxaController
   # POST /pages/:taxon_id/names NOTE - this is currently only used to add common_names
   def create
     if params[:commit_add_common_name]
+      current_user.add_agent unless current_user.agent
       agent = current_user.agent
       language = Language.find(params[:name][:synonym][:language_id])
       synonym = @taxon_concept.add_common_name_synonym(params[:name][:string],

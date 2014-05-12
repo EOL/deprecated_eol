@@ -766,6 +766,17 @@ class User < ActiveRecord::Base
     is_curator? ? curator_level.rating_weight : 1
   end
 
+  # Callback after_create, also used in controllers to ensure users have agents:
+  def add_agent
+    return unless agent_id.blank?
+    begin
+      # TODO: User may not have a full_name on creation so passing it here is possibly redundant.
+      self.update_column(:agent_id, Agent.create_agent_from_user(full_name).id)
+    rescue ActiveRecord::StatementInvalid
+      # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
+    end
+  end
+
 private
 
   def reload_if_stale
@@ -814,17 +825,6 @@ private
     unless collection.blank?
       collection.name = I18n.t(:default_watch_collection_name, username: self.full_name.titleize)
       collection.save!
-    end
-  end
-
-  # Callback after_create
-  def add_agent
-    return unless agent_id.blank?
-    begin
-      # TODO: User may not have a full_name on creation so passing it here is possibly redundant.
-      self.update_column(:agent_id, Agent.create_agent_from_user(full_name).id)
-    rescue ActiveRecord::StatementInvalid
-      # Interestingly, we are getting users who already have agents attached to them.  I'm not sure why, but it's causing registration to fail (or seem to; the user is created), and this is bad.
     end
   end
 

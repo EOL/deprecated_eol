@@ -1,11 +1,12 @@
 - data_point_instance ||= @data_point_uri
-.comments
-  - unless comments.empty?
-    - comments.each do |comment|
-      .comment
-        = sanitize comment.body.balance_tags.add_missing_hyperlinks
-        &ndash;
-        = link_to comment.user.full_name, comment.user
+- if logged_in? || ! comments.empty?
+  .comments
+    - unless comments.empty?
+      - comments.each do |comment|
+        .comment
+          = sanitize comment.body.balance_tags.add_missing_hyperlinks
+          &ndash;
+          = link_to comment.user.full_name, comment.user
 - if logged_in?
   = form_for(Comment.new(parent: data_point_instance), remote: true) do |f|
     %fieldset

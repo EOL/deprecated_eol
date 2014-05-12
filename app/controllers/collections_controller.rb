@@ -384,6 +384,8 @@ private
           (SELECT collected_item_type, collected_item_id, #{destination.id}, NOW(), NOW(), #{current_user.id}
             FROM collection_items WHERE collection_id = #{source.id})"
       )
+      # Because we did it manually, the count (shown in searches) will be off, so fix it:
+      destination.update_attribute(collection_items_count, destination.collection_items.count)
       # TODO - we should actually count the items and store that in the collection activity log. Lots of work:
       log_activity(collection_id: destination.id, activity: Activity.bulk_add)
     end

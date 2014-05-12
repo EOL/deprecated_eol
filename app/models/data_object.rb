@@ -74,6 +74,7 @@ class DataObject < ActiveRecord::Base
   validates_presence_of :rights_holder, if: :rights_required?
   validates_inclusion_of :rights_holder, in: '', unless: :rights_required?
   validates_length_of :rights_statement, maximum: 300
+  validate :source_url_is_valid, if: :is_link?
 
   before_validation :default_values
   after_create :clean_values
@@ -1132,6 +1133,12 @@ class DataObject < ActiveRecord::Base
   end
 
 private
+
+  def source_url_is_valid
+    if is_link? && (source_url.blank? || ! EOLWebService.url_accepted?(source_url))
+      errors[:source_url] << I18n.t(:url_not_accessible)
+    end
+  end
 
   # This is relatively expensive... but accurate.
   def image_title_with_taxa

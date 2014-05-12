@@ -34,7 +34,6 @@ describe DataObjectsController do
 
   describe 'POST create' do
     it 'should instantiate references' do
-      TocItem.gen_if_not_exists(:label => 'overview')
       post :create, { :taxon_id => @taxon_concept.id, :references => "Test reference.",
                       :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
                                         :object_title => "Test Article", :language_id => Language.english.id.to_s,
@@ -52,7 +51,7 @@ describe DataObjectsController do
       response.should render_template('data_objects/new')
     end
     it 'should create Link objects and prefix URLs with http://' do
-      TocItem.gen_if_not_exists(:label => 'overview')
+      EOLWebService.should_receive('url_accepted?').with('http://eol.org').and_return(true)
       post :create, { :taxon_id => @taxon_concept.id, :commit_link => true,
                       :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
                                         :link_types => { :id => LinkType.blog.id.to_s }, :source_url => 'eol.org',
@@ -66,6 +65,17 @@ describe DataObjectsController do
       assigns[:data_object].link_type.should == LinkType.blog
       assigns[:data_object].toc_items.should == [ TocItem.overview ]
       assigns[:data_object].source_url.should == "http://eol.org"  # even though it was submitted as eol.org
+    end
+    it 'fails validation on invalid link URLs' do
+      EOLWebService.should_receive('url_accepted?').at_least(3).times.with('http://').and_return(false)
+      post :create, { :taxon_id => @taxon_concept.id, :commit_link => true,
+                      :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
+                                        :link_types => { :id => LinkType.blog.id.to_s }, :source_url => 'http://',
+                                        :object_title => "Link to EOL", :language_id => Language.english.id.to_s,
+                                        :description => "Link text" } },
+                      { :user => @user, :user_id => @user.id }
+      expect(assigns[:data_object]).to have(1).error_on(:source_url)
+      expect(assigns[:data_object].errors_on(:source_url)).to include(I18n.t(:url_not_accessible))
     end
   end
 
@@ -84,7 +94,6 @@ describe DataObjectsController do
 
   describe 'PUT update' do
     it 'should re-render edit if validation fails' do
-      TocItem.gen_if_not_exists(:label => 'overview')
       put :update, { :id => @udo.id,
                      :data_object => { :rights_holder => @user.full_name, :source_url => "", :rights_statement => "",
                                        :toc_items => { :id => @udo.toc_items.first.id.to_s }, :bibliographic_citation => "",

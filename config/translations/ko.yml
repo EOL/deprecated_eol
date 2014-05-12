@@ -312,13 +312,13 @@ ko:
         inclusion: 목록에 포함하지 않습니다
         invalid: 잘못되었습니다
         less_than: 
-          one: "%{count}보다 적어야 합니다"
-          other: "%{count}보다 적어야 합니다"
-        less_than_or_equal_to: "%{count}보다 적거나 같아야 합니다"
+          one: "%{count}보다 작아야 합니다"
+          other: "%{count}보다 작아야 합니다"
+        less_than_or_equal_to: "%{count}보다 작거나 같아야 합니다"
         not_a_number: 숫자가 아닙니다
         not_an_integer: 정수여야 합니다
         odd: 홀수여야 합니다
-        record_invalid: "인증에 실패했습니다: %{errors}"
+        record_invalid: "검증에 실패했습니다: %{errors}"
         taken: 이미 토큰을 가지고 있습니다
         too_long: 
           one: 너무 깁니다 (최대 글자는 %{count}개입니다
@@ -1599,7 +1599,7 @@ ko:
   content_summary_table_type_trusted_text_row: 신뢰할 수 있는 텍스트 항목 수
   content_summary_table_type_unreviewed_images_row: 검토하지 않은 그림 수
   content_summary_table_type_unreviewed_text_row: 검토하지 않은 텍스트 항목 수
-  content_type: 내용 유형
+  content_type: 내용 형식
   content_upload_restrictions_note: (크기가 10 MB 보다 작아야 파일이 올려집니다, 즉 그림의 크기 다시 조절은 수행되지 않습니다)
   content_upload_url: http://%{domain}%{upload_attachment}
   contribute: 기여

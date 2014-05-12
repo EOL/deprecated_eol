@@ -335,8 +335,8 @@ mk:
         record_invalid: "Заверката не успеа: %{errors}"
         taken: е зафатено
         too_long: 
-          one: има премногу знаци (највеќе %{count} character)
-          other: има премогу знаци (највеќе is %{count})
+          one: е предолго (највеќе %{count} знак)
+          other: има премогу знаци (највеќе %{count} знаци)
         too_short: 
           one: има премалку знаци (треба барем %{count} character)
           other: има премалку знаци (треба барем is %{count})

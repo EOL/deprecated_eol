@@ -515,6 +515,12 @@ pms:
         user_associated_data_object_to_association: <strong>%{user}</strong> a l'ha giontà n'associassion antra "%{data_object}" e "%{association}".
         user_associated_it_to_an_unknown_association: <strong>%{user}</strong> a l'ha giontà n'associassion a na pàgina sconossùa.
         user_associated_it_to_association: <strong>%{user}</strong> a l'ha giontà n'associassion a "%{association}".
+      add_common_name: 
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an na lenga sconossùa a na pàgina sconossùa.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an na lenga sconossùa a "%{taxon}".
+        an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an %{language} a na pàgina sconossùa.
+        an_unknown_user_added_an_unknown_name_in_language_to_taxon: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an %{language} a "%{taxon}".
+        an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: N'utent ësconossù a l'ha giontà ël nòm comun "%{name}" an na lenga sconossùa a na pàgina sconossùa.
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: N'utent ësconossù a l'ha selessionà na veja version ëd "%{data_object}" pr'ësmon-e na previsualisassion an s'na pàgina sconossùa.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: N'utent ësconossù a l'ha selessionà "%{data_object}" pr'ësmon-e na previsualissasion su "%{taxon}".
@@ -560,6 +566,8 @@ pms:
         user_hide_data_on_taxon: <strong>%{user}</strong> a l'ha sernù dë stërmé dij dàit su «%{taxon}».
         user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha butà dij dàit coma esempi su na pàgina sconossùa.
         user_set_exemplar_data_on_taxon: <strong>%{user}</strong> a l'ha butà dij dàit coma esempi su «%{taxon}».
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha sernù dë smon-e dij dàit an s'na pàgina sconossùa.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> a l'ha sernù dë smon-e dij dàit su «%{taxon}».
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma stërmà ant un contest ësconossù.
         an_unknown_user_hid_an_older_data_object_on_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma stërmà an sla pàgina "%{association}".

@@ -218,7 +218,33 @@
       }
 
     })($('#data_search'));
+    limit_search_summaries();
   });
-
-
 }(jQuery));
+
+var limit_search_summaries = function(known_uri_id) {
+  var summaryDiv = $('.search_summary:has(ul.values)');
+  if(summaryDiv.find('li').length > 9) {
+    summaryDiv.find('li:gt(8)').slideUp(500);
+    var numberToHide = summaryDiv.find('li').length - 9;
+    var linkLabel = 'Show ' + numberToHide + ' more';
+    var link = $('<a href="#">').text(linkLabel);
+    // add some actions to this link
+    link.on('click', function(e) {
+      e.preventDefault();
+      if($(this).attr('data-open') === 'true') {
+        summaryDiv.find('li:gt(8)').slideUp(500, function() {
+          link.text(linkLabel);
+          link.attr('data-open', 'false');
+        });
+      } else {
+        summaryDiv.find('li:gt(8)').slideDown(500, function() {
+          link.text('Hide');
+          link.attr('data-open', 'true');
+        });
+      }
+    });
+    // finally add this new link with actions to the page
+    summaryDiv.append($('<span class="more"></span>').append(link));
+  }
+};

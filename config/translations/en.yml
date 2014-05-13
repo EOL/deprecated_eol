@@ -4470,6 +4470,7 @@ en:
   search_suggestion_created: "The search suggestion was successfully created."
   search_suggestion_updated: "The search suggestion was successfully updated."
   search_suggestions: "Search Suggestions"
+  search_summary: "Search Summary"
   search_term_detail_report: "Search Term Detail Report"
   search_term_reports: "search term reports"
   search_term_reports_title: "Search Term Reports"

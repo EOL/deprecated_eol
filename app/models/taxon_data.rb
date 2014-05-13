@@ -62,6 +62,15 @@ class TaxonData < TaxonUserClassificationFilter
     end
   end
 
+  def self.counts_of_values_from_search(options={})
+    return { } if options[:attribute].blank?
+    return { } unless EOL::Sparql.connection.counts_of_all_value_known_uris_by_type.keys.map(&:uri).include?(options[:attribute])
+    counts_of_result_value_uris = EOL::Sparql.connection.query(
+      EOL::Sparql::SearchQueryBuilder.prepare_search_query(options.merge({ count_value_uris: true, querystring: nil })))
+    KnownUri.add_to_data(counts_of_result_value_uris)
+    Hash[ counts_of_result_value_uris.collect{ |h| [ h[:value], h[:count] ] } ]
+  end
+
   def self.is_clade_searchable?(taxon_concept)
     taxon_concept.number_of_descendants <= TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
   end

@@ -112,6 +112,18 @@ module EOL
         end
       end
 
+      # this will produce a Hash with keys that are KnownUris representing
+      # measurement type URIs, and whose values are the counts of distinct
+      # value URIs that partners have contributed for that measurement.
+      # For example [ { #<KnownUri http://eol.org/schema/terms/Habitat> => 706 }]
+      def counts_of_all_value_known_uris_by_type
+        self.class.cache_fetch_with_local_timeout("eol/sparql/client/counts_of_all_value_known_uris_by_type", :expires_in => 1.day) do
+          results = counts_of_all_value_uris_by_type
+          all_known_uris = KnownUri.find_all_by_uri(results.keys)
+          Hash[ results.map{ |k,v| [ all_known_uris.detect{ |kn| kn.uri == k }, v ] } ].delete_if{ |k,v| k.blank? }
+        end
+      end
+
     private
 
       def delete_graph_via_sparql_update(graph_name)
@@ -145,57 +157,73 @@ module EOL
 
       def counts_of_all_measurement_value_uris
         EOL::Sparql::Client.if_connection_fails_return({}) do
-          result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
+          result = query("
+            SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
             WHERE {
               ?measurement dwc:measurementValue ?uri .
               FILTER (isURI(?uri))
             }
             GROUP BY ?uri
-            ORDER BY DESC(?count)
-          ")
+            ORDER BY DESC(?count)")
           group_counts_by_uri(result)
         end
       end
 
       def counts_of_all_association_type_uris
         EOL::Sparql::Client.if_connection_fails_return({}) do
-          result = query("SELECT ?uri, COUNT(DISTINCT ?association) as ?count
+          result = query("
+            SELECT ?uri, COUNT(DISTINCT ?association) as ?count
             WHERE {
               ?association eol:associationType ?uri .
               FILTER (isURI(?uri))
             }
             GROUP BY ?uri
-            ORDER BY DESC(?count)
-          ")
+            ORDER BY DESC(?count)")
           group_counts_by_uri(result)
         end
       end
 
       def counts_of_all_measurement_unit_uris
         EOL::Sparql::Client.if_connection_fails_return({}) do
-          result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
+          result = query("
+            SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
             WHERE {
               ?measurement dwc:measurementUnit ?uri .
               FILTER (isURI(?uri))
             }
             GROUP BY ?uri
-            ORDER BY DESC(?count)
-          ")
+            ORDER BY DESC(?count)")
           group_counts_by_uri(result)
         end
       end
 
       def counts_of_all_measurement_type_uris
         EOL::Sparql::Client.if_connection_fails_return({}) do
-          result = query("SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count
-            WHERE {
+          result = query("
+            SELECT ?uri, COUNT(DISTINCT ?measurement) as ?count WHERE {
               ?measurement dwc:measurementType ?uri .
               ?measurement eol:measurementOfTaxon eolterms:true .
               FILTER (isURI(?uri))
             }
             GROUP BY ?uri
-            ORDER BY DESC(?count)
-          ")
+            ORDER BY DESC(?count)")
+          group_counts_by_uri(result)
+        end
+      end
+
+      def counts_of_all_value_uris_by_type
+        EOL::Sparql::Client.if_connection_fails_return({}) do
+          result = query("
+            SELECT ?uri, COUNT(*) as ?count WHERE {
+              SELECT DISTINCT ?uri, ?value WHERE {
+                ?measurement dwc:measurementType ?uri .
+                ?measurement dwc:measurementValue ?value .
+                ?measurement eol:measurementOfTaxon eolterms:true .
+                FILTER (isURI(?uri)) .
+                FILTER (isURI(?value))
+              }
+            }
+            GROUP BY ?uri")
           group_counts_by_uri(result)
         end
       end

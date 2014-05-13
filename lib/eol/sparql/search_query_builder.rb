@@ -11,6 +11,7 @@ module EOL
         options.each { |k,v| instance_variable_set("@#{k}", v) }
         @per_page ||= TaxonData::DEFAULT_PAGE_SIZE
         @page ||= 1
+        @only_count = true if @count_value_uris
       end
 
       # Class method to build a query
@@ -61,13 +62,13 @@ module EOL
       # representing the final Sparql search query
       def prepare_query
         if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
-          inner_query = EOL::Sparql::SearchQueryBuilder.build_query_with_taxon_filter(@taxon_concept.id, inner_select_clause, where_clause, order_clause)
+          inner_query = EOL::Sparql::SearchQueryBuilder.build_query_with_taxon_filter(@taxon_concept.id, inner_select_clause, where_clause, inner_order_clause)
         else
-          inner_query = EOL::Sparql::SearchQueryBuilder.build_query(inner_select_clause, where_clause, order_clause, nil)
+          inner_query = EOL::Sparql::SearchQueryBuilder.build_query(inner_select_clause, where_clause, inner_order_clause, nil)
         end
         # this is strange, but in order to properly do sorts, limits, and offsets there should be a subquery
         # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
-        EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, nil, limit_clause)
+        EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, outer_order_clause, limit_clause)
       end
 
       def where_clause
@@ -88,15 +89,23 @@ module EOL
       end
 
       def outer_select_clause
-        @only_count ?
-          "SELECT COUNT(*) as ?count" :
+        if @count_value_uris
+          "SELECT ?value, COUNT(*) as ?count"
+        elsif @only_count
+          "SELECT COUNT(*) as ?count"
+        else
           "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
+        end
       end
 
       def inner_select_clause
-        @only_count ?
-          "SELECT DISTINCT ?data_point_uri" :
+        if @count_value_uris
+          "SELECT DISTINCT ?data_point_uri, ?value"
+        elsif @only_count
+          "SELECT DISTINCT ?data_point_uri"
+        else
           "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
+        end
       end
 
       def filter_clauses
@@ -121,6 +130,9 @@ module EOL
           end
           filter_clauses += ") . "
         end
+        if @count_value_uris
+          filter_clauses += "FILTER(isURI(?value)) . "
+        end
         filter_clauses
       end
 
@@ -128,13 +140,20 @@ module EOL
         @only_count ? "" : "LIMIT #{ @per_page } OFFSET #{ ((@page.to_i - 1) * @per_page) }"
       end
 
-      def order_clause
+      def inner_order_clause
         unless @only_count
           if @sort == 'asc'
             return "ORDER BY ASC(xsd:float(?value)) ASC(?value)"
           elsif @sort == 'desc'
             return "ORDER BY DESC(xsd:float(?value)) DESC(?value)"
           end
+        end
+        ""
+      end
+
+      def outer_order_clause
+        if @count_value_uris
+          return "GROUP BY ?value ORDER BY DESC(?count)"
         end
         ""
       end

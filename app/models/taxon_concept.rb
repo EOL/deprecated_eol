@@ -744,6 +744,7 @@ class TaxonConcept < ActiveRecord::Base
   def uses_preferred_entry?(he)
     if preferred_entry.blank?
       if published_taxon_concept_preferred_entry
+        # TODO - really? We want to *write* the preferred entry? Now? If so, rename this method.
         create_preferred_entry(published_taxon_concept_preferred_entry.hierarchy_entry)
       else
         return nil

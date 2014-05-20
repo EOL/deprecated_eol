@@ -140,7 +140,6 @@ describe 'Staging', js: true do
     click_button 'Sign in'
     page.should have_content test_text # It won't have link_stuff 'cause it's too long...
     page.should have_content I18n.t(:comment_added_notice)
-    visit_with_auth "/pages/1089042/updates"
     within("ul.feed") do
       page.should have_selector 'a[href="http://whatever.org"]'
       page.should have_selector 'a[href="http://www.google.com"]'

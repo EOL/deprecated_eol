@@ -120,7 +120,7 @@ class KnownUri < ActiveRecord::Base
   #
   # NOTE - diff this file with b9e79274f5430663af87508457a6a14e850c13f5 for the previous implementation (partial word matches).
   def self.by_name(input)
-    normal_re = /[^a-zA-Z0-9 ]/
+    normal_re = /[^\p{L}a-zA-Z0-9 ]/
     name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...
     uris = EOL::Sparql.connection.all_measurement_type_known_uris.
       select { |uri| uri.is_a?(KnownUri) }.

@@ -55,20 +55,20 @@ administrator on Windows (there, I acknowledged the existence of Windows).
 
 Things you need to do:
 
-	1. Setup Development Environment
-	2. Install Git
-	3. Install RVM
-	4. Get EOL Code Base
-	5. Install Ruby
-	6. Install MySQL
-	7. Install Gems
-	8. Setup Memcached
-	9. Install Virtuoso
-	10. Install Redis
-	11. Create EOL Databases
-	12. Run EOL Private Config
-	13. Run the EOL Rails Tests
-	14. Starting Your EOL Rails Server
+1. Setup Development Environment
+2. Install Git
+3. Install RVM
+4. Get EOL Code Base
+5. Install Ruby
+6. Install MySQL
+7. Install Gems
+8. Setup Memcached
+9. Install Virtuoso
+10. Install Redis
+11. Create EOL Databases
+12. Run EOL Private Config
+13. Run the EOL Rails Tests
+14. Starting Your EOL Rails Server
 
 === Setup Development Environment
 
@@ -83,24 +83,24 @@ be in your Applications => Utilities folder.
 
 From the Terminal program run:
 
-	xcode-select —install
+  xcode-select —install
    
 Next, install homebrew with:
 
-	ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
-	brew doctor
+  ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+  brew doctor
 
 === Install Git
 
-	brew install git
-	git config --global user.name "Your Full Name"
-	git config --global user.email "Your Email Address”
+  brew install git
+  git config --global user.name "Your Full Name"
+  git config --global user.email "Your Email Address”
 
 === Install RVM
 
 There are a couple different ways that work for this, but the simplest is:
 
-	curl -L https://get.rvm.io | bash -s stable
+  curl -L https://get.rvm.io | bash -s stable
 
 Now close any open shell windows you have in Terminal or other command-line 
 applications.
@@ -110,11 +110,11 @@ applications.
 In a new Terminal window create the directory you want the top level directory 
 of the EOL code to go.  This will be $ROOT below.  I used:
 
-	ROOT=~/git
+  ROOT=~/git
 
-	mkdir -p $ROOT
-	cd $ROOT
-	git clone https://github.com/EOL/eol.git
+  mkdir -p $ROOT
+  cd $ROOT
+  git clone https://github.com/EOL/eol.git
 
 === Install Ruby
 
@@ -124,30 +124,30 @@ This is an older version that is no longer actively supported and it takes a
 while to rebuild from scratch.  However, the following commands should do the 
 trick:
 
-	RUBY_VERSION=`cat $ROOT/eol/.ruby-version`
-	rvm install $RUBY_VERSION
+  RUBY_VERSION=`cat $ROOT/eol/.ruby-version`
+  rvm install $RUBY_VERSION
 
 === Install MySQL
 
 Most versions of MySQL 5 should work.  As of May 2014, 5.6.1 was the current 
 stable release and works with this process.  To install the latest version run:
 
-	brew install mysql
+  brew install mysql
 
 Once it is installed, there are some additional recommended steps:
 
-	unset TMPDIR
-	mysql_install_db --verbose --user=`whoami` \
-		--basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql \
-		--tmpdir=/tmp
-	mysql.server start
-	mysql_secure_installation
+  unset TMPDIR
+  mysql_install_db --verbose --user=`whoami` \
+    --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql \
+    --tmpdir=/tmp
+  mysql.server start
+  mysql_secure_installation
 
 This will ask you to provide a password that you will need for the
 database.yml. To create the database.yml file in the config copy the handy 
 template to start with:
 
-	cp $ROOT/config/database.sample.yml $ROOT/config/database.yml
+  cp $ROOT/config/database.sample.yml $ROOT/config/database.yml
 
 Edit the database.yml and put the root database password in the devel_common 
 and tst_common blocks.
@@ -155,8 +155,8 @@ and tst_common blocks.
 You may then want to set it up so the MySQL server launches at startup.
 Under MacOSX Mavericks with MySQL 5.6.1 this works:
 
-	ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
-	launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+  ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
+  launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 
 === Install Gems
 
@@ -166,25 +166,25 @@ library (like capybara-webkit), must also be released under a similar license.
 Capybara is a gem used in testing, so it and Qt are not typically incorporated
 directly into tools that just use it for testing such as EOL.
 
-	brew install qt
+  brew install qt
 
 We currently use an older version of therubyracer gem which indirectly depends
 on an old version of the C++ compiler.  As result you will need to build just
 this gem first.  In a new shell, run these commands:
 
-	brew tap homebrew/dupes
-	brew install apple-gcc42
-	export CC=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/gcc-4.2
-	export CXX=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/g++-4.2
-	export CPP=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/cpp-4.2
-	gem install therubyracer -v '0.10.2'
-	exit
+  brew tap homebrew/dupes
+  brew install apple-gcc42
+  export CC=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/gcc-4.2
+  export CXX=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/g++-4.2
+  export CPP=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/cpp-4.2
+  gem install therubyracer -v '0.10.2'
+  exit
 
 Make sure you get rid of this old shell before you move on.
 
 Finally, you should be able install all the rest of the needed gems with:
 
-	bundle install
+  bundle install
 
 === Setup Memcached
 
@@ -192,43 +192,43 @@ Memcached is installed by default on MacOSX Mavericks.  Assuming this is true
 on your machine, there is a .plist in $ROOT/eol/opt/org.eol.memcached.plist
 that you can link into your home directory with:
 
-	ln -s $ROOT/eol/opt/org.eol.memcached.plist ~/Library/LaunchAgents/
-	launchctl load -w ~/Library/LaunchAgents/org.eol.memcached.plist
+  ln -s $ROOT/eol/opt/org.eol.memcached.plist ~/Library/LaunchAgents/
+  launchctl load -w ~/Library/LaunchAgents/org.eol.memcached.plist
 
 If you would rather manage it by hand, the command is:
 
-	memcached -d -m 24 -p 11211
+  memcached -d -m 24 -p 11211
 
 === Install Virtuoso
 
-	brew install virtuoso
+  brew install virtuoso
 
 As of May 2014 this installs version 7.1.
 
 Start Virtuoso with:
 
-	cd /usr/local/Cellar/virtuoso/7.1.0/var/lib/virtuoso/db
-	virtuoso-t +foreground
+  cd /usr/local/Cellar/virtuoso/7.1.0/var/lib/virtuoso/db
+  virtuoso-t +foreground
 
 The foreground option is optional.
 
 Next run:
 
-	curl -i -d "INSERT {<http://demo.openlinksw.com/DAV/home/demo_about.rdf>
-		<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
-		<http://rdfs.org/sioc/ns#User>}" \
-		-u "dba:dba" -H "Content-Type: application/sparql-query" \
-		http://localhost:8890/DAV/home/dba/upload
+  curl -i -d "INSERT {<http://demo.openlinksw.com/DAV/home/demo_about.rdf>
+    <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
+    <http://rdfs.org/sioc/ns#User>}" \
+    -u "dba:dba" -H "Content-Type: application/sparql-query" \
+    http://localhost:8890/DAV/home/dba/upload
 
 The response should be:
-	HTTP/1.1 201 Created
-	Server: Virtuoso/05.00.3023 (Win32) i686-generic-win-32  VDB
-	Connection: Keep-Alive
-	Content-Type: text/html; charset=ISO-8859-1
-	Date: Fri, 28 Dec 2007 12:50:12 GMT
-	Accept-Ranges: bytes
-	MS-Author-Via: SPARQL
-	Content-Length: 0
+  HTTP/1.1 201 Created
+  Server: Virtuoso/05.00.3023 (Win32) i686-generic-win-32  VDB
+  Connection: Keep-Alive
+  Content-Type: text/html; charset=ISO-8859-1
+  Date: Fri, 28 Dec 2007 12:50:12 GMT
+  Accept-Ranges: bytes
+  MS-Author-Via: SPARQL
+  Content-Length: 0
 
 Next go to http://localhost:8890/ => Conductor => LinkedData => Graphs and 
 check to see if there is a graph named http://localhost:8890%2FDAV%2Fxx%2Fyy 
@@ -236,19 +236,19 @@ check to see if there is a graph named http://localhost:8890%2FDAV%2Fxx%2Fyy
 
 Now run:
 
-	isql 1111 dba dba
+  isql 1111 dba dba
 
 and at the SQL> prompt run:
 
-	GRANT EXECUTE ON SPARUL_CLEAR TO "SPARQL"
-	GRANT EXECUTE ON DB.DBA.SPARUL_DROP TO "SPARQL";
-	GRANT DELETE ON DB.DBA.RDF_QUAD TO "SPARQL";
-	GRANT EXECUTE ON DB.DBA.SPARQL_INSERT_DICT_CONTENT TO "SPARQL";
-	GRANT EXECUTE ON DB.DBA.SPARQL_DELETE_DICT_CONTENT TO "SPARQL";
+  GRANT EXECUTE ON SPARUL_CLEAR TO "SPARQL"
+  GRANT EXECUTE ON DB.DBA.SPARUL_DROP TO "SPARQL";
+  GRANT DELETE ON DB.DBA.RDF_QUAD TO "SPARQL";
+  GRANT EXECUTE ON DB.DBA.SPARQL_INSERT_DICT_CONTENT TO "SPARQL";
+  GRANT EXECUTE ON DB.DBA.SPARQL_DELETE_DICT_CONTENT TO "SPARQL";
 
 === Install Redis
 
-	brew install redis
+  brew install redis
     ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
     launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
 
@@ -256,19 +256,19 @@ and at the SQL> prompt run:
 
 You should now be ready to create the EOL databases with:
 
-	rake eol:db:rebuild
-	rake eol:db:recreate RAILS_ENV=test
-	rake eol:db:recreate RAILS_ENV=test_master
+  rake eol:db:rebuild
+  rake eol:db:recreate RAILS_ENV=test
+  rake eol:db:recreate RAILS_ENV=test_master
  
 === Run EOL Private Config
 
-	rake eol:site_specific repo=git@github.com:mbl-cli/eol-private.git
+  rake eol:site_specific repo=git@github.com:mbl-cli/eol-private.git
 
 === Run the EOL Rails Tests
 
 You should now be able to run the Rails test suite with:
 
-	rake
+  rake
 
 === Starting Your EOL Rails Server
 
@@ -467,10 +467,10 @@ In production mode it is CRITICALLY important to understand the automated loggin
 avoid deletion of precious data.  To develop logging features, run the following tasks in the given order to
 populate your logging database with mock data...
 
-  rake logging:clear						           # Deletes all logging-related records. (WARNING: NEVER run in production.)
-  rake logging:dimension:mock THOUSANDS=2	 # Creates 2,000 psedo-random mock log entries (a.k.a. primary data).
-  rake logging:geocode:all					       # Performs geocoding on the primary data, using caches where possible.
-  rake logging:fact:all						         # Derives secondary data from primary data.
+  rake logging:clear                       # Deletes all logging-related records. (WARNING: NEVER run in production.)
+  rake logging:dimension:mock THOUSANDS=2   # Creates 2,000 psedo-random mock log entries (a.k.a. primary data).
+  rake logging:geocode:all                 # Performs geocoding on the primary data, using caches where possible.
+  rake logging:fact:all                     # Derives secondary data from primary data.
 
 ...at this point you should see data in the graph pages of the web application. Alternatively, run the
 following which does all of the above in one step....

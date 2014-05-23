@@ -286,6 +286,11 @@ class DataPointUri < ActiveRecord::Base
             ?parent_uri dwc:occurrenceID ?occurrence .
             ?occurrence dwc:eventID ?event .
             ?event ?attribute ?value .
+          } UNION {
+            ?parent_uri dwc:occurrenceID ?occurrence .
+            ?occurrence dwc:taxonID ?taxon .
+            ?taxon ?attribute ?value .
+            FILTER (?attribute = dwc:scientificName)
           }
           FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
                                      dwc:measurementID, eolreference:referenceID,

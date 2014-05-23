@@ -6,6 +6,15 @@ def make_and_convert(options)
   d
 end
 
+
+def create_measurement_from_name(taxon_name)
+  measurement = DataMeasurement.new(subject: TaxonConcept.gen, resource: Resource.gen,
+    predicate: KnownUri.gen.uri, object: 'whatever', taxon_name: taxon_name)
+  measurement.update_triplestore
+  measurement
+end
+
+
 describe DataPointUri do
   before(:all) do
     load_foundation_cache
@@ -228,4 +237,22 @@ describe DataPointUri do
     d.object.class.should == Float
     d.object.should == 1.0
   end
+
+  context 'class methods' do
+    context 'assign_metadata' do
+      before :all do
+        drop_all_virtuoso_graphs
+        @name = 'Aus bus'
+        @measurement = create_measurement_from_name(@name)
+        @data_point = DataPointUri.gen(uri: @measurement.uri)
+      end
+
+      it 'returns the taxon name associated with a measurement' do
+        DataPointUri.assign_metadata([ @data_point ], Language.english)
+        expect(@data_point.metadata.first.predicate).to eq('http://rs.tdwg.org/dwc/terms/scientificName')
+        expect(@data_point.metadata.first.object).to eq(@name)
+      end
+    end
+  end
+
 end

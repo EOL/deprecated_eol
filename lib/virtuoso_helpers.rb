@@ -3,7 +3,7 @@
 module VirtuosoHelpers
 
   def drop_all_virtuoso_graphs
-    EOL::Sparql.connection.query("SELECT DISTINCT ?graph WHERE { GRAPH ?graph { ?s ?p ?o } }").each do |result|
+    EOL::Sparql.connection.query("SELECT ?graph WHERE { GRAPH ?graph { ?s ?p ?o } } GROUP BY ?graph").each do |result|
       graph_name = result[:graph].to_s
       if graph_name =~ /^http:\/\/eol\.org\//
         EOL::Sparql.connection.delete_graph(graph_name)

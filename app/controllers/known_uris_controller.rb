@@ -342,6 +342,7 @@ class KnownUrisController < ApplicationController
   def clear_cache
     EOL::Sparql::Client.clear_uri_caches
     KnownUri.clear_uri_caches
+    expire_fragment('glossary_in_lang_' + current_language.iso_code)
   end
 
 end

@@ -53,7 +53,7 @@ end
 
 def comment(text)
   visit(taxon_data_path(@taxon_concept))
-  within(:xpath, "//tr[@id='data_point_#{@user_added_data.id}']/following::tr") do
+  within(:xpath, "//tr[@id='data_point_#{@user_added_data.data_point_uri.id}']/following::tr") do
     fill_in 'comment_body', with: text
     click_button "post comment"
   end
@@ -63,7 +63,7 @@ describe 'DataPointUris' do
   before :all do
     load_foundation_cache
     EolConfig.delete_all
-    EolConfig.create(parameter: 'all_users_can_see_data', value: '') 
+    EolConfig.create(parameter: 'all_users_can_see_data', value: '')
     @parent_taxon_concept = build_taxon_concept
     @taxon_concept = build_taxon_concept(parent_hierarchy_entry_id: @parent_taxon_concept.entry.id)
     @user = build_curator(@taxon_concept, level: :master)

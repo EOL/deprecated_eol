@@ -4,39 +4,6 @@ var _TOOLTIP_OPEN = false;
 
 EOL.max_meta_rows = 10;
 
-// Allows us to remember which tab we're on:
-EOL.push_tab_state = function(tab_link) {
-  EOL.change_tab_state(tab_link, 'push');
-};
-
-// Allows us to remember which tab we're on:
-EOL.replace_tab_state = function(tab_link) {
-  EOL.change_tab_state(tab_link, 'replace');
-};
-
-EOL.change_tab_state = function(tab_link, type) {
-  if ($('#content .data ul.subtabs').length > 0) {
-    // Only allow this on pages with data tabs:
-    if (typeof history.pushState !== "undefined") {
-      // Sadly, just pulling the class(es) from the parent node doesn't work; it can have several. We might add IDs to the links
-      // later, though, to make this cleaner.
-      var pclass = {};
-      if (tab_link.parent().hasClass('glossary')) {
-        pclass = 'glossary';
-      } else if (tab_link.parent().hasClass('about')) {
-        pclass = 'about';
-      } else {
-        pclass = 'all'; // a kind of "default"... it will check toc first, anyway.
-      }
-      if (type == 'replace') {
-        history.replaceState({ pclass: pclass, toc: tab_link.data('toc-id') }, null, tab_link.attr('href'));
-      } else {
-        history.pushState({ pclass: pclass, toc: tab_link.data('toc-id') }, null, tab_link.attr('href'));
-      }
-    }
-  }
-};
-
 EOL.switch_subtab = function(which, options) {
   $('.about_subtab').hide();
   $('.glossary_subtab').hide();
@@ -75,7 +42,6 @@ EOL.switch_subtab = function(which, options) {
   $('table.data .fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
   $('table.meta').hide();
   EOL.limit_data_rows();
-  // if ( ! options || ! options['skip_push']) EOL.push_tab_state(which);
 };
 
 EOL.create_info_dialog = function(match) {
@@ -568,18 +534,5 @@ $(function() {
   $('#data_search select#attribute').on('change', function() {
     EOL.update_unit_select_options($(this).find(":selected").data('known_uri_id'));
   });
-
-  window.onpopstate = function(e) {
-    if (e.state === null) return;
-    var old_tab;
-    if (e.state.toc === undefined) old_tab = $('#tabs_sidebar.data li.'+e.state.pclass+' a');
-    else old_tab = $('#tabs_sidebar.data ul a[data-toc-id='+e.state.toc+']');
-    EOL.switch_subtab(old_tab, {skip_push: true});
-  };
-
-  if (typeof history.pushState !== "undefined") {
-    var active_tab = $('#tabs_sidebar.data ul .active a');
-    if(active_tab !== undefined && active_tab.length > 0) EOL.replace_tab_state(active_tab);
-  }
 
 });

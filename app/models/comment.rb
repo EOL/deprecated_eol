@@ -20,8 +20,10 @@ class Comment < ActiveRecord::Base
   has_one :curator_activity_log # Because you can post a comment along with activity, and we want the two to have a
   # relationship in the DB, so we can report on it to content partners.
 
+  # TODO - I don't know if this is "right". We might want to check the deleted attribute. :|
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
-  scope :visible, lambda { { conditions: ['visible_at <= ?', 0.seconds.from_now] } }
+  scope :visible, -> { where('visible_at <= ?', 0.seconds.from_now) }
+  scope :undeleted, -> { where(deleted: false) }
 
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr
@@ -190,7 +192,7 @@ class Comment < ActiveRecord::Base
   end
 
   def same_as_last?
-    last_comment = Comment.last
+    last_comment = Comment.undeleted.last
     return false unless last_comment
     return body == last_comment.body &&
       user_id == last_comment.user_id &&

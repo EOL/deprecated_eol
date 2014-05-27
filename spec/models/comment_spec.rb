@@ -148,4 +148,29 @@ describe Comment do
     @image_comment.taxon_concept_id.should == @tc.id
     @text_comment.taxon_concept_id.should == @tc.id
   end
+
+  # -- New specs (everything above does NOT follow latest guidelines).
+
+  describe '#same_as_last?' do
+
+    let(:user) { User.gen }
+    let(:old_comment) { Comment.create(user: user, body: "He's been married seven times before.", parent: user) }
+
+    before do
+      Comment.delete_all
+    end
+
+    it 'identifies a duplicate comment' do
+      new_comment = Comment.new(user: user, body: old_comment.body, parent: user)
+      expect(new_comment.same_as_last?).to be true
+    end
+
+    it 'does not identify deleted duplicates' do
+      old_comment.update_attribute(:deleted, 1)
+      new_comment = Comment.new(user: user, body: old_comment.body, parent: user)
+      expect(new_comment.same_as_last?).to be false
+    end
+
+  end
+
 end

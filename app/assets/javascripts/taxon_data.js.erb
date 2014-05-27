@@ -8,6 +8,7 @@ EOL.switch_subtab = function(which, options) {
   $('.about_subtab').hide();
   $('.glossary_subtab').hide();
   $('.ranges_subtab').hide();
+  $('.info').hide();
   if (which.parent().hasClass('about') || which.parent().hasClass('glossary') || which.parent().hasClass('ranges')) {
     EOL.hide_data_tables($('table.data'));
     $('#taxon_data .empty').hide();
@@ -79,7 +80,7 @@ EOL.enable_data_tab_glossary_links = function(info) {
 EOL.enable_info_dialogs = function(tip) {
   tip.unbind('click')
     .on('click', function(e) {
-      // this will make sure we don't open rows when clicking info icons
+      // This will make sure we don't open rows when clicking info icons:
       e.stopPropagation();
       $('.site_column').unbind('click');
       var $link = $(this);

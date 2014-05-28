@@ -43,5 +43,14 @@
                 = raw(known_uri.translations.select{ |t| !t.comment.blank? }.collect{ |t| "<span class='language'>[#{t.language.iso_code}]</span> #{t.comment}" }.join('<br/>'))
               - (metadata_attributes_populated.length - 3).times do
                 %td
+      %dl
+        %dt= f.label :uri_type
+        %dd
+          = f.select :uri_type_id, options_from_collection_for_select(UriType.all, :id, :name, params[:known_uri][:uri_type_id])
+        %dt= f.label :hide_from_glossary
+        %dd
+          %label
+            = f.check_box :hide_from_glossary, { checked: (params[:known_uri][:hide_from_glossary] == "1") }
+            = I18n.t(:yes_answer)
       = hidden_field_tag :importing, true
       = submit_tag I18n.t(:import_ontology), class: 'button'

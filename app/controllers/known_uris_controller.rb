@@ -301,6 +301,8 @@ class KnownUrisController < ApplicationController
   end
 
   def import_terms_from_ontology(uri_to_field_name_mappings)
+    hide_from_glossary = (params[:known_uri][:hide_from_glossary] == "1")
+    uri_type_id = params[:known_uri][:uri_type_id]
     ActiveRecord::Base.transaction do
       params[:selected_uris].each do |uri|
         if term_metadata = @terms[uri]
@@ -317,7 +319,8 @@ class KnownUrisController < ApplicationController
             end
           end
           # find or create the KnownURI
-          known_uri = KnownUri.find_or_create_by_uri(uri)
+          known_uri = KnownUri.find_or_create_by_uri(uri,
+            hide_from_glossary: hide_from_glossary, uri_type_id: uri_type_id)
           # delete any existing definitions as they will be replaced
           known_uri.translations.destroy_all
           # add in the definitions for each defined language

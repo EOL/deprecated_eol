@@ -13,7 +13,7 @@
         - page_title =  I18n.t(:eol_colon)+"#{t} - #{page_title}"
       &= strip_tags(page_title)
     - # Google Webmaster Tools verification. Must persist to maintain verified ownership.
-    %meta{ name: 'google-site-verification', content: 'lgSVZdLE0qfuWJnvwdMUzYge1rSxfozVLGUys1XTknw' }
+    - # FIXME %meta{ name: 'google-site-verification', content: '' }
     %meta{ :content => "no", "http-equiv" => "imagetoolbar" }
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     %meta{ :content => "IE=EmulateIE7", "http-equiv" => "X-UA-Compatible" }

@@ -83,11 +83,14 @@ be in your Applications => Utilities folder.
 
 From the Terminal program run:
 
-  xcode-select —install
+  xcode-select --install
    
 Next, install homebrew with:
 
   ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+
+They above may ask some questions that need to be answered before running:
+
   brew doctor
 
 === Install Git
@@ -102,7 +105,7 @@ There are a couple different ways that work for this, but the simplest is:
 
   curl -L https://get.rvm.io | bash -s stable
 
-Now close any open shell windows you have in Terminal or other command-line 
+Now *close any open shell windows* you have in Terminal or other command-line 
 applications.
 
 === Get EOL Code Base
@@ -111,7 +114,6 @@ In a new Terminal window create the directory you want the top level directory
 of the EOL code to go.  This will be $ROOT below.  I used:
 
   ROOT=~/git
-
   mkdir -p $ROOT
   cd $ROOT
   git clone https://github.com/EOL/eol.git
@@ -147,7 +149,7 @@ This will ask you to provide a password that you will need for the
 database.yml. To create the database.yml file in the config copy the handy 
 template to start with:
 
-  cp $ROOT/config/database.sample.yml $ROOT/config/database.yml
+  cp $ROOT/eol/config/database.sample.yml $ROOT/eol/config/database.yml
 
 Edit the database.yml and put the root database password in the devel_common 
 and tst_common blocks.
@@ -168,23 +170,14 @@ directly into tools that just use it for testing such as EOL.
 
   brew install qt
 
-We currently use an older version of therubyracer gem which indirectly depends
-on an old version of the C++ compiler.  As result you will need to build just
-this gem first.  In a new shell, run these commands:
+You should be able install the rest of the gems needed to get tests running
+with:
 
-  brew tap homebrew/dupes
-  brew install apple-gcc42
-  export CC=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/gcc-4.2
-  export CXX=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/g++-4.2
-  export CPP=/usr/local/Cellar/apple-gcc42/4.2.1-5666.3/bin/cpp-4.2
-  gem install therubyracer -v '0.10.2'
-  exit
+  bundle install --without assets
 
-Make sure you get rid of this old shell before you move on.
-
-Finally, you should be able install all the rest of the needed gems with:
-
-  bundle install
+The :assets group currently requires an older version of therubyracer gem which
+indirectly depends on an old version of the C++ compiler and can be difficult
+to get working.
 
 === Setup Memcached
 
@@ -205,14 +198,14 @@ If you would rather manage it by hand, the command is:
 
 As of May 2014 this installs version 7.1.
 
-Start Virtuoso with:
+Start Virtuoso in a separate Terminal window:
 
   cd /usr/local/Cellar/virtuoso/7.1.0/var/lib/virtuoso/db
   virtuoso-t +foreground
 
 The foreground option is optional.
 
-Next run:
+Back in your usual shell run:
 
   curl -i -d "INSERT {<http://demo.openlinksw.com/DAV/home/demo_about.rdf>
     <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>
@@ -230,8 +223,8 @@ The response should be:
   MS-Author-Via: SPARQL
   Content-Length: 0
 
-Next go to http://localhost:8890/ => Conductor => LinkedData => Graphs and 
-check to see if there is a graph named http://localhost:8890%2FDAV%2Fxx%2Fyy 
+Next go to http://localhost:8890/ => Conductor => LinkedData (login with dba/dba) => Graphs (blue tab) => Graphs (white tab) and 
+check to see if there is a graph named http://localhost:8890%2FDAV%2Fdba%2Fupload
 ...if so, delete it.
 
 Now run:
@@ -249,18 +242,32 @@ and at the SQL> prompt run:
 === Install Redis
 
   brew install redis
-    ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
-    launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+  ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
+  launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+
+=== Start Solr
+
+  rake solr:start
+
+This may popup a dialog asking you install Java which you should agree to.
 
 === Create EOL Databases
 
 You should now be ready to create the EOL databases with:
 
+  rake db:create:all
   rake eol:db:rebuild
   rake eol:db:recreate RAILS_ENV=test
   rake eol:db:recreate RAILS_ENV=test_master
  
 === Run EOL Private Config
+
+Currently this requires you have access to the private mbl-cli GitHub
+community and you create an SSH key and registering it on GitHub as
+described here: https://help.github.com/articles/generating-ssh-keys
+
+We plan to at least make this step unnecessary to get the tests
+passing.
 
   rake eol:site_specific repo=git@github.com:mbl-cli/eol-private.git
 

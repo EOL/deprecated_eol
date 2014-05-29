@@ -71,6 +71,7 @@ end
 
 group :assets do
   gem 'turbo-sprockets-rails3', '0.3.4' # This is supposed to minimize the re-building of assets. AFAICT, it isn't working for us.
+  gem 'therubyracer', '0.10.2'  # needed to run rake tasks in cron
 end
 
 # IMPORTANT NOTE - any time you update Rails, you really need to double-check our monkey-patches in lib/select_with_preload_include
@@ -133,4 +134,3 @@ gem 'uuid', '2.3.5' # Used when creating data objects
 gem 'will_paginate', '~> 3.0' # Used ALL OVER THE SITE for pagination.
 gem 'nunes', '0.3.0'  # This makes it easier to handle statsd
 gem 'execjs', '2.0.2'  # needed to run rake tasks in cron
-gem 'therubyracer', '0.10.2'  # needed to run rake tasks in cron

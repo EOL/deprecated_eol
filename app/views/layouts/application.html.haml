@@ -15,7 +15,8 @@
     - unless @meta_data[:keywords].blank?
       %meta{ :name => "keywords", :content => h(raw(strip_tags(@meta_data[:keywords]))) }
     - # Google Webmaster Tools verification. Must persist to maintain verified ownership.
-    - # FIXME %meta{ name: 'google-site-verification', content: '' }
+    - Rails.configuration.google_site_verification_keys.each do |key|
+      %meta{ name: 'google-site-verification', content: key }
     - # Prevents generation of links to "smart tags"
     %meta{ :name => "MSSmartTagsPreventParsing", :content => "true" }
     - full_version = ENV["APP_VERSION"].blank? ? I18n.t(:development_version_name) : ENV["APP_VERSION"]

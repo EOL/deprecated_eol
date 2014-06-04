@@ -1,0 +1,253 @@
+# Messages for Hindi (हिन्दी)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Vitthalkudal
+hi: 
+  about_eol: EOL के बारे में
+  account_information: खाता जानकारी
+  account_registered_but_not_ready_try_later: आपका खाता पंजीकृत है, लेकिन आपके उपयोग करने के लिए तैयार नहीं है। कृपया पांच मिनट में फिर से प्रयास करें।
+  add_to_my_collection_button: मेरे संग्रह में जोड़ें
+  admin: व्यवस्थापक
+  all_information: सभी जानकारी
+  all_pages: सभी पृष्ठ
+  already_a_member_question: पहले से ही सदस्य हैं?
+  already_member_of_community: आप पहले से ही इस समुदाय के एक सदस्य हैं।
+  alternate_classification: वैकल्पिक वर्गीकरण
+  application_version_advisory_information: अनुप्रयोग संस्करण
+  are_you_sure: क्या आपको यकीन है?
+  assistive_details_header: विस्तॄत
+  assistive_media_header: माध्यम
+  assistive_overview_header: अवलोकन
+  authoritative_information: आधिकारिक जानकारी
+  average_rating_value_of_total: "औसत रेटिंग(मूल्यांकन): %{rating} में से %{total}"
+  cancel: रद्द करें
+  cannot_be_associated_with_both_a_user_and_a_community: या तो किसी उपयोगकर्ता या एक समुदाय के साथ जुड़ा होना चाहिए
+  cannot_be_empty: रिक्त नहीं हो सकता।
+  change_rating_to_1_of_5: रेटिंग(मूल्यांकन) को 5 में से 1 में परिवर्तित करें
+  change_rating_to_2_of_5: रेटिंग(मूल्यांकन) को 5 में से 2 में परिवर्तित करें
+  change_rating_to_3_of_5: रेटिंग(मूल्यांकन) को 5 में से 3 में परिवर्तित करें
+  change_rating_to_4_of_5: रेटिंग(मूल्यांकन) को 5 में से 4 में परिवर्तित करें
+  change_rating_to_5_of_5: रेटिंग(मूल्यांकन) को 5 में से 5 में परिवर्तित करें
+  citation: उद्धरण
+  classifications_summary_header_with_count: 
+    one: "%{count} अनुमोदित वर्गीकरण का हिस्सा"
+    other: "%{count} अनुमोदित वर्गीकरणों का हिस्सा"
+  collections: संग्रह
+  collections_summary_header_with_count: 
+    one: "%{count} संग्रह में मौजूद"
+    other: "%{count} संग्रह में मौजूद"
+  collections_with_count: 
+    one: "%{count} संग्रह"
+    other: "%{count} संग्रहों"
+  common_names_with_count: 
+    one: "%{count} सामान्य नाम"
+    other: "%{count} सामान्य नाम"
+  communities: समुदाय
+  communities_summary_header_with_count: 
+    one: "%{count} समुदाय से संबंधित"
+    other: "%{count} समुदायों से संबंधित"
+  communities_with_count: 
+    one: "%{count} समुदाय"
+    other: "%{count} समुदाय"
+  community: समुदाय
+  community_activity: सामुदायिक गतिविधि
+  community_focus: समुदाय ध्यान
+  community_members: समुदाय के सदस्य
+  contact_us_link: हमसे संपर्क करें
+  content_partners: सामग्री साझेदार
+  content_summary_table_count_column_header: गणना
+  content_summary_table_type_descendants_row: वंश की संख्या
+  content_summary_table_type_status_column_header: सामग्री प्रकार और स्थिति
+  content_summary_table_type_trusted_images_row: विश्वसनीय छवियों की संख्या
+  content_summary_table_type_trusted_text_row: विश्वस्त पाठ आइटम्स की संख्या
+  content_summary_table_type_unreviewed_images_row: असमीक्षित छवियों की संख्या
+  content_summary_table_type_unreviewed_text_row: असमीक्षित पाठ आइटम्स की संख्या
+  could_not_find_user: इस प्रयोक्ता के लिए सदस्य नहीं मिला
+  create_a_collection: संग्रह बनाएँ
+  create_a_community: एक समुदाय बनाएँ
+  create_account: नया खाता बनाएँ
+  created_community: समुदाय सफलतापूर्वक बनाया गया।
+  curators_summary_header_with_count: 
+    one: "%{count} संग्रहाध्यक्ष"
+    other: "%{count} संग्रहाध्यक्ष"
+  currently_in_eol: वर्तमान में जीवन का विश्वकोश में
+  dashboard: डैशबोर्ड
+  delete_community: इस समुदाय को हटाएँ
+  detail: विस्तार
+  development_version_name: V2 विकास संस्करण - सार्वजनिक इस्तेमाल के लिए नहीं
+  displaying_numerical_range: प्रदर्शित %{start_number} - %{end_number}
+  donate: दान
+  donation_error_no_amount: कृपया एक दान राशि का चयन करें।
+  donation_error_only_numbers: एक ही नंबर का उपयोग कर राशि दर्ज करें.
+  edit_community: समुदाय संपादित करें
+  edit_my_profile: मेरी रूपरेखा(प्रोफ़ाइल) संपादित करें
+  encyclopedia_of_life: जीवन का विश्वकोश
+  endorsed_collections_with_count: 
+    one: "%{count} समर्थित संग्रह"
+    other: "%{count} समर्थित संग्रह"
+  eol_colon: "EOL:"
+  eol_glossary: EOL शब्दावली
+  eol_news: EOL समाचार
+  esc_key_hides_this_message: (यह संदेश esc कुंजी छुपाता है)
+  explore: अन्वेषण करें
+  feedback: आपके सुझाव
+  filter_by_status: स्थिति के अनुसार फ़िल्टर करें
+  filter_by_status_all_option: सभी स्थितियां
+  filter_by_status_inappropriate_option: अनुचित
+  filter_by_status_trusted_option: विश्वस्त
+  filter_by_status_unreviewed_option: असमीक्षित
+  filter_by_status_untrusted_option: अविश्वस्त
+  filter_by_type: प्रकार के अनुसार फ़िल्टर करें
+  filter_by_type_all_option: सभी प्रकार
+  filter_media: फ़िल्टर मीडिया
+  filtered_information: छनित जानकारी
+  global_access_tagline: पृथ्वी पर जीवन के बारे में ज्ञान के लिए वैश्विक पहुँच।
+  go: जाएँ
+  has_already_been_taken: पहले से ही लिया गया है।
+  hello_user: नमस्ते %{user}
+  help: मदद
+  home: गृह
+  home_page_link_advisory_information: यह लिंक आपको जीवन का विश्वकोश वेब साइट के मुख पृष्ठ पर ले जाएगा
+  images: छवियाँ
+  images_with_count: 
+    one: "%{count} छवि"
+    other: "%{count} छवियां"
+  indexed: अनुक्रमित
+  join_community_button: इस समुदाय से जुड़ें
+  join_eol_button_html: अब <abbr title="जीवन का विश्वकोश">EOL</abbr> से जुड़ें
+  join_eol_community_html: <abbr title="जीवन का विश्वकोश">EOL</abbr> समुदाय का हिस्सा बनें!
+  just_pages_with_pictures_and_text: बस उन पृष्ठों के साथ चित्र और पाठ
+  language: "भाषा:"
+  last_updated_time_ago: अंतिम अद्यतन %{time_passed} पहले
+  learn_about_content_partners: हमारे सामग्री साझेदारों के बारे में जानें
+  leave_a_comment: टिप्पणी लिखिए
+  license: अनुज्ञापत्र
+  license_all_rights_reserved: सभी अधिकार सुरक्षित
+  license_cc_by: क्रिएटिव कॉमन्स अधिकार (CC BY)
+  license_cc_by_2_0: क्रिएटिव कॉमन्स अधिकार 2.0 (CC BY 2.0)
+  license_cc_by_2_5: क्रिएटिव कॉमन्स अधिकार 2.5 (CC BY 2.5)
+  license_cc_by_3_0: क्रिएटिव कॉमन्स अधिकार 3.0 (CC BY 3.0)
+  license_cc_by_nc: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक (CC BY-NC)
+  license_cc_by_nc_2_0: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक 2.0 (CC BY-NC 2.0)
+  license_cc_by_nc_2_5: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक 2.5 (CC BY-NC 2.5)
+  license_cc_by_nc_3_0: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक साझा एक जैसे (CC BY-NC-SA)
+  license_cc_by_nc_sa_1_0: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक साझा एक जैसे 1.0 (CC BY-NC-SA 1.0)
+  license_cc_by_nc_sa_2_0: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक साझा एक जैसे 2.0 (CC BY-NC-SA 2.0)
+  license_cc_by_nc_sa_2_5: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक साझा एक जैसे 2.5 (CC BY-NC-SA 2.5)
+  license_cc_by_nc_sa_3_0: क्रिएटिव कॉमन्स अधिकार गैर वाणिज्यिक साझा एक जैसे 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: क्रिएटिव कॉमन्स अधिकार साझा एक जैसे (CC BY-SA)
+  license_cc_by_sa_1_0: क्रिएटिव कॉमन्स अधिकार साझा एक जैसे 1.0 (CC BY-SA 1.0)
+  license_cc_by_sa_2_0: क्रिएटिव कॉमन्स अधिकार साझा एक जैसे 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: क्रिएटिव कॉमन्स अधिकार साझा एक जैसे 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: क्रिएटिव कॉमन्स अधिकार साझा एक जैसे 3.0 (CC BY-SA 3.0)
+  license_gnu_fdl: GNU मुक्त प्रलेखन अनुज्ञापत्र (GNU FDL)
+  license_gnu_gpl: GNU सामान्य जन अनुज्ञापत्र (GNU GPL)
+  license_not_applicable: अनुज्ञापत्र लागू नहीं
+  literature: साहित्य
+  location: स्थान
+  login: लॉग इन
+  login_or_create_account: लॉग इन / खाता बनाइए
+  logout: लॉगआउट
+  maps_with_count: 
+    one: "%{count} नक़्शा "
+    other: " %{count} नक्शे"
+  media: माध्यम
+  media_with_count: 
+    one: "%{count} मीडिया"
+    other: "%{count} मीडिया"
+  members_with_count: 
+    one: "%{count} सदस्य"
+    other: "%{count} सदस्यों"
+  minimal_page: न्यूनतम पृष्ठ
+  most_active_members: सबसे सक्रिय सदस्य
+  must_be_associated_with_either_a_user_or_a_community: या तो किसी उपयोगकर्ता या एक समुदाय के साथ जुड़ा होना चाहिए
+  must_be_less_than_128_characters_long: 128 वर्णों से अवश्य कम होना चाहिए.
+  my_activity: मेरी गतिविधि
+  my_info: मेरी जानकारी
+  newsfeed: समाचार फ़ीड
+  not_evaluated: मूल्यांकन नहीं
+  overview: अवलोकन
+  pages_with_pictures_and_text: चित्रों और पाठ के साथ पृष्ठ
+  pages_with_pictures_or_text: चित्रों और पाठ के साथ पृष्ठ
+  people_with_count: 
+    one: "%{count} व्यक्ति"
+    other: "%{count} लोगों"
+  personal_space: निजी स्पेस
+  post_comment: टिप्पणी पोस्ट करें
+  press_room: प्रेस कक्ष
+  profile: प्रोफ़ाइल
+  profile_image_alt_text_curator: संग्रहाध्यक्ष %{user_given_name} %{user_family_name} के लिए प्रोफ़ाइल तस्वीर
+  profile_image_alt_text_member: सदस्य %{user_given_name} %{user_family_name} के लिए प्रोफ़ाइल तस्वीर
+  punctuation_comma: ","
+  rated_by_count_people: 
+    one: "%{count} व्यक्ति से"
+    other: "%{count} लोगों से"
+  recent_updates: हाल ही के अद्यतन
+  remove_membership: सदस्यता हटाएँ
+  resources: संसाधन
+  rights: अधिकार
+  rights_holder: अधिकार धारक
+  search_field_label: EOL में खोजें
+  search_placeholder: EOL में खोजें ...
+  search_the_site: साइट खोजें
+  see_all_media_link: सभी मीडिया(माध्यम) देखें
+  select_topic: कृपया किसी विषय क्षेत्र का चयन करें
+  selected_language_advisory_information: यह वर्तमान में चयनित भाषा है।
+  show_status_message: स्थिति संदेश दिखाएँ
+  show_warning_message: चेतावनी संदेश दिखाएँ
+  sign_in: साइन इन(प्रवेश करें)
+  sign_out: साइन आउट करें
+  site_information: साइट जानकारी
+  skip_to_content: सामग्री पर जाएं
+  skip_to_table_of_contents: सामग्री तालिका पर जाएं
+  sort_by: द्वारा क्रमबद्ध करें
+  sort_by_button: क्रमबद्ध करें
+  sort_by_label: द्वारा क्रमबद्ध करें
+  sort_by_newest_option: नवीनतम
+  sort_by_oldest_option: सबसे पुराना
+  sort_by_rating_option: रेटिंग(मूल्यांकन)
+  sounds_with_count: 
+    one: "%{count} ध्वनि"
+    other: "%{count} ध्वनियाँ"
+  source_url: स्रोत URL
+  supplier: प्रदायक
+  switch_language_advisory_information: साइट की भाषा %{language_label} करने के लिए स्विच करें
+  table_of_contents: सामग्री की तालिका
+  taxa: प्रजाति
+  taxa_with_count: 
+    one: "%{count} प्रजाति "
+    other: " %{count} प्रजातियां"
+  taxon: प्रजाति
+  text_summary_more_link: पूर्ण प्रविष्टि पढ़ें
+  text_with_count: 
+    one: "%{count} लेख"
+    other: "%{count} लेख"
+  there_are_currently_no_members_in_this_community: वर्तमान में इस समुदाय में कोई सदस्य नहीं हैं।
+  threat_status_header_colon: "IUCN खतरा स्तर:"
+  time_ago: "%{time_passed} पहले"
+  trusted: विश्वस्त
+  twitter: ट्विट्टर
+  unknown: अज्ञात
+  unreviewed: असमीक्षित
+  updated_community: समुदाय सफलतापूर्वक अद्यतन किया गया था।
+  user_comment: सदस्य टिप्पणी
+  user_system_down: "हम क्षमा चाहते हैं, लेकिन उपयोगकर्ता पंजीकरण प्रणाली वर्तमान में उपलब्ध नहीं है।  कृपया बाद में पुन: प्रयास करें।"
+  using_the_site: साइट का उपयोग
+  videos_with_count: 
+    one: "%{count} वीडियो"
+    other: "%{count} वीडियो"
+  what_is_eol: क्या है EOL?
+  what_is_this_question: यह क्या है?
+  you_are_an_admin_so_i_will_show_you_that_the_error_was: "आप एक व्यवस्थापक हैं  तो, मैं आपको दिखाता हूँ कि क्या त्रुटि थी:"
+  you_are_not_authorized_to_perform_this_action: आप इस क्रिया को करने के लिए अधिकृत नहीं हैं.
+  you_joined_community: आप सफलतापूर्वक समुदाय में शामिल हो गए।
+  you_left_community: आपने सफलतापूर्वक इस समुदाय को छोड़ दिया है।
+  your_current_rating_0_of_5: "आपकी वर्तमान रेटिंग(मूल्यांकन): 5 में से 0"
+  your_current_rating_1_of_5: "आपकी वर्तमान रेटिंग(मूल्यांकन): 5 में से 1"
+  your_current_rating_2_of_5: "आपकी वर्तमान रेटिंग(मूल्यांकन): 5 में से 2"
+  your_current_rating_3_of_5: "आपकी वर्तमान रेटिंग(मूल्यांकन): 5 में से 3"
+  your_current_rating_4_of_5: "आपकी वर्तमान रेटिंग(मूल्यांकन): 5 में से 4"
+  your_current_rating_5_of_5: "आपकी वर्तमान रेटिंग(मूल्यांकन): 5 में से 5"
+  your_preferences: अपनी वरीयताएँ
+  your_rating: आपकी रेटिंग(मूल्यांकन)

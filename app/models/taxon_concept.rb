@@ -61,6 +61,9 @@ class TaxonConcept < ActiveRecord::Base
   attr_accessor :common_names_in_language
 
   index_with_solr keywords: [ :scientific_names_for_solr, :common_names_for_solr ]
+  def iucn_status_to_key(status) 
+    ('iucn_' + status.downcase.strip.gsub(/[\(\)]/, '').gsub(/[ \/]/, '_')).to_sym # Lower Risk/conservation dependent (LR/cd) => :iucn_lower_risk_conservation_dependent_lr_cd
+  end
 
   def self.prepare_cache_classes
     TaxonConceptExemplarImage
@@ -692,6 +695,7 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     my_iucn = data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
+    my_iucn.description =  my_iucn.description = I18n.t(iucn_status_to_key(my_iucn.description)) if my_iucn
     @iucn = my_iucn.nil? ? DataObject.new(source_url: 'http://www.iucnredlist.org/about', description: I18n.t(:not_evaluated)) : my_iucn
   end
 

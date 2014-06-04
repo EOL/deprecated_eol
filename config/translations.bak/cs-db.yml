@@ -1,0 +1,306 @@
+# Messages for Czech (čeština)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Chmee2
+# Author: Jachym
+# Author: Jezevec
+# Author: Mr. Richard Bolla
+# Author: Reaperman
+cs: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: nedůvěryhodné
+  translated_activities-name-activity_id-51: zobrazit
+  translated_activities-name-activity_id-52: vytvořit
+  translated_activities-name-activity_id-53: skrýt
+  translated_activities-name-activity_id-54: aktualizovat
+  translated_activities-name-activity_id-55: nevhodné
+  translated_activities-name-activity_id-56: smazat
+  translated_activities-name-activity_id-57: hodnotit
+  translated_activities-name-activity_id-58: důvěryhodné
+  translated_activities-name-activity_id-59: nerecenzováno
+  translated_activities-name-activity_id-63: sesbírat
+  translated_activities-name-activity_id-64: odstranit
+  translated_agent_roles-label-agent_role_id-1: Animátor
+  translated_agent_roles-label-agent_role_id-10: Projekt
+  translated_agent_roles-label-agent_role_id-11: Vydavatel
+  translated_agent_roles-label-agent_role_id-13: Zdroj
+  translated_agent_roles-label-agent_role_id-14: Zdrojová databáze
+  translated_agent_roles-label-agent_role_id-15: Kontaktní osoba
+  translated_agent_roles-label-agent_role_id-16: Přispěvatel
+  translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-21: poskytovatel
+  translated_agent_roles-label-agent_role_id-22: Překladatel
+  translated_agent_roles-label-agent_role_id-23: Vědecký recenzent
+  translated_agent_roles-label-agent_role_id-24: Jazykový recenzent
+  translated_agent_roles-label-agent_role_id-4: Skladatel
+  translated_agent_roles-label-agent_role_id-5: Autor
+  translated_agent_roles-label-agent_role_id-6: Vedoucí
+  translated_agent_roles-label-agent_role_id-7: Editor
+  translated_agent_roles-label-agent_role_id-8: Ilustrátor
+  translated_agent_roles-label-agent_role_id-9: Fotograf
+  translated_audiences-label-audience_id-1: Zkušení uživatelé
+  translated_audiences-label-audience_id-2: Veřejnost
+  translated_audiences-label-audience_id-3: Děti
+  translated_collection_types-label-collection_type_id-1: Taxonomie
+  translated_collection_types-label-collection_type_id-10: Zvuky
+  translated_collection_types-label-collection_type_id-11: Odkazy
+  translated_collection_types-label-collection_type_id-12: Literatura
+  translated_collection_types-label-collection_type_id-13: Taxonomie
+  translated_collection_types-label-collection_type_id-14: Molekulární čárové kódy
+  translated_collection_types-label-collection_type_id-15: Popis
+  translated_collection_types-label-collection_type_id-16: Obrázky
+  translated_collection_types-label-collection_type_id-17: Rozšíření
+  translated_collection_types-label-collection_type_id-18: Stav ochrany
+  translated_collection_types-label-collection_type_id-19: Informace názvu
+  translated_collection_types-label-collection_type_id-2: Molekulární čárové kódy
+  translated_collection_types-label-collection_type_id-20: Molekulární data
+  translated_collection_types-label-collection_type_id-21: Nomenklatura
+  translated_collection_types-label-collection_type_id-22: Zvuky
+  translated_collection_types-label-collection_type_id-23: Odkazy
+  translated_collection_types-label-collection_type_id-24: Literatura
+  translated_collection_types-label-collection_type_id-3: Popis
+  translated_collection_types-label-collection_type_id-4: Obrázky
+  translated_collection_types-label-collection_type_id-5: Rozšíření
+  translated_collection_types-label-collection_type_id-6: Stav uchování
+  translated_collection_types-label-collection_type_id-7: Informace k názvu
+  translated_collection_types-label-collection_type_id-8: Molekulární data
+  translated_collection_types-label-collection_type_id-9: Nomenklatura
+  translated_contact_roles-label-contact_role_id-1: Primární kontakt
+  translated_contact_roles-label-contact_role_id-2: Administrativní kontakt
+  translated_contact_roles-label-contact_role_id-3: Technický kontakt
+  translated_contact_subjects-title-contact_subject_id-24: Členství a registrace
+  translated_contact_subjects-title-contact_subject_id-25: Podmínky užití a licence
+  translated_contact_subjects-title-contact_subject_id-26: Výuka a vzdělávání
+  translated_contact_subjects-title-contact_subject_id-27: Staňte se obsahovým partnerem
+  translated_content_partner_statuses-label-content_partner_status_id-1: Zatím nevyřízeno
+  translated_content_partner_statuses-label-content_partner_status_id-2: Aktivní
+  translated_content_partner_statuses-label-content_partner_status_id-3: Archivované
+  translated_content_partner_statuses-label-content_partner_status_id-4: Neaktivní
+  translated_content_tables-label-content_table_id-1: Detaily
+  translated_data_types-label-data_type_id-1: Obrázek
+  translated_data_types-label-data_type_id-10: Mapa
+  translated_data_types-label-data_type_id-2: Zvuk
+  translated_data_types-label-data_type_id-3: Text
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: GBIF obrázek
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Žádná práva nejsou vyhrazena
+  translated_licenses-description-license_id-2: "&#169; Všechna práva vyhrazena"
+  translated_licenses-description-license_id-29: Některá práva vyhrazena
+  translated_licenses-description-license_id-3: Některá práva vyhrazena
+  translated_licenses-description-license_id-30: Některá práva vyhrazena
+  translated_licenses-description-license_id-31: Některá práva vyhrazena
+  translated_licenses-description-license_id-32: Některá práva vyhrazena
+  translated_licenses-description-license_id-33: Některá práva vyhrazena
+  translated_licenses-description-license_id-34: Veřejná doména
+  translated_licenses-description-license_id-35: Veřejná doména
+  translated_licenses-description-license_id-36: Některá práva vyhrazena
+  translated_licenses-description-license_id-37: Některá práva vyhrazena
+  translated_licenses-description-license_id-38: Některá práva vyhrazena
+  translated_licenses-description-license_id-39: Veřejná doména
+  translated_licenses-description-license_id-4: Některá práva vyhrazena
+  translated_licenses-description-license_id-42: Některá práva vyhrazena
+  translated_licenses-description-license_id-43: Licence není použitelná
+  translated_licenses-description-license_id-5: Některá práva vyhrazena
+  translated_licenses-description-license_id-6: Některá práva vyhrazena
+  translated_licenses-description-license_id-7: Některá práva vyhrazena
+  translated_licenses-description-license_id-8: Některá práva vyhrazena
+  translated_licenses-description-license_id-9: Některá práva vyhrazena
+  translated_ranks-label-rank_id-106: forma
+  translated_ranks-label-rank_id-107: forma
+  translated_ranks-label-rank_id-112: gen
+  translated_ranks-label-rank_id-113: rod
+  translated_ranks-label-rank_id-118: rod
+  translated_ranks-label-rank_id-169: infrařád
+  translated_ranks-label-rank_id-183: říše
+  translated_ranks-label-rank_id-266: řád
+  translated_ranks-label-rank_id-317: sekce
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
+  translated_ranks-label-rank_id-335: druh
+  translated_ranks-label-rank_id-352: podčeleď
+  translated_ranks-label-rank_id-370: podtřída
+  translated_ranks-label-rank_id-375: poddivize
+  translated_ranks-label-rank_id-383: podčeleď
+  translated_ranks-label-rank_id-390: podrod
+  translated_ranks-label-rank_id-391: podrod
+  translated_ranks-label-rank_id-394: podrod
+  translated_ranks-label-rank_id-396: podříše
+  translated_ranks-label-rank_id-399: podřád
+  translated_ranks-label-rank_id-401: podkmen
+  translated_ranks-label-rank_id-408: pododdíl
+  translated_ranks-label-rank_id-413: poddruh
+  translated_ranks-label-rank_id-414: poddr.
+  translated_ranks-label-rank_id-415: poddruh
+  translated_ranks-label-rank_id-422: podkmen
+  translated_ranks-label-rank_id-463: nadčeleď
+  translated_ranks-label-rank_id-472: nadkmen
+  translated_ranks-label-rank_id-494: kmen
+  translated_ranks-label-rank_id-503: nezařazeno
+  translated_ranks-label-rank_id-51: třída
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: varl
+  translated_ranks-label-rank_id-518: odrůda
+  translated_ranks-label-rank_id-74: divize
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
+  translated_ranks-label-rank_id-99: čeleď
+  translated_resource_statuses-label-resource_status_id-1: Načítání...
+  translated_resource_statuses-label-resource_status_id-10: Uveřejněno
+  translated_resource_statuses-label-resource_status_id-11: Čeká se na publikování
+  translated_resource_statuses-label-resource_status_id-12: Nepublikovat nezpracované
+  translated_resource_statuses-label-resource_status_id-2: Načteno
+  translated_resource_statuses-label-resource_status_id-3: Načítání nebylo úspěšné
+  translated_resource_statuses-label-resource_status_id-4: Přesunuto na server s obsahem
+  translated_resource_statuses-label-resource_status_id-5: Ověřeno
+  translated_resource_statuses-label-resource_status_id-6: Ověření nebylo úspěšné
+  translated_resource_statuses-label-resource_status_id-7: Zpracovává se...
+  translated_resource_statuses-label-resource_status_id-8: Zpracováno
+  translated_resource_statuses-label-resource_status_id-9: Zpracování se nezdařilo
+  translated_service_types-label-service_type_id-1: schéma EOL transferu
+  translated_service_types-label-service_type_id-2: Ostatní
+  translated_sort_styles-name-sort_style_id-1: Nedávno přidané
+  translated_sort_styles-name-sort_style_id-2: Nejstarší
+  translated_sort_styles-name-sort_style_id-3: Abecedně
+  translated_sort_styles-name-sort_style_id-4: Odzadu abecedně
+  translated_sort_styles-name-sort_style_id-5: Bohatost
+  translated_sort_styles-name-sort_style_id-6: Hodnocení
+  translated_statuses-label-status_id-1: Vloženo
+  translated_statuses-label-status_id-2: Aktualizováno
+  translated_statuses-label-status_id-3: Nezměněno
+  translated_statuses-label-status_id-4: Znovu použito
+  translated_synonym_relations-label-synonym_relation_id-1: synonymum
+  translated_synonym_relations-label-synonym_relation_id-10: genbank synonymum
+  translated_synonym_relations-label-synonym_relation_id-12: zahrnuje
+  translated_synonym_relations-label-synonym_relation_id-14: špatný pravopis
+  translated_synonym_relations-label-synonym_relation_id-15: teleomorf
+  translated_synonym_relations-label-synonym_relation_id-19: schválené jméno
+  translated_synonym_relations-label-synonym_relation_id-2: běžný název
+  translated_synonym_relations-label-synonym_relation_id-20: artefakt databáze
+  translated_synonym_relations-label-synonym_relation_id-21: ostatní, viz komentáře
+  translated_synonym_relations-label-synonym_relation_id-24: zamítnutý název
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-3: akronym
+  translated_synonym_relations-label-synonym_relation_id-30: nedostupné, artefakt databáze
+  translated_synonym_relations-label-synonym_relation_id-33: není k dispozici, chyba pravopisu v literatuře
+  translated_synonym_relations-label-synonym_relation_id-35: není k dispozici, nesprávný pravopis
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-40: není k dispozici, jiné
+  translated_synonym_relations-label-synonym_relation_id-41: není k dispozici, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-48: název není k dispozici
+  translated_synonym_relations-label-synonym_relation_id-49: platný název
+  translated_synonym_relations-label-synonym_relation_id-5: BLAST název
+  translated_synonym_relations-label-synonym_relation_id-50: platné
+  translated_synonym_relations-label-synonym_relation_id-51: schváleno
+  translated_synonym_relations-label-synonym_relation_id-53: nepublikované jméno
+  translated_synonym_relations-label-synonym_relation_id-56: chybný pravopis
+  translated_synonym_relations-label-synonym_relation_id-57: pravopisná alternativa
+  translated_synonym_relations-label-synonym_relation_id-6: ekvivalentní název
+  translated_synonym_relations-label-synonym_relation_id-63: nepřijato
+  translated_synonym_relations-label-synonym_relation_id-64: neplatný
+  translated_synonym_relations-label-synonym_relation_id-7: GenBank akronym
+  translated_table_of_contents-label-table_of_contents_id-1: Přehled
+  translated_table_of_contents-label-table_of_contents_id-13: Běžné názvy
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Odkazy na literaturu
+  translated_table_of_contents-label-table_of_contents_id-194: Velikost
+  translated_table_of_contents-label-table_of_contents_id-2: Stručný souhrn
+  translated_table_of_contents-label-table_of_contents_id-218: Rozšíření
+  translated_table_of_contents-label-table_of_contents_id-221: Rizika
+  translated_table_of_contents-label-table_of_contents_id-225: Na internetu
+  translated_table_of_contents-label-table_of_contents_id-226: Spolupracovníci na obsahu
+  translated_table_of_contents-label-table_of_contents_id-227: Hledat na internetu
+  translated_table_of_contents-label-table_of_contents_id-24: Komentář
+  translated_table_of_contents-label-table_of_contents_id-242: Obecná ekologie
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliografie
+  translated_table_of_contents-label-table_of_contents_id-251: Výhody
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologie
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografie
+  translated_table_of_contents-label-table_of_contents_id-285: Asociace
+  translated_table_of_contents-label-table_of_contents_id-286: Stav ochrany
+  translated_table_of_contents-label-table_of_contents_id-289: Evoluce
+  translated_table_of_contents-label-table_of_contents_id-292: Podobný vzhled
+  translated_table_of_contents-label-table_of_contents_id-293: Diagnostický popis
+  translated_table_of_contents-label-table_of_contents_id-296: Management
+  translated_table_of_contents-label-table_of_contents_id-297: Trofická strategie
+  translated_table_of_contents-label-table_of_contents_id-299: Vzdělávání
+  translated_table_of_contents-label-table_of_contents_id-3: Fyzický popis
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedie
+  translated_table_of_contents-label-table_of_contents_id-303: Názvy a taxonomie
+  translated_table_of_contents-label-table_of_contents_id-304: Příbuzné názvy
+  translated_table_of_contents-label-table_of_contents_id-305: Synonyma
+  translated_table_of_contents-label-table_of_contents_id-306: Statistiky stránky
+  translated_table_of_contents-label-table_of_contents_id-307: Shrnutí obsahu
+  translated_table_of_contents-label-table_of_contents_id-308: Podrobný popis
+  translated_table_of_contents-label-table_of_contents_id-309: Rozšíření
+  translated_table_of_contents-label-table_of_contents_id-310: Vývoj
+  translated_table_of_contents-label-table_of_contents_id-311: Identifikační zdroje
+  translated_table_of_contents-label-table_of_contents_id-312: Migrace
+  translated_table_of_contents-label-table_of_contents_id-313: Nemoci a parazité
+  translated_table_of_contents-label-table_of_contents_id-314: Populační biologie
+  translated_table_of_contents-label-table_of_contents_id-315: Historie života a chování
+  translated_table_of_contents-label-table_of_contents_id-316: Chování
+  translated_table_of_contents-label-table_of_contents_id-317: Opakování
+  translated_table_of_contents-label-table_of_contents_id-318: Životní cyklus
+  translated_table_of_contents-label-table_of_contents_id-319: Průměrná délka života
+  translated_table_of_contents-label-table_of_contents_id-320: Rozmnožování
+  translated_table_of_contents-label-table_of_contents_id-321: Růst
+  translated_table_of_contents-label-table_of_contents_id-322: Fosilní historie
+  translated_table_of_contents-label-table_of_contents_id-323: Systematika a fylogeneze
+  translated_table_of_contents-label-table_of_contents_id-324: Funkční adaptace
+  translated_table_of_contents-label-table_of_contents_id-325: Fyziologie a buněčná biologie
+  translated_table_of_contents-label-table_of_contents_id-326: Molekulární biologie a genetika
+  translated_table_of_contents-label-table_of_contents_id-327: Fyziologie
+  translated_table_of_contents-label-table_of_contents_id-328: Buněčná biologie
+  translated_table_of_contents-label-table_of_contents_id-329: Genetika
+  translated_table_of_contents-label-table_of_contents_id-33: Trendy
+  translated_table_of_contents-label-table_of_contents_id-330: Nukleotidové sekvence
+  translated_table_of_contents-label-table_of_contents_id-331: Čárový kód
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
+  translated_table_of_contents-label-table_of_contents_id-333: Molekulární biologie
+  translated_table_of_contents-label-table_of_contents_id-334: Ohrožení
+  translated_table_of_contents-label-table_of_contents_id-335: Legislativa
+  translated_table_of_contents-label-table_of_contents_id-336: Poznámky
+  translated_table_of_contents-label-table_of_contents_id-337: Vzdělávání
+  translated_table_of_contents-label-table_of_contents_id-338: Odkazy na vzdělávání
+  translated_table_of_contents-label-table_of_contents_id-339: Zdroje ke vzdělávání
+  translated_table_of_contents-label-table_of_contents_id-34: Komentáře
+  translated_table_of_contents-label-table_of_contents_id-340: Série vysokoškolských laboratoří
+  translated_table_of_contents-label-table_of_contents_id-341: Občanská věda
+  translated_table_of_contents-label-table_of_contents_id-342: Odkazy občanské vědy
+  translated_table_of_contents-label-table_of_contents_id-343: Knihovna zachování biodiverzity
+  translated_table_of_contents-label-table_of_contents_id-344: Data
+  translated_table_of_contents-label-table_of_contents_id-345: Zdroje dat
+  translated_table_of_contents-label-table_of_contents_id-346: Biomedicínské termíny
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomie
+  translated_table_of_contents-label-table_of_contents_id-348: Typ informace
+  translated_table_of_contents-label-table_of_contents_id-4: Ekologie
+  translated_table_of_contents-label-table_of_contents_id-41: Přirozené prostředí
+  translated_table_of_contents-label-table_of_contents_id-5: Evoluce a zařazení
+  translated_table_of_contents-label-table_of_contents_id-6: Význam pro člověka a ekosystémy
+  translated_table_of_contents-label-table_of_contents_id-7: Reference a další informace
+  translated_table_of_contents-label-table_of_contents_id-8: Ochrana
+  translated_untrust_reasons-label-untrust_reason_id-1: špatně identifikováno
+  translated_untrust_reasons-label-untrust_reason_id-2: nesprávné/zavádějící
+  translated_untrust_reasons-label-untrust_reason_id-3: nízká kvalita
+  translated_untrust_reasons-label-untrust_reason_id-4: duplikát
+  translated_untrust_reasons-label-untrust_reason_id-5: Ostatní
+  translated_user_identities-label-user_identity_id-1: nadšenec
+  translated_user_identities-label-user_identity_id-2: student
+  translated_user_identities-label-user_identity_id-3: pedagog
+  translated_user_identities-label-user_identity_id-4: věděc z řady občanů
+  translated_user_identities-label-user_identity_id-5: profesionální vědec
+  translated_vetted-label-vetted_id-0: Neznámé
+  translated_vetted-label-vetted_id-4: Nedůvěryhodné
+  translated_vetted-label-vetted_id-5: Důvěryhodné
+  translated_vetted-label-vetted_id-6: Nevhodné
+  translated_view_styles-name-view_style_id-1: Seznam
+  translated_view_styles-name-view_style_id-2: Galerie
+  translated_visibilities-label-visibility_id-0: Neviditelný
+  translated_visibilities-label-visibility_id-1: Viditelný
+  translated_visibilities-label-visibility_id-2: Náhled

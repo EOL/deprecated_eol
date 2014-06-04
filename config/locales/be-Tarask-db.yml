@@ -1,0 +1,154 @@
+# Messages for Belarusian (Taraškievica orthography) (беларуская (тарашкевіца)‎)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: EugeneZelenko
+# Author: Jim-by
+# Author: Renessaince
+be-Tarask: 
+  translated_audiences-label-audience_id-1: Удзельнікі-экспэрты
+  translated_audiences-label-audience_id-2: Звычайныя людзі
+  translated_audiences-label-audience_id-3: Дзеці
+  translated_ranks-label-rank_id-106: форма
+  translated_ranks-label-rank_id-107: форма
+  translated_ranks-label-rank_id-112: род
+  translated_ranks-label-rank_id-113: род
+  translated_ranks-label-rank_id-118: род
+  translated_ranks-label-rank_id-169: інфраатрад
+  translated_ranks-label-rank_id-175: інфравід
+  translated_ranks-label-rank_id-183: царства
+  translated_ranks-label-rank_id-266: парадак
+  translated_ranks-label-rank_id-280: тып
+  translated_ranks-label-rank_id-317: сэкцыя
+  translated_ranks-label-rank_id-324: сэрыя
+  translated_ranks-label-rank_id-335: від
+  translated_ranks-label-rank_id-352: падсямейства
+  translated_ranks-label-rank_id-370: падкляса
+  translated_ranks-label-rank_id-375: пададдзел
+  translated_ranks-label-rank_id-383: падсямейства
+  translated_ranks-label-rank_id-390: падрод
+  translated_ranks-label-rank_id-391: падрод.
+  translated_ranks-label-rank_id-394: падрод
+  translated_ranks-label-rank_id-396: падцарства
+  translated_ranks-label-rank_id-399: падатрад
+  translated_ranks-label-rank_id-401: падтып
+  translated_ranks-label-rank_id-408: падсэкцыя
+  translated_ranks-label-rank_id-411: падсэрыя
+  translated_ranks-label-rank_id-413: падвід
+  translated_ranks-label-rank_id-414: падвід
+  translated_ranks-label-rank_id-415: падвід
+  translated_ranks-label-rank_id-422: падтрыба
+  translated_ranks-label-rank_id-463: надсямейства
+  translated_ranks-label-rank_id-472: надтып
+  translated_ranks-label-rank_id-494: трыба
+  translated_ranks-label-rank_id-503: неацэнены
+  translated_ranks-label-rank_id-51: кляса
+  translated_ranks-label-rank_id-512: адм.
+  translated_ranks-label-rank_id-513: адм.
+  translated_ranks-label-rank_id-517: адмены
+  translated_ranks-label-rank_id-518: адмена
+  translated_ranks-label-rank_id-74: аддзел
+  translated_ranks-label-rank_id-85: с
+  translated_ranks-label-rank_id-86: с.
+  translated_ranks-label-rank_id-91: сям
+  translated_ranks-label-rank_id-92: сям.
+  translated_ranks-label-rank_id-99: сямейства
+  translated_synonym_relations-label-synonym_relation_id-16: неадназначны сынонім
+  translated_synonym_relations-label-synonym_relation_id-19: прынятая назва
+  translated_synonym_relations-label-synonym_relation_id-2: звычайная назва
+  translated_synonym_relations-label-synonym_relation_id-3: скарачэньне
+  translated_synonym_relations-label-synonym_relation_id-4: анаморф
+  translated_synonym_relations-label-synonym_relation_id-45: базыёнім
+  translated_synonym_relations-label-synonym_relation_id-5: Назва BLAST
+  translated_synonym_relations-label-synonym_relation_id-51: прынятае
+  translated_synonym_relations-label-synonym_relation_id-52: аўтар
+  translated_synonym_relations-label-synonym_relation_id-6: эквівалентная назва
+  translated_table_of_contents-label-table_of_contents_id-1: Агляд
+  translated_table_of_contents-label-table_of_contents_id-13: Звычайныя назвы
+  translated_table_of_contents-label-table_of_contents_id-14: МЗАП
+  translated_table_of_contents-label-table_of_contents_id-17: Спасылкі на літаратуру
+  translated_table_of_contents-label-table_of_contents_id-194: Памер
+  translated_table_of_contents-label-table_of_contents_id-2: Кароткі агляд
+  translated_table_of_contents-label-table_of_contents_id-218: Разгрупаваньне
+  translated_table_of_contents-label-table_of_contents_id-221: Рызыкі
+  translated_table_of_contents-label-table_of_contents_id-225: У інтэрнэце
+  translated_table_of_contents-label-table_of_contents_id-226: Падобны зьмест
+  translated_table_of_contents-label-table_of_contents_id-227: Пошук у Інтэрнэце
+  translated_table_of_contents-label-table_of_contents_id-24: Камэнтары
+  translated_table_of_contents-label-table_of_contents_id-242: Агульная экалёгія
+  translated_table_of_contents-label-table_of_contents_id-244: Бібліяграфіі
+  translated_table_of_contents-label-table_of_contents_id-251: Перавагі
+  translated_table_of_contents-label-table_of_contents_id-267: Марфалёгія
+  translated_table_of_contents-label-table_of_contents_id-278: Бібліяграфія
+  translated_table_of_contents-label-table_of_contents_id-285: Супольнасьці
+  translated_table_of_contents-label-table_of_contents_id-286: Прыродаахоўны статус
+  translated_table_of_contents-label-table_of_contents_id-289: Эвалюцыя
+  translated_table_of_contents-label-table_of_contents_id-292: Паказаць падобныя
+  translated_table_of_contents-label-table_of_contents_id-293: Дыягнастычнае апісаньне
+  translated_table_of_contents-label-table_of_contents_id-296: Кіраваньне
+  translated_table_of_contents-label-table_of_contents_id-297: Трафічная стратэгія
+  translated_table_of_contents-label-table_of_contents_id-299: Адукацыя
+  translated_table_of_contents-label-table_of_contents_id-3: Фізычнае апісаньне
+  translated_table_of_contents-label-table_of_contents_id-300: Вікіпэдыя
+  translated_table_of_contents-label-table_of_contents_id-303: Назвы і таксанамічная інфармацыя
+  translated_table_of_contents-label-table_of_contents_id-304: Зьвязаныя назвы
+  translated_table_of_contents-label-table_of_contents_id-305: Сынонімы
+  translated_table_of_contents-label-table_of_contents_id-306: Статыстыка старонкі
+  translated_table_of_contents-label-table_of_contents_id-307: Апісаньне зьместу
+  translated_table_of_contents-label-table_of_contents_id-308: Падрабязнае апісаньне
+  translated_table_of_contents-label-table_of_contents_id-309: Распаўсюджаньне
+  translated_table_of_contents-label-table_of_contents_id-310: Разьвіцьцё
+  translated_table_of_contents-label-table_of_contents_id-311: Крыніцы ідэнтыфікацыі
+  translated_table_of_contents-label-table_of_contents_id-312: Міграцыя
+  translated_table_of_contents-label-table_of_contents_id-313: Хваробы і паразыты
+  translated_table_of_contents-label-table_of_contents_id-314: Біялягічная папуляцыя
+  translated_table_of_contents-label-table_of_contents_id-315: Гісторыя і характар жыцьця
+  translated_table_of_contents-label-table_of_contents_id-316: Паводзіны
+  translated_table_of_contents-label-table_of_contents_id-317: Цыклічнасьць
+  translated_table_of_contents-label-table_of_contents_id-318: Жыцьцёвы цыкл
+  translated_table_of_contents-label-table_of_contents_id-319: Працягласьць жыцьця
+  translated_table_of_contents-label-table_of_contents_id-320: Размнажэньне
+  translated_table_of_contents-label-table_of_contents_id-321: Рост
+  translated_table_of_contents-label-table_of_contents_id-322: Выкапнёвая гісторыя
+  translated_table_of_contents-label-table_of_contents_id-323: Сыстэматыка і філагенэтыка
+  translated_table_of_contents-label-table_of_contents_id-324: Функцыянальныя адаптацыі
+  translated_table_of_contents-label-table_of_contents_id-325: Фізіялёгія і клеткавая біялёгія
+  translated_table_of_contents-label-table_of_contents_id-326: Малекулярная біялёгія і генэтыка
+  translated_table_of_contents-label-table_of_contents_id-327: Фізіялёгія
+  translated_table_of_contents-label-table_of_contents_id-328: Клеткавая біялёгія
+  translated_table_of_contents-label-table_of_contents_id-329: Генэтыка
+  translated_table_of_contents-label-table_of_contents_id-33: Тэндэнцыі
+  translated_table_of_contents-label-table_of_contents_id-330: Пасьлядоўнасьці нуклеятыдаў
+  translated_table_of_contents-label-table_of_contents_id-331: Штрых-код
+  translated_table_of_contents-label-table_of_contents_id-332: Геном
+  translated_table_of_contents-label-table_of_contents_id-333: Малекулярная біялёгія
+  translated_table_of_contents-label-table_of_contents_id-334: Пагрозы
+  translated_table_of_contents-label-table_of_contents_id-335: Заканадаўства
+  translated_table_of_contents-label-table_of_contents_id-336: Заўвагі
+  translated_table_of_contents-label-table_of_contents_id-337: Адукацыя
+  translated_table_of_contents-label-table_of_contents_id-338: Адукацыйныя спасылкі
+  translated_table_of_contents-label-table_of_contents_id-339: Адукацыйныя рэсурсы
+  translated_table_of_contents-label-table_of_contents_id-34: Камэнтары
+  translated_table_of_contents-label-table_of_contents_id-340: Сэрыя лябараторыяў сярэдніх школаў
+  translated_table_of_contents-label-table_of_contents_id-341: Грамадзкія навукі
+  translated_table_of_contents-label-table_of_contents_id-342: Спасылкі на грамадзкія навукі
+  translated_table_of_contents-label-table_of_contents_id-343: Бібліятэка спадчыны біялягічнай разнастайнасьці
+  translated_table_of_contents-label-table_of_contents_id-344: Зьвесткі
+  translated_table_of_contents-label-table_of_contents_id-345: Крыніцы зьвестак
+  translated_table_of_contents-label-table_of_contents_id-346: Біямэдычныя ўмовы
+  translated_table_of_contents-label-table_of_contents_id-347: Таксаномія
+  translated_table_of_contents-label-table_of_contents_id-348: Інфармацыя пра тып
+  translated_table_of_contents-label-table_of_contents_id-4: Экалёгія
+  translated_table_of_contents-label-table_of_contents_id-41: Асяродзьдзе існаваньня
+  translated_table_of_contents-label-table_of_contents_id-5: Эвалюцыя і сыстэматыка
+  translated_table_of_contents-label-table_of_contents_id-6: Значнасьць для чалавецтва і экасыстэмаў
+  translated_table_of_contents-label-table_of_contents_id-7: Спасылкі і дадатковая інфармацыя
+  translated_table_of_contents-label-table_of_contents_id-8: Захаваньне
+  translated_user_identities-label-user_identity_id-1: энтузіяст
+  translated_user_identities-label-user_identity_id-2: студэнт
+  translated_user_identities-label-user_identity_id-3: настаўнік
+  translated_user_identities-label-user_identity_id-4: навуковец грамадзкіх навук
+  translated_user_identities-label-user_identity_id-5: прафэсійны навуковец
+  translated_vetted-label-vetted_id-0: Невядомы
+  translated_vetted-label-vetted_id-4: Неправераны
+  translated_vetted-label-vetted_id-5: Правераны
+  translated_vetted-label-vetted_id-6: Не пасуючы

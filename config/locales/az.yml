@@ -1,0 +1,166 @@
+# Messages for Azerbaijani (Azərbaycanca)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Cekli829
+# Author: Melikov Memmed
+# Author: PPerviz
+# Author: Vago
+# Author: Мурад 97
+az: 
+  action: Fəaliyyət
+  actions: Fəaliyyətlər
+  active_colon: "Aktiv:"
+  activerecord: 
+    attributes: 
+      content_partner: 
+        created_at: Yaradılıb
+      data_object: 
+        object_title: Başlıq
+      name: 
+        string: Ad
+      resource: 
+        language_id: Susmaya görə dil
+      translated_content_page: 
+        title: Başlıq
+      user: 
+        bio: Bio
+        email: E-poçt ünvanı
+        entered_password: Parol
+        family_name: Soyadı
+        given_name: Adı
+        username: İstifadəçi adı
+    models: 
+      user: hesab
+  add_a_comment_colon: Şərh yaz
+  add_a_new_user: Yeni istifadəçi əlavə et
+  add_article_to_page_link_button: Bu səhifəyə bir məqalə əlavə edin
+  add_page: Səhifə əlavə et
+  admin: admin
+  all_articles: Bütün məqalələr
+  all_changes: Bütün dəyişikliklər
+  all_images: Bütün şəkillər
+  all_information: Bütün məlumatlar
+  all_pages: Bütün səhifələr
+  all_people: Bütün insanlar
+  all_title: Hamısı
+  are_you_sure: Əminsiniz?
+  assistive_maps_header: Xəritələr
+  assistive_media_header: Media
+  audio_pause: fasilə
+  audio_stop: dur
+  back_to_profile: İstifadəçi səhifəyə qayıtmaq
+  cancel: İmtina
+  cms_missing_content_message: Bağışlayın, bu səhifə bu dildə mövcud deyil
+  comment: Şərh
+  content_partner_column_header_partner: Ortaq
+  content_partner_contacts_header: Əlaqələr
+  content_partner_filter_option_vetted_no: Xeyr
+  content_partner_filter_option_vetted_yes: Bəli
+  content_partner_statistics_column_header_total_count: Bütün səhifələr
+  copy: Kopyala
+  created: Yaradılıb
+  created_colon: "Yaradılıb:"
+  dato_create_cancel: İmtina
+  dato_edit_cancel: İmtina
+  donate: Maddi kömək
+  donation_amount_other_label: Digər
+  edit: Redaktə
+  email: E-poçt
+  email_colon: "E-poçt:"
+  encyclopedia_of_life: Həyat Ensiklopediyası
+  filter_by_status_all_option: bütün statuslar
+  filter_by_type_all_option: bütün tiplər
+  filter_by_type_image_option: Şəkillər
+  filter_by_type_text_option: Məqalələr
+  filter_by_type_user_option: İnsan
+  filter_by_type_video_option: Videolar
+  forgot_password_form_cancel: İmtina
+  go: Get
+  hello_user: Salam %{user}
+  help: Kömək
+  helpers: 
+    label: 
+      data_object: 
+        license_id: Lisenziya
+        object_title: Başlıq
+        toc_item: Yarımbölmə
+      resource: 
+        resource_status_id: Status
+      session: 
+        password: Parol
+      translated_content_page: 
+        language_id: Dil
+      user: 
+        bio: Haqqımda
+        mailing_list_yes: Bəli
+        new_password: Yeni parol <small>(4 - 16 simvol)</small>
+        user_identities: Mən
+    submit: 
+      content_page: 
+        edit: Redaktə
+      data_object: 
+        create: Məqalə əlavə et
+        create_text: Məqalə əlavə et
+      name: 
+        create: Adı əlavə et
+  hidden: Gizlədilib
+  images: Şəkillər
+  language: "Dil:"
+  languages: Dillər
+  license: Lisenziya
+  license_public_domain: İctimai İstifadə
+  literature: Ədəbiyyat
+  logo_header: Loqo
+  media: Media
+  names: Adlar
+  names_children_column_header: Uşaqlar
+  names_status_column_header: Status
+  never: Heç vaxt
+  none: heç biri
+  notes: Qeydlər
+  object_status_all_option: Hamısı
+  object_type_all_option: Hamısı
+  object_type_text_option: Mətn
+  object_type_user_option: İstifadəçi
+  object_type_video_option: Video
+  object_visibility_all_option: Hamısı
+  object_visibility_invisible_option: Gizlədilib
+  pages_admin_section_link: İdarəçilər
+  pages_lowercase: səhifələr
+  password_colon: "Parol:"
+  profile: Profil
+  resources: Resurslar
+  rights: Qaydalar
+  search: Axtar
+  search_lowercase: axtar
+  select_colon: "Seç:"
+  send_email_colon: E-məktub göndər
+  show: Göstər
+  show_status_message: Status mesajını göstər
+  show_warning_message: Xəbərdarlıq mesajlarını göstər
+  sign_in: Daxil ol
+  sort_by_status_option: Status
+  subject: mövzu
+  submit: Təsdiq et
+  synonym: Sinonim
+  task_status_active_option: Aktiv
+  taxon: takson
+  test: Test.
+  text_capital: Mətn
+  thank_you: Təşəkkür
+  twitter: Twitter
+  type: Tipi
+  view: Görünüş
+  web_users: Veb istifadəçiləri
+  weekly: Həftəlik
+  what_is_eol: HE nədir?
+  what_is_this_question: Bu nədir?
+  year: İl
+  yes_answer: Bəli
+  your_current_rating_0_of_5: "Hazırki reytinqiniz: 5-dən 0-dır"
+  your_current_rating_1_of_5: "Hazırki reytinqiniz: 5-dən 1-dir"
+  your_current_rating_2_of_5: "Hazırki reytinqiniz: 5-dən 2-dir"
+  your_current_rating_3_of_5: "Hazırki reytinqiniz: 5-dən 3-dür"
+  your_current_rating_4_of_5: "Hazırki reytinqiniz: 5-dən 4-dür"
+  your_current_rating_5_of_5: "Hazırki reytinqiniz: 5-dən 5-dir"
+  your_rating: Reytinqiniz

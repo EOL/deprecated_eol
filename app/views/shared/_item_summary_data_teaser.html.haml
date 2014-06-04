@@ -6,7 +6,7 @@
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:data_search_link)}), link
 %h4
   = link_to attribute.name.html_safe, link
-- if attribute
+- if attribute && attribute.respond_to?(:definition) && attribute.definition
   = truncate(attribute.definition.add_missing_hyperlinks, length: 75)
   %br
   = link_to I18n.t(:data_search_attribute, attribute: attribute.name).html_safe, link

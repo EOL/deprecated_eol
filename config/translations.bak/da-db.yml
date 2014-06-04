@@ -1,0 +1,211 @@
+# Messages for Danish (dansk)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Tjernobyl
+da: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: upålidelig
+  translated_activities-name-activity_id-51: vis
+  translated_activities-name-activity_id-52: opret
+  translated_activities-name-activity_id-53: skjul
+  translated_activities-name-activity_id-54: Opdatér
+  translated_activities-name-activity_id-55: upassende
+  translated_activities-name-activity_id-56: slet
+  translated_activities-name-activity_id-57: Bedøm
+  translated_activities-name-activity_id-58: Pålidelig
+  translated_activities-name-activity_id-59: uvurderede
+  translated_activities-name-activity_id-63: Indsaml
+  translated_activities-name-activity_id-64: fjern
+  translated_agent_roles-label-agent_role_id-10: Projekt
+  translated_agent_roles-label-agent_role_id-11: Udgiver
+  translated_agent_roles-label-agent_role_id-13: Kilde
+  translated_agent_roles-label-agent_role_id-14: Kildedatabase
+  translated_agent_roles-label-agent_role_id-15: Kontaktperson
+  translated_agent_roles-label-agent_role_id-16: Bidragyder
+  translated_agent_roles-label-agent_role_id-2: Rettighedshaver
+  translated_agent_roles-label-agent_role_id-21: udbyder
+  translated_agent_roles-label-agent_role_id-22: Oversætter
+  translated_agent_roles-label-agent_role_id-23: Videnskabelig korrekturlæser
+  translated_agent_roles-label-agent_role_id-24: Sproglig korrekturlæser
+  translated_agent_roles-label-agent_role_id-5: Skaber
+  translated_agent_roles-label-agent_role_id-8: Illustrator
+  translated_agent_roles-label-agent_role_id-9: Fotograf
+  translated_audiences-label-audience_id-1: Erfarne brugere
+  translated_audiences-label-audience_id-2: Offentligheden
+  translated_audiences-label-audience_id-3: Børn
+  translated_collection_types-label-collection_type_id-1: Taxonomi
+  translated_collection_types-label-collection_type_id-10: Lyde
+  translated_collection_types-label-collection_type_id-11: Henvisninger
+  translated_collection_types-label-collection_type_id-12: Litteratur
+  translated_collection_types-label-collection_type_id-13: Taxonomi
+  translated_collection_types-label-collection_type_id-14: Molekylære stregkoder
+  translated_collection_types-label-collection_type_id-15: Beskrivelse
+  translated_collection_types-label-collection_type_id-16: Billeder
+  translated_collection_types-label-collection_type_id-17: Fordeling
+  translated_collection_types-label-collection_type_id-18: Bevaringsstatus
+  translated_collection_types-label-collection_type_id-19: Navneinformation
+  translated_collection_types-label-collection_type_id-2: Molekylære stregkoder
+  translated_collection_types-label-collection_type_id-20: Molekylær data
+  translated_collection_types-label-collection_type_id-21: Nomenklatur
+  translated_collection_types-label-collection_type_id-22: Lyde
+  translated_collection_types-label-collection_type_id-23: Henvisninger
+  translated_collection_types-label-collection_type_id-24: Litteratur
+  translated_collection_types-label-collection_type_id-3: Beskrivelse
+  translated_collection_types-label-collection_type_id-4: Billeder
+  translated_collection_types-label-collection_type_id-5: Fordeling
+  translated_collection_types-label-collection_type_id-6: Bevaringsstatus
+  translated_collection_types-label-collection_type_id-7: Navneinformation
+  translated_collection_types-label-collection_type_id-8: Molekylær data
+  translated_collection_types-label-collection_type_id-9: Nomenklatur
+  translated_contact_roles-label-contact_role_id-1: Primær kontaktperson
+  translated_contact_roles-label-contact_role_id-2: Administrativ kontakt
+  translated_contact_roles-label-contact_role_id-3: Teknisk kontakt
+  translated_contact_subjects-title-contact_subject_id-24: Medlemskab og registrering
+  translated_contact_subjects-title-contact_subject_id-25: Vilkår for brug og licensering
+  translated_contact_subjects-title-contact_subject_id-26: Læring og uddannelse
+  translated_contact_subjects-title-contact_subject_id-30: Foretag en rettelse (stave- og grammatikkontrol, billeder, information)
+  translated_contact_subjects-title-contact_subject_id-31: Bidrag med billeder, videoer eller lyde
+  translated_content_partner_statuses-label-content_partner_status_id-1: Ventende
+  translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
+  translated_content_partner_statuses-label-content_partner_status_id-3: Arkiveret
+  translated_content_partner_statuses-label-content_partner_status_id-4: Inaktiv
+  translated_content_tables-label-content_table_id-1: Detaljer
+  translated_data_types-label-data_type_id-1: Billede
+  translated_data_types-label-data_type_id-10: Kort
+  translated_data_types-label-data_type_id-2: Lyd
+  translated_data_types-label-data_type_id-3: Tekst
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: GBIF-billede
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Ingen rettigheder forbeholdes
+  translated_licenses-description-license_id-29: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-3: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-30: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-31: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-32: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-33: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-36: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-37: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-38: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-4: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-42: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-5: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-6: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-7: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-8: Nogle rettigheder forbeholdes
+  translated_licenses-description-license_id-9: Nogle rettigheder forbeholdes
+  translated_ranks-label-rank_id-370: underklasse
+  translated_ranks-label-rank_id-383: underfamilie
+  translated_ranks-label-rank_id-51: Klasse
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-99: familie
+  translated_resource_statuses-label-resource_status_id-1: Overfører
+  translated_resource_statuses-label-resource_status_id-10: Udgivet
+  translated_resource_statuses-label-resource_status_id-11: Afventer udgivelse
+  translated_resource_statuses-label-resource_status_id-12: Afventer annullering
+  translated_resource_statuses-label-resource_status_id-2: Overførsel lykkedes
+  translated_resource_statuses-label-resource_status_id-3: Overførslen mislykkedes
+  translated_resource_statuses-label-resource_status_id-4: Flyttet til indholdsserver
+  translated_resource_statuses-label-resource_status_id-5: Valideret
+  translated_resource_statuses-label-resource_status_id-6: Validering mislykkedes
+  translated_service_types-label-service_type_id-2: Andet
+  translated_sort_styles-name-sort_style_id-2: Ældste
+  translated_sort_styles-name-sort_style_id-3: Alfabetisk
+  translated_sort_styles-name-sort_style_id-4: Omvendt alfabetisk
+  translated_sort_styles-name-sort_style_id-6: Bedømmelse
+  translated_statuses-label-status_id-1: Indsat
+  translated_statuses-label-status_id-2: Opdateret
+  translated_statuses-label-status_id-3: Uændret
+  translated_statuses-label-status_id-4: Genanvendt
+  translated_synonym_relations-label-synonym_relation_id-1: synonym
+  translated_synonym_relations-label-synonym_relation_id-19: Godkendt navn
+  translated_synonym_relations-label-synonym_relation_id-3: akronym
+  translated_synonym_relations-label-synonym_relation_id-51: Godkendt
+  translated_synonym_relations-label-synonym_relation_id-63: ikke accepteret
+  translated_synonym_relations-label-synonym_relation_id-64: ugyldig
+  translated_table_of_contents-label-table_of_contents_id-1: Oversigt
+  translated_table_of_contents-label-table_of_contents_id-13: Almindelige navne
+  translated_table_of_contents-label-table_of_contents_id-17: Litteraturhenvisninger
+  translated_table_of_contents-label-table_of_contents_id-194: Størrelse
+  translated_table_of_contents-label-table_of_contents_id-2: Kort sammendrag
+  translated_table_of_contents-label-table_of_contents_id-218: Spredning
+  translated_table_of_contents-label-table_of_contents_id-221: Risikoer
+  translated_table_of_contents-label-table_of_contents_id-225: På internettet
+  translated_table_of_contents-label-table_of_contents_id-227: Søg på nettet
+  translated_table_of_contents-label-table_of_contents_id-24: Kommentar
+  translated_table_of_contents-label-table_of_contents_id-242: Generel økologi
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliografier
+  translated_table_of_contents-label-table_of_contents_id-251: Fordele
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologi
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
+  translated_table_of_contents-label-table_of_contents_id-285: Foreninger
+  translated_table_of_contents-label-table_of_contents_id-286: Bevaringsstatus
+  translated_table_of_contents-label-table_of_contents_id-289: Evolution
+  translated_table_of_contents-label-table_of_contents_id-293: Diagnostisk beskrivelse
+  translated_table_of_contents-label-table_of_contents_id-296: Forvaltning
+  translated_table_of_contents-label-table_of_contents_id-299: Uddannelse
+  translated_table_of_contents-label-table_of_contents_id-3: Fysisk beskrivelse
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Navne og taxonomi
+  translated_table_of_contents-label-table_of_contents_id-304: Relaterede navne
+  translated_table_of_contents-label-table_of_contents_id-305: Synonymer
+  translated_table_of_contents-label-table_of_contents_id-306: Sidestatistik
+  translated_table_of_contents-label-table_of_contents_id-308: Omfattende beskrivelse
+  translated_table_of_contents-label-table_of_contents_id-309: Fordeling
+  translated_table_of_contents-label-table_of_contents_id-310: Udvikling
+  translated_table_of_contents-label-table_of_contents_id-311: Identifikationsressourcer
+  translated_table_of_contents-label-table_of_contents_id-312: Migration
+  translated_table_of_contents-label-table_of_contents_id-313: Sygdomme og parasitter
+  translated_table_of_contents-label-table_of_contents_id-314: Populationsbiologi
+  translated_table_of_contents-label-table_of_contents_id-315: Livshistorie og opførsel
+  translated_table_of_contents-label-table_of_contents_id-316: Opførsel
+  translated_table_of_contents-label-table_of_contents_id-318: Livscyklus
+  translated_table_of_contents-label-table_of_contents_id-319: Forventet levetid
+  translated_table_of_contents-label-table_of_contents_id-320: Reproduktion
+  translated_table_of_contents-label-table_of_contents_id-321: Vækst
+  translated_table_of_contents-label-table_of_contents_id-322: Fossilhistorik
+  translated_table_of_contents-label-table_of_contents_id-323: Systematik eller fylogenetik
+  translated_table_of_contents-label-table_of_contents_id-324: Funktionelle tilpasninger
+  translated_table_of_contents-label-table_of_contents_id-325: Fysiologi og cellebiologi
+  translated_table_of_contents-label-table_of_contents_id-326: Molekylærbiologi og genetik
+  translated_table_of_contents-label-table_of_contents_id-327: Fysiologi
+  translated_table_of_contents-label-table_of_contents_id-328: Cellebiologi
+  translated_table_of_contents-label-table_of_contents_id-329: Genetik
+  translated_table_of_contents-label-table_of_contents_id-33: Tendenser
+  translated_table_of_contents-label-table_of_contents_id-330: Nukleotidsekvenser
+  translated_table_of_contents-label-table_of_contents_id-331: Stregkode
+  translated_table_of_contents-label-table_of_contents_id-332: Arvemasse
+  translated_table_of_contents-label-table_of_contents_id-333: Molekylærbiologi
+  translated_table_of_contents-label-table_of_contents_id-334: Trusler
+  translated_table_of_contents-label-table_of_contents_id-335: Lovgivning
+  translated_table_of_contents-label-table_of_contents_id-336: Bemærkninger
+  translated_table_of_contents-label-table_of_contents_id-337: Uddannelse
+  translated_table_of_contents-label-table_of_contents_id-338: Uddannelseshenvisninger
+  translated_table_of_contents-label-table_of_contents_id-339: Uddannelsesressourcer
+  translated_table_of_contents-label-table_of_contents_id-34: Kommentarer
+  translated_table_of_contents-label-table_of_contents_id-344: Data
+  translated_table_of_contents-label-table_of_contents_id-345: Datakilder
+  translated_table_of_contents-label-table_of_contents_id-346: Biomedicinske termer
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomi
+  translated_table_of_contents-label-table_of_contents_id-4: Økologi
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-6: Relevans for mennesker og økosystemer
+  translated_table_of_contents-label-table_of_contents_id-8: Konservering
+  translated_untrust_reasons-label-untrust_reason_id-2: urigtigt/vildledende
+  translated_untrust_reasons-label-untrust_reason_id-3: lav kvalitet
+  translated_untrust_reasons-label-untrust_reason_id-4: dublet
+  translated_untrust_reasons-label-untrust_reason_id-5: Andet
+  translated_user_identities-label-user_identity_id-1: en entusiast
+  translated_user_identities-label-user_identity_id-2: en elev
+  translated_user_identities-label-user_identity_id-3: en underviser
+  translated_user_identities-label-user_identity_id-5: en professionel videnskabsmand
+  translated_vetted-label-vetted_id-0: Ukendt
+  translated_vetted-label-vetted_id-4: Upålidelig
+  translated_vetted-label-vetted_id-5: Pålidelig
+  translated_vetted-label-vetted_id-6: Upassende
+  translated_view_styles-name-view_style_id-1: Liste
+  translated_view_styles-name-view_style_id-2: Galleri
+  translated_visibilities-label-visibility_id-0: Usynlig
+  translated_visibilities-label-visibility_id-1: Synlig
+  translated_visibilities-label-visibility_id-2: Forhåndsvisning

@@ -1,0 +1,78 @@
+# Messages for Colognian (Ripoarisch)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Purodha
+ksh: 
+  admin_link: Övverbleck
+  all_pages: All Sigge
+  all_title: All
+  and: ", un"
+  and_between_form_items: ", un"
+  assistive_details_header: Einzelheite
+  audio_pause: aanhallde
+  content_partner_filter_option_vetted_no: Nää
+  content_partner_filter_option_vetted_yes: Joh
+  content_partner_resource_resource_status_new: Aanjelaat
+  content_summary_table_count_column_header: Aanzahl
+  copy: Kopeere
+  curators_summary_header_with_count: 
+    one: Eine Kurator hät dat nohjeloort
+    other: "%{count} Kuratore hät dat nohjeloort"
+    zero: Keine Kurator hät dat nohjeloort
+  dato_edit_cancel: Ophüre
+  detail: Einzelheit
+  details_title: Einzelheite
+  development_version_name: EOL V2 Beta
+  donation_sponsorship_preamble: "Wann De mieh övver beshtemmpte einzel Müjjeleschkeite för et Sponsere wesse wells, udder rejelmääßesch jät en der Klingelbüggel donn wells, donn dem Sekretarijaat vum Wööterbooch vum Levve (EOL) en <i lang=\"en\"><a href=\"mailto:%{email_address}\">e-mail</a></i> schriive udder roof aan onger 001-202-633-8730.\nBei de Jelääjeheite för jezielt ze lävve sin:"
+  edit_my_profile: Et eijene Profil ändere
+  eol_pages: Sigge
+  error_404_page_title: Nit jefonge
+  filter_by_type_all_option: all Zoote
+  filter_by_type_user_option: Lück
+  filter_by_type_video_option: Viddejos
+  flickr: Flickr
+  hello_user: Hallo %{user}
+  help: Hölp
+  helpers: 
+    submit: 
+      content_page: 
+        edit: Ändere
+      user: 
+        forgot_password: Donn en <i lang="en">e-mail</i> schecke
+  id: Kännong
+  images: Belder
+  license: Lizänz
+  location: Der Plaz
+  login_header: Donn Desch met Dingem Zohjang op <abbr title="Wööterbooch vum Levve">EOL</abbr> aanmällde.
+  login_or_create_account: Enlogge udder Aanmälde
+  login_required_button: Enlogge es nüdich
+  logout: Ußlogge
+  name: Naam
+  names: Name
+  names_name_column_header: Naam
+  none: keine
+  object_status_all_option: All
+  object_type_text_option: Täx
+  object_visibility_all_option: All
+  object_visibility_invisible_option: Vershtoche
+  overview: Övverbleck
+  punctuation_comma: ","
+  punctuation_semi_colon: ;
+  rights: Rääschde
+  sign_out: Ußlogge
+  sort_by_button: Zotteere
+  text_with_count: 
+    one: Eine Attikel
+    other: "%{count} Attikele"
+    zero: Kein Attikele
+  twitter: <i lang="en">Twitter</i>
+  unknown: Onbikannt
+  user: Metmaacher
+  username: Metmaacher Name
+  username_colon: "Metmaacher_Name:"
+  what_is_this_question: Wat es dat?
+  will_paginate: 
+    page_gap: "&hellip;"
+  year: Johr
+  yes_answer: Joh
+  your_watch_collection: Ding Oppaßleß

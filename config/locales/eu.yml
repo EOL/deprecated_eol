@@ -1,0 +1,31 @@
+# Messages for Basque (Euskara)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: An13sa
+eu: 
+  admin: Admin
+  are_you_sure: Ziur zaude?
+  assistive_details_header: Xehetasunak
+  assistive_overview_header: Ikuspegi orokorra
+  cancel: Utzi
+  communities: Komunitateak
+  explore: Esploratu
+  go: Joan
+  hello_user: Kaixo %{user}
+  help: Laguntza
+  images: Irudiak
+  license: Lizentzia
+  license_public_domain: Domeinu Askea
+  literature: Literatura
+  location: Kokapena
+  login: saioa hasi
+  my_info: Nire info
+  press_room: Prentsa Aretoa
+  profile: Profila
+  punctuation_comma: ","
+  resources: Baliabidea
+  sign_in: Saioa hasi
+  sign_out: Saioa itxi
+  table_of_contents: Eduki-taula
+  twitter: Twitter
+  what_is_this_question: Zer da hau?

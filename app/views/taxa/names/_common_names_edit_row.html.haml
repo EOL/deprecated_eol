@@ -11,6 +11,8 @@
   = (local_assigns.has_key?(:language) && language == 'English') ? raw(name.name_string.capitalize_all_words) : raw(name.name_string)
 %td
   = raw(common_name_display_attribution(name))
+%td
+  = render 'pronunciation_names', {name: name, language: language }
 %td{class: 'vet_common_name'}
   - name.vetted = Vetted.untrusted if name.vetted == Vetted.inappropriate
   = select_tag("#{name.unique_id}", options_for_select(@common_name_vet_options, name.vetted.id.to_s),

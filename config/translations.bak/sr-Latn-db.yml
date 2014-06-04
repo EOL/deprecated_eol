@@ -1,0 +1,342 @@
+# Messages for Serbian (Latin script) (srpski (latinica)‎)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Rancher
+sr-Latn: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: nepoverljivo
+  translated_activities-name-activity_id-51: prikaži
+  translated_activities-name-activity_id-52: napravi
+  translated_activities-name-activity_id-53: sakrij
+  translated_activities-name-activity_id-54: ažuriraj
+  translated_activities-name-activity_id-55: neprikladno
+  translated_activities-name-activity_id-56: obriši
+  translated_activities-name-activity_id-57: oceni
+  translated_activities-name-activity_id-58: poverljivo
+  translated_activities-name-activity_id-59: nepregledano
+  translated_activities-name-activity_id-63: dodaj u zbirku
+  translated_activities-name-activity_id-64: ukloni
+  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-10: Projekat
+  translated_agent_roles-label-agent_role_id-11: Izdavač
+  translated_agent_roles-label-agent_role_id-12: Snimatelj
+  translated_agent_roles-label-agent_role_id-13: Izvor
+  translated_agent_roles-label-agent_role_id-14: Izvorna baza
+  translated_agent_roles-label-agent_role_id-15: Osoba za kontakt
+  translated_agent_roles-label-agent_role_id-16: Doprinosilac
+  translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-21: dobavljač
+  translated_agent_roles-label-agent_role_id-22: Prevodilac
+  translated_agent_roles-label-agent_role_id-23: Naučni recenzent
+  translated_agent_roles-label-agent_role_id-24: Lektor/korektor
+  translated_agent_roles-label-agent_role_id-3: Sakupljač
+  translated_agent_roles-label-agent_role_id-4: Sastavljač
+  translated_agent_roles-label-agent_role_id-5: Tvorac
+  translated_agent_roles-label-agent_role_id-6: Rukovodilac
+  translated_agent_roles-label-agent_role_id-7: Urednik
+  translated_agent_roles-label-agent_role_id-8: Ilustrator
+  translated_agent_roles-label-agent_role_id-9: Fotograf
+  translated_audiences-label-audience_id-1: Stručni korisnici
+  translated_audiences-label-audience_id-2: Opšta javnost
+  translated_audiences-label-audience_id-3: Deca
+  translated_collection_types-label-collection_type_id-1: Taksonomija
+  translated_collection_types-label-collection_type_id-10: Zvukovi
+  translated_collection_types-label-collection_type_id-11: Veze
+  translated_collection_types-label-collection_type_id-12: Literatura
+  translated_collection_types-label-collection_type_id-13: Taksonomija
+  translated_collection_types-label-collection_type_id-14: Molekularni bar kodovi
+  translated_collection_types-label-collection_type_id-15: Opis
+  translated_collection_types-label-collection_type_id-16: Slike
+  translated_collection_types-label-collection_type_id-17: Raspodela
+  translated_collection_types-label-collection_type_id-18: Status ugroženosti
+  translated_collection_types-label-collection_type_id-19: Podaci o nazivu
+  translated_collection_types-label-collection_type_id-2: Molekularni bar kodovi
+  translated_collection_types-label-collection_type_id-20: Molekularni podaci
+  translated_collection_types-label-collection_type_id-21: Nomenklatura
+  translated_collection_types-label-collection_type_id-22: Zvukovi
+  translated_collection_types-label-collection_type_id-23: Veze
+  translated_collection_types-label-collection_type_id-24: Literatura
+  translated_collection_types-label-collection_type_id-3: Opis
+  translated_collection_types-label-collection_type_id-4: Slike
+  translated_collection_types-label-collection_type_id-5: Raspodela
+  translated_collection_types-label-collection_type_id-6: Status ugroženosti
+  translated_collection_types-label-collection_type_id-7: Podaci o nazivu
+  translated_collection_types-label-collection_type_id-8: Molekularni podaci
+  translated_collection_types-label-collection_type_id-9: Nomenklatura
+  translated_contact_roles-label-contact_role_id-1: Glavni kontakt
+  translated_contact_roles-label-contact_role_id-2: Administrativni kontakt
+  translated_contact_roles-label-contact_role_id-3: Tehnički kontakt
+  translated_content_partner_statuses-label-content_partner_status_id-1: Na čekanju
+  translated_content_partner_statuses-label-content_partner_status_id-2: Aktivno
+  translated_content_partner_statuses-label-content_partner_status_id-3: Arhivirano
+  translated_content_partner_statuses-label-content_partner_status_id-4: Neaktivno
+  translated_content_tables-label-content_table_id-1: Detalji
+  translated_data_types-label-data_type_id-1: Slika
+  translated_data_types-label-data_type_id-10: Mapa
+  translated_data_types-label-data_type_id-2: Zvuk
+  translated_data_types-label-data_type_id-3: Tekst
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: Slika GBIF
+  translated_data_types-label-data_type_id-6: MUZP (IUCN)
+  translated_data_types-label-data_type_id-7: Fleš
+  translated_data_types-label-data_type_id-8: Jutjub
+  translated_licenses-description-license_id-1: Bez zadržanih prava
+  translated_licenses-description-license_id-2: "&#169; Sva prava su zadržana"
+  translated_licenses-description-license_id-29: Neka prava su zadržana
+  translated_licenses-description-license_id-3: Neka prava su zadržana
+  translated_licenses-description-license_id-30: Neka prava su zadržana
+  translated_licenses-description-license_id-31: Neka prava su zadržana
+  translated_licenses-description-license_id-32: Neka prava su zadržana
+  translated_licenses-description-license_id-33: Neka prava su zadržana
+  translated_licenses-description-license_id-34: Javno vlasništvo
+  translated_licenses-description-license_id-35: Javno vlasništvo
+  translated_licenses-description-license_id-36: Neka prava su zadržana
+  translated_licenses-description-license_id-37: Neka prava su zadržana
+  translated_licenses-description-license_id-38: Neka prava su zadržana
+  translated_licenses-description-license_id-39: Javno vlasništvo
+  translated_licenses-description-license_id-4: Neka prava su zadržana
+  translated_licenses-description-license_id-42: Neka prava su zadržana
+  translated_licenses-description-license_id-43: Nije predmet licenciranja
+  translated_licenses-description-license_id-5: Neka prava su zadržana
+  translated_licenses-description-license_id-6: Neka prava su zadržana
+  translated_licenses-description-license_id-7: Neka prava su zadržana
+  translated_licenses-description-license_id-8: Neka prava su zadržana
+  translated_licenses-description-license_id-9: Neka prava su zadržana
+  translated_ranks-label-rank_id-106: forma
+  translated_ranks-label-rank_id-107: forma
+  translated_ranks-label-rank_id-112: gen
+  translated_ranks-label-rank_id-113: gen.
+  translated_ranks-label-rank_id-118: rod
+  translated_ranks-label-rank_id-169: podred
+  translated_ranks-label-rank_id-175: podvrsta
+  translated_ranks-label-rank_id-183: carstvo
+  translated_ranks-label-rank_id-266: red
+  translated_ranks-label-rank_id-280: razdeo
+  translated_ranks-label-rank_id-313: sect
+  translated_ranks-label-rank_id-314: sect.
+  translated_ranks-label-rank_id-317: odsek
+  translated_ranks-label-rank_id-324: serija
+  translated_ranks-label-rank_id-332: SP
+  translated_ranks-label-rank_id-333: sp.
+  translated_ranks-label-rank_id-335: vrsta
+  translated_ranks-label-rank_id-352: potfamilija
+  translated_ranks-label-rank_id-370: potklasa
+  translated_ranks-label-rank_id-375: podrazdeo
+  translated_ranks-label-rank_id-383: potfamilija
+  translated_ranks-label-rank_id-390: subgen
+  translated_ranks-label-rank_id-391: subgen.
+  translated_ranks-label-rank_id-394: podrod
+  translated_ranks-label-rank_id-396: potcarstvo
+  translated_ranks-label-rank_id-399: podred
+  translated_ranks-label-rank_id-401: podrazdeo
+  translated_ranks-label-rank_id-408: pododsek
+  translated_ranks-label-rank_id-411: podserija
+  translated_ranks-label-rank_id-413: subsp
+  translated_ranks-label-rank_id-414: subsp.
+  translated_ranks-label-rank_id-415: podvrsta
+  translated_ranks-label-rank_id-422: potpleme
+  translated_ranks-label-rank_id-463: natfamilija
+  translated_ranks-label-rank_id-472: nadrazdeo
+  translated_ranks-label-rank_id-494: pleme
+  translated_ranks-label-rank_id-503: nesvrstano
+  translated_ranks-label-rank_id-51: klasa
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-517: raznovrsnost
+  translated_ranks-label-rank_id-518: raznovrsnost
+  translated_ranks-label-rank_id-562: notorod
+  translated_ranks-label-rank_id-563: notovrsta
+  translated_ranks-label-rank_id-564: notopodvrsta
+  translated_ranks-label-rank_id-565: notoraznovrsnost
+  translated_ranks-label-rank_id-74: odsek
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
+  translated_ranks-label-rank_id-99: familija
+  translated_resource_statuses-label-resource_status_id-1: Otpremam
+  translated_resource_statuses-label-resource_status_id-10: Objavljeno
+  translated_resource_statuses-label-resource_status_id-11: Objavljivanje je u toku
+  translated_resource_statuses-label-resource_status_id-12: Uklanjanje objavljenog je u toku
+  translated_resource_statuses-label-resource_status_id-13: Primorano preuzimanje
+  translated_resource_statuses-label-resource_status_id-2: Otpremljeno
+  translated_resource_statuses-label-resource_status_id-3: Ne mogu da otpremim
+  translated_resource_statuses-label-resource_status_id-4: Premešteno na server za sadržaj
+  translated_resource_statuses-label-resource_status_id-5: Potvrđeno
+  translated_resource_statuses-label-resource_status_id-6: Ne mogu da potvrdim
+  translated_resource_statuses-label-resource_status_id-7: Obrađujem
+  translated_resource_statuses-label-resource_status_id-8: Obrađeno
+  translated_resource_statuses-label-resource_status_id-9: Ne mogu da obradim
+  translated_service_types-label-service_type_id-1: Šema za prenos na EOL-u
+  translated_service_types-label-service_type_id-2: Drugo
+  translated_sort_styles-name-sort_style_id-1: Nedavno dodato
+  translated_sort_styles-name-sort_style_id-2: Najstarije
+  translated_sort_styles-name-sort_style_id-3: Azbučno
+  translated_sort_styles-name-sort_style_id-4: Azbučno (obrnuto)
+  translated_sort_styles-name-sort_style_id-5: Sadržajnost
+  translated_sort_styles-name-sort_style_id-6: Ocena
+  translated_statuses-label-status_id-1: Ubačeno
+  translated_statuses-label-status_id-2: Ažurirano
+  translated_statuses-label-status_id-3: Neizmenjeno
+  translated_statuses-label-status_id-4: Ponovno korišćeno
+  translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-10: sinonim iz Genbanka
+  translated_synonym_relations-label-synonym_relation_id-11: delimično
+  translated_synonym_relations-label-synonym_relation_id-12: sadrži
+  translated_synonym_relations-label-synonym_relation_id-13: pogrešan naziv
+  translated_synonym_relations-label-synonym_relation_id-14: pogrešno napisano
+  translated_synonym_relations-label-synonym_relation_id-15: teleomorf
+  translated_synonym_relations-label-synonym_relation_id-16: dvosmislen sinonim
+  translated_synonym_relations-label-synonym_relation_id-17: pogrešno primenjeni naziv
+  translated_synonym_relations-label-synonym_relation_id-18: privremeno prihvaćeni naziv
+  translated_synonym_relations-label-synonym_relation_id-19: prihvaćeni naziv
+  translated_synonym_relations-label-synonym_relation_id-2: trivijalni naziv
+  translated_synonym_relations-label-synonym_relation_id-20: artefakt iz baze
+  translated_synonym_relations-label-synonym_relation_id-21: drugo, vidite komentare
+  translated_synonym_relations-label-synonym_relation_id-22: pravopisna varijanta (pogrešno napisano)
+  translated_synonym_relations-label-synonym_relation_id-23: pogrešno primenjeno
+  translated_synonym_relations-label-synonym_relation_id-24: odbijeni naziv
+  translated_synonym_relations-label-synonym_relation_id-25: homonim (neodobren)
+  translated_synonym_relations-label-synonym_relation_id-26: pro parte
+  translated_synonym_relations-label-synonym_relation_id-27: suvišno preimenovanje (neodobreno)
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-29: sporedni sinonim
+  translated_synonym_relations-label-synonym_relation_id-3: akronim
+  translated_synonym_relations-label-synonym_relation_id-30: nedostupno, artefakt iz baze
+  translated_synonym_relations-label-synonym_relation_id-31: nepotrebna zamena
+  translated_synonym_relations-label-synonym_relation_id-32: sledeći naziv/kombinacija
+  translated_synonym_relations-label-synonym_relation_id-33: nedostupno, pogrešno napisana literatura
+  translated_synonym_relations-label-synonym_relation_id-34: izvorni naziv/kombinacija
+  translated_synonym_relations-label-synonym_relation_id-35: nedostupno, pogrešno izvorno pisanje
+  translated_synonym_relations-label-synonym_relation_id-36: sporedni homonim
+  translated_synonym_relations-label-synonym_relation_id-37: homonim i sporedni sinonim
+  translated_synonym_relations-label-synonym_relation_id-38: nedostupno, ukinuto odlukom
+  translated_synonym_relations-label-synonym_relation_id-39: neopravdana ispravka
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-40: nedostupno, drugo
+  translated_synonym_relations-label-synonym_relation_id-41: nedostupno, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-43: nevažeći objavljeno, drugo
+  translated_synonym_relations-label-synonym_relation_id-44: nevažeći objavljeno, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-45: bazionim
+  translated_synonym_relations-label-synonym_relation_id-46: heterotipni sinonim
+  translated_synonym_relations-label-synonym_relation_id-47: homotipni sinonim
+  translated_synonym_relations-label-synonym_relation_id-48: nedostupan naziv
+  translated_synonym_relations-label-synonym_relation_id-49: ispravan naziv
+  translated_synonym_relations-label-synonym_relation_id-5: opšti naziv
+  translated_synonym_relations-label-synonym_relation_id-50: ispravno
+  translated_synonym_relations-label-synonym_relation_id-51: prihvaćeno
+  translated_synonym_relations-label-synonym_relation_id-52: naučnik
+  translated_synonym_relations-label-synonym_relation_id-53: neobjavljeni naziv
+  translated_synonym_relations-label-synonym_relation_id-54: subjektivan sinonim
+  translated_synonym_relations-label-synonym_relation_id-55: pogrešni podaci o naučniku
+  translated_synonym_relations-label-synonym_relation_id-56: pogrešno napisano
+  translated_synonym_relations-label-synonym_relation_id-57: pravopisna alternativa
+  translated_synonym_relations-label-synonym_relation_id-58: leksička varijanta
+  translated_synonym_relations-label-synonym_relation_id-59: sinonim (objektivan = homotipan)
+  translated_synonym_relations-label-synonym_relation_id-6: ekvivalentan naziv
+  translated_synonym_relations-label-synonym_relation_id-60: sinonim (subjektivan = heterotipan)
+  translated_synonym_relations-label-synonym_relation_id-61: objektivan sinonim
+  translated_synonym_relations-label-synonym_relation_id-62: glavni sinonim
+  translated_synonym_relations-label-synonym_relation_id-63: neprihvaćeno
+  translated_synonym_relations-label-synonym_relation_id-7: akronim iz Genbanka
+  translated_synonym_relations-label-synonym_relation_id-8: anamorf iz Genbanka
+  translated_synonym_relations-label-synonym_relation_id-9: trivijalan naziv iz Genbanka
+  translated_table_of_contents-label-table_of_contents_id-1: Pregled
+  translated_table_of_contents-label-table_of_contents_id-13: Trivijalni nazivi
+  translated_table_of_contents-label-table_of_contents_id-14: MUZP (IUCN)
+  translated_table_of_contents-label-table_of_contents_id-17: Navodi iz literature
+  translated_table_of_contents-label-table_of_contents_id-194: Veličina
+  translated_table_of_contents-label-table_of_contents_id-2: Kratak pregled
+  translated_table_of_contents-label-table_of_contents_id-218: Širenje
+  translated_table_of_contents-label-table_of_contents_id-221: Opasnosti
+  translated_table_of_contents-label-table_of_contents_id-225: Na internetu
+  translated_table_of_contents-label-table_of_contents_id-226: Partneri za sadržaj
+  translated_table_of_contents-label-table_of_contents_id-227: Pretraga interneta
+  translated_table_of_contents-label-table_of_contents_id-24: Komentari
+  translated_table_of_contents-label-table_of_contents_id-242: Opšta ekologija
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliografije
+  translated_table_of_contents-label-table_of_contents_id-251: Prednosti
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologija
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografija
+  translated_table_of_contents-label-table_of_contents_id-285: Veze
+  translated_table_of_contents-label-table_of_contents_id-286: Status ugroženosti
+  translated_table_of_contents-label-table_of_contents_id-289: Evolucija
+  translated_table_of_contents-label-table_of_contents_id-292: Dvojnici
+  translated_table_of_contents-label-table_of_contents_id-293: Dijagnostički opis
+  translated_table_of_contents-label-table_of_contents_id-296: Upravljanje
+  translated_table_of_contents-label-table_of_contents_id-297: Pobednička strategija
+  translated_table_of_contents-label-table_of_contents_id-299: Obrazovanje
+  translated_table_of_contents-label-table_of_contents_id-3: Fizički opis
+  translated_table_of_contents-label-table_of_contents_id-300: Vikipedija
+  translated_table_of_contents-label-table_of_contents_id-303: Nazivi i taksonomija
+  translated_table_of_contents-label-table_of_contents_id-304: Srodni nazivi
+  translated_table_of_contents-label-table_of_contents_id-305: Sinonimi
+  translated_table_of_contents-label-table_of_contents_id-306: Statistike o stranici
+  translated_table_of_contents-label-table_of_contents_id-307: Kratak pregled sadržaja
+  translated_table_of_contents-label-table_of_contents_id-308: Opširan opis
+  translated_table_of_contents-label-table_of_contents_id-309: Raspodela
+  translated_table_of_contents-label-table_of_contents_id-310: Razvoj
+  translated_table_of_contents-label-table_of_contents_id-311: Resursi za prepoznavanje
+  translated_table_of_contents-label-table_of_contents_id-312: Selidba
+  translated_table_of_contents-label-table_of_contents_id-313: Bolesti i paraziti
+  translated_table_of_contents-label-table_of_contents_id-314: Populaciona biologija
+  translated_table_of_contents-label-table_of_contents_id-315: Životna istorija i ponašanje
+  translated_table_of_contents-label-table_of_contents_id-316: Ponašanje
+  translated_table_of_contents-label-table_of_contents_id-317: Cikličnost
+  translated_table_of_contents-label-table_of_contents_id-318: Životni ciklus
+  translated_table_of_contents-label-table_of_contents_id-319: Životni vek
+  translated_table_of_contents-label-table_of_contents_id-320: Razmnožavanje
+  translated_table_of_contents-label-table_of_contents_id-321: Rast
+  translated_table_of_contents-label-table_of_contents_id-322: Fosilna istorija
+  translated_table_of_contents-label-table_of_contents_id-323: Sistematika ili filogenetika
+  translated_table_of_contents-label-table_of_contents_id-324: Funkcionalno prilagođavanje
+  translated_table_of_contents-label-table_of_contents_id-325: Fiziologija i ćelijska biologija
+  translated_table_of_contents-label-table_of_contents_id-326: Molekularna biologija i genetika
+  translated_table_of_contents-label-table_of_contents_id-327: Fiziologija
+  translated_table_of_contents-label-table_of_contents_id-328: Ćelijska biologija
+  translated_table_of_contents-label-table_of_contents_id-329: Genetika
+  translated_table_of_contents-label-table_of_contents_id-33: Trendovi
+  translated_table_of_contents-label-table_of_contents_id-330: Nukleotidne sekvence
+  translated_table_of_contents-label-table_of_contents_id-331: Bar-kod
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
+  translated_table_of_contents-label-table_of_contents_id-333: Molekularna biologija
+  translated_table_of_contents-label-table_of_contents_id-334: Pretnje
+  translated_table_of_contents-label-table_of_contents_id-335: Zakonodavstvo
+  translated_table_of_contents-label-table_of_contents_id-336: Beleške
+  translated_table_of_contents-label-table_of_contents_id-337: Obrazovanje
+  translated_table_of_contents-label-table_of_contents_id-338: Obrazovne veze
+  translated_table_of_contents-label-table_of_contents_id-339: Obrazovni resursi
+  translated_table_of_contents-label-table_of_contents_id-34: Komentari
+  translated_table_of_contents-label-table_of_contents_id-340: Srednjoškolska laboratorija
+  translated_table_of_contents-label-table_of_contents_id-341: Građanska nauka
+  translated_table_of_contents-label-table_of_contents_id-342: Veze o građanskoj nauci
+  translated_table_of_contents-label-table_of_contents_id-343: Biblioteka o bioraznovrsnosti nasleđa
+  translated_table_of_contents-label-table_of_contents_id-344: Podaci
+  translated_table_of_contents-label-table_of_contents_id-345: Izvori podataka
+  translated_table_of_contents-label-table_of_contents_id-346: Biomedicinski uslovi
+  translated_table_of_contents-label-table_of_contents_id-347: Taksonomija
+  translated_table_of_contents-label-table_of_contents_id-348: Podaci o vrsti
+  translated_table_of_contents-label-table_of_contents_id-4: Ekologija
+  translated_table_of_contents-label-table_of_contents_id-41: Stanište
+  translated_table_of_contents-label-table_of_contents_id-5: Evolucija i sistematika
+  translated_table_of_contents-label-table_of_contents_id-6: Značaj za ljude i ekosisteme
+  translated_table_of_contents-label-table_of_contents_id-7: Navodi i više informacija
+  translated_table_of_contents-label-table_of_contents_id-8: Zaštita
+  translated_untrust_reasons-label-untrust_reason_id-1: pogrešno prepoznato
+  translated_untrust_reasons-label-untrust_reason_id-2: pogrešno/varljivo
+  translated_untrust_reasons-label-untrust_reason_id-3: nizak kvalitet
+  translated_untrust_reasons-label-untrust_reason_id-4: duplikat
+  translated_untrust_reasons-label-untrust_reason_id-5: Drugo
+  translated_user_identities-label-user_identity_id-1: ljubitelj
+  translated_user_identities-label-user_identity_id-2: učenik/student
+  translated_user_identities-label-user_identity_id-3: prosvetni radnik
+  translated_user_identities-label-user_identity_id-4: građanski naučnik
+  translated_user_identities-label-user_identity_id-5: profesionalni naučnik
+  translated_vetted-label-vetted_id-0: Nepoznato
+  translated_vetted-label-vetted_id-4: Nepoverljivo
+  translated_vetted-label-vetted_id-5: Poverljivo
+  translated_vetted-label-vetted_id-6: Neprikladno
+  translated_visibilities-label-visibility_id-0: Nevidljivo
+  translated_visibilities-label-visibility_id-1: Vidljivo
+  translated_visibilities-label-visibility_id-2: Pregled

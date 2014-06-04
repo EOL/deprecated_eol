@@ -1,0 +1,261 @@
+# Messages for Message documentation (Message documentation)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: EugeneZelenko
+# Author: Kghbln
+# Author: Siebrand
+qqq:
+  a_pipe_delimited_list_of_licenses: "{{doc-important|The \"{{!}}\" character and \"all\" should not be translated. \"all\" is an API command.}}"
+  a_pipe_delimited_list_of_spm_info_item_subject_names: The 'all' should not be translated, it is a command used in the API.
+  actions: "{{Identical|Action}}"
+  active_colon: "{{Identical|Active}}"
+  admin_content_page_edit_tip: A "named route" is a a rails-specific term which means that in order for a URL like "eol.org/some_route" to work, "some_route" needs to be defined in one of the hard-coded config files.
+  all_pages: "{{Identical|All pages}}"
+  bi_monthly: The meaning here is "twice every month".
+  biodiversity_heritage_library: This is the name of a project and should not be translated. See [[w:Biodiversity Heritage Library|Biodiversity Heritage Library]]
+  by: This is meant for use in headers, to proceed the name of a community to indicate ownership of a collection.
+  by_scientific_name_table_header: This is a table header which sometimes appears immediately after a separate table header that reads "Search".  It is meant to indicate a second column where a link will be provided to search by the scientific name of the taxon (rather than the common name or some synonym).
+  cancel: "{{Identical|Cancel}}"
+  cannot_be_associated_with_both_a_user_and_a_community: this is an error message which will almost never appear, wherein a collection was associated with both a user and community. This is wrong because a collection can only be created by one or the other.
+  cannot_index_collection_item_type_error: Yes, there is a problem here with the gender/etc of the 'type' argument.  But this is a RARE error (it should really never show up, since it means some new kind of object was introduced to the code) and thus we don't really mind if the error here isn't perfect.
+  collections: "{{Identical|Collection}}"
+  content_summary_table_count_column_header: "{{Identical|Count}}"
+  create_community: This is a button label and is not meant to be (fully) grammatical.
+  donate: "{{Identical|Donate}}"
+  filter_button: Button text
+  help: "{{Identical|Help}}"
+  helpers:
+    submit:
+      user:
+        curation_application: "\"Apply\" as in \"apply for a curator job\"."
+  home: "{{Identical|Home}}"
+  license: "{{Identical|License}}"
+  location: "{{Identical|Location}}"
+  max_collection_items_error: This wil never, ever be a small number... always at least 500.
+  never: This is in regards to the frequency at which the user will receive email. Thus, this case, it means "never, ever".
+  on_time_col_header: This is meant as a header for a time column.
+  or_copy_them_to_existing_collection: This is intentionally a sentence fragment, as it is much lower on the page...  as a separate header that matches an earlier one.
+  or_move_them_to_existing_collection: This is intentionally a sentence fragment, as it is much lower on the page...  as a separate header that matches an earlier one.
+  overview: "{{Identical|Overview}}"
+  profile: "{{Identical|Profile}}"
+  punctuation_comma: This is the symbol used to join lists. (A comma in English.)
+  rank_recognized_by_agent: "This resolves in a format similar to this: \"Species recognized by Integrated Taxonomic Information System:\".  These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech."
+  rank_recognized_by_agent_colon: "This resolves to something similar to this: \"Taxon recognized by IUCN:\", and acts as the header to a navigatable tree of life, showing the relationships between various levels of taxa."
+  rank_recognized_by_from_source: "This can resolve in a format similar to this: \"Species recognized by Integrated Taxonomic Information System and T Orrell (custodian) in Catalogue of Life:\".  where the \"and\" was inserted between two values for the \"agent\" variable.  These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech."
+  recognized_by_as_a_rank: "This resolves in a format like this: \"Integrated Taxonomic Information System as a Taxon\".  In the latter case, this entry would be seen as a paragraph under a header named \"Recognized by\". These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech."
+  recognized_by_from_source_as_a_rank: "This entry would be seen as a paragraph under a header named \"Recognized by\".  These can get more complex, as occasionally the values are created with Rails' #to_sentence method.  Thus, you can end up with \"The Integrated Taxonomic Information System and T Orrell (custodian) in Catalogue of Life as a Taxon\", where the \"and\" was inserted between two values for the \"recognized_by\" variable.  These do not need to read with prefect grammar, as they are meant to be citations and not flowing speech."
+  see_all_collections_with_count_html: This will ALWAYS have more than 1 for the count.
+  see_all_communities_with_count_html: This will ALWAYS have more than 1 for the count.
+  spm_category_objects_count: SPM = Species Profile Model
+  spm_category_partner_count: SPM = Species Profile Model
+  taxon_suggested: This is a column header indicating that the values in the column are the taxon names suggested as results for a search term (which is specified in another column).  So, for example, a search term of 'fox' might have 'Vulpes vulpes' as a value in this column.
+  toc: TOC =  table of contents
+  wants_colon: This is a column header indicating the level of curation ability that a user wants ('full' and 'master' are the possible values in the table.  This does not need to be incredibly clear--it is only seen by admins. Please keep it as short as possible.
+  what_is_this_question: "{{Identical|What is this}}"
+  never: "This is in regards to the frequency at which the user will receive email.  Thus, this case, it means 'never, ever', not 'never been'."
+  a_pipe_delimited_list_of_licenses: "The 'all' should not be translated, it is a command used in the API."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "The 'all' should not be translated, it is a command used in the API."
+  faker:
+    lorem:
+      words: No need to translate this set of words, obviously.
+  replying_to_x: "This is for use by JavaScript, and thus the 'X' is replaced AT RUNTIME, and so the character 'X' (literally--do not use your language's version of 'X', but exactly that character: 'X') must appear in your translation. The result will be something like 'Replying to Jeremy' after replacement."
+  results_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of results that occurred, on average, for a search term within a given date range."
+  suggested_results_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of suggested results that occurred, on average, for a search term within a given date range."
+  common_name_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of common name results that occurred, on average, for a search term within a given date range."
+  scientific_name_avg: "these are table column headings, and the \'avg\' is meant to represent \'average\', because we're counting the number of scientific name results that occurred, on average, for a search term within a given date range."
+  activerecord:
+    attributes:
+      eol_statistic:
+        rich_pages: "'Rich' in this case refers to 'high quality'... ie: pages with lots of text and images."
+        hotlist_pages: "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_hotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_hotlist_pages_percentage:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        redhotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_redhotlist_pages:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+        rich_redhotlist_pages_percentage:  "Hotlist pages are pages that EOL determines have deficient quality for the frequency with which they are viewed, and thus curators are encouraged to add content to them."
+      resource:
+        harvest_events: "A 'Harvest Event' is the record of when data was imported for a resource (which is a collection of species information), so the term is meant to capture the sense of data being 'harvested' in a single 'event' in time."
+    errors:
+      models:
+        harvest_event:
+          attributes:
+            publish:
+              inclusion: "This error message will be displayed (after the name of the checkbox on the form) if an admin attempts to flag a harvest event for publishisng in one of the cases where it cannot be published (ie: it musn't already be published and there must not be a more recent model to be published)."
+        inaccessible: "This is VERY LOW PRIORITY for translation, please move on; it will only be seen by developers but its inclusion in translations is required for specs to pass."
+  user_response: "This is a table column heading where the cells in the column represent the response provided by a user when answering a survey question."
+  who_registered_from: "The value of this key is simply 'who registered from' because it is used in the context of a search date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
+  who_registered_before: "The value of this key is simply 'to' because it is used in the context of a search date range, where the user inputs a start date before this string and an end date after it.  ie: '...a user who registered from ____ to ____'"
+  add_a_taxon_association_label: "A 'taxon association' is the association between a data object (for example, an image) and a single species (or other single taxonomic entity, such as class, order, or kingdom) ... more simply, a taxon association is saying something like 'This is a picture of a blackbird.'"
+  comments_on: "This is meant to be the header for a page where we're listing all of the comments on a particular subject, such as 'Comments on An Image of A Blackbird' or 'Comments on Procyon Lotor' or 'Comments on Jeremy Rice'.  Thus, this string is prepended to the title of the page where the comments were originally left, and these titles are supplied by content partners, so we CANNOT know the number, gender, or other information about the string."
+  eol_api_provider_hierarchies: "This is the title for a documentation page describing the API for retrieving provider hierarchy information: the names and ids of the taxonomy ('tree of life') that each of our providers (content partners) must build in order to give us information specific to species within that tree."
+  request: "This is a low-level heading used on multiple documentation pages for the EOL API.  The request, in this context, is the URL that a user would use to call the method being documented.  It's the first H3 used on this page, for example: http://eol.org/api/docs/provider_hierarchies"
+  uploaded_content: "This is a page title used on an administrative page where the admin can see and edit content (images, PDFs, and the like) which have been uploaded to EOL's content servers."
+  vivisimo: "This is the name of vivisimo.com and is used on EOL's 'Search the Web' interface, to link to the site."
+  update: "This is used for the submit button on several admin pages, including content uploads, hierarchies, and search logs as an imperative verb to indicate the admin is about to update information in the database."
+  upload: "This is used as a submit button on the admin interface for uploading images and PDFs to EOL's content servers."
+  donation_sponsorship_content_title: "This is used as a title for the paragraph described by donation_sponsorship_content_description, which you may wish to read before translating this key. Basically, donors are allowed to sponsor efforts specific to particular organisms (say, fish)."
+  default_focus_collection_name_from_community: "'name' in this context is the name of a community.  This translated string will become the name of a collection, so a collection that's a focus for \"My Favourite Animals\" will be named something like \"My Favourite Animals' Focus\"."
+  failed_login_attempts_with_count: "IN addition to the count, this tells the admin that the preceeding checkbox needs to be checked in order for the user to be allowed to log in at all.  In practice, the count here will never be one or zero, but we need to pluralize it for more complex languages."
+  you_may_upload_static_files_fo: "MOU stands for 'Memorandum of Understanding,' which is just an agreement between EOL and the content partner."
+  glossary_term: "This indicates a term that should show up with a definition. This translation is only seen by admins."
+  term_for_search_admin_ui: "Seen by admins only. Intended to mean a search term to be added for search suggestions."
+  page_views_th: "Table heading, used on a row in a two-column table of data about taxon concepts."
+  unique_page_views_th: "Table heading, used on a row in a two-column table of data about taxon concepts."
+  please_publish_this_resource_notice: "Yes, the stars and the strong here are a bit much, but the admins (who are the only people who will see this) have specifically asked for them, so please preserve them."
+  user_commented_on_themself: "The 'user' and 'user_again' will have two different links, but the same user's string.
+  The second one needs to be possessive, modifying 'newsfeed'."
+  view_verb: "This will only be used as a verb (for link text), as in 'view this entry'."
+  contact_us_topics: "This is used as a title (either a page title or a section title), seen only by admins, to describe the possible subjects that will be available in the drop-down menu when an EOL user wants to contact us (you can follow the 'Contact Us' link at the bottom of the site to see the form that the user will pick a topic from)."
+  watch_list_newsfeed: "This is used as the label on a tab.  A watchlist is a collection of items (pages, users, images, articles and the like) which the user cares about.  The watchlist newsfeed is a list of \"recent activity\" on each of those items.  It's akin to Facebook's \"activity\" or a Google Plus \"stream\"."
+  new_contact_us_topic: "This is a button allowing an admin to add a new topic (subject) to be put in the drop-down on the form of the 'Contact Us' page.  You can click the 'Contact Us' link at the bottom of EOL to see what the resulting form will look like."
+  view_in_classification: "This is a link, used on the \"Names\" tab of a species page on EOL, which allows the user to see the species in the context of a specific classification. For example, Catlogue of Life gives us one \"tree of life,\" different from other partner's trees, and you could use this link to view a page in its context without any \"interference\" from the other classifications."
+  toc_no_longer_available: "This is seen by admins only.  It represents user activity logs where the user added an article, but for which infomration about which Table of Contents item it had been placed under is now missing. Thus, this is just meant to inform the admin that some information about the TOC was lost."
+  main_database_colon: "This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging)."
+  data_database_colon: "This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging)."
+  logging_database_colon: "This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging)."
+  main_master_database_colon: "This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging)."
+  data_master_database_colon: "This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging)."
+  toc_entry_col_header: "This is a column header, seen only by admins, indicating which section of the Table of Contents a particular article is associated with."
+  info_items_col_header: "This is a column header, seen only by admins, indicating which 'Info Items' an aticle is associated with.  Info items are specific entries intended for a Table of Contents (TOC), following a specific standard (which is itself not worth explaining here, other than to point out they are titles used in a TOC). Thus, the values in this column won't be seen on the site, but are used by content partners."
+  activity_untrusted_with_reasons_colon: "This is a string used in a log message.  When a curator untrusts a data object, they are given a set of checkboxes to select the reasons for untrusting that object. (Values include things like \"duplicate\" and \"poor quality\").  This information is then logged as plain text in the data object as %{reasons}.  While there can be one or more reasons actually given, we use the singular to simplify things."
+  names_children_column_header: "Refers to child elements in a hierarchy tree. 'Children' on EOL is almost always going to be in the context of a tree. So, any node in the tree will have parents, ancestors, children, and descendants."
+  edit_the_topic_area_intro: "In this context, the 'topic area' is one text area, the 'email addresses' is another text area, and there is ONE checkbox (called 'active') to be checked. This last checkbox allows admins to add options at one point in time without having them show up, and then to quickly activate them later."
+  list_newsletter_emails: "This is a link placed in the admin navigation sidebar that will list all of the email addresses for users who have signed up to receive the EOL newsletter."
+  filter_newsfeed_option_all: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: All (all items will be shown, no filtering)"
+  filter_newsfeed_option_messages: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Comments (not 'messages', since that tends to imply that the messages are private, and all messages on eol are public, so we call them comments in the GUI."
+  filter_newsfeed_option_community: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Community"
+  filter_newsfeed_option_collections: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Collections"
+  filter_newsfeed_option_watchlist: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Watchlist"
+  filter_newsfeed_option_curation: "This will be a value in a drop-down to allow users to show certain newsfeed item types.  In this case, it allows the users to see messages related to: Curation"
+  unknown_hierarchy: "This simply indicates that a particular hierarchy (classification, tree of life) is missing.  It's a rare message, grammar not critical here."
+  hierarchy_node_missing: "When showing a so-called 'tree of life', sometimes the data for a particular branch of
+  that tree has been lost from the database, and this error is shown."
+  recent_activity:
+    intro_weekly: "'ending' in this case will be a date, in the 'long' format."
+  users:
+    content_partners:
+      index:
+        meta_title: "The meaning here is *intended* to be genitive / possessive... but for search optimization, should probably NOT grammatically modify the user_full_name. Additionally, user_full_name should come first."
+  classifications_summary_header_with_count: "Please note that there is an exceptional value for zero, here, which does not display the actual count, but instead a brief message explaining that the page the user is viewing is not easily availble on EOL (the user was likely directed here with a specific link) and that there are no *browsable* classifications for this page.  The notion here is that there are some classifications (trees of life) that are stored in EOL's databases, but the user cannot view them (browse them) by default. Note this is used as a header, so punctuation is not (generally) appropriate."
+  collection_error_no_items_selected: "The user has caused an error by attempting to move, copy, or delete collection items, without selecting any collection items at all."
+  cancel_split: "This is used in the context of curators separating some data from one taxon page; this is the text for the button to cancel that operation."
+  add_classifications: "Curator is about to move data from one concept to another by adding classifications to a list of stored classifications (each classification points to a set of data); this is the text of the button starting that process."
+  added_classifications_ready: "The curator has clicked on the 'move_data' button and now has a list of data saved; this instructs them on how to proceed with moving the data to another page."
+  classifications_split_column_header: "Column header on table; the cells below this header will have a checkbox, allowing curators to select the row (which represents a classification) for either a split (separated into a new page) or move (merge the data from these classifications onto an existing page)."
+  use_as_examplar_note_preferred: "This is a note to the curator that the classification in this row of the table is currently the preferred classification for the page, and thus they *probably* want to select it to complete the merge or split operation... but they don't *have* to."
+  fragment_caching_enabled: "Fragment caching is a method of storing in memory various PARTS of pages, in order to speed up page load times for users.  However, it can cause some problems in certain situations, so admins (only) are allowed to turn it on and off."
+  left_content_area: "In context where this is used, the left content area is the division of the page on the left
+  side. Curators are allowed to create or edit static pages on EOL for instructions or information, and those pages
+  have an area on the left where a 'table of contents' is usually provided, called the 'left content areleft content
+  areaa'."
+  copied_all_items_from_collection_with_count: "This is in the context of an update given to the user immediately
+  after taking action, not in a log."
+  copied_all_items_to_collections: "This is in the context of an update given to the user immediately after taking
+  action, not in a log."
+  copied_items_from_collection_with_count_notice: "This is in the context of an update given to the user immediately
+  after taking action, not in a log."
+  copy_items_to_a_new_collection_with_count: "This is in the context of an update given to the user immediately after
+  taking action, not in a log."
+  a_pipe_delimited_list_of_spm_info_item_subject_names: "This is describing possible values for an input field (called 'overview') in the API. The 'overview' and 'all' values MUST be in English (untranslated), and the pipe must remain a literal pipe: |"
+  object_curated: "The curator has just taken a curation action (trusting, untrusting, hiding, showing, and the like), and this message will be displayed on the next page load to indicate that it was successful."
+  partner_web_site_colon: "A simple label used for DataObject attribution to identify the homepage of the partners website"
+  add_article_instead: "This is button text to be displayed in the header of a page where the user is adding a link.  Clicking this button will allow them to add an article instead of a link."
+  add_link_instead: "This is button text to be displayed in the header of a page where the user is adding an article.  Clicking this button will allow them to add a link instead of an article."
+  datepicker:
+    day_names: "A list of full names for the seven days of the week (e.g Sunday, Monday, Tuesday etc) for use in an interactive Gregorian calendar."
+    day_names_short: "A list of abbreviated names for the seven days of the week (e.g Sun, Mon, Tue etc) for use in an interactive Gregorian calendar."
+    day_names_min: "A list of very abbreviated names (one or two characters) for the seven days of the week, e.g Su, Mo, Tu etc. for use in an interactive Gregorian calendar."
+    close: "A label for a button or link that users will use to close a datepicker interactive calender overlay."
+    current: "A label for a button or link that users will use to go to the current day (i.e. today) in an interactive calender."
+    month_names: "A list of full names for the months of the year (e.g January, February etc) for use as headers in an interactive Gregorian calendar."
+    month_names_short: "A list of abbreviated names for months of the year (e.g Jan, Feb etc) for use as headers in an interactive Gregorian calendar."
+    next: "A label for a button or link that users will use to select the next panel in an interactive calender."
+    previous: "A label for a button or link that users will use to select the previous panel in an interactive calender."
+  only_alphanum_with_no_spaces: "This is a message (a rails model message) telling the user that an uploaded file's field can only be letters or numbers and cannot have spaces."
+  recognized_by_as_a_rank: 'This shows up in a field or table under the heading "recognized by." This value is meant to represent which content provider recognizes this taxon (so this will be the name of an organization), as well as what taxonomic level (rank) they recognize it as (species, subspecies, family, order, etc).'
+  recognized_by_from_source: 'This shows up in a field or table under the heading "recognized by." The vaue is meant to represent which content provider recognizes this taxon. Some providers, however, actually have multiple sources of data, and this value is used to specify which of those sources the information actually came from.'
+  recognized_by_from_source_as_a_rank: 'This shows up in a field or table under the heading "recognized by." The vaue is meant to represent which content provider recognizes this taxon. Some providers, however, actually have multiple sources of data, and this value is used to specify which of those sources the information actually came from, as well as what taxonomic level (rank) they recognize it as (species, subspecies, family, order, etc).'
+  preview_version_of_latest_published_data_object_title_link: 'Content partners are allowed to see data object pages before other users. This is intended to allow them to "preview" the data before others can see it, and make changes if there are problems.  When they view these pages in preview mode, the title of the page needs to indicate what the real title will be (here indicated as "link") and show that the page is in preview mode.'
+  response_formats: "This is the title for a section of documentation for the API, describing the response formats available to API users."
+  classification_split_help: "At this point, the user is being asked to select a SINGLE classification that BEST represents the taxon.  They have previously selected multiple classifications to move."
+  classification_merge_help: "At this point, the user is being asked to select a SINGLE classification that BEST represents the taxon.  They have previously selected multiple classifications to move."
+  request_mailing_list_colon: "This is string seen my admins (only) when editing user accounts. It is a label for a checkbox; if the checkbox is checked, the user will not receive any email at all from EOL."
+  check_this_to_browse_eol_by_the_hierarchy: "This is information shown only to admins on a form for editing hierarchies (AKA classifications, or 'tress of life') that come from content partners. If it's checked, this hierarchy will be one of the 'default' classifications on the names tab. If it is left unchecked, the classification will be hidden to the user by default unless they click on a link to show all classifications."
+  return_content_by_vettedness: "This is API documentation. 'vetted' should be left untranslated (it must be used as exactly the English string, 'vetted') and the digits (1, 2) should also remain arabic numerals."
+  image_objects_will_contain_two_mediaurl_elements: "This is API documentation. 'mediaURL' is a technical term and should remain untranslated."
+  object_status_all_option: "these are options for a drop down menu allowing filtering based on 'vetted' status of objects--whether something is trusted, untrusted, or unreviewed."
+  object_status_trusted_option: "these are options for a drop down menu allowing filtering based on 'vetted' status of objects--whether something is trusted, untrusted, or unreviewed."
+  object_status_unreviewed_option: "these are options for a drop down menu allowing filtering based on 'vetted' status of objects--whether something is trusted, untrusted, or unreviewed."
+  object_status_untrusted_option: "these are options for a drop down menu allowing filtering based on 'vetted' status of objects--whether something is trusted, untrusted, or unreviewed."
+  object_type_all_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_type_collection_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_type_community_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_type_image_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_type_sound_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_type_taxon_concept_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_type_text_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_type_user_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_type_video_option: "These are options for a drop-down menu that allow curators to filter the type of object they wish to view for curation (especially on the 'worklist' tab)."
+  object_visibility_all_option: "These are options for a drop-down menu allowing users to filter a view based on the 'visibility' attribute on an object: either visible, invisible, or both."
+  object_visibility_visible_option: "These are options for a drop-down menu allowing users to filter a view based on the 'visibility' attribute on an object: either visible, invisible, or both."
+  object_visibility_invisible_option: "These are options for a drop-down menu allowing users to filter a view based on the 'visibility' attribute on an object: either visible, invisible, or both."
+  only_multi_search_suggestions: "This is informational text on a form viewable only by admins. It explains how possible values for a field called 'sort order' affect the sorting of search suggestions. For example, if the admin wanted to create several search suggestions for 'sliverfish', they could set Thysanura with a value of 1 so it appears first, then Raiamas senegalensis with a value of 2 and Pleuragramma antarcticum with a value of 3, so it appears last."
+  dato_location_created: "A line of information about a data object (image, video, etc) describing where the object was created; only shows up if applicable."
+  association_trusted_for_taxa: "This is the heading for a list of taxa to which an image is associated and known to be trusted (meaning the association has been reviewed by a curator). The list apears in a small 'mouseover' box."
+  association_unreviewed_for_taxa: "This is the heading for a list of taxa to which an image is associated, but the associations have not yet been reviewed by a curator. The list apears in a small 'mouseover' box."
+  association_untrusted_for_taxa: "This is the heading for a list of taxa to which an image is associated and known to be mistaken (meaning the association has been reviewed by a curator and a problem was found). The list apears in a small 'mouseover' box."
+  add_a_new_term: "'term' here refers to a word, which is to be defined by admins for an EOL glossary."
+  activity: "This is only used in the admin interface and refers to user activity (ie: actions that users take)."
+  users:
+    newsfeeds:
+      activity_link: "This is the title of a tab."
+      comments_link: "This is the title of a tab. It does not need pluralization (meaning: it should always be plural)."
+      newsfeed_link: "This is the title of a tab."
+  add_article_instead: "This is button text to be displayed in the header of a page where the user is adding a link.  Clicking this button will allow them to add an article instead of a link."
+  add_link_instead: "This is button text to be displayed in the header of a page where the user is adding an article.  Clicking this button will allow them to add a link instead of an article."
+  error_exemplar_chosen_with_invalid_action: "This is an extremely rare case where an action was submitted (choosing a classification to either split or merge) but the actual action intended was lost: we don't know if they wanted to split the classification from the page or merge it onto the page. Thus, we're asking them to try again."
+  classification_curation_pending: "This is a warning, displayed on the 'names' tab, when showing classifications that are presently undergoing curation (a process that can take some time and occurs in the background)."
+  too_many_descendants_to_curate_with_count: "This is an error message that a curator will receive if they attempt a curation that would affect too many descendants. For example, if they attempt to move a classification from the vertebrates page, that would take too long to process (several days), so they receive this message."
+  this_page_will_be_reindexed: "Notification message that a curator would see in a flash message after clicking a button requesting a reindexing of a page"
+  error_classifications_locked_cannot_reindex: "This is a flash message that a curator would receive if they attempted to request reindexing of a page where the classifications are locked; locked classifications imply that the conent of the page are about to change, so reindexing would be premature... or that someone else has already requested a reindexing."
+  filed_under_label_with_date: "Note that the date is in the :long format."
+  or_add_it_to_an_existing_collection: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new collection to add an item to, then given this message, followed by a list of her existing collections."
+  or_add_it_to_an_existing_community: "This is a 'popup' style dialog (with a lot of markup) where the user is first presented with a form asking if she wants to make a new community to add a collection to, then given this message, followed by a list of the communities she has access to."
+  or_email_education: "The user was presented with a button (see add_education_resources_to_page_link_button) allowing them to contribute information about educational resources related to a taxon. This 'sentence' appears after that button, allowing them to email EOL staff with their suggestion instead. The 'link' thus contains a clickable email address."
+  page_reference: "This is a citation (as one might find in a bibliography), and the format should follow standards for bibliographic citations of websites. You may need to do some research to find out what that format is in your language."
+  curation_error_no_hide_reasons_given: "A curator tried to hide a data object on the species page of 'association', but they did not give a reason for hiding it."
+  curation_error_no_untrust_reasons_given: "A curator tried to untrust (they decided it was improperly identified) a data object on the species page of 'association', but they did not give a reason for untrusting it."
+  curation_error_vetted_invalid: "This means an invalid parameter was passed in for curation. Very rare error."
+  curation_error_visibility_invalid: "This means an invalid parameter was passed in for curation. Very rare error."
+  curation_error_untrust_reasons_invalid: "A curator attempted to curate a data object on the page for 'association' but provided invalid reasons. A very rare error."
+  curation_error_hide_reasons_invalid: "A curator attempted to curate a data object on the page for 'association' but provided invalid reasons. A very rare error."
+  curation_error_object_in_preview_state_cannot_be_curated: "A curator attempted to curate a data object that hasn't finished being imported yet; this is not allowed."
+  split_into_new_concept: "Button text, seen only by curators, allowing them to move the selected classifications from this taxon page to an entirely new taxon page of their own."
+  showing_all_harvest_logs: "A 'harvest' is the import of content from one of EOL's content providers. Periodically (usually once a month) we check with the partner to see if any of their data has been updated: this is considered a harvest."
+  showing_harvest_logs_from_date: "A 'harvest' is the import of content from one of EOL's content providers. Periodically (usually once a month) we check with the partner to see if any of their data has been updated: this is considered a harvest."
+  please_ask_big_before_changing_toc: "This is a message only seen by admins. An InfoItem in this context is the low-level mapping that EOL uses for entries in the Table of Contents, and we're letting the admins know that these cannot be directly added or edited here."
+  sci_name_avg_table_head: "This is seen only by admins, on a page reporting on searches. This string is used as the heading of a column of data: each row represents a single search term (ie 'tiger') and the data for this column represents the average number of 'hits' for that term for the scientific name of a page. It's an average because the results can vary each time the search term is searched for--we get new names and we mark old names as invalid."
+  trigger_search_term_entered_by: "This is a column subheading, explaining the contents of the content in a table of search terms and the pages those terms should redirect to. In this case, the column contains the term users are expected to enter (other columns would then contain the pages we think they probably want from that term)."
+  unable_to_invite_users_to_community_with_count: "'list' is a list of usernames, created using #to_sentence (which is language-specific)."
+  taxon_selected_from_search_res: "This is a column header, seen only by admins. The contents of the column indicate which search result a user clicked on."
+  if_the_details_parameter_is_not_set: "'details' is a parameter passed to the API; do not translate it. 'linka' will
+  have the value of the 'dublin_core' translation, and 'linkb' will have the translation for 'eol_accepted_subjects'."
+  hierarchies_entries_description: "'taxonConceptID' is a parameter name and should not be translated."
+  the_darwin_core_taxon_elements: "'additionalInformation' is a parameter name and should not be translated."
+  link_rating: "In this context, a 'Link' is actually a user-submitted link. Users can add web resources to EOL
+  pages, and we call them 'Links'. So those links have ratings."
+  permissions_list_header: "Admins can see a list of permissions available to users on the site; this is the heading to the page that lists all of them."
+  edit_permission_header: "Admins can see a list of permissions available to users on the site; this is the heading to the page for editing a single permission."
+  permissions_users_count: "Admins can see a list of permissions available to users on the site. Each permission is shown with a count of how many users have that permission; this is that count."
+  march_of_life_thumbnail_title: "On data object pages for images, curators have the ability to crop images for two types of thumbnails. Each type has a preview. This is the title for the march of life thumbnail, which is only used for the so-called 'march of life' on the homepage."
+  summary_thumbnail_title: "On data object pages for images, curators have the ability to crop images for two types of thumbnails. Each type has a preview. This is the title for the preview of the 'summary thumbnail', which is used frequently throughout the site."
+  collection_copy_complete_with_count: "A notification message informing the user how many collection items were copied. \"from\" is the name of the source collection, \"to\" is the name of the target collection(s) (this can be a list of several collections), and when the number is more than one, there should be an indication that the count is a TOTAL number of items moved. For exampe, if a user copies 2 items from a collection to two collections, the count will be 4 (2 for each target collection)."
+  collection_move_complete_with_count: "A notification message informing the user how many collection items were moved. \"from\" is the name of the source collection, \"to\" is the name of the target collection(s) (this can be a list of several collections), and when the number is more than one, there should be an indication that the count is a TOTAL number of items moved. For exampe, if a user moves 2 items from a collection to two collections, the count will be 4 (2 for each target collection)."
+  forums:
+    post_by_user_at_time: "This is a small line of text that appears under each comment, showing authorship. It is not meant to be a 'complete' sentence, just to briefly summarize who posted the comment and when."
+    buttons:
+      link: "On the EOL forums, the 'link' button (this entry) is used to allow users to link to a specific comment.  Please keep this button label as short as possible."
+    posts:
+      close_window: "On the EOL forums, the 'close' button is used to close dialog windows. Please keep this button label as short as possible."
+  caching_results: "This is the title to a section of the API documentation that explains how and when to cache the results of API calls."
+  image_title_with_taxa: "The 'taxa' variable here will be a list of taxa concatenated using the language-specific 'to_sentence' constructor' (though in 99% of cases it will only be one taxon). For example, 'Bola bola, Canis lupus, and Procyon lotor'. This translation is used as the title on image pages where the content provider didn't give us a better image title."

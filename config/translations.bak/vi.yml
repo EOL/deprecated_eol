@@ -1,0 +1,113 @@
+# Messages for Vietnamese (Tiếng Việt)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Minh Nguyen
+# Author: Trần Nguyễn Minh Huy
+vi: 
+  about_eol: Giới thiệu BKTT Sự Sống
+  account_information: Thông tin tài khoản
+  all_information: Tất cả các thông tin
+  all_pages: Mọi trang
+  already_a_member_question: Đã là thành viên?
+  already_member_of_community: Bạn đã là một thành viên của cộng đồng này.
+  application_version_advisory_information: Phiên bản ứng dụng
+  are_you_sure: Bạn có chắc chắn?
+  assistive_details_header: Chi tiết
+  cancel: Hủy bỏ
+  cannot_be_empty: không thể để trống.
+  change_rating_to_2_of_5: Đổi đánh giá thành 2 trên 5
+  citation: Trích dẫn
+  communities: Cộng đồng
+  communities_with_count: 
+    one: "%{count} cộng đồng"
+    other: "%{count} các cộng đồng"
+  community: Cộng đồng
+  community_activity: Hoạt động cộng đồng
+  community_members: Thành viên cộng đồng
+  contact_us_link: Liên lạc
+  create_a_community: Tạo một cộng đồng
+  delete_community: Xóa cộng đồng này
+  detail: Chi tiết
+  donate: Quyên góp
+  donation_error_no_amount: Vui lòng chọn số tiền quyên góp.
+  donation_error_only_numbers: Vui lòng nhập số chỉ có chữ số.
+  edit_community: Sửa đổi cộng đồng
+  encyclopedia_of_life: Bách khoa toàn thư Sự sống
+  eol_glossary: Thuật ngữ BKTTSS
+  eol_news: Tin tức BKTTSS
+  explore: Tìm hiểu
+  filter_by_status: Lọc theo trạng thái
+  filter_by_status_all_option: mọi trạng thái
+  filter_by_type: Lọc theo kiểu
+  filtered_information: Thông tin lọc
+  global_access_tagline: Truy cập toàn cầu kiến thúc về sự sống trên Trái Đất.
+  go: Xem
+  hello_user: Xin chào %{user}
+  help: Trợ giúp
+  home: Trang chủ
+  home_page_link_advisory_information: Liên kết này sẽ đưa bạn đến trang chủ cua Bách khoa toàn thư Sự sống
+  image_is_no_longer_available: Hình không còn xem được
+  image_not_found: Không tìm thấy hình
+  images: Hình ảnh
+  images_with_count: 
+    one: "%{count} hình"
+    other: "%{count} các hình"
+  iucn_red_list_status_advisory_information: Liên kết này sẽ đưa bạn đến trang của Liên minh Bảo tồn Thiên nhiên Quốc tế (IUCN) có thêm thông tin về Sách đỏ IUCN.
+  join_community_button: Gia nhập cộng đồng này
+  join_eol_button_html: Gia nhập <abbr title="Bách khoa toàn thư">BKTT Sự sống</abbr> ngay
+  join_eol_community_html: Gia nhập cộng đồng <abbr title="Bách khoa toàn thư">BKTT Sự sống</abbr>!
+  just_pages_with_pictures_and_text: Chỉ các trang có hình ảnh và văn bản
+  license: Giấy phép
+  license_cc_by_2_0: Creative Commons Ghi công 2.0 (CC BY 2.0)
+  license_cc_by_nc_3_0: Creative Commons Ghi công–Phi thương mại 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa_3_0: Creative Commons Ghi công–Phi thương mại–Chia sẻ tương tự 3.0 (CC BY-NC-SA 3.0)
+  license_gnu_gpl: Giấy phép Công cộng GNU (GNU GPL)
+  location: Vị trí
+  login: đăng nhập
+  login_or_create_account: Đăng nhập hoặc Mở tài khoản
+  media: Phương tiện
+  media_with_count: 
+    one: "%{count} Phương tiện"
+    other: "%{count} Phương tiện"
+  members_with_count: 
+    one: "%{count} thành viên"
+    other: "%{count} các thành viên"
+  my_info: Thông tin về tôi
+  newsfeed: Nguồn tin tức
+  other_community_items_with_count: 
+    one: "%{count} mục khác"
+    other: "%{count} các mục khác"
+  overview: Giới thiệu
+  pages_with_pictures_and_text: Các trang có hình ảnh và văn bản
+  pages_with_pictures_or_text: Các trang có hình ảnh hoặc văn bản
+  punctuation_comma: ","
+  recent_updates: Cập nhật gần đây
+  remove_membership: Bãi miễn quyền thành viên
+  resources: Tài nguyên
+  rights: Tác quyền
+  rights_holder: Chủ tác quyền
+  search_by_term_page_title: "Tìm kiếm: %{term}"
+  search_field_label: Tìm kiếm trên BKTTSS
+  search_placeholder: Tìm kiếm trên BKTTSS ...
+  search_the_site: Tìm kiếm trên site
+  see_all_media_link: Xem tất cả phương tiện
+  selected_language_advisory_information: Đây là ngôn ngữ hiện đang được chọn.
+  sign_in: Đăng nhập
+  sign_out: Đăng xuất
+  site_information: Thông tin site
+  skip_to_content: Bỏ qua nội dung
+  sort_by_button: Xếp
+  source_url: URL nguồn
+  switch_language_advisory_information: Đổi ngôn ngữ của site qua %{language_label}
+  table_of_contents: Mục lục
+  taxa: Đơn vị phân loại
+  taxon: đơn vị phân loại
+  text_summary_more_link: Đọc bài đầy đủ
+  there_are_currently_no_members_in_this_community: Hiện không có thành viên nào trong cộng đồng này.
+  threat_status_header_colon: "Tình trạng nguy cấp theo <abbr title=\"International Union for Conservation of Nature\">IUCN</abbr>:"
+  twitter: Twitter
+  unknown: Không rõ
+  what_is_eol: BKTTSS là gì?
+  what_is_this_question: Đây là gì?
+  your_preferences: Tùy chọn cá nhân của bạn
+  your_rating: Đánh giá của bạn

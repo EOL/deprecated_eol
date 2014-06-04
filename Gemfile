@@ -43,7 +43,6 @@ group :test, :development do
   gem 'pry-stack_explorer', require: false
   gem 'terminal-notifier-guard' # Allows for OS X notifications about errors
   gem 'binding_of_caller' # Used by Better Errors to give lots more information about errors in the browser.
-
 end
 
 # NOTE - if you are having trouble installing these, you can either:
@@ -117,3 +116,4 @@ gem 'unicorn', '4.4.0' # This is our webserver
 gem 'uuid', '2.3.5' # Used when creating data objects
 gem 'will_paginate', '~> 3.0' # Used ALL OVER THE SITE for pagination.
 gem 'nunes', '0.3.0'  # This makes it easier to handle statsd
+gem "rest-client", "~> 1.6.7"

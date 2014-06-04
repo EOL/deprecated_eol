@@ -1,0 +1,16 @@
+# Messages for Esperanto (Esperanto)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Amikeco
+# Author: Mihxil
+eo: 
+  change_rating_to_2_of_5: Ŝanĝi la takson al 2 el 5
+  common_names_with_count: 
+    one: ${count} komuna nomo
+    other: ${count} da komunaj nomoj
+  communities: Komunoj
+  content_summary_introduction_html: Jenaj valoroj reprezentas la sumon de diversaj tipoj de enhavo por ĉi tiu taksono kaj ĉiuj ties taksonomiaj posteuloj. Enhavo '%{glossary_term_trusted}' estas aŭ aprobita de EOL-prizorgisto aŭ devenis de  fidata liveranto. Enhavo '%{glossary_term_unreviewed}' ne jam estas konsiderita de EL-prizorgisto. Ĉiu taksonomia hierarkio estas unika, do ĉiu foliumebla hierarkio estas montrata por ke oni povu kompari.
+  donate: Donacu
+  home_page_link_advisory_information: Jena ligo portos vin al la hejmpaĝo de la Enciklopedio de Vivo
+  media: Aŭdvidaĵoj
+  you_are_not_authorized_to_perform_this_action: Mankas al vi permesoj por fari tion ĉi.

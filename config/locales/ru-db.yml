@@ -1,0 +1,367 @@
+# Messages for Russian (русский)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Adata80
+# Author: DCamer
+# Author: Eleferen
+# Author: Haffman
+# Author: Lvova
+# Author: Meddoc13
+ru: 
+  translated_activities-name-activity_id-19: профиль
+  translated_activities-name-activity_id-50: ненадёжный
+  translated_activities-name-activity_id-51: показать
+  translated_activities-name-activity_id-52: создать
+  translated_activities-name-activity_id-53: скрыть
+  translated_activities-name-activity_id-54: обновить
+  translated_activities-name-activity_id-55: недопустимый
+  translated_activities-name-activity_id-56: удалить
+  translated_activities-name-activity_id-57: частота
+  translated_activities-name-activity_id-58: доверенный
+  translated_activities-name-activity_id-59: непросмотренный
+  translated_activities-name-activity_id-63: сбор
+  translated_activities-name-activity_id-64: убрать
+  translated_agent_roles-label-agent_role_id-1: Аниматор
+  translated_agent_roles-label-agent_role_id-10: Проект
+  translated_agent_roles-label-agent_role_id-11: Издатель
+  translated_agent_roles-label-agent_role_id-12: Запись
+  translated_agent_roles-label-agent_role_id-13: Источник
+  translated_agent_roles-label-agent_role_id-14: База данных-источник
+  translated_agent_roles-label-agent_role_id-15: Контактное лицо
+  translated_agent_roles-label-agent_role_id-16: Автор
+  translated_agent_roles-label-agent_role_id-2: Автор
+  translated_agent_roles-label-agent_role_id-21: поставщик
+  translated_agent_roles-label-agent_role_id-22: Переводчик
+  translated_agent_roles-label-agent_role_id-23: Научный обозреватель
+  translated_agent_roles-label-agent_role_id-24: Лингвистический обозреватель
+  translated_agent_roles-label-agent_role_id-3: Составитель
+  translated_agent_roles-label-agent_role_id-4: Композитор
+  translated_agent_roles-label-agent_role_id-5: Создатель
+  translated_agent_roles-label-agent_role_id-6: Директор
+  translated_agent_roles-label-agent_role_id-7: Редактор
+  translated_agent_roles-label-agent_role_id-8: Иллюстратор
+  translated_agent_roles-label-agent_role_id-9: Фотограф
+  translated_audiences-label-audience_id-1: Опытные пользователи
+  translated_audiences-label-audience_id-2: Обычные пользователи
+  translated_audiences-label-audience_id-3: Дети
+  translated_collection_types-label-collection_type_id-1: Таксономия
+  translated_collection_types-label-collection_type_id-10: Звуки
+  translated_collection_types-label-collection_type_id-11: Ссылки
+  translated_collection_types-label-collection_type_id-12: Литература
+  translated_collection_types-label-collection_type_id-13: Таксономия
+  translated_collection_types-label-collection_type_id-14: Молекулярные штрих-коды
+  translated_collection_types-label-collection_type_id-15: Описание
+  translated_collection_types-label-collection_type_id-16: Изображения
+  translated_collection_types-label-collection_type_id-17: Распространение
+  translated_collection_types-label-collection_type_id-18: Природоохранный статус
+  translated_collection_types-label-collection_type_id-19: Сведения об имени
+  translated_collection_types-label-collection_type_id-2: Молекулярные штрих-коды
+  translated_collection_types-label-collection_type_id-20: Молекулярные данные
+  translated_collection_types-label-collection_type_id-21: Номенклатура
+  translated_collection_types-label-collection_type_id-22: Звуки
+  translated_collection_types-label-collection_type_id-23: Ссылки
+  translated_collection_types-label-collection_type_id-24: Литература
+  translated_collection_types-label-collection_type_id-3: Описание
+  translated_collection_types-label-collection_type_id-4: Изображения
+  translated_collection_types-label-collection_type_id-5: Распространение
+  translated_collection_types-label-collection_type_id-6: Природоохранный статус
+  translated_collection_types-label-collection_type_id-7: Сведения об имени
+  translated_collection_types-label-collection_type_id-8: Молекулярные данные
+  translated_collection_types-label-collection_type_id-9: Номенклатура
+  translated_contact_roles-label-contact_role_id-1: Основное контактное лицо
+  translated_contact_roles-label-contact_role_id-2: Связь с администрацией
+  translated_contact_roles-label-contact_role_id-3: Связь с тех. поддержкой
+  translated_contact_subjects-title-contact_subject_id-24: Членство и регистрация
+  translated_contact_subjects-title-contact_subject_id-25: Условия использования и лицензирования
+  translated_contact_subjects-title-contact_subject_id-26: Обучение и образование
+  translated_contact_subjects-title-contact_subject_id-27: Становление контент-партнером
+  translated_contact_subjects-title-contact_subject_id-28: Поддержка для контент-партнеров
+  translated_contact_subjects-title-contact_subject_id-29: Поддержка для кураторов
+  translated_contact_subjects-title-contact_subject_id-30: Корректировки (орфография и грамматика, изображения, информация)
+  translated_contact_subjects-title-contact_subject_id-31: Изображения, видео или звуки
+  translated_contact_subjects-title-contact_subject_id-32: Запрос медиа-ресурсов (интервью, пресс-релизы, логотип)
+  translated_contact_subjects-title-contact_subject_id-33: Сделать денежное пожертвование
+  translated_contact_subjects-title-contact_subject_id-34: Технические вопросы (проблемы с поиском, с функционалом сайта)
+  translated_contact_subjects-title-contact_subject_id-35: Общие вопросы
+  translated_content_partner_statuses-label-content_partner_status_id-1: На рассмотрении
+  translated_content_partner_statuses-label-content_partner_status_id-2: Активен
+  translated_content_partner_statuses-label-content_partner_status_id-3: Архивировано
+  translated_content_partner_statuses-label-content_partner_status_id-4: Неактивен
+  translated_content_tables-label-content_table_id-1: Детали
+  translated_data_types-label-data_type_id-1: Изображение
+  translated_data_types-label-data_type_id-10: Карта
+  translated_data_types-label-data_type_id-2: Звук
+  translated_data_types-label-data_type_id-3: Текст
+  translated_data_types-label-data_type_id-4: Видео
+  translated_data_types-label-data_type_id-5: Изображение от ГИФБ
+  translated_data_types-label-data_type_id-6: МСОП
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Права не защищены
+  translated_licenses-description-license_id-2: © Все права защищены
+  translated_licenses-description-license_id-29: Некоторые права защищены
+  translated_licenses-description-license_id-3: Некоторые права защищены
+  translated_licenses-description-license_id-30: Некоторые права защищены
+  translated_licenses-description-license_id-31: Некоторые права защищены
+  translated_licenses-description-license_id-32: Некоторые права защищены
+  translated_licenses-description-license_id-33: Некоторые права защищены
+  translated_licenses-description-license_id-34: Общественное достояние
+  translated_licenses-description-license_id-35: Общественное достояние
+  translated_licenses-description-license_id-36: Некоторые права защищены
+  translated_licenses-description-license_id-37: Некоторые права защищены
+  translated_licenses-description-license_id-38: Некоторые права защищены
+  translated_licenses-description-license_id-39: Общественное достояние
+  translated_licenses-description-license_id-4: Некоторые права защищены
+  translated_licenses-description-license_id-42: Некоторые права защищены
+  translated_licenses-description-license_id-43: Лицензия неприменима
+  translated_licenses-description-license_id-5: Некоторые права защищены
+  translated_licenses-description-license_id-6: Некоторые права защищены
+  translated_licenses-description-license_id-7: Некоторые права защищены
+  translated_licenses-description-license_id-8: Некоторые права защищены
+  translated_licenses-description-license_id-9: Некоторые права защищены
+  translated_ranks-label-rank_id-106: форма
+  translated_ranks-label-rank_id-107: форма
+  translated_ranks-label-rank_id-112: род
+  translated_ranks-label-rank_id-113: род
+  translated_ranks-label-rank_id-118: род
+  translated_ranks-label-rank_id-169: инфраотряд
+  translated_ranks-label-rank_id-175: инфравид
+  translated_ranks-label-rank_id-183: царство
+  translated_ranks-label-rank_id-266: отряд
+  translated_ranks-label-rank_id-280: тип
+  translated_ranks-label-rank_id-313: секция
+  translated_ranks-label-rank_id-314: секция
+  translated_ranks-label-rank_id-317: секция
+  translated_ranks-label-rank_id-324: ряд
+  translated_ranks-label-rank_id-332: ПТ
+  translated_ranks-label-rank_id-333: пт.
+  translated_ranks-label-rank_id-335: виды
+  translated_ranks-label-rank_id-352: подсемейство
+  translated_ranks-label-rank_id-370: подкласс
+  translated_ranks-label-rank_id-375: подотдел
+  translated_ranks-label-rank_id-383: подсемейство
+  translated_ranks-label-rank_id-390: подрод
+  translated_ranks-label-rank_id-391: подрод
+  translated_ranks-label-rank_id-394: подрод
+  translated_ranks-label-rank_id-396: подцарство
+  translated_ranks-label-rank_id-399: подотряд
+  translated_ranks-label-rank_id-401: подтип
+  translated_ranks-label-rank_id-408: подраздел
+  translated_ranks-label-rank_id-411: подряд
+  translated_ranks-label-rank_id-413: подвид
+  translated_ranks-label-rank_id-414: подвид
+  translated_ranks-label-rank_id-415: подвид
+  translated_ranks-label-rank_id-422: подтриба
+  translated_ranks-label-rank_id-463: надсемейство
+  translated_ranks-label-rank_id-472: надтип
+  translated_ranks-label-rank_id-494: триба
+  translated_ranks-label-rank_id-503: неранжирован
+  translated_ranks-label-rank_id-51: класс
+  translated_ranks-label-rank_id-512: разн.
+  translated_ranks-label-rank_id-513: разн.
+  translated_ranks-label-rank_id-517: разновидности
+  translated_ranks-label-rank_id-518: разновидность
+  translated_ranks-label-rank_id-562: нотород
+  translated_ranks-label-rank_id-563: нотовид
+  translated_ranks-label-rank_id-564: нотоподвид
+  translated_ranks-label-rank_id-565: ноторазновидность
+  translated_ranks-label-rank_id-74: отдел
+  translated_ranks-label-rank_id-85: с
+  translated_ranks-label-rank_id-86: с.
+  translated_ranks-label-rank_id-91: сем
+  translated_ranks-label-rank_id-92: сем.
+  translated_ranks-label-rank_id-99: семейство
+  translated_resource_statuses-label-resource_status_id-1: Загрузка
+  translated_resource_statuses-label-resource_status_id-10: Опубликовано
+  translated_resource_statuses-label-resource_status_id-11: Ожидание публикации
+  translated_resource_statuses-label-resource_status_id-12: Ожидание снятия с публикации
+  translated_resource_statuses-label-resource_status_id-13: Собрать
+  translated_resource_statuses-label-resource_status_id-2: Загружено
+  translated_resource_statuses-label-resource_status_id-3: Сбой при загрузке
+  translated_resource_statuses-label-resource_status_id-4: Перемещено в контент-сервер
+  translated_resource_statuses-label-resource_status_id-5: Проверено
+  translated_resource_statuses-label-resource_status_id-6: Ошибка проверки
+  translated_resource_statuses-label-resource_status_id-7: Обрабатывается
+  translated_resource_statuses-label-resource_status_id-8: Обработано
+  translated_resource_statuses-label-resource_status_id-9: Ошибка обработки
+  translated_service_types-label-service_type_id-1: Схема передачи EOL
+  translated_service_types-label-service_type_id-2: Другое
+  translated_sort_styles-name-sort_style_id-1: Недавно добавленные
+  translated_sort_styles-name-sort_style_id-2: Старейшие
+  translated_sort_styles-name-sort_style_id-3: В алфавитном порядке
+  translated_sort_styles-name-sort_style_id-4: В обратном алфавитном порядке
+  translated_sort_styles-name-sort_style_id-5: Плодородие
+  translated_sort_styles-name-sort_style_id-6: Рейтинг
+  translated_statuses-label-status_id-1: Внесено
+  translated_statuses-label-status_id-2: Обновлено
+  translated_statuses-label-status_id-3: Без изменений
+  translated_statuses-label-status_id-4: Повторное использование
+  translated_synonym_relations-label-synonym_relation_id-1: синоним
+  translated_synonym_relations-label-synonym_relation_id-10: синоним GenBank
+  translated_synonym_relations-label-synonym_relation_id-11: частично
+  translated_synonym_relations-label-synonym_relation_id-12: включает в себя
+  translated_synonym_relations-label-synonym_relation_id-13: искажение смысла
+  translated_synonym_relations-label-synonym_relation_id-14: опечатка
+  translated_synonym_relations-label-synonym_relation_id-15: телеоморф
+  translated_synonym_relations-label-synonym_relation_id-16: неоднозначный синоним
+  translated_synonym_relations-label-synonym_relation_id-17: неправильно имя
+  translated_synonym_relations-label-synonym_relation_id-18: временно принятое имя
+  translated_synonym_relations-label-synonym_relation_id-19: принятое имя
+  translated_synonym_relations-label-synonym_relation_id-2: общее названия
+  translated_synonym_relations-label-synonym_relation_id-20: артефакт базы данных
+  translated_synonym_relations-label-synonym_relation_id-21: другое, см. комментарии
+  translated_synonym_relations-label-synonym_relation_id-22: ортогональные вариант (опечатка)
+  translated_synonym_relations-label-synonym_relation_id-23: неправильное имя
+  translated_synonym_relations-label-synonym_relation_id-24: отклоненное имя
+  translated_synonym_relations-label-synonym_relation_id-25: омоним (нелогичное)
+  translated_synonym_relations-label-synonym_relation_id-26: неполное соответствие
+  translated_synonym_relations-label-synonym_relation_id-27: лишние переименование (нелогичное)
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-29: младший синоним
+  translated_synonym_relations-label-synonym_relation_id-3: акроним
+  translated_synonym_relations-label-synonym_relation_id-30: недоступен, артефакт база данных
+  translated_synonym_relations-label-synonym_relation_id-31: ненужная замена
+  translated_synonym_relations-label-synonym_relation_id-32: последующее название/комбинация
+  translated_synonym_relations-label-synonym_relation_id-33: недоступен, литературная опечатка
+  translated_synonym_relations-label-synonym_relation_id-34: оригинальное название/сочетание
+  translated_synonym_relations-label-synonym_relation_id-35: недоступно, неправильное ориг. написание
+  translated_synonym_relations-label-synonym_relation_id-36: младший омоним
+  translated_synonym_relations-label-synonym_relation_id-37: омоним и младший синоним
+  translated_synonym_relations-label-synonym_relation_id-38: недоступно, подавлено судом
+  translated_synonym_relations-label-synonym_relation_id-39: неоправданное исправление
+  translated_synonym_relations-label-synonym_relation_id-4: анаморф
+  translated_synonym_relations-label-synonym_relation_id-40: недоступно, прочее
+  translated_synonym_relations-label-synonym_relation_id-41: недоступно, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-43: недопустимо опубликованное, прочее
+  translated_synonym_relations-label-synonym_relation_id-44: недопустимо опубликованное, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-45: базионим
+  translated_synonym_relations-label-synonym_relation_id-46: гетеротипичный синоним
+  translated_synonym_relations-label-synonym_relation_id-47: гомотипический синоним
+  translated_synonym_relations-label-synonym_relation_id-48: название отсутствует
+  translated_synonym_relations-label-synonym_relation_id-49: валидное название
+  translated_synonym_relations-label-synonym_relation_id-5: доменное название
+  translated_synonym_relations-label-synonym_relation_id-50: валидно
+  translated_synonym_relations-label-synonym_relation_id-51: принято
+  translated_synonym_relations-label-synonym_relation_id-52: авторитетное
+  translated_synonym_relations-label-synonym_relation_id-53: неопубликованное название
+  translated_synonym_relations-label-synonym_relation_id-54: субъективный синоним
+  translated_synonym_relations-label-synonym_relation_id-55: неправильная авторитетная информация
+  translated_synonym_relations-label-synonym_relation_id-56: неверное написание
+  translated_synonym_relations-label-synonym_relation_id-57: вариант написания
+  translated_synonym_relations-label-synonym_relation_id-58: лексический вариант
+  translated_synonym_relations-label-synonym_relation_id-59: синоним (объективный = гомотипический)
+  translated_synonym_relations-label-synonym_relation_id-6: эквивалентное название
+  translated_synonym_relations-label-synonym_relation_id-60: синоним (субъективный = гетеротипический)
+  translated_synonym_relations-label-synonym_relation_id-61: объективный синоним
+  translated_synonym_relations-label-synonym_relation_id-62: старший синоним
+  translated_synonym_relations-label-synonym_relation_id-63: не принято
+  translated_synonym_relations-label-synonym_relation_id-64: невалидное
+  translated_synonym_relations-label-synonym_relation_id-65: синонима рода
+  translated_synonym_relations-label-synonym_relation_id-66: альтернативное представление
+  translated_synonym_relations-label-synonym_relation_id-67: поиск вида
+  translated_synonym_relations-label-synonym_relation_id-68: садоводческое
+  translated_synonym_relations-label-synonym_relation_id-7: акроним GenBank
+  translated_synonym_relations-label-synonym_relation_id-8: анаморф GenBank
+  translated_synonym_relations-label-synonym_relation_id-9: общее название GenBank
+  translated_table_of_contents-label-table_of_contents_id-1: Обзор
+  translated_table_of_contents-label-table_of_contents_id-13: Общие названия
+  translated_table_of_contents-label-table_of_contents_id-14: МСОП
+  translated_table_of_contents-label-table_of_contents_id-17: Ссылки на литературу
+  translated_table_of_contents-label-table_of_contents_id-194: Размер
+  translated_table_of_contents-label-table_of_contents_id-2: Краткий обзор
+  translated_table_of_contents-label-table_of_contents_id-218: Рассеивание
+  translated_table_of_contents-label-table_of_contents_id-221: Риски
+  translated_table_of_contents-label-table_of_contents_id-225: В интернете
+  translated_table_of_contents-label-table_of_contents_id-226: Контент-партнеры
+  translated_table_of_contents-label-table_of_contents_id-227: Поиск в Интернете
+  translated_table_of_contents-label-table_of_contents_id-24: Комментарии
+  translated_table_of_contents-label-table_of_contents_id-242: Общая экология
+  translated_table_of_contents-label-table_of_contents_id-244: Библиографии
+  translated_table_of_contents-label-table_of_contents_id-251: Преимущества
+  translated_table_of_contents-label-table_of_contents_id-267: Морфология
+  translated_table_of_contents-label-table_of_contents_id-278: Библиография
+  translated_table_of_contents-label-table_of_contents_id-285: Ассоциации
+  translated_table_of_contents-label-table_of_contents_id-286: Природоохранный статус
+  translated_table_of_contents-label-table_of_contents_id-289: Эволюция
+  translated_table_of_contents-label-table_of_contents_id-292: Двойники
+  translated_table_of_contents-label-table_of_contents_id-293: Диагностическое описание
+  translated_table_of_contents-label-table_of_contents_id-296: Управление
+  translated_table_of_contents-label-table_of_contents_id-297: Трофическая стратегия
+  translated_table_of_contents-label-table_of_contents_id-299: Образование
+  translated_table_of_contents-label-table_of_contents_id-3: Физическое описание
+  translated_table_of_contents-label-table_of_contents_id-300: Википедия
+  translated_table_of_contents-label-table_of_contents_id-303: Названия и таксономии
+  translated_table_of_contents-label-table_of_contents_id-304: Связанные названия
+  translated_table_of_contents-label-table_of_contents_id-305: Синонимы
+  translated_table_of_contents-label-table_of_contents_id-306: Статистика страницы
+  translated_table_of_contents-label-table_of_contents_id-307: Краткое содержание
+  translated_table_of_contents-label-table_of_contents_id-308: Подробное описание
+  translated_table_of_contents-label-table_of_contents_id-309: Распространение
+  translated_table_of_contents-label-table_of_contents_id-310: Разработка
+  translated_table_of_contents-label-table_of_contents_id-311: Определение ресурсов
+  translated_table_of_contents-label-table_of_contents_id-312: Миграция
+  translated_table_of_contents-label-table_of_contents_id-313: Болезни и паразиты
+  translated_table_of_contents-label-table_of_contents_id-314: Популяционная биология
+  translated_table_of_contents-label-table_of_contents_id-315: История жизни и поведение
+  translated_table_of_contents-label-table_of_contents_id-316: Поведение
+  translated_table_of_contents-label-table_of_contents_id-317: Цикличность
+  translated_table_of_contents-label-table_of_contents_id-318: Жизненный цикл
+  translated_table_of_contents-label-table_of_contents_id-319: Ожидаемая продолжительность жизни
+  translated_table_of_contents-label-table_of_contents_id-320: Размножение
+  translated_table_of_contents-label-table_of_contents_id-321: Рост
+  translated_table_of_contents-label-table_of_contents_id-322: История ископаемых
+  translated_table_of_contents-label-table_of_contents_id-323: Систематика или Филогенетика
+  translated_table_of_contents-label-table_of_contents_id-324: Функциональная адаптация
+  translated_table_of_contents-label-table_of_contents_id-325: Физиология и клеточная биология
+  translated_table_of_contents-label-table_of_contents_id-326: Молекулярная биология и генетика
+  translated_table_of_contents-label-table_of_contents_id-327: Физиология
+  translated_table_of_contents-label-table_of_contents_id-328: Цитология
+  translated_table_of_contents-label-table_of_contents_id-329: Генетика
+  translated_table_of_contents-label-table_of_contents_id-33: Тенденции
+  translated_table_of_contents-label-table_of_contents_id-330: Нуклеотидные последовательности
+  translated_table_of_contents-label-table_of_contents_id-331: Штрих-код
+  translated_table_of_contents-label-table_of_contents_id-332: Геном
+  translated_table_of_contents-label-table_of_contents_id-333: Молекулярная биология
+  translated_table_of_contents-label-table_of_contents_id-334: Угрозы
+  translated_table_of_contents-label-table_of_contents_id-335: Законодательство
+  translated_table_of_contents-label-table_of_contents_id-336: Примечания
+  translated_table_of_contents-label-table_of_contents_id-337: Образование
+  translated_table_of_contents-label-table_of_contents_id-338: Образовательные ссылки
+  translated_table_of_contents-label-table_of_contents_id-339: Образовательные ресурсы
+  translated_table_of_contents-label-table_of_contents_id-34: Комментарии
+  translated_table_of_contents-label-table_of_contents_id-340: Лаборатория средний школы
+  translated_table_of_contents-label-table_of_contents_id-341: Гражданская наука
+  translated_table_of_contents-label-table_of_contents_id-342: Гражданская наука
+  translated_table_of_contents-label-table_of_contents_id-343: Библиотека наследия биоразнообразия
+  translated_table_of_contents-label-table_of_contents_id-344: Данные
+  translated_table_of_contents-label-table_of_contents_id-345: Источники данных
+  translated_table_of_contents-label-table_of_contents_id-346: Биомедицинские термины
+  translated_table_of_contents-label-table_of_contents_id-347: Таксономия
+  translated_table_of_contents-label-table_of_contents_id-348: Информация о типе
+  translated_table_of_contents-label-table_of_contents_id-4: Экология
+  translated_table_of_contents-label-table_of_contents_id-41: Среда обитания
+  translated_table_of_contents-label-table_of_contents_id-5: Эволюция и систематика
+  translated_table_of_contents-label-table_of_contents_id-6: Значимость для людей и экосистем
+  translated_table_of_contents-label-table_of_contents_id-7: Ссылки и дополнительная информация
+  translated_table_of_contents-label-table_of_contents_id-8: Консервация
+  translated_untrust_reasons-label-untrust_reason_id-1: ошибочное
+  translated_untrust_reasons-label-untrust_reason_id-2: неправильное/заблуждение
+  translated_untrust_reasons-label-untrust_reason_id-3: низкое качество
+  translated_untrust_reasons-label-untrust_reason_id-4: дубликат
+  translated_untrust_reasons-label-untrust_reason_id-5: Прочее
+  translated_user_identities-label-user_identity_id-1: энтузиаст
+  translated_user_identities-label-user_identity_id-2: студент
+  translated_user_identities-label-user_identity_id-3: педагог
+  translated_user_identities-label-user_identity_id-4: гражданский ученый
+  translated_user_identities-label-user_identity_id-5: профессиональный ученый
+  translated_vetted-label-vetted_id-0: Неизвестно
+  translated_vetted-label-vetted_id-4: Ненадёжный
+  translated_vetted-label-vetted_id-5: Доверенный
+  translated_vetted-label-vetted_id-6: Неподходящий
+  translated_view_styles-name-view_style_id-1: Список
+  translated_view_styles-name-view_style_id-2: Галерея
+  translated_view_styles-name-view_style_id-3: Аннотированное
+  translated_visibilities-label-visibility_id-0: Невидимый
+  translated_visibilities-label-visibility_id-1: Видимый
+  translated_visibilities-label-visibility_id-2: Предпросмотр

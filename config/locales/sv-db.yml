@@ -1,0 +1,328 @@
+# Messages for Swedish (svenska)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Liftarn
+# Author: McDutchie
+# Author: Ufred
+# Author: WikiPhoenix
+sv: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: opålitlig
+  translated_activities-name-activity_id-51: visa
+  translated_activities-name-activity_id-52: skapa
+  translated_activities-name-activity_id-53: dölj
+  translated_activities-name-activity_id-54: uppdatera
+  translated_activities-name-activity_id-55: olämplig
+  translated_activities-name-activity_id-56: radera
+  translated_activities-name-activity_id-57: betygsätt
+  translated_activities-name-activity_id-58: pålitlig
+  translated_activities-name-activity_id-59: ogranskad
+  translated_activities-name-activity_id-63: samla in
+  translated_activities-name-activity_id-64: ta bort
+  translated_agent_roles-label-agent_role_id-1: Animatör
+  translated_agent_roles-label-agent_role_id-10: Projekt
+  translated_agent_roles-label-agent_role_id-11: Utgivare
+  translated_agent_roles-label-agent_role_id-12: Rapporterad av
+  translated_agent_roles-label-agent_role_id-13: Källa
+  translated_agent_roles-label-agent_role_id-14: Källdatabas
+  translated_agent_roles-label-agent_role_id-15: Kontaktperson
+  translated_agent_roles-label-agent_role_id-16: Bidragsgivare
+  translated_agent_roles-label-agent_role_id-2: Författare
+  translated_agent_roles-label-agent_role_id-21: leverantör
+  translated_agent_roles-label-agent_role_id-22: Översättare
+  translated_agent_roles-label-agent_role_id-23: Vetenskaplig granskare
+  translated_agent_roles-label-agent_role_id-24: Språklig granskning
+  translated_agent_roles-label-agent_role_id-3: Insamlare
+  translated_agent_roles-label-agent_role_id-4: Kompositör
+  translated_agent_roles-label-agent_role_id-5: Skapare
+  translated_agent_roles-label-agent_role_id-6: Direktör
+  translated_agent_roles-label-agent_role_id-7: Redaktör
+  translated_agent_roles-label-agent_role_id-8: Illustratör
+  translated_agent_roles-label-agent_role_id-9: Fotograf
+  translated_audiences-label-audience_id-1: Expertanvändare
+  translated_audiences-label-audience_id-2: Allmänheten
+  translated_audiences-label-audience_id-3: Barn
+  translated_collection_types-label-collection_type_id-1: Taxonomi
+  translated_collection_types-label-collection_type_id-10: Ljud
+  translated_collection_types-label-collection_type_id-11: Länkar
+  translated_collection_types-label-collection_type_id-12: Litteratur
+  translated_collection_types-label-collection_type_id-13: Taxonomi
+  translated_collection_types-label-collection_type_id-14: Molekylära streckkoder
+  translated_collection_types-label-collection_type_id-15: Beskrivning
+  translated_collection_types-label-collection_type_id-16: Bilder
+  translated_collection_types-label-collection_type_id-17: Fördelning
+  translated_collection_types-label-collection_type_id-18: Bevarandestatus
+  translated_collection_types-label-collection_type_id-19: Namninformation
+  translated_collection_types-label-collection_type_id-2: Molekylära streckkoder
+  translated_collection_types-label-collection_type_id-20: Molekylär data
+  translated_collection_types-label-collection_type_id-21: Nomenklatur
+  translated_collection_types-label-collection_type_id-22: Ljud
+  translated_collection_types-label-collection_type_id-23: Länkar
+  translated_collection_types-label-collection_type_id-24: Litteratur
+  translated_collection_types-label-collection_type_id-3: Beskrivning
+  translated_collection_types-label-collection_type_id-4: Bilder
+  translated_collection_types-label-collection_type_id-5: Erkännande
+  translated_collection_types-label-collection_type_id-6: Bevarandestatus
+  translated_collection_types-label-collection_type_id-7: Namninformation
+  translated_collection_types-label-collection_type_id-8: Molekylär data
+  translated_collection_types-label-collection_type_id-9: Nomenklatur
+  translated_contact_roles-label-contact_role_id-1: Primär kontakt
+  translated_contact_roles-label-contact_role_id-2: Administrativ kontakt
+  translated_contact_roles-label-contact_role_id-3: Teknisk kontakt
+  translated_contact_subjects-title-contact_subject_id-24: Medlemskap och registrering
+  translated_contact_subjects-title-contact_subject_id-25: Användningsvillkor och licensiering
+  translated_contact_subjects-title-contact_subject_id-26: Lärande och utbildning
+  translated_contact_subjects-title-contact_subject_id-27: Bli en innehållspartner
+  translated_contact_subjects-title-contact_subject_id-28: Support för innehållspartner
+  translated_contact_subjects-title-contact_subject_id-29: Support för kurator
+  translated_contact_subjects-title-contact_subject_id-30: Gör en korrigering (stavning och grammatik, bilder, information)
+  translated_contact_subjects-title-contact_subject_id-31: Bidra bilder, videoklipp eller ljud
+  translated_contact_subjects-title-contact_subject_id-32: Efterfrågning av media (intervjuer, pressfrågor, begäran av logotyp)
+  translated_contact_subjects-title-contact_subject_id-33: Gör en finansiell donation
+  translated_contact_subjects-title-contact_subject_id-34: Tekniska frågor (sökningsproblem, webbplatsens funktionalitet)
+  translated_contact_subjects-title-contact_subject_id-35: Allmän feedback
+  translated_content_partner_statuses-label-content_partner_status_id-1: Väntande
+  translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
+  translated_content_partner_statuses-label-content_partner_status_id-3: Arkiverad
+  translated_content_partner_statuses-label-content_partner_status_id-4: Inaktiv
+  translated_content_tables-label-content_table_id-1: Detaljer
+  translated_data_types-label-data_type_id-1: Bild
+  translated_data_types-label-data_type_id-10: Karta
+  translated_data_types-label-data_type_id-2: Ljud
+  translated_data_types-label-data_type_id-3: Text
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: GBIF-bild
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Inga rättigheter reserverade
+  translated_licenses-description-license_id-2: © Alla rättigheter reserverade
+  translated_licenses-description-license_id-29: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-3: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-30: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-31: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-32: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-33: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-34: Allmän egendom
+  translated_licenses-description-license_id-35: Allmän egendom
+  translated_licenses-description-license_id-36: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-37: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-38: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-39: Allmän egendom
+  translated_licenses-description-license_id-4: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-42: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-43: Licens är inte tillämplig
+  translated_licenses-description-license_id-5: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-6: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-7: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-8: Vissa rättigheter reserverade
+  translated_licenses-description-license_id-9: Vissa rättigheter reserverade
+  translated_ranks-label-rank_id-106: formulär
+  translated_ranks-label-rank_id-112: gen
+  translated_ranks-label-rank_id-113: gen.
+  translated_ranks-label-rank_id-118: genus
+  translated_ranks-label-rank_id-183: kungarike
+  translated_ranks-label-rank_id-266: ordning
+  translated_ranks-label-rank_id-280: fylum
+  translated_ranks-label-rank_id-313: avsn
+  translated_ranks-label-rank_id-314: avsn.
+  translated_ranks-label-rank_id-317: avsnitt
+  translated_ranks-label-rank_id-324: serier
+  translated_ranks-label-rank_id-332: ART
+  translated_ranks-label-rank_id-333: art.
+  translated_ranks-label-rank_id-335: arter
+  translated_ranks-label-rank_id-352: underfamilj
+  translated_ranks-label-rank_id-370: underklass
+  translated_ranks-label-rank_id-383: underfamilj
+  translated_ranks-label-rank_id-390: undersl
+  translated_ranks-label-rank_id-391: undersl.
+  translated_ranks-label-rank_id-394: undersläkte
+  translated_ranks-label-rank_id-396: underkungarike
+  translated_ranks-label-rank_id-399: underordning
+  translated_ranks-label-rank_id-408: underavsnitt
+  translated_ranks-label-rank_id-411: underserier
+  translated_ranks-label-rank_id-414: underart
+  translated_ranks-label-rank_id-415: underart
+  translated_ranks-label-rank_id-463: överfamilj
+  translated_ranks-label-rank_id-494: stam
+  translated_ranks-label-rank_id-503: oklassificerad
+  translated_ranks-label-rank_id-51: klass
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-85: f
+  translated_ranks-label-rank_id-86: f.
+  translated_ranks-label-rank_id-91: fam
+  translated_ranks-label-rank_id-92: fam.
+  translated_ranks-label-rank_id-99: familj
+  translated_resource_statuses-label-resource_status_id-1: Laddar upp
+  translated_resource_statuses-label-resource_status_id-10: Publicerad
+  translated_resource_statuses-label-resource_status_id-11: Publicering pågår
+  translated_resource_statuses-label-resource_status_id-2: Uppladdat
+  translated_resource_statuses-label-resource_status_id-3: Uppladdning misslyckades
+  translated_resource_statuses-label-resource_status_id-4: Flyttade till innehållsserver
+  translated_resource_statuses-label-resource_status_id-5: Validerad
+  translated_resource_statuses-label-resource_status_id-6: Validering misslyckades
+  translated_resource_statuses-label-resource_status_id-7: Behandlas
+  translated_resource_statuses-label-resource_status_id-8: Bearbetad
+  translated_resource_statuses-label-resource_status_id-9: Bearbetning misslyckades
+  translated_service_types-label-service_type_id-1: EOL Överföringsschema
+  translated_service_types-label-service_type_id-2: Annat
+  translated_sort_styles-name-sort_style_id-1: Nyligen tillagda
+  translated_sort_styles-name-sort_style_id-2: Äldsta
+  translated_sort_styles-name-sort_style_id-3: Alfabetisk
+  translated_sort_styles-name-sort_style_id-4: Omvänd alfabetisk
+  translated_sort_styles-name-sort_style_id-5: Rikedom
+  translated_sort_styles-name-sort_style_id-6: Betyg
+  translated_statuses-label-status_id-1: Införd
+  translated_statuses-label-status_id-2: Uppdaterad
+  translated_statuses-label-status_id-3: Oförändrad
+  translated_statuses-label-status_id-4: Återanvänd
+  translated_synonym_relations-label-synonym_relation_id-1: synonym
+  translated_synonym_relations-label-synonym_relation_id-11: delvis
+  translated_synonym_relations-label-synonym_relation_id-12: inkluderar
+  translated_synonym_relations-label-synonym_relation_id-13: felbenämning
+  translated_synonym_relations-label-synonym_relation_id-14: felstavning
+  translated_synonym_relations-label-synonym_relation_id-15: teleomorf
+  translated_synonym_relations-label-synonym_relation_id-16: tvetydig synonym
+  translated_synonym_relations-label-synonym_relation_id-17: felaktigt namn
+  translated_synonym_relations-label-synonym_relation_id-18: preliminärt godkänt namn
+  translated_synonym_relations-label-synonym_relation_id-19: accepterat namn
+  translated_synonym_relations-label-synonym_relation_id-2: vanligt namn
+  translated_synonym_relations-label-synonym_relation_id-20: databasartefakt
+  translated_synonym_relations-label-synonym_relation_id-21: andra, se kommentarer
+  translated_synonym_relations-label-synonym_relation_id-22: ortografisk variant (felstavning)
+  translated_synonym_relations-label-synonym_relation_id-23: felaktigt
+  translated_synonym_relations-label-synonym_relation_id-24: avvisat namn
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-29: juniorsynonym
+  translated_synonym_relations-label-synonym_relation_id-3: akronym
+  translated_synonym_relations-label-synonym_relation_id-30: otillgänglig, databasartefakt
+  translated_synonym_relations-label-synonym_relation_id-31: 'onödig ersättning'
+  translated_synonym_relations-label-synonym_relation_id-33: otillgänglig, felstavad litteratur
+  translated_synonym_relations-label-synonym_relation_id-34: ursprungligt namn/kombination
+  translated_synonym_relations-label-synonym_relation_id-35: otillgänglig, felaktig originalstavning
+  translated_synonym_relations-label-synonym_relation_id-36: juniorhomonym
+  translated_synonym_relations-label-synonym_relation_id-37: homonym & juniorsynonym
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-40: otillgänglig, annat
+  translated_synonym_relations-label-synonym_relation_id-41: otillgänglig, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-43: ogiltigt publicerad, andra
+  translated_synonym_relations-label-synonym_relation_id-44: ogiltigt publicerad, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-46: heterotypisk synonym
+  translated_synonym_relations-label-synonym_relation_id-47: homotypisk synonym
+  translated_synonym_relations-label-synonym_relation_id-48: otillgängligt namn
+  translated_synonym_relations-label-synonym_relation_id-49: giltigt namn
+  translated_synonym_relations-label-synonym_relation_id-50: giltig
+  translated_synonym_relations-label-synonym_relation_id-51: accepterat
+  translated_synonym_relations-label-synonym_relation_id-52: myndighet
+  translated_synonym_relations-label-synonym_relation_id-53: opublicerat namn
+  translated_synonym_relations-label-synonym_relation_id-54: subjektiv synonym
+  translated_synonym_relations-label-synonym_relation_id-55: felaktig myndighetsinformation
+  translated_synonym_relations-label-synonym_relation_id-56: felaktig stavning
+  translated_synonym_relations-label-synonym_relation_id-57: stavningsalternativ
+  translated_synonym_relations-label-synonym_relation_id-59: synonym (objektiv = homotopisk)
+  translated_synonym_relations-label-synonym_relation_id-6: motsvarande namn
+  translated_synonym_relations-label-synonym_relation_id-60: synonym (subjektiv = heterotypisk)
+  translated_synonym_relations-label-synonym_relation_id-61: objektiv synonym
+  translated_synonym_relations-label-synonym_relation_id-62: seniorsynonym
+  translated_synonym_relations-label-synonym_relation_id-63: inte accepterad
+  translated_synonym_relations-label-synonym_relation_id-64: ogiltig
+  translated_synonym_relations-label-synonym_relation_id-65: genussynonym
+  translated_table_of_contents-label-table_of_contents_id-1: Översikt
+  translated_table_of_contents-label-table_of_contents_id-13: Vanliga namn
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Litteraturreferenser
+  translated_table_of_contents-label-table_of_contents_id-194: Storlek
+  translated_table_of_contents-label-table_of_contents_id-2: Kort sammanfattning
+  translated_table_of_contents-label-table_of_contents_id-218: Spridning
+  translated_table_of_contents-label-table_of_contents_id-221: Risker
+  translated_table_of_contents-label-table_of_contents_id-225: På webben
+  translated_table_of_contents-label-table_of_contents_id-226: Innehållspartners
+  translated_table_of_contents-label-table_of_contents_id-227: Sök på webben
+  translated_table_of_contents-label-table_of_contents_id-24: Kommenerare
+  translated_table_of_contents-label-table_of_contents_id-242: Allmän ekologi
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliografier
+  translated_table_of_contents-label-table_of_contents_id-251: Fördelar
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologi
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
+  translated_table_of_contents-label-table_of_contents_id-285: Föreningar
+  translated_table_of_contents-label-table_of_contents_id-286: Bevarandestatus
+  translated_table_of_contents-label-table_of_contents_id-289: Evolution
+  translated_table_of_contents-label-table_of_contents_id-292: Dubbelgångare
+  translated_table_of_contents-label-table_of_contents_id-293: Diagnostisk beskrivning
+  translated_table_of_contents-label-table_of_contents_id-296: Hantering
+  translated_table_of_contents-label-table_of_contents_id-297: Tropisk strategi
+  translated_table_of_contents-label-table_of_contents_id-299: Utbildning
+  translated_table_of_contents-label-table_of_contents_id-3: Fysisk beskrivning
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Namn och taxonomi
+  translated_table_of_contents-label-table_of_contents_id-304: Relaterade namn
+  translated_table_of_contents-label-table_of_contents_id-305: Synonymer
+  translated_table_of_contents-label-table_of_contents_id-306: Sidstatistiker
+  translated_table_of_contents-label-table_of_contents_id-307: Innehållssammanfattning
+  translated_table_of_contents-label-table_of_contents_id-308: Omfattande beskrivning
+  translated_table_of_contents-label-table_of_contents_id-309: Fördelning
+  translated_table_of_contents-label-table_of_contents_id-310: Utveckling
+  translated_table_of_contents-label-table_of_contents_id-311: Identifikationsresurser
+  translated_table_of_contents-label-table_of_contents_id-312: Migration
+  translated_table_of_contents-label-table_of_contents_id-313: Sjukdomar och parasiter
+  translated_table_of_contents-label-table_of_contents_id-314: Populationsbiologi
+  translated_table_of_contents-label-table_of_contents_id-315: Livshistoria och beteende
+  translated_table_of_contents-label-table_of_contents_id-316: Beteende
+  translated_table_of_contents-label-table_of_contents_id-317: Cyklicitet
+  translated_table_of_contents-label-table_of_contents_id-318: Livscykel
+  translated_table_of_contents-label-table_of_contents_id-319: Förväntad livslängd
+  translated_table_of_contents-label-table_of_contents_id-320: Reproduktion
+  translated_table_of_contents-label-table_of_contents_id-321: Tillväxt
+  translated_table_of_contents-label-table_of_contents_id-322: Fossilhistorik
+  translated_table_of_contents-label-table_of_contents_id-323: Systematik och fylogeni
+  translated_table_of_contents-label-table_of_contents_id-324: Funktionella anpassningar
+  translated_table_of_contents-label-table_of_contents_id-325: Fysiologi och cellbiologi
+  translated_table_of_contents-label-table_of_contents_id-326: Molekylärbiologi och genetik
+  translated_table_of_contents-label-table_of_contents_id-327: Fysiologi
+  translated_table_of_contents-label-table_of_contents_id-328: Cellbiologi
+  translated_table_of_contents-label-table_of_contents_id-329: Genetik
+  translated_table_of_contents-label-table_of_contents_id-33: Trender
+  translated_table_of_contents-label-table_of_contents_id-330: Nukleotidsekvenser
+  translated_table_of_contents-label-table_of_contents_id-331: Streckkod
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
+  translated_table_of_contents-label-table_of_contents_id-333: Molekylärbiologi
+  translated_table_of_contents-label-table_of_contents_id-334: Hot
+  translated_table_of_contents-label-table_of_contents_id-335: Lagstiftning
+  translated_table_of_contents-label-table_of_contents_id-336: Anteckningar
+  translated_table_of_contents-label-table_of_contents_id-337: Utbildning
+  translated_table_of_contents-label-table_of_contents_id-338: Utbildningslänkar
+  translated_table_of_contents-label-table_of_contents_id-339: Utbildningsresurser
+  translated_table_of_contents-label-table_of_contents_id-34: Kommentarer
+  translated_table_of_contents-label-table_of_contents_id-340: Gymnasielabbserier
+  translated_table_of_contents-label-table_of_contents_id-344: Data
+  translated_table_of_contents-label-table_of_contents_id-345: Datakällor
+  translated_table_of_contents-label-table_of_contents_id-346: Biomedicinska termer
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomi
+  translated_table_of_contents-label-table_of_contents_id-348: Typinformation
+  translated_table_of_contents-label-table_of_contents_id-4: Ekologi
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-5: Evolution och systematik
+  translated_table_of_contents-label-table_of_contents_id-6: Betydelse för människor och ekosystem
+  translated_table_of_contents-label-table_of_contents_id-7: Referenser och mer information
+  translated_table_of_contents-label-table_of_contents_id-8: Konversation
+  translated_untrust_reasons-label-untrust_reason_id-1: felidentifierad
+  translated_untrust_reasons-label-untrust_reason_id-2: felaktig/vilseledande
+  translated_untrust_reasons-label-untrust_reason_id-3: låg kvalitet
+  translated_untrust_reasons-label-untrust_reason_id-4: duplikat
+  translated_untrust_reasons-label-untrust_reason_id-5: Annat
+  translated_user_identities-label-user_identity_id-1: en entusiast
+  translated_user_identities-label-user_identity_id-2: en student
+  translated_user_identities-label-user_identity_id-3: en undervisare
+  translated_user_identities-label-user_identity_id-4: en medborgarforskare
+  translated_user_identities-label-user_identity_id-5: en professionell vetenskapsman
+  translated_vetted-label-vetted_id-0: Okänd
+  translated_vetted-label-vetted_id-4: Opålitlig
+  translated_vetted-label-vetted_id-5: Pålitlig
+  translated_vetted-label-vetted_id-6: Olämplig
+  translated_view_styles-name-view_style_id-1: Lista
+  translated_view_styles-name-view_style_id-2: Galleri
+  translated_visibilities-label-visibility_id-0: Osynlig
+  translated_visibilities-label-visibility_id-1: Synlig
+  translated_visibilities-label-visibility_id-2: Förhandsgranska

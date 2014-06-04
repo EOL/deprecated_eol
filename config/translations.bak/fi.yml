@@ -1,0 +1,11 @@
+# Messages for Finnish (Suomi)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: Nike
+# Author: Silvonen
+fi: 
+  already_a_member_question: Oletko jo jäsen?
+  are_you_sure: Oletko varma?
+  cancel: Peruuta
+  collections: Kokoelmat
+  eol_news: EOL-uutisia

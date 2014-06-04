@@ -1,0 +1,211 @@
+# Messages for Turkish (Türkçe)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: BetelgeuSeginus
+# Author: Cekli829
+# Author: Emperyan
+# Author: Erdemaslancan
+# Author: Incelemeelemani
+# Author: Karduelis
+# Author: Ugcan
+# Author: Zafertorun
+tr: 
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: güvenilmeyen
+  translated_activities-name-activity_id-51: göster
+  translated_activities-name-activity_id-52: oluştur
+  translated_activities-name-activity_id-53: gizle
+  translated_activities-name-activity_id-54: güncelle
+  translated_activities-name-activity_id-55: uygunsuz
+  translated_activities-name-activity_id-56: sil
+  translated_activities-name-activity_id-57: oran
+  translated_activities-name-activity_id-58: güvenilir
+  translated_activities-name-activity_id-59: incelenmemiş
+  translated_activities-name-activity_id-64: kaldır
+  translated_agent_roles-label-agent_role_id-1: Canlandırıcı
+  translated_agent_roles-label-agent_role_id-10: Proje
+  translated_agent_roles-label-agent_role_id-11: Yayımcı
+  translated_agent_roles-label-agent_role_id-12: Kaydedici
+  translated_agent_roles-label-agent_role_id-13: Kaynak
+  translated_agent_roles-label-agent_role_id-14: Kaynak Veritabanı
+  translated_agent_roles-label-agent_role_id-15: İlgili kişi
+  translated_agent_roles-label-agent_role_id-16: Katılımcı
+  translated_agent_roles-label-agent_role_id-2: Yazar
+  translated_agent_roles-label-agent_role_id-21: sağlayıcı
+  translated_agent_roles-label-agent_role_id-22: Çevirmen
+  translated_agent_roles-label-agent_role_id-23: Bilimsel incelemeci
+  translated_agent_roles-label-agent_role_id-24: Dilsel incelemeci
+  translated_agent_roles-label-agent_role_id-3: Derleyici
+  translated_agent_roles-label-agent_role_id-5: Oluşturan
+  translated_agent_roles-label-agent_role_id-6: Yönetmen
+  translated_agent_roles-label-agent_role_id-7: Editör
+  translated_agent_roles-label-agent_role_id-8: Çizer
+  translated_agent_roles-label-agent_role_id-9: Fotoğrafçı
+  translated_audiences-label-audience_id-1: Uzman kullanıcılar
+  translated_audiences-label-audience_id-2: Genel kamu
+  translated_audiences-label-audience_id-3: Çocuklar
+  translated_collection_types-label-collection_type_id-1: Taksonomi
+  translated_collection_types-label-collection_type_id-10: Sesler
+  translated_collection_types-label-collection_type_id-11: Bağlantılar
+  translated_collection_types-label-collection_type_id-12: Literatür
+  translated_collection_types-label-collection_type_id-13: Taksonomi
+  translated_collection_types-label-collection_type_id-15: Açıklama
+  translated_collection_types-label-collection_type_id-16: Resimler
+  translated_collection_types-label-collection_type_id-17: Dağıtım
+  translated_collection_types-label-collection_type_id-18: Korunma durumu
+  translated_collection_types-label-collection_type_id-19: Ad bilgisi
+  translated_collection_types-label-collection_type_id-20: Moleküler veri
+  translated_collection_types-label-collection_type_id-21: Adlandırma
+  translated_collection_types-label-collection_type_id-22: Sesler
+  translated_collection_types-label-collection_type_id-23: Bağlantılar
+  translated_collection_types-label-collection_type_id-24: Literatür
+  translated_collection_types-label-collection_type_id-3: Açıklama
+  translated_collection_types-label-collection_type_id-4: Resimler
+  translated_collection_types-label-collection_type_id-5: Dağıtım
+  translated_collection_types-label-collection_type_id-6: Korunma durumu
+  translated_collection_types-label-collection_type_id-8: Moleküler veri
+  translated_collection_types-label-collection_type_id-9: Adlandırma
+  translated_contact_roles-label-contact_role_id-1: Birincil İletişim
+  translated_contact_roles-label-contact_role_id-2: Yönetimsel İletişim
+  translated_contact_roles-label-contact_role_id-3: Teknik İletişim
+  translated_contact_subjects-title-contact_subject_id-24: Üyelik ve kayıt
+  translated_contact_subjects-title-contact_subject_id-25: Kullanım koşulları ve lisanslama
+  translated_contact_subjects-title-contact_subject_id-26: Öğrenim ve eğitim
+  translated_contact_subjects-title-contact_subject_id-33: Finansal bağış yapın
+  translated_contact_subjects-title-contact_subject_id-34: Teknik sorular (arama sorunları, web site işlevselliği)
+  translated_contact_subjects-title-contact_subject_id-35: Genel geri bildirim
+  translated_content_partner_statuses-label-content_partner_status_id-1: Beklemede
+  translated_content_partner_statuses-label-content_partner_status_id-2: Etkin
+  translated_content_partner_statuses-label-content_partner_status_id-3: Arşivlendi
+  translated_content_partner_statuses-label-content_partner_status_id-4: Etkin değil
+  translated_content_tables-label-content_table_id-1: Ayrıntılar
+  translated_data_types-label-data_type_id-1: Resim
+  translated_data_types-label-data_type_id-10: Harita
+  translated_data_types-label-data_type_id-2: Ses
+  translated_data_types-label-data_type_id-3: Metin
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: GBIF Resmi
+  translated_data_types-label-data_type_id-6: Dünya Doğa ve Doğal Kaynakları Koruma Birliği (IUCN)
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Hiçbir hakkı saklı değildir
+  translated_licenses-description-license_id-2: "&#169; Tüm hakları saklıdır"
+  translated_licenses-description-license_id-29: Bazı hakları saklıdır
+  translated_licenses-description-license_id-3: Bazı hakları saklıdır
+  translated_licenses-description-license_id-30: Bazı hakları saklıdır
+  translated_licenses-description-license_id-31: Bazı hakları saklıdır
+  translated_licenses-description-license_id-32: Bazı hakları saklıdır
+  translated_licenses-description-license_id-33: Bazı hakları saklıdır
+  translated_licenses-description-license_id-34: Kamu Malı
+  translated_licenses-description-license_id-35: Kamu Malı
+  translated_licenses-description-license_id-36: Bazı hakları saklıdır
+  translated_licenses-description-license_id-37: Bazı hakları saklıdır
+  translated_licenses-description-license_id-38: Bazı hakları saklıdır
+  translated_licenses-description-license_id-39: Kamu Malı
+  translated_licenses-description-license_id-4: Bazı hakları saklıdır
+  translated_licenses-description-license_id-42: Bazı hakları saklıdır
+  translated_licenses-description-license_id-43: Lisans geçerli değil
+  translated_licenses-description-license_id-5: Bazı hakları saklıdır
+  translated_licenses-description-license_id-6: Bazı hakları saklıdır
+  translated_licenses-description-license_id-7: Bazı hakları saklıdır
+  translated_licenses-description-license_id-8: Bazı hakları saklıdır
+  translated_licenses-description-license_id-9: Bazı hakları saklıdır
+  translated_ranks-label-rank_id-106: form
+  translated_ranks-label-rank_id-107: forma
+  translated_ranks-label-rank_id-118: cins
+  translated_ranks-label-rank_id-169: infra takım
+  translated_ranks-label-rank_id-175: infra türler
+  translated_ranks-label-rank_id-183: âlem
+  translated_ranks-label-rank_id-266: takım
+  translated_ranks-label-rank_id-280: şube
+  translated_ranks-label-rank_id-317: seksiyon
+  translated_ranks-label-rank_id-324: seri
+  translated_ranks-label-rank_id-335: türler
+  translated_ranks-label-rank_id-352: alt familya
+  translated_ranks-label-rank_id-370: alt sınıf
+  translated_ranks-label-rank_id-375: alt bölüm
+  translated_ranks-label-rank_id-383: alt familya
+  translated_ranks-label-rank_id-394: alt cins
+  translated_ranks-label-rank_id-396: alt âlem
+  translated_ranks-label-rank_id-399: alt takım
+  translated_ranks-label-rank_id-401: alt şube
+  translated_ranks-label-rank_id-408: alt seksiyon
+  translated_ranks-label-rank_id-411: alt seri
+  translated_ranks-label-rank_id-414: subsp.
+  translated_ranks-label-rank_id-415: alt tür
+  translated_ranks-label-rank_id-422: alt oymak
+  translated_ranks-label-rank_id-463: üst familya
+  translated_ranks-label-rank_id-494: oymak
+  translated_ranks-label-rank_id-51: sınıf
+  translated_ranks-label-rank_id-512: var
+  translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-517: varyeteler
+  translated_ranks-label-rank_id-518: varyete
+  translated_ranks-label-rank_id-74: bölüm
+  translated_ranks-label-rank_id-85: "\nf"
+  translated_ranks-label-rank_id-99: aile
+  translated_resource_statuses-label-resource_status_id-1: Yükleniyor
+  translated_resource_statuses-label-resource_status_id-2: Yüklendi
+  translated_resource_statuses-label-resource_status_id-3: Yükleme Başarısız
+  translated_sort_styles-name-sort_style_id-6: Derecelendirme
+  translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-49: geçerli adı
+  translated_synonym_relations-label-synonym_relation_id-51: onaylandı
+  translated_synonym_relations-label-synonym_relation_id-63: onaylanmadı
+  translated_synonym_relations-label-synonym_relation_id-64: Geçersiz
+  translated_table_of_contents-label-table_of_contents_id-1: Genel Bakış
+  translated_table_of_contents-label-table_of_contents_id-13: Genel adlar
+  translated_table_of_contents-label-table_of_contents_id-14: Dünya Doğa ve Doğal Kaynakları Koruma Birliği (IUCN)
+  translated_table_of_contents-label-table_of_contents_id-17: Edebiyat referansları
+  translated_table_of_contents-label-table_of_contents_id-194: Boyut
+  translated_table_of_contents-label-table_of_contents_id-218: Dağılım
+  translated_table_of_contents-label-table_of_contents_id-221: Riskler
+  translated_table_of_contents-label-table_of_contents_id-225: Ağ üzerinde
+  translated_table_of_contents-label-table_of_contents_id-24: Yorum
+  translated_table_of_contents-label-table_of_contents_id-242: Genel Çevrebilim
+  translated_table_of_contents-label-table_of_contents_id-244: Kaynakçalar
+  translated_table_of_contents-label-table_of_contents_id-251: Çıkarlar
+  translated_table_of_contents-label-table_of_contents_id-267: Morfoloji
+  translated_table_of_contents-label-table_of_contents_id-278: Kaynakça
+  translated_table_of_contents-label-table_of_contents_id-289: Evrimleşme
+  translated_table_of_contents-label-table_of_contents_id-3: Fiziksel tanımlama
+  translated_table_of_contents-label-table_of_contents_id-300: Vikipedi
+  translated_table_of_contents-label-table_of_contents_id-313: Hastalıklar ve Asalaklar
+  translated_table_of_contents-label-table_of_contents_id-314: Nüfus biyolojisi
+  translated_table_of_contents-label-table_of_contents_id-315: Yaşam öyküsü ve Davranış
+  translated_table_of_contents-label-table_of_contents_id-316: davranış
+  translated_table_of_contents-label-table_of_contents_id-317: Döngüsellik
+  translated_table_of_contents-label-table_of_contents_id-318: Yaşam Döngüsü
+  translated_table_of_contents-label-table_of_contents_id-321: Büyüme
+  translated_table_of_contents-label-table_of_contents_id-322: Fosil Tarihi
+  translated_table_of_contents-label-table_of_contents_id-325: Fizyoloji ve Hücre Biyolojisi
+  translated_table_of_contents-label-table_of_contents_id-326: Moleküler Biyoloji ve Genler
+  translated_table_of_contents-label-table_of_contents_id-327: Fizyoloji
+  translated_table_of_contents-label-table_of_contents_id-328: Hücre Biyolojisi
+  translated_table_of_contents-label-table_of_contents_id-33: Trendler
+  translated_table_of_contents-label-table_of_contents_id-333: Moleküler Biyoloji
+  translated_table_of_contents-label-table_of_contents_id-336: Notlar
+  translated_table_of_contents-label-table_of_contents_id-337: Eğitim
+  translated_table_of_contents-label-table_of_contents_id-338: Eğitim Bağlantıları
+  translated_table_of_contents-label-table_of_contents_id-34: Yorumlar
+  translated_table_of_contents-label-table_of_contents_id-344: Veri
+  translated_table_of_contents-label-table_of_contents_id-345: Veri Kaynakları
+  translated_table_of_contents-label-table_of_contents_id-346: Biyomedikal Terimler
+  translated_table_of_contents-label-table_of_contents_id-347: Taksonomi
+  translated_table_of_contents-label-table_of_contents_id-348: Tür Bilgisi
+  translated_table_of_contents-label-table_of_contents_id-4: Ekoloji
+  translated_table_of_contents-label-table_of_contents_id-41: Yaşam alanı (Habitat)
+  translated_table_of_contents-label-table_of_contents_id-7: Referanslar ve daha fazla bilgi
+  translated_table_of_contents-label-table_of_contents_id-8: Koruma
+  translated_user_identities-label-user_identity_id-1: meraklı kişi
+  translated_user_identities-label-user_identity_id-2: öğrenci
+  translated_user_identities-label-user_identity_id-3: eğitimci
+  translated_user_identities-label-user_identity_id-5: uzman bilim insanı
+  translated_vetted-label-vetted_id-0: Bilinmiyor
+  translated_vetted-label-vetted_id-4: Güvenilmeyen
+  translated_vetted-label-vetted_id-5: Güvenilir
+  translated_vetted-label-vetted_id-6: Uygunsuz
+  translated_view_styles-name-view_style_id-1: Liste
+  translated_view_styles-name-view_style_id-2: Sergi
+  translated_view_styles-name-view_style_id-3: Açıklamalı
+  translated_visibilities-label-visibility_id-2: Ön izleme

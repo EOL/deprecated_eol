@@ -1,0 +1,362 @@
+# Messages for Tagalog (Tagalog)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: AnakngAraw
+tl: 
+  translated_activities-name-activity_id-19: balangkas
+  translated_activities-name-activity_id-50: hindi pinagkakatiwalaan
+  translated_activities-name-activity_id-51: ipakita
+  translated_activities-name-activity_id-52: likhain
+  translated_activities-name-activity_id-53: itago
+  translated_activities-name-activity_id-54: isapanahon
+  translated_activities-name-activity_id-55: hindi naaangkop
+  translated_activities-name-activity_id-56: burahin
+  translated_activities-name-activity_id-57: antasan
+  translated_activities-name-activity_id-58: pinagkakatiwalaan
+  translated_activities-name-activity_id-59: hindi pa nasusuri
+  translated_activities-name-activity_id-63: tipunin
+  translated_activities-name-activity_id-64: tanggalin
+  translated_agent_roles-label-agent_role_id-1: Tagapagbigaybuhay
+  translated_agent_roles-label-agent_role_id-10: Proyekto
+  translated_agent_roles-label-agent_role_id-11: Tagapaglathala
+  translated_agent_roles-label-agent_role_id-12: Tagapagtala
+  translated_agent_roles-label-agent_role_id-13: Pinagmulan
+  translated_agent_roles-label-agent_role_id-14: Kalipunan ng Dato ng Pinagkunan
+  translated_agent_roles-label-agent_role_id-15: Kaugnayang Tao
+  translated_agent_roles-label-agent_role_id-16: Tagapag-ambag
+  translated_agent_roles-label-agent_role_id-2: May-akda
+  translated_agent_roles-label-agent_role_id-21: tagapagbigay
+  translated_agent_roles-label-agent_role_id-22: Tagapagsalinwika
+  translated_agent_roles-label-agent_role_id-23: Manunuring Pang-agham
+  translated_agent_roles-label-agent_role_id-24: Manunuring Pangwika
+  translated_agent_roles-label-agent_role_id-3: Tagapagtipon
+  translated_agent_roles-label-agent_role_id-4: Kompositor
+  translated_agent_roles-label-agent_role_id-5: Tagapaglikha
+  translated_agent_roles-label-agent_role_id-6: Direktor
+  translated_agent_roles-label-agent_role_id-7: Patnugot
+  translated_agent_roles-label-agent_role_id-8: Mangguguhit
+  translated_agent_roles-label-agent_role_id-9: Litratista
+  translated_audiences-label-audience_id-1: Dalubhasang mga tagagamit
+  translated_audiences-label-audience_id-2: Pangkalahatang madla
+  translated_audiences-label-audience_id-3: Mga supling
+  translated_collection_types-label-collection_type_id-1: Taksonomiya
+  translated_collection_types-label-collection_type_id-10: Mga tunog
+  translated_collection_types-label-collection_type_id-11: Mga kawing
+  translated_collection_types-label-collection_type_id-12: Panitikan
+  translated_collection_types-label-collection_type_id-13: Taksonomiya
+  translated_collection_types-label-collection_type_id-14: Mga bareta ng kodigo na pangmolekula
+  translated_collection_types-label-collection_type_id-15: Paglalarawan
+  translated_collection_types-label-collection_type_id-16: Mga larawan
+  translated_collection_types-label-collection_type_id-17: Pagkakamudmod
+  translated_collection_types-label-collection_type_id-18: Katayuan ng pagpapanatili
+  translated_collection_types-label-collection_type_id-19: Kabatiran sa pangalan
+  translated_collection_types-label-collection_type_id-2: Mga bareta ng kodigo na pangmolekula
+  translated_collection_types-label-collection_type_id-20: Datong pangmolekula
+  translated_collection_types-label-collection_type_id-21: Katawagan
+  translated_collection_types-label-collection_type_id-22: Mga tunog
+  translated_collection_types-label-collection_type_id-23: Mga kawing
+  translated_collection_types-label-collection_type_id-24: Panitikan
+  translated_collection_types-label-collection_type_id-3: Paglalarawan
+  translated_collection_types-label-collection_type_id-4: Mga larawan
+  translated_collection_types-label-collection_type_id-5: Pagkakamudmod
+  translated_collection_types-label-collection_type_id-6: Katayuan ng pagpapanatili
+  translated_collection_types-label-collection_type_id-7: Kabatiran sa pangalan
+  translated_collection_types-label-collection_type_id-8: Datong pangmolekula
+  translated_collection_types-label-collection_type_id-9: Katawagan
+  translated_contact_roles-label-contact_role_id-1: Pangunahing Kaugnayan
+  translated_contact_roles-label-contact_role_id-2: Kaugnayang Tagapangasiwa
+  translated_contact_roles-label-contact_role_id-3: Kaugnayang Teknikal
+  translated_contact_subjects-title-contact_subject_id-24: Pagkakasapi at pagpapatala
+  translated_contact_subjects-title-contact_subject_id-25: Patakaran sa paggamit at paglilisensiya
+  translated_contact_subjects-title-contact_subject_id-26: Pagkatuto at edukasyon
+  translated_contact_subjects-title-contact_subject_id-27: Maging isang kasama na pangnilalaman
+  translated_contact_subjects-title-contact_subject_id-28: Suporta sa kasosyo sa nilalaman
+  translated_contact_subjects-title-contact_subject_id-29: Suporta sa kurador
+  translated_contact_subjects-title-contact_subject_id-30: Gumawa ng pagtatama (pagbabaybay at balarila, mga larawan, kabatiran)
+  translated_contact_subjects-title-contact_subject_id-31: Mag-ambag ng mga larawan, mga bidyo o mga tunog
+  translated_contact_subjects-title-contact_subject_id-32: Mga paghiling ng midya (mga panayam, mga pagtatanong ng tagapag-ulat, mga paghiling ng logo)
+  translated_contact_subjects-title-contact_subject_id-33: Mag-abuloy ng donasyong salapi
+  translated_contact_subjects-title-contact_subject_id-34: Mga katanungang teknikal (mga suliranin sa paghahanap, paggana ng websayt)
+  translated_contact_subjects-title-contact_subject_id-35: Pangkalahatang katugunan
+  translated_content_partner_statuses-label-content_partner_status_id-1: Nakabinbin
+  translated_content_partner_statuses-label-content_partner_status_id-2: Masigla
+  translated_content_partner_statuses-label-content_partner_status_id-3: Nasinop
+  translated_content_partner_statuses-label-content_partner_status_id-4: Hindi masigla
+  translated_content_tables-label-content_table_id-1: Mga detalye
+  translated_data_types-label-data_type_id-1: Larawan
+  translated_data_types-label-data_type_id-10: Mapa
+  translated_data_types-label-data_type_id-2: Tunog
+  translated_data_types-label-data_type_id-3: Teksto
+  translated_data_types-label-data_type_id-4: Bidyo
+  translated_data_types-label-data_type_id-5: Larawang GBIF
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Walang nakalaang mga karapatan
+  translated_licenses-description-license_id-2: "&#169; Nakalaan ang lahat ng mga karapatan"
+  translated_licenses-description-license_id-29: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-3: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-30: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-31: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-32: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-33: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-34: Nasasakop ng Madla
+  translated_licenses-description-license_id-35: Nasasakop ng Madla
+  translated_licenses-description-license_id-36: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-37: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-38: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-39: Nasasakop ng Madla
+  translated_licenses-description-license_id-4: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-42: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-43: Hindi mailalapat ang lisensiya
+  translated_licenses-description-license_id-5: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-6: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-7: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-8: Nakalaan ang ilang mga karapatan
+  translated_licenses-description-license_id-9: Nakalaan ang ilang mga karapatan
+  translated_ranks-label-rank_id-106: porma
+  translated_ranks-label-rank_id-107: porma
+  translated_ranks-label-rank_id-112: sari
+  translated_ranks-label-rank_id-113: sar.
+  translated_ranks-label-rank_id-118: sari
+  translated_ranks-label-rank_id-169: inpraorden
+  translated_ranks-label-rank_id-175: inpraespesye
+  translated_ranks-label-rank_id-183: kaharian
+  translated_ranks-label-rank_id-266: orden
+  translated_ranks-label-rank_id-280: paylum
+  translated_ranks-label-rank_id-313: seksiyon
+  translated_ranks-label-rank_id-314: seksiyon
+  translated_ranks-label-rank_id-317: seksiyon
+  translated_ranks-label-rank_id-324: serye
+  translated_ranks-label-rank_id-332: espesye
+  translated_ranks-label-rank_id-333: espesye
+  translated_ranks-label-rank_id-335: espesye
+  translated_ranks-label-rank_id-352: subpamilya
+  translated_ranks-label-rank_id-370: subklase
+  translated_ranks-label-rank_id-375: subdibisyon
+  translated_ranks-label-rank_id-383: subpamilya
+  translated_ranks-label-rank_id-390: subsari
+  translated_ranks-label-rank_id-391: subsari
+  translated_ranks-label-rank_id-394: subsari
+  translated_ranks-label-rank_id-396: subkaharian
+  translated_ranks-label-rank_id-399: suborden
+  translated_ranks-label-rank_id-401: subpaylum
+  translated_ranks-label-rank_id-408: subseksiyon
+  translated_ranks-label-rank_id-411: subserye
+  translated_ranks-label-rank_id-413: subespesye
+  translated_ranks-label-rank_id-414: subespesye
+  translated_ranks-label-rank_id-415: subespesye
+  translated_ranks-label-rank_id-422: subtribo
+  translated_ranks-label-rank_id-463: superpamilya
+  translated_ranks-label-rank_id-472: superpaylum
+  translated_ranks-label-rank_id-494: tribo
+  translated_ranks-label-rank_id-503: hindi nakaranggo
+  translated_ranks-label-rank_id-51: klase
+  translated_ranks-label-rank_id-512: kasari
+  translated_ranks-label-rank_id-513: bar.
+  translated_ranks-label-rank_id-517: baryetas
+  translated_ranks-label-rank_id-518: kasari
+  translated_ranks-label-rank_id-562: notohenus
+  translated_ranks-label-rank_id-563: notoespesye
+  translated_ranks-label-rank_id-564: notosubespesye
+  translated_ranks-label-rank_id-565: notobaryedad
+  translated_ranks-label-rank_id-74: kahatian
+  translated_ranks-label-rank_id-85: pamilya
+  translated_ranks-label-rank_id-86: p.
+  translated_ranks-label-rank_id-91: pamilya
+  translated_ranks-label-rank_id-92: pam.
+  translated_ranks-label-rank_id-99: pamilya
+  translated_resource_statuses-label-resource_status_id-1: Ikinakarga
+  translated_resource_statuses-label-resource_status_id-10: Nailathala na
+  translated_resource_statuses-label-resource_status_id-11: Nakabinbin ang Paglalathala
+  translated_resource_statuses-label-resource_status_id-12: Nakabinbin ang Hindi Paglalathala
+  translated_resource_statuses-label-resource_status_id-13: Pilit na Pag-ani
+  translated_resource_statuses-label-resource_status_id-2: Naikarga na
+  translated_resource_statuses-label-resource_status_id-3: Nabigo ang Pagkakarga
+  translated_resource_statuses-label-resource_status_id-4: Inilipat sa Tagahain ng Nilalaman
+  translated_resource_statuses-label-resource_status_id-5: Napatunayan
+  translated_resource_statuses-label-resource_status_id-6: Nabigo ang Pagpapatunay
+  translated_resource_statuses-label-resource_status_id-7: Isinasagawa
+  translated_resource_statuses-label-resource_status_id-8: Naisagawa na
+  translated_resource_statuses-label-resource_status_id-9: Nabigo ang Pagsasagawa
+  translated_service_types-label-service_type_id-1: Panukalang Panglipat ng EOL
+  translated_service_types-label-service_type_id-2: Iba pa
+  translated_sort_styles-name-sort_style_id-1: Kamakailang Nadagdag
+  translated_sort_styles-name-sort_style_id-2: Pinakaluma
+  translated_sort_styles-name-sort_style_id-3: Naka-abakada
+  translated_sort_styles-name-sort_style_id-4: Pabaligtad ang Pagka-abakada
+  translated_sort_styles-name-sort_style_id-5: Pagkamayaman
+  translated_sort_styles-name-sort_style_id-6: Kaantasan
+  translated_statuses-label-status_id-1: Naisingit
+  translated_statuses-label-status_id-2: Naisapanahon na
+  translated_statuses-label-status_id-3: Hindi nabago
+  translated_statuses-label-status_id-4: Muling nagamit
+  translated_synonym_relations-label-synonym_relation_id-1: singkahulugan
+  translated_synonym_relations-label-synonym_relation_id-10: kasingkahulugan sa GenBank
+  translated_synonym_relations-label-synonym_relation_id-11: bahagi lang
+  translated_synonym_relations-label-synonym_relation_id-12: kabilang ang
+  translated_synonym_relations-label-synonym_relation_id-13: maling pangalan
+  translated_synonym_relations-label-synonym_relation_id-14: maling baybay
+  translated_synonym_relations-label-synonym_relation_id-15: teleomorpo
+  translated_synonym_relations-label-synonym_relation_id-16: hindi malinaw na singkahulugan
+  translated_synonym_relations-label-synonym_relation_id-17: pangalang mali ang pagkakalapat
+  translated_synonym_relations-label-synonym_relation_id-18: pansamantalang tanggap na pangalan
+  translated_synonym_relations-label-synonym_relation_id-19: tanggap na pangalan
+  translated_synonym_relations-label-synonym_relation_id-2: karaniwang pangalan
+  translated_synonym_relations-label-synonym_relation_id-20: artipakto ng kalipunan ng dato
+  translated_synonym_relations-label-synonym_relation_id-21: iba pa, tingnan ang mga puna
+  translated_synonym_relations-label-synonym_relation_id-22: kaibahang pang-ortograpiya (maling baybay)
+  translated_synonym_relations-label-synonym_relation_id-23: maling paglalapat
+  translated_synonym_relations-label-synonym_relation_id-24: tinanggihang pangalan
+  translated_synonym_relations-label-synonym_relation_id-25: kasingtunog (hindi marapat)
+  translated_synonym_relations-label-synonym_relation_id-26: para sa bahagi (''pro parte'')
+  translated_synonym_relations-label-synonym_relation_id-27: labis na muling pagpapangalan (hindi marapat)
+  translated_synonym_relations-label-synonym_relation_id-28: nakalimutang pangalan (''nomen oblitum'')
+  translated_synonym_relations-label-synonym_relation_id-29: singkahulugang nakababata (''junior synonym'')
+  translated_synonym_relations-label-synonym_relation_id-3: akronimo
+  translated_synonym_relations-label-synonym_relation_id-30: hindi makuha, artipakto ng kalipunan ng dato
+  translated_synonym_relations-label-synonym_relation_id-31: hindi kailangang kapalit
+  translated_synonym_relations-label-synonym_relation_id-32: kasunod na pangalan/pagsasama
+  translated_synonym_relations-label-synonym_relation_id-33: hindi makuha, maling baybay ng panitikan
+  translated_synonym_relations-label-synonym_relation_id-34: orihinal na pangalan/pagsasama
+  translated_synonym_relations-label-synonym_relation_id-35: hindi makukuha, maling orihinal na pagbabaybay
+  translated_synonym_relations-label-synonym_relation_id-36: kabigkas na nakababata (''junior homonym'')
+  translated_synonym_relations-label-synonym_relation_id-37: homonimo at sinonimong nakababata
+  translated_synonym_relations-label-synonym_relation_id-38: hindi makukuha, pinigilan ng kapasyahan
+  translated_synonym_relations-label-synonym_relation_id-39: hindi makatuwirang pagwawasto
+  translated_synonym_relations-label-synonym_relation_id-4: anamorpo
+  translated_synonym_relations-label-synonym_relation_id-40: hindi makukuha, iba pa
+  translated_synonym_relations-label-synonym_relation_id-41: hindi makukuha, hubad na pangalan (''nomen nudum'')
+  translated_synonym_relations-label-synonym_relation_id-42: pinagdududahang pangalan (''nomen dubium'')
+  translated_synonym_relations-label-synonym_relation_id-43: hindi katanggap-tanggap ang pagkakalathala, iba pa
+  translated_synonym_relations-label-synonym_relation_id-44: hindi katanggap-tanggap ang pagkakalathala, pangalang hubad (''nomen nudum'')
+  translated_synonym_relations-label-synonym_relation_id-45: basyonimo (batayang pangalan, ''basionym'')
+  translated_synonym_relations-label-synonym_relation_id-46: singkahulugang heterotipiko
+  translated_synonym_relations-label-synonym_relation_id-47: singkahulugang homotipiko
+  translated_synonym_relations-label-synonym_relation_id-48: pangalang hindi makuha
+  translated_synonym_relations-label-synonym_relation_id-49: katanggap-tanggap na pangalan
+  translated_synonym_relations-label-synonym_relation_id-5: pangkalahatang malawakang karaniwang kapangalanan (''blast name'')
+  translated_synonym_relations-label-synonym_relation_id-50: katanggap-tanggap
+  translated_synonym_relations-label-synonym_relation_id-51: tinanggap
+  translated_synonym_relations-label-synonym_relation_id-52: awtoridad
+  translated_synonym_relations-label-synonym_relation_id-53: hindi pa nalalathalang pangalan
+  translated_synonym_relations-label-synonym_relation_id-54: singkahulugang subhektibo
+  translated_synonym_relations-label-synonym_relation_id-55: maling kabatiran sa awtoridad
+  translated_synonym_relations-label-synonym_relation_id-56: maling pagbabaybay
+  translated_synonym_relations-label-synonym_relation_id-57: panghaliling pagbabaybay
+  translated_synonym_relations-label-synonym_relation_id-58: baryanteng leksikal
+  translated_synonym_relations-label-synonym_relation_id-59: singkahulugan (obhektibo = homotipiko)
+  translated_synonym_relations-label-synonym_relation_id-6: katumbas na pangalan
+  translated_synonym_relations-label-synonym_relation_id-60: singkahulugan (obhektibo = heterotipiko)
+  translated_synonym_relations-label-synonym_relation_id-61: singkahulugang malayunin
+  translated_synonym_relations-label-synonym_relation_id-62: singkahulugang nakatatanda (''senior synonym'')
+  translated_synonym_relations-label-synonym_relation_id-63: hindi tanggap
+  translated_synonym_relations-label-synonym_relation_id-64: hindi katanggap-tanggap
+  translated_synonym_relations-label-synonym_relation_id-65: singkahulugan ng sari
+  translated_synonym_relations-label-synonym_relation_id-66: kahaliling pagkakinatawan
+  translated_synonym_relations-label-synonym_relation_id-67: espesyeng sisiyasatin (''species inquirenda'')
+  translated_synonym_relations-label-synonym_relation_id-68: panghortikultura
+  translated_synonym_relations-label-synonym_relation_id-7: akronimo sa GenBank
+  translated_synonym_relations-label-synonym_relation_id-8: anamorpo sa GenBank
+  translated_synonym_relations-label-synonym_relation_id-9: karaniwang pangalan sa GenBank
+  translated_table_of_contents-label-table_of_contents_id-1: Pagtalakay na naglalarawan
+  translated_table_of_contents-label-table_of_contents_id-13: Karaniwang mga Pangalan
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Mga Sanggunian ng Panitikan
+  translated_table_of_contents-label-table_of_contents_id-194: Sukat
+  translated_table_of_contents-label-table_of_contents_id-2: Maiksing Buod
+  translated_table_of_contents-label-table_of_contents_id-218: Pagkalat
+  translated_table_of_contents-label-table_of_contents_id-221: Mga Panganib
+  translated_table_of_contents-label-table_of_contents_id-225: Nasa Web
+  translated_table_of_contents-label-table_of_contents_id-226: Mga Kawaksi sa Nilalaman
+  translated_table_of_contents-label-table_of_contents_id-227: Maghanap sa Web
+  translated_table_of_contents-label-table_of_contents_id-24: Pagpapaliwanag
+  translated_table_of_contents-label-table_of_contents_id-242: Pangkalahatang Ekolohiya
+  translated_table_of_contents-label-table_of_contents_id-244: Mga talaaklatan
+  translated_table_of_contents-label-table_of_contents_id-251: Mga pakinabang
+  translated_table_of_contents-label-table_of_contents_id-267: Morpolohiya
+  translated_table_of_contents-label-table_of_contents_id-278: Talaaklatan
+  translated_table_of_contents-label-table_of_contents_id-285: Mga Kapisanan
+  translated_table_of_contents-label-table_of_contents_id-286: Katayuan ng Pagpapanatili
+  translated_table_of_contents-label-table_of_contents_id-289: Ebolusyon
+  translated_table_of_contents-label-table_of_contents_id-292: Mga Kahawig
+  translated_table_of_contents-label-table_of_contents_id-293: Paglalarawan Makadiyagnosis
+  translated_table_of_contents-label-table_of_contents_id-296: Pamamahala
+  translated_table_of_contents-label-table_of_contents_id-297: Estratehiyang Tropiko
+  translated_table_of_contents-label-table_of_contents_id-299: Edukasyon
+  translated_table_of_contents-label-table_of_contents_id-3: Paglalarawang Pangkatawan
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Mga Pangalan at Taksonomiya
+  translated_table_of_contents-label-table_of_contents_id-304: Kaugnay na mga Pangalan
+  translated_table_of_contents-label-table_of_contents_id-305: Mga singkahulugan
+  translated_table_of_contents-label-table_of_contents_id-306: Estadistika ng Pahina
+  translated_table_of_contents-label-table_of_contents_id-307: Buod ng Nilalaman
+  translated_table_of_contents-label-table_of_contents_id-308: Malawakang Paglalarawan
+  translated_table_of_contents-label-table_of_contents_id-309: Pagkakamudmod
+  translated_table_of_contents-label-table_of_contents_id-310: Pagpapaunlad
+  translated_table_of_contents-label-table_of_contents_id-311: Mga Pinagkunan ng Pagkakakilanlan
+  translated_table_of_contents-label-table_of_contents_id-312: Pandarayuhan
+  translated_table_of_contents-label-table_of_contents_id-313: Mga Karamdaman at mga Parasito
+  translated_table_of_contents-label-table_of_contents_id-314: Biyolohiya ng Populasyon
+  translated_table_of_contents-label-table_of_contents_id-315: Kasaysayan ng Buhay at Ugali
+  translated_table_of_contents-label-table_of_contents_id-316: Ugali
+  translated_table_of_contents-label-table_of_contents_id-317: Pag-uulit
+  translated_table_of_contents-label-table_of_contents_id-318: Pag-ikot ng Buhay
+  translated_table_of_contents-label-table_of_contents_id-319: Tagal ng Buhay
+  translated_table_of_contents-label-table_of_contents_id-320: Pagpaparami
+  translated_table_of_contents-label-table_of_contents_id-321: Paglaki
+  translated_table_of_contents-label-table_of_contents_id-322: Kasaysayan ng Kusilba
+  translated_table_of_contents-label-table_of_contents_id-323: Sistematiks o Pilohenetiks
+  translated_table_of_contents-label-table_of_contents_id-324: Mga Pagbagay na Pangtungkulin
+  translated_table_of_contents-label-table_of_contents_id-325: Pisyolohiya at Biyolohiya ng Sihay
+  translated_table_of_contents-label-table_of_contents_id-326: Biyolohiyang Pangmolekula at Henetika
+  translated_table_of_contents-label-table_of_contents_id-327: Pisyolohiya
+  translated_table_of_contents-label-table_of_contents_id-328: Biyolohiya ng Sihay
+  translated_table_of_contents-label-table_of_contents_id-329: Henetika
+  translated_table_of_contents-label-table_of_contents_id-33: Mga Kalakaran
+  translated_table_of_contents-label-table_of_contents_id-330: Mga Pangunahing Kayarian ng Nukleyotido
+  translated_table_of_contents-label-table_of_contents_id-331: Baretang Kodigo
+  translated_table_of_contents-label-table_of_contents_id-332: Henoma
+  translated_table_of_contents-label-table_of_contents_id-333: Biyolohiyang Pangmolekula
+  translated_table_of_contents-label-table_of_contents_id-334: Mga Banta
+  translated_table_of_contents-label-table_of_contents_id-335: Pagbabatas
+  translated_table_of_contents-label-table_of_contents_id-336: Mga Tala
+  translated_table_of_contents-label-table_of_contents_id-337: Edukasyon
+  translated_table_of_contents-label-table_of_contents_id-338: Mga Kawing sa Edukasyon
+  translated_table_of_contents-label-table_of_contents_id-339: Pinagkukunan ng Edukasyon
+  translated_table_of_contents-label-table_of_contents_id-34: Mga Puna
+  translated_table_of_contents-label-table_of_contents_id-340: Seryeng Panglaboratoryo sa Mataas na Paaralan
+  translated_table_of_contents-label-table_of_contents_id-341: Agham ng Mamamayan
+  translated_table_of_contents-label-table_of_contents_id-342: Mga kawing sa Agham ng Mamamayan
+  translated_table_of_contents-label-table_of_contents_id-343: Aklatan ng Pamana ng Biyodibersidad
+  translated_table_of_contents-label-table_of_contents_id-344: Dato
+  translated_table_of_contents-label-table_of_contents_id-345: Mga Pinagkukunan ng Dato
+  translated_table_of_contents-label-table_of_contents_id-346: Mga Katagang Biyomediko
+  translated_table_of_contents-label-table_of_contents_id-347: Taksonomiya
+  translated_table_of_contents-label-table_of_contents_id-348: Kabatiran Ukol sa Tipo
+  translated_table_of_contents-label-table_of_contents_id-4: Ekolohiya
+  translated_table_of_contents-label-table_of_contents_id-41: Tirahan
+  translated_table_of_contents-label-table_of_contents_id-5: Ebolusyon at Sistematiks
+  translated_table_of_contents-label-table_of_contents_id-6: Kahalagan sa mga Tao at mga Ekosistema
+  translated_table_of_contents-label-table_of_contents_id-7: Mga Sanggunian at Marami Pang Kabatiran
+  translated_table_of_contents-label-table_of_contents_id-8: Pagpapanatili
+  translated_untrust_reasons-label-untrust_reason_id-1: maling pagkakakilala
+  translated_untrust_reasons-label-untrust_reason_id-2: hindi tama/nakakalinlang
+  translated_untrust_reasons-label-untrust_reason_id-3: mababang kalidad
+  translated_untrust_reasons-label-untrust_reason_id-4: kagaya
+  translated_untrust_reasons-label-untrust_reason_id-5: Iba Pa
+  translated_user_identities-label-user_identity_id-1: isang tagahanga
+  translated_user_identities-label-user_identity_id-2: isang mag-aaral
+  translated_user_identities-label-user_identity_id-3: isang tagapagturo
+  translated_user_identities-label-user_identity_id-4: isang mamamayang dalub-agham
+  translated_user_identities-label-user_identity_id-5: isang dalubhasang dalub-agham
+  translated_vetted-label-vetted_id-0: Hindi alam
+  translated_vetted-label-vetted_id-4: Hindi pinagkakatiwalaan
+  translated_vetted-label-vetted_id-5: Pinagkakatiwalaan
+  translated_vetted-label-vetted_id-6: Hindi angkop
+  translated_view_styles-name-view_style_id-1: Listahan
+  translated_view_styles-name-view_style_id-2: Galeriya
+  translated_view_styles-name-view_style_id-3: May paliwanag
+  translated_visibilities-label-visibility_id-0: Hindi nakikita
+  translated_visibilities-label-visibility_id-1: Nakikita
+  translated_visibilities-label-visibility_id-2: Paunang pagtanaw

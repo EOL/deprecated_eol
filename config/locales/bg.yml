@@ -1,0 +1,25 @@
+# Messages for Bulgarian (Български)
+# Exported from translatewiki.net
+# Export driver: syck-pecl
+# Author: DCLXVI
+bg: 
+  account_information: Информация за сметката
+  all_pages: Всички страници
+  communities: Общности
+  community: Общност
+  created_community: Общността беше създадена успешно.
+  delete_community: Изтриване на общността
+  eol_news: EOL новини
+  global_navigation: Глобална навигация
+  help: Помощ
+  join_community_button: Присъединяване към общността
+  license: Лиценз
+  login_or_create_account: Влизане или Създаване на сметка
+  profile: Профил
+  punctuation_comma: ","
+  recent_updates: Последни актуализации
+  rights: Права
+  sign_in: Влизане
+  sign_out: Излизане
+  source_url: "Изходен адрес:"
+  what_is_eol: Какво представлява EOL?

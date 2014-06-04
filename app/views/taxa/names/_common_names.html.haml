@@ -18,6 +18,7 @@
           %th= I18n.t(:names_name_column_header)
           %th= I18n.t(:names_sources_column_header)
           %th= I18n.t(:names_status_column_header)
+          %th= 'Pronunciation'
       %tbody
         - names.each do |name|
           %tr
@@ -28,3 +29,16 @@
               = raw(common_name_display_attribution(name))
             %td
               = name.vetted.label
+            %td
+              = render 'pronunciation_names', {name: name, language: language }
+            /
+              %td
+                - if language == "Chinese (Simplified)"
+                  - r = get_sound_url(URI.encode("http://chinese.biodinfo.org/ChineseCharactorWebService.asmx/GetWordPinyinSoundMP3?word=#{name.name_string}&psd=1"))
+                  %audio{src: "#{r}",id: "#{r}"}
+                  - speaker = image_tag raw('v2/splayer.png')
+                  %img{src: '/assets/v2/splayer.png',alt: "#{name.name_string}", onclick: "playsound('#{r}')"}
+                    :javascript
+                      function playsound(name){
+                        document.getElementById(name).play();
+                      }

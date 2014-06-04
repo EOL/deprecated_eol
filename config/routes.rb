@@ -589,6 +589,12 @@ Eol::Application.routes.draw do
     get 'last_ten_minutes'
   end
 
+  # Old donation routes (for posterity):
+  get '/donate', to: redirect(Rails.configuration.donate_header_url)
+  get '/donation', to: redirect(Rails.configuration.donate_header_url)
+  get '/donations', to: redirect(Rails.configuration.donate_header_url)
+  get '/donations/new', to: redirect(Rails.configuration.donate_header_url)
+
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation
   match 'api/docs' => 'api/docs#index' # Default is actually the documenation

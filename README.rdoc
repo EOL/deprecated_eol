@@ -66,9 +66,11 @@ Things you need to do:
 9. Install Virtuoso
 10. Install Redis
 11. Create EOL Databases
-12. Run EOL Private Config
-13. Run the EOL Rails Tests
-14. Starting Your EOL Rails Server
+12. Start Solr
+13. Populate EOL Databases
+14. Get EOL Private Config
+15. Run the EOL Rails Tests
+16. Starting Your EOL Rails Server
 
 === Setup Development Environment
 
@@ -105,7 +107,7 @@ There are a couple different ways that work for this, but the simplest is:
 
   curl -L https://get.rvm.io | bash -s stable
 
-Now *close any open shell windows* you have in Terminal or other command-line 
+Now CLOSE ANY OPEN SHELL WINDOWS you have in Terminal or other command-line 
 applications.
 
 === Get EOL Code Base
@@ -123,11 +125,18 @@ of the EOL code to go.  This will be $ROOT below.  I used:
 To build the matching version of ruby you should look in the file
 $ROOT/eol/.ruby-version.  As of May 2014 we are still using ruby-1.9.3-p392.
 This is an older version that is no longer actively supported and it takes a 
-while to rebuild from scratch.  However, the following commands should do the 
-trick:
+while to rebuild from scratch.  It also requires GCC 4.6 which you should be
+able to install with:
+
+  brew install gcc46
+
+Then the following commands should do the trick:
 
   RUBY_VERSION=`cat $ROOT/eol/.ruby-version`
   rvm install $RUBY_VERSION
+
+If the GCC 4.6 install didn't get picked up, you may need to do the install 
+more than once.
 
 === Install MySQL
 
@@ -201,9 +210,10 @@ As of May 2014 this installs version 7.1.
 Start Virtuoso in a separate Terminal window:
 
   cd /usr/local/Cellar/virtuoso/7.1.0/var/lib/virtuoso/db
-  virtuoso-t +foreground
+  /usr/local/Cellar/virtuoso/7.1.0/bin/virtuoso-t +foreground
 
-The foreground option is optional.
+The foreground option is optional.  The full path to the executable is given
+to deal with a potential issue when installing the PHP code base.
 
 Back in your usual shell run:
 
@@ -238,12 +248,19 @@ and at the SQL> prompt run:
   GRANT DELETE ON DB.DBA.RDF_QUAD TO "SPARQL";
   GRANT EXECUTE ON DB.DBA.SPARQL_INSERT_DICT_CONTENT TO "SPARQL";
   GRANT EXECUTE ON DB.DBA.SPARQL_DELETE_DICT_CONTENT TO "SPARQL";
+  quit;
 
 === Install Redis
 
   brew install redis
   ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+  
+=== Create EOL Databases
+
+You should now be ready to create the EOL databases with:
+
+  rake db:create:all
 
 === Start Solr
 
@@ -251,19 +268,20 @@ and at the SQL> prompt run:
 
 This may popup a dialog asking you install Java which you should agree to.
 
-=== Create EOL Databases
+=== Populate EOL Databases
 
-You should now be ready to create the EOL databases with:
+You should now be ready to populate the EOL databases with:
 
-  rake db:create:all
   rake eol:db:rebuild
   rake eol:db:recreate RAILS_ENV=test
   rake eol:db:recreate RAILS_ENV=test_master
- 
-=== Run EOL Private Config
+  rake scenarios:load NAME=bootstrap
+  rake scenarios:load NAME=bootstrap RAILS_ENV=test
+
+=== Get EOL Private Config
 
 Currently this requires you have access to the private mbl-cli GitHub
-community and you create an SSH key and registering it on GitHub as
+community.  You must then create an SSH key and register it on GitHub as
 described here: https://help.github.com/articles/generating-ssh-keys
 
 We plan to at least make this step unnecessary to get the tests
@@ -282,7 +300,6 @@ You should now be able to run the Rails test suite with:
 Run the following commands:
 
   rake eol:db:populate
-  rake solr:start
   rails s
 
 Go to http://localhost:3000 and (hopefully) see a relatively empty homepage.

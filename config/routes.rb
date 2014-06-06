@@ -463,13 +463,6 @@ Eol::Application.routes.draw do
   match '/expire_taxa/:id' => 'content#expire_multiple', :id => /\d+/, :as => 'expire_taxa'
   match '/language' => 'content#language', :as => 'language'
 
-  resources :donations, except: [:index, :destroy]
-  get '/donate', to: redirect('/donations/new')
-  get '/donation', to: redirect('/donations/new')
-  get '/donations', to: redirect('/donations/new')
-  # TODO - remove this:
-  match 'content/donate_complete' => 'content#donate_complete'
-
   # Search (note there is more search at the end of the file; it is expensive):
   match '/search' => 'search#index', :as => 'search'
   # having this as :q instead of :id was interfering with WillPaginate. See #WEB-4508
@@ -595,6 +588,12 @@ Eol::Application.routes.draw do
   resource :curator_activity_logs, :only => 'index' do
     get 'last_ten_minutes'
   end
+
+  # Old donation routes (for posterity):
+  get '/donate', to: redirect(Rails.configuration.donate_header_url)
+  get '/donation', to: redirect(Rails.configuration.donate_header_url)
+  get '/donations', to: redirect(Rails.configuration.donate_header_url)
+  get '/donations/new', to: redirect(Rails.configuration.donate_header_url)
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation

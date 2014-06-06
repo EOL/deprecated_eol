@@ -53,7 +53,8 @@ module EOL
                 'source' => result_hash[:resource].title,
                 'measurementType' => result_hash[:attribute].uri,
                 'label' => result_hash[:attribute].name,
-                'measurementValue' => result_hash[:value].to_s.to_i
+                # TODO - this isn't really safe; nil.to_i is 0, for example.  We should probably sanitize better:
+                'measurementValue' => result_hash[:value].to_s.gsub(/[^.0-9]/, '').to_i
               }
             end
 

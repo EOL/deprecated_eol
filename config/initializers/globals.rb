@@ -98,7 +98,6 @@ $PRODUCTION_MODE = Rails.env.production? || Rails.env.staging? || Rails.env.sync
 $IMAGE_LIMIT = 200
 
 # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-#$CONTENT_SERVER = 'http://localhost/'
 $CONTENT_SERVER = 'http://media.eol.org/'
 $SINGLE_DOMAIN_CONTENT_SERVER = 'http://media.eol.org/'
 $SINGLE_DOMAIN_CONTENT_SERVER = 'http://localhost/'

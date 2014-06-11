@@ -61,8 +61,8 @@ class TaxonConcept < ActiveRecord::Base
   attr_accessor :common_names_in_language
 
   index_with_solr keywords: [ :scientific_names_for_solr, :common_names_for_solr ]
-  def iucn_status_to_key(status) 
-    ('iucn_' + status.downcase.strip.gsub(/[\(\)]/, '').gsub(/[ \/]/, '_')).to_sym # Lower Risk/conservation dependent (LR/cd) => :iucn_lower_risk_conservation_dependent_lr_cd
+  def iucn_status_to_key(status)
+    ('iucn_' + status.downcase.strip.gsub(/[\(\)]/, '').gsub(/[ \/]/, '_')).to_sym
   end
 
   def self.prepare_cache_classes

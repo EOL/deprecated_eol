@@ -1,11 +1,11 @@
 rails_env = ENV['RAILS_ENV'] || 'production'
 worker_processes 2
 working_directory "/var/www/eolvv/"
- 
+
 # This loads the application in the master process before forking worker processes
 # Read more about it here: # http://unicorn.bogomips.org/Unicorn/Configurator.html
 preload_app true
-timeout 60 
+timeout 60
 
 # This is where we specify the socket.
 # We will point the upstream Nginx module to this socket later on
@@ -16,7 +16,7 @@ pid "/var/www/eolvv/tmp/pids/unicorn.pid"
 # Set the path of the log files inside the log folder of the eol
 stderr_path "/var/www/eolvv/log/unicorn.stderr.log"
 stdout_path "/var/www/eolvv/log/unicorn.stdout.log"
-# http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow  
+# http://www.rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
     if GC.respond_to?(:copy_on_write_friendly=)  
       GC.copy_on_write_friendly = true  
     end 
@@ -34,4 +34,3 @@ after_fork do |server, worker|
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
 end
-

@@ -74,3 +74,4 @@ vendor/eol_org
 tags
 public/files/solr_import_file.csv
 config/locales/*
+config/translations.bak/*

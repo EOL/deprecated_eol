@@ -73,5 +73,5 @@ solr/solr/data/*
 vendor/eol_org
 tags
 public/files/solr_import_file.csv
-config/locales/*
+config/__locales/*
 config/translations.bak/*

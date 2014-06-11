@@ -62,8 +62,8 @@ class TaxonConcept < ActiveRecord::Base
 
   index_with_solr keywords: [ :scientific_names_for_solr, :common_names_for_solr ]
   def iucn_status_to_key(status)
-    ('iucn_' + status.downcase.strip.gsub(/[\(\)]/, '') \
-    .gsub(/[ \/]/, '_')).to_sym
+    ('iucn_' + status.downcase.strip.gsub(/[\(\)]/, ''). \
+    gsub(/[ \/]/, '_')).to_sym
   end
 
   def self.prepare_cache_classes

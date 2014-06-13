@@ -59,6 +59,10 @@ describe 'EolConfig' do
 
   describe '.clear_global_site_warning' do
 
+    before do
+      EolConfig.clear_global_site_warning
+    end
+
     it 'should delete global_site_warning from DB' do
       EolConfig.create(parameter: 'global_site_warning', value: "hello")
       expect(EolConfig.exists?(parameter: 'global_site_warning')).to be_true

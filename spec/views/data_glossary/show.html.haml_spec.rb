@@ -30,7 +30,7 @@ describe 'data_glossary/show' do
   end
 
   it 'does not show URIs which are hidden from the glossary' do
-    new_uri = KnownUri.gen_if_not_exists(name: 'Some New Uri')
+    new_uri = KnownUri.gen_if_not_exists(name: 'Another New Uri')
     create_measurement_for_uri(new_uri)
     render
     expect(rendered).to match(new_uri.name)

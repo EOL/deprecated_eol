@@ -35,7 +35,6 @@ module EOL
       write_url(help_url)
       write_url(about_url)
       write_url(news_url)
-      write_url(new_donation_url)
       write_url(contact_url)
       write_url(terms_of_use_url)
       write_url(citing_url)

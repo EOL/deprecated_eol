@@ -108,7 +108,8 @@ $SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the conte
 
 # MEDIA CENTER CONFIGURATION
 $MAX_IMAGES_PER_PAGE = 40 # number of thumbnail images to show per page
-$PREFER_REMOTE_IMAGES = false # if set to true, then remote image URLs are used to show images when possible (helpful to preserve EOL bandwidth if needed) $SHOW_DATA_QUALITY = false # if set to true, we will show data quality next to text content blocks
+$PREFER_REMOTE_IMAGES = false # if set to true, then remote image URLs are used to show images when possible (helpful to preserve EOL bandwidth if needed)
+$SHOW_DATA_QUALITY = false # if set to true, we will show data quality next to text content blocks
 
 
 # Note that you can override this in the environment-specific file, too, if you want to.

@@ -696,7 +696,8 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     my_iucn = data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
-    my_iucn.description =  my_iucn.description = I18n.t(iucn_status_to_key(my_iucn.description)) if my_iucn
+    my_iucn.description =  my_iucn.description = \
+    I18n.t(iucn_status_to_key(my_iucn.description)) if my_iucn
     @iucn = my_iucn.nil? ? DataObject.new(source_url: 'http://www.iucnredlist.org/about', description: I18n.t(:not_evaluated)) : my_iucn
   end
 

@@ -23,8 +23,8 @@ end
 def import_ontology(options = {})
   select 'Definition', from: 'dcterms:description'
   select 'Comment', from: 'rdfs:comment'
-  find(:xpath, "//input[@name='selected_uris[]'][1]").set(true)
-  find(:xpath, "//input[@name='selected_uris[]'][2]").set(true)
+  find(:css, "table.ontology input[value='http://some.ontology/termA']").set(true)
+  find(:css, "table.ontology input[value='http://some.ontology/termB']").set(true)
   if options[:hide_from_glossary]
     check 'known_uri_hide_from_glossary'
   end

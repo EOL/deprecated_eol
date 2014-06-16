@@ -1,0 +1,17 @@
+Eol::Application.configure do
+
+  config.after_initialize do
+    # You might want to change the default value, here, from 'false' to 'true':
+    run_php_locally = ENV.has_key?('PHP_LOCAL') ? ENV['PHP_LOCAL'] : true
+    if run_php_locally
+      $CONTENT_SERVER = 'http://localhost/'
+      php_path = “sol_php_code"
+      content_server_path = "applications/content_server/"
+      $WEB_SERVICE_BASE_URL = "#{$CONTENT_SERVER}#{php_path}#{content_server_path}service.php?"
+      $CONTENT_SERVER_CONTENT_PATH = "/#{php_path}#{content_server_path}content/"
+      $STAGING_CONTENT_SERVER = $CONTENT_SERVER
+      $CONTENT_SERVER_RESOURCES_PATH = "/#{php_path}#{content_server_path}resources/"
+    end
+
+  end
+end

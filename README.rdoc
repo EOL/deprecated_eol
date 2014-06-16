@@ -145,7 +145,10 @@ stable release and works with this process.  To install the latest version run:
 
   brew install mysql
 
-Once it is installed, there are some additional recommended steps:
+However, currently our production version is 5.1 and we are using 5.5 in some
+of our systems so you may want to consider these older versions.
+
+Once MySQL is installed, there are some additional recommended steps:
 
   unset TMPDIR
   mysql_install_db --verbose --user=`whoami` \
@@ -255,7 +258,18 @@ and at the SQL> prompt run:
   brew install redis
   ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
-  
+
+=== Get EOL Private Config
+
+Currently this requires you have access to the private mbl-cli GitHub
+community.  You must then create an SSH key and register it on GitHub as
+described here: https://help.github.com/articles/generating-ssh-keys
+
+We plan to at least make this step unnecessary to get the tests
+passing.
+
+  rake eol:site_specific repo=git@github.com:mbl-cli/eol-private.git
+
 === Create EOL Databases
 
 You should now be ready to create the EOL databases with:
@@ -277,17 +291,6 @@ You should now be ready to populate the EOL databases with:
   rake eol:db:recreate RAILS_ENV=test_master
   rake scenarios:load NAME=bootstrap
   rake scenarios:load NAME=bootstrap RAILS_ENV=test
-
-=== Get EOL Private Config
-
-Currently this requires you have access to the private mbl-cli GitHub
-community.  You must then create an SSH key and register it on GitHub as
-described here: https://help.github.com/articles/generating-ssh-keys
-
-We plan to at least make this step unnecessary to get the tests
-passing.
-
-  rake eol:site_specific repo=git@github.com:mbl-cli/eol-private.git
 
 === Run the EOL Rails Tests
 

@@ -1858,22 +1858,6 @@ pt-BR:
   disabled_for_now: DESABILITADO NESTE MOMENTO
   discover_link: Descobrir
   do_you_want_to_be_a_curator: Você quer ser um curador?
-  donation_amount: "Total:"
-  donation_amount_legend: Escolha a quantidade que gostaria de doar
-  donation_amount_other_label: Outro
-  donation_confirmation: Confirmação de doação
-  donation_error_no_amount: Por favor, selecione um valor de doação.
-  donation_error_only_numbers: Por favor insira um valor usando apenas números.
-  donation_introduction_paragraph_one: A EOL está a crescer todos os dias. Encorajamos a explorar a EOL e aproveitar tudo o que ela tem a oferecer. Pedimos que ajude esta iniciativa a crescer através das suas contribuições de conteúdo, expertise e apoio financeiro.
-  donation_introduction_paragraph_two: Através da sua doação generosa, a Enciclopédia da Vida continua a oferecer acesso global ao conhecimento sobre a vida na Terra.
-  donation_privacy_notice: <em>Privacidade e Aviso de Segurança:</em> Note que esta página e na próxima página de confirmação pessoal não coletam quaisquer informações ou números de cartões de crédito, e não estão criptografados portanto. Depois de confirmar o valor que deseja doar, você será direcionado para uma página segura para entrar com suas informações de pagamento. Cobranças no seu cartão de crédito não serão aplicadas até que deseje você enviar a página que contém a sua informação pessoal.
-  donation_sponsorship_content_description: Os doadores interessados ​​em determinados ramos da árvore da vida podem patrocinar os esforços para encontrar e adquirir novos conteúdos para EOL. Doações podem cobrir a criação de coleções de páginas de espécies tão extensas como todos os mamíferos da América do Norte ou as aves do Brasil, ou tão específicos quanto os leões-marinhos na Baía de São Francisco ou "Novos Alimentos do Mundo".
-  donation_sponsorship_content_title: Patrocínio de conteúdo
-  donation_sponsorship_fellowships_description: Compartilhar o conhecimento com as comunidades de aprendizagem globais é a essência da EOL. A Enciclopédia da Vida está buscando doadores interessados ​​em apoiar bolsas de estudo que irá fornecer os meios para a investigação científica importante e atual para ser incorporadas a EOL.
-  donation_sponsorship_fellowships_title: Bolsas
-  donation_sponsorship_infrastructure_description: A fim de colocar o poder da EOL nas mãos de pessoas ao redor do mundo, presentes de todos os tamanhos são bem-vindos para apoiar a infra-estrutura básica e os custos operacionais da iniciativa.
-  donation_sponsorship_infrastructure_title: Infra-estrutura básica
-  donation_sponsorship_preamble: "Se você quiser saber mais sobre os programas específicos disponíveis para o patrocínio, ou gostaria de fazer uma doação recorrente, por favor, contactar o Secretariado da Enciclopédia da Vida <a href=\"mailto:%{email_address}\">e-mail</a> ou pelo telefone 1 (202) 633-8730 (nos Estados Unidos). Entre as oportunidades para doações específicas são:"
   done_already: Já feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Não mostrar datas registadas desconhecidas (usuários da V1, todos anteriores a 5 de janeiro de 2009)
   download_wav_file: Download de arquivo WAV

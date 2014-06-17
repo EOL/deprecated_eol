@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: syck-pecl
 # Author: Adata80
+# Author: Agilight
 # Author: Alexandr Efremov
 # Author: Amire80
 # Author: Antohabio
@@ -11,6 +12,7 @@
 # Author: DCamer
 # Author: Dr&mx
 # Author: Eleferen
+# Author: Eroha
 # Author: Express2000
 # Author: Ilnur efende
 # Author: Iluvatar
@@ -983,8 +985,6 @@ ru:
   details_title: Подробности
   did_you_mean: "Вы имели в виду: %{suggestions}?"
   donate_link: Пожертвовать
-  donation_amount: Всегоː
-  donation_transaction_details_amount: "Сумма:"
   edit: редактировать
   edit_comment: Редактировать комментарий
   edit_comment_lowercase: редактировать комментарий
@@ -1221,6 +1221,7 @@ ru:
         q_placeholder_disabled: Введён диапазон, конкретное значение отключено
         q_with_val: "Конкретное значение: %{val}"
         taxon_name: Группа таксонов
+        taxon_name_more: Например, введите Trochilidae или киты и выберите соответствующую группу.
         taxon_name_placeholder: Введите имя группы таксонов для выбора группы
         taxon_name_placeholder_value_removed: "%{taxon_group} удалена, выберите новую группу"
         taxon_name_with_val: "Группа таксонов: %{val}"
@@ -1543,6 +1544,7 @@ ru:
       google_plus: Энциклопедия жизни в Google+
     taxa: 
       search_traitbank: Поиск по TraitBank
+      search_within_clade: Поиск клада
   learn_more_link: (%{learn_more})
   learn_more_lowercase: узнать больше
   license: Лицензия
@@ -1802,6 +1804,7 @@ ru:
         hierarchy_entry: 
           meta_description: Подборки, содержащие %{scientific_name} проклассифицированы %{hierarchy_provider}.
           meta_description_with_common_name: Подборки, содержащие %{preferred_common_name} (%{scientific_name} проклассифицировано %{hierarchy_provider})
+          meta_keywords: "%{scientific_name} коллекций, %{scientific_name} наблюдений, %{hierarchy_provider} коллекций, %{hierarchy_provider} наблюдений, %{hierarchy_provider} образцов"
         meta_description: Коллекции, содержащие %{scientific_name}.
         meta_description_with_common_name: Коллекции, содержащие %{preferred_common_name} (%{scientific_name}).
         meta_title: Коллекции %{scientific_name}.

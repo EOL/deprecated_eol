@@ -1872,16 +1872,6 @@ ko:
   discover_link: 발견
   do_you_want_to_be_a_curator: 큐레이터가 되겠습니까
   donate_link: 기부
-  donation_agree: 동의
-  donation_amount: "합계:"
-  donation_amount_legend: 기부할 금액을 선택하세요
-  donation_amount_other_label: 기타
-  donation_confirmation: 기부 확인
-  donation_error_no_amount: 기부 금액을 선택하세요.
-  donation_error_only_numbers: 숫자만 사용하여 금액을 입력하세요.
-  donation_sponsorship_content_title: 내용 후원
-  donation_sponsorship_fellowships_title: 동호회
-  donation_sponsorship_infrastructure_title: 핵심 인프라
   done_already: 이미 완료
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 알 수 없는 등록한 날짜를 보여주지 마세요 (2009년 1월 5일 이전의 모든 V1 사용자)
   download_wav_file: WAV 파일 다운로드

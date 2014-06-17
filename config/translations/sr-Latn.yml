@@ -853,21 +853,6 @@ sr-Latn:
   disabled_for_now: ZASAD ONEMOGUĆEN
   discover_link: Otkrijte
   do_you_want_to_be_a_curator: Želite li da budete kustos
-  donation_amount_legend: Izaberite iznos koji želite da priložite
-  donation_amount_other_label: Drugo
-  donation_confirmation: Potvrda za dobrovoljni prilog
-  donation_error_no_amount: Izaberite iznos koji želite da priložite.
-  donation_error_only_numbers: Unesite iznos koristeći samo brojeve.
-  donation_introduction_paragraph_one: EOL svakodnevno raste. Savetujemo vam da istražite i iskoristite sve što vam nudimo. Pomozite nam da održimo rast tako što ćete doprineti u pogledu sadržaja, stručnosti i novčanih sredstava.
-  donation_introduction_paragraph_two: Vaš velikodušni dar podržava rad Enciklopedije života i daje globalni pristup k znanju o životu na Zemlji.
-  donation_privacy_notice: <em>Privatno-sigurnosna napomena:</em> imajte na umu da ova i sledeća potvrdna stranica ne skupljaju nikakve lične podatke ili brojeve kreditne kartice, pa zato nisu šifrovane. Nakon što potvrdite željeni iznos, bićete preusmereni na sigurnosnu stranicu gde ćete uneti podatke o plaćanju. Promene na vašoj kreditnoj kartici se neće primeniti dok ne podnesete stranicu sa svojim ličnim podacima.
-  donation_sponsorship_content_description: "Darovaoci zainteresovani za pojedinačne grane stabla života mogu da postanu pokrovitelji i pomognu nam da nađemo novi sadržaj za EOL. Prilozi mogu pokriti pravljenje zbirki različitih vrsta: počev od morskih lavova u zalivu San Franciska ili „Hrana Novog sveta“ pa sve do sisara u Severnoj Americi ili ptica u Brazilu."
-  donation_sponsorship_content_title: Pokroviteljstvo sadržaja
-  donation_sponsorship_fellowships_description: Suština EOL-a je deljenje znanja s globalnom zajednicom. Enciklopedija života traži pokrovitelje spremne da pruže sredstva za stipendije koje bi bile od velikog značaja za naučna istraživanja.
-  donation_sponsorship_fellowships_title: Stipendije
-  donation_sponsorship_infrastructure_description: Pošaljite nam dobrovoljni prilog ako podržavate naš rad i želite da nastavimo s njim. Novčani prilozi podržavaju osnovnu infrastrukturu i radne troškove inicijative.
-  donation_sponsorship_infrastructure_title: Osnovna infrastruktura
-  donation_sponsorship_preamble: "Ako želite da saznate više o određenim programima kojima treba pokroviteljstvo ili želite da date novčani prilog, obratite se Sekretarijatu Enciklopedije života <a href=\"mailto:%{email_address}\">preko e-pošte</a> ili telefonom: 1 (202) 633-8730 (u SAD). Ovi prilozi se koriste za:"
   done_already: Već urađeno
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Ne prikazuj nepoznate upisane korisnike (korisnike prvog izdanja, pre 5. januara 2009.)
   dublin_core: Dablinsko jezgro

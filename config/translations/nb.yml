@@ -1519,14 +1519,6 @@ nb:
   did_you_mean: "Mente du: %{suggestions} ?"
   discover_link: Oppdag
   do_you_want_to_be_a_curator: Vil du bli en kurator
-  donation_amount_legend: Velg beløpet du vil donere
-  donation_amount_other_label: Annet
-  donation_confirmation: Doneringsbekreftelse
-  donation_error_no_amount: Velg et donasjonsbeløp.
-  donation_error_only_numbers: Skriv inn et beløp med kun tall.
-  donation_introduction_paragraph_one: EOL vokser hver dag. Vi oppmuntrer deg til å utforske EOL og dra nytte av alt det har å tilby. Vi ber om din hjelp til å holde initiativet veksende med dine bidrag av innhold, ekspertise og økonomisk støtte.
-  donation_sponsorship_fellowships_title: Fellesskap
-  donation_sponsorship_infrastructure_title: Kjerne-infrastruktur
   done_already: Allerede gjort
   download_wav_file: Last ned WAV-fil
   dublin_core: Dublin Core

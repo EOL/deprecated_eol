@@ -1025,6 +1025,7 @@ sv:
   admin_translated_news_item_not_active: Ej publicerad
   admin_translated_news_item_update_successful_notice: Översättning på %{language} för <a href="#%{anchor}"><em>%{page_name}</em></a> har uppdaterats.
   admin_translated_news_item_update_unsuccessful_error: Tyvärr, ett fel uppstod. Översättningen kunde inte uppdateras.
+  admin_updated_config: Uppdaterade konfigurationen för %{name}
   admin_user_delete_successful_notice: Användare har raderats
   admin_user_hide_successful_notice: Användare har dolts
   admin_user_unhide_successful_notice: Användare har tagits fram
@@ -1957,28 +1958,6 @@ sv:
     other: Visar %{start_number} &ndash; %{end_number} av %{count} poster på EOL
   do_you_want_to_be_a_curator: Vill du bli en kurator
   donate_link: Donera
-  donation_agree: godkänn
-  donation_amount: "Totalt:"
-  donation_amount_legend: Hur mycket skulle du vilja bidra idag?
-  donation_amount_other_label: Andra
-  donation_confirmation: Doneringsbekräftelse
-  donation_confirmation_head: Vi uppskattar ditt bidrag!
-  donation_error_minimum: På grund av administrativa kostnader är det minsta donationsbeloppet %{min}.
-  donation_error_no_amount: Välj ett donationsbelopp.
-  donation_error_only_numbers: Ange ett belopp med enbart siffror.
-  donation_intro_span: EOL växer varje dag
-  donation_introduction_paragraph_one: Vi uppmuntrar dig att utforska EOL och dra nytta av allt som finns att erbjuda. Vi ber dig hjälpa till att behålla det initiativa växandet med ditt bidrag av innehåll, expertis och ekonomiskt stöd.
-  donation_introduction_paragraph_two: Din generösa gåva till Encyclopedia of Life stöder vårt arbete för att tillhandahålla global tillgång till kunskap om livet på jorden.
-  donation_sponsorship_content_description: Donatorer som är intresserade av särskilda grenar ur livets träd kan sponsra med insatser för att hitta och erhålla nytt innehåll för EOL. Gåvor kan omfatta skapandet av samlingar med artsidor som omfattar alla däggdjur i Nordamerika eller fåglar i Brasilien, eller så specifikt som sjölejon i San Francisco Bay eller "New World Foods".
-  donation_sponsorship_content_title: Innehållssponsring
-  donation_sponsorship_fellowships_description: Att dela kunskap med globala lärande gemenskaper är kärnan i EOL. Encyclopedia of Life söker donatorer som är intresserade av att stödja stipendier som kommer att ge möjligheter till att införa viktig och aktuell vetenskaplig forskning i EOL.
-  donation_sponsorship_fellowships_title: Stipendier
-  donation_sponsorship_infrastructure_title: Kärninfrastruktur
-  donation_sponsorship_preamble: "Om du vill veta mer om specifika program som är tillgängliga för sponsring, eller skulle vilja göra en återkommande gåva, kontakta Encyclopedia of Life:s sekretariat via <a href=\"mailto:%{email_address}\">e-post</a> eller telefon på 1 (202) 633-8730 (i USA). Möjligheter för inriktade gåvor inkluderar:"
-  donation_title: Donera till Encyclopedia of Life
-  donation_transaction_details_amount: "Belopp:"
-  donations_more_ways_title: Det finns fler sätt att hjälpa EOL växa
-  donations_temporarily_disabled: Vi beklagar, men donationer accepteras för tillfället inte online. Var god kontakta EOL:s sekretariat via 'secretariat snabel-a eol.org' för att göra en donation.
   done_already: Redan klart
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Visa inte okända registreringsdatum (V1-användare, alla före den 5 januari 2009)
   download_data: Ladda ned data
@@ -3413,6 +3392,7 @@ sv:
   search_suggestion_created: Sökförslaget har skapats.
   search_suggestion_updated: Sökförslaget har uppdaterats.
   search_suggestions: Sökförslag
+  search_summary: Sökningssammanfattning
   search_term: Sökord
   search_the_site: Sök på webbplatsen
   searching_within_clade: inom %{clade_name}

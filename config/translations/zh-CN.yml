@@ -11,10 +11,12 @@
 # Author: Liuxinyu970226
 # Author: Liye
 # Author: Luotiancheng
+# Author: Mywood
 # Author: Qiyue2001
 # Author: Shandongfx
 # Author: Shirayuki
 # Author: Shizhao
+# Author: Stieizc
 # Author: Wjn99wjn
 # Author: Xiaomingyan
 # Author: Yfdyh000
@@ -424,9 +426,9 @@ zh-CN:
         an_unknown_user_added_bulk_items_to_an_unknown_collection: 一个未知用户向一个未知收藏夹添加了大批项目。
         an_unknown_user_added_bulk_items_to_collection: 一个未知用户向"%{collection}"收藏夹添加了大批项目.
         an_unknown_user_added_bulk_items_to_it: 未知的用户批量添加项目。
-        user_added_bulk_items_to_an_unknown_collection: <strong>%{用户}</strong>向未知文件夹添加了大批项目。
-        user_added_bulk_items_to_collection: <strong>%{用户}</strong>向 "%{collection}"文件夹添加了大批项目。
-        user_of_it: <strong>%{用户}</strong>添加了大批项目。
+        user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong>将项大量加入了未知收藏集。
+        user_added_bulk_items_to_collection: <strong>%{user}</strong>向“%{collection}”文件夹添加了大批项目。
+        user_of_it: <strong>%{user}</strong>添加了大批项目。
       collect: 
         an_unknown_user_added_an_unknown_item_to_an_unknown_collection: 一个未知用户为未知收藏添加了一个未知项。
         an_unknown_user_added_an_unknown_item_to_collection: 一个未知用户为“%{collection}”收藏添加了一个未知项。
@@ -565,6 +567,8 @@ zh-CN:
       crop: 
         an_unknown_user_cropped_an_unknown_data_object: 一位未知用户修改了一个未知图像的缩略图。
         an_unknown_user_cropped_it: 一位未知用户修改了一个未知图像的缩略图。
+      data_point_uri: 
+        user_unhide_data_on_taxon: <strong>%{user}</strong>选择在“%{taxon}”显示数据。
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据项 “%{data_object}” 标为隐藏状态。
         an_unknown_user_hid_an_older_data_object_on_association: 一个未知用户在 “%{association}” 页面将旧版本的数据项 “%{data_object}” 标为隐藏状态。
@@ -596,7 +600,7 @@ zh-CN:
         an_unknown_user_preferred_classification_on_it: 一个未知用户将 “%{provider}”提供的分类系统标为首选系统。
         an_unknown_user_preferred_classification_on_taxon: 一个未知用户将 “%{provider}”提供的分类系统标为 “%{taxon}”的首选系统。
         user_preferred_classification_on_an_unknown_taxon: <strong>%{user}</strong>将 “%{provider}”提供的分类系统标为一个未知类群的首选系统。
-        user_preferred_classification_on_it: 将 “%{provider}”提供的分类系统标为首选系统。
+        user_preferred_classification_on_it: <strong>%{user}</strong>将 “%{provider}”提供的分类系统标为首选系统。
         user_preferred_classification_on_taxon: <strong>%{user}</strong> 将 “%{provider}”提供的分类系统标为 “%{taxon}”的首选系统。
       reasons_to_hide: 隐藏的原因： %{reasons}
       reasons_to_untrust: 不信任的原因： %{reasons}
@@ -617,6 +621,9 @@ zh-CN:
         user_disassociated_data_object_from_association: <strong>%{user}</strong>删除了“%{data_object}” 和 “%{association}”之间的一个关联。
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong>删除了一个未知页面关联。
         user_disassociated_it_from_association: <strong>%{user}</strong> 删除了一个“%{association}”关联。
+      remove_common_name: 
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong>移除了未知语言中的常用名。
+        user_removed_name_in_language_from_it: <strong>%{user}</strong>移除了%{language}中的常用名。
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据项 “%{data_object}” 标为可见状态。
         an_unknown_user_showed_an_older_data_object_on_association: 一个未知用户在 “%{association}” 页面将旧版本的数据项 “%{data_object}” 标为可见状态。
@@ -685,6 +692,15 @@ zh-CN:
         user_untrusted_data_object_on_association: <strong>%{user}</strong> 在 “%{association}” 页面将 “%{data_object}” 标为不可信状态。
         user_untrusted_it_on_an_unknown_association: <strong>%{user}</strong> 在未知段落中将其标为不可信状态。
         user_untrusted_it_on_association: <strong>%{user}</strong> 在 “%{association}” 页面将其标为不可信状态。
+      user_added_data: 
+        an_unknown_user_create_data_on_an_unknown_taxon: 某未知用户将数据加入未知页面。
+        an_unknown_user_create_data_on_taxon: 某未知用户将数据加入“%{taxon}”。
+        an_unknown_user_update_data_on_an_unknown_taxon: 某未知用户在未知页面更新数据。
+        an_unknown_user_update_data_on_taxon: 某未知用户更新“%{taxon}”的数据。
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong>将数据加入未知页面。
+        user_create_data_on_taxon: <strong>%{user}</strong>将数据加入“%{taxon}”。
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong>在未知页面更新数据。
+        user_update_data_on_taxon: <strong>%{user}</strong>更新了“%{taxon}”的数据。
   activity_user_created_text: <strong>%{user}</strong> 在 “%{taxon_concept}” 下为“%{object_name}” 添加了新文本。
   activity_user_updated_text: <strong>%{user}</strong>在“%{taxon_concept}”中更新了“%{object_name}”文字。
   add: 添加
@@ -699,6 +715,7 @@ zh-CN:
   add_a_new_topic_area: 添加一个新的主题领域
   add_a_new_user: 添加一个新用户
   add_a_taxon_association_label: 添加一条分类关联
+  add_another_metadata_field: 添加新的元数据字段
   add_article_to_page_button: 加入一个条目
   add_association_submit_button: 添加关联
   add_brief_summary_to_page_link_button: 为此页添加简要说明
@@ -761,6 +778,8 @@ zh-CN:
   admin_link: 概述
   admin_login_confirmation: 您确定要以%{name}登录到内容合作伙伴注册表？如此，您的管理员登录状态将注销。
   admin_news_item_active: 已发布
+  admin_news_item_create_successful_notice: 新闻项<a href="#%{anchor}"><em>%{page_name}</em></a>创建成功。
+  admin_news_item_create_unsuccessful_error: 抱歉，出现一个错误，新闻项未创建。
   admin_news_item_new_header: 创建一个新的新闻项
   admin_news_item_new_link: 创建新闻项
   admin_news_item_not_active: 未发布
@@ -769,11 +788,12 @@ zh-CN:
   admin_news_link: 新闻
   admin_notes_not_visible_to_user: 管理员注释（对用户不可见）：
   admin_page_title: 管理：概要
+  admin_simple_actions_header: 简单操作：
   admin_spam_delete: 删除垃圾
   admin_statistics_link: 统计
   admin_translated_content_page_create_successful_notice: "\"翻译已添加到 <a href=\"\"#%{anchor}\"\"><em>%{page_name}</em></a>\""
   admin_translated_content_page_create_unsuccessful_error: 抱歉，出现了一个错误，翻译无法添加。
-  admin_translated_content_page_delete_confirmation: 您确定要删除 “%{page_name}” 的 %{language}版本？删除后无法恢复。
+  admin_translated_content_page_delete_confirmation: 您确定要删除“%{page_name}”的%{language}版本？删除后无法恢复。
   admin_translated_content_page_delete_successful_notice: 页面<em>%{page_name}</em> 的%{language} 翻译已经删除。
   admin_translated_content_page_edit_subheader: 编辑<em>%{page_name}</em>的%{language} 翻译
   admin_translated_content_page_edit_tip: 标题和正文是 %{required_icon} 需要的。
@@ -784,6 +804,9 @@ zh-CN:
   admin_translated_content_page_update_successful_notice: "\"<a href=\"\"#%{anchor}\"\"><em>%{page_name}</em></a> 的%{language} 翻译已经更新。\""
   admin_translated_content_page_update_unsuccessful_error: 抱歉，出现了一个错误，翻译无法更新。
   admin_translated_news_item_active: 已发布
+  admin_translated_news_item_create_successful_notice: 翻译已加入<a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: 抱歉，出现了一个错误，翻译无法添加。
+  admin_translated_news_item_edit_subheader: 编辑<em>%{page_name}</em>的%{language}翻译版本
   admin_translated_news_item_new_header: 选择语言并添加内容
   admin_translated_news_item_new_link: 加入翻译
   admin_translated_news_item_new_subheader: 为<em>%{page_name}</em>加入翻译
@@ -864,6 +887,7 @@ zh-CN:
   anonymous_user_given_name: 匿名
   anonymous_user_tag_line: 未登录
   any_integer: 任何整数
+  any_string: 任何字符串
   api: 
     docs: 
       forum_beta_test_text: <a href="%{forums_link}">单击此处</a>访问正在测试的新版生物百科论坛。您的反馈意见是值得欢迎的。
@@ -930,9 +954,10 @@ zh-CN:
   began: 开始
   belongs_in_count_communities: 
     other: 属于 %{count}个社区
+  beta_warning_header: 您正在使用测试功能
   beta_warning_note_header: 注：
   bhl: 生物多样性遗产图书馆
-  bhl_publication: 网络生命大百科发布物
+  bhl_publication: 生物多样性遗产图书馆发布物
   bi_monthly: 双月的
   biodiversity_heritage_library: 生物多样性遗产图书馆
   biomedical_terms: 生物医学术语
@@ -979,6 +1004,7 @@ zh-CN:
   classification_preferred_for_taxon_help_tip: "%{icon} 表示该类群的首选分类系统。"
   classification_summary_section_header: 分类
   classification_tree_header: 分类
+  classifications_exemplar_column_header: 样本
   classifications_hierarchy_column_header: 分类
   classifications_preferred_column_header: 首选
   classifications_rank_column_header: 等级
@@ -998,6 +1024,7 @@ zh-CN:
   clicked_time: 点击时间
   close_this_window_to_return_to_edit_window: 关闭本窗口返回编辑窗口
   cms_available_in_languages: 该页可用的语言版本为：
+  cms_editor: CMS编辑器
   cms_missing_content_message: 抱歉，已选择的语言%{selected_language}对该页面无效。
   cms_missing_content_title: 无翻译
   collect_item: 收藏条目
@@ -1012,6 +1039,9 @@ zh-CN:
   collection_item_edit_by_javascript_not_authorized_error: 抱歉，您没有权限编辑此收藏的条目。如果您是该收藏的拥有者或编辑者，请重新载入该页面，并确认您已登录。
   collection_item_edit_page_title: 编辑<em>%{collection_name}</em>收藏中的条目
   collection_item_not_found_error: 该收藏条目无法找到。
+  collection_items_count: 
+    other: "%{count}项"
+    zero: 空
   collection_name_label: 收藏名称
   collection_newsfeed: 收藏动态
   collection_not_created_error: 很抱歉，发生了一个错误，<em>%{collection_name}</em> 收藏无法创建。
@@ -1341,7 +1371,7 @@ zh-CN:
       meta_title: 内容合作伙伴
     show: 
       meta_description: "%{partner_name}. %{partner_description}"
-      meta_keywords: "\"%{partner_name}, 网络生命大百科内容合作伙伴\""
+      meta_keywords: "%{partner_name}，网络生命大百科内容合作伙伴"
     statistics: 
       show: 
         meta_description: 对%{partner_name}数据的使用统计 。
@@ -1451,11 +1481,13 @@ zh-CN:
   data: 数据
   data_about_subtab_header: 关于EOL的数据
   data_column_common_name: 原始名称
-  data_column_source: 来源
+  data_column_source: 提供者
   data_column_tc_id: EOL页面ID
   data_column_units: 单位（已规范化）
   data_column_val: 值（已规范化）
   data_column_val_uri: URI值
+  data_column_value: 值
+  data_column_value_uri: 值URI
   data_database_colon: 数据：
   data_glossary: 数据词汇表
   data_link_to_record: 链接到此记录
@@ -1485,6 +1517,7 @@ zh-CN:
       meta_supplier_default: 一个贡献者
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
+  data_point_uri_summary_name: 关于%{taxon}的数据
   data_provided_by_content_partner: 供应商：%{whom}
   data_ranges: 数据总结
   data_row_add_exemplar_button: 添加到概述
@@ -1498,6 +1531,7 @@ zh-CN:
   data_search: 
     form: 
       header_assistive: 搜索表单
+      input_summary_intro: 选择的搜索选项
       new_search_link: 开始一次新搜索
       or_range_header: 或<span class="assistive">输入范围</span>
       search_suggestions_header: 不确定从何开始？
@@ -1612,26 +1646,6 @@ zh-CN:
   discover_link: 探索
   do_you_want_to_be_a_curator: 您想成为管理员吗
   donate_link: 捐助
-  donation_agree: 同意
-  donation_amount: 总计：
-  donation_amount_legend: 今天你想捐赠多少？
-  donation_amount_other_label: 其他
-  donation_confirmation: 捐赠确认
-  donation_confirmation_head: 我们非常感谢你的贡献！
-  donation_error_no_amount: 请选择捐款的金额。
-  donation_error_only_numbers: "\"请输入金额,仅允许使用数字。\""
-  donation_introduction_paragraph_one: 我们鼓励您来探索EOL和使用EOL所提供的便利。我们请求您通过贡献您的内容、专业知识和资金来保持EOL的快速发展。
-  donation_introduction_paragraph_two: 您对网络生命大百科的慷慨资助，支持我们为全球提供地球上生命的知识。
-  donation_sponsorship_content_description: "\"对分类树上特定分支感兴趣的捐助者，可以对EOL寻找和获取新的内容提供资金支持。奖励可以针对建立物种页收藏，内容既可以很宽泛，如北美的哺乳动物或巴西的鸟类，也可以很具体，如旧金山海湾的海狮或\"\"新世界食品\""
-  donation_sponsorship_content_title: 内容赞助
-  donation_sponsorship_fellowships_description: EOL的本质就是与全球的学习群体分享知识。网络生命大百科正在寻找感兴趣资助者提供研究资金，以支持将当前重要的科学研究整合到EOL中。
-  donation_sponsorship_fellowships_title: 奖学金
-  donation_sponsorship_infrastructure_title: 核心基础结构
-  donation_sponsorship_preamble: "\"如果您想了解更多有关赞助的项目，或想要再次赠送礼品，请通过<a href=\"\"mailto:%{email_address}\""
-  donation_title: 捐助Encyclopedia of Life
-  donation_transaction_details_amount: 金额：
-  donation_you_are_about_to: 您将捐助生命百科。请点击“统计”以前往安全的支付页面，您会被要求输入信用卡信息。
-  donations_more_ways_title: 还有很多方法可以帮助EOL成长
   done_already: 已完成
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 不显示未知的注册日期（V1版本用户，在2009年1月5日之前）
   download_data: 下载数据
@@ -1765,6 +1779,8 @@ zh-CN:
       min_full_curators_only: 抱歉，访问的最低权限是EOL管理员。
       no_access: 抱歉，访问受到限制。
   expand_all_children: 展开所有子节点
+  expired: 届满的
+  expires_in_colon: 届满于：
   explore: 探索
   explore_what_we_know_about_taxon: 搜索EOL了解的%{taxon}。
   export_curator_csv_link: "[导出全部管理员到CSV文件]"
@@ -1935,7 +1951,7 @@ zh-CN:
   glossary_subhead: 术语表
   glossary_term: 术语
   glossary_terms: 术语表
-  go: 转到
+  go: 前往
   go_back: 返回
   google: Google
   google_analytic_results: Google网站统计的结果
@@ -2023,6 +2039,7 @@ zh-CN:
         max: 最高值
         max_placeholder: 输入一个数字
         max_placeholder_disabled: 禁用范围
+        max_with_val: 最高值：%{val}
         min: 最小值
         min_placeholder: 输入一个数字
         min_placeholder_disabled: 禁用范围
@@ -2354,6 +2371,7 @@ zh-CN:
   json_response: JSON响应
   jsonp_by_adding_a_callback_parameter: …以及通过添加回调参数而成的JSONP
   just_pages_with_pictures_and_text: 仅包含图片和文本的页面
+  key: 密钥
   known_uri_category_header: 分类
   known_uri_created: URI已加入。
   known_uri_label_unit: 有默认单位
@@ -2491,6 +2509,8 @@ zh-CN:
   license_cc_by_sa_2_0: 知识共享属名协议-相同方式共享2.0(CC BY-SA 2.0)
   license_cc_by_sa_2_5: 知识共享属名协议-相同方式共享2.5(CC BY-SA 2.5)
   license_cc_by_sa_3_0: 知识共享属名协议-相同方式共享3.0(CC BY-SA 3.0)
+  license_cc_zero: 知识共享CC0
+  license_cc_zero_1_0: 知识共享CC0 1.0通用
   license_gnu_fdl: GNU自由文档许可证(GNU FDL)
   license_gnu_gpl: GNU通用公共许可证(GNU GPL)
   license_none: 无
@@ -2506,6 +2526,7 @@ zh-CN:
   link_name: 链接名称
   link_not_associated_with_any_published_entries: 此链接是不与任何已发布的分类群相关联。
   link_rating: 链接评分
+  link_to_top_of_page: 置顶
   list_newsletter_emails: 新闻订阅者邮件清单
   list_of_activity_combinations: 已持续活跃5分钟的用户列表
   listing_collections: 列出收藏
@@ -2633,6 +2654,7 @@ zh-CN:
   move_up: 向上移
   moved_items_from_collection_with_count_notice: 
     other: 从%{name}移来%{count}项。
+  multimedia_links: 多媒体连接
   must_be_associated_with_either_a_user_or_a_community: 必须与一个用户或社区关联
   must_be_checked_in_to_show: "- 必须确认后才可发布给用户"
   must_be_checked_in_to_view: "- 必须确认后才可浏览"
@@ -2671,6 +2693,7 @@ zh-CN:
   new_upload: 新的上传
   new_user: 新用户
   news_archive_page: 新闻存档页面
+  news_available_in_languages: 此页面在以下语言版本可用：
   news_date: 新闻时间
   news_item: 新闻项
   news_item_date_as_shown_to_user: 对用户显示的新闻项时间(仅在Rss订阅中显示时间)：
@@ -2680,6 +2703,7 @@ zh-CN:
       meta_keywords: EOL新闻，生命百科新闻
       meta_title: EOL新闻
       page_title: EOL新闻
+  news_missing_content_title: 丢失翻译
   newsfeed: 新闻订阅
   newsfeed_help_for_collection: "\"这个EOL收藏的动态收集了与属于它的与它有关的条目的更新,包括它的所有者的活动和来自EOL用户的评论。\""
   newsfeed_help_for_community: "\"这个EOL社区的动态收集了与属于它管理的收藏的条目有关的更新,包括它的成员活动和来自EOL用户的评论。\""
@@ -2696,6 +2720,7 @@ zh-CN:
   no_errors_are_available: 未找到错误。
   no_harvesting_logs_for_this_da: 这个日期没有采集日志
   no_items_were_copied_to_collections_error: "没有项被复制到此收藏: %{names}。"
+  no_news_items_for_month_and_year: 没有用于%{month_and_year}的新闻项
   no_record_found_matching_your_criteria: 没有搜到符合您检索条件的记录
   no_related_names: 没有与此分类阶元相关的名字。
   no_search_suggestions_are_avai: 没有符合您检索条件的建议
@@ -2815,6 +2840,7 @@ zh-CN:
   object_type_collection_option: 收藏
   object_type_community_option: 小组
   object_type_image_option: 图像
+  object_type_link_option: 链接
   object_type_sound_option: 音频
   object_type_taxon_concept_option: 分类概念
   object_type_text_option: 文本
@@ -2838,6 +2864,7 @@ zh-CN:
   or_move_them_to_existing_collection: 或者将其移动到一个已存在的收藏
   original: 原始：
   original_object: 原始项
+  other_category_subtab: 其他
   other_collection_items_with_count: 
     other: "%{count}个其它项"
   other_community_items_with_count: 
@@ -2879,6 +2906,7 @@ zh-CN:
   partner: 合作伙伴
   partner_information: 合作伙伴信息
   partner_page: 合作伙伴页面
+  partner_web_site_colon: 合作伙伴网站：
   password_colon: 密码：
   password_must_be_4to16_characters: 密码长度必须介于4到16个字符之间。
   pause: 暂停
@@ -2889,6 +2917,9 @@ zh-CN:
   percentage_of_descendants_with_images: 带图像的子节点的百分比
   percentage_of_descendants_with_text: 带文本的子节点的百分比
   permalink: 永久链接
+  permission_granted: 权限已授予。
+  permission_revoked: 权限已撤销。
+  permissions_list_header: EOL的权限
   person_rating: 用户评级
   personal_profile_menu: 个人信息
   personal_space: 个人空间
@@ -3022,6 +3053,13 @@ zh-CN:
   reset_password_instructions_sent_to_user_notice: 重设您的帐户<em>%{username}</em> 密码的说明已经发送到您的电子邮箱。
   reset_password_token_expired_error: 抱歉，您的密码没有被重新设定。提供的链接已过期，请重新填写和提交忘记密码的表单以获得一个新的链接。
   resource: 资源
+  resource_import_frequency: 
+    bimonthly: 每两个月
+    hours_with_count: 
+      other: "%{count}小时"
+    monthly: 每月
+    quarterly: 每季
+    weekly: 每周
   resources: 资源
   response: 响应
   response_formats: 响应格式
@@ -3073,6 +3111,7 @@ zh-CN:
   search_suggestion_created: 搜索建议成功创建。
   search_suggestion_updated: 搜索建议成功更新。
   search_suggestions: 搜索建议
+  search_summary: 搜索摘要
   search_term: 搜索项
   search_term_detail_report: 搜索术语详细报告
   search_term_reports: 搜索项报告
@@ -3130,9 +3169,11 @@ zh-CN:
   show_data_from_all_content_partners: 删除分类系统过滤器
   show_email_message_area: "[显示邮件消息区域]"
   show_full_tree: 显示完整的树
+  show_more_row_data_link: 更多
   show_status_message: 显示状态消息
   show_tasks: 显示任务
   show_warning_message: 显示警告消息
+  showing_all_error_logs: 显示<b>所有错误</b>
   shown_to_the_user_parens: （显示给用户）
   shown_to_user_as_the_title_of_page: 作为页面标题展示给用户
   sign_in: 登录
@@ -3200,6 +3241,7 @@ zh-CN:
   spm_category_partner_count: 物种介绍模块目录 - 合作伙伴的数量
   started: 开始
   stat: 状态
+  stats: 统计
   sub_heading: 副标题
   subject: 主题
   submit: 提交
@@ -3273,7 +3315,7 @@ zh-CN:
     data: 
       index: 
         hierarchy_entry: 
-          meta_description: " %{scientific_name}的图片、 录像和录音资讯按%{hierarchy_provider}分类。在生物大百科全书中您可以找到其图像、 照片、 电影和声音资料。"
+          meta_description: 在网络生命大百科中关于%{scientific_name}被%{hierarchy_provider}分类的事实
           meta_description_no_data: 生物大百科全书中没有提供按%{hierarchy_provider}分类界定为 %{scientific_name}的可分析的数据资料。EOL 邀请您提供 %{scientific_name}的有关数据。
           meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何可分析性数据。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的数据信息。
           meta_description_with_common_name_with_topics: 科学家已经收集了按%{hierarchy_provider}分类界定为 %{preferred_common_name}的哪些数据？%{scientific_name}的可分析数据包括有关%{topics}的信息。
@@ -3286,9 +3328,9 @@ zh-CN:
         meta_description_with_common_name_with_topics: 科学家已经收集了%{preferred_common_name}的哪些数据？%{scientific_name}的可分析性数据资料包括有关%{topics}的信息。
         meta_keywords: "%{scientific_name}的可分析性数据资料，%{scientific_name}的有关信息"
         meta_keywords_with_common_name: "%{preferred_common_name}的可分析性数据资料"
-        meta_title: "%{scientific_name} 可分析性数据资料"
-        meta_title_with_common_name: "%{preferred_common_name} (%{scientific_name})的可分析性数据资料"
-        tweet_text: "%{scientific_name}的特征数据"
+        meta_title: 关于%{scientific_name}的测量和事实
+        meta_title_with_common_name: 关于%{preferred_common_name}的测量和事实（%{scientific_name}）
+        tweet_text: 关于%{scientific_name}的事实
     details: 
       index: 
         hierarchy_entry: 
@@ -3301,7 +3343,7 @@ zh-CN:
           meta_title: 关于%{scientific_name}的信息，分类系统由 %{hierarchy_provider}提供
           meta_title_with_common_name: 关于%{preferred_common_name}的信息 (%{scientific_name}，分类系统由 %{hierarchy_provider}提供)
           tweet_text: 关于%{scientific_name}的信息，分类系统由 %{hierarchy_provider}提供
-        meta_description: 网络生命大百科中关于%{scientific_name}的信息
+        meta_description: 网络生命大百科中关于%{scientific_name}的摘要和条目
         meta_description_no_data: 生物大百科全书中没有提供任何有关 %{scientific_name}的资讯。EOL 邀请您提供有关 %{scientific_name}的信息， 例如养护、 分布、 生态、 栖息地、 形态等。
         meta_description_with_chapter_list: 网络生命大百科中关于%{scientific_name}的信息。包括%{chapter_list}。
         meta_description_with_common_name: 关于%{preferred_common_name}的描述和文章，在网络生命大百科中为%{scientific_name}。
@@ -3327,7 +3369,7 @@ zh-CN:
           meta_title_with_common_name: 关于%{preferred_common_name}的书籍 (%{scientific_name}的分类 由%{hierarchy_provider}提供)
           tweet_text: "%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供"
         meta_description: 网络生命大百科中关于%{scientific_name}的文献和书籍。阅读在网络生命大百科中关于%{scientific_name} 的文献。
-        meta_description_with_common_name: "%{preferred_common_name}(网络生命大百科中的%{scientific_name})的文献和书籍。阅读在网络生命大百科中关于%{preferred_common_name}的文献。"
+        meta_description_with_common_name: "{preferred_common_name}（或网络生命大百科中%{scientific_name}）上的书籍、文章和参考文献。在网络生命大百科中阅读文学作品。"
         meta_keywords: "%{scientific_name}的条目、%{scientific_name}的图书、%{scientific_name}的书目、%{scientific_name}的作品"
         meta_keywords_with_common_name: "%{preferred_common_name} 文章、 %{preferred_common_name} 书籍、 %{preferred_common_name} 文学作品、 %{scientific_name} 文章、 %{scientific_name}书籍、 %{scientific_name} 文献目录、 %{scientific_name} 文学作品"
         meta_title: 关于%{scientific_name}的文章和书籍
@@ -3412,6 +3454,15 @@ zh-CN:
         meta_title: "%{scientific_name}的异名"
         meta_title_with_common_name: " %{preferred_common_name}的异名 (%{scientific_name})"
         tweet_text: "%{scientific_name}的异名"
+    overview: 
+      show: 
+        hierarchy_entry: 
+          meta_title: "%{scientific_name}归类自%{hierarchy_provider}"
+          meta_title_with_common_name: "%{preferred_common_name}（%{scientific_name}归类自%{hierarchy_provider}）"
+        meta_description: 在网络生命大百科的%{scientific_name}中的信息。
+        meta_keywords: "%{scientific_name}上的信息，%{scientific_name}信息"
+        meta_title: "%{scientific_name}——%{scientific_name}上的信息"
+        tweet_text: "%{scientific_name}上的信息"
     resources: 
       biomedical_terms: 
         hierarchy_entry: 
@@ -3557,6 +3608,7 @@ zh-CN:
   the_message_was_sent: 消息已发出。
   the_new_topic_was_created: 新主题已创建。
   the_new_user_was_created: 新用户已创建。
+  the_query_string: 查询字符串
   the_suggested_page_to_direct_users_to_link: 引导用户到链接的推荐页面
   the_topic_was_updated: 主题已更新。
   the_user_was_updated: 用户已更新。
@@ -3623,6 +3675,7 @@ zh-CN:
   true_label: 真
   truncated_comment_omission: ... <a href='%{link}'>更多</a>
   truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: …<a href='%{link}'>更多</a>
   trusted: 可信的
   trusted_images: 可信的图像
   trusted_maps: 可信的地图
@@ -3683,6 +3736,7 @@ zh-CN:
     other: 已审核%{count}个俗名
   user_activity_stats_common_names_removed: 
     other: 已删除%{count}个俗名
+  user_activity_stats_data_added_dropdown: 数据已加入
   user_activity_stats_header: 活动统计
   user_activity_stats_objects_curated: 
     other: 已管理%{count}个对象
@@ -3771,16 +3825,23 @@ zh-CN:
       complete_head: 完成？
       created_head: 已创建
       download: 下载
+      empty: 您没有下载。您可以<a href='%{data_search_url}'>搜索数据</a>并请求下载结果。
+      header_with_count: 
+        other: "%{count}次数据下载"
       index: 
+        meta_description: 数据下载请求自%{user_full_name}。
         meta_title: "%{user_full_name}数据下载"
         tweet_text: "%{user_full_name}数据下载"
       is_complete: 是
       is_not_complete: 否
       page_title: 数据下载
+      processing: 处理中
+      query_empty: （无过滤）
       query_head: 查询
       refresh: 刷新
       row_count: 計數
       search_again: 重新搜尋
+      updated_head: 最近操作
     edit: 
       form_tip_account: 要登录到EOL，您需要用户名和密码，或者您可以连接一个第三方帐户。如果您没有关联帐户，用户名和密码是必填的，但是如果您想改变现有的密码，只需在此输入新密码即可。电子邮件地址和首选语言对所有用户都是必须的(%{required_icon}) 。
       form_tip_account_oauth: 所有用户都需要电子邮件地址和首选语言%{required_icon} 。
@@ -3895,7 +3956,7 @@ zh-CN:
         temporary_login_user_not_found: 抱歉，无法找到您要恢复的EOL帐户，请申请一个新的电子邮件来恢复您的帐户。
         token_expired_or_invalid: 抱歉，临时登录链接已过期或无效，请申请一个新的电子邮件来恢复您的帐户。
         unable_to_update_token: 很抱歉，发生了一个错误，邮件未发送，请再试一次。
-        user_not_found_by_email_address: 网络生命大百科中该email账号不存在。
+        user_not_found_by_email_address: 在网络生命大百科中没有对应此邮件地址的账户。
       form_header: 恢复帐户
       form_tip: 要找回您的EOL帐户，需要输入与该帐户关联的电子邮件地址。如果您在一个小时内没有收到找回帐户的电子邮件，请检查您的垃圾邮件文件夹。
       meta_title: 恢复帐户
@@ -3975,6 +4036,7 @@ zh-CN:
   view_verb: 查看
   view_video_source: 查看视频来源
   view_your_curator_profile: 查看您的管理员信息
+  vimeo: Vimeo
   visible_title: 可见的
   visitors: 访问者
   vivisimo: Vivisimo.com
@@ -4024,6 +4086,7 @@ zh-CN:
   you_may_upload_static_files_fo: 您可以在这里上载用于CMS的静态文件（例如PDF、word文档、图像等）。但是不应该在这里上载物种页面的内容，它仅用于非物种页面（例如招聘广告、通讯、备忘录等）。对于备忘录和通讯的PDF文件，如果您愿意，可以链接到“友好的URL”（它将自动定向到“完整的URL地址”）。对于嵌在页面中且加了 &lt;img&gt; 标签的图像文件，您必须使用“完整内容的URL”。刷新网页时，“完整内容的URL”可能显示不同的内容服务器编号（例如“content2.eol.org”，“content3.eol.org”等）。这是正常的，您可以在创建您的链接时使用任意一个，因为它们都是等同的。
   you_must_be_comfortable: 如果您打算创建超链接或者使用格式化功能，HTML将会非常适合。
   you_removed_the_member_from_the_community: 您已成功地从社区删除这个会员。
+  your_browser_does_not_support: 您的浏览器不支持HTML5视频。
   your_current_rating_0_of_5: 您当前的评级： 0/5
   your_current_rating_1_of_5: 您当前的评级： 1/5
   your_current_rating_2_of_5: 您当前的评级： 2/5

@@ -2030,31 +2030,6 @@ nl:
   discover_link: Ontdekken
   do_you_want_to_be_a_curator: Wilt u conservator worden
   donate_link: Doneren
-  donation_agree: akkoord
-  donation_amount: "Totaal:"
-  donation_amount_legend: Hoeveel wilt u vandaag schenken?
-  donation_amount_other_label: Anders
-  donation_confirmation: Donatiebevestiging
-  donation_confirmation_head: Wij waarderen uw bijdrage!
-  donation_error_minimum: Vanwege verwerkingskosten is het minimumbedrag voor een donatie %{min}.
-  donation_error_no_amount: Selecteer een te doneren bedrag.
-  donation_error_only_numbers: Geef een bedrag op dat alleen uit cijfers bestaat.
-  donation_intro_span: EOL groeit elke dag
-  donation_introduction_paragraph_one: We raden u aan EOL te verkennen en te profiteren van alles wat het te bieden heeft. Help om het initiatief te laten groeien door inhoud, expertise en financieel bij te dragen.
-  donation_introduction_paragraph_two: Uw genereuze gift aan de Encyclopedia of Life ondersteunt ons werk om wereldwijd toegang te verschaffen tot kennis over het leven op aarde.
-  donation_privacy_notice: <em>Bericht over privacy en veiligheid:</em> Via deze pagina en de volgende bevestigingspagina worden geen persoonlijke gegevens of creditcardgegevens verzameld; daarom is deze pagina niet beveiligd. Nadat u het te doneren bedrag hebt bevestigd, wordt u doorgeleid naar een beveiligde pagina waar u de overschrijvingsgegevens kunt invoeren. Uw creditcard wordt niet belast totdat u bevestigt op de pagina die uw persoonlijke gegevens bevat.
-  donation_sponsorship_content_description: Donateurs die interesse hebben in bepaalde takken van de stamboom van het leven kunnen inspanningen sponsoren om nieuwe inhoud voor EOL te zoeken. Giften kunnen besteed worden aan het aanmaken van verzamelingen van soortenpagina's zo breed als "alle zoogdieren in Noord-Amerika" of "volgens in Brazilië" of zo specifiek als "zeeleeuwen in de baai van San Francisco" of "Voedsel uit de nieuwe wereld".
-  donation_sponsorship_content_title: Inhoudssponsoring
-  donation_sponsorship_fellowships_description: Kennis wereldwijd delen met mensen die willen leren is de essentie van EOL. De Encyclopedia of Life zoekt geïnteresseerde donateurs die doctoraalstudenten willen ondersteunen die de middelen kunnen leveren voor belangrijk en actueel wetenschappelijk onderzoek dat opgenomen kan worden in EOL.
-  donation_sponsorship_fellowships_title: Beurzen
-  donation_sponsorship_infrastructure_description: Om EOL in de handen van mensen in de hele wereld te leggen, zijn alle giften welkom die bijdragen aan de kerninfrastructuur en de dagelijkse behoeften van dit initiatief.
-  donation_sponsorship_infrastructure_title: Kerninfrastructuur
-  donation_sponsorship_preamble: "Als u meer wilt weten over specifieke programma's voor sponsoring, of als u een terugkerende gift wilt maken, neem dan per <a href=\"mailto:%{email_address}\">e-mail</a> contact op het met secretariaat van Encyclopedia of Life. U kunt ook bellen: +1 (202) 633-8730 (in de Verenigde Staten)."
-  donation_title: Doneren aan de Encyclopedia of Life
-  donation_transaction_details_amount: "Bedrag:"
-  donation_you_are_about_to: U staat op het punt te doneren aan de Encyclopedia of Life. Klik op "akkoord" om door te gaan naar een site voor beveiligde betalingsverwerking, waar u wordt gevraagd om uw creditcardgegevens in te voeren. Gebruik de knop "Terug"van uw browser om te annuleren.
-  donations_more_ways_title: Er zijn meer manieren om EOL te helpen groeien
-  donations_temporarily_disabled: We kunnen op dit moment helaas geen online donaties accepteren. Neem alstublieft contact op met het secretariaat van EOL via "secretariat at eol.org" om een donatie te maken.
   done_already: Al gedaan
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Onbekende registratiedatums niet weergeven (V1-gebruikers, allemaal voor 5 januari 2009)
   download_data: Gegevens downloaden

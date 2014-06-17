@@ -326,7 +326,10 @@ br:
         inaccessible: N'eus ket bet gallet saveteiñ an enrolladenn rak ne oa ket mat. Kontrollit ar fazioù kadarnaat hag adkasit anezho.
         known_uri_relationship: 
           attributes: 
+            relationship_uri: 
+              only_one_measurement: n'eo ket aotreet — ne c'hall bezañ nemet un unanenn dre ziouer
             to_known_uri_id: 
+              must_be_different: a rank bezañ disheñvel diouzh URI an danvez
               must_be_known_uri: a rank bezañ un URI anavezet
               must_be_measurement: a rank bezañ un unanenn vuzuliañ
         open_authentications: 
@@ -1262,19 +1265,6 @@ br:
   disabled_for_now: DIWEREDEKAET EVIT AR MARE
   discover_link: Dizoleiñ
   donate_link: Ober un donezon
-  donation_agree: mat eo din
-  donation_amount: "Hollad :"
-  donation_amount_legend: Peseurt sammad a fell deoc'h reiñ hiziv ?
-  donation_amount_other_label: All
-  donation_confirmation: Kadarnaat an donezon
-  donation_error_no_amount: Diuzit sammad an donezon, mar plij.
-  donation_error_only_numbers: Ebarzhit ur sammad dre implijout niveroù hepken, mar plij.
-  donation_intro_span: Bemdez e vez KAV o kreskiñ
-  donation_sponsorship_fellowships_title: Kenvreuriezhoù
-  donation_sponsorship_infrastructure_title: Danframmoù diazez
-  donation_title: Ober un donezon da Gelc'hgeriadur ar Vuhez
-  donation_transaction_details_amount: "Sammad :"
-  donations_more_ways_title: Bez' ez eus doareoù all da sikour KAV da greskiñ
   done_already: Bet graet dija
   download_data: Pellgargañ roadennoù
   download_wav_file: Pellgargañ ar restr WAV

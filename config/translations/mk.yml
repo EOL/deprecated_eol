@@ -30,7 +30,7 @@ mk:
   account_information_menu: Информации за сметката
   account_registered_but_not_ready_try_later: Вашата сметка е регистрирана, но сè уште не може да се користи. Обидете се повторно за пет минути.
   action: Дејство
-  action_not_available_error: Нажалост, тоа дејство не е достапно.
+  action_not_available_error: За жал, тоа дејство не е достапно.
   actions: Дејства
   active: Активно
   active_colon: "Активни:"
@@ -952,7 +952,7 @@ mk:
   admin_content_page_active: Објавено
   admin_content_page_child_new_link: Создај потстраница
   admin_content_page_create_successful_notice: Страницата <a href="#%{anchor}"><em>%{page_name}</em></a> е успешно создадена.
-  admin_content_page_create_unsuccessful_error: Нажалост, се појави грешка. Страницата не е создадена.
+  admin_content_page_create_unsuccessful_error: За жал, се појави грешка. Страницата не е создадена.
   admin_content_page_delete_confirmation: Дали сте сигурни дека сакате да ја избришете страницата „%{page_name}“ и сите преводи? Избришаното не може да се поврати.
   admin_content_page_delete_successful_notice: Страницата %{page_name} и поврзаните преводи се избришани.
   admin_content_page_edit_header: Поднови основни информации за страницата <em>%{page_name}</em>
@@ -965,7 +965,7 @@ mk:
   admin_content_page_root: Основа
   admin_content_page_sort_order_updated: Редоследот на страниците е изменет.
   admin_content_page_update_successful_notice: Страницата <a href="#%{anchor}"><em>%{page_name}</em></a> е успешно подновена.
-  admin_content_page_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја подновам страницата.
+  admin_content_page_update_unsuccessful_error: За жал, се појави грешка. Не можев да ја подновам страницата.
   admin_content_pages_empty: Не пронајдов содржински страници.
   admin_content_pages_index_information: Следниов список ги содржи сите статични страници што се моментално на располагање на мрежното место на EOL. Секоја страница има еден или повеќе преводи. Кога создавате нова страница, ќе ви биде побарано да додадете превод. Објавените преводи се јавно достапни.
   admin_content_pages_link: Раководење со содржините
@@ -1017,7 +1017,7 @@ mk:
   admin_spam_delete: Избриши спам
   admin_statistics_link: Статистики
   admin_translated_content_page_create_successful_notice: Додаден е превод на страницата <a href="#%{anchor}"><em>%{page_name}</em></a>
-  admin_translated_content_page_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да го додадам преводот.
+  admin_translated_content_page_create_unsuccessful_error: За жал, се појави грешка. Не можев да го додадам преводот.
   admin_translated_content_page_delete_confirmation: Дали сте сигурни дека сакате да ја избришете верзијата на %{language} на страницата „%{page_name}“? Избришаното не може да се поврати.
   admin_translated_content_page_delete_successful_notice: Преводот на %{language} на страницата <em>%{page_name}</em> е избришан.
   admin_translated_content_page_edit_subheader: Уредување на преводот на %{language} на страницата <em>%{page_name}</em>
@@ -1027,7 +1027,7 @@ mk:
   admin_translated_content_page_new_subheader: Додај превод на <em>%{page_name}</em>
   admin_translated_content_page_new_tip: Јазикот, насловот и текстот се %{required_icon} задолжителни.
   admin_translated_content_page_update_successful_notice: Преводот на %{language} на страницата <a href="#%{anchor}"><em>%{page_name}</em></a> е подновен.
-  admin_translated_content_page_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да го подновам преводот.
+  admin_translated_content_page_update_unsuccessful_error: За жал, се појави грешка. Не можев да го подновам преводот.
   admin_translated_news_item_active: Објавено
   admin_translated_news_item_create_successful_notice: Додаден е превод на новоста <a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да го додадам преводот.
@@ -1310,7 +1310,7 @@ mk:
   close_this_window_to_return_to_edit_window: ЗАТВОРЕТЕ ГО ПРОЗОРЕЦОВ ЗА ДА СЕ ВРАТИТЕ НА УРЕДУВАЊЕТО
   cms_available_in_languages: "Оваа страница е достапна на:"
   cms_editor: CMS-уредник
-  cms_missing_content_message: Нажалост, страницата не е достапна на избраниот јазик (%{selected_language}).
+  cms_missing_content_message: За жал, страницата не е достапна на избраниот јазик (%{selected_language}).
   cms_missing_content_title: Недостасува превод
   collect_item: Додај во збирка
   collect_items: Додај во збирка
@@ -1348,9 +1348,9 @@ mk:
   collection_name_cannot_be_blank: Збирката мора да има име. Не може да стои празно.
   collection_name_label: Име на збирката
   collection_newsfeed: Канал на збирката
-  collection_not_created_error: Нажалост, се појави грешка, Не можам да ја создадам збирката <em>%{collection_name}</em>.
-  collection_not_destroyed_error: Нажалост, не можев да ја избришам збирката.
-  collection_not_found_error: Нажалост, не можев да ја најдам таа збирка.
+  collection_not_created_error: За жал, се појави грешка, Не можам да ја создадам збирката <em>%{collection_name}</em>.
+  collection_not_destroyed_error: За жал, не можев да ја избришам збирката.
+  collection_not_found_error: За жал, не можев да ја најдам таа збирка.
   collection_not_updated_error: Нажалост, се појави грешка. Не можев да ја подновам збирката.
   collection_rating: Оценка на збирката
   collection_redindexed: Збирката е преиндексирана.
@@ -1417,7 +1417,7 @@ mk:
   comment_new_posters_image_advisory_info: Вашата профилна слика и име во списоците ќе фигурираат веднаш до коментарот.
   comment_new_posters_image_alt: Вашата профилна слика (ако имате ставено).
   comment_new_title: Додај нов коментар
-  comment_not_added_error: Нажалост, се појави грешка. Не можев да го додадам коментарот.
+  comment_not_added_error: За жал, се појави грешка. Не можев да го додадам коментарот.
   comment_not_deleted_error: Нажалост, се појави грешка. Не можев да го избришам коментарот.
   comment_not_updated_error: Нажалост, се појави грешка. Не можев да го подновам коментарот.
   comment_or_rate_on_this_article: Коментирајте на статијава или оценете ја
@@ -1491,7 +1491,7 @@ mk:
   community_name_label: Име на заедницата
   community_newsfeed: Канал на заедницата
   community_no_longer_has_manager_access_to_collection: „%{community}“ повеќе нема раководителски пристап до збирката „%{collection}“.
-  community_not_destroyed_error: Нажалост, се појави проблем и затоа не можев да ја избришам заедницата.
+  community_not_destroyed_error: За жал, се појави проблем и затоа не можев да ја избришам заедницата.
   community_rating: Оценка на заедницата
   community_removed_by_owner: Оваа заедница е отстранета од нејзиниот сопственик.
   community_tab_collections_description: Збирките ги создаваат корисници на EOL со цел да ги доведат на едно место видовите, мултимедијалните содржини, статиите, па дури и членовите што имаат нешто заедничко по разни основи како географија, екологија или лични значења. Заедниците можат да „истакнуваат“ збирки што им се од особен интерес и вредност.
@@ -1541,7 +1541,7 @@ mk:
   content_partner_agreement_cancel_new_agreement_link: Откажи
   content_partner_agreement_cancel_sign_agreement_link: Откажи
   content_partner_agreement_create_successful_notice: Успешно се согласивте со условите на соучесникот во содржините. Сега можете да додавате податочни ресурси.
-  content_partner_agreement_create_unsuccessful_error: Нажалост, се појави грешка. Се чини дека има технички проблем со договорите на соучесниците во содржините. Обидете се повторно. Ако проблемот продолжи да се јавува и понатаму, известете го EOL.
+  content_partner_agreement_create_unsuccessful_error: За жал, се појави грешка. Се чини дека има технички проблем со договорите на соучесниците во содржините. Обидете се повторно. Ако проблемот продолжи да се јавува и понатаму, известете го EOL.
   content_partner_agreement_signed_successful_notice: Успешно се согласивте со условите за соучесници. Сега можете да додавате податочни ресурси.
   content_partner_agreement_signed_unsuccessful_error: Нажалост, се појави грешка. Се чини дека има технички проблем со договорите со соучесниците во содржините. Обидете се повторно. Ако проблемот продолжи да се јавува, тогаш известете ја EOL.
   content_partner_agreement_subheader: Договор со соучесник во содржините
@@ -1550,9 +1550,9 @@ mk:
   content_partner_collections_empty: Збирките на соучесниците наведуваат податоци што соучесникот ги доставил преку неговите ресурси. Засега не пронајдов објавени збирки.
   content_partner_column_header_partner: Соучесник
   content_partner_contact_create_successful_notice: Контактот е додаден.
-  content_partner_contact_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да го додадам контактот.
+  content_partner_contact_create_unsuccessful_error: За жал, се појави грешка. Не можев да го додадам контактот.
   content_partner_contact_delete_successful_notice: Контактот е избришан.
-  content_partner_contact_delete_unsuccessful_error: Нажалост, се појави грешка. Не можев да го избришам контактот.
+  content_partner_contact_delete_unsuccessful_error: За жал, се појави грешка. Не можев да го избришам контактот.
   content_partner_contact_edit_link: Уреди контакт
   content_partner_contact_edit_page_subheader: Уреди контакт
   content_partner_contact_new_edit_form_header: Контактни информации на соучесникот
@@ -1560,10 +1560,10 @@ mk:
   content_partner_contact_new_link: Додај нов контакт
   content_partner_contact_new_page_subheader: Додај контакт
   content_partner_contact_update_successful_notice: Контактот е успешно подновен.
-  content_partner_contact_update_unsuccessful_error: Нажалост, се појави грешка, па затоа не можев да го подновам контактот.
+  content_partner_contact_update_unsuccessful_error: За жал, се појави грешка, па затоа не можев да го подновам контактот.
   content_partner_contacts_header: Контакти
   content_partner_create_successful_notice: Соучесникот во содржините е успешно создаден.
-  content_partner_create_unsuccessful_error: Нажалост, се појави грешка. Не создадов учесник во содржините.
+  content_partner_create_unsuccessful_error: За жал, се појави грешка. Не создадов учесник во содржините.
   content_partner_current_agreement_create_link: Направи нов
   content_partner_current_agreement_edit_link: Уреди
   content_partner_current_agreement_empty: Нема договор
@@ -1614,7 +1614,7 @@ mk:
   content_partner_resource_collections_header: Збирки
   content_partner_resource_confirm_force_harvest: Дали сте сигурни дека сакате да наметнете преземање на ресурсот %{resource_title}?
   content_partner_resource_create_successful_notice: "Подробностите за ресурсот на соучесникот се успешно додадени. Тековниот статус на ресурсните податоци е: %{resource_status}."
-  content_partner_resource_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да го додадам ресурсот.
+  content_partner_resource_create_unsuccessful_error: За жал, се појави грешка. Не можев да го додадам ресурсот.
   content_partner_resource_dataset_details_header: Податочен збир
   content_partner_resource_description_empty: Овој ресурс нема опис.
   content_partner_resource_edit_link: Уреди
@@ -1655,8 +1655,8 @@ mk:
   content_partner_resource_status_update_successful_notice: Статусот на ресурсот %{resource_title} е успешно изменет на %{resource_status}.
   content_partner_resource_status_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да го сменам статусот на %{resource_title} во %{resource_status}.
   content_partner_resource_update_successful_notice: "Подробностите за ресурсот од соучесникот се успешно подновени. Тековниот статус на ресурсните податоци е: %{resource_status}."
-  content_partner_resource_update_unsuccessful_error: Нажалост, се појави грешка. Не можев да го подновам ресурсот.
-  content_partner_resource_upload_unsuccessful_error: "Нажалост, се појави грешка. Податоците за реусрсот се подновени, но самиот ресурс не е подигнат: %{resource_status}."
+  content_partner_resource_update_unsuccessful_error: За жал, се појави грешка. Не можев да го подновам ресурсот.
+  content_partner_resource_upload_unsuccessful_error: "За жал, се појави грешка. Податоците за реусрсот се подновени, но самиот ресурс не е подигнат: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: URL-асдреса на податочниот збир или податотека по ресурс, но не обете. Одлучете дали сакате да наведете URL-адреса или да подигнете податотека за овој опишан ресурс. Подоцна може да додавате и други ресурси.
   content_partner_resource_validation_unsuccessful_error: Нажалост, податоците за ресурсот се изменети, но не успеавме да го завериме самиот ресурс. Погледајте ги забелешките од обработката подолу.
   content_partner_resource_vetted_false: не
@@ -1683,7 +1683,7 @@ mk:
   content_partner_stats_message: Поради промени во службата со која ги пресметуваме статистиките за употреба, податоците за овој месец се моментално недостапни. Нашата екипа работи на решение. Штом ќе го решиме проблемот, нашите соработници ќе бидат известени по е-пошта.
   content_partner_status_empty: Непознат статус
   content_partner_update_successful_notice: Подробностите за соучесникот се успешно подновени.
-  content_partner_update_unsuccessful_error: Нажалост, се појави грешка. Подробностите за соучесникот не се подновени.
+  content_partner_update_unsuccessful_error: За жал, се појави грешка. Подробностите за соучесникот не се подновени.
   content_partner_vetted_false: Непроверено
   content_partner_vetted_true: Проверено
   content_partners: 
@@ -1742,7 +1742,7 @@ mk:
   copy_of_name: Копија на %{name}
   copyright: "АВТ. ПРАВА:"
   correct_donation_message_with_link: Овие информации се неисправни. <a href='%{link}'>Вратете се</a> и изменете ги.
-  could_not_find_collection_error: Нажалост, не можав да ја најдам таа збирка.
+  could_not_find_collection_error: За жал, не можав да ја најдам таа збирка.
   could_not_find_user: Не членувате во оваа заедница.
   count: Број
   count_results_for_search_term: 
@@ -1763,8 +1763,8 @@ mk:
   create_community_about_text: Создавате заедница посветена на „%{collection_name}“. На заедницата ќе можат да ѝ се приклучат сите корисници, но самата заедница и нејзината збирка ќе можат да ја уредуваат корисниците на кои ќе им ја доделите улогата „раководител“.
   create_community_around_this_collection_header: Создај заедница посветена на оваа збирка
   create_community_button: Создај заедница
-  create_community_unsuccessful_error: Нажалост, се појави грешка. Заедницата не е создадена. Проверете дали сите полиња се исправно пополнети.
-  create_user_unsuccessful_error: Нажалост, се појави грешка, па затоа не можев да ја создадам вашата нова сметка. Проверете дали сите полиња се исправно пополнети.
+  create_community_unsuccessful_error: За жал, се појави грешка. Заедницата не е создадена. Проверете дали сите полиња се исправно пополнети.
+  create_user_unsuccessful_error: За жал, се појави грешка, па затоа не можев да ја создадам вашата нова сметка. Проверете дали сите полиња се исправно пополнети.
   created: Создадено
   created_at: Создадено во
   created_by: "Создавач:"
@@ -2022,7 +2022,7 @@ mk:
     previous: Претходно
   dato_create_cancel: Откажи
   dato_create_user_link_error: Нажалост, се појави грешка. Не можев да ја додадам врската.
-  dato_create_user_text_error: Нажалост, се појави грешка. Не можев да ја додадам статијата.
+  dato_create_user_text_error: За жал, се појави грешка. Не можев да ја додадам статијата.
   dato_create_user_text_missing_taxon_id_exception: Не можам да составам текстуален DataObject или UsersDataObject ако нема назнака за таксонот.
   dato_create_user_text_missing_user_exception: Не можам да срочам DataObject или UsersDataObject за текст ако нема назнака за таксонот.
   dato_create_user_text_validation_error: Внимавајте образецот да биде правилно пополнет.
@@ -2042,7 +2042,7 @@ mk:
   dato_new_text_for_taxon_page_title: Додај статија во <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Додај врска во <i>%{taxon}</i>
   dato_new_text_page_description: Ви благодариме што придонесувате на EOL. Статија ќе биде ставена на вашиот дписок на набљудувања за да можете да ги следите разговорите за неа (ако ги има), а и да го проверувате нејзиниот статус.
-  dato_update_user_text_error: Нажалост, се појави грешка. Не можев да ја подновам статијата.
+  dato_update_user_text_error: За жал, се појави грешка. Не можев да ја подновам статијата.
   dato_update_users_text_not_owner_exception: Само изворниот автор на овој текстуален експонат може да го уредува.
   default: По основно
   default_focus_collection_name_from_community: Посветеност на %{name}
@@ -2069,31 +2069,6 @@ mk:
     other: Прикажувам %{start_number} &ndash; %{end_number} од вкупно %{count} записи на EOL
   do_you_want_to_be_a_curator: Дали сакате да бидете кустос
   donate_link: Дарувајте
-  donation_agree: се согласувам
-  donation_amount: "Вкупно:"
-  donation_amount_legend: Колку би сакале да дарувате денес?
-  donation_amount_other_label: Друг
-  donation_confirmation: Потврда на доброволниот прилог
-  donation_confirmation_head: Го цениме вашиот придонес!
-  donation_error_minimum: Поради трошоците за обработка, ќе треба да дарувате барем %{min}.
-  donation_error_no_amount: Одберете го износот на прилогот.
-  donation_error_only_numbers: Внесете го износот само со бројки.
-  donation_intro_span: EOL секојдневно расте
-  donation_introduction_paragraph_one: Ви предлагаме да ја истражите и да го искористите сето она што таа ви го нуди. Помогнете ни да го одржиме растот учествувајќи со содржини, стручност или парични средства.
-  donation_introduction_paragraph_two: Вашето великодушно дарителство ја поддржува работата на Енциклопедијата на живиот свет и овозможува глобален пристап до сознанијата за живите организми на Земјата.
-  donation_privacy_notice: <em>Приватносно-безбедносна напомена:</em> Имајте предвид дека оваа и следната потврдна страница не бараат лични податоци или броеви на кредитни картички, па затоа не се шифрирани. Откако ќе го потврдите износот што сакате да го дадете како прилог, ќе бидете одведени на безбедна страница, кајшто ќе треба да ги внесете податоците за плаќање.  Наплатата од картичката се врши дури откако ќе ја поднесете страницата со личните податоци.
-  donation_sponsorship_content_description: "Дарителите заинтересирани за поединечни гранки од дрвото на животот можат да станат покровители на нашите напори за наоѓање и добивање на нови содржини за EOL. Прилогот може да поддржи создавање на збирки од видови од различна големина: крупни потфати како збирка на цицачите на Северна Америка или птиците во Бразил, но и конкретни како збирка за морските лавови во заливот на Сан Франциско или „Храна од Новиот свет“."
-  donation_sponsorship_content_title: Покровителство на содржините
-  donation_sponsorship_fellowships_description: Суштината на е EOL е со глобални заедници е споделување на сознанијата. Енциклопедијата на живиот свет бара покровители заинтересирани да обезбедат средства за стипендии со кои во EOL би се вклучиле тековните научни истражувања кои се од големо значење.
-  donation_sponsorship_fellowships_title: Стипендии
-  donation_sponsorship_infrastructure_description: За да можe EOL, со сета своја моќ, да биде во рацете на луѓето ширум светот, добредојдени се добровилни прилози од било кој износ. Со ова ја поддржувате основната инфраструктура и работните трошоци на иницијативата.
-  donation_sponsorship_infrastructure_title: Основна инфраструктура
-  donation_sponsorship_preamble: "Ако сакате да дознаете повеќе за конкретните програми на кои им требаат покровители, или сакате да давате редовен прилог, обратете се на Секретаријатот на Енциклопедијата на живиот свет <a href=\"mailto:%{email_address}\">по е-пошта</a> или телефонски, на 1 (202) 633-8730 (во САД). Ова се можностите а наменски прилози:"
-  donation_title: Дарување за Енциклопедијата на живиот свет
-  donation_transaction_details_amount: "Износ:"
-  donation_you_are_about_to: Дарувате за Енциклопедијата на живиот свет. Стиснете на „се согласувам“ за да продолжите кон безбедното плаќање, каде ќе треба да внесете податоци од кредитната картичка.
-  donations_more_ways_title: Постојат и други начини да го потпомогнете растот на EOL
-  donations_temporarily_disabled: Многу ни е жал, но засега не прифаќаме уплати преку мрежни места. Обратете се во Секретаријатот на EOL на 'secretariat мајмунче eol.org' за да дарувате.
   done_already: Веќе сторено
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не прикажувај непознати регистрирани корисници (корисници на првата верзија, пред 5 јануари 2009)
   download_data: Преземи податоци
@@ -2204,7 +2179,7 @@ mk:
   error_401_page_title: Нема овластување
   error_403_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
   error_403_page_title: Забрането
-  error_404_description: Нажалост, не можев да ја најдам страницата на таа URL-адреса.
+  error_404_description: За жал, не можев да ја најдам страницата на таа URL-адреса.
   error_404_page_title: Не е најдено
   error_500_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму продолжи, обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_500_page_title: Внатрешна грешка во опслужувачот
@@ -2325,7 +2300,7 @@ mk:
   for_pdfs_and_docs_parens: (за PDF и документи)
   for_terms_or_definitions_conta: "за поими или толкувања што содржат:"
   forgot_password: Заборавена лозинка
-  forgot_password_cannot_find_user_from_username_or_email_error: Нажалост, нема кориснички сметки со наведеното корисничко име или е-пошта <em>%{username_or_email}</em>.
+  forgot_password_cannot_find_user_from_username_or_email_error: За жал, нема кориснички сметки со наведеното корисничко име или е-пошта <em>%{username_or_email}</em>.
   forgot_password_form_cancel: Откажи
   forgot_password_form_choose_username_blank_error: Одберете на која сметка сакате да ѝ ја смените лозинката.
   forgot_password_form_choose_username_instructions: Оваа е-пошта (<em>%{email}</em>) фигурира на повеќе сметки. Одберете на која сметка сакате да ѝ ја смените лозинката.
@@ -2384,7 +2359,7 @@ mk:
         other: "%{count} објави"
       replying_to_post: "Во одговор на:"
       topic_and_post_delete_successful: Објавата и темата се успешно избришани
-      update_failed: Нажалост, се појави грешка. Не можав да ја изменам објавата.
+      update_failed: За жал, се појави грешка. Не можав да ја изменам објавата.
       update_successful: Објавата е успешно изменета
     posts_heading: Објави
     replies: Одговори
@@ -2743,7 +2718,7 @@ mk:
   hierarchies_entries_description: Енциклопедијата на живиот свет нема една таксономска хиерархија по која се води во создавањето на страниците, туку индексира повеќе разни хиерархии и меѓусебно ги споредува. Како резултат на ова, една страница на EOL може да се однесува на неколку јазли од разни хиерархии. Овој API-прилог овозможува пристап до една единствена хиерархија и нејзините внатрешни поврзаности. Погледајте ја документацијата на API на страниците, каде ќе најдете информации како да дојдете до други хиерархии што соодветствуваат на дадена страница на EOL. Полето „taxonConceptID“ ја содржи назнаката на страницата на EOL што може да се употреби во API на страниците.
   hierarchies_title: Хиерархии
   hierarchy: Хиерархија
-  hierarchy_entry_switch_missing_id_error: Нажалост, не можев да ја пронајдам страницата во хиерархискиот запис бидејќи недостасува назнаката.
+  hierarchy_entry_switch_missing_id_error: За жал, не можев да ја пронајдам страницата во хиерархискиот запис бидејќи недостасува назнаката.
   hierarchy_node_missing: Нажалост, недостасуваат податоците за овој јазол.
   hierarchy_roots_colon: "Основи на хиерархијата:"
   hierarchy_selector_drop_down_list_label: Ова е натписот што ќе фигурира во паѓачкиот список за избирање на хиерархијата
@@ -2806,7 +2781,7 @@ mk:
   information_intended_for_beginners: Информации за почетници
   information_intended_for_experts: Информации наменети за стручњаци
   insufficient_privileges_to_add_common_names: Нажалост, немате доволно привилегии за да додавате народни имиња.
-  insufficient_privileges_to_curate_names: Нажалост, немате доволно привилегии за да згрижувате имиња.
+  insufficient_privileges_to_curate_names: За жал, немате доволно привилегии за да згрижувате имиња.
   internal_ip_address: внатрешна IP-адреса
   inverse_sort: Подреди обратно
   invite_members_help_text: Тука додајте корисници на EOL за да добијат покана да ѝ се придружат на вашата нова заедница!
@@ -2815,11 +2790,11 @@ mk:
   ip_address: IP-адреса
   item_added_to_collection_notice: Експонатот е додаден во збирката <em>%{collection_name}</em>
   item_added_to_watch_collection_notice: Експонатот „%{item_name}“ е додаден во %{collection_name}.
-  item_details_missing: Нажалост, се појави грешка. Не можев да ги добијам подробностите за експонатот.
+  item_details_missing: За жал, се појави грешка. Не можев да ги добијам подробностите за експонатот.
   item_not_added_already_in_collection: Овој експонат е веќе додаден во збирката.
-  item_not_added_to_collection_error: Нажалост, се појави грешка. Не можев да го додадам избраниот експонат во збирката.
-  item_not_added_to_itself_notice: Нажалост, не можете да ја додадете збирката <em>%{collection_name}</em> сама во себе.
-  item_not_updated_in_collection_error: Нажалост, се појави грешка. Не можев да го подновам експонатот.
+  item_not_added_to_collection_error: За жал, се појави грешка. Не можев да го додадам избраниот експонат во збирката.
+  item_not_added_to_itself_notice: За жал, не можете да ја додадете збирката <em>%{collection_name}</em> сама во себе.
+  item_not_updated_in_collection_error: За жал, се појави грешка. Не можев да го подновам експонатот.
   item_type_article: Статија
   item_type_article_assistive: Овој експонат е статија
   item_type_cms_page: Информации за EOL
@@ -2873,7 +2848,7 @@ mk:
   known_uri_missing_translation: Непреведено. Уредете го.
   known_uri_name_and_uri: "%{name} (%{uri})"
   known_uri_relationships: 
-    create_failed: Нажалост, се појави грешка. Не можев да го додадам односот.
+    create_failed: За жал, се појави грешка. Не можев да го додадам односот.
     created: Односот е успешно создаден.
     deleted: Односот е успешно избришан
   known_uri_updated: URI-то е подновено.
@@ -3089,7 +3064,7 @@ mk:
   matching_users_found_with_count: 
     one: Пронајден е вкупно %{count} корисник што одговара на бараното.
     other: Пронајдени се вкупно %{count} корисници што одговараат на бараното.
-  max_collection_items_error: Нажалост, барањето го надмина ограничувањето од %{max} експонати
+  max_collection_items_error: За жал, барањето го надмина ограничувањето од %{max} експонати
   media: Медиуми
   media_list_empty: Досега никој нема поставено ниеден медиум на оваа страница.
   media_list_empty_contribute_instructions: Дознајте како да придонесувате на EOL со медиуми.
@@ -3273,7 +3248,7 @@ mk:
   not_recognized_by_available_hierarchies: Не е признаено од ниедна расположива класификација
   not_shown_on_the_website_note: (не се прикажува на мреж. место или URL-адресата на врската, туку има само информативна улога)
   not_specified: неукажано
-  not_yet_implemented_error: Нажалост, таа функција сè уште не е воведена.
+  not_yet_implemented_error: За жал, таа функција сè уште не е воведена.
   note: "Напомена:"
   note_about_homonym_problems: "НАПОМЕНА: сменете го атрибутот само ако сте сигурни - ако го отштиклирате ова може да предизвикате сериозни проблеми во хомонимите"
   note_all_times_utc: Сите времиња се водат по UTC (средно врече по Гринич)
@@ -3535,7 +3510,7 @@ mk:
     other: од %{count} лица
   rating_added_notice: Оценката е успешно додадена.
   rating_learn_more_link: Дознајте за оценувањето
-  rating_not_added_error: Нажалост, се појави грешка. Не можев да ја додадам оценката.
+  rating_not_added_error: За жал, се појави грешка. Не можев да ја додадам оценката.
   reading_from_ontology: Читам од <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
   recaptcha: Внесете ги двата збора прикажани подолу
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">Знаците во reCaptcha</a> не се совпаѓаат. Обидете се повторно.
@@ -3628,7 +3603,7 @@ mk:
   required_form_element: Задолжително
   reset_password_enter_new_password_notice: Ова е еднократно најавување. Внесете нова лозинка за да продолжите.
   reset_password_instructions_sent_to_user_notice: Ви испративме напатствија за поставање на нова лозинка за вашата сметка <em>%{username}</em> по е-пошта.
-  reset_password_token_expired_error: Нажалост, не можев да ја изменам лозинката. Наведената врска е истечена. Повторно пополнете го образецот за заборавена лозинка за да добиете нова врска.
+  reset_password_token_expired_error: За жал, не можев да ја изменам лозинката. Наведената врска е истечена. Повторно пополнете го образецот за заборавена лозинка за да добиете нова врска.
   resource: Ресурс
   resource_hint_dataset_rights: (се однесува на податочниотзбир <i>во целина</i>; не важи за сите земји)
   resource_hint_dataset_source_url: (URL на изворот на податочниот збир, како труд или студија)
@@ -3701,6 +3676,7 @@ mk:
   search_suggestion_created: Предлогот при пребарување е успешно создаден.
   search_suggestion_updated: Предлогот при пребарување е успешно подновен.
   search_suggestions: Предлози при пребарување
+  search_summary: Опис на пребараното
   search_term: Пребаран поим
   search_term_detail_report: Подробен извештај за пребарани поими
   search_term_reports: извештаи за пребараните поими
@@ -4353,7 +4329,7 @@ mk:
   tumblr: Tumblr
   twitter: Twitter
   type: Тип
-  unable_to_copy_items_to_collection_error: Нажалост, не можев да ги ископирам експонатите во %{name}.
+  unable_to_copy_items_to_collection_error: За жал, не можев да ги ископирам експонатите во %{name}.
   unable_to_determine_title: Не можам да го утврдам насловот на оваа мреж. страница
   unable_to_invite_users_to_community_with_count: 
     one: Не можав да ја испратам поканата на %{list}.
@@ -4378,7 +4354,7 @@ mk:
   update_language: Измени јазик
   update_page: Поднови страница
   update_user_successful_notice: Сметката е успешно подновена.
-  update_user_unsuccessful_error: Нажалост, се појави грешка, па затоа вашата сметка не е подновена. Проверете дали исправно сте ги пополниле сите полиња.
+  update_user_unsuccessful_error: За жал, се појави грешка, па затоа вашата сметка не е подновена. Проверете дали исправно сте ги пополниле сите полиња.
   updated: Подновено
   updated_colon: "Подновено:"
   updated_community: Заедницата е успешно подновена
@@ -4401,8 +4377,8 @@ mk:
   use_as_examplar_note_preferred: "напомена: оваа класификација е претпочитана. Веројатно треба да ја користите неа."
   used_for_friendly_url_note: (се користи за создавање на згодни врски за корисници - не смее да содржи празни места и специјални знаци)
   user: Корисник
-  user_activation_failed_resent_validation_email_error: Нажалост, се појави грешка. Не можев да ја потврдам сметката. Ова најчесто се случува кога внесената потврдна врска не може да се препознае. Повторно ви испративме напатствија за активација на е-поштенската адреса со која се регистриравте. Проверете дали потврдната врска што ја користите се совпаѓа со онаа во пораката за активација.
-  user_activation_failed_user_not_found_error: Нажалост, се појави грешка. Не можев да ја пронајдам сметката што сакате да ја потврдите. Проверете дали потврдната врска што ја користите се совпаѓа со онаа во пораката за активација.
+  user_activation_failed_resent_validation_email_error: За жал, се појави грешка. Не можев да ја потврдам сметката. Ова најчесто се случува кога внесената потврдна врска не може да се препознае. Повторно ви испративме напатствија за активација на е-поштенската адреса со која се регистриравте. Проверете дали потврдната врска што ја користите се совпаѓа со онаа во пораката за активација.
+  user_activation_failed_user_not_found_error: За жал, се појави грешка. Не можев да ја пронајдам сметката што сакате да ја потврдите. Проверете дали потврдната врска што ја користите се совпаѓа со онаа во пораката за активација.
   user_activation_successful_notice: Добредојдовте. Ви благодариме што ѝ се придруживте на екипата на Енциклопедијата на живиот свет. Вашата сметка со корисничко име <em>%{username}</em> сега е активна. Ве молиме, најавете се.
   user_activity_click_on_the_numbers: Стиснете на бројките за да ги видите соодветните канали за активности.
   user_activity_page_title: Кориснички активности
@@ -4773,7 +4749,7 @@ mk:
   who_registered_before: до
   who_registered_from: кој се регистрираше од
   wikipedia_queue_create_successful_notice: Статијата %{article} преработка %{rev} од Википедија е ставена во редицата за увоз.
-  wikipedia_queue_create_unsuccessful_error: Нажалост, се појави грешка. Не можев да ја ставам статијата од Википедија во редицата на чекање за увоз.<br />URL-адресата на преработката мора да се совпаѓа со https://mk.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
+  wikipedia_queue_create_unsuccessful_error: За жал, се појави грешка. Не можев да ја ставам статијата од Википедија во редицата на чекање за увоз.<br />URL-адресата на преработката мора да се совпаѓа со https://mk.wikipedia.org/w/index.php?title=*НАСЛОВ*&oldid=*СТАРАНАЗНАКА*
   wikipedia_queue_new_instructions_intro: "За да ја добиете URL-адресата на преработка на некоја статија на Википедија:"
   wikipedia_queue_new_instructions_step_four: "Ископирајте ја URL-адресата на преработката од прелистувачот и вметнете ја во прикажаниот образец за увоз од Википедија. URL-адресата треба да биде од следниов облик: <a href=\"https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424\">https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424</a>"
   wikipedia_queue_new_instructions_step_one: Одете на страницата на Википедија, на пр. <a href="https://mk.wikipedia.org/w/index.php?title=Тигар">https://mk.wikipedia.org/w/index.php?title=Тигар</a>

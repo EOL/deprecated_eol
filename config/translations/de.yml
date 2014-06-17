@@ -2079,31 +2079,6 @@ de:
     other: Die Datensätze %{start_number} &ndash; %{end_number} von %{count} auf EOL anzeigen
   do_you_want_to_be_a_curator: Möchten Sie ein Kurator werden?
   donate_link: Spenden
-  donation_agree: zustimmen
-  donation_amount: "Gesamt:"
-  donation_amount_legend: Wie viel möchten Sie heute spenden?
-  donation_amount_other_label: Anderer
-  donation_confirmation: Spendenbestätigung
-  donation_confirmation_head: Wir begrüßen Ihre Spende!
-  donation_error_minimum: Der Mindestspendebetrag beträgt aufgrund der Verarbeitungskosten %{min}.
-  donation_error_no_amount: Bitte einen Spendenbetrag auswählen
-  donation_error_only_numbers: Bitte geben Sie eine Menge nur mit Hilfe von Ziffern an.
-  donation_intro_span: EOL wächst jeden Tag
-  donation_introduction_paragraph_one: Wir möchten Sie dazu ermutigen EOL zu erkunden und alle Angebote zu nutzen. Wir bitten Sie auch, uns dabei zu unterstützen, das diese Initiative mit Hilfe Ihrer Beiträge, Ihres Fachwissens und Ihrer finanziellen Unterstützung weiter wächst.
-  donation_introduction_paragraph_two: Ihre großzügige Förderung der Enzyklopädie des Lebens (EOL) unterstützt unsere Arbeit einen weltumspannenden Zugang zum Wissen über das Leben auf unserer Erde zu schaffen.
-  donation_privacy_notice: <em>Datenschutz- und Sicherheitshinweis:</em> Bitte beachten Sie, dass diese Seite, sowie die folgende Bestätigungsseite, keine persönlichen Informationen oder Kreditkartennummern aufzeichnen und daher nicht verschlüsselt werden. Nach der Bestätigung des Betrags, den Sie spenden möchten, gelangen Sie zu einer gesicheren Seite, auf der Sie Ihre Zahlungsinformationen angeben können. Abbuchungen von Ihrer Kreditkarte werden nicht durchgeführt, bis Sie die Seite mit Ihren persönlichen Informationen gespeichert und diese so an uns übermittelt haben.
-  donation_sponsorship_content_description: Spender mit Interesse an bestimmten Zweigen am Baums des Lebens, können die Bemühungen fördern, hierzu neue Inhalte für die EOL zu ermitteln sowie zu erwerben. Spenden können beispielsweise die Schaffung von Sammlungen mit Seiten bestimmter Arten fördern. Dies kann sowohl eine allgemeine Sammlung zu allen Säugetieren Europas, zu allen Vögeln Deutschlands, oder auch eine sehr spezifische Sammlung zu Robben in der Helgoländer Bucht sein.
-  donation_sponsorship_content_title: Inhaltssponsoring
-  donation_sponsorship_fellowships_description: Der Austausch von Wissen zwischen globalen Lerngemeinschaften ist der Hauptzweck der EOL. Die Enzyklopädie des Lebens (EOL) sucht nach Gönnern, die daran interessiert sind, Stipendien zu fördern. Diese sind das Instrument, die wichtige und aktuelle wissenschaftliche Forschung zur EOL hinzuzufügen.
-  donation_sponsorship_fellowships_title: Gönner
-  donation_sponsorship_infrastructure_description: Um die Stärken der EOL den Menschen auf der ganzen Welt zur Verfügung stellen zu können, sind Spenden jeglichen Umfangs sehr willkommen, welche die Infrastruktur- sowie Betriebsausgaben dieser Initiative absichern.
-  donation_sponsorship_infrastructure_title: Infrastruktur
-  donation_sponsorship_preamble: Sofern Sie mehr über verfügbare spezifischen Förderprogramme erfahren oder regelmäßig Spenden möchten, bitten wir Sie das Sekretariat der Enzyklopädie des Lebens (EOL) per <a href="mailto:%{email_address}">E-Mail</a> zu kontaktieren.
-  donation_title: An die Enzyklopädie des Lebens spenden
-  donation_transaction_details_amount: "Betrag:"
-  donation_you_are_about_to: Sie sind dabei, an die Enzyklopädie des Lebens zu spenden. Bitte klicken Sie auf „zustimmen“, um auf eine sichere Zahlungsverarbeitungswebsite zu gelangen, wo Sie aufgefordert werden, Ihre Kreditkarteninformationen einzugeben.
-  donations_more_ways_title: Es gibt weitere Wege, wie man der EOL helfen kann, zu wachsen
-  donations_temporarily_disabled: Leider werden derzeit keine Onlinespenden akzeptiert. Bitte kontaktieren Sie das EOL-Sekretariat unter secretariat[at]eol.org, um zu spenden.
   done_already: Bereits erledigt
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Unbekannte Registrierungsdaten nicht anzeigen (v1.0-Nutzer, alle vor dem 5. Januar 2009)
   download_data: Daten herunterladen
@@ -3711,6 +3686,7 @@ de:
   search_suggestion_created: Der Suchvorschlag wurde erfolgreich erstellt.
   search_suggestion_updated: Der Suchvorschlag wurde erfolgreich erstellt.
   search_suggestions: Suchvorschläge
+  search_summary: Zusammenfassung suchen
   search_term: Suchbegriff
   search_term_detail_report: Detaillierter Bericht zu Suchbegriffen
   search_term_reports: Bericht zu den Suchbegriffen

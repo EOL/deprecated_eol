@@ -850,12 +850,6 @@ cs:
   development_version_name: EOL V2 Beta
   did_you_mean: "Nemysleli jste: %{suggestions} ?"
   disabled_for_now: V SOUČASNOSTI DEAKTIVOVÁNO
-  donation_amount_legend: Zvolte sumu kterou chcete darovat
-  donation_amount_other_label: Ostatní
-  donation_confirmation: Potvrzení darování
-  donation_error_no_amount: Vyberte prosím darovanou sumu.
-  donation_error_only_numbers: Zadejte prosím sumu pouze pomocí číslic.
-  donation_sponsorship_infrastructure_title: Základní infrastruktura
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Duplicitní položky byly ignorovány.
   edit: Upravit

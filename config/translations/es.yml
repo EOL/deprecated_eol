@@ -1039,6 +1039,7 @@ es:
   admin_option_all_users_can_see_data: Todos los usuarios pueden ver los datos, no sólo los usuarios con permiso
   admin_options_warning: Los cambios aquí pueden tomar 10 minutos en hacer efecto.
   admin_page_title: Consola de Administración
+  admin_simple_actions_header: "Acciones sencillas:"
   admin_spam_delete: Eliminar Spam
   admin_statistics_link: Estadísticas
   admin_translated_content_page_create_successful_notice: Se ha agregado la traducción a <a href="#%{anchor}"><em>%{page_name}</em></a>
@@ -1067,6 +1068,7 @@ es:
   admin_translated_news_item_not_active: Sin publicar
   admin_translated_news_item_update_successful_notice: Se ha actualizado la traducción en %{language} de la página <a href="#%{anchor}"><em>%{page_name}</em></a>.
   admin_translated_news_item_update_unsuccessful_error: Lo sentimos, ha ocurrido un error, la traducción no se pudo actualizar.
+  admin_updated_config: Configuración actualizada para %{name}
   admin_user_delete_successful_notice: El usuario ha sido eliminado
   admin_user_hide_successful_notice: El usuario ha sido ocultado
   admin_user_unhide_successful_notice: El usuario ha dejado de estar oculto
@@ -1524,7 +1526,7 @@ es:
   community_tab_curators_description: Los supervisores son usuarios de EOL con experiencia en biología que dedican su tiempo para revisar el contenido que aparece en EOL, asegurando que lo que aparece es exacto y de buena calidad.
   completed: Completado
   completed_colon: "Completado:"
-  confirm_delete_community: ¿Está saguaro de que desae borer esta comunidad? Los miembros restantes todavía podrán verla y los newsfeed se mantendrán, pero no se mostrará en las búsquedas o en páginas de taxones, y no se podrán editor más.
+  confirm_delete_community: ¿Estás seguro de querer suprimir esta comunidad? Miembros restantes todavía será capaz de ver y el suministro de noticias se mantendrá, pero no aparecerá en las búsquedas o en el taxón páginas, y ya no será editable.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
   confirm_password_colon: "Confirmar contraseña:"
   contact: Contacto
@@ -2093,31 +2095,6 @@ es:
     other: Mostrando %{start_number} &ndash; %{end_number} de %{count} registros en EOL
   do_you_want_to_be_a_curator: ¿Desea ser supervisor?
   donate_link: Donar
-  donation_agree: acepto
-  donation_amount: "Total:"
-  donation_amount_legend: ¿Cuánto le gustaría contribuir hoy?
-  donation_amount_other_label: Otro
-  donation_confirmation: Confirmación de donación
-  donation_confirmation_head: ¡Agradecemos su contribución!
-  donation_error_minimum: Debido a los costos de procesamiento, el monto mínimo de la donación es de %{min}.
-  donation_error_no_amount: Por favor, seleccione una cantidad de donación.
-  donation_error_only_numbers: Por favor, introduzca una cantidad usando sólo números.
-  donation_intro_span: EOL está creciendo cada día
-  donation_introduction_paragraph_one: Lo invitamos a explorar EOL y aprovechar todo lo que tiene que ofrecer. Le pedimos que ayude a mantener la iniciativa de crecimiento mediante sus contribuciones en contenido, experiencia y apoyo financiero.
-  donation_introduction_paragraph_two: A través de su generoso apoyo financiero, la Enciclopedia de la Vida continúa ofreciendo acceso global al conocimiento sobre la vida en la Tierra.
-  donation_privacy_notice: Por favor note que en esta página y la página de confirmación siguiente no recogemos ninguna información personal o números de tarjetas de crédito, y por tanto no son codificados. Después de confirmar la cantidad que desea donar, será dirigido a una página segura para entrar en su información de pago. Cargos a su tarjeta de crédito no se aplicará hasta que presente la página que contiene su información personal.
-  donation_sponsorship_content_description: Los donantes interesados en ramas particulares de árbol de la vida pueden patrocinar esfuerzos para dar acceso a nuevos contenidos por medio de EOL. Las donaciones pueden cubrir la creación de colecciones de páginas de especies tan amplias como todos los mamíferos de Norte América o las aves de Brasil, o tan específicas  como las focas de la Bahía de San Francisco, o "Comidas del Nuevo Mundo".
-  donation_sponsorship_content_title: Patrocinio de contenidos
-  donation_sponsorship_fellowships_description: Compartir conocimientos con comunidades globales de aprendizaje es la escencia de EOL. La Enciclopedia de la Vida está buscando donantes interesados en apoyar con becas para apoyar la investigación científica cuyo resultados se incorporan a EOL.
-  donation_sponsorship_fellowships_title: Becas
-  donation_sponsorship_infrastructure_description: Con el fin de poner el poder de EOL en la manos de la gente alrededor de todo el mundo, se aceptan donaciones de toda escala para apoyar la infraestructura fundamental y la de EOL.
-  donation_sponsorship_infrastructure_title: Infrastructura fundamental
-  donation_sponsorship_preamble: "Si quieres aprender obtener más información sobre los programas de patrocinio que hay disponibles o quieres hacer una donación recurrente, por favor contáctenos, por medio de la Secretaría de EOL por <a href=\"mailto:%{email_address}\">correo electrónico</a> o por teléfono al 1 (202) 633-8730 (en los Estados Unidos). Entre las oportunidades para donaciones específicas tenemos:"
-  donation_title: Donar a la Enciclopedia de la Vida
-  donation_transaction_details_amount: "Cantidad:"
-  donation_you_are_about_to: Está a punto de donar a la Enciclopedia de la Vida. Por favor, presione el botón "acepto" para continuar a sitio seguro de procesamiento de pagos, donde se le pedirá que introduzca la información de su tarjeta de crédito.
-  donations_more_ways_title: Hay muchas maneras de ayudar a crecer EOL
-  donations_temporarily_disabled: Estamos apenados, pero actualmente no se aceptan donaciones en línea. Póngase en contacto con la Secretaría de EOL en 'secretariat arroba eol.org' para hacer una donación.
   done_already: Ya lo ha hecho
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: No mostrar fechas registradas desconocidas (usuario de v1, todo anterior al 5 de enero, 2009)
   download_data: Descargar datos
@@ -3241,7 +3218,7 @@ es:
   names_relationship_column_header: Relación
   names_sources_column_header: Fuentes
   names_status_column_header: Estado
-  names_synonyms_empty: No sinónimos se han asociado a este taxón todavía.
+  names_synonyms_empty: No hay sinónimos se han asociado con este taxón todavía.
   never: Nunca
   new_collection: Nueva colección
   new_contact_us_topic: Nuevo tema de contacto
@@ -3631,6 +3608,8 @@ es:
   recognized_by_from_source_as_a_rank: "%{recognized_by} en %{source} como un %{taxon_rank}"
   record_count: Conteo de registros
   record_not_found: "[no se encontró el registro]"
+  recount_collection_items: Volver a contar los elementos de la colección (corrige el mal conteo de elementos; esto puede tardar varios minutos)
+  recount_collection_items_done: Terminado el recuento de los elementos de la colección.
   reference: Referencia
   references_cabs_colon: "Referencias:"
   reindex_page_button: Reindexar la página
@@ -3681,7 +3660,7 @@ es:
   return_all_synonyms_for_this_taxon: devolver todos los sinónimos para este taxón
   return_common_names_for_the_page_taxon: devolver todos los nombres comunes para taxón de la página
   return_content_by_vettedness: Si 'vetted' tiene el valor 1 entonces solo se devolverá contenido de confianza. Si 'vetted' es 2 entonces solo se devolverá contenido de confianza y no revisado (no se mostrarán contenidos no fiables). Por defecto, se retornará todo el contenido.
-  return_references_for_the_page_taxon: Entregar todos los nombres vernáculos del taxon de la página
+  return_references_for_the_page_taxon: Entregar todos los nombres vernáculos del taxón de la página
   return_synonyms_for_the_page_taxon: devuelve todos los sinónimos de el taxón de la página
   returns_all_metadata_about_a_particular_collection: Devuelve todos los metadatos sobre una colección particular y los elementos que contiene indexados por EOL
   returns_all_metadata_about_a_particular_data_object: devuelve todos los metadatos sobre un objeto de datos particuar (texto, imagen o vídeo) indizado por EOL
@@ -3725,6 +3704,7 @@ es:
   search_suggestion_created: La sugerencia de búsqueda se creó correctamente.
   search_suggestion_updated: La sugerencia de búsqueda se actualizó correctamente.
   search_suggestions: Sugerencias de búsqueda
+  search_summary: Resumen de la búsqueda
   search_term: Término de búsqueda
   search_term_detail_report: Informe detallado de término de búsqueda
   search_term_reports: buscar informes
@@ -4359,6 +4339,7 @@ es:
     one: "%{count} ítem"
     other: "%{count} total ítems"
   total_searches: "Búsquedas totales:"
+  traitbank_banner: <strong>Introducción de <a href='/traitbank'>TraitBank</a>:</strong> búsqueda de millones de datos en EOL &nbsp; <small>•</small> &nbsp; <a href='/traitbank'>Aprender más</a> &nbsp; <small>•</small> &nbsp; <a href='/data_search'>Búsqueda de datos</a>
   translation_deleted: Se ha eliminado la traducción
   translation_information_header: Información de la traducción
   translation_log: Histograma de frecuencia clave i18n

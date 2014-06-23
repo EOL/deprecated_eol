@@ -181,6 +181,7 @@ pms:
         description: Descrission
         exclude_from_exemplars: Esclude da la vista global
         group_by_clade: Dovré për dj'antërvaj ëd partìe tassonòmiche
+        hide_from_glossary: Stërmé al glossari dij dàit
         name: Nòm
         toc_items: Categorìe
         uri: URI
@@ -663,6 +664,7 @@ pms:
         an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: N'utent ësconossù a l'ha marcù ël nòm comun "%{name}" an %{language} da na pàgina sconossùa coma afidàbil.
         an_unknown_user_trusted_name_in_language_on_taxon: N'utent ësconossù a l'ha marcà ël nòm comun "%{name}" an %{language} da "%{taxon}" coma afidàbil.
         user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha marcà un nòm comun ësconossù an na lenga sconossùa da na pàgina sconossùa coma afidàbil.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha marcà un nòm comun ësconossù an %{language} da na pàgina sconossùa coma afidàbil.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma afidàbil ant un contest ësconossù.
         an_unknown_user_trusted_an_older_data_object_on_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma afidàbil an sla pàgina "%{association}".

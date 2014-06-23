@@ -207,6 +207,7 @@ de:
         description: Beschreibung
         exclude_from_exemplars: Von der Übersicht ausschließen
         group_by_clade: Für Taxonomiegruppenbereiche verwenden
+        hide_from_glossary: Im Datenglossar ausblenden
         name: Name
         toc_items: Kategorien
         uri: URI
@@ -3231,6 +3232,7 @@ de:
   newsfeed_help_for_profile: Der Nachrichtenfeed dieses EOL-Profils sammelt Kommentare, die seinem Besitzer von andern Mitgliedern hinterlassen wurden, Einladungen in EOL-Gemeinschaften sowie Aktualisierungen bezüglich der Objekte, die sich auf dessen Beobachtungsliste befinden.
   newsfeed_help_for_taxon: Der Nachrichtenfeed dieser Seite zu einem Taxon sammelt die Aktualisierungen bezüglich der auf ihr dargestellten Objekte, einschließlich der Aktivitäten der Kuratoren sowie der Kommentare anderer Nutzer von EOL.
   newsfeed_help_for_watchlist: Der Nachrichtenfeed dieser Beobachtungsliste sammelt die Aktualisierungen bezüglich der Objekte, die sich auf der Beobachtungsliste ihres Besitzers befinden, einschließlich der Aktivitäten ihres Besitzers.
+  newsletter_banner: Werden Sie Teil der EOL-Gemeinschaft&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>registrieren Sie sich heute für den EOL-Newsletter</a>
   next: Nächste
   no_active_members: Bislang gab es noch keine ausreichenden Aktivitäten.
   no_answer: Nein

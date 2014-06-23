@@ -222,6 +222,7 @@ es:
         description: Descripción
         exclude_from_exemplars: Excluir del resumen
         group_by_clade: Usar para rangos de grupos taxonómicos
+        hide_from_glossary: Ocultar a partir de los datos del glosario
         name: Nombre
         toc_items: Categorías
         uri: URI
@@ -3249,6 +3250,7 @@ es:
   newsfeed_help_for_profile: El canal de noticias del perfil de EOL contiene los comentarios dejados para su propietario por otros miembros, invitaciones de la Comunidad EOL, y recoge las actualizaciones relacionadas con los elementos de la lista de seguimiento EOL del propietario.
   newsfeed_help_for_taxon: El suministro de noticias de esta página Taxón EOL recoge cambios asociados con elementos que aparecen en ella, incluyendo las acciones de comisario y los comentarios de los usuarios de EOL.
   newsfeed_help_for_watchlist: La lista Watch EOL Newsfeed reúne actualizaciones asociadas con los elementos en la lista del propietario Watch EOL, incluidas las actividades de su propietario.
+  newsletter_banner: Sea parte de la comunidad EOL&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>suscríbase al boletín de EOL</a>
   next: Siguiente
   no_active_members: No ha habido suficiente actividad todavía.
   no_answer: 'No'

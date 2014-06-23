@@ -209,6 +209,7 @@ zh-CN:
         description: 描述
         exclude_from_exemplars: 从概述中排除
         group_by_clade: 用于分类组别范围
+        hide_from_glossary: 从数据术语表中隐藏
         name: 名称
         toc_items: 分类
         uri: URI
@@ -568,6 +569,13 @@ zh-CN:
         an_unknown_user_cropped_an_unknown_data_object: 一位未知用户修改了一个未知图像的缩略图。
         an_unknown_user_cropped_it: 一位未知用户修改了一个未知图像的缩略图。
       data_point_uri: 
+        an_unknown_user_hide_data_on_an_unknown_taxon: 未知用户在未知页面选择隐藏数据。
+        an_unknown_user_hide_data_on_taxon: 未知用户在“%{taxon}”选择隐藏数据。
+        an_unknown_user_unhide_data_on_an_unknown_taxon: 未知用户在未知页面选择显示数据。
+        an_unknown_user_unhide_data_on_taxon: 未知用户在“%{taxon}”选择显示数据。
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong>在未知页面选择隐藏数据。
+        user_hide_data_on_taxon: <strong>%{user}</strong>在“%{taxon}”选择隐藏数据。
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong>在未知页面选择显示数据。
         user_unhide_data_on_taxon: <strong>%{user}</strong>选择在“%{taxon}”显示数据。
       hide: 
         an_unknown_user_hid_an_older_data_object_on_an_unknown_association: 一个未知用户在一个未知段落将旧版本的数据项 “%{data_object}” 标为隐藏状态。
@@ -738,7 +746,7 @@ zh-CN:
   admin_content_page_child_new_link: 创建子页面
   admin_content_page_create_successful_notice: "\"页面<a href=\"\"#%{anchor}\"\"><em>%{page_name}</em></a>创建成功。\""
   admin_content_page_create_unsuccessful_error: 抱歉，出现了一个错误，页面未能创建。
-  admin_content_page_delete_confirmation: 您确定要删除“%{page_name}”和所有的翻译吗？删除操作将无法撤消。
+  admin_content_page_delete_confirmation: 您确定要删除“%{page_name}”和所有的翻译吗？删除页面无法恢复。
   admin_content_page_delete_successful_notice: "%{page_name}页及其相关联的翻译均已被删除。"
   admin_content_page_edit_header: 更新<em>%{page_name}</em>的基本页面信息
   admin_content_page_edit_tip: 建议您不要编辑此页的唯一名称，除非您完全清楚后果，包括对指向此页或具名路径的那些链接的影响。唯一的名称是 %{required_icon} 所必需的。
@@ -780,9 +788,11 @@ zh-CN:
   admin_news_item_active: 已发布
   admin_news_item_create_successful_notice: 新闻项<a href="#%{anchor}"><em>%{page_name}</em></a>创建成功。
   admin_news_item_create_unsuccessful_error: 抱歉，出现一个错误，新闻项未创建。
+  admin_news_item_delete_confirmation: 您确定要删除“%{page_name}”和所有的翻译吗？删除页面无法恢复。
   admin_news_item_new_header: 创建一个新的新闻项
   admin_news_item_new_link: 创建新闻项
   admin_news_item_not_active: 未发布
+  admin_news_item_update_successful_notice: 新闻项<a href="#%{anchor}"><em>%{page_name}</em></a>更新成功。
   admin_news_items_empty: 没有新闻项被发现。
   admin_news_items_page_title: 管理：新闻
   admin_news_link: 新闻
@@ -806,11 +816,14 @@ zh-CN:
   admin_translated_news_item_active: 已发布
   admin_translated_news_item_create_successful_notice: 翻译已加入<a href="#%{anchor}"><em>%{page_name}</em></a>
   admin_translated_news_item_create_unsuccessful_error: 抱歉，出现了一个错误，翻译无法添加。
+  admin_translated_news_item_delete_successful_notice: 新闻项<em>%{page_name}</em>的%{language}翻译版本被删除。
   admin_translated_news_item_edit_subheader: 编辑<em>%{page_name}</em>的%{language}翻译版本
   admin_translated_news_item_new_header: 选择语言并添加内容
   admin_translated_news_item_new_link: 加入翻译
   admin_translated_news_item_new_subheader: 为<em>%{page_name}</em>加入翻译
   admin_translated_news_item_not_active: 未发布
+  admin_translated_news_item_update_successful_notice: <a href="#%{anchor}"><em>%{page_name}</em>的%{language}翻译版本已更新。
+  admin_translated_news_item_update_unsuccessful_error: 抱歉，发生错误，翻译无法更新。
   admin_user_delete_successful_notice: 用户已删除
   admin_user_hide_successful_notice: 用户已隐藏
   admin_user_unhide_successful_notice: 用户已显示
@@ -883,6 +896,8 @@ zh-CN:
   and_between_form_items: 和
   annotation_cabs_colon: 注释：
   annotation_submit: 发表评论
+  annotations_with_count: 
+    other: "%{count}段释文"
   anonymous_user_full_name: 匿名用户
   anonymous_user_given_name: 匿名
   anonymous_user_tag_line: 未登录
@@ -1416,6 +1431,7 @@ zh-CN:
   create_a_collection: 创建一个收藏
   create_a_community: 创建一个社区
   create_a_community_login_advisory: 您需要先登录才能创建自己的社区
+  create_a_new_collection: 创建新收藏
   create_account: 创建一个帐户
   create_child_page: 创建子页面
   create_collection_button: 创建收藏
@@ -1517,8 +1533,10 @@ zh-CN:
       meta_supplier_default: 一个贡献者
       meta_title: 来自 %{supplier}的%{dato_title} \
       tweet_text: 来自 %{supplier}的%{dato_title} \
+  data_point_uri_source_missing: 丢失来源
   data_point_uri_summary_name: 关于%{taxon}的数据
   data_provided_by_content_partner: 供应商：%{whom}
+  data_provided_by_user: 由%{whom}提供
   data_ranges: 数据总结
   data_row_add_exemplar_button: 添加到概述
   data_row_additional_detail_alt: 额外详细信息
@@ -1548,6 +1566,8 @@ zh-CN:
   data_summary_ranges_header_with_count: EOL拥有汇总数据
   data_tab_curator_excluded: 已从概述中排除
   data_tab_curator_exemplar: 在概述中显示
+  data_tab_curator_key_excluded: "%{image}已从<a href='%{link}'>概述</a>移除"
+  data_tab_curator_key_exemplar: "%{image}已加入至<a href='%{link}'>概述</a>"
   data_usage_reports: 数据使用报告
   date_caps: 日期
   date_uploaded: 上传日期
@@ -1777,6 +1797,7 @@ zh-CN:
       hidden_user_temporary_login: 抱歉，当前账户的恢复与登录都被禁用。
       inactive_user_login: 抱歉，当前账号尚未激活。如果您在注册时未收到验证邮件，请按照账户的恢复程序来验证您的邮箱地址并激活账户。
       min_full_curators_only: 抱歉，访问的最低权限是EOL管理员。
+      min_master_curators_only: 抱歉，访问权限制为至少硕士级的EOL管理层。
       no_access: 抱歉，访问受到限制。
   expand_all_children: 展开所有子节点
   expired: 届满的
@@ -1961,6 +1982,7 @@ zh-CN:
   google_scholar: Google学术
   grant_full_curator_link: 授权
   grant_manager_link: 授权管理员角色
+  grant_permission: 拨款
   harvest_id: 数据采集ID
   harvesting_processes_log: 采集过程日志
   harvests_for: 用于%{resource}的采集
@@ -2380,6 +2402,7 @@ zh-CN:
     create_failed: "\"抱歉, 出现了一个错误, 关联无法添加。\""
     created: 关联被成功创建
     deleted: 关联被成功删除
+  known_uri_updated: URI 已更新。
   known_uris: 
     add_a_relationship: 添加关系
     attribution_placeholder_text: 源于都柏林核心的例子 ；请参阅 http://dublincore.org/usage/terms/history/#contributorT-001。
@@ -2916,7 +2939,7 @@ zh-CN:
   percentage_of_children_with_text: 有文本的子节点的百分比
   percentage_of_descendants_with_images: 带图像的子节点的百分比
   percentage_of_descendants_with_text: 带文本的子节点的百分比
-  permalink: 永久链接
+  permalink: 固定链接
   permission_granted: 权限已授予。
   permission_revoked: 权限已撤销。
   permissions_list_header: EOL的权限
@@ -3077,6 +3100,7 @@ zh-CN:
   revisions: 修订
   revoke_full_curator_link: 撤销
   revoke_manager_link: 撤销管理者角色
+  revoke_permission: 撤销
   richness_score: 丰富度数值
   rights: 权利
   rights_holder: 权利持有人
@@ -3129,6 +3153,7 @@ zh-CN:
     other: 查看%{count}个管理员
   see_all_featured_collections_with_count: 
     other: 查看%{count}个特色收藏
+  see_all_maps_link: 查看所有地图
   see_all_media_link: 查看所有媒体
   see_all_of_your_collections: 查看您的所有收藏
   see_all_of_your_communities: 查看您的所有社区
@@ -3314,9 +3339,11 @@ zh-CN:
         tweet_text: 对%{scientific_name}感兴趣的用户
     data: 
       index: 
+        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a>从很多供应商聚合数据记录。选择一行获取更多记录信息，或<a href="%{traitbank_search_path}">搜索TraitBank</a>。
+        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>从很多供应商聚合数据记录。选择一行获取更多记录信息，或<a href="%{traitbank_search_path}">在%{taxon_name}中搜索</a>。
         hierarchy_entry: 
           meta_description: 在网络生命大百科中关于%{scientific_name}被%{hierarchy_provider}分类的事实
-          meta_description_no_data: 生物大百科全书中没有提供按%{hierarchy_provider}分类界定为 %{scientific_name}的可分析的数据资料。EOL 邀请您提供 %{scientific_name}的有关数据。
+          meta_description_no_data: 生物大百科全书中没有提供按%{hierarchy_provider}分类界定为%{scientific_name}的可分析的数据资料。EOL 邀请您提供%{scientific_name}的有关数据。
           meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何可分析性数据。EOL 邀请您提供有关 %{preferred_common_name} ({scientific_name} %)的数据信息。
           meta_description_with_common_name_with_topics: 科学家已经收集了按%{hierarchy_provider}分类界定为 %{preferred_common_name}的哪些数据？%{scientific_name}的可分析数据包括有关%{topics}的信息。
           meta_title: 有关%{hierarchy_provider}分类界定为%{scientific_name}的可分析性数据
@@ -3340,7 +3367,7 @@ zh-CN:
           meta_description_with_common_name: "\"关于%{preferred_common_name}的信息,学名是 %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。\""
           meta_description_with_common_name_no_data: 生物大百科全书中对被 %{hierarchy_provider}%分类界定为{Preferred_common_name}，又称为 %{scientific_name}没有提供任何资讯。EOL 邀请你提供有关 %{preferred_common_name} ({scientific_name} %)的信息，例如养护、 分布、 生态、 栖息地、 形态等。
           meta_description_with_common_name_with_chapter_list: "\"关于%{preferred_common_name}的信息,学名是 %{scientific_name}，分类系统由网络生命大百科的%{hierarchy_provider}提供。包括%{chapter_list}的信息。\""
-          meta_title: 关于%{scientific_name}的信息，分类系统由 %{hierarchy_provider}提供
+          meta_title: 有关%{scientific_name}由%{hierarchy_provider}分类的摘要和条目
           meta_title_with_common_name: 关于%{preferred_common_name}的信息 (%{scientific_name}，分类系统由 %{hierarchy_provider}提供)
           tweet_text: 关于%{scientific_name}的信息，分类系统由 %{hierarchy_provider}提供
         meta_description: 网络生命大百科中关于%{scientific_name}的摘要和条目
@@ -3771,9 +3798,10 @@ zh-CN:
   user_already_active_notice: 您的帐户已激活，请登录。
   user_comment: 用户评论
   user_commented_on_deleted_user: "<strong>%{user_with_link}</strong> 对已移除用户的页面的评论:"
-  user_commented_on_older_data_object_colon: "<strong>%{user}</strong> 对 %{what}做了评论:"
+  user_commented_on_older_data_object_colon: <strong>%{user}</strong>对%{what}的旧版本做出评论：
   user_commented_on_something_colon: "<strong>%{user}</strong> 对 %{what}做了评论:"
   user_commented_on_themself: "<strong>%{user_with_link}</strong> 对<a href='%{link}'>%{username}的动态</a>的评论:"
+  user_commented_on_your_image: <strong>%{user}</strong>对您在<a href='%{data_object_link}'>网络生命大百科网站</a>的图片做出评论：%{comment_body}
   user_comments: 用户评论
   user_full_name_with_curator: "%{user} (%{curator_level})"
   user_id: 用户ID
@@ -4041,6 +4069,7 @@ zh-CN:
   visitors: 访问者
   vivisimo: Vivisimo.com
   wants_colon: 期望权限：
+  warning_you_are_editing_as_admin: 警告：只有您被允许编辑此页因为您是管理员。
   watch_list: 关注列表
   watch_list_newsfeed: 关注列表的动态
   web_service_base_url: 基于URL的网络服务

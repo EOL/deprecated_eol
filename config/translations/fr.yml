@@ -214,6 +214,7 @@ fr:
         description: Description
         exclude_from_exemplars: Exclure de la vue d’ensemble
         group_by_clade: Utiliser pour des plages de groupes taxonomiques
+        hide_from_glossary: Masquer au glossaire des données
         name: Nom
         toc_items: Catégories
         uri: URI
@@ -3189,6 +3190,7 @@ fr:
   newsfeed_help_for_profile: Le fil de nouvelles Profil EdlV regroupe les messages laissés à son propriétaire par les autres membres, les invitations des communautés EdlV, et les mises à jour associées aux éléments de la liste de suivi EdlV du propriétaire.
   newsfeed_help_for_taxon: Le fil de nouvelles pour cette page de taxon de l’EdlV regroupe les mises à jour associées aux éléments qui y sont affichés, y compris les actions de conservation et les commentaires des utilisateurs de l’EdlV.
   newsfeed_help_for_watchlist: Le fil de nouvelles de la liste de suivi EdlV regroupe les mises à jour associées aux éléments de la liste de suivi EdlV du propriétaire, y compris les activités du propriétaire.
+  newsletter_banner: Devenez membre de la communauté EdlV&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>inscrivez-vous pour recevoir le bulletin d’information de EdlV dès aujourd’hui</a>
   next: Suivant
   no_active_members: L’activité n’est pas encore suffisante.
   no_answer: Non

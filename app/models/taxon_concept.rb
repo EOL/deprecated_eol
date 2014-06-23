@@ -733,7 +733,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # These methods are defined in config/initializers, FWIW:
   def reindex_in_solr
-    remove_from_index
+    remove_from_index # TODO - shouldn't need this line; we remove in add_to_index
     TaxonConcept.preload_associations(self, [
       { published_hierarchy_entries: [ { name: :canonical_form },
       { scientific_synonyms: { name: :canonical_form } },

@@ -6,6 +6,7 @@ module EOL
       extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
       extend EOL::LocalCacheable
 
+      # TODO - these strings probably shouldn't be hard-coded (multiple times, as they are).
       def self.clear_uri_caches
         Rails.cache.delete("eol/sparql/client/all_measurement_type_uris")
         Rails.cache.delete("eol/sparql/client/all_measurement_type_known_uris")

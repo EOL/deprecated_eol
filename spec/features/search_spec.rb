@@ -298,7 +298,6 @@ describe 'Search' do
       end
 
       it 'still gives no_results class to images' do
-        save_and_open_page
         expect(body).to have_selector('.no_results input#type_image')
       end
 

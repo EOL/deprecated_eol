@@ -590,10 +590,12 @@ Eol::Application.routes.draw do
   end
 
   # Old donation routes (for posterity):
-  get '/donate', to: redirect(Rails.configuration.donate_header_url)
-  get '/donation', to: redirect(Rails.configuration.donate_header_url)
-  get '/donations', to: redirect(Rails.configuration.donate_header_url)
-  get '/donations/new', to: redirect(Rails.configuration.donate_header_url)
+  if Rails.configuration.donate_header_url
+    get '/donate', to: redirect(Rails.configuration.donate_header_url)
+    get '/donation', to: redirect(Rails.configuration.donate_header_url)
+    get '/donations', to: redirect(Rails.configuration.donate_header_url)
+    get '/donations/new', to: redirect(Rails.configuration.donate_header_url)
+  end
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation

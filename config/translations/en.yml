@@ -4056,6 +4056,7 @@ en:
   names_preferred_column_header: "Preferred"
   names_relationship_column_header: "Relationship"
   names_sources_column_header: "Sources"
+  names_pronunciation_column_header: "Pronunciation"
   names_status_column_header: "Status"
   names_synonyms_empty: "No synonyms have been associated with this taxon yet."
   curator_colon: "Curator:"

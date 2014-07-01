@@ -116,4 +116,4 @@ gem 'unicorn', '4.4.0' # This is our webserver
 gem 'uuid', '2.3.5' # Used when creating data objects
 gem 'will_paginate', '~> 3.0' # Used ALL OVER THE SITE for pagination.
 gem 'nunes', '0.3.0'  # This makes it easier to handle statsd
-gem "rest-client", "~> 1.6.7"
+gem "rest-client", "~> 1.6.7" # This gem can send HTTP requests to the pronunciation server.

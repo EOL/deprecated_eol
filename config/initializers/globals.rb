@@ -98,8 +98,7 @@ $PRODUCTION_MODE = Rails.env.production? || Rails.env.staging? || Rails.env.sync
 $IMAGE_LIMIT = 200
 
 # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-$CONTENT_SERVER = 'http://media.eol.org/'
-$SINGLE_DOMAIN_CONTENT_SERVER = 'http://media.eol.org/'
+$CONTENT_SERVER = 'http://localhost/'
 $SINGLE_DOMAIN_CONTENT_SERVER = 'http://localhost/'
 $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
 $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
@@ -109,8 +108,8 @@ $SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the conte
 # MEDIA CENTER CONFIGURATION
 $MAX_IMAGES_PER_PAGE = 40 # number of thumbnail images to show per page
 $PREFER_REMOTE_IMAGES = false # if set to true, then remote image URLs are used to show images when possible (helpful to preserve EOL bandwidth if needed)
-$SHOW_DATA_QUALITY = false # if set to true, we will show data quality next to text content blocks
 
+$SHOW_DATA_QUALITY = false # if set to true, we will show data quality next to text content blocks
 
 # Note that you can override this in the environment-specific file, too, if you want to.
 $DEFAULT_HIERARCHY_NAME = "Species 2000 & ITIS Catalogue of Life: May 2012"
@@ -127,13 +126,13 @@ $ALLOW_USER_TO_CHANGE_CONTENT_LEVEL = false # if set to true, user can change th
 $ALLOW_SECOND_HIERARCHY = false # if true, the user can pick a second filter hierarchy (confusing but powerful)
 #################
 
-$ALLOW_USER_LOGINS = true
-$ENABLE_RECAPTCHA = false
+$ALLOW_USER_LOGINS = true # if set to false, user login and registration area is not linked or shown on page
+$ENABLE_RECAPTCHA = true # set to true to enable recaptcha on registration and contact us form
 $MAX_SEARCH_RESULTS = 200 # the maximum possible number of search results that can be returned
 $USE_EXTERNAL_LINK_POPUPS = false # if set to true, then attribution and other links will create a pop-up javascript when linking to external sites
 $ALLOW_CURATOR_SELF_REG = true # set to allow curators to self-register
 $USE_SSL_FOR_LOGIN = false # set to true to force users to use SSL for the login and signup pages
-$ENABLED_SOCIAL_PLUGINS = [:facebook, :google, :twitter] # Enable open authentication and social sharing on the site e.g. Facebook Like button
+$ENABLED_SOCIAL_PLUGINS = [ :facebook, :google, :twitter, :yahoo ] # Enable open authentication and social sharing on the site e.g. Facebook Like button
 
 # DATA LOGGING CONFIGURATION
 $ENABLE_DATA_LOGGING = true # set to true to enable data usage and search term logging in logging database
@@ -228,10 +227,10 @@ $EOL_GOOGLE_PLUS_ACCOUNT  = "//plus.google.com/+encyclopediaoflife?prsrc=3"
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
-$VIRTUOSO_USER = 'demo'
-$VIRTUOSO_PW = 'demo'
+$VIRTUOSO_USER = 'dba'
+$VIRTUOSO_PW = 'dba'
 $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
-$VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/xx/yy'
+$VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
 $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
 
 # Recaptcha Keys

@@ -275,13 +275,6 @@ module TaxaHelper
 
   private
 
-  def search_by_page_href(link_page)
-    lparams = params.clone
-    lparams['page'] = link_page
-    lparams.delete('action')
-    "/search/?#{lparams.to_query}"
-  end
-
   def get_sound_url(url)
     res = RestClient.get(url)
     res.gsub!(/\s/, ' ')

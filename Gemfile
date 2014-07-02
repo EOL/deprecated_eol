@@ -43,6 +43,7 @@ group :test, :development do
   gem 'pry-stack_explorer', require: false
   gem 'terminal-notifier-guard' # Allows for OS X notifications about errors
   gem 'binding_of_caller' # Used by Better Errors to give lots more information about errors in the browser.
+
 end
 
 # NOTE - if you are having trouble installing these, you can either:

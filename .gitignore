@@ -75,4 +75,3 @@ tags
 public/files/solr_import_file.csv
 config/__locales/*
 config/_translations
-# config/unicorn.rb

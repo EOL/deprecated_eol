@@ -132,7 +132,7 @@ $MAX_SEARCH_RESULTS = 200 # the maximum possible number of search results that c
 $USE_EXTERNAL_LINK_POPUPS = false # if set to true, then attribution and other links will create a pop-up javascript when linking to external sites
 $ALLOW_CURATOR_SELF_REG = true # set to allow curators to self-register
 $USE_SSL_FOR_LOGIN = false # set to true to force users to use SSL for the login and signup pages
--$ENABLED_SOCIAL_PLUGINS = [:facebook, :google, :twitter] # Enable open authentication and social sharing on the site e.g. Facebook Like button
+$ENABLED_SOCIAL_PLUGINS = [:facebook, :google, :twitter] # Enable open authentication and social sharing on the site e.g. Facebook Like button
 
 # DATA LOGGING CONFIGURATION
 $ENABLE_DATA_LOGGING = true # set to true to enable data usage and search term logging in logging database
@@ -227,8 +227,8 @@ $EOL_GOOGLE_PLUS_ACCOUNT  = "//plus.google.com/+encyclopediaoflife?prsrc=3"
 $CURATOR_COMMUNITY_NAME = 'EOL Curators'
 $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
-$VIRTUOSO_USER = 'dba'
-$VIRTUOSO_PW = 'dba'
+$VIRTUOSO_USER = 'demo'
+$VIRTUOSO_PW = 'demo'
 $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
 $VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/xx/yy'
 $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='

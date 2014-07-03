@@ -29,7 +29,7 @@ class DataSearchController < ApplicationController
         end
         t = Time.now
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
-        @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))
+        # TEMP - @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))
         log_data_search(time_in_seconds: Time.now - t)
       end
     end

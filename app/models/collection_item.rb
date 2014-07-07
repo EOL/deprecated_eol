@@ -3,6 +3,8 @@
 # ...Also note, that to be "collectable", you must implement #summary_name and #collected_name.
 class CollectionItem < ActiveRecord::Base
 
+  include Refable
+
   belongs_to :collection, touch: true
   belongs_to :collected_item, polymorphic: true
   belongs_to :added_by_user, class_name: User.to_s, foreign_key: :added_by_user_id

@@ -12,6 +12,7 @@ class DataObject < ActiveRecord::Base
 
   include EOL::ActivityLoggable
   include IdentityCache
+  include Refable
 
   belongs_to :data_type
   belongs_to :data_subtype, class_name: DataType.to_s, foreign_key: :data_subtype_id

@@ -130,17 +130,17 @@ ActiveRecord::Base.transaction do
                                                 :vetted => Vetted.untrusted, :preferred => false)
   # References for overview text object
   overview = tc.data_objects.select{ |d| d.is_text? }.first
-  overview.add_ref('A published visible reference for testing.',
+  overview.add_ref_with_published_and_visibility('A published visible reference for testing.',
     1, Visibility.visible)
-  overview.add_ref('A published invisible reference for testing.',
+  overview.add_ref_with_published_and_visibility('A published invisible reference for testing.',
     1, Visibility.invisible)
-  overview.add_ref('An unpublished visible reference for testing.',
+  overview.add_ref_with_published_and_visibility('An unpublished visible reference for testing.',
     0, Visibility.visible)
-  overview.add_ref('A published visible reference with an invalid identifier for testing.',
+  overview.add_ref_with_published_and_visibility('A published visible reference with an invalid identifier for testing.',
     1, Visibility.visible).add_identifier('invalid', 'An invalid reference identifier.')
-  overview.add_ref('A published visible reference with a DOI identifier for testing.',
+  overview.add_ref_with_published_and_visibility('A published visible reference with a DOI identifier for testing.',
     1, Visibility.visible).add_identifier('doi', '10.12355/foo/bar.baz.230')
-  overview.add_ref('A published visible reference with a URL identifier for testing.',
+  overview.add_ref_with_published_and_visibility('A published visible reference with a URL identifier for testing.',
     1, Visibility.visible).add_identifier('url', 'some/url.html')
 
   # And we want one comment that the world cannot see:

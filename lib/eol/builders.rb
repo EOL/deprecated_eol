@@ -227,7 +227,7 @@ class ActiveRecord::Base
 end
 
 DataObject.class_eval do
-  def add_ref(full_reference, published, visibility)
+  def add_ref_with_published_and_visibility(full_reference, published, visibility)
     self.refs << ref = Ref.gen(:full_reference => full_reference, :published => published, :visibility => visibility)
     ref
   end

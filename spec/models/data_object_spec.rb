@@ -279,9 +279,9 @@ describe DataObject do
 
     let(:dato_with_refs) do
       dato_with_refs = DataObject.gen
-      dato_with_refs.add_ref('published visible reference', 1, Visibility.visible)
-      dato_with_refs.add_ref('published invisible reference', 1, Visibility.invisible)
-      dato_with_refs.add_ref('unpublished visible reference', 0, Visibility.visible)
+      dato_with_refs.add_ref_with_published_and_visibility('published visible reference', 1, Visibility.visible)
+      dato_with_refs.add_ref_with_published_and_visibility('published invisible reference', 1, Visibility.invisible)
+      dato_with_refs.add_ref_with_published_and_visibility('unpublished visible reference', 0, Visibility.visible)
       dato_with_refs
     end
 

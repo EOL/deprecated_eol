@@ -509,10 +509,7 @@ private
     references = params[:references].split("\n")
     unless references.blank?
       references.each do |reference|
-        if reference.strip != ''
-          dato.refs << Ref.new(full_reference: reference, user_submitted: true, published: 1,
-                                       visibility: Visibility.visible)
-        end
+        dato.add_ref(reference)
       end
     end
   end

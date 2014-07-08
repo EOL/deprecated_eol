@@ -3452,6 +3452,8 @@ en:
   development_version_name: "EOL V2 Beta"
   default: "Default"
   default_focus_collection_name_from_community: "%{name}'s Focus"
+  default_rating: "default rating"
+  default_rating_value_of_total: "Default rating: %{rating} of %{total}"
   default_watch_collection_name: "%{username}'s Watch List"
   definition: "Definition"
   delete_community: "Delete this community"

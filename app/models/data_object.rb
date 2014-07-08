@@ -310,6 +310,10 @@ class DataObject < ActiveRecord::Base
     data_rating
   end
 
+  def has_been_rated?
+    users_data_objects_ratings.count > 0
+  end
+
   def rating_from_user(u)
     return nil if u.is_a?(EOL::AnonymousUser)
     # more often than not ratings will have been preloaded, so a .detect

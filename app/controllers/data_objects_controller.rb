@@ -335,6 +335,7 @@ class DataObjectsController < ApplicationController
           # which would fail Rails validations, yet we still want to update their object_cache_url
           @data_object.update_attribute('object_cache_url', new_object_cache_url)
           log_action(@data_object, :crop, notice: false, collect: false)
+          # TODO - I think cropping should count as curation.  :\
           current_user.log_activity(:cropped_data_object_id, value: @data_object.id)
           flash[:notice] = I18n.t(:image_cropped_notice)
         else

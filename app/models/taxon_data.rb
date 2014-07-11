@@ -188,9 +188,10 @@ class TaxonData < TaxonUserClassificationFilter
     end
 
     def measurement_data(options = {})
-      selects = "?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
       query = "
-        SELECT DISTINCT #{selects}
+        SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
+          ?statistical_method ?life_stage ?sex ?data_point_uri ?graph
+          ?taxon_concept_id
         WHERE {
           GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
@@ -221,9 +222,9 @@ class TaxonData < TaxonUserClassificationFilter
     end
 
     def association_data(options = {})
-      selects = "?attribute ?value ?target_taxon_concept_id ?inverse_attribute ?data_point_uri ?graph"
       query = "
-        SELECT DISTINCT #{selects}
+        SELECT DISTINCT ?attribute ?value ?target_taxon_concept_id
+          ?inverse_attribute ?data_point_uri ?graph
         WHERE {
           GRAPH ?resource_mappings_graph {
             ?taxon dwc:taxonConceptID ?source_taxon_concept_id .

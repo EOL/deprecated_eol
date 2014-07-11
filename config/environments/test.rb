@@ -1,6 +1,8 @@
 Eol::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  Rails.configuration.google_site_verification_keys = [] # none, by default, but defined.
+
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped
@@ -40,6 +42,7 @@ Eol::Application.configure do
     $INDEX_RECORDS_IN_SOLR_ON_SAVE = false
     $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
   end
+
 end
 
 $UNSUBSCRIBE_NOTIFICATIONS_KEY = '1ed25583250bf547e614c0d315bd2671'

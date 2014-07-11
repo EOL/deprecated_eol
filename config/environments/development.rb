@@ -1,6 +1,9 @@
 Eol::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
+  Rails.configuration.show_sparql_queries = false
+  Rails.configuration.google_site_verification_keys = [] # none, by default, but defined.
+
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
@@ -43,8 +46,6 @@ Eol::Application.configure do
   $STAGING_CONTENT_SERVER = 'http://localhost/eol_php_code/applications/content_server/'
 
   config.logger = Logger.new(STDOUT)
-
-  Rails.configuration.show_sparql_queries = false
 
 end
 

@@ -17,10 +17,8 @@ class Taxa::OverviewController < TaxaController
     # TODO: remove this hard-coded exception. We are testing the JSON-LD
     # data for Passeriformes, Mammalia and Salmoniformes
     clade_ids = [ 1596, 1642, 5157 ]
-    if false # Temporarily disabling this.
-      if clade_ids.include?(@taxon_concept.id) || !(@taxon_concept.flattened_ancestor_ids & clade_ids).empty?
-        make_json_ld
-      end
+    if clade_ids.include?(@taxon_concept.id) || !(@taxon_concept.flattened_ancestor_ids & clade_ids).empty?
+      make_json_ld
     end
     current_user.log_activity(:viewed_taxon_concept_overview, taxon_concept_id: @taxon_concept.id)
   end

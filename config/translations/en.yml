@@ -4343,7 +4343,7 @@ en:
   rating_learn_more_link: "Learn about rating"
   rating_not_added_error: "Sorry, an error occurred, the rating could not be added."
   reading_from_ontology: "Reading from <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>"
-  recaptcha: "Type in the two words you see below"
+  recaptcha: "Type in the two words or numbers you see below"
   recaptcha_incorrect_error_with_anchor: 'The <a href="#%{recaptcha_anchor}">reCaptcha characters</a> did not match, please try again.'
   recent_updates: "Latest updates"
   recently_visited: "Recently visited"

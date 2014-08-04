@@ -24,9 +24,9 @@
                 %dd
                   %ul
                     - [:all, :taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community, :collection, :content_page].each do |opt|
-                      - count = (opt == :all) ? @all_results.total_entries : @facets[opt.to_s.camelize]
+                      - count = (opt == :all) ? 1 : @facets[opt.to_s.camelize]
                       - count ||= 0
-                      - item_class = (@wildcard_search || @combined_results_count == 0) ? 'no_results' : nil
+                      - item_class = (@wildcard_search || count == 0) ? 'no_results' : nil
                       - item_class = nil if opt == :data && @attributes && ! @attributes.blank?
                       %li{ :class => item_class }
                         %label

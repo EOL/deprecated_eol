@@ -129,6 +129,9 @@ class SearchController < ApplicationController
   def autocomplete_taxon
     @from_site_search = !! params[:site_search]
     @querystring = params[:term].strip
+    # NOTE - the regex here looks for ANY WORD in the string which is shorter than three characters. Thus "Aba c" will NOT work.
+    # TODO - this is perhaps not the best way to handle it. I believe we can't do multiword search yet, so that makes sense, but we could just split the
+    # term here and exclude any pieces that are too short and at least the longer names will go through and we'll get results... :\
     if @querystring.blank? || @querystring.length < 3 || @querystring.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)
       json = {}
     else

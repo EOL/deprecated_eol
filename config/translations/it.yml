@@ -412,7 +412,7 @@ it:
           one: "%{count} errore di convalida trovato"
           other: "%{count} errori di convalida trovati"
     models: 
-      user: account
+      user: utenza
   activity: Attività
   activity_log_empty: Nessuno ha fornito aggiornamenti ancora.
   activity_logs: 
@@ -1302,12 +1302,6 @@ it:
   details_title: Dettagli
   development_version_name: EOL V2 Beta
   did_you_mean: "Forse intendevi: %{suggestions} ?"
-  donation_amount_legend: Con quanto vorresti contribuire oggi?
-  donation_amount_other_label: Altro
-  donation_confirmation: Conferma donazione
-  donation_error_no_amount: Seleziona l'importo della donazione.
-  donation_error_only_numbers: Si prega di inserire una quantità utilizzando solo numeri.
-  donation_you_are_about_to: Stai per donare alla Enciclopedia della Vita. Premi "accetto" per passare ad un sito di pagamenti sicuri, dove ti verrà chiesto di inserire i dati della tua carta di credito.
   edit: modifica
   edit_comment: Modifica commento
   edit_comment_lowercase: modifica commento
@@ -1338,6 +1332,8 @@ it:
     curators: 
       menu_link: Statistiche curatore
       page_header: Statistiche curatore
+      page_title: Statistiche
+    data: 
       page_title: Statistiche
     data_objects: 
       menu_link: Oggetti dati
@@ -1460,18 +1456,24 @@ it:
     no_topics: Nessuna discussione presente in questo forum
     post_by_user_at_time: da %{user}, %{time}
     posts: 
+      close_window: chiudi
       create: Crea un nuovo post
       create_failed: Siamo spiacenti, si è verificato un errore, il post non è stato aggiunto
       create_successful: Il post è stato creato con successo
       delete_successful: Il post è stato cancellato con successo
+      deleted_subject: (cancellato)
       edit: Modifica post
       joined_date: Iscritto dal %{date}
+      no_subject: (nessun oggetto)
+      post_has_been_deleted: Questa discussione è stata cancellata
       post_written_by_user: "%{user} ha scritto:"
       replying_to_post: "Risposta a:"
       update_failed: Siamo spiacenti, si è verificato un errore, Il post non è stato aggiornato
       update_successful: Il post è stato aggiornato con successo
     posts_heading: Messaggi
     replies: Risposte
+    topics: 
+      create: Avvia una nuova discussione
     topics_heading: Thread
     update_failed: Siamo spiacenti, si è verificato un errore, Il forum non è stato aggiornato
     update_successful: Il forum è stato aggiornato con successo.
@@ -1558,17 +1560,21 @@ it:
         max: Valore massimo
         max_placeholder: Immettere un numero
         max_placeholder_disabled: Scelta disabilitata
+        max_with_val: "Valore più alto: %{val}"
         min: Valore più basso
         min_placeholder: Immettere un numero
         min_placeholder_disabled: Scelta disabilitata
+        min_with_val: "Valore più basso: %{val}"
         q: Valore specifico
         q_more: Per esempio, eterotrofi.
         q_placeholder: Inserire una parola, una frase o un numero
         q_placeholder_disabled: Scelta inserita, valore specifico disabilitato
+        q_with_val: "Valore specifico: %{val}"
         taxon_name: Gruppo taxon
         taxon_name_more: Ad esempio, immettere Trochilidae o balene e selezionare il gruppo corrispondente.
         taxon_name_placeholder: Inserisci il nome del gruppo taxon per selezionare il gruppo
         taxon_name_placeholder_value_removed: "%{taxon_group} rimosso, seleziona nuovo gruppo"
+        total_results: "Totale risultati: %{total}"
         unit: Unità di misura
       eol_statistic: 
         date_one: Data
@@ -1687,7 +1693,7 @@ it:
         create_text: Aggiungi articolo
         update: Salva l'articolo
       data_object_link: 
-        create: Aggiungi link
+        create: Aggiungi collegamento
         update: Salva link
       eol_statistic: 
         change_date: Ordina le statistiche per data
@@ -2196,7 +2202,7 @@ it:
   sign_out: Esci
   site_information: Informazioni sul sito
   skip_to_content: Vai al contenuto
-  skip_to_table_of_contents: Vai alla tabella dei contenuti
+  skip_to_table_of_contents: Vai all'indice
   sort_by: Ordina per
   sort_by_alphabetical_option: Alfabetico
   sort_by_button: Ordina

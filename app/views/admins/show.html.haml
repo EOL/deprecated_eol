@@ -11,7 +11,7 @@
             - val = EolConfig.all_users_can_see_data rescue false
             = check_box_tag('value', val, val)
             = I18n.t(:admin_option_all_users_can_see_data)
-        %li= link_to(I18n.t(:recount_collection_items), recount_collection_items_admin_path)
+        %li= link_to(I18n.t(:recount_collection_items).html_safe, recount_collection_items_admin_path)
   %p
     %br
   - if defined?(Resque) && Resque && Resque.info

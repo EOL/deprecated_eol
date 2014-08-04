@@ -2001,22 +2001,6 @@ uk:
   discover_link: Пізнати
   do_you_want_to_be_a_curator: Ви хочете бути куратором
   donate_link: Пожертвувати
-  donation_agree: згоден
-  donation_amount: "Всього:"
-  donation_amount_legend: Скільки ви хотіли б пожертвувати сьогодні?
-  donation_amount_other_label: Інша
-  donation_confirmation: Підтвердження пожертви
-  donation_confirmation_head: Ми цінуємо ваш внесок!
-  donation_error_minimum: Через витрати на обробку мінімальна сума пожертви становить %{min}.
-  donation_error_no_amount: Будь ласка, виберіть суму пожертви.
-  donation_error_only_numbers: Будь ласка, введіть суму, використовуючи лише числа.
-  donation_intro_span: ЕЖ зростає з кожним днем
-  donation_sponsorship_infrastructure_title: Основна інфраструктура
-  donation_title: Пожертвування для Енциклопедії життя
-  donation_transaction_details_amount: "Сума:"
-  donation_you_are_about_to: Ви збираєтеся пожертвувати "Енциклопедії Життя". Будь ласка, натисніть кнопку "згоден" для продовження на сайті безпечної обробки платежів, де вам буде запропоновано ввести дані вашої кредитної карти. Використовуйте у вашому браузері кнопку "назад" для скасування.
-  donations_more_ways_title: Наявні інші способи, щоб допомогти зростати ЕЖ
-  donations_temporarily_disabled: Ми глибоко шкодуємо, але пожертвування в даний час не приймаються в режимі онлайн. Будь ласка, напишіть секретаріату ЕЖ на 'secretariat at eol.org', щоб зробити пожертвування.
   done_already: Уже зроблено
   download_data: Завантажити дані
   download_wav_file: Завантажити файл WAV

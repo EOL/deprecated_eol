@@ -12,6 +12,7 @@ class DataObject < ActiveRecord::Base
 
   include EOL::ActivityLoggable
   include IdentityCache
+  include Refable
 
   belongs_to :data_type
   belongs_to :data_subtype, class_name: DataType.to_s, foreign_key: :data_subtype_id
@@ -307,6 +308,10 @@ class DataObject < ActiveRecord::Base
   def recalculate_rating
     self.update_column(:data_rating, average_rating)
     data_rating
+  end
+
+  def has_been_rated?
+    users_data_objects_ratings.count > 0
   end
 
   def rating_from_user(u)

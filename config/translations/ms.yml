@@ -1072,21 +1072,6 @@ ms:
   displaying_numerical_range_eol_records_with_count: 
     one: Memaparkan %{count} rekod di EOL
     other: Memaparkan %{start_number} &ndash; %{end_number} daripada %{count} rekod di EOL
-  donation_amount_legend: Pilih jumlah yang ingin anda dermakan
-  donation_amount_other_label: Lain-lain
-  donation_confirmation: Pengesahan Pendermaan
-  donation_error_no_amount: Sila pilih akaun dermaan.
-  donation_error_only_numbers: Sila isikan jumlah dengan nombor sahaja.
-  donation_introduction_paragraph_one: Saban hari EOL berkembang. Kami menggalakkan anda untuk menjelajahi EOL dan mendapat manfaat daripada segala yang ditawarkannya. Kami meminta supaya anda membantu kami memastikan perkembangan inisiatif kami dengan menyumbangkan isi kandungan, kepakaran dan sokongan kewangan kepada kami.
-  donation_introduction_paragraph_two: Sumbangan ikhlas anda kepada Encyclopedia of Life menyokong usaha kami untuik menyediakan akses global kepada pengetahuan tentang kehidupan di Bumi.
-  donation_privacy_notice: <em>Pemberitahuan Privasi dan Keselamatan:</em> Sila ambil perhatian bahawa halaman ini dan halaman pengesahan yang seterusnya tidak mengumpul sebarang maklumat peribadi atau nombor kad kredit, oleh itu tidak disulitkan. Setelah mengesahkan jumlah yang ingin anda dermakan, anda akan dihalakn ke halaman terlindung untuk mengisikan maklumat pembayaran anda. Caj kepada kredit kad anda tidak akan dikenakan sehingga anda menyerahkan halaman yang mengandungi maklumat peribadi anda itu.
-  donation_sponsorship_content_description: Penderma yang berminat terhadap cabang-cabang tertentu pada pepohon kehidupan ini boleh menaja usaha untuk mencari dan memperoleh kandungan baru untuk EOL. Sumbangan anda boleh meliputi pembentukan koleksi halaman spesies sama ada seluas semua mamalia di Asia mahupun burung di Borneo, ataupun sekhusus seladang di Malaysia mahupun gamat di Selat Melaka.
-  donation_sponsorship_content_title: Penajaan Kandungan
-  donation_sponsorship_fellowships_description: Berkongsi maklumat dengan komuniti pembelajaran global merupakan intipati EOL. Encyclopedia of Life sedang mencari penderma-penderma yang berminat untuk menyokong persaudaraan-persaudaraan yang akan menyediakan apa yang perlu untuk penyelidikan sains yang penting dan semasa untuk diterapkan dalam EOL.
-  donation_sponsorship_fellowships_title: Persaudaraan
-  donation_sponsorship_infrastructure_description: Untuk meletakkan kuasa EOL di tangan insan-insan di seluruh dunia, sumbangan yang kecil mahupun besar dialu-alukan untuk menyokong perbelanjaraan prasarana dan operasi teras inisiatif ini.
-  donation_sponsorship_infrastructure_title: Prasarana Teras
-  donation_sponsorship_preamble: "Jika anda ingin mengetahui lebih lanjut tentang program-program tertentu yang disediakan untuk penajaan, atau ingin membuat sumbangan secara berulang-ulang, sila hubungi Urusetia Encyclopedia of Life Secretariat melalui <a href=\"mailto:%{email_address}\">e-mel</a> atau menelefon 1 (202) 633-8730 (di Amerika Syarikat). Peluang untuk sumbangan bersasaran termasuk:"
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Jangan tunjukkan tarikh berdaftar yang tidak dikenali (pengguna V1, semuanya sebelum 5 Jan 2009)
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Perkara bertindih diabaikan.

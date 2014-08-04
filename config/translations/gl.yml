@@ -1841,21 +1841,6 @@ gl:
   disabled_for_now: DESACTIVADO POLO DE AGORA
   discover_link: Descubrir
   do_you_want_to_be_a_curator: Queres converterte nun conservador
-  donation_amount_legend: Escolle a cantidade que queres doar
-  donation_amount_other_label: Outra
-  donation_confirmation: Confirmación da doazón
-  donation_error_no_amount: Escolle a cantidade da doazón.
-  donation_error_only_numbers: Escribe a cantidade usando números unicamente.
-  donation_introduction_paragraph_one: A EOL medra día a día. Convidámoste a que explores a EOL e aproveites todo o que ofrece. Axúdanos a manter viva esta iniciativa mediante contribucións de contido, experiencia e apoio financeiro.
-  donation_introduction_paragraph_two: O teu xeneroso agasallo á Enciclopedia da vida sostén o noso labor de ahegar acceso global ao coñecemento sobre a vida na Terra.
-  donation_privacy_notice: <em>Nota sobre a protección de datos e seguridade:</em> Ten en conta que esta e a seguinte páxina de confirmación non recollen información persoal ningunha ou números de tarxeta de crédito e non están encriptadas. Despois de confirmar a cantidade que queiras doar, irás parar a unha páxina de seguridade para inserir a información do teu pagamento. Non se aplicarán cargos á túa tarxeta de crédito ata que envíes a páxina coa túa información persoal.
-  donation_sponsorship_content_description: Os doantes interesados en pólas particulares da árbore da vida poden patrocinar os esforzos de atopar e adquirir novos contidos para a EOL. Os agasallos poden cubrir a creación de coleccións de páxinas sobre especies tan amplas como os mamíferos de América do Norte ou as aves do Brasil, ou tan específicas como leóns mariños na Baía de San Francisco ou as "comidas do Novo Mundo".
-  donation_sponsorship_content_title: Patrocinio dos contidos
-  donation_sponsorship_fellowships_description: Compartir coñecementos con comunidades globais de aprendizaxe é a esencia da EOL. A Enciclopedia da vida busca doantes interesados en dar o seu apoio con bolsas que proporcionen os medios para incorporar á EOL investigacións científicas importantes e actuais.
-  donation_sponsorship_fellowships_title: Bolsas
-  donation_sponsorship_infrastructure_description: Co obxectivo de poñer o poder da EOL nas mans da xente de todo o mundo, acéptanse doazóns de calquera cantidade para apoiar a infrastrutura fundamental e os custos operativos da iniciativa.
-  donation_sponsorship_infrastructure_title: Infrastrutura fundamental
-  donation_sponsorship_preamble: "Se queres obter máis información sobre os programas de patrocinio que hai dispoñibles ou queres facer un agasallo recorrente, ponte en contacto coa secretaría da Enciclopedia da vida por <a href=\"mailto:%{email_address}\">correo electrónico</a> ou por teléfono no 1 (202) 633-8730 (nos Estados Unidos de América). Entre as oportunidades para as doazóns específicas están:"
   done_already: Xa está feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Non mostrar as datas descoñecidas rexistradas (usuarios da versión 1, todos os anteriores ao 5 de xaneiro de 2009)
   download_wav_file: Descargar o ficheiro WAV

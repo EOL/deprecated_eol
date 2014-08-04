@@ -78,11 +78,14 @@ ia:
         email_reports_frequency_hours: Frequentia de reportos per e-mail
       data_object: 
         bibliographic_citation: Citation bibliographic
-        description: Description
+        description: Texto
         object_title: Titulo
         rights_holder: Detentor del derectos
         rights_statement: Declaration del derectos
         source_url: URL de origine
+      data_object_link: 
+        description: Description
+        source_url: URL del ligamine
       eol_statistic: 
         active_curators: Conservatores active
         base_pages: Paginas de base
@@ -992,8 +995,6 @@ ia:
   delete_community: Deler iste communitate
   detail: Detalio
   development_version_name: V2 VERSION IN DISVELOPPAMENTO - non pro uso public
-  donation_error_no_amount: Per favor selige un amonta a donar.
-  donation_error_only_numbers: Per favor entra un quantitate usante solmente numeros.
   edit_community: Modificar communitate
   edit_my_profile: Modificar mi profilo
   encyclopedia_of_life: Encyclopedia del Vita

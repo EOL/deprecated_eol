@@ -502,6 +502,7 @@ Eol::Application.routes.draw do
   match '/privacy' => 'content#show', :defaults => {:id => 'privacy'}, :as => 'privacy'
   match '/curators' => 'content#show', :defaults => {:id => 'curators'}, :as => 'curators'
   match '/traitbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank'
+  match '/traithbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank' # Typo in newsletter. TODO - remove after 12-1-2014.
   match '/curators/*ignore' => 'content#show', :defaults => {:id => 'curators'}
   match '/info/:id' => 'content#show', :as => 'cms_page'
   match '/info/*crumbs' => 'content#show', :as => 'cms_crumbs'
@@ -590,10 +591,12 @@ Eol::Application.routes.draw do
   end
 
   # Old donation routes (for posterity):
-  get '/donate', to: redirect(Rails.configuration.donate_header_url)
-  get '/donation', to: redirect(Rails.configuration.donate_header_url)
-  get '/donations', to: redirect(Rails.configuration.donate_header_url)
-  get '/donations/new', to: redirect(Rails.configuration.donate_header_url)
+  if Rails.configuration.donate_header_url
+    get '/donate', to: redirect(Rails.configuration.donate_header_url)
+    get '/donation', to: redirect(Rails.configuration.donate_header_url)
+    get '/donations', to: redirect(Rails.configuration.donate_header_url)
+    get '/donations/new', to: redirect(Rails.configuration.donate_header_url)
+  end
 
   # Named API Routes:
   match 'api' => 'api/docs#index' # Default is actually the documenation

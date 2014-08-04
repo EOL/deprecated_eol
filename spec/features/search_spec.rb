@@ -42,6 +42,13 @@ describe 'Search' do
     @collection                 = data[:collection]
     @cms_page                   = data[:cms_page]
 
+    # A taxon with a name we want:
+    tc = build_taxon_concept(canonical_form: 'Blueberry cake')
+    # A trait with the same name:
+    kuri = FactoryGirl.create(:known_uri_measurement)
+    TranslatedKnownUri.gen(name: 'Blueberry', known_uri: kuri, definition: "Foo bar baz boozer")
+    instance = DataMeasurement.new(predicate: KnownUri.last.uri, :object => "13.8", :resource => Resource.last, :subject => tc)
+    instance.add_to_triplestore
     Capybara.reset_sessions!
     visit('/logout')
     EOL::Data.make_all_nested_sets
@@ -267,4 +274,39 @@ describe 'Search' do
     body.should have_selector('.alternate_name', text: 'Alternative common name:')
     body.should have_selector('.alternate_name', text: 'Trigger')
   end
+
+  context 'With a taxon result and a trait result' do
+
+    before do
+      visit(search_url(q: 'Blueberry'))
+    end
+
+    # Technically, we could check ALL of the other filter types are disabled, but this is a sanity check that is helpful and images aren't going away any
+    # time soon.
+    it 'gives no_results class to images' do
+      expect(body).to have_selector('.no_results input#type_image')
+    end
+
+    it 'does not give a class to all results' do
+      expect(body).to_not have_selector('.no_results input#type_all')
+    end
+
+    context 'when you click on traits' do
+
+      before do
+        visit(search_url(q: 'Blueberry', type: ['data']))
+      end
+
+      it 'still gives no_results class to images' do
+        expect(body).to have_selector('.no_results input#type_image')
+      end
+
+      it 'still does not give a class to all results' do
+        expect(body).to_not have_selector('.no_results input#type_all')
+      end
+
+    end
+
+  end
+
 end

@@ -144,6 +144,8 @@ class ApplicationController < ActionController::Base
       back_uri = URI.parse("#{request.protocol}#{request.host_with_port}#{back_uri.to_s}")
     end
     # be sure we aren't returning to the login, register or logout page when logged in, or causing a loop
+    # TODO - re-write this, it's not at all clear (and there are much better ways to express this, i.e.:
+    # https://github.com/plataformatec/devise/wiki/How-To:-Redirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update
     if ! back_uri.nil? && %w( http ).include?(back_uri.scheme) &&
       (! logged_in? || [logout_url, login_url, new_user_url].select{|url| back_uri.to_s.include?(url)}.blank?)
       back_uri.query = nil if back_uri.query =~ /oauth_provider/i

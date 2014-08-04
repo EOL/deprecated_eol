@@ -27,7 +27,10 @@
           %small= I18n.t(:rated_by_count_people, :count => data_object.users_data_objects_ratings.length)
       .rating
         %p{:style => "width: #{average_rating * 20}%"}<
-          = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+          - if data_object.has_been_rated?
+            = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+          - else
+            = I18n.t("default_rating_value_of_total", :rating => average_rating, :total => total)
     - unless hide_user_rating
       .rating
         %h5{:class => assistive_or_nil}= I18n.t(:your_rating)
@@ -56,11 +59,17 @@
               - if percentage_with_this_score > 0
                 %span{ :style => "width: #{percentage_with_this_score}%" }
             = votes_for_this_score
-        %dt= I18n.t('average_rating')
+        - if data_object.has_been_rated?
+          %dt= I18n.t('average_rating')
+        - else
+          %dt= I18n.t('default_rating')
         %dd.average_rating
           .rating
             %p{:style => "width: #{average_rating * 20}%"}<
-              = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+              - if data_object.has_been_rated?
+                = I18n.t("average_rating_value_of_total", :rating => average_rating, :total => total)
+              - else
+                = I18n.t("default_rating_value_of_total", :rating => average_rating, :total => total)
         - unless hide_user_rating
           %dt= I18n.t(:your_rating)
           %dd.rating

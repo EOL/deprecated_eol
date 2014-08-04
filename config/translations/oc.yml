@@ -1975,23 +1975,6 @@ oc:
   discover_link: Descobrir
   do_you_want_to_be_a_curator: Volètz èsser un conservator ?
   donate_link: Donar
-  donation_agree: acceptar
-  donation_amount: "Total :"
-  donation_amount_legend: Causissètz lo montant que voldriatz donar uèi ?
-  donation_amount_other_label: Autre
-  donation_confirmation: Confirmacion de don
-  donation_confirmation_head: Presam vòstra contribucion !
-  donation_error_minimum: Del fach dels còstes de tractament, lo montant minimum dels dons es de %{min}.
-  donation_error_no_amount: Seleccionar un montant de don.
-  donation_error_only_numbers: Entratz un montant en utilizant pas que de chifras.
-  donation_intro_span: EdlV grossís cada jorn
-  donation_privacy_notice: <em>Notícia sus la vida privada e la seguretat :</em> notatz qu'aquesta pagina e la pagina seguenta de confirmacion reculhisson pas cap d'entresenha personala o numèro de carta de crèdit e doncas son pas chifradas. Aprèp aver confirmat lo montant que volètz donar, seretz dirigit cap a una pagina securizada per picar vòstras informacions de pagament. Cap de frais serà pas portat a vòstra carta bancària o de crèdit tant que sometretz pas la pagina securizada que compòrta vòstras informacions personalas.
-  donation_sponsorship_content_title: Pairinatge de contengut
-  donation_sponsorship_fellowships_title: Borsas
-  donation_sponsorship_infrastructure_title: Infrastructuras de basa
-  donation_title: Far un don a l’Enciclopèdia de la Vida
-  donation_transaction_details_amount: "Montant :"
-  donations_more_ways_title: I a d'autres mejans d'ajudar EdlV a grandir
   done_already: Ja efectuat
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Afichar pas las datas d’inscripcion desconegudas (utilizaires V1, totes abans lo 5 de genièr de 2009)
   download_data: Telecargar las donadas

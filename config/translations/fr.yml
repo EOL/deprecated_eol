@@ -214,6 +214,7 @@ fr:
         description: Description
         exclude_from_exemplars: Exclure de la vue d’ensemble
         group_by_clade: Utiliser pour des plages de groupes taxonomiques
+        hide_from_glossary: Masquer au glossaire des données
         name: Nom
         toc_items: Catégories
         uri: URI
@@ -2051,31 +2052,6 @@ fr:
     other: Affichage de %{start_number} &ndash; %{end_number} sur %{count} enregistrements de EdlV
   do_you_want_to_be_a_curator: Voulez-vous être un conservateur ?
   donate_link: Donner
-  donation_agree: accepter
-  donation_amount: "Total :"
-  donation_amount_legend: Combien voulez-vous donner aujourd’hui ?
-  donation_amount_other_label: Autre
-  donation_confirmation: Confirmation de don
-  donation_confirmation_head: Nous apprécions votre contribution !
-  donation_error_minimum: Du fait des coûts de traitement, le montant minimum des dons est de %{min}.
-  donation_error_no_amount: Veuillez sélectionner un montant de don.
-  donation_error_only_numbers: Veuillez entrer un montant en utilisant uniquement des chiffres.
-  donation_intro_span: EdlV grossit chaque jour
-  donation_introduction_paragraph_one: Nous vous encourageons à explorer EdlV et à profiter de tout ce qu’il a à offrir. Nous vous demandons de nous aider à garder la dynamique de croissance grâce à vos contributions en terme de contenu, d’expertise et de soutien financier.
-  donation_introduction_paragraph_two: Votre don généreux à l’Encyclopédie de la Vie soutient notre travail pour fournir un accès mondial aux connaissances sur la vie sur Terre.
-  donation_privacy_notice: <em>Notice sur la vie privée et la sécurité :</em> veuillez noter que cette page et la page suivante de confirmation ne recueillent aucun renseignement personnel ou numéro de carte de crédit et ne sont donc pas chiffrées. Après avoir confirmé le montant que vous souhaitez donner, vous serez dirigé vers une page sécurisée pour saisir vos informations de paiement. Aucun frais ne sera porté à votre carte bancaire ou de crédit tant que vous ne soumettrez pas la page sécurisée comportant vos informations personnelles.
-  donation_sponsorship_content_description: Les donateurs intéressés par des branches particulières de l’arbre de la vie peuvent parrainer des efforts visant à trouver et acquérir de nouveaux contenus pour l’EdlV. Les cadeaux peuvent couvrir la création de collections de pages d’espèces aussi vastes que tous les mammifères d’Amérique du Nord ou tous les oiseaux du Brésil, ou  aussi spécifiques que les lions de mer de la Baie de San Francisco ou les « aliments du Nouveau Monde ».
-  donation_sponsorship_content_title: Parrainage de contenu
-  donation_sponsorship_fellowships_description: Le partage de connaissance avec les communautés éducatives du monde est l’essence même de l’EdlV. L’<em>Encyclopédie de la Vie</em> recherche des donateurs intéressés dans l’octroi de bourses d’études qui fourniront les moyens permettant d’incorporer dans l’EdlV des recherches scientifiques importantes et actuelles.
-  donation_sponsorship_fellowships_title: Bourses
-  donation_sponsorship_infrastructure_description: Afin de mettre la puissance de l’EdlV entre les mains des personnes à travers le monde, des cadeaux de toutes tailles sont les bienvenus pour défrayer les coûts de l’infrastructure et des opérations de base de l’initiative.
-  donation_sponsorship_infrastructure_title: Infrastructures de base
-  donation_sponsorship_preamble: "Si vous désirez en savoir davantage sur les programmes spécifiques disponibles pour le parrainage, ou souhaitez faire un don récurrent, veuillez contacter le Secrétariat de l’Encyclopédie de la Vie par <a href=\"mailto:%{email_address}\">courriel</a> ou par téléphone au 1 (202) 633-8730 (aux États-Unis). Les occasions pour des dons ciblés comprennent :"
-  donation_title: Faire un don à l’Encyclopédie de la Vie
-  donation_transaction_details_amount: "Montant :"
-  donation_you_are_about_to: Vous êtes sur le point de faire un don à l’Encyclopédie de la Vie. Veuillez appuyer sur « Accepter » pour continuer vers un site de paiement sécurisé, où il vous sera demandé d’entrer vos coordonnées bancaires.
-  donations_more_ways_title: Il, y a d autres moyens d aider EdlV à grandir
-  donations_temporarily_disabled: Nous sommes profondément désolés, mais les dons ne sont actuellement pas acceptées en ligne. Veuillez contacter le secrétariat de EdlV à 'secretariat at eol.org' pour faire un don.
   done_already: Déjà effectué
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Ne pas afficher les dates d’inscription inconnues (utilisateurs V1, tous avant le 5 janvier 2009)
   download_data: Télécharger les données
@@ -3214,6 +3190,7 @@ fr:
   newsfeed_help_for_profile: Le fil de nouvelles Profil EdlV regroupe les messages laissés à son propriétaire par les autres membres, les invitations des communautés EdlV, et les mises à jour associées aux éléments de la liste de suivi EdlV du propriétaire.
   newsfeed_help_for_taxon: Le fil de nouvelles pour cette page de taxon de l’EdlV regroupe les mises à jour associées aux éléments qui y sont affichés, y compris les actions de conservation et les commentaires des utilisateurs de l’EdlV.
   newsfeed_help_for_watchlist: Le fil de nouvelles de la liste de suivi EdlV regroupe les mises à jour associées aux éléments de la liste de suivi EdlV du propriétaire, y compris les activités du propriétaire.
+  newsletter_banner: Devenez membre de la communauté EdlV&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>inscrivez-vous pour recevoir le bulletin d’information de EdlV dès aujourd’hui</a>
   next: Suivant
   no_active_members: L’activité n’est pas encore suffisante.
   no_answer: Non
@@ -3669,6 +3646,7 @@ fr:
   search_suggestion_created: La suggestion de recherche a été créée avec succès.
   search_suggestion_updated: La suggestion de recherche a été mise à jour avec succès.
   search_suggestions: Suggestions de recherche
+  search_summary: Résumé de la recherche
   search_term: Critère de recherche
   search_term_detail_report: Rapport de détail sur les critères de recherche
   search_term_reports: rapports sur les critères de recherche

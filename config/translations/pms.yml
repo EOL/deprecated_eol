@@ -181,6 +181,7 @@ pms:
         description: Descrission
         exclude_from_exemplars: Esclude da la vista global
         group_by_clade: Dovré për dj'antërvaj ëd partìe tassonòmiche
+        hide_from_glossary: Stërmé al glossari dij dàit
         name: Nòm
         toc_items: Categorìe
         uri: URI
@@ -517,10 +518,29 @@ pms:
         user_associated_it_to_association: <strong>%{user}</strong> a l'ha giontà n'associassion a "%{association}".
       add_common_name: 
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an na lenga sconossùa a na pàgina sconossùa.
+        an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_it: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an na lenga sconossùa.
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_taxon: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an na lenga sconossùa a "%{taxon}".
         an_unknown_user_added_an_unknown_name_in_language_to_an_unknown_taxon: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an %{language} a na pàgina sconossùa.
+        an_unknown_user_added_an_unknown_name_in_language_to_it: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an %{language}.
         an_unknown_user_added_an_unknown_name_in_language_to_taxon: N'utent ësconossù a l'ha giontà un nòm comun ësconossù an %{language} a "%{taxon}".
         an_unknown_user_added_name_in_an_unknown_language_to_an_unknown_taxon: N'utent ësconossù a l'ha giontà ël nòm comun "%{name}" an na lenga sconossùa a na pàgina sconossùa.
+        an_unknown_user_added_name_in_an_unknown_language_to_it: N'utent ësconossù a l'ha giontà ël nòm comun "%{name}" an na lenga sconossùa.
+        an_unknown_user_added_name_in_an_unknown_language_to_taxon: N'utent ësconossù a l'ha giontà ël nòm comun "%{name}" an na lenga sconossùa a "%{taxon}".
+        an_unknown_user_added_name_in_language_to_an_unknown_taxon: N'utent ësconossù a l'ha giontà ël nòm comun "%{name}" an %{language} a na pàgina sconossùa.
+        an_unknown_user_added_name_in_language_to_it: N'utent ësconossù a l'ha giontà ël nòm comun "%{name}" an %{language}.
+        an_unknown_user_added_name_in_language_to_taxon: N'utent ësconossù a l'ha giontà ël nòm comun "%{name}" an %{language} a "%{taxon}".
+        user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> a l'ha giontà un nòm comun ësconossù an na lenga sconossùa a na pàgina sconossùa.
+        user_added_an_unknown_name_in_an_unknown_language_to_it: <strong>%{user}</strong> a l'ha giontà un nòm comun ësconossù an na lenga sconossùa.
+        user_added_an_unknown_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> a l'ha giontà un nòm comun ësconossù an na lenga sconossùa a "%{taxon}".
+        user_added_an_unknown_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> a l'ha giontà un nòm comun ësconossù an %{language} a na pàgina sconossùa.
+        user_added_an_unknown_name_in_language_to_it: <strong>%{user}</strong> a l'ha giontà un nòm comun ësconossù an %{language}.
+        user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong> a l'ha giontà un nom comun ësconossù an %{language} a "%{taxon}".
+        user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong> a l'ha giontà ël nòm comun "%{name}" an na lenga sconossùa a na pàgina sconossùa.
+        user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong> a l'ha giontà ël nòm comun "%{name}" an na lenga sconossùa.
+        user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong> a l'ha giontà ël nòm comun "%{name}" an na lenga sconossùa a "%{taxon}".
+        user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong> a l'ha giontà ël nòm comun "%{name}" an  %{language} a na pàgina sconossùa.
+        user_added_name_in_language_to_it: <strong>%{user}</strong> a l'ha giontà ël nòm comun "%{name}" an %{language}.
+        user_added_name_in_language_to_taxon: <strong>%{user}</strong> a l'ha giontà ël nòm comun "%{name}" an %{language} a "%{taxon}".
       choose_exemplar_article: 
         an_unknown_user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: N'utent ësconossù a l'ha selessionà na veja version ëd "%{data_object}" pr'ësmon-e na previsualisassion an s'na pàgina sconossùa.
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: N'utent ësconossù a l'ha selessionà "%{data_object}" pr'ësmon-e na previsualissasion su "%{taxon}".
@@ -604,6 +624,19 @@ pms:
         user_disassociated_data_object_from_association: <strong>%{user}</strong> a l'ha gavà n'associassion antra "%{data_object}" e "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong> a l'ha gavà n'associassion a na pàgina sconossùa.
         user_disassociated_it_from_association: <strong>%{user}</strong> a l'ha gavà n'associassion a "%{association}".
+      remove_common_name: 
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: N'utent ësconossù a l'ha gavà un nòm comun an na lenga sconossùa da na pàgina sconossùa.
+        an_unknown_user_removed_name_in_an_unknown_language_from_it: N'utent ësconossù a l'ha gavà un nòm comun an na lenga sconossùa.
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: N'utent ësconossù a l'ha gavà un nòm comun an na lenga sconossùa da "%{taxon}".
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: N'utent ësconossù a l'ha gavà un nòm comun an %{language} a parte da na pàgina sconossùa.
+        an_unknown_user_removed_name_in_language_from_it: N'utent ësconossù a l'ha gavà un nòm comun an %{language}.
+        an_unknown_user_removed_name_in_language_from_taxon: N'utent ësconossù a l'ha gavà un nòm comun an %{language} da "%{taxon}".
+        user_removed_name_in_an_unknown_language_from_an_unknown_taxon: <strong>%{user}</strong> a l'ha gavà un nòm comun an na lenga sconossùa da na pàgina sconossùa.
+        user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong> a l'ha gavà un nòm comun an na lenga sconossùa.
+        user_removed_name_in_an_unknown_language_from_taxon: <strong>%{user}</strong> a l'ha gavà un nòm comun an na lenga sconossùa da "%{taxon}".
+        user_removed_name_in_language_from_an_unknown_taxon: <strong>%{user}</strong> a l'ha gavà un nòm comun an %{language} da na pàgina sconossùa.
+        user_removed_name_in_language_from_it: <strong>%{user}</strong> a l'ha gavà un nòm comun an %{language}.
+        user_removed_name_in_language_from_taxon: <strong>%{user}</strong> a l'ha gavà un nòm comun an %{language} da "%{taxon}".
       show: 
         an_unknown_user_showed_an_older_data_object_on_an_unknown_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma visìbil ant un contest ësconossù.
         an_unknown_user_showed_an_older_data_object_on_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma visìbil an sla pàgina "%{association}".
@@ -621,6 +654,17 @@ pms:
         user_showed_data_object_on_association: <strong>%{user}</strong> a l'ha marcà «%{data_object}» coma visìbil an sla pàgina «%{association}».
         user_showed_it_on_an_unknown_association: <strong>%{user}</strong> a l'ha marcalo coma visìbil ant un contest ësconossù.
         user_showed_it_on_association: <strong>%{user}</strong> a l'ha marcalo coma visìbil an sla pàgina "%{association}".
+      trust_common_name: 
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: N'utent ësconossù a l'ha marcà un nòm comun ësconossù an na lenga sconossùa da na pàgina sconossùa coma afidàbil.
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_taxon: N'utent ësconossù a l'ha marcà un nòm comun ësconossù an na lenga sconossùua da "%{taxon}" coma afidàbil.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: N'utent ësconossù a l'ha marcà un nòm comun ësconossù an %{language} da na pàgina sconossùa coma afidàbil.
+        an_unknown_user_trusted_an_unknown_name_in_language_on_taxon: N'utent ësconossù a l'ha marcà un nòm comun ësconossù an %{language} da "%{taxon}" coma afidàbil.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_an_unknown_taxon: N'utent ësconossù a l'ha marcà ël nòm comun "%{name}" an na lenga sconossùa da na pàgina sconossùa coma afidàbil.
+        an_unknown_user_trusted_name_in_an_unknown_language_on_taxon: N'utent ësconossù a l'ha marcà ël nòm comun "%{name}" an na lenga sconossùa da "%{taxon}" coma afidàbil.
+        an_unknown_user_trusted_name_in_language_on_an_unknown_taxon: N'utent ësconossù a l'ha marcù ël nòm comun "%{name}" an %{language} da na pàgina sconossùa coma afidàbil.
+        an_unknown_user_trusted_name_in_language_on_taxon: N'utent ësconossù a l'ha marcà ël nòm comun "%{name}" an %{language} da "%{taxon}" coma afidàbil.
+        user_trusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha marcà un nòm comun ësconossù an na lenga sconossùa da na pàgina sconossùa coma afidàbil.
+        user_trusted_an_unknown_name_in_language_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha marcà un nòm comun ësconossù an %{language} da na pàgina sconossùa coma afidàbil.
       trusted: 
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma afidàbil ant un contest ësconossù.
         an_unknown_user_trusted_an_older_data_object_on_association: N'utent ësconossù a l'ha marcà na veja version ëd "%{data_object}" coma afidàbil an sla pàgina "%{association}".

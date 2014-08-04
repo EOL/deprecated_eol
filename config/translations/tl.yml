@@ -1672,21 +1672,6 @@ tl:
   disabled_for_now: HINDI PINAGAGANA SA NGAYON
   discover_link: Tumuklas
   do_you_want_to_be_a_curator: Nais mo bang maging isang kurador
-  donation_amount_legend: Piliin ang kabuuang halaga na nais mong iabuloy
-  donation_amount_other_label: Iba pa
-  donation_confirmation: Pagpapatunay ng Ambag
-  donation_error_no_amount: Mangyaring pumili ng isang halaga ng abuloy.
-  donation_error_only_numbers: Mangyaring magpasok ng isang halaga na ginagamit lamang ang mga bilang.
-  donation_introduction_paragraph_one: Araw-araw na lumalaki ang EOL. Hinihikayat ka naming galugarin ang EOL at makinabang sa lahat ng mga maiaalok nito. Hinihiling namin na tumulong ka sa pagpapalago ng pagpupursige sa pamamagitan ng inaambag mong mga nilalaman, kadalubhasaan, at pagtangkilik na pampananalapi.
-  donation_introduction_paragraph_two: Ang iyong bukas-loob na paghahandog sa Ensiklopedya ng Buhay ay tumatangkilik sa aming gawain upang makapagbigay ng pangglobong pagpunta sa kaalaman hinggil sa buhay sa Daigdig.
-  donation_privacy_notice: <em>Pabatid ng Pagkapribado at Katiwasayan:</em> Paki tandaan na ang pahinang ito at ang susunod na pahina ng pagtitiyak ay hindi naglilikom ng anumang impormasyong personal o mga bilang na pangtarheta na pang-utang, kaya't hindi sumailalim sa enkripsiyon. Pagkaraang matiyak ang halagang nais mong iabuloy, papupuntahin ka sa isang ligtas na pahina upang ipasok ang iyong impormasyon ng pagbabayad. Ang mga sisingilin sa iyong kard na pang-utang ay hindi ilalapat hangga't hindi mo pa ipinapasa ang pahinang naglalaman ng personal mong impormasyon.
-  donation_sponsorship_content_description: Ang mga tagapagkaloob na nagtutuon ng pansin sa partikular na mga sangay ng puno ng buhay ay maaaring magtaguyod ng mga pagpupunyagi upang makapangalap at magkamit ng bagong nilalaman para sa EOL. Ang mga handog ay maaaring sumaklaw sa paglikha ng mga kalipunan ng pahina ng espesye na kasing masaklaw ng lahat ng mga mamalya sa Hilagang Amerika o mga ibon ng Brasil, o bilang matiyak na katulad ng mga leong-dagat sa Dalampasigan ng San Francisco o "Mga Pagkain sa Bagong Mundo".
-  donation_sponsorship_content_title: Pananangkilik ng Nilalaman
-  donation_sponsorship_fellowships_description: Ang pamamahagi ng kaalaman sa mga pamayanan ng pangglobong pagkatuto ay ang kaibuturan ng EOL. Naghahanap ang Ensiklopedya ng Buhay ng mga tagapagkaloob na nagnanais na suportahan ang mga kapatiran na magbibigay ng mga kaparaanan upang mailangkap loob ng EOL ang mahalaga at pangkasalukuyang pananaliksik na pang-agham.
-  donation_sponsorship_fellowships_title: Pagsasamahang pangkapatiran
-  donation_sponsorship_infrastructure_description: Upang mailagak ang kapangyarihan ng EOL sa mga kamay ng mga tao sa buong mundo, ang mga handog nang lahat ng mga sukat ay malugod na tatanggapin upang masuportahan ang imprastrukturang pangkaibuturan at mga gugulin na panggawain ng pagsisikap.
-  donation_sponsorship_infrastructure_title: Inprastruktura ng Kaibuturan
-  donation_sponsorship_preamble: "Kung gusto mong makaalam ng marami pang iba hinggil sa partikular na mga programang makukuha para sa pagtatangkilik, o nais na gumawa ng isang umuulit na handog, paki makipag-ugnayan sa Kalihiman ng Ensiklopedya ng Buhay sa pamamagitan ng <a href=\"mailto:%{email_address}\">elektronikong liham</a> o sa pamamagitan ng telepeno roon sa 1 (202) 633-8730 (sa loob ng Estados Unidos). Ang mga pagkakataon para sa mapagpukol na pagbibigay ay kinabibilangan ng:"
   done_already: Nagawa na
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Huwag ipakita ang hindi nakikilalang mga petsang nakarehistro (mga tagagamit ng V1, lahat bago sumapit ang Enero 5, 2009)
   download_wav_file: Ikargang paibaba ang talaksang WAV

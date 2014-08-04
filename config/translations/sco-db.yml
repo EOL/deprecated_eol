@@ -233,38 +233,38 @@ sco:
   translated_synonym_relations-label-synonym_relation_id-45: basionym
   translated_synonym_relations-label-synonym_relation_id-46: heterotypic synonym
   translated_synonym_relations-label-synonym_relation_id-47: homotypic synonym
-  translated_synonym_relations-label-synonym_relation_id-48: onavailable name
+  translated_synonym_relations-label-synonym_relation_id-48: name no available
   translated_synonym_relations-label-synonym_relation_id-49: valid name
   translated_synonym_relations-label-synonym_relation_id-5: blast name
   translated_synonym_relations-label-synonym_relation_id-50: valid
-  translated_synonym_relations-label-synonym_relation_id-51: accepted
+  translated_synonym_relations-label-synonym_relation_id-51: acceptit
   translated_synonym_relations-label-synonym_relation_id-52: authoritie
-  translated_synonym_relations-label-synonym_relation_id-53: onpublished name
+  translated_synonym_relations-label-synonym_relation_id-53: non published name
   translated_synonym_relations-label-synonym_relation_id-54: subjective synonym
-  translated_synonym_relations-label-synonym_relation_id-55: oncorrect authoritie informâtion
+  translated_synonym_relations-label-synonym_relation_id-55: oncorrect authoritie information
   translated_synonym_relations-label-synonym_relation_id-56: oncorrect speelin
   translated_synonym_relations-label-synonym_relation_id-57: speeling alternateeve
-  translated_synonym_relations-label-synonym_relation_id-58: wairdstoke variant
+  translated_synonym_relations-label-synonym_relation_id-58: wairdstock variant
   translated_synonym_relations-label-synonym_relation_id-59: synonym (objective = homotypic)
   translated_synonym_relations-label-synonym_relation_id-6: equeevalent name
   translated_synonym_relations-label-synonym_relation_id-60: synonym (subjective = heterotypic)
   translated_synonym_relations-label-synonym_relation_id-61: objecteeve synonym
   translated_synonym_relations-label-synonym_relation_id-62: senier synonym
-  translated_synonym_relations-label-synonym_relation_id-63: naw accepted
-  translated_synonym_relations-label-synonym_relation_id-64: onvalid
+  translated_synonym_relations-label-synonym_relation_id-63: no acceptit
+  translated_synonym_relations-label-synonym_relation_id-64: no valid
   translated_synonym_relations-label-synonym_relation_id-65: genus synonym
-  translated_synonym_relations-label-synonym_relation_id-66: alternateeve representâtion
+  translated_synonym_relations-label-synonym_relation_id-66: alternateeve representation
   translated_synonym_relations-label-synonym_relation_id-67: speecies inquirenda
   translated_synonym_relations-label-synonym_relation_id-68: horticultural
   translated_synonym_relations-label-synonym_relation_id-7: genbank acronym
   translated_synonym_relations-label-synonym_relation_id-8: genbank anamorph
-  translated_synonym_relations-label-synonym_relation_id-9: genbank commyn name
-  translated_table_of_contents-label-table_of_contents_id-1: Owerview
-  translated_table_of_contents-label-table_of_contents_id-13: Commyn Names
+  translated_synonym_relations-label-synonym_relation_id-9: genbank common name
+  translated_table_of_contents-label-table_of_contents_id-1: Ootline
+  translated_table_of_contents-label-table_of_contents_id-13: Common Names
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Leeterature References
   translated_table_of_contents-label-table_of_contents_id-194: Size
-  translated_table_of_contents-label-table_of_contents_id-2: Brief Owerview
+  translated_table_of_contents-label-table_of_contents_id-2: Brief Ootline
   translated_table_of_contents-label-table_of_contents_id-218: Dispersal
   translated_table_of_contents-label-table_of_contents_id-221: Risks
   translated_table_of_contents-label-table_of_contents_id-225: Oan the Wab
@@ -276,28 +276,28 @@ sco:
   translated_table_of_contents-label-table_of_contents_id-251: Benefits
   translated_table_of_contents-label-table_of_contents_id-267: Morphologie
   translated_table_of_contents-label-table_of_contents_id-278: Bibliographie
-  translated_table_of_contents-label-table_of_contents_id-285: Associâtions
-  translated_table_of_contents-label-table_of_contents_id-286: Conservâtion Status
+  translated_table_of_contents-label-table_of_contents_id-285: Associations
+  translated_table_of_contents-label-table_of_contents_id-286: Conservation Status
   translated_table_of_contents-label-table_of_contents_id-289: Evolution
   translated_table_of_contents-label-table_of_contents_id-292: Luik Alikes
   translated_table_of_contents-label-table_of_contents_id-293: Diagnosteec Descreeption
   translated_table_of_contents-label-table_of_contents_id-296: Management
   translated_table_of_contents-label-table_of_contents_id-297: Trophic Strategie
-  translated_table_of_contents-label-table_of_contents_id-299: Educâtion
+  translated_table_of_contents-label-table_of_contents_id-299: Education
   translated_table_of_contents-label-table_of_contents_id-3: Pheesical Descreeption
   translated_table_of_contents-label-table_of_contents_id-300: Wikipædia
   translated_table_of_contents-label-table_of_contents_id-303: Names n Taxænomie
-  translated_table_of_contents-label-table_of_contents_id-304: Naur-sib Names
+  translated_table_of_contents-label-table_of_contents_id-304: Relatit Names
   translated_table_of_contents-label-table_of_contents_id-305: Synonyms
   translated_table_of_contents-label-table_of_contents_id-306: Page Stateestics
-  translated_table_of_contents-label-table_of_contents_id-307: Content Owerview
+  translated_table_of_contents-label-table_of_contents_id-307: Content Ootline
   translated_table_of_contents-label-table_of_contents_id-308: Comprehenseeve Descreeption
   translated_table_of_contents-label-table_of_contents_id-309: Distreebution
   translated_table_of_contents-label-table_of_contents_id-310: Deveeloopment
-  translated_table_of_contents-label-table_of_contents_id-311: Identifeecâtion Resoorces
+  translated_table_of_contents-label-table_of_contents_id-311: Identifeecation Resoorces
   translated_table_of_contents-label-table_of_contents_id-312: Migration
   translated_table_of_contents-label-table_of_contents_id-313: Diseases n Parasites
-  translated_table_of_contents-label-table_of_contents_id-314: Populâtion Biologie
+  translated_table_of_contents-label-table_of_contents_id-314: Population Biologie
   translated_table_of_contents-label-table_of_contents_id-315: Life Histerie n Behavier
   translated_table_of_contents-label-table_of_contents_id-316: Behavier
   translated_table_of_contents-label-table_of_contents_id-317: Cycleecitie
@@ -319,29 +319,29 @@ sco:
   translated_table_of_contents-label-table_of_contents_id-332: Genome
   translated_table_of_contents-label-table_of_contents_id-333: Molecular Biologie
   translated_table_of_contents-label-table_of_contents_id-334: Threats
-  translated_table_of_contents-label-table_of_contents_id-335: Legislâtion
+  translated_table_of_contents-label-table_of_contents_id-335: Legislation
   translated_table_of_contents-label-table_of_contents_id-336: Notes
-  translated_table_of_contents-label-table_of_contents_id-337: Educâtion
+  translated_table_of_contents-label-table_of_contents_id-337: Education
   translated_table_of_contents-label-table_of_contents_id-338: Education Airtins
-  translated_table_of_contents-label-table_of_contents_id-339: Educâtion Resoorces
+  translated_table_of_contents-label-table_of_contents_id-339: Education Resoorces
   translated_table_of_contents-label-table_of_contents_id-34: Comments
   translated_table_of_contents-label-table_of_contents_id-340: Secontair Schuil Lab Series
   translated_table_of_contents-label-table_of_contents_id-341: Ceetizen Science
-  translated_table_of_contents-label-table_of_contents_id-342: Ceetizen Sciance airtins
+  translated_table_of_contents-label-table_of_contents_id-342: Ceetizen Science airtins
   translated_table_of_contents-label-table_of_contents_id-343: Biodiversitie Heritage Librie
   translated_table_of_contents-label-table_of_contents_id-344: Data
   translated_table_of_contents-label-table_of_contents_id-345: Data Soorces
   translated_table_of_contents-label-table_of_contents_id-346: Biomedical Terms
   translated_table_of_contents-label-table_of_contents_id-347: Taxænomie
-  translated_table_of_contents-label-table_of_contents_id-348: Type Informâtion
+  translated_table_of_contents-label-table_of_contents_id-348: Type Information
   translated_table_of_contents-label-table_of_contents_id-4: Ecologie
   translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-5: Eevolution n Systeemateecs
   translated_table_of_contents-label-table_of_contents_id-6: Reelevance til Bodies n Ecosystems
   translated_table_of_contents-label-table_of_contents_id-7: References n Mair Information
-  translated_table_of_contents-label-table_of_contents_id-8: Conservâtion
-  translated_untrust_reasons-label-untrust_reason_id-1: misideentified
-  translated_untrust_reasons-label-untrust_reason_id-2: oncorrect/misleadin
+  translated_table_of_contents-label-table_of_contents_id-8: Conservation
+  translated_untrust_reasons-label-untrust_reason_id-1: misidentified
+  translated_untrust_reasons-label-untrust_reason_id-2: no correct/misleadin
   translated_untrust_reasons-label-untrust_reason_id-3: low qualitie
   translated_untrust_reasons-label-untrust_reason_id-4: dupleecate
   translated_untrust_reasons-label-untrust_reason_id-5: Ither
@@ -350,13 +350,13 @@ sco:
   translated_user_identities-label-user_identity_id-3: aen educater
   translated_user_identities-label-user_identity_id-4: ae citizen scienteest
   translated_user_identities-label-user_identity_id-5: ae profeessional scienteest
-  translated_vetted-label-vetted_id-0: Onknown
-  translated_vetted-label-vetted_id-4: Ontrysted
+  translated_vetted-label-vetted_id-0: No known
+  translated_vetted-label-vetted_id-4: No lippend
   translated_vetted-label-vetted_id-5: Lippened
-  translated_vetted-label-vetted_id-6: Galus
+  translated_vetted-label-vetted_id-6: No appropriate
   translated_view_styles-name-view_style_id-1: Leet
   translated_view_styles-name-view_style_id-2: Gallarie
-  translated_view_styles-name-view_style_id-3: Annotated
-  translated_visibilities-label-visibility_id-0: Onveesible
+  translated_view_styles-name-view_style_id-3: Annotatit
+  translated_visibilities-label-visibility_id-0: Non veesible
   translated_visibilities-label-visibility_id-1: Veesible
   translated_visibilities-label-visibility_id-2: Luik ower

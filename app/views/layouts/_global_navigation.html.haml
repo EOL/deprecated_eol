@@ -10,6 +10,6 @@
         = link_to raw(I18n.t(:what_is_eol)), about_path
       %li
         = link_to raw(I18n.t(:eol_news)), news_path
-      - if Rails.configuration.use_secure_acceptance
+      - if Rails.configuration.use_secure_acceptance && Rails.configuration.donate_header_url
         %li
           = link_to I18n.t(:donate_link), Rails.configuration.donate_header_url

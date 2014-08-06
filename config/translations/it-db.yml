@@ -1,11 +1,13 @@
 # Messages for Italian (italiano)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Beta16
 # Author: Inskatolata
 # Author: Jasonbleinel
+# Author: Mario
 # Author: Rippitippi
-it: 
+---
+it:
   translated_activities-name-activity_id-19: profilo
   translated_activities-name-activity_id-50: non attendibile
   translated_activities-name-activity_id-51: mostra
@@ -19,7 +21,6 @@ it:
   translated_activities-name-activity_id-59: non revisionato
   translated_activities-name-activity_id-63: raccogliere
   translated_activities-name-activity_id-64: rimuovi
-  translated_agent_roles-label-agent_role_id-1: Animatore
   translated_agent_roles-label-agent_role_id-10: Progetto
   translated_agent_roles-label-agent_role_id-11: Editore
   translated_agent_roles-label-agent_role_id-12: Registrato da
@@ -27,11 +28,12 @@ it:
   translated_agent_roles-label-agent_role_id-14: Database sorgente
   translated_agent_roles-label-agent_role_id-15: Persona di contatto
   translated_agent_roles-label-agent_role_id-16: Collaboratore
-  translated_agent_roles-label-agent_role_id-2: Autore
+  translated_agent_roles-label-agent_role_id-1: Animatore
   translated_agent_roles-label-agent_role_id-21: fornitore
   translated_agent_roles-label-agent_role_id-22: Traduttore
   translated_agent_roles-label-agent_role_id-23: Revisore scientifico
   translated_agent_roles-label-agent_role_id-24: Revisore linguistico
+  translated_agent_roles-label-agent_role_id-2: Autore
   translated_agent_roles-label-agent_role_id-3: Compilatore
   translated_agent_roles-label-agent_role_id-4: Autore
   translated_agent_roles-label-agent_role_id-5: Creatore
@@ -42,7 +44,6 @@ it:
   translated_audiences-label-audience_id-1: Utenti esperti
   translated_audiences-label-audience_id-2: Pubblico in generale
   translated_audiences-label-audience_id-3: Bambini
-  translated_collection_types-label-collection_type_id-1: Tassonomia
   translated_collection_types-label-collection_type_id-10: Suoni
   translated_collection_types-label-collection_type_id-11: Collegamenti
   translated_collection_types-label-collection_type_id-12: Letteratura
@@ -53,12 +54,13 @@ it:
   translated_collection_types-label-collection_type_id-17: Distribuzione
   translated_collection_types-label-collection_type_id-18: Stato di conservazione
   translated_collection_types-label-collection_type_id-19: Informazioni sul nome
-  translated_collection_types-label-collection_type_id-2: Codici a barre molecolari
+  translated_collection_types-label-collection_type_id-1: Tassonomia
   translated_collection_types-label-collection_type_id-20: Dati molecolari
   translated_collection_types-label-collection_type_id-21: Nomenclatura
   translated_collection_types-label-collection_type_id-22: Suoni
   translated_collection_types-label-collection_type_id-23: Collegamenti
   translated_collection_types-label-collection_type_id-24: Letteratura
+  translated_collection_types-label-collection_type_id-2: Codici a barre molecolari
   translated_collection_types-label-collection_type_id-3: Descrizione
   translated_collection_types-label-collection_type_id-4: Immagini
   translated_collection_types-label-collection_type_id-5: Distribuzione
@@ -70,24 +72,32 @@ it:
   translated_contact_roles-label-contact_role_id-2: Contatto amministrativo
   translated_contact_roles-label-contact_role_id-3: Contatto Tecnico
   translated_contact_subjects-title-contact_subject_id-24: Iscrizione e registrazione
-  translated_contact_subjects-title-contact_subject_id-25: Termini d'uso e licenze
+  translated_contact_subjects-title-contact_subject_id-25: "Termini d'uso e licenze"
   translated_contact_subjects-title-contact_subject_id-26: Formazione ed educazione
   translated_contact_subjects-title-contact_subject_id-27: Diventa un partner di contenuti
   translated_contact_subjects-title-contact_subject_id-28: Supporto dei partner di contenuti
   translated_contact_subjects-title-contact_subject_id-29: Supporto del curatore
-  translated_contact_subjects-title-contact_subject_id-30: Fare una correzione (ortografia e grammatica, immagini, informazioni)
-  translated_contact_subjects-title-contact_subject_id-31: Contribuire tramite immagini, video o suoni
-  translated_contact_subjects-title-contact_subject_id-32: Richieste di supporto (interviste, richieste stampa, richieste logo)
+  translated_contact_subjects-title-contact_subject_id-30: >
+    Fare una correzione (ortografia e
+    grammatica, immagini, informazioni)
+  translated_contact_subjects-title-contact_subject_id-31: >
+    Contribuire tramite immagini, video o
+    suoni
+  translated_contact_subjects-title-contact_subject_id-32: >
+    Richieste di supporto (interviste,
+    richieste stampa, richieste logo)
   translated_contact_subjects-title-contact_subject_id-33: Fai una donazione finanziaria
-  translated_contact_subjects-title-contact_subject_id-34: Domande tecniche (problemi con la ricerca, funzionalità del sito Web)
+  translated_contact_subjects-title-contact_subject_id-34: >
+    Domande tecniche (problemi con la
+    ricerca, funzionalità del sito Web)
   translated_contact_subjects-title-contact_subject_id-35: Feedback generale
   translated_content_partner_statuses-label-content_partner_status_id-1: In attesa
   translated_content_partner_statuses-label-content_partner_status_id-2: Attivo
   translated_content_partner_statuses-label-content_partner_status_id-3: Archiviato
   translated_content_partner_statuses-label-content_partner_status_id-4: Inattivo
   translated_content_tables-label-content_table_id-1: Dettagli
-  translated_data_types-label-data_type_id-1: Immagine
   translated_data_types-label-data_type_id-10: Mappa
+  translated_data_types-label-data_type_id-1: Immagine
   translated_data_types-label-data_type_id-2: Suono
   translated_data_types-label-data_type_id-3: Testo
   translated_data_types-label-data_type_id-4: Video
@@ -96,9 +106,8 @@ it:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Nessun diritto riservato
-  translated_licenses-description-license_id-2: © Tutti i diritti riservati
   translated_licenses-description-license_id-29: Alcuni diritti riservati
-  translated_licenses-description-license_id-3: Alcuni diritti riservati
+  translated_licenses-description-license_id-2: © Tutti i diritti riservati
   translated_licenses-description-license_id-30: Alcuni diritti riservati
   translated_licenses-description-license_id-31: Alcuni diritti riservati
   translated_licenses-description-license_id-32: Alcuni diritti riservati
@@ -109,9 +118,10 @@ it:
   translated_licenses-description-license_id-37: Alcuni diritti riservati
   translated_licenses-description-license_id-38: Alcuni diritti riservati
   translated_licenses-description-license_id-39: Pubblico dominio
-  translated_licenses-description-license_id-4: Alcuni diritti riservati
+  translated_licenses-description-license_id-3: Alcuni diritti riservati
   translated_licenses-description-license_id-42: Alcuni diritti riservati
   translated_licenses-description-license_id-43: Licenza non applicabile
+  translated_licenses-description-license_id-4: Alcuni diritti riservati
   translated_licenses-description-license_id-5: Alcuni diritti riservati
   translated_licenses-description-license_id-6: Alcuni diritti riservati
   translated_licenses-description-license_id-7: Alcuni diritti riservati
@@ -154,11 +164,11 @@ it:
   translated_ranks-label-rank_id-472: superphylum
   translated_ranks-label-rank_id-494: tribù
   translated_ranks-label-rank_id-503: non classificato
-  translated_ranks-label-rank_id-51: classe
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietà
   translated_ranks-label-rank_id-518: varietà
+  translated_ranks-label-rank_id-51: classe
   translated_ranks-label-rank_id-562: ibrido
   translated_ranks-label-rank_id-563: specie ibride
   translated_ranks-label-rank_id-564: sottospecie ibride
@@ -169,11 +179,11 @@ it:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: Famiglia
-  translated_resource_statuses-label-resource_status_id-1: Caricamento
   translated_resource_statuses-label-resource_status_id-10: Pubblicato
   translated_resource_statuses-label-resource_status_id-11: Pubblicazione in sospeso
   translated_resource_statuses-label-resource_status_id-12: Annullare la pubblicazione in sospeso
   translated_resource_statuses-label-resource_status_id-13: Forza raccolta
+  translated_resource_statuses-label-resource_status_id-1: Caricamento
   translated_resource_statuses-label-resource_status_id-2: Caricato
   translated_resource_statuses-label-resource_status_id-3: Caricamento non riuscito
   translated_resource_statuses-label-resource_status_id-4: Trasferito al Server dei Contenuti
@@ -194,7 +204,6 @@ it:
   translated_statuses-label-status_id-2: Aggiornato
   translated_statuses-label-status_id-3: Non modificato
   translated_statuses-label-status_id-4: Riutilizzato
-  translated_synonym_relations-label-synonym_relation_id-1: sinonimo
   translated_synonym_relations-label-synonym_relation_id-10: sinonimo di GenBank
   translated_synonym_relations-label-synonym_relation_id-11: in parte
   translated_synonym_relations-label-synonym_relation_id-12: include
@@ -205,10 +214,12 @@ it:
   translated_synonym_relations-label-synonym_relation_id-17: nome erroneo
   translated_synonym_relations-label-synonym_relation_id-18: nome accettato provvisoriamente
   translated_synonym_relations-label-synonym_relation_id-19: nome accettato
-  translated_synonym_relations-label-synonym_relation_id-2: nome comune
+  translated_synonym_relations-label-synonym_relation_id-1: sinonimo
   translated_synonym_relations-label-synonym_relation_id-20: oggetto del database
   translated_synonym_relations-label-synonym_relation_id-21: altro, vedi commenti
-  translated_synonym_relations-label-synonym_relation_id-22: variante ortografica (errore ortografico)
+  translated_synonym_relations-label-synonym_relation_id-22: >
+    variante ortografica (errore
+    ortografico)
   translated_synonym_relations-label-synonym_relation_id-23: erroneo
   translated_synonym_relations-label-synonym_relation_id-24: nome rifiutato
   translated_synonym_relations-label-synonym_relation_id-25: omonimo (illegittimo)
@@ -216,22 +227,29 @@ it:
   translated_synonym_relations-label-synonym_relation_id-27: ridenominazione superflua (illegittima)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: sinonimo minore
-  translated_synonym_relations-label-synonym_relation_id-3: acronimo
+  translated_synonym_relations-label-synonym_relation_id-2: nome comune
   translated_synonym_relations-label-synonym_relation_id-30: non disponibile, oggetto del database
   translated_synonym_relations-label-synonym_relation_id-31: sostituzione non necessaria
-  translated_synonym_relations-label-synonym_relation_id-33: non disponibile, errore ortografico in letteratura
+  translated_synonym_relations-label-synonym_relation_id-33: >
+    non disponibile, errore ortografico in
+    letteratura
   translated_synonym_relations-label-synonym_relation_id-34: nome originale/combinazione
-  translated_synonym_relations-label-synonym_relation_id-35: non disponibile, ortografia originale non corretta
+  translated_synonym_relations-label-synonym_relation_id-35: >
+    non disponibile, ortografia originale
+    non corretta
   translated_synonym_relations-label-synonym_relation_id-36: sinonimo minore
-  translated_synonym_relations-label-synonym_relation_id-37: omonimi & sinonimi minori
-  translated_synonym_relations-label-synonym_relation_id-38: non disponibile, eliminato a causa delle regole vigenti
-  translated_synonym_relations-label-synonym_relation_id-4: anamorfo
+  translated_synonym_relations-label-synonym_relation_id-37: 'omonimi & sinonimi minori'
+  translated_synonym_relations-label-synonym_relation_id-38: >
+    non disponibile, eliminato a causa delle
+    regole vigenti
+  translated_synonym_relations-label-synonym_relation_id-3: acronimo
   translated_synonym_relations-label-synonym_relation_id-40: non disponibile, altro
   translated_synonym_relations-label-synonym_relation_id-45: basionimo
   translated_synonym_relations-label-synonym_relation_id-46: sinonimo eterotipico
   translated_synonym_relations-label-synonym_relation_id-47: sinonimo omotipico
   translated_synonym_relations-label-synonym_relation_id-48: nome non disponibile
   translated_synonym_relations-label-synonym_relation_id-49: nome valido
+  translated_synonym_relations-label-synonym_relation_id-4: anamorfo
   translated_synonym_relations-label-synonym_relation_id-50: valido
   translated_synonym_relations-label-synonym_relation_id-51: accettato
   translated_synonym_relations-label-synonym_relation_id-52: autorità
@@ -240,24 +258,25 @@ it:
   translated_synonym_relations-label-synonym_relation_id-56: ortografia errata
   translated_synonym_relations-label-synonym_relation_id-57: ortografía alternativa
   translated_synonym_relations-label-synonym_relation_id-58: variante lessicale
-  translated_synonym_relations-label-synonym_relation_id-6: nome equivalente
   translated_synonym_relations-label-synonym_relation_id-63: non accettato
   translated_synonym_relations-label-synonym_relation_id-64: non valido
   translated_synonym_relations-label-synonym_relation_id-66: rappresentazione alternativa
-  translated_table_of_contents-label-table_of_contents_id-1: Panoramica
+  translated_synonym_relations-label-synonym_relation_id-67: specie inquirenda
+  translated_synonym_relations-label-synonym_relation_id-6: nome equivalente
+  translated_synonym_relations-label-synonym_relation_id-9: nome comune GenBank
   translated_table_of_contents-label-table_of_contents_id-13: Nomi comuni
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Riferimenti bibliografici
   translated_table_of_contents-label-table_of_contents_id-194: Dimensione
-  translated_table_of_contents-label-table_of_contents_id-2: Breve riassunto
+  translated_table_of_contents-label-table_of_contents_id-1: Panoramica
   translated_table_of_contents-label-table_of_contents_id-218: Distribuzione
   translated_table_of_contents-label-table_of_contents_id-221: Rischi
   translated_table_of_contents-label-table_of_contents_id-225: Sul web
   translated_table_of_contents-label-table_of_contents_id-226: Fornitori di contenuti
   translated_table_of_contents-label-table_of_contents_id-227: Cerca nel web
-  translated_table_of_contents-label-table_of_contents_id-24: Commenti
   translated_table_of_contents-label-table_of_contents_id-242: Ecologia generale
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografie
+  translated_table_of_contents-label-table_of_contents_id-24: Commenti
   translated_table_of_contents-label-table_of_contents_id-251: Benefici
   translated_table_of_contents-label-table_of_contents_id-267: Morfologia
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografia
@@ -269,7 +288,7 @@ it:
   translated_table_of_contents-label-table_of_contents_id-296: Gestione
   translated_table_of_contents-label-table_of_contents_id-297: Strategia trofica
   translated_table_of_contents-label-table_of_contents_id-299: Educazione
-  translated_table_of_contents-label-table_of_contents_id-3: Descrizione fisica
+  translated_table_of_contents-label-table_of_contents_id-2: Breve riassunto
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Nomi e Tassonomia
   translated_table_of_contents-label-table_of_contents_id-304: Nomi correlati
@@ -298,7 +317,6 @@ it:
   translated_table_of_contents-label-table_of_contents_id-327: Fisiologia
   translated_table_of_contents-label-table_of_contents_id-328: Biologia cellulare
   translated_table_of_contents-label-table_of_contents_id-329: Genetica
-  translated_table_of_contents-label-table_of_contents_id-33: Tendenze
   translated_table_of_contents-label-table_of_contents_id-330: Sequenze nucleotidiche
   translated_table_of_contents-label-table_of_contents_id-331: Codice a barre
   translated_table_of_contents-label-table_of_contents_id-332: Genoma
@@ -309,17 +327,26 @@ it:
   translated_table_of_contents-label-table_of_contents_id-337: Educazione
   translated_table_of_contents-label-table_of_contents_id-338: Collegamenti educativi
   translated_table_of_contents-label-table_of_contents_id-339: Risorse di formazione
-  translated_table_of_contents-label-table_of_contents_id-34: Commenti
-  translated_table_of_contents-label-table_of_contents_id-340: Serie di Laboratori per la Scuola Superiore
+  translated_table_of_contents-label-table_of_contents_id-33: Tendenze
+  translated_table_of_contents-label-table_of_contents_id-340: >
+    Serie di Laboratori per la Scuola
+    Superiore
+  translated_table_of_contents-label-table_of_contents_id-341: Citizen Science
+  translated_table_of_contents-label-table_of_contents_id-342: Collegamenti a siti Citizen Science
+  translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage Library
   translated_table_of_contents-label-table_of_contents_id-344: Dati
   translated_table_of_contents-label-table_of_contents_id-345: Fonti
   translated_table_of_contents-label-table_of_contents_id-346: Termini biomedici
   translated_table_of_contents-label-table_of_contents_id-347: Tassonomia
   translated_table_of_contents-label-table_of_contents_id-348: Tipo di informazione
-  translated_table_of_contents-label-table_of_contents_id-4: Ecologia
+  translated_table_of_contents-label-table_of_contents_id-34: Commenti
+  translated_table_of_contents-label-table_of_contents_id-3: Descrizione fisica
   translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-4: Ecologia
   translated_table_of_contents-label-table_of_contents_id-5: Evoluzione e sistematica
-  translated_table_of_contents-label-table_of_contents_id-6: Rilevanza per gli esseri umani e gli ecosistemi
+  translated_table_of_contents-label-table_of_contents_id-6: >
+    Rilevanza per gli esseri umani e gli
+    ecosistemi
   translated_table_of_contents-label-table_of_contents_id-7: Riferimenti e ulteriori informazioni
   translated_table_of_contents-label-table_of_contents_id-8: Conservazione
   translated_untrust_reasons-label-untrust_reason_id-1: erroneamente identificato

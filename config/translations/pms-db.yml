@@ -1,9 +1,10 @@
 # Messages for Piedmontese (Piemontèis)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Borichèt
 # Author: Dragonòt
-pms: 
+---
+pms:
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: nen fidà
   translated_activities-name-activity_id-51: smon-e
@@ -17,7 +18,6 @@ pms:
   translated_activities-name-activity_id-59: nen revisionà
   translated_activities-name-activity_id-63: cheuje
   translated_activities-name-activity_id-64: gavé
-  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Proget
   translated_agent_roles-label-agent_role_id-11: Editor
   translated_agent_roles-label-agent_role_id-12: Argistrator
@@ -25,11 +25,12 @@ pms:
   translated_agent_roles-label-agent_role_id-14: Base ëd dàit sorgiss
   translated_agent_roles-label-agent_role_id-15: Përson-a ëd contat
   translated_agent_roles-label-agent_role_id-16: Contributor
-  translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-21: fornidor
   translated_agent_roles-label-agent_role_id-22: Tradutor
   translated_agent_roles-label-agent_role_id-23: Revisor sientìfich
   translated_agent_roles-label-agent_role_id-24: Revisor lenghìstich
+  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-3: Compilador
   translated_agent_roles-label-agent_role_id-4: Compositor
   translated_agent_roles-label-agent_role_id-5: Creator
@@ -40,7 +41,6 @@ pms:
   translated_audiences-label-audience_id-1: Utent espert
   translated_audiences-label-audience_id-2: Grand pùblich
   translated_audiences-label-audience_id-3: Masnà
-  translated_collection_types-label-collection_type_id-1: Tassonomìa
   translated_collection_types-label-collection_type_id-10: Son
   translated_collection_types-label-collection_type_id-11: Liure
   translated_collection_types-label-collection_type_id-12: Bibliografìa
@@ -51,12 +51,13 @@ pms:
   translated_collection_types-label-collection_type_id-17: Distribussion
   translated_collection_types-label-collection_type_id-18: Stat ëd conservassion
   translated_collection_types-label-collection_type_id-19: Anformassion an sël nòm
-  translated_collection_types-label-collection_type_id-2: Còdes a bare molecolar
+  translated_collection_types-label-collection_type_id-1: Tassonomìa
   translated_collection_types-label-collection_type_id-20: Dàit molecolar
   translated_collection_types-label-collection_type_id-21: Nomencladura
   translated_collection_types-label-collection_type_id-22: Son
   translated_collection_types-label-collection_type_id-23: Liure
   translated_collection_types-label-collection_type_id-24: Literatura
+  translated_collection_types-label-collection_type_id-2: Còdes a bare molecolar
   translated_collection_types-label-collection_type_id-3: Descrission
   translated_collection_types-label-collection_type_id-4: Plance
   translated_collection_types-label-collection_type_id-5: Distribussion
@@ -68,24 +69,30 @@ pms:
   translated_contact_roles-label-contact_role_id-2: Contat aministrativ
   translated_contact_roles-label-contact_role_id-3: Contat técnich
   translated_contact_subjects-title-contact_subject_id-24: Associassion e argistrassion
-  translated_contact_subjects-title-contact_subject_id-25: Condission d'utilisassion e licensa
+  translated_contact_subjects-title-contact_subject_id-25: "Condission d'utilisassion e licensa"
   translated_contact_subjects-title-contact_subject_id-26: Amprendiment e ansegnament
-  translated_contact_subjects-title-contact_subject_id-27: Ch'a dventa un cambrada ëd contnù
+  translated_contact_subjects-title-contact_subject_id-27: "Ch'a dventa un cambrada ëd contnù"
   translated_contact_subjects-title-contact_subject_id-28: Sostegn dij cambrada ëd contnù
   translated_contact_subjects-title-contact_subject_id-29: Sostegn dij conservador
-  translated_contact_subjects-title-contact_subject_id-30: Fé na coression (ortografìa e gramàtica, plance, anformassion)
-  translated_contact_subjects-title-contact_subject_id-31: Contribuì con dle plance, dij filmà o dij son
-  translated_contact_subjects-title-contact_subject_id-32: Arcesta ëd mojen (antërviste, anceste dë stampa, arceste ëd marche)
-  translated_contact_subjects-title-contact_subject_id-33: Fé na donassion d'arzan
-  translated_contact_subjects-title-contact_subject_id-34: Chestion técniche (problema d'arserca, fonsionament problemàtich dël sit an sl'Aragnà)
+  translated_contact_subjects-title-contact_subject_id-30: >
+    Fé na coression (ortografìa e
+    gramàtica, plance, anformassion)
+  translated_contact_subjects-title-contact_subject_id-31: >
+    Contribuì con dle plance, dij filmà o
+    dij son
+  translated_contact_subjects-title-contact_subject_id-32: >
+    Arcesta ëd mojen (antërviste, anceste
+    dë stampa, arceste ëd marche)
+  translated_contact_subjects-title-contact_subject_id-33: "Fé na donassion d'arzan"
+  translated_contact_subjects-title-contact_subject_id-34: "Chestion técniche (problema d'arserca, fonsionament problemàtich dël sit an sl'Aragnà)"
   translated_contact_subjects-title-contact_subject_id-35: Opinion general
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendent
   translated_content_partner_statuses-label-content_partner_status_id-2: Ativ
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivià
   translated_content_partner_statuses-label-content_partner_status_id-4: Inativ
   translated_content_tables-label-content_table_id-1: Detaj
-  translated_data_types-label-data_type_id-1: Plancia
   translated_data_types-label-data_type_id-10: Cartin-a
+  translated_data_types-label-data_type_id-1: Plancia
   translated_data_types-label-data_type_id-2: Son
   translated_data_types-label-data_type_id-3: Test
   translated_data_types-label-data_type_id-4: Filmà
@@ -94,9 +101,8 @@ pms:
   translated_data_types-label-data_type_id-7: Lòsna
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Gnun drit arservà
-  translated_licenses-description-license_id-2: "&#169; Tuti ij drit arservà"
   translated_licenses-description-license_id-29: Chèich drit arservà
-  translated_licenses-description-license_id-3: Chèich drit arservà
+  translated_licenses-description-license_id-2: '&#169; Tuti ij drit arservà'
   translated_licenses-description-license_id-30: Chèich drit arservà
   translated_licenses-description-license_id-31: Chèich drit arservà
   translated_licenses-description-license_id-32: Chèich drit arservà
@@ -107,9 +113,10 @@ pms:
   translated_licenses-description-license_id-37: Chèich drit arservà
   translated_licenses-description-license_id-38: Chèich drit arservà
   translated_licenses-description-license_id-39: Domini pùblich
-  translated_licenses-description-license_id-4: Chèich drit arservà
+  translated_licenses-description-license_id-3: Chèich drit arservà
   translated_licenses-description-license_id-42: Chèich drit arservà
   translated_licenses-description-license_id-43: Licensa nen aplicàbil
+  translated_licenses-description-license_id-4: Chèich drit arservà
   translated_licenses-description-license_id-5: Chèich drit arservà
   translated_licenses-description-license_id-6: Chèich drit arservà
   translated_licenses-description-license_id-7: Chèich drit arservà
@@ -152,11 +159,11 @@ pms:
   translated_ranks-label-rank_id-472: superfil
   translated_ranks-label-rank_id-494: tribù
   translated_ranks-label-rank_id-503: nen classificà
-  translated_ranks-label-rank_id-51: classa
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietà
   translated_ranks-label-rank_id-518: varietà
+  translated_ranks-label-rank_id-51: classa
   translated_ranks-label-rank_id-562: géner ìbrid
   translated_ranks-label-rank_id-563: spece ìbride
   translated_ranks-label-rank_id-564: sot-ëspece ìbride
@@ -167,17 +174,17 @@ pms:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: famija
-  translated_resource_statuses-label-resource_status_id-1: Cariament
   translated_resource_statuses-label-resource_status_id-10: Publicà
   translated_resource_statuses-label-resource_status_id-11: Publicassion pendenta
   translated_resource_statuses-label-resource_status_id-12: Anulé la publicassion pendenta
   translated_resource_statuses-label-resource_status_id-13: Arcòlta ëd fòrsa
+  translated_resource_statuses-label-resource_status_id-1: Cariament
   translated_resource_statuses-label-resource_status_id-2: Carià
   translated_resource_statuses-label-resource_status_id-3: Cariament falì
   translated_resource_statuses-label-resource_status_id-4: Tramudà al servent dël contnù
   translated_resource_statuses-label-resource_status_id-5: Confirmà
   translated_resource_statuses-label-resource_status_id-6: Confirmassion falìa
-  translated_resource_statuses-label-resource_status_id-7: An camin ch'as trata
+  translated_resource_statuses-label-resource_status_id-7: "An camin ch'as trata"
   translated_resource_statuses-label-resource_status_id-8: Tratà
   translated_resource_statuses-label-resource_status_id-9: Tratament falì
   translated_service_types-label-service_type_id-1: Schema ëd traferiment EOL
@@ -192,40 +199,43 @@ pms:
   translated_statuses-label-status_id-2: Agiornà
   translated_statuses-label-status_id-3: Nen cangià
   translated_statuses-label-status_id-4: Riutilisà
-  translated_synonym_relations-label-synonym_relation_id-1: sinònim
   translated_synonym_relations-label-synonym_relation_id-10: sinònim ëd genbank
   translated_synonym_relations-label-synonym_relation_id-11: an part
   translated_synonym_relations-label-synonym_relation_id-12: a conten
   translated_synonym_relations-label-synonym_relation_id-13: nen precis
-  translated_synonym_relations-label-synonym_relation_id-14: eror d'ortografìa
+  translated_synonym_relations-label-synonym_relation_id-14: "eror d'ortografìa"
   translated_synonym_relations-label-synonym_relation_id-15: teleomorf
   translated_synonym_relations-label-synonym_relation_id-16: sinònim tërbol
   translated_synonym_relations-label-synonym_relation_id-17: nòm aplicà mal
   translated_synonym_relations-label-synonym_relation_id-18: nòm acetà ëd fasson provisòria
   translated_synonym_relations-label-synonym_relation_id-19: nòm acetà
-  translated_synonym_relations-label-synonym_relation_id-2: nòm comun
+  translated_synonym_relations-label-synonym_relation_id-1: sinònim
   translated_synonym_relations-label-synonym_relation_id-20: oget ëd base ëd dàit
-  translated_synonym_relations-label-synonym_relation_id-21: d'àutr, vëdde ij coment
+  translated_synonym_relations-label-synonym_relation_id-21: "d'àutr, vëdde ij coment"
   translated_synonym_relations-label-synonym_relation_id-22: varianta ortogràfica (eror ëd grafìa)
   translated_synonym_relations-label-synonym_relation_id-23: aplicà mal
   translated_synonym_relations-label-synonym_relation_id-24: nòm arfudà
   translated_synonym_relations-label-synonym_relation_id-25: omònim (ilegìtim)
   translated_synonym_relations-label-synonym_relation_id-26: për part
-  translated_synonym_relations-label-synonym_relation_id-27: arnominassion nen necessaria (ilegìtima)
+  translated_synonym_relations-label-synonym_relation_id-27: >
+    arnominassion nen necessaria
+    (ilegìtima)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: sinònim pì giovo
-  translated_synonym_relations-label-synonym_relation_id-3: sigla
-  translated_synonym_relations-label-synonym_relation_id-30: indisponìbil, oget ant la base ëd dàit
+  translated_synonym_relations-label-synonym_relation_id-2: nòm comun
+  translated_synonym_relations-label-synonym_relation_id-30: >
+    indisponìbil, oget ant la base ëd
+    dàit
   translated_synonym_relations-label-synonym_relation_id-31: rampiass nen necessari
   translated_synonym_relations-label-synonym_relation_id-32: nòm conseguent/combinassion
-  translated_synonym_relations-label-synonym_relation_id-33: indisponìbil, eror d'ortografìa literari
+  translated_synonym_relations-label-synonym_relation_id-33: "indisponìbil, eror d'ortografìa literari"
   translated_synonym_relations-label-synonym_relation_id-34: nòm original/combinassion
-  translated_synonym_relations-label-synonym_relation_id-35: indisponìbil, grafia sbalià a l'adoss
+  translated_synonym_relations-label-synonym_relation_id-35: "indisponìbil, grafia sbalià a l'adoss"
   translated_synonym_relations-label-synonym_relation_id-36: omònim pì giovo
-  translated_synonym_relations-label-synonym_relation_id-37: sinònim omònim & pì giovo
+  translated_synonym_relations-label-synonym_relation_id-37: 'sinònim omònim & pì giovo'
   translated_synonym_relations-label-synonym_relation_id-38: nen disponìbil, sganfà për decision
   translated_synonym_relations-label-synonym_relation_id-39: coression nen giustificà
-  translated_synonym_relations-label-synonym_relation_id-4: anamòrfosi
+  translated_synonym_relations-label-synonym_relation_id-3: sigla
   translated_synonym_relations-label-synonym_relation_id-40: nen disponìbil, àutra rason
   translated_synonym_relations-label-synonym_relation_id-41: nen disponìbil, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
@@ -236,18 +246,18 @@ pms:
   translated_synonym_relations-label-synonym_relation_id-47: sinònim omotìpich
   translated_synonym_relations-label-synonym_relation_id-48: nòm nen disponìbil
   translated_synonym_relations-label-synonym_relation_id-49: nòm bon
-  translated_synonym_relations-label-synonym_relation_id-5: nòm BLAST
+  translated_synonym_relations-label-synonym_relation_id-4: anamòrfosi
   translated_synonym_relations-label-synonym_relation_id-50: bon
   translated_synonym_relations-label-synonym_relation_id-51: acetà
   translated_synonym_relations-label-synonym_relation_id-52: autorità
   translated_synonym_relations-label-synonym_relation_id-53: nòm nen publicà
   translated_synonym_relations-label-synonym_relation_id-54: sinònim sogetiv
-  translated_synonym_relations-label-synonym_relation_id-55: anformassion d'autorità nen bon-a
+  translated_synonym_relations-label-synonym_relation_id-55: "anformassion d'autorità nen bon-a"
   translated_synonym_relations-label-synonym_relation_id-56: grafìa falà
   translated_synonym_relations-label-synonym_relation_id-57: ortografìa alternativa
   translated_synonym_relations-label-synonym_relation_id-58: varianta lessical
   translated_synonym_relations-label-synonym_relation_id-59: sinònim (ogetiv = omotìpich)
-  translated_synonym_relations-label-synonym_relation_id-6: nòm equivalent
+  translated_synonym_relations-label-synonym_relation_id-5: nòm BLAST
   translated_synonym_relations-label-synonym_relation_id-60: sinònim (sogetiv = eterotìpich)
   translated_synonym_relations-label-synonym_relation_id-61: sinònim obietiv
   translated_synonym_relations-label-synonym_relation_id-62: sinònim pì vej
@@ -257,23 +267,23 @@ pms:
   translated_synonym_relations-label-synonym_relation_id-66: arpresentassion alternativa
   translated_synonym_relations-label-synonym_relation_id-67: spece da confirmé
   translated_synonym_relations-label-synonym_relation_id-68: òrt-coltural
+  translated_synonym_relations-label-synonym_relation_id-6: nòm equivalent
   translated_synonym_relations-label-synonym_relation_id-7: sigla ëd genbank
   translated_synonym_relations-label-synonym_relation_id-8: anamòrfosi ëd genbank
   translated_synonym_relations-label-synonym_relation_id-9: nòm comun ëd genbank
-  translated_table_of_contents-label-table_of_contents_id-1: Vista d'ansem
   translated_table_of_contents-label-table_of_contents_id-13: Nòm comun
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Arferiment a la literatura
   translated_table_of_contents-label-table_of_contents_id-194: Taja
-  translated_table_of_contents-label-table_of_contents_id-2: Curt resumé
+  translated_table_of_contents-label-table_of_contents_id-1: "Vista d'ansem"
   translated_table_of_contents-label-table_of_contents_id-218: Dispersion
   translated_table_of_contents-label-table_of_contents_id-221: Arzigh
-  translated_table_of_contents-label-table_of_contents_id-225: An sl'Aragnà
+  translated_table_of_contents-label-table_of_contents_id-225: "An sl'Aragnà"
   translated_table_of_contents-label-table_of_contents_id-226: Cambrada ëd contnù
-  translated_table_of_contents-label-table_of_contents_id-227: Sërché an sl'Aragnà
-  translated_table_of_contents-label-table_of_contents_id-24: Coment
+  translated_table_of_contents-label-table_of_contents_id-227: "Sërché an sl'Aragnà"
   translated_table_of_contents-label-table_of_contents_id-242: Ecologìa general
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografìe
+  translated_table_of_contents-label-table_of_contents_id-24: Coment
   translated_table_of_contents-label-table_of_contents_id-251: Vantagg
   translated_table_of_contents-label-table_of_contents_id-267: Morfologìa
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografìa
@@ -285,7 +295,7 @@ pms:
   translated_table_of_contents-label-table_of_contents_id-296: Gestion
   translated_table_of_contents-label-table_of_contents_id-297: Strategìa tròfica
   translated_table_of_contents-label-table_of_contents_id-299: Educassion
-  translated_table_of_contents-label-table_of_contents_id-3: Descrission fìsica
+  translated_table_of_contents-label-table_of_contents_id-2: Curt resumé
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Nòm e tassonomìa
   translated_table_of_contents-label-table_of_contents_id-304: Nòm colegà
@@ -295,7 +305,7 @@ pms:
   translated_table_of_contents-label-table_of_contents_id-308: Descrission comprensiva
   translated_table_of_contents-label-table_of_contents_id-309: Distribussion
   translated_table_of_contents-label-table_of_contents_id-310: Dësvlup
-  translated_table_of_contents-label-table_of_contents_id-311: Arsorse d'identificassion
+  translated_table_of_contents-label-table_of_contents_id-311: "Arsorse d'identificassion"
   translated_table_of_contents-label-table_of_contents_id-312: Migrassion
   translated_table_of_contents-label-table_of_contents_id-313: Maladìe e parassit
   translated_table_of_contents-label-table_of_contents_id-314: Biologìa dla popolassion
@@ -314,7 +324,6 @@ pms:
   translated_table_of_contents-label-table_of_contents_id-327: Fisologìa
   translated_table_of_contents-label-table_of_contents_id-328: Biologìa dla célula
   translated_table_of_contents-label-table_of_contents_id-329: Genética
-  translated_table_of_contents-label-table_of_contents_id-33: Tendense
   translated_table_of_contents-label-table_of_contents_id-330: Sequense ëd nucleòtid
   translated_table_of_contents-label-table_of_contents_id-331: Còdes a bare
   translated_table_of_contents-label-table_of_contents_id-332: Genòma
@@ -325,30 +334,34 @@ pms:
   translated_table_of_contents-label-table_of_contents_id-337: Educassion
   translated_table_of_contents-label-table_of_contents_id-338: Liure educative
   translated_table_of_contents-label-table_of_contents_id-339: Arsorse educative
-  translated_table_of_contents-label-table_of_contents_id-34: Coment
+  translated_table_of_contents-label-table_of_contents_id-33: Tendense
   translated_table_of_contents-label-table_of_contents_id-340: Serie ëd laboratòri per ël liceo
   translated_table_of_contents-label-table_of_contents_id-341: Siensa dij sitadin
   translated_table_of_contents-label-table_of_contents_id-342: Liure a la siensa dij sitadin
-  translated_table_of_contents-label-table_of_contents_id-343: Biblioteca dël patrimòni dla biodiversità
+  translated_table_of_contents-label-table_of_contents_id-343: >
+    Biblioteca dël patrimòni dla
+    biodiversità
   translated_table_of_contents-label-table_of_contents_id-344: Dàit
   translated_table_of_contents-label-table_of_contents_id-345: Sorgiss dij dàit
   translated_table_of_contents-label-table_of_contents_id-346: Terminologìa biomédica
   translated_table_of_contents-label-table_of_contents_id-347: Tassonomìa
-  translated_table_of_contents-label-table_of_contents_id-348: Scrive l'anformassion
-  translated_table_of_contents-label-table_of_contents_id-4: Ecologìa
+  translated_table_of_contents-label-table_of_contents_id-348: "Scrive l'anformassion"
+  translated_table_of_contents-label-table_of_contents_id-34: Coment
+  translated_table_of_contents-label-table_of_contents_id-3: Descrission fìsica
   translated_table_of_contents-label-table_of_contents_id-41: Ambient
+  translated_table_of_contents-label-table_of_contents_id-4: Ecologìa
   translated_table_of_contents-label-table_of_contents_id-5: Evolussion e Sistemàtica
-  translated_table_of_contents-label-table_of_contents_id-6: Amportansa për j'Òm e j'Ecosistema
-  translated_table_of_contents-label-table_of_contents_id-7: Arferiment e d'Àutre Anformassion
+  translated_table_of_contents-label-table_of_contents_id-6: "Amportansa për j'Òm e j'Ecosistema"
+  translated_table_of_contents-label-table_of_contents_id-7: "Arferiment e d'Àutre Anformassion"
   translated_table_of_contents-label-table_of_contents_id-8: Conservassion
   translated_untrust_reasons-label-untrust_reason_id-1: mal identificà
   translated_untrust_reasons-label-untrust_reason_id-2: nen giust/sugeriment gram
   translated_untrust_reasons-label-untrust_reason_id-3: qualità bassa
   translated_untrust_reasons-label-untrust_reason_id-4: duplicà
   translated_untrust_reasons-label-untrust_reason_id-5: Àutri
-  translated_user_identities-label-user_identity_id-1: n'antusiasta
+  translated_user_identities-label-user_identity_id-1: "n'antusiasta"
   translated_user_identities-label-user_identity_id-2: në student
-  translated_user_identities-label-user_identity_id-3: n'educator
+  translated_user_identities-label-user_identity_id-3: "n'educator"
   translated_user_identities-label-user_identity_id-4: un siensià privà
   translated_user_identities-label-user_identity_id-5: un siensià professionista
   translated_vetted-label-vetted_id-0: Pa conossù

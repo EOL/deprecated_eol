@@ -1,11 +1,12 @@
 # Messages for Catalan (català)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Allman
 # Author: Gemmaa
 # Author: Jordi Roqué
 # Author: Qllach
-ca: 
+---
+ca:
   translated_activities-name-activity_id-19: perfil
   translated_activities-name-activity_id-50: no fiable
   translated_activities-name-activity_id-51: mostra
@@ -18,7 +19,6 @@ ca:
   translated_activities-name-activity_id-58: fiable
   translated_activities-name-activity_id-59: no revisat
   translated_activities-name-activity_id-64: elimina
-  translated_agent_roles-label-agent_role_id-1: Animador
   translated_agent_roles-label-agent_role_id-10: Projecte
   translated_agent_roles-label-agent_role_id-11: Editor
   translated_agent_roles-label-agent_role_id-12: Enregistrador
@@ -26,11 +26,12 @@ ca:
   translated_agent_roles-label-agent_role_id-14: Base de dades font
   translated_agent_roles-label-agent_role_id-15: Persona de contacte
   translated_agent_roles-label-agent_role_id-16: Col·laborador
-  translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-1: Animador
   translated_agent_roles-label-agent_role_id-21: proveïdor
   translated_agent_roles-label-agent_role_id-22: Traductor
   translated_agent_roles-label-agent_role_id-23: Revisor científic
   translated_agent_roles-label-agent_role_id-24: Revisor lingüístic
+  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-3: Compilador
   translated_agent_roles-label-agent_role_id-4: Redactor
   translated_agent_roles-label-agent_role_id-5: Creador
@@ -41,7 +42,6 @@ ca:
   translated_audiences-label-audience_id-1: Usuaris experts
   translated_audiences-label-audience_id-2: Públic en general
   translated_audiences-label-audience_id-3: Nens
-  translated_collection_types-label-collection_type_id-1: Taxonomia
   translated_collection_types-label-collection_type_id-10: Sons
   translated_collection_types-label-collection_type_id-11: Enllaços
   translated_collection_types-label-collection_type_id-12: Literatura
@@ -52,12 +52,13 @@ ca:
   translated_collection_types-label-collection_type_id-17: Distribució
   translated_collection_types-label-collection_type_id-18: Estat de conservació
   translated_collection_types-label-collection_type_id-19: Informació del nom
-  translated_collection_types-label-collection_type_id-2: Codis de barres moleculars
+  translated_collection_types-label-collection_type_id-1: Taxonomia
   translated_collection_types-label-collection_type_id-20: Dades moleculars
   translated_collection_types-label-collection_type_id-21: Nomenclatura
   translated_collection_types-label-collection_type_id-22: Sons
   translated_collection_types-label-collection_type_id-23: Enllaços
   translated_collection_types-label-collection_type_id-24: Literatura
+  translated_collection_types-label-collection_type_id-2: Codis de barres moleculars
   translated_collection_types-label-collection_type_id-3: Descripció
   translated_collection_types-label-collection_type_id-4: Imatges
   translated_collection_types-label-collection_type_id-5: Distribució
@@ -69,24 +70,31 @@ ca:
   translated_contact_roles-label-contact_role_id-2: Contacte administratiu
   translated_contact_roles-label-contact_role_id-3: Contacte tècnic
   translated_contact_subjects-title-contact_subject_id-24: Pertinença i registre
-  translated_contact_subjects-title-contact_subject_id-25: Condicions d'ús i llicència
+  translated_contact_subjects-title-contact_subject_id-25: "Condicions d'ús i llicència"
   translated_contact_subjects-title-contact_subject_id-26: Aprenentatge i educació
   translated_contact_subjects-title-contact_subject_id-27: Esdeveniu un soci de contingut
   translated_contact_subjects-title-contact_subject_id-28: Ajuda per als socis de contingut
   translated_contact_subjects-title-contact_subject_id-29: Ajuda per a conservadors
-  translated_contact_subjects-title-contact_subject_id-30: Feu una correcció (ortografia i gramàtica, imatges, informació)
+  translated_contact_subjects-title-contact_subject_id-30: >
+    Feu una correcció (ortografia i
+    gramàtica, imatges, informació)
   translated_contact_subjects-title-contact_subject_id-31: Contribuïu amb imatges, vídeos o sons
-  translated_contact_subjects-title-contact_subject_id-32: Sol·licituds als mitjans (entrevistes, consultes de premsa, sol·licituds de logotips)
+  translated_contact_subjects-title-contact_subject_id-32: >
+    Sol·licituds als mitjans (entrevistes,
+    consultes de premsa, sol·licituds de
+    logotips)
   translated_contact_subjects-title-contact_subject_id-33: Feu una donació econòmica
-  translated_contact_subjects-title-contact_subject_id-34: Consultes tècniques (problemes amb la cerca, funcionament del web)
+  translated_contact_subjects-title-contact_subject_id-34: >
+    Consultes tècniques (problemes amb la
+    cerca, funcionament del web)
   translated_contact_subjects-title-contact_subject_id-35: Comentaris generals
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendent
   translated_content_partner_statuses-label-content_partner_status_id-2: Actiu
   translated_content_partner_statuses-label-content_partner_status_id-3: Arxivat
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactiu
   translated_content_tables-label-content_table_id-1: Detalls
-  translated_data_types-label-data_type_id-1: Imatge
   translated_data_types-label-data_type_id-10: Mapa
+  translated_data_types-label-data_type_id-1: Imatge
   translated_data_types-label-data_type_id-2: So
   translated_data_types-label-data_type_id-3: Text
   translated_data_types-label-data_type_id-4: Vídeo
@@ -95,9 +103,8 @@ ca:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Cap dret reservat
-  translated_licenses-description-license_id-2: "&#169; Tots els drets reservats"
   translated_licenses-description-license_id-29: Alguns drets reservats
-  translated_licenses-description-license_id-3: Alguns drets reservats
+  translated_licenses-description-license_id-2: '&#169; Tots els drets reservats'
   translated_licenses-description-license_id-30: Alguns drets reservats
   translated_licenses-description-license_id-31: Alguns drets reservats
   translated_licenses-description-license_id-32: Alguns drets reservats
@@ -108,9 +115,10 @@ ca:
   translated_licenses-description-license_id-37: Alguns drets reservats
   translated_licenses-description-license_id-38: Alguns drets reservats
   translated_licenses-description-license_id-39: Domini públic
-  translated_licenses-description-license_id-4: Alguns drets reservats
+  translated_licenses-description-license_id-3: Alguns drets reservats
   translated_licenses-description-license_id-42: Alguns drets reservats
   translated_licenses-description-license_id-43: Llicència no aplicable
+  translated_licenses-description-license_id-4: Alguns drets reservats
   translated_licenses-description-license_id-5: Alguns drets reservats
   translated_licenses-description-license_id-6: Alguns drets reservats
   translated_licenses-description-license_id-7: Alguns drets reservats
@@ -153,14 +161,14 @@ ca:
   translated_ranks-label-rank_id-472: superfílum
   translated_ranks-label-rank_id-494: tribu
   translated_ranks-label-rank_id-503: sense classificar
-  translated_ranks-label-rank_id-51: classe
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
+  translated_ranks-label-rank_id-51: classe
   translated_ranks-label-rank_id-74: Divisió
   translated_ranks-label-rank_id-99: família
-  translated_resource_statuses-label-resource_status_id-1: S'està carregant
   translated_resource_statuses-label-resource_status_id-10: Publicat
   translated_resource_statuses-label-resource_status_id-11: Pendent de publicar
+  translated_resource_statuses-label-resource_status_id-1: "S'està carregant"
   translated_resource_statuses-label-resource_status_id-2: Carregat
   translated_resource_statuses-label-resource_status_id-6: La validació ha fallat
   translated_resource_statuses-label-resource_status_id-7: En procés
@@ -174,20 +182,20 @@ ca:
   translated_statuses-label-status_id-1: Inserit
   translated_statuses-label-status_id-2: Actualitzat
   translated_statuses-label-status_id-3: Sense canvis
-  translated_synonym_relations-label-synonym_relation_id-1: sinònim
   translated_synonym_relations-label-synonym_relation_id-16: sinònim ambigu
   translated_synonym_relations-label-synonym_relation_id-17: nom mal aplicat
   translated_synonym_relations-label-synonym_relation_id-18: nom acceptat provisionalment
   translated_synonym_relations-label-synonym_relation_id-19: nom acceptat
-  translated_synonym_relations-label-synonym_relation_id-2: nom comú
+  translated_synonym_relations-label-synonym_relation_id-1: sinònim
   translated_synonym_relations-label-synonym_relation_id-21: altres, vegeu comentaris
-  translated_synonym_relations-label-synonym_relation_id-22: variant ortogràfica (falta d'ortografia)
+  translated_synonym_relations-label-synonym_relation_id-22: "variant ortogràfica (falta d'ortografia)"
   translated_synonym_relations-label-synonym_relation_id-24: nom no acceptat
   translated_synonym_relations-label-synonym_relation_id-27: canvi de nom superflu (il·legítim)
-  translated_synonym_relations-label-synonym_relation_id-3: acrònim
+  translated_synonym_relations-label-synonym_relation_id-2: nom comú
   translated_synonym_relations-label-synonym_relation_id-31: substitució innecessària
   translated_synonym_relations-label-synonym_relation_id-34: nom/combinació original
   translated_synonym_relations-label-synonym_relation_id-39: esmena no justificada
+  translated_synonym_relations-label-synonym_relation_id-3: acrònim
   translated_synonym_relations-label-synonym_relation_id-40: no disponible, altres
   translated_synonym_relations-label-synonym_relation_id-45: basiònim
   translated_synonym_relations-label-synonym_relation_id-47: sinònim homotípic
@@ -199,36 +207,35 @@ ca:
   translated_synonym_relations-label-synonym_relation_id-54: sinònim subjectiu
   translated_synonym_relations-label-synonym_relation_id-56: ortografia incorrecta
   translated_synonym_relations-label-synonym_relation_id-58: variant lèxica
-  translated_synonym_relations-label-synonym_relation_id-6: nom equivalent
   translated_synonym_relations-label-synonym_relation_id-63: no acceptat
   translated_synonym_relations-label-synonym_relation_id-64: no és vàlid
   translated_synonym_relations-label-synonym_relation_id-66: representació alternativa
-  translated_table_of_contents-label-table_of_contents_id-1: Visió de conjunt
+  translated_synonym_relations-label-synonym_relation_id-6: nom equivalent
   translated_table_of_contents-label-table_of_contents_id-13: Noms comuns
   translated_table_of_contents-label-table_of_contents_id-14: UICN
   translated_table_of_contents-label-table_of_contents_id-17: Referències bibliogràfiques
   translated_table_of_contents-label-table_of_contents_id-194: Mida
-  translated_table_of_contents-label-table_of_contents_id-2: Breu resum
+  translated_table_of_contents-label-table_of_contents_id-1: Visió de conjunt
   translated_table_of_contents-label-table_of_contents_id-218: Dispersió
   translated_table_of_contents-label-table_of_contents_id-221: Riscos
   translated_table_of_contents-label-table_of_contents_id-225: A la Web
   translated_table_of_contents-label-table_of_contents_id-226: Socis de contingut
   translated_table_of_contents-label-table_of_contents_id-227: Cerca al Web
-  translated_table_of_contents-label-table_of_contents_id-24: Comentari
-  translated_table_of_contents-label-table_of_contents_id-242: General d'ecologia
+  translated_table_of_contents-label-table_of_contents_id-242: "General d'ecologia"
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografies
+  translated_table_of_contents-label-table_of_contents_id-24: Comentari
   translated_table_of_contents-label-table_of_contents_id-251: Beneficis
   translated_table_of_contents-label-table_of_contents_id-267: Morfologia
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografia
   translated_table_of_contents-label-table_of_contents_id-285: Associacions
   translated_table_of_contents-label-table_of_contents_id-286: Estat de conservació
-  translated_table_of_contents-label-table_of_contents_id-289: L'evolució
-  translated_table_of_contents-label-table_of_contents_id-292: Alikes de cop d'ull
+  translated_table_of_contents-label-table_of_contents_id-289: "L'evolució"
+  translated_table_of_contents-label-table_of_contents_id-292: "Alikes de cop d'ull"
   translated_table_of_contents-label-table_of_contents_id-293: Diagnosi de descripció
   translated_table_of_contents-label-table_of_contents_id-296: Gestió
   translated_table_of_contents-label-table_of_contents_id-297: Estratègia tròfica
-  translated_table_of_contents-label-table_of_contents_id-299: L'educació
-  translated_table_of_contents-label-table_of_contents_id-3: Descripció física
+  translated_table_of_contents-label-table_of_contents_id-299: "L'educació"
+  translated_table_of_contents-label-table_of_contents_id-2: Breu resum
   translated_table_of_contents-label-table_of_contents_id-300: Viquipèdia
   translated_table_of_contents-label-table_of_contents_id-303: Noms i taxonomia
   translated_table_of_contents-label-table_of_contents_id-304: Noms relacionats
@@ -238,7 +245,7 @@ ca:
   translated_table_of_contents-label-table_of_contents_id-308: Descripció completa
   translated_table_of_contents-label-table_of_contents_id-309: Distribució
   translated_table_of_contents-label-table_of_contents_id-310: Desenvolupament
-  translated_table_of_contents-label-table_of_contents_id-311: Recursos d'identificació
+  translated_table_of_contents-label-table_of_contents_id-311: "Recursos d'identificació"
   translated_table_of_contents-label-table_of_contents_id-312: Migració
   translated_table_of_contents-label-table_of_contents_id-313: Les malalties i els paràsits
   translated_table_of_contents-label-table_of_contents_id-314: Biologia de poblacions
@@ -249,7 +256,7 @@ ca:
   translated_table_of_contents-label-table_of_contents_id-319: Esperança de vida
   translated_table_of_contents-label-table_of_contents_id-320: Reproducció
   translated_table_of_contents-label-table_of_contents_id-321: Creixement
-  translated_table_of_contents-label-table_of_contents_id-322: Fòssil d'història
+  translated_table_of_contents-label-table_of_contents_id-322: "Fòssil d'història"
   translated_table_of_contents-label-table_of_contents_id-323: Sistemàtica o la filogènia
   translated_table_of_contents-label-table_of_contents_id-324: Functional Adaptations
   translated_table_of_contents-label-table_of_contents_id-325: Fisiologia i biologia cel·lular
@@ -257,7 +264,6 @@ ca:
   translated_table_of_contents-label-table_of_contents_id-327: Fisiologia
   translated_table_of_contents-label-table_of_contents_id-328: Biologia cel·lular
   translated_table_of_contents-label-table_of_contents_id-329: Genètica
-  translated_table_of_contents-label-table_of_contents_id-33: Tendències
   translated_table_of_contents-label-table_of_contents_id-330: Seqüències de nucleòtids
   translated_table_of_contents-label-table_of_contents_id-331: Codi de barres
   translated_table_of_contents-label-table_of_contents_id-332: Genoma
@@ -265,23 +271,29 @@ ca:
   translated_table_of_contents-label-table_of_contents_id-334: Amenaces
   translated_table_of_contents-label-table_of_contents_id-335: Legislació
   translated_table_of_contents-label-table_of_contents_id-336: Notes
-  translated_table_of_contents-label-table_of_contents_id-337: L'educació
-  translated_table_of_contents-label-table_of_contents_id-338: Enllaços de l'educació
+  translated_table_of_contents-label-table_of_contents_id-337: "L'educació"
+  translated_table_of_contents-label-table_of_contents_id-338: "Enllaços de l'educació"
   translated_table_of_contents-label-table_of_contents_id-339: Recursos educatius
-  translated_table_of_contents-label-table_of_contents_id-34: Comentaris
-  translated_table_of_contents-label-table_of_contents_id-340: Sèrie de laboratori de l'escola secundària
+  translated_table_of_contents-label-table_of_contents_id-33: Tendències
+  translated_table_of_contents-label-table_of_contents_id-340: "Sèrie de laboratori de l'escola secundària"
   translated_table_of_contents-label-table_of_contents_id-341: Ciutadans de Ciències
   translated_table_of_contents-label-table_of_contents_id-342: Enllaços de ciutadans de Ciències
-  translated_table_of_contents-label-table_of_contents_id-343: La biodiversitat del Patrimoni Biblioteca
+  translated_table_of_contents-label-table_of_contents_id-343: >
+    La biodiversitat del Patrimoni
+    Biblioteca
   translated_table_of_contents-label-table_of_contents_id-344: Data
   translated_table_of_contents-label-table_of_contents_id-345: Orígens de dades
   translated_table_of_contents-label-table_of_contents_id-346: Termes biomèdics
   translated_table_of_contents-label-table_of_contents_id-347: Taxonomia
   translated_table_of_contents-label-table_of_contents_id-348: Informació de l`usuari
-  translated_table_of_contents-label-table_of_contents_id-4: Ecologia
+  translated_table_of_contents-label-table_of_contents_id-34: Comentaris
+  translated_table_of_contents-label-table_of_contents_id-3: Descripció física
   translated_table_of_contents-label-table_of_contents_id-41: Hàbitat
+  translated_table_of_contents-label-table_of_contents_id-4: Ecologia
   translated_table_of_contents-label-table_of_contents_id-5: Hàbitat i distribució
-  translated_table_of_contents-label-table_of_contents_id-6: Rellevància als éssers Humans i els ecosistemes
+  translated_table_of_contents-label-table_of_contents_id-6: >
+    Rellevància als éssers Humans i els
+    ecosistemes
   translated_table_of_contents-label-table_of_contents_id-7: Referències i més informació
   translated_table_of_contents-label-table_of_contents_id-8: Conservació
   translated_untrust_reasons-label-untrust_reason_id-1: identificat incorrectament

@@ -1,13 +1,14 @@
 # Messages for Arabic (العربية)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: DRIHEM
 # Author: Ghada.nabeel
 # Author: Meno25
 # Author: Mutarjem horr
 # Author: OsamaK
 # Author: ترجمان05
-ar: 
+---
+ar:
   translated_activities-name-activity_id-19: ملف
   translated_activities-name-activity_id-50: غير موثوق به
   translated_activities-name-activity_id-51: عرض
@@ -21,7 +22,6 @@ ar:
   translated_activities-name-activity_id-59: غير مُراجَع
   translated_activities-name-activity_id-63: جمع
   translated_activities-name-activity_id-64: حذف
-  translated_agent_roles-label-agent_role_id-1: رسام رسوم متحركة
   translated_agent_roles-label-agent_role_id-10: المشروع
   translated_agent_roles-label-agent_role_id-11: الناشر
   translated_agent_roles-label-agent_role_id-12: المسجل
@@ -29,11 +29,12 @@ ar:
   translated_agent_roles-label-agent_role_id-14: قاعدة بيانات المصدر
   translated_agent_roles-label-agent_role_id-15: المسئول
   translated_agent_roles-label-agent_role_id-16: المساهِم
-  translated_agent_roles-label-agent_role_id-2: المؤلف
+  translated_agent_roles-label-agent_role_id-1: رسام رسوم متحركة
   translated_agent_roles-label-agent_role_id-21: مقدم المحتوى
   translated_agent_roles-label-agent_role_id-22: المترجم
   translated_agent_roles-label-agent_role_id-23: المراجع العلمي
   translated_agent_roles-label-agent_role_id-24: المراجع اللغوي
+  translated_agent_roles-label-agent_role_id-2: المؤلف
   translated_agent_roles-label-agent_role_id-3: المترجم أو المُصَّرف
   translated_agent_roles-label-agent_role_id-4: المؤلف
   translated_agent_roles-label-agent_role_id-5: الصانع
@@ -44,23 +45,27 @@ ar:
   translated_audiences-label-audience_id-1: مستخدمون متمرسون
   translated_audiences-label-audience_id-2: الجمهور العام
   translated_audiences-label-audience_id-3: أطفال
-  translated_collection_types-label-collection_type_id-1: التصنيف
   translated_collection_types-label-collection_type_id-10: الأصوات
   translated_collection_types-label-collection_type_id-11: الروابط
   translated_collection_types-label-collection_type_id-12: المطبوعات
   translated_collection_types-label-collection_type_id-13: التصنيف
-  translated_collection_types-label-collection_type_id-14: الشفرات العمودية الجزيئية
+  translated_collection_types-label-collection_type_id-14: >
+    الشفرات العمودية
+    الجزيئية
   translated_collection_types-label-collection_type_id-15: الوصف
   translated_collection_types-label-collection_type_id-16: الصور
   translated_collection_types-label-collection_type_id-17: التوزيع
   translated_collection_types-label-collection_type_id-18: حالة الحفظ
   translated_collection_types-label-collection_type_id-19: معلومات الأسم
-  translated_collection_types-label-collection_type_id-2: الشفرات العمودية الجزيئية
+  translated_collection_types-label-collection_type_id-1: التصنيف
   translated_collection_types-label-collection_type_id-20: البيانات الجزيئية
   translated_collection_types-label-collection_type_id-21: الأسماء التعريفية
   translated_collection_types-label-collection_type_id-22: الأصوات
   translated_collection_types-label-collection_type_id-23: الروابط
   translated_collection_types-label-collection_type_id-24: المواد
+  translated_collection_types-label-collection_type_id-2: >
+    الشفرات العمودية
+    الجزيئية
   translated_collection_types-label-collection_type_id-3: الوصف
   translated_collection_types-label-collection_type_id-4: الصور
   translated_collection_types-label-collection_type_id-5: التوزيع
@@ -72,35 +77,50 @@ ar:
   translated_contact_roles-label-contact_role_id-2: المسئول الإداري
   translated_contact_roles-label-contact_role_id-3: المسئول التقني
   translated_contact_subjects-title-contact_subject_id-24: العضوية والتسجيل
-  translated_contact_subjects-title-contact_subject_id-25: شروط الاستخدام والترخيص
+  translated_contact_subjects-title-contact_subject_id-25: >
+    شروط الاستخدام
+    والترخيص
   translated_contact_subjects-title-contact_subject_id-26: التعلم والتعليم
   translated_contact_subjects-title-contact_subject_id-27: اصبح شريك محتوى
   translated_contact_subjects-title-contact_subject_id-28: دعم شركاء المحتوى
   translated_contact_subjects-title-contact_subject_id-29: دعم المشرفين
-  translated_contact_subjects-title-contact_subject_id-30: إجراء تصحيح (تدقيق إملائي ونحوي، صور، معلومات)
-  translated_contact_subjects-title-contact_subject_id-31: المساهمة بالصور ومقاطع الفيديو والمقاطع الصوتية
-  translated_contact_subjects-title-contact_subject_id-32: طلبات وسائل الإعلام (مقابلات، أسئلة صحفية، طلبات الشعار)
+  translated_contact_subjects-title-contact_subject_id-30: >
+    إجراء تصحيح (تدقيق
+    إملائي ونحوي، صور،
+    معلومات)
+  translated_contact_subjects-title-contact_subject_id-31: >
+    المساهمة بالصور
+    ومقاطع الفيديو
+    والمقاطع الصوتية
+  translated_contact_subjects-title-contact_subject_id-32: >
+    طلبات وسائل الإعلام
+    (مقابلات، أسئلة
+    صحفية، طلبات الشعار)
   translated_contact_subjects-title-contact_subject_id-33: إسهام مالي
-  translated_contact_subjects-title-contact_subject_id-34: أسئلة فنية (مشاكل متعلقة بالبحث، أداء الموقع)
+  translated_contact_subjects-title-contact_subject_id-34: >
+    أسئلة فنية (مشاكل
+    متعلقة بالبحث، أداء
+    الموقع)
   translated_contact_subjects-title-contact_subject_id-35: تغذية راجعة عامة
   translated_content_partner_statuses-label-content_partner_status_id-1: مُعلَّق
   translated_content_partner_statuses-label-content_partner_status_id-2: نشِط
   translated_content_partner_statuses-label-content_partner_status_id-3: في الأرشيف
   translated_content_partner_statuses-label-content_partner_status_id-4: غير نشط
   translated_content_tables-label-content_table_id-1: التفاصيل
-  translated_data_types-label-data_type_id-1: الصورة
   translated_data_types-label-data_type_id-10: خريطة
+  translated_data_types-label-data_type_id-1: الصورة
   translated_data_types-label-data_type_id-2: الصوت
   translated_data_types-label-data_type_id-3: النص
   translated_data_types-label-data_type_id-4: الفيديو
   translated_data_types-label-data_type_id-5: صورة GBIF
-  translated_data_types-label-data_type_id-6: الاتحاد الدولي لحماية الطبيعة (IUCN)
+  translated_data_types-label-data_type_id-6: >
+    الاتحاد الدولي لحماية
+    الطبيعة (IUCN)
   translated_data_types-label-data_type_id-7: فلاش
   translated_data_types-label-data_type_id-8: يوتيوب
   translated_licenses-description-license_id-1: لا حقوق محفوظة
-  translated_licenses-description-license_id-2: جميع الحقوق محفوظة
   translated_licenses-description-license_id-29: بعض الحقوق محفوظة
-  translated_licenses-description-license_id-3: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-2: جميع الحقوق محفوظة
   translated_licenses-description-license_id-30: بعض الحقوق محفوظة
   translated_licenses-description-license_id-31: بعض الحقوق محفوظة
   translated_licenses-description-license_id-32: بعض الحقوق محفوظة
@@ -111,9 +131,10 @@ ar:
   translated_licenses-description-license_id-37: بعض الحقوق محفوظة
   translated_licenses-description-license_id-38: بعض الحقوق محفوظة
   translated_licenses-description-license_id-39: ملك عام
-  translated_licenses-description-license_id-4: بعض الحقوق محفوظة
+  translated_licenses-description-license_id-3: بعض الحقوق محفوظة
   translated_licenses-description-license_id-42: بعض الحقوق محفوظة
   translated_licenses-description-license_id-43: رخصة أخرى
+  translated_licenses-description-license_id-4: بعض الحقوق محفوظة
   translated_licenses-description-license_id-5: بعض الحقوق محفوظة
   translated_licenses-description-license_id-6: بعض الحقوق محفوظة
   translated_licenses-description-license_id-7: بعض الحقوق محفوظة
@@ -156,11 +177,11 @@ ar:
   translated_ranks-label-rank_id-472: قسم
   translated_ranks-label-rank_id-494: قبيلة
   translated_ranks-label-rank_id-503: غير مصنف
-  translated_ranks-label-rank_id-51: الفئة
   translated_ranks-label-rank_id-512: صنف
   translated_ranks-label-rank_id-513: صنف
   translated_ranks-label-rank_id-517: التنويعات
   translated_ranks-label-rank_id-518: صنف
+  translated_ranks-label-rank_id-51: الفئة
   translated_ranks-label-rank_id-562: جنس هجين
   translated_ranks-label-rank_id-563: نوع هجين
   translated_ranks-label-rank_id-564: نوع فرعي هجين
@@ -171,20 +192,24 @@ ar:
   translated_ranks-label-rank_id-91: العائلة
   translated_ranks-label-rank_id-92: فصيلة
   translated_ranks-label-rank_id-99: فصيلة
-  translated_resource_statuses-label-resource_status_id-1: يرفع
   translated_resource_statuses-label-resource_status_id-10: تم النشر
   translated_resource_statuses-label-resource_status_id-11: النشر معلق
   translated_resource_statuses-label-resource_status_id-12: إلغاء النشر معلق
   translated_resource_statuses-label-resource_status_id-13: تنفيذ الجمع
+  translated_resource_statuses-label-resource_status_id-1: يرفع
   translated_resource_statuses-label-resource_status_id-2: تم الرفع
   translated_resource_statuses-label-resource_status_id-3: لم يتم الرفع
-  translated_resource_statuses-label-resource_status_id-4: تم النقل إلى خادم المحتوى
+  translated_resource_statuses-label-resource_status_id-4: >
+    تم النقل إلى خادم
+    المحتوى
   translated_resource_statuses-label-resource_status_id-5: تم التحقق من صحتها
   translated_resource_statuses-label-resource_status_id-6: لم يتم التحقق من صحتها
-  translated_resource_statuses-label-resource_status_id-7: " جاري المعالجة"
+  translated_resource_statuses-label-resource_status_id-7: ' جاري المعالجة'
   translated_resource_statuses-label-resource_status_id-8: تمت المعالجة
   translated_resource_statuses-label-resource_status_id-9: لم يتم المعالجة
-  translated_service_types-label-service_type_id-1: مخطط نقل موسوعة الحياة
+  translated_service_types-label-service_type_id-1: >
+    مخطط نقل موسوعة
+    الحياة
   translated_service_types-label-service_type_id-2: أخرى
   translated_sort_styles-name-sort_style_id-1: تم إضافته مؤخرًا
   translated_sort_styles-name-sort_style_id-2: الأقدم
@@ -196,40 +221,57 @@ ar:
   translated_statuses-label-status_id-2: مُحدَّث
   translated_statuses-label-status_id-3: غير متغير
   translated_statuses-label-status_id-4: مُعاد استخدامه
-  translated_synonym_relations-label-synonym_relation_id-1: مرادف
   translated_synonym_relations-label-synonym_relation_id-10: المرادف ببنك الجينات
   translated_synonym_relations-label-synonym_relation_id-11: جزئي
   translated_synonym_relations-label-synonym_relation_id-12: يشمل
-  translated_synonym_relations-label-synonym_relation_id-13: اسم مغلوط/ خطأ في التسمية
+  translated_synonym_relations-label-synonym_relation_id-13: >
+    اسم مغلوط/ خطأ في
+    التسمية
   translated_synonym_relations-label-synonym_relation_id-14: خطأ في الهجاء
   translated_synonym_relations-label-synonym_relation_id-15: الطور الجنسي
   translated_synonym_relations-label-synonym_relation_id-16: مرادف مبهم
   translated_synonym_relations-label-synonym_relation_id-17: اسم أخطئ تطبيقه
   translated_synonym_relations-label-synonym_relation_id-18: اسم مقبول مؤقتًا
   translated_synonym_relations-label-synonym_relation_id-19: اسم مقبول
-  translated_synonym_relations-label-synonym_relation_id-2: اسم عام
-  translated_synonym_relations-label-synonym_relation_id-20: قطعة من قاعدة البيانات
+  translated_synonym_relations-label-synonym_relation_id-1: مرادف
+  translated_synonym_relations-label-synonym_relation_id-20: >
+    قطعة من قاعدة
+    البيانات
   translated_synonym_relations-label-synonym_relation_id-21: أخرى/انظر التعليقات
   translated_synonym_relations-label-synonym_relation_id-22: هجاء مختلف (خطأ هجائي)
   translated_synonym_relations-label-synonym_relation_id-23: خطأ في التطبيق
   translated_synonym_relations-label-synonym_relation_id-24: اسم مرفوض
-  translated_synonym_relations-label-synonym_relation_id-25: الألفاظ المتجانسة (غير معترف بها)
+  translated_synonym_relations-label-synonym_relation_id-25: >
+    الألفاظ المتجانسة
+    (غير معترف بها)
   translated_synonym_relations-label-synonym_relation_id-26: مجاز
-  translated_synonym_relations-label-synonym_relation_id-27: تسمية زائدة (غير معترف بها)
+  translated_synonym_relations-label-synonym_relation_id-27: >
+    تسمية زائدة (غير معترف
+    بها)
   translated_synonym_relations-label-synonym_relation_id-28: اسم منسي
   translated_synonym_relations-label-synonym_relation_id-29: مرادف مكرر
-  translated_synonym_relations-label-synonym_relation_id-3: المختصر
+  translated_synonym_relations-label-synonym_relation_id-2: اسم عام
   translated_synonym_relations-label-synonym_relation_id-30: غير متوقر،
   translated_synonym_relations-label-synonym_relation_id-31: إحلال غير ضروري
   translated_synonym_relations-label-synonym_relation_id-32: اسم/ تركيب لاحق
-  translated_synonym_relations-label-synonym_relation_id-33: غير متوفر، خطأ هجائي في المادة
+  translated_synonym_relations-label-synonym_relation_id-33: >
+    غير متوفر، خطأ هجائي
+    في المادة
   translated_synonym_relations-label-synonym_relation_id-34: الاسم الأصلي/تركيب
-  translated_synonym_relations-label-synonym_relation_id-35: غير متوفر، الهجاء الأصلي غير صحيح
+  translated_synonym_relations-label-synonym_relation_id-35: >
+    غير متوفر، الهجاء
+    الأصلي غير صحيح
   translated_synonym_relations-label-synonym_relation_id-36: لفظ متجانس مكرر
-  translated_synonym_relations-label-synonym_relation_id-37: الألفاظ المتجانسة والمرادفات المكررة
-  translated_synonym_relations-label-synonym_relation_id-38: غير متوفر، قُرر عدم توفره
-  translated_synonym_relations-label-synonym_relation_id-39: تغيير هجاء الاسم غير مبرر
-  translated_synonym_relations-label-synonym_relation_id-4: لاجنسية
+  translated_synonym_relations-label-synonym_relation_id-37: >
+    الألفاظ المتجانسة
+    والمرادفات المكررة
+  translated_synonym_relations-label-synonym_relation_id-38: >
+    غير متوفر، قُرر عدم
+    توفره
+  translated_synonym_relations-label-synonym_relation_id-39: >
+    تغيير هجاء الاسم غير
+    مبرر
+  translated_synonym_relations-label-synonym_relation_id-3: المختصر
   translated_synonym_relations-label-synonym_relation_id-40: غير متوفر، أخرى
   translated_synonym_relations-label-synonym_relation_id-41: غير متوفر، اسم مغلوط
   translated_synonym_relations-label-synonym_relation_id-42: اسم مشكوك
@@ -237,21 +279,25 @@ ar:
   translated_synonym_relations-label-synonym_relation_id-44: لم يتم النشر
   translated_synonym_relations-label-synonym_relation_id-45: اسم تحتي
   translated_synonym_relations-label-synonym_relation_id-46: مرادف لغيري النمط
-  translated_synonym_relations-label-synonym_relation_id-47: مرادف الألفاظ المتجانسة
+  translated_synonym_relations-label-synonym_relation_id-47: >
+    مرادف الألفاظ
+    المتجانسة
   translated_synonym_relations-label-synonym_relation_id-48: اسم غير متوفر
   translated_synonym_relations-label-synonym_relation_id-49: اسم صحيح
-  translated_synonym_relations-label-synonym_relation_id-5: اسم عام
+  translated_synonym_relations-label-synonym_relation_id-4: لاجنسية
   translated_synonym_relations-label-synonym_relation_id-50: صحيح
   translated_synonym_relations-label-synonym_relation_id-51: مقبول
   translated_synonym_relations-label-synonym_relation_id-52: المسئول
   translated_synonym_relations-label-synonym_relation_id-53: اسم غير منشور
   translated_synonym_relations-label-synonym_relation_id-54: مرادفات غير مؤكدة
-  translated_synonym_relations-label-synonym_relation_id-55: بيانات المسئول غير صحيحة
+  translated_synonym_relations-label-synonym_relation_id-55: >
+    بيانات المسئول غير
+    صحيحة
   translated_synonym_relations-label-synonym_relation_id-56: هجاء غير صحيح
   translated_synonym_relations-label-synonym_relation_id-57: هجاء بديل
   translated_synonym_relations-label-synonym_relation_id-58: متغير معجمي
   translated_synonym_relations-label-synonym_relation_id-59: مرادف
-  translated_synonym_relations-label-synonym_relation_id-6: اسم مساوي
+  translated_synonym_relations-label-synonym_relation_id-5: اسم عام
   translated_synonym_relations-label-synonym_relation_id-60: مرادف
   translated_synonym_relations-label-synonym_relation_id-61: مرادف مؤكد
   translated_synonym_relations-label-synonym_relation_id-62: مرادف رئيسي
@@ -259,27 +305,37 @@ ar:
   translated_synonym_relations-label-synonym_relation_id-64: غير صحيح
   translated_synonym_relations-label-synonym_relation_id-65: مرادف للجنس
   translated_synonym_relations-label-synonym_relation_id-66: تمثيل بديل
-  translated_synonym_relations-label-synonym_relation_id-67: نوع غير مُعرَّف (species inquirenda)
-  translated_synonym_relations-label-synonym_relation_id-68: مرتبط بعلم زراعة البساتين
+  translated_synonym_relations-label-synonym_relation_id-67: >
+    نوع غير مُعرَّف (species
+    inquirenda)
+  translated_synonym_relations-label-synonym_relation_id-68: >
+    مرتبط بعلم زراعة
+    البساتين
+  translated_synonym_relations-label-synonym_relation_id-6: اسم مساوي
   translated_synonym_relations-label-synonym_relation_id-7: مختصر بنك الجينات
   translated_synonym_relations-label-synonym_relation_id-8: لاجنسي ببنك الجينات
-  translated_synonym_relations-label-synonym_relation_id-9: الاسم العام ببنك الجينات
-  translated_table_of_contents-label-table_of_contents_id-1: نظرة عامة
+  translated_synonym_relations-label-synonym_relation_id-9: >
+    الاسم العام ببنك
+    الجينات
   translated_table_of_contents-label-table_of_contents_id-13: أسماء عامة
-  translated_table_of_contents-label-table_of_contents_id-14: الاتحاد الدولي لحماية الطبيعة (IUCN)
+  translated_table_of_contents-label-table_of_contents_id-14: >
+    الاتحاد الدولي لحماية
+    الطبيعة (IUCN)
   translated_table_of_contents-label-table_of_contents_id-17: مراجع نصية
   translated_table_of_contents-label-table_of_contents_id-194: حجم
-  translated_table_of_contents-label-table_of_contents_id-2: ملخص مقتضب
+  translated_table_of_contents-label-table_of_contents_id-1: نظرة عامة
   translated_table_of_contents-label-table_of_contents_id-218: تبعثر
   translated_table_of_contents-label-table_of_contents_id-221: مخاطر
   translated_table_of_contents-label-table_of_contents_id-225: على الإنترنت
   translated_table_of_contents-label-table_of_contents_id-226: شركاء محتوى
   translated_table_of_contents-label-table_of_contents_id-227: ابحث في الإنترنت
-  translated_table_of_contents-label-table_of_contents_id-24: تعليق
   translated_table_of_contents-label-table_of_contents_id-242: علم البيئة
   translated_table_of_contents-label-table_of_contents_id-244: ببليوجرافيا
+  translated_table_of_contents-label-table_of_contents_id-24: تعليق
   translated_table_of_contents-label-table_of_contents_id-251: فوائد
-  translated_table_of_contents-label-table_of_contents_id-267: مورفولوجيا/ علم دراسة الشكل
+  translated_table_of_contents-label-table_of_contents_id-267: >
+    مورفولوجيا/ علم دراسة
+    الشكل
   translated_table_of_contents-label-table_of_contents_id-278: ببليوجرافيا
   translated_table_of_contents-label-table_of_contents_id-285: ترابطات/ جمعيات
   translated_table_of_contents-label-table_of_contents_id-286: حالة الحفظ
@@ -289,7 +345,7 @@ ar:
   translated_table_of_contents-label-table_of_contents_id-296: إدارة
   translated_table_of_contents-label-table_of_contents_id-297: إستراتيجية غذائية
   translated_table_of_contents-label-table_of_contents_id-299: تعليم
-  translated_table_of_contents-label-table_of_contents_id-3: وصف
+  translated_table_of_contents-label-table_of_contents_id-2: ملخص مقتضب
   translated_table_of_contents-label-table_of_contents_id-300: ويكيبيديا
   translated_table_of_contents-label-table_of_contents_id-303: الأسماء والتصنيف
   translated_table_of_contents-label-table_of_contents_id-304: أسماء ذات صلة
@@ -311,15 +367,22 @@ ar:
   translated_table_of_contents-label-table_of_contents_id-320: التكاثر
   translated_table_of_contents-label-table_of_contents_id-321: النمو
   translated_table_of_contents-label-table_of_contents_id-322: تاريخ الحفائر
-  translated_table_of_contents-label-table_of_contents_id-323: النظاميات أو علم دراسة الروابط الجينية
+  translated_table_of_contents-label-table_of_contents_id-323: >
+    النظاميات أو علم
+    دراسة الروابط الجينية
   translated_table_of_contents-label-table_of_contents_id-324: تلاؤم وظيفي
-  translated_table_of_contents-label-table_of_contents_id-325: الفزيولوجيا والأحياء الخلية
-  translated_table_of_contents-label-table_of_contents_id-326: علم الوراثة والأحياء الجزيئية
+  translated_table_of_contents-label-table_of_contents_id-325: >
+    الفزيولوجيا والأحياء
+    الخلية
+  translated_table_of_contents-label-table_of_contents_id-326: >
+    علم الوراثة والأحياء
+    الجزيئية
   translated_table_of_contents-label-table_of_contents_id-327: فيزيولوجيا
   translated_table_of_contents-label-table_of_contents_id-328: البيولوجيا الخلوية
   translated_table_of_contents-label-table_of_contents_id-329: علم الجينات
-  translated_table_of_contents-label-table_of_contents_id-33: اتجاهات
-  translated_table_of_contents-label-table_of_contents_id-330: متسلسل النيوكليوتيدات
+  translated_table_of_contents-label-table_of_contents_id-330: >
+    متسلسل
+    النيوكليوتيدات
   translated_table_of_contents-label-table_of_contents_id-331: بار كود
   translated_table_of_contents-label-table_of_contents_id-332: الجينوم
   translated_table_of_contents-label-table_of_contents_id-333: الأحياء الجزيئية
@@ -329,21 +392,31 @@ ar:
   translated_table_of_contents-label-table_of_contents_id-337: تعليم
   translated_table_of_contents-label-table_of_contents_id-338: روابط تعليمية
   translated_table_of_contents-label-table_of_contents_id-339: موارد تعليمية
-  translated_table_of_contents-label-table_of_contents_id-34: تعليقات
-  translated_table_of_contents-label-table_of_contents_id-340: مسلسل معمل المدرسة الثانوية
+  translated_table_of_contents-label-table_of_contents_id-33: اتجاهات
+  translated_table_of_contents-label-table_of_contents_id-340: >
+    مسلسل معمل المدرسة
+    الثانوية
   translated_table_of_contents-label-table_of_contents_id-341: مشروع سيتزن ساينس
   translated_table_of_contents-label-table_of_contents_id-342: روابط سيتزن ساينس
-  translated_table_of_contents-label-table_of_contents_id-343: مكتبة تراث التنوع الحيوي
+  translated_table_of_contents-label-table_of_contents_id-343: >
+    مكتبة تراث التنوع
+    الحيوي
   translated_table_of_contents-label-table_of_contents_id-344: بيانات
   translated_table_of_contents-label-table_of_contents_id-345: مصادر البيانات
   translated_table_of_contents-label-table_of_contents_id-346: مصطلحات طبية-حيوية
   translated_table_of_contents-label-table_of_contents_id-347: علم التصنيف
   translated_table_of_contents-label-table_of_contents_id-348: معلومات عن النوع
-  translated_table_of_contents-label-table_of_contents_id-4: علم البيئة
+  translated_table_of_contents-label-table_of_contents_id-34: تعليقات
+  translated_table_of_contents-label-table_of_contents_id-3: وصف
   translated_table_of_contents-label-table_of_contents_id-41: البيئة
+  translated_table_of_contents-label-table_of_contents_id-4: علم البيئة
   translated_table_of_contents-label-table_of_contents_id-5: التطور والنظاميات
-  translated_table_of_contents-label-table_of_contents_id-6: علاقة بالبشر والأنظمة البيئية
-  translated_table_of_contents-label-table_of_contents_id-7: مراجع ومزيد من المعلومات
+  translated_table_of_contents-label-table_of_contents_id-6: >
+    علاقة بالبشر والأنظمة
+    البيئية
+  translated_table_of_contents-label-table_of_contents_id-7: >
+    مراجع ومزيد من
+    المعلومات
   translated_table_of_contents-label-table_of_contents_id-8: الحفظ
   translated_untrust_reasons-label-untrust_reason_id-1: تعريف غير صحيح
   translated_untrust_reasons-label-untrust_reason_id-2: غير صحيح /مضلل

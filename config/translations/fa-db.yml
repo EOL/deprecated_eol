@@ -1,13 +1,14 @@
 # Messages for Persian (فارسی)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Ebraminio
 # Author: Hooshmand.hasannia
 # Author: Leyth
 # Author: Omnia
 # Author: Reza1615
 # Author: Surena
-fa: 
+---
+fa:
   translated_activities-name-activity_id-19: نمایه
   translated_activities-name-activity_id-50: غیر قابل اعتماد
   translated_activities-name-activity_id-51: نمایش
@@ -21,7 +22,6 @@ fa:
   translated_activities-name-activity_id-59: بازبینی‌نشده
   translated_activities-name-activity_id-63: جمع‌آوری
   translated_activities-name-activity_id-64: برداشتن
-  translated_agent_roles-label-agent_role_id-1: پويانما
   translated_agent_roles-label-agent_role_id-10: پروژه
   translated_agent_roles-label-agent_role_id-11: ناشر
   translated_agent_roles-label-agent_role_id-12: ضبط کننده
@@ -29,11 +29,12 @@ fa:
   translated_agent_roles-label-agent_role_id-14: مخزن پایگاه‌داده
   translated_agent_roles-label-agent_role_id-15: تماس با فرد
   translated_agent_roles-label-agent_role_id-16: مشارکت‌کنندگان
-  translated_agent_roles-label-agent_role_id-2: مولف
+  translated_agent_roles-label-agent_role_id-1: پويانما
   translated_agent_roles-label-agent_role_id-21: ارائه دهنده
   translated_agent_roles-label-agent_role_id-22: مترجم
   translated_agent_roles-label-agent_role_id-23: بازبین علمی
   translated_agent_roles-label-agent_role_id-24: بازبین زبان‌شناختی
+  translated_agent_roles-label-agent_role_id-2: مولف
   translated_agent_roles-label-agent_role_id-3: گردآورنده
   translated_agent_roles-label-agent_role_id-4: آهنگساز
   translated_agent_roles-label-agent_role_id-5: خالق
@@ -43,7 +44,6 @@ fa:
   translated_agent_roles-label-agent_role_id-9: عکاس
   translated_audiences-label-audience_id-1: کاربران متخصص
   translated_audiences-label-audience_id-3: کودکان
-  translated_collection_types-label-collection_type_id-1: طبقه بندی
   translated_collection_types-label-collection_type_id-10: صداها
   translated_collection_types-label-collection_type_id-11: پیوندها
   translated_collection_types-label-collection_type_id-12: ادبیات
@@ -54,19 +54,24 @@ fa:
   translated_collection_types-label-collection_type_id-17: توزیع
   translated_collection_types-label-collection_type_id-18: وضعيت حفاظت
   translated_collection_types-label-collection_type_id-19: اطلاعات نام
-  translated_collection_types-label-collection_type_id-2: بارکد ملکولی
+  translated_collection_types-label-collection_type_id-1: طبقه بندی
   translated_collection_types-label-collection_type_id-20: داده های مولکولی
-  translated_collection_types-label-collection_type_id-21: فهرست واژه‌ها و اصطلاحات
+  translated_collection_types-label-collection_type_id-21: >
+    فهرست واژه‌ها و
+    اصطلاحات
   translated_collection_types-label-collection_type_id-22: صداها
   translated_collection_types-label-collection_type_id-23: پیوندها
   translated_collection_types-label-collection_type_id-24: ادبیات
+  translated_collection_types-label-collection_type_id-2: بارکد ملکولی
   translated_collection_types-label-collection_type_id-3: توضیحات
   translated_collection_types-label-collection_type_id-4: تصویر
   translated_collection_types-label-collection_type_id-5: توزیع
   translated_collection_types-label-collection_type_id-6: وضعيت حفاظت
   translated_collection_types-label-collection_type_id-7: اطلاعات نام
   translated_collection_types-label-collection_type_id-8: داده های مولکولی
-  translated_collection_types-label-collection_type_id-9: فهرست واژه‌ها و اصطلاحات
+  translated_collection_types-label-collection_type_id-9: >
+    فهرست واژه‌ها و
+    اصطلاحات
   translated_contact_roles-label-contact_role_id-1: تماس اولیه
   translated_contact_roles-label-contact_role_id-2: تماس اداری
   translated_contact_roles-label-contact_role_id-3: تماس فنی
@@ -74,21 +79,36 @@ fa:
   translated_contact_subjects-title-contact_subject_id-25: ضوابط استفاده و مجوز
   translated_contact_subjects-title-contact_subject_id-26: یادگیری و آموزش
   translated_contact_subjects-title-contact_subject_id-27: مشارکت در محتوا
-  translated_contact_subjects-title-contact_subject_id-28: پشتیبانی مشارکت‌کننده
+  translated_contact_subjects-title-contact_subject_id-28: >
+    پشتیبانی
+    مشارکت‌کننده
   translated_contact_subjects-title-contact_subject_id-29: پشتیبانی مسئول
-  translated_contact_subjects-title-contact_subject_id-30: اصلاح کنید (املا و دستور زبان، تصاویر، اطلاعات)
-  translated_contact_subjects-title-contact_subject_id-31: مشارکت در تصاویر، فیلم‌ها و یا صداها
-  translated_contact_subjects-title-contact_subject_id-32: درخواست‌های مدیا (مصاحبه‌ها، سوالات مطبوعات، درخواست لوگو)
+  translated_contact_subjects-title-contact_subject_id-30: >
+    اصلاح کنید (املا و
+    دستور زبان، تصاویر،
+    اطلاعات)
+  translated_contact_subjects-title-contact_subject_id-31: >
+    مشارکت در تصاویر،
+    فیلم‌ها و یا صداها
+  translated_contact_subjects-title-contact_subject_id-32: >
+    درخواست‌های مدیا
+    (مصاحبه‌ها، سوالات
+    مطبوعات، درخواست
+    لوگو)
   translated_contact_subjects-title-contact_subject_id-33: کمک مالی کنید
-  translated_contact_subjects-title-contact_subject_id-34: پرسش‌های فنی (اشکالات جستجو، عملکرد وب‌گاه)
-  translated_contact_subjects-title-contact_subject_id-35: انتقادات و پیشنهادات عمومی
+  translated_contact_subjects-title-contact_subject_id-34: >
+    پرسش‌های فنی (اشکالات
+    جستجو، عملکرد وب‌گاه)
+  translated_contact_subjects-title-contact_subject_id-35: >
+    انتقادات و پیشنهادات
+    عمومی
   translated_content_partner_statuses-label-content_partner_status_id-1: در انتظار
   translated_content_partner_statuses-label-content_partner_status_id-2: فعال
   translated_content_partner_statuses-label-content_partner_status_id-3: بایگانی‌شده
   translated_content_partner_statuses-label-content_partner_status_id-4: غیر فعال
   translated_content_tables-label-content_table_id-1: جزئیات
-  translated_data_types-label-data_type_id-1: تصویر
   translated_data_types-label-data_type_id-10: نقشه
+  translated_data_types-label-data_type_id-1: تصویر
   translated_data_types-label-data_type_id-2: صدا
   translated_data_types-label-data_type_id-3: متن
   translated_data_types-label-data_type_id-4: ویدیو
@@ -96,9 +116,8 @@ fa:
   translated_data_types-label-data_type_id-7: فلش
   translated_data_types-label-data_type_id-8: یوتیوب
   translated_licenses-description-license_id-1: هیچ حقوقی محفوظ نیست
-  translated_licenses-description-license_id-2: © کلیه حقوق محفوظ است
   translated_licenses-description-license_id-29: بعضی از حقوق محفوظ است
-  translated_licenses-description-license_id-3: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-2: © کلیه حقوق محفوظ است
   translated_licenses-description-license_id-30: بعضی از حقوق محفوظ است
   translated_licenses-description-license_id-31: بعضی از حقوق محفوظ است
   translated_licenses-description-license_id-32: بعضی از حقوق محفوظ است
@@ -109,9 +128,12 @@ fa:
   translated_licenses-description-license_id-37: بعضی از حقوق محفوظ است
   translated_licenses-description-license_id-38: بعضی از حقوق محفوظ است
   translated_licenses-description-license_id-39: مالکیت عمومی
-  translated_licenses-description-license_id-4: بعضی از حقوق محفوظ است
+  translated_licenses-description-license_id-3: بعضی از حقوق محفوظ است
   translated_licenses-description-license_id-42: بعضی از حقوق محفوظ است
-  translated_licenses-description-license_id-43: مجوز قابل استفاده نیست
+  translated_licenses-description-license_id-43: >
+    مجوز قابل استفاده
+    نیست
+  translated_licenses-description-license_id-4: بعضی از حقوق محفوظ است
   translated_licenses-description-license_id-5: بعضی از حقوق محفوظ است
   translated_licenses-description-license_id-6: بعضی از حقوق محفوظ است
   translated_licenses-description-license_id-7: بعضی از حقوق محفوظ است
@@ -137,17 +159,19 @@ fa:
   translated_ranks-label-rank_id-411: زیر گونه
   translated_ranks-label-rank_id-415: زیر گونه
   translated_ranks-label-rank_id-503: بدون رتبه‌بندی
-  translated_ranks-label-rank_id-51: رده
   translated_ranks-label-rank_id-518: تنوع
+  translated_ranks-label-rank_id-51: رده
   translated_ranks-label-rank_id-74: تقسیم
   translated_ranks-label-rank_id-99: تیره
-  translated_resource_statuses-label-resource_status_id-1: در حال بارگذاری
   translated_resource_statuses-label-resource_status_id-10: منتشر شد
   translated_resource_statuses-label-resource_status_id-11: در انتظار انتشار
   translated_resource_statuses-label-resource_status_id-12: عدم انتشار معلق
+  translated_resource_statuses-label-resource_status_id-1: در حال بارگذاری
   translated_resource_statuses-label-resource_status_id-2: بارگذاری شد
   translated_resource_statuses-label-resource_status_id-3: بارگذاری انجام نشد
-  translated_resource_statuses-label-resource_status_id-4: منتقل شده به سرور محتوا
+  translated_resource_statuses-label-resource_status_id-4: >
+    منتقل شده به سرور
+    محتوا
   translated_resource_statuses-label-resource_status_id-5: تأییدشده
   translated_resource_statuses-label-resource_status_id-6: اعتبار سنجی انجام نشد
   translated_resource_statuses-label-resource_status_id-7: در حال پردازش
@@ -170,15 +194,21 @@ fa:
   translated_synonym_relations-label-synonym_relation_id-14: غلط املایی
   translated_synonym_relations-label-synonym_relation_id-18: نام موقت پذیرفته شده
   translated_synonym_relations-label-synonym_relation_id-19: نام مورد قبول
-  translated_synonym_relations-label-synonym_relation_id-2: نام مشترک
   translated_synonym_relations-label-synonym_relation_id-21: سایر، نظرها را ببینید
-  translated_synonym_relations-label-synonym_relation_id-22: گونه‌های مختلف املایی (غلط املایی)
+  translated_synonym_relations-label-synonym_relation_id-22: >
+    گونه‌های مختلف
+    املایی (غلط املایی)
   translated_synonym_relations-label-synonym_relation_id-23: غلط املایی
   translated_synonym_relations-label-synonym_relation_id-24: نام رد شده
   translated_synonym_relations-label-synonym_relation_id-25: کلمهٔ متشابه (غلط)
-  translated_synonym_relations-label-synonym_relation_id-27: تغییر نام بیش از حد (نامشروع)
+  translated_synonym_relations-label-synonym_relation_id-27: >
+    تغییر نام بیش از حد
+    (نامشروع)
   translated_synonym_relations-label-synonym_relation_id-29: مترادف کوچک‌تر
-  translated_synonym_relations-label-synonym_relation_id-31: جایگزین کردن‌های غیرضروری
+  translated_synonym_relations-label-synonym_relation_id-2: نام مشترک
+  translated_synonym_relations-label-synonym_relation_id-31: >
+    جایگزین کردن‌های
+    غیرضروری
   translated_synonym_relations-label-synonym_relation_id-34: نام اصلی/ترکیبی
   translated_synonym_relations-label-synonym_relation_id-36: کلمهٔ متشابه کوچک
   translated_synonym_relations-label-synonym_relation_id-40: غیر قابل دسترس، دیگر
@@ -191,7 +221,6 @@ fa:
   translated_synonym_relations-label-synonym_relation_id-56: املای نادرست
   translated_synonym_relations-label-synonym_relation_id-57: املای دیگر
   translated_synonym_relations-label-synonym_relation_id-59: مترادف (عینی = هم‌شکل)
-  translated_synonym_relations-label-synonym_relation_id-6: نام معادل
   translated_synonym_relations-label-synonym_relation_id-60: مترادف (ذهنی = دگرشکل)
   translated_synonym_relations-label-synonym_relation_id-62: مترادف ارشد
   translated_synonym_relations-label-synonym_relation_id-63: غیر قابل قبول
@@ -199,10 +228,10 @@ fa:
   translated_synonym_relations-label-synonym_relation_id-65: مترادف سرده
   translated_synonym_relations-label-synonym_relation_id-66: بازنمایی دیگر
   translated_synonym_relations-label-synonym_relation_id-68: گل‌پروری
-  translated_table_of_contents-label-table_of_contents_id-1: چشم‌انداز
+  translated_synonym_relations-label-synonym_relation_id-6: نام معادل
   translated_table_of_contents-label-table_of_contents_id-13: نام‌های متداول
   translated_table_of_contents-label-table_of_contents_id-194: اندازه
-  translated_table_of_contents-label-table_of_contents_id-2: خلاصه
+  translated_table_of_contents-label-table_of_contents_id-1: چشم‌انداز
   translated_table_of_contents-label-table_of_contents_id-221: خطرات
   translated_table_of_contents-label-table_of_contents_id-225: در وب
   translated_table_of_contents-label-table_of_contents_id-227: جستجو در وب
@@ -213,7 +242,7 @@ fa:
   translated_table_of_contents-label-table_of_contents_id-289: تکامل
   translated_table_of_contents-label-table_of_contents_id-296: مدیریت
   translated_table_of_contents-label-table_of_contents_id-299: آموزش
-  translated_table_of_contents-label-table_of_contents_id-3: توضیحات فیزیکی
+  translated_table_of_contents-label-table_of_contents_id-2: خلاصه
   translated_table_of_contents-label-table_of_contents_id-300: ویکی‌پدیا
   translated_table_of_contents-label-table_of_contents_id-303: نام و طبقه بندی
   translated_table_of_contents-label-table_of_contents_id-304: نام های مرتبط
@@ -229,12 +258,15 @@ fa:
   translated_table_of_contents-label-table_of_contents_id-321: رشد
   translated_table_of_contents-label-table_of_contents_id-322: تاریخچه سنگوارها
   translated_table_of_contents-label-table_of_contents_id-324: سازگاری عملکردی
-  translated_table_of_contents-label-table_of_contents_id-325: فیزیولوژی و زیست‌شناسی سلولی
-  translated_table_of_contents-label-table_of_contents_id-326: زیست‌شناسی ملکولی و ژنتیک
+  translated_table_of_contents-label-table_of_contents_id-325: >
+    فیزیولوژی و
+    زیست‌شناسی سلولی
+  translated_table_of_contents-label-table_of_contents_id-326: >
+    زیست‌شناسی ملکولی و
+    ژنتیک
   translated_table_of_contents-label-table_of_contents_id-327: فیزیولوژی
   translated_table_of_contents-label-table_of_contents_id-328: زیست‌شناسی سلولی
   translated_table_of_contents-label-table_of_contents_id-329: ژنتیک
-  translated_table_of_contents-label-table_of_contents_id-33: روند
   translated_table_of_contents-label-table_of_contents_id-330: توالی نوکلئوتید
   translated_table_of_contents-label-table_of_contents_id-331: بارکد
   translated_table_of_contents-label-table_of_contents_id-332: ژنوم
@@ -245,14 +277,17 @@ fa:
   translated_table_of_contents-label-table_of_contents_id-337: آموزش
   translated_table_of_contents-label-table_of_contents_id-338: پیوندهای آموزشی
   translated_table_of_contents-label-table_of_contents_id-339: منابع آموزشی
-  translated_table_of_contents-label-table_of_contents_id-34: نظرات
+  translated_table_of_contents-label-table_of_contents_id-33: روند
   translated_table_of_contents-label-table_of_contents_id-344: داده‌ها
   translated_table_of_contents-label-table_of_contents_id-345: منابع داده
   translated_table_of_contents-label-table_of_contents_id-346: ضوابط زیست‌پزشکی
   translated_table_of_contents-label-table_of_contents_id-347: طبقه‌بندی علمی
-  translated_table_of_contents-label-table_of_contents_id-4: بوم‌شناسی
+  translated_table_of_contents-label-table_of_contents_id-34: نظرات
+  translated_table_of_contents-label-table_of_contents_id-3: توضیحات فیزیکی
   translated_table_of_contents-label-table_of_contents_id-41: زیستگاه
+  translated_table_of_contents-label-table_of_contents_id-4: بوم‌شناسی
   translated_table_of_contents-label-table_of_contents_id-7: منابع و اطلاعات بیشتر
+  translated_table_of_contents-label-table_of_contents_id-8: حفاظت شده
   translated_untrust_reasons-label-untrust_reason_id-2: نادرست/گمراه کننده
   translated_untrust_reasons-label-untrust_reason_id-3: کیفیت پایین
   translated_untrust_reasons-label-untrust_reason_id-4: تکراری

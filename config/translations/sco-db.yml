@@ -1,8 +1,9 @@
 # Messages for Scots (Scots)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: John Reid
-sco: 
+---
+sco:
   translated_activities-name-activity_id-19: profile
   translated_activities-name-activity_id-50: no lippend
   translated_activities-name-activity_id-51: shaw
@@ -16,7 +17,6 @@ sco:
   translated_activities-name-activity_id-59: no owerluikt
   translated_activities-name-activity_id-63: collect
   translated_activities-name-activity_id-64: remuiv
-  translated_agent_roles-label-agent_role_id-1: Animater
   translated_agent_roles-label-agent_role_id-10: Waurk
   translated_agent_roles-label-agent_role_id-11: Publisher
   translated_agent_roles-label-agent_role_id-12: Recorder
@@ -24,11 +24,12 @@ sco:
   translated_agent_roles-label-agent_role_id-14: Soorce Database
   translated_agent_roles-label-agent_role_id-15: Contact Person
   translated_agent_roles-label-agent_role_id-16: Contreebuter
-  translated_agent_roles-label-agent_role_id-2: Writer
+  translated_agent_roles-label-agent_role_id-1: Animater
   translated_agent_roles-label-agent_role_id-21: provider
   translated_agent_roles-label-agent_role_id-22: Owerseter
   translated_agent_roles-label-agent_role_id-23: Scienteefic Owerluiker
   translated_agent_roles-label-agent_role_id-24: Lingueestic Owerluiker
+  translated_agent_roles-label-agent_role_id-2: Writer
   translated_agent_roles-label-agent_role_id-3: Compiler
   translated_agent_roles-label-agent_role_id-4: Composer
   translated_agent_roles-label-agent_role_id-5: Creauter
@@ -39,7 +40,6 @@ sco:
   translated_audiences-label-audience_id-1: Expert uisers
   translated_audiences-label-audience_id-2: General public
   translated_audiences-label-audience_id-3: Bairnies
-  translated_collection_types-label-collection_type_id-1: Taxænomie
   translated_collection_types-label-collection_type_id-10: Soonds
   translated_collection_types-label-collection_type_id-11: Airtins
   translated_collection_types-label-collection_type_id-12: Leeterature
@@ -50,12 +50,13 @@ sco:
   translated_collection_types-label-collection_type_id-17: Distreebution
   translated_collection_types-label-collection_type_id-18: Conservation status
   translated_collection_types-label-collection_type_id-19: Name information
-  translated_collection_types-label-collection_type_id-2: Molecular baur codes
+  translated_collection_types-label-collection_type_id-1: Taxænomie
   translated_collection_types-label-collection_type_id-20: Molecular data
   translated_collection_types-label-collection_type_id-21: Nomenclature
   translated_collection_types-label-collection_type_id-22: Soonds
   translated_collection_types-label-collection_type_id-23: Airtins
   translated_collection_types-label-collection_type_id-24: Leeterature
+  translated_collection_types-label-collection_type_id-2: Molecular baur codes
   translated_collection_types-label-collection_type_id-3: Descreeption
   translated_collection_types-label-collection_type_id-4: Eemages
   translated_collection_types-label-collection_type_id-5: Distreebution
@@ -72,19 +73,25 @@ sco:
   translated_contact_subjects-title-contact_subject_id-27: Become ae content pairtner
   translated_contact_subjects-title-contact_subject_id-28: Content pairtner support
   translated_contact_subjects-title-contact_subject_id-29: Curater support
-  translated_contact_subjects-title-contact_subject_id-30: Mak ae correction (speelin n graimmer, eemages, information)
+  translated_contact_subjects-title-contact_subject_id-30: >
+    Mak ae correction (speelin n graimmer,
+    eemages, information)
   translated_contact_subjects-title-contact_subject_id-31: Contreebute eemages, videos or soonds
-  translated_contact_subjects-title-contact_subject_id-32: Media requests (interviews, press speirnis, logo requests)
+  translated_contact_subjects-title-contact_subject_id-32: >
+    Media requests (interviews, press
+    speirnis, logo requests)
   translated_contact_subjects-title-contact_subject_id-33: Mak ae financial donation
-  translated_contact_subjects-title-contact_subject_id-34: Techneecal speirins (problems wi rake, wabsteid functionalitie)
+  translated_contact_subjects-title-contact_subject_id-34: >
+    Techneecal speirins (problems wi rake,
+    wabsteid functionalitie)
   translated_contact_subjects-title-contact_subject_id-35: General feedback
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendin
   translated_content_partner_statuses-label-content_partner_status_id-2: Acteeve
   translated_content_partner_statuses-label-content_partner_status_id-3: Archyved
   translated_content_partner_statuses-label-content_partner_status_id-4: No acteeve
   translated_content_tables-label-content_table_id-1: Details
-  translated_data_types-label-data_type_id-1: Eemage
   translated_data_types-label-data_type_id-10: Map
+  translated_data_types-label-data_type_id-1: Eemage
   translated_data_types-label-data_type_id-2: Soond
   translated_data_types-label-data_type_id-3: Tex
   translated_data_types-label-data_type_id-4: Video
@@ -93,9 +100,8 @@ sco:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Nae richts reserved
-  translated_licenses-description-license_id-2: "&#169; Aw richts reserved"
   translated_licenses-description-license_id-29: Some richts reserved
-  translated_licenses-description-license_id-3: Some richts reserved
+  translated_licenses-description-license_id-2: '&#169; Aw richts reserved'
   translated_licenses-description-license_id-30: Some richts reserved
   translated_licenses-description-license_id-31: Some richts reserved
   translated_licenses-description-license_id-32: Some richts reserved
@@ -106,9 +112,10 @@ sco:
   translated_licenses-description-license_id-37: Some richts reserved
   translated_licenses-description-license_id-38: Some richts reserved
   translated_licenses-description-license_id-39: Public Domain
-  translated_licenses-description-license_id-4: Some richts reserved
+  translated_licenses-description-license_id-3: Some richts reserved
   translated_licenses-description-license_id-42: Some richts reserved
   translated_licenses-description-license_id-43: License no appleecable
+  translated_licenses-description-license_id-4: Some richts reserved
   translated_licenses-description-license_id-5: Some richts reserved
   translated_licenses-description-license_id-6: Some richts reserved
   translated_licenses-description-license_id-7: Some richts reserved
@@ -151,11 +158,11 @@ sco:
   translated_ranks-label-rank_id-472: superphylum
   translated_ranks-label-rank_id-494: tribe
   translated_ranks-label-rank_id-503: no ranked
-  translated_ranks-label-rank_id-51: claiss
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietas
   translated_ranks-label-rank_id-518: varietie
+  translated_ranks-label-rank_id-51: claiss
   translated_ranks-label-rank_id-562: nothogenus
   translated_ranks-label-rank_id-563: nothospeecies
   translated_ranks-label-rank_id-564: nothosubspeecies
@@ -166,11 +173,11 @@ sco:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familie
-  translated_resource_statuses-label-resource_status_id-1: Uplaidin
   translated_resource_statuses-label-resource_status_id-10: Published
   translated_resource_statuses-label-resource_status_id-11: Publish Pendin
   translated_resource_statuses-label-resource_status_id-12: Onpublish Pendin
   translated_resource_statuses-label-resource_status_id-13: Force Harvest
+  translated_resource_statuses-label-resource_status_id-1: Uplaidin
   translated_resource_statuses-label-resource_status_id-2: Uplaided
   translated_resource_statuses-label-resource_status_id-3: Uplaid Failed
   translated_resource_statuses-label-resource_status_id-4: Muived tae Content Server
@@ -191,7 +198,6 @@ sco:
   translated_statuses-label-status_id-2: Updatit
   translated_statuses-label-status_id-3: No chynged
   translated_statuses-label-status_id-4: Reuised
-  translated_synonym_relations-label-synonym_relation_id-1: synonym
   translated_synonym_relations-label-synonym_relation_id-10: genbank synonym
   translated_synonym_relations-label-synonym_relation_id-11: in-pairt
   translated_synonym_relations-label-synonym_relation_id-12: incluides
@@ -202,7 +208,7 @@ sco:
   translated_synonym_relations-label-synonym_relation_id-17: misapplied name
   translated_synonym_relations-label-synonym_relation_id-18: proveesionallie acceptit name
   translated_synonym_relations-label-synonym_relation_id-19: acceptit name
-  translated_synonym_relations-label-synonym_relation_id-2: common name
+  translated_synonym_relations-label-synonym_relation_id-1: synonym
   translated_synonym_relations-label-synonym_relation_id-20: database airtifact
   translated_synonym_relations-label-synonym_relation_id-21: ither, see comments
   translated_synonym_relations-label-synonym_relation_id-22: orthægrapheec variant (misspeelin)
@@ -213,18 +219,20 @@ sco:
   translated_synonym_relations-label-synonym_relation_id-27: superfluoos renamin (illegeetamate)
   translated_synonym_relations-label-synonym_relation_id-28: nomen obleetum
   translated_synonym_relations-label-synonym_relation_id-29: junier synonym
-  translated_synonym_relations-label-synonym_relation_id-3: acronym
+  translated_synonym_relations-label-synonym_relation_id-2: common name
   translated_synonym_relations-label-synonym_relation_id-30: no available, database airtifact
   translated_synonym_relations-label-synonym_relation_id-31: replacement no necesserie
   translated_synonym_relations-label-synonym_relation_id-32: subsequent name/combination
   translated_synonym_relations-label-synonym_relation_id-33: no available, leeterature misspeelin
   translated_synonym_relations-label-synonym_relation_id-34: oreeginal name/combination
-  translated_synonym_relations-label-synonym_relation_id-35: onavailable, no the correct oreeg. speelin
+  translated_synonym_relations-label-synonym_relation_id-35: >
+    onavailable, no the correct oreeg.
+    speelin
   translated_synonym_relations-label-synonym_relation_id-36: junier homynym
-  translated_synonym_relations-label-synonym_relation_id-37: homynym & junier synonym
+  translated_synonym_relations-label-synonym_relation_id-37: 'homynym & junier synonym'
   translated_synonym_relations-label-synonym_relation_id-38: no available, suppressed bi rulin
   translated_synonym_relations-label-synonym_relation_id-39: no ae juistified emendation
-  translated_synonym_relations-label-synonym_relation_id-4: anamorph
+  translated_synonym_relations-label-synonym_relation_id-3: acronym
   translated_synonym_relations-label-synonym_relation_id-40: no available, ither
   translated_synonym_relations-label-synonym_relation_id-41: no available, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
@@ -235,7 +243,7 @@ sco:
   translated_synonym_relations-label-synonym_relation_id-47: homotypic synonym
   translated_synonym_relations-label-synonym_relation_id-48: name no available
   translated_synonym_relations-label-synonym_relation_id-49: valid name
-  translated_synonym_relations-label-synonym_relation_id-5: blast name
+  translated_synonym_relations-label-synonym_relation_id-4: anamorph
   translated_synonym_relations-label-synonym_relation_id-50: valid
   translated_synonym_relations-label-synonym_relation_id-51: acceptit
   translated_synonym_relations-label-synonym_relation_id-52: authoritie
@@ -246,7 +254,7 @@ sco:
   translated_synonym_relations-label-synonym_relation_id-57: speeling alternateeve
   translated_synonym_relations-label-synonym_relation_id-58: wairdstock variant
   translated_synonym_relations-label-synonym_relation_id-59: synonym (objective = homotypic)
-  translated_synonym_relations-label-synonym_relation_id-6: equeevalent name
+  translated_synonym_relations-label-synonym_relation_id-5: blast name
   translated_synonym_relations-label-synonym_relation_id-60: synonym (subjective = heterotypic)
   translated_synonym_relations-label-synonym_relation_id-61: objecteeve synonym
   translated_synonym_relations-label-synonym_relation_id-62: senier synonym
@@ -256,23 +264,23 @@ sco:
   translated_synonym_relations-label-synonym_relation_id-66: alternateeve representation
   translated_synonym_relations-label-synonym_relation_id-67: speecies inquirenda
   translated_synonym_relations-label-synonym_relation_id-68: horticultural
+  translated_synonym_relations-label-synonym_relation_id-6: equeevalent name
   translated_synonym_relations-label-synonym_relation_id-7: genbank acronym
   translated_synonym_relations-label-synonym_relation_id-8: genbank anamorph
   translated_synonym_relations-label-synonym_relation_id-9: genbank common name
-  translated_table_of_contents-label-table_of_contents_id-1: Ootline
   translated_table_of_contents-label-table_of_contents_id-13: Common Names
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Leeterature References
   translated_table_of_contents-label-table_of_contents_id-194: Size
-  translated_table_of_contents-label-table_of_contents_id-2: Brief Ootline
+  translated_table_of_contents-label-table_of_contents_id-1: Ootline
   translated_table_of_contents-label-table_of_contents_id-218: Dispersal
   translated_table_of_contents-label-table_of_contents_id-221: Risks
   translated_table_of_contents-label-table_of_contents_id-225: Oan the Wab
   translated_table_of_contents-label-table_of_contents_id-226: Content Pairtners
   translated_table_of_contents-label-table_of_contents_id-227: Rake the Wab
-  translated_table_of_contents-label-table_of_contents_id-24: Commentair
   translated_table_of_contents-label-table_of_contents_id-242: General Ecologie
   translated_table_of_contents-label-table_of_contents_id-244: Bibliographies
+  translated_table_of_contents-label-table_of_contents_id-24: Commentair
   translated_table_of_contents-label-table_of_contents_id-251: Benefits
   translated_table_of_contents-label-table_of_contents_id-267: Morphologie
   translated_table_of_contents-label-table_of_contents_id-278: Bibliographie
@@ -284,7 +292,7 @@ sco:
   translated_table_of_contents-label-table_of_contents_id-296: Management
   translated_table_of_contents-label-table_of_contents_id-297: Trophic Strategie
   translated_table_of_contents-label-table_of_contents_id-299: Education
-  translated_table_of_contents-label-table_of_contents_id-3: Pheesical Descreeption
+  translated_table_of_contents-label-table_of_contents_id-2: Brief Ootline
   translated_table_of_contents-label-table_of_contents_id-300: Wikipædia
   translated_table_of_contents-label-table_of_contents_id-303: Names n Taxænomie
   translated_table_of_contents-label-table_of_contents_id-304: Relatit Names
@@ -313,7 +321,6 @@ sco:
   translated_table_of_contents-label-table_of_contents_id-327: Physiologie
   translated_table_of_contents-label-table_of_contents_id-328: Cell Biologie
   translated_table_of_contents-label-table_of_contents_id-329: Geneteecs
-  translated_table_of_contents-label-table_of_contents_id-33: Trends
   translated_table_of_contents-label-table_of_contents_id-330: Nucleotide Sequences
   translated_table_of_contents-label-table_of_contents_id-331: Baurcode
   translated_table_of_contents-label-table_of_contents_id-332: Genome
@@ -324,7 +331,7 @@ sco:
   translated_table_of_contents-label-table_of_contents_id-337: Education
   translated_table_of_contents-label-table_of_contents_id-338: Education Airtins
   translated_table_of_contents-label-table_of_contents_id-339: Education Resoorces
-  translated_table_of_contents-label-table_of_contents_id-34: Comments
+  translated_table_of_contents-label-table_of_contents_id-33: Trends
   translated_table_of_contents-label-table_of_contents_id-340: Secontair Schuil Lab Series
   translated_table_of_contents-label-table_of_contents_id-341: Ceetizen Science
   translated_table_of_contents-label-table_of_contents_id-342: Ceetizen Science airtins
@@ -334,8 +341,10 @@ sco:
   translated_table_of_contents-label-table_of_contents_id-346: Biomedical Terms
   translated_table_of_contents-label-table_of_contents_id-347: Taxænomie
   translated_table_of_contents-label-table_of_contents_id-348: Type Information
-  translated_table_of_contents-label-table_of_contents_id-4: Ecologie
+  translated_table_of_contents-label-table_of_contents_id-34: Comments
+  translated_table_of_contents-label-table_of_contents_id-3: Pheesical Descreeption
   translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-4: Ecologie
   translated_table_of_contents-label-table_of_contents_id-5: Eevolution n Systeemateecs
   translated_table_of_contents-label-table_of_contents_id-6: Reelevance til Bodies n Ecosystems
   translated_table_of_contents-label-table_of_contents_id-7: References n Mair Information

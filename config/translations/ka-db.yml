@@ -1,8 +1,9 @@
 # Messages for Georgian (ქართული)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: David1010
-ka: 
+---
+ka:
   translated_activities-name-activity_id-19: პროფილი
   translated_activities-name-activity_id-50: არასაიმედო
   translated_activities-name-activity_id-51: ჩვენება
@@ -16,19 +17,28 @@ ka:
   translated_activities-name-activity_id-59: უნახავი
   translated_activities-name-activity_id-63: შეგროვება
   translated_activities-name-activity_id-64: წაშლა
-  translated_agent_roles-label-agent_role_id-1: ანიმატორი
   translated_agent_roles-label-agent_role_id-10: პროექტი
-  translated_agent_roles-label-agent_role_id-11: გამომქვეყნებელი
+  translated_agent_roles-label-agent_role_id-11: >
+    გამომქვეყნებელი
   translated_agent_roles-label-agent_role_id-12: ჩანაწერი
   translated_agent_roles-label-agent_role_id-13: წყარო
-  translated_agent_roles-label-agent_role_id-14: წყაროს მონაცემთა ბაზა
-  translated_agent_roles-label-agent_role_id-15: საკონტაქტო პირი
+  translated_agent_roles-label-agent_role_id-14: >
+    წყაროს
+    მონაცემთა ბაზა
+  translated_agent_roles-label-agent_role_id-15: >
+    საკონტაქტო
+    პირი
   translated_agent_roles-label-agent_role_id-16: ავტორი
-  translated_agent_roles-label-agent_role_id-2: ავტორი
+  translated_agent_roles-label-agent_role_id-1: ანიმატორი
   translated_agent_roles-label-agent_role_id-21: მომწოდებელი
   translated_agent_roles-label-agent_role_id-22: მთარგმნელი
-  translated_agent_roles-label-agent_role_id-23: სამეცნიერო მიმომხილველი
-  translated_agent_roles-label-agent_role_id-24: ლინგვისტური მიმომხილველი
+  translated_agent_roles-label-agent_role_id-23: >
+    სამეცნიერო
+    მიმომხილველი
+  translated_agent_roles-label-agent_role_id-24: >
+    ლინგვისტური
+    მიმომხილველი
+  translated_agent_roles-label-agent_role_id-2: ავტორი
   translated_agent_roles-label-agent_role_id-3: შემდგენელი
   translated_agent_roles-label-agent_role_id-4: კომპოზიტორი
   translated_agent_roles-label-agent_role_id-5: შემქმნელი
@@ -36,50 +46,91 @@ ka:
   translated_agent_roles-label-agent_role_id-7: რედაქტორი
   translated_agent_roles-label-agent_role_id-8: ილუსტრატორი
   translated_agent_roles-label-agent_role_id-9: ფოტოგრაფი
-  translated_audiences-label-audience_id-1: გამოცდილი მომხმარებლები
-  translated_audiences-label-audience_id-2: ჩვეულებრივი მომხმარებლები
+  translated_audiences-label-audience_id-1: >
+    გამოცდილი
+    მომხმარებლები
+  translated_audiences-label-audience_id-2: >
+    ჩვეულებრივი
+    მომხმარებლები
   translated_audiences-label-audience_id-3: ბავშვები
-  translated_collection_types-label-collection_type_id-1: ტაქსონომია
   translated_collection_types-label-collection_type_id-10: ხმები
   translated_collection_types-label-collection_type_id-11: ბმულები
   translated_collection_types-label-collection_type_id-12: ლიტერატურა
   translated_collection_types-label-collection_type_id-13: ტაქსონომია
-  translated_collection_types-label-collection_type_id-14: მოლეკულური შტრიხ-კოდები
+  translated_collection_types-label-collection_type_id-14: >
+    მოლეკულური
+    შტრიხ-კოდები
   translated_collection_types-label-collection_type_id-15: აღწერა
   translated_collection_types-label-collection_type_id-16: სურათები
   translated_collection_types-label-collection_type_id-17: გავრცელება
   translated_collection_types-label-collection_type_id-18: დაცვის სტატუსი
-  translated_collection_types-label-collection_type_id-19: სახელის ინფორმაცია
-  translated_collection_types-label-collection_type_id-2: მოლეკულური შტრიხ-კოდები
-  translated_collection_types-label-collection_type_id-20: მოლეკულური მონაცემი
+  translated_collection_types-label-collection_type_id-19: >
+    სახელის
+    ინფორმაცია
+  translated_collection_types-label-collection_type_id-1: ტაქსონომია
+  translated_collection_types-label-collection_type_id-20: >
+    მოლეკულური
+    მონაცემი
   translated_collection_types-label-collection_type_id-21: ნომენკლატურა
   translated_collection_types-label-collection_type_id-22: ხმები
   translated_collection_types-label-collection_type_id-23: ბმულები
   translated_collection_types-label-collection_type_id-24: ლიტერატურა
+  translated_collection_types-label-collection_type_id-2: >
+    მოლეკულური
+    შტრიხ-კოდები
   translated_collection_types-label-collection_type_id-3: აღწერა
   translated_collection_types-label-collection_type_id-4: სურათები
   translated_collection_types-label-collection_type_id-5: გავრცელება
   translated_collection_types-label-collection_type_id-6: დაცვის სტატუსი
-  translated_collection_types-label-collection_type_id-7: სახელის ინფორმაცია
-  translated_collection_types-label-collection_type_id-8: მოლეკულური მონაცემი
+  translated_collection_types-label-collection_type_id-7: >
+    სახელის
+    ინფორმაცია
+  translated_collection_types-label-collection_type_id-8: >
+    მოლეკულური
+    მონაცემი
   translated_collection_types-label-collection_type_id-9: ნომენკლატურა
-  translated_contact_roles-label-contact_role_id-1: მთავარი საკონტაქტო პირი
-  translated_contact_roles-label-contact_role_id-2: კავშირი ადმინისტრაციასთან
-  translated_contact_roles-label-contact_role_id-3: ტექნიკური დახმარების კონტაქტი
-  translated_contact_subjects-title-contact_subject_id-24: წევრობა და რეგისტრაცია
-  translated_contact_subjects-title-contact_subject_id-25: გამოყენების წესები და ლიცენზირება
-  translated_contact_subjects-title-contact_subject_id-26: სწავლა და განათლება
-  translated_contact_subjects-title-contact_subject_id-27: საინფორმაციო პარტნიორად გახდომა
-  translated_contact_subjects-title-contact_subject_id-28: საინფორმაციო პარტნიორის მხარდაჭერა
-  translated_contact_subjects-title-contact_subject_id-29: კურატორების მხარდაჭერა
-  translated_contact_subjects-title-contact_subject_id-35: მთავარი შეფასება
+  translated_contact_roles-label-contact_role_id-1: >
+    მთავარი
+    საკონტაქტო
+    პირი
+  translated_contact_roles-label-contact_role_id-2: >
+    კავშირი
+    ადმინისტრაციასთან
+  translated_contact_roles-label-contact_role_id-3: >
+    ტექნიკური
+    დახმარების
+    კონტაქტი
+  translated_contact_subjects-title-contact_subject_id-24: >
+    წევრობა და
+    რეგისტრაცია
+  translated_contact_subjects-title-contact_subject_id-25: >
+    გამოყენების
+    წესები და
+    ლიცენზირება
+  translated_contact_subjects-title-contact_subject_id-26: >
+    სწავლა და
+    განათლება
+  translated_contact_subjects-title-contact_subject_id-27: >
+    საინფორმაციო
+    პარტნიორად
+    გახდომა
+  translated_contact_subjects-title-contact_subject_id-28: >
+    საინფორმაციო
+    პარტნიორის
+    მხარდაჭერა
+  translated_contact_subjects-title-contact_subject_id-29: >
+    კურატორების
+    მხარდაჭერა
+  translated_contact_subjects-title-contact_subject_id-35: >
+    მთავარი
+    შეფასება
   translated_content_partner_statuses-label-content_partner_status_id-1: განიხილება
   translated_content_partner_statuses-label-content_partner_status_id-2: აქტიური
   translated_content_partner_statuses-label-content_partner_status_id-3: დაარქივებული
   translated_content_partner_statuses-label-content_partner_status_id-4: არააქტიური
   translated_content_tables-label-content_table_id-1: დეტალები
-  translated_data_types-label-data_type_id-1: სურათი
   translated_data_types-label-data_type_id-10: რუკა
+  translated_data_types-label-data_type_id-1: სურათი
   translated_data_types-label-data_type_id-2: ხმა
   translated_data_types-label-data_type_id-3: ტექსტი
   translated_data_types-label-data_type_id-4: ვიდეო
@@ -87,28 +138,80 @@ ka:
   translated_data_types-label-data_type_id-6: IUCN
   translated_data_types-label-data_type_id-7: ფლეში
   translated_data_types-label-data_type_id-8: YouTube
-  translated_licenses-description-license_id-1: უფლებები არ არის დაცული
-  translated_licenses-description-license_id-2: © ყველა უფლება დაცულია
-  translated_licenses-description-license_id-29: ზოგიერთი უფლება დაცულია.
-  translated_licenses-description-license_id-3: ზოგიერთი უფლება დაცულია
-  translated_licenses-description-license_id-30: ზოგიერთი უფლება დაცულია.
-  translated_licenses-description-license_id-31: ზოგიერთი უფლება დაცულია.
-  translated_licenses-description-license_id-32: ზოგიერთი უფლება დაცულია.
-  translated_licenses-description-license_id-33: ზოგიერთი უფლება დაცულია.
-  translated_licenses-description-license_id-34: საზოგადოებრივი საკუთრება
-  translated_licenses-description-license_id-35: საზოგადოებრივი საკუთრება
-  translated_licenses-description-license_id-36: ზოგიერთი უფლება დაცულია.
-  translated_licenses-description-license_id-37: ზოგიერთი უფლება დაცულია.
-  translated_licenses-description-license_id-38: ზოგიერთი უფლება დაცულია.
-  translated_licenses-description-license_id-39: საზოგადოებრივი საკუთრება
-  translated_licenses-description-license_id-4: ზოგიერთი უფლება დაცულია
-  translated_licenses-description-license_id-42: ზოგიერთი უფლება დაცულია
-  translated_licenses-description-license_id-43: ლიცენზია არ გამოიყენება
-  translated_licenses-description-license_id-5: ზოგიერთი უფლება დაცულია
-  translated_licenses-description-license_id-6: ზოგიერთი უფლება დაცულია
-  translated_licenses-description-license_id-7: ზოგიერთი უფლება დაცულია
-  translated_licenses-description-license_id-8: ზოგიერთი უფლება დაცულია
-  translated_licenses-description-license_id-9: ზოგიერთი უფლება დაცულია
+  translated_licenses-description-license_id-1: >
+    უფლებები არ
+    არის დაცული
+  translated_licenses-description-license_id-29: >
+    ზოგიერთი
+    უფლება
+    დაცულია.
+  translated_licenses-description-license_id-2: >
+    © ყველა უფლება
+    დაცულია
+  translated_licenses-description-license_id-30: >
+    ზოგიერთი
+    უფლება
+    დაცულია.
+  translated_licenses-description-license_id-31: >
+    ზოგიერთი
+    უფლება
+    დაცულია.
+  translated_licenses-description-license_id-32: >
+    ზოგიერთი
+    უფლება
+    დაცულია.
+  translated_licenses-description-license_id-33: >
+    ზოგიერთი
+    უფლება
+    დაცულია.
+  translated_licenses-description-license_id-34: >
+    საზოგადოებრივი
+    საკუთრება
+  translated_licenses-description-license_id-35: >
+    საზოგადოებრივი
+    საკუთრება
+  translated_licenses-description-license_id-36: >
+    ზოგიერთი
+    უფლება
+    დაცულია.
+  translated_licenses-description-license_id-37: >
+    ზოგიერთი
+    უფლება
+    დაცულია.
+  translated_licenses-description-license_id-38: >
+    ზოგიერთი
+    უფლება
+    დაცულია.
+  translated_licenses-description-license_id-39: >
+    საზოგადოებრივი
+    საკუთრება
+  translated_licenses-description-license_id-3: >
+    ზოგიერთი
+    უფლება დაცულია
+  translated_licenses-description-license_id-42: >
+    ზოგიერთი
+    უფლება დაცულია
+  translated_licenses-description-license_id-43: >
+    ლიცენზია არ
+    გამოიყენება
+  translated_licenses-description-license_id-4: >
+    ზოგიერთი
+    უფლება დაცულია
+  translated_licenses-description-license_id-5: >
+    ზოგიერთი
+    უფლება დაცულია
+  translated_licenses-description-license_id-6: >
+    ზოგიერთი
+    უფლება დაცულია
+  translated_licenses-description-license_id-7: >
+    ზოგიერთი
+    უფლება დაცულია
+  translated_licenses-description-license_id-8: >
+    ზოგიერთი
+    უფლება დაცულია
+  translated_licenses-description-license_id-9: >
+    ზოგიერთი
+    უფლება დაცულია
   translated_ranks-label-rank_id-106: ფორმა
   translated_ranks-label-rank_id-107: ფორმა
   translated_ranks-label-rank_id-112: გვარი
@@ -128,7 +231,8 @@ ka:
   translated_ranks-label-rank_id-335: სახეობა
   translated_ranks-label-rank_id-352: ქვეოჯახი
   translated_ranks-label-rank_id-370: ქვეკლასი
-  translated_ranks-label-rank_id-375: ქვეგანყოფილება
+  translated_ranks-label-rank_id-375: >
+    ქვეგანყოფილება
   translated_ranks-label-rank_id-383: ქვეოჯახი
   translated_ranks-label-rank_id-390: ქვეგვარი
   translated_ranks-label-rank_id-391: ქვეგვარი
@@ -153,78 +257,136 @@ ka:
   translated_ranks-label-rank_id-99: ოჯახი
   translated_resource_statuses-label-resource_status_id-1: იტვირთება
   translated_resource_statuses-label-resource_status_id-2: ატვირთულია
-  translated_resource_statuses-label-resource_status_id-3: შეცდომა ატვირთვისას
+  translated_resource_statuses-label-resource_status_id-3: >
+    შეცდომა
+    ატვირთვისას
   translated_resource_statuses-label-resource_status_id-5: შემოწმებულია
-  translated_resource_statuses-label-resource_status_id-6: შემოწმების შეცდომა
+  translated_resource_statuses-label-resource_status_id-6: >
+    შემოწმების
+    შეცდომა
   translated_service_types-label-service_type_id-2: სხვა
   translated_sort_styles-name-sort_style_id-2: უძველესი
   translated_sort_styles-name-sort_style_id-3: ანბანურად
   translated_sort_styles-name-sort_style_id-6: რეიტინგი
   translated_synonym_relations-label-synonym_relation_id-50: სწორი
   translated_synonym_relations-label-synonym_relation_id-51: მიღებულია
-  translated_synonym_relations-label-synonym_relation_id-63: არ არის მიღებული
+  translated_synonym_relations-label-synonym_relation_id-63: >
+    არ არის
+    მიღებული
   translated_synonym_relations-label-synonym_relation_id-64: არასწორი
-  translated_table_of_contents-label-table_of_contents_id-1: გადახედვა
-  translated_table_of_contents-label-table_of_contents_id-13: საერთო სახელები
+  translated_table_of_contents-label-table_of_contents_id-13: >
+    საერთო
+    სახელები
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
-  translated_table_of_contents-label-table_of_contents_id-17: ლიტერატურის სქოლიო
+  translated_table_of_contents-label-table_of_contents_id-17: >
+    ლიტერატურის
+    სქოლიო
   translated_table_of_contents-label-table_of_contents_id-194: ზომა
-  translated_table_of_contents-label-table_of_contents_id-2: მოკლე მიმოხილვა
+  translated_table_of_contents-label-table_of_contents_id-1: გადახედვა
   translated_table_of_contents-label-table_of_contents_id-221: რისკები
   translated_table_of_contents-label-table_of_contents_id-225: ინტერნეტში
-  translated_table_of_contents-label-table_of_contents_id-227: ძიება ინტერნეტში
+  translated_table_of_contents-label-table_of_contents_id-227: >
+    ძიება
+    ინტერნეტში
+  translated_table_of_contents-label-table_of_contents_id-242: >
+    მთავარი
+    ეკოლოგია
+  translated_table_of_contents-label-table_of_contents_id-244: >
+    ბიბლიოგრაფიები
   translated_table_of_contents-label-table_of_contents_id-24: კომენტარები
-  translated_table_of_contents-label-table_of_contents_id-242: მთავარი ეკოლოგია
-  translated_table_of_contents-label-table_of_contents_id-244: ბიბლიოგრაფიები
   translated_table_of_contents-label-table_of_contents_id-251: უპირატესობა
   translated_table_of_contents-label-table_of_contents_id-267: მორფოლოგია
   translated_table_of_contents-label-table_of_contents_id-278: ბიბლიოგრაფია
   translated_table_of_contents-label-table_of_contents_id-285: ასოციაციები
   translated_table_of_contents-label-table_of_contents_id-286: დაცვის სტატუსი
   translated_table_of_contents-label-table_of_contents_id-289: ევოლუცია
-  translated_table_of_contents-label-table_of_contents_id-293: დიაგნოსტიკური აღწერა
+  translated_table_of_contents-label-table_of_contents_id-293: >
+    დიაგნოსტიკური
+    აღწერა
   translated_table_of_contents-label-table_of_contents_id-299: განათლება
-  translated_table_of_contents-label-table_of_contents_id-3: ფიზიკური აღწერა
+  translated_table_of_contents-label-table_of_contents_id-2: >
+    მოკლე
+    მიმოხილვა
   translated_table_of_contents-label-table_of_contents_id-300: ვიკიპედია
-  translated_table_of_contents-label-table_of_contents_id-303: სახელები და ტაქსონომია
+  translated_table_of_contents-label-table_of_contents_id-303: >
+    სახელები და
+    ტაქსონომია
   translated_table_of_contents-label-table_of_contents_id-305: სინონიმები
-  translated_table_of_contents-label-table_of_contents_id-306: გვერდის სტატისტიკა
-  translated_table_of_contents-label-table_of_contents_id-308: დეტალური აღწერა
+  translated_table_of_contents-label-table_of_contents_id-306: >
+    გვერდის
+    სტატისტიკა
+  translated_table_of_contents-label-table_of_contents_id-308: >
+    დეტალური
+    აღწერა
   translated_table_of_contents-label-table_of_contents_id-309: განაწილება
   translated_table_of_contents-label-table_of_contents_id-310: განვითარება
   translated_table_of_contents-label-table_of_contents_id-312: მიგრაცია
-  translated_table_of_contents-label-table_of_contents_id-313: დაავადებები და პარაზიტები
-  translated_table_of_contents-label-table_of_contents_id-315: სიცოცხლის ისტორია და ქცევა
+  translated_table_of_contents-label-table_of_contents_id-313: >
+    დაავადებები და
+    პარაზიტები
+  translated_table_of_contents-label-table_of_contents_id-315: >
+    სიცოცხლის
+    ისტორია და
+    ქცევა
   translated_table_of_contents-label-table_of_contents_id-316: ქცევა
   translated_table_of_contents-label-table_of_contents_id-317: ციკლურობა
-  translated_table_of_contents-label-table_of_contents_id-318: სასიცოცხლო ციკლი
-  translated_table_of_contents-label-table_of_contents_id-319: სიცოცხლის სავარაუდო ხანგრძლივობა
+  translated_table_of_contents-label-table_of_contents_id-318: >
+    სასიცოცხლო
+    ციკლი
+  translated_table_of_contents-label-table_of_contents_id-319: >
+    სიცოცხლის
+    სავარაუდო
+    ხანგრძლივობა
   translated_table_of_contents-label-table_of_contents_id-320: გამრავლება
   translated_table_of_contents-label-table_of_contents_id-321: ზრდა
-  translated_table_of_contents-label-table_of_contents_id-325: ფიზიოლოგია და ციტოლოგია
-  translated_table_of_contents-label-table_of_contents_id-326: მოლეკულური ბიოლოგია და გენეტიკა
+  translated_table_of_contents-label-table_of_contents_id-325: >
+    ფიზიოლოგია და
+    ციტოლოგია
+  translated_table_of_contents-label-table_of_contents_id-326: >
+    მოლეკულური
+    ბიოლოგია და
+    გენეტიკა
   translated_table_of_contents-label-table_of_contents_id-327: ფიზიოლოგია
   translated_table_of_contents-label-table_of_contents_id-328: ციტოლოგია
   translated_table_of_contents-label-table_of_contents_id-329: გენეტიკა
-  translated_table_of_contents-label-table_of_contents_id-33: ტენდენციები
   translated_table_of_contents-label-table_of_contents_id-331: შტრიხ-კოდი
   translated_table_of_contents-label-table_of_contents_id-332: გენომი
-  translated_table_of_contents-label-table_of_contents_id-333: მოლეკულური ბიოლოგია
+  translated_table_of_contents-label-table_of_contents_id-333: >
+    მოლეკულური
+    ბიოლოგია
   translated_table_of_contents-label-table_of_contents_id-334: საფრთხეები
   translated_table_of_contents-label-table_of_contents_id-335: კანონმდებლობა
   translated_table_of_contents-label-table_of_contents_id-336: შენიშვნები
   translated_table_of_contents-label-table_of_contents_id-337: განათლება
-  translated_table_of_contents-label-table_of_contents_id-338: საგანმანათლებლო ბმულები
-  translated_table_of_contents-label-table_of_contents_id-339: საგანმანათლებლო რესურსები
-  translated_table_of_contents-label-table_of_contents_id-34: კომენტარები
+  translated_table_of_contents-label-table_of_contents_id-338: >
+    საგანმანათლებლო
+    ბმულები
+  translated_table_of_contents-label-table_of_contents_id-339: >
+    საგანმანათლებლო
+    რესურსები
+  translated_table_of_contents-label-table_of_contents_id-33: ტენდენციები
   translated_table_of_contents-label-table_of_contents_id-344: მონაცემები
-  translated_table_of_contents-label-table_of_contents_id-345: მონაცემების წყარო
+  translated_table_of_contents-label-table_of_contents_id-345: >
+    მონაცემების
+    წყარო
   translated_table_of_contents-label-table_of_contents_id-347: ტაქსონომია
-  translated_table_of_contents-label-table_of_contents_id-348: ტიპის ინფორმაცია
+  translated_table_of_contents-label-table_of_contents_id-348: >
+    ტიპის
+    ინფორმაცია
+  translated_table_of_contents-label-table_of_contents_id-34: კომენტარები
+  translated_table_of_contents-label-table_of_contents_id-3: >
+    ფიზიკური
+    აღწერა
+  translated_table_of_contents-label-table_of_contents_id-41: >
+    ცხოვრების
+    გარემო
   translated_table_of_contents-label-table_of_contents_id-4: ეკოლოგია
-  translated_table_of_contents-label-table_of_contents_id-41: ცხოვრების გარემო
-  translated_table_of_contents-label-table_of_contents_id-5: ევოლუცია და სისტემატიკა
-  translated_table_of_contents-label-table_of_contents_id-7: სქოლიო და სხვა ინფორმაცია
+  translated_table_of_contents-label-table_of_contents_id-5: >
+    ევოლუცია და
+    სისტემატიკა
+  translated_table_of_contents-label-table_of_contents_id-7: >
+    სქოლიო და სხვა
+    ინფორმაცია
   translated_table_of_contents-label-table_of_contents_id-8: კონსერვაცია
   translated_untrust_reasons-label-untrust_reason_id-3: დაბალი ხარისხი
   translated_untrust_reasons-label-untrust_reason_id-4: დუბლიკატი
@@ -239,4 +401,6 @@ ka:
   translated_view_styles-name-view_style_id-2: გალერეა
   translated_visibilities-label-visibility_id-0: უხილავი
   translated_visibilities-label-visibility_id-1: ხილული
-  translated_visibilities-label-visibility_id-2: წინასწარი გადახედვა
+  translated_visibilities-label-visibility_id-2: >
+    წინასწარი
+    გადახედვა

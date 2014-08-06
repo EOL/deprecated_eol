@@ -1,8 +1,9 @@
 # Messages for Macedonian (македонски)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Bjankuloski06
-mk: 
+---
+mk:
   translated_activities-name-activity_id-19: профил
   translated_activities-name-activity_id-50: недоверливо
   translated_activities-name-activity_id-51: прикажи
@@ -16,7 +17,6 @@ mk:
   translated_activities-name-activity_id-59: непроверено
   translated_activities-name-activity_id-63: додај во збирка
   translated_activities-name-activity_id-64: отстрани
-  translated_agent_roles-label-agent_role_id-1: Аниматор
   translated_agent_roles-label-agent_role_id-10: Проект
   translated_agent_roles-label-agent_role_id-11: Издавач
   translated_agent_roles-label-agent_role_id-12: Снимател
@@ -24,11 +24,12 @@ mk:
   translated_agent_roles-label-agent_role_id-14: Изворна база
   translated_agent_roles-label-agent_role_id-15: Лице за контакт
   translated_agent_roles-label-agent_role_id-16: Соучесник
-  translated_agent_roles-label-agent_role_id-2: Автор
+  translated_agent_roles-label-agent_role_id-1: Аниматор
   translated_agent_roles-label-agent_role_id-21: добавувач
   translated_agent_roles-label-agent_role_id-22: Преведувач
   translated_agent_roles-label-agent_role_id-23: Научен рецензент
   translated_agent_roles-label-agent_role_id-24: Лектор/коректор
+  translated_agent_roles-label-agent_role_id-2: Автор
   translated_agent_roles-label-agent_role_id-3: Собирач
   translated_agent_roles-label-agent_role_id-4: Составувач
   translated_agent_roles-label-agent_role_id-5: Творец
@@ -39,23 +40,27 @@ mk:
   translated_audiences-label-audience_id-1: Стручни корисници
   translated_audiences-label-audience_id-2: Општа јавност
   translated_audiences-label-audience_id-3: Деца
-  translated_collection_types-label-collection_type_id-1: Таксономија
   translated_collection_types-label-collection_type_id-10: Звуци
   translated_collection_types-label-collection_type_id-11: Врски
   translated_collection_types-label-collection_type_id-12: Литература
   translated_collection_types-label-collection_type_id-13: Таксономија
-  translated_collection_types-label-collection_type_id-14: Молекуларни линиски кодови
+  translated_collection_types-label-collection_type_id-14: >
+    Молекуларни линиски
+    кодови
   translated_collection_types-label-collection_type_id-15: Опис
   translated_collection_types-label-collection_type_id-16: Слики
   translated_collection_types-label-collection_type_id-17: Распределба
   translated_collection_types-label-collection_type_id-18: Заштитен статус
   translated_collection_types-label-collection_type_id-19: Информации за името
-  translated_collection_types-label-collection_type_id-2: Молекуларни линиски кодови
+  translated_collection_types-label-collection_type_id-1: Таксономија
   translated_collection_types-label-collection_type_id-20: Молекуларни податоци
   translated_collection_types-label-collection_type_id-21: Номенклатура
   translated_collection_types-label-collection_type_id-22: Звуци
   translated_collection_types-label-collection_type_id-23: Врски
   translated_collection_types-label-collection_type_id-24: Литература
+  translated_collection_types-label-collection_type_id-2: >
+    Молекуларни линиски
+    кодови
   translated_collection_types-label-collection_type_id-3: Опис
   translated_collection_types-label-collection_type_id-4: Слики
   translated_collection_types-label-collection_type_id-5: Распределба
@@ -64,27 +69,55 @@ mk:
   translated_collection_types-label-collection_type_id-8: Молекуларни податоци
   translated_collection_types-label-collection_type_id-9: Номенклатура
   translated_contact_roles-label-contact_role_id-1: Првичен контакт
-  translated_contact_roles-label-contact_role_id-2: Административен контакт
+  translated_contact_roles-label-contact_role_id-2: >
+    Административен
+    контакт
   translated_contact_roles-label-contact_role_id-3: Технички контакт
-  translated_contact_subjects-title-contact_subject_id-24: Членство и регистрација
-  translated_contact_subjects-title-contact_subject_id-25: Услови на употреба и лиценцирање
+  translated_contact_subjects-title-contact_subject_id-24: >
+    Членство и
+    регистрација
+  translated_contact_subjects-title-contact_subject_id-25: >
+    Услови на употреба и
+    лиценцирање
   translated_contact_subjects-title-contact_subject_id-26: Учење и образование
-  translated_contact_subjects-title-contact_subject_id-27: Станете соучесник во содржините
-  translated_contact_subjects-title-contact_subject_id-28: Поддршка за соучесниците во содржините
+  translated_contact_subjects-title-contact_subject_id-27: >
+    Станете соучесник во
+    содржините
+  translated_contact_subjects-title-contact_subject_id-28: >
+    Поддршка за
+    соучесниците во
+    содржините
   translated_contact_subjects-title-contact_subject_id-29: Поддршка за кустосите
-  translated_contact_subjects-title-contact_subject_id-30: Направете испрацка (правопис и граматика, слики, информации)
-  translated_contact_subjects-title-contact_subject_id-31: Учествувајте со слики, видео и аудиоснимки
-  translated_contact_subjects-title-contact_subject_id-32: Барања од медиумите (интервјуа, прашања од печатот, барања за лого)
-  translated_contact_subjects-title-contact_subject_id-33: Дајте паричен доброволен прилог
-  translated_contact_subjects-title-contact_subject_id-34: Технички прашања (проблеми со пребарувањето, функционирање на мрежното место)
+  translated_contact_subjects-title-contact_subject_id-30: >
+    Направете испрацка
+    (правопис и граматика,
+    слики, информации)
+  translated_contact_subjects-title-contact_subject_id-31: >
+    Учествувајте со
+    слики, видео и
+    аудиоснимки
+  translated_contact_subjects-title-contact_subject_id-32: >
+    Барања од медиумите
+    (интервјуа, прашања од
+    печатот, барања за
+    лого)
+  translated_contact_subjects-title-contact_subject_id-33: >
+    Дајте паричен
+    доброволен прилог
+  translated_contact_subjects-title-contact_subject_id-34: >
+    Технички прашања
+    (проблеми со
+    пребарувањето,
+    функционирање на
+    мрежното место)
   translated_contact_subjects-title-contact_subject_id-35: Општи мислења
   translated_content_partner_statuses-label-content_partner_status_id-1: Во исчекување
   translated_content_partner_statuses-label-content_partner_status_id-2: Активно
   translated_content_partner_statuses-label-content_partner_status_id-3: Архивирано
   translated_content_partner_statuses-label-content_partner_status_id-4: Неактивно
   translated_content_tables-label-content_table_id-1: Подробно
-  translated_data_types-label-data_type_id-1: Слика
   translated_data_types-label-data_type_id-10: Карта
+  translated_data_types-label-data_type_id-1: Слика
   translated_data_types-label-data_type_id-2: Звук
   translated_data_types-label-data_type_id-3: Текст
   translated_data_types-label-data_type_id-4: Видео
@@ -93,9 +126,8 @@ mk:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Без задржани права
-  translated_licenses-description-license_id-2: © Сите права задржани
   translated_licenses-description-license_id-29: Некои права задржани
-  translated_licenses-description-license_id-3: Некои права задржани
+  translated_licenses-description-license_id-2: © Сите права задржани
   translated_licenses-description-license_id-30: Некои права задржани
   translated_licenses-description-license_id-31: Некои права задржани
   translated_licenses-description-license_id-32: Некои права задржани
@@ -106,9 +138,12 @@ mk:
   translated_licenses-description-license_id-37: Некои права задржани
   translated_licenses-description-license_id-38: Некои права задржани
   translated_licenses-description-license_id-39: Јавна сопственост
-  translated_licenses-description-license_id-4: Некои права задржани
+  translated_licenses-description-license_id-3: Некои права задржани
   translated_licenses-description-license_id-42: Некои права задржани
-  translated_licenses-description-license_id-43: Не подлежи на лиценцирање
+  translated_licenses-description-license_id-43: >
+    Не подлежи на
+    лиценцирање
+  translated_licenses-description-license_id-4: Некои права задржани
   translated_licenses-description-license_id-5: Некои права задржани
   translated_licenses-description-license_id-6: Некои права задржани
   translated_licenses-description-license_id-7: Некои права задржани
@@ -151,11 +186,11 @@ mk:
   translated_ranks-label-rank_id-472: натколено
   translated_ranks-label-rank_id-494: племе
   translated_ranks-label-rank_id-503: нерангирано
-  translated_ranks-label-rank_id-51: класа
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: разновидност
   translated_ranks-label-rank_id-518: разновидност
+  translated_ranks-label-rank_id-51: класа
   translated_ranks-label-rank_id-562: нотород
   translated_ranks-label-rank_id-563: нотовид
   translated_ranks-label-rank_id-564: нотоподвид
@@ -166,20 +201,32 @@ mk:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: фамилија
-  translated_resource_statuses-label-resource_status_id-1: Подигам
   translated_resource_statuses-label-resource_status_id-10: Објавено
-  translated_resource_statuses-label-resource_status_id-11: Објавувањето е во исчекување
-  translated_resource_statuses-label-resource_status_id-12: Отстранувањето на објавеното е во исчекување
+  translated_resource_statuses-label-resource_status_id-11: >
+    Објавувањето е во
+    исчекување
+  translated_resource_statuses-label-resource_status_id-12: >
+    Отстранувањето на
+    објавеното е во
+    исчекување
   translated_resource_statuses-label-resource_status_id-13: Наметнато преземање
+  translated_resource_statuses-label-resource_status_id-1: Подигам
   translated_resource_statuses-label-resource_status_id-2: Подигнато
   translated_resource_statuses-label-resource_status_id-3: Подигањето не успеа
-  translated_resource_statuses-label-resource_status_id-4: Преместено на опслужувачот на содржините
+  translated_resource_statuses-label-resource_status_id-4: >
+    Преместено на
+    опслужувачот на
+    содржините
   translated_resource_statuses-label-resource_status_id-5: Потврдено
-  translated_resource_statuses-label-resource_status_id-6: Потврдувањето не успеа
+  translated_resource_statuses-label-resource_status_id-6: >
+    Потврдувањето не
+    успеа
   translated_resource_statuses-label-resource_status_id-7: Во обработка
   translated_resource_statuses-label-resource_status_id-8: Обработено
   translated_resource_statuses-label-resource_status_id-9: Обработката не успеа
-  translated_service_types-label-service_type_id-1: Шема за префрлање на EOL
+  translated_service_types-label-service_type_id-1: >
+    Шема за префрлање на
+    EOL
   translated_service_types-label-service_type_id-2: Друго
   translated_sort_styles-name-sort_style_id-1: Неодамна додадени
   translated_sort_styles-name-sort_style_id-2: Најстари
@@ -191,7 +238,6 @@ mk:
   translated_statuses-label-status_id-2: Подновено
   translated_statuses-label-status_id-3: Неизменето
   translated_statuses-label-status_id-4: Пренаменето
-  translated_synonym_relations-label-synonym_relation_id-1: синоним
   translated_synonym_relations-label-synonym_relation_id-10: синоним од GenBank
   translated_synonym_relations-label-synonym_relation_id-11: делумно
   translated_synonym_relations-label-synonym_relation_id-12: содржи
@@ -199,55 +245,92 @@ mk:
   translated_synonym_relations-label-synonym_relation_id-14: погрешно напишано
   translated_synonym_relations-label-synonym_relation_id-15: телеоморфа
   translated_synonym_relations-label-synonym_relation_id-16: двосмислен синоним
-  translated_synonym_relations-label-synonym_relation_id-17: погрешно применето име
-  translated_synonym_relations-label-synonym_relation_id-18: привремено прифатено име
+  translated_synonym_relations-label-synonym_relation_id-17: >
+    погрешно применето
+    име
+  translated_synonym_relations-label-synonym_relation_id-18: >
+    привремено прифатено
+    име
   translated_synonym_relations-label-synonym_relation_id-19: прифатено име
-  translated_synonym_relations-label-synonym_relation_id-2: тривијално име
+  translated_synonym_relations-label-synonym_relation_id-1: синоним
   translated_synonym_relations-label-synonym_relation_id-20: артефакт од базата
   translated_synonym_relations-label-synonym_relation_id-21: друго, погл. коментари
-  translated_synonym_relations-label-synonym_relation_id-22: правописна варијанта (погрешно напишано)
+  translated_synonym_relations-label-synonym_relation_id-22: >
+    правописна варијанта
+    (погрешно напишано)
   translated_synonym_relations-label-synonym_relation_id-23: погрешно применето
   translated_synonym_relations-label-synonym_relation_id-24: отфрлено име
   translated_synonym_relations-label-synonym_relation_id-25: хомоним (неодобрен)
   translated_synonym_relations-label-synonym_relation_id-26: pro parte
-  translated_synonym_relations-label-synonym_relation_id-27: излишно преименување (неодобрено)
+  translated_synonym_relations-label-synonym_relation_id-27: >
+    излишно преименување
+    (неодобрено)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: вторичен синоним
-  translated_synonym_relations-label-synonym_relation_id-3: акроним
-  translated_synonym_relations-label-synonym_relation_id-30: недостапно, артефакт од базата
+  translated_synonym_relations-label-synonym_relation_id-2: народно име
+  translated_synonym_relations-label-synonym_relation_id-30: >
+    недостапно, артефакт
+    од базата
   translated_synonym_relations-label-synonym_relation_id-31: непотребно заменето
-  translated_synonym_relations-label-synonym_relation_id-32: подоцнежно име/комбинација
-  translated_synonym_relations-label-synonym_relation_id-33: недостапно, погрешно напишана литература
-  translated_synonym_relations-label-synonym_relation_id-34: изворно име/комбинација
-  translated_synonym_relations-label-synonym_relation_id-35: недостапно, неисправно изворно напишано
+  translated_synonym_relations-label-synonym_relation_id-32: >
+    подоцнежно
+    име/комбинација
+  translated_synonym_relations-label-synonym_relation_id-33: >
+    недостапно, погрешно
+    напишана литература
+  translated_synonym_relations-label-synonym_relation_id-34: >
+    изворно
+    име/комбинација
+  translated_synonym_relations-label-synonym_relation_id-35: >
+    недостапно,
+    неисправно изворно
+    напишано
   translated_synonym_relations-label-synonym_relation_id-36: вторичен хомоним
-  translated_synonym_relations-label-synonym_relation_id-37: хомоним и вторичен синоним
-  translated_synonym_relations-label-synonym_relation_id-38: недостапно, укинато со одлука
-  translated_synonym_relations-label-synonym_relation_id-39: неоправдано исправено
-  translated_synonym_relations-label-synonym_relation_id-4: анаморфа
+  translated_synonym_relations-label-synonym_relation_id-37: >
+    хомоним и вторичен
+    синоним
+  translated_synonym_relations-label-synonym_relation_id-38: >
+    недостапно, укинато
+    со одлука
+  translated_synonym_relations-label-synonym_relation_id-39: >
+    неоправдано
+    исправено
+  translated_synonym_relations-label-synonym_relation_id-3: акроним
   translated_synonym_relations-label-synonym_relation_id-40: недостапно, друго
   translated_synonym_relations-label-synonym_relation_id-41: недостапно, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
-  translated_synonym_relations-label-synonym_relation_id-43: неважечки објавено, друго
-  translated_synonym_relations-label-synonym_relation_id-44: неважечки објавено, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-43: >
+    неважечки објавено,
+    друго
+  translated_synonym_relations-label-synonym_relation_id-44: >
+    неважечки објавено,
+    nomen nudum
   translated_synonym_relations-label-synonym_relation_id-45: базионим
   translated_synonym_relations-label-synonym_relation_id-46: хетеротипен синоним
   translated_synonym_relations-label-synonym_relation_id-47: хомотипен синоним
   translated_synonym_relations-label-synonym_relation_id-48: недостапно име
   translated_synonym_relations-label-synonym_relation_id-49: важечко име
-  translated_synonym_relations-label-synonym_relation_id-5: општо име
+  translated_synonym_relations-label-synonym_relation_id-4: анаморфа
   translated_synonym_relations-label-synonym_relation_id-50: важечко
   translated_synonym_relations-label-synonym_relation_id-51: прифатено
   translated_synonym_relations-label-synonym_relation_id-52: научник
   translated_synonym_relations-label-synonym_relation_id-53: необјавено име
   translated_synonym_relations-label-synonym_relation_id-54: субјективен синоним
-  translated_synonym_relations-label-synonym_relation_id-55: погрешни информации за научникот
+  translated_synonym_relations-label-synonym_relation_id-55: >
+    погрешни информации
+    за научникот
   translated_synonym_relations-label-synonym_relation_id-56: погрешно напишано
-  translated_synonym_relations-label-synonym_relation_id-57: правописна алтернатива
+  translated_synonym_relations-label-synonym_relation_id-57: >
+    правописна
+    алтернатива
   translated_synonym_relations-label-synonym_relation_id-58: лексичка варијанта
-  translated_synonym_relations-label-synonym_relation_id-59: синоним (објективен = хомотипен)
-  translated_synonym_relations-label-synonym_relation_id-6: еквивалентно име
-  translated_synonym_relations-label-synonym_relation_id-60: синоним (субјективен = хетеротипен)
+  translated_synonym_relations-label-synonym_relation_id-59: >
+    синоним (објективен =
+    хомотипен)
+  translated_synonym_relations-label-synonym_relation_id-5: општо име
+  translated_synonym_relations-label-synonym_relation_id-60: >
+    синоним (субјективен =
+    хетеротипен)
   translated_synonym_relations-label-synonym_relation_id-61: објективен синоним
   translated_synonym_relations-label-synonym_relation_id-62: првичен синоним
   translated_synonym_relations-label-synonym_relation_id-63: неприфатено
@@ -256,23 +339,29 @@ mk:
   translated_synonym_relations-label-synonym_relation_id-66: други претставувања
   translated_synonym_relations-label-synonym_relation_id-67: species inquirenda
   translated_synonym_relations-label-synonym_relation_id-68: хортикултурно
+  translated_synonym_relations-label-synonym_relation_id-6: еквивалентно име
   translated_synonym_relations-label-synonym_relation_id-7: акроним од GenBank
   translated_synonym_relations-label-synonym_relation_id-8: анаморфа од GenBank
-  translated_synonym_relations-label-synonym_relation_id-9: тривијално име од GenBank
-  translated_table_of_contents-label-table_of_contents_id-1: Преглед
+  translated_synonym_relations-label-synonym_relation_id-9: народно име од GenBank
   translated_table_of_contents-label-table_of_contents_id-13: Народни имиња
   translated_table_of_contents-label-table_of_contents_id-14: МСЗП (IUCN)
-  translated_table_of_contents-label-table_of_contents_id-17: Наводи од литературата
+  translated_table_of_contents-label-table_of_contents_id-17: >
+    Наводи од
+    литературата
   translated_table_of_contents-label-table_of_contents_id-194: Големина
-  translated_table_of_contents-label-table_of_contents_id-2: Краток преглед
+  translated_table_of_contents-label-table_of_contents_id-1: Преглед
   translated_table_of_contents-label-table_of_contents_id-218: Разместување
   translated_table_of_contents-label-table_of_contents_id-221: Ризици
   translated_table_of_contents-label-table_of_contents_id-225: Семрежно
-  translated_table_of_contents-label-table_of_contents_id-226: Соучесници во содржините
-  translated_table_of_contents-label-table_of_contents_id-227: Пребарување по семрежјето
-  translated_table_of_contents-label-table_of_contents_id-24: Коментари
+  translated_table_of_contents-label-table_of_contents_id-226: >
+    Соучесници во
+    содржините
+  translated_table_of_contents-label-table_of_contents_id-227: >
+    Пребарување по
+    семрежјето
   translated_table_of_contents-label-table_of_contents_id-242: Општа екологија
   translated_table_of_contents-label-table_of_contents_id-244: Библиографии
+  translated_table_of_contents-label-table_of_contents_id-24: Коментари
   translated_table_of_contents-label-table_of_contents_id-251: Благодети
   translated_table_of_contents-label-table_of_contents_id-267: Морфологија
   translated_table_of_contents-label-table_of_contents_id-278: Библиографија
@@ -284,21 +373,31 @@ mk:
   translated_table_of_contents-label-table_of_contents_id-296: Раководство
   translated_table_of_contents-label-table_of_contents_id-297: Трофична стратегија
   translated_table_of_contents-label-table_of_contents_id-299: Образование
-  translated_table_of_contents-label-table_of_contents_id-3: Физички опис
+  translated_table_of_contents-label-table_of_contents_id-2: Краток преглед
   translated_table_of_contents-label-table_of_contents_id-300: Википедија
   translated_table_of_contents-label-table_of_contents_id-303: Имиња и таксономија
   translated_table_of_contents-label-table_of_contents_id-304: Поврзани имиња
   translated_table_of_contents-label-table_of_contents_id-305: Синоними
-  translated_table_of_contents-label-table_of_contents_id-306: Статистики за страници
-  translated_table_of_contents-label-table_of_contents_id-307: Краток преглед на содржината
+  translated_table_of_contents-label-table_of_contents_id-306: >
+    Статистики за
+    страници
+  translated_table_of_contents-label-table_of_contents_id-307: >
+    Краток преглед на
+    содржината
   translated_table_of_contents-label-table_of_contents_id-308: Опширен опис
   translated_table_of_contents-label-table_of_contents_id-309: Распределба
   translated_table_of_contents-label-table_of_contents_id-310: Развој
-  translated_table_of_contents-label-table_of_contents_id-311: Ресурси за препознавање
+  translated_table_of_contents-label-table_of_contents_id-311: >
+    Ресурси за
+    препознавање
   translated_table_of_contents-label-table_of_contents_id-312: Преселба
   translated_table_of_contents-label-table_of_contents_id-313: Болести и паразити
-  translated_table_of_contents-label-table_of_contents_id-314: Биологија на населенијата
-  translated_table_of_contents-label-table_of_contents_id-315: Животна историја и поведение
+  translated_table_of_contents-label-table_of_contents_id-314: >
+    Биологија на
+    населенијата
+  translated_table_of_contents-label-table_of_contents_id-315: >
+    Животна историја и
+    поведение
   translated_table_of_contents-label-table_of_contents_id-316: Поведение
   translated_table_of_contents-label-table_of_contents_id-317: Цикличност
   translated_table_of_contents-label-table_of_contents_id-318: Животен циклус
@@ -306,42 +405,69 @@ mk:
   translated_table_of_contents-label-table_of_contents_id-320: Размножување
   translated_table_of_contents-label-table_of_contents_id-321: Раст
   translated_table_of_contents-label-table_of_contents_id-322: Фосилна историја
-  translated_table_of_contents-label-table_of_contents_id-323: Систематика или филогенетика
-  translated_table_of_contents-label-table_of_contents_id-324: Функционални присподобувања
-  translated_table_of_contents-label-table_of_contents_id-325: Физиологија и клеточна биологија
-  translated_table_of_contents-label-table_of_contents_id-326: Молекуларна биологија и генетика
+  translated_table_of_contents-label-table_of_contents_id-323: >
+    Систематика или
+    филогенетика
+  translated_table_of_contents-label-table_of_contents_id-324: >
+    Функционални
+    присподобувања
+  translated_table_of_contents-label-table_of_contents_id-325: >
+    Физиологија и
+    клеточна биологија
+  translated_table_of_contents-label-table_of_contents_id-326: >
+    Молекуларна
+    биологија и генетика
   translated_table_of_contents-label-table_of_contents_id-327: Физиологија
   translated_table_of_contents-label-table_of_contents_id-328: Клеточна биологија
   translated_table_of_contents-label-table_of_contents_id-329: Генетика
-  translated_table_of_contents-label-table_of_contents_id-33: Трендови
   translated_table_of_contents-label-table_of_contents_id-330: Нуклеотидни низи
   translated_table_of_contents-label-table_of_contents_id-331: Линиски код
   translated_table_of_contents-label-table_of_contents_id-332: Геном
-  translated_table_of_contents-label-table_of_contents_id-333: Молекуларна биологија
+  translated_table_of_contents-label-table_of_contents_id-333: >
+    Молекуларна
+    биологија
   translated_table_of_contents-label-table_of_contents_id-334: Закани
   translated_table_of_contents-label-table_of_contents_id-335: Законска регулатива
   translated_table_of_contents-label-table_of_contents_id-336: Белешки
   translated_table_of_contents-label-table_of_contents_id-337: Образование
   translated_table_of_contents-label-table_of_contents_id-338: Образовни врски
   translated_table_of_contents-label-table_of_contents_id-339: Образовни ресурси
-  translated_table_of_contents-label-table_of_contents_id-34: Коментари
-  translated_table_of_contents-label-table_of_contents_id-340: Серија „Средношколска лабораторија“
+  translated_table_of_contents-label-table_of_contents_id-33: Трендови
+  translated_table_of_contents-label-table_of_contents_id-340: >
+    Серија
+    „Средношколска
+    лабораторија“
   translated_table_of_contents-label-table_of_contents_id-341: Граѓанска наука
-  translated_table_of_contents-label-table_of_contents_id-342: Врски за граѓанска наука
-  translated_table_of_contents-label-table_of_contents_id-343: Библиотека на биоразновидносно наследство
+  translated_table_of_contents-label-table_of_contents_id-342: >
+    Врски за граѓанска
+    наука
+  translated_table_of_contents-label-table_of_contents_id-343: >
+    Библиотека на
+    биоразновидносно
+    наследство
   translated_table_of_contents-label-table_of_contents_id-344: Податоци
   translated_table_of_contents-label-table_of_contents_id-345: Извори на податоци
   translated_table_of_contents-label-table_of_contents_id-346: Биомедицински поими
   translated_table_of_contents-label-table_of_contents_id-347: Таксономија
   translated_table_of_contents-label-table_of_contents_id-348: Информации за типот
-  translated_table_of_contents-label-table_of_contents_id-4: Екологија
+  translated_table_of_contents-label-table_of_contents_id-34: Коментари
+  translated_table_of_contents-label-table_of_contents_id-3: Физички опис
   translated_table_of_contents-label-table_of_contents_id-41: Живеалиште
-  translated_table_of_contents-label-table_of_contents_id-5: Еволуција и систематика
-  translated_table_of_contents-label-table_of_contents_id-6: Релевантност на луѓето и екосистемите
-  translated_table_of_contents-label-table_of_contents_id-7: Наводи и повеќе информации
+  translated_table_of_contents-label-table_of_contents_id-4: Екологија
+  translated_table_of_contents-label-table_of_contents_id-5: >
+    Еволуција и
+    систематика
+  translated_table_of_contents-label-table_of_contents_id-6: >
+    Релевантност на
+    луѓето и екосистемите
+  translated_table_of_contents-label-table_of_contents_id-7: >
+    Наводи и повеќе
+    информации
   translated_table_of_contents-label-table_of_contents_id-8: Заштита
   translated_untrust_reasons-label-untrust_reason_id-1: погрешно препознаено
-  translated_untrust_reasons-label-untrust_reason_id-2: погрешно/наведува грешно
+  translated_untrust_reasons-label-untrust_reason_id-2: >
+    погрешно/наведува
+    грешно
   translated_untrust_reasons-label-untrust_reason_id-3: низок квалитет
   translated_untrust_reasons-label-untrust_reason_id-4: дупликат
   translated_untrust_reasons-label-untrust_reason_id-5: Друго
@@ -349,7 +475,9 @@ mk:
   translated_user_identities-label-user_identity_id-2: ученик/студент
   translated_user_identities-label-user_identity_id-3: просветен работник
   translated_user_identities-label-user_identity_id-4: граѓански научник
-  translated_user_identities-label-user_identity_id-5: професионален научник
+  translated_user_identities-label-user_identity_id-5: >
+    професионален
+    научник
   translated_vetted-label-vetted_id-0: Непознато
   translated_vetted-label-vetted_id-4: Недоверливо
   translated_vetted-label-vetted_id-5: Доверливо

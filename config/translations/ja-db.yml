@@ -1,11 +1,12 @@
 # Messages for Japanese (日本語)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Masakiyamaguchi
 # Author: Schu
 # Author: Shirayuki
 # Author: 아라
-ja: 
+---
+ja:
   translated_activities-name-activity_id-19: プロフィール
   translated_activities-name-activity_id-50: 信頼できない
   translated_activities-name-activity_id-51: 表示
@@ -19,7 +20,6 @@ ja:
   translated_activities-name-activity_id-59: 未審査
   translated_activities-name-activity_id-63: 収集
   translated_activities-name-activity_id-64: 削除
-  translated_agent_roles-label-agent_role_id-1: アニメーター
   translated_agent_roles-label-agent_role_id-10: プロジェクト
   translated_agent_roles-label-agent_role_id-11: 出版者
   translated_agent_roles-label-agent_role_id-12: 記録者
@@ -27,11 +27,12 @@ ja:
   translated_agent_roles-label-agent_role_id-14: ソースデータベース
   translated_agent_roles-label-agent_role_id-15: お問い合わせ
   translated_agent_roles-label-agent_role_id-16: 投稿者
-  translated_agent_roles-label-agent_role_id-2: 著者
+  translated_agent_roles-label-agent_role_id-1: アニメーター
   translated_agent_roles-label-agent_role_id-21: プロバイダー
   translated_agent_roles-label-agent_role_id-22: 翻訳者
   translated_agent_roles-label-agent_role_id-23: 科学レビュアー
   translated_agent_roles-label-agent_role_id-24: 言語レビュアー
+  translated_agent_roles-label-agent_role_id-2: 著者
   translated_agent_roles-label-agent_role_id-3: コンパイラ
   translated_agent_roles-label-agent_role_id-4: 構成者
   translated_agent_roles-label-agent_role_id-5: 作成者
@@ -42,7 +43,6 @@ ja:
   translated_audiences-label-audience_id-1: 熟練した利用者
   translated_audiences-label-audience_id-2: 一般公開
   translated_audiences-label-audience_id-3: 子
-  translated_collection_types-label-collection_type_id-1: 分類
   translated_collection_types-label-collection_type_id-10: 音声
   translated_collection_types-label-collection_type_id-11: リンク
   translated_collection_types-label-collection_type_id-12: 文学
@@ -53,12 +53,13 @@ ja:
   translated_collection_types-label-collection_type_id-17: ディストリビューション
   translated_collection_types-label-collection_type_id-18: 保全の状況
   translated_collection_types-label-collection_type_id-19: 名前の情報
-  translated_collection_types-label-collection_type_id-2: DNA バーコード
+  translated_collection_types-label-collection_type_id-1: 分類
   translated_collection_types-label-collection_type_id-20: 分子データ
   translated_collection_types-label-collection_type_id-21: 命名
   translated_collection_types-label-collection_type_id-22: 音声
   translated_collection_types-label-collection_type_id-23: リンク
   translated_collection_types-label-collection_type_id-24: 文学
+  translated_collection_types-label-collection_type_id-2: DNA バーコード
   translated_collection_types-label-collection_type_id-3: 説明
   translated_collection_types-label-collection_type_id-4: 画像
   translated_collection_types-label-collection_type_id-5: ディストリビューション
@@ -73,17 +74,19 @@ ja:
   translated_contact_subjects-title-contact_subject_id-25: 利用規約とライセンス
   translated_contact_subjects-title-contact_subject_id-26: 学習と教育
   translated_contact_subjects-title-contact_subject_id-27: コンテンツパートナーになる
-  translated_contact_subjects-title-contact_subject_id-28: コンテンツパートナーのサポート
+  translated_contact_subjects-title-contact_subject_id-28: >
+    コンテンツパートナーのサポート
   translated_contact_subjects-title-contact_subject_id-29: キュレーターの支援
-  translated_contact_subjects-title-contact_subject_id-31: 画像、ビデオ、それか音に貢献する。
+  translated_contact_subjects-title-contact_subject_id-31: >
+    画像、ビデオ、それか音に貢献する。
   translated_contact_subjects-title-contact_subject_id-35: 全般的なフィードバック
   translated_content_partner_statuses-label-content_partner_status_id-1: ペンディング
   translated_content_partner_statuses-label-content_partner_status_id-2: アクティブ
   translated_content_partner_statuses-label-content_partner_status_id-3: アーカイブ
   translated_content_partner_statuses-label-content_partner_status_id-4: 非アクティブ
   translated_content_tables-label-content_table_id-1: 詳細
-  translated_data_types-label-data_type_id-1: 画像
   translated_data_types-label-data_type_id-10: 地図
+  translated_data_types-label-data_type_id-1: 画像
   translated_data_types-label-data_type_id-2: 音声
   translated_data_types-label-data_type_id-3: テキスト
   translated_data_types-label-data_type_id-4: 動画
@@ -92,9 +95,8 @@ ja:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: 何の権利も保有しない
-  translated_licenses-description-license_id-2: "&#169; All rights reserved"
   translated_licenses-description-license_id-29: いくつかの権利を保有
-  translated_licenses-description-license_id-3: いくつかの権利を保有
+  translated_licenses-description-license_id-2: '&#169; All rights reserved'
   translated_licenses-description-license_id-30: いくつかの権利を保有
   translated_licenses-description-license_id-31: いくつかの権利を保有
   translated_licenses-description-license_id-32: いくつかの権利を保有
@@ -105,8 +107,9 @@ ja:
   translated_licenses-description-license_id-37: いくつかの権利を保有
   translated_licenses-description-license_id-38: いくつかの権利を保有
   translated_licenses-description-license_id-39: パブリック ドメイン
-  translated_licenses-description-license_id-4: いくつかの権利を保有
+  translated_licenses-description-license_id-3: いくつかの権利を保有
   translated_licenses-description-license_id-42: いくつかの権利を保有
+  translated_licenses-description-license_id-4: いくつかの権利を保有
   translated_licenses-description-license_id-5: いくつかの権利を保有
   translated_licenses-description-license_id-6: いくつかの権利を保有
   translated_licenses-description-license_id-7: いくつかの権利を保有
@@ -137,17 +140,17 @@ ja:
   translated_ranks-label-rank_id-463: 上科
   translated_ranks-label-rank_id-472: 上門
   translated_ranks-label-rank_id-494: 族
-  translated_ranks-label-rank_id-51: 綱
   translated_ranks-label-rank_id-517: 多様性
   translated_ranks-label-rank_id-518: 多様性
+  translated_ranks-label-rank_id-51: 綱
   translated_ranks-label-rank_id-74: 部門
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-99: 家族
-  translated_resource_statuses-label-resource_status_id-1: アップロード中
   translated_resource_statuses-label-resource_status_id-10: 公開済み
   translated_resource_statuses-label-resource_status_id-11: 公開保留
   translated_resource_statuses-label-resource_status_id-12: 非公開保留
+  translated_resource_statuses-label-resource_status_id-1: アップロード中
   translated_resource_statuses-label-resource_status_id-2: アップロード済み
   translated_resource_statuses-label-resource_status_id-3: アップロードに失敗しました
   translated_resource_statuses-label-resource_status_id-4: コンテンツサーバに移動
@@ -165,47 +168,46 @@ ja:
   translated_sort_styles-name-sort_style_id-6: 評価
   translated_statuses-label-status_id-2: 更新
   translated_statuses-label-status_id-4: 再利用
-  translated_synonym_relations-label-synonym_relation_id-1: 異名
   translated_synonym_relations-label-synonym_relation_id-10: ジェンバンクの異名
   translated_synonym_relations-label-synonym_relation_id-13: 誤った名称
   translated_synonym_relations-label-synonym_relation_id-14: スペルミス
   translated_synonym_relations-label-synonym_relation_id-17: 誤用名
-  translated_synonym_relations-label-synonym_relation_id-2: 共通名
+  translated_synonym_relations-label-synonym_relation_id-1: 異名
   translated_synonym_relations-label-synonym_relation_id-23: 誤用
   translated_synonym_relations-label-synonym_relation_id-28: 遺失名
+  translated_synonym_relations-label-synonym_relation_id-2: 共通名
   translated_synonym_relations-label-synonym_relation_id-3: 頭字語
-  translated_synonym_relations-label-synonym_relation_id-4: アナモルフ
   translated_synonym_relations-label-synonym_relation_id-42: 不明種
   translated_synonym_relations-label-synonym_relation_id-46: 異型異名
   translated_synonym_relations-label-synonym_relation_id-47: 同型異名
   translated_synonym_relations-label-synonym_relation_id-48: 使用できない名前
   translated_synonym_relations-label-synonym_relation_id-49: 有効な名前
-  translated_synonym_relations-label-synonym_relation_id-5: ブラスト名
+  translated_synonym_relations-label-synonym_relation_id-4: アナモルフ
   translated_synonym_relations-label-synonym_relation_id-50: 有効
   translated_synonym_relations-label-synonym_relation_id-52: 権威
   translated_synonym_relations-label-synonym_relation_id-56: 誤ったスペル
   translated_synonym_relations-label-synonym_relation_id-59: 異名 (objective = homotypic)
-  translated_synonym_relations-label-synonym_relation_id-6: 等価な名前
+  translated_synonym_relations-label-synonym_relation_id-5: ブラスト名
   translated_synonym_relations-label-synonym_relation_id-60: 異名 (subjective = heterotypic)
   translated_synonym_relations-label-synonym_relation_id-61: 客観シノニム
   translated_synonym_relations-label-synonym_relation_id-64: 無効
+  translated_synonym_relations-label-synonym_relation_id-6: 等価な名前
   translated_synonym_relations-label-synonym_relation_id-7: ジェンバンクの頭字語
   translated_synonym_relations-label-synonym_relation_id-8: ジェンバンクのアナモルフ
   translated_synonym_relations-label-synonym_relation_id-9: ジェンバンクの一般名
-  translated_table_of_contents-label-table_of_contents_id-1: 概要
   translated_table_of_contents-label-table_of_contents_id-13: 一般名
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: 参考文献
   translated_table_of_contents-label-table_of_contents_id-194: サイズ
-  translated_table_of_contents-label-table_of_contents_id-2: 簡単なまとめ
+  translated_table_of_contents-label-table_of_contents_id-1: 概要
   translated_table_of_contents-label-table_of_contents_id-218: 分散
   translated_table_of_contents-label-table_of_contents_id-221: リスク
   translated_table_of_contents-label-table_of_contents_id-225: ウェブ上
   translated_table_of_contents-label-table_of_contents_id-226: コンテンツパートナー
   translated_table_of_contents-label-table_of_contents_id-227: ウェブを検索
-  translated_table_of_contents-label-table_of_contents_id-24: 解説
   translated_table_of_contents-label-table_of_contents_id-242: 一般的な生態
   translated_table_of_contents-label-table_of_contents_id-244: 文献目録
+  translated_table_of_contents-label-table_of_contents_id-24: 解説
   translated_table_of_contents-label-table_of_contents_id-251: メリット
   translated_table_of_contents-label-table_of_contents_id-267: 形態
   translated_table_of_contents-label-table_of_contents_id-278: 文献目録
@@ -216,7 +218,7 @@ ja:
   translated_table_of_contents-label-table_of_contents_id-296: 管理
   translated_table_of_contents-label-table_of_contents_id-297: 栄養戦略
   translated_table_of_contents-label-table_of_contents_id-299: 教育
-  translated_table_of_contents-label-table_of_contents_id-3: 物理的な説明
+  translated_table_of_contents-label-table_of_contents_id-2: 簡単なまとめ
   translated_table_of_contents-label-table_of_contents_id-300: ウィキペディア
   translated_table_of_contents-label-table_of_contents_id-303: 名前と分類
   translated_table_of_contents-label-table_of_contents_id-304: 関連名
@@ -245,7 +247,6 @@ ja:
   translated_table_of_contents-label-table_of_contents_id-327: 生理学
   translated_table_of_contents-label-table_of_contents_id-328: 細胞生物学
   translated_table_of_contents-label-table_of_contents_id-329: 遺伝学
-  translated_table_of_contents-label-table_of_contents_id-33: トレンド
   translated_table_of_contents-label-table_of_contents_id-330: 塩基配列
   translated_table_of_contents-label-table_of_contents_id-331: バーコード
   translated_table_of_contents-label-table_of_contents_id-332: ゲノム
@@ -256,18 +257,21 @@ ja:
   translated_table_of_contents-label-table_of_contents_id-337: 教育
   translated_table_of_contents-label-table_of_contents_id-338: 教育リンク
   translated_table_of_contents-label-table_of_contents_id-339: 教育リソース
-  translated_table_of_contents-label-table_of_contents_id-34: コメント
+  translated_table_of_contents-label-table_of_contents_id-33: トレンド
   translated_table_of_contents-label-table_of_contents_id-340: ハイスクール ラボ シリーズ
   translated_table_of_contents-label-table_of_contents_id-341: 市民科学
   translated_table_of_contents-label-table_of_contents_id-342: 市民の科学へのリンク
-  translated_table_of_contents-label-table_of_contents_id-343: 生物多様性の文化遺産ライブラリ
+  translated_table_of_contents-label-table_of_contents_id-343: >
+    生物多様性の文化遺産ライブラリ
   translated_table_of_contents-label-table_of_contents_id-344: データ
   translated_table_of_contents-label-table_of_contents_id-345: データ ソース
   translated_table_of_contents-label-table_of_contents_id-346: 生物医学用語
   translated_table_of_contents-label-table_of_contents_id-347: 分類
   translated_table_of_contents-label-table_of_contents_id-348: タイプ情報
-  translated_table_of_contents-label-table_of_contents_id-4: 生態学
+  translated_table_of_contents-label-table_of_contents_id-34: コメント
+  translated_table_of_contents-label-table_of_contents_id-3: 物理的な説明
   translated_table_of_contents-label-table_of_contents_id-41: 生息地
+  translated_table_of_contents-label-table_of_contents_id-4: 生態学
   translated_table_of_contents-label-table_of_contents_id-5: 進化と系統
   translated_table_of_contents-label-table_of_contents_id-6: 人間と生態系との関連性
   translated_table_of_contents-label-table_of_contents_id-7: 参考文献および詳細情報

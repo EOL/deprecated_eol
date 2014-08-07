@@ -110,6 +110,7 @@ end
 def urls_for_object(object)
   # eol.org is hardcoded as the host in the library. I couldn't figure out a nice way
   # to get the current host from within a library or rake task
+  # TODO - fix this. ...Probably by UN-hard-coding the eol.org bit.  :)
   urls = []
   if object.class == ContentPage
     urls << EOL::URLHelper.get_url('cms_page_url', object.page_name, host: 'eol.org')

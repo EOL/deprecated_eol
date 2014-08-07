@@ -78,7 +78,7 @@ describe 'Home page' do
   describe 'check Donate link' do
     before (:all) do
       @temp = [
-	Rails.configuration.use_secure_acceptance,
+        Rails.configuration.use_secure_acceptance,
         Rails.configuration.donate_header_url,
         Rails.configuration.donate_footer_url
       ]
@@ -167,4 +167,3 @@ describe 'Home page' do
   it 'should show recent updates'
 
 end
-

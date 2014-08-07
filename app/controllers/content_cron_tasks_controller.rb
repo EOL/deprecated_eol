@@ -17,7 +17,7 @@ class ContentCronTasksController < ApplicationController
   def submit_flickr_comments
     params[:hours] ||= 24
     params[:dont_send] ||= false
-    @flickr_api = FlickrApi.new(api_key: FLICKR_API_KEY, secret: FLICKR_SECRET, auth_token: FLICKR_TOKEN)
+    @flickr_api = FlickrApi.new(api_key: $FLICKR_API_KEY, secret: $FLICKR_SECRET, auth_token: $FLICKR_TOKEN)
     comments = RecentContentCollector::flickr_comments(params[:hours])
     all_text = ""
     comments.each do |c|
@@ -38,7 +38,7 @@ class ContentCronTasksController < ApplicationController
   def submit_flickr_curator_actions
     params[:hours] ||= 24
     params[:dont_send] ||= false
-    @flickr_api = FlickrApi.new(api_key: FLICKR_API_KEY, secret: FLICKR_SECRET, auth_token: FLICKR_TOKEN)
+    @flickr_api = FlickrApi.new(api_key: $FLICKR_API_KEY, secret: $FLICKR_SECRET, auth_token: $FLICKR_TOKEN)
     curator_activity_logs = RecentContentCollector::flickr_curator_actions(params[:hours])
     all_text = ""
     curator_activity_logs.each do |ah|

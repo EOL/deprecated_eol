@@ -14,16 +14,11 @@ describe 'FlickrApi' do
     @now = Time.now.to_i
     # http://www.flickr.com/photos/encyclopediaoflife/5416503569/ - a photo I use for testing for EOL
     @photo_id = 5416503569
-    if defined? FLICKR_API_KEY && defined? FLICKR_TOKEN
-      @flickr_api = FlickrApi.new(api_key: FLICKR_API_KEY,
-                                  secret: FLICKR_SECRET,
-                                  auth_frob: FLICKR_FROB,
-                                  auth_token: FLICKR_TOKEN)
-      sleep 1
-    else
-      puts "** WARNING: YOU MUST DEFINE FLICKR_API_KEY (maybe you didn't checkout eol_private)"
-      puts "All but one of the following Flickr tests will fail until FLICKR_API_KEY is defined"
-    end
+    @flickr_api = FlickrApi.new(api_key: $FLICKR_API_KEY,
+                                secret: $FLICKR_SECRET,
+                                auth_frob: $FLICKR_FROB,
+                                auth_token: $FLICKR_TOKEN)
+    sleep 1
     @responses = @flickr_api.mock_data(@photo_id, @now) # URLs are only known to the API.  This helps. It's
     # confusing, though, in order to make the code easier to write.  This returns a hash.  The keys are descriptions
     # of which response it contains.  The value is an array: the first member of the array is the URL to expect, and
@@ -33,7 +28,7 @@ describe 'FlickrApi' do
   it 'should create a login url' do
     url = @flickr_api.login_url
     url.should match(FlickrApi::AUTH_API_PREFIX)
-    url.should match('api_key=' + FLICKR_API_KEY)
+    url.should match('api_key=' + $FLICKR_API_KEY)
     url.should match('format=json')
     url.should match('nojsoncallback=1')
     url.should match('perms=write')
@@ -43,7 +38,7 @@ describe 'FlickrApi' do
     set_net_http_expectation(:echo)
     rsp = @flickr_api.test_echo
     rsp['stat'].should == 'ok'
-    rsp['api_key']['_content'].should == FLICKR_API_KEY
+    rsp['api_key']['_content'].should == $FLICKR_API_KEY
     rsp['format']['_content'].should == 'json'
     rsp['nojsoncallback']['_content'].should == '1'
     rsp['method']['_content'].should == 'flickr.test.echo'
@@ -71,9 +66,9 @@ describe 'FlickrApi' do
 
   it 'global token should be valid' do
     set_net_http_expectation(:token)
-    rsp = @flickr_api.auth_check_token(FLICKR_TOKEN)
+    rsp = @flickr_api.auth_check_token($FLICKR_TOKEN)
     rsp['stat'].should == 'ok'
-    rsp['auth']['token']['_content'].should == FLICKR_TOKEN
+    rsp['auth']['token']['_content'].should == $FLICKR_TOKEN
     ['write', 'delete'].include?(rsp['auth']['perms']['_content']).should == true
   end
 

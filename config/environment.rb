@@ -13,3 +13,22 @@ Rails.configuration.donate_footer_url = nil
 InitializerAdditions.add("environment_eol_org")
 InitializerAdditions.add("environments/local")
 Eol::Application.initialize!
+
+# TODO - Set defaults for some horrible global variables that really
+# needed to get cleaned up.  Currently most get overriden in appropriate
+# environment files, but we need defaults to get tests working without
+# getting the eol-private stuff.                                                                                                                                                                                              
+
+$DEFAULT_EMAIL_ADDRESS = "noreply@eol.org"
+$SPECIES_PAGES_GROUP_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS
+$SUPPORT_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS
+$ERROR_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS
+$EDUCATION_EMAIL = $DEFAULT_EMAIL_ADDRESS
+$NO_REPLY_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS
+
+INATURALIST_COLLECTION_API_PREFIX = "http://dmzikit3p627x.cloudfront.net/projects.json"
+$FLICKR_API_KEY = 'cafecafecafecafecafecafecafecafe'
+$FLICKR_USER_ID = '12345678@A12'
+$FLICKR_SECRET = 'cafecafecafecafe'
+$FLICKR_FROB = '12345678901234567-cafecafecafecafe-12345678'
+$FLICKR_TOKEN = '12345678901234567-cafecafecafecafe'

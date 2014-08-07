@@ -29,19 +29,19 @@ class FlickrApi
     photo_params = {:photo_id => photo_id, :secret => @secret, :auth_token => @auth_token}
     responses = {
       :echo => [
-        generate_rest_url("flickr.test.echo"), %q{
+        generate_rest_url("flickr.test.echo"), %Q{
           {"format":{"_content":"json"}, "nojsoncallback":{"_content":"1"}, "method":{"_content":"flickr.test.echo"},
-            "api_key":{"_content":"411d84deb7f21f6beefc457739a9ea7e"},
-            "api_sig":{"_content":"60d704f0f32a41d98dde49e83e4a4b1c"}, "stat":"ok"}
+            "api_key":{"_content":"#{$FLICKR_API_KEY}"},
+            "api_sig":{"_content":""}, "stat":"ok"}
         },
       ], :frob => [
-        generate_rest_url("flickr.auth.getFrob"), %q{
-          {"frob":{"_content":"72157627125425016-afa2161874ed482f-804958"}, "stat":"ok"}
+        generate_rest_url("flickr.auth.getFrob"), %Q{
+          {"frob":{"_content":"#{$FLICKR_FROB}"}, "stat":"ok"}
         },
       ], :token => [
-        generate_rest_url("flickr.auth.checkToken", {:auth_token => FLICKR_TOKEN}), %q{
-          {"auth":{"token":{"_content":"72157625851185347-aa40453df976c38c"}, "perms":{"_content":"write"},
-            "user":{"nsid":"59129167@N06", "username":"EncyclopediaOfLife", "fullname":""}}, "stat":"ok"}
+        generate_rest_url("flickr.auth.checkToken", {:auth_token => $FLICKR_TOKEN}), %Q{
+          {"auth":{"token":{"_content":"#{$FLICKR_TOKEN}"}, "perms":{"_content":"write"},
+            "user":{"nsid":"#{$FLICKR_USER_ID}", "username":"EncyclopediaOfLife", "fullname":""}}, "stat":"ok"}
         },
       ], :info => [
         generate_rest_url("flickr.photos.getInfo", photo_params), %q{

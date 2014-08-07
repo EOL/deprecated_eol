@@ -23,6 +23,7 @@
     - elsif glossary_permalink
       %li= link_to I18n.t(:link_to_this_term), data_glossary_url(anchor: known_uri.anchor), class: :glossary,
         data: { anchor: known_uri.anchor }
+    -# TODO - we shouldn't be calling this class method here:
     - if search_link && EOL::Sparql.connection.all_measurement_type_uris.include?(known_uri.uri)
       %li= link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: known_uri.uri, sort: 'desc')
     - if current_user.is_admin? && ! known_uri.new_record?

@@ -68,11 +68,58 @@ describe 'Home page' do
     end
   end
 
-  it "should have 'Help', 'What is EOL?', 'EOL News', 'Donate' links" do
+  it "should have 'Help', 'What is EOL?', 'EOL News' links" do
     visit('/')
-    ['Help', 'What is EOL?', 'EOL News', 'Donate'].each do |link|
+    ['Help', 'What is EOL?', 'EOL News'].each do |link|
       body.should include(link)
     end
+  end
+
+  describe 'check Donate link' do
+    before (:all) do
+      @temp = [
+	Rails.configuration.use_secure_acceptance,
+        Rails.configuration.donate_header_url,
+        Rails.configuration.donate_footer_url
+      ]
+    end
+
+    after do
+      Rails.configuration.use_secure_acceptance,
+        Rails.configuration.donate_header_url, \
+        Rails.configuration.donate_footer_url = @temp
+    end
+
+    context 'when donate URL is configured' do
+
+      before do
+        Rails.configuration.use_secure_acceptance = true
+        Rails.configuration.donate_header_url = \
+          Rails.configuration.donate_footer_url = 'http://example.com'
+      end
+
+      it "should have 'Donate' link " do
+        visit('/')
+        body.should include('Donate')
+      end
+
+    end
+
+    context 'when donate URL is NOT configured' do
+
+      before do
+        Rails.configuration.use_secure_acceptance = false
+        Rails.configuration.donate_header_url = \
+          Rails.configuration.donate_footer_url = nil
+      end
+
+      it "should not have 'Donate' link" do
+        visit('/')
+        body.should_not include('Donate')
+      end
+
+    end
+
   end
 
   it "should links to social media sites" do

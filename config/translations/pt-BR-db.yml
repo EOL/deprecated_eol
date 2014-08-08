@@ -1,6 +1,6 @@
 # Messages for Brazilian Portuguese (português do Brasil)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: Bluemamelati
 # Author: Danielsouzat
 # Author: Giro720
@@ -9,8 +9,7 @@
 # Author: Luckas Blade
 # Author: Luigipiccoli
 # Author: Pedroca cerebral
----
-pt-BR:
+pt-BR: 
   translated_activities-name-activity_id-19: perfil
   translated_activities-name-activity_id-50: não confiável
   translated_activities-name-activity_id-51: exibir
@@ -24,6 +23,7 @@ pt-BR:
   translated_activities-name-activity_id-59: não revisto
   translated_activities-name-activity_id-63: coletar
   translated_activities-name-activity_id-64: remover
+  translated_agent_roles-label-agent_role_id-1: Animador
   translated_agent_roles-label-agent_role_id-10: Projeto
   translated_agent_roles-label-agent_role_id-11: Editora
   translated_agent_roles-label-agent_role_id-12: Gravador
@@ -31,12 +31,11 @@ pt-BR:
   translated_agent_roles-label-agent_role_id-14: Banco de dados de origem
   translated_agent_roles-label-agent_role_id-15: Contato
   translated_agent_roles-label-agent_role_id-16: Colaborador
-  translated_agent_roles-label-agent_role_id-1: Animador
+  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-21: fornecedor
   translated_agent_roles-label-agent_role_id-22: Tradutor
   translated_agent_roles-label-agent_role_id-23: Revisor científico
   translated_agent_roles-label-agent_role_id-24: Revisor linguístico
-  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-3: Compilador
   translated_agent_roles-label-agent_role_id-4: Compositor
   translated_agent_roles-label-agent_role_id-5: Criador
@@ -47,6 +46,7 @@ pt-BR:
   translated_audiences-label-audience_id-1: Usuários experientes
   translated_audiences-label-audience_id-2: Público em geral
   translated_audiences-label-audience_id-3: Crianças
+  translated_collection_types-label-collection_type_id-1: Taxonomia
   translated_collection_types-label-collection_type_id-10: Sons
   translated_collection_types-label-collection_type_id-11: Links
   translated_collection_types-label-collection_type_id-12: Literatura
@@ -57,13 +57,12 @@ pt-BR:
   translated_collection_types-label-collection_type_id-17: Distribuição
   translated_collection_types-label-collection_type_id-18: Estado de conservação
   translated_collection_types-label-collection_type_id-19: Informações do nome
-  translated_collection_types-label-collection_type_id-1: Taxonomia
+  translated_collection_types-label-collection_type_id-2: Códigos de barras moleculares
   translated_collection_types-label-collection_type_id-20: Dados moleculares
   translated_collection_types-label-collection_type_id-21: Nomenclatura
   translated_collection_types-label-collection_type_id-22: Sons
   translated_collection_types-label-collection_type_id-23: Links
   translated_collection_types-label-collection_type_id-24: Literatura
-  translated_collection_types-label-collection_type_id-2: Códigos de barras moleculares
   translated_collection_types-label-collection_type_id-3: Descrição
   translated_collection_types-label-collection_type_id-4: Imagens
   translated_collection_types-label-collection_type_id-5: Distribuição
@@ -80,26 +79,19 @@ pt-BR:
   translated_contact_subjects-title-contact_subject_id-27: Tornar-se um parceiro de conteúdo
   translated_contact_subjects-title-contact_subject_id-28: Apoio do parceiro de conteúdo
   translated_contact_subjects-title-contact_subject_id-29: Apoio de curador
-  translated_contact_subjects-title-contact_subject_id-30: >
-    Faça uma correção (ortografia e
-    gramática, imagens, informação)
+  translated_contact_subjects-title-contact_subject_id-30: Faça uma correção (ortografia e gramática, imagens, informação)
   translated_contact_subjects-title-contact_subject_id-31: Contribua com imagens, vídeos ou sons
-  translated_contact_subjects-title-contact_subject_id-32: >
-    Solicitação de média (entrevistas,
-    questões da imprensa, pedidos de
-    logótipo)
+  translated_contact_subjects-title-contact_subject_id-32: Solicitação de média (entrevistas, questões da imprensa, pedidos de logótipo)
   translated_contact_subjects-title-contact_subject_id-33: Faça uma doação monetária
-  translated_contact_subjects-title-contact_subject_id-34: >
-    Questões técnicas (problemas com
-    busca, funcionalidade do site)
+  translated_contact_subjects-title-contact_subject_id-34: Questões técnicas (problemas com busca, funcionalidade do site)
   translated_contact_subjects-title-contact_subject_id-35: Comentários gerais
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendente
   translated_content_partner_statuses-label-content_partner_status_id-2: Ativo
   translated_content_partner_statuses-label-content_partner_status_id-3: Arquivado
   translated_content_partner_statuses-label-content_partner_status_id-4: Inativo
   translated_content_tables-label-content_table_id-1: Detalhes
-  translated_data_types-label-data_type_id-10: Mapa
   translated_data_types-label-data_type_id-1: Imagem
+  translated_data_types-label-data_type_id-10: Mapa
   translated_data_types-label-data_type_id-2: Som
   translated_data_types-label-data_type_id-3: Texto
   translated_data_types-label-data_type_id-4: Vídeo
@@ -108,8 +100,9 @@ pt-BR:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Sem direitos reservados
+  translated_licenses-description-license_id-2: "&#169; Todos os direitos reservados"
   translated_licenses-description-license_id-29: Alguns direitos reservados
-  translated_licenses-description-license_id-2: '&#169; Todos os direitos reservados'
+  translated_licenses-description-license_id-3: Alguns direitos reservados
   translated_licenses-description-license_id-30: Alguns direitos reservados
   translated_licenses-description-license_id-31: Alguns direitos reservados
   translated_licenses-description-license_id-32: Alguns direitos reservados
@@ -120,10 +113,9 @@ pt-BR:
   translated_licenses-description-license_id-37: Alguns direitos reservados
   translated_licenses-description-license_id-38: Alguns direitos reservados
   translated_licenses-description-license_id-39: Domínio público
-  translated_licenses-description-license_id-3: Alguns direitos reservados
+  translated_licenses-description-license_id-4: Alguns direitos reservados
   translated_licenses-description-license_id-42: Alguns direitos reservados
   translated_licenses-description-license_id-43: Licença não aplicável
-  translated_licenses-description-license_id-4: Alguns direitos reservados
   translated_licenses-description-license_id-5: Alguns direitos reservados
   translated_licenses-description-license_id-6: Alguns direitos reservados
   translated_licenses-description-license_id-7: Alguns direitos reservados
@@ -166,11 +158,11 @@ pt-BR:
   translated_ranks-label-rank_id-472: superfilo
   translated_ranks-label-rank_id-494: tribo
   translated_ranks-label-rank_id-503: sem classificação
+  translated_ranks-label-rank_id-51: classe
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: variedade
   translated_ranks-label-rank_id-518: variedade
-  translated_ranks-label-rank_id-51: classe
   translated_ranks-label-rank_id-562: notogênero
   translated_ranks-label-rank_id-563: notoespécie
   translated_ranks-label-rank_id-564: notosubespécie
@@ -181,11 +173,11 @@ pt-BR:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: família
+  translated_resource_statuses-label-resource_status_id-1: Enviando
   translated_resource_statuses-label-resource_status_id-10: Publicado
   translated_resource_statuses-label-resource_status_id-11: Publicação pendente
   translated_resource_statuses-label-resource_status_id-12: Anular a publicação pendente
   translated_resource_statuses-label-resource_status_id-13: Forçar Colheita
-  translated_resource_statuses-label-resource_status_id-1: Enviando
   translated_resource_statuses-label-resource_status_id-2: Enviado
   translated_resource_statuses-label-resource_status_id-3: O upload falhou
   translated_resource_statuses-label-resource_status_id-4: Mudou-se para o servidor de conteúdo
@@ -206,6 +198,7 @@ pt-BR:
   translated_statuses-label-status_id-2: Atualizado
   translated_statuses-label-status_id-3: Inalterado
   translated_statuses-label-status_id-4: Reutilizado
+  translated_synonym_relations-label-synonym_relation_id-1: sinônimo
   translated_synonym_relations-label-synonym_relation_id-10: sinônimo genbank
   translated_synonym_relations-label-synonym_relation_id-11: em parte
   translated_synonym_relations-label-synonym_relation_id-12: inclui
@@ -216,12 +209,10 @@ pt-BR:
   translated_synonym_relations-label-synonym_relation_id-17: nome mal aplicado
   translated_synonym_relations-label-synonym_relation_id-18: nome aceito provisoriamente
   translated_synonym_relations-label-synonym_relation_id-19: nome aceito
-  translated_synonym_relations-label-synonym_relation_id-1: sinônimo
+  translated_synonym_relations-label-synonym_relation_id-2: nome comum
   translated_synonym_relations-label-synonym_relation_id-20: artefato do banco de dados
   translated_synonym_relations-label-synonym_relation_id-21: outros, ver comentários
-  translated_synonym_relations-label-synonym_relation_id-22: >
-    variante ortográfica (erro
-    ortográfico)
+  translated_synonym_relations-label-synonym_relation_id-22: variante ortográfica (erro ortográfico)
   translated_synonym_relations-label-synonym_relation_id-23: mal aplicado
   translated_synonym_relations-label-synonym_relation_id-24: nome rejeitado
   translated_synonym_relations-label-synonym_relation_id-25: homônimo (ilegítimo)
@@ -229,22 +220,18 @@ pt-BR:
   translated_synonym_relations-label-synonym_relation_id-27: mudança de nome supérflua (ilegítima)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: sinônimo júnior
-  translated_synonym_relations-label-synonym_relation_id-2: nome comum
+  translated_synonym_relations-label-synonym_relation_id-3: acrônimo
   translated_synonym_relations-label-synonym_relation_id-30: indisponível, artefato da base de dados
   translated_synonym_relations-label-synonym_relation_id-31: substituição desnecessária
   translated_synonym_relations-label-synonym_relation_id-32: nome/combinação subsequente
-  translated_synonym_relations-label-synonym_relation_id-33: >
-    indisponível, erro ortográfico na
-    literatura
+  translated_synonym_relations-label-synonym_relation_id-33: indisponível, erro ortográfico na literatura
   translated_synonym_relations-label-synonym_relation_id-34: nome/combinação original
-  translated_synonym_relations-label-synonym_relation_id-35: >
-    não disponível, ortografia original
-    incorreta
+  translated_synonym_relations-label-synonym_relation_id-35: não disponível, ortografia original incorreta
   translated_synonym_relations-label-synonym_relation_id-36: homônimo júnior
   translated_synonym_relations-label-synonym_relation_id-37: homônimo e sinônimo júnior
   translated_synonym_relations-label-synonym_relation_id-38: indisponível, suprimida por decisão
   translated_synonym_relations-label-synonym_relation_id-39: emenda injustificada
-  translated_synonym_relations-label-synonym_relation_id-3: acrônimo
+  translated_synonym_relations-label-synonym_relation_id-4: anamorfo
   translated_synonym_relations-label-synonym_relation_id-40: indisponível, outro
   translated_synonym_relations-label-synonym_relation_id-41: indisponível, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
@@ -255,7 +242,7 @@ pt-BR:
   translated_synonym_relations-label-synonym_relation_id-47: sinônimo homotípico
   translated_synonym_relations-label-synonym_relation_id-48: nome indisponível
   translated_synonym_relations-label-synonym_relation_id-49: nome válido
-  translated_synonym_relations-label-synonym_relation_id-4: anamorfo
+  translated_synonym_relations-label-synonym_relation_id-5: nome blast
   translated_synonym_relations-label-synonym_relation_id-50: válido
   translated_synonym_relations-label-synonym_relation_id-51: aceito
   translated_synonym_relations-label-synonym_relation_id-52: autoridade
@@ -266,7 +253,7 @@ pt-BR:
   translated_synonym_relations-label-synonym_relation_id-57: grafia alternativa
   translated_synonym_relations-label-synonym_relation_id-58: variante lexical
   translated_synonym_relations-label-synonym_relation_id-59: sinônimo (objetivo = homotípico)
-  translated_synonym_relations-label-synonym_relation_id-5: nome blast
+  translated_synonym_relations-label-synonym_relation_id-6: nome equivalente
   translated_synonym_relations-label-synonym_relation_id-60: sinônimo (subjetivo = heterotípico)
   translated_synonym_relations-label-synonym_relation_id-61: sinônimo objetivo
   translated_synonym_relations-label-synonym_relation_id-62: sinônimo sénior
@@ -276,23 +263,23 @@ pt-BR:
   translated_synonym_relations-label-synonym_relation_id-66: representação alternativa
   translated_synonym_relations-label-synonym_relation_id-67: espécie inquirenda
   translated_synonym_relations-label-synonym_relation_id-68: hortícola
-  translated_synonym_relations-label-synonym_relation_id-6: nome equivalente
   translated_synonym_relations-label-synonym_relation_id-7: acrônimo do GenBank
   translated_synonym_relations-label-synonym_relation_id-8: anamorfo do genbank
   translated_synonym_relations-label-synonym_relation_id-9: nome comum genbank
+  translated_table_of_contents-label-table_of_contents_id-1: Visão geral
   translated_table_of_contents-label-table_of_contents_id-13: Nomes Comuns
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Referências Bibliográficas
   translated_table_of_contents-label-table_of_contents_id-194: Tamanho
-  translated_table_of_contents-label-table_of_contents_id-1: Visão geral
+  translated_table_of_contents-label-table_of_contents_id-2: Breve Resumo
   translated_table_of_contents-label-table_of_contents_id-218: Dispersão
   translated_table_of_contents-label-table_of_contents_id-221: Riscos
   translated_table_of_contents-label-table_of_contents_id-225: Na Web
   translated_table_of_contents-label-table_of_contents_id-226: Parceiros de Conteúdo
   translated_table_of_contents-label-table_of_contents_id-227: Pesquisar na Web
+  translated_table_of_contents-label-table_of_contents_id-24: Comentário
   translated_table_of_contents-label-table_of_contents_id-242: Ecologia Geral
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografias
-  translated_table_of_contents-label-table_of_contents_id-24: Comentário
   translated_table_of_contents-label-table_of_contents_id-251: Benefícios
   translated_table_of_contents-label-table_of_contents_id-267: Morfologia
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografia
@@ -304,7 +291,7 @@ pt-BR:
   translated_table_of_contents-label-table_of_contents_id-296: Gerenciamento
   translated_table_of_contents-label-table_of_contents_id-297: Estratégia Trófica
   translated_table_of_contents-label-table_of_contents_id-299: Educação
-  translated_table_of_contents-label-table_of_contents_id-2: Breve Resumo
+  translated_table_of_contents-label-table_of_contents_id-3: Descrição Física
   translated_table_of_contents-label-table_of_contents_id-300: Wikipédia
   translated_table_of_contents-label-table_of_contents_id-303: Nomes e Taxonomia
   translated_table_of_contents-label-table_of_contents_id-304: Nomes Relacionados
@@ -333,6 +320,7 @@ pt-BR:
   translated_table_of_contents-label-table_of_contents_id-327: Fisiologia
   translated_table_of_contents-label-table_of_contents_id-328: Biologia Celular
   translated_table_of_contents-label-table_of_contents_id-329: Genética
+  translated_table_of_contents-label-table_of_contents_id-33: Tendências
   translated_table_of_contents-label-table_of_contents_id-330: Sequências de Nucleotídeos
   translated_table_of_contents-label-table_of_contents_id-331: Código de barras
   translated_table_of_contents-label-table_of_contents_id-332: Genoma
@@ -343,28 +331,20 @@ pt-BR:
   translated_table_of_contents-label-table_of_contents_id-337: Educação
   translated_table_of_contents-label-table_of_contents_id-338: Ligações de Educação
   translated_table_of_contents-label-table_of_contents_id-339: Recursos Educativos
-  translated_table_of_contents-label-table_of_contents_id-33: Tendências
-  translated_table_of_contents-label-table_of_contents_id-340: >
-    Série de Laboratório de Escola
-    Secundária
+  translated_table_of_contents-label-table_of_contents_id-34: Comentários
+  translated_table_of_contents-label-table_of_contents_id-340: Série de Laboratório de Escola Secundária
   translated_table_of_contents-label-table_of_contents_id-341: Ciência do Cidadão
   translated_table_of_contents-label-table_of_contents_id-342: Links de Ciência do Cidadão
-  translated_table_of_contents-label-table_of_contents_id-343: >
-    Biblioteca de Patrimônio da
-    Biodiversidade
+  translated_table_of_contents-label-table_of_contents_id-343: Biblioteca de Patrimônio da Biodiversidade
   translated_table_of_contents-label-table_of_contents_id-344: Dados
   translated_table_of_contents-label-table_of_contents_id-345: Fontes de Dados
   translated_table_of_contents-label-table_of_contents_id-346: Termos Biomédicos
   translated_table_of_contents-label-table_of_contents_id-347: Taxonomia
   translated_table_of_contents-label-table_of_contents_id-348: Informações do tipo
-  translated_table_of_contents-label-table_of_contents_id-34: Comentários
-  translated_table_of_contents-label-table_of_contents_id-3: Descrição Física
-  translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-4: Ecologia
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-5: Evolução e Sistemática
-  translated_table_of_contents-label-table_of_contents_id-6: >
-    Relevância para os Seres Humanos e
-    Ecossistemas
+  translated_table_of_contents-label-table_of_contents_id-6: Relevância para os Seres Humanos e Ecossistemas
   translated_table_of_contents-label-table_of_contents_id-7: Referências e Mais Informações
   translated_table_of_contents-label-table_of_contents_id-8: Conservação
   translated_untrust_reasons-label-untrust_reason_id-1: mal identificado

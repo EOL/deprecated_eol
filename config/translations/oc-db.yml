@@ -1,9 +1,8 @@
 # Messages for Occitan (occitan)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: Cedric31
----
-oc:
+oc: 
   translated_activities-name-activity_id-19: perfil
   translated_activities-name-activity_id-50: pas fisable
   translated_activities-name-activity_id-51: afichar
@@ -17,6 +16,7 @@ oc:
   translated_activities-name-activity_id-59: pas supervisat
   translated_activities-name-activity_id-63: reculhir
   translated_activities-name-activity_id-64: suprimir
+  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Projècte
   translated_agent_roles-label-agent_role_id-11: Editor
   translated_agent_roles-label-agent_role_id-12: Enregistrador
@@ -24,12 +24,11 @@ oc:
   translated_agent_roles-label-agent_role_id-14: Banca de donadas font
   translated_agent_roles-label-agent_role_id-15: Punt de contacte
   translated_agent_roles-label-agent_role_id-16: Contributor
-  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-21: Provesidor
   translated_agent_roles-label-agent_role_id-22: Traductor
   translated_agent_roles-label-agent_role_id-23: Relector scientific
   translated_agent_roles-label-agent_role_id-24: Relector lingüistic
-  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-3: Assemblador
   translated_agent_roles-label-agent_role_id-4: Ordenaire
   translated_agent_roles-label-agent_role_id-5: Creator
@@ -40,6 +39,7 @@ oc:
   translated_audiences-label-audience_id-1: Expèrts
   translated_audiences-label-audience_id-2: Grand Public
   translated_audiences-label-audience_id-3: Enfants
+  translated_collection_types-label-collection_type_id-1: Taxinomia
   translated_collection_types-label-collection_type_id-10: Enregistraments sonòrs
   translated_collection_types-label-collection_type_id-11: Ligams
   translated_collection_types-label-collection_type_id-12: Literatura
@@ -50,13 +50,12 @@ oc:
   translated_collection_types-label-collection_type_id-17: Reparticion
   translated_collection_types-label-collection_type_id-18: Estat de conservacion
   translated_collection_types-label-collection_type_id-19: Informacion sul nom
-  translated_collection_types-label-collection_type_id-1: Taxinomia
+  translated_collection_types-label-collection_type_id-2: Còdes barras moleculars
   translated_collection_types-label-collection_type_id-20: Donadas molecularas
   translated_collection_types-label-collection_type_id-21: Nomenclatura
   translated_collection_types-label-collection_type_id-22: Enregistraments sonòrs
   translated_collection_types-label-collection_type_id-23: Ligams
   translated_collection_types-label-collection_type_id-24: Literatura
-  translated_collection_types-label-collection_type_id-2: Còdes barras moleculars
   translated_collection_types-label-collection_type_id-3: Descripcion
   translated_collection_types-label-collection_type_id-4: Imatges
   translated_collection_types-label-collection_type_id-5: Reparticion
@@ -73,26 +72,19 @@ oc:
   translated_contact_subjects-title-contact_subject_id-27: Venètz un partenari de contengut
   translated_contact_subjects-title-contact_subject_id-28: Sosten dels partenaris de contengut
   translated_contact_subjects-title-contact_subject_id-29: Sosten dels conservators
-  translated_contact_subjects-title-contact_subject_id-30: >
-    Far una correccion (ortografia e
-    gramatica, imatges, informacions)
-  translated_contact_subjects-title-contact_subject_id-31: "Contribuir amb d'imatges, de vidèos o de sons"
-  translated_contact_subjects-title-contact_subject_id-32: >
-    Demandas de mèdias (entrevistas,
-    requèstas de premsa, demandas
-    d’imatges de marca)
+  translated_contact_subjects-title-contact_subject_id-30: Far una correccion (ortografia e gramatica, imatges, informacions)
+  translated_contact_subjects-title-contact_subject_id-31: Contribuir amb d'imatges, de vidèos o de sons
+  translated_contact_subjects-title-contact_subject_id-32: Demandas de mèdias (entrevistas, requèstas de premsa, demandas d’imatges de marca)
   translated_contact_subjects-title-contact_subject_id-33: Far un don financièr
-  translated_contact_subjects-title-contact_subject_id-34: >
-    Questions tecnicas (problèmas de
-    recèrca, foncionament del site web)
+  translated_contact_subjects-title-contact_subject_id-34: Questions tecnicas (problèmas de recèrca, foncionament del site web)
   translated_contact_subjects-title-contact_subject_id-35: Comentaris generals
   translated_content_partner_statuses-label-content_partner_status_id-1: En espèra
   translated_content_partner_statuses-label-content_partner_status_id-2: Actiu
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivat
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactiu
   translated_content_tables-label-content_table_id-1: Detalhs
-  translated_data_types-label-data_type_id-10: Mapa
   translated_data_types-label-data_type_id-1: Imatge
+  translated_data_types-label-data_type_id-10: Mapa
   translated_data_types-label-data_type_id-2: Enregistrament sonòr
   translated_data_types-label-data_type_id-3: Tèxte
   translated_data_types-label-data_type_id-4: Vidèo
@@ -101,27 +93,27 @@ oc:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Cap de drech pas reservat
-  translated_licenses-description-license_id-29: "D'unes dreches reservats"
   translated_licenses-description-license_id-2: © Totes los dreches reservats
-  translated_licenses-description-license_id-30: "D'unes dreches reservats"
-  translated_licenses-description-license_id-31: "D'unes dreches reservats"
-  translated_licenses-description-license_id-32: "D'unes dreches reservats"
-  translated_licenses-description-license_id-33: "D'unes dreches reservats"
+  translated_licenses-description-license_id-29: D'unes dreches reservats
+  translated_licenses-description-license_id-3: D'unes dreches reservats
+  translated_licenses-description-license_id-30: D'unes dreches reservats
+  translated_licenses-description-license_id-31: D'unes dreches reservats
+  translated_licenses-description-license_id-32: D'unes dreches reservats
+  translated_licenses-description-license_id-33: D'unes dreches reservats
   translated_licenses-description-license_id-34: Domeni public
   translated_licenses-description-license_id-35: Domeni public
-  translated_licenses-description-license_id-36: "D'unes dreches reservats"
-  translated_licenses-description-license_id-37: "D'unes dreches reservats"
-  translated_licenses-description-license_id-38: "D'unes dreches reservats"
+  translated_licenses-description-license_id-36: D'unes dreches reservats
+  translated_licenses-description-license_id-37: D'unes dreches reservats
+  translated_licenses-description-license_id-38: D'unes dreches reservats
   translated_licenses-description-license_id-39: Domeni public
-  translated_licenses-description-license_id-3: "D'unes dreches reservats"
-  translated_licenses-description-license_id-42: "D'unes dreches reservats"
+  translated_licenses-description-license_id-4: D'unes dreches reservats
+  translated_licenses-description-license_id-42: D'unes dreches reservats
   translated_licenses-description-license_id-43: Licéncia inaplicabla
-  translated_licenses-description-license_id-4: "D'unes dreches reservats"
-  translated_licenses-description-license_id-5: "D'unes dreches reservats"
-  translated_licenses-description-license_id-6: "D'unes dreches reservats"
-  translated_licenses-description-license_id-7: "D'unes dreches reservats"
-  translated_licenses-description-license_id-8: "D'unes dreches reservats"
-  translated_licenses-description-license_id-9: "D'unes dreches reservats"
+  translated_licenses-description-license_id-5: D'unes dreches reservats
+  translated_licenses-description-license_id-6: D'unes dreches reservats
+  translated_licenses-description-license_id-7: D'unes dreches reservats
+  translated_licenses-description-license_id-8: D'unes dreches reservats
+  translated_licenses-description-license_id-9: D'unes dreches reservats
   translated_ranks-label-rank_id-106: formulari
   translated_ranks-label-rank_id-107: forma
   translated_ranks-label-rank_id-112: gen
@@ -159,11 +151,11 @@ oc:
   translated_ranks-label-rank_id-472: superphylum
   translated_ranks-label-rank_id-494: tribú
   translated_ranks-label-rank_id-503: pas classat
+  translated_ranks-label-rank_id-51: classa
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietat
   translated_ranks-label-rank_id-518: varietat
-  translated_ranks-label-rank_id-51: classa
   translated_ranks-label-rank_id-562: genre ibrid
   translated_ranks-label-rank_id-563: espècia ibrida
   translated_ranks-label-rank_id-564: sosespècia ibrida
@@ -174,11 +166,11 @@ oc:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familha
+  translated_resource_statuses-label-resource_status_id-1: Cargament
   translated_resource_statuses-label-resource_status_id-10: Publicat
   translated_resource_statuses-label-resource_status_id-11: Publicacion en espèra
   translated_resource_statuses-label-resource_status_id-12: Anullar la publicacion en espèra
   translated_resource_statuses-label-resource_status_id-13: Recòlta de fòrça
-  translated_resource_statuses-label-resource_status_id-1: Cargament
   translated_resource_statuses-label-resource_status_id-2: Cargats
   translated_resource_statuses-label-resource_status_id-3: Fracàs del mandadís
   translated_resource_statuses-label-resource_status_id-4: Transferit al servidor de contengut
@@ -199,22 +191,21 @@ oc:
   translated_statuses-label-status_id-2: Mes a jorn
   translated_statuses-label-status_id-3: Incambiat
   translated_statuses-label-status_id-4: Reütilizat
+  translated_synonym_relations-label-synonym_relation_id-1: sinonim
   translated_synonym_relations-label-synonym_relation_id-10: sinonim GenBank
   translated_synonym_relations-label-synonym_relation_id-11: en partida
   translated_synonym_relations-label-synonym_relation_id-12: inclutz
   translated_synonym_relations-label-synonym_relation_id-13: faussa apelacion
-  translated_synonym_relations-label-synonym_relation_id-14: "error d'ortografia"
+  translated_synonym_relations-label-synonym_relation_id-14: error d'ortografia
   translated_synonym_relations-label-synonym_relation_id-15: teleomòrf
   translated_synonym_relations-label-synonym_relation_id-16: sinonim ambigú
   translated_synonym_relations-label-synonym_relation_id-17: nom mal aplicat
   translated_synonym_relations-label-synonym_relation_id-18: nom acceptat provisòriament
   translated_synonym_relations-label-synonym_relation_id-19: nom acceptat
-  translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-2: nom vulgar
   translated_synonym_relations-label-synonym_relation_id-20: artefacte de la banca de donadas
   translated_synonym_relations-label-synonym_relation_id-21: autres, veire comentaris
-  translated_synonym_relations-label-synonym_relation_id-22: >
-    varianta ortografica (error
-    d’ortografia)
+  translated_synonym_relations-label-synonym_relation_id-22: varianta ortografica (error d’ortografia)
   translated_synonym_relations-label-synonym_relation_id-23: mal aplicat
   translated_synonym_relations-label-synonym_relation_id-24: nom regetat
   translated_synonym_relations-label-synonym_relation_id-25: omonim (illegitim)
@@ -222,22 +213,18 @@ oc:
   translated_synonym_relations-label-synonym_relation_id-27: cambiament de nom superflú (illegitim)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: sinonim junior
-  translated_synonym_relations-label-synonym_relation_id-2: nom vulgar
-  translated_synonym_relations-label-synonym_relation_id-30: >
-    indisponible, arteacte de la banca de
-    donadas
+  translated_synonym_relations-label-synonym_relation_id-3: acronim
+  translated_synonym_relations-label-synonym_relation_id-30: indisponible, arteacte de la banca de donadas
   translated_synonym_relations-label-synonym_relation_id-31: remplaçament superflú
   translated_synonym_relations-label-synonym_relation_id-32: combinason/nom subsequent
   translated_synonym_relations-label-synonym_relation_id-33: cauquilha de la literatura, indisponible
   translated_synonym_relations-label-synonym_relation_id-34: combinason/nom original
-  translated_synonym_relations-label-synonym_relation_id-35: >
-    ortografia originala incorrècta,
-    indisponible
+  translated_synonym_relations-label-synonym_relation_id-35: ortografia originala incorrècta, indisponible
   translated_synonym_relations-label-synonym_relation_id-36: omonim junior
-  translated_synonym_relations-label-synonym_relation_id-37: 'omonim & sinonim junior'
+  translated_synonym_relations-label-synonym_relation_id-37: omonim & sinonim junior
   translated_synonym_relations-label-synonym_relation_id-38: indisponible, suprimit per decision
   translated_synonym_relations-label-synonym_relation_id-39: emendacion pas justificada
-  translated_synonym_relations-label-synonym_relation_id-3: acronim
+  translated_synonym_relations-label-synonym_relation_id-4: forma imperfiècha
   translated_synonym_relations-label-synonym_relation_id-40: indisponible, autra rason
   translated_synonym_relations-label-synonym_relation_id-41: indisponible, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
@@ -248,7 +235,7 @@ oc:
   translated_synonym_relations-label-synonym_relation_id-47: sinonim omotipic
   translated_synonym_relations-label-synonym_relation_id-48: nom indisponible
   translated_synonym_relations-label-synonym_relation_id-49: nom valid
-  translated_synonym_relations-label-synonym_relation_id-4: forma imperfiècha
+  translated_synonym_relations-label-synonym_relation_id-5: grop vulgar
   translated_synonym_relations-label-synonym_relation_id-50: valid
   translated_synonym_relations-label-synonym_relation_id-51: acceptat
   translated_synonym_relations-label-synonym_relation_id-52: autoritat
@@ -259,7 +246,7 @@ oc:
   translated_synonym_relations-label-synonym_relation_id-57: ortografia alternativa
   translated_synonym_relations-label-synonym_relation_id-58: varianta lexicala
   translated_synonym_relations-label-synonym_relation_id-59: sinonim (nomenclatural = omotipic)
-  translated_synonym_relations-label-synonym_relation_id-5: grop vulgar
+  translated_synonym_relations-label-synonym_relation_id-6: nom equivalent
   translated_synonym_relations-label-synonym_relation_id-60: sinonim (facultatiu = eterotipic)
   translated_synonym_relations-label-synonym_relation_id-61: sinonim objectiu
   translated_synonym_relations-label-synonym_relation_id-62: sinonim senior
@@ -269,23 +256,23 @@ oc:
   translated_synonym_relations-label-synonym_relation_id-66: representacion alternativa
   translated_synonym_relations-label-synonym_relation_id-67: espècia de confirmar
   translated_synonym_relations-label-synonym_relation_id-68: orticultural
-  translated_synonym_relations-label-synonym_relation_id-6: nom equivalent
   translated_synonym_relations-label-synonym_relation_id-7: acronim GenBank
   translated_synonym_relations-label-synonym_relation_id-8: forma imperfiècha GenBank
   translated_synonym_relations-label-synonym_relation_id-9: nom vulgar GenBank
+  translated_table_of_contents-label-table_of_contents_id-1: Vista d'ensemble
   translated_table_of_contents-label-table_of_contents_id-13: Noms vulgars
   translated_table_of_contents-label-table_of_contents_id-14: UICN
   translated_table_of_contents-label-table_of_contents_id-17: Referéncias bibliograficas
   translated_table_of_contents-label-table_of_contents_id-194: Talha
-  translated_table_of_contents-label-table_of_contents_id-1: "Vista d'ensemble"
+  translated_table_of_contents-label-table_of_contents_id-2: Resumit brèu
   translated_table_of_contents-label-table_of_contents_id-218: Dispersion
   translated_table_of_contents-label-table_of_contents_id-221: Risques
   translated_table_of_contents-label-table_of_contents_id-225: Sul Web
   translated_table_of_contents-label-table_of_contents_id-226: Partenaris de contengut
   translated_table_of_contents-label-table_of_contents_id-227: Recercar sul Web
+  translated_table_of_contents-label-table_of_contents_id-24: Comentari
   translated_table_of_contents-label-table_of_contents_id-242: Ecologia generala
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografias
-  translated_table_of_contents-label-table_of_contents_id-24: Comentari
   translated_table_of_contents-label-table_of_contents_id-251: Avantatges
   translated_table_of_contents-label-table_of_contents_id-267: Morfologia
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografia
@@ -297,7 +284,7 @@ oc:
   translated_table_of_contents-label-table_of_contents_id-296: Gestion
   translated_table_of_contents-label-table_of_contents_id-297: Estrategia trofica
   translated_table_of_contents-label-table_of_contents_id-299: Educacion
-  translated_table_of_contents-label-table_of_contents_id-2: Resumit brèu
+  translated_table_of_contents-label-table_of_contents_id-3: Descripcion fisica
   translated_table_of_contents-label-table_of_contents_id-300: Wikipèdia
   translated_table_of_contents-label-table_of_contents_id-303: Noms e taxinomia
   translated_table_of_contents-label-table_of_contents_id-304: Noms aparentats
@@ -326,6 +313,7 @@ oc:
   translated_table_of_contents-label-table_of_contents_id-327: Fisiologia
   translated_table_of_contents-label-table_of_contents_id-328: Biologia cellulara
   translated_table_of_contents-label-table_of_contents_id-329: Genetica
+  translated_table_of_contents-label-table_of_contents_id-33: Tendéncias
   translated_table_of_contents-label-table_of_contents_id-330: Sequéncias de nucleotids
   translated_table_of_contents-label-table_of_contents_id-331: Còde barras
   translated_table_of_contents-label-table_of_contents_id-332: Genòmi
@@ -336,7 +324,7 @@ oc:
   translated_table_of_contents-label-table_of_contents_id-337: Pedagogia
   translated_table_of_contents-label-table_of_contents_id-338: Ligams pedagogics
   translated_table_of_contents-label-table_of_contents_id-339: Ressorsas pedagogicas
-  translated_table_of_contents-label-table_of_contents_id-33: Tendéncias
+  translated_table_of_contents-label-table_of_contents_id-34: Comentaris
   translated_table_of_contents-label-table_of_contents_id-340: Serias de laboratòri de licèu
   translated_table_of_contents-label-table_of_contents_id-341: Sciéncia ciutadana
   translated_table_of_contents-label-table_of_contents_id-342: Ligams de sciéncia ciutadana
@@ -346,17 +334,11 @@ oc:
   translated_table_of_contents-label-table_of_contents_id-346: Tèrmes biomedicals
   translated_table_of_contents-label-table_of_contents_id-347: Taxinomia
   translated_table_of_contents-label-table_of_contents_id-348: Informacion de tipe
-  translated_table_of_contents-label-table_of_contents_id-34: Comentaris
-  translated_table_of_contents-label-table_of_contents_id-3: Descripcion fisica
-  translated_table_of_contents-label-table_of_contents_id-41: Abitat
   translated_table_of_contents-label-table_of_contents_id-4: Ecologia
+  translated_table_of_contents-label-table_of_contents_id-41: Abitat
   translated_table_of_contents-label-table_of_contents_id-5: Evolucion e Sistematica
-  translated_table_of_contents-label-table_of_contents_id-6: >
-    Pertinéncia pels umans e los
-    ecosistèmas
-  translated_table_of_contents-label-table_of_contents_id-7: >
-    Referéncias e informacions
-    suplementàrias
+  translated_table_of_contents-label-table_of_contents_id-6: Pertinéncia pels umans e los ecosistèmas
+  translated_table_of_contents-label-table_of_contents_id-7: Referéncias e informacions suplementàrias
   translated_table_of_contents-label-table_of_contents_id-8: Conservacion
   translated_untrust_reasons-label-untrust_reason_id-1: mal identificat
   translated_untrust_reasons-label-untrust_reason_id-2: incorrècte/enganador

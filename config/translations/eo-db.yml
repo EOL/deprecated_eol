@@ -1,10 +1,9 @@
 # Messages for Esperanto (Esperanto)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: Happy5214
 # Author: Objectivesea
----
-eo:
+eo: 
   translated_activities-name-activity_id-19: profilo
   translated_activities-name-activity_id-50: nefidata
   translated_activities-name-activity_id-51: montri
@@ -17,18 +16,18 @@ eo:
   translated_activities-name-activity_id-59: nerevizita
   translated_activities-name-activity_id-63: kolekti
   translated_activities-name-activity_id-64: forigi
+  translated_agent_roles-label-agent_role_id-1: Animisto
   translated_agent_roles-label-agent_role_id-10: Projekto
   translated_agent_roles-label-agent_role_id-11: Eldonejo
   translated_agent_roles-label-agent_role_id-12: Registristo
   translated_agent_roles-label-agent_role_id-13: Fonto
   translated_agent_roles-label-agent_role_id-14: Fonta datenbazo
   translated_agent_roles-label-agent_role_id-16: Kontribuanto
-  translated_agent_roles-label-agent_role_id-1: Animisto
+  translated_agent_roles-label-agent_role_id-2: Aŭtoro
   translated_agent_roles-label-agent_role_id-21: provizanto
   translated_agent_roles-label-agent_role_id-22: Tradukanto
   translated_agent_roles-label-agent_role_id-23: Scienca revizianto
   translated_agent_roles-label-agent_role_id-24: Lingvistika revizianto
-  translated_agent_roles-label-agent_role_id-2: Aŭtoro
   translated_agent_roles-label-agent_role_id-3: Kompilanto
   translated_agent_roles-label-agent_role_id-4: Komponisto
   translated_agent_roles-label-agent_role_id-5: Kreinto
@@ -38,6 +37,7 @@ eo:
   translated_agent_roles-label-agent_role_id-9: Fotografisto
   translated_audiences-label-audience_id-1: Spertuzantoj
   translated_audiences-label-audience_id-3: Infanoj
+  translated_collection_types-label-collection_type_id-1: Taksonomio
   translated_collection_types-label-collection_type_id-10: Sonaĵoj
   translated_collection_types-label-collection_type_id-11: Ligiloj
   translated_collection_types-label-collection_type_id-12: Literaturo
@@ -46,13 +46,12 @@ eo:
   translated_collection_types-label-collection_type_id-15: Priskribo
   translated_collection_types-label-collection_type_id-16: Bildoj
   translated_collection_types-label-collection_type_id-18: Stato de konservo
-  translated_collection_types-label-collection_type_id-1: Taksonomio
+  translated_collection_types-label-collection_type_id-2: Molekulaj strikodoj
   translated_collection_types-label-collection_type_id-20: Molekula dateno
   translated_collection_types-label-collection_type_id-21: Nomenklaturo
   translated_collection_types-label-collection_type_id-22: Sonaĵoj
   translated_collection_types-label-collection_type_id-23: Ligiloj
   translated_collection_types-label-collection_type_id-24: Literaturo
-  translated_collection_types-label-collection_type_id-2: Molekulaj strikodoj
   translated_collection_types-label-collection_type_id-3: Priskribo
   translated_collection_types-label-collection_type_id-4: Bildoj
   translated_collection_types-label-collection_type_id-5: Distribuo
@@ -63,8 +62,8 @@ eo:
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiva
   translated_content_partner_statuses-label-content_partner_status_id-4: Malaktiva
   translated_content_tables-label-content_table_id-1: Detaloj
-  translated_data_types-label-data_type_id-10: Mapo
   translated_data_types-label-data_type_id-1: Bildo
+  translated_data_types-label-data_type_id-10: Mapo
   translated_data_types-label-data_type_id-2: Sonaĵo
   translated_data_types-label-data_type_id-3: Teksto
   translated_data_types-label-data_type_id-4: Vidaĵo
@@ -73,8 +72,9 @@ eo:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Neniuj rajtoj rezervitaj
+  translated_licenses-description-license_id-2: "&#169; Ĉiuj rajtoj rezervitaj"
   translated_licenses-description-license_id-29: Iuj rajtoj rezervitaj
-  translated_licenses-description-license_id-2: '&#169; Ĉiuj rajtoj rezervitaj'
+  translated_licenses-description-license_id-3: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-30: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-31: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-32: Iuj rajtoj rezervitaj
@@ -85,9 +85,8 @@ eo:
   translated_licenses-description-license_id-37: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-38: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-39: Publika Domajno
-  translated_licenses-description-license_id-3: Iuj rajtoj rezervitaj
-  translated_licenses-description-license_id-42: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-4: Iuj rajtoj rezervitaj
+  translated_licenses-description-license_id-42: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-5: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-6: Iuj rajtoj rezervitaj
   translated_licenses-description-license_id-7: Iuj rajtoj rezervitaj
@@ -127,11 +126,11 @@ eo:
   translated_ranks-label-rank_id-463: superfamilio
   translated_ranks-label-rank_id-472: superfilumo
   translated_ranks-label-rank_id-494: tribo
+  translated_ranks-label-rank_id-51: klaso
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: vario
   translated_ranks-label-rank_id-518: vario
-  translated_ranks-label-rank_id-51: klaso
   translated_ranks-label-rank_id-562: notogenro
   translated_ranks-label-rank_id-563: notospecio
   translated_ranks-label-rank_id-564: notosubspecio
@@ -142,15 +141,16 @@ eo:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familio
+  translated_resource_statuses-label-resource_status_id-1: Alŝutanta
   translated_resource_statuses-label-resource_status_id-11: Eldonadon okazontas
   translated_resource_statuses-label-resource_status_id-12: Neeldonadon okazontas
-  translated_resource_statuses-label-resource_status_id-1: Alŝutanta
   translated_resource_statuses-label-resource_status_id-2: Alŝutita
   translated_service_types-label-service_type_id-2: Alia
   translated_sort_styles-name-sort_style_id-2: Plej malnova
   translated_sort_styles-name-sort_style_id-5: Riĉeco
   translated_statuses-label-status_id-2: Ĝisdatigita
   translated_statuses-label-status_id-3: Neŝanĝita
+  translated_synonym_relations-label-synonym_relation_id-1: sinonimo
   translated_synonym_relations-label-synonym_relation_id-13: misnomo
   translated_synonym_relations-label-synonym_relation_id-14: misliterumo
   translated_synonym_relations-label-synonym_relation_id-15: teleomorfo
@@ -158,7 +158,7 @@ eo:
   translated_synonym_relations-label-synonym_relation_id-17: misalfiksita nomo
   translated_synonym_relations-label-synonym_relation_id-18: provizore akceptita nomo
   translated_synonym_relations-label-synonym_relation_id-19: akceptita nomo
-  translated_synonym_relations-label-synonym_relation_id-1: sinonimo
+  translated_synonym_relations-label-synonym_relation_id-2: komuna nomo
   translated_synonym_relations-label-synonym_relation_id-22: ortografia varianto (misliterumo)
   translated_synonym_relations-label-synonym_relation_id-23: misalfiksita
   translated_synonym_relations-label-synonym_relation_id-24: malakceptita nomo
@@ -167,14 +167,14 @@ eo:
   translated_synonym_relations-label-synonym_relation_id-27: superflua renomaĵo (mallica)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: plijuna sinonimo
-  translated_synonym_relations-label-synonym_relation_id-2: komuna nomo
+  translated_synonym_relations-label-synonym_relation_id-3: akronimo
   translated_synonym_relations-label-synonym_relation_id-30: nehavebla, datenbaza artefakto
   translated_synonym_relations-label-synonym_relation_id-31: senbezona remeto
   translated_synonym_relations-label-synonym_relation_id-34: originalnomo/kombinaĵo
   translated_synonym_relations-label-synonym_relation_id-35: nehavebla, erara unua literumo
   translated_synonym_relations-label-synonym_relation_id-36: plijuna homonimo
   translated_synonym_relations-label-synonym_relation_id-37: homonimo kaj plijuna sinonimo
-  translated_synonym_relations-label-synonym_relation_id-3: akronimo
+  translated_synonym_relations-label-synonym_relation_id-4: anamorfo
   translated_synonym_relations-label-synonym_relation_id-40: nehavebla, alia kialo
   translated_synonym_relations-label-synonym_relation_id-41: nehavebla, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
@@ -182,7 +182,6 @@ eo:
   translated_synonym_relations-label-synonym_relation_id-47: sinonimo homotipa
   translated_synonym_relations-label-synonym_relation_id-48: nehavebla nomo
   translated_synonym_relations-label-synonym_relation_id-49: valida nomo
-  translated_synonym_relations-label-synonym_relation_id-4: anamorfo
   translated_synonym_relations-label-synonym_relation_id-50: valida
   translated_synonym_relations-label-synonym_relation_id-51: akceptita
   translated_synonym_relations-label-synonym_relation_id-52: autoritato
@@ -198,9 +197,9 @@ eo:
   translated_synonym_relations-label-synonym_relation_id-65: genra sinonimo
   translated_synonym_relations-label-synonym_relation_id-67: specio prienketenda
   translated_synonym_relations-label-synonym_relation_id-68: hortikultura
+  translated_table_of_contents-label-table_of_contents_id-1: Superrigardo
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-194: Grandeco
-  translated_table_of_contents-label-table_of_contents_id-1: Superrigardo
   translated_table_of_contents-label-table_of_contents_id-221: Riskoj
   translated_table_of_contents-label-table_of_contents_id-24: Komentaro
   translated_table_of_contents-label-table_of_contents_id-267: Morfologio
@@ -209,6 +208,7 @@ eo:
   translated_table_of_contents-label-table_of_contents_id-289: Evoluo
   translated_table_of_contents-label-table_of_contents_id-292: Similŝajnaĵoj
   translated_table_of_contents-label-table_of_contents_id-299: Edukado
+  translated_table_of_contents-label-table_of_contents_id-3: Fizika priskribo
   translated_table_of_contents-label-table_of_contents_id-300: Vikipedio
   translated_table_of_contents-label-table_of_contents_id-303: Nomoj kaj taksonomio
   translated_table_of_contents-label-table_of_contents_id-305: Sinonimoj
@@ -230,6 +230,7 @@ eo:
   translated_table_of_contents-label-table_of_contents_id-327: Fiziologio
   translated_table_of_contents-label-table_of_contents_id-328: Ĉelbiologio
   translated_table_of_contents-label-table_of_contents_id-329: Genetiko
+  translated_table_of_contents-label-table_of_contents_id-33: Tendencoj
   translated_table_of_contents-label-table_of_contents_id-330: Nukleotidaj sekvencoj
   translated_table_of_contents-label-table_of_contents_id-331: Strikodo
   translated_table_of_contents-label-table_of_contents_id-332: Genomo
@@ -240,7 +241,7 @@ eo:
   translated_table_of_contents-label-table_of_contents_id-337: Edukado
   translated_table_of_contents-label-table_of_contents_id-338: Ligiloj pri edukado
   translated_table_of_contents-label-table_of_contents_id-339: Rimedoj pri edukado
-  translated_table_of_contents-label-table_of_contents_id-33: Tendencoj
+  translated_table_of_contents-label-table_of_contents_id-34: Komentoj
   translated_table_of_contents-label-table_of_contents_id-341: Scienco far civitanoj
   translated_table_of_contents-label-table_of_contents_id-342: Ligiloj pri scienco far civitanoj
   translated_table_of_contents-label-table_of_contents_id-344: Dateno
@@ -248,10 +249,8 @@ eo:
   translated_table_of_contents-label-table_of_contents_id-346: Biomedicinaj terminoj
   translated_table_of_contents-label-table_of_contents_id-347: Taksonomio
   translated_table_of_contents-label-table_of_contents_id-348: Informo pri tipo
-  translated_table_of_contents-label-table_of_contents_id-34: Komentoj
-  translated_table_of_contents-label-table_of_contents_id-3: Fizika priskribo
-  translated_table_of_contents-label-table_of_contents_id-41: Habitatloko
   translated_table_of_contents-label-table_of_contents_id-4: Ekologio
+  translated_table_of_contents-label-table_of_contents_id-41: Habitatloko
   translated_table_of_contents-label-table_of_contents_id-8: Konservado
   translated_untrust_reasons-label-untrust_reason_id-1: misidentiga
   translated_untrust_reasons-label-untrust_reason_id-2: malĝusta/miskonduka

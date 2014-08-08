@@ -1,13 +1,12 @@
 # Messages for Lithuanian (lietuvių)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: Cyklopas
 # Author: Eitvys200
 # Author: Ignas693
 # Author: Mantak111
 # Author: Swanas
----
-lt:
+lt: 
   translated_activities-name-activity_id-19: profilis
   translated_activities-name-activity_id-50: nepatikimas
   translated_activities-name-activity_id-51: rodyti
@@ -21,6 +20,7 @@ lt:
   translated_activities-name-activity_id-59: neperžiūrėtas
   translated_activities-name-activity_id-63: rinkti
   translated_activities-name-activity_id-64: pašalinti
+  translated_agent_roles-label-agent_role_id-1: Animatorius
   translated_agent_roles-label-agent_role_id-10: Projektas
   translated_agent_roles-label-agent_role_id-11: Leidėjas
   translated_agent_roles-label-agent_role_id-12: Pranešėjas
@@ -28,12 +28,11 @@ lt:
   translated_agent_roles-label-agent_role_id-14: Šaltinis duomenų bazė
   translated_agent_roles-label-agent_role_id-15: Kontaktinis Asmuo
   translated_agent_roles-label-agent_role_id-16: Autorius
-  translated_agent_roles-label-agent_role_id-1: Animatorius
+  translated_agent_roles-label-agent_role_id-2: Autorius
   translated_agent_roles-label-agent_role_id-21: teikėjas
   translated_agent_roles-label-agent_role_id-22: Vertėjas
   translated_agent_roles-label-agent_role_id-23: Mokslinis recenzentas
   translated_agent_roles-label-agent_role_id-24: Kalbų recenzentas
-  translated_agent_roles-label-agent_role_id-2: Autorius
   translated_agent_roles-label-agent_role_id-3: Kompiliatorius
   translated_agent_roles-label-agent_role_id-4: Kompozitorius
   translated_agent_roles-label-agent_role_id-5: Autorius
@@ -44,6 +43,7 @@ lt:
   translated_audiences-label-audience_id-1: Patyrę vartotojai
   translated_audiences-label-audience_id-2: Plačiajai visuomenei
   translated_audiences-label-audience_id-3: Vaikai
+  translated_collection_types-label-collection_type_id-1: Taksonomija
   translated_collection_types-label-collection_type_id-10: Garsai
   translated_collection_types-label-collection_type_id-11: Nuorodos
   translated_collection_types-label-collection_type_id-12: Literatūra
@@ -54,13 +54,12 @@ lt:
   translated_collection_types-label-collection_type_id-17: Paplitimas
   translated_collection_types-label-collection_type_id-18: Apsaugos būsena
   translated_collection_types-label-collection_type_id-19: Vardo informacija
-  translated_collection_types-label-collection_type_id-1: Taksonomija
+  translated_collection_types-label-collection_type_id-2: Molekulės dalies kodai
   translated_collection_types-label-collection_type_id-20: Molekulės duomenys
   translated_collection_types-label-collection_type_id-21: Terminologija
   translated_collection_types-label-collection_type_id-22: Garsai
   translated_collection_types-label-collection_type_id-23: Nuorodos
   translated_collection_types-label-collection_type_id-24: Literatūra
-  translated_collection_types-label-collection_type_id-2: Molekulės dalies kodai
   translated_collection_types-label-collection_type_id-3: Aprašymas
   translated_collection_types-label-collection_type_id-4: Paveikslėliai
   translated_collection_types-label-collection_type_id-5: Paplitimas
@@ -77,27 +76,19 @@ lt:
   translated_contact_subjects-title-contact_subject_id-27: Tapti turinio partneriu
   translated_contact_subjects-title-contact_subject_id-28: Turinio partnerių parama
   translated_contact_subjects-title-contact_subject_id-29: Kuratoriaus parama
-  translated_contact_subjects-title-contact_subject_id-30: >
-    Pataisyti (rašyba ir gramatika,
-    vaizdai, informacija)
-  translated_contact_subjects-title-contact_subject_id-31: >
-    Prisidėti nuotraukomis, vaizdo ar garso
-    įrašais
-  translated_contact_subjects-title-contact_subject_id-32: >
-    Žiniasklaidos užklausos (interviu,
-    spaudos užklausos, logotipo užklausos)
+  translated_contact_subjects-title-contact_subject_id-30: Pataisyti (rašyba ir gramatika, vaizdai, informacija)
+  translated_contact_subjects-title-contact_subject_id-31: Prisidėti nuotraukomis, vaizdo ar garso įrašais
+  translated_contact_subjects-title-contact_subject_id-32: Žiniasklaidos užklausos (interviu, spaudos užklausos, logotipo užklausos)
   translated_contact_subjects-title-contact_subject_id-33: Paremti finansiškai
-  translated_contact_subjects-title-contact_subject_id-34: >
-    Techniniai klausimai (problemos su
-    paieška, tinklalapio darbu)
+  translated_contact_subjects-title-contact_subject_id-34: Techniniai klausimai (problemos su paieška, tinklalapio darbu)
   translated_contact_subjects-title-contact_subject_id-35: Bendro pobūdžio atsiliepimai
   translated_content_partner_statuses-label-content_partner_status_id-1: Laukiama
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktyvus
   translated_content_partner_statuses-label-content_partner_status_id-3: Suarchyvuota
   translated_content_partner_statuses-label-content_partner_status_id-4: Neaktyvus
   translated_content_tables-label-content_table_id-1: Detalės
-  translated_data_types-label-data_type_id-10: Žemėlapis
   translated_data_types-label-data_type_id-1: Paveikslėlis
+  translated_data_types-label-data_type_id-10: Žemėlapis
   translated_data_types-label-data_type_id-2: Garsas
   translated_data_types-label-data_type_id-3: Tekstas
   translated_data_types-label-data_type_id-4: Vaizdo klipas
@@ -106,8 +97,9 @@ lt:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Teisės nesaugomos
-  translated_licenses-description-license_id-29: Kai kurios teisės saugomos
   translated_licenses-description-license_id-2: © Visos teisės saugomos
+  translated_licenses-description-license_id-29: Kai kurios teisės saugomos
+  translated_licenses-description-license_id-3: Kai kurios teisės saugomos
   translated_licenses-description-license_id-30: Kai kurios teisės saugomos
   translated_licenses-description-license_id-31: Kai kurios teisės saugomos
   translated_licenses-description-license_id-32: Kai kurios teisės saugomos
@@ -118,10 +110,9 @@ lt:
   translated_licenses-description-license_id-37: Kai kurios teisės saugomos
   translated_licenses-description-license_id-38: Kai kurios teisės saugomos
   translated_licenses-description-license_id-39: Viešas domenas
-  translated_licenses-description-license_id-3: Kai kurios teisės saugomos
+  translated_licenses-description-license_id-4: Kai kurios teisės saugomos
   translated_licenses-description-license_id-42: Kai kurios teisės saugomos
   translated_licenses-description-license_id-43: Licencija netaikoma
-  translated_licenses-description-license_id-4: Kai kurios teisės saugomos
   translated_licenses-description-license_id-5: Kai kurios teisės saugomos
   translated_licenses-description-license_id-6: Kai kurios teisės saugomos
   translated_licenses-description-license_id-7: Kai kurios teisės saugomos
@@ -152,18 +143,18 @@ lt:
   translated_service_types-label-service_type_id-2: Kita
   translated_sort_styles-name-sort_style_id-2: Seniausi
   translated_sort_styles-name-sort_style_id-3: Abėcėlės tvarka
+  translated_synonym_relations-label-synonym_relation_id-1: sinonimas
   translated_synonym_relations-label-synonym_relation_id-12: apima
   translated_synonym_relations-label-synonym_relation_id-14: su rašybos klaidomis
-  translated_synonym_relations-label-synonym_relation_id-1: sinonimas
   translated_synonym_relations-label-synonym_relation_id-23: klaidingai taikė
   translated_synonym_relations-label-synonym_relation_id-51: priimtas
   translated_synonym_relations-label-synonym_relation_id-52: institucija
   translated_synonym_relations-label-synonym_relation_id-53: nepublikuotas pavadinimas
   translated_synonym_relations-label-synonym_relation_id-57: rašybos alternatyvą
+  translated_table_of_contents-label-table_of_contents_id-1: Peržiūra
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Literatūros šaltiniai
   translated_table_of_contents-label-table_of_contents_id-194: Dydis
-  translated_table_of_contents-label-table_of_contents_id-1: Peržiūra
   translated_table_of_contents-label-table_of_contents_id-225: Tinkle
   translated_table_of_contents-label-table_of_contents_id-227: Ieškoti žiniatinklyje
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografijos
@@ -171,6 +162,7 @@ lt:
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografija
   translated_table_of_contents-label-table_of_contents_id-289: Evoliucija
   translated_table_of_contents-label-table_of_contents_id-299: Švietimas
+  translated_table_of_contents-label-table_of_contents_id-3: Fizinis aprašymas
   translated_table_of_contents-label-table_of_contents_id-300: Vikipedija
   translated_table_of_contents-label-table_of_contents_id-305: Sinonimai
   translated_table_of_contents-label-table_of_contents_id-306: Puslapio statistiką
@@ -185,10 +177,9 @@ lt:
   translated_table_of_contents-label-table_of_contents_id-337: Švietimas
   translated_table_of_contents-label-table_of_contents_id-338: Švietimo nuorodos
   translated_table_of_contents-label-table_of_contents_id-339: Švietimo ištekliai
+  translated_table_of_contents-label-table_of_contents_id-34: Komentarai
   translated_table_of_contents-label-table_of_contents_id-344: Duomenys
   translated_table_of_contents-label-table_of_contents_id-345: Duomenų šaltiniai
-  translated_table_of_contents-label-table_of_contents_id-34: Komentarai
-  translated_table_of_contents-label-table_of_contents_id-3: Fizinis aprašymas
   translated_table_of_contents-label-table_of_contents_id-4: Ekologija
   translated_table_of_contents-label-table_of_contents_id-7: Nuorodos ir daugiau informacijos
   translated_untrust_reasons-label-untrust_reason_id-3: žemos kokybės

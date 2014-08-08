@@ -1,11 +1,10 @@
 # Messages for Vietnamese (Tiếng Việt)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: Prenn
 # Author: Trần Nguyễn Minh Huy
 # Author: Tuankiet65
----
-vi:
+vi: 
   translated_activities-name-activity_id-50: không đáng tin cậy
   translated_activities-name-activity_id-51: hiện
   translated_activities-name-activity_id-52: tạo
@@ -20,9 +19,9 @@ vi:
   translated_agent_roles-label-agent_role_id-13: Nguồn
   translated_agent_roles-label-agent_role_id-15: Người liên hệ
   translated_agent_roles-label-agent_role_id-16: Người đóng góp
+  translated_agent_roles-label-agent_role_id-2: Tác giả
   translated_agent_roles-label-agent_role_id-21: nhà cung cấp
   translated_agent_roles-label-agent_role_id-22: Biên dịch viên
-  translated_agent_roles-label-agent_role_id-2: Tác giả
   translated_agent_roles-label-agent_role_id-5: Người tạo
   translated_agent_roles-label-agent_role_id-7: Biên tập viên
   translated_agent_roles-label-agent_role_id-9: Nhiếp ảnh gia
@@ -49,19 +48,20 @@ vi:
   translated_ranks-label-rank_id-91: gia đình
   translated_ranks-label-rank_id-92: gia đình
   translated_ranks-label-rank_id-99: gia đình
+  translated_table_of_contents-label-table_of_contents_id-1: Giới thiệu
   translated_table_of_contents-label-table_of_contents_id-13: Tên gọi phổ biến
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Tài liệu tham khảo văn học
   translated_table_of_contents-label-table_of_contents_id-194: Kích cỡ
-  translated_table_of_contents-label-table_of_contents_id-1: Giới thiệu
+  translated_table_of_contents-label-table_of_contents_id-2: Tóm tắt
   translated_table_of_contents-label-table_of_contents_id-218: Phân tán
   translated_table_of_contents-label-table_of_contents_id-221: Rủi ro
   translated_table_of_contents-label-table_of_contents_id-225: Trên Web
   translated_table_of_contents-label-table_of_contents_id-226: Đối tác nội dung
   translated_table_of_contents-label-table_of_contents_id-227: Tìm kiếm Web
+  translated_table_of_contents-label-table_of_contents_id-24: Bình luận
   translated_table_of_contents-label-table_of_contents_id-242: Sinh thái học tổng hợp
   translated_table_of_contents-label-table_of_contents_id-244: Thư mục
-  translated_table_of_contents-label-table_of_contents_id-24: Bình luận
   translated_table_of_contents-label-table_of_contents_id-251: Lợi ích
   translated_table_of_contents-label-table_of_contents_id-267: Hình thái
   translated_table_of_contents-label-table_of_contents_id-278: Tham khảo
@@ -73,7 +73,7 @@ vi:
   translated_table_of_contents-label-table_of_contents_id-296: Quản lý
   translated_table_of_contents-label-table_of_contents_id-297: Giá trị dinh dưỡng
   translated_table_of_contents-label-table_of_contents_id-299: Giáo dục
-  translated_table_of_contents-label-table_of_contents_id-2: Tóm tắt
+  translated_table_of_contents-label-table_of_contents_id-3: Mô tả vật lý
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Tên và Phân loại
   translated_table_of_contents-label-table_of_contents_id-304: Tên liên quan
@@ -98,12 +98,11 @@ vi:
   translated_table_of_contents-label-table_of_contents_id-323: Hệ thống hoặc Phát sinh
   translated_table_of_contents-label-table_of_contents_id-324: Chuyển biến chức năng
   translated_table_of_contents-label-table_of_contents_id-325: Sinh lý học và Sinh học Tế bào
-  translated_table_of_contents-label-table_of_contents_id-326: >
-    Sinh học Phân tử và Di truyền
-    học
+  translated_table_of_contents-label-table_of_contents_id-326: Sinh học Phân tử và Di truyền học
   translated_table_of_contents-label-table_of_contents_id-327: Sinh lý học
   translated_table_of_contents-label-table_of_contents_id-328: Sinh học Tế bào
   translated_table_of_contents-label-table_of_contents_id-329: Di truyền học
+  translated_table_of_contents-label-table_of_contents_id-33: Xu hướng
   translated_table_of_contents-label-table_of_contents_id-330: Trình tự nucleotic
   translated_table_of_contents-label-table_of_contents_id-331: Mã vạch
   translated_table_of_contents-label-table_of_contents_id-332: Bộ gen
@@ -114,26 +113,20 @@ vi:
   translated_table_of_contents-label-table_of_contents_id-337: Giáo dục
   translated_table_of_contents-label-table_of_contents_id-338: Liên kết giáo dục
   translated_table_of_contents-label-table_of_contents_id-339: Tài nguyên giáo dục
-  translated_table_of_contents-label-table_of_contents_id-33: Xu hướng
+  translated_table_of_contents-label-table_of_contents_id-34: Bình luận
   translated_table_of_contents-label-table_of_contents_id-340: Nhóm phòng thí nghiệm trung học
   translated_table_of_contents-label-table_of_contents_id-341: Khoa học công dân
   translated_table_of_contents-label-table_of_contents_id-342: Liên kết khoa học công dân
-  translated_table_of_contents-label-table_of_contents_id-343: >
-    Thư viện đa dạng di sản sinh
-    học
+  translated_table_of_contents-label-table_of_contents_id-343: Thư viện đa dạng di sản sinh học
   translated_table_of_contents-label-table_of_contents_id-344: Dữ liệu
   translated_table_of_contents-label-table_of_contents_id-345: Nguồn dữ liệu
   translated_table_of_contents-label-table_of_contents_id-346: Thuật ngữ y sinh
   translated_table_of_contents-label-table_of_contents_id-347: Phân loại
   translated_table_of_contents-label-table_of_contents_id-348: Loại thông tin
-  translated_table_of_contents-label-table_of_contents_id-34: Bình luận
-  translated_table_of_contents-label-table_of_contents_id-3: Mô tả vật lý
-  translated_table_of_contents-label-table_of_contents_id-41: Môi trường sống
   translated_table_of_contents-label-table_of_contents_id-4: Sinh thái học
+  translated_table_of_contents-label-table_of_contents_id-41: Môi trường sống
   translated_table_of_contents-label-table_of_contents_id-5: Tiến hóa học và Hệ thống học
-  translated_table_of_contents-label-table_of_contents_id-6: >
-    Mối liên quan đến con người và
-    hệ sinh thái
+  translated_table_of_contents-label-table_of_contents_id-6: Mối liên quan đến con người và hệ sinh thái
   translated_table_of_contents-label-table_of_contents_id-7: Nguồn tham khảo và Thông tin thêm
   translated_table_of_contents-label-table_of_contents_id-8: Bảo tồn
   translated_user_identities-label-user_identity_id-1: một người đam mê

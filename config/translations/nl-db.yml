@@ -1,12 +1,11 @@
 # Messages for Dutch (Nederlands)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: McDutchie
 # Author: Patio
 # Author: SPQRobin
 # Author: Siebrand
----
-nl:
+nl: 
   translated_activities-name-activity_id-19: profiel
   translated_activities-name-activity_id-50: niet-vertrouwd
   translated_activities-name-activity_id-51: weergeven
@@ -20,6 +19,7 @@ nl:
   translated_activities-name-activity_id-59: niet-beoordeeld
   translated_activities-name-activity_id-63: verzamelen
   translated_activities-name-activity_id-64: verwijderen
+  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Project
   translated_agent_roles-label-agent_role_id-11: Uitgever
   translated_agent_roles-label-agent_role_id-12: Vastlegger
@@ -27,12 +27,11 @@ nl:
   translated_agent_roles-label-agent_role_id-14: Brondatabase
   translated_agent_roles-label-agent_role_id-15: Contactpersoon
   translated_agent_roles-label-agent_role_id-16: Bijdrager
-  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-2: Auteur
   translated_agent_roles-label-agent_role_id-21: leverancier
   translated_agent_roles-label-agent_role_id-22: vertaler
   translated_agent_roles-label-agent_role_id-23: wetenschappelijke reviewer
   translated_agent_roles-label-agent_role_id-24: taalkundige reviewer
-  translated_agent_roles-label-agent_role_id-2: Auteur
   translated_agent_roles-label-agent_role_id-3: Compiler
   translated_agent_roles-label-agent_role_id-4: Componist
   translated_agent_roles-label-agent_role_id-5: Auteur
@@ -43,6 +42,7 @@ nl:
   translated_audiences-label-audience_id-1: Ervaren gebruikers
   translated_audiences-label-audience_id-2: Algemeen publiek
   translated_audiences-label-audience_id-3: Kinderen
+  translated_collection_types-label-collection_type_id-1: Taxonomie
   translated_collection_types-label-collection_type_id-10: Geluiden
   translated_collection_types-label-collection_type_id-11: Koppelingen
   translated_collection_types-label-collection_type_id-12: Literatuur
@@ -53,13 +53,12 @@ nl:
   translated_collection_types-label-collection_type_id-17: Distributie
   translated_collection_types-label-collection_type_id-18: IUCN-status
   translated_collection_types-label-collection_type_id-19: Naamgegevens
-  translated_collection_types-label-collection_type_id-1: Taxonomie
+  translated_collection_types-label-collection_type_id-2: Moleculaire streepjescodes
   translated_collection_types-label-collection_type_id-20: Moleculaire gegevens
   translated_collection_types-label-collection_type_id-21: Nomenclatuur
   translated_collection_types-label-collection_type_id-22: Geluiden
   translated_collection_types-label-collection_type_id-23: Koppelingen
   translated_collection_types-label-collection_type_id-24: Literatuur
-  translated_collection_types-label-collection_type_id-2: Moleculaire streepjescodes
   translated_collection_types-label-collection_type_id-3: Beschrijving
   translated_collection_types-label-collection_type_id-4: Afbeeldingen
   translated_collection_types-label-collection_type_id-5: Distributie
@@ -76,25 +75,19 @@ nl:
   translated_contact_subjects-title-contact_subject_id-27: Contentpartner worden
   translated_contact_subjects-title-contact_subject_id-28: Ondersteuning voor contentpartners
   translated_contact_subjects-title-contact_subject_id-29: Curatorondersteuning
-  translated_contact_subjects-title-contact_subject_id-30: >
-    Maken van een correctie (spelling en
-    grammatica, afbeeldingen, gegevens)
-  translated_contact_subjects-title-contact_subject_id-31: "Afbeeldingen, video's en geluidsbestanden bijdragen"
-  translated_contact_subjects-title-contact_subject_id-32: >
-    Mediaverzoeken (interviews,
-    persverzoeken, logoaanvragen)
+  translated_contact_subjects-title-contact_subject_id-30: Maken van een correctie (spelling en grammatica, afbeeldingen, gegevens)
+  translated_contact_subjects-title-contact_subject_id-31: Afbeeldingen, video's en geluidsbestanden bijdragen
+  translated_contact_subjects-title-contact_subject_id-32: Mediaverzoeken (interviews, persverzoeken, logoaanvragen)
   translated_contact_subjects-title-contact_subject_id-33: Financiële bijdrage doen
-  translated_contact_subjects-title-contact_subject_id-34: >
-    Technische vragen (problemen met zoeken,
-    websitefunctionaliteit)
+  translated_contact_subjects-title-contact_subject_id-34: Technische vragen (problemen met zoeken, websitefunctionaliteit)
   translated_contact_subjects-title-contact_subject_id-35: Algemene terugkoppeling
   translated_content_partner_statuses-label-content_partner_status_id-1: In behandeling
   translated_content_partner_statuses-label-content_partner_status_id-2: Actief
   translated_content_partner_statuses-label-content_partner_status_id-3: Gearchiveerd
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactief
   translated_content_tables-label-content_table_id-1: Details
-  translated_data_types-label-data_type_id-10: Kaart
   translated_data_types-label-data_type_id-1: Afbeelding
+  translated_data_types-label-data_type_id-10: Kaart
   translated_data_types-label-data_type_id-2: Geluid
   translated_data_types-label-data_type_id-3: Tekst
   translated_data_types-label-data_type_id-4: Video
@@ -103,8 +96,9 @@ nl:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Geen rechten voorbehouden
-  translated_licenses-description-license_id-29: Sommige rechten voorbehouden
   translated_licenses-description-license_id-2: © Alle rechten voorbehouden
+  translated_licenses-description-license_id-29: Sommige rechten voorbehouden
+  translated_licenses-description-license_id-3: Sommige rechten voorbehouden
   translated_licenses-description-license_id-30: Sommige rechten voorbehouden
   translated_licenses-description-license_id-31: Sommige rechten voorbehouden
   translated_licenses-description-license_id-32: Sommige rechten voorbehouden
@@ -115,10 +109,9 @@ nl:
   translated_licenses-description-license_id-37: Sommige rechten voorbehouden
   translated_licenses-description-license_id-38: Sommige rechten voorbehouden
   translated_licenses-description-license_id-39: Publiek domein
-  translated_licenses-description-license_id-3: Sommige rechten voorbehouden
+  translated_licenses-description-license_id-4: Sommige rechten voorbehouden
   translated_licenses-description-license_id-42: Sommige rechten voorbehouden
   translated_licenses-description-license_id-43: Licentie niet van toepassing
-  translated_licenses-description-license_id-4: Sommige rechten voorbehouden
   translated_licenses-description-license_id-5: Sommige rechten voorbehouden
   translated_licenses-description-license_id-6: Sommige rechten voorbehouden
   translated_licenses-description-license_id-7: Sommige rechten voorbehouden
@@ -161,11 +154,11 @@ nl:
   translated_ranks-label-rank_id-472: superstam
   translated_ranks-label-rank_id-494: tak
   translated_ranks-label-rank_id-503: niet-gerangschikt
+  translated_ranks-label-rank_id-51: klasse
   translated_ranks-label-rank_id-512: variëteit
   translated_ranks-label-rank_id-513: variëteit
   translated_ranks-label-rank_id-517: variëteit
   translated_ranks-label-rank_id-518: variëteit
-  translated_ranks-label-rank_id-51: klasse
   translated_ranks-label-rank_id-562: nothogenus
   translated_ranks-label-rank_id-563: nothosoort
   translated_ranks-label-rank_id-564: notho-ondersoort
@@ -176,11 +169,11 @@ nl:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familie
+  translated_resource_statuses-label-resource_status_id-1: Bezig met uploaden
   translated_resource_statuses-label-resource_status_id-10: Gepubliceerd
   translated_resource_statuses-label-resource_status_id-11: Publiceren in behandeling
   translated_resource_statuses-label-resource_status_id-12: Publiceren ongedaan maken in behandeling
   translated_resource_statuses-label-resource_status_id-13: Oogst forceren
-  translated_resource_statuses-label-resource_status_id-1: Bezig met uploaden
   translated_resource_statuses-label-resource_status_id-2: Geüpload
   translated_resource_statuses-label-resource_status_id-3: Uploaden is mislukt
   translated_resource_statuses-label-resource_status_id-4: Verplaatst naar contentserver
@@ -201,6 +194,7 @@ nl:
   translated_statuses-label-status_id-2: Bijgewerkt
   translated_statuses-label-status_id-3: Ongewijzigd
   translated_statuses-label-status_id-4: Hergebruikt
+  translated_synonym_relations-label-synonym_relation_id-1: synoniem
   translated_synonym_relations-label-synonym_relation_id-10: GenBank-synoniem
   translated_synonym_relations-label-synonym_relation_id-11: gedeeltelijk
   translated_synonym_relations-label-synonym_relation_id-12: bevat
@@ -211,7 +205,7 @@ nl:
   translated_synonym_relations-label-synonym_relation_id-17: verkeerd toegepaste naam
   translated_synonym_relations-label-synonym_relation_id-18: voorlopig geaccepteerde naam
   translated_synonym_relations-label-synonym_relation_id-19: geaccepteerde naam
-  translated_synonym_relations-label-synonym_relation_id-1: synoniem
+  translated_synonym_relations-label-synonym_relation_id-2: gewone naam
   translated_synonym_relations-label-synonym_relation_id-20: database-artefact
   translated_synonym_relations-label-synonym_relation_id-21: anders, zie de opmerkingen
   translated_synonym_relations-label-synonym_relation_id-22: spellingsvariant (spelfout)
@@ -222,22 +216,18 @@ nl:
   translated_synonym_relations-label-synonym_relation_id-27: overbodig hernoemen (ongeoorloofd)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: junior synoniem
-  translated_synonym_relations-label-synonym_relation_id-2: gewone naam
+  translated_synonym_relations-label-synonym_relation_id-3: acroniem
   translated_synonym_relations-label-synonym_relation_id-30: niet beschikbaar, database-artefact
   translated_synonym_relations-label-synonym_relation_id-31: onnodige vervanging
   translated_synonym_relations-label-synonym_relation_id-32: latere naam/combinatie
   translated_synonym_relations-label-synonym_relation_id-33: niet beschikbaar, spelfout in literatuur
   translated_synonym_relations-label-synonym_relation_id-34: originele naam/combinatie
-  translated_synonym_relations-label-synonym_relation_id-35: >
-    niet beschikbaar, onjuiste originele
-    spelling
+  translated_synonym_relations-label-synonym_relation_id-35: niet beschikbaar, onjuiste originele spelling
   translated_synonym_relations-label-synonym_relation_id-36: junior homoniem
   translated_synonym_relations-label-synonym_relation_id-37: homoniem en junior synoniem
-  translated_synonym_relations-label-synonym_relation_id-38: >
-    niet beschikbaar, onderdrukt per
-    uitspraak
+  translated_synonym_relations-label-synonym_relation_id-38: niet beschikbaar, onderdrukt per uitspraak
   translated_synonym_relations-label-synonym_relation_id-39: onjuiste correctie
-  translated_synonym_relations-label-synonym_relation_id-3: acroniem
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-40: niet beschikbaar, anders
   translated_synonym_relations-label-synonym_relation_id-41: niet beschikbaar, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
@@ -248,7 +238,7 @@ nl:
   translated_synonym_relations-label-synonym_relation_id-47: homotypisch synoniem
   translated_synonym_relations-label-synonym_relation_id-48: naam niet beschikbaar
   translated_synonym_relations-label-synonym_relation_id-49: geldige naam
-  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-5: blastnaam
   translated_synonym_relations-label-synonym_relation_id-50: geldig
   translated_synonym_relations-label-synonym_relation_id-51: geaccepteerd
   translated_synonym_relations-label-synonym_relation_id-52: autoriteit
@@ -259,7 +249,7 @@ nl:
   translated_synonym_relations-label-synonym_relation_id-57: alternatieve spelling
   translated_synonym_relations-label-synonym_relation_id-58: lexicale variant
   translated_synonym_relations-label-synonym_relation_id-59: synoniem (objectief = homotypisch)
-  translated_synonym_relations-label-synonym_relation_id-5: blastnaam
+  translated_synonym_relations-label-synonym_relation_id-6: gelijkwaardige naam
   translated_synonym_relations-label-synonym_relation_id-60: synoniem (objectief = heterotypisch)
   translated_synonym_relations-label-synonym_relation_id-61: objectief synoniem
   translated_synonym_relations-label-synonym_relation_id-62: senior synoniem
@@ -269,23 +259,23 @@ nl:
   translated_synonym_relations-label-synonym_relation_id-66: alternatieve representatie
   translated_synonym_relations-label-synonym_relation_id-67: species inquirenda
   translated_synonym_relations-label-synonym_relation_id-68: tuinbouw
-  translated_synonym_relations-label-synonym_relation_id-6: gelijkwaardige naam
   translated_synonym_relations-label-synonym_relation_id-7: GenBank-acroniem
   translated_synonym_relations-label-synonym_relation_id-8: GenBank-anamorf
   translated_synonym_relations-label-synonym_relation_id-9: Algemene naam bij GenBank
+  translated_table_of_contents-label-table_of_contents_id-1: Overzicht
   translated_table_of_contents-label-table_of_contents_id-13: Algemene namen
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Literatuurreferenties
   translated_table_of_contents-label-table_of_contents_id-194: Grootte
-  translated_table_of_contents-label-table_of_contents_id-1: Overzicht
+  translated_table_of_contents-label-table_of_contents_id-2: Korte samenvatting
   translated_table_of_contents-label-table_of_contents_id-218: Verspreiding
-  translated_table_of_contents-label-table_of_contents_id-221: "Risico's"
+  translated_table_of_contents-label-table_of_contents_id-221: Risico's
   translated_table_of_contents-label-table_of_contents_id-225: Op het web
   translated_table_of_contents-label-table_of_contents_id-226: Contentpartners
   translated_table_of_contents-label-table_of_contents_id-227: Zoeken op het web
+  translated_table_of_contents-label-table_of_contents_id-24: Opmerkingen
   translated_table_of_contents-label-table_of_contents_id-242: Algemene ecologie
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografieën
-  translated_table_of_contents-label-table_of_contents_id-24: Opmerkingen
   translated_table_of_contents-label-table_of_contents_id-251: Voordelen
   translated_table_of_contents-label-table_of_contents_id-267: Morfologie
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografie
@@ -297,7 +287,7 @@ nl:
   translated_table_of_contents-label-table_of_contents_id-296: Beheer
   translated_table_of_contents-label-table_of_contents_id-297: Trofische strategie
   translated_table_of_contents-label-table_of_contents_id-299: Onderwijs
-  translated_table_of_contents-label-table_of_contents_id-2: Korte samenvatting
+  translated_table_of_contents-label-table_of_contents_id-3: Fysieke beschrijving
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Namen en taxonomie
   translated_table_of_contents-label-table_of_contents_id-304: Gerelateerde namen
@@ -326,6 +316,7 @@ nl:
   translated_table_of_contents-label-table_of_contents_id-327: Fysiologie
   translated_table_of_contents-label-table_of_contents_id-328: Celbiologie
   translated_table_of_contents-label-table_of_contents_id-329: Genetica
+  translated_table_of_contents-label-table_of_contents_id-33: Trends
   translated_table_of_contents-label-table_of_contents_id-330: Nucleotidesequenties
   translated_table_of_contents-label-table_of_contents_id-331: Streepjescode
   translated_table_of_contents-label-table_of_contents_id-332: Genoom
@@ -336,7 +327,7 @@ nl:
   translated_table_of_contents-label-table_of_contents_id-337: Onderwijs
   translated_table_of_contents-label-table_of_contents_id-338: Verwijzigingen voor onderwijs
   translated_table_of_contents-label-table_of_contents_id-339: Onderwijsmiddelen
-  translated_table_of_contents-label-table_of_contents_id-33: Trends
+  translated_table_of_contents-label-table_of_contents_id-34: Opmerkingen
   translated_table_of_contents-label-table_of_contents_id-340: High School Lab Series
   translated_table_of_contents-label-table_of_contents_id-341: Burgerwetenschap
   translated_table_of_contents-label-table_of_contents_id-342: Verwijzigingen voor burgerwetenschap
@@ -346,10 +337,8 @@ nl:
   translated_table_of_contents-label-table_of_contents_id-346: Biomedische voorwaarden
   translated_table_of_contents-label-table_of_contents_id-347: Taxonomie
   translated_table_of_contents-label-table_of_contents_id-348: Typegegevens
-  translated_table_of_contents-label-table_of_contents_id-34: Opmerkingen
-  translated_table_of_contents-label-table_of_contents_id-3: Fysieke beschrijving
-  translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-4: Ecologie
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-5: Evolutie en systematiek
   translated_table_of_contents-label-table_of_contents_id-6: Relevantie voor de mens en ecosystemen
   translated_table_of_contents-label-table_of_contents_id-7: Referenties en meer gegevens

@@ -1,12 +1,11 @@
 # Messages for Greek (Ελληνικά)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: Crazymadlover
 # Author: Glavkos
 # Author: Kiolalis
 # Author: Promi8eas
----
-el:
+el: 
   translated_activities-name-activity_id-19: προφίλ
   translated_activities-name-activity_id-50: μη έμπιστο
   translated_activities-name-activity_id-51: εμφάνιση
@@ -20,21 +19,17 @@ el:
   translated_activities-name-activity_id-59: Μη επιθεωρημένα
   translated_activities-name-activity_id-63: συλλογή
   translated_activities-name-activity_id-64: κατάργηση
+  translated_agent_roles-label-agent_role_id-1: Εμψυχωτής
   translated_agent_roles-label-agent_role_id-10: Σχέδιο Εργασίας
   translated_agent_roles-label-agent_role_id-11: Εκδότης
   translated_agent_roles-label-agent_role_id-12: Μηχανή εγγραφής
   translated_agent_roles-label-agent_role_id-13: Πηγή
-  translated_agent_roles-label-agent_role_id-14: >
-    Βάση δεδομένων των
-    πηγών
-  translated_agent_roles-label-agent_role_id-15: >
-    Υπεύθυνος
-    Επικοινωνίας
+  translated_agent_roles-label-agent_role_id-14: Βάση δεδομένων των πηγών
+  translated_agent_roles-label-agent_role_id-15: Υπεύθυνος Επικοινωνίας
   translated_agent_roles-label-agent_role_id-16: Συνεισφέρων
-  translated_agent_roles-label-agent_role_id-1: Εμψυχωτής
+  translated_agent_roles-label-agent_role_id-2: Συγγραφέας
   translated_agent_roles-label-agent_role_id-21: πάροχος
   translated_agent_roles-label-agent_role_id-22: Μεταφραστής
-  translated_agent_roles-label-agent_role_id-2: Συγγραφέας
   translated_agent_roles-label-agent_role_id-3: Μεταγλωττιστής
   translated_agent_roles-label-agent_role_id-4: Συνθέτης
   translated_agent_roles-label-agent_role_id-5: Δημιουργός
@@ -45,23 +40,23 @@ el:
   translated_audiences-label-audience_id-1: Έμπειροι χρήστες
   translated_audiences-label-audience_id-2: Ευρύ κοινό
   translated_audiences-label-audience_id-3: Παιδιά
+  translated_collection_types-label-collection_type_id-1: Ταξινομία
   translated_collection_types-label-collection_type_id-10: Ήχοι
   translated_collection_types-label-collection_type_id-11: Σύνδεσμοι
   translated_collection_types-label-collection_type_id-12: Λογοτεχνία
   translated_collection_types-label-collection_type_id-13: Ταξινομία
-  translated_collection_types-label-collection_type_id-14: 'Μοριακοί  γραμμωτοί κώδικες'
+  translated_collection_types-label-collection_type_id-14: Μοριακοί  γραμμωτοί κώδικες
   translated_collection_types-label-collection_type_id-15: Περιγραφή
   translated_collection_types-label-collection_type_id-16: Εικόνες
   translated_collection_types-label-collection_type_id-17: Διανομή
   translated_collection_types-label-collection_type_id-18: Κατάσταση διατήρησης
   translated_collection_types-label-collection_type_id-19: Πληροφορίες Ονόματος
-  translated_collection_types-label-collection_type_id-1: Ταξινομία
+  translated_collection_types-label-collection_type_id-2: Μοριακοί  γραμμωτοί κώδικες
   translated_collection_types-label-collection_type_id-20: Μοριακά δεδομένα
   translated_collection_types-label-collection_type_id-21: Ονοματολογία
   translated_collection_types-label-collection_type_id-22: Ήχοι
   translated_collection_types-label-collection_type_id-23: Σύνδεσμοι
   translated_collection_types-label-collection_type_id-24: Λογοτεχνία
-  translated_collection_types-label-collection_type_id-2: 'Μοριακοί  γραμμωτοί κώδικες'
   translated_collection_types-label-collection_type_id-3: Περιγραφή
   translated_collection_types-label-collection_type_id-4: Εικόνες
   translated_collection_types-label-collection_type_id-5: Διανομή
@@ -70,58 +65,32 @@ el:
   translated_collection_types-label-collection_type_id-8: Μοριακά δεδομένα
   translated_collection_types-label-collection_type_id-9: Ονοματολογία
   translated_contact_roles-label-contact_role_id-1: Κύρια Επικοινωνία
-  translated_contact_roles-label-contact_role_id-2: >
-    Διαχειριστική
-    Επικοινωνία
+  translated_contact_roles-label-contact_role_id-2: Διαχειριστική Επικοινωνία
   translated_contact_subjects-title-contact_subject_id-24: Συνδρομή και εγγραφή
   translated_contact_subjects-title-contact_subject_id-25: Όροι χρήσης και άδεια
   translated_contact_subjects-title-contact_subject_id-26: Μάθηση και εκπαίδευση
-  translated_contact_subjects-title-contact_subject_id-27: >
-    Γίνετε συνεργάτης
-    περιεχομένου
-  translated_contact_subjects-title-contact_subject_id-28: >
-    Υποστήριξη
-    συνεργατών
-    περιεχομένου
-  translated_contact_subjects-title-contact_subject_id-29: >
-    Υποστήριξη
-    επιμέλειας
-  translated_contact_subjects-title-contact_subject_id-31: >
-    Συνεισφορά σε
-    εικόνες, βίντεο ή ήχο
-  translated_contact_subjects-title-contact_subject_id-33: >
-    Κάνετε μια οικονομική
-    δωρεά
-  translated_contact_subjects-title-contact_subject_id-34: >
-    Τεχνικά θέματα
-    (προβλήματα με την
-    αναζήτηση, τη
-    λειτουργία του
-    ιστότοπου)
+  translated_contact_subjects-title-contact_subject_id-27: Γίνετε συνεργάτης περιεχομένου
+  translated_contact_subjects-title-contact_subject_id-28: Υποστήριξη συνεργατών περιεχομένου
+  translated_contact_subjects-title-contact_subject_id-29: Υποστήριξη επιμέλειας
+  translated_contact_subjects-title-contact_subject_id-31: Συνεισφορά σε εικόνες, βίντεο ή ήχο
+  translated_contact_subjects-title-contact_subject_id-33: Κάνετε μια οικονομική δωρεά
+  translated_contact_subjects-title-contact_subject_id-34: Τεχνικά θέματα (προβλήματα με την αναζήτηση, τη λειτουργία του ιστότοπου)
   translated_content_partner_statuses-label-content_partner_status_id-1: Σε εκκρεμότητα
   translated_content_partner_statuses-label-content_partner_status_id-2: Ενεργό
   translated_content_partner_statuses-label-content_partner_status_id-3: Αποθηκευμένο
   translated_content_partner_statuses-label-content_partner_status_id-4: Ανενεργό
   translated_content_tables-label-content_table_id-1: Λεπτομέρειες
-  translated_data_types-label-data_type_id-10: Χάρτης
   translated_data_types-label-data_type_id-1: Εικόνα
+  translated_data_types-label-data_type_id-10: Χάρτης
   translated_data_types-label-data_type_id-2: Ήχος
   translated_data_types-label-data_type_id-3: Κείμενο
   translated_data_types-label-data_type_id-4: Βίντεο
-  translated_licenses-description-license_id-29: >
-    Ορισμένα δικαιώματα
-    διατηρούνται
+  translated_licenses-description-license_id-29: Ορισμένα δικαιώματα διατηρούνται
   translated_licenses-description-license_id-34: Κοινό κτήμα
   translated_licenses-description-license_id-35: Κοινό κτήμα
-  translated_licenses-description-license_id-36: >
-    Ορισμένα δικαιώματα
-    διατηρούνται
-  translated_licenses-description-license_id-37: >
-    Ορισμένα δικαιώματα
-    διατηρούνται
-  translated_licenses-description-license_id-38: >
-    Ορισμένα δικαιώματα
-    διατηρούνται
+  translated_licenses-description-license_id-36: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-37: Ορισμένα δικαιώματα διατηρούνται
+  translated_licenses-description-license_id-38: Ορισμένα δικαιώματα διατηρούνται
   translated_licenses-description-license_id-39: Κοινό κτήμα
   translated_ranks-label-rank_id-106: μορφή
   translated_ranks-label-rank_id-183: βασίλειο
@@ -142,15 +111,12 @@ el:
   translated_ranks-label-rank_id-494: φυλή
   translated_ranks-label-rank_id-518: ποικιλία
   translated_ranks-label-rank_id-99: οικογένεια
+  translated_resource_statuses-label-resource_status_id-1: Μεταφόρτωση
   translated_resource_statuses-label-resource_status_id-10: Δημοσιεύθηκε
   translated_resource_statuses-label-resource_status_id-11: Δημοσίευση σε Αναμονή
-  translated_resource_statuses-label-resource_status_id-1: Μεταφόρτωση
   translated_resource_statuses-label-resource_status_id-2: Μεταφορτώθηκαν
   translated_resource_statuses-label-resource_status_id-3: Φόρτωση Αρχείου
-  translated_resource_statuses-label-resource_status_id-4: >
-    Μεταφέρθηκαν στο
-    Διακομιστή
-    Περιεχομένου
+  translated_resource_statuses-label-resource_status_id-4: Μεταφέρθηκαν στο Διακομιστή Περιεχομένου
   translated_resource_statuses-label-resource_status_id-5: Επικυρωμένη
   translated_resource_statuses-label-resource_status_id-6: Η Επικύρωση Απέτυχε
   translated_resource_statuses-label-resource_status_id-7: Γίνεται Eπεξεργασία
@@ -160,86 +126,62 @@ el:
   translated_sort_styles-name-sort_style_id-1: Προστέθηκαν Πρόσφατα
   translated_sort_styles-name-sort_style_id-2: Παλαιότερο
   translated_sort_styles-name-sort_style_id-3: Αλφαβητικά
-  translated_sort_styles-name-sort_style_id-4: >
-    Αλφαβητική
-    Αντιστροφή
+  translated_sort_styles-name-sort_style_id-4: Αλφαβητική Αντιστροφή
   translated_sort_styles-name-sort_style_id-5: Πλούτος
   translated_sort_styles-name-sort_style_id-6: Βαθμολογία
   translated_statuses-label-status_id-1: Εισήχθη
   translated_synonym_relations-label-synonym_relation_id-14: ορθογραφικό λάθος
   translated_synonym_relations-label-synonym_relation_id-15: τελεομορφή
   translated_synonym_relations-label-synonym_relation_id-16: διφορούμενο συνώνυμο
+  translated_table_of_contents-label-table_of_contents_id-1: Επισκόπηση
   translated_table_of_contents-label-table_of_contents_id-13: Κοινά ονόματα
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
-  translated_table_of_contents-label-table_of_contents_id-17: >
-    Λογοτεχνικές
-    Αναφορές
+  translated_table_of_contents-label-table_of_contents_id-17: Λογοτεχνικές Αναφορές
   translated_table_of_contents-label-table_of_contents_id-194: Μέγεθος
-  translated_table_of_contents-label-table_of_contents_id-1: Επισκόπηση
+  translated_table_of_contents-label-table_of_contents_id-2: Συνοπτική παρουσίαση
   translated_table_of_contents-label-table_of_contents_id-221: Κίνδυνοι
   translated_table_of_contents-label-table_of_contents_id-225: Στο διαδίκτυο
-  translated_table_of_contents-label-table_of_contents_id-227: >
-    Αναζήτηση στο
-    διαδίκτυο
+  translated_table_of_contents-label-table_of_contents_id-227: Αναζήτηση στο διαδίκτυο
+  translated_table_of_contents-label-table_of_contents_id-24: Σχολιασμός
   translated_table_of_contents-label-table_of_contents_id-242: Γενική Οικολογία
   translated_table_of_contents-label-table_of_contents_id-244: Βιβλιογραφίες
-  translated_table_of_contents-label-table_of_contents_id-24: Σχολιασμός
   translated_table_of_contents-label-table_of_contents_id-251: Οφέλη
   translated_table_of_contents-label-table_of_contents_id-267: Μορφολογία
   translated_table_of_contents-label-table_of_contents_id-278: Βιβλιογραφία
   translated_table_of_contents-label-table_of_contents_id-286: Κατάσταση διατήρησης
   translated_table_of_contents-label-table_of_contents_id-289: Εξέλιξη
-  translated_table_of_contents-label-table_of_contents_id-293: >
-    Διαγνωστικά
-    περιγραφή
+  translated_table_of_contents-label-table_of_contents_id-293: Διαγνωστικά περιγραφή
   translated_table_of_contents-label-table_of_contents_id-296: Διαχείριση
   translated_table_of_contents-label-table_of_contents_id-299: Εκπαίδευση
-  translated_table_of_contents-label-table_of_contents_id-2: Συνοπτική παρουσίαση
+  translated_table_of_contents-label-table_of_contents_id-3: Φυσική περιγραφή
   translated_table_of_contents-label-table_of_contents_id-300: Βικιπαίδεια
   translated_table_of_contents-label-table_of_contents_id-303: Ονόματα και Ταξινομία
   translated_table_of_contents-label-table_of_contents_id-304: Σχετικές ονομασίες
   translated_table_of_contents-label-table_of_contents_id-305: Συνώνυμα
-  translated_table_of_contents-label-table_of_contents_id-306: >
-    Στατιστικά στοιχεία
-    σελίδας
-  translated_table_of_contents-label-table_of_contents_id-307: >
-    Περίληψη του
-    περιεχομένου
+  translated_table_of_contents-label-table_of_contents_id-306: Στατιστικά στοιχεία σελίδας
+  translated_table_of_contents-label-table_of_contents_id-307: Περίληψη του περιεχομένου
   translated_table_of_contents-label-table_of_contents_id-308: Αναλυτική περιγραφή
   translated_table_of_contents-label-table_of_contents_id-309: Διανομή
   translated_table_of_contents-label-table_of_contents_id-310: Ανάπτυξη
   translated_table_of_contents-label-table_of_contents_id-312: Μετανάστευση
-  translated_table_of_contents-label-table_of_contents_id-313: >
-    Ασθένειες και
-    παράσιτα
+  translated_table_of_contents-label-table_of_contents_id-313: Ασθένειες και παράσιτα
   translated_table_of_contents-label-table_of_contents_id-314: Βιολογία Πληθυσμού
-  translated_table_of_contents-label-table_of_contents_id-315: >
-    Ιστορικό ζωής και
-    συμπεριφοράς
+  translated_table_of_contents-label-table_of_contents_id-315: Ιστορικό ζωής και συμπεριφοράς
   translated_table_of_contents-label-table_of_contents_id-316: Συμπεριφορά
   translated_table_of_contents-label-table_of_contents_id-318: Κύκλος ζωής
   translated_table_of_contents-label-table_of_contents_id-319: Προσδόκιμο ζωής
   translated_table_of_contents-label-table_of_contents_id-320: Αναπαραγωγή
   translated_table_of_contents-label-table_of_contents_id-321: Ανάπτυξη
   translated_table_of_contents-label-table_of_contents_id-322: Ιστορία απολιθωμάτων
-  translated_table_of_contents-label-table_of_contents_id-323: >
-    Συστηματική ή
-    Φυλογενετική
-  translated_table_of_contents-label-table_of_contents_id-324: >
-    Λειτουργικές
-    προσαρμογές
-  translated_table_of_contents-label-table_of_contents_id-325: >
-    Φυσιολογία και
-    Κυτταρική Βιολογία
-  translated_table_of_contents-label-table_of_contents_id-326: >
-    Μοριακή Βιολογία και
-    Γενετική
+  translated_table_of_contents-label-table_of_contents_id-323: Συστηματική ή Φυλογενετική
+  translated_table_of_contents-label-table_of_contents_id-324: Λειτουργικές προσαρμογές
+  translated_table_of_contents-label-table_of_contents_id-325: Φυσιολογία και Κυτταρική Βιολογία
+  translated_table_of_contents-label-table_of_contents_id-326: Μοριακή Βιολογία και Γενετική
   translated_table_of_contents-label-table_of_contents_id-327: Φυσιολογία
   translated_table_of_contents-label-table_of_contents_id-328: Κυτταρική Βιολογία
   translated_table_of_contents-label-table_of_contents_id-329: Γενετική
-  translated_table_of_contents-label-table_of_contents_id-330: >
-    Νουκλεοτιδικές
-    Αλληλουχίες
+  translated_table_of_contents-label-table_of_contents_id-33: Τάσεις
+  translated_table_of_contents-label-table_of_contents_id-330: Νουκλεοτιδικές Αλληλουχίες
   translated_table_of_contents-label-table_of_contents_id-331: Γραμμικός κώδικας
   translated_table_of_contents-label-table_of_contents_id-332: Γονιδίωμα
   translated_table_of_contents-label-table_of_contents_id-333: Μοριακή Βιολογία
@@ -247,48 +189,29 @@ el:
   translated_table_of_contents-label-table_of_contents_id-335: Νομοθεσία
   translated_table_of_contents-label-table_of_contents_id-336: Σημειώσεις
   translated_table_of_contents-label-table_of_contents_id-337: Εκπαίδευση
-  translated_table_of_contents-label-table_of_contents_id-338: >
-    Εκπαιδευτικές
-    συνδέσεις
+  translated_table_of_contents-label-table_of_contents_id-338: Εκπαιδευτικές συνδέσεις
   translated_table_of_contents-label-table_of_contents_id-339: Εκπαιδευτικές Πηγές
-  translated_table_of_contents-label-table_of_contents_id-33: Τάσεις
-  translated_table_of_contents-label-table_of_contents_id-340: >
-    Εργαστηριακή σειρά
-    Λυκείου
+  translated_table_of_contents-label-table_of_contents_id-34: Σχόλια
+  translated_table_of_contents-label-table_of_contents_id-340: Εργαστηριακή σειρά Λυκείου
   translated_table_of_contents-label-table_of_contents_id-341: Πολιτική επιστήμη
-  translated_table_of_contents-label-table_of_contents_id-342: >
-    Συνδέσεις πολιτικής
-    επιστήμης
-  translated_table_of_contents-label-table_of_contents_id-343: >
-    Βιβλιοθήκη
-    κληρονομιάς
-    βιοποικιλότητας
+  translated_table_of_contents-label-table_of_contents_id-342: Συνδέσεις πολιτικής επιστήμης
+  translated_table_of_contents-label-table_of_contents_id-343: Βιβλιοθήκη κληρονομιάς βιοποικιλότητας
   translated_table_of_contents-label-table_of_contents_id-344: Δεδομένα
   translated_table_of_contents-label-table_of_contents_id-345: Πηγή δεδομένων
   translated_table_of_contents-label-table_of_contents_id-346: Βιοϊατρικοί όροι
   translated_table_of_contents-label-table_of_contents_id-347: Ταξινομία
-  translated_table_of_contents-label-table_of_contents_id-348: >
-    Πληροφορίες για τον
-    τύπο
-  translated_table_of_contents-label-table_of_contents_id-34: Σχόλια
-  translated_table_of_contents-label-table_of_contents_id-3: Φυσική περιγραφή
+  translated_table_of_contents-label-table_of_contents_id-348: Πληροφορίες για τον τύπο
   translated_table_of_contents-label-table_of_contents_id-4: Οικολογία
-  translated_table_of_contents-label-table_of_contents_id-7: >
-    Αναφορές και επιπλέον
-    πληροφορίες
+  translated_table_of_contents-label-table_of_contents_id-7: Αναφορές και επιπλέον πληροφορίες
   translated_table_of_contents-label-table_of_contents_id-8: Διατήρηση
-  translated_untrust_reasons-label-untrust_reason_id-1: 'μη - αναγνωρίσιμό'
+  translated_untrust_reasons-label-untrust_reason_id-1: μη - αναγνωρίσιμό
   translated_untrust_reasons-label-untrust_reason_id-2: λάθος/ανακριβές
   translated_untrust_reasons-label-untrust_reason_id-3: χαμηλή ποιήτητα
   translated_untrust_reasons-label-untrust_reason_id-5: Άλλο
   translated_user_identities-label-user_identity_id-2: σπουδαστής
   translated_user_identities-label-user_identity_id-3: Εκπαιδευτικός
-  translated_user_identities-label-user_identity_id-4: >
-    ένας πολιτικός
-    επιστήμονας
-  translated_user_identities-label-user_identity_id-5: >
-    ένας επαγγελματίας
-    επιστήμονας
+  translated_user_identities-label-user_identity_id-4: ένας πολιτικός επιστήμονας
+  translated_user_identities-label-user_identity_id-5: ένας επαγγελματίας επιστήμονας
   translated_vetted-label-vetted_id-0: Άγνωστος
   translated_vetted-label-vetted_id-4: Αναξιόπιστη
   translated_vetted-label-vetted_id-5: Αξιόπιστη

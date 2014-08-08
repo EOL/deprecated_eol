@@ -1,9 +1,8 @@
 # Messages for Malay (Bahasa Melayu)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: Anakmalaysia
----
-ms:
+ms: 
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: tidak dipercayai
   translated_activities-name-activity_id-51: tunjukkan
@@ -17,6 +16,7 @@ ms:
   translated_activities-name-activity_id-59: belum diperiksa
   translated_activities-name-activity_id-63: kumpul
   translated_activities-name-activity_id-64: buang
+  translated_agent_roles-label-agent_role_id-1: Juruanimasi
   translated_agent_roles-label-agent_role_id-10: Projek
   translated_agent_roles-label-agent_role_id-11: Penerbit
   translated_agent_roles-label-agent_role_id-12: Perakam
@@ -24,12 +24,11 @@ ms:
   translated_agent_roles-label-agent_role_id-14: Pangkalan Data Sumber
   translated_agent_roles-label-agent_role_id-15: Hubungan
   translated_agent_roles-label-agent_role_id-16: Penyumbang
-  translated_agent_roles-label-agent_role_id-1: Juruanimasi
+  translated_agent_roles-label-agent_role_id-2: Pengarang
   translated_agent_roles-label-agent_role_id-21: Pembekal
   translated_agent_roles-label-agent_role_id-22: Penterjemah
   translated_agent_roles-label-agent_role_id-23: Pengulas Saintifik
   translated_agent_roles-label-agent_role_id-24: Pengulas Linguistik
-  translated_agent_roles-label-agent_role_id-2: Pengarang
   translated_agent_roles-label-agent_role_id-3: Penyusun
   translated_agent_roles-label-agent_role_id-4: Komposer
   translated_agent_roles-label-agent_role_id-5: Pencipta
@@ -40,6 +39,7 @@ ms:
   translated_audiences-label-audience_id-1: Pengguna pakar
   translated_audiences-label-audience_id-2: Orang awam
   translated_audiences-label-audience_id-3: Kanak-kanak
+  translated_collection_types-label-collection_type_id-1: Taksonomi
   translated_collection_types-label-collection_type_id-10: Bunyi
   translated_collection_types-label-collection_type_id-11: Pautan
   translated_collection_types-label-collection_type_id-12: Kepustakaan
@@ -50,13 +50,12 @@ ms:
   translated_collection_types-label-collection_type_id-17: Taburan
   translated_collection_types-label-collection_type_id-18: Status pemuliharaan
   translated_collection_types-label-collection_type_id-19: Maklumat nama
-  translated_collection_types-label-collection_type_id-1: Taksonomi
+  translated_collection_types-label-collection_type_id-2: Kod bar molekul
   translated_collection_types-label-collection_type_id-20: Data molekul
   translated_collection_types-label-collection_type_id-21: Tatanama
   translated_collection_types-label-collection_type_id-22: Bunyi
   translated_collection_types-label-collection_type_id-23: Pautan
   translated_collection_types-label-collection_type_id-24: Kepustakaan
-  translated_collection_types-label-collection_type_id-2: Kod bar molekul
   translated_collection_types-label-collection_type_id-3: Keterangan
   translated_collection_types-label-collection_type_id-4: Gambar
   translated_collection_types-label-collection_type_id-5: Taburan
@@ -73,25 +72,19 @@ ms:
   translated_contact_subjects-title-contact_subject_id-27: Jadilah rakan kongsi kandungan
   translated_contact_subjects-title-contact_subject_id-28: Sokongan rakan kongsi kandungan
   translated_contact_subjects-title-contact_subject_id-29: Sokongan kurator
-  translated_contact_subjects-title-contact_subject_id-30: >
-    Buat pembetulan (ejaan dan tatabahasa,
-    gambar, maklumat)
+  translated_contact_subjects-title-contact_subject_id-30: Buat pembetulan (ejaan dan tatabahasa, gambar, maklumat)
   translated_contact_subjects-title-contact_subject_id-31: Sumbangkan gambar, video atau audio
-  translated_contact_subjects-title-contact_subject_id-32: >
-    Permohonan media (wawancara, pertanyaan
-    akhbar, permintaan logo)
+  translated_contact_subjects-title-contact_subject_id-32: Permohonan media (wawancara, pertanyaan akhbar, permintaan logo)
   translated_contact_subjects-title-contact_subject_id-33: Berikan sumbangan kewangan
-  translated_contact_subjects-title-contact_subject_id-34: >
-    Pertanyaan teknikal (masalah dengan
-    carian, kefungsian tapak sesawang)
+  translated_contact_subjects-title-contact_subject_id-34: Pertanyaan teknikal (masalah dengan carian, kefungsian tapak sesawang)
   translated_contact_subjects-title-contact_subject_id-35: Maklum balas am
   translated_content_partner_statuses-label-content_partner_status_id-1: Menunggu
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktif
   translated_content_partner_statuses-label-content_partner_status_id-3: Dalam Arkib
   translated_content_partner_statuses-label-content_partner_status_id-4: Tidak Aktif
   translated_content_tables-label-content_table_id-1: Butiran
-  translated_data_types-label-data_type_id-10: Peta
   translated_data_types-label-data_type_id-1: Gambar
+  translated_data_types-label-data_type_id-10: Peta
   translated_data_types-label-data_type_id-2: Bunyi
   translated_data_types-label-data_type_id-3: Teks
   translated_data_types-label-data_type_id-4: Video
@@ -100,8 +93,9 @@ ms:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Tiada hak cipta terpelihara
+  translated_licenses-description-license_id-2: "&#169; Semua hak cipta terpelihara"
   translated_licenses-description-license_id-29: Sebahagian hak cipta terpelihara
-  translated_licenses-description-license_id-2: '&#169; Semua hak cipta terpelihara'
+  translated_licenses-description-license_id-3: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-30: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-31: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-32: Sebahagian hak cipta terpelihara
@@ -112,10 +106,9 @@ ms:
   translated_licenses-description-license_id-37: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-38: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-39: Domain Awam
-  translated_licenses-description-license_id-3: Sebahagian hak cipta terpelihara
+  translated_licenses-description-license_id-4: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-42: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-43: Tiada lesen yang berkenaan
-  translated_licenses-description-license_id-4: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-5: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-6: Sebahagian hak cipta terpelihara
   translated_licenses-description-license_id-7: Sebahagian hak cipta terpelihara
@@ -158,11 +151,11 @@ ms:
   translated_ranks-label-rank_id-472: superfilum
   translated_ranks-label-rank_id-494: puak
   translated_ranks-label-rank_id-503: tanpa pangkat
+  translated_ranks-label-rank_id-51: kelas
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietas
   translated_ranks-label-rank_id-518: varieti
-  translated_ranks-label-rank_id-51: kelas
   translated_ranks-label-rank_id-562: notogenus
   translated_ranks-label-rank_id-563: notospesies
   translated_ranks-label-rank_id-564: notosubspesies
@@ -173,11 +166,11 @@ ms:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: family
+  translated_resource_statuses-label-resource_status_id-1: Sedang Memuat Naik
   translated_resource_statuses-label-resource_status_id-10: Diterbitkan
   translated_resource_statuses-label-resource_status_id-11: Menunggu untuk Diterbitkan
   translated_resource_statuses-label-resource_status_id-12: Menunggu untuk Dinyahterbitkan
   translated_resource_statuses-label-resource_status_id-13: Kutip Secara Paksa
-  translated_resource_statuses-label-resource_status_id-1: Sedang Memuat Naik
   translated_resource_statuses-label-resource_status_id-2: Dimuat Naik
   translated_resource_statuses-label-resource_status_id-3: Muat Naik Gagal
   translated_resource_statuses-label-resource_status_id-4: Dipindahkan ke Pelayar Kandungan
@@ -198,6 +191,7 @@ ms:
   translated_statuses-label-status_id-2: Dikemas Kini
   translated_statuses-label-status_id-3: Tidak Diubah
   translated_statuses-label-status_id-4: Digunakan Semula
+  translated_synonym_relations-label-synonym_relation_id-1: sinonim
   translated_synonym_relations-label-synonym_relation_id-10: sinonim genbank
   translated_synonym_relations-label-synonym_relation_id-11: tergolong dalam
   translated_synonym_relations-label-synonym_relation_id-12: termasuk
@@ -208,7 +202,7 @@ ms:
   translated_synonym_relations-label-synonym_relation_id-17: nama yang tersalah guna
   translated_synonym_relations-label-synonym_relation_id-18: nama yang diterima sementara
   translated_synonym_relations-label-synonym_relation_id-19: nama diterima
-  translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-2: nama am
   translated_synonym_relations-label-synonym_relation_id-20: artifak pangkalan data
   translated_synonym_relations-label-synonym_relation_id-21: lain-lain, lihat komen
   translated_synonym_relations-label-synonym_relation_id-22: ejaan lain (ejaan salah)
@@ -216,12 +210,10 @@ ms:
   translated_synonym_relations-label-synonym_relation_id-24: nama yang ditolak
   translated_synonym_relations-label-synonym_relation_id-25: homonim (tidak munasabah)
   translated_synonym_relations-label-synonym_relation_id-26: pro parte
-  translated_synonym_relations-label-synonym_relation_id-27: >
-    penamaan semula berlebihan (tidak
-    munasabah)
+  translated_synonym_relations-label-synonym_relation_id-27: penamaan semula berlebihan (tidak munasabah)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: sinonim junior
-  translated_synonym_relations-label-synonym_relation_id-2: nama am
+  translated_synonym_relations-label-synonym_relation_id-3: singkatan
   translated_synonym_relations-label-synonym_relation_id-30: tiada, artifak pangkalan data
   translated_synonym_relations-label-synonym_relation_id-31: gantian yang tidak perlu
   translated_synonym_relations-label-synonym_relation_id-32: nama/gabungan berikutnya
@@ -229,23 +221,21 @@ ms:
   translated_synonym_relations-label-synonym_relation_id-34: nama/gabungan asal
   translated_synonym_relations-label-synonym_relation_id-35: tiada, ejaan asal tidak betul
   translated_synonym_relations-label-synonym_relation_id-36: homonim junior
-  translated_synonym_relations-label-synonym_relation_id-37: 'homonim & sinonim junior'
+  translated_synonym_relations-label-synonym_relation_id-37: homonim & sinonim junior
   translated_synonym_relations-label-synonym_relation_id-38: tiada, disekat atas arahan
   translated_synonym_relations-label-synonym_relation_id-39: pembetulan yang tidak wajar
-  translated_synonym_relations-label-synonym_relation_id-3: singkatan
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-40: tiada, lain-lain
   translated_synonym_relations-label-synonym_relation_id-41: tiada, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
   translated_synonym_relations-label-synonym_relation_id-43: dterbitkan secara tidak sah, lain-lain
-  translated_synonym_relations-label-synonym_relation_id-44: >
-    diterbitkan secara tidak sah, nomen
-    nudum
+  translated_synonym_relations-label-synonym_relation_id-44: diterbitkan secara tidak sah, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-45: basionim
   translated_synonym_relations-label-synonym_relation_id-46: sinonim heterotip
   translated_synonym_relations-label-synonym_relation_id-47: sinonim homotip
   translated_synonym_relations-label-synonym_relation_id-48: nama tidak tersedia
   translated_synonym_relations-label-synonym_relation_id-49: nama sah
-  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-5: nama blast
   translated_synonym_relations-label-synonym_relation_id-50: sah
   translated_synonym_relations-label-synonym_relation_id-51: diterima
   translated_synonym_relations-label-synonym_relation_id-52: autoriti
@@ -256,7 +246,7 @@ ms:
   translated_synonym_relations-label-synonym_relation_id-57: ejaan alternatif
   translated_synonym_relations-label-synonym_relation_id-58: varian leksikal
   translated_synonym_relations-label-synonym_relation_id-59: sinonim (objektif = homotip)
-  translated_synonym_relations-label-synonym_relation_id-5: nama blast
+  translated_synonym_relations-label-synonym_relation_id-6: nama setara
   translated_synonym_relations-label-synonym_relation_id-60: sinonim (subjektif = heterotip)
   translated_synonym_relations-label-synonym_relation_id-61: sinonim objektif
   translated_synonym_relations-label-synonym_relation_id-62: sinonim senior
@@ -266,23 +256,23 @@ ms:
   translated_synonym_relations-label-synonym_relation_id-66: representasi lain
   translated_synonym_relations-label-synonym_relation_id-67: inkuirenda spesies
   translated_synonym_relations-label-synonym_relation_id-68: hortikultur
-  translated_synonym_relations-label-synonym_relation_id-6: nama setara
   translated_synonym_relations-label-synonym_relation_id-7: singkatan genbank
   translated_synonym_relations-label-synonym_relation_id-8: anamorf genbank
   translated_synonym_relations-label-synonym_relation_id-9: nama am genbank
+  translated_table_of_contents-label-table_of_contents_id-1: Intisari
   translated_table_of_contents-label-table_of_contents_id-13: Nama Am
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Rujukan Kepustakaan
   translated_table_of_contents-label-table_of_contents_id-194: Saiz
-  translated_table_of_contents-label-table_of_contents_id-1: Intisari
+  translated_table_of_contents-label-table_of_contents_id-2: Ringkasan
   translated_table_of_contents-label-table_of_contents_id-218: Sebaran
   translated_table_of_contents-label-table_of_contents_id-221: Risiko
   translated_table_of_contents-label-table_of_contents_id-225: Di Web
   translated_table_of_contents-label-table_of_contents_id-226: Rakan Kongsi Kandungan
   translated_table_of_contents-label-table_of_contents_id-227: Cari dalam Web
+  translated_table_of_contents-label-table_of_contents_id-24: Ulasan
   translated_table_of_contents-label-table_of_contents_id-242: Ekologi Am
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografi
-  translated_table_of_contents-label-table_of_contents_id-24: Ulasan
   translated_table_of_contents-label-table_of_contents_id-251: Faedah
   translated_table_of_contents-label-table_of_contents_id-267: Morfologi
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
@@ -294,7 +284,7 @@ ms:
   translated_table_of_contents-label-table_of_contents_id-296: Pengurusan
   translated_table_of_contents-label-table_of_contents_id-297: Strategi Trofik
   translated_table_of_contents-label-table_of_contents_id-299: Pendidikan
-  translated_table_of_contents-label-table_of_contents_id-2: Ringkasan
+  translated_table_of_contents-label-table_of_contents_id-3: Keterangan Fizikal
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Nama dan Taksonomi
   translated_table_of_contents-label-table_of_contents_id-304: Nama Berkaitan
@@ -323,6 +313,7 @@ ms:
   translated_table_of_contents-label-table_of_contents_id-327: Fisiologi
   translated_table_of_contents-label-table_of_contents_id-328: Biologi Sel
   translated_table_of_contents-label-table_of_contents_id-329: Genetik
+  translated_table_of_contents-label-table_of_contents_id-33: Trend
   translated_table_of_contents-label-table_of_contents_id-330: Jujukan Nukleotida
   translated_table_of_contents-label-table_of_contents_id-331: Kod Bar
   translated_table_of_contents-label-table_of_contents_id-332: Genom
@@ -333,7 +324,7 @@ ms:
   translated_table_of_contents-label-table_of_contents_id-337: Pendidikan
   translated_table_of_contents-label-table_of_contents_id-338: Pautan Pendidikan
   translated_table_of_contents-label-table_of_contents_id-339: Sumber Pendidikan
-  translated_table_of_contents-label-table_of_contents_id-33: Trend
+  translated_table_of_contents-label-table_of_contents_id-34: Komen
   translated_table_of_contents-label-table_of_contents_id-340: Siri Makmal Sekolah Tinggi
   translated_table_of_contents-label-table_of_contents_id-341: Sains Rakyat
   translated_table_of_contents-label-table_of_contents_id-342: Pautan Sains Rakyat
@@ -343,10 +334,8 @@ ms:
   translated_table_of_contents-label-table_of_contents_id-346: Istilah Bioperubatan
   translated_table_of_contents-label-table_of_contents_id-347: Taksonomi
   translated_table_of_contents-label-table_of_contents_id-348: Maklumat Jenis
-  translated_table_of_contents-label-table_of_contents_id-34: Komen
-  translated_table_of_contents-label-table_of_contents_id-3: Keterangan Fizikal
-  translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-4: Ekologi
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
   translated_table_of_contents-label-table_of_contents_id-5: Evolusi dan Sistematik
   translated_table_of_contents-label-table_of_contents_id-6: Kaitan dengan Manusia dan Ekosistem
   translated_table_of_contents-label-table_of_contents_id-7: Rujukan dan Maklumat Lanjut

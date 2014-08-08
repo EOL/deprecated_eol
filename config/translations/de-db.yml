@@ -1,12 +1,11 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
-# Export driver: spyc
+# Export driver: syck-pecl
 # Author: George Animal
 # Author: Katja
 # Author: Kghbln
 # Author: Nipsky
----
-de:
+de: 
   translated_activities-name-activity_id-19: Profil
   translated_activities-name-activity_id-50: nicht vertrauenswürdig
   translated_activities-name-activity_id-51: Anzeigen
@@ -20,6 +19,7 @@ de:
   translated_activities-name-activity_id-59: nicht geprüft
   translated_activities-name-activity_id-63: Sammeln
   translated_activities-name-activity_id-64: Entfernen
+  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Projekt
   translated_agent_roles-label-agent_role_id-11: Herausgeber
   translated_agent_roles-label-agent_role_id-12: Aufzeichner
@@ -27,12 +27,11 @@ de:
   translated_agent_roles-label-agent_role_id-14: Quelldatenbank
   translated_agent_roles-label-agent_role_id-15: Ansprechpartner
   translated_agent_roles-label-agent_role_id-16: Mitwirkender
-  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-21: Anbieter
   translated_agent_roles-label-agent_role_id-22: Übersetzer
   translated_agent_roles-label-agent_role_id-23: Wissenschaftlicher Gutachter
   translated_agent_roles-label-agent_role_id-24: Linguistischer Gutachter
-  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-3: Zusammensteller
   translated_agent_roles-label-agent_role_id-4: Komponist
   translated_agent_roles-label-agent_role_id-5: Urheber
@@ -43,6 +42,7 @@ de:
   translated_audiences-label-audience_id-1: Erfahrene Nutzer
   translated_audiences-label-audience_id-2: Allgemeinheit
   translated_audiences-label-audience_id-3: Kinder
+  translated_collection_types-label-collection_type_id-1: Taxonomie
   translated_collection_types-label-collection_type_id-10: Geräusche
   translated_collection_types-label-collection_type_id-11: Links
   translated_collection_types-label-collection_type_id-12: Literatur
@@ -53,13 +53,12 @@ de:
   translated_collection_types-label-collection_type_id-17: Verbreitungsgebiet
   translated_collection_types-label-collection_type_id-18: Schutzstatus
   translated_collection_types-label-collection_type_id-19: Informationen zum Namen
-  translated_collection_types-label-collection_type_id-1: Taxonomie
+  translated_collection_types-label-collection_type_id-2: Molekulare Barcodes
   translated_collection_types-label-collection_type_id-20: Molekulare Daten
   translated_collection_types-label-collection_type_id-21: Nomenklatur
   translated_collection_types-label-collection_type_id-22: Geräusche
   translated_collection_types-label-collection_type_id-23: Links
   translated_collection_types-label-collection_type_id-24: Literatur
-  translated_collection_types-label-collection_type_id-2: Molekulare Barcodes
   translated_collection_types-label-collection_type_id-3: Beschreibung
   translated_collection_types-label-collection_type_id-4: Bilder
   translated_collection_types-label-collection_type_id-5: Verbreitungsgebiet
@@ -76,29 +75,19 @@ de:
   translated_contact_subjects-title-contact_subject_id-27: Ein Inhaltepartner werden
   translated_contact_subjects-title-contact_subject_id-28: Unterstützung für Inhaltspartner
   translated_contact_subjects-title-contact_subject_id-29: Unterstützung für Kuratoren
-  translated_contact_subjects-title-contact_subject_id-30: >
-    Eine Korrektur vornehmen
-    (Rechtschreibung und Grammatik, Bilder,
-    Informationen)
+  translated_contact_subjects-title-contact_subject_id-30: Eine Korrektur vornehmen (Rechtschreibung und Grammatik, Bilder, Informationen)
   translated_contact_subjects-title-contact_subject_id-31: Bilder, Videos und Geräusche beitragen
-  translated_contact_subjects-title-contact_subject_id-32: >
-    Medienanfragen (Interviews,
-    Presseanfragen, Logoanforderungen)
-  translated_contact_subjects-title-contact_subject_id-33: >
-    Eine finanzielle Unterstützung
-    gewähren
-  translated_contact_subjects-title-contact_subject_id-34: >
-    Technische Fragen (Probleme mit der
-    Suchfunktion, der Funktionalität der
-    Website)
+  translated_contact_subjects-title-contact_subject_id-32: Medienanfragen (Interviews, Presseanfragen, Logoanforderungen)
+  translated_contact_subjects-title-contact_subject_id-33: Eine finanzielle Unterstützung gewähren
+  translated_contact_subjects-title-contact_subject_id-34: Technische Fragen (Probleme mit der Suchfunktion, der Funktionalität der Website)
   translated_contact_subjects-title-contact_subject_id-35: Allgemeine Rückmeldungen
   translated_content_partner_statuses-label-content_partner_status_id-1: Ausstehend
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Archiviert
   translated_content_partner_statuses-label-content_partner_status_id-4: Inaktiv
   translated_content_tables-label-content_table_id-1: Einzelheiten
-  translated_data_types-label-data_type_id-10: Karte
   translated_data_types-label-data_type_id-1: Bild
+  translated_data_types-label-data_type_id-10: Karte
   translated_data_types-label-data_type_id-2: Geräusch
   translated_data_types-label-data_type_id-3: Text
   translated_data_types-label-data_type_id-4: Video
@@ -107,8 +96,9 @@ de:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Keine Rechte vorbehalten
-  translated_licenses-description-license_id-29: Einige Rechte vorbehalten
   translated_licenses-description-license_id-2: © Alle Rechte vorbehalten
+  translated_licenses-description-license_id-29: Einige Rechte vorbehalten
+  translated_licenses-description-license_id-3: Einige Rechte vorbehalten
   translated_licenses-description-license_id-30: Einige Rechte vorbehalten
   translated_licenses-description-license_id-31: Einige Rechte vorbehalten
   translated_licenses-description-license_id-32: Einige Rechte vorbehalten
@@ -119,10 +109,9 @@ de:
   translated_licenses-description-license_id-37: Einige Rechte vorbehalten
   translated_licenses-description-license_id-38: Einige Rechte vorbehalten
   translated_licenses-description-license_id-39: Gemeinfreiheit
-  translated_licenses-description-license_id-3: Einige Rechte vorbehalten
+  translated_licenses-description-license_id-4: Einige Rechte vorbehalten
   translated_licenses-description-license_id-42: Einige Rechte vorbehalten
   translated_licenses-description-license_id-43: Lizenz nicht zutreffend
-  translated_licenses-description-license_id-4: Einige Rechte vorbehalten
   translated_licenses-description-license_id-5: Einige Rechte vorbehalten
   translated_licenses-description-license_id-6: Einige Rechte vorbehalten
   translated_licenses-description-license_id-7: Einige Rechte vorbehalten
@@ -165,11 +154,11 @@ de:
   translated_ranks-label-rank_id-472: Überstamm
   translated_ranks-label-rank_id-494: Tribus
   translated_ranks-label-rank_id-503: ohne Rangstufe
+  translated_ranks-label-rank_id-51: Klasse
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: Varietät
   translated_ranks-label-rank_id-518: Varietät
-  translated_ranks-label-rank_id-51: Klasse
   translated_ranks-label-rank_id-562: nothogenus
   translated_ranks-label-rank_id-563: nothospecies
   translated_ranks-label-rank_id-564: nothosubspecies
@@ -180,16 +169,14 @@ de:
   translated_ranks-label-rank_id-91: Fam
   translated_ranks-label-rank_id-92: Fam.
   translated_ranks-label-rank_id-99: Familie
+  translated_resource_statuses-label-resource_status_id-1: Am Hochladen …
   translated_resource_statuses-label-resource_status_id-10: Veröffentlicht
   translated_resource_statuses-label-resource_status_id-11: Veröffentlichung steht noch aus
   translated_resource_statuses-label-resource_status_id-12: Veröffentlichung steht noch aus
   translated_resource_statuses-label-resource_status_id-13: Abruf erzwingen
-  translated_resource_statuses-label-resource_status_id-1: Am Hochladen …
   translated_resource_statuses-label-resource_status_id-2: Hochgeladen
   translated_resource_statuses-label-resource_status_id-3: Hochladen fehlgeschlagen
-  translated_resource_statuses-label-resource_status_id-4: >
-    Wurde auf den Server mit den Inhalten
-    verschoben
+  translated_resource_statuses-label-resource_status_id-4: Wurde auf den Server mit den Inhalten verschoben
   translated_resource_statuses-label-resource_status_id-5: Geprüft
   translated_resource_statuses-label-resource_status_id-6: Überprüfung gescheitert
   translated_resource_statuses-label-resource_status_id-7: Wird verarbeitet …
@@ -207,7 +194,8 @@ de:
   translated_statuses-label-status_id-2: Aktualisiert
   translated_statuses-label-status_id-3: Unverändert
   translated_statuses-label-status_id-4: Wiederverwendet
-  translated_synonym_relations-label-synonym_relation_id-10: 'GenBank - Synonym'
+  translated_synonym_relations-label-synonym_relation_id-1: Synonym
+  translated_synonym_relations-label-synonym_relation_id-10: GenBank - Synonym
   translated_synonym_relations-label-synonym_relation_id-11: teilweise
   translated_synonym_relations-label-synonym_relation_id-12: enthält
   translated_synonym_relations-label-synonym_relation_id-13: Fehlbezeichnung
@@ -217,12 +205,10 @@ de:
   translated_synonym_relations-label-synonym_relation_id-17: falsch angewendeter Name
   translated_synonym_relations-label-synonym_relation_id-18: vorläufig anerkannter Namen
   translated_synonym_relations-label-synonym_relation_id-19: akzeptierte Bezeichnung
-  translated_synonym_relations-label-synonym_relation_id-1: Synonym
+  translated_synonym_relations-label-synonym_relation_id-2: Gebräuchlicher Name
   translated_synonym_relations-label-synonym_relation_id-20: Datenbankartefakt
   translated_synonym_relations-label-synonym_relation_id-21: anderes, siehe Kommentare
-  translated_synonym_relations-label-synonym_relation_id-22: >
-    orthographische Variante
-    (Rechtschreibfehler)
+  translated_synonym_relations-label-synonym_relation_id-22: orthographische Variante (Rechtschreibfehler)
   translated_synonym_relations-label-synonym_relation_id-23: falsch angewendet
   translated_synonym_relations-label-synonym_relation_id-24: abgelehnter Namen
   translated_synonym_relations-label-synonym_relation_id-25: Homonym (unzulässig)
@@ -230,24 +216,18 @@ de:
   translated_synonym_relations-label-synonym_relation_id-27: überflüssige Umbenennung (unzulässig)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: Junior Synonym
-  translated_synonym_relations-label-synonym_relation_id-2: Gebräuchlicher Name
+  translated_synonym_relations-label-synonym_relation_id-3: Akronym
   translated_synonym_relations-label-synonym_relation_id-30: nicht verfügbar, Datenbankartefakt
   translated_synonym_relations-label-synonym_relation_id-31: unnötige Ersetzung
   translated_synonym_relations-label-synonym_relation_id-32: spätere(r) Name/Kombination
-  translated_synonym_relations-label-synonym_relation_id-33: >
-    nicht verfügbar, Rechtschreibfehler in
-    der Literatur
+  translated_synonym_relations-label-synonym_relation_id-33: nicht verfügbar, Rechtschreibfehler in der Literatur
   translated_synonym_relations-label-synonym_relation_id-34: ursprüngliche(r) Name/Kombination
-  translated_synonym_relations-label-synonym_relation_id-35: >
-    nicht verfügbar, falsche ursprüngliche
-    Rechtschreibung
+  translated_synonym_relations-label-synonym_relation_id-35: nicht verfügbar, falsche ursprüngliche Rechtschreibung
   translated_synonym_relations-label-synonym_relation_id-36: Junior Homonym
   translated_synonym_relations-label-synonym_relation_id-37: Homonym und Junior Synonym
-  translated_synonym_relations-label-synonym_relation_id-38: >
-    nicht verfügbar, unterdrückt nach
-    Übereinkunft
+  translated_synonym_relations-label-synonym_relation_id-38: nicht verfügbar, unterdrückt nach Übereinkunft
   translated_synonym_relations-label-synonym_relation_id-39: ungerechtfertigte Emendation
-  translated_synonym_relations-label-synonym_relation_id-3: Akronym
+  translated_synonym_relations-label-synonym_relation_id-4: Anamorph
   translated_synonym_relations-label-synonym_relation_id-40: nicht verfügbar, anderes
   translated_synonym_relations-label-synonym_relation_id-41: nicht verfügbar, nomen nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
@@ -258,7 +238,7 @@ de:
   translated_synonym_relations-label-synonym_relation_id-47: homotypisches Synonym
   translated_synonym_relations-label-synonym_relation_id-48: nicht verfügbarer Name
   translated_synonym_relations-label-synonym_relation_id-49: gültiger Name
-  translated_synonym_relations-label-synonym_relation_id-4: Anamorph
+  translated_synonym_relations-label-synonym_relation_id-5: Lebewesenname
   translated_synonym_relations-label-synonym_relation_id-50: gültig
   translated_synonym_relations-label-synonym_relation_id-51: akzeptiert
   translated_synonym_relations-label-synonym_relation_id-52: Behörde
@@ -269,7 +249,7 @@ de:
   translated_synonym_relations-label-synonym_relation_id-57: Rechtschreibalternative
   translated_synonym_relations-label-synonym_relation_id-58: lexikalische Variante
   translated_synonym_relations-label-synonym_relation_id-59: Synonym (objektiv = homotypisch)
-  translated_synonym_relations-label-synonym_relation_id-5: Lebewesenname
+  translated_synonym_relations-label-synonym_relation_id-6: Gleichwertiger Name
   translated_synonym_relations-label-synonym_relation_id-60: Synonym (objektiv = heterotypisch)
   translated_synonym_relations-label-synonym_relation_id-61: objektives Synonym
   translated_synonym_relations-label-synonym_relation_id-62: Senior Synonym
@@ -279,23 +259,23 @@ de:
   translated_synonym_relations-label-synonym_relation_id-66: Alternative Darstellung
   translated_synonym_relations-label-synonym_relation_id-67: Anfragen zu Arten
   translated_synonym_relations-label-synonym_relation_id-68: Gartenbau
-  translated_synonym_relations-label-synonym_relation_id-6: Gleichwertiger Name
-  translated_synonym_relations-label-synonym_relation_id-7: 'GenBank - Akronym'
-  translated_synonym_relations-label-synonym_relation_id-8: 'GenBank - Anamorph'
-  translated_synonym_relations-label-synonym_relation_id-9: 'GenBank - Allgemeiner Name'
+  translated_synonym_relations-label-synonym_relation_id-7: GenBank - Akronym
+  translated_synonym_relations-label-synonym_relation_id-8: GenBank - Anamorph
+  translated_synonym_relations-label-synonym_relation_id-9: GenBank - Allgemeiner Name
+  translated_table_of_contents-label-table_of_contents_id-1: Übersicht
   translated_table_of_contents-label-table_of_contents_id-13: Gebräuchliche Namen
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Literaturquellen
   translated_table_of_contents-label-table_of_contents_id-194: Größe
-  translated_table_of_contents-label-table_of_contents_id-1: Übersicht
+  translated_table_of_contents-label-table_of_contents_id-2: Kurze Zusammenfassung
   translated_table_of_contents-label-table_of_contents_id-218: Verbreitung
   translated_table_of_contents-label-table_of_contents_id-221: Risiken
   translated_table_of_contents-label-table_of_contents_id-225: Im Internet
   translated_table_of_contents-label-table_of_contents_id-226: Inhaltspartner
   translated_table_of_contents-label-table_of_contents_id-227: Im Internet suchen
+  translated_table_of_contents-label-table_of_contents_id-24: Kommentar
   translated_table_of_contents-label-table_of_contents_id-242: Allgemeine Ökologie
   translated_table_of_contents-label-table_of_contents_id-244: Bibliographien
-  translated_table_of_contents-label-table_of_contents_id-24: Kommentar
   translated_table_of_contents-label-table_of_contents_id-251: Vorteile
   translated_table_of_contents-label-table_of_contents_id-267: Morphologie
   translated_table_of_contents-label-table_of_contents_id-278: Bibliographie
@@ -307,7 +287,7 @@ de:
   translated_table_of_contents-label-table_of_contents_id-296: Verwaltung
   translated_table_of_contents-label-table_of_contents_id-297: Trophische Strategie
   translated_table_of_contents-label-table_of_contents_id-299: Ausbildung
-  translated_table_of_contents-label-table_of_contents_id-2: Kurze Zusammenfassung
+  translated_table_of_contents-label-table_of_contents_id-3: Physische Beschreibung
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Namen und Taxonomie
   translated_table_of_contents-label-table_of_contents_id-304: Ähnliche Namen
@@ -336,6 +316,7 @@ de:
   translated_table_of_contents-label-table_of_contents_id-327: Physiologie
   translated_table_of_contents-label-table_of_contents_id-328: Zellbiologie
   translated_table_of_contents-label-table_of_contents_id-329: Genetik
+  translated_table_of_contents-label-table_of_contents_id-33: Trends
   translated_table_of_contents-label-table_of_contents_id-330: Nukleotidsequenzen
   translated_table_of_contents-label-table_of_contents_id-331: Strichcode
   translated_table_of_contents-label-table_of_contents_id-332: Genom
@@ -346,7 +327,7 @@ de:
   translated_table_of_contents-label-table_of_contents_id-337: Bildung
   translated_table_of_contents-label-table_of_contents_id-338: Links zu Bildungsangeboten
   translated_table_of_contents-label-table_of_contents_id-339: Bildungsmaterialien
-  translated_table_of_contents-label-table_of_contents_id-33: Trends
+  translated_table_of_contents-label-table_of_contents_id-34: Kommentare
   translated_table_of_contents-label-table_of_contents_id-340: High School Lab Series
   translated_table_of_contents-label-table_of_contents_id-341: Wissenschaft für Bürger
   translated_table_of_contents-label-table_of_contents_id-342: Links zu „Wissenschaft für Bürger“
@@ -356,10 +337,8 @@ de:
   translated_table_of_contents-label-table_of_contents_id-346: Biomedizinische Bedingungen
   translated_table_of_contents-label-table_of_contents_id-347: Taxonomie
   translated_table_of_contents-label-table_of_contents_id-348: Typinformationen
-  translated_table_of_contents-label-table_of_contents_id-34: Kommentare
-  translated_table_of_contents-label-table_of_contents_id-3: Physische Beschreibung
-  translated_table_of_contents-label-table_of_contents_id-41: Lebensraum
   translated_table_of_contents-label-table_of_contents_id-4: Ökologie
+  translated_table_of_contents-label-table_of_contents_id-41: Lebensraum
   translated_table_of_contents-label-table_of_contents_id-5: Evolution und Systematik
   translated_table_of_contents-label-table_of_contents_id-6: Bedeutung für Menschen und Ökosysteme
   translated_table_of_contents-label-table_of_contents_id-7: Quellen und weitere Informationen
@@ -372,9 +351,7 @@ de:
   translated_user_identities-label-user_identity_id-1: ein Enthusiast
   translated_user_identities-label-user_identity_id-2: ein Student
   translated_user_identities-label-user_identity_id-3: ein Ausbilder
-  translated_user_identities-label-user_identity_id-4: >
-    ein wissenschaftlich interessierter
-    Bürger
+  translated_user_identities-label-user_identity_id-4: ein wissenschaftlich interessierter Bürger
   translated_user_identities-label-user_identity_id-5: ein Wissenschaftler
   translated_vetted-label-vetted_id-0: Unbekannt
   translated_vetted-label-vetted_id-4: Nicht vertrauenswürdig

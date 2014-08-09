@@ -1,134 +1,555 @@
 # Messages for Telugu (తెలుగు)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
+# Author: Ashokjayanti
+# Author: Chaduvari
+# Author: Jprmvnvijay5
+# Author: Ravichandra
 # Author: Veeven
-te: 
-  0_1_or_2: 0, 1 లేదా 2
+---
+te:
+  activerecord:
+    models:
+      user: ఖాతా
+    attributes:
+      collection:
+        name: సంకలనం పేరు
+        description: సంకలనం వివరణ
+        sort_style_id: >
+          సాధారణంగా
+          విడదీయబడే దిశ
+        logo: >
+          ప్రాథమిక
+          సేకరణా చిత్రం
+        additional_annotation_fields: >
+          అదనపు
+          వ్యాఖ్యాన
+          రంగాలు
+      collection_job:
+        overwrite: >
+          రెండోసారి
+          వచ్చినవితొలగించండి
+      collection_item:
+        annotation: వివరణ
+        sort_field: >
+          ఇలా
+          క్రమబధ్ధీకరించు
+        refs: మూలాలు
+      comment:
+        body: వ్యాఖ్య
+      community:
+        name: గుంపు పేరు
+        description: సమాజపు వివరణ
+        logo: >
+          ఒక చిహ్నం
+          ఎగుమతి చేయండి
+      contact:
+        comments: సందేశం
+        contact_subject_id: పరిచయ వ్యక్తి
+        email: ఇమెయిల్
+        name: పేరు
+      content_page:
+        page_name: ఒకే ఒక పేరు
+        sort_order: వరుస క్రమం
+        active: ప్రచురితం
+      content_partner:
+        acronym: >
+          ప్రణాళిక
+          కుదింపు
+        auto_publish: >
+          యాంత్రిక
+          ప్రచురణ
+        admin_notes: నిర్వహణ చీటీలు
+        content_partner_status: >
+          ప్రణాళిక
+          స్థితి
+        created_at: కల్పించబడినది
+        description: ప్రణాళిక వివరణ
+        display_name: చూపించే పేరు
+        full_name: ప్రణాళిక పేరు
+        homepage: 'ప్రణాళిక  URL'
+        id: గుర్తింపు
+        notes: >
+          ప్రణాళిక
+          చీటీలు
+        public: బహిరంగం
+        resources: వనరులు
+        user_id: నిర్వాహకులు
+        vetted: సంకలితం
+      content_partner_agreement:
+        created_at: రూపొందిన చోటు
+        signed_by: సంతకం చేసినది
+        signed_on_date: సంతకం తేదీ
+      content_partner_contact:
+        email_reports_frequency_hours: >
+          ఇ మైల్
+          సమాచారాల
+          తరచుదనం
+      data_object:
+        bibliographic_citation: >
+          గ్రంధస్థ
+          గుర్తింపు
+        description: పాఠ్యం
+        object_title: శీర్షిక
+        rights_holder: >
+          హక్కులుకలిగినవారు
+        rights_statement: హక్కుల వివరణ
+        source_url: 'మూల URL:'
+      data_object_link:
+        description: వివరణ
+        source_url: లంకె URL
+      eol_statistic:
+        created_at: రూపొందిన చోటు
+        members_count: సభ్యులు
+        communities_count: సమాజాలు
+        collections_count: సేకరణలు
+        pages_count: మొత్తం పుటలు
+        pages_with_content: >
+          విషయం ఉన్న
+          పుటలు
+      forum:
+        forum_category_id: వర్గం
+        description: 'వివరణ <small>(ఐచ్చికం)</small>'
+      forum_category:
+        title: వర్గం పేరు
+        description: 'వివరణ <small>(ఐచ్చికం)</small>'
+      forum_post:
+        subject: విషయం
+      forum_topic:
+        subject: విషయం
+      hierarchy:
+        description: వివరణ
+      name:
+        string: పేరు
+      news_item:
+        sort_order: వరుస క్రమం
+      resource:
+        language_id: అప్రమేయ భాష
+      translated_content_page:
+        title: శీర్షిక
+      translated_news_item:
+        title: శీర్షిక
+      user:
+        agreed_with_terms: >
+          వాడుక నియమాల
+          ఒప్పందం
+        email: >
+          ఈమెయిలు
+          చిరునామా
+        entered_password: సంకేతపదం
+        entered_password_confirmation: 'సంకేతపదం మళ్ళీ <small>(నిర్ధారణకి)</small>'
+        family_name: ఇంటి పేరు
+        full_name: పూర్తి పేరు
+        given_name: మొదటి పేరు
+        language_abbr: >
+          ప్రాధాన్యతా
+          భాష
+        username: వాడుకరి పేరు
+    errors:
+      format: '%{attribute} %{message}'
+      full_messages:
+        format: '%{attribute} %{message}'
+  helpers:
+    label:
+      contact:
+        comments: మీ సందేశం
+        contact_subject_id: విషయం
+        email: >
+          మీ ఈమెయిలు
+          చిరునామా
+        name: మీ పేరు
+      content_partner:
+        display_name: 'చూపించే పేరు <small>(ఐచ్చికం)</small>'
+        last_action: చివరి చర్య
+        logo_current: 'ప్రస్తుత చిహ్నం:'
+      data_object:
+        license_id: లైసెన్సు
+        object_title: శీర్షిక
+      data_object_link:
+        toc_item: విషయం
+        link_type: వర్గం
+      eol_statistic:
+        date_one: తేదీ
+        date_two: తేదీ
+      google_analytics_partner_summaries:
+        taxa_pages: 'పేజీలు <small>(పేజీల సంఖ్య)</small>'
+      harvest_event:
+        published_status: స్థితి
+      open_authentication:
+        connect: చేర్చు
+      resource:
+        refresh_period_hours: తరచుదనం
+        resource_status_id: స్థితి
+        resource_status: స్థితి
+      session:
+        password: సంకేతపదం
+      translated_content_page:
+        language_id: భాష
+      translated_news_item:
+        language_id: భాష
+      user:
+        bio: నా గురించి
+        email_settings_submit: >
+          ఈమెయిలు
+          అమరికలు
+        email: >
+          ఈమెయిలు
+          చిరునామా
+        entered_password: 'సంకేతపదం <small>(4 - 16 అక్షరాలు)</small>'
+        new_password: 'కొత్త సంకేతపదం <small>(4 - 16 అక్షరాలు)</small>'
+        notification_settings: >
+          గమనింపుల
+          అమరికలు
+        username: 'వాడుకరి పేరు <small>(4 - 32 అక్షరాలు)</small>'
+        username_or_email: >
+          వాడుకరి పేరు
+          లేదా ఈమెయిలు
+          చిరునామా
+    submit:
+      cancel: రద్దుచేయి
+      collection_item:
+        update: భద్రపరచు
+      harvest_event:
+        publish: ప్రచురించు
+  will_paginate:
+    page_gap: '&hellip;'
+  datepicker:
+    day_names:
+      - ఆదివారం
+      - సోమవారం
+      - మంగళవారం
+      - బుధవారం
+      - గురువారం
+      - శుక్రవారం
+      - శనివారం
+    day_names_short:
+      - ఆది
+      - సోమ
+      - మంగళ
+      - బుధ
+      - గురు
+      - శుక్ర
+      - శని
+    day_names_min:
+      - ఆ
+      - సో
+      - మం
+      - బు
+      - గు
+      - శు
+      - శ
+    close: మూసివేయి
+    current: ఈరోజు
+    month_names:
+      - జనవరి
+      - ఫిబ్రవరి
+      - మార్చి
+      - ఏప్రిల్
+      - మే
+      - జూన్
+      - జూలై
+      - ఆగష్టు
+      - సెప్టెంబరు
+      - అక్టోబర్
+      - నవంబర్
+      - డిసెంబర్
+    month_names_short:
+      - జన
+      - ఫిబ్ర
+      - మార్చి
+      - ఏప్రి
+      - మే
+      - జూన్
+      - జూలై
+      - ఆగ
+      - సెప్టెం
+      - అక్టో
+      - నవం
+      - డిసెం
+  admins:
+    eol_statistics:
+      index:
+        menu_link: స్థూల గణాంకాలు
+        page_header: >
+          మొత్తం
+          గణాంకాలు
+  collections:
+    newsfeeds:
+      show:
+        meta_keywords: '%{collection_name} వార్తలు'
+        meta_title: '%{collection_name} వార్తలు'
+        tweet_text: '%{collection_name} వార్తలు'
+    inaturalists:
+      show:
+        observation_date: 'తేదీ: %{observed_on}'
+  content:
+    index:
+      header_news: EOL వార్తలు
+  eol_statistics:
+    content_partners:
+      page_title: గణాంకాలు
+    curators:
+      page_title: గణాంకాలు
+    data_objects:
+      page_title: గణాంకాలు
+    index:
+      page_title: గణాంకాలు
+    lifedesks:
+      page_title: గణాంకాలు
+    marine:
+      page_title: గణాంకాలు
+    page_richness:
+      page_title: గణాంకాలు
+    users_data_objects:
+      page_title: గణాంకాలు
+  forums:
+    actions: చర్యలు
+    buttons:
+      delete: తొలగించు
+      link: లంకె
+    posts:
+      deleted_subject: (తొలగించారు)
+      no_subject: (విషయం లేదు)
+      permalink_to_this_post: 'ఈ టపా స్థిరలంకె:'
+      close_window: మూసివేయి
+  layouts:
+    application:
+      header_about: EOL గురించి
+      header_learn_more: >
+        దీని గురించి
+        ఇంకా తెలుసుకో
+      header_questions: ఇంకా చెప్పు
+      about_link_what_is_eol: EOL అంటే ఏమిటి?
+      about_link_statistics: గణాంకాలు
+      about_link_glossary: పదకోశం
+      about_link_help: సహాయం
+      about_link_terms_of_use: వాడుక నియమాలు
+      about_link_contact_us: >
+        మమ్మల్ని
+        సంప్రదించండి
+      learn_more_link_animals: జంతువులు
+      learn_more_link_mammals: క్షీరదాలు
+      learn_more_link_birds: పక్షులు
+      learn_more_link_amphibians: ఉభయచరాలు
+      learn_more_link_reptiles: సరీసృపాలు
+      learn_more_link_fish: చేపలు
+      learn_more_link_worms: పురుగులు
+      learn_more_link_insects: కీటకాలు
+      learn_more_link_spiders: సాలీళ్ళు
+      learn_more_link_plants: మొక్కలు
+      learn_more_link_flowering_plants: పూల మొక్కలు
+      learn_more_link_trees: చెట్లు
+      learn_more_link_fungi: బూజు
+      learn_more_link_mushrooms: పుట్టగొడుగులు
+      learn_more_link_viruses: క్రిములు
+      questions_link_biodiversity: >
+        జీవవైవిధ్యం
+        అంటే ఏమిటి?
+      questions_link_species: >
+        జాతి అంటే
+        ఏమిటి?
+      questions_link_contributing_to_research: >
+        పరిశోధనకు
+        నేనెలా
+        సహాయపడగలను?
+  members:
+    index:
+      meta_keywords: '%{community_name} సభ్యులు'
+      meta_title: '%{community_name} సభ్యులు'
+      tweet_text: '%{community_name} సభ్యులు'
+  news_items:
+    index:
+      page_title: EOL వార్తలు
+      meta_title: EOL వార్తలు
+  notifier:
+    comments_empty: >
+      ఇటీవలి
+      వ్యాఖ్యలు ఏమీ
+      లేవు.
+  recent_activity:
+    intro_immediately: 'నమస్తే, %{name} —'
+    comment_body_brief: '%{body} - %{author}'
+  recent_activities:
+    index:
+      list_header: గత 7 రోజులు
+  sessions:
+    new:
+      problems_signing_in_with_eol_authentication: >
+        సంకేతపదాన్ని
+        మర్చిపోయారా?
+  users:
+    activities:
+      show:
+        meta_title: '%{user_full_name} కార్యకలాపం'
+        tweet_text: '%{user_full_name} కార్యకలాపం'
+    collections:
+      index:
+        meta_title: '%{user_full_name} సేకరణలు'
+        tweet_text: '%{user_full_name} సేకరణలు'
+    data_downloads:
+      header_with_count:
+        other: >
+          ఒక=డేటా
+          దింపుకోలు
+      download: దింపుకోండి
+      attribute_head: ఆపాదించు
+      created_head: >
+        సృష్టించబడినది
+      updated_head: చివరి చర్య
+      complete_head: పూర్తయిందా?
+      actions_head: చర్యలు
+      is_complete: అవును
+      is_not_complete: కాదు
+      query_empty: (వడపోతలు లేవు)
+      processing: >
+        విశ్లేషిస్తోంది
+      refresh: తాజాకరించు
+      row_count: లెక్క
+      search_again: మళ్ళీ వెతుకు
+    new:
+      complete_registration_header: >
+        మీ EOL నమోదును
+        పూర్తిచేయండి
+      create_user_header: 'కొత్త <abbr title="Encyclopedia of Life">EOL</abbr> ఖాతాను సృష్టించుకోండి'
+    newsfeeds:
+      comments_link: వ్యాఖ్యలు
+    notifications:
+      edit:
+        page_title: >
+          గమనింపుల
+          అమరికలు
+    open_authentications:
+      facebook: ఫేస్‌బుక్
+      google: గూగుల్
+      twitter: ట్విట్టర్
+      yahoo: యాహూ!
   0_or_1: 0 లేదా 1
+  0_1_or_2: 0, 1 లేదా 2
   about_eol: EOL గురించి
   account_information: ఖాతా సమాచారం
   action: చర్య
   actions: చర్యలు
-  activerecord: 
-    attributes: 
-      content_partner: 
-        display_name: చూపించే పేరు
-      data_object: 
-        description: వివరణ
-        object_title: శీర్షిక
-      name: 
-        string: పేరు
-      translated_content_page: 
-        title: శీర్షిక
-      user: 
-        agreed_with_terms: వాడుక నియమాల ఒప్పందం
-        entered_password: సంకేతపదం
-        entered_password_confirmation: సంకేతపదం మళ్ళీ <small>(నిర్ధారణకి)</small>
-        full_name: పూర్తి పేరు
-        language_abbr: ప్రాధాన్యతా భాష
-        username: వాడుకరిపేరు
-    errors: 
-      format: "%{attribute} %{message}"
-    models: 
-      user: ఖాతా
   admin_content_partners_statistics_link: గణాంకాలు
   admin_link: అవలోకనం
-  all_pages: అన్ని పుటలు
-  already_a_member_question: ఇప్పటికే సభ్యులా?
+  already_a_member_question: >
+    ఇప్పటికే
+    సభ్యులా?
   and: మరియు
   and_between_form_items: మరియు
   assistive_details_header: వివరాలు
   assistive_literature_header: సాహిత్యం
   assistive_maps_header: పటములు
+  assistive_updates_statistics_header: పేజీ గణాంకాలు
   cancel: రద్దుచేయి
-  collections: సేకరణలు
   comment: వ్యాఖ్య
   comment_body_label: మీ వ్యాఖ్య
   comments: వ్యాఖ్యలు
-  contact_us_link: మమ్మల్ని సంప్రదించండి
+  comments_filter: వ్యాఖ్యలు
+  completed_colon: 'పూర్తయింది:'
+  contact_us_link: >
+    మమ్మల్ని
+    సంప్రదించండి
+  content_partner_agreement_cancel_edit_agreement_link: రద్దుచేయి
   content_partner_agreement_cancel_new_agreement_link: రద్దుచేయి
   content_partner_agreement_cancel_sign_agreement_link: రద్దుచేయి
   content_partner_contacts_header: సంప్రదింపులు
-  content_partner_filter_option_vetted_no: కాదు
   content_partner_filter_option_vetted_yes: అవును
+  content_partner_filter_option_vetted_no: కాదు
   content_partner_public_true: బహిరంగం
-  content_partner_resource_auto_publish_false: కాదు
   content_partner_resource_auto_publish_true: అవును
-  content_partner_resource_vetted_false: కాదు
+  content_partner_resource_auto_publish_false: కాదు
   content_partner_resource_vetted_true: అవును
+  content_partner_resource_vetted_false: కాదు
   content_partner_resources_header: వనరులు
   content_partner_statistics_column_header_total_count: అన్ని పేజీలు
-  content_partner_statistics_link: వాడుక గణాంకాలు
   content_partner_statistics_month_label: నెల
   content_partner_statistics_year_label: సంవత్సరం
-  current_language: "భాష: %{iso_code}"
+  content_partner_statistics_link: వాడుక గణాంకాలు
+  creative_commons: >
+    క్రియేటివ్
+    కామన్స్
+  current_language: 'భాష: %{iso_code}'
   daily: ప్రతీరోజూ
+  data_search_files_with_count:
+    other: 'ఒక=%{count} డేటా దింపుకోలు'
+  date_caps: తేదీ
   dato_create_cancel: రద్దుచేయి
   dato_edit_cancel: రద్దుచేయి
+  definition: నిర్వచనం
   delete: తొలగించు
   delete_firstcap: తొలగించు
   description: వివరణ
+  details: వివరాలు
   details_title: వివరాలు
-  encyclopedia_of_life: జీవ విజ్ఞాన సర్వస్వం
+  encyclopedia_of_life: >
+    జీవ విజ్ఞాన
+    సర్వస్వం
   eol_news: EOL వార్తలు
   eol_pages: పుటలు
   error_404_page_title: కనబడలేదు
-  example_colon: "ఉదాహరణ:"
+  example_colon: 'ఉదాహరణ:'
+  expired: కాలం చెల్లినది
+  external_link_header: బయటి లంకె
+  external_link_icon_alt_text: బయటి లంకె
   facebook: ఫేస్‌బుక్
+  filter_by_type_data_option: లక్షణాలు
+  filter_by_type_name_option: పేర్లు
+  filter_newsfeed_option_all: అన్నీ
   flickr: ఫ్లికర్
   forgot_password_form_cancel: రద్దుచేయి
+  frequency: తరచుదనం
+  frequency_daily: ప్రతీరోజూ
+  go_back: >
+    వెనక్కి
+    వెళ్ళండి
   go: వెళ్ళు
-  go_back: వెనక్కి వెళ్ళండి
+  google: గూగుల్
   help: సహాయం
-  helpers: 
-    label: 
-      content_partner: 
-        logo_current: "ప్రస్తుత చిహ్నం:"
-      data_object: 
-        object_title: శీర్షిక
-      resource: 
-        refresh_period_hours: తరచుదనం
-        resource_status: స్థితి
-        resource_status_id: స్థితి
-      session: 
-        password: సంకేతపదం
-      translated_content_page: 
-        language_id: భాష
-      user: 
-        bio: నా గురించి
-        mailing_list_yes: అవును
   home: ముంగిలి
-  language: "భాష:"
-  language_with_count: "%{language} (%{count})"
+  language: 'భాష:'
   languages: భాషలు
-  learn_more_link: (%{learn_more})
-  learn_more_lowercase: మరింత తెలుసుకోండి
+  language_with_count: '%{language} (%{count})'
+  learn_more_link: '(%{learn_more})'
+  learn_more_lowercase: >
+    మరింత
+    తెలుసుకోండి
   license: లైసెన్సు
   literature: సాహిత్యం
   location: ప్రాంతం
   logo_header: చిహ్నం
-  maps_with_count: 
-    one: "%{count} పటం"
-    other: "%{count} పటాలు"
+  maps_with_count:
+    one: '%{count} పటం'
+    other: '%{count} పటాలు'
+  missing_interpolation_argument_error: '[అనువాదం అసంపూర్ణం]'
   my_info: నా సమాచారం
+  name_colon: 'పేరు:'
   name: పేరు
   names: పేర్లు
   names_name_column_header: పేరు
   names_status_column_header: స్థితి
+  mobile:
+    contents:
+      home: ముంగిలి
+    taxa:
+      details: వివరాలు
+    search:
+      results: ఫలితాలు
+  note: 'గమనిక:'
   object_type_text_option: పాఠ్యం
   object_type_user_option: వాడుకరి
   overview: అవలోకనం
-  page_statistics: పుట గణాంకాలు
-  pages_lowercase: పేజీలు
   pages_title: పుటలు
-  password_colon: "సంకేతపదం:"
-  people_with_count: 
-    one: "%{count} వ్యక్తి"
-    other: "%{count} వ్యక్తులు"
+  page_statistics: పుట గణాంకాలు
+  parameters: పరామితులు
+  password_colon: 'సంకేతపదం:'
+  people_with_count:
+    one: '%{count} వ్యక్తి'
+    other: '%{count} వ్యక్తులు'
   permalink: స్థిరలంకె
-  punctuation_comma: ","
+  punctuation_comma: ,
   punctuation_semi_colon: ;
   resources: వనరులు
+  results: ఫలితాలు
   rights: హక్కులు
   save: భద్రపరచు
   search: వెతుకు
@@ -136,34 +557,46 @@ te:
   site_information: సైటు సమాచారం
   site_language: సైటు భాష
   sort_by_status_option: స్థితి
-  statistics: గణాంకాలు
+  submitted_colon: 'సమర్పించినది:'
   table_column_header_actions: చర్యలు
+  taxon_page_content_disclaimer_header: నిష్పూచీ
   terms_agreement_form_header: వాడుక నియమాలు
-  terms_agreement_form_submit: నేను అంగీకరిస్తున్నాను
+  terms_agreement_form_submit: >
+    నేను
+    అంగీకరిస్తున్నాను
   text: పాఠ్యం
   text_capital: పాఠ్యం
   thank_you: కృతజ్ఞతలు
-  time_ago: "%{time_passed} క్రితం"
+  time_ago: '%{time_passed} క్రితం'
   title: శీర్షిక
   twitter: ట్విట్టర్
   type: రకం
-  user: వాడుకరి
-  user_comment: వాడుకరి వ్యాఖ్య
+  user_comments: >
+    వాడుకరి
+    వ్యాఖ్యలు
+  user_comment: >
+    వాడుకరి
+    వ్యాఖ్య
+  username_colon: 'వాడుకరి పేరు:'
   username: వాడుకరి పేరు
-  username_colon: "వాడుకరి పేరు:"
+  user: వాడుకరి
   users_about_me_header: నా గురించి
   users_form_account_header: మీ ఖాతా
   users_my_info_header: నా సమాచారం
-  value: విలువ
-  value_default: (అప్రమేయం)
-  value_empty: (ఖాళీ)
   values: విలువలు
-  video_title_not_available_in_language: శీర్షిక %{language}లో అందుబాటులో లేదు
+  value: విలువ
+  value_empty: (ఖాళీ)
+  value_default: (అప్రమేయం)
+  video_title_not_available_in_language: 'శీర్షిక %{language}లో అందుబాటులో లేదు'
+  visitors: సందర్శకులు
   web_users: జాల వాడుకరులు
+  welcome: స్వాగతం
   what_is_eol: EOL అంటే ఏమిటి?
   what_is_this_question: ఇది ఏమిటి?
-  will_paginate: 
-    page_gap: "&hellip;"
+  yahoo: యాహూ
   year: సంవత్సరం
   yes_answer: అవును
+  your_ip_address: >
+    మీ ఐపీ
+    చిరునామా
   your_preferences: మీ అభిరుచులు

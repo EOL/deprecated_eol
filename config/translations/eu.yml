@@ -1,31 +1,660 @@
-# Messages for Basque (Euskara)
+# Messages for Basque (euskara)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: An13sa
-eu: 
-  admin: Admin
+# Author: Subi
+# Author: Theklan
+# Author: Xabier Armendaritz
+# Author: Zeabil8
+---
+eu:
+  activerecord:
+    models:
+      user: kontua
+    attributes:
+      collection:
+        name: Bildumaren izena
+        description: Bildumaren deskribapena
+        logo: Bildumako irudi nagusia
+      collection_item:
+        sort_field: Honen arabera sailkatu
+        refs: Erreferentziak
+      comment:
+        body: Iruzkina
+      community:
+        name: Komunitate izena
+        description: Komunitate deskribapena
+        logo: Igo logotipo bat
+      contact:
+        comments: Mezua
+        contact_subject_id: Kontaktu gaia
+        email: E-posta
+        name: Izena
+      content_page:
+        page_name: Izen bakarra
+        sort_order: Sailkapen ordena
+        active: Argitaratua
+      content_partner:
+        acronym: Proiektuaren laburpena
+        auto_publish: Auto-publikatu
+        content_partner_status: Proiektuaren egoera
+        created_at: Sortua
+        description: Proiektuaren deskribapena
+        display_name: Izena erakutsi
+        full_name: Proiektuaren izena
+        homepage: Proiektuaren URLa
+        id: ID
+        notes: Proiektuaren oharrak
+        public: Publikoa
+        resources: Baliabideak
+        user_id: 'Kudeatzailea:'
+      content_partner_agreement:
+        created_at: 'Noiz sortua:'
+        signed_by: 'Sinatzailea:'
+        signed_on_date: 'Sinadura data:'
+      data_object:
+        description: Testua
+        object_title: Izenburua
+        rights_holder: Eskubideen jabea
+        source_url: 'Jatorrizko URL-a:'
+      data_object_link:
+        description: Deskribapena
+        source_url: URL lotura
+      eol_statistic:
+        created_at: 'Noiz sortua:'
+        members_count: Kideak
+        communities_count: Komunitateak
+        collections_count: Biltegiak
+        pages_count: Orrialdeak guztira
+        pages_with_content: Edukia duten orrialdeak
+        pages_with_text: Testua duten orrialdeak
+        pages_with_image: Irudia duten orrialdeak
+        pages_with_map: Mapa duten orrialdeak
+        pages_with_video: Bideoa duten orrialdeak
+        pages_with_sound: Audioa duten orrialdeak
+        pages_without_text: Testurik ez duten orrialdeak
+        pages_without_image: Irudirik gabeko orrialdeak
+        pages_with_image_no_text: >
+          Irudia duten orrialdeak baino testurik
+          ez
+        pages_with_text_no_image: >
+          Testua duten orrialdeak baina irudirik
+          ez
+        base_pages: Oinarri orrialdeak
+        pages_with_at_least_a_trusted_object: Konfiantzadun objektuak dituen orrialdea
+        pages_with_BHL_links: BHL linkak dituen orrialdeak
+        data_objects: Datu objektuak
+        data_objects_texts: Testu objektuak
+        data_objects_images: Irudi objektuak
+        data_objects_videos: Bideo objektuak
+        data_objects_sounds: Audio objektuak
+        data_objects_maps: Mapa objektuak
+      forum:
+        forum_category_id: Kategoria
+        name: Foroaren izena
+        description: 'Deskribapena <small>(aukeran)</small>'
+      forum_category:
+        title: Kategoriaren izena
+        description: 'Deskribapena <small>(aukerazkoa)</small>'
+      forum_post:
+        subject: Gaia
+        text: Testua
+      forum_topic:
+        subject: Gaia
+        text: Testua
+      harvest_event:
+        resource: Baliabidea
+      hierarchy:
+        description: Deskribapena
+        label: Etiketa
+      known_uri:
+        description: Deskribapena
+        name: Izena
+        toc_items: Kategoriak
+        uri_type: URI mota
+      open_authentication:
+        created_at: Sortua
+        guid: GUID
+        secret: Sekretua
+        token: Token
+        updated_at: Azken eguneratzea
+        user_id: 'Erabiltzailearen identifikazioa (ID):'
+        verified_at: Azkeneko aldiz ziurtatua
+      name:
+        string: Izena
+      news_item:
+        page_name: Izen bakarra
+        sort_order: Sailkapen ordena
+        active: Argitaratua
+      resource:
+        hierarchy: Hierarkia
+        language_id: Berezko hizkuntza
+        dataset_license_id: Lizentzia
+        license_id: Berezko lizentzia
+      translated_content_page:
+        active_translation: Argitaratua
+        left_content: Nabigazioa
+        main_content: Testua
+        title: Izenburua
+      translated_news_item:
+        active_translation: Argitaratua
+        body: Testua
+        title: Izenburua
+      user:
+        agreed_with_terms: Erabilera baldintzak
+        api_key: API giltza
+        bio: Bio
+        credentials: Kredentzialak
+        email: E-posta helbidea
+        email_confirmation: 'E-posta helbidea berriro ere <small>(konfirmatzeko)</small>'
+        entered_password: Pasahitza
+        entered_password_confirmation: 'Pasahitza berriro ere <small>(konfirmatzeko)</small>'
+        family_name: Abizena
+        full_name: Izen osoa
+        given_name: Lehen izena
+        language_abbr: Hobetsitako hizkuntza
+        permissions: Baimenak
+        tag_line: Taglerroa
+        username: Erabiltzaile izena
+    errors:
+      format: '%{attribute} %{message}'
+      messages:
+        exclusion: erreserbatua dago
+        invalid: baliogabea da
+        empty: ezin da hutsik egon
+        blank: ezin da zuriak egon
+        not_a_number: ez da zenbaki bat
+        not_an_integer: zenbaki osoa izan behar da
+        odd: bikoitia izan behar da
+        even: bakoitia izan behar da
+        inaccessible: ezin da sartu
+  helpers:
+    label:
+      collection:
+        view_style_id: 'Lehenetsitako ikuspegia:'
+      collection_item:
+        annotation: Anotazioa
+        sort_field: 'Sailkatu honen arabera <small>(data UUUU.HH.EE, zenbakia edo testua)</small>'
+      comment:
+        body_edit: Iruzkina aldatu
+      contact:
+        comments: Zure mezua
+        contact_subject_id: Gaia
+        email: Zure e-posta
+        name: Zure izena
+      content_page:
+        active: Argitaratua
+        parent_content_page_id: Gurasoa
+      content_partner:
+        logo_current: 'Oraingo logoa:'
+        logo_new: 'Logo berria igo:'
+      data_object:
+        license_id: Lizentzia
+        object_title: Izenburua
+      data_object_link:
+        source_url: URL lotura
+        toc_item: Gaia
+        link_type: Kategoria
+      eol_statistic:
+        date_one: Data
+        date_two: Data
+      harvest_event:
+        began_at: Hasiera
+        completed_at: Bukatuta
+        first_published_at: Lehen argitalpena
+        published_status: Egoera
+      open_authentication:
+        connect: Gehitu
+      resource:
+        dataset: Datu-bilduma
+        hierarchy: Hierarkia
+        oldest_published_harvest_event: Lehen argitalpena
+        latest_published_harvest_event: Azken argitalpena
+        latest_harvest_event: Azken bilketa
+        refresh_period_hours: Frekuentzia
+        resource_status_id: Egoera
+        resource_status: Egoera
+      session:
+        password: Pasahitza
+        remember_me: Manten nazazu izen emanda 2 astez
+        username_or_email: Erabiltzaile izena edo e-posta helbidea
+      translated_content_page:
+        active_translation: Argitaratua
+        language_id: Hizkuntza
+      translated_news_item:
+        active_translation: Argitaratua
+        language_id: Hizkuntza
+      user:
+        bio: Niri buruz
+        credentials: Kredentzialak
+        email: E-posta helbidea
+        entered_password: 'Pasahitza <small>(4 - 16 karaketere)</small>'
+        generate_api_key: Eskatu API giltza bat
+        new_password: 'Pasahitz berria <small>(4 - 16 karaktere)</small>'
+        new_password_confirmation: 'Pasahitz berria <small>(konfirmatzeko)</small>'
+        user_identities: Ni naiz
+        username_or_email: >
+          Erabiltzaile izena edo helbide
+          elektronikoa
+    submit:
+      cancel: Utzi
+      create: 'Sortu %{model}'
+      filter_sort: Filtratu eta sailkatu
+      update: 'Eguneratu %{model}'
+      submit: 'Gorde %{model}'
+      collection_item:
+        update: Gorde
+      contact:
+        new: Feedbacka bidali
+      content_page:
+        create: Artikulua sortu
+        edit: Aldatu
+        preview: Aurreikusi
+        update: Orrialdea gaurkotu
+      content_partner_contact:
+        create: Gehitu kontaktua
+        update: Berritu kontaktua
+        destroy: Ezabatu kontaktua
+      data_object:
+        create: Gehitu artikulua
+        create_text: Gehitu artikulua
+        update: Gorde artikulua
+      data_object_link:
+        create: Gehitu lotura
+        update: Gorde lotura
+      eol_statistic:
+        change_date: Lortu datentzako estatistikak
+        download_csv: Jaitsi CSV formatuan
+      harvest_event:
+        publish: Argitaratu
+      hierarchy:
+        update: Igo hierarkia
+      name:
+        create: Gehitu izena
+        update: Izena gaurkotu
+      news_item:
+        edit: Aldatu
+        preview: Aurreikuspena
+      open_authentication:
+        create: Konektatu
+        destroy: Deskonektatu
+        update: Konexioa berrikusi
+      session:
+        create: Saioa hasi
+        sign_in_with_facebook: Saioa hasi Facebookekin
+        sign_in_with_google: Saioa hasi Googlekin
+        sign_in_with_twitter: Saioa hasi Twitterrekin
+        sign_in_with_yahoo: Saioa hasi Yahoorekin
+      translated_content_page:
+        create: Gehitu itzulpena
+        update: Gorde itzulpenaren aldaketak
+      translated_news_item:
+        create: Gehitu itzulpena
+      user:
+        create: Kontua sortu
+        curation_application: Orain aplikatu
+        recover_account: E-posta bidali
+        sign_up_with_facebook: Kontua sortu Facebookekin
+        sign_up_with_google: Kontua sortu Googlekin
+        sign_up_with_twitter: Kontua sortu Twitterrekin
+        sign_up_with_yahoo: Kontua sortu Yahoorekin
+  will_paginate:
+    next_label: Hurrengoa
+    previous_label: Aurrekoa
+  datepicker:
+    day_names:
+      - Igandea
+      - Astelehena
+      - Asteartea
+      - Asteazkena
+      - Osteguna
+      - Ostirala
+      - Larunbata
+    day_names_short:
+      - Iga
+      - Asl
+      - Asr
+      - Asz
+      - Osg
+      - Osr
+      - Lar
+    day_names_min:
+      - Ig
+      - A1
+      - A2
+      - A3
+      - Og
+      - O2
+      - Lr
+    close: Itxi
+    current: Gaur
+    month_names:
+      - Urtarrila
+      - Otsaila
+      - Martxoa
+      - Apirila
+      - Maiatza
+      - Ekaina
+      - Uztaila
+      - Abuztua
+      - Iraila
+      - Urria
+      - Azaroa
+      - Abendua
+    month_names_short:
+      - Urt
+      - Ots
+      - Mar
+      - Api
+      - Mai
+      - Eka
+      - Uzt
+      - Abu
+      - Ira
+      - Urr
+      - Aza
+      - Abe
+    next: Hurrengoa
+    previous: Aurrekoa
+  collections:
+    newsfeeds:
+      show:
+        meta_keywords: '%{collection_name} Albisteak'
+        meta_title: '%{collection_name} Albisteak'
+        tweet_text: '%{collection_name} Albisteak'
+    inaturalists:
+      show:
+        observation_date: 'Data: %{observed_on}'
+        observation_place: 'Lekua: %{place}'
+        some_taxon: Zerbait
+  content:
+    index:
+      header_news: EOL Albisteak
+      meta_keywords: >
+        Animaliak, Animalien Argazkiak,
+        Animaliei Buruzko Informazioa,
+        Landareak, Landareen Bizitza, Landareen
+        Argazkiak, Landareei Buruzko Argazkia,
+        Landaredia, Fauna
+      meta_title: 'Animaliak - Landareak - Argazkiak eta Informazioa'
+  content_partners:
+    statistics:
+      show:
+        meta_title: '%{collection_name} Estatistikak'
+        tweet_text: '%{collection_name} erabilera estatistikak'
+  eol_statistics:
+    content_partners:
+      page_title: Estatistikak
+    data_objects:
+      page_title: Estatistikak
+    index:
+      page_title: Estatistikak
+    lifedesks:
+      page_title: Estatistikak
+    marine:
+      page_title: Estatistikak
+    page_richness:
+      page_title: Estatistikak
+    users_data_objects:
+      page_title: Estatistikak
+    data:
+      menu_link: Datuak
+      page_header: Datu-estatistikak
+      page_title: Estatistikak
+  forums:
+    forums_heading: EOL foroak
+    last_post: Azken mezuak
+    posts_heading: Mezuak
+    replies: Erantzunak
+    topics_heading: Mintzagaiak
+    views: Ikustaldiak
+    create: Foro bat sortu
+    actions: Ekintzak
+    buttons:
+      delete: ezabatu
+      edit: aldatu
+      reply: erantzun
+      link: lotura
+    categories:
+      create: Kategoria sortu
+    posts:
+      edit: Aldatu mezua
+      deleted_subject: (ezabatua)
+      no_subject: (gairik gabe)
+      permalink_to_this_post: 'Bidalketa honetarako permalinka:'
+      close_window: itxi
+      posts_with_count:
+        one: 'bidalketa %{count}'
+        other: '%{count} bidalketa'
+  known_uris:
+    uri_placeholder_text: >
+      adib.
+      http://purl.org/dc/terms/contributor
+    ontology_information_url_placeholder_text: >
+      adib.
+      http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: >
+      adib.
+      http://dublincore.org/2012/06/14/dcterms.rdf
+  layouts:
+    application:
+      header_about: EOLi buruz
+      header_learn_more: Ikasi gehiago honi buruz
+      about_link_what_is_eol: Zer da EOL?
+      about_link_eol_blog: EOLen Bloga
+      about_link_discover: Aurkitu
+      about_link_statistics: Estatistikak
+      about_link_glossary: Hiztegia
+      about_link_podcasts: Podcastak
+      about_link_help: Laguntza
+      about_link_terms_of_use: Erabilera baldintzak
+      about_link_contact_us: Jarri harremanetan
+      learn_more_link_animals: Animaliak
+      learn_more_link_mammals: Ugaztunak
+      learn_more_link_birds: Hegaztiak
+      learn_more_link_amphibians: Anfibioak
+      learn_more_link_reptiles: Narrastiak
+      learn_more_link_fish: Arrainak
+      learn_more_link_worms: Harrak
+      learn_more_link_invertebrates: Ornogabeak
+      learn_more_link_crustaceans: Krustazeoak
+      learn_more_link_mollusks: Muluskoak
+      learn_more_link_insects: Intsektuak
+      learn_more_link_spiders: Armiarmak
+      learn_more_link_plants: Landareak
+      learn_more_link_flowering_plants: Loredun landareak
+      learn_more_link_trees: Zuhaitzak
+      learn_more_link_fungi: Onddoak
+      learn_more_link_mushrooms: Zizak
+      learn_more_link_molds: Goroldioak
+      learn_more_link_bacteria: Bakterioak
+      learn_more_link_protists: Protistak
+      learn_more_link_archaea: Archaea
+      learn_more_link_viruses: Birusak
+      questions_link_biodiversity: Zer da biodibertsitatea?
+      questions_link_species: Zer da espezie bat?
+      questions_link_discovering_species: Nola aurkitzen dira espezieak?
+      questions_link_naming_species: Nola izendatzen dira espezieak?
+      questions_link_binomial_nomenclature: Zer da nomenklatura binomiala?
+      questions_link_biological_classification: Zer da sailkapen biologikoa?
+      questions_link_invasive_species: Zer dira espezie inbasiboak?
+      questions_link_indicator_species: Zer da espezie indikadorea?
+      questions_link_model_organism: Zer da organismo modeloa?
+      questions_link_contributing_to_research: Nola lagundu dezaket ikerketan?
+  members:
+    index:
+      meta_keywords: '%{community_name} Kideak'
+      meta_title: '%{community_name} Kideak'
+      tweet_text: '%{community_name} Kideak'
+  news_items:
+    index:
+      page_title: EOL Albisteak
+      meta_title: EOL Albisteak
+  notifier:
+    greeting_dear_name_with_comma: '%{name} maitea,'
+  recent_activity:
+    intro_immediately: 'Kaixo %{name} —'
+  recent_activities:
+    index:
+      list_header: Azken 7 egunak
+  sessions:
+    new:
+      meta_title: Saio-hasiera
+      problems_signing_in_with_eol_authentication: Pasahitza ahaztu duzu?
+  users:
+    data_downloads:
+      is_complete: Bai
+      is_not_complete: Ez
+    newsfeeds:
+      activity_link: jarduera
+      comments_link: iruzkinak
+      newsfeed_link: albiste jarioa
+    open_authentications:
+      facebook: Facebook
+      google: Google
+      index:
+        not_connected: Konektatu gabe;
+      twitter: Twitter
+      yahoo: Yahoo!
+  article_rating: Artikuluaren balorazioa
+  community_rating: Komunitatearen balorazioa
+  collection_rating: Bildumaren balorazioa
+  image_map_rating: Maparen balorazioa
+  link_rating: Loturaren balorazioa
+  image_rating: Irudiaren balorazioa
+  person_rating: Pertsonaren balorazioa
+  sound_rating: Soinuaren balorazioa
+  taxon_rating: Taxoiaren balorazioa
+  video_rating: Bideoaren balorazioa
+  map_rating: Maparen balorazioa
+  0_or_1: 0 edo 1
+  0_1_or_2: 0, 1 edo 2
+  about_eol: EOLi buruz
+  action: Ekintza
+  action_not_available_error: >
+    Barka, baina ekintza hori ez dago
+    erabilgarri.
+  actions: Ekintzak
+  active_colon: 'Aktibo:'
+  active: Aktibo
+  activity: Jarduera
+  add_language: Hizkuntza gehitu
+  admin_content_partners_notifications_link: Jakinarazpenak
+  admin_statistics_link: Estatistikak
+  admin_translated_news_item_new_link: Gehitu itzulpena
+  all_images: Irudi guztiak
   are_you_sure: Ziur zaude?
-  assistive_details_header: Xehetasunak
   assistive_overview_header: Ikuspegi orokorra
+  assistive_details_header: Xehetasunak
+  assistive_literature_header: Literatura
+  assistive_names_classifications_header: Sailkapenak
+  assistive_names_synonyms_header: Sinonimoak
+  assistive_maps_header: Mapak
+  assistive_taxon_community_header: Komunitatea
+  belongs_in_count_communities:
+    one: Komunitate bati dagokio
+    other: '%{count} Komunitateri dagozkio'
+  beta_warning_note_header: 'Oharrak:'
+  bi_monthly: Hilean bi aldiz
   cancel: Utzi
-  communities: Komunitateak
+  communities_with_count:
+    one: 'Komunitate %{count}'
+    other: '%{count} komunitate'
+  communities_filter: Komunitateak
+  communities_link: Komunitateak
+  communities_page_title: Komunitateak
+  communities_index_header: Komunitate aktiboak
+  community: Komunitatea
+  content_partner_filter_option_vetted_yes: Bai
+  content_partner_filter_option_vetted_no: Ez
+  content_partner_public_false: Pribatua
+  content_partner_public_true: Publikoa
+  content_partner_resource_auto_publish_true: Bai
+  content_partner_resource_auto_publish_false: Ez
+  content_partner_resource_vetted_true: Bai
+  content_partner_resource_vetted_false: Ez
+  copy_of_name: '%{name}(r)en kopia'
+  current_language: 'Hizkuntza: %{iso_code}'
+  daily: Egunero
+  data: Datuak
+  data_database_colon: 'Datuak:'
+  data_subtab_about: Honi buruz
+  date_caps: Data
   explore: Esploratu
+  flickr: Flickr
   go: Joan
-  hello_user: Kaixo %{user}
+  hello_user: 'Kaixo %{user}'
   help: Laguntza
+  here: hemen
   images: Irudiak
+  language: 'Hizkuntza:'
+  languages: Hizkuntzak
+  learn_more_lowercase: gehiago ikasi
   license: Lizentzia
   license_public_domain: Domeinu Askea
   literature: Literatura
   location: Kokapena
   login: saioa hasi
   my_info: Nire info
+  names_status_column_header: Egoera
+  mobile:
+    taxa:
+      details: Xehetasunak
+      maps: Mapak
+      nomenclature: Nomenklatura
+      literature: Literatura
+      community: Komunitatea
+      images: Irudiak
+      sounds: Soinuak
+      videos: Bideoak
+    search:
+      suggestions: Iradokizunak
+      no_results_found: Ez da emaitzarik aurkitu
+      results: Emaitzak
+  no_answer: Ez
+  pagination_next: Hurrengoa
+  pagination_previous: Aurrekoa
+  parameters: Parametroak
+  password_colon: 'Pasahitza:'
   press_room: Prentsa Aretoa
   profile: Profila
-  punctuation_comma: ","
+  public_domain: jabetza publikoa
+  punctuation_comma: ,
+  reply: Erantzun
+  required: Nahitaezkoa
   resources: Baliabidea
+  results: Emaitzak
+  search_field_synonym: Sinonimoa
+  send: Bidali
+  server_ip_address: Zerbitzariaren IP helbidea
   sign_in: Saioa hasi
   sign_out: Saioa itxi
+  sort_by_button: Sailkatu
+  sort_by_label: Honen arabera sailkatu
+  sort_by_newest_option: Berrienak
+  sort_by_oldest_option: Zaharrenak
+  sort_by_status_option: Egoera
+  sounds_with_count:
+    one: 'soinu %{count}'
+    other: '%{count} soinu'
+  stats: Estatistikak
+  table_column_header_actions: Ekintzak
   table_of_contents: Eduki-taula
+  terms_agreement_form_submit: Ados nago
+  truncated_news_item_omission: "... <a href='%{link}'>gehiago</a>"
+  tumblr: Tumblr
   twitter: Twitter
+  username_colon: 'Erabiltzaile izena:'
+  username: Erabiltzaile izena
+  user_says_colon: '%{users_name}(e)k dio:'
+  user: Erabiltzailea
+  users_about_me_header: Niri buruz
+  users_form_account_header: Zure kontua
+  welcome: Ongi etorri
   what_is_this_question: Zer da hau?
+  yahoo: Yahoo
+  year: Urtea
+  yes_answer: Bai
+  your_email_address: Zure helbide elektronikoa
+  your_ip_address: Zure IP Helbidea
+  youtube: YouTube

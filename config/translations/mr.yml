@@ -1,15 +1,1010 @@
 # Messages for Marathi (मराठी)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
+# Author: Aniket1900
 # Author: Htt
+# Author: Ketan d
+# Author: Ogdhekne
+# Author: Pranav jagtap
+# Author: V.narsikar
 # Author: Vitthalkudal
-mr: 
+# Author: Ydyashad
+---
+mr:
+  activerecord:
+    models:
+      user: खाते
+    attributes:
+      collection:
+        name: कलेक्शन नाव
+        description: संचाबद्दल
+        sort_style_id: >
+          प्रस्थपित
+          वर्गीकरण दिशा
+        logo: >
+          प्राथमिक संच
+          चित्र
+        additional_annotation_fields: >
+          अधिक खुणांची
+          जागा
+        show_references: >
+          संदर्भ (लेखन
+          किंवा लिंक)
+      collection_job:
+        overwrite: >
+          दुसरी प्रतीची
+          पुनर्स्थापना
+          करा
+      collection_item:
+        annotation: खुणा
+        sort_field: >
+          वर्गीकरण
+          प्रकार्
+        refs: संदर्भ
+      comment:
+        body: टिप्पणी
+      community:
+        name: संघटना नाव
+        description: संघटनेबद्दल
+        logo: चित्र् उघड
+      contact:
+        comments: संदेश
+        contact_subject_id: संपर्क विषय
+        email: ई-पत्र
+        name: नाव
+      content_page:
+        page_name: योग्य नाव
+        sort_order: वर्गीकरण दिशा
+        active: प्रकाशित केले !
+      content_partner:
+        acronym: >
+          संक्षिप्त
+          प्रकल्प
+        auto_publish: स्वप्रकाशित
+        admin_notes: >
+          प्रशासनिक
+          व्याख्या
+        content_partner_status: >
+          प्रकल्पाची
+          स्थिती
+        created_at: बनविलेली
+        description: >
+          प्रकल्पाचे
+          वर्णन
+        display_name: >
+          नावाचे
+          प्रदर्शन
+        full_name: प्रकल्पाचे नाव
+        id: >
+          ओळख
+          संख्या(आयडी)
+        notes: प्रकल्पाचे नाव
+        public: सार्वजनिक
+        resources: संसाधन
+        user_id: व्यवस्था केली
+      content_partner_agreement:
+        created_at: वर तयार केले
+        signed_by: >
+          च्या द्वारे
+          सही केली
+        signed_on_date: >
+          दिनांकास सही
+          केली
+      data_object:
+        description: वर्णन
+        object_title: शीर्षक
+        rights_holder: अधिकार धारक
+        rights_statement: अधिकार तक्ता
+        source_url: स्रोत युआरएल
+      eol_statistic:
+        created_at: वर तयार केले
+        members_count: सदस्य
+        communities_count: समाज
+        collections_count: संग्रह
+        pages_count: एकुण पाने
+        pages_with_content: >
+          आशय असलेली
+          पाने
+        pages_with_text: >
+          मजकूर असलेली
+          पाने
+        pages_with_image: >
+          चित्र असलेली
+          पाने
+        pages_with_map: >
+          नकाशा असलेली
+          पाने
+        pages_with_video: >
+          व्हीडिओ असलेली
+          पाने
+        pages_with_sound: >
+          ध्वनी असलेली
+          पाने
+        pages_without_text: >
+          मजकूर नसलेली
+          पाने
+        pages_without_image: >
+          चित्र नसलेली
+          पाने
+        pages_with_image_no_text: >
+          चित्र असलेली
+          पण मजकूर
+          नसलेली पाने
+        pages_with_text_no_image: >
+          मजकूर असलेली
+          पण चित्र
+          नसलेली पाने
+        base_pages: मूळ पाने
+        pages_with_BHL_links: >
+          बीएचएल दुवे
+          असलेली पाने
+        pages_with_BHL_links_no_text: >
+          बीएचएल दुवे
+          असलेली पण
+          मजकूर नसलेली
+          पाने
+        pages_with_BHL_links_only: >
+          फक्त बीएचएल
+          दुवे असलेली
+          पाने
+        udo_published: >
+          सदस्याने
+          टाकलेली मजकूर
+        udo_published_by_curators: >
+          अभिरक्षकाने
+          टाकलेला मजकूर
+        content_partners: आशय भागीदार
+        newly_published_resources_in_the_last_30_days: >
+          मागील
+          महिन्यातले
+          नविन प्रकाशित
+        curators: अभिरक्षक
+        curators_assistant: 'उप- अभिरक्षक'
+        curators_full: पूर्ण अभिरक्षक
+        curators_master: मुख्य अभिरक्षक
+        active_curators: >
+          सक्रिय
+          अभिरक्षक
+        pages_curated_by_active_curators: >
+          सक्रिय
+          अभिरक्षकाद्वारे
+          रक्षिलेले पान
+        objects_curated_in_the_last_30_days: >
+          मागील ३०
+          दिवसात
+          अभिरक्षिलेल्या
+          वस्तू
+        curator_actions_in_the_last_30_days: >
+          मागील ३०
+          दिवसातील
+          अभिरक्षण
+          क्रिया
+        pages_with_score_10_to_39: >
+          १०-४०
+          गुणसंख्या
+          असणारी पाने
+        pages_with_score_less_than_10: >
+          १० पेक्षा कमी
+          गुणसंख्या
+          असणारी पाने
+      forum:
+        forum_category_id: वर्ग
+        description: 'वर्णन <small>(एच्छिक)</small>'
+      forum_category:
+        title: वर्गाचे नाव
+      forum_post:
+        subject: विषय
+        text: मायना
+      forum_topic:
+        subject: विषय
+        text: मायना
+      hierarchy:
+        browsable: >
+          न्याहाळण्याजोगे
+        complete: पूर्ण
+        description: वर्णन
+      known_uri:
+        clade_exemplar: .
+      open_authentication:
+        secret: गोपनिय
+        token: बिल्ला
+      name:
+        string: नाव
+      news_item:
+        page_name: अनन्य नाव
+        active: प्रकाशित
+      notification:
+        reply_to_comment: >
+          आपण दिलेल्या
+          अभिप्रायाचे
+          उत्तर
+        comment_on_my_profile: >
+          आपल्या
+          रूपरेखेवरील
+          अभिप्राय
+        member_joined_my_community: >
+          आपण व्यवस्थापन
+          करीत असलेल्या
+          समाजात एक नविन
+          सदस्य जुळला
+          आहे
+      resource:
+        auto_publish: स्वयं-प्रकाशन
+      translated_content_page:
+        active_translation: प्रकाशित
+        main_content: मायना
+        meta_description: मेटाडाटा वर्णन
+        title: शीर्षक
+      translated_news_item:
+        active_translation: प्रकाशित
+        body: मायना
+        title: मथळा
+      user:
+        email: विपत्रपत्ता
+        entered_password: परवलीचा शब्द
+        family_name: शेवटचे नाव
+        full_name: पूर्ण नाव
+        given_name: पहिले नाव
+        language_abbr: भाषा पसंती
+        permissions: परवानग्या
+        username: सदस्यनाव
+    errors:
+      messages:
+        taken: >
+          पूर्वीच
+          घेललेले आहे
+        inclusion: >
+          यादीत हे
+          समाविष्ट नाही
+        exclusion: आरक्षित आहे
+        invalid: अवैध आहे
+        accepted: >
+          स्वीकारावयासच
+          हवे
+        empty: >
+          रिकामे असू शकत
+          नाही
+        blank: >
+          कोरे असू शकत
+          नाही
+        not_a_number: हा अंक नाही
+        not_an_integer: पूर्णांकच हवा
+        greater_than_or_equal_to: '%{count}च्या पेक्षा मोठा किंवा बरोबर हवा'
+        equal_to: '%{count}च्या बरोबर हवा'
+        less_than_or_equal_to: '%{count}च्या पेक्षा लहान किंवा बरोबर हवा'
+        odd: विषम असावा
+        even: सम असावा
+        inaccessible: >
+          न-पोहोचण्यायोग्य
+        wrong_type: >
+          चुकिचा प्रकार
+          आहे
+      models:
+        inaccessible: >
+          हा अभिलेख जतन
+          करु शकत नाही
+          कारण तो अवैध
+          आहे.वैधतेबाबतच्या
+          चुका तपासा व
+          पुन्हा सादर
+          करा.
+        resource:
+          attributes:
+            dataset:
+              wrong_type: >
+                हा संचिकेचा
+                चुकिचा प्रर
+                आहे,तो GZIP, TAR, ZIP
+                किंवा XML हवा
+  helpers:
+    label:
+      collection_item:
+        refs: 'संदर्भ <small>(प्रत्येक संदर्भ एका नव्याओळीत टाका)</small>'
+      comment:
+        body_edit: >
+          अभिप्राय
+          संपादन करा
+      contact:
+        comments: आपला संदेश
+        contact_subject_id: विषय
+        email: >
+          आपला
+          विपत्रपत्ता
+        name: आपले नाव
+      content_page:
+        active: प्रकाशित
+        page_name: सध्याचा करार
+      content_partner:
+        created_at: नोंदणीकृत
+        current_agreement: सध्याचा करार
+        display_name: 'नाव दर्शविते <small>(एच्छिक)</small>'
+        description_of_data: 'माहितीचे वर्णन<small>(खाजगी)</small>'
+        description_of_data_more: >
+          आम्हास
+          आपणापाशी
+          असलेल्या
+          माहितीच्या
+          प्रकाराचे
+          वर्णन
+          द्या,यापैकी
+          किती बाबी
+          उपलब्ध
+          आहेत,त्या
+          कोणत्या जीवाशी
+          संलग्न आहेत व
+          त्या गुणवत्ता
+          असलेल्या
+          विशारदाने
+          किंवा याचे
+          ज्ञान असलेल्या
+          समूहाने
+          एकत्रित केले
+          किंवा तपासले
+          आहे काय?
+        last_action: मागील क्रिया
+        latest_published_harvest_event: शेवटी प्रकाशित
+        notes: 'प्रकल्प टिप्पण्या<small>(खाजगी)</small>'
+        oldest_published_harvest_event: प्रथम प्रकाशित
+      data_object:
+        license_id: परवाना
+        object_title: मथळा
+        toc_item: उपप्रकरण
+        refs: 'संदर्भ <small>(प्रत्येक संदर्भ एका नव्या ओळीत टाका)</small>'
+        rights_holder: अधिकार धारक
+        rights_holder_more: 'त्या व्यक्तिचे किंवा संस्थेचे नाव नमूद करा जो या माहितीचा मालक आहे किंवा त्याचे प्रबंधन करीत आहे.जर आपण हे क्षेत्र कोरे ठेवले तर आम्ही समजू कि आपण सार्वजनिक डोमेनशिवाय सर्व परवान्यांचे  अधिकारधारक आहात.सार्वजनिक डोमेन परवान्यास कोणत्याच अधिकारधारकाची गरज नाही.'
+        rights_statement: अधिकार तक्ता
+      data_object_link:
+        toc_item: विषय
+        link_type: वर्ग
+      data_search:
+        max_placeholder: अंक टाका
+        min_placeholder: अंक टाका
+        unit: मोजणीचे एकक
+      eol_statistic:
+        date_one: दिनांक
+        date_two: दिनांक
+        download_all: 'सर्व <small>(सर्व पानावरील अभिलेखाँना अंतर्भूत करा)</small>'
+      google_analytics_partner_summaries:
+        taxa_pages: 'पाने <small>(पानांचा आकडा)</small>'
+        taxa_pages_viewed: 'बघितलेली पाने<small>(भेट देणाऱ्याने बघितलेल्या पानांचा आकडा)</small>'
+        time_on_page: 'एकूण घेतलेला कालावधी<small>(तासात)</small>'
+      harvest_event:
+        began_at: सुरू केले
+        completed_at: पूर्ण केले
+        first_published_at: प्रथम प्रकाशित
+        published_at: प्रकाशित
+        published_status: स्थिती
+      hierarchy:
+        complete: अभिरक्षित
+        request_publish: >
+          प्रकाशनाची
+          विनंती केली
+      news_item:
+        active: प्रकाशित
+      open_authentication:
+        connected: अनुबंधित
+        connect: जोडा
+      resource:
+        oldest_published_harvest_event: प्रथम प्रकाशित
+        latest_published_harvest_event: शेवटी प्रकाशित
+        latest_harvest_event: मागील उपज
+        refresh_period_hours: वारंवारिता
+        resource_status_id: स्थिती
+        resource_status: स्थिती
+        resource_url_or_file_upload: >
+          स्रोत संचिकेचे
+          अपभारण करा
+        title: स्रोत नाम
+      session:
+        password: परवलीचा शब्द
+        remember_me: >
+          दोन आठवडे मला
+          नोंदीकृतच ठेवा
+        username_or_email: >
+          सदस्यनाव किंवा
+          विपत्रपत्ता
+      translated_content_page:
+        active_translation: प्रकाशित
+        active_translation_more: 'जोपर्यंत ते पानच अप्रकाशित असेल तोवर, प्रकाशित केलेली भाषांतरे ही सार्वजनिकरित्या दृश्य असतील.जर आपणास सामान्य सदस्यास या पानाची आवृत्ती बघण्यापासून रोखायचे असेल तर,<em>प्रकाशित</em> ही खूण काढा.'
+        language_id: भाषा
+        meta_description_more: >
+          या पानाच्या
+          आशयाचा मूळ
+          मुद्दा
+          सारांशित करुन,
+          त्रोटक वर्णन
+          द्या.हे वर्णन
+          संबंध
+          तपासण्यास व
+          शोध यंत्राच्या
+          निकालांची यादी
+          करण्यास,
+          जालशोध
+          यंत्रांद्वारे
+          कधीकधी
+          वापरल्या जाते
+        meta_keywords_more: 'स्वल्पविरामाद्वारे वेगळ्या केलेल्या शब्दांची यादी व लहान वाक्यांशाची यादी टाका जी या पानाचा आशय चांगल्या प्रकारे दर्शवू शकेल. हे कळीचे शब्द व कळीचे वाक्यांश  जाल शोधयंत्राद्वारे या पानाच्या आशयाचा  शोध घेण्यास वापरल्या जातात.'
+        title_more: >
+          या पानाच्या
+          शीर्षक्षेत्रात,
+          या आशयाचे
+          शीर्षक दिसेल.
+          शीर्षकात,
+          आशयाशी संबंधीत
+          कळीचे शब्द
+          अंतर्भूत
+          असावेत.
+      translated_news_item:
+        active_translation: प्रकाशित
+        active_translation_more: 'जोपर्यंत ते पानच अप्रकाशित असेल तोवर, प्रकाशित केलेल्या बातम्या  ह्या सार्वजनिकरित्या दृश्य असतील.जर आपणास सामान्य सदस्यास या बातम्यांच्या पानाची आवृत्ती बघण्यापासून रोखायचे असेल तर,<em>प्रकाशित</em> ही खूण काढा.'
+        language_id: भाषा
+        meta_description_more: >
+          या पानाच्या
+          बातमीच्या
+          आशयाचा मूळ
+          मुद्दा
+          सारांशित करुन,
+          त्रोटक वर्णन
+          द्या.हे वर्णन
+          संबंध
+          तपासण्यास व
+          शोध यंत्राच्या
+          निकालांची यादी
+          करण्यास,
+          जालशोध
+          यंत्रांद्वारे
+          कधीकधी
+          वापरल्या जाते
+        meta_keywords_more: 'स्वल्पविरामाद्वारे वेगळ्या केलेल्या शब्दांची यादी व लहान वाक्यांशाची यादी टाका जी या पानाच्या बातमीचा आशय चांगल्या प्रकारे दर्शवू शकेल. हे कळीचे शब्द व कळीचे वाक्यांश  जाल शोधयंत्राद्वारे या पानाच्या आशयाचा  शोध घेण्यास वापरल्या जातात.'
+        title_more: >
+          या पानाच्या
+          शीर्षक्षेत्रात,
+          या बातमीच्या
+          आशयाचे शीर्षक
+          दिसेल.
+          शीर्षकात,
+          आशयाशी संबंधीत
+          कळीचे शब्द
+          अंतर्भूत
+          असावेत.
+      user:
+        bio: माझ्याबद्दल
+        credentials_more_professional: >
+          धंदेवाईक
+          समाजाचा सदस्य
+        curation_application: अभिरक्षक बना
+        curator_scope: >
+          अभिरक्षणाचा
+          आवाका
+        email: विपत्रपत्ता
+        logo: >
+          नविन
+          छायाचित्राचे
+          अपभारण करा
+        new_password: 'नविन परवलीचा शब्द<small>(४ - १६ वर्णांचा)</small>'
+        new_password_confirmation: 'नविन परवलीचा शब्द <small>(खात्री करण्यास)</small>'
+        news_in_preferred_language: >
+          पसंतीक्रमातील
+          भाषेत बातमी
+          दाखवा
+        notification_settings: >
+          अधिसूचनेच्या
+          मांडण्या
+        open_authentications: अनुबंधीत खाती
+        user_identities: मी आहे
+        username: 'सदस्यनाम<small>(४ - ३२ अक्षरे)</small>'
+        username_or_email: >
+          सदस्यनाव किंवा
+          विपत्रपत्ता
+    select:
+      prompt: कृपया निवडा
+    submit:
+      cancel: रद्द करा
+      create: 'तयार करा%{model}'
+      update: 'अद्यतन करा%{model}'
+      submit: 'जतन करा%{model}'
+      collection_item:
+        update: जतन करा
+      contact:
+        new: >
+          प्रतिक्रिया
+          पाठवा
+      content_page:
+        create: लेख बनवा
+        edit: संपादन
+        preview: झलक
+        update: पान अद्यतन करा
+      content_partner_agreement:
+        create: नविन करार करा
+        update: >
+          करार अद्यतन
+          करा
+      content_partner_contact:
+        create: संपर्क जोडा
+        update: >
+          संपर्क अद्यतन
+          करा
+        destroy: >
+          संपर्क रद्द
+          करा
+      data_object:
+        create: लेख जोडा
+        create_text: लेख जोडा
+        update: लेख जतन करा
+      data_object_link:
+        create: दुवा जोडा
+        update: दुवा जतन करा
+      harvest_event:
+        publish: प्रकाशित करा
+      name:
+        create: नाव जोडा
+        update: नाव अद्यतन करा
+      news_item:
+        create: बातमी तयार करा
+        edit: संपादन करा
+        preview: झलक पहा
+        update: >
+          बातमी अद्यतन
+          करा
+      open_authentication:
+        create: अनुबंधित व्हा
+        destroy: >
+          अन-अनुबंधित
+          व्हा
+        update: अनुबंधन तपासा
+      resource:
+        create: स्रोत जोडा
+        update: >
+          स्रोत अद्यतन
+          करा
+        update_settings: >
+          मांडणी अद्यतन
+          करा
+      session:
+        create: प्रवेश करा
+      translated_content_page:
+        create: भाषांतर जोडा
+        update: >
+          भाषांतरात
+          केलेले बदल जतन
+          करा
+      translated_news_item:
+        create: भाषांतर जोडा
+        update: >
+          भाषांतरात
+          केलेले बदल जतन
+          करा
+      user:
+        create: >
+          नवीन खाते तयार
+          करा
+        curation_application: अर्ज करा
+        curation_privileges: >
+          विनंती सादर
+          करा
+        generate_api_key: कळ निर्माण करा
+        recover_account: विपत्र पाठवा
+        notification_settings: >
+          अधिसूचनेच्या
+          मांडण्या
+      wikipedia_queue:
+        create: >
+          विनंती सादर
+          करा
+  will_paginate:
+    next_label: पुढील
+    previous_label: मागील
+  datepicker:
+    day_names:
+      - रविवार
+      - सोमवार
+      - मंगळवार
+      - बुधवार
+      - गुरूवार
+      - शुक्रवार
+      - शनिवार
+    day_names_short:
+      - रवि.
+      - सोम.
+      - मंगळ.
+      - बुध.
+      - गुरू.
+      - शुक्र.
+      - शनि.
+    day_names_min:
+      - र.
+      - सो.
+      - मं.
+      - बु.
+      - गु.
+      - शु.
+      - श.
+    close: बंद करा
+    current: आज
+    month_names:
+      - जानेवारी
+      - फेब्रुवारी
+      - मार्च
+      - एप्रिल
+      - मे
+      - जून
+      - जुलै
+      - ऑगस्ट
+      - सप्टेंबर
+      - ऑक्टोबर
+      - नोव्हेंबर
+      - डिसेंबर
+    month_names_short:
+      - जाने.
+      - फेब्रु.
+      - मार्च
+      - एप्रि.
+      - मे
+      - जून
+      - जुलै
+      - ऑग.
+      - सप्टें.
+      - ऑक्टो.
+      - नोव्हें.
+      - डिसें.
+    next: पुढील
+    previous: मागील
+  admins:
+    eol_statistics:
+      content_partners:
+        menu_link: आशय भागीदार
+        page_header: >
+          आशय भागीदारीची
+          सांख्यिकी
+  contacts:
+    new:
+      page_title: >
+        कृपया आपली
+        प्रतिक्रिया
+        टाका.
+  collections:
+    inaturalists:
+      show:
+        observation_date: 'दिनांक:%{observed_on}'
+        observation_place: 'ठिकाण:%{place}'
+        some_taxon: काहीतरी
+  content_partners:
+    index:
+      meta_title: आशय भागीदार
+  data_objects:
+    show:
+      meta_supplier_default: योगदानकर्ता
+  eol_statistics:
+    warnings:
+      stats_unavailable_for_date: 'माफ करा, %{date} या दिवसाची सांख्यिकी उपलब्ध नाही.कृपया दुसरी तारीख निवडा.'
+    content_partners:
+      menu_link: आशय भागीदार
+      page_title: सांख्यिकी
+    curators:
+      page_header: >
+        अभिरक्षकाची
+        सांख्यिकी
+      page_title: सांख्यिकी
+    data_objects:
+      page_title: सांख्यिकी
+    index:
+      page_title: सांख्यिकी
+    lifedesks:
+      page_title: सांख्यिकी
+    marine:
+      page_title: सांख्यिकी
+    page_richness:
+      page_title: सांख्यिकी
+    users_data_objects:
+      menu_link: >
+        सदस्याने
+        टाकलेला मजकूर
+      page_header: >
+        सदस्याने
+        टाकलेल्या
+        मजकूराची
+        सांख्यिकी
+      page_title: सांख्यिकी
+  forums:
+    replies: उत्तरे
+    topics_heading: तंतू
+    create: >
+      चर्चापीठ तयार
+      करा
+    create_successful: >
+      चर्चापीठ
+      यशस्वीरित्या
+      तयार केल्या
+      गेले
+    create_failed: >
+      माफ करा,त्रूटी
+      घडली,चर्चापीठ
+      जोडता आले नाही
+    update_successful: >
+      चर्चापीठ
+      यशस्वीरित्या
+      अद्यतन केल्या
+      गेले
+    update_failed: >
+      माफ करा,त्रूटी
+      घडली,चर्चापीठ
+      अद्यतन करता
+      आले नाही
+    delete_successful: >
+      चर्चापीठ
+      यशवीरित्या
+      वगळल्या गेले
+    delete_failed_not_empty: >
+      चर्चापीठ रद्द
+      करता आले नाही
+      कारण ते रिकामे
+      नाही
+    move_successful: >
+      चर्चापीठ
+      यशवीरित्या
+      हलविल्या गेले
+    move_failed: >
+      चर्चापीठ
+      हलविता आले
+      नाही
+    edit: >
+      चर्चापीठाचे
+      संपादन करा
+    actions: क्रिया
+    administration: प्रशासन
+    no_topics: >
+      या चर्चापीठात
+      काहीच
+      तंतू(थ्रेड्स)
+      नाहीत
+    buttons:
+      delete: वगळा
+      edit: संपादन करा
+      reply: प्रतिक्रिया
+      link: दुवा
+    categories:
+      create: वर्ग बनवा
+      edit: वर्गाचे संपादन
+      create_successful: >
+        वर्ग
+        यशस्वीरित्या
+        तयार केल्या
+        गेला
+      create_failed: >
+        माफ करा,चूक
+        घडली,वर्ग
+        जोडता आला नाही
+      update_successful: >
+        वर्ग
+        यशस्वीरित्या
+        अद्यतन करण्यात
+        आला
+      update_failed: >
+        माफ करा,त्रूटी
+        घडली,वर्ग
+        अद्यतन करता
+        आला नाही
+      delete_successful: >
+        वर्ग
+        यशस्वीरित्या
+        वगळल्या गेला
+      delete_failed_not_empty: >
+        वर्ग वगळता आला
+        नाही कारण तो
+        रिकामा नाही
+      move_successful: >
+        वर्ग
+        यशस्वीरित्या
+        हलविल्या गेला
+      move_failed: >
+        गर्ग हलविल्या
+        गेला नाही
+    posts:
+      post_written_by_user: '%{user} ने लिहिले:'
+      replying_to_post: 'ला उत्तर देत आहे:'
+      create_successful: >
+        उत्तर
+        यशस्वीरित्या
+        तयार केल्या
+        गेले
+      create_failed: >
+        माफ करा,त्रूटी
+        घडली,उत्तर
+        जोडता आले नाही
+      update_successful: >
+        उत्तर
+        यशस्वीरित्या
+        अद्यतन केल्या
+        गेले
+      update_failed: >
+        माफ करा,त्रूटी
+        घडली,उत्तर
+        अद्यतन करता
+        आले नाही
+      delete_successful: >
+        उत्तर
+        यशवीरित्या
+        वगळल्या गेले
+      post_has_been_deleted: >
+        हा उत्तर
+        वगळल्या गेले
+        आहे.
+      deleted_subject: (वगळले)
+      no_subject: >
+        (काहीच विषय
+        नाही)
+      close_window: बंद करा
+    topics:
+      create: >
+        नविन थ्रेड
+        सुरु करा
+      no_posts: >
+        या थ्रेडमध्ये
+        काहीच टाकले
+        नाही
+      create_successful: >
+        थ्रेड
+        यशस्वीरित्या
+        तयार केल्या
+        गेला
+      create_failed: >
+        माफ करा,चूक
+        घडली,थ्रेड
+        जोडता आला नाही
+      delete_successful: >
+        थ्रेड
+        यशस्वीरित्या
+        वगळल्या गेला
+      delete_failed_not_empty: >
+        थ्रेड वगळता
+        आला नाही कारण
+        तो रिकामा नाही
+  layouts:
+    application:
+      header_about: EOL बद्दल
+      header_learn_more: >
+        च्याबाबत अधिक
+        शिका
+      header_questions: मला अधिक सांगा
+      about_link_what_is_eol: EOL काय आहे?
+      about_link_statistics: सांख्यिकी
+      about_link_help: साहाय्य
+      about_link_terms_of_use: >
+        वापरण्याच्या
+        अटी
+      about_link_contact_us: >
+        आम्हास संपर्क
+        करा
+      learn_more_link_animals: प्राणी
+      learn_more_link_mammals: सस्तन प्राणी
+      learn_more_link_birds: पक्षी
+      learn_more_link_reptiles: >
+        सरपटणारे
+        प्राणी
+      learn_more_link_fish: मासे
+      learn_more_link_insects: जंतू
+      learn_more_link_spiders: कोळी
+      learn_more_link_plants: वनस्पती
+      learn_more_link_flowering_plants: >
+        फूलाच्या
+        वनस्पती
+      learn_more_link_trees: झाडे
+      learn_more_link_viruses: विषाणू
+      questions_link_biodiversity: >
+        जैवविविधता काय
+        आहे?
+      questions_link_species: जाति काय आहेत?
+      questions_link_discovering_species: >
+        जाति कश्या
+        अनावरण केल्या
+        जातात?
+      questions_link_naming_species: >
+        जातिचे
+        नामाभिधान कसे
+        करतात?
+      questions_link_biological_classification: >
+        जीवशास्त्रिय
+        वर्गवारी काय
+        आहे?
+      questions_link_contributing_to_research: >
+        संशोधनात मी
+        काय योगदान देउ
+        शकतो?
+  members:
+    index:
+      meta_keywords: '%{community_name} सदस्य'
+      meta_title: '%{community_name} सदस्य'
+      tweet_text: '%{community_name} सदस्य'
+    show:
+      meta_keywords: '%{member_name}  समाज सदस्य'
+  news_items:
+    index:
+      page_title: EOL बातमी
+      meta_title: EOL बातमी
+      meta_keywords: >
+        eol
+        बातमी,एन्सायक्लोपिडिया
+        ऑफ लाईफ बातमी
+  notifier:
+    comments_empty: >
+      अलिकडील
+      अभिप्राय नाहीत
+    greeting_dear_name_with_comma: 'प्रिय %{name},'
+    signature_basic: >
+      एन्सायक्लोपिडिया
+      ऑफ लाईफची चमू
+    signature_with_contact_us_link: |
+      आपणास काही अडचण असल्यास %{url}वर आम्हास संपर्क साधा.
+      
+      
+      एन्सायक्लोपिडिया ऑफ लाईफची चमू
+    signature_with_species_pages_group_contact: |
+      जर आपणास काही प्रश्न विचारावयाचे असतील तर कृपया %{species_pages_group_email} येथे संपर्क साधा.
+      
+      
+      एन्सायक्लोपिडिया ऑफ लाईफची चमू
+    activity_on_user_content:
+      subject: >
+        आपण
+        एन्सायक्लोपिडिया
+        ऑफ लाईफला
+        जोडलेल्या
+        आशयासाठी
+        नुकत्याच
+        केलेल्या
+        क्रियाकलापांचा
+        सारांश
+  recent_activities:
+    index:
+      list_header: शेवटले ७ दिवस
+  sessions:
+    new:
+      problems_signing_in_with_eol_authentication: >
+        परवलीचा शब्द
+        विसरला?
+  users:
+    data_downloads:
+      index:
+        tweet_text: '%{user_full_name} डाटा अधिभारणे'
+      download: अधिभारण करा
+      page_title: डाटा अधिभारणे
+      query_head: पृच्छा
+      attribute_head: ॲट्रीब्यूट
+      created_head: तयार केले
+      updated_head: शेवटची क्रिया
+      complete_head: पूर्ण झाले?
+      actions_head: क्रिया
+      is_complete: होय
+      is_not_complete: नाही
+      processing: >
+        प्रक्रिया करीत
+        आहे
+      refresh: ताजेतवाने करा
+      row_count: मोजणी
+      search_again: पुन्हा शोधा
+  data_search_files:
+    to: उच्चतम किंमत
+    unit_uri: मोजणीचे एकक
   cancel: रद्द करा
-  collections: संग्रह
-  donate: दान
-  edit_my_profile: तुमची पसंती संपादा
+  completed_colon: 'पूर्ण केले:'
+  data_search:
+    form:
+      search_suggestions_subheader_colon: 'खाली दिल्यापैकी एक माहितीशोध वापरुन पहा:'
+  edit_my_profile: >
+    तुमची पसंती
+    संपादा
+  expires_in_colon: 'त संपते:'
   filter_by_type_all_option: सर्व प्रकार
   help: मदत
   images: चित्रे
-  license_gnu_gpl: ग्नू सामान्य सार्वजनिक परवाना
+  license_gnu_gpl: >
+    ग्नू सामान्य
+    सार्वजनिक
+    परवाना
+  missing_interpolation_argument_error: '[भाषांतर अपूर्ण]'
+  not_specified: नमूद नाही
+  sort_by_value_ascending: >
+    कमी मूल्ये
+    प्रथम
+  submitted_colon: 'सादर केले:'
   twitter: ट्विटर

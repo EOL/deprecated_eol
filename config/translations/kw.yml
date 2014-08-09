@@ -1,15 +1,16 @@
-# Messages for Cornish (Kernowek)
+# Messages for Cornish (kernowek)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
+# Author: Kernoweger
 # Author: Kw-Moon
-kw: 
-  admin: menystrer
+---
+kw:
   help: Gweres
   home: Tre
   images: Imajys
-  license: Cubmyas
-  location: Desedhans
+  license: Cummyas
+  location: Teller
   media: Media
   my_info: Ow hedhlow
   twitter: Twitter
-  what_is_this_question: Pandr'ew hebma?
+  what_is_this_question: "Pandr'yw hemma?"

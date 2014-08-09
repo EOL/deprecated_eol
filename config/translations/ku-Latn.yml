@@ -1,9 +1,52 @@
-# Messages for Kurdish (Latin script) (‪Kurdî (latînî)‬)
+# Messages for Kurdish (Latin script) (Kurdî (latînî)‎)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
+# Author: Dilyaramude
 # Author: George Animal
-ku-latn: 
-  all_pages: Hemû rûpel
+# Author: Ghybu
+---
+ku-Latn:
+  activerecord:
+    models:
+      user: hesab
+    attributes:
+      collection:
+        name: Navê danhevokê
+        description: Danasîna danhevokê
+        sort_style_id: Aliyê tesnîfa bingehîn
+        logo: Weneyê danhevoka sereke
+      contact:
+        email: E-name
+        name: Nav
+      content_partner:
+        description: Danasîna projeyê
+        full_name: Navê projeyê
+      data_object:
+        description: Danasîn
+        object_title: Sernav
+      eol_statistic:
+        members_count: Endam
+        pages_with_content: Rûpelên bi naverok
+        pages_with_image: Rûpelên bê wêne
+        pages_without_text: Rûpelên bê nivîs
+      hierarchy:
+        description: Danasîn
+      name:
+        string: Nav
+      translated_content_page:
+        title: Sernav
+      user:
+        username: Navê bikarhêner
+  helpers:
+    label:
+      data_object:
+        object_title: Sernav
+      user:
+        user_identities: Ez $ im/me
+    submit:
+      user:
+        create: Hesabekî çêke
+  admin_content_partners_statistics_link: Statîstîk
   detail: Detay
   help: Alîkarî
   image_not_found: Wêne nehate dîtin

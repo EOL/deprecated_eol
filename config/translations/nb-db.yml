@@ -1,9 +1,10 @@
 # Messages for Norwegian Bokmål (norsk bokmål)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: phpyaml
 # Author: Event
 # Author: Wouterkoch
-nb: 
+---
+nb:
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: ikke-klarert
   translated_activities-name-activity_id-51: vis
@@ -17,7 +18,6 @@ nb:
   translated_activities-name-activity_id-59: uvurdert
   translated_activities-name-activity_id-63: samle inn
   translated_activities-name-activity_id-64: fjern
-  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Prosjekt
   translated_agent_roles-label-agent_role_id-11: Utgiver
   translated_agent_roles-label-agent_role_id-12: Nedtegner
@@ -25,11 +25,12 @@ nb:
   translated_agent_roles-label-agent_role_id-14: Kildedatabase
   translated_agent_roles-label-agent_role_id-15: Kontaktperson
   translated_agent_roles-label-agent_role_id-16: Bidragsyter
-  translated_agent_roles-label-agent_role_id-2: Forfatter
+  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-21: leverandør
   translated_agent_roles-label-agent_role_id-22: Oversetter
   translated_agent_roles-label-agent_role_id-23: Vitenskapelig korrekturleser
   translated_agent_roles-label-agent_role_id-24: Språklig korrekturleser
+  translated_agent_roles-label-agent_role_id-2: Forfatter
   translated_agent_roles-label-agent_role_id-3: Kompilator
   translated_agent_roles-label-agent_role_id-4: Kompilator
   translated_agent_roles-label-agent_role_id-5: Skaper
@@ -40,7 +41,6 @@ nb:
   translated_audiences-label-audience_id-1: Ekspertbrukere
   translated_audiences-label-audience_id-2: Vanlige folk
   translated_audiences-label-audience_id-3: Barn
-  translated_collection_types-label-collection_type_id-1: Taksonomi
   translated_collection_types-label-collection_type_id-10: Lyder
   translated_collection_types-label-collection_type_id-11: Lenker
   translated_collection_types-label-collection_type_id-12: Litteratur
@@ -51,12 +51,13 @@ nb:
   translated_collection_types-label-collection_type_id-17: Distribusjon
   translated_collection_types-label-collection_type_id-18: Konserveringsstatus
   translated_collection_types-label-collection_type_id-19: Navneinformasjon
-  translated_collection_types-label-collection_type_id-2: Molekylære strekkoder
+  translated_collection_types-label-collection_type_id-1: Taksonomi
   translated_collection_types-label-collection_type_id-20: Molekylær data
   translated_collection_types-label-collection_type_id-21: Nomenklatur
   translated_collection_types-label-collection_type_id-22: Lyder
   translated_collection_types-label-collection_type_id-23: Lenker
   translated_collection_types-label-collection_type_id-24: Litteratur
+  translated_collection_types-label-collection_type_id-2: Molekylære strekkoder
   translated_collection_types-label-collection_type_id-3: Beskrivelse
   translated_collection_types-label-collection_type_id-4: Bilder
   translated_collection_types-label-collection_type_id-5: Distribusjon
@@ -73,19 +74,23 @@ nb:
   translated_contact_subjects-title-contact_subject_id-27: Bli en innholdspartner
   translated_contact_subjects-title-contact_subject_id-28: Innholdspartnerstøtte
   translated_contact_subjects-title-contact_subject_id-29: Kuratorstøtte
-  translated_contact_subjects-title-contact_subject_id-30: Gjør en korrigering (staving og grammtikk, bilder, informasjon)
-  translated_contact_subjects-title-contact_subject_id-31: Bidra med bilder, videoer eller lyder
-  translated_contact_subjects-title-contact_subject_id-32: Mediaforespørsler (intervju, spørsmål fra pressen, forespørsler om logoer)
+  translated_contact_subjects-title-contact_subject_id-30: Gjør en korrigering (staving
+    og grammtikk, bilder, informasjon)
+  translated_contact_subjects-title-contact_subject_id-31: Bidra med bilder, videoer
+    eller lyder
+  translated_contact_subjects-title-contact_subject_id-32: Mediaforespørsler (intervju,
+    spørsmål fra pressen, forespørsler om logoer)
   translated_contact_subjects-title-contact_subject_id-33: Gi et finansielt bidrag
-  translated_contact_subjects-title-contact_subject_id-34: Tekniske spørsmål (problemer med søk, nettstedsfunksjonalitet)
+  translated_contact_subjects-title-contact_subject_id-34: Tekniske spørsmål (problemer
+    med søk, nettstedsfunksjonalitet)
   translated_contact_subjects-title-contact_subject_id-35: Generell tilbakemelding
   translated_content_partner_statuses-label-content_partner_status_id-1: Ventende
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
   translated_content_partner_statuses-label-content_partner_status_id-3: Arkivert
   translated_content_partner_statuses-label-content_partner_status_id-4: Inaktiv
   translated_content_tables-label-content_table_id-1: Detaljer
-  translated_data_types-label-data_type_id-1: Bilde
   translated_data_types-label-data_type_id-10: Kart
+  translated_data_types-label-data_type_id-1: Bilde
   translated_data_types-label-data_type_id-2: Lyd
   translated_data_types-label-data_type_id-3: Tekst
   translated_data_types-label-data_type_id-4: Video
@@ -94,9 +99,8 @@ nb:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Ingen rettigheter reservert
-  translated_licenses-description-license_id-2: "&#169; Alle rettigheter reservert"
   translated_licenses-description-license_id-29: Noen rettigheter reservert
-  translated_licenses-description-license_id-3: Noen rettigheter reservert
+  translated_licenses-description-license_id-2: '&#169; Alle rettigheter reservert'
   translated_licenses-description-license_id-30: Noen rettigheter reservert
   translated_licenses-description-license_id-31: Noen rettigheter reservert
   translated_licenses-description-license_id-32: Noen rettigheter reservert
@@ -107,9 +111,10 @@ nb:
   translated_licenses-description-license_id-37: Noen rettigheter reservert
   translated_licenses-description-license_id-38: Noen rettigheter reservert
   translated_licenses-description-license_id-39: Allmenn eiendom
-  translated_licenses-description-license_id-4: Noen rettigheter reservert
+  translated_licenses-description-license_id-3: Noen rettigheter reservert
   translated_licenses-description-license_id-42: Noen rettigheter reservert
   translated_licenses-description-license_id-43: Lisens gjelder ikke
+  translated_licenses-description-license_id-4: Noen rettigheter reservert
   translated_licenses-description-license_id-5: Noen rettigheter reservert
   translated_licenses-description-license_id-6: Noen rettigheter reservert
   translated_licenses-description-license_id-7: Noen rettigheter reservert
@@ -152,11 +157,11 @@ nb:
   translated_ranks-label-rank_id-472: overrekke
   translated_ranks-label-rank_id-494: stamme
   translated_ranks-label-rank_id-503: uklassifisert
-  translated_ranks-label-rank_id-51: klasse
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietet
   translated_ranks-label-rank_id-518: varietet
+  translated_ranks-label-rank_id-51: klasse
   translated_ranks-label-rank_id-562: hybridslekt
   translated_ranks-label-rank_id-563: hybridart
   translated_ranks-label-rank_id-564: hybridunderart
@@ -167,11 +172,11 @@ nb:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familie
-  translated_resource_statuses-label-resource_status_id-1: Opplasting
   translated_resource_statuses-label-resource_status_id-10: Publisert
   translated_resource_statuses-label-resource_status_id-11: Publisering venter
   translated_resource_statuses-label-resource_status_id-12: Avventer upublisering
   translated_resource_statuses-label-resource_status_id-13: Avtving innhøsting
+  translated_resource_statuses-label-resource_status_id-1: Opplasting
   translated_resource_statuses-label-resource_status_id-2: Opplastet
   translated_resource_statuses-label-resource_status_id-3: Opplasting mislyktes
   translated_resource_statuses-label-resource_status_id-4: Flyttet til innholdstjener
@@ -192,7 +197,6 @@ nb:
   translated_statuses-label-status_id-2: Oppdatert
   translated_statuses-label-status_id-3: Uforandret
   translated_statuses-label-status_id-4: Gjenbrukt
-  translated_synonym_relations-label-synonym_relation_id-1: synonym
   translated_synonym_relations-label-synonym_relation_id-10: genbank synonym
   translated_synonym_relations-label-synonym_relation_id-11: delvis
   translated_synonym_relations-label-synonym_relation_id-12: inkluderer
@@ -201,9 +205,10 @@ nb:
   translated_synonym_relations-label-synonym_relation_id-15: teleomorf
   translated_synonym_relations-label-synonym_relation_id-16: flertydig synonym
   translated_synonym_relations-label-synonym_relation_id-17: feiltilpasset navn
-  translated_synonym_relations-label-synonym_relation_id-18: provisjonelt akseptert navn
+  translated_synonym_relations-label-synonym_relation_id-18: provisjonelt akseptert
+    navn
   translated_synonym_relations-label-synonym_relation_id-19: akseptert navn
-  translated_synonym_relations-label-synonym_relation_id-2: alminnelig navn
+  translated_synonym_relations-label-synonym_relation_id-1: synonym
   translated_synonym_relations-label-synonym_relation_id-20: databaseartefakt
   translated_synonym_relations-label-synonym_relation_id-21: annet, se kommentarer
   translated_synonym_relations-label-synonym_relation_id-22: ortografisk variant (feilstaving)
@@ -211,32 +216,38 @@ nb:
   translated_synonym_relations-label-synonym_relation_id-24: avvist navn
   translated_synonym_relations-label-synonym_relation_id-25: homonym (illegitimt)
   translated_synonym_relations-label-synonym_relation_id-26: pro parte
-  translated_synonym_relations-label-synonym_relation_id-27: overflødig navneendring (illegitim)
+  translated_synonym_relations-label-synonym_relation_id-27: overflødig navneendring
+    (illegitim)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: juniorsynonym
-  translated_synonym_relations-label-synonym_relation_id-3: akronym
+  translated_synonym_relations-label-synonym_relation_id-2: alminnelig navn
   translated_synonym_relations-label-synonym_relation_id-30: utilgjengelig, databaseartefakt
   translated_synonym_relations-label-synonym_relation_id-31: unødvendig erstatning
   translated_synonym_relations-label-synonym_relation_id-32: påfølgende navn/kombinasjon
-  translated_synonym_relations-label-synonym_relation_id-33: utilgjengelig, feilstavet litteratur
+  translated_synonym_relations-label-synonym_relation_id-33: utilgjengelig, feilstavet
+    litteratur
   translated_synonym_relations-label-synonym_relation_id-34: opprinnelig navn/kombinasjon
-  translated_synonym_relations-label-synonym_relation_id-35: utilgjengelig, feilaktig opprinnelig stavemåte
+  translated_synonym_relations-label-synonym_relation_id-35: utilgjengelig, feilaktig
+    opprinnelig stavemåte
   translated_synonym_relations-label-synonym_relation_id-36: juniorhomonym
   translated_synonym_relations-label-synonym_relation_id-37: homonym & junior-synonym
   translated_synonym_relations-label-synonym_relation_id-38: utilgjengelig, avvist
   translated_synonym_relations-label-synonym_relation_id-39: uberettiget emendasjon
-  translated_synonym_relations-label-synonym_relation_id-4: anamorf
+  translated_synonym_relations-label-synonym_relation_id-3: akronym
   translated_synonym_relations-label-synonym_relation_id-40: utilgjengelig, annet
-  translated_synonym_relations-label-synonym_relation_id-41: utilgjengelig, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-41: utilgjengelig, nomen
+    nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
-  translated_synonym_relations-label-synonym_relation_id-43: feilaktig publisert, annet
-  translated_synonym_relations-label-synonym_relation_id-44: feilaktig publisert, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-43: feilaktig publisert,
+    annet
+  translated_synonym_relations-label-synonym_relation_id-44: feilaktig publisert,
+    nomen nudum
   translated_synonym_relations-label-synonym_relation_id-45: basionym
   translated_synonym_relations-label-synonym_relation_id-46: heterotypisk synonym
   translated_synonym_relations-label-synonym_relation_id-47: homotypisk synonym
   translated_synonym_relations-label-synonym_relation_id-48: utilgjengelig navn
   translated_synonym_relations-label-synonym_relation_id-49: gyldig navn
-  translated_synonym_relations-label-synonym_relation_id-5: Populærnavn på artsgruppen
+  translated_synonym_relations-label-synonym_relation_id-4: anamorf
   translated_synonym_relations-label-synonym_relation_id-50: gyldig
   translated_synonym_relations-label-synonym_relation_id-51: akseptert
   translated_synonym_relations-label-synonym_relation_id-52: autoritet
@@ -247,8 +258,9 @@ nb:
   translated_synonym_relations-label-synonym_relation_id-57: stavingsalternativ
   translated_synonym_relations-label-synonym_relation_id-58: leksikal variant
   translated_synonym_relations-label-synonym_relation_id-59: synonym (objektiv = homotypisk)
-  translated_synonym_relations-label-synonym_relation_id-6: likeverdig navn
-  translated_synonym_relations-label-synonym_relation_id-60: synonym (subjektiv = heterotypisk)
+  translated_synonym_relations-label-synonym_relation_id-5: Populærnavn på artsgruppen
+  translated_synonym_relations-label-synonym_relation_id-60: synonym (subjektiv =
+    heterotypisk)
   translated_synonym_relations-label-synonym_relation_id-61: objektivt synonym
   translated_synonym_relations-label-synonym_relation_id-62: seniorsynonym
   translated_synonym_relations-label-synonym_relation_id-63: ikke akseptert
@@ -257,23 +269,23 @@ nb:
   translated_synonym_relations-label-synonym_relation_id-66: alternativ visning
   translated_synonym_relations-label-synonym_relation_id-67: tvilsom art
   translated_synonym_relations-label-synonym_relation_id-68: hortikulturell
+  translated_synonym_relations-label-synonym_relation_id-6: likeverdig navn
   translated_synonym_relations-label-synonym_relation_id-7: genbank akronym
   translated_synonym_relations-label-synonym_relation_id-8: genbank anamorf
   translated_synonym_relations-label-synonym_relation_id-9: genbank populærnavn
-  translated_table_of_contents-label-table_of_contents_id-1: Oversikt
   translated_table_of_contents-label-table_of_contents_id-13: Alminnelige navn
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Litteraturreferanser
   translated_table_of_contents-label-table_of_contents_id-194: Størrelse
-  translated_table_of_contents-label-table_of_contents_id-2: Kort sammendrag
+  translated_table_of_contents-label-table_of_contents_id-1: Oversikt
   translated_table_of_contents-label-table_of_contents_id-218: Spredning
   translated_table_of_contents-label-table_of_contents_id-221: Risikoer
   translated_table_of_contents-label-table_of_contents_id-225: På verdensveven
   translated_table_of_contents-label-table_of_contents_id-226: Innholdspartnere
   translated_table_of_contents-label-table_of_contents_id-227: Søk på verdensveven
-  translated_table_of_contents-label-table_of_contents_id-24: Kommentar
   translated_table_of_contents-label-table_of_contents_id-242: Allmen økologi
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografier
+  translated_table_of_contents-label-table_of_contents_id-24: Kommentar
   translated_table_of_contents-label-table_of_contents_id-251: Fordeler
   translated_table_of_contents-label-table_of_contents_id-267: Morfologi
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografi
@@ -285,7 +297,7 @@ nb:
   translated_table_of_contents-label-table_of_contents_id-296: Håndtering
   translated_table_of_contents-label-table_of_contents_id-297: Trofisk strategi
   translated_table_of_contents-label-table_of_contents_id-299: Utdannelse
-  translated_table_of_contents-label-table_of_contents_id-3: Fysisk beskrivelse
+  translated_table_of_contents-label-table_of_contents_id-2: Kort sammendrag
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Navn og taksonomi
   translated_table_of_contents-label-table_of_contents_id-304: Beslektede navn
@@ -310,11 +322,11 @@ nb:
   translated_table_of_contents-label-table_of_contents_id-323: Systematikk eller fylogenetikk
   translated_table_of_contents-label-table_of_contents_id-324: Funksjonelle tilpasninger
   translated_table_of_contents-label-table_of_contents_id-325: Fysiologi og cellebiologi
-  translated_table_of_contents-label-table_of_contents_id-326: Molekylærbiologi og genetikk
+  translated_table_of_contents-label-table_of_contents_id-326: Molekylærbiologi og
+    genetikk
   translated_table_of_contents-label-table_of_contents_id-327: Fysiologi
   translated_table_of_contents-label-table_of_contents_id-328: Cellebiologi
   translated_table_of_contents-label-table_of_contents_id-329: Genetikk
-  translated_table_of_contents-label-table_of_contents_id-33: Trender
   translated_table_of_contents-label-table_of_contents_id-330: Nukleotidsekvenser
   translated_table_of_contents-label-table_of_contents_id-331: Strekkode
   translated_table_of_contents-label-table_of_contents_id-332: Genom
@@ -325,20 +337,24 @@ nb:
   translated_table_of_contents-label-table_of_contents_id-337: Utdannelse
   translated_table_of_contents-label-table_of_contents_id-338: Utdanningslenker
   translated_table_of_contents-label-table_of_contents_id-339: Utdanningsressurser
-  translated_table_of_contents-label-table_of_contents_id-34: Kommentarer
+  translated_table_of_contents-label-table_of_contents_id-33: Trender
   translated_table_of_contents-label-table_of_contents_id-340: High School Lab Series
   translated_table_of_contents-label-table_of_contents_id-341: «Citizen science»
   translated_table_of_contents-label-table_of_contents_id-342: Borgerforskningslenker
-  translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage Library
+  translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage
+    Library
   translated_table_of_contents-label-table_of_contents_id-344: Data
   translated_table_of_contents-label-table_of_contents_id-345: Datakilder
   translated_table_of_contents-label-table_of_contents_id-346: Biomedisinske termer
   translated_table_of_contents-label-table_of_contents_id-347: Taksonomi
   translated_table_of_contents-label-table_of_contents_id-348: Typeinformasjon
-  translated_table_of_contents-label-table_of_contents_id-4: Økologi
+  translated_table_of_contents-label-table_of_contents_id-34: Kommentarer
+  translated_table_of_contents-label-table_of_contents_id-3: Fysisk beskrivelse
   translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-4: Økologi
   translated_table_of_contents-label-table_of_contents_id-5: Evolusjon og systematikk
-  translated_table_of_contents-label-table_of_contents_id-6: Relevans for mennesker og økosystemer
+  translated_table_of_contents-label-table_of_contents_id-6: Relevans for mennesker
+    og økosystemer
   translated_table_of_contents-label-table_of_contents_id-7: Referanser og mer informasjon
   translated_table_of_contents-label-table_of_contents_id-8: Konservering
   translated_untrust_reasons-label-untrust_reason_id-1: feilidentifisert
@@ -361,3 +377,4 @@ nb:
   translated_visibilities-label-visibility_id-0: Usynlig
   translated_visibilities-label-visibility_id-1: Synlig
   translated_visibilities-label-visibility_id-2: Forhåndsvisning
+...

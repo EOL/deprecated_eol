@@ -1,25 +1,150 @@
-# Messages for Bulgarian (Български)
+# Messages for Bulgarian (български)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
+# Author: Aquilax
 # Author: DCLXVI
-bg: 
-  account_information: Информация за сметката
-  all_pages: Всички страници
-  communities: Общности
+# Author: Simona
+---
+bg:
+  activerecord:
+    models:
+      user: сметка
+    attributes:
+      collection_item:
+        sort_field: Сортиране по
+      community:
+        logo: Качване на лого
+      contact:
+        email: Е-поща
+        name: Име
+      content_page:
+        sort_order: Ред на сортиране
+        active: Публикувано
+      content_partner:
+        acronym: Съкращение на проекта
+        auto_publish: >
+          Автоматично
+          публикуване
+        content_partner_status: Статут на проекта
+        created_at: Създадено
+        description: Описание на проекта
+        full_name: Име на проекта
+        homepage: Адрес на проекта
+        id: Номер
+        notes: Бележки за проекта
+        public: Публично
+        resources: Ресурси
+        user_id: Управлявано от
+      content_partner_agreement:
+        signed_by: Подписано от
+        signed_on_date: Подписано на дата
+      content_partner_contact:
+        email_reports_frequency_hours: >
+          Честота на отчетите
+          по е-поща
+      data_object:
+        description: Текст
+        object_title: Заглавие
+        rights_holder: Правоносител
+        source_url: Адрес на източника
+      data_object_link:
+        description: Описание
+      eol_statistic:
+        created_at: Създаване
+        members_count: Членове
+        communities_count: Общности
+        collections_count: Колекции
+        pages_count: >
+          Общ брой на
+          страниците
+        pages_with_content: >
+          Страници със
+          съдържание
+        pages_with_text: Страници с текст
+        pages_with_map: Страници с карта
+        pages_with_video: Страници с видео
+        pages_with_sound: Страници с аудио
+        pages_without_text: Страници без текст
+        data_objects_texts: Текстови обекти
+      forum:
+        forum_category_id: Категория
+        description: 'Описание <small>(незадължително)</small>'
+      forum_category:
+        description: 'Описание <small>(незадължително)</small>'
+      hierarchy:
+        description: Описание
+      known_uri:
+        description: Описание
+        name: Име
+        toc_items: Категории
+      open_authentication:
+        user_id: Потребителски номер
+      name:
+        string: Име
+      resource:
+        hierarchy: Йерархия
+        language_id: Език по подразбиране
+        license_id: >
+          Лиценз по
+          подразбиране
+      translated_known_uri:
+        definition: Дефиниция
+      user:
+        email: Електронна поща
+        email_confirmation: 'Електронна поща <small>(повторно)</small>'
+        entered_password: Парола
+        entered_password_confirmation: 'Парола <small>(за потвърждение)</small>'
+        language_abbr: Предпочитан език
+        username: Потребителско име
+      user_added_data_metadata:
+        object: Стойност
+  helpers:
+    label:
+      content_partner:
+        logo_current: 'Текущо лого:'
+        logo_new: 'Качване на ново лого:'
+      data_object:
+        license_id: Лиценз
+      data_object_link:
+        link_type: Категория
+      eol_statistic:
+        date_one: Дата
+        date_two: Дата
+  eol_statistics:
+    data:
+      menu_link: Данни
+  account_information: >
+    Информация за
+    сметката
+  all_categories: Всички
+  cancel_and_delete: отмяна и изтриване
   community: Общност
-  created_community: Общността беше създадена успешно.
-  delete_community: Изтриване на общността
+  created_community: >
+    Общността беше
+    създадена успешно.
+  data_column_source: Източник
+  delete_community: >
+    Изтриване на
+    общността
   eol_news: EOL новини
   global_navigation: Глобална навигация
   help: Помощ
-  join_community_button: Присъединяване към общността
+  join_community_button: >
+    Присъединяване към
+    общността
   license: Лиценз
-  login_or_create_account: Влизане или Създаване на сметка
+  login_or_create_account: >
+    Влизане или Създаване
+    на сметка
   profile: Профил
-  punctuation_comma: ","
-  recent_updates: Последни актуализации
+  punctuation_comma: ,
+  recent_updates: >
+    Последни
+    актуализации
+  record_count: Брой записи
   rights: Права
   sign_in: Влизане
   sign_out: Излизане
-  source_url: "Изходен адрес:"
+  source_url: 'Изходен адрес:'
+  versions_colon: 'Версии:'
   what_is_eol: Какво представлява EOL?

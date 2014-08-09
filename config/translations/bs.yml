@@ -1,15 +1,15 @@
-# Messages for Bosnian (Bosanski)
+# Messages for Bosnian (bosanski)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Palapa
-bs: 
-  communities: Zajednice
+---
+bs:
   edit_my_profile: Uredi moj profil
   help: Pomoć
   images: Slike
   learn_about_content_partners: Saznajte o našim sadržajnim partnerima
   location: Lokacija
-  punctuation_comma: ","
+  punctuation_comma: ,
   resources: Resursi
   twitter: Twitter
   you_are_not_authorized_to_perform_this_action: Niste ovlašteni da obavite ovu radnju.

@@ -1,10 +1,11 @@
 # Messages for Zazaki (Zazaki)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: phpyaml
 # Author: Erdemaslancan
 # Author: Gorizon
 # Author: Mirzali
-diq: 
+---
+diq:
   translated_activities-name-activity_id-19: profile
   translated_activities-name-activity_id-50: itımadın niyo
   translated_activities-name-activity_id-51: bımocne
@@ -18,7 +19,6 @@ diq:
   translated_activities-name-activity_id-59: tedqiq nêbiyo
   translated_activities-name-activity_id-63: arê ke
   translated_activities-name-activity_id-64: wedare
-  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Proce
   translated_agent_roles-label-agent_role_id-11: Hesrekar
   translated_agent_roles-label-agent_role_id-12: Qeydker
@@ -26,11 +26,12 @@ diq:
   translated_agent_roles-label-agent_role_id-14: Çımeyê bıngehê melumati
   translated_agent_roles-label-agent_role_id-15: Keso Eleqedar
   translated_agent_roles-label-agent_role_id-16: İştıraqker
-  translated_agent_roles-label-agent_role_id-2: Nuştekar
+  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-21: ardoğ
   translated_agent_roles-label-agent_role_id-22: Açarnayoğ
   translated_agent_roles-label-agent_role_id-23: Çımpawıterê zanışin
   translated_agent_roles-label-agent_role_id-24: Çımpawıterêr zıwanin
+  translated_agent_roles-label-agent_role_id-2: Nuştekar
   translated_agent_roles-label-agent_role_id-3: Tearekar
   translated_agent_roles-label-agent_role_id-4: Bestekar
   translated_agent_roles-label-agent_role_id-5: Vıraştoğ
@@ -40,7 +41,6 @@ diq:
   translated_agent_roles-label-agent_role_id-9: Fotrafkar
   translated_audiences-label-audience_id-2: Malo hera
   translated_audiences-label-audience_id-3: Domani
-  translated_collection_types-label-collection_type_id-1: Taxsonomi
   translated_collection_types-label-collection_type_id-10: Vengi
   translated_collection_types-label-collection_type_id-11: Gırey
   translated_collection_types-label-collection_type_id-12: Literatur
@@ -48,6 +48,7 @@ diq:
   translated_collection_types-label-collection_type_id-15: Şınasnayış
   translated_collection_types-label-collection_type_id-16: Resımi
   translated_collection_types-label-collection_type_id-17: Vılakerdış
+  translated_collection_types-label-collection_type_id-1: Taxsonomi
   translated_collection_types-label-collection_type_id-22: Vengi
   translated_collection_types-label-collection_type_id-23: Gırey
   translated_collection_types-label-collection_type_id-24: Literatur
@@ -61,8 +62,8 @@ diq:
   translated_content_partner_statuses-label-content_partner_status_id-3: Arşivya
   translated_content_partner_statuses-label-content_partner_status_id-4: Aktiv niyo
   translated_content_tables-label-content_table_id-1: Detayi
-  translated_data_types-label-data_type_id-1: Resım
   translated_data_types-label-data_type_id-10: Xerita
+  translated_data_types-label-data_type_id-1: Resım
   translated_data_types-label-data_type_id-2: Veng
   translated_data_types-label-data_type_id-3: Metın
   translated_data_types-label-data_type_id-4: Vidyo
@@ -70,7 +71,6 @@ diq:
   translated_data_types-label-data_type_id-6: IUCN (Yewina Gem u Gemel çımeya stariye)
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
-  translated_licenses-description-license_id-3: Tay heqi nımıteyê
   translated_licenses-description-license_id-30: Tay heqi nımıteyê
   translated_licenses-description-license_id-31: Tay heqi nımıteyê
   translated_licenses-description-license_id-32: Tay heqi nımıteyê
@@ -81,8 +81,9 @@ diq:
   translated_licenses-description-license_id-37: Tay heqi nımıteyê
   translated_licenses-description-license_id-38: Tay heqi nımıteyê
   translated_licenses-description-license_id-39: Malê Şari
-  translated_licenses-description-license_id-4: Tay heqi nımıteyê
+  translated_licenses-description-license_id-3: Tay heqi nımıteyê
   translated_licenses-description-license_id-43: Lisans ravyarni niya
+  translated_licenses-description-license_id-4: Tay heqi nımıteyê
   translated_licenses-description-license_id-5: Tay heqi nımıteyê
   translated_licenses-description-license_id-6: Tay heqi nımıteyê
   translated_licenses-description-license_id-7: Tay heqi nımıteyê
@@ -106,8 +107,8 @@ diq:
   translated_ranks-label-rank_id-91: kuf
   translated_ranks-label-rank_id-92: kuf.
   translated_ranks-label-rank_id-99: kuflet
-  translated_resource_statuses-label-resource_status_id-1: Bar beno
   translated_resource_statuses-label-resource_status_id-10: Hesreya
+  translated_resource_statuses-label-resource_status_id-1: Bar beno
   translated_resource_statuses-label-resource_status_id-2: Bar biyo
   translated_resource_statuses-label-resource_status_id-5: Biya araşt
   translated_resource_statuses-label-resource_status_id-8: Karneyayo
@@ -120,32 +121,32 @@ diq:
   translated_statuses-label-status_id-2: Rozeneya
   translated_statuses-label-status_id-3: Mevurne
   translated_statuses-label-status_id-4: Fına
-  translated_synonym_relations-label-synonym_relation_id-1: hemmenayın
   translated_synonym_relations-label-synonym_relation_id-12: Tede esto
+  translated_synonym_relations-label-synonym_relation_id-1: hemmenayın
   translated_synonym_relations-label-synonym_relation_id-2: nameyê heray
   translated_synonym_relations-label-synonym_relation_id-3: kılmkerdış
   translated_synonym_relations-label-synonym_relation_id-45: bıngeh
   translated_synonym_relations-label-synonym_relation_id-50: vêrde
   translated_synonym_relations-label-synonym_relation_id-51: qebuliya
   translated_synonym_relations-label-synonym_relation_id-68: Hêgayiney
-  translated_table_of_contents-label-table_of_contents_id-1: Hera weynayis
   translated_table_of_contents-label-table_of_contents_id-13: Nameyê Heray
-  translated_table_of_contents-label-table_of_contents_id-14: Yewina mıhafeza serwetanê tebiiy u tebietiê beynelmıleli
+  translated_table_of_contents-label-table_of_contents_id-14: Yewina mıhafeza serwetanê
+    tebiiy u tebietiê beynelmıleli
   translated_table_of_contents-label-table_of_contents_id-17: Referansê Edebiyati
   translated_table_of_contents-label-table_of_contents_id-194: Gırdiye
-  translated_table_of_contents-label-table_of_contents_id-2: Xulasa kılmeke
+  translated_table_of_contents-label-table_of_contents_id-1: Hera weynayis
   translated_table_of_contents-label-table_of_contents_id-218: Ağme
   translated_table_of_contents-label-table_of_contents_id-221: Riski
   translated_table_of_contents-label-table_of_contents_id-226: Hissedarê Zerreki
-  translated_table_of_contents-label-table_of_contents_id-24: Açarnayış
   translated_table_of_contents-label-table_of_contents_id-242: Ekolociya bıngiye
+  translated_table_of_contents-label-table_of_contents_id-24: Açarnayış
   translated_table_of_contents-label-table_of_contents_id-251: Faydey
   translated_table_of_contents-label-table_of_contents_id-267: Morfolociye
   translated_table_of_contents-label-table_of_contents_id-278: Bibliyografiye
   translated_table_of_contents-label-table_of_contents_id-286: Halê Mışewrey
   translated_table_of_contents-label-table_of_contents_id-289: Tekamıl
   translated_table_of_contents-label-table_of_contents_id-299: Terbiyet
-  translated_table_of_contents-label-table_of_contents_id-3: Arezekerdışo Fiziki
+  translated_table_of_contents-label-table_of_contents_id-2: Xulasa kılmeke
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Namey u Taksonomiye
   translated_table_of_contents-label-table_of_contents_id-305: Hemmeney
@@ -159,7 +160,6 @@ diq:
   translated_table_of_contents-label-table_of_contents_id-322: Tarixê Fosili
   translated_table_of_contents-label-table_of_contents_id-327: Fizyolociye
   translated_table_of_contents-label-table_of_contents_id-329: Genetiki
-  translated_table_of_contents-label-table_of_contents_id-33: Meyıli
   translated_table_of_contents-label-table_of_contents_id-331: Barkod
   translated_table_of_contents-label-table_of_contents_id-332: Genom
   translated_table_of_contents-label-table_of_contents_id-333: Biyolociya molekulare
@@ -167,14 +167,17 @@ diq:
   translated_table_of_contents-label-table_of_contents_id-335: Mewzuat
   translated_table_of_contents-label-table_of_contents_id-336: Noti
   translated_table_of_contents-label-table_of_contents_id-337: Terbiyet
-  translated_table_of_contents-label-table_of_contents_id-34: Xulasey
+  translated_table_of_contents-label-table_of_contents_id-33: Meyıli
   translated_table_of_contents-label-table_of_contents_id-344: Daye
   translated_table_of_contents-label-table_of_contents_id-345: Çımeyê melumati
   translated_table_of_contents-label-table_of_contents_id-347: Taxsonomi
-  translated_table_of_contents-label-table_of_contents_id-4: Ekolociye
+  translated_table_of_contents-label-table_of_contents_id-34: Xulasey
+  translated_table_of_contents-label-table_of_contents_id-3: Arezekerdışo Fiziki
   translated_table_of_contents-label-table_of_contents_id-41: Cayê cıwiyayışi
+  translated_table_of_contents-label-table_of_contents_id-4: Ekolociye
   translated_table_of_contents-label-table_of_contents_id-5: Tekamıl u Sistematik
-  translated_table_of_contents-label-table_of_contents_id-6: Mıtabeqetê İnsanan u Ekosistemi
+  translated_table_of_contents-label-table_of_contents_id-6: Mıtabeqetê İnsanan u
+    Ekosistemi
   translated_table_of_contents-label-table_of_contents_id-8: Qısekerdış
   translated_untrust_reasons-label-untrust_reason_id-5: Zewbi
   translated_vetted-label-vetted_id-0: Nêzanayen
@@ -187,3 +190,4 @@ diq:
   translated_visibilities-label-visibility_id-0: Nêasaye
   translated_visibilities-label-visibility_id-1: Aseno
   translated_visibilities-label-visibility_id-2: Verqayt
+...

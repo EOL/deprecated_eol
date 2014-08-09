@@ -1,8 +1,9 @@
 # Messages for Maltese (Malti)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: phpyaml
 # Author: Chrisportelli
-mt: 
+---
+mt:
   translated_activities-name-activity_id-19: profil
   translated_activities-name-activity_id-50: mhux affidabbli
   translated_activities-name-activity_id-51: uri
@@ -15,7 +16,6 @@ mt:
   translated_activities-name-activity_id-59: mhux reviżjonat
   translated_activities-name-activity_id-63: iġbor
   translated_activities-name-activity_id-64: neħħi
-  translated_agent_roles-label-agent_role_id-1: Animatur
   translated_agent_roles-label-agent_role_id-10: Proġett
   translated_agent_roles-label-agent_role_id-11: Editur
   translated_agent_roles-label-agent_role_id-12: Reġistratur
@@ -23,11 +23,12 @@ mt:
   translated_agent_roles-label-agent_role_id-14: Databażi tas-sors
   translated_agent_roles-label-agent_role_id-15: Persuna ta' kuntatt
   translated_agent_roles-label-agent_role_id-16: Kontributur
-  translated_agent_roles-label-agent_role_id-2: Awtur
+  translated_agent_roles-label-agent_role_id-1: Animatur
   translated_agent_roles-label-agent_role_id-21: fornitur
   translated_agent_roles-label-agent_role_id-22: Traduttur
   translated_agent_roles-label-agent_role_id-23: Riveditur xjentifiku
   translated_agent_roles-label-agent_role_id-24: Riveditur lingwistiku
+  translated_agent_roles-label-agent_role_id-2: Awtur
   translated_agent_roles-label-agent_role_id-3: Kompilatur
   translated_agent_roles-label-agent_role_id-4: Kompożitur
   translated_agent_roles-label-agent_role_id-5: Kreatur
@@ -38,7 +39,6 @@ mt:
   translated_audiences-label-audience_id-1: Utenti esperti
   translated_audiences-label-audience_id-2: Pubbliku ġenerali
   translated_audiences-label-audience_id-3: Tfal
-  translated_collection_types-label-collection_type_id-1: Tassonomija
   translated_collection_types-label-collection_type_id-10: Ħsejjes
   translated_collection_types-label-collection_type_id-11: Ħoloq
   translated_collection_types-label-collection_type_id-12: Letteratura
@@ -48,6 +48,7 @@ mt:
   translated_collection_types-label-collection_type_id-17: Distribuzzjoni
   translated_collection_types-label-collection_type_id-18: Stat ta' konservazzjoni
   translated_collection_types-label-collection_type_id-19: Informazzjoni fuq l-isem
+  translated_collection_types-label-collection_type_id-1: Tassonomija
   translated_collection_types-label-collection_type_id-21: Nomenklatura
   translated_collection_types-label-collection_type_id-22: Ħsejjes
   translated_collection_types-label-collection_type_id-23: Ħoloq
@@ -70,8 +71,8 @@ mt:
   translated_content_partner_statuses-label-content_partner_status_id-3: Arkivjat
   translated_content_partner_statuses-label-content_partner_status_id-4: Inattiv
   translated_content_tables-label-content_table_id-1: Dettalji
-  translated_data_types-label-data_type_id-1: Stampa
   translated_data_types-label-data_type_id-10: Mappa
+  translated_data_types-label-data_type_id-1: Stampa
   translated_data_types-label-data_type_id-2: Ħoss
   translated_data_types-label-data_type_id-3: Test
   translated_data_types-label-data_type_id-4: Vidjo
@@ -80,9 +81,8 @@ mt:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Ebda dritt riservat
-  translated_licenses-description-license_id-2: © Id-drittijiet kollha riservati
   translated_licenses-description-license_id-29: Xi drittijiet riservati
-  translated_licenses-description-license_id-3: Xi drittijiet riservati
+  translated_licenses-description-license_id-2: © Id-drittijiet kollha riservati
   translated_licenses-description-license_id-30: Xi drittijiet riservati
   translated_licenses-description-license_id-31: Xi drittijiet riservati
   translated_licenses-description-license_id-32: Xi drittijiet riservati
@@ -93,9 +93,10 @@ mt:
   translated_licenses-description-license_id-37: Xi drittijiet riservati
   translated_licenses-description-license_id-38: Xi drittijiet riservati
   translated_licenses-description-license_id-39: Dominju pubbliku
-  translated_licenses-description-license_id-4: Xi drittijiet riservati
+  translated_licenses-description-license_id-3: Xi drittijiet riservati
   translated_licenses-description-license_id-42: Xi drittijiet riservati
   translated_licenses-description-license_id-43: Liċenzja mhux applikabbli
+  translated_licenses-description-license_id-4: Xi drittijiet riservati
   translated_licenses-description-license_id-5: Xi drittijiet riservati
   translated_licenses-description-license_id-6: Xi drittijiet riservati
   translated_licenses-description-license_id-7: Xi drittijiet riservati
@@ -135,20 +136,20 @@ mt:
   translated_ranks-label-rank_id-472: superfilu
   translated_ranks-label-rank_id-494: tribù
   translated_ranks-label-rank_id-503: mhux klassifikat
-  translated_ranks-label-rank_id-51: klassi
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varjetajiet
   translated_ranks-label-rank_id-518: varjetà
+  translated_ranks-label-rank_id-51: klassi
   translated_ranks-label-rank_id-74: diviżjoni
   translated_ranks-label-rank_id-85: f
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familja
-  translated_resource_statuses-label-resource_status_id-1: Tiela'
   translated_resource_statuses-label-resource_status_id-10: Ippubblikat
   translated_resource_statuses-label-resource_status_id-11: Pubblikazzjoni pendenti
+  translated_resource_statuses-label-resource_status_id-1: Tiela'
   translated_resource_statuses-label-resource_status_id-2: Tela'
   translated_sort_styles-name-sort_style_id-3: Alfabetiku
   translated_sort_styles-name-sort_style_id-4: Alfabetiku bil-maqlub
@@ -161,23 +162,22 @@ mt:
   translated_synonym_relations-label-synonym_relation_id-52: awtorità
   translated_synonym_relations-label-synonym_relation_id-53: isem mhux ippubblikat
   translated_synonym_relations-label-synonym_relation_id-54: sinonimu suġġettiv
-  translated_synonym_relations-label-synonym_relation_id-6: isem ekwivalenti
   translated_synonym_relations-label-synonym_relation_id-63: mhux aċċettat
   translated_synonym_relations-label-synonym_relation_id-64: invalidu
-  translated_table_of_contents-label-table_of_contents_id-1: Ħarsa ġenerali
+  translated_synonym_relations-label-synonym_relation_id-6: isem ekwivalenti
   translated_table_of_contents-label-table_of_contents_id-13: Ismijiet komuni
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Referenzi biblijografiċi
   translated_table_of_contents-label-table_of_contents_id-194: Daqs
-  translated_table_of_contents-label-table_of_contents_id-2: Ġabra fil-qosor
+  translated_table_of_contents-label-table_of_contents_id-1: Ħarsa ġenerali
   translated_table_of_contents-label-table_of_contents_id-218: Distribuzzjoni
   translated_table_of_contents-label-table_of_contents_id-221: Riskji
   translated_table_of_contents-label-table_of_contents_id-225: Fuq il-web
   translated_table_of_contents-label-table_of_contents_id-226: Imsieħba tal-kontenut
   translated_table_of_contents-label-table_of_contents_id-227: Fittex fil-web
-  translated_table_of_contents-label-table_of_contents_id-24: Kummentarju
   translated_table_of_contents-label-table_of_contents_id-242: Ekoloġija ġenerali
   translated_table_of_contents-label-table_of_contents_id-244: Biblijografiji
+  translated_table_of_contents-label-table_of_contents_id-24: Kummentarju
   translated_table_of_contents-label-table_of_contents_id-251: Benefiċċji
   translated_table_of_contents-label-table_of_contents_id-267: Morfoloġija
   translated_table_of_contents-label-table_of_contents_id-278: Biblijografija
@@ -189,7 +189,7 @@ mt:
   translated_table_of_contents-label-table_of_contents_id-296: Amministrazzjoni
   translated_table_of_contents-label-table_of_contents_id-297: Strateġija trofika
   translated_table_of_contents-label-table_of_contents_id-299: Edukazzjoni
-  translated_table_of_contents-label-table_of_contents_id-3: Deskrizzjoni fiżika
+  translated_table_of_contents-label-table_of_contents_id-2: Ġabra fil-qosor
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedija
   translated_table_of_contents-label-table_of_contents_id-303: Ismijiet u tassonomija
   translated_table_of_contents-label-table_of_contents_id-304: Ismijiet relatati
@@ -212,12 +212,13 @@ mt:
   translated_table_of_contents-label-table_of_contents_id-322: Storja tal-fossili
   translated_table_of_contents-label-table_of_contents_id-323: Sistematika jew Filoġenetika
   translated_table_of_contents-label-table_of_contents_id-324: Adattamenti funzjonali
-  translated_table_of_contents-label-table_of_contents_id-325: Fiżjoloġija u l-bijoloġija taċ-ċelluli
-  translated_table_of_contents-label-table_of_contents_id-326: Bijoloġija molekulari u l-ġenetika
+  translated_table_of_contents-label-table_of_contents_id-325: Fiżjoloġija u l-bijoloġija
+    taċ-ċelluli
+  translated_table_of_contents-label-table_of_contents_id-326: Bijoloġija molekulari
+    u l-ġenetika
   translated_table_of_contents-label-table_of_contents_id-327: Fiżjoloġija
   translated_table_of_contents-label-table_of_contents_id-328: Bijoloġija taċ-ċelluli
   translated_table_of_contents-label-table_of_contents_id-329: Ġenetika
-  translated_table_of_contents-label-table_of_contents_id-33: Xejriet
   translated_table_of_contents-label-table_of_contents_id-332: Ġenomu
   translated_table_of_contents-label-table_of_contents_id-333: Bijoloġija molekulari
   translated_table_of_contents-label-table_of_contents_id-334: Theddid
@@ -226,14 +227,16 @@ mt:
   translated_table_of_contents-label-table_of_contents_id-337: Edukazzjoni
   translated_table_of_contents-label-table_of_contents_id-338: Ħoloq edukattivi
   translated_table_of_contents-label-table_of_contents_id-339: Riżorsi edukattivi
-  translated_table_of_contents-label-table_of_contents_id-34: Kummenti
+  translated_table_of_contents-label-table_of_contents_id-33: Xejriet
   translated_table_of_contents-label-table_of_contents_id-344: Dejta
   translated_table_of_contents-label-table_of_contents_id-345: Sorsi
   translated_table_of_contents-label-table_of_contents_id-346: Termini bijomediċi
   translated_table_of_contents-label-table_of_contents_id-347: Tassonomija
   translated_table_of_contents-label-table_of_contents_id-348: Informazzjoni tat-tip
-  translated_table_of_contents-label-table_of_contents_id-4: Ekoloġija
+  translated_table_of_contents-label-table_of_contents_id-34: Kummenti
+  translated_table_of_contents-label-table_of_contents_id-3: Deskrizzjoni fiżika
   translated_table_of_contents-label-table_of_contents_id-41: Abitat
+  translated_table_of_contents-label-table_of_contents_id-4: Ekoloġija
   translated_table_of_contents-label-table_of_contents_id-5: Evoluzzjoni u sistematika
   translated_table_of_contents-label-table_of_contents_id-7: Referenzi u aktar informazzjoni
   translated_table_of_contents-label-table_of_contents_id-8: Konservazzjoni
@@ -257,3 +260,4 @@ mt:
   translated_visibilities-label-visibility_id-0: Inviżibbli
   translated_visibilities-label-visibility_id-1: Viżibbli
   translated_visibilities-label-visibility_id-2: Dehra proviżorja
+...

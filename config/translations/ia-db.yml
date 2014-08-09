@@ -1,8 +1,9 @@
 # Messages for Interlingua (interlingua)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: phpyaml
 # Author: McDutchie
-ia: 
+---
+ia:
   translated_activities-name-activity_id-19: profilo
   translated_activities-name-activity_id-50: non digne de confidentia
   translated_activities-name-activity_id-51: monstrar
@@ -16,7 +17,6 @@ ia:
   translated_activities-name-activity_id-59: non revidite
   translated_activities-name-activity_id-63: colliger
   translated_activities-name-activity_id-64: remover
-  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-10: Projecto
   translated_agent_roles-label-agent_role_id-11: Editor
   translated_agent_roles-label-agent_role_id-12: Registrator
@@ -24,11 +24,12 @@ ia:
   translated_agent_roles-label-agent_role_id-14: Base de datos de origine
   translated_agent_roles-label-agent_role_id-15: Persona de contacto
   translated_agent_roles-label-agent_role_id-16: Contributor
-  translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-1: Animator
   translated_agent_roles-label-agent_role_id-21: fornitor
   translated_agent_roles-label-agent_role_id-22: Traductor
   translated_agent_roles-label-agent_role_id-23: Revisor scientific
   translated_agent_roles-label-agent_role_id-24: Revisor linguistic
+  translated_agent_roles-label-agent_role_id-2: Autor
   translated_agent_roles-label-agent_role_id-3: Compilator
   translated_agent_roles-label-agent_role_id-4: Compositor
   translated_agent_roles-label-agent_role_id-5: Creator
@@ -39,7 +40,6 @@ ia:
   translated_audiences-label-audience_id-1: Usatores experte
   translated_audiences-label-audience_id-2: Publico general
   translated_audiences-label-audience_id-3: Infantes
-  translated_collection_types-label-collection_type_id-1: Taxonomia
   translated_collection_types-label-collection_type_id-10: Sonos
   translated_collection_types-label-collection_type_id-11: Ligamines
   translated_collection_types-label-collection_type_id-12: Litteratura
@@ -50,12 +50,13 @@ ia:
   translated_collection_types-label-collection_type_id-17: Distribution
   translated_collection_types-label-collection_type_id-18: Stato de conservation
   translated_collection_types-label-collection_type_id-19: Information de nomine
-  translated_collection_types-label-collection_type_id-2: Codices de barras molecular
+  translated_collection_types-label-collection_type_id-1: Taxonomia
   translated_collection_types-label-collection_type_id-20: Datos molecular
   translated_collection_types-label-collection_type_id-21: Nomenclatura
   translated_collection_types-label-collection_type_id-22: Sonos
   translated_collection_types-label-collection_type_id-23: Ligamines
   translated_collection_types-label-collection_type_id-24: Litteratura
+  translated_collection_types-label-collection_type_id-2: Codices de barras molecular
   translated_collection_types-label-collection_type_id-3: Description
   translated_collection_types-label-collection_type_id-4: Imagines
   translated_collection_types-label-collection_type_id-5: Distribution
@@ -70,21 +71,26 @@ ia:
   translated_contact_subjects-title-contact_subject_id-25: Conditiones de uso e licentias
   translated_contact_subjects-title-contact_subject_id-26: Apprentissage e education
   translated_contact_subjects-title-contact_subject_id-27: Devenir partner de contento
-  translated_contact_subjects-title-contact_subject_id-28: Supporto pro partners de contento
+  translated_contact_subjects-title-contact_subject_id-28: Supporto pro partners de
+    contento
   translated_contact_subjects-title-contact_subject_id-29: Supporto pro conservatores
-  translated_contact_subjects-title-contact_subject_id-30: Facer un correction (orthographia e grammatica, imagines, information)
-  translated_contact_subjects-title-contact_subject_id-31: Contribuer imagines, videos o sonos
-  translated_contact_subjects-title-contact_subject_id-32: Requestas de medios de communication (intervistas, inquestas de pressa, demandas de logo)
+  translated_contact_subjects-title-contact_subject_id-30: Facer un correction (orthographia
+    e grammatica, imagines, information)
+  translated_contact_subjects-title-contact_subject_id-31: Contribuer imagines, videos
+    o sonos
+  translated_contact_subjects-title-contact_subject_id-32: Requestas de medios de
+    communication (intervistas, inquestas de pressa, demandas de logo)
   translated_contact_subjects-title-contact_subject_id-33: Facer un donation financiari
-  translated_contact_subjects-title-contact_subject_id-34: Questiones technic (problemas con le recerca, functionalitate del sito web)
+  translated_contact_subjects-title-contact_subject_id-34: Questiones technic (problemas
+    con le recerca, functionalitate del sito web)
   translated_contact_subjects-title-contact_subject_id-35: Commentario general
   translated_content_partner_statuses-label-content_partner_status_id-1: Pendente
   translated_content_partner_statuses-label-content_partner_status_id-2: Active
   translated_content_partner_statuses-label-content_partner_status_id-3: Archivate
   translated_content_partner_statuses-label-content_partner_status_id-4: Inactive
   translated_content_tables-label-content_table_id-1: Detalios
-  translated_data_types-label-data_type_id-1: Imagine
   translated_data_types-label-data_type_id-10: Carta
+  translated_data_types-label-data_type_id-1: Imagine
   translated_data_types-label-data_type_id-2: Sono
   translated_data_types-label-data_type_id-3: Texto
   translated_data_types-label-data_type_id-4: Video
@@ -93,9 +99,8 @@ ia:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Nulle derectos reservate
-  translated_licenses-description-license_id-2: "&#169; Tote le derectos reservate"
   translated_licenses-description-license_id-29: Certe derectos reservate
-  translated_licenses-description-license_id-3: Certe derectos reservate
+  translated_licenses-description-license_id-2: '&#169; Tote le derectos reservate'
   translated_licenses-description-license_id-30: Certe derectos reservate
   translated_licenses-description-license_id-31: Certe derectos reservate
   translated_licenses-description-license_id-32: Certe derectos reservate
@@ -106,9 +111,10 @@ ia:
   translated_licenses-description-license_id-37: Certe derectos reservate
   translated_licenses-description-license_id-38: Certe derectos reservate
   translated_licenses-description-license_id-39: Dominio public
-  translated_licenses-description-license_id-4: Certe derectos reservate
+  translated_licenses-description-license_id-3: Certe derectos reservate
   translated_licenses-description-license_id-42: Certe derectos reservate
   translated_licenses-description-license_id-43: Licentia non applicabile
+  translated_licenses-description-license_id-4: Certe derectos reservate
   translated_licenses-description-license_id-5: Certe derectos reservate
   translated_licenses-description-license_id-6: Certe derectos reservate
   translated_licenses-description-license_id-7: Certe derectos reservate
@@ -151,11 +157,11 @@ ia:
   translated_ranks-label-rank_id-472: superphylo
   translated_ranks-label-rank_id-494: tribo
   translated_ranks-label-rank_id-503: sin classification
-  translated_ranks-label-rank_id-51: classe
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varietate
   translated_ranks-label-rank_id-518: varietate
+  translated_ranks-label-rank_id-51: classe
   translated_ranks-label-rank_id-562: nothogenere
   translated_ranks-label-rank_id-563: nothospecie
   translated_ranks-label-rank_id-564: nothosubspecie
@@ -166,14 +172,16 @@ ia:
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
   translated_ranks-label-rank_id-99: familia
-  translated_resource_statuses-label-resource_status_id-1: Incargamento
   translated_resource_statuses-label-resource_status_id-10: Publicate
   translated_resource_statuses-label-resource_status_id-11: Publication pendente
-  translated_resource_statuses-label-resource_status_id-12: Annullation del publication pendente
+  translated_resource_statuses-label-resource_status_id-12: Annullation del publication
+    pendente
   translated_resource_statuses-label-resource_status_id-13: Fortiar recolta
+  translated_resource_statuses-label-resource_status_id-1: Incargamento
   translated_resource_statuses-label-resource_status_id-2: Incargate
   translated_resource_statuses-label-resource_status_id-3: Incargamento fallite
-  translated_resource_statuses-label-resource_status_id-4: Transferite al servitor de contento
+  translated_resource_statuses-label-resource_status_id-4: Transferite al servitor
+    de contento
   translated_resource_statuses-label-resource_status_id-5: Validate
   translated_resource_statuses-label-resource_status_id-6: Validation fallite
   translated_resource_statuses-label-resource_status_id-7: In curso de tractamento
@@ -191,7 +199,6 @@ ia:
   translated_statuses-label-status_id-2: Actualisate
   translated_statuses-label-status_id-3: Incambiate
   translated_statuses-label-status_id-4: Reusate
-  translated_synonym_relations-label-synonym_relation_id-1: synonymo
   translated_synonym_relations-label-synonym_relation_id-10: synonymo de genbank
   translated_synonym_relations-label-synonym_relation_id-11: in-parte
   translated_synonym_relations-label-synonym_relation_id-12: include
@@ -202,52 +209,65 @@ ia:
   translated_synonym_relations-label-synonym_relation_id-17: nomine mal applicate
   translated_synonym_relations-label-synonym_relation_id-18: nomine acceptate provisionalmente
   translated_synonym_relations-label-synonym_relation_id-19: nomine acceptate
-  translated_synonym_relations-label-synonym_relation_id-2: nomine commun
-  translated_synonym_relations-label-synonym_relation_id-20: artefacto de base de datos
+  translated_synonym_relations-label-synonym_relation_id-1: synonymo
+  translated_synonym_relations-label-synonym_relation_id-20: artefacto de base de
+    datos
   translated_synonym_relations-label-synonym_relation_id-21: altere, vide commentos
-  translated_synonym_relations-label-synonym_relation_id-22: variante orthographic (error de orthographia)
+  translated_synonym_relations-label-synonym_relation_id-22: variante orthographic
+    (error de orthographia)
   translated_synonym_relations-label-synonym_relation_id-23: mal applicate
   translated_synonym_relations-label-synonym_relation_id-24: nomine rejectate
   translated_synonym_relations-label-synonym_relation_id-25: homonymo (illegitime)
   translated_synonym_relations-label-synonym_relation_id-26: pro parte
-  translated_synonym_relations-label-synonym_relation_id-27: renomination superflue (illegitime)
+  translated_synonym_relations-label-synonym_relation_id-27: renomination superflue
+    (illegitime)
   translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
   translated_synonym_relations-label-synonym_relation_id-29: synonymo junior
-  translated_synonym_relations-label-synonym_relation_id-3: acronymo
-  translated_synonym_relations-label-synonym_relation_id-30: indisponibile, artefacto del base e datos
+  translated_synonym_relations-label-synonym_relation_id-2: nomine commun
+  translated_synonym_relations-label-synonym_relation_id-30: indisponibile, artefacto
+    del base e datos
   translated_synonym_relations-label-synonym_relation_id-31: reimplaciamento superflue
   translated_synonym_relations-label-synonym_relation_id-32: nomine/combination subsequente
-  translated_synonym_relations-label-synonym_relation_id-33: indisponibile, error de orthographia in litteratura
+  translated_synonym_relations-label-synonym_relation_id-33: indisponibile, error
+    de orthographia in litteratura
   translated_synonym_relations-label-synonym_relation_id-34: nomine/combination original
-  translated_synonym_relations-label-synonym_relation_id-35: indisponibile, orthographia original incorrecte
+  translated_synonym_relations-label-synonym_relation_id-35: indisponibile, orthographia
+    original incorrecte
   translated_synonym_relations-label-synonym_relation_id-36: homonymo junior
   translated_synonym_relations-label-synonym_relation_id-37: homonymo e synonymo junior
-  translated_synonym_relations-label-synonym_relation_id-38: indisponibile, supprimite per decision
+  translated_synonym_relations-label-synonym_relation_id-38: indisponibile, supprimite
+    per decision
   translated_synonym_relations-label-synonym_relation_id-39: emendation injustificate
-  translated_synonym_relations-label-synonym_relation_id-4: anamorpho
+  translated_synonym_relations-label-synonym_relation_id-3: acronymo
   translated_synonym_relations-label-synonym_relation_id-40: indisponibile, altere
-  translated_synonym_relations-label-synonym_relation_id-41: indisponibile, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-41: indisponibile, nomen
+    nudum
   translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
-  translated_synonym_relations-label-synonym_relation_id-43: invalidemente publicate, altere
-  translated_synonym_relations-label-synonym_relation_id-44: invalidemente publicate, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-43: invalidemente publicate,
+    altere
+  translated_synonym_relations-label-synonym_relation_id-44: invalidemente publicate,
+    nomen nudum
   translated_synonym_relations-label-synonym_relation_id-45: basionymo
   translated_synonym_relations-label-synonym_relation_id-46: synonymo heterotypic
   translated_synonym_relations-label-synonym_relation_id-47: synonymo homotypic
   translated_synonym_relations-label-synonym_relation_id-48: nomine indisponibile
   translated_synonym_relations-label-synonym_relation_id-49: nomine valide
-  translated_synonym_relations-label-synonym_relation_id-5: Nomine de BLAST
+  translated_synonym_relations-label-synonym_relation_id-4: anamorpho
   translated_synonym_relations-label-synonym_relation_id-50: valide
   translated_synonym_relations-label-synonym_relation_id-51: acceptate
   translated_synonym_relations-label-synonym_relation_id-52: autoritate
   translated_synonym_relations-label-synonym_relation_id-53: nomine non publicate
   translated_synonym_relations-label-synonym_relation_id-54: synonymo subjective
-  translated_synonym_relations-label-synonym_relation_id-55: information incorrecte de autoritate
+  translated_synonym_relations-label-synonym_relation_id-55: information incorrecte
+    de autoritate
   translated_synonym_relations-label-synonym_relation_id-56: orthographia incorrecte
   translated_synonym_relations-label-synonym_relation_id-57: orthographia alternative
   translated_synonym_relations-label-synonym_relation_id-58: variante lexical
-  translated_synonym_relations-label-synonym_relation_id-59: synonymo (objective = homotypic)
-  translated_synonym_relations-label-synonym_relation_id-6: nomine equivalente
-  translated_synonym_relations-label-synonym_relation_id-60: synonymo (subjective = heterotypic)
+  translated_synonym_relations-label-synonym_relation_id-59: synonymo (objective =
+    homotypic)
+  translated_synonym_relations-label-synonym_relation_id-5: Nomine de BLAST
+  translated_synonym_relations-label-synonym_relation_id-60: synonymo (subjective
+    = heterotypic)
   translated_synonym_relations-label-synonym_relation_id-61: synonymo objective
   translated_synonym_relations-label-synonym_relation_id-62: synonymo senior
   translated_synonym_relations-label-synonym_relation_id-63: non acceptate
@@ -256,23 +276,23 @@ ia:
   translated_synonym_relations-label-synonym_relation_id-66: representation alternative
   translated_synonym_relations-label-synonym_relation_id-67: species a confirmar
   translated_synonym_relations-label-synonym_relation_id-68: horticultural
+  translated_synonym_relations-label-synonym_relation_id-6: nomine equivalente
   translated_synonym_relations-label-synonym_relation_id-7: acronymo de genbank
   translated_synonym_relations-label-synonym_relation_id-8: anamorpho de genbank
   translated_synonym_relations-label-synonym_relation_id-9: nomine commun de genbank
-  translated_table_of_contents-label-table_of_contents_id-1: Vista general
   translated_table_of_contents-label-table_of_contents_id-13: Nomines commun
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Referentias bibliographic
   translated_table_of_contents-label-table_of_contents_id-194: Dimension
-  translated_table_of_contents-label-table_of_contents_id-2: Breve summario
+  translated_table_of_contents-label-table_of_contents_id-1: Vista general
   translated_table_of_contents-label-table_of_contents_id-218: Dispersion
   translated_table_of_contents-label-table_of_contents_id-221: Riscos
   translated_table_of_contents-label-table_of_contents_id-225: Sur le Web
   translated_table_of_contents-label-table_of_contents_id-226: Partners de contento
   translated_table_of_contents-label-table_of_contents_id-227: Cercar in le Web
-  translated_table_of_contents-label-table_of_contents_id-24: Commentario
   translated_table_of_contents-label-table_of_contents_id-242: Ecologia general
   translated_table_of_contents-label-table_of_contents_id-244: Bibliographias
+  translated_table_of_contents-label-table_of_contents_id-24: Commentario
   translated_table_of_contents-label-table_of_contents_id-251: Beneficios
   translated_table_of_contents-label-table_of_contents_id-267: Morphologia
   translated_table_of_contents-label-table_of_contents_id-278: Bibliographia
@@ -284,7 +304,7 @@ ia:
   translated_table_of_contents-label-table_of_contents_id-296: Gestion
   translated_table_of_contents-label-table_of_contents_id-297: Strategia trophic
   translated_table_of_contents-label-table_of_contents_id-299: Education
-  translated_table_of_contents-label-table_of_contents_id-3: Description physic
+  translated_table_of_contents-label-table_of_contents_id-2: Breve summario
   translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
   translated_table_of_contents-label-table_of_contents_id-303: Nomines e taxonomia
   translated_table_of_contents-label-table_of_contents_id-304: Nomines connexe
@@ -298,7 +318,8 @@ ia:
   translated_table_of_contents-label-table_of_contents_id-312: Migration
   translated_table_of_contents-label-table_of_contents_id-313: Morbos e parasitos
   translated_table_of_contents-label-table_of_contents_id-314: Biologia de populationes
-  translated_table_of_contents-label-table_of_contents_id-315: Historia de vita e comportamento
+  translated_table_of_contents-label-table_of_contents_id-315: Historia de vita e
+    comportamento
   translated_table_of_contents-label-table_of_contents_id-316: Comportamento
   translated_table_of_contents-label-table_of_contents_id-317: Cyclicitate
   translated_table_of_contents-label-table_of_contents_id-318: Cyclo de vita
@@ -308,12 +329,13 @@ ia:
   translated_table_of_contents-label-table_of_contents_id-322: Historia fossile
   translated_table_of_contents-label-table_of_contents_id-323: Systematica o phylogenetica
   translated_table_of_contents-label-table_of_contents_id-324: Adaptationes functional
-  translated_table_of_contents-label-table_of_contents_id-325: Physiologia e biologia cellular
-  translated_table_of_contents-label-table_of_contents_id-326: Biologia molecular e genetica
+  translated_table_of_contents-label-table_of_contents_id-325: Physiologia e biologia
+    cellular
+  translated_table_of_contents-label-table_of_contents_id-326: Biologia molecular
+    e genetica
   translated_table_of_contents-label-table_of_contents_id-327: Physiologia
   translated_table_of_contents-label-table_of_contents_id-328: Biologia cellular
   translated_table_of_contents-label-table_of_contents_id-329: Genetica
-  translated_table_of_contents-label-table_of_contents_id-33: Tendentias
   translated_table_of_contents-label-table_of_contents_id-330: Sequentias de nucleotidos
   translated_table_of_contents-label-table_of_contents_id-331: Codice a barras
   translated_table_of_contents-label-table_of_contents_id-332: Genoma
@@ -324,20 +346,26 @@ ia:
   translated_table_of_contents-label-table_of_contents_id-337: Education
   translated_table_of_contents-label-table_of_contents_id-338: Ligamines pro education
   translated_table_of_contents-label-table_of_contents_id-339: Ressources de education
-  translated_table_of_contents-label-table_of_contents_id-34: Commentos
-  translated_table_of_contents-label-table_of_contents_id-340: Serie de laboratorio de schola secundari
+  translated_table_of_contents-label-table_of_contents_id-33: Tendentias
+  translated_table_of_contents-label-table_of_contents_id-340: Serie de laboratorio
+    de schola secundari
   translated_table_of_contents-label-table_of_contents_id-341: Scientia civil
-  translated_table_of_contents-label-table_of_contents_id-342: Ligamines pro scientia civil
-  translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage Library
+  translated_table_of_contents-label-table_of_contents_id-342: Ligamines pro scientia
+    civil
+  translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage
+    Library
   translated_table_of_contents-label-table_of_contents_id-344: Datos
   translated_table_of_contents-label-table_of_contents_id-345: Fontes de datos
   translated_table_of_contents-label-table_of_contents_id-346: Terminos biomedic
   translated_table_of_contents-label-table_of_contents_id-347: Taxonomia
   translated_table_of_contents-label-table_of_contents_id-348: Information de typo
-  translated_table_of_contents-label-table_of_contents_id-4: Ecologia
+  translated_table_of_contents-label-table_of_contents_id-34: Commentos
+  translated_table_of_contents-label-table_of_contents_id-3: Description physic
   translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-4: Ecologia
   translated_table_of_contents-label-table_of_contents_id-5: Evolution e systematica
-  translated_table_of_contents-label-table_of_contents_id-6: Relevantia pro humanos e ecosystemas
+  translated_table_of_contents-label-table_of_contents_id-6: Relevantia pro humanos
+    e ecosystemas
   translated_table_of_contents-label-table_of_contents_id-7: Referentias e plus information
   translated_table_of_contents-label-table_of_contents_id-8: Conservation
   translated_untrust_reasons-label-untrust_reason_id-1: mal identificate
@@ -360,3 +388,4 @@ ia:
   translated_visibilities-label-visibility_id-0: Invisibile
   translated_visibilities-label-visibility_id-1: Visibile
   translated_visibilities-label-visibility_id-2: Previsualisation
+...

@@ -1,10 +1,11 @@
 # Messages for Traditional Chinese (中文（繁體）‎)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: phpyaml
 # Author: Cwlin0416
 # Author: Dream
 # Author: Taieol
-zh-TW: 
+---
+zh-TW:
   translated_activities-name-activity_id-19: 個人資訊
   translated_activities-name-activity_id-50: 未驗證
   translated_activities-name-activity_id-51: 顯示
@@ -18,7 +19,6 @@ zh-TW:
   translated_activities-name-activity_id-59: 未審核
   translated_activities-name-activity_id-63: 收集
   translated_activities-name-activity_id-64: 刪除
-  translated_agent_roles-label-agent_role_id-1: 動畫製作者
   translated_agent_roles-label-agent_role_id-10: 計畫
   translated_agent_roles-label-agent_role_id-11: 發佈者
   translated_agent_roles-label-agent_role_id-12: 紀錄者
@@ -26,11 +26,12 @@ zh-TW:
   translated_agent_roles-label-agent_role_id-14: 來源資料庫
   translated_agent_roles-label-agent_role_id-15: 聯絡人
   translated_agent_roles-label-agent_role_id-16: 貢獻者
-  translated_agent_roles-label-agent_role_id-2: 作者
+  translated_agent_roles-label-agent_role_id-1: 動畫製作者
   translated_agent_roles-label-agent_role_id-21: 提供者
   translated_agent_roles-label-agent_role_id-22: 翻譯者
   translated_agent_roles-label-agent_role_id-23: 科學審稿者
   translated_agent_roles-label-agent_role_id-24: 語言審稿者
+  translated_agent_roles-label-agent_role_id-2: 作者
   translated_agent_roles-label-agent_role_id-3: 彙整者
   translated_agent_roles-label-agent_role_id-4: 製作者
   translated_agent_roles-label-agent_role_id-5: 創作者
@@ -41,7 +42,6 @@ zh-TW:
   translated_audiences-label-audience_id-1: 專家級使用者
   translated_audiences-label-audience_id-2: 公眾
   translated_audiences-label-audience_id-3: 兒童
-  translated_collection_types-label-collection_type_id-1: 分類學
   translated_collection_types-label-collection_type_id-10: 聲音
   translated_collection_types-label-collection_type_id-11: 連結
   translated_collection_types-label-collection_type_id-12: 文獻
@@ -52,12 +52,13 @@ zh-TW:
   translated_collection_types-label-collection_type_id-17: 分布
   translated_collection_types-label-collection_type_id-18: 保育狀態
   translated_collection_types-label-collection_type_id-19: 學名資訊
-  translated_collection_types-label-collection_type_id-2: 分子條碼
+  translated_collection_types-label-collection_type_id-1: 分類學
   translated_collection_types-label-collection_type_id-20: 分子資料
   translated_collection_types-label-collection_type_id-21: 命名
   translated_collection_types-label-collection_type_id-22: 聲音
   translated_collection_types-label-collection_type_id-23: 連結
   translated_collection_types-label-collection_type_id-24: 文獻
+  translated_collection_types-label-collection_type_id-2: 分子條碼
   translated_collection_types-label-collection_type_id-3: 描述
   translated_collection_types-label-collection_type_id-4: 圖像
   translated_collection_types-label-collection_type_id-5: 分佈
@@ -85,8 +86,8 @@ zh-TW:
   translated_content_partner_statuses-label-content_partner_status_id-3: 已歸檔
   translated_content_partner_statuses-label-content_partner_status_id-4: 未運作
   translated_content_tables-label-content_table_id-1: 詳細資訊
-  translated_data_types-label-data_type_id-1: 圖像
   translated_data_types-label-data_type_id-10: 地圖
+  translated_data_types-label-data_type_id-1: 圖像
   translated_data_types-label-data_type_id-2: 聲音
   translated_data_types-label-data_type_id-3: 文字
   translated_data_types-label-data_type_id-4: 錄影
@@ -95,9 +96,8 @@ zh-TW:
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: 不保留任何權利
-  translated_licenses-description-license_id-2: "&#169; 保留所有權利"
   translated_licenses-description-license_id-29: 保留部分權利
-  translated_licenses-description-license_id-3: 保留部分權利
+  translated_licenses-description-license_id-2: '&#169; 保留所有權利'
   translated_licenses-description-license_id-30: 保留部分權利
   translated_licenses-description-license_id-31: 保留部分權利
   translated_licenses-description-license_id-32: 保留部分權利
@@ -108,9 +108,10 @@ zh-TW:
   translated_licenses-description-license_id-37: 保留部分權利
   translated_licenses-description-license_id-38: 保留部分權利
   translated_licenses-description-license_id-39: 公共領域
-  translated_licenses-description-license_id-4: 保留部分權利
+  translated_licenses-description-license_id-3: 保留部分權利
   translated_licenses-description-license_id-42: 保留部分權利
   translated_licenses-description-license_id-43: 授權不適用
+  translated_licenses-description-license_id-4: 保留部分權利
   translated_licenses-description-license_id-5: 保留部分權利
   translated_licenses-description-license_id-6: 保留部分權利
   translated_licenses-description-license_id-7: 保留部分權利
@@ -153,11 +154,11 @@ zh-TW:
   translated_ranks-label-rank_id-472: 總門
   translated_ranks-label-rank_id-494: 族
   translated_ranks-label-rank_id-503: 未分級
-  translated_ranks-label-rank_id-51: 綱
   translated_ranks-label-rank_id-512: 變種
   translated_ranks-label-rank_id-513: 變種
   translated_ranks-label-rank_id-517: 變種
   translated_ranks-label-rank_id-518: 變種
+  translated_ranks-label-rank_id-51: 綱
   translated_ranks-label-rank_id-562: 雜交屬
   translated_ranks-label-rank_id-563: 雜交種
   translated_ranks-label-rank_id-564: 雜交亞種
@@ -168,11 +169,11 @@ zh-TW:
   translated_ranks-label-rank_id-91: 科
   translated_ranks-label-rank_id-92: 科
   translated_ranks-label-rank_id-99: 科
-  translated_resource_statuses-label-resource_status_id-1: 上傳中
   translated_resource_statuses-label-resource_status_id-10: 已發佈
   translated_resource_statuses-label-resource_status_id-11: 發佈工作待辦
   translated_resource_statuses-label-resource_status_id-12: 未發佈工作待辦
   translated_resource_statuses-label-resource_status_id-13: 強制彙集
+  translated_resource_statuses-label-resource_status_id-1: 上傳中
   translated_resource_statuses-label-resource_status_id-2: 已上傳
   translated_resource_statuses-label-resource_status_id-3: 上傳失敗
   translated_resource_statuses-label-resource_status_id-4: 已移至內容伺服器
@@ -193,7 +194,6 @@ zh-TW:
   translated_statuses-label-status_id-2: 已更新
   translated_statuses-label-status_id-3: 無變化
   translated_statuses-label-status_id-4: 再利用
-  translated_synonym_relations-label-synonym_relation_id-1: 同種異名
   translated_synonym_relations-label-synonym_relation_id-10: GenBank同種異名
   translated_synonym_relations-label-synonym_relation_id-11: 部分(in-part)
   translated_synonym_relations-label-synonym_relation_id-12: 包括
@@ -204,7 +204,7 @@ zh-TW:
   translated_synonym_relations-label-synonym_relation_id-17: 鑑定錯誤
   translated_synonym_relations-label-synonym_relation_id-18: 先前有效學名
   translated_synonym_relations-label-synonym_relation_id-19: 有效學名
-  translated_synonym_relations-label-synonym_relation_id-2: 俗名
+  translated_synonym_relations-label-synonym_relation_id-1: 同種異名
   translated_synonym_relations-label-synonym_relation_id-20: 資料庫產物
   translated_synonym_relations-label-synonym_relation_id-21: 其他，見評論
   translated_synonym_relations-label-synonym_relation_id-22: 拼法變異(拼法錯誤)
@@ -215,7 +215,7 @@ zh-TW:
   translated_synonym_relations-label-synonym_relation_id-27: 不必要之重新命名(不合法)
   translated_synonym_relations-label-synonym_relation_id-28: 廢棄名(nomen oblitum)
   translated_synonym_relations-label-synonym_relation_id-29: 次同種異名
-  translated_synonym_relations-label-synonym_relation_id-3: 首字母縮寫詞
+  translated_synonym_relations-label-synonym_relation_id-2: 俗名
   translated_synonym_relations-label-synonym_relation_id-30: 不適用，資料庫產物
   translated_synonym_relations-label-synonym_relation_id-31: 不必要之取代
   translated_synonym_relations-label-synonym_relation_id-32: 後來之名稱/組合
@@ -226,7 +226,7 @@ zh-TW:
   translated_synonym_relations-label-synonym_relation_id-37: 異物同名及次同種異名
   translated_synonym_relations-label-synonym_relation_id-38: 不適用，依規約禁用
   translated_synonym_relations-label-synonym_relation_id-39: 不合理之修訂
-  translated_synonym_relations-label-synonym_relation_id-4: 無性型
+  translated_synonym_relations-label-synonym_relation_id-3: 首字母縮寫詞
   translated_synonym_relations-label-synonym_relation_id-40: 不適用，其他
   translated_synonym_relations-label-synonym_relation_id-41: 不適用，無資格名稱
   translated_synonym_relations-label-synonym_relation_id-42: 可疑名
@@ -237,7 +237,7 @@ zh-TW:
   translated_synonym_relations-label-synonym_relation_id-47: 同型同種異名
   translated_synonym_relations-label-synonym_relation_id-48: 不適用名稱
   translated_synonym_relations-label-synonym_relation_id-49: 有效名稱
-  translated_synonym_relations-label-synonym_relation_id-5: 大類名稱
+  translated_synonym_relations-label-synonym_relation_id-4: 無性型
   translated_synonym_relations-label-synonym_relation_id-50: 有效
   translated_synonym_relations-label-synonym_relation_id-51: 被接受
   translated_synonym_relations-label-synonym_relation_id-52: 權威
@@ -248,7 +248,7 @@ zh-TW:
   translated_synonym_relations-label-synonym_relation_id-57: 另一種拼法
   translated_synonym_relations-label-synonym_relation_id-58: 詞彙變異
   translated_synonym_relations-label-synonym_relation_id-59: 同種異名(客觀 = 同型)
-  translated_synonym_relations-label-synonym_relation_id-6: 等同學名
+  translated_synonym_relations-label-synonym_relation_id-5: 大類名稱
   translated_synonym_relations-label-synonym_relation_id-60: 同種異名(主觀 = 異型)
   translated_synonym_relations-label-synonym_relation_id-61: 客觀異名
   translated_synonym_relations-label-synonym_relation_id-62: 首異名
@@ -258,23 +258,23 @@ zh-TW:
   translated_synonym_relations-label-synonym_relation_id-66: 另一種表示方法
   translated_synonym_relations-label-synonym_relation_id-67: 未確定種
   translated_synonym_relations-label-synonym_relation_id-68: 園藝的
+  translated_synonym_relations-label-synonym_relation_id-6: 等同學名
   translated_synonym_relations-label-synonym_relation_id-7: GenBank首字母縮寫詞
   translated_synonym_relations-label-synonym_relation_id-8: GenBank無性型
   translated_synonym_relations-label-synonym_relation_id-9: GenBank俗名
-  translated_table_of_contents-label-table_of_contents_id-1: 概述
   translated_table_of_contents-label-table_of_contents_id-13: 俗名
   translated_table_of_contents-label-table_of_contents_id-14: 國際自然保育聯盟(IUCN)
   translated_table_of_contents-label-table_of_contents_id-17: 參考文獻
   translated_table_of_contents-label-table_of_contents_id-194: 尺寸
-  translated_table_of_contents-label-table_of_contents_id-2: 簡介
+  translated_table_of_contents-label-table_of_contents_id-1: 概述
   translated_table_of_contents-label-table_of_contents_id-218: 擴散
   translated_table_of_contents-label-table_of_contents_id-221: 風險
   translated_table_of_contents-label-table_of_contents_id-225: 網路上
   translated_table_of_contents-label-table_of_contents_id-226: 內容合作夥伴
   translated_table_of_contents-label-table_of_contents_id-227: 網路搜尋
-  translated_table_of_contents-label-table_of_contents_id-24: 評論
   translated_table_of_contents-label-table_of_contents_id-242: 普通生態學
   translated_table_of_contents-label-table_of_contents_id-244: 參考文獻目錄
+  translated_table_of_contents-label-table_of_contents_id-24: 評論
   translated_table_of_contents-label-table_of_contents_id-251: 益處
   translated_table_of_contents-label-table_of_contents_id-267: 形態學
   translated_table_of_contents-label-table_of_contents_id-278: 參考文獻目錄
@@ -286,7 +286,7 @@ zh-TW:
   translated_table_of_contents-label-table_of_contents_id-296: 管理
   translated_table_of_contents-label-table_of_contents_id-297: 攝食策略
   translated_table_of_contents-label-table_of_contents_id-299: 教育
-  translated_table_of_contents-label-table_of_contents_id-3: 物理描述
+  translated_table_of_contents-label-table_of_contents_id-2: 簡介
   translated_table_of_contents-label-table_of_contents_id-300: 維基百科
   translated_table_of_contents-label-table_of_contents_id-303: 名稱及分類
   translated_table_of_contents-label-table_of_contents_id-304: 相關名稱
@@ -315,7 +315,6 @@ zh-TW:
   translated_table_of_contents-label-table_of_contents_id-327: 生理學
   translated_table_of_contents-label-table_of_contents_id-328: 細胞生物學
   translated_table_of_contents-label-table_of_contents_id-329: 遺傳學
-  translated_table_of_contents-label-table_of_contents_id-33: 趨勢
   translated_table_of_contents-label-table_of_contents_id-330: 核酸序列
   translated_table_of_contents-label-table_of_contents_id-331: 條碼
   translated_table_of_contents-label-table_of_contents_id-332: 基因體
@@ -326,7 +325,7 @@ zh-TW:
   translated_table_of_contents-label-table_of_contents_id-337: 教育
   translated_table_of_contents-label-table_of_contents_id-338: 教育連結
   translated_table_of_contents-label-table_of_contents_id-339: 教育資源
-  translated_table_of_contents-label-table_of_contents_id-34: 評論
+  translated_table_of_contents-label-table_of_contents_id-33: 趨勢
   translated_table_of_contents-label-table_of_contents_id-340: 高中實驗室系列
   translated_table_of_contents-label-table_of_contents_id-341: 公民科學
   translated_table_of_contents-label-table_of_contents_id-342: 公民科學連結
@@ -336,8 +335,10 @@ zh-TW:
   translated_table_of_contents-label-table_of_contents_id-346: 生物醫學術語
   translated_table_of_contents-label-table_of_contents_id-347: 分類學
   translated_table_of_contents-label-table_of_contents_id-348: 模式標本資訊
-  translated_table_of_contents-label-table_of_contents_id-4: 生態學
+  translated_table_of_contents-label-table_of_contents_id-34: 評論
+  translated_table_of_contents-label-table_of_contents_id-3: 物理描述
   translated_table_of_contents-label-table_of_contents_id-41: 棲地
+  translated_table_of_contents-label-table_of_contents_id-4: 生態學
   translated_table_of_contents-label-table_of_contents_id-5: 演化與系統學
   translated_table_of_contents-label-table_of_contents_id-6: 與人類及生態系之關聯
   translated_table_of_contents-label-table_of_contents_id-7: 參考文獻及更多資訊
@@ -362,3 +363,4 @@ zh-TW:
   translated_visibilities-label-visibility_id-0: 看不見
   translated_visibilities-label-visibility_id-1: 看得見
   translated_visibilities-label-visibility_id-2: 預覽
+...

@@ -1,219 +1,1258 @@
 # Messages for Luxembourgish (Lëtzebuergesch)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Robby
-lb: 
-  0_1_or_2: 0, 1 oder 2
-  0_or_1: 0 oder 1
-  about_eol: Iwwer EOL
-  action: Aktioun
-  actions: Aktiounen
-  active_colon: "Aktiv:"
-  activerecord: 
-    attributes: 
-      community: 
+# Author: Soued031
+---
+lb:
+  activerecord:
+    models:
+      user: Kont
+    attributes:
+      collection:
+        show_references: Referenzen (Text oder URL)
+      collection_item:
+        sort_field: Zortéieren no
+        refs: Referenzen
+      comment:
+        body: Bemierkung
+      community:
         logo: E Logo eroplueden
-      content_partner: 
+      contact:
+        comments: Message
+        email: E-Mail
+        name: Numm
+      content_page:
+        active: Verëffentlecht
+      content_partner:
+        acronym: Ofkierzung vum Projet
+        content_partner_status: Status vum Projet
         description: Beschreiwung vum Projet
+        display_name: Numm dee gewise gëtt
         full_name: Numm vum Projet
-      data_object: 
-        description: Beschreiwung
+        homepage: URL vum Projet
+        public: Ëffentlech
+      content_partner_agreement:
+        signed_by: Ënnerschriwwe vum
+        signed_on_date: Datum vun der Ënnerschrëft
+      data_object:
+        description: Text
         object_title: Titel
-      name: 
+      data_object_link:
+        description: Beschreiwung
+        source_url: URL vum Link
+      eol_statistic:
+        members_count: Memberen
+        collections_count: Sammlungen
+        pages_count: Gesamtzuel vun de Säiten
+        pages_with_content: Säite mat Inhalt
+        pages_with_text: Säite mat Text
+        pages_with_image: Säite mat Biller
+        pages_with_map: Säite mat Kaarten
+        pages_with_video: Säite mat Videoen
+        pages_with_sound: Säite mat Audio
+        pages_without_text: Säiten ouni Text
+        pages_without_image: Säiten ouni Bild
+        pages_with_image_no_text: Säite mat Bild awer ouni Text
+        pages_with_text_no_image: Säite mat Text awer ouni Bild
+        base_pages: Basissäiten
+        pages_with_BHL_links: Säite mat BHL-Linken
+        pages_with_BHL_links_no_text: Säite mat BHL-Linken ouni Text
+        pages_with_BHL_links_only: Säite mat nëmme BHL-Linken
+        data_objects: Datenobjeten
+        data_objects_texts: Textobjeten
+        data_objects_images: Bildobjeten
+        data_objects_videos: Videoobjeten
+        data_objects_sounds: Audioobjeten
+        data_objects_maps: Kaartenobjeten
+        newly_published_resources_in_the_last_30_days: Nei publizéiert an de leschte Méint
+        marine_pages: Maritim-Säiten
+        total_taxa_with_data: Säite mat Donnéeën
+        total_associations: Associatiounen
+      forum:
+        forum_category_id: Kategorie
+        name: Numm vum Forun
+        description: 'Beschreiwung <small>(fakultativ)</small>'
+      forum_category:
+        title: Numm vun der Kategorie
+        description: 'Beschreiwung <small>(fakultativ)</small>'
+      forum_post:
+        subject: Sujet
+      forum_topic:
+        subject: Sujet
+      hierarchy:
+        complete: Komplett
+        description: Beschreiwung
+        label: Etikett
+        request_publish: Publikatioun ufroen
+      known_uri:
+        description: Beschreiwung
+        exclude_from_exemplars: Aus der Iwwersiicht ausschléissen
+        name: Numm
+        toc_items: Kategorien
+        uri: URI
+      open_authentication:
+        secret: Geheim
+        token: Token
+        updated_at: Lescht Aktualisatioun
+        user_id: Benotzernummer
+        verified_at: "Fir d'läscht nogekuckt"
+      name:
         string: Numm
-      translated_content_page: 
+      news_item:
+        active: Verëffentlecht
+      notification:
+        reply_to_comment: >
+          Eng Äntwert op eng Bemierkung déi Dir
+          gemaach hutt
+        comment_on_my_profile: Eng Bemierkung op Ärem Profil
+        member_joined_my_community: >
+          En neie Member ass enger Communautéit
+          déi Dir geréiert bäigetrueden
+        eol_newsletter: "Schéckt mir d'EOL Newsletter véier mol am Joer"
+      resource:
+        hierarchy: Hierarchie
+        language_id: Standard-Sprooch
+        dataset_license_id: Lizenz
+        license_id: Standardlizenz
+      translated_content_page:
+        active_translation: Verëffentlecht
         left_content: Navigatioun
         title: Titel
-      user: 
+      translated_known_uri:
+        definition: Definitioun
+        comment: Bemierkung
+      translated_news_item:
+        active_translation: Verëffentlecht
+        title: Titel
+      user:
+        bio: Biographie
+        disable_email_notifications: >
+          Schéckt mir KENG Aktualisatioune per
+          E-Mail
         email: Mailadress
+        email_confirmation: 'E-Mail-Adress nach eng Kéier <small>(fir ze confirméieren)</small>'
         entered_password: Passwuert
+        entered_password_confirmation: 'Passwuert nach eng Kéier <small>(fir ze confirméieren)</small>'
         family_name: Familljennumm
         full_name: Ganzen Numm
         given_name: Virnumm
+        language_abbr: Léifste Sprooch
+        permissions: Rechter
         username: Benotzernumm
-    errors: 
-      messages: 
-        blank: däerf net eidel sinn
-        empty: däerf net eidel sinn
-        exclusion: ass reservéiert
+      user_added_data:
+        object: Wäert
+        user: Derbäigesat vum
+      user_added_data_metadata:
+        object: Wäert
+    errors:
+      format: '%{attribute} %{message}'
+      messages:
+        taken: gouf scho geholl
         inclusion: ass net an der Lëscht dran
+        exclusion: ass reservéiert
+        invalid: ass net valabel
+        accepted: muss akzeptéiert ginn
+        empty: däerf net eidel sinn
+        blank: däerf net eidel sinn
         not_a_number: ass keng Zuel
-  activity: Aktivitéit
-  activity_log_empty_learn_more_link: Wéi Dir matmaache kënnt
-  add_a_comment_colon: "Eng Bemierkung derbäisetzen:"
-  add_a_new_user: En neie Benotzer derbäisetzen
-  add_language: Sprooch derbäisetzen
-  add_page: Säit derbäisetzen
-  admin_content_page_not_active: Net verëffentlecht
-  admin_link: Iwwersiicht
-  admin_translated_content_page_new_link: Iwwersetzung derbäisetzen
-  admin_translated_content_page_new_subheader: Setzt d'Iwwersetzung fir <em>%{page_name}</em> derbäi
-  all_articles: All Artikelen
-  all_changes: All Ännerungen
-  all_images: All Biller
-  all_information: All Informatiounen
-  all_pages: All Säiten
-  all_people: All Leit
-  all_videos: Alle Videoen
-  already_a_member_question: Sidd Dir scho Member?
-  already_member_of_community: Dir sidd scho Member vun dëser Communautéit.
-  are_you_sure: Sidd Dir sécher?
-  article_more_about: Fir méi ze wëssen iwwer dësen Artikel
-  assistive_details_header: Detailer
-  assistive_literature_header: Literatur
-  assistive_maps_header: Kaarten
-  assistive_names_synonyms_header: Synonymen
-  audio_pause: Paus
-  cannot_be_empty: däerf net eidel sinn.
-  change: Änneren
-  cms_missing_content_message: Pardon, dës Säit ass an dëser Sprooch net disponibel.
-  collections: Sammlungen
-  comment: Bemierkung
-  comment_body_label: Är Bemierkung
-  comments: Bemierkungen
-  confirm_password_colon: "Passwuert confirméieren:"
-  contact_us_link: Kontaktéiert eis
-  content_partner_column_header_partner: Partner
-  content_partner_filter_option_vetted_no: Neen
-  content_partner_filter_option_vetted_yes: Jo
-  content_partner_statistics_column_header_total_count: All Säiten
-  content_partner_statistics_link: Benotzungs-Statistiken
-  curated_association_update_button: Ännerunge späicheren
-  current_language: "Sprooch: %{iso_code}"
-  daily: All Dag
-  dato_edit_cancel: Ofbriechen
-  default_watch_collection_name: Dem %{username} seng Iwwerwaachungslëscht
-  delete: läschen
-  description: Beschreiwung
-  detail: Detail
-  details_title: Detailer
-  donate: Maacht en Don
-  donation_error_no_amount: Sicht w.e.g. e Betrag fir den Don eraus
-  edit_my_profile: Äre Profil änneren
-  eol_colon: "EOL:"
-  eol_glossary: EOL-Glossaire
-  eol_news: EOL-Neiegkeeten
-  eol_pages: Säiten
-  example_colon: "Beispill:"
-  external_link_header: Externe Link
-  family_name_colon: "Familljennumm:"
-  filter_button: Filter
-  filter_by_type_all_option: all Typen
-  filter_by_type_image_option: Biller
-  filter_by_type_text_option: Artikelen
-  filter_by_type_video_option: Videoen
-  forgot_password_form_header: Setzt Ärt Passwuert zréck
-  go: Lass
-  hello_user: Salut %{user}
-  help: Hëllef
-  helpers: 
-    label: 
-      content_partner: 
-        logo_current: "Aktuelle Logo:"
-        logo_new: "En neie Logo eroplueden:"
-      data_object: 
+        not_an_integer: muss eng ganz Zuel sinn
+        greater_than:
+          one: 'muss méi grouss wéi %{count} sinn'
+          other: 'muss méi grousss wéi %{count} sinn'
+        greater_than_or_equal_to: 'muss méi grouss oder gläich si wéi %{count}'
+        equal_to: 'muss gläich si wéi %{count}'
+        less_than_or_equal_to: 'muss méi kleng oder gläich si wéi %{count}'
+        odd: muss ongerued sinn
+        even: muss gerued sinn
+        inaccessible: ass net accessibel
+        wrong_type: ass de falschen Typ
+        models:
+          inaccessible: ass net accessibel
+      full_messages:
+        format: '%{attribute} %{message}'
+      models:
+        data_object:
+          attributes:
+            rights_holder:
+              blank: ka fir eng CC-BY Lizenz net eidel sinn
+        user_added_data:
+          attributes:
+            predicate:
+              namespace: >
+                huet en Nummraum benotzt den net erkannt
+                gouf
+            subject:
+              namespace: >
+                huet en Nummraum benotzt den net erkannt
+                gouf
+        user_added_data_metadata:
+          attributes:
+            predicate:
+              namespace: >
+                huet en Nummraum benotzt den net erkannt
+                gouf
+            subject:
+              namespace: >
+                Huet en Nummraum benotzt den net erkannt
+                gouf
+  helpers:
+    label:
+      collection_item:
+        annotation: Notiz
+        refs: 'Referenzen <small>(setzt all Referenz an eng nei Linn)</small>'
+      comment:
+        body_edit: Bemierkung änneren
+      contact:
+        comments: Äre Message
+        contact_subject_id: Sujet
+        email: Är E-Mailadress
+        name: Ären Numm
+      content_page:
+        active: Verëffentlecht
+      content_partner:
+        created_at: Ugemellt
+        current_agreement: Aktuellen Accord
+        description_of_data: 'Beschreiwung vun den Donnéeën <small>(privat)</small>'
+        last_action: Lescht Aktioun
+        latest_published_harvest_event: Lescht Publikatioun
+        logo_current: 'Aktuelle Logo:'
+        logo_new: 'En neie Logo eroplueden:'
+        oldest_published_harvest_event: Éischt Publikatioun
+      data_object:
         license_id: Lizenz
         object_title: Titel
-      resource: 
+        toc_item: Ënnerkapitel
+        refs: 'Referenzen <small>(setzt all Referenz an eng nei Linn)</small>'
+      data_object_link:
+        source_url: URL vum Link
+        toc_item: Sujet
+        link_type: Kategorie
+      data_search:
+        max: Héchste Wäert
+        max_placeholder: Gitt eng Zuel an
+        min: Niddregste Wäert
+        min_with_val: 'Niddregste Wäert: %{val}'
+        min_placeholder: Gitt eng Zuel an
+        q: Spezifesche Wäert
+        q_placeholder: Gitt e Wuert, e Saz oder eng Zuel an
+        unit: Moosseenheet
+      eol_statistic:
+        date_one: Datum
+        date_two: Datum
+      google_analytics_partner_summaries:
+        taxa_pages: 'Säiten <small>(Zuel vu Säiten)</small>'
+      harvest_event:
+        began_at: Ugefaang
+        completed_at: Fäerdeg
+        first_published_at: Éischt Publikatioun
+        published_at: Verëffentlecht!
+      hierarchy:
+        request_publish: Verëffentlechung ugefrot
+      news_item:
+        active: Verëffentlecht
+      open_authentication:
+        connect: Derbäisetzen
+      resource:
+        hierarchy: Hierarchie
+        oldest_published_harvest_event: Éischt Publikatioun
+        latest_published_harvest_event: Lescht Publikatioun
         refresh_period_hours: Frequenz
-      session: 
+        resource_status_id: Status
+        resource_status: Status
+      session:
         password: Passwuert
-      translated_content_page: 
+        remember_me: Mech fir 2 Wochen ageloggt loossen
+        username_or_email: Benotzernumm oder E-Mail-Adress
+      translated_content_page:
+        active_translation: Verëffentlecht
         language_id: Sprooch
-      user: 
+      translated_news_item:
+        active_translation: Verëffentlecht
+        language_id: Sprooch
+      user:
         bio: Iwwer mech
+        email_settings_submit: E-Mail-Astellungen
+        email: E-Mail-Adress
+        entered_password: 'Passwuert <small>(4 bis 16 Zeechen)</small>'
         logo: Eng nei Foto eroplueden
-        mailing_list_yes: Jo
-    submit: 
-      content_page: 
+        new_password: 'Neit Passwuert <small>(4 bis 16 Zeechen)</small>'
+        new_password_confirmation: 'Neit Passwuert <small>(fir ze confirméieren)</small>'
+        news_in_preferred_language: >
+          Neiegkeeten an der preferéierter
+          Sprooch weisen
+        requested_curator_level: 'Är Ufro fir %{curator_level_with_indefinite_article} ze ginn muss nach verschafft ginn.'
+        user_identities: Ech sinn
+        username: 'Benotzernumm <small>(4 bis 32 Zeechen)</small>'
+        username_or_email: Benotzernumm oder Mail-Adress
+    select:
+      prompt: Sicht w.e.g. eraus
+    submit:
+      cancel: Ofbriechen
+      filter_sort: Filteren an zortéieren
+      update: '%{model} aktualiséieren'
+      submit: '%{model} späicheren'
+      collection_item:
+        update: Späicheren
+      contact:
+        new: Feedback schécken
+      content_page:
+        create: Säit uleeën
         edit: Änneren
+        preview: Kucken ouni ze späicheren
         update: Säit aktualiséieren
-      content_partner_contact: 
+      content_partner_contact:
         create: Kontakt derbäisetzen
-        destroy: Kontakt läschen
         update: Kontakt aktualiséieren
-      data_object: 
+        destroy: Kontakt läschen
+      data_object:
         create: Artikel derbäisetzen
         create_text: Artikel derbäisetzen
         update: Artikel späicheren
-      name: 
+      data_object_link:
+        create: Link derbäisetzen
+        update: Link späicheren
+      eol_statistic:
+        download_csv: Als csv eroflueden
+      harvest_event:
+        publish: Verëffentlechen
+      hierarchy:
+        update: Hierarchie aktualiséieren
+      name:
         create: Numm derbäisetzen
         update: Numm aktualiséieren
-      translated_content_page: 
+      news_item:
+        edit: Änneren
+      open_authentication:
+        create: Verbannen
+      resource:
+        update_settings: Astellungen aktualiséieren
+      session:
+        create: Aloggen
+        sign_in_with_facebook: Alogge mat Facebook
+        sign_in_with_google: Alogge mat Google
+        sign_in_with_twitter: Alogge mat Twitter
+        sign_in_with_yahoo: Alogge mat Yahoo
+      translated_content_page:
         create: Iwwersetzung derbäisetzen
+        update: >
+          Ännerunge vun der Iwwersetzung
+          späicheren
+      translated_news_item:
+        create: Iwwersetzung derbäisetzen
+        update: >
+          Ännerunge vun der Iwwersetzung
+          späicheren
+      user:
+        create: Benotzerkont opmaachen
+        curation_application: Mellt Iech elo
+        curation_privileges: Ufro eraginn
+        generate_api_key: E Schlëssel generéieren
+        recover_account: E-Mail schécken
+        sign_up_with_facebook: Sech iwwer Facebook aschreiwen
+        sign_up_with_google: Sich iwwer Google schreiwen
+        sign_up_with_twitter: Sech iwwer Twitter aschreiwen
+        sign_up_with_yahoo: Sech iwwer Yahoo aschreiwen
+        update: Profilinformatioune späicheren
+      wikipedia_queue:
+        create: Ufro eraginn
+  will_paginate:
+    next_label: 'Nächst &#8594;'
+    page_gap: '&hellip;'
+    previous_label: '&#8592; Vireg'
+  datepicker:
+    day_names:
+      - Sonndeg
+      - Méindeg
+      - Dënschdeg
+      - Mëttwoch
+      - Donneschdeg
+      - Freideg
+      - Samschdeg
+    day_names_short:
+      - Son
+      - Méi
+      - Dën
+      - Mët
+      - Don
+      - Fre
+      - Sam
+    day_names_min:
+      - So
+      - Mé
+      - Dë
+      - Më
+      - Do
+      - Fr
+      - Sa
+    close: Zoumaachen
+    current: Haut
+    month_names:
+      - Januar
+      - Februar
+      - Mäerz
+      - Abrëll
+      - Mee
+      - Juni
+      - Juli
+      - August
+      - September
+      - Oktober
+      - November
+      - Dezember
+    month_names_short:
+      - Jan
+      - Feb
+      - Mäe
+      - Abr
+      - Mee
+      - Jun
+      - Jul
+      - Aug
+      - Sep
+      - Okt
+      - Nov
+      - Dez
+    next: Nächst
+    previous: Vireg
+  admins:
+    eol_statistics:
+      index:
+        menu_link: Gesamtstatistiken
+        page_header: Gesamtstatistiken
+        page_title: 'Gestioun: Gesamtstatistiken'
+      marine:
+        menu_link: Maritim Statistiken
+  contacts:
+    new:
+      page_title: Gitt eis w.e.g. Äre Feedback
+  collections:
+    newsfeeds:
+      show:
+        meta_keywords: '%{collection_name} Neiegkeeten'
+        meta_title: '%{collection_name} Neiegkeeten'
+        tweet_text: '%{collection_name} Neiegkeeten'
+    inaturalists:
+      show:
+        add_observations: Observatiounen derbäisetzen
+        observation_date: 'Datum: %{observed_on}'
+        observation_place: 'Plaz: %{place}'
+        recent_observations: Rezent Observatiounen
+        some_taxon: Eppes
+        view_project_on_inaturalist: 'Kuckt %{project_title} op iNaturalist'
+  content:
+    index:
+      header_news: EOL-Neiegkeeten
+      meta_title: 'Déieren - Planzen - Biller & Informatiounen'
+  content_partners:
+    statistics:
+      show:
+        meta_title: '%{partner_name}-Statistiken'
+    edit:
+      meta_title: '%{partner_name} änneren'
+  data_objects:
+    show:
+      meta_description_article: 'Artikel - %{dato_description}'
+      meta_description_image: 'Bild - %{dato_description}'
+      meta_description_image_map: 'Kaart - %{dato_description}'
+      meta_description_map: 'Kaart - %{dato_description}'
+      meta_description_sound: 'Toun - %{dato_description}'
+      meta_description_video: 'Video - %{dato_description}'
+  eol_statistics:
+    content_partners:
+      page_title: Statistiken
+    curators:
+      page_title: Statistiken
+    data_objects:
+      page_title: Statistiken
+    index:
+      menu_link: Gesamtstatistiken
+      page_header: Gesamtstatistiken
+      page_title: Statistiken
+    lifedesks:
+      page_title: Statistiken
+    marine:
+      menu_link: Maritim Statistiken
+      page_title: Statistiken
+    page_richness:
+      page_title: Statistiken
+    users_data_objects:
+      page_title: Statistiken
+    data:
+      menu_link: Donnéeën
+      page_title: Statistiken
+  forums:
+    forums_heading: EOL-Foren
+    replies: Äntwerten
+    topics_heading: Rubriken
+    views: Säitenofruffer
+    create: E Forum uleeën
+    move_successful: De Forum gouf geréckelt
+    move_failed: De Forum konnt net geréckelt ginn
+    edit: Forum änneren
+    post_by_user_at_time: 'vum %{user}, %{time}'
+    actions: Aktiounen
+    administration: Administratioun
+    buttons:
+      delete: läschen
+      edit: änneren
+      reply: äntwerten
+      link: Link
+    categories:
+      create: Eng Kategorie uleeën
+      edit: Kategorie änneren
+      create_failed: "Pardon, et ass e Feeler geschitt, d'Kategorie konnt net derbäigesat ginn"
+      update_successful: Kategorie gouf aktualiséiert
+      delete_successful: Kategorie gouf geläscht
+      delete_failed_not_empty: >
+        Kategorie konnt net geläscht gi well se
+        net eidel ass
+      move_successful: Kategorie gouf geréckelt
+      move_failed: Kategorie konnt net geréckelt ginn
+    posts:
+      post_written_by_user: '%{user} huet geschriwwen:'
+      deleted_subject: (geläscht)
+      no_subject: (kee Sujet)
+      close_window: zoumaachen
+    topics:
+      create: En nei Rubrik ufänken
+      create_successful: Rubrik gouf ugeluecht
+      delete_successful: Rubrik gouf geläscht
+      delete_failed_not_empty: >
+        Rubrik konnt net geläscht gi well se
+        net eidel ass
+  known_uris:
+    add_a_relationship: Eng Relatioun derbäisetzen
+    please_select_category_for_stats: "Sicht w.e.g. eng Kategorie eraus fir d'Statistiken ze gesinn."
+    relationships: Relatiounen
+    select: eraussichen
+  layouts:
+    application:
+      header_about: Iwwer EOL
+      header_learn_more: Fir méi ze wëssen
+      header_questions: Ech wëll méi wëssen
+      about_link_what_is_eol: Wat ass EOL?
+      about_link_statistics: Statistiken
+      about_link_glossary: Glossaire
+      about_link_donate: En Don un EOL maachen
+      about_link_help: Hëllef
+      about_link_contact_us: Kontaktéiert eis
+      learn_more_link_animals: Déieren
+      learn_more_link_mammals: Mamendéieren
+      learn_more_link_birds: Vigel
+      learn_more_link_amphibians: Amphibien
+      learn_more_link_reptiles: Reptilien
+      learn_more_link_fish: Fësch
+      learn_more_link_worms: Wierm
+      learn_more_link_insects: Insekten
+      learn_more_link_spiders: Spannen
+      learn_more_link_plants: Planzen
+      learn_more_link_flowering_plants: Planze mat Blummen
+      learn_more_link_trees: Beem
+      learn_more_link_bacteria: Bakterien
+      learn_more_link_viruses: Viren
+      questions_link_biodiversity: Wat ass Biodiversitéit?
+  members:
+    index:
+      meta_keywords: '%{community_name} Memberen'
+      meta_title: '%{community_name} Memberen'
+      tweet_text: '%{community_name} Memberen'
+    show:
+      meta_title: '%{member_name} Member vu(n) %{community_name}'
+      tweet_text: '%{member_name} Member vu(n) %{community_name}'
+  news_items:
+    index:
+      page_title: EOL-Neiegkeeten
+      meta_title: EOL-Neiegkeeten
+  notifier:
+    comments_empty: Keng rezent Bemierkungen.
+    greeting_dear_name_with_comma: '{{GENDER:%{name}}}|Léiwe(n)|Léift}} %{name},'
+    signature_basic: "D'Equipe vun 'Encyclopedia of Life'"
+    contact_us_auto_response:
+      subject: "Merci datt Dir 'Enceclopedia of Life' kontaktéiert hutt."
+    unsubscribed_to_notifications:
+      subject: Schued datt Dir gitt ...
+    user_activated_with_open_authentication:
+      subject: "Ären 'Encyclopedia of Life'-Benotzerkont gouf aktivéiert"
+    user_message:
+      subject: E Message vun der Encyclopedia of Life
+  recent_activity:
+    intro_immediately: 'Bonjour, %{name} —'
+    default_subject: Rezent Aktivitéit op EOL
+    comment_body_brief: '%{body} - %{author}'
+    reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
+    comment_title: '%{who} huet ent Bemierkung iwwer %{what} gemaach'
+    comment_link: Bemierkung op EOL kucken
+    collection_activity_user_watching_recipient: '<b>%{user_name}</b> iwwerwaacht Iech.'
+    community_activity_user_left: 'De Benotzer <b>%{user_name}</b> huet <b>%{community_name}</b>-communautéit verlooss.'
+  recent_activities:
+    index:
+      list_header: Lescht 7 Deeg
+  recent_activity_mailer:
+    data_search_file_download_ready:
+      header: Ären Download ass prett!
+  sessions:
+    new:
+      meta_title: Aloggen
+      problems_signing_in_with_eol_authentication: Passwuert vergiess?
+  taxa:
+    communities:
+      index:
+        meta_keywords: '%{scientific_name} Communautéit'
+      curators:
+        meta_title: 'Conservateure vu(n) %{scientific_name}'
+        meta_title_with_common_name: 'Experte vu(n) %{preferred_common_name} (%{scientific_name})'
+    data:
+      index:
+        tweet_text: 'Fakten iwwer %{scientific_name}'
+    details:
+      index:
+        hierarchy_entry:
+          meta_description_with_common_name_with_chapter_list: 'Beschreiwungen an Artikelen iwwer %{preferred_common_name}, wësseschaftlech bekannt als %{scientific_name}, no der Klassifizéierung an der Encyclopedia of Life vu(n) %{hierarchy_provider}. Inklusiv %{chapter_list}.'
+          meta_title: 'Beschreiwungen an Artikelen iwwer %{scientific_name}, klasséiert vum %{hierarchy_provider}.'
+          tweet_text: 'Artikelen iwwer %{scientific_name}, klasséiert vum  %{hierarchy_provider}.'
+        meta_description: 'Beschreiwungen an Artikelen iwwer %{scientific_name} an der Encyclopedia of Life'
+        meta_title: 'Beschreiwungen an Artikelen iwwer %{scientific_name}'
+        meta_title_with_common_name: 'Beschreiwungen an Artikelen iwwer %{preferred_common_name} (%{scientific_name})'
+        tweet_text: 'Artikelen iwwer %{scientific_name}'
+    literature:
+      bhl:
+        tweet_text: 'Literatur an der #BHL iwwer %{scientific_name}'
+      show:
+        hierarchy_entry:
+          tweet_text: 'Literatur iwwer %{scientific_name}, klasséiert no  %{hierarchy_provider}.'
+        meta_keywords: 'Artikelen iwwer %{scientific_name}, Bicher iwwer %{scientific_name}, Bibliographien iwwer %{scientific_name}'
+        meta_keywords_with_common_name: 'Artikelen iwwer %{preferred_common_name}, Bicher iwwer %{preferred_common_name}, Literatur iwwer %{preferred_common_name}, Artikelen iwwer %{scientific_name}, Bicher iwwer %{scientific_name}, Bibliographien iwwer %{scientific_name}, Literatur iwwer %{scientific_name}'
+        meta_title: 'Artikelen & Bicher iwwer %{scientific_name}'
+        meta_title_with_common_name: 'Artikelen & Bicher iwwer %{preferred_common_name} (%{scientific_name})'
+        tweet_text: 'Artikelen & Bicher iwwer %{scientific_name}'
+    maps:
+      show:
+        hierarchy_entry:
+          meta_title: 'Kaarten iwwer %{scientific_name}, klasséiert vum  %{hierarchy_provider}.'
+          tweet_text: 'Kaarte fir %{scientific_name}, klasséiert no  %{hierarchy_provider}.'
+        meta_description: 'Geographesch Informatiounen iwwer %{scientific_name}. Plaze wou se op der Welt liewen.'
+        meta_title: 'Kaarten iwwer %{scientific_name}'
+        tweet_text: 'Kaarten iwwer %{scientific_name}'
+    media:
+      index:
+        tweet_text: 'Biller, Videoen an Audiomaterial iwwer %{scientific_name}'
+    names:
+      synonyms:
+        hierarchy_entry:
+          meta_keywords: 'Synonyme fir %{scientific_name}'
+        meta_keywords: 'Synonyme vu(n) %{scientific_name}'
+        meta_title: 'Synonymer vu(n) %{scientific_name}'
+        tweet_text: 'Synonymer vu(n) %{scientific_name}'
+    overview:
+      show:
+        meta_description: 'Informatiounen iwwer %{scientific_name} an der Encyclopedia of Life.'
+        tweet_text: 'Informatiounen iwwer %{scientific_name}'
+    updates:
+      show:
+        meta_title: 'Bemierkungen iwwer %{scientific_name}'
+  users:
+    activities:
+      show:
+        meta_title: 'Aktivitéite vum  %{user_full_name}'
+    data_downloads:
+      download: eroflueden
+      query_head: Ufro
+      updated_head: Lescht Aktioun
+      complete_head: Komplett?
+      actions_head: Aktiounen
+      is_complete: Jo
+      is_not_complete: Neen
+      query_empty: (keng Filteren)
+      refresh: aktualiséieren
+      row_count: Zuel
+      search_again: nach eng Kéier sichen
+    new:
+      meta_title: Bei EOL matmaachen
+    newsfeeds:
+      activity_link: Aktivitéit
+      comments_link: Bemierkungen
+    open_authentications:
+      errors:
+        google:
+          new_authentication_not_added: >
+            Pardon, et ass ee Feeler geschitt, mir
+            konnten Äre Google-Kont net verbannen.
+        yahoo:
+          missing_attributes: >
+            Pardon, et gouf e Problem wéi mir
+            probéiert hunn op Är Yahoo Detailler
+            zréckzegréifen.
+          new_authentication_not_added: >
+            Pardon, et ass ee Feeler geschitt, mir
+            konnten Ären Yahoo-Kont net verbannen.
+      facebook: Facebook
+      google: Google
+      twitter: Twitter
+      yahoo: Yahoo!
+    pending:
+      header: Merci datt Dir Iech registréiert huet!
+    recover_account_choose_account:
+      legend_choose_account: E Benotzerkont eraussichen
+  user_added_data:
+    edit_data_header: Ännert Är Donnéeën
+    add_metadata_header: Zousätzlech Informatioun
+    create_successful: "D'Donnéeë goufen derbäigesat"
+    new_field: Neit Feld...
+    new_value: Wäert
+  data_search_files:
+    from: Niddregste Wäert
+    to: Héchste Wäert
+    unit_uri: Moosseenheet
+  this_article_is_unpublished: Dësen Artikel ass net publizéiert.
+  this_image_is_unpublished: Dëst Bild ass net publizéiert.
+  this_image_map_is_unpublished: Dës Kaart ass net publizéiert.
+  this_map_is_unpublished: Dës Kaart ass net publizéiert.
+  this_video_is_unpublished: Dëse Video ass net publizéiert.
+  article_from_supplier: 'Artikel vum %{whom}'
+  video_from_supplier: 'Video vum %{whom}'
+  article_of_taxon: 'Artikel iwwer %{taxon_name}'
+  article_rating: Bewäertung vum Artikel
+  0_or_1: 0 oder 1
+  0_1_or_2: 0, 1 oder 2
+  about_eol: Iwwer EOL
+  action: Aktioun
+  actions: Aktiounen
+  active_colon: 'Aktiv:'
+  active: Aktiv
+  activity: Aktivitéit
+  activity_logs:
+    collection_activity_log:
+      remove_all:
+        an_unknown_user_cleared_it: "En onbekannte Benotzer huet all d'Elementer ewechgeholl."
+      collect:
+        an_unknown_user_added_an_unknown_item_to_it: >
+          En onbekannte Benotzer huet en onbekannt
+          Element derbäigesat.
+    community_activity_log:
+      create:
+        an_unknown_user_created_an_unknown_community: >
+          En Onbekannte Benotzer huet eng
+          onbekannte Communautéit ugeluecht.
+      change_description:
+        an_unknown_user_changed_the_description_of_an_unknown_community: "En onbekannte Benotzer huet d'Beschreiwung vun enger onbekannter Communautéit geännert."
+      change_name:
+        an_unknown_user_changed_the_name_of_an_unknown_community: >
+          En onbekannte Benotzer huet den Numm vun
+          enger onbekannter Communautéit
+          geännert.
+      change_icon:
+        an_unknown_user_changed_the_icon_of_an_unknown_community: >
+          En onbekannte Benotzer huet de Logo vun
+          enger onbekannter Communautéit
+          geännert.
+      other_actions:
+        an_unknown_user_modified_an_unknown_community: >
+          En Onbekannte Benotzer huet eng
+          onbekannte Communautéit geännert.
+    curator_activity_log:
+      reasons_to_hide: 'Grënn fir ze verstoppen: %{reasons}'
+      hide:
+        an_unknown_user_hid_it_on_an_unknown_association: >
+          En onbekannte Benotzer huet et an engem
+          onbekannte Kontext als verstoppt
+          markéiert.
+      classification_curation:
+        merge:
+          an_unknown_user_merged_to_an_unknown_taxon: >
+            En onbekannte Benotzer huet zwou
+            onbekannte Säiten zesummegeluecht.
+          an_unknown_user_merged_to_it: >
+            En Onbekannte Benotzer huet eng aner
+            Säit mat dëser zesummegeluecht.
+      user_added_data:
+        an_unknown_user_update_data_on_an_unknown_taxon: >
+          En onbekannte Benotzer huet Donnéeën
+          op enger onbekannter Säit
+          aktualiséiert.
+  add_a_comment: Eng Bemierkung derbäisetzen.
+  add_a_comment_colon: 'Eng Bemierkung derbäisetzen:'
+  add: Derbäisetzen
+  add_a_new_file_brackets: '[e Fichier derbäisetzen]'
+  add_a_new_user: En neie Benotzer derbäisetzen
+  add_article_to_page_button: En Artikel derbäisetzen
+  add_language: Sprooch derbäisetzen
+  add_link_to_page_button: E Link derbäisetzen
+  add_page: Säit derbäisetzen
+  admin_content_page_active: Verëffentlecht
+  admin_content_page_not_active: Net verëffentlecht
+  admin_content_partners_statistics_date_from_label: Vum
+  admin_content_partners_statistics_date_to_label: Bis
+  admin_content_partners_statistics_first_published_download_csv_submit: Als csv eroflueden
+  admin_content_partners_statistics_link: Statistiken
+  admin_news_link: Neiegkeeten
+  admin_options_warning: >
+    Ännerungen hei kënnen 10 Minutte
+    brauche bis se wierksam sinn.
+  admin_link: Iwwersiicht
+  admin_simple_actions_header: 'Einfach Aktiounen:'
+  admin_spam_delete: Spam läschen
+  admin_statistics_link: Statistiken
+  admin_translated_content_page_new_header: >
+    Sprooch eraussichen an Inhalt
+    derbäisetzen
+  admin_translated_content_page_new_link: Iwwersetzung derbäisetzen
+  admin_translated_content_page_new_subheader: "Setzt d'Iwwersetzung fir <em>%{page_name}</em> derbäi"
+  admin_translated_news_item_active: Verëffentlecht
+  admin_translated_news_item_new_link: Iwwersetzung derbäisetzen
+  admin_translated_news_item_new_subheader: "Setzt d'Iwwersetzung fir <em>%{page_name}</em> derbäi"
+  admin_user_delete_successful_notice: De Benotzer gouf geläscht.
+  admin_user_hide_successful_notice: De Be4notzer gouf verstoppt
+  all: all
+  all_articles: All Artikelen
+  all_categories: All
+  all_changes: All Ännerungen
+  all_count: 'All (%{count})'
+  all_filter: all
+  all_images: All Biller
+  all_information: All Informatiounen
+  all_news: all Neiegkeeten
+  all_people: All Leit
+  all_sources: All Quellen
+  all_title: All
+  all_videos: Alle Videoen
+  already_a_member_question: Sidd Dir scho Member?
+  already_member_of_community: >
+    Dir sidd scho Member vun dëser
+    Communautéit.
+  alternative_name_colon: 'Alternativen Numm:'
+  an_unknown_user: En onbekannte Benotzer
+  annotation_body_default: >
+    eng Fro oder eng Bemierkung
+    derbäisetzen ...
+  anonymous_user_full_name: Anonyme Benotzer
+  anonymous_user_given_name: Anonym
+  anonymous_user_tag_line: Net ageloggt
+  and: a(n)
+  and_between_form_items: a(n)
+  are_you_sure: Sidd Dir sécher?
+  article_from: Artikel aus
+  article_more_about: Fir méi ze wëssen iwwer dësen Artikel
+  assistive_overview_header: Iwwersiicht
+  assistive_data_header: 'Fakten & Informatiounen'
+  assistive_details_header: Detailer
+  assistive_literature_header: Literatur
+  assistive_names_synonyms_header: Synonymen
+  assistive_maps_header: Kaarten
+  assistive_taxon_community_header: Communautéit
+  assistive_updates_header: Aktualisatiounen
+  assistive_updates_statistics_header: Säitestatistiken
+  associated_with_article_header: Am leschten Artikel
+  associated_with_image_header: Um leschte Bild
+  associated_with_image_map_header: Op der leschter Kaart
+  associated_with_map_header: Op der leschter Kaart
+  associated_with_video_header: Am leschte Video
+  audio_pause: Paus
+  audio_stop: stop
+  available: disponibel
+  back: Zréck
+  back_to_profile: Zréck op de Profil
+  beta_warning_header: Dir benotzt eng Beta-Funktion
+  beta_warning_note_header: 'Notiz:'
+  cancel: Ofbriechen
+  cancel_and_delete: ofbriechen a läschen
+  cancel_split: Ofbriechen
+  cannot_be_empty: däerf net eidel sinn.
+  change: Änneren
+  cms_missing_content_message: 'Pardon, dës Säit ass an der erausgesichter Sprooch %{selected_language} net disponibel.'
+  click: Klicken
+  comment: Bemierkung
+  comment_body_label: Är Bemierkung
+  comment_new_title: Eng nei Bemierkung derbäisetzen
+  comments: Bemierkungen
+  comments_filter: Bemierkungen
+  comments_page_title: 'Bemierkungen iwwer %{parent}'
+  community: Communautéit
+  completed_colon: 'Fäerdeg:'
+  confirm_password_colon: 'Passwuert confirméieren:'
+  contact: Kontakt
+  contact_information: Kontaktinformatioun
+  contact_updated: Kontakt aktualiséiert
+  contact_us: kontaktéiert eis
+  contact_us_link: Kontaktéiert eis
+  content_partner_agreement_cancel_edit_agreement_link: Ofbriechen
+  content_partner_agreement_cancel_new_agreement_link: Ofbriechen
+  content_partner_agreement_cancel_sign_agreement_link: Ofbriechen
+  content_partner_column_header_partner: Partner
+  content_partner_contact_create_successful_notice: De Kontakt gouf derbäigesat.
+  content_partner_contact_delete_successful_notice: De Kontakt gouf geläscht.
+  content_partner_contact_edit_link: Kontakt änneren
+  content_partner_contact_edit_page_subheader: Kontakt änneren
+  content_partner_contact_new_link: En neie Kontakt derbäisetzen
+  content_partner_contact_new_page_subheader: E Kontakt derbäisetzen
+  content_partner_contacts_header: Kontakter
+  content_partner_current_agreement_view_link: Weisen
+  content_partner_current_agreement_edit_link: Änneren
+  content_partner_current_agreement_not_accepted: Nach net akzeptéiert
+  content_partner_filter_option_vetted_yes: Jo
+  content_partner_filter_option_vetted_no: Neen
+  content_partner_filter_option_published_never_published: Ni publizéiert
+  content_partner_filter_published: Verëffentlecht
+  content_partner_oldest_published_harvest_event_time_ago: 'Éischt Publikatioun op EOL viru(n) %{time_passed};'
+  content_partner_public_false: Privat
+  content_partner_public_true: Ëffentlech
+  content_partner_resource_auto_publish_true: Jo
+  content_partner_resource_auto_publish_false: Neen
+  content_partner_resource_edit_link: Änneren
+  content_partner_resource_hierarchy_edit_link: Änneren
+  content_partner_resource_hierarchy_unknown: Onbekannt
+  content_partner_resource_vetted_true: Jo
+  content_partner_resource_vetted_false: Neen
+  content_partner_resource_view_link: Weisen
+  content_partner_statistics_column_header_total_count: All Säiten
+  content_partner_statistics_month_label: Mount
+  content_partner_statistics_year_label: Joer
+  content_partner_statistics_link: Benotzungs-Statistiken
+  content_partner_vetted_false: Net nogekuckt
+  copy: Kopéieren
+  copy_of_name: 'Kopie vu(n) %{name}'
+  curated_association_update_button: Ännerunge späicheren
+  your_current_rating_0_of_5: 'Är aktuell Bewäertung: 0 vu 5'
+  your_current_rating_1_of_5: 'Är aktuell Bewäertung: 1 vu 5'
+  your_current_rating_2_of_5: 'Är aktuell Bewäertung: 2 vu 5'
+  your_current_rating_3_of_5: 'Är aktuell Bewäertung: 3 vu 5'
+  your_current_rating_4_of_5: 'Är aktuell Bewäertung: 4 vu 5'
+  your_current_rating_5_of_5: 'Är aktuell Bewäertung: 5 vu 5'
+  current_language: 'Sprooch: %{iso_code}'
+  daily: All Dag
+  data_column_sci_name: Wëssenschaftlechen Numm
+  data_column_value: Wäert
+  data_column_val: Wäert (normaliséiert)
+  data_column_units: Eenheeten (normaliséiert)
+  data_column_source: Ubidder
+  data_link_to_record: Link op dësem Enregistrement
+  data_object_ignore: dëst Element ignoréieren
+  data_point_uri_source_missing: Quell feelt
+  data_provided_by_content_partner: 'Ubidder: %{whom}'
+  data_reference_subtable_summary: >
+    Zousätzlech Referenzen iwwer dës
+    Informatioun.
+  data_row_exemplar_added: "Bäi d'Iwwersicht derbäigesat."
+  data_row_exemplar_removed: Vun der Iwwersiicht ewechgeholl.
+  data_row_add_exemplar_button: "bäi d'Iwwersicht derbäisetzen"
+  data_row_additional_detail_alt: Zousätzlechen Detail
+  data_row_additional_detail_show_alt: Zousätzlechen Detail weisen
+  data_row_additional_detail_hide_alt: Zousätzlechen Detail verstoppen
+  data_row_hide_button: Rei verstoppen
+  data_row_unhide_button: Rei nees weisen
+  data_search:
+    form:
+      new_search_link: Nei ufänke mat sichen
+      search_suggestions_header: Net sécher wou Dir ufänke wëllt?
+      search_suggestion_whale_mass: >
+        Wat fir eng Wale weie méi wéi 10.000
+        kg?
+      search_suggestion_blue_flowers: Wat fir eng Planzen hu blo Blummen?
+      search_tools_show_link: Optioune vum Siche weisen
+      search_tools_hide_link: Optioune vum Siche verstoppen
+      sort_header: "D'Resultater zortéieren"
+  data_subtab_about: Iwwer
+  data_subtab_glossary: 'Glossaire fir %{taxon}'
+  data_tab_curator_exemplar: >
+    Dës Rei gouf an den Tab vun der
+    Iwwersiicht derbäigesat.
+  date_caps: Datum
+  dato_create_cancel: Ofbriechen
+  dato_edit_cancel: Ofbriechen
+  dato_edit_link_title: Link änneren
+  dato_edit_text_title: Artikel änneren
+  development_version_name: EOL V2 Beta
+  default_watch_collection_name: 'Dem %{username} seng Iwwerwaachungslëscht'
+  definition: Definitioun
+  delete: läschen
+  deleted_colon: 'geläscht:'
+  delete_firstcap: Läschen
+  description: Beschreiwung
+  description_of: Beschreiwung vu(n)
+  destination_inappropriate_for_logged_in_users: Dir sidd ageloggt.
+  detail: Detail
+  details: Detailer
+  details_title: Detailer
+  did_you_mean: 'Mengt Dir: %{suggestions}?'
+  discover_link: Entdecken
+  donate_link: Maacht en Don
+  done_already: Scho gemaach
+  edit_comment: Bemierkung änneren
+  edit_comment_lowercase: Bemierkung änneren
+  edit: änneren
+  edit_eol_glossary: EOL Glossaire änneren
+  edit_my_profile: Äre Profil änneren
+  eol_api_pages: 'EOL-API: Säiten'
+  eol_api_search: 'EOL-API: Sichen'
+  eol_colon: 'EOL:'
+  eol_glossary: EOL-Glossaire
+  eol_news: EOL-Neiegkeeten
+  eol_pages: Säiten
+  error_500_page_title: Ups!
+  error_default_page_title: Ups!
+  example_colon: 'Beispill:'
+  expired: Ofgelaf
+  external_link_header: Externe Link
+  external_link_icon_alt_text: Externe Link.
+  facebook: Facebook
+  family_name_colon: 'Familljennumm:'
+  feedback: Feedback
+  file: Fichier
+  filter_button: Filter
+  filter_by_day: Filter pro Dag
+  filter_by_subject: No Sujet filteren
+  filter_by_type_all_option: all Typen
+  filter_by_type_image_option: Biller
+  filter_by_type_link_option: Linken
+  filter_by_type_text_option: Artikelen
+  filter_by_type_user_option: Leit
+  filter_by_type_video_option: Videoen
+  filter_by_type_comment_option: Bemierkungen
+  filter_by_type_name_option: Nimm
+  filter_newsfeed_option_messages: Bemierkungen
+  filter_newsfeed_option_community: Communautéit
+  forgot_password_form_cancel: Ofbriechen
+  forgot_password_form_header: Setzt Äert Passwuert zréck
+  frequency: Frequenz
+  frequency_daily: All Dag
+  frequency_monthly: All Mount
+  frequency_never: Ni
+  frequency_weekly: All Woch
+  glossary: Glossaire
+  glossary_is_empty: (Glossaire ass eidel)
+  glossary_subhead: Glossaire
+  go_back: zréck goen
+  go: Lass
+  google: Google
+  hello_user: 'Salut %{user}'
+  help: Hëllef
+  here: hei
   hidden: Verstoppt
+  hide: verstoppen
+  hierarchy: Hierarchie
   home: Haaptsäit
+  html_format: (HTML-Format)
+  image: Bild
   image_not_found: Bild net fonnt
+  image_title_without_taxa: Bild vun engem onbekannten Taxon
   images: Biller
   indexed: Indexéiert
   invite_members_label: Memberen invitéieren
-  language: "Sprooch:"
-  language_with_count: "%{language} (%{count})"
+  item_type_article: Artikel
+  item_type_community: Communautéit
+  item_type_image: Bild
+  item_type_image_map: Kaart
+  item_type_link: Link
+  item_type_map: Kaart
+  item_type_person: Persoun
+  item_type_video: Video
+  item_type_article_assistive: Dëst Element ass en Artikel
+  item_type_collection_assistive: Dëst Element ass eng Sammlung
+  item_type_community_assistive: Dëst Element ass eng Communautéit
+  item_type_image_assistive: Dëst Element ass e Bild
+  item_type_image_map_assistive: Dëst Element ass e Bild vun enger Kaart
+  item_type_link_assistive: Dëst Element ass e Link
+  item_type_map_assistive: Dëst Element ass eng Kaart
+  item_type_person_assistive: Dëst Element ass eng Persoun
+  item_type_sound_assistive: Dëst Element ass e Geräisch
+  item_type_video_assistive: Dësen Objet ass e Video
+  known_uri_category_header: Kategorien
+  known_uri_missing_translation: Net iwwersat, w.e.g. änneren
+  known_uri_name_and_uri: '%{name} (%{uri})'
+  known_uri_updated: URI aktualiséiert.
+  known_uri_label_indirectly_equivalent: ass indirekt equivalent mat
+  label: Etikett
+  language: 'Sprooch:'
   languages: Sproochen
+  language_with_count: '%{language} (%{count})'
+  learn_about_communities: Wéi kann ech matmaachen?
+  learn_about_eol: Wéi kann ech EOL benotzen?
+  learn_how_to_contribute: Wéi Dir matmaache kënnt.
   learn_more_lowercase: Fir méi ze wëssen
+  legend: 'Erklärung:'
   license: Lizenz
+  license_none: Keng
+  license_cc_zero: Creative Commons — CC0
+  link_to_this_term: Link op dëse Begrëff
+  link_to_top_of_page: uewen
   literature: Literatur
+  literature_empty: Keng Referenze fonnt.
   literature_header: Referenzen
+  location_colon: 'Plaz:'
+  logo_header: Logo
+  message_colon: 'Message:'
+  method: Method
   methods: Methoden
+  missing_interpolation_argument_error: '[Iwwersetzung net komplett]'
+  monthly: All Mount
   move: Réckelen
   my_activity: Meng Aktivitéiten
+  name_colon: 'Numm:'
   name: Numm
   names: Nimm
+  names_filter: Nimm
   names_children_column_header: Kanner
   names_name_column_header: Numm
+  names_sources_column_header: Quellen
+  mobile:
+    taxa:
+      details: Detailer
+      maps: Kaarten
+      literature: Literatur
+      community: Communautéit
+      images: Biller
+      videos: Videoen
+    search:
+      suggestions: Virschléi
+      results: Resultater
   never: Ni
+  news_missing_content_title: Iwwersetzung feelt
+  new_user: Neie Benotzer
+  next: Nächst
+  no_answer: Neen
+  none: keen
+  no: Neen
+  note: 'Notiz:'
+  notes: Notizen
+  notification_frequency_never: Ni
+  notification_frequency_weekly: All Woch
+  taxon_not_found_error: '"%{taxon}" net fonnt'
+  not_published_yet: nach net verëffentlecht
+  object: Objet
+  object_status_all_option: All
+  object_type_community_option: Communautéit
   object_type_image_option: Bild
+  object_type_link_option: Link
+  object_type_text_option: Text
   object_type_user_option: Benotzer
+  object_type_video_option: Video
   object_visibility_invisible_option: Verstoppt
+  option_please_select: Sicht w.e.g. eraus
+  other_us_dollars_amount: 'Anerer: US$'
   overview: Iwwersiicht
+  page_name: Numm vun der Säit
+  page: Säit
   pages_title: Säiten
   pages_with_pictures_and_text: Säite mat Biller an Text
   pages_with_pictures_or_text: Säite mat Biller oder Text
-  password_colon: "Passwuert:"
+  pagination_page_number: 'Säit %{number}'
+  pagination_next: Nächst
+  pagination_previous: Vireg
+  parameters: Parameteren
+  partner: Partner
+  password_colon: 'Passwuert:'
+  pause: Paus
+  profile_colon: 'Profil:'
   profile: Profil
-  profile_colon: "Profil:"
-  punctuation_comma: ","
+  project: Projet
+  public: Ëffentlech
+  punctuation_comma: ,
+  punctuation_semi_colon: ;
+  range: Beräich
   recent_updates: Rezent Aktualisatiounen
+  recently_used_link: Rezent benotzt
+  reference: Referenz
+  references_cabs_colon: 'Referenzen:'
+  remove: Ewechhuelen
+  reply: Äntwerten
+  required: Obligatoresch
+  required_form_element: Obligatoresch
+  resource_import_frequency:
+    once: Eemol importéieren
+  results: Resultater
   revisions: Versiounen
   rights: Rechter
+  save_comment_lowercase: Bemierkung späicheren
   save: Späicheren
   search: Sichen
+  search_next_label: Nächst
+  search_previous_label: Vireg
+  search_field_synonym: Synonym
   search_placeholder: An EOL sichen ...
   search_the_site: Um Site sichen
-  selected_language_advisory_information: Dëst ass d'Sprooch déi elo erausgesicht ass.
+  select_colon: 'Eraussichen:'
+  selected_language_advisory_information: "Dëst ass d'Sprooch déi elo erausgesicht ass."
+  show: Weisen
+  show_more_row_data_link: méi
+  site_language: Sprooch vum Site
   sort_by_button: Zortéieren
   sort_by_newest_option: Neist
+  sort_by_alphabetical_option: Alphabetesch
+  sort_by_value_ascending: "Niddreg Wäerter fir d'éischt"
+  sort_by_value_descending: "Héich Wäerter fir d'éischt"
+  source: Quell
+  source_colon: 'Quell:'
   source_url: Quell-URL
+  stats: Statistiken
+  stat: Stat
+  submitting: Waart w.e.g. ...
+  summary_thumbnail_title: 'Resumé:'
+  synonym: Synonym
   table_column_header_actions: Aktiounen
+  task_status_active_option: Aktiv
+  task_status_ignored_option: Ignoréiert
+  terms_agreement_form_submit: "Ech sinn d'accord"
   test: Test
+  test_it_out: Probéiert et aus
+  text: Text
+  text_capital: Text
   text_summary_empty_header: Kuerze Resumé
+  thanks_for_your_time: Merci fir Är Zäit,
+  thank_you: Merci
+  the_content_was_updated: Den Inhalt gouf aktualiséiert.
+  the_file_was_uploaded: De Fichier gouf eropgelueden.
+  the_user_was_updated: De Benotzer gouf aktualiséiert.
+  this_comment_was_deleted: Dës Bemierkung gouf geläscht.
   title: Titel
+  topic: Thema
+  total: Total
+  translations_submit: Iwwersetzung weisen
+  true: Wouer
+  true_label: Richteg
+  truncated_comment_omission: "... <a href='%{link}'>méi</a>"
+  truncated_comment_omission_linkless: ...
+  truncated_news_item_omission: "... <a href='%{link}'>méi</a>"
+  twitter: Twitter
+  type: Typ
+  unit_of_measure: Moosseenheet
   unknown: Onbekannt
+  update: Aktualiséieren
   update_language: Sprooch aktualiséieren
-  us_dolars_75: 75 USD
+  update_page: Säit aktualiséieren
+  updated: Aktualiséiert
+  updated_colon: 'Aktualiséiert:'
+  updates: Aktualisatiounen
+  upload: Eroplueden
+  url: URL
   us_dollars_100: 100 USD
   us_dollars_35: 35 USD
   us_dollars_50: 50 USD
+  us_dolars_75: 75 USD
+  user_activity_stats_header: Aktivitéit
+  user_no_longer_active_message: Dëse Benotzer ass net méi aktiv.
+  username_taken: '%{name} gëtt scho benotzt'
+  username_colon: 'Benotzernumm:'
+  username: Benotzernumm
   user: Benotzer
-  username_colon: "Benotzernumm:"
-  username_taken: "%{name} gëtt scho benotzt"
   users_about_me_header: Iwwer mech
+  users_form_account_header: Äre Kont
+  values: Wäerter
+  value: Wäert
+  value_empty: (eidel)
+  versions_colon: 'Versiounen:'
+  view_verb: Weisen
   view_translation_source_link: Quell vun der Iwwersetzung weisen
   watch_list: Iwwerwaachungslëscht
+  weekly: All Woch
+  welcome: Wëllkomm
   what_is_eol: Wat ass EOL?
   what_is_this_question: Wat ass dat?
-  will_paginate: 
-    next_label: Nächst &#8594;
-    page_gap: "&hellip;"
-    previous_label: "&#8592; Vireg"
+  yahoo_images: Yahoo Images
+  yahoo: Yahoo
   year: Joer
   yes_answer: Jo
-  you_are_not_authorized_to_perform_this_action: Dir Däerft dës Aktioun net maachen.
-  your_current_rating_0_of_5: "Är aktuell Bewäertung: 0 vu 5"
-  your_current_rating_1_of_5: "Är aktuell Bewäertung: 1 vu 5"
-  your_current_rating_2_of_5: "Är aktuell Bewäertung: 2 vu 5"
-  your_current_rating_3_of_5: "Är aktuell Bewäertung: 3 vu 5"
-  your_current_rating_4_of_5: "Är aktuell Bewäertung: 4 vu 5"
-  your_current_rating_5_of_5: "Är aktuell Bewäertung: 5 vu 5"
+  you_are_not_authorized_to_perform_this_action: Dir däerft dës Aktioun net maachen.
+  your_ip_address: Är IP-Adress
   your_preferences: Meng Astellungen
   your_rating: Är Bewäertung
+  youtube: YouTube

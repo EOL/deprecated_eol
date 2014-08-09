@@ -1,6 +1,41 @@
-# Messages for Lezghian (Лезги)
+# Messages for Lezghian (лезги)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
+# Author: Lezgia
 # Author: Namik
-lez: 
+# Author: Soul Train
+---
+lez:
+  activerecord:
+    models:
+      user: Аккоунт
+    attributes:
+      collection:
+        name: Коллекциди тlор
+        description: Къагъаз маса чlаларал
+        logo: >
+          Дибди шикил
+          коллекциди
+      collection_item:
+        sort_field: Цlарцle тъун
+        refs: Элячlун
+      comment:
+        body: Веревирдар
+      contact:
+        name: Тlор
+      content_partner:
+        full_name: Проекдин тlор
+        homepage: Проекдин URL
+        id: ID
+        public: Жузун
+      data_object:
+        bibliographic_citation: Умирмикит элачlун
+        description: Тегьерар кихьин
+        object_title: Къилинцlар
+        rights_holder: Дуьвал иеси
+      eol_statistic:
+        members_count: Уртахар
+        communities_count: Мехьелар
+        collections_count: Коллекцияр
+        pages_count: Вири авай чинар
   help: Куьмек

@@ -1,11 +1,12 @@
 # Messages for Malayalam (മലയാളം)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: phpyaml
 # Author: Akhilan
 # Author: Manuspanicker
 # Author: Praveenp
 # Author: Raghith
-ml: 
+---
+ml:
   translated_activities-name-activity_id-19: ഞാൻ
   translated_activities-name-activity_id-50: വിശ്വാസയോഗ്യമല്ലാത്ത
   translated_activities-name-activity_id-51: പ്രദർശിപ്പിക്കുക
@@ -19,7 +20,6 @@ ml:
   translated_activities-name-activity_id-59: സംശോധനം ചെയ്യാത്തത്
   translated_activities-name-activity_id-63: സമാഹരിക്കുക
   translated_activities-name-activity_id-64: നീക്കം ചെയ്യുക
-  translated_agent_roles-label-agent_role_id-1: അനിമേറ്റർ
   translated_agent_roles-label-agent_role_id-10: പദ്ധതി
   translated_agent_roles-label-agent_role_id-11: പ്രസാധക(ൻ)
   translated_agent_roles-label-agent_role_id-12: ശേഖരിക്കുന്നയാൾ
@@ -27,11 +27,12 @@ ml:
   translated_agent_roles-label-agent_role_id-14: സ്രോതസ്സ് ഡേറ്റാബേസ്
   translated_agent_roles-label-agent_role_id-15: വ്യക്തിയുമായി ബന്ധപ്പെടുക
   translated_agent_roles-label-agent_role_id-16: സംഭാവന ചെയ്തയാൾ
-  translated_agent_roles-label-agent_role_id-2: രചയിതാവ്
+  translated_agent_roles-label-agent_role_id-1: അനിമേറ്റർ
   translated_agent_roles-label-agent_role_id-21: സേവനകർത്താവ്
   translated_agent_roles-label-agent_role_id-22: പരിഭാഷക(ൻ)
   translated_agent_roles-label-agent_role_id-23: ശാസ്ത്രീയ സംശോധക(ൻ)
   translated_agent_roles-label-agent_role_id-24: ഭാഷാ സംശോധക(ൻ)
+  translated_agent_roles-label-agent_role_id-2: രചയിതാവ്
   translated_agent_roles-label-agent_role_id-5: സ്രഷ്ടാവ്
   translated_agent_roles-label-agent_role_id-6: സംവിധായകൻ(യിക)
   translated_agent_roles-label-agent_role_id-7: എഡിറ്റർ
@@ -39,7 +40,6 @@ ml:
   translated_audiences-label-audience_id-1: അനുഭവസമ്പന്നരായ ഉപയോക്താക്കൾ
   translated_audiences-label-audience_id-2: പൊതുജനം
   translated_audiences-label-audience_id-3: കുട്ടികൾ
-  translated_collection_types-label-collection_type_id-1: ടാക്സോണമി
   translated_collection_types-label-collection_type_id-10: ശബ്ദങ്ങൾ
   translated_collection_types-label-collection_type_id-11: കണ്ണികൾ
   translated_collection_types-label-collection_type_id-12: സാഹിത്യം
@@ -49,6 +49,7 @@ ml:
   translated_collection_types-label-collection_type_id-17: വിതരണം
   translated_collection_types-label-collection_type_id-18: സംരക്ഷണസ്ഥിതി
   translated_collection_types-label-collection_type_id-19: നാമത്തിന്റെ വിവരങ്ങൾ
+  translated_collection_types-label-collection_type_id-1: ടാക്സോണമി
   translated_collection_types-label-collection_type_id-21: നാമകരണം
   translated_collection_types-label-collection_type_id-22: ശബ്ദങ്ങൾ
   translated_collection_types-label-collection_type_id-23: കണ്ണികൾ
@@ -63,8 +64,8 @@ ml:
   translated_content_partner_statuses-label-content_partner_status_id-3: ആർക്കൈവ്‌ഡ്
   translated_content_partner_statuses-label-content_partner_status_id-4: നിഷ്‌ക്രിയം
   translated_content_tables-label-content_table_id-1: വിശദാംശങ്ങൾ
-  translated_data_types-label-data_type_id-1: ചിത്രങ്ങൾ
   translated_data_types-label-data_type_id-10: ഭൂപടം
+  translated_data_types-label-data_type_id-1: ചിത്രങ്ങൾ
   translated_data_types-label-data_type_id-2: ശബ്ദങ്ങൾ
   translated_data_types-label-data_type_id-3: എഴുത്ത്
   translated_data_types-label-data_type_id-4: വീഡിയോ
@@ -72,7 +73,6 @@ ml:
   translated_data_types-label-data_type_id-7: ഫ്ലാഷ്
   translated_data_types-label-data_type_id-8: യൂട്യൂബ്
   translated_licenses-description-license_id-29: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
-  translated_licenses-description-license_id-3: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-30: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-31: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-32: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
@@ -83,9 +83,10 @@ ml:
   translated_licenses-description-license_id-37: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-38: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-39: പൊതുസഞ്ചയം
-  translated_licenses-description-license_id-4: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
+  translated_licenses-description-license_id-3: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-42: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-43: അനുമതി ബാധകമല്ല
+  translated_licenses-description-license_id-4: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-5: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-6: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
   translated_licenses-description-license_id-7: ചില അവകാശങ്ങൾ സംരക്ഷിക്കപ്പെട്ടിരിക്കുന്നു
@@ -96,8 +97,8 @@ ml:
   translated_ranks-label-rank_id-266: നിര
   translated_ranks-label-rank_id-280: ഫൈലം
   translated_ranks-label-rank_id-99: കുടുംബം
-  translated_resource_statuses-label-resource_status_id-1: അപ്‌ലോഡ് ചെയ്തുകൊണ്ടിരിക്കുന്നു
   translated_resource_statuses-label-resource_status_id-10: പ്രസിദ്ധീകരിച്ചു
+  translated_resource_statuses-label-resource_status_id-1: അപ്‌ലോഡ് ചെയ്തുകൊണ്ടിരിക്കുന്നു
   translated_resource_statuses-label-resource_status_id-2: അപ്‌ലോഡ് ചെയ്തിരിക്കുന്നു
   translated_resource_statuses-label-resource_status_id-3: അപ്‌ലോഡ് ചെയ്യൽ പരാജയപ്പെട്ടു
   translated_service_types-label-service_type_id-2: മറ്റുള്ളവ
@@ -107,9 +108,9 @@ ml:
   translated_statuses-label-status_id-2: പുതുക്കി
   translated_statuses-label-status_id-3: മാറ്റമില്ല
   translated_statuses-label-status_id-4: പുനരുപയോഗിച്ചിരിക്കുന്നു
-  translated_synonym_relations-label-synonym_relation_id-1: പര്യായം
   translated_synonym_relations-label-synonym_relation_id-12: ഉൾപ്പെടുന്നു
   translated_synonym_relations-label-synonym_relation_id-19: അംഗീകരിച്ച പേര്
+  translated_synonym_relations-label-synonym_relation_id-1: പര്യായം
   translated_synonym_relations-label-synonym_relation_id-3: സംക്ഷേപം
   translated_synonym_relations-label-synonym_relation_id-50: സാധുതയുള്ളത്
   translated_synonym_relations-label-synonym_relation_id-51: സ്വീകരിച്ചവ
@@ -130,12 +131,12 @@ ml:
   translated_table_of_contents-label-table_of_contents_id-318: ജീവിതചക്രം
   translated_table_of_contents-label-table_of_contents_id-320: പുനരുത്പാദനം
   translated_table_of_contents-label-table_of_contents_id-321: വളർച്ച
-  translated_table_of_contents-label-table_of_contents_id-33: താത്പര്യങ്ങൾ
   translated_table_of_contents-label-table_of_contents_id-331: ബാർകോഡ്
   translated_table_of_contents-label-table_of_contents_id-332: ജീനോം
   translated_table_of_contents-label-table_of_contents_id-336: കുറിപ്പുകൾ
-  translated_table_of_contents-label-table_of_contents_id-34: അഭിപ്രായങ്ങൾ
+  translated_table_of_contents-label-table_of_contents_id-33: താത്പര്യങ്ങൾ
   translated_table_of_contents-label-table_of_contents_id-344: വിവരം
+  translated_table_of_contents-label-table_of_contents_id-34: അഭിപ്രായങ്ങൾ
   translated_table_of_contents-label-table_of_contents_id-41: സ്വാഭാവിക വാസസ്ഥലം
   translated_untrust_reasons-label-untrust_reason_id-5: മറ്റുള്ളവ
   translated_user_identities-label-user_identity_id-2: ഒരു വിദ്യാർത്ഥി
@@ -146,3 +147,4 @@ ml:
   translated_visibilities-label-visibility_id-0: അദൃശ്യമായ
   translated_visibilities-label-visibility_id-1: ദൃശ്യം
   translated_visibilities-label-visibility_id-2: എങ്ങനെയുണ്ടെന്ന് കാണുക
+...

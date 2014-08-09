@@ -1,42 +1,87 @@
 # Messages for Maithili (मैथिली)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Vinitutpal
-mai: 
-  account_registered_but_not_ready_try_later: अहां के खाता पंजीकृत अछि,मुदा अहां के उपयोग करहि के वास्ते तैयार नहि अछि. कृपया पांच मिनट में फेर सं प्रयास करू.
-  add_to_my_collection_button: हमर संग्रह में जोडू
-  admin: व्यवस्थापक
+---
+mai:
+  account_registered_but_not_ready_try_later: >
+    अहां के खाता
+    पंजीकृत
+    अछि,मुदा अहां
+    के उपयोग करहि
+    के वास्ते
+    तैयार नहि अछि.
+    कृपया पांच
+    मिनट में फेर सं
+    प्रयास करू.
+  add_to_my_collection_button: >
+    हमर संग्रह में
+    जोडू
   cancel: खतम करू
-  communities: समुदाय
-  community_activity: सामुदायिक गतिविधि
+  community_activity: >
+    सामुदायिक
+    गतिविधि
   content_summary_table_count_column_header: गणना
-  could_not_find_user: अहि प्रयोक्ताक लेल सदस्य नहि भेटल
-  delete_community: अहि समुदाय के हटाऊ
-  edit_community: समुदाय के सम्पादित करू
-  edit_my_profile: हमर प्रोफाइल के सम्पादित करू
+  could_not_find_user: >
+    अहि प्रयोक्ताक
+    लेल सदस्य नहि
+    भेटल
+  delete_community: >
+    अहि समुदाय के
+    हटाऊ
+  edit_community: >
+    समुदाय के
+    सम्पादित करू
+  edit_my_profile: >
+    हमर प्रोफाइल
+    के सम्पादित
+    करू
   filter_by_status_all_option: सभटा स्थिति
   filter_by_type_all_option: सभ तरहे
   filtered_information: छनित जानकारी
-  global_access_tagline: पृथ्वी पर जीवनक ज्ञानक लेल वैश्विक पहुँच।
+  global_access_tagline: >
+    पृथ्वी पर
+    जीवनक ज्ञानक
+    लेल वैश्विक
+    पहुँच।
   go: जाऊ
   help: मदति
   home: घर
   images: तस्वीर
-  learn_about_content_partners: हमर सामग्री साझेदार के जानियो
+  learn_about_content_partners: >
+    हमर सामग्री
+    साझेदार के
+    जानियो
   location: ठाम
-  login_or_create_account: लॉग इन / खेसरा बनाऊ
+  login_or_create_account: >
+    लॉग इन / खेसरा
+    बनाऊ
   media: मीडिया
-  minimal_page: न्यूनतम पृष्ठ
-  must_be_associated_with_either_a_user_or_a_community: या ते कोनो उपयोगकर्ता वा कोनो एकटा समुदायक संग जुड़ल रहबाक चाहि.
+  must_be_associated_with_either_a_user_or_a_community: >
+    या ते कोनो
+    उपयोगकर्ता वा
+    कोनो एकटा
+    समुदायक संग
+    जुड़ल रहबाक
+    चाहि.
   my_activity: हमर गतिविधि
   my_info: हमरा बारे में
-  pages_with_pictures_and_text: तस्वीर आ पाठक संग पृष्ठ
+  pages_with_pictures_and_text: >
+    तस्वीर आ पाठक
+    संग पृष्ठ
   personal_space: व्यक्तिगत ठाम
   remove_membership: सदस्यता हटाऊ
-  show_status_message: स्थिति सन्देश देखाऊ
+  show_status_message: >
+    स्थिति सन्देश
+    देखाऊ
   source_url: स्रोत URL
-  text_summary_more_link: पूर्ण प्रविष्टि पढू
+  text_summary_more_link: >
+    पूर्ण
+    प्रविष्टि पढू
   twitter: ट्विटर
   unreviewed: नहि भेटल
-  you_are_not_authorized_to_perform_this_action: अहां अहि काज लेल अधिकृत नहि छी.
-  your_rating: अहांक  रेटिंग
+  you_are_not_authorized_to_perform_this_action: >
+    अहां अहि काज
+    लेल अधिकृत नहि
+    छी.
+  your_rating: 'अहांक  रेटिंग'

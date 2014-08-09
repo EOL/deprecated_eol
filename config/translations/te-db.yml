@@ -1,10 +1,11 @@
 # Messages for Telugu (తెలుగు)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: phpyaml
 # Author: Jprmvnvijay5
 # Author: Suryavnk
 # Author: Veeven
-te: 
+---
+te:
   translated_activities-name-activity_id-19: ముఖచిత్రం
   translated_activities-name-activity_id-50: నమ్మలేనిది
   translated_activities-name-activity_id-51: చూపించు
@@ -18,7 +19,6 @@ te:
   translated_activities-name-activity_id-59: పరిశీలించనిది
   translated_activities-name-activity_id-63: సేకరించు
   translated_activities-name-activity_id-64: తొలగించు
-  translated_agent_roles-label-agent_role_id-1: ఊహాచిత్రకారుడు
   translated_agent_roles-label-agent_role_id-10: పథకము
   translated_agent_roles-label-agent_role_id-11: ప్రచురణకర్త
   translated_agent_roles-label-agent_role_id-12: నమోదుచేయునది
@@ -26,11 +26,12 @@ te:
   translated_agent_roles-label-agent_role_id-14: మూల సమాచార నిధి
   translated_agent_roles-label-agent_role_id-15: సంప్రదించాల్సిన వ్యక్తి
   translated_agent_roles-label-agent_role_id-16: సహాయకుడు
-  translated_agent_roles-label-agent_role_id-2: రచయిత
+  translated_agent_roles-label-agent_role_id-1: ఊహాచిత్రకారుడు
   translated_agent_roles-label-agent_role_id-21: అందించువాడు
   translated_agent_roles-label-agent_role_id-22: అనువాదకుడు
   translated_agent_roles-label-agent_role_id-23: శాస్త్ర పరిశీలకుడు
   translated_agent_roles-label-agent_role_id-24: భాషా విమర్శకుడు
+  translated_agent_roles-label-agent_role_id-2: రచయిత
   translated_agent_roles-label-agent_role_id-5: సృష్టికర్త
   translated_agent_roles-label-agent_role_id-6: సంచాలకుడు
   translated_agent_roles-label-agent_role_id-7: సంపాదకుడు
@@ -39,7 +40,6 @@ te:
   translated_audiences-label-audience_id-1: నైపుణ్య వాడుకరులు
   translated_audiences-label-audience_id-2: సాధారణ ప్రజలు
   translated_audiences-label-audience_id-3: బాలలు
-  translated_collection_types-label-collection_type_id-1: వర్గీకరణ
   translated_collection_types-label-collection_type_id-10: శబ్దాలు
   translated_collection_types-label-collection_type_id-11: లంకెలు
   translated_collection_types-label-collection_type_id-12: సాహిత్యం
@@ -50,12 +50,13 @@ te:
   translated_collection_types-label-collection_type_id-17: పంపిణీ
   translated_collection_types-label-collection_type_id-18: సంభాషణా స్థితి
   translated_collection_types-label-collection_type_id-19: పేరు సమాచారం
-  translated_collection_types-label-collection_type_id-2: అణు రేఖా సంకేతాలు
+  translated_collection_types-label-collection_type_id-1: వర్గీకరణ
   translated_collection_types-label-collection_type_id-20: అణు సమాచారం
   translated_collection_types-label-collection_type_id-21: నామకరణ పద్దతి
   translated_collection_types-label-collection_type_id-22: శబ్దాలు
   translated_collection_types-label-collection_type_id-23: లంకెలు
   translated_collection_types-label-collection_type_id-24: సాహిత్యం
+  translated_collection_types-label-collection_type_id-2: అణు రేఖా సంకేతాలు
   translated_collection_types-label-collection_type_id-3: వివరణ
   translated_collection_types-label-collection_type_id-4: బొమ్మలు
   translated_collection_types-label-collection_type_id-5: పంపిణీ
@@ -72,19 +73,23 @@ te:
   translated_contact_subjects-title-contact_subject_id-27: సమాచార భాగస్వామిగా చేరు
   translated_contact_subjects-title-contact_subject_id-28: సమాచార భాగస్వామి సహాయం
   translated_contact_subjects-title-contact_subject_id-29: రక్షక సహకారం
-  translated_contact_subjects-title-contact_subject_id-30: సరిచేయండి (అచ్చు తప్పు మరియు వ్యాకరణం, బొమ్మలు, సమాచారం)
-  translated_contact_subjects-title-contact_subject_id-31: బొమ్మలు, చిత్రాలు, శబ్దాలను అందించండి
-  translated_contact_subjects-title-contact_subject_id-32: సమాచార అభ్యర్ధనలు (ప్రశ్నోత్తరాలు, పత్రికా విచారణ, సంకేత అభ్యర్ధనలు)
+  translated_contact_subjects-title-contact_subject_id-30: సరిచేయండి (అచ్చు తప్పు
+    మరియు వ్యాకరణం, బొమ్మలు, సమాచారం)
+  translated_contact_subjects-title-contact_subject_id-31: బొమ్మలు, చిత్రాలు, శబ్దాలను
+    అందించండి
+  translated_contact_subjects-title-contact_subject_id-32: సమాచార అభ్యర్ధనలు (ప్రశ్నోత్తరాలు,
+    పత్రికా విచారణ, సంకేత అభ్యర్ధనలు)
   translated_contact_subjects-title-contact_subject_id-33: ఆర్ధిక సాయం చేయండి
-  translated_contact_subjects-title-contact_subject_id-34: సాంకేతిక ప్రశ్నలు (వెతకటంలో సమస్యలు, అంతర్జాల పనితీరు)
+  translated_contact_subjects-title-contact_subject_id-34: సాంకేతిక ప్రశ్నలు (వెతకటంలో
+    సమస్యలు, అంతర్జాల పనితీరు)
   translated_contact_subjects-title-contact_subject_id-35: సాధారణ అభిప్రాయం
   translated_content_partner_statuses-label-content_partner_status_id-1: వేచివున్నవి
   translated_content_partner_statuses-label-content_partner_status_id-2: క్రియాశీలం
   translated_content_partner_statuses-label-content_partner_status_id-3: అటకెక్కించడం
   translated_content_partner_statuses-label-content_partner_status_id-4: క్రియారహితం
   translated_content_tables-label-content_table_id-1: వివరాలు
-  translated_data_types-label-data_type_id-1: బొమ్మ
   translated_data_types-label-data_type_id-10: పటం
+  translated_data_types-label-data_type_id-1: బొమ్మ
   translated_data_types-label-data_type_id-2: శబ్దం
   translated_data_types-label-data_type_id-3: పాఠ్యం
   translated_data_types-label-data_type_id-4: దృశ్యం
@@ -93,9 +98,8 @@ te:
   translated_data_types-label-data_type_id-7: మెరుపు
   translated_data_types-label-data_type_id-8: యూట్యూబ్
   translated_licenses-description-license_id-1: హక్కులపై ఎలాంటి ఆంక్షలూ లేవు
-  translated_licenses-description-license_id-2: "&#169; సర్వహక్కులు రక్షితం"
   translated_licenses-description-license_id-29: కొన్ని హక్కులు రక్షితం
-  translated_licenses-description-license_id-3: కొన్ని హక్కులు రక్షితం
+  translated_licenses-description-license_id-2: '&#169; సర్వహక్కులు రక్షితం'
   translated_licenses-description-license_id-30: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-31: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-32: కొన్ని హక్కులు రక్షితం
@@ -106,9 +110,10 @@ te:
   translated_licenses-description-license_id-37: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-38: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-39: అందరి ప్రదేశం
-  translated_licenses-description-license_id-4: కొన్ని హక్కులు రక్షితం
+  translated_licenses-description-license_id-3: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-42: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-43: సరైన అనుమతి లేదు
+  translated_licenses-description-license_id-4: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-5: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-6: కొన్ని హక్కులు రక్షితం
   translated_licenses-description-license_id-7: కొన్ని హక్కులు రక్షితం
@@ -129,13 +134,13 @@ te:
   translated_ranks-label-rank_id-383: ఉప కుటుంబం
   translated_ranks-label-rank_id-396: ఉపరాజ్యం
   translated_ranks-label-rank_id-494: తెగ
-  translated_ranks-label-rank_id-51: తరగతి
   translated_ranks-label-rank_id-518: ప్రత్యేక రకము
+  translated_ranks-label-rank_id-51: తరగతి
   translated_ranks-label-rank_id-74: విభజన
   translated_ranks-label-rank_id-99: కుటుంబం
-  translated_resource_statuses-label-resource_status_id-1: ఎగుమతి
   translated_resource_statuses-label-resource_status_id-10: ప్రచురితం
   translated_resource_statuses-label-resource_status_id-11: మిగిలియున్న ప్రచురణ
+  translated_resource_statuses-label-resource_status_id-1: ఎగుమతి
   translated_resource_statuses-label-resource_status_id-2: ఎగుమతి అయింది
   translated_resource_statuses-label-resource_status_id-3: ఎగుమతి విఫలం
   translated_resource_statuses-label-resource_status_id-4: సమాచార కేంద్రానికి తరలించబడినది
@@ -154,30 +159,35 @@ te:
   translated_statuses-label-status_id-1: చొప్పించిన
   translated_statuses-label-status_id-3: మార్పులేనిది
   translated_statuses-label-status_id-4: పునర్ వినియోగించిన
-  translated_synonym_relations-label-synonym_relation_id-1: పర్యాయపదం
   translated_synonym_relations-label-synonym_relation_id-10: జన్యువుల సమాచారనిధి పర్యాయపదం
   translated_synonym_relations-label-synonym_relation_id-11: భాగమై
   translated_synonym_relations-label-synonym_relation_id-12: కలిగియున్న
   translated_synonym_relations-label-synonym_relation_id-14: అచ్చు తప్పు
-  translated_synonym_relations-label-synonym_relation_id-15: సూక్ష్మ క్రిముల జీవిత చక్రంలో ఒక భాగం
+  translated_synonym_relations-label-synonym_relation_id-15: సూక్ష్మ క్రిముల జీవిత
+    చక్రంలో ఒక భాగం
   translated_synonym_relations-label-synonym_relation_id-16: ద్వంద్వార్ధ పర్యాయపదం
   translated_synonym_relations-label-synonym_relation_id-17: తప్పుగా వాడిన పేరు
   translated_synonym_relations-label-synonym_relation_id-18: షరతులతో ఆమోదించబడిన పేరు
   translated_synonym_relations-label-synonym_relation_id-19: ఆమోదించబడిన పేరు
-  translated_synonym_relations-label-synonym_relation_id-2: సామాన్య నామము
+  translated_synonym_relations-label-synonym_relation_id-1: పర్యాయపదం
   translated_synonym_relations-label-synonym_relation_id-20: సమాచారనిధి పరికరం
   translated_synonym_relations-label-synonym_relation_id-21: ఇతర, వ్యాఖ్యలు చూడండి
-  translated_synonym_relations-label-synonym_relation_id-22: ప్రమాణిక పదకోశ రూపము (అచ్చుతప్పు)
+  translated_synonym_relations-label-synonym_relation_id-22: ప్రమాణిక పదకోశ రూపము
+    (అచ్చుతప్పు)
   translated_synonym_relations-label-synonym_relation_id-23: తప్పుడు అన్వయం
   translated_synonym_relations-label-synonym_relation_id-24: తిరస్కరించబడిన పేరు
-  translated_synonym_relations-label-synonym_relation_id-25: ఒకేరకంగా పలుకు రెండు భిన్నమైన పదాలు (అక్రమం)
+  translated_synonym_relations-label-synonym_relation_id-25: ఒకేరకంగా పలుకు రెండు
+    భిన్నమైన పదాలు (అక్రమం)
   translated_synonym_relations-label-synonym_relation_id-27: అనవసరమైన పునర్ నామకరణం
-  translated_synonym_relations-label-synonym_relation_id-3: పొట్టిపొడ
-  translated_synonym_relations-label-synonym_relation_id-30: అందుబాటులో లేని, సమాచార నిధి పరికరం
+  translated_synonym_relations-label-synonym_relation_id-2: సామాన్య నామము
+  translated_synonym_relations-label-synonym_relation_id-30: అందుబాటులో లేని, సమాచార
+    నిధి పరికరం
   translated_synonym_relations-label-synonym_relation_id-31: అనవసరమైన పునర్ నియామకం
   translated_synonym_relations-label-synonym_relation_id-32: తర్వాత పేరు/జతకలిసిన
-  translated_synonym_relations-label-synonym_relation_id-33: అందుబాటులోలేని, సాహిత్య అచ్చుతప్పు
+  translated_synonym_relations-label-synonym_relation_id-33: అందుబాటులోలేని, సాహిత్య
+    అచ్చుతప్పు
   translated_synonym_relations-label-synonym_relation_id-34: తొలి పేరు/కలబోత
+  translated_synonym_relations-label-synonym_relation_id-3: పొట్టిపొడ
   translated_synonym_relations-label-synonym_relation_id-48: దొరకని పేరు
   translated_synonym_relations-label-synonym_relation_id-50: సరియైనది
   translated_synonym_relations-label-synonym_relation_id-51: ఒప్పుకొనబడినది
@@ -188,18 +198,17 @@ te:
   translated_synonym_relations-label-synonym_relation_id-63: ఒప్పుకొనబడలేదు
   translated_synonym_relations-label-synonym_relation_id-64: చెల్లని
   translated_synonym_relations-label-synonym_relation_id-68: మొక్కలపెంపకపు
-  translated_table_of_contents-label-table_of_contents_id-1: అవలోకనం
   translated_table_of_contents-label-table_of_contents_id-13: ఉమ్మడి పేరు
   translated_table_of_contents-label-table_of_contents_id-194: పరిమాణం
-  translated_table_of_contents-label-table_of_contents_id-2: క్లుప్త సారాంశం
+  translated_table_of_contents-label-table_of_contents_id-1: అవలోకనం
   translated_table_of_contents-label-table_of_contents_id-218: చెదురు
   translated_table_of_contents-label-table_of_contents_id-221: ప్రమాదాలు
   translated_table_of_contents-label-table_of_contents_id-225: అంతర్జాలమునందు
   translated_table_of_contents-label-table_of_contents_id-226: సమాచార భాగస్వాములు
   translated_table_of_contents-label-table_of_contents_id-227: అంతర్జాలాన్ని వెతుకు
-  translated_table_of_contents-label-table_of_contents_id-24: వ్యాఖ్యానం
   translated_table_of_contents-label-table_of_contents_id-242: సాధారణ పరిసరాలు
   translated_table_of_contents-label-table_of_contents_id-244: ఆధార గ్రంధాలు
+  translated_table_of_contents-label-table_of_contents_id-24: వ్యాఖ్యానం
   translated_table_of_contents-label-table_of_contents_id-251: ఉపయోగాలు
   translated_table_of_contents-label-table_of_contents_id-267: జీవుల ఆకృతి శాస్త్రము
   translated_table_of_contents-label-table_of_contents_id-278: ఆధార గ్రంధాలు
@@ -210,9 +219,10 @@ te:
   translated_table_of_contents-label-table_of_contents_id-296: భాద్యులు
   translated_table_of_contents-label-table_of_contents_id-297: పోషక వ్యూహం
   translated_table_of_contents-label-table_of_contents_id-299: విద్య
-  translated_table_of_contents-label-table_of_contents_id-3: భౌతిక వివరణ
+  translated_table_of_contents-label-table_of_contents_id-2: క్లుప్త సారాంశం
   translated_table_of_contents-label-table_of_contents_id-300: వికీపీడియా
-  translated_table_of_contents-label-table_of_contents_id-303: జీవుల పేరులు మరియు వర్గీకరణ
+  translated_table_of_contents-label-table_of_contents_id-303: జీవుల పేరులు మరియు
+    వర్గీకరణ
   translated_table_of_contents-label-table_of_contents_id-304: సంబంధిత పేర్లు
   translated_table_of_contents-label-table_of_contents_id-305: సమానార్థాలు
   translated_table_of_contents-label-table_of_contents_id-306: పుట గణాంకాలు
@@ -223,7 +233,8 @@ te:
   translated_table_of_contents-label-table_of_contents_id-312: వలస
   translated_table_of_contents-label-table_of_contents_id-313: వ్యాధులు మరియు పరాన్నజీవులు
   translated_table_of_contents-label-table_of_contents_id-314: జనాభా జీవశాస్త్రం
-  translated_table_of_contents-label-table_of_contents_id-315: జీవిత చరిత్ర మరియు ప్రవర్తన
+  translated_table_of_contents-label-table_of_contents_id-315: జీవిత చరిత్ర మరియు
+    ప్రవర్తన
   translated_table_of_contents-label-table_of_contents_id-316: ప్రవర్తన
   translated_table_of_contents-label-table_of_contents_id-317: చక్రకరణము
   translated_table_of_contents-label-table_of_contents_id-318: జీవిత చక్రం
@@ -231,9 +242,9 @@ te:
   translated_table_of_contents-label-table_of_contents_id-320: ప్రత్యుత్పత్తి
   translated_table_of_contents-label-table_of_contents_id-321: పెరుగుదల
   translated_table_of_contents-label-table_of_contents_id-322: శిలాజ చరిత్ర
-  translated_table_of_contents-label-table_of_contents_id-323: జీవశాస్త్ర నామకరణ విధానము లేదా ఆవిర్భావ అధ్యయనం
+  translated_table_of_contents-label-table_of_contents_id-323: జీవశాస్త్ర నామకరణ విధానము
+    లేదా ఆవిర్భావ అధ్యయనం
   translated_table_of_contents-label-table_of_contents_id-328: కణ జీవ శాస్త్రము
-  translated_table_of_contents-label-table_of_contents_id-33: ధోరణులు
   translated_table_of_contents-label-table_of_contents_id-331: గీతల మరుగు మాట
   translated_table_of_contents-label-table_of_contents_id-333: అణు జీవశాస్త్రము
   translated_table_of_contents-label-table_of_contents_id-334: ప్రమాదాలు
@@ -242,16 +253,20 @@ te:
   translated_table_of_contents-label-table_of_contents_id-337: విద్య
   translated_table_of_contents-label-table_of_contents_id-338: విద్య లంకెలు
   translated_table_of_contents-label-table_of_contents_id-339: విద్యా వనరులు
-  translated_table_of_contents-label-table_of_contents_id-34: వ్యాఖ్యలు
-  translated_table_of_contents-label-table_of_contents_id-340: ఉన్నత పాఠశాల పరిశోధన శ్రేణులు
+  translated_table_of_contents-label-table_of_contents_id-33: ధోరణులు
+  translated_table_of_contents-label-table_of_contents_id-340: ఉన్నత పాఠశాల పరిశోధన
+    శ్రేణులు
   translated_table_of_contents-label-table_of_contents_id-341: పౌర విజ్గ్నాన శాస్త్రం
-  translated_table_of_contents-label-table_of_contents_id-343: జీవవైవిద్య వారసత్వ గ్రంధాలయం
+  translated_table_of_contents-label-table_of_contents_id-343: జీవవైవిద్య వారసత్వ
+    గ్రంధాలయం
   translated_table_of_contents-label-table_of_contents_id-344: సమాచారం
   translated_table_of_contents-label-table_of_contents_id-345: సమాచార వనరు
   translated_table_of_contents-label-table_of_contents_id-347: వర్గీకరణ
   translated_table_of_contents-label-table_of_contents_id-348: ఆరకమైన సమాచారం
-  translated_table_of_contents-label-table_of_contents_id-4: జీవావరణం
+  translated_table_of_contents-label-table_of_contents_id-34: వ్యాఖ్యలు
+  translated_table_of_contents-label-table_of_contents_id-3: భౌతిక వివరణ
   translated_table_of_contents-label-table_of_contents_id-41: నివశించేవారు
+  translated_table_of_contents-label-table_of_contents_id-4: జీవావరణం
   translated_untrust_reasons-label-untrust_reason_id-1: తప్పుగా గుర్తించబడిన
   translated_untrust_reasons-label-untrust_reason_id-2: తప్పుడు/తప్పుదోవ పట్టించు
   translated_untrust_reasons-label-untrust_reason_id-3: తక్కువ నాణ్యత
@@ -272,3 +287,4 @@ te:
   translated_visibilities-label-visibility_id-0: అదృశ్యం
   translated_visibilities-label-visibility_id-1: చూడదగిన
   translated_visibilities-label-visibility_id-2: సమీక్షించు
+...

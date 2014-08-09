@@ -1,24 +1,71 @@
-# Messages for Ingush (ГІалгІай Ğalğaj)
+# Messages for Ingush (ГӀалгӀай)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Amire80
 # Author: Sapral Mikail
 # Author: Tagir
-inh: 
-  all_pages: Еррига оагӀувнаш
+---
+inh:
+  activerecord:
+    models:
+      user: чоттлелорг
+    attributes:
+      collection:
+        name: Гулдорга цIи
+        description: Гулдорга чулоацам
+        logo: >
+          Гулдорга гоман
+          суртале
+        show_references: >
+          Зембарг (яздам е
+          URL-моттига)
+      collection_item:
+        refs: Iинкаш
+      comment:
+        body: ХIамоалар
+      community:
+        name: Тоаба цIи
+        description: Тоаба чулоацам
+      contact:
+        comments: Хоам
+        contact_subject_id: Сагац бузаме отт
+        email: Д-хоамни
+        name: ЦIи
+      content_page:
+        page_name: Цхьоален цIи
+        active: Арадаьккхад
+      content_partner:
+        admin_notes: >
+          Мазакулгалхой
+          оаламаш
+        content_partner_status: Хьахоадайтаман куст
+        created_at: Хьадаь да
+        description: >
+          Хьахоадайтаман
+          чулоацам
+        full_name: Хьахоадайтаман цIи
+        homepage: >
+          Хьахоадайтаман
+          URL-моттига
+        notes: Хьахоадайтаман куст
+        public: Массане а
+        user_id: Урхал деш
+      eol_statistic:
+        members_count: Дакъалаьцархой
   cancel: Юхадаккха
-  collections: Гуламаш
   go: Кхоачашде
   help: Новкъoстал
   home: ЦIа
   images: Исбахьалсурташ
-  language: "Мотт:"
+  language: 'Мотт:'
   leave_a_comment: Дош ала
   login: чувала/яла
-  login_or_create_account: Чувала/яла е керда цIи хьакхолла
+  login_or_create_account: >
+    Чувала/яла е керда цIи
+    хьакхолла
   logout: Аравала/яла
   my_info: Са хоам
-  punctuation_comma: ","
+  punctuation_comma: ,
   rights: Бокъо
   show_status_message: Соакхал хьахьокха
   unreviewed: Ца хьажараш

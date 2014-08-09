@@ -1,78 +1,144 @@
 # Messages for Colognian (Ripoarisch)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
+# Author: Kghbln
 # Author: Purodha
-ksh: 
+---
+ksh:
+  activerecord:
+    attributes:
+      collection_job:
+        overwrite: Donn Dubbelte ußtuusche
+      resource:
+        harvest_events: Opsammlonge
+    errors:
+      messages:
+        greater_than: 'moß övver %{count} lijje'
+  helpers:
+    submit:
+      content_page:
+        edit: Ändere
+  will_paginate:
+    page_gap: '&hellip;'
+  forums:
+    posts:
+      close_window: zohmaache
+  users:
+    newsfeeds:
+      comments_link: Aanmärkonge
+  about_resources: Övver de Quälle
+  about_resources_title: Lenks op Quälle ußerhallef
+  add_a_taxon_association_label: Donn en Verbendong med enem Taxon derbei
   admin_link: Övverbleck
-  all_pages: All Sigge
   all_title: All
-  and: ", un"
-  and_between_form_items: ", un"
+  alternative_name_colon: 'Ander Nahme:'
+  and: , un
+  and_between_form_items: , un
+  api_cache_time_to_live_parameter: >
+    de Aanzahl Sekonde, di De de Antwoot em
+    Zweschescheischer hallde wells
   assistive_details_header: Einzelheite
   audio_pause: aanhallde
-  content_partner_filter_option_vetted_no: Nää
+  caching_results: Antwoote em Zweschscheischer
+  comments_on: Bemärkonge zoh
+  common_name_avg: |
+    
+    Dorschnett vun de jewöhnlijje Name
   content_partner_filter_option_vetted_yes: Joh
+  content_partner_filter_option_vetted_no: Nää
+  content_partner_filter_published: Öffentlesch jemaat
+  content_partner_has_unpublished_content_true: Nit öffentlesch jemaat
+  content_partner_has_unpublished_content_false: Alles es öffentlesch jemaat
+  content_partner_resource_auto_publish_true: Joh
+  content_partner_resource_auto_publish_false: Nää
+  content_partner_resource_harvest_event_current_published: Em Momang öffentlesch jemaat
+  content_partner_resource_harvest_event_not_published: Nit öffentlesch jemaat
+  content_partner_resource_harvest_event_previously_published: Fröjer öffentlesch jemaat
+  content_partner_resource_harvest_event_publish_pending: Sull öffentlesch jemaat wääde
+  content_partner_resource_hierarchy_browsable: Kam_mer dren bläddere
+  content_partner_resource_hierarchy_not_browsable: Kam_mer nit dren bläddere
+  content_partner_resource_hierarchy_unknown: Onbikannt
   content_partner_resource_resource_status_new: Aanjelaat
+  content_partner_resource_vetted_true: Joh
+  content_partner_resource_vetted_false: Nää
+  content_partner_resource_view_link: Belooere
+  content_partner_statistics_column_header_total_count: All Sigge
+  content_partner_statistics_month_label: Moohnd
+  content_partner_statistics_year_label: Johr
   content_summary_table_count_column_header: Aanzahl
   copy: Kopeere
-  curators_summary_header_with_count: 
-    one: Eine Kurator hät dat nohjeloort
-    other: "%{count} Kuratore hät dat nohjeloort"
+  count: Aanzahl
+  curators_summary_header_with_count:
+    one: '%{count} Kurator hät dat nohjeloort'
     zero: Keine Kurator hät dat nohjeloort
+    other: '%{count} Kuratore hät dat nohjeloort'
+  your_watch_collection: Ding Oppaßleß
+  currently_published: em Momang öffentlesch jemaat
+  daily: Dääschlesch
   dato_edit_cancel: Ophüre
+  development_version_name: EOL V2 Beta
   detail: Einzelheit
   details_title: Einzelheite
-  development_version_name: EOL V2 Beta
-  donation_sponsorship_preamble: "Wann De mieh övver beshtemmpte einzel Müjjeleschkeite för et Sponsere wesse wells, udder rejelmääßesch jät en der Klingelbüggel donn wells, donn dem Sekretarijaat vum Wööterbooch vum Levve (EOL) en <i lang=\"en\"><a href=\"mailto:%{email_address}\">e-mail</a></i> schriive udder roof aan onger 001-202-633-8730.\nBei de Jelääjeheite för jezielt ze lävve sin:"
+  disabled_for_now: '<span style="text-transform:uppercase">Em Momang affjeschalldt</span>'
   edit_my_profile: Et eijene Profil ändere
   eol_pages: Sigge
   error_404_page_title: Nit jefonge
   filter_by_type_all_option: all Zoote
   filter_by_type_user_option: Lück
+  filter_by_type_sound_option: Töhn
   filter_by_type_video_option: Viddejos
   flickr: Flickr
-  hello_user: Hallo %{user}
+  frequency_daily: Dääschlesch
+  frequency_monthly: Monatlesch
+  frequency_never: Nimmohls
+  frequency_weekly: Wöschentlesch
+  hello_user: 'Hallo %{user}'
   help: Hölp
-  helpers: 
-    submit: 
-      content_page: 
-        edit: Ändere
-      user: 
-        forgot_password: Donn en <i lang="en">e-mail</i> schecke
+  here: heh
   id: Kännong
+  image: Beld
+  image_is_no_longer_available: Dat Beld is nit mieh doh.
+  image_not_found: Dat Beld wohr nit ze fenge.
   images: Belder
-  license: Lizänz
+  item_type_video: Viddejo
+  license: Lėzänz
   location: Der Plaz
-  login_header: Donn Desch met Dingem Zohjang op <abbr title="Wööterbooch vum Levve">EOL</abbr> aanmällde.
-  login_or_create_account: Enlogge udder Aanmälde
   login_required_button: Enlogge es nüdich
+  login_header: 'Donn Desch met Dingem Zohjang op <abbr title="Wööterbooch vum Levve">EOL</abbr> aanmällde.'
+  login_or_create_account: Enlogge udder Aanmälde
   logout: Ußlogge
-  name: Naam
-  names: Name
-  names_name_column_header: Naam
+  name: Naame
+  names: Naame
+  names_name_column_header: Naame
   none: keine
   object_status_all_option: All
   object_type_text_option: Täx
+  object_type_video_option: Viddejo
   object_visibility_all_option: All
-  object_visibility_invisible_option: Vershtoche
+  object_visibility_invisible_option: Verschtoche
   overview: Övverbleck
-  punctuation_comma: ","
+  punctuation_comma: ,
   punctuation_semi_colon: ;
   rights: Rääschde
   sign_out: Ußlogge
   sort_by_button: Zotteere
-  text_with_count: 
-    one: Eine Attikel
-    other: "%{count} Attikele"
+  terms_of_use_link: >
+    Bedengunge för et Bruche un för der
+    Daateschoz
+  text_with_count:
+    one: '%{count} Attikel'
     zero: Kein Attikele
-  twitter: <i lang="en">Twitter</i>
+    other: '%{count} Attikele'
+  gbif_occurrence_disclaimer: |
+    Heh di Kaat boud op Daatesätz övver de Vürkumme uss_em <i lang="en"><a href='http://www.gbif.org/'>GBIF</a></i> op, di velleisch nit et jeampte Jebeed afdäcke.
+  twitter: '<i lang="en">Twitter</i>'
   unknown: Onbikannt
-  user: Metmaacher
+  username_colon: 'Metmaacher_Naame:'
   username: Metmaacher Name
-  username_colon: "Metmaacher_Name:"
+  user_response: Antwoot vum Metmaacher
+  user: Metmaacher
+  versions_colon: 'Väsjohne:'
+  vimeo: Vimeo
   what_is_this_question: Wat es dat?
-  will_paginate: 
-    page_gap: "&hellip;"
   year: Johr
   yes_answer: Joh
-  your_watch_collection: Ding Oppaßleß

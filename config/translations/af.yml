@@ -1,28 +1,32 @@
 # Messages for Afrikaans (Afrikaans)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: Naudefj
-af: 
+# Author: Winstonza
+---
+af:
+  activerecord:
+    attributes:
+      known_uri:
+        value_is_text: "Waardes sal nie URL's wees nie, net teks"
   account_information: Gebruikersgegewens
   actions: Aksies
   activity: Aktiwiteit
-  admin: admin
-  all_pages: Alle bladsye
-  already_a_member_question: Reeds 'n lid?
+  already_a_member_question: "Reeds 'n lid?"
   and: en
   and_between_form_items: en
   application_version_advisory_information: Programweergawe
   are_you_sure: Is u seker?
   article_from: artikel van
   article_more_about: Leer meer oor hierdie artikel
+  assistive_overview_header: Oorsig
+  assistive_media_header: Media
   assistive_details_header: Details
   assistive_literature_header: Letterkunde
-  assistive_maps_header: Kaarte
-  assistive_media_header: Media
   assistive_names_common_header: Algemene name
   assistive_names_related_header: Verwante name
   assistive_names_synonyms_header: Sinonieme
-  assistive_overview_header: Oorsig
+  assistive_maps_header: Kaarte
   assistive_updates_header: Bywerkings
   back_to_profile: Terug na profiel
   build_communities: Bou gemeenskappe
@@ -32,10 +36,8 @@ af:
   classification_tree_header: Klassifikasie
   collection_image: Kolleksie-beeld
   collection_name_label: Kolleksienaam
-  collections: Versamelings
-  comment: Opmerking
+  comment: Reaksie
   comment_body_label: U opmerking
-  communities: Gemeenskappe
   communities_index_header: Aktiewe gemeenskappe
   community: Gemeenskap
   community_focus: Gemeenskapsfokus
@@ -43,21 +45,19 @@ af:
   contact_us_link: Kontak ons
   content_partner_resource_resource_status_new: Geskep
   content_summary_table_count_column_header: Aantal
-  create_a_collection: Skep 'n versameling
-  create_a_community: Skep 'n gemeenskap
+  create_a_community: "Skep 'n gemeenskap"
+  create_a_collection: "Skep 'n versameling"
   created: Geskep
   curated_association_update_button: Stoor wysigings
-  curator_colon: "Kurator:"
-  curators_summary_header_with_count: 
-    one: "%{count} kurator"
-    other: "%{count} kuratore"
+  curators_summary_header_with_count:
+    one: '%{count} kurator'
+    other: '%{count} kuratore'
   dato_create_cancel: Kanselleer
   dato_edit_text_title: Wysig artikel
   delete: skrap
   description: Beskrywing
   detail: Detail
   details_title: Details
-  donate: Skenk
   edit: Wysig
   edit_my_profile: Verander my profiel
   eol_glossary: EOL-woordelys
@@ -65,7 +65,7 @@ af:
   explore: Verken
   global_navigation: Globale navigasie
   go: OK
-  has_colon: "Het:"
+  has_colon: 'Het:'
   help: Hulp
   home: Tuisblad
   images: Beelde
@@ -74,21 +74,22 @@ af:
   license: Lisensie
   literature_header: Verwysings
   location: Ligging
+  login_required_button: Aanmelding is verpligtend
   login_or_create_account: Meld aan of registreer
   media: Media
-  minimal_page: Minimale bladsy
-  moderator_colon: "Moderator:"
   move: Skuif
   my_activity: My aktiwiteit
   my_info: My inligting
+  curator_colon: 'Kurator:'
+  moderator_colon: 'Moderator:'
   newsfeed: Nuusvoer
   none: geen
   not_evaluated: Nie geëvalueer nie
   overview: Oorsig
-  pages_curator_section_link: Kuratore
   pages_title: Bladsye
+  pages_curator_section_link: Kuratore
   profile: Profiel
-  punctuation_comma: ","
+  punctuation_comma: ,
   recent_updates: Onlangse bywerkings
   rights: Regte
   rights_holder: Houer van regte
@@ -96,16 +97,16 @@ af:
   search_placeholder: Deursoek EOL...
   search_the_site: Deursoek die webwerf
   see_all_media_link: Wys alle media
-  select_topic: Kies 'n onderwerp
+  select_topic: "Kies 'n onderwerp"
   sign_in: Meld aan
-  sign_out: Meld af
+  sign_out: Teken af
   site_information: Inligting oor die webwerf
   skip_to_content: Slaan oor na inhoud
   source_url: Bron-URL
   text_summary_more_link: Lees volledige inskrywing
-  total_items_with_count: 
-    one: "%{count} item"
-    other: "%{count} items totaal"
+  total_items_with_count:
+    one: '%{count} item'
+    other: '%{count} items totaal'
   twitter: Twitter
   unknown: Onbekend
   updated: Opgedateer

@@ -1,159 +1,625 @@
 # Messages for Japanese (日本語)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: phpyaml
+# Author: Masakiyamaguchi
 # Author: Schu
-ja: 
-  0_1_or_2: 0、1または2
-  0_or_1: 0 または 1
-  a_taxon: 分類群
-  about_eol: EOLについて
-  account_information: アカウント情報
-  account_registered_but_not_ready_try_later: あなたのアカウントは登録されていますが、アクセスするための準備がされていません。 5分後にやり直してください。
-  action: アクション
-  action_not_available_error: 申し訳ありませんが、そのアクションは使用できません。
-  actions: アクション
-  activerecord: 
-    attributes: 
-      collection: 
-        description: コレクションの説明
-        logo: 主要なコレクション画像
+# Author: Shirayuki
+# Author: 아라
+---
+ja:
+  activerecord:
+    models:
+      user: アカウント
+    attributes:
+      collection:
         name: コレクション名
-        sort_style_id: デフォルトの並び替え順
-      community: 
+        description: コレクションの説明
+        sort_style_id: 既定の並び順
+        logo: 主要なコレクション画像
+        show_references: 参考文献 (テキストまたは URL)
+      collection_item:
+        annotation: 注釈
+        sort_field: '並び順:'
+        refs: 参照
+      comment:
+        body: コメント
+      community:
+        name: コミュニティ名
         description: コミュニティの説明
         logo: ロゴをアップロード
-        name: コミュニティ名
-      content_page: 
-        active: 公開済
+      contact:
+        comments: メッセージ
+        email: メール
+        name: 名前
+      content_page:
         page_name: 一意の名前
-        sort_order: 並べ替え順
-      content_partner: 
+        sort_order: 並び順
+        active: 公開済
+      content_partner:
         acronym: プロジェクトの略称
+        auto_publish: 自動公開
         admin_notes: 管理上の注意
-        content_partner_status: プロジェクトのステータス
+        content_partner_status: プロジェクトの状態
         created_at: 作成
         description: プロジェクトの説明
         display_name: 表示名
         full_name: プロジェクト名
         homepage: プロジェクト URL
+        id: ID
         notes: プロジェクトのメモ
-      content_partner_agreement: 
+        public: 公開
+        resources: リソース
+      content_partner_agreement:
+        created_at: 作成日時
+        signed_by: 署名者
         signed_on_date: 署名日付
-      data_object: 
+      data_object:
         bibliographic_citation: 書誌情報の引用
-        description: 説明
+        description: テキスト
         object_title: タイトル
         rights_holder: 権利者
         source_url: ソースURL
-      name: 
+      data_object_link:
+        description: 説明
+        source_url: リンク URL
+      eol_statistic:
+        created_at: 作成日時
+        members_count: メンバー
+        communities_count: コミュニティ
+        collections_count: コレクション
+        pages_count: 総ページ数
+        pages_with_content: 内容があるページ数
+        pages_with_text: 本文があるページ数
+        pages_with_image: 画像があるページ数
+        pages_with_map: 地図があるページ数
+        pages_with_video: 動画があるページ数
+        pages_with_sound: 音声があるページ数
+        pages_without_text: 本文がないページ数
+        pages_without_image: 画像がないページ数
+        pages_with_image_no_text: 画像があって本文がないページ数
+        pages_with_text_no_image: 本文があって画像がないページ数
+        data_objects: データ オブジェクト
+        data_objects_texts: テキスト オブジェクト
+        data_objects_images: 画像オブジェクト
+        data_objects_videos: 動画オブジェクト
+        data_objects_sounds: 音声オブジェクト
+        data_objects_maps: マップ オブジェクト
+        content_partners: コンテンツパートナー
+        marine_pages: 海洋のページ
+        curators: 学芸員
+        curators_assistant: 学芸員助手
+        curators_full: フルキュレーター
+        curators_master: マスターキュレーター
+        total_taxa_with_data: データがあるページ数
+      forum:
+        forum_category_id: カテゴリ
+        name: フォーラム名
+      forum_category:
+        title: カテゴリ名
+      forum_post:
+        subject: 件名
+        text: 本文
+      forum_topic:
+        subject: 件名
+        text: 本文
+      harvest_event:
+        resource: リソース
+      hierarchy:
+        complete: 完了
+        description: 説明
+        label: ラベル
+      known_uri:
+        description: 説明
+        name: 名前
+        toc_items: カテゴリ
+        uri: URI
+        uri_type: URI の種類
+      open_authentication:
+        created_at: 作成
+        guid: GUID
+        token: トークン
+        updated_at: 最終更新
+        user_id: ユーザー ID
+      name:
         string: 名前
-      resource: 
+      news_item:
+        page_name: 一意の名前
+        sort_order: 並び順
+      resource:
         accesspoint_url: データセット URL
+        auto_publish: 自動公開
         bibliographic_citation: 書誌情報の引用
         dataset: データセットファイル
         description: リソースの説明
         dwc_archive_url: ダーウィンコアアーカイブのURL
-        language_id: デフォルトの言語
-        license_id: デフォルトのライセンス
+        hierarchy: 階層
+        language_id: 既定の言語
+        dataset_license_id: ライセンス
+        dataset_rights_holder: 権利者
+        license_id: 既定のライセンス
         resource_status_id: リソースの状態
-        rights_holder: デフォルトの権限所有者
-        rights_statement: デフォルトの権限ステートメント
+        rights_holder: 既定の権限所有者
+        rights_statement: 既定の権限ステートメント
         title: リソース名
-      translated_content_page: 
-        active_translation: 公開済み
+      translated_content_page:
+        active_translation: 発行済み
         left_content: ナビゲーション
-        main_content: ボディ
-        meta_description: メタデータの説明
+        main_content: 本文
         meta_keywords: メタデータキーワード
+        meta_description: メタデータの説明
         title: タイトル
-      user: 
+      translated_known_uri:
+        definition: 定義
+        comment: コメント
+      translated_news_item:
+        body: 本文
+        meta_keywords: メタデータキーワード
+        meta_description: メタデータの説明
+        title: タイトル
+      user:
         agreed_with_terms: 使用許諾契約
         api_key: API キー
-        credentials: 証明書
+        bio: 自己紹介
+        credentials: 認証情報
+        curator_level: キュレーター レベル
         curator_scope: キュレーション・スコープ
-        email: 電子メールアドレス
+        email: メールアドレス
         entered_password: パスワード
-        entered_password_confirmation: パスワードを再入力<small> ( 確認用 ) </small>
-        family_name: ラストネーム（氏）
-        full_name: フルネーム
-        given_name: ファーストネーム（名）
+        entered_password_confirmation: パスワードを再入力 <small>(確認用)</small>
+        family_name: 姓
+        full_name: 氏名
+        given_name: 名
         language_abbr: 優先言語
+        permissions: 許可
         requested_curator_level_id: 希望するキュレーションレベル
         tag_line: キャッチフレーズ
         username: 利用者名
-    errors: 
-      full_messages: 
-        format: "%{attribute} %{message}"
-      messages: 
-        record_invalid: 検証に失敗しました：%{errors}
-        taken: すでに取得済です
-      models: 
-        resource: 
-          attributes: 
-            accesspoint_url: 
+      user_added_data:
+        predicate: 形質
+        object: 値
+      user_added_data_metadata:
+        predicate: 属性
+        object: 値
+    errors:
+      format: '%{attribute} %{message}'
+      template:
+        header:
+          other: '%{count} 件の検証エラーが見つかりました'
+        body: '次のフィールドの検証に失敗しました:'
+      messages:
+        taken: 既に取得されています
+        record_invalid: '検証に失敗しました: %{errors}'
+        exclusion: 予約済み
+        confirmation: 確認できません
+        inaccessible: アクセス不可
+      full_messages:
+        format: '%{attribute} %{message}'
+      models:
+        resource:
+          attributes:
+            accesspoint_url:
               blank: 代わりのリソースファイルをアップロードする場合を除き、空白にすることはできません
               inaccessible: アクセスできない場合、URL は公的にアクセス可能である必要があります
               invalid: 無効の場合、それは XML、XML.GZIPまたはXML.GZファイルを示している必要があります。
-            dataset: 
+            dataset:
               blank: 代わりのデータセット URL を提供しない限り、空白にすることはできません
               wrong_type: 間違ったタイプであり、GZIP、TAR または XML ファイルである必要があります
-            dwc_archive_url: 
+            dwc_archive_url:
               inaccessible: アクセスできない場合、URL は公的にアクセス可能である必要があります
               invalid: 無効の場合、TAR.GZIP、TAR.GZ または TGZファイルを示す必要があります。
-      template: 
-        body: 次のフィールドの検証に失敗しました：
-        header: 
-          one: "%{count} 件の検証エラーが見つかりました"
-          other: "%{count} 件の検証エラーが見つかりました"
-    models: 
-      user: アカウント
-  activity_user_added_association: <strong>%{user}</strong> は "%{object_name}" への関連付けを追加しました。
-  activity_user_added_common_name: <strong>%{user}</strong> は未知のオブジェクトに一般名 "%{name}" を追加しました。
-  activity_user_added_common_name_to_taxon: <strong>%{user}</strong> は "%{taxon}" に一般名 "%{name}" を追加しました。
-  activity_user_added_community_manager: <strong>%{user}</strong> は %{manager} をコミュニティ "%{community}" のマネージャーにしました。
-  activity_user_added_item_to_collection: <strong>%{user}</strong> はコレクション "%{collection}" に "%{item}" を追加しました。
-  activity_user_added_named_association: <strong>%{user}</strong> は "%{object_name}" と "%{name}" の関連付けを追加しました。
-  activity_user_added_unknown_association: <strong>%{user}</strong> は未知のオブジェクトへの関連付けを追加しました。
-  activity_user_added_unknown_item_to_collection: <strong>%{user}</strong> はコレクション "%{collection}" に  未知のアイテムを追加しました。
-  activity_user_added_unknown_name: <strong>%{user}</strong> は未知のオブジェクトへ一般名を追加しました。
-  activity_user_added_unknown_name_to_taxon: <strong>%{user}</strong> は "%{taxon}" に一般名を追加しました。
-  activity_user_changed_community_description: <strong>%{user}</strong> はコミュニティ "%{community}" の説明を更新しました。
-  activity_user_changed_community_icon: <strong>%{user}</strong> はコミュニティ "%{community}" のロゴを変更しました。
-  activity_user_changed_community_name: <strong>%{user}</strong> はコミュニティ "%{community}" の名称を変更しました。
-  activity_user_created_collection: <strong>%{user}</strong> はコレクション "%{collection}" を作成しました。
-  activity_user_created_community: <strong>%{user}</strong> はコミュニティ "%{community}" を作成しました。
-  activity_user_created_text: <strong>%{user}</strong> は "%{taxon_concept}" の "%{object_name}" にテキストを追加しました。
-  activity_user_curated_an_unknown_object: <strong>%{user}</strong> は未知のオブジェクトをキュレーションしました。
-  activity_user_deleted_community: <strong>%{user}</strong> はコミュニティ "%{community}" を削除しました。
-  activity_user_hid_data_object: <strong>%{user}</strong> は "%{object_name}" を非表示としてマークしました。
-  activity_user_hid_unknown_object: <strong>%{user}</strong> は未知のオブジェクトを非表示としてマークしました。
-  activity_user_joined_community: <strong>%{user}</strong> はコミュニティ "%{community}" を参加しました。
-  activity_user_marked_content_as_inappropriate: <strong>%{user}</strong> はコンテンツを不適切であるとしてマークしました。
-  activity_user_modified_collection: <strong>%{user}</strong> はコレクション "%{collection}" を修正しました。
-  activity_user_modified_community: <strong>%{user}</strong> はコミュニティ "%{community}" を修正しました。
-  activity_user_rated_data_object: <strong>%{user}</strong> は "%{object_name}" を評価しました。
-  activity_user_rated_unknown_object: <strong>%{user}</strong> は未知のオブジェクトを評価しました。
-  activity_user_removed_all_items_from_collection: <strong>%{user}</strong> はコレクション "%{collection}" からすべてのアイテムを除去しました。
-  activity_user_removed_association: <strong>%{user}</strong> は "%{object_name}" への関連付けを除去しました。
-  activity_user_removed_item_from_collection: <strong>%{user}</strong> はコレクション "%{collection}" から "%{item}" を除去しました。
-  activity_user_removed_named_association: <strong>%{user}</strong> は "%{object_name}" と "%{name}" の関連付けを除去しました。
-  activity_user_removed_unknown_association: <strong>%{user}</strong> は未知のオブジェクトへの関連付けを除去しました。
-  activity_user_removed_unknown_name: <strong>%{user}</strong> は未知のオブジェクトから一般名を除去しました。
-  activity_user_removed_unknown_name_to_taxon: <strong>%{user}</strong> は "%{taxon}" に一般名を除去しました。
-  activity_user_showed_data_object: <strong>%{user}</strong> は "%{object_name}" を表示としてマークしました。
-  activity_user_showed_unknown_object: <strong>%{user}</strong> は未知のオブジェクトを表示としてマークしました。
-  activity_user_trusted_data_object: <strong>%{user}</strong> は "%{object_name}" を信頼できるとしてマークしました。
-  activity_user_trusted_unknown_object: <strong>%{user}</strong> は未知のオブジェクトを信頼出来るとしてマークしました。
-  activity_user_unreviewed_data_object: <strong>%{user}</strong> は "%{object_name}" を信頼できるとして未レビューとしてマークしました。
-  activity_user_unreviewed_unknown_object: <strong>%{user}</strong> は未知のオブジェクトを未レビューとしてマークしました。
-  activity_user_untrusted_data_object: <strong>%{user}</strong> は "%{object_name}" を信頼できないとしてマークしました。
-  activity_user_untrusted_unknown_object: <strong>%{user}</strong> は未知のオブジェクトを信頼出来ないとしてマークしました。
-  activity_user_updated_text: <strong>%{user}</strong> は "%{taxon_concept}" の "%{object_name}" テキストを更新しました。
-  add_a_comment_colon: "コメントを追加します :"
+  helpers:
+    label:
+      comment:
+        body_edit: コメントを編集
+      contact:
+        comments: メッセージ
+        contact_subject_id: 件名
+        email: メール アドレス
+        name: 名前
+      content_page:
+        active: 公開済み
+        page_name: 一意の名前 <small>(小文字の英数字およびアンダースコアのみ)</small>
+        parent_content_page_id: 親
+      content_partner:
+        created_at: 登録済み
+        display_name: 表示名 <small>(任意)</small>
+        description_of_data: データの説明 <small>(非公開)</small>
+        logo_current: '現在のロゴ :'
+        logo_new: '新しいロゴをアップロード:'
+        notes: プロジェクトのメモ <small>(非公開)</small>
+      data_object:
+        bibliographic_citation: 書誌情報の引用
+        description: テキスト <small>(一部の HTML マークアップを使用できます)</small>
+        license_id: ライセンス
+        license_id_more: <a href="%{policy_url}">EOL Licensing Policy</a> を確認してください
+        object_title: タイトル
+        toc_item: 節
+        rights_holder: 権利者
+        source_url: オリジナル・データオブジェクトの URL
+      data_object_link:
+        source_url: リンク URL
+        toc_item: 件名
+        link_type: カテゴリ
+      eol_statistic:
+        date_one: 日付
+        date_two: 日付
+      google_analytics_partner_summaries:
+        taxa_pages: ページ <small>(ページ数)</small>
+        taxa_pages_viewed: 表示したページ <small>(訪問者が閲覧したページ数)</small>
+        unique_page_views: ユニークページビュー <small>(ページを閲覧した訪問者数)</small>
+        page_views: ページビュー <small>(ページへの訪問数)</small>
+        time_on_page: ページへの総滞在時間 <small>(時間)</small>
+      harvest_event:
+        completed_at: 完了
+        published_status: 状態
+      open_authentication:
+        connect: 追加
+      resource:
+        accesspoint_url: データセット URL
+        dataset: データセット
+        hierarchy: 階層
+        refresh_period_hours: 頻度
+        resource_status_id: 状況
+        resource_status: 状況
+        resource_url_or_file: リソースデータ <small>(URLを入力するか、ファイルのアップロードを選択)</small>
+        resource_url_or_file_url: URL からリソースをロード
+        resource_url_or_file_upload: リソースファイルをアップロード
+        title: リソース名
+      session:
+        password: パスワード
+        remember_me: 2 週間ログインを維持
+        username_or_email: ユーザー名またはメールアドレス
+      translated_content_page:
+        active_translation: 発行済み
+        language_id: 言語
+      translated_news_item:
+        language_id: 言語
+      user:
+        agreed_with_terms: <a href="%{terms_url}">利用規約</a>に同意
+        api_key_more: <a href="%{api_docs_url}">APIコールにキーを追加</a> するための情報を確認。
+        credentials: 認証情報
+        email_settings_submit: メール設定
+        email: 'メール アドレス:'
+        entered_password: パスワード <small>(4～16 文字)</small>
+        generate_api_key: API キーを要求
+        logo: 新しい写真をアップロード
+        new_password: 新しいパスワード <small>(4～16 文字)</small>
+        new_password_confirmation: 新しいパスワード <small>(確認用)</small>
+        notification_settings: 通知設定
+        username: 利用者名 <small>(4～32 文字)</small>
+        username_or_email: 利用者名またはメールアドレス
+      wikipedia_queue:
+        revision_url: リビジョン URL <small>(e.g. https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
+    select:
+      prompt: 選択してください
+    submit:
+      cancel: キャンセル
+      create: '%{model} を作成'
+      update: '%{model} を更新'
+      submit: '%{model} を保存'
+      collection_item:
+        update: 保存
+      contact:
+        new: フィードバックを送信
+      content_page:
+        create: ページを作成
+        edit: 編集
+        preview: プレビュー
+        update: ページを更新
+      content_partner:
+        create: コンテンツパートナーを作成
+        update: コンテンツパートナーの情報を保存
+      content_partner_contact:
+        create: 連絡先を追加
+        update: 連絡先を更新
+        destroy: 連絡先を削除
+      data_object:
+        create: 記事を追加
+        create_text: 記事を追加
+        update: 記事を保存
+      data_object_link:
+        create: リンクを追加
+        update: リンクを保存
+      eol_statistic:
+        download_csv: CSVファイルでダウンロード
+      harvest_event:
+        publish: 公開
+      hierarchy:
+        update: 階層を更新
+      name:
+        create: 名前を追加
+        update: 名前を更新
+      news_item:
+        edit: 編集
+        preview: プレビュー
+      open_authentication:
+        create: 接続
+        destroy: 切断
+      resource:
+        create: リソースを追加
+        update: リソースを更新
+        update_settings: 設定を更新
+      session:
+        create: サインイン
+        sign_in_with_facebook: Facebook を使用してサインイン
+        sign_in_with_google: Google を使用してサインイン
+        sign_in_with_twitter: Twitter を使用してサインイン
+        sign_in_with_yahoo: Facebook を使用してサインイン
+      translated_content_page:
+        create: 翻訳を追加
+        update: 翻訳の変更を保存
+      translated_news_item:
+        create: 翻訳を追加
+        update: 翻訳の変更を保存
+      user:
+        create: アカウント作成
+        curation_application: 今すぐ応募
+        curation_privileges: 要求を提出
+        generate_api_key: キーを生成
+        recover_account: メールを送信
+        notification_settings: 通知設定
+        update: プロファイル情報を保存
+      wikipedia_queue:
+        create: 要求を提出
+  will_paginate:
+    next_label: 次へ
+    page_gap: '&hellip;'
+    previous_label: 前へ
+  datepicker:
+    day_names:
+    - 日曜日
+    - 月曜日
+    - 火曜日
+    - 水曜日
+    - 木曜日
+    - 金曜日
+    - 土曜日
+    day_names_short:
+    - 日
+    - 月
+    - 火
+    - 水
+    - 木
+    - 金
+    - 土
+    day_names_min:
+    - 日
+    - 月
+    - 火
+    - 水
+    - 木
+    - 金
+    - 土
+    close: 閉じる
+    current: 今日
+    month_names:
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
+    month_names_short:
+    - 1月
+    - 2月
+    - 3月
+    - 4月
+    - 5月
+    - 6月
+    - 7月
+    - 8月
+    - 9月
+    - 10月
+    - 11月
+    - 12月
+    next: 次へ
+    previous: 前へ
+  contacts:
+    errors:
+      message_not_sent: 申し訳ありませんが、エラーが発生したため、メッセージを送信できませんでした。
+  content:
+    index:
+      header_news: EOL ニュース
+      meta_title: 動物-植物-写真と情報
+      see_all_eol_news: その他の <span class="assistive">EOL ニュース</span>を見る
+      see_all_statistics: その他の <span class="assistive">EOL 統計</span>を見る
+  content_partners:
+    statistics:
+      show:
+        meta_title: '%{partner_name} の統計'
+  eol_statistics:
+    content_partners:
+      page_title: 統計
+    curators:
+      page_title: 統計
+    data_objects:
+      page_title: 統計
+    index:
+      page_title: 統計
+    lifedesks:
+      page_title: 統計
+    marine:
+      page_title: 統計
+    page_richness:
+      page_title: 統計
+    users_data_objects:
+      page_title: 統計
+    data:
+      menu_link: データ
+      page_header: データの統計
+      page_title: 統計
+  forums:
+    posts_heading: 投稿
+    replies: 返信
+    topics_heading: スレッド
+    create_failed: 申し訳ありませんが、エラーが発生したため、フォーラムを追加できませんでした
+    update_failed: 申し訳ありませんが、エラーが発生したため、フォーラムを更新できませんでした
+    move_failed: フォーラムを移動できませんでした
+    edit: フォーラムを編集
+    actions: 操作
+    buttons:
+      delete: 削除
+      edit: 編集
+      reply: 返信
+      link: リンク
+    categories:
+      edit: カテゴリを編集
+      create_failed: 申し訳ありませんが、エラーが発生したため、カテゴリを追加できませんでした
+      update_failed: 申し訳ありませんが、エラーが発生したため、カテゴリを更新できませんでした
+    posts:
+      close_window: 閉じる
+    topics:
+      create_failed: 申し訳ありませんが、エラーが発生したため、スレッドを追加できませんでした
+  known_uris:
+    uri_placeholder_text: '例: http://purl.org/dc/terms/contributor'
+    name_placeholder_text: '例: 貢献者'
+    ontology_information_url_placeholder_text: '例: http://dublincore.org/documents/dcmi-terms/'
+    ontology_source_url_placeholder_text: '例: http://dublincore.org/2012/06/14/dcterms.rdf'
+    select: 選択
+  layouts:
+    application:
+      header_about: EOL について
+      about_link_what_is_eol: EOL とは?
+      about_link_statistics: 統計
+      about_link_glossary: 用語集
+      about_link_podcasts: ポッドキャスト
+      about_link_help: ヘルプ
+      about_link_terms_of_use: 利用規約
+      about_link_contact_us: お問い合わせ
+      learn_more_link_animals: 動物
+      learn_more_link_plants: 植物
+  news_items:
+    index:
+      page_title: EOL ニュース
+      meta_title: EOL ニュース
+  notifier:
+    comments_empty: 最近のコメントはありません。
+    contact_us_message:
+      subject: 'EOL へのメッセージ: %{title}'
+    contact_us_auto_response:
+      subject: 生活百科事典にアクセスいただき、ありがとうございます
+    user_activated:
+      subject: あなたの生活百科事典のアカウントが有効になりました。
+    user_message:
+      subject: 生活百科事典からのメッセージ
+  recent_activity_mailer:
+    data_search_file_download_ready:
+      header: ダウンロードの準備ができました!
+  sessions:
+    new:
+      login_with_facebook_assistive: Facebook の認証情報を使用して EOL にログインします。
+      login_with_google_assistive: Google の認証情報を使用して EOL にログインします。
+      login_with_twitter_assistive: Twitter の認証情報を使用して EOL にログインします。
+      login_with_yahoo_assistive: Yahoo の認証情報を使用して EOL にログインします。
+      meta_title: ログイン
+  taxa:
+    details:
+      index:
+        tweet_text: '%{scientific_name}に関する記事'
+    maps:
+      show:
+        tweet_text: '%{scientific_name}のマップ'
+    media:
+      index:
+        meta_description: '%{scientific_name}の画像、動画、音声です。Encyclopedia of Life で%{scientific_name}の画像、動画、音声を見つけてください。'
+        meta_title: '%{scientific_name}の画像、動画、音声 - %{scientific_name}の画像、写真、動画、音声'
+        meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
+          の画像、動画、音声 - %{preferred_common_name} (%{scientific_name}) の画像、写真、動画、音声'
+        tweet_text: '%{scientific_name}の画像、動画、音声'
+  users:
+    activities:
+      show:
+        meta_title: '%{user_full_name}有効'
+        tweet_text: '%{user_full_name}有効'
+    collections:
+      index:
+        meta_title: '%{user_full_name}コレクション'
+        tweet_text: '%{user_full_name}コレクション'
+    communities:
+      index:
+        meta_title: '%{user_full_name}コミュニティ'
+        tweet_text: '%{user_full_name}コミュニティ'
+    new:
+      meta_title: EOL に参加
+    newsfeeds:
+      comments_link: コメント
+      newsfeed_link: ニュースフィード
+      show:
+        meta_title: '%{user_full_name}ニュースフィード'
+        tweet_text: '%{user_full_name}ニュースフィード'
+    notifications:
+      edit:
+        page_title: 通知設定
+      update:
+        notification_settings_successfully_updated: 通知設定を更新しました。
+        sorry_notification_settings_could_not_be_updated: 申し訳ありませんが、通知設定を更新できませんでした。
+    open_authentications:
+      facebook: Facebook
+      google: Google
+      index:
+        return_link: プロフィールの編集に戻る。
+      twitter: Twitter
+      yahoo: Yahoo!
+    recover_account_choose_account:
+      legend_choose_account: アカウントの選択
+  user_added_data:
+    add_metadata_header: 追加情報
+    delete_successful: データを削除しました
+    new_value: 値
+    update_successful: データを更新しました
+    update_failed: 'データを更新できません: %{errors}'
+  data_search_files:
+    from: 最小値
+    to: 最大値
+  this_article_is_unpublished: この記事は未公開です。
+  this_image_is_unpublished: この画像は未公開です。
+  this_link_is_unpublished: このリンクは未公開です。
+  this_video_is_unpublished: この動画は未公開です。
+  article_from_supplier: '%{whom}からの記事'
+  image_from_supplier: '%{whom}からの画像'
+  video_from_supplier: '%{whom}からの動画'
+  0_or_1: 0 または 1
+  0_1_or_2: 0、1、2のいずれか
+  about_eol: EOL について
+  about_resources: リソースについて
+  about_resources_title: 外部リソースへのリンク
+  account_information: アカウント情報
+  account_information_menu: アカウント情報
+  account_registered_but_not_ready_try_later: あなたのアカウントは登録されていますが、アクセスするための準備がされていません。
+    5分後にやり直してください。
+  action: 操作
+  action_not_available_error: 申し訳ありませんが、使用できない操作です。
+  actions: 操作
+  active_colon: '有効:'
+  active: アクティブ
+  activity_logs:
+    curator_activity_log:
+      classification_curation:
+        merge:
+          an_unknown_user_merged_to_an_unknown_taxon: 不明なユーザーが 2 件の不明なページを統合しました。
+          an_unknown_user_merged_to_taxon: 不明なユーザーが他のページを %{target} に統合しました。
+          an_unknown_user_merged_to_it: 不明なユーザーが他のページをこのページに統合しました。
+          user_merged_to_it: <strong>%{user}</strong> が他のページをこのページに統合しました。
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> が 2 件の不明なページを統合しました。
+          user_merged_to_taxon: <strong>%{user}</strong> が他のページを %{target} に統合しました。
+  activity_log_empty: まだアップデートされていません。
+  activity_user_created_text: <strong>%{user}</strong> は "%{taxon_concept}" の "%{object_name}"
+    にテキストを追加しました。
+  activity_user_updated_text: <strong>%{user}</strong> は "%{taxon_concept}" の "%{object_name}"
+    テキストを更新しました。
+  add_a_comment: コメントを追加します。
+  add_a_comment_colon: 'コメントを追加:'
+  add: 追加
   add_a_new_common_name: 新しい一般名を追加
-  add_a_new_user: 新しい利用者を追加
+  add_a_new_search_suggestion: 新しい「検索語の提案」を追加
+  add_a_new_user: 新規ユーザーを追加
   add_a_taxon_association_label: 分類群の関連付けを追加
-  add_article_to_page_link_button: このページに記事を追加
   add_association_submit_button: 関連付けを追加
   add_brief_summary_to_page_link_button: このページへの簡単な要約を追加
   add_education_resources_to_page_link_button: このページへ教育リソースを追加
@@ -161,53 +627,97 @@ ja:
   add_item_to_new_collection: 新しいコレクションに "%{item}" を追加
   add_language: 言語を追加
   add_new_association_link: 新しいアソシエーションを追加
+  add_new_known_uri_link: 新しい URI を追加
   add_page: ページを追加
   add_to_my_collection_button: コレクションに追加
-  admin: 管理者
   admin_content_page_active: 公開済み
   admin_content_page_child_new_link: 子ページを作成
+  admin_content_page_create_successful_notice: ページが<a href="#%{anchor}"><em>%{page_name}</em></a>作成されました。
+  admin_content_page_create_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、ページを作成できませんでした。
+  admin_content_page_delete_confirmation: 「%{page_name}」と翻訳すべてを本当に削除しますか? 削除したページは復元できません。
+  admin_content_page_delete_successful_notice: ページ %{page_name} および関連付けられた翻訳を削除しました。
   admin_content_page_new_header: 新しいコンテンツページを作成
   admin_content_page_new_link: 新しいページを作成
   admin_content_page_root: ルート
+  admin_content_page_update_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、ページを更新できませんでした。
   admin_content_pages_link: コンテンツ管理
-  admin_content_partners_link: コンテンツ・パートナー
-  admin_content_partners_page_title: 管理：コンテンツパートナーの管理
+  admin_content_partners_link: コンテンツパートナー
+  admin_content_partners_page_title: '管理: コンテンツパートナーの管理'
+  admin_content_partners_notifications_link: 通知
+  admin_content_partners_statistics_first_published_download_csv_submit: CSVファイルでダウンロード
+  admin_content_partners_statistics_link: 統計
   admin_home: 管理者ホーム
+  admin_news_item_delete_confirmation: 「%{page_name}」と翻訳すべてを本当に削除しますか? 削除したページは復元できません。
   admin_link: 概要
+  admin_statistics_link: 統計
+  admin_translated_content_page_create_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、翻訳を追加できませんでした。
+  admin_translated_content_page_delete_confirmation: 「%{page_name}」の%{language}版を本当に削除しますか?
+    削除したページは復元できません。
+  admin_translated_content_page_delete_successful_notice: ページ<em>%{page_name}</em>の%{language}への翻訳が削除されました。
   admin_translated_content_page_new_link: 翻訳を追加
+  admin_translated_content_page_update_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、翻訳を更新できませんでした。
+  admin_translated_news_item_create_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、翻訳を追加できませんでした。
+  admin_translated_news_item_delete_confirmation: 「%{page_name}」の%{language}版を本当に削除しますか?
+    削除したページは復元できません。
+  admin_translated_news_item_new_link: 翻訳を追加
+  admin_translated_news_item_update_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、翻訳を更新できませんでした。
   agent: エージェント
-  all_articles: 全ての記事
-  all_changes: 全ての変更
+  all: すべて
+  all_articles: すべての記事
+  all_categories: すべて
+  all_changes: すべての変更
   all_collections: すべてのコレクション
-  all_communities: 全てのコミュニティ
-  all_images: 全ての画像
+  all_communities: すべてのコミュニティ
+  all_count: すべて(%{count})
+  all_filter: すべて
+  all_images: すべての画像
   all_information: すべての情報
-  all_items: 全てのアイテム
-  all_pages: 全てのページ
-  all_people: 全ての人々
-  all_sounds: 全ての音声
-  all_taxa: 全ての分類群
-  all_title: 全て
-  all_videos: 全ての動画
-  already_a_member_question: 既にメンバーですか？
+  all_items: すべてのアイテム
+  all_news: すべてのニュース
+  all_people: すべての人々
+  all_sounds: すべての音声
+  all_sources: すべてのソース
+  all_taxa: すべての分類群
+  all_title: すべて
+  all_videos: すべての動画
+  already_a_member_question: 既にメンバーですか?
   already_member_of_community: あなたは既にこのコミュニティのメンバーです。
-  are_you_sure: 本当によろしいですか？
-  assistive_details_header: 詳細
-  assistive_maps_header: マップ
+  alternative_name_colon: '代替名:'
+  an_unknown_user: 不明なユーザー
+  annotation_submit: コメントを投稿
+  anonymous_user_full_name: 匿名ユーザー
+  anonymous_user_given_name: 匿名
+  anonymous_user_tag_line: ログインしていません
+  application_version_advisory_information: アプリケーションのバージョン
+  are_you_sure: 本当によろしいですか?
+  article_more_about: この記事についてもっと知る
+  assistive_overview_header: 概要
   assistive_media_header: メディア
+  assistive_details_header: 詳細
+  assistive_names_classifications_header: 分類
   assistive_names_common_header: 共通名
   assistive_names_related_header: 関連名
   assistive_names_synonyms_header: 異名
-  assistive_overview_header: 概要
+  assistive_maps_header: マップ
   assistive_taxon_community_header: コミュニティ
   assistive_updates_header: アップデート
-  audio_mute: ミュート
-  audio_pause: 一時停止
+  assistive_updates_statistics_header: ページの統計
+  associated_with_video_header: 最近の動画
+  a_taxon: 分類群
   audio_play: 再生
+  audio_pause: 一時停止
   audio_stop: 停止
+  audio_mute: ミュート
   audio_unmute: ミュート解除
+  available: 利用できます
+  average_rating: 評価の平均
+  average_rating_value_of_total: '評価の平均: %{rating} / %{total}'
+  back: 戻る
+  beta_warning_header: ベータ版のテスト機能を使用しています。
   biomedical_terms: 生物医学用語
-  cancel: 中止
+  cancel: キャンセル
+  cancel_and_delete: キャンセルして削除
+  cancel_split: キャンセル
   change: 変更
   change_rating_to_1_of_5: 1 / 5 に評価を変更
   change_rating_to_2_of_5: 2 / 5 に評価を変更
@@ -217,281 +727,307 @@ ja:
   choose_collection_header: コレクションを選択
   citation: 引用
   classification_tree_header: 分類
-  cms_missing_content_message: 申し訳ありませんが、このページに、指定の言語には使用できません。
+  cms_editor: CMS エディター
+  cms_missing_content_message: すみません、このページは指定された言語 %{selected_language} では利用できません。
+  curator_level: キュレーター レベル
+  click: クリック
+  close_this_window_to_return_to_edit_window: このウィンドウを閉じて、編集に戻る
   collect_item: アイテムを収集
   collection_destroyed: コレクションが削除されました。
+  collection_is_empty: このコレクションは空です。
   collection_name_label: コレクション名
-  collection_not_created_error: 申し訳ありませんが、エラーが発生したため、コレクション <em>%{collection_name}</em> を作成できませんでした。
+  collection_not_created_error: 申し訳ありませんが、エラーが発生したため、コレクション <em>%{collection_name}</em>
+    を作成できませんでした。
   collection_not_destroyed_error: 申し訳ありませんが、コレクションは削除されませんでした。
-  collections: コレクション
-  collections_lowercase: コレクション
+  collections_filter: コレクション
+  collections_link: コレクション
+  collections_page_title: コレクション
   comment: コメント
-  comment_added_notice: コメントが正常に追加されました。
-  comment_created_at: "作成 :"
+  comment_added_notice: コメントを追加しました。
+  comment_created_at: 作成日時
+  comment_delete_confirm: コメントを本当に削除しますか?
+  comment_not_added_error: 申し訳ありませんが、エラーが発生したため、コメントを追加できませんでした。
+  comment_not_deleted_error: 申し訳ありませんが、エラーが発生したため、コメントを削除できませんでした。
+  comment_not_updated_error: 申し訳ありませんが、エラーが発生したため、コメントを更新できませんでした。
+  comment_new_title: 新しいコメントを追加
   comments_and_tags: コメントとタグ
-  communities: コミュニティ
+  comments: コメント
+  comments_filter: コメント
+  comments_with_count:
+    other: '%{count} 件のコメント'
+  communities_filter: コミュニティ
+  communities_link: コミュニティ
+  communities_page_title: コミュニティ
   communities_index_header: 活発なコミュニティ
   community: コミュニティ
   community_activity: コミュニティ活動
   community_empty_notice: このコミュニティにはメンバーがいません。
-  confirm_password_colon: "パスワードの確認 :"
+  community_logo_alt_text: コミュニティ %{community_name} のロゴ
+  community_name_label: コミュニティ名
+  community_newsfeed: コミュニティのニュースフィード
+  community_tab_collections_header: コレクション
+  completed: 完了
+  confirm_password_colon: 'パスワードの確認:'
+  contact_us: お問い合わせ
+  contact_us_link: お問い合わせ
   content_has_been_updated: コンテンツが更新されました。
   content_partner: コンテンツパートナー
-  content_partner_about_header: "%{partner_name} について"
+  content_partner_new_link: 新規コンテンツパートナーを追加
+  content_partner_agreement_cancel_edit_agreement_link: キャンセル
+  content_partner_agreement_cancel_new_agreement_link: キャンセル
+  content_partner_agreement_cancel_sign_agreement_link: キャンセル
+  content_partner_about_header: '%{partner_name} について'
   content_partner_column_header_partner: パートナー
+  content_partner_contact_create_successful_notice: 連絡先を追加しました。
+  content_partner_contact_create_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、連絡先を追加できませんでした。
   content_partner_contact_delete_successful_notice: 連絡先は既に削除されています。
+  content_partner_contact_delete_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、連絡先を削除できませんでした。
   content_partner_contact_edit_link: 連絡先を編集
   content_partner_contact_edit_page_subheader: 連絡先を編集
-  content_partner_contact_new_edit_form_header: コンテンツ・パートナーの連絡先情報
-  content_partner_contact_update_successful_notice: 連絡先は正常に更新されました。
-  content_partner_contact_update_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、連絡先は更新されませんでした。
+  content_partner_contact_new_link: 新しい連絡先を追加
+  content_partner_contact_new_page_subheader: 連絡先を追加
+  content_partner_contact_new_edit_form_header: コンテンツパートナーの連絡先情報
+  content_partner_contact_update_successful_notice: 連絡先を更新しました。
+  content_partner_contact_update_unsuccessful_error: 申し訳ありませんが、エラーが発生したため、連絡先を更新できませんでした。
   content_partner_contacts_header: 連絡先
+  content_partner_current_agreement_edit_link: 編集
   content_partner_data_description_header: データの説明
   content_partner_edit_link: コンテンツパートナーを編集
-  content_partner_filter_option_vetted_no: いいえ
   content_partner_filter_option_vetted_yes: はい
-  content_partner_new_link: 新規のコンテンツ・パートナーを追加
-  content_partner_new_page_subheader: 新規のコンテンツ・パートナーを追加
+  content_partner_filter_option_vetted_no: いいえ
+  content_partner_new_page_subheader: 新規コンテンツパートナーの追加
   content_partner_overview_link: パートナーの概要
   content_partner_resource_about_header: リソースについて
+  content_partner_resource_auto_publish_true: はい
+  content_partner_resource_auto_publish_false: いいえ
   content_partner_resource_collections_header: コレクション
   content_partner_resource_dataset_details_header: データセット
-  content_partner_resource_edit_link: リソースを編集
+  content_partner_resource_edit_link: 編集
   content_partner_resource_edit_subheader: リソースを編集
+  content_partner_resource_hierarchy_edit_link: 編集
   content_partner_resource_new_link: 新しいリソースを追加
   content_partner_resource_new_subheader: 新しいリソースを追加
   content_partner_resource_preview_collection_header: コレクションをプレビュー
+  content_partner_resource_vetted_true: はい
+  content_partner_resource_vetted_false: いいえ
   content_partner_resources_header: リソース
-  content_partner_statistics_column_header_taxa_page_page_views: ページビュー
   content_partner_statistics_column_header_total_count: すべてのページ
-  content_partners: コンテンツ・パートナー
-  content_partners_page_title: コンテンツ・パートナー
-  content_summary_table_count_column_header: 件数
+  content_partner_statistics_month_label: 月
+  content_partner_statistics_year_label: 年
+  content_partner_statistics_link: 使用統計
+  content_partner_statistics_column_header_taxa_page_page_views: ページビュー
+  content_partner_status_empty: 不明な状態
+  content_partners_page_title: コンテンツパートナー
   content_summary_table_type_status_column_header: コンテンツの種類と状態
+  content_summary_table_count_column_header: 件数
   content_summary_table_type_trusted_images_row: 信頼できるイメージの数
-  content_summary_table_type_trusted_text_row: 信頼できるテキスト項目の数
   content_summary_table_type_unreviewed_images_row: 未審査の画像の数
+  content_summary_table_type_trusted_text_row: 信頼できるテキスト項目の数
   content_summary_table_type_unreviewed_text_row: 未審査のテキスト項目の数
   copy: コピー
-  copy_of_name: "%{name} をコピー"
-  create_a_collection: コレクションを作成
-  create_a_community: コミュニティを作成
+  copy_of_name: '%{name} をコピー'
+  copyright: '著作権:'
+  could_not_find_user: あなたはこのコミュニティのメンバーではありません。
+  count: 件数
   create_account: アカウントを作成
-  create_collection_button: コレクションを作成
   create_community: コミュニティを作成
   create_community_about_heading: コミュニティの作成について
-  created_community: コミュニティが正常に作成されました。
+  create_a_community: コミュニティを作成
+  create_a_collection: コレクションを作成
+  create_collection_button: コレクションを作成
+  create_child_page: 子ページを作成
+  created_at: 作成日時
+  created_community: コミュニティを作成しました。
   creative_commons: クリエイティブ・コモンズ
-  curator_colon: キュレーター：
-  curator_level: キュレーター レベル
+  credentials_colon: '認証情報:'
+  curated_association_update_button: 変更を保存
+  curator_question: キュレーター?
   curator_level_full_curator: フルキュレーター
   curator_level_master_curator: マスターキュレーター
   curator_profile: キュレーターのプロファイル
-  curator_question: キュレーター？
-  curator_scope_colon: "キュレーターの範囲:"
+  curator_scope_colon: 'キュレーターの範囲:'
   curators: キュレーター
+  your_current_rating_0_of_5: 'あなたの現在の評価: 0 / 5'
+  your_current_rating_1_of_5: 'あなたの現在の評価: 1 / 5'
+  your_current_rating_2_of_5: 'あなたの現在の評価: 2 / 5'
+  your_current_rating_3_of_5: 'あなたの現在の評価: 3 / 5'
+  your_current_rating_4_of_5: 'あなたの現在の評価: 4 / 5'
+  your_current_rating_5_of_5: 'あなたの現在の評価: 5 / 5'
   daily: 日次
   darwin_core: ダーウィンコア
   dashboard: ダッシュボード
-  data_object_ignore: この項目を無視
+  data_column_tc_id: EOL ページ ID
+  data_column_value: 値
+  data_column_value_uri: 値の URI
+  data_column_val: 値 (正規化済み)
+  data_column_val_uri: 値の URI
+  data_column_units: 単位 (正規化済み)
+  data_database_colon: 'データ:'
+  data_glossary: データ用語集
   data_object_not_associated_with_any_hierarchies: このデータオブジェクトは、どの階層に関連付けられていません。
+  data_object_ignore: この項目を無視
   data_object_undo_ignore: 無視をしているリストから削除
-  data_objects: データ・オブジェクト
+  data_subtab_glossary: 用語集
   data_usage_reports: データの使用状況レポート
   dato_create_cancel: キャンセル
-  dato_create_update_user_text_missing_taxon_id_exception: taxon_concept_idが欠落している場合、テキスト DataObject または UsersDataObject を構築することができません。
   dato_edit_cancel: キャンセル
-  dato_edit_text_link_button: この記事を編集
-  dato_edit_text_title: 記事を編集
+  dato_create_user_link_error: 申し訳ありませんが、エラーが発生したため、リンクを追加できませんでした。
+  dato_create_user_text_error: 申し訳ありませんが、エラーが発生したため、記事を追加できませんでした。
+  dato_location_created: '作成した場所: %{loc}'
   dato_new_edit_user_text_fieldset_content_header: 記事の内容
   dato_new_edit_user_text_fieldset_information_header: 記事の情報
-  default: デフォルト
-  delete: 削除
+  dato_edit_text_button: この記事を編集
+  dato_edit_text_title: 記事を編集
+  dato_update_user_text_error: 申し訳ありませんが、エラーが発生したため、記事を更新できませんでした。
+  development_version_name: EOL V2 ベータ
+  default: 既定
+  definition: 定義
   delete_community: このコミュニティを削除
+  delete: 削除
+  delete_firstcap: 削除
   description: 説明
   destination_inappropriate_for_logged_in_users: あなたはログインしています。
   destroy: 破壊
   detail: 詳細
+  details: 詳細
   details_title: 詳細
-  development_version_name: EOL V2 ベータ
-  did_you_mean: "もしかして: %{suggestions} ？"
-  donate: 寄付
-  donation_confirmation: 寄付の確認
-  edit: 編集
-  edit_collection_details: コレクションの詳細を編集
-  edit_collection_details_header: コレクションの詳細を編集
-  edit_collection_head_title: "編集 : %{collection_name}"
+  did_you_mean: 'もしかして: %{suggestions} ?'
+  donate_link: 寄付
+  edit_comment: コメントを編集
+  edit_comment_lowercase: コメントを編集
   edit_community: コミュニティを編集
+  edit: 編集
   edit_eol_glossary: EOL用語集を編集する
   edit_hierarchy: 階層を編集する
+  edit_collection_details: コレクションの詳細を編集
+  edit_collection_details_header: コレクションの詳細を編集
   edit_my_profile: プロフィールを編集
   edit_news_items: ニュース項目を編集する
   edit_page_contents: ページの内容を編集する
+  edit_permission_header: 'アクセス許可を編集中: %{permission}'
   edit_search_suggestions: 検索候補を編集
   edit_table_of_contents: 目次を編集
   edit_tag_suggestions: タグの提案を編集
-  edit_web_users: Web ユーザを編集
-  email: 電子メール
-  email_colon: "電子メール :"
+  edit_web_users: Web ユーザーを編集
+  email: メール
+  email_colon: 'メール:'
+  eol_api_data_objects: 'EOL API: データオブジェクト'
+  eol_api_colon: 'EOL API:'
   eol_api: EOL API
-  eol_api_collections: "EOL API: コレクション"
-  eol_api_data_objects: "EOL API: データオブジェクト"
-  eol_api_hierarchies: "EOL API: 階層"
-  eol_api_hierarchy_entries: "EOL API: 階層のエントリ"
-  eol_api_pages: "EOL API: ページ"
-  eol_api_ping: "EOL API: Ping"
-  eol_api_provider_hierarchies: "EOL API: プロバイダの階層"
-  eol_api_search: "EOL API: 検索"
-  eol_api_search_by_provider: "EOL API: プロバイダによる検索"
-  eol_colon: "EOL:"
+  eol_api_hierarchies: 'EOL API: 階層'
+  eol_api_hierarchy_entries: 'EOL API: 階層のエントリ'
+  eol_api_pages: 'EOL API: ページ'
+  eol_api_ping: 'EOL API: Ping'
+  eol_api_provider_hierarchies: 'EOL API: プロバイダの階層'
+  eol_api_search_by_provider: 'EOL API: プロバイダによる検索'
+  eol_api_search: 'EOL API: 検索'
+  eol_api_collections: 'EOL API: コレクション'
+  eol_colon: 'EOL:'
+  eol_flickr_group: EOL Flickr グループ
   eol_glossary: EOL 用語集
   eol_news: EOL ニュース
   eol_pages: ページ
+  error_404_page_title: 見つかりません
   error_404_description: 申し訳ございません、そのURLでページを見つけることができませんでした。
+  error_500_page_title: エラー
+  example_colon: '例:'
+  exception: 例外
+  exceptions:
+    security_violations:
+      default: アクセスが拒否されました。
   export_this_list_as_csv: このリストを CSV でエクスポート
   external_link_header: 外部リンク
   external_link_icon_alt_text: 外部リンク。
+  facebook: Facebook
+  feedback: フィードバック
+  file: ファイル
+  file_id: ファイル ID
+  file_size: ファイル サイズ
   filter_by_type_all_option: すべてのタイプ
   filter_by_type_collection_option: コレクション
   filter_by_type_community_option: コミュニティ
+  filter_by_type_content_page_option: EOL について
   filter_by_type_image_option: 画像
-  filter_by_type_sound_option: 音声
-  filter_by_type_taxon_concept_option: 分類群
+  filter_by_type_link_option: リンク
   filter_by_type_text_option: 記事
   filter_by_type_user_option: 人々
+  filter_by_type_sound_option: 音声
+  filter_by_type_taxon_concept_option: 分類群
   filter_by_type_video_option: 動画
+  filter_by_type_comment_option: コメント
+  filter_by_type_name_option: 名前
+  filter_newsfeed_option_all: すべて
+  filter_newsfeed_option_messages: コメント
+  filter_newsfeed_option_community: コミュニティ
+  filter_newsfeed_option_collections: コレクション
+  filter_newsfeed_option_watchlist: ウォッチリスト
+  flash_video: Flash 動画
+  flickr: Flickr
+  flipboard: Flipboard
   forgot_password_form_cancel: キャンセル
-  forgot_password_form_choose_username_legend: アカウントを選択してください
+  forgot_password_form_choose_username_legend: アカウントの選択
   forgot_password_form_header: パスワードをリセット
+  frequency: 頻度
   frequency_daily: 日次
   frequency_monthly: 月次
-  go: 進む
+  glossary: 用語集
+  glossary_subhead: 用語集
   go_back: 戻る
-  head_title_collection: コレクション：%{name}
-  head_title_community: コミュニティ：%{name}
+  go: 進む
+  google: Google
   help: ヘルプ
-  helpers: 
-    label: 
-      content_page: 
-        active: 公開済み
-        page_name: 一意の名前<small> ( 小文字の英数字およびアンダースコアのみ ) </small>
-      content_partner: 
-        description_of_data: データの説明<small> ( 非公開 ) </small>
-        display_name: 表示名<small> ( 任意 ) </small>
-        logo_current: "現在のロゴ :"
-        logo_new: "新しいロゴをアップロード :"
-        notes: プロジェクトのメモ<small> ( プライベート )</small>
-      data_object: 
-        bibliographic_citation: 書誌情報の引用
-        description: テキスト<small> ( 一部の HTML マークアップが許可されています )</small>
-        license_id: ライセンス
-        license_id_more: <a href="%{policy_url}">EOL Licensing Policy</a> を確認してください
-        object_title: タイトル
-        rights_holder: 権利者
-        source_url: オリジナル・データオブジェクトの URL
-        toc_item: 節
-      google_analytics_partner_summaries: 
-        page_views: ページビュー<small> ( ページへの訪問数 ) </small>
-        taxa_pages: ページ<small> ( ページ数) </small>
-        taxa_pages_viewed: 表示したページ<small> (訪 問者が閲覧したページ数 )</small>
-        time_on_page: ページに費やされた総時間<small> ( 時間 ) </small>
-        unique_page_views: ユニークページビュー<small> ( ページを閲覧した訪問者数 ) </small>
-      resource: 
-        accesspoint_url: データセット URL <small> ( XML、XML、GZIP、XML.GZ のいずれか ) </small>
-        dataset: データセット
-        refresh_period_hours: 頻度
-        resource_status_id: 状況
-        resource_url_or_file: リソースデータ<small>（URLを入力するか、ファイルのアップロードを選択）</small>
-        resource_url_or_file_upload: リソースファイルをアップロード
-        resource_url_or_file_url: URL からリソースをロード
-        title: リソース名
-      session: 
-        password: パスワード
-        remember_me: 2 週間ログインを維持
-        username_or_email: ユーザー名または電子メールアドレス
-      translated_content_page: 
-        active_translation: 公開済
-        language_id: 言語
-      user: 
-        agreed_with_terms: <a href="%{terms_url}">利用規約</a>に同意
-        api_key_more: <a href="%{api_docs_url}">APIコールにキーを追加</a> するための情報を確認。
-        entered_password: パスワード <small> ( 4〜16 文字) </small>
-        generate_api_key: API キーを要求
-        logo: 新しい写真をアップロード
-        new_password: 新しいパスワード <small>( 4 - 16文字 )</small>
-        new_password_confirmation: 新しいパスワード <small>( 確認用 ) </small>
-        username: 利用者名 <small>( 4 - 32文字 )</small>
-        username_or_email: 利用者名または電子メールアドレス
-      wikipedia_queue: 
-        revision_url: リビジョンURL <small>(e.g. http://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069)</small>
-    select: 
-      prompt: 選択してください
-    submit: 
-      content_page: 
-        create: ページを作成
-        edit: 編集
-        preview: プレビュー
-        update: ページを更新
-      content_partner: 
-        create: コンテンツパートナーを作成
-        update: コンテンツパートナーの情報を保存
-      content_partner_contact: 
-        create: 連絡先を追加
-        destroy: 連絡先を削除
-        update: 連絡先を更新
-      create: "%{model} を作成"
-      data_object: 
-        create: 記事を追加
-        create_text: 記事を追加
-        update: 記事を保存
-      name: 
-        create: 名前を追加
-        update: 名前を更新
-      resource: 
-        create: リソースを追加
-        update: リソースを更新
-      session: 
-        create: サインイン
-      submit: "%{model} を保存"
-      translated_content_page: 
-        create: 翻訳を追加
-        update: 翻訳の変更を保存
-      update: "%{model} を更新"
-      user: 
-        create: アカウント作成
-        curation_application: 今すぐ応募
-        curation_privileges: 要求を提出
-        forgot_password: 電子メール送信
-        generate_api_key: キーを生成
-        update: プロファイル情報を保存
-      wikipedia_queue: 
-        create: 要求を提出
   hidden: 非表示
-  hierarchies: 階層
-  hierarchies_title: 階層
   hierarchy: 階層
+  hierarchies_title: 階層
   home: ホーム
+  id: ID
+  image: 画像
+  image_not_found: 画像が見つかりません
+  image_object: 画像オブジェクト
+  image_title_with_taxa: '%{taxa}の画像'
   images: 画像
-  item_type_article_assistive: このアイテムは、記事です
-  item_type_collection_assistive: このアイテムは、コレクション
-  item_type_community_assistive: このアイテムはコミュニティ
-  item_type_image_assistive: このアイテムは画像
-  item_type_person_assistive: このアイテムは人々
-  item_type_sound_assistive: このアイテムは音声
-  item_type_taxon_assistive: このアイテムは分類群
-  item_type_video_assistive: このアイテムはビデオ
+  internal_ip_address: 内部 IP アドレス
+  ip_address: IP アドレス
+  ip: IP
+  item_type_article: 記事
+  item_type_collection: コレクション
+  item_type_community: コミュニティ
+  item_type_image: 画像
+  item_type_image_map: 地図
+  item_type_link: リンク
+  item_type_map: 地図
+  item_type_person: 人
+  item_type_sound: 音声
+  item_type_video: 動画
+  item_type_article_assistive: このアイテムは記事です
+  item_type_collection_assistive: このアイテムはコレクションです
+  item_type_community_assistive: このアイテムはコミュニティです
+  item_type_image_assistive: このアイテムは画像です
+  item_type_link_assistive: このアイテムはリンクです
+  item_type_person_assistive: このアイテムは人です
+  item_type_sound_assistive: このアイテムは音声です
+  item_type_taxon_assistive: このアイテムは分類群です
+  item_type_video_assistive: このアイテムは動画です
   join_community_button: このコミュニティに参加
   json_response: JSON レスポンス
+  key: キー
+  known_uri_category_header: カテゴリ
+  known_uri_created: URI を追加しました。
+  known_uri_updated: URI を更新しました。
   label: ラベル
-  language: 言語：
+  language: '言語:'
   languages: 言語
+  learn_more_lowercase: 詳細
+  leave_community_button: このコミュニティから退会
   leave_a_comment: コメントを残す
-  leave_community_button: このコミュニティを残す
+  legend: '凡例:'
   license: ライセンス
-  license_cc_by: クリエイティブ ・ コモンズ 表示 (CC BY)
-  license_cc_by_2_0: クリエイティブ ・ コモンズ 表示 2.0 (CC BY 2.0)
-  license_cc_by_2_5: クリエイティブ ・ コモンズ 表示 2.5 (CC BY 2.5)
-  license_cc_by_3_0: クリエイティブ ・ コモンズ 表示 3.0 (CC BY 3.0)
+  license_none: なし
+  license_all_rights_reserved: All rights reserved
+  license_cc_by: クリエイティブ・コモンズ 表示 (CC BY)
+  license_cc_by_2_0: クリエイティブ・コモンズ 表示 2.0 (CC BY 2.0)
+  license_cc_by_2_5: クリエイティブ・コモンズ 表示 2.5 (CC BY 2.5)
+  license_cc_by_3_0: クリエイティブ・コモンズ 表示 3.0 (CC BY 3.0)
   license_cc_by_nc: クリエイティブ・コモンズ 表示-非営利 (CC BY-NC)
   license_cc_by_nc_2_0: クリエイティブ・コモンズ 表示-非営利 2.0 (CC BY-NC 2.0)
   license_cc_by_nc_2_5: クリエイティブ・コモンズ 表示-非営利 2.5 (CC BY-NC 2.5)
@@ -501,34 +1037,76 @@ ja:
   license_cc_by_nc_sa_2_0: クリエイティブ・コモンズ 表示-非営利-継承 2.0 (CC BY-NC-SA 2.0)
   license_cc_by_nc_sa_2_5: クリエイティブ・コモンズ 表示-非営利-継承 2.5 (CC BY-NC-SA 2.5)
   license_cc_by_nc_sa_3_0: クリエイティブ・コモンズ 表示-非営利-継承 3.0 (CC BY-NC-SA 3.0)
-  license_cc_by_sa: クリエイティブ ・ コモンズ 表示-継承 (CC BY-SA)
-  license_cc_by_sa_1_0: クリエイティブ ・ コモンズ 表示-継承 1.0 (CC BY-SA 1.0)
-  license_cc_by_sa_2_0: クリエイティブ ・ コモンズ 表示-継承 2.0 (CC BY-SA 2.0)
-  license_cc_by_sa_2_5: クリエイティブ ・ コモンズ 表示-継承 2.5 (CC BY-SA 2.5)
-  license_cc_by_sa_3_0: クリエイティブ ・ コモンズ 表示-継承 3.0 (CC BY-SA 3.0)
-  license_public_domain: パブリック・ドメイン
+  license_cc_by_sa: クリエイティブ・コモンズ 表示-継承 (CC BY-SA)
+  license_cc_by_sa_1_0: クリエイティブ・コモンズ 表示-継承 1.0 (CC BY-SA 1.0)
+  license_cc_by_sa_2_0: クリエイティブ・コモンズ 表示-継承 2.0 (CC BY-SA 2.0)
+  license_cc_by_sa_2_5: クリエイティブ・コモンズ 表示-継承 2.5 (CC BY-SA 2.5)
+  license_cc_by_sa_3_0: クリエイティブ・コモンズ 表示-継承 3.0 (CC BY-SA 3.0)
+  license_cc_zero: クリエイティブ・コモンズ - CC0
+  license_cc_zero_1_0: クリエイティブ・コモンズ - CC0 1.0 ユニバーサル
+  license_public_domain: パブリック ドメイン
+  link_name: リンク名
+  links_with_count:
+    other: '%{count} 件のリンク'
   literature_header: 参考資料
   location: 場所
+  login_required_button: ログインが必要
   login: ログイン
-  login_or_create_account: ログインまたはアカウントを作成
+  login_or_create_account: ログインまたはアカウント作成
   logo_header: ロゴ
   logout: ログアウト
+  main_database_colon: 'メイン:'
+  march_of_life_thumbnail_title: '生命の過程:'
   media: メディア
+  message_colon: 'メッセージ:'
   method: メソッド
   methods: メソッド
   move: 移動
   move_down: 下に移動
+  move_to_bottom: 末尾に移動
+  move_to_top: 先頭に移動
   move_up: 上に移動
+  name_colon: '名前:'
+  name: 名前
   names: 名前
+  names_filter: 名前
   names_name_column_header: 名前
+  names_parents_column_header: 親
   names_preferred_column_header: 優先
   names_relationship_column_header: 関係
   names_sources_column_header: ソース
   names_status_column_header: 状況
+  curator_colon: 'キュレーター:'
+  mobile:
+    contents:
+      home: ホーム
+    taxa:
+      overview: 概要
+      details: 詳細
+      media: メディア
+      maps: マップ
+      community: コミュニティ
+      resources: リソース
+      images: 画像
+      sounds: サウンド
+      videos: 動画
+    search:
+      suggestions: 提案
+      no_results_found: 該当するものはありません
+      results: 結果
   new_collection: 新しいコレクション
-  news_items: ニュースアイテム
-  object: オブジェクト
+  newsfeed: ニュースフィード
+  new_upload: 新規アップロード
+  next: 次へ
+  no_answer: いいえ
+  none: なし
+  no_tasks_found: タスクが見つかりません
+  not_specified: 未指定
+  notification_frequency_send_immediately: すぐに送信
+  notification_frequency_newsfeed_only: ニュースフィードのみ
+  notifications_tab_name: 通知
   object_curation: オブジェクト・キュレーション
+  object: オブジェクト
   object_status: オブジェクトの状態
   object_status_all_option: すべて
   object_type: オブジェクト・タイプ
@@ -536,6 +1114,7 @@ ja:
   object_type_collection_option: コレクション
   object_type_community_option: コミュニティ
   object_type_image_option: 画像
+  object_type_link_option: リンク
   object_type_sound_option: 音声
   object_type_taxon_concept_option: 分類群のコンセプト
   object_type_text_option: テキスト
@@ -543,81 +1122,152 @@ ja:
   object_type_video_option: 動画
   object_visibility: オブジェクトの可視性
   object_visibility_all_option: すべて
-  object_visibility_invisible_option: 非表示
   object_visibility_visible_option: 表示
+  object_visibility_invisible_option: 非表示
+  other_version_links: 'その他のバージョン: %{version_links}'
   option_please_select: 選択してください
-  pages_admin_section_link: 管理者
-  pages_curator_section_link: キュレーター
-  pages_lowercase: ページ
+  other_us_dollars_amount: 'その他: US $'
+  overview: 概要
+  page_name: ページ名
+  page_not_found: ページが見つかりません
+  page: ページ
+  page_urls: 'ページの URL:'
+  pages_with_count:
+    other: '%{count}'
+  page_statistics_and_tools: ページの統計とツール
   pages_with_pictures_and_text: 画像やテキストを含むページ
   pages_with_pictures_or_text: 画像やテキストを含むページ
-  pagination_next: 次
-  pagination_previous: 前
+  page_statistics: ページの統計
+  pages_curator_section_link: キュレーター
+  pages_admin_section_link: 管理者
+  pagination_next: 次へ
+  pagination_next_with_count:
+    other: 次の %{count} 件
+  pagination_previous: 前へ
+  pagination_previous_with_count:
+    other: 前の %{count} 件
   parameters: パラメータ
   partner_page: パートナーページ
-  password_colon: "パスワード :"
+  partner: パートナー
+  partner_web_site_colon: 'パートナーのウェブサイト:'
+  password_colon: 'パスワード:'
+  pause: 一時停止
+  people_with_count:
+    other: '%{count} 人'
+  permalink: 固定リンク
+  permissions_list_header: EOL のアクセス許可
+  permissions_users_count:
+    other: '%{count} 人のユーザー'
   personal_space: パーソナルスペース
-  ping: ping
+  pinterest: Pinterest
   please_confirm_your_donation_details: ご寄付の詳細をご確認ください
+  please_return_to_eol_homepage: EOL のホームページに戻ってください。
   please_wait: お待ちください...
   post_comment: コメントを投稿
   press_room: プレスルーム
+  preview_changes: 変更をプレビュー
+  preview: プレビュー
+  process_name: プロセス名
+  profile_colon: 'プロフィール:'
   profile: プロフィール
-  profile_colon: "プロフィール:"
-  public_domain: パブリック・ドメイン
-  rating_added_notice: 評価が正常に追加されました。
-  remove: 削除
+  profile_newsfeed: 自分のニュースフィード
+  profile_picture: プロフィール画像
+  project: プロジェクト
+  public: 公開
+  public_domain: パブリック ドメイン
+  rails_databases: Rails データベース
+  rails_environment: Rails 環境
+  range: 範囲
+  rating_added_notice: 評価を追加しました。
+  rating_learn_more_link: 評価について
+  recipients: 受信者
+  references_cabs_colon: '参照:'
   remove_data_object_association: 関連付けを除去
+  remove: 削除
+  reply: 返信
+  revoke_full_curator_link: 取り消す
+  revoke_permission: 取り消す
+  request_mailing_list_colon: 'メールの受信を希望しない:'
   request: 要求
-  request_mailing_list_colon: メーリング リストを要求：
+  resource: リソース
   resources: リソース
   response_formats: レスポンス・フォーマット
+  results: 結果
   revisions: リビジョン
-  revoke_full_curator_link: 取消
   rights: 権限
   rights_holder: 権利者
-  save: 保存
-  save_annotation_submit_button: 注釈を保存
+  save_comment_lowercase: コメントを保存
   save_curated_association_submit_button: 関連付けを保存
+  save_email_settings: メール設定を保存
+  save: 保存
   scientific_name: 科学的名称
   search: 検索
-  search_lowercase: 検索
+  search_by_term_page_title: '検索: %{term}'
+  search_next_label: 次へ
+  search_previous_label: 前へ
   search_results: 検索結果
-  see_all_media_link: すべてのメディアを確認
+  search_placeholder: EOL内を検索 ...
   see_all_of_your_collections: 自分のすべてのコレクションを確認
+  see_all_media_link: すべてのメディアを確認
+  see_in_glossary_tab: 用語集タブを参照
   see_notes: ノートを参照
-  select_colon: 選択：
+  select_colon: '選択:'
   select_topic: トピック領域を選択してください
-  selected_items: 選択されたアイテム
   selected_language_advisory_information: これは、現在選択されている言語です。
-  send_email_colon: 電子メールを送信：
-  sent_invitations_to_users: 招待状は、%{users} に送られました。
+  selected_items: 選択されたアイテム
+  send_email_colon: 'メールを送信:'
+  send: 送信
+  sent_invitations_to_users:
+    one: 1 件の招待状を %{users} に送信しました。
+    other: 招待状を %{users} に送信しました。
+  server_ip_address: サーバーの IP アドレス
   set_as_exemplar: 標本として設定
   show: 表示
   show_data_from_all_content_partners: 分類フィルタを削除
-  show_email_message_area: ［電子メールメッセージ領域を表示］
+  show_email_message_area: '[メールメッセージ領域を表示]'
+  show_tasks: タスクを表示
+  showing_all_error_logs: <b>すべてのエラー</b>を表示しています
+  showing_error_logs_from_date: <b>%{date}</b>以降のエラーを表示しています
   sign_in: サインイン
-  sign_in_successful_notice: ログインに成功。
+  sign_in_successful_notice: ログインしました。
   sign_out: サインアウト
   site_information: サイト情報
   site_language: サイトの言語
+  site_settings_menu: サイトの設定
   skip_to_content: コンテンツにスキップ
   skip_to_navigation: ナビゲーションにスキップ
   skip_to_table_of_contents: 目次へスキップ
+  social_sharing_reddit_button: reddit に送信
+  social_sharing_twitter_tweet_button: ツイート
+  social_sharing_twitter_follow_eol_button: '@eol をフォロー'
+  sort_by_button: 並べ替え
+  sort_by_label: '並び順:'
   sort_by_newest_option: 最新
   sort_by_oldest_option: 最古
   sort_by_rating_option: 評価
   sort_by_status_option: 状況
   sort_by_title_ascending: タイトル昇順
   sort_by_title_descending: タイトル降順
+  sort_by_value_ascending: 値の昇順
+  sort_order: 並び順
+  sounds_with_count:
+    other: '%{count} 件のサウンド'
   source_information_header: ソース情報
+  source_colon: 'ソース:'
   source_url: ソース URL
-  spm_category_objects_count: SPMカテゴリー − オブジェクト数
-  spm_category_partner_count: SPMカテゴリー − パートナー数
+  spm_category_objects_count: SPM カテゴリ − オブジェクト数
+  spm_category_partner_count: SPM カテゴリ − パートナー数
+  spm_category: SPM カテゴリ
+  stats: 統計
   stat: 統計
-  statistics: 統計
-  submit: 提出
+  submit: 送信
+  submitting: お待ちください…
+  summary_thumbnail_title: '要約:'
+  table_column_header_actions: 操作
   table_of_contents: 目次
+  task_status: タスクの状態
+  tasks_with_count:
+    other: '%{count} 件のタスクが見つかりました'
   taxon: 分類群
   taxon_details_empty: まだ誰もこのページに詳細を投稿していません。
   taxon_education_empty: まだ誰もこのページにすべての教育資源を投稿していません。
@@ -627,71 +1277,119 @@ ja:
   taxon_identification_resources_empty: まだ誰もこのページに任意の識別リソースを投稿していません。
   taxon_identification_resources_header: 識別リソース
   taxon_identification_resources_link: 識別リソース
-  taxon_page_content_disclaimer_header: 免責事項
+  taxon_multimedia_links_link: マルチメディア リンク
+  taxon_partner_links_header: パートナーリンク
   taxon_partner_links_link: パートナーリンク
+  taxon_page_content_disclaimer_header: 免責事項
   technical_functions: 技術的な機能
+  terms_agreement_form_header: 利用規約
+  terms_agreement_form_submit: 同意します
+  terms_of_use_link: 利用規約 &amp; プライバシー
+  term_for_search_admin_ui: 規約
   test: テスト。
+  text_object: テキスト オブジェクト
   text: テキスト
   text_capital: テキスト
-  this_cannot_be_undone_are_you_sure: これを元に戻すことはできません；本当によろしいですか？
+  thank_you: ありがとうございます
+  the_amount_entered_was: '入力した金額: %{number} USD'
+  the_comment_was_successfully_updated: コメントを更新しました。
+  the_comment_was_successfully_deleted: コメントを削除しました。
+  the_query_string: クエリ文字列
+  this_cannot_be_undone_are_you_sure: この操作は取り消せません。本当によろしいですか?
   this_community_has_no_focus_list: このコミュニティにはフォーカスリストがありません。
   this_community_was_deleted: このコミュニティは、所有者によって削除されました。
   this_is_the_label_that_will_be_used_for_attribution: これは、属性に使用されるラベルです。
+  time_ago: '%{time_passed}前'
   title: タイトル
   toc: 目次
+  total: 合計
   translation_deleted: 翻訳は削除されています
-  translation_saved: 翻訳は保存されています
+  translation_saved: 翻訳は保存されました
   translations_submit: 翻訳を表示
+  tumblr: Tumblr
+  twitter: Twitter
+  unable_to_invite_users_to_community_with_count:
+    other: '%{list} に招待状を送信できませんでした。'
+  unknown: 不明
+  unknown_hierarchy: 不明な階層
+  unknown_data_object_title: 不明なデータオブジェクト
+  unable_to_determine_title: ウェブページのタイトルを決定できませんでした
   unpublished: 未公開
   unreviewed: 未審査
   unreviewed_images: 未審査画像
+  unreviewed_maps: 未審査地図
   unreviewed_text_objects: 未審査記事
   update: 更新
   update_collection_submit_button: コレクションの詳細を更新
   update_language: 言語を更新
   update_page: ページを更新
-  update_user_successful_notice: アカウントは正常に更新されました。
+  update_user_successful_notice: アカウントを更新しました。
+  updated_community: コミュニティを更新しました。
   updated: 更新
-  updated_colon: 更新：
+  updated_colon: '更新:'
+  updates: アップデート
   upload_content: コンテンツをアップロード
-  us_dolars_75: US $75
+  upload: アップロード
+  uri: URI
+  url: URL
   us_dollars_100: US $100
   us_dollars_35: US $35
   us_dollars_50: US $50
-  user: ユーザー
+  us_dolars_75: US $75
+  user_agent: ユーザー エージェント
+  user_id: ユーザー ID
+  user_pending_notifications_with_count:
+    other: '%{count} 件の通知'
+  user_pending_notifications_comments_with_count:
+    other: '%{count} 件のコメント'
+  username_taken: '%{name} は既に使用されています'
+  username_colon: '利用者名:'
   username: 利用者名
-  username_colon: "利用者名 :"
-  username_taken: "%{name} は既に使用されています"
-  users_content_partners_header: コンテンツ・パートナー
+  user: ユーザー
+  users_content_partners_header: コンテンツパートナー
   users_form_account_header: あなたのアカウント
+  users_my_info_header: 自分の情報
   validation_error: 検証エラー
-  validation_following_fields: 次のフィールドに問題があります：
-  value_default: " ( デフォルト )"
-  view: 表示
+  validation_following_fields: '次のフィールドに問題があります:'
+  values: 値
+  value: 値
+  value_empty: (空)
+  value_default: (既定)
+  versions_colon: 'バージョン:'
+  videos_with_count:
+    other: '%{count} 件の動画'
+  view_verb: 表示
   view_added_text: 追加されたテキストを表示
-  view_article_source: 記事のソースを表示
   view_curators: キュレーターを表示
+  view_in_classification: 分類を表示
+  view_translation_source_link: 翻訳ソースを表示
   view_error_log: エラーログを表示
   view_full_size_image: フルサイズの画像を表示
   view_harvesting_log: 収集ログを表示
+  view_article_source: 記事のソースを表示
   view_image_source: 画像のソースを表示
-  view_in_classification: 分類を表示
-  view_translation_source_link: 翻訳ソースの表示
+  view_image_map_source: 地図のソースを表示
+  view_map_source: 地図のソースを表示
+  view_source: ソースを表示
   view_user_comments: ユーザーのコメントを表示
+  vimeo: Vimeo
   watch_list: ウォッチリスト
-  web_users: ウェブユーザー
-  what_is_eol: EOLとは？
-  what_is_this_question: この内容は？
+  web_users: Web ユーザー
+  welcome: ようこそ
+  what_is_eol: EOL とは?
+  what_is_this_question: これは何?
   worklist: ワークリスト
-  xml_response: XMLレスポンス
+  xml_response: XML レスポンス
+  yahoo_images: Yahoo 画像
+  yahoo: Yahoo
   year: 年
   yes_answer: はい
   you_have_been_logged_out: ログアウトしました。
-  your_current_rating_0_of_5: "あなたの現在の評価: 0 / 5"
-  your_current_rating_1_of_5: "あなたの現在の評価: 1 / 5"
-  your_current_rating_2_of_5: "あなたの現在の評価: 2 / 5"
-  your_current_rating_3_of_5: "あなたの現在の評価: 3 / 5"
-  your_current_rating_4_of_5: "あなたの現在の評価: 4 / 5"
-  your_current_rating_5_of_5: "あなたの現在の評価: 5 / 5"
+  your_browser_does_not_support: ご使用中のブラウザーは HTML5 動画に対応していません。
+  your_email_address: メールアドレス
+  your_ip_address: あなたの IP アドレス
   your_preferences: 個人設定
   your_rating: あなたの評価
+  youtube: YouTube
+  youtube_video: YouTube 動画
+...

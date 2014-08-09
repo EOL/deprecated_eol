@@ -1,72 +1,398 @@
-# Messages for Azerbaijani (Azərbaycanca)
+# Messages for Azerbaijani (azərbaycanca)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
+# Author: AZISS
 # Author: Cekli829
+# Author: Erdemaslancan
+# Author: Khan27
 # Author: Melikov Memmed
 # Author: PPerviz
 # Author: Vago
 # Author: Мурад 97
-az: 
-  action: Fəaliyyət
-  actions: Fəaliyyətlər
-  active_colon: "Aktiv:"
-  activerecord: 
-    attributes: 
-      content_partner: 
+---
+az:
+  activerecord:
+    models:
+      user: hesab
+    attributes:
+      collection:
+        name: Kolleksiya adı
+        description: Kolleksiya təsviri
+        sort_style_id: İstənilən sıralama istiqaməti
+        logo: İlkin kolleksiya görüntüsü
+        additional_annotation_fields: Əlavə annotasiya sahələri
+        show_references: İstinadlar (Mətn ya da URL)
+      collection_job:
+        overwrite: Dublikatları dəyiştir
+      collection_item:
+        annotation: Annotasiya
+        sort_field: Üzrə çeşidləmək
+        refs: İstinadlar
+      comment:
+        body: Rəy
+      community:
+        name: Toplum adı
+        description: Toplum təsviri
+        logo: Loqo yüklə
+      contact:
+        comments: Mesaj
+        contact_subject_id: Əlaqəli mövzu
+        email: E-poçt
+        name: Ad
+      content_page:
+        page_name: Unikal adı
+        sort_order: Sıralama qaydası
+        active: Yayınlandı
+      content_partner:
+        acronym: Layihə qısaltma
+        auto_publish: Avtomatik-yayımlama
+        admin_notes: İdarəçilik qeydləri
+        content_partner_status: Layihənin statusu
         created_at: Yaradılıb
-      data_object: 
+        description: Layihənin təsviri
+        display_name: 'Gorüntülənən ad:'
+        full_name: Layıhə adı
+        homepage: Layihə URL
+        id: ID
+        notes: Layıhə qeydləri
+        public: İctimai
+        resources: Resurslar
+        user_id: İdarəçi
+        vetted: İncələnib
+      content_partner_agreement:
+        created_at: Yaradan
+        signed_by: İmzalayan
+        signed_on_date: İmza tarixi
+      content_partner_contact:
+        email_reports_frequency_hours: E-mail hesabatlarının tezliyi
+      data_object:
+        bibliographic_citation: Biblioqrafik sitat
+        description: Mətn
         object_title: Başlıq
-      name: 
+        rights_holder: Hüquq sahibi
+        rights_statement: Hüquqlar haqqında bəyanat
+        source_url: URL mənbəsi
+      data_object_link:
+        description: Təsvir
+        source_url: URL keçidi
+      eol_statistic:
+        created_at: Yaradan
+        members_count: İştirakçılar
+        communities_count: Cəmiyyətlər
+        collections_count: Kolleksiyalar
+        pages_count: Ümumi səhifələr
+        pages_with_content: Dolu səhifələr
+        pages_with_text: Mətnli səhifələr
+        pages_with_image: Şəkilli səhifələr
+        pages_with_map: Xəritəli səhifələr
+        pages_with_video: Videolu səhifələr
+        pages_with_sound: Musiqi olan səhifələr
+        pages_without_text: Mətnsiz səhifələr
+        pages_without_image: Şəkilsiz səhifələr
+        pages_with_image_no_text: Şəkilli ancaq mətnsiz səhifələr
+        pages_with_text_no_image: Mətnli ancaq şəkilsiz səhifələr
+        base_pages: Əsas səhifələr
+        pages_with_at_least_a_trusted_object: Yoxlanmış obyektli səhifələr
+        pages_with_at_least_a_curatorial_action: Kurator hərəkətli səhifələr
+        pages_with_BHL_links: BHL keçidli səhifələr
+        pages_with_BHL_links_no_text: BHL keçidli ancaq mətnsiz səhifələr
+        pages_with_BHL_links_only: Yalnız BHL keçidli səhifələr
+        data_objects: Məlumat obyektləri
+        data_objects_texts: Mətn obyektləri
+        data_objects_images: Şəkil obyektləri
+        data_objects_videos: Video obyektləri
+        data_objects_sounds: Audio obyektləri
+        data_objects_maps: Xəritə obyektləri
+        data_objects_trusted: Etibarlı mətn obyektləri
+        data_objects_unreviewed: İncələnməmiş mətn obyektləri
+        data_objects_untrusted: Etibarsız mətn obyektləri
+        data_objects_trusted_or_unreviewed_but_hidden: >
+          Etibarlı ya da incələnməmiş lakin
+          gizli
+        udo_published: İstifadəçinin əlavə etdiyi mətn
+        udo_published_by_curators: Kurator tərəfindən verilmiş mətn
+        udo_published_by_non_curators: Kurator tərəfindən verilməyən mətn
+        content_partners: Məzmun partnyorları
+        content_partners_with_published_resources: Yayımlanmış resurslarla
+        content_partners_with_published_trusted_resources: Yayımlanmış etibarlı resurslarla
+        published_resources: Yayımlanmış resurslar
+        published_trusted_resources: Yayımlanmış etibarlı resurslar
+        published_unreviewed_resources: >
+          Yayımlanmış incələnməmiş
+          resurslar
+        newly_published_resources_in_the_last_30_days: Keçən ay yenicə yayımlanmış
+        marine_pages: Dəniz mövzusuyla səhifələr
+        marine_pages_in_col: >
+          Həyat Kataloqunda (CoL) tapılmış
+          dəniz mövzusuyla səhifələr
+        marine_pages_with_objects: >
+          Məlumat obyektləri olan dəniz
+          mövzusuyla səhifələr
+        marine_pages_with_objects_vetted: >
+          Etibarlı məlumat obyektləri olan
+          dəniz mövzusuyla səhifələr
+        curators: Kuratorlar
+        curators_assistant: Kurator köməkçiləri
+        curators_full: Tam kuratorların
+        curators_master: Kuratorların başçısı
+        active_curators: Aktiv kuratorlar
+        pages_curated_by_active_curators: >
+          Aktiv kuratorlar tərəfindən
+          yoxlanmış səhifələr
+        objects_curated_in_the_last_30_days: >
+          Son 30 gün ərzində kuratorlar
+          tərəfindən yoxlanmış obyektlər
+        curator_actions_in_the_last_30_days: >
+          Son 30 gün ərzində kuratorların
+          hərəkətləri
+        rich_pages: Zəngin səhifələr
+        pages_with_score_10_to_39: 10-40 xallı səhifələr
+        pages_with_score_less_than_10: 10 xaldan az olan səhifələr
+      forum:
+        forum_category_id: Kateqoriya
+        name: Forum adı
+      forum_category:
+        title: Kateqoriya adı
+      forum_post:
+        subject: Mövzu
+        text: Mətn
+      forum_topic:
+        subject: Mövzu
+        text: Mətn
+      harvest_event:
+        resource: Resurslar
+      hierarchy:
+        complete: Tamamlandı
+        description: Təsvir
+        descriptive_label: Təsviri nişan
+        label: Nişan
+      open_authentication:
+        created_at: Yaradılıb
+        updated_at: Son yenilənmə
+        user_id: İstifadəçi ID
+      name:
         string: Ad
-      resource: 
-        language_id: Susmaya görə dil
-      translated_content_page: 
+      news_item:
+        page_name: Bənzərsiz ad
+        active: Yanınlandı
+      notification:
+        reply_to_comment: Yazdığınız rəyə cavab gələndə
+        comment_on_my_profile: Profilinizə rəy bildiriləndə
+        comment_on_my_collection: >
+          İdarə etdiyiniz topluma rəy
+          bildiriləndə
+        comment_on_my_community: >
+          Üzv olduğunuz icmalardan birinə rəy
+          bildiriləndə
+        made_me_a_manager: >
+          Bir topluma və ya icmaya idarəçi
+          təyin olunduğunda
+        member_joined_my_community: >
+          İdarə etdiyiniz icmaya yeni bir üzv
+          qoşuldu
+        changes_to_my_watched_collection: >
+          İzləmə siyahında olan toplumlara
+          dəyişiklik et
+        changes_to_my_watched_community: >
+          İzləmə siyahında olan icmalara
+          dəyişiklik et
+      resource:
+        language_id: İstənilən dil
+        license_id: İstənilən lisenziya
+      translated_content_page:
         title: Başlıq
-      user: 
+      translated_news_item:
+        title: Başlıq
+      user:
+        api_key: API açar
         bio: Bio
         email: E-poçt ünvanı
         entered_password: Parol
+        entered_password_confirmation: 'Şifrəni təkrarla <small>(təsdiqləmək üçün)</small>'
         family_name: Soyadı
+        full_name: Tam adı
         given_name: Adı
         username: İstifadəçi adı
-    models: 
-      user: hesab
+    errors:
+      messages:
+        not_a_number: nömrə deyil
+        not_an_integer: tam sayı olmalıdır
+  helpers:
+    label:
+      comment:
+        body_edit: Rəyi redaktə et
+      contact:
+        comments: Mesajınız
+        contact_subject_id: Mövzu
+        email: Sizin e-poçt ünvanınız
+        name: Sizin adınız
+      content_page:
+        active: Yayınlandı
+      data_object:
+        license_id: Lisenziya
+        object_title: Başlıq
+        toc_item: Yarımbölmə
+      data_object_link:
+        link_type: Kateqoriya
+      eol_statistic:
+        date_one: Tarix
+        date_two: Tarix
+      harvest_event:
+        published_status: Status
+      open_authentication:
+        connect: Əlavə et
+      resource:
+        resource_status_id: Status
+      session:
+        password: Parol
+      translated_content_page:
+        language_id: Dil
+      translated_news_item:
+        language_id: Dil
+      user:
+        bio: Mənim haqqımda
+        email: E-poçt ünvanı
+        new_password: 'Yeni parol <small>(4 - 16 simvol)</small>'
+        user_identities: Mən
+    submit:
+      collection_item:
+        update: Qeyd et
+      content_page:
+        edit: Redaktə
+      data_object:
+        create: Məqalə əlavə et
+        create_text: Məqalə əlavə et
+      name:
+        create: Adı əlavə et
+      news_item:
+        edit: Redaktə
+      session:
+        create: Daxil ol
+  will_paginate:
+    next_label: Növbəti
+  datepicker:
+    day_names:
+      1: Bazar ertəsi
+      2: Çərşənbə axşamı
+      3: Çərşənbə
+      4: Cümə axşamı
+      5: Cümə
+      6: Şənbə
+    day_names_short:
+      - Bazar
+      - Bazar ertəsi
+      - Çərşənbə axşamı
+      - Çərşənbə
+      - Cümə axşamı
+      - Cümə
+      - Şənbə
+    current: Bugün
+    month_names:
+      - Yanvar
+      - Fevral
+      - Mart
+      - Aprel
+      - May
+      - İyun
+      - İyul
+      - Avqust
+      - Sentyabr
+      - Oktyabr
+      - Noyabr
+      - Dekabr
+    month_names_short:
+      - Yanvar
+      - Fevral
+      - Mart
+      - Aprel
+      - May
+      - İyun
+      - İyul
+      - Avqust
+      - Sentyabr
+      - Oktyabr
+      - Noyabr
+      - Dekabr
+    next: Növbəti
+    previous: Əvvəlki
+  eol_statistics:
+    data_objects:
+      page_title: Statistikalar
+    index:
+      menu_link: Ümumi statistika
+      page_title: Statistikalar
+    lifedesks:
+      page_title: Statistikalar
+    marine:
+      page_title: Statistikalar
+    page_richness:
+      page_title: Statistikalar
+    users_data_objects:
+      page_title: Statistikalar
+    data:
+      menu_link: Məlumatlar
+      page_header: Məlumatların statistikası
+  forums:
+    buttons:
+      delete: sil
+      edit: redaktə
+      reply: yenidən
+    posts:
+      close_window: bağla
+  layouts:
+    application:
+      about_link_help: Kömək
+  sessions:
+    new:
+      meta_title: Daxil ol
+  users:
+    open_authentications:
+      facebook: Facebook
+      google: Google
+      twitter: Twitter
+      yahoo: Yahoo!
+  action: Fəaliyyət
+  actions: Fəaliyyətlər
+  active_colon: 'Aktiv:'
   add_a_comment_colon: Şərh yaz
   add_a_new_user: Yeni istifadəçi əlavə et
-  add_article_to_page_link_button: Bu səhifəyə bir məqalə əlavə edin
   add_page: Səhifə əlavə et
-  admin: admin
   all_articles: Bütün məqalələr
   all_changes: Bütün dəyişikliklər
   all_images: Bütün şəkillər
   all_information: Bütün məlumatlar
-  all_pages: Bütün səhifələr
   all_people: Bütün insanlar
   all_title: Hamısı
   are_you_sure: Əminsiniz?
-  assistive_maps_header: Xəritələr
   assistive_media_header: Media
+  assistive_maps_header: Xəritələr
   audio_pause: fasilə
   audio_stop: dur
   back_to_profile: İstifadəçi səhifəyə qayıtmaq
   cancel: İmtina
-  cms_missing_content_message: Bağışlayın, bu səhifə bu dildə mövcud deyil
+  cms_missing_content_message: >
+    Bağışlayın, bu səhifə bu dildə
+    mövcud deyil
   comment: Şərh
   content_partner_column_header_partner: Ortaq
   content_partner_contacts_header: Əlaqələr
-  content_partner_filter_option_vetted_no: Xeyr
   content_partner_filter_option_vetted_yes: Bəli
+  content_partner_filter_option_vetted_no: Xeyr
   content_partner_statistics_column_header_total_count: Bütün səhifələr
   copy: Kopyala
+  created_colon: 'Yaradılıb:'
   created: Yaradılıb
-  created_colon: "Yaradılıb:"
+  your_current_rating_0_of_5: 'Hazırki reytinqiniz: 5-dən 0-dır'
+  your_current_rating_1_of_5: 'Hazırki reytinqiniz: 5-dən 1-dir'
+  your_current_rating_2_of_5: 'Hazırki reytinqiniz: 5-dən 2-dir'
+  your_current_rating_3_of_5: 'Hazırki reytinqiniz: 5-dən 3-dür'
+  your_current_rating_4_of_5: 'Hazırki reytinqiniz: 5-dən 4-dür'
+  your_current_rating_5_of_5: 'Hazırki reytinqiniz: 5-dən 5-dir'
   dato_create_cancel: İmtina
   dato_edit_cancel: İmtina
-  donate: Maddi kömək
-  donation_amount_other_label: Digər
   edit: Redaktə
   email: E-poçt
-  email_colon: "E-poçt:"
+  email_colon: 'E-poçt:'
   encyclopedia_of_life: Həyat Ensiklopediyası
   filter_by_status_all_option: bütün statuslar
   filter_by_type_all_option: bütün tiplər
@@ -76,39 +402,15 @@ az:
   filter_by_type_video_option: Videolar
   forgot_password_form_cancel: İmtina
   go: Get
-  hello_user: Salam %{user}
+  hello_user: 'Salam %{user}'
   help: Kömək
-  helpers: 
-    label: 
-      data_object: 
-        license_id: Lisenziya
-        object_title: Başlıq
-        toc_item: Yarımbölmə
-      resource: 
-        resource_status_id: Status
-      session: 
-        password: Parol
-      translated_content_page: 
-        language_id: Dil
-      user: 
-        bio: Haqqımda
-        mailing_list_yes: Bəli
-        new_password: Yeni parol <small>(4 - 16 simvol)</small>
-        user_identities: Mən
-    submit: 
-      content_page: 
-        edit: Redaktə
-      data_object: 
-        create: Məqalə əlavə et
-        create_text: Məqalə əlavə et
-      name: 
-        create: Adı əlavə et
   hidden: Gizlədilib
   images: Şəkillər
-  language: "Dil:"
+  language: 'Dil:'
   languages: Dillər
   license: Lisenziya
   license_public_domain: İctimai İstifadə
+  licensing: Lisenziya
   literature: Ədəbiyyat
   logo_header: Loqo
   media: Media
@@ -126,14 +428,12 @@ az:
   object_visibility_all_option: Hamısı
   object_visibility_invisible_option: Gizlədilib
   pages_admin_section_link: İdarəçilər
-  pages_lowercase: səhifələr
-  password_colon: "Parol:"
+  password_colon: 'Parol:'
   profile: Profil
   resources: Resurslar
   rights: Qaydalar
   search: Axtar
-  search_lowercase: axtar
-  select_colon: "Seç:"
+  select_colon: 'Seç:'
   send_email_colon: E-məktub göndər
   show: Göstər
   show_status_message: Status mesajını göstər
@@ -143,24 +443,17 @@ az:
   subject: mövzu
   submit: Təsdiq et
   synonym: Sinonim
-  task_status_active_option: Aktiv
+  task_status_active_option: Aktivdir
   taxon: takson
   test: Test.
   text_capital: Mətn
   thank_you: Təşəkkür
   twitter: Twitter
   type: Tipi
-  view: Görünüş
   web_users: Veb istifadəçiləri
   weekly: Həftəlik
   what_is_eol: HE nədir?
   what_is_this_question: Bu nədir?
   year: İl
   yes_answer: Bəli
-  your_current_rating_0_of_5: "Hazırki reytinqiniz: 5-dən 0-dır"
-  your_current_rating_1_of_5: "Hazırki reytinqiniz: 5-dən 1-dir"
-  your_current_rating_2_of_5: "Hazırki reytinqiniz: 5-dən 2-dir"
-  your_current_rating_3_of_5: "Hazırki reytinqiniz: 5-dən 3-dür"
-  your_current_rating_4_of_5: "Hazırki reytinqiniz: 5-dən 4-dür"
-  your_current_rating_5_of_5: "Hazırki reytinqiniz: 5-dən 5-dir"
   your_rating: Reytinqiniz

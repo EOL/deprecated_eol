@@ -1,7 +1,8 @@
 # Messages for Latin (Latina)
 # Exported from translatewiki.net
-# Export driver: syck-pecl
+# Export driver: spyc
 # Author: MissPetticoats
-la: 
+---
+la:
   explore: Explorare
   go: Ire

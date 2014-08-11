@@ -3064,8 +3064,6 @@ en:
   content_partner_contact_update_successful_notice: "Contact successfully updated."
   content_partner_contact_update_unsuccessful_error: "Sorry, an error occurred, the contact was not updated."
   content_partner_contacts_header: "Contacts"
-  content_partner_create_successful_notice: "Content partner successfully created."
-  content_partner_create_unsuccessful_error: "Sorry, an error occurred, content partner was not created."
   content_partner_current_agreement_empty: "No agreement"
   content_partner_current_agreement_signed_on_with_date: "Signed on %{date}"
   content_partner_current_agreement_view_link: "View"

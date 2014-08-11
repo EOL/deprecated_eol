@@ -87,11 +87,11 @@ class ContentPartnersController < ApplicationController
   def load_content_partners
     @name    = params[:name] || ''
     @sort_by = params[:sort_by] || 'partner'
-    @page    = params[:page] || 0
+    @page    = params[:page]
 
     # TODO: Select is being ignored in the following. Appears to be when
     # conditions added. Find a solution.
-    @partners = ContentPartner::Paginate.new(@name, @sort_by).run
+    @partners = ContentPartner::Paginate.new(@page, @name, @sort_by).run
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
     @page_description = I18n.t(:content_partners_page_description,

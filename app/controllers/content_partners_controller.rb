@@ -84,6 +84,7 @@ class ContentPartnersController < ApplicationController
     set_page_titles
   end
 
+  # YOU WERE HERE
   def load_content_partners
     @name = params[:name] || ''
     @sort_by = params[:sort_by] || 'partner'

@@ -1,4 +1,4 @@
-class ContentPartner::AsUnassisted < ContentPartner
+class ContentPartner::AsUnassisted < ActiveType::Record[ContentPartner]
 
   after_create :notify_master_curators
 

@@ -30,6 +30,8 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.2.1)
+    active_type (0.2.1)
+      activerecord (>= 3.2)
     activemodel (3.2.18)
       activesupport (= 3.2.18)
       builder (~> 3.0.0)
@@ -398,6 +400,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_type (~> 0.2)
   acts_as_list (= 0.3.0)
   acts_as_tree_rails3 (= 0.1.0)
   ar-octopus (= 0.4.0)!

@@ -1,4 +1,19 @@
-require "spec_helper"
+# EXEMPLAR - Feature Spec (for testing the full stack)
+#
+# You should:
+#
+# * Avoid using mocks and stubs (except WebMock).
+# * Test all the basic CRUD workflows.
+# * DEFINITELY test a "render" as part of the Read.
+# * Test any resource-specific edge-cases (though this is lower priority).
+# * MINIMIZE your feature specs! These are expensive.
+# * NOTE any exceptions.
+#
+# NOTE that we are not testing for simple "is here" or "is not here", as those
+# types of tests belong in a view spec.
+#
+# NOTE There is no spec for destroying or deleting a CP, because we don't
+# allow it.
 
 describe '/content_partners' do
 
@@ -7,21 +22,16 @@ describe '/content_partners' do
     ContentPartnerStatus.create_enumerated
   end
 
+  # This is as close as we get to a "read" spec, here, because specifics
+  # belong in a view spec, but having a feature spec ensure that the full
+  # stack renders is actually useful.
   it 'renders' do
     visit content_partners_path
     expect(page.body).to have_content('Content Partners')
   end
 
-  context 'not logged in' do
-
-    it 'does not show edit button'
-
-  end
-  
   context 'when logged in as a user without content partners' do
     let(:user) { User.gen }
-
-    it 'doesn\'t show any CPs on the profile page'
 
     it 'creates content_partner, signs agreement' do
       login_as user
@@ -41,8 +51,6 @@ describe '/content_partners' do
       expect(cp.agreement.is_accepted?).to be true
       expect(page.body).to have_content("Add a new resource")
     end
-
-    it 'asks the user to agree to terms'
 
   end
 

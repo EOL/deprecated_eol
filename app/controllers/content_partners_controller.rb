@@ -84,41 +84,14 @@ class ContentPartnersController < ApplicationController
     set_page_titles
   end
 
-  # YOU WERE HERE
   def load_content_partners
-    @name = params[:name] || ''
+    @name    = params[:name] || ''
     @sort_by = params[:sort_by] || 'partner'
+    @page    = params[:page] || 0
 
-    order = case @sort_by
-    when 'newest'
-      'content_partners.created_at DESC'
-    when 'oldest'
-      'content_partners.created_at'
-    else
-      'content_partners.full_name'
-    end
     # TODO: Select is being ignored in the following. Appears to be when
     # conditions added. Find a solution.
-    include = [ { resources: [ :resource_status ] }, :content_partner_status,
-      :content_partner_contacts ]
-    select = 'content_partners.id, content_partners.full_name,
-      content_partners.display_name, content_partners.description,
-      content_partners.homepage, content_partners.logo_cache_url,
-      content_partners.logo_file_name, content_partners.logo_content_type,
-      content_partners.logo_file_size, content_partners.created_at,
-      resources.id, resources.collection_id, resources.resource_status_id,
-      resource_statuses.*, harvest_events.*'
-    conditions = "content_partners.public = 1 AND "\
-      "content_partners.full_name LIKE :name"
-    conditions_replacements = {}
-    conditions_replacements[:name] = "%#{@name}%"
-    @partners = ContentPartner.paginate(
-                  page: params[:page],
-                  per_page: 10,
-                  select: select,
-                  include: include,
-                  conditions: [ conditions, conditions_replacements],
-                  order: order)
+    @partners = ContentPartner::Paginate.new(@name, @sort_by).run
     set_sort_options
     @page_title = I18n.t(:content_partners_page_title)
     @page_description = I18n.t(:content_partners_page_description,
@@ -127,6 +100,7 @@ class ContentPartnersController < ApplicationController
   end
 
   def content_partners_layout
+    ContentPartner
     case action_name
     when 'index', 'new'
       'basic'

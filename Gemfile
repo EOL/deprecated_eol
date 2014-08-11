@@ -108,8 +108,8 @@ gem 'json', '1.8.1' # For APIs that want to return JSON.
 gem 'macaddr' # For creating UUIDs that are unique to the machine that makes them.
 gem 'mime-types', '1.25' # For handling the many differnt types of files to serve, such as videos.
 gem 'mysql2', '0.3.14' # This is our database. You might want this.
-# TODO - update newrelic_rpm
-gem 'newrelic_rpm', '>3.7.2' # For gathering tons of awesome stats about the site
+# For gathering tons of awesome stats about the site
+gem 'newrelic_rpm', '~> 3.9'
 # TODO - update oauth ... do we even still use v1?
 gem 'oauth', '0.4.7' # Logging in via Facebook and Twitter, older version.
 gem 'oauth2', '0.8.0' # Logging in via Facebook and Twitter

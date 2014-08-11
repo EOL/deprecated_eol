@@ -29,7 +29,7 @@ class ContentPartner::Paginate
        per_page: 10,
        select: SELECT_ITEMS,
        include: INCLUDE,
-       conditions: [conditions, { name: "%#{@name}%" }],
+       conditions: [CONDITIONS, { name: "%#{@name}%" }],
        order: get_order
      )
   end

@@ -10,7 +10,7 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :taxon_concept
 
   PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
-  PAGE_LIMIT = 200 # Maximum number of "pages" of data to allow in one file.
+  PAGE_LIMIT = 500 # Maximum number of "pages" of data to allow in one file.
   LIMIT = PAGE_LIMIT * PER_PAGE
   EXPIRATION_TIME = 2.weeks
 

@@ -264,8 +264,21 @@ class User < ActiveRecord::Base
       gsub(/__amp__/, '&')
   end
 
+  # TODO - test this. Wire this up to a controller. A user should be able to
+  # "destroy" his account with this method (as of this writing, cannot).
+  def deactivate
+    # Using update_column instead of updates_attributes to by pass validation
+    # errors.
+    update_column(:active, false)
+    update_column(:validation_code, nil)
+    # This one is perhaps contentious, but I think it's the right thing to do.
+    update_column(:email, nil)
+    remove_from_index
+  end
+
   def activate
-    # Using update_column instead of updates_attributes to by pass validation errors.
+    # Using update_column instead of updates_attributes to by pass validation
+    # errors.
     update_column(:active, true)
     update_column(:validation_code, nil)
     add_to_index

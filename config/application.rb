@@ -41,7 +41,7 @@ module Eol
 
     # Languages that we allow through the UI (setting this early for other config files to use):
     Rails.configuration.active_languages =
-      %w[ar de en es fr gl ko mk ms nl nb oc pt-br sr sr-Latn sv tl uk zh-Hans zh-Hant]
+      %w[ar de en es fr gl it ko mk ms nl nb oc pt-br sr sr-Latn sv tl uk zh-Hans zh-Hant]
 
     Rails.configuration.use_secure_acceptance = false
 

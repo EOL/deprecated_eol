@@ -13,36 +13,29 @@ class ContentPartnersController < ApplicationController
 
   layout :content_partners_layout
 
-  # GET /content_partners
   def index
     load_content_partners
   end
 
-  # GET /content_partners/new
-  # POST /content_partners/new
+  def show
+    load_content_partner
+  end
+
   def new
     build_content_partner
   end
 
-  # POST /content_partners
   def create
     build_content_partner
     access_denied unless current_user.can_create?(@partner)
     save_content_partner || render(:new)
   end
 
-  # GET /content_partners/:id
-  def show
-    load_content_partner
-  end
-
-  # GET /content_partners/:id/edit
   def edit
     load_content_partner
     access_denied unless current_user.can_update?(@partner)
   end
 
-  # PUT /content_partners/:id
   def update
     load_content_partner
     build_content_partner
@@ -72,7 +65,7 @@ class ContentPartnersController < ApplicationController
       redirect_to path, status: :moved_permanently
     else
       flash.now[:error] = I18n.t(:content_partner_update_unsuccessful_error)
-      false 
+      false
     end
   end
 

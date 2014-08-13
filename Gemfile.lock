@@ -248,7 +248,10 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     parallel (0.9.1)
+    pluginator (1.1.0)
     polyglot (0.3.4)
+    pre-commit (0.17.0)
+      pluginator (~> 1.1)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -449,6 +452,7 @@ DEPENDENCIES
   oauth2 (= 0.8.0)
   optiflag (= 0.7)
   paperclip (= 4.1.1)
+  pre-commit (~> 0.17)
   pry-rails
   pry-rescue
   pry-stack_explorer

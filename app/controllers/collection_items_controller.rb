@@ -11,75 +11,67 @@ class CollectionItemsController < ApplicationController
     @references = prepare_references
     respond_to do |format|
       format.html do
-        @page_title = I18n.t(:collection_item_edit_page_title, 
+        @page_title = I18n.t(:collection_item_edit_page_title,
                              collection_name: @collection.name)
       end
       format.js { render partial: 'edit' }
     end
   end
 
-  # POST /collection_items
   def create
     reset_errors
-    # Sooo... we could get our data in a lot of different ways.
-    if session[:submitted_data] 
+    if session[:submitted_data]
       create_from_submitted_data
-    elsif params[:collection_id] 
+    elsif params[:collection_id]
       create_from_collection_ids
-    else # ...or this is just a simple single collect:
+    else
       create_collection_item(params[:collection_item])
     end
     update_errors
-    
+
     respond_to do |format|
       format.html { redirect_to_taxon_or_curator }
-      # this means we came from the collections summary on the overview page,
-      # so render that entire summary box again
+      # coming from the overview page,
       format.js { render_collections_summary }
     end
   end
 
-  # PUT /collection_items/:id
   def update
-    # Update method is called when JS off by submit of 
-    # /collection_items/:id/edit. When JS is on collection item
-    # updates are handled by the Collections update method and 
-    # specifically the annotate method in Collections controller.
+    # called when JS off
     return access_denied unless current_user.can_update?(@collection_item)
     update_collection_item || redirect_update_error
   end
 
-  # GET /collection_items/:id/edit
   def edit
     respond_to do |format|
       format.js do
         if current_user.can_update?(@collection_item)
           @collection = @collection_item.collection
           @references = prepare_references
-          render partial: 'collections/edit_collection_item', 
+          render partial: 'collections/edit_collection_item',
             locals: { collection_item: @collection_item }
         else
-          render text: 
+          render text:
             I18n.t(:collection_item_edit_by_javascript_not_authorized_error)
         end
       end
     end
   end
 
-private
+  private
+
   def update_collection_item
     return false unless @collection_item.
       update_attributes(params[:collection_item])
     update_collection_item_references
     respond_to do |format|
       format.html do
-        flash[:notice] = I18n.t(:item_updated_in_collection_notice, 
+        flash[:notice] = I18n.t(:item_updated_in_collection_notice,
                            collection_name: @collection_item.collection.name)
         redirect_to(@collection_item.collection)
       end
       format.js do
         @collection = @collection_item.collection
-        # Need to know whether refs are shown...
         render partial: 'collection_items/show_editable_attributes',
           locals: { collection_item: @collection_item, item_editable: true }
       end
@@ -100,7 +92,7 @@ private
       @collection_item.refs.clear
       @references = params[:references]
       unless params[:references].blank?
-        params[:references] = params[:references].split("\n") 
+        params[:references] = params[:references].split("\n")
         params[:references].each do |reference|
           @collection_item.add_ref(reference)
         end
@@ -132,7 +124,7 @@ private
   end
 
   def render_collections_summary
-    if params[:render_overview_summary] && 
+    if params[:render_overview_summary] &&
       @collection_item.collected_item.is_a?(TaxonConcept)
       if @errors.blank?
         @taxon_concept = TaxonConcept.
@@ -143,7 +135,7 @@ private
       end
     else
       convert_flash_messages_for_ajax
-      render partial: 'shared/flash_messages', 
+      render partial: 'shared/flash_messages',
         layout: false # JS will handle rendering these.
     end
   end
@@ -160,13 +152,13 @@ private
   end
 
   def reset_errors
-    # TODO: this will remove the duplicate Global Site Message 
+    # TODO: this will remove the duplicate Global Site Message
     # when collecting things. How can we better trap these cases?
     flash.now[:error] = nil
     @notices = []
     @errors = []
   end
-  
+
   def update_errors
     flash.now[:errors] = @errors.to_sentence unless @errors.empty?
     flash[:notice] = @notices.to_sentence unless @notices.empty?
@@ -174,23 +166,23 @@ private
 
   def find_collection_item
     @collection_item = CollectionItem.find(params[:id], include: [:collection])
-    @selected_collection_items = [] 
-    # To avoid errors.  If you edit something, 
+    @selected_collection_items = []
+    # To avoid errors.  If you edit something,
     # it becomes unchecked.  That's okay.
   end
 
   def create_collection_item(data)
     @collection_item = CollectionItem.new(data)
-    @collection_item.collection ||= 
+    @collection_item.collection ||=
       current_user.watch_collection unless current_user.blank?
     if @collection_item.collected_item_type == 'Collection' &&
       @collection_item.collected_item_id == @collection_item.collection.id
       @notices << I18n.t(:item_not_added_to_itself_notice,
                          collection_name: @collection_item.collection.name)
     elsif @collection_item.save
-      CollectionActivityLog.create(collection: @collection_item.collection, 
+      CollectionActivityLog.create(collection: @collection_item.collection,
                                    user: current_user,
-                                   activity: Activity.collect, 
+                                   activity: Activity.collect,
                                    collection_item: @collection_item)
       @collection_item.collection.updated_at = Time.now.to_s
       @collection_item.collection.save
@@ -199,7 +191,7 @@ private
                            link_to(@collection_item.collection.name,
                                   collection_path(@collection_item.collection)))
     else
-      # TODO: Ideally examine validation error and 
+      # TODO: Ideally examine validation error and
       #provide more informative error message, e.g. item is
       # already in the collection etc
       @errors << I18n.t(:item_not_added_to_collection_error)

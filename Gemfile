@@ -28,6 +28,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   # Yeah, I know this has given us grief in the past.  :\ Trying things out, is
   # all.
   gem 'nokogiri', '1.5.5'
+  gem 'pre-commit', '~> 0.17'
 end
 
 # Essentially, this "group" is for everything except production:

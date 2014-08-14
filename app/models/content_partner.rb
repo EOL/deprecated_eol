@@ -212,6 +212,10 @@ class ContentPartner < ActiveRecord::Base
     full_name
   end
 
+  def collections
+    resources.map { |r| r.collection }.compact
+  end
+
   private
   def set_default_content_partner_status
     self.content_partner_status = ContentPartnerStatus.

@@ -151,7 +151,7 @@ sq:
   profile: Profili
   profile_image_alt_text_curator: 'Profile picture for curator %{user_full_name}'
   profile_image_alt_text_member: 'Profile picture for member %{user_full_name}'
-  punctuation_comma: ,
+  punctuation_comma: ","
   recent_updates: mo te rejat
   remove_membership: Hiq anëtarësimit
   rights: Të drejtave të

@@ -1146,7 +1146,7 @@ lb:
   profile: Profil
   project: Projet
   public: Ëffentlech
-  punctuation_comma: ,
+  punctuation_comma: ","
   punctuation_semi_colon: ;
   range: Beräich
   recent_updates: Rezent Aktualisatiounen

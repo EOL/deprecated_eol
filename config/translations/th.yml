@@ -336,7 +336,7 @@ th:
   profile: โปรไฟล์
   profile_image_alt_text_curator: 'ภาพโปรไฟล์สำหรับผูดูแล %{user_given_name } %{user_family_name }'
   profile_image_alt_text_member: 'ภาพโปรไฟล์สำหรับสมาชิก %{user_given_name } %{user_family_name }'
-  punctuation_comma: ,
+  punctuation_comma: ","
   rated_by_count_people:
     one: 'from %{count} คน'
     other: 'from %{count} คน'

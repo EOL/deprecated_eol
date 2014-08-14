@@ -270,7 +270,7 @@ km:
   profile: ប្រវត្តិរូប
   profile_image_alt_text_curator: 'រូបភាពក្នុងប្រវត្តិរួបសំរាប់អ្នកប្រមែប្រមួលឈ្មោះ %{user_full_name}'
   profile_image_alt_text_member: 'រូបភាពក្នុងប្រវត្តិរូបរបស់សមាជិកឈ្មោះ %{user_given_name} %{user_family_name}'
-  punctuation_comma: ,
+  punctuation_comma: ","
   rated_by_count_people: 'ពីមនុស្សចំនួន %{count} នាក់'
   recent_updates: >
     ការបន្ទាន់សម័យថ្មីៗ

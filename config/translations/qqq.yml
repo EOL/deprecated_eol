@@ -366,7 +366,7 @@ qqq:
         create: '{{Identical|Add translation}}'
       user:
         create: '{{Identical|Create account}}'
-        curation_application: "Apply" as in "apply for a curator job".
+        curation_application: "\"Apply\" as in \"apply for a curator job\"."
   will_paginate:
     next_label: '{{Identical|Next}}'
     previous_label: '{{Identical|Previous}}'

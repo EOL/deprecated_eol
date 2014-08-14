@@ -32,8 +32,8 @@ ksh:
   admin_link: Övverbleck
   all_title: All
   alternative_name_colon: 'Ander Nahme:'
-  and: , un
-  and_between_form_items: , un
+  and: ", un"
+  and_between_form_items: ", un"
   api_cache_time_to_live_parameter: >
     de Aanzahl Sekonde, di De de Antwoot em
     Zweschescheischer hallde wells

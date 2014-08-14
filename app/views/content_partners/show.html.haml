@@ -9,13 +9,13 @@
     .content_partner_managers
       = render 'managed_by'
     .collection_list
-      %h3= I18n.t(:collections_with_count, :count => @partner_collections.size)
-      - if @partner_collections.blank?
+      %h3= I18n.t(:collections_with_count, :count => @partner.collections.size)
+      - if @partner.collections.blank?
         .empty
           %p= I18n.t(:content_partner_collections_empty)
       - else
         %ul.collection.list
-          - @partner_collections.each do |collection|
+          - @partner.collections.each do |collection|
             = render 'collections/collection_summary', { :collection => collection, :show_description => false }
 
     - if current_user.can_update?(@partner)

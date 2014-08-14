@@ -47,9 +47,8 @@ Eol::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1
 
-  # Load all the active languages, and only the active languages:
   unless ENV.has_key?('LOCALE') # They already told us what to load.
-    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{#{Rails.configuration.active_languages.join(',')}}.yml").to_s]
+    config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
   end
 
   require "ruby-debug"

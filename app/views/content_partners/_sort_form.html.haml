@@ -4,6 +4,6 @@
       %dt
         = label_tag :sort_by, I18n.t(:sort_by_label)
       %dd
-        = select_tag :sort_by, options_for_select(@sort_by_options, @sort_by)
+        = select_tag :sort_by, options_for_select(@page_meta.meta.sort_options, @page_meta.meta.sort_by)
   %fieldset.actions
     = submit_tag I18n.t(:sort_by_button), :name => nil

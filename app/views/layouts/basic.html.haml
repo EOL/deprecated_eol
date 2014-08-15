@@ -7,8 +7,8 @@
         .hgroup
           = render 'content/breadcrumbs'
           %h1= page_title
-          - unless @page_subtitle.blank?
-            %h2= @page_subtitle
+          - if page_subtitle
+            %h2= page_subtitle
           = yield :social_sharing
           - unless page_description.blank?
             %p= raw(page_description)

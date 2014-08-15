@@ -1,11 +1,14 @@
-class ContentPartner::AsUnassisted < ActiveType::Record[ContentPartner]
+# encoding: utf-8
 
-  after_create :notify_master_curators
+class ContentPartner
+  # Contextual model for self-created content partners
+  class AsUnassisted < ActiveType::Record[ContentPartner]
+    after_create :notify_master_curators
 
-  private
+    private
 
-  def notify_master_curators
-    Notifier.content_partner_created(self, user).deliver
+    def notify_master_curators
+      Notifier.content_partner_created(self, user).deliver
+    end
   end
-
 end

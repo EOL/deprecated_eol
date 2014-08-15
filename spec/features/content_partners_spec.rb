@@ -53,12 +53,12 @@ describe "/content_partners" do
     context "has content_partner" do
       let(:content_partner) do
         cp = ContentPartner.gen(user: user)
-        ContentPartnerAgreement.gen(content_partner: cp, 
+        ContentPartnerAgreement.gen(content_partner: cp,
                                     signed_on_date: 1.day.ago)
         cp
       end
 
-      context "no resources" do 
+      context "no resources" do
         it "edits, updates, goes to add resource" do
           login_as user
           visit content_partner_path(content_partner)
@@ -69,10 +69,10 @@ describe "/content_partners" do
           expect(page.body).to have_content("Add a new resource")
         end
       end
-      
-      context "with resources" do 
-        let!(:resource) do 
-          rs = Resource.gen(content_partner: content_partner) 
+
+      context "with resources" do
+        let!(:resource) do
+          rs = Resource.gen(content_partner: content_partner)
           rs
         end
 

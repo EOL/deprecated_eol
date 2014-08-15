@@ -20,11 +20,11 @@ class ContentPartner < ActiveRecord::Base
   validates_presence_of :content_partner_status
   validates_presence_of :user
   validates_length_of :display_name, maximum: 255, allow_nil: true,
-    if: Proc.new {|s| s.class.column_names.include?('display_name') }
+    if: Proc.new {|s| s.class.column_names.include?("display_name") }
   validates_length_of :acronym, maximum: 20, allow_nil: true,
-    if: Proc.new {|s| s.class.column_names.include?('acronym') }
+    if: Proc.new {|s| s.class.column_names.include?("acronym") }
   validates_length_of :homepage, maximum: 255, allow_nil: true,
-    if: Proc.new {|s| s.class.column_names.include?('homepage') }
+    if: Proc.new {|s| s.class.column_names.include?("homepage") }
 
   # Alias some partner fields so we can use validation helpers
   alias_attribute :project_description, :description
@@ -37,33 +37,33 @@ class ContentPartner < ActiveRecord::Base
   has_attached_file :logo,
     path: $LOGO_UPLOAD_DIRECTORY,
     url: $LOGO_UPLOAD_PATH,
-    default_url: '/assets/blank.gif',
-    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    default_url: "/assets/blank.gif",
+    if: Proc.new { |s| s.class.column_names.include?("logo_file_name") }
 
   validates_attachment_content_type :logo,
     content_type: [
-      'image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'
+      "image/pjpeg","image/jpeg","image/png","image/gif", "image/x-png"
     ],
-    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    if: Proc.new { |s| s.class.column_names.include?("logo_file_name") }
   validates_attachment_size :logo, in: 0..$LOGO_UPLOAD_MAX_SIZE,
-    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
+    if: Proc.new { |s| s.class.column_names.include?("logo_file_name") }
 
   def self.with_published_data
-    published_partner_ids = connection.select_values('
+    published_partner_ids = connection.select_values("
       SELECT r.content_partner_id
       FROM resources r
       JOIN harvest_events he ON (r.id = he.resource_id)
       WHERE he.published_at IS NOT NULL
-    ')
-    ContentPartner.find_all_by_id(published_partner_ids, order: 'full_name')
+    ")
+    ContentPartner.find_all_by_id(published_partner_ids, order: "full_name")
   end
 
   def self.boa
-    cached_find(:full_name, 'Biology of Aging')
+    cached_find(:full_name, "Biology of Aging")
   end
 
   def self.wikipedia
-    @@wikipedia ||= cached_find(:full_name, 'Wikipedia')
+    @@wikipedia ||= cached_find(:full_name, "Wikipedia")
   end
 
   def self.partners_published_in_month(year, month)
@@ -191,17 +191,17 @@ class ContentPartner < ActiveRecord::Base
 
   # override the logo_url column in the database to construct the
   # path on the content server
-  def logo_url(size = 'large', specified_content_host = nil)
+  def logo_url(size = "large", specified_content_host = nil)
     if logo_cache_url.blank?
-      return 'v2/logos/partner_default.png'
-    elsif size.to_s == 'small'
+      return "v2/logos/partner_default.png"
+    elsif size.to_s == "small"
       DataObject.image_cache_path(
-        logo_cache_url, '88_88',
+        logo_cache_url, "88_88",
         specified_content_host: specified_content_host
       )
     else
       DataObject.image_cache_path(
-        logo_cache_url, '130_130',
+        logo_cache_url, "130_130",
         specified_content_host: specified_content_host
       )
     end
@@ -225,9 +225,9 @@ class ContentPartner < ActiveRecord::Base
   # Set these fields to blank because insistence on having NOT NULL
   # columns on things that aren't populated until certain steps.
   def blank_not_null_fields
-    self.notes ||= ''
-    self.description_of_data ||= ''
-    self.description ||= ''
+    self.notes ||= ""
+    self.description_of_data ||= ""
+    self.description ||= ""
   end
 
   def strip_urls
@@ -235,6 +235,6 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def recalculate_statistics
-    EOL::GlobalStatistics.clear('content_partners')
+    EOL::GlobalStatistics.clear("content_partners")
   end
 end

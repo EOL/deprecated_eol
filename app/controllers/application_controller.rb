@@ -716,11 +716,19 @@ protected
   end
 
   def page_title(scope = controller_action_scope)
-    @page_title ||= I18n.t(:page_title, scope: scope, default: '')
+    @page_meta.try(:title) || @page_title ||
+      I18n.t(:page_title, scope: scope, default: "")
   end
   helper_method :page_title
+
+  def page_subtitle
+    @page_meta.try(:subtitle) || @page_subtitle || ""
+  end
+  helper_method :page_subtitle
+
   def page_description(scope = controller_action_scope)
-    @page_description ||= I18n.t(:page_description, scope: scope, default: '')
+    @page_meta.try(:description) || @page_description ||
+      I18n.t(:page_description, scope: scope, default: "")
   end
   helper_method :page_description
 

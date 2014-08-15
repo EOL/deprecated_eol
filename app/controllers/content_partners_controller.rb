@@ -2,7 +2,6 @@
 
 # EXEMPLAR
 # Read more about exemplars at RAILS_ROOT/doc/STYLE_GUIDE.md
-
 class ContentPartnersController < ApplicationController
   before_filter :check_authentication, except: [:show, :index]
 
@@ -71,40 +70,20 @@ class ContentPartnersController < ApplicationController
   def build_content_partner
     @partner ||= ContentPartner::AsUnassisted.new(params[:content_partner])
     @partner.attributes = params[:content_partner]
-    set_page_titles
+    meta = ContentPartner::Meta.new
+    @page_meta = PageMeta.new(meta)
   end
 
   def load_content_partners
-    @name    = params[:name] || ""
-    @sort_by = params[:sort_by] || "partner"
-    @page    = params[:page]
-
-    # TODO: Select is being ignored in the following. Appears to be when
-    # conditions added. Find a solution.
-    @partners = ContentPartner::Paginate.new(@page, @name, @sort_by).run
-    set_sort_options
-    @page_title = I18n.t(:content_partners_page_title)
-    @page_description = I18n.t(:content_partners_page_description,
-                               more_url: cms_page_path("partners")).html_safe
+    index_meta = ContentPartner::IndexMeta.new(params,
+                                               cms_page_path("partners"))
+    @page_meta = PageMeta.new(index_meta)
+    @partners = ContentPartner::Pagination.paginate(index_meta)
     set_canonical_urls(paginated: @partners, url_method: :content_partners_url)
   end
 
   def content_partners_layout
-    ContentPartner
-    ["index", "new"].include?(action_name) ?  "basic" : "partners"
-  end
-
-  def set_page_titles
-    @page_title = I18n.t(:content_partners_page_title)
-    @page_subtitle = I18n.t(:content_partner_new_page_subheader)
-  end
-
-  def set_sort_options
-    @sort_by_options = [
-      [I18n.t(:content_partner_column_header_partner), "partner"],
-      [I18n.t(:sort_by_newest_option), "newest"],
-      [I18n.t(:sort_by_oldest_option), "oldest"]
-    ]
+    %w(index new).include?(action_name) ? "basic" : "partners"
   end
 
   def scoped_variables_for_translations

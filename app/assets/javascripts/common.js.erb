@@ -252,9 +252,12 @@ $(function() {
   $('input#autocomplete_q[data-autocomplete]').keyup(function(e) {
     var key = e.keyCode || e.which;
     // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
-    if (key === 37 || key === 38 || key === 39 || key === 40) return;
+    if(key === 37 || key === 38 || key === 39 || key === 40) return;
+    // Stop if the form has already been submitted:
+    if(typeof EOL.search_submitted != 'undefined') return;
     $(".ui-autocomplete").fadeOut(50);
     var value = $.trim($(this).val()).replace(/\s+/," ");
+    // TODO - this is duplicating (what may be faulty) logic from the code:
     // making sure the search term is at least 3 characters and every word has at least 3 characters
     if (value.length < 3 || value.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)) {
       $(".ui-autocomplete").hide();
@@ -267,6 +270,12 @@ $(function() {
         EOL.turn_global_search_autocomplete_results_into_links();
       }
     }
+  });
+
+  // We need to stop autocomplete if submitted:
+  $('#simple_search').submit(function(e) {
+    EOL.search_submitted = true;
+    $('input#autocomplete_q[data-autocomplete]').autocomplete('disable');
   });
 
   // this ensures that anytime the autocomplete field loses focus and gains it again,
@@ -282,6 +291,7 @@ $(function() {
     };
     var value = $.trim($(this).val()).replace(/\s+/," ");
     if(value == $(this).attr('title')) value = '';
+    // TODO - DRY (we run this regex elsewhere)
     if (value.length >= 3 && !value.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)) $(this).autocomplete('search', value);
     return false;
   });

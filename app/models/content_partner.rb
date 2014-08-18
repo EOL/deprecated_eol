@@ -1,62 +1,27 @@
 class ContentPartner < ActiveRecord::Base
-
   belongs_to :user
   belongs_to :content_partner_status
 
   has_many :resources, dependent: :destroy
   has_many :content_partner_contacts, dependent: :destroy
-  # FIXME: http://jira.eol.org/browse/WEB-2995 has_many
-  # :google_analytics_partner_summaries is not currently true and does not
-  # work it is associated through user but should probably be linked directly
-  # to content partner instead (possibly true for partner taxa association too?)
-  # has_many :google_analytics_partner_summaries
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
 
-  before_validation :set_default_content_partner_status, on: :create
+  alias_attribute :project_description, :description
 
   validates_presence_of :full_name
   validates_presence_of :description
-  validates_presence_of :content_partner_status
   validates_presence_of :user
-  validates_length_of :display_name, maximum: 255, allow_nil: true,
-    if: Proc.new {|s| s.class.column_names.include?("display_name") }
-  validates_length_of :acronym, maximum: 20, allow_nil: true,
-    if: Proc.new {|s| s.class.column_names.include?("acronym") }
-  validates_length_of :homepage, maximum: 255, allow_nil: true,
-    if: Proc.new {|s| s.class.column_names.include?("homepage") }
+  validates_length_of :display_name, maximum: 255, allow_nil: true
+  validates_length_of :acronym, maximum: 20, allow_nil: true
+  validates_length_of :homepage, maximum: 255, allow_nil: true
 
-  # Alias some partner fields so we can use validation helpers
-  alias_attribute :project_description, :description
-
+  before_save :default_content_partner_status
   before_save :blank_not_null_fields
   before_save :strip_urls
   after_save :recalculate_statistics
 
-  # TODO: remove the :if condition after migrations are run in production
-  has_attached_file :logo,
-    path: $LOGO_UPLOAD_DIRECTORY,
-    url: $LOGO_UPLOAD_PATH,
-    default_url: "/assets/blank.gif",
-    if: Proc.new { |s| s.class.column_names.include?("logo_file_name") }
-
-  validates_attachment_content_type :logo,
-    content_type: [
-      "image/pjpeg","image/jpeg","image/png","image/gif", "image/x-png"
-    ],
-    if: Proc.new { |s| s.class.column_names.include?("logo_file_name") }
-  validates_attachment_size :logo, in: 0..$LOGO_UPLOAD_MAX_SIZE,
-    if: Proc.new { |s| s.class.column_names.include?("logo_file_name") }
-
-  def self.with_published_data
-    published_partner_ids = connection.select_values("
-      SELECT r.content_partner_id
-      FROM resources r
-      JOIN harvest_events he ON (r.id = he.resource_id)
-      WHERE he.published_at IS NOT NULL
-    ")
-    ContentPartner.find_all_by_id(published_partner_ids, order: "full_name")
-  end
+  include EOL::Logos
 
   def self.boa
     cached_find(:full_name, "Biology of Aging")
@@ -66,26 +31,31 @@ class ContentPartner < ActiveRecord::Base
     @@wikipedia ||= cached_find(:full_name, "Wikipedia")
   end
 
-  def self.partners_published_in_month(year, month)
-    start_time = Time.mktime(year, month)
-    end_time = Time.mktime(year, month) + 1.month
+  def can_be_read_by?(user_wanting_access)
+    public || (user_wanting_access.id == user_id ||
+               user_wanting_access.is_admin?)
+  end
 
-    previously_published_partner_ids = connection.select_values("
-      SELECT r.content_partner_id
-      FROM resources r
-      JOIN harvest_events he ON (r.id = he.resource_id)
-      WHERE he.published_at < '#{start_time.mysql_timestamp}'
-    ")
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.id == user_id || user_wanting_access.is_admin?
+  end
 
-    published_partner_ids = connection.select_values("
-      SELECT r.content_partner_id
-      FROM resources r
-      JOIN harvest_events he ON (r.id = he.resource_id)
-      WHERE he.published_at BETWEEN '#{start_time.mysql_timestamp}'
-        AND '#{end_time.mysql_timestamp}'
-    ")
-    ContentPartner.find_all_by_id(published_partner_ids -
-                                  previously_published_partner_ids)
+  def can_be_created_by?(user_wanting_access)
+    # NOTE: association with user object must exist for permissions to be
+    # checked as user can only have one content partner at the moment
+    user && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
+  end
+
+  def has_unpublished_content?
+    self.resources.each do |resource|
+      # true if resource not yet harvested or latest harvest
+      # event not yet published
+      return true if resource.latest_harvest_event.nil? ||
+        resource.latest_harvest_event.published_at.nil?
+    end
+    # false if no resources (has no content) or if all resources have
+    # latest harvest events and they are published
+    return false
   end
 
   def self.resources_harvest_events(content_partner_id, page)
@@ -99,31 +69,6 @@ class ContentPartner < ActiveRecord::Base
       ORDER BY r.id desc, he.id desc
     "
     self.paginate_by_sql [query, content_partner_id], page: page, per_page: 30
-  end
-
-  def can_be_read_by?(user_wanting_access)
-    public || (user_wanting_access.id == user_id ||
-               user_wanting_access.is_admin?)
-  end
-  def can_be_updated_by?(user_wanting_access)
-    user_wanting_access.id == user_id || user_wanting_access.is_admin?
-  end
-  def can_be_created_by?(user_wanting_access)
-    # NOTE: association with user object must exist for permissions to be
-    # checked as user can only have one content partner at the moment
-    user && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
-  end
-
-  # has this partner submitted data_objects which are currently published
-  def has_published_resources?
-    has_resources = ActiveRecord::Base.connection.execute(%Q{
-        SELECT 1
-        FROM resources r
-        JOIN harvest_events he ON (r.id = he.resource_id)
-        WHERE r.content_partner_id = #{id}
-          AND he.published_at IS NOT NULL LIMIT 1
-    }).all_hashes
-    return !has_resources.empty?
   end
 
   def all_harvest_events
@@ -143,18 +88,6 @@ class ContentPartner < ActiveRecord::Base
   def oldest_published_harvest_events
     resources.collect(&:oldest_published_harvest_event).
       compact.sort_by{|he| he.published_at}
-  end
-
-  def has_unpublished_content?
-    self.resources.each do |resource|
-      # true if resource not yet harvested or latest harvest
-      # event not yet published
-      return true if resource.latest_harvest_event.nil? ||
-        resource.latest_harvest_event.published_at.nil?
-    end
-    # false if no resources (has no content) or if all resources have
-    # latest harvest events and they are published
-    return false
   end
 
   def primary_contact
@@ -189,24 +122,6 @@ class ContentPartner < ActiveRecord::Base
     current_agreements[0]
   end
 
-  # override the logo_url column in the database to construct the
-  # path on the content server
-  def logo_url(size = "large", specified_content_host = nil)
-    if logo_cache_url.blank?
-      return "v2/logos/partner_default.png"
-    elsif size.to_s == "small"
-      DataObject.image_cache_path(
-        logo_cache_url, "88_88",
-        specified_content_host: specified_content_host
-      )
-    else
-      DataObject.image_cache_path(
-        logo_cache_url, "130_130",
-        specified_content_host: specified_content_host
-      )
-    end
-  end
-
   def name
     return display_name unless display_name.blank?
     full_name
@@ -217,9 +132,9 @@ class ContentPartner < ActiveRecord::Base
   end
 
   private
-  def set_default_content_partner_status
-    self.content_partner_status = ContentPartnerStatus.
-      active if self.content_partner_status.blank?
+
+  def default_content_partner_status
+    content_partner_status ||= ContentPartnerStatus.active
   end
 
   # Set these fields to blank because insistence on having NOT NULL

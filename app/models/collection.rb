@@ -38,17 +38,7 @@ class Collection < ActiveRecord::Base
 
   before_update :set_relevance_if_collection_items_changed
 
-  has_attached_file :logo,
-    path: $LOGO_UPLOAD_DIRECTORY,
-    url: $LOGO_UPLOAD_PATH,
-    default_url: "/assets/blank.gif"
-  
-  validates_attachment_content_type :logo,
-    content_type: ['image/pjpeg','image/jpeg','image/png','image/gif', 'image/x-png'],
-    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
-  validates_attachment_size :logo, in: 0..$LOGO_UPLOAD_MAX_SIZE,
-    if: Proc.new { |s| s.class.column_names.include?('logo_file_name') }
-
+  include EOL::Logos
 
   index_with_solr keywords: [ :name ], fulltexts: [ :description ]
 
@@ -119,19 +109,6 @@ class Collection < ActiveRecord::Base
       end
     collection_items << item = CollectionItem.create(collected_item: what, name: name, collection: self, added_by_user: opts[:user])
     item # Convenience.  Allows us to know the collection_item created and possibly chain it.
-  end
-
-  def logo_url(size = 'large', specified_content_host = nil)
-    if !logo_file_name.blank? && ! Rails.configuration.use_content_server_for_thumbnails
-      # TODO - adding the filename shouldn't be necessary. I think it's because we specify the URL when we define the attachment, above. Fix.
-      logo.url + ImageManipulation.local_file_name(self)
-    elsif logo_cache_url.blank?
-      return "v2/logos/collection_default.png"
-    elsif size.to_s == 'small'
-      DataObject.image_cache_path(logo_cache_url, '88_88', specified_content_host: specified_content_host)
-    else
-      DataObject.image_cache_path(logo_cache_url, '130_130', specified_content_host: specified_content_host)
-    end
   end
 
   def taxa

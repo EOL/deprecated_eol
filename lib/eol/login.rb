@@ -15,7 +15,7 @@ module EOL
       end
       session[:user_id] = user.id
       set_current_user = user
-      update_current_language(user.language)
+      update_current_language(user.language) if user.language
       flash[:notice] = I18n.t(:sign_in_successful_notice)
       if params[:remember_me]
         if user.is_admin?

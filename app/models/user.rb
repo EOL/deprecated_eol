@@ -821,6 +821,7 @@ private
   end
 
   def destroy_comments
+    # TODO - generalize
     # remove comments from solr first
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)

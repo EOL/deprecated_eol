@@ -84,8 +84,9 @@ describe Collection do
 
   it 'should be able to add Collection collection items' do
     collection = Collection.gen
-    collection.add(@test_data[:collection])
-    collection.collection_items.last.collected_item.should == @test_data[:collection]
+    collected = Collection.gen
+    collection.add(collected)
+    collection.collection_items.last.collected_item.should == collected
   end
 
   it 'should NOT be able to add Agent items' do # Really, we don't care about Agents, per se, just "anything else".
@@ -130,7 +131,9 @@ describe Collection do
 
   it 'should know when it is a focus list' do
     @test_data[:collection].is_focus_list?.should_not be_true
-    @test_data[:community].collections.first.is_focus_list?.should be_true
+    collection = Collection.gen
+    Community.gen(collections: [collection])
+    expect(collection.is_focus_list?).to be true
   end
 
   it 'should know when it is a focus collection' do
@@ -257,6 +260,19 @@ describe Collection do
     end
 
   end
+
+  describe "#unpublish" do
+
+    let(:collection) { Collection.gen }
+
+    it "calls #remove_from_index" do
+      allow(collection).to receive(:remove_from_index)
+      collection.unpublish
+      expect(collection).to have_received(:remove_from_index)
+    end
+
+  end
+
 
   it 'has other unimplemented tests but I will not make them all pending, see the spec file'
   # should know when it is "special" TODO - do we need this anymore?  I don't think so...

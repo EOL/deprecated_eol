@@ -207,6 +207,7 @@ class Collection < ActiveRecord::Base
   def unpublish
     if update_attributes(published: false)
       EOL::GlobalStatistics.decrement('collections')
+      remove_from_index
       true
     else 
       false

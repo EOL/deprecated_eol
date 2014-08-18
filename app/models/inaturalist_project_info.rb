@@ -76,6 +76,7 @@ module InaturalistProjectInfo
     end
 
     def get_inat_response(options)
+      return {} unless defined?(INATURALIST_COLLECTION_API_PREFIX)
       JSON.parse(Net::HTTP.get(URI.parse("#{INATURALIST_COLLECTION_API_PREFIX}?#{options.to_query}")))
     end
 

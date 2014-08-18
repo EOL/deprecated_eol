@@ -36,7 +36,7 @@ class WysiwygController < ApplicationController
   end
 
   def copy_temp_file(temp_file)
-    path = $LOGO_UPLOAD_PATH + temp_file.original_filename
+    path = Rails.configuration.logo_uploads.paperclip_url + temp_file.original_filename
     File.open("public/" + path, "wb", 0664) do |fp|
       FileUtils.copy_stream(temp_file, fp)
     end

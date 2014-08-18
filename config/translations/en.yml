@@ -3941,6 +3941,7 @@ en:
   login_or_create_account: "Login or Create Account"
   login_to_the_website_as: "Login to the website as %{username}"
   logo_header: "Logo"
+  logo_type_error: "Logo is not a valid image type (must be PNG or JPEG)."
   logout: "Logout"
   looking_up_url: "Looking up URL..."
   main_content_area: "Main content area:"

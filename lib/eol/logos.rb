@@ -21,7 +21,7 @@ module EOL
     def logo_url(size = "large", specified_content_host = nil)
       if !logo_file_name.blank? && ! Rails.configuration.
         use_content_server_for_thumbnails
-        logo.url + ImageManipulation.local_file_name(self)
+        logo_url + ImageManipulation.local_file_name(self)
       elsif logo_cache_url.blank?
         return "v2/logos/#{self.class.name.underscore}_default.png"
       elsif size.to_s == "small"

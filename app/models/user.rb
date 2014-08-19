@@ -107,6 +107,8 @@ class User < ActiveRecord::Base
   attr_accessor :curator_request
 
 # END CURATOR CLASS DECLARATIONS
+ 
+  index_with_solr keywords: [:username, :full_name]
 
   include EOL::Logos
 

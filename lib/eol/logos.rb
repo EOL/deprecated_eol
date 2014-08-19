@@ -16,12 +16,14 @@ module EOL
         in: 0..Rails.configuration.logo_uploads.max_size
     
     end
+
     # override the logo_url column in the database to construct the
     # path on the content server
     def logo_url(size = "large", specified_content_host = nil)
       if !logo_file_name.blank? && ! Rails.configuration.
         use_content_server_for_thumbnails
-        logo_url + ImageManipulation.local_file_name(self)
+        # TODO - this is failing in some specs; #logo undefined. Why?!
+        logo.url + ImageManipulation.local_file_name(self)
       elsif logo_cache_url.blank?
         return "v2/logos/#{self.class.name.underscore}_default.png"
       elsif size.to_s == "small"

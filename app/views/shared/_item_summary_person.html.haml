@@ -1,6 +1,6 @@
 - view_style ||= 'default'
 - unless view_style == 'list'
-  = link_to image_tag(item.logo_url(:small), :alt => I18n.t(:profile_image_alt_text_member, :user_full_name => item.full_name),
+  = link_to image_tag(item.logo_url(size: :small), :alt => I18n.t(:profile_image_alt_text_member, :user_full_name => item.full_name),
     width: 68, height: 68), user_path(item)
 - unless ['gallery','list'].include?(view_style)
   = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_person_assistive)}), user_path(item)

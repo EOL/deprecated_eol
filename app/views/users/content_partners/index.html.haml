@@ -12,7 +12,7 @@
       %ul
         - @partners.each do |partner|
           %li
-            = link_to image_tag(partner.logo_url(:small), :alt => ''), content_partner_path(partner)
+            = link_to image_tag(partner.logo_url(size: :small), :alt => ''), content_partner_path(partner)
             .details
               %h4= link_to partner.name, content_partner_path(partner)
     - if @user.can_be_updated_by?(current_user)

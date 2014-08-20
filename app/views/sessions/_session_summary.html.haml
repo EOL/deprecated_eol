@@ -6,7 +6,7 @@
         comments_user_newsfeed_path(current_user), :title => I18n.t(:user_pending_notifications_comments_with_count, :count => current_user.message_count)
       %li= link_to raw(I18n.t(:user_pending_notifications_with_count_assitive, :count => current_user.notification_count)),
         user_newsfeed_path(current_user), :title => I18n.t(:user_pending_notifications_with_count, :count => current_user.notification_count)
-    = link_to image_tag(current_user.logo_url('small'), :alt => I18n.t(:profile_image_alt_text_member, :user_full_name => h(current_user.full_name)), width: 48, height: 48),
+    = link_to image_tag(current_user.logo_url(size: :small), :alt => I18n.t(:profile_image_alt_text_member, :user_full_name => h(current_user.full_name)), width: 48, height: 48),
       user_newsfeed_path(current_user)
     .details
       %p<

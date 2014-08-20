@@ -134,7 +134,7 @@ class ContentPartner < ActiveRecord::Base
   private
 
   def default_content_partner_status
-    content_partner_status ||= ContentPartnerStatus.active
+    self.content_partner_status ||= ContentPartnerStatus.active
   end
 
   # Set these fields to blank because insistence on having NOT NULL

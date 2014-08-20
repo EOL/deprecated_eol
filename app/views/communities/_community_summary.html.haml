@@ -1,6 +1,6 @@
 - delimiter ||= I18n.t(:punctuation_semi_colon)
 %li.community
-  = link_to image_tag(community.logo_url(:small), :alt => ''), community
+  = link_to image_tag(community.logo_url(size: :small), :alt => ''), community
   %h4= link_to community.name, community
   = "#{I18n.t(:members_with_count, :count => community.members.count)}#{delimiter}"
   - count = community.collections ? community.collections.flat_map { |c| c.collection_items }.compact.count : 0

@@ -9,7 +9,7 @@
   %ul.object_list
     - communities.sort_by {|t| t.name }.each do |community|
       %li{:class => 'community'}
-        = link_to image_tag(community.logo_url(:small), width: 68, height: 68), community_path(community)
+        = link_to image_tag(community.logo_url(size: :small), width: 68, height: 68), community_path(community)
         = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_community_assistive)}), community_path(community)
         %h4= link_to h(truncate(community.name, :length => 64)), community_path(community)
         = I18n.t(:members_with_count_semi_colon, :count => community.members.count)
@@ -23,7 +23,7 @@
   %ul.object_list
     - users.sort_by {|t| t.full_name }.each do |user|
       %li{:class => 'person'}
-        = link_to image_tag(user.logo_url(:small), width: 68, height: 68), user_path(user)
+        = link_to image_tag(user.logo_url(size: :small), width: 68, height: 68), user_path(user)
         = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:item_type_person_assistive)}), user_path(user)
         %h4= link_to h(truncate(user.full_name, :length => 64)), user_path(user)
         = link_to raw([ h(user.username), sanitize(user.tag_line).balance_tags ].compact.join('<br/>')), user_path(user)

@@ -242,7 +242,7 @@ describe Collection do
       image_cache = Faker::Eol.image
       collection = Collection.gen(logo_cache_url: image_cache)
       allow(DataObject).to receive(:image_cache_path) { "helloagain" }
-      expect(collection.logo_url('small')).to match /helloagain/
+      expect(collection.logo_url(size: :small)).to match /helloagain/
       # TODO - this is a little fragile... we know too much when we specify the arguments, here, but I really want to check the 88x88:
       expect(DataObject).to have_received(:image_cache_path).with(image_cache, '88_88', specified_content_host: nil)
     end

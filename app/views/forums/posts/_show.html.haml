@@ -28,7 +28,7 @@
       .text
         = raw post.text
     .attribution
-      = link_to image_tag(post.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+      = link_to image_tag(post.user.logo_url(size: :small), :alt => I18n.t(:comment_show_posters_image_alt,
         :posters_name => h(post.user.full_name))), user_url(post.user), :class => 'avatar'
       .primary_name
         = link_to post.user.full_name, post.user

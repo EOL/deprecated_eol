@@ -8,7 +8,7 @@
           = link_to image_tag(thing.logo_url, :alt => '', width: 35, height: 35), thing
           %h4= link_to thing.name, thing
         - elsif thing.is_a? User
-          = link_to image_tag(thing.logo_url(:small), :alt => '', width: 35, height: 35), thing
+          = link_to image_tag(thing.logo_url(size: :small), :alt => '', width: 35, height: 35), thing
           %h4= link_to thing.full_name, thing
           %p= thing.tag_line
     - if editors.length > 4

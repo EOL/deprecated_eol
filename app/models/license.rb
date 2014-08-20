@@ -92,10 +92,10 @@ class License < ActiveRecord::Base
     @@for_data ||= [License.no_known_restrictions, License.na, License.cc_zero, License.public_domain]
   end
 
-  def small_logo_url
-    return logo_url if logo_url =~ /_small/ # already there!
-    return logo_url.sub(/\.(\w\w\w)$/, "_small.\\1")
-  end
+  # def small_logo_url
+  #   return logo_url if logo_url =~ /_small/ # already there!
+  #   return logo_url.sub(/\.(\w\w\w)$/, "_small.\\1")
+  # end
 
   # we have several different licenses with the title public domain
   # NOTE - this *does* work in other languages (I checked), though I'm honestly not sure why; I didn't dig.

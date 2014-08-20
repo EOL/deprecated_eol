@@ -8,9 +8,9 @@
 - display_curator ||= false
 - parent_newsfeed = item.parent ? link_to_newsfeed(item.parent) : nil
 - if item.user.nil?
-  = image_tag(User.new.logo_url(:small), :class => 'no_user', width: 48, height: 48)
+  = image_tag(User.new.logo_url(size: :small), :class => 'no_user', width: 48, height: 48)
 - else
-  = link_to image_tag(item.user.logo_url(:small), :alt => I18n.t(:comment_show_posters_image_alt,
+  = link_to image_tag(item.user.logo_url(size: :small), :alt => I18n.t(:comment_show_posters_image_alt,
     :posters_name => h(item.user.full_name))), user_url(item.user), :class => 'avatar'
   .details
     - curator_level = ''

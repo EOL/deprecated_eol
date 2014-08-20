@@ -17,26 +17,44 @@ module EOL
     
     end
 
-    # override the logo_url column in the database to construct the
-    # path on the content server
-    def logo_url(size = "large", specified_content_host = nil)
-      if !logo_file_name.blank? && ! Rails.configuration.
-        use_content_server_for_thumbnails
-        # TODO - this is failing in some specs; #logo undefined. Why?!
-        logo.url + ImageManipulation.local_file_name(self)
-      elsif logo_cache_url.blank?
-        return "v2/logos/#{self.class.name.underscore}_default.png"
-      elsif size.to_s == "small"
-        DataObject.image_cache_path(
-          logo_cache_url, "88_88",
-          specified_content_host: specified_content_host
-        )
+    def logo_url(opts = {})
+      if !logo_file_name.blank? &&
+         !Rails.configuration.use_content_server_for_thumbnails
+        Rails.configuration.logo_uploads.paperclip_url +
+          ImageManipulation.local_file_name(self)
+      elsif self.logo_cache_url.blank?
+        "v2/logos/#{self.class.name.underscore}_default.png"
       else
+        link = opts[:linked?] ? $SINGLE_DOMAIN_CONTENT_SERVER : nil
         DataObject.image_cache_path(
-          logo_cache_url, "130_130",
-          specified_content_host: specified_content_host
+          logo_cache_url,
+          opts[:size] == :small ? "88_88" : "130_130",
+          specified_content_host: link
         )
       end
     end
+
+    # override the logo_url column in the database to construct the
+    # path on the content server
+    # def logo_url(size = "large", specified_content_host = nil)
+    #   if !logo_file_name.blank? && ! Rails.configuration.
+    #     use_content_server_for_thumbnails
+    #     # TODO - this is failing in some specs; #logo undefined. Why?!
+    #     Rails.configuration.logo_uploads.paperclip_url +
+    #       ImageManipulation.local_file_name(self)
+    #   elsif logo_cache_url.blank?
+    #     return "v2/logos/#{self.class.name.underscore}_default.png"
+    #   elsif size.to_s == "small"
+    #     DataObject.image_cache_path(
+    #       logo_cache_url, "88_88",
+    #       specified_content_host: specified_content_host
+    #     )
+    #   else
+    #     DataObject.image_cache_path(
+    #       logo_cache_url, "130_130",
+    #       specified_content_host: specified_content_host
+    #     )
+    #   end
+    # end
   end
 end

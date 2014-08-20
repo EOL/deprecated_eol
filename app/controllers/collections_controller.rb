@@ -228,7 +228,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= @collection ?
-      view_context.image_tag(@collection.logo_url('large', $SINGLE_DOMAIN_CONTENT_SERVER)) : nil
+      view_context.image_tag(@collection.logo_url(linked?: true)) : nil
   end
 
 private

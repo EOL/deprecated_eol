@@ -1,7 +1,7 @@
 - minimal ||= false
 %li
   - unless member.user.blank?
-    = link_to image_tag(member.user.logo_url(:small)), member.user
+    = link_to image_tag(member.user.logo_url(size: :small)), member.user
     .details
       %h4= link_to member.user.full_name, member.user
       %p= member.user.tag_line

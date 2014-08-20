@@ -49,7 +49,7 @@
     %ul.article.list
       - @partners.each do |partner|
         %li{:id => "partner_#{partner.id}"}
-          = link_to image_tag(partner.logo_url(:small),
+          = link_to image_tag(partner.logo_url(size: :small),
             :alt => I18n.t(:content_partner_logo_alt_text, :partner_name => h(partner.name))), partner
           .details
             %h3= link_to h(partner.full_name), partner

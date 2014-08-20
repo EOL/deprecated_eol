@@ -77,7 +77,7 @@
         - @overview.collections.each do |collection|
           %li
             - # NOTE: Unless we have alt text that describes the image contents, leave it blank.
-            = link_to image_tag(collection.logo_url(:small), alt: '', width: 48, height: 48), collection_path(collection)
+            = link_to image_tag(collection.logo_url(size: :small), alt: '', width: 48, height: 48), collection_path(collection)
             .details
               %h4= link_to collection.name, collection_path(collection)
               -# NOTE - -1 because we're counting items *other* than this page...
@@ -100,7 +100,7 @@
       %ul
         - @overview.communities.each do |community|
           %li
-            = link_to image_tag(community.logo_url(:small), alt: '', width: 48, height: 48), community_url(community)
+            = link_to image_tag(community.logo_url(size: :small), alt: '', width: 48, height: 48), community_url(community)
             .details
               %h4= link_to community.name, community_url(community)
               %p
@@ -161,7 +161,7 @@
         %ul
           - @overview.curators.each do |curator|
             %li
-              = link_to image_tag(curator.logo_url(:small), alt: I18n.t(:profile_image_alt_text_curator, user_full_name: h(curator.full_name)), width: 48, height: 48), curator
+              = link_to image_tag(curator.logo_url(size: :small), alt: I18n.t(:profile_image_alt_text_curator, user_full_name: h(curator.full_name)), width: 48, height: 48), curator
               .details
                 %h4= link_to h(curator.full_name), curator
                 %p.meta= h(curator.tag_line)

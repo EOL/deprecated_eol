@@ -295,17 +295,17 @@ module ApplicationHelper
   # NOTE - these next two methods replace older versions.  The old ones used "raw" html, these use haml.  If you find this is
   # causing errors, go back in time to October 12th and grab the methods.
 
-  def agent_logo(agent, size = "large", params={})
-    return nil if agent.blank?
-    src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
-    return src if src.empty?
-    project_name = hh(sanitize(agent.full_name))
-    capture_haml do
-      haml_tag :img, {width: params[:width], height: params[:height],
-                      src: src,  border: 0, alt: project_name,
-                      title: project_name, class: "agent_logo"}
-    end
-  end
+  # def agent_logo(agent, size = "large", params={})
+  #   return nil if agent.blank?
+  #   src = (agent.logo_cache_url != 0) ? agent.logo_url(size) : agent.logo_file_name
+  #   return src if src.empty?
+  #   project_name = hh(sanitize(agent.full_name))
+  #   capture_haml do
+  #     haml_tag :img, {width: params[:width], height: params[:height],
+  #                     src: src,  border: 0, alt: project_name,
+  #                     title: project_name, class: "agent_logo"}
+  #   end
+  # end
 
   # TODO - change these methods to haml methods after conversion
   def external_link_to(*args, &block)

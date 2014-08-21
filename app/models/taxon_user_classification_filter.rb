@@ -215,7 +215,7 @@ class TaxonUserClassificationFilter
       }, :vetted, :visibility, :user ]
     }
     DataObject.preload_associations(data_objects, includes, select: { content_partners: [ :id, :user_id, :full_name, :display_name, :homepage,
-      :public ]})
+      :is_public ]})
     DataObject.preload_associations(data_objects, :users_data_object)
     DataObject.preload_associations(data_objects, :license)
     DataObject.preload_associations(data_objects, :language)

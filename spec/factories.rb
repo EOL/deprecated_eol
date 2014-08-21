@@ -485,7 +485,7 @@ FactoryGirl.define do
     description            'Our Testing Content Partner'
     description_of_data    'Civil Protection!'
     created_at             { 5.days.ago }
-    public                 true
+    is_public              true
     content_partner_status { ContentPartnerStatus.active }
   end
 

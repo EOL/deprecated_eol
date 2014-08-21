@@ -14,7 +14,7 @@ class ContentPartner
       harvest_events.*
     )
 
-    CONDITIONS = "content_partners.public = 1 AND "\
+    CONDITIONS = "content_partners.is_public = 1 AND "\
                  "content_partners.full_name LIKE :name"
 
     INCLUDE = [{ resources: [:resource_status] }, :content_partner_status,

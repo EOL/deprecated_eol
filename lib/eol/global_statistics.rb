@@ -20,7 +20,7 @@ module EOL
             count = EOL::GlobalStatistics.solr_count('Community')
             count = Community.count(:conditions => "published = 1") if count == 0
           when "content_partners" then
-            count = ContentPartner.count(:conditions => "public = 1")
+            count = ContentPartner.count(:conditions => "is_public = 1")
           else
             raise EOL::Exceptions::ObjectNotFound
         end

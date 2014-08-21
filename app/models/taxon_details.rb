@@ -122,7 +122,7 @@ private
       translated_table_of_contents: '*',
       users_data_objects: '*',
       resources: '*',
-      content_partners: 'id, user_id, full_name, display_name, homepage, public',
+      content_partners: 'id, user_id, full_name, display_name, homepage, is_public',
       refs: '*',
       ref_identifiers: '*',
       comments: 'id, parent_id',

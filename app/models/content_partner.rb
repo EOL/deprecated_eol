@@ -1,3 +1,7 @@
+# encoding: utf-8
+
+# EXEMPLAR: Read more about exemplars at RAILS_ROOT/doc/STYLE_GUIDE.md
+# ContentPartner model describes EOL content partners
 class ContentPartner < ActiveRecord::Base
   belongs_to :user
   belongs_to :content_partner_status
@@ -27,12 +31,14 @@ class ContentPartner < ActiveRecord::Base
     cached_find(:full_name, "Biology of Aging")
   end
 
+  @wikipedia = nil
+
   def self.wikipedia
-    @@wikipedia ||= cached_find(:full_name, "Wikipedia")
+    @wikipedia ||= cached_find(:full_name, "Wikipedia")
   end
 
   def can_be_read_by?(user_wanting_access)
-    public || (user_wanting_access.id == user_id ||
+    is_public || (user_wanting_access.id == user_id ||
                user_wanting_access.is_admin?)
   end
 

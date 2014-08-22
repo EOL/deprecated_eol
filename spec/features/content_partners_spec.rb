@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 # EXEMPLAR
-# Read more about exemplars at RAILS_ROOT/doc/STYLE_GUIDE.md
 
 describe "/content_partners" do
   before(:all) do

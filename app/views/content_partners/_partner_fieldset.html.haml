@@ -60,7 +60,7 @@
           = partner_form.label :admin_notes
         %dd
           = partner_form.text_area :admin_notes
-      = partner_form.label :public, :class => 'checkbox' do
-        = partner_form.check_box :public
-        = I18n.t('activerecord.attributes.content_partner.public')
+      = partner_form.label :is_public, :class => 'checkbox' do
+        = partner_form.check_box :is_public
+        = I18n.t('activerecord.attributes.content_partner.is_public')
         %p= I18n.t('helpers.label.content_partner.public_more')

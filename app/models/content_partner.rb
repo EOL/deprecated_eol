@@ -63,6 +63,11 @@ class ContentPartner < ActiveRecord::Base
     # latest harvest events and they are published
     false
   end
+  
+  def latest_published_harvest_events
+    resources.collect(&:latest_published_harvest_event).
+      compact.sort_by{|he| he.published_at}.reverse
+  end
 
   def oldest_published_harvest_events
     resources.map(&:oldest_published_harvest_event).
@@ -99,7 +104,7 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def collections
-    resources.map { |r| r.mapion }.compact
+    resources.map { |r| r.collection }.compact
   end
 
   private

@@ -57,7 +57,7 @@
               = partner.content_partner_status.label rescue I18n.t(:content_partner_status_empty)
               &bull;
               = partner.public ? I18n.t(:content_partner_public_true) : I18n.t(:content_partner_public_false)
-              - if partner.has_unpublished_content?
+              - if partner.unpublished_content?
                 &bull;
                 = I18n.t(:content_partner_has_unpublished_content_true)
             %dl

@@ -1,7 +1,7 @@
 # encoding: utf-8
-
 # EXEMPLAR
-# Read more about exemplars at RAILS_ROOT/doc/STYLE_GUIDE.md
+
+# ContentPartnersController manages content parter related views
 class ContentPartnersController < ApplicationController
   before_filter :check_authentication, except: [:show, :index]
 

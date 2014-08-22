@@ -1,6 +1,6 @@
 # encoding: utf-8
+# EXEMPLAR
 
-# EXEMPLAR: Read more about exemplars at RAILS_ROOT/doc/STYLE_GUIDE.md
 # ContentPartner model describes EOL content partners
 class ContentPartner < ActiveRecord::Base
   belongs_to :user
@@ -52,8 +52,8 @@ class ContentPartner < ActiveRecord::Base
     user && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
   end
 
-  def has_unpublished_content?
-    self.resources.each do |resource|
+  def unpublished_content?
+    resources.each do |resource|
       # true if resource not yet harvested or latest harvest
       # event not yet published
       return true if resource.latest_harvest_event.nil? ||
@@ -61,69 +61,34 @@ class ContentPartner < ActiveRecord::Base
     end
     # false if no resources (has no content) or if all resources have
     # latest harvest events and they are published
-    return false
-  end
-
-  def self.resources_harvest_events(content_partner_id, page)
-    query = "
-      SELECT r.id resource_id, he.id
-          AS harvest_id, r.title, he.began_at, he.completed_at, he.published_at
-      FROM content_partners cp
-      JOIN resources r ON cp.id = r.content_partner_id
-      JOIN harvest_events he ON he.resource_id = r.id
-      WHERE cp.id = #{content_partner_id}
-      ORDER BY r.id desc, he.id desc
-    "
-    self.paginate_by_sql [query, content_partner_id], page: page, per_page: 30
-  end
-
-  def all_harvest_events
-    all_harvest_events = []
-    resources.each do |r|
-      if he = r.harvest_events
-        all_harvest_events += he
-      end
-    end
-  end
-
-  def latest_published_harvest_events
-    resources.collect(&:latest_published_harvest_event).
-      compact.sort_by{|he| he.published_at}.reverse
+    false
   end
 
   def oldest_published_harvest_events
-    resources.collect(&:oldest_published_harvest_event).
-      compact.sort_by{|he| he.published_at}
+    resources.map(&:oldest_published_harvest_event).
+      compact.sort_by { |he| he.published_at }
   end
 
   def primary_contact
-    self.content_partner_contacts.detect {|c| c.contact_role_id ==
-      ContactRole.primary.id } || self.content_partner_contacts.first
+    contact = content_partner_contacts.find do |c|
+      c.contact_role_id == ContactRole.primary.id
+    end
+    contact || content_partner_contacts.first
   end
 
   # the date of the last action taken
   def last_action
-    dates_to_compare = [updated_at]
-    unless resources.blank?
-      dates_to_compare += resources.collect{|r| r.updated_at}
-      dates_to_compare += resources.collect{|r| r.created_at}
-    end
-    unless content_partner_contacts.blank?
-      dates_to_compare += content_partner_contacts.collect{|c| c.updated_at}
-      dates_to_compare += content_partner_contacts.collect{|c| c.created_at}
-    end
-    unless content_partner_agreements.blank?
-      dates_to_compare += content_partner_agreements.collect{|a| a.updated_at}
-      dates_to_compare += content_partner_agreements.collect{|a| a.created_at}
-    end
-    dates_to_compare.compact!
-    dates_to_compare.blank? ? nil : dates_to_compare.sort.last
+    dates_to_compare = Set.new([updated_at])
+    add_dates(dates_to_compare, resources)
+    add_dates(dates_to_compare, content_partner_contacts)
+    add_dates(dates_to_compare, content_partner_agreements)
+    dates_to_compare.delete(nil).sort.last
   end
 
   def agreement
     current_agreements = content_partner_agreements.
       select { |cpa| cpa.is_current == true }.
-        compact.sort_by{ |cpa| cpa.created_at}.reverse
+        compact.sort_by { |cpa| cpa.created_at }.reverse
     return nil if current_agreements.empty?
     current_agreements[0]
   end
@@ -134,10 +99,18 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def collections
-    resources.map { |r| r.collection }.compact
+    resources.map { |r| r.mapion }.compact
   end
 
   private
+
+  def add_dates(set, objects)
+    return if objects.blank?
+    objects.each do |o|
+      set << o.updated_at
+      set << o.created_at
+    end
+  end
 
   def default_content_partner_status
     self.content_partner_status ||= ContentPartnerStatus.active
@@ -152,7 +125,7 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def strip_urls
-    self.homepage.strip unless self.homepage.blank?
+    homepage.strip unless homepage.blank?
   end
 
   def recalculate_statistics

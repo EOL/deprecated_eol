@@ -43,30 +43,30 @@ describe ContentPartner do
 
   it "should know when it has resources that have unpublished content" do
     cp = ContentPartner.gen(user: @user)
-    cp.has_unpublished_content?.should be_false # no resource means no content so we return false
+    cp.unpublished_content?.should be_false # no resource means no content so we return false
     Rails.cache.clear
     resource = Resource.gen(content_partner: cp)
     cp.reload
-    cp.has_unpublished_content?.should be_true
+    cp.unpublished_content?.should be_true
     Rails.cache.clear
     event = HarvestEvent.gen(resource: resource, published_at: nil)
     cp.resources.reload
     event.resource.reload
-    cp.has_unpublished_content?.should be_true
+    cp.unpublished_content?.should be_true
     Rails.cache.clear
     event.update_attributes(publish: true)
     cp.resources.reload
     event.resource.reload
-    cp.has_unpublished_content?.should be_true
+    cp.unpublished_content?.should be_true
     Rails.cache.clear
     event.update_attributes(published_at: Time.now, publish: false)
     cp.resources.reload
     event.resource.reload
-    cp.has_unpublished_content?.should be_false
+    cp.unpublished_content?.should be_false
     Rails.cache.clear
     Resource.gen(content_partner: cp)
     cp.reload
-    cp.has_unpublished_content?.should be_true
+    cp.unpublished_content?.should be_true
   end
 
   it "should know the date of the last action taken" do

@@ -21,12 +21,13 @@ class ContentPartner < ActiveRecord::Base
   validates_length_of :homepage, maximum: 255, allow_nil: true
 
   before_save :default_content_partner_status
-  before_save :blank_not_null_fields
   before_save :strip_urls
   after_save :recalculate_statistics
 
   include EOL::Logos
 
+  # TODO: I don't think it's okay to have hard-coded strings to find an
+  # instance in the database that we don't even know is really there.
   def self.boa
     cached_find(:full_name, "Biology of Aging")
   end
@@ -39,7 +40,7 @@ class ContentPartner < ActiveRecord::Base
 
   def can_be_read_by?(user_wanting_access)
     is_public || (user_wanting_access.id == user_id ||
-               user_wanting_access.is_admin?)
+      user_wanting_access.is_admin?)
   end
 
   def can_be_updated_by?(user_wanting_access)
@@ -47,26 +48,19 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def can_be_created_by?(user_wanting_access)
-    # NOTE: association with user object must exist for permissions to be
-    # checked as user can only have one content partner at the moment
     user && (user_wanting_access.id == user.id || user_wanting_access.is_admin?)
   end
 
   def unpublished_content?
-    resources.each do |resource|
-      # true if resource not yet harvested or latest harvest
-      # event not yet published
-      return true if resource.latest_harvest_event.nil? ||
+    resources.any? do |resource|
+      resource.latest_harvest_event.nil? ||
         resource.latest_harvest_event.published_at.nil?
     end
-    # false if no resources (has no content) or if all resources have
-    # latest harvest events and they are published
-    false
   end
-  
+
   def latest_published_harvest_events
-    resources.collect(&:latest_published_harvest_event).
-      compact.sort_by{|he| he.published_at}.reverse
+    resources.map(&:latest_published_harvest_event).
+      compact.sort_by { |he| he.published_at }.reverse
   end
 
   def oldest_published_harvest_events
@@ -75,14 +69,11 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def primary_contact
-    contact = content_partner_contacts.find do |c|
-      c.contact_role_id == ContactRole.primary.id
-    end
-    contact || content_partner_contacts.first
+    content_partner_contacts.primary.first ||
+      content_partner_contacts.first
   end
 
-  # the date of the last action taken
-  def last_action
+  def last_action_date
     dates_to_compare = Set.new([updated_at])
     add_dates(dates_to_compare, resources)
     add_dates(dates_to_compare, content_partner_contacts)
@@ -91,20 +82,15 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def agreement
-    current_agreements = content_partner_agreements.
-      select { |cpa| cpa.is_current == true }.
-        compact.sort_by { |cpa| cpa.created_at }.reverse
-    return nil if current_agreements.empty?
-    current_agreements[0]
+    content_partner_agreements.select(&:is_current).sort_by(&:created_at).last
   end
 
   def name
-    return display_name unless display_name.blank?
-    full_name
+    display_name.blank? ? full_name : display_name
   end
 
   def collections
-    resources.map { |r| r.collection }.compact
+    resources.map(&:collection).compact
   end
 
   private
@@ -121,19 +107,11 @@ class ContentPartner < ActiveRecord::Base
     self.content_partner_status ||= ContentPartnerStatus.active
   end
 
-  # Set these fields to blank because insistence on having NOT NULL
-  # columns on things that aren't populated until certain steps.
-  def blank_not_null_fields
-    self.notes ||= ""
-    self.description_of_data ||= ""
-    self.description ||= ""
-  end
-
   def strip_urls
     homepage.strip unless homepage.blank?
   end
 
   def recalculate_statistics
-    EOL::GlobalStatistics.clear("content_partners")
+    EOL::GlobalStatistics.clear(:content_partners)
   end
 end

@@ -55,7 +55,7 @@ module EOL
     end
 
     def self.clear(type)
-      Rails.cache.delete(EOL::GlobalStatistics.key_for_type(type))
+      Rails.cache.delete(EOL::GlobalStatistics.key_for_type(type.to_s))
     end
 
     def self.add_to_type(type, amount)

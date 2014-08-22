@@ -44,6 +44,7 @@ class User < ActiveRecord::Base
   has_many :user_added_data, class_name: UserAddedData.to_s
   has_many :data_search_files
 
+  # TODO - content_partners should be has_one:
   has_many :content_partners
   has_one :user_info
   has_one :notification

@@ -56,7 +56,7 @@
             %p
               = partner.content_partner_status.label rescue I18n.t(:content_partner_status_empty)
               &bull;
-              = partner.public ? I18n.t(:content_partner_public_true) : I18n.t(:content_partner_public_false)
+              = partner.is_public ? I18n.t(:content_partner_public_true) : I18n.t(:content_partner_public_false)
               - if partner.unpublished_content?
                 &bull;
                 = I18n.t(:content_partner_has_unpublished_content_true)
@@ -64,7 +64,7 @@
               %dt
                 = I18n.t('helpers.label.content_partner.last_action')
               %dd
-                = partner.last_action
+                = partner.last_action_date
               %dt
                 = I18n.t('helpers.label.content_partner.created_at')
               %dd

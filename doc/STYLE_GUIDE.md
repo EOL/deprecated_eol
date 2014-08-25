@@ -1,6 +1,12 @@
 Style Guide for EOL
 ===================
 
+Style
+-----
+
+* Prefer #first to #[0].
+* Prefer #last to #[-1].
+
 Exemplar files
 --------------
 

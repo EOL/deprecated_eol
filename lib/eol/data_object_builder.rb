@@ -145,8 +145,10 @@ module EOL
       @visibility      = options.delete(:visibility)      || Visibility.visible
       scientific_name  = options.delete(:scientific_name) || @he.name(:expert) || FactoryGirl.generate(:scientific_name)
       if @type == 'Text'
-        @toc_item      = options.delete(:toc_item)
-        @toc_item      ||= TocItem.find(rand(3)+1)   # If foundation was loaded: Overview, Description, or Ecology.
+        @toc_item = options.delete(:toc_item)
+        @toc_item ||= [TocItem.comprehensive_description,
+                       TocItem.overview,
+                       TocItem.brief_summary].sample
       end
       return options
     end

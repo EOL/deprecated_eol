@@ -251,6 +251,10 @@ $(function() {
   // on the search term. This helps get rid of results of the search term is deleted
   $('input#autocomplete_q[data-autocomplete]').keyup(function(e) {
     var key = e.keyCode || e.which;
+    // If they hit enter, just submit what they typed, stop trying to complete it:
+    if(key === 13) { 
+      $(this).autocomplete('disable');
+    }
     // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
     if(key === 37 || key === 38 || key === 39 || key === 40) return;
     // Stop if the form has already been submitted:
@@ -272,8 +276,8 @@ $(function() {
     }
   });
 
-  // We need to stop autocomplete if submitted:
-  $('#simple_search').submit(function(e) {
+  // We need to stop autocomplete when the click the button:
+  $('#simple_search :submit').click(function(e) {
     EOL.search_submitted = true;
     $('input#autocomplete_q[data-autocomplete]').autocomplete('disable');
   });

@@ -106,8 +106,10 @@ module EOL
           end
 
           return_hash['children'] = []
-          HierarchyEntry.preload_associations(hierarchy_entry, { :children => [ :rank, :name ] })
-          hierarchy_entry.children.each do |child|
+          HierarchyEntry.preload_associations(
+            hierarchy_entry, { :children => [ :rank, :name ] }
+          )
+          hierarchy_entry.children.published.each do |child|
             child_hash = {}
             child_hash['sourceIdentifier'] = child.identifier unless child.identifier.blank?
             child_hash['taxonID'] = child.id

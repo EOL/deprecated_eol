@@ -205,7 +205,7 @@ module Eol
         ":class_:id.:extension",
       max_size: 5_242_880
     )
-
+    Rails.configuration.inat_collection_url = nil
 
     # -------------------------------------------------------------------------
     # OLD STUFF...          PLEASE DON'T DO THIS ANYMORE.  :|

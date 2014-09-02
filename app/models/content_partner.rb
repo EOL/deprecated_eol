@@ -13,12 +13,12 @@ class ContentPartner < ActiveRecord::Base
 
   alias_attribute :project_description, :description
 
-  validates_presence_of :full_name
-  validates_presence_of :description
-  validates_presence_of :user
-  validates_length_of :display_name, maximum: 255, allow_nil: true
-  validates_length_of :acronym, maximum: 20, allow_nil: true
-  validates_length_of :homepage, maximum: 255, allow_nil: true
+  validates :full_name, presence: true
+  validates :description, presence: true
+  validates :user, presence: true
+  validates :display_name, length: { maximum: 255 }, allow_nil: true
+  validates :acronym, length: { maximum: 20 }, allow_nil: true
+  validates :homepage, length: { maximum: 255 }, allow_nil: true
 
   before_save :default_content_partner_status
   before_save :strip_urls

@@ -18,7 +18,7 @@ class ContentPartnerContact < ActiveRecord::Base
   before_save :blank_not_null_fields
   before_save :save_full_name
 
-  scope :primary, ->(c) { c.contact_role_id == ContactRole.primary.id }
+  scope :primary, -> { where(contact_role_id: ContactRole.primary.id) }
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_created_by?(user)

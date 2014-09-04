@@ -63,11 +63,6 @@ class ContentPartner < ActiveRecord::Base
       compact.sort_by { |he| he.published_at }.reverse
   end
 
-  def latest_published_harvest_events
-    resources.collect(&:latest_published_harvest_event).
-      compact.sort_by{|he| he.published_at}.reverse
-  end
-
   def oldest_published_harvest_events
     resources.map(&:oldest_published_harvest_event).
       compact.sort_by { |he| he.published_at }

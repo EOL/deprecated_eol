@@ -209,7 +209,7 @@ zh-Hans:
         homepage: "项目URL"
         id: "ID"
         notes: "项目说明"
-        public: "公开的"
+        is_public: "公开的"
         resources: "资源"
         user_id: "管理员"
         vetted: "已审核"
@@ -578,7 +578,7 @@ zh-Hans:
         logo_new: "上传一个新的logo："
         notes: "项目说明<small>(私人的)</small>"
         oldest_published_harvest_event: "首次发布"
-        public_more: "公开的内容合作伙伴的信息对每个人都是公开的，这些信息已包含在合作伙伴列表中。若不选，内容合作伙伴的详细信息则不会在列表中显示，并且此信息将只对内容合作伙伴创建者和EOL管理员可见。"
+        is_public_more: "公开的内容合作伙伴的信息对每个人都是公开的，这些信息已包含在合作伙伴列表中。若不选，内容合作伙伴的详细信息则不会在列表中显示，并且此信息将只对内容合作伙伴创建者和EOL管理员可见。"
         user_id: "内容合作伙伴详细信息管理者为"
       content_partner_agreement:
         mou_url: "合作协议的链接地址<small>(可选的)</small>"

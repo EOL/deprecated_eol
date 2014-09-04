@@ -17,19 +17,26 @@ module EOL
     end
 
     def logo_url(opts = {})
-      if !logo_file_name.blank? &&
-         !Rails.configuration.use_content_server_for_thumbnails
-        Rails.configuration.logo_uploads.paperclip_url +
-          ImageManipulation.local_file_name(self)
-      elsif self.logo_cache_url.blank?
-        "v2/logos/#{self.class.name.underscore}_default.png"
-      else
-        link = opts[:linked?] ? $SINGLE_DOMAIN_CONTENT_SERVER : nil
-        DataObject.image_cache_path(
-          logo_cache_url,
-          opts[:size] == :small ? "88_88" : "130_130",
-          specified_content_host: link
-        )
+      # This is TEMPORARY to catch a weird bug in production:
+      begin
+        if !logo_file_name.blank? &&
+          !Rails.configuration.use_content_server_for_thumbnails
+          Rails.configuration.logo_uploads.paperclip_url +
+            ImageManipulation.local_file_name(self)
+        elsif self.logo_cache_url.blank?
+          "v2/logos/#{self.class.name.underscore}_default.png"
+        else
+          link = opts[:linked?] ? $SINGLE_DOMAIN_CONTENT_SERVER : nil
+          DataObject.image_cache_path(
+            logo_cache_url,
+            opts[:size] == :small ? "88_88" : "130_130",
+            specified_content_host: link
+          )
+        end
+      # TEMP:
+      rescue => e
+        raise "Looks like we are missing an attribute on #{self.class} ##{id}:" \
+          " #{e.message}"
       end
     end
   end

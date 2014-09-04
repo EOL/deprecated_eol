@@ -48,7 +48,7 @@ inh:
           Хьахоадайтаман
           URL-моттига
         notes: Хьахоадайтаман куст
-        public: Массане а
+        is_public: Массане а
         user_id: Урхал деш
       eol_statistic:
         members_count: Дакъалаьцархой

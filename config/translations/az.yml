@@ -55,7 +55,7 @@ az:
         homepage: Layihə URL
         id: ID
         notes: Layıhə qeydləri
-        public: İctimai
+        is_public: İctimai
         resources: Resurslar
         user_id: İdarəçi
         vetted: İncələnib

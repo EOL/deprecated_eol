@@ -20,7 +20,11 @@ module EOL
             count = EOL::GlobalStatistics.solr_count('Community')
             count = Community.where(published: true).count if count == 0
           when "content_partners" then
+<<<<<<< Updated upstream
+            count = ContentPartner.count(:conditions => "is_public = 1")
+=======
             count = ContentPartner.where(is_public: true).count
+>>>>>>> Stashed changes
           else
             raise EOL::Exceptions::ObjectNotFound
         end

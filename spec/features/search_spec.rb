@@ -168,7 +168,7 @@ describe 'Search' do
 
   it 'should redirect to cms page if only 1 possible match is found' do
     visit("/search?q=#{@cms_page.title}")
-    current_path.should match /^\/info\/#{@cms_page.id}/
+    current_path.should match /^\/info\/#{@cms_page.content_page_id}/
   end
 
   it 'should redirect to community page if only 1 possible match is found' do

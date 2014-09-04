@@ -57,7 +57,7 @@ cs:
         homepage: URL projektu
         id: ID
         notes: Poznámky k projektu
-        public: Veřejné
+        is_public: Veřejné
         resources: Zdroje
         user_id: Spravovuje
         vetted: Prověřeno
@@ -423,7 +423,7 @@ cs:
         logo_new: 'Nahrát nové logo:'
         notes: Poznámky k projektu <small>(soukromé)</small>
         oldest_published_harvest_event: Poprvé publikováno
-        public_more: Profily veřejného partnera obsahu jsou viditelné pro všechny
+        is_public_more: Profily veřejného partnera obsahu jsou viditelné pro všechny
           uživatele a informace o partnerech je součástí seznamu partnera obsahu.
           Zrušte zaškrtnutí políčka pro vyloučení detailů o partnerovi obsahu ze seznamů
           a pro omezení přístupu k profilu správcům EOL a uživateli, který vytvořil

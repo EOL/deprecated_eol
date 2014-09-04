@@ -1,15 +1,14 @@
-# REMINDER: default model factories, eg. :user, should *only* generate required fields
+# REMINDER: default model factories, eg. :user, should *only* generate required
+# fields
 #
-# If you want a model loaded up with all kinds of goodies, make a different generator,
-# eg. :admin (which is a user)
-
-
-#
+# If you want a model loaded up with all kinds of goodies, make a different
+# generator, e.g.: admin (which is a user)
 #
 #
 #
 #
-#                                     PLEASE KEEP FACTORIES ALPHABETICAL.
+#
+#                      PLEASE KEEP FACTORIES ALPHABETICAL.
 #
 #
 #
@@ -893,6 +892,7 @@ FactoryGirl.define do
   end
 
   factory :known_uri_measurement, class: KnownUri do
+    after(:create) { |kuri| create(:translated_known_uri, known_uri: kuri) }
     vetted { Vetted.trusted }
     visibility { Visibility.visible }
     uri_type { UriType.measurement }

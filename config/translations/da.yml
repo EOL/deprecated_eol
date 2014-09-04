@@ -45,7 +45,7 @@ da:
         homepage: Projekt-URL
         id: ID
         notes: Projektnoter
-        public: Offentlig
+        is_public: Offentlig
         resources: Kilder
         user_id: Forvaltes af
         vetted: Gransket
@@ -240,7 +240,7 @@ da:
         logo_new: 'Læg et nyt logo op:'
         notes: 'Projektnoter <small>(privat)</small>'
         oldest_published_harvest_event: Første udgivelse
-        public_more: >
+        is_public_more: >
           Offentlige profiler for
           indholdssamarbejdspartnere er synlige
           for alle, og information om

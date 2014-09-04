@@ -48,7 +48,7 @@ ms:
         homepage: URL projek
         id: ID
         notes: Catatan projek
-        public: Umum
+        is_public: Umum
         resources: Sumber
         user_id: Diuruskan oleh
         vetted: Disemak
@@ -365,7 +365,7 @@ ms:
         logo_new: 'Muat naik logo baru:'
         notes: Catatan projek <small>(sulit)</small>
         oldest_published_harvest_event: Terbitan pertama
-        public_more: Profil awam rakan kongsi kandungan diperlihatkan kepada semua,
+        is_public_more: Profil awam rakan kongsi kandungan diperlihatkan kepada semua,
           dan maklumat rakan kongsi disertakan dalam senarai rakan kongsi kandungan.
           Padamkan tanda pada petak ini untuk mengecualikan butiran-butiran rakan
           kongsi kandungan daripada senaraian serta mengehadkan capaian profil kepada

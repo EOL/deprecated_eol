@@ -61,7 +61,7 @@ pt:
         homepage: URL do projeto
         id: ID
         notes: Notas do projeto
-        public: Público
+        is_public: Público
         resources: Recursos
         user_id: Administrado por
         vetted: Aprovados

@@ -53,7 +53,7 @@ fi:
         homepage: Hankkeen verkko-osoite
         id: Tunniste
         notes: Projektihuomautukset
-        public: julkinen
+        is_public: julkinen
         resources: Resurssit
         user_id: Hallinnointi
         vetted: Tarkastettu

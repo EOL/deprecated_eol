@@ -53,7 +53,7 @@ sv:
         homepage: Projekt-URL
         id: ID
         notes: Projektanteckningar
-        public: Offentlig
+        is_public: Offentlig
         resources: Resurser
         user_id: Hanterad av
         vetted: Granskad

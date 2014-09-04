@@ -55,7 +55,7 @@ ko:
         homepage: 프로젝트 URL
         id: ID
         notes: 프로젝트 참고
-        public: 공개
+        is_public: 공개
         resources: 자료
         user_id: 관리자
         vetted: 조사됨
@@ -377,7 +377,7 @@ ko:
         logo_new: '새 로고 올리기:'
         notes: 프로젝트 참고 <small>(비공개)</small>
         oldest_published_harvest_event: 처음 게시함
-        public_more: 공개 콘텐츠 파트너 프로필은 모두가 볼 수 있으며 파트너 정보가 콘텐츠 파트너 목록에 포함되어 있습니다. 목록에서
+        is_public_more: 공개 콘텐츠 파트너 프로필은 모두가 볼 수 있으며 파트너 정보가 콘텐츠 파트너 목록에 포함되어 있습니다. 목록에서
           콘텐츠 파트너 자세한 사항을 제외하고 콘텐츠 파트너를 만든 사용자와 EOL 관리자에게 프로필 접근을 제한하려면 확인을 취소하세요.
         user_id: 콘텐츠 파트너 자세한 사항 관리자
       content_partner_agreement:

@@ -61,7 +61,7 @@ pt-BR:
         homepage: URL do projeto
         id: ID
         notes: Notas do projeto
-        public: Público
+        is_public: Público
         resources: Recursos
         user_id: Administrado por
         vetted: Aprovado
@@ -460,7 +460,7 @@ pt-BR:
         logo_new: 'Carregar um novo logotipo:'
         notes: Notas de projeto <small>(privado)</small>
         oldest_published_harvest_event: Primeira publicação
-        public_more: Perfis públicos de parceiros de conteúdo são visíveis para todos
+        is_public_more: Perfis públicos de parceiros de conteúdo são visíveis para todos
           e informações de parceiro está incluído na lista de parceiros de conteúdo.
           Desmarque a opção de excluir conteúdo detalhes de parceiras de listagens
           e restringir o acesso ao perfil para o usuário que criou o parceiro de conteúdo

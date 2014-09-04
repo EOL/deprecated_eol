@@ -50,7 +50,7 @@ gl:
         homepage: URL do proxecto
         id: ID
         notes: Notas do proxecto
-        public: Públicas
+        is_public: Públicas
         resources: Recursos
         user_id: Xestionado por
         vetted: Aprobado
@@ -377,7 +377,7 @@ gl:
         logo_new: 'Cargar un novo logotipo:'
         notes: Notas do proxecto <small>(privadas)</small>
         oldest_published_harvest_event: Primeira publicación
-        public_more: Os perfís públicos dos provedores de contidos asociados son visibles
+        is_public_more: Os perfís públicos dos provedores de contidos asociados son visibles
           para todos e a información asociada inclúese nas listas de socios de contidos.
           Desmarca esta opción para excluír os detalles das listas e restrinxir o
           acceso aos perfís ao usuario que creou o socio de contidos e aos administradores

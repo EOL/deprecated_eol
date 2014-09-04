@@ -52,7 +52,7 @@ nb:
         homepage: Prosjektadresse
         id: ID
         notes: Prosjektnotater
-        public: Offentlig
+        is_public: Offentlig
         resources: Ressurser
         user_id: Administrert av
         vetted: Gransket
@@ -373,7 +373,7 @@ nb:
         logo_new: 'Last opp en ny logo:'
         notes: Projektnotater <small>(privat)</small>
         oldest_published_harvest_event: Først publisert
-        public_more: Offentlige profiler til innholdspartnere er synlige til alle,
+        is_public_more: Offentlige profiler til innholdspartnere er synlige til alle,
           og partneropplysninger er inkludert i lister over innholdspartnere. Fjern
           markeringen for å utelate innholdspartnerdetaljer fra lister og begrense
           profiltilgang til brukeren som har opprettet innholdspartneren samt EOL-administrorer.

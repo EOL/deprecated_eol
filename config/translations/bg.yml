@@ -32,7 +32,7 @@ bg:
         homepage: Адрес на проекта
         id: Номер
         notes: Бележки за проекта
-        public: Публично
+        is_public: Публично
         resources: Ресурси
         user_id: Управлявано от
       content_partner_agreement:

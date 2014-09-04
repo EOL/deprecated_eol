@@ -55,7 +55,7 @@ ca:
         homepage: URL del projecte
         id: ID
         notes: Projecte notes
-        public: Públic
+        is_public: Públic
         resources: Recursos
         user_id: Gestionat per
         vetted: Investigat

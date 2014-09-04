@@ -30,7 +30,7 @@ ps:
         homepage: د پروژې يو آر اېل
         id: پېژند
         notes: د پروژې يادښتونه
-        public: ټولگړی
+        is_public: ټولگړی
         resources: سرچينې
       data_object:
         description: متن

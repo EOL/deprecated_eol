@@ -61,7 +61,7 @@ nl:
         homepage: Project-URL
         id: ID
         notes: Projectnotities
-        public: Openbaar
+        is_public: Openbaar
         resources: Bronnen
         user_id: Beheerd door
         vetted: Doorgelicht
@@ -463,7 +463,7 @@ nl:
         logo_new: 'Een nieuw logo uploaden:'
         notes: Projectnotities <small>(beperkt zichtbaar)</small>
         oldest_published_harvest_event: Voor het eerst gepubliceerd
-        public_more: De profielen van publieke contentpartners zijn zichtbaar voor
+        is_public_more: De profielen van publieke contentpartners zijn zichtbaar voor
           iedereen en partnergegevens bijgesloten in contentpartnerlijsten. Deselecteer
           om de partnergegevens uit te sluiten van lijsten en toegang tot profielen
           te beperken tot de gebruiker die de content heeft aangemaakt en EOL-beheerders.

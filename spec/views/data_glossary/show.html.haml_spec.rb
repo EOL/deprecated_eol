@@ -8,6 +8,7 @@ end
 describe 'data_glossary/show' do
 
   before(:all) do
+    drop_all_virtuoso_graphs
     load_foundation_cache
     @user = User.gen
     @user.grant_permission(:see_data)
@@ -19,14 +20,14 @@ describe 'data_glossary/show' do
   end
 
   it 'only shows measurement URIs which have measurement records' do
-    new_uri = KnownUri.gen_if_not_exists(name: 'Some New Uri')
+    new_uri = create(:known_uri_measurement)
     render
     # it should not show up yet because there are no measurements using it
-    expect(rendered).to_not match(new_uri.name)
+    expect(rendered).to_not match(new_uri.name.firstcap)
     create_measurement_for_uri(new_uri)
     Rails.cache.clear
     render
-    expect(rendered).to match(new_uri.name)
+    expect(rendered).to match(new_uri.name.firstcap)
   end
 
   it 'does not show URIs which are hidden from the glossary' do

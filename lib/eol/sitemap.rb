@@ -307,7 +307,7 @@ module EOL
     end
     
     def write_content_partner_urls
-      content_partners = ContentPartner.where(is_public: 1).select(:id, :updated_at)
+      content_partners = ContentPartner.where(is_public: 1).select([:id, :updated_at])
       content_partners.each do |content_partner|
         metadata = { :loc => content_partner_url(content_partner.id), :changefreq => 'weekly', :priority => 1 }
         @all_link_tmp_file.puts metadata.to_json

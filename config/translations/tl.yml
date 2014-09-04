@@ -49,7 +49,7 @@ tl:
         homepage: URL ng proyekto
         id: ID
         notes: Mga tala sa proyekto
-        public: Pangmadla
+        is_public: Pangmadla
         resources: Mga napagkunan
         user_id: Pinamamahalaan ng
         vetted: Nabistay na
@@ -374,7 +374,7 @@ tl:
         logo_new: 'Magkarga ng isang bagong logo:'
         notes: Mga tala sa proyekto <small>(pribado)</small>
         oldest_published_harvest_event: Unang nalathala
-        public_more: Ang pangmadlang mga balangkas ng katangian ng kawaksi sa nilalaman
+        is_public_more: Ang pangmadlang mga balangkas ng katangian ng kawaksi sa nilalaman
           ay nakikita ng lahat at kabilang ang kabatiran ng kawaksi sa loob ng mga
           paglilista ng kawaksi sa nilalaman. Huwag tsekan upang huwag maisama ang
           mga detalye ng kawaksi sa nilalaman mula sa mga paglilista at ilaan lamang

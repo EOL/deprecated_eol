@@ -71,7 +71,7 @@ it:
         homepage: Indirizzo del progetto
         id: ID
         notes: Note del progetto
-        public: Pubblico
+        is_public: Pubblico
         resources: Risorse
         user_id: Gestito da
         vetted: Controllati
@@ -463,7 +463,7 @@ it:
         logo_new: 'Carica un nuovo logo:'
         notes: Note di progetto <small>(private)</small>
         oldest_published_harvest_event: Pubblicato la prima volta
-        public_more: ' I profili pubblici del content partner,sono visibili a tutti
+        is_public_more: ' I profili pubblici del content partner,sono visibili a tutti
           ed informazioni sul partner sono incluse nela lista dei content partner.
           Deselezionare questa opzione per escludere i dettagli dei contenuti partner
           dall''elenco e limitare l''accesso al profilo, dall''utente che ha creato

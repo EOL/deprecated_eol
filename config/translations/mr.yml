@@ -79,7 +79,7 @@ mr:
           ओळख
           संख्या(आयडी)
         notes: प्रकल्पाचे नाव
-        public: सार्वजनिक
+        is_public: सार्वजनिक
         resources: संसाधन
         user_id: व्यवस्था केली
       content_partner_agreement:

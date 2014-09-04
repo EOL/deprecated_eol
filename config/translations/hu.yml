@@ -36,7 +36,7 @@ hu:
         full_name: Projektnév
         homepage: Projekt URL
         id: Azonosító
-        public: Nyilvános
+        is_public: Nyilvános
         resources: Erőforrások
       content_partner_agreement:
         created_at: 'Készült:'

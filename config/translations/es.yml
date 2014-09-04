@@ -78,7 +78,7 @@ es:
         homepage: URL del proyecto
         id: Id.
         notes: Notas del proyecto
-        public: Público
+        is_public: Público
         resources: Recursos
         user_id: Administrado por
         vetted: Aprobados
@@ -481,7 +481,7 @@ es:
         logo_new: 'Subir un nuevo logotipo:'
         notes: Notas del proyecto <small>(privados)</small>
         oldest_published_harvest_event: Primera publicación
-        public_more: Los perfiles de los socios de contenido público son visibles
+        is_public_more: Los perfiles de los socios de contenido público son visibles
           para todos y la información de los asociados se incluye en los listados
           de socios. Anule la selección para excluir detalles del contenido de los
           socios de los listados y restrinja el acceso al perfil de usuario solo al

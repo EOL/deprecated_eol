@@ -31,7 +31,7 @@ lb:
         display_name: Numm dee gewise gëtt
         full_name: Numm vum Projet
         homepage: URL vum Projet
-        public: Ëffentlech
+        is_public: Ëffentlech
       content_partner_agreement:
         signed_by: Ënnerschriwwe vum
         signed_on_date: Datum vun der Ënnerschrëft

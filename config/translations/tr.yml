@@ -63,7 +63,7 @@ tr:
         homepage: Proje URL
         id: Kimlik
         notes: Proje notları
-        public: Herkese açık
+        is_public: Herkese açık
         resources: Kaynaklar
         user_id: Tarafından yönetilen
         vetted: İncelenmesi

@@ -49,7 +49,7 @@ pms:
         homepage: Adrëssa an sl'aragnà dël proget
         id: ID
         notes: Nòte dël proget
-        public: Pùblich
+        is_public: Pùblich
         resources: Arsorse
         user_id: Gestì da
         vetted: Aprovà
@@ -451,7 +451,7 @@ pms:
         logo_new: 'Carié na neuva marca:'
         notes: Nòte dël proget <small>(privà)</small>
         oldest_published_harvest_event: Publicà la prima vira
-        public_more: Ij profij ëd cambrada ëd contnù pùblich a son visìbij da tuti
+        is_public_more: Ij profij ëd cambrada ëd contnù pùblich a son visìbij da tuti
           e j'anformassion dij cambrada a son contnùe ant le liste ëd cambrada ëd
           contnù. Desselessioné për gavé ij detaj an sij cambrada ëd contnù da le
           liste e për restrenze l'acess al profil mach a l'utent ch'a l'ha creà ël

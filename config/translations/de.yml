@@ -62,7 +62,7 @@ de:
         homepage: Projekt-URL
         id: Kennung
         notes: Projektnotizen
-        public: Öffentlich
+        is_public: Öffentlich
         resources: Quellen
         user_id: Verwaltet von
         vetted: Geprüft
@@ -472,7 +472,7 @@ de:
         logo_new: 'Ein neues Logo hochladen:'
         notes: Projekthinweise <small>(privat)</small>
         oldest_published_harvest_event: Erste Veröffentlichung
-        public_more: Öffentliche Profile der Inhaltspartner sich für alle einsehbar.
+        is_public_more: Öffentliche Profile der Inhaltspartner sich für alle einsehbar.
           Zudem werden die Profilinformationen auf den Listen der Inhaltspartner angegeben.
           Deselektieren Sie diese Option, damit die Informationen zum Inhaltspartner
           nicht auf den Listen angegeben werden und, um den Zugriff auf das Profil

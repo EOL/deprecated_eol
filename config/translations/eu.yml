@@ -45,7 +45,7 @@ eu:
         homepage: Proiektuaren URLa
         id: ID
         notes: Proiektuaren oharrak
-        public: Publikoa
+        is_public: Publikoa
         resources: Baliabideak
         user_id: 'Kudeatzailea:'
       content_partner_agreement:

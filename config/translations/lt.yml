@@ -53,7 +53,7 @@ lt:
         homepage: Projekto URL
         id: ID
         notes: Projekto pastabos
-        public: Viešas
+        is_public: Viešas
         resources: Ištekliai
         user_id: Valdomas
         vetted: Patikrintas

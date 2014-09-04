@@ -78,7 +78,7 @@ fr:
         homepage: URL du projet
         id: Identifiant
         notes: Notes du projet
-        public: Public
+        is_public: Public
         resources: Ressources
         user_id: Géré par
         vetted: Approuvé
@@ -469,7 +469,7 @@ fr:
         logo_new: 'Téléverser un nouveau logo :'
         notes: Notes du projet <small>(privées)</small>
         oldest_published_harvest_event: Publié en premier
-        public_more: Les profils de partenaires de contenu public sont visibles par
+        is_public_more: Les profils de partenaires de contenu public sont visibles par
           tout le monde et les informations des partenaires sont incluses dans les
           listes de partenaires de contenu. Décochez la case pour exclure les détails
           sur les partenaires de contenu des listes et pour restreindre l’accès au

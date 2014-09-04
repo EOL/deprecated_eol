@@ -25,7 +25,7 @@ bar:
         homepage: Prójekt-URL
         id: Kénnung
         notes: Prójektnótiezen
-        public: Éffmtlich
+        is_public: Éffmtlich
         resources: Quejn
         user_id: Vawoitt voh
         vetted: Priafft

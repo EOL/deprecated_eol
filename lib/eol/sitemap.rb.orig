@@ -307,7 +307,11 @@ module EOL
     end
     
     def write_content_partner_urls
+<<<<<<< Updated upstream
+      content_partners = ContentPartner.find(:all, :conditions => 'is_public = 1', :select => 'id, updated_at')
+=======
       content_partners = ContentPartner.where(is_public: 1).select(:id, :updated_at)
+>>>>>>> Stashed changes
       content_partners.each do |content_partner|
         metadata = { :loc => content_partner_url(content_partner.id), :changefreq => 'weekly', :priority => 1 }
         @all_link_tmp_file.puts metadata.to_json

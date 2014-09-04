@@ -47,7 +47,7 @@ ja:
         homepage: プロジェクト URL
         id: ID
         notes: プロジェクトのメモ
-        public: 公開
+        is_public: 公開
         resources: リソース
       content_partner_agreement:
         created_at: 作成日時

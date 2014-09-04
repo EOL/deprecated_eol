@@ -48,7 +48,7 @@ oc:
         homepage: URL del projècte
         id: Identificant
         notes: Nòtas del projècte
-        public: Public
+        is_public: Public
         resources: Ressorsas
         user_id: Gerit per
         vetted: Aprovat
@@ -437,7 +437,7 @@ oc:
         logo_new: 'Mandar un lògo novèl :'
         notes: Nòtas del projècte <small>(privadas)</small>
         oldest_published_harvest_event: Publicat en primièr
-        public_more: Los perfils de partenaris de contengut public son visibles per
+        is_public_more: Los perfils de partenaris de contengut public son visibles per
           tot lo monde e las informacions dels partenaris son inclusas dins las listas
           de partenaris de contengut. Desmarcatz la casa per exclure los detalhs suls
           partenaris de contengut de las listas e per restrànher l’accès al perfil

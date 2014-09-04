@@ -27,7 +27,7 @@ lez:
         full_name: Проекдин тlор
         homepage: Проекдин URL
         id: ID
-        public: Жузун
+        is_public: Жузун
       data_object:
         bibliographic_citation: Умирмикит элачlун
         description: Тегьерар кихьин

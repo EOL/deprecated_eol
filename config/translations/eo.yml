@@ -28,7 +28,7 @@ eo:
         full_name: Projekta nomo
         homepage: URL de projekto
         id: Identeco
-        public: Publika
+        is_public: Publika
         resources: Rimedoj
       data_object:
         bibliographic_citation: Bibliografia citaĵo

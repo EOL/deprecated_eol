@@ -209,7 +209,7 @@ en:
         homepage: "Project URL"
         id: "ID"
         notes: "Project notes"
-        public: "Public"
+        is_public: "Public"
         resources: "Resources"
         user_id: "Managed by"
         vetted: "Vetted"
@@ -579,7 +579,7 @@ en:
         logo_new: "Upload a new logo:"
         notes: "Project notes <small>(private)</small>"
         oldest_published_harvest_event: "First published"
-        public_more: "Public content partner profiles are visible to everyone and partner information is included in content partner listings. Uncheck to exclude content partner details from listings and restrict profile access to the user who created the content partner and to EOL administrators."
+        is_public_more: "Public content partner profiles are visible to everyone and partner information is included in content partner listings. Uncheck to exclude content partner details from listings and restrict profile access to the user who created the content partner and to EOL administrators."
         user_id: "Content partner details managed by"
       content_partner_agreement:
         mou_url: "Agreement file URL <small>(optional alternative)</small>"

@@ -39,9 +39,14 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def can_be_read_by?(user_wanting_access)
+<<<<<<< Updated upstream
+    is_public || (user_wanting_access.id == user_id ||
+      user_wanting_access.is_admin?)
+=======
     is_public ||
       user_wanting_access.id == user_id ||
       user_wanting_access.is_admin?
+>>>>>>> Stashed changes
   end
 
   def can_be_updated_by?(user_wanting_access)

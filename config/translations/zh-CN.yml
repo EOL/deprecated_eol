@@ -69,7 +69,7 @@ zh-CN:
         homepage: 项目URL
         id: ID
         notes: 项目注释
-        public: 公开
+        is_public: 公开
         resources: 资源
         user_id: 管理
         vetted: 已审核
@@ -426,7 +426,7 @@ zh-CN:
         logo_new: 上传新标志：
         notes: 项目注释<small>（非公开）</small>
         oldest_published_harvest_event: 首次发布
-        public_more: 公开的内容合作伙伴的信息对每个人都是公开的，这些信息已包含在合作伙伴列表中。若不选，内容合作伙伴的详细信息则不会在列表中显示，并且此信息将只对内容合作伙伴创建者和EOL管理员可见。
+        is_public_more: 公开的内容合作伙伴的信息对每个人都是公开的，这些信息已包含在合作伙伴列表中。若不选，内容合作伙伴的详细信息则不会在列表中显示，并且此信息将只对内容合作伙伴创建者和EOL管理员可见。
         user_id: 内容合作伙伴信息管理
       content_partner_agreement:
         mou_url: 协议文件URL<small>（可选替代）</small>

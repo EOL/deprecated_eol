@@ -42,7 +42,7 @@ sr-Latn:
         homepage: Adresa projekta
         id: Naznaka
         notes: Beleške projekta
-        public: Javan
+        is_public: Javan
         resources: Resursi
         user_id: 'Rukovodilac:'
         vetted: Provereno
@@ -214,7 +214,7 @@ sr-Latn:
         logo_new: 'Otpremi novi logotip:'
         notes: Beleške projekta <small>(privatno)</small>
         oldest_published_harvest_event: Prvo objavljeno
-        public_more: Javni profili partnera za sadržaj vidljivi su za svakoga. Podaci
+        is_public_more: Javni profili partnera za sadržaj vidljivi su za svakoga. Podaci
           o svakom partneru se nalaze u spisku partnera. Deštriklirajte ovo ako želite
           da izuzmete detalje u spisku i da ograničite pristup do profila korisnika,
           tj. da može da pristupi samo onome ko je napravio partnera i administratore

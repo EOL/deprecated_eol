@@ -49,7 +49,7 @@ ia:
         homepage: URL del projecto
         id: ID
         notes: Notas del projecto
-        public: Public
+        is_public: Public
         resources: Ressources
         user_id: Administrate per
         vetted: Examinate
@@ -425,7 +425,7 @@ ia:
         logo_new: 'Incargar un nove logo:'
         notes: Notas del projecto <small>(private)</small>
         oldest_published_harvest_event: Prime publication
-        public_more: Le profilos public de partner de contento es visibile pro omnes,
+        is_public_more: Le profilos public de partner de contento es visibile pro omnes,
           e le information super le partner es includite in listas de partners de
           contento. Dismarca iste option pro excluder le detalios del partner de contento
           del listas e pro restringer le accesso al profilos al usator qui ha create

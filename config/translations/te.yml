@@ -72,7 +72,7 @@ te:
         notes: >
           ప్రణాళిక
           చీటీలు
-        public: బహిరంగం
+        is_public: బహిరంగం
         resources: వనరులు
         user_id: నిర్వాహకులు
         vetted: సంకలితం

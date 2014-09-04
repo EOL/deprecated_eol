@@ -51,7 +51,7 @@ br:
         homepage: URL ar raktres
         id: ID
         notes: Notennoù ar raktres
-        public: Foran
+        is_public: Foran
         resources: Mammennoù
         user_id: Meret gant
         vetted: Aprouet
@@ -407,7 +407,7 @@ br:
         logo_new: 'Enporzhiañ ul logo nevez :'
         notes: Notennoù ar raktres <small>(prevez)</small>
         oldest_published_harvest_event: Embannet da gentañ
-        public_more: Ar profiloù kevelerien endalc'h foran a c'hall bezañ gwelet gant
+        is_public_more: Ar profiloù kevelerien endalc'h foran a c'hall bezañ gwelet gant
           an holl dud  ha titouroù ar gevelerien zo e-barzh ar rolloù kevelerien endalc'h.
           Diaskit al log evit ezlakaat ar munudoù diwar-benn kevelerien endalc'h ar
           rolloù pe evit strishaat ar moned da brofil klok an implijer nemetañ en

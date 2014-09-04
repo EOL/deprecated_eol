@@ -77,7 +77,7 @@ qqq:
         display_name: '{{Identical|Display name}}'
         full_name: '{{Identical|Project name}}'
         id: '{{Identical|ID}}'
-        public: '{{Identical|Public}}'
+        is_public: '{{Identical|Public}}'
         resources: '{{Identical|Resource}}'
       content_partner_agreement:
         created_at: '{{Identical|Created at}}'

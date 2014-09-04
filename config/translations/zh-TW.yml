@@ -54,7 +54,7 @@ zh-TW:
         homepage: 計畫網址
         id: ID
         notes: 計畫附註
-        public: 公開的
+        is_public: 公開的
         resources: 資源
         user_id: 管理者為
         vetted: 已審核
@@ -366,7 +366,7 @@ zh-TW:
         logo_new: 上傳一個新logo：
         notes: 計畫附註 <small>(私人的)</small>
         oldest_published_harvest_event: 首次發布的
-        public_more: 公開的內容合作夥伴簡介每個人都可見到，這些夥伴的資訊亦已包含在合作夥伴清單中。取消勾選則合作夥伴的詳細資料不會顯示於清單中，且其簡介將只對內容合作夥伴的建立者及EOL管理者開放。
+        is_public_more: 公開的內容合作夥伴簡介每個人都可見到，這些夥伴的資訊亦已包含在合作夥伴清單中。取消勾選則合作夥伴的詳細資料不會顯示於清單中，且其簡介將只對內容合作夥伴的建立者及EOL管理者開放。
         user_id: 內容合作夥伴詳細資料的管理者為
       content_partner_agreement:
         mou_url: 協議文件的網址 <small>(選填)</small>

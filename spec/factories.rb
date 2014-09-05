@@ -485,7 +485,6 @@ FactoryGirl.define do
     description_of_data    'Civil Protection!'
     created_at             { 5.days.ago }
     is_public              true
-    content_partner_status { ContentPartnerStatus.active }
   end
 
   factory :content_partner_agreement do

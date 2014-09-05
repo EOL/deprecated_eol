@@ -46,6 +46,7 @@ RSpec.configure do |config|
   # It's a complex project, so, yeah, we have a LOT of helpers:
   config.include(EmailSpec::Helpers)
   config.include(EmailSpec::Matchers)
+  config.include(Helpers) # Global helpers for all specs.
   config.include(TruncateHelpers) # Used quite often to clear database. TODO - replace this with database_cleaner
   config.include(VirtuosoHelpers) # Used often to clear triple store.
   config.include(ScenarioHelpers) # Of course, this is used to load scenarios nicely.

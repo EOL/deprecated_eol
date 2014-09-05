@@ -1,12 +1,6 @@
 Style Guide for EOL
 ===================
 
-Style
------
-
-* Prefer #first to #[0].
-* Prefer #last to #[-1].
-
 Exemplar files
 --------------
 
@@ -43,3 +37,35 @@ Controller
   # This is as close as we get to a "read" spec, here, because specifics
   # belong in a view spec, but having a feature spec ensure that the full
   # stack renders is actually useful.
+
+Abbreviations
+-------------
+
+The following abbreviations are standard in the EOL environment and are thus
+"okay" to be used despite their short length (whereas abbreviations are
+generally frowned upon).
+
+**cp** Content Partner
+**dato** Data Object
+**he** Hierarchy Entry
+**tc** Taxon Concept
+
+Ruby Style
+----------
+
+* Prefer #first to #[0].
+* Prefer #last to #[-1].
+
+RSpec Style
+-----------
+
+Follow the guidelines in [Better Specs] [1] first. The following are our
+additions.
+
+* Capitalize the word "NOT" or "NO" when used in spec descriptions.
+
+    it "is NOT creatable" do
+      expect(subject.can_be_created_by?(a_user)).to be false
+    end
+
+[1]: http://betterspecs.org/

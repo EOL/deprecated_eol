@@ -11,8 +11,6 @@ class ContentPartner < ActiveRecord::Base
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
 
-  alias_attribute :project_description, :description
-
   validates :full_name, presence: true
   validates :description, presence: true
   validates :user, presence: true
@@ -21,7 +19,6 @@ class ContentPartner < ActiveRecord::Base
   validates :homepage, length: { maximum: 255 }, allow_nil: true
 
   before_save :default_content_partner_status
-  before_save :strip_urls
   after_save :recalculate_statistics
 
   include EOL::Logos
@@ -106,10 +103,6 @@ class ContentPartner < ActiveRecord::Base
 
   def default_content_partner_status
     self.content_partner_status ||= ContentPartnerStatus.active
-  end
-
-  def strip_urls
-    homepage.strip unless homepage.blank?
   end
 
   def recalculate_statistics

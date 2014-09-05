@@ -11,28 +11,21 @@ describe ContentPartner do
   let(:user) { User.gen }
   subject { ContentPartner.gen(user: user, content_partner_status: nil) }
 
+  it "has user" do
+    expect(subject.user).to be_kind_of User
+  end
+
   it "has active status by default" do
     expect(subject.content_partner_status).to eq ContentPartnerStatus.active
   end
 
-  it "responds to #logo_url" do
-    expect(subject).to respond_to(:logo_url)
-  end
-
-  it "recalculates statistics when saved" do
-    allow(EOL::GlobalStatistics).to receive(:clear)
-    subject # Calling subject lazy-loads ContentPartner
-    expect(EOL::GlobalStatistics).
-      to have_received(:clear).with(:content_partners)
-  end
-
-  it "has no resources by default" do
+  it 'has no resources by default' do
     expect(subject.resources.empty?).to be true
   end
 
   context "when accessing someone else's content_partner" do
     let(:a_user) { User.gen }
-
+    
     it "is readable" do
       expect(subject.can_be_read_by?(a_user)).to be true
     end
@@ -44,9 +37,9 @@ describe ContentPartner do
     it "can NOT be created" do
       expect(subject.can_be_created_by?(a_user)).to be false
     end
-
+    
     context "when content_partner is private" do
-      subject do
+      subject do 
         ContentPartner.gen(user: user, is_public: false)
       end
 
@@ -62,15 +55,15 @@ describe ContentPartner do
     end
 
     it "is updatable" do
-      expect(subject.can_be_updated_by?(user)).to be true
+      expect(subject.can_be_updated_by?(user)).to be true 
     end
 
     it "can be created" do
       expect(subject.can_be_created_by?(user)).to be true
     end
-
+    
     context "when the content_partner is private" do
-      subject do
+      subject do 
         ContentPartner.gen(user: user, is_public: false)
       end
 
@@ -103,11 +96,11 @@ describe ContentPartner do
           Rails.cache.clear
         end
 
-        context "when the last event is unpublished" do
-          let!(:event1) do
-            HarvestEvent.gen(resource: resource, published_at: nil)
-          end
-          let!(:event2) do
+        context "when the last event is unpublished" do 
+          let!(:event1) do 
+            HarvestEvent.gen(resource: resource, published_at: nil) 
+          end 
+          let!(:event2) do 
             HarvestEvent.gen(resource: resource, published_at: nil)
           end
 
@@ -116,8 +109,8 @@ describe ContentPartner do
             expect(subject.unpublished_content?).to be true
           end
         end
-
-        context "last event published" do
+        
+        context "last event published" do 
           let!(:event1) { HarvestEvent.gen(resource: resource) }
           let!(:event2) { HarvestEvent.gen(resource: resource) }
 
@@ -130,21 +123,17 @@ describe ContentPartner do
     end
   end
 
-  describe "#latest_published_harvest_events" do
+  describe "#latest_published_harvest_events" do 
     let!(:resource1) { Resource.gen(content_partner: subject) }
+    let!(:event1) { HarvestEvent.gen(resource: resource1, 
+                                     published_at: 2.hours.ago) }
+    let!(:event2) { HarvestEvent.gen(resource: resource1, 
+                                     published_at: 1.hours.ago) }
     let!(:resource2) { Resource.gen(content_partner: subject) }
-    let!(:event1) do
-      HarvestEvent.gen(resource: resource1, published_at: 2.hours.ago)
-    end
-    let!(:event2) do
-      HarvestEvent.gen(resource: resource1, published_at: 1.hours.ago)
-    end
-    let!(:event3) do
-      HarvestEvent.gen(resource: resource2, published_at: 2.hours.ago)
-    end
-    let!(:event4) do
-      HarvestEvent.gen(resource: resource2, published_at: 1.hours.ago)
-    end
+    let!(:event3) { HarvestEvent.gen(resource: resource2, 
+                                     published_at: 2.hours.ago) }
+    let!(:event4) { HarvestEvent.gen(resource: resource2, 
+                                     published_at: 1.hours.ago) }
 
     it "returns array of latest published events" do
       res = subject.latest_published_harvest_events
@@ -152,21 +141,17 @@ describe ContentPartner do
     end
   end
 
-  describe "#oldest_published_harvest_events" do
+  describe "#oldest_published_harvest_events" do 
     let!(:resource1) { Resource.gen(content_partner: subject) }
+    let!(:event1) { HarvestEvent.gen(resource: resource1, 
+                                     published_at: 2.hours.ago) }
+    let!(:event2) { HarvestEvent.gen(resource: resource1, 
+                                     published_at: 1.hours.ago) }
     let!(:resource2) { Resource.gen(content_partner: subject) }
-    let!(:event1) do
-      HarvestEvent.gen(resource: resource1, published_at: 2.hours.ago)
-    end
-    let!(:event2) do
-      HarvestEvent.gen(resource: resource1, published_at: 1.hours.ago)
-    end
-    let!(:event3) do
-      HarvestEvent.gen(resource: resource2, published_at: 2.hours.ago)
-    end
-    let!(:event4) do
-      HarvestEvent.gen(resource: resource2, published_at: 1.hours.ago)
-    end
+    let!(:event3) { HarvestEvent.gen(resource: resource2, 
+                                     published_at: 2.hours.ago) }
+    let!(:event4) { HarvestEvent.gen(resource: resource2, 
+                                     published_at: 1.hours.ago) }
 
     it "returns array of oldest publiched events" do
       res = subject.oldest_published_harvest_events
@@ -188,10 +173,10 @@ describe ContentPartner do
         expect(subject.primary_contact).to be_kind_of(ContentPartnerContact)
       end
 
-      context "when it has a primary contact" do
-        let!(:contact3) do
+      context "when it has a primary contact" do 
+        let!(:contact3) do 
           ContentPartnerContact.gen(content_partner: subject,
-                                    contact_role: ContactRole.primary)
+                                    contact_role: ContactRole.primary )
         end
         it "returns primary contact" do
           expect(subject.primary_contact).to eq contact3
@@ -200,15 +185,15 @@ describe ContentPartner do
     end
   end
 
-  describe "#last_action_date" do
+  describe "#last_action_date" do 
 
     # We want to ensure the CP starts with nothing associated:
     subject { ContentPartner.gen }
 
     let!(:latest_date) { 0.seconds.ago }
     let!(:other_date) { 2.hours.ago }
-    let!(:contact) do
-      ContentPartnerContact.gen(content_partner: subject,
+    let!(:contact) do 
+      ContentPartnerContact.gen(content_partner: subject, 
                                 created_at: latest_date,
                                 updated_at: latest_date)
     end
@@ -219,8 +204,8 @@ describe ContentPartner do
     end
     let!(:resource) do
       Resource.gen(content_partner: subject,
-                   created_at: other_date,
-                   updated_at: other_date)
+                 created_at: other_date,
+                 updated_at: other_date)
     end
 
     it "returns the last update_at or created_at date from several resources" do
@@ -232,7 +217,7 @@ describe ContentPartner do
   describe "#agreement" do
     let!(:invalid) do
       ContentPartnerAgreement.gen(content_partner: subject,
-                                  is_current: false,
+                                  is_current:false,
                                   created_at: 0.minutes.ago)
     end
     let!(:recent_valid) do
@@ -252,7 +237,7 @@ describe ContentPartner do
   end
 
   describe "#name" do
-
+    
     context "when it does NOT have a display name" do
       subject { ContentPartner.gen(user: user, display_name: nil) }
       it "returns full name" do
@@ -272,7 +257,7 @@ describe ContentPartner do
     # We want to ensure that it doesn't start with any associations:
     subject { ContentPartner.gen }
 
-    let!(:resource1) { Resource.gen(content_partner: subject) }
+    let!(:resource1) { Resource.gen(content_partner: subject)}
     let!(:collection1) do
       Collection.gen(resource: Resource.gen(content_partner: subject))
     end
@@ -284,6 +269,80 @@ describe ContentPartner do
       expect(subject.collections.to_set).
         to eq([collection1, collection2].to_set)
     end
+  end
+
+  it "should get all data_objects that came from an agents last harvest" do
+    agent = Agent.gen()
+    user = User.gen(agent: agent)
+    content_partner = ContentPartner.gen(user: user)
+    resource = Resource.gen(content_partner: content_partner)
+    first_event = HarvestEvent.gen(resource: resource)
+    first_datos = []
+    5.times do
+      first_datos << DataObject.gen
+      DataObjectsHarvestEvent.gen(harvest_event: first_event,
+                                  data_object: first_datos.last)
+    end
+    last_event = HarvestEvent.gen(resource: resource)
+    last_datos = []
+    5.times do
+      last_datos << DataObject.gen
+      DataObjectsHarvestEvent.gen(harvest_event: last_event,
+                                  data_object: last_datos.last)
+    end
+
+    content_partner.resources.first.latest_harvest_event.
+      data_objects.map {|ob| ob.id}.sort.should ==
+      last_datos.map {|ob| ob.id}.sort
+  end
+
+  it "should know when it has resources that have unpublished content" do
+    cp = ContentPartner.gen(user: user)
+    
+    # no resource means no content so we return false
+    cp.unpublished_content?.should be_false 
+
+    Rails.cache.clear
+    resource = Resource.gen(content_partner: cp)
+    cp.reload
+    cp.unpublished_content?.should be_true
+    Rails.cache.clear
+    event = HarvestEvent.gen(resource: resource, published_at: nil)
+    cp.resources.reload
+    event.resource.reload
+    cp.unpublished_content?.should be_true
+    Rails.cache.clear
+    event.update_attributes(publish: true)
+    cp.resources.reload
+    event.resource.reload
+    cp.unpublished_content?.should be_true
+    Rails.cache.clear
+    event.update_attributes(published_at: Time.now, publish: false)
+    cp.resources.reload
+    event.resource.reload
+    cp.unpublished_content?.should be_false
+    Rails.cache.clear
+    Resource.gen(content_partner: cp)
+    cp.reload
+    cp.unpublished_content?.should be_true
+  end
+
+  it "should know the date of the last action taken" do
+    cp = ContentPartner.gen(user: user)
+    ContentPartnerAgreement.gen(content_partner_id: cp.id, 
+                                created_at: 4.hours.ago, 
+                                updated_at: 4.hours.ago)
+    ContentPartnerContact.gen(content_partner_id: cp.id, 
+                              created_at: 3.hours.ago, 
+                              updated_at: 3.hours.ago)
+    Resource.gen(content_partner_id: cp.id, 
+                 created_at: 2.hours.ago, updated_at: nil)
+    last_action_date = Time.now
+    Resource.gen(content_partner_id: cp.id, 
+                 created_at: 1.hour.ago, updated_at: last_action_date)
+    cp.reload
+    cp.last_action_date.utc.strftime("%Y-%m-%d %H:%M:%S").
+      should == last_action_date.utc.strftime("%Y-%m-%d %H:%M:%S")
   end
 
 end

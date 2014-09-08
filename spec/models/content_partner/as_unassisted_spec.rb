@@ -6,10 +6,7 @@ describe ContentPartner::AsUnassisted do
   subject { build(:content_partner__as_unassisted) }
 
   describe ".new" do
-
-    it "creates an instance of the class" do
-      expect(subject).to be_kind_of ContentPartner
-    end
+    it { should be_kind_of ContentPartner }
   end
 
   describe "#save" do

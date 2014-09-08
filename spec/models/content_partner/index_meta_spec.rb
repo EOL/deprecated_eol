@@ -2,7 +2,7 @@
 
 describe ContentPartner::IndexMeta do
   let(:params) do
-    { name: "MightyPartner", sort_by: "name", page: 1, }
+    { name: "MightyPartner", sort_by: "newest", page: 2 }
   end
   let(:cms_url) { "/cms_url" }
   subject { ContentPartner::IndexMeta.new(params, cms_url) }

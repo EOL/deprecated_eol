@@ -20,17 +20,7 @@ class ContentPartner
     INCLUDE = [{ resources: [:resource_status] }, :content_partner_status,
                :content_partner_contacts]
 
-    attr_reader :index_meta
-
-    def initialize(index_meta)
-      @index_meta = index_meta
-    end
-
     def self.paginate(index_meta)
-      new(index_meta).paginate
-    end
-
-    def paginate
       # TODO: Select is being ignored in the following. Appears to be when
       # conditions added. Find a solution.
       ContentPartner.paginate(
@@ -39,20 +29,22 @@ class ContentPartner
         select: SELECT_ITEMS,
         include: INCLUDE,
         conditions: [CONDITIONS, { name: "%#{index_meta.name}%" }],
-        order: order
+        order: order(index_meta)
       )
     end
 
-    private
+    class << self
+      private
 
-    def order
-      case index_meta.sort_by
-      when "newest"
-        "content_partners.created_at DESC"
-      when "oldest"
-        "content_partners.created_at"
-      else
-        "content_partners.full_name"
+      def order(index_meta)
+        case index_meta.sort_by
+        when "newest"
+          "content_partners.created_at DESC"
+        when "oldest"
+          "content_partners.created_at"
+        else
+          "content_partners.full_name"
+        end
       end
     end
   end

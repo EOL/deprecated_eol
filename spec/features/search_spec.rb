@@ -17,7 +17,7 @@ def assert_results(options)
 end
 
 describe 'Search' do
-  before :all do
+  before(:all) do
     truncate_all_tables
     load_scenario_with_caching(:search_names)
     data = EOL::TestInfo.load('search_names')
@@ -45,8 +45,7 @@ describe 'Search' do
     # A taxon with a name we want:
     tc = build_taxon_concept(canonical_form: 'Blueberry cake')
     # A trait with the same name:
-    kuri = FactoryGirl.create(:known_uri_measurement)
-    TranslatedKnownUri.gen(name: 'Blueberry', known_uri: kuri, definition: "Foo bar baz boozer")
+    kuri = FactoryGirl.create(:known_uri_measurement, name: "Blueberry")
     instance = DataMeasurement.new(predicate: KnownUri.last.uri, :object => "13.8", :resource => Resource.last, :subject => tc)
     instance.add_to_triplestore
     Capybara.reset_sessions!

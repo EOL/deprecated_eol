@@ -900,8 +900,20 @@ FactoryGirl.define do
     relationship_uri { KnownUriRelationship::ALLOWED_VALUE_URI }
   end
 
+  # The "magic" used here to get the name associated with the KnownUri is
+  # explained here:
+  # http://rubydoc.info/gems/factory_girl/file/GETTING_STARTED.md#Transient_Attributes
   factory :known_uri_measurement, class: KnownUri do
-    after(:create) { |kuri| create(:translated_known_uri, known_uri: kuri) }
+    ignore do
+      name nil
+      definition "Measurements have a default definition"
+    end
+    after(:create) do |kuri, evaluator|
+      create(:translated_known_uri,
+             definition: evaluator.definition,
+             known_uri: kuri,
+             name: evaluator.name)
+    end
     vetted { Vetted.trusted }
     visibility { Visibility.visible }
     uri_type { UriType.measurement }

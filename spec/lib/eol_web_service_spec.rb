@@ -38,6 +38,15 @@ describe EOLWebService do
   end
 
   describe '#url_accepted?' do
+    before(:all) do
+      @old_skip_config_val = Rails.configuration.skip_url_validations
+      Rails.configuration.skip_url_validations = false
+    end
+
+    after(:all) do
+      Rails.configuration.skip_url_validations = @old_skip_config_val
+    end
+
     it 'accepts good URLs' do
       stub_request(:head, "http://eol.org/").to_return(status: 200)
       expect(EOLWebService.url_accepted?('http://eol.org')).to eq(true)

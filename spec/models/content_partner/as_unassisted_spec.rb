@@ -1,4 +1,5 @@
 # encoding: utf-8
+# EXEMPLAR
 
 describe ContentPartner::AsUnassisted do
   before(:all) { populate_tables(:content_partner_statuses) }
@@ -9,7 +10,7 @@ describe ContentPartner::AsUnassisted do
     it "creates an instance of the class" do
       expect(subject).to be_kind_of ContentPartner
     end
-  end 
+  end
 
   describe "#save" do
     it "deliver the content_partner_created message" do

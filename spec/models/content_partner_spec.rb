@@ -194,7 +194,8 @@ describe ContentPartner do
 
       context "when it has a primary contact" do
         let!(:contact3) do
-          create(:content_partner_contact, content_partner: subject,
+          create(:content_partner_contact,
+                 content_partner: subject,
                  contact_role: ContactRole.primary)
         end
         it "returns primary contact" do
@@ -212,17 +213,20 @@ describe ContentPartner do
     let!(:latest_date) { 0.seconds.ago }
     let!(:other_date) { 2.hours.ago }
     let!(:contact) do
-      create(:content_partner_contact, content_partner: subject,
+      create(:content_partner_contact,
+             content_partner: subject,
              created_at: latest_date,
              updated_at: latest_date)
     end
     let!(:agreement) do
-      create(:content_partner_agreement, content_partner: subject,
+      create(:content_partner_agreement,
+             content_partner: subject,
              created_at: other_date,
              created_at: other_date)
     end
     let!(:resource) do
-      create(:resource, content_partner: subject,
+      create(:resource,
+             content_partner: subject,
              created_at: other_date,
              updated_at: other_date)
     end
@@ -235,17 +239,20 @@ describe ContentPartner do
 
   describe "#agreement" do
     let!(:invalid) do
-      create(:content_partner_agreement, content_partner: subject,
+      create(:content_partner_agreement,
+             content_partner: subject,
              is_current: false,
              created_at: 0.minutes.ago)
     end
     let!(:recent_valid) do
-      create(:content_partner_agreement, content_partner: subject,
+      create(:content_partner_agreement,
+             content_partner: subject,
              is_current: true,
              created_at: 2.minutes.ago)
     end
     let!(:old_valid) do
-      create(:content_partner_agreement, content_partner: subject,
+      create(:content_partner_agreement,
+             content_partner: subject,
              is_current: true,
              created_at: 5.minutes.ago)
     end
@@ -265,7 +272,9 @@ describe ContentPartner do
     end
 
     context "when it has a display name" do
-      subject { create(:content_partner, user: user, display_name: "Cool name") }
+      subject do
+        create(:content_partner, user: user, display_name: "Cool name")
+      end
       it "returns display name" do
         expect(subject.name).to eq "Cool name"
       end

@@ -44,7 +44,7 @@ describe DataPointUri do
   end
 
   it 'should sort exemplars first' do
-    uris = DataPointUri.skip_url_validations { FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1) }
+    uris = FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1)
     last = uris.last
     expect(uris.sort.first).to_not eq(last)
     last.taxon_data_exemplars << TaxonDataExemplar.new(data_point_uri: last, exclude: false, taxon_concept_id: 1)
@@ -52,7 +52,7 @@ describe DataPointUri do
   end
 
   it 'should sort excluded last' do
-    uris = DataPointUri.skip_url_validations { FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1) }
+    uris = FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1)
     first = uris.first
     expect(uris.sort.last).to_not eq(first)
     first.taxon_data_exemplars << TaxonDataExemplar.new(data_point_uri: first, exclude: true, taxon_concept_id: 1)

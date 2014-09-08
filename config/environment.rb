@@ -8,7 +8,7 @@ require File.expand_path('../../lib/initializer_additions', __FILE__)
 # Donate config just needs to be defined (will be skipped if blank):
 Rails.configuration.donate_header_url = nil
 Rails.configuration.donate_footer_url = nil
-
+Rails.configuration.skip_url_validations = false
 
 InitializerAdditions.add("environment_eol_org")
 InitializerAdditions.add("environments/local")

@@ -8,12 +8,8 @@ describe ContentPartner::IndexMeta do
   subject { ContentPartner::IndexMeta.new(params, cms_url) }
 
   describe ".new" do
-    subject { ContentPartner::IndexMeta }
-
     it "creates instance" do
-      im = subject.new(params, cms_url) 
-      expect(im).to be_kind_of subject
-      expect(im.name).to eq params[:name]
+      expect(subject).to be_kind_of ContentPartner::IndexMeta
     end
   end
 
@@ -64,21 +60,21 @@ describe ContentPartner::IndexMeta do
 
   describe "#title" do
     it "returns title from translation" do 
-      expect(subject.title).to eq "Content Partners"
+      expect(subject.title).to eq I18n.t(:content_partners_page_title)
     end
   end
 
   describe "#description" do 
     it "returns description from translation" do 
-      expect(subject.description).to match("Encyclopedia of Life content")
-      expect(subject.description).to match(/"\/cms_url">/)
+      expect(subject.description).
+        to eq I18n.t(:content_partners_page_description, more_url: cms_url)
     end
   end
 
   describe "#sort_options" do
     it "returns sort options from translation" do
-      expect(subject.sort_options).to be_kind_of Array
-      expect(subject.sort_options.first).to eq ["Partner", "partner"]
+      expect(subject.sort_options).
+        to include [I18n.t(:content_partner_column_header_partner), "partner"]
     end
   end
 end

@@ -487,6 +487,16 @@ FactoryGirl.define do
     is_public              true
   end
 
+  factory :content_partner__as_unassisted,
+    class: ContentPartner::AsUnassisted do
+    full_name              { generate(:string) }
+    association            :user
+    description            'Our Unassisted Testing Content Partner'
+    description_of_data    'I made this myself'
+    created_at             { 4.days.ago }
+    is_public              true
+  end
+
   factory :content_partner_agreement do
     is_current          true
     body                'The agreement body.'

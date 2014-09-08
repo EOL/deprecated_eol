@@ -2,6 +2,7 @@ Eol::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   Rails.configuration.google_site_verification_keys = [] # none, by default, but defined.
+  Rails.configuration.skip_url_validations = true
 
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that

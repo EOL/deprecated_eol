@@ -7,13 +7,14 @@ require 'socket'
 # Will *not* work offline.
 class EOLWebService
 
-# confirm the passed in URL is valid and responses with a proper code
+  # confirm the passed in URL is valid and responses with a proper code
   def self.valid_url?(url)
+    return true if Rails.configuration.skip_url_validations
     valid_url = true
-    return true if $SKIP_URL_VALIDATIONS
     begin
-      parsed_url=URI.parse(url)
-      header=Net::HTTP.new(parsed_url.host,parsed_url.port).head(parsed_url.path == '' ? '/' : parsed_url.path)
+      parsed_url = URI.parse(url)
+      response = Net::HTTP.new(parsed_url.host,parsed_url.port)
+      header = response.head(parsed_url.path == '' ? '/' : parsed_url.path)
       valid_url = false unless ['200','301','302'].include?(header.code)
     rescue
       valid_url = false
@@ -22,7 +23,7 @@ class EOLWebService
   end
 
   def self.url_accepted?(url, is_a_redirect = false)
-    return true if $SKIP_URL_VALIDATIONS
+    return true if Rails.configuration.skip_url_validations
     begin
       parsed_url = URI.parse(url)
       http = Net::HTTP.new(parsed_url.host,parsed_url.port)
@@ -41,7 +42,7 @@ class EOLWebService
   #finds local ip used by the host for remote connection
   def self.local_ip
     begin
-      return '0.0.0.0' if $SKIP_URL_VALIDATIONS
+      return '0.0.0.0' if Rails.configuration.skip_url_validations
       orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
 
       UDPSocket.open do |s|

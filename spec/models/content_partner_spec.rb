@@ -4,12 +4,12 @@
 describe ContentPartner do
 
   before(:all) do
-    populate_tables(%w(contact_roles content_partner_statuses data_types
-                       licenses))
+    populate_tables(:contact_roles, :content_partner_statuses, :data_types,
+                    :licenses)
   end
 
-  let(:user) { User.gen }
-  subject { ContentPartner.gen(user: user, content_partner_status: nil) }
+  let(:user) { create(:user) }
+  subject { create(:content_partner, user: user, content_partner_status: nil) }
 
   it "has active status by default" do
     expect(subject.content_partner_status).to eq ContentPartnerStatus.active
@@ -31,7 +31,7 @@ describe ContentPartner do
   end
 
   context "when accessing someone else's content_partner" do
-    let(:a_user) { User.gen }
+    let(:a_user) { create(:user) }
 
     it "is readable" do
       expect(subject.can_be_read_by?(a_user)).to be true
@@ -47,7 +47,7 @@ describe ContentPartner do
 
     context "when content_partner is private" do
       subject do
-        ContentPartner.gen(user: user, is_public: false)
+        create(:content_partner, user: user, is_public: false)
       end
 
       it "is NOT readable" do
@@ -71,7 +71,7 @@ describe ContentPartner do
 
     context "when the content_partner is private" do
       subject do
-        ContentPartner.gen(user: user, is_public: false)
+        create(:content_partner, user: user, is_public: false)
       end
 
       it "is readable" do
@@ -89,7 +89,7 @@ describe ContentPartner do
     end
 
     context "with one resource" do
-      let!(:resource) { Resource.gen(content_partner: subject) }
+      let!(:resource) { create(:resource, content_partner: subject) }
 
       context "without harvest events" do
         it "is true" do
@@ -105,10 +105,10 @@ describe ContentPartner do
 
         context "when the last event is unpublished" do
           let!(:event1) do
-            HarvestEvent.gen(resource: resource, published_at: nil)
+            create(:harvest_event, resource: resource, published_at: nil)
           end
           let!(:event2) do
-            HarvestEvent.gen(resource: resource, published_at: nil)
+            create(:harvest_event, resource: resource, published_at: nil)
           end
 
           it "is true" do
@@ -118,8 +118,8 @@ describe ContentPartner do
         end
 
         context "last event published" do
-          let!(:event1) { HarvestEvent.gen(resource: resource) }
-          let!(:event2) { HarvestEvent.gen(resource: resource) }
+          let!(:event1) { create(:harvest_event, resource: resource) }
+          let!(:event2) { create(:harvest_event, resource: resource) }
 
           it "is true" do
             expect(subject.resources.first.harvest_events.empty?).to be false
@@ -131,19 +131,19 @@ describe ContentPartner do
   end
 
   describe "#latest_published_harvest_events" do
-    let!(:resource1) { Resource.gen(content_partner: subject) }
-    let!(:resource2) { Resource.gen(content_partner: subject) }
+    let!(:resource1) { create(:resource, content_partner: subject) }
+    let!(:resource2) { create(:resource, content_partner: subject) }
     let!(:event1) do
-      HarvestEvent.gen(resource: resource1, published_at: 2.hours.ago)
+      create(:harvest_event, resource: resource1, published_at: 2.hours.ago)
     end
     let!(:event2) do
-      HarvestEvent.gen(resource: resource1, published_at: 1.hours.ago)
+      create(:harvest_event, resource: resource1, published_at: 1.hours.ago)
     end
     let!(:event3) do
-      HarvestEvent.gen(resource: resource2, published_at: 2.hours.ago)
+      create(:harvest_event, resource: resource2, published_at: 2.hours.ago)
     end
     let!(:event4) do
-      HarvestEvent.gen(resource: resource2, published_at: 1.hours.ago)
+      create(:harvest_event, resource: resource2, published_at: 1.hours.ago)
     end
 
     it "returns array of latest published events" do
@@ -153,19 +153,19 @@ describe ContentPartner do
   end
 
   describe "#oldest_published_harvest_events" do
-    let!(:resource1) { Resource.gen(content_partner: subject) }
-    let!(:resource2) { Resource.gen(content_partner: subject) }
+    let!(:resource1) { create(:resource, content_partner: subject) }
+    let!(:resource2) { create(:resource, content_partner: subject) }
     let!(:event1) do
-      HarvestEvent.gen(resource: resource1, published_at: 2.hours.ago)
+      create(:harvest_event, resource: resource1, published_at: 2.hours.ago)
     end
     let!(:event2) do
-      HarvestEvent.gen(resource: resource1, published_at: 1.hours.ago)
+      create(:harvest_event, resource: resource1, published_at: 1.hours.ago)
     end
     let!(:event3) do
-      HarvestEvent.gen(resource: resource2, published_at: 2.hours.ago)
+      create(:harvest_event, resource: resource2, published_at: 2.hours.ago)
     end
     let!(:event4) do
-      HarvestEvent.gen(resource: resource2, published_at: 1.hours.ago)
+      create(:harvest_event, resource: resource2, published_at: 1.hours.ago)
     end
 
     it "returns array of oldest publiched events" do
@@ -182,16 +182,20 @@ describe ContentPartner do
     end
 
     context "when it has contacts" do
-      let!(:contact1) { ContentPartnerContact.gen(content_partner: subject) }
-      let!(:contact2) { ContentPartnerContact.gen(content_partner: subject) }
+      let!(:contact1) do
+        create(:content_partner_contact, content_partner: subject)
+      end
+      let!(:contact2) do
+        create(:content_partner_contact, content_partner: subject)
+      end
       it "returns one of the contacts" do
         expect(subject.primary_contact).to be_kind_of(ContentPartnerContact)
       end
 
       context "when it has a primary contact" do
         let!(:contact3) do
-          ContentPartnerContact.gen(content_partner: subject,
-                                    contact_role: ContactRole.primary)
+          create(:content_partner_contact, content_partner: subject,
+                 contact_role: ContactRole.primary)
         end
         it "returns primary contact" do
           expect(subject.primary_contact).to eq contact3
@@ -203,24 +207,24 @@ describe ContentPartner do
   describe "#last_action_date" do
 
     # We want to ensure the CP starts with nothing associated:
-    subject { ContentPartner.gen }
+    subject { create(:content_partner) }
 
     let!(:latest_date) { 0.seconds.ago }
     let!(:other_date) { 2.hours.ago }
     let!(:contact) do
-      ContentPartnerContact.gen(content_partner: subject,
-                                created_at: latest_date,
-                                updated_at: latest_date)
+      create(:content_partner_contact, content_partner: subject,
+             created_at: latest_date,
+             updated_at: latest_date)
     end
     let!(:agreement) do
-      ContentPartnerAgreement.gen(content_partner: subject,
-                                  created_at: other_date,
-                                  created_at: other_date)
+      create(:content_partner_agreement, content_partner: subject,
+             created_at: other_date,
+             created_at: other_date)
     end
     let!(:resource) do
-      Resource.gen(content_partner: subject,
-                   created_at: other_date,
-                   updated_at: other_date)
+      create(:resource, content_partner: subject,
+             created_at: other_date,
+             updated_at: other_date)
     end
 
     it "returns the last update_at or created_at date from several resources" do
@@ -231,19 +235,19 @@ describe ContentPartner do
 
   describe "#agreement" do
     let!(:invalid) do
-      ContentPartnerAgreement.gen(content_partner: subject,
-                                  is_current: false,
-                                  created_at: 0.minutes.ago)
+      create(:content_partner_agreement, content_partner: subject,
+             is_current: false,
+             created_at: 0.minutes.ago)
     end
     let!(:recent_valid) do
-      ContentPartnerAgreement.gen(content_partner: subject,
-                                  is_current: true,
-                                  created_at: 2.minutes.ago)
+      create(:content_partner_agreement, content_partner: subject,
+             is_current: true,
+             created_at: 2.minutes.ago)
     end
     let!(:old_valid) do
-      ContentPartnerAgreement.gen(content_partner: subject,
-                                  is_current: true,
-                                  created_at: 5.minutes.ago)
+      create(:content_partner_agreement, content_partner: subject,
+             is_current: true,
+             created_at: 5.minutes.ago)
     end
 
     it "returns the lastest 'valid' agreement" do
@@ -254,14 +258,14 @@ describe ContentPartner do
   describe "#name" do
 
     context "when it does NOT have a display name" do
-      subject { ContentPartner.gen(user: user, display_name: nil) }
+      subject { create(:content_partner, user: user, display_name: nil) }
       it "returns full name" do
         expect(subject.name).to eq subject.full_name
       end
     end
 
     context "when it has a display name" do
-      subject { ContentPartner.gen(user: user, display_name: "Cool name") }
+      subject { create(:content_partner, user: user, display_name: "Cool name") }
       it "returns display name" do
         expect(subject.name).to eq "Cool name"
       end
@@ -270,14 +274,14 @@ describe ContentPartner do
 
   describe "#collections" do
     # We want to ensure that it doesn't start with any associations:
-    subject { ContentPartner.gen }
+    subject { create(:content_partner) }
 
-    let!(:resource1) { Resource.gen(content_partner: subject) }
+    let!(:resource1) { create(:resource, content_partner: subject) }
     let!(:collection1) do
-      Collection.gen(resource: Resource.gen(content_partner: subject))
+      create(:collection, resource: create(:resource, content_partner: subject))
     end
     let!(:collection2) do
-      Collection.gen(resource: Resource.gen(content_partner: subject))
+      create(:collection, resource: create(:resource, content_partner: subject))
     end
 
     it "returns all collections for all resources" do

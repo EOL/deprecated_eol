@@ -546,8 +546,8 @@ te:
     one: '%{count} వ్యక్తి'
     other: '%{count} వ్యక్తులు'
   permalink: స్థిరలంకె
-  punctuation_comma: ,
-  punctuation_semi_colon: ;
+  punctuation_comma: ","
+  punctuation_semi_colon: ";"
   resources: వనరులు
   results: ఫలితాలు
   rights: హక్కులు

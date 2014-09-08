@@ -978,7 +978,7 @@ da:
   profile: Profil
   profile_image_alt_text_member: 'Profilbillede for medlemmet %{user_given_name} %{user_family_name}'
   public_domain: offentlig ejendom
-  punctuation_comma: ,
+  punctuation_comma: ","
   quarterly: Kvartalsvis
   rated_by_count_people:
     one: 'fra %{count} person'

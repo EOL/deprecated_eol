@@ -118,6 +118,7 @@ class Comment < ActiveRecord::Base
     self.vetted_by = by if by
     self.update_attributes(visible_at: nil)
 
+    # TODO - generalize
     # remove comment from solr
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)

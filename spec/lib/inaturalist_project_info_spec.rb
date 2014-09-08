@@ -3,11 +3,13 @@ require "spec_helper"
 describe InaturalistProjectInfo do
 
   before(:all) do
+    @inat_collection_url = Rails.configuration.inat_collection_url
     @empty_response = "[]"
     @bad_response = "This is not JSON"
   end
 
   before(:each) do
+    Rails.configuration.inat_collection_url = "http://foo.bar"
     $TESTING_INATURALIST_PROJECTS = true
     InaturalistProjectInfo.unlock_caching
     InaturalistProjectInfo.clear_cache
@@ -15,6 +17,7 @@ describe InaturalistProjectInfo do
 
   after(:each) do
     $TESTING_INATURALIST_PROJECTS = false
+    Rails.configuration.inat_collection_url = @inat_collection_url
   end
 
   it 'should get info on a project from the cache' do

@@ -41,11 +41,11 @@ module InaturalistProjectInfo
       InaturalistProjectInfo.unlock_caching
     end
 
-    # The following methods should be considered private... ish. You may call them, but that's not the intent. Your
-    # gun, your foot. These methods are not (directly) tested and are subject to change.
+    # The following methods should be considered private... ish. You
+    # may call them, but that's not the intent. Your gun, your
+    # foot. These methods are not (directly) tested and are subject to
+    # change.
 
-    # NOTE: In the view, we also create a background JQuery call to cache the entire list.
-    # TODO - switch to using INATURALIST_COLLECTION_API_PREFIX !  It's Wwaaaaaaaay faster!
     def get_directly(id)
       InaturalistProjectInfo.get_inat_response(source:"#{Rails.configuration.inat_project_prefix}#{id}").first
     rescue => e
@@ -76,7 +76,8 @@ module InaturalistProjectInfo
     end
 
     def get_inat_response(options)
-      JSON.parse(Net::HTTP.get(URI.parse("#{INATURALIST_COLLECTION_API_PREFIX}?#{options.to_query}")))
+      return {} unless Rails.configuration.inat_collection_url
+      JSON.parse(Net::HTTP.get(URI.parse("#{Rails.configuration.inat_collection_url}?#{options.to_query}")))
     end
 
     def cache_key

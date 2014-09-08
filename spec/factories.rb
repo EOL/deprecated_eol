@@ -905,7 +905,7 @@ FactoryGirl.define do
   # http://rubydoc.info/gems/factory_girl/file/GETTING_STARTED.md#Transient_Attributes
   factory :known_uri_measurement, class: KnownUri do
     ignore do
-      name nil
+      name { generate(:string) }
       definition "Measurements have a default definition"
     end
     after(:create) do |kuri, evaluator|

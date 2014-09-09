@@ -8,6 +8,7 @@ module EOL::FactoryGirlActiveRecordBaseExtensions
     @factory_name ||= self.name.underscore.downcase
   end
 
+  # TODO - Eeep! This trumps FG's built-in sequences! Remove it!
   # User.generate :username => 'bob'
   # NOTE that we trust the generator and skip URL validations.
   def generate *args

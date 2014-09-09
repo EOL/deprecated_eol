@@ -106,7 +106,11 @@ describe TaxonConcept do
 
   it 'should be able to show videos' do
     @taxon_concept.data_objects.select{ |d| d.is_video? }.should_not be_nil
-    @taxon_concept.data_objects.select{ |d| d.is_video? }.map(&:description).should only_include [@video_1_text, @video_2_text, @video_3_text]
+    descriptions = @taxon_concept.data_objects.select { |d| d.is_video? }.
+      map(&:description).sort
+    expect(descriptions).to \
+      eq([@video_1_text, @video_2_text, @video_3_text].sort)
+
   end
 
   it 'should have visible comments that don\'t show invisible comments' do

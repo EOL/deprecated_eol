@@ -5,7 +5,6 @@ SimpleCov.start do
   add_group "Controllers", "app/controllers"
   add_group "Libraries", "lib"
   add_group "Helpers", "app/helpers"
-  add_filter "custom_matchers"
   # TODO - really, we should be testing these. ...But for now, I'm excluding them because many are one-offs:
   add_filter "/initializers/"
   # TODO - really, we should be testing these too, but we want to re-write them. They are ancient:
@@ -21,9 +20,6 @@ require 'capybara/rspec'
 require 'webmock/rspec'
 # TODO - use config to allow: Rails.configuration.the_host_names_for_those_two
 WebMock.disable_net_connect!(:allow_localhost => true) # Selenium and Virtuoso.
-
-# TODO - this is lame and means we're doing something wrong. Figure out the intent and fix it:
-require Rails.root.join('spec', 'custom_matchers')
 
 require 'email_spec'
 require 'eol_scenarios'

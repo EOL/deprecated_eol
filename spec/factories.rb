@@ -583,7 +583,7 @@ FactoryGirl.define do
     association :user
     data_object_guid { generate(:guid) }
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+    visibility  { Visibility.visible }
   end
 
   factory :curator_level do
@@ -656,7 +656,7 @@ FactoryGirl.define do
     association :hierarchy_entry
     association :data_object
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+    visibility  { Visibility.visible }
   end
 
   factory :data_objects_taxon_concept do
@@ -669,7 +669,7 @@ FactoryGirl.define do
     association :resource
     association :user_added_data
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+    visibility  { Visibility.visible }
     uri         { FactoryGirl.generate(:uri) }
   end
 
@@ -848,7 +848,7 @@ FactoryGirl.define do
     association    :taxon_concept
     vetted         { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
     published      1
-    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+    visibility  { Visibility.visible }
     created_at     Time.now
     updated_at     Time.now
   end
@@ -884,7 +884,7 @@ FactoryGirl.define do
 
   factory :known_uri do
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
+    visibility  { Visibility.visible }
     uri         { "http://eol.org/known_uri/" + generate(:guid) }
   end
 
@@ -1059,7 +1059,7 @@ FactoryGirl.define do
   factory :ref do
     full_reference  { generate(:string) }
     user_submitted  0
-    visibility      { Visibility.visible || Visibility.gen_if_not_exists(:label => 'visible') }
+    visibility      { Visibility.visible }
     published       1
   end
 
@@ -1434,7 +1434,7 @@ FactoryGirl.define do
     object    { generate(:string) }
     association :user
     vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-    visibility  { Visibility.visible || Visibility.gen_if_not_exists(:label => 'Visible') }
+    visibility  { Visibility.visible }
   end
 
   factory :user_added_data_metadata do

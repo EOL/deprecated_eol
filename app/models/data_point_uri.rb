@@ -19,6 +19,12 @@ class DataPointUri < ActiveRecord::Base
     :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
     :sex, :sex_known_uri, :sex_known_uri_id
 
+  attr_accessor :metadata, :references,
+    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
+    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
+    :sex, :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure, :original_unit_of_measure_known_uri,
+    :original_value
+
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
@@ -35,11 +41,7 @@ class DataPointUri < ActiveRecord::Base
   has_many :all_comments, class_name: Comment.to_s, through: :all_versions, primary_key: :uri, source: :comments
   has_many :taxon_data_exemplars
 
-  attr_accessor :metadata, :references,
-    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
-    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
-    :sex, :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure, :original_unit_of_measure_known_uri,
-    :original_value
+  before_save :default_visibility
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
     # There are potentially hundreds or thousands of DataPointUri inserts happening here.
@@ -610,6 +612,10 @@ class DataPointUri < ActiveRecord::Base
   end
 
 private
+
+  def default_visibility
+    self.visibility ||= Visibility.visible
+  end
 
   def units
     _units(unit_of_measure_uri)

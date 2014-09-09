@@ -54,7 +54,12 @@ module EOL
 
     def self.rebuild
       EOL::Db.recreate
+      # TODO - this is broken. For some reason, the following build fails... But
+      # if you run "scnarios:lead NAME=bootstrap" as a separate command, it
+      # works just fine. ...Need to figure out what's going wrong with a
+      # properly-placed debugger.  :\
       # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:
+      # TODO - still no reason you couldn't extract this.  :|
       ENV['NAME'] = 'bootstrap'
       Rake::Task['scenarios:load'].invoke
       Rake::Task['solr:rebuild_all'].invoke

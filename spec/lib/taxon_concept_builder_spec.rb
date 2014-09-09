@@ -37,13 +37,15 @@ describe 'build_taxon_concept (spec helper method)' do
 
   it 'should use default HarvestEvent if no alternative provided' do
     @taxon_concept.images_from_solr(100).each do |img|
-      img.harvest_events.should only_include(default_harvest_event)
+      expect(Array(img.harvest_events.sort)).to \
+        eq(Array(default_harvest_event).sort)
     end
   end
 
   it 'should use the supplied HarvestEvent to create all data objects' do
     @taxon_concept_with_args.images_from_solr(100).each do |img|
-      img.harvest_events.should only_include(@event)
+      expect(Array(img.harvest_events.sort)).to \
+        eq([@event])
     end
   end
 

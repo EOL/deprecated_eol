@@ -39,37 +39,53 @@ describe EOL::Db do
 
   describe '.clear_temp' do
 
-    let(:sql_file_name) { 'something.sql' }
-    let(:yml_file_name) { 'something.yml' }
-    let(:txt_file_name) { 'something.txt' }
-    let(:non_yml_file_name) { 'yml.foo' }
+    # TODO - ensure it does NOT delete files that don't include "_test_"
+    before do
+      @sql_file_name = 'file_created_by_specs_test_whatever.sql'
+      @yml_file_name = 'file_created_by_specs_test_whatever.yml'
+      @txt_file_name = 'file_created_by_specs_test_whatever.txt'
+      @non_yml_file_name = 'file_created_by_specs_yml.foo'
+      @all_files = [@sql_file_name, @yml_file_name, @txt_file_name,
+        @non_yml_file_name]
+
+      @all_files.each do |file|
+        FileUtils.touch(Rails.root.join("tmp", file))
+      end
+    end
+
+    after do
+      @all_files.each do |file|
+        file = Rails.root.join("tmp", file)
+        File.unlink(file) if File.exist?(file)
+      end
+    end
 
     subject do
-      allow(Dir).to receive(:new).with('tmp') { [sql_file_name, yml_file_name, txt_file_name, non_yml_file_name] }
-      allow(File).to receive(:unlink) { true }
       EOL::Db.clear_temp
     end
 
     it 'deletes sql files from tmp' do
-      expect(File).to receive(:unlink).with("tmp/#{sql_file_name}")
       subject
+      expect(File.exist?(Rails.root.join("tmp", @sql_file_name))).
+        to be false
     end
 
     it 'deletes yml files from tmp' do
-      expect(File).to receive(:unlink).with("tmp/#{yml_file_name}")
       subject
+      expect(File.exist?(Rails.root.join("tmp", @yml_file_name))).
+        to be false
     end
 
     it 'does NOT delete txt files' do
-      expect(File).to_not receive(:unlink).with("tmp/#{txt_file_name}")
-      expect(File).to_not receive(:unlink).with(txt_file_name)
       subject
+      expect(File.exist?(Rails.root.join("tmp", @txt_file_name))).
+        to be true
     end
 
     it 'does NOT delete "yml.foo"' do
-      expect(File).to_not receive(:unlink).with("tmp/#{non_yml_file_name}")
-      expect(File).to_not receive(:unlink).with(non_yml_file_name)
       subject
+      expect(File.exist?(Rails.root.join("tmp", @non_yml_file_name))).
+        to be true
     end
 
   end
@@ -119,27 +135,29 @@ describe EOL::Db do
   end
 
   it '.recreate calls a bunch of other methods' do
-    allow(EOL::Db).to receive(:drop) { true }
-    allow(EOL::Db).to receive(:create) { true }
-    allow(EOL::Db).to receive(:clear_temp) { true }
-    allow(Rake::Task['db:migrate']).to receive(:invoke) { true }
+    allow(EOL::Db).to receive(:drop)
+    allow(EOL::Db).to receive(:create)
+    allow(EOL::Db).to receive(:clear_temp)
+    allow(Rails.cache).to receive(:clear)
+    # TODO - catch and test solr clearing code (but it needs to be moved, so
+    # do that first.)
+    allow(Rake::Task["solr:start"]).to receive(:invoke)
+    allow(Rake::Task["db:migrate"]).to receive(:invoke)
     EOL::Db.recreate
     expect(EOL::Db).to have_received(:drop)
     expect(EOL::Db).to have_received(:create)
     expect(EOL::Db).to have_received(:clear_temp)
-    expect(Rake::Task['db:migrate']).to have_received(:invoke)
+    expect(Rails.cache).to have_received(:clear)
+    expect(Rake::Task["solr:start"]).to have_received(:invoke)
+    expect(Rake::Task["db:migrate"]).to have_received(:invoke)
   end
 
   it '.rebuild calls a bunch of other methods' do
     allow(EOL::Db).to receive(:recreate) { true }
-    allow(EOL::Db).to receive(:clear_temp) { true }
-    allow(Rake::Task['solr:start']).to receive(:invoke) { true }
     allow(Rake::Task['scenarios:load']).to receive(:invoke) { true }
     allow(Rake::Task['solr:rebuild_all']).to receive(:invoke) { true }
     EOL::Db.rebuild
     expect(EOL::Db).to have_received(:recreate)
-    expect(EOL::Db).to have_received(:clear_temp)
-    expect(Rake::Task['solr:start']).to have_received(:invoke).at_least(:once)
     expect(Rake::Task['scenarios:load']).to have_received(:invoke).once
     expect(Rake::Task['solr:rebuild_all']).to have_received(:invoke).once
     # This was the scenario that should have been run; "needs" to be stored in ENV:

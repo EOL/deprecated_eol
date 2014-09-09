@@ -41,6 +41,13 @@ module EOL
       EOL::Db.drop
       EOL::Db.create
       EOL::Db.clear_temp
+      # TODO - we should have a "clear everything" task.  :|
+      # Ensure everything else is cleared out:
+      Rails.cache.clear
+      # TODO - move this to ... somewhere it belongs:
+      solr = SolrAPI.new($SOLR_SERVER, $SOLR_TAXON_CONCEPTS_CORE)
+      solr.delete_all_documents
+      # Then build the databases:
       Rake::Task['db:migrate'].invoke
     end
 

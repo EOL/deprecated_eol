@@ -3,7 +3,7 @@
 include TruncateHelpers
 include VirtuosoHelpers
 
-truncate_all_tables(skip_empty_tables: false) rescue nil # We do this to make sure the IDs on all of the tables start at 1.
+truncate_all_tables
 drop_all_virtuoso_graphs
 
 Rails.cache.clear # because we are resetting everything!  Sometimes, say, iucn is set.

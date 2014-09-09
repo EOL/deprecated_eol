@@ -1,5 +1,7 @@
 # For loading scenarios.
 
+# TODO - why isn't this in lib/eol_scenarios/ ?
+
 include TruncateHelpers
 
 module ScenarioHelpers

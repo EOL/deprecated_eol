@@ -13,9 +13,9 @@ module EOL
     end
 
     def self.clear_temp
-      Dir.new('tmp').select {|f| f =~ /\.(sql|yml)$/ }.each do |f|
-        File.unlink("tmp/#{f}")
-      end
+      ls = Dir.glob(Rails.root.join("tmp", "*_#{Rails.env}_*sql")) +
+           Dir.glob(Rails.root.join("tmp", "*_#{Rails.env}_*yml"))
+      ls.each { |file| File.delete(file) }
     end
 
     def self.create
@@ -38,10 +38,11 @@ module EOL
     end
 
     def self.recreate
+      Rake::Task['solr:start'].invoke
       EOL::Db.drop
       EOL::Db.create
-      EOL::Db.clear_temp
       # TODO - we should have a "clear everything" task.  :|
+      EOL::Db.clear_temp
       # Ensure everything else is cleared out:
       Rails.cache.clear
       # TODO - move this to ... somewhere it belongs:
@@ -52,9 +53,7 @@ module EOL
     end
 
     def self.rebuild
-      Rake::Task['solr:start'].invoke
       EOL::Db.recreate
-      EOL::Db.clear_temp
       # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:
       ENV['NAME'] = 'bootstrap'
       Rake::Task['scenarios:load'].invoke

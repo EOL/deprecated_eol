@@ -38,7 +38,7 @@ describe ContentPartner::IndexMeta do
 
     context "with sort_by parameter" do 
       it "returns params sort_by value" do 
-        expect(subject.sort_by).to eq "name"
+        expect(subject.sort_by).to eq "newest"
       end
     end
   end
@@ -53,7 +53,7 @@ describe ContentPartner::IndexMeta do
 
     context "with page parameter" do 
       it "returns params page value" do 
-        expect(subject.page).to eq 1
+        expect(subject.page).to eq 2 
       end
     end
   end

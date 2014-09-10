@@ -1,4 +1,5 @@
 # encoding: utf-8
+# EXEMPLAR
 
 describe ContentPartner::IndexMeta do
   let(:params) do

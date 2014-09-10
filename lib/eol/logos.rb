@@ -24,7 +24,7 @@ module EOL
           Rails.configuration.logo_uploads.paperclip_url +
             ImageManipulation.local_file_name(self)
         elsif self.logo_cache_url.blank?
-          "v2/logos/#{self.class.name.underscore}_default.png"
+          "v2/logos/#{self.class.name.split('::').first.underscore}_default.png"
         else
           link = opts[:linked?] ? $SINGLE_DOMAIN_CONTENT_SERVER : nil
           DataObject.image_cache_path(

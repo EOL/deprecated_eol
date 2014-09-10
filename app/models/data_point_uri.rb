@@ -25,6 +25,12 @@ class DataPointUri < ActiveRecord::Base
     :sex, :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure, :original_unit_of_measure_known_uri,
     :original_value
 
+  attr_accessor :metadata, :references,
+    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
+    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
+    :sex, :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure, :original_unit_of_measure_known_uri,
+    :original_value
+
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility
@@ -612,6 +618,10 @@ class DataPointUri < ActiveRecord::Base
   end
 
   private
+
+  def default_visibility
+    self.visibility ||= Visibility.visible
+  end
 
   def default_visibility
     self.visibility ||= Visibility.visible

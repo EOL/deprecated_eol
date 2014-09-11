@@ -40,6 +40,8 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :siblings, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:parent_id, :hierarchy_id],
     conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
 
+  before_save :default_visibility
+
   scope :published, -> { where(published: true) }
 
   def self.sort_by_name(hierarchy_entries)
@@ -272,6 +274,12 @@ class HierarchyEntry < ActiveRecord::Base
       'dwc:relationshipOfResource' => 'foaf:isPrimaryTopicOf',
       'dwc:relatedResourceID' => outlink_url,
       'dwc:relationshipAccordingTo' => 'http://eol.org' }
+  end
+  
+  private
+
+  def default_visibility
+    self.visibility ||= Visibility.visible
   end
 
 end

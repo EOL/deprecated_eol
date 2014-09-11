@@ -3,9 +3,7 @@ require "spec_helper"
 describe KnownUri do
 
   before(:all) do
-    Vetted.create_enumerated
-    Visibility.create_enumerated
-    UriType.create_enumerated
+    populate_tables(:vetted, :visibilities, :uri_types)
     Language.create_english
     @unit_of_measure = KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_measurement_unit, name: 'Unit of Measure')
   end

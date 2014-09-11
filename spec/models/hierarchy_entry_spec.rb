@@ -5,6 +5,7 @@ describe HierarchyEntry do
 
   before :all do
     truncate_all_tables
+    populate_tables(:visibilities)
   end
 
   it 'should know what is a species_or_below?' do

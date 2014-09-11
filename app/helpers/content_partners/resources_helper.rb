@@ -21,4 +21,24 @@ module ContentPartners::ResourcesHelper
       end
     end
 
+    def request_to_publish_hierarchy_button(hierarchy)
+      button_to(
+        I18n.t("helpers.submit.hierarchy.request_publish"),
+        request_publish_content_partner_resource_hierarchy_path(
+          @partner, @resource, hierarchy
+        ),
+        data: { confirm: 
+          I18n.t(:content_partner_resource_hierarchy_confirm_request_publish,
+                 hierarchy_label: h(hierarchy.label)) }
+      )
+    end
+
+    def en_resource_status
+      status = @resource.resource_status.try(:label, "en")
+      if status
+        status.downcase.gsub(" ","_")
+      else
+        "unknown"
+      end
+    end
 end

@@ -2,17 +2,18 @@
   #content_partners.site_column
     #sidebar
       .filters.small
-        = render 'content_partners/sort_form'
+        = render "content_partners/sort_form"
       .filters.small
-        = form_tag({}, :method => :get) do
+        = form_tag({}, method: :get) do
           %fieldset
             %dl
               %dt
-                = label_tag :name, I18n.t('activerecord.attributes.content_partner.full_name')
+                = label_tag :name,
+                  I18n.t("activerecord.attributes.content_partner.full_name")
               %dd
                 = text_field_tag :name, @name
           %fieldset.actions
-            = submit_tag I18n.t(:filter_button), :name => nil
+            = submit_tag I18n.t(:filter_button), name: nil
             %small= link_to I18n.t(:cancel), content_partners_path
     .copy
       - if @partners.blank?
@@ -21,29 +22,38 @@
       - else
         .header
           - start_number = (@partners.current_page - 1) * @partners.per_page + 1
-          - end_number = [ (start_number + @partners.per_page - 1), @partners.total_entries ].min
-          %h3= raw(I18n.t(:pagination_range_with_count, :start_number => start_number, :end_number => end_number, :count => @partners.total_entries))
-          = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
-            :inner_window => 2, :outer_window => 2
+          - end_number = [(start_number + @partners.per_page - 1),
+                          @partners.total_entries].min
+          %h3= raw(I18n.t(:pagination_range_with_count,
+                          start_number: start_number,
+                          end_number: end_number,
+                          count: @partners.total_entries))
+          = will_paginate @partners,
+            previous_label: I18n.t(:pagination_previous),
+            next_label: I18n.t(:pagination_next),
+            inner_window: 2, outer_window: 2
         %ul.object_list
           - @partners.each do |partner|
             %li
               = link_to image_tag(partner.logo_url(size: :small),
-                :alt => I18n.t(:content_partner_logo_alt_text, :partner_name => h(partner.name))), partner
+                alt: I18n.t(:content_partner_logo_alt_text,
+                            partner_namei: h(partner.name))), partner
               .details
                 %h4= link_to h(partner.name), partner
                 %p.meta
                   - unless partner.created_at.blank?
-                    = I18n.t(:content_partner_registered_time_ago, :time_passed => time_ago_in_words(partner.created_at))
+                    = I18n.t(:content_partner_registered_time_ago,
+                      time_passed: time_ago_in_words(partner.created_at))
                   - unless partner.oldest_published_harvest_events.blank?
-                    = I18n.t(:content_partner_oldest_published_harvest_event_time_ago,
-                      :time_passed => time_ago_in_words(partner.oldest_published_harvest_events.first.published_at))
+                    = oldest_published_harvest_time(partner)
                   - unless partner.latest_published_harvest_events.blank?
-                    = I18n.t(:content_partner_latest_published_harvest_event_time_ago,
-                      :time_passed => time_ago_in_words(partner.latest_published_harvest_events.first.published_at))
+                    = latest_published_harvest_time(partner)
                   - unless partner.homepage.blank?
                     %br/
-                    = link_to I18n.t(:content_partner_homepage_link), h(partner.homepage), :rel => :nofollow
+                    = link_to I18n.t(:content_partner_homepage_link),
+                              h(partner.homepage), rel: :nofollow
         .footer
-          = will_paginate @partners, :previous_label => I18n.t(:pagination_previous), :next_label => I18n.t(:pagination_next),
-            :inner_window => 2, :outer_window => 2
+          = will_paginate(@partners,
+                          previous_label: I18n.t(:pagination_previous),
+                          next_label: I18n.t(:pagination_next),
+                          inner_window: 2, outer_window: 2)

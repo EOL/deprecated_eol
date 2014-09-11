@@ -1,8 +1,9 @@
 #content_partner_resources.site_column.copy
-  = form_for [@partner, @resource], :builder => ApplicationHelper::EolFormBuilder,
-    :html => { :multipart => true } do |resource_form|
+  = form_for [@partner, @resource],
+    builder: ApplicationHelper::EolFormBuilder,
+    html: { multipart: true } do |resource_form|
     = validation_errors_for(@resource)
-    = render 'resource_fieldset', { :resource_form => resource_form }
+    = render "resource_fieldset", resource_form: resource_form
     %fieldset.actions
-      = resource_form.submit I18n.t('helpers.submit.resource.create')
+      = resource_form.submit I18n.t("helpers.submit.resource.create")
       = link_to I18n.t(:cancel), content_partner_resources_path(@partner)

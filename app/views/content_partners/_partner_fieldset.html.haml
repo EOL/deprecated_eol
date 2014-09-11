@@ -1,6 +1,7 @@
 %fieldset
   %h3= I18n.t(:content_partner_new_edit_form_profile_header)
-  %p.tip= raw(I18n.t(:content_partner_new_edit_form_tip, :required_icon => image_tag('v2/icon_required.png', :alt => '')))
+  %p.tip= raw(I18n.t(:content_partner_new_edit_form_tip,
+    required_icon: image_tag("v2/icon_required.png", alt: "")))
   %dl
     %dt
       = partner_form.label :user_id
@@ -13,43 +14,48 @@
       = partner_form.label :full_name
       %small.assistive= I18n.t(:required_form_element)
     %dd
-      = partner_form.text_field :full_name, { :title => I18n.t(:required_form_element) }
+      = partner_form.text_field :full_name,
+        title: I18n.t(:required_form_element)
     %dt
       = partner_form.label :acronym
     %dd
-      = partner_form.text_field :acronym, { :maxlength => 20 }
+      = partner_form.text_field :acronym, maxlength: 20
     %dt
-      = partner_form.label :display_name, raw(I18n.t('helpers.label.content_partner.display_name'))
-      %p= raw(I18n.t('helpers.label.content_partner.display_name_more'))
+      = partner_form.label :display_name,
+        raw(I18n.t("helpers.label.content_partner.display_name"))
+      %p= raw(I18n.t("helpers.label.content_partner.display_name_more"))
     %dd
-      = partner_form.text_field :display_name, { :maxlength => 255 }
+      = partner_form.text_field :display_name, maxlength: 255
     %dt
       = partner_form.label :homepage
     %dd
-      = partner_form.text_field :homepage, { :maxlength => 255 }
+      = partner_form.text_field :homepage, maxlength: 255
     %dt.required
       = partner_form.label :description
       %small.assistive= I18n.t(:required_form_element)
     %dd
-      = partner_form.text_area :description, { :title => I18n.t(:required_form_element) }
+      = partner_form.text_area :description,
+        title: I18n.t(:required_form_element)
       %p= partner_form.allowed_html_help_tip
     %dt
-      = partner_form.label :description_of_data, raw(I18n.t('helpers.label.content_partner.description_of_data'))
-      %p= I18n.t('helpers.label.content_partner.description_of_data_more')
+      = partner_form.label :description_of_data,
+        raw(I18n.t("helpers.label.content_partner.description_of_data"))
+      %p= I18n.t("helpers.label.content_partner.description_of_data_more")
     %dd
       = partner_form.text_area :description_of_data
       %p= partner_form.allowed_html_help_tip
     %dt
-      = partner_form.label :notes, raw(I18n.t('helpers.label.content_partner.notes'))
+      = partner_form.label :notes,
+        raw(I18n.t("helpers.label.content_partner.notes"))
     %dd
       = partner_form.text_area :notes
       %p= partner_form.allowed_html_help_tip
     %dt
       = partner_form.label :logo
     %dd.logo
-      %p= I18n.t('helpers.label.content_partner.logo_current')
+      %p= I18n.t("helpers.label.content_partner.logo_current")
       = image_tag @partner.logo_url
-      %p= I18n.t('helpers.label.content_partner.logo_new')
+      %p= I18n.t("helpers.label.content_partner.logo_new")
       = partner_form.file_field :logo
   - if current_user.is_admin?
     %fieldset
@@ -60,7 +66,7 @@
           = partner_form.label :admin_notes
         %dd
           = partner_form.text_area :admin_notes
-      = partner_form.label :is_public, :class => 'checkbox' do
+      = partner_form.label :is_public, class: "checkbox" do
         = partner_form.check_box :is_public
-        = I18n.t('activerecord.attributes.content_partner.is_public')
-        %p= I18n.t('helpers.label.content_partner.is_public_more')
+        = I18n.t("activerecord.attributes.content_partner.is_public")
+        %p= I18n.t("helpers.label.content_partner.is_public_more")

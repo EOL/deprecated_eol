@@ -1,23 +1,26 @@
 #content_partner_resources.site_column
   = form_for [@partner, @resource, @hierarchy],
-    :builder => ApplicationHelper::EolFormBuilder do |hierarchy_form|
+    builder: ApplicationHelper::EolFormBuilder do |hierarchy_form|
     = validation_errors_for(@hierarchy)
 
     = hidden_field_tag :return_to, params[:return_to]
     - en_browsable_status = en_browsable_status(@hierarchy)
-    %p{:class => en_browsable_status}
-      = I18n.t('helpers.label.hierarchy.browsable_status_with_colon')
+    %p{class: en_browsable_status}
+      = I18n.t("helpers.label.hierarchy.browsable_status_with_colon")
       = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
 
     %p.help_text
-      = raw(@hierarchy.complete ? I18n.t(:content_partner_resource_hierarchy_complete_true) : I18n.t(:content_partner_resource_hierarchy_complete_false))
+      - text = I18n.t(:content_partner_resource_hierarchy_complete_false))
+      - if @hierarchy.complete
+        - text = I18n.t(:content_partner_resource_hierarchy_complete_true)
+      = text
 
     %fieldset
       %dl
         %dt
           = hierarchy_form.label :label
         %dd
-          = hierarchy_form.text_field :label, :maxlength => 255
+          = hierarchy_form.text_field :label, maxlength: 255
         %dt
           = hierarchy_form.label :descriptive_label
         %dd
@@ -29,13 +32,13 @@
     %fieldset.checkboxes
       = hierarchy_form.label :browsable do
         = hierarchy_form.check_box :browsable
-        = I18n.t('activerecord.attributes.hierarchy.browsable')
-        %p= I18n.t('helpers.label.hierarchy.browsable_more')
+        = I18n.t("activerecord.attributes.hierarchy.browsable")
+        %p= I18n.t("helpers.label.hierarchy.browsable_more")
       = hierarchy_form.label :request_publish do
         = hierarchy_form.check_box :request_publish
-        = I18n.t('helpers.label.hierarchy.request_publish')
-        %p= I18n.t('helpers.label.hierarchy.request_publish_more')
+        = I18n.t("helpers.label.hierarchy.request_publish")
+        %p= I18n.t("helpers.label.hierarchy.request_publish_more")
     %fieldset.actions
-      = hierarchy_form.submit I18n.t('helpers.submit.hierarchy.update')
+      = hierarchy_form.submit I18n.t("helpers.submit.hierarchy.update")
       = link_to I18n.t(:cancel), params[:return_to]
 

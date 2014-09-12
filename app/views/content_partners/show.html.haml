@@ -1,15 +1,18 @@
+-# EXEMPLAR
+
 - content_for :social_sharing do
   = render "shared/social_sharing"
 
 = content_for :page_actions do
   - if current_user.can_update?(@partner)
-    %li= link_to I18n.t(:content_partner_edit_link),
-      edit_content_partner_path(@partner), class: "button"
+    %li= link_to I18n.t(:content_partner_edit_link), [:edit, @partner],
+      class: "button"
 
 #content_partner_show.site_column
   #sidebar
     .content_partner_managers
       = render "managed_by"
+
     .collection_list
       %h3= I18n.t(:collections_with_count, count: @partner.collections.size)
       - if @partner.collections.blank?
@@ -38,6 +41,7 @@
       - else
         .copy
           %p= @partner.admin_notes
+
   .main_container.copy
     %h3= I18n.t(:content_partner_about_header, partner_name: @partner.name)
     %p= sanitize @partner.description.balance_tags
@@ -45,25 +49,16 @@
       %p= link_to I18n.t(:content_partner_homepage_link),
         @partner.homepage, rel: :nofollow
 
-    - unless @partner.agreement.blank? ||
-      !current_user.can_read?(@partner.agreement)
+    - if current_user.can_read?(@partner.agreement)
       %h3= I18n.t(:content_partner_overview_agreement_header)
-      - agreement = content_partner_agreement_path(@partner, @partner.agreement)
-      - agreement = @partner.agreement.mou_url if @partner.agreement.mou_url?
       %p= link_to I18n.t(:content_partner_overview_agreement_link), agreement
       %dl.agreement
-        %dt
-          = signed_by_title
-        %dd
-          = signed_by_value
-        %dt
-          = signed_on_date_title
-        %dd
-          = signed_on_date_value
-        %dt
-          = created_at_title
-        %dd
-          = created_at_value
+        %dt= field_name(:signed_by)
+        %dd= field_value(@partner.agreement.signed_by)
+        %dt= field_name(:signed_on_date)
+        %dd= field_value(@partner.agreement.signed_on_date)
+        %dt= field_name(:created_at)
+        %dd= field_value(@partner.agreement.created_at)
 
     %h3= I18n.t(:content_partner_resources_header)
     %ul.links

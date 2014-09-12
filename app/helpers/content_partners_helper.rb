@@ -23,30 +23,20 @@ module ContentPartnersHelper
                              first.published_at))
   end
 
-  def signed_by_title
-    I18n.t "activerecord.attributes.content_partner_agreement.signed_by"
+  def field_name(attribute)
+    I18n.t "activerecord.attributes.content_partner_agreement.#{attribute}"
   end
 
-  def signed_by_value
-    val = @partner.agreement.signed_by
-    I18n.t(:value_empty) if signed_by.blank?
+  def field_value(val)
+    val.blank? ? I18n.t(:value_empty) : val
   end
 
-  def signed_on_date_title
-    I18n.t("activerecord.attributes.content_partner_agreement.signed_on_date")
-  end
-  
-  def signed_on_date_value
-    val = @partner.agreement.signed_on_date
-    I18n.t(:value_empty) if val.blank?
-  end
-
-  def created_at_title
-    I18n.t("activerecord.attributes.content_partner_agreement.created_at")
+  def agreement
+    if @partner.agreement.mou_url.blank?
+      content_partner_agreement_path(@partner, @partner.agreement)
+    else
+      @partner.agreement.mou_url
+    end 
   end
 
-  def created_at_value
-    val = @partner.agreement.created_at
-    I18n.t(:value_empty) if val.blank? 
-  end
 end

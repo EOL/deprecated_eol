@@ -56,6 +56,11 @@ Ruby Style
 * Prefer #first to #[0].
 * Prefer #last to #[-1].
 
+RubyOnRails Style
+-----------------
+
+* Prefer #blank? to #nil? #empty? != "" when it makes sense 
+
 RSpec Style
 -----------
 

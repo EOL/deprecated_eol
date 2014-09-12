@@ -79,14 +79,6 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def must_be_logged_in(exception = nil)
-    flash[:warning] = I18n.t(:must_be_logged_in)
-    # NOTE - by default an exception (with no message) reports its class name as the message. We don't want that:
-    flash[:warning] += " #{exception.message}" if exception && exception.message != exception.class.name
-    session[:return_to] = request.url if params[:return_to].nil?
-    redirect_to(login_path, return_to: params[:return_to])
-  end
-
   def view_helper_methods
     Helper.instance
   end
@@ -301,9 +293,9 @@ class ApplicationController < ActionController::Base
     session[:user_id] = nil
   end
 
-  # TODO - review the session-management code. It seems quite convoluted.
+  # TODO: review the session-management code. It seems quite convoluted.
   def logged_in?
-    # NOTE - the active check is to stop spammers from continuing to comment. Sigh.
+    # NOTE: the active check is to stop spammers from continuing to comment. Sigh.
     session[:user_id] && current_user.active?
   end
 
@@ -311,6 +303,16 @@ class ApplicationController < ActionController::Base
     must_log_in unless logged_in?
     return false
   end
+
+  # TODO: I think we should prefer #check_authentication - remove this
+  def must_be_logged_in(exception = nil)
+    flash[:warning] = I18n.t(:must_be_logged_in)
+    # NOTE - by default an exception (with no message) reports its class name as the message. We don't want that:
+    flash[:warning] += " #{exception.message}" if exception && exception.message != exception.class.name
+    session[:return_to] = request.url if params[:return_to].nil?
+    redirect_to(login_path, return_to: params[:return_to])
+  end
+
 
   # used as a before_filter on methods that you don't want users to see if they are logged in
   # such as the sessions#new, users#new, users#forgot_password etc

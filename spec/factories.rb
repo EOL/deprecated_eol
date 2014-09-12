@@ -396,6 +396,7 @@ FactoryGirl.define do
     published             true
     special_collection_id nil
     association           :sort_style
+    updated_at { 5.days.ago }
   end
 
   factory :collection_job do

@@ -10,6 +10,7 @@ class ContentPartner < ActiveRecord::Base
   has_many :content_partner_contacts, dependent: :destroy
   has_many :google_analytics_partner_taxa
   has_many :content_partner_agreements
+  has_many :collections, through: :resources
 
   validates :full_name, presence: true
   validates :description, presence: true
@@ -85,10 +86,6 @@ class ContentPartner < ActiveRecord::Base
 
   def name
     display_name.blank? ? full_name : display_name
-  end
-
-  def collections
-    resources.map(&:collection).compact
   end
 
   private

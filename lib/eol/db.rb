@@ -65,6 +65,13 @@ module EOL
       Rake::Task['solr:rebuild_all'].invoke
     end
 
+    def self.reset
+      EOL::Db.clear_temp
+      # NOTE: this truncates and "forgets everything" before each:
+      EOL::ScenarioLoader.load_all_with_caching
+      EOL.forget_everything # NOTE: runing this again to ensure it's clear.
+    end
+
     def self.populate
       Rake::Task['solr:start'].invoke
       Rake::Task['truncate'].invoke
@@ -74,19 +81,33 @@ module EOL
       Rake::Task['solr:rebuild_all'].invoke
     end
 
-    def start_transactions
-      EOL::Db.all_connections.each do |conn|
-        Thread.current['open_transactions'] ||= 0
-        Thread.current['open_transactions'] += 1
-        conn.begin_db_transaction
+    # truncates all tables in all databases
+    def self.truncate_all_tables(options = {})
+      options[:verbose] ||= false
+      EOL::Db.all_connections.uniq.each do |conn|
+        count = 0
+        conn.tables.each do |table|
+          next if table == 'schema_migrations'
+          count += 1
+          if conn.respond_to? :with_master
+            conn.with_master do
+              truncate_table(conn, table)
+            end
+          else
+            truncate_table(conn, table)
+          end
+        end
+        if options[:verbose]
+          puts "-- Truncated #{count} tables in " +
+            conn.instance_eval { @config[:database] } +
+            "."
+        end
       end
+      EOL.forget_everything # expensive, but without it, would risk errors.
     end
 
-    def rollback_transactions
-      EOL::Db.all_connections.each do |conn|
-        conn.rollback_db_transaction
-        Thread.current['open_transactions'] = 0
-      end
+    def self.truncate_table(conn, table)
+      conn.execute "TRUNCATE TABLE `#{table}`"
     end
 
   end

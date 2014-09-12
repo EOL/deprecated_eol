@@ -52,14 +52,7 @@ namespace :solr do
   desc 'Rebuild the data objects index'
   task :rebuild_all  => :environment do |t, args|
     puts "\n\nRebuilding DataObjects ...\n"
-    EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
-    puts "Rebuilding SiteSearch ...\n"
-    EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
-    puts "Rebuilding CollectionItems ...\n"
-    EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
-    puts "Rebuilding BHL ...\n"
-    builder = EOL::Solr::BHLCoreRebuilder.new()
-    builder.begin_rebuild
+    EOL::Solr.rebuild_all
     puts "Complete\n\n"
   end
 

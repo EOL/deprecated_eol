@@ -30,8 +30,7 @@ namespace :scenarios do
     if ENV['NAME']
       names = ENV['NAME'].split(',')
       names.each do |name|
-        loader = EOL::ScenarioLoader.new(name, EOL::Db.all_connections)
-        loader.load_with_caching
+        EOL::ScenarioLoader.load_with_caching(name)
       end
     else
       puts "you need to pass NAME=scenario_name to load a scenario"

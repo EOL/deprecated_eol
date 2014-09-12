@@ -1,4 +1,4 @@
-desc 'Add simlinks to eol site-specific files which are not needed for open source release'
+# TODO - extract these to libs!
 site_dir = Rails.root.join('vendor', 'eol_org').to_s
 namespace :eol do
   desc 'checks out site-specific repository under vendor directory, change config dir with CONFIG_DIR environment var'

@@ -6,9 +6,11 @@
 -# routines.  ...So we're going to try this out for articles for a while... it should speed up some of the common
 -# text-heavy details tabs and overviews.
 - cache "article/#{I18n.locale}/#{data_object.id}" do
-  - if data_object.content_partner && data_object.content_partner == ContentPartner.wikipedia
-    = stylesheet_link_tag("wikipedia")
-    = javascript_include_tag("wiki_ogg_player")
+  - if @overview.summary.content_partner
+    - if @overview.summary.content_partner.stylesheet
+      = stylesheet_link_tag(@overview.summary.content_partner.stylesheet)
+    - if @overview.summary.content_partner.javascript
+      = javascript_include_tag(@overview.summary.content_partner.javascript)
   - data_object.description = data_object.description_linked unless data_object.description_linked.blank? rescue nil
   - show_view_source ||= 'true'
   - unless data_object.nil? || data_object.description.empty? || data_object.description.blank?

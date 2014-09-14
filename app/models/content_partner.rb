@@ -23,18 +23,6 @@ class ContentPartner < ActiveRecord::Base
 
   include EOL::Logos
 
-  # TODO: I don't think it's okay to have hard-coded strings to find an
-  # instance in the database that we don't even know is really there.
-  def self.boa
-    cached_find(:full_name, "Biology of Aging")
-  end
-
-  @wikipedia = nil
-
-  def self.wikipedia
-    @wikipedia ||= cached_find(:full_name, "Wikipedia")
-  end
-
   def can_be_read_by?(user_wanting_access)
     is_public ||
       user_wanting_access.id == user_id ||

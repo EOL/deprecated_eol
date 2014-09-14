@@ -45,9 +45,11 @@
           .meta.learn_more
             %p= link_to I18n.t(:article_more_about), data_object_path(@overview.summary)
             = render 'data_objects/view_translation', { data_object: @overview.summary, taxon: @overview.taxon_concept}
-          - if @overview.summary.content_partner && @overview.summary.content_partner == ContentPartner.wikipedia
-            = stylesheet_link_tag("wikipedia")
-            = javascript_include_tag("wiki_ogg_player")
+          - if @overview.summary.content_partner
+            - if @overview.summary.content_partner.stylesheet
+              = stylesheet_link_tag(@overview.summary.content_partner.stylesheet)
+            - if @overview.summary.content_partner.javascript
+              = javascript_include_tag(@overview.summary.content_partner.javascript)
           .copy
             - unless @overview.summary.object_title.blank?
               %h4= @overview.summary.object_title

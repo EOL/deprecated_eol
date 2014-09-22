@@ -4,7 +4,8 @@
 
 describe "/content_partners" do
   before(:all) do
-    populate_tables(:special_collection, :content_partner_statuses, :licenses)
+    populate_tables(:data_types, :special_collection, :content_partner_statuses,
+                    :licenses)
   end
 
   context "when not logged" do

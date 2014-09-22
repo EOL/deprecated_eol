@@ -65,7 +65,11 @@ Ruby Style
 RubyOnRails Style
 -----------------
 
-* Prefer #blank? to #nil? #empty? != "" when it makes sense 
+* Prefer #blank? to #nil?, #empty?, or !="" ...when it makes sense.
+* Do *not* prefer human-readable URLs. One of the purposes of EOL is to
+  normalize human-readable data; we *must* rely on stable ID URLs as those
+  strings change over time. *NOTE that this is an exception to the Ruby Style
+  Guide.*
 
 RSpec Style
 -----------

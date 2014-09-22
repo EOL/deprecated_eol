@@ -4,19 +4,35 @@ module EOL
 
     attr_reader :name
 
-    def initialize(name, all_connections)
+    # NOTE that this truncates before each, to create IDs starting from 1.
+    def self.load_all_with_caching
+      Dir[Rails.root.join("scenarios", "*.rb")].each do |file|
+        scenario_name = file.split("/").last.sub(/\.rb$/, '')
+        next if scenario_name == "raises_exception" # :| :| :| :| :| :|
+        EOL::Db.truncate_all_tables
+        self.load_with_caching(scenario_name)
+      end
+    end
+
+    def self.load_with_caching(name)
+      loader = self.new(name)
+      loader.load_with_caching
+    end
+
+    def initialize(name)
       @name = name
-      @all_connections = all_connections
+      @all_connections = EOL::Db.all_connections
       @we_have_already_cached_this_scenario = false
     end
 
-    # This is the method you likely want to call.
     def load_with_caching
       if !@we_have_already_cached_this_scenario && cached_files_are_stale?
         load_and_cache
-      elsif @we_have_already_cached_this_scenario && is_the_data_in_the_database?
-        Rails.logger.warn "** WARNING: You attempted to load the #{@name} scenario twice, here."
-        Rails.logger.warn "**          Please remove the call or truncate tables, first."
+      elsif @we_have_already_cached_this_scenario &&
+        is_the_data_in_the_database?
+        Rails.logger.warn("** WARNING: You attempted to load the #{@name} " \
+          "scenario twice, here. Please remove the call or truncate tables, " \
+          "first.")
       else
         @all_connections.each do |conn|
           load_cache_for_connection(conn)
@@ -58,7 +74,7 @@ module EOL
     end
 
     def is_the_data_in_the_database?
-      User.find_by_username("#{@name}_already_loaded")
+      User.find_by_username(already_loaded_username)
     end
 
     def load_cache_for_connection(conn)
@@ -86,7 +102,13 @@ module EOL
     end
 
     def remember_that_this_is_loaded
-      User.gen :username => "we_loaded_#{@name}"[0..31]
+      User.gen :username => already_loaded_username
+    rescue ActiveRecord::RecordNotUnique => e
+      puts "** WARNING: Somehow managed to load #{@name} scenario twice."
+    end
+
+    def already_loaded_username
+      "#{@name}_already_loaded"[0..31]
     end
 
     def create_cache

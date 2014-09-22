@@ -3,6 +3,13 @@
 
 module EOL
   module Solr
+    def self.rebuild_all
+      EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
+      EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+      EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
+      EOL::Solr::BHLCoreRebuilder.new().begin_rebuild
+    end
+
     def self.query_lucene(solr_endpoint, query, options = {})
       query_url = solr_endpoint + '/select/?wt=json&q='
       query_url << URI.encode(%Q[{!lucene}#{query}])

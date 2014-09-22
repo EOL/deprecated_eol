@@ -7,6 +7,14 @@
 # in the EOL:: namespace
 #
 module EOL
+
+  # NOTE: this assumes the tables are empty. If not, Solr will take a while...
+  def self.forget_everything
+    Rails.cache.clear
+    ClassVariableHelper.clear_class_variables
+    EOL::Solr.rebuild_all
+    EOL::Sparql::VirtuosoClient.drop_all_graphs
+  end
   
   # used to check if a user agent is a robot or not
   def self.allowed_user_agent?(user_agent)

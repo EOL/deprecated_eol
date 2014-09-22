@@ -33,7 +33,9 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 ActiveRecord::Migration.verbose = false
 
 RSpec.configure do |config|
-  include TruncateHelpers # ...We want to truncate the tables once here.  # TODO - really? Shouldn't specs handle this as needed?
+  include TruncateHelpers # ...We want to truncate the tables once here.
+
+  Solr.start
 
   config.include FactoryGirl::Syntax::Methods
 

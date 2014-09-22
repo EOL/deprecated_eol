@@ -39,8 +39,16 @@ class ContentPartnersController < ApplicationController
 
   private
 
+  def load_content_partners
+    index_meta = ContentPartner::IndexMeta.new(params,
+                                               cms_page_path("partners"))
+    @page_meta = PageMeta.new(index_meta)
+    @partners = ContentPartner::Pagination.paginate(index_meta)
+    set_canonical_urls(paginated: @partners, url_method: :content_partners_url)
+  end
+
   def load_content_partner
-    @partner = ContentPartner::AsUnassisted.find(
+    @partner = ContentPartner.find(
       params[:id],
       include: [{ resources: :collection }, :content_partner_contacts]
     )
@@ -68,18 +76,12 @@ class ContentPartnersController < ApplicationController
   end
 
   def build_content_partner
-    @partner ||= ContentPartner::AsUnassisted.new(params[:content_partner])
+    cp = current_user.is_admin? ? ContentPartner : ContentPartner::AsUnassisted
+    @partner ||= cp.new(params[:content_partner])
     @partner.attributes = params[:content_partner]
+    @partner.user ||= current_user
     meta = ContentPartner::Meta.new
     @page_meta = PageMeta.new(meta)
-  end
-
-  def load_content_partners
-    index_meta = ContentPartner::IndexMeta.new(params,
-                                               cms_page_path("partners"))
-    @page_meta = PageMeta.new(index_meta)
-    @partners = ContentPartner::Pagination.paginate(index_meta)
-    set_canonical_urls(paginated: @partners, url_method: :content_partners_url)
   end
 
   def content_partners_layout
@@ -103,8 +105,6 @@ class ContentPartnersController < ApplicationController
   end
 
   def calc_meta_open_graph_image_url
-    @partner &&= view_context.image_tag(
-      @partner.logo_url(linked?: true)
-    )
+    @partner &&= view_context.image_tag(@partner.logo_url(linked?: true))
   end
 end

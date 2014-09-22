@@ -17,39 +17,47 @@
                 = contact.telephone
                 %br/
                 = contact.address
-              %p= link_to I18n.t(:content_partner_contact_edit_link),
-                edit_content_partner_contact_path(@partner, contact) if current_user.can_update?(contact)
+              - if current_user.can_update?(contact)
+                %p= link_to I18n.t(:content_partner_contact_edit_link),
+                  edit_content_partner_contact_path(@partner, contact)
       - if current_user.can_create?(@new_partner_contact)
-        = link_to I18n.t(:content_partner_contact_new_link), new_content_partner_contact_path(@partner),
-          :class => "button"
+        = link_to I18n.t(:content_partner_contact_new_link),
+          new_content_partner_contact_path(@partner),
+          class: "button"
   .main_container
     .copy
       %h3= I18n.t(:content_partner_resources_header)
-      %p= raw(I18n.t(:content_partner_resources_information, :eol_transfer_schema_url => cms_page_path('cp_plan_export')))
-      %p= link_to I18n.t(:content_partner_resource_new_link), new_content_partner_resource_path(@partner), :class => 'button'
+      %p= raw(I18n.t(:content_partner_resources_information,
+        eol_transfer_schema_url:  cms_page_path("cp_plan_export")))
+      %p= link_to I18n.t(:content_partner_resource_new_link),
+        new_content_partner_resource_path(@partner), class: "button"
     - unless @resources.blank?
       %table.standard
         %thead
-          %th= I18n.t('helpers.label.resource.title')
-          %th= I18n.t('helpers.label.resource.dataset')
-          %th= I18n.t('helpers.label.resource.refresh_period_hours')
-          %th= I18n.t('helpers.label.resource.resource_status_id')
+          %th= I18n.t("helpers.label.resource.title")
+          %th= I18n.t("helpers.label.resource.dataset")
+          %th= I18n.t("helpers.label.resource.refresh_period_hours")
+          %th= I18n.t("helpers.label.resource.resource_status_id")
           %th
             %span.assistive= I18n.t(:table_column_header_actions)
         %tbody
           - @resources.each do |resource|
             %tr
               %td
-                = link_to h(resource.title), content_partner_resource_path(@partner, resource)
+                = link_to h(resource.title),
+                  content_partner_resource_path(@partner, resource)
               %td
                 - if resource.accesspoint_url.blank?
-                  = resource.dataset_file_name unless resource.dataset_file_name.blank?
+                  - unless resource.dataset_file_name.blank?
+                    = resource.dataset_file_namem
                 - else
-                  = link_to resource.accesspoint_url.sub(/^.*\//, ''), resource.accesspoint_url
+                  = link_to resource.accesspoint_url.sub(/^.*\//, ""),
+                    resource.accesspoint_url
               %td
                 = frequency(resource.refresh_period_hours)
               %td
                 = resource.status_label
               %td.actions
                 - if current_user.can_update?(resource)
-                  = link_to I18n.t(:edit), edit_content_partner_resource_path(@partner, resource)
+                  = link_to I18n.t(:edit),
+                    edit_content_partner_resource_path(@partner, resource)

@@ -4,49 +4,19 @@ namespace :solr do
   desc 'Start the Solr instance'
   task :start => :environment do
     puts "** Starting Background Solr instance for EOL..."
-    if RUBY_PLATFORM =~ /w(in)?32$/
-      abort('This command does not work on Windows. Please use rake solr:run to run Solr in the foreground.')
-    end
-    port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, '\\1')
-    FileUtils.cd(File.join($SOLR_DIR)) do
-      command = [Rails.root.join('bin', 'solr'), 'start', '--', '-p', port]
-      if $SOLR_SERVER_RAM
-        command << '-r'
-      end
-      if $SOLR_DIR
-        command << '-s' << $SOLR_DIR
-      end
-      system(Escape.shell_command(command.map {|p| p.to_s}))
-    end
+    Solr.start
   end
 
   desc 'Run the Solr instance in the foreground'
   task :run => :environment do
     puts "** Starting Foreground Solr instance for EOL..."
-    if RUBY_PLATFORM =~ /w(in)?32$/
-      abort('This command does not work on Windows.')
-    end
-    # data_path = Sunspot::Rails.configuration.data_path
-    # FileUtils.mkdir_p(data_path)
-    port = $SOLR_SERVER
-    port.gsub!(/^.*:(\d+).*$/, '\\1')
-    command = [Rails.root.join('bin', 'solr'), 'run', '--', '-p', port.to_s]
-    if $SOLR_SERVER_RAM
-      command << '-r'
-    end
-    if $SOLR_DIR
-      command << '-s' << $SOLR_DIR
-    end
-    exec(command.join(" "))
+    Solr.run
   end
 
   desc 'Stop the Solr instance'
   task :stop => :environment do
     puts "** Stopping Background Solr instance for EOL..."
-    FileUtils.cd($SOLR_DIR) do
-      exec([Rails.root.join('bin', 'solr'), 'stop'].join(" "))
-    end
-    File.delete(Rails.root.join('solr', 'solr', 'eol-solr.pid'))
+    Solr.stop
   end
 
   desc 'Rebuild the data objects index'

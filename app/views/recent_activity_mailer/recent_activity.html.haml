@@ -3,7 +3,7 @@
   -# Grrr.  This is a lot of ugly code just to get a "nice" title... but it is /is/ nice, when there's only one note:
   - if @notes.length == 1
     - note = @notes.first
-    - who = note.user.full_name
+    - who = note.user? ? note.user.full_name : I18n.t(:unknown)
     - case note.class.name
       - when 'Comment'
         - if note.parent == @user

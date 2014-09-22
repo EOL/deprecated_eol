@@ -29,6 +29,10 @@ describe TocItem do
 
   describe 'toc_object_counts' do
 
+    before(:all) do
+      Visibility.create_enumerated
+    end
+
     before do
       allow(TocItem).to receive(:count_objects) { 37 }
     end

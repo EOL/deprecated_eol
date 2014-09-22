@@ -105,8 +105,6 @@ class ContentPartnersController < ApplicationController
   end
 
   def calc_meta_open_graph_image_url
-    @partner &&= view_context.image_tag(
-      @partner.logo_url(linked?: true)
-    )
+    @partner &&= view_context.image_tag(@partner.logo_url(linked?: true))
   end
 end

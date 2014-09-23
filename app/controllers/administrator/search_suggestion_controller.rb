@@ -9,16 +9,8 @@ class Administrator::SearchSuggestionController < AdminController
   before_filter :restrict_to_admins
 
   def index
-    @page_title = I18n.t("search_suggestions")
-    @term_search_string = params[:term_search_string] || ''
-    search_string_parameter = '%' + @term_search_string + '%'
-    # let us go back to a page where we were
-    page = params[:page] || "1"
-    @search_suggestions = SearchSuggestion.paginate(
-      conditions: ['term like ?', search_string_parameter],
-      order: 'term asc', page: page)
-    SearchSuggestion.preload_associations(@search_suggestions, { taxon_concept: { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } })
-    @search_suggestions_count = SearchSuggestion.count(conditions: ['term like ?', search_string_parameter])
+    puts "*" * 1000
+    load_suggestions
   end
 
   def new
@@ -54,15 +46,27 @@ class Administrator::SearchSuggestionController < AdminController
   end
 
   def destroy
-    (redirect_to referred_url, status: :moved_permanently;return) unless request.delete?
-    @search_suggestion = SearchSuggestion.find(params[:id])
-    @search_suggestion.destroy
-    redirect_to referred_url, status: :moved_permanently
+    SearchSuggestion.delete_all(id: params[:id])
+    load_suggestions
+    redirect_to action: "index", status: :moved_permanently
   end
 
   def set_layout_variables
     @page_title = $ADMIN_CONSOLE_TITLE
     @navigation_partial = '/admin/navigation'
+  end
+
+  def load_suggestions
+    @page_title = I18n.t("search_suggestions")
+    @term_search_string = params[:term_search_string] || ''
+    search_string_parameter = '%' + @term_search_string + '%'
+    # let us go back to a page where we were
+    page = params[:page] || "1"
+    @search_suggestions = SearchSuggestion.paginate(
+      conditions: ['term like ?', search_string_parameter],
+      order: 'term asc', page: page)
+    SearchSuggestion.preload_associations(@search_suggestions, { taxon_concept: { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } })
+    @search_suggestions_count = SearchSuggestion.count(conditions: ['term like ?', search_string_parameter])
   end
 
 end

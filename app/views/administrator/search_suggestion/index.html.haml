@@ -8,28 +8,30 @@
     = link_to I18n.t("add_a_new_search_suggestion"), :action=>'new'
     %br
     %br
-    - if @search_suggestions.nil? == false && @search_suggestions.size > 0
-      =I18n.t("a_total_of_terms_were_found_matching_your", :count => @search_suggestions_count)
-      %br
-      = will_paginate @search_suggestions
-      %table.results_table{ :cellspacing => "0" }
+  - if @search_suggestions.nil? == false && @search_suggestions.size > 0
+    =I18n.t("a_total_of_terms_were_found_matching_your", :count => @search_suggestions_count)
+    %br
+    = will_paginate @search_suggestions
+    %table.results_table{ :cellspacing => "0" }
+      %tr
+        %th
+          =I18n.t(:term_for_search_admin_ui)
+        %th
+          =I18n.t("taxon_suggested")
+        %th
+          =I18n.t("action")
+      - @search_suggestions.each do |search_suggestion|
+        - column_class=cycle('odd', 'even')
         %tr
-          %th
-            =I18n.t(:term_for_search_admin_ui)
-          %th
-            =I18n.t("taxon_suggested")
-          %th
-            =I18n.t("action")
-        - for search_suggestion in @search_suggestions
-          - column_class=cycle('odd', 'even')
-          %tr
-            %td{ :class => column_class }
-              = link_to search_suggestion.term, :action=>'edit', :id=>search_suggestion.id
-            %td{ :class => column_class }
-              = link_to search_suggestion.taxon_concept.title_canonical, taxon_url(search_suggestion.taxon_concept), :target=>'_blank'
-            %td{ :class => column_class }
-              = link_to I18n.t("delete"), {:action=>'destroy', :id=>search_suggestion.id}, :data => { :confirm => I18n.t("this_cannot_be_undone_are_you_sure") }, :method => :delete
-      %br
-      = will_paginate @search_suggestions
-    - else
-      =I18n.t("no_search_suggestions_are_avai")
+          %td{ :class => column_class }
+            = link_to search_suggestion.term, :action=>'edit', :id=>search_suggestion.id
+          %td{ :class => column_class }
+            = link_to search_suggestion.taxon_concept.title_canonical, taxon_url(search_suggestion.taxon_concept), :target=>'_blank'
+          %td{ :class => column_class }
+            = button_to I18n.t("delete"),
+              administrator_search_suggestion_path(search_suggestion.id),
+              method: :delete
+    %br
+    = will_paginate @search_suggestions
+  - else
+    =I18n.t("no_search_suggestions_are_avai")

@@ -624,7 +624,7 @@ en:
         taxon_name_with_val: "Taxon group: %{val}"
         taxon_name_placeholder: "Enter taxon group name to select group"
         taxon_name_placeholder_value_removed: "%{taxon_group} removed, select new group"
-        taxon_name_more: "For example, enter Trochilidae or Whales and select the matching group."
+        taxon_name_more: "For example, enter Trochilidae or Whales. ONLY selections from the drop-down will be used, do not edit the text without selecting a result."
         total_results: "Total results: %{total}"
         unit: "Unit of measure"
       eol_statistic:

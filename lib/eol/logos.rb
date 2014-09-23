@@ -1,9 +1,12 @@
 # encoding: utf-8
 
+# TODO: NEEDS SPECS!
 module EOL
   # Uses paperclip to handle logo icons
   module Logos
-    def Logos.included?
+    extend ActiveSupport::Concern
+
+    included do
       has_attached_file :logo,
         # TODO - check if path is deprecated
         path: Rails.configuration.logo_uploads.paperclip_path,

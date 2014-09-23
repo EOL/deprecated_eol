@@ -371,12 +371,9 @@ Eol::Application.routes.draw do
       put 'set_as_exemplar_for_same_as'
     end
   end
+  resources :known_uri_relationships, :only => [ :create, :destroy ]
 
-  resources :known_uri_relationships, :only => [ :create, :destroy ] do
-  end
-
-  resources :user_added_data, :only => [ :create, :edit, :update, :destroy ] do
-  end
+  resources :user_added_data, :only => [ :create, :edit, :update, :destroy ]
 
   resources :taxon_data_exemplars, :only => [ :create ]
 
@@ -424,7 +421,6 @@ Eol::Application.routes.draw do
   end
 
   # Putting these after the complex resources because they are less common.
-  resources :tasks, :task_states, :task_names, :random_images
   resources :recent_activities, :only => [:index]
   resources :classifications, :only => [:create]
   resources :contacts, :only => [:index, :create, :new]
@@ -475,6 +471,7 @@ Eol::Application.routes.draw do
   match '/logout' => 'sessions#destroy', :as => 'logout'
 
   # Named curation routes:
+  # TODO - PROTIP: If you're doing this, you are doing it wrong. :| Remove.
   match '/pages/:taxon_id/details/:data_object_id/set_article_as_exemplar' => 'taxa/details#set_article_as_exemplar',
     :as => 'set_article_as_exemplar'
   match '/pages/:id/worklist/data_objects/:data_object_id' => 'taxa/worklist#data_objects',
@@ -488,6 +485,7 @@ Eol::Application.routes.draw do
 
   # TODO - make these resources
   # Named taxon routes:
+  # TODO - PROTIP: If you're doing this, you are doing it wrong. :| Remove.
   match '/pages/:id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title', :as => 'bhl_title'
   match '/pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title',
     :as => 'entry_bhl_title'
@@ -616,7 +614,6 @@ Eol::Application.routes.draw do
   match 'content/random_homepage_images' => 'content#random_homepage_images'
   match 'content/file/:id' => 'content#file'
   match '/maintenance' => 'content#maintenance', :as => 'maintenance'
-
 
   # These are expensive and broad and should be kept at the bottom of the file:
   match '/:id' => redirect("/pages/%{id}/overview"), :id => /\d+/

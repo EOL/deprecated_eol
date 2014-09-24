@@ -23,8 +23,8 @@ module EOL
       begin
         if !logo_file_name.blank? &&
           !Rails.configuration.use_content_server_for_thumbnails
-          # TODO - I doubt this actually works.  :)  Test.
-          logo.url + ImageManipulation.local_file_name(self)
+          Rails.configuration.logo_uploads.relative_path +
+            ImageManipulation.local_file_name(self)
         elsif self.logo_cache_url.blank?
           "v2/logos/#{self.class.name.underscore}_default.png"
         else

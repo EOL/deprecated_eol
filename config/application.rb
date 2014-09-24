@@ -200,6 +200,7 @@ module Eol
     Rails.configuration.local_services = false
     Rails.configuration.logo_uploads = OpenStruct.new(
       # Content server machine needs SFTP access to this folder:
+      relative_path: "/uploads/images/collection_icons/",
       paperclip_path: ":rails_root/public/uploads/images/collection_icons/"\
         ":class_:id.:extension",
       max_size: 5_242_880

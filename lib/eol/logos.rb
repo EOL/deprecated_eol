@@ -8,9 +8,8 @@ module EOL
 
     included do
       has_attached_file :logo,
-        # TODO - check if path is deprecated
         path: Rails.configuration.logo_uploads.paperclip_path,
-        url: Rails.configuration.logo_uploads.paperclip_url,
+        url: Rails.configuration.logo_uploads.paperclip_path,
         default_url: "/assets/blank.gif"
       validates_attachment_content_type :logo,
         message: I18n.t(:logo_type_error),
@@ -20,12 +19,12 @@ module EOL
     end
 
     def logo_url(opts = {})
-      # This is TEMPORARY to catch a weird bug in production:
+      # This begin is TEMPORARY to catch a weird bug in production:
       begin
         if !logo_file_name.blank? &&
           !Rails.configuration.use_content_server_for_thumbnails
-          Rails.configuration.logo_uploads.paperclip_url +
-            ImageManipulation.local_file_name(self)
+          # TODO - I doubt this actually works.  :)  Test.
+          logo.url + ImageManipulation.local_file_name(self)
         elsif self.logo_cache_url.blank?
           "v2/logos/#{self.class.name.split('::').first.underscore}_default.png"
         else

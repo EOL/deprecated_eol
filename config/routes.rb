@@ -520,7 +520,6 @@ Eol::Application.routes.draw do
   # Old V1 /admin and /administrator namespaces (controllers)
   match 'administrator' => 'admin#index', :as => 'administrator'
   resource :administrator, :only => [:index], :controller => 'admin' do
-    resources :glossary, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/glossary'
     resources :harvesting_log, :only => [:index], :controller => 'administrator/harvesting_log'
     resources :hierarchy, :only => [:index, :browse, :edit], :controller => 'administrator/hierarchy'
     resources :stats, :only => [:index], :controller => 'administrator/stats' do

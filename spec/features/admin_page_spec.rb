@@ -68,21 +68,6 @@ describe 'Admin Pages' do
     page.should have_content(@hierarchy.description)
   end
 
-  it 'should load an empty glossary page' do
-    login_as(@user)
-    visit('/administrator/glossary')
-    page.should have_content("glossary is empty")
-  end
-
-  it 'should show glossary terms' do
-    glossary_term = GlossaryTerm.gen(term: 'Some new term', definition: 'and its definition')
-    login_as(@user)
-    visit("/administrator/glossary")
-    page.should have_content(glossary_term.term)
-    page.should have_content(glossary_term.definition)
-    glossary_term.destroy
-  end
-
   it 'should load an empty harvesting logs page' do
     login_as(@user)
     visit('/administrator/harvesting_log')

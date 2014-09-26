@@ -14,7 +14,8 @@ class PendingNotification < ActiveRecord::Base
     notes_by_user_id = self.send(fqz).unsent.group_by(&:user_id)
     sent_note_ids = []
     notes_by_user_id.keys.each do |u_id|
-      user = User.find(u_id, select: 'id, email') rescue nil # Don't much care if the user disappeared.
+      # Don't much care if the user disappeared:
+      user = User.find(u_id, select: 'id, email, logo_file_name') rescue nil
       next unless user && user.email
       notes = notes_by_user_id[u_id]
       next unless notes

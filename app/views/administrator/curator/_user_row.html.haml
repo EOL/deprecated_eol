@@ -23,7 +23,7 @@
   - if user.curator_level_id
     = user.curator_level.label.split[0] # No, this is not I18n'zed
     - if user.full_curator?
-      = link_to(I18n.t(:revoke_full_curator_link), "/administrator/user/revoke_curator?id=#{user.id}", :class => 'TEMPcurator_status')
+      = link_to(I18n.t(:revoke_full_curator_link), revoke_curator_administrator_user_path(user), :class => 'TEMPcurator_status')
   - else
     = I18n.t(:none)
   %br

@@ -900,7 +900,12 @@ class TaxonConcept < ActiveRecord::Base
       # TODO - this *can* (and did, at least once) fail in a race condition. Perhaps it should be in a transaction. Also, I worry
       # that it is called too often. ...seems to be every page after every harvest, virtually. We should check on it.
       TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: self.id)
-      TaxonConceptPreferredEntry.create(taxon_concept_id: self.id, hierarchy_entry_id: entry.id)
+      begin
+        TaxonConceptPreferredEntry.create(taxon_concept_id: self.id, hierarchy_entry_id: entry.id)
+      rescue Mysql2::Error => e
+        # Duplicate. ...Race condition?
+        logger.warn "Failed attempt to create preferred entry: #{e.message}"
+      end
     end
   end
 

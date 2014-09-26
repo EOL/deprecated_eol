@@ -46,9 +46,9 @@
             %p= link_to I18n.t(:article_more_about), data_object_path(@overview.summary)
             = render 'data_objects/view_translation', { data_object: @overview.summary, taxon: @overview.taxon_concept}
           - if @overview.summary.content_partner
-            - if @overview.summary.content_partner.stylesheet
+            - if @overview.summary.content_partner.try(:stylesheet)
               = stylesheet_link_tag(@overview.summary.content_partner.stylesheet)
-            - if @overview.summary.content_partner.javascript
+            - if @overview.summary.content_partner.try(:javascript)
               = javascript_include_tag(@overview.summary.content_partner.javascript)
           .copy
             - unless @overview.summary.object_title.blank?

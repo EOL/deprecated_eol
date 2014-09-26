@@ -125,15 +125,14 @@ module EOL
             return_hash['scientificName'] = taxon_concept.entry.name.string
             return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
 
-            return_hash['synonyms'] = []
-            if params[:synonyms]
-              taxon_concept.scientific_synonyms.includes([ :name, :synonym_relation ]).each do |syn|
-                relation = syn.synonym_relation ? syn.synonym_relation.label : ''
-                return_hash['synonyms'] << {
-                  'synonym' => syn.name.string,
-                  'relationship' => relation
-                }
-              end
+            return_hash["synonyms"] = if params[:synonyms]
+              taxon_concept.scientific_synonyms.
+                includes([ :name, :synonym_relation ]).each do |syn|
+                relation = syn.synonym_relation.try(:label) || ""
+                { "synonym" => syn.name.string, "relationship" => relation }
+              end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
+            else
+              []
             end
 
             return_hash['vernacularNames'] = []

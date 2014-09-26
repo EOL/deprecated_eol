@@ -7,7 +7,10 @@
 %h4
   = link_to attribute.name.html_safe, link
 - if attribute
-  = truncate(attribute.definition.add_missing_hyperlinks, length: 75)
+  - if attribute.definition
+    = truncate(attribute.definition.add_missing_hyperlinks, length: 75)
+  - if attribute.uri
+    = truncate(attribute.uri, length: 75)
   %br
   = link_to I18n.t(:data_search_attribute, attribute: attribute.name).html_safe, link
 - else

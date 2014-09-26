@@ -94,6 +94,7 @@
           .session
             %p= I18n.t(:user_system_down)
 
+      -# TODO: Move this somewhere appropriate. this is ridiculous.
       - if @home_page
         - cache(:action => 'index', :action_suffix => "march_of_life_#{current_language.iso_639_1}") do
           %h3.assistive= I18n.t(:explore)

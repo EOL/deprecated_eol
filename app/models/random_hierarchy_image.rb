@@ -32,6 +32,10 @@ class RandomHierarchyImage < ActiveRecord::Base
     Vetted
   end
 
+  # TODO - rewrite this, it's WAY too complex. Most of these features are unused
+  # and unnecessary. Also, it should just keep looking for random images until
+  # it finds enough... not relying on the "limit * 3" thing to get more than it
+  # needs. Of course, that algorithm will need to watch for endless loops.
   def self.random_set(limit = 10, hierarchy = nil, options = {})
     options[:size] ||= '130_130'
     options[:language] ||= Language.english
@@ -55,10 +59,10 @@ class RandomHierarchyImage < ActiveRecord::Base
     random_image_result = if $HOMEPAGE_MARCH_RICHNESS_THRESHOLD
       RandomHierarchyImage.joins(:taxon_concept_metrics, :taxon_concept).
         where(["random_hierarchy_images.id > ? AND richness_score > ? AND published = 1 #{hierarchy_condition} AND supercedure_id = 0",
-              starting_id, $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).limit(limit * 2)
+              starting_id, $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).limit(limit * 3)
                           else
       RandomHierarchyImage.joins(:taxon_concept).
-        where(["random_hierarchy_images.id > ? AND published=1 #{hierarchy_condition} AND supercedure_id = 0", starting_id]).limit(limit * 2)
+        where(["random_hierarchy_images.id > ? AND published=1 #{hierarchy_condition} AND supercedure_id = 0", starting_id]).limit(limit * 3)
                           end
 
     used_concepts = {}

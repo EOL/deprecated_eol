@@ -403,7 +403,7 @@ $(function() {
                 '" alt="' + alt_text +
                 '" data-scientific-name="' + scientific_name +
                 '" data-common-name="' + common_name +
-                '" width="130" height="130"/></a>');
+                '" width="130" height="130" onError="this.remove();"/></a>');
               // since we had to add a slide we need to change the index of the next slide
               opts.nextSlide = opts.currSlide + 1;
               enable_mouseover_alt_text_for_march_of_life();

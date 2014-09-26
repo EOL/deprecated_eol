@@ -55,4 +55,10 @@ describe ForumsController do
       response.header["Location"].should_not =~ /\/login/
     end
   end
+
+  describe 'GET show' do
+    it 'should show an index' do
+      expect { get :index }.not_to raise_error
+    end
+  end
 end

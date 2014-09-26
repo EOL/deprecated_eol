@@ -28,8 +28,10 @@ describe ForumPost do
   it "should set the last post on its topic on create" do
     post1 = ForumPost.gen
     post1.forum_topic.last_post.should == post1
+    post1.forum_topic.forum.last_post.should == post1
     post2 = ForumPost.gen(forum_topic: post1.forum_topic)
     post1.forum_topic.reload.last_post.should == post2
+    post1.forum_topic.forum.reload.last_post.should == post2
   end
 
   it "should properly set the last post on its topic on delete" do

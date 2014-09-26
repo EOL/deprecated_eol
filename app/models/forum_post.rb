@@ -11,10 +11,8 @@ class ForumPost < ActiveRecord::Base
   validate :subject_must_exist_if_first_post
 
   after_create :update_topic
-  after_create :update_forum
   after_create :update_user_posts_count
   after_update :update_topic
-  after_update :update_forum
   after_update :update_user_posts_count
   before_update :increment_edit_count
   after_update :update_topic_title
@@ -70,9 +68,6 @@ class ForumPost < ActiveRecord::Base
     forum_topic.set_first_post
     forum_topic.set_last_post
     forum_topic.set_post_count
-  end
-
-  def update_forum
     forum_topic.forum.update_last_post_and_count
   end
 

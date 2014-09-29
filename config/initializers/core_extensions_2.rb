@@ -81,6 +81,7 @@ class String
     ['a', 'b', 'blockquote', 'br', 'em', 'i', 'p', 'small', 'strong', 'cite'].each do |tag|
       tag_regex = /&lt;(\/)?#{tag}(#{@allowed_attributes_in_allow_some_html})?\s*&gt;/i
       text.gsub!(tag_regex, "<\\1#{tag.gsub(/strong/, 'b')}\\2>")
+      text.gsub!(/<a href/, '<a rel="nofollow" href')
     end
     unless text.match(/<(br|p)\s*[\/]?\s*>/)
       text.gsub!(line_breaks, '<br/>')

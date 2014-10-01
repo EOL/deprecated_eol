@@ -897,14 +897,18 @@ class TaxonConcept < ActiveRecord::Base
   def create_preferred_entry(entry)
     return if entry.nil?
     TaxonConceptPreferredEntry.with_master do
-      # TODO - this *can* (and did, at least once) fail in a race condition. Perhaps it should be in a transaction. Also, I worry
-      # that it is called too often. ...seems to be every page after every harvest, virtually. We should check on it.
-      TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: self.id)
+      # TODO - this *can* (and does) fail. Not sure why. It's not a race
+      # condition--it can happen on the first page load on bocce, for example.
+      # Perhaps it should be in a transaction. Also, I worry that it is called
+      # too often. ...seems to be every page after every harvest, virtually. We
+      # should check on it.
+      TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: id)
       begin
-        TaxonConceptPreferredEntry.create(taxon_concept_id: self.id, hierarchy_entry_id: entry.id)
-      rescue Mysql2::Error => e
-        # Duplicate. ...Race condition?
-        logger.warn "Failed attempt to create preferred entry: #{e.message}"
+        TaxonConceptPreferredEntry.create(taxon_concept_id: id,
+                                          hierarchy_entry_id: entry.id)
+      rescue ActiveRecord::RecordNotUnique => e
+        logger.warn "** Failed attempt to create duplicate preferred entry:"
+        logger.warn "** #{e.message}"
       end
     end
   end

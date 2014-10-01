@@ -4,6 +4,9 @@
 module EOL
   module Solr
     def self.rebuild_all
+      # TODO - we are not rebuilding ActivityLogs, HierarchyEntries (or
+      # HierarchyEntryRelationships), or TaxonConcepts. ...Likely because they
+      # are only handled in PHP. :|
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild

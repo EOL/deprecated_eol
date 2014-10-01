@@ -897,11 +897,13 @@ class TaxonConcept < ActiveRecord::Base
   def create_preferred_entry(entry)
     return if entry.nil?
     TaxonConceptPreferredEntry.with_master do
-      # TODO - this *can* (and does) fail. Not sure why. It's not a race
-      # condition--it can happen on the first page load on bocce, for example.
-      # Perhaps it should be in a transaction. Also, I worry that it is called
-      # too often. ...seems to be every page after every harvest, virtually. We
-      # should check on it.
+      # TODO - this *can* (and does) fail. Not sure why. I'm guessing it's a
+      # race condition caused by loading the homepage, which can spawn a number
+      # of ancilary requests all reading the same TC; if two of them call this
+      # method at the same time, one of them will fail. ...That suggests this
+      # needs to be handled on a queue, which is not a bad idea.
+      # Also, I worry that it is called too often. ...seems to be every page
+      # after every harvest, virtually. We should check on it.
       TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: id)
       begin
         TaxonConceptPreferredEntry.create(taxon_concept_id: id,

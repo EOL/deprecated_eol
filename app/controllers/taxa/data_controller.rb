@@ -18,10 +18,8 @@ class Taxa::DataController < TaxaController
     @querystring = ''
     @sort = ''
     current_user.log_activity(:viewed_taxon_concept_data, taxon_concept_id: @taxon_concept.id)
-    respond_to do |format|
-      format.html {}
-      format.csv { render @taxon_data.to_csv }
-    end
+    @jsonld = EOL::Api::Traits::V1_0.prepare_hash(@taxon_concept,
+                                                  data: @taxon_data)
   end
 
   # GET /pages/:taxon_id/data/about

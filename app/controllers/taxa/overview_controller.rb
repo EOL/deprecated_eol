@@ -14,19 +14,7 @@ class Taxa::OverviewController < TaxaController
     @range_data = @data.ranges_for_overview
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = taxon_overview_url(@overview)
-    # TODO: remove this hard-coded exception. We are testing the JSON-LD
-    # data for Passeriformes, Mammalia and Salmoniformes
-    clade_ids = [ 1596, 1642, 5157 ]
-    if clade_ids.include?(@taxon_concept.id) || !(@taxon_concept.flattened_ancestor_ids & clade_ids).empty?
-      make_json_ld
-    end
     current_user.log_activity(:viewed_taxon_concept_overview, taxon_concept_id: @taxon_concept.id)
-  end
-
-  private
-
-  def make_json_ld
-    @jsonld = EOL::Api::Traits::V1_0.prepare_hash(@taxon_concept, data: @data)
   end
 
 end

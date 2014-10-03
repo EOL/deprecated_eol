@@ -1,3 +1,4 @@
+# TODO - rename this. It's a reserved word.  :|
 class Ref < ActiveRecord::Base
 
   has_many :ref_identifiers
@@ -6,6 +7,8 @@ class Ref < ActiveRecord::Base
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :collection_items
+
+  before_save :default_visibility
 
   # this method is not just sorting by rating
   def self.sort_by_full_reference(refs)
@@ -103,6 +106,12 @@ class Ref < ActiveRecord::Base
                 AND refs.visibility_id=?
                 LIMIT 1", taxon_concept_id, Visibility.visible.id])
     ref_count > 0
+  end
+
+  private
+
+  def default_visibility
+    self.visibility ||= Visibility.visible
   end
 
 end

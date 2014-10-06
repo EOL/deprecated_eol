@@ -1322,8 +1322,8 @@ zh-TW:
             提供
           meta_description_no_data: 由 %{hierarchy_provider} 提供分類的 %{scientific_name}，EOL沒有相關資訊；EOL邀請您提供
             {scientific_name} 的資料如保育、分布、生態、棲地及形態等。
-          meta_description_with_chapter_list: 生命大百科中有關 %{scientific_name} 的資訊；該分類是由
-            %{hierarchy_provider} 提供。包含 %{scientific_name} 的 %{chapter_list} 資訊。
+          meta_description_with_chapter_list: 生命大百科中有關 %{scientific_name} 的描述和文章；該分類是由
+            %{hierarchy_provider} 提供。包含用於 %{scientific_name} 的 %{chapter_list} 資訊。
           meta_description_with_common_name: 生命大百科中有關 %{preferred_common_name} 的資訊，其學名是
             %{scientific_name}；該分類是由 %{hierarchy_provider} 提供。
           meta_description_with_common_name_no_data: 由 %{hierarchy_provider} 提供分類的
@@ -2605,7 +2605,6 @@ zh-TW:
   add_a_new_file_brackets: '[添加一個新檔案]'
   add_a_new_role: 添加一個新角色
   add_a_new_search_suggestion: 添加一個新搜尋建議
-  add_a_new_term: 添加一條新術語
   add_a_new_topic_area: 添加一個新主題領域
   add_a_new_user: 添加一個新使用者
   add_a_taxon_association_label: 新增一條分類單元的關聯
@@ -3149,8 +3148,6 @@ zh-TW:
   content_partner_contact_update_successful_notice: 成功更新了聯絡方式。
   content_partner_contact_update_unsuccessful_error: 抱歉，出現了錯誤，未能更新此聯絡方式。
   content_partner_contacts_header: 聯絡方式
-  content_partner_create_successful_notice: 成功建立了內容合作夥伴。
-  content_partner_create_unsuccessful_error: 抱歉，出現了錯誤，未能建立內容合作夥伴。
   content_partner_current_agreement_empty: 沒有協議
   content_partner_current_agreement_signed_on_with_date: 簽署於 %{date}
   content_partner_current_agreement_view_link: 瀏覽
@@ -3450,7 +3447,6 @@ zh-TW:
   default: 預設
   default_focus_collection_name_from_community: '%{name} 的重點'
   default_watch_collection_name: '%{username} 的追蹤清單'
-  definition: 定義
   delete_community: 刪除這個社群
   delete: 刪除
   deleted_colon: 已刪除：
@@ -3481,8 +3477,6 @@ zh-TW:
   edit_contact_us_topics: 編輯'聯絡我們'主題
   edit: 編輯
   edited_colon: 已編輯：
-  edit_eol_glossary: 編輯EOL辭彙表
-  edit_glossary_term: 編輯辭彙表詞目
   edit_hierarchy: 編輯階層
   edit_collection_details: 編輯典藏詳細資料
   edit_collection_details_header: 編輯典藏詳細資料
@@ -3529,7 +3523,6 @@ zh-TW:
   eol_api_collections: EOL API：典藏
   eol_colon: EOL：
   eol_flickr_group: EOL Flickr小組
-  eol_glossary: EOL詞彙表
   eol_news: EOL新聞
   eol_pages: 頁面
   error_log_detail: 錯誤日誌詳細資料
@@ -3658,7 +3651,6 @@ zh-TW:
     TSN。dwct:taxonID元素包含在 %{link} API中使用的 <i>EOL identifier</i>。
   for_images_to_reference_parens: (對引用的影像)
   for_pdfs_and_docs_parens: (對PDF及DOC格式)
-  for_terms_or_definitions_conta: 對於術語或定義包含：
   form_validation_errors_for_attribute_assistive: 這個元素有個驗證錯誤
   fragment_caching_enabled: 片段快取已啟用
   frequency: 頻率
@@ -3682,9 +3674,6 @@ zh-TW:
   gives_access_to_a_single_hierarchy_indexed_by_eol: 開放EOL已索引的單一階層及其內部關聯。
   global_access_tagline: 為全球提供有關地球上生命的知識
   global_navigation: 全球導覽
-  glossary_is_empty: (詞彙表是空的)
-  glossary_term: 術語
-  glossary_terms: 詞彙表之術語
   go_back: 返回
   go: 啟動
   google_analytic_results: Google Analytics結果
@@ -3770,7 +3759,6 @@ zh-TW:
   invite_members_help_text: 在此新增一些EOL使用者，他們就會收到參與您新社群的邀請！
   ip_address: IP位址
   ip: IP
-  term_is_already_def_error: '''%{term}'' 已被定義'
   item_added_to_watch_collection_notice: '"%{item_name}" 已被新增至 %{collection_name}。'
   item_added_to_collection_notice: 項目已被新增至 <em>%{collection_name}</em> 典藏
   item_details_missing: 抱歉，出現了錯誤，無法擷取項目之細節。
@@ -3817,6 +3805,7 @@ zh-TW:
   just_pages_with_pictures_and_text: 只有那些包含圖像和文字的頁面
   keep_split_entry_from_this_entry: 和這個輸入項目分開
   key: Key
+  known_uri_category_header: 分類
   label: 標籤
   language: 語言：
   languages: 語言
@@ -4509,7 +4498,6 @@ zh-TW:
   sub_heading: 副標題
   subject: 主題
   submit: 提交
-  submit_term: 提交條款
   suggested_result_page_id: 建議結果頁面的ID：
   suggested_results_avg: 建議結果的平均值
   summary_thumbnail_title: 總結：
@@ -4574,7 +4562,6 @@ zh-TW:
   taxon_selected_from_search_res: 從搜尋結果中選擇的分類單元
   taxon_suggested: 建議的分類單元
   technical_functions: 技術功能
-  term_cannot_be_left_blank: 術語為必填
   terms_agreement_form_fallback: 請在使用您的帳號前，先檢查並同意 <a href="%{terms_url}"> 使用條款</a>。
   terms_agreement_form_header: 使用條款
   terms_agreement_form_submit: 我同意
@@ -4613,7 +4600,6 @@ zh-TW:
   the_data_object_id_can_be: ID參數可以是一個整數(一個DataObject版本ID)，或是會將那個物件的最新版本回報的16個字元GUID
   the_darwin_core_taxon_elements: 在'additionalInformation'中的達爾文核心集分類單元元素(dwct:Taxon)包括由EOL索引階層中節點的識別碼，這些元素包含一個dc:identifier，它是在<i>提供者資料庫</i>中此分類單元的唯一ID。
   the_following_users_were_prese: 調查的新視窗已對下列使用者開啟；他們對調查的要求作出如下回應：
-  the_glossary_term_was_successf: 成功更新了術語詞彙表。
   the_id_of_provider_hierarchy_you_are_searching: 您正在搜尋資料提供者的階層ID。檢查 %{link} 以得到有效的ID。
   the_image_from_this_source_has_not_been_reviewed: 這個來源的影像尚未被審核。
   the_image_from_this_source_is_not_trusted: 這個來源的影像是不可信的。

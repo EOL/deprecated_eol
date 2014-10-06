@@ -5,6 +5,7 @@
 # Author: Erick mata
 # Author: Fitoschido
 # Author: Fortega
+# Author: Macofe
 # Author: Maumau
 # Author: Sampalahnuk
 ---
@@ -14,7 +15,7 @@ es:
   translated_activities-name-activity_id-51: mostrar
   translated_activities-name-activity_id-52: crear
   translated_activities-name-activity_id-53: esconder
-  translated_activities-name-activity_id-54: actualización
+  translated_activities-name-activity_id-54: actualizar
   translated_activities-name-activity_id-55: inapropiado
   translated_activities-name-activity_id-56: borrar
   translated_activities-name-activity_id-57: califica
@@ -104,7 +105,7 @@ es:
   translated_data_types-label-data_type_id-6: UICN
   translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
-  translated_licenses-description-license_id-1: No hay derechos reservados
+  translated_licenses-description-license_id-1: Sin derechos reservados
   translated_licenses-description-license_id-29: Algunos derechos reservados
   translated_licenses-description-license_id-2: © Todos los derechos reservados
   translated_licenses-description-license_id-30: Algunos derechos reservados
@@ -143,7 +144,7 @@ es:
   translated_ranks-label-rank_id-332: ES
   translated_ranks-label-rank_id-333: es.
   translated_ranks-label-rank_id-335: especie
-  translated_ranks-label-rank_id-352: sub-familia
+  translated_ranks-label-rank_id-352: subfamilia
   translated_ranks-label-rank_id-370: subclase
   translated_ranks-label-rank_id-375: subdivisión
   translated_ranks-label-rank_id-383: subfamilia
@@ -186,20 +187,20 @@ es:
   translated_resource_statuses-label-resource_status_id-1: Enviando
   translated_resource_statuses-label-resource_status_id-2: Enviado
   translated_resource_statuses-label-resource_status_id-3: Envío fallido
-  translated_resource_statuses-label-resource_status_id-4: Movido al Servidor de Contenido
+  translated_resource_statuses-label-resource_status_id-4: Movido al servidor de contenido
   translated_resource_statuses-label-resource_status_id-5: Validado
   translated_resource_statuses-label-resource_status_id-6: Validación fallida
   translated_resource_statuses-label-resource_status_id-7: Procesando
   translated_resource_statuses-label-resource_status_id-8: Procesado
   translated_resource_statuses-label-resource_status_id-9: Proceso fallido
-  translated_service_types-label-service_type_id-1: Esquema de Transferencia EOL
+  translated_service_types-label-service_type_id-1: Esquema de transferencia EOL
   translated_service_types-label-service_type_id-2: Otro
   translated_sort_styles-name-sort_style_id-1: Recientemente agregados
   translated_sort_styles-name-sort_style_id-2: Más viejo
   translated_sort_styles-name-sort_style_id-3: Alfabético
   translated_sort_styles-name-sort_style_id-4: Alfabético Inverso
   translated_sort_styles-name-sort_style_id-5: Riqueza
-  translated_sort_styles-name-sort_style_id-6: Valoración
+  translated_sort_styles-name-sort_style_id-6: Calificación
   translated_statuses-label-status_id-1: Insertado
   translated_statuses-label-status_id-2: Actualizado
   translated_statuses-label-status_id-3: Sin cambio
@@ -212,7 +213,7 @@ es:
   translated_synonym_relations-label-synonym_relation_id-15: teleomorfo
   translated_synonym_relations-label-synonym_relation_id-16: sinónimo ambiguo
   translated_synonym_relations-label-synonym_relation_id-17: nombre mal aplicado
-  translated_synonym_relations-label-synonym_relation_id-18: Nombre aceptado provisionalmente
+  translated_synonym_relations-label-synonym_relation_id-18: nombre aceptado provisionalmente
   translated_synonym_relations-label-synonym_relation_id-19: nombre aceptado
   translated_synonym_relations-label-synonym_relation_id-1: sinónimo
   translated_synonym_relations-label-synonym_relation_id-20: artefacto de base de
@@ -232,11 +233,10 @@ es:
   translated_synonym_relations-label-synonym_relation_id-30: no es disponible, artefacto
     de la base de datos
   translated_synonym_relations-label-synonym_relation_id-31: reemplazo innecesario
-  translated_synonym_relations-label-synonym_relation_id-32: nombre posteriores /
-    combinación
+  translated_synonym_relations-label-synonym_relation_id-32: nombre/combinación posterior
   translated_synonym_relations-label-synonym_relation_id-33: no es disponible, error
     ortográfico en literatura
-  translated_synonym_relations-label-synonym_relation_id-34: nombre original / combinación
+  translated_synonym_relations-label-synonym_relation_id-34: nombre/combinación original
   translated_synonym_relations-label-synonym_relation_id-35: no es disponsible, ortografía
     incorrecta
   translated_synonym_relations-label-synonym_relation_id-36: homónimo menor
@@ -255,13 +255,13 @@ es:
   translated_synonym_relations-label-synonym_relation_id-45: basiónimo
   translated_synonym_relations-label-synonym_relation_id-46: sinónimo heterotípica
   translated_synonym_relations-label-synonym_relation_id-47: sinónimo homotípicos
-  translated_synonym_relations-label-synonym_relation_id-48: nombre no es disponible
+  translated_synonym_relations-label-synonym_relation_id-48: nombre no disponible
   translated_synonym_relations-label-synonym_relation_id-49: nombre válido
   translated_synonym_relations-label-synonym_relation_id-4: anamorfo
   translated_synonym_relations-label-synonym_relation_id-50: válido
   translated_synonym_relations-label-synonym_relation_id-51: aceptado
   translated_synonym_relations-label-synonym_relation_id-52: autoridad
-  translated_synonym_relations-label-synonym_relation_id-53: nombre non publicado
+  translated_synonym_relations-label-synonym_relation_id-53: nombre no publicado
   translated_synonym_relations-label-synonym_relation_id-54: sinónimo subjetivo
   translated_synonym_relations-label-synonym_relation_id-55: información incorrecta
     de autoridad
@@ -344,13 +344,13 @@ es:
   translated_table_of_contents-label-table_of_contents_id-330: Secuencias Nucleótidos
   translated_table_of_contents-label-table_of_contents_id-331: Código de barras
   translated_table_of_contents-label-table_of_contents_id-332: Genoma
-  translated_table_of_contents-label-table_of_contents_id-333: Biología Molecular
+  translated_table_of_contents-label-table_of_contents_id-333: Biología molecular
   translated_table_of_contents-label-table_of_contents_id-334: Amenazas
   translated_table_of_contents-label-table_of_contents_id-335: Legislación
   translated_table_of_contents-label-table_of_contents_id-336: Notas
   translated_table_of_contents-label-table_of_contents_id-337: Educación
-  translated_table_of_contents-label-table_of_contents_id-338: Enlaces de Educación
-  translated_table_of_contents-label-table_of_contents_id-339: Recursos de Educación
+  translated_table_of_contents-label-table_of_contents_id-338: Enlaces educativos
+  translated_table_of_contents-label-table_of_contents_id-339: Recursos educativos
   translated_table_of_contents-label-table_of_contents_id-33: Tendencias
   translated_table_of_contents-label-table_of_contents_id-340: Serie de Laboratorio
     de Escuela Secundaria
@@ -360,28 +360,28 @@ es:
   translated_table_of_contents-label-table_of_contents_id-343: Biodiversity Heritage
     Library
   translated_table_of_contents-label-table_of_contents_id-344: Datos
-  translated_table_of_contents-label-table_of_contents_id-345: Fuentes de Datos
-  translated_table_of_contents-label-table_of_contents_id-346: Términos Biomédicos
+  translated_table_of_contents-label-table_of_contents_id-345: Fuentes de datos
+  translated_table_of_contents-label-table_of_contents_id-346: Términos biomédicos
   translated_table_of_contents-label-table_of_contents_id-347: Taxonomía
   translated_table_of_contents-label-table_of_contents_id-348: Información de Tipo
   translated_table_of_contents-label-table_of_contents_id-34: Comentarios
-  translated_table_of_contents-label-table_of_contents_id-3: Descripción Física
+  translated_table_of_contents-label-table_of_contents_id-3: Descripción física
   translated_table_of_contents-label-table_of_contents_id-41: Hábitat
   translated_table_of_contents-label-table_of_contents_id-4: Ecología
   translated_table_of_contents-label-table_of_contents_id-5: Evolución y Sistemática
   translated_table_of_contents-label-table_of_contents_id-6: Relevancia para los humanos
     y los ecosistemas
-  translated_table_of_contents-label-table_of_contents_id-7: Referencias y Más Información
+  translated_table_of_contents-label-table_of_contents_id-7: Referencias y más información
   translated_table_of_contents-label-table_of_contents_id-8: Conservación
   translated_untrust_reasons-label-untrust_reason_id-1: mal identificado
-  translated_untrust_reasons-label-untrust_reason_id-2: incorrecto / engañoso
+  translated_untrust_reasons-label-untrust_reason_id-2: incorrecto/engañoso
   translated_untrust_reasons-label-untrust_reason_id-3: baja calidad
   translated_untrust_reasons-label-untrust_reason_id-4: duplicado
   translated_untrust_reasons-label-untrust_reason_id-5: Otro
   translated_user_identities-label-user_identity_id-1: un naturalista
   translated_user_identities-label-user_identity_id-2: un estudiante
   translated_user_identities-label-user_identity_id-3: un educador
-  translated_user_identities-label-user_identity_id-4: un ciudadano cientifico
+  translated_user_identities-label-user_identity_id-4: un ciudadano científico
   translated_user_identities-label-user_identity_id-5: un cientifico profesional
   translated_vetted-label-vetted_id-0: Desconocido
   translated_vetted-label-vetted_id-4: Sin confianza

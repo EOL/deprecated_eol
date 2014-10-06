@@ -3745,7 +3745,6 @@ de:
   add_a_new_file_brackets: '[eine neue Datei hinzufügen]'
   add_a_new_role: Eine neue Nutzergruppe hinzufügen
   add_a_new_search_suggestion: Einen neuen Suchvorschlag hinzufügen
-  add_a_new_term: Einen neuen Begriff hinzufügen
   add_a_new_topic_area: Einen neuen Themenbereich hinzufügen
   add_a_new_user: Fügen Sie einen neuen Nutzer hinzu
   add_a_taxon_association_label: Fügen Sie eine neue Zuordnung zu einem Taxon hinzu
@@ -4138,10 +4137,11 @@ de:
     one: Gehört zu einer Gemeinschaft
     other: Gehört zu %{count} Gemeinschaften
   beta_warning_header: Sie verwenden eine Betatestfunktion
-  beta_warning_body: „Die meisten Nutzer können diese Funktion nicht sehen oder verwenden,
+  beta_warning_body: Die meisten Nutzer können diese Funktion nicht sehen oder verwenden,
     da sie sich unter aktiver Entwicklung befindet. Die Leistung und Daten können
-  0: nachdem Sie unsere Datenfähigkeiten überprüft haben.“
-  1: nachdem Sie unsere Datenpotentiale überprüft haben.“
+    unberechenbar sein, aber wir laden Sie zur Erforschung ein. Bitte füllen Sie unsere
+    <a href="https://www.surveymonkey.com/s/9FDTDQP">Umfrage</a> aus, nachdem Sie
+    unsere Datenmöglichkeiten überprüft haben.
   beta_warning_note_header: 'Hinweis:'
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Die Biodiversity Heritage Library besuchen
@@ -4554,9 +4554,6 @@ de:
   content_partner_contact_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten,
     so dass der Kontakt nicht aktualisiert werden konnte.
   content_partner_contacts_header: Kontakte
-  content_partner_create_successful_notice: Der Inhaltspartner wurde erfolgreich erstellt.
-  content_partner_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten,
-    so dass der Inhaltspartner nicht erstellt werden konnte.
   content_partner_current_agreement_empty: Keine Vereinbarung
   content_partner_current_agreement_signed_on_with_date: Unterzeichnet am %{date}
   content_partner_current_agreement_view_link: Ansehen
@@ -5124,7 +5121,6 @@ de:
   default_rating: Standardbewertung
   default_rating_value_of_total: 'Standardbewertung: %{rating} von %{total}'
   default_watch_collection_name: '%{username}s Beobachtungsliste'
-  definition: Definition
   delete_community: Diese Gemeinschaft löschen
   delete: löschen
   deleted_colon: 'löschte:'
@@ -5166,8 +5162,6 @@ de:
   edit_contact_us_topics: Themen zur Kontaktaufnahme bearbeiten
   edit: bearbeiten
   edited_colon: 'bearbeitet:'
-  edit_eol_glossary: EOL-Glossar bearbeiten
-  edit_glossary_term: Glossarbegriff bearbeiten
   edit_hierarchy: Hierarchie bearbeiten
   edit_collection_details: Informationen zur Sammlung bearbeiten
   edit_collection_details_header: Informationen zur Sammlung bearbeiten
@@ -5225,7 +5219,6 @@ de:
   eol_api_collections: 'EOL-API: Sammlungen'
   eol_colon: 'EOL:'
   eol_flickr_group: EOL-Flickr-Gruppe
-  eol_glossary: EOL-Glossar
   eol_news: Nachrichten der EOL
   eol_pages: Seiten
   error_log_detail: Fehlerprotokolldetail
@@ -5413,8 +5406,6 @@ de:
     API verwendet werden kann.
   for_images_to_reference_parens: (nach zu referenzierenden Bildern)
   for_pdfs_and_docs_parens: (nach PDF-Dateien und Dokumenten)
-  for_terms_or_definitions_conta: 'nach Bedingungen und Definitionen, die folgendes
-    enthalten:'
   form_validation_errors_for_attribute_assistive: Es ist ein Fehler bei der Überprüfung
     dieses Elements aufgetreten.
   fragment_caching_enabled: Fragmentzwischenspeicherung aktiviert
@@ -5452,10 +5443,7 @@ de:
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
   glossary: Glossar
-  glossary_is_empty: (Glossar ist leer)
   glossary_subhead: Glossar
-  glossary_term: Begriff
-  glossary_terms: Glossarbegriffe
   go_back: zurück
   go: Los
   google_analytic_results: Google-Analytics-Ergebnisse
@@ -5585,7 +5573,6 @@ de:
     dann eine Einladung in Ihre neue Gemeinschaft erhalten.
   ip_address: IP-Adresse
   ip: IP
-  term_is_already_def_error: „%{term}“ ist bereits definiert
   item_added_to_watch_collection_notice: „%{item_name}“ wurde der Sammlung %{collection_name}
     hinzugefügt.
   item_added_to_collection_notice: Das Objekt wurde der Sammlung <em>%{collection_name}</em>
@@ -5783,6 +5770,7 @@ de:
   login_or_create_account: Anmelden oder Nutzerkonto erstellen
   login_to_the_website_as: Anmeldung auf der Website als %{username}
   logo_header: Logo
+  logo_type_error: Das Logo ist kein gültiger Bildtyp (muss PNG oder JPEG sein).
   logout: Abmelden
   looking_up_url: URL wird aufgerufen …
   main_content_area: 'Hauptinhaltsbereich:'
@@ -6027,7 +6015,7 @@ de:
     Sammlungen kopiert: %{names}.'
   no_news_items_for_month_and_year: Keine Nachrichten für %{month_and_year}
   none: keine
-  "no": Nein
+  0: Nein
   num_content_partners: Anzahl der Inhaltspartner
   num_data_objects: Anzahl der Datenobjekte
   no_record_found_matching_your_criteria: Es wurde kein Datensatz gefunden, der Ihren
@@ -6652,7 +6640,6 @@ de:
   sub_heading: Untergeordnete Überschrift
   subject: Betreff
   submit: Speichern
-  submit_term: Begriff speichern
   submitting: Bitte warten …
   submitted_colon: 'Eingereicht:'
   suggested_attributes: 'Vorgeschlagene Attribute:'
@@ -6769,7 +6756,6 @@ de:
     zum Beispiel Falschschreibungen in der Literatur oder andere Variationen der Autorenschaft,
     verbunden mit dem Namen.
   technical_functions: Technische Funktionen
-  term_cannot_be_left_blank: Der Begriff darf nicht ausgelassen werden
   terms_agreement_form_fallback: Bitte lesen und akzeptieren Sie die <a href="%{terms_url}">Nutzungsbedingungen</a>,
     bevor Sie auf Ihr Konto zugreifen.
   terms_agreement_form_header: Nutzungsbedingungen
@@ -6839,7 +6825,6 @@ de:
     <i>in der Datenbank des Bereitstellers der Daten</i> entspricht.
   the_following_users_were_prese: 'Den folgenden Nutzern wurde die unten angezeigte
     Umfrage, mit Hilfe eines Aufklappfensters, angezeigt und nahmen an ihr teil:'
-  the_glossary_term_was_successf: Der Glossarbegriff wurde erfolgreich aktualisiert.
   the_id_of_provider_hierarchy_you_are_searching: die Kennung der vom Inhaltspartner
     bereitgestellten Hierarchie, die Sie durchsuchen. Unter %{link} sind die gültigen
     Kennungen angegeben.
@@ -6979,7 +6964,7 @@ de:
   translation_saved: Die Übersetzung wurde gespeichert
   translations_submit: Übersetzung anzeigen
   trigger_search_term_entered_by: den vom Nutzer eingegebenen Suchbegriff ansteuern
-  "true": Wahr
+  1: Wahr
   true_label: Wahr
   truncated_comment_omission: … <a href='%{link}'>mehr</a>
   truncated_comment_omission_linkless: …

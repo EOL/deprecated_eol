@@ -4,6 +4,7 @@
 # Author: McDutchie
 # Author: Toliño
 # Author: Vivaelcelta
+# Author: Xosecalvo
 ---
 gl:
   activerecord:
@@ -140,6 +141,11 @@ gl:
         pages_with_score_less_than_10: Páxinas cunha puntuación inferior a 10
         lifedesk_taxa: Taxons LifeDesks
         lifedesk_data_objects: Obxectos de datos LifeDesks
+        total_taxa_with_data: Páxinas con datos
+        total_triples: Triplas
+        total_occurrences: Aparicións
+        total_associations: Asociacións
+        total_user_added_data: Datos engadidos polos usuarios
       forum:
         forum_category_id: Categoría
         name: Nome do foro
@@ -162,6 +168,11 @@ gl:
         descriptive_label: Etiqueta descritiva
         label: Etiqueta
         request_publish: Solicitar a publicación
+      known_uri:
+        name: Nome
+        toc_items: Categorías
+        uri: URI
+        uri_type: Tipo de URI
       open_authentication:
         created_at: Creado
         guid: GUID
@@ -377,11 +388,11 @@ gl:
         logo_new: 'Cargar un novo logotipo:'
         notes: Notas do proxecto <small>(privadas)</small>
         oldest_published_harvest_event: Primeira publicación
-        is_public_more: Os perfís públicos dos provedores de contidos asociados son visibles
-          para todos e a información asociada inclúese nas listas de socios de contidos.
-          Desmarca esta opción para excluír os detalles das listas e restrinxir o
-          acceso aos perfís ao usuario que creou o socio de contidos e aos administradores
-          da EOL.
+        is_public_more: Os perfís públicos dos provedores de contidos asociados son
+          visibles para todos e a información asociada inclúese nas listas de socios
+          de contidos. Desmarca esta opción para excluír os detalles das listas e
+          restrinxir o acceso aos perfís ao usuario que creou o socio de contidos
+          e aos administradores da EOL.
         user_id: Detalles do socio de contidos xestionados por
       content_partner_agreement:
         mou_url: URL do ficheiro do acordo <small>(alternativa opcional)</small>
@@ -3197,7 +3208,6 @@ gl:
   add_a_new_file_brackets: '[engadir un novo ficheiro]'
   add_a_new_role: Engadir un novo rol
   add_a_new_search_suggestion: Engadir unha nova suxestión de procura
-  add_a_new_term: Engadir un novo termo
   add_a_new_topic_area: Engadir un novo tema
   add_a_new_user: Engadir un novo usuario
   add_a_taxon_association_label: Engadir unha asociación de taxon
@@ -3924,9 +3934,6 @@ gl:
   content_partner_contact_update_unsuccessful_error: Sentímolo, houbo un erro. Non
     se actualizou o contacto.
   content_partner_contacts_header: Contactos
-  content_partner_create_successful_notice: Creouse correctamente o socio de contidos.
-  content_partner_create_unsuccessful_error: Sentímolo, houbo un erro. Non se creou
-    o provedor de contidos.
   content_partner_current_agreement_empty: Sen acordo
   content_partner_current_agreement_signed_on_with_date: Asinado o %{date}
   content_partner_current_agreement_view_link: Ver
@@ -4344,7 +4351,6 @@ gl:
   default: Por defecto
   default_focus_collection_name_from_community: Punto de interese de %{name}
   default_watch_collection_name: Lista de vixilancia de %{username}
-  definition: Definición
   delete_community: Borrar esta comunidade
   delete: borrar
   deleted_colon: 'borrado:'
@@ -4379,8 +4385,6 @@ gl:
   edit_contact_us_topics: editar os temas de contacto
   edit: editar
   edited_colon: 'editado:'
-  edit_eol_glossary: editar o glosario da EOL
-  edit_glossary_term: Editar o termo do glosario
   edit_hierarchy: editar a xerarquía
   edit_collection_details: Editar os detalles da colección
   edit_collection_details_header: Editar os detalles da colección
@@ -4436,7 +4440,6 @@ gl:
   eol_api_collections: 'API da EOL: Coleccións'
   eol_colon: 'EOL:'
   eol_flickr_group: Grupo en Flickr da EOL
-  eol_glossary: Glosario da EOL
   eol_news: Novas da EOL
   eol_pages: Páxinas
   error_log_detail: Detalles no rexistro de erros
@@ -4602,7 +4605,6 @@ gl:
     contén o <i>identificador da EOL</i> a utilizar na API %{link}.
   for_images_to_reference_parens: (para as imaxes a referenciar)
   for_pdfs_and_docs_parens: (para os PDF e documentos)
-  for_terms_or_definitions_conta: 'para os termos ou definicións que conteñan:'
   form_validation_errors_for_attribute_assistive: Hai un erro de validación neste
     elemento
   fragment_caching_enabled: A caché dos fragmentos está activada
@@ -4639,9 +4641,6 @@ gl:
     indexada pola EOL e ás súas relacións internas
   global_access_tagline: Acceso global ao coñecemento sobre a vida na Terra
   global_navigation: Navegación global
-  glossary_is_empty: (o glosario está baleiro)
-  glossary_term: termo
-  glossary_terms: Termos do glosario
   go_back: volver
   go: Ir
   google_analytic_results: Resultados da análise do Google
@@ -4762,7 +4761,6 @@ gl:
     á túa comunidade!
   ip_address: Enderezo IP
   ip: IP
-  term_is_already_def_error: '"%{term}" xa está definido'
   item_added_to_watch_collection_notice: '"%{item_name}" engadiuse a %{collection_name}.'
   item_added_to_collection_notice: O elemento engadiuse á colección <em>%{collection_name}</em>
   item_details_missing: Sentímolo, houbo un erro. Non se recuperaron os detalles do
@@ -5711,7 +5709,6 @@ gl:
   sub_heading: Subcabeceira
   subject: asunto
   submit: Enviar
-  submit_term: Enviar o termo
   suggested_result_page_id: 'ID da páxina de resultados suxeridos:'
   suggested_results_avg: Media dos resultados suxeridos
   summary_thumbnail_title: 'Resumo:'
@@ -5817,7 +5814,6 @@ gl:
     grupo, por exemplo, nomes con faltas de ortografía na literatura ou diferentes
     variacións da autoría asociada ao nome.
   technical_functions: Funcións técnicas
-  term_cannot_be_left_blank: O termo non se pode deixar en branco
   terms_agreement_form_fallback: Bota unha ollada e acepta os <a href="%{terms_url}">termos
     de uso</a> antes de acceder á túa conta.
   terms_agreement_form_header: Termos de uso
@@ -5881,7 +5877,6 @@ gl:
     un dc:identifier que é o único ID do taxon <i>na base de datos do provedor</i>.
   the_following_users_were_prese: 'Os seguintes usuarios viron a ventá emerxente coa
     enquisa e responderon á petición de respondela, tal como se mostra a continuación:'
-  the_glossary_term_was_successf: O termo do glosario actualizouse correctamente.
   the_id_of_provider_hierarchy_you_are_searching: o ID da xerarquía do provedor dentro
     da que fas a procura. Revise %{link} para ollar os identificadores válidos
   the_image_from_this_source_has_not_been_reviewed: Non se revisou a imaxe desta fonte.

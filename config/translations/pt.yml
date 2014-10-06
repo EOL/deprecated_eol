@@ -1482,9 +1482,6 @@ pt:
   content_partner_contact_update_unsuccessful_error: Desculpe, ocorreu um erro, o
     contato não foi atualizado.
   content_partner_contacts_header: Contatos
-  content_partner_create_successful_notice: Parceiro de conteúdo criado com sucesso.
-  content_partner_create_unsuccessful_error: Desculpe, ocorreu um erro, o parceiro
-    de conteúdo não foi criado.
   content_partner_current_agreement_edit_link: Editar
   content_partner_data_description_header: Descrição dos dados
   content_partner_data_description_empty: Ninguém adicionou uma descrição dos dados
@@ -1753,7 +1750,6 @@ pt:
   default: Por defeito
   default_focus_collection_name_from_community: Foco de %{name}
   default_watch_collection_name: Páginas vigiadas por %{username}
-  definition: Definição
   delete_community: Eliminar esta comunidade
   delete: eliminar
   deleted_colon: 'eliminado:'
@@ -1782,7 +1778,6 @@ pt:
   edit_contact_us_topics: editar tópicos do contato
   edit: editar
   edited_colon: 'editado:'
-  edit_eol_glossary: editar glossário EOL
   edit_hierarchy: editar hierarquia
   edit_collection_details: Editar detalhes da coleção
   edit_collection_details_header: Editar detalhes da coleção
@@ -1812,7 +1807,6 @@ pt:
   eol_api_search: 'EOL API: Pesquisa'
   eol_api_collections: 'EOL API: Coleções'
   eol_colon: 'EOL:'
-  eol_glossary: Glossário EOL
   eol_news: Notícias EOL
   eol_pages: Páginas
   error_401_page_title: Não autorizado

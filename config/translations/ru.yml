@@ -25,6 +25,7 @@
 # Author: Orsa
 # Author: Putnik
 # Author: Sprinter
+# Author: Striking Blue
 # Author: Александр Сигачёв
 ---
 ru:
@@ -201,6 +202,7 @@ ru:
         description: Описание
         exclude_from_exemplars: Удалить из Обзора
         group_by_clade: Использовать для диапазона таксономических групп
+        hide_from_glossary: Скрыть данные из Глоссария
         name: Имя
         toc_items: Категории
         uri: URI
@@ -1595,18 +1597,45 @@ ru:
           meta_keywords: '%{scientific_name} коллекций, %{scientific_name} наблюдений,
             %{hierarchy_provider} коллекций, %{hierarchy_provider} наблюдений, %{hierarchy_provider}
             образцов'
+          meta_title: Сборники %{scientific_name} проклассифицированы %{hierarchy_provider}.
+          meta_title_with_common_name: Сборники %{preferred_common_name} (%{scientific_name}
+            проклассифицировано %{hierarchy_provider})
+          tweet_text: Сборники %{scientific_name} проклассифицированы %{hierarchy_provider}.
         meta_description: Коллекции, содержащие %{scientific_name}.
         meta_description_with_common_name: Коллекции, содержащие %{preferred_common_name}
           (%{scientific_name}).
+        meta_keywords: '%{scientific_name} Сборники, %{scientific_name} наблюдения'
+        meta_keywords_with_common_name: '%{preferred_common_name} Сборники, %{preferred_common_name}
+          Наблюдения, %{scientific_name} Сборники, %{scientific_name} Наблюдения'
         meta_title: Коллекции %{scientific_name}.
         meta_title_with_common_name: Коллекции по теме %{preferred_common_name}(%{scientific_name})
         tweet_text: Коллекции по теме %{scientific_name}
       curators:
+        hierarchy_entry:
+          meta_title: Кураторы %{scientific_name}, проклассифицировано %{hierarchy_provider}.
+          meta_title_with_common_name: Эксперты на %{preferred_common_name} (%{scientific_name}
+            проклассифицировано %{hierarchy_provider})
+          tweet_text: Кураторы %{scientific_name}, проклассифицировано %{hierarchy_provider}.
+        meta_description_with_common_name: Эксперты %{preferred_common_name} (также
+          известны как эксперты %{scientific_name}), которые контролируют свои данные
+          в Энциклопедии Жизни.
+        meta_keywords: '%{scientific_name} Эксперты, %{scientific_name} Кураторы'
+        meta_keywords_with_common_name: '%{preferred_common_name} Эксперты, %{preferred_common_name}
+          Кураторы, %{scientific_name} Эксперты, %{scientific_name} Кураторы'
         meta_title: Кураторы %{scientific_name}
         meta_title_with_common_name: Эксперты по %{preferred_common_name} (%{scientific_name})
         tweet_text: Кураторы %{scientific_name}
     data:
       index:
+        data_disclaimer: "<a href=\"%{traitbank_info_path}\">TraitBank</a> \nсобирает
+          записи данных из многих поставщиков. Выберите строку для подробностей о
+          записи или <a href=\"%{traitbank_search_path}\">ищите TraitBank</a>."
+        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+          собирает записи данных из многих поставщиков. Выберите строку для подробностей
+          о записи или <a href="%{traitbank_search_path}">ищите в %{taxon_name}</a>.
+        hierarchy_entry:
+          meta_description: Факты %{scientific_name} проклассифицированы по %{hierarchy_provider}
+            в Энциклопедии Жизнь.
         meta_title: Измерения и факты о %{scientific_name}
         tweet_text: Факты о %{scientific_name}
     details:
@@ -1618,6 +1647,11 @@ ru:
         tweet_text: Статьи о %{scientific_name}
     literature:
       show:
+        meta_description: Книги, статьи и библиографии на %{scientific_name} в Encyclopedia
+          of Life. Читать литературу о %{scientific_name} на Encyclopedia of Life.
+        meta_description_with_common_name: Книги, статьи и библиографии о %{preferred_common_name},
+          также известном как %{scientific_name} в Encyclopedia of Life. Читать литературу
+          о %{preferred_common_name} на Encyclopedia of Life.
         meta_title: Статьи и книги о %{scientific_name}
         meta_title_with_common_name: Статьи и книги о %{preferred_common_name} (%{scientific_name})
         tweet_text: Статьи и книги о %{scientific_name}
@@ -1798,7 +1832,6 @@ ru:
   add_a_new_file_brackets: '[добавить новый файл]'
   add_a_new_role: Добавить новую роль
   add_a_new_search_suggestion: Добавить новое предложение поиска
-  add_a_new_term: Добавить новый термин
   add_a_new_topic_area: Добавить новую тему
   add_a_new_user: Добавить нового пользователя
   add_a_taxon_association_label: Добавить сопоставление таксона

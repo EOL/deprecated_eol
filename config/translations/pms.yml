@@ -3349,4 +3349,386 @@ pms:
           an_unknown_user_split_classifications_from_an_unknown_taxon: N'utent ësconossù
             a l'ha dividù le classificassion për %{classifications} da na pàgina sconossùa
             a <a href='%{to}'>soa pròpia pàgina</a>.
+          an_unknown_user_split_classifications_from_taxon: N'utent ësconossù a l'ha
+            dividù le classificassion për %{classifications} da %{taxon} a <a href='%{to}'>soa
+            pròpia pàgina</a>.
+          an_unknown_user_split_classifications_from_it: N'utent ësconossù a l'ha
+            dividù le classificassion për %{classifications} a <a href='%{to}'>soa
+            pròpia pàgina</a>.
+          user_split_classifications_from_an_unknown_taxon: <strong>%{user}</strong>
+            a l'ha dividù le classificassion për %{classifications} da na pàgina sconossùa
+            a <a href='%{to}'>soa pròpia pàgina</a>.
+          user_split_classifications_from_taxon: <strong>%{user}</strong> a l'ha dividù
+            le classificassion për %{classifications} da %{taxon} a <a href='%{to}'>soa
+            pròpia pàgina</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> a l'ha dividù
+            le classificassion për %{classifications} a <a href='%{to}'>soa pròpia
+            pàgina</a>.
+        merge:
+          an_unknown_user_merged_to_an_unknown_taxon: N'utent ësconossù a l'ha unì
+            doe pàgine sconossùe.
+          an_unknown_user_merged_to_taxon: N'utent ësconossù a l'ha unì n'àutra pàgina
+            con %{target}.
+          an_unknown_user_merged_to_it: N'utent ësconossù a l'ha unì n'àutra pàgina
+            con costa-sì.
+          user_merged_to_it: <strong>%{user}</strong> a l'ha uni n'àutra pàgina con
+            costa-sì.
+          user_merged_to_an_unknown_taxon: <strong>%{user}</strong> a l'ha unì doe
+            pàgine sconossùe.
+          user_merged_to_taxon: <strong>%{user}</strong> a l'ha unì n'aùtra pàgina
+            con %{target}.
+        move:
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: N'utent
+            ësconossù a l'ha tramudà le classificassion për %{classifications} da
+            na pàgina sconossùa a n'àutra pàgina sconossùa.
+          an_unknown_user_moved_classifications_from_an_unknown_taxon_to_taxon: N'utent
+            ësconossù a l'ha tramudà le classificassion për %{classifications} da
+            na pàgina sconossùa a %{target}.
+          an_unknown_user_moved_classifications_from_taxon_to_an_unknown_taxon: N'utent
+            ësconossù a l'ha tramudà le classificassion për %{classifications} da
+            %{taxon} a na pàgina sconossùa.
+          an_unknown_user_moved_classifications_from_it_to_an_unknown_taxon: N'utent
+            ësconossù a l'ha tramudà le classificassion për %{classifications} a na
+            pàgina sconossùa.
+          an_unknown_user_moved_classifications_from_taxon_to_taxon: N'utent ësconossù
+            a l'ha tramudà le classificassion për %{classifications} da %{taxon} a
+            %{target}.
+          an_unknown_user_moved_classifications_from_it_to_taxon: N'utent ësconossù
+            a l'ha tramudà le classificassion për %{classifications} a %{target}.
+          user_moved_classifications_from_an_unknown_taxon_to_an_unknown_taxon: <strong>%{user}</strong>
+            a k'ha tramudà le classificassion për %{classifications} da na pàgina
+            sconossùa a na pàgina sconossùa.
+          user_moved_classifications_from_an_unknown_taxon_to_taxon: <strong>%{user}</strong>
+            a l'ha tramudà le classificassion për %{classifications} da na pàgina
+            sconossùa a %{target}.
+          user_moved_classifications_from_taxon_to_an_unknown_taxon: <strong>%{user}</strong>
+            a l'ha tramudà le classificassion për %{classifications} da %{taxon} a
+            na pàgina sconossùa.
+          user_moved_classifications_from_it_to_an_unknown_taxon: <strong>%{user}</strong>
+            a l'ha tramudà le classificassion për %{classifications} a na pàgina sconossùa.
+          user_moved_classifications_from_taxon_to_taxon: <strong>%{user}</strong>
+            a l'ha tramudà le classificassion për %{classifications} da %{taxon} a
+            %{target}.
+          user_moved_classifications_from_it_to_taxon: <strong>%{user}</strong> a
+            l'ha tramudà le classificassion për %{classifications} a %{target}.
+      split:
+        an_unknown_user_split_unknown_entry_from_an_unknown_taxon: N'utent ësconossù
+          a l'ha dividù na classificassion ësconossùa da na tassonomìa sconossùa.
+        an_unknown_user_split_unknown_entry_from_it: N'utent ësconossù a l'ha separà
+          na classificassion ësconossùa.
+        an_unknown_user_split_unknown_entry_from_taxon: N'utent ësconossù a l'ha divisù
+          na classificassion ësconossùa da "%{taxon}".
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> a
+          l'ha dividù na classificassion ësconossùa da na tassonomìa sconossùa.
+        user_split_unknown_entry_from_it: <strong>%{user}</strong> a l'ha separà na
+          classificassion ësconossùa.
+        user_split_unknown_entry_from_taxon: <strong>%{user}</strong> a l'ha separà
+          na classificassion Ësconossìa da "%{taxon}".
+        an_unknown_user_split_entry_from_an_unknown_taxon: N'utent ësconossù a l'ha
+          dividù la classificassion da "%{provider}" da na tassonomìa sconossùa.
+        an_unknown_user_split_entry_from_it: N'utent ësconossù a l'ha separà la classificassion
+          da "%{provider}".
+        an_unknown_user_split_entry_from_taxon: N'utent ësconossù a l'ha dividù la
+          classificassion da "%{provider}" da "%{taxon}".
+        user_split_entry_from_an_unknown_taxon: <strong>%{user}</strong> a l'ha dividù
+          la classificassion da "%{provider}" da na tassonomìa sconossùa.
+        user_split_entry_from_it: <strong>%{user}</strong> a l'ha dividu la classificassion
+          da "%{provider}".
+        user_split_entry_from_taxon: <strong>%{user}</strong> a l'ha dividù la classificassion
+          da "%{provider}" da "%{taxon}".
+      merge:
+        an_unknown_user_merged_unknown_entry_to_an_unknown_taxon: N'utent ësconossù
+          a l'ha tramudà na classificassion ësconossùa a na tassonomìa sconossùa.
+        an_unknown_user_merged_unknown_entry_to_it: N'utent ësconossù a l'ha giontà
+          na classificassion ësconossùa.
+        an_unknown_user_merged_unknown_entry_to_taxon: N'utent ësconossù a l'ha tramudà
+          na classificassion ësconossùa a "%{taxon}".
+        user_merged_unknown_entry_to_an_unknown_taxon: <strong>%{user}</strong> a
+          l'ha tramudà na classificassion ësconossùa a na tassonomìa sconossùa.
+        user_merged_unknown_entry_to_it: <strong>%{user}</strong> a l'ha giontà na
+          classificassion ësconossùa.
+        user_merged_unknown_entry_to_taxon: <strong>%{user}</strong> a l'ha tramudà
+          na classificassion ësconossùa a "%{taxon}".
+        an_unknown_user_merged_entry_to_an_unknown_taxon: N'utent ësconossù a l'ha
+          tramudà la classificassion da "%{provider}" a na tassonomìa sconossùa.
+        an_unknown_user_merged_entry_to_it: N'utent ësconossù a l'ha giontà la classificassion
+          da "%{provider}".
+        an_unknown_user_merged_entry_to_taxon: N'utent ësconossù a l'ha tramudà la
+          classificassion da "%{provider}" a "%{taxon}".
+        user_merged_entry_to_an_unknown_taxon: <strong>%{user}</strong> a l'ha tramudà
+          la classificassion da "%{provider}" a na tassonomìa sconossùa.
+        user_merged_entry_to_it: <strong>%{user}</strong> a l'ha giontà la classificassion
+          da "%{provider}".
+        user_merged_entry_to_taxon: <strong>%{user}</strong> a l'ha tramudà la classificassion
+          da "%{provider}" a "%{taxon}".
+      unlock:
+        merge_of_an_unknown_taxon_unlocked: L'union ëd pàgine che chiel a l'ha ciamà
+          ëd recent a l'é completà, ma la pàgina a l'é introvàbil.
+        merge_of_it_unlocked: L'union ch'a l'ha ciamà ëd recent su costa pàgina a
+          l'é completasse.
+        merge_of_taxon_unlocked: L'union ëd pàgine che a l'ha ciamà ëd recent për
+          "%{taxon}" a l'é completasse.
+        move_of_an_unknown_taxon_unlocked: Ël tramud ëd classificassion ch'a l'ha
+          ciamà ëd recent a l'é completà, ma la pàgina a l'é introvàbil.
+        move_of_it_unlocked: Ël tramud ëd classificassion ch'a l'ha ciamà ëd recent
+          su costa pàgina a l'é completà.
+        move_of_taxon_unlocked: Ël tramud ëd classificassion ch'a l'ha ciamà ëd recent
+          për "%{taxon}" a l'é completà.
+        split_of_an_unknown_taxon_unlocked: La division ëd classificassion che chiel
+          a l'ha ciamà ëd recent a l'é completà, ma la pàgina as treuva nen.
+        split_of_it_unlocked: La division ëd classificassion ch'a l'ha ciamà ëd recent
+          su costa pàgina a l'é completà e le classificassion a l'é stàita tramudà
+          a <a href='%{to}'>soa pròpia pàgina</a>.
+        split_of_taxon_unlocked: La division ëd classificassion ch'a l'ha ciamà ëd
+          recent për "%{taxon}" a l'é completà a le classificassion a son ëstàite
+          tramudà a <a href='%{to}'>soa pròpia pàgina</a>.
+      unlock_with_error:
+        merge_of_an_unknown_taxon_unlocked_with_error: 'La fusion ëd pàgine che chiel
+          a l''ha ciamà ëd recent a l''ha <strong>failed</strong>: %{error}. An dzorpì,
+          la pàgina relativa as peul nen trovesse.'
+        merge_of_it_unlocked_with_error: 'La fusion ch''a l''ha ciamà ëd recent su
+          costa pàgina <strong>a l''ha falì</strong>: %{error}.'
+        merge_of_taxon_unlocked_with_error: 'La fusion ëd pàgina ch''a l''ha ciamà
+          ëd recent për "%{taxon}" a l''ha <strong>falì</strong>: %{error}.'
+        move_of_an_unknown_taxon_unlocked_with_error: 'Ël tramud ëd classificassion
+          che chiel a l''ha ciamà ëd recent a l''ha <strong>failed</strong>: %{error}.
+          An dzorpì, la pàgina relativa as peul nen trovesse.'
+        move_of_it_unlocked_with_error: 'Ël tramud ëd classificassion ch''a l''ha
+          ciamà ëd recent su costa pàgina <strong>a l''ha falì</strong>: %{error}.'
+        move_of_taxon_unlocked_with_error: 'Ël tramud ëd classificassion che chiel
+          a l''ha ciamà ëd recent për %{taxon}" a l''ha <strong>falì</strong>: %{error}.'
+        split_of_an_unknown_taxon_unlocked_with_error: 'La division ëd classificassion
+          che chiel a l''ha ciamà ëd recent a l''ha <strong>falì</strong>: %{error}.
+          An dzorpì, la pàgina anteressà as treuva nen.'
+        split_of_it_unlocked_with_error: 'La division ëd classificassion che chiel
+          a l''ha ciamà ëd recent su costa pàgina <strong>a l''ha falì</strong>: %{error}.'
+        split_of_taxon_unlocked_with_error: 'La division ëd classificassion che chiel
+          a l''ha ciamà ëd recent për "%{taxon}" a l''ha <strong>falì</strong>: %{error}.'
+      crop:
+        an_unknown_user_cropped_an_older_data_object: N'utent ësconossù a l'ha modificà
+          la plancia ëd "%{data_object}".
+        an_unknown_user_cropped_an_unknown_data_object: N'utent ësconossù a l'ha modificà
+          la plancia ëd na figura sconossùa.
+        an_unknown_user_cropped_data_object: N'utent ësconossù a l'ha modificà la
+          plancia ëd la figura ëd "%{data_object}".
+        user_cropped_an_older_data_object: <strong>%{user}</strong> a l'ha modificà
+          la plancia ëd na veja version ëd "%{data_object}".
+        user_cropped_an_unknown_data_object: <strong>%{user}</strong> a l'ha modificà
+          la plancia ëd na figura sconossùa.
+        user_cropped_data_object: <strong>%{user}</strong> a l'ha modificà la plancia
+          dla figura ëd "%{data_object}".
+        an_unknown_user_cropped_it: N'utent ësconossù a l'ha modificà la plancia ëd
+          na figura sconossùa.
+        user_cropped_it: <strong>%{user}</strong> a l'ha modificà la plancia ëd na
+          figura sconossùa.
+      user_added_data:
+        an_unknown_user_create_data_on_an_unknown_taxon: N'utent ësconossù a l'ha
+          giontà dij dàit a na pàgina sconossùa.
+        an_unknown_user_create_data_on_taxon: N'utent ësconossù a l'ha giontà dij
+          dàit a «%{taxon}».
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha giontà
+          dij dàit a na pàgina sconossùa.
+        user_create_data_on_taxon: <strong>%{user}</strong> a l'ha giontà dij dàit
+          a «%{taxon}».
+        an_unknown_user_update_data_on_an_unknown_taxon: N'utent ësconossù a l'ha
+          agiornà dij dàit an s'na pàgina sconossùa.
+        an_unknown_user_update_data_on_taxon: N'utent ësconossù a l'ha agiornà dij
+          dàit su «%{taxon}».
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> a l'ha agiornà
+          dij dàit an s'na pàgina sconossùa.
+        user_update_data_on_taxon: <strong>%{user}</strong> a l'ha agiorn;a dij dàit
+          su «%{taxon}».
+      other_actions:
+        an_unknown_user_curated_an_older_data_object: N'utent ësconossù a l'ha goernà
+          na veja version ëd «%{data_object}».
+        an_unknown_user_curated_an_unknown_data_object: N'utent ësconossù a l'ha goernà
+          n'oget ëd dàit sconossù.
+        an_unknown_user_curated_data_object: N'utent ësconossù a l'ha goernà «%{data_object}».
+        user_curated_an_older_data_object: <strong>%{user}</strong> a l'ha goernà
+          na veja version ëd "%{data_object}".
+        user_curated_an_unknown_data_object: <strong>%{user}</strong> a l'ha goernà
+          n'oget ëd dàit sconossù.
+        user_curated_data_object: <strong>%{user}</strong> a l'ha goernà "%{data_object}".
+        an_unknown_user_curated_it: N'utent ësconossù a l'ha goernalo, ma l'assion
+          precisa a l'é përdusse.
+        user_curated_it: <strong>%{user}</strong> a l'ha goernalo, ma l'assion precisa
+          a l'é përdusse.
+  a_maximum_of_30_results_are_returned: un màssim ëd 30 arzultà a l'é smonù për pàgina.
+    Ës paràmeter-sì a-j përmet d'oten-e pi 'd pàgine d'arzultà s'a-i na j'é pi che
+    30
+  activity_log_empty: Gnun a l'ha ancor fornì d'agiornament.
+  activity_user_created_data: <strong>%{user}</strong> a l'ha giontà dij dàit a propòsit
+    ëd «%{object_name}» a «%{taxon_concept}».
+  activity_user_created_link: <strong>%{user}</strong> a l'ha giontà na liura a "%{object_name}"
+    su "%{taxon_concept}".
+  activity_user_created_text: <strong>%{user}</strong> a l'ha giontà dël test a «%{object_name}»
+    a propòsit ëd «%{taxon_concept}».
+  activity_user_updated_link: <strong>%{user}</strong> a l'ha agiornà la liura ëd
+    "%{object_name}" su "%{taxon_concept}".
+  activity_user_updated_text: <strong>%{user}</strong> a l'ha agiornà ël test «%{object_name}»
+    a propòsit ëd «%{taxon_concept}».
+  add_a_collection_to_a_community: Gionté «%{collection}» a na comunità
+  add_a_comment: Gionté un coment.
+  add_a_comment_colon: 'Gionté un coment:'
+  add: Gionté
+  add_a_new_common_name: Gionté un neuv nòm comun
+  add_a_new_file_brackets: '[gionté un neuv archivi]'
+  add_a_new_role: Gionté un neuv ròl
+  add_a_new_search_suggestion: Gionté un neuv sugeriment d'arserca
+  add_a_new_topic_area: Gionté na neuva temàtica
+  add_a_new_user: Gionté un neuv utent
+  add_a_taxon_association_label: Gionté n'associassion ëd tassonomìa
+  add_another_metadata_field: Gionté un neuv camp ëd metadàit
+  add_article_instead: gionté pitòst n'artìcol
+  add_article_to_page_button: Gionté n'artìcol
+  add_association_submit_button: gionté l'associassion
+  add_brief_summary_to_page_link_button: Gionté un curt resumé a costa pàgina
+  add_citizen_science_resources_to_page_link_button: Gionté na liura përsonal ëd siensià
+    a costa pàgina
+  add_classifications: gionté la classificassion selessionà për ël tramud
+  add_collection_to_a_new_community: Gionté «%{collection}» a na neuva comunità
+  add_collection_to_community: Gionté la colession a la comunità
+  add_education_resources_to_page_link_button: Gionté dj'arsorse educative a costa
+    pàgina
+  add_identification_resources_to_page_link_button: Gionté dj'arsorse d'identificassion
+    a sa pàgina
+  add_item_to_new_collection: Gionté «%{item}» a na neuva colession
+  add_language: Gionté na lenga
+  add_link_instead: gionté pitòst na liura
+  add_link_to_page_button: Gionté na liura
+  add_new_association_link: Gionté na neuva associassion
+  add_new_tag_suggestion: Gionté un neuv sugeriment ëd tichëtta
+  add_new_known_uri_link: Gionté un neuv URI
+  add_page: Gionté na pàgina
+  add_sub_chapter: Gionté un sot-capìtol
+  add_to_a_community: Gionté a na comunità
+  add_to_my_collection_button: Gionté a na colession
+  admin_content_page_active: Publicà
+  admin_content_page_not_active: Nen publicà
+  admin_content_page_child_new_link: Creé na sot-pàgina
+  admin_content_page_create_successful_notice: La pàgina <a href="#%{anchor}"><em>%{page_name}</em></a>
+    a l'é stàita creà për da bin.
+  admin_content_page_create_unsuccessful_error: An dëspias, a l'é capitaje n'eror;
+    la pàgina a l'é nen ëstàita creà.
+  admin_content_page_delete_confirmation: É-lo sigur ëd vor;ej scancelé "%{page_name}"
+    e tute soe tradussion? Le pàgine scancelà a peulo pi nen esse arcuperà.
+  admin_content_page_delete_successful_notice: La pàgina %{page_name} e le tradussion
+    associà a son ëstàite scancelà.
+  admin_content_page_edit_header: Agiorné j'anformassion ëd base për <em>%{page_name}</em>
+  admin_content_page_edit_tip: As arcomanda ëd nen modifiché ël nòm ùnich ëd costa
+    pàgina, gavà che chiel as renda bin cont dle conseguense, comprèis l'efet an sle
+    liure a costa pàgina o ij përcors nominà. Un nòm ùnich a l'é %{required_icon}
+    necessari
+  admin_content_page_new_header: Creé na neuva pàgina ëd contnù
+  admin_content_page_new_link: Creé na pàgina neuva
+  admin_content_page_new_tip: Buté j'anformassion ëd base a propòsit ëd costa pàgina.
+    Un nòm ùnich a l'é %{required_icon} necessari.
+  admin_content_page_parent_option_root: Gnun parent
+  admin_content_page_root: Rèis
+  admin_content_page_sort_order_updated: L'órdin dle pàgine a l'é stàit modificà.
+  admin_content_page_update_successful_notice: La pàgina <a href="#%{anchor}"><em>%{page_name}</em></a>
+    a l'é stàita agiornà për da bin.
+  admin_content_page_update_unsuccessful_error: An dëspias, a l'é rivaje n'eror; la
+    pàgina a l'ha pa podù esse agiornà.
+  admin_content_pages_empty: Gnun-a pàgina ëd contnù trovà.
+  admin_content_pages_index_information: La lista sì-dapress a comprend tute le pàgine
+    stàtiche ch'a son al moment disponìbil an sël sit an sl'Aragnà dl'EdV. Minca na
+    pàgina a l'ha un-a o pi tradussion. Cand a crea na pàgina neuva, a-j sarà ciamà
+    ëd gionté na tradussion. Le tradussion publicà a saran acessìbij ëd fasson pùblica.
+  admin_content_pages_link: Gestion dël contnù
+  admin_content_pages_page_title: 'Aministrassion: gestion dël contnù'
+  admin_content_partners_index_header: Cambrada ëd contnù
+  admin_content_partners_link: Cambrada ëd contnù
+  admin_content_partners_page_title: 'Aministrassion: gestion dij cambrada ëd contnù'
+  admin_content_partners_notifications_link: Notìfiche
+  admin_content_partners_notifications_page_title: 'Aministrassion: notìfiche ai cambrada
+    ëd contnù'
+  admin_content_partners_notifications_sent_to_recipients_header: 'Dle notìfiche a
+    son ëstàite mandà a:'
+  admin_content_partners_notifications_statistics_reminder_header: Arciam dle statìstiche
+    d'utilisassion an sl'aragnà
+  admin_content_partners_notifications_statistics_reminder_description: 'A manda un
+    mëssage ëd pòsta eletrònica a tuti ij contat dij cambrada ëd contnù për anformeje
+    ch''a peulo adess consulté le statìstiche d''utilisassion an sl''Aragnà dij sò
+    dàit dël mèis passà. Nòta: l''ativassion manual ëd costa notìfica a l''é na solussion
+    temporania ch''a dovrìa esse eliminà na vira ch''a-i sia na solussion automatisà.'
+  admin_content_partners_notifications_statistics_reminder_send_submit: Mandé n'arciam
+  admin_content_partners_notifications_statistics_reminder_send_confirmation: É-lo
+    sigur ëd vorèj mandé ël mëssage d'arciam dle statìstiche d'utilisassion an sl'aragnà
+    a tuti ij cambrada ëd contnù?
+  admin_content_partners_statistics_date_from_label: Da
+  admin_content_partners_statistics_date_to_label: A
+  admin_content_partners_statistics_first_published_header: Arsorse publicà për la
+    prima vira
+  admin_content_partners_statistics_first_published_caption: Cambrada ëd contnù cpn
+    dj'arsorse publicà për la prima vira antra %{date_from} e %{date_to}.
+  admin_content_partners_statistics_first_published_empty: Gnun-a arsorsa ëd cambrada
+    Ëd contnù a l'é stàita publicà antra %{date_from} e %{date_to}.
+  admin_content_partners_statistics_first_published_download_csv_submit: Dëscarié
+    coma CSV
+  admin_content_partners_statistics_link: Statìstiche
+  admin_content_partners_statistics_page_title: 'Aministrassion: statìstiche dij cambrada
+    ëd contnù'
+  admin_home: intrada d'aministrassion
+  admin_news_item_active: Publicà
+  admin_news_item_create_successful_notice: L'element ëd neuve <a href="#%{anchor}"><em>%{page_name}</em></a>
+    a l'é stàit creà për da bin.
+  admin_news_item_create_unsuccessful_error: An dëspias, a l'é rivaje n'eror, l'element
+    ëd neuve a l'é nen ëstàit creà.
+  admin_news_item_delete_confirmation: É-lo sigur ëd vorèj scancelé "%{page_name}"
+    e tute soe tradussion? Le pàgine scancelà a peulo pi esse arcuperà.
+  admin_news_item_delete_successful_notice: L'element ëd neuve %{page_name} e le tradussion
+    associà a son ëstàite scancelà.
+  admin_news_item_edit_header: Agiorné j'anformassion ëd l'element ëd neuve për <em>%{page_name}</em>
+  admin_news_item_edit_tip: A l'é arcomandà ëd nen modifiché ël nòm ùnich ëd cost
+    element ëd neuve, gavà che chiel a sia bin cossient ëd le conseguense, comprèis
+    j'efet an sle liure vers costa pàgina o ij përcors nominà. Un nòm ùnich a l'é
+    %{required_icon} obligatòri.
+  admin_news_item_new_link: Creé n'element ëd neuve
+  admin_news_item_new_header: Creé un neuv element ëd neuve
+  admin_news_item_new_tip: Buté j'anformassion ëd base a propòsit ëd costa pàgina.
+    Un nòm ùnich a l'é %{required_icon} necessari.
+  admin_news_item_not_active: Nen publicà
+  admin_news_item_update_successful_notice: Element ëd neuve <a href="#%{anchor}"><em>%{page_name}</em></a>
+    agiornà për da bin.
+  admin_news_item_update_unsuccessful_error: An dëspias, a l'é rivaje n'eror, l'element
+    ëd neuve a l'ha pa podù esse agiornà.
+  admin_news_items_empty: Gnun element ëd neuve trovà.
+  admin_news_items_index_information: La lista sì-dapress a conten tuti j'element
+    ëd neuve ch'a son al moment disponìbij an sël sit an sl'Aragnà dl'EdV e ëdcò j'element
+    ëd neuve futur. Minca na pàgina a l'ha un-a o pi tradussion. Cand a crea n'element
+    ëd neuve a-j sarà ciamà ëd gionté na tradussion. Le tradussion publicà a son acessìbij
+    ëd fasson pùblica.
+  admin_news_items_page_title: 'Aministrassion: Neuve'
+  admin_news_link: Neuve
+  admin_notes_not_visible_to_user: 'Nòte d''aministrassion (nen visìbij da l''utent):'
+  admin_information: Costa a l'é la neuva antërfassa d'aministrassion ëd l'EdV v2.
+    I soma an camin a tramudé le fonsionalità d'aministrassion da la version 1. Si
+    la session d'aministrassion ch'a sërca a-i é nen, për piasì ch'a vada a vëdde
+    l'<a href="/administrator">l'antërfassa d'aministrassion v1</a>.
+  admin_options_warning: Le modìfiche ambelessì a peulo avèj damanca ëd 10 minute
+    për esse efetive.
+  admin_option_all_users_can_see_data: Tuti j'utent a peulo s-ciairé ij dàit, nen
+    mach coj con n'autorisassion.
+  admin_link: Vista a l'angròss
+  admin_page_title: 'Aministrassion: vista global'
+  admin_simple_actions_header: 'Assion sempie:'
+  admin_spam_delete: Scancelé la rumenta
+  admin_statistics_link: Statìstiche
+  admin_translated_content_page_create_successful_notice: La tradussion a l'é stàita
+    giontà a <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_content_page_create_unsuccessful_error: An dëspias, a l'é rivaje
+    n'eror, la tradussion a l'ha nen podù esse giontà,
+  admin_translated_content_page_delete_confirmation: É-lo sigur ëd vorèj scancelé
+    la version %{language} ëd "%{page_name}"? Le pàgine scancelà a peulo pi nen esse
+    arcuperà.
+  admin_translated_content_page_delete_successful_notice: La tradussion an %{language}
+    ëd la pàgina <em>%{page_name}</em> a l'é stàita scancelà.
+  admin_translated_content_page_edit_subheader: Modifiché la tradussion an %{language}
+    ëd <em>%{page_name}</em>
+  admin_translated_content_page_edit_tip: Ël tìtol e ël còrp ëd la pàgina a son %{required_icon}
+    necessari.
+  admin_translated_content_page_new_header: Ch'a serna na lenga e ch'a gionta ël contnù
+  admin_translated_content_page_new_tip: La lenga, ël tìtol e ël còrp ëd la pàgina
+    a son %{required_icon} necessari.
 ...

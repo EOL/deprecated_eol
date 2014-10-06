@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Chrisportelli
+# Author: Leli Forte
 ---
 mt:
   translated_activities-name-activity_id-19: profil
@@ -108,7 +109,7 @@ mt:
   translated_ranks-label-rank_id-175: infraspeċi
   translated_ranks-label-rank_id-183: renju
   translated_ranks-label-rank_id-266: ordni
-  translated_ranks-label-rank_id-280: filu
+  translated_ranks-label-rank_id-280: phylum
   translated_ranks-label-rank_id-313: setta
   translated_ranks-label-rank_id-314: setta.
   translated_ranks-label-rank_id-317: sezzjoni
@@ -133,7 +134,7 @@ mt:
   translated_ranks-label-rank_id-415: sottospeċi
   translated_ranks-label-rank_id-422: sottotribù
   translated_ranks-label-rank_id-463: superfamilja
-  translated_ranks-label-rank_id-472: superfilu
+  translated_ranks-label-rank_id-472: superphylum
   translated_ranks-label-rank_id-494: tribù
   translated_ranks-label-rank_id-503: mhux klassifikat
   translated_ranks-label-rank_id-512: var

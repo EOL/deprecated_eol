@@ -425,11 +425,11 @@ ia:
         logo_new: 'Incargar un nove logo:'
         notes: Notas del projecto <small>(private)</small>
         oldest_published_harvest_event: Prime publication
-        is_public_more: Le profilos public de partner de contento es visibile pro omnes,
-          e le information super le partner es includite in listas de partners de
-          contento. Dismarca iste option pro excluder le detalios del partner de contento
-          del listas e pro restringer le accesso al profilos al usator qui ha create
-          le partner de contento e al administratores de EOL.
+        is_public_more: Le profilos public de partner de contento es visibile pro
+          omnes, e le information super le partner es includite in listas de partners
+          de contento. Dismarca iste option pro excluder le detalios del partner de
+          contento del listas e pro restringer le accesso al profilos al usator qui
+          ha create le partner de contento e al administratores de EOL.
         user_id: Detalios del partner de contento gerite per
       content_partner_agreement:
         mou_url: URL del file de accordo <small>(optional alternative)</small>
@@ -1860,7 +1860,6 @@ ia:
   add_a_new_file_brackets: '[adder un nove file]'
   add_a_new_role: Adder un nove rolo
   add_a_new_search_suggestion: Adder un nove suggestion de recerca
-  add_a_new_term: Adder un nove termino
   add_a_new_topic_area: Adder un nove area thematic
   add_a_new_user: Adder un nove usator
   add_a_taxon_association_label: Adder un association de taxon
@@ -2363,9 +2362,6 @@ ia:
   content_partner_contact_update_unsuccessful_error: Un error ha occurrite, e le contacto
     non ha essite actualisate.
   content_partner_contacts_header: Contactos
-  content_partner_create_successful_notice: Partner de contento create con successo.
-  content_partner_create_unsuccessful_error: Un error ha occurrite, e le partner de
-    contento non ha essite create.
   content_partner_current_agreement_empty: Nulle accordo
   content_partner_current_agreement_signed_on_with_date: Signate le %{date}
   content_partner_current_agreement_view_link: Vider
@@ -2508,7 +2504,6 @@ ia:
     one: '%{count} collection approbate'
     other: '%{count} collectiones approbate'
   eol_colon: 'EOL:'
-  eol_glossary: Glossario de EOL
   eol_news: Novas de EOL
   explore: Explorar
   feedback: Commentos

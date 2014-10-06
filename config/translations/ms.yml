@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Anakmalaysia
+# Author: Pizza1016
 ---
 ms:
   activerecord:
@@ -2226,7 +2227,6 @@ ms:
   add_a_new_file_brackets: '[tambahkan fail baru]'
   add_a_new_role: Tambahkan peranan baru
   add_a_new_search_suggestion: Tambahan cadangan carian baru
-  add_a_new_term: Tambahkan istilah baru
   add_a_new_topic_area: Tambahkan bidang topik baru
   add_a_new_user: Tambahkan pengguna baru
   add_a_taxon_association_label: Nyatakan perkaitan takson
@@ -2694,9 +2694,6 @@ ms:
   content_partner_contact_update_unsuccessful_error: Maaf, berlakunya ralat, hubungan
     tidak dapat dikemaskinikan.
   content_partner_contacts_header: Hubungan
-  content_partner_create_successful_notice: Rakan kongsi kandungan berjaya dicipta.
-  content_partner_create_unsuccessful_error: Maaf, berlakunya ralat, rakan kongsi
-    kandungan tidak dapat dicipta.
   content_partner_current_agreement_empty: Tiada perjanjian
   content_partner_current_agreement_signed_on_with_date: Ditandatangani pada %{date}
   content_partner_current_agreement_view_link: Lihat
@@ -3039,7 +3036,6 @@ ms:
   edit_community: Sunting komuniti
   edit_contact_us_topics: sunting topik 'hubungi kami'
   edit: sunting
-  edit_eol_glossary: sunting glosari EOL
   edit_hierarchy: sunting hierarki
   edit_collection_details: Sunting butiran koleksi
   edit_collection_details_header: Sunting butiran koleksi
@@ -3069,7 +3065,6 @@ ms:
   eol_api_search: 'EOL API: Cari'
   eol_api_collections: 'EOL API: Koleksi'
   eol_colon: 'EOL:'
-  eol_glossary: Daftar Istilah EOL
   eol_news: Berita EOL
   eol_pages: Halaman
   error_404_page_title: Tidak dijumpai
@@ -3264,7 +3259,6 @@ ms:
     akan menerima jemputan ke komuniti baru anda!
   ip_address: Alamat IP
   ip: IP
-  term_is_already_def_error: '''%{term}'' sudah ditakrifkan'
   item_added_to_watch_collection_notice: '"%{item_name}" ditambahkan ke dalam %{collection_name}.'
   item_added_to_collection_notice: Perkara ditambahkan ke dalam koleksi <em>%{collection_name}</em>
   item_details_missing: Maaf, berlakunya ralat, butiran perkaran tidak dapat diterima.
@@ -3633,7 +3627,7 @@ ms:
     ataupun Wikipedia yang menunggu pemeriksaan oleh kurator EOL. Tidak termasuk rencana-rencana
     pada halaman-halaman yang muncul dalam pengelasan di bawah halaman ini.</p>
   pages_curator_section_link: Kurator
-  pages_admin_section_link: Pentadbir
+  pages_admin_section_link: Penyelia
   pages_method_description: mengambil pengenal pasti halaman EOL dan memulangkan nama
     saintifik untuk halaman itu, dan boleh juga memulangkan maklumat tentang nama
     am, media (teks, gambar, video), dan rujukan kepada hierarki yang mengenali takson

@@ -460,8 +460,8 @@ pt-BR:
         logo_new: 'Carregar um novo logotipo:'
         notes: Notas de projeto <small>(privado)</small>
         oldest_published_harvest_event: Primeira publicação
-        is_public_more: Perfis públicos de parceiros de conteúdo são visíveis para todos
-          e informações de parceiro está incluído na lista de parceiros de conteúdo.
+        is_public_more: Perfis públicos de parceiros de conteúdo são visíveis para
+          todos e informações de parceiro está incluído na lista de parceiros de conteúdo.
           Desmarque a opção de excluir conteúdo detalhes de parceiras de listagens
           e restringir o acesso ao perfil para o usuário que criou o parceiro de conteúdo
           e administradores EOL.
@@ -3369,7 +3369,6 @@ pt-BR:
   add_a_new_file_brackets: '[adicionar um novo arquivo]'
   add_a_new_role: Adicionar um novo papel
   add_a_new_search_suggestion: Adicione uma nova sugestão de pesquisa
-  add_a_new_term: Adicionar um novo termo
   add_a_new_topic_area: Adicionar uma nova área de tópicos
   add_a_new_user: Adicionar um novo usuário
   add_a_taxon_association_label: Adicionar uma associação taxon
@@ -3409,9 +3408,9 @@ pt-BR:
     foram eliminadas.
   admin_content_page_edit_header: Atualizar as informações básicas sobre a página
     de <em>%{page_name}</em>
-  admin_content_page_edit_tip: Recomenda-se que não edite o nome único desta página
+  admin_content_page_edit_tip: É recomendável não editar o nome único desta página
     a não ser que esteja plenamente consciente das consequências, incluindo o impacto
-    das ligações para esta página, ou a rotas nomeadas. É %{required_icon} necessário
+    dos links para esta página, ou para rotas nomeadas. É %{required_icon} necessário
     um nome único.
   admin_content_page_new_header: Crie uma nova página de conteúdo
   admin_content_page_new_link: Criar nova página
@@ -4019,9 +4018,6 @@ pt-BR:
   content_partner_contact_update_unsuccessful_error: Desculpe, ocorreu um erro, o
     contato não foi atualizado.
   content_partner_contacts_header: Contatos
-  content_partner_create_successful_notice: Parceiro de conteúdo criado com sucesso.
-  content_partner_create_unsuccessful_error: Desculpe, ocorreu um erro, o parceiro
-    de conteúdo não foi criado.
   content_partner_current_agreement_empty: Sem acordo
   content_partner_current_agreement_view_link: Ver
   content_partner_current_agreement_edit_link: Editar
@@ -4427,7 +4423,6 @@ pt-BR:
   default: Padrão
   default_focus_collection_name_from_community: Foco de %{name}
   default_watch_collection_name: Páginas vigiadas por %{username}
-  definition: Definição
   delete_community: Excluir esta Comunidade
   delete: excluir
   deleted_colon: 'eliminado:'
@@ -4461,8 +4456,6 @@ pt-BR:
   edit_contact_us_topics: editar tópicos do contato
   edit: Editar
   edited_colon: 'editado:'
-  edit_eol_glossary: editar glossário EOL
-  edit_glossary_term: Editar Termos do Glossário
   edit_hierarchy: editar hierarquia
   edit_collection_details: Editar detalhes da coleção
   edit_collection_details_header: Editar detalhes da coleção
@@ -4512,7 +4505,6 @@ pt-BR:
   eol_api_collections: 'EOL API: Coleções'
   eol_colon: 'EOL:'
   eol_flickr_group: Grupo do Flickr da EOL
-  eol_glossary: Glossário EOL
   eol_news: Novidades EOL
   eol_pages: Páginas
   error_log_detail: Detalhe de log de erro
@@ -4562,8 +4554,8 @@ pt-BR:
   explore: Explore
   explore_what_we_know_about_taxon: Explore o que EOL conhece sobre %{taxon}.
   export_this_list_as_csv: Exportar esta lista como CSV
-  external_link_header: Ligação externa
-  external_link_icon_alt_text: Ligação externa.
+  external_link_header: Link externo
+  external_link_icon_alt_text: Link externo
   external_report_click_url_to_proceed: Relatório externo. Clique no URL para prosseguir.
   external_report_click_year_to_proceed: Relatório externo. Clique no ano para prosseguir.
   facebook: Facebook
@@ -4650,7 +4642,6 @@ pt-BR:
   forgot_password_cannot_find_user_from_username_or_email_error: Desculpe, não há
     contas de usuário com o nome de usuário ou e-mail fornecido de <em>%{username_or_email}</em>.
   for_images_to_reference_parens: (para imagens à referência)
-  for_terms_or_definitions_conta: 'de termos ou definições que contenham:'
   form_validation_errors_for_attribute_assistive: Há um erro de validação sobre este
     elemento
   fragment_caching_enabled: Cache de fragmento ativado
@@ -4682,9 +4673,6 @@ pt-BR:
     indexada pelo EOL e as suas relações internas
   global_access_tagline: Acesso global ao conhecimento sobre a vida na terra.
   global_navigation: Navegação global
-  glossary_is_empty: (glossário está vazio)
-  glossary_term: termo
-  glossary_terms: Termos do glossário
   go_back: voltar
   go: Ir
   google_analytic_results: Resultados do Google Analytics
@@ -4775,7 +4763,6 @@ pt-BR:
     para a sua nova comunidade!
   ip_address: Endereço de IP
   ip: IP
-  term_is_already_def_error: '''%{term}'' já está definido'
   item_added_to_watch_collection_notice: '"%{item_name}" foi adicionado a %{collection_name}.'
   item_added_to_collection_notice: Item foi adicionado à coleção <em>%{collection_name}</em>
   item_details_missing: Desculpe, ocorreu um erro, não foi possível recuperar detalhes
@@ -5440,8 +5427,8 @@ pt-BR:
   taxon_identification_resources_link: Recursos de identificação
   taxon_multimedia_links_link: Links multimídia
   taxon_nucleotide_sequences_link: Sequências de Nucleotídeos
-  taxon_partner_links_empty: Parceiros de conteúdo não forneceram as ligações de origem
-    sobre esta página ainda.
+  taxon_partner_links_empty: Os parceiros de conteúdo ainda não provideciaram os links
+    da fonte sobre esta página.
   taxon_partner_links_empty_learn_more_link: Saiba como se tornar um parceiro de conteúdo
   taxon_page_content_disclaimer: Conteúdo EOL é automaticamente montado a partir de
     diversos fornecedores de conteúdos diferentes. Como resultado, ao longo do tempo
@@ -5462,7 +5449,6 @@ pt-BR:
     erros de ortografia na literatura ou diferentes variações da autoria associado
     com o nome.
   technical_functions: Funções Técnicas
-  term_cannot_be_left_blank: O termo não pode ser deixado em branco
   terms_agreement_form_fallback: Por favor, reveja e concorde com os <a href="%{terms_url}">termos
     de uso</a> antes de acessar sua conta.
   terms_agreement_form_header: Termos de uso
@@ -5506,7 +5492,6 @@ pt-BR:
   the_following_users_were_prese: 'Os seguintes usuários foram presenteados com a
     janela pop-up de pesquisa e responderam ao pedido para participar da pesquisa,
     como mostrado abaixo:'
-  the_glossary_term_was_successf: O termo do glossário foi atualizado com sucesso.
   the_id_of_provider_hierarchy_you_are_searching: o ID da hierarquia do provedor que
     você está procurando. Checar %{link} para IDs válidos
   the_image_from_this_source_has_not_been_reviewed: A imagem a partir desta fonte
@@ -5534,10 +5519,10 @@ pt-BR:
   this_comment_was_deleted: Este comentário foi apagado.
   this_community_has_no_focus_list: Esta comunidade não tem nenhuma lista de foco.
   this_community_was_deleted: Esta comunidade foi excluída por seu dono.
-  this_does_not_necessarily_mean: '* isto não significa necessariamente que as ligações
-    estão sendo utilizadas, apenas que eles são definidos no database.yml --- você
-    deve verificar a "config/environments/%{env}.rb" arquivo para ver se as conexões
-    de mestre estão configuradas'
+  this_does_not_necessarily_mean: '* isto não significa necessariamente que os links
+    estão sendo usados, apenas que estão definidos no database.yml --- você deve verificar
+    a "config/environments/%{env}.rb" arquivo para ver se as conexões de mestre estão
+    configuradas'
   this_is_a_flat_list_of_10_million_strings: Esta é uma lista simples de 10 milhões
     de caracteres - não o vamos deixar navegar por ela
   this_is_a_focus_collection_for_community: Este é o foco da %{community}.

@@ -1647,7 +1647,6 @@ cs:
   edit_contact_us_topics: Upravit témata kontaktování
   edit: Upravit
   edited_colon: 'upraveno:'
-  edit_eol_glossary: upravit EOL rejstřík
   edit_hierarchy: upravit hierarchii
   edit_collection_details: Upravit podrobnosti o sbírce
   edit_collection_details_header: Upravit podrobnosti o sbírce
@@ -1673,7 +1672,6 @@ cs:
   eol_api_search: 'EOL API:  Vyhledávání'
   eol_api_collections: 'EOL API: Sbírky'
   eol_colon: 'EOL:'
-  eol_glossary: EOL rejstřík
   eol_news: EOL Novinky
   eol_pages: Stránky
   error_404_page_title: Nenalezeno
@@ -1759,7 +1757,6 @@ cs:
   invite_members_label: Pozvat členy
   ip_address: IP adresa
   ip: IP
-  term_is_already_def_error: '''%{term}'' je již definován.'
   item_type_article: Článek
   item_type_image: Obrázek
   item_type_person: Osoba

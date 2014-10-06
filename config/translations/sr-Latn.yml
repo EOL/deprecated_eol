@@ -214,11 +214,11 @@ sr-Latn:
         logo_new: 'Otpremi novi logotip:'
         notes: Beleške projekta <small>(privatno)</small>
         oldest_published_harvest_event: Prvo objavljeno
-        is_public_more: Javni profili partnera za sadržaj vidljivi su za svakoga. Podaci
-          o svakom partneru se nalaze u spisku partnera. Deštriklirajte ovo ako želite
-          da izuzmete detalje u spisku i da ograničite pristup do profila korisnika,
-          tj. da može da pristupi samo onome ko je napravio partnera i administratore
-          na EOL-u.
+        is_public_more: Javni profili partnera za sadržaj vidljivi su za svakoga.
+          Podaci o svakom partneru se nalaze u spisku partnera. Deštriklirajte ovo
+          ako želite da izuzmete detalje u spisku i da ograničite pristup do profila
+          korisnika, tj. da može da pristupi samo onome ko je napravio partnera i
+          administratore na EOL-u.
         user_id: S detaljima partnera za sadržaj rukovodi
       content_partner_agreement:
         mou_url: Adresa dogovora <small>(po izboru)</small>
@@ -704,7 +704,6 @@ sr-Latn:
   add_a_new_file_brackets: '[dodaj novu datoteku]'
   add_a_new_role: Dodaj novu ulogu
   add_a_new_search_suggestion: Dodaj novi predlog za pretragu
-  add_a_new_term: Dodaj novi pojam
   add_a_new_topic_area: Dodaj novu tematsku oblast
   add_a_new_user: Dodaj novog korisnika
   add_a_taxon_association_label: Dodaj vezu na taksonu
@@ -1207,9 +1206,6 @@ sr-Latn:
   content_partner_contact_update_unsuccessful_error: Nažalost, došlo je do greške.
     Ne mogu da ažuriram kontakt.
   content_partner_contacts_header: Kontakti
-  content_partner_create_successful_notice: Partner za sadržaj je napravljen.
-  content_partner_create_unsuccessful_error: Nažalost, došlo je do greške. Ne mogu
-    da napravim partnera za sadržaj.
   content_partner_current_agreement_empty: Nema ugovora
   content_partner_current_agreement_signed_on_with_date: Potpisano dana %{date}
   content_partner_current_agreement_view_link: Pregled
@@ -1537,7 +1533,6 @@ sr-Latn:
   default: Podrazumevano
   default_focus_collection_name_from_community: Privrženost %{name}
   default_watch_collection_name: Zbirka korisnika %{username}
-  definition: Tumačenje
   delete_community: Obriši ovu zajednicu
   delete: obriši
   deleted_colon: 'obrisano:'
@@ -1568,8 +1563,6 @@ sr-Latn:
   edit_contact_us_topics: uredi teme o kontaktiranju
   edit: uredi
   edited_colon: 'uređeno:'
-  edit_eol_glossary: uredi rečnik EOL-a
-  edit_glossary_term: Uredi pojam u pojmovniku
   edit_hierarchy: uredi hijerarhiju
   edit_collection_details: Uredi detalje o zbirci
   edit_collection_details_header: Uređivanje detalja o zbirci
@@ -1620,7 +1613,6 @@ sr-Latn:
   eol_api_collections: 'EOL API: zbirke'
   eol_colon: 'EOL:'
   eol_flickr_group: Grupa na Flikru
-  eol_glossary: Rečnik
   eol_news: Vesti
   eol_pages: Stranice
   error_log_detail: Detalji o dnevniku greške
@@ -1730,7 +1722,6 @@ sr-Latn:
     <i>EOL naznaku</i> koja se koristi u API-ju %{link}.
   for_images_to_reference_parens: (za slike kojima treba navođenje)
   for_pdfs_and_docs_parens: (za dokumente)
-  for_terms_or_definitions_conta: 'za pojmove ili tumačenja koja sadrže:'
   form_validation_errors_for_attribute_assistive: Pojavila se greška pri proveravanju
     ovog elementa
   fragment_caching_enabled: Keširanje odlomaka je omogućeno
@@ -1764,8 +1755,6 @@ sr-Latn:
     koja je popisana od strane EOL-a i njegovih unutrašnjih međuodnosa
   global_access_tagline: Globalni pristup znanju o životu na Zemlji
   global_navigation: Opšta navigacija
-  glossary_is_empty: (pojmovnik je prazan)
-  glossary_terms: Unosi u pojmovniku
   go_back: nazad
   go: Idi
   google_analytic_results: Rezultati Gugl analitike
@@ -1865,7 +1854,6 @@ sr-Latn:
     za vašu novu zajednicu.
   ip_address: IP adresa
   ip: IP adresa
-  term_is_already_def_error: pojam „%{term}“ je već određen
   item_added_to_watch_collection_notice: Stavka „%{item_name}“ je dodata u %{collection_name}.
   item_added_to_collection_notice: Stavka je dodata u zbirku <em>%{collection_name}</em>
   item_details_missing: Nažalost, došlo je do greške. Ne mogu da preuzmem detalje
@@ -2613,7 +2601,6 @@ sr-Latn:
   sub_heading: Podnaslov
   subject: predmet
   submit: Pošalji
-  submit_term: Pošalji pojam
   suggested_result_page_id: 'Naznaka za stranicu predloženih rezultata:'
   suggested_results_avg: Predloženi rezultati (prosečno)
   supplier: Dobavljač
@@ -2679,7 +2666,6 @@ sr-Latn:
   taxon_selected_from_search_res: Izabran takson iz rezultata
   taxon_suggested: Predloženi takson
   technical_functions: Tehničke mogućnosti
-  term_cannot_be_left_blank: Pojam ne može da ostane prazan
   terms_agreement_form_fallback: Pročitajte i prihvatite <a href="%{terms_url}">uslove
     korišćenja</a> pre nego što pristupite nalogu.
   terms_agreement_form_header: Uslovi korišćenja
@@ -2732,7 +2718,6 @@ sr-Latn:
     <i>u bazi dobavljača.</i>
   the_following_users_were_prese: 'Sledećim korisnicima je prikazan iskačući anketni
     prozor, a oni su odgovorili na molbu da popune dolenavedenu anketu:'
-  the_glossary_term_was_successf: Unos u pojmovniku je ažuriran.
   the_id_of_provider_hierarchy_you_are_searching: naznaka dobavljačke hijerarhije
     koju tražite. Proverite %{link} za ispravne naznake
   the_image_from_this_source_has_not_been_reviewed: Slika s ovog izvora nije pregledana.

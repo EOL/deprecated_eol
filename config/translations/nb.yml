@@ -3149,7 +3149,6 @@ nb:
   add_a_new_file_brackets: '[legg til en ny fil]'
   add_a_new_role: Legg til en ny rolle
   add_a_new_search_suggestion: Legg til et nytt søkforslag
-  add_a_new_term: Legg til et nytt begrep
   add_a_new_topic_area: Legg til et nytt emneområde
   add_a_new_user: Legg til en ny bruker
   add_a_taxon_association_label: Legg til en tilknytning til et takson
@@ -3701,7 +3700,6 @@ nb:
   default: Standard
   default_focus_collection_name_from_community: '%{name}s fokus'
   default_watch_collection_name: '%{username}s overvåkningsliste'
-  definition: Definisjon
   delete_community: Slett dette brukersamfunnet
   delete: slett
   deleted_colon: 'slettet:'
@@ -3725,8 +3723,6 @@ nb:
   edit_community: Rediger brukersamfunn
   edit: Rediger
   edited_colon: 'redigert:'
-  edit_eol_glossary: rediger EOL ordliste
-  edit_glossary_term: Rediger ordlistebegrep
   edit_hierarchy: rediger hierarki
   edit_collection_details: Rediger samlingsdetaljer
   edit_collection_details_header: Rediger samlingsdetaljer
@@ -3755,7 +3751,6 @@ nb:
   eol_api_collections: 'EOL API: Samlinger'
   eol_colon: 'EOL:'
   eol_flickr_group: EOL Flickr-gruppe
-  eol_glossary: EOL-ordliste
   eol_news: EOL-nyheter
   eol_pages: Sider
   error_403_page_title: Forbudt
@@ -3832,9 +3827,6 @@ nb:
   given_name_colon: 'Fornavn:'
   global_access_tagline: Global tilgang til kunnskap om livet på jorden.
   global_navigation: Global navigasjon
-  glossary_is_empty: (ordlisten er tom)
-  glossary_term: begrep
-  glossary_terms: Ordlistebegrep
   go_back: gå tilbake
   go: Gå
   google_analytic_results: Google Analytics-resultater
@@ -4349,7 +4341,6 @@ nb:
   sub_heading: Underoverskrift
   subject: emne
   submit: Send inn
-  submit_term: Send inn begrep
   summary_thumbnail_title: 'Sammendrag:'
   supplier: Leverandør
   supplier_allcaps: 'LEVERANDØR:'

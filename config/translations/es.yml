@@ -14,6 +14,7 @@
 # Author: Erick mata
 # Author: Fitoschido
 # Author: Fortega
+# Author: FuzzyDice
 # Author: Invadinado
 # Author: Jacobo
 # Author: Jcfidy
@@ -44,7 +45,7 @@ es:
         sort_style_id: La dirección por defecto de ordenación
         logo: Imagen principal de la colección
         additional_annotation_fields: Campos de anotación adicionales
-        show_references: Referencias (Texto o URL)
+        show_references: Referencias (texto o URL)
       collection_job:
         overwrite: Reemplazar duplicados
       collection_item:
@@ -255,11 +256,11 @@ es:
         i_am_being_watched: Ha sido agregado a la lista de seguimiento de otro miembro
         eol_newsletter: Envienme el boletín trimestral de EOL
       resource:
-        accesspoint_url: Conjunto de datos URL
+        accesspoint_url: URL del conjunto de datos
         auto_publish: Publicar automáticamente
         bibliographic_citation: Cita bibliográfica
-        dataset: Archivo de conjunto de datos
-        description: Descripción de recursos
+        dataset: Archivo del conjunto de datos
+        description: Descripción del recurso
         dwc_archive_url: Darwin Core Archivo URL
         dataset_source_url: Fuente de Datos Original
         dataset_hosted_url: Fuente de datos (copia local)
@@ -273,7 +274,7 @@ es:
         notes: Notas de procesamiento
         resource_status_id: Estado de recursos
         rights_holder: Posesor de derechos prediterminado
-        rights_statement: Declaración de los derechos de forma predeterminada
+        rights_statement: Declaración de los derechos predeterminada
         title: Nombre del recurso
         vetted: Aprobado
       translated_content_page:
@@ -335,9 +336,9 @@ es:
         exclusion: está reservado
         invalid: no es válido
         confirmation: no coincide con la confirmación
-        accepted: Aceptación bligatoria
-        empty: no lo puede dejar vacío
-        blank: No lo puede dejar en blanco
+        accepted: debe estar aceptado
+        empty: no puede estar vacío
+        blank: no puede estar en blanco
         too_long:
           one: es demasiado largo (el máximo es %{count} carácter
           other: es demasiado largo (el máximo son %{count} caracteres)
@@ -346,20 +347,20 @@ es:
           other: es demasiado corto (el mínimo son %{count} caracteres)
         wrong_length: es longitud mal (debe ser %{count} caracteres)
         not_a_number: no es un número
-        not_an_integer: necesita ser un numero entero.
+        not_an_integer: debe ser un número entero
         greater_than:
-          one: necesita ser mayor que %{count}
-          other: necesitan ser mayores que %{count}
-        greater_than_or_equal_to: necesita ser mayor que o igual a% {count}
-        equal_to: necesita ser igual a% {count}
+          one: debe ser mayor que %{count}
+          other: deben ser mayores que %{count}
+        greater_than_or_equal_to: debe ser mayor que o igual a %{count}
+        equal_to: debe ser igual a %{count}
         less_than:
           one: debe ser menor que %{count}
           other: deben ser menores que %{count}
-        less_than_or_equal_to: necesita ser menor que o igual a % {count}
-        odd: necesita ser impar
-        even: necesita ser par
+        less_than_or_equal_to: debe ser menor que o igual a %{count}
+        odd: debe ser impar
+        even: debe ser par
         inaccessible: es inaccesible
-        wrong_type: es tipo incorecto
+        wrong_type: es el tipo incorrecto
         models:
           inaccessible: es inaccesible
       full_messages:
@@ -368,7 +369,7 @@ es:
         data_object:
           attributes:
             rights_holder:
-              blank: No puede estar vacío para una licencia CC-BY
+              blank: no puede estar vacío para una licencia CC BY
               inclusion: debe estar en blanco si la licencia es de Dominio Público
         harvest_event:
           attributes:
@@ -454,8 +455,8 @@ es:
         active_more: Las páginas publicadas serás visibles para el público. Desmarque
           <em>published</em> si desea evitar que los usuarios en general puedan ver
           las versiones de esta página en cualquier idioma.
-        page_name: Nombre único <small>(en minúsculas ISO caracteres básicos América
-          alfanuméricos y subrayados)</small>
+        page_name: Nombre único <small>(caracteres alfanuméricos del alfabeto ISO
+          Latino básico, en minúsculas y subrayados)</small>
         page_name_more: Introduzca un único identificador de auto descriptivo y significativo
           y persistente para esta página. El nombre que introduzca aquí se utiliza
           para generar el URL de esta página, por ejemplo, el <em>terms_of_use</em>
@@ -479,7 +480,7 @@ es:
         latest_published_harvest_event: Última publicación
         logo_current: 'Logotipo actual:'
         logo_new: 'Subir un nuevo logotipo:'
-        notes: Notas del proyecto <small>(privados)</small>
+        notes: Notas del proyecto <small>(privadas)</small>
         oldest_published_harvest_event: Primera publicación
         is_public_more: Los perfiles de los socios de contenido público son visibles
           para todos y la información de los asociados se incluye en los listados
@@ -520,10 +521,10 @@ es:
           por las licencias  Creative Commons Attribution (CC-BY), por favor declare
           la atribución <q cite="http://creativecommons.org/licenses/by/3.0"> del
           modo especificado por el autor o licenciatario</q>.
-        source_url: URL a el original objeto de datos
+        source_url: URL al objeto original de datos
       data_object_link:
         description: Descripción <small>(se permite algo de formato HTML)</small>
-        source_url: Dirección URL del enlace
+        source_url: URL del enlace
         toc_item: Asunto
         link_type: Categoría
       data_search:
@@ -531,11 +532,11 @@ es:
         max: Valor máximo
         max_with_val: 'Valor máximo: %{val}'
         max_placeholder: Introduzca un número
-        max_placeholder_disabled: Rango deshabilitado
+        max_placeholder_disabled: Intervalo deshabilitado
         min: Valor mínimo
         min_with_val: 'Valor mínimo: %{val}'
         min_placeholder: Introduzca un número
-        min_placeholder_disabled: Rango deshabilitado
+        min_placeholder_disabled: Intervalo deshabilitado
         q: Valor específico
         q_with_val: 'Valor específico: %{val}'
         q_placeholder: Introduzca una palabra, frase o número
@@ -606,7 +607,7 @@ es:
       resource:
         administration_settings: Opciones de administración <small>(sólo visible para
           los administradores de EOL)</small>
-        accesspoint_url: Conjunto de datos URL
+        accesspoint_url: URL del conjunto de datos
         accesspoint_url_existing_remove: Actualmente este recurso se está cargando
           desde la URL que termina por <em>%{accesspoint_url}</em>. Sube un archivo
           si desea eliminar la dirección URL existente y cargar el recurso de un archivo
@@ -629,7 +630,7 @@ es:
         resource_status: Estado
         resource_url_or_file: Datos de recursos <small>(elija introducir un URL o
           cargar un archivo)</small>
-        resource_url_or_file_url: Cargar recursos de URL
+        resource_url_or_file_url: Cargar recurso de URL
         resource_url_or_file_upload: Subir archivo de recursos
         title: Nombre del recurso
       session:
@@ -781,12 +782,12 @@ es:
         preview: Previsualización
         update: Actualizar página
       content_partner:
-        create: Crear contenido socio
-        update: Guardar la información de contenido socio
+        create: Crear socio de contenido
+        update: Guardar información del socio de contenido
       content_partner_agreement:
         create: Crear un nuevo acuerdo
         update: Actualizar el acuerdo
-        agree: Aceptar los términos de los contenidos asociados
+        agree: Aceptar los términos de los socios de contenidos
       content_partner_contact:
         create: Agregar contacto
         update: Actualizar contacto
@@ -804,7 +805,7 @@ es:
       harvest_event:
         publish: Publicar
       hierarchy:
-        update: Actualizar a jerarquía
+        update: Actualizar la jerarquía
         request_publish: Solicitar la promoción de jerarquía
       name:
         create: Agregar nombre
@@ -850,9 +851,9 @@ es:
       wikipedia_queue:
         create: Enviar solicitud
   will_paginate:
-    next_label: Próxima &#8594;
+    next_label: Próxima
     page_gap: '&hellip;'
-    previous_label: '&#8592; Anterior'
+    previous_label: Anterior
   datepicker:
     day_names:
     - Domingo
@@ -1184,7 +1185,7 @@ es:
       delete_successful: Un nuevo tema (hilo de conversación) se ha eliminado correctamente
       delete_failed_not_empty: el hilo no puede eliminarse porque no está vacío
   known_uris:
-    add_a_relationship: Agregar una Relación
+    add_a_relationship: Agregar una relación
     equivalent_to: Relaciones de equivalencia
     import_successful: Términos de ontología importados con éxito
     more_than_one_field_mapped_to_type: Más de un atributo está asignado a "%{type}"
@@ -1224,7 +1225,7 @@ es:
       header_questions: Más información
       about_link_what_is_eol: ¿Qué es EOL?
       about_link_traitbank: ¿Qué es TraitBank?
-      about_link_eol_blog: El Blog de EOL
+      about_link_eol_blog: El blog de EOL
       about_link_discover: Descubrir
       about_link_statistics: Estadísticas
       about_link_glossary: Glosario
@@ -1232,7 +1233,7 @@ es:
       about_link_donate: Donar a EOL
       about_link_citing: Citar a EOL
       about_link_help: Ayuda
-      about_link_terms_of_use: Condiciones de Uso
+      about_link_terms_of_use: Condiciones de uso
       about_link_contact_us: Contáctanos
       learn_more_link_animals: Animales
       learn_more_link_mammals: Mamíferos
@@ -1267,8 +1268,8 @@ es:
       questions_link_model_organism: ¿Qué es un organismo modelo?
       questions_link_contributing_to_research: ¿Cómo puedo contribuir a la investigación?
     data_search:
-      page_header: Búsqueda TraitBank
-      page_header_results: Resultados de la búsqueda TraitBank
+      page_header: Buscar en TraitBank
+      page_header_results: Resultados de la búsqueda en TraitBank
     footer:
       google_plus: Enciclopedia de la Vida en Google+
     taxa:
@@ -1574,7 +1575,7 @@ es:
   recent_activities:
     index:
       list_header: Últimos 7 días
-      page_title: Actividad de la Comunidad EOL
+      page_title: Actividad de la comunidad EOL
       meta_title: Actividad de la comunidad EOL
       meta_keywords: actividad de la comunidad EOL, actividad reciente EOL, enciclopedia
         de las actividades de la vida
@@ -1875,7 +1876,7 @@ es:
           vive %{preferred_common_name}
         meta_title: Mapas de %{scientific_name}
         meta_title_with_common_name: Mapas de %{preferred_common_name} (%{scientific_name})
-        tweet_text: Mapas sobre %{scientific_name}
+        tweet_text: Mapas de %{scientific_name}
     media:
       index:
         hierarchy_entry:
@@ -2192,7 +2193,7 @@ es:
     new:
       complete_registration_header: Completar tu registro en EOL
       create_user_header: Crear una nueva cuenta <abbr title="Encyclopedia of Life">EOL</abbr>
-      create_user_with_eol_authentication_header: 'O proporcionar nuevas credenciales:'
+      create_user_with_eol_authentication_header: 'O proporciona nuevas credenciales:'
       meta_title: Únete a EOL
       sign_up_with_facebook_assistive: Suscríbete a EOL utilizando tus credenciales
         de Facebook.
@@ -2446,9 +2447,9 @@ es:
     add_data_header: Contribuir con sus propios datos
     additional_fields: Datos acerca de este documento
     edit_data_header: Edite sus datos
-    add_metadata_header: Información Adicional
+    add_metadata_header: Información adicional
     edit_metadata_header: Editar los metadatos
-    create_successful: Los datos fueron agregados con éxito
+    create_successful: Los datos se agregaron con éxito
     create_failed: 'No se pueden agregar sus datos: %{errors}'
     delete_successful: Los datos se eliminaron con éxito
     new_field: Nuevo campo...
@@ -2466,7 +2467,7 @@ es:
     unit_uri: Unidad de medida
   this_article_cannot_be_curated_because_unpublished: Este artículo no puede ser supervisado
     porque no ha sido publicado.
-  this_article_is_unpublished: Este artículo no ha sido publicado.
+  this_article_is_unpublished: Este artículo no se ha publicado.
   this_image_cannot_be_curated_because_unpublished: Esta imagen no puede ser supervisada
     porque no ha sido publicada.
   this_image_is_unpublished: Esta imagen no ha sido publicada.
@@ -2519,16 +2520,16 @@ es:
   image_map_of_taxon: Mapa de %{taxon_name}
   video_of_taxon: Vídeo de %{taxon_name}
   article_rating: Calificación del artículo
-  community_rating: Evaluación de la comunidad
-  collection_rating: Evaluación de la colección
-  image_map_rating: Evaluación del mapa
-  link_rating: Clasificación de enlace
-  image_rating: Evaluación de la imagen
-  person_rating: Evaluación de la persona
-  sound_rating: Evaluación del sonido
-  taxon_rating: Evaluación del taxón
-  video_rating: Evaluación del vídeo
-  map_rating: Evaluación del mapa
+  community_rating: Calificación de la comunidad
+  collection_rating: Calificación de la colección
+  image_map_rating: Calificación del mapa
+  link_rating: Calificación del enlace
+  image_rating: Calificación de la imagen
+  person_rating: Calificación de la persona
+  sound_rating: Calificación del sonido
+  taxon_rating: Calificación del taxón
+  video_rating: Calificación del vídeo
+  map_rating: Calificación del mapa
   0_or_1: 0 o 1
   0_1_or_2: 0, 1 o 2
   about_eol: Acerca de EOL
@@ -3648,7 +3649,6 @@ es:
   add_a_new_file_brackets: '[agregar un nuevo archivo]'
   add_a_new_role: Añadir un nuevo rol
   add_a_new_search_suggestion: Agregar una nueva sugerencia de búsqueda
-  add_a_new_term: Agregar un nuevo término
   add_a_new_topic_area: Agregar un nuevo tema
   add_a_new_user: Agregar un nuevo usuario
   add_a_taxon_association_label: Añadir una asociación de taxón
@@ -3676,7 +3676,7 @@ es:
   add_page: Añadir página
   add_sub_chapter: Añadir subcapítulo
   add_to_a_community: Añadir a una comunidad
-  add_to_my_collection_button: Añadir a colección
+  add_to_my_collection_button: Añadir a una colección
   admin_content_page_active: Publicado
   admin_content_page_not_active: Sin publicar
   admin_content_page_child_new_link: Crear página secundaria
@@ -3711,7 +3711,7 @@ es:
     Traducciones publicadas son de acceso público.
   admin_content_pages_link: Administración de contenido
   admin_content_pages_page_title: 'Administración: Gestión de Contenidos'
-  admin_content_partners_index_header: Contenidos asociados
+  admin_content_partners_index_header: Socios de contenido
   admin_content_partners_link: Socios de contenido
   admin_content_partners_page_title: 'Administración: Gestionar Socios de Contenido'
   admin_content_partners_notifications_link: Notificaciones
@@ -3787,7 +3787,7 @@ es:
   admin_link: Consola de Administración
   admin_page_title: Consola de Administración
   admin_simple_actions_header: 'Acciones sencillas:'
-  admin_spam_delete: Eliminar Spam
+  admin_spam_delete: Eliminar spam
   admin_statistics_link: Estadísticas
   admin_translated_content_page_create_successful_notice: Se ha agregado la traducción
     a <a href="#%{anchor}"><em>%{page_name}</em></a>
@@ -3871,7 +3871,7 @@ es:
   already_member_of_community: Ya eres miembro de esta comunidad.
   alternate_classification: Clasificación alternativa
   alternative_name_colon: 'Nombre alternativo:'
-  alternative_common_name_colon: Nombre vernáculo alternativo
+  alternative_common_name_colon: 'Nombre común alternativo:'
   amount: Cantidad
   an_unknown_user: Un usuario desconocido
   annotation_cabs_colon: 'Anotación:'
@@ -3940,11 +3940,11 @@ es:
     one: '%{count} artículo'
     other: '%{count} artículos'
   articles_in_languages_with_count:
-    one: 'Los artículos en esta página están disponibles en%{count} lenguaje:'
-    other: ' Los artículos en esta página están disponibles en %{count} lenguajes:'
+    one: 'Los artículos en esta página están disponibles en %{count} idioma:'
+    other: 'Los artículos en esta página están disponibles en %count} idiomas:'
   articles_in_other_languages_with_count:
-    one: 'Los artículos en esta página están disponibles en %{count} otro lenguaje:'
-    other: ' Los artículos en esta página están disponibles en %{count} otros lenguajes:'
+    one: 'Los artículos en esta página están disponibles en %{count} otro idioma:'
+    other: 'Los artículos en esta página están disponibles en %{count} otros idiomas:'
   as_of_time_there_were_unique_visitors:
     one: Hasta las %{time} hubo %{count} único visitante
     other: Hasta las %{time} hubo %{count} visitantes únicos
@@ -4020,8 +4020,8 @@ es:
   author_of_peer_reviewed_publication_credential_option: autoría de una publicación
     revisada por pares (proporcionar referencia)
   available: disponible
-  average_rating: valoración promedio
-  average_rating_value_of_total: Promedio de calificacio'n %{rating} of %{total}
+  average_rating: calificación promedio
+  average_rating_value_of_total: 'Promedio de calificación: %{rating} de %{total}'
   back: Volver
   back_to_profile: Regresar al perfil
   began: Ha comenzado
@@ -4033,7 +4033,6 @@ es:
     que está bajo desarrollo activo. El rendimiento y los datos pueden ser impredecibles,
     pero le invitamos a explorar. Por favor rellene nuestra <a href='https://www.surveymonkey.com/s/9FDTDQP'>encuesta</a>
     después de que haya revisado nuestras capacidades de datos.
-  0: después de que hayas revisado nuestra capacidad de datos."
   beta_warning_note_header: 'Nota:'
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Visita la Biodiversity Heritage Library
@@ -4085,13 +4084,13 @@ es:
     o valores, los siguientes enlaces proporcionan algunas sugerencias de URIs elegidas
     por curadores de EOL:'
   change: Cambiar
-  change_rating_to_1_of_5: Cambioa en la calificación a 1 de 5
+  change_rating_to_1_of_5: Cambiar la calificación a 1 de 5
   change_rating_to_2_of_5: Cambiar la calificación a 2 de 5
-  change_rating_to_3_of_5: Cambiar a clasificación a 3 de 5
-  change_rating_to_4_of_5: Cambia la calificación a 4 de 5
-  change_rating_to_5_of_5: Cambia la calificación a 2 de 5
+  change_rating_to_3_of_5: Cambiar la calificación a 3 de 5
+  change_rating_to_4_of_5: Cambiar la calificación a 4 de 5
+  change_rating_to_5_of_5: Cambiar la calificación a 5 de 5
   choose_collection_header: Elija colección
-  citation: Citación
+  citation: Cita
   citation_example: Fisher, Brian. "Pogonomyrmex anergismus Cole, 1954." Encyclopedia
     of Life, disponible en <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>.
     Consultado 15 Jan 2009.
@@ -4270,8 +4269,8 @@ es:
   comment_edit_by_javascript_not_authorized_error: No tiene permiso para modificar
     este comentario. Si usted es el autor delcomentario, por favor, vuelva a cargar
     la página y compruebe que ha iniciado sesión.
-  comment_or_rate_on_this_article: Comentar o valorar este artículo
-  comment_or_rate_on_this_link: Comentar o valorar este enlace
+  comment_or_rate_on_this_article: comentar o calificar este artículo
+  comment_or_rate_on_this_link: comentar o calificar este enlace
   comment_not_added_error: Lo sentimos, ha ocurrido un error, el comentario no se
     pudo añadir.
   comment_not_deleted_error: Lo sentimos, ha ocurrido un error, el comentario no se
@@ -4427,9 +4426,6 @@ es:
   content_partner_contact_update_unsuccessful_error: Lo sentimos, ha ocurrido un error,
     el contacto no se ha actualizado.
   content_partner_contacts_header: Contactos
-  content_partner_create_successful_notice: Socio de contenido creado exitosamente.
-  content_partner_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, socio
-    de contenido no fue creado.
   content_partner_current_agreement_empty: Sin acuerdo
   content_partner_current_agreement_signed_on_with_date: Firmado el %{date}
   content_partner_current_agreement_view_link: Ver
@@ -4770,11 +4766,11 @@ es:
     one: '%{count} Curador'
     other: '%{count} Curadores'
   your_current_rating_0_of_5: 'Tu calificación actual: 0 de 5'
-  your_current_rating_1_of_5: 'Su puntuación actual: 1 de 5'
-  your_current_rating_2_of_5: 'Su calificación actual: 2 de 5'
-  your_current_rating_3_of_5: 'Su puntuación actual: 3 de 5'
-  your_current_rating_4_of_5: 'Su puntuación actual: 4 de 5'
-  your_current_rating_5_of_5: 'Su puntuación actual: 5 de 5'
+  your_current_rating_1_of_5: 'Tu calificación actual: 1 de 5'
+  your_current_rating_2_of_5: 'Tu calificación actual: 2 de 5'
+  your_current_rating_3_of_5: 'Tu calificación actual: 3 de 5'
+  your_current_rating_4_of_5: 'Tu calificación actual: 4 de 5'
+  your_current_rating_5_of_5: 'Tu calificación actual: 5 de 5'
   your_watch_collection: su lista de vigilancia
   current_language: 'Idioma: %{iso_code}'
   currently_in_eol: Actualmente en la Enciclopedia de la Vida
@@ -4980,8 +4976,9 @@ es:
   development_version_name: EOL V2 Beta
   default: '%Y-%m-%d'
   default_focus_collection_name_from_community: '%{name}''s enfoque'
+  default_rating: calificación predeterminada
+  default_rating_value_of_total: 'Calificación predeterminada: %{rating} de %{total}'
   default_watch_collection_name: lista de vigilancia de %{username}
-  definition: Definición
   delete_community: Borrar esta comunidad
   delete: borra
   deleted_colon: 'borrado:'
@@ -5022,8 +5019,6 @@ es:
   edit_contact_us_topics: editar temas de contacto nosotros
   edit: editar
   edited_colon: 'editado:'
-  edit_eol_glossary: Editar glosario EOL
-  edit_glossary_term: Editar término del glosario
   edit_hierarchy: editar la jerarquía
   edit_collection_details: Editar detalles de colección
   edit_collection_details_header: Editar detalles de la colección
@@ -5081,7 +5076,6 @@ es:
   eol_api_collections: 'EOL API: Colecciones'
   eol_colon: 'EOL:'
   eol_flickr_group: Grupo en Flickr de EOL
-  eol_glossary: Glosario EOL
   eol_news: Noticias EOL
   eol_pages: Páginas
   error_log_detail: Detalle del registro de error
@@ -5269,7 +5263,6 @@ es:
     dwct:taxonID contiene en <i>EOL identifier</i> que será usado en el %{link} API.
   for_images_to_reference_parens: (para las imágenes a referenciar)
   for_pdfs_and_docs_parens: (para archivos PDF y documentos)
-  for_terms_or_definitions_conta: 'para términos o definiciones que contengan:'
   form_validation_errors_for_attribute_assistive: Hay un error de validación en este
     elemento
   fragment_caching_enabled: La memoria caché de los fragmentos está activada
@@ -5307,10 +5300,7 @@ es:
   global_access_tagline: Acceso global al conocimiento sobre la vida en la Tierra
   global_navigation: Navegación global
   glossary: Glosario
-  glossary_is_empty: (El glosario está vacío)
   glossary_subhead: Glosario
-  glossary_term: término
-  glossary_terms: Términos del Glosario
   go_back: Regresar
   go: Ir
   google_analytic_results: Resultados de Google Analytics
@@ -5363,14 +5353,14 @@ es:
     los credenciales, alcance, aprobación y clade seleccionados se borran y el usuario
     ya no aparece como curador.  Usted debería agregar una nota a continuación para
     indicar la razón.  No se envía información al usuario.
-  if_multiple_media_objects_are_returned: 'Si múltiples objetos multimedia son devueltos,
-    la lista se ordenara por tipo de objeto. Dentro de cada tipo, elementos son ordenados
-    por su estado de investigación (''Confiado'' &gt; ''No revisado'' &gt; ''No es
-    de confianza''), y después por clasificación de datos. Sin embargo, dentro de
-    ciertos tipos de datos, les dan a elementos específicos la prioridad máxima: si
-    uno de estos elementos es devuelto, estará listado primero. Para imágenes, imágenes
-    ejemplares tienen la máxima prioridad. Con tipos de texto, el texto de introducción
-    tiene la prioridad máxima.'
+  if_multiple_media_objects_are_returned: 'Si se devuelven múltiples objetos multimedia,
+    la lista se ordenará por tipo de objeto. Dentro de cada tipo, los elementos se
+    ordenan por su estado de investigación (''Confiado'' &gt; ''No revisado'' &gt;
+    ''No es de confianza''), y después por la calificación de datos. Sin embargo,
+    dentro de ciertos tipos de datos, les dan a elementos específicos la prioridad
+    máxima: si uno de estos elementos es devuelto, estará listado primero. Para imágenes,
+    imágenes ejemplares tienen la máxima prioridad. Con tipos de texto, el texto de
+    introducción tiene la prioridad máxima.'
   if_the_details_parameter_is_not_set: Si el parámetro de 'detalles' no es establecido
     entonces solamente el identificador de objeto de datos, tipo de datos, y, en el
     caso de artículos, el tema será retornado. El tipo de datos será un valor del
@@ -5440,7 +5430,6 @@ es:
     invitación a su nueva comunidad!
   ip_address: Dirección IP
   ip: IP
-  term_is_already_def_error: '"%{term}" ya está definido'
   item_added_to_watch_collection_notice: '"%{item_name}" fue agregado a %{collection_name}.'
   item_added_to_collection_notice: Elemento fue agregado a la colección <em>%{collection_name}</em>
   item_details_missing: Lo sentimos, ha ocurrido un error, no se pudo recuperar los
@@ -5627,6 +5616,7 @@ es:
   login_or_create_account: Inicio de sesión o crear cuenta
   login_to_the_website_as: Inicie sesión en el sitio Web como %{username}
   logo_header: Logo
+  logo_type_error: El logotipo no es un tipo de imagen válido (debe ser PNG o JPEG).
   logout: Cerrar sesión
   looking_up_url: Buscando dirección URL...
   main_content_area: 'Área de contenido principal:'
@@ -5862,7 +5852,7 @@ es:
   no_items_were_copied_to_collections_error: Nimgún elemento fue copiado a las colecciones:%{names}.
   no_news_items_for_month_and_year: No hubo ninguna noticia en %{month_and_year}
   none: ninguno
-  "no": "No"
+  0: "No"
   num_content_partners: Número de socios de contenido
   num_data_objects: Número de objetos de datos
   no_record_found_matching_your_criteria: Ningún registro encontrado coincide con
@@ -6151,10 +6141,9 @@ es:
   rated_by_count_people:
     one: de %{count} persona
     other: de %{count} personas
-  rating_added_notice: Puntaje se agregó exitosamente.
-  rating_learn_more_link: Aprenda sobre valoración
-  rating_not_added_error: Lo sentimos, ha ocurrido un error, el puntaje no se pudo
-    agregar.
+  rating_added_notice: La calificación se agregó exitosamente.
+  rating_learn_more_link: Aprenda sobre la calificación
+  rating_not_added_error: 'Se produjo un error: la calificación no se pudo agregar.'
   reading_from_ontology: Leyendo de <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
   recaptcha: Escriba las dos palabras o números que ve abajo
   recaptcha_incorrect_error_with_anchor: Los caracteres <a href="#%{recaptcha_anchor}"></a>
@@ -6319,11 +6308,11 @@ es:
     other: Ver todas <span class="assistive">las %{count} colecciones en las que aparece
       este taxón.</span>
   see_all_comments_with_count_for_link_or_rate:
-    one: ver %{count} comentario para este enlace o valorarlo
-    other: ver todos los %{count} comentarios para este artículo o valorarlos
+    one: ver %{count} comentario para este enlace o calificarlo
+    other: ver todos los %{count} comentarios para este enlace o calificarlo
   see_all_comments_with_count_for_text_or_rate:
-    one: véase %{count} comentario para este artículo o valórelo
-    other: véanse todos los %{count} comentarios para este artículo o valórelo
+    one: ver %{count} comentario para este artículo o calificarlo
+    other: ver todos los %{count} comentarios para este artículo o calificarlo
   see_all_communities_with_count_html:
     one: Ver la <span class="assistive">%{count} comunidad que tiene como foco este
       taxón.</span>
@@ -6413,7 +6402,7 @@ es:
   sort_by_label: Ordenadas por
   sort_by_newest_option: Lo más nuevo
   sort_by_oldest_option: Más antiguo
-  sort_by_rating_option: Puntuación
+  sort_by_rating_option: Calificación
   sort_by_richness_option: Riqueza
   sort_by_alphabetical_option: Alfabético
   sort_by_hierarchy_publish_request_option: Hierarchy Publish Request
@@ -6483,7 +6472,6 @@ es:
   sub_heading: Subcabecera
   subject: subject
   submit: Enviar
-  submit_term: Enviar término
   submitting: Espere un momento…
   submitted_colon: 'Enviado:'
   suggested_attributes: 'Atributos sugeridos:'
@@ -6603,7 +6591,6 @@ es:
     probable es que se refieren a un mismo grupo, por ejemplo, las faltas de ortografía
     en la literatura o en diferentes variaciones de la autoría asociado con el nombre.
   technical_functions: Funciones Técnicas
-  term_cannot_be_left_blank: El término no puede dejarse en blanco
   terms_agreement_form_fallback: Por favor, lea y acepte los <a href="%{terms_url}">términos
     de uso</a> antes de acceder a su cuenta.
   terms_agreement_form_header: Términos de uso
@@ -6668,7 +6655,6 @@ es:
     la base de datos del proveedor</i>.
   the_following_users_were_prese: 'Los siguientes usuarios recibieron la ventana emergente
     de la encuesta y respondieron a la petición de realizarla, como se muestra a continuación:'
-  the_glossary_term_was_successf: El término del glosario se actualizó correctamente.
   the_id_of_provider_hierarchy_you_are_searching: el ID de la jerarquía de proveedores
     dentro de la cual usted está buscando. Revise %{link} para ID válidos
   the_image_from_this_source_has_not_been_reviewed: La imagen de esta fuente no ha
@@ -6799,7 +6785,7 @@ es:
   translations_submit: Mira la traducción
   trigger_search_term_entered_by: ejecutar el término de búsqueda introducido por
     el usuario
-  "true": Verdadero
+  1: Verdadero
   true_label: Verdadero
   truncated_comment_omission: '... <a href=''%{link}''>más</a>'
   truncated_comment_omission_linkless: '...'
@@ -6862,12 +6848,12 @@ es:
     desees usar esta.'
   used_for_friendly_url_note: (utilizado para generar un enlace amistoso para los
     usuarios, no puede contener espacios ni caracteres especiales)
-  user_activation_failed_resent_validation_email_error: Lo sentimos, ha ocurrido un
-    error, tu cuenta no pudo ser verificada. Esto generalmente ocurre cuando el enlace
-    de verificación que introdujiste o seleccionado no es reconocido. Las instrucciones
-    de activación han sido reenviadas a la dirección de correo electrónico con la
-    que te registraste. Asegúrate de que el enlace de verificación que utilizas coincide
-    con el proporcionado en el correo electrónico de activación.
+  user_activation_failed_resent_validation_email_error: Ha ocurrido un error, tu cuenta
+    no se pudo verificar. Esto generalmente ocurre cuando el enlace de verificación
+    que introdujiste o seleccionaste no se reconoce. Las instrucciones de activación
+    han sido reenviadas a la dirección de correo electrónico con la que te registraste.
+    Asegúrate de que el enlace de verificación que utilizas coincide con el proporcionado
+    en el correo electrónico de activación.
   user_activation_failed_user_not_found_error: Lo sentimos, ha ocurrido un error,
     la cuenta que están tratando de verificar que no se pudo encontrar. Asegúrese
     de que el enlace de verficiación que utiliza coincida con el proporcionado en
@@ -7144,7 +7130,7 @@ es:
     comunidad.
   your_ip_address: Su dirección IP
   your_preferences: Sus preferencias
-  your_rating: Tu puntuación
+  your_rating: Tu calificación
   youtube: YouTube
   youtube_video: Video de YouTube
 ...

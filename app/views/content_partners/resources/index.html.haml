@@ -49,7 +49,7 @@
               %td
                 - if resource.accesspoint_url.blank?
                   - unless resource.dataset_file_name.blank?
-                    = resource.dataset_file_namem
+                    = resource.dataset_file_name
                 - else
                   = link_to resource.accesspoint_url.sub(/^.*\//, ""),
                     resource.accesspoint_url

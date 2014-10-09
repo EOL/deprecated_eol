@@ -25,6 +25,7 @@ describe Admins::ContentPartnersController do
       expect(response).to redirect_to(login_url)
       expect{ get :index, nil, { :user => @non_admin, :user_id => @non_admin.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
+    
     it 'should instantiate content partners with default sort by partner name' do
       get :index, nil, { :user => @admin, :user_id => @admin.id }
       assigns[:partners].should == @partners

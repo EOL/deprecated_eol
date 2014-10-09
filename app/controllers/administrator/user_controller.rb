@@ -279,6 +279,14 @@ class Administrator::UserController  < AdminController
       WHERE u.disable_email_notifications != 1 AND n.eol_newsletter = 1')
   end
 
+  def deactivate
+    if current_user.id != params[:id]
+      user = User.find(params[:id])
+      user.deactivate
+      flash[:notice] = I18n.t(:user_no_longer_active_message)
+      redirect_back_or_default
+    end
+  end
 private
 
   def set_layout_variables

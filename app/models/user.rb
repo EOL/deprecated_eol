@@ -261,9 +261,9 @@ class User < ActiveRecord::Base
     # Using update_column instead of updates_attributes to by pass validation
     # errors.
     update_column(:active, false)
-    update_column(:validation_code, nil)
+    # update_column(:validation_code, nil)
     # This one is perhaps contentious, but I think it's the right thing to do.
-    update_column(:email, nil)
+    # update_column(:email, nil)
     remove_from_index
   end
 
@@ -444,6 +444,10 @@ class User < ActiveRecord::Base
     self.admin.nil? ? false : self.admin # return false for anonymous users
   end
 
+  def is_active?
+    !self.active ? false : self.active
+  end
+  
   def is_content_partner?
     content_partners.blank? ? false : true
   end

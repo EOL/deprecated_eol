@@ -32,7 +32,7 @@
   %th.predicate{ id: header_id }
     - span_class = nil
     - if first_of_type
-      = display_uri(data_point_uri.predicate_uri, exemplar: exemplar, excluded: excluded, define: true, capitalize: true, search_link: (! for_search),
+      = display_uri(data_point_uri.predicate_uri, exemplar: exemplar, excluded: excluded, define: true, capitalize: false, search_link: (! for_search),
         modifiers: [ data_point_uri.statistical_method_label ])
     - else
       - if data_point_uri.statistical_method_label

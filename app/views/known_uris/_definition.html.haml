@@ -6,7 +6,7 @@
 - glossary_permalink = false unless local_assigns.has_key?(:glossary_permalink)
 %li{ id: known_uri.anchor, data: { toc_id: known_uri.toc_items.collect(&:id).join(' ') } }
   %dt
-    = known_uri.name.firstcap
+    = known_uri.name
   - unless known_uri.definition.blank?
     %dd
       = raw known_uri.definition.add_missing_hyperlinks

@@ -155,6 +155,10 @@ class TaxonConcept < ActiveRecord::Base
   end
   class << self; alias_method_chain :find, :supercedure ; end
 
+  def superceded?
+    !supercedure_id.nil? && supercedure_id != 0
+  end
+
   # this method is helpful when using preloaded taxon_concepts as preloading
   # will not use the above find_with_supercedure to get the latest version
   def latest_version

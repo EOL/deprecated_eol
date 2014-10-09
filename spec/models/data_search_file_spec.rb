@@ -10,7 +10,7 @@ describe DataSearchFile do
   end
 
   def make_and_convert(options)
-    d = DataPointUri.new(options)
+    d = DataPointUri.new(options, taxon_concept: TaxonConcept.gen)
     d.convert_units
     d
   end

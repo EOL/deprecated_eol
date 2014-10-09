@@ -28,6 +28,7 @@ class TaxonData < TaxonUserClassificationFilter
       options[:language] ||= Language.default
       total_results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options.merge(only_count: true))).first[:count].to_i
       results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options))
+      # TODO - we should probably check for taxon supercedure, here.
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
         # for each DataPointUri, which is very expensive when downloading lots of rows
@@ -41,7 +42,7 @@ class TaxonData < TaxonUserClassificationFilter
             [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ],
             resource: :content_partner },
           select: {
-            taxon_concepts: [ :id ],
+            taxon_concepts: [ :id, :supercedure_id ],
             hierarchy_entries: [ :id, :taxon_concept_id, :name_id ],
             names: [ :id, :string, :ranked_canonical_form_id ],
             canonical_forms: [ :id, :string ] }

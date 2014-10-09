@@ -118,7 +118,7 @@ class User < ActiveRecord::Base
   # Aaaaactually, this also preps the icon and tagline, since that's commonly shown with the title.
   def self.load_for_title_only(load_these)
     User.find(load_these,
-      select: 'id, given_name, family_name, curator_level_id, username, logo_cache_url, tag_line')
+      select: 'id, given_name, family_name, curator_level_id, username, logo_file_name, logo_cache_url, tag_line')
   end
 
   def self.sort_by_name(users)

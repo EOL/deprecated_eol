@@ -98,6 +98,10 @@ class DataSearchFile < ActiveRecord::Base
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|
+        # TODO - really, I think we should move this to TaxonData.search. :\
+        # Skip taxon concepts that have been superceded!
+        next if data_point_uri.taxon_concept &&
+          data_point_uri.taxon_concept.superceded?
         # TODO - Whoa! Even when I ran “dpu.to_hash[some_val]”, even though it
         # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
         rows << data_point_uri.to_hash(user.language)

@@ -156,8 +156,12 @@ class Comment < ActiveRecord::Base
       'activity_log_type' => 'Comment',
       'activity_log_id' => self.id,
       'action_keyword' => self.parent.class.name,
-      'reply_to_id' => self.user_id, # This is wrong.  Clearly, WRONG.  But if you change it, you can no longer
-                                     # comment to a newsfeed.  It never shows up at all.  TODO - fix.  :|
+      # reply_to_id is wrong. Clearly, WRONG.  But if you change it, you can no
+      # longer comment to a newsfeed. It never shows up at all.  TODO: fix.  :|
+      # UPDATE: looks like there was a miscommunication during development and
+      # the Solr index believes that this is the user that is being replied to
+      # (always). Oops.  So the fix will involve lots of Solr changes. ...Scary.
+      'reply_to_id' => self.user_id,
       'user_id' => self.user_id,
       'date_created' => self.created_at.solr_timestamp }
     EOL::Solr::ActivityLog.index_notifications(base_index_hash, notification_recipient_objects)
@@ -181,10 +185,6 @@ class Comment < ActiveRecord::Base
     add_recipient_users_watching(@notification_recipients)
     add_recipient_author_of_commented_on_text(@notification_recipients)
     @notification_recipients
-  end
-
-  def reply_is_comment?
-    return self.reply? && reply_to_type == 'Comment'
   end
 
   # A reply is only counted as a reply if it has an "@username:" somewhere in it.
@@ -252,7 +252,7 @@ private
   end
 
   def add_recipient_replied_to_user(recipients)
-    if reply_is_comment?
+    if reply?
       original_comment_user = self.reply_to.user
       original_comment_user.add_as_recipient_if_listening_to(:reply_to_comment, recipients)
     end

@@ -24,13 +24,6 @@ describe Taxa::DataController do
       expect { get :index, :taxon_id => @taxon_concept.id }.not_to raise_error
     end
 
-    it 'should deny access to normal or non-logged-in users' do
-      session[:user_id] = User.gen.id
-      expect { get :index, :taxon_id => @taxon_concept.id }.to raise_error(EOL::Exceptions::SecurityViolation)
-      session[:user_id] = nil
-      expect { get :index, :taxon_id => @taxon_concept.id }.to raise_error(EOL::Exceptions::SecurityViolation)
-    end
-
     it 'should allow access if the EolConfig is set' do
       opt = EolConfig.find_or_create_by_parameter('all_users_can_see_data')
       opt.value = 'true'
@@ -42,16 +35,6 @@ describe Taxa::DataController do
       opt.value = 'false'
       opt.save
     end
-
-    it 'should deny access to curators and admins without data privilege' do
-      session[:user_id] = @full.id
-      expect { get :index, :taxon_id => @taxon_concept.id }.to raise_error(EOL::Exceptions::SecurityViolation)
-      session[:user_id] = @master.id
-      expect { get :index, :taxon_id => @taxon_concept.id }.to raise_error(EOL::Exceptions::SecurityViolation)
-      session[:user_id] = @admin.id
-      expect { get :index, :taxon_id => @taxon_concept.id }.to raise_error(EOL::Exceptions::SecurityViolation)
-    end
-
 
   end
 

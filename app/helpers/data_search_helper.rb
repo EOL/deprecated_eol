@@ -3,7 +3,7 @@ module DataSearchHelper
   def data_search_results_summary
     return "" if @results.nil?
     search_term_to_show = [
-      (@attribute_known_uri ? @attribute_known_uri.label.firstcap : @attribute),
+      (@attribute_known_uri ? @attribute_known_uri.label : @attribute),
       # NOTE - I think the hard-coded colon is okay here. It's just a visual separator with no value.
       @querystring ].delete_if{ |t| t.blank? }.join(' : ')
     summary = I18n.t(:count_results_for_search_term,

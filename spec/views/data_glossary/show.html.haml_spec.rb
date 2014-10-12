@@ -23,13 +23,23 @@ describe 'data_glossary/show' do
     new_uri = create(:known_uri_measurement)
     render
     # it should not show up yet because there are no measurements using it
-    expect(rendered).to_not match(new_uri.name.firstcap)
+    expect(rendered).to_not match(new_uri.name)
     create_measurement_for_uri(new_uri)
     Rails.cache.clear
     render
-    expect(rendered).to match(new_uri.name.firstcap)
+    expect(rendered).to match(new_uri.name)
   end
 
+  it 'shows URIs exactly the same as created' do
+    kuri = FactoryGirl.create(:known_uri_measurement, name: "IUCN")
+    create_measurement_for_uri(kuri)
+    render
+    expect(rendered).to_not match(kuri.name.firstcap)
+    Rails.cache.clear
+    render
+    expect(rendered).to match(kuri.name)
+  end
+  
   it 'does not show URIs which are hidden from the glossary' do
     new_uri = KnownUri.gen_if_not_exists(name: 'Another New Uri')
     create_measurement_for_uri(new_uri)

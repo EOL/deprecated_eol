@@ -152,7 +152,7 @@ class DataSearchController < ApplicationController
       if label.nil?
         nil
       else
-        [ truncate(label.firstcap, length: 30),
+        [ truncate(label, length: 30),
           uri.respond_to?(:uri) ? uri.uri : uri,
           { 'data-known_uri_id' => uri.respond_to?(:id) ? uri.id : nil } ]
       end

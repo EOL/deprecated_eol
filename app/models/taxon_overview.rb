@@ -115,11 +115,11 @@ class TaxonOverview < TaxonUserClassificationFilter
   # The International Union for Conservation of Nature keeps a status for most known species, representing how
   # endangered that species is.  This will default to "unknown" for species that are not being tracked.
   def iucn_status
-    iucn.description
+    !iucn.nil? ? iucn.description : nil
   end
 
   def iucn_url
-    iucn.source_url
+    !iucn.nil? ? iucn.source_url : nil
   end
 
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether

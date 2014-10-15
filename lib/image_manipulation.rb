@@ -1,5 +1,5 @@
+# TODO: move this to lib/eol/logos
 module ImageManipulation
-  # TODO: move this to lib/eol/logos
   def upload_logo(obj)
     if file_path = ContentServer.upload_content(Rails.configuration.logo_uploads.relative_path + ImageManipulation.local_file_name(obj), request.port.to_s)
       obj.update_attributes(:logo_cache_url => file_path) # store new url to logo on content server

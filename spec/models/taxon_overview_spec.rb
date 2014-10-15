@@ -177,20 +177,13 @@ describe TaxonOverview do
     @taxon_concept.stub_chain(:data_objects, :where, :order, :first).and_return(iucn)
     @overview.iucn_status.should == 'wunderbar'
   end
-
-  it 'should default to "not evaluated" iucn status' do
-    @overview.iucn_status.should == I18n.t(:not_evaluated)
+  
+  it 'has default iucn status = nil' do
+    expect(@overview.iucn_status).to be_nil
   end
-
-  it 'should know iucn url' do
-    iucn = DataObject.gen(source_url: 'faked')
-    @taxon_concept.stub_chain(:data_objects, :where, :order, :first).and_return(iucn)
-    @overview.iucn_url.should == 'faked'
-  end
-
-  # TODO - this doesn't belong in this class.
-  it 'should default to http://www.iucnredlist.org/about iucn url' do
-    @overview.iucn_url.should == 'http://www.iucnredlist.org/about'
+  
+  it 'has default iucn url = nil' do
+    expect(@overview.iucn_url).to be_nil
   end
 
   it 'should generate a normalized cache id' do

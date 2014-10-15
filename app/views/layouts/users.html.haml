@@ -15,6 +15,8 @@
               %li= render 'shared/add_to_my_collection', { :item => @user }
               %li= link_to I18n.t(:edit_my_profile), edit_user_path(@user), :class => "button" if @user.id == current_user.id
               %li= link_to I18n.t(:make_an_editor), choose_editor_target_collections_path(:user_id => @user.id), :class => "button collect" if logged_in? && @user.id != current_user.id
+              %li
+              %li= link_to I18n.t(:deactivate), deactivate_administrator_user_path, :class => "button", :data => { :confirm => I18n.t(:confirm_deactivate_user) } if logged_in? && current_user.is_admin? && @user.is_active? && @user.id != current_user.id
       = render 'shared/flash_messages'
   #content
     .site_column

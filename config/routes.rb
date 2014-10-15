@@ -539,6 +539,7 @@ Eol::Application.routes.draw do
         get 'clear_curatorship'
         get 'login_as_user'
         get 'view_common_combinations'
+        get 'deactivate'
       end
       collection do
         get 'view_common_combinations'

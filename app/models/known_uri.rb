@@ -393,7 +393,7 @@ class KnownUri < ActiveRecord::Base
 
   def as_json(options = {})
     super(options.merge(only: [:uri])).merge(
-      name: name.firstcap,
+      name: name,
       definition: definition,
       attribution: attribution
     )

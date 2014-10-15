@@ -18,12 +18,18 @@ module EOL
         in: 0..Rails.configuration.logo_uploads.max_size
     end
 
+    def reload_if_missing_logo_attributes
+      reload unless self.has_attribute?(:logo_file_name) &&
+        self.has_attribute?(:logo_cache_url)
+    end
+
     def logo_url(opts = {})
+      reload_if_missing_logo_attributes
       if !logo_file_name.blank? &&
         !Rails.configuration.use_content_server_for_thumbnails
         Rails.configuration.logo_uploads.relative_path +
           ImageManipulation.local_file_name(self)
-      elsif self.logo_cache_url.blank?
+      elsif logo_cache_url.blank?
         "v2/logos/#{self.class.name.underscore}_default.png"
       else
         link = opts[:linked?] ? $SINGLE_DOMAIN_CONTENT_SERVER : nil

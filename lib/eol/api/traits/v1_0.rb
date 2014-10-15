@@ -33,8 +33,8 @@ module EOL
           if Hierarchy.wikipedia && wikipedia_entry = taxon_concept.entry(Hierarchy.wikipedia)
             jsonld['@graph'] << wikipedia_entry.mapping_jsonld
           end
-          jsonld['@graph'] += taxon_concept.common_names.collect{ |tcn| tcn.to_jsonld }
-          jsonld['@graph'] += data.collect{ |d| d.to_jsonld }
+          jsonld['@graph'] += taxon_concept.common_names.map { |tcn| tcn.to_jsonld }
+          jsonld['@graph'] += data.map { |d| d.to_jsonld } if data
           return jsonld
         end
 

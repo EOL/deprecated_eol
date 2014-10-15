@@ -258,12 +258,7 @@ class User < ActiveRecord::Base
   # TODO - test this. Wire this up to a controller. A user should be able to
   # "destroy" his account with this method (as of this writing, cannot).
   def deactivate
-    # Using update_column instead of updates_attributes to by pass validation
-    # errors.
     update_column(:active, false)
-    # update_column(:validation_code, nil)
-    # This one is perhaps contentious, but I think it's the right thing to do.
-    # update_column(:email, nil)
     remove_from_index
   end
 
@@ -445,7 +440,7 @@ class User < ActiveRecord::Base
   end
 
   def is_active?
-    !self.active ? false : self.active
+    self.active 
   end
   
   def is_content_partner?

@@ -287,7 +287,7 @@ class Administrator::UserController  < AdminController
       redirect_back_or_default
     end
   end
-  
+
 private
 
   def set_layout_variables

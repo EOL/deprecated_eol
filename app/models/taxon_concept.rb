@@ -678,7 +678,7 @@ class TaxonConcept < ActiveRecord::Base
   # want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
-    my_iucn = data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
+    data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
   end
 
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview (though TaxonDetails needs access to the other

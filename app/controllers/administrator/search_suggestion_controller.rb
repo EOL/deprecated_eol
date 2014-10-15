@@ -9,7 +9,6 @@ class Administrator::SearchSuggestionController < AdminController
   before_filter :restrict_to_admins
 
   def index
-    puts "*" * 1000
     load_suggestions
   end
 

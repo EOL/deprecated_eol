@@ -440,9 +440,9 @@ class User < ActiveRecord::Base
   end
 
   def is_active?
-    self.active 
+    self.active
   end
-  
+
   def is_content_partner?
     content_partners.blank? ? false : true
   end

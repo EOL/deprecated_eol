@@ -112,14 +112,16 @@ class TaxonOverview < TaxonUserClassificationFilter
     @map = taxon_concept.get_one_map_from_solr.first
   end
 
-  # The International Union for Conservation of Nature keeps a status for most known species, representing how
-  # endangered that species is.  This will default to "unknown" for species that are not being tracked.
+  # The International Union for Conservation of Nature keeps a status for most
+  # known species, representing how endangered that species is.  This will
+  # default to "unknown" for species that are not being tracked.
+
   def iucn_status
-    !iucn.nil? ? iucn.description : nil
+    iucn.try(:description)
   end
 
   def iucn_url
-    !iucn.nil? ? iucn.source_url : nil
+    iucn.try(:source_url)
   end
 
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether

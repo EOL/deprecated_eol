@@ -229,7 +229,7 @@ mk:
         description: Опис на ресурсот
         dwc_archive_url: URL на архива на Darwin Core
         dataset_source_url: Извор на податоците
-        dataset_hosted_url: Изворен податочен збир (локален примерок)
+        dataset_hosted_url: Изворен податочен збир (месен примерок)
         harvest_events: Преземања
         hierarchy: Хиерархија
         language_id: Стандарден јазик
@@ -505,8 +505,8 @@ mk:
         taxon_name_placeholder: Внесете име на таксонската група за да одберете некоја
         taxon_name_placeholder_value_removed: '%{taxon_group} е отстранета, одберете
           нова група'
-        taxon_name_more: На пр., внесете Trochilidae или китови и одберете ја складната
-          група.
+        taxon_name_more: На пр. внесете Trochilidae или китови. Ќе се користат САМО
+          делови од расклопот. Не менувајте го текстот без да изберете резултат.
         total_results: 'Вкупно резултати: %{total}'
         unit: Мерна единица
       eol_statistic:

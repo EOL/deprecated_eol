@@ -527,8 +527,9 @@ ru:
         taxon_name_placeholder: Введите имя группы таксонов для выбора группы
         taxon_name_placeholder_value_removed: '%{taxon_group} удалена, выберите новую
           группу'
-        taxon_name_more: Например, введите Trochilidae или киты и выберите соответствующую
-          группу.
+        taxon_name_more: Например, введите «Trochilidae» или «Киты». Будет использован
+          ТОЛЬКО результат выбора из выпадающего списка, не редактируйте текст без
+          выбера результата.
         total_results: 'Всего результатов: %{total}'
         unit: Единица измерения
       eol_statistic:

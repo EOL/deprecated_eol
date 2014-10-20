@@ -548,8 +548,9 @@ es:
           grupo
         taxon_name_placeholder_value_removed: '%{taxon_group} borrado, seleccione
           un nuevo grupo'
-        taxon_name_more: Por ejemplo, escriba Trochilidae o ballenas y seleccione
-          el grupo correspondiente.
+        taxon_name_more: Por ejemplo, escriba Trochilidae o ballenas. SÓLO se usarán
+          las selecciones del menú desplegable. No edite el texto sin seleccionar
+          un resultado.
         total_results: 'Resultados totales: %{total}'
         unit: Unidad de medida
       eol_statistic:

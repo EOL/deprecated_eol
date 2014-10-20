@@ -536,8 +536,9 @@ fr:
           le groupe
         taxon_name_placeholder_value_removed: '%{taxon_group} supprimé, sélectionner
           un nouveau groupe'
-        taxon_name_more: Par exemple, entrer Trochilidés ou Baleines et sélectionner
-          le groupe correspondant.
+        taxon_name_more: Par exemple, entrer Trochilidés ou Baleines. SEULES les sélections
+          de la liste déroulante seront utilisées, ne modifiez pas le texte sans sélectionner
+          un résultat.
         total_results: 'Total des résultats : %{total}'
         unit: Unité de mesure
       eol_statistic:

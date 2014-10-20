@@ -17,6 +17,7 @@
 # Author: Nastoshka
 # Author: Nemo bis
 # Author: Ontsed
+# Author: Peg60
 # Author: PeppeAeco
 # Author: Raoli
 # Author: Ribez
@@ -462,11 +463,11 @@ it:
         logo_new: 'Carica un nuovo logo:'
         notes: Note di progetto <small>(private)</small>
         oldest_published_harvest_event: Pubblicato la prima volta
-        is_public_more: ' I profili pubblici del content partner,sono visibili a tutti
+        is_public_more: I profili pubblici del content partner,sono visibili a tutti
           ed informazioni sul partner sono incluse nela lista dei content partner.
           Deselezionare questa opzione per escludere i dettagli dei contenuti partner
-          dall''elenco e limitare l''accesso al profilo, dall''utente che ha creato
-          il contenuto partner e agli amministratori EOL.'
+          dall'elenco e limitare l'accesso al profilo, dall'utente che ha creato il
+          contenuto partner e agli amministratori EOL.
         user_id: Dettagli sui Partner di contenuti sono gestiti da
       content_partner_agreement:
         mou_url: Accordo del file URL <small>(alternativa opzionale)</small>
@@ -527,8 +528,9 @@ it:
           il gruppo
         taxon_name_placeholder_value_removed: '%{taxon_group} rimosso, seleziona nuovo
           gruppo'
-        taxon_name_more: Ad esempio, immetti Trochilidae o Balene e seleziona il gruppo
-          corrispondente.
+        taxon_name_more: Ad esempio, immetti Trochilidae o Balene. SOLO le selezioni
+          dal menù a discesa saranno usate, non modificare il testo senza selezionare
+          un risultato.
         total_results: 'Totale risultati: %{total}'
         unit: Unità di misura
       eol_statistic:

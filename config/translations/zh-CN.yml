@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Anthony Fok
 # Author: Chenxiaoqino
+# Author: Gaoxuewei
 # Author: Hydra
 # Author: Hzy980512
 # Author: Impersonator 1
@@ -472,7 +473,7 @@ zh-CN:
         taxon_name_with_val: '分类组: %{val}'
         taxon_name_placeholder: 输入分类组的名称来选择其所属组别
         taxon_name_placeholder_value_removed: '%{taxon_group} 已被删除，请选择新的组别'
-        taxon_name_more: 例如，输入蜂鸟或鲸，并选择与之相匹配的组别。
+        taxon_name_more: 例如，输入蜂鸟或鲸鱼。只有下拉列表中的选项才可使用，请勿编辑文本而不选择结果。
         total_results: '总的结果: %{total}'
         unit: 度量单位
       eol_statistic:

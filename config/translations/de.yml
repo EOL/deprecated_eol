@@ -538,8 +538,9 @@ de:
           auszuwählen.
         taxon_name_placeholder_value_removed: '%{taxon_group} entfernt, neue Gruppe
           auswählen'
-        taxon_name_more: Geben Sie beispielsweise Trochilidae oder Wale ein und wählen
-          Sie die passende Gruppe aus.
+        taxon_name_more: Geben Sie beispielsweise Trochilidae oder Wale ein. Es werden
+          NUR Auswahlen aus dem Dropdownmenü verwendet. Bearbeiten Sie den Text nicht
+          ohne ein Ergebnis auszuwählen.
         total_results: 'Gesamtanzahl der Ergebnisse: %{total}'
         unit: Maßeinheit
       eol_statistic:

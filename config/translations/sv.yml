@@ -483,8 +483,8 @@ sv:
         taxon_name_with_val: 'Taxongrupp: %{val}'
         taxon_name_placeholder: Ange taxongruppens namn för att välja grupp
         taxon_name_placeholder_value_removed: '%{taxon_group} borttagen, välj ny grupp'
-        taxon_name_more: Till exempel, ange kolibri eller valar och välj den överensstämmande
-          gruppen.
+        taxon_name_more: Till exempel, ange kolibri eller valar. ENDAST val från rullgardinsmenyn
+          kommer att användas; redigera inte texten utan att välja ett resultat.
         total_results: 'Totala resultat: %{total}'
         unit: Måttenhet
       eol_statistic:
@@ -1057,6 +1057,7 @@ sv:
       header_learn_more: Lär dig mer om
       header_questions: Berätta mer
       about_link_what_is_eol: Vad är EOL?
+      about_link_traitbank: Vad är TraitBank?
       about_link_eol_blog: EOL-bloggen
       about_link_discover: Upptäck
       about_link_statistics: Statistik
@@ -1891,6 +1892,7 @@ sv:
         data</a> och begära att ladda ned resultaten.
       download: ladda ned
       page_title: Datanedladdningar
+      query_head: Förfrågan
       attribute_head: Attribut
       created_head: Skapades
       updated_head: Senaste åtgärd

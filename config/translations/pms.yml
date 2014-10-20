@@ -454,8 +454,8 @@ pms:
         is_public_more: Ij profij ëd cambrada ëd contnù pùblich a son visìbij da tuti
           e j'anformassion dij cambrada a son contnùe ant le liste ëd cambrada ëd
           contnù. Desselessioné për gavé ij detaj an sij cambrada ëd contnù da le
-          liste e për restrenze l'acess al profil mach a l'utent ch'a l'ha creà ël
-          cambrada ëd contnù e a j'aministrator d'EOL.
+          liste e për limité l'acess al profil mach a l'utent ch'a l'ha creà ël cambrada
+          ëd contnù e a j'aministrator d'EOL.
         user_id: Detaj dël cambrada ëd contnù gestì da
       content_partner_agreement:
         mou_url: Adrëssa an sl'aragnà dl'archivi ëd l'acòrd <small>(alternativ facoltativ)</small>
@@ -517,8 +517,9 @@ pms:
           la partìa
         taxon_name_placeholder_value_removed: '%{taxon_group} gavà, selessioné na
           neuva partìa'
-        taxon_name_more: Për esempi, buté Trochilidae o Balen-e e selessioné la partìa
-          corëspondenta.
+        taxon_name_more: Për esempi, buté Trochilidae o Balen-e. MACH le selession
+          da lë mnu a ridò a saran dovrà, ch'a modìfica nen ël test sensa selessioné
+          n'arzultà.
         total_results: 'Total dj''arzultà: %{total}'
         unit: Unità dë mzura
       eol_statistic:
@@ -3731,4 +3732,71 @@ pms:
   admin_translated_content_page_new_header: Ch'a serna na lenga e ch'a gionta ël contnù
   admin_translated_content_page_new_tip: La lenga, ël tìtol e ël còrp ëd la pàgina
     a son %{required_icon} necessari.
+  admin_translated_content_page_new_link: Gionté na tradussion
+  admin_translated_content_page_new_subheader: Gionté na tradussion për <em>%{page_name}</em>
+  admin_translated_content_page_update_successful_notice: La tradussion an %{language}
+    ëd <a href="#%{anchor}"><em>%{page_name}</em></a> a l'é stàita agiornà.
+  admin_translated_content_page_update_unsuccessful_error: An dëspias, a l'é rivaje
+    n'eror, la tradussion a l'ha nen podù esse agiornà.
+  admin_translated_news_item_active: Publicà
+  admin_translated_news_item_create_successful_notice: La tradussion a l'é stàita
+    giontà a <a href="#%{anchor}"><em>%{page_name}</em></a>
+  admin_translated_news_item_create_unsuccessful_error: An dëspias, a l'é rivaje n'eror,
+    la tradussion a l'ha nen podù esse giontà,
+  admin_translated_news_item_delete_confirmation: É-lo sigur ëd vorèj scancelé la
+    version %{language} ëd "%{page_name}"? Le pàgine scancelà a peulo pi nen esse
+    arcuperà.
+  admin_translated_news_item_delete_successful_notice: La tradussion an %{language}
+    ëd l'element ëd neuve <em>%{page_name}</em> a l'é stàita scancelà.
+  admin_translated_news_item_edit_subheader: Modifiché la tradussion an %{language}
+    ëd <em>%{page_name}</em>
+  admin_translated_news_item_edit_tip: Ël tìtol e ël còrp ëd la pàgina a son %{required_icon}
+    obligatòri.
+  admin_translated_news_item_new_header: Ch'a serna na lenga e ch'a gionta ël contnù
+  admin_translated_news_item_new_link: Gionté la tradussion
+  admin_translated_news_item_new_subheader: Gionté na tradussion për <em>%{page_name}</em>
+  admin_translated_news_item_new_tip: La lenga, ël tìtol e ël còrp ëd la pàgina a
+    son %{required_icon} obligatòri.
+  admin_translated_news_item_not_active: Nen publicà
+  admin_translated_news_item_update_successful_notice: La tradussion an %{language}
+    ëd <a href="#%{anchor}"><em>%{page_name}</em></a> a l'é stàita agiornà.
+  admin_translated_news_item_update_unsuccessful_error: An dëspias, a l'é rivaje n'eror,
+    la tradussion a l'ha nen podù esse agiornà.
+  admin_updated_config: Configurassion agiornà për %{name}
+  admin_user_delete_successful_notice: L'utent a l'é stàit dëscancelà
+  admin_user_hide_successful_notice: L'utent a l'é stàit ëstërmà
+  admin_user_unhide_successful_notice: L'utent a l'é pi nen ëstërmà
+  agent: Agent
+  all: tut
+  all_apis_return_by_default_an_xml_response: 'Tuti j''API a smon-o coma predefinìa
+    na rispòsta an XML. Ij métod ëd l''API a peulo esse ciamà sensa un formà d''estension
+    për oten-e la rispòsta XML, e la gionta ëd n''estension XML a produvrà na rispòsta
+    idéntica:'
+  all_articles: Tuti j'artìcoj
+  all_categories: Tuti
+  all_changes: Tute le modìfiche
+  all_collections: Tute le colession
+  all_comments_entered_by_users: Tuti ij coment butà da j'utent an sël sit a son ësmonù
+    sì-sota, ant l'órdin cronològich anvers ëd soa creassion.
+  all_communities: Tute le comunità
+  all_count: Tuti (%{count})
+  all_filter: tut
+  all_images: Tute le plance
+  all_information: Tute j'anformassion
+  all_items: Tuti j'element
+  all_news: tute le neuve
+  all_people: Tuta la gent
+  all_sounds: Tute j'argistrassion sonore
+  all_sources: Tute le sorgiss
+  all_taxa: Tute le tassonomìe
+  all_title: Tut
+  all_user_submitted_texts_on_the_website: Tuti ij test publicà an sël sit da j'utent
+    a son ësmonù sì-sota, ant l'órdin cronològich opòst ëd soa creassion.
+  all_videos: Tuti ij filmà
+  allow_user_logins: Autorisé le conession d'utent
+  allowed_html_tags: 'HTML autorisà: %{comma_separated_tags}'
+  already_a_member_question: Già mèmber?
+  already_member_of_community: Chiel a l'é già un mèmber ëd sa comunità.
+  alternate_classification: Classificassion alternativa
+  alternative_name_colon: 'Nòm alternativ:'
 ...

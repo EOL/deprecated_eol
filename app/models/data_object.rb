@@ -55,8 +55,6 @@ class DataObject < ActiveRecord::Base
   # of data_objects which already has everything else preloaded
   has_many :all_versions, class_name: DataObject.to_s, foreign_key: :guid, primary_key: :guid, select: 'id, guid, language_id, data_type_id, created_at, published'
   has_many :all_published_versions, class_name: DataObject.to_s, foreign_key: :guid, primary_key: :guid, conditions: 'published = 1'
-  has_many :image_crops
-  has_many :all_image_crops, class_name: ImageCrop.to_s, through: :all_versions, primary_key: :guid, source: :image_crops
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences

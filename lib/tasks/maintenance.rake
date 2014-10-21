@@ -40,16 +40,3 @@ namespace :exemplar_images do
     end
   end
 end
-
-namespace :image_crops do
-  desc "Undo all image cropping and restore DataObjects to original object_cache_urls"
-  task :revert => :environment do
-    already_reverted_objects = {}
-    all_crops = ImageCrop.order('data_object_id asc, created_at asc')
-    all_crops.each do |image_crop|
-      next if already_reverted_objects[image_crop.data_object_id]
-      image_crop.data_object.update_attribute('object_cache_url', image_crop.original_object_cache_url)
-      already_reverted_objects[image_crop.data_object_id] = true
-    end
-  end
-end

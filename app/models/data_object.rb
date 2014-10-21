@@ -282,9 +282,13 @@ class DataObject < ActiveRecord::Base
   end
 
   def taxon_concept_for_users_text
-    unless user.nil?
-      udo = UsersDataObject.find_by_data_object_id(id)
-      TaxonConcept.find(udo.taxon_concept_id)
+    # Need to make sure we're reading from master, since the udo won't exist if
+    # there's slave lag, sigh:
+    with_master do
+      unless user.nil?
+        udo = UsersDataObject.find_by_data_object_id(id)
+        TaxonConcept.find(udo.taxon_concept_id)
+      end
     end
   end
 

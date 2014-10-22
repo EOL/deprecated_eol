@@ -2,6 +2,10 @@ require "spec_helper"
 
 describe RefIdentifier do
 
+  before(:all) do
+    populate_tables(:visibilities)
+  end
+
   describe 'link_to_identifier' do
 
     before(:each) do

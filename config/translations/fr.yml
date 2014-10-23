@@ -4335,6 +4335,7 @@ fr:
     other: Appartient à %{count} communautés
   completed: Terminé
   completed_colon: 'Terminé :'
+  confirm_deactivate_user: Êtes-vous sûr de vouloir désactiver cet utilisateur ?
   confirm_delete_community: Êtes-vous sûr de vouloir supprimer cette communauté ?
     Les membres restants pourront toujours la voir et le flux de nouveautés sera maintenu,
     mais elle ne s’affichera pas dans les recherches ou sur les pages de taxinomie,
@@ -4959,6 +4960,7 @@ fr:
     s’y rapportant et vérifier son statut de supervision.
   dato_update_user_text_error: Désolé, une erreur est survenue ; l’article n’a pas
     pu être mis à jour.
+  deactivate: Désactiver
   development_version_name: EdlV v2 Bêta
   default: Par défaut
   default_focus_collection_name_from_community: Domaine d’intérêt de %{name}

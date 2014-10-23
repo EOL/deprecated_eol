@@ -4318,6 +4318,7 @@ it:
     other: Appartiene a %{count} comunità
   completed: Completato
   completed_colon: 'Completato:'
+  confirm_deactivate_user: Sei sicuro di voler disattivare questo utente?
   confirm_delete_community: Sei sicuro di che voler eliminare questa comunità? I membri
     rimanenti saranno ancora in grado di vederla e il newsfeed sarà mantenuto, tuttavia
     essa non apparirà nelle ricerche o sulle pagine taxon e non sarà più modificabile.
@@ -4934,6 +4935,7 @@ it:
     riferita ad esso e controllare il suo stato di curatela.
   dato_update_user_text_error: Spiacenti, si è verificato un errore, l'articolo non
     è stato aggiornato.
+  deactivate: Disattiva
   development_version_name: EOL V2 Beta
   default: Predefinito
   default_focus_collection_name_from_community: '%{name} Focus'

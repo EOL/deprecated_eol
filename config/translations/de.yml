@@ -4487,6 +4487,7 @@ de:
     other: Gehört zu %{count} Gemeinschaften
   completed: Abgeschlossen
   completed_colon: 'Abgeschlossen:'
+  confirm_deactivate_user: Sind Sie sicher, dass Sie diesen Nutzer deaktivieren wollen?
   confirm_delete_community: Sind Sie sicher, dass Sie diese Gemeinschaft löschen möchten?
     Den verbliebenen Mitgliedern wird es weiterhin möglich sein, sie zu sehen, und
     auch der Nachrichtenfeed wird aufrecht erhalten. Die Gemeinschaft wird allerdings
@@ -5116,6 +5117,7 @@ de:
     Beiträge nachverfolgen und seinen Kuratierungsstatus prüfen können.
   dato_update_user_text_error: Es ist leider ein Fehler aufgetreten, so dass der Artikel
     nicht aktualisiert werden konnte.
+  deactivate: Deaktivieren
   development_version_name: EOL V2 Beta
   default: Standard
   default_focus_collection_name_from_community: '%{name}s Schwerpunkt'

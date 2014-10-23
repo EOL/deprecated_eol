@@ -4362,6 +4362,7 @@ es:
     other: Pertenece a %{count} comunidades
   completed: Completado
   completed_colon: 'Completado:'
+  confirm_deactivate_user: ¿Está seguro que desea desactivar a este usuario?
   confirm_delete_community: ¿Estás seguro de querer suprimir esta comunidad? Miembros
     restantes todavía será capaz de ver y el suministro de noticias se mantendrá,
     pero no aparecerá en las búsquedas o en el taxón páginas, y ya no será editable.
@@ -4974,6 +4975,7 @@ es:
     con él y comprobar su estado de preservación.
   dato_update_user_text_error: Lo sentimos, ha ocurrido un error, el artículo no se
     pudo actualizar.
+  deactivate: Desactivar
   development_version_name: EOL V2 Beta
   default: '%Y-%m-%d'
   default_focus_collection_name_from_community: '%{name}''s enfoque'

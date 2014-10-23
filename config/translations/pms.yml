@@ -3799,4 +3799,40 @@ pms:
   already_member_of_community: Chiel a l'é già un mèmber ëd sa comunità.
   alternate_classification: Classificassion alternativa
   alternative_name_colon: 'Nòm alternativ:'
+  alternative_common_name_colon: 'Nòm comun alternativ:'
+  amount: Total
+  an_unknown_user: N'utent ësconossù
+  annotation_cabs_colon: 'Anotassion:'
+  annotations_with_count:
+    one: '%{count} anotassion'
+    other: '%{count} anotassions'
+  annotation_submit: publiché un coment
+  annotation_note: Ij coment a saran partagià con ij fornidor ëd contnù (s'a son disponìbij).
+  annotation_body_default: gionté na chestion o un coment...
+  anonymous_user_full_name: Utent anònim
+  anonymous_user_given_name: Anònim
+  anonymous_user_tag_line: Nen rintrà ant ël sistema
+  and: e
+  and_between_form_items: e
+  jsonp_by_adding_a_callback_parameter: e JSONP an giontand un paràmeter ëd ciamà
+    d'artorn
+  any_integer: n'antregh qualsëssìa
+  any_string: na stringa qualsëssìa
+  api_cache_time_to_live_parameter: ël nùmer ëd second durant ij quaj chiel a veul
+    che la rispòsta a sia butà ant la memòria local
+  api_docs_collections_description: Dàit l'identificativ ëd na colession, cost API
+    a smonrà tuti ij metadàit rësguardant la colession e j'element che costa-sì a
+    conten. La lista dj'element a peul esse filtrà për sòrt d'element e ordinà conforma
+    a j'atribù listà. Chèich element a contniran n'atribù opsional sort_field'. As
+    trata ëd na stringa fornìa da l'utent ch'a l'é n'anotassion ëspecial ëd n'element
+    ëd colession. A peul esse na qualsëssìa stringa ëd caràter, ma s'a l'é na dàita
+    a dovrìa conformesse al formà AAA-MM-DD. J'element ëd tassonomìa a contniran un
+    'richness_score'. La richisia a l'é na métrica arpresentà da n'antregh antra 0
+    e 100, anté che ij nùmer pi grand a dserno na pàgina con un contnù rich ëd na
+    gròssa varietà ëd sorgiss. Ch'a lesa ëd pi an sla richisia dle trassonomìe an
+    dle schede d'agiornament ëd na pàgina ëd tassonomìa, për esempi %{richness_url}.
+  a_pipe_delimited_list_of_licenses: na lista ëd license separà da dle bare verticaj
+    | o da «tut» për oten-e j'oget fornì sota na licensa qualsëssìa. Le license abrevià
+    con cc- a son tute dle license %{creative_commons_link}. Ch'a vìsita sò sit për
+    pi d'anformassion an sle vàire license ch'a eufro.
 ...

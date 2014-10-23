@@ -1464,7 +1464,7 @@ zh-CN:
     details:
       index:
         hierarchy_entry:
-          meta_description: 关于%{scientific_name}的信息，分类系统由网络生命大百科的 %{hierarchy_provider}提供
+          meta_description: 关于%{scientific_name}的摘要和条目由网络生命大百科的%{hierarchy_provider}分类
           meta_description_no_data: 网络生命大百科中对%{hierarchy_provider}分类界定的%{scientific_name}没有文章可用。EOL
             邀请您提供有关%{scientific_name}的信息，包括养护、 分布、 生态、 栖息地、 形态等。
           meta_description_with_chapter_list: 网络生命大百科中关于%{scientific_name}由%{hierarchy_provider}分类的摘要和条目。包含%{chapter_list}用于%{scientific_name}。
@@ -2852,6 +2852,7 @@ zh-CN:
     other: 属于 %{count}个社区
   completed: 已完成
   completed_colon: 完成：
+  confirm_deactivate_user: 您确信您要停用此用户？
   confirm_delete_community: 您确认要删除这个社区？社区的其他会员还可以浏览该社区的内容，但是该社区的内容已经不能进行查询和显示在物种页面，也无法在进行编辑。
   confirm_leave: 您确认要离开这个社区？
   confirm_password_colon: 确认密码：
@@ -3215,6 +3216,7 @@ zh-CN:
   dato_new_text_for_taxon_page_title: 向<i>%{taxon}</i>添加一篇文章
   dato_new_text_link_for_taxon_page_title: 加入链入<i>%{taxon}</i>的连接
   dato_update_user_text_error: 抱歉，发生了一个错误，此文章不能被更新。
+  deactivate: 停用
   development_version_name: EOL V2 Beta
   default: 默认的
   default_focus_collection_name_from_community: '%{name}的关注'

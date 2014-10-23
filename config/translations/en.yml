@@ -1462,7 +1462,7 @@ en:
         hierarchy_entry:
           meta_description: "Descriptions and articles about %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life"
           meta_description_no_data: "No articles are available for %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. EOL invites you to contribute articles about %{scientific_name} such as Conservation, Distribution, Ecology, Habitat, Morphology and more."
-          meta_description_with_chapter_list: "Decriptions and articles about %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Includes %{chapter_list} for %{scientific_name}."
+          meta_description_with_chapter_list: "Descriptions and articles about %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Includes %{chapter_list} for %{scientific_name}."
           meta_description_with_common_name: "Descriptions and articles about the %{preferred_common_name}, scientifically known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life."
           meta_description_with_common_name_no_data: "No articles are available for %{preferred_common_name} also known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. EOL invites you to contribute articles about %{preferred_common_name} (%{scientific_name}) such as Conservation, Distribution, Ecology, Habitat, Morphology and more."
           meta_description_with_common_name_with_chapter_list: "Descriptions and articles about the %{preferred_common_name}, scientifically known as %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. Includes %{chapter_list}."

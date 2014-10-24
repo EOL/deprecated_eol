@@ -52,7 +52,8 @@ module EOL
     def defaults
       @defaults ||=
         Rails.cache.fetch("anonymous/#{@lang}") do
-          {:active => true, # Actually a bit torn about this one, but "inactive" means "waiting for email verify"...
+          {:active => true,
+          :active? => true,
           :agent => nil,
           :agreed_with_terms => false,
           :all_collections => [],

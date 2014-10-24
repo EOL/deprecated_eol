@@ -9,12 +9,14 @@ class ApplicationController < ActionController::Base
     rescue_from ActionView::MissingTemplate, with: :rescue_from_exception
   end
 
+  #TEMP: around_filter :curators_use_master
+  around_filter :send_to_statsd
+
   before_filter :original_request_params, except: [ :fetch_external_page_title ] # store unmodified copy of request params
   before_filter :global_warning, except: [ :fetch_external_page_title ]
   before_filter :clear_any_logged_in_session, except: [ :fetch_external_page_title ] unless $ALLOW_USER_LOGINS
   before_filter :check_user_agreed_with_terms, except: [ :fetch_external_page_title, :error ]
   before_filter :set_locale, except: [ :fetch_external_page_title ]
-  around_filter :send_to_statsd
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :keep_home_page_fresh
@@ -929,6 +931,18 @@ private
       cookies.delete(:user_auth_token)
       Rails.logger.warn "!! Rescued a corrupt cookie."
       nil
+    end
+  end
+
+  # Controllers that use this need to read the LATEST information, otherwise
+  # things could be missing.
+  def curators_use_master
+    if current_user.try(:is_curator?)
+      DataObject.with_master do
+        yield
+      end
+    else
+      yield
     end
   end
 

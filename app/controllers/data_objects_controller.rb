@@ -2,6 +2,7 @@ class DataObjectsController < ApplicationController
 
   layout :data_objects_layout
   @@results_per_page = 20
+
   before_filter :check_authentication, only: [:new, :create, :edit, :update, :ignore, :crop] # checks login only
   before_filter :load_data_object, except: [:index, :new, :create ]
   before_filter :authentication_own_user_added_text_objects_only, only: [:edit] # update handled separately
@@ -284,18 +285,15 @@ class DataObjectsController < ApplicationController
     access_denied unless current_user.min_curator_level?(:full)
     store_location(params[:return_to]) # TODO - this should be generalized at the application level, it's quick, it's common.
     curations = []
-    # You need to pull the LATEST info from master, otherwise this could fail:
-    DataObject.with_master do
-      @data_object.data_object_taxa.each do |association|
-        curations << Curation.new(
-          association: association,
-          user: current_user,
-          vetted: Vetted.find(params["vetted_id_#{association.id}"]),
-          visibility: visibility_from_params(association),
-          comment: curation_comment(params["curation_comment_#{association.id}"]), # Note, this gets saved regardless!
-          untrust_reason_ids: params["untrust_reasons_#{association.id}"],
-          hide_reason_ids: params["hide_reasons_#{association.id}"] )
-      end
+    @data_object.data_object_taxa.each do |association|
+      curations << Curation.new(
+        association: association,
+        user: current_user,
+        vetted: Vetted.find(params["vetted_id_#{association.id}"]),
+        visibility: visibility_from_params(association),
+        comment: curation_comment(params["curation_comment_#{association.id}"]), # Note, this gets saved regardless!
+        untrust_reason_ids: params["untrust_reasons_#{association.id}"],
+        hide_reason_ids: params["hide_reasons_#{association.id}"] )
     end
     if any_errors_in_curations?(curations)
       flash[:error] = all_curation_errors_to_sentence(curations)

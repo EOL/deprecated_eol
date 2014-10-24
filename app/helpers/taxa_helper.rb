@@ -217,7 +217,7 @@ module TaxaHelper
   def convert_numbers?(value, options = {})
     value.is_numeric? &&
       !(options[:value_for_known_uri] &&
-        options[:value_for_known_uri].respond_to(:treat_as_string?) &&
+        options[:value_for_known_uri].respond_to?(:treat_as_string?) &&
         options[:value_for_known_uri].treat_as_string?)
   end
 

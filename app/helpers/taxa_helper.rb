@@ -194,8 +194,7 @@ module TaxaHelper
 
   def format_data_value(value, options={})
     value = value.is_a?(DataValue) ? value.label.to_s : value.to_s
-    convert_numbers = value.is_numeric? && !(options[:value_for_known_uri] && options[:value_for_known_uri].treat_as_string?)
-    if convert_numbers
+    if convert_numbers?(value, options)
       if value.is_float?
         if value.to_f < 0.1
           # floats like 0.01234 need to round off to at least 2 significant digits
@@ -213,6 +212,13 @@ module TaxaHelper
       value = value.firstcap if options[:capitalize]
     end
     value
+  end
+
+  def convert_numbers?(value, options = {})
+    value.is_numeric? &&
+      !(options[:value_for_known_uri] &&
+        options[:value_for_known_uri].respond_to(:treat_as_string?) &&
+        options[:value_for_known_uri].treat_as_string?)
   end
 
   # TODO - this has too much business logic; extract

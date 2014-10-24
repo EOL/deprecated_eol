@@ -2,7 +2,8 @@ class TaxaController < ApplicationController
 
   layout 'taxa'
 
-  prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN   # if we happen to be on an SSL page, go back to http
+  # If we happen to be on an SSL page, go back to http:
+  prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
 
   def show
     if this_request_is_really_a_search
@@ -118,8 +119,9 @@ private
     # we had cases of app servers not properly getting the page ID from parameters and throwing 404
     # errors instead of 500. This may cause site crawlers to think pages don't exist. So throw errors instead
     raise if tc_id.blank? || tc_id == 0
-    # add params to error logging
-    @taxon_concept = TaxonConcept.find(tc_id)
+    with_master_if_curator do
+      @taxon_concept = TaxonConcept.find(tc_id)
+    end
     unless @taxon_concept.published?
       if logged_in?
         # TODO - second argument to constructor should be an I18n key for a human-readable error.

@@ -91,7 +91,11 @@ class DataObjectsController < ApplicationController
       end
 
       # Will try to redirect to the appropriate tab/section after adding text
-      subchapter = @data_object.toc_items.first.label.downcase
+      subchapter = nil
+      # Make sure they have the latest version of toc items:
+      DataObject.with_master do
+        subchapter = @data_object.toc_items.first.label.downcase
+      end
       subchapter = 'literature' if subchapter == 'literature references'
       subchapter.gsub!(/ /, "_" )
       temp = ["education", "education_resources", "identification_resources", "nucleotide_sequences",
@@ -124,19 +128,22 @@ class DataObjectsController < ApplicationController
   # GET /data_objects/:id/edit
   def edit
     # @data_object is loaded in before_filter :load_data_object
-    set_text_data_object_options
-    @data_object.description = @data_object.description.fix_old_user_added_text_linebreaks
-    @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
-    @selected_link_type_id = @data_object.link_type.id rescue nil
-    if params[:link]
-      @edit_link = true
-      @page_title = I18n.t(:dato_edit_link_title)
-      @page_description = I18n.t(:dato_edit_link_description)
-    else
-      @edit_article = true
-      @page_title = I18n.t(:dato_edit_text_title)
-      @page_description = I18n.t(:dato_edit_text_page_description)
-      @references = @data_object.visible_references.map { |r| r.full_reference }.join("\n\n")
+    # Critical to have the latest version:
+    DataObject.with_master do
+      set_text_data_object_options
+      @data_object.description = @data_object.description.fix_old_user_added_text_linebreaks
+      @selected_toc_item_id = @data_object.toc_items.first.id rescue nil
+      @selected_link_type_id = @data_object.link_type.id rescue nil
+      if params[:link]
+        @edit_link = true
+        @page_title = I18n.t(:dato_edit_link_title)
+        @page_description = I18n.t(:dato_edit_link_description)
+      else
+        @edit_article = true
+        @page_title = I18n.t(:dato_edit_text_title)
+        @page_description = I18n.t(:dato_edit_text_page_description)
+        @references = @data_object.visible_references.map { |r| r.full_reference }.join("\n\n")
+      end
     end
   end
 
@@ -145,8 +152,11 @@ class DataObjectsController < ApplicationController
   # old @data_object is loaded in before_filter :load_data_object
   def update
     @references = params[:references]
-    if @data_object.users_data_object.user_id != current_user.id
-      update_failed(I18n.t(:dato_update_users_text_not_owner_exception)) and return
+    # Important that you're getting the latest version:
+    DataObject.with_master do
+      if @data_object.users_data_object.user_id != current_user.id
+        update_failed(I18n.t(:dato_update_users_text_not_owner_exception)) and return
+      end
     end
     # Note: replicate doesn't actually update, it creates a new data_object
     new_data_object = @data_object.replicate(params[:data_object], user: current_user, toc_id: toc_id,
@@ -285,15 +295,17 @@ class DataObjectsController < ApplicationController
     access_denied unless current_user.min_curator_level?(:full)
     store_location(params[:return_to]) # TODO - this should be generalized at the application level, it's quick, it's common.
     curations = []
-    @data_object.data_object_taxa.each do |association|
-      curations << Curation.new(
-        association: association,
-        user: current_user,
-        vetted: Vetted.find(params["vetted_id_#{association.id}"]),
-        visibility: visibility_from_params(association),
-        comment: curation_comment(params["curation_comment_#{association.id}"]), # Note, this gets saved regardless!
-        untrust_reason_ids: params["untrust_reasons_#{association.id}"],
-        hide_reason_ids: params["hide_reasons_#{association.id}"] )
+    DataObject.with_master do
+      @data_object.data_object_taxa.each do |association|
+        curations << Curation.new(
+          association: association,
+          user: current_user,
+          vetted: Vetted.find(params["vetted_id_#{association.id}"]),
+          visibility: visibility_from_params(association),
+          comment: curation_comment(params["curation_comment_#{association.id}"]), # Note, this gets saved regardless!
+          untrust_reason_ids: params["untrust_reasons_#{association.id}"],
+          hide_reason_ids: params["hide_reasons_#{association.id}"] )
+      end
     end
     if any_errors_in_curations?(curations)
       flash[:error] = all_curation_errors_to_sentence(curations)
@@ -418,7 +430,9 @@ private
   end
 
   def load_data_object
-    @data_object ||= DataObject.find(params[:id])
+    with_master_if_curator do
+      @data_object ||= DataObject.find(params[:id])
+    end
   end
 
   def get_attribution

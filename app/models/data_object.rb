@@ -638,18 +638,21 @@ class DataObject < ActiveRecord::Base
     chosen_language_id ||= language.id
     chosen_language_id = Language.english.id unless chosen_language_id && chosen_language_id != 0
     params[:check_only_published] = true unless params.has_key?(:check_only_published)
-    if params[:check_only_published]
-      return self if published_in_language?(chosen_language_id)
-      # sometimes all_published_versions, but if not I anted to set a default set of select fields. Rails AREL
-      # will attempt to load the versions again if the select fields are not the same as already
-      # loaded in all_published_versions. This is verbose, but its potentially saving loading all descriptions from all
-      # versions so I think it is worth it. But there may be an easier way
-      unless all_published_versions.loaded?
-        DataObject.preload_associations(self, :all_published_versions, select: 'id, guid, language_id, data_type_id, created_at, published')
+    # Important to ensure you're looking at ALL the data objects:
+    versions_to_look_at_in_language = DataObject.with_master do
+      if params[:check_only_published]
+        return self if published_in_language?(chosen_language_id)
+        # sometimes all_published_versions, but if not I anted to set a default set of select fields. Rails AREL
+        # will attempt to load the versions again if the select fields are not the same as already
+        # loaded in all_published_versions. This is verbose, but its potentially saving loading all descriptions from all
+        # versions so I think it is worth it. But there may be an easier way
+        unless all_published_versions.loaded?
+          DataObject.preload_associations(self, :all_published_versions, select: 'id, guid, language_id, data_type_id, created_at, published')
+        end
+        all_published_versions
+      else
+        all_versions
       end
-      versions_to_look_at_in_language = all_published_versions
-    else
-      versions_to_look_at_in_language = all_versions
     end
     # only looking at revisions with the same data type (due to a bug it is possible for different revisions to have different types)
     versions_to_look_at_in_language.delete_if{ |d| data_type_id && d.data_type_id != data_type_id }

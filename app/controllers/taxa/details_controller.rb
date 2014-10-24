@@ -5,7 +5,9 @@ class Taxa::DetailsController < TaxaController
 
   # GET /pages/:taxon_id/details
   def index
-    @details = @taxon_page.details
+    with_master_if_curator do
+      @details = @taxon_page.details
+    end
     @show_add_link_buttons = true
     @assistive_section_header = I18n.t(:assistive_details_header)
     @rel_canonical_href = taxon_details_url(@taxon_page)

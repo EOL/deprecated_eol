@@ -3835,4 +3835,36 @@ pms:
     | o da «tut» për oten-e j'oget fornì sota na licensa qualsëssìa. Le license abrevià
     con cc- a son tute dle license %{creative_commons_link}. Ch'a vìsita sò sit për
     pi d'anformassion an sle vàire license ch'a eufro.
+  a_pipe_delimited_list_of_spm_info_item_subject_names: '''controlà'' për rësponde
+    con ël test controlà (s''a esist), na lista separà da ''d bare | ëd nòm ëd soget
+    da la lista dij %{subjects_text} (pr''esempi TaxonBiology, FossilHistory), o ''tuti''
+    për oten-e ël test d''un soget qualsëssìa. A rëspond tavòta con un test ëd contròl
+    ''me prim arzultà (s''a-i na j''é un ant ël contest dàit).'
+  api_refer_to_the_getting_started_page: Vëdde la pàgina <a href="%{link}">Prim pass</a>
+    për dj'esempi d'usagi ëd l'API dl'EdV, soe condission d'utilisassion e dj'anformassion
+    an sl'anscrission për oten-e na ciav ëd l'API.
+  api_results_can_be_cached: La rispòsta ëd qualsëssìa ciamà d'API a peul esse butà
+    an memòria local për na durà determinà. Un paràmeter "cache_ttl" a peul esse fornì,
+    dont ël valor a l'é ël nùmer ëd second durant ij quaj la rispòsta a sarà an memòria
+    local. Sòn a creerà j'antestassion HTTP ch'a ìndico che l'arzultà a dovrìa esse
+    butà an memòria local dal navigador dl'aragnà e, an dzorpi, la rispòsta a sarà
+    butà an memòria local an sij servent ëd l'EdV për ël nìmer ëd second spessificà.
+    Si ël valor ëd "cache_ttl" a l'é modificà, la prima arcesta con ël valor neuv
+    a rivrà pa an memòria local, ma j'arceste sucessive a profitran da rispòsta butà
+    an memòria local ëd recent.
+  application_version_advisory_information: Version ëd l'aplicassion
+  are_you_sure: É-lo sigur?
+  are_you_sure_this_action_cannot_be_undone: É-lo sigur? Costa assion a peul nen esse
+    revocà.
+  admin_login_confirmation: É-lo sigur ch'a veul intré ant l'argistr dij cambrada
+    ëd contnù tanme %{name}? S'a lo fà, a surtirà dal sit coma aministrator.
+  article_from: artìcol provenient da
+  article_secondary_description_with_others_count:
+    zero: Descrission ëd %{taxon}
+    one: Descrission ëd %{taxon} e %{count} àutra trassonomìa
+    other: Descrission ëd %{taxon} e d'àutre %{count} tassonomìe
+  article_more_about: Savèjne ëd pi a propòsit ëd s'artìcol
+  articles_with_count:
+    one: '%{count} artìcol'
+    other: '%{count} artìcoj'
 ...

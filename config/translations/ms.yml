@@ -1489,9 +1489,10 @@ ms:
             Life. EOL mengalu-alukan anda untuk menyumbangkan fakta-fakta tentang
             %{scientific_name} seperti Pemuliharaan, Taburan, Ekologi, Habitat, Morfologi
             dan banyak lagi.
-          meta_description_with_chapter_list: Fakta-fakta tentang %{scientific_name}
-            seperti yang dikelaskan oleh %{hierarchy_provider} di Encyclopedia of
-            Life, termasuk keterangan mengenai %{chapter_list} untuk %{scientific_name}.
+          meta_description_with_chapter_list: Keterangan dan rencana-rencana tentang
+            %{scientific_name} seperti yang dikelaskan oleh %{hierarchy_provider}
+            di Encyclopedia of Life, termasuk keterangan mengenai %{chapter_list}
+            untuk %{scientific_name}.
           meta_description_with_common_name: Fakta-fakta tentang %{preferred_common_name}%
             atau nama saintifiknya %{scientific_name} seperti yang dikelaskan oleh
             %{hierarchy_provider} di Encyclopedia of Life.

@@ -73,7 +73,7 @@ sv:
         source_url: Käll-URL
       data_object_link:
         description: Beskrivning
-        source_url: 'Länkadress:'
+        source_url: Länkadress
       eol_statistic:
         created_at: Skapades den
         members_count: Medlemmar

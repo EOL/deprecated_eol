@@ -2698,6 +2698,7 @@ zh-CN:
   cannot_expand_children: 不能扩展子类
   cannot_find_member: 通过该ID无法找到会员。
   cannot_index_collection_item_type_error: 我们不能以%{type}索引一个收藏条目
+  categories_title: 选择一个分类，之后选择一个属性：
   change: 更改
   change_rating_to_1_of_5: 更改评分为1（满分为5）
   change_rating_to_2_of_5: 更改评分为2（满分为5）
@@ -2761,14 +2762,19 @@ zh-CN:
   collection_items_count:
     zero: 空
     other: '%{count}项'
+  collection_copy_complete_with_count:
+    one: 从%{from}复制%{count}个项目至%{to}。
+    other: 从%{from}复制共计%{count}个项目至%{to}。
   collection_copy_choose_all_items_target_title: 从“%{collection}”复制所有项目至：
   collection_move_choose_all_items_target_title: 从“%{collection}”移动所有项目至：
+  collection_name_cannot_be_blank: 集合名不能为空
   collection_name_label: 收藏名称
   collection_newsfeed: 收藏动态
   collection_not_created_error: 很抱歉，发生了一个错误，<em>%{collection_name}</em> 收藏无法创建。
   collection_not_destroyed_error: 抱歉，集合未被删除。
   collection_not_found_error: 抱歉，找不到该集合。
   collection_created_notice: <em>%{collection_name}</em>收藏成功创建。
+  collection_redindexed: 集合已重建索引。
   collection_updated_notice: <em>%{collection_name}</em>收藏成功更新。
   collection_was_removed_by_owner: 本项目被所有者删除。
   collection_not_updated_error: 抱歉，出现一个错误，该收藏无法更新。
@@ -3134,6 +3140,7 @@ zh-CN:
     P. Sloan 基金会、John D. and Catherine T. MacArthur 基金会和全世界任何国家的EOL用户为EOL可计算的数据功能发展提供资金。TraitBank的更多信息请<a
     href="%{contact_traitbank_path}">联络EOL秘书处</a>。</p>
   data_results_only_for_search: “%{search_term}”的TraitBank结果
+  data_about_this_record: 关于此记录的数据
   data_column_tc_id: EOL页面ID
   data_column_sci_name: 学名
   data_column_common_name: 原始名称
@@ -3174,6 +3181,7 @@ zh-CN:
   data_row_additional_detail_hide_alt: 隐藏额外详细信息
   data_row_additional_detail_loading_alt: 正在载入额外详细信息
   data_row_hide_button: 隐藏行
+  data_row_unhide_button: 显示行
   data_search:
     page_title: 搜索TraitBank
     form:
@@ -3351,6 +3359,7 @@ zh-CN:
   file: 文件
   file_id: 文件ID
   file_size: 文件大小
+  filed_under_label_with_date: 于%{date}提交的字段%{label}
   fill_in_a_message_below_to_send_email_to_user: '填写下列信息并从网站发送邮件给此用户。消息在您提交表单后发送:'
   filter_button: 筛选
   filter_by_day: 按日期筛选
@@ -3485,6 +3494,7 @@ zh-CN:
   if_the_details_parameter_is_not_set: 如果没有设置详细参数，则只返回数据项标识符和数据类型，以文章为例，将只返回主题。数据类型可以是%{linka}资源类型词汇。文本主题可以是%{linkb}本体项。
   check_this_to_browse_eol_by_the_hierarchy: （如果选择此复选框，分类选项将会显示在名字标签上而不用使用“显示所有分类”）
   return_content_by_vettedness: 如果vetted = 1则仅返回可信内容.如果vetted = 2则返回仅可信和未审核的内容(不返回不可信的内容)。默认返回所有内容。
+  reindex_page_button: 重新索引页面
   image: 图像
   image_cropped_notice: 图片裁剪完成
   image_crop_failed_error: 抱歉，出现了一个错误，无法裁剪图像。
@@ -3890,6 +3900,7 @@ zh-CN:
   older_version_of_latest_published_data_object_title_link: 旧版本的%{link}
   other_version_links: 其他版本：%{version_links}
   other_category_subtab: 其他
+  ontology_uri: 本体URI
   percentage_of_children_with_images: 有图像的子节点的百分比
   percentage_of_children_with_text: 有文本的子节点的百分比
   number_of_taxa_at_this_entry: 该条目类群的数量
@@ -3964,6 +3975,8 @@ zh-CN:
   permissions_list_header: EOL的权限
   permission_granted: 权限已授予。
   permission_revoked: 权限已撤销。
+  permissions_users_count:
+    other: '%{count}位用户'
   personal_profile_menu: 个人信息
   personal_space: 个人空间
   pinterest: Pinterest
@@ -4065,6 +4078,7 @@ zh-CN:
   resources: 资源
   response_formats: 响应格式
   response: 响应
+  resque_status_header: Resque状态：
   results_per_page: 每个页面结果：
   results: 结果
   results_offset: <em>%{for}</em>的结果，%{total}中的%{from} - %{to}

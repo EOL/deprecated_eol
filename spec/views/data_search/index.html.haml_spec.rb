@@ -52,6 +52,11 @@ describe 'data_search/index' do
       expect(rendered).to match(I18n.t(:data_search_row_hidden))
       expect(rendered).to_not match(@hidden.object)
     end
+    
+    it 'displays link to last page of search result' do
+      render
+      expect(rendered).to match(I18n.t(:last_page))
+    end
 
     it 'shows the definition of the attribute'
 

@@ -3445,6 +3445,7 @@ en:
   dato_new_text_link_for_taxon_page_title: "Add a link to <i>%{taxon}</i>"
   dato_new_text_page_description: "Thank you for contributing to EOL. Your article will be added to your watch list so you can follow any conversations related to it and check on its curation status."
   dato_update_user_text_error: "Sorry, an error occurred, the article could not be updated."
+  last_page: "Go to Last Page"
   deactivate: "Deactivate"
   development_version_name: "EOL V2 Beta"
   default: "Default"

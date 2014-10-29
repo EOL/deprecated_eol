@@ -96,9 +96,9 @@ module Eol
 
     # Compile localized CSS:
     config.assets.precompile += ['*.css', '*.js']
-    
+
     config.assets.initialize_on_precompile = false
-    
+
     if defined?(Sass)
       config.sass.line_comments = false
       config.sass.style = :nested
@@ -114,7 +114,7 @@ module Eol
 
     # By default, we use local thumbnails:
     Rails.configuration.use_content_server_for_thumbnails = false
-    
+
     config.exceptions_app = ->(env) { ApplicationController.action(:rescue_from_exception).call(env) }
     # So, the new-fangled way to do configuration in Rails is Rails.configuration.WHATEVER.  ...So let's do that. It's better than
     # friggin' globals.  That said, we may want to adopt the simple, popular, SimpleConfig:
@@ -343,7 +343,6 @@ module Eol
     $EOL_YOUTUBE_ACCOUNT    = "http://www.youtube.com/user/EncyclopediaOfLife/"
     $EOL_PINTEREST_ACCOUNT  = "http://pinterest.com/eoflife/"
     $EOL_VIMEO_ACCOUNT      = "http://vimeo.com/groups/encyclopediaoflife"
-    $EOL_FLIPBOARD_ACCOUNT  = "http://flip.it/eol"
     $EOL_GOOGLE_PLUS_ACCOUNT  = "//plus.google.com/+encyclopediaoflife?prsrc=3"
 
     $CURATOR_COMMUNITY_NAME = 'EOL Curators'

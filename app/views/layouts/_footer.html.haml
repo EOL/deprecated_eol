@@ -48,15 +48,20 @@
               %li= link_to t('learn_more_link_fungi', :scope => t_scope), cms_page_path('fungi')
               %li= link_to t('learn_more_link_mushrooms', :scope => t_scope), cms_page_path('mushrooms')
               %li= link_to t('learn_more_link_molds', :scope => t_scope), cms_page_path('molds')
+              %li= link_to t('learn_more_link_molds', :scope => t_scope), cms_page_path('molds')
           %li
             %ul
               %li= link_to t('learn_more_link_bacteria', :scope => t_scope), cms_page_path('bacteria')
+            %ul
+              %li= link_to t('learn_more_link_algae', :scope => t_scope), cms_page_path('algae')
             %ul
               %li= link_to t('learn_more_link_protists', :scope => t_scope), cms_page_path('protists')
             %ul
               %li= link_to t('learn_more_link_archaea', :scope => t_scope), cms_page_path('archaea')
             %ul
               %li= link_to t('learn_more_link_viruses', :scope => t_scope), cms_page_path('viruses')
+            %ul
+              %li= link_to t('learn_more_link_evolution', :scope => t_scope), cms_page_path('evolution')
         .partners
           %h6= link_to I18n.t(:bhl), 'http://www.biodiversitylibrary.org/'
           %p= I18n.t(:bhl_partner_footer)

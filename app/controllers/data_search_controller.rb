@@ -58,7 +58,7 @@ class DataSearchController < ApplicationController
     @hide_global_search = true
     @querystring = options[:q]
     @attribute = options[:attribute]
-    @attribute_missing = @attribute.nil? && params.has_key?(:attribute) 
+    @attribute_missing = @attribute.nil? && params.has_key?(:attribute)
     @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'
     @unit = options[:unit].blank? ? nil : options[:unit]
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
@@ -156,7 +156,7 @@ class DataSearchController < ApplicationController
           uri.respond_to?(:uri) ? uri.uri : uri,
           { 'data-known_uri_id' => uri.respond_to?(:id) ? uri.id : nil } ]
       end
-    end.compact.sort_by{ |o| o.first }.uniq
+    end.compact.sort_by { |o| o.first.downcase }.uniq
   end
 
   # Add an entry to the database recording the number of results and time of search operation

@@ -48,7 +48,6 @@
               %li= link_to t('learn_more_link_fungi', :scope => t_scope), cms_page_path('fungi')
               %li= link_to t('learn_more_link_mushrooms', :scope => t_scope), cms_page_path('mushrooms')
               %li= link_to t('learn_more_link_molds', :scope => t_scope), cms_page_path('molds')
-              %li= link_to t('learn_more_link_molds', :scope => t_scope), cms_page_path('molds')
           %li
             %ul
               %li= link_to t('learn_more_link_bacteria', :scope => t_scope), cms_page_path('bacteria')
@@ -60,8 +59,6 @@
               %li= link_to t('learn_more_link_archaea', :scope => t_scope), cms_page_path('archaea')
             %ul
               %li= link_to t('learn_more_link_viruses', :scope => t_scope), cms_page_path('viruses')
-            %ul
-              %li= link_to t('learn_more_link_evolution', :scope => t_scope), cms_page_path('evolution')
         .partners
           %h6= link_to I18n.t(:bhl), 'http://www.biodiversitylibrary.org/'
           %p= I18n.t(:bhl_partner_footer)
@@ -87,3 +84,4 @@
           %li= link_to t('questions_link_indicator_species', :scope => t_scope), cms_page_path('indicator_species')
           %li= link_to t('questions_link_model_organism', :scope => t_scope), cms_page_path('model_organism')
           %li= link_to t('questions_link_contributing_to_research', :scope => t_scope), cms_page_path('contribute_research')
+          %li= link_to t('questions_link_evolution', :scope => t_scope), cms_page_path('evolution')

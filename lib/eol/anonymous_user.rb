@@ -55,7 +55,7 @@ module EOL
           {:active => true,
           :active? => true,
           :agent => nil,
-          :agreed_with_terms => false,
+          :agreed_with_terms => true, # Because we don't want to redirect them
           :all_collections => [],
           :assistant_curator? => false,
           :blank? => true,

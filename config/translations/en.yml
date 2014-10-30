@@ -1221,6 +1221,8 @@ en:
       learn_more_link_protists: Protists
       learn_more_link_archaea: Archaea
       learn_more_link_viruses: Viruses
+      learn_more_link_algae: Algae
+      learn_more_link_evolution: Evolution
       questions_link_biodiversity: What is biodiversity?
       questions_link_species: What is a species?
       questions_link_discovering_species: How are species discovered?
@@ -3650,7 +3652,6 @@ en:
   flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"
   flash_video: "Flash video"
   flickr: "Flickr"
-  flipboard: "Flipboard"
   focus_collection_edit: "You may edit this community's collections directly at each collection's edit page."
   focus_list_newsfeed: "Focus List Newsfeed"
   forgot_password: "Forgot password"
@@ -3829,7 +3830,7 @@ en:
   just_pages_with_pictures_and_text: "Just those pages with pictures and text"
   keep_split_entry_from_this_entry: "Keep separate from this entry"
   key: "Key"
-  known_uri_category_header: "Categories"  
+  known_uri_category_header: "Categories"
   known_uri_created: "URI added."
   known_uri_missing_translation: "Untranslated, please edit"
   known_uri_name_and_uri: "%{name} (%{uri})"
@@ -3841,8 +3842,8 @@ en:
   known_uri_label_equivalent: "is equivalent to"
   known_uri_label_indirectly_equivalent: "is indirectly equivalent to"
   known_uris_empty_sorry: "Sorry, there are no suggested URIs for this category, yet."
-  known_uris_none: "No one has added URIs of this type."  
-  known_uris_page_title: "URIs for Data on EOL"  
+  known_uris_none: "No one has added URIs of this type."
+  known_uris_page_title: "URIs for Data on EOL"
   known_uris_sorted: "Order updated."
   label: "Label"
   language: "Language:"

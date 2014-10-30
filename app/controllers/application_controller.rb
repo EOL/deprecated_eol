@@ -276,7 +276,7 @@ class ApplicationController < ActionController::Base
     end
     @current_user
   end
-  
+
   def set_current_user=(user)
     @current_user = user
   end
@@ -429,6 +429,7 @@ class ApplicationController < ActionController::Base
   def check_user_agreed_with_terms
     if logged_in? && ! current_user.agreed_with_terms
       store_location
+      debugger
       redirect_to terms_agreement_user_path(current_user)
     end
   end
@@ -798,7 +799,7 @@ private
   # TODO: Allow for all URLs except be sure not to interfere with EOL registration or login
   def login_with_open_authentication
     # TODO we want to check for authorization behind the scenes without making the user do anything,
-    # but it looks like that is not possible from the server-side - at least not with Facebook... 
+    # but it looks like that is not possible from the server-side - at least not with Facebook...
     # might be possible with AJAX.
     return unless params[:oauth_provider]
     unless logged_in?

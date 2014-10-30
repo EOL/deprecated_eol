@@ -88,16 +88,21 @@ class ContentServer
   private
 
   def self.call_api_with_parameters(parameters, method_name)
+    count = 0
     begin
-      response = EOLWebService.call(:parameters => parameters)
-      if response.blank?
-        ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} timed out") if $ERROR_LOGGING
-      else
-        return response
+      begin
+        response = EOLWebService.call(:parameters => parameters)
+        if response.blank?
+          ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} timed out") if $ERROR_LOGGING
+        else
+          return response
+        end
+      rescue Exception => ex
+        count += 1
+        Rails.logger.error "#{$WEB_SERVICE_BASE_URL} #{method_name} #{ex.message}"
+        ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} has an error") if $ERROR_LOGGING
       end
-    rescue
-      ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} has an error") if $ERROR_LOGGING
-    end
+    end while count < 5
     nil
   end
 

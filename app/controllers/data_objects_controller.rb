@@ -189,7 +189,7 @@ class DataObjectsController < ApplicationController
 
     if stars.to_i > 0
       rated_successfully = @data_object.rate(current_user, stars.to_i)
-      current_user.log_activity(:rated_data_object_id, value: @data_object.id)
+      current_user.log_activity(:rated_data_object_id, value: @data_object.id) if rated_successfully
     end
 
     respond_to do |format|

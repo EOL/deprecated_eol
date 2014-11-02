@@ -24,7 +24,6 @@ describe ClassificationsController do
     if CuratedTaxonConceptPreferredEntry.count("taxon_concept_id = #{@taxon_concept.id}") > 1
       puts "...There are an extra two CuratedTaxonConceptPreferredEntrys for TC #{@taxon_concept.id}, aren't there?"
       puts "...Please investigate as to why, since we should be deleting them before each spec."
-      debugger
     end
     CuratedTaxonConceptPreferredEntry.count("taxon_concept_id = #{@taxon_concept.id}").should == 1
     ctcpe = CuratedTaxonConceptPreferredEntry.last

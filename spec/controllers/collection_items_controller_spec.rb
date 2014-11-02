@@ -25,7 +25,6 @@ describe CollectionItemsController do
         post :update, { :id => @collection_item.id, :collection_item => {:annotation => "New Annotation"} }
         @collection_item.reload
         unless @collection_item.annotation == "New Annotation" # What happened?  Seems rare... must be another error.
-          debugger
           puts "Huh?"
         end
       }

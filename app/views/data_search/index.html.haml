@@ -26,7 +26,8 @@
     - next_label = (@results.current_page == @results.total_pages) ? '' : I18n.t(:pagination_next_with_count, count: @results.per_page)
     %h3= raw(I18n.t(:displaying_numerical_range_eol_records_with_count, start_number: start_number, end_number: end_number, count: @results.total_entries))
     = will_paginate @results, previous_label: previous_label, next_label: next_label, page_links: false
-    = link_to "#{I18n.t(:last_page)}", params.merge(page: @results.total_pages)
+    - if @results.total_pages > 2
+      = link_to "#{I18n.t(:last_page)}", params.merge(page: @results.total_pages)
   #taxon_data
     %table.standard.data.search
       - @results.each_with_index do |data_point_uri, index|

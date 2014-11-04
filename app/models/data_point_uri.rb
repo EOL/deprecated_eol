@@ -18,12 +18,6 @@ class DataPointUri < ActiveRecord::Base
     :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
     :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
     :sex, :sex_known_uri, :sex_known_uri_id
-  
-  attr_accessor :metadata, :references,
-    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
-    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
-    :sex, :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure, :original_unit_of_measure_known_uri,
-    :original_value
 
   attr_accessor :metadata, :references,
     :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
@@ -189,6 +183,7 @@ class DataPointUri < ActiveRecord::Base
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(statistical_method_known_uri || statistical_method)
       jsonld['eolterms:statisticalMethod'] = value
     end
+    add_metadata_to_hash(jsonld)
     jsonld
   end
 
@@ -487,6 +482,17 @@ class DataPointUri < ActiveRecord::Base
                                                                           host: EOL::Server.domain)
     end
     metadata = get_metadata(language)
+    add_metadata_to_hash(hash, language)
+    refs = get_references(language)
+    unless refs.empty?
+      hash[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
+    end
+    # TODO - other measurements. ...I think.
+    hash
+  end
+
+  def add_metadata_to_hash(hash, language = nil)
+    language ||= Language.english
     unless metadata.empty?
       metadata.each do |datum|
         key = EOL::Sparql.uri_components(datum.predicate_uri)[:label]
@@ -498,12 +504,6 @@ class DataPointUri < ActiveRecord::Base
         hash[key] = datum.value_string(language)
       end
     end
-    refs = get_references(language)
-    unless refs.empty?
-      hash[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
-    end
-    # TODO - other measurements. ...I think.
-    hash
   end
 
   def value_uri_or_blank

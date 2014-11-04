@@ -481,7 +481,6 @@ class DataPointUri < ActiveRecord::Base
         Rails.application.routes.url_helpers.content_partner_resource_url(resource.content_partner, resource,
                                                                           host: EOL::Server.domain)
     end
-    metadata = get_metadata(language)
     add_metadata_to_hash(hash, language)
     refs = get_references(language)
     unless refs.empty?
@@ -493,7 +492,7 @@ class DataPointUri < ActiveRecord::Base
 
   def add_metadata_to_hash(hash, language = nil)
     language ||= Language.english
-    if metadata
+    if metadata = get_metadata(language)
       metadata.each do |datum|
         key = EOL::Sparql.uri_components(datum.predicate_uri)[:label]
         if hash.has_key?(key) # Uh-oh. Make it original, please:

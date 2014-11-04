@@ -493,7 +493,7 @@ class DataPointUri < ActiveRecord::Base
 
   def add_metadata_to_hash(hash, language = nil)
     language ||= Language.english
-    unless metadata.empty?
+    if metadata
       metadata.each do |datum|
         key = EOL::Sparql.uri_components(datum.predicate_uri)[:label]
         if hash.has_key?(key) # Uh-oh. Make it original, please:

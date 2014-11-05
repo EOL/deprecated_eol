@@ -163,6 +163,7 @@ describe 'taxa/data/index' do
         render
         expect(rendered).to have_tag('small', text: /ago/)
       end
+      
     end
 
   end

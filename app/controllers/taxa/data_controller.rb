@@ -50,12 +50,28 @@ protected
     @taxon_data = @taxon_page.data
     @range_data = @taxon_data.ranges_of_values
     @data_point_uris = @taxon_page.data.get_data
+    @data_point_uris = remove_duplicates(@data_point_uris)
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     @include_other_category = @data_point_uris &&
       @data_point_uris.detect { |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? }
     @units_for_select = KnownUri.default_units_for_form_select
   end
 
+  def remove_duplicates(data_point_uris)
+    if data_point_uris.count > 0
+      filtered = Hash.new
+      filtered[:key] = []
+      array = data_point_uris.data_point_uris
+      begin
+        dpo = array.first
+        filtered[:key] << dpo
+        array = array.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object } 
+      end while array.count > 0 
+      filtered[:key]
+    end
+    data_point_uris
+  end
+  
   def load_glossary
     @glossary_terms = @data_point_uris ?
       ( @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri) +

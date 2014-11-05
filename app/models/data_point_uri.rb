@@ -347,8 +347,9 @@ class DataPointUri < ActiveRecord::Base
       occurrence_measurement_rows = EOL::Sparql.connection.query(query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
       # if there is only one response, then it is the original measurement
       return nil if occurrence_measurement_rows.length <= 1
-      TaxonDataSet.new(occurrence_measurement_rows, preload: false)
-    end
+      data_point_uris = TaxonDataSet.new(occurrence_measurement_rows, preload: false)
+      data_point_uris = remove_duplicates(data_point_uris)  
+    end 
   end
 
   def get_references(language)
@@ -618,7 +619,21 @@ class DataPointUri < ActiveRecord::Base
   end
 
   private
-
+  def remove_duplicates(data_point_uris)
+    if data_point_uris.count > 0
+      filtered = Hash.new
+      filtered[:key] = []
+      array = data_point_uris.data_point_uris
+      begin
+        dpo = array.first
+        filtered[:key] << dpo
+        array = array.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object } 
+      end while array.count > 0 
+      filtered[:key]
+    end
+    data_point_uris
+  end
+  
   def default_visibility
     self.visibility ||= Visibility.visible
   end
@@ -752,5 +767,6 @@ class DataPointUri < ActiveRecord::Base
                                           ! conversion[:ending_unit].unit_of_measure? }
     @@conversions
   end
+
 
 end

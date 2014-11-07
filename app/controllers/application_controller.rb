@@ -429,7 +429,6 @@ class ApplicationController < ActionController::Base
   def check_user_agreed_with_terms
     if logged_in? && ! current_user.agreed_with_terms
       store_location
-      debugger
       redirect_to terms_agreement_user_path(current_user)
     end
   end

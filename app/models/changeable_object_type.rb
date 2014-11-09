@@ -16,6 +16,13 @@ class ChangeableObjectType < ActiveRecord::Base
     alias_method :users_data_object, :users_submitted_text
   end
 
+  def self.curator_activity_log_ids
+    [ ChangeableObjectType.data_object.id,
+      ChangeableObjectType.data_objects_hierarchy_entry.id,
+      ChangeableObjectType.curated_data_objects_hierarchy_entry.id,
+      ChangeableObjectType.users_data_object.id ]
+  end
+
   def self.raw_data_object_id
     cot = self.find_by_ch_object_type('data_object')
     return 2 if cot.nil? # THIS IS FOR TESTS.  Since we need this at compile-time, we are "guessing"
@@ -24,7 +31,7 @@ class ChangeableObjectType < ActiveRecord::Base
   end
 
   def self.data_object_scope
-    [ChangeableObjectType.data_object.id, ChangeableObjectType.users_data_object.id, 
+    [ChangeableObjectType.data_object.id, ChangeableObjectType.users_data_object.id,
      ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.data_objects_hierarchy_entry.id]
   end
 

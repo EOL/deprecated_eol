@@ -1,15 +1,15 @@
 # Note that email is NOT a unique field: one email address is allowed to have
-# multiple accounts. 
-# NOTE this inherits from MASTER.  All queries against a user need to be 
+# multiple accounts.
+# NOTE this inherits from MASTER.  All queries against a user need to be
 # up-to-date, since this contains config information which can change quickly.
-# There is a similar clause in the execute() method in the connection proxy for 
+# There is a similar clause in the execute() method in the connection proxy for
 # masochism.
 
 require 'eol/activity_loggable'
 
 # NOTE - Curator loads a bunch of other relationships and validations.
 # Also worth noting that #full_name (and the methods that count on it) need to
-# know about curators, so you will see references to curator methods, there. 
+# know about curators, so you will see references to curator methods, there.
 # They didn't seem worth moving.
 class User < ActiveRecord::Base
   establish_connection(Rails.env)
@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :user_info, :notification, :open_authentications
 
-  @email_format_re = %r{^(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})$}i
+  @email_format_re = %r{\A(?:[_\+a-z0-9-]+)(\.[_\+a-z0-9-]+)*@([a-z0-9-]+)(\.[a-zA-Z0-9\-\.]+)*(\.[a-z]{2,4})\z}i
 
   validate :ensure_unique_username_against_master, if: :eol_authentication?
 
@@ -94,9 +94,9 @@ class User < ActiveRecord::Base
 
   has_many :curators_evaluated, class_name: "User", foreign_key: :curator_verdict_by_id
   has_many :curator_activity_logs
-  has_many :curator_activity_logs_on_data_objects, class_name: CuratorActivityLog.to_s,
-           conditions:
-             Proc.new { "curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}" }
+  has_many :curator_activity_logs_on_data_objects,
+    -> { where("curator_activity_logs.changeable_object_type_id = #{ChangeableObjectType.raw_data_object_id}") },
+    class_name: CuratorActivityLog.to_s
   has_many :classification_curations
 
   after_create :join_curator_community_if_curator
@@ -108,7 +108,7 @@ class User < ActiveRecord::Base
   attr_accessor :curator_request
 
 # END CURATOR CLASS DECLARATIONS
- 
+
   index_with_solr keywords: [:username, :full_name]
 
   include EOL::Logos
@@ -182,7 +182,7 @@ class User < ActiveRecord::Base
   def self.hash_password(raw)
     Digest::MD5.hexdigest(raw)
   end
-  
+
   def unsubscribe_key
     reload_all_values_if_missing([:created_at, :email])
     Digest::MD5.hexdigest(email + created_at.to_s + $UNSUBSCRIBE_NOTIFICATIONS_KEY)
@@ -231,7 +231,7 @@ class User < ActiveRecord::Base
     which = [which] unless which.is_a?(Array)
     reload_needed = false
     which.each do |attr|
-      reload_needed = true unless self.has_attribute?(attr.to_sym) 
+      reload_needed = true unless self.has_attribute?(attr.to_sym)
     end
     self.reload if reload_needed
   end
@@ -454,7 +454,7 @@ class User < ActiveRecord::Base
   end
 
   def self.count_submitted_datos(user_id = nil)
-    self.count_complex_query(UsersDataObject, 
+    self.count_complex_query(UsersDataObject,
                              %Q{SELECT user_id, COUNT(DISTINCT data_objects.guid) AS count
                                 FROM users_data_objects
                                 JOIN data_objects ON (users_data_objects.data_object_id = data_objects.id)

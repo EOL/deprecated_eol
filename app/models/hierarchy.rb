@@ -19,7 +19,7 @@ class Hierarchy < ActiveRecord::Base
   has_one :dwc_resource, class_name: Resource.to_s, foreign_key: :dwc_hierarchy_id
   has_many :hierarchy_entries
   has_many :kingdoms, class_name: HierarchyEntry.to_s, foreign_key: [ :hierarchy_id ], primary_key: [ :id ],
-    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
+    -> { where("`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0") }
 
   validates_presence_of :label
   validates_length_of :label, maximum: 255
@@ -90,7 +90,7 @@ class Hierarchy < ActiveRecord::Base
       Hierarchy.find_by_label("NCBI Taxonomy", order: "hierarchy_group_version desc")
     end
   end
-  
+
   def self.itis
     @@itis ||= cached('itis') do
       Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', order: 'id desc')
@@ -165,7 +165,7 @@ class Hierarchy < ActiveRecord::Base
   def request_to_publish_can_be_made?
     !self.browsable? && !request_publish
   end
-  
+
   def display_title
     if resource
       resource.title

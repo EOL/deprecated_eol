@@ -5,39 +5,39 @@ Eol::Application.routes.draw do
   root :to => 'content#index'
 
   # Permanent redirects. Position them before any routes they take precedence over.
-  match '/podcast' => redirect('http://podcast.eol.org/podcast')
-  match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")
-  match '/pages/:taxon_id/images' => redirect("/pages/%{taxon_id}/media")
-  match '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")
-  match '/pages/:taxon_id/entries/:entry_id' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/overview")
-  match '/pages/:taxon_id/entries/:entry_id/overview' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/overview")
-  match '/pages/:taxon_id/entries/:entry_id/details' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/details")
-  match '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")
-  match '/pages/:taxon_id/community' => redirect("/pages/%{taxon_id}/communities")
-  match '/pages/:taxon_id/community/collections' => redirect("/pages/%{taxon_id}/communities/collections")
-  match '/pages/:taxon_id/community/curators' => redirect("/pages/%{taxon_id}/communities/curators")
-  match '/pages/:taxon_id/hierarchy_entries/:entry_id/community' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities")
-  match '/pages/:taxon_id/hierarchy_entries/:entry_id/community/collections' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities/collections")
-  match '/pages/:taxon_id/hierarchy_entries/:entry_id/community/curators' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities/curators")
-  match '/taxa/content/:taxon_id' => redirect("/pages/%{taxon_id}/details")
-  match '/taxa/images/:taxon_id' => redirect("/pages/%{taxon_id}/media")
-  match '/taxa/maps/:taxon_id' => redirect("/pages/%{taxon_id}/maps")
-  match '/settings' => redirect("/")
-  match '/account/show/:user_id' => redirect("/users/%{user_id}")
-  match '/users/forgot_password' => redirect("/users/recover_account")
-  match '/users/:user_id/reset_password/:recover_account_token' => redirect("/users/recover_account")
-  match '/info/xrayvision' => redirect("/collections/14770")
-  match '/info/brian-skerry' => redirect("/collections/29285")
-  match '/info/naturesbest2011' => redirect("/collections/19338")
-  match '/info/naturesbest2012' => redirect("/collections/54659")
-  match '/info/naturesbest2013' => redirect("/collections/103870")
-  match '/voc/table_of_contents' => redirect("/schema/eol_info_items.xml")
-  match '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
-  match '/index' => redirect('/')
-  match '/home.html' => redirect('/')
-  match '/favicon' => redirect('/assets/favicon.ico')
-  match '/forum' => redirect('/forums'), :as => 'forum_redirect'
-  match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
+  get '/podcast' => redirect('http://podcast.eol.org/podcast')
+  get '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")
+  get '/pages/:taxon_id/images' => redirect("/pages/%{taxon_id}/media")
+  get '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")
+  get '/pages/:taxon_id/entries/:entry_id' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/overview")
+  get '/pages/:taxon_id/entries/:entry_id/overview' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/overview")
+  get '/pages/:taxon_id/entries/:entry_id/details' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/details")
+  get '/pages/:taxon_id/classification_attribution' => redirect("/pages/%{taxon_id}/names")
+  get '/pages/:taxon_id/community' => redirect("/pages/%{taxon_id}/communities")
+  get '/pages/:taxon_id/community/collections' => redirect("/pages/%{taxon_id}/communities/collections")
+  get '/pages/:taxon_id/community/curators' => redirect("/pages/%{taxon_id}/communities/curators")
+  get '/pages/:taxon_id/hierarchy_entries/:entry_id/community' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities")
+  get '/pages/:taxon_id/hierarchy_entries/:entry_id/community/collections' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities/collections")
+  get '/pages/:taxon_id/hierarchy_entries/:entry_id/community/curators' => redirect("/pages/%{taxon_id}/hierarchy_entries/%{entry_id}/communities/curators")
+  get '/taxa/content/:taxon_id' => redirect("/pages/%{taxon_id}/details")
+  get '/taxa/images/:taxon_id' => redirect("/pages/%{taxon_id}/media")
+  get '/taxa/maps/:taxon_id' => redirect("/pages/%{taxon_id}/maps")
+  get '/settings' => redirect("/")
+  get '/account/show/:user_id' => redirect("/users/%{user_id}")
+  get '/users/forgot_password' => redirect("/users/recover_account")
+  get '/users/:user_id/reset_password/:recover_account_token' => redirect("/users/recover_account")
+  get '/info/xrayvision' => redirect("/collections/14770")
+  get '/info/brian-skerry' => redirect("/collections/29285")
+  get '/info/naturesbest2011' => redirect("/collections/19338")
+  get '/info/naturesbest2012' => redirect("/collections/54659")
+  get '/info/naturesbest2013' => redirect("/collections/103870")
+  get '/voc/table_of_contents' => redirect("/schema/eol_info_items.xml")
+  get '/voc/table_of_contents#:term' => redirect("/schema/eol_info_items.xml%{term}")
+  get '/index' => redirect('/')
+  get '/home.html' => redirect('/')
+  get '/favicon' => redirect('/assets/favicon.ico')
+  get '/forum' => redirect('/forums'), :as => 'forum_redirect'
+  get '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
 
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
@@ -413,10 +413,9 @@ Eol::Application.routes.draw do
 
   resource :data_glossary, :only => :show, :controller => 'data_glossary'
 
-  resource :search, :controller => 'search' do
+  resource :search, :controller => 'search', only: [:index] do
     collection do
       get 'autocomplete_taxon'
-      get 'index'
     end
   end
 
@@ -439,86 +438,83 @@ Eol::Application.routes.draw do
   end
 
   # Miscellaneous named routes:
-  match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'
-  match '/contact_us' => 'contacts#new', :as => 'contact_us'
-  match '/loggertest' => 'content#loggertest' # This is used for configuring logs and log levels.
-  match '/version' => 'content#version'
-  match '/boom' => 'content#boom'
-  match '/test_timeout/:time' => 'content#test_timeout'
+  get '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'
+  get '/contact_us' => 'contacts#new', :as => 'contact_us'
+  get '/loggertest' => 'content#loggertest' # This is used for configuring logs and log levels.
+  get '/version' => 'content#version'
+  get '/boom' => 'content#boom'
+  get '/test_timeout/:time' => 'content#test_timeout'
 
   # Named application routes:
-  match '/set_language' => 'application#set_language', :as => 'set_language'
-  match '/external_link' => 'application#external_link', :as => 'external_link'
-  match '/fetch_external_page_title' => 'application#fetch_external_page_title', :as => 'fetch_external_page_title'
+  get '/set_language' => 'application#set_language', :as => 'set_language'
+  get '/external_link' => 'application#external_link', :as => 'external_link'
+  get '/fetch_external_page_title' => 'application#fetch_external_page_title', :as => 'fetch_external_page_title'
 
   # Named content routes:
-  match '/preview' => 'content#preview', :as => 'preview'
-  match '/clear_caches' => 'content#clear_caches', :as => 'clear_caches'
-  match '/expire_all' => 'content#expire_all', :as => 'expire_all'
-  match '/expire/:id' => 'content#expire_single', :id => /\w+/, :as => 'expire'
-  match '/expire_taxon/:id' => 'content#expire_taxon', :id => /\d+/, :as => 'expire_taxon'
-  match '/expire_taxa/:id' => 'content#expire_multiple', :id => /\d+/, :as => 'expire_taxa'
-  match '/language' => 'content#language', :as => 'language'
+  get '/preview' => 'content#preview', :as => 'preview'
+  get '/clear_caches' => 'content#clear_caches', :as => 'clear_caches'
+  get '/expire_all' => 'content#expire_all', :as => 'expire_all'
+  get '/expire/:id' => 'content#expire_single', :id => /\w+/, :as => 'expire'
+  get '/expire_taxon/:id' => 'content#expire_taxon', :id => /\d+/, :as => 'expire_taxon'
+  get '/expire_taxa/:id' => 'content#expire_multiple', :id => /\d+/, :as => 'expire_taxa'
+  get '/language' => 'content#language', :as => 'language'
 
-  # Search (note there is more search at the end of the file; it is expensive):
-  match '/search' => 'search#index', :as => 'search'
   # having this as :q instead of :id was interfering with WillPaginate. See #WEB-4508
-  match '/search/:id' => 'search#index'
-  match '/found/:id' => 'taxa#show', :as => 'found'
+  get '/search/:id' => 'search#index'
+  get '/found/:id' => 'taxa#show', :as => 'found'
 
   # Named session routes (see also resources):
-  match '/login' => 'sessions#new', :as => 'login'
-  match '/logout' => 'sessions#destroy', :as => 'logout'
+  get '/login' => 'sessions#new', :as => 'login'
+  get '/logout' => 'sessions#destroy', :as => 'logout'
 
   # Named curation routes:
   # TODO - PROTIP: If you're doing this, you are doing it wrong. :| Remove.
-  match '/pages/:taxon_id/details/:data_object_id/set_article_as_exemplar' => 'taxa/details#set_article_as_exemplar',
+  get '/pages/:taxon_id/details/:data_object_id/set_article_as_exemplar' => 'taxa/details#set_article_as_exemplar',
     :as => 'set_article_as_exemplar'
-  match '/pages/:id/worklist/data_objects/:data_object_id' => 'taxa/worklist#data_objects',
+  get '/pages/:id/worklist/data_objects/:data_object_id' => 'taxa/worklist#data_objects',
     :as => 'taxon_worklist_data_object'
-  match '/data_objects/:id/ignore' => 'data_objects#ignore', :as => 'data_object_ignore'
-  match '/data_objects/:id/add_association' => 'data_objects#add_association', :as => 'add_association'
-  match '/data_objects/:id/save_association/:hierarchy_entry_id' => 'data_objects#save_association',
+  get '/data_objects/:id/ignore' => 'data_objects#ignore', :as => 'data_object_ignore'
+  get '/data_objects/:id/add_association' => 'data_objects#add_association', :as => 'add_association'
+  get '/data_objects/:id/save_association/:hierarchy_entry_id' => 'data_objects#save_association',
     :as => 'save_association'
-  match '/data_objects/:id/remove_association/:hierarchy_entry_id' => 'data_objects#remove_association',
+  get '/data_objects/:id/remove_association/:hierarchy_entry_id' => 'data_objects#remove_association',
     :as => 'remove_association'
 
   # TODO - make these resources
   # Named taxon routes:
   # TODO - PROTIP: If you're doing this, you are doing it wrong. :| Remove.
-  match '/pages/:id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title', :as => 'bhl_title'
-  match '/pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title',
+  get '/pages/:id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title', :as => 'bhl_title'
+  get '/pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id' => 'taxa/literature#bhl_title',
     :as => 'entry_bhl_title'
 
   # Named content page routes:
-  match '/help' => 'content#show', :defaults => {:id => 'help'}, :as => 'help'
-  match '/about' => 'content#show', :defaults => {:id => 'about'}, :as => 'about'
-  match '/news' => 'content#show', :defaults => {:id => 'news'}, :as => 'news'
-  match '/discover' => 'content#show', :defaults => {:id => 'discover'}, :as => 'discover'
-  match '/contact' => 'content#show', :defaults => {:id => 'contact'}, :as => 'contact'
-  match '/terms_of_use' => 'content#show', :defaults => {:id => 'terms_of_use'}, :as => 'terms_of_use'
-  match '/citing' => 'content#show', :defaults => {:id => 'citing'}, :as => 'citing'
-  match '/privacy' => 'content#show', :defaults => {:id => 'privacy'}, :as => 'privacy'
-  match '/curators' => 'content#show', :defaults => {:id => 'curators'}, :as => 'curators'
-  match '/traitbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank'
-  match '/traithbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank' # Typo in newsletter. TODO - remove after 12-1-2014.
-  match '/curators/*ignore' => 'content#show', :defaults => {:id => 'curators'}
-  match '/info/:id' => 'content#show', :as => 'cms_page'
-  match '/info/*crumbs' => 'content#show', :as => 'cms_crumbs'
+  get '/help' => 'content#show', :defaults => {:id => 'help'}, :as => 'help'
+  get '/about' => 'content#show', :defaults => {:id => 'about'}, :as => 'about'
+  get '/news' => 'content#show', :defaults => {:id => 'news'}, :as => 'news'
+  get '/discover' => 'content#show', :defaults => {:id => 'discover'}, :as => 'discover'
+  get '/contact' => 'content#show', :defaults => {:id => 'contact'}, :as => 'contact'
+  get '/terms_of_use' => 'content#show', :defaults => {:id => 'terms_of_use'}, :as => 'terms_of_use'
+  get '/citing' => 'content#show', :defaults => {:id => 'citing'}, :as => 'citing'
+  get '/privacy' => 'content#show', :defaults => {:id => 'privacy'}, :as => 'privacy'
+  get '/curators' => 'content#show', :defaults => {:id => 'curators'}, :as => 'curators'
+  get '/traitbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank'
+  get '/curators/*ignore' => 'content#show', :defaults => {:id => 'curators'}
+  get '/info/:id' => 'content#show', :as => 'cms_page'
+  get '/info/*crumbs' => 'content#show', :as => 'cms_crumbs'
 
   # Named collection routes:
   # NOTE - Not nesting collection_items under collections: creation is complex, plus edit only used for non-JS users
-  match '/collections/:id/:filter' => 'collections#show', :as => 'filtered_collection'
+  get '/collections/:id/:filter' => 'collections#show', :as => 'filtered_collection'
 
   # Named user routes:
   # NOTE - can't add dynamic segment to a member in rails 2.3 so we have to specify named routes for the following:
   # TODO - can we do this now that we're rails 3?
-  match '/users/:user_id/verify/:validation_code' => 'users#verify', :as => 'verify_user'
-  match '/users/:user_id/temporary_login/:recover_account_token' => 'users#temporary_login',
+  get '/users/:user_id/verify/:validation_code' => 'users#verify', :as => 'verify_user'
+  get '/users/:user_id/temporary_login/:recover_account_token' => 'users#temporary_login',
     :as => 'temporary_login_user'
 
   # Old V1 /admin and /administrator namespaces (controllers)
-  match 'administrator' => 'admin#index', :as => 'administrator'
+  get 'administrator' => 'admin#index', :as => 'administrator'
   resource :administrator, :only => [:index], :controller => 'admin' do
     resources :harvesting_log, :only => [:index], :controller => 'administrator/harvesting_log'
     resources :hierarchy, :only => [:index, :browse, :edit], :controller => 'administrator/hierarchy'
@@ -598,26 +594,26 @@ Eol::Application.routes.draw do
   end
 
   # Named API Routes:
-  match 'api' => 'api/docs#index' # Default is actually the documenation
-  match 'api/docs' => 'api/docs#index' # Default is actually the documenation
+  get 'api' => 'api/docs#index' # Default is actually the documenation
+  get 'api/docs' => 'api/docs#index' # Default is actually the documenation
   # not sure why this didn't work in some places - but this is for documentation
-  match 'api/docs/:action' => 'api/docs'
-  match 'api/docs/:action/:version' => 'api/docs', :version => /\d\.\d/
+  get 'api/docs/:action' => 'api/docs'
+  get 'api/docs/:action/:version' => 'api/docs', :version => /\d\.\d/
   # ping is a bit of an exception - it doesn't get versioned and takes no ID
-  match 'api/:action' => 'api'
-  match 'api/:action/:version' => 'api', :version =>  /\d\.\d/
+  get 'api/:action' => 'api'
+  get 'api/:action/:version' => 'api', :version =>  /\d\.\d/
   # if version is left out we'll set the default to the latest version in the controller
-  match 'api/:action/:id' => 'api'
+  get 'api/:action/:id' => 'api'
   # looks for version, ID
-  match 'api/:action/:version/:id' => 'api', :version =>  /\d\.\d/
+  get 'api/:action/:version/:id' => 'api', :version =>  /\d\.\d/
 
-  match 'content/random_homepage_images' => 'content#random_homepage_images'
-  match 'content/file/:id' => 'content#file'
-  match '/maintenance' => 'content#maintenance', :as => 'maintenance'
+  get 'content/random_homepage_images' => 'content#random_homepage_images'
+  get 'content/file/:id' => 'content#file'
+  get '/maintenance' => 'content#maintenance', :as => 'maintenance'
 
   # These are expensive and broad and should be kept at the bottom of the file:
-  match '/:id' => redirect("/pages/%{id}/overview"), :id => /\d+/
-  match '/:q' => 'search#index', :q => /[A-Za-z% ][A-Za-z0-9% ]*/
+  get '/:id' => redirect("/pages/%{id}/overview"), :id => /\d+/
+  get '/:q' => 'search#index', :q => /[A-Za-z% ][A-Za-z0-9% ]*/
 
   # NOTE - I *removed* the default routes.  We shouldn't need them anymore.
 

@@ -6,7 +6,7 @@ class ContentPage < ActiveRecord::Base
   uses_translations
 
   belongs_to :parent, class_name: ContentPage.to_s, foreign_key: 'parent_content_page_id'
-  has_many :children, class_name: ContentPage.to_s, foreign_key: 'parent_content_page_id', order: 'sort_order'
+  has_many :children, class_name: ContentPage.to_s, foreign_key: 'parent_content_page_id', -> { order('sort_order') }
 
   #has_many :content_page_archives, order: 'created_at DESC', limit: 15
   belongs_to :user, foreign_key: 'last_update_user_id'
@@ -182,4 +182,3 @@ private
   end
 
 end
-

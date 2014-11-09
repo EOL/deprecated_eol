@@ -5,7 +5,7 @@
 #
 # The following fields store DEFAULT values for items IN the resource:
 #     license_id
-#     rights_holder 
+#     rights_holder
 #     rights_statement
 # However, the resource ITSELF can be copyrightable in some jurisdictions, so the following apply to the resource as a whole:
 #     dataset_license_id
@@ -36,7 +36,6 @@ class Resource < ActiveRecord::Base
     url: $DATASET_URL_PATH
 
   attr_accessor :latest_published_harvest_event
-  attr_protected :latest_published_harvest_event
 
   before_validation :strip_urls
   before_save :convert_nulls_to_blank # TODO: Make migration to allow null on subject or remove it altogether if its no longer needed
@@ -213,11 +212,11 @@ private
       errors[:base] << I18n.t('content_partner_resource_url_or_dataset_not_both_error')
     end
   end
-  
+
   def validate_dataset_mime_type?
     ! dataset.blank? && ! dataset.original_filename.blank?
   end
-  
+
   def accesspoint_url_provided?
     !accesspoint_url.blank?
   end
@@ -236,4 +235,3 @@ private
     self.subject = '' if self.subject.nil?
   end
 end
-

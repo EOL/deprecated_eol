@@ -16,9 +16,9 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :top_unpublished_images
   has_many :synonyms
   has_many :scientific_synonyms, class_name: Synonym.to_s,
-      conditions: Proc.new { "synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})" }
+      -> { where("synonyms.synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})") }
   has_many :common_names, class_name: Synonym.to_s,
-      conditions: Proc.new { "synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})" }
+      -> { where("synonyms.synonym_relation_id IN (#{SynonymRelation.common_name_ids.join(',')})") }
   has_many :flattened_ancestors, class_name: HierarchyEntriesFlattened.to_s
   has_many :curator_activity_logs
   has_many :hierarchy_entry_moves
@@ -26,19 +26,19 @@ class HierarchyEntry < ActiveRecord::Base
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'hierarchy_entries_refs',
-    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
+    association_foreign_key: 'ref_id', -> { where("published=1 AND visibility_id=#{Visibility.visible.id}") }
   has_and_belongs_to_many :ancestors, class_name: HierarchyEntry.to_s, join_table: 'hierarchy_entries_flattened',
     association_foreign_key: 'ancestor_id', order: 'lft'
   # Here is a way to find children and sort by name at the same time (this works for siblings too):
   # HierarchyEntry.find(38802334).children.includes(:name).order('names.string').limit(2)
   has_many :children, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:id, :hierarchy_id],
-    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
+    -> { where("`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0") }
   # IMPORTANT: siblings will also return the entry itself. This is because it is not possible to use conditions which refer
   # to a single node when using this association in preloading. For example you cannot have a condition: where id != #{id}, because
   # ActiveRecord may not have a single 'id', it may have many if preloading for multiple entries at once. This will also not return siblings of
   # top level taxa. This is because many hierarchies have hundreds or thousands of roots and we don't want to risk showing all of them
   has_many :siblings, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:parent_id, :hierarchy_id],
-    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
+    -> { where("`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0") }
 
   before_save :default_visibility
 
@@ -109,7 +109,7 @@ class HierarchyEntry < ActiveRecord::Base
     @title_canonical
   end
 
-  # takes the result of the above and adds italics tags around it if the 
+  # takes the result of the above and adds italics tags around it if the
   # taxon is of a rank which should be italicized
   def title_canonical_italicized
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
@@ -275,7 +275,7 @@ class HierarchyEntry < ActiveRecord::Base
       'dwc:relatedResourceID' => outlink_url,
       'dwc:relationshipAccordingTo' => 'http://eol.org' }
   end
-  
+
   private
 
   def default_visibility

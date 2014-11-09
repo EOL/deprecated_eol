@@ -45,22 +45,31 @@ class DataObject < ActiveRecord::Base
   has_many :collection_items, as: :collected_item
   has_many :containing_collections, through: :collection_items, source: :collection
   has_many :translations, class_name: DataObjectTranslation.to_s, foreign_key: :original_data_object_id
-  has_many :curator_activity_logs, foreign_key: :target_id,
-    conditions: Proc.new { "changeable_object_type_id IN (#{ [ ChangeableObjectType.data_object.id, ChangeableObjectType.data_objects_hierarchy_entry.id,
-      ChangeableObjectType.curated_data_objects_hierarchy_entry.id, ChangeableObjectType.users_data_object.id ].join(',') } )" }
+  has_many :curator_activity_logs,
+    -> { where("changeable_object_type_id IN (#{
+           ChangeableObjectType.curator_activity_log_ids.join(',')
+         })") },
+    foreign_key: :target_id
   has_many :users_data_objects_ratings, foreign_key: 'data_object_guid', primary_key: :guid
   has_many :all_comments, class_name: Comment.to_s, through: :all_versions, primary_key: :guid, source: :comments
   # the select_with_include library doesn't allow to grab do.* one time, then do.id later on. So in order
   # to use this with preloading I highly recommend doing DataObject.preload_associations(data_objects, :all_versions) on an array
   # of data_objects which already has everything else preloaded
   has_many :all_versions, class_name: DataObject.to_s, foreign_key: :guid, primary_key: :guid, select: 'id, guid, language_id, data_type_id, created_at, published'
-  has_many :all_published_versions, class_name: DataObject.to_s, foreign_key: :guid, primary_key: :guid, conditions: 'published = 1'
+  has_many :all_published_versions,
+    -> { where(published: true) },
+    class_name: DataObject.to_s,
+    foreign_key: :guid,
+    primary_key: :guid
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences
   has_and_belongs_to_many :refs
-  has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'data_objects_refs',
-    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
+  has_and_belongs_to_many :published_refs,
+    -> { where(published: true, visibility_id: Visibility.visible.id) },
+    class_name: Ref.to_s,
+    join_table: 'data_objects_refs',
+    association_foreign_key: 'ref_id'
 
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :toc_items, join_table: 'data_objects_table_of_contents', association_foreign_key: 'toc_id'

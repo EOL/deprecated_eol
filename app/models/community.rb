@@ -4,7 +4,7 @@ class Community < ActiveRecord::Base
 
   include EOL::ActivityLoggable
 
-  has_and_belongs_to_many :collections, uniq: true
+  has_and_belongs_to_many :collections, -> { uniq }
 
   has_many :members
   has_many :users, through: :members
@@ -93,7 +93,7 @@ class Community < ActiveRecord::Base
   def all_items_in_all_collections_count
     @all_items_count ||= collections.map { |c| c.collection_items_count }.reduce(:+)
   end
-  
+
   def cached_count_members
     Rails.cache.fetch("communities/cached_count_members/#{self.id}", expires_in: 10.minutes) do
       members.count

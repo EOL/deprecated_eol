@@ -6,9 +6,11 @@ class ContentUpload < ActiveRecord::Base
   belongs_to :user
   validates_presence_of :link_name
   validates_presence_of :description
-  validates_format_of :link_name, with: /^[A-Za-z\d_]+$/, message: I18n.t(:only_alphanum_with_no_spaces)
+  validates_format_of :link_name,
+    with: /\A[A-Za-z\d_]+\z/,
+    message: I18n.t(:only_alphanum_with_no_spaces)
   validates_uniqueness_of :link_name
-  
+
   has_attached_file :attachment,
     path: $CONTENT_UPLOAD_DIRECTORY,
     url: $CONTENT_UPLOAD_PATH,
@@ -20,11 +22,11 @@ class ContentUpload < ActiveRecord::Base
       'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
       'application/vnd.openxmlformats-officedocument.presentationml.slideshow', 'application/vnd.openxmlformats-officedocument.presentationml.slide',
       'application/msonenote', 'application/pdf', 'application/x-pdf', 'application/zip', 'multipart/x-gzip']
-  validates_attachment_presence :attachment  
+  validates_attachment_presence :attachment
   validates_attachment_size :attachment, in: 0..10.0.megabyte
 
   def attachment_url # friendly_url, uses the content controller, file method
-    "/content/file/#{self.link_name}"    
+    "/content/file/#{self.link_name}"
   end
 
   def ext
@@ -36,5 +38,5 @@ class ContentUpload < ActiveRecord::Base
   def content_server_url # url on content server
     ContentServer.uploaded_content_url(self.attributes['attachment_cache_url'], self.ext)
   end
-  
+
 end

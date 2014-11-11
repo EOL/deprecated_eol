@@ -18,8 +18,11 @@ class Hierarchy < ActiveRecord::Base
   has_one :resource
   has_one :dwc_resource, class_name: Resource.to_s, foreign_key: :dwc_hierarchy_id
   has_many :hierarchy_entries
-  has_many :kingdoms, class_name: HierarchyEntry.to_s, foreign_key: [ :hierarchy_id ], primary_key: [ :id ],
-    -> { where("`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0") }
+  has_many :kingdoms,
+    -> { where("`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0") },
+    class_name: HierarchyEntry.to_s,
+    foreign_key: [ :hierarchy_id ],
+    primary_key: [ :id ]
 
   validates_presence_of :label
   validates_length_of :label, maximum: 255

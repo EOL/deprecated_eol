@@ -19,7 +19,7 @@ class Collection < ActiveRecord::Base
   has_one :resource
   has_one :resource_preview, class_name: Resource.to_s, foreign_key: :preview_collection_id
 
-  has_and_belongs_to_many :communities, uniq: true
+  has_and_belongs_to_many :communities, -> { uniq }
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collection_jobs
 
@@ -184,7 +184,7 @@ class Collection < ActiveRecord::Base
   def set_relevance
     Resque.enqueue(CollectionRelevanceCalculator, id)
   end
-  
+
   def can_be_read_by?(user)
     return true if published? || users.include?(user) || user.is_admin?
     false
@@ -197,7 +197,7 @@ class Collection < ActiveRecord::Base
   def inaturalist_project_info
     InaturalistProjectInfo.get(id)
   end
-  
+
   def featuring_communities
     others_collection_items.includes({ collection: :communities }).collect do |ci|
       ci.collection ? ci.collection.communities.select{ |com| com.published? } : nil
@@ -209,7 +209,7 @@ class Collection < ActiveRecord::Base
       EOL::GlobalStatistics.decrement('collections')
       remove_from_index
       true
-    else 
+    else
       false
     end
   end

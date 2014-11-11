@@ -19,7 +19,8 @@ class ContentPartner < ActiveRecord::Base
   validates :acronym, length: { maximum: 20 }, allow_nil: true
   validates :homepage, length: { maximum: 255 }, allow_nil: true
 
-  before_save :default_content_partner_status
+  before_save :default_content_partner_status,
+    :default_texts
   after_save :recalculate_statistics
 
   include EOL::Logos
@@ -87,7 +88,13 @@ class ContentPartner < ActiveRecord::Base
   end
 
   def default_content_partner_status
-    self.content_partner_status ||= ContentPartnerStatus.active
+    self[:content_partner_status] ||= ContentPartnerStatus.active
+  end
+
+  def default_texts
+    self[:notes] ||= ""
+    self[:description_of_data] ||= ""
+    self[:description] ||= ""
   end
 
   def recalculate_statistics

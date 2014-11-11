@@ -180,8 +180,10 @@ module EOL
           url << '&fq=resource_type:' + CGI.escape(%Q[#{options[:type].join(' OR resource_type:')}])
         end
 
-        # add spellchecking - its using the spellcheck.q option because the main query main have gotten too complicated
-        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=500'
+        # add spellchecking - its using the spellcheck.q option because the main
+        # query may have gotten too complicated:
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) +
+          '&spellcheck=true&spellcheck.count=500'
 
         # add grouping and faceting
         url << "&group=true&group.field=resource_unique_key&group.ngroups=true&facet.field=resource_type&facet=on"

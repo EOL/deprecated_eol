@@ -25,9 +25,13 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :users_data_objects
   has_many :collection_items, as: :collected_item
-  has_many :containing_collections, through: :collection_items, source: :collection
-  has_and_belongs_to_many :collections, conditions: 'collections.published = 1'
-  has_and_belongs_to_many :collections_including_unpublished, class_name: Collection.to_s
+  has_many :containing_collections,
+    through: :collection_items,
+    source: :collection
+  has_and_belongs_to_many :collections,
+    -> { where('collections.published = 1') }
+  has_and_belongs_to_many :collections_including_unpublished,
+    class_name: Collection.to_s
   has_many :permissions_users
   has_many :permissions, through: :permissions_users
   has_many :communities, through: :members

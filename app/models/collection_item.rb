@@ -10,12 +10,12 @@ class CollectionItem < ActiveRecord::Base
   belongs_to :added_by_user, class_name: User.to_s, foreign_key: :added_by_user_id
   has_and_belongs_to_many :refs
 
-  scope :collections, conditions: { collected_item_type: 'Collection' }
-  scope :communities, conditions: { collected_item_type: 'Community' }
-  scope :data_objects, conditions: { collected_item_type: 'DataObject' }
-  scope :taxa, conditions: { collected_item_type: 'TaxonConcept' }
-  scope :users, conditions: { collected_item_type: 'User' }
-  scope :annotated, conditions: 'annotation IS NOT NULL AND annotation != ""'
+  scope :collections, -> { where(collected_item_type: 'Collection') }
+  scope :communities, -> { where(collected_item_type: 'Community') }
+  scope :data_objects, -> { where(collected_item_type: 'DataObject') }
+  scope :taxa, -> { where(collected_item_type: 'TaxonConcept') }
+  scope :users, -> { where(collected_item_type: 'User') }
+  scope :annotated, -> { where('annotation IS NOT NULL AND annotation != ""') }
 
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch

@@ -1222,7 +1222,7 @@ en:
       learn_more_link_archaea: Archaea
       learn_more_link_viruses: Viruses
       learn_more_link_algae: Algae
-      quesitons_link_evolution: What is evolution?
+      questions_link_evolution: What is evolution?
       questions_link_biodiversity: What is biodiversity?
       questions_link_species: What is a species?
       questions_link_discovering_species: How are species discovered?
@@ -3850,7 +3850,6 @@ en:
   languages: "Languages"
   language_selector_advisory_information: "The following is a list of languages that the site's content is available in, to change the current language select an alternative language from this list."
   language_with_count: "%{language} (%{count})"
-  last_page: "Go to Last Page"
   last_updated: "Last Updated"
   last_updated_time_ago: "Last updated %{time_passed} ago"
   learn_about_collections: "How can I create one?"

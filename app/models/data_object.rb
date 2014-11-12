@@ -1361,5 +1361,4 @@ private
     latest_published_version_in_same_language.users_data_object if
       users_data_object && latest_published_version_in_same_language
   end
-
 end

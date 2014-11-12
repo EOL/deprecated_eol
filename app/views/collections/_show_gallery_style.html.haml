@@ -1,5 +1,6 @@
 %ul#collection_items.collection_gallery
   - @collection_items.each_with_index do |item, index|
     - item_type = en_type(item)
-    %li{:class => "#{index.modulo(5) == 0 ? 'first' : nil} #{item_type}".strip}
-      = render 'collection_items/show', { collection_item: item, item_type: item_type, view_style: 'gallery' }
+    - if ['image_map', 'map', 'image', 'video', 'sound', 'link', 'article'].include?(item_type) && ! item.is_hidden?
+      %li{:class => "#{index.modulo(5) == 0 ? 'first' : nil} #{item_type}".strip}
+        = render 'collection_items/show', { collection_item: item, item_type: item_type, view_style: 'gallery' }

@@ -3,7 +3,7 @@
 class TaxonDataSet
 
   include Enumerable
-
+  
   def initialize(rows, options = {})
     virtuoso_results = rows
     taxon_concept_id = options[:taxon_concept_id]
@@ -11,6 +11,7 @@ class TaxonDataSet
     KnownUri.add_to_data(virtuoso_results)
     DataPointUri.preload_data_point_uris!(virtuoso_results, taxon_concept_id)
     @data_point_uris = virtuoso_results.collect{ |r| r[:data_point_instance] }
+    @data_point_uris = remove_duplicates(@data_point_uris)
     unless options[:preload] == false
       DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
       DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
@@ -101,4 +102,17 @@ class TaxonDataSet
     categorized
   end
 
+  def remove_duplicates(data_point_uris)
+    if !data_point_uris.nil? && data_point_uris.count > 0
+      filtered = Hash.new
+      filtered[:key] = []
+      begin
+        dpo = data_point_uris.first
+        filtered[:key] << dpo
+        data_point_uris = data_point_uris.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object } 
+      end while data_point_uris.count > 0 
+      return filtered[:key]
+    end
+    return data_point_uris
+  end
 end

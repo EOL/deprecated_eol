@@ -7,7 +7,6 @@
 class DataPointUri < ActiveRecord::Base
 
   include EOL::CuratableAssociation
-
   # TODO - remove this once the #to_hash method is moved.
   include ActionView::Helpers::UrlHelper
 
@@ -348,7 +347,6 @@ class DataPointUri < ActiveRecord::Base
       # if there is only one response, then it is the original measurement
       return nil if occurrence_measurement_rows.length <= 1
       data_point_uris = TaxonDataSet.new(occurrence_measurement_rows, preload: false)
-      data_point_uris = remove_duplicates(data_point_uris)  
     end 
   end
 
@@ -617,7 +615,6 @@ class DataPointUri < ActiveRecord::Base
   def context_labels
     return [ life_stage_label, sex_label ].compact
   end
-
   private
   def remove_duplicates(data_point_uris)
     if data_point_uris.count > 0
@@ -629,9 +626,9 @@ class DataPointUri < ActiveRecord::Base
         filtered[:key] << dpo
         array = array.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object } 
       end while array.count > 0 
-      filtered[:key]
+      return filtered[:key]
     end
-    data_point_uris
+    return data_point_uris
   end
   
   def default_visibility

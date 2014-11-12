@@ -27,7 +27,7 @@ describe DataPointUri do
     # UriType.create_enumerated
     # KnownUri.create_enumerated
   end
-
+  
   it 'should hide/show user_added_data when hidden/show' do
     d = DataPointUri.gen()
     d.reload  # TODO - this shouldn't be needed; but #hide doesn't work without it. I couldn't figure out why, but was rushing.

@@ -30,7 +30,7 @@ module EOL
         Rails.configuration.logo_uploads.relative_path +
           ImageManipulation.local_file_name(self)
       elsif logo_cache_url.blank?
-        "v2/logos/#{self.class.name.underscore}_default.png"
+        "v2/logos/#{self.class.name.underscore.sub(%r{/.*\z}, '')}_default.png"
       else
         link = opts[:linked?] ? $SINGLE_DOMAIN_CONTENT_SERVER : nil
         DataObject.image_cache_path(

@@ -1,4 +1,18 @@
 
+//added by Amr Morad
+//added to detect the change in the clade
+$(document).ready(function () {
+    $('#taxon_name_id').keyup(function () { 
+    	//Change in clade now
+    	//load the attributes list again    	
+    	$.ajax({    		
+    		url: "/data_search/update_attributes",    		
+    		dataType: "script"
+    	});      	    	
+    });
+});
+//end of loading attributes part
+
 (function ($) {
 
   // IE doesn't support trim
@@ -19,7 +33,7 @@
       $(this).css({ opacity: 0, display: settings.display })
         .fadeTo(settings.duration, 1);
     });
-  };
+  }; 
 
   // custom jQuery plugin to summarize form input
   $.fn.summarizeInput = function(options) {
@@ -103,7 +117,7 @@
         })}).append(dataSearch.find('#traitbank_search input[type="submit"]').clone()
         .attr('title', 'Search now or move on to add more search criteria'))
         .appendTo(vital);
-
+              
       function adjustPlaceholders() {
         for (var name in watch) {
           if (watch[name].is(':disabled')) {
@@ -181,7 +195,7 @@
           else if (typeof summarize.exclude.unit !== 'undefined') {
             delete summarize.exclude.unit;
           }
-        };
+        };		
 
         hide = function() {
           actions.fadeOut(200);
@@ -221,6 +235,7 @@
     limit_search_summaries();
   });
 }(jQuery));
+console.log('after jquery');
 
 var limit_search_summaries = function(known_uri_id) {
   var summaryDiv = $('.search_summary:has(ul.values)');

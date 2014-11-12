@@ -53,7 +53,7 @@ class StructuredData
 
   def add_to_triplestore
     sparql.insert_data(data: [ turtle ], graph_name: @graph_name)
-    sparql.insert_data(data: [ mappings_turtle ], graph_name: @mappings_graph_name)
+    sparql.insert_data(data: [ mappings_turtle ], graph_name: @mappings_graph_name)    
   end
 
   def turtle

@@ -8,6 +8,7 @@ class AdminController < ApplicationController
   before_filter :restrict_to_admins
 
   def index
+    current_harvet
   end
 
 private
@@ -19,6 +20,13 @@ private
   def set_layout_variables
     @page_title = I18n.t("eol_administration_console")
     @navigation_partial = '/admin/navigation'
+  end
+  
+  def current_harvet
+    @current_harvesting = HarvestEvent.where("completed_at IS NULL").first
+    if @current_harvesting
+      @harvesting_resource = Resource.find(@current_harvesting.resource_id)
+    end
   end
 
 end

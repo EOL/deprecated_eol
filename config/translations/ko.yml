@@ -3745,6 +3745,7 @@ ko:
   data_search_files_with_count:
     one: '%{count} 데이터 내려받기'
     other: '%{count} 데이터 내려받기'
+  data_subtab_about: 소개
   data_subtab_glossary: '%{taxon}에 대한 용어집'
   data_summary_ranges_header_with_count: EOL이 요약 데이터를 가지고 있습니다
   data_tab_curator_exemplar: 이 행을 개요 탭에 추가했습니다.

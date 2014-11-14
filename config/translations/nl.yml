@@ -10,6 +10,7 @@
 # Author: Inholland
 # Author: McDutchie
 # Author: Patio
+# Author: Robin0van0der0vliet
 # Author: Romaine
 # Author: SPQRobin
 # Author: Saruman
@@ -558,6 +559,8 @@ nl:
         request_publish: Publicatie aangevraagd.
         request_publish_more: Geeft aan of er een aanvraag opstaat om deze hiërarchie
           te bevorderen tot één van de primaire bladerbare hiërarchieën op EOL.
+      known_uri_relationship:
+        relationship_uri: Selecteer relatie
       news_item:
         active: Gepubliceerd
         active_more: Gepubliceerde nieuwsberichten zijn openbaar vanaf de geselecteerde
@@ -809,9 +812,9 @@ nl:
       wikipedia_queue:
         create: Aanvraag verzenden
   will_paginate:
-    next_label: Volgende &#8594;
+    next_label: Volgende
     page_gap: '&hellip;'
-    previous_label: '&#8592; Vorige'
+    previous_label: Vorige
   datepicker:
     day_names:
     - zondag
@@ -1176,6 +1179,7 @@ nl:
       header_learn_more: Meer te weten komen
       header_questions: Vertel me meer
       about_link_what_is_eol: Wat is EOL?
+      about_link_traitbank: Wat is TraitBank?
       about_link_eol_blog: De EOL-blog
       about_link_discover: Ontdekken
       about_link_statistics: Statistieken
@@ -1218,6 +1222,13 @@ nl:
       questions_link_indicator_species: Wat is een indicatorsoort?
       questions_link_model_organism: Wat is een modelorganisme?
       questions_link_contributing_to_research: Hoe kan ik bijdragen aan onderzoek?
+    data_search:
+      page_header: Doorzoek TraitBank
+      page_header_results: TraitBank zoekresultaten
+    footer:
+      google_plus: Encyclopedia of Life op Google+
+    taxa:
+      search_traitbank: Doorzoek TraitBank
   members:
     index:
       meta_description: Leden van %{community_name}, een Encyclopedia of Life-gemeenschap
@@ -1679,7 +1690,8 @@ nl:
           meta_description_with_common_name_with_chapter_list: Gegevens over %{preferred_common_name},
             wetenschappelijk bekend als %{scientific_name} als ingedeeld door %{hierarchy_provider}
             in Encyclopedia of Life. Bevat %{chapter_list}gegevens voor %{scientific_name}.
-          meta_title: Gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider}
+          meta_title: Beschrijvingen en artikelen over %{scientific_name} als ingedeeld
+            door %{hierarchy_provider}
           meta_title_with_common_name: Gegevens over %{preferred_common_name} (%{scientific_name}
             als ingedeeld door %{hierarchy_provider})
           tweet_text: Gegevens over %{scientific_name} als ingedeeld door %{hierarchy_provider}
@@ -1702,7 +1714,7 @@ nl:
           Bevat %{chapter_list}gegevens voor %{scientific_name}.
         meta_title: Feiten over %{scientific_name}
         meta_title_with_common_name: Feiten over %{preferred_common_name} (%{scientific_name})
-        tweet_text: Gegevens over %{scientific_name}
+        tweet_text: Artikelen over %{scientific_name}
     literature:
       bhl:
         hierarchy_entry:
@@ -1889,6 +1901,9 @@ nl:
         meta_title: Synoniemen van %{scientific_name}
         meta_title_with_common_name: Synoniemen van %{preferred_common_name} (%{scientific_name})
         tweet_text: Synoniemen van %{scientific_name}
+    overview:
+      show:
+        tweet_text: Informatie over %{scientific_name}
     resources:
       show:
         hierarchy_entry:
@@ -3679,6 +3694,7 @@ nl:
     gebruikers met rechten
   admin_link: Beheerconsole
   admin_page_title: 'Beheer: Overzicht'
+  admin_simple_actions_header: 'Simpele acties:'
   admin_spam_delete: Spam verwijderen
   admin_statistics_link: Statistieken
   admin_translated_content_page_create_successful_notice: De vertaling is toegevoegd
@@ -4665,6 +4681,7 @@ nl:
     de Alfred P. Sloan Foundation, de John D. en Catherine T.  MacArthur Foundation,
     en door gebruikers van EOL van over de hele wereld. Als u meer informatie wilt
     over over het project TraitBank™, neem dan contact op met <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
+  data_results_only_for_search: TraitBank resultaten voor "%{search_term}"
   data_about_this_record: Gegevens over dit record
   data_column_tc_id: EOL pagina-ID
   data_column_sci_name: Wetenschappelijke naam
@@ -4713,10 +4730,12 @@ nl:
   data_row_exemplar_removed: Snel feit verwijderd.
   data_row_excluded_from_overview_notice: 'Opmerking: deze rij is uitgesloten van
     snelle feiten.'
-  data_row_add_exemplar_button: Toevoegen aan snelle feiten
-  data_row_remove_exemplar_button: Verwijderen uit snelle feiten
+  data_row_add_exemplar_button: Toevoegen aan overzicht
+  data_row_remove_exemplar_button: Verwijderen uit overzicht
   data_row_hide_button: Rij verbergen
   data_row_unhide_button: Rij zichtbaar maken
+  data_search:
+    page_title: Doorzoek TraitBank
   data_search_link: Wetenschappelijke gegevens zoeken op EOL
   data_search_explanation: |-
     Gebruik de functie gegevens zoeken van EOL om items over "%{term}" te vinden in<br />
@@ -4738,10 +4757,8 @@ nl:
     other: EOL heeft gegevens voor %{count} eigenschappen
   data_tab_curator_exemplar: Toegevoegd aan snelle feiten
   data_tab_curator_excluded: Verwijderd uit snelle feiten
-  data_tab_curator_key_exemplar: '%{image} toegevoegd aan <a href=''%{link}''>Snelle
-    feiten</a>'
-  data_tab_curator_key_excluded: '%{image} verwijderd uit <a href=''%{link}''>Snelle
-    feiten</a>'
+  data_tab_curator_key_exemplar: '%{image} toegevoegd aan <a href=''%{link}''>overzicht</a>'
+  data_tab_curator_key_excluded: '%{image} verwijderd uit <a href=''%{link}''>overzicht</a>'
   data_usage_reports: Gegevensgebruikrapportages
   date_caps: Datum
   date_uploaded: Uploaddatum
@@ -4790,6 +4807,7 @@ nl:
     volgen.
   dato_update_user_text_error: Er is een fout opgetreden. Het artikel kon niet worden
     bijgewerkt.
+  deactivate: Deactiveren
   development_version_name: EOL V2 Beta
   default: Standaard
   default_focus_collection_name_from_community: Focus van %{name}
@@ -4946,6 +4964,8 @@ nl:
   excluded_icon_tip: Rijen gemarkeerd met het pictogram uitgezonderd %{excluded_icon}
     worden nooit weergegeven worden op de overzichtspagina's van taxa.
   expand_all_children: alle kinderen uitvouwen
+  expired: Vervallen
+  expires_in_colon: 'Vervalt over:'
   explore: Verkennen
   explore_what_we_know_about_taxon: Ontdek wat EOL weet over %{taxon}.
   export_curator_csv_link: '[alle conservatoren als CSV-bestand exporteren]'
@@ -5225,6 +5245,7 @@ nl:
   item_details_missing: Er is een fout opgetreden. De itemgegevens konden niet worden
     opgehaald.
   item_type_article: Artikel
+  item_type_cms_page: Informatie over EOL
   item_type_collection: Verzameling
   item_type_community: Gemeenschap
   item_type_image: Afbeelding
@@ -5468,6 +5489,7 @@ nl:
   methods: Methoden
   method_to_get_metadata_about_the_hierarchy: als er een hiërarchieaanduiding wordt
     opgegeven, heeft deze methode metadata terug over de hiërarchie en de roottaxa
+  missing_interpolation_argument_error: '[vertaling onvolledig]'
   monthly: Maandelijks
   more_children_with_count:
     one: nog één...
@@ -5892,7 +5914,7 @@ nl:
   rating_learn_more_link: Meer informatie over beoordelingen
   rating_not_added_error: Er is een fout opgetreden. De beoordeling is niet toegevoegd.
   reading_from_ontology: Lezen van <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
-  recaptcha: Voer de twee weergegeven woorden in
+  recaptcha: Voer de twee weergegeven woorden of nummers in
   recaptcha_incorrect_error_with_anchor: De <a href="#%{recaptcha_anchor}">reCaptcha-tekens</a>
     klopten niet. Probeer het opnieuw.
   recent_updates: Recente updates
@@ -6026,6 +6048,7 @@ nl:
   search_suggestion_created: De zoeksuggestie is aangemaakt.
   search_suggestion_updated: De zoeksuggestie is bijgewerkt.
   search_suggestions: Zoeksuggesties
+  search_summary: Zoekoverzicht
   search_term_detail_report: Detailrapport zoektermen
   search_term_reports: zoektermrapporten
   search_term_reports_title: Rapport zoektermen
@@ -6204,6 +6227,7 @@ nl:
   subject: onderwerp
   submit: Opslaan
   submitting: Een ogenblik geduld...
+  submitted_colon: 'Verzonden:'
   suggested_attributes: 'Voorgestelde kenmerken:'
   suggested_result_page_id: 'Pagina-ID voor suggestie in resultaat:'
   suggested_results_avg: Aangeraden resultaten gem.

@@ -7,6 +7,10 @@ class ContentServer
 
   @@cache_url_re = /(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/
 
+  def self.jpg_sizes
+    %w[580_360 260_190 130_130 98_68 88_88 orig]
+  end
+
   def self.cache_path(cache_url, options={})
     if options[:specified_content_host]
       (options[:specified_content_host] + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))

@@ -120,6 +120,9 @@ gem "acts_as_list", "0.3.0"
 # We use this for a few of our tree-like models, such as TocItem and
 # CollectionType.
 gem "acts_as_tree_rails3", "0.1.0"
+# Amazon web services:
+gem "aws-sdk", "~> 1.58"
+
 # "used for generation of scientific names with ranks on the species page"
 gem "biodiversity", "3.1.2"
 # Used by identity_cache to speed up the creation of hash keys.

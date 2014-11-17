@@ -6,12 +6,19 @@ require 'find'
 path = ENV["IMAGE_PATH"]
 s3 = AWS::S3.new
 bucket = s3.buckets[ENV["AWS_EOL_BUCKET"]]
-files = Find.find(path).select { |p| ! FileTest.directory?(p) }
-files.select { |f| f !~ /.sha\d\z/ }.each do |file|
+files = Find.find(path).
+  select { |p| f !~ /.sha\d\z/ and not FileTest.directory?(p) }
+puts "Total of #{files.length} files to process."
+files.each_with_index do |file, index|
   # We only want to store the name from the year onward:
   name = file.sub(/\A.*(?=\d\d\d\d\/\d\d\/\d\d)/, '')
-  puts "Writing: #{name}"
   obj = bucket.objects[name]
   obj.write(file: file, acl: :public_read)
-  puts "  -> #{obj.public_url.to_s.sub(/https/, 'http')}"
+  # Show some files (we generally have 6 versions of each file, so this is
+  # roughly every tenth file)...
+  if (index % 60) == 0
+    print Time.now.strftime("%Y-%m-%d %H:%M:%S")
+    puts ": (##{index}/#{files.length}) #{name}"
+    puts "  -> #{obj.public_url.to_s.sub(/https/, 'http')}"
+  end
 end

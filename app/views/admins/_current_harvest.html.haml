@@ -1,0 +1,20 @@
+.current_harvest
+  %h2
+    = I18n.t(:currently_running_harvesting)
+  - if @current_harvesting
+    %table
+      %tr
+        %td
+          %b
+            = I18n.t(:harvest_resource)
+        %td
+          = @harvesting_resource.title
+      %tr
+        %td
+          %b
+            = I18n.t(:harvest_duration)
+        %td
+          = time_diff(@current_harvesting.began_at, Time.now)
+  - else
+    %p
+      = I18n.t(:no_harvesting_events_running_now)

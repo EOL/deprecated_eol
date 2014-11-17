@@ -19,3 +19,6 @@
       %h3= I18n.t(:resque_status_header)
       - Resque.queues.each_with_index do |q,i|
         %p= I18n.t(:resque_pending_job_count, count: Resque.size(Resque.queues[i]), queue: q)
+      %p
+        %br
+          = render partial: "current_harvest"

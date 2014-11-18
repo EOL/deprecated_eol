@@ -10,12 +10,12 @@ files = Find.find(path).
   select { |p| f !~ /.sha\d\z/ and not FileTest.directory?(p) }
 puts "Total of #{files.length} files to process."
 files.each_with_index do |file, index|
-  # We only want to store the name from the year onward:
-  name = file.sub(/\A.*(?=\d\d\d\d\/\d\d\/\d\d)/, '')
+  # We only want to store the name from the content folder onward:
+  name = file.sub(/\A.*(?=content\/\d\d\d\d\/)/, '')
   obj = bucket.objects[name]
   obj.write(file: file, acl: :public_read)
   # Show some files (we generally have 6 versions of each file, so this is
-  # roughly every tenth file)...
+  # roughly every tenth data object)...
   if (index % 60) == 0
     print Time.now.strftime("%Y-%m-%d %H:%M:%S")
     puts ": (##{index}/#{files.length}) #{name}"

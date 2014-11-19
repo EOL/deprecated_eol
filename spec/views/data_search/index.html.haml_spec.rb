@@ -52,7 +52,7 @@ describe 'data_search/index' do
       expect(rendered).to match(I18n.t(:data_search_row_hidden))
       expect(rendered).to_not match(@hidden.object)
     end
-
+    
     it 'shows the definition of the attribute'
 
     it 'starts with result 1'

@@ -57,7 +57,7 @@ module EOL
             puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
           end
           sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
-        rescue Errno::ECONNREFUSED => e
+        rescue => e
           ActiveRecord::Base.logger.error "** ERROR: Virtuoso Connection refused: #{e.message}"
           raise EOL::Exceptions::SparqlDataEmpty # This gets caught by our code gracefully.
         rescue ArgumentError => e

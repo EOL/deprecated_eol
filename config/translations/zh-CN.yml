@@ -2564,7 +2564,7 @@ zh-CN:
   alternate_classification: 另一种分类系统
   alternative_name_colon: 备用名称：
   alternative_common_name_colon: 常用别名：
-  amount: 数量
+  amount: 金额
   an_unknown_user: 一个未知用户
   annotation_cabs_colon: 注释：
   annotations_with_count:
@@ -3380,7 +3380,7 @@ zh-CN:
   filter_by_type_image_option_with_count:
     other: ' 图像(%{count})'
   filter_by_type_data_option: 特性
-  filter_by_type_link_option: 连接
+  filter_by_type_link_option: 链接
   filter_by_type_text_option: 文章
   filter_by_type_user_option: 用户
   filter_by_type_photosynth_option: 全景图
@@ -3410,7 +3410,6 @@ zh-CN:
     检索得到的结果。 <a href=""%{more_results_url}"">查看其它检索结果。</a>"'
   flash_video: 动画
   flickr: Flickr
-  flipboard: Flipboard
   focus_collection_edit: 您可以在每个收藏的编辑页面直接编辑本社区的收藏。
   focus_list_newsfeed: 动态焦点
   forgot_password: 忘记密码
@@ -3544,7 +3543,7 @@ zh-CN:
   item_type_community: 小组
   item_type_image: 图像
   item_type_image_map: 地图
-  item_type_link: 连接
+  item_type_link: 链接
   item_type_map: 地图
   item_type_person: 用户
   item_type_sound: 音频
@@ -3613,7 +3612,7 @@ zh-CN:
   license: 授权协议
   license_none: 无
   license_all_rights_reserved: 保留所有权利
-  license_cc_by: 知识共享属名协议(CC BY)
+  license_cc_by: 知识共享署名协议(CC BY)
   license_cc_by_2_0: 知识共享属名协议2.0(CC BY 2.0)
   license_cc_by_2_5: 知识共享属名协议2.5(CC BY 2.5)
   license_cc_by_3_0: 知识共享属名协议3.0(CC BY 3.0)
@@ -3636,7 +3635,7 @@ zh-CN:
   license_gnu_fdl: GNU自由文档许可证(GNU FDL)
   license_gnu_gpl: GNU通用公共许可证(GNU GPL)
   license_not_applicable: 不适用的授权协议
-  license_public_domain: 公共领域
+  license_public_domain: 公有领域
   licensing: 授权协议
   limits_the_number_of_returned_image_objects: 限定返回的图像数量
   limits_the_number_of_returned_text_objects: 限定返回的文字数量
@@ -3669,7 +3668,7 @@ zh-CN:
   login_hidden_user_message: '%{given_name}帐户已失活'
   login_or_create_account: 登录或创建账户
   login_to_the_website_as: '%{username}已登录。'
-  logo_header: Logo
+  logo_header: 标志
   logo_type_error: 标志不是有效的图片类型（必须是PNG或JPEG）。
   logout: 注销
   looking_up_url: 查找URL……
@@ -4001,7 +4000,7 @@ zh-CN:
   previously_published: 之前发布的
   proceed_to_checkout_page: 前往结帐页面
   process_name: 任务名称
-  profile_colon: '个人信息:'
+  profile_colon: 个人信息：
   profile: 个人信息
   profile_image_alt_text_curator: 管理员%{user_full_name}的个人照片
   profile_image_alt_text_member: 会员%{user_full_name}的个人照片
@@ -4011,7 +4010,7 @@ zh-CN:
   provider: 提供者
   providers: 提供者
   public: 公开的
-  public_domain: 公共领域
+  public_domain: 公有领域
   publish_after_utc: 发布时间不早于（UTC）
   publish_changes: 发布改动
   published: 已发布

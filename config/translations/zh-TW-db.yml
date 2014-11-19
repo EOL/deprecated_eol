@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Cwlin0416
 # Author: Dream
+# Author: Liuxinyu970226
 # Author: Taieol
 ---
 zh-TW:
@@ -28,7 +29,7 @@ zh-TW:
   translated_agent_roles-label-agent_role_id-16: 貢獻者
   translated_agent_roles-label-agent_role_id-1: 動畫製作者
   translated_agent_roles-label-agent_role_id-21: 提供者
-  translated_agent_roles-label-agent_role_id-22: 翻譯者
+  translated_agent_roles-label-agent_role_id-22: 翻譯人員
   translated_agent_roles-label-agent_role_id-23: 科學審稿者
   translated_agent_roles-label-agent_role_id-24: 語言審稿者
   translated_agent_roles-label-agent_role_id-2: 作者

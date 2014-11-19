@@ -6,7 +6,7 @@
     .checkbox
       = check_box_tag "collection_job[collection_item_ids][]", collection_item.id, @collection_job.collection_items.detect{ |ci| ci == collection_item }
 - if ['image_map', 'image', 'video', 'sound'].include?(item_type)
-  = render "shared/item_summary_media", {:item => collection_item.collected_item, :en_type => item_type, :view_style => view_style}
+  = render "shared/item_summary_media", {:item => collection_item.collected_item, :en_type => item_type, :view_style => view_style, :is_hidden => is_hidden}
 - elsif ! item_type.blank?
   = render "shared/item_summary_#{item_type}", {:item => collection_item.collected_item, :view_style => view_style}
 - else

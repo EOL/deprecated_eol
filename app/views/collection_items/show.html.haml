@@ -2,7 +2,7 @@
 #collection_item_edit.site_column
   - item_type ||= en_type(@collection_item)
   - if ['image_map', 'image', 'video', 'sound'].include?(item_type)
-    = render "shared/item_summary_media", {:item => @collection_item.collected_item, :en_type => item_type, :view_style => 'default'}
+    = render "shared/item_summary_media", {:item => @collection_item.collected_item, :en_type => item_type, :view_style => 'default', :is_hidden => false}
   - elsif ! item_type.blank?
     = render "shared/item_summary_#{item_type}", {:item => @collection_item.collected_item, :view_style => 'default'}
   - else

@@ -19,10 +19,10 @@ class AdminsController < ApplicationController
   
   # show running harvesting
   def current_harvest
-    @current_harvesting = HarvestEvent.where("completed_at IS NULL").first
-    if @current_harvesting
-      @harvesting_resource = Resource.find(@current_harvesting.resource_id)
-    end
+   @harvest_log = HarvestProcessLog.harvesting.last
+   if@harvest_log && !(@harvest_log.complete?)
+     @harvest_resource = HarvestEvent.last_incomplete_resource
+   end
   end
 
 end

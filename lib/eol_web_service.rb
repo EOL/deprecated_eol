@@ -29,10 +29,11 @@ class EOLWebService
       http = Net::HTTP.new(parsed_url.host,parsed_url.port)
       http.use_ssl = true if parsed_url.scheme == 'https'
       header = http.head(parsed_url.path == '' ? '/' : parsed_url.path)
-      if header.kind_of?(Net::HTTPRedirection) && ! is_a_redirect
+      if header.kind_of?(Net::HTTPRedirection) && ! is_a_redirect && ! in_allowable_redirection_domains(parsed_url)
         return url_accepted?(header['location'], true)
       end
       return true if header.code.to_i == 200
+      return true if header.kind_of?(Net::HTTPRedirection) && in_allowable_redirection_domains(parsed_url)
     rescue
       return false
     end
@@ -117,6 +118,10 @@ class EOLWebService
     amp = escaped ? '&amp;' : '&'
     params = new_params.join(amp)
     params.blank? ? uri : "#{uri}?#{params}"
+  end
+  
+  def self.in_allowable_redirection_domains(url)
+    url.host.include?("dx.doi.org")
   end
 
 end

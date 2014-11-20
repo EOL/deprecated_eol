@@ -6,8 +6,7 @@ module Refable
         self.refs << ref
       else
         self.refs << Ref.new(full_reference: reference, user_submitted: true, published: 1, visibility: Visibility.visible)
-      end
-      
+      end        
     end    
   end
 end

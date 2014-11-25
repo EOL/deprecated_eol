@@ -70,6 +70,12 @@ describe EOLWebService do
       stub_request(:head, "http://eol.org").to_return(status: 200)
       expect(EOLWebService.url_accepted?('http://this.is.a.redirect')).to eq(true)
     end
+    
+    it "should allow redirect URLs from 'doi.org'" do
+      stub_request(:head, "http://dx.doi.org/10.1038/nature13812").to_return(status: 302, headers: { location: 'http://www.nature.com/doifinder/10.1038/nature13812' } )
+      stub_request(:head, "http://www.nature.com/doifinder/10.1038/nature13812").to_return(status: 302)
+      expect(EOLWebService.url_accepted?('http://dx.doi.org/10.1038/nature13812')).to eq(true)
+    end
   end
 
 end

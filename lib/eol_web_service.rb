@@ -22,18 +22,22 @@ class EOLWebService
     valid_url
   end
 
-  def self.url_accepted?(url, is_a_redirect = false)
+  def self.url_accepted?(url, is_a_redirect = false, allowable_url = false)
     return true if Rails.configuration.skip_url_validations
     begin
       parsed_url = URI.parse(url)
       http = Net::HTTP.new(parsed_url.host,parsed_url.port)
       http.use_ssl = true if parsed_url.scheme == 'https'
       header = http.head(parsed_url.path == '' ? '/' : parsed_url.path)
-      if header.kind_of?(Net::HTTPRedirection) && ! is_a_redirect && ! in_allowable_redirection_domains(parsed_url)
-        return url_accepted?(header['location'], true)
+      if header.kind_of?(Net::HTTPRedirection) && ! is_a_redirect
+        if in_allowable_redirection_domains(parsed_url)
+          return url_accepted?(header['location'], true, true) 
+        else
+          return url_accepted?(header['location'], true)
+        end
       end
       return true if header.code.to_i == 200
-      return true if header.kind_of?(Net::HTTPRedirection) && in_allowable_redirection_domains(parsed_url)
+      return true if header.kind_of?(Net::HTTPRedirection) && is_a_redirect && allowable_url
     rescue
       return false
     end

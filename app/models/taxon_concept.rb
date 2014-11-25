@@ -104,7 +104,7 @@ class TaxonConcept < ActiveRecord::Base
     solr_query_parameters[:visibility_types] ||= ['visible']  # labels are english strings simply because the SOLR fields use these labels
     solr_query_parameters[:ignore_translations] ||= false  # ignoring translations means we will not return objects which are translations of other original data objects
     solr_query_parameters[:return_hierarchically_aggregated_objects] ||= false  # if true, we will return images of ALL SPECIES of Animals for example
-    
+
     # these are really only relevant to the worklist
     solr_query_parameters[:resource_id] ||= nil
     unless solr_query_parameters.has_key?(:curated_by_user)
@@ -320,7 +320,7 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConcept.preload_associations(self, published_hierarchy_entries: [ :vetted, :hierarchy ])
     @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
     @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries) if @all_entries.blank?
-    best_entry = hierarchy ? 
+    best_entry = hierarchy ?
       @all_entries.detect { |he| he.hierarchy_id == hierarchy.id } || @all_entries.first :
       @all_entries.first
     create_preferred_entry(best_entry) if hierarchy.nil?
@@ -570,7 +570,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def maps_count
     # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
-    # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be 
+    # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be
     # TaxonConceptCache, where we can handle both storing and clearing keys. That centralizes the logic,
     # and would allow us to put these two methods where they belong:
     @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), expires_in: 1.days) do
@@ -582,7 +582,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def get_one_map_from_solr
     data_objects_from_solr(
-      page: 1, 
+      page: 1,
       per_page: 1,
       data_type_ids: DataType.image_type_ids,
       data_subtype_ids: DataType.map_type_ids,
@@ -705,7 +705,7 @@ class TaxonConcept < ActiveRecord::Base
       return article
     end
   end
-  
+
   # TODO - this belongs in the same class as #overview_text_for_user. ...But be aware this is also used in TaxonDetails.
   def text_for_user(the_user = nil, options = {})
     the_user ||= EOL::AnonymousUser.new(Language.default)
@@ -716,11 +716,11 @@ class TaxonConcept < ActiveRecord::Base
     options[:filter_by_subtype] ||= false
     self.data_objects_from_solr(options)
   end
-  
+
   def data_objects_from_solr(solr_query_parameters = {})
     EOL::Solr::DataObjects.search_with_pagination(id, TaxonConcept.default_solr_query_parameters(solr_query_parameters))
   end
-  
+
   def media_facet_counts
     @media_facet_counts ||= EOL::Solr::DataObjects.get_facet_counts(self.id)
   end
@@ -869,11 +869,11 @@ class TaxonConcept < ActiveRecord::Base
     end
     return false
   end
-  
+
   def published_browsable_hierarchy_entries
     published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
   end
-  
+
   def count_of_viewable_synonyms
     Synonym.where(hierarchy_entry_id: published_browsable_hierarchy_entries.collect(&:id)).where(
       "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
@@ -953,6 +953,12 @@ class TaxonConcept < ActiveRecord::Base
     number_of_descendants.between?(2, TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES)
   end
 
+  def wikipedia_entry
+    if Hierarchy.wikipedia
+      entry(Hierarchy.wikipedia)
+    end
+  end
+
 private
 
   # Assume this method is expensive.
@@ -979,7 +985,7 @@ private
   end
 
   # Put the currently-preferred entry at the top of the list and load associations:
-  def sort_and_preload_deeply_browsable_entries(set) 
+  def sort_and_preload_deeply_browsable_entries(set)
     current_entry_id = entry.id # Don't want to call #entry so many times...
     set.sort! { |a,b| a.id == current_entry_id ? -1 : b.id == current_entry_id ? 1 : 0}
     HierarchyEntry.preload_deeply_browsable(set)
@@ -992,7 +998,7 @@ private
       else
         true
       end
-    else 
+    else
       false
     end
   end
@@ -1025,4 +1031,3 @@ private
   end
 
 end
-

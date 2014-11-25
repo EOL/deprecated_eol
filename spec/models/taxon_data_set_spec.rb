@@ -17,7 +17,7 @@ describe TaxonDataSet do
   it 'should populate DataPointUri instances by taxon concept and uri' do
     dpuri = DataPointUri.gen(taxon_concept: @taxon_concept, uri: "http://something/new/")
     @row_1[:data_point_uri] = dpuri.uri
-    set = TaxonDataSet.new(@rows, taxon_concept_id: @taxon_concept.id)
+    set = TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
     set.first.should == dpuri
   end
 
@@ -25,7 +25,7 @@ describe TaxonDataSet do
     DataPointUri.delete_all
     uri = "http://some.place.fun/has_stuff/21" # FactoryGirl.generate(:uri) ?
     @row_1[:data_point_uri] = uri
-    set = TaxonDataSet.new(@rows, taxon_concept_id: @taxon_concept.id)
+    set = TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
     set.first.should_not be_nil
     DataPointUri.first.uri.should == uri
   end
@@ -33,11 +33,11 @@ describe TaxonDataSet do
   # NOTE - we maybe shouldn't care about this, since it's "just" efficiency. But hey.
   it 'should preload associations on data point uris.' do
     DataPointUri.should_receive(:preload_associations).at_least(2).times
-    TaxonDataSet.new(@rows, taxon_concept_id: @taxon_concept.id)
+    TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
   end
 
   it 'should yield each row on each' do
-    set = TaxonDataSet.new(@rows, taxon_concept_id: @taxon_concept.id)
+    set = TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
     index = 0
     set.each_with_index do |data_point_uri, index|
       data_point_uri.uri == instance_variable_get("@row_#{index+1}")[:data_point_uri]
@@ -64,7 +64,7 @@ describe TaxonDataSet do
       { data_point_uri: 'http://eol.org/7', attribute: raw_uri2 },
       { data_point_uri: 'http://eol.org/8', attribute: uri3 }
     ]
-    set = TaxonDataSet.new(rows, taxon_concept_id: @taxon_concept.id)
+    set = TaxonDataSet.new(rows, taxon_concept: @taxon_concept)
     set.sort.map { |r| r.predicate }.should == [
       uri1.uri, uri2.uri, uri3.uri, uri4.uri, uri5.uri, raw_uri1, raw_uri2, raw_uri3
     ]

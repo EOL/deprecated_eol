@@ -6,10 +6,10 @@ class TaxonDataSet
 
   def initialize(rows, options = {})
     virtuoso_results = rows
-    taxon_concept_id = options[:taxon_concept_id]
+    @taxon_concept = options[:taxon_concept]
     @language = options[:language] || Language.default
     KnownUri.add_to_data(virtuoso_results)
-    DataPointUri.preload_data_point_uris!(virtuoso_results, taxon_concept_id)
+    DataPointUri.preload_data_point_uris!(virtuoso_results, @taxon_concept.try(:id))
     @data_point_uris = virtuoso_results.collect{ |r| r[:data_point_instance] }
     unless options[:preload] == false
       DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
@@ -99,6 +99,47 @@ class TaxonDataSet
   def categorized
     categorized = @data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
     categorized
+  end
+
+  def to_jsonld
+    raise "Cannot build JSON+LD without taxon concept" unless @taxon_concept
+    jsonld = { '@graph' => [ @taxon_concept.to_jsonld ] }
+    if wikipedia_entry = @taxon_concept.wikipedia_entry
+      jsonld['@graph'] << wikipedia_entry.mapping_jsonld
+    end
+    @taxon_concept.common_names.map do |tcn|
+      jsonld['@graph'] << tcn.to_jsonld
+    end
+    @data_point_uris.map do |dpuri|
+      jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
+    end
+    fill_context(jsonld)
+    jsonld
+  end
+
+  private
+
+  def fill_context(hash)
+    def self.jsonld_header
+      # TODO: @context doesn't need all of these. Look through the @graph and
+      # add things as needed based on the Sparql headers, then add the @ids.
+      hash['@context'] = {
+        'dc' => 'http://purl.org/dc/terms/',
+        'dwc' => 'http://rs.tdwg.org/dwc/terms/',
+        'eol' => 'http://eol.org/schema/',
+        'eolterms' => 'http://eol.org/schema/terms/',
+        'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
+        'gbif' => 'http://rs.gbif.org/terms/1.0/',
+        'foaf' => 'http://xmlns.com/foaf/0.1/',
+        'dwc:taxonID' => { '@type' => '@id' },
+        'dwc:resourceID' => { '@type' => '@id' },
+        'dwc:relatedResourceID' => { '@type' => '@id' },
+        'dwc:relationshipOfResource' => { '@type' => '@id' },
+        'dwc:vernacularName' => { '@container' => '@language' },
+        'eol:associationType' => { '@type' => '@id' },
+        'rdfs:label' => { '@container' => '@language' } }
+    end
+
   end
 
 end

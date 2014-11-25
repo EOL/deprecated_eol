@@ -77,7 +77,7 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def downloadable?
-    ! bad_connection? && ! get_data.blank? 
+    ! bad_connection? && ! get_data.blank?
   end
 
   def topics
@@ -97,7 +97,7 @@ class TaxonData < TaxonUserClassificationFilter
   def get_data
     if_connection_fails_return(nil) do
       return @taxon_data_set.dup if defined?(@taxon_data_set)
-      taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept_id: taxon_concept.id, language: user.language)
+      taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept: taxon_concept, language: user.language)
       taxon_data_set.sort
       known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
       KnownUri.preload_associations(known_uris,
@@ -121,7 +121,7 @@ class TaxonData < TaxonUserClassificationFilter
   def distinct_predicates
     data = get_data
     unless data.nil? || ranges_of_values.nil?
-      ( data.collect{ |d| d.predicate }.compact + 
+      ( data.collect{ |d| d.predicate }.compact +
         ranges_of_values.collect{ |r| r[:attribute] } ).uniq
     else
       return []
@@ -180,6 +180,10 @@ class TaxonData < TaxonUserClassificationFilter
     KnownUri.add_to_data(results)
     Resource.add_to_data(results)
     results
+  end
+
+  def to_jsonld
+    get_data.to_jsonld
   end
 
   private

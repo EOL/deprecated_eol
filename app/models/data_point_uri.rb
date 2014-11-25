@@ -157,7 +157,7 @@ class DataPointUri < ActiveRecord::Base
     "data_point_#{id}"
   end
 
-  def to_jsonld
+  def to_jsonld(options = {})
     jsonld = {
       '@id' => uri,
       '@type' => measurement? ? 'dwc:MeasurementOrFact' : 'eol:Association',
@@ -183,7 +183,7 @@ class DataPointUri < ActiveRecord::Base
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(statistical_method_known_uri || statistical_method)
       jsonld['eolterms:statisticalMethod'] = value
     end
-    add_metadata_to_hash(jsonld)
+    add_metadata_to_hash(jsonld) if options[:metadata]
     jsonld
   end
 

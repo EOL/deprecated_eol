@@ -486,10 +486,13 @@ class DataPointUri < ActiveRecord::Base
     unless refs.empty?
       hash[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
     end
-    # TODO - other measurements. ...I think.
+    # TODO: other measurements. ...I think.
     hash
   end
 
+  # TODO: replace add_metadata_to_hash with add_metadata_uris_to_hash and then
+  # call a method like TaxonDataSet#context_from_uris on the result; but extract
+  # that into a (new) JsonLd class.
   def add_metadata_to_hash(hash, language = nil)
     language ||= Language.english
     if metadata = get_metadata(language)
@@ -505,11 +508,26 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
+  # TODO: see #add_metadata_to_hash
+  def add_metadata_uris_to_hash(hash, language = nil)
+    language ||= Language.english
+    if metadata = get_metadata(language)
+      metadata.each do |datum|
+        if hash.has_key? datum.predicate_uri
+          hash[datum] = Array(hash[datum.predicate_uri]) <<
+            datum.value_string(language)
+        else
+          hash[datum] = datum.value_string(language)
+        end
+      end
+    end
+  end
+
   def value_uri_or_blank
     EOL::Sparql.is_uri?(object) ? object : ''
   end
 
-  # TODO - a lot of this stuff should be extracted to a class to handle ... this kind of stuff.  :| (DataValue, perhaps) It's
+  # TODO: a lot of this stuff should be extracted to a class to handle ... this kind of stuff.  :| (DataValue, perhaps) It's
   # really very simple, but there's enough of it that it seems quite complex.
   def units_string
     units_safe(:label)

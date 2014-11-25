@@ -119,27 +119,46 @@ class TaxonDataSet
 
   private
 
-  def fill_context(hash)
-    def self.jsonld_header
-      # TODO: @context doesn't need all of these. Look through the @graph and
-      # add things as needed based on the Sparql headers, then add the @ids.
-      hash['@context'] = {
-        'dc' => 'http://purl.org/dc/terms/',
-        'dwc' => 'http://rs.tdwg.org/dwc/terms/',
-        'eol' => 'http://eol.org/schema/',
-        'eolterms' => 'http://eol.org/schema/terms/',
-        'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
-        'gbif' => 'http://rs.gbif.org/terms/1.0/',
-        'foaf' => 'http://xmlns.com/foaf/0.1/',
-        'dwc:taxonID' => { '@type' => '@id' },
-        'dwc:resourceID' => { '@type' => '@id' },
-        'dwc:relatedResourceID' => { '@type' => '@id' },
-        'dwc:relationshipOfResource' => { '@type' => '@id' },
-        'dwc:vernacularName' => { '@container' => '@language' },
-        'eol:associationType' => { '@type' => '@id' },
-        'rdfs:label' => { '@container' => '@language' } }
-    end
+  def fill_context(jsonld)
+    default_context(jsonld)
+    context_from_uris(jsonld)
+  end
 
+  def default_context(jsonld)
+    # TODO: @context doesn't need all of these. Look through the @graph and
+    # add things as needed based on the Sparql headers, then add the @ids.
+    jsonld['@context'] = {
+      'dc' => 'http://purl.org/dc/terms/',
+      'dwc' => 'http://rs.tdwg.org/dwc/terms/',
+      'eol' => 'http://eol.org/schema/',
+      'eolterms' => 'http://eol.org/schema/terms/',
+      'rdfs' => 'http://www.w3.org/2000/01/rdf-schema#',
+      'gbif' => 'http://rs.gbif.org/terms/1.0/',
+      'foaf' => 'http://xmlns.com/foaf/0.1/',
+      'dwc:taxonID' => { '@type' => '@id' },
+      'dwc:resourceID' => { '@type' => '@id' },
+      'dwc:relatedResourceID' => { '@type' => '@id' },
+      'dwc:relationshipOfResource' => { '@type' => '@id' },
+      'dwc:vernacularName' => { '@container' => '@language' },
+      'eol:associationType' => { '@type' => '@id' },
+      'rdfs:label' => { '@container' => '@language' } }
+    jsonld
+  end
+
+  def context_from_uris(jsonld)
+    jsonld['@graph'].each do |graph|
+      graph.keys.each do |key|
+        if key.is_a? KnownUri
+          value = graph.delete(key)
+          if graph.has_key(key.name)
+            graph[key.name] = Array(graph[key.name]) << value
+          else
+            jsonld['@context'][key.name] = key.uri
+            graph[key.name] = value
+          end
+        end
+      end
+    end
   end
 
 end

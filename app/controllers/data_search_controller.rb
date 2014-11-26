@@ -28,9 +28,14 @@ class DataSearchController < ApplicationController
             contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
         t = Time.now
-        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
-        @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))
-        log_data_search(time_in_seconds: Time.now - t)
+        if @taxon_concept.nil? && !(params[:taxon_name].blank?)
+          @results = nil
+          @counts_of_values_from_search = 0
+        else
+          @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
+          @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))
+          log_data_search(time_in_seconds: Time.now - t)
+        end
       end
     end
   end
@@ -64,6 +69,16 @@ class DataSearchController < ApplicationController
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
     @page = options[:page] || 1
+    
+    #if entered taxon name returns more than one result choose first
+    if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
+      results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)
+      results = results_with_suggestions[:results]
+      if !(results.blank?)
+        options[:taxon_concept_id] = results[0]['instance'].id
+      end
+    end
+    
     @taxon_concept = TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
     unless @querystring.blank? || EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)

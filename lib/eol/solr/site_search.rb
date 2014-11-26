@@ -303,18 +303,25 @@ module EOL
         url << "&fl=resource_id,score,keyword,resource_type"
         # add sorting
         url << '&sort=score+desc'
+        # add spellchecking
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10'
         # add paging
         url << '&rows=10'
         res = open(url).read
         json = JSON.load(res)
         results = []
+        suggesions = []
         json['grouped']['resource_unique_key']['groups'].each do |g|
           results << g['doclist']['docs'][0]
         end
         add_best_match_keywords!(results, query)
         add_resource_instances!(results, language_id: options[:language].id)
         results.delete_if{ |r| r['instance'].blank? }
-        results
+        # json['grouped']['spellcheck']['suggestions'].each do |g|
+          # suggesions << g['doclist']['docs'][0]
+        # end
+        results_with_suggestions = {results: results, suggestions: suggesions}
+        results_with_suggestions
       end
     end
   end

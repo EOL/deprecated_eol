@@ -3867,4 +3867,139 @@ pms:
   articles_with_count:
     one: '%{count} artìcol'
     other: '%{count} artìcoj'
+  articles_in_languages_with_count:
+    one: 'J''artìcoj ëd costa pàgina a son disponìbij an %{count} lenga:'
+    other: 'J''artìcoj ëd costa pàgina a son disponìbij an %{count} lenghe:'
+  articles_in_other_languages_with_count:
+    one: 'J''artìcoj ëd costa pàgina a son disponìbij an %{count} àutra lenga:'
+    other: 'J''artìcoj ëd costa pàgina a son disponìbij an %{count} àutre lenghe:'
+  a_total_of_comment_were_found_matching_your_criteria:
+    one: Un total d'%{count} coment a l'é stàit trovà ch'a sodisfa ij sò criteri.
+    other: Un total ëd %{count} coment a son ëstàit trovà ch'a sodisfo ij sò criteri.
+  a_total_of_items_were_found_matching_your_criteria:
+    one: Un total d'%{count} element a l'é stàit trovà ch'a rëspond ai sò criteri.
+    other: Un total ëd %{count} element a son ëstàit trovà ch'a rëspondo ai sò criteri.
+  a_total_of_terms_were_found_matching_your:
+    one: Un total d'%{count} tèrmin a l'é stàit trovà ch'a rëspond ai sò criteri.
+    other: Un total ëd %{count} tèrmin a son ëstàit trovà ch'a rëspondo ai sò criteri.
+  assistive_overview_header: Vista d'ansem
+  assistive_data_header: Fàit & Anformassion
+  assistive_media_header: Mojen
+  assistive_details_header: Detaj
+  assistive_literature_header: Literatura
+  assistive_names_classifications_header: Classificassion
+  assistive_names_common_header: Nòm comun
+  assistive_names_related_header: Nòm colegà
+  assistive_names_synonyms_header: Sinònim
+  assistive_maps_header: Carte
+  assistive_taxon_community_header: Comunità
+  assistive_updates_header: Agiornament
+  assistive_updates_statistics_header: Stàtistiche dle pàgine
+  associated_submit_button: associà
+  associated_with_header: Associà a
+  associated_with_article_header: Ant l'ùltim artìcol
+  associated_with_image_header: Ant l'ùltima plancia
+  associated_with_image_map_header: Ant l'ùltima carta
+  associated_with_link_header: Ant l'ùltima liura
+  associated_with_map_header: Ant l'ùltima carta
+  associated_with_sound_header: Ant l'ùltima argistrassion sonora
+  associated_with_video_header: Ant l'ùltim filmà
+  association_added_flash: Associassion giontà. A peul voreje chèiche minute prima
+    dl'agiornament dla pàgina.
+  association_trusted_for_taxa:
+    one: 'Afidàbil për:'
+    other: 'Afidàbij për:'
+  association_unreviewed_for_taxa:
+    one: 'Nen arlesù për:'
+    other: 'Nen arlesù për:'
+  association_untrusted_for_taxa:
+    one: 'Nen afidàbil për:'
+    other: 'Nen afidàbil për:'
+  association_hidden_for_taxa:
+    one: 'Stërmà për:'
+    other: 'Stërmà për:'
+  associations_more_link: pi d'<span class="assistive">associassion a la tassonomìa</span>
+  a_taxon: na tassonomìa
+  attribute: Atribù
+  audio_current_time_assistive: Cand JavaScript a l'é abilità, son a mostrërà la posission
+    atual ëd letura dl'archivi sonor an minute e second.
+  audio_duration_assistive: Cand JavaScript a l'é ativà, sòn a mostrërà la durà total
+    dl'archivi sonor an minute e second. Conforma a la taja dl'archivi, a podrìa voreje
+    un pò 'd temp për Java Script për calcolé la durà dl'archivi e smon-e un valor
+    ambelessì.
+  audio_play: letura
+  audio_pause: pàusa
+  audio_pause_assistive: Cand JavaScript a l'é ativà, sa liura a-i përmetrà ëd buté
+    an pàusa n'archivi sonor adiacent an cors ëd letura, dësnò ch'a lassa mach perde
+    sta liura.
+  audio_stop: arest
+  audio_stop_assistive: Cand JavaScript a l'é ativà, sa liura a-j përmetrà d'aresté
+    n'archivi sonor adiacent an camin ch'as les, dësnò ch'a-j daga mach nen da ment
+    a sta liura.
+  audio_mute: mut
+  audio_unmute: nen mut
+  authoritative_information: anformassion ch'a fan autorità
+  author_of_peer_reviewed_publication_credential_option: paternità ëd na publicassion
+    con letura crìtica d'un par (fornì l'arferiment)
+  available: disponìbil
+  average_rating: vot medi
+  average_rating_value_of_total: 'Vot medi: %{rating} su %{total}'
+  back: André
+  back_to_profile: André al profil
+  began: A l'ha ancaminà
+  belongs_in_count_communities:
+    one: A aparten a %{count} Comunità
+    other: A aparten a %{count} Comunità
+  beta_warning_header: A l'é an camin ch'a deuvra na fonsionalità an preuva beta
+  beta_warning_body: La pipart ëd j'utent a peulo nen vëdde o dovré costa fonsionalità,
+    ch'a l'é ancor an camin ch'as dësvlupa. J'arzultà e ij dàit as peulo nen antivëdd-se,
+    ma i l'anvitoma a esplorela. Për piasì, ch'a compila nòstr <a href='https://www.surveymonkey.com/s/9FDTDQP'>sondagg</a>
+    apress avèj consultà ij nòstri dàit disponìbij.
+  beta_warning_note_header: 'Nòta:'
+  bhl: Biblioteca dël patrimòni dla biodiversità
+  bhl_partner_footer: Ch'a vìsita la biblioteca dël patrimòni dla biodiversità
+  bhl_publication: Publicassion ëd BHL
+  bi_monthly: Bimensil
+  biodiversity_heritage_library: Biblioteca dël patrimòni dla biodiversità
+  biomedical_terms: Vocàboj biomédich
+  biomedical_terms_introduction: Costi vocàboj a ven-o da n'arserca ant la base ëd
+    dàit ëd literatura biomédica, <a rel="nofollow" href="%{pubmed_url}">PubMed</a>
+    për ël nòm <em>%{scientific_name}</em>. J'arzultà a son analisà con l'utiss <a
+    rel="nofollow" href="%{ligercat_url}">LigerCat</a>, ch'a produv la nìvola a parte
+    dai <a rel="nofollow" href="%{mesh_url}">tìtoj ëd soget médich (MESH)</a> pi përtinent.
+    La taja relativa ëd minca 'n vocàbol a ìndica vàire vire ël vocàbol a compariss
+    ant j'arzultà d'arserca PubMed. ch'a selession-a un vocàbol për acede a la nìvola
+    LigerCat completa, con dle possibilità d'arserca PubMed an direta.
+  biomedical_terms_provided_by: Vocàboj fornì da <a rel="nofollow" href="%{supplier_url}">PubMed</a>.
+  biomedical_terms_clouds_provided_by: Nìvola fornìa dal <a rel="nofollow" href="%{supplier_url}">proget
+    Biology of Aging</a> dël MBL.
+  body: 'Còrp:'
+  browsable: Navigàbil
+  browsable_hierarchies: Gerarchìe navigàbij
+  browse_hierarchy: përcore la gerarchìa
+  browsing_branch_colon: 'Branch përcorù:'
+  build_communities: Buté an pe dle comunità
+  by_caps: Ëd
+  by_scientific_name_table_header: për nòm sientìfich
+  cache_store: Conservassion dla memòria local
+  caching_results: Conservassion an memòria local dj'arzultà
+  calculate_averages_slow: Càlcol dl'alegansa
+  call_api: Ciamé l'API
+  cancel: Anulé
+  cancel_and_delete: anulé e dëscancelé
+  cancel_split: Anulé
+  cannot_be_associated_with_both_a_user_and_a_community: A peul pa esse associà ant
+    l'istess temp a n'utent e a na comunità
+  cannot_be_empty: a peul nen esse veuid.
+  cannot_create_collection_item_from_class_error: As peul pa creesse n'element ëd
+    olession a parte da na %{klass}
+  cannot_create_community_from_watch_collection_error: A peul pa creé na comunità
+    a parta da na lista ëd ròba tnua sot-euj.
+  cannot_curate_association_in_preview_mode: L'associassion con %{name} a peul nen
+    esse goernà përchè a l'é s-ciairà apress na cujìa.
+  cannot_expand_children: impossìbil ëspantié le masnà
+  cannot_find_member: Impossìbil trové un mèmber con st'identificativ-sì.
+  cannot_index_collection_item_type_error: I podoma nen andicisé n'element ëd colession
+    a parte d'un %{type}
+  categories_title: 'Selessioné na categorìa, peui n''atribù:'
 ...

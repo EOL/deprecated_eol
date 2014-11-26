@@ -9,7 +9,6 @@ describe ApiController do
       @taxon_concept = build_taxon_concept
     rescue ActiveRecord::RecordInvalid => invalid
       puts invalid.record.errors
-      debugger
       puts "So, not sure what causes that; can you look into it?"
     end
   end

@@ -18,12 +18,6 @@ class DataPointUri < ActiveRecord::Base
     :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
     :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
     :sex, :sex_known_uri, :sex_known_uri_id
-  
-  attr_accessor :metadata, :references,
-    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
-    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
-    :sex, :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure, :original_unit_of_measure_known_uri,
-    :original_value
 
   attr_accessor :metadata, :references,
     :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
@@ -163,7 +157,7 @@ class DataPointUri < ActiveRecord::Base
     "data_point_#{id}"
   end
 
-  def to_jsonld
+  def to_jsonld(options = {})
     jsonld = {
       '@id' => uri,
       '@type' => measurement? ? 'dwc:MeasurementOrFact' : 'eol:Association',
@@ -189,6 +183,7 @@ class DataPointUri < ActiveRecord::Base
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(statistical_method_known_uri || statistical_method)
       jsonld['eolterms:statisticalMethod'] = value
     end
+    add_metadata_to_hash(jsonld) if options[:metadata]
     jsonld
   end
 
@@ -486,8 +481,21 @@ class DataPointUri < ActiveRecord::Base
         Rails.application.routes.url_helpers.content_partner_resource_url(resource.content_partner, resource,
                                                                           host: EOL::Server.domain)
     end
-    metadata = get_metadata(language)
-    unless metadata.empty?
+    add_metadata_to_hash(hash, language)
+    refs = get_references(language)
+    unless refs.empty?
+      hash[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
+    end
+    # TODO: other measurements. ...I think.
+    hash
+  end
+
+  # TODO: replace add_metadata_to_hash with add_metadata_uris_to_hash and then
+  # call a method like TaxonDataSet#context_from_uris on the result; but extract
+  # that into a (new) JsonLd class.
+  def add_metadata_to_hash(hash, language = nil)
+    language ||= Language.english
+    if metadata = get_metadata(language)
       metadata.each do |datum|
         key = EOL::Sparql.uri_components(datum.predicate_uri)[:label]
         if hash.has_key?(key) # Uh-oh. Make it original, please:
@@ -498,19 +506,28 @@ class DataPointUri < ActiveRecord::Base
         hash[key] = datum.value_string(language)
       end
     end
-    refs = get_references(language)
-    unless refs.empty?
-      hash[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
+  end
+
+  # TODO: see #add_metadata_to_hash
+  def add_metadata_uris_to_hash(hash, language = nil)
+    language ||= Language.english
+    if metadata = get_metadata(language)
+      metadata.each do |datum|
+        if hash.has_key? datum.predicate_uri
+          hash[datum] = Array(hash[datum.predicate_uri]) <<
+            datum.value_string(language)
+        else
+          hash[datum] = datum.value_string(language)
+        end
+      end
     end
-    # TODO - other measurements. ...I think.
-    hash
   end
 
   def value_uri_or_blank
     EOL::Sparql.is_uri?(object) ? object : ''
   end
 
-  # TODO - a lot of this stuff should be extracted to a class to handle ... this kind of stuff.  :| (DataValue, perhaps) It's
+  # TODO: a lot of this stuff should be extracted to a class to handle ... this kind of stuff.  :| (DataValue, perhaps) It's
   # really very simple, but there's enough of it that it seems quite complex.
   def units_string
     units_safe(:label)

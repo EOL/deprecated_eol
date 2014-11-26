@@ -50,4 +50,8 @@ describe 'API:traits' do
     expect(response['@graph'][2]['eol:associationType']['rdfs:label']['en']).to eq('Preys On')
     expect(response['@graph'][2]['eol:targetTaxonID']).to eq(KnownUri.taxon_uri(@target_taxon_concept))
   end
+
+  it 'adds metadata URIs to context' do
+    pending
+  end
 end

@@ -184,9 +184,9 @@ zh-TW:
         guid: 全球唯一識別碼(GUID)
         provider: 第三方提供者
         secret: 保密的
-        token: 識別字
+        token: 密鑰
         updated_at: 最後更新
-        user_id: 使用者ID
+        user_id: 使用者 ID
         verified_at: 最後核對
       name:
         string: 名稱
@@ -2737,6 +2737,7 @@ zh-TW:
   all: 所有的
   all_apis_return_by_default_an_xml_response: 所有的API都被預設為回傳一個XML response。不加一個format
     extension也可叫出API方法以取得XML response，而添加一個XML extension將給予相同的回應：
+  all_categories: 全部
   all_changes: 所有修改
   all_collections: 所有典藏
   all_comments_entered_by_users: 使用者在此網站輸入的所有評論都以其建立的時間反序排列在下。
@@ -4206,7 +4207,7 @@ zh-TW:
     other: '%{count} 個人'
   percentage_of_descendants_with_images: 有影像的子分類單元的百分比
   percentage_of_descendants_with_text: 有文字的子分類單元的百分比
-  permalink: 永久連結
+  permalink: 固定連結
   permissions_list_header: EOL權限
   permission_granted: 授予權限
   permission_revoked: 撤銷權限
@@ -4400,7 +4401,7 @@ zh-TW:
   selected_language_advisory_information: 這是目前所選擇的語言。
   selected_items: 選擇的項目
   send_contact_email: 發送聯絡人Email
-  send_email_colon: 發送email：
+  send_email_colon: 傳送電郵：
   send: 發送
   sent_invitations_to_users:
     one: 已邀請 %{users}。
@@ -4795,7 +4796,7 @@ zh-TW:
     <strong>%{user}</strong> 對在 <a href='%{data_object_link}'> 生命大百科網站上您提供的影像做了評論：
     %{comment_body}
   user_full_name_with_curator: '%{user} (%{curator_level})'
-  user_id: 使用者ID
+  user_id: 使用者 ID
   user_index_intro: 下方顯示所有在此系統註了冊的網路使用者；以其註冊的時間反序排列。請注意：在EOL V2版本(2009年1月5日)之前註冊的使用者沒有註冊日期。請點擊一個使用者名稱以編輯那個使用者。
   user_joined_community_on_date: '%{username} 在 %{date} 加入了這個社群。'
   user_joined_when: '"%{user}" 在 %{when} 加入'

@@ -21,6 +21,7 @@ describe 'taxa/data/index' do
   end
 
   before(:all) do
+    load_foundation_cache
     Visibility.create_enumerated
     Vetted.create_enumerated
     CuratorLevel.create_enumerated
@@ -103,13 +104,19 @@ describe 'taxa/data/index' do
       before(:each) do
         @chucks = FactoryGirl.build(:known_uri_unit)
         tku = FactoryGirl.build(:translated_known_uri, name: 'chucks', known_uri: @chucks)
-        taxon_concept = build_stubbed(TaxonConcept)
-        dpu = DataPointUri.gen(unit_of_measure_known_uri: @chucks,
-                              object: "2.354",
+        taxon_concept = TaxonConcept.gen
+        @dpu = DataPointUri.gen(unit_of_measure_known_uri: @chucks,
+                              object: ".354",
                               taxon_concept: taxon_concept,
                               vetted: Vetted.trusted,
                               visibility: Visibility.visible)
-        assign(:data_point_uris, [dpu])
+        
+        curator = User.gen(curator_level_id: 1, curator_approved: 1, :credentials => 'Blah', :curator_scope => 'More blah')   
+        session[:user_id] = curator.id
+        allow(controller).to receive(:current_user) { curator }
+        @comment = Comment.gen(parent_id: @dpu.id, parent_type: "DataPointUri", body: "This is a comment")
+        @dpu.reload
+        assign(:data_point_uris, [@dpu])
       end
 
       it "should NOT show units when undefined" do
@@ -146,7 +153,16 @@ describe 'taxa/data/index' do
         render
         expect(rendered).to have_tag('span.stat', text: /Itslifestage, Itssex/)
       end
-
+        
+      it "displays the comment" do
+        render
+        expect(rendered).to include("#{@comment.body}")
+      end
+      
+      it "displays date of comment" do
+        render
+        expect(rendered).to have_tag('small', text: /ago/)
+      end
     end
 
   end

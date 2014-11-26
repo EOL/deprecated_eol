@@ -4,10 +4,10 @@ class CreateImageSizes < ActiveRecord::Migration
       t.integer :data_object_id
       t.integer :height
       t.integer :width
-      t.integer :crop_x
-      t.integer :crop_y
-      t.integer :crop_width
-      t.integer :crop_height
+      t.decimal :crop_x_pct, precision: 5, scale: 2
+      t.decimal :crop_y_pct, precision: 5, scale: 2
+      t.decimal :crop_width_pct, precision: 5, scale: 2
+      t.decimal :crop_height_pct, precision: 5, scale: 2
 
       t.timestamps
     end

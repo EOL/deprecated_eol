@@ -75,11 +75,11 @@ class DataSearchController < ApplicationController
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)
       results = results_with_suggestions[:results]
       if !(results.blank?)
-        options[:taxon_concept_id] = results[0]['instance'].id
+        @taxon_concept = results[0]['instance']
       end
     end
     
-    @taxon_concept = TaxonConcept.find_by_id(options[:taxon_concept_id])
+    @taxon_concept ||= TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
     unless @querystring.blank? || EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
       @attribute_known_uri = KnownUri.by_name(@querystring).first

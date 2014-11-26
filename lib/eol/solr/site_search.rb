@@ -317,9 +317,7 @@ module EOL
         add_best_match_keywords!(results, query)
         add_resource_instances!(results, language_id: options[:language].id)
         results.delete_if{ |r| r['instance'].blank? }
-        # json['grouped']['spellcheck']['suggestions'].each do |g|
-          # suggesions << g['doclist']['docs'][0]
-        # end
+        #TODO load suggestions from result
         results_with_suggestions = {results: results, suggestions: suggesions}
         results_with_suggestions
       end

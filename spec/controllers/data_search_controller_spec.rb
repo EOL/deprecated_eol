@@ -84,22 +84,11 @@ describe DataSearchController do
         DataMeasurement.new(subject: @second_taxon, resource: @resource,  predicate: 'http://eol.org/weight', object: '12').update_triplestore
         EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       end
+      
     #TODO pending for solving solr issues
       it "should select the first taxon if there is many results for taxon name" do
-        # get :index, attribute: 'http://eol.org/weight', taxon_name: "name"
-        # expect(DataSearchLog.last.number_of_results).to eq(1)
-        # expect(DataSearchLog.last.taxon_concept_id).to eq(@first_taxon.id)
+        pending
       end
-      
-      after(:all) do
-        @first_name.destroy if @first_name
-        @second_name.destroy if @second_name
-        @first_taxon.destroy if @first_taxon
-        @second_taxon.destroy if @second_taxon
-        @first_taxon_name.destroy if @first_taxon_name
-        @second_taxon_name.destroy if @second_taxon_name
-      end
-      
     end
 
   end

@@ -118,6 +118,20 @@ class TaxonDataSet
     jsonld
   end
 
+  def remove_duplicates(data_point_uris)
+    if !data_point_uris.nil? && data_point_uris.count > 0
+      filtered = Hash.new
+      filtered[:key] = []
+      begin
+        dpo = data_point_uris.first
+        filtered[:key] << dpo
+        data_point_uris = data_point_uris.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object } 
+      end while data_point_uris.count > 0 
+      return filtered[:key]
+    end
+    return data_point_uris
+  end
+  
   private
 
   def fill_context(jsonld)
@@ -160,19 +174,5 @@ class TaxonDataSet
         end
       end
     end
-  end
-
-  def remove_duplicates(data_point_uris)
-    if !data_point_uris.nil? && data_point_uris.count > 0
-      filtered = Hash.new
-      filtered[:key] = []
-      begin
-        dpo = data_point_uris.first
-        filtered[:key] << dpo
-        data_point_uris = data_point_uris.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object } 
-      end while data_point_uris.count > 0 
-      return filtered[:key]
-    end
-    return data_point_uris
   end
 end

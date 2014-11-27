@@ -9,6 +9,12 @@ class HarvestEvent < ActiveRecord::Base
   before_destroy :remove_related_data_objects
 
   validates_inclusion_of :publish, in: [false], unless: :publish_is_allowed?
+  
+  scope :incomplete, -> { where(completed_at: nil) }
+  
+  def self.last_incomplete_resource
+    incomplete.includes(:resource).last.resource
+  end
 
   # harvest event ids for the last harvest event of every resource
   def self.latest_ids

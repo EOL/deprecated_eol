@@ -35,7 +35,6 @@ class DataSearchController < ApplicationController
     end
   end
 
-  #Added by Amr Morad
   #This is a wrapper to prepare search options private method
   def update_attributes
       prepare_attribute_options

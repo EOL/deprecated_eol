@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="activity_logs" version="1.4">
+
+    <!-- define data types -->
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="date" class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
+    </types>
+
+    <!-- begin schema -->
+    <fields>
+        <field name="activity_log_unique_key" type="string" indexed="true" stored="true" required="true"/>
+        <field name="activity_log_type" type="string" indexed="true" stored="true" required="true"/>
+        <field name="activity_log_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="action_keyword" type="string" indexed="true" stored="true" required="false" multiValued="true"/>
+        <!-- user_id is a string not an integer because we may want to group by it and we cannot group by non string-like fields -->
+        <field name="user_id" type="string" indexed="true" stored="true" required="false" />
+        <field name="reply_to_id" type="int" indexed="true" stored="true" required="false" />
+        <field name="date_created" type="date" indexed="true" stored="true" required="true"/>
+        <field name="feed_type_affected" type="string" indexed="true" stored="true" required="true"/>
+        <field name="feed_type_primary_key" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+    </fields>
+
+    <!-- no unique key -->
+    <uniqueKey/>
+
+    <!-- default unqualified search field -->
+    <defaultSearchField>action_keyword</defaultSearchField>
+</schema>

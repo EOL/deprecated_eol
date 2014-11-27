@@ -30,4 +30,8 @@ describe CollectionItem do
   # TODO - change here to use Solr or leave that to the collection feature spec?
   it 'should be able to sort collection items by newest/oldest'
 
+  it "tells if item is hidden or not" do
+    @collection.add(@taxon_concept)
+    expect(@collection.collection_items.last.is_hidden?).to be_false
+  end
 end

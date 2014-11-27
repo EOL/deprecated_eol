@@ -1,16 +1,30 @@
+
 - en_type ||= en_type(item)
 - view_style ||= 'default'
 - unless view_style == 'list'
   - if thumb = item.thumb_or_object('88_88')
-    = link_to image_tag(thumb, width: 68, height: 68), data_object_path(item)
+    - if is_hidden && view_style == 'gallery'
+      %div.figure
+        = link_to image_tag(thumb, width: 68, height: 68), data_object_path(item)
+        %label.hiddenoverlay
+          = "#{I18n.t(:hidden)}"
+    - else
+      = link_to image_tag(thumb, width: 68, height: 68), data_object_path(item)
   = link_to content_tag(:span, '', {:class => 'icon', :title => en_type.blank? ? nil : I18n.t("item_type_#{en_type}_assistive")}), data_object_path(item)
 %h4
   = link_to item.collected_name.truncate_html(:length => 64), data_object_path(item)
   - if view_style == 'list' && !en_type.blank? && @filter.nil?
     %small= I18n.t("item_type_#{en_type}")
+    - if is_hidden 
+      %p.flag.untrusted{:style => "display: inline;"}
+        = "#{I18n.t(:hidden)}"
 - unless ['gallery','list'].include?(view_style)
   - if he = item.first_hierarchy_entry(:include_preview_entries => true)
     - secondary_title = he.title_canonical
   - if item.uncached_data_object_taxa(published: true).length > 1
     - secondary_title = [secondary_title, I18n.t(:other_taxa_with_count, :count => item.uncached_data_object_taxa(published: true).length - 1)].to_sentence
   = link_to I18n.t("#{en_type}_of_taxon", :taxon_name => secondary_title), data_object_path(item)
+  - if is_hidden 
+    %p.flag.untrusted{:style => "display: inline;"}
+      = "#{I18n.t(:hidden)}"
+

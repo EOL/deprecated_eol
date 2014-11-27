@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="hierarchy_entries" version="1.4">
+    <!-- define data types -->
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        
+        <!-- this is our main text type with all the taxon name filters -->
+        <fieldType name="string_ci" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        
+        <!-- this is our main text type with all the taxon name filters -->
+        <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1" splitOnNumerics="1" preserveOriginal="1"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1" splitOnNumerics="1" preserveOriginal="1"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+        </fieldType>
+    </types>
+    
+    <!-- begin data schema -->
+    <fields>
+        <field name="id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="parent_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="hierarchy_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="rank_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="name" type="text" indexed="true" stored="true" required="false"/>
+        <field name="canonical_form_string" type="string_ci" indexed="true" stored="true" required="false"/>
+        <field name="canonical_form" type="text" indexed="true" stored="true" required="false"/>
+        <field name="common_name" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="synonym" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="synonym_canonical" type="string_ci" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="kingdom" type="string_ci" indexed="true" stored="true" required="false"/>
+        <field name="phylum" type="string_ci" indexed="true" stored="true" required="false"/>
+        <field name="class" type="string_ci" indexed="true" stored="true" required="false"/>
+        <field name="order" type="string_ci" indexed="true" stored="true" required="false"/>
+        <field name="family" type="string_ci" indexed="true" stored="true" required="false"/>
+        <field name="genus" type="string_ci" indexed="true" stored="true" required="false"/>
+        <field name="species" type="string_ci" indexed="true" stored="true" required="false"/>
+        <field name="vetted_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="published" type="int" indexed="true" stored="true" required="false"/>
+    </fields>
+    
+    <!-- force uniqueness -->
+    <uniqueKey>id</uniqueKey>
+    
+    <!-- default unqualified search field -->
+    <defaultSearchField>name</defaultSearchField>
+</schema>

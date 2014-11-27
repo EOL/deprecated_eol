@@ -4,7 +4,7 @@
 class CollectionItem < ActiveRecord::Base
 
   include Refable
-
+  
   belongs_to :collection, touch: true
   belongs_to :collected_item, polymorphic: true
   belongs_to :added_by_user, class_name: User.to_s, foreign_key: :added_by_user_id
@@ -88,4 +88,14 @@ class CollectionItem < ActiveRecord::Base
     super(options.merge(include: :collected_item))
   end
 
+  def is_hidden?
+    if self.collected_item_type = "DataObject"
+      associations = DataObjectsHierarchyEntry.where(data_object_id: self.collected_item_id)
+      associations.each do |asso|
+        return false if asso.visibility_id == Visibility.visible.id
+      end
+      return true
+    end
+    return  false
+  end
 end

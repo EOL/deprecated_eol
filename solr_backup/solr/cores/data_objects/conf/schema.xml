@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="data_objects" version="1.4">
+    
+    <!-- define data types -->
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="date" class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
+        
+        <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1" splitOnNumerics="1" preserveOriginal="1"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1" splitOnNumerics="1" preserveOriginal="1"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+        </fieldType>
+    </types>
+    
+    <!-- begin data schema -->
+    <fields>
+        <field name="data_object_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="guid" type="string" indexed="true" stored="true" required="true"/>
+        <field name="data_type_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="data_subtype_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="language_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="license_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="link_type_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="published" type="int" indexed="true" stored="true" required="true"/>
+        <field name="data_rating" type="float" indexed="true" stored="true" required="true"/>
+        <field name="description" type="text" indexed="true" stored="true" required="false"/>
+        <field name="created_at" type="date" indexed="true" stored="true" required="true"/>
+        <field name="added_by_user_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="is_translation" type="boolean" indexed="true" stored="true" required="false"/>
+        <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="hierarchy_entry_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="hierarchy_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="resource_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="toc_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <!-- vetted states -->
+        <field name="trusted_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="unreviewed_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="untrusted_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="inappropriate_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="trusted_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="unreviewed_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="untrusted_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="inappropriate_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <!-- entries -->
+        <field name="trusted_ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="unreviewed_ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="untrusted_ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="inappropriate_ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="max_vetted_weight" type="int" indexed="true" stored="true" required="false"/>
+        <!-- visibility states -->
+        <field name="invisible_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="visible_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="preview_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="invisible_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="visible_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="preview_ancestor_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <!-- entries -->
+        <field name="invisible_ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="visible_ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="preview_ancestor_he_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="max_visibility_weight" type="int" indexed="true" stored="true" required="false"/>
+        <!-- user-specific fields -->
+        <field name="curated_by_user_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="ignored_by_user_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+    </fields>
+    
+    <!-- force uniqueness -->
+    <uniqueKey>data_object_id</uniqueKey>
+    
+    <!-- default unqualified search field -->
+    <defaultSearchField>description</defaultSearchField>
+</schema>

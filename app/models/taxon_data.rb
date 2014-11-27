@@ -3,7 +3,6 @@ class TaxonData < TaxonUserClassificationFilter
 
   include EOL::Sparql::SafeConnection
   extend EOL::Sparql::SafeConnection
-
   DEFAULT_PAGE_SIZE = 30
   MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
   MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 60000
@@ -285,5 +284,4 @@ class TaxonData < TaxonUserClassificationFilter
         ORDER BY DESC(?min)"
       query
     end
-
 end

@@ -164,7 +164,5 @@ describe 'taxa/data/index' do
         expect(rendered).to have_tag('small', text: /ago/)
       end
     end
-
   end
-
 end

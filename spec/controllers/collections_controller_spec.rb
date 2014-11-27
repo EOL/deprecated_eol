@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe CollectionsController do
-
+  render_views
   before(:all) do
     # so this part of the before :all runs only once
     unless @user = User.find_by_username('collections_scenario')

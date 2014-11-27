@@ -10,7 +10,7 @@ module DataObjectsHelper
     end
   end
 
-  #Added by Amr Morad to sort the list
+  #sort the list
   def sort_refs(references)
     references.sort_by!{ |r| r.full_reference.to_s }    
   end

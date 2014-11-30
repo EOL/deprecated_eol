@@ -595,6 +595,7 @@ en:
         object_title: "Title"
         toc_item: "Subchapter"
         refs: "References <small>(put each reference on a new line)</small>"
+        refs_order: "*References will appear in alphabetical order"
         rights_holder: "Rights holder"
         rights_holder_more: "Specify a person or an organization owning or managing the rights to this data. If you leave this field blank we will assume you are the rights holder for all licenses except Public Domain. Public Domain licenses do not require a rights holder."
         rights_statement: "Rights statement"

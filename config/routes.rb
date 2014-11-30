@@ -386,8 +386,9 @@ Eol::Application.routes.draw do
 
   resource :data_search, :only => [:index], :controller => 'data_search' do
     collection do
-      get 'index'
-      get 'download'
+      get 'update_attributes'
+      get 'index'      
+      get 'download'            
       post 'download'
     end
   end

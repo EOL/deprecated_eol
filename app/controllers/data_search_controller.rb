@@ -39,6 +39,10 @@ class DataSearchController < ApplicationController
       end
     end
   end
+  
+  def update_attributes
+      prepare_attribute_options
+  end
 
   def download
     if session[:submitted_data]

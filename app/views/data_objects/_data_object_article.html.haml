@@ -31,7 +31,6 @@
       = link_to I18n.t(:view_translation_source_link), set_language_url(:language => tr_source.language.iso_639_1)+"&return_to=/data_objects/#{tr_source.id}"
     - if show_references && ! data_object.published_refs.blank?
       .references
-        %ul                    
-          - sorted_refs = sort_refs(data_object.published_refs)          
-          - sorted_refs.each do |ref|            
+        %ul                   
+          - sort_refs(data_object.published_refs).each do |ref|            
             = render "refs/show_as_list_item", { :ref => ref }

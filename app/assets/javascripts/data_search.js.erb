@@ -1,15 +1,9 @@
-//added to detect the change in the clade
+//changes in clade
 $(document).ready(function () {
-    $('#taxon_name_id').keyup(function () { 
-    	//Change in clade now
-    	//load the attributes list again    	
-    	$.ajax({    		
-    		url: "/data_search/update_attributes",    		
-    		dataType: "script"
-    	});      	    	
+    $('#taxon_name_id').bind('keyup change input', function(event) {   	
+    	$.ajax({ url: "<%= update_attributes_data_search_path %>", dataType: "script"});      	    	
     });
 });
-//end of loading attributes part
 
 (function ($) {
 
@@ -31,7 +25,7 @@ $(document).ready(function () {
       $(this).css({ opacity: 0, display: settings.display })
         .fadeTo(settings.duration, 1);
     });
-  }; 
+  };
 
   // custom jQuery plugin to summarize form input
   $.fn.summarizeInput = function(options) {
@@ -193,7 +187,7 @@ $(document).ready(function () {
           else if (typeof summarize.exclude.unit !== 'undefined') {
             delete summarize.exclude.unit;
           }
-        };		
+        };
 
         hide = function() {
           actions.fadeOut(200);

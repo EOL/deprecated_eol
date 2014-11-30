@@ -34,12 +34,10 @@ class DataSearchController < ApplicationController
       end
     end
   end
-
-  #This is a wrapper to prepare search options private method
+  
   def update_attributes
       prepare_attribute_options
   end
-  #end of editing in the controller
 
   def download
     if session[:submitted_data]
@@ -150,7 +148,7 @@ class DataSearchController < ApplicationController
       @attribute_default = match.first[1] unless match.empty?
     end
   end
-  
+
   def convert_uris_to_options(measurement_uris)
     # TODO - this could be greatly simplified with duck-typing.  :|
     measurement_uris.collect do |uri|

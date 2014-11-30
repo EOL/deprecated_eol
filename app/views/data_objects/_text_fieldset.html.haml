@@ -38,7 +38,7 @@
     %dt{:class => 'required'}
       = label_tag 'data_object[description]', raw(I18n.t("helpers.label.data_object#{'_link' if link_object}.description"))
     %dd
-      = f.text_area(:description, :toolbar => 'Article', :height => 250, :width => 580, :class => 'ckeditor')
+      = f.text_area(:description, :toolbar => 'Article', :height => 250, :width => 580, class: 'ckeditor')
       -# TODO: uncomment when this is ready %p= f.allowed_html_help_tip(:all)
     - unless link_object
       %dt

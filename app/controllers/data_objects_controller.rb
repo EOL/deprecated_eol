@@ -519,11 +519,9 @@ private
 
   def add_references(dato)
     return if params[:references].blank?
-    references = params[:references].split("\n")    
-    unless references.blank?
-      #sort references array alphabetically then it would be easy to just retrieve the references as they are without the need to sort them.      
-      references.sort_by!{ |r| r.downcase }
-      #    
+    references = params[:references].split("\n")
+    unless references.blank?            
+      references.sort_by!(&:downcase)
       references.each do |reference|        
         dato.add_ref(reference)
       end

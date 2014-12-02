@@ -43,6 +43,8 @@ class CollectionsController < ApplicationController
   def reindex
     collection = Collection.find(params[:id])
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
+    collection.update_attribute(:collection_items_count,
+      collection.collection_items.count)
     redirect_to collection, notice: I18n.t(:collection_redindexed)
   end
 
@@ -88,17 +90,17 @@ class CollectionsController < ApplicationController
     return chosen if params[:scope] && params[:for] == 'copy'
     return remove_and_redirect if params[:commit_remove]
     return redirect_to_choose(:move) if params[:commit_move]
-    
+
     # TODO - annotations need their own controller.
     # some of the following methods need the list of items on the page... I think.
     # if not, we should remove this as it is very expensive
     build_collection_items unless params[:commit_annotation]
-    
+
     # copy is the only update action allowed for non-owners
     return if user_able_to_edit_collection # reads weird but will raise exception and exit if user cannot edit collection
     return annotate if params[:commit_annotation]
     return chosen if params[:scope] # Note that updating the collection params doesn't specify a scope.
-    
+
     # TODO - This is really the only stuff that needs to stay here!
     name_change = params[:collection][:name] != @collection.name
     description_change = params[:collection][:description] != @collection.description
@@ -397,7 +399,7 @@ private
     # NOTE - this is pretty brutal. The older method preserves objects that didn't actually move (ie: if they were
     # duplicates), but I figure that's not entirely desirable, anyway...
     action = options[:move] ? 'moved' : 'copied'
-    if options[:move] 
+    if options[:move]
       if destinations.include?(source)
         action = 'copied' # Undo the "move"... we can't blow away the items in a source if it's a destination!
       else

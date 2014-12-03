@@ -43,8 +43,8 @@ class DataSearchController < ApplicationController
   def update_attributes
     prepare_attribute_options
     respond_to do |format|
-      html {}
-      js {}
+      format.html {}
+      format.js {}
     end
   end
 

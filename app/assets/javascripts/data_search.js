@@ -1,7 +1,7 @@
 //changes in clade
 $(document).ready(function () {
     $('#taxon_name_id').bind('keyup change input', function(event) {
-    	$.ajax({ url: "/update_attributes_data_search", dataType: "script"});
+    	$.ajax({ url: "/data_search/update_attributes", dataType: "script"});
     });
 });
 
@@ -227,7 +227,6 @@ $(document).ready(function () {
     limit_search_summaries();
   });
 }(jQuery));
-console.log('after jquery');
 
 var limit_search_summaries = function(known_uri_id) {
   var summaryDiv = $('.search_summary:has(ul.values)');

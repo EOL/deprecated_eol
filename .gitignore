@@ -19,6 +19,9 @@ Guardfile
 # Ignore simplecov:
 coverage
 
+# Eclipse:
+.metadata
+
 # Older stuff:
 *.bundle
 *.o

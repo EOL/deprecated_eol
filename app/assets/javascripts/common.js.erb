@@ -252,7 +252,7 @@ $(function() {
   $('input#autocomplete_q[data-autocomplete]').keyup(function(e) {
     var key = e.keyCode || e.which;
     // If they hit enter, just submit what they typed, stop trying to complete it:
-    if(key === 13) { 
+    if(key === 13) {
       $(this).autocomplete('disable');
     }
     // do nothing if it the key pressed was an arrow key, that would interfere with autocomplete selection
@@ -295,7 +295,7 @@ $(function() {
     };
     var value = $.trim($(this).val()).replace(/\s+/," ");
     if(value == $(this).attr('title')) value = '';
-    // TODO - DRY (we run this regex elsewhere)
+    // TODO - DRY (we run this regex elsewhere) I believe this is attempting to say "if we have at least one word three letter long", but I note that it wouldn't work with UTF characters and is otherwise... lacking.
     if (value.length >= 3 && !value.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)) $(this).autocomplete('search', value);
     return false;
   });

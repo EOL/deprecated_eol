@@ -1,1 +1,0 @@
-function check_username(){$.ajax({url:"/content_partner/check_username/",data:{username:$("#agent_username").val()}})}function check_passwords(){$("#agent_password").val()!=$("#agent_password_confirmation").val()?$("#password_match").fadeIn():$("#password_match").fadeOut()}

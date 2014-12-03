@@ -1,8 +1,8 @@
 //changes in clade
 $(document).ready(function () {
-    $('#taxon_name_id').bind('keyup change input', function(event) {
-    	$.ajax({ url: "/data_search/update_attributes", dataType: "script"});
-    });
+  $('#taxon_name_id').bind('change', function(event) {
+    $.ajax({ url: "/data_search/update_attributes", dataType: "script"});
+  });
 });
 
 (function ($) {

@@ -1,7 +1,7 @@
 //changes in clade
 $(document).ready(function () {
-    $('#taxon_name_id').bind('keyup change input', function(event) {   	
-    	$.ajax({ url: "<%= update_attributes_data_search_path %>", dataType: "script"});      	    	
+    $('#taxon_name_id').bind('keyup change input', function(event) {
+    	$.ajax({ url: "/update_attributes_data_search", dataType: "script"});
     });
 });
 
@@ -109,7 +109,7 @@ $(document).ready(function () {
         })}).append(dataSearch.find('#traitbank_search input[type="submit"]').clone()
         .attr('title', 'Search now or move on to add more search criteria'))
         .appendTo(vital);
-              
+
       function adjustPlaceholders() {
         for (var name in watch) {
           if (watch[name].is(':disabled')) {

@@ -39,9 +39,13 @@ class DataSearchController < ApplicationController
       end
     end
   end
-  
+
   def update_attributes
-      prepare_attribute_options
+    prepare_attribute_options
+    respond_to do |format|
+      html {}
+      js {}
+    end
   end
 
   def download
@@ -73,7 +77,7 @@ class DataSearchController < ApplicationController
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
     @page = options[:page] || 1
-    
+
     #if entered taxon name returns more than one result choose first
     if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)
@@ -82,7 +86,7 @@ class DataSearchController < ApplicationController
         @taxon_concept = results[0]['instance']
       end
     end
-    
+
     @taxon_concept ||= TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
     unless @querystring.blank? || EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)

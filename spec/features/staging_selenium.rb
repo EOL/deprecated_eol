@@ -93,7 +93,7 @@ describe 'Staging', js: true do
   end
 
   it 'should have old updates on dato pages' do
-    visit_with_auth "/data_objects/21078282"
+    visit_with_auth "/data_objects/24978544"
     page.should have_content %q{Tracy Barbaro added an association between "Nile Crocodile, Botswana" } +
        %q{and "Crocodylus niloticus Laurenti, 1768"}
     page.should have_content %q{Tracy Barbaro commented on an older version of Nile Crocodile, Botswana}

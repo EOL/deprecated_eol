@@ -5,7 +5,7 @@
 #
 # The following fields store DEFAULT values for items IN the resource:
 #     license_id
-#     rights_holder 
+#     rights_holder
 #     rights_statement
 # However, the resource ITSELF can be copyrightable in some jurisdictions, so the following apply to the resource as a whole:
 #     dataset_license_id
@@ -206,6 +206,11 @@ class Resource < ActiveRecord::Base
     false
   end
 
+  def destroy_everything
+    harvest_events.each(&:destroy_everything)
+    harvest_events.destroy_all
+  end
+
 private
 
   def url_or_dataset_not_both
@@ -213,11 +218,11 @@ private
       errors[:base] << I18n.t('content_partner_resource_url_or_dataset_not_both_error')
     end
   end
-  
+
   def validate_dataset_mime_type?
     ! dataset.blank? && ! dataset.original_filename.blank?
   end
-  
+
   def accesspoint_url_provided?
     !accesspoint_url.blank?
   end
@@ -236,4 +241,3 @@ private
     self.subject = '' if self.subject.nil?
   end
 end
-

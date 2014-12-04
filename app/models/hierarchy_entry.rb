@@ -109,7 +109,7 @@ class HierarchyEntry < ActiveRecord::Base
     @title_canonical
   end
 
-  # takes the result of the above and adds italics tags around it if the 
+  # takes the result of the above and adds italics tags around it if the
   # taxon is of a rank which should be italicized
   def title_canonical_italicized
     return @title_canonical_italicized unless @title_canonical_italicized.nil?
@@ -275,7 +275,19 @@ class HierarchyEntry < ActiveRecord::Base
       'dwc:relatedResourceID' => outlink_url,
       'dwc:relationshipAccordingTo' => 'http://eol.org' }
   end
-  
+
+  def destroy_everything
+    top_images.destroy_all
+    # takes too long, prolly not needed: top_unpublished_images.destroy_all
+    synonyms.destroy_all
+    HierarchyEntriesFlattened.where(hierarchy_entry_id: id).destroy_all
+   curator_activity_logs.destroy_all
+    hierarchy_entry_moves.destroy_all
+    # TODO: handling data objects here. Not doing it now because this is only used from HarvestEvent, and HE handles Datos itself.
+    refs.destroy_all
+    # Not handling the rest of the tree, here, which I believe is expected.
+  end
+
   private
 
   def default_visibility

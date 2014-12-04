@@ -57,7 +57,7 @@ class DataObject < ActiveRecord::Base
   has_many :all_published_versions, class_name: DataObject.to_s, foreign_key: :guid, primary_key: :guid, conditions: 'published = 1'
 
   has_and_belongs_to_many :hierarchy_entries
-  has_and_belongs_to_many :audiences
+  has_and_belongs_to_many :audiences # I don't think this is used anymore.
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'data_objects_refs',
     association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
@@ -1140,6 +1140,31 @@ class DataObject < ActiveRecord::Base
     agent_names = agents_data_objects.collect{ |ado| ado.agent.full_name }.uniq.compact
     return if agent_names.empty?
     { keyword_type: 'agent', keywords: agent_names }
+  end
+
+  # Because dependent destroy was too scary for us.  :|
+  def destroy_everything
+    # Too slow, probably not needed anyway: dato.top_images.destroy_all
+    # Same with top_concept_images
+    agents_data_objects.destroy_all # denorm table
+    data_objects_hierarchy_entries.destroy_all # denorm
+    data_objects_taxon_concepts.destroy_all # denorm
+    curated_data_objects_hierarchy_entries.destroy_all # denorm
+    comments.destroy_all
+    data_objects_table_of_contents.destroy_all
+    data_objects_info_items.destroy_all
+    taxon_concept_exemplar_images.destroy_all
+    worklist_ignored_data_objects.destroy_all
+    collection_items.destroy_all
+    # TODO: handle translations
+    curator_activity_logs.destroy_all
+    users_data_objects_ratings.destroy_all
+    refs.destroy_all # through the join table, here:
+    DataObjectsRef.where(data_object_id: id).destroy_all
+    DataObjectsHierarchyEntry.where(data_object_id: id).destroy_all
+    AgentsDataObject.where(data_object_id: id).destroy_all
+    DataObjectsTaxonConcept.where(data_object_id: id).destroy_all
+    DataObjectsTableOfContent.where(data_object_id: id).destroy_all
   end
 
 private

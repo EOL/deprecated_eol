@@ -6,12 +6,12 @@ class HarvestEvent < ActiveRecord::Base
   has_many :harvest_events_hierarchy_entries
   has_and_belongs_to_many :hierarchy_entries
 
-  before_destroy :remove_related_data_objects
+  before_destroy :destroy_everything
 
   validates_inclusion_of :publish, in: [false], unless: :publish_is_allowed?
-  
+
   scope :incomplete, -> { where(completed_at: nil) }
-  
+
   def self.last_incomplete_resource
     incomplete.includes(:resource).last.resource
   end
@@ -103,19 +103,17 @@ class HarvestEvent < ActiveRecord::Base
     self.published_at.blank? && self.publish?
   end
 
-protected
-
-  def remove_related_data_objects
-    # get data objects
-    data_objects=connection.select_values("SELECT do.id FROM data_objects do JOIN data_objects_harvest_events dohe ON dohe.data_object_id=do.id WHERE dohe.status_id != #{Status.unchanged.id} and dohe.harvest_event_id=#{self.id}").join(",")
-    #remove data_objects_hierarchy_entries
-    connection.execute("DELETE FROM data_objects_hierarchy_entries WHERE data_object_id IN (#{data_objects})")
-    #remove data objects that have been inserted or updated
-    connection.execute("DELETE FROM data_objects WHERE id in (#{data_objects})")
-    #remove data_objects_harvest_events
-    DataObjectsHarvestEvent.delete_all(['harvest_event_id=?',self.id])
-    #remove harvest_events_taxa
-    HarvestEventsHierarchyEntry.delete_all(['harvest_event_id=?',self.id])
+  def destroy_everything
+    data_objects.each do |dato|
+      dato.destroy_everything
+    end
+    data_objects.destroy_all
+    DataObjectsHarvestEvent.where(harvest_event_id: id).destroy_all
+    hierarchy_entries.each do |entry|
+      entry.destroy_everything
+    end
+    HarvestEventsHierarchyEntry.where(harvest_event_id: id).destroy_all
+    # TODO: Handle TaxonConcepts that now have no hierarchy_entries.
   end
 
 end

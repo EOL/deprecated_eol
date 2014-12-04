@@ -47,7 +47,6 @@
           = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
             name: 'taxon_name', 'data-min-length' => 3, type: 'search',
             update_elements: { id: '#taxon_concept_id' },
-            id: 'taxon_name_id',
             value: taxon_name[:value],
             placeholder: I18n.t('helpers.label.data_search.taxon_name_placeholder'),
             data: taxon_name[:data]

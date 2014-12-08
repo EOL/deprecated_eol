@@ -6,8 +6,6 @@ class HarvestEvent < ActiveRecord::Base
   has_many :harvest_events_hierarchy_entries
   has_and_belongs_to_many :hierarchy_entries
 
-  before_destroy :destroy_everything
-
   validates_inclusion_of :publish, in: [false], unless: :publish_is_allowed?
 
   scope :incomplete, -> { where(completed_at: nil) }

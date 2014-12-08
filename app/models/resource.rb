@@ -38,6 +38,7 @@ class Resource < ActiveRecord::Base
   attr_accessor :latest_published_harvest_event
   attr_protected :latest_published_harvest_event
 
+  before_destroy :destroy_everything
   before_validation :strip_urls
   before_save :convert_nulls_to_blank # TODO: Make migration to allow null on subject or remove it altogether if its no longer needed
 

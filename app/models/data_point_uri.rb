@@ -182,7 +182,8 @@ class DataPointUri < ActiveRecord::Base
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(statistical_method_known_uri || statistical_method)
       jsonld['eolterms:statisticalMethod'] = value
     end
-    add_metadata_to_hash(jsonld) if options[:metadata]
+    # Add raw metadata; if you've gotten here, you are not rendering to HTML.
+    add_metadata_to_hash(jsonld, raw: true) if options[:metadata]
     jsonld
   end
 
@@ -492,7 +493,7 @@ class DataPointUri < ActiveRecord::Base
   # TODO: replace add_metadata_to_hash with add_metadata_uris_to_hash and then
   # call a method like TaxonDataSet#context_from_uris on the result; but extract
   # that into a (new) JsonLd class.
-  def add_metadata_to_hash(hash, language = nil)
+  def add_metadata_to_hash(hash, language = nil, options = {})
     language ||= Language.english
     if metadata = get_metadata(language)
       metadata.each do |datum|
@@ -502,7 +503,7 @@ class DataPointUri < ActiveRecord::Base
           count = 1
           key = "#{orig_key} #{count += 1}" while hash.has_key?(key)
         end
-        hash[key] = datum.value_string(language)
+        hash[key] = datum.value_string(language, options)
       end
     end
   end
@@ -549,7 +550,7 @@ class DataPointUri < ActiveRecord::Base
   end
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
-  def value_string(lang = Language.default)
+  def value_string(lang = Language.default, options = {})
     return @value_string unless @value_string.blank?
     @value_string = nil
     if association? && target_taxon_concept
@@ -569,7 +570,7 @@ class DataPointUri < ActiveRecord::Base
         end
       end
       # other values may have links embedded in them (references, citations, etc.)
-      @value_string = val.add_missing_hyperlinks
+      @value_string = val.add_missing_hyperlinks unless options[:raw]
     end
     return @value_string
   end

@@ -144,7 +144,6 @@ class TaxonData < TaxonUserClassificationFilter
             result[m].convert_units
         end
       end
-      #@ranges_of_values = results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
       @ranges_of_values = exclude_without_units(results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) })
     end
   end

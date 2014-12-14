@@ -17,8 +17,7 @@ describe TaxonData do
     @prep_string = EOL::Sparql::SearchQueryBuilder.prepare_search_query(querystring: 'foo')
     @resource = Resource.gen
     @user_added_data = UserAddedData.gen(subject: @taxon_concept)
-    @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
-    @test_predicate = "http://en.wikipedia.org/wiki/Letter"
+    @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)    
   end
 
   let(:mock_row) { { data_point_uri: @data_point_uri.uri } }

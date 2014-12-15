@@ -304,21 +304,25 @@ module EOL
         # add sorting
         url << '&sort=score+desc'
         # add spellchecking
-        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10'
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10&spellcheck.build=true'
         # add paging
         url << '&rows=10'
         res = open(url).read
         json = JSON.load(res)
         results = []
-        suggesions = []
+        suggestions = []
         json['grouped']['resource_unique_key']['groups'].each do |g|
           results << g['doclist']['docs'][0]
         end
         add_best_match_keywords!(results, query)
         add_resource_instances!(results, language_id: options[:language].id)
         results.delete_if{ |r| r['instance'].blank? }
-        #TODO load suggestions from result
-        results_with_suggestions = {results: results, suggestions: suggesions}
+        unless json['spellcheck']['suggestions'].blank?
+          json['spellcheck']['suggestions'][1]['suggestion'].each do |g|
+            suggestions << g
+          end
+        end
+        results_with_suggestions = {results: results, suggestions: suggestions}
         results_with_suggestions
       end
     end

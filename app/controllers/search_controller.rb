@@ -135,17 +135,39 @@ class SearchController < ApplicationController
     if @querystring.blank? || @querystring.length < 3 || @querystring.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)
       json = {}
     else
+      json = {}
+      taxons = []
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(@querystring, language: current_language)
-      results = results_with_suggestions[:results].map do |result|
-        { id: result['instance'].id,
-          value: result['instance'].title_canonical,
-          label: render_to_string(
-            partial: 'shared/item_summary_taxon_autocomplete',
-            locals: { item: result['instance'], search_result: result } )
-        }
-      end.delete_if { |r| r[:value].blank? }
+      suggestions = []
+      results_with_suggestions[:suggestions].each do |s|
+        res = EOL::Solr::SiteSearch.simple_taxon_search(s, language: current_language)[:results]
+        res.each do |item|
+          if item['resource_type'][0] == "TaxonConcept" && !(suggestions.include?(s))
+            suggestions << item
+          end
+        end
+      end
+      
+      if suggestions.blank?
+        taxons = results_with_suggestions[:results]
+        result_title = I18n.t("helpers.label.data_search.taxons_found")
+      else
+        taxons = suggestions
+        result_title = I18n.t(:did_you_mean, :suggestions => nil)
+      end
+      
+      unless taxons.blank?
+        json = taxons.each_with_index.map do |result, index|
+          { id: result['instance'].id,
+            value: result['instance'].title_canonical,
+            label: render_to_string(
+              partial: 'shared/item_summary_taxon_autocomplete',
+              locals: { item: result['instance'], search_result: result, result_title: result_title, index: index } )
+          }
+        end.delete_if { |r| r[:value].blank? }
+      end     
     end
-    render json: results
+    render json: json
   end
 
   private

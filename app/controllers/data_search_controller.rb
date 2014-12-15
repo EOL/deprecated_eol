@@ -28,11 +28,8 @@ class DataSearchController < ApplicationController
             contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
         t = Time.now
-        if @taxon_concept.nil? && !(params[:taxon_name].blank?)
-          @results = nil
-          @counts_of_values_from_search = 0
-        else
-          @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
+        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
+        if @results
           @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))
           log_data_search(time_in_seconds: Time.now - t)
         end

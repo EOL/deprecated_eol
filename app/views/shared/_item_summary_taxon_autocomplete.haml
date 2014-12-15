@@ -1,6 +1,9 @@
 - search_result = nil unless local_assigns.has_key?(:search_result)
 - path = taxon_overview_path(item)
 - has_thumbnail = false
+- if index == 0
+  %h2
+    = result_title
 .taxon_autocomplete
   - if image = item.exemplar_or_best_image_from_solr
     - if thumb = image.thumb_or_object('88_88')

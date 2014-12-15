@@ -74,20 +74,17 @@ describe DataSearchController do
     describe "taxon autocomplete" do
       
       before(:all) do
-        @first_name = Name.gen(string: "name first")
-        @second_name = Name.gen(string: "name second")
-        @first_taxon = TaxonConcept.gen
-        @second_taxon = TaxonConcept.gen
-        @first_taxon_name = TaxonConceptName.gen(name: @first_name, taxon_concept: @first_taxon)
-        @second_taxon_name = TaxonConceptName.gen(name: @second_name, taxon_concept: @second_taxon)
-        DataMeasurement.new(subject: @first_taxon, resource: @resource,  predicate: 'http://eol.org/weight', object: '32').update_triplestore
-        DataMeasurement.new(subject: @second_taxon, resource: @resource,  predicate: 'http://eol.org/weight', object: '12').update_triplestore
+        @taxon_name = TaxonConceptName.first
+        @name = Name.find(@taxon_name.name_id)
+        @taxon = TaxonConcept.find(@taxon_name.taxon_concept_id)
         EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+        DataMeasurement.new(subject: @taxon, resource: @resource,  predicate: 'http://eol.org/weight', object: '32').update_triplestore
       end
       
-    #TODO pending for solving solr issues
       it "should select the first taxon if there is many results for taxon name" do
-        pending
+        get :index, attribute: 'http://eol.org/weight', taxon_name: "#{@name.string}"
+        expect(DataSearchLog.last.number_of_results).to eq(1)
+        expect(DataSearchLog.last.taxon_concept_id).to eq(@taxon.id)
       end
     end
 

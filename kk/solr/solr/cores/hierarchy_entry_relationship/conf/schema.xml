@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="hierarchy_entry_relationships" version="1.4">
+    
+    <!-- define data types -->
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    </types>
+    
+    <!-- begin data schema -->
+    <fields>
+        <field name="hierarchy_entry_id_1" type="int" indexed="true" stored="true" required="true"/>
+        <field name="taxon_concept_id_1" type="int" indexed="true" stored="true" required="true"/>
+        <field name="hierarchy_id_1" type="int" indexed="true" stored="true" required="true"/>
+        <field name="visibility_id_1" type="int" indexed="true" stored="true" required="true"/>
+        <field name="hierarchy_entry_id_2" type="int" indexed="true" stored="true" required="true"/>
+        <field name="taxon_concept_id_2" type="int" indexed="true" stored="true" required="true"/>
+        <field name="hierarchy_id_2" type="int" indexed="true" stored="true" required="true"/>
+        <field name="visibility_id_2" type="int" indexed="true" stored="true" required="true"/>
+        <field name="same_concept" type="boolean" indexed="true" stored="true" required="true"/>
+        <field name="relationship" type="string" indexed="true" stored="true" required="true"/>
+        <field name="confidence" type="float" indexed="true" stored="true" required="true"/>
+    </fields>
+    
+    <!-- force uniqueness -->
+    <uniqueKey/>
+    
+    <!-- default unqualified search field -->
+    <defaultSearchField>relationship</defaultSearchField>
+</schema>

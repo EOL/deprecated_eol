@@ -144,10 +144,34 @@ class TaxonData < TaxonUserClassificationFilter
             result[m].convert_units
         end
       end
-      @ranges_of_values = results.delete_if { |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
+      @ranges_of_values = show_preferred_unit(results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) })
     end
   end
-
+  
+  # Here we will construct hash map which will contain the attribute (predicate) as a key and the value will be the minimum position for this attribute  
+  def show_preferred_unit(results)
+    atts_units = Hash.new
+    results.each do |result|      
+      if has_unit?(result)
+        new_position = get_position(result)        
+        if atts_units[result[:attribute]].nil? || (!atts_units[result[:attribute]].nil? && atts_units[result[:attribute]] > new_position) || atts_units[result[:attribute]] == -1
+          atts_units[result[:attribute]] = new_position
+        end
+      elsif atts_units[result[:attribute]].nil?
+        atts_units[result[:attribute]] = -1
+      end
+    end    
+    results.select{ |r| (atts_units[r[:attribute]] == -1) || (has_unit?(r) && get_position(r) == atts_units[r[:attribute]])}
+  end
+  
+  def has_unit?(range)
+    !range[:unit_of_measure_uri].nil?
+  end
+  
+  def get_position(range)
+    range[:unit_of_measure_uri][:position]
+  end       
+  
   # TODO - spec for can see data check
   def ranges_for_overview
     return nil unless user.can_see_data?
@@ -267,7 +291,6 @@ class TaxonData < TaxonUserClassificationFilter
           MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
         WHERE {
           ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-          ?t dwc:parentNameUsageID+ ?parent_taxon .
           ?t dwc:taxonConceptID ?descendant_concept_id .
           ?occurrence dwc:taxonID ?taxon .
           ?taxon dwc:taxonConceptID ?descendant_concept_id .
@@ -277,8 +300,7 @@ class TaxonData < TaxonUserClassificationFilter
           ?data_point_uri dwc:measurementValue ?value .
           OPTIONAL {
             ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
-          }
-          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
+          }          
         }
         GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
         ORDER BY DESC(?min)"

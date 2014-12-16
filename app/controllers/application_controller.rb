@@ -486,19 +486,23 @@ class ApplicationController < ActionController::Base
   end
 
   # TODO - this doesn't belong in a controller. Move it to a lib or a model.
-  def fetch_external_page_title
+ def fetch_external_page_title
+    debugger
     data = {}
     success = nil
     response_title = nil
+    is_allowable_redirect = nil   
+    redirect=nil 
     I18n.locale = params['lang'] if params['lang']
     begin
       url = params[:url]
-      url = "http://" + url unless url =~ /^[a-z]{3,5}:\/\//i
-      response = Net::HTTP.get_response(URI.parse(url))
+      url = "http://" + url unless url =~ /^[a-z]{3,5}:\/\//i      
+      response = Net::HTTP.get_response(URI.parse(url)) 
       if (response.code == "301" || response.code == "302" || response.code == "303") && response.kind_of?(Net::HTTPRedirection)
-        response = Net::HTTP.get_response(URI.parse(response['location']))
+        is_allowable_redirect = true if EOLWebService.in_allowable_redirection_domains((URI.parse(url)))
+        response = Net::HTTP.get_response(URI.parse(response['location']))    
       end
-      if response.code == "200"
+      if response.code == "200" 
         response_body = response.body.force_encoding('utf-8') # NOTE the force, here... regex fails on some pages w/o
         if response['Content-Encoding'] == "gzip"
           response_body = ActiveSupport::Gzip.decompress(response.body)
@@ -507,6 +511,8 @@ class ApplicationController < ActionController::Base
         if matches = response_body.match(/<title>(.*?)<\/title>/ium)
           response_title = matches[1].strip
         end
+      elsif is_allowable_redirect &&(response.code == "301" || response.code == "302" || response.code == "303") && response.kind_of?(Net::HTTPRedirection) 
+        redirect = true
       end
     rescue Exception => e
     end
@@ -518,6 +524,9 @@ class ApplicationController < ActionController::Base
         data['exception'] = true
         data['message'] = I18n.t(:unable_to_determine_title)
       end
+    elsif redirect
+        data['exception'] = true
+        data['message'] = I18n.t(:redirect_url_ok_title_unavailable)
     else
       data['exception'] = true
       data['message'] = I18n.t(:url_not_accessible)

@@ -38,7 +38,7 @@ class Taxa::ResourcesController < TaxaController
     @assistive_section_header = I18n.t(:resources)
     @add_article_toc_id = TocItem.education_resources ? TocItem.education_resources.id : nil
     @rel_canonical_href = education_taxon_resources_url(@taxon_page)
-    
+
     @contents = @education_contents || get_toc_text(:education_for_resources_tab)
     current_user.log_activity(:viewed_taxon_concept_resources_education, taxon_concept_id: @taxon_concept.id)
   end
@@ -97,7 +97,7 @@ private
   def link_objects_contents
     @news_and_event_links_contents ||= get_link_text([:news, :blog])
     @related_organizations_contents ||= get_link_text(:organization)
-    @multimedia_links_contents ||= get_link_text(:multimedia)
+    @multimedia_links_contents ||= get_link_text([:multimedia, :paper])
     @citizen_science_contents = get_toc_text([:citizen_science, :citizen_science_links])
     @identification_contents = get_toc_text(:identification_resources)
     @education_contents = get_toc_text(:education_for_resources_tab)

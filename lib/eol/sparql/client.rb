@@ -91,13 +91,13 @@ module EOL
       end
 
       def all_measurement_type_uris
-        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_uris", :expires_in => 1.minute) do
+        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_uris", :expires_in => 1.day) do
           counts_of_all_measurement_type_uris.collect{ |k,v| k }
         end
       end
 
       def all_measurement_type_known_uris
-        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris", :expires_in => 1.minute) do
+        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris", :expires_in => 1.day) do
           all_uris = all_measurement_type_uris
           all_known_uris = KnownUri.find_all_by_uri(all_uris)
           all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } }

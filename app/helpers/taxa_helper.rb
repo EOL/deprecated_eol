@@ -240,11 +240,7 @@ module TaxaHelper
     end
     #making it superscript instead of ^
     if text_for_row_value.include? "^"
-      i = text_for_row_value.index('^')
-      until text_for_row_value[i] == "\n"
-        i += 1
-      end
-      text_for_row_value.insert(i, "</sup>")
+      add_closing_sup_tag(text_for_row_value)
       text_for_row_value['^'] = "<sup>"      
     end
     text_for_row_value.gsub(/\n/, '')
@@ -256,6 +252,14 @@ module TaxaHelper
     end
     text_for_row_value += display_text_for_modifiers(modifiers)
     text_for_row_value
+  end
+  
+  def add_closing_sup_tag (text_for_row_value)
+    i = text_for_row_value.index('^')
+    until text_for_row_value[i] == "\n"
+      i += 1
+    end
+    text_for_row_value.insert(i, "</sup>")
   end
 
   def info_icon

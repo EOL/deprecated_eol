@@ -209,6 +209,28 @@ class DataObjectsController < ApplicationController
 
   end
 
+  def delete
+    # make data_object hidden/untrusted for all its associations
+    curations = []
+    DataObject.with_master do
+      @data_object.data_object_taxa.each do |association|
+        curations << Curation.new(
+          association: association,
+          user: current_user,
+          vetted: Vetted.untrusted,
+          visibility: Visibility.invisible,
+          untrust_reason_ids: [1],
+          hide_reason_ids: [3] )
+      end
+    end
+    curations.each { |curation| curation.curate_as_deleted }
+    DataObjectCaching.clear(@data_object)
+    #mark data_object as unpublished
+    @data_object.update_attribute(:published, false) 
+    #remove data_object from solr
+    @data_object.remove_data_object_from_solr
+    
+  end
   # GET /data_objects/:id
   def show
     # TODO - nononono, this isn't how DataObjectCaching is meant to be used! Call @data_object.best_title and let that class handle

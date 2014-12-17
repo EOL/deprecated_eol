@@ -1,7 +1,6 @@
 module EOL
   module Solr
     class DataObjectsCoreRebuilder
-
       def self.connect
         SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
       end
@@ -35,7 +34,12 @@ module EOL
           i += limit
         end
       end
-
+      
+      def self.remove_data_object(data_object)
+        api = SolrAPI.new($SOLR_SERVER, $SOLR_DATA_OBJECTS_CORE)
+        api.delete_by_query("data_object_id:#{data_object.id}")
+      end
+      
       def self.lookup_data_objects(start, limit)
         max = start + limit # TODO - pretty sure this is a fencepost error (should be -1), but don't care enough...
         objects_to_send = []

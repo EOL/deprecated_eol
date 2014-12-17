@@ -1167,6 +1167,9 @@ class DataObject < ActiveRecord::Base
     DataObjectsTableOfContent.where(data_object_id: id).destroy_all
   end
 
+  def remove_data_object_from_solr
+    EOL::Solr::DataObjectsCoreRebuilder.remove_data_object(self)
+  end
 private
 
   def source_url_is_valid

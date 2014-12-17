@@ -70,7 +70,7 @@ describe 'Application' do
     response['message'].should == "Unable to determine the title of this web page"
     response['exception'].should == true
   end
- 
+
   it "gives a message if the doi-link and accepts it" do 
     url= "http://dx.doi.org/10.1038/nature13812"
     redirected_url= 'http://www.nature.com/doifinder/10.1038/nature13812'
@@ -81,5 +81,5 @@ describe 'Application' do
     expect(response['message']).to eq(I18n.t(:redirect_url_ok_title_unavailable))
     expect(response['exception']).to be_true
   end
-    
+
 end

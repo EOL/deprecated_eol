@@ -148,29 +148,17 @@ class TaxonData < TaxonUserClassificationFilter
     end
   end
   
-  # Here we will construct hash map which will contain the attribute (predicate) as a key and the value will be the minimum position for this attribute  
   def show_preferred_unit(results)
-    atts_units = Hash.new
-    results.each do |result|      
-      if has_unit?(result)
-        new_position = get_position(result)        
-        if atts_units[result[:attribute]].nil? || (!atts_units[result[:attribute]].nil? && atts_units[result[:attribute]] > new_position) || atts_units[result[:attribute]] == -1
-          atts_units[result[:attribute]] = new_position
+    results.group_by { |r| r[:attribute] }.values.map do |attribute_group|
+      attribute_group.sort do |a,b|
+        if a[:unit_of_measure_uri] && b[:unit_of_measure_uri]
+          a[:unit_of_measure_uri][:position] <=> b[:unit_of_measure_uri][:position]
+        else
+          a[:unit_of_measure_uri] ? -1 : 1
         end
-      elsif atts_units[result[:attribute]].nil?
-        atts_units[result[:attribute]] = -1
-      end
+      end.first # Choose the value that sorted first.
     end    
-    results.select{ |r| (atts_units[r[:attribute]] == -1) || (has_unit?(r) && get_position(r) == atts_units[r[:attribute]])}
-  end
-  
-  def has_unit?(range)
-    range[:unit_of_measure_uri]
-  end
-  
-  def get_position(range)
-    range[:unit_of_measure_uri][:position]
-  end       
+  end         
   
   # TODO - spec for can see data check
   def ranges_for_overview

@@ -83,6 +83,34 @@ class DataObject < ActiveRecord::Base
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
 
+  def remove_all_collection_items
+    collection_items = CollectionItem.where(collected_item_type: self.class.to_s, collected_item_id: self.id)
+    collection_items.each do |ci|
+      ci.destroy
+    end
+  end
+  
+  def unpublish
+    self.update_attribute(:published, false) 
+  end
+  
+  def mark_for_all_association_as_hidden_untrusted(user)
+    curations = []
+      DataObject.with_master do
+        self.data_object_taxa.each do |association|
+          curations << Curation.new(
+            association: association,
+            user: user,
+            vetted: Vetted.untrusted,
+            visibility: Visibility.invisible,
+            untrust_reason_ids: [UntrustReason.misidentified.id, UntrustReason.incorrect.id],
+            hide_reason_ids: [UntrustReason.poor.id, UntrustReason.duplicate.id] )
+        end
+      end
+    curations.each { |curation| curation.curate_as_deleted }
+    DataObjectCaching.clear(self)
+  end
+  
   def self.maximum_rating
     MAXIMUM_RATING
   end

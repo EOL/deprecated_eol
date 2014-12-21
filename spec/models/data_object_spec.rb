@@ -11,7 +11,7 @@ describe DataObject do
 
     @curator         = @testy[:curator]
     @another_curator = create_curator
-
+    
     @dato = DataObject.gen(description: 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(taxon_concept_id: @taxon_concept.id, data_object_id: @dato.id)
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
@@ -31,6 +31,47 @@ describe DataObject do
     @user_submitted_text = @taxon_concept.add_user_submitted_text(user: @user)
   end
 
+  it "deletes all its collection items" do
+    d = DataObject.gen
+    collection = Collection.gen
+    col_item = CollectionItem.create(collection_id: collection.id, collected_item_id: d.id, 
+      collected_item_type: d.class.to_s)
+    d.remove_all_collection_items
+    expect(CollectionItem.where(id: col_item.id).count).to equal(0)
+    collection.destroy
+    d.destroy
+  end
+  
+  it "marks itself as unpublished" do
+    d = DataObject.gen
+    expect(d.published).to be_true
+    d.unpublish
+    expect(d.published).to be_false
+    d.destroy
+  end
+  
+  it "marks all its associations as hidden/untrusted" do
+    d = DataObject.gen
+    hierarchy_entry = HierarchyEntry.gen
+    dohe = DataObjectsHierarchyEntry.create(hierarchy_entry_id: hierarchy_entry.id, data_object_id: d.id,
+      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+    hierarchy_entry2 = HierarchyEntry.gen
+    dohe2 = DataObjectsHierarchyEntry.create(hierarchy_entry_id: hierarchy_entry2.id, data_object_id: d.id,
+      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+    d.mark_for_all_association_as_hidden_untrusted(@curator)
+    dohe.reload
+    dohe2.reload
+    expect(dohe.vetted_id).to equal(Vetted.untrusted.id)
+    expect(dohe.visibility_id).to equal(Visibility.invisible.id)
+    expect(dohe2.vetted_id).to equal(Vetted.untrusted.id)
+    expect(dohe2.visibility_id).to equal(Visibility.invisible.id)
+    d.destroy
+    dohe.destroy
+    dohe2.destroy
+    hierarchy_entry.destroy
+    hierarchy_entry2.destroy
+  end
+  
   it 'should be able to replace wikipedia articles' do
     TocItem.gen_if_not_exists(label: 'wikipedia')
 

@@ -32,7 +32,7 @@
             %li= link_to I18n.t(:add_link_instead), new_taxon_data_object_path(@taxon_concept, :toc => @add_article_toc_id, :link => true), :class => 'button'
           - elsif @add_link
             %li= link_to I18n.t(:add_article_instead), new_taxon_data_object_path(@taxon_concept, :toc => @add_article_toc_id), :class => 'button'
-          - if current_user.master_curator?
+          - if @data_object.published && logged_in? && current_user.master_curator?
             %li= link_to I18n.t(:delete_data_object), {:controller=>'data_objects', :action=>'delete'}, :class => "button", :data => { :confirm => I18n.t(:confirm_delete_data_object) }
       = render 'shared/flash_messages'
   #content

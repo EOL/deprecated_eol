@@ -3349,6 +3349,7 @@ en:
   data_metadata_subtable_summary: "Additional data about this fact."
   data_measurement_subtable_summary: "Additional data about the measurement of this fact."
   data_object: "Data Object"
+  data_object_deleted: "Data Object was successfuly deleted"
   data_object_not_associated_with_any_hierarchies: "This data object is not associated with any hierarchies."
   data_object_reference: "Data object reference"
   data_object_ignore: "ignore this item"

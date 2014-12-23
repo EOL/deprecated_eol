@@ -215,7 +215,7 @@ Eol::Application.routes.draw do
     resources :content_partner_agreements, :as => 'agreements', :except => [:index, :destroy],
       :controller => 'content_partners/content_partner_agreements'
     resource :statistics, :only => [:show], :controller => 'content_partners/statistics'
-    resources :resources, :only => [:index, :show, :edit, :new, :update, :create],
+    resources :resources, :only => [:index, :show, :edit, :new, :update, :create, :destroy],
       :controller => 'content_partners/resources' do
       member do
         get 'force_harvest', :controller => 'content_partners/resources'

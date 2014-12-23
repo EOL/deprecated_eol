@@ -98,6 +98,36 @@ describe ContentPartners::ResourcesController do
       response.should render_template('content_partners/resources/show')
     end
   end
+  
+  describe 'DELETE destroy' do
+    
+    before(:all) do
+      @resource_for_deletion = Resource.gen(:content_partner => @content_partner)
+    end
+    
+    context 'when user can delete resource' do #admin
+      
+      before(:all) do
+        @admin = User.gen
+        @admin.grant_admin
+      end
+      
+      it "should call destroy all harvest events related to this resource" do
+        log_in_for_controller(controller, @admin)
+        delete :destroy, { :content_partner_id => @content_partner.id, :id => @resource_for_deletion.id }
+        expect(@resource_for_deletion.harvest_events).to be_blank
+        expect(response).to redirect_to(content_partner_path(@content_partner))
+        expect(flash[:notice]).to eq(I18n.t(:content_partner_resource_has_been_deleted, resource_title: @resource_for_deletion.title))
+      end
+    end
+    
+    context 'when user can not delete resource' do # non admins
+      it "should raise 'restricted to admin' exception" do
+        log_in_for_controller(controller, @user)
+        expect { delete :destroy, { :content_partner_id => @content_partner.id, :id => @resource_for_deletion.id } }.to raise_error(EOL::Exceptions::SecurityViolation)
+      end
+    end
+  end
 
 #  describe 'GET and POST force_harvest' do
 #    it 'should change resource status to force harvest only if user can update resource and state transition is allowed'

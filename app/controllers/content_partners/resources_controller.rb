@@ -1,6 +1,7 @@
 class ContentPartners::ResourcesController < ContentPartnersController
 
   before_filter :check_authentication
+  before_filter :restrict_to_admins, only: [:destroy]
 
   layout 'partners'
 
@@ -129,6 +130,17 @@ class ContentPartners::ResourcesController < ContentPartnersController
     end
     store_location request.referer unless request.referer.blank?
     redirect_back_or_default content_partner_resources_path(@partner)
+  end
+  
+  def destroy
+    partner = ContentPartner.find(params[:content_partner_id], include: [:resources])
+    resource = partner.resources.find(params[:id])
+    resource_title = resource.title
+    if resource
+      resource.destroy_everything
+      redirect_to content_partner_path(partner)
+      flash[:notice] = I18n.t(:content_partner_resource_has_been_deleted, resource_title: resource_title)
+    end      
   end
 
 private

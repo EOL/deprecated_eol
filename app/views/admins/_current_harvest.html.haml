@@ -1,7 +1,7 @@
 .current_harvest
   %h2
     = I18n.t(:currently_running_harvesting)
-  - if @harvest_log
+  - if @harvest_log && @harvest_resource
     %table
       %tr
         %td

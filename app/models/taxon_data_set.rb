@@ -103,6 +103,7 @@ class TaxonDataSet
   end
 
   def to_jsonld
+    # debugger
     raise "Cannot build JSON+LD without taxon concept" unless @taxon_concept
     jsonld = { '@graph' => [ @taxon_concept.to_jsonld ] }
     if wikipedia_entry = @taxon_concept.wikipedia_entry
@@ -111,9 +112,16 @@ class TaxonDataSet
     @taxon_concept.common_names.map do |tcn|
       jsonld['@graph'] << tcn.to_jsonld
     end
+    @taxon_concept.hierarchy_entries.map do |he|
+      unless he.sientific_synonyms.blank?
+        jsonld['@graph'] << he.to_jsonld
+      end
+    end
+    # debugger
     @data_point_uris.map do |dpuri|
       jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
     end
+    # debugger
     fill_context(jsonld)
     jsonld
   end

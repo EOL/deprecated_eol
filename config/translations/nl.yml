@@ -560,7 +560,9 @@ nl:
         request_publish_more: Geeft aan of er een aanvraag opstaat om deze hiërarchie
           te bevorderen tot één van de primaire bladerbare hiërarchieën op EOL.
       known_uri_relationship:
+        from_known_uri: Voor bekende URI
         relationship_uri: Selecteer relatie
+        to_known_uri: Geef de doel-URI op en selecteer deze
       news_item:
         active: Gepubliceerd
         active_more: Gepubliceerde nieuwsberichten zijn openbaar vanaf de geselecteerde
@@ -1146,7 +1148,10 @@ nl:
     more_than_one_field_mapped_to_type: Er is meer dan één kenmerk toegewezen aan
       "%{type}"
     no_results: Er zijn geen resultaten voor de geselecteerde statistiek
+    no_relationships: Er zijn geen relaties gevonden voor deze URI.
     please_select_field_types: Selecteer een toewijzing voor elke eigenschap
+    please_select_category_for_stats: Selecteer een categorie om de statistieken te
+      bekijken.
     please_select_uris_to_import: Selecteer de te importeren URI's
     relationships: Relaties
     relationships_from_this_uri: Relaties uit deze URI
@@ -1212,6 +1217,8 @@ nl:
       learn_more_link_protists: Protisten
       learn_more_link_archaea: Archaea
       learn_more_link_viruses: Virussen
+      learn_more_link_algae: Algen
+      questions_link_evolution: Wat is evolutie?
       questions_link_biodiversity: Wat is biodiversiteit?
       questions_link_species: Wat is een soort?
       questions_link_discovering_species: Hoe zijn soorten ontdekt?
@@ -1223,12 +1230,13 @@ nl:
       questions_link_model_organism: Wat is een modelorganisme?
       questions_link_contributing_to_research: Hoe kan ik bijdragen aan onderzoek?
     data_search:
-      page_header: Doorzoek TraitBank
-      page_header_results: TraitBank zoekresultaten
+      page_header: TraitBank doorzoeken
+      page_header_results: Zoekresultaten uit TraitBank
     footer:
       google_plus: Encyclopedia of Life op Google+
     taxa:
-      search_traitbank: Doorzoek TraitBank
+      search_within_clade: Zoeken binnen clade
+      search_traitbank: TraitBank doorzoeken
   members:
     index:
       meta_description: Leden van %{community_name}, een Encyclopedia of Life-gemeenschap
@@ -3694,7 +3702,7 @@ nl:
     gebruikers met rechten
   admin_link: Beheerconsole
   admin_page_title: 'Beheer: Overzicht'
-  admin_simple_actions_header: 'Simpele acties:'
+  admin_simple_actions_header: 'Simpele handelingen:'
   admin_spam_delete: Spam verwijderen
   admin_statistics_link: Statistieken
   admin_translated_content_page_create_successful_notice: De vertaling is toegevoegd
@@ -4681,7 +4689,7 @@ nl:
     de Alfred P. Sloan Foundation, de John D. en Catherine T.  MacArthur Foundation,
     en door gebruikers van EOL van over de hele wereld. Als u meer informatie wilt
     over over het project TraitBank™, neem dan contact op met <a href='mailto:secretariat@eol.org'>secretariat@eol.org</a>.</p>
-  data_results_only_for_search: TraitBank resultaten voor "%{search_term}"
+  data_results_only_for_search: Resultaten uit TraitBank voor "%{search_term}"
   data_about_this_record: Gegevens over dit record
   data_column_tc_id: EOL pagina-ID
   data_column_sci_name: Wetenschappelijke naam
@@ -4730,12 +4738,12 @@ nl:
   data_row_exemplar_removed: Snel feit verwijderd.
   data_row_excluded_from_overview_notice: 'Opmerking: deze rij is uitgesloten van
     snelle feiten.'
-  data_row_add_exemplar_button: Toevoegen aan overzicht
-  data_row_remove_exemplar_button: Verwijderen uit overzicht
+  data_row_add_exemplar_button: aan overzicht toevoegen
+  data_row_remove_exemplar_button: uit overzicht verwijderen
   data_row_hide_button: Rij verbergen
   data_row_unhide_button: Rij zichtbaar maken
   data_search:
-    page_title: Doorzoek TraitBank
+    page_title: TraitBank doorzoeken
   data_search_link: Wetenschappelijke gegevens zoeken op EOL
   data_search_explanation: |-
     Gebruik de functie gegevens zoeken van EOL om items over "%{term}" te vinden in<br />

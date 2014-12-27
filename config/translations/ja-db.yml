@@ -4,6 +4,7 @@
 # Author: Masakiyamaguchi
 # Author: Schu
 # Author: Shirayuki
+# Author: SkyDaisy9
 # Author: 아라
 ---
 ja:
@@ -13,11 +14,11 @@ ja:
   translated_activities-name-activity_id-52: 作成
   translated_activities-name-activity_id-53: 非表示
   translated_activities-name-activity_id-54: 更新
-  translated_activities-name-activity_id-55: 不適切
+  translated_activities-name-activity_id-55: ' 不適切な'
   translated_activities-name-activity_id-56: 削除
   translated_activities-name-activity_id-57: 評価
   translated_activities-name-activity_id-58: 信頼できる
-  translated_activities-name-activity_id-59: 未審査
+  translated_activities-name-activity_id-59: 未査読
   translated_activities-name-activity_id-63: 収集
   translated_activities-name-activity_id-64: 削除
   translated_agent_roles-label-agent_role_id-10: プロジェクト

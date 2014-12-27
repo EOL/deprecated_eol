@@ -688,7 +688,7 @@ ru:
         curation_application: Стать куратором
         curation_application_more: Если вы хотите изменить ваши привилегии курирование,
           просто подайте заявку и мы рассмотрим ваше право.
-        curator_level: 'Вас уровень курирования: %{curator_level_with_indefinite_article}.'
+        curator_level: 'Ваш уровень курирования: %{curator_level_with_indefinite_article}.'
         curator_scope: Область курирования
         curator_scope_more: 'Укажите область ваших знаний. Например: «Грызуны Борнео»,
           «Тритрофические взаимодействия» или «Вопросы сохранения рыбы». Это не будет

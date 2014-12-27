@@ -3229,7 +3229,7 @@ zh-TW:
     編輯階層
   content_partner_resource_hierarchy_not_browsable: 不可瀏覽
   content_partner_resource_hierarchy_request_publish: 要求的事項處於待辦狀態中
-  content_partner_resource_hierarchy_unknown: 未知
+  content_partner_resource_hierarchy_unknown: 不明
   content_partner_resource_hierarchy_update_successful_notice: 成功更新了階層。
   content_partner_resource_hierarchy_update_unsuccessful_error: 抱歉，出現了錯誤，未能更新此階層。
   content_partner_resource_licensing_details_header: 版權 &amp；姓名標示
@@ -3828,6 +3828,7 @@ zh-TW:
   leave_a_comment: 留下評論
   leave_reply: 留下回覆
   left_content_area: 左側內容區域
+  legend: 說明：
   license: 授權
   license_all_rights_reserved: 保留所有版權
   license_cc_by: 創用CC「姓名標示」(CC BY)
@@ -4444,8 +4445,8 @@ zh-TW:
   some_required_fields_were_not_entered: 未輸入某些必填欄位(您必須輸入一個標題和內容或一個URL)。
   sort_by_button: 排序
   sort_by_label: 依其排序
-  sort_by_newest_option: 最新的
-  sort_by_oldest_option: 最早的
+  sort_by_newest_option: 最新
+  sort_by_oldest_option: 最舊
   sort_by_rating_option: 評價
   sort_by_richness_option: 豐富度
   sort_by_alphabetical_option: 由A到Z
@@ -4694,7 +4695,7 @@ zh-TW:
     one: 此邀請無法被送至 %{list}。
     other: 這些邀請無法被送至 %{list}。
   unique_page_views_th: 不重複的頁面瀏覽量
-  unknown: 未知
+  unknown: 不明
   unknown_hierarchy: 不明階層
   unknown_data_object_title: 不明資料物件
   unable_to_determine_title: 無法確定這個網頁的標題

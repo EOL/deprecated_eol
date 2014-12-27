@@ -1258,6 +1258,8 @@ es:
       learn_more_link_protists: Protistas
       learn_more_link_archaea: Arqueas
       learn_more_link_viruses: Virus
+      learn_more_link_algae: Algas
+      questions_link_evolution: ¿Qué es la evolución?
       questions_link_biodiversity: ¿Qué es la biodiversidad?
       questions_link_species: ¿Qué es una especie?
       questions_link_discovering_species: ¿Cómo se descubren las especies?
@@ -5981,7 +5983,7 @@ es:
     other: '%{count} taxones'
   outlink: Enlace externo
   overview: Vista general
-  page_linked_to: Página enlazada a
+  page_linked_to: Página enlazada con
   page_name: Nombre de la página
   page_navigation: Navegación de la página
   page_not_found: Página no encontrada

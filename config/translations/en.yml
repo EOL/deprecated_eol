@@ -4785,7 +4785,7 @@ en:
   translation_saved: "Translation has been saved"
   translations_submit: "View translation"
   trigger_search_term_entered_by: "trigger search term entered by the user"
-  true: "True"
+  "true": "True"
   true_label: "True"
   truncated_comment_omission: "... <a href='%{link}'>more</a>"
   truncated_comment_omission_linkless: "..."

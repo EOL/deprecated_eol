@@ -23,7 +23,7 @@ module EOL
       def self.add_resource_instances!(docs, options = {})
         return if docs.empty?
         ids = docs.map{ |d| d['collection_item_id'] }
-        instances = CollectionItem.find(ids)
+        instances = CollectionItem.where(id: ids)
         if options[:view_style] == ViewStyle.annotated
           CollectionItem.preload_associations(instances, :refs, :select =>
             { :refs => [ :id, :full_reference ] } )
@@ -43,8 +43,7 @@ module EOL
 
       def self.add_community!(docs, options = {})
         return if docs.empty?
-        ids = docs.map{ |d| d['object_id'] }
-        instances = Community.find(ids)
+        instances = Community.where(id: docs.map{ |d| d['object_id'] })
         docs.map! do |d|
           unless d['instance'].nil?
             d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
@@ -54,8 +53,7 @@ module EOL
 
       def self.add_collection!(docs, options = {})
         return if docs.empty?
-        ids = docs.map{ |d| d['object_id'] }
-        instances = Collection.find(ids)
+        instances = Collection.where(id: docs.map{ |d| d['object_id'] })
         if options[:view_style] == ViewStyle.annotated
           Collection.preload_associations(instances, [ :users, :communities ], :select =>
             { :users => '*', :communities => '*' } )
@@ -69,8 +67,7 @@ module EOL
 
       def self.add_user!(docs, options = {})
         return if docs.empty?
-        ids = docs.map{ |d| d['object_id'] }
-        instances = User.find(ids)
+        instances = User.where(id: docs.map{ |d| d['object_id'] })
         docs.map! do |d|
           unless d['instance'].nil?
             d['instance'].collected_item = instances.detect{ |i| i.id == d['object_id'].to_i }
@@ -80,10 +77,9 @@ module EOL
 
       def self.add_taxon_concept!(docs, options = {})
         return if docs.empty?
-        ids = docs.map{ |d| d['object_id'] }
-        instances = TaxonConcept.find(ids)
+        instances = TaxonConcept.where(id: docs.map{ |d| d['object_id'] })
         if options[:view_style] == ViewStyle.list
-          includes = 
+          includes =
           { :preferred_entry =>
             { :hierarchy_entry => [ { :name => :ranked_canonical_form } ] } }
           TaxonConcept.preload_associations(instances, includes)
@@ -102,15 +98,14 @@ module EOL
 
       def self.add_data_object!(docs, options = {})
         return if docs.empty?
-        ids = docs.map{ |d| d['object_id'] }
-        instances = DataObject.find(ids)
+        instances = DataObject.where(id: docs.map{ |d| d['object_id'] })
         docs.each do |d|
           if d['instance']
             d['instance_guid'] = instances.detect{ |i| i.id == d['object_id'].to_i }.guid
           end
         end
         DataObject.replace_with_latest_versions!(instances, language_id: options[:language_id], check_only_published: true)
-        
+
         includes = [ { :toc_items => :translations }, :data_type ]
         selects = {
           :data_objects => '*',
@@ -127,7 +122,7 @@ module EOL
           :canonical_forms => [ :id, :string ],
           :languages => '*'
         }
-        
+
         includes << { :data_objects_hierarchy_entries => [ { :hierarchy_entry =>
           [ { :name => [ :canonical_form, :ranked_canonical_form ] }, :taxon_concept, :hierarchy ] },
           :vetted, :visibility ] }

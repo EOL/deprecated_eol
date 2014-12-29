@@ -66,7 +66,7 @@ module EOL
       def self.lookup_communities(start, limit)
         max = start + limit
         objects_to_send = []
-        communities = Community.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at, published')
+        communities = Community.where("id BETWEEN #{start} AND #{max}").select('id, name, description, created_at, updated_at, published')
         communities.each do |c|
           objects_to_send += c.keywords_to_send_to_solr_index
         end
@@ -77,7 +77,7 @@ module EOL
         max = start + limit
         objects_to_send = []
         # TODO - this should include the users and collections, I think.
-        collections = Collection.find(:all, :conditions => "id BETWEEN #{start} AND #{max}", :select => 'id, name, description, created_at, updated_at, special_collection_id, published')
+        collections = Collection.where("id BETWEEN #{start} AND #{max}").select('id, name, description, created_at, updated_at, special_collection_id, published')
         collections.each do |c|
           objects_to_send += c.keywords_to_send_to_solr_index
         end
@@ -88,9 +88,11 @@ module EOL
         max = start + limit
         objects_to_send = []
         # TODO - Modify this to return only visible data objects
-        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND published=1",
-          :select => 'id, object_title, description, data_type_id, data_subtype_id, created_at, updated_at,
-            rights_holder, rights_statement, bibliographic_citation, location')
+        data_objects = DataObject.
+          where("id BETWEEN #{start} AND #{max} AND published=1").
+          select('id, object_title, description, data_type_id, data_subtype_id,
+            created_at, updated_at, rights_holder, rights_statement,
+            bibliographic_citation, location')
         data_objects.each do |d|
           objects_to_send += d.keywords_to_send_to_solr_index
         end
@@ -100,7 +102,7 @@ module EOL
       def self.lookup_users(start, limit)
         max = start + limit
         objects_to_send = []
-        users = User.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1", :select => 'id, username, given_name, family_name, curator_level_id, created_at, updated_at, active, hidden')
+        users = User.where("id BETWEEN #{start} AND #{max} AND active=1").select('id, username, given_name, family_name, curator_level_id, created_at, updated_at, active, hidden')
         users.each do |u|
           objects_to_send += u.keywords_to_send_to_solr_index
         end
@@ -110,7 +112,7 @@ module EOL
       def self.lookup_content_pages(start, limit)
         max = start + limit
         objects_to_send = []
-        content_pages = ContentPage.find(:all, :conditions => "id BETWEEN #{start} AND #{max} AND active=1")
+        content_pages = ContentPage.where("id BETWEEN #{start} AND #{max} AND active=1")
         content_pages.each do |cp|
           objects_to_send += cp.keywords_to_send_to_solr_index
         end
@@ -147,7 +149,6 @@ module EOL
         end
         objects_to_send
       end
-
 
     end
   end

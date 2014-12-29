@@ -3831,7 +3831,7 @@ zh-CN:
   no_items_were_copied_to_collections_error: '没有项被复制到此收藏: %{names}。'
   no_news_items_for_month_and_year: 没有用于%{month_and_year}的新闻项
   none: 无
-  0: 否
+  "no": 否
   num_content_partners: 内容合作伙伴编号
   num_data_objects: 数据项编号
   no_record_found_matching_your_criteria: 没有搜到符合您检索条件的记录
@@ -4414,7 +4414,7 @@ zh-CN:
   translation_saved: 翻译已保存
   translations_submit: 查看翻译
   trigger_search_term_entered_by: 触发由用户输入的搜索词汇
-  1: 真
+  "true": 真
   true_label: 真
   truncated_comment_omission: '... <a href=''%{link}''>更多</a>'
   truncated_comment_omission_linkless: '...'

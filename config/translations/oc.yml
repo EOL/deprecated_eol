@@ -5520,7 +5520,7 @@ oc:
     las colleccions : %{names}.'
   no_news_items_for_month_and_year: Pas cap d'actualitat per %{month_and_year}
   none: pas cap
-  0: Non
+  "no": Non
   num_content_partners: No. dels partenaris de contengut
   num_data_objects: No. dels objèctes de donadas
   no_record_found_matching_your_criteria: Cap d'enregistrament pas trobat que corresponda
@@ -6185,7 +6185,7 @@ oc:
   translation_saved: La traduccion es estada enregistrada
   translations_submit: Veire la traduccion
   trigger_search_term_entered_by: desenclavar lo critèri de recèrca picat per l’utilizaire
-  1: Verai
+  "true": Verai
   true_label: Verai
   truncated_comment_omission: '... <a href=''%{link}''>mai</a>'
   truncated_comment_omission_linkless: '...'

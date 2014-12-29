@@ -6025,7 +6025,7 @@ de:
     Sammlungen kopiert: %{names}.'
   no_news_items_for_month_and_year: Keine Nachrichten für %{month_and_year}
   none: keine
-  0: Nein
+  "no": Nein
   num_content_partners: Anzahl der Inhaltspartner
   num_data_objects: Anzahl der Datenobjekte
   no_record_found_matching_your_criteria: Es wurde kein Datensatz gefunden, der Ihren
@@ -6974,7 +6974,7 @@ de:
   translation_saved: Die Übersetzung wurde gespeichert
   translations_submit: Übersetzung anzeigen
   trigger_search_term_entered_by: den vom Nutzer eingegebenen Suchbegriff ansteuern
-  1: Wahr
+  "true": Wahr
   true_label: Wahr
   truncated_comment_omission: … <a href='%{link}'>mehr</a>
   truncated_comment_omission_linkless: …

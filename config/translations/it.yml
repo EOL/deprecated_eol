@@ -5809,7 +5809,7 @@ it:
     collezioni: %{names}.'
   no_news_items_for_month_and_year: Nessuna nuova notizia per %{month_and_year}
   none: nessuno
-  0: "No"
+  "no": "No"
   num_content_partners: Numero di partner di contenuti
   num_data_objects: Numero degli oggetti dati
   no_record_found_matching_your_criteria: Nessun record corrisponde ai criteri di
@@ -6735,7 +6735,7 @@ it:
   translation_saved: La traduzione è stata salvata
   translations_submit: Vedi traduzione
   trigger_search_term_entered_by: innesca il termine di ricerca immesso dall'utente
-  1: Vero
+  "true": Vero
   true_label: Vero
   truncated_comment_omission: '... <a href=''%{link}''>di più</a>'
   truncated_comment_omission_linkless: '...'

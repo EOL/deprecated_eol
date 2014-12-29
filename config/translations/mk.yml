@@ -469,6 +469,7 @@ mk:
         object_title: Наслов
         toc_item: Подглава
         refs: Наводи <small>(секој во нов ред)</small>
+        refs_order: '*Наводите ќе бидат испишани по азбучен ред'
         rights_holder: Сопственик на правата
         rights_holder_more: Укажете го лицето или организацијата што ги поседува правата
           на овие податоци. Ако го оставите полето празно, ќе претпоставиме дека вие
@@ -4539,6 +4540,8 @@ mk:
   your_current_rating_5_of_5: 'Ваша тековна оценка: 5 од 5'
   your_watch_collection: вашата набљудувана збирка
   current_language: 'Јазик: %{iso_code}'
+  current_harvest_event: Преземањето од „%{resource_title}“ траеше „%{period}“ часа
+  currently_running_harvesting: Пеземања во тек
   currently_in_eol: Моментално во Енциклопедијата на живиот свет
   currently_published: тековно објавено
   daily: Дневно
@@ -5060,6 +5063,8 @@ mk:
   harvest_id: Назнака на преземањето
   harvesting_processes_log: Записник на постапката на преземање
   harvests_for: Преземања од %{resource}
+  harvest_resource: Преземање на ресурс
+  harvest_duration: Досегашно траење на преземањето
   has_already_been_taken: е зафатено.
   has_colon: 'Има:'
   has_curated_your_image: ја згрижи вашата слика
@@ -5581,11 +5586,12 @@ mk:
   no_comments_have_been_left_yet: Досега нема коментари.
   no_errors_are_available: Нема грешки.
   no_harvesting_logs_for_this_da: Нема записи за преземање на овој датум
+  no_harvesting_events_running_now: Во моментов не се одвива преземање
   no_items_were_copied_to_collections_error: 'Не ископирав ниеден експонат во збирките:
     %{names}.'
   no_news_items_for_month_and_year: Нема новости за %{month_and_year}
   none: нема
-  0: Не
+  "no": Не
   num_content_partners: Бр. на соучесници во содржините
   num_data_objects: Бр. на податочни објекти
   no_record_found_matching_your_criteria: Не пронајдов ништо што се совпаѓа со критериумите.
@@ -6483,7 +6489,7 @@ mk:
   translation_saved: Преводот е зачуван
   translations_submit: Погл. превод
   trigger_search_term_entered_by: повикувачки поим што го внел корисникот
-  1: Точно
+  "true": Точно
   true_label: Точно
   truncated_comment_omission: '... <a href=''%{link}''>повеќе</a>'
   truncated_comment_omission_linkless: '...'
@@ -6720,6 +6726,7 @@ mk:
   view_error_log: погл. дневник на грешки
   view_full_size_image: Полна слика
   view_harvesting_log: погл. дневник на преземени содржини
+  view_current_harvesting: Погл. тековно преземање
   view_article_source: Погл. извор на статијата
   view_image_source: Погл. извор на сликата
   view_image_map_source: Погл. извор на картата

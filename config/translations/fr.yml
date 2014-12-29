@@ -498,6 +498,7 @@ fr:
         object_title: Titre
         toc_item: Sous-chapitre
         refs: Références <small>(placez chaque référence sur une nouvelle ligne)</small>
+        refs_order: '*Les références apparaîtront dans l’ordre alphabétique'
         rights_holder: Détenteur des droits
         rights_holder_more: Spécifie une personne ou un organisme possédant ou gérant
           les droits sur ces données. Si vous laissez ce champ vide, nous supposerons
@@ -4758,6 +4759,9 @@ fr:
   your_current_rating_5_of_5: 'Votre cote actuelle : 5 sur 5'
   your_watch_collection: votre liste de suivi
   current_language: 'Langue : %{iso_code}'
+  current_harvest_event: Collecter l’événement depuis « %{resource_title} » pendant
+    « %{period} » heures
+  currently_running_harvesting: Collecte actuellement en cours
   currently_in_eol: Actuellement dans l’Encyclopédie de la Vie (EdlV)
   currently_published: publié actuellement
   daily: Quotidien
@@ -5292,6 +5296,8 @@ fr:
   harvest_id: Identifiant de récolte
   harvesting_processes_log: Journal des processus de récolte
   harvests_for: Récoltes de %{resource}
+  harvest_resource: Collecte de la ressource
+  harvest_duration: Durée de collecte jusqu’à maintenant
   has_already_been_taken: est déjà pris.
   has_colon: 'A :'
   has_curated_your_image: a conservé votre image
@@ -5826,11 +5832,12 @@ fr:
   no_comments_have_been_left_yet: Aucun commentaire.
   no_errors_are_available: Aucune erreur n’est disponible.
   no_harvesting_logs_for_this_da: Aucun journal de collecte pour cette date.
+  no_harvesting_events_running_now: Aucun événement de collecte n’est en cours d’exécution
   no_items_were_copied_to_collections_error: 'Aucun élément n’a été copié dans les
     collections : %{names}.'
   no_news_items_for_month_and_year: Aucune actualité pour %{month_and_year}
   none: aucun
-  0: Non
+  "no": Non
   num_content_partners: No. des partenaires de contenu
   num_data_objects: No. des objets de données
   no_record_found_matching_your_criteria: Aucun enregistrement trouvé correspondant
@@ -6769,7 +6776,7 @@ fr:
   translation_saved: Traduction a été enregistrée
   translations_submit: Voir traduction
   trigger_search_term_entered_by: déclencher le critère de recherche saisi par l’utilisateur
-  1: Vrai
+  "true": Vrai
   true_label: Vrai
   truncated_comment_omission: '... <a href=''%{link}''>plus</a>'
   truncated_comment_omission_linkless: '...'
@@ -7008,6 +7015,7 @@ fr:
   view_error_log: afficher le journal d’erreur
   view_full_size_image: Voir l’image à taille réelle
   view_harvesting_log: afficher le journal de collecte
+  view_current_harvesting: Afficher la collecte actuelle
   view_article_source: Voir la source de l’article
   view_image_source: Voir la source de l’image
   view_image_map_source: Voir la source de la carte

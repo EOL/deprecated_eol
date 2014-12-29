@@ -479,6 +479,7 @@ pms:
         object_title: Tìtol
         toc_item: Sot-capìtol
         refs: Arferiment <small>(buté minca arferiment an sna linia neuva)</small>
+        refs_order: '*Le rëspondense a compariran an órdin alfabétich'
         rights_holder: Detentor dij drit
         rights_holder_more: Ch'a spessìfica na përson-a o n'organisassion ch'a deten
           o ch'a gestiss ij drit d'ës dàit. S'a lassa cost camp veuid i considerëroma
@@ -4099,4 +4100,18 @@ pms:
     A peul modifiché j'autorisassion ëd supervision al livel clade ansima a le pàgine
     ëd profij d'utent. Si dle credensiaj a son tajà, ch'a jë sgnaca ansima për espande
     e smon-e ij sertificà complet.
+  curator_level: Livel ëd supervision
+  curator_level_with_indefinite_article_master_curator: un <strong>mèistr conservator</strong>
+  curator_level_with_indefinite_article_full_curator: un <strong>conservator ëd livel
+    complet</strong>
+  curator_level_with_indefinite_article_assistant_curator: n' <strong>assistent conservator</strong>
+  click: Sgnaché con ël rat
+  clicked_time: Ora dla selession
+  click_on_an_activity_to_see_th: Ch'a sgnaca an s'n'atività për vëdde tute j'àutre
+    atività ch'as son dësrolasse an n'antërval ëd 5 minute.
+  click_on_a_username_to_view_the_users_detailed_profile: Ch'a sgnaca ancima a në
+    stranòm për vëdde ël profil detajà dl'utent, ch'a sgnaca an sël tipo ëd dàit për
+    vëdde l'oget comentà (ch'a deuvra ël boton andré ëd sò navigador për torné ambelessì),
+    ch'a sgnaca su «modifiché» për modifiché ël coment o ch'a sgnaca su «eliminé»
+    për eliminé definitivaman ël coment.
 ...

@@ -4952,7 +4952,7 @@ sv:
     %{names}.'
   no_news_items_for_month_and_year: Inga nyheter för %{month_and_year}
   none: ingen
-  0: Nej
+  "no": Nej
   num_content_partners: Antal innehållspartners
   num_data_objects: Antal dataobjekt
   no_record_found_matching_your_criteria: Ingen post hittades som matchade dina kriterier.
@@ -5552,6 +5552,7 @@ sv:
   translation_log: Frekvenshistogram för i18n-nyckel
   translation_saved: Översättning har sparats
   translations_submit: Visa översättning
+  "true": Sant
   true_label: Sant
   truncated_comment_omission: '... <a href=''%{link}''>mer</a>'
   truncated_comment_omission_linkless: '...'

@@ -2498,7 +2498,7 @@ sr:
   no_items_were_copied_to_collections_error: 'Ниједна ставка није умножена у збирке:
     %{names}.'
   none: нема
-  0: Не
+  "no": Не
   num_content_partners: Број партнера за садржај
   num_data_objects: Број објеката података
   no_record_found_matching_your_criteria: Не могу да пронађем ништа што се поклапа

@@ -16,11 +16,11 @@ class AdminsController < ApplicationController
     flash[:notice] = I18n.t(:recount_collection_items_done)
     redirect_to admin_path
   end
-  
+
   # show running harvesting
   def current_harvest
    @harvest_log = HarvestProcessLog.harvesting.last
-   if@harvest_log && !(@harvest_log.complete?)
+   if @harvest_log && ! @harvest_log.complete?
      @harvest_resource = HarvestEvent.last_incomplete_resource
    end
   end

@@ -3,12 +3,13 @@
     = I18n.t(:currently_running_harvesting)
   - if @harvest_log
     %table
-      %tr
-        %td
-          %b
-            = I18n.t(:harvest_resource)
-        %td
-          = @harvest_resource.title
+      - unless @harvest_resource
+        %tr
+          %td
+            %b
+              = I18n.t(:harvest_resource)
+          %td
+            = @harvest_resource.title
       %tr
         %td
           %b

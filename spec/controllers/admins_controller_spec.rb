@@ -30,7 +30,7 @@ describe AdminsController do
         end
       end
       
-      context "when no harvestings is currently running" do
+      context "when there is running harvesting" do
         before(:all) do
           @current_harvesting = HarvestEvent.first
           @current_harvesting.update_attributes(completed_at: nil)

@@ -117,5 +117,9 @@ describe TaxaHelper do
     expect(helper.format_data_value('1000')).to eq('1,000')
     expect(helper.format_data_value('1000', value_for_known_uri: determined_date)).to eq('1000')
   end
+    
+  it 'should have superscript if the known uri has karat' do        
+    expect(helper.adjust_exponent("kilometers^2")).to include("<sup>")
+  end
 
 end

@@ -238,7 +238,8 @@ module TaxaHelper
     elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
       text_for_row_value += " " + display_uri(uri_components, val: true)
     end
-    text_for_row_value.gsub(/\n/, '')
+    adjust_exponent(text_for_row_value)
+    text_for_row_value.gsub(/\n/, '')    
     text_for_row_value += "</span>" unless data_point_uri.new_record?
     # displaying context such as life stage, sex.... The overview tab will include the statistical modifier
     modifiers = data_point_uri.context_labels
@@ -248,7 +249,11 @@ module TaxaHelper
     text_for_row_value += display_text_for_modifiers(modifiers)
     text_for_row_value
   end
-
+  
+  def adjust_exponent(text_for_row_value)
+    text_for_row_value.gsub!(/\^(\S)/, "<sup>\\1</sup>")
+  end
+  
   def info_icon
     haml_tag "a.info_icon" do
       haml_concat "&emsp;" # Width doesn't seem to work.  :|

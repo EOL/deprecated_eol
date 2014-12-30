@@ -100,7 +100,7 @@ module EOL
         self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris", :expires_in => 1.day) do
           all_uris = all_measurement_type_uris
           all_known_uris = KnownUri.find_all_by_uri(all_uris)
-          all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } || uri }
+          all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } }
         end
       end
 

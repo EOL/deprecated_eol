@@ -104,8 +104,8 @@ class HarvestEvent < ActiveRecord::Base
   def destroy_everything
     data_objects.each do |dato|
       dato.destroy_everything
-    end
-    data_objects.destroy_all
+      dato.destroy
+    end   
     DataObjectsHarvestEvent.where(harvest_event_id: id).destroy_all
     hierarchy_entries.each do |entry|
       entry.destroy_everything

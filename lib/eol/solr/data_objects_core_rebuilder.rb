@@ -39,7 +39,7 @@ module EOL
       def self.lookup_data_objects(start, limit)
         max = start + limit # TODO - pretty sure this is a fencepost error (should be -1), but don't care enough...
         objects_to_send = []
-        data_objects = DataObject.find(:all, :conditions => "id BETWEEN #{start} AND #{max}")
+        data_objects = DataObject.where("id BETWEEN #{start} AND #{max}")
         self.preload_associations!(data_objects)
         data_objects.each do |d|
           hash = self.solr_schema_data_hash(d)
@@ -59,7 +59,7 @@ module EOL
             :users_data_object, :data_object_translation, :curator_activity_logs,
             { :data_type => :translations } ])
       end
-      
+
       def self.reindex_single_object(data_object)
         begin
           solr_connection = self.connect
@@ -70,7 +70,7 @@ module EOL
         end
         return false
       end
-      
+
       def self.solr_schema_data_hash(data_object)
         hash = {
           'data_object_id' => data_object.id,
@@ -140,12 +140,12 @@ module EOL
             hash[prefix + '_ancestor_id'] ||= []
             hash[prefix + '_ancestor_id'] << assoc.taxon_concept_id
           end
-          
+
           # TC ancestors
           if assoc.taxon_concept # sometimes in specs there isn't a concept for an entry...
             ancestor_tc_ids = []
             ancestor_tc_ids += assoc.taxon_concept.flattened_ancestors.collect(&:ancestor_id)
-            
+
             ancestor_tc_ids.uniq.each do |tc_id|
               hash['ancestor_id'] ||= []
               hash['ancestor_id'] << tc_id

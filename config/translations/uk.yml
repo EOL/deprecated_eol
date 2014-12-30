@@ -3935,7 +3935,7 @@ uk:
     zero: Порожньо
     other: '%{count} елементи'
   collection_copy_complete_with_count:
-    one: Скопійовано %{count} елемент із %{from} до %{to}.
+    one: Скопійовано %{count} елемент із %{from} до %{to}.}
     other: Скопійовано всього %{count} елементи із %{from} до %{to}.}
   collection_move_complete_with_count:
     one: Переміщено %{count} елемент із %{from} до %{to}.

@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Bonifácio
+# Author: Fitoschido
 # Author: Giro720
 # Author: GoEThe
 # Author: Hamilton Abreu
@@ -14,6 +15,7 @@
 # Author: Polyethylen
 # Author: SandroHc
 # Author: Sarilho1
+# Author: Vitorvicentevalente
 # Author: Waldir
 ---
 pt:
@@ -1181,6 +1183,7 @@ pt:
   already_a_member_question: Já é um membro?
   already_member_of_community: Já é membro desta comunidade.
   alternate_classification: Classificação alternativa
+  alternative_name_colon: 'Nome alternativo:'
   annotation_cabs_colon: 'Anotação:'
   and: e
   and_between_form_items: e
@@ -2179,6 +2182,7 @@ pt:
   no_active_members: Não houve ainda atividade suficiente.
   no_answer: Não
   none: nenhum
+  "no": Não
   no_tasks_found: Não foram encontradas tarefas
   not_applicable: não aplicável
   not_evaluated: Não avaliado

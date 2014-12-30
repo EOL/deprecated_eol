@@ -91,7 +91,7 @@ zh-TW:
   translated_data_types-label-data_type_id-1: 圖像
   translated_data_types-label-data_type_id-2: 聲音
   translated_data_types-label-data_type_id-3: 文字
-  translated_data_types-label-data_type_id-4: 錄影
+  translated_data_types-label-data_type_id-4: 影片
   translated_data_types-label-data_type_id-5: GBIF提供之圖像
   translated_data_types-label-data_type_id-6: 國際自然保育聯盟(IUCN)
   translated_data_types-label-data_type_id-7: Flash
@@ -186,7 +186,7 @@ zh-TW:
   translated_service_types-label-service_type_id-1: EOL資料傳輸綱要
   translated_service_types-label-service_type_id-2: 其他
   translated_sort_styles-name-sort_style_id-1: 最新新增
-  translated_sort_styles-name-sort_style_id-2: 最早
+  translated_sort_styles-name-sort_style_id-2: 最舊
   translated_sort_styles-name-sort_style_id-3: 依字母順序
   translated_sort_styles-name-sort_style_id-4: 反字母順序
   translated_sort_styles-name-sort_style_id-5: 內容豐富度
@@ -354,7 +354,7 @@ zh-TW:
   translated_user_identities-label-user_identity_id-3: 一位教育工作者
   translated_user_identities-label-user_identity_id-4: 一位公民科學家
   translated_user_identities-label-user_identity_id-5: 一位科學家
-  translated_vetted-label-vetted_id-0: 未知
+  translated_vetted-label-vetted_id-0: 不明
   translated_vetted-label-vetted_id-4: 未驗證
   translated_vetted-label-vetted_id-5: 已驗證
   translated_vetted-label-vetted_id-6: 不合適

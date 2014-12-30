@@ -479,6 +479,7 @@ pms:
         object_title: Tìtol
         toc_item: Sot-capìtol
         refs: Arferiment <small>(buté minca arferiment an sna linia neuva)</small>
+        refs_order: '*Le rëspondense a compariran an órdin alfabétich'
         rights_holder: Detentor dij drit
         rights_holder_more: Ch'a spessìfica na përson-a o n'organisassion ch'a deten
           o ch'a gestiss ij drit d'ës dàit. S'a lassa cost camp veuid i considerëroma
@@ -1232,6 +1233,8 @@ pms:
       learn_more_link_protists: Protista
       learn_more_link_archaea: Arché
       learn_more_link_viruses: Vìrus
+      learn_more_link_algae: Alghe
+      questions_link_evolution: Lòn ch'a l'é l'evolussion?
       questions_link_biodiversity: Lòn ch'a l'é la biodiversità?
       questions_link_species: Lòn ch'a l'é na spece?
       questions_link_discovering_species: Coma a son dëscoatà le spece?
@@ -4002,4 +4005,113 @@ pms:
   cannot_index_collection_item_type_error: I podoma nen andicisé n'element ëd colession
     a parte d'un %{type}
   categories_title: 'Selessioné na categorìa, peui n''atribù:'
+  category_suggestions: S'a l'é nen sigur ëd che URI dovré për j'atribù o ij valor,
+    le liure sì-dapress a-j sugeriran chèiche URI sernùe dai conservator ëd l'EdV.
+  change: Cangé
+  change_rating_to_1_of_5: Cangé la valutassion a 1 su 5
+  change_rating_to_2_of_5: Cangé la valutassion a 2 su 5
+  change_rating_to_3_of_5: Cangé la valutassion a 3 su 5
+  change_rating_to_4_of_5: Cangé la valutassion a 4 su 5
+  change_rating_to_5_of_5: Cangé la valutassion a 5 su 5
+  choose_collection_header: Serne na colession
+  citation: Sitassion
+  citation_example: Fisher, Brian. «Pogonomyrmex anergismus Cole, 1954.» Enciclopedìa
+    dla vita, disponìbil a <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>.
+    Consultà ai 15 gené 2009.
+  citing_link: Sitassion
+  clade: Partìa tassonòmica
+  classification_already_preferred: 'Eror: Costa classificassion a l''é già stàita
+    marcà coma preferìa.'
+  classification_curation_pending: Conservassion an atèisa. Costa classificassion
+    a podrìa esse tramudà an n'àutra pàgina an n'avnì davzin.
+  classification_curation_split_comment_with_count:
+    one: '%{count} classificassion da costa pàgina a l''é stàita <a href=''%{url}''>dividìa
+      an soa pròpia pàgina</a>.'
+    other: '%{count} classificassion da costa pàgina a son ëstàite <a href=''%{url}''>dividùe
+      an soa pròpia pàgina</a>.'
+  classification_from_agent: Classificassion da %{agent}.
+  classification_from_agent_chosen_by_curator: Classificassion da %{agent} selessionà
+    da %{curator}.
+  classification_from_agent_chosen_by_curator_see_more: Classificassion da %{agent}
+    selessionà da %{curator} - <a href="%{more_link}">vëdde ëd pi</a>.
+  classification_preferred_for_taxon: Preferì
+  classification_preferred_for_taxon_help_tip: '%{icon} a marca la classificassion
+    preferìa për costa tassonomìa.'
+  classification_summary_section_header: Classificassion
+  classification_split_help: <b>A l'é a brus ëd divide dle classificassion da costa
+    pàgina.</b> Për felo, a dev fene savèj cole, trames le classificassion esistente,
+    chiel a pensa a arpresento <i>mej</i> la pàgina esistenta. Sòn an giutrà a goerné
+    le classificassion che chiel a l'ha selessionà separà da costa pàgina ant l'avnì.
+  classification_merge_help: <b>A l'é a brus ëd tramudé dle classificassion da costa
+    pàgina.</b> Për felo, a dev fene savèj cole, trames a le classificassion esistente,
+    chiel a pensa ch'a arpesento <i>mej</i> la pàgina ëd tassonomìa dla la qual a
+    tramuda le classificassion. Sòn an giutrà a goerné le classificassion che chiel
+    a l'ha selessionà separà da costa pàgina ant l'avnì.
+  classification_split_warning: <b>Ch'a pija un moment për controlé ch'a l'ha selessionà
+    <i>tute</i> le classificassion ch'a rëspondo a la pàgina bërsaj.</b> Për esempi,
+    s'a divid o a tramuda na classificassion dj'amanite da na pàgina d'orsòt laveur,
+    a dev selessioné tute le classificassion dj'amanite për s'operassion. S'a na dësmentia
+    cheidun-a, rangeje pi tard a peul esse malfé.
+  classification_button_help: Për piasì, ch'a serna la classificassion ch'a arpresenta
+    mej la pàgina esistenta sì-sota, e ch'a sgnaca an sël boton "dovré tanme model"
+    corëspondent. Për anulé tuta l'operassion, ch'a sgnaca su "anulé".
+  classification_tree_header: Classificassion
+  classifications_edit_cancelled_merge_to_self: La sorgiss e ël bërsaj a son l'istessa
+    pàgina; gnente da tramudé.
+  classifications_edit_cancelled_busy: An dëspias, soa arcesta ëd modifiché la classificassion
+    a peul nen esse eseguìa për ël moment; un-a o pi pàgine ëd tassonomìa a son blocà.
+    N'arcesta esistenta për modifiché se classificassion a l'é an cors d'esecussion.
+  classifications_locked: Le classificassion ëd sa pàgina për ël moment a peulo nen
+    esse modificà. N'àutra arcesta për modifiché coste classificassion a l'é an cors
+    d'esecussion.
+  classifications_preferred_column_header: Preferì
+  classifications_exemplar_column_header: Model
+  classifications_hierarchy_column_header: Classificassion
+  classifications_merge_additional_confirm_required: Për fonde se classificassion,
+    a-i é damanca ëd na conferma adissional.
+  classifications_merge_providers_match_confirm: I confermo che i veuj dzorascrive
+    l'afermassion ëd cost cambrada ëd contnù che costi dàit a dovrìo esse separà.
+  classifications_merge_providers_match_warning: A l'é a brus ëd fonde doe pàgine
+    anté che %{provider} a l'ha afermà che ij dàit a dovrìo esse separà. Për piasì,
+    ch'a confirma che chiel a veul <i>passé dzora</i> costa afermassion e buté si
+    dàit ant l'istessa pàgina.
+  classifications_recognized_by_column_header: Arconossù da
+  classifications_rank_column_header: Rangh
+  classifications_split_column_header: Separé / Tramudé
+  classifications_split_one_classification_only: Për piasì, serne mach na classificassion
+    da separé. J'àutre classificassion a peulo esse tramudà ant la neuva pàgina apress
+    soa creassion
+  classifications_summary_header_with_count:
+    zero: Classificassion ëd sòlit nen visìbil ans l'EdV
+    one: Trovà an %{count} classificassion
+    other: Trovà an %{count} classificassion
+  classifications_with_count:
+    one: '%{count} classificassion'
+    other: '%{count} classificassion'
+  clear_all_non_species_pages: Dëscancelé tute le pàgine nen relative a le spece
+  clear_entire_cache_store: Dëscancelé ël contnù antregh dla memòria local
+  clear_species_page: Dëscancelé le pàgine dle spece
+  cms_available_in_languages: 'Costa pàgina a l''é disponìbil an:'
+  cms_editor: Editor CMS
+  cms_missing_content_title: Tradussion mancanta
+  cms_missing_content_message: An dëspias, sa pàgina a l'é nen disponìbil për la lenga
+    selessionà %{selected_language}.
+  curator_admin_index_help: Sgnaché an s'në stranòm për vëdde ël profil detajà dl'utent.
+    A peul modifiché j'autorisassion ëd supervision al livel clade ansima a le pàgine
+    ëd profij d'utent. Si dle credensiaj a son tajà, ch'a jë sgnaca ansima për espande
+    e smon-e ij sertificà complet.
+  curator_level: Livel ëd supervision
+  curator_level_with_indefinite_article_master_curator: un <strong>mèistr conservator</strong>
+  curator_level_with_indefinite_article_full_curator: un <strong>conservator ëd livel
+    complet</strong>
+  curator_level_with_indefinite_article_assistant_curator: n' <strong>assistent conservator</strong>
+  click: Sgnaché con ël rat
+  clicked_time: Ora dla selession
+  click_on_an_activity_to_see_th: Ch'a sgnaca an s'n'atività për vëdde tute j'àutre
+    atività ch'as son dësrolasse an n'antërval ëd 5 minute.
+  click_on_a_username_to_view_the_users_detailed_profile: Ch'a sgnaca ancima a në
+    stranòm për vëdde ël profil detajà dl'utent, ch'a sgnaca an sël tipo ëd dàit për
+    vëdde l'oget comentà (ch'a deuvra ël boton andré ëd sò navigador për torné ambelessì),
+    ch'a sgnaca su «modifiché» për modifiché ël coment o ch'a sgnaca su «eliminé»
+    për eliminé definitivaman ël coment.
 ...

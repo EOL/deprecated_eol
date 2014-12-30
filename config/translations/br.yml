@@ -3188,6 +3188,7 @@ br:
   no_active_members: N'eus ket bet trawalc'h a obererezh c'hoazh.
   no_answer: Ket
   none: hini ebet
+  "no": Ket
   no_results_for_search_term: Disoc'h ebet evit "%{search_term}"
   not_evaluated: N'eo ket bet priziet
   not_specified: n'eo ket diferet
@@ -3438,6 +3439,7 @@ br:
   translation_information_header: Titouroù treiñ
   translation_saved: Enrollet eo bet an droidigezh
   translations_submit: Gwelet an droidigezh
+  "true": Gwir
   true_label: Gwir
   truncated_comment_omission_linkless: '...'
   tumblr: Tumblr

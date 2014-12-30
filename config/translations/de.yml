@@ -501,6 +501,7 @@ de:
         object_title: Titel
         toc_item: Unterkapitel
         refs: Quellen <small>(setzen Sie jede Quellenangabe in jeweils eine neue Zeile)</small>
+        refs_order: '*Referenzen erscheinen in alphabetischer Reihenfolge'
         rights_holder: Rechteinhaber
         rights_holder_more: Geben Sie eine Person oder Organisation an, die diese
           Daten besitzt oder verwaltet. Sofern Sie dieses Feld leer lassen, gehen
@@ -1263,6 +1264,8 @@ de:
       learn_more_link_protists: Protisten
       learn_more_link_archaea: Archaeen
       learn_more_link_viruses: Viren
+      learn_more_link_algae: Algen
+      questions_link_evolution: Was ist Evolution?
       questions_link_biodiversity: Was ist Biodiversität?
       questions_link_species: Was ist eine Art?
       questions_link_discovering_species: Wie werden Arten entdeckt?
@@ -4914,6 +4917,8 @@ de:
   your_current_rating_5_of_5: 'Ihre derzeitige Bewertung: 5 von 5'
   your_watch_collection: Ihre Beobachtungsliste
   current_language: 'Sprache: %{iso_code}'
+  current_harvest_event: Abruf von %{resource_title} läuft seit %{period} Stunden
+  currently_running_harvesting: Aktuell laufender Abruf
   currently_in_eol: 'Derzeit in der Enzyklopädie des Lebens verzeichnet:'
   currently_published: derzeit veröffentlicht
   daily: Täglich
@@ -5461,6 +5466,8 @@ de:
   harvest_id: Datenabrufkennung
   harvesting_processes_log: Datenabrufprotokoll
   harvests_for: Datenabrufe für %{resource}
+  harvest_resource: Abrufsquelle
+  harvest_duration: Abrufsdauer bis jetzt
   has_already_been_taken: ist bereits vergeben.
   has_colon: 'Hat:'
   has_curated_your_image: hat Ihr Bild kuratiert
@@ -6013,11 +6020,12 @@ de:
   no_comments_have_been_left_yet: Bislang wurden noch keine Kommentare hinterlassen.
   no_errors_are_available: Es treten keine Fehler auf.
   no_harvesting_logs_for_this_da: Zu diesem Datum gibt es keine protokollierten Datenabrufe
+  no_harvesting_events_running_now: Derzeit laufen keine Abrufe
   no_items_were_copied_to_collections_error: 'Es wurden keine Objekte in die folgenden
     Sammlungen kopiert: %{names}.'
   no_news_items_for_month_and_year: Keine Nachrichten für %{month_and_year}
   none: keine
-  0: Nein
+  "no": Nein
   num_content_partners: Anzahl der Inhaltspartner
   num_data_objects: Anzahl der Datenobjekte
   no_record_found_matching_your_criteria: Es wurde kein Datensatz gefunden, der Ihren
@@ -6966,7 +6974,7 @@ de:
   translation_saved: Die Übersetzung wurde gespeichert
   translations_submit: Übersetzung anzeigen
   trigger_search_term_entered_by: den vom Nutzer eingegebenen Suchbegriff ansteuern
-  1: Wahr
+  "true": Wahr
   true_label: Wahr
   truncated_comment_omission: … <a href='%{link}'>mehr</a>
   truncated_comment_omission_linkless: …
@@ -7206,6 +7214,7 @@ de:
   view_error_log: Fehlerprotokoll anzeigen
   view_full_size_image: Bild in voller Größe anzeigen
   view_harvesting_log: Datenabrufprotokoll anzeigen
+  view_current_harvesting: Aktuellen Abruf ansehen
   view_article_source: Artikelquelltext anzeigen
   view_image_source: Quelle des Bildes anzeigen
   view_image_map_source: Quelle der Karte anzeigen

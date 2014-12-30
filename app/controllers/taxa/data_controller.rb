@@ -46,6 +46,7 @@ protected
   end
 
   def load_data
+    debugger
     # Sad that we need to load all of this for the about and glossary tabs, but TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
     @range_data = @taxon_data.ranges_of_values

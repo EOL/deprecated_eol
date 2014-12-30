@@ -144,10 +144,22 @@ class TaxonData < TaxonUserClassificationFilter
             result[m].convert_units
         end
       end
-      @ranges_of_values = results.delete_if { |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
+      @ranges_of_values = show_preferred_unit(results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) })
     end
   end
-
+  
+  def show_preferred_unit(results)
+    results.group_by { |r| r[:attribute] }.values.map do |attribute_group|
+      attribute_group.sort do |a,b|
+        if a[:unit_of_measure_uri] && b[:unit_of_measure_uri]
+          a[:unit_of_measure_uri][:position] <=> b[:unit_of_measure_uri][:position]
+        else
+          a[:unit_of_measure_uri] ? -1 : 1
+        end
+      end.first # Choose the value that sorted first.
+    end    
+  end         
+  
   # TODO - spec for can see data check
   def ranges_for_overview
     return nil unless user.can_see_data?

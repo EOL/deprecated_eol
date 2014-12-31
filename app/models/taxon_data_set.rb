@@ -112,7 +112,7 @@ class TaxonDataSet
       jsonld['@graph'] << tcn.to_jsonld
     end
     @taxon_concept.hierarchy_entries.map do |he|
-      unless he.sientific_synonyms.blank?
+      unless he.scientific_synonyms.blank?
         jsonld['@graph'] << he.to_jsonld
       end
     end

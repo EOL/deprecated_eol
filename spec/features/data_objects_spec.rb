@@ -443,10 +443,13 @@ describe 'Data Object Page' do
   end
 
   it 'should use the resource rights holder if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:rights_holder, '')
     resource.update_column(:rights_holder, 'RESOURCE RIGHTS')
     visit("/data_objects/#{data_object.id}")
@@ -460,10 +463,13 @@ describe 'Data Object Page' do
   end
 
   it 'should use the resource rights statement if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:rights_statement, '')
     resource.update_column(:rights_statement, 'RESOURCE STATEMENT')
     visit("/data_objects/#{data_object.id}")
@@ -478,10 +484,13 @@ describe 'Data Object Page' do
   end
 
   it 'should use the resource bibliographic citation if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:bibliographic_citation, '')
     resource.update_column(:bibliographic_citation, 'RESOURCE CITATION')
     visit("/data_objects/#{data_object.id}")

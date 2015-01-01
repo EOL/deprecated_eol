@@ -32,26 +32,12 @@ describe HarvestEvent do
       subject.destroy_everything
     end
     
-    it "should call 'destroy_all' for data objects" do
-      subject.data_objects.should_receive(:destroy_all)
-      subject.destroy_everything
-    end
-    
+     
     it "should call 'destroy_everything' for hierarchy entries" do
       total_hierarchy_entries = subject.hierarchy_entries
       total_hierarchy_entries.count.times { subject.should_receive(:destroy_everything) }
       subject.destroy_everything
-    end
-    
-    # it "should call 'destroy_all' for data objects harvest event" do
-      # DataObjectsHarvestEvent.where(harvest_event_id: subject.id).should_receive(:destroy_all)
-      # subject.destroy_everything
-    # end
-#     
-    # it "should call 'destroy_all' for data objects harvest event" do
-      # HarvestEventsHierarchyEntry.where(harvest_event_id: subject.id).should_receive(:destroy_all)
-      # subject.destroy_everything
-    # end
+    end 
   end
 
 end

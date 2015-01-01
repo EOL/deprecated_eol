@@ -847,11 +847,6 @@ describe DataObject do
     it "should call 'destroy_all' for users_data_objects_ratings" do
       subject.users_data_objects_ratings.should_receive(:destroy_all)
       subject.destroy_everything
-    end
-    
-    it "should call 'destroy_all' for refs" do
-      subject.refs.should_receive(:destroy_all)
-      subject.destroy_everything
     end    
   end
 

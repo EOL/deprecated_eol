@@ -1,3 +1,4 @@
+= stylesheet_link_tag 'taxon_name'
 - can_curate = current_user.min_curator_level?(:full)
 - master_curator = current_user.min_curator_level?(:master)
 - allow_more_splits = master_curator
@@ -19,9 +20,9 @@
     .copy
       %p= I18n.t(:names_explanation)
   = render 'menu'
+  = javascript_include_tag 'taxon_name'  
   .main_container
-    #please_wait
-      = I18n.t(:please_wait)
+    .loader_image
     - if @hierarchy_entries.blank?
       .empty
         %p= I18n.t(:not_recognized_by_available_hierarchies)
@@ -67,6 +68,7 @@
                 link: taxon_names_path(@taxon_page, all: '1')))
           #split_instructions
             = I18n.t(:split_classification_instructions)
+        
         %table.standard.classifications
           %thead
             %tr

@@ -542,6 +542,7 @@ de:
         taxon_name_more: Geben Sie beispielsweise Trochilidae oder Wale ein. Es werden
           NUR Auswahlen aus dem Dropdownmenü verwendet. Bearbeiten Sie den Text nicht
           ohne ein Ergebnis auszuwählen.
+        taxa_found: Taxa gefunden
         total_results: 'Gesamtanzahl der Ergebnisse: %{total}'
         unit: Maßeinheit
       eol_statistic:

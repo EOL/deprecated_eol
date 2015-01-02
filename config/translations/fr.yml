@@ -540,6 +540,7 @@ fr:
         taxon_name_more: Par exemple, entrer Trochilidés ou Baleines. SEULES les sélections
           de la liste déroulante seront utilisées, ne modifiez pas le texte sans sélectionner
           un résultat.
+        taxa_found: Taxons trouvés
         total_results: 'Total des résultats : %{total}'
         unit: Unité de mesure
       eol_statistic:

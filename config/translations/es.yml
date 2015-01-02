@@ -510,6 +510,7 @@ es:
         object_title: Título
         toc_item: Subcapítulo
         refs: Referencias <small>(ponga cada referencia en una nueva línea)</small>
+        refs_order: '*Las referencias aparecerán en orden alfabético'
         rights_holder: Posesor de los derechos
         rights_holder_more: Especifica una persona u organización que sea propietaria
           o administre los derechos de autor de estos datos. Si dejas el campo en
@@ -551,6 +552,7 @@ es:
         taxon_name_more: Por ejemplo, escriba Trochilidae o ballenas. SÓLO se usarán
           las selecciones del menú desplegable. No edite el texto sin seleccionar
           un resultado.
+        taxa_found: Taxones encontrados
         total_results: 'Resultados totales: %{total}'
         unit: Unidad de medida
       eol_statistic:

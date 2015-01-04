@@ -73,8 +73,7 @@ module EOL
 
       def where_clause
         "GRAPH ?graph {
-            ?data_point_uri dwc:measurementType ?attribute .
-            OPTIONAL { ?data_point_uri eolterms:normalizedUnit ?normalized_unit } .
+            ?data_point_uri dwc:measurementType ?attribute .            
             OPTIONAL { ?data_point_uri eolterms:normalizedValue ?normalized_value } .
             #{ attribute_filter }
           } .

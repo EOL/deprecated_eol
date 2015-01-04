@@ -214,7 +214,7 @@ class TaxonData < TaxonUserClassificationFilter
             ?data_point_uri dwc:measurementType ?attribute .
             ?data_point_uri dwc:measurementValue ?value .
             OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
-            OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .            
+            OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
           } .
           {
             ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .

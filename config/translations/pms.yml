@@ -521,6 +521,7 @@ pms:
         taxon_name_more: Për esempi, buté Trochilidae o Balen-e. MACH le selession
           da lë mnu a ridò a saran dovrà, ch'a modìfica nen ël test sensa selessioné
           n'arzultà.
+        taxa_found: Tassonomìe trovà
         total_results: 'Total dj''arzultà: %{total}'
         unit: Unità dë mzura
       eol_statistic:
@@ -4114,4 +4115,49 @@ pms:
     vëdde l'oget comentà (ch'a deuvra ël boton andré ëd sò navigador për torné ambelessì),
     ch'a sgnaca su «modifiché» për modifiché ël coment o ch'a sgnaca su «eliminé»
     për eliminé definitivaman ël coment.
+  click_on_a_user_to_view_the_users_detailed_profile: Ch'a sgnaca ansima a në stranòm
+    pr'ës-ciairé ël profil detajà ëd l'utent, ch'a sgnaca an sle spece për vëdde la
+    pàgina andoa a l'é present ël test (ch'a deuvra ël boton andré ëd sò navigador
+    për torné ambelessì).
+  close_this_window_to_return_to_edit_window: CH'A SARA COSTA FNESTRA PËR TORNÉ A
+    LA FNESTRA ËD MODÌFICA
+  collect_item: Element ëd cujìa
+  collect_items: Element ëd cujìa
+  collection_api_sort_field_notes: Si un paràmeter sort_field a l'é ancludù, mach
+    j'element ëd la colession dont ël camp ëd selession a rëspond con precision a
+    la stringa fornìa a saran ësmonù.
+  collection_created_with_count_notice:
+    one: La colession <em>%{collection_name}</em> a l'é stàita creà për da bin e a
+      conten %{count} element.
+    other: La colession <em>%{collection_name}</em> a l'é stàita creà për da bin e
+      a conten %{count} element.
+  collection_delete_link: Eliminé costa colession ëd fasson definitiva
+  collection_destroyed: La colession a l'é stàita eliminà.
+  collection_error_no_items_selected: 'Eror: Gnun element selessionà, gnun-a assion
+    a l''é stàita fàita.'
+  collection_image: Plancia dla colession
+  collection_is_empty: Sa colession a l'é al moment veuida.
+  collection_item_edit_page_title: Modifiché l'element ant la colession <em>%{collection_name}</em>
+  collection_item_not_found_error: Impossìbil trové s'element dla colession.
+  collection_item_edit_by_javascript_not_authorized_error: An dëspias, chiel a l'ha
+    nen ël përmess ëd modifiché s'element ëd colession. Si chiel a l'é ël propietari
+    dla colession o sò modificator, për piasì ch'a caria torna la pàgina e ch'a verìfica
+    ch'a l'é rintrà ant ël sistema.
+  collection_items_count:
+    zero: Veuida
+    one: '%{count} element'
+    other: '%{count} element'
+  collection_copy_complete_with_count:
+    one: Copià %{count} element da %{from} a %{to}.
+    other: Copià un total ëd %{count} element da %{from} a %{to}.
+  collection_move_complete_with_count:
+    one: Tramudà %{count} element da %{from} a %{to}.
+    other: Tramudà un total ëd %{count} element da %{from} a %{to}.
+  collection_remove_complete_with_count:
+    one: Gavà %{count} element da %{from}.
+    other: Gavà %{count} element da %{from}.
+  collection_copy_choose_all_items_target_title: 'Copié tuti j''element ëd «%{collection}»
+    an:'
+  collection_move_choose_all_items_target_title: 'Tramudé tuti j''element da «%{collection}»
+    a:'
 ...

@@ -534,6 +534,7 @@ nl:
         taxon_name_more: Voer bijvoorbeeld in "trochilidae" of "walvissen". Alleen
           selecties uit het uitklapmenu worden gebruikt; bewerk de tekst niet zonder
           een resultaat te selecteren.
+        taxa_found: Gevonden taxa
         total_results: 'Totaal aantal resultaten: %{total}'
         unit: Maateenheid
       eol_statistic:

@@ -281,7 +281,7 @@ class HierarchyEntry < ActiveRecord::Base
     # takes too long, prolly not needed: top_unpublished_images.destroy_all
     synonyms.destroy_all
     HierarchyEntriesFlattened.where(hierarchy_entry_id: id).destroy_all
-   curator_activity_logs.destroy_all
+    curator_activity_logs.destroy_all
     hierarchy_entry_moves.destroy_all
     # TODO: handling data objects here. Not doing it now because this is only used from HarvestEvent, and HE handles Datos itself.
     refs.destroy_all

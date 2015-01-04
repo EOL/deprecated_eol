@@ -616,10 +616,13 @@ describe DataObject do
   end
 
   it 'should use the resource rights holder if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:rights_holder, '')
     resource.update_column(:rights_holder, nil)
     data_object.rights_holder_for_display.should == nil
@@ -632,10 +635,13 @@ describe DataObject do
   end
 
   it 'should use the resource rights statement if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:rights_statement, '')
     resource.update_column(:rights_statement, nil)
     data_object.rights_statement_for_display.should == nil
@@ -648,10 +654,13 @@ describe DataObject do
   end
 
   it 'should use the resource bibliographic citation if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
     Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:bibliographic_citation, '')
     resource.update_column(:bibliographic_citation, nil)
     data_object.bibliographic_citation_for_display.should == nil
@@ -665,6 +674,8 @@ describe DataObject do
   end
 
   it 'should return proper values for can_be_made_overview_text_for_user' do
+    published_do = build_data_object('Text', 'This is a test wikipedia article content', published: 1, vetted: Vetted.trusted, visibility: Visibility.visible)
+    DataObjectsTaxonConcept.gen(taxon_concept_id: @taxon_concept.id, data_object_id: published_do.id)
     text = @taxon_concept.data_objects.select{ |d| d.text? && !d.added_by_user? }.last
     text.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
     text.update_column(:published, false)

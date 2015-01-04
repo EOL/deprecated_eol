@@ -89,7 +89,7 @@ describe 'Data Object Page' do
   before(:each) do
     DataObjectsHierarchyEntry.where(data_object_id: @image.id).update_all(visibility_id: Visibility.visible.id)
     @image.add_curated_association(@full_curator, @extra_he)
-    @image.data_objects_hierarchy_entries.first.trust(@full_curator)
+    @image.data_objects_hierarchy_entries.first.update_attributes(:vetted_id => Vetted.trusted.id)
     @image.data_objects_hierarchy_entries.first.show(@full_curator)
     @image.curated_data_objects_hierarchy_entries.each do |assoc|
       next if assoc.hierarchy_entry_id == @extra_he.id # Keep this one.

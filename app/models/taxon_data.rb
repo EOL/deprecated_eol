@@ -26,7 +26,8 @@ class TaxonData < TaxonUserClassificationFilter
       options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
       options[:language] ||= Language.default
       total_results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options.merge(only_count: true))).first[:count].to_i
-      results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options))
+      results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options))      
+      results.sort! { |a,b| a[:normalizedValue].object.to_i <=> b[:normalizedValue].object.to_i }      
       # TODO - we should probably check for taxon supercedure, here.
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
@@ -213,7 +214,7 @@ class TaxonData < TaxonUserClassificationFilter
             ?data_point_uri dwc:measurementType ?attribute .
             ?data_point_uri dwc:measurementValue ?value .
             OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
-            OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+            OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .            
           } .
           {
             ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .

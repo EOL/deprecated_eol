@@ -74,6 +74,8 @@ module EOL
       def where_clause
         "GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
+            OPTIONAL { ?data_point_uri eolterms:normalizedUnit ?normalized_unit } .
+            OPTIONAL { ?data_point_uri eolterms:normalizedValue ?normalized_value } .
             #{ attribute_filter }
           } .
           ?data_point_uri dwc:measurementValue ?value .
@@ -104,7 +106,7 @@ module EOL
         elsif @only_count
           "SELECT DISTINCT ?data_point_uri"
         else
-          "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
+          "SELECT ?attribute ?value ?normalizedValue ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
         end
       end
 

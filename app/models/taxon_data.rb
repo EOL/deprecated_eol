@@ -18,7 +18,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   # TODO - this doesn't belong here; it has nothing to do with a taxon concept. Move to a DataSearch class. Fix the
   # controller.
-  def self.search(options={})
+  def self.search(options={})    
     if_connection_fails_return(nil) do
       # only attribute is required, querystring may be left blank to get all usages of an attribute
       return [].paginate if options[:attribute].blank? # TODO - remove this when we allow other searches!
@@ -27,7 +27,7 @@ class TaxonData < TaxonUserClassificationFilter
       options[:language] ||= Language.default
       total_results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options.merge(only_count: true))).first[:count].to_i
       results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options))      
-      results.sort! { |a,b| a[:normalizedValue].object.to_i <=> b[:normalizedValue].object.to_i }      
+      results.sort! { |a,b| a[:normalized_value].object.to_f <=> b[:normalized_value].object.to_f }      
       # TODO - we should probably check for taxon supercedure, here.
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL

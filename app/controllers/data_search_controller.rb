@@ -27,7 +27,7 @@ class DataSearchController < ApplicationController
             taxon_name: @taxon_concept.title_canonical_italicized.html_safe,
             contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
-        t = Time.now
+        t = Time.now        
         @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
         if @results
           @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))

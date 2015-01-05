@@ -17,7 +17,7 @@ class DataMeasurement < StructuredData
              "<#{@uri}> a <#{CLASS_URI}>" +
              "; dwc:occurrenceID <#{@occurrence_uri}>" +
              "; dwc:measurementType " + EOL::Sparql.enclose_value(@predicate) +
-             "; dwc:measurementValue " + EOL::Sparql.enclose_value(@object) +             
+             "; dwc:measurementValue " + EOL::Sparql.enclose_value(@object) +
              @metadata.collect{ |a,v| "; " + EOL::Sparql.enclose_value(a) + " " + EOL::Sparql.enclose_value(v) }.join(" ")
     if @taxon_name
       ntuple += ". <#{@taxon_uri}> a dwc:Taxon" +

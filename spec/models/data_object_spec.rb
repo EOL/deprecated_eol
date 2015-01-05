@@ -617,7 +617,6 @@ describe DataObject do
 
   it 'should use the resource rights holder if the data object doesnt have one' do
     # creating a resource for this data object
-    Resource.destroy_all
     hierarchy = Hierarchy.gen
     resource = Resource.gen(hierarchy: hierarchy)
     hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
@@ -636,7 +635,6 @@ describe DataObject do
 
   it 'should use the resource rights statement if the data object doesnt have one' do
     # creating a resource for this data object
-    Resource.destroy_all
     hierarchy = Hierarchy.gen
     resource = Resource.gen(hierarchy: hierarchy)
     hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
@@ -655,7 +653,6 @@ describe DataObject do
 
   it 'should use the resource bibliographic citation if the data object doesnt have one' do
     # creating a resource for this data object
-    Resource.destroy_all
     hierarchy = Hierarchy.gen
     resource = Resource.gen(hierarchy: hierarchy)
     hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)

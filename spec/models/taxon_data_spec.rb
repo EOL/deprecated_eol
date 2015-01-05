@@ -18,6 +18,7 @@ describe TaxonData do
     @resource = Resource.gen
     @user_added_data = UserAddedData.gen(subject: @taxon_concept)
     @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
+    @test_pred = "http://purl.obolibrary.org/obo/UO_0000009"
   end
 
   let(:mock_row) { { data_point_uri: @data_point_uri.uri } }
@@ -109,6 +110,27 @@ describe TaxonData do
     values[0] = {attribute: 'pred', object: '5', unit_of_measure_uri: {uri: "Kilograms", position: 1}}
     values[1] = {attribute: 'pred', object: '1', unit_of_measure_uri: {uri: "grams", position: 2}}
     taxon_data.show_preferred_unit(values).length.should == 1
+  end
+  
+  it 'should return the entered data with the normalized units' do
+    search_options = {querystring: "", attribute: @test_pred, min_value: nil, max_value: nil, unit: nil, sort: "desc",       
+      taxon_concept: nil, page: 1, per_page: 30}
+    instance = DataMeasurement.new(predicate: @test_pred, object: "10", resource: @resource, subject: @taxon_concept, normalizedValue: "10000")
+    instance.add_to_triplestore
+    instance = DataMeasurement.new(predicate: @test_pred, object: "1", resource: @resource, subject: @taxon_concept, normalizedValue: "1000")
+    instance.add_to_triplestore
+    TaxonData.search(search_options).length.should == 2
+  end
+  
+  it 'shouldnot return values without the normalized units' do  
+    search_options = {querystring: "", attribute: @test_pred, min_value: nil, max_value: nil, unit: nil, sort: "desc",       
+      taxon_concept: nil, page: 1, per_page: 30}    
+    len = TaxonData.search(search_options).length  
+    instance = DataMeasurement.new(predicate: @test_pred, object: "10", resource: @resource, subject: @taxon_concept)
+    instance.add_to_triplestore
+    instance = DataMeasurement.new(predicate: @test_pred, object: "1", resource: @resource, subject: @taxon_concept)
+    instance.add_to_triplestore
+    TaxonData.search(search_options).length.should == len
   end
 
 end

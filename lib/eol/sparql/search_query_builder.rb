@@ -104,7 +104,7 @@ module EOL
           "SELECT DISTINCT ?data_point_uri, ?value"
         elsif @only_count
           "SELECT DISTINCT ?data_point_uri"
-        else          
+        else
           "SELECT ?attribute ?value ?normalized_value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
         end
       end

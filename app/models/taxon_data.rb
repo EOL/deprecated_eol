@@ -18,7 +18,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   # TODO - this doesn't belong here; it has nothing to do with a taxon concept. Move to a DataSearch class. Fix the
   # controller.
-  def self.search(options={})    
+  def self.search(options={})
     if_connection_fails_return(nil) do
       # only attribute is required, querystring may be left blank to get all usages of an attribute
       return [].paginate if options[:attribute].blank? # TODO - remove this when we allow other searches!

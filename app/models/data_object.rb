@@ -67,6 +67,7 @@ class DataObject < ActiveRecord::Base
   has_and_belongs_to_many :taxon_concepts
 
   attr_accessor :vetted_by, :is_the_latest_published_revision # who changed the state of this object? (not persisted on DataObject but required by observer)
+  attr_accessor :duplicate_text
 
   validates_presence_of :description, if: :is_text?
   validates_presence_of :source_url, if: :is_link?
@@ -79,6 +80,7 @@ class DataObject < ActiveRecord::Base
   after_create :clean_values
 
   scope :images, -> { where(data_type_id: DataType.image.id) }
+  scope :texts,  -> { where(data_type_id: DataType.text.id) }
 
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
@@ -216,7 +218,10 @@ class DataObject < ActiveRecord::Base
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
     params[:source_url] = DataObject.add_http_if_missing(params[:source_url]) if object_is_a_link
     dato = DataObject.new(params.reverse_merge!({published: true}))
-    if dato.save
+
+    dato.duplicate_text =  dato.same_as_last?
+
+    if dato.save && ! dato.duplicate_text
       begin
         dato.toc_items = Array(TocItem.find(options[:toc_id]))
         dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
@@ -1165,6 +1170,14 @@ class DataObject < ActiveRecord::Base
     AgentsDataObject.where(data_object_id: id).destroy_all
     DataObjectsTaxonConcept.where(data_object_id: id).destroy_all
     DataObjectsTableOfContent.where(data_object_id: id).destroy_all
+  end
+  def same_as_last?
+    # debugger
+    last_dato = DataObject.texts.last
+    return false unless last_dato
+    return duplicate_text =( data_type_id == last_dato.data_type_id &&
+      ( object_title == last_dato.object_title ||
+      description == last_dato.description)) 
   end
 
 private

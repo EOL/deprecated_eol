@@ -53,7 +53,11 @@ class DataObjectsController < ApplicationController
                                                taxon_concept: @taxon_concept, toc_id: toc_id,
                                                link_type_id: link_type_id, link_object: params[:commit_link])
 
-    if @data_object.nil? || @data_object.errors.any?
+      if @data_object.duplicate_text
+      flash[:notice] = I18n.t(:duplicate_text_warning)
+      self.new 
+      return
+    elsif @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_id
       create_failed && return
     else

@@ -486,11 +486,11 @@ describe DataObject do
   it '#create_user_text should add rights holder only if rights holder not provided, license is not public domain and if it is not a link object' do
     params = { data_type_id: DataType.text.id.to_s,
                license_id: License.public_domain.id.to_s,
-               object_title: "",
+               object_title: "title",
                bibliographic_citation: "",
                source_url: "",
                rights_statement: "",
-               description: "",
+               description: "description",
                language_id: Language.english.id.to_s,
                rights_holder: ""}
     options = { taxon_concept: TaxonConcept.first,
@@ -504,6 +504,8 @@ describe DataObject do
     dato.should_not have(1).error_on(:rights_holder)
 
     params[:license_id] = License.cc.id.to_s
+    params[:object_title]= "title 2"
+    params[:description]="description 2"
     dato = DataObject.create_user_text(params, options)
     dato.rights_holder.should == options[:user].full_name
     dato.errors.count.should == 1
@@ -512,6 +514,8 @@ describe DataObject do
 
     user_entered_rights_holder = "Someone"
     params[:rights_holder] = user_entered_rights_holder
+    params[:object_title]= "title 3"
+    params[:description]="description 3"
     dato = DataObject.create_user_text(params, options)
     dato.rights_holder.should == user_entered_rights_holder
     dato.errors.count.should == 1
@@ -519,6 +523,8 @@ describe DataObject do
     dato.should_not have(1).error_on(:rights_holder)
 
     params[:license_id] = License.public_domain.id.to_s
+    params[:object_title]= "title 4"
+    params[:description]="description 4"
     dato = DataObject.create_user_text(params, options)
     dato.errors.count.should == 2
     dato.should have(1).error_on(:description)
@@ -527,6 +533,8 @@ describe DataObject do
     options[:link_object] = true
     params[:license_id] = nil
     params[:rights_holder] = ''
+     params[:object_title]= "title 5"
+    params[:description]="description 5"
     dato = DataObject.create_user_text(params, options)
     dato.link?.should be_true
     dato.rights_holder.should == ''
@@ -541,11 +549,11 @@ describe DataObject do
     allow(EOLWebService).to receive(:url_accepted?) { true }
     params = { data_type_id: DataType.text.id.to_s,
                license_id: nil,
-               object_title: "",
+               object_title: "sample title",
                bibliographic_citation: "",
                source_url: "http://eol.org",
                rights_statement: "",
-               description: "This is link description",
+               description: "This is link description new",
                language_id: Language.english.id.to_s,
                rights_holder: ""}
     options = { taxon_concept: TaxonConcept.first,
@@ -559,22 +567,30 @@ describe DataObject do
     dato.users_data_object.vetted_id.should == Vetted.unknown.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = assistant_curator
-    dato = DataObject.create_user_text(params, options)
+    params[:object_title]= "sample title 2"
+    params[:description]="This is link description new 2"
+    dato = DataObject.create_user_text(params , options)
     dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.unknown.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = full_curator
-    dato = DataObject.create_user_text(params, options)
+     params[:object_title]= "sample title3"
+    params[:description]="This is link description new 3"
+    dato = DataObject.create_user_text(params , options)
     dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = master_curator
-    dato = DataObject.create_user_text(params, options)
+     params[:object_title]= "sample title 4"
+    params[:description]="This is link description new 4"
+    dato = DataObject.create_user_text(params , options)
     dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
     options[:user] = admin
-    dato = DataObject.create_user_text(params, options)
+     params[:object_title]= "sample title 5"
+    params[:description]="This is link description new 5"
+    dato = DataObject.create_user_text(params , options)
     dato.link?.should be_true
     dato.users_data_object.vetted_id.should == Vetted.trusted.id
     dato.users_data_object.visibility_id.should == Visibility.visible.id
@@ -585,11 +601,11 @@ describe DataObject do
       data_type_id: DataType.text.id.to_s,
       license_id: nil,
       license_id: License.cc.id.to_s,
-      object_title: "",
+      object_title: "this is my title",
       bibliographic_citation: "",
       source_url: "http://eol.org",
       rights_statement: "",
-      description: "This is link description",
+      description: "This is link description hello",
       language_id: Language.english.id.to_s,
       rights_holder: ""
     }
@@ -616,12 +632,10 @@ describe DataObject do
   end
 
   it 'should use the resource rights holder if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
-    hierarchy = Hierarchy.gen
-    resource = Resource.gen(hierarchy: hierarchy)
-    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
-    data_object = DataObject.gen    
-    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
+    Resource.destroy_all
+    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
     data_object.update_column(:rights_holder, '')
     resource.update_column(:rights_holder, nil)
     data_object.rights_holder_for_display.should == nil
@@ -634,12 +648,10 @@ describe DataObject do
   end
 
   it 'should use the resource rights statement if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
-    hierarchy = Hierarchy.gen
-    resource = Resource.gen(hierarchy: hierarchy)
-    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
-    data_object = DataObject.gen    
-    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
+    Resource.destroy_all
+    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
     data_object.update_column(:rights_statement, '')
     resource.update_column(:rights_statement, nil)
     data_object.rights_statement_for_display.should == nil
@@ -652,12 +664,10 @@ describe DataObject do
   end
 
   it 'should use the resource bibliographic citation if the data object doesnt have one' do
+    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
-    hierarchy = Hierarchy.gen
-    resource = Resource.gen(hierarchy: hierarchy)
-    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
-    data_object = DataObject.gen    
-    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
+    Resource.destroy_all
+    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
     data_object.update_column(:bibliographic_citation, '')
     resource.update_column(:bibliographic_citation, nil)
     data_object.bibliographic_citation_for_display.should == nil
@@ -671,8 +681,6 @@ describe DataObject do
   end
 
   it 'should return proper values for can_be_made_overview_text_for_user' do
-    published_do = build_data_object('Text', 'This is a test wikipedia article content', published: 1, vetted: Vetted.trusted, visibility: Visibility.visible)
-    DataObjectsTaxonConcept.gen(taxon_concept_id: @taxon_concept.id, data_object_id: published_do.id)
     text = @taxon_concept.data_objects.select{ |d| d.text? && !d.added_by_user? }.last
     text.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
     text.update_column(:published, false)
@@ -787,6 +795,22 @@ describe DataObject do
       AgentsDataObject.should_receive(:sort_by_role_for_owner).and_return([ado])
       expect(@dato.owner).to eq("Someone important")
     end
+
+  end
+  context '#same_as_last?' do
+   
+    let(:old_text) { FactoryGirl.create(:data_object, object_title: "sample title" , data_type: DataType.gen_if_not_exists(:label => 'Text')) }
+
+    it 'identifies a duplicate text' do
+      new_text =FactoryGirl.create(:data_object, object_title: "sample title" , data_type: DataType.gen_if_not_exists(:label => 'Text'))
+      expect(new_text.same_as_last?).to be_true
+    end
+
+    # it 'does not identify deleted duplicates' do
+      # old_text.update_attribute(:deleted, 1)
+      # new_comment = Comment.new(user: user, body: old_comment.body, parent: user)
+      # expect(new_comment.same_as_last?).to be false
+    # end
 
   end
 

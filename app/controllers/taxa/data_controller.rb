@@ -49,7 +49,7 @@ protected
     # Sad that we need to load all of this for the about and glossary tabs, but TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
     @range_data = @taxon_data.ranges_of_values
-    @data_point_uris = sort_data(sort_data(@taxon_page.data.get_data, 0), 1)
+    @data_point_uris = sort_data(@taxon_page.data.get_data)
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     @include_other_category = @data_point_uris &&
       @data_point_uris.detect { |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? }
@@ -57,16 +57,17 @@ protected
   end
   
   #0 for life stage and 1 for gender
-  def sort_data (results, flag)    
-    results.sort do |a,b|      
-      if a.context_labels[flag] && b.context_labels[flag] 
-        a.context_labels[flag] <=> b.context_labels[flag]
-      else
-        a.context_labels[flag] ? -1 : 1
-      end
-    end
+  def sort_data (results)
     debugger
-    results
+    results.sort_by {|a| [a.context_labels[0].to_s, a.context_labels[1].to_s]}   
+   # results.sort do |a,b|      
+   #   if a.context_labels[flag] && b.context_labels[flag] 
+   #     a.context_labels[flag] <=> b.context_labels[flag]
+   #   else
+   #     a.context_labels[flag] ? -1 : 1
+   #   end
+   # end    
+   # results
   end
 
   def load_glossary

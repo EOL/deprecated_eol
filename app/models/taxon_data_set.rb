@@ -3,7 +3,7 @@
 class TaxonDataSet
 
   include Enumerable
-  
+
   def initialize(rows, options = {})
     virtuoso_results = rows
     @taxon_concept = options[:taxon_concept]
@@ -119,19 +119,17 @@ class TaxonDataSet
   end
 
   def remove_duplicates(data_point_uris)
-    if !data_point_uris.nil? && data_point_uris.count > 0
-      filtered = Hash.new
-      filtered[:key] = []
-      begin
-        dpo = data_point_uris.first
-        filtered[:key] << dpo
-        data_point_uris = data_point_uris.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object } 
-      end while data_point_uris.count > 0 
-      return filtered[:key]
+    return data_point_uris unless data_point_uris && data_point_uris.count > 0
+    # Not using an actual Set because "uniqueness" is measured specifically:
+    set = []
+    data_point_uris.each do |dpuri|
+      set << dpuri unless set.include? do |d|
+        d.predicate == dpo.predicate && d.object == dpo.object
+      end
     end
-    return data_point_uris
+    return set
   end
-  
+
   private
 
   def fill_context(jsonld)

@@ -905,9 +905,13 @@ class TaxonConcept < ActiveRecord::Base
       TaxonConceptPreferredEntry.destroy_all(taxon_concept_id: self.id)
       begin
         TaxonConceptPreferredEntry.create(taxon_concept_id: self.id, hierarchy_entry_id: entry.id)
-      rescue Mysql2::Error => e
-        # Duplicate. ...Race condition?
-        logger.warn "Failed attempt to create preferred entry: #{e.message}"
+      # NOTE: I realize rescuing without a specific exception is bad, but this
+      # is a _rare_ error and I'm not sure what the exception type is.
+      # Duplicate. ...Race condition?
+      rescue => e
+        logger.warn "Failed attempt to create preferred entry:"
+        logger.warn "  -> Class: #{e.class.name}"
+        logger.warn "  -> Message: #{e.message}"
       end
     end
   end

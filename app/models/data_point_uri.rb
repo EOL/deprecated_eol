@@ -640,8 +640,8 @@ class DataPointUri < ActiveRecord::Base
     # Not using an actual Set because "uniqueness" is measured specifically:
     set = []
     data_point_uris.each do |dpuri|
-      set << dpuri unless set.include? do |d|
-        d.predicate == dpo.predicate && d.object == dpo.object
+      set << dpuri unless set.any? do |d|
+        d.predicate == dpuri.predicate && d.object == dpuri.object
       end
     end
     return set

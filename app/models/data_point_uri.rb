@@ -641,7 +641,10 @@ class DataPointUri < ActiveRecord::Base
     set = []
     data_point_uris.each do |dpuri|
       set << dpuri unless set.any? do |d|
-        d.predicate == dpuri.predicate && d.object == dpuri.object
+        d.taxon_concept == dpuri.taxon_concept &&
+          d.uri == dpuri.uri &&
+          d.predicate == dpuri.predicate &&
+          d.object == dpuri.object
       end
     end
     return set

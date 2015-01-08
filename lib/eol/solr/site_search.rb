@@ -211,13 +211,16 @@ module EOL
         unless exact
           pluralized = querystring.pluralize
           singular   = querystring.singularize
-          suggested_results = SearchSuggestion.find_all_by_term_and_active(singular, true, :order => 'sort_order') +
-                              SearchSuggestion.find_all_by_term_and_active(pluralized, true, :order => 'sort_order')
+          suggested_results = SearchSuggestion.
+            where(term: [singular, pluralized], active: true).
+            order('sort_order')
         end
 
-        # bacteria has a singular bacterium and a plural bacterias so we need to search on the original term too
+        # bacteria has a singular bacterium and a plural bacterias so we need to
+        # search on the original term too
         if exact || (querystring != pluralized && querystring != singular)
-          suggested_results += SearchSuggestion.find_all_by_term_and_active(querystring, true, :order => 'sort_order')
+          suggested_results += SearchSuggestion.
+            where(term: querystring, active: true).order('sort_order')
         end
         suggested_results
       end
@@ -317,11 +320,11 @@ module EOL
         add_best_match_keywords!(results, query)
         add_resource_instances!(results, language_id: options[:language].id)
         results.delete_if{ |r| r['instance'].blank? }
-        suggestions = json['spellcheck']['suggestions'][1]['suggestion'] unless json['spellcheck']['suggestions'].blank?          
+        suggestions = json['spellcheck']['suggestions'][1]['suggestion'] unless json['spellcheck']['suggestions'].blank?
         results_with_suggestions = {results: results, suggestions: suggestions}
         results_with_suggestions
       end
-      
+
       def self.taxon_search(query, options={})
         taxa = []
         results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(query, options)
@@ -332,7 +335,7 @@ module EOL
             suggestions << item if item['resource_type'][0] == "TaxonConcept"
           end
         end
-          
+
         if suggestions.blank?
           taxa = results_with_suggestions[:results]
           result_title = I18n.t("helpers.label.data_search.taxa_found")
@@ -341,7 +344,7 @@ module EOL
           result_title = I18n.t(:did_you_mean, :suggestions => nil)
         end
         { taxa: taxa, result_title: result_title }
-      end      
+      end
     end
-  end  
+  end
 end

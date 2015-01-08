@@ -28,10 +28,10 @@ Eol::Application.configure do
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
-  
+
   # set to true to enable recaptcha on registration and contact us form
   $ENABLE_RECAPTCHA=false
-  
+
   # Log the query plan for queries taking more than this (works
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 1
@@ -44,12 +44,10 @@ Eol::Application.configure do
 
   # set to true to enable recaptcha on registration and contact us form
   $ENABLE_RECAPTCHA=false
-  
+
   config.after_initialize do
     $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
   end
-
-  $STAGING_CONTENT_SERVER = 'http://localhost/eol_php_code/applications/content_server/'
 
   config.logger = Logger.new(STDOUT)
 
@@ -57,6 +55,6 @@ end
 
 # TODO - Where do these go, now?  :S
 $UNSUBSCRIBE_NOTIFICATIONS_KEY = 'f0de2a0651aa88a090e5679e5e3a7d28'
-  
+
 require File.expand_path('../../../lib/initializer_additions', __FILE__)
 InitializerAdditions.add("environments/#{Rails.env}_eol_org")

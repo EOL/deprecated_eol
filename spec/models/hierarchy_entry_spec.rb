@@ -19,5 +19,33 @@ describe HierarchyEntry do
       expect(HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: rank_label)).species_or_below?).to eq(true)
     end
   end
+  
+  describe ".destroy_everything" do
+       
+    it "should call 'destroy_all' for top_images" do
+      subject.top_images.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for synonyms" do
+      subject.synonyms.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for curator_activity_logs" do
+      subject.curator_activity_logs.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for hierarchy_entry_moves" do
+      subject.hierarchy_entry_moves.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for refs" do
+      subject.refs.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+  end
 
 end

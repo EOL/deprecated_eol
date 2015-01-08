@@ -1159,8 +1159,15 @@ class DataObject < ActiveRecord::Base
     # TODO: handle translations
     curator_activity_logs.destroy_all
     users_data_objects_ratings.destroy_all
-    refs.destroy_all # through the join table, here:
-    DataObjectsRef.where(data_object_id: id).destroy_all
+    # refs.destroy_all # through the join table, here:
+    # DataObjectsRef.where(data_object_id: id).destroy_all
+    #ref_ids = refs.map(:id)
+    refs_ids = []
+    DataObjectsRef.where(data_object_id: id).each do |data_object_ref|
+      refs_ids << data_object_ref.ref_id
+      data_object_ref.destroy
+    end
+    Ref.where(id: refs_ids).each { |ref| ref.destroy if ref.data_objects.count == 0 }
     DataObjectsHierarchyEntry.where(data_object_id: id).destroy_all
     AgentsDataObject.where(data_object_id: id).destroy_all
     DataObjectsTaxonConcept.where(data_object_id: id).destroy_all

@@ -104,11 +104,18 @@ class HarvestEvent < ActiveRecord::Base
   def destroy_everything
     data_objects.each do |dato|
       dato.destroy_everything
-    end
-    data_objects.destroy_all
+      dato.destroy
+    end   
     DataObjectsHarvestEvent.where(harvest_event_id: id).destroy_all
     hierarchy_entries.each do |entry|
       entry.destroy_everything
+      taxon_concept = TaxonConcept.find(entry.taxon_concept_id)
+      name = Name.find(entry.name_id)
+      hierarchy = Hierarchy.find(entry.hierarchy_id)
+      entry.destroy
+      taxon_concept.destroy if taxon_concept.hierarchy_entries.blank?
+      name.destroy if name.hierarchy_entries.blank?
+      hierarchy.destroy if hierarchy.hierarchy_entries.blank?
     end
     HarvestEventsHierarchyEntry.where(harvest_event_id: id).destroy_all
     # TODO: Handle TaxonConcepts that now have no hierarchy_entries.

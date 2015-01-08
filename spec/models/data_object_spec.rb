@@ -789,6 +789,74 @@ describe DataObject do
     end
 
   end
+  
+  describe ".destroy_everything" do
+       
+    it "should call 'destroy_all' for agents_data_objects" do
+      subject.agents_data_objects.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for data_objects_hierarchy_entries" do
+      subject.data_objects_hierarchy_entries.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for data_objects_taxon_concepts" do
+      subject.data_objects_taxon_concepts.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for agents_data_objects" do
+      subject.agents_data_objects.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for curated_data_objects_hierarchy_entries" do
+      subject.curated_data_objects_hierarchy_entries.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for comments" do
+      subject.comments.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for data_objects_table_of_contents" do
+      subject.data_objects_table_of_contents.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for data_objects_info_items" do
+      subject.data_objects_info_items.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for taxon_concept_exemplar_images" do
+      subject.taxon_concept_exemplar_images.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for worklist_ignored_data_objects" do
+      subject.worklist_ignored_data_objects.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for collection_items" do
+      subject.collection_items.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for curator_activity_logs" do
+      subject.curator_activity_logs.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for users_data_objects_ratings" do
+      subject.users_data_objects_ratings.should_receive(:destroy_all)
+      subject.destroy_everything
+    end    
+  end
 
 end
 

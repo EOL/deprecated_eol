@@ -307,7 +307,7 @@ module EOL
         # add sorting
         url << '&sort=score+desc'
         # add spellchecking
-        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10&spellcheck.build=true'
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10'
         # add paging
         url << '&rows=10'
         res = open(url).read

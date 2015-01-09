@@ -9,7 +9,6 @@ Eol::Application.configure do
       content_server_path = "applications/content_server/"
       $WEB_SERVICE_BASE_URL = "#{$CONTENT_SERVER}#{php_path}#{content_server_path}service.php?"
       $CONTENT_SERVER_CONTENT_PATH = "/#{php_path}#{content_server_path}content/"
-      $STAGING_CONTENT_SERVER = $CONTENT_SERVER
       $CONTENT_SERVER_RESOURCES_PATH = "/#{php_path}#{content_server_path}resources/"
     end
 

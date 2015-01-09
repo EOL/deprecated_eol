@@ -69,12 +69,24 @@ describe TaxonDataSet do
       uri1.uri, uri2.uri, uri3.uri, uri4.uri, uri5.uri, raw_uri1, raw_uri2, raw_uri3
     ]
   end
-  
+
   describe "remove_duplicates" do
     it "should remove duplicates data_point_uris" do
-      data_point_uris = [DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats", object: "apple"),
-        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats", object: "carrot"),
-        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats", object: "carrot")]
+      tc = TaxonConcept.gen
+      data_point_uris = [
+        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
+                         taxon_concept: tc,
+                         uri: "http://what.com/is/this",
+                         object: "apple"),
+        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
+                         taxon_concept: tc,
+                         uri: "http://what.com/is/this",
+                         object: "carrot"),
+        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
+                         taxon_concept: tc,
+                         uri: "http://what.com/is/this",
+                         object: "carrot")
+      ]
       set = TaxonDataSet.new(@rows, taxon_concept_id: @taxon_concept.id)
       result = set.remove_duplicates(data_point_uris)
       expect(result.count).to equal(2)

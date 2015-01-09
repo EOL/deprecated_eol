@@ -22,6 +22,7 @@ module EOL
         self.reindex_model(User, solr_api)
         self.reindex_model(TaxonConcept, solr_api)
         self.reindex_model(ContentPage, solr_api)
+        EOL::Solr::SiteSearch.rebuild_spelling_suggestions
         solr_api.optimize if options[:optimize]
       end
 

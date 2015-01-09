@@ -206,6 +206,19 @@ module EOL
         JSON.load res
       end
 
+      # NOTE: This can take a long, long time. Especially in production.
+      def self.rebuild_spelling_suggestions
+        # TODO: this url starting string is reused, extract:
+        url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE +
+          "/select/?wt=json&q=" + CGI.escape(%Q[{!lucene}])
+        url << "keyword_exact:foo"
+        # TODO: This spellchecking clause is dupe'd, extract:
+        url << "&spellcheck.q=foo&spellcheck=true&spellcheck.count=1"
+        url << "&spellcheck.build=true"
+        # TODO: Reading the results is TOTALLY dupe'd, extract:
+        res = open(url).read
+      end
+
       def self.search_suggestions(querystring, exact = false)
         suggested_results = []
         unless exact

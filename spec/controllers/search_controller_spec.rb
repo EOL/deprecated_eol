@@ -1,12 +1,12 @@
 require "spec_helper"
 
 describe SearchController do
-  
+
   render_views
-    
+
   describe 'index' do
     before(:all) do
-      truncate_all_tables      
+      truncate_all_tables
       Language.create_english
     end
   end
@@ -16,9 +16,9 @@ describe SearchController do
     get :index, :q => ''
     assigns[:all_results].should == []
   end
-  
+
   describe "taxon autocomplete" do
-    before(:all) do      
+    before(:all) do
       Vetted.create_enumerated
       Visibility.create_enumerated
       DataType.create_enumerated
@@ -32,7 +32,7 @@ describe SearchController do
       name.update_attributes(string: "cat")
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
     end
-      
+
     it "should return suggestions when user misspell taxon name" do
       get :autocomplete_taxon, { term: "hat" }
       expect(response.body).to have_selector('h2', text: I18n.t(:did_you_mean, :suggestions => nil))

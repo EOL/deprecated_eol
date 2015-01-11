@@ -251,7 +251,7 @@ module TaxaHelper
   end
   
   def adjust_exponent(text_for_row_value)
-    text_for_row_value.gsub!(/\^(\S)/, "<sup>\\1</sup>")
+    text_for_row_value.gsub!(/\^(\S)/, "<sup style='vertical-align: baseline;position: relative;top: -0.4em;'>\\1</sup>")
   end
   
   def info_icon

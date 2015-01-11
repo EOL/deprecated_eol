@@ -138,16 +138,14 @@ class SearchController < ApplicationController
       res = EOL::Solr::SiteSearch.taxon_search(@querystring, language: current_language)
       taxa = res[:taxa]
       result_title = res[:result_title]
-      unless taxa.blank?
-        json = taxa.each_with_index.map do |result, index|
-          { id: result['instance'].id,
-            value: result['instance'].title_canonical,
-            label: render_to_string(
-            partial: 'shared/item_summary_taxon_autocomplete',
-            locals: { item: result['instance'], search_result: result, result_title: result_title, index: index } )
-          }
-        end.delete_if { |r| r[:value].blank? }
-      end       
+      json = taxa.each_with_index.map do |result, index|
+        { id: result['instance'].id,
+          value: result['instance'].title_canonical,
+          label: render_to_string(
+          partial: 'shared/item_summary_taxon_autocomplete',
+          locals: { item: result['instance'], search_result: result, result_title: result_title, index: index } )
+        }
+      end.delete_if { |r| r[:value].blank? }
     end
     render json: json
   end

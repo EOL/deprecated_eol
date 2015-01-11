@@ -17,33 +17,50 @@ class CuratedTaxonConceptPreferredEntry < ActiveRecord::Base
     end
   end
 
-  # This does more than just loading the entry, clearly: it ensures the entry is there, valid, published, and finds
-  # the "correct" version of it, if there are several. TODO - is it possible to do this with rails scopes?
+  # This does more than just loading the entry, clearly: it ensures the entry is
+  # there, valid, published, and finds the "correct" version of it, if there are
+  # several.
   def self.for_taxon_concept(taxon_concept)
-    curated_preferred_entry = CuratedTaxonConceptPreferredEntry.find_by_taxon_concept_id(taxon_concept.id)
-    return nil unless curated_preferred_entry
+    curated_preferred_entry = CuratedTaxonConceptPreferredEntry.
+      where(taxon_concept_id: taxon_concept.id).
+      includes(:hierarchy_entry).
+      first
+    return nil unless curated_preferred_entry &&
+      curated_preferred_entry.hierarchy_entry
     entry = curated_preferred_entry.hierarchy_entry
-    return nil unless entry
-    # if the entry is not published, try to find a published replacement, or return nil. The
-    # database record is not updated with the replacement at this point
+    # If the entry is not published, try to find a published replacement, or
+    # return nil.
     unless entry.published?
-      # see if there is a published entry in the same hierarchy
+      # See if there is a published entry in the same hierarchy;
       # order each result giving priority to entries with the same :identifier
-      if he = HierarchyEntry.where(taxon_concept_id: taxon_concept.id, hierarchy_id: entry.hierarchy_id, published: 1).
-                             order("identifier='#{entry.identifier}' DESC").limit(1).first
+      if he = HierarchyEntry.
+          where(taxon_concept_id: taxon_concept.id,
+                hierarchy_id: entry.hierarchy_id, published: 1).
+          order("identifier = '#{entry.identifier}' DESC").
+          first
         curated_preferred_entry.hierarchy_entry = he
       elsif entry.hierarchy.hierarchy_group_id > 0
-        # see if there is a published entry in the same hierarchy group (e.g. COL 2010, 2011, 2012...)
-        if he = HierarchyEntry.where(taxon_concept_id: taxon_concept.id, published: 1).joins(:hierarchy).
-                               where("hierarchies.hierarchy_group_id = #{entry.hierarchy.hierarchy_group_id}").
-                               order("identifier='#{entry.identifier}' DESC").limit(1).first
+        # see if there is a published entry in the same hierarchy group
+        # (e.g. COL 2010, 2011, 2012...)
+        if he = HierarchyEntry.
+            where(taxon_concept_id: taxon_concept.id, published: 1).
+            joins(:hierarchy).
+            where("hierarchies.hierarchy_group_id = #{entry.hierarchy.hierarchy_group_id}").
+            order("identifier='#{entry.identifier}' DESC").
+            first
           curated_preferred_entry.hierarchy_entry = he
         else
+          # Don't bother looking again next time:
+          curated_preferred_entry.destroy
           return nil
         end
       else
+        # Don't bother looking again next time:
+        curated_preferred_entry.destroy
         return nil
       end
+      # Let's not do this again, shall we?
+      curated_preferred_entry.save
     end
     curated_preferred_entry
   end

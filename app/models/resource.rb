@@ -211,6 +211,10 @@ class Resource < ActiveRecord::Base
     harvest_events.each(&:destroy_everything)
     harvest_events.destroy_all
   end
+  
+  def has_harvest_events?
+    harvest_events.blank? ? false : true 
+  end
 
 private
 

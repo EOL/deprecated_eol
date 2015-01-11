@@ -616,10 +616,12 @@ describe DataObject do
   end
 
   it 'should use the resource rights holder if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
-    Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:rights_holder, '')
     resource.update_column(:rights_holder, nil)
     data_object.rights_holder_for_display.should == nil
@@ -632,10 +634,12 @@ describe DataObject do
   end
 
   it 'should use the resource rights statement if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
-    Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:rights_statement, '')
     resource.update_column(:rights_statement, nil)
     data_object.rights_statement_for_display.should == nil
@@ -648,10 +652,12 @@ describe DataObject do
   end
 
   it 'should use the resource bibliographic citation if the data object doesnt have one' do
-    data_object = build_data_object("Text", "This is a description", published: 1, vetted: Vetted.trusted, license: License.cc, rights_holder: 'Initial Rights Holder')
     # creating a resource for this data object
-    Resource.destroy_all
-    resource = Resource.gen(hierarchy_id: data_object.data_objects_hierarchy_entries.first.hierarchy_entry.hierarchy.id)
+    hierarchy = Hierarchy.gen
+    resource = Resource.gen(hierarchy: hierarchy)
+    hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
+    data_object = DataObject.gen    
+    DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:bibliographic_citation, '')
     resource.update_column(:bibliographic_citation, nil)
     data_object.bibliographic_citation_for_display.should == nil
@@ -665,6 +671,8 @@ describe DataObject do
   end
 
   it 'should return proper values for can_be_made_overview_text_for_user' do
+    published_do = build_data_object('Text', 'This is a test wikipedia article content', published: 1, vetted: Vetted.trusted, visibility: Visibility.visible)
+    DataObjectsTaxonConcept.gen(taxon_concept_id: @taxon_concept.id, data_object_id: published_do.id)
     text = @taxon_concept.data_objects.select{ |d| d.text? && !d.added_by_user? }.last
     text.can_be_made_overview_text_for_user?(@curator, @taxon_concept).should == true
     text.update_column(:published, false)
@@ -780,6 +788,74 @@ describe DataObject do
       expect(@dato.owner).to eq("Someone important")
     end
 
+  end
+  
+  describe ".destroy_everything" do
+       
+    it "should call 'destroy_all' for agents_data_objects" do
+      subject.agents_data_objects.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for data_objects_hierarchy_entries" do
+      subject.data_objects_hierarchy_entries.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for data_objects_taxon_concepts" do
+      subject.data_objects_taxon_concepts.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for agents_data_objects" do
+      subject.agents_data_objects.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for curated_data_objects_hierarchy_entries" do
+      subject.curated_data_objects_hierarchy_entries.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for comments" do
+      subject.comments.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for data_objects_table_of_contents" do
+      subject.data_objects_table_of_contents.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for data_objects_info_items" do
+      subject.data_objects_info_items.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for taxon_concept_exemplar_images" do
+      subject.taxon_concept_exemplar_images.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for worklist_ignored_data_objects" do
+      subject.worklist_ignored_data_objects.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for collection_items" do
+      subject.collection_items.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for curator_activity_logs" do
+      subject.curator_activity_logs.should_receive(:destroy_all)
+      subject.destroy_everything
+    end
+    
+    it "should call 'destroy_all' for users_data_objects_ratings" do
+      subject.users_data_objects_ratings.should_receive(:destroy_all)
+      subject.destroy_everything
+    end    
   end
 
 end

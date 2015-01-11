@@ -24,7 +24,7 @@ class EolConfig < ActiveRecord::Base
         EolConfig.create(parameter: key, value: val) unless EolConfig.exists?(parameter: key)
       end
   end
-  
+
   # This one is a little different, because we need to handle nils with a cache.
   def self.global_site_warning
     cache_name = cached_name_for('global_site_warning_clean')
@@ -59,6 +59,7 @@ class EolConfig < ActiveRecord::Base
       eigenclass.class_eval do
         define_method(name) do # Keeps us from using method_missing next time...
           param = cached_find(:parameter, name, expires_in: REFRESH_TIME)
+          return nil unless param
           return false if param.value == 'false'
           return nil if param.value == ''
           param.value
@@ -70,8 +71,7 @@ class EolConfig < ActiveRecord::Base
     end
   end
 
-private
-
+  # NOTE: This doesn't work for site warning.
   def clear_caches
     Rails.cache.delete(EolConfig.cached_name_for("parameter/#{self.parameter}"))
   end

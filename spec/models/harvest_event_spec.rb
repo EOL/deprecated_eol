@@ -23,5 +23,21 @@ describe HarvestEvent do
     @latest_unpublished_harvest_event.reload
     @latest_unpublished_harvest_event.should be_valid
   end
+  
+  describe ".destroy_everything" do
+       
+    it "should call 'destroy_everything' for data objects" do
+      total_data_objects = subject.data_objects
+      total_data_objects.count.times { subject.should_receive(:destroy_everything) }
+      subject.destroy_everything
+    end
+    
+     
+    it "should call 'destroy_everything' for hierarchy entries" do
+      total_hierarchy_entries = subject.hierarchy_entries
+      total_hierarchy_entries.count.times { subject.should_receive(:destroy_everything) }
+      subject.destroy_everything
+    end 
+  end
 
 end

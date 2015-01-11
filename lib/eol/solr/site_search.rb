@@ -206,18 +206,34 @@ module EOL
         JSON.load res
       end
 
+      # NOTE: This can take a long, long time. Especially in production.
+      def self.rebuild_spelling_suggestions
+        # TODO: this url starting string is reused, extract:
+        url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE +
+          "/select/?wt=json&q=" + CGI.escape(%Q[{!lucene}])
+        url << "keyword_exact:foo"
+        # TODO: This spellchecking clause is dupe'd, extract:
+        url << "&spellcheck.q=foo&spellcheck=true&spellcheck.count=1"
+        url << "&spellcheck.build=true"
+        # TODO: Reading the results is TOTALLY dupe'd, extract:
+        res = open(url).read
+      end
+
       def self.search_suggestions(querystring, exact = false)
         suggested_results = []
         unless exact
           pluralized = querystring.pluralize
           singular   = querystring.singularize
-          suggested_results = SearchSuggestion.find_all_by_term_and_active(singular, true, :order => 'sort_order') +
-                              SearchSuggestion.find_all_by_term_and_active(pluralized, true, :order => 'sort_order')
+          suggested_results = SearchSuggestion.
+            where(term: [singular, pluralized], active: true).
+            order('sort_order')
         end
 
-        # bacteria has a singular bacterium and a plural bacterias so we need to search on the original term too
+        # bacteria has a singular bacterium and a plural bacterias so we need to
+        # search on the original term too
         if exact || (querystring != pluralized && querystring != singular)
-          suggested_results += SearchSuggestion.find_all_by_term_and_active(querystring, true, :order => 'sort_order')
+          suggested_results += SearchSuggestion.
+            where(term: querystring, active: true).order('sort_order')
         end
         suggested_results
       end
@@ -304,7 +320,7 @@ module EOL
         # add sorting
         url << '&sort=score+desc'
         # add spellchecking
-        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10&spellcheck.build=true'
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10'
         # add paging
         url << '&rows=10'
         res = open(url).read
@@ -317,11 +333,11 @@ module EOL
         add_best_match_keywords!(results, query)
         add_resource_instances!(results, language_id: options[:language].id)
         results.delete_if{ |r| r['instance'].blank? }
-        suggestions = json['spellcheck']['suggestions'][1]['suggestion'] unless json['spellcheck']['suggestions'].blank?          
+        suggestions = json['spellcheck']['suggestions'][1]['suggestion'] unless json['spellcheck']['suggestions'].blank?
         results_with_suggestions = {results: results, suggestions: suggestions}
         results_with_suggestions
       end
-      
+
       def self.taxon_search(query, options={})
         taxa = []
         results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(query, options)
@@ -332,7 +348,7 @@ module EOL
             suggestions << item if item['resource_type'][0] == "TaxonConcept"
           end
         end
-          
+
         if suggestions.blank?
           taxa = results_with_suggestions[:results]
           result_title = I18n.t("helpers.label.data_search.taxa_found")
@@ -341,7 +357,7 @@ module EOL
           result_title = I18n.t(:did_you_mean, :suggestions => nil)
         end
         { taxa: taxa, result_title: result_title }
-      end      
+      end
     end
-  end  
+  end
 end

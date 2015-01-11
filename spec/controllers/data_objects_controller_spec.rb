@@ -77,6 +77,29 @@ describe DataObjectsController do
       expect(assigns[:data_object]).to have(1).error_on(:source_url)
       expect(assigns[:data_object].errors_on(:source_url)).to include(I18n.t(:url_not_accessible))
     end
+    it 'fails when a duplicate text is added' do 
+       dato = { toc_items: { id: TocItem.overview.id.to_s },  data_type_id: DataType.text.id.to_s,
+               object_title: "title", language_id: Language.english.id.to_s,
+               description: "text" }
+       post :create, { taxon_id: @taxon_concept.id,
+                      data_object: dato },{ user: @user, user_id: @user.id }
+       post :create, { taxon_id: @taxon_concept.id, 
+                      data_object: dato },{ user: @user, user_id: @user.id }
+      expect(flash[:notice]).to eq(I18n.t(:duplicate_text_warning))
+      expect(response).to render_template(:new)
+    end
+    it 'passes when a non-duplicate text is added' do
+       dato = { toc_items: { id: TocItem.overview.id.to_s },  data_type_id: DataType.text.id.to_s,
+               object_title: "title", language_id: Language.english.id.to_s,
+               description: "text" }
+      post :create, { taxon_id: @taxon_concept.id,
+                      data_object: dato },{ user: @user }
+      dato[:object_title] = 'different title'
+      dato[:description] = 'different description'
+       post :create, { taxon_id: @taxon_concept.id,
+                      data_object: dato },{ user: @user, user_id: @user.id }
+      expect(response.status).to eq(301)
+    end
   end
 
   describe 'GET edit' do

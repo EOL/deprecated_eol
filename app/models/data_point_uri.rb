@@ -641,7 +641,7 @@ class DataPointUri < ActiveRecord::Base
       begin
         dpo = array.first
         filtered[:key] << dpo
-        array = array.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object } 
+        array = array.reject{ |d| d.predicate == dpo.predicate && d.object == dpo.object} 
       end while array.count > 0 
       return filtered[:key]
     end

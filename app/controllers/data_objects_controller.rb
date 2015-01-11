@@ -45,6 +45,7 @@ class DataObjectsController < ApplicationController
       create_failed
       return
     end
+
     @references = params[:references] # we'll need these if validation fails and we re-render new
     raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
@@ -55,6 +56,7 @@ class DataObjectsController < ApplicationController
     @data_object = DataObject.create_user_text(params[:data_object], user: current_user,
                                                taxon_concept: @taxon_concept, toc_id: toc_id,
                                                link_type_id: link_type_id, link_object: params[:commit_link])
+
     if @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_id
       create_failed && return

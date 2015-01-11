@@ -77,7 +77,8 @@ describe DataObjectsController do
       expect(assigns[:data_object]).to have(1).error_on(:source_url)
       expect(assigns[:data_object].errors_on(:source_url)).to include(I18n.t(:url_not_accessible))
     end
-    it 'fails when a duplicate text is added' do 
+
+       it 'fails when a duplicate text is added' do 
        dato = { toc_items: { id: TocItem.overview.id.to_s },  data_type_id: DataType.text.id.to_s,
                object_title: "title", language_id: Language.english.id.to_s,
                description: "text" }

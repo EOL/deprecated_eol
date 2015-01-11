@@ -790,4 +790,49 @@ describe DataObject do
 
   end
 
+  context '#same_as_last?' do
+
+      before(:each) do
+        @last_text = build_data_object( "Text", "sample description", object_title: "sample title")
+        udo = UsersDataObject.gen(user_id: User.first.id, data_object_id: @last_text.id, taxon_concept: @taxon_concept)
+        @options = {taxon_concept: @taxon_concept, user: User.first }
+        @params = { data_object: DataObject.new(data_type_id: DataType.text.id.to_s,
+                                               object_title: @last_text.object_title,
+                                               description: @last_text.description)}
+      end
+
+      it 'fails when adding text with the same title' do
+        @params[:data_object][:description]= "different description"
+        expect(DataObject.same_as_last?(@params, @options)).to be_true
+      end
+
+       it 'fails when adding text with the same description' do
+         @params[:data_object][:object_title]= "different title"
+         expect(DataObject.same_as_last?(@params, @options)).to be_true
+      end
+
+      it 'passes when adding text with the different description and title' do
+         @params[:data_object][:object_title]= "different title"
+         @params[:data_object][:description]= " different description"
+         expect(DataObject.same_as_last?(@params, @options)).to be_false
+      end
+
+      it 'passes when dataobjects other than text ' do
+        @params[:data_object][:data_type_id]=  DataType.image.id.to_s
+        expect(DataObject.same_as_last?(@params, @options)).to be_false
+        @params[:data_object][:data_type_id]=  DataType.sound.id.to_s
+        expect(DataObject.same_as_last?(@params, @options)).to be_false
+        @params[:data_object][:data_type_id]=  DataType.video.id.to_s
+        expect(DataObject.same_as_last?(@params, @options)).to be_false
+        @params[:data_object][:data_type_id]=  DataType.link.id.to_s
+        expect(DataObject.same_as_last?(@params, @options)).to be_false
+      end
+
+      it 'passes when a different user adds the same text' do
+        @options[:user]=User.gen
+        expect(DataObject.same_as_last?(@params, @options)).to be_false
+      end
+
+  end
+
 end

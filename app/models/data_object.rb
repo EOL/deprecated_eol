@@ -67,7 +67,6 @@ class DataObject < ActiveRecord::Base
   has_and_belongs_to_many :taxon_concepts
 
   attr_accessor :vetted_by, :is_the_latest_published_revision # who changed the state of this object? (not persisted on DataObject but required by observer)
-  attr_accessor :duplicate_text
 
   validates_presence_of :description, if: :is_text?
   validates_presence_of :source_url, if: :is_link?
@@ -218,21 +217,21 @@ class DataObject < ActiveRecord::Base
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
     params[:source_url] = DataObject.add_http_if_missing(params[:source_url]) if object_is_a_link
     dato = DataObject.new(params.reverse_merge!({published: true}))
-      if dato.save
-        begin
-          dato.toc_items = Array(TocItem.find(options[:toc_id]))
-          dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
-          if object_is_a_link
-            dato.data_objects_link_type = DataObjectsLinkType.create(data_object: dato, link_type_id: options[:link_type_id])
-          end
-        rescue => e
-          dato.update_column(:published, false)
-          raise e
-        ensure
-          options[:taxon_concept].reload if options[:taxon_concept]
-          dato.update_solr_index
+    if dato.save
+      begin
+        dato.toc_items = Array(TocItem.find(options[:toc_id]))
+        dato.build_relationship_to_taxon_concept_by_user(options[:taxon_concept], options[:user])
+        if object_is_a_link
+          dato.data_objects_link_type = DataObjectsLinkType.create(data_object: dato, link_type_id: options[:link_type_id])
         end
+      rescue => e
+        dato.update_column(:published, false)
+        raise e
+      ensure
+        options[:taxon_concept].reload if options[:taxon_concept]
+        dato.update_solr_index
       end
+    end
     dato
   end
 

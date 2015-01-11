@@ -127,7 +127,8 @@ class TaxonDataSet
         d.taxon_concept == dpuri.taxon_concept &&
           d.uri == dpuri.uri &&
           d.predicate == dpuri.predicate &&
-          d.object == dpuri.object
+          d.object == dpuri.object &&
+          d.context_labels == dpuri.context_labels
       end
     end
     return set

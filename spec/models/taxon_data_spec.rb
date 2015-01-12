@@ -18,7 +18,9 @@ describe TaxonData do
     @resource = Resource.gen
     @user_added_data = UserAddedData.gen(subject: @taxon_concept)
     @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
-    @test_pred = "http://purl.obolibrary.org/obo/UO_0000009"
+    @test_pred = "http://purl.obolibrary.org/obo/UO_0000016"
+    @test_pred_ranges = "http://purl.obolibrary.org/obo/UO_0000009"
+    @kilogram_uri = "http://purl.obolibrary.org/obo/UO_0000009"
   end
 
   let(:mock_row) { { data_point_uri: @data_point_uri.uri } }
@@ -91,27 +93,6 @@ describe TaxonData do
     taxon_data.categories
   end
   
-  it 'should show all them if predicates are different' do    
-    values = []
-    values[0] = {attribute: 'pred1', object: '5', unit_of_measure_uri: {uri: "Kilograms", position: 1}}
-    values[1] = {attribute: 'pred2', object: '1'}
-    taxon_data.show_preferred_unit(values).length.should == 2
-  end
-  
-  it 'shouldnot show all if atts are the same and one with unit and the other without' do
-    values = []
-    values[0] = {attribute: 'pred', object: '5', unit_of_measure_uri: {uri: "Kilograms", position: 1}}
-    values[1] = {attribute: 'pred', object: '1'}
-    taxon_data.show_preferred_unit(values).length.should == 1
-  end
-  
-  it 'should show only attributes that have lower position' do
-    values = []
-    values[0] = {attribute: 'pred', object: '5', unit_of_measure_uri: {uri: "Kilograms", position: 1}}
-    values[1] = {attribute: 'pred', object: '1', unit_of_measure_uri: {uri: "grams", position: 2}}
-    taxon_data.show_preferred_unit(values).length.should == 1
-  end
-  
   it 'should return the entered data with the normalized units' do
     search_options = {querystring: "", attribute: @test_pred, min_value: nil, max_value: nil, unit: nil, sort: "desc",       
       taxon_concept: nil, page: 1, per_page: 30}
@@ -131,6 +112,16 @@ describe TaxonData do
     instance = DataMeasurement.new(predicate: @test_pred, object: "1", resource: @resource, subject: @taxon_concept)
     instance.add_to_triplestore
     TaxonData.search(search_options).length.should == len
+  end
+  
+  it 'should show the right range if they are with the same unit' do
+    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "10", resource: @resource, subject: @taxon_concept, normalized_value: "10", 
+      normalized_unit: @kilogram_uri, unit: @kilogram_uri)
+    instance.add_to_triplestore
+    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "100", resource: @resource, subject: @taxon_concept, normalized_value: "100", 
+      normalized_unit: @kilogram_uri, unit: @kilogram_uri)
+    instance.add_to_triplestore    
+    taxon_data.has_range_data.should == true
   end
 
 end

@@ -26,8 +26,8 @@ class TaxonData < TaxonUserClassificationFilter
       options[:per_page] ||= TaxonData::DEFAULT_PAGE_SIZE
       options[:language] ||= Language.default
       total_results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options.merge(only_count: true))).first[:count].to_i
-      results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options))      
-      results.sort! { |a,b| a[:normalized_value].object.to_f <=> b[:normalized_value].object.to_f }      
+      results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options))
+      results.sort! { |a,b| a[:normalized_value].object.to_f <=> b[:normalized_value].object.to_f }
       # TODO - we should probably check for taxon supercedure, here.
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
@@ -133,10 +133,14 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def ranges_of_values
+    debugger
     return [] unless should_show_clade_range_data
+    debugger
     return @ranges_of_values if defined?(@ranges_of_values)
+    debugger
     EOL::Sparql::Client.if_connection_fails_return({}) do
       results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
+      debugger    
         KnownUri.add_to_data(results)
         results.each do |result|
           [ :min, :max ].each do |m|
@@ -145,7 +149,7 @@ class TaxonData < TaxonUserClassificationFilter
             result[m].convert_units
         end
       end
-      @ranges_of_values = show_preferred_unit(results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) })
+      @ranges_of_values = results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }      
     end
   end
   
@@ -273,25 +277,22 @@ class TaxonData < TaxonUserClassificationFilter
       EOL::Sparql.connection.query(query)
     end
 
-    def prepare_range_query(options = {})
+def prepare_range_query(options = {})
       query = "
         SELECT ?attribute, ?measurementOfTaxon, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
           COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
-          MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
+          MIN(xsd:float(?normalized_value)) as ?min, MAX(xsd:float(?normalized_value)) as ?max, ?unit_of_measure_uri
         WHERE {
           ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-          ?t dwc:parentNameUsageID+ ?parent_taxon .
           ?t dwc:taxonConceptID ?descendant_concept_id .
           ?occurrence dwc:taxonID ?taxon .
           ?taxon dwc:taxonConceptID ?descendant_concept_id .
           ?data_point_uri dwc:occurrenceID ?occurrence .
           ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
           ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value .
-          OPTIONAL {
-            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
-          }
-          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
+          ?data_point_uri dwc:measurementValue ?value .          
+          ?data_point_uri eolterms:normalizedValue ?normalized_value .
+          ?data_point_uri eolterms:normalizedUnit ?unit_of_measure_uri
         }
         GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
         ORDER BY DESC(?min)"

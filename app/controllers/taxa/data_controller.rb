@@ -5,7 +5,6 @@ class Taxa::DataController < TaxaController
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :load_data
   before_filter :load_glossary
-  before_filter :add_page_view_log_entry
 
   # GET /pages/:taxon_id/data/index
   def index

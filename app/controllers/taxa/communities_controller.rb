@@ -1,7 +1,6 @@
 class Taxa::CommunitiesController < TaxaController
 
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry
 
   def index
     @communities = @taxon_concept.communities

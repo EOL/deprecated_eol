@@ -1,7 +1,6 @@
 class Taxa::MediaController < TaxaController
 
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry
 
   def index
     # NOTE - whitelisting the params. Don't be lazy and just pass params, here!

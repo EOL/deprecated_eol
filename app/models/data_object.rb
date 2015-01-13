@@ -79,6 +79,7 @@ class DataObject < ActiveRecord::Base
   after_create :clean_values
 
   scope :images, -> { where(data_type_id: DataType.image.id) }
+  scope :texts,  -> { where(data_type_id: DataType.text.id) }
 
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
@@ -1172,6 +1173,15 @@ class DataObject < ActiveRecord::Base
     AgentsDataObject.where(data_object_id: id).destroy_all
     DataObjectsTaxonConcept.where(data_object_id: id).destroy_all
     DataObjectsTableOfContent.where(data_object_id: id).destroy_all
+  end
+  def self.same_as_last?(params, options)
+    last_dato = DataObject.texts.last
+    return false unless last_dato
+    return  UsersDataObject.find_by_data_object_id( last_dato.id ).user_id == options[:user][:id] &&
+            options[:taxon_concept][:id] == UsersDataObject.find_by_data_object_id( last_dato.id ).taxon_concept_id &&
+            params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&
+            (params[:data_object][:object_title] == last_dato.object_title ||
+            params[:data_object][:description] == last_dato.description) 
   end
 
 private

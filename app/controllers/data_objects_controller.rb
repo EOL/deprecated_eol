@@ -49,6 +49,10 @@ class DataObjectsController < ApplicationController
     @references = params[:references] # we'll need these if validation fails and we re-render new
     raise I18n.t(:dato_create_user_text_missing_user_exception) if current_user.nil?
     raise I18n.t(:dato_create_user_text_missing_taxon_id_exception) if @taxon_concept.blank?
+    if DataObject.same_as_last?(params, user: current_user,taxon_concept: @taxon_concept )
+      flash[:notice] = I18n.t(:duplicate_text_warning)
+      self.new && return
+    end
     @data_object = DataObject.create_user_text(params[:data_object], user: current_user,
                                                taxon_concept: @taxon_concept, toc_id: toc_id,
                                                link_type_id: link_type_id, link_object: params[:commit_link])

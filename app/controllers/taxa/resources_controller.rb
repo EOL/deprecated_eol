@@ -1,6 +1,6 @@
 class Taxa::ResourcesController < TaxaController
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :link_objects_contents
+  before_filter :link_objects_contents
   before_filter :show_add_link_buttons
 
   def index

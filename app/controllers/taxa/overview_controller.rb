@@ -4,9 +4,8 @@ class Taxa::OverviewController < TaxaController
 
   before_filter :instantiate_taxon_page,
     :redirect_if_superceded,
-    :instantiate_preferred_names,
-    :add_page_view_log_entry
-
+    :instantiate_preferred_names
+    
   def show
     with_master_if_curator do
       @overview = @taxon_page.overview

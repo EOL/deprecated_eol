@@ -1,6 +1,6 @@
 class Taxa::LiteratureController < TaxaController
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry, :literature_links_contents
+  before_filter :literature_links_contents
 
   def show
     @references = Ref.find_refs_for(@taxon_concept.id)

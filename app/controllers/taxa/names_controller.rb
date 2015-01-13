@@ -1,7 +1,6 @@
 class Taxa::NamesController < TaxaController
 
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry
   before_filter :set_vet_options, only: [:common_names, :vet_common_name]
   before_filter :authentication_for_names, only: [ :create, :update, :delete ]
   before_filter :load_hierarchy_entries, only: [ :related_names, :common_names, :synonyms ]

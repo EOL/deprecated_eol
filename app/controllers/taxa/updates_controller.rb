@@ -1,6 +1,5 @@
 class Taxa::UpdatesController < TaxaController
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :add_page_view_log_entry
 
   def index
     @assistive_section_header = I18n.t(:assistive_updates_header)

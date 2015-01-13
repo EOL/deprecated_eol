@@ -30,7 +30,6 @@ class CreateEolLogging < EOL::LoggingMigration
     connection.drop_table "curator_activity_logs"
     connection.drop_table "external_link_logs"
     connection.drop_table "ip_addresses"
-    connection.drop_table "page_view_logs"
     connection.drop_table "search_logs"
     connection.drop_table "translated_activities"
     connection.drop_table "user_activity_logs"

@@ -156,10 +156,6 @@ private
     end
   end
 
-  def add_page_view_log_entry
-    PageViewLog.create(user: current_user, agent: current_user.agent, taxon_concept: @taxon_concept)
-  end
-
   def get_new_text_tocitem_id(category_id)
     if category_id && toc = TocItem.find_by_id(category_id)
       return category_id if toc.allow_user_text?

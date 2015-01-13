@@ -58,18 +58,29 @@ protected
   
   #0 for life stage and 1 for gender
   def sort_data (results)
-    debugger
-    results.sort_by {|a| [a.context_labels[0].to_s, a.context_labels[1].to_s]}   
-   # results.sort do |a,b|      
-   #   if a.context_labels[flag] && b.context_labels[flag] 
-   #     a.context_labels[flag] <=> b.context_labels[flag]
-   #   else
-   #     a.context_labels[flag] ? -1 : 1
-   #   end
-   # end    
-   # results
+    sort_by_life_stage(sort_by_gender(results))
   end
-
+  
+  def sort_by_gender(results)        
+    results.sort_by do |a|
+      a.context_labels[1].to_s.blank? ? 255.chr : a.context_labels[1].to_s 
+    end
+  end
+  
+  def sort_by_life_stage(results)    
+    results.sort do |a,b|      
+      if !a.context_labels[1].to_s.blank? && !b.context_labels[1].to_s.blank? && a.context_labels[1].to_s == b.context_labels[1].to_s
+        if !a.context_labels[0].to_s.blank? && !b.context_labels[0].to_s.blank?
+          a.context_labels[0].to_s <=> b.context_labels[0].to_s
+        else
+          a.context_labels[0].to_s.blank? ? 1 : -1
+        end
+      else
+        (a.context_labels[1].to_s.blank? ? 255.chr : a.context_labels[1].to_s) <=> (b.context_labels[1].to_s.blank? ? 255.chr : b.context_labels[1].to_s)
+      end
+    end
+  end
+  
   def load_glossary
     @glossary_terms = @data_point_uris ?
       ( @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri) +

@@ -259,12 +259,13 @@ describe CollectionJob do
   end
 
   it 'should reindex solr after a copy items' do
-    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection_items).once.and_return(true) # Sadly, we can't tell what args will be passed in here...
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection).with(@target).and_return(true) # Sadly, we can't tell what args will be passed in here...
     CollectionJob.new(command: 'copy', user: @user, collection: @source, collections: [@target], collection_item_ids: [@source_collection.id]).run
   end
 
   it 'should reindex solr after a move items' do
-    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection_items).with([@source_collection]).and_return(true)
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection).with(@source).and_return(true)
+    EOL::Solr::CollectionItemsCoreRebuilder.should_receive(:reindex_collection).with(@target).and_return(true)
     CollectionJob.new(command: 'move', user: @user, collection: @source, collections: [@target], collection_item_ids: [@source_collection.id]).run
   end
 
@@ -275,5 +276,10 @@ describe CollectionJob do
 
   it 'should be able to copy to multiple target collections'
   it 'should be able to move to multiple target collections'
+  
+  it "should update collection_items_count after a remove all" do    
+    Collection.any_instance.should_receive(:update_attributes).with({ :collection_items_count => 0 })
+    all_item_job('remove').run
+  end
 
 end

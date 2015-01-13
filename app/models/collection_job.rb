@@ -147,20 +147,18 @@ private
 
   def reindex(affected)
     if remove?
+      # update collection items count
+      collection.update_attributes(collection_items_count: collection.collection_items.count)
       if all_items?
-        EOL::Solr::CollectionItemsCoreRebuilder.remove_collection(collection)
+        EOL::Solr::CollectionItemsCoreRebuilder.remove_collection(collection)        
       else
         EOL::Solr::CollectionItemsCoreRebuilder.remove_collection_items(collection_items)
       end
-    else # move/copy
-      if ! all_items?
-        EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items(affected)
-      else
-        EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection) unless copy?
-        if target_needed?
-          collections.each do |target_collection|
-            EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(target_collection)
-          end
+    else # move/copy      
+      EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection) unless copy?
+      if target_needed?
+        collections.each do |target_collection|
+          EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(target_collection)
         end
       end
     end

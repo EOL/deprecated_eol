@@ -277,9 +277,9 @@ describe CollectionJob do
   it 'should be able to copy to multiple target collections'
   it 'should be able to move to multiple target collections'
   
-  # it "should update collection_items_count after a remove all" do    
-    # Collection.any_instance.should_receive(:update_attributes).with({ :collection_items_count => 0 })
-    # all_item_job('remove').run
-  # end
+  it "should update collection_items_count after a remove all" do    
+    Collection.any_instance.should_receive(:update_attributes).with({ :collection_items_count => 0 })
+    all_item_job('remove').run
+  end
 
 end

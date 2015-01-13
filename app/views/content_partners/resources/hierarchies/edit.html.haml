@@ -10,7 +10,7 @@
       = I18n.t("content_partner_resource_hierarchy_#{en_browsable_status}")
 
     %p.help_text
-      - text = I18n.t(:content_partner_resource_hierarchy_complete_false))
+      - text = I18n.t(:content_partner_resource_hierarchy_complete_false)
       - if @hierarchy.complete
         - text = I18n.t(:content_partner_resource_hierarchy_complete_true)
       = text
@@ -41,4 +41,3 @@
     %fieldset.actions
       = hierarchy_form.submit I18n.t("helpers.submit.hierarchy.update")
       = link_to I18n.t(:cancel), params[:return_to]
-

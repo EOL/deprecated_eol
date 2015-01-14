@@ -132,15 +132,11 @@ class TaxonData < TaxonUserClassificationFilter
     ! ranges_of_values.empty?
   end
 
-  def ranges_of_values
-    debugger
-    return [] unless should_show_clade_range_data
-    debugger
+  def ranges_of_values    
+    return [] unless should_show_clade_range_data    
     return @ranges_of_values if defined?(@ranges_of_values)
-    debugger
     EOL::Sparql::Client.if_connection_fails_return({}) do
-      results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
-      debugger    
+      results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}                
         KnownUri.add_to_data(results)
         results.each do |result|
           [ :min, :max ].each do |m|
@@ -284,6 +280,7 @@ def prepare_range_query(options = {})
           MIN(xsd:float(?normalized_value)) as ?min, MAX(xsd:float(?normalized_value)) as ?max, ?unit_of_measure_uri
         WHERE {
           ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?t dwc:parentNameUsageID+ ?parent_taxon .
           ?t dwc:taxonConceptID ?descendant_concept_id .
           ?occurrence dwc:taxonID ?taxon .
           ?taxon dwc:taxonConceptID ?descendant_concept_id .
@@ -293,6 +290,7 @@ def prepare_range_query(options = {})
           ?data_point_uri dwc:measurementValue ?value .          
           ?data_point_uri eolterms:normalizedValue ?normalized_value .
           ?data_point_uri eolterms:normalizedUnit ?unit_of_measure_uri
+          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
         }
         GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
         ORDER BY DESC(?min)"

@@ -132,8 +132,8 @@ class TaxonData < TaxonUserClassificationFilter
     ! ranges_of_values.empty?
   end
 
-  def ranges_of_values    
-    return [] unless should_show_clade_range_data    
+  def ranges_of_values
+    return [] unless should_show_clade_range_data
     return @ranges_of_values if defined?(@ranges_of_values)
     EOL::Sparql::Client.if_connection_fails_return({}) do
       results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}                

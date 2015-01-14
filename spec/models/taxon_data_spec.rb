@@ -20,7 +20,8 @@ describe TaxonData do
     @data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id)
     @test_pred = "http://purl.obolibrary.org/obo/UO_0000016"
     @test_pred_ranges = "http://purl.obolibrary.org/obo/UO_0000009"
-    @kilogram_uri = "http://purl.obolibrary.org/obo/UO_0000009"
+    @kilogram_uri = "http://purl.obolibrary.org/obo/UO_0000009"    
+    load_scenario_with_caching(:testy)       
   end
 
   let(:mock_row) { { data_point_uri: @data_point_uri.uri } }
@@ -96,9 +97,9 @@ describe TaxonData do
   it 'should return the entered data with the normalized units' do
     search_options = {querystring: "", attribute: @test_pred, min_value: nil, max_value: nil, unit: nil, sort: "desc",       
       taxon_concept: nil, page: 1, per_page: 30}
-    instance = DataMeasurement.new(predicate: @test_pred, object: "10", resource: @resource, subject: @taxon_concept, normalizedValue: "10000")
+    instance = DataMeasurement.new(predicate: @test_pred, object: "100", resource: @resource, subject: @taxon_concept, normalized_value: "10000")
     instance.add_to_triplestore
-    instance = DataMeasurement.new(predicate: @test_pred, object: "1", resource: @resource, subject: @taxon_concept, normalizedValue: "1000")
+    instance = DataMeasurement.new(predicate: @test_pred, object: "10", resource: @resource, subject: @taxon_concept, normalized_value: "1000")
     instance.add_to_triplestore
     TaxonData.search(search_options).length.should == 2
   end
@@ -107,21 +108,49 @@ describe TaxonData do
     search_options = {querystring: "", attribute: @test_pred, min_value: nil, max_value: nil, unit: nil, sort: "desc",       
       taxon_concept: nil, page: 1, per_page: 30}    
     len = TaxonData.search(search_options).length  
-    instance = DataMeasurement.new(predicate: @test_pred, object: "10", resource: @resource, subject: @taxon_concept)
+    instance = DataMeasurement.new(predicate: @test_pred, object: "100", resource: @resource, subject: @taxon_concept)
     instance.add_to_triplestore
-    instance = DataMeasurement.new(predicate: @test_pred, object: "1", resource: @resource, subject: @taxon_concept)
+    instance = DataMeasurement.new(predicate: @test_pred, object: "10", resource: @resource, subject: @taxon_concept)
     instance.add_to_triplestore
     TaxonData.search(search_options).length.should == len
   end
   
-  it 'should show the right range if they are with the same unit' do
-    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "10", resource: @resource, subject: @taxon_concept, normalized_value: "10", 
+  it 'should have range if they are entered with same predicate with different values' do
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc.should_receive(:number_of_descendants).and_return(100)    
+    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "10", resource: @resource, subject: tc, normalized_value: "10", 
       normalized_unit: @kilogram_uri, unit: @kilogram_uri)
     instance.add_to_triplestore
-    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "100", resource: @resource, subject: @taxon_concept, normalized_value: "100", 
+    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "100", resource: @resource, subject: tc, normalized_value: "100", 
       normalized_unit: @kilogram_uri, unit: @kilogram_uri)
-    instance.add_to_triplestore    
-    taxon_data.has_range_data.should == true
+    instance.add_to_triplestore
+    taxon_data_new = TaxonData.new(tc)
+    taxon_data_new.has_range_data.should == true
+  end
+  
+  it 'should show min value in the range' do
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc.should_receive(:number_of_descendants).and_return(100)    
+    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "10", resource: @resource, subject: tc, normalized_value: "10", 
+      normalized_unit: @kilogram_uri, unit: @kilogram_uri)
+    instance.add_to_triplestore
+    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "100", resource: @resource, subject: tc, normalized_value: "100", 
+      normalized_unit: @kilogram_uri, unit: @kilogram_uri)
+    instance.add_to_triplestore
+    taxon_data_new = TaxonData.new(tc)
+    taxon_data_new.ranges_of_values[0][:min].object.should == 10.0
   end
 
+  it 'should show max value in the range' do
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc.should_receive(:number_of_descendants).and_return(100)    
+    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "10", resource: @resource, subject: tc, normalized_value: "10", 
+      normalized_unit: @kilogram_uri, unit: @kilogram_uri)
+    instance.add_to_triplestore
+    instance = DataMeasurement.new(predicate: @test_pred_ranges, object: "100", resource: @resource, subject: tc, normalized_value: "100", 
+      normalized_unit: @kilogram_uri, unit: @kilogram_uri)
+    instance.add_to_triplestore
+    taxon_data_new = TaxonData.new(tc)
+    taxon_data_new.ranges_of_values[0][:max].object.should == 100.0
+  end
 end

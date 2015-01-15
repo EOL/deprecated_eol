@@ -279,8 +279,7 @@ def prepare_range_query(options = {})
           COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
           MIN(xsd:float(?normalized_value)) as ?min, MAX(xsd:float(?normalized_value)) as ?max, ?unit_of_measure_uri
         WHERE {
-          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-          ?t dwc:parentNameUsageID+ ?parent_taxon .
+          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .          
           ?t dwc:taxonConceptID ?descendant_concept_id .
           ?occurrence dwc:taxonID ?taxon .
           ?taxon dwc:taxonConceptID ?descendant_concept_id .
@@ -289,8 +288,7 @@ def prepare_range_query(options = {})
           ?data_point_uri dwc:measurementType ?attribute .
           ?data_point_uri dwc:measurementValue ?value .          
           ?data_point_uri eolterms:normalizedValue ?normalized_value .
-          ?data_point_uri eolterms:normalizedUnit ?unit_of_measure_uri
-          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
+          ?data_point_uri eolterms:normalizedUnit ?unit_of_measure_uri          
         }
         GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
         ORDER BY DESC(?min)"

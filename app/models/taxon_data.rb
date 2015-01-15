@@ -136,7 +136,7 @@ class TaxonData < TaxonUserClassificationFilter
     return [] unless should_show_clade_range_data
     return @ranges_of_values if defined?(@ranges_of_values)
     EOL::Sparql::Client.if_connection_fails_return({}) do
-      results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}                
+      results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
         KnownUri.add_to_data(results)
         results.each do |result|
           [ :min, :max ].each do |m|
@@ -145,7 +145,7 @@ class TaxonData < TaxonUserClassificationFilter
             result[m].convert_units
         end
       end
-      @ranges_of_values = results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }      
+      @ranges_of_values = results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) }
     end
   end
   

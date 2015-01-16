@@ -124,7 +124,7 @@ class TaxonDataSet
     set = []
     data_point_uris.each do |dpuri|
       set << dpuri unless set.any? do |d|
-        d.taxon_concept == dpuri.taxon_concept &&
+        d.taxon_concept_id == dpuri.taxon_concept_id &&
           d.uri == dpuri.uri &&
           d.predicate == dpuri.predicate &&
           d.object == dpuri.object

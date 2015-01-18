@@ -9,8 +9,7 @@ describe Taxa::DataController do
     @full = FactoryGirl.create(:curator)
     @master = FactoryGirl.create(:master_curator)
     @admin = User.gen(:admin => true)
-    @taxon_concept = build_taxon_concept    
-    #########################    
+    @taxon_concept = build_taxon_concept
     pred = "http://purl.obolibrary.org/obo/UO_0000009"
     m_unit = "http://purl.obolibrary.org/obo/UO_0000009"
     res = Resource.find(2)

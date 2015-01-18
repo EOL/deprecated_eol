@@ -47,7 +47,7 @@ protected
 
   def load_data
     # Sad that we need to load all of this for the about and glossary tabs, but TODO - we can cache this, later:
-    @taxon_data = @taxon_page.data
+    @taxon_data = @taxon_page.data    
     @range_data = @taxon_data.ranges_of_values
     @data_point_uris = sort_data(@taxon_page.data.get_data)
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
@@ -57,28 +57,32 @@ protected
   end
   
   #0 for life stage and 1 for gender
-  def sort_data (results)
-    sort_by_life_stage(sort_by_gender(results))
-  end
-  
-  def sort_by_gender(results)        
-    results.sort_by do |a|
-      a.context_labels[1].to_s.blank? ? 255.chr : a.context_labels[1].to_s 
-    end
-  end
-  
-  def sort_by_life_stage(results)    
-    results.sort do |a,b|      
-      if !a.context_labels[1].to_s.blank? && !b.context_labels[1].to_s.blank? && a.context_labels[1].to_s == b.context_labels[1].to_s
-        if !a.context_labels[0].to_s.blank? && !b.context_labels[0].to_s.blank?
-          a.context_labels[0].to_s <=> b.context_labels[0].to_s
-        else
-          a.context_labels[0].to_s.blank? ? 1 : -1
-        end
-      else
-        (a.context_labels[1].to_s.blank? ? 255.chr : a.context_labels[1].to_s) <=> (b.context_labels[1].to_s.blank? ? 255.chr : b.context_labels[1].to_s)
+  def sort_data (results)       
+    results.data_point_uris.sort do |a, b|      
+      if a.context_labels[1].to_s == b.context_labels[1].to_s && a.context_labels[0].to_s == b.context_labels[0].to_s
+        if !a.statistical_method.to_s.blank? && !b.statistical_method.to_s.blank?          
+          get_position(a.statistical_method.to_s) <=> get_position(b.statistical_method.to_s)
+        else          
+          a.statistical_method.to_s.blank? ? 1 : -1
+        end 
+      elsif a.context_labels[1].to_s == b.context_labels[1].to_s
+        sort_life_stage(a,b)
+      else        
+        (a.context_labels[1].to_s.blank? ? 255.chr : a.context_labels[1].to_s) <=> (b.context_labels[1].to_s.blank? ? 255.chr : b.context_labels[1].to_s)  
       end
     end
+  end
+
+  def sort_life_stage (a,b)    
+    if !a.context_labels[0].to_s.blank? && !b.context_labels[0].to_s.blank?      
+      a.context_labels[0].to_s <=> b.context_labels[0].to_s
+    else      
+      a.context_labels[0].to_s.blank? ? 1 : -1
+    end    
+  end
+  
+  def get_position(uri)
+    KnownUri.find_by_uri(uri)[:position]
   end
   
   def load_glossary

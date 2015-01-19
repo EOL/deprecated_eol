@@ -6,6 +6,7 @@
 # Author: Giro720
 # Author: GoEThe
 # Author: Hamilton Abreu
+# Author: Imperadeiro90
 # Author: Imperadeiro98
 # Author: Leosls
 # Author: Luckas
@@ -961,19 +962,19 @@ pt:
   notifier:
     activity_log_empty: Nenhuma ação recente pelos curadores.
     activity_user_marked_data_object_as_trusted_for_taxon_on_date: |-
-      %{users_name} (%{users_url}) marcou como de confiança:
+      %{curator_level} %{users_name} (%{users_url}) marcou como não confiável:
       %{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_on_date: |-
-      %{users_name} (%{users_url}) marcou como não confiável:
+      %{curator_level} %{users_name} (%{users_url}) marcou como não confiável:
       %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_untrusted_for_taxon_on_date: |-
-      %{users_name} (%{users_url}) marcou como não confiável:
+      %{curator_level} %{users_name} (%{users_url}) marcou como não confiável:
       %{object_name} (%{object_url}) para %{taxon_name} (%{taxon_url})
       %{action_date}.
     activity_user_marked_data_object_as_inappropriate_on_date: |-
-      %{users_name} (%{users_url}) marcou como inapropiado:
+      %{curator_level} %{users_name} (%{users_url}) marcou como inapropriado:
       %{object_name} (%{object_url})
       %{action_date}.
     comments_empty: Nenhum comentário recente.
@@ -984,7 +985,7 @@ pt:
 
       Equipe Enciclopédia da Vida
     user_commented_on_something_date_body: |-
-      %{users_name} (%{users_url}) comentou sobre:
+      %{curator_level} %{users_name} (%{users_url}) comentaram em:
       %{commented_on_name} (%{commented_on_url})
       %{comment_date}:
       %{comment_body}

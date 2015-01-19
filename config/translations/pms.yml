@@ -4160,4 +4160,133 @@ pms:
     an:'
   collection_move_choose_all_items_target_title: 'Tramudé tuti j''element da «%{collection}»
     a:'
+  collection_copy_choose_target_title_with_count:
+    one: 'Copié %{count} element da «%{collection}» a:'
+    other: 'Copié %{count} element da «%{collection}» a:'
+  collection_move_choose_target_title_with_count:
+    one: 'Tramudé %{count} element da «%{collection}» a:'
+    other: 'Tramudé %{count} element da «%{collection}» a:'
+  collection_name_cannot_be_blank: Ël nòm ëd na colession a peul pa esse veuid
+  collection_name_label: Nòm ëd la colession
+  collection_newsfeed: Fil ëd neuve dla colession
+  collection_not_created_error: An dëspias, a l'é ancapitaje n'eror, la colession
+    <em>%{collection_name}</em> a l'ha nen podù esse creà.
+  collection_not_destroyed_error: An dëspias, la colession a l'é nen ëstàita eliminà.
+  collection_not_found_error: An dëspias, a l'é nen trovasse cola colession.
+  collection_created_notice: La colession <em>%{collection_name}</em> a l'é stàita
+    creà për da bin.
+  collection_redindexed: Colession riandicisà.
+  collection_updated_notice: La colession <em>%{collection_name}</em> a l'é stàita
+    agiornà për da bin.
+  collection_was_removed_by_owner: La colession a l'é stàita gavà da sò propietari.
+  collection_not_updated_error: An dëspias, a-i é staje n'eror, la colession a l'ha
+    non podù esse agiornà.
+  collection_was_added_to_community: La colession «%{collection}» a l'é stàita giontà
+    a sa comunità.
+  community_can_now_manage_this_collection: La comunità «%{community}»a l'é adess
+    autorisà a gansé sa colession.
+  collections_filter: Colession
+  collections_link: Colession
+  collections_page_title: Colession
+  collections_summary_empty: Sa pàgina a fa ancor nen part ëd na colession.
+  collections_summary_header_with_count:
+    one: Present an %{count} colession
+    other: Present an %{count} colession
+  collections_with_count:
+    one: '%{count} colession'
+    other: '%{count} colession'
+  comment: Coment
+  comment_added_notice: Coment giontà për da bin.
+  comment_body_label: Sò coment
+  comment_created_at: Creà ai
+  comment_delete_confirm: É-lo sigur ëd vorèj dëscancelé ël coment?
+  comment_edit_by_javascript_not_authorized_error: An dëspias, chiel a l'ha nen ël
+    përmess ëd modifiché 's coment. Si chiel a l'é l'autor dël coment, për piasì ch'a
+    caria torna la pàgina e ch'a contròla d'esse rintrà ant ël sistema.
+  comment_or_rate_on_this_article: comenté o valuté cost artìcol
+  comment_or_rate_on_this_link: comenté o valuté costa liura
+  comment_not_added_error: An dëspias, a-i é staje n'eror, ël coment a l'ha nen podù
+    esse giontà.
+  comment_not_deleted_error: An dëspias, a-i é staje n'eror, ël coment a l'ha nen
+    podù esse dëscancelà.
+  comment_not_updated_error: An dëspias, a-i é staje n'eror, ël coment a l'ha nen
+    podù esse agiornà.
+  comment_new_title: Gionté un neuv coment
+  comment_new_posters_image_alt: Soa plancia ëd profil, s'a l'ha butane un-a.
+  comment_new_posters_image_advisory_info: Soa plancia ëd profil e sò nòm a compariran
+    da banda dij sò coment an sle liste.
+  comment_show_posters_image_alt: Plancia ëd profil ëd %{posters_name} ch'a l'ha fàit
+    cost'assion.
+  comments_and_tags: Coment e tichëtte
+  comments: Coment
+  comments_filter: Coment
+  comments_moderated: Coment moderà
+  comments_on: Coment a propòsit ëd
+  comments_page_title: Coment su %{parent}
+  comments_with_count:
+    one: '%{count} Coment'
+    other: '%{count} Coment'
+  common_activities_by_logged_in: Atività comun-e dj'utent rintrà ant ël sistema.
+  common_name_avg: Media dij nòm usuaj
+  common_name: Nòm usual
+  common_name_exists: Ël nòm comun <em>%{name_string}</em> a esist già
+  common_names_with_count:
+    one: '%{count} nòm comun'
+    other: '%{count} nòm comun'
+  common_user_activity_page_title: Atività comun-a dl'utent
+  communities_with_count:
+    one: '%{count} comunità'
+    other: '%{count} comunità'
+  communities_filter: Comunità
+  communities_link: Comunità
+  communities_page_title: Comunità
+  communities_index_empty: A-i é gnun-e comunità ative.
+  communities_index_header: Comunità ative
+  communities_that_can_edit_this_collection: Comunità ch'a peulo gansé costa colession
+  community: Comunità
+  community_activity: Atività dla comunità
+  community_contributions_with_count:
+    one: '%{count} contribussion'
+    other: '%{count} contribussions'
+  community_destroyed: A l'ha dëscancelà sa comunità. A comparirà pi nen ant le pàgine
+    ëd tassonomìa ni ant j'arsultà d'arserche.
+  community_description_default: Na comunità dl'Enciclopedìa dla Vita.
+  community_empty_notice: La comunita a l'ha gnun mèmber.
+  community_focus: Colession gansà
+  community_focus_items_with_count:
+    one: '%{count} element'
+    other: '%{count} element'
+  community_invitation_comment: I t'anvito a unite a "%{community}".
+  community_logo_alt_text: Marca për la comunità %{community_name}
+  community_managers_with_count:
+    one: '%{count} gestor ëd comunità'
+    other: '%{count} gestor ëd comunità'
+  community_members: Mèmber dla comunità
+  community_members_with_count:
+    one: '%{count} mèmber ëd la comunità'
+    other: '%{count} mèmber ëd la comunità'
+  community_name_label: Nòm ëd la comunità
+  community_newsfeed: Fluss ëd neuve ëd la comunità
+  community_no_longer_has_manager_access_to_collection: «%{community}» a l'ha pi nen
+    acess coma gestor a «%{collection}».
+  community_not_destroyed_error: An dëspias, a-i é staje un problema e la comunità
+    a l'é nen ëstàita dëscancelà.
+  community_tab_collections_header: Colession
+  community_tab_collections_description: Le colession a son creà da j'utent ëd l'EdV
+    për raduné dle spece, dij document multimediaj, dj'artìcoj o findi dij mèmber
+    che a l'han cheicòs an comun, tanme la geografìa, l'ecologìa o na rason përsonal.
+    Le comunità a peulo «sosten-e» dle colession che për lor a son d'anteresse o ëd
+    valor particolar.
+  community_tab_communities_description: Le comunità a son dle partìe d'utent ëd l'EdV
+    ch'as radun-o për partagé ij sò anteresse e soe competense. Le comunità EdV as
+    organiso dantorn a un-a o pi colession e a eufro ai sò mèmber na manera ëd consentresse
+    an s'dij soget d'anteresse comun. Pi d'anformassion an sle comunità EdV, comprèise
+    d'anstrussion për creé la soa, a son disponìbij an sla <a href='/info/communities'>pàgina
+    d'agiut</a>.
+  community_tab_curators_description: Ij conservator a son d'utent dl'EdV con na competensa
+    an biologìa e ch'a dédico na part ëd sò temp a controlé ëd contnù dl'EdV, për
+    esse sigur che lòn che chiel a vëdd a l'é giust e d'àuta qualità.
+  community_removed_by_owner: Sa comunità a l'é stàita gavà da sò propietari.
+  communities_summary_empty: Sa tassonomìa a l'é ancor nen ëstàita valorisà da gnun-a
+    comunità.
 ...

@@ -261,7 +261,7 @@ mk:
         title: Наслов
       user:
         agreed_with_terms: Договор за условите на употреба
-        api_key: API-клуч
+        api_key: Извршнички клуч
         bio: Био
         credentials: Полномоштва
         curator_level: Степен на кустоство
@@ -647,7 +647,7 @@ mk:
       user:
         agreed_with_terms: Се согласувам на <a href="%{terms_url}">условите на употреба</a>
         api_key_more: Прочитајте повеќе за <a href="%{api_docs_url}">додавањето на
-          клуч во вашите API-повици</a>.
+          клуч во вашите извршнички повици</a>.
         bio: За мене
         credentials: Полномоштва
         curation_priveleges_credentials: Полномоштва <small>(само полни и виши кустоси)</small>
@@ -673,7 +673,7 @@ mk:
         email_settings_submit: нагодувања за е-пошта
         email: Е-пошта
         entered_password: Лозинка <small>(4 - 16 знаци)</small>
-        generate_api_key: Побарај API-клуч
+        generate_api_key: Побарај извршнички клуч
         generate_api_key_more: Ако сте заинтересирани да го користите извршникот на
           EOL можете да создадете извршнички (API) клуч за рапознатливост на вашиот
           извршник. Повеќе за <a href="%{api_docs_url}">додавање на клуч на извршнчки
@@ -3847,7 +3847,7 @@ mk:
   cache_store: Чувалиште на меѓускладот
   caching_results: Меѓускладирање на резултати
   calculate_averages_slow: Пресметај просеци (бавно)
-  call_api: Повикај API
+  call_api: Повикај го извршникот
   cancel: Откажи
   cancel_and_delete: откажи и избриши
   cancel_split: Откажи
@@ -4824,17 +4824,17 @@ mk:
     има назнаката „5“). Името на страницата и првата слика (ако е на располагање)
     ќе бидат зачувани во резултатот.
   eol_administration_console: Административна конзола на EOL
-  eol_api_data_objects: 'EOL API: Податочни објекти'
-  eol_api_colon: 'EOL API:'
-  eol_api: API на EOL
+  eol_api_data_objects: 'Извршник на EOL: Податочни објекти'
+  eol_api_colon: 'Извршник на EOL:'
+  eol_api: Извршник на EOL
   eol_api_hierarchies: 'EOL API: Хиерархии'
   eol_api_hierarchy_entries: 'EOL API: Хиерархиски ставки'
-  eol_api_pages: 'EOL API: Страници'
+  eol_api_pages: 'Извршник на EOL: Страници'
   eol_api_ping: 'Извршник на EOL: Одѕивност'
-  eol_api_provider_hierarchies: 'EOL API: Добавувачки хиерархии'
+  eol_api_provider_hierarchies: 'Извршник на EOL: Добавувачки хиерархии'
   eol_api_search_by_provider: 'EOL API: Пребарување по добавувач'
-  eol_api_search: 'EOL API: Пребарување'
-  eol_api_collections: 'EOL API: Збирки'
+  eol_api_search: 'Извршник на EOL: Пребарување'
+  eol_api_collections: 'Извршник на EOL: Збирки'
   eol_colon: 'EOL:'
   eol_flickr_group: Група на EOL на Flickr
   eol_news: Новости
@@ -6620,7 +6620,7 @@ mk:
     one: Предложена %{count} статија од Википедија
     other: Предложени %{count} статии од Википедија
   new_uri_warning: Поимот што сакате да го додадете не се препорачува за EOL.
-  user_agent: Кориснички извршител
+  user_agent: Кориснички вршител
   user_already_active_notice: Вашата сметка е веќе активна. Најавете се.
   user_comments: Кориснички коментари
   user_comment: Кориснички коментар

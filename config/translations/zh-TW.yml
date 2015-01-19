@@ -4784,7 +4784,7 @@ zh-TW:
   user_activity_stats_wikipedia_nominated:
     one: 提名了 %{count} 篇維基百科文章
     other: 提名了 %{count} 篇維基百科文章
-  user_agent: 使用者代理人
+  user_agent: 使用者代理
   user_already_active_notice: 您的帳號已經啟動，請登入。
   user_comments: 使用者評論
   user_comment: 使用者評論

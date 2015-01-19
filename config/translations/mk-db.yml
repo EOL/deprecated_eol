@@ -138,10 +138,10 @@ mk:
   translated_ranks-label-rank_id-332: SP
   translated_ranks-label-rank_id-333: sp.
   translated_ranks-label-rank_id-335: вид
-  translated_ranks-label-rank_id-352: потфамилија
+  translated_ranks-label-rank_id-352: потсемејство
   translated_ranks-label-rank_id-370: поткласа
   translated_ranks-label-rank_id-375: пододдел
-  translated_ranks-label-rank_id-383: потфамилија
+  translated_ranks-label-rank_id-383: потсемејство
   translated_ranks-label-rank_id-390: subgen
   translated_ranks-label-rank_id-391: subgen.
   translated_ranks-label-rank_id-394: подрод
@@ -154,7 +154,7 @@ mk:
   translated_ranks-label-rank_id-414: subsp.
   translated_ranks-label-rank_id-415: подвид
   translated_ranks-label-rank_id-422: потплеме
-  translated_ranks-label-rank_id-463: натфамилија
+  translated_ranks-label-rank_id-463: натсемејство
   translated_ranks-label-rank_id-472: натколено
   translated_ranks-label-rank_id-494: племе
   translated_ranks-label-rank_id-503: нерангирано
@@ -172,7 +172,7 @@ mk:
   translated_ranks-label-rank_id-86: f.
   translated_ranks-label-rank_id-91: fam
   translated_ranks-label-rank_id-92: fam.
-  translated_ranks-label-rank_id-99: фамилија
+  translated_ranks-label-rank_id-99: семејство
   translated_resource_statuses-label-resource_status_id-10: Објавено
   translated_resource_statuses-label-resource_status_id-11: Објавувањето е во исчекување
   translated_resource_statuses-label-resource_status_id-12: Отстранувањето на објавеното

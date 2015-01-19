@@ -491,6 +491,7 @@ it:
         object_title: Titolo
         toc_item: Sottocapitolo
         refs: Riferimenti <small>(mettere ogni riferimento su una nuova riga)</small>
+        refs_order: '*I riferimenti vengono mostrati in ordine alfabetico'
         rights_holder: Detentore dei diritti
         rights_holder_more: Specifica una persona o un'organizzazione  proprietaria
           o gestore dei diritti di questi dati. Se si lascia vuoto questo campo, si
@@ -531,6 +532,7 @@ it:
         taxon_name_more: Ad esempio, immetti Trochilidae o Balene. SOLO le selezioni
           dal menù a discesa saranno usate, non modificare il testo senza selezionare
           un risultato.
+        taxa_found: Taxa Trovati
         total_results: 'Totale risultati: %{total}'
         unit: Unità di misura
       eol_statistic:
@@ -4741,6 +4743,9 @@ it:
   your_current_rating_5_of_5: 'La tua valutazione attuale è: 5 su 5'
   your_watch_collection: La tua lista di controllo
   current_language: 'Lingua: %{iso_code}'
+  current_harvest_event: La festa del raccolto da "%{resource_title}" è durata "%{period}"
+    ore
+  currently_running_harvesting: Raccolta Attualmente in Corso
   currently_in_eol: Attualmente in Encyclopedia of Life
   currently_published: attualmente pubblicato
   daily: Giornaliero

@@ -341,7 +341,7 @@ zh-CN:
         data_object:
           attributes:
             rights_holder:
-              blank: CC-BY许可协议不能为空
+              blank: CC BY许可协议不能为空
               inclusion: 公共领域授权协议必需为空
         harvest_event:
           attributes:
@@ -362,7 +362,7 @@ zh-CN:
               inaccessible: 无法访问，该URL必需可以公开访问
               invalid: 无效，它应指向一个XML、XML.GZIP、XML.GZ或ZIP文件
             dataset:
-              blank: 不能为空，除非你提供一个数据集URL
+              blank: 不能为空，除非您提供一个数据集URL
               wrong_type: 类型错误，它应该是一个GZIP、TAR、ZIP或XML文件
             dwc_archive_url:
               inaccessible: 无法访问，该URL必需可以公开访问
@@ -371,10 +371,10 @@ zh-CN:
           attributes:
             predicate:
               must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
-              namespace: 使用的是未确认的命名空间
+              namespace: 使用的是未确认的名字空间
             subject:
               must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
-              namespace: 使用的是未确认的命名空间
+              namespace: 使用的是未确认的名字空间
         user_added_data_metadata:
           attributes:
             predicate:
@@ -571,7 +571,7 @@ zh-CN:
         credentials_more_academic: 在相关学院或大学教研室的教师、 工作人员或研究生身份
         credentials_more_author: 同行评审的出版物的著作权（提供参考）。
         credentials_more_professional: 一个专业社区的会员。
-        credentials_more_successful_assistant_curator: 助理管理员的工作业绩
+        credentials_more_successful_assistant_curator: 助理管理员的工作业绩。
         credentials_more_referral: 现任管理员的推荐。
         curation_application: 成为管理员
         curation_application_more: 如果您希望更改您的管理权限，请提交一个申请，然后等待我们的审核。
@@ -656,7 +656,7 @@ zh-CN:
         update: 更新新闻项目
       open_authentication:
         create: 连接
-        destroy: 断线
+        destroy: 断开连接
         update: 确认连接
       resource:
         create: 添加资源
@@ -690,7 +690,7 @@ zh-CN:
       wikipedia_queue:
         create: 提交请求
   will_paginate:
-    next_label: 下一条&#8594;
+    next_label: 下一条
     page_gap: '&hellip;'
     previous_label: '&#8592; 前一条'
   datepicker:
@@ -957,7 +957,7 @@ zh-CN:
       create: 创建一个分类
       edit: 编辑分类
       create_successful: 已成功创建分类
-      create_failed: 抱歉，发生了一个错误，此分类不能被添加。
+      create_failed: 抱歉，发生了一个错误，此分类不能被添加
       update_successful: 已成功更新分类
       update_failed: 抱歉，出现了一个错误，分类无法更新。
       delete_successful: 已成功删除分类
@@ -1012,7 +1012,8 @@ zh-CN:
     name_placeholder_text: 例如：参与者
     definition_placeholder_text: 例如：一个有责任对资源做出贡献的实体。
     comment_placeholder_text: 例如：一个贡献者的例子包括个人、 组织机构或一项服务。
-    attribution_placeholder_text: 源于都柏林核心的例子 ；请参阅 http://dublincore.org/usage/terms/history/#contributorT-001。
+    attribution_placeholder_text: 例如：来自都柏林核心；请参阅 http://dublincore.org/usage/terms/history/#contributorT-001
+      。
     ontology_information_url_placeholder_text: 例如 http://dublincore.org/documents/dcmi-terms/
     ontology_source_url_placeholder_text: 例如 http://dublincore.org/2012/06/14/dcterms.rdf
     select_a_preferred_uri_for_this_group: 选择一个更好的 URI
@@ -1071,7 +1072,7 @@ zh-CN:
       questions_link_biological_classification: 生物分类是什么？
       questions_link_invasive_species: 外来物种是什么？
       questions_link_indicator_species: 指标物种是什么？
-      questions_link_model_organism: 模式物种是什么？
+      questions_link_model_organism: 模式生物是什么？
       questions_link_contributing_to_research: 我可以为研究做什么？
     data_search:
       page_header: 搜索TraitBank
@@ -1380,7 +1381,7 @@ zh-CN:
       meta_title: 登录
       problems_signing_in_with_connected_accounts: 与您关联账户的登录问题？
       problems_signing_in_with_eol_authentication: 忘记密码？
-      tip: 现有使用者吗？在您的个人资料设定中将您的 EOL 帐户与 Facebook、 谷歌等连接到一起。一旦连接成功，您可以使用它们来登录到 EOL。
+      tip: 现有用户么？在您的个人资料设定中将您的 EOL 帐户与 Facebook、Google等连接到一起。一旦连接成功，您可以使用它们来登录到 EOL。
   taxa:
     communities:
       index:
@@ -1871,7 +1872,7 @@ zh-CN:
       yahoo: Yahoo!
     pending:
       header: 感谢您注册 ！
-      verify_email_instructions: <strong>请确认您的电子邮件地址</strong>。一条确认短信已发送至您所提供的电子邮件地址。要完成注册过程并成为
+      verify_email_instructions: <strong>请确认您的电子邮件地址</strong>。一条确认消息已发送至您所提供的电子邮件地址。要完成注册过程并成为
         EOL 成员，请单击包含在该电子邮件中的链接地址。谢谢！
       verify_email_tip: 请注意帐户激活电子邮件<em>经常</em>被电子邮件过滤器标记为垃圾邮件。如果您在一个小时内没有收到该邮件，检查您的垃圾邮件文件夹。
     recover_account:
@@ -2402,6 +2403,7 @@ zh-CN:
         user_curated_data_object: <strong>%{user}</strong> 管理了 “%{data_object}”。
         an_unknown_user_curated_it: 一个未知用户做了管理，但确切的管理操作已丢失。
         user_curated_it: '"<strong>%{user}</strong> 管理了它, 但确切的管理操作已丢失。"'
+  a_maximum_of_30_results_are_returned: 每页面返回了最多30个结果。此参数允许您获取更多结果页面，如果有超过30次匹配
   activity_log_empty: 暂无人提供更新。
   activity_user_created_data: <strong>%{user}</strong>加入有关“%{object_name}”的数据至“%{taxon_concept}”。
   activity_user_created_link: <strong>%{user}</strong>在“%{taxon_concept}”加入至“%{object_name}”的连接。
@@ -2584,7 +2586,7 @@ zh-CN:
   any_string: 任何字符串
   api_docs_collections_description: 给收藏一个标识符，此API将返回所有关于收藏和它包含的条目的元数据。条目列表可按条目类型筛选，并按上面列出的属性排序。
   a_pipe_delimited_list_of_licenses: '"一个用""|""符号分隔的协议列表，或是用""all""表示任意协议。任意协议是指所有缩写为""cc-""的协议"'
-  a_pipe_delimited_list_of_spm_info_item_subject_names: '"一个用""|""符号分隔的SPM信息项主题列表，或是用""all""表示任意主题。"'
+  a_pipe_delimited_list_of_spm_info_item_subject_names: “概述”以返回概述文本（如果存在），来自%{subjects_text}列表（例如TaxonBiology、FossilHistory）的对象名称的竖线（“|”）分隔列表，或“所有”以获得任何对象中的文本。总是返回作为首条结果的一段概述文本（如果提供的上下文存在）。
   application_version_advisory_information: 应用程序版本
   are_you_sure: 您确定吗？
   are_you_sure_this_action_cannot_be_undone: 您确定吗？本次操作不能恢复。
@@ -2736,7 +2738,7 @@ zh-CN:
   clear_all_non_species_pages: 清除所有的非物种页
   clear_entire_cache_store: 清除整个缓存
   clear_species_page: 清除物种页
-  cms_available_in_languages: 该页可用的语言版本为：
+  cms_available_in_languages: 该页面可用的语言版本为：
   cms_editor: CMS编辑器
   cms_missing_content_title: 无翻译
   cms_missing_content_message: 抱歉，此页面在您选择的语言%{selected_language}下不可用。
@@ -3095,6 +3097,10 @@ zh-CN:
   curated_objects_of: 已管理的%{name}的数据项
   curated_species_of: 已管理的%{name}物种
   curation_comment: 管理评论
+  curation_error_no_hide_reasons_given: 请在%{association}页面选择隐藏这个的原因，或者留下一条反馈以注明您为何隐藏它
+  curation_error_no_untrust_reasons_given: 请在%{association}页面选择不信任这个的原因，或者留下一条反馈以注明您为何不信任它
+  curation_error_untrust_reasons_invalid: 不信任%{association}的原因无效
+  curation_error_hide_reasons_invalid: 隐藏%{association}的原因无效
   curation_privileges_page_description: '"选择您想申请的管理等级：助理管理员，专业管理员，高级管理员。若想申请后两者，您必须提供您的专业领域和资历信息，一旦您的信息被审核通过，我们将通过email通知您。助理管理员的申请可以立即通过。了解更多<a
     href=""%{curators_url}"">成为一名管理员</a>。"'
   curation_privileges_page_title: 成为管理员
@@ -3196,6 +3202,7 @@ zh-CN:
       search_tools_show_link: 显示搜索选项
       search_tools_hide_link: 隐藏搜索选项
       sort_header: 排序结果
+  data_search_attribute: 在TraitBank搜索带%{attribute}数据的记录
   data_show_n_more_rows: 展示NNN更多......
   data_subtab_about: 关于
   data_subtab_glossary: '%{taxon}的术语表'
@@ -3493,7 +3500,8 @@ zh-CN:
   content_upload_restrictions_note: '"(须小于10MB,上传文件将原样保存，比如，图像尺寸不能更改)"'
   id: ID
   if_checked_and_user_is_saved: 如果用户选择此项并保存，则相关的资历认证、专业范围、审批和已选项都将被移除，并且用户不显示为管理员。您应给出与此有关的说明。没有信息反馈给此用户。
-  if_the_details_parameter_is_not_set: 如果没有设置详细参数，则只返回数据项标识符和数据类型，以文章为例，将只返回主题。数据类型可以是%{linka}资源类型词汇。文本主题可以是%{linkb}本体项。
+  if_the_details_parameter_is_not_set: 如果没有设置“details”参数，则只返回数据对象标识符、数据类型，以及在文章案例中，将返回主题。数据类型将会是来自
+    %{linka} 资源类型词汇中的值。文本主题将会是 %{linkb} 之一。
   check_this_to_browse_eol_by_the_hierarchy: （如果选择此复选框，分类选项将会显示在名字标签上而不用使用“显示所有分类”）
   return_content_by_vettedness: 如果vetted = 1则仅返回可信内容.如果vetted = 2则返回仅可信和未审核的内容(不返回不可信的内容)。默认返回所有内容。
   reindex_page_button: 重新索引页面
@@ -3518,7 +3526,7 @@ zh-CN:
   inaturalist_tab_label: iNaturalist 观测
   include_all_metadata: 包含数据项的所有元数据
   including_traitbank_count:
-    other: 包含%{count}个TraitBank属性
+    other: ，包含%{count}个TraitBank属性
   in_collection: 已收藏
   in_community: 在社群
   indexed: 索引
@@ -3564,7 +3572,7 @@ zh-CN:
   item_type_video_assistive: 此项是一段视频
   item_not_added_already_in_collection: 此项已被添加到收藏中
   item_not_added_to_itself_notice: 您不能把<em>%{collection_name}</em>收藏添加给它自身。
-  item_not_added_to_collection_error: '"抱歉,出现了一个错误，已选项未能添加到收藏。"'
+  item_not_added_to_collection_error: 抱歉，出现了一个错误，已选择的项目不能添加到收藏中。
   item_not_updated_in_collection_error: '"抱歉,出现一个错误，收藏的条目无法更新。"'
   item_updated_in_collection_notice: <em>%{collection_name}</em>收藏中的项已更新。
   items_no_copy_none_selected_warning: '"没有选中项,因此无法复制。请先勾选列表中项,然后再复制到目的收藏中。"'
@@ -3615,20 +3623,20 @@ zh-CN:
   license: 授权协议
   license_none: 无
   license_all_rights_reserved: 保留所有权利
-  license_cc_by: 知识共享署名协议(CC BY)
-  license_cc_by_2_0: 知识共享属名协议2.0(CC BY 2.0)
-  license_cc_by_2_5: 知识共享属名协议2.5(CC BY 2.5)
-  license_cc_by_3_0: 知识共享属名协议3.0(CC BY 3.0)
-  license_cc_by_nc: 知识共享属名协议-非商业性使用(CC BY-NC)
+  license_cc_by: 知识共享署名（CC BY）
+  license_cc_by_2_0: 知识共享署名 2.0（CC BY 2.0）
+  license_cc_by_2_5: 知识共享署名 2.5（CC BY 2.5）
+  license_cc_by_3_0: 知识共享署名 3.0（CC BY 3.0）
+  license_cc_by_nc: 知识共享署名-非商业性使用（CC BY-NC）
   license_cc_by_nc_2_0: 知识共享属名协议-非商业性使用2.0(CC BY-NC 2.0)
   license_cc_by_nc_2_5: 知识共享属名协议-非商业性使用2.5(CC BY-NC 2.5)
   license_cc_by_nc_3_0: 知识共享属名协议-非商业性使用3.0(CC BY-NC 3.0)
-  license_cc_by_nc_sa: 知识共享属名协议-非商业性使用-相同方式共享(CC BY-NC-SA)
+  license_cc_by_nc_sa: 知识共享署名-非商业性使用-相同方式共享（CC BY-NC-SA）
   license_cc_by_nc_sa_1_0: 知识共享属名协议-非商业性使用-相同方式共享1.0(CC BY-NC-SA 1.0)
   license_cc_by_nc_sa_2_0: 知识共享属名协议-非商业性使用-相同方式共享2.0(CC BY-NC-SA 2.0)
   license_cc_by_nc_sa_2_5: 知识共享属名协议-非商业性使用-相同方式共享2.5(CC BY-NC-SA 2.5)
   license_cc_by_nc_sa_3_0: 知识共享属名协议-非商业性使用-相同方式共享3.0(CC BY-NC-SA 3.0)
-  license_cc_by_sa: 知识共享属名协议-相同方式共享(CC BY-SA)
+  license_cc_by_sa: 知识共享署名-相同方式共享（CC BY-SA）
   license_cc_by_sa_1_0: 知识共享属名协议-相同方式共享1.0(CC BY-SA 1.0)
   license_cc_by_sa_2_0: 知识共享属名协议-相同方式共享2.0(CC BY-SA 2.0)
   license_cc_by_sa_2_5: 知识共享属名协议-相同方式共享2.5(CC BY-SA 2.5)
@@ -3715,6 +3723,7 @@ zh-CN:
     other: '%{count}名会员;'
   merge_concepts: 合并概念
   merge_data: 合并分类
+  merge_pending: 此合并操作将需要一些时间。此页面目前被锁定，无法做出更多分类编辑，直到合并完成。在过程结束后您将接收到一封邮件，并且将出现在用于页面的新闻供稿中。
   message_colon: '消息:'
   meta_description_colon: 元描述：
   meta_keywords_colon: 元关键词：
@@ -3845,7 +3854,7 @@ zh-CN:
   not_evaluated: 未评估
   not_recognized_by_available_hierarchies: 未被任何可用的分类系统确认
   not_specified: 未指定
-  not_yet_implemented_error: '"抱歉, 该特性还没有被实现。"'
+  not_yet_implemented_error: 抱歉，此功能尚未应用。
   note: 注意：
   note_about_homonym_problems: 注意：仅在您肯定的情况下修改这个属性 - 不选此项会导致严重的同物异名问题
   notes: 注释
@@ -4239,11 +4248,12 @@ zh-CN:
   special_collection: 专题收藏
   special_collections_cannot_be_destroyed: 此收藏是与其社区关联的唯一收藏，不能删除。
   species_curated: 物种管理
-  species_profile_model_cp_count_title: 物种简介模块-内容合作伙伴的数量
-  species_profile_model_dato_count_title: 物种简介模块-数据项的数量
-  species_profile_model: 物种简介模块
+  species_profile_model_cp_count_title: 物种简介模型——内容合作伙伴的数量
+  species_profile_model_dato_count_title: 物种简介模型——数据项的数量
+  species_profile_model: 物种简介模型
   species: 物种
   split_into_new_concept: 拆分为新页面
+  split_pending: 此拆分操作将需要一些时间。此页面目前被锁定，无法做出更多分类编辑，直到拆分完成。在过程结束后您将接收到一封邮件，并且将出现在用于页面的新闻供稿中。
   spm_category_objects_count: 物种介绍模块目录 - 对象的数量
   spm_category_partner_count: 物种介绍模块目录 - 合作伙伴的数量
   spm_category: 物种介绍模块目录
@@ -4409,6 +4419,9 @@ zh-CN:
     other: 总计%{count}项
   total_searches: 全部搜索次数：
   total: 全部
+  traitbank_banner: <strong>介绍<a href='/traitbank'>TraitBank</a>：</strong>搜索EOL上数百万数据记录&nbsp;
+    <small>•</small> &nbsp;<a href='/traitbank'>了解更多</a>&nbsp; <small>•</small> &nbsp;<a
+    href='/data_search'>搜索数据</a>
   translation_deleted: 翻译已删除
   translation_information_header: 翻译信息
   translation_log: 国际化关键频率分布直方图
@@ -4555,7 +4568,7 @@ zh-CN:
   value: 值
   value_empty: （空）
   value_default: (默认)
-  version_1_0_uses_fields_from_the_latest_version: 版本1.0使用了 %{link} 结构模版最新版本中的元素
+  version_1_0_uses_fields_from_the_latest_version: 版本1.0使用来自 %{link} 模式最新版本的字段
   versions_colon: 版本：
   vetted: 已审核
   video_from: 视频来自

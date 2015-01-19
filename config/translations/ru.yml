@@ -27,6 +27,7 @@
 # Author: Sprinter
 # Author: Striking Blue
 # Author: Александр Сигачёв
+# Author: Максим777
 ---
 ru:
   activerecord:
@@ -2253,6 +2254,7 @@ ru:
   content_partner_status_empty: Неизвестное состояние
   content_type: Тип содержимого
   could_not_find_user: Вы не являетесь членом этого сообщества.
+  create_account: Создать учётную запись
   create_community: Создать сообщество
   create_community_about_heading: О создании сообщества
   create_a_community: Создать сообщество

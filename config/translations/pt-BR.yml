@@ -15,6 +15,7 @@
 # Author: Rodrigo codignoli
 # Author: TheGabrielZaum
 # Author: Tuliouel
+# Author: Webysther
 ---
 pt-BR:
   activerecord:
@@ -5643,8 +5644,8 @@ pt-BR:
   user_activation_failed_resent_validation_email_error: Desculpe, ocorreu um erro,
     sua conta não pôde ser verificada. Isso geralmente ocorre quando o link de verificação
     que você digitou ou selecionou não é reconhecido. Instruções de ativação foram
-    reenviados para o endereço de e-mail com que se registou, por favor assegure o
-    link de verificação que você usa corresponde ao fornecido no e-mail de ativação.
+    reenviados para o endereço de e-mail com que se registrou, por favor assegure
+    o link de verificação que você usa corresponde ao fornecido no e-mail de ativação.
   user_activation_failed_user_not_found_error: Desculpe, ocorreu um erro, a conta
     que você está tentando verificar não pôde ser encontrada. Certifique-se o link
     de verificação que você usa corresponde ao fornecido no e-mail de ativação que

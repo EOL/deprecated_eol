@@ -36,8 +36,7 @@ describe 'taxa/overview/show' do
     overview.stub(:curators_count) { 0 }
     overview.stub(:hierarchy_entry) { nil } # This is a little dangerous, but it avoids rendinger the entire node partial..
     overview.stub(:activity_log) { [].paginate } # CHEAT!  :D
-    taxon_page = double(TaxonPage)
-    taxon_page.stub(:scientific_name) { 'Aus bus' }
+    taxon_page = double(TaxonPage, id: 123, scientific_name: 'Aus bus')
     taxon_page.stub(:data) { taxon_data }
     assign(:taxon_page, taxon_page)
     assign(:overview, double(TaxonOverview))

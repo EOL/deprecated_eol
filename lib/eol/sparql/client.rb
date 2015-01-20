@@ -6,11 +6,25 @@ module EOL
       extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
       extend EOL::LocalCacheable
 
-      # TODO - these strings probably shouldn't be hard-coded (multiple times, as they are).
       def self.clear_uri_caches
-        Rails.cache.delete("eol/sparql/client/all_measurement_type_uris")
-        Rails.cache.delete("eol/sparql/client/all_measurement_type_known_uris")
-        # TODO - clear taxon-specific caches. ...but we don't store the names, yet.
+        Rails.cache.delete(cache_key("all_measurement_type_uris"))
+        Rails.cache.delete(cache_key("all_measurement_type_known_uris"))
+        id = 1
+        while tcid = Rails.cache.read(cache_key("cached_taxon_#{id}")) do
+          Rails.cache.delete(clade_cache_key(tcid))
+          Rails.cache.delete(cache_key("cached_taxon_#{id}"))
+          id += 1
+        end
+      end
+
+      # NOTE: Don't use slashes; these must also be valid variable names because
+      # of the way that we store them "locally". Stupid, but there you have it.
+      def self.cache_key(name)
+        "eol_sparql_client_#{name}"
+      end
+
+      def self.clade_cache_key(id)
+        cache_key("all_measurement_type_known_uris_for_clade_#{id}")
       end
 
       def initialize(options={})
@@ -91,37 +105,62 @@ module EOL
       end
 
       def all_measurement_type_uris
-        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_uris", :expires_in => 1.day) do
-          counts_of_all_measurement_type_uris.collect{ |k,v| k }
+        self.class.cache_fetch_with_local_timeout(
+          self.class.cache_key("all_measurement_type_uris"), :expires_in => 1.day) do
+          counts_of_all_measurement_type_uris.map { |k,v| k }
         end
       end
 
       def all_measurement_type_known_uris
-        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris", :expires_in => 1.day) do
-          all_uris = all_measurement_type_uris
-          all_known_uris = KnownUri.find_all_by_uri(all_uris)
-          all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } }
+        uris = self.class.cache_fetch_with_local_timeout(
+          self.class.cache_key("all_measurement_type_known_uris"), :expires_in => 1.day) do
+            all_uris = all_measurement_type_uris
+            all_known_uris = KnownUri.where(uri: all_uris)
+            all_uris.map { |uri| all_known_uris.detect { |kn| kn.uri == uri } }
         end
+        # If that list is empty, it indicates that Virtuoso is broken. Don't
+        # cache this (or any) value, otherwise it will be blank for 24 hours!
+        self.class.clear_uri_caches if uris.blank?
+        uris
       end
 
+      # NOTE: we do NOT clear the cache here, if it's empty, just in case it
+      # really IS empty FOR THIS CLADE... we don't want all caches cleared, in
+      # that case! We'll rely on #all_measurement_type_known_uris to clear the
+      # caches if things are broken--it should be called often enough.
       def all_measurement_type_known_uris_for_clade(taxon_concept)
-        # TODO - cache a list of taxon_concept ids that have been cached, so we can clear them
-        self.class.cache_fetch_with_local_timeout("eol/sparql/client/all_measurement_type_known_uris_for_clade/#{taxon_concept.id}", :expires_in => 1.day) do
-          all_uris = counts_of_all_measurement_type_uris_in_clade(taxon_concept).collect{ |k,v| k }
-          all_known_uris = KnownUri.find_all_by_uri(all_uris)
-          all_uris.collect{ |uri| all_known_uris.detect{ |kn| kn.uri == uri } }
+        remember_cached_taxon(taxon_concept.id)
+        self.class.cache_fetch_with_local_timeout(
+          self.class.clade_cache_key(taxon_concept.id),
+          :expires_in => 1.day) do
+          all_uris = counts_of_all_measurement_type_uris_in_clade(taxon_concept).map { |k,v| k }
+          all_known_uris = KnownUri.where(uri: all_uris)
+          all_uris.map { |uri| all_known_uris.detect { |kn| kn.uri == uri } }
         end
       end
 
-      # this will produce a Hash with keys that are KnownUris representing
-      # measurement type URIs, and whose values are the counts of distinct
-      # value URIs that partners have contributed for that measurement.
-      # For example [ { #<KnownUri http://eol.org/schema/terms/Habitat> => 706 }]
+      # This implements a VERY CRUDE queuing mechaism to avoid collisions.
+      # Better than nothing, but only hardly so.
+      def remember_cached_taxon(tcid)
+        count = 1
+        until Rails.cache.write(
+          self.class.cache_key("cached_taxon_#{count}"), tcid, unless_exist: true
+        ) do
+          count += 1
+        end
+      end
+
+      # Takes #counts_of_all_value_uris_by_type and replaces the URI key with a KnownUri:
       def counts_of_all_value_known_uris_by_type
-        self.class.cache_fetch_with_local_timeout("eol/sparql/client/counts_of_all_value_known_uris_by_type", :expires_in => 1.day) do
-          results = counts_of_all_value_uris_by_type
-          all_known_uris = KnownUri.find_all_by_uri(results.keys)
-          Hash[ results.map{ |k,v| [ all_known_uris.detect{ |kn| kn.uri == k }, v ] } ].delete_if{ |k,v| k.blank? }
+        self.class.cache_fetch_with_local_timeout(
+          self.class.cache_key("counts_of_all_value_known_uris_by_type"),
+          :expires_in => 1.day) do
+            counts = counts_of_all_value_uris_by_type
+            Hash[
+              KnownUri.where(uri: counts.keys.compact).map do |kuri|
+                [ kuri, counts[kuri.uri] ]
+              end
+            ]
         end
       end
 
@@ -134,14 +173,14 @@ module EOL
       end
 
       def namespaces_prefixes
-        namespaces.collect{ |key,value| "PREFIX #{key}: <#{value}>"}.join(" ")
+        namespaces.map { |key,value| "PREFIX #{key}: <#{value}>"}.join(" ")
       end
 
       def unknown_uris_from_array(uris_with_counts)
         unknown_uris_with_counts = uris_with_counts
-        known_uris = KnownUri.find_all_by_uri(unknown_uris_with_counts.collect{ |uri,count| uri })
+        known_uris = KnownUri.where(uri: unknown_uris_with_counts.keys)
         known_uris.each do |known_uri|
-          unknown_uris_with_counts.delete_if{ |uri, count| known_uri.matches(uri) }
+          unknown_uris_with_counts.delete_if { |uri, count| known_uri.matches(uri) }
         end
         unknown_uris_with_counts
       end
@@ -254,7 +293,7 @@ module EOL
               }
             }
             GROUP BY ?uri ?measurementOfTaxon
-            ORDER BY DESC(?count)").delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
+            ORDER BY DESC(?count)").delete_if { |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
           group_counts_by_uri(result)
         end
       end

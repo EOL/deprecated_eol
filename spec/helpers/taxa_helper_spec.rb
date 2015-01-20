@@ -29,7 +29,7 @@ def build_name(string, agent, language, options = {})
   name = Name.gen(:string => string) unless name
   hierarchy_id = Hierarchy.eol_contributors.id if options[:curator]
   hierarchy_id ||= Hierarchy.first.id
-  
+
   synonym = Synonym.gen(:name => name, :preferred => options[:preferred],
     :hierarchy_id => hierarchy_id, :language => language)
   AgentsSynonym.gen(:synonym => synonym, :agent => agent)
@@ -117,9 +117,9 @@ describe TaxaHelper do
     expect(helper.format_data_value('1000')).to eq('1,000')
     expect(helper.format_data_value('1000', value_for_known_uri: determined_date)).to eq('1000')
   end
-    
-  it 'should have superscript if the known uri has karat' do        
-    expect(helper.adjust_exponent("kilometers^2")).to include("<sup>")
+
+  it 'should have superscript if the known uri has karat' do
+    expect(helper.adjust_exponent("kilometers^2")).to match(/<sup[ >]/)
   end
 
 end

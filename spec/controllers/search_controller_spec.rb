@@ -39,5 +39,22 @@ describe SearchController do
       expect(response.body).to have_selector('span', include: "Alternative name:Cat")
     end
   end
+  
+  describe "filter keyword" do
+    before(:all) do
+      cat_taxa_name = Name.gen(canonical_form: cf = CanonicalForm.gen(string: 'cat'),
+                    string: 'cat',
+                    italicized: '<i>cat</i>')
+      TaxonCon.gen
+      Collection.gen
+      EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+    end
+
+    it "should return suggestions when user misspell taxon name" do
+      get :index, {q: "cat taxa"}
+      expect(response.body).to have_selector('h2', text: I18n.t(:did_you_mean, :suggestions => nil))
+      expect(response.body).to have_selector('span', include: "Alternative name:Cat")
+    end
+  end
 
 end

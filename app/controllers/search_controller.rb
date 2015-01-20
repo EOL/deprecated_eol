@@ -16,6 +16,8 @@ class SearchController < ApplicationController
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
     params[:type] = ['taxon_concept'] if params[:mobile_search] # Mobile search is limited to taxa for now
+    #it is a mapping between the shown words(sigularized) and actual types
+    @all_params = {taxon: :taxon_concept, image: :image, video: :video, sound: :sound, article: :text, trait: :data, link: :link, person: :user, community: :community, collection: :collection}
     @sort_by = params[:sort_by]
     @params_type = params[:type]
     @params_type = ['all'] if @params_type.map(&:downcase).include?('all')
@@ -55,6 +57,15 @@ class SearchController < ApplicationController
       @all_results = empty_paginated_set
       @facets = {}
     else
+      query_array = (@querystring.gsub(/\s+/m, ' ').strip.split(" "))
+      query_reserved_words = (query_array.map{|t| t.singularize.to_sym}) & @all_params.keys
+      if query_reserved_words.any?
+        @params_type += query_reserved_words.map{|t| @all_params[t].to_s.camelize}
+        @params_type -= ['All']
+        query_array.reject! {|t| @all_params.keys.include?(t.singularize.to_sym)}
+        @querystring = query_array.join(" ")
+        params[:type] = @params_type
+      end
       search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ per_page: @@results_per_page, language_id: current_language.id }))
       if $STATSD
         $STATSD.increment 'all_searches'
@@ -70,7 +81,7 @@ class SearchController < ApplicationController
       if params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results.first, total_results: 1, params: params)
       elsif params[:show_all].blank? && @params_type[0] == 'All' && @all_results.total_entries > 1 && @all_results.length > 1 &&
-        superior_result = pick_superior_result(@all_results)
+        superior_result = pick_superior_result(@all_results)        
         redirect_to_page(superior_result, total_results: @all_results.total_entries, params: params)
       end
     end

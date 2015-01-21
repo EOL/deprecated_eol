@@ -81,7 +81,7 @@ class SearchController < ApplicationController
       if params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
         redirect_to_page(@all_results.first, total_results: 1, params: params)
       elsif params[:show_all].blank? && @params_type[0] == 'All' && @all_results.total_entries > 1 && @all_results.length > 1 &&
-        superior_result = pick_superior_result(@all_results)        
+        superior_result = pick_superior_result(@all_results)
         redirect_to_page(superior_result, total_results: @all_results.total_entries, params: params)
       end
     end

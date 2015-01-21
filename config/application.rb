@@ -264,16 +264,10 @@ module Eol
     # ERROR HANDLING CONFIGURATION
     $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
     $ERROR_LOGGING = true # set to true to record uncaught application errors in sql database file
-    $EXCEPTION_EMAIL_ADDRESS = %("EOL Application Error" <no-reply@example.comma>)
     $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied"] # array of exceptions to ignore when logging or notifying
     $IGNORED_EXCEPTION_CLASSES = [ 'ActionController::RoutingError', 'EOL::Exceptions::MustBeLoggedIn', 'EOL::Exceptions::SecurityViolation' ] # array of exceptions to ignore when logging or notifying
 
     # EMAIL NOTIFIER CONFIGURATION
-    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS = "from@example.com"
-    $SUPPORT_EMAIL_ADDRESS = "from@example.com"
-    $ERROR_EMAIL_ADDRESS = "from@example.com"
-    $STATISTICS_EMAIL_FROM_ADDRESS = "from@example.com"
-    $EDUCATION_EMAIL = 'from@example.com'
     $MEDIA_INQUIRY_CONTACT_SUBJECT_ID = 1 # this should match the ContactSubject table with the ID of the media inquiry row (used on the special Media Contact page)
     $CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS = "13,14" # this should match the ContactSubject table with the IDs of the request to curate or contribute rows as a string in comma delimuted format  (used on the Contact us page to show an extra field)
 

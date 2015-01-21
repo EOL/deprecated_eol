@@ -10,24 +10,50 @@ Rails.configuration.donate_header_url = nil
 Rails.configuration.donate_footer_url = nil
 Rails.configuration.skip_url_validations = false
 
-InitializerAdditions.add("environment_eol_org")
 InitializerAdditions.add("environments/local")
 Eol::Application.initialize!
 
-# TODO - Set defaults for some horrible global variables that really
-# needed to get cleaned up.  Currently most get overriden in appropriate
-# environment files, but we need defaults to get tests working without
-# getting the eol-private stuff.                                                                                                                                                                                              
+Rails.configuration.use_secure_acceptance = ENV["EOL_USE_SECURE_ACCEPTANCE"] == "true"
+Rails.configuration.secure_acceptance = {
+  email: ENV["EOL_SEC_ACCEPT_EMAIL"],
+  org_id: ENV["EOL_SEC_ACCEPT_ORG_ID"],
+  merchant_id: ENV["EOL_SEC_ACCEPT_MERCHANT_ID"],
+  endpoint: ENV["EOL_SEC_ACCEPT_ENDPOINT"],
+  profile_id: ENV["EOL_SEC_ACCEPT_PROFILE_ID"], # Must be 7 chrs.  Exactly.
+  access_key: ENV["EOL_SEC_ACCEPT_ACCESS_KEY"],
+  # NOTE - this is only good until Dec 2015
+  secret_key: ENV["EOL_SEC_ACCEPT_SECRET_KEY"]
+}
+# None, by default, but defined:
+Rails.configuration.google_site_verification_keys = []
+Rails.configuration.donate_header_url =
+  ENV["EOL_DONATE_HEADER_URL"]
+Rails.configuration.donate_footer_url =
+  ENV["EOL_DONATE_DONATE_FOOTER_URL"]
+Rails.configuration.inat_collection_url =
+  ENV["EOL_DONATE_INAT_COLLECTION_URL"]
 
-$DEFAULT_EMAIL_ADDRESS = "noreply@eol.org"
-$SPECIES_PAGES_GROUP_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS
-$SUPPORT_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS
-$ERROR_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS
-$EDUCATION_EMAIL = $DEFAULT_EMAIL_ADDRESS
-$NO_REPLY_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS
-
-$FLICKR_API_KEY = 'cafecafecafecafecafecafecafecafe'
-$FLICKR_USER_ID = '12345678@A12'
-$FLICKR_SECRET = 'cafecafecafecafe'
-$FLICKR_FROB = '12345678901234567-cafecafecafecafe-12345678'
-$FLICKR_TOKEN = '12345678901234567-cafecafecafecafe'
+Eol::Application.configure do
+  config.after_initialize do
+    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS =
+      ENV["EOL_SPECIES_PAGES_GROUP_EMAIL_ADDRESS"]
+    $SUPPORT_EMAIL_ADDRESS = ENV["EOL_SUPPORT_EMAIL_ADDRESS"]
+    $ERROR_EMAIL_ADDRESS = ENV["EOL_ERROR_EMAIL_ADDRESS"]
+    $EDUCATION_EMAIL = ENV["EOL_EDUCATION_EMAIL"]
+    $NO_REPLY_EMAIL_ADDRESS = ENV["EOL_NO_REPLY_EMAIL_ADDRESS"]
+    $GOOGLE_MAP_API_KEY = ENV["EOL_GOOGLE_MAP_API_KEY"]
+    $MAP_DATA_SERVER_ENDPOINT = ENV["EOL_MAP_DATA_SERVER_ENDPOINT"]
+    $MAP_TILE_SERVER_1 = ENV["EOL_MAP_TILE_SERVER_1"]
+    $MAP_TILE_SERVER_2 = ENV["EOL_MAP_TILE_SERVER_2"]
+    $MAP_TILE_SERVER_3 = ENV["EOL_MAP_TILE_SERVER_3"]
+    $MAP_TILE_SERVER_4 = ENV["EOL_MAP_TILE_SERVER_4"]
+    $TWITTER_USERNAME = ENV["EOL_TWITTER_USERNAME"]
+    $FLICKR_API_KEY = ENV["EOL_FLICKR_API_KEY"]
+    $FLICKR_USER_ID = ENV["EOL_FLICKR_USER_ID"]
+    $FLICKR_SECRET = ENV["EOL_FLICKR_SECRET"]
+    $FLICKR_FROB = ENV["EOL_FLICKR_FROB"]
+    $FLICKR_TOKEN = ENV["EOL_FLICKR_TOKEN"]
+    CHINESE_PRONUNCIATION_API_PREFIX =
+      ENV["EOL_CHINESE_PRONUNCIATION_API_PREFIX"]
+  end
+end

@@ -35,7 +35,6 @@ mkmf.log
 extconf.h
 .DS_Store
 config/database.BKUP
-config/database.yml
 config/deploy
 config/deploy.rb
 config/environments/integration_local.rb
@@ -50,7 +49,6 @@ config/environments/local.rb
 config/resque.yml
 config/shards.yml
 config/systems/
-config/newrelic.yml
 config/shards.yml
 db/*_structure.sql
 db/schema.rb

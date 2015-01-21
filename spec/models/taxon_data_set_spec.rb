@@ -11,7 +11,8 @@ describe TaxonDataSet do
     @row_1 = { data_point_uri: DataPointUri.gen.uri }
     @row_2 = { data_point_uri: DataPointUri.gen.uri }
     @row_3 = { data_point_uri: DataPointUri.gen.uri }
-    @rows = [ @row_1, @row_2, @row_3 ]
+    @row_4 = { data_point_uri: DataPointUri.gen.uri }
+    @rows = [ @row_1, @row_2, @row_3, @row_4 ]
   end
 
   it 'should populate DataPointUri instances by taxon concept and uri' do
@@ -76,20 +77,36 @@ describe TaxonDataSet do
       data_point_uris = [
         DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
                          taxon_concept: tc,
-                         uri: "http://what.com/is/this",
-                         object: "apple"),
+                         uri: "http://what.com/is/this/1",
+                         object: "apple",
+                         life_stage: "http://eol.org/schema/terms/female", 
+                         sex: "http://www.ebi.ac.uk/efo/EFO_0001272",
+                         statistical_method: "http://semanticscience.org/resource/SIO_001109"),
         DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
                          taxon_concept: tc,
-                         uri: "http://what.com/is/this",
-                         object: "carrot"),
+                         uri: "http://what.com/is/this/2",
+                         object: "carrot",
+                         life_stage: "http://eol.org/schema/terms/female", 
+                         sex: "http://www.ebi.ac.uk/efo/EFO_0001272",
+                         statistical_method: "http://semanticscience.org/resource/SIO_001109"),
         DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
                          taxon_concept: tc,
-                         uri: "http://what.com/is/this",
-                         object: "carrot")
+                         uri: "http://what.com/is/this/3",
+                         object: "carrot",
+                         life_stage: "http://eol.org/schema/terms/female", 
+                         sex: "http://www.ebi.ac.uk/efo/EFO_0001272",
+                         statistical_method: "http://semanticscience.org/resource/SIO_001109"),
+        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
+                         taxon_concept: tc,
+                         uri: "http://what.com/is/this/4",
+                         object: "carrot",
+                         life_stage: "http://eol.org/schema/terms/male", 
+                         sex: "http://www.ebi.ac.uk/efo/EFO_0001272",
+                         statistical_method: "http://semanticscience.org/resource/SIO_001109")
       ]
       set = TaxonDataSet.new(@rows, taxon_concept_id: @taxon_concept.id)
       result = set.remove_duplicates(data_point_uris)
-      expect(result.count).to equal(2)
+      expect(result.count).to equal(3)
     end
   end
 end

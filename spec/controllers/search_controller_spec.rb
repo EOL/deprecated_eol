@@ -42,18 +42,18 @@ describe SearchController do
   
   describe "filter keyword" do
     before(:all) do
-      cat_taxa_name = Name.gen(canonical_form: cf = CanonicalForm.gen(string: 'cat'),
+      name = Name.gen(canonical_form: cf = CanonicalForm.gen(string: 'cat'),
                     string: 'cat',
                     italicized: '<i>cat</i>')
-      TaxonCon.gen
-      Collection.gen
+      he = HierarchyEntry.gen(hierarchy: Hierarchy.gen(), parent_id: 0, identifier: '', depth: 0, rank_id: 0, vetted_id: Vetted.trusted.id,
+                                taxon_concept: TaxonConcept.gen, name: name)            
+      Collection.gen      
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
     end
 
-    it "should return suggestions when user misspell taxon name" do
-      get :index, {q: "cat taxa"}
-      expect(response.body).to have_selector('h2', text: I18n.t(:did_you_mean, :suggestions => nil))
-      expect(response.body).to have_selector('span', include: "Alternative name:Cat")
+    it "should return the appropriate type elements" do
+      get :index, {q: "cat taxa"}      
+      expect(response.body).to have_selector('input[type=checkbox][checked=checked][value=taxon_concept]')
     end
   end
 

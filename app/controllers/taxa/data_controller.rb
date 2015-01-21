@@ -6,6 +6,9 @@ class Taxa::DataController < TaxaController
   before_filter :load_data
   before_filter :load_glossary
   before_filter :add_page_view_log_entry
+  
+  GENDER = 1
+  LIFE_STAGE = 0
 
   # GET /pages/:taxon_id/data/index
   def index
@@ -57,32 +60,34 @@ protected
   end
   
   #0 for life stage and 1 for gender
-  def sort_data (results)       
-    results.data_point_uris.sort do |a, b|      
-      if a.context_labels[1].to_s == b.context_labels[1].to_s && a.context_labels[0].to_s == b.context_labels[0].to_s
+  def sort_data (results)
+    stat_positions = get_position(results.data_point_uris)
+    results.data_point_uris.sort do |a, b|
+      if a.context_labels[GENDER].to_s == b.context_labels[GENDER].to_s && a.context_labels[LIFE_STAGE].to_s == b.context_labels[LIFE_STAGE].to_s
         if !a.statistical_method.to_s.blank? && !b.statistical_method.to_s.blank?          
-          get_position(a.statistical_method.to_s) <=> get_position(b.statistical_method.to_s)
+          stat_positions[a.statistical_method.to_s] <=> stat_positions[b.statistical_method.to_s]
         else          
           a.statistical_method.to_s.blank? ? 1 : -1
-        end 
-      elsif a.context_labels[1].to_s == b.context_labels[1].to_s
+        end
+      elsif a.context_labels[GENDER].to_s == b.context_labels[GENDER].to_s
         sort_life_stage(a,b)
       else        
-        (a.context_labels[1].to_s.blank? ? 255.chr : a.context_labels[1].to_s) <=> (b.context_labels[1].to_s.blank? ? 255.chr : b.context_labels[1].to_s)  
+        (a.context_labels[GENDER].to_s.blank? ? 255.chr : a.context_labels[GENDER].to_s) <=> (b.context_labels[GENDER].to_s.blank? ? 255.chr : b.context_labels[GENDER].to_s)  
       end
     end
   end
 
   def sort_life_stage (a,b)    
-    if !a.context_labels[0].to_s.blank? && !b.context_labels[0].to_s.blank?      
-      a.context_labels[0].to_s <=> b.context_labels[0].to_s
+    if !a.context_labels[LIFE_STAGE].to_s.blank? && !b.context_labels[LIFE_STAGE].to_s.blank?      
+      a.context_labels[LIFE_STAGE].to_s <=> b.context_labels[LIFE_STAGE].to_s
     else      
-      a.context_labels[0].to_s.blank? ? 1 : -1
+      a.context_labels[LIFE_STAGE].to_s.blank? ? 1 : -1
     end    
   end
   
-  def get_position(uri)
-    KnownUri.find_by_uri(uri)[:position]
+  def get_position(data_point_uris)
+    Hash[KnownUri.where(uri: data_point_uris.map { |d| d.statistical_method.to_s }).
+      select([:uri, :position]).map {|k| [k.uri, k.position] }]
   end
   
   def load_glossary

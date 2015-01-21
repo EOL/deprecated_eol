@@ -24,11 +24,11 @@ describe Taxa::DataController do
     instance.add_to_triplestore
     instance = DataMeasurement.new(predicate: pred, object: "20", resource: res, subject: @taxon_concept, unit: m_unit, life_stage: adult, sex: male, statistical_method: mean, normalized_value: "20", normalized_unit: m_unit)
     instance.add_to_triplestore        
-    instance = DataMeasurement.new(predicate: pred, object: "100", resource: res, subject: @taxon_concept, unit: m_unit, life_stage: "", sex: "", statistical_method: mean, normalized_value: "100", normalized_unit: m_unit)
+    instance = DataMeasurement.new(predicate: pred, object: "10", resource: res, subject: @taxon_concept, unit: m_unit, life_stage: "", sex: "", statistical_method: mean, normalized_value: "10", normalized_unit: m_unit)
     instance.add_to_triplestore        
-    instance = DataMeasurement.new(predicate: pred, object: "100", resource: res, subject: @taxon_concept, unit: m_unit, life_stage: larval, sex: male, statistical_method: mode, normalized_value: "100", normalized_unit: m_unit)
+    instance = DataMeasurement.new(predicate: pred, object: "30", resource: res, subject: @taxon_concept, unit: m_unit, life_stage: larval, sex: male, statistical_method: mode, normalized_value: "30", normalized_unit: m_unit)
     instance.add_to_triplestore        
-    instance = DataMeasurement.new(predicate: pred, object: "100", resource: res, subject: @taxon_concept, unit: m_unit, life_stage: adult, sex: male, statistical_method: sample_size, normalized_value: "100", normalized_unit: m_unit)
+    instance = DataMeasurement.new(predicate: pred, object: "50", resource: res, subject: @taxon_concept, unit: m_unit, life_stage: adult, sex: male, statistical_method: sample_size, normalized_value: "50", normalized_unit: m_unit)
     instance.add_to_triplestore
     @controller = Taxa::DataController.new
     @taxon_page = TaxonPage.new(@taxon_concept)    
@@ -72,7 +72,7 @@ describe Taxa::DataController do
         a.context_labels[1].to_s.blank? ? 255.chr : a.context_labels[1].to_s
       end           
       s1_array = @sorted_array.map{|a| a.context_labels[1]}-[nil]
-      s2_array = sorted_sex_array.map{|b| b.context_labels[1]}-[nil]         
+      s2_array = sorted_sex_array.map{|b| b.context_labels[1]}-[nil]          
       s1_array.should == s2_array
     end
     
@@ -80,8 +80,8 @@ describe Taxa::DataController do
       sorted_life_stage_array = @data.sort_by do |a|
         a.context_labels[0].to_s.blank? ? 255.chr : a.context_labels[0].to_s
       end           
-      s1_array = @sorted_array.map{|a| a.context_labels[1]}-[nil]
-      s2_array = sorted_life_stage_array.map{|a| a.context_labels[1]}-[nil]            
+      s1_array = @sorted_array.map{|a| a.context_labels[1]}-[nil]      
+      s2_array = sorted_life_stage_array.map{|a| a.context_labels[1]}-[nil]      
       s1_array.should_not == s2_array
     end
     

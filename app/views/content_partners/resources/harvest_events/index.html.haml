@@ -12,10 +12,8 @@
     - else
       .copy
         .header
-          - start_number = (@harvest_events.current_page - 1) *
-            @harvest_events.per_page + 1
-          - end_number = [(start_number + @harvest_events.per_page - 1),
-            @harvest_events.count].min
+          - start_number = (@harvest_events.current_page - 1) * @harvest_events.per_page + 1
+          - end_number = [(start_number + @harvest_events.per_page - 1), @harvest_events.count].min
           %h3= raw(I18n.t(:pagination_range_with_count,
             start_number: start_number, end_number: end_number,
             count: @harvest_events.count))

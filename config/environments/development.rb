@@ -42,9 +42,6 @@ Eol::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  # set to true to enable recaptcha on registration and contact us form
-  $ENABLE_RECAPTCHA=false
-
   config.after_initialize do
     $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = nil
   end

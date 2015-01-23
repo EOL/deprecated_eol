@@ -47,7 +47,6 @@ config/environments/dev_cache_rails3.rb
 config/environments/test_dev.rb
 config/environments/local.rb
 config/resque.yml
-config/shards.yml
 config/systems/
 config/shards.yml
 db/*_structure.sql

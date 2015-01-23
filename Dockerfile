@@ -1,5 +1,4 @@
-FROM eolruby
-#encoflife/ruby
+FROM encoflife/ruby
 MAINTAINER Dmitry Mozzherin
 
 RUN apt-get update -q && \

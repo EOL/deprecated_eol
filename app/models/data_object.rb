@@ -577,7 +577,7 @@ class DataObject < ActiveRecord::Base
           object_to_index = DataObject.find(self.id)
           EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
           if d = previous_revision
-            EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
+            EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(d)
           end
         end
       end
@@ -1181,7 +1181,7 @@ class DataObject < ActiveRecord::Base
             options[:taxon_concept][:id] == UsersDataObject.find_by_data_object_id( last_dato.id ).taxon_concept_id &&
             params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&
             (params[:data_object][:object_title] == last_dato.object_title ||
-            params[:data_object][:description] == last_dato.description) 
+            params[:data_object][:description] == last_dato.description)
   end
 
 private

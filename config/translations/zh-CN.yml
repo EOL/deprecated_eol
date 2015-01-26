@@ -692,7 +692,7 @@ zh-CN:
   will_paginate:
     next_label: 下一条
     page_gap: '&hellip;'
-    previous_label: '&#8592; 前一条'
+    previous_label: 前一条
   datepicker:
     day_names:
     - 星期日
@@ -2961,6 +2961,7 @@ zh-CN:
     {resource_status} %。
   content_partner_resource_create_unsuccessful_error: 抱歉，出现了一个错误，资源未能添加。
   content_partner_resource_dataset_details_header: 数据集
+  content_partner_resource_delete_with_type_link: 删除一切
   content_partner_resource_description_empty: 此资源没有描述信息。
   content_partner_resource_edit_link: 编辑
   content_partner_resource_edit_subheader: 编辑资源
@@ -3171,7 +3172,7 @@ zh-CN:
   data_link_to_record: 链接到此记录
   data_logging_active: 数据日志激活
   data_master_database_colon: 主数据库名：
-  data_object: 数据项
+  data_object: 数据对象
   data_object_not_associated_with_any_hierarchies: 此数据项没有与任何分类系统相关联。
   data_object_reference: 数据项文献
   data_object_ignore: 忽略本条目
@@ -3684,7 +3685,7 @@ zh-CN:
   logout: 注销
   looking_up_url: 查找URL……
   main_content_area: 主要内容区域：
-  main_database_colon: '主要:'
+  main_database_colon: 主要：
   main_master_database_colon: '数据库:'
   maintained_by: 维护人
   major_heading: 主标题
@@ -3881,9 +3882,8 @@ zh-CN:
   nucleotide_sequences_ncbi_mission: |-
     国家生物技术信息中心<a rel=
     ofollow href=%{ncbi_link}>的任务是开发有助于理解控制健康和疾病分子和遗传进程的新信息技术。
-  nucleotide_sequences_ncbi_database: |-
-    <a rel=
-    ofollow href=%{ncbi_taxonomy_link}>NCBI 分类学</a>数据库包含了所有在基因数据库中有至少有一条核酸或蛋白序列的生物的名称。
+  nucleotide_sequences_ncbi_database: <a rel="nofollow" href="%{ncbi_taxonomy_link}">NCBI
+    分类学</a>数据库包含了所有在基因数据库中有至少有一条核酸或蛋白序列的生物的名称。
   nucleotide_sequences_proteins_link: 查看NCBI中的蛋白质和核酸序列
   object_curation: 数据项管理
   object: 数据项
@@ -4330,7 +4330,7 @@ zh-CN:
   terms_agreement_form_fallback: '"请在进入您的帐户前请检查并同意<a href=""%{terms_url}"">使用条款</a>。"'
   terms_agreement_form_header: 使用项
   terms_agreement_form_submit: 我同意
-  terms_of_use_link: 使用和私有条款
+  terms_of_use_link: 使用条款与隐私
   term_for_search_admin_ui: 项
   test: 测试。
   text_object: 文本对象

@@ -3897,6 +3897,9 @@ de:
     mit Berechtigungen.
   admin_link: Übersicht
   admin_page_title: 'Verwaltung: Übersicht'
+  admin_resource_delete_confirmation: Sind Sie sicher, dass Sie diese Quelle löschen
+    möchten? Das Ausführen dieses Befehls dauert lange. Sie können bei der Verwendung
+    eine Zeitüberschreitung erhalten. Nicht erneut versuchen.
   admin_simple_actions_header: 'Einfache Aktionen:'
   admin_spam_delete: Spam löschen
   admin_statistics_link: Statistiken
@@ -4623,6 +4626,7 @@ de:
   content_partner_resource_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten,
     so dass die Quelle nicht hinzugefügt werden konnte.
   content_partner_resource_dataset_details_header: Dataset
+  content_partner_resource_delete_with_type_link: Alles löschen
   content_partner_resource_description_empty: Für diese Quelle wurde noch keine Beschreibung
     bereitgestellt.
   content_partner_resource_edit_link: Bearbeiten
@@ -4647,6 +4651,8 @@ de:
   content_partner_resource_harvest_event_update_unsuccessful_error: Es ist leider
     ein Fehler aufgetreten, so dass der Datenabruf für %{resource_title} nicht aktualisiert
     wurde.
+  content_partner_resource_has_been_deleted: Alles von der Quelle %{resource_title}
+    Gesammelte wurde erfolgreich gelöscht
   content_partner_resource_hierarchy_browsable: Durchsuchbar
   content_partner_resource_hierarchy_complete_true: Diese Hierarchie wird <strong>kuratiert</strong>.
     Bei einer kuratierten Hierarchie wird davon ausgegangen, das jeder Eintrag eindeutig
@@ -5160,6 +5166,9 @@ de:
   duplicate_comment_warning: Der Kommentar wurde nicht gespeichert. Es scheint, als
     ob Sie bereits diesen Kommentar veröffentlicht haben. … Haben Sie die Schaltfläche
     „Kommentieren“ zweimal angeklickt?
+  duplicate_text_warning: 'Text nicht gespeichert: Es scheint, als ob Sie bereits
+    diesen Artikel gespeichert haben. Haben Sie die Schaltfläche „Artikel hinzufügen“
+    zweimal angeklickt?'
   duplicate_items_were_ignored: Dubletten wurden ignoriert.
   each_method_documentation_page_has_formatted_responses: Jede Dokumentationsseite
     zu einer Methode enthält ein Beispiel für, sowohl in XML, wie auch in JSON formatierte

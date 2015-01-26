@@ -49,7 +49,7 @@ namespace :eol do
     Dir.glob(site_dir + "/#{config_dir}/**/*").each do |file|
       if FileTest::file? file
         # NEVER copy environment files into the config dir:
-        next if file =~ /*.env$/
+        next if file =~ /.*\.env$/
         file_name = file.gsub("#{site_dir}/#{config_dir}/", 'config/')
         file_link = Rails.root.join(file_name)
         dir =  File.dirname file_link

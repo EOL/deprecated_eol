@@ -3,7 +3,6 @@ site_dir = Rails.root.join('vendor', 'eol_org').to_s
 namespace :eol do
   desc 'checks out site-specific repository under vendor directory, change config dir with CONFIG_DIR environment var'
   task :checkout_repository do
-    puts "Skipping"
   #   config_dir = ENV["CONFIG_DIR"] || 'rails3_config'
   #   puts "Checking out files from repository..."
   #   if FileTest.exists? site_dir
@@ -40,7 +39,7 @@ namespace :eol do
   #     raise "** ERROR: You must specify a 'repo' parameter to complete this step." unless ENV['repo']
   #     sh "git clone #{ENV['repo']} '#{site_dir}'"
   #   end
-  # end
+  end
 
   desc 'creates soft links to site-specific files'
   task :site_specific => :checkout_repository do

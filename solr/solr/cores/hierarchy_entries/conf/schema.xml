@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<schema name="hierarchy_entries" version="1.4">
+<schema name="hierarchy_entries" version="1.5">
     <!-- define data types -->
     <types>
         <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
         <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         
         <!-- this is our main text type with all the taxon name filters -->
         <fieldType name="string_ci" class="solr.TextField" positionIncrementGap="100">
@@ -56,6 +57,7 @@
         <field name="species" type="string_ci" indexed="true" stored="true" required="false"/>
         <field name="vetted_id" type="int" indexed="true" stored="true" required="false"/>
         <field name="published" type="int" indexed="true" stored="true" required="false"/>
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
     </fields>
     
     <!-- force uniqueness -->

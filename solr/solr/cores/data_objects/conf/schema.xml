@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<schema name="data_objects" version="1.4">
+<schema name="data_objects" version="1.5">
     
     <!-- define data types -->
     <types>
-        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/> 	
         <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
         <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         <fieldType name="date" class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+
         
         <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
             <analyzer type="index">
@@ -77,6 +79,7 @@
         <!-- user-specific fields -->
         <field name="curated_by_user_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="ignored_by_user_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
     </fields>
     
     <!-- force uniqueness -->

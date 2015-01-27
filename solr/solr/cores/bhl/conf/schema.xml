@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<schema name="bhl" version="1.4">
+<schema name="bhl" version="1.5">
     
     <!-- define data types -->
     <types>
@@ -8,6 +8,7 @@
         <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         <fieldType name="date" class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         
         <!-- this is our main text type with all the taxon name filters -->
         <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
@@ -68,6 +69,7 @@
         <field name="name_id" type="int" indexed="true" stored="true" multiValued="true"/>
         <field name="title_item_id" type="string" indexed="true" stored="true" required="true"/>
         <field name="volume_info" type="string" indexed="true" stored="true" required="false"/>
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
     </fields>
     
     <!-- no unique key -->

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<schema name="hierarchy_entry_relationships" version="1.4">
+<schema name="hierarchy_entry_relationships" version="1.5">
     
     <!-- define data types -->
     <types>
@@ -7,6 +7,7 @@
         <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
         <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
         <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
     </types>
     
     <!-- begin data schema -->
@@ -22,6 +23,8 @@
         <field name="same_concept" type="boolean" indexed="true" stored="true" required="true"/>
         <field name="relationship" type="string" indexed="true" stored="true" required="true"/>
         <field name="confidence" type="float" indexed="true" stored="true" required="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+
     </fields>
     
     <!-- force uniqueness -->

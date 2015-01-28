@@ -498,7 +498,7 @@ private
   def generate_api_key
     @user.clear_entered_password
     @user.generate_api_key
-    @user.save
+    @user.save!
     instantiate_variables_for_edit
     render :edit
   end

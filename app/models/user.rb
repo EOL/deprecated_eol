@@ -771,8 +771,8 @@ class User < ActiveRecord::Base
 
   def generate_api_key
     begin
-      api_key = self.class.generate_key
-    end while self.class.exists?(api_key: key)
+      self[:api_key] = self.class.generate_key
+    end while self.class.exists?(api_key: self[:api_key])
   end
 
 private

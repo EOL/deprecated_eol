@@ -1,13 +1,3 @@
-# * See README for more information on database configuration.
-# * The convention for database names is "eol_<DATABASENAME>_<Rails.env>".
-
-
-# == Common settings
-# Common settings are shared across indivudal databases. The example settings
-# assume that some databases are on the same database server and use the same
-# authentication. You can override these settings for individual databases by
-# replacing references to common settings with specific settings.
-
 # Common settings for all databases.
 common: &common
   adapter: mysql2

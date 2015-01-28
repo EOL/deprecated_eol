@@ -2,7 +2,7 @@ module Wapi
   module V1
     class CollectionsController < ApplicationController
       respond_to :json
-      before_filter :restrict_access, except: [:index, :show]
+      before_filter :restrict_access #, except: [:index, :show]
       before_filter :find_collection, only: [:show, :update, :destroy]
 
       def index
@@ -38,10 +38,11 @@ module Wapi
         @collection = Collection.find(params[:id])
       end
 
+      # -H 'Authorization: Token token="ABCDEF12345"'
       def restrict_access
-        head :unauthorized unless params[:access_token]
-        @user = User.find_by_api_key(params[:access_token])
-        head :unauthorized unless @user
+        authenticate_or_request_with_http_token do |token, options|
+          @user = User.find_by_api_key(params[:access_token])
+        end
       end
     end
   end

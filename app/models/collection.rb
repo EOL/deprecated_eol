@@ -215,12 +215,14 @@ class Collection < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(
+    collection = super(
       options.merge(
         except: [:logo_cache_url, :logo_content_type, :logo_file_name,
           :logo_file_size, :published, :special_collection_id],
       )
     ).merge(logo_path: logo_url)
+    collection.merge!(collection_items: collection_items) if options[:items]
+    collection
   end
 
 private

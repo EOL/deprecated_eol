@@ -2,8 +2,8 @@ module Wapi
   module V1
     class CollectionsController < ApplicationController
       respond_to :json
-      before_filter :restrict_access #, except: [:index, :show]
-      before_filter :find_collection, only: [:show, :update, :destroy]
+      before_filter :restrict_access, except: [:index, :show]
+      before_filter :find_collection, only: [:update, :destroy]
 
       def index
         # TODO: pagination! This would be HUGE.
@@ -11,7 +11,8 @@ module Wapi
       end
 
       def show
-        respond_with @collection
+        respond_with Collection.where(id: params[:id]).
+          includes(:collection_items).first, items: true
       end
 
       def create

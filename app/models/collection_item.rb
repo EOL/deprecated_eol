@@ -4,7 +4,7 @@
 class CollectionItem < ActiveRecord::Base
 
   include Refable
-  
+
   belongs_to :collection, touch: true
   belongs_to :collected_item, polymorphic: true
   belongs_to :added_by_user, class_name: User.to_s, foreign_key: :added_by_user_id
@@ -85,7 +85,8 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge(include: :collected_item))
+    super(options.merge(except: [:added_by_user_id, :collection_id, :name])).
+      merge(name: collected_item.collected_name)
   end
 
   def is_hidden?

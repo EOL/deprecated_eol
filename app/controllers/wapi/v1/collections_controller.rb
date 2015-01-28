@@ -39,9 +39,10 @@ module Wapi
       end
 
       # -H 'Authorization: Token token="ABCDEF12345"'
+      # See also the request specs.
       def restrict_access
         authenticate_or_request_with_http_token do |token, options|
-          @user = User.find_by_api_key(params[:access_token])
+          @user = User.find_by_api_key(token)
         end
       end
     end

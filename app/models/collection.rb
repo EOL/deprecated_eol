@@ -184,7 +184,7 @@ class Collection < ActiveRecord::Base
   def set_relevance
     Resque.enqueue(CollectionRelevanceCalculator, id)
   end
-  
+
   def can_be_read_by?(user)
     return true if published? || users.include?(user) || user.is_admin?
     false
@@ -197,7 +197,7 @@ class Collection < ActiveRecord::Base
   def inaturalist_project_info
     InaturalistProjectInfo.get(id)
   end
-  
+
   def featuring_communities
     others_collection_items.includes({ collection: :communities }).collect do |ci|
       ci.collection ? ci.collection.communities.select{ |com| com.published? } : nil
@@ -209,9 +209,18 @@ class Collection < ActiveRecord::Base
       EOL::GlobalStatistics.decrement('collections')
       remove_from_index
       true
-    else 
+    else
       false
     end
+  end
+
+  def as_json(options = {})
+    super(
+      options.merge(
+        except: [:logo_cache_url, :logo_content_type, :logo_file_name,
+          :logo_file_size, :published, :special_collection_id],
+      )
+    ).merge(logo_path: logo_url)
   end
 
 private

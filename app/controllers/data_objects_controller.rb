@@ -525,7 +525,6 @@ private
     return if params[:references].blank?
     references = params[:references].split("\n")
     unless references.blank?            
-      references.sort_by!(&:downcase)
       references.each do |reference|        
         dato.add_ref(reference)
       end

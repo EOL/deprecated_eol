@@ -228,7 +228,6 @@ class DataObject < ActiveRecord::Base
         dato.update_column(:published, false)
         raise e
       ensure
-        options[:taxon_concept].reload if options[:taxon_concept]
         dato.update_solr_index
       end
     end

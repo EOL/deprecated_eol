@@ -3655,26 +3655,36 @@ en:
   filter_newsfeed_option_watchlist: "Watch list"
   filter_newsfeed_option_curation: "Curation"
   filtered_information: "Filtered information"
-  taxon_singular: "taxon"
-  taxon_plural: "taxa"
-  image_singular: "image"
-  image_plural: "images"
-  video_singular: "video"
-  video_plural: "videos"
-  sound_singular: "sound"
-  sound_plural: "sounds"
-  article_singular: "article"
-  article_plural: "articles"
-  trait_singular: "trait"
-  trait_plural: "traits"
-  link_singular: "link"
-  link_plural: "links"
-  person_singular: "person"
-  person_plural: "people"
-  community_singular: "community"
-  community_plural: "communities"
-  collection_singular: "collection"
-  collection_plural: "collections"
+  taxon_concept_search_keyword:
+    one: "taxon"
+    other: "taxa"
+  image_search_keyword:
+    one: "image"
+    other: "images"
+  video_search_keyword:
+    one: "video"
+    other: "videos"
+  sound_search_keyword:
+    one: "sound"
+    other: "sounds"
+  text_search_keyword:
+    one: "article"
+    other: "articles"
+  data_search_keyword:
+    one: "trait"
+    other: "traits"
+  link_search_keyword:
+    one: "link"
+    other: "links"
+  user_search_keyword:
+    one: "person"
+    other: "people"
+  community_search_keyword:
+    one: "community"
+    other: "communities"
+  collection_search_keyword:
+    one: "collection"
+    other: "collections"
   find_taxa_submit_button: "find taxa"
   flash_notice_redirected_from_search_html: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to return to the search page.</a>"
   flash_notice_redirected_from_search_html_more_results: "You've arrived here by searching for <em>%{search_string}</em>. <a href=\"%{more_results_url}\">Click here to see other search results.</a>"

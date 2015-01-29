@@ -50,7 +50,7 @@ end
 # NOT versioning these, since they really are for development (and test) only:
 group :test, :development do
   # Auto-testing with zeus (IFF you have it installed)
-  #gem "guard-zeus", require: false
+  gem "guard-zeus", require: false
   # automatically install/update your gem bundle when needed
   gem "guard-bundler", require: false
   gem "guard-rspec", require: false # Auto-testing

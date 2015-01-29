@@ -16,10 +16,12 @@ class SearchController < ApplicationController
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
     params[:type] = ['taxon_concept'] if params[:mobile_search] # Mobile search is limited to taxa for now
-    @all_params = []
-    [:taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community ,:collection].each do |keyword|
-      @all_params << [I18n.t("#{keyword}_search_keyword", count: 1),I18n.t("#{keyword}_search_keyword", count: 123),keyword]
-    end    
+    #it is a mapping between the shown words(sigularized) and actual types    
+    @all_params = [[I18n.t(:taxon_singular), I18n.t(:taxon_plural), :taxon_concept], [I18n.t(:image_singular), I18n.t(:image_plural), :image], 
+      [I18n.t(:video_singular), I18n.t(:video_plural), :video], [I18n.t(:sound_singular), I18n.t(:sound_plural), :sound], 
+      [I18n.t(:article_singular), I18n.t(:article_plural), :text], [I18n.t(:trait_singular), I18n.t(:trait_plural), :data], 
+      [I18n.t(:link_singular), I18n.t(:link_plural), :link], [I18n.t(:person_singular), I18n.t(:person_plural), :user], 
+      [I18n.t(:community_singular), I18n.t(:community_plural), :community], [I18n.t(:collection_singular), I18n.t(:collection_plural), :collection]]
     @sort_by = params[:sort_by]
     @params_type = params[:type]
     @params_type = ['all'] if @params_type.map(&:downcase).include?('all')

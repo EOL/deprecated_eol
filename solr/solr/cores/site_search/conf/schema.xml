@@ -52,7 +52,7 @@
         <!-- this is our main text type with all the taxon name filters -->
    <!-- IKAnalyzer -->
     <fieldType name="text_cn" class="solr.TextField" >  
-	      <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+	      <!-- <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
 	      <analyzer type="index">
 	      <tokenizer class="org.wltea.analyzer.solr.IKTokenizerFactory" isMaxWordLength="false"/>
 	        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
@@ -61,7 +61,7 @@
 	        <filter class="solr.EnglishPossessiveFilterFactory" protected="protwords.txt"/>
 	        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
 	      </analyzer>
-	       <!-- <analyzer type="query">
+	       <analyzer type="query">
 	           <tokenizer class="org.wltea.analyzer.solr.IKTokenizerFactory" isMaxWordLength="false"/>
                <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" />
                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />

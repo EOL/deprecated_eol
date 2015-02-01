@@ -175,7 +175,9 @@
          <maxTime>1000</maxTime> 
        </autoCommit>
       -->
-
+<updateLog>
+    <str name="dir">${solr.data.dir:}</str>
+</updateLog>
     <!-- Update Related Event Listeners
          
          Various IndexWriter related events can trigger Listeners to
@@ -207,6 +209,9 @@
          <arr name="env"> <str>MYVAR=val1</str> </arr>
        </listener>
       -->
+        <autoSoftCommit>
+    <maxTime>1000</maxTime>
+</autoSoftCommit>
   </updateHandler>
   
   <!-- IndexReaderFactory
@@ -1206,7 +1211,13 @@
       <str>elevator</str>
     </arr>
   </requestHandler>
-
+<requestHandler name="/get" class="solr.RealTimeGetHandler">
+    <lst name="defaults">
+        <str name="omitHeader">true</str>
+        <str name="wt">json</str>
+        <str name="indent">true</str>
+    </lst>
+</requestHandler>
   <!-- Highlighting Component
 
        http://wiki.apache.org/solr/HighlightingParameters

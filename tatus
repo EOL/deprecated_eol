@@ -1,0 +1,527 @@
+diff --git a/.project b/.project
+index 2ef0f82..9d7b41b 100644
+--- a/.project
++++ b/.project
+@@ -12,6 +12,7 @@
+ 		</buildCommand>
+ 	</buildSpec>
+ 	<natures>
++		<nature>com.aptana.projects.webnature</nature>
+ 		<nature>org.radrails.rails.core.railsnature</nature>
+ 		<nature>com.aptana.ruby.core.rubynature</nature>
+ 	</natures>
+diff --git a/app/models/data_object.rb b/app/models/data_object.rb
+index 6cb013e..2ec897b 100644
+--- a/app/models/data_object.rb
++++ b/app/models/data_object.rb
+@@ -1177,11 +1177,14 @@ class DataObject < ActiveRecord::Base
+   def self.same_as_last?(params, options)
+     last_dato = DataObject.texts.last
+     return false unless last_dato
+-    return  UsersDataObject.find_by_data_object_id( last_dato.id ).user_id == options[:user][:id] &&
+-            options[:taxon_concept][:id] == UsersDataObject.find_by_data_object_id( last_dato.id ).taxon_concept_id &&
+-            params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&
+-            (params[:data_object][:object_title] == last_dato.object_title ||
+-            params[:data_object][:description] == last_dato.description) 
++    user_dato= UsersDataObject.find_by_data_object_id( last_dato.id )
++    if user_dato
++      return  UsersDataObject.find_by_data_object_id( last_dato.id ).user_id == options[:user][:id] &&
++              options[:taxon_concept][:id] == UsersDataObject.find_by_data_object_id( last_dato.id ).taxon_concept_id &&
++              params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&
++              (params[:data_object][:object_title] == last_dato.object_title ||
++              params[:data_object][:description] == last_dato.description) 
++    end
+   end
+ 
+ private
+diff --git a/db/migrate/20150112120140_drop_page_view_logs.rb b/db/migrate/20150112120140_drop_page_view_logs.rb
+deleted file mode 100644
+index 46f6514..0000000
+--- a/db/migrate/20150112120140_drop_page_view_logs.rb
++++ /dev/null
+@@ -1,8 +0,0 @@
+-class DropPageViewLogs < EOL::LoggingMigration
+-  def self.up
+-    connection.drop_table "page_view_logs"
+-  end
+-
+-  def down
+-  end
+-end
+diff --git a/lib/eol/solr.rb b/lib/eol/solr.rb
+index 1a3a604..46e089be 100644
+--- a/lib/eol/solr.rb
++++ b/lib/eol/solr.rb
+@@ -6,7 +6,7 @@ module EOL
+     def self.rebuild_all
+       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
+       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
+-      # EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
++      EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
+       # EOL::Solr::BHLCoreRebuilder.new().begin_rebuild
+     end
+ 
+diff --git a/solr/solr/cores/activity_logs/data/activity_logs/index/segments.gen b/solr/solr/cores/activity_logs/data/activity_logs/index/segments.gen
+index 63a7ec9..128dd09 100644
+Binary files a/solr/solr/cores/activity_logs/data/activity_logs/index/segments.gen and b/solr/solr/cores/activity_logs/data/activity_logs/index/segments.gen differ
+diff --git a/solr/solr/cores/activity_logs/data/activity_logs/index/segments_1 b/solr/solr/cores/activity_logs/data/activity_logs/index/segments_1
+deleted file mode 100644
+index 5a6d052..0000000
+Binary files a/solr/solr/cores/activity_logs/data/activity_logs/index/segments_1 and /dev/null differ
+diff --git a/solr/solr/cores/bhl/conf/solrconfig.xml b/solr/solr/cores/bhl/conf/solrconfig.xml
+index 5a89e9c..b35b6b0 100755
+--- a/solr/solr/cores/bhl/conf/solrconfig.xml
++++ b/solr/solr/cores/bhl/conf/solrconfig.xml
+@@ -175,7 +175,9 @@
+          <maxTime>1000</maxTime> 
+        </autoCommit>
+       -->
+-
++<updateLog>
++    <str name="dir">${solr.data.dir:}</str>
++</updateLog>
+     <!-- Update Related Event Listeners
+          
+          Various IndexWriter related events can trigger Listeners to
+@@ -207,6 +209,9 @@
+          <arr name="env"> <str>MYVAR=val1</str> </arr>
+        </listener>
+       -->
++        <autoSoftCommit>
++    <maxTime>1000</maxTime>
++</autoSoftCommit>
+   </updateHandler>
+   
+   <!-- IndexReaderFactory
+@@ -1206,7 +1211,13 @@
+       <str>elevator</str>
+     </arr>
+   </requestHandler>
+-
++<requestHandler name="/get" class="solr.RealTimeGetHandler">
++    <lst name="defaults">
++        <str name="omitHeader">true</str>
++        <str name="wt">json</str>
++        <str name="indent">true</str>
++    </lst>
++</requestHandler>
+   <!-- Highlighting Component
+ 
+        http://wiki.apache.org/solr/HighlightingParameters
+diff --git a/solr/solr/cores/bhl/data/bhl/index/segments.gen b/solr/solr/cores/bhl/data/bhl/index/segments.gen
+index 63a7ec9..957630d 100644
+Binary files a/solr/solr/cores/bhl/data/bhl/index/segments.gen and b/solr/solr/cores/bhl/data/bhl/index/segments.gen differ
+diff --git a/solr/solr/cores/bhl/data/bhl/index/segments_1 b/solr/solr/cores/bhl/data/bhl/index/segments_1
+deleted file mode 100644
+index 5a6d052..0000000
+Binary files a/solr/solr/cores/bhl/data/bhl/index/segments_1 and /dev/null differ
+diff --git a/solr/solr/cores/collection_items/data/collection_items/index/segments.gen b/solr/solr/cores/collection_items/data/collection_items/index/segments.gen
+index 63a7ec9..ac75e7b 100644
+Binary files a/solr/solr/cores/collection_items/data/collection_items/index/segments.gen and b/solr/solr/cores/collection_items/data/collection_items/index/segments.gen differ
+diff --git a/solr/solr/cores/collection_items/data/collection_items/index/segments_1 b/solr/solr/cores/collection_items/data/collection_items/index/segments_1
+deleted file mode 100644
+index 5a6d052..0000000
+Binary files a/solr/solr/cores/collection_items/data/collection_items/index/segments_1 and /dev/null differ
+diff --git a/solr/solr/cores/data_objects/conf/admin-extra.menu-bottom.html b/solr/solr/cores/data_objects/conf/admin-extra.menu-bottom.html
+index e69de29..82404ae 100644
+--- a/solr/solr/cores/data_objects/conf/admin-extra.menu-bottom.html
++++ b/solr/solr/cores/data_objects/conf/admin-extra.menu-bottom.html
+@@ -0,0 +1 @@
++<!-- admin-extra.menu-bottom.html -->
+diff --git a/solr/solr/cores/data_objects/conf/admin-extra.menu-top.html b/solr/solr/cores/data_objects/conf/admin-extra.menu-top.html
+index e69de29..9807205 100644
+--- a/solr/solr/cores/data_objects/conf/admin-extra.menu-top.html
++++ b/solr/solr/cores/data_objects/conf/admin-extra.menu-top.html
+@@ -0,0 +1 @@
++<!-- admin-extra.menu-top.html -->
+diff --git a/solr/solr/cores/data_objects/data/data_objects/index/segments.gen b/solr/solr/cores/data_objects/data/data_objects/index/segments.gen
+index 22701a3..a1fa714 100644
+Binary files a/solr/solr/cores/data_objects/data/data_objects/index/segments.gen and b/solr/solr/cores/data_objects/data/data_objects/index/segments.gen differ
+diff --git a/solr/solr/cores/data_objects/data/data_objects/index/segments_n b/solr/solr/cores/data_objects/data/data_objects/index/segments_n
+deleted file mode 100644
+index 56dd3a8..0000000
+Binary files a/solr/solr/cores/data_objects/data/data_objects/index/segments_n and /dev/null differ
+diff --git a/solr/solr/cores/data_objects/data/data_objects/tlog/tlog.0000000000000000128 b/solr/solr/cores/data_objects/data/data_objects/tlog/tlog.0000000000000000128
+deleted file mode 100644
+index c5a3471..0000000
+Binary files a/solr/solr/cores/data_objects/data/data_objects/tlog/tlog.0000000000000000128 and /dev/null differ
+diff --git a/solr/solr/cores/data_objects/data/data_objects/tlog/tlog.0000000000000000129 b/solr/solr/cores/data_objects/data/data_objects/tlog/tlog.0000000000000000129
+deleted file mode 100644
+index 74ffeee..0000000
+Binary files a/solr/solr/cores/data_objects/data/data_objects/tlog/tlog.0000000000000000129 and /dev/null differ
+diff --git a/solr/solr/cores/site_search/conf/admin-extra.menu-bottom.html b/solr/solr/cores/site_search/conf/admin-extra.menu-bottom.html
+index e69de29..82404ae 100644
+--- a/solr/solr/cores/site_search/conf/admin-extra.menu-bottom.html
++++ b/solr/solr/cores/site_search/conf/admin-extra.menu-bottom.html
+@@ -0,0 +1 @@
++<!-- admin-extra.menu-bottom.html -->
+diff --git a/solr/solr/cores/site_search/conf/admin-extra.menu-top.html b/solr/solr/cores/site_search/conf/admin-extra.menu-top.html
+index e69de29..9807205 100644
+--- a/solr/solr/cores/site_search/conf/admin-extra.menu-top.html
++++ b/solr/solr/cores/site_search/conf/admin-extra.menu-top.html
+@@ -0,0 +1 @@
++<!-- admin-extra.menu-top.html -->
+diff --git a/solr/solr/cores/site_search/conf/schema.xml b/solr/solr/cores/site_search/conf/schema.xml
+index b936bb3..e134841 100755
+--- a/solr/solr/cores/site_search/conf/schema.xml
++++ b/solr/solr/cores/site_search/conf/schema.xml
+@@ -52,7 +52,7 @@
+         <!-- this is our main text type with all the taxon name filters -->
+    <!-- IKAnalyzer -->
+     <fieldType name="text_cn" class="solr.TextField" >  
+-	      <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
++	      <!-- <analyzer class="org.wltea.analyzer.lucene.IKAnalyzer"/>
+ 	      <analyzer type="index">
+ 	      <tokenizer class="org.wltea.analyzer.solr.IKTokenizerFactory" isMaxWordLength="false"/>
+ 	        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt"/>
+@@ -61,7 +61,7 @@
+ 	        <filter class="solr.EnglishPossessiveFilterFactory" protected="protwords.txt"/>
+ 	        <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+ 	      </analyzer>
+-	       <!-- <analyzer type="query">
++	       <analyzer type="query">
+ 	           <tokenizer class="org.wltea.analyzer.solr.IKTokenizerFactory" isMaxWordLength="false"/>
+                <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true" />
+                <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" />
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16.fdt b/solr/solr/cores/site_search/data/site_search/index/_16.fdt
+deleted file mode 100644
+index 4fbfbb5..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16.fdt and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16.fdx b/solr/solr/cores/site_search/data/site_search/index/_16.fdx
+deleted file mode 100644
+index b80a1a7..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16.fdx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16.fnm b/solr/solr/cores/site_search/data/site_search/index/_16.fnm
+deleted file mode 100644
+index 7d60623..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16.fnm and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16.si b/solr/solr/cores/site_search/data/site_search/index/_16.si
+deleted file mode 100644
+index 80a3ac0..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16.si and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.frq b/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.frq
+deleted file mode 100644
+index 9cea7ad..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.frq and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.prx b/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.prx
+deleted file mode 100644
+index 8dc64e7..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.prx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.tim b/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.tim
+deleted file mode 100644
+index 13578cc..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.tim and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.tip b/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.tip
+deleted file mode 100644
+index b0a3f01..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16_Lucene40_0.tip and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16_nrm.cfe b/solr/solr/cores/site_search/data/site_search/index/_16_nrm.cfe
+deleted file mode 100644
+index ad008be..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16_nrm.cfe and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_16_nrm.cfs b/solr/solr/cores/site_search/data/site_search/index/_16_nrm.cfs
+deleted file mode 100644
+index ae92e1d..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_16_nrm.cfs and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17.fdt b/solr/solr/cores/site_search/data/site_search/index/_17.fdt
+deleted file mode 100644
+index 3cd1bae..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17.fdt and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17.fdx b/solr/solr/cores/site_search/data/site_search/index/_17.fdx
+deleted file mode 100644
+index 35f0b70..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17.fdx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17.fnm b/solr/solr/cores/site_search/data/site_search/index/_17.fnm
+deleted file mode 100644
+index be3bd01..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17.fnm and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17.si b/solr/solr/cores/site_search/data/site_search/index/_17.si
+deleted file mode 100644
+index 728b621..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17.si and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.frq b/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.frq
+deleted file mode 100644
+index 92f909f..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.frq and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.prx b/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.prx
+deleted file mode 100644
+index 5a8cafd..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.prx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.tim b/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.tim
+deleted file mode 100644
+index 4b36486..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.tim and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.tip b/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.tip
+deleted file mode 100644
+index 270885d..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17_Lucene40_0.tip and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17_nrm.cfe b/solr/solr/cores/site_search/data/site_search/index/_17_nrm.cfe
+deleted file mode 100644
+index 3117c49..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17_nrm.cfe and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_17_nrm.cfs b/solr/solr/cores/site_search/data/site_search/index/_17_nrm.cfs
+deleted file mode 100644
+index fd2d3cf..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_17_nrm.cfs and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18.fdt b/solr/solr/cores/site_search/data/site_search/index/_18.fdt
+deleted file mode 100644
+index 60808bf..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18.fdt and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18.fdx b/solr/solr/cores/site_search/data/site_search/index/_18.fdx
+deleted file mode 100644
+index 311c98e..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18.fdx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18.fnm b/solr/solr/cores/site_search/data/site_search/index/_18.fnm
+deleted file mode 100644
+index 7d60623..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18.fnm and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18.si b/solr/solr/cores/site_search/data/site_search/index/_18.si
+deleted file mode 100644
+index fc59cfc..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18.si and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.frq b/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.frq
+deleted file mode 100644
+index 272214c..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.frq and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.prx b/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.prx
+deleted file mode 100644
+index f98468d..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.prx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.tim b/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.tim
+deleted file mode 100644
+index 50b0878..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.tim and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.tip b/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.tip
+deleted file mode 100644
+index a7ce345..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18_Lucene40_0.tip and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18_nrm.cfe b/solr/solr/cores/site_search/data/site_search/index/_18_nrm.cfe
+deleted file mode 100644
+index 2da1be7..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18_nrm.cfe and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_18_nrm.cfs b/solr/solr/cores/site_search/data/site_search/index/_18_nrm.cfs
+deleted file mode 100644
+index 5f59f2b..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_18_nrm.cfs and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19.fdt b/solr/solr/cores/site_search/data/site_search/index/_19.fdt
+deleted file mode 100644
+index 1647634..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19.fdt and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19.fdx b/solr/solr/cores/site_search/data/site_search/index/_19.fdx
+deleted file mode 100644
+index 8e8ba10..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19.fdx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19.fnm b/solr/solr/cores/site_search/data/site_search/index/_19.fnm
+deleted file mode 100644
+index 7d60623..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19.fnm and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19.si b/solr/solr/cores/site_search/data/site_search/index/_19.si
+deleted file mode 100644
+index 3be5e80..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19.si and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.frq b/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.frq
+deleted file mode 100644
+index 28f407a..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.frq and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.prx b/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.prx
+deleted file mode 100644
+index 9713e33..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.prx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.tim b/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.tim
+deleted file mode 100644
+index 2c20dea..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.tim and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.tip b/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.tip
+deleted file mode 100644
+index d70a1e7..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19_Lucene40_0.tip and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19_nrm.cfe b/solr/solr/cores/site_search/data/site_search/index/_19_nrm.cfe
+deleted file mode 100644
+index dcf594e..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19_nrm.cfe and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_19_nrm.cfs b/solr/solr/cores/site_search/data/site_search/index/_19_nrm.cfs
+deleted file mode 100644
+index e2f50ca..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_19_nrm.cfs and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a.fdt b/solr/solr/cores/site_search/data/site_search/index/_1a.fdt
+deleted file mode 100644
+index e0e0298..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a.fdt and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a.fdx b/solr/solr/cores/site_search/data/site_search/index/_1a.fdx
+deleted file mode 100644
+index 75f5107..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a.fdx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a.fnm b/solr/solr/cores/site_search/data/site_search/index/_1a.fnm
+deleted file mode 100644
+index be3bd01..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a.fnm and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a.si b/solr/solr/cores/site_search/data/site_search/index/_1a.si
+deleted file mode 100644
+index f0745ae..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a.si and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.frq b/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.frq
+deleted file mode 100644
+index 38b1274..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.frq and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.prx b/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.prx
+deleted file mode 100644
+index a231bf1..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.prx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.tim b/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.tim
+deleted file mode 100644
+index f912c53..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.tim and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.tip b/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.tip
+deleted file mode 100644
+index 4b495b1..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a_Lucene40_0.tip and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a_nrm.cfe b/solr/solr/cores/site_search/data/site_search/index/_1a_nrm.cfe
+deleted file mode 100644
+index 85de711..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a_nrm.cfe and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1a_nrm.cfs b/solr/solr/cores/site_search/data/site_search/index/_1a_nrm.cfs
+deleted file mode 100644
+index b5d1857..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1a_nrm.cfs and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b.fdt b/solr/solr/cores/site_search/data/site_search/index/_1b.fdt
+deleted file mode 100644
+index 91f13a3..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b.fdt and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b.fdx b/solr/solr/cores/site_search/data/site_search/index/_1b.fdx
+deleted file mode 100644
+index 6f6487a..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b.fdx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b.fnm b/solr/solr/cores/site_search/data/site_search/index/_1b.fnm
+deleted file mode 100644
+index 20a65f2..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b.fnm and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b.si b/solr/solr/cores/site_search/data/site_search/index/_1b.si
+deleted file mode 100644
+index 51a5e85..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b.si and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.frq b/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.frq
+deleted file mode 100644
+index 9cf7ab6..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.frq and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.prx b/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.prx
+deleted file mode 100644
+index a909111..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.prx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.tim b/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.tim
+deleted file mode 100644
+index 6317eb6..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.tim and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.tip b/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.tip
+deleted file mode 100644
+index 2f8ad6c..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b_Lucene40_0.tip and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b_nrm.cfe b/solr/solr/cores/site_search/data/site_search/index/_1b_nrm.cfe
+deleted file mode 100644
+index 76f046f..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b_nrm.cfe and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1b_nrm.cfs b/solr/solr/cores/site_search/data/site_search/index/_1b_nrm.cfs
+deleted file mode 100644
+index 5d928d9..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1b_nrm.cfs and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c.fdt b/solr/solr/cores/site_search/data/site_search/index/_1c.fdt
+deleted file mode 100644
+index a5f5fa7..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c.fdt and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c.fdx b/solr/solr/cores/site_search/data/site_search/index/_1c.fdx
+deleted file mode 100644
+index ad7ec68..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c.fdx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c.fnm b/solr/solr/cores/site_search/data/site_search/index/_1c.fnm
+deleted file mode 100644
+index 7d60623..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c.fnm and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c.si b/solr/solr/cores/site_search/data/site_search/index/_1c.si
+deleted file mode 100644
+index 8f095b9..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c.si and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.frq b/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.frq
+deleted file mode 100644
+index 2556aaa..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.frq and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.prx b/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.prx
+deleted file mode 100644
+index 10d48e1..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.prx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.tim b/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.tim
+deleted file mode 100644
+index d1b8391..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.tim and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.tip b/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.tip
+deleted file mode 100644
+index f349ce6..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c_Lucene40_0.tip and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c_nrm.cfe b/solr/solr/cores/site_search/data/site_search/index/_1c_nrm.cfe
+deleted file mode 100644
+index e18f1ea..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c_nrm.cfe and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/_1c_nrm.cfs b/solr/solr/cores/site_search/data/site_search/index/_1c_nrm.cfs
+deleted file mode 100644
+index ad6bb31..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/_1c_nrm.cfs and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/segments.gen b/solr/solr/cores/site_search/data/site_search/index/segments.gen
+index d2b0d6d..94ccb56 100644
+Binary files a/solr/solr/cores/site_search/data/site_search/index/segments.gen and b/solr/solr/cores/site_search/data/site_search/index/segments.gen differ
+diff --git a/solr/solr/cores/site_search/data/site_search/index/segments_1o b/solr/solr/cores/site_search/data/site_search/index/segments_1o
+deleted file mode 100644
+index 76e3a6a..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/index/segments_1o and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fdt b/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fdt
+deleted file mode 100644
+index c719903..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fdt and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fdx b/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fdx
+deleted file mode 100644
+index 7e9943d..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fdx and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fnm b/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fnm
+deleted file mode 100644
+index 030fc6a..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/_9.fnm and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/_9.si b/solr/solr/cores/site_search/data/site_search/spellchecker/_9.si
+deleted file mode 100644
+index 43f4c74..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/_9.si and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.frq b/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.frq
+deleted file mode 100644
+index 66ad7a5..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.frq and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.tim b/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.tim
+deleted file mode 100644
+index 263b185..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.tim and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.tip b/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.tip
+deleted file mode 100644
+index 5c74540..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/_9_Lucene40_0.tip and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/segments.gen b/solr/solr/cores/site_search/data/site_search/spellchecker/segments.gen
+index bed80c0..1f41442 100644
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/segments.gen and b/solr/solr/cores/site_search/data/site_search/spellchecker/segments.gen differ
+diff --git a/solr/solr/cores/site_search/data/site_search/spellchecker/segments_11 b/solr/solr/cores/site_search/data/site_search/spellchecker/segments_11
+deleted file mode 100644
+index 3d48367..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/spellchecker/segments_11 and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000181 b/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000181
+deleted file mode 100644
+index 96af9a2..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000181 and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000182 b/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000182
+deleted file mode 100644
+index 926a799..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000182 and /dev/null differ
+diff --git a/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000183 b/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000183
+deleted file mode 100644
+index 3b7b3f0..0000000
+Binary files a/solr/solr/cores/site_search/data/site_search/tlog/tlog.0000000000000000183 and /dev/null differ
+diff --git a/solr/solr/lib/jetty-6.1.26-patched-JETTY-1340.jar b/solr/solr/lib/jetty-6.1.26-patched-JETTY-1340.jar
+deleted file mode 100644
+index 6be492c..0000000
+Binary files a/solr/solr/lib/jetty-6.1.26-patched-JETTY-1340.jar and /dev/null differ
+diff --git a/solr/solr/lib/jsp-2.1/jsp-2.1-jetty-6.1.26.jar b/solr/solr/lib/jsp-2.1/jsp-2.1-jetty-6.1.26.jar
+deleted file mode 100644
+index a382381..0000000
+Binary files a/solr/solr/lib/jsp-2.1/jsp-2.1-jetty-6.1.26.jar and /dev/null differ

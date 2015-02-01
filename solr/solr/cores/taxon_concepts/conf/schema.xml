@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="taxon_concepts" version="1.5">
+    
+    <!-- define data types -->
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+
+        <!-- this is our main text type with all the taxon name filters -->
+        <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="1" catenateNumbers="1" catenateAll="0" splitOnCaseChange="1" splitOnNumerics="1" preserveOriginal="1"/>
+                <!-- split up bi-maculata, 2maculata, 1766c, etc. -->
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.WordDelimiterFilterFactory" generateWordParts="1" generateNumberParts="1" catenateWords="0" catenateNumbers="0" catenateAll="0" splitOnCaseChange="1" splitOnNumerics="1" preserveOriginal="1"/>
+                <!-- don't need the extra catenation on search - increase performance -->
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        
+        <!-- This is our *exact* text field, with limited tokenizers.
+          Thought about whitespace tokenizer, but I think that would defeat the purpose! "Felis familiaris" would match on
+          "felis", I think. Downside is, "felis familaris" won't match "felis     familiaris". -->
+        <fieldType name="textExact" class="solr.TextField" positionIncrementGap="4">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        
+        <fieldType name="textSpell" class="solr.TextField" positionIncrementGap="100">
+            <analyzer>
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+        </fieldType>
+    </types>
+    
+    <!-- begin data schema -->
+    <fields>
+        <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="preferred_scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="preferred_scientific_name_exact" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
+        <copyField source="preferred_scientific_name" dest="preferred_scientific_name_exact"/>
+        <field name="scientific_name" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="scientific_name_exact" type="textExact" indexed="true" stored="true" required="false" multiValued="true"/>
+        <copyField source="scientific_name" dest="scientific_name_exact"/>
+        <field name="common_name" type="text" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="common_name_exact" type="textExact" indexed="true" stored="true" required="false" multiValued="true"/>
+        <copyField source="common_name" dest="common_name_exact"/>
+        <field name="autocomplete" type="textSpell" indexed="true" stored="true" required="false" multiValued="true"/>
+        <copyField source="common_name" dest="autocomplete"/>
+        <copyField source="scientific_name" dest="autocomplete"/>
+        <field name="rank_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="hierarchy_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="ancestor_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
+        <field name="top_image_id" type="int" indexed="true" stored="true" required="false" multiValued="false"/>
+        <field name="vetted_id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="published" type="boolean" indexed="true" stored="true" required="true"/>
+        <field name="supercedure_id" type="int" indexed="true" stored="true" required="false"/>
+        <field name="_version_" type="long" indexed="true" stored="true" multiValued="false"/>
+
+    </fields>
+    
+    <!-- force uniqueness -->
+    <uniqueKey>taxon_concept_id</uniqueKey>
+    
+    <!-- default unqualified search field -->
+    <defaultSearchField>scientific_name</defaultSearchField>
+</schema>

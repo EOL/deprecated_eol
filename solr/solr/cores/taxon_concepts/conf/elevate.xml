@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<elevate>
+  <query text='animals'>
+    <doc id='1'/>
+  </query>
+</elevate>

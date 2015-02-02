@@ -1480,11 +1480,11 @@ gl:
     details:
       index:
         hierarchy_entry:
-          meta_description: Información sobre %{scientific_name}, segundo a clasificou
-            %{hierarchy_provider}, na Enciclopedia da vida.
-          meta_description_no_data: Non hai información dispoñible sobre %{scientific_name},
+          meta_description: Descricións e artigos sobre %{scientific_name}, segundo
+            a clasificou %{hierarchy_provider}, na Enciclopedia da vida
+          meta_description_no_data: Non hai artigos dispoñibles sobre %{scientific_name},
             segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. A
-            EOL convídate a achegar datos sobre %{scientific_name}, como a conservación,
+            EOL convídate a achegar artigos sobre %{scientific_name}, como a conservación,
             a distribución, a ecoloxía, o hábitat, a morfoloxía e outros.
           meta_description_with_chapter_list: Información sobre %{scientific_name},
             segundo a clasificou %{hierarchy_provider}, na Enciclopedia da vida. Inclúe

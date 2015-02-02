@@ -3772,6 +3772,9 @@ fr:
     pas seulement ceux avec une autorisation
   admin_link: Vue d’ensemble
   admin_page_title: 'Administration : vue d’ensemble'
+  admin_resource_delete_confirmation: Êtes-vous sûr de vouloir supprimer cette ressource ?
+    Cette commande est longue à exécuter. Vous pourriez obtenir un dépassement de
+    délai en l’utilisant. Ne la renvoyez pas.
   admin_simple_actions_header: 'Actions simples :'
   admin_spam_delete: Supprimer les pourriels
   admin_statistics_link: Statistiques
@@ -4471,6 +4474,7 @@ fr:
   content_partner_resource_create_unsuccessful_error: Une erreur s’est produite. La
     ressource n’a pas été ajoutée.
   content_partner_resource_dataset_details_header: Jeu de données
+  content_partner_resource_delete_with_type_link: Tout supprimer
   content_partner_resource_description_empty: Aucune description n’a été fournie pour
     cette ressource.
   content_partner_resource_edit_link: Modifier
@@ -4496,6 +4500,8 @@ fr:
   content_partner_resource_harvest_event_update_unsuccessful_error: Désolé, une erreur
     s’est produite, l'événement de récolte pour %{resource_title} n’a pas été mis
     à jour.
+  content_partner_resource_has_been_deleted: Tout ce qui a été collecté par la ressource
+    %{resource_title} a bien été supprimé
   content_partner_resource_hierarchy_browsable: Navigable
   content_partner_resource_hierarchy_complete_true: Cette hiérarchie est définie comme
     <strong>organisée</strong>. Une hiérarchie supervisée suppose que chaque entrée
@@ -5004,6 +5010,8 @@ fr:
   duplicate_comment_warning: 'Commentaire non enregistré : il semble que vous avez
     déjà posté ce commentaire. ...Avez-vous cliqué sur le bouton ''envoyer un commentaire''
     deux fois ?'
+  duplicate_text_warning: 'Texte non enregistré : il semble que vous avez déjà posté
+    cet article. … Avez-vous cliqué deux fois sur le bouton ''ajouter un article'' ?'
   duplicate_items_were_ignored: Les éléments en double ont été ignorés.
   each_method_documentation_page_has_formatted_responses: Chaque page de documentation
     de méthode comprend un exemple des deux réponses formatées en XML et JSON.

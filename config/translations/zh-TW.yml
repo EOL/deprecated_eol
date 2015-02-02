@@ -843,6 +843,8 @@ zh-TW:
       menu_link: 使用者提交的文字
       page_header: 使用者提交文字統計數據
       page_title: 統計數據
+    data:
+      menu_link: 資料
   forums:
     forums_heading: EOL論壇
     last_post: 最後的貼文
@@ -3406,6 +3408,7 @@ zh-TW:
   daily: 每日
   darwin_core: 達爾文核心集
   dashboard: Dashboard
+  data: 資料
   data_database_colon: 資料：
   data_logging_active: 資料日誌啟動中
   data_master_database_colon: Data Master：
@@ -3467,6 +3470,7 @@ zh-TW:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 不要顯示不明之註冊日期(V1使用者，全都在2009年1月5日前)
   do_you_want_to_be_a_curator: 您想成為一位蒐藏經理嗎
   download_wav_file: 下載WAV檔案
+  download_data: 下載資料
   dublin_core: 都柏林核心集
   duplicate_comment_warning: 未能儲存評論：您似乎已貼過這筆評論。...您是否點擊了兩次'貼評論'的按鈕？
   duplicate_items_were_ignored: 重複的項目已被忽略。
@@ -4500,6 +4504,7 @@ zh-TW:
   sub_heading: 副標題
   subject: 主題
   submit: 送出
+  submitted_colon: 已送出：
   suggested_result_page_id: 建議結果頁面的ID：
   suggested_results_avg: 建議結果的平均值
   summary_thumbnail_title: 總結：
@@ -4535,6 +4540,7 @@ zh-TW:
   taxon_citizen_science_link: 公民科學連結
   taxon_citizen_science_resources_empty: 本頁尚無人提供公民科學之連結。
   taxon_concept_stats: 分類觀統計
+  taxon_data_header: 關於 %{taxon} 的資料
   taxon_details_empty: 這個頁面尚無人提供詳細資料。
   taxon_details_empty_in_this_language: 這個頁面尚無人提供本語言的詳細資料。
   taxon_education_empty: 這個頁面尚無人提供教育資源。

@@ -45,7 +45,7 @@ describe SearchController do
       name = Name.gen(canonical_form: cf = CanonicalForm.gen(string: 'cat'),
                     string: 'cat',
                     italicized: '<i>cat</i>')
-      he = HierarchyEntry.gen(hierarchy: Hierarchy.gen(), parent_id: 0, identifier: '', depth: 0, rank_id: 0, vetted_id: Vetted.trusted.id,
+      he = HierarchyEntry.gen(hierarchy: Hierarchy.gen(), parent_id: 0, identifier: '', depth: 0, rank_id: 0, vetted_id: Vetted.trusted_ids,
                                 taxon_concept: TaxonConcept.gen, name: name)            
       Collection.gen      
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild

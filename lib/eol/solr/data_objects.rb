@@ -9,6 +9,7 @@ module EOL
 
         response = solr_search(taxon_concept_id, options)
         total_results = response['response']['numFound']
+        total_results += 1 if !(options[:examplar_id].blank?) #increase total results count to add examplar image
         results = response['response']['docs']
         add_resource_instances!(results, options)
 
@@ -57,6 +58,11 @@ module EOL
       def self.prepare_search_url(taxon_concept_id, options = {})
         taxon_concept_id = "(" + taxon_concept_id.join(" OR ") + ")" if taxon_concept_id.class == Array
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}ancestor_id:#{taxon_concept_id}")
+        
+        if options[:examplar_id]
+          url << CGI.escape(" AND data_object_id:[* TO *] -data_object_id:(#{options[:examplar_id]})") # skip examplar image
+        end      
+        
         unless options[:published].nil?
           url << CGI.escape(" AND published:#{(options[:published]) ? 1 : 0}")
         end
@@ -176,7 +182,6 @@ module EOL
         if options[:get_unique_toc_ids]
           url << '&facet.field=toc_id&facet.mincount=1&facet.limit=300&facet=on'
         end
-        
         url
       end
       

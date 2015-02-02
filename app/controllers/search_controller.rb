@@ -16,6 +16,10 @@ class SearchController < ApplicationController
     params[:sort_by] ||= 'score'
     params[:type] ||= ['all']
     params[:type] = ['taxon_concept'] if params[:mobile_search] # Mobile search is limited to taxa for now
+    @all_params = []
+    [:taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community ,:collection].each do |keyword|
+      @all_params << [I18n.t("#{keyword}_search_keyword", count: 1),I18n.t("#{keyword}_search_keyword", count: 123),keyword]
+    end    
     @sort_by = params[:sort_by]
     @params_type = params[:type]
     @params_type = ['all'] if @params_type.map(&:downcase).include?('all')
@@ -55,6 +59,15 @@ class SearchController < ApplicationController
       @all_results = empty_paginated_set
       @facets = {}
     else
+      query_array = (@querystring.downcase.gsub(/\s+/m, ' ').strip.split(" "))
+      query_reserved_words = (query_array & @all_params.map{|key| key[0]}) + (query_array & @all_params.map{|key| key[1]})
+      if query_reserved_words.any?
+        @params_type += query_reserved_words.map{|word| @all_params.select{|param| param[0] == word || param[1] == word}.first[2].to_s.camelize}
+        @params_type -= ['All']
+        query_array.reject! {|t| (@all_params.map{|key| key[0]}).include?(t) || (@all_params.map{|key| key[1]}).include?(t)}
+        @querystring = query_array.join(" ")
+        params[:type] = @params_type
+      end
       search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ per_page: @@results_per_page, language_id: current_language.id }))
       if $STATSD
         $STATSD.increment 'all_searches'

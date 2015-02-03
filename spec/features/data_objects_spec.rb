@@ -425,7 +425,7 @@ describe 'Data Object Page' do
   end
 
   it 'should not show an image cropping tool to non-admins' do
-    login_as @mastger_curator
+    login_as @master_curator
     visit("/data_objects/#{@image.id}")
     body.should_not have_tag('.crop_preview.width_130')
     body.should_not have_tag('.crop_preview.width_88')

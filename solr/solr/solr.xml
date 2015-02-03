@@ -17,12 +17,12 @@
 -->
 <solr persistent="true">
   <cores adminPath="/admin/cores">
-      <core name="data_objects" instanceDir="./cores/data_objects/" dataDir="./data/data_objects"/>
-      <core name="site_search" instanceDir="./cores/site_search/" dataDir="./data/site_search"/> 
-      <core name="hierarchy_entries" instanceDir="./cores/hierarchy_entries/" dataDir="./data/hierarchy_entries"/>
-      <core name="hierarchy_entry_relationship" instanceDir="./cores/hierarchy_entry_relationship/" dataDir="./data/hierarchy_entry_relationship"/>
-      <core name="collection_items" instanceDir="./cores/collection_items/" dataDir="./data/collection_items"/>
-      <core name="bhl" instanceDir="./cores/bhl/" dataDir="./data/bhl"/>
-      <core name="activity_logs" instanceDir="./cores/activity_logs/" dataDir="./data/activity_logs"/>
+      <core name="data_objects" instanceDir="./cores/data_objects/" dataDir="../../data/data_objects"/>
+      <core name="site_search" instanceDir="./cores/site_search/" dataDir="../../data/site_search"/> 
+      <core name="hierarchy_entries" instanceDir="./cores/hierarchy_entries/" dataDir="../../data/hierarchy_entries"/>
+      <core name="hierarchy_entry_relationship" instanceDir="./cores/hierarchy_entry_relationship/" dataDir="../../data/hierarchy_entry_relationship"/>
+      <core name="collection_items" instanceDir="./cores/collection_items/" dataDir="../../data/collection_items"/>
+      <core name="bhl" instanceDir="./cores/bhl/" dataDir="../../data/bhl"/>
+      <core name="activity_logs" instanceDir="./cores/activity_logs/" dataDir="../../data/activity_logs"/>
   </cores>
 </solr>

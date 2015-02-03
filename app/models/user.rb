@@ -682,8 +682,7 @@ class User < ActiveRecord::Base
 
   # An eol authentication indicates a user that has no open authentications, i.e. only has eol credentials
   def eol_authentication?
-    # open_authentications.blank?
-    true
+    open_authentications.blank?
   end
 
   # This returns false unless the user wants an email notification for the given type, then it returns the

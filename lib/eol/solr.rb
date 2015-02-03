@@ -7,7 +7,7 @@ module EOL
       EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
       EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
       EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
-      # EOL::Solr::BHLCoreRebuilder.new().begin_rebuild
+      EOL::Solr::BHLCoreRebuilder.new().begin_rebuild
     end
 
     def self.query_lucene(solr_endpoint, query, options = {})

@@ -1174,10 +1174,13 @@ class DataObject < ActiveRecord::Base
     DataObjectsTaxonConcept.where(data_object_id: id).destroy_all
     DataObjectsTableOfContent.where(data_object_id: id).destroy_all
   end
+
+  # TODO: Shouldn't pass params, just pass the params[:data_object] hash
   def self.same_as_last?(params, options)
     DataObject.with_master do # Slave lag will cause nils
       last_dato = DataObject.texts.last
       return false unless last_dato
+      return false unless UsersDataObject.exists?(data_object_id: last_dato.id)
       return  UsersDataObject.find_by_data_object_id( last_dato.id ).user_id == options[:user][:id] &&
               options[:taxon_concept][:id] == UsersDataObject.find_by_data_object_id( last_dato.id ).taxon_concept_id &&
               params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&

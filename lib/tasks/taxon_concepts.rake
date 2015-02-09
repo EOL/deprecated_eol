@@ -6,7 +6,7 @@ namespace :taxon_concepts do
       csv << ["taxon_concept_id", "rank", "ancestors_taxon_concepts_ids", "preferred_scientific_names", "preferred_common_names",
               "hierarchy_entry_id", "resource_name", "content_provider_name", "identifier"]
       # TODO add limit and offset
-      TaxonConcept.all.each do |tc|
+      TaxonConcept.published.find_each do |tc|
         taxon_concept_id = tc.id
         
         rank = ""

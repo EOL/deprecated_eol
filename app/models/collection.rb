@@ -23,7 +23,7 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collection_jobs
 
-  scope :published, conditions: {published: 1}
+  scope :published, -> { where(published: true) }
   # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...
   scope :watch, lambda { { conditions: {special_collection_id: SpecialCollection.watch.id} } }
 
@@ -184,7 +184,7 @@ class Collection < ActiveRecord::Base
   def set_relevance
     Resque.enqueue(CollectionRelevanceCalculator, id)
   end
-  
+
   def can_be_read_by?(user)
     return true if published? || users.include?(user) || user.is_admin?
     false
@@ -197,7 +197,7 @@ class Collection < ActiveRecord::Base
   def inaturalist_project_info
     InaturalistProjectInfo.get(id)
   end
-  
+
   def featuring_communities
     others_collection_items.includes({ collection: :communities }).collect do |ci|
       ci.collection ? ci.collection.communities.select{ |com| com.published? } : nil
@@ -209,7 +209,7 @@ class Collection < ActiveRecord::Base
       EOL::GlobalStatistics.decrement('collections')
       remove_from_index
       true
-    else 
+    else
       false
     end
   end

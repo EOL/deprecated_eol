@@ -4,11 +4,11 @@ class Taxa::MediaController < TaxaController
 
   def index
     # NOTE - whitelisting the params. Don't be lazy and just pass params, here!
-     examplar = @taxon_concept.exemplar_or_best_image_from_solr
+     exemplar = @taxon_concept.exemplar_or_best_image_from_solr
      options = { page: params[:page],per_page: params[:per_page], sort_by: params[:sort_by], type: params[:type], status: params[:status] }
   
-    if examplar
-      @taxon_media = @taxon_page.media(options.merge(examplar_id: examplar.id)) # skip examplar images from media
+    if exemplar
+      @taxon_media = @taxon_page.media(options.merge(exemplar_id: exemplar.id)) # skip exemplar images from media
     else
       @taxon_media = @taxon_page.media(options)
     end

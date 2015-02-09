@@ -22,7 +22,7 @@ class TaxonMedia < TaxonUserClassificationFilter
     @type = @type.values if @type.is_a?(Hash) # TODO - explain when/why this might happen.
     @status = options[:status] ||= ['all']
     @status = @status.values if @status.is_a?(Hash) # TODO - explain when/why this might happen.
-    @examplar_id = options[:examplar_id]
+    @exemplar_id = options[:exemplar_id]
     super(taxon_concept, user, options[:hierarchy_entry])
     get_media
   end
@@ -68,7 +68,7 @@ class TaxonMedia < TaxonUserClassificationFilter
       data_type_ids: data_type_ids,
       vetted_types: @search_statuses,
       visibility_types: @visibility_statuses,
-      examplar_id: @examplar_id,
+      exemplar_id: @exemplar_id,
       preload_select: { data_objects: [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
                                               :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
                                               :published ] }
@@ -77,7 +77,7 @@ class TaxonMedia < TaxonUserClassificationFilter
     preload_media_details
     correct_bogus_exemplar_image     
     if (image && (@page.nil? || @page == 1))
-      @media.unshift(image) # place examplar image at the tiop of media page
+      @media.unshift(image) # place exemplar image at the tiop of media page
     end
   end
 

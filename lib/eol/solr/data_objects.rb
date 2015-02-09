@@ -9,7 +9,7 @@ module EOL
 
         response = solr_search(taxon_concept_id, options)
         total_results = response['response']['numFound']
-        total_results += 1 if !(options[:examplar_id].blank?) #increase total results count to add examplar image
+        total_results += 1 if !(options[:exemplar_id].blank?) #increase total results count to add exemplar image
         results = response['response']['docs']
         add_resource_instances!(results, options)
 
@@ -59,8 +59,8 @@ module EOL
         taxon_concept_id = "(" + taxon_concept_id.join(" OR ") + ")" if taxon_concept_id.class == Array
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}ancestor_id:#{taxon_concept_id}")
         
-        if options[:examplar_id]
-          url << CGI.escape(" AND data_object_id:[* TO *] -data_object_id:(#{options[:examplar_id]})") # skip examplar image
+        if options[:exemplar_id]
+          url << CGI.escape(" AND data_object_id:[* TO *] -data_object_id:(#{options[:exemplar_id]})") # skip exemplar image
         end      
         
         unless options[:published].nil?

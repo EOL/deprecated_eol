@@ -1,5 +1,5 @@
 class ContentPartners::ResourcesController < ContentPartnersController
-   
+
   before_filter :check_authentication
   before_filter :restrict_to_admins, only: [:destroy]
 
@@ -61,11 +61,11 @@ class ContentPartners::ResourcesController < ContentPartnersController
     ContentPartner.with_master do
       @partner = ContentPartner.find(params[:content_partner_id], include: {resources: :resource_status })
       @resource = @partner.resources.find(params[:id])
-    end    
+    end
     access_denied unless current_user.can_update?(@resource)
     if params[:commit_update_settings_only]
       upload_required = false
-    else      
+    else
       choose_url_or_file
       @existing_dataset_file_size = @resource.dataset_file_size
       # we need to check the accesspoint URL before saving the updated resource
@@ -75,7 +75,8 @@ class ContentPartners::ResourcesController < ContentPartnersController
       if upload_required        
         enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
       end
-      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice, resource_status: @resource.status_label) unless flash[:error]                            
+      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
+                              resource_status: @resource.status_label) unless flash[:error]                            
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else

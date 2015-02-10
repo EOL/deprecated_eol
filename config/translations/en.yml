@@ -3117,6 +3117,7 @@ en:
   content_partner_resource_confirm_force_harvest: "Are you sure you want to force the harvest of resource %{resource_title}?"
   content_partner_resource_create_successful_notice: "Content partner resource details successfully added. Current status of resource data: %{resource_status}."
   content_partner_resource_create_unsuccessful_error: "Sorry, an error occurred, the resource was not added."
+  content_partner_resource_validation_finish_notice: "Content partner resource validation is finished and its status is %{resource_status}."
   content_partner_resource_dataset_details_header: "Dataset"
   content_partner_resource_delete_with_type_link: "Delete everything"
   content_partner_resource_description_empty: "A description has not been provided for this resource."

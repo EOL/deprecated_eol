@@ -1,5 +1,5 @@
 class ContentPartners::ResourcesController < ContentPartnersController
-
+   
   before_filter :check_authentication
   before_filter :restrict_to_admins, only: [:destroy]
 
@@ -32,14 +32,6 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @resource = @partner.resources.build(params[:resource])
     access_denied unless current_user.can_create?(@resource)
     if @resource.save
-      @resource.upload_resource_to_content_master!(request.port.to_s)
-      unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
-        if @resource.resource_status_id = ResourceStatus.validation_failed.id
-          flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
-        else
-          flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, resource_status: @resource.status_label)
-        end
-      end
       Notifier.content_partner_resource_created(@partner, @resource, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
                               resource_status: @resource.status_label) unless flash[:error]
@@ -49,6 +41,11 @@ class ContentPartners::ResourcesController < ContentPartnersController
       flash.now[:error] = I18n.t(:content_partner_resource_create_unsuccessful_error)
       render :new
     end
+    enqueue_job(current_user.id, params[:content_partner_id], @resource.id, request.port.to_s)
+  end
+  
+  def enqueue_job(user_id, content_partner_id, resource_id, port_no)
+    Resque.enqueue(ResourceValidation, user_id, content_partner_id, resource_id, port_no)
   end
 
   # GET /content_partners/:content_partner_id/resources/:id/edit
@@ -64,29 +61,21 @@ class ContentPartners::ResourcesController < ContentPartnersController
     ContentPartner.with_master do
       @partner = ContentPartner.find(params[:content_partner_id], include: {resources: :resource_status })
       @resource = @partner.resources.find(params[:id])
-    end
+    end    
     access_denied unless current_user.can_update?(@resource)
     if params[:commit_update_settings_only]
       upload_required = false
-    else
+    else      
       choose_url_or_file
       @existing_dataset_file_size = @resource.dataset_file_size
       # we need to check the accesspoint URL before saving the updated resource
       upload_required = (@resource.accesspoint_url != params[:resource][:accesspoint_url] || !params[:resource][:dataset].blank?)
     end
     if @resource.update_attributes(params[:resource])
-      if upload_required
-        @resource.upload_resource_to_content_master!(request.port.to_s)
-        unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
-          if @resource.resource_status_id = ResourceStatus.validation_failed.id
-            flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
-          else
-            flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, resource_status: @resource.status_label)
-          end
-        end
+      if upload_required        
+        enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
       end
-      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
-                              resource_status: @resource.status_label) unless flash[:error]
+      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice, resource_status: @resource.status_label) unless flash[:error]                            
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else

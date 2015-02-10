@@ -177,7 +177,7 @@ class Resource < ActiveRecord::Base
   end
 
   def upload_resource_to_content_master!(port = nil)
-    if self.accesspoint_url.blank?      
+    if self.accesspoint_url.blank?
       self.resource_status = ResourceStatus.uploaded
       Resource.where(id: self.id).update_all(resource_status_id: ResourceStatus.uploaded.id)
       ip_with_port = EOL::Server.ip_address.dup

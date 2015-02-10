@@ -76,7 +76,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
         enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
       end
       flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
-                              resource_status: @resource.status_label) unless flash[:error]                            
+                              resource_status: @resource.status_label) unless flash[:error]
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else

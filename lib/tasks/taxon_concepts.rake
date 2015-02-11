@@ -2,11 +2,15 @@ require "csv"
 namespace :taxon_concepts do
   desc 'generate csv'
   task :generate_csv => :environment do
-    CSV.open("common_names.csv", "wb") do |csv|
+    print "Started \n"
+    CSV.open("taxon_concepts.csv", "wb") do |csv|
       csv << ["taxon_concept_id", "rank", "ancestors_taxon_concepts_ids", "preferred_scientific_names", "preferred_common_names",
               "hierarchy_entry_id", "resource_name", "content_provider_name", "identifier"]
-      # TODO add limit and offset
+      index = 0
+      
       TaxonConcept.published.find_each do |tc|
+        index+=1
+        print "." if index % 1000 == 0
         taxon_concept_id = tc.id
         
         rank = ""
@@ -45,7 +49,7 @@ namespace :taxon_concepts do
           csv << ["", "", "", "", "", hierarchy_entry_id, resource_name, content_provider_name, identifier]
         end
       end       
-      puts "done"
+      print "\n Done \n"
     end
   end
 end

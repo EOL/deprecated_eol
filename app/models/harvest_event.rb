@@ -109,15 +109,20 @@ class HarvestEvent < ActiveRecord::Base
     DataObjectsHarvestEvent.where(harvest_event_id: id).destroy_all
     hierarchy_entries.each do |entry|
       entry.destroy_everything
-      taxon_concept = TaxonConcept.find(entry.taxon_concept_id)
       name = Name.find(entry.name_id)
       hierarchy = Hierarchy.find(entry.hierarchy_id)
       entry.destroy
-      taxon_concept.destroy if taxon_concept.hierarchy_entries.blank?
+      entry.taxon_concept.destroy if taxon_concept.hierarchy_entries.blank?
       name.destroy if name.hierarchy_entries.blank?
       hierarchy.destroy if hierarchy.hierarchy_entries.blank?
     end
-    HarvestEventsHierarchyEntry.where(harvest_event_id: id).destroy_all
+    # This next operation can fail because of table locks...
+    begin
+      HarvestEventsHierarchyEntry.delete_all(["harvest_event_id = ?", id])
+    rescue ActiveRecord::StatementInvalid => e
+      # This is not *fatal*, it's just unfortunate. Probably because we're harvesting, but waiting for harvests to finish is not possible.
+      Rails.logger.error("** Unable to delete from HarvestEventsHierarchyEntry where harvest_event_id = #{id} (#{e.message})")
+    end
   end
 
 end

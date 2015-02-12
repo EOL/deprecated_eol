@@ -73,8 +73,7 @@ module EOL
       end
 
       def group_by_clause
-        # "group by ?taxon_concept_id ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?attribute" 
-        nil
+        "group by ?taxon_concept_id ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?attribute"
       end
       
       def where_clause

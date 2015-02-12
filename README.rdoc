@@ -645,7 +645,7 @@ Sitemaps are an easy way for webmasters to inform search engines about pages on 
 
 Web crawlers usually discover pages from links within the site and from other sites. Sitemaps supplement this data to allow crawlers that support Sitemaps to pick up all URLs in the Sitemap and learn about those URLs using the associated metadata. Using the Sitemap protocol does not guarantee that web pages are included in search engines, but provides hints for web crawlers to do a better job of crawling your site.
 
-== How to edit sitemap?
+== How to add new links in sitemap?
 Add the new link(s) in sitemap.rb file (located under config/sitemap.rb) and then update the sitemap to reflect these changes.
 = Example: 
 add "/new_page", priority: 1, lastmod: "2015-02-11T12:12:12+02:00"
@@ -657,7 +657,7 @@ this will create as follows:
 </url>
 
 == How to update sitemap?
-just run the rake command:
+just run the rake task:
 rake sitemap:refresh
 by this command a new sitemap will be generated based on the urls supplied in the sitemap.rb file.
 

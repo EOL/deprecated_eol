@@ -27,6 +27,11 @@
             %li
               = link_to I18n.t(:add_link_to_page_button), new_taxon_data_object_path(@taxon_page, :link => true), :class => 'button link_button'
               = link_to I18n.t(:add_article_to_page_button), new_taxon_data_object_path(@taxon_page, :toc => @add_article_toc_id), :class => 'button'
+          - if @show_add_data_button
+            %li
+              - if current_user.min_curator_level?(:master)
+                .add_content
+                  %p.add_data= link_to I18n.t(:master_curators_may_add_data), '#', :style => "background:none;" # Ideally, that would be a link to the user_added_data/new path...               
           / - if @taxon_data && @taxon_data.downloadable?
           /   %li
           /     = link_to I18n.t(:download_data), taxon_overview_path(@taxon_page), :class => 'button', :onclick => 'return false'

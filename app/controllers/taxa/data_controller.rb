@@ -4,7 +4,8 @@ class Taxa::DataController < TaxaController
 
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :load_data
-  before_filter :load_glossary  
+  before_filter :load_glossary
+  before_filter :show_add_data_button  
   
   GENDER = 1
   LIFE_STAGE = 0
@@ -97,5 +98,10 @@ protected
         @range_data.collect{ |r| r[:attribute] }).compact.uniq
       : []
   end
+private
 
+  def show_add_data_button
+    @show_add_data_button = true
+  end
+    
 end

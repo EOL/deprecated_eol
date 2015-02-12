@@ -488,14 +488,19 @@ $(function() {
   });
 
   $('.add_content .article').hide();
-  $('.add_content .add_data a').on('click', function() {
+  $('.add_content .add_data a').on('click', function() {  
+  	$('#cancel_add_data').on('click', function() {
+  		$('.add_content .article').hide();
+    });	
     var $article = $('.add_content .article');
     if ($article.is(':visible')) {
+      location.hash = null;
       $(this).removeClass('open');
       $('.add_content .article').hide();
-    } else {
+    } else {    	
       $(this).addClass('open');
       $('.add_content .article').show();
+      location.hash = "add_data_div";
     }
     return(false);
   });

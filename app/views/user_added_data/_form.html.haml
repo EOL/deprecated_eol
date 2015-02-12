@@ -83,3 +83,4 @@
     %fieldset.actions
       #new_uri_warning= I18n.t(:new_uri_warning)
       = submit_tag(I18n.t('user_added_data.submit_data'))
+      = link_to I18n.t(:cancel), '#', class: 'close', :id => "cancel_add_data"

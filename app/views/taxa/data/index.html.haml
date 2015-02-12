@@ -84,8 +84,7 @@
         .key= raw I18n.t(:data_tab_curator_key_excluded, image: image_tag("v2/icon_excluded.png"), link: taxon_overview_path(@taxon_page))
 - if current_user.min_curator_level?(:master)
   .add_content
-    %p.add_data= link_to I18n.t(:master_curators_may_add_data), '#' # Ideally, that would be a link to the user_added_data/new path...
-    .article
+    .article{ id: "add_data_div" }
       .header
         %h3= I18n.t('user_added_data.add_data_header')
       = render 'user_added_data/form'

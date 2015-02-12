@@ -27,7 +27,6 @@ class TaxonData < TaxonUserClassificationFilter
       options[:language] ||= Language.default
       total_results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options.merge(only_count: true))).first[:count].to_i
       results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options))
-      debugger
       # TODO - we should probably check for taxon supercedure, here.
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL

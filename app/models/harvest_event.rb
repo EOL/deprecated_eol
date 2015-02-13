@@ -102,6 +102,7 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def destroy_everything
+    Rails.logger.error("** Destroying HarvestEvent #{id}")
     data_objects.each do |dato|
       dato.destroy_everything
       dato.destroy
@@ -124,6 +125,7 @@ class HarvestEvent < ActiveRecord::Base
       # This is not *fatal*, it's just unfortunate. Probably because we're harvesting, but waiting for harvests to finish is not possible.
       Rails.logger.error("** Unable to delete from HarvestEventsHierarchyEntry where harvest_event_id = #{id} (#{e.message})")
     end
+    Rails.logger.error("** Destroyed HarvestEvent #{id}")
   end
 
 end

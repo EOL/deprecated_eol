@@ -208,12 +208,21 @@ class Resource < ActiveRecord::Base
   end
 
   def destroy_everything
+    Rails.logger.error("** Destroying Resource #{id}")
     harvest_events.each(&:destroy_everything)
-    harvest_events.destroy_all
+    begin
+      HarvestEvent.delete_all(["resource_id = ?", id])
+    rescue ActiveRecord::StatementInvalid => e
+      # This is not *fatal*, it's just unfortunate. Probably because we're
+      # harvesting, but waiting for harvests to finish is not possible.
+      Rails.logger.error("** Unable to delete from HarvestEvents where "\
+        "resource_id = #{id} (#{e.message})")
+    end
+    Rails.logger.error("** Destroyed Resource #{id}")
   end
-  
+
   def has_harvest_events?
-    harvest_events.blank? ? false : true 
+    harvest_events.blank? ? false : true
   end
 
 private

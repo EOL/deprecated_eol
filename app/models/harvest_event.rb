@@ -11,6 +11,7 @@ class HarvestEvent < ActiveRecord::Base
   scope :incomplete, -> { where(completed_at: nil) }
 
   def self.last_incomplete_resource
+    return nil if incomplete.count < 1
     incomplete.includes(:resource).last.resource
   end
 

@@ -1148,6 +1148,7 @@ class DataObject < ActiveRecord::Base
     Rails.logger.error("** Destroying DataObject #{id}")
     # Too slow, probably not needed anyway: dato.top_images.destroy_all
     # Same with top_concept_images
+    #TODO: These should probably be handled with dependent destroys.
     agents_data_objects.destroy_all # denorm table
     data_objects_hierarchy_entries.destroy_all # denorm
     data_objects_taxon_concepts.destroy_all # denorm

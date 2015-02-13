@@ -22,4 +22,8 @@ class ResourceDestroyer
     puts "  #{Time.now.strftime("%F %T")} Done."
   end
 
+  def self.enqueue(id)
+    Resque.enqueue(ResourceDestroyer, id: id)
+  end
+
 end

@@ -138,7 +138,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     resource_title = resource.title
     if resource
       resource.update_attributes(resource_status: ResourceStatus.obsolete)
-      Resque.enqueue(ResourceDestroyer, id: resource.id)
+      ResourceDestroyer.enqueue(resource.id)
       redirect_to content_partner_path(partner)
       flash[:notice] = I18n.t(:content_partner_resource_will_be_deleted, resource_title: resource_title)
     end

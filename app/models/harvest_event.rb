@@ -103,6 +103,7 @@ class HarvestEvent < ActiveRecord::Base
 
   def destroy_everything
     Rails.logger.error("** Destroying HarvestEvent #{id}")
+    Rails.logger.error("   #{data_objects.count} DataObjects...")
     data_objects.each do |dato|
       dato.destroy_everything
       dato.destroy

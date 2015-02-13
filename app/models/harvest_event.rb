@@ -112,7 +112,8 @@ class HarvestEvent < ActiveRecord::Base
       name = Name.find(entry.name_id)
       hierarchy = Hierarchy.find(entry.hierarchy_id)
       entry.destroy
-      entry.taxon_concept.destroy if taxon_concept.hierarchy_entries.blank?
+      entry.taxon_concept.destroy if
+        entry.taxon_concept.hierarchy_entries.blank?
       name.destroy if name.hierarchy_entries.blank?
       hierarchy.destroy if hierarchy.hierarchy_entries.blank?
     end

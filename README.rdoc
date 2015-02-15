@@ -647,7 +647,7 @@ Web crawlers usually discover pages from links within the site and from other si
 
 == How to add new links in sitemap?
 Add the new link(s) in sitemap.rb file (located under config/sitemap.rb) and then update the sitemap to reflect these changes.
-= Example: 
+== Example: 
 add "/new_page", priority: 1, lastmod: "2015-02-11T12:12:12+02:00"
 this will create as follows:
 <url>

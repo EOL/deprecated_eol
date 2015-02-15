@@ -1,4 +1,5 @@
 SitemapGenerator::Sitemap.create_index = :auto
+SitemapGenerator::Sitemap.compress = false
 SitemapGenerator::Sitemap.default_host  = "http://localhost:3000"
 
 SitemapGenerator::Sitemap.create do

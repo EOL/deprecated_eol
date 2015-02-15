@@ -4,7 +4,6 @@ Eol::Application.routes.draw do
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
-  match '/sitemap.xml' => redirect('/sitemap.xml.gz')
   # Permanent redirects. Position them before any routes they take precedence over.
   match '/podcast' => redirect('http://podcast.eol.org/podcast')
   match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")

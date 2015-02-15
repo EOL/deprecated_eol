@@ -1,7 +1,7 @@
 User-agent: *
 Crawl-delay: 1
 Request-rate: 1/1
-Sitemap: http://localhost:3000/sitemap.xml.gz
+Sitemap: http://localhost:3000/sitemap.xml
 Disallow: /admin/
 Disallow: /administrator/
 Disallow: /api/ping/

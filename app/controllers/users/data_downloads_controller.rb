@@ -3,9 +3,9 @@ class Users::DataDownloadsController < UsersController
   include DataSearchHelper
 
   skip_before_filter :extend_for_open_authentication
-  before_filter :instantiate_user
-  before_filter :must_be_able_to_edit_this_user
+  before_filter :instantiate_user  
   before_filter :show_explanation_to_admins
+  helper_method :able_to_edit_user?
 
   def index
     # NOTE this #joins avoids the problem where known_uri can be nil. Don't remove it unless you choose to clean that mess:
@@ -33,13 +33,12 @@ class Users::DataDownloadsController < UsersController
     preload_user_associations
   end
 
-  def must_be_able_to_edit_this_user
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
+  def able_to_edit_user?
+    current_user.can_update?(@user)
   end
 
   def show_explanation_to_admins
-    flash.now[:notice] = I18n.t(:warning_you_are_editing_as_admin) if current_user.id != @user.id
+    flash.now[:notice] = I18n.t(:warning_you_are_editing_as_admin) if able_to_edit_user?
   end
 
 end

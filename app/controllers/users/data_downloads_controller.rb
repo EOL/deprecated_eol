@@ -3,7 +3,7 @@ class Users::DataDownloadsController < UsersController
   include DataSearchHelper
 
   skip_before_filter :extend_for_open_authentication
-  before_filter :instantiate_user  
+  before_filter :instantiate_user
   before_filter :show_explanation_to_admins
   helper_method :able_to_edit_user?
 

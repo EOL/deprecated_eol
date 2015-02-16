@@ -42,9 +42,17 @@ describe SearchController do
   
   describe "filter keyword" do
     before(:all) do
-      name = Name.gen(canonical_form: cf = CanonicalForm.gen(string: 'cat'),
-                    string: 'cat',
-                    italicized: '<i>cat</i>')
+      Vetted.create_enumerated
+      Visibility.create_enumerated
+      DataType.create_enumerated
+      SynonymRelation.gen_if_not_exists(label: "synonym")
+      SynonymRelation.gen_if_not_exists(label: "common name")
+      SynonymRelation.gen_if_not_exists(label: "genbank common name")
+      Language.gen_if_not_exists(label: 'Unknown', iso_639_1: '', source_form: 'Unknown')
+      Language.gen_if_not_exists(label: 'Scientific Name', iso_639_1: '', source_form: 'Scientific Name')
+      synonym = Synonym.gen
+      name = Name.find(synonym.name_id)
+      name.update_attributes(string: "cat")
       he = HierarchyEntry.gen(hierarchy: Hierarchy.gen(), parent_id: 0, identifier: '', depth: 0, rank_id: 0, vetted_id: Vetted.trusted_ids,
                                 taxon_concept: TaxonConcept.gen, name: name)            
       Collection.gen      

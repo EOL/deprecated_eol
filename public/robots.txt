@@ -1,5 +1,4 @@
 User-agent: *
-Crawl-delay: 1
 Request-rate: 1/1
 Sitemap: http://eol.org/sitemap.xml
 Disallow: /admin/

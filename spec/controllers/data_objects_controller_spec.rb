@@ -158,4 +158,24 @@ describe DataObjectsController do
       flash[:notice].should == "Image was cropped successfully."
     end
   end
+  
+  describe 'GET reindex' do 
+    before(:each) do
+      @admin = User.gen
+      @admin.grant_admin
+      @master_curator = User.gen
+      @master_curator.grant_curator(:master)
+      @normal_user = User.gen 
+      @dato = DataObject.gen(:data_type_id => DataType.image.id, :object_cache_url => FactoryGirl.generate(:image))
+    end
+    it 'allows access to master curators and admins' do
+      get :reindex, {id: @dato.id}, {user: @admin,  user_id: @admin.id }
+      expect(flash[:notice]).to eq(I18n.t(:this_data_object_will_be_reindexed))
+      get :reindex, {id: @dato.id}, {user: @master_curator, user_id: @master_curator.id}
+      expect(flash[:notice]).to eq(I18n.t(:this_data_object_will_be_reindexed))
+    end
+    it 'does not allow access to non-curators/non-admins' do
+      expect{get :reindex, {id: @dato.id}, {user: @user, user_id: @user.id}}.to raise_error
+    end
+  end
 end

@@ -3,12 +3,12 @@ class DataObjectsController < ApplicationController
   layout :data_objects_layout
   @@results_per_page = 20
 
-  before_filter :check_authentication, only: [:new, :create, :edit, :update, :ignore, :crop] # checks login only
+  before_filter :check_authentication, only: [:new, :create, :edit, :update, :ignore, :crop, :reindex] # checks login only
   before_filter :load_data_object, except: [:index, :new, :create ]
   before_filter :authentication_own_user_added_text_objects_only, only: [:edit] # update handled separately
   before_filter :allow_login_then_submit, only: [:rate]
   before_filter :curators_and_owners_only, only: [:add_association, :remove_association]
-  before_filter :restrict_to_admins_and_curators, only: :crop
+  before_filter :restrict_to_admins_and_curators, only: [:crop, :reindex]
 
   # GET /pages/:taxon_id/data_objects/new
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route

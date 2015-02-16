@@ -360,6 +360,21 @@ class DataObjectsController < ApplicationController
     redirect_to data_object_path(@data_object)
   end
 
+  def reindex
+    @data_object.update_solr_index
+    flash[:notice]= I18n.t(:this_data_object_will_be_reindexed)
+
+    respond_to do |format|
+      format.html do
+        redirect_to data_object_path(@data_object)
+      end
+      format.js do
+        convert_flash_messages_for_ajax
+        render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
+      end
+    end
+  end
+
 protected
 
   def scoped_variables_for_translations

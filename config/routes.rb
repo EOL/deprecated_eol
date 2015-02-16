@@ -271,6 +271,7 @@ Eol::Application.routes.draw do
       get 'attribution'
       get 'rate'
       get 'crop'
+      get 'reindex'
     end
     resources :comments
   end

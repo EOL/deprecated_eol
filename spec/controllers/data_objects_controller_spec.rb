@@ -165,7 +165,6 @@ describe DataObjectsController do
       @admin.grant_admin
       @master_curator = User.gen
       @master_curator.grant_curator(:master)
-      @normal_user = User.gen 
       @dato = DataObject.gen(:data_type_id => DataType.image.id, :object_cache_url => FactoryGirl.generate(:image))
     end
     it 'allows access to master curators and admins' do

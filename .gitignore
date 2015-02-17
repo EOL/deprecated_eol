@@ -29,6 +29,7 @@ coverage
 *.swp
 *eol_org.rb
 *~
+.~*
 rdoc/
 eol-solr.pid
 mkmf.log

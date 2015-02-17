@@ -28,10 +28,11 @@ module EOL
       # (but class methods cannot be private, soooo... decide what to do.)
       #
       # Basic query assembler
-      def self.build_query(select, where, order, limit)
+      def self.build_query(select, where, order, limit, group_by)
         "#{ select } WHERE {
             #{ where }
           }
+          #{ group_by ? group_by : ''}
           #{ order ? order : '' }
           #{ limit ? limit : '' }"
       end
@@ -64,13 +65,17 @@ module EOL
         if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
           inner_query = EOL::Sparql::SearchQueryBuilder.build_query_with_taxon_filter(@taxon_concept.id, inner_select_clause, where_clause, inner_order_clause)
         else
-          inner_query = EOL::Sparql::SearchQueryBuilder.build_query(inner_select_clause, where_clause, inner_order_clause, nil)
+          inner_query = EOL::Sparql::SearchQueryBuilder.build_query(inner_select_clause, where_clause, inner_order_clause, nil, group_by_clause)
         end
         # this is strange, but in order to properly do sorts, limits, and offsets there should be a subquery
         # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
-        EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, outer_order_clause, limit_clause)
+        EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, outer_order_clause, limit_clause, nil)
       end
 
+      def group_by_clause
+        "group by ?taxon_concept_id ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?attribute"
+      end
+      
       def where_clause
         "GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
@@ -99,13 +104,7 @@ module EOL
       end
 
       def inner_select_clause
-        if @count_value_uris
-          "SELECT DISTINCT ?data_point_uri, ?value"
-        elsif @only_count
-          "SELECT DISTINCT ?data_point_uri"
-        else
-          "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
-        end
+        "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex (SAMPLE(?data_point_uri) AS ?data_point_uri) (SAMPLE(?graph) AS ?graph) ?taxon_concept_id"
       end
 
       def filter_clauses

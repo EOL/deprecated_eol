@@ -158,7 +158,7 @@ describe DataObjectsController do
       flash[:notice].should == "Image was cropped successfully."
     end
   end
-  
+
   describe 'GET reindex' do 
     before(:all) do
       @dato = DataObject.gen(data_type_id: DataType.image.id, object_cache_url: FactoryGirl.generate(:image))

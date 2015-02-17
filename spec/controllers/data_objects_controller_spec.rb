@@ -179,7 +179,7 @@ describe DataObjectsController do
         expect(flash[:notice]).to eq(I18n.t(:this_data_object_will_be_reindexed))
       end
     end
-    
+
    context 'does not allow reindexing' do 
      it 'does not allow access to non-master curators/non-admins' do
        expect{get :reindex, {id: @dato.id}, {user: @user, user_id: @user.id}}.to raise_error

@@ -160,21 +160,30 @@ describe DataObjectsController do
   end
   
   describe 'GET reindex' do 
-    before(:each) do
-      @admin = User.gen
-      @admin.grant_admin
-      @master_curator = User.gen
-      @master_curator.grant_curator(:master)
-      @dato = DataObject.gen(:data_type_id => DataType.image.id, :object_cache_url => FactoryGirl.generate(:image))
+    before(:all) do
+      @dato = DataObject.gen(data_type_id: DataType.image.id, object_cache_url: FactoryGirl.generate(:image))
     end
-    it 'allows access to master curators and admins' do
-      get :reindex, {id: @dato.id}, {user: @admin,  user_id: @admin.id }
-      expect(flash[:notice]).to eq(I18n.t(:this_data_object_will_be_reindexed))
-      get :reindex, {id: @dato.id}, {user: @master_curator, user_id: @master_curator.id}
-      expect(flash[:notice]).to eq(I18n.t(:this_data_object_will_be_reindexed))
+
+    context 'allows reindexing' do 
+      it 'allows access to admins' do
+        admin = User.gen
+        admin.grant_admin
+        get :reindex, {id: @dato.id}, {user: admin,  user_id: admin.id }
+        expect(flash[:notice]).to eq(I18n.t(:this_data_object_will_be_reindexed))
+      end
+
+      it 'allows access to master curators' do
+        master_curator = build_curator(@taxon_concept, level: :master)
+        expect(master_curator.min_curator_level?(:master)).to be_true
+        get :reindex, {id: @dato.id}, {user: master_curator,  user_id: master_curator.id }
+        expect(flash[:notice]).to eq(I18n.t(:this_data_object_will_be_reindexed))
+      end
     end
-    it 'does not allow access to non-curators/non-admins' do
-      expect{get :reindex, {id: @dato.id}, {user: @user, user_id: @user.id}}.to raise_error
+    
+   context 'does not allow reindexing' do 
+     it 'does not allow access to non-master curators/non-admins' do
+       expect{get :reindex, {id: @dato.id}, {user: @user, user_id: @user.id}}.to raise_error
+     end
     end
   end
 end

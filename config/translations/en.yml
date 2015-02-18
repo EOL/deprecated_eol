@@ -4388,6 +4388,7 @@ en:
   record_not_found: "[record not found]"
   recount_collection_items: "Re-count collection items (fix bad item counts; this <i>will</i> time out in the browser, but it works)"
   recount_collection_items_done: "Finished re-count of collection items."
+  redirect_url_ok_title_unavailable: "Redirect URL Okay, Title Unavailable"
   reference: "Reference"
   references_cabs_colon: "References:"
   related_names_with_count:

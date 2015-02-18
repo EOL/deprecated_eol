@@ -1145,8 +1145,10 @@ class DataObject < ActiveRecord::Base
 
   # Because dependent destroy was too scary for us.  :|
   def destroy_everything
+    Rails.logger.error("** Destroying DataObject #{id}")
     # Too slow, probably not needed anyway: dato.top_images.destroy_all
     # Same with top_concept_images
+    #TODO: These should probably be handled with dependent destroys.
     agents_data_objects.destroy_all # denorm table
     data_objects_hierarchy_entries.destroy_all # denorm
     data_objects_taxon_concepts.destroy_all # denorm
@@ -1173,6 +1175,7 @@ class DataObject < ActiveRecord::Base
     AgentsDataObject.where(data_object_id: id).destroy_all
     DataObjectsTaxonConcept.where(data_object_id: id).destroy_all
     DataObjectsTableOfContent.where(data_object_id: id).destroy_all
+    Rails.logger.error("** Destroyed DataObject #{id}")
   end
 
   # TODO: Shouldn't pass params, just pass the params[:data_object] hash

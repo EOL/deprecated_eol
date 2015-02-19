@@ -19,6 +19,7 @@ require 'eol/activity_loggable'
 class TaxonConcept < ActiveRecord::Base
   include EOL::ActivityLoggable
 
+  scope :published, -> { where(published: true) }
   belongs_to :vetted
 
   attr_accessor :entries # TODO - this is used by DataObjectsController#add_association (and its partial) and probably shouldn't be.

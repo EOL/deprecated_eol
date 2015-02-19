@@ -48,4 +48,10 @@ xml.additionalInformation do
   xml.vettedStatus data_object_hash['vettedStatus'] unless data_object_hash['vettedStatus'].blank?
   xml.dataRating data_object_hash['dataRating'] unless data_object_hash['dataRating'].blank?
   xml.dataObjectVersionID data_object_hash['dataObjectVersionID'] unless data_object_hash['dataObjectVersionID'].blank?
+  xml.height data_object_hash['height'] unless data_object_hash['height'].blank?
+  xml.width data_object_hash['width'] unless data_object_hash['width'].blank?
+  xml.crop_x data_object_hash['crop_x'] unless data_object_hash['crop_x'].blank?
+  xml.crop_y data_object_hash['crop_y'] unless data_object_hash['crop_y'].blank?
+  xml.crop_height data_object_hash['crop_height'] unless data_object_hash['crop_height'].blank?
+  xml.crop_width data_object_hash['crop_width'] unless data_object_hash['crop_width'].blank?
 end

@@ -4,6 +4,7 @@ module EOL
 
     def self.default_version_of(method)
       begin
+        debugger
         method_class = "EOL::Api::#{method.to_s.camelize}".constantize
         "#{method_class}::V#{method_class::DEFAULT_VERSION.tr('.', '_')}".constantize
       rescue

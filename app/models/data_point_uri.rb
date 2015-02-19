@@ -159,6 +159,7 @@ class DataPointUri < ActiveRecord::Base
   def to_jsonld(options = {})
     jsonld = {
       '@id' => uri,
+      'data_point_uri_id' => id,
       '@type' => measurement? ? 'dwc:MeasurementOrFact' : 'eol:Association',
       'dwc:taxonID' => KnownUri.taxon_uri(taxon_concept_id) }
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(predicate_known_uri || predicate)

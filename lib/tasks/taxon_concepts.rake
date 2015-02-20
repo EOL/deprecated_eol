@@ -1,54 +1,57 @@
-require "csv"
 namespace :taxon_concepts do
-  desc 'generate csv'
-  task :generate_csv => :environment do
-    print "Started \n"
-    CSV.open("taxon_concepts.csv", "wb") do |csv|
-      csv << ["taxon_concept_id", "rank", "ancestors_taxon_concepts_ids", "preferred_scientific_names", "preferred_common_names",
-              "hierarchy_entry_id", "resource_name", "content_provider_name", "identifier"]
+  desc 'generate json'
+  task :generate_json => :environment do
+    puts "Started (#{Time.now})\n"
+    # Cache the ranks so we're not constantly looking them up:
+    ranks = TranslatedRank.where(language_id: Language.english.id)
+    languages = TranslatedLanguage.where(language_id: Language.english.id)
+    File.open("public/taxon_concepts.json", "wb") do |file|
+      # Headers:
+      file << ["taxon_concept_id", "rank", "ancestors_taxon_concepts_ids",
+        "preferred_scientific_names", "preferred_common_names",
+        "hierarchy_entry_id", "content_provider_name", "resource_name",
+        "identifier"]
       index = 0
-      
-      TaxonConcept.published.find_each do |tc|
-        index+=1
-        print "." if index % 1000 == 0
-        taxon_concept_id = tc.id
-        
-        rank = ""
-        ancestors_taxon_concepts_ids = []
-        pe = tc.entry
-        if pe
-          r = pe.rank
-          rank = r.label if r
-          ancestors = pe.ancestors
-          ancestors_taxon_concepts_ids = ancestors.select([:taxon_concept_id]).map(&:taxon_concept_id) if ancestors
+      # A little weird, but faster to go through the preferred entry rather than
+      # calculate it...
+      TaxonConceptPreferredEntry.
+        includes(hierarchy_entry: [:name, :rank, :flattened_ancestors],
+          taxon_concept: { preferred_names: [:name],
+            preferred_common_names: [:name],
+            hierarchy_entries: { hierarchy: [:resource] } }).
+        find_each(batch_size: 100) do |tcpe|
+        index += 1
+        next unless tcpe.taxon_concept
+        next unless tcpe.hierarchy_entry
+        next unless tcpe.taxon_concept.published?
+        next unless tcpe.hierarchy_entry.published?
+        puts "  #{index}..." if index % 100 == 0
+        data = {}
+        data[:taxon_concept_id] = tcpe.taxon_concept_id
+        data[:rank] = ranks.find { |r| r.rank_id == tcpe.hierarchy_entry.rank_id }.try(:label)
+        data[:ancestor_taxon_concepts_ids] = HierarchyEntry.select(:taxon_concept_id).
+          where(['id IN (?)',
+            tcpe.hierarchy_entry.flattened_ancestors.map(&:ancestor_id)]).
+          map(&:taxon_concept_id)
+        data[:preferred_scientific_names] =
+          tcpe.taxon_concept.preferred_names.map { |pn| pn.name.string }.
+          sort.uniq
+        data[:preferred_common_names] =
+          tcpe.taxon_concept.preferred_common_names.
+          map { |pn| { name: pn.name.string,
+            language: languages.find { |n|
+              n.language_id == pn.name.language_id } } }
+        data[:outlinks] = []
+        tcpe.taxon_concept.hierarchy_entries.each do |entry|
+          data[:outlinks] << {
+            hierarchy_entry_id: tcpe.hierarchy_entry_id,
+            resource_id: tcpe.hierarchy_entry.hierarchy.resource.id,
+            resource: tcpe.hierarchy_entry.hierarchy.label,
+            identifier: tcpe.hierarchy_entry.identifier
+          }
         end
-        
-        preferred_scientific_names = tc.preferred_names.collect{|p| p.name.string}
-       
-        preferred_common_names = tc.preferred_common_names.collect{|p| "#{p.language.iso_639_1}:#{p.name.string}"}
-        
-        hierarchy_entry_id = nil
-        resource_name = nil
-        content_provider_name = nil
-        identifier = nil
-                      
-        csv << [taxon_concept_id, rank, ancestors_taxon_concepts_ids.join(","), preferred_scientific_names.join(","), preferred_common_names.join(","),
-               hierarchy_entry_id, resource_name, content_provider_name, identifier]
-        tc.hierarchy_entries.each do |he|
-          hierarchy_entry_id = he.id
-          hehe = HarvestEventsHierarchyEntry.where(hierarchy_entry_id: he.id).order('harvest_event_id DESC').limit(1).first
-          if hehe
-            h = HarvestEvent.find(hehe.harvest_event_id)
-            res = Resource.find(h.resource_id) if h
-            if res
-              resource_name = res.title
-              content_provider_name = ContentPartner.find(res.content_partner_id).display_name
-            end
-          end
-          identifier = he.identifier
-          csv << ["", "", "", "", "", hierarchy_entry_id, resource_name, content_provider_name, identifier]
-        end
-      end       
+        file.write(data.to_json)
+      end
       print "\n Done \n"
     end
   end

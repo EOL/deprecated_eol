@@ -12,6 +12,7 @@ namespace :taxon_concepts do
         "hierarchy_entry_id", "content_provider_name", "resource_name",
         "identifier"]
       index = 0
+      batch_size = 1000
       # A little weird, but faster to go through the preferred entry rather than
       # calculate it...
       TaxonConceptPreferredEntry.
@@ -19,13 +20,13 @@ namespace :taxon_concepts do
           taxon_concept: { preferred_names: [:name],
             preferred_common_names: [:name],
             hierarchy_entries: { hierarchy: [:resource] } }).
-        find_each(batch_size: 100) do |tcpe|
+        find_each(batch_size: batch_size) do |tcpe|
         index += 1
         next unless tcpe.taxon_concept
         next unless tcpe.hierarchy_entry
         next unless tcpe.taxon_concept.published?
         next unless tcpe.hierarchy_entry.published?
-        puts "  #{index}..." if index % 100 == 0
+        puts "  #{index}..." if index % batch_size == 0
         data = {}
         data[:taxon_concept_id] = tcpe.taxon_concept_id
         data[:rank] = ranks.find { |r| r.rank_id == tcpe.hierarchy_entry.rank_id }.try(:label)
@@ -34,19 +35,20 @@ namespace :taxon_concepts do
             tcpe.hierarchy_entry.flattened_ancestors.map(&:ancestor_id)]).
           map(&:taxon_concept_id)
         data[:preferred_scientific_names] =
-          tcpe.taxon_concept.preferred_names.map { |pn| pn.name.string }.
-          sort.uniq
+          tcpe.taxon_concept.preferred_names.map { |pn| pn.name.try(:string) }.
+          compact.sort.uniq
         data[:preferred_common_names] =
           tcpe.taxon_concept.preferred_common_names.
-          map { |pn| { name: pn.name.string,
-            language: languages.find { |n|
-              n.language_id == pn.name.language_id } } }
+          map { |pn| { name: pn.name.try(:string) || '[MISSING]',
+            language: languages.find { |l|
+              l.language_id == pn.language_id } } }
         data[:outlinks] = []
         tcpe.taxon_concept.hierarchy_entries.each do |entry|
           data[:outlinks] << {
             hierarchy_entry_id: tcpe.hierarchy_entry_id,
-            resource_id: tcpe.hierarchy_entry.hierarchy.resource.id,
-            resource: tcpe.hierarchy_entry.hierarchy.label,
+            resource_id: tcpe.hierarchy_entry.try(:hierarchy).try(:resource).
+              try(:id),
+            resource: tcpe.hierarchy_entry.try(:hierarchy).try(:label),
             identifier: tcpe.hierarchy_entry.identifier
           }
         end

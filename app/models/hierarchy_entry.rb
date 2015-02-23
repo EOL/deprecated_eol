@@ -288,6 +288,21 @@ class HierarchyEntry < ActiveRecord::Base
     # Not handling the rest of the tree, here, which I believe is expected.
   end
 
+  def repopulate_flattened_descendants
+    HierarchyEntriesFlattened.repopulate(self)
+  end
+
+  # NOTE: this means "the WHOLE thing, from this node down." You probably mean
+  # to run this on the kingdom, but perhaps not!
+  def repopulate_flattened_hierarchy
+    HierarchyEntry.
+      select([:id, :lft, :rgt]).
+      where(["lft BETWEEN ? AND ?", lft, rgt]).
+      find_each do |entry|
+        entry.repopulate_flattened_descendants
+      end
+  end
+
   private
 
   def default_visibility

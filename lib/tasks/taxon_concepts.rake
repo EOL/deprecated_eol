@@ -7,10 +7,7 @@ namespace :taxon_concepts do
     languages = TranslatedLanguage.where(language_id: Language.english.id)
     File.open("public/taxon_concepts.json", "wb") do |file|
       # Headers:
-      file << ["taxon_concept_id", "rank", "ancestors_taxon_concepts_ids",
-        "preferred_scientific_names", "preferred_common_names",
-        "hierarchy_entry_id", "content_provider_name", "resource_name",
-        "identifier"]
+      file.write("[")
       index = 0
       batch_size = 1000
       # A little weird, but faster to go through the preferred entry rather than
@@ -43,7 +40,7 @@ namespace :taxon_concepts do
             language: languages.find { |l|
               l.language_id == pn.language_id } } }
         data[:outlinks] = []
-        tcpe.taxon_concept.hierarchy_entries.each do |entry|
+        tcpe.taxon_concept.hierarchy_entries.published.each do |entry|
           data[:outlinks] << {
             hierarchy_entry_id: tcpe.hierarchy_entry_id,
             resource_id: tcpe.hierarchy_entry.try(:hierarchy).try(:resource).
@@ -52,8 +49,9 @@ namespace :taxon_concepts do
             identifier: tcpe.hierarchy_entry.identifier
           }
         end
-        file.write(data.to_json)
+        file.write(data.to_json + ",\n")
       end
+      file.write("]\n")
       print "\n Done \n"
     end
   end

@@ -296,9 +296,12 @@ class HierarchyEntry < ActiveRecord::Base
   # to run this on the kingdom, but perhaps not!
   def repopulate_flattened_hierarchy
     HierarchyEntry.
-      select([:id, :lft, :rgt]).
-      where(["lft BETWEEN ? AND ?", lft, rgt]).
+      select([:id, :hierarchy_id, :lft, :rgt]).
+      where(["lft BETWEEN ? AND ? AND hierarchy_id = ?",
+        lft, rgt, hierarchy_id]).
       find_each do |entry|
+        slee(0.2) # This is a VERY expensive process; I'm just allowing a little
+        #  breathing room.
         entry.repopulate_flattened_descendants
       end
   end

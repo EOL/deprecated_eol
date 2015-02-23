@@ -12,11 +12,15 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   # On the positive side, this command is actually pretty dern fast, all things
   # considered. ...Had to use raw SQL here, though, to get the performance. :\
   def self.repopulate(entry)
-    HierarchyEntry.connection.execute(
-      "INSERT IGNORE INTO hierarchy_entries_flattened "\
-      "(hierarchy_entry_id, ancestor_id) "\
-      "SELECT hierarchy_entries.id, #{entry.id} "\
-      "FROM hierarchy_entries "\
-      "WHERE lft BETWEEN #{entry.lft} + 1 AND #{entry.rgt}")
+    with_master do
+      delete_all(["ancestor_id = ?", entry.id])
+      connection.execute(
+        "INSERT IGNORE INTO hierarchy_entries_flattened "\
+        "(hierarchy_entry_id, ancestor_id) "\
+        "SELECT hierarchy_entries.id, #{entry.id} "\
+        "FROM hierarchy_entries "\
+        "WHERE lft BETWEEN #{entry.lft} + 1 AND #{entry.rgt} AND"\
+        "hierarchy_id = #{hierarchy.id}")
+    end
   end
 end

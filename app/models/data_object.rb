@@ -26,7 +26,7 @@ class DataObject < ActiveRecord::Base
   # TODO - really, we should add a SQL finder to this to make it latest_published_users_data_object:
   has_one :users_data_object
   has_one :data_objects_link_type
-  has_one :image_sizes
+  has_one :image_size
 
   has_many :top_images
   has_many :top_concept_images

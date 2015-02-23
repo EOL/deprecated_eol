@@ -210,8 +210,8 @@ describe 'API:synonyms' do
         image= DataObject.gen(data_type_id: DataType.image.id)
         @taxon_concept.add_data_object(image)
         ImageSize.create(data_object_id: image.id, height: 10,
-                          width:10, crop_x_pct: 10, crop_y_pct: 10,
-                          crop_width_pct: 10, crop_height_pct: 10)
+                         width:10, crop_x_pct: 10, crop_y_pct: 10,
+                         crop_width_pct: 10, crop_height_pct: 10)
         response= get_as_xml("/api/data_objects/#{image.guid}")
         expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:height').inner_text).to eq(image.image_size.height.to_s)
         expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:width').inner_text).to eq(image.image_size.width.to_s)
@@ -249,8 +249,8 @@ describe 'API:synonyms' do
         image= DataObject.gen(data_type_id: DataType.image.id)
         @taxon_concept.add_data_object(image)
         ImageSize.create(data_object_id: image.id, height: 10,
-                          width:10, crop_x_pct: 10, crop_y_pct: 10,
-                          crop_width_pct: 10, crop_height_pct: 10)
+                         width:10, crop_x_pct: 10, crop_y_pct: 10,
+                         crop_width_pct: 10, crop_height_pct: 10)
         response= get_as_json("/api/data_objects/#{image.guid}.json")
         expect(response['dataObjects'][0]['height']).to eq(image.image_size.height)
         expect(response['dataObjects'][0]['width']).to eq(image.image_size.width)

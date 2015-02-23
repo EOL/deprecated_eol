@@ -124,6 +124,10 @@ class Resource < ActiveRecord::Base
     end
     super
   end
+  
+  def self.load_for_title_only(find_this)
+    Resource.find(find_this)
+  end
 
   def status_label
     (resource_status.nil?) ?  I18n.t(:content_partner_resource_resource_status_new) : resource_status.label

@@ -1332,6 +1332,7 @@ en:
     unsubscribe: "Log in and change your email settings on <a href='%{email_prefs_url}' style='color:#195184'>your notification preferences page</a> or <a href='%{unsubscribe_url}' style='color:#195184'>unsubscribe from ALL automated EOL notifications without logging in</a>."
     contact_us_link: "If you experience any problems, please <a href='http://eol.org/contact_us' style='color:#195184'>contact us</a>."
     see_all_activity: "See all previous activity at <a href='%{activity_url}' style='color:#195184'>your user newsfeed page</a>."
+    resource_validation: "The resource: %{resource} validation is finished"
     bulk_comments_with_count:
       one: "There is a new comment on %{on}"
       other: "There are %{count} new comments on %{on}"

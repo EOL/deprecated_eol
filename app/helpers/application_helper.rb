@@ -389,6 +389,8 @@ module ApplicationHelper
     when DataPointUri
       options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
+    when Resource
+      content_partner_resource_url(options[:content_partner], item)
     else
       raise EOL::Exceptions::ObjectNotFound
     end

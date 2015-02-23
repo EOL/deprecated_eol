@@ -300,8 +300,8 @@ class HierarchyEntry < ActiveRecord::Base
       where(["lft BETWEEN ? AND ? AND hierarchy_id = ?",
         lft, rgt, hierarchy_id]).
       find_each do |entry|
-        slee(0.2) # This is a VERY expensive process; I'm just allowing a little
-        #  breathing room.
+        sleep(0.2) # This is a VERY expensive process; I'm just allowing a
+                   # little breathing room.
         entry.repopulate_flattened_descendants
       end
   end

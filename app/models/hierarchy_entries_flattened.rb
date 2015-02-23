@@ -19,8 +19,8 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
         "(hierarchy_entry_id, ancestor_id) "\
         "SELECT hierarchy_entries.id, #{entry.id} "\
         "FROM hierarchy_entries "\
-        "WHERE lft BETWEEN #{entry.lft} + 1 AND #{entry.rgt} AND"\
-        "hierarchy_id = #{hierarchy.id}")
+        "WHERE lft BETWEEN #{entry.lft} + 1 AND #{entry.rgt} AND "\
+        "hierarchy_id = #{entry.hierarchy_id}")
     end
   end
 end

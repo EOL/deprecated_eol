@@ -90,7 +90,7 @@ class Hierarchy < ActiveRecord::Base
       Hierarchy.find_by_label("NCBI Taxonomy", order: "hierarchy_group_version desc")
     end
   end
-  
+
   def self.itis
     @@itis ||= cached('itis') do
       Hierarchy.find_by_label('Integrated Taxonomic Information System (ITIS)', order: 'id desc')
@@ -165,7 +165,7 @@ class Hierarchy < ActiveRecord::Base
   def request_to_publish_can_be_made?
     !self.browsable? && !request_publish
   end
-  
+
   def display_title
     if resource
       resource.title
@@ -174,6 +174,10 @@ class Hierarchy < ActiveRecord::Base
     else
       user_or_agent_or_label_name
     end
+  end
+
+  def repopulate_flattened
+    kingdoms.each(&:repopulate_flattened_hierarchy)
   end
 
 private

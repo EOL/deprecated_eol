@@ -236,6 +236,13 @@ class HierarchyEntry < ActiveRecord::Base
     rgt - lft - 1
   end
 
+  # NOTE: THIS IS EXPENSIVE. Use with find_each, and use sparingly.
+  def descendants
+    HierarchyEntry.
+      where(["lft BETWEEN ? AND ? AND hierarchy_id = ?",
+        lft, rgt, hierarchy_id])
+  end
+
   def is_leaf?
     return (rgt-lft == 1)
   end
@@ -293,17 +300,18 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   # NOTE: this means "the WHOLE thing, from this node down." You probably mean
-  # to run this on the kingdom, but perhaps not!
+  # to run this on the kingdom, but we're not creating that restriction, so you
+  # have the option of reindexing a lower node if needed.
   def repopulate_flattened_hierarchy
-    HierarchyEntry.
-      select([:id, :hierarchy_id, :lft, :rgt]).
-      where(["lft BETWEEN ? AND ? AND hierarchy_id = ?",
-        lft, rgt, hierarchy_id]).
-      find_each do |entry|
-        sleep(0.2) # This is a VERY expensive process; I'm just allowing a
-                   # little breathing room.
+    HierarchyEntry.with_master do
+      descendants.select([:id, :lft, :rgt, :hierarchy_id]).find_each do |entry|
+        # This is a VERY expensive process; I'm just allowing a
+        # little breathing room. If it has 150,000 descendants, it will pause
+        # for 15 seconds.
+        sleep(entry.number_of_descendants / 10000)
         entry.repopulate_flattened_descendants
       end
+    end
   end
 
   private

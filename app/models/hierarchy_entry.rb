@@ -305,10 +305,6 @@ class HierarchyEntry < ActiveRecord::Base
   def repopulate_flattened_hierarchy
     HierarchyEntry.with_master do
       descendants.select([:id, :lft, :rgt, :hierarchy_id]).find_each do |entry|
-        # This is a VERY expensive process; I'm just allowing a
-        # little breathing room. If it has 150,000 descendants, it will pause
-        # for 15 seconds.
-        sleep(entry.number_of_descendants / 10000)
         entry.repopulate_flattened_descendants
       end
     end

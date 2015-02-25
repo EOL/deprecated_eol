@@ -73,11 +73,6 @@ class DataSearchController < ApplicationController
     @unit = options[:unit].blank? ? nil : options[:unit]
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
-    if @min_value && @max_value && @min_value > @max_value 
-      temp = @max_value
-      @max_value = @min_value
-      @min_value = temp
-    end
     @page = options[:page] || 1
 
     #if entered taxon name returns more than one result choose first

@@ -50,6 +50,7 @@ protected
   def load_data
     # Sad that we need to load all of this for the about and glossary tabs, but TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
+    # debugger
     @range_data = @taxon_data.ranges_of_values
     @data_point_uris = sort_data(@taxon_page.data.get_data)
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }

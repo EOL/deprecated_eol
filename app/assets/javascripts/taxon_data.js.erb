@@ -22,8 +22,9 @@ EOL.switch_subtab = function(which, options) {
       $('.glossary_subtab .help_text').show();
     }
     else if (which.parent().hasClass('ranges')) {
-      $('.ranges_subtab').show();
+       EOL.show_data_tables($('.ranges_subtab.data'));
       $('.ranges_subtab .help_text').show();
+      
     }
   } else if (which.parent().hasClass('all')) { // Acts as a reset button/link
     $('.filters').show();
@@ -362,6 +363,7 @@ $(function() {
 
   $('table.data tr.data').on('click',
     function(e) {
+      alert('NOW');
       var $targ;
       if (e.target) $targ = $(e.target);
       else if (e.srcElement) $targ = $(e.srcElement);

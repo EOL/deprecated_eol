@@ -12,6 +12,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
   xml.taxon do
     xml.dc :identifier, @json_response['identifier'] if @json_response['identifier']
     xml.dwc :ScientificName, @json_response['scientificName'] if @json_response['scientificName']
+    xml.dwc :exemplar, DataObject.find_by_id_or_guid(params[:id]).is_exemplar?(@json_response['identifier'])
 
     @json_response['synonyms'].each do |synonym|
       xml.synonym synonym['synonym'], :relationship => synonym['relationship']
@@ -35,7 +36,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/0.3",
           xml.dwct :taxonID, url_for(:controller => 'api', :action => 'hierarchy_entries', :id => tc['identifier'], :only_path => false)
           xml.dwct :scientificName, tc['scientificName']
           xml.dwct :nameAccordingTo, tc['nameAccordingTo']
-          xml.dwct :taxonRank, tc['taxonRank']
+          xml.dwct :taxonRank, tc['taxonRank']          
 
           entry = tc['hierarchyEntry']
           canonical_form_words = entry.name.canonical_form.string.split(/ /)

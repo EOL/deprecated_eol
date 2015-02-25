@@ -1148,6 +1148,11 @@ FactoryGirl.define do
     association :taxon_concept
     association :data_object
   end
+  
+  factory :taxon_concept_exemplar_article do
+    association :taxon_concept
+    association :data_object
+  end
 
   factory :taxon_concept_name do
     preferred              true

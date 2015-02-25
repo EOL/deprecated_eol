@@ -63,7 +63,7 @@ describe 'API:synonyms' do
                             view_order: 2)
     @object.refs << Ref.gen(full_reference: 'first reference')
     @object.refs << Ref.gen(full_reference: 'second reference')
-    @taxon_concept.add_data_object(@object)
+    @taxon_concept.add_data_object(@object)    
   end
 
   it 'should create an API log including API key' do
@@ -83,6 +83,13 @@ describe 'API:synonyms' do
     response = get_as_xml("/api/data_objects/#{@object.guid}")
     response.xpath('/').inner_html.should_not == ""
     response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.get_taxon_concepts(published: :strict)[0].id.to_s
+  end
+  
+  it "data objects should show exemplar info for taxon concept for the data object request" do
+    TaxonConceptExemplarArticle.gen(data_object: @object, taxon_concept: @taxon_concept)
+    response = get_as_xml("/api/data_objects/#{@object.guid}")
+    response.xpath('/').inner_html.should_not == ""
+    response.xpath('//xmlns:taxon/dwc:exemplar').inner_text.should == "true"
   end
 
   it "data objects should show all information for text objects" do
@@ -185,6 +192,8 @@ describe 'API:synonyms' do
     # checking initial state
     response = get_as_json("/api/data_objects/#{d.guid}.json")
     response['identifier'].should == @taxon_concept.id
+    # show exemplar info about taxon
+    response['exemplar'].should == false
     # cfirst taxon is invisible, so second taxon is chosen
     d.curated_data_objects_hierarchy_entries.first.update_column(:visibility_id, Visibility.invisible.id)
     response = get_as_json("/api/data_objects/#{d.guid}.json")

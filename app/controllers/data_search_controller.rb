@@ -73,13 +73,8 @@ class DataSearchController < ApplicationController
     @unit = options[:unit].blank? ? nil : options[:unit]
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
-    if @min_value && @max_value && @min_value > @max_value 
-      temp = @max_value
-      @max_value = @min_value
-      @min_value = temp
-    end
+    @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
-
     #if entered taxon name returns more than one result choose first
     if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)

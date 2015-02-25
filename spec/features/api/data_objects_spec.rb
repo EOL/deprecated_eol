@@ -63,7 +63,7 @@ describe 'API:synonyms' do
                             view_order: 2)
     @object.refs << Ref.gen(full_reference: 'first reference')
     @object.refs << Ref.gen(full_reference: 'second reference')
-    @taxon_concept.add_data_object(@object)    
+    @taxon_concept.add_data_object(@object)
   end
 
   it 'should create an API log including API key' do
@@ -88,7 +88,6 @@ describe 'API:synonyms' do
   it "data objects should show exemplar info for taxon concept for the data object request" do
     TaxonConceptExemplarArticle.gen(data_object: @object, taxon_concept: @taxon_concept)
     response = get_as_xml("/api/data_objects/#{@object.guid}")
-    response.xpath('/').inner_html.should_not == ""
     response.xpath('//xmlns:taxon/dwc:exemplar').inner_text.should == "true"
   end
 

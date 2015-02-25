@@ -123,7 +123,7 @@ module EOL
           unless taxon_concept.nil?
             return_hash['identifier'] = taxon_concept.id
             return_hash['scientificName'] = taxon_concept.entry.name.string
-            return_hash['exemplar'] = params[:data_object].is_exemplar?(taxon_concept.id)
+            return_hash['exemplar'] = params[:data_object].is_exemplar?(taxon_concept.id) if params[:data_object]
             return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
 
             return_hash["synonyms"] = if params[:synonyms]

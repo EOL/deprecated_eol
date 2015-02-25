@@ -1193,18 +1193,18 @@ class DataObject < ActiveRecord::Base
   
   def is_exemplar?(taxon_concept_id)
     exemplar = false
-    if self.data_type_id == DataType.text.id
+    if self.is_text?
       exemplar = true unless (TaxonConceptExemplarArticle.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)).nil?
     end
     
-    if self.data_type_id == DataType.image.id
+    if self.image?
       exemplar = true unless (TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)).nil?
     end
     exemplar
   end
   
   def self.find_by_id_or_guid(id)
-    if id.is_numeric?
+    if id.to_s.is_numeric?
       begin
         data_object = DataObject.find(id)
       rescue
@@ -1213,9 +1213,9 @@ class DataObject < ActiveRecord::Base
     else
       data_object = DataObject.find_by_guid(id)
       raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"") if data_object.blank?
-      latest_version = data_object.latest_version_in_same_language(:check_only_published => true)
+      latest_version = data_object.latest_version_in_same_language(check_only_published: true)
       if latest_version.blank?
-        latest_version = data_object.latest_version_in_same_language(:check_only_published => false)
+        latest_version = data_object.latest_version_in_same_language(check_only_published: false)
       end
       data_object = DataObject.find_by_id(latest_version.id)
     end

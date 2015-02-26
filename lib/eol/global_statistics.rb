@@ -21,6 +21,8 @@ module EOL
             count = Community.where(published: true).count if count == 0
           when "content_partners" then
             count = ContentPartner.where(is_public: true).count
+          when "data"
+            count = EolStatistic.find(:last).total_taxa_with_data rescue 0
           else
             raise EOL::Exceptions::ObjectNotFound
         end

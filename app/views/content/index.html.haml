@@ -41,7 +41,7 @@
           %dl
             %dt= link_to I18n.t(:content_partners_link), content_partners_path
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("content_partners"), :delimiter => ",")
-        %li.partners
+        %li.data
           %dl
-            %dt= link_to I18n.t("activerecord.attributes.eol_statistic.total_taxa_with_data"), search_path(:q => '*', :type => ['data'])
+            %dt= link_to I18n.t(:data), data_search_path
             %dd= EOL::GlobalStatistics.find("data")

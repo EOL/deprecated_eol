@@ -38,7 +38,7 @@ class Users::DataDownloadsController < UsersController
   end
 
   def show_explanation_to_admins
-    flash.now[:notice] = I18n.t(:warning_you_are_editing_as_admin) if able_to_edit_user?
+    flash.now[:notice] = I18n.t(:warning_you_are_editing_as_admin) if able_to_edit_user? && current_user != @user
   end
 
 end

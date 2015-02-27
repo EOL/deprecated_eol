@@ -43,7 +43,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     end
     enqueue_job(current_user.id, params[:content_partner_id], @resource.id, request.port.to_s)
   end
-  
+
   def enqueue_job(user_id, content_partner_id, resource_id, port_no)
     Resque.enqueue(ResourceValidation, user_id, content_partner_id, resource_id, port_no)
   end
@@ -72,7 +72,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       upload_required = (@resource.accesspoint_url != params[:resource][:accesspoint_url] || !params[:resource][:dataset].blank?)
     end
     if @resource.update_attributes(params[:resource])
-      if upload_required        
+      if upload_required
         enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
       end
       flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
@@ -155,9 +155,9 @@ private
   end
 
   def set_resource_options
-    # the .sort_by(&:source_url).reverse makes for a better display, and default license since
-    # we the first in the list will show first in the drop-down menu
-    @licenses = License.find_all_by_show_to_content_partners(true).sort_by(&:source_url).reverse
+    # the .order(:source_url).reverse makes for a better display, and default
+    # license since the first in the list will show first in the drop-down menu
+    @licenses = License.show_to_content_partners.order(:source_url).reverse
     @languages = Language.find_active
     @import_frequencies = [ [ I18n.t(:import_once), 0 ],
                             [ I18n.t(:weekly), 7 * 24 ],

@@ -23,7 +23,7 @@
         %ul
           %li
             = render 'shared/add_to_my_collection', { :item => @data_object, :my_collection => current_user.watch_collection } if @latest_published_revision && @latest_published_revision.id == @data_object.id
-          - if current_user.is_admin? || current_user.min_curator_level?(:master)
+          - if ! dato.new_record? && current_user.is_admin? || current_user.min_curator_level?(:master)
             %li= link_to I18n.t(:reindex_data_object_button), reindex_data_object_path(@data_object), :class => 'button'
           - if @data_object.users_data_object && @data_object.users_data_object.user_id == current_user.id && @latest_published_revision
             - if @data_object.data_subtype_id == DataType.link.id

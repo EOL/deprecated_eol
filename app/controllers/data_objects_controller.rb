@@ -10,7 +10,8 @@ class DataObjectsController < ApplicationController
   before_filter :curators_and_owners_only, only: [:add_association, :remove_association]
   before_filter :restrict_to_admins_and_curators, only: [:crop, :reindex]
 
-  # GET /pages/:taxon_id/data_objects/new
+  # GET /data_objects/new
+  # requires a taxon_id as a parameter.
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
   def new
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
@@ -461,8 +462,8 @@ private
   def set_text_data_object_options
     @toc_items = TocItem.selectable_toc
     @link_types = LinkType.all
-    @languages = Language.all(conditions: "iso_639_1 != '' && source_form != ''", order: "source_form asc")
-    @licenses = License.find_all_by_show_to_content_partners(1)
+    @languages = Language.not_blank.order(:source_form)
+    @licenses = License.show_to_content_partners
   end
 
   def create_failed
@@ -539,8 +540,8 @@ private
   def add_references(dato)
     return if params[:references].blank?
     references = params[:references].split("\n")
-    unless references.blank?            
-      references.each do |reference|        
+    unless references.blank?
+      references.each do |reference|
         dato.add_ref(reference)
       end
     end
@@ -553,7 +554,7 @@ private
     end
     @ti ||= id_in_params ? id_in_params : nil
   end
-  
+
   def link_type_id
     id_in_params = nil
     if arr = params[:data_object].delete(:link_types)
@@ -561,7 +562,7 @@ private
     end
     @li ||= id_in_params ? id_in_params : nil
   end
-  
+
   def any_errors_in_curations?(curations)
     curations.map { |curation| curation.valid? }.include?(false)
   end
@@ -570,7 +571,7 @@ private
     curations.map do |curation|
       curation.errors.map { |error| I18n.t("curation_error_#{error.downcase.gsub(/\s+/, '_') }",
                                            association: curation.association.name, vetted: curation.vetted.label,
-                                           visibility: curation.visibility.label ) } 
+                                           visibility: curation.visibility.label ) }
     end.flatten.to_sentence
   end
 

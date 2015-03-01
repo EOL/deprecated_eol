@@ -981,6 +981,7 @@ class DataObject < ActiveRecord::Base
                            taxon_concept: taxon_concept, visibility: Visibility.visible)
   end
 
+  #TODO: This query is quite slow. Find an alternative; cache it; whatever. Stop doing it.
   def revisions_by_date
     @revisions_by_date ||= DataObject.sort_by_created_date(self.revisions).reverse
   end

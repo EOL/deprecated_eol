@@ -23,6 +23,7 @@ class CuratorActivityLog < LoggingModel
   belongs_to :affected_comment, foreign_key: :target_id, class_name: Comment.to_s
   belongs_to :data_point_uri, foreign_key: :target_id
   belongs_to :user_added_data, foreign_key: :target_id
+  belongs_to :resource, foreign_key: :target_id
 
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id
 
@@ -116,6 +117,8 @@ class CuratorActivityLog < LoggingModel
         data_point_uri
       when ChangeableObjectType.user_added_data.id
         user_added_data.data_point_uri
+      when ChangeableObjectType.resource_validation.id
+        resource
       else
         data_object
     end

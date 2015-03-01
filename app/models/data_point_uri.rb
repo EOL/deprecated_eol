@@ -397,6 +397,8 @@ class DataPointUri < ActiveRecord::Base
     user_added_data.hide(user) if user_added_data
   end
 
+  # TODO: This is expensive. It's eating up quite a lot of traffic on EOL.
+  # Find a way to avoid it.
   def update_with_virtuoso_response(row)
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     new_attributes.each do |k, v|

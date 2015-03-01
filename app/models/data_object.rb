@@ -1192,33 +1192,31 @@ class DataObject < ActiveRecord::Base
   end
   
   def is_exemplar?(taxon_concept_id)
-    exemplar = false
     if self.is_text?
-      exemplar = true unless (TaxonConceptExemplarArticle.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)).nil?
+      TaxonConceptExemplarArticle.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)    
+    elsif self.image?
+      TaxonConceptExemplarImage.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)
+    else
+      false
     end
-    
-    if self.image?
-      exemplar = true unless (TaxonConceptExemplarImage.find_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id)).nil?
-    end
-    exemplar
   end
   
   def self.find_by_id_or_guid(id)
-    if id.to_s.is_numeric?
-      begin
-        data_object = DataObject.find(id)
-      rescue
-        raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"")
-      end
-    else
+    begin
+      data_object = DataObject.find(id)
+    rescue ActiveRecord::RecordNotFound => e
       data_object = DataObject.find_by_guid(id)
-      raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{params[:id]}\"") if data_object.blank?
+      raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{id}\"") if data_object.blank?
       latest_version = data_object.latest_version_in_same_language(check_only_published: true)
       if latest_version.blank?
         latest_version = data_object.latest_version_in_same_language(check_only_published: false)
       end
-      data_object = DataObject.find_by_id(latest_version.id)
-    end
+      if latest_version.id == data_object.id
+        data_object = latest_version
+      else
+        data_object = DataObject.find_by_id(latest_version.id)
+      end
+    end  
     data_object
   end
 

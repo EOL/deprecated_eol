@@ -22,7 +22,7 @@ EOL.switch_subtab = function(which, options) {
       $('.glossary_subtab .help_text').show();
     }
     else if (which.parent().hasClass('ranges')) {
-       EOL.show_data_tables($('.ranges_subtab.data'));
+       $('.ranges_subtab').show();
       $('.ranges_subtab .help_text').show();
       
     }
@@ -49,6 +49,7 @@ EOL.switch_subtab = function(which, options) {
 EOL.create_info_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
   var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
+  debugger
   $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
   $(match)
     .attr('id', "info_"+nearest)
@@ -59,6 +60,21 @@ EOL.create_info_dialog = function(match) {
   EOL.enable_data_tab_glossary_links($(match));
   $(match).appendTo(document.body);
 };
+
+EOL.create_info_ranges_dialog = function(match) {
+  var $has_id = $(match).closest('[id]');
+  var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
+  debugger
+  $(match).parent().parent().children('.info_icon').remove(); // We will replace this with a definition...
+  $(match)
+    .attr('id', "info_"+nearest)
+    .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>') // Spaces 'cause width doesn't work. :\
+    .addClass('tip')
+    .prepend('<a href="#" class="close">&nbsp;</a>');
+  EOL.enable_info_ranges_dialogs($('#tip_'+nearest));
+  EOL.enable_data_tab_glossary_links($(match));
+  $(match).appendTo(document.body);
+  };
 
 EOL.enable_data_tab_glossary_links = function(info) {
   // want to enable this on the data tab, so check for some element that only exists there
@@ -109,6 +125,39 @@ EOL.enable_info_dialogs = function(tip) {
     }
   );
 };
+EOL.enable_info_ranges_dialogs = function(tip) {
+  tip.unbind('click')
+    .on('click', function(e) {
+      // This will make sure we don't open rows when clicking info icons:
+      e.stopPropagation();
+      $('.site_column').unbind('click');
+      var $link = $(this);
+      var $info = $('#info_'+$(this).data('info'));
+      if ($info.is(':visible')) {
+        $info.hide('fast');
+      } else {
+        $('.info.tip').hide('fast');
+        var pos = $(this).offset();
+        $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
+        $info.show('fast',
+          function() {
+            $('.site_column').on('click', function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });
+          }
+        ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false); } );
+      }
+    });
+  // making sure the info icons show when anywhere on the row is moused over
+  $('table.ranges tr').hover(  	
+    function() {    
+   
+      $(this).find('.info_icon.def').addClass('active');
+    },
+    function() {    	
+      $(this).find('.info_icon').removeClass('active');
+    }
+  );
+};
+
 
 EOL.enable_button = function($button) {
   if ($button.is(':disabled')) {
@@ -363,7 +412,6 @@ $(function() {
 
   $('table.data tr.data').on('click',
     function(e) {
-      alert('NOW');
       var $targ;
       if (e.target) $targ = $(e.target);
       else if (e.srcElement) $targ = $(e.srcElement);
@@ -487,6 +535,10 @@ $(function() {
   // Definitions of Attributes are dialogs if JS is enabled:
   $('table.data tr .info, table.data.search tr .info').each(function() {
     EOL.create_info_dialog(this);
+  });
+
+ $('table.ranges tr .info, table.ranges.search tr .info').each(function() {
+    EOL.create_info_ranges_dialog(this);
   });
 
   $('.add_content .article').hide();

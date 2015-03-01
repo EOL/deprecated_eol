@@ -15,7 +15,7 @@
     - unless overview_data.empty?
       - overview_data.each_with_index do |(row_representative, row_data), index|
         %tr
-          %th= display_uri(row_representative.predicate_uri, capitalize: false)
+          %th= display_uri(row_representative.predicate_uri, capitalize: false, define: :after)
           %td
             - text_for_rows = row_data[:data_point_uris].map do |data_point_uri|
               - text = display_text_for_data_point_uri(data_point_uri, link_to_overview: true, include_statistical_method: true)

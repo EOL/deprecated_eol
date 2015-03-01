@@ -163,7 +163,7 @@ module TaxaHelper
         haml_concat add_exemplar_or_excluded_icon(options)
         haml_concat raw(format_data_value(display_label, options)) + options[:succeed]
         haml_concat display_text_for_modifiers(options[:modifiers])
-        if options[:define] && options[:define] == :after && uri.is_a?(KnownUri)
+        if options[:define] && options[:define] == :after && uri.is_a?(KnownUri) || options[:ranges] == true
           define(tag_type, uri, options[:search_link])
           info_icon if options[:val]
         end

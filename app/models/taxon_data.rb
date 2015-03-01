@@ -132,7 +132,6 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def ranges_of_values
-    # debugger
     return [] unless should_show_clade_range_data
     return @ranges_of_values if defined?(@ranges_of_values)
     EOL::Sparql::Client.if_connection_fails_return({}) do

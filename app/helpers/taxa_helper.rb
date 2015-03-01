@@ -152,7 +152,7 @@ module TaxaHelper
     options[:succeed] ||= ''
     options[:search_link] = true unless options.has_key?(:search_link)
     display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
-    tag_type = (options[:define] && ! options[:val]) ? 'div' : 'span'
+    tag_type = (options[:define] && ! options[:val] || options[:ranges]) ? 'div' : 'span'
     tag_type << ".#{options[:class]}" if options[:class]
     capture_haml do
       info_icon if options[:define] && ! options[:val]

@@ -18,14 +18,15 @@
         %tr
           %td
             - if range_data[:attribute].is_a?(KnownUri)
-              = link_to display_uri(range_data[:attribute], capitalize: false,   define: :after, ranges: true), data_search_path(attribute: range_data[:attribute].uri, sort: 'desc', taxon_concept_id: @taxon_page.id)
+              /= link_to display_uri(range_data[:attribute], capitalize: false,ranges: true), data_search_path(attribute: range_data[:attribute].uri, sort: 'desc', taxon_concept_id: @taxon_page.id)
+              = display_uri(range_data[:attribute], capitalize: false,ranges: true)
             - else
-              = display_uri(range_data[:attribute], capitalize: false  , define: :after, ranges: true)
+              = display_uri(range_data[:attribute], capitalize: false)
           %td
             - min_value = format_data_value(range_data[:min].object.to_s)
             - if range_data[:min].unit_of_measure != range_data[:max].unit_of_measure
               - uri_components = EOL::Sparql.explicit_measurement_uri_components(range_data[:min].unit_of_measure_uri)
-              - min_value = min_value.to_s + " " + display_uri(uri_components, define: :after, ranges: true)
-            = raw [ min_value, display_text_for_data_point_uri(range_data[:max] ) ].join(' to ')
+              - min_value = min_value.to_s + " " + display_uri(uri_components, ranges: true)
+            = raw [ min_value, display_text_for_data_point_uri(range_data[:max]) ].join(' to ')
           %td= range_data[:count_measurements]
           %td= range_data[:count_taxa]

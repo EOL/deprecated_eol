@@ -1,31 +1,32 @@
 class DataSearchFile < ActiveRecord::Base
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
-    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id
-  attr_accessor :results
+    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id, :file_number
+  attr_accessor :results, :file_number
 
   belongs_to :user
   belongs_to :language
   belongs_to :known_uri
   belongs_to :taxon_concept
 
-  PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
-  PAGE_LIMIT = 2000 # Maximum number of "pages" of data to allow in one file.
+  PER_PAGE = 1 # Number of results we feel confident to process at one time (ie: one query for each)
+  PAGE_LIMIT = 1 # Maximum number of "pages" of data to allow in one file.
   LIMIT = PAGE_LIMIT * PER_PAGE
   EXPIRATION_TIME = 2.weeks
 
   def build_file
     unless hosted_file_exists?
       write_file
-      upload_file
-      # The user may delete the download before it has finished (if it's hung,
-      # the workers are busy or its just taking a very long time). If so,
-      # we should not email them when the process has finished
-      if hosted_file_exists? && instance_still_exists?
-        send_completion_email
-      end
+      # upload_file
+      # # The user may delete the download before it has finished (if it's hung,
+      # # the workers are busy or its just taking a very long time). If so,
+      # # we should not email them when the process has finished
+      # if hosted_file_exists? && instance_still_exists?
+        # send_completion_email
+      # end
       update_attributes(completed_at: Time.now.utc)
     end
+    @overflow
   end
 
   def csv(options = {})
@@ -86,9 +87,10 @@ class DataSearchFile < ActiveRecord::Base
     # TODO - we should also check to see if the job has been canceled.
     rows = []
     page = 1
+    debugger
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
     search_parameters = { querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
-                          per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri }
+                          per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri, offset: file_number*LIMIT }
     results = TaxonData.search(search_parameters)
     # TODO - we should probably add a "hidden" column to the file and allow admins/master curators to see those
     # rows, (as long as they are marked as hidden). For now, though, let's just remove the rows:

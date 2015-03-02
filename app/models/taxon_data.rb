@@ -94,6 +94,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
+    debugger
     if_connection_fails_return(nil) do
       return @taxon_data_set.dup if defined?(@taxon_data_set)
       taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept: taxon_concept, language: user.language)

@@ -279,6 +279,7 @@ class TaxonData < TaxonUserClassificationFilter
           MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
         WHERE {
           ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?t dwc:parentNameUsageID+ ?parent_taxon .
           ?t dwc:taxonConceptID ?descendant_concept_id .
           ?occurrence dwc:taxonID ?taxon .
           ?taxon dwc:taxonConceptID ?descendant_concept_id .
@@ -289,7 +290,7 @@ class TaxonData < TaxonUserClassificationFilter
           OPTIONAL {
             ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
           }
-          
+          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
         }
         GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
         ORDER BY DESC(?min)"

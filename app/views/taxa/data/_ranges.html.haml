@@ -25,7 +25,7 @@
             - min_value = format_data_value(range_data[:min].object.to_s)
             - if range_data[:min].unit_of_measure != range_data[:max].unit_of_measure
               - uri_components = EOL::Sparql.explicit_measurement_uri_components(range_data[:min].unit_of_measure_uri)
-              - min_value = min_value.to_s + " " + display_uri(uri_components, ranges: true)
+              - min_value = min_value.to_s + " " + display_uri(uri_components)
             = raw [ min_value, display_text_for_data_point_uri(range_data[:max]) ].join(' to ')
           %td= range_data[:count_measurements]
           %td= range_data[:count_taxa]

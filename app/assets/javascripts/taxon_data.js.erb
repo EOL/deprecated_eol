@@ -24,7 +24,6 @@ EOL.switch_subtab = function(which, options) {
     else if (which.parent().hasClass('ranges')) {
       $('.ranges_subtab').show();
       $('.ranges_subtab .help_text').show();
-      
     }
   } else if (which.parent().hasClass('all')) { // Acts as a reset button/link
     $('.filters').show();
@@ -63,7 +62,6 @@ EOL.create_info_dialog = function(match) {
 EOL.create_info_ranges_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
   var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
-  $(match).parent().parent().children('ul.glossary'); // We will replace this with a definition...
   $(match)
     .attr('id', "info_"+nearest)
     .addClass('tip')

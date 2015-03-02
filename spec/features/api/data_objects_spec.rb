@@ -272,7 +272,6 @@ describe 'API:synonyms' do
         image= DataObject.gen(data_type_id: DataType.image.id)
         @taxon_concept.add_data_object(image)
         response= get_as_json("/api/data_objects/#{image.guid}.json")
-        puts response['dataObjects']  
         expect(response['dataObjects'][0]['height']).to be_blank
         expect(response['dataObjects'][0]['width']).to be_blank
         expect(response['dataObjects'][0]['crop_x']).to be_blank

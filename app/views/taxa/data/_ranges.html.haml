@@ -14,7 +14,7 @@
           %th= I18n.t('values')
           %th= I18n.t('record_count')
           %th= I18n.t('taxa_count')
-      - @range_data.sort_by { |d| DataValue.new(d[:attribute]).label }.each_with_index do |range_data, index|
+      - @range_data.sort_by { |d| DataValue.new(d[:attribute]).label  }.each_with_index do |range_data, index|
         %tr
           %td
             - if range_data[:attribute].is_a?(KnownUri)

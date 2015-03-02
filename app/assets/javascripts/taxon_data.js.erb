@@ -63,19 +63,21 @@ EOL.create_info_dialog = function(match) {
 EOL.create_info_ranges_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
   var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
-  debugger
-  $(match).parent().parent().children('.info_icon').remove(); // We will replace this with a definition...
+  $(match).parent().parent().children('ul.glossary'); // We will replace this with a definition...
   $(match)
     .attr('id', "info_"+nearest)
-    .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>') // Spaces 'cause width doesn't work. :\
     .addClass('tip')
-    .prepend('<a href="#" class="close">&nbsp;</a>');
+    .prepend('<a href="#" class="close">&nbsp;</a>')
+    .append( $(match).parent().parent().children('ul.glossary'));
+  $(match).parent().parent().append('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>'); // Spaces 'cause width doesn't work. :\
   EOL.enable_info_ranges_dialogs($('#tip_'+nearest));
   EOL.enable_data_tab_glossary_links($(match));
+  $(match).parent().parent().children('ul.glossary').remove();
   $(match).appendTo(document.body);
   };
 
 EOL.enable_data_tab_glossary_links = function(info) {
+	debugger
   // want to enable this on the data tab, so check for some element that only exists there
   if(info.closest('#taxon_data.main_container').length > 0) {
     info.find('a.glossary').each(function() {
@@ -114,16 +116,20 @@ EOL.enable_info_dialogs = function(tip) {
         ).find('a.close').on('click', function() { $('.info').hide('fast'); return(false); } );
       }
     });
-  // making sure the info icons show when anywhere on the row is moused over
-  $('table.data tr.data, table.meta tr').hover(
+    EOL.info_icon_mouse_hover($('table.data tr.data, table.meta tr'));
+};
+
+ // making sure the info icons show when anywhere on the row is moused over
+  EOL.info_icon_mouse_hover = function (table_row){
+  	$(table_row).hover(
     function() {
       $(this).find('.info_icon.def').addClass('active');
     },
     function() {
       $(this).find('.info_icon').removeClass('active');
     }
-  );
-};
+  )};
+
 EOL.enable_info_ranges_dialogs = function(tip) {
   tip.unbind('click')
     .on('click', function(e) {
@@ -146,17 +152,8 @@ EOL.enable_info_ranges_dialogs = function(tip) {
       }
     });
   // making sure the info icons show when anywhere on the row is moused over
-  $('table.ranges tr').hover(  	
-    function() {    
-   
-      $(this).find('.info_icon.def').addClass('active');
-    },
-    function() {    	
-      $(this).find('.info_icon').removeClass('active');
-    }
-  );
+ EOL.info_icon_mouse_hover($('table.ranges tr'));
 };
-
 
 EOL.enable_button = function($button) {
   if ($button.is(':disabled')) {

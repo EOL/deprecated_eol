@@ -17,7 +17,10 @@
       - @range_data.sort_by { |d| DataValue.new(d[:attribute]).label }.each_with_index do |range_data, index|
         %tr
           %td
-            = display_uri(range_data[:attribute], capitalize: false, ranges: true)
+            - if range_data[:attribute].is_a?(KnownUri)
+              = link_to display_uri(range_data[:attribute], capitalize: false, ranges: true), data_search_path(attribute: range_data[:attribute].uri, sort: 'desc', taxon_concept_id: @taxon_page.id)
+            - else
+              = display_uri(range_data[:attribute], capitalize: false, ranges: true)
           %td
             - min_value = format_data_value(range_data[:min].object.to_s)
             - if range_data[:min].unit_of_measure != range_data[:max].unit_of_measure

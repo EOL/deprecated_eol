@@ -139,7 +139,7 @@ class DataSearchFile < ActiveRecord::Base
   def upload_file
     where = local_file_path
     begin
-      if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
+      if uploaded_file_url = ContentServer.upload_data_search_file(where, id)
         where = uploaded_file_url
         update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
       else

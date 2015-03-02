@@ -21,7 +21,7 @@
         = yield :social_sharing
       .page_actions
         %ul
-          %li
+          %li 
             = render 'shared/add_to_my_collection', { :item => @data_object, :my_collection => current_user.watch_collection } if @latest_published_revision && @latest_published_revision.id == @data_object.id
           - if ! @data_object.new_record? && (current_user.is_admin? || current_user.min_curator_level?(:master))
             %li= link_to I18n.t(:reindex_data_object_button), reindex_data_object_path(@data_object), :class => 'button'
@@ -34,6 +34,8 @@
             %li= link_to I18n.t(:add_link_instead), new_taxon_data_object_path(@taxon_concept, :toc => @add_article_toc_id, :link => true), :class => 'button'
           - elsif @add_link
             %li= link_to I18n.t(:add_article_instead), new_taxon_data_object_path(@taxon_concept, :toc => @add_article_toc_id), :class => 'button'
+          - if @data_object.published && logged_in? && current_user.master_curator?
+            %li= link_to I18n.t(:delete_data_object), {:controller=>'data_objects', :action=>'delete'}, :class => "button", :data => { :confirm => I18n.t(:confirm_delete_data_object) }
       = render 'shared/flash_messages'
   #content
     .site_column

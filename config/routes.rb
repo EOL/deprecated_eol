@@ -272,6 +272,7 @@ Eol::Application.routes.draw do
       get 'rate'
       get 'crop'
       get 'reindex'
+      get 'delete'
     end
     resources :comments
   end

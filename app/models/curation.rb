@@ -34,6 +34,14 @@ class Curation
     handle_vetting if vetted_changed?
     handle_visibility if visibility_changed?
   end
+  
+  def curate_as_deleted
+    @vetted.apply_to(@association, @user) if vetted_changed?
+    if visibility_changed?
+      @visibility.apply_to(@association, @user)
+      @association.taxon_concept.clear_for_data_object(@association.data_object)
+    end
+  end
 
   def valid?
     validate

@@ -17,8 +17,49 @@ describe DataObjectsController do
     @taxon_concept = TaxonConcept.gen
     @user = User.gen
     @udo = @taxon_concept.add_user_submitted_text(:user => @user)
+    Visibility.create_enumerated
+    Vetted.create_enumerated
   end
 
+  describe 'GET delete' do
+     before(:all) do
+      he1 = HierarchyEntry.gen
+      he2 = HierarchyEntry.gen
+      @image = DataObject.gen(data_type_id: DataType.image.id, object_cache_url: FactoryGirl.generate(:image))
+      @dohe1 = DataObjectsHierarchyEntry.create(hierarchy_entry_id: he1.id, data_object_id: @image.id,
+      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+      @dohe2 = DataObjectsHierarchyEntry.create(hierarchy_entry_id: he2.id, data_object_id: @image.id,
+      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)
+      col1 = Collection.gen
+      col2 = Collection.gen
+      @ci1 = CollectionItem.gen(collection_id: col1.id, collected_item_id: @image.id, collected_item_type: @image.class.to_s)
+      @ci2 = CollectionItem.gen(collection_id: col2.id, collected_item_id: @image.id, collected_item_type: @image.class.to_s)
+      
+    end
+    
+    before do
+      get :delete, { id: @image.id }
+    end
+    
+    it "should mark data_object as untrusted/hidden for all its' associations" do
+      @dohe1.reload
+      @dohe2.reload
+      expect(@dohe1.vetted_id).to equal(Vetted.untrusted.id)
+      expect(@dohe1.visibility_id).to equal(Visibility.invisible.id)
+      expect(@dohe2.vetted_id).to equal(Vetted.untrusted.id)
+      expect(@dohe2.visibility_id).to equal(Visibility.invisible.id)
+    end
+    
+    it "should mark data_object as unpublished" do
+      @image.reload
+      expect(@image.published).to be_false
+    end
+    it "should remove all collection_items that contains this data_object" do
+      expect(CollectionItem.where(id: @ci1.id).count).to equal(0)
+      expect(CollectionItem.where(id: @ci2.id).count).to equal(0)
+    end  
+  end
+  
   # GET /pages/:taxon_id/data_objects/new
   describe 'GET new' do
     it 'should render new if logged in' do

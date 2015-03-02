@@ -145,7 +145,7 @@ gem "counter_culture", "0.1.19"
 gem "dalli", "2.6.4"
 # Octopus helps handle several databases at the same time, but we had to
 # customize it for our needs:
-gem "ar-octopus", "0.4.0", git: "git://github.com/pleary/octopus.git",
+gem "ar-octopus", "0.4.0", git: "https://github.com/pleary/octopus.git",
   branch: "0.4.0", require: "octopus"
 # For testing emails within RSpec.
 gem "email_spec", "1.4.0"
@@ -183,7 +183,7 @@ gem "paperclip", "4.1.1"
 gem "rails_autolink", "1.1.5" # Adding links to user-entered text.
 # Autocomplete Ajax.
 gem "rails3-jquery-autocomplete", "1.0.11",
-    git: "git://github.com/pleary/rails3-jquery-autocomplete.git"
+    git: "https://github.com/pleary/rails3-jquery-autocomplete.git"
 # TODO: - update recaptcha.
 # An empathy test to see if you're a human, when creating an account.
 gem "recaptcha", "0.3.4", require: "recaptcha/rails"

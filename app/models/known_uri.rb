@@ -77,6 +77,7 @@ class KnownUri < ActiveRecord::Base
   validate :uri_must_be_uri
 
   before_validation :default_values
+  before_validation :remove_whitespaces
 
   scope :excluded_from_exemplars, -> { where(exclude_from_exemplars: true) }
   scope :measurements, -> { where(uri_type_id: UriType.measurement.id) }
@@ -406,6 +407,10 @@ class KnownUri < ActiveRecord::Base
     self.visibility ||= Visibility.invisible # Since there are so many, we want them "not suggested", first.
   end
 
+  def remove_whitespaces
+    self.uri.strip!
+  end
+
   def uri_must_be_uri
     errors.add('uri', :must_be_uri) unless EOL::Sparql.is_uri?(self.uri)
   end
@@ -414,5 +419,4 @@ class KnownUri < ActiveRecord::Base
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
   end
-
 end

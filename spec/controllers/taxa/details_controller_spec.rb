@@ -30,7 +30,7 @@ describe Taxa::DetailsController do
     end
 
     it 'should add make an entry in the table of contents for Education Resources objects' do
-      taxon_concept = build_taxon_concept
+      taxon_concept = build_taxon_concept(:comments => [], :images => [], :flash => [], :youtube => [], :sounds => [], :toc => [], :bhl => [])
       get :index, :taxon_id => taxon_concept.id
       assigns[:details].resources_links.include?(:education).should == false
       education_object = DataObject.create(data_type: DataType.text, description: 'asd', published: 1)
@@ -41,7 +41,7 @@ describe Taxa::DetailsController do
     end
 
     it 'should add make an entry in the table of contents for Education objects' do
-      taxon_concept = build_taxon_concept
+      taxon_concept = build_taxon_concept(:comments => [], :images => [], :flash => [], :youtube => [], :sounds => [], :toc => [], :bhl => [])
       get :index, :taxon_id => taxon_concept.id
       assigns[:details].resources_links.include?(:education).should == false
       education_object = DataObject.create(data_type: DataType.text, description: 'asd', published: 1)

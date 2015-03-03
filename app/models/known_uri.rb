@@ -408,7 +408,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def remove_whitespaces
-    self.uri.strip!
+    self.uri.strip! if self.uri
   end
 
   def uri_must_be_uri
@@ -419,4 +419,5 @@ class KnownUri < ActiveRecord::Base
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
   end
+
 end

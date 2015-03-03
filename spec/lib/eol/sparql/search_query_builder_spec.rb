@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe EOL::Sparql::SearchQueryBuilder do
   before(:all) do
     load_foundation_cache
-    @taxon_concept = build_taxon_concept
+    @taxon_concept = build_taxon_concept(:comments => [], :bhl => [], :toc => [], :images => [], :sounds => [], :youtube => [], :flash => [])
   end
 
   describe '#initialize' do

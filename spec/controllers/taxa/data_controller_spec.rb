@@ -2,6 +2,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Taxa::DataController do
   before(:all) do
+    load_foundation_cache
     drop_all_virtuoso_graphs
     @user = User.gen
     @user.grant_permission(:see_data)

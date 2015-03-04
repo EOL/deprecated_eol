@@ -22,7 +22,7 @@ module EOL
           when "content_partners" then
             count = ContentPartner.where(is_public: true).count
           when "data"
-            count = EOL::GlobalStatistics.count_data('data') rescue 0
+            count = EOL::GlobalStatistics.count_data
           else
             raise EOL::Exceptions::ObjectNotFound
         end
@@ -44,7 +44,7 @@ module EOL
       end
     end
     
-    def self.count_data(type)
+    def self.count_data
       EolStatistic.new.total_data_records rescue 0
     end
 

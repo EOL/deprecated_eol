@@ -5,7 +5,7 @@ describe "Google Analytics Stats Page" do
   before(:all) do
     load_foundation_cache
     Capybara.reset_sessions!
-    @taxon_concept = build_taxon_concept
+    @taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
     @user = User.gen(username: 'anything')
     @user.password = 'whatevs'
     @user.save

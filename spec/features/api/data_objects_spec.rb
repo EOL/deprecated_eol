@@ -14,6 +14,9 @@ describe 'API:synonyms' do
     @toc_item_3      = TocItem.gen(view_order: 3)
 
     @taxon_concept   = build_taxon_concept(
+       comments: [],
+       sounds: [],
+       bhl: [],
        flash:           [{description: 'First Test Video'}, {description: 'Second Test Video'}],
        youtube:         [{description: 'YouTube Test Video'}],
        images:          [{object_cache_url: FactoryGirl.generate(:image)}, {object_cache_url: FactoryGirl.generate(:image)},
@@ -153,7 +156,7 @@ describe 'API:synonyms' do
   end
 
   it "data objects should show all information for image objects" do
-    tc = build_taxon_concept
+    tc = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [])
     images = tc.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
     image = images.last
     image.data_type = DataType.image
@@ -184,7 +187,7 @@ describe 'API:synonyms' do
 
   it 'should ' do
     curator = build_curator(@taxon_concept, level: :full)
-    second_taxon_concept = build_taxon_concept
+    second_taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
     d = DataObject.gen
     d.add_curated_association(curator, @taxon_concept.entry)
     d.add_curated_association(curator, second_taxon_concept.entry)

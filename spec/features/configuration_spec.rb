@@ -5,7 +5,8 @@ describe 'Configuration' do
   before :all do
     load_foundation_cache
     @tiger_name = 'Tiger'
-    @taxon_concept = build_taxon_concept(common_names: [@tiger_name])
+    @taxon_concept = build_taxon_concept(common_names: [@tiger_name],
+                                         comments: [], bhl: [], toc: [], sounds: [], images: [], youtube: [], flash: [])
     SolrHelpers.recreate_solr_indexes
   end
 

@@ -408,7 +408,7 @@ describe DataObject do
   end
 
   it '#uncached_data_object_taxa should filter on published, vetted, visibility' do
-    second_taxon_concept = build_taxon_concept
+    second_taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], images: [], youtube: [], flash: [])
     d = DataObject.gen
     d.should_receive(:curated_hierarchy_entries).at_least(1).times.and_return([
       DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted, visibility: Visibility.invisible)),

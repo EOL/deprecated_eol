@@ -30,6 +30,9 @@ describe 'API:pages' do
     @toc_item_3.info_items << TranslatedInfoItem.gen(label: @toc_label_3).info_item unless @toc_item_3.info_items.map(&:label).include?(@toc_label_3)
 
     @taxon_concept   = build_taxon_concept(
+       comments: [],
+       bhl: [],
+       sounds: [],
        flash:           [{description: @video_1_text}, {description: @video_2_text}],
        youtube:         [{description: @video_3_text}],
        images:          [{object_cache_url: @image_1}, {object_cache_url: @image_2},

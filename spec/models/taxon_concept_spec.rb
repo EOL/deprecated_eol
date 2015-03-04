@@ -701,7 +701,7 @@ describe TaxonConcept do
   end
 
   it 'should generate proper outlinks when there are multiple entries for a hierarchy' do
-    tc = build_taxon_concept
+    tc = build_taxon_concept(comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     tc.hierarchy_entries.destroy_all
     tc.outlinks.count.should == 0
     h1 = Hierarchy.gen
@@ -713,7 +713,7 @@ describe TaxonConcept do
   end
 
   it 'should use the outlink from the most recent entry from a hierarchy' do
-    tc = build_taxon_concept
+    tc = build_taxon_concept(comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     tc.hierarchy_entries.destroy_all
     tc.outlinks.count.should == 0
     h1 = Hierarchy.gen
@@ -726,7 +726,7 @@ describe TaxonConcept do
   end
 
   it 'should not use untrusted taxa for outlinks' do
-    tc = build_taxon_concept
+    tc = build_taxon_concept(comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     tc.hierarchy_entries.destroy_all
     tc.outlinks.count.should == 0
     h1 = Hierarchy.gen
@@ -740,27 +740,33 @@ describe TaxonConcept do
 
   it 'should know what is a species_or_below?' do
     # HE.rank_id cannot be NULL
-    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0')).species_or_below?).to eq(false)
-    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'genus'))).species_or_below?).to eq(false)
+    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'), 
+                               comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: []).species_or_below?).to eq(false)
+    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'genus')),
+                               comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: []).species_or_below?).to eq(false)
     # there are lots of ranks which are considered species or below
     expect(Rank.italicized_labels.length).to be >= 60
     Rank.italicized_labels[0..5].each do |rank_label|
       clear_rank_caches
-      expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: rank_label))).species_or_below?).to eq(true)
+      expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: rank_label)),
+                                 comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: []).species_or_below?).to eq(true)
     end
   end
 
   it 'should know when to should_show_clade_range_data' do
     # has some descendants, but not too many
-    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'),
+                             comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     tc.should_receive(:number_of_descendants).and_return(100)
     expect(tc.should_show_clade_range_data).to eq(true)
     # has a right amount descendants, but is a species or below
     clear_rank_caches
-    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'species')))
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'species')),
+                             comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     expect(tc.should_show_clade_range_data).to eq(false)
     # has too many descendants
-    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'))
+    tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'),
+                             comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     tc.should_receive(:number_of_descendants).and_return(TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES + 1)
     expect(tc.should_show_clade_range_data).to eq(false)
   end

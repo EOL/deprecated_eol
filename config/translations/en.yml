@@ -310,6 +310,7 @@ en:
         total_measurement_types: "Measurement Types"
         total_association_types: "Association Types"
         total_user_added_data: "User-added Data"
+        total_data_records: "Data Records"
       forum:
         forum_category_id: "Category"
         name: "Forum name"

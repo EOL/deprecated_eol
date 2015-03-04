@@ -45,8 +45,7 @@ module EOL
     end
     
     def self.count_data(type)
-      latest_statistics = EolStatistic.find(:last)
-      latest_statistics.total_measurements + latest_statistics.total_associations rescue 0
+      EolStatistic.new.total_data_records rescue 0
     end
 
     def self.solr_count(type)

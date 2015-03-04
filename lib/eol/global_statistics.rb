@@ -22,7 +22,7 @@ module EOL
           when "content_partners" then
             count = ContentPartner.where(is_public: true).count
           when "data"
-            count = EolStatistic.find(:last).total_taxa_with_data rescue 0
+            count = EOL::GlobalStatistics.count_data('data') rescue 0
           else
             raise EOL::Exceptions::ObjectNotFound
         end
@@ -42,6 +42,11 @@ module EOL
         count = DataObject.count(:conditions => "data_type_id=#{DataType.image.id} and published=1") if
           count == 0
       end
+    end
+    
+    def self.count_data(type)
+      latest_statistics = EolStatistic.find(:last)
+      latest_statistics.total_measurements + latest_statistics.total_associations rescue 0
     end
 
     def self.solr_count(type)

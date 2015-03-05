@@ -121,7 +121,7 @@ class EolStatistic < ActiveRecord::Base
   end
 
   def total_data_records
-    latest_statistics = EolStatistic.find(:last)
+    latest_statistics = EolStatistic.last
     latest_statistics.total_measurements + latest_statistics.total_associations
   end
   

@@ -73,7 +73,6 @@ class TaxonConceptBuilder
   def initialize(options)
     @debugging = false
     puts "** Enter: initialize" if @debugging
-    #load_neccessery_data
     set_default_options(options)
     build
   end
@@ -395,36 +394,5 @@ private
                 :object_cache_url => FactoryGirl.generate(:image), :visibility => Visibility.preview,
                 :vetted => Vetted.unknown}
     return images
-  end  
-  
-  def load_neccessery_data
-    %w{kingdom phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
-    Rank.gen_if_not_exists(label: rank)
-    end
-    ContentPartnerStatus.create_enumerated
-    ContactRole.create_enumerated
-    License.create_enumerated
-    Vetted.create_enumerated
-    Visibility.create_enumerated
-    AgentRole.create_enumerated
-    CuratorLevel.create_enumerated
-    Activity.create_enumerated
-    ChangeableObjectType.create_enumerated
-    SpecialCollection.create_enumerated
-    DataType.create_enumerated
-    MimeType.gen_if_not_exists(label: 'text/plain')
-    SynonymRelation.gen_if_not_exists(label: "synonym")
-    SynonymRelation.gen_if_not_exists(label: "common name")
-    SynonymRelation.gen_if_not_exists(label: "genbank common name")
-    Hierarchy.gen_if_not_exists(label: "Encyclopedia of Life Contributors")
-    Language.gen_if_not_exists(label: 'Unknown', iso_639_1: '', source_form: 'Unknown')
-    Language.gen_if_not_exists(label: 'Scientific Name', iso_639_1: '', source_form: 'Scientific Name')
-    Language.create_english
-    Language.gen_if_not_exists(label: 'French', iso_639_1: 'fr', iso_639_2: 'fre') # Bootstrap uses this, tests i18n
-    col_agent = Agent.gen_if_not_exists(:full_name => 'Catalogue of Life', :logo_cache_url => '219000', :homepage => 'http://www.catalogueoflife.org/')
-    col_user = User.gen_if_not_exists(:display_name => 'Catalogue of Life', :agent => col_agent)
-    col_content_partner = ContentPartner.gen_if_not_exists(:user => col_user, :full_name => 'Catalogue of Life')
-    ContentPartnerContact.gen_if_not_exists(:content_partner => col_content_partner, :contact_role => ContactRole.primary)
-    Hierarchy.gen_if_not_exists(agent: Agent.catalogue_of_life, label: $DEFAULT_HIERARCHY_NAME, browsable: 1)
   end  
 end

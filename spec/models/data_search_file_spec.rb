@@ -6,6 +6,7 @@ describe DataSearchFile do
     expect(@search_file.downloadable?).to eq(false)
     @search_file.completed_at = Time.now
     @search_file.row_count = 10
+    @search_file.hosted_file_url = "something"
     expect(@search_file.downloadable?).to eq(true)
   end
 

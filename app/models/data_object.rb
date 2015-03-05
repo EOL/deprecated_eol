@@ -91,11 +91,11 @@ class DataObject < ActiveRecord::Base
       ci.destroy
     end
   end
-  
+
   def unpublish
-    self.update_attribute(:published, false) 
+    self.update_attribute(:published, false)
   end
-  
+
   def mark_for_all_association_as_hidden_untrusted(user)
     curations = []
       DataObject.with_master do
@@ -112,7 +112,7 @@ class DataObject < ActiveRecord::Base
     curations.each { |curation| curation.curate_as_deleted }
     DataObjectCaching.clear(self)
   end
-  
+
   def self.maximum_rating
     MAXIMUM_RATING
   end
@@ -1220,17 +1220,17 @@ class DataObject < ActiveRecord::Base
               params[:data_object][:description] == last_dato.description)
     end
   end
-  
+
   def is_exemplar?(taxon_concept_id)
     if self.is_text?
-      TaxonConceptExemplarArticle.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)    
+      TaxonConceptExemplarArticle.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)
     elsif self.image?
       TaxonConceptExemplarImage.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)
     else
       false
     end
   end
-  
+
   def self.find_by_id_or_guid(id)
     begin
       data_object = DataObject.find(id)
@@ -1246,7 +1246,7 @@ class DataObject < ActiveRecord::Base
       else
         data_object = DataObject.find_by_id(latest_version.id)
       end
-    end  
+    end
     data_object
   end
 

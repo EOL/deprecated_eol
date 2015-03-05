@@ -1,6 +1,4 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/../../spec_helper'
-
 describe 'API:synonyms' do
   before(:all) do
     load_foundation_cache
@@ -84,7 +82,7 @@ describe 'API:synonyms' do
     response.xpath('/').inner_html.should_not == ""
     response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.get_taxon_concepts(published: :strict)[0].id.to_s
   end
-  
+
   it "data objects should show exemplar info for taxon concept for the data object request" do
     TaxonConceptExemplarArticle.gen(data_object: @object, taxon_concept: @taxon_concept)
     response = get_as_xml("/api/data_objects/#{@object.guid}")
@@ -229,7 +227,7 @@ describe 'API:synonyms' do
         expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_width').inner_text).to eq((image.image_size.crop_width_pct * image.image_size.width / 100.0).to_s)
       end
 
-      it 'does not add info for blank data' do 
+      it 'does not add info for blank data' do
         image= DataObject.gen(data_type_id: DataType.image.id)
         @taxon_concept.add_data_object(image)
         response= get_as_xml("/api/data_objects/#{image.guid}")
@@ -268,7 +266,7 @@ describe 'API:synonyms' do
         expect(response['dataObjects'][0]['crop_width'].to_s).to eq((image.image_size.crop_width_pct * image.image_size.width / 100.0).to_s)
       end
 
-      it 'does not add info for blank data' do 
+      it 'does not add info for blank data' do
         image= DataObject.gen(data_type_id: DataType.image.id)
         @taxon_concept.add_data_object(image)
         response= get_as_json("/api/data_objects/#{image.guid}.json")

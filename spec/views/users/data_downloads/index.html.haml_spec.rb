@@ -94,6 +94,7 @@ describe 'users/data_downloads/index' do
   context 'completed downloads' do
     before(:each) do
       data_search_file.completed_at = Time.now
+      allow(data_search_file).to receive(:downloadable?) { true }
       assign(:background_processes, [ data_search_file ])
     end
 

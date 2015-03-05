@@ -80,7 +80,7 @@ class TaxonConceptBuilder
 private
 
   def build
-    puts "** Enter: build" if @debugging    
+    puts "** Enter: build" if @debugging
     gen_taxon_concept
     set_depth
     gen_canonical_name

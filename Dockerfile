@@ -1,6 +1,6 @@
 FROM encoflife/ruby
 MAINTAINER Dmitry Mozzherin
-
+ENV LAST_FULL_REBUILD 2015-03-05
 RUN apt-get update -q && \
     apt-get install -qq -y software-properties-common nodejs \
       libmysqlclient-dev libqt4-dev supervisor && \
@@ -8,7 +8,10 @@ RUN apt-get update -q && \
     apt-get update && \
     apt-get install -qq -y nginx && \
     echo "\ndaemon off;" >> /etc/nginx/nginx.conf && \
-    chown -R www-data:www-data /var/lib/nginx
+    chown -R www-data:www-data /var/lib/nginx && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 COPY config/docker/nginx-sites.conf /etc/nginx/sites-enabled/default
 
 WORKDIR /app

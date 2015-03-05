@@ -6,76 +6,14 @@
 .main_container#taxon_data
   %h3.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
   = render 'about', { hidden: true }
-  - if @data_point_uris.blank?
-    .empty
-      - if @taxon_data.bad_connection?
-        %p= I18n.t(:data_server_unavailable)
-      - else
-        %p
-          = I18n.t(:taxon_data_tab_empty, taxon: @taxon_page.scientific_name).html_safe
-          - unless @range_data.blank?
-            = raw I18n.t(:however_there_are_summaries, summary_url: ranges_taxon_data_path(@taxon_page))
-          = link_to I18n.t(:learn_how_to_contribute), cms_page_url('contribute', anchor: 'data')
-  - else
-    -# NOTE - we want this to appear on every subtab:
-    .help_text
-      %p
-        - if is_clade_searchable?
-          = t('.data_disclaimer_with_searchable_clade',
-            traitbank_info_path: cms_page_path('traitbank'),
-            traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
-            taxon_name: @taxon_page.scientific_name).html_safe
-        - else
-          = t('.data_disclaimer',
-            traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
-            traitbank_info_path: cms_page_path('traitbank')).html_safe
-    - category_toc_items = @data_point_uris.collect{ |d| d.predicate_known_uri ? d.predicate_known_uri.toc_items : nil }.flatten.compact.uniq.sort_by(&:view_order)
-    - if @include_other_category
-      -# adding nil here to represent no TOC, i.e. the 'other' cagtegory
-      - category_toc_items << nil
-    - category_toc_items.each do |category_toc_item|
-      -# TODO - move this to the "model" (except the class-setting logic)
-      - show_table = true
-      - if @toc_id
-        - show_table = category_toc_item.nil? ? (@toc_id == 'other') : (@toc_id == category_toc_item.id.to_s)
-      .header_underlined{ style: show_table ? nil : 'display: none;' }
-        %h3= category_toc_item.nil? ? I18n.t(:other_category_subtab) : category_toc_item.label
-      %table.standard.categorized.data{summary: I18n.t(:data_table_summary, taxon: @taxon_page.scientific_name), style: show_table ? nil : 'display:none;',
-        data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => category_toc_item.nil? ? 'other' : category_toc_item.id} }
-        %caption.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
-        - type_index = 0
-        - last_attribute = nil
-        - data_for_this_category = category_toc_item.nil? ?
-        -   @data_point_uris.select{ |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? } :
-        -   @data_point_uris.select{ |d| d.predicate_known_uri && d.predicate_known_uri.toc_items.include?(category_toc_item) }
-        - data_for_this_category.each do |data_point_uri|
-          - classes = []
-          - first_of_type = data_point_uri.predicate != last_attribute
-          - if first_of_type
-            - type_index += 1
-            - header_id = data_point_uri.header_anchor
-            - last_attribute = data_point_uri.predicate
-          - else
-            - header_id = nil
-          - classes << ['first_of_type'] if first_of_type
-          - comments = []
-          - comments = data_point_uri.comments # Need to use #all_comments because it might involve multiple instances.
-          - unless data_point_uri.visible?
-            - if current_user.is_curator?
-              - classes << 'hidden'
-            - else
-              - next
-          - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
-          -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
-          - exemplar = data_point_uri.taxon_data_exemplars.select(&:included?).any?
-          - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded?).any?
-          = render 'data_point_uris/display_rows', {    |
-            data_point_uri: data_point_uri, type_index: type_index,      |
-            classes: classes, exemplar: exemplar, excluded: excluded,    |
-            row_is_selected: row_is_selected, header_id: header_id,      |
-            for_data_tab: true }                                         |
+  - if @data_point_uris.blank? && !@range_data.blank?
+    = render 'data', { hidden: true }
+    = render 'ranges', { hidden: false }
+  - else 
+    = render 'data', { hidden: false }
+    = render 'ranges', { hidden: true }
   = render 'glossary', { hidden: true }
-  = render 'ranges', { hidden: true }
+
   - if ! @data_point_uris.blank? && current_user.min_curator_level?(:full)
     .copy
       #curation_legend.help_text

@@ -26,6 +26,7 @@ class DataObject < ActiveRecord::Base
   # TODO - really, we should add a SQL finder to this to make it latest_published_users_data_object:
   has_one :users_data_object
   has_one :data_objects_link_type
+  has_one :image_size
 
   has_many :top_images
   has_many :top_concept_images
@@ -83,6 +84,34 @@ class DataObject < ActiveRecord::Base
 
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
+
+  def remove_all_collection_items
+    collection_items = CollectionItem.where(collected_item_type: self.class.to_s, collected_item_id: self.id)
+    collection_items.each do |ci|
+      ci.destroy
+    end
+  end
+
+  def unpublish
+    self.update_attribute(:published, false)
+  end
+
+  def mark_for_all_association_as_hidden_untrusted(user)
+    curations = []
+      DataObject.with_master do
+        self.data_object_taxa.each do |association|
+          curations << Curation.new(
+            association: association,
+            user: user,
+            vetted: Vetted.untrusted,
+            visibility: Visibility.invisible,
+            untrust_reason_ids: [UntrustReason.misidentified.id, UntrustReason.incorrect.id],
+            hide_reason_ids: [UntrustReason.poor.id, UntrustReason.duplicate.id] )
+        end
+      end
+    curations.each { |curation| curation.curate_as_deleted }
+    DataObjectCaching.clear(self)
+  end
 
   def self.maximum_rating
     MAXIMUM_RATING
@@ -1191,17 +1220,17 @@ class DataObject < ActiveRecord::Base
               params[:data_object][:description] == last_dato.description)
     end
   end
-  
+
   def is_exemplar?(taxon_concept_id)
     if self.is_text?
-      TaxonConceptExemplarArticle.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)    
+      TaxonConceptExemplarArticle.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)
     elsif self.image?
       TaxonConceptExemplarImage.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)
     else
       false
     end
   end
-  
+
   def self.find_by_id_or_guid(id)
     begin
       data_object = DataObject.find(id)
@@ -1217,10 +1246,13 @@ class DataObject < ActiveRecord::Base
       else
         data_object = DataObject.find_by_id(latest_version.id)
       end
-    end  
+    end
     data_object
   end
 
+  def remove_data_object_from_solr
+    EOL::Solr::DataObjectsCoreRebuilder.remove_data_object(self)
+  end
 private
 
   def source_url_is_valid

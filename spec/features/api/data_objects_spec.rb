@@ -1,6 +1,4 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/../../spec_helper'
-
 describe 'API:synonyms' do
   before(:all) do
     load_foundation_cache
@@ -87,7 +85,7 @@ describe 'API:synonyms' do
     response.xpath('/').inner_html.should_not == ""
     response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.get_taxon_concepts(published: :strict)[0].id.to_s
   end
-  
+
   it "data objects should show exemplar info for taxon concept for the data object request" do
     TaxonConceptExemplarArticle.gen(data_object: @object, taxon_concept: @taxon_concept)
     response = get_as_xml("/api/data_objects/#{@object.guid}")
@@ -212,5 +210,86 @@ describe 'API:synonyms' do
     d.curated_data_objects_hierarchy_entries[1].update_column(:visibility_id, Visibility.invisible.id)
     response = get_as_json("/api/data_objects/#{d.guid}.json")
     response['identifier'].should == nil
+  end
+
+  describe 'adding crop fields to images' do
+
+    context'displaying in XML format' do
+      it 'adds crop information for images' do
+        image= DataObject.gen(data_type_id: DataType.image.id)
+        @taxon_concept.add_data_object(image)
+        ImageSize.create(data_object_id: image.id, height: 10,
+                         width:10, crop_x_pct: 10, crop_y_pct: 10,
+                         crop_width_pct: 10, crop_height_pct: 10)
+        response= get_as_xml("/api/data_objects/#{image.guid}")
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:height').inner_text).to eq(image.image_size.height.to_s)
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:width').inner_text).to eq(image.image_size.width.to_s)
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_x').inner_text).to eq((image.image_size.crop_x_pct * image.image_size.width / 100.0).to_s)
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_y').inner_text).to eq((image.image_size.crop_y_pct * image.image_size.height / 100.0).to_s)
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_height').inner_text).to eq((image.image_size.crop_height_pct * image.image_size.height / 100.0).to_s)
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_width').inner_text).to eq((image.image_size.crop_width_pct * image.image_size.width / 100.0).to_s)
+      end
+
+      it 'does not add info for blank data' do
+        image= DataObject.gen(data_type_id: DataType.image.id)
+        @taxon_concept.add_data_object(image)
+        response= get_as_xml("/api/data_objects/#{image.guid}")
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:height').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:width').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_x').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_y').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_width').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_width').inner_text).to be_blank
+      end
+
+      it 'does not add info for other data objects' do
+        response= get_as_xml("/api/data_objects/#{@object.guid}")
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:height').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:width').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_x').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_y').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_width').inner_text).to be_blank
+        expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_width').inner_text).to be_blank
+      end
+    end
+
+    context'displaying in JSON format' do
+      it 'adds crop information for images' do
+        image= DataObject.gen(data_type_id: DataType.image.id)
+        @taxon_concept.add_data_object(image)
+        ImageSize.create(data_object_id: image.id, height: 10,
+                         width:10, crop_x_pct: 10, crop_y_pct: 10,
+                         crop_width_pct: 10, crop_height_pct: 10)
+        response= get_as_json("/api/data_objects/#{image.guid}.json")
+        expect(response['dataObjects'][0]['height']).to eq(image.image_size.height)
+        expect(response['dataObjects'][0]['width']).to eq(image.image_size.width)
+        expect(response['dataObjects'][0]['crop_x'].to_s).to eq((image.image_size.crop_x_pct * image.image_size.width / 100.0).to_s)
+        expect(response['dataObjects'][0]['crop_y'].to_s).to eq((image.image_size.crop_y_pct * image.image_size.height / 100.0).to_s)
+        expect(response['dataObjects'][0]['crop_height'].to_s).to eq((image.image_size.crop_height_pct * image.image_size.height / 100.0).to_s)
+        expect(response['dataObjects'][0]['crop_width'].to_s).to eq((image.image_size.crop_width_pct * image.image_size.width / 100.0).to_s)
+      end
+
+      it 'does not add info for blank data' do
+        image= DataObject.gen(data_type_id: DataType.image.id)
+        @taxon_concept.add_data_object(image)
+        response= get_as_json("/api/data_objects/#{image.guid}.json")
+        expect(response['dataObjects'][0]['height']).to be_blank
+        expect(response['dataObjects'][0]['width']).to be_blank
+        expect(response['dataObjects'][0]['crop_x']).to be_blank
+        expect(response['dataObjects'][0]['crop_y']).to be_blank
+        expect(response['dataObjects'][0]['crop_width']).to be_blank
+        expect(response['dataObjects'][0]['crop_width']).to be_blank
+      end
+
+      it 'does not add info for other data objects' do
+        response= get_as_json("/api/data_objects/#{@object.guid}.json")
+        expect(response['dataObjects'][0]['height']).to be_blank
+        expect(response['dataObjects'][0]['width']).to be_blank
+        expect(response['dataObjects'][0]['crop_x']).to be_blank
+        expect(response['dataObjects'][0]['crop_y']).to be_blank
+        expect(response['dataObjects'][0]['crop_width']).to be_blank
+        expect(response['dataObjects'][0]['crop_width']).to be_blank
+      end
+    end
   end
 end

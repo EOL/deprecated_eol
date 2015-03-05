@@ -45,7 +45,8 @@ end
 
 def build_tc_with_only_one_toc_item(type, testy)
   testy["only_#{type}".to_sym] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:exemplar].id,
-    :toc => [{:toc_item => testy[type.to_sym], :description => testy["#{type}_text".to_sym], :data_rating => 5}])
+    :toc => [{:toc_item => testy[type.to_sym], :description => testy["#{type}_text".to_sym], :data_rating => 5}],
+    comments: [], bhl: [], images: [], sounds: [], youtube: [], flash: [])
   last_toc_dato = DataObjectsTableOfContent.last.data_object
   CuratedDataObjectsHierarchyEntry.new(:data_object_id => last_toc_dato.id,
                                        :data_object_guid => last_toc_dato.guid,
@@ -58,7 +59,8 @@ end
 def build_tc_with_one_image(testy, tc_name, img_name, options = {})
   options[:published] ||= 1
   options[:visibility] ||= Visibility.visible
-  testy[tc_name] = build_taxon_concept(:images => {})
+  testy[tc_name] = build_taxon_concept(:images => {}, comments: [], bhl: [], toc: [], images: [], sounds: [],
+                                       youtube: [], flash: [])
   testy[img_name] = DataObject.gen(:data_type_id => DataType.image.id, :data_rating => 0.1,
                                    :published => options[:published])
   dohe = DataObjectsHierarchyEntry.gen(:data_object => testy[img_name], :visibility => options[:visibility],
@@ -73,7 +75,8 @@ raise "** ERROR: testy scenario didn't load the foundation cache" unless Vetted.
 ActiveRecord::Base.transaction do
   testy = {}
 
-  testy[:exemplar] = build_taxon_concept(:id => 910093) # That ID is one of the (hard-coded) exemplars.
+  testy[:exemplar] = build_taxon_concept(:id => 910093, comments: [], toc: [], images: [], sounds: [],
+                                         youtube: [], flash: []) # That ID is one of the (hard-coded) exemplars.
 
   testy[:empty_taxon_concept] =
     build_taxon_concept(:images => [], :toc => [], :flash => [], :youtube => [], :comments => [], :bhl => [])
@@ -147,33 +150,39 @@ ActiveRecord::Base.transaction do
   Comment.find_by_body(testy[:comment_bad]).hide User.last
   testy[:user] = User.gen
 
-  testy[:child1] = build_taxon_concept(:parent_hierarchy_entry_id => tc.hierarchy_entries.first.id)
-  testy[:child2] = build_taxon_concept(:parent_hierarchy_entry_id => tc.hierarchy_entries.first.id)
-  testy[:sub_child] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:child1].hierarchy_entries.first.id)
+  testy[:child1] = build_taxon_concept(:parent_hierarchy_entry_id => tc.hierarchy_entries.first.id, comments: [], toc: [],
+                                       images: [], bhl: [], sounds: [], youtube: [], flash: [])
+  testy[:child2] = build_taxon_concept(:parent_hierarchy_entry_id => tc.hierarchy_entries.first.id, comments: [], toc: [],
+                                       images: [], bhl: [], sounds: [], youtube: [], flash: [])
+  testy[:sub_child] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:child1].hierarchy_entries.first.id, comments: [], toc: [],
+                                          images: [], bhl: [], sounds: [], youtube: [], flash: [])
 
   testy[:good_title] = %Q{"Good title"}
   testy[:bad_title] = testy[:good_title].downcase
-  testy[:taxon_concept_with_bad_title] = build_taxon_concept(:canonical_form => testy[:bad_title])
+  testy[:taxon_concept_with_bad_title] = build_taxon_concept(:canonical_form => testy[:bad_title], comments: [], toc: [],
+                                                             images: [], bhl: [], sounds: [], youtube: [], flash: [])
 
-  testy[:taxon_concept_with_unpublished_iucn] = build_taxon_concept()
+  testy[:taxon_concept_with_unpublished_iucn] = build_taxon_concept(comments: [], toc: [], images: [],
+                                                                    bhl: [], sounds: [], youtube: [], flash: [])
   testy[:bad_iucn_value] = 'bad value'
   iucn_entry = build_iucn_entry(testy[:taxon_concept_with_unpublished_iucn], testy[:bad_iucn_value])
   iucn_entry.update_column(:published, 0)
 
   testy[:taxon_concept_with_no_common_names] = build_taxon_concept(
     :common_names => [],
-    :toc => [ {:toc_item => TocItem.common_names} ])
+    :toc => [ {:toc_item => TocItem.common_names} ], comments: [], images: [], bhl: [], sounds: [], youtube: [], flash: [])
 
   # Common names to be added to this one, but starts with none:
   testy[:taxon_concept_with_no_starting_common_names] = build_taxon_concept(
     :common_names => [],
-    :toc => [ {:toc_item => TocItem.common_names} ])
+    :toc => [ {:toc_item => TocItem.common_names} ], comments: [], images: [], bhl: [], sounds: [], youtube: [], flash: [])
 
   hierarchy = Hierarchy.default
   testy[:kingdom] = HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => 0)
   testy[:phylum ]= HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => testy[:kingdom].id)
   testy[:order] = HierarchyEntry.gen(:hierarchy => hierarchy, :parent_id => testy[:phylum].id)
-  testy[:species] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:order].id, :rank => 'species')
+  testy[:species] = build_taxon_concept(:parent_hierarchy_entry_id => testy[:order].id, :rank => 'species', comments: [], toc: [],
+                                        images: [], bhl: [], sounds: [], youtube: [], flash: [])
 
   testy[:tcn_count] = TaxonConceptName.count
   testy[:syn_count] = Synonym.count
@@ -205,7 +214,8 @@ ActiveRecord::Base.transaction do
 
   testy[:no_language_in_toc] = build_taxon_concept(
     :toc => [{:toc_item => testy[:overview], :description => 'no language', :language_id => 0, :data_rating => 5},
-             {:toc_item => testy[:brief_summary], :description => 'no language', :language_id => 0, :data_rating => 5}])
+             {:toc_item => testy[:brief_summary], :description => 'no language', :language_id => 0, :data_rating => 5}], comments: [],
+    images: [], bhl: [], sounds: [], youtube: [], flash: [])
 
   build_tc_with_only_one_toc_item('overview', testy)
   build_tc_with_only_one_toc_item('brief_summary', testy)

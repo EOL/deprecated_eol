@@ -77,6 +77,7 @@ class KnownUri < ActiveRecord::Base
   validate :uri_must_be_uri
 
   before_validation :default_values
+  before_validation :remove_whitespaces
 
   scope :excluded_from_exemplars, -> { where(exclude_from_exemplars: true) }
   scope :measurements, -> { where(uri_type_id: UriType.measurement.id) }
@@ -404,6 +405,10 @@ class KnownUri < ActiveRecord::Base
   def default_values
     self.vetted ||= Vetted.unknown
     self.visibility ||= Visibility.invisible # Since there are so many, we want them "not suggested", first.
+  end
+
+  def remove_whitespaces
+    self.uri.strip! if self.uri
   end
 
   def uri_must_be_uri

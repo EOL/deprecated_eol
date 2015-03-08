@@ -682,6 +682,7 @@ FactoryGirl.define do
     created_at    Time.now
     updated_at    Time.now
     completed_at  Time.now
+    file_number   1
   end
 
   factory :data_type do

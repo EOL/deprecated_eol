@@ -8,7 +8,6 @@ class DataSearchController < ApplicationController
   before_filter :allow_login_then_submit, only: :download
 
   layout 'data_search'
-
   # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index
     @page_title = I18n.t('data_search.page_title')
@@ -52,9 +51,17 @@ class DataSearchController < ApplicationController
       search_params = params.dup
     end
     prepare_search_parameters(search_params)
-    df = create_data_search_file
-    flash[:notice] = I18n.t(:file_download_pending, link: user_data_downloads_path(current_user.id))
-    Resque.enqueue(DataFileMaker, data_file_id: df.id)
+    total_results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(@search_options.merge(only_count: true))).first[:count].to_i
+    no_of_files = total_results / DataSearchFile::LIMIT
+    no_of_files += 1 if total_results % DataSearchFile::LIMIT != 0
+    count = 1
+    while count <= no_of_files do
+      df = create_data_search_file
+      df.update_attributes(file_number: count)
+      flash[:notice] = I18n.t(:file_download_pending, link: user_data_downloads_path(current_user.id))
+      Resque.enqueue(DataFileMaker, data_file_id: df.id)  
+      count += 1
+    end
     redirect_to user_data_downloads_path(current_user.id)
   end
 

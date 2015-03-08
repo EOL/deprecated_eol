@@ -13,11 +13,10 @@ class DataFileMaker
         begin
           df = DataSearchFile.find(args["data_file_id"])
           overflow = df.build_file
-          
           if overflow
-            rejected = [:id, :completed_at, :created_at, :updated_at, :hosted_file_url, :row_count]
-            new_df = DataSearchFile.create!(df.attributes.reject{|k| rejected.include? k})
-            new_df.file_number = df.file_number + 1
+            attrs = {q: df.q, uri: df.uri, from: df.from, to: df.to, sort: df.sort, user_id: df.user_id, known_uri_id: df.known_uri_id, language_id: df.language_id,
+              unit_uri: df.unit_uri, taxon_concept_id: df.taxon_concept_id, file_number: df.file_number + 1}
+            new_df = DataSearchFile.create!(attrs)
             Resque.enqueue(DataFileMaker, data_file_id: new_df.id)
           end
         rescue => e

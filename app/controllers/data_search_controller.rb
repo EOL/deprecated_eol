@@ -53,7 +53,7 @@ class DataSearchController < ApplicationController
     end
     prepare_search_parameters(search_params)
     df = create_data_search_file
-    df.file_number = 1
+    df.update_attributes(file_number: 1)
     flash[:notice] = I18n.t(:file_download_pending, link: user_data_downloads_path(current_user.id))
     Resque.enqueue(DataFileMaker, data_file_id: df.id)
     redirect_to user_data_downloads_path(current_user.id)
@@ -74,6 +74,7 @@ class DataSearchController < ApplicationController
     @unit = options[:unit].blank? ? nil : options[:unit]
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
+    @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
 
     #if entered taxon name returns more than one result choose first

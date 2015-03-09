@@ -9,8 +9,8 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :known_uri
   belongs_to :taxon_concept
 
-  PER_PAGE = 2 # Number of results we feel confident to process at one time (ie: one query for each)
-  PAGE_LIMIT = 2 # Maximum number of "pages" of data to allow in one file.
+  PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
+  PAGE_LIMIT = 500 # Maximum number of "pages" of data to allow in one file.
   LIMIT = PAGE_LIMIT * PER_PAGE
   EXPIRATION_TIME = 2.weeks
 
@@ -113,7 +113,6 @@ class DataSearchFile < ActiveRecord::Base
         break
       end
     end until (((page - 1) * PER_PAGE + ((file_number-1) * LIMIT)) >= results.total_entries) || page > PAGE_LIMIT
-    # @overflow = true if page > PAGE_LIMIT
     rows
   end
 
@@ -155,9 +154,6 @@ class DataSearchFile < ActiveRecord::Base
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
-    end
-    if @overflow
-      csv << [ Sanitize.clean(I18n.t(:data_search_limit, count: LIMIT)) ]
     end
   end
 

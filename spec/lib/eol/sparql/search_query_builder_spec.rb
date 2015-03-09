@@ -20,8 +20,8 @@ describe EOL::Sparql::SearchQueryBuilder do
 
   describe '#build_query' do
     it 'should assemble queries' do
-      expect(EOL::Sparql::SearchQueryBuilder.build_query('SEL', 'WHE', 'ORD', 'LIM', "GRP")).
-        to match(/SEL WHERE {\s*WHE\s*}\s*GRP\s*ORD\s*LIM/)
+      expect(EOL::Sparql::SearchQueryBuilder.build_query('SEL', 'WHE', 'ORD', 'LIM')).
+        to match(/SEL WHERE {\s*WHE\s*}\s*ORD\s*LIM/)
     end
   end
 

@@ -58,7 +58,6 @@ class DataSearchController < ApplicationController
     while count <= no_of_files do
       df = create_data_search_file
       df.update_attributes(file_number: count)
-      flash[:notice] = I18n.t(:file_download_pending, link: user_data_downloads_path(current_user.id))
       Resque.enqueue(DataFileMaker, data_file_id: df.id)  
       count += 1
     end

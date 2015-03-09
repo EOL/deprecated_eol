@@ -106,6 +106,7 @@ class DataSearchFile < ActiveRecord::Base
         # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
         rows << data_point_uri.to_hash(user.language)
       end
+      # offset = (file_number-1) * LIMIT
       if (((page * PER_PAGE) + ((file_number-1) * LIMIT)) < results.total_entries)
         page += 1
         results = TaxonData.search(search_parameters.merge(page: page))

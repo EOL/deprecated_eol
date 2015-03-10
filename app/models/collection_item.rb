@@ -17,6 +17,8 @@ class CollectionItem < ActiveRecord::Base
   scope :users, conditions: { collected_item_type: 'User' }
   scope :annotated, conditions: 'annotation IS NOT NULL AND annotation != ""'
 
+  attr_accessible :annotation, :collected_item_id, :collected_item_type, :sort_field
+
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch
   # of unused fields in collection_activity_logs, so it's actually better to have these "zombie" rows here!)

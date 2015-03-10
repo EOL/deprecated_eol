@@ -23,6 +23,10 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collection_jobs
 
+  attr_accessible :name, :collection_items_attributes, :description
+
+  accepts_nested_attributes_for :collection_items
+
   scope :published, -> { where(published: true) }
   # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...
   scope :watch, lambda { { conditions: {special_collection_id: SpecialCollection.watch.id} } }

@@ -16,11 +16,21 @@ module Wapi
       end
 
       def create
+        # Rails wants "collection_items_attributes", which it would use if
+        # generating the form itself, but that's lame in the context of 3rd
+        # party input JSON, so I update it here:
+        params[:collection][:collection_items_attributes] =
+          params[:collection].delete(:collection_items) if
+          params[:collection] && params[:collection][:collection_items]
         @collection = Collection.create(params[:collection])
         if @collection.save
           @collection.users = [@user]
+          respond_with @collection
+        else
+          respond_with(@collection, status: :unprocessable_entity) do |format|
+            format.json { render json: { errors: @collection.errors.full_messages }.to_json }
+          end
         end
-        respond_with @collection
       end
 
       def update

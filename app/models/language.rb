@@ -8,6 +8,8 @@ class Language < ActiveRecord::Base
 
   attr_accessible :iso_639_1, :iso_639_2, :iso_639_3, :source_form, :sort_order, :activated_on, :language_group_id
 
+  scope :not_blank, -> { where("iso_639_1 != '' AND source_form != ''") }
+
   def to_s
     iso_639_1
   end

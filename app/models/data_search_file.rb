@@ -10,7 +10,7 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :taxon_concept
 
   PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
-  PAGE_LIMIT = 500 # Maximum number of "pages" of data to allow in one file.
+  PAGE_LIMIT = 2000 # Maximum number of "pages" of data to allow in one file.
   LIMIT = PAGE_LIMIT * PER_PAGE
   EXPIRATION_TIME = 2.weeks
 
@@ -49,7 +49,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def downloadable?
-    complete? && ! ( expired? || row_count.blank? || row_count == 0)
+    complete? && hosted_file_url && ! ( expired? || row_count.blank? || row_count == 0)
   end
 
   def expired?
@@ -138,9 +138,16 @@ class DataSearchFile < ActiveRecord::Base
 
   def upload_file
     where = local_file_path
-    if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-      where = uploaded_file_url
-      update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
+    begin
+      if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
+        where = uploaded_file_url
+        update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
+      else
+        # TODO: we REALLY need to do something here!
+      end
+    rescue => e
+      # TODO: This is an important one to catch!
+      Rails.logger.error "ERROR: could not upload #{where} to Content Server: #{e.message}"
     end
   end
 

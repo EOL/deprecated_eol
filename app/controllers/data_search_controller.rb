@@ -63,18 +63,28 @@ class DataSearchController < ApplicationController
   def create_data_search_file
     DataSearchFile.create!(@data_search_file_options)
   end
-
+  
+  def readable_query_string(string)
+    unless string.blank?
+      uri = KnownUri.find_by_uri(string)
+      @querystring_uri = string if uri
+      return uri.label if uri
+    end
+    string
+  end
+  
   def prepare_search_parameters(options)
     @hide_global_search = true
-    @querystring = options[:q]
+    @querystring_uri = nil
+    @querystring = readable_query_string(options[:q])
     @attribute = options[:attribute]
     @attribute_missing = @attribute.nil? && params.has_key?(:attribute)
     @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'
     @unit = options[:unit].blank? ? nil : options[:unit]
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
+    @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
-
     #if entered taxon name returns more than one result choose first
     if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)

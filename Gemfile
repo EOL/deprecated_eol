@@ -49,6 +49,7 @@ end
 
 # NOT versioning these, since they really are for development (and test) only:
 group :test, :development do
+  gem "zeus"
   # Auto-testing with zeus (IFF you have it installed)
   gem "guard-zeus", require: false
   # automatically install/update your gem bundle when needed
@@ -144,7 +145,7 @@ gem "counter_culture", "0.1.19"
 gem "dalli", "2.6.4"
 # Octopus helps handle several databases at the same time, but we had to
 # customize it for our needs:
-gem "ar-octopus", "0.4.0", git: "git://github.com/pleary/octopus.git",
+gem "ar-octopus", "0.4.0", git: "https://github.com/pleary/octopus.git",
   branch: "0.4.0", require: "octopus"
 # For testing emails within RSpec.
 gem "email_spec", "1.4.0"
@@ -182,7 +183,7 @@ gem "paperclip", "4.1.1"
 gem "rails_autolink", "1.1.5" # Adding links to user-entered text.
 # Autocomplete Ajax.
 gem "rails3-jquery-autocomplete", "1.0.11",
-    git: "git://github.com/pleary/rails3-jquery-autocomplete.git"
+    git: "https://github.com/pleary/rails3-jquery-autocomplete.git"
 # TODO: - update recaptcha.
 # An empathy test to see if you're a human, when creating an account.
 gem "recaptcha", "0.3.4", require: "recaptcha/rails"
@@ -191,6 +192,7 @@ gem "recaptcha", "0.3.4", require: "recaptcha/rails"
 gem "resque", "1.23.0", require: "resque/server"
 gem "sanitize", "2.0.3" # To clean up user-enter HTML.
 gem "sass-rails", "3.2.5" # To make CSS easier to write.
+gem "sitemap_generator"
 # TODO: - update sparql-client
 gem "sparql-client", "1.0.4.1" # For the data tab
 gem "statsd-ruby", "1.2.1" # For recording various stats around the site.

@@ -640,6 +640,27 @@ To get attribution for a given taxon concept ID:
      agents = he[0].agents  # OR  agents = he.agents
      agents.each {|agent| puts agent.full_name + " " + agent.homepage + " " + agent.logo_cache_url}
 
+== What is a sitemap?
+Sitemaps are an easy way for webmasters to inform search engines about pages on their sites that are available for crawling. In its simplest form, a Sitemap is an XML file that lists URLs for a site along with additional metadata about each URL (for example: when it was last updated) so that search engines can more intelligently crawl the site.
+
+Web crawlers usually discover pages from links within the site and from other sites. Sitemaps supplement this data to allow crawlers that support Sitemaps to pick up all URLs in the Sitemap and learn about those URLs using the associated metadata. Using the Sitemap protocol does not guarantee that web pages are included in search engines, but provides hints for web crawlers to do a better job of crawling your site.
+
+== How to add new links in sitemap?
+Add the new link(s) in sitemap.rb file (located under config/sitemap.rb) and then update the sitemap to reflect these changes.
+== Example: 
+add "/new_page", priority: 1, lastmod: "2015-02-11T12:12:12+02:00"
+this will create as follows:
+<url>
+   <loc>http://localhost:3000/new_page</loc>
+   <lastmod>2015-02-11T12:12:12+02:00</lastmod>
+   <priority>1.0</priority>
+</url>
+
+== How to update sitemap?
+just run the rake task:
+rake sitemap:refresh
+by this command a new sitemap will be generated based on the urls supplied in the sitemap.rb file.
+
 == CREATING A GOOGLE SITEMAP
 
 To create Google SiteMap files in the correct format, run the following rake task for your requested environment:

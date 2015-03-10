@@ -24,7 +24,9 @@ results[:panda] = build_taxon_concept(
   :toc          => [{:toc_item => TocItem.overview, :description => results[:text_description]}],
   :images       => [{:description => results[:image_description]}],
   :youtube      => [{:description => results[:video_description]}],
-  :sounds       => [{:description => results[:sound_description]}])
+  :sounds       => [{:description => results[:sound_description]}],
+  comments: [],
+  bhl: [])
 results[:panda].data_objects.each do |d|
   d.updated_at = Time.now
   d.save
@@ -34,18 +36,22 @@ end
 
 results[:tiger_name] = 'Tiger'
 results[:tiger_tigger_name] = 'Tigger'
-results[:tiger]      = build_taxon_concept(:common_names => [results[:tiger_name], results[:tiger_tigger_name]], :vetted => 'untrusted')
+results[:tiger]      = build_taxon_concept(:common_names => [results[:tiger_name], results[:tiger_tigger_name]], :vetted => 'untrusted',
+                                           comments: [], bhl: [], sounds: [], images: [], youtube: [], flash: [], toc: [])
 results[:tiger_lilly_name] = "#{results[:tiger_name]} lilly"
 results[:tiger_lilly]      = build_taxon_concept(:common_names => [results[:tiger_lilly_name], 'Panther tigris'],
-                                                 :vetted => 'unknown')
+                                                 :vetted => 'unknown', comments: [], bhl: [], sounds: [],
+                                                 images: [], youtube: [], flash: [], toc: [])
 results[:tiger_moth_name] = "#{results[:tiger_name]} moth"
-results[:tiger_moth]      = build_taxon_concept(:common_names => [results[:tiger_moth_name], 'Panther moth'])
+results[:tiger_moth]      = build_taxon_concept(:common_names => [results[:tiger_moth_name], 'Panther moth'], comments: [], bhl: [], 
+                                                sounds: [], images: [], youtube: [], flash: [], toc: [])
 
 # we want to be able to search on Bacteria and get something back with a totally different name on it
 results[:tricky_search_suggestion] = 'Bacteria'
 results[:suggested_taxon_name] = 'Something totally different'
 results[:suggested_taxon] = build_taxon_concept(:scientific_name => results[:suggested_taxon_name],
-                                         :common_names => [results[:suggested_taxon_name]])
+                                         :common_names => [results[:suggested_taxon_name]], comments: [], bhl: [],
+                                         sounds: [], images: [], youtube: [], flash: [], toc: [])
 SearchSuggestion.gen(:taxon_id => results[:suggested_taxon].id, :term => results[:tricky_search_suggestion])
 
 # I'm only doing this so we get two results for Bacteria and not redirected.

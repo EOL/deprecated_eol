@@ -70,7 +70,7 @@ module EOL
         # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
         EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, outer_order_clause, limit_clause)
       end
-
+      
       def where_clause
         "GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .

@@ -7,7 +7,7 @@ describe DataSearchController do
     drop_all_virtuoso_graphs
     @user = User.gen
     @user.grant_permission(:see_data)
-    @taxon_concept = build_taxon_concept
+    @taxon_concept = build_taxon_concept(:comments => [], :bhl => [], :toc => [], :images => [], :sounds => [], :youtube => [], :flash => [])
     @resource = Resource.gen
     @default_data_options = { subject: @taxon_concept, resource: @resource }
   end
@@ -105,5 +105,21 @@ describe DataSearchController do
       end      
     end    
 
+  end
+  
+  describe "search" do
+    before :all do
+      DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/mass', object: '10')).update_triplestore
+      DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/mass', object: '100')).update_triplestore
+    end
+     it 'should search with min and max values' do
+      get :index, attribute: 'http://eol.org/mass', min: 10, max: 100
+      expect(DataSearchLog.last.number_of_results).to eq(2)
+    end
+    
+    it 'should fix min and max' do
+      get :index, attribute: 'http://eol.org/mass', min: 100, max: 10
+      expect(DataSearchLog.last.number_of_results).to eq(2)
+    end
   end
 end

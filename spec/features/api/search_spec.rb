@@ -8,9 +8,12 @@ describe 'API:search' do
     @dog_sci_name = 'Canis lupus familiaris'
     @wolf_name = 'Wolf'
     @wolf_sci_name = 'Canis lupus'
-    @wolf = build_taxon_concept(scientific_name: @wolf_sci_name, common_names: [ @wolf_name ])
-    @dog = build_taxon_concept(scientific_name: @dog_sci_name, common_names: [ @domestic_name ], parent_hierarchy_entry_id: @wolf.hierarchy_entries.first.id)
-    @dog2 = build_taxon_concept(scientific_name: "Canis dog", common_names: [ "doggy" ])
+    @wolf = build_taxon_concept(scientific_name: @wolf_sci_name, common_names: [ @wolf_name ], 
+                                comments: [], bhl: [], toc: [], sounds: [], images: [], youtube: [], flash: [])
+    @dog = build_taxon_concept(scientific_name: @dog_sci_name, common_names: [ @domestic_name ], parent_hierarchy_entry_id: @wolf.hierarchy_entries.first.id,
+                               comments: [], bhl: [], toc: [], sounds: [], images: [], youtube: [], flash: [])
+    @dog2 = build_taxon_concept(scientific_name: "Canis dog", common_names: [ "doggy" ],
+                                comments: [], bhl: [], toc: [], sounds: [], images: [], youtube: [], flash: [])
     SearchSuggestion.gen(taxon_id: @dog.id, term: @dog_name)
     SearchSuggestion.gen(taxon_id: @wolf.id, term: @dog_name)
     EOL::Data.make_all_nested_sets

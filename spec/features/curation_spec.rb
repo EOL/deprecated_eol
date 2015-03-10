@@ -18,7 +18,8 @@ describe 'Curation' do
     end
     @common_names_toc_id = TocItem.common_names.id
     @parent_hierarchy_entry = HierarchyEntry.gen(hierarchy_id: Hierarchy.default.id)
-    @taxon_concept   = build_taxon_concept(parent_hierarchy_entry_id: @parent_hierarchy_entry.id)
+    @taxon_concept   = build_taxon_concept(parent_hierarchy_entry_id: @parent_hierarchy_entry.id,
+                                           comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
     @common_name     = 'boring name'
     @unreviewed_name = Faker::Eol.common_name.firstcap
     @untrusted_name  = Faker::Eol.common_name.firstcap

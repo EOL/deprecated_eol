@@ -31,8 +31,8 @@ ActiveRecord::Base.transaction do
   communities[:feed_body_1] = "Something"
   communities[:feed_body_2] = "Something Else"
   communities[:feed_body_3] = "Something More"
-  communities[:tc1] = build_taxon_concept
-  communities[:tc2] = build_taxon_concept
+  communities[:tc1] = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], images: [], youtube: [], flash: [])
+  communities[:tc2] = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], images: [], youtube: [], flash: [])
   communities[:community].focuses.first.add(communities[:tc1])
   communities[:community].focuses.first.add(communities[:tc2])
 

@@ -21,6 +21,7 @@ describe 'users/data_downloads/index' do
     view.stub(:meta_open_graph_data) { {} }
     view.stub(:tweet_data) { {} }
     view.stub(:current_user) { user }
+    view.stub(:able_to_edit_user?).and_return(true)
   end
 
   shared_examples_for 'all downloads' do
@@ -93,6 +94,7 @@ describe 'users/data_downloads/index' do
   context 'completed downloads' do
     before(:each) do
       data_search_file.completed_at = Time.now
+      allow(data_search_file).to receive(:downloadable?) { true }
       assign(:background_processes, [ data_search_file ])
     end
 

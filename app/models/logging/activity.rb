@@ -16,7 +16,7 @@ class Activity < LazyLoggingModel
        preferred_classification curate_classifications split_classifications merge_classifications trust_common_name
        untrust_common_name inappropriate_common_name unreview_common_name unlock unlock_with_error crop add_editor
        bulk_add create collect remove remove_all create delete join leave add_collection change_description
-       change_name change_icon add_manager set_exemplar_data unhide)
+       change_name change_icon add_manager set_exemplar_data unhide resource_validation)
 
   has_many :activity_logs
   has_many :curator_activity_logs

@@ -6,18 +6,18 @@ class CodeBridge
 
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
-    puts "++ CodeBridge"
+    Rails.logger.error "++ CodeBridge"
     if args['cmd'] == 'check_status_and_notify'
-      puts "   check status and notify (if complete)"
+      Rails.logger.error "   check status and notify (if complete)"
       begin
         ClassificationCuration.find(args['classification_curation_id']).check_status_and_notify
       rescue => e
-        puts "** ERROR: #{e.message}"
-        puts "   -- KEYS:"
+        Rails.logger.error "** ERROR: #{e.message}"
+        Rails.logger.error "   -- KEYS:"
         args.keys.each do |key|
-          puts "   #{key}: #{args[key]}"
+          Rails.logger.error "   #{key}: #{args[key]}"
         end
-        puts "   --"
+        Rails.logger.error "   --"
       end
     elsif args['cmd'] == 'clear_cache'
       tc = TaxonConcept.find(args['taxon_concept_id'])
@@ -25,7 +25,7 @@ class CodeBridge
         TaxonConceptCacheClearing.clear(tc)
       end
     else
-      puts "** ERROR: NO command responds to #{args['cmd']}"
+      Rails.logger.error "** ERROR: NO command responds to #{args['cmd']}"
     end
   end
 

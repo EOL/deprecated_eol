@@ -11,7 +11,6 @@ class TaxonDataSet
     KnownUri.add_to_data(virtuoso_results)
     DataPointUri.preload_data_point_uris!(virtuoso_results, @taxon_concept.try(:id))
     @data_point_uris = virtuoso_results.collect{ |r| r[:data_point_instance] }
-    @data_point_uris = remove_duplicates(@data_point_uris)
     unless options[:preload] == false
       DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
       DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
@@ -118,23 +117,7 @@ class TaxonDataSet
     jsonld
   end
 
-  def remove_duplicates(data_point_uris)
-    return data_point_uris unless data_point_uris && data_point_uris.count > 0
-    # Not using an actual Set because "uniqueness" is measured specifically:
-    set = []
-    data_point_uris.each do |dpuri|
-      set << dpuri unless set.any? do |d|
-        d.taxon_concept_id == dpuri.taxon_concept_id &&
-        d.predicate == dpuri.predicate &&
-        d.object == dpuri.object &&
-        d.statistical_method == dpuri.statistical_method &&
-        d.life_stage == dpuri.life_stage &&
-        d.sex == dpuri.sex
-      end
-    end
-    return set
-  end
-
+ 
   private
 
   def fill_context(jsonld)

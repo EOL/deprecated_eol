@@ -11,6 +11,7 @@ class HarvestEvent < ActiveRecord::Base
   scope :incomplete, -> { where(completed_at: nil) }
 
   def self.last_incomplete_resource
+    return nil if incomplete.count < 1
     incomplete.includes(:resource).last.resource
   end
 
@@ -102,23 +103,31 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def destroy_everything
+    Rails.logger.error("** Destroying HarvestEvent #{id}")
+    Rails.logger.error("   #{data_objects.count} DataObjects...")
     data_objects.each do |dato|
       dato.destroy_everything
       dato.destroy
-    end   
+    end
     DataObjectsHarvestEvent.where(harvest_event_id: id).destroy_all
     hierarchy_entries.each do |entry|
       entry.destroy_everything
-      taxon_concept = TaxonConcept.find(entry.taxon_concept_id)
       name = Name.find(entry.name_id)
       hierarchy = Hierarchy.find(entry.hierarchy_id)
       entry.destroy
-      taxon_concept.destroy if taxon_concept.hierarchy_entries.blank?
+      entry.taxon_concept.destroy if
+        entry.taxon_concept.hierarchy_entries.blank?
       name.destroy if name.hierarchy_entries.blank?
       hierarchy.destroy if hierarchy.hierarchy_entries.blank?
     end
-    HarvestEventsHierarchyEntry.where(harvest_event_id: id).destroy_all
-    # TODO: Handle TaxonConcepts that now have no hierarchy_entries.
+    # This next operation can fail because of table locks...
+    begin
+      HarvestEventsHierarchyEntry.delete_all(["harvest_event_id = ?", id])
+    rescue ActiveRecord::StatementInvalid => e
+      # This is not *fatal*, it's just unfortunate. Probably because we're harvesting, but waiting for harvests to finish is not possible.
+      Rails.logger.error("** Unable to delete from HarvestEventsHierarchyEntry where harvest_event_id = #{id} (#{e.message})")
+    end
+    Rails.logger.error("** Destroyed HarvestEvent #{id}")
   end
 
 end

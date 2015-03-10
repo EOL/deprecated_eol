@@ -6,7 +6,7 @@ describe ApiController do
     # create some entry in the default hierarchy with an identifier - needed to render some API docs
     build_hierarchy_entry(0, TaxonConcept.gen, Name.gen, :identifier => 12345, :hierarchy => Hierarchy.default)
     begin
-      @taxon_concept = build_taxon_concept
+      @taxon_concept = build_taxon_concept(:comments => [], :images => [], :flash => [], :youtube => [], :sounds => [], :bhl => [])
     rescue ActiveRecord::RecordInvalid => invalid
       puts invalid.record.errors
       puts "So, not sure what causes that; can you look into it?"

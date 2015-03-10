@@ -107,7 +107,7 @@ describe 'Users' do
       body.should have_selector("a[href='" + user_activity_path(user, filter: "added_data_objects") + "']")
     end
     it "should see curation activities in the Activity section only if user is curator" do
-      tc = build_taxon_concept(images: [{}])
+      tc = build_taxon_concept(images: [{}], comments: [], bhl: [], sounds: [], toc: [], youtube: [], flash: [])
       curator = build_curator(tc)
       udo = UsersDataObject.gen(user_id: curator.id, taxon_concept: tc, visibility_id: Visibility.visible.id)
       user_submitted_text_count = UsersDataObject.count(conditions: ['user_id = ?', curator.id])

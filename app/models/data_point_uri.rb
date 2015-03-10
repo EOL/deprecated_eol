@@ -159,6 +159,7 @@ class DataPointUri < ActiveRecord::Base
   def to_jsonld(options = {})
     jsonld = {
       '@id' => uri,
+      'data_point_uri_id' => id,
       '@type' => measurement? ? 'dwc:MeasurementOrFact' : 'eol:Association',
       'dwc:taxonID' => KnownUri.taxon_uri(taxon_concept_id) }
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(predicate_known_uri || predicate)
@@ -396,6 +397,8 @@ class DataPointUri < ActiveRecord::Base
     user_added_data.hide(user) if user_added_data
   end
 
+  # TODO: This is expensive. It's eating up quite a lot of traffic on EOL.
+  # Find a way to avoid it.
   def update_with_virtuoso_response(row)
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     new_attributes.each do |k, v|

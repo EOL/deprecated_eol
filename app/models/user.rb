@@ -49,8 +49,16 @@ class User < ActiveRecord::Base
   has_one :user_info
   has_one :notification
 
-  scope :admins, conditions: ['admin IS NOT NULL']
-  scope :curators, conditions: 'curator_level_id is not null'
+  scope :admins, -> { where("admin IS NOT NULL") }
+  scope :curators, -> { where("curator_level_id IS NOT NULL") }
+  scope :active, -> { where(active: true) }
+  scope :has_email, -> { where("email IS NOT NULL") }
+  scope :newsletter, -> {
+    active.
+    has_email.
+    joins(:notification).
+    where(disable_email_notifications: false,
+      notifications: { eol_newsletter: true } ) }
 
   before_save :check_credentials
   before_save :encrypt_password

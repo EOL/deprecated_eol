@@ -3,7 +3,7 @@ require "spec_helper"
 describe 'Select with Preload Include' do
   before :all do
     load_foundation_cache
-    @taxon_concept = build_taxon_concept()
+    @taxon_concept = build_taxon_concept(:comments => [], :toc => [], :bhl => [], :images => [], :sounds => [])
     @last_hierarchy_entry = HierarchyEntry.last
     @last_data_object = DataObject.last
     @last_agent = Agent.last

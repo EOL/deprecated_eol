@@ -47,7 +47,7 @@ describe Hierarchy do
   end
 
   it "returns all browsable hierarchies for a taxon concept" do
-    taxon_concept = build_taxon_concept()
+    taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], images: [], flash: [], youtube: [])
     hierarchies = Hierarchy.browsable_for_concept(taxon_concept)
     hierarchies.size.should == 1
     hierarchies[0].id.should == Hierarchy.default.id

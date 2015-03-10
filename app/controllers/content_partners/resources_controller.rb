@@ -32,14 +32,6 @@ class ContentPartners::ResourcesController < ContentPartnersController
     @resource = @partner.resources.build(params[:resource])
     access_denied unless current_user.can_create?(@resource)
     if @resource.save
-      @resource.upload_resource_to_content_master!(request.port.to_s)
-      unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
-        if @resource.resource_status_id = ResourceStatus.validation_failed.id
-          flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
-        else
-          flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, resource_status: @resource.status_label)
-        end
-      end
       Notifier.content_partner_resource_created(@partner, @resource, current_user).deliver
       flash[:notice] = I18n.t(:content_partner_resource_create_successful_notice,
                               resource_status: @resource.status_label) unless flash[:error]
@@ -49,6 +41,11 @@ class ContentPartners::ResourcesController < ContentPartnersController
       flash.now[:error] = I18n.t(:content_partner_resource_create_unsuccessful_error)
       render :new
     end
+    enqueue_job(current_user.id, params[:content_partner_id], @resource.id, request.port.to_s)
+  end
+
+  def enqueue_job(user_id, content_partner_id, resource_id, port_no)
+    Resque.enqueue(ResourceValidation, user_id, content_partner_id, resource_id, port_no)
   end
 
   # GET /content_partners/:content_partner_id/resources/:id/edit
@@ -76,14 +73,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     end
     if @resource.update_attributes(params[:resource])
       if upload_required
-        @resource.upload_resource_to_content_master!(request.port.to_s)
-        unless [ResourceStatus.uploaded.id, ResourceStatus.validated.id].include?(@resource.resource_status_id)
-          if @resource.resource_status_id = ResourceStatus.validation_failed.id
-            flash[:error] = I18n.t(:content_partner_resource_validation_unsuccessful_error)
-          else
-            flash[:error] = I18n.t(:content_partner_resource_upload_unsuccessful_error, resource_status: @resource.status_label)
-          end
-        end
+        enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
       end
       flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
                               resource_status: @resource.status_label) unless flash[:error]
@@ -131,16 +121,17 @@ class ContentPartners::ResourcesController < ContentPartnersController
     store_location request.referer unless request.referer.blank?
     redirect_back_or_default content_partner_resources_path(@partner)
   end
-  
+
   def destroy
     partner = ContentPartner.find(params[:content_partner_id], include: [:resources])
     resource = partner.resources.find(params[:id])
     resource_title = resource.title
     if resource
-      resource.destroy_everything
+      resource.update_attributes(resource_status: ResourceStatus.obsolete)
+      ResourceDestroyer.enqueue(resource.id)
       redirect_to content_partner_path(partner)
-      flash[:notice] = I18n.t(:content_partner_resource_has_been_deleted, resource_title: resource_title)
-    end      
+      flash[:notice] = I18n.t(:content_partner_resource_will_be_deleted, resource_title: resource_title)
+    end
   end
 
 private
@@ -164,9 +155,9 @@ private
   end
 
   def set_resource_options
-    # the .sort_by(&:source_url).reverse makes for a better display, and default license since
-    # we the first in the list will show first in the drop-down menu
-    @licenses = License.find_all_by_show_to_content_partners(true).sort_by(&:source_url).reverse
+    # the .order(:source_url).reverse makes for a better display, and default
+    # license since the first in the list will show first in the drop-down menu
+    @licenses = License.show_to_content_partners.order(:source_url).reverse
     @languages = Language.find_active
     @import_frequencies = [ [ I18n.t(:import_once), 0 ],
                             [ I18n.t(:weekly), 7 * 24 ],

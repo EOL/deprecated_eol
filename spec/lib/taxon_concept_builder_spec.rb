@@ -7,11 +7,18 @@ describe 'build_taxon_concept (spec helper method)' do
     @event           = HarvestEvent.gen
     @scientific_name = 'Something cool'
     @hierarchy       = Hierarchy.gen
-    @taxon_concept   = build_taxon_concept
+    @taxon_concept   = build_taxon_concept(comments: [], toc: [], bhl: [], images: [], sounds: [], youtube: [], flash: [])
     @taxon_concept_with_args = build_taxon_concept(
       :hierarchy       => @hierarchy,
       :event           => @event,
-      scientific_name: @scientific_name
+      scientific_name: @scientific_name,
+      comments: [],
+      toc: [],
+      bhl: [],
+      images: [],
+      sounds: [],
+      youtube: [],
+      flash: []
     )
     @taxon_concept_naked = build_taxon_concept(
       images: [], toc: [], flash: [], youtube: [], comments: [], bhl: []

@@ -26,6 +26,7 @@ class DataObject < ActiveRecord::Base
   # TODO - really, we should add a SQL finder to this to make it latest_published_users_data_object:
   has_one :users_data_object
   has_one :data_objects_link_type
+  has_one :image_size
 
   has_many :top_images
   has_many :top_concept_images
@@ -83,6 +84,34 @@ class DataObject < ActiveRecord::Base
 
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
+
+  def remove_all_collection_items
+    collection_items = CollectionItem.where(collected_item_type: self.class.to_s, collected_item_id: self.id)
+    collection_items.each do |ci|
+      ci.destroy
+    end
+  end
+
+  def unpublish
+    self.update_attribute(:published, false)
+  end
+
+  def mark_for_all_association_as_hidden_untrusted(user)
+    curations = []
+      DataObject.with_master do
+        self.data_object_taxa.each do |association|
+          curations << Curation.new(
+            association: association,
+            user: user,
+            vetted: Vetted.untrusted,
+            visibility: Visibility.invisible,
+            untrust_reason_ids: [UntrustReason.misidentified.id, UntrustReason.incorrect.id],
+            hide_reason_ids: [UntrustReason.poor.id, UntrustReason.duplicate.id] )
+        end
+      end
+    curations.each { |curation| curation.curate_as_deleted }
+    DataObjectCaching.clear(self)
+  end
 
   def self.maximum_rating
     MAXIMUM_RATING
@@ -228,7 +257,6 @@ class DataObject < ActiveRecord::Base
         dato.update_column(:published, false)
         raise e
       ensure
-        options[:taxon_concept].reload if options[:taxon_concept]
         dato.update_solr_index
       end
     end
@@ -982,6 +1010,7 @@ class DataObject < ActiveRecord::Base
                            taxon_concept: taxon_concept, visibility: Visibility.visible)
   end
 
+  #TODO: This query is quite slow. Find an alternative; cache it; whatever. Stop doing it.
   def revisions_by_date
     @revisions_by_date ||= DataObject.sort_by_created_date(self.revisions).reverse
   end
@@ -1145,8 +1174,10 @@ class DataObject < ActiveRecord::Base
 
   # Because dependent destroy was too scary for us.  :|
   def destroy_everything
+    Rails.logger.error("** Destroying DataObject #{id}")
     # Too slow, probably not needed anyway: dato.top_images.destroy_all
     # Same with top_concept_images
+    #TODO: These should probably be handled with dependent destroys.
     agents_data_objects.destroy_all # denorm table
     data_objects_hierarchy_entries.destroy_all # denorm
     data_objects_taxon_concepts.destroy_all # denorm
@@ -1173,17 +1204,55 @@ class DataObject < ActiveRecord::Base
     AgentsDataObject.where(data_object_id: id).destroy_all
     DataObjectsTaxonConcept.where(data_object_id: id).destroy_all
     DataObjectsTableOfContent.where(data_object_id: id).destroy_all
-  end
-  def self.same_as_last?(params, options)
-    last_dato = DataObject.texts.last
-    return false unless last_dato
-    return  UsersDataObject.find_by_data_object_id( last_dato.id ).user_id == options[:user][:id] &&
-            options[:taxon_concept][:id] == UsersDataObject.find_by_data_object_id( last_dato.id ).taxon_concept_id &&
-            params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&
-            (params[:data_object][:object_title] == last_dato.object_title ||
-            params[:data_object][:description] == last_dato.description)
+    Rails.logger.error("** Destroyed DataObject #{id}")
   end
 
+  # TODO: Shouldn't pass params, just pass the params[:data_object] hash
+  def self.same_as_last?(params, options)
+    DataObject.with_master do # Slave lag will cause nils
+      last_dato = DataObject.texts.last
+      return false unless last_dato
+      return false unless UsersDataObject.exists?(data_object_id: last_dato.id)
+      return  UsersDataObject.find_by_data_object_id( last_dato.id ).user_id == options[:user][:id] &&
+              options[:taxon_concept][:id] == UsersDataObject.find_by_data_object_id( last_dato.id ).taxon_concept_id &&
+              params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&
+              (params[:data_object][:object_title] == last_dato.object_title ||
+              params[:data_object][:description] == last_dato.description)
+    end
+  end
+
+  def is_exemplar?(taxon_concept_id)
+    if self.is_text?
+      TaxonConceptExemplarArticle.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)
+    elsif self.image?
+      TaxonConceptExemplarImage.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)
+    else
+      false
+    end
+  end
+
+  def self.find_by_id_or_guid(id)
+    begin
+      data_object = DataObject.find(id)
+    rescue ActiveRecord::RecordNotFound => e
+      data_object = DataObject.find_by_guid(id)
+      raise ActiveRecord::RecordNotFound.new("Unknown data_object id \"#{id}\"") if data_object.blank?
+      latest_version = data_object.latest_version_in_same_language(check_only_published: true)
+      if latest_version.blank?
+        latest_version = data_object.latest_version_in_same_language(check_only_published: false)
+      end
+      if latest_version.id == data_object.id
+        data_object = latest_version
+      else
+        data_object = DataObject.find_by_id(latest_version.id)
+      end
+    end
+    data_object
+  end
+
+  def remove_data_object_from_solr
+    EOL::Solr::DataObjectsCoreRebuilder.remove_data_object(self)
+  end
 private
 
   def source_url_is_valid

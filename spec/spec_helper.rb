@@ -32,7 +32,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 # quiet down any migrations that run during tests
 ActiveRecord::Migration.verbose = false
-
+Rails.logger.level = 4
 RSpec.configure do |config|
   include TruncateHelpers # ...We want to truncate the tables once here.
 

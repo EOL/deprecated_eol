@@ -71,4 +71,15 @@ describe 'Application' do
     response['exception'].should == true
   end
 
+  it "gives a message if the doi-link and accepts it" do 
+    url= "http://dx.doi.org/10.1038/nature13812"
+    redirected_url= 'http://www.nature.com/doifinder/10.1038/nature13812'
+    stub_request(:get, url).to_return(status: 302, headers: { location: redirected_url } )
+    stub_request(:get, redirected_url).to_return(status: 301)
+    response = get_as_json(fetch_external_page_title_path(lang: 'en', url: url))
+    expect(response.class).to eq(Hash)
+    expect(response['message']).to eq(I18n.t(:redirect_url_ok_title_unavailable))
+    expect(response['exception']).to be_true
+  end
+
 end

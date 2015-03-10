@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../../../spec_helper'
 describe EOL::Sparql::Client do
   before(:all) do
     load_foundation_cache
-    @taxon_concept = build_taxon_concept
+    @taxon_concept = build_taxon_concept(:comments => [], :toc =>[], :bhl => [], :images => [], :sounds => [], :youtube => [], :flash => [])
     @client = EOL::Sparql::Client.new
   end
 

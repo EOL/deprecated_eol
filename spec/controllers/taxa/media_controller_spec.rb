@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe Taxa::MediaController do
 
+  before(:all) do
+    populate_tables(:data_types)
+  end
+
   let(:taxon_concept) { TaxonConcept.gen }
   let(:user) { FactoryGirl.build_stubbed(User) }
   let(:taxon_page) { double(TaxonPage, scientific_name: 'Whatever somethingus', hierarchy_provider: "providedBy", preferred_scientific_name: "blahbalh") }

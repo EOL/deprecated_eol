@@ -64,8 +64,9 @@ describe 'DataPointUris' do
     load_foundation_cache
     EolConfig.delete_all
     EolConfig.create(parameter: 'all_users_can_see_data', value: '')
-    @parent_taxon_concept = build_taxon_concept
-    @taxon_concept = build_taxon_concept(parent_hierarchy_entry_id: @parent_taxon_concept.entry.id)
+    @parent_taxon_concept = build_taxon_concept(comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
+    @taxon_concept = build_taxon_concept(parent_hierarchy_entry_id: @parent_taxon_concept.entry.id,
+                                         comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     @user = build_curator(@taxon_concept, level: :master)
     @user.grant_permission(:see_data)
     @collection = @user.watch_collection

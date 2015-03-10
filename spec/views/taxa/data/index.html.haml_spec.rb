@@ -70,15 +70,16 @@ describe 'taxa/data/index' do
 
   end
 
-  context 'logged in with data' do
-
+  context 'logged in' do
+    
     before(:each) do
-      @taxon_concept = build_stubbed(TaxonConcept)
-      @taxon_concept.stub(:latest_version) { @taxon_concept }
-      taxon_data = double(TaxonData, taxon_concept: @taxon_concept, bad_connection?: false)
+      taxon_concept = build_stubbed(TaxonConcept)
+      taxon_concept.stub(:latest_version) { taxon_concept }
+      taxon_data = double(TaxonData, taxon_concept: taxon_concept, bad_connection?: false)
       taxon_data.stub(:get_data) { [] }
       taxon_page = double(TaxonPage)
       taxon_page.stub(:scientific_name) { 'Arspecius viewicaa' }
+      taxon_page.stub(:id) { 1 }
       assign(:taxon_page, taxon_page)
       assign(:taxon_data, taxon_data)
       assign(:toc_id, nil)
@@ -86,7 +87,6 @@ describe 'taxa/data/index' do
       assign(:supress_disclaimer, true) # I don't even know what this is.  remove it?
       assign(:assistive_section_header, 'assist my taxon_data')
       assign(:categories, [])
-      assign(:data_point_uris, [])
       assign(:glossary_terms, [])
       assign(:range_data, [])
       assign(:include_other_category, true)
@@ -97,17 +97,40 @@ describe 'taxa/data/index' do
       view.stub(:current_language) { Language.default }
       view.stub(:logged_in?) { false }
       view.stub(:is_clade_searchable?) { true }
+      @ku = FactoryGirl.build(:known_uri_unit)
+      FactoryGirl.build(:translated_known_uri, name: 'chucks', known_uri: @ku)
+      @tc = TaxonConcept.gen
     end
 
+    context "without data_point_uris" do
+      before :each do
+        dpu_min = DataPointUri.gen(unit_of_measure_known_uri: @ku,
+                                object: "10",
+                                taxon_concept: @tc,
+                                vetted: Vetted.trusted,
+                                visibility: Visibility.visible)
+        dpu_max = DataPointUri.gen(unit_of_measure_known_uri: @ku,
+                                object: "100",
+                                taxon_concept: @tc,
+                                vetted: Vetted.trusted,
+                                visibility: Visibility.visible)
+        dpu_min.reload
+        dpu_max.reload  
+        ranges = {attribute: @ku, min: dpu_min, max: dpu_max}           
+        assign(:range_data, [ranges])  
+        assign(:data_point_uris, [])  
+      end
+      it "go to data_summaries subtab by default" do
+        render
+        expect(rendered).to have_tag('h3', text: /Data summaries/)   
+      end   
+    end
+    
     context 'with data' do
-
       before(:each) do
-        @chucks = FactoryGirl.build(:known_uri_unit)
-        tku = FactoryGirl.build(:translated_known_uri, name: 'chucks', known_uri: @chucks)
-        taxon_concept = TaxonConcept.gen
-        @dpu = DataPointUri.gen(unit_of_measure_known_uri: @chucks,
+        @dpu = DataPointUri.gen(unit_of_measure_known_uri: @ku,
                               object: ".354",
-                              taxon_concept: taxon_concept,
+                              taxon_concept: @tc,
                               vetted: Vetted.trusted,
                               visibility: Visibility.visible)
         
@@ -125,7 +148,7 @@ describe 'taxa/data/index' do
       end
 
       it "should show units when defined" do
-        EOL::Sparql.should_receive(:explicit_measurement_uri_components).with(@chucks).and_return(DataValue.new('chucks'))
+        EOL::Sparql.should_receive(:explicit_measurement_uri_components).with(@ku).and_return(DataValue.new('chucks'))
         render
         expect(rendered).to have_tag('span', text: /chucks/)
       end

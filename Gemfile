@@ -49,7 +49,7 @@ end
 
 # NOT versioning these, since they really are for development (and test) only:
 group :test, :development do
-  gem "zeus"
+  gem "zeus", "0.13.3" 
   # Auto-testing with zeus (IFF you have it installed)
   gem "guard-zeus", require: false
   # automatically install/update your gem bundle when needed

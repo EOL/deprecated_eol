@@ -6,9 +6,9 @@ describe CollectionItem do
     # so this part of the before :all runs only once
     unless User.find_by_username('collections_scenario')
       truncate_all_tables
-      load_scenario_with_caching(:collections)
+      load_foundation_cache
     end
-    @collection = Collection.gen
+    @collection = Collection.first
     @taxon_concept = TaxonConcept.last
     SortStyle.create_enumerated
   end

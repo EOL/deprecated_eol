@@ -4,13 +4,12 @@ describe CollectionsController do
   render_views
   before(:all) do
     # so this part of the before :all runs only once
-    unless @user = User.find_by_username('collections_scenario')
+    unless @user = User.first
       truncate_all_tables
-      load_scenario_with_caching(:collections)
-      @user = User.find_by_username('collections_scenario')
+      load_foundation_cache
+      @user = User.first
     end
-    @test_data  = EOL::TestInfo.load('collections')
-    @collection = @test_data[:collection]
+    @collection = Collection.first
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
   end
 
@@ -77,7 +76,7 @@ describe CollectionsController do
     it "Updates the description" do
       session[:user_id] = nil
       getter = lambda{
-        session[:user_id] = @test_data[:user].id
+        session[:user_id] = User.first.id
         post :update, :id => @collection.id, :commit_edit_collection => 'Submit',  :collection => {:description => "New Description"}
         @collection.reload
       }

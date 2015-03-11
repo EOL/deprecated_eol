@@ -23,7 +23,7 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collection_jobs
 
-  attr_accessible :name, :collection_items_attributes, :description
+  attr_accessible :name, :collection_items_attributes, :description, :users
 
   accepts_nested_attributes_for :collection_items
 

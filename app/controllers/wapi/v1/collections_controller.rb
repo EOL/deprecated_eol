@@ -16,12 +16,16 @@ module Wapi
       end
 
       def create
-        # Rails wants "collection_items_attributes", which it would use if
-        # generating the form itself, but that's lame in the context of 3rd
-        # party input JSON, so I update it here:
-        params[:collection][:collection_items_attributes] =
-          params[:collection].delete(:collection_items) if
-          params[:collection] && params[:collection][:collection_items]
+        if params[:collection]
+          # Rails wants "collection_items_attributes", which it would use if
+          # generating the form itself, but that's lame in the context of 3rd
+          # party input JSON, so I update it here:
+          params[:collection][:collection_items_attributes] =
+            params[:collection].delete(:collection_items) if
+            params[:collection][:collection_items]
+          # And, of course, we expect the user to be pre-populated based on key:
+          params[:collection][:users] = [@user]
+        end
         @collection = Collection.create(params[:collection])
         if @collection.save
           @collection.users = [@user]

@@ -31,6 +31,7 @@ describe "Collections API V1" do
 
   describe "POST with no name" do
     before do
+      Collection.delete_all
       post '/wapi/collections',
         {},
         { "HTTP_AUTHORIZATION" => encode(@key) }
@@ -38,6 +39,10 @@ describe "Collections API V1" do
 
     it "FAILS" do
       expect(json).to include("errors")
+    end
+
+    it "does not create a collection" do
+      expect(Collection.count).to eq(0)
     end
   end
 
@@ -51,6 +56,10 @@ describe "Collections API V1" do
 
     it "creates a collection" do
       expect(Collection.count).to be(1)
+    end
+
+    it "sets the owner" do
+      expect(Collection.last.users).to include(@user)
     end
   end
 
@@ -93,6 +102,7 @@ describe "Collections API V1" do
       expect(pairs).to include([taxon.id, "TaxonConcept"])
       expect(pairs).to include([data_object.id, "DataObject"])
       expect(items.map(&:sort_field)).to include("12")
+      expect(collection.users).to include(@user)
     end
 
   end

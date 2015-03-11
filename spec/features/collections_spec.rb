@@ -146,7 +146,7 @@ describe "Collections" do
       it 'should be able to view a collection and its items' do
         visit collection_path(@collection)
         body.should have_tag('h1', text: @collection.name)
-        body.should have_tag('ul.object_list li', text: @collection.collection_items.first.collected_item.best_title)
+        body.should have_tag('ul.object_list li h4', text: @collection.collection_items.first.collected_item.best_title)
       end
 
       it "should be able to sort a collection's items" do

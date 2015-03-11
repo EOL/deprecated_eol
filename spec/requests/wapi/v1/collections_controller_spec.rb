@@ -102,6 +102,7 @@ describe "Collections API V1" do
       expect(pairs).to include([taxon.id, "TaxonConcept"])
       expect(pairs).to include([data_object.id, "DataObject"])
       expect(items.map(&:sort_field)).to include("12")
+      expect(items.map(&:added_by_user)).to eq([@user, @user])
       expect(collection.users).to include(@user)
     end
 

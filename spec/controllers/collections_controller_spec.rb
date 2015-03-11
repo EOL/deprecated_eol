@@ -3,12 +3,9 @@ require "spec_helper"
 describe CollectionsController do
   render_views
   before(:all) do
-    # so this part of the before :all runs only once
-    unless @user = User.first
-      truncate_all_tables
-      load_foundation_cache
-      @user = User.first
-    end
+    truncate_all_tables
+    load_foundation_cache
+    @user = User.first
     @collection = Collection.first
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
   end

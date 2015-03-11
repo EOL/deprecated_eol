@@ -59,11 +59,25 @@ describe "Collections" do
 
     unless User.find_by_username('collections_scenario')
       truncate_all_tables
-      load_scenario_with_caching(:collections)
+      load_foundation_cache
+      # load_scenario_with_caching(:collections)
     end
 
     Capybara.reset_sessions!
-    @test_data = EOL::TestInfo.load('collections')
+    collections = {}
+    collections[:taxon_concept_1] = build_taxon_concept(images: [{},{}], sname: [], comments: [],
+     flash: [], sounds: [], gbif_map_id: nil, toc: [], bhl: [], biomedical_terms: nil)
+    collections[:taxon_concept_2] = build_taxon_concept(images: [{},{}], sname: [], comments: [],
+     flash: [], sounds: [], gbif_map_id: nil, toc: [], bhl: [], biomedical_terms: nil)
+    collections[:user] = User.gen
+    collections[:collection] = Collection.gen
+    collections[:collection].users = [collections[:user]]
+    collections[:collection_oldest] = Collection.gen(:created_at => collections[:collection].created_at - 86400)
+    collections[:collection_oldest].users = [collections[:user]]
+    collections[:data_object] = DataObject.last
+    collections[:taxon_concept] = build_taxon_concept(images: [{}])
+    collections[:collection].add(collections[:data_object])
+    @test_data = collections
     @collectable_collection = Collection.gen
     @collection = @test_data[:collection]
     @collection_owner = @test_data[:user]
@@ -146,7 +160,10 @@ describe "Collections" do
       it 'should be able to view a collection and its items' do
         visit collection_path(@collection)
         body.should have_tag('h1', text: @collection.name)
-        body.should have_tag('ul.object_lit li', text: @collection.collection_items.first.collected_item.best_title)
+        x = @collection.collection_items.first.collected_item.best_title
+        x.slice! "</i>"
+        x.slice! "<i>"
+        body.should have_tag('ul.object_list li h4 a', text: x)
       end
 
       it "should be able to sort a collection's items" do

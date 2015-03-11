@@ -229,6 +229,35 @@ class Resource < ActiveRecord::Base
   def has_harvest_events?
     harvest_events.blank? ? false : true
   end
+  
+  def save_resource_contributions
+    resource_contributions = ResourceContribution.where("resource_id = ? ", self.id)
+    unless resource_contributions.blank?
+      resource_contributions_json = []
+      resource_contributions.each do |resource_contribution|
+        taxon_concept_id = resource_contribution.taxon_concept_id
+        type = resource_contribution.object_type
+        url = type == "data_object" ? "http://eol.org/data_objects/#{resource_contribution.data_object_id}": "http://eol.org/pages/#{resource_contribution.taxon_concept_id}/data#data_point_uri_#{resource_contribution.data_point_uri_id}"
+        resource_contribution_json = {
+           type: type,
+           url: url,
+           identifier: resource_contribution.identifier,
+           source: resource_contribution.source,
+           page: taxon_concept_id
+        } 
+        resource_contributions_json << resource_contribution_json
+      end
+      
+      resource_info_with_contributions = { id: self.id,
+                                           url: "http://eol.org/content_partners/#{self.content_partner_id}/resources/#{self.id}",
+                                           title: self.title,
+                                           contributions: resource_contributions_json }
+      File.open("public/resource_contributions/resource_contributions_#{self.id}.json","w") do |f|
+        f.write(JSON.pretty_generate(resource_info_with_contributions))
+      end
+      
+    end    
+  end
 
 private
 

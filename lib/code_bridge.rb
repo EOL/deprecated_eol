@@ -24,6 +24,9 @@ class CodeBridge
       if tc
         TaxonConceptCacheClearing.clear(tc)
       end
+    elsif args['cmd'] == 'update_resource_contributions'
+      resource = Resource.find(args['resource_id'])
+      resource.save_resource_contributions
     else
       Rails.logger.error "** ERROR: NO command responds to #{args['cmd']}"
     end

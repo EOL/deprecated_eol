@@ -3,7 +3,9 @@ Eol::Application.routes.draw do
 
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
-
+  
+  #resque
+  mount Resque::Server.new, at: "/resque"
   # Permanent redirects. Position them before any routes they take precedence over.
   match '/podcast' => redirect('http://podcast.eol.org/podcast')
   match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")

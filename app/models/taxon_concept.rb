@@ -234,16 +234,10 @@ class TaxonConcept < ActiveRecord::Base
   alias :top_acting_curators :top_curators # deprecated.  TODO - remove entirely.
 
   def data_object_curators
-    curators = connection.select_values("
-      SELECT cal.user_id
-      FROM #{CuratorActivityLog.full_table_name} cal
-      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id)
-      JOIN #{DataObject.full_table_name} do ON (cal.target_id = do.id)
-      JOIN #{DataObject.full_table_name} do_all_versions ON (do.guid = do_all_versions.guid)
-      JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (do_all_versions.id = dotc.data_object_id)
-      WHERE dotc.taxon_concept_id=#{self.id}
-      AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
-      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})").uniq
+    curators = CuratorActivityLog.where(taxon_concept_id:  self.id, 
+                changeable_object_type_id: (ChangeableObjectType.data_object_scope),
+                activity_id: (Activity.raw_curator_action_ids)).pluck(:user_id).uniq
+    debugger
     # using find_all_by_id instead of find because occasionally the user_id from activities is 0 and that causes this to fail
     User.find_all_by_id(curators)
   end

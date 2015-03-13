@@ -12,20 +12,21 @@ class Taxa::DataController < TaxaController
   # GET /pages/:taxon_id/data/index
   def index
     @assistive_section_header = I18n.t(:assistive_data_header)
-    @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
+    @recently_used = KnownUri.where(uri: session[:rec_uris]) if
+      session[:rec_uris]
     @selected_data_point_uri_id = params.delete(:data_point_uri_id)
     if params[:toc_id].nil?
-        @toc_id = 'ranges' if @data_point_uris.blank? && !@range_data.blank?
+      @toc_id = 'ranges' if @data_point_uris.blank? && !@range_data.blank?
     else
       @toc_id = params[:toc_id]
-      @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
+      @toc_id = nil unless @toc_id == 'other' ||
+        @categories.detect { |toc| toc.id.to_s == @toc_id }
     end
     
     @querystring = ''
     @sort = ''
     current_user.log_activity(:viewed_taxon_concept_data, taxon_concept_id: @taxon_concept.id)
-    @jsonld = EOL::Api::Traits::V1_0.prepare_hash(@taxon_concept,
-                                                  data: @taxon_data)
+    @jsonld = @taxon_data.jsonld
   end
 
   # GET /pages/:taxon_id/data/about

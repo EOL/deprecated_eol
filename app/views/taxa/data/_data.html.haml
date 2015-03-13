@@ -1,4 +1,4 @@
-- Rails.logger.error("Starting render of data partial: #{Time.now.to_milliseconds}")
+- Rails.logger.error("Starting render of data partial: #{Time.now}")
 - style = hidden ? 'display: none' : nil
 - if @data_point_uris.blank?
   .empty{ style: style }
@@ -23,9 +23,9 @@
         = t('.data_disclaimer',
           traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
           traitbank_info_path: cms_page_path('traitbank')).html_safe
-  - Rails.logger.error("Starting build of category: #{Time.now.to_milliseconds}")
+  - Rails.logger.error("Starting build of category: #{Time.now}")
   - category_toc_items = @data_point_uris.collect{ |d| d.predicate_known_uri ? d.predicate_known_uri.toc_items : nil }.flatten.compact.uniq.sort_by(&:view_order)
-  - Rails.logger.error("Finished build of category: #{Time.now.to_milliseconds}")
+  - Rails.logger.error("Finished build of category: #{Time.now}")
   - if @include_other_category
     -# adding nil here to represent no TOC, i.e. the 'other' cagtegory
     - category_toc_items << nil
@@ -65,7 +65,7 @@
         -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
         - exemplar = data_point_uri.taxon_data_exemplars.select(&:included?).any?
         - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded?).any?
-        - Rails.logger.error("Starting render of row #{data_point_uri.uri}: #{Time.now.to_milliseconds}")
+        - Rails.logger.error("Starting render of row #{data_point_uri.uri}: #{Time.now}")
         = render 'data_point_uris/display_rows', {    |
           data_point_uri: data_point_uri, type_index: type_index,      |
           classes: classes, exemplar: exemplar, excluded: excluded,    |

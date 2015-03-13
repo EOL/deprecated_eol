@@ -193,6 +193,14 @@ class TaxonData < TaxonUserClassificationFilter
     results
   end
 
+  def jsonld
+    Rails.cache.fetch("/taxa/#{taxon_concept.id}/data/json",
+      expires_in: 24.hours) do
+      to_jsonld
+    end
+  end
+
+  # NO CACHE!
   def to_jsonld
     get_data.to_jsonld
   end

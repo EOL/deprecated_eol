@@ -26,8 +26,7 @@ class Taxa::DataController < TaxaController
     @querystring = ''
     @sort = ''
     Rails.logger.error("Starting build of JSONLD for #{@taxon_concept.id}: #{Time.now}")
-    @jsonld = EOL::Api::Traits::V1_0.prepare_hash(@taxon_concept,
-                                                  data: @taxon_data)
+    @jsonld = @taxon_data.to_jsonld
     Rails.logger.error("Finished build of JSONLD #{Time.now}")
   end
 

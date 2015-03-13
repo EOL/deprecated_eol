@@ -1,19 +1,21 @@
+- Rails.logger.error("Starting view: #{Time.now}")
 - content_for :social_sharing do
   - unless @taxon_data.bad_connection?
     = render 'shared/social_sharing'
 -# TODO - These should actually be links to filtered versions of this page, for accessibility.
+- Rails.logger.error("Starting menu: #{Time.now}")
 = render 'menu', { ajax: true }
 .main_container#taxon_data
   %h3.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
+  - Rails.logger.error("Starting about: #{Time.now}")
   = render 'about', { hidden: true }
-  - if @data_point_uris.blank? && !@range_data.blank?
-    = render 'data', { hidden: true }
-    = render 'ranges', { hidden: false }
-  - else 
-    = render 'data', { hidden: false }
-    = render 'ranges', { hidden: true }
+  - only_ranges = @data_point_uris.blank? && !@range_data.blank?
+  - Rails.logger.error("Starting data: #{Time.now}")
+  = render 'data', { hidden: only_ranges }
+  - Rails.logger.error("Starting ranges: #{Time.now}")
+  = render 'ranges', { hidden: !only_ranges }
+  - Rails.logger.error("Starting glossary: #{Time.now}")
   = render 'glossary', { hidden: true }
-
   - if ! @data_point_uris.blank? && current_user.min_curator_level?(:full)
     .copy
       #curation_legend.help_text
@@ -30,3 +32,4 @@
       -# You can't have nested forms, so this is external. ...It will be handled by Ajax (only), anyway.
       #suggestions{ style: 'display:none;' }
         = render 'known_uris/categories'
+- Rails.logger.error("Finished view: #{Time.now}")

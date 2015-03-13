@@ -147,7 +147,7 @@ class TaxonData < TaxonUserClassificationFilter
       @ranges_of_values = show_preferred_unit(results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) })
     end
   end
-  
+
   def show_preferred_unit(results)
     results.group_by { |r| r[:attribute] }.values.map do |attribute_group|
       attribute_group.sort do |a,b|
@@ -157,9 +157,9 @@ class TaxonData < TaxonUserClassificationFilter
           a[:unit_of_measure_uri] ? -1 : 1
         end
       end.first # Choose the value that sorted first.
-    end    
-  end         
-  
+    end
+  end
+
   # TODO - spec for can see data check
   def ranges_for_overview
     return nil unless user.can_see_data?
@@ -193,6 +193,14 @@ class TaxonData < TaxonUserClassificationFilter
     results
   end
 
+  def jsonld
+    Rails.cache.fetch("/taxa/#{taxon_concept.id}/data/json",
+      expires_in: 24.hours) do
+      to_jsonld
+    end
+  end
+
+  # NO CACHE!
   def to_jsonld
     get_data.to_jsonld
   end

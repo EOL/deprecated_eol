@@ -26,7 +26,7 @@ class Taxa::DataController < TaxaController
     @querystring = ''
     @sort = ''
     Rails.logger.error("Starting build of JSONLD for #{@taxon_concept.id}: #{Time.now}")
-    @jsonld = @taxon_data.to_jsonld
+    @jsonld = @taxon_data.jsonld
     Rails.logger.error("Finished build of JSONLD #{Time.now}")
   end
 
@@ -57,7 +57,7 @@ protected
   def load_data
     # Sad that we need to load all of this for the about and glossary tabs, but
     # TODO: we can cache this, later:
-    Rails.logger.error("Starting load of data for #{@taxon_concept.id}: #{Time.now}")
+    Rails.logger.error("STARTING load of data for #{@taxon_concept.id}: #{Time.now}")
     @taxon_data = @taxon_page.data
     Rails.logger.error("Finished; starting load of ranges: #{Time.now}")
     @range_data = @taxon_data.ranges_of_values

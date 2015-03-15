@@ -33,16 +33,23 @@ describe Resource do
   it '#iucn returns the last IUCN resource' do
     Resource.iucn.should == @iucn_resource2
   end
-  
-  describe ".destroy_everything" do        
+
+  describe ".destroy_everything" do
+
+    let(:he_1) { HarvestEvent.gen }
+    let(:he_2) { HarvestEvent.gen }
+    subject { Resource.gen }
+
+    before { subject.harvest_events = [he_1, he_2] }
+
     it "should call 'destroy_everything' for harvest_events" do
-      total_harvest_events = subject.harvest_events
-      total_harvest_events.count.times { subject.should_receive(:destroy_everything) }
+      he_1.should receive(:destroy_everything)
+      he_2.should receive(:destroy_everything)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for harvest_events" do
-      subject.harvest_events.should_receive(:destroy_all)
+      HarvestEvent.should_receive(:delete_all)
       subject.destroy_everything
     end
   end

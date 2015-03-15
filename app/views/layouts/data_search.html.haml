@@ -9,6 +9,8 @@
         - else
           %h1= t('.page_header_results')
           %h2= data_search_results_summary
+          - if @querystring_uri
+            %h2.greyedout="(#{@querystring_uri})"
       .page_actions
         %ul
           - if @results && !@results.blank?

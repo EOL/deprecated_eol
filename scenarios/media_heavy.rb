@@ -46,7 +46,7 @@ ActiveRecord::Base.transaction do
 
   data[:taxon_concept] = build_taxon_concept(:canonical_form => data[:canonical_form], :common_names => [ data[:common_name] ],
                                              :images => images, :flash => flash, :sounds => sounds, :youtube => youtube,
-                                             :toc => text)
+                                             :toc => text, comments: [])
 
   EOL::TestInfo.save('media_heavy', data)
 end

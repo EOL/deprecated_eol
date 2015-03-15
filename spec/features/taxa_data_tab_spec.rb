@@ -4,8 +4,8 @@ describe 'Taxa data tab basic tests' do
   before(:all) do
     load_foundation_cache
     drop_all_virtuoso_graphs
-    @taxon_concept = build_taxon_concept
-    @target_taxon_concept = build_taxon_concept
+    @taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
+    @target_taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
     @resource = Resource.gen
     @user = User.gen
     @user.grant_permission(:see_data)

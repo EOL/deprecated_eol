@@ -11,7 +11,7 @@ describe DataObject do
 
     @curator         = @testy[:curator]
     @another_curator = create_curator
-    
+
     @dato = DataObject.gen(description: 'That <b>description has unclosed <i>html tags')
     DataObjectsTaxonConcept.gen(taxon_concept_id: @taxon_concept.id, data_object_id: @dato.id)
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
@@ -34,14 +34,14 @@ describe DataObject do
   it "deletes all its collection items" do
     d = DataObject.gen
     collection = Collection.gen
-    col_item = CollectionItem.create(collection_id: collection.id, collected_item_id: d.id, 
+    col_item = CollectionItem.create(collection_id: collection.id, collected_item_id: d.id,
       collected_item_type: d.class.to_s)
     d.remove_all_collection_items
     expect(CollectionItem.where(id: col_item.id).count).to equal(0)
     collection.destroy
     d.destroy
   end
-  
+
   it "marks itself as unpublished" do
     d = DataObject.gen
     expect(d.published).to be_true
@@ -49,7 +49,7 @@ describe DataObject do
     expect(d.published).to be_false
     d.destroy
   end
-  
+
   it "marks all its associations as hidden/untrusted" do
     d = DataObject.gen
     hierarchy_entry = HierarchyEntry.gen
@@ -71,7 +71,7 @@ describe DataObject do
     hierarchy_entry.destroy
     hierarchy_entry2.destroy
   end
-  
+
   it 'should be able to replace wikipedia articles' do
     TocItem.gen_if_not_exists(label: 'wikipedia')
 
@@ -449,7 +449,7 @@ describe DataObject do
   end
 
   it '#uncached_data_object_taxa should filter on published, vetted, visibility' do
-    second_taxon_concept = build_taxon_concept
+    second_taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], images: [], youtube: [], flash: [])
     d = DataObject.gen
     d.should_receive(:curated_hierarchy_entries).at_least(1).times.and_return([
       DataObjectTaxon.new(DataObjectsHierarchyEntry.gen(vetted: Vetted.trusted, visibility: Visibility.invisible)),
@@ -513,7 +513,7 @@ describe DataObject do
     cp = ContentPartner.gen(full_name: "Discover Life")
     resource = Resource.gen(content_partner_id: cp.id)
     harvest = HarvestEvent.gen(resource_id: resource.id)
-    dato = DataObject.gen(object_title: 'xxx Discover Life: Point Map of Gadus morhua yyy', 
+    dato = DataObject.gen(object_title: 'xxx Discover Life: Point Map of Gadus morhua yyy',
                           data_type_id: DataType.image.id,
                           object_cache_url: '200810061224383',
                           object_url: 'http://my.object.url',
@@ -621,25 +621,6 @@ describe DataObject do
     dato.users_data_object.visibility_id.should == Visibility.visible.id
   end
 
-  it '#create_user_text should call reload on TaxonConcept, even when fails' do
-    new_text_params = {
-      data_type_id: DataType.text.id.to_s,
-      license_id: nil,
-      license_id: License.cc.id.to_s,
-      object_title: "",
-      bibliographic_citation: "",
-      source_url: "http://eol.org",
-      rights_statement: "",
-      description: "This is link description",
-      language_id: Language.english.id.to_s,
-      rights_holder: ""
-    }
-    lambda {
-      @taxon_concept.should_receive(:reload).and_return(true)
-      DataObject.create_user_text(new_text_params, user: @user, taxon_concept: @taxon_concept)
-    }.should raise_error
-  end
-
   it '#latest_published_version_in_same_language should not return itself if the object is unpublished' do
     d = DataObject.gen(published: 1)
     d.latest_published_version_in_same_language.should == d
@@ -661,7 +642,7 @@ describe DataObject do
     hierarchy = Hierarchy.gen
     resource = Resource.gen(hierarchy: hierarchy)
     hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
-    data_object = DataObject.gen    
+    data_object = DataObject.gen
     DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:rights_holder, '')
     resource.update_column(:rights_holder, nil)
@@ -679,7 +660,7 @@ describe DataObject do
     hierarchy = Hierarchy.gen
     resource = Resource.gen(hierarchy: hierarchy)
     hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
-    data_object = DataObject.gen    
+    data_object = DataObject.gen
     DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:rights_statement, '')
     resource.update_column(:rights_statement, nil)
@@ -697,7 +678,7 @@ describe DataObject do
     hierarchy = Hierarchy.gen
     resource = Resource.gen(hierarchy: hierarchy)
     hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy)
-    data_object = DataObject.gen    
+    data_object = DataObject.gen
     DataObjectsHierarchyEntry.gen(hierarchy_entry: hierarchy_entry, data_object: data_object)
     data_object.update_column(:bibliographic_citation, '')
     resource.update_column(:bibliographic_citation, nil)
@@ -830,73 +811,73 @@ describe DataObject do
     end
 
   end
-  
+
   describe ".destroy_everything" do
-       
+
     it "should call 'destroy_all' for agents_data_objects" do
       subject.agents_data_objects.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for data_objects_hierarchy_entries" do
       subject.data_objects_hierarchy_entries.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for data_objects_taxon_concepts" do
       subject.data_objects_taxon_concepts.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for agents_data_objects" do
       subject.agents_data_objects.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for curated_data_objects_hierarchy_entries" do
       subject.curated_data_objects_hierarchy_entries.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for comments" do
       subject.comments.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for data_objects_table_of_contents" do
       subject.data_objects_table_of_contents.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for data_objects_info_items" do
       subject.data_objects_info_items.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for taxon_concept_exemplar_images" do
       subject.taxon_concept_exemplar_images.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for worklist_ignored_data_objects" do
       subject.worklist_ignored_data_objects.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for collection_items" do
       subject.collection_items.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for curator_activity_logs" do
       subject.curator_activity_logs.should_receive(:destroy_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'destroy_all' for users_data_objects_ratings" do
       subject.users_data_objects_ratings.should_receive(:destroy_all)
       subject.destroy_everything
-    end    
+    end
   end
 
   context '#same_as_last?' do

@@ -6,13 +6,13 @@ describe 'Taxa literature' do
   end
   
   it 'should note when there is no literature' do
-    tc = build_taxon_concept
+    tc = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
     visit taxon_literature_path(tc)
     body.should_not have_tag('ul.ref_list')
   end
 
   it 'should show references associated with data objects' do
-    tc = build_taxon_concept
+    tc = build_taxon_concept(comments: [], bhl: [], images: [], sounds: [], youtube: [], flash: [])
     d = tc.data_objects.where(data_type_id: DataType.text.id).last
     r = Ref.gen(full_reference: 'This is the full reference')
     DataObjectsRef.gen(data_object: d, ref: r)
@@ -22,7 +22,7 @@ describe 'Taxa literature' do
   end
 
   it 'should show identifiers associated with references' do
-    tc = build_taxon_concept
+    tc = build_taxon_concept(comments: [], bhl: [], images: [], sounds: [], youtube: [], flash: [])
     d = tc.data_objects.where(data_type_id: DataType.text.id).last
     r = Ref.gen(full_reference: 'This is the full reference')
     RefIdentifier.gen(ref: r, ref_identifier_type: RefIdentifierType.url, identifier: 'http://si.edu/someref')

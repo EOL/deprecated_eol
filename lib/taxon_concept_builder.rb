@@ -85,20 +85,21 @@ private
     set_depth
     gen_canonical_name
     gen_he
-    gen_other_names
+    gen_other_names unless @common_names.blank? # to add common names: should send them in params
+    add_scientific_name unless @sname.nil? # to add scientific name: should set sname in params
     add_curator
-    add_comments
-    add_images
-    add_videos
-    add_sounds
-    add_map
-    add_toc
-    add_iucn
-    gen_bhl
-    gen_biomedical_terms
+    add_comments unless @comments.blank? # to create light taxon concept
+    add_images unless   @images.blank? # to create light taxon concept
+    add_videos unless   @flash.blank? || @youtube.blank? # to create light taxon concept
+    add_sounds unless   @sounds.blank? # to create light taxon concept
+    add_map unless @gbif_map_id.nil? # to create light taxon concept
+    add_toc unless   @toc.blank? # to create light taxon concept
+    add_iucn unless @iucn_status.nil? # to add iucn: should set iucn_status in params
+    gen_bhl unless @bhl.blank? # to create light taxon concept
+    gen_biomedical_terms unless @biomedical_terms.nil? # to add biomedical terms: should set them in params
 
     #denormalized tables
-    gen_random_hierarchy_image
+    gen_random_hierarchy_image unless @image_objs.blank? or @sname.blank? # to create light taxon concept
     add_data_objects_taxon_concepts
   end
 
@@ -108,14 +109,7 @@ private
   # That said, sometimes, we want a particular ID, so this method includes a little hacking to get that done.
   def gen_taxon_concept
     puts "** Enter: gen_taxon_concept" if @debugging
-    vetted = Vetted.send(@vetted.to_sym)
-    if vetted.nil?
-      puts "** WARNING: You attempted to create a TaxonConcept with a vetted of ':#{@vetted}', and that failed."
-      puts "   (It's probable that you need to create defaults for Vetted before calling #gen_taxon_concept.)"
-      vetted = Vetted.trusted
-      raise "You haven't loaded the foundation scenario, and tried to build a TaxonConcept with no vetted id." if
-        vetted.nil?
-    end
+    vetted = Vetted.send(@vetted.to_sym)    
     # TODO - in the future, we may want to be able to muck with the vetted *and* the published fields...
     # HACK!  We need to force the IDs of one of the TaxonConcepts, so that the exmplar array isn't empty.  I
     # hate to do it this way, but, alas, this is how it currently works:
@@ -135,6 +129,7 @@ private
 
   def set_depth
     # Note that this assumes the ranks are *in order* which is ONLY true with foundation loaded!
+    #load rank table only not all foundation
     @depth = @depth || Rank.find_by_translated(:label, @rank || 'species').id - 1 # This is an assumption...
   end
 
@@ -168,8 +163,11 @@ private
     @common_names.each_with_index do |common_name, count|
       language = (count != 0 && count == @common_names.size) ? Language.find_by_translated(:label, "French") : Language.english
       @tc.add_common_name_synonym(common_name, :agent => Agent.col, :language => language)
-    end
-    @tc.add_scientific_name_synonym(@sname.string, Agent.col) unless @sname.nil?
+    end    
+  end
+  
+  def add_scientific_name
+    @tc.add_scientific_name_synonym(@sname.string, Agent.col)
   end
 
   def add_curator
@@ -180,8 +178,7 @@ private
   def add_comments
     puts "** Enter: add_comments" if @debugging
     # Array with three empty hashes (default #), which we will populate with defaults:
-    comments = @comments || [{}, {}]
-    comments.each do |comment|
+    @comments.each do |comment|
       comment[:body]  ||= "This is a witty comment on the #{@canon} taxon concept. Any resemblance to comments real " +
                           'or imagined is coincidental.'
       comment[:user] ||= User.count == 0 ? User.gen : User.all.sample
@@ -200,16 +197,14 @@ private
 
   def add_videos
     puts "** Enter: add_videos" if @debugging
-    flash_options = @flash || [{}] # Array with one empty hash, which we will populate with defaults:
-    flash_options.each do |flash_opt|
+    @flash.each do |flash_opt|
       desc = flash_opt.delete(:description) || Faker::Lorem.sentence
       flash_opt[:object_cache_url] ||= FactoryGirl.generate(:flash)
       flash_opt[:hierarchy_entry] ||= @he
       build_object_in_event('Flash', desc, flash_opt)
     end
 
-    youtube_options = @youtube || [{}] # Array with one empty hash, which we will populate with defaults:
-    youtube_options.each do |youtube_opt|
+    @youtube.each do |youtube_opt|
       desc = youtube_opt.delete(:description) || Faker::Lorem.sentence
       youtube_opt[:object_cache_url] ||= FactoryGirl.generate(:youtube)
       youtube_opt[:hierarchy_entry] ||= @he
@@ -219,8 +214,7 @@ private
 
   def add_sounds
     puts "** Enter: add_sounds" if @debugging
-    sound_options = @sounds || [{}]
-    sound_options.each do |sound_opt|
+    @sounds.each do |sound_opt|
       desc   = sound_opt.delete(:description) || Faker::Lorem.sentence
       sound_opt[:object_cache_url] ||= FactoryGirl.generate(:sound)
       sound_opt[:hierarchy_entry] ||= @he
@@ -230,24 +224,20 @@ private
 
   def add_iucn
     puts "** Enter: add_iucn" if @debugging
-    if @iucn_status
-      iucn_status = @iucn_status == true ? FactoryGirl.generate(:iucn) : @iucn_status
-      build_iucn_entry(@tc, iucn_status, :depth => @depth)
-    end
+    iucn_status = @iucn_status == true ? FactoryGirl.generate(:iucn) : @iucn_status
+    build_iucn_entry(@tc, iucn_status, :depth => @depth)
   end
 
   def add_map
     puts "** Enter: add_map" if @debugging
-    if @gbif_map_id
-      #gbif_he = build_hierarchy_entry(@depth, @tc, @sname, :hierarchy => gbif_hierarchy, :map => true,
-      puts "++ Add map!" if @debugging
-      puts "GBIF hierarchy:" if @debugging
-      pp gbif_hierarchy if @debugging
-      gbif_he = build_entry_in_hierarchy(:hierarchy => Hierarchy.gbif, :map => true,
-                                          :identifier => @gbif_map_id)
-      HarvestEventsHierarchyEntry.gen(:hierarchy_entry => gbif_he, :harvest_event => gbif_harvest_event)
-      GbifIdentifiersWithMap.create(:gbif_taxon_id => @gbif_map_id)
-    end
+    #gbif_he = build_hierarchy_entry(@depth, @tc, @sname, :hierarchy => gbif_hierarchy, :map => true,
+    puts "++ Add map!" if @debugging
+    puts "GBIF hierarchy:" if @debugging
+    pp gbif_hierarchy if @debugging
+    gbif_he = build_entry_in_hierarchy(:hierarchy => Hierarchy.gbif, :map => true,
+                                        :identifier => @gbif_map_id)
+    HarvestEventsHierarchyEntry.gen(:hierarchy_entry => gbif_he, :harvest_event => gbif_harvest_event)
+    GbifIdentifiersWithMap.create(:gbif_taxon_id => @gbif_map_id)
   end
 
   def add_toc
@@ -297,9 +287,7 @@ private
 
   def gen_biomedical_terms
     puts "** Enter: gen_biomedical_terms" if @debugging
-    if @biomedical_terms
-      HierarchyEntry.gen(:hierarchy => Resource.ligercat.hierarchy, :name => @sname, :identifier => @id, :taxon_concept => @tc)
-    end
+    HierarchyEntry.gen(:hierarchy => Resource.ligercat.hierarchy, :name => @sname, :identifier => @id, :taxon_concept => @tc)
   end
 
   #
@@ -307,7 +295,6 @@ private
   #
   def gen_random_hierarchy_image
     puts "** Enter: gen_random_hierarchy_image" if @debugging
-    return if @image_objs.blank? or @sname.blank?
     # TODO - we really don't want to denormalize the names, so remove them (but check that this will work!)
     options = {:data_object => @image_objs.last,
                 :name => @sname.italicized,
@@ -348,13 +335,13 @@ private
                                                   {:publication => 'Great Big Journal of Fun', :page => 44},
                                                   {:publication => 'The Journal You Cannot Afford', :page => 1}]
     @common_names = options[:common_names]    || [] # MOST entries should NOT have a common name.
-    @comments     = options[:comments]
+    @comments     = options[:comments]        || [{}, {}]
     @canon        = options[:canonical_form]  || FactoryGirl.generate(:scientific_name)
     @ranked_canonical_form = options[:ranked_canonical_form] || @canon
     @complete     = options[:scientific_name] || "#{@canon} #{@attri}".strip
     @depth        = options[:depth]
     @event        = options[:event]           || default_harvest_event # Note this method is in eol_spec_helper
-    @flash        = options[:flash]
+    @flash        = options[:flash]           || [{}] # Array with one empty hash, which we will populate with defaults:
     @gbif_map_id  = options[:gbif_map_id]
     @hierarchy    = options[:hierarchy]
     @id           = options[:id]
@@ -366,10 +353,10 @@ private
     @biomedical_terms = options[:biomedical_terms]
     @parent_hierarchy_entry_id = options[:parent_hierarchy_entry_id]
     @rank         = options[:rank]
-    @sounds       = options[:sounds]
+    @sounds       = options[:sounds]          || [{}]
     @toc          = options[:toc]             || default_toc_option
     @vetted       = (options[:vetted] and ['trusted', 'untrusted', 'unknown'].include? options[:vetted]) ? options[:vetted] : 'trusted'
-    @youtube      = options[:youtube]
+    @youtube      = options[:youtube]         || [{}] # Array with one empty hash, which we will populate with defaults:
     @he           = options[:hierarchy_entry]
   end
 
@@ -407,6 +394,5 @@ private
                 :object_cache_url => FactoryGirl.generate(:image), :visibility => Visibility.preview,
                 :vetted => Vetted.unknown}
     return images
-  end
-
+  end  
 end

@@ -53,7 +53,7 @@ class Administrator::UserController  < AdminController
           line << [u.id, u.username, u.full_name, u.email, created_at, u.disable_email_notifications, u.notification.eol_newsletter]
         end
        end
-       
+
        send_data csv,
          type: 'text/csv; charset=iso-8859-1; header=present',
          filename: 'EOL_users_report_' + Time.now.strftime("%m_%d_%Y-%I%M%p") + '.csv',
@@ -86,7 +86,7 @@ class Administrator::UserController  < AdminController
       search_string_parameter,
       search_string_parameter,
       search_string_parameter])
-    
+
     User.preload_associations(@users, :content_partners)
   end
 
@@ -274,9 +274,11 @@ class Administrator::UserController  < AdminController
   end
 
   def list_newsletter_emails
-    @users = User.find_by_sql('SELECT u.given_name, u.family_name, u.username, u.email, u.curator_level_id
-      FROM users u JOIN notifications n ON (u.id = n.user_id)
-      WHERE u.disable_email_notifications != 1 AND n.eol_newsletter = 1')
+    @emails = User.newsletter.
+      select([:given_name, :family_name, :username, :email, :curator_level_id]).
+      map do |user|
+        %Q{"#{user.full_name}" <#{user.email}>}
+    end.sort.uniq
   end
 
   def deactivate

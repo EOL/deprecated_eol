@@ -19,7 +19,7 @@
             %li.data{ class: (! search_file.complete?) ? 'pending' : nil }
               = link_to content_tag(:span, '', {:class => 'icon', :title => I18n.t(:data_search_link)}), redo_search_url
               %h4
-                - title = search_file.known_uri.name
+                - title = "#{search_file.known_uri.name} #{search_file.file_number}"
                 = link_to title, redo_search_url
                 - unless search_file.complete?
                   %span.message= I18n.t('users.data_downloads.processing')

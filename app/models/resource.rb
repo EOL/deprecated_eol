@@ -124,7 +124,7 @@ class Resource < ActiveRecord::Base
     end
     super
   end
-  
+
   def self.load_for_title_only(find_this)
     Resource.find(find_this)
   end

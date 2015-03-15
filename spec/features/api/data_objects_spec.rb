@@ -1,6 +1,4 @@
 # encoding: utf-8
-require File.dirname(__FILE__) + '/../../spec_helper'
-
 describe 'API:synonyms' do
   before(:all) do
     load_foundation_cache
@@ -14,6 +12,9 @@ describe 'API:synonyms' do
     @toc_item_3      = TocItem.gen(view_order: 3)
 
     @taxon_concept   = build_taxon_concept(
+       comments: [],
+       sounds: [],
+       bhl: [],
        flash:           [{description: 'First Test Video'}, {description: 'Second Test Video'}],
        youtube:         [{description: 'YouTube Test Video'}],
        images:          [{object_cache_url: FactoryGirl.generate(:image)}, {object_cache_url: FactoryGirl.generate(:image)},
@@ -84,7 +85,7 @@ describe 'API:synonyms' do
     response.xpath('/').inner_html.should_not == ""
     response.xpath('//xmlns:taxon/dc:identifier').inner_text.should == @object.get_taxon_concepts(published: :strict)[0].id.to_s
   end
-  
+
   it "data objects should show exemplar info for taxon concept for the data object request" do
     TaxonConceptExemplarArticle.gen(data_object: @object, taxon_concept: @taxon_concept)
     response = get_as_xml("/api/data_objects/#{@object.guid}")
@@ -153,7 +154,7 @@ describe 'API:synonyms' do
   end
 
   it "data objects should show all information for image objects" do
-    tc = build_taxon_concept
+    tc = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [])
     images = tc.data_objects.delete_if{|d| d.data_type_id != DataType.image.id}
     image = images.last
     image.data_type = DataType.image
@@ -184,7 +185,7 @@ describe 'API:synonyms' do
 
   it 'should ' do
     curator = build_curator(@taxon_concept, level: :full)
-    second_taxon_concept = build_taxon_concept
+    second_taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
     d = DataObject.gen
     d.add_curated_association(curator, @taxon_concept.entry)
     d.add_curated_association(curator, second_taxon_concept.entry)
@@ -229,7 +230,7 @@ describe 'API:synonyms' do
         expect(response.xpath('//xmlns:dataObject/xmlns:additionalInformation/xmlns:crop_width').inner_text).to eq((image.image_size.crop_width_pct * image.image_size.width / 100.0).to_s)
       end
 
-      it 'does not add info for blank data' do 
+      it 'does not add info for blank data' do
         image= DataObject.gen(data_type_id: DataType.image.id)
         @taxon_concept.add_data_object(image)
         response= get_as_xml("/api/data_objects/#{image.guid}")
@@ -268,7 +269,7 @@ describe 'API:synonyms' do
         expect(response['dataObjects'][0]['crop_width'].to_s).to eq((image.image_size.crop_width_pct * image.image_size.width / 100.0).to_s)
       end
 
-      it 'does not add info for blank data' do 
+      it 'does not add info for blank data' do
         image= DataObject.gen(data_type_id: DataType.image.id)
         @taxon_concept.add_data_object(image)
         response= get_as_json("/api/data_objects/#{image.guid}.json")

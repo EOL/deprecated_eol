@@ -3,7 +3,7 @@ require "spec_helper"
 describe Synonym do
   before(:all) do
     load_foundation_cache
-    @tc = build_taxon_concept
+    @tc = build_taxon_concept(comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     @curator = build_curator(@tc)
     @another_curator = build_curator(@tc)
     @lang = Language.english

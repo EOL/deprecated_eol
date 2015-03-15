@@ -15,7 +15,8 @@ describe 'Solr API' do
     end
   
     it 'should create the data object index' do
-      @taxon_concept = build_taxon_concept(images: [{ guid: 'a509ebdb2fc8083f3a33ea17985bae72', published: 1 }])
+      @taxon_concept = build_taxon_concept(images: [{ guid: 'a509ebdb2fc8083f3a33ea17985bae72', published: 1 }], :comments => [],
+                                           :bhl => [], :toc => [], :sounds => [], :youtube => [], :flash => [])
       @data_object = DataObject.last
       @solr.build_data_object_index([@data_object])
       @solr.get_results("data_object_id:#{@data_object.id}")['numFound'].should == 1
@@ -31,7 +32,8 @@ describe 'Solr API' do
       ContentPage.delete_all
       @scientific_name = "Something unique"
       @common_name = "Name not yet used"
-      @test_taxon_concept = build_taxon_concept(scientific_name: @scientific_name, common_names: [@common_name])
+      @test_taxon_concept = build_taxon_concept(scientific_name: @scientific_name, common_names: [@common_name], comments: [],
+                                                bhl: [])
       TaxonConcept.connection.execute("commit")
       TranslatedContentPage.gen(title: "Test Content Page", main_content: "Main Content Page", left_content: "Left Content Page")
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_SITE_SEARCH_CORE)
@@ -77,7 +79,7 @@ describe 'Solr API' do
       PageName.delete_all
       @solr = SolrAPI.new($SOLR_SERVER, $SOLR_BHL_CORE)
       @solr.delete_all_documents
-      @test_taxon_concept = build_taxon_concept(bhl: [])
+      @test_taxon_concept = build_taxon_concept(bhl: [], comments: [], toc: [], images: [], sounds: [], youtube: [], flash: [])
       
       @publication = PublicationTitle.gen(title: "Series publication title", details: "publisher info",
         start_year: 1700, end_year: 2011)

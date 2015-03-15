@@ -23,6 +23,10 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collection_jobs
 
+  attr_accessible :name, :collection_items_attributes, :description, :users
+
+  accepts_nested_attributes_for :collection_items
+
   scope :published, -> { where(published: true) }
   # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...
   scope :watch, lambda { { conditions: {special_collection_id: SpecialCollection.watch.id} } }
@@ -212,6 +216,17 @@ class Collection < ActiveRecord::Base
     else
       false
     end
+  end
+
+  def as_json(options = {})
+    collection = super(
+      options.merge(
+        except: [:logo_cache_url, :logo_content_type, :logo_file_name,
+          :logo_file_size, :published, :special_collection_id],
+      )
+    ).merge(logo_path: logo_url)
+    collection.merge!(collection_items: collection_items) if options[:items]
+    collection
   end
 
 private

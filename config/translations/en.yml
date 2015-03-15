@@ -3324,8 +3324,8 @@ en:
   data_about_subtab_content: "<p><a href=\"%{traitbank_path}\">TraitBank</a> gathers data and metadata from multiple sources into a single, fully-referenced and semantically accessible taxon-centric view.</p><p><a href=\"%{contact_contribute_path}\">Contact us</a> for more information on sharing data sets with EOL or to recommend a data set for inclusion into TraitBank.</p><p><a href=\"%{register_path}\">Register for a free account</a> or <a href=\"%{login_path}\">sign in</a> to comment on the data.</p><p>Funding for the development of EOL computable data functionality provided by the Alfred P. Sloan Foundation, the John D. and Catherine T. MacArthur Foundation, and from EOL users around the world. <a href=\"%{contact_traitbank_path}\">Contact the EOL Secretariat</a> for more information on TraitBank.</p>"
   data_results_only_for_search: "TraitBank results for \"%{search_term}\""
   data_search_limit:
-    one: "Data search downloads are limited to %{count} result."
-    other: "Data search downloads are limited to %{count} results."
+    one: "Data search results will be downloaded as %{count} record per file."
+    other: "Data search results will be downloaded as %{count} records per file."
   data_about_this_record: "Data about this record"
   data_column_tc_id: "EOL page ID"
   data_column_sci_name: "Scientific Name"

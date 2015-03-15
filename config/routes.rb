@@ -440,6 +440,18 @@ Eol::Application.routes.draw do
     end
   end
 
+  # Write API /wapi/... The client should set Accept: application/vnd.eol_wapi.v1
+  # (for example) to specify a particular version to use. ...Everyone SHOULD do
+  # this, though it's not required.
+  # NOTE: DRY DOES NOT APPLY TO THESE OLD VERSIONS. In order to keep things in a
+  # working state, it is acceptable to copy ENTIRE BLOCKS here! Feel free.
+  namespace :wapi, defaults: { format: 'json' } do
+    # Be sure to set default: true on the version that you expect people to use.
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      resources :collections
+    end
+  end
+
   # Miscellaneous named routes:
   match '/activity_logs/find/:id' => 'feeds#find', :as => 'find_feed'
   match '/contact_us' => 'contacts#new', :as => 'contact_us'

@@ -43,7 +43,8 @@ describe 'Search' do
     @cms_page                   = data[:cms_page]
 
     # A taxon with a name we want:
-    tc = build_taxon_concept(canonical_form: 'Blueberry cake')
+    tc = build_taxon_concept(canonical_form: 'Blueberry cake',
+                             comments: [], bhl: [], sounds: [], images: [], youtube: [], flash: [])
     # A trait with the same name:
     kuri = FactoryGirl.create(:known_uri_measurement, name: "Blueberry")
     instance = DataMeasurement.new(predicate: KnownUri.last.uri, :object => "13.8", :resource => Resource.last, :subject => tc)

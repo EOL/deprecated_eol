@@ -7,7 +7,7 @@ describe DataSearchController do
     drop_all_virtuoso_graphs
     @user = User.gen
     @user.grant_permission(:see_data)
-    @taxon_concept = build_taxon_concept
+    @taxon_concept = build_taxon_concept(:comments => [], :bhl => [], :toc => [], :images => [], :sounds => [], :youtube => [], :flash => [])
     @resource = Resource.gen
     @default_data_options = { subject: @taxon_concept, resource: @resource }
   end

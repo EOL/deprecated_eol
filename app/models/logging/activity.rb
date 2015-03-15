@@ -6,10 +6,11 @@ class Activity < LazyLoggingModel
   uses_translations
 
   include Enumerated
-  # NOTE - These are only activities THAT GET LOGGED.  ...for now.
-  # NOTE - The tense is inconsistent, but doesn't *really* matter.  Keep the ones you see as-is (since they are in
-  # the DB... but as you add new ones, try to use the verb's present tense ("take", not "taken" or "took").
-  # TODO - many of these are not used yet.  Add them to the code in the appropriate place
+  # NOTE - These are only activities THAT GET LOGGED.  ...for now. NOTE - The
+  # tense is inconsistent, but doesn't *really* matter.  Keep the ones you see
+  # as-is (since they are in the DB... but as you add new ones, try to use the
+  # verb's present tense ("take", not "taken" or "took"). TODO - many of these
+  # are not used yet.  Add them to the code in the appropriate place
   enumerated :name,
     %w(create update delete trusted untrusted show hide inappropriate rate unreviewed add_association
        remove_association choose_exemplar_image choose_exemplar_article add_common_name remove_common_name

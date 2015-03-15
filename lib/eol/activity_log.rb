@@ -1,11 +1,13 @@
 # ActivityLog reads from curator_activity_logs, comments, users_data_objects,
-# collection_activity_logs, community_activity_logs ...Note that EVERY table should have a user_id associated
-# with it, as well as a foreign key to ... something it affected... as well as another FK to the Activity table
-# explaining what kind of activity took place (and, thus, which partial to render).
+# collection_activity_logs, community_activity_logs ...Note that EVERY table
+# should have a user_id associated with it, as well as a foreign key to ...
+# something it affected... as well as another FK to the Activity table
+# explaining what kind of activity took place (and, thus, which partial to
+# render).
 module EOL
 
-  # TODO - this class is too tightly coupled to Solr; it shouldn't know about query syntax. That belongs elsewhere.
-  # Move.
+  # TODO - this class is too tightly coupled to Solr; it shouldn't know about
+  # query syntax. That belongs elsewhere. Move.
   class ActivityLog
 
     def self.find(source, options = {})

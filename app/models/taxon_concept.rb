@@ -234,9 +234,11 @@ class TaxonConcept < ActiveRecord::Base
   alias :top_acting_curators :top_curators # deprecated.  TODO - remove entirely.
 
   def data_object_curators
-    curators = CuratorActivityLog.where(taxon_concept_id:  self.id, 
-                changeable_object_type_id: (ChangeableObjectType.data_object_scope),
-                activity_id: (Activity.raw_curator_action_ids)).pluck(:user_id).uniq
+    curators = CuratorActivityLog.where(
+      taxon_concept_id: id,
+      changeable_object_type_id: (ChangeableObjectType.data_object_scope),
+      activity_id: (Activity.raw_curator_action_ids)
+    ).pluck(:user_id).uniq
     # using find_all_by_id instead of find because occasionally the user_id from activities is 0 and that causes this to fail
     User.find_all_by_id(curators)
   end
@@ -465,8 +467,8 @@ class TaxonConcept < ActiveRecord::Base
       relation  = SynonymRelation.find_by_translated(:label, 'common name')
       name_obj  = Name.create_common_name(name_string)
       raise "Common name not created" unless name_obj
-      Synonym.generate_from_name(name_obj, agent: agent, preferred: preferred, language: language,
-                                 entry: entry, relation: relation, vetted: vetted)
+      Synonym.generate_from_name(name_obj, agent: agent, preferred: preferred,
+        language: language, entry: entry, relation: relation, vetted: vetted)
     end
   end
 
@@ -477,13 +479,15 @@ class TaxonConcept < ActiveRecord::Base
     Synonym.find(syn_id).destroy
   end
 
-  # This needs to work on both TCNs and Synonyms.  Which, of course, smells like bad design, so.... TODO - review.
+  # This needs to work on both TCNs and Synonyms.  Which, of course, smells like
+  # bad design, so.... TODO - review.
   def vet_common_name(options = {})
     vet_taxon_concept_names(options)
     vet_synonyms(options)
   end
 
-  # TODO - this may belong on the TaxonOverview class (in modified form) and the TaxonCommunities class, if we create one...
+  # TODO - this may belong on the TaxonOverview class (in modified form) and the
+  # TaxonCommunities class, if we create one...
   def communities
     @communities ||= published_containing_collections.collect{ |c|
       c.communities.select{ |com| com.published? } }.flatten.compact.uniq

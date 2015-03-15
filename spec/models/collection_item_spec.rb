@@ -11,11 +11,11 @@ describe CollectionItem do
     @collection = Collection.first
     @taxon_concept = TaxonConcept.last
     SortStyle.create_enumerated
+    @collection.add(@taxon_concept)
   end
 
   it 'should add/modify/remove an annotation' do
     annotation = "Valid annotation"
-    @collection.add(@taxon_concept)
 
     @collection.collection_items.last.annotation = annotation
     CollectionItem.last.annotation == annotation
@@ -31,7 +31,6 @@ describe CollectionItem do
   it 'should be able to sort collection items by newest/oldest'
 
   it "tells if item is hidden or not" do
-    @collection.add(@taxon_concept)
     expect(@collection.collection_items.last.is_hidden?).to be_false
   end
 end

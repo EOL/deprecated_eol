@@ -89,7 +89,7 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def is_hidden?
-    if self.collected_item_type = "DataObject"
+    if self.collected_item_type == "DataObject"
       associations = DataObjectsHierarchyEntry.where(data_object_id: self.collected_item_id)
       associations.each do |asso|
         return false if asso.visibility_id == Visibility.visible.id

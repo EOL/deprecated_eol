@@ -12,6 +12,7 @@ module EOL
         @per_page ||= TaxonData::DEFAULT_PAGE_SIZE
         @page ||= 1
         @only_count = true if @count_value_uris
+        @offset ||= 0
       end
 
       # Class method to build a query
@@ -137,7 +138,7 @@ module EOL
       end
 
       def limit_clause
-        @only_count ? "" : "LIMIT #{ @per_page } OFFSET #{ ((@page.to_i - 1) * @per_page) }"
+        @only_count ? "" : "LIMIT #{ @per_page } OFFSET #{ (((@page.to_i - 1) * @per_page) + @offset) }"
       end
 
       def inner_order_clause

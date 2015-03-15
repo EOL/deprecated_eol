@@ -12,7 +12,7 @@ describe 'users/data_downloads/index' do
     tc.stub(:title_canonical_italicized) { 'TaxonName' }
     tc
   }
-  let(:data_search_file) { build_stubbed(:data_search_file, known_uri: atttribute_known_uri) }
+  let(:data_search_file) { build_stubbed(:data_search_file, known_uri: atttribute_known_uri, file_number: 1) }
   let(:user) { build_stubbed(:user) }
 
   subject{ render }
@@ -25,7 +25,7 @@ describe 'users/data_downloads/index' do
   end
 
   shared_examples_for 'all downloads' do
-    it { expect(subject).to have_tag('a', text: 'Attributename') }
+    it { expect(subject).to have_tag('a', text: 'Attributename 1') }
     it { expect(subject).to have_tag('a', text: 'search again') }
     it { expect(subject).to_not include('Taxon group:.*TaxonName') }
     it { expect(subject).to_not include('Lowest value') }

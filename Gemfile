@@ -192,6 +192,7 @@ gem "recaptcha", "0.3.4", require: "recaptcha/rails"
 gem "resque", "1.23.0", require: "resque/server"
 gem "sanitize", "2.0.3" # To clean up user-enter HTML.
 gem "sass-rails", "3.2.5" # To make CSS easier to write.
+gem "sitemap_generator"
 # TODO: - update sparql-client
 gem "sparql-client", "1.0.4.1" # For the data tab
 gem "statsd-ruby", "1.2.1" # For recording various stats around the site.

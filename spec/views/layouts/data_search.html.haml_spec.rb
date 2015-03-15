@@ -36,6 +36,12 @@ describe 'layouts/data_search' do
       expect(rendered).to have_tag('select#attributes_select')
     end
 
+    it "displays the uri of the value required" do
+      ku = KnownUri.gen
+      assign(:querystring_uri, ku.uri)
+      render
+      expect(rendered).to have_tag("h2.greyedout", text: "(#{ku.uri})")
+    end
   end
 
 end

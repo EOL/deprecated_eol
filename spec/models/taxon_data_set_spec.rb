@@ -70,43 +70,4 @@ describe TaxonDataSet do
       uri1.uri, uri2.uri, uri3.uri, uri4.uri, uri5.uri, raw_uri1, raw_uri2, raw_uri3
     ]
   end
-
-  describe "remove_duplicates" do
-    it "should remove duplicates data_point_uris" do
-      tc = TaxonConcept.gen
-      data_point_uris = [
-        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
-                         taxon_concept: tc,
-                         uri: "http://what.com/is/this/1",
-                         object: "apple",
-                         life_stage: "http://eol.org/schema/terms/female", 
-                         sex: "http://www.ebi.ac.uk/efo/EFO_0001272",
-                         statistical_method: "http://semanticscience.org/resource/SIO_001109"),
-        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
-                         taxon_concept: tc,
-                         uri: "http://what.com/is/this/2",
-                         object: "carrot",
-                         life_stage: "http://eol.org/schema/terms/female", 
-                         sex: "http://www.ebi.ac.uk/efo/EFO_0001272",
-                         statistical_method: "http://semanticscience.org/resource/SIO_001109"),
-        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
-                         taxon_concept: tc,
-                         uri: "http://what.com/is/this/3",
-                         object: "carrot",
-                         life_stage: "http://eol.org/schema/terms/female", 
-                         sex: "http://www.ebi.ac.uk/efo/EFO_0001272",
-                         statistical_method: "http://semanticscience.org/resource/SIO_001109"),
-        DataPointUri.gen(predicate: "http://eol.org/schema/terms/eats",
-                         taxon_concept: tc,
-                         uri: "http://what.com/is/this/4",
-                         object: "carrot",
-                         life_stage: "http://eol.org/schema/terms/male", 
-                         sex: "http://www.ebi.ac.uk/efo/EFO_0001272",
-                         statistical_method: "http://semanticscience.org/resource/SIO_001109")
-      ]
-      set = TaxonDataSet.new(@rows, taxon_concept_id: @taxon_concept.id)
-      result = set.remove_duplicates(data_point_uris)
-      expect(result.count).to equal(3)
-    end
-  end
 end

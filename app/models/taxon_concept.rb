@@ -679,7 +679,12 @@ class TaxonConcept < ActiveRecord::Base
   # want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
-    data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
+    debugger
+    # data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
+    resource_id = HarvestEvent
+                  .joins(DataObjectHarvestEvent: DataObjectTaxonConcept)
+                  .where(DataObjectTaxonConcept: {taxon_concept_id: self.id}) 
+    debugger
   end
 
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview (though TaxonDetails needs access to the other

@@ -143,6 +143,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user].reverse_merge(language: current_language))
     failed_to_create_user and return unless @user.valid? && verify_recaptcha
+    # TODO: WHY IS THIS IN THE @#$&*ING CONTROLLER?!?
     @user.validation_code = User.generate_key
     while(User.find_by_validation_code(@user.validation_code))
       @user.validation_code.succ!
@@ -485,18 +486,19 @@ private
   def send_verification_email
     Notifier.user_verification(@user, verify_user_url(@user.id, @user.validation_code)).deliver
   end
-  
+
   def send_unsubscribed_to_notifications_email
     Notifier.deliver_unsubscribed_to_notifications(@user)
   end
-  
+
   def send_unsubscribed_to_notifications_email
     Notifier.deliver_unsubscribed_to_notifications(@user)
   end
 
   def generate_api_key
     @user.clear_entered_password
-    @user.update_attributes({api_key: User.generate_key})
+    @user.generate_api_key
+    @user.save!
     instantiate_variables_for_edit
     render :edit
   end

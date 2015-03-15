@@ -11,7 +11,7 @@
 - if display_curator && item.user.is_curator?
   - user = I18n.t(:user_full_name_with_curator, :user => user, :curator_level => item.user.curator_level.translated_label)
 - if item.taxon_concepts.first # Only worth doing if there is a taxon to link to
-  - taxon_name = item.taxon_concepts.first.scientific_name || I18n.t(:unknown)
+  - taxon_name = item.taxon_concepts.first.try(:scientific_name) || I18n.t(:unknown)
   %p= raw I18n.t("activity_user_created_#{link_object ? 'link' : 'text'}", :user => user,
     :object_name => link_to(item.summary_name, latest_data_object_url, :style => link_style),
     :taxon_concept => link_to(raw(taxon_name), taxon_overview_url(item.taxon_concepts.first),

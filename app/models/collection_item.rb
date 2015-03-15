@@ -4,7 +4,7 @@
 class CollectionItem < ActiveRecord::Base
 
   include Refable
-  
+
   belongs_to :collection, touch: true
   belongs_to :collected_item, polymorphic: true
   belongs_to :added_by_user, class_name: User.to_s, foreign_key: :added_by_user_id
@@ -16,6 +16,10 @@ class CollectionItem < ActiveRecord::Base
   scope :taxa, conditions: { collected_item_type: 'TaxonConcept' }
   scope :users, conditions: { collected_item_type: 'User' }
   scope :annotated, conditions: 'annotation IS NOT NULL AND annotation != ""'
+
+  attr_accessible :annotation, :collected_item_id, :collected_item_type,
+    :sort_field, :collected_item, :name, :collection, :added_by_user,
+    :added_by_user_id
 
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch
@@ -85,7 +89,8 @@ class CollectionItem < ActiveRecord::Base
   end
 
   def as_json(options = {})
-    super(options.merge(include: :collected_item))
+    super(options.merge(except: [:added_by_user_id, :collection_id, :name])).
+      merge(name: collected_item.collected_name)
   end
 
   def is_hidden?

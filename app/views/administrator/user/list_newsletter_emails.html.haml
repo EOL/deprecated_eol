@@ -1,5 +1,3 @@
 %ul
-  - @users.each do |user|
-    %li{:style => 'list-style: none;'}
-      = '"' + user.full_name + '"'
-      = raw("&lt;#{user.email}&gt;,")
+  - @emails.each do |email|
+    %li{:style => 'list-style: none;'}= email + ","

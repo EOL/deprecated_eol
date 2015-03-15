@@ -42,6 +42,8 @@ class HierarchyEntry < ActiveRecord::Base
 
   before_save :default_visibility
 
+  counter_culture :hierarchy
+
   scope :published, -> { where(published: true) }
 
   def self.sort_by_name(hierarchy_entries)

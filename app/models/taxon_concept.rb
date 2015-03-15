@@ -237,7 +237,6 @@ class TaxonConcept < ActiveRecord::Base
     curators = CuratorActivityLog.where(taxon_concept_id:  self.id, 
                 changeable_object_type_id: (ChangeableObjectType.data_object_scope),
                 activity_id: (Activity.raw_curator_action_ids)).pluck(:user_id).uniq
-    debugger
     # using find_all_by_id instead of find because occasionally the user_id from activities is 0 and that causes this to fail
     User.find_all_by_id(curators)
   end

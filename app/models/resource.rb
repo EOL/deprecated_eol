@@ -94,6 +94,10 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  def self.iucn_structured_data
+    @iucn_structured_data ||= find_by_title("IUCN Structured Data")
+  end
+
   # trying to change it to memcache got error after reload a page
   def self.iucn
     cached('iucn') do

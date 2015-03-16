@@ -117,11 +117,11 @@ class TaxonOverview < TaxonUserClassificationFilter
   # default to "unknown" for species that are not being tracked.
 
   def iucn_status
-    iucn.try(:description)
+    iucn
   end
 
   def iucn_url
-    iucn.try(:source_url)
+    taxon_concept.entry(Hierarchy.iucn_structured_data).outlink_url
   end
 
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether

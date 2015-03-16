@@ -100,10 +100,10 @@ group :test do
 end
 
 group :assets do
-  # This is supposed to minimize the re-building of assets. AFAICT, it isn't
-  # working for us.
-  gem "turbo-sprockets-rails3", "0.3.4"
-  gem "therubyracer", "0.10.2"  # needed to run rake tasks in cron
+  # Embeds V8 JS engine in Ruby; "needed to run rake tasks in cron" <- old
+  # comment, but may still be true, sigh... though we have node.js on all
+  # machines now, so we PROBABLY don't need this anymore? TODO
+  gem "therubyracer", "0.10.2"
 end
 
 # IMPORTANT NOTE - any time you update Rails, you really need to double-check

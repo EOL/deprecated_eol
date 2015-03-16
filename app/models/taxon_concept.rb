@@ -1,18 +1,20 @@
-# Represents a group of HierarchyEntry instances that we consider "the same".  This amounts to a vague idea of
-# a taxon, which we serve as a single page.
+# Represents a group of HierarchyEntry instances that we consider "the same".
+# This amounts to a vague idea of a taxon, which we serve as a single page.
 #
-# We get different interpretations of taxa from our partners (ContentPartner), often differing slightly and
-# referring to basically the same thing, so TaxonConcept was created as a means to reconcile the variant
-# definitions of what are essentially the same Taxon. We currently store basic Taxon we receive from data
-# imports in the +hierarchy_entries+ table and we also store taxonomic hierarchies (HierarchyEntry) in the
-# +hierarchy_entries+ table. Currently TaxonConcept are groups of one or many HierarchyEntry. We will
-# eventually create hierarchy_entries for each entry in the taxa table (Taxon).
+# We get different interpretations of taxa from our partners (ContentPartner),
+# often differing slightly and referring to basically the same thing, so
+# TaxonConcept was created as a means to reconcile the variant definitions of
+# what are essentially the same Taxon. We currently store basic Taxon we receive
+# from data imports in the +hierarchy_entries+ table and we also store taxonomic
+# hierarchies (HierarchyEntry) in the +hierarchy_entries+ table. Currently
+# TaxonConcept are groups of one or many HierarchyEntry. We will eventually
+# create hierarchy_entries for each entry in the taxa table (Taxon).
 #
-# It is worth mentioning that the "eol.org/pages/nnnn" route is a misnomer.  Those IDs are, for the
-# time-being, pointing to TaxonConcept, not pages.
+# It is worth mentioning that the "eol.org/pages/nnnn" route is a misnomer.
+# Those IDs are, for the time-being, pointing to TaxonConcept, not pages.
 #
-# See the comments at the top of the Taxon for more information on this.  I include there a basic biological
-# definition of what a Taxon is.
+# See the comments at the top of the Taxon for more information on this.  I
+# include there a basic biological definition of what a Taxon is.
 
 require 'eol/activity_loggable'
 

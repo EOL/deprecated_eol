@@ -50,12 +50,6 @@ class Hierarchy < ActiveRecord::Base
     end
   end
 
-  def self.iucn_hierarchies
-    cached('iucn_hierarchies') do
-      Hierarchy.find_all_by_id(Agent.iucn.resources.collect{ |r| r.hierarchy_id })
-    end
-  end
-
   def self.default
     cached_find(:label, $DEFAULT_HIERARCHY_NAME)
   end

@@ -1674,7 +1674,17 @@ table.classifications
       text-align: center
       width: 330px
       float: left
-
+  table.ranges
+    tbody 
+      tr
+        td 
+          div.term
+            .info_icon
+              width: 16px
+              &.active
+                @include info_item_with_background(14)
+            &.def:hover
+              @include hover_info_icon(14)
 // Helps position the (?) icon in various places. ...want to keep these together:
 table.categorized
   th.predicate

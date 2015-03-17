@@ -677,13 +677,10 @@ class TaxonConcept < ActiveRecord::Base
 
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
   # want to touch the API quite yet.
-  def iucn    
+  def iucn
     return @iucn if @iucn
-    iucn_list = TaxonData.new(self).iucn_data_objects  
-    debugger
-    get_schientific_name(iucn_list)      
-    # data_obj = data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first    
-    # data_obj.description = get_schientific_name(iucn_list)
+    iucn_list = TaxonData.new(self).iucn_data_objects
+    get_schientific_name(iucn_list)
   end
   
   def get_schientific_name(iucn_list)
@@ -692,7 +689,7 @@ class TaxonConcept < ActiveRecord::Base
       if iucn_scientific_name.empty?
         all_scientific_names.first
       else
-        iucn_scientific_name
+        iucn_scientific_name.first
       end
     end    
   end

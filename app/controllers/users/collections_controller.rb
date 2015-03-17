@@ -23,6 +23,14 @@ class Users::CollectionsController < UsersController
       @published_collections = @published_collections.sort_by { |c| - c.created_at.to_i }
     end
     @rel_canonical_href = user_collections_url(@user)
+    respond_to do |format|
+      format.html {}
+      format.json do
+        render(
+          json: @published_collections.as_json()
+        )
+      end
+    end
   end
 
 end

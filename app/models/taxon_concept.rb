@@ -456,6 +456,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # TODO - see #all_common_names
   def all_scientific_names
+    debugger
     taxon_concept_names.includes(:name).where(vern: 0).map { |tcn| tcn.name.string }
   end
 
@@ -680,10 +681,10 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     iucn_list = TaxonData.new(self).iucn_data_objects
-    get_schientific_name(iucn_list)
+    get_scientific_name(iucn_list)
   end
   
-  def get_schientific_name(iucn_list)
+  def get_scientific_name(iucn_list)
     unless iucn_list.empty?
       iucn_scientific_name = all_scientific_names & iucn_list.map{|result| result[:value].value}
       if iucn_scientific_name.empty?

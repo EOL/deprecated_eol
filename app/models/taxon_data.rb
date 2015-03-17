@@ -204,7 +204,7 @@ class TaxonData < TaxonUserClassificationFilter
           GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
             ?data_point_uri dwc:measurementValue ?value.
-            FILTER (?attribute = <http://en.wikipedia.org/wiki/Mass>)
+            FILTER (?attribute = <http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>)
           }.
           {
             ?data_point_uri dwc:occurrenceID ?occurrence .

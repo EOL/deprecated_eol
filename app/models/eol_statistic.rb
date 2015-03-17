@@ -120,6 +120,11 @@ class EolStatistic < ActiveRecord::Base
     end
   end
 
+  def total_data_records
+    latest_statistics = EolStatistic.last
+    latest_statistics.total_measurements + latest_statistics.total_associations
+  end
+  
   # Performs greater than comparison on two instances of EolStatistic
   # Saves results to EolStatistic.greatest attribute
   def self.compare_and_set_greatest(eol_statistic_a, eol_statistic_b)

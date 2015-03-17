@@ -2,7 +2,8 @@ namespace :ggi do
   desc 'Create a JSON file with GGI data for all taxa in FALO'
   task :create_data_file => :environment do
     all_data = [ ]
-    ids = Resource.find_by_title('FALO Classification').hierarchy.hierarchy_entries.collect(&:taxon_concept_id).uniq
+    ids = Resource.find_by_title('FALO Classification').hierarchy.
+      hierarchy_entries.pluck(:taxon_concept_id).uniq
     puts "[#{Time.now}] STARTING."
     puts "Building public/data_glossary.json..."
     File.open('public/data_glossary.json', 'w') do |file|

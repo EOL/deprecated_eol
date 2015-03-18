@@ -28,8 +28,7 @@ module EOL
     def load_with_caching
       if !@we_have_already_cached_this_scenario && cached_files_are_stale?
         load_and_cache
-      elsif @we_have_already_cached_this_scenario &&
-        is_the_data_in_the_database?
+      elsif @we_have_already_cached_this_scenario && is_the_data_in_the_database?
         Rails.logger.warn("** WARNING: You attempted to load the #{@name} " \
           "scenario twice, here. Please remove the call or truncate tables, " \
           "first.")

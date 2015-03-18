@@ -37,12 +37,7 @@ describe Collection do
     collections[:community] = Community.gen
     collections[:collection] = Collection.gen
     collections[:collection].users = [collections[:user]]
-    # collections[:collection_oldest] = Collection.gen(:created_at => collections[:collection].created_at - 86400)
-    # collections[:collection_oldest].users = [collections[:user]]
     collections[:data_object] = DataObject.last
-    # collections[:taxon_concept] = build_taxon_concept(:images => [{}]) # One image
-    # collections[:collection].add(collections[:data_object]) # Added the data object as a collection item to the collection
-
     @test_data = collections
   end
 

@@ -117,7 +117,9 @@ class TaxonOverview < TaxonUserClassificationFilter
   # default to "unknown" for species that are not being tracked.
 
   def iucn_status
-    iucn
+    Rails.cache.fetch(cache_id+"_iucn", expires_in: 10.days) do
+      iucn
+    end    
   end
 
   def iucn_url

@@ -685,7 +685,7 @@ class TaxonConcept < ActiveRecord::Base
   
   def choose_iucn_status(iucn_list)
     unless iucn_list.empty? 
-      iucn_names_list =  iucn_list.map{|result| result[:value].value}
+      iucn_names_list =  iucn_list.map { |result| result[:value].value}
       taxon_scientific_name = get_taxon_scientific_name
       iucn_names_list.include?(taxon_scientific_name) ? taxon_scientific_name : iucn_names_list.first
     end    

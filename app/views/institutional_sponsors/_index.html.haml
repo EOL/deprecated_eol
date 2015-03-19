@@ -1,0 +1,3 @@
+- active_sponsors = InstitutionalSponsor.get_active_sponsors_with_limit
+- active_sponsors.each do |sponsor|
+  = link_to image_tag(sponsor.logo_url, alt: "Sponsor", width: 128, height: 70, title: sponsor.name), sponsor.url

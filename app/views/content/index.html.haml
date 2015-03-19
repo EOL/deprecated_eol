@@ -12,6 +12,11 @@
         %small= link_to raw(t('.see_all_recent_activites')), recent_activities_path
       - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}_data-#{current_user.can_see_data?.to_s}") do
         = render 'activity_logs/index', { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE, :user => current_user), :hide_pagination => true, :truncate_comments => true, :editable => false }
+    .article.sponsors
+      %h3
+        = raw I18n.t(:institutional_sponsors)
+      - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}_data-#{current_user.can_see_data?.to_s}") do
+        = render 'institutional_sponsors/index'
     .article.stats
       %h3
         = raw I18n.t(:currently_in_eol)

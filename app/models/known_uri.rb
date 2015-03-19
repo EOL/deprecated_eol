@@ -14,7 +14,21 @@ class KnownUri < ActiveRecord::Base
   BASE = Rails.configuration.uri_term_prefix
   TAXON_RE = Rails.configuration.known_taxon_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
-  URIS_TO_LEAVE_AS_STRINGS = [ 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate' ]
+  URIS_TO_LEAVE_AS_STRINGS =
+  [ 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate',
+    'http://eol.org/schema/terms/BloomPeriod',
+    'http://eol.org/schema/terms/BloomPeriodBegin',
+    'http://eol.org/schema/terms/BloomPeriodEnd',
+    'http://rs.tdwg.org/dwc/terms/catalogNumber',
+    'http://rs.tdwg.org/dwc/terms/collectionCode',
+    'http://rs.tdwg.org/dwc/terms/dateIdentified',
+    'http://purl.org/dc/terms/modified',
+    'http://rs.tdwg.org/dwc/terms/institutionCode',
+    'http://eol.org/schema/terms/SeedPeriodBegin',
+    'http://eol.org/schema/terms/SeedPeriodEnd',
+    'http://eol.org/schema/terms/SeedRipeningDate',
+    'http://rs.tdwg.org/dwc/terms/verbatimLatitude',
+    'http://rs.tdwg.org/dwc/terms/verbatimLongitude']
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable

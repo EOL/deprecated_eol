@@ -74,6 +74,10 @@ class Hierarchy < ActiveRecord::Base
       Hierarchy.find_by_label("Encyclopedia of Life Contributors", include: :agent)
     end
   end
+  
+  def self.iucn_structured_data
+    @iucn_structured_data ||= Resource.iucn_structured_data.hierarchy    
+  end
 
   def self.ubio
     cached_find(:label, "uBio Namebank")

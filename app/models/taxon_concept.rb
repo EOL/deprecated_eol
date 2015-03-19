@@ -678,7 +678,20 @@ class TaxonConcept < ActiveRecord::Base
   # want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
-    data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
+    iucn_list = TaxonData.new(self).iucn_data_objects
+    choose_iucn_status(iucn_list)
+  end
+  
+  def choose_iucn_status(iucn_list)
+    unless iucn_list.empty? 
+      iucn_names_list =  iucn_list.map{|result| result[:value].value}
+      taxon_scientific_name = get_taxon_scientific_name
+      iucn_names_list.include?(taxon_scientific_name) ? taxon_scientific_name : iucn_names_list.first
+    end    
+  end
+  
+  def get_taxon_scientific_name
+    self.entry(Hierarchy.iucn_structured_data).italicized_name.firstcap
   end
 
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview (though TaxonDetails needs access to the other

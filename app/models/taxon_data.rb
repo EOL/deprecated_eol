@@ -196,6 +196,25 @@ class TaxonData < TaxonUserClassificationFilter
   def to_jsonld
     get_data.to_jsonld
   end
+  
+  def iucn_data_objects
+    query = "
+      SELECT DISTINCT ?attribute ?value ?data_point_uri ?graph ?taxon_concept_id
+        WHERE {
+          GRAPH ?graph {
+            ?data_point_uri dwc:measurementType ?attribute .
+            ?data_point_uri dwc:measurementValue ?value.
+            FILTER (?attribute = <http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>)
+          }.
+          {
+            ?data_point_uri dwc:occurrenceID ?occurrence .
+            ?occurrence dwc:taxonID ?taxon .
+            ?taxon dwc:taxonConceptID ?taxon_concept_id .
+            FILTER (?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
+          }
+        }"      
+    EOL::Sparql.connection.query(query)
+  end
 
   private
 

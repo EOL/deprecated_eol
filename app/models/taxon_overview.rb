@@ -117,11 +117,13 @@ class TaxonOverview < TaxonUserClassificationFilter
   # default to "unknown" for species that are not being tracked.
 
   def iucn_status
-    iucn.try(:description)
+    Rails.cache.fetch(cache_id+"_iucn", expires_in: 10.days) do
+      iucn
+    end    
   end
 
   def iucn_url
-    iucn.try(:source_url)
+    taxon_concept.entry(Hierarchy.iucn_structured_data).outlink_url
   end
 
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether

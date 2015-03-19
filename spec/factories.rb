@@ -1514,5 +1514,12 @@ FactoryGirl.define do
     year { generate(:year) }
     month { generate(:month) }
   end
+  
+    factory :institutional_sponsor do
+    name "MyString"
+    logo_url "MyString"
+    url "MyString"
+    active false
+  end
 
 end

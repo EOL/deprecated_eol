@@ -1,11 +1,14 @@
 # This represents the overview of a taxon concept, providing a minimal interface to only the aspects you might
 # need to display one.
 #
-# NOTE - this represents an OVERVIEW. It restricts the number of things it shows, so a method like #media
-# does NOT give you the full list of media for the filtered taxon, it gives you the "overview" of them, 
-# limited in number. I've tried to follow a pattern (usually) of having a "feature" (like #media) have a 
-# method to return the subset (#media), tell you whether there are any at all (#details?) and return a count
-# of the full list available (#classifications_count). There are exceptions; not all permutations were needed.
+# NOTE - this represents an OVERVIEW. It restricts the number of things it
+# shows, so a method like #media does NOT give you the full list of media for
+# the filtered taxon, it gives you the "overview" of them,  limited in number.
+# I've tried to follow a pattern (usually) of having a "feature" (like #media)
+# have a  method to return the subset (#media), tell you whether there are any
+# at all (#details?) and return a count of the full list available
+# (#classifications_count). There are exceptions; not all permutations were
+# needed.
 class TaxonOverview < TaxonUserClassificationFilter
 
   attr_accessor :media, :summary

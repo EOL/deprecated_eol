@@ -25,11 +25,11 @@ class DataObjectTaxon
   def italicized_attributed_title
     taxon_concept.italicized_attributed_title
   end
-  
+
   def italicized_unattributed_title
     taxon_concept.italicized_unattributed_title
   end
-  
+
   def non_italicized_unattributed_title
     taxon_concept.non_italicized_unattributed_title
   end
@@ -39,7 +39,7 @@ class DataObjectTaxon
     @source = source
     read_source
   end
-  
+
   def users_data_object?
     source.is_a? UsersDataObject
   end
@@ -79,8 +79,8 @@ class DataObjectTaxon
     users_data_object? ? taxon_concept.title_canonical_italicized : hierarchy_entry.title_canonical_italicized
   end
 
-  # Returns true IFF this HE was included in a set of HEs because a curator added the association.  See
-  # DataObject.curated_hierarchy_entries
+  # Returns true IFF this HE was included in a set of HEs because a curator
+  # added the association.  See DataObject.curated_hierarchy_entries
   def by_curated_association?
     associated_by_curator
   end

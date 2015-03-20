@@ -447,7 +447,7 @@ class DataObject < ActiveRecord::Base
   end
   alias is_video? video?
 
-  # NOTE: does not include image maps @see is_image_map? is used by en_type(object) in ApplicationHelper
+  # NOTE: does not include image maps see #is_image_map? is used by en_type(object) in ApplicationHelper
   def map?
     return DataType.map_type_ids.include?(data_type_id)
   end
@@ -762,8 +762,9 @@ class DataObject < ActiveRecord::Base
     nil
   end
 
-  # Preview visibility CAN apply here, so be careful. By default, preview is included; otherwise, pages would show up
-  # without any association at all, and that would be confusing. But note that preview associations should NOT be
+  # Preview visibility CAN apply here, so be careful. By default, preview is
+  # included; otherwise, pages would show up without any association at all, and
+  # that would be confusing. But note that preview associations should NOT be
   # curatable!
   def data_object_taxa_by_visibility(which = {})
     good_ids = [Visibility.visible.id]
@@ -772,9 +773,9 @@ class DataObject < ActiveRecord::Base
     uncached_data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
   end
 
-  # The only filter allowed right now is :published.
-  # This is obnoxiously expensive, so we cache it by default. See #uncached_data_object_taxa if you need it, but
-  # consider clearing the cache instead...
+  # The only filter allowed right now is :published. This is obnoxiously
+  # expensive, so we cache it by default. See #uncached_data_object_taxa if you
+  # need it, but consider clearing the cache instead...
   def data_object_taxa(options = {})
     DataObjectCaching.associations(self, options)
   end
@@ -810,7 +811,9 @@ class DataObject < ActiveRecord::Base
     best_first_entry.hierarchy_entry # Because #published_entries returns DataObjectTaxon instances...
   end
 
-  # NOTE - if you plan on calling this, you are behooved by adding object_title and data_type_id to your selects.
+  # NOTE - if you plan on calling this, you are behooved by adding object_title
+  # and data_type_id to your selects. TODO: THIS IS A VIEW HELPER, not an
+  # instance method. :| :| :| :|
   def best_title
     return safe_object_title.html_safe unless safe_object_title.blank?
     return toc_items.first.label.html_safe unless ! text? || toc_items.blank? || toc_items.first.label.nil?

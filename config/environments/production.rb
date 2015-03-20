@@ -116,4 +116,6 @@ Eol::Application.configure do
     Rails.configuration.google_site_verification_keys =
       ENV["EOL_GOOGLE_SITE_VERIFICATION_KEYS"].split
 
+  end
+
 end

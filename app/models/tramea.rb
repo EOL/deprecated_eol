@@ -20,17 +20,12 @@ class Tramea
       }
     }.to_json
   end
-<<<<<<< Updated upstream
-  def self.image_from_data_object(image)
-    raise "Needs to be an image" unless image.image?
-=======
 
   # NOTE: This is _almost_ enough to render a full data object page: all you
   # need are the activities and revisions. ...And, arguably, more information
   # about the associations.
   def self.image_from_data_object(image)
     raise "Must be an image" unless image.image?
->>>>>>> Stashed changes
     {
       "id" => image.id,
       "guid" => image.guid,
@@ -40,23 +35,15 @@ class Tramea
       "small" => image.thumb_or_object('98_68'),
       "large" => image.thumb_or_object,
       "title" => image.safe_object_title,
+      "source_url" => image.source_url,
       "taxa" => image.data_object_taxa.map do |assoc|
         {
           "id": assoc.taxon_concept_id,
           "scientific_name": assoc.hierarchy_entry.name.string,
           "trusted": assoc.vetted_id == Vetted.trusted.id
-<<<<<<< Updated upstream
           # TODO: It might be nice, here, to indicate who added the association, whether it was a ContentPartner or a curator
         }
       end
-    }.to_json
-  end
-=======
-          # TODO: It might be nice, here, to indicate who added the association,
-          # whether it was a ContentPartner or a curator... though I don't think
-          # that is critical enough to add now.
-        }
-      end,
     }.merge(license_hash_from_data_object(image)).to_json
   end
 
@@ -69,8 +56,7 @@ class Tramea
       "id" => image.id,
       "guid" => image.guid,
       "title" => image.safe_object_title,
-
-    }.to_json
+    }.merge(license_hash_from_data_object(article)).to_json
   end
 
   # NOTE: To render a license logo, you'll need to use the url, but I think
@@ -82,7 +68,6 @@ class Tramea
       "rights_holder" => data.rights_holder_for_display,
       "ratings" => data.rating_summary.
         merge("weighted_average" => data.average_rating),
-      "source_url" => ,
       "credits" => [
         {
           "name" => "BioImages - the Virtual Fieldguide (UK)",
@@ -93,5 +78,4 @@ class Tramea
       ]
     }
   end
->>>>>>> Stashed changes
 end

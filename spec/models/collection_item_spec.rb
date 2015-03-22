@@ -8,7 +8,7 @@ describe CollectionItem do
       truncate_all_tables
       load_foundation_cache
     end
-    @collection = Collection.first
+    @collection = Collection.gen
     @taxon_concept = TaxonConcept.last
     SortStyle.create_enumerated
     @collection.add(@taxon_concept)

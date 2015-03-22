@@ -28,7 +28,8 @@ class KnownUri < ActiveRecord::Base
     'http://eol.org/schema/terms/SeedPeriodEnd',
     'http://eol.org/schema/terms/SeedRipeningDate',
     'http://rs.tdwg.org/dwc/terms/verbatimLatitude',
-    'http://rs.tdwg.org/dwc/terms/verbatimLongitude']
+    'http://rs.tdwg.org/dwc/terms/verbatimLongitude', 
+    'http://eol.org/schema/terms/EggLayingBegins' ]
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable

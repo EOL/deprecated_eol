@@ -21,7 +21,7 @@ describe DataSearchFile do
   end
 
   before(:each) do
-    @search_file = DataSearchFile.gen
+    @search_file = DataSearchFile.gen(file_number: 1)
   end
 
   it 'should upload files' do

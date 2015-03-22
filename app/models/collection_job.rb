@@ -8,7 +8,7 @@ class CollectionJob < ActiveRecord::Base
 
   attr_accessible :all_items, :collection, :command, :finished_at, :item_count, :collections,
                   :user, :overwrite, # Needed by web form:
-                  :collection_item_ids, :collection_ids, :collection_id, :collection_items_count
+                  :collection_item_ids, :collection_ids, :collection_id
 
   belongs_to :collection
   belongs_to :user

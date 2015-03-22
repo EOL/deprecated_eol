@@ -2,7 +2,7 @@ require "spec_helper"
 
 describe DataFileMaker do
 
-  let(:dsf)  { build_stubbed(DataSearchFile) }
+  let(:dsf)  { build_stubbed(DataSearchFile, file_number: 1) }
   let(:args) { { "data_file_id" => dsf.id } }
 
   before do

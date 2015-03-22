@@ -97,11 +97,18 @@ They above may ask some questions that need to be answered before running:
 
 === Install Git
 
+For MacOS X Mavericks (May, 2014):
+
   brew install git
   git config --global user.name "Your Full Name"
   git config --global user.email "Your Email Address”
 
+For Ubuntu 12.04:
+  sudo apt-get install git-core
+
 === Install RVM
+
+This method works for both MacOS X and Ubuntu:
 
 There are a couple different ways that work for this, but the simplest is:
 
@@ -122,6 +129,8 @@ of the EOL code to go.  This will be $ROOT below.  I used:
 
 === Install Ruby
 
+For MAC OS X Mavericks (May, 2014):
+
 To build the matching version of ruby you should look in the file
 $ROOT/eol/.ruby-version.  As of May 2014 we are still using ruby-1.9.3-p392.
 This is an older version that is no longer actively supported and it takes a
@@ -138,7 +147,14 @@ Then the following commands should do the trick:
 If the GCC 4.6 install didn't get picked up, you may need to do the install
 more than once.
 
+For Ubuntu 12.04:
+
+  rvm install ruby
+  rvm use ruby --default
+
 === Install MySQL
+
+For MAC OS X Maverics (May, 2014):
 
 Most versions of MySQL 5 should work.  As of May 2014, 5.6.1 was the current
 stable release and works with this process.  To install the latest version run:
@@ -172,7 +188,17 @@ Under MacOSX Mavericks with MySQL 5.6.1 this works:
   ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 
+For Ubuntu 12.04:
+
+  sudo apt-get install mysql-server
+  sudo apt-get install mysql-client
+
+If the server is not running correctly, you can type the following command to start it:
+  sudo /etc/init.d/mysql restart
+
 === Install Gems
+
+For MAC OS X Maverics (May, 2014):
 
 The capybara-webkit requires Qt.  This requires a separate install since it has
 a "viral" opensource license - meaning that anything which incorporates the Qt
@@ -191,7 +217,13 @@ The :assets group currently requires an older version of therubyracer gem which
 indirectly depends on an old version of the C++ compiler and can be difficult
 to get working.
 
+For Ubuntu 12.04:
+
+   rvm rubygems current
+
 === Setup Memcached
+
+For MAC OS X Maverics (May, 2014):
 
 Memcached is installed by default on MacOSX Mavericks.  Assuming this is true
 on your machine, there is a .plist in $ROOT/eol/opt/org.eol.memcached.plist
@@ -204,7 +236,35 @@ If you would rather manage it by hand, the command is:
 
   memcached -d -m 24 -p 11211
 
+For Ubuntu 12.04:
+
+You should have MySQL and PHP installed on the virtual server.
+
+  sudo apt-get install mysql-server php5-mysql php5 php5-memcache
+
+To start, install memcached via apt-get.
+
+  sudo apt-get install memcached
+
+The next step is to install php-pear, the repository that stores memcache.
+
+  sudo apt-get install php-pear
+
+If you do not have a compiler on your server, you can download build-essential in order to install memcache:
+
+  sudo apt-get install build-essential
+
+Finally use PECL (PHP Extension Community Library) to install memcache:
+
+  sudo pecl install memcache
+
+Once you have completed the installation of memcache with PECL on the VPS, add memcached to memcache.ini:
+
+  echo "extension=memcache.so" | sudo tee /etc/php5/conf.d/memcache.ini
+
 === Install Virtuoso
+
+For MAC OS X Maverics (May, 2014):
 
   brew install virtuoso
 
@@ -253,11 +313,86 @@ and at the SQL> prompt run:
   GRANT EXECUTE ON DB.DBA.SPARQL_DELETE_DICT_CONTENT TO "SPARQL";
   quit;
 
+For Ubuntu 12.04:
+
+Rebuilding using Ubuntu packages:
+
+  sudo apt-get install dpkg-dev build-essential
+
+Download the Ubuntu source packages:
+
+  sudo apt-get source virtuoso-opensource
+
+Install the build-dependencies:
+
+  sudo apt-get build-dep virtuoso-opensource
+
+Start the package build using dpkg-buildpackage:
+
+  dpkg-buildpackage -rfakeroot
+
+Dpkg the debian files:
+
+  sudo dpkg -i *.deb
+
+
 === Install Redis
+
+For MAC OS X Maverics (May, 2014):
 
   brew install redis
   ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+
+For Ubuntu 12.04:
+
+Download build-essential
+
+  sudo apt-get install build-essential
+
+Download tcl:
+
+  sudo apt-get install tcl8.5
+
+Download the tarball from google code:
+
+  wget http://download.redis.io/releases/redis-2.8.9.tar.gz
+
+Untar it and switch into that directory:
+
+  tar xzf redis-2.8.9.tar.gz
+  cd redis-2.8.9
+
+Proceed to with the make command:
+
+  make
+  make test
+  sudo make install
+
+To access the scripts move into the utils directory:
+
+  cd utils
+
+Run the Ubuntu/Debian install scripts:
+
+  sudo ./install_server.sh
+
+You can start and stop redist with these commands (the number depends on the port you set during the installation):
+
+  sudo service redis_6379 start
+  sudo service redis_6379 stop
+
+You can then access the redis database by typing the following command:
+
+  redis-ci
+
+You can now have Redis installed and running. The prompt will look like this:
+
+  redis 127.0.0.1:6379>
+
+To set Redis to automatically at boot, run:
+
+  sudo update-rc.d redis_6379 defaults
 
 === Get EOL Private Config
 
@@ -319,7 +454,7 @@ experience it can be a bit buggy.  Not for the faint of heart.
 === Notes on SOLR
 
 EOL requires Solr (a fast indexing engine) to run properly.  Solr is run using
-Java, and the required JAR file is included with the EOL project's source code.
+Java, and the required JAR file is included with the EOL project's source code. Solr uses Virtuoso as data-store.
 There is a rake task for starting (solr:start) and stopping (solr:stop) the
 Solr server.  Solr is used extensively throughout the code for relating
 objects, so the entire codebase requires Solr to run.

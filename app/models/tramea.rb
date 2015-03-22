@@ -4,14 +4,14 @@ class Tramea
       id = taxon.id
       scientific_name = taxon.title
       common_names = taxon.preferred_common_names.map do |name|
-        { "name": name.string, name.language.iso_639_1 }
+        { "name" => name.string, "language" => name.language.iso_639_1 }
       end
       image = taxon.published_exemplar_image
       {
-        id: id,
-        scientific_name: scientific_name,
-        common_names: common_names,
-        thumbnail: {
+        "id" => id,
+        "scientific_name" => scientific_name,
+        "common_names" => common_names,
+        "thumbnail" => {
           "id" => image.id,
           "cache_id" => image.object_cache_url,
           "small_square" => image.thumb_or_object('88_88'),
@@ -24,12 +24,12 @@ class Tramea
 
     # NOTE: This is the motherload: a taxon page!
     def page_from_taxon_concept(taxon, options = {})
-      options["images_page"] || = 1
-      options["images_per_page"] || = 4
-      options["articles_page"] || = 1
-      options["articles_per_page"] || = 1
-      options["traits_page"] || = 1
-      options["traits_per_page"] || = 10
+      options["images_page"] ||= 1
+      options["images_per_page"] ||= 4
+      options["articles_page"] ||= 1
+      options["articles_per_page"] ||= 1
+      options["traits_page"] ||= 1
+      options["traits_per_page"] ||= 10
       # NOTE: this sucks, need to load a fake data helper to make this work: THIS IS REALLY SLOW.
       data = TaxonData.new(taxon, User.first).get_data_for_overview
       hash = {
@@ -41,8 +41,8 @@ class Tramea
         # course, is how to store the relationship between a curated page and
         # its media.
         "curator" => {"id" => 1, "name" => "EOL Curation Team"},
-        "node_ids": taxon.hierarchy_entry_ids,
-        "node": node_from_hierarchy_entry(taxon.entry),
+        "node_ids" => taxon.hierarchy_entry_ids,
+        "node" => node_from_hierarchy_entry(taxon.entry),
         # TODO: the map.
         "images" => {
           # TODO
@@ -106,9 +106,9 @@ class Tramea
         "source_url" => image.source_url,
         "taxa" => image.data_object_taxa.map do |assoc|
           {
-            "id": assoc.taxon_concept_id,
-            "scientific_name": assoc.hierarchy_entry.name.string,
-            "trusted": assoc.vetted_id == Vetted.trusted.id
+            "id" => assoc.taxon_concept_id,
+            "scientific_name" => assoc.hierarchy_entry.name.string,
+            "trusted" => assoc.vetted_id == Vetted.trusted.id
             # TODO: It might be nice, here, to indicate who added the association, whether it was a ContentPartner or a curator
           }
         end
@@ -155,7 +155,7 @@ class Tramea
         "rank" => entry.rank.label.firstcap
       }
       return hash if options[:lite]
-      hash.merge {
+      hash.merge({
         "source" => {
           # ARRRRRGH: Hierarchy#content_partner is a METHOD. :| It's because there
           # are some other "types" of resources that don't dierecly have a CP.
@@ -177,7 +177,7 @@ class Tramea
         "siblings" => entry.siblings.map do |sibling|
           node_from_hierarchy_entry(sibling, lite: true)
         end
-      }
+      })
     end
 
     # NOTE: It's assumed you're calling this FROM a taxon_concept, so the TC
@@ -222,21 +222,20 @@ class Tramea
       taxon.hierarchy_entries.map do |entry|
         {
           "source" => {
-            "id" => entry.hierarchy.resource_id
+            "id" => entry.hierarchy.resource_id,
             # NOTE: content_partner is a METHOD, not an association, here:
             "content_partner_id" => entry.hierarchy.content_partner.id,
             "name" => entry.hierarchy.resource.title
-          }
-          set = []
-          set << { "name" => entry.name.string, "relationship" => "preferred" }
-          set += he.scientific_synonyms.map do |syn|
-            { "name" => syn.name.string,
-              "relationship" => syn.synonym_relation ?
-                syn.synonym_relation.label :
-                "synonym"
-            }
-          end
-          "synonyms" => set
+          },
+          "synonyms" => [
+              { "name" => entry.name.string, "relationship" => "preferred" }
+            ] + entry.scientific_synonyms.map do |syn|
+              { "name" => syn.name.string,
+                "relationship" => syn.synonym_relation ?
+                  syn.synonym_relation.label :
+                  "synonym"
+              }
+            end
         }
       end
     end
@@ -286,8 +285,8 @@ class Tramea
         object.exemplar_chosen_by.each do |user|
           hash["exemplar_chosen_by"] ||= []
           hash["exemplar_chosen_by"] << {
-            "id" => user.id
-            "name" => user.full_name,
+            "id" => user.id,
+            "name" => user.full_name
           }
         end
       end
@@ -341,7 +340,7 @@ class Tramea
         "id" => uri.id,
         "name" => uri.name,
         "uri" => uri.uri,
-        "description" => uri.description
+        "description" => uri.description,
         "more_information" => [uri.ontology_source_url,
           uri.ontology_information_url].compact,
         "sections" => uri.toc_items.map { |ti| ti.label }.compact

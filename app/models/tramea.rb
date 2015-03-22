@@ -44,19 +44,68 @@ class Tramea
           # TODO: It might be nice, here, to indicate who added the association, whether it was a ContentPartner or a curator
         }
       end
-    }.merge(license_hash_from_data_object(image)).to_json
+    }.merge(license_hash_from_data_object(image)).
+      merge(trust_hash_from_curatable(image)).
+      to_json
   end
 
-  # NOTE: The 'section' is alwyas in English; you'll have to look up
-  # translations based on that string. Activities and revisions are stored
+  # NOTE: The 'sections' are always in English; you'll have to look up
+  # translations based on those strings. Activities and revisions are stored
   # separately.
   def self.article_from_data_object(article)
     raise "Must be an article" unless article.article?
     {
-      "id" => image.id,
-      "guid" => image.guid,
-      "title" => image.safe_object_title,
-    }.merge(license_hash_from_data_object(article)).to_json
+      "id" => article.id,
+      "guid" => article.guid,
+      "title" => article.safe_object_title,
+      "sections" => article.toc_items.map { |ti| ti.label }.compact,
+      "language" => article.language.iso_639_1,
+      # NOTE: Yes, I too am tearing my hair out:
+      "body_html" => Sanitize.clean(
+          auto_link(article.description).
+          balance_tags, Sanitize::Config::RELAXED
+        ).fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true),
+      "hey" => whatever
+    }.merge(license_hash_from_data_object(article)).
+      merge(trust_hash_from_curatable(article)).
+      to_json
+  end
+
+  def self.trust_hash_from_curatable(object)
+    hash = {
+      "trusted" => object.vetted?,
+      "exemplar" => object.respond_to?(:is_exemplar?) && object.is_exemplar?
+    }
+    if hash["exemplar"]
+      object.exemplar_chosen_by.each do |user|
+        hash["exemplar_chosen_by"] ||= []
+        hash["exemplar_chosen_by"] << {
+          "id" => user.id
+          "name" => user.full_name,
+        }
+      end
+    end
+    hash
+  end
+
+  # TODO: Examine this, but don't use it; it's too expensive. Rather, write a
+  # query to look through all existing translations and update the data objects
+  # affected. The way the original translation code is writen is ... "not
+  # efficient".
+  def self.translation_hash_from_data_object(data)
+    hash = {}
+    # NOTE: translations are bloody ridiculous, but it is what it is. It uses
+    # the User to filter in or out certain visibilities/vettedness, so I'm using
+    # the admin user here to just get everything (for now).
+    hash["translated_from_id"] = data.translated_from.id if data.translated_from
+    translations = data.available_translations_data_objects(User.first, nil)
+    return hash if translations.empty?
+    trans = {}
+    translations.map do |translation|
+      trans[translation.language.iso_639_1] = translation.id
+    end
+    hash["translations"] = trans
+    hash
   end
 
   # NOTE: To render a license logo, you'll need to use the url, but I think

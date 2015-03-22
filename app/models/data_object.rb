@@ -937,18 +937,18 @@ class DataObject < ActiveRecord::Base
         end
       end
     end
-    latest_translations.map!{ |d| d.latest_published_version_in_same_language }
+    latest_translations.map! { |d| d.latest_published_version_in_same_language }
     latest_translations.compact!
     latest_translations.uniq!
-    latest_translations.delete_if{ |d| d.language && !Language.approved_languages.include?(d.language) }
-    latest_translations.delete_if{ |d| !d.published? }
+    latest_translations.delete_if { |d| d.language && !Language.approved_languages.include?(d.language) }
+    latest_translations.delete_if { |d| !d.published? }
     if latest_translations.length > 1
       DataObject.sort_by_language_view_order_and_label(latest_translations)
       if !taxon.nil?
         dobjs = DataObject.filter_list_for_user(latest_translations, {user: current_user, taxon_concept: taxon})
       end
-      return latest_translations
     end
+    latest_translations
   end
 
 
@@ -1226,7 +1226,12 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  def is_exemplar?(taxon_concept_id)
+  def exemplar?
+    TaxonConceptExemplarImage.exists?(data_object_id: id) ||
+      TaxonConceptExemplarArticle.exists?(data_object_id: id)
+  end
+
+  def is_exemplar_for?(taxon_concept_id)
     if self.is_text?
       TaxonConceptExemplarArticle.exists?(taxon_concept_id: taxon_concept_id, data_object_id: self.id)
     elsif self.image?
@@ -1234,6 +1239,21 @@ class DataObject < ActiveRecord::Base
     else
       false
     end
+  end
+
+  # NOTE: Because this CAN be an exemplar on multiple pages, this will return an
+  # ARRAY! Also note that this will not include auto-exemplars.
+  def exemplar_chosen_by
+    User.where(
+      id: CuratorActivityLog.where(
+        data_object_id: id,
+        activity: [
+          Activity.choose_exemplar_image,
+          Activity.choose_exemplar_article,
+          Activity.set_exemplar_data
+        ]
+      ).pluck(:user_id)
+    )
   end
 
   def self.find_by_id_or_guid(id)

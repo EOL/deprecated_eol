@@ -19,7 +19,7 @@ class CollectionItem < ActiveRecord::Base
 
   attr_accessible :annotation, :collected_item_id, :collected_item_type,
     :sort_field, :collected_item, :name, :collection, :added_by_user,
-    :added_by_user_id
+    :added_by_user_id, :collection_id, :refs
 
   # Note that it doesn't validate the presence of collection.  A "removed" collection item still exists, so we have a
   # record of what it used to point to (see CollectionsController#destroy). (Hey, the alternative is to have a bunch

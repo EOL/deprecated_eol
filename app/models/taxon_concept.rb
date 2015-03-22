@@ -201,8 +201,14 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # NOTE - this filters out results with no name, no language, languages with no iso_639_1, and dulicates within the
-  # same language. Then it sorts the results. # TODO - rename it to make the filtering and sorting more clear.
+  def common_taxon_concept_name(language = nil)
+    language ||= Language.default
+    taxon_concept_names.preferred.where(language_id: language.id).first
+  end
+
+  # NOTE - this filters out results with no name, no language, languages with no
+  # iso_639_1, and dulicates within the same language. Then it sorts the
+  # results. TODO - rename it to make the filtering and sorting more clear.
   def common_names(options = {})
     @common_names = if options[:hierarchy_entry_id]
       TaxonConceptName.joins(:name, :language).where(source_hierarchy_entry_id: options[:hierarchy_entry_id])
@@ -681,15 +687,15 @@ class TaxonConcept < ActiveRecord::Base
     iucn_list = TaxonData.new(self).iucn_data_objects
     choose_iucn_status(iucn_list)
   end
-  
+
   def choose_iucn_status(iucn_list)
-    unless iucn_list.empty? 
+    unless iucn_list.empty?
       iucn_names_list =  iucn_list.map { |result| result[:value].value}
       taxon_scientific_name = get_taxon_scientific_name
       iucn_names_list.include?(taxon_scientific_name) ? taxon_scientific_name : iucn_names_list.first
-    end    
+    end
   end
-  
+
   def get_taxon_scientific_name
     self.entry(Hierarchy.iucn_structured_data).italicized_name.firstcap
   end

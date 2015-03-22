@@ -9,6 +9,8 @@ class TaxonConceptName < ActiveRecord::Base
   belongs_to :taxon_concept
   belongs_to :vetted
 
+  scope :preferred, -> { where(preferred: true) }
+
   def can_be_deleted_by?(user)
     agents.map(&:user).include?(user)
   end

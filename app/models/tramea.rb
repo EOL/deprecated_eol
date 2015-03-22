@@ -54,7 +54,7 @@ class Tramea
             images_from_solr(
               options["images_per_page"],
               ignore_translations: true
-            ).map { |img| image_from_data_object(image) }
+            ).map { |image| image_from_data_object(image, taxon) }
         },
         "articles" => {
           # TODO
@@ -62,7 +62,7 @@ class Tramea
           "per_page" => options["articles_per_page"],
           "total" => "TODO",
           # TODO: handle paginatation rather than just the summary:
-          "articles" => [article_from_data_object(taxon.overview_text_for_user)]
+          "articles" => [article_from_data_object(taxon.overview_text_for_user, taxon)]
         },
         # TODO - Add trait ranges.
         # TODO: handle pagination of traits rather than just the overview-y ones:
@@ -92,7 +92,7 @@ class Tramea
     # NOTE: This is _almost_ enough to render a full data object page: all you
     # need are the activities and revisions. ...And, arguably, more information
     # about the associations.
-    def image_from_data_object(image)
+    def image_from_data_object(image, taxon = nil)
       raise "Must be an image" unless image.image?
       {
         "id" => image.id,
@@ -102,7 +102,7 @@ class Tramea
         "square" => image.thumb_or_object('130_130'),
         "small" => image.thumb_or_object('98_68'),
         "large" => image.thumb_or_object,
-        "title" => image.safe_object_title,
+        "title" => image.object_title,
         "source_url" => image.source_url,
         "taxa" => image.data_object_taxa.map do |assoc|
           {
@@ -113,18 +113,18 @@ class Tramea
           }
         end
       }.merge(license_from_data_object(image)).
-        merge(trust_from_curatable(image))
+        merge(trust_from_curatable(image, taxon))
     end
 
     # NOTE: The 'sections' are always in English; you'll have to look up
     # translations based on those strings. Activities and revisions are stored
     # separately.
-    def article_from_data_object(article)
+    def article_from_data_object(article, taxon = nil)
       raise "Must be an article" unless article.article?
       {
         "id" => article.id,
         "guid" => article.guid,
-        "title" => article.safe_object_title,
+        "title" => article.object_title,
         "sections" => article.toc_items.map { |ti| ti.label }.compact,
         "language" => article.language.iso_639_1,
         # NOTE: Yes, I too am tearing my hair out:
@@ -139,7 +139,7 @@ class Tramea
           # ignore them entirely.
         end
       }.merge(license_from_data_object(article)).
-        merge(trust_from_curatable(article))
+        merge(trust_from_curatable(article, taxon))
     end
 
     # TODO: Eventually I would LOVE to add a key called "taxon_concept_history"
@@ -160,8 +160,8 @@ class Tramea
           # ARRRRRGH: Hierarchy#content_partner is a METHOD. :| It's because there
           # are some other "types" of resources that don't dierecly have a CP.
           "content_partner_id" => entry.hierarchy.content_partner.id,
-          "resource_id" => entry.resource.id,
-          "name" => entry.resource.title,
+          "resource_id" => entry.hierarchy.resource.id,
+          "name" => entry.hierarchy.resource.title,
           "id" => entry.identifier,
           "url" => entry.outlink_url,
           "browsable_on_eol" => entry.hierarchy.browsable?
@@ -276,11 +276,19 @@ class Tramea
           value_string(Language.english)
     end
 
-    def trust_from_curatable(object)
-      hash = {
-        "trusted" => object.vetted?,
-        "exemplar" => object.respond_to?(:is_exemplar?) && object.is_exemplar?
-      }
+    def trust_from_curatable(object, taxon = nil)
+      hash = {}
+      if taxon
+        hash = {
+          "trusted" => object.vetted_by_taxon_concept?(taxon),
+          "exemplar" => object.is_exemplar_for?(taxon)
+        }
+      else
+        hash = {
+          "trusted" => object.associations.any? { |a| a.trusted? }
+          "exemplar" => object.respond_to?(:is_exemplar?) && object.is_exemplar?
+        }
+      end
       if hash["exemplar"]
         object.exemplar_chosen_by.each do |user|
           hash["exemplar_chosen_by"] ||= []

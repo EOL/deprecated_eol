@@ -69,14 +69,14 @@ describe 'Curation' do
     page.should have_selector(".main_container .update_common_names")
     page.should have_selector(".main_container .update_common_names td", text: @taxon_concept.acting_curators.first.full_name)
   end
-  
+
   # Note that this is essentially the same test as in taxa_page_spec... but we're a curator, now... and it uses a separate
   # view, so it needs to be tested.
   it 'should show all common names trust levels' do
     login_as(@cn_curator)
     visit("/pages/#{@taxon_concept.id}/names/common_names")
     first_trusted_name =
-      @taxon_concept.common_names.select {|n| n.vetted_id == Vetted.trusted.id}.map {|n| n.name.string}.sort[0]
+      @taxon_concept.common_names_cleaned_and_sorted.select {|n| n.vetted_id == Vetted.trusted.id}.map {|n| n.name.string}.sort[0]
     page.should have_selector(".main_container .edit_common_names")
     names = find(".main_container table.edit_common_names").all(:xpath, ".//tr").map do |r|
       r.find(:xpath, ".//td[2]").text.strip rescue nil
@@ -85,7 +85,7 @@ describe 'Curation' do
       names.should include(name.capitalize_all_words)
     end
   end
-  
+
   it 'should show vetting drop-down for common names either NOT added by this curator or added by a CP' do
     login_as(@cn_curator)
     visit("/pages/#{@taxon_concept.id}/names/common_names")
@@ -95,14 +95,14 @@ describe 'Curation' do
         v.curation_label
     end
   end
-  
+
   it 'should show delete link for common names added by this curator' do
     login_as(@cn_curator)
     visit("/pages/#{@taxon_concept.id}/names/common_names")
     page.should have_selector(".main_container .update_common_names")
     page.should have_selector(".main_container .update_common_names a[href^='/pages/#{@taxon_concept.id}/names/delete?']", text: 'delete')
   end
-  
+
   it 'should not show editing common name environment if curator is not logged in' do
     visit("/logout")
     visit("/pages/#{@taxon_concept.id}?category_id=#{TocItem.common_names.id}")

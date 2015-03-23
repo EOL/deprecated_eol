@@ -240,8 +240,8 @@ describe 'API:pages' do
 
   it 'pages should show which common names are preferred' do
     response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?common_names=1")
-    @taxon_concept.common_names.each do |name|
-      (1..@taxon_concept.common_names.length).each do |index|
+    @taxon_concept.common_names_cleaned_and_sorted.each do |name|
+      (1..@taxon_concept.common_names_cleaned_and_sorted.length).each do |index|
         if response.xpath("//xmlns:taxon/xmlns:commonName[#{index}]").inner_text == name.name.string
           value = name.preferred? ? 'true' : ''
           response.xpath("//xmlns:taxon/xmlns:commonName[#{index}]/@eol_preferred").inner_text.should == value

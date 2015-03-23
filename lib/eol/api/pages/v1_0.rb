@@ -140,7 +140,7 @@ module EOL
 
             return_hash['vernacularNames'] = []
             if params[:common_names]
-              taxon_concept.common_names.each do |tcn|
+              taxon_concept.common_names_cleaned_and_sorted.each do |tcn|
                 lang = tcn.language ? tcn.language.iso_639_1 : ''
                 common_name_hash = {
                   'vernacularName' => tcn.name.string,

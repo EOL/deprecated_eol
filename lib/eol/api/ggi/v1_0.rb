@@ -34,7 +34,7 @@ module EOL
             return_hash['bestImage'] = best_image ? EOL::Api::DataObjects::V1_0.prepare_hash(best_image, details: true) : {}
 
             return_hash['vernacularNames'] = []
-            taxon_concept.common_names.each do |tcn|
+            taxon_concept.common_names_cleaned_and_sorted.each do |tcn|
               lang = tcn.language ? tcn.language.iso_639_1 : ''
               common_name_hash = {
                 'vernacularName' => tcn.name.string,

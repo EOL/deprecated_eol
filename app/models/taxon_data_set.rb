@@ -107,7 +107,7 @@ class TaxonDataSet
     if wikipedia_entry = @taxon_concept.wikipedia_entry
       jsonld['@graph'] << wikipedia_entry.mapping_jsonld
     end
-    @taxon_concept.common_names.map do |tcn|
+    @taxon_concept.common_names_cleaned_and_sorted.map do |tcn|
       jsonld['@graph'] << tcn.to_jsonld
     end
     @data_point_uris.map do |dpuri|
@@ -117,7 +117,7 @@ class TaxonDataSet
     jsonld
   end
 
- 
+
   private
 
   def fill_context(jsonld)

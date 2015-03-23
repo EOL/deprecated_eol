@@ -61,6 +61,10 @@ class TaxonConcept < ActiveRecord::Base
 
   has_and_belongs_to_many :data_objects
 
+  # THESE ATTRIBUTES ARE FOR TRAMEA, be careful using them:
+  has_one :summary
+  has_many :common_names
+
   attr_accessor :common_names_in_language
 
   index_with_solr keywords: [ :scientific_names_for_solr, :common_names_for_solr ]
@@ -207,9 +211,9 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   # NOTE - this filters out results with no name, no language, languages with no
-  # iso_639_1, and dulicates within the same language. Then it sorts the
-  # results. TODO - rename it to make the filtering and sorting more clear.
-  def common_names(options = {})
+  # iso_639_1, and duplicates within the same language. Then it sorts the
+  # results.
+  def common_names_cleaned_and_sorted(options = {})
     @common_names = if options[:hierarchy_entry_id]
       TaxonConceptName.joins(:name, :language).where(source_hierarchy_entry_id: options[:hierarchy_entry_id])
     else

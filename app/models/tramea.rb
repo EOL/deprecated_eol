@@ -94,7 +94,7 @@ class Tramea
         }
       }
       if options["common_names"]
-        hash["common_names"] = taxon.common_names.map do |name|
+        hash["common_names"] = taxon.common_names_cleaned_and_sorted.map do |name|
           common_name_from_taxon_concept_name(name)
         end
       else # Let's give them one common name, at least:

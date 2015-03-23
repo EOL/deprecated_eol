@@ -6,9 +6,6 @@ class Taxa::DataController < TaxaController
   before_filter :load_data
   before_filter :load_glossary
 
-  GENDER = 1
-  LIFE_STAGE = 0
-
   # GET /pages/:taxon_id/data/index
   def index
     @assistive_section_header = I18n.t(:assistive_data_header)

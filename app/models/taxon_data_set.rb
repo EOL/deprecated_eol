@@ -57,9 +57,9 @@ class TaxonDataSet
     # This looks complicated, but it's actually really fast:
     last_attribute_pos = @data_point_uris.map do |dpuri|
       dpuri.predicate_known_uri.try(:position) || 0
-    end.max + 1
+    end.max || 0 + 1
     stat_positions = get_positions
-    last_stat_pos = stat_positions.values.max + 1
+    last_stat_pos = stat_positions.values.max || 0 + 1
     @data_point_uris.sort_by! do |data_point_uri|
       attribute_label =
         EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]

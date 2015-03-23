@@ -1,5 +1,5 @@
-# Basically, I made this quick little class because the sort method required in two places and it didn't belong in
-# one or t'other.
+# Basically, I made this quick little class because the sort method required in
+# two places and it didn't belong in one or t'other.
 class TaxonDataSet
 
   include Enumerable
@@ -47,17 +47,54 @@ class TaxonDataSet
     @data_point_uris.nil? || @data_point_uris.empty?
   end
 
-  # NOTE - this is 'destructive', since we don't ever need it to not be. If that changes, make the corresponding method and add a bang to this one.
+  # NOTE - this is 'destructive', since we don't ever need it to not be. If that
+  # changes, make the corresponding method and add a bang to this one.
   def sort
     last = KnownUri.count + 2
+    stat_positions = get_positions
     @data_point_uris.sort_by! do |data_point_uri|
-      attribute_label = EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
-      attribute_pos = data_point_uri.predicate_known_uri ? data_point_uri.predicate_known_uri.position : last
+      attribute_label =
+        EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
+      attribute_pos = data_point_uri.predicate_known_uri ?
+        data_point_uri.predicate_known_uri.position :
+        last
       attribute_label = safe_downcase(attribute_label)
       value_label = safe_downcase(data_point_uri.value_string(@language))
-      [ attribute_pos, attribute_label, value_label ]
+      gender_sort = data_point_uri.context_labels[GENDER].try(:to_s) || 255.chr
+      stage_sort = data_point_uri.context_labels[LIFE_STAGE].try(:to_s) || ''
+      stats_sort = data_point_uri.statistical_method ?
+        stat_positions[data_point_uri.statistical_method.to_s] :
+        255.chr
+      [ attribute_pos, attribute_label, gender_sort,
+        stats_sort, stage_sort, value_label ]
     end
     self
+  end
+
+  #0 for life stage and 1 for gender
+  def sort_data(results)
+      if a.context_labels[GENDER].to_s == b.context_labels[GENDER].to_s &&
+        a.context_labels[LIFE_STAGE].to_s == b.context_labels[LIFE_STAGE].to_s
+        if !a.statistical_method.to_s.blank? && !b.statistical_method.to_s.blank?
+          stat_positions[a.statistical_method.to_s] <=> stat_positions[b.statistical_method.to_s]
+        else
+          a.statistical_method.to_s.blank? ? 1 : -1
+        end
+      elsif a.context_labels[GENDER].to_s == b.context_labels[GENDER].to_s
+        sort_life_stage(a,b)
+      else
+        (a.context_labels[GENDER].to_s.blank? ? 255.chr : a.context_labels[GENDER].to_s) <=> (b.context_labels[GENDER].to_s.blank? ? 255.chr : b.context_labels[GENDER].to_s)
+      end
+  end
+
+  # Bulk load of complex data:
+  def get_positions
+    Hash[
+      KnownUri.where(
+        uri: @data_point_uris.map { |d| d.statistical_method.to_s }
+      ).select( [ :uri, :position ] ).
+        map { |k| [ k.uri, k.position ] }
+    ]
   end
 
   def safe_downcase(what)
@@ -117,7 +154,6 @@ class TaxonDataSet
     jsonld
   end
 
- 
   private
 
   def fill_context(jsonld)

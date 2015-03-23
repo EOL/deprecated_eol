@@ -4,8 +4,8 @@ class Taxa::DataController < TaxaController
 
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :load_data
-  before_filter :load_glossary  
-  
+  before_filter :load_glossary
+
   GENDER = 1
   LIFE_STAGE = 0
 
@@ -20,7 +20,7 @@ class Taxa::DataController < TaxaController
       @toc_id = params[:toc_id]
       @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
     end
-    
+
     @querystring = ''
     @sort = ''
     current_user.log_activity(:viewed_taxon_concept_data, taxon_concept_id: @taxon_concept.id)
@@ -62,38 +62,7 @@ protected
       @data_point_uris.detect { |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? }
     @units_for_select = KnownUri.default_units_for_form_select
   end
-  
-  #0 for life stage and 1 for gender
-  def sort_data (results)
-    stat_positions = get_position(results.data_point_uris)
-    results.data_point_uris.sort do |a, b|
-      if a.context_labels[GENDER].to_s == b.context_labels[GENDER].to_s && a.context_labels[LIFE_STAGE].to_s == b.context_labels[LIFE_STAGE].to_s
-        if !a.statistical_method.to_s.blank? && !b.statistical_method.to_s.blank?          
-          stat_positions[a.statistical_method.to_s] <=> stat_positions[b.statistical_method.to_s]
-        else          
-          a.statistical_method.to_s.blank? ? 1 : -1
-        end
-      elsif a.context_labels[GENDER].to_s == b.context_labels[GENDER].to_s
-        sort_life_stage(a,b)
-      else        
-        (a.context_labels[GENDER].to_s.blank? ? 255.chr : a.context_labels[GENDER].to_s) <=> (b.context_labels[GENDER].to_s.blank? ? 255.chr : b.context_labels[GENDER].to_s)  
-      end
-    end
-  end
 
-  def sort_life_stage (a,b)    
-    if !a.context_labels[LIFE_STAGE].to_s.blank? && !b.context_labels[LIFE_STAGE].to_s.blank?      
-      a.context_labels[LIFE_STAGE].to_s <=> b.context_labels[LIFE_STAGE].to_s
-    else      
-      a.context_labels[LIFE_STAGE].to_s.blank? ? 1 : -1
-    end    
-  end
-  
-  def get_position(data_point_uris)
-    Hash[KnownUri.where(uri: data_point_uris.map { |d| d.statistical_method.to_s }).
-      select([:uri, :position]).map {|k| [k.uri, k.position] }]
-  end
-  
   def load_glossary
     @glossary_terms = @data_point_uris ?
       ( @data_point_uris.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri) +

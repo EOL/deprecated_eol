@@ -1245,11 +1245,11 @@ class DataObject < ActiveRecord::Base
   def exemplar_chosen_by
     User.where(
       id: CuratorActivityLog.where(
-        data_object_id: id,
-        activity: [
-          Activity.choose_exemplar_image,
-          Activity.choose_exemplar_article,
-          Activity.set_exemplar_data
+        target_id: id, # Acts as data object id, with these activities. Sigh. Stupid.
+        activity_id: [
+          Activity.choose_exemplar_image.id,
+          Activity.choose_exemplar_article.id,
+          Activity.set_exemplar_data.id
         ]
       ).pluck(:user_id)
     )

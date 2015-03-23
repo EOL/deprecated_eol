@@ -3,15 +3,21 @@ class Tramea
     def summary_from_taxon_concept(taxon)
       id = taxon.id
       scientific_name = taxon.title
-      common_names = taxon.preferred_common_names.map do |name|
-        { "name" => name.string, "language" => name.language.iso_639_1 }
+      common_names = taxon.preferred_common_names.map do |tcn|
+        { "name" => tcn.name.string, "language" => tcn.language.iso_639_1 }
       end
       image = taxon.published_exemplar_image
-      {
-        "id" => id,
-        "scientific_name" => scientific_name,
-        "common_names" => common_names,
-        "thumbnail" => {
+      hash = {
+        "id" => taxon.id,
+        "scientific_name" => taxon.entry.name.string
+      }
+      if taxon.common_taxon_concept_name
+        hash["common_name"] = common_name_from_taxon_concept_name(
+          taxon.common_taxon_concept_name
+        )
+      end
+      if image
+        hash["thumbnail"] = {
           "id" => image.id,
           "cache_id" => image.object_cache_url,
           "small_square" => image.thumb_or_object('88_88'),
@@ -19,7 +25,10 @@ class Tramea
           "small" => image.thumb_or_object('98_68'),
           "large" => image.thumb_or_object
         }
-      }
+      else
+        hash["thumbnail"] = {}
+      end
+      hash
     end
 
     # NOTE: This is the motherload: a taxon page!
@@ -31,7 +40,7 @@ class Tramea
       options["traits_page"] ||= 1
       options["traits_per_page"] ||= 10
       # NOTE: this sucks, need to load a fake data helper to make this work: THIS IS REALLY SLOW.
-      data = TaxonData.new(taxon, User.first).get_data_for_overview
+      data = TaxonData.new(taxon, User.first)
       hash = {
         "id" => taxon.id,
         # TODO: "curator" is a PLACEHOLDER, meant to show that, in the future,
@@ -62,7 +71,11 @@ class Tramea
           "per_page" => options["articles_per_page"],
           "total" => "TODO",
           # TODO: handle paginatation rather than just the summary:
-          "articles" => [article_from_data_object(taxon.overview_text_for_user, taxon)]
+          "articles" => [
+              # The user argument here doesn't matter, really (q.v.).
+              article_from_data_object(taxon.overview_text_for_user(User.first),
+                taxon)
+            ]
         },
         # TODO - Add trait ranges.
         # TODO: handle pagination of traits rather than just the overview-y ones:
@@ -70,9 +83,14 @@ class Tramea
           # TODO
           "page" => options["traits_page"],
           "per_page" => options["traits_per_page"],
-          "total" => @taxon_page.data.distinct_predicates.count,
+          "total" => data.distinct_predicates.count,
           # TODO: handle paginatation rather than just the summary:
-          "traits" => data.map { |datum| trait_from_data_object(datum) }
+          # NOTE: Yeah, weird structure from this method.
+          "traits" => data.get_data_for_overview.values.map do |h|
+            h[:data_point_uris]
+          end.flatten.map do |datum|
+            trait_from_data_point_uri(datum)
+          end
         }
       }
       if options["common_names"]
@@ -127,10 +145,11 @@ class Tramea
         "title" => article.object_title,
         "sections" => article.toc_items.map { |ti| ti.label }.compact,
         "language" => article.language.iso_639_1,
+        # NOTE: I removed an autolink here (it wasn't working; seemed superfluous here anyway)
         # NOTE: Yes, I too am tearing my hair out:
         "body_html" => Sanitize.clean(
-            auto_link(article.description).
-            balance_tags, Sanitize::Config::RELAXED
+            article.description.balance_tags,
+            Sanitize::Config::RELAXED
           ).fix_old_user_added_text_linebreaks(:wrap_in_paragraph => true),
         "references" => article.refs.map do |ref|
           ref.full_reference.balance_tags.add_missing_hyperlinks
@@ -210,7 +229,7 @@ class Tramea
       # the code in the helper, at least)
       sources << { "name" => "uBio", "type" => "default" } if sources.empty?
       {
-        "language" => tcn.name.language.iso_639_1,
+        "language" => tcn.language.iso_639_1,
         "name" => tcn.name.string,
         "sources" => sources,
         "trusted" => tcn.vetted_id == Vetted.trusted.id,
@@ -241,8 +260,7 @@ class Tramea
     end
 
     def trait_from_data_point_uri(uri)
-      # Oh, man, this is going to be expensive:
-      meta = uri.get_metadata
+      meta = uri.get_metadata(Language.default)
       {
         "id" => uri.id,
         # This will be some representation of "occurrenceID", something like
@@ -273,19 +291,19 @@ class Tramea
         summary_from_taxon_concept(uri.target_taxon_concept) :
         uri.object_known_uri ?
           uri_from_known_uri(uri.object_known_uri) :
-          value_string(Language.english)
+          uri.value_string(Language.english)
     end
 
     def trust_from_curatable(object, taxon = nil)
       hash = {}
       if taxon
         hash = {
-          "trusted" => object.vetted_by_taxon_concept?(taxon),
+          "trusted" => object.vetted_by_taxon_concept(taxon),
           "exemplar" => object.is_exemplar_for?(taxon)
         }
       else
         hash = {
-          "trusted" => object.associations.any? { |a| a.trusted? }
+          "trusted" => object.associations.any? { |a| a.trusted? },
           "exemplar" => object.respond_to?(:is_exemplar?) && object.is_exemplar?
         }
       end
@@ -348,7 +366,7 @@ class Tramea
         "id" => uri.id,
         "name" => uri.name,
         "uri" => uri.uri,
-        "description" => uri.description,
+        "definition" => uri.definition,
         "more_information" => [uri.ontology_source_url,
           uri.ontology_information_url].compact,
         "sections" => uri.toc_items.map { |ti| ti.label }.compact

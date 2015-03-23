@@ -5,8 +5,8 @@
 # even though vetted probably won't ever be used. ...It might be, and it makes
 # this easier than splitting up that class.
 #
-# TODO - this class has gotten too large. Break it up. In particular, 
-# I notice there are a LOT of class methods. Perhaps that logic belongs 
+# TODO - this class has gotten too large. Break it up. In particular,
+# I notice there are a LOT of class methods. Perhaps that logic belongs
 # elsewhere.
 
 class KnownUri < ActiveRecord::Base
@@ -62,11 +62,13 @@ class KnownUri < ActiveRecord::Base
 
   has_and_belongs_to_many :toc_items
 
-  attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted, :translated_known_uri,
-    :translated_known_uris_attributes, :toc_items, :toc_item_ids, :description, :uri_type, :uri_type_id,
-    :translations, :exclude_from_exemplars, :name, :known_uri_relationships_as_subject, :attribution,
-    :ontology_information_url, :ontology_source_url, :position, :group_by_clade, :clade_exemplar,
-    :exemplar_for_same_as, :value_is_text, :hide_from_glossary
+  attr_accessible :uri, :visibility_id, :vetted_id, :visibility, :vetted,
+    :translated_known_uri,   :translated_known_uris_attributes, :toc_items,
+    :toc_item_ids, :definition, :uri_type, :uri_type_id,   :translations,
+    :exclude_from_exemplars, :name, :known_uri_relationships_as_subject,
+    :attribution,   :ontology_information_url, :ontology_source_url, :position,
+    :group_by_clade, :clade_exemplar,   :exemplar_for_same_as, :value_is_text,
+    :hide_from_glossary
 
   accepts_nested_attributes_for :translated_known_uris
 

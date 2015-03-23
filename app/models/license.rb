@@ -32,6 +32,19 @@ class License < ActiveRecord::Base
     alias default public_domain
   end
 
+  # NOTE: this is used by Tramea, not "pure" EOL.
+  # NOTE: The license image URL isn't included, but I think that's a Good Thing.
+  def self.params_from_data_object(data)
+    {
+      license: data.license.source_url,
+      rights: data.rights_statement_for_display ||
+        data.license.description,
+      rights_holder: data.rights_holder_for_display ||
+        data.added_by_user? ? data.users_data_object.user.full_name : nil,
+      ratings: data.rating_summary.merge(weighted_average: data.average_rating)
+    }
+  end
+
   def self.create_enumerated
     enumeration_creator(
       defaults:

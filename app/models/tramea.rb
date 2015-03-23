@@ -348,13 +348,12 @@ class Tramea
         "rights_holder" => data.rights_holder_for_display,
         "ratings" => data.rating_summary.
           merge("weighted_average" => data.average_rating),
-        "credits" => [
+        "credits" => [ # TODO
           {
             "name" => "BioImages - the Virtual Fieldguide (UK)",
             "role" => "Supplier",
             "url" => "http://eol.org/content_partners/246"
           },
-          {"name" => "Ian Smith", "role" => "Compiler"}
         ]
       }
     end

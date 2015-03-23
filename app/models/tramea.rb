@@ -220,7 +220,7 @@ class Tramea
           "name" => hierarchy.resource.title,
           # NOTE: content_partner is a METHOD, not an association, here:
           "content_partner_id" => hierarchy.content_partner.id,
-          "id" => hierarchy.resource_id,
+          "id" => hierarchy.resource.id,
           "type" => "resource"
         }
       end
@@ -241,7 +241,7 @@ class Tramea
       taxon.hierarchy_entries.map do |entry|
         {
           "source" => {
-            "id" => entry.hierarchy.resource_id,
+            "id" => entry.hierarchy.resource.id,
             # NOTE: content_partner is a METHOD, not an association, here:
             "content_partner_id" => entry.hierarchy.content_partner.id,
             "name" => entry.hierarchy.resource.title

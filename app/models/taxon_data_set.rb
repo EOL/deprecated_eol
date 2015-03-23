@@ -4,6 +4,9 @@ class TaxonDataSet
 
   include Enumerable
 
+  GENDER = 1
+  LIFE_STAGE = 0
+
   def initialize(rows, options = {})
     virtuoso_results = rows
     @taxon_concept = options[:taxon_concept]
@@ -47,8 +50,9 @@ class TaxonDataSet
     @data_point_uris.nil? || @data_point_uris.empty?
   end
 
-  # NOTE - this is 'destructive', since we don't ever need it to not be. If that
+  # NOTE: this is 'destructive', since we don't ever need it to not be. If that
   # changes, make the corresponding method and add a bang to this one.
+  # NOTE: 0 for life stage and 1 for gender
   def sort
     last = KnownUri.count + 2
     stat_positions = get_positions
@@ -69,22 +73,6 @@ class TaxonDataSet
         stats_sort, stage_sort, value_label ]
     end
     self
-  end
-
-  #0 for life stage and 1 for gender
-  def sort_data(results)
-      if a.context_labels[GENDER].to_s == b.context_labels[GENDER].to_s &&
-        a.context_labels[LIFE_STAGE].to_s == b.context_labels[LIFE_STAGE].to_s
-        if !a.statistical_method.to_s.blank? && !b.statistical_method.to_s.blank?
-          stat_positions[a.statistical_method.to_s] <=> stat_positions[b.statistical_method.to_s]
-        else
-          a.statistical_method.to_s.blank? ? 1 : -1
-        end
-      elsif a.context_labels[GENDER].to_s == b.context_labels[GENDER].to_s
-        sort_life_stage(a,b)
-      else
-        (a.context_labels[GENDER].to_s.blank? ? 255.chr : a.context_labels[GENDER].to_s) <=> (b.context_labels[GENDER].to_s.blank? ? 255.chr : b.context_labels[GENDER].to_s)
-      end
   end
 
   # Bulk load of complex data:

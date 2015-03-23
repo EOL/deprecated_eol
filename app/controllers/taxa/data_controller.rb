@@ -56,7 +56,7 @@ protected
     # Sad that we need to load all of this for the about and glossary tabs, but TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
     @range_data = @taxon_data.ranges_of_values
-    @data_point_uris = sort_data(@taxon_page.data.get_data)
+    @data_point_uris = @taxon_page.data.get_data
     @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
     @include_other_category = @data_point_uris &&
       @data_point_uris.detect { |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? }

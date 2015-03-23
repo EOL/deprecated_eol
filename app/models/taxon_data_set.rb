@@ -54,21 +54,24 @@ class TaxonDataSet
   # changes, make the corresponding method and add a bang to this one.
   # NOTE: 0 for life stage and 1 for gender
   def sort
-    last = KnownUri.count + 2
+    # This looks complicated, but it's actually really fast:
+    last_attribute_pos = @data_point_uris.map do |dpuri|
+      dpuri.predicate_known_uri.try(:position) || 0
+    end.max + 1
     stat_positions = get_positions
+    last_stat_pos = stat_positions.values.max + 1
     @data_point_uris.sort_by! do |data_point_uri|
       attribute_label =
         EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
-      attribute_pos = data_point_uri.predicate_known_uri ?
-        data_point_uri.predicate_known_uri.position :
-        last
+      attribute_pos = data_point_uri.predicate_known_uri.try(:position) ||
+        last_attribute_pos
       attribute_label = safe_downcase(attribute_label)
       value_label = safe_downcase(data_point_uri.value_string(@language))
       gender_sort = data_point_uri.context_labels[GENDER].try(:to_s) || 255.chr
       stage_sort = data_point_uri.context_labels[LIFE_STAGE].try(:to_s) || ''
-      stats_sort = data_point_uri.statistical_method ?
-        stat_positions[data_point_uri.statistical_method.to_s] :
-        255.chr
+      stats_sort = last_stat_pos
+      stats_sort = stat_positions[data_point_uri.statistical_method.to_s] if
+        data_point_uri.statistical_method
       [ attribute_pos, attribute_label, gender_sort,
         stats_sort, stage_sort, value_label ]
     end
@@ -78,11 +81,15 @@ class TaxonDataSet
   # Bulk load of complex data:
   def get_positions
     Hash[
-      KnownUri.where(
-        uri: @data_point_uris.map { |d| d.statistical_method.to_s }
-      ).select( [ :uri, :position ] ).
+      KnownUri.where(uri: statistical_methods).
+        select( [ :uri, :position ] ).
         map { |k| [ k.uri, k.position ] }
     ]
+  end
+
+  def statistical_methods
+    @data_point_uris.map { |d| d.statistical_method.to_s }.sort.uniq.
+      delete_if { |s| s.blank? }
   end
 
   def safe_downcase(what)

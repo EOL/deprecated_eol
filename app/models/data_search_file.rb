@@ -9,9 +9,9 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :known_uri
   belongs_to :taxon_concept
 
-  # Number of results we feel confident to process at one time (ie: one query
-  # for each):
-  PER_PAGE = 500
+  PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
+  PAGE_LIMIT = 500 # Maximum number of "pages" of data to allow in one file.
+  LIMIT = PAGE_LIMIT * PER_PAGE
   EXPIRATION_TIME = 2.weeks
 
   def build_file
@@ -86,25 +86,12 @@ class DataSearchFile < ActiveRecord::Base
     # TODO - we should also check to see if the job has been canceled.
     rows = []
     page = 1
-    # TODO - handle the case where results are empty. ...or at least write a
-    # test to verify the behavior is okay/expected.
-    offset = (file_number - 1) * PER_PAGE
-    search_parameters = {
-      querystring: q,
-      attribute: uri,
-      min_value: from,
-      max_value: to,
-      sort: sort,
-      per_page: PER_PAGE,
-      for_download: true,
-      taxon_concept: taxon_concept,
-      unit: unit_uri,
-      offset: offset
-    }
+    # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
+    search_parameters = { querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
+                          per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri, offset: (file_number-1)*LIMIT }
     results = TaxonData.search(search_parameters)
-    # TODO - we should probably add a "hidden" column to the file and allow
-    # admins/master curators to see those rows, (as long as they are marked as
-    # hidden). For now, though, let's just remove the rows:
+    # TODO - we should probably add a "hidden" column to the file and allow admins/master curators to see those
+    # rows, (as long as they are marked as hidden). For now, though, let's just remove the rows:
     results = results.delete_if { |r| r.hidden? }
     begin # Always do this at least once...
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
@@ -119,13 +106,14 @@ class DataSearchFile < ActiveRecord::Base
         # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
         rows << data_point_uri.to_hash(user.language)
       end
-      if ((page * PER_PAGE) < results.total_entries)
+      # offset = (file_number-1) * LIMIT
+      if (((page * PER_PAGE) + ((file_number-1) * LIMIT)) < results.total_entries)
         page += 1
         results = TaxonData.search(search_parameters.merge(page: page))
       else
         break
       end
-    end
+    end until (((page - 1) * PER_PAGE + ((file_number-1) * LIMIT)) >= results.total_entries) || page > PAGE_LIMIT
     rows
   end
 
@@ -137,8 +125,7 @@ class DataSearchFile < ActiveRecord::Base
     col_heads
   end
 
-  # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file
-  # for users of Excel. q.v.:
+  # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file for users of Excel. q.v.:
   # http://stackoverflow.com/questions/9886705/how-to-write-bom-marker-to-a-file-in-ruby
   def write_file
     rows = get_data

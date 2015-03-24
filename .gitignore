@@ -71,7 +71,9 @@ public/uploads/datasets/*
 public/uploads/Image/*
 public/uploads/images/collection_icons/*
 solr/logs/*.*
+# This is the old one, but some people will still have it:
 solr/solr/data/*
+solr/data/*
 vendor/eol_org
 tags
 public/files/solr_import_file.csv

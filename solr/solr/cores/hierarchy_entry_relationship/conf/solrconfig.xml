@@ -95,7 +95,7 @@
        replication is in use, this should match the replication
        configuration.
     -->
-  <dataDir>${solr.data.dir:./solr/data/hierarchy_entry_relationship}</dataDir>
+  <dataDir>${solr.data.dir:./data/hierarchy_entry_relationship}</dataDir>
 
 
   <!-- The DirectoryFactory to use for indexes.

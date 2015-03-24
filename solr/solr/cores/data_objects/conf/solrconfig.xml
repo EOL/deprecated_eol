@@ -95,7 +95,7 @@
        replication is in use, this should match the replication
        configuration.
     -->
-  <dataDir>${solr.data.dir:./solr/data/data_objects}</dataDir>
+  <dataDir>${solr.data.dir:./data/data_objects}</dataDir>
 
 
   <!-- The DirectoryFactory to use for indexes.

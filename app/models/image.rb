@@ -5,13 +5,14 @@ class Image < ActiveRecord::Base
 
   def self.from_data_object(dato, taxon = nil)
     raise "Must be an image" unless dato.image?
+    return find(dato.id) if exists?(id: dato.id)
     image = create({
       id: dato.id,
       guid: dato.guid,
       cache_id: dato.object_cache_url,
       title: dato.object_title,
       source_url: dato.source_url
-    }.merge(License.params_from_data_object(dato))
+    }.merge(License.params_from_data_object(dato)))
     image.contents = dato.data_object_taxa.map do |dot|
       Content.from_data_object_taxon(dot, dato)
     end

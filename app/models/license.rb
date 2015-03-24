@@ -40,7 +40,7 @@ class License < ActiveRecord::Base
       rights: data.rights_statement_for_display ||
         data.license.description,
       rights_holder: data.rights_holder_for_display ||
-        data.added_by_user? ? data.users_data_object.user.full_name : nil,
+        (data.added_by_user? ? data.users_data_object.user.full_name : nil),
       ratings: data.rating_summary.merge(weighted_average: data.average_rating)
     }
   end

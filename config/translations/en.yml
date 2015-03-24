@@ -1441,8 +1441,6 @@ en:
         tweet_text: "Curators of %{scientific_name}"
     data:
       index:
-        data_disclaimer: "<a href=\"%{traitbank_info_path}\">TraitBank</a> assembles data records from many providers. Select a row for more details about the record, or <a href=\"%{traitbank_search_path}\">search TraitBank</a>."
-        data_disclaimer_with_searchable_clade: "<a href=\"%{traitbank_info_path}\">TraitBank</a> assembles data records from many providers. Select a row for more details about the record, or <a href=\"%{traitbank_search_path}\">search within %{taxon_name}</a>."
         hierarchy_entry:
           meta_description: "Facts about %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life"
           meta_description_no_data: "No facts are available for %{scientific_name} as classified by %{hierarchy_provider} in the Encyclopedia of Life. EOL invites you to contribute facts about %{scientific_name}."
@@ -3347,6 +3345,8 @@ en:
   data_column_raw_units: "Raw Units (direct from source)"
   data_column_raw_units_uri: "Raw Units URI (normalized)"
   data_column_source: "Supplier"
+  data_disclaimer: "<a href=\"%{traitbank_info_path}\">TraitBank</a> assembles data records from many providers. Select a row for more details about the record, or <a href=\"%{traitbank_search_path}\">search TraitBank</a>."
+  data_disclaimer_with_searchable_clade: "<a href=\"%{traitbank_info_path}\">TraitBank</a> assembles data records from many providers. Select a row for more details about the record, or <a href=\"%{traitbank_search_path}\">search within %{taxon_name}</a>."
   data_database_colon: "Data:"
   data_glossary: "Data Glossary"
   data_glossary_contribute: "To contribute new terms to this glossary, <a href=%{url}>consider uploading data</a>."

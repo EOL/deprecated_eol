@@ -16,8 +16,8 @@ class TaxonData < TaxonUserClassificationFilter
     'http://eol.org/schema/terms/NumberSpecimensInGGBN',
     'http://eol.org/schema/terms/NumberReferencesInBHL' ]
 
-  # TODO - this doesn't belong here; it has nothing to do with a taxon concept. Move to a DataSearch class. Fix the
-  # controller.
+  # TODO - this doesn't belong here; it has nothing to do with a taxon concept.
+  # Move to a DataSearch class. Fix the controller.
   def self.search(options={})
     if_connection_fails_return(nil) do
       # only attribute is required, querystring may be left blank to get all usages of an attribute
@@ -94,20 +94,24 @@ class TaxonData < TaxonUserClassificationFilter
 
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
+    return @taxon_data_set.dup if defined?(@taxon_data_set)
     if_connection_fails_return(nil) do
-      return @taxon_data_set.dup if defined?(@taxon_data_set)
-      taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept: taxon_concept, language: user.language)
+      taxon_data_set = TaxonDataSet.new(raw_data,
+        taxon_concept: taxon_concept,
+        language: user.language)
       taxon_data_set.sort
-      known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
-      KnownUri.preload_associations(known_uris,
-                                    [ { toc_items: :translations },
-                                      { known_uri_relationships_as_subject: :to_known_uri },
-                                      { known_uri_relationships_as_target: :from_known_uri } ] )
-      @categories = known_uris.flat_map(&:toc_items).uniq.compact
+      # NOTE: I removed some includes here (known_uri_relationships) because I
+      # didn't see them being used _anywhere_.
+      known_uris = KnownUri.
+        includes({ toc_items: :translations }).
+        where(
+          id: taxon_data_set.map { |d| d.predicate_known_uri.id }.compact.uniq
+        )
+      @categories = known_uris.flat_map(&:toc_items).compact.uniq
       @taxon_data_set = taxon_data_set
-      raise EOL::Exceptions::SparqlDataEmpty if taxon_data_set.nil?
-      @taxon_data_set
     end
+    raise EOL::Exceptions::SparqlDataEmpty if @taxon_data_set.nil?
+    @taxon_data_set
   end
 
   # TODO - spec for can see data check
@@ -147,7 +151,7 @@ class TaxonData < TaxonUserClassificationFilter
       @ranges_of_values = show_preferred_unit(results.delete_if{ |r| r[:min].object.blank? || r[:max].object.blank? || (r[:min].object == 0 && r[:max].object == 0) })
     end
   end
-  
+
   def show_preferred_unit(results)
     results.group_by { |r| r[:attribute] }.values.map do |attribute_group|
       attribute_group.sort do |a,b|
@@ -157,9 +161,9 @@ class TaxonData < TaxonUserClassificationFilter
           a[:unit_of_measure_uri] ? -1 : 1
         end
       end.first # Choose the value that sorted first.
-    end    
-  end         
-  
+    end
+  end
+
   # TODO - spec for can see data check
   def ranges_for_overview
     return nil unless user.can_see_data?
@@ -193,10 +197,18 @@ class TaxonData < TaxonUserClassificationFilter
     results
   end
 
+  def jsonld
+    Rails.cache.fetch("/taxa/#{taxon_concept.id}/data/json",
+      expires_in: 24.hours) do
+      to_jsonld
+    end
+  end
+
+  # NO CACHE!
   def to_jsonld
     get_data.to_jsonld
   end
-  
+
   def iucn_data_objects
     query = "
       SELECT DISTINCT ?attribute ?value ?data_point_uri ?graph ?taxon_concept_id
@@ -212,14 +224,21 @@ class TaxonData < TaxonUserClassificationFilter
             ?taxon dwc:taxonConceptID ?taxon_concept_id .
             FILTER (?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
           }
-        }"      
+        }"
     EOL::Sparql.connection.query(query)
   end
 
   private
 
     def raw_data
-      (measurement_data + association_data).delete_if { |k,v| k[:attribute].blank? }
+      puts "*" * 100
+      puts "/taxa/#{taxon_concept.id}/raw_data"
+      puts "*" * 100
+      Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
+        expires_in: 12.hours) do
+        (measurement_data + association_data).
+          delete_if { |k,v| k[:attribute].blank? }
+      end
     end
 
     def measurement_data(options = {})

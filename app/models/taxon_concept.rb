@@ -684,30 +684,60 @@ class TaxonConcept < ActiveRecord::Base
     })
   end
 
-  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
-  # want to touch the API quite yet.
+  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview.
+  # ...But the API is using this and I don't want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
     iucn_list = TaxonData.new(self).iucn_data_objects
     choose_iucn_status(iucn_list)
   end
 
+  # TODO: re-write this to use a query that gets the scientific name from the
+  # data, and check that against the preferred scientific name of this taxon,
+  # otherwise take the first.
   def choose_iucn_status(iucn_list)
-    unless iucn_list.empty?
-      iucn_names_list =  iucn_list.map { |result| result[:value].value}
-      taxon_scientific_name = get_taxon_scientific_name
-      iucn_names_list.include?(taxon_scientific_name) ? taxon_scientific_name : iucn_names_list.first
+    data = iucn_list.try(:first)
+    return nil unless data
+    uri = data[:value].to_s
+    return nil unless uri
+    # TODO: We probably shouldn't hard-code this, but make it available
+    # somewhere configurable.
+    # TODO: This doesn't include the abbreviations (ie: "LC")
+    status = uri.split('/').last.underscore
+    case status
+    when "extinct"
+      "Extinct (EX)"
+    when "extinct_in_the_wild"
+     	"Extinct in the Wild (EW)"
+    when "extinctinthe_wild"
+     	"Extinct in the Wild (EW)"
+    when "critically_endangered"
+     	"Critically Endangered (CR)"
+    when "endangered"
+     	"Endangered (EN)"
+    when "vulnerable"
+     	"Vulnerable (VU)"
+    when "near_threatened"
+      "Near Threatened (NT)"
+    when "least_concern"
+     	"Least Concern (LC)"
+    when "data_deficient"
+     	"Data Deficient (DD)"
+    else
+      status.humanize.split.map(&:capitalize).join(' ')
     end
   end
 
+  # TODO: use this later.
   def get_taxon_scientific_name
     self.entry(Hierarchy.iucn_structured_data).italicized_name.firstcap
   end
 
-  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview (though TaxonDetails needs access to the other
-  # method). ...But the API is using this and I don't want to touch the API quite yet.
-  # TODO - stop passing in a user, just a language. See #best_article_for_user and you'll see it essentially ignores the user
-  # entirely anyway (with reason).
+  # TODO: this belongs in, at worst, TaxonPage... at best, TaxonOverview
+  # (though TaxonDetails needs access to the other method). ...But the API is
+  # using this and I don't want to touch the API quite yet. TODO: stop passing
+  # in a user, just a language. See #best_article_for_user and you'll see it
+  # essentially ignores the user entirely anyway (with reason).
   def overview_text_for_user(the_user)
     @overview_text_for_user ||= {}
     return @overview_text_for_user[the_user.id] if the_user && @overview_text_for_user[the_user.id]

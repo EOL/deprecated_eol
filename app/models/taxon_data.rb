@@ -231,9 +231,6 @@ class TaxonData < TaxonUserClassificationFilter
   private
 
     def raw_data
-      puts "*" * 100
-      puts "/taxa/#{taxon_concept.id}/raw_data"
-      puts "*" * 100
       Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
         expires_in: 12.hours) do
         (measurement_data + association_data).

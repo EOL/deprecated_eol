@@ -41,8 +41,6 @@ class SessionsController < ApplicationController
 
   # DELETE /sessions/:id or named route /logout
   def destroy
-    # puts "*" * 100
-    # puts "** #{params[:return_to]}"
     log_out
     flash[:notice] = I18n.t(:you_have_been_logged_out)
     redirect_back_or_default(params[:return_to])
@@ -69,4 +67,3 @@ private
   end
 
 end
-

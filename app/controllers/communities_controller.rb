@@ -47,7 +47,10 @@ class CommunitiesController < ApplicationController
       sent_to = send_invitations(find_invitees)
       notice = I18n.t(:created_community)
       notice += " #{I18n.t(:sent_invitations_to_users, count: sent_to.length, users: sent_to.to_sentence)}" unless sent_to.empty?
-      upload_logo(@community) unless params[:community][:logo].blank?
+      upload_logo(
+        @community,
+        name: params[:community][:logo].original_filename
+      ) unless params[:community][:logo].blank?
       EOL::GlobalStatistics.increment('communities') if @community.published?
       log_action(:create)
       auto_collect(@community)
@@ -70,7 +73,10 @@ class CommunitiesController < ApplicationController
         sent_to = send_invitations(find_invitees)
         notice = I18n.t(:updated_community)
         notice += " #{I18n.t(:sent_invitations_to_users, users: sent_to.to_sentence, count: sent_to.count)}" unless sent_to.empty?
-        upload_logo(@community) unless params[:community][:logo].blank?
+        upload_logo(
+          @community,
+          name: params[:community][:logo].original_filename
+        ) unless params[:community][:logo].blank?
         log_action(:change_name) if name_change
         log_action(:change_description) if description_change
         format.html { redirect_to(community_newsfeed_path(@community), notice: notice, status: :moved_permanently) }

@@ -70,7 +70,10 @@ class UsersController < ApplicationController
     user_before_update = @user
     if @user.update_attributes(params[:user])
       update_current_language(@user.language)
-      upload_logo(@user) unless params[:user][:logo].blank?
+      upload_logo(
+        @user,
+        name: params[:user][:logo].original_filename
+      ) unless params[:user][:logo].blank?
       current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
       provide_feedback

@@ -23,8 +23,9 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collection_jobs
 
-  attr_accessible :name, :collection_items_attributes, :description, :users, :view_style, :published, :special_collection_id, 
-                  :show_references, :sort_style_id, :view_style_id, :collection_items_count
+  attr_accessible :name, :collection_items_attributes, :description, :users,
+  :view_style, :published, :special_collection_id, :show_references,
+  :sort_style_id, :view_style_id, :collection_items_count, :logo
 
   accepts_nested_attributes_for :collection_items
 
@@ -33,13 +34,16 @@ class Collection < ActiveRecord::Base
   scope :watch, lambda { { conditions: {special_collection_id: SpecialCollection.watch.id} } }
 
   validates_presence_of :name
-  # JRice removed the requirement for the uniqueness of the name. Why? Imagine user#1 creates a collection named "foo".
-  # She then gives user#2 acess to "foo".  user#2 already has a collection called "foo", but this collection is never
-  # saved, so there is no error thrown (and if there were, what would it say?).  User#2 then tries to add an icon to
-  # the new "foo", but it fails because the name of the collection is already taken in the scope of all of its users.
-  # ...What would the message say, and why would she care? I don't see any of these messages as clear... or helpful.
-  # ...more trouble than it's worth, and the restriction is fairly arbitrary anyway: it's just there for the clarity
-  # of the user.  Now the user needs to manage this by themselves.
+  # JRice removed the requirement for the uniqueness of the name. Why? Imagine
+  # user#1 creates a collection named "foo". She then gives user#2 acess to
+  # "foo".  user#2 already has a collection called "foo", but this collection is
+  # never saved, so there is no error thrown (and if there were, what would it
+  # say?).  User#2 then tries to add an icon to the new "foo", but it fails
+  # because the name of the collection is already taken in the scope of all of
+  # its users. ...What would the message say, and why would she care? I don't
+  # see any of these messages as clear... or helpful. ...more trouble than it's
+  # worth, and the restriction is fairly arbitrary anyway: it's just there for
+  # the clarity of the user.  Now the user needs to manage this by themselves.
 
   before_update :set_relevance_if_collection_items_changed
 

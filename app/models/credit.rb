@@ -1,10 +1,4 @@
 # This is a class used by Tramea.
-# t.string :credited_for_type
-# t.integer :credited_for_id
-# t.string :name
-# t.string :role
-# t.string :url
-# add_index :credits, [:credited_for_id, :credited_for_type], "credited_for"
 class Credit < ActiveRecord::Base
   belongs_to :credited_for, polymorphic: true # Image, Article, etc.
 

@@ -24,8 +24,9 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :collection_jobs
 
   attr_accessible :name, :collection_items_attributes, :description, :users,
-  :view_style, :published, :special_collection_id, :show_references, :logo,
-  :sort_style_id, :view_style_id, :collection_items_count, :logo
+  :view_style, :published, :special_collection_id, :show_references,
+  :sort_style_id, :view_style_id, :collection_items_count, :logo,
+  :logo_cache_url, :logo_content_type, :logo_file_name, :logo_file_size
 
   accepts_nested_attributes_for :collection_items
 

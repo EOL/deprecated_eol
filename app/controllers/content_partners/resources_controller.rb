@@ -75,6 +75,11 @@ class ContentPartners::ResourcesController < ContentPartnersController
       if upload_required
         enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
       end
+      if params[:resource][:auto_publish] == "0"
+        @resource.delete_resource_contributions_file
+      else
+        @resource.save_resource_contributions
+      end
       flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
                               resource_status: @resource.status_label) unless flash[:error]
       store_location(params[:return_to]) unless params[:return_to].blank?

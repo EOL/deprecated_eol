@@ -212,11 +212,14 @@ class Resource < ActiveRecord::Base
     false
   end
 
-  def destroy_everything
-    Rails.logger.error("** Destroying Resource #{id}")
+  def destroy_everything    
+    Rails.logger.error("** Destroying Resource #{id}")    
     harvest_events.each(&:destroy_everything)
-    begin
+    begin      
       HarvestEvent.delete_all(["resource_id = ?", id])
+      # delete all records from resource contributions related to this record
+      ResourceContribution.delete_all(["resource_id = ?", self.id])
+      delete_resource_contributions_file
     rescue ActiveRecord::StatementInvalid => e
       # This is not *fatal*, it's just unfortunate. Probably because we're
       # harvesting, but waiting for harvests to finish is not possible.
@@ -232,7 +235,6 @@ class Resource < ActiveRecord::Base
   
   def save_resource_contributions
     resource_contributions = ResourceContribution.where("resource_id = ? ", self.id)
-    unless resource_contributions.blank?
       resource_contributions_json = []
       resource_contributions.each do |resource_contribution|
         taxon_concept_id = resource_contribution.taxon_concept_id
@@ -254,9 +256,11 @@ class Resource < ActiveRecord::Base
                                            contributions: resource_contributions_json }
       File.open("public/resource_contributions/resource_contributions_#{self.id}.json","w") do |f|
         f.write(JSON.pretty_generate(resource_info_with_contributions))
-      end
-      
-    end    
+      end      
+  end
+  
+  def delete_resource_contributions_file
+    File.delete("public/resource_contributions/resource_contributions_#{self.id}.json") if File.file?("public/resource_contributions/resource_contributions_#{self.id}.json")
   end
 
 private

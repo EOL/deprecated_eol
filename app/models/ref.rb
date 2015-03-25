@@ -10,9 +10,20 @@ class Ref < ActiveRecord::Base
 
   before_save :default_visibility
 
+  # This is used by Tramea:
+  def self.from_data_object(dato, parent)
+    dato.refs.map do |ref|
+      # NOTE: refs actually also have one or more optional "identifiers". I
+      # don't think we need them, now that we have autolinks, so I am going to
+      # ignore them entirely.
+      Reference.create(parent: parent,
+        body: ref.full_reference.balance_tags.add_missing_hyperlinks)
+    end
+  end
+
   # this method is not just sorting by rating
   def self.sort_by_full_reference(refs)
-    find_starting_nums = 
+    find_starting_nums =
     refs.sort_by do |r|
       # TODO: is there a better way to stip tags, or sort both strings and numbers here?
       stripped_full_reference = Sanitize.clean(r.full_reference)

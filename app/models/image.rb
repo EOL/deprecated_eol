@@ -5,26 +5,22 @@ class Image < ActiveRecord::Base
 
   def self.from_data_object(dato, taxon = nil)
     raise "Must be an image" unless dato.image?
-    return find(dato.id) if exists?(id: dato.id)
-    ratings = dato.rating_summary
+    return find_by_data_object_id(dato.id) if
+      exists?(data_object_id: dato.id)
     image = create({
-      id: dato.id,
+      data_object_id: dato.id,
       guid: dato.guid,
       cache_id: dato.object_cache_url,
       title: dato.object_title,
-      source_url: dato.source_url,
-      # TODO: extract this to some class, like with License.
-      ratings_1: ratings[1],
-      ratings_2: ratings[2],
-      ratings_3: ratings[3],
-      ratings_4: ratings[4],
-      ratings_5: ratings[5],
-      rating_weighted_average: data.average_rating
-    }.merge(License.params_from_data_object(dato)))
+      source_url: dato.source_url
+    }.merge(License.params_from_data_object(dato)).
+      merge(UsersDataObjectsRating.params_from_data_object(dato)))
     image.contents = dato.data_object_taxa.map do |dot|
       Content.from_data_object_taxon(dot, dato)
     end
-    # Adds all credits; no need to assign it here:
+    # I don't know why images would have refs, but technically they can, (they
+    # will render in the view) and there's no reason NOT to keep them, soooo...
+    Ref.from_data_object(dato, image)
     Credit.from_data_object(dato, image)
     image
   end

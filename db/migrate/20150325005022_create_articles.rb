@@ -1,15 +1,14 @@
-class CreateImages < ActiveRecord::Migration
+class CreateArticles < ActiveRecord::Migration
   def change
-    create_table :images do |t|
+    create_table :articles do |t|
       t.integer :data_object_id
       t.string :guid
-      t.string :cache_id
       t.string :title
-      t.string :source_url
       t.string :language, limit: 8
       t.string :license
       t.string :rights
       t.string :rights_holder
+      t.text :body_html
       t.integer :ratings_1
       t.integer :ratings_2
       t.integer :ratings_3
@@ -18,7 +17,5 @@ class CreateImages < ActiveRecord::Migration
       t.decimal :rating_weighted_average, precision: 3, scale: 2
       t.timestamps
     end
-    add_index :images, :data_object_id, unique: true
-    add_index :images, :guid
   end
 end

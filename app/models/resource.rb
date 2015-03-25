@@ -238,7 +238,7 @@ class Resource < ActiveRecord::Base
       resource_contributions_json = []
       resource_contributions.each do |resource_contribution|
         taxon_concept_id = resource_contribution.taxon_concept_id
-        type = resource_contribution.object_type
+        type = resource_contribution.object_type        
         url = type == "data_object" ? "http://eol.org/data_objects/#{resource_contribution.data_object_id}": "http://eol.org/pages/#{resource_contribution.taxon_concept_id}/data#data_point_uri_#{resource_contribution.data_point_uri_id}"
         resource_contribution_json = {
            type: type,
@@ -246,7 +246,14 @@ class Resource < ActiveRecord::Base
            identifier: resource_contribution.identifier,
            source: resource_contribution.source,
            page: taxon_concept_id
-        } 
+        }
+        unless resource_contribution.data_object_type.nil?
+          resource_contribution_json[:data_object_type] = DataType.find(resource_contribution.data_object_type).label
+        end
+        predicate = resource_contribution.predicate
+        unless predicate.nil?
+          resource_contribution_json[:predicate] = predicate
+        end
         resource_contributions_json << resource_contribution_json
       end
       

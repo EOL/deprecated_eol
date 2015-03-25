@@ -3,6 +3,21 @@
   "url": "http://eol.org/content_partners/3/resources/10",
   "title": "new_res",
   "contributions": [
-
+    {
+      "type": "data_object",
+      "url": "http://eol.org/data_objects/4185",
+      "identifier": "1068c3da-de9f-44cb-bb50-114072181021",
+      "source": "http://antkey.org/taxonomy/term/4874",
+      "page": 7282,
+      "data_object_type": "Image"
+    },
+    {
+      "type": "data_object",
+      "url": "http://eol.org/data_objects/4186",
+      "identifier": "1068c3da-de9f-44cb-bb50-114072181021",
+      "source": "http://antkey.org/taxonomy/term/4874",
+      "page": 7282,
+      "data_object_type": "Image"
+    }
   ]
 }

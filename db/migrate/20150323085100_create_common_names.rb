@@ -5,9 +5,12 @@ class CreateCommonNames < ActiveRecord::Migration
       t.string :name
       t.string :language, limit: 8
       t.boolean :trusted
+      t.boolean :hidden
       t.boolean :preferred
       t.timestamps
     end
-    add_index(:common_names, [:taxon_concept_id, :name, :language], unique: true, name: "by_tcn")
+    add_index :common_names, [:taxon_concept_id, :name, :language], unique: true, name: "by_tcn"
+    add_index :common_names, [:taxon_concept_id, :preferred], name: "preferred"
+    add_index :common_names, :taxon_concept_id
   end
 end

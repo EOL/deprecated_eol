@@ -17,5 +17,9 @@ class CreateArticles < ActiveRecord::Migration
       t.decimal :rating_weighted_average, precision: 3, scale: 2
       t.timestamps
     end
+    add_index :articles, :data_object_id, unique: true
+    add_index :articles, :guid
+    add_index :articles, :language
+    add_index :articles, :rating_weighted_average
   end
 end

@@ -1,6 +1,9 @@
 # This is a class used by Tramea.
 class CommonName < ActiveRecord::Base
   belongs_to :taxon_concept
+  belongs_to :summary,
+    primary_key: "taxon_concept_id",
+    foreign_key: "taxon_concept_id"
   has_many :name_sources
 
   def self.from_taxon_concept_name(tcn)
@@ -14,10 +17,12 @@ class CommonName < ActiveRecord::Base
         language: tcn.language.iso_639_1
       )
     common_name = create(
+      taxon_concept_id: tcn.taxon_concept_id,
       language: tcn.language.iso_639_1,
       name: tcn.name.string,
       trusted: tcn.vetted_id == Vetted.trusted.id,
-      preferred: tcn.preferred?
+      preferred: tcn.preferred?,
+      hidden: tcn.visibility_id == Visibility.invisible.id
     )
     # NOTE: I'm duplicating logic from TaxaHelper#common_name_display_attribution
     common_name.name_sources = tcn.agents.map do |agent|

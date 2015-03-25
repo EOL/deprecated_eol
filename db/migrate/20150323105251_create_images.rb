@@ -20,5 +20,6 @@ class CreateImages < ActiveRecord::Migration
     end
     add_index :images, :data_object_id, unique: true
     add_index :images, :guid
+    add_index :images, :language
   end
 end

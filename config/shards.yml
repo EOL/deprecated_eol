@@ -12,3 +12,12 @@ octopus:
       password: <%= ENV["EOL_SLAVE_PASSWORD"] %>
       encoding: utf8
       database: <%= ENV["EOL_SLAVE_DATABASE"] %>
+
+  production_logging:
+    slave:
+      adapter:  mysql2
+      host:     <%= ENV["EOL_SLAVE_HOST"] %>
+      username: <%= ENV["EOL_SLAVE_USERNAME"] %>
+      password: <%= ENV["EOL_SLAVE_PASSWORD"] %>
+      encoding: utf8
+      database: <%= ENV["EOL_SLAVE_DATABASE"] %>

@@ -21,12 +21,12 @@ class PendingHarvestsController < ApplicationController
     if params['pending_harvests']
       position_in_results = params['pending_harvests'].index(params['moved_id'])
       if position_in_results == params['pending_harvests'].length - 1
-        previous_element = KnownUri.find(params['pending_harvests'][-2].sub('pending_harvest_', ''))
+        previous_element = Resource.find(params['pending_harvests'][-2].sub('pending_harvest_', ''))
         @pending_harvest.position = previous_element.position + 1
         Resource.update_all('position = position + 1', "position >= #{previous_element.position + 1}")        
         @pending_harvest.save
       else
-        next_element = p_harvests.find(params['pending_harvests'][position_in_results + 1].sub('pending_harvest_', ''))
+        next_element = Resource.find(params['pending_harvests'][position_in_results + 1].sub('pending_harvest_', ''))
         @pending_harvest.position = next_element.position        
         Resource.update_all('position = position + 1', "position >= #{next_element.position}")
         @pending_harvest.save

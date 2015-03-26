@@ -23,6 +23,34 @@
         %dd
           -# TODO - || [] is lame here, fix:
           = select_tag(:attribute, options_for_select(@attribute_options || [], @attribute || @attribute_default), {id: 'attributes_select'})
+    - if @equivalent_attributes && @equivalent_attributes.count > 0
+      %br
+      %h2{style: "display: inline;"} Equivalent attributes: 
+      %h1{style: "display: inline;"} (search again to include selected attributes)
+      %br
+      %dl
+        %dd
+          %ul
+            - @equivalent_attributes.each do |eq|
+              %li{style: "list-style-type: none;"}
+                %label
+                  = eq.label
+                  = check_box_tag "required_equivalent_attributes[]", eq.id, @required_equivalent_attributes && @required_equivalent_attributes.include?(eq.id.to_s)
+      %br
+    - if @equivalent_values && @equivalent_values.count > 0
+      %br
+      %h2{style: "display: inline;"} Equivalent values: 
+      %h1{style: "display: inline;"} (search again to include selected values)
+      %br
+      %dl
+        %dd
+          %ul
+            - @equivalent_values.each do |eq|
+              %li{style: "list-style-type: none;"}
+                %label
+                  = eq.label
+                  = check_box_tag "required_equivalent_values[]", eq.id, @required_equivalent_values && @required_equivalent_values.include?(eq.id.to_s)
+      %br  
   .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
     show: I18n.t("data_search.form.search_tools_show_link"),
     hide: I18n.t("data_search.form.search_tools_hide_link")}}
@@ -97,3 +125,4 @@
   %fieldset.actions
     = submit_tag I18n.t(:search)
     = link_to t('.new_search_link'), data_search_path
+  

@@ -213,9 +213,9 @@ class Resource < ActiveRecord::Base
   end
 
   def destroy_everything    
-    Rails.logger.error("** Destroying Resource #{id}")    
+    Rails.logger.error("** Destroying Resource #{id}")
     harvest_events.each(&:destroy_everything)
-    begin      
+    begin
       HarvestEvent.delete_all(["resource_id = ?", id])
       # delete all records from resource contributions related to this record
       ResourceContribution.delete_all(["resource_id = ?", self.id])
@@ -235,39 +235,40 @@ class Resource < ActiveRecord::Base
   
   def save_resource_contributions
     resource_contributions = ResourceContribution.where("resource_id = ? ", self.id)
-      resource_contributions_json = []
-      resource_contributions.each do |resource_contribution|
-        taxon_concept_id = resource_contribution.taxon_concept_id
-        type = resource_contribution.object_type        
-        url = type == "data_object" ? "http://eol.org/data_objects/#{resource_contribution.data_object_id}": "http://eol.org/pages/#{resource_contribution.taxon_concept_id}/data#data_point_uri_#{resource_contribution.data_point_uri_id}"
-        resource_contribution_json = {
-           type: type,
-           url: url,
-           identifier: resource_contribution.identifier,
-           source: resource_contribution.source,
-           page: taxon_concept_id
-        }
-        unless resource_contribution.data_object_type.nil?
-          resource_contribution_json[:data_object_type] = DataType.find(resource_contribution.data_object_type).label
-        end
-        predicate = resource_contribution.predicate
-        unless predicate.nil?
-          resource_contribution_json[:predicate] = predicate
-        end
-        resource_contributions_json << resource_contribution_json
+    resource_contributions_json = []
+    resource_contributions.each do |resource_contribution|
+      taxon_concept_id = resource_contribution.taxon_concept_id
+      type = resource_contribution.object_type        
+      url = type == "data_object" ? "#{Rails.configuration.site_domain}/data_objects/#{resource_contribution.data_object_id}": "#{Rails.configuration.site_domain}/pages/#{resource_contribution.taxon_concept_id}/data#data_point_uri_#{resource_contribution.data_point_uri_id}"
+      resource_contribution_json = {
+         type: type,
+         url: url,
+         identifier: resource_contribution.identifier,
+         source: resource_contribution.source,
+         page: taxon_concept_id
+      }
+      data_object_type_id = resource_contribution.data_object_type
+      if data_object_type_id
+        resource_contribution_json[:data_object_type] = DataType.find(data_object_type_id).label
       end
-      
-      resource_info_with_contributions = { id: self.id,
-                                           url: "http://eol.org/content_partners/#{self.content_partner_id}/resources/#{self.id}",
-                                           title: self.title,
-                                           contributions: resource_contributions_json }
-      File.open("public/resource_contributions/resource_contributions_#{self.id}.json","w") do |f|
-        f.write(JSON.pretty_generate(resource_info_with_contributions))
-      end      
+      predicate = resource_contribution.predicate
+      if predicate
+        resource_contribution_json[:predicate] = predicate
+      end
+      resource_contributions_json << resource_contribution_json
+    end
+    
+    resource_info_with_contributions = { id: self.id,
+                                         url: "#{Rails.configuration.site_domain}/content_partners/#{self.content_partner_id}/resources/#{self.id}",
+                                         title: self.title,
+                                         contributions: resource_contributions_json }
+    File.open("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json","w") do |f|
+      f.write(JSON.pretty_generate(resource_info_with_contributions))
+    end      
   end
   
   def delete_resource_contributions_file
-    File.delete("public/resource_contributions/resource_contributions_#{self.id}.json") if File.file?("public/resource_contributions/resource_contributions_#{self.id}.json")
+    File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json") if File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json")
   end
 
 private

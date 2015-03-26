@@ -72,7 +72,7 @@ public/uploads/data_search_files/*
 public/uploads/datasets/*
 public/uploads/Image/*
 public/uploads/images/collection_icons/*
-public/resource_contributions
+public/resource_contributions/*
 solr/logs/*.*
 solr/solr/data/*
 vendor/eol_org

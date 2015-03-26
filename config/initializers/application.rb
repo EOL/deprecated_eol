@@ -12,6 +12,7 @@ $SOLR_ACTIVITY_LOGS_CORE = 'activity_logs'
 $SOLR_BHL_CORE = 'bhl'
 $SOLR_DIR    = File.join(Rails.root, 'solr', 'solr')
 $INDEX_RECORDS_IN_SOLR_ON_SAVE = true
+$RESOURCE_CONTRIBUTIONS_DIR = File.join(Rails.root, 'public', 'resource_contributions')
 
 # NOTE - 
 # The following fixes a problem with casting strings to XML which Gemnaisium says we're still vulnerable to:

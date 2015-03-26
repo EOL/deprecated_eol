@@ -75,7 +75,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       if upload_required
         enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
       end
-      if params[:resource][:auto_publish] == "0"
+      if params[:resource][:auto_publish].to_i == 0
         @resource.delete_resource_contributions_file
       else
         @resource.save_resource_contributions

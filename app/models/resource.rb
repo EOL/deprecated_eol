@@ -28,6 +28,9 @@ class Resource < ActiveRecord::Base
   belongs_to :dwc_hierarchy, class_name: 'Hierarchy'
   belongs_to :collection
   belongs_to :preview_collection, class_name: 'Collection'
+  
+  #This is added to make the resources act as list for the pending harvest classes
+  acts_as_list
 
   has_many :harvest_events
 
@@ -64,6 +67,15 @@ class Resource < ActiveRecord::Base
     record.errors.add attr, I18n.t(:inaccessible, scope: [:activerecord, :errors, :messages, :models]) unless value.blank? || EOLWebService.url_accepted?(value)
   end
   validate :url_or_dataset_not_both
+
+  def self.pending
+    Resource.where("(resource_status_id IN (#{ResourceStatus.force_harvest.id}, #{ResourceStatus.validation_failed.id}, #{ResourceStatus.processing_failed.id})) OR
+                    (resource_status_id= #{ResourceStatus.validated.id} AND harvested_at IS NULL) OR (refresh_period_hours!=0 AND 
+                    DATE_ADD(harvested_at, INTERVAL (refresh_period_hours) HOUR)<=NOW() AND resource_status_id IN (#{ResourceStatus.upload_failed.id}, 
+                    #{ResourceStatus.validated.id}, #{ResourceStatus.validation_failed.id}, #{ResourceStatus.processed.id}, #{ResourceStatus.processing_failed.id}, 
+                    #{ResourceStatus.published.id}))")
+  
+  end
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_created_by?(user)

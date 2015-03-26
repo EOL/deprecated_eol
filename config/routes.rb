@@ -424,6 +424,11 @@ Eol::Application.routes.draw do
 
   # Putting these after the complex resources because they are less common.
   resources :recent_activities, :only => [:index]
+  resources :pending_harvests do
+    collection do
+      post 'sort'
+    end
+  end
   resources :classifications, :only => [:create]
   resources :contacts, :only => [:index, :create, :new]
   resources :collection_items, :only => [:create, :show, :edit, :update]

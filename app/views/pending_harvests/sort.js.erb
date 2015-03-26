@@ -3,8 +3,7 @@
     <%# This is a wee bit of a hack. It checks to see if pagination suggests we're on the first page or not: %>
     if ($('a[rel*=start]').length == 0) {    	
       $('tr#pending_harvest_<%= @pending_harvest.id %>').insertAfter('table#sortable tr.header');
-    } else {  
-    	alert("else"); 	  
+    } else {    	
       $('tr#pending_harvest_<%= @pending_harvest.id %>').remove();
     }
   <% elsif @to == :bottom %>

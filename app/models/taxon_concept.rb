@@ -63,6 +63,7 @@ class TaxonConcept < ActiveRecord::Base
 
   # THESE ATTRIBUTES ARE FOR TRAMEA, be careful using them:
   has_one :summary
+  has_one :page
   has_many :common_names
 
   attr_accessor :common_names_in_language

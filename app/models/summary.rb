@@ -10,6 +10,10 @@ class Summary < ActiveRecord::Base
   belongs_to :taxon_concept # ...which has_one :summary
   belongs_to :thumbnail, class_name: "DataObject", foreign_key: "data_object_id"
 
+  has_one :page,
+      primary_key: "taxon_concept_id",
+      foreign_key: "taxon_concept_id"
+
   has_many :common_names,
     primary_key: "taxon_concept_id",
     foreign_key: "taxon_concept_id"

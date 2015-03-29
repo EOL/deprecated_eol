@@ -3,12 +3,13 @@ class CreateArticles < ActiveRecord::Migration
     create_table :articles do |t|
       t.integer :data_object_id
       t.string :guid
+      t.text :body
       t.string :title
+      t.string :pages_in_media
       t.string :language, limit: 8
       t.string :license
       t.string :rights
       t.string :rights_holder
-      t.text :body_html
       t.integer :ratings_1
       t.integer :ratings_2
       t.integer :ratings_3

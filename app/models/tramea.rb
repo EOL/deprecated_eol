@@ -40,7 +40,7 @@ class Tramea
       options["traits_page"] ||= 1
       options["traits_per_page"] ||= 10
       # NOTE: this sucks, need to load a fake data helper to make this work: THIS IS REALLY SLOW.
-      data = TaxonData.new(taxon, User.first)
+      data = TaxonData.new(taxon)
       hash = {
         "id" => taxon.id,
         # TODO: "curator" is a PLACEHOLDER, meant to show that, in the future,
@@ -84,11 +84,7 @@ class Tramea
           "page" => options["traits_page"],
           "per_page" => options["traits_per_page"],
           "total" => data.distinct_predicates.count,
-          # TODO: handle paginatation rather than just the summary:
-          # NOTE: Yeah, weird structure from this method.
-          "traits" => data.get_data_for_overview.values.map do |h|
-            h[:data_point_uris]
-          end.flatten.map do |datum|
+          "traits" => data.get_data.map do |datum|
             trait_from_data_point_uri(datum)
           end
         }
@@ -176,9 +172,7 @@ class Tramea
       return hash if options[:lite]
       hash.merge({
         "source" => {
-          # ARRRRRGH: Hierarchy#content_partner is a METHOD. :| It's because there
-          # are some other "types" of resources that don't dierecly have a CP.
-          "content_partner_id" => entry.hierarchy.content_partner.id,
+          "content_partner_id" => entry.hierarchy.resource.content_partner_id,
           "resource_id" => entry.hierarchy.resource.id,
           "name" => entry.hierarchy.resource.title,
           "id" => entry.identifier,
@@ -266,7 +260,7 @@ class Tramea
         # This will be some representation of "occurrenceID", something like
         # #get_other_occurrence_measurements ...but just returning the id (which
         # it does NOT in that query, sigh).
-        "event_id" => "TODO",
+        "occurence_id" => "TODO",
         "subject" => summary_from_taxon_concept(uri.taxon_concept),
         "predicate" => uri_from_known_uri(uri.predicate_known_uri),
         "object" => object_uri(uri),

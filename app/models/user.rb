@@ -49,6 +49,9 @@ class User < ActiveRecord::Base
   has_one :user_info
   has_one :notification
 
+  # These are used by Tramea, which is denormalized information. Be careful:
+  has_many :content_curations
+
   scope :admins, -> { where("admin IS NOT NULL") }
   scope :curators, -> { where("curator_level_id IS NOT NULL") }
   scope :active, -> { where(active: true) }

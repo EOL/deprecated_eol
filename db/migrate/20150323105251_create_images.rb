@@ -4,8 +4,9 @@ class CreateImages < ActiveRecord::Migration
       t.integer :data_object_id
       t.string :guid
       t.string :cache_id
-      t.string :title
       t.string :source_url
+      t.string :title
+      t.string :pages_in_media
       t.string :language, limit: 8
       t.string :license
       t.string :rights

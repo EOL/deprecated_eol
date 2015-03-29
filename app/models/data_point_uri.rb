@@ -409,6 +409,7 @@ class DataPointUri < ActiveRecord::Base
 
   def convert_units
     if (self.object.is_a?(Float) || self.object.to_s.is_numeric?)
+      # TODO: This likely does nothing at all, because it doesn't use self. or @:
       original_value = self.object
       while apply_unit_conversion
         # wait while there are no more conversions performed
@@ -441,8 +442,8 @@ class DataPointUri < ActiveRecord::Base
     false
   end
 
-  # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
-  # this model class.
+  # Note... this method is actually kind of view-like (something like XML
+  # Builder would be ideal) and perhaps shouldn't be in this model class.
   def to_hash(language = Language.default, options = {})
     hash = if taxon_concept
              {

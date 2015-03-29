@@ -1516,9 +1516,9 @@ FactoryGirl.define do
   end
   
     factory :institutional_sponsor do
-    name "MyString"
-    logo_url "MyString"
-    url "MyString"
+    name "Sponsor_name"
+    logo_url "Sponosr_logo_url"
+    url "Sponsor_url"
     active false
   end
 

@@ -193,7 +193,6 @@ module TaxaHelper
   end
 
   def format_data_value(value, options={})
-    # debugger
     value = value.is_a?(DataValue) ? value.label.to_s : value.to_s
     if convert_numbers?(value, options)
       if value.is_float?

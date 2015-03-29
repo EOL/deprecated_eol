@@ -152,11 +152,4 @@ describe KnownUri do
     known_uri= KnownUri.gen(uri: uri)
     expect(known_uri.uri).to eq(Rails.configuration.uri_term_prefix+"anything")
   end
-
-  context "treat as string" do
-    it "doesn't format data value for verbatim known uris" do 
-      
-    end
-    
-  end
 end

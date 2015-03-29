@@ -122,6 +122,9 @@ module Eol
     #Server's IP address
     Rails.configuration.site_domain = "eol.org" #domain name for url links communicated outside, for example for emails
 
+    #logos path in media server
+    Rails.configuration.partner_logos = "http://160.111.248.28/content/partner_logos/"
+
     # If you're testing a new feature, they will be asked to go here to provide feedback:
     Rails.configuration.beta_test_feedback_link = 'https://www.surveymonkey.com/s/9FDTDQP'
 

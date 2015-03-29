@@ -43,14 +43,22 @@ class DataPointUri < ActiveRecord::Base
   before_save :default_visibility
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
-    # There are potentially hundreds or thousands of DataPointUri inserts happening here.
-    # The transaction makes the inserts much faster - no committing after each insert
+    # There are potentially hundreds or thousands of DataPointUri inserts
+    # happening here. The transaction makes the inserts much faster - no
+    # committing after each insert
     transaction do
-      partner_data = results.select{ |d| d.has_key?(:data_point_uri) }
-      data_point_uris = DataPointUri.find_all_by_uri(partner_data.collect{ |d| d[:data_point_uri].to_s }.compact.uniq)
+      partner_data = results.select { |d| d.has_key?(:data_point_uri) }
+      data_point_uris = DataPointUri.where(
+        uri: partner_data.map { |d| d[:data_point_uri].to_s }.compact.uniq
+      )
+      # Use the index, if we can (we cannot on searches):
+      data_point_uris = data_point_uris.
+        where(taxon_concept_id: taxon_concept_id) if
+        taxon_concept_id
       # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
       partner_data.each do |row|
-        if data_point_uri = data_point_uris.detect{ |dp| dp.uri == row[:data_point_uri].to_s }
+        if data_point_uri = data_point_uris.
+          detect { |dp| dp.uri == row[:data_point_uri].to_s }
           row[:data_point_instance] = data_point_uri
         end
         # setting the taxon_concept_id since it is not in the Virtuoso response
@@ -82,7 +90,9 @@ class DataPointUri < ActiveRecord::Base
 
   def self.create_from_virtuoso_response(row)
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
-    if data_point_uri = DataPointUri.find_by_uri(new_attributes[:uri])
+    if data_point_uri = DataPointUri.find_by_taxon_concept_id_and_uri(
+      new_attributes[:taxon_concept_id], new_attributes[:uri]
+    )
       data_point_uri.update_with_virtuoso_response(row)
     else
       data_point_uri = DataPointUri.create(new_attributes)

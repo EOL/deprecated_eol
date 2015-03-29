@@ -1515,7 +1515,7 @@ FactoryGirl.define do
     month { generate(:month) }
   end
   
-    factory :institutional_sponsor do
+  factory :institutional_sponsor do
     name "Sponsor_name"
     logo_url "Sponosr_logo_url"
     url "Sponsor_url"

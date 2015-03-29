@@ -34,4 +34,4 @@
         - row_id = "#{header_id}_measure_#{i}"
         %tr
           %th{id: "#{row_id}_h"}= display_uri(d.predicate_uri, define: true)
-          %td{id: "#{row_id}_d"}= raw display_text_for_data_point_uri(d, define: :after, id: "#{row_id}_d_v")
+          %td{id: "#{row_id}_d"}= raw display_text_for_data_point_uri(d, define: :after, id: "#{row_id}_d_v", value_for_known_uri: d.predicate_uri)

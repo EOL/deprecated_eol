@@ -14,7 +14,6 @@ class KnownUri < ActiveRecord::Base
   BASE = Rails.configuration.uri_term_prefix
   TAXON_RE = Rails.configuration.known_taxon_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
-  URIS_TO_LEAVE_AS_STRINGS = [ 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate' ]
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable
@@ -68,7 +67,7 @@ class KnownUri < ActiveRecord::Base
     :exclude_from_exemplars, :name, :known_uri_relationships_as_subject,
     :attribution,   :ontology_information_url, :ontology_source_url, :position,
     :group_by_clade, :clade_exemplar,   :exemplar_for_same_as, :value_is_text,
-    :hide_from_glossary
+    :hide_from_glossary, :value_is_verbatim
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -390,8 +389,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def treat_as_string?
-    return true if KnownUri::URIS_TO_LEAVE_AS_STRINGS.include?(uri)
-    false
+    self.value_is_verbatim
   end
 
   def as_json(options = {})

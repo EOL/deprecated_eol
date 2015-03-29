@@ -21,9 +21,9 @@ class DataSearchFile < ActiveRecord::Base
       # The user may delete the download before it has finished (if it's hung,
       # the workers are busy or its just taking a very long time). If so,
       # we should not email them when the process has finished
-      if hosted_file_exists? && instance_still_exists?
-        send_completion_email
-      end
+      # if hosted_file_exists? && instance_still_exists?
+        # send_completion_email
+      # end
       update_attributes(completed_at: Time.now.utc)
     end
   end

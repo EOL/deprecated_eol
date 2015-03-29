@@ -112,10 +112,9 @@ describe TaxaHelper do
       to eq('test with <a href="http://www.eol.org">www.eol.org</a> links')
   end
 
-  it 'should format leave strings alone' do
-    determined_date = KnownUri.gen_if_not_exists(uri: 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate')
-    expect(helper.format_data_value('1000')).to eq('1,000')
-    expect(helper.format_data_value('1000', value_for_known_uri: determined_date)).to eq('1000')
+  it 'keeps the format of the verbatim known uris' do
+    known_uri = KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_term_prefix+"verbatim_uri", value_is_verbatim: true)
+    expect(helper.format_data_value('14444444.9999999', value_for_known_uri: known_uri)).to eq('14444444.9999999')
   end
 
   it 'should have superscript if the known uri has karat' do

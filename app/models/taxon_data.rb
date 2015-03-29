@@ -94,24 +94,20 @@ class TaxonData < TaxonUserClassificationFilter
 
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
-    return @taxon_data_set.dup if defined?(@taxon_data_set)
     if_connection_fails_return(nil) do
-      taxon_data_set = TaxonDataSet.new(raw_data,
-        taxon_concept: taxon_concept,
-        language: user.language)
+      return @taxon_data_set.dup if defined?(@taxon_data_set)
+      taxon_data_set = TaxonDataSet.new(raw_data, taxon_concept: taxon_concept, language: user.language)
       taxon_data_set.sort
-      # NOTE: I removed some includes here (known_uri_relationships) because I
-      # didn't see them being used _anywhere_.
-      known_uris = KnownUri.
-        includes({ toc_items: :translations }).
-        where(
-          id: taxon_data_set.map { |d| d.predicate_known_uri.id }.compact.uniq
-        )
-      @categories = known_uris.flat_map(&:toc_items).compact.uniq
+      known_uris = taxon_data_set.collect{ |data_point_uri| data_point_uri.predicate_known_uri }.compact
+      KnownUri.preload_associations(known_uris,
+                                    [ { toc_items: :translations },
+                                      { known_uri_relationships_as_subject: :to_known_uri },
+                                      { known_uri_relationships_as_target: :from_known_uri } ] )
+      @categories = known_uris.flat_map(&:toc_items).uniq.compact
       @taxon_data_set = taxon_data_set
+      raise EOL::Exceptions::SparqlDataEmpty if taxon_data_set.nil?
+      @taxon_data_set
     end
-    raise EOL::Exceptions::SparqlDataEmpty if @taxon_data_set.nil?
-    @taxon_data_set
   end
 
   # TODO - spec for can see data check

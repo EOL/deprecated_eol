@@ -186,6 +186,27 @@ describe 'taxa/data/index' do
         render
         expect(rendered).to have_tag('small', text: /ago/)
       end
+      
+    end
+    context "treat values as strings" do
+      
+      before(:all) do 
+        @known_uri = KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_term_prefix+"verbatim_uri", value_is_verbatim: true)
+        @big_value = "199999999999.99999999"
+      end
+
+      it "doesn't format data value for verbatim known uris" do
+        assign(:data_point_uris, [ DataPointUri.gen(predicate_known_uri_id: @known_uri.id, object: @big_value ) ])
+        render
+        expect(rendered).to match /#{@big_value}/
+      end
+
+      it "doesn't format data value for verbatim known uris" do
+        @known_uri.update_attributes(value_is_verbatim: false)
+        assign(:data_point_uris, [ DataPointUri.gen(predicate_known_uri_id: @known_uri.id, object: @big_value ) ])
+        render
+        expect(rendered).not_to match /#{@big_value}/
+      end
     end
   end
 end

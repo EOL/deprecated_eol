@@ -53,7 +53,7 @@
         taxon_data_path(data_point_uri.taxon_concept,
         data_point_uri_id: data_point_uri.id, anchor: data_point_uri.anchor),
         title: I18n.t(:data_row_additional_detail_assistive))
-    = raw display_text_for_data_point_uri(data_point_uri, define: :after)
+    = raw display_text_for_data_point_uri(data_point_uri, define: :after, value_for_known_uri: data_point_uri.predicate_uri)
   %td.source
     %span.source
       - if data_point_uri.source

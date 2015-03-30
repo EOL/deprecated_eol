@@ -1,0 +1,75 @@
+@import "common"
+
+#pending_harvests
+  position: relative
+  .pagination
+    width: 40%
+    margin-left: 60%
+    + ul
+      border: none
+    &:first-child
+      position: absolute
+      top : 0
+      right: 0
+      + ul
+        margin-top: 0
+  .ui-sortable-helper
+    margin-top: 3em
+    background-color: #eee
+    padding: 6px
+    border: 1px dashed #aaa
+  .placeholder
+    height: 5em
+    line-height: 1.2em
+    background-color: #ffe
+    border: 1px dashed #eea
+  table.standard
+    thead
+      line-height: 250%
+      tr
+        border-color: #93a4b0 #93a4b0 #cad3db
+        th
+          background: none
+    tbody tr
+      border-color: #cad3db #93a4b0
+      &:last-child
+        border-color: #93a4b0
+  table.harvests
+    table-layout: fixed
+    width: 100%
+    th
+      &:nth-of-type(1)
+        width: 30%
+      &:nth-of-type(2)
+        width: 15%
+      &:nth-of-type(3)
+        width: 15%
+      &:nth-of-type(4)
+        width: 20%
+      &:nth-of-type(5)
+        width: 15%
+      &:nth-of-type(6)
+        width: 5%
+  tr.hidden
+    background-color: #efefef
+    color: #666666
+    a
+      color: #7597B5
+  tr.unknown
+    background-color: #fcc
+    color: #855
+    a
+      color: #979
+  td, th
+    display: table-cell
+    -ms-word-break: break-all
+    word-wrap: break-word
+  td.excluded
+    background: image-url("v2/icon_excluded.png") 7px 13px no-repeat
+  td.untranslated
+    color: #8b0000
+ul.actions .button
+  line-height: 260%
+h2
+  margin-top: 1em
+  line-height: 200%

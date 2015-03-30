@@ -1,5 +1,5 @@
 # Creates a set of named and numbered defaults for a ActiveRecord::Base class, which is aware of translations, if any.
-# 
+#
 # This provides three conveniences:
 #   • a (well-cached) set of methods to call each of these named defaults, and
 #   • a #create_enumerated method which will (safely) ensure everything it expects to find is actually in the DB. See below.
@@ -12,7 +12,7 @@
 #
 # ...in this case, you will get methods named #trusted, #untrusted, and #unknown pointing to instances with those labels. The
 # #create_enumerated method will also automatically create those instances. #enumerations will return { :trusted => 'Trusted',
-# 
+#
 # names (as symbols). If you need to specify aliases for the values, pass a hash in place of the string:
 #
 #   enumerated :name, [{create_action: 'Create'}, 'Add', 'Another Action']
@@ -123,7 +123,13 @@ module Enumerated
             field_class = attribute_names.include?(@enum_field.to_s) ? self : @enum_translated_class
             trans_params = { @enum_field => value, language_id: Language.english.id }
             unless field_class.send(:exists?, { @enum_field => value, language_id: Language.english.id } )
-              this = create! # Since it's translated and there's no additional params, this has no attributes.
+              # NOTE: Stupid hack. Our DB wasn't auto_inc'ing the id when you
+              # just insert the default ID the way Rails does it natively.
+              # STUPID! Has to be a problem with the DB, but no time to
+              # investigate. Soooo, work around.
+              id = maximum(:id) || 0
+              connection.execute("INSERT INTO #{table_name} (id) VALUES (#{id + 1})")
+              this = last # without workaround: this.create!
               trans_params.merge!(@enum_foreign_key => this.id)
               trans = @enum_translated_class.send(:create!, trans_params)
             end

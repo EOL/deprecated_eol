@@ -155,7 +155,8 @@ class TaxonData < TaxonUserClassificationFilter
   def show_preferred_unit(results)
     results.group_by { |r| r[:attribute] }.values.map do |attribute_group|
       attribute_group.sort do |a,b|
-        if a[:unit_of_measure_uri] && b[:unit_of_measure_uri]
+        if a[:unit_of_measure_uri] && b[:unit_of_measure_uri] &&
+           a[:unit_of_measure_uri].is_a?(Hash) && b[:unit_of_measure_uri].is_a?(Hash)
           a[:unit_of_measure_uri][:position] <=> b[:unit_of_measure_uri][:position]
         else
           a[:unit_of_measure_uri] ? -1 : 1

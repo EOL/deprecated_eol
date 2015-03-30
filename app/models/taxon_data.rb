@@ -112,7 +112,7 @@ class TaxonData < TaxonUserClassificationFilter
     end
     raise EOL::Exceptions::SparqlDataEmpty if @taxon_data_set.nil?
     @taxon_data_set
-  end
+  end  
 
   # TODO - spec for can see data check
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
@@ -139,7 +139,7 @@ class TaxonData < TaxonUserClassificationFilter
     return [] unless should_show_clade_range_data
     return @ranges_of_values if defined?(@ranges_of_values)
     EOL::Sparql::Client.if_connection_fails_return({}) do
-      results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
+        results = range_data
         KnownUri.add_to_data(results)
         results.each do |result|
           [ :min, :max ].each do |m|
@@ -330,5 +330,11 @@ class TaxonData < TaxonUserClassificationFilter
         GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
         ORDER BY DESC(?min)"
       query
+    end
+        
+    def range_data
+      Rails.cache.fetch("/taxa/#{taxon_concept.id}/range_data", expires_in: 12.hours) do
+        EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
+      end
     end
 end

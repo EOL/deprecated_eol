@@ -517,13 +517,17 @@ $(function() {
     }
   }).disableSelection();
   
-  $('#pause_resume_pending_harvests').on('click', function() {
-  	alert(this.className);
-  	if (this.className == "pause_pending_harvests"){  		
-  		this.className = "resume_pending_harvests";
-  	}else{
-  		this.className = "pause_pending_harvests";
-  	}  	
+  $('#pause_p_harvest').on('click', function() {
+  	alert("pause");
+  	$('#page_heading.site_column.hgroup.pause_pending_harvests').display = 'none';
+    alert("before post");
+    $.post("/pending_harvests/pause_harvesting");
+    return(false);
+  });
+  
+  $('#resume_p_harvest').on('click', function() {
+  	alert("resume");
+  	$('.resume_pending_harvests').style.display = 'none';
     $.post("/pending_harvests/pause_harvesting");
     return(false);
   });

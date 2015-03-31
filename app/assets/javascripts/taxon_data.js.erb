@@ -516,6 +516,17 @@ $(function() {
       $.post("/pending_harvests/sort", { pending_harvests: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') });
     }
   }).disableSelection();
+  
+  $('#pause_resume_pending_harvests').on('click', function() {
+  	alert(this.className);
+  	if (this.className == "pause_pending_harvests"){  		
+  		this.className = "resume_pending_harvests";
+  	}else{
+  		this.className = "pause_pending_harvests";
+  	}  	
+    $.post("/pending_harvests/pause_harvesting");
+    return(false);
+  });
 
   // Definitions of Attributes are dialogs if JS is enabled:
   $('table.data tr .info, table.data.search tr .info').each(function() {

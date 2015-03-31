@@ -4,7 +4,8 @@
   #page_heading
     .site_column
       .hgroup
-        %h1= I18n.t(:pending_harvests_title)
+        %h1= I18n.t(:pending_harvests_title)        
+        = button_to(I18n.t(:pause_pending_harvests), '#', class: 'pause_pending_harvests', id: 'pause_resume_pending_harvests')     
   #content
     #pending_harvests.site_column
       - if @pending_harvests.nil? || @pending_harvests.empty?

@@ -245,7 +245,11 @@ class DataObject < ActiveRecord::Base
     DataObject.populate_rights_holder_or_data_subtype(params, options)
     object_is_a_link = (!options[:link_type_id].blank? && options[:link_type_id] != 0)
     params[:source_url] = DataObject.add_http_if_missing(params[:source_url]) if object_is_a_link
-    dato = DataObject.new(params.reverse_merge!({published: true}))
+    dato = DataObject.new(params.reverse_merge!({
+      published: true,
+      object_created_at: Time.now,
+      object_modified_at: Time.now
+    }))
     if dato.save
       begin
         dato.toc_items = Array(TocItem.find(options[:toc_id]))

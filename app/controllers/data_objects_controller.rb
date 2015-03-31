@@ -18,6 +18,8 @@ class DataObjectsController < ApplicationController
     set_text_data_object_options
     @data_object ||= DataObject.new(data_type: DataType.text,
                                   license_id: License.cc.id,
+                                  object_created_at: Time.now,
+                                  object_updated_at: Time.now,
                                   language_id: current_language.id)
     unless params[:data_object]
       # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
@@ -54,9 +56,16 @@ class DataObjectsController < ApplicationController
       flash[:notice] = I18n.t(:duplicate_text_warning)
       self.new && return
     end
-    @data_object = DataObject.create_user_text(params[:data_object], user: current_user,
-                                               taxon_concept: @taxon_concept, toc_id: toc_id,
-                                               link_type_id: link_type_id, link_object: params[:commit_link])
+    @data_object = DataObject.create_user_text(
+      params[:data_object],
+      user: current_user,
+      taxon_concept: @taxon_concept,
+      toc_id: toc_id,
+      object_created_at: Time.now,
+      object_updated_at: Time.now,
+      link_type_id: link_type_id,
+      link_object: params[:commit_link]
+    )
 
     if @data_object.nil? || @data_object.errors.any?
       @selected_toc_item_id = toc_id

@@ -19,7 +19,7 @@ class DataObjectsController < ApplicationController
     @data_object ||= DataObject.new(data_type: DataType.text,
                                   license_id: License.cc.id,
                                   object_created_at: Time.now,
-                                  object_updated_at: Time.now,
+                                  object_modified_at: Time.now,
                                   language_id: current_language.id)
     unless params[:data_object]
       # default to passed in toc param or brief summary if selectable, otherwise just the first selectable toc item
@@ -62,7 +62,7 @@ class DataObjectsController < ApplicationController
       taxon_concept: @taxon_concept,
       toc_id: toc_id,
       object_created_at: Time.now,
-      object_updated_at: Time.now,
+      object_modified_at: Time.now,
       link_type_id: link_type_id,
       link_object: params[:commit_link]
     )

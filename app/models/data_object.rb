@@ -275,7 +275,7 @@ class DataObject < ActiveRecord::Base
     params[:source_url] = DataObject.add_http_if_missing(params[:source_url]) if object_is_a_link
     new_dato = DataObject.new(params.reverse_merge!(
       object_created_at: Time.now,
-      object_updated_at: Time.now,
+      object_modified_at: Time.now,
       guid: self.guid, published: 1
     ))
     if new_dato.save

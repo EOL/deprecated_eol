@@ -232,7 +232,7 @@ class TaxonData < TaxonUserClassificationFilter
 
     def raw_data
       Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
-        expires_in: 12.hours) do
+        expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
         (measurement_data + association_data).
           delete_if { |k,v| k[:attribute].blank? }
       end
@@ -333,7 +333,7 @@ class TaxonData < TaxonUserClassificationFilter
     end
         
     def range_data
-      Rails.cache.fetch("/taxa/#{taxon_concept.id}/range_data", expires_in: 12.hours) do
+      Rails.cache.fetch("/taxa/#{taxon_concept.id}/range_data", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
         EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
       end
     end

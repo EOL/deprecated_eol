@@ -71,6 +71,21 @@ describe DataSearchController do
       expect(DataSearchLog.last.number_of_results).to eq(0)  # tiplestore truncated, back to 0 results
     end
     
+    it 'should search with equivalent attributes' do
+      Language.create_english
+      k1 = KnownUri.gen
+      k1.update_attributes(uri: 'http://eol.org/eye_color') 
+      TranslatedKnownUri.create(known_uri_id: k1.id, name: "eye color", language_id: Language.first.id)
+      k2 = KnownUri.gen
+      k2.update_attributes(uri: 'http://eol.org/color')
+      TranslatedKnownUri.create(known_uri_id: k2.id, name: "color", language_id: Language.first.id)
+      KnownUriRelationship.create(from_known_uri_id: k1.id,to_known_uri_id: k2.id, relationship_uri: 'http://www.w3.org/2002/07/owl#equivalentProperty')
+      DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/eye_color', object: 'brown')).update_triplestore
+      DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/color', object: 'brown')).update_triplestore
+      get :index, attribute: 'http://eol.org/eye_color', required_equivalent_attributes: ["#{k2.id}"]
+      expect(DataSearchLog.last.number_of_results).to eq(2)
+    end
+    
     describe "taxon autocomplete" do
       
       before(:all) do

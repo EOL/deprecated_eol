@@ -67,13 +67,7 @@ class DataSearchController < ApplicationController
   def get_equivalents(uri)
     uri = KnownUri.find_by_uri(uri)
     equivalents = []
-    if uri
-      kur = KnownUriRelationship.find_all_equivalence_relations_for_known_uris([uri.id])
-      kur.each do |rel|
-         rel[:from_known_uri_id] == uri.id ? id = rel[:to_known_uri_id] : id = rel[:from_known_uri_id]
-         equivalents << KnownUri.find(id) if KnownUri.find(id)
-      end
-    end
+    equivalents = uri.equivalent_known_uris if uri
     equivalents
   end
   
@@ -103,14 +97,13 @@ class DataSearchController < ApplicationController
     @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]
-    @required_equivalent_values = params[:required_equivalent_values]
-    
+    @required_equivalent_values = options[:q] && !options[:q].blank? ?  params[:required_equivalent_values] : nil 
     @equivalent_attributes = get_equivalents(@attribute)
     equivalent_attributes_ids = @equivalent_attributes.map{|eq| eq.id.to_s}
     # check if it is really an equivalent attribute
     @required_equivalent_attributes = @required_equivalent_attributes.map{|eq| eq if equivalent_attributes_ids.include?(eq) }.compact if @required_equivalent_attributes
     
-    if @querystring
+    if options[:q] && !options[:q].blank?
       tku = TranslatedKnownUri.find_by_name(@querystring)
       ku = tku.known_uri if tku
       if ku
@@ -140,7 +133,6 @@ class DataSearchController < ApplicationController
     else
       @attribute_known_uri = KnownUri.find_by_uri(@attribute)
     end
-    
     @attributes = @attribute_known_uri ? @attribute_known_uri.label : @attribute
     if @required_equivalent_attributes
       @required_equivalent_attributes.each do |attr|

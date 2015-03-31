@@ -53,6 +53,7 @@ module EOL
           return_hash = []
           hierarchy_entries.each do |r|
             return_hash << { 'eol_page_id' => r.taxon_concept_id }
+            return_hash << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{r.taxon_concept_id}" }
           end
           return return_hash
         end

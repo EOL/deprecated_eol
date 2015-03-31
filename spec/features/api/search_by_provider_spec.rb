@@ -18,12 +18,22 @@ describe 'API:search_by_provider' do
   it 'search_by_provider should return the EOL page ID for a provider identifer' do
     response = get_as_xml("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
     our_result = response.xpath("//eol_page_id")
-    our_result.length.should == 1
+    our_result.length.should == 2
     our_result.inner_text.to_i.should == @test_hierarchy_entry_published.taxon_concept_id
 
     response = get_as_json("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
     response.length.should > 0
     response.collect{ |r| r['eol_page_id'].to_i == @test_hierarchy_entry_published.taxon_concept_id}.length == 1
+  end
+  
+  it 'search_by_provider should return the EOL page link for a provider identifer' do
+    response = get_as_xml("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
+    our_result = response.xpath("//eol_page_link")
+    our_result.inner_text.should == "#{Rails.configuration.site_domain}/pages/#{@test_hierarchy_entry_published.taxon_concept_id}"
+
+    response = get_as_json("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
+    response.length.should > 0
+    response.collect{ |r| r['eol_page_link'] == "#{Rails.configuration.site_domain}/pages/#{@test_hierarchy_entry_published.taxon_concept_id}"}.length == 1
   end
 
   it 'search_by_provider should not return the EOL page ID for a provider identifer' do

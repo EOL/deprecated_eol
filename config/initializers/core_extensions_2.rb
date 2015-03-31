@@ -200,12 +200,12 @@ class String
 
         # Clear off truncated tags:
         trimmed_string.sub!(/<[^>]+$/, '')
-        
+
         return (trimmed_string.strip + options[:omission]).balance_tags.html_safe
       end
     end
   end
-  
+
 
   def remove_diacritics
     self.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/n,'').to_s
@@ -259,10 +259,10 @@ class String
   def add_missing_hyperlinks
     # split on spaces, link any http which don't contain ,; and don't end in periods (end of sentences)
     self.split.map do |w|
-      w.gsub(/^([\(\["]*)(https?[^,;]+[^\.,;\(\)\"])/i, '\1<a href="\2">\2</a>').
-        gsub(/^(www\.[a-z-]+\.[^,;\(\)\"]+[^\.,;\(\)\"])/i, '<a href="http://\1">\1</a>').
-        gsub(/^([\(\["]*)(10\.[0-9]{4,}\/[a-z0-9\/\.-]+)/i, '\1<a href="http://dx.doi.org/\2">\2</a>').
-        gsub(/^([\(\["]*)(doi:10\.[a-z0-9\/\.-]*)/i, '\1<a href="http://dx.doi.org/\2">\2</a>')
+      w.sub(/^([\(\["]*)(https?[^,;]+[^\.,;\(\)\"])/i, '\1<a href="\2">\2</a>').
+        sub(/^(www\.[\w-]+\.[^,;\(\)\"]+[^\.,;\(\)\"])/i, '<a href="http://\1">\1</a>').
+        sub(/^([\(\["]*)(10\.\d{4,}\/[\w\/\.-]+)/i, '\1<a href="http://dx.doi.org/\2">\2</a>').
+        sub(/^([\(\["]*)(doi:10\.[\w\/\.-]*[\w\/-])/i, '\1<a href="http://dx.doi.org/\2">\2</a>')
     end.join(' ')
   end
 
@@ -288,7 +288,7 @@ class String
     end
     return true
   end
-  
+
   def contains_arabic?
     # sort of from http://stackoverflow.com/questions/7066137/how-to-determine-if-string-contains-arabic-symbols
     list_of_chars = self.prepare_for_alphabet_determination.unpack("U*")
@@ -298,7 +298,7 @@ class String
     end
     return true
   end
-  
+
   def prepare_for_alphabet_determination
     self.gsub(/( |,|\.|\(|\)|-|[0-9]|"|')/, '')
   end

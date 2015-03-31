@@ -68,7 +68,7 @@ module EOL
         results = []
         begin
           if Rails.configuration.respond_to?('show_sparql_queries') && Rails.configuration.show_sparql_queries
-            puts "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
+            Rails.logger.error "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"
           end
           sparql_client.query("#{options[:prefix]} #{namespaces_prefixes} #{query}").each_solution { |s| results << s.to_hash }
         rescue => e
@@ -80,10 +80,10 @@ module EOL
           # NOTE - this catch is caused by going through the demo for setting up the DAV user/directory. You've got to manually delete that
           # later!
           if e.message =~ /Invalid port number/
-            puts "We found a graph that cannot be removed programmatically."
-            puts "Please go to http://localhost:8890/ => Conductor => LinkedData => Graphs and check to see"
-            puts "if there is a graph named http://localhost:8890%2FDAV%2Fxx%2Fyy ...if so, delete it and"
-            puts "try again. Sorry!"
+            Rails.logger.error "We found a graph that cannot be removed programmatically."
+            Rails.logger.error "Please go to http://localhost:8890/ => Conductor => LinkedData => Graphs and check to see"
+            Rails.logger.error "if there is a graph named http://localhost:8890%2FDAV%2Fxx%2Fyy ...if so, delete it and"
+            Rails.logger.error "try again. Sorry!"
           end
           raise e
         end

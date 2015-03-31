@@ -21,7 +21,7 @@
 nl:
   activerecord:
     models:
-      user: gebruiker
+      user: account
     attributes:
       collection:
         name: Naam van de verzameling
@@ -1570,9 +1570,9 @@ nl:
       header: Uw download staat klaar!
   sessions:
     new:
-      login_with_facebook_assistive: Aanmelden bij EOL met uw Facebookgebruiker.
-      login_with_google_assistive: Aanmelden bij EOL met uw Googlegebruiker.
-      login_with_twitter_assistive: Aanmelden bij EOL met uw Twittergebruiker.
+      login_with_facebook_assistive: Aanmelden bij EOL met uw Facebook-account.
+      login_with_google_assistive: Aanmelden bij EOL met uw Google-account.
+      login_with_twitter_assistive: Aanmelden bij EOL met uw Twitter-account.
       login_with_yahoo_assistive: Aanmelden bij EOL met uw Yahoo!-gebruiker.
       login_with_eol_authentication_header: 'Of aanmelden met uw EOL-gebruiker:'
       meta_title: Aanmelden
@@ -2139,9 +2139,9 @@ nl:
         aanmaken
       create_user_with_eol_authentication_header: 'Of geef nieuwe referenties op:'
       meta_title: Wordt lid van EOL
-      sign_up_with_facebook_assistive: Meld aan bij EOL met uw Facebookgebruiker.
-      sign_up_with_google_assistive: Meld aan bij EOL met uw Googlegebruiker.
-      sign_up_with_twitter_assistive: Meld aan bij EOL met uw Twittergebruiker.
+      sign_up_with_facebook_assistive: Meld aan bij EOL met uw Facebook-account.
+      sign_up_with_google_assistive: Meld aan bij EOL met uw Google-account.
+      sign_up_with_twitter_assistive: Meld aan bij EOL met uw Twitter-account.
       sign_up_with_yahoo_assistive: Meld aan bij EOL met uw Yahoo!-gebruiker.
     newsfeeds:
       activity_link: activiteit
@@ -2198,40 +2198,39 @@ nl:
           new_authentication_not_added: Er is een probleem opgetreden. Het was niet
             mogelijk uw Facebookgebruiker te koppelen.
           not_authorized_to_add_authentication: Er is geen toestemming om te koppelen
-            met uw Facebookgebruiker.
+            met uw Facebook-account.
           not_authorized_to_login: Er is geen toestemming om u aan te melden bij EOL
             met uw Facebookgebruiker.
           not_authorized_to_signup: Er is geen toestemming om u te registreren bij
-            EOL met uw Facebookgebruiker.
+            EOL met uw Facebook-account.
           signup_failed_account_already_connected: Het is niet mogelijk een nieuwe
             EOL-gebruiker te registeren met uw Facebookgebruiker, omdat uw Facebookgebruiker
             al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is
             gekoppeld. Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
         google:
           add_connection_failed_account_already_connected: Het is niet mogelijk uw
-            EOL-gebruiker te koppelen met uw Googlegebruiker, omdat uw Googlegebruiker
-            al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is
-            gekoppeld.
+            EOL-account te koppelen met uw Google-account, omdat uw Google-account
+            al aan een <a href="%{existing_eol_account_url}">EOL-account</a> is gekoppeld.
           login_failed_not_connected: We hebben geen koppeling kunnen vinden tussen
-            uw Googlegebruiker en EOL. Als u al een EOL-gebruiker heeft, <a href="%{login_url}">meld
+            uw Google-account en EOL. Als u al een EOL-account heeft, <a href="%{login_url}">meld
             dan aan bij EOL</a> met andere gebruikersgegevens en koppel dan met uw
-            Googlegebruiker in uw EOL-voorkeuren. Als u nog geen EOL-gebruiker hebt,
+            Google-account in uw EOL-voorkeuren. Als u nog geen EOL-account hebt,
             <a href="%{register_url}">rond dan uw EOL-inschrijving af</a> om er een
             aan te maken.
           missing_attributes: Er is een probleem opgetreden tijdens het raadplegen
             van uw Googlegegevens.
           new_authentication_not_added: Er is een probleem opgetreden. Het was niet
-            mogelijk uw Googlegebruiker te koppelen.
+            mogelijk uw Google-account te koppelen.
           not_authorized_to_add_authentication: Er is geen toestemming om te koppelen
-            met uw Googlegebruiker.
+            met uw Google-account.
           not_authorized_to_login: Er is geen toestemming om u aan te melden bij EOL
-            met uw Googlegebruiker.
+            met uw Google-account.
           not_authorized_to_signup: Er is geen toestemming om u te registreren bij
-            EOL met uw Googlegebruiker.
+            EOL met uw Google-account.
           signup_failed_account_already_connected: Het is niet mogelijk een nieuwe
-            EOL-gebruiker te registeren met uw Googlegebruiker, omdat uw Googlegebruiker
-            al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is
-            gekoppeld. Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
+            EOL-account te registeren met uw Google-account, omdat uw Google-account
+            al aan een <a href="%{existing_eol_account_url}">EOL-account</a> is gekoppeld.
+            Wilde u wellicht <a href="%{login_url}">aanmelden</a>?
         twitter:
           add_connection_failed_account_already_connected: Het is niet mogelijk uw
             EOL-gebruiker te koppelen met uw Twittergebruiker, omdat uw Twittergebruiker
@@ -2295,10 +2294,9 @@ nl:
       notices:
         facebook:
           new_authentication_added: Facebookauthenticatie is toegevoegd aan uw gebruiker.
-          removed_connection: Uw EOL-gebruiker is is niet langer gekoppeld aan uw
-            Facebookgebruiker. Om alle toekomstige interacties tussen uw Facebookgebruiker
-            en EOL te voorkomen, moet u naar Facebook gaan en uw gebruikersinstellingen
-            aanpassen.
+          removed_connection: Uw EOL-account is is niet langer gekoppeld aan uw Facebook-account.
+            Om alle toekomstige interacties tussen uw Facebook-account en EOL te voorkomen,
+            moet u naar Facebook gaan en uw gebruikersinstellingen aanpassen.
         google:
           new_authentication_added: Google-authenticatie is toegevoegd aan uw gebruiker.
           removed_connection: Uw EOL-gebruiker is is niet langer gekoppeld aan uw
@@ -4650,7 +4648,7 @@ nl:
   count_results_for_traitbank:
     one: '%{count} TraitBankresultaat'
     other: '%{count} TraitBankresultaten'
-  create_account: gebruiker aanmaken
+  create_account: account aanmaken
   create_a_new_collection: Nieuwe verzameling aanmaken
   create_community_unsuccessful_error: Er is een fout opgetreden. Uw gemeenschap is
     niet gemaakt. Controleer of alle velden correct zijn ingevuld.
@@ -5570,7 +5568,7 @@ nl:
   login_required_button: Aanmelden verplicht
   logging_database_colon: 'Logboekregistratie:'
   login: aanmelden
-  login_header: Aanmelden met uw <abbr title="Encyclopedia of Life">EOL</abbr>-gebruiker
+  login_header: Aanmelden met uw <abbr title="Encyclopedia of Life">EOL</abbr>-account
   login_hidden_user_message: De gebruiker %{given_name} is niet langer actief
   login_or_create_account: Aanmelden of registreren
   login_to_the_website_as: Aanmelden bij de website als %{username}
@@ -6897,7 +6895,7 @@ nl:
     one: Eén huidige contentpartner
     other: '%{count} huidige contentpartners'
   users_curation_header: Conservatorkwalificaties
-  users_form_account_header: Uw gebruiker
+  users_form_account_header: Uw account
   users_form_curation_header: Conservatorkwalificaties
   users_form_profile_info_header: Openbare profielgegevens
   users_form_tip: Gebruikersnaam is verplicht, andere velden die gemarkeerd zijn als

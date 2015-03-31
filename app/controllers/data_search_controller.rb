@@ -8,7 +8,6 @@ class DataSearchController < ApplicationController
   before_filter :allow_login_then_submit, only: :download
 
   layout 'data_search'
-
   # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index
     @page_title = I18n.t('data_search.page_title')
@@ -52,9 +51,15 @@ class DataSearchController < ApplicationController
       search_params = params.dup
     end
     prepare_search_parameters(search_params)
-    df = create_data_search_file
+    total_results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(@search_options.merge(only_count: true))).first[:count].to_i
+    #create all download files
+    no_of_files = (total_results.to_f / DataSearchFile::LIMIT).ceil
+    for count in 1..no_of_files
+      df = create_data_search_file
+      df.update_attributes(file_number: count)
+      Resque.enqueue(DataFileMaker, data_file_id: df.id)
+    end
     flash[:notice] = I18n.t(:file_download_pending, link: user_data_downloads_path(current_user.id))
-    Resque.enqueue(DataFileMaker, data_file_id: df.id)
     redirect_to user_data_downloads_path(current_user.id)
   end
 
@@ -63,18 +68,28 @@ class DataSearchController < ApplicationController
   def create_data_search_file
     DataSearchFile.create!(@data_search_file_options)
   end
-
+  
+  def readable_query_string(string)
+    unless string.blank?
+      uri = KnownUri.find_by_uri(string)
+      @querystring_uri = string if uri
+      return uri.label if uri
+    end
+    string
+  end
+  
   def prepare_search_parameters(options)
     @hide_global_search = true
-    @querystring = options[:q]
+    @querystring_uri = nil
+    @querystring = readable_query_string(options[:q])
     @attribute = options[:attribute]
     @attribute_missing = @attribute.nil? && params.has_key?(:attribute)
     @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'
     @unit = options[:unit].blank? ? nil : options[:unit]
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
+    @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
-
     #if entered taxon name returns more than one result choose first
     if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)

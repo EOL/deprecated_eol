@@ -12,7 +12,7 @@ describe 'users/data_downloads/index' do
     tc.stub(:title_canonical_italicized) { 'TaxonName' }
     tc
   }
-  let(:data_search_file) { build_stubbed(:data_search_file, known_uri: atttribute_known_uri) }
+  let(:data_search_file) { build_stubbed(:data_search_file, known_uri: atttribute_known_uri, file_number: 1) }
   let(:user) { build_stubbed(:user) }
 
   subject{ render }
@@ -21,10 +21,11 @@ describe 'users/data_downloads/index' do
     view.stub(:meta_open_graph_data) { {} }
     view.stub(:tweet_data) { {} }
     view.stub(:current_user) { user }
+    view.stub(:able_to_edit_user?).and_return(true)
   end
 
   shared_examples_for 'all downloads' do
-    it { expect(subject).to have_tag('a', text: 'Attributename') }
+    it { expect(subject).to have_tag('a', text: 'Attributename 1') }
     it { expect(subject).to have_tag('a', text: 'search again') }
     it { expect(subject).to_not include('Taxon group:.*TaxonName') }
     it { expect(subject).to_not include('Lowest value') }
@@ -93,6 +94,7 @@ describe 'users/data_downloads/index' do
   context 'completed downloads' do
     before(:each) do
       data_search_file.completed_at = Time.now
+      allow(data_search_file).to receive(:downloadable?) { true }
       assign(:background_processes, [ data_search_file ])
     end
 

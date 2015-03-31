@@ -9,6 +9,7 @@ module EOL
 
         response = solr_search(taxon_concept_id, options)
         total_results = response['response']['numFound']
+        total_results += 1 if !(options[:exemplar_id].blank?) #increase total results count to add exemplar image
         results = response['response']['docs']
         add_resource_instances!(results, options)
 
@@ -31,7 +32,7 @@ module EOL
         facets = get_special_facet_counts(taxon_concept_id, options.merge(:filter_by_subtype => true), 'toc_id')
         return facets.keys
       end
-      
+
       def self.get_special_facet_counts(taxon_concept_id, options, facet_field)
         options[:page] = 1
         options[:per_page] = 0
@@ -53,29 +54,34 @@ module EOL
         EOL::Solr.add_standard_instance_to_docs!(DataObject, docs, 'data_object_id',
           :selects => selects)
       end
-      
+
       def self.prepare_search_url(taxon_concept_id, options = {})
         taxon_concept_id = "(" + taxon_concept_id.join(" OR ") + ")" if taxon_concept_id.class == Array
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape("{!lucene}ancestor_id:#{taxon_concept_id}")
+
+        if options[:exemplar_id]
+          url << CGI.escape(" AND -data_object_id:(#{options[:exemplar_id]})") # skip exemplar image
+        end
+
         unless options[:published].nil?
           url << CGI.escape(" AND published:#{(options[:published]) ? 1 : 0}")
         end
-        
+
         if options[:license_ids]
           url << CGI.escape(" AND (license_id:#{options[:license_ids].join(' OR license_id:')})")
         end
-        
+
         if options[:toc_ids]
           url << CGI.escape(" AND (toc_id:#{options[:toc_ids].join(' OR toc_id:')})")
         end
         if options[:toc_ids_to_ignore]
           url << CGI.escape(" NOT (toc_id:#{options[:toc_ids_to_ignore].join(' OR toc_id:')})")
         end
-        
+
         if options[:link_type_ids]
           url << CGI.escape(" AND (link_type_id:#{options[:link_type_ids].join(' OR link_type_id:')})")
         end
-        
+
         field_suffix = "ancestor_id"
         search_id = taxon_concept_id
         unless options[:return_hierarchically_aggregated_objects]
@@ -102,7 +108,7 @@ module EOL
            # IUCN types are very special in the system and should never be returned
           url << CGI.escape(" NOT (data_type_id:#{DataType.iucn.id})")
         end
-        
+
         if options[:filter_by_subtype]
           if options[:data_subtype_ids]
             url << CGI.escape(" AND (data_subtype_id:#{options[:data_subtype_ids].join(' OR data_subtype_id:')})")
@@ -111,7 +117,7 @@ module EOL
             url << CGI.escape(" AND data_subtype_id:0")
           end
         end
-        
+
         if options[:user] && options[:user].class == User
           if options[:curated_by_user] === true
             url << CGI.escape(" AND curated_by_user_id:#{options[:user].id}")
@@ -124,11 +130,11 @@ module EOL
             url << CGI.escape(" NOT ignored_by_user_id:#{options[:user].id}")
           end
         end
-        
+
         if options[:resource_id]
           url << CGI.escape(" AND resource_id:#{options[:resource_id]}")
         end
-        
+
         if options[:language_ids]
           nil_language_clause = "";
           if options[:allow_nil_languages]
@@ -137,19 +143,19 @@ module EOL
           end
           url << CGI.escape(" AND (language_id:#{options[:language_ids].join(' OR language_id:')} #{nil_language_clause})")
         end
-        
+
         if options[:language_ids_to_ignore]
           url << CGI.escape(" NOT (language_id:#{options[:language_ids_to_ignore].join(' OR language_id:')})")
           unless options[:allow_nil_languages]
             url << CGI.escape(" AND language_id:[* TO *]")
           end
         end
-        
+
         # ignoring translations means we will not return objects which are translations of other original data objects
         if options[:ignore_translations]
           url << CGI.escape(" NOT is_translation:true")
         end
-        
+
         # add sorting
         if options[:sort_by] == 'newest'
           url << '&sort=data_object_id+desc'
@@ -166,7 +172,7 @@ module EOL
         else
           url << "&fl=data_object_id,guid"
         end
-        
+
         if options[:facet_by_resource]
           url << '&facet.field=resource_id&facet.mincount=1&facet.limit=300&facet=on'
         end
@@ -176,13 +182,12 @@ module EOL
         if options[:get_unique_toc_ids]
           url << '&facet.field=toc_id&facet.mincount=1&facet.limit=300&facet=on'
         end
-        
         url
       end
-      
+
       def self.solr_search(taxon_concept_id, options = {})
         url = prepare_search_url(taxon_concept_id, options)
-        
+
         # add paging
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
@@ -193,25 +198,25 @@ module EOL
         res = open(url).read
         JSON.load res
       end
-      
+
       def self.get_aggregated_media_facet_counts(taxon_concept_id, options = {})
         url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q='
         url << CGI.escape("{!lucene}published:1 AND ancestor_id:#{taxon_concept_id} AND visible_ancestor_id:#{taxon_concept_id}")
         field_suffix = "ancestor_id"
         search_id = taxon_concept_id
-        
+
         options[:vetted_types] = ['trusted', 'unreviewed']
         options[:vetted_types] << 'untrusted' if options[:user] && options[:user].is_curator?
         url << CGI.escape(" AND (")
         url << CGI.escape(Array(options[:vetted_types]).collect{ |t| "#{t}_#{field_suffix}:#{search_id}" }.join(' OR '))
         url << CGI.escape(")")
-        
+
         options[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
         url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")
         # ignore maps
         url << CGI.escape(" NOT data_subtype_id:#{DataType.map.id}")
         url << CGI.escape(" NOT is_translation:true")
-        
+
         # we only need a couple fields
         url << '&facet.field=data_type_id&facet=on&rows=0'
         res = open(url).read
@@ -233,7 +238,7 @@ module EOL
           facets[key] += f[index+1].to_i
         end
         facets['all'] = response['response']['numFound']
-        
+
         facets["video"] ||= 0
         facets["video"] += facets["youtube"] if facets["youtube"]
         facets["video"] += facets["flash"] if facets["flash"]
@@ -242,20 +247,20 @@ module EOL
         facets.delete("gbif image")
         facets
       end
-      
+
       def self.load_resource_facets(taxon_concept_id, options = {})
         url = prepare_search_url(taxon_concept_id, options)
         url << '&rows=0'
         res = open(url).read
         response = JSON.load res
-        
+
         facets = []
         f = response['facet_counts']['facet_fields']['resource_id']
         f.each_with_index do |rt, index|
           next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
           facets << { :resource_id => rt.to_i, :count => f[index+1].to_i }
         end
-        
+
         # lookup associated resource instances
         if ids = facets.collect{ |f| f[:resource_id] }.compact
           resources = Resource.find_all_by_id(ids)
@@ -269,7 +274,7 @@ module EOL
         # facets << { :resource => nil, :all => true, :count => response['response']['numFound'] }
         facets
       end
-      
+
       def self.get_facet_counts(taxon_concept_id)
         facets = {}
         base_url =  $SOLR_SERVER + $SOLR_DATA_OBJECTS_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
@@ -282,12 +287,12 @@ module EOL
             response = JSON.load(res)
             key_prefix = vetted_status
             key_prefix = "ancestor_" + key_prefix if do_ancestor
-            
+
             # first check the DataType facets
             f = response['facet_counts']['facet_fields']['data_type_id']
             f.each_with_index do |rt, index|
               next if index % 2 == 1 # if its odd, skip this. Solr has a strange way of returning the facets in JSON
-              
+
               data_type_id = rt.to_i
               if DataType.image_type_ids.include?(data_type_id)
                 data_type_label = 'image'
@@ -301,11 +306,11 @@ module EOL
                 data_type = DataType.find(data_type_id)
                 data_type_label = data_type.label('en').downcase
               end
-              
+
               key = key_prefix + "_" + data_type_label
               facets[key] = f[index+1].to_i
             end
-            
+
             # Then check the Subtype facets
             f = response['facet_counts']['facet_fields']['data_subtype_id']
             f.each_with_index do |rt, index|
@@ -317,7 +322,7 @@ module EOL
               end
             end
             facets['all'] = response['response']['numFound']
-            
+
             facets[key_prefix + "_video"] ||= 0
             facets[key_prefix + "_video"] += facets[key_prefix + "_youtube"] if facets[key_prefix + "_youtube"]
             facets[key_prefix + "_video"] += facets[key_prefix + "_flash"] if facets[key_prefix + "_flash"]

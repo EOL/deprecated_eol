@@ -37,8 +37,11 @@ class ContentServer
     ip_with_port = EOL::Server.ip_address.dup
     ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
     # NOTE - This used to call URI.encode *twice*. If you put that back, _explain why_.
-    parameters = "function=upload_content&file_path=http://#{ip_with_port}#{URI.encode(path_from_root)}"
-    call_file_upload_api_with_parameters(parameters, "content partner logo upload service")
+    parameters =
+      "function=upload_content&file_path=" +
+      "http://#{ip_with_port}#{URI.encode(path_from_root)}"
+    call_file_upload_api_with_parameters(parameters,
+      "content partner logo upload service")
   end
 
   # only uploading resources
@@ -102,9 +105,10 @@ class ContentServer
           return response
         end
       rescue Exception => ex
-        count += 1
         Rails.logger.error "#{$WEB_SERVICE_BASE_URL} #{method_name} #{ex.message}"
         ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} has an error") if $ERROR_LOGGING
+      ensure
+        count += 1
       end
     end while count < 5
     nil

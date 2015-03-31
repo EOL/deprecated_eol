@@ -58,7 +58,10 @@ class ContentPartnersController < ApplicationController
 
   def save_content_partner
     if @partner.save
-      upload_logo(@partner) unless params[:content_partner][:logo].blank?
+      upload_logo(
+        @partner,
+        name: params[:content_partner][:logo].original_filename
+      ) unless params[:content_partner][:logo].blank?
       flash[:notice] = I18n.t(:content_partner_update_successful_notice)
       redirect_to partner_conditional_path, status: :moved_permanently
     else

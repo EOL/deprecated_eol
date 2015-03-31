@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/pleary/octopus.git
+  remote: https://github.com/pleary/octopus.git
   revision: 5409490a4e12ae425af8b05ced876cbf0accf0c6
   branch: 0.4.0
   specs:
@@ -8,7 +8,7 @@ GIT
       activesupport (>= 2.3.0)
 
 GIT
-  remote: git://github.com/pleary/rails3-jquery-autocomplete.git
+  remote: https://github.com/pleary/rails3-jquery-autocomplete.git
   revision: 24f0f2750931f9f4e1ce1c89c2514140bfd58fa8
   specs:
     rails3-jquery-autocomplete (1.0.11)
@@ -375,6 +375,8 @@ GEM
       rack (~> 1.3, >= 1.3.6)
       rack-protection (~> 1.2)
       tilt (~> 1.3, >= 1.3.3)
+    sitemap_generator (5.0.5)
+      builder
     slop (3.4.6)
     sparql-client (1.0.4.1)
       json_pure (>= 1.4)
@@ -397,9 +399,6 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
-    turbo-sprockets-rails3 (0.3.4)
-      railties (> 3.2.8, < 4.0.0)
-      sprockets (>= 2.0.0)
     tzinfo (0.3.39)
     uglifier (2.3.1)
       execjs (>= 0.3.0)
@@ -497,14 +496,15 @@ DEPENDENCIES
   sanitize (= 2.0.3)
   sass-rails (= 3.2.5)
   simplecov (~> 0.7.1)
+  sitemap_generator
   sparql-client (= 1.0.4.1)
   statsd-ruby (= 1.2.1)
   terminal-notifier-guard
   therubyracer (= 0.10.2)
-  turbo-sprockets-rails3 (= 0.3.4)
   uglifier (= 2.3.1)
   unicorn (= 4.4.0)
   uuid (= 2.3.5)
   webmock (= 1.8.11)
   webrick (= 1.3.1)
   will_paginate (~> 3.0)
+  zeus

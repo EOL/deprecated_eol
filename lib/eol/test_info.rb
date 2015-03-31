@@ -12,7 +12,6 @@ module EOL
   class TestInfo
 
     def self.save(name, data)
-
       if data.is_a? Hash # ...and it should be...
         data.keys.each do |k|
           begin
@@ -28,6 +27,7 @@ module EOL
 
       File.open(file_for(name), "w") do |f|
         test_info_yaml = data.deep_stringify_keys.to_yaml
+        
         # this will remove any Proc statements from the YAML file. Procs were being used in validations
         # for models using the Paperclip plugin to attach icons
         test_info_yaml.gsub!(/^\s*- \!ruby\/object:Proc \{\}\n/, '')

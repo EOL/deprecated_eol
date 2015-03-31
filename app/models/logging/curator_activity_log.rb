@@ -23,9 +23,11 @@ class CuratorActivityLog < LoggingModel
   belongs_to :affected_comment, foreign_key: :target_id, class_name: Comment.to_s
   belongs_to :data_point_uri, foreign_key: :target_id
   belongs_to :user_added_data, foreign_key: :target_id
+  belongs_to :resource, foreign_key: :target_id
 
   validates_presence_of :user_id, :changeable_object_type_id, :activity_id
 
+  before_save :fix_taxon_concept
   after_create :log_activity_in_solr
   after_create :queue_notifications
 
@@ -45,11 +47,13 @@ class CuratorActivityLog < LoggingModel
     )
   end
 
-  # TODO - Association (as noted elsewhere) needs to be a class, which will change this (and clean it up): clearly it
-  # should have a target attribute, a changeable_object_type attribute, and a hierarchy_entry. ...Also an optional
+  # TODO - Association (as noted elsewhere) needs to be a class, which will
+  # change this (and clean it up): clearly it should have a target attribute, a
+  # changeable_object_type attribute, and a hierarchy_entry. ...Also an optional
   # taxon_concept.
-  # 
-  # You should be passing in :action, :association, :data_object, and :user.
+  #
+  # You should be passing in :action, :association, :data_object, and :user as
+  # it stands now, though.
   def self.factory(options)
     return unless options[:association]
     target_id = options[:association].data_object_id if
@@ -58,19 +62,25 @@ class CuratorActivityLog < LoggingModel
       options[:association].is_a?(UsersDataObject)
     target_id ||= options[:association].id
 
-    he = if options[:association].is_a?(DataObjectsHierarchyEntry) || options[:association].is_a?(CuratedDataObjectsHierarchyEntry)
-      options[:association].hierarchy_entry
-    elsif options[:association].is_a?(HierarchyEntry)
-      options[:association]
-    else # UsersDataObject, notably... 
-      nil
-    end
+    he =
+      if options[:association].is_a?(DataObjectsHierarchyEntry) ||
+         options[:association].is_a?(CuratedDataObjectsHierarchyEntry)
+        options[:association].hierarchy_entry
+      elsif options[:association].is_a?(HierarchyEntry)
+        options[:association]
+      else # UsersDataObject, notably...
+        nil
+      end
 
-    changeable_object_type = if options[:action] == :add_association || options[:action] == :remove_association
-      ChangeableObjectType.curated_data_objects_hierarchy_entry
-    else
-      ChangeableObjectType.send(options[:association].class.name.underscore.to_sym)
-    end
+    changeable_object_type =
+      if options[:action] == :add_association ||
+         options[:action] == :remove_association
+        ChangeableObjectType.curated_data_objects_hierarchy_entry
+      else
+        ChangeableObjectType.send(
+          options[:association].class.name.underscore.to_sym
+        )
+      end
 
     create_options = {
       user_id: options[:user].id,
@@ -78,11 +88,9 @@ class CuratorActivityLog < LoggingModel
       target_id: target_id,
       activity: Activity.send(options[:action]),
       data_object_guid: options[:data_object].guid,
-      hierarchy_entry: he
+      hierarchy_entry: he,
+      taxon_concept: he.try(:taxon_concept)
     }
-    if options[:association].is_a?(UsersDataObject)
-      create_options.merge!(taxon_concept_id: options[:association].taxon_concept_id)
-    end
     CuratorActivityLog.create(create_options)
   end
 
@@ -116,6 +124,8 @@ class CuratorActivityLog < LoggingModel
         data_point_uri
       when ChangeableObjectType.user_added_data.id
         user_added_data.data_point_uri
+      when ChangeableObjectType.resource_validation.id
+        resource
       else
         data_object
     end
@@ -146,11 +156,15 @@ class CuratorActivityLog < LoggingModel
     end
   end
 
-  # TODO - these all just call #id... so, evaluate whether it's worth making this #taxon_concept instead.
-  def taxon_concept_id
+  # NOTE: this is an old and (frankly) stupid workaround for not adding the
+  # taxon_concept_id to the database when building the CAL. I'm keeping it here
+  # until we'er confident that we're building it correctly, but if you're
+  # reading this and aren't aware of the problem, it's probably okay to delete
+  # this method by now. Probably.
+  def deduce_taxon_concept_id
     case changeable_object_type_id
       when ChangeableObjectType.data_object.id
-        data_object.get_taxon_concepts.first.id
+        hiearchy_entry.try(:taxon_concept_id)
       when ChangeableObjectType.comment.id
         if comment_object.parent_type == 'TaxonConcept'
           comment_parent.id
@@ -162,11 +176,7 @@ class CuratorActivityLog < LoggingModel
           end
         end
       when ChangeableObjectType.synonym.id
-        begin
-          synonym.hierarchy_entry.taxon_concept_id
-        rescue
-          puts "ERROR: [/app/models/logging/curator_activity_log.rb] Synonym #{target_id} does not have a HierarchyEntry"
-        end
+        synonym.hierarchy_entry.try(:taxon_concept_id)
       when ChangeableObjectType.users_data_object.id
         udo_taxon_concept.id
       when ChangeableObjectType.taxon_concept.id
@@ -179,6 +189,8 @@ class CuratorActivityLog < LoggingModel
         taxon_concept.id
       when ChangeableObjectType.user_added_data.id
         taxon_concept.id
+      when ChangeableObjectType.data_objects_hierarchy_entry.id
+        hierarchy_entry.try(:taxon_concept_id)
       else
         raise "Don't know how to get the taxon id from a changeable object type of id #{changeable_object_type_id}"
     end
@@ -225,7 +237,7 @@ class CuratorActivityLog < LoggingModel
       Activity.show.id, Activity.hide.id ]
     loggable_activities = {
       ChangeableObjectType.data_object.id => [ Activity.show.id, Activity.trusted.id, Activity.unreviewed.id,
-                                               Activity.untrusted.id, Activity.choose_exemplar_image.id, 
+                                               Activity.untrusted.id, Activity.choose_exemplar_image.id,
                                                Activity.choose_exemplar_article.id, Activity.crop.id ],
       ChangeableObjectType.synonym.id => [ Activity.add_common_name.id, Activity.remove_common_name.id,
                                            Activity.trust_common_name.id, Activity.unreview_common_name.id,
@@ -279,6 +291,34 @@ class CuratorActivityLog < LoggingModel
   end
 
 private
+
+  def fix_taxon_concept
+    unless self[:taxon_concept_id] || self.taxon_concept
+      self[:taxon_concept_id] = find_missing_taxon_concept_id
+    end
+  end
+
+  def find_missing_taxon_concept_id
+    # NOTE: Using #find_by_id below to avoid exceptions!
+    if changeable_object_type == ChangeableObjectType.comment
+      comment = Comment.find_by_id(target_id)
+      return
+        if comment.nil?
+          nil
+        elsif comment.parent_type == 'TaxonConcept'
+          comment.parent.id
+        else
+          comment.taxon_concept_id ||
+            comment.parent.try(:taxon_concept_for_users_text).try(:id)
+        end
+    end
+    if changeable_object_type == ChangeableObjectType.synonym
+      return Synonym.find_by_id(target_id).try(:hierarchy_entry).try(:taxon_concept_id)
+    end
+    if changeable_object_type == ChangeableObjectType.users_data_object
+      return UsersDataObject.find_by_id(target_id).try(:taxon_concept_id)
+    end
+  end
 
   def add_recipient_user_taking_action(recipients)
     # TODO: this is a new notification type - probably for ACTIVITY only
@@ -337,7 +377,7 @@ private
       end
     end
   end
-  
+
   def add_recipient_curator_of_classification(recipients)
     if unlock?
       user.add_as_recipient_if_listening_to(:curation_on_my_watched_item, recipients)

@@ -3,14 +3,11 @@ require "spec_helper"
 describe CollectionsController do
   render_views
   before(:all) do
-    # so this part of the before :all runs only once
-    unless @user = User.find_by_username('collections_scenario')
-      truncate_all_tables
-      load_scenario_with_caching(:collections)
-      @user = User.find_by_username('collections_scenario')
-    end
-    @test_data  = EOL::TestInfo.load('collections')
-    @collection = @test_data[:collection]
+    truncate_all_tables
+    load_foundation_cache
+    @user = User.gen
+    @collection = Collection.gen
+    @collection.users<<@user
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
   end
 
@@ -52,7 +49,7 @@ describe CollectionsController do
   describe 'GET edit' do
     it 'should set view as options' do
       session[:user_id] = nil
-      get :edit, { :id => @collection.id }, { :user_id => @collection.users.first.id, :user => @collection.users.first }
+      get :edit, { :id => @collection.id }, { :user_id => @user.id, :user => @user }
       assigns[:view_as_options].should == [ViewStyle.list, ViewStyle.gallery, ViewStyle.annotated]
     end
   end
@@ -77,7 +74,7 @@ describe CollectionsController do
     it "Updates the description" do
       session[:user_id] = nil
       getter = lambda{
-        session[:user_id] = @test_data[:user].id
+        session[:user_id] = @user.id
         post :update, :id => @collection.id, :commit_edit_collection => 'Submit',  :collection => {:description => "New Description"}
         @collection.reload
       }

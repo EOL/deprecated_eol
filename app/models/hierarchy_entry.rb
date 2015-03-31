@@ -42,6 +42,8 @@ class HierarchyEntry < ActiveRecord::Base
 
   before_save :default_visibility
 
+  counter_culture :hierarchy
+
   scope :published, -> { where(published: true) }
 
   def self.sort_by_name(hierarchy_entries)
@@ -236,6 +238,13 @@ class HierarchyEntry < ActiveRecord::Base
     rgt - lft - 1
   end
 
+  # NOTE: THIS IS EXPENSIVE. Use with find_each, and use sparingly.
+  def descendants
+    HierarchyEntry.
+      where(["lft BETWEEN ? AND ? AND hierarchy_id = ?",
+        lft, rgt, hierarchy_id])
+  end
+
   def is_leaf?
     return (rgt-lft == 1)
   end
@@ -286,6 +295,21 @@ class HierarchyEntry < ActiveRecord::Base
     # TODO: handling data objects here. Not doing it now because this is only used from HarvestEvent, and HE handles Datos itself.
     refs.destroy_all
     # Not handling the rest of the tree, here, which I believe is expected.
+  end
+
+  def repopulate_flattened_descendants
+    HierarchyEntriesFlattened.repopulate(self)
+  end
+
+  # NOTE: this means "the WHOLE thing, from this node down." You probably mean
+  # to run this on the kingdom, but we're not creating that restriction, so you
+  # have the option of reindexing a lower node if needed.
+  def repopulate_flattened_hierarchy
+    HierarchyEntry.with_master do
+      descendants.select([:id, :lft, :rgt, :hierarchy_id]).find_each do |entry|
+        entry.repopulate_flattened_descendants
+      end
+    end
   end
 
   private

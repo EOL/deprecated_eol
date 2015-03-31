@@ -5,8 +5,9 @@ describe 'API:traits' do
     load_foundation_cache
     drop_all_virtuoso_graphs
     @taxon_concept = build_taxon_concept(
-      hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'species')))
-    @target_taxon_concept = build_taxon_concept
+      hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'species')),
+      comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
+    @target_taxon_concept = build_taxon_concept(comments: [], bhl: [], toc: [], sounds: [], youtube: [], flash: [], images: [])
     @resource = Resource.gen
     @default_data_options = { subject: @taxon_concept, resource: @resource }
     KnownUri.gen_if_not_exists({ uri: 'http://eol.org/weight', name: 'Weight' })

@@ -5,6 +5,7 @@ SimpleCov.start do
   add_group "Controllers", "app/controllers"
   add_group "Libraries", "lib"
   add_group "Helpers", "app/helpers"
+  add_group "Requests", "requests"
   # TODO - really, we should be testing these. ...But for now, I'm excluding them because many are one-offs:
   add_filter "/initializers/"
   # TODO - really, we should be testing these too, but we want to re-write them. They are ancient:
@@ -31,7 +32,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 # quiet down any migrations that run during tests
 ActiveRecord::Migration.verbose = false
-
+Rails.logger.level = 4
 RSpec.configure do |config|
   include TruncateHelpers # ...We want to truncate the tables once here.
 

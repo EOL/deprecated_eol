@@ -15,7 +15,8 @@ class ResourceStatus < ActiveRecord::Base
     'Upload Failed',
     'Validated',
     'Validation Failed',
-    'Published'
+    'Published',
+    'Obsolete'
   ]
 
 end

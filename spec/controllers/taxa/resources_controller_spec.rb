@@ -13,7 +13,7 @@ describe Taxa::ResourcesController do
   describe 'GET education' do
 
     it 'should find Education Resources items when there are some' do
-      taxon_concept = build_taxon_concept
+      taxon_concept = build_taxon_concept(:comments => [], :images => [], :flash => [], :youtube => [], :sounds => [], :toc => [], :bhl => [])
       get :education, :taxon_id => taxon_concept.id
       assigns[:education_contents].blank?.should == true
       education_object = DataObject.create(data_type: DataType.text, description: 'asd', published: 1)
@@ -23,7 +23,7 @@ describe Taxa::ResourcesController do
     end
 
     it 'should find Education Resources items when there are some' do
-      taxon_concept = build_taxon_concept
+      taxon_concept = build_taxon_concept(:comments => [], :images => [], :flash => [], :youtube => [], :sounds => [], :toc => [], :bhl => [])
       get :education, :taxon_id => taxon_concept.id
       assigns[:education_contents].blank?.should == true
       education_object = DataObject.create(data_type: DataType.text, description: 'asd', published: 1)

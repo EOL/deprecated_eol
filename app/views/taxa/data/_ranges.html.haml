@@ -1,4 +1,3 @@
-- hidden = false unless hidden == true
 - style = hidden ? 'display: none' : nil
 - unless @range_data.blank?
   .ranges_subtab{ style: style }
@@ -6,7 +5,7 @@
       %p= I18n.t(:data_ranges_subtab_help_text)
     .header_underlined
       %h3= I18n.t(:data_ranges)
-    %table.standard
+    %table.standard.ranges
       %caption.assistive= I18n.t(:data_overview_table_caption)
       %thead
         %tr
@@ -16,11 +15,12 @@
           %th= I18n.t('taxa_count')
       - @range_data.sort_by { |d| DataValue.new(d[:attribute]).label  }.each_with_index do |range_data, index|
         %tr
-          %td
+          -# This cell requires an ID for the JavaScript to be able to define the URI.
+          %td{id: "range_#{range_data[:attribute].try(:anchor) || range_data[:attribute].underscore}"}
             - if range_data[:attribute].is_a?(KnownUri)
-              = link_to display_uri(range_data[:attribute], capitalize: false), data_search_path(attribute: range_data[:attribute].uri, sort: 'desc', taxon_concept_id: @taxon_page.id)
+              = link_to display_uri(range_data[:attribute], capitalize: false, ranges: true), data_search_path(attribute: range_data[:attribute].uri, sort: 'desc', taxon_concept_id: @taxon_page.id)
             - else
-              = display_uri(range_data[:attribute], capitalize: false)
+              = display_uri(range_data[:attribute], capitalize: false, ranges: true)
           %td
             - min_value = format_data_value(range_data[:min].object.to_s)
             - if range_data[:min].unit_of_measure != range_data[:max].unit_of_measure

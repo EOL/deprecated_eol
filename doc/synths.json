@@ -1,0 +1,32 @@
+"available_data": {
+  "id": 1,
+  "richness": 84.92,
+  "traits": 3,
+  "articles": {
+    "en": 21,
+    "sp": 12,
+    "trusted": 38,
+    "unreviewed": 0
+  },
+  "images": {
+    "trusted": 1383143,
+    "unreviewed": 387843
+  },
+  "videos": 11984,
+  "sounds": 33352,
+  "maps": {
+    "trusted": 1,
+    "unreviewed": 0
+  },
+  "hierarchies": 12,
+  "related_names": 117,
+  "common_names": 80,
+  "synonyms": 13,
+  "curators": 4,
+  "collections": 58,
+  "communities": 0,
+  "partners": 15,
+  "links": 5,
+  "references": 75,
+  "literature": 3000
+}

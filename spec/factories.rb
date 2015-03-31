@@ -682,6 +682,7 @@ FactoryGirl.define do
     created_at    Time.now
     updated_at    Time.now
     completed_at  Time.now
+    file_number   1
   end
 
   factory :data_type do
@@ -1145,6 +1146,11 @@ FactoryGirl.define do
   end
 
   factory :taxon_concept_exemplar_image do
+    association :taxon_concept
+    association :data_object
+  end
+  
+  factory :taxon_concept_exemplar_article do
     association :taxon_concept
     association :data_object
   end

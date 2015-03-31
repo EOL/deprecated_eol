@@ -3,14 +3,15 @@ class DataObjectsController < ApplicationController
   layout :data_objects_layout
   @@results_per_page = 20
 
-  before_filter :check_authentication, only: [:new, :create, :edit, :update, :ignore, :crop] # checks login only
+  before_filter :check_authentication, only: [:new, :create, :edit, :update, :ignore, :crop, :reindex] # checks login only
   before_filter :load_data_object, except: [:index, :new, :create ]
   before_filter :authentication_own_user_added_text_objects_only, only: [:edit] # update handled separately
   before_filter :allow_login_then_submit, only: [:rate]
   before_filter :curators_and_owners_only, only: [:add_association, :remove_association]
-  before_filter :restrict_to_admins_and_curators, only: :crop
+  before_filter :restrict_to_admins_and_curators, only: [:crop, :reindex]
 
-  # GET /pages/:taxon_id/data_objects/new
+  # GET /data_objects/new
+  # requires a taxon_id as a parameter.
   # We're only creating new user data objects in the context of a taxon concept so we need taxon_id to be provided in route
   def new
     @taxon_concept = TaxonConcept.find(params[:taxon_id])
@@ -213,6 +214,16 @@ class DataObjectsController < ApplicationController
 
   end
 
+  #GET /data_objects/:id/delete
+  def delete
+    @data_object.mark_for_all_association_as_hidden_untrusted(current_user)
+    @data_object.unpublish
+    @data_object.remove_data_object_from_solr
+    @data_object.remove_all_collection_items #remove any collection items containing it (This will also remove them from solr)
+    log_action(@data_object, :delete, collect: false)
+    redirect_to data_object_path(@data_object), notice: I18n.t(:data_object_deleted)
+  end
+
   # GET /data_objects/:id
   def show
     # TODO - nononono, this isn't how DataObjectCaching is meant to be used! Call @data_object.best_title and let that class handle
@@ -360,6 +371,21 @@ class DataObjectsController < ApplicationController
     redirect_to data_object_path(@data_object)
   end
 
+  def reindex
+    @data_object.update_solr_index
+    flash[:notice]= I18n.t(:this_data_object_will_be_reindexed)
+
+    respond_to do |format|
+      format.html do
+        redirect_to data_object_path(@data_object)
+      end
+      format.js do
+        convert_flash_messages_for_ajax
+        render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
+      end
+    end
+  end
+
 protected
 
   def scoped_variables_for_translations
@@ -446,8 +472,8 @@ private
   def set_text_data_object_options
     @toc_items = TocItem.selectable_toc
     @link_types = LinkType.all
-    @languages = Language.all(conditions: "iso_639_1 != '' && source_form != ''", order: "source_form asc")
-    @licenses = License.find_all_by_show_to_content_partners(1)
+    @languages = Language.not_blank.order(:source_form)
+    @licenses = License.show_to_content_partners
   end
 
   def create_failed
@@ -524,9 +550,8 @@ private
   def add_references(dato)
     return if params[:references].blank?
     references = params[:references].split("\n")
-    unless references.blank?            
-      references.sort_by!(&:downcase)
-      references.each do |reference|        
+    unless references.blank?
+      references.each do |reference|
         dato.add_ref(reference)
       end
     end
@@ -539,7 +564,7 @@ private
     end
     @ti ||= id_in_params ? id_in_params : nil
   end
-  
+
   def link_type_id
     id_in_params = nil
     if arr = params[:data_object].delete(:link_types)
@@ -547,7 +572,7 @@ private
     end
     @li ||= id_in_params ? id_in_params : nil
   end
-  
+
   def any_errors_in_curations?(curations)
     curations.map { |curation| curation.valid? }.include?(false)
   end
@@ -556,7 +581,7 @@ private
     curations.map do |curation|
       curation.errors.map { |error| I18n.t("curation_error_#{error.downcase.gsub(/\s+/, '_') }",
                                            association: curation.association.name, vetted: curation.vetted.label,
-                                           visibility: curation.visibility.label ) } 
+                                           visibility: curation.visibility.label ) }
     end.flatten.to_sentence
   end
 

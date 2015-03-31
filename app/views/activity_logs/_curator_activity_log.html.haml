@@ -31,10 +31,10 @@
 - if item.unknown_association?
   - association_type = 'an_unknown_association'
 - else
-  - if !item.hierarchy_entry_id.nil?
+  - if item.hierarchy_entry
     - translation_vars[:association] = link_to(item.hierarchy_entry.name.string,
       taxon_url(item.hierarchy_entry.taxon_concept), :style => link_style)
-  - else
+  - elsif item.taxon_concept
     - translation_vars[:association] = link_to(raw(item.taxon_concept.title),
       taxon_url(item.taxon_concept), :style => link_style)
 - name_type = 'name'

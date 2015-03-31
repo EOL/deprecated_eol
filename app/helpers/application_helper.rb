@@ -20,7 +20,7 @@ module ApplicationHelper
       super(method, options)
     end
 
-    # TODO: If there is a block can we have a flag or something to automatically prepend or append the 
+    # TODO: If there is a block can we have a flag or something to automatically prepend or append the
     # translated label without having to explicitly call I18n method?
     def label(method, content_or_options_with_block = nil, options = {}, &block)
       options = content_or_options_with_block if content_or_options_with_block.is_a?(Hash)
@@ -30,7 +30,7 @@ module ApplicationHelper
         (options[:title] = "#{options[:title].to_s} #{I18n.t(:form_validation_errors_for_attribute_assistive)}").strip!
         errors = errors_for_method(@object, method)
       end
-    
+
       if block_given?
         @template.content_tag(:label, "#{@template.capture(&block)} #{errors.to_s}".html_safe, options)
       else
@@ -83,7 +83,7 @@ module ApplicationHelper
     end
   end
 
-  # Used in V2 to return class for active navigation tabs. 
+  # Used in V2 to return class for active navigation tabs.
   def resource_is_active(action)
     return "active" if
         action == "#{controller.controller_name}/#{controller.action_name}" ||
@@ -157,6 +157,10 @@ module ApplicationHelper
     image_tag("indicator_arrows_black.gif", alt:  I18n.t(:please_wait) , class: 'hidden spinner')
   end
 
+  def license_title_or_empty(license)
+    license.blank? ? I18n.t(:value_empty) : I18n.t("license_#{license.title.gsub(/[- .]/, '_').strip}")
+  end
+
   def format_date_time(inTime,params={})
     return '[blank]' if inTime.blank?
     if inTime.is_a? String
@@ -217,7 +221,7 @@ module ApplicationHelper
     else
       code += stylesheet_link_tag(stylesheet, options)
     end
-    
+
     # get the additions
     language_css_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}_include.css")
     language_sass_path = Rails.root.join("app", "assets", "stylesheets", "languages", I18n.locale.to_s, "#{stylesheet}_include.sass")
@@ -389,6 +393,8 @@ module ApplicationHelper
     when DataPointUri
       options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
+    when Resource
+      content_partner_resource_url(options[:content_partner], item)
     else
       raise EOL::Exceptions::ObjectNotFound
     end
@@ -539,14 +545,14 @@ module ApplicationHelper
     end
     return nil, nil
   end
-  
+
   def time_diff(start_time, end_time)
-    seconds_diff = (start_time - end_time).to_i.abs  
+    seconds_diff = (start_time - end_time).to_i.abs
     hours = seconds_diff / 3600
-    seconds_diff -= hours * 3600  
+    seconds_diff -= hours * 3600
     minutes = seconds_diff / 60
-    seconds_diff -= minutes * 60  
-    seconds = seconds_diff  
+    seconds_diff -= minutes * 60
+    seconds = seconds_diff
     "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}:#{seconds.to_s.rjust(2, '0')}"
   end
 

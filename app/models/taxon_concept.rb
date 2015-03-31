@@ -1,24 +1,27 @@
-# Represents a group of HierarchyEntry instances that we consider "the same".  This amounts to a vague idea of
-# a taxon, which we serve as a single page.
+# Represents a group of HierarchyEntry instances that we consider "the same".
+# This amounts to a vague idea of a taxon, which we serve as a single page.
 #
-# We get different interpretations of taxa from our partners (ContentPartner), often differing slightly and
-# referring to basically the same thing, so TaxonConcept was created as a means to reconcile the variant
-# definitions of what are essentially the same Taxon. We currently store basic Taxon we receive from data
-# imports in the +hierarchy_entries+ table and we also store taxonomic hierarchies (HierarchyEntry) in the
-# +hierarchy_entries+ table. Currently TaxonConcept are groups of one or many HierarchyEntry. We will
-# eventually create hierarchy_entries for each entry in the taxa table (Taxon).
+# We get different interpretations of taxa from our partners (ContentPartner),
+# often differing slightly and referring to basically the same thing, so
+# TaxonConcept was created as a means to reconcile the variant definitions of
+# what are essentially the same Taxon. We currently store basic Taxon we receive
+# from data imports in the +hierarchy_entries+ table and we also store taxonomic
+# hierarchies (HierarchyEntry) in the +hierarchy_entries+ table. Currently
+# TaxonConcept are groups of one or many HierarchyEntry. We will eventually
+# create hierarchy_entries for each entry in the taxa table (Taxon).
 #
-# It is worth mentioning that the "eol.org/pages/nnnn" route is a misnomer.  Those IDs are, for the
-# time-being, pointing to TaxonConcept, not pages.
+# It is worth mentioning that the "eol.org/pages/nnnn" route is a misnomer.
+# Those IDs are, for the time-being, pointing to TaxonConcept, not pages.
 #
-# See the comments at the top of the Taxon for more information on this.  I include there a basic biological
-# definition of what a Taxon is.
+# See the comments at the top of the Taxon for more information on this.  I
+# include there a basic biological definition of what a Taxon is.
 
 require 'eol/activity_loggable'
 
 class TaxonConcept < ActiveRecord::Base
   include EOL::ActivityLoggable
 
+  scope :published, -> { where(published: true) }
   belongs_to :vetted
 
   attr_accessor :entries # TODO - this is used by DataObjectsController#add_association (and its partial) and probably shouldn't be.
@@ -198,8 +201,14 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # NOTE - this filters out results with no name, no language, languages with no iso_639_1, and dulicates within the
-  # same language. Then it sorts the results. # TODO - rename it to make the filtering and sorting more clear.
+  def common_taxon_concept_name(language = nil)
+    language ||= Language.default
+    taxon_concept_names.preferred.where(language_id: language.id).first
+  end
+
+  # NOTE - this filters out results with no name, no language, languages with no
+  # iso_639_1, and dulicates within the same language. Then it sorts the
+  # results. TODO - rename it to make the filtering and sorting more clear.
   def common_names(options = {})
     @common_names = if options[:hierarchy_entry_id]
       TaxonConceptName.joins(:name, :language).where(source_hierarchy_entry_id: options[:hierarchy_entry_id])
@@ -233,16 +242,11 @@ class TaxonConcept < ActiveRecord::Base
   alias :top_acting_curators :top_curators # deprecated.  TODO - remove entirely.
 
   def data_object_curators
-    curators = connection.select_values("
-      SELECT cal.user_id
-      FROM #{CuratorActivityLog.full_table_name} cal
-      JOIN #{Activity.full_table_name} acts ON (cal.activity_id = acts.id)
-      JOIN #{DataObject.full_table_name} do ON (cal.target_id = do.id)
-      JOIN #{DataObject.full_table_name} do_all_versions ON (do.guid = do_all_versions.guid)
-      JOIN #{DataObjectsTaxonConcept.full_table_name} dotc ON (do_all_versions.id = dotc.data_object_id)
-      WHERE dotc.taxon_concept_id=#{self.id}
-      AND cal.changeable_object_type_id IN(#{ChangeableObjectType.data_object_scope.join(",")})
-      AND acts.id IN (#{Activity.raw_curator_action_ids.join(",")})").uniq
+    curators = CuratorActivityLog.where(
+      taxon_concept_id: id,
+      changeable_object_type_id: (ChangeableObjectType.data_object_scope),
+      activity_id: (Activity.raw_curator_action_ids)
+    ).pluck(:user_id).uniq
     # using find_all_by_id instead of find because occasionally the user_id from activities is 0 and that causes this to fail
     User.find_all_by_id(curators)
   end
@@ -471,8 +475,8 @@ class TaxonConcept < ActiveRecord::Base
       relation  = SynonymRelation.find_by_translated(:label, 'common name')
       name_obj  = Name.create_common_name(name_string)
       raise "Common name not created" unless name_obj
-      Synonym.generate_from_name(name_obj, agent: agent, preferred: preferred, language: language,
-                                 entry: entry, relation: relation, vetted: vetted)
+      Synonym.generate_from_name(name_obj, agent: agent, preferred: preferred,
+        language: language, entry: entry, relation: relation, vetted: vetted)
     end
   end
 
@@ -483,13 +487,15 @@ class TaxonConcept < ActiveRecord::Base
     Synonym.find(syn_id).destroy
   end
 
-  # This needs to work on both TCNs and Synonyms.  Which, of course, smells like bad design, so.... TODO - review.
+  # This needs to work on both TCNs and Synonyms.  Which, of course, smells like
+  # bad design, so.... TODO - review.
   def vet_common_name(options = {})
     vet_taxon_concept_names(options)
     vet_synonyms(options)
   end
 
-  # TODO - this may belong on the TaxonOverview class (in modified form) and the TaxonCommunities class, if we create one...
+  # TODO - this may belong on the TaxonOverview class (in modified form) and the
+  # TaxonCommunities class, if we create one...
   def communities
     @communities ||= published_containing_collections.collect{ |c|
       c.communities.select{ |com| com.published? } }.flatten.compact.uniq
@@ -674,17 +680,60 @@ class TaxonConcept < ActiveRecord::Base
     })
   end
 
-  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview. ...But the API is using this and I don't
-  # want to touch the API quite yet.
+  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview.
+  # ...But the API is using this and I don't want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
-    data_objects.where(data_type_id: DataType.iucn.id).order('id DESC').first
+    iucn_list = TaxonData.new(self).iucn_data_objects
+    choose_iucn_status(iucn_list)
   end
 
-  # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview (though TaxonDetails needs access to the other
-  # method). ...But the API is using this and I don't want to touch the API quite yet.
-  # TODO - stop passing in a user, just a language. See #best_article_for_user and you'll see it essentially ignores the user
-  # entirely anyway (with reason).
+  # TODO: re-write this to use a query that gets the scientific name from the
+  # data, and check that against the preferred scientific name of this taxon,
+  # otherwise take the first.
+  def choose_iucn_status(iucn_list)
+    data = iucn_list.try(:first)
+    return nil unless data
+    uri = data[:value].to_s
+    return nil unless uri
+    # TODO: We probably shouldn't hard-code this, but make it available
+    # somewhere configurable.
+    # TODO: This doesn't include the abbreviations (ie: "LC")
+    status = uri.split('/').last.underscore
+    case status
+    when "extinct"
+      "Extinct (EX)"
+    when "extinct_in_the_wild"
+     	"Extinct in the Wild (EW)"
+    when "extinctinthe_wild"
+     	"Extinct in the Wild (EW)"
+    when "critically_endangered"
+     	"Critically Endangered (CR)"
+    when "endangered"
+     	"Endangered (EN)"
+    when "vulnerable"
+     	"Vulnerable (VU)"
+    when "near_threatened"
+      "Near Threatened (NT)"
+    when "least_concern"
+     	"Least Concern (LC)"
+    when "data_deficient"
+     	"Data Deficient (DD)"
+    else
+      status.humanize.split.map(&:capitalize).join(' ')
+    end
+  end
+
+  # TODO: use this later.
+  def get_taxon_scientific_name
+    self.entry(Hierarchy.iucn_structured_data).italicized_name.firstcap
+  end
+
+  # TODO: this belongs in, at worst, TaxonPage... at best, TaxonOverview
+  # (though TaxonDetails needs access to the other method). ...But the API is
+  # using this and I don't want to touch the API quite yet. TODO: stop passing
+  # in a user, just a language. See #best_article_for_user and you'll see it
+  # essentially ignores the user entirely anyway (with reason).
   def overview_text_for_user(the_user)
     @overview_text_for_user ||= {}
     return @overview_text_for_user[the_user.id] if the_user && @overview_text_for_user[the_user.id]

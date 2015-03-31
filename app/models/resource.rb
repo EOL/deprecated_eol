@@ -94,6 +94,10 @@ class Resource < ActiveRecord::Base
     end
   end
 
+  def self.iucn_structured_data
+    @iucn_structured_data ||= find_by_title("IUCN Structured Data")
+  end
+
   # trying to change it to memcache got error after reload a page
   def self.iucn
     cached('iucn') do
@@ -123,6 +127,10 @@ class Resource < ActiveRecord::Base
       remove_instance_variable(ivar)
     end
     super
+  end
+
+  def self.load_for_title_only(find_this)
+    Resource.find(find_this)
   end
 
   def status_label
@@ -179,6 +187,7 @@ class Resource < ActiveRecord::Base
   def upload_resource_to_content_master!(port = nil)
     if self.accesspoint_url.blank?
       self.resource_status = ResourceStatus.uploaded
+      Resource.where(id: self.id).update_all(resource_status_id: ResourceStatus.uploaded.id)
       ip_with_port = EOL::Server.ip_address.dup
       ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
       file_url = "http://" + ip_with_port + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1]
@@ -208,12 +217,21 @@ class Resource < ActiveRecord::Base
   end
 
   def destroy_everything
+    Rails.logger.error("** Destroying Resource #{id}")
     harvest_events.each(&:destroy_everything)
-    harvest_events.destroy_all
+    begin
+      HarvestEvent.delete_all(["resource_id = ?", id])
+    rescue ActiveRecord::StatementInvalid => e
+      # This is not *fatal*, it's just unfortunate. Probably because we're
+      # harvesting, but waiting for harvests to finish is not possible.
+      Rails.logger.error("** Unable to delete from HarvestEvents where "\
+        "resource_id = #{id} (#{e.message})")
+    end
+    Rails.logger.error("** Destroyed Resource #{id}")
   end
-  
+
   def has_harvest_events?
-    harvest_events.blank? ? false : true 
+    harvest_events.blank? ? false : true
   end
 
 private

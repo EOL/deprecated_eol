@@ -29,6 +29,7 @@ coverage
 *.swp
 *eol_org.rb
 *~
+.~*
 rdoc/
 eol-solr.pid
 mkmf.log
@@ -58,6 +59,7 @@ doc/app
 lang/tmp.yml
 log/*.txt
 public/feeds
+public/assets/*css
 public/*csv
 public/files/solr_import_file_*.csv
 public/javascripts/*packaged.js

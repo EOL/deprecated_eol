@@ -219,7 +219,7 @@ mk:
         member_joined_my_watched_community: Заедница во која членувате има нови членови
         member_left_my_community: Членови напуштија заедница со која раководите
         new_manager_in_my_community: Заедница со која раководите доби уште еден раководител
-        i_am_being_watched: Додадени сте во списокот на набљудувања на друг член
+        i_am_being_watched: Додадени сте во набљудуваните на друг член
         eol_newsletter: Испраќај ми тримесечен билтен
       resource:
         accesspoint_url: URL на податочниот збир
@@ -3583,6 +3583,8 @@ mk:
     а не само оние со дозвола.
   admin_link: Административна конзола
   admin_page_title: Административна конзола
+  admin_resource_delete_confirmation: Дали сигурно сакате да го избришете овој ресурс?
+    На наредбата ќе ѝ треба долго време да се изврши.
   admin_simple_actions_header: 'Прости дејства:'
   admin_spam_delete: Избриши спам
   admin_statistics_link: Статистики
@@ -4268,6 +4270,7 @@ mk:
   content_partner_resource_create_unsuccessful_error: За жал, се појави грешка. Не
     можев да го додадам ресурсот.
   content_partner_resource_dataset_details_header: Податочен збир
+  content_partner_resource_delete_with_type_link: Избриши сè
   content_partner_resource_description_empty: Овој ресурс нема опис.
   content_partner_resource_edit_link: Уреди
   content_partner_resource_edit_subheader: Уреди ресурс
@@ -4288,6 +4291,8 @@ mk:
     ресурсот %{resource_title} е успешно подновено.
   content_partner_resource_harvest_event_update_unsuccessful_error: Нажалост, се појави
     грешка. Преземањето за ресурсот %{resource_title} не е подновено.
+  content_partner_resource_has_been_deleted: Успешно го избришав сето она што е преземено
+    од ресурсот %{resource_title}
   content_partner_resource_hierarchy_browsable: Прелистлива
   content_partner_resource_hierarchy_complete_true: Оваа хиерархија е ознечана како
     <strong>згрижена</strong>. Згрижената хиерархија работи под претпоставка дека
@@ -4773,6 +4778,8 @@ mk:
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Коментарот не е зачуван: веќе го имате објавено. ...Можеби
     двапати стиснавте на копчето „Објави коментар“?'
+  duplicate_text_warning: 'Текстот не е зачуван: веќе ја имате објавено статијава.
+    ...Можеби двапати стиснавте на копчето „додај статија“?'
   duplicate_items_were_ignored: Дуплираните експонати беа занемарени.
   each_method_documentation_page_has_formatted_responses: Страницата за документација
     на секој метод содржи по два примера за одговори во форматот XML и форматот JSON.
@@ -5566,13 +5573,13 @@ mk:
     на нејзините раководители и коментарите од други корисници на EOL.
   newsfeed_help_for_profile: Каналот на профилот содржи коментари за неговиот сопственик
     од други членови на EOL, покани од заедници и собира актуелности поврзани со објектите
-    во списокот на набљудувања на сопственикот.
+    во набљудуваните на сопственикот.
   newsfeed_help_for_taxon: Каналот за оваа таксонска страница собира актуелности поврзани
     експонатите во неа, вклучувајќи ги постапките на кустосите и коментарите од корисниците
     на EOL.
   newsfeed_help_for_watchlist: Каналот за списокот на набљудувања собира актуелности
-    поврзани со објектите на списокот на набљудувања на сопственикот, вклучувајќи
-    ги и неговите активности.
+    поврзани со објектите на набљудуваните на сопственикот, вклучувајќи ги и неговите
+    активности.
   newsletter_banner: Станете дел од заедницата на EOL &mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>пријавете
     се за билтенот на EOL</a>
   new_upload: Ново подигање
@@ -6748,7 +6755,7 @@ mk:
   vivisimo: Vivisimo
   wants_colon: 'Бара:'
   watch_list: Набљудувања
-  watch_list_newsfeed: Канал на списокот на набљудувања
+  watch_list_newsfeed: Канал со набљудувани
   watch_collections_cannot_be_destroyed: Збиркава е единствената збирка поврзана со
     оваа заедница и затоа не може да се избрише.
   warning_you_are_editing_as_admin: 'ПРЕДУПРЕДУВАЊЕ: дозволено ви е да ја уредувате

@@ -23,18 +23,28 @@ class Collection < ActiveRecord::Base
   has_and_belongs_to_many :users
   has_and_belongs_to_many :collection_jobs
 
-  scope :published, conditions: {published: 1}
+  attr_accessible :name, :collection_items_attributes, :description, :users,
+  :view_style, :published, :special_collection_id, :show_references,
+  :sort_style_id, :view_style_id, :collection_items_count, :logo,
+  :logo_cache_url, :logo_content_type, :logo_file_name, :logo_file_size
+
+  accepts_nested_attributes_for :collection_items
+
+  scope :published, -> { where(published: true) }
   # NOTE - I'm actually not sure why the lambda needs TWO braces, but the exmaple I was copying used two, soooo...
   scope :watch, lambda { { conditions: {special_collection_id: SpecialCollection.watch.id} } }
 
   validates_presence_of :name
-  # JRice removed the requirement for the uniqueness of the name. Why? Imagine user#1 creates a collection named "foo".
-  # She then gives user#2 acess to "foo".  user#2 already has a collection called "foo", but this collection is never
-  # saved, so there is no error thrown (and if there were, what would it say?).  User#2 then tries to add an icon to
-  # the new "foo", but it fails because the name of the collection is already taken in the scope of all of its users.
-  # ...What would the message say, and why would she care? I don't see any of these messages as clear... or helpful.
-  # ...more trouble than it's worth, and the restriction is fairly arbitrary anyway: it's just there for the clarity
-  # of the user.  Now the user needs to manage this by themselves.
+  # JRice removed the requirement for the uniqueness of the name. Why? Imagine
+  # user#1 creates a collection named "foo". She then gives user#2 acess to
+  # "foo".  user#2 already has a collection called "foo", but this collection is
+  # never saved, so there is no error thrown (and if there were, what would it
+  # say?).  User#2 then tries to add an icon to the new "foo", but it fails
+  # because the name of the collection is already taken in the scope of all of
+  # its users. ...What would the message say, and why would she care? I don't
+  # see any of these messages as clear... or helpful. ...more trouble than it's
+  # worth, and the restriction is fairly arbitrary anyway: it's just there for
+  # the clarity of the user.  Now the user needs to manage this by themselves.
 
   before_update :set_relevance_if_collection_items_changed
 
@@ -184,7 +194,7 @@ class Collection < ActiveRecord::Base
   def set_relevance
     Resque.enqueue(CollectionRelevanceCalculator, id)
   end
-  
+
   def can_be_read_by?(user)
     return true if published? || users.include?(user) || user.is_admin?
     false
@@ -197,7 +207,7 @@ class Collection < ActiveRecord::Base
   def inaturalist_project_info
     InaturalistProjectInfo.get(id)
   end
-  
+
   def featuring_communities
     others_collection_items.includes({ collection: :communities }).collect do |ci|
       ci.collection ? ci.collection.communities.select{ |com| com.published? } : nil
@@ -209,9 +219,20 @@ class Collection < ActiveRecord::Base
       EOL::GlobalStatistics.decrement('collections')
       remove_from_index
       true
-    else 
+    else
       false
     end
+  end
+
+  def as_json(options = {})
+    collection = super(
+      options.merge(
+        except: [:logo_cache_url, :logo_content_type, :logo_file_name,
+          :logo_file_size, :published, :special_collection_id],
+      )
+    ).merge(logo_path: logo_url)
+    collection.merge!(collection_items: collection_items) if options[:items]
+    collection
   end
 
 private

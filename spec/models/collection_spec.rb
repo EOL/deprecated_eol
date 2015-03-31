@@ -29,12 +29,16 @@ end
 describe Collection do
 
   before(:all) do
-    # so this part of the before :all runs only once
-    unless User.find_by_username('collections_scenario')
-      truncate_all_tables
-      load_scenario_with_caching(:collections)
-    end
-    @test_data = EOL::TestInfo.load('collections')
+    truncate_all_tables
+    load_foundation_cache
+    collections = {}
+    collections[:taxon_concept_1] = TaxonConcept.gen
+    collections[:user] = User.gen
+    collections[:community] = Community.gen
+    collections[:collection] = Collection.gen
+    collections[:collection].users = [collections[:user]]
+    collections[:data_object] = DataObject.last
+    @test_data = collections
   end
 
   describe 'validations' do

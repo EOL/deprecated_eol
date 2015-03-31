@@ -44,21 +44,26 @@ describe 'Data Object Page' do
   before(:all) do
     load_foundation_cache
     # Somewhat empty, to speed things up:
-    @tc = build_taxon_concept(images: [object_cache_url: FactoryGirl.generate(:image)], toc: [])
+    @tc = build_taxon_concept(images: [object_cache_url: FactoryGirl.generate(:image)], toc: [],
+                              comments: [], bhl: [], sounds: [], youtube: [], flash: [])
     @extra_name = 'Annuvvahnaemforyoo'
-    @extra_tc = build_taxon_concept(images: [], toc: [], scientific_name: @extra_name)
+    @extra_tc = build_taxon_concept(images: [], toc: [], scientific_name: @extra_name,
+                                    comments: [], bhl: [], sounds: [], youtube: [], flash: [])
     @single_name = 'Singularusnamicus'
-    @singular_tc = build_taxon_concept(images: [], toc: [], scientific_name: @single_name)
+    @singular_tc = build_taxon_concept(images: [], toc: [], scientific_name: @single_name,
+                                       comments: [], bhl: [], sounds: [], youtube: [], flash: [])
     @singular_he = @singular_tc.entry
     @name_to_add = 'Addthisnametomeplease'
-    @to_add_tc = build_taxon_concept(images: [], toc: [], scientific_name: @name_to_add)
+    @to_add_tc = build_taxon_concept(images: [], toc: [], scientific_name: @name_to_add,
+                                     comments: [], bhl: [], sounds: [], youtube: [], flash: [])
     @assistant_curator = build_curator(@tc, level: :assistant)
     @full_curator = build_curator(@tc, level: :full)
     @master_curator = build_curator(@tc, level: :master)
     @admin = User.gen(admin: 1)
     @image = @tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
     @extra_he = @extra_tc.entry
-    @assistants_entry = build_taxon_concept(images: [], toc: []).entry
+    @assistants_entry = build_taxon_concept(images: [], toc: [],
+                                            comments: [], bhl: [], sounds: [], youtube: [], flash: []).entry
 
     @dato_no_comments = build_data_object('Image', 'No comments',
     num_comments: 0,
@@ -128,7 +133,8 @@ describe 'Data Object Page' do
   it "should have a taxon_concept link for untrusted image, but following the link should show a warning"
 
   it "should not show a link for data_object if its taxon page is not in database anymore" do
-    tc = build_taxon_concept(images: [object_cache_url: FactoryGirl.generate(:image)], toc: [], published: false)
+    tc = build_taxon_concept(images: [object_cache_url: FactoryGirl.generate(:image)], toc: [], published: false,
+                             comments: [], bhl: [], sounds: [], youtube: [], flash: [])
     image = tc.data_objects.select { |d| d.data_type.label == "Image" }[0]
     tc.published = false
     tc.save!

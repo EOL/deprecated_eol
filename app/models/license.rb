@@ -26,6 +26,8 @@ class License < ActiveRecord::Base
     { na: 'not applicable' },
   ]
 
+  scope :show_to_content_partners, -> { where(show_to_content_partners: true) }
+
   class << self
     alias default public_domain
   end
@@ -85,7 +87,7 @@ class License < ActiveRecord::Base
   end
 
   def self.valid_for_user_content
-    find_all_by_show_to_content_partners(1).collect {|c| [c.title, c.id] }
+    show_to_content_partners.map { |c| [c.title, c.id] }
   end
 
   def self.for_data

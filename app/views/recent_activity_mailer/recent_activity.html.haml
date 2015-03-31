@@ -105,6 +105,10 @@
             { :item => item, :data_object => dato, :taxon_concept => taxon,
             :link_style => 'color: #195184' }),
             :created_at => item.created_at })
+      - elsif association.class.name == 'Resource'
+        - res = Resource.load_for_title_only(association)
+        %h2= raw(I18n.t("recent_activity.resource_validation", resource: link_to(res.title.html_safe, link_to_item(res, {content_partner: res.content_partner_id}), 
+              style: 'color:#195184')))
   - else # No further grouping required:
     - grouped_notes[klass].compact.each do |item|
       = render('recent_activity_mailer/iconed_activity', { :user => item.user,

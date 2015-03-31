@@ -3717,6 +3717,9 @@ pms:
     mach coj con n'autorisassion.
   admin_link: Vista a l'angròss
   admin_page_title: 'Aministrassion: vista global'
+  admin_resource_delete_confirmation: E-lo sigur ëd vorèj dëscancelé costa arsorsa?
+    Ës comand a l'é long da eseguì. A podrìa andé dëdlà dij lìmit ëd temp an dovrand-lo.
+    Ch'a lo manda pa torna.
   admin_simple_actions_header: 'Assion sempie:'
   admin_spam_delete: Scancelé la rumenta
   admin_statistics_link: Statìstiche
@@ -4289,4 +4292,38 @@ pms:
   community_removed_by_owner: Sa comunità a l'é stàita gavà da sò propietari.
   communities_summary_empty: Sa tassonomìa a l'é ancor nen ëstàita valorisà da gnun-a
     comunità.
+  communities_summary_header_with_count:
+    one: A aparten a %{count} comunità
+    other: A aparten a %{count} comunità
+  completed: Completà
+  completed_colon: 'Completà:'
+  confirm_deactivate_user: É-lo sigur ëd vorèj disativé cost utent?
+  confirm_delete_community: É-lo sigur ëd vorèj dëscancelé costa comunità? Ij mèmber
+    restant a podran ancora s-ciairela e ël fluss ëd neuve a sarà goernà, ma chila
+    a sarà nen ësmonùa ant j'Arserche o an sle pàgine ëd tassonomìa, e a sarà pi nen
+    modificàbil.
+  confirm_leave: É-lo sigur ëd vorèj chité sa comunità?
+  confirm_password_colon: 'Ch''a confirma la ciav:'
+  contact: Contat
+  contact_information: Anformassion ëd contat
+  contact_updated: Contat agiornà
+  contact_us: ch'an contata
+  contact_us_link: Ch'an contata
+  contact_us_functions: Fonsion për contatene
+  contact_us_submissions: Publicassion për conatatene
+  contact_us_topics: Argoment për contatene
+  containing_value: contenent %{value}.
+  content_has_been_updated: ël contnù a l'é stàit agiornà.
+  content_notes_not_shown_to_us: 'Nòte an sël contnù (nen mostrà a l''utent):'
+  content_partner: Cambrada ëd contnù
+  content_partner_new_link: Gionté un neuv cambrada ëd contnù
+  content_partner_admin_index_link_back_to: torné a la gestion dij cambrada
+  content_partner_agreement_cancel_edit_agreement_link: Anulé
+  content_partner_agreement_cancel_new_agreement_link: Anulé
+  content_partner_agreement_cancel_sign_agreement_link: Anulé
+  content_partner_agreement_create_successful_notice: Acòrd an sle condission dël
+    cambrada ëd contnù creà për da bin.
+  content_partner_agreement_create_unsuccessful_error: An dëspias, a-i é staje n'eror,
+    l'acòrd an sle condission dël cambrada ëd contnù a l'é nen ëstàit creà.
+  content_partner_agreement_subheader: Acòrd ëd cambrada ëd contnù
 ...

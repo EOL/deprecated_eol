@@ -17,7 +17,10 @@
         %ul.values
           - @counts_of_values_from_search.each do |value_known_uri, count|
             %li
-              = link_to value_known_uri.label, params.merge(q: value_known_uri.uri)
+              -# Some catches for when it's an RDF::URI
+              - name = value_known_uri.try(:label) || value_known_uri.to_s
+              - uri = value_known_uri.try(:uri) || value_known_uri.to_s
+              = link_to name, params.merge(q: value_known_uri.uri)
               %span.count= count
   .header
     - start_number = (@results.current_page - 1) * @results.per_page + 1

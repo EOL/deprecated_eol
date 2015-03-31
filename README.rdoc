@@ -97,11 +97,18 @@ They above may ask some questions that need to be answered before running:
 
 === Install Git
 
+For MacOS X Mavericks (May, 2014):
+
   brew install git
   git config --global user.name "Your Full Name"
   git config --global user.email "Your Email Address”
 
+For Ubuntu 12.04:
+  sudo apt-get install git-core
+
 === Install RVM
+
+This method works for both MacOS X and Ubuntu:
 
 There are a couple different ways that work for this, but the simplest is:
 
@@ -122,6 +129,8 @@ of the EOL code to go.  This will be $ROOT below.  I used:
 
 === Install Ruby
 
+For MAC OS X Mavericks (May, 2014):
+
 To build the matching version of ruby you should look in the file
 $ROOT/eol/.ruby-version.  As of May 2014 we are still using ruby-1.9.3-p392.
 This is an older version that is no longer actively supported and it takes a
@@ -138,7 +147,14 @@ Then the following commands should do the trick:
 If the GCC 4.6 install didn't get picked up, you may need to do the install
 more than once.
 
+For Ubuntu 12.04:
+
+  rvm install ruby
+  rvm use ruby --default
+
 === Install MySQL
+
+For MAC OS X Maverics (May, 2014):
 
 Most versions of MySQL 5 should work.  As of May 2014, 5.6.1 was the current
 stable release and works with this process.  To install the latest version run:
@@ -172,7 +188,17 @@ Under MacOSX Mavericks with MySQL 5.6.1 this works:
   ln -sfv /usr/local/opt/mysql/*.plist ~/Library/LaunchAgents
   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
 
+For Ubuntu 12.04:
+
+  sudo apt-get install mysql-server
+  sudo apt-get install mysql-client
+
+If the server is not running correctly, you can type the following command to start it:
+  sudo /etc/init.d/mysql restart
+
 === Install Gems
+
+For MAC OS X Maverics (May, 2014):
 
 The capybara-webkit requires Qt.  This requires a separate install since it has
 a "viral" opensource license - meaning that anything which incorporates the Qt
@@ -191,7 +217,13 @@ The :assets group currently requires an older version of therubyracer gem which
 indirectly depends on an old version of the C++ compiler and can be difficult
 to get working.
 
+For Ubuntu 12.04:
+
+   rvm rubygems current
+
 === Setup Memcached
+
+For MAC OS X Maverics (May, 2014):
 
 Memcached is installed by default on MacOSX Mavericks.  Assuming this is true
 on your machine, there is a .plist in $ROOT/eol/opt/org.eol.memcached.plist
@@ -203,6 +235,32 @@ that you can link into your home directory with:
 If you would rather manage it by hand, the command is:
 
   memcached -d -m 24 -p 11211
+
+For Ubuntu 12.04:
+
+You should have MySQL and PHP installed on the virtual server.
+
+  sudo apt-get install mysql-server php5-mysql php5 php5-memcache
+
+To start, install memcached via apt-get.
+
+  sudo apt-get install memcached
+
+The next step is to install php-pear, the repository that stores memcache.
+
+  sudo apt-get install php-pear
+
+If you do not have a compiler on your server, you can download build-essential in order to install memcache:
+
+  sudo apt-get install build-essential
+
+Finally use PECL (PHP Extension Community Library) to install memcache:
+
+  sudo pecl install memcache
+
+Once you have completed the installation of memcache with PECL on the VPS, add memcached to memcache.ini:
+
+  echo "extension=memcache.so" | sudo tee /etc/php5/conf.d/memcache.ini
 
 === Install Virtuoso
 
@@ -639,6 +697,27 @@ To get attribution for a given taxon concept ID:
 
      agents = he[0].agents  # OR  agents = he.agents
      agents.each {|agent| puts agent.full_name + " " + agent.homepage + " " + agent.logo_cache_url}
+
+== What is a sitemap?
+Sitemaps are an easy way for webmasters to inform search engines about pages on their sites that are available for crawling. In its simplest form, a Sitemap is an XML file that lists URLs for a site along with additional metadata about each URL (for example: when it was last updated) so that search engines can more intelligently crawl the site.
+
+Web crawlers usually discover pages from links within the site and from other sites. Sitemaps supplement this data to allow crawlers that support Sitemaps to pick up all URLs in the Sitemap and learn about those URLs using the associated metadata. Using the Sitemap protocol does not guarantee that web pages are included in search engines, but provides hints for web crawlers to do a better job of crawling your site.
+
+== How to add new links in sitemap?
+Add the new link(s) in sitemap.rb file (located under config/sitemap.rb) and then update the sitemap to reflect these changes.
+== Example: 
+add "/new_page", priority: 1, lastmod: "2015-02-11T12:12:12+02:00"
+this will create as follows:
+<url>
+   <loc>http://localhost:3000/new_page</loc>
+   <lastmod>2015-02-11T12:12:12+02:00</lastmod>
+   <priority>1.0</priority>
+</url>
+
+== How to update sitemap?
+just run the rake task:
+rake sitemap:refresh
+by this command a new sitemap will be generated based on the urls supplied in the sitemap.rb file.
 
 == CREATING A GOOGLE SITEMAP
 

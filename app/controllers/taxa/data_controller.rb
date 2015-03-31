@@ -9,15 +9,21 @@ class Taxa::DataController < TaxaController
   # GET /pages/:taxon_id/data/index
   def index
     @assistive_section_header = I18n.t(:assistive_data_header)
-    @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
+    @recently_used = KnownUri.where(uri: session[:rec_uris]) if
+      session[:rec_uris]
     @selected_data_point_uri_id = params.delete(:data_point_uri_id)
-    @toc_id = params[:toc_id]
-    @toc_id = nil unless @toc_id == 'other' || @categories.detect{ |toc| toc.id.to_s == @toc_id }
+    if params[:toc_id].nil?
+      @toc_id = 'ranges' if @data_point_uris.blank? && !@range_data.blank?
+    else
+      @toc_id = params[:toc_id]
+      @toc_id = nil unless @toc_id == 'other' ||
+        @categories.detect { |toc| toc.id.to_s == @toc_id }
+    end
+
     @querystring = ''
     @sort = ''
     current_user.log_activity(:viewed_taxon_concept_data, taxon_concept_id: @taxon_concept.id)
-    @jsonld = EOL::Api::Traits::V1_0.prepare_hash(@taxon_concept,
-                                                  data: @taxon_data)
+    @jsonld = @taxon_data.jsonld
   end
 
   # GET /pages/:taxon_id/data/about
@@ -45,13 +51,16 @@ protected
   end
 
   def load_data
-    # Sad that we need to load all of this for the about and glossary tabs, but TODO - we can cache this, later:
+    # Sad that we need to load all of this for the about and glossary tabs, but
+    # TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
     @range_data = @taxon_data.ranges_of_values
     @data_point_uris = @taxon_page.data.get_data
-    @categories = TocItem.for_uris(current_language).select{ |toc| @taxon_data.categories.include?(toc) }
+    @categories = TocItem.for_uris(current_language).
+      select { |toc| @taxon_data.categories.include?(toc) }
     @include_other_category = @data_point_uris &&
-      @data_point_uris.detect { |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? }
+      @data_point_uris.detect { |d| d.predicate_known_uri.nil? ||
+        d.predicate_known_uri.toc_items.blank? }
     @units_for_select = KnownUri.default_units_for_form_select
   end
 

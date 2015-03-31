@@ -1,8 +1,11 @@
-# Basically, I made this quick little class because the sort method required in two places and it didn't belong in
-# one or t'other.
+# Basically, I made this quick little class because the sort method required in
+# two places and it didn't belong in one or t'other.
 class TaxonDataSet
 
   include Enumerable
+
+  GENDER = 1
+  LIFE_STAGE = 0
 
   def initialize(rows, options = {})
     virtuoso_results = rows
@@ -11,7 +14,6 @@ class TaxonDataSet
     KnownUri.add_to_data(virtuoso_results)
     DataPointUri.preload_data_point_uris!(virtuoso_results, @taxon_concept.try(:id))
     @data_point_uris = virtuoso_results.collect{ |r| r[:data_point_instance] }
-    @data_point_uris = remove_duplicates(@data_point_uris)
     unless options[:preload] == false
       DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
       DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
@@ -48,17 +50,46 @@ class TaxonDataSet
     @data_point_uris.nil? || @data_point_uris.empty?
   end
 
-  # NOTE - this is 'destructive', since we don't ever need it to not be. If that changes, make the corresponding method and add a bang to this one.
+  # NOTE: this is 'destructive', since we don't ever need it to not be. If that
+  # changes, make the corresponding method and add a bang to this one.
+  # NOTE: 0 for life stage and 1 for gender
   def sort
-    last = KnownUri.count + 2
+    # This looks complicated, but it's actually really fast:
+    last_attribute_pos = @data_point_uris.map do |dpuri|
+      dpuri.predicate_known_uri.try(:position) || 0
+    end.max || 0 + 1
+    stat_positions = get_positions
+    last_stat_pos = stat_positions.values.max || 0 + 1
     @data_point_uris.sort_by! do |data_point_uri|
-      attribute_label = EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
-      attribute_pos = data_point_uri.predicate_known_uri ? data_point_uri.predicate_known_uri.position : last
+      attribute_label =
+        EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
+      attribute_pos = data_point_uri.predicate_known_uri.try(:position) ||
+        last_attribute_pos
       attribute_label = safe_downcase(attribute_label)
       value_label = safe_downcase(data_point_uri.value_string(@language))
-      [ attribute_pos, attribute_label, value_label ]
+      gender_sort = data_point_uri.context_labels[GENDER].try(:to_s) || 255.chr
+      stage_sort = data_point_uri.context_labels[LIFE_STAGE].try(:to_s) || ''
+      stats_sort = last_stat_pos
+      stats_sort = stat_positions[data_point_uri.statistical_method.to_s] if
+        data_point_uri.statistical_method
+      [ attribute_pos, attribute_label, gender_sort,
+        stats_sort, stage_sort, value_label ]
     end
     self
+  end
+
+  # Bulk load of complex data:
+  def get_positions
+    Hash[
+      KnownUri.where(uri: statistical_methods).
+        select( [ :uri, :position ] ).
+        map { |k| [ k.uri, k.position ] }
+    ]
+  end
+
+  def statistical_methods
+    @data_point_uris.map { |d| d.statistical_method.to_s }.sort.uniq.
+      delete_if { |s| s.blank? }
   end
 
   def safe_downcase(what)
@@ -116,23 +147,6 @@ class TaxonDataSet
     end
     fill_context(jsonld)
     jsonld
-  end
-
-  def remove_duplicates(data_point_uris)
-    return data_point_uris unless data_point_uris && data_point_uris.count > 0
-    # Not using an actual Set because "uniqueness" is measured specifically:
-    set = []
-    data_point_uris.each do |dpuri|
-      set << dpuri unless set.any? do |d|
-        d.taxon_concept_id == dpuri.taxon_concept_id &&
-        d.predicate == dpuri.predicate &&
-        d.object == dpuri.object &&
-        d.statistical_method == dpuri.statistical_method &&
-        d.life_stage == dpuri.life_stage &&
-        d.sex == dpuri.sex
-      end
-    end
-    return set
   end
 
   private

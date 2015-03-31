@@ -2,8 +2,15 @@ namespace :ggi do
   desc 'Create a JSON file with GGI data for all taxa in FALO'
   task :create_data_file => :environment do
     all_data = [ ]
-    ids = Resource.find_by_title('FALO Classification').hierarchy.hierarchy_entries.collect(&:taxon_concept_id).uniq
+    ids = Resource.find_by_title('FALO Classification').hierarchy.
+      hierarchy_entries.pluck(:taxon_concept_id).uniq
     puts "[#{Time.now}] STARTING."
+    puts "Building public/data_glossary.json..."
+    File.open('public/data_glossary.json', 'w') do |file|
+      file.write(
+        KnownUri.glossary_terms.select { |uri| ! uri.definition.blank? }.to_json
+      )
+    end
     ids.each_with_index do |id,i|
       puts "Fetching API for #{id} (#{i+1} of #{ids.count})"
       if taxon_data = get_ggi_json_bocce(id)

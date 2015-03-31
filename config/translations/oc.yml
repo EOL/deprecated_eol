@@ -504,8 +504,10 @@ oc:
           grop
         taxon_name_placeholder_value_removed: '%{taxon_group} suprimit, seleccionar
           un grop novèl'
-        taxon_name_more: Per exemple, entrar Troquilids o Balenas e seleccionar lo
-          grop correspondent.
+        taxon_name_more: Per exemple, entrar Troquilids o Balenas. SOLAS las seleccions
+          de la lista desenrotlanta seràn pas utilizadas, modifiquetz pas lo tèxte
+          sens seleccionar un resultat.
+        taxa_found: Taxons trobats
         total_results: 'Total dels resultats : %{total}'
         unit: Unitat de mesura
       eol_statistic:
@@ -1227,6 +1229,8 @@ oc:
       learn_more_link_protists: Protozoaris
       learn_more_link_archaea: Arqueobactèris
       learn_more_link_viruses: Viruses
+      learn_more_link_algae: Algas
+      questions_link_evolution: De qué es l'evolucion ?
       questions_link_biodiversity: Qu’es aquò la biodiversitat ?
       questions_link_species: Qu’es aquò una espècia ?
       questions_link_discovering_species: Cossí las espècias son descobèrtas ?
@@ -4440,6 +4444,7 @@ oc:
   content_partner_resource_create_unsuccessful_error: O planhèm, una error s'es producha,
     la ressorsa es pas estada aponduda.
   content_partner_resource_dataset_details_header: Jòc de donadas
+  content_partner_resource_delete_with_type_link: Suprimir tot
   content_partner_resource_description_empty: Cap de descripcion es pas estada provesida
     per aquesta ressorsa.
   content_partner_resource_edit_link: Modificar
@@ -4822,6 +4827,7 @@ oc:
   dato_new_text_link_for_taxon_page_title: Apondre un ligam cap a <i>%{taxon}</i>
   dato_update_user_text_error: O planhèm, una error s'es producha, l'article a pas
     pogut èsser mes a jorn.
+  deactivate: Desactivar
   development_version_name: EdlV v2 Bèta
   default: Per defaut
   default_focus_collection_name_from_community: Domeni d’interès de %{name}
@@ -5075,6 +5081,8 @@ oc:
   harvest_id: Identificant de recòlta
   harvesting_processes_log: Jornal dels processus de recòlta
   harvests_for: Recòltas de %{resource}
+  harvest_resource: Collècta de la ressorsa
+  harvest_duration: Durada de collècta fins a ara
   has_already_been_taken: es ja pres.
   has_colon: 'A :'
   has_curated_your_image: a conservat vòstre imatge

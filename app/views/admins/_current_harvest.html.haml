@@ -8,7 +8,7 @@
           %b
             = I18n.t(:harvest_resource)
         %td
-          = @harvest_resource.title
+          = link_to(@harvest_resource.title, url_for([@harvest_resource.content_partner, @harvest_resource]))
       %tr
         %td
           %b

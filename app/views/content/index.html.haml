@@ -17,6 +17,7 @@
         = raw I18n.t(:currently_in_eol)
         %small= link_to raw(t('.see_all_statistics')), statistics_path
       %ul
+        -# TODO: these delimiters should be based on locale. :|
         %li.taxon
           %dl
             %dt= link_to I18n.t(:eol_pages), @rich_pages_path
@@ -41,3 +42,7 @@
           %dl
             %dt= link_to I18n.t(:content_partners_link), content_partners_path
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("content_partners"), :delimiter => ",")
+        %li.data
+          %dl
+            %dt= link_to I18n.t(:data), data_search_path
+            %dd= number_with_delimiter(EOL::GlobalStatistics.find("data"), :delimiter => ",")

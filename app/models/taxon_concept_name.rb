@@ -9,6 +9,8 @@ class TaxonConceptName < ActiveRecord::Base
   belongs_to :taxon_concept
   belongs_to :vetted
 
+  scope :preferred, -> { where(preferred: true) }
+
   def can_be_deleted_by?(user)
     agents.map(&:user).include?(user)
   end
@@ -32,16 +34,21 @@ class TaxonConceptName < ActiveRecord::Base
     jsonld
   end
 
-  # TODO - why pass in by_whom, here? We don't use it. I'm assuming it's a duck-type for now and leaving it, but...
-  # TODO - we should actually update the instance, not just the DB. True, in practice we don't care, but it
-  # hardhly violates the principle of least surprise (I wasted 15 minutes with a test because of it).
+  # TODO - why pass in by_whom, here? We don't use it. I'm assuming it's a
+  # duck-type for now and leaving it, but... TODO - we should actually update
+  # the instance, not just the DB. True, in practice we don't care, but it
+  # hardly violates the principle of least surprise (I wasted 15 minutes with a
+  # test because of it).
   def vet(vet_obj, by_whom)
     raw_update_attribute(:vetted_id, vet_obj.id)
-    raw_update_attribute(:preferred, 0) if vet_obj == Vetted.untrusted # We don't want untrusted names to be preferred.
-    synonym.update_attributes!(vetted: vet_obj) if synonym # There *are* TCNs in prod w/o synonyms (from CoL, I think)
+    # We don't want untrusted names to be preferred:
+    raw_update_attribute(:preferred, 0) if vet_obj == Vetted.untrusted
+    # There *are* TCNs in prod w/o synonyms (from CoL, I think)
+    synonym.update_attributes!(vetted: vet_obj) if synonym
   end
 
-  # Our composite primary keys gem is too stupid to handle this change correctly, so we're bypassing it here:
+  # Our composite primary keys gem is too stupid to handle this change
+  # correctly, so we're bypassing it here:
   def raw_update_attribute(key, val)
     raise "Invalid key" unless self.respond_to? key
     TaxonConceptName.connection.execute(ActiveRecord::Base.sanitize_sql_array([%Q{

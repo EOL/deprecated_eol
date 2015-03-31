@@ -45,8 +45,12 @@ module Eol
 
     Rails.configuration.use_secure_acceptance = false
 
-    # We're only loading 'en.yml' by default, here. See the other environments for how to "turn on" all the other YML files.
-    # This makes startup times SO MUCH FASTER.
+    # Just shut up about this warning:
+    I18n.enforce_available_locales = false
+
+    # We're only loading 'en.yml' by default, here. See the other environments
+    # for how to "turn on" all the other YML files.  This makes startup times SO
+    # MUCH FASTER.
     if ENV.has_key?('LOCALE')
       case ENV['LOCALE']
       when 'none'
@@ -346,7 +350,7 @@ module Eol
     $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
     $VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
     $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
-
+    
     # Recaptcha Keys
     ENV['RECAPTCHA_PUBLIC_KEY'] = ''
     ENV['RECAPTCHA_PRIVATE_KEY'] = ''

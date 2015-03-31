@@ -4494,6 +4494,7 @@ es:
   content_partner_resource_create_unsuccessful_error: Lo sentimos, ha ocurrido un
     error, el recurso no se ha agregado.
   content_partner_resource_dataset_details_header: Conjunto de datos
+  content_partner_resource_delete_with_type_link: Borrar todo
   content_partner_resource_description_empty: No ha proporcionado una descripción
     para este recurso.
   content_partner_resource_edit_link: Editar

@@ -3,8 +3,8 @@
     %li= link_to I18n.t(:content_partner_resource_edit_with_type_link),
       edit_content_partner_resource_path(@partner, @resource),
       class: "button"
-  - if current_user.is_admin? && @resource.has_harvest_events?
-    %li= link_to I18n.t(:content_partner_resource_delete_with_type_link), [@partner, @resource], 
+  - if current_user.is_admin?
+    %li= link_to I18n.t(:content_partner_resource_delete_with_type_link), [@partner, @resource],
       :confirm => I18n.t(:admin_resource_delete_confirmation), :method => :delete, class: "button"
   %li= link_to raw(I18n.t(:content_partner_resources_link_back_to)),
     content_partner_resources_path(@partner)
@@ -61,8 +61,7 @@
                   edit_content_partner_resource_hierarchy_path(@partner,
                   @resource, hierarchy, return_to: current_url)
                 = "]"
-              - if hierarchy.request_to_publish_can_be_made? &&
-                current_user.can_update?(@resource)
+              - if hierarchy.request_to_publish_can_be_made? && current_user.can_update?(@resource)
                 = request_to_publish_hierarchy_button(hierarchy)
 
           %dt= I18n.t("activerecord.attributes.resource.language_id")

@@ -152,4 +152,9 @@ describe KnownUri do
 
   it 'should generate a proper RDF Turtle'
 
+  it 'removes leading and trailing whitespaces' do 
+    uri ="\t\t"+Rails.configuration.uri_term_prefix+"anything   "
+    known_uri= KnownUri.gen(uri: uri)
+    expect(known_uri.uri).to eq(Rails.configuration.uri_term_prefix+"anything")
+  end
 end

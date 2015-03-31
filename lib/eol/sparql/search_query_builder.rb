@@ -12,6 +12,7 @@ module EOL
         @per_page ||= TaxonData::DEFAULT_PAGE_SIZE
         @page ||= 1
         @only_count = true if @count_value_uris
+        @offset ||= 0
       end
 
       # Class method to build a query
@@ -70,7 +71,7 @@ module EOL
         # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
         EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, outer_order_clause, limit_clause)
       end
-
+      
       def where_clause
         "GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
@@ -137,7 +138,7 @@ module EOL
       end
 
       def limit_clause
-        @only_count ? "" : "LIMIT #{ @per_page } OFFSET #{ ((@page.to_i - 1) * @per_page) }"
+        @only_count ? "" : "LIMIT #{ @per_page } OFFSET #{ (((@page.to_i - 1) * @per_page) + @offset) }"
       end
 
       def inner_order_clause

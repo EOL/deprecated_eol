@@ -215,8 +215,7 @@ Eol::Application.routes.draw do
     resources :content_partner_agreements, :as => 'agreements', :except => [:index, :destroy],
       :controller => 'content_partners/content_partner_agreements'
     resource :statistics, :only => [:show], :controller => 'content_partners/statistics'
-    resources :resources, :only => [:index, :show, :edit, :new, :update, :create, :destroy],
-      :controller => 'content_partners/resources' do
+    resources :resources, :controller => 'content_partners/resources' do
       member do
         get 'force_harvest', :controller => 'content_partners/resources'
         post 'force_harvest', :controller => 'content_partners/resources'
@@ -272,6 +271,8 @@ Eol::Application.routes.draw do
       get 'attribution'
       get 'rate'
       get 'crop'
+      get 'reindex'
+      get 'delete'
     end
     resources :comments
   end
@@ -387,8 +388,8 @@ Eol::Application.routes.draw do
   resource :data_search, :only => [:index], :controller => 'data_search' do
     collection do
       get 'update_attributes'
-      get 'index'      
-      get 'download'            
+      get 'index'
+      get 'download'
       post 'download'
     end
   end
@@ -436,6 +437,18 @@ Eol::Application.routes.draw do
   resource :feeds do
     member do
       get :partner_curation, :defaults => { :format => 'atom' }
+    end
+  end
+
+  # Write API /wapi/... The client should set Accept: application/vnd.eol_wapi.v1
+  # (for example) to specify a particular version to use. ...Everyone SHOULD do
+  # this, though it's not required.
+  # NOTE: DRY DOES NOT APPLY TO THESE OLD VERSIONS. In order to keep things in a
+  # working state, it is acceptable to copy ENTIRE BLOCKS here! Feel free.
+  namespace :wapi, defaults: { format: 'json' } do
+    # Be sure to set default: true on the version that you expect people to use.
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: true) do
+      resources :collections
     end
   end
 

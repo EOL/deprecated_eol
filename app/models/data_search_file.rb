@@ -1,7 +1,7 @@
 class DataSearchFile < ActiveRecord::Base
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
-    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id
+    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id, :file_number
   attr_accessor :results
 
   belongs_to :user
@@ -49,7 +49,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def downloadable?
-    complete? && ! ( expired? || row_count.blank? || row_count == 0)
+    complete? && hosted_file_url && ! ( expired? || row_count.blank? || row_count == 0)
   end
 
   def expired?
@@ -88,7 +88,7 @@ class DataSearchFile < ActiveRecord::Base
     page = 1
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
     search_parameters = { querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
-                          per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri }
+                          per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri, offset: (file_number-1)*LIMIT }
     results = TaxonData.search(search_parameters)
     # TODO - we should probably add a "hidden" column to the file and allow admins/master curators to see those
     # rows, (as long as they are marked as hidden). For now, though, let's just remove the rows:
@@ -106,14 +106,14 @@ class DataSearchFile < ActiveRecord::Base
         # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
         rows << data_point_uri.to_hash(user.language)
       end
-      if (page * PER_PAGE < results.total_entries)
+      # offset = (file_number-1) * LIMIT
+      if (((page * PER_PAGE) + ((file_number-1) * LIMIT)) < results.total_entries)
         page += 1
         results = TaxonData.search(search_parameters.merge(page: page))
       else
         break
       end
-    end until ((page - 1) * PER_PAGE >= results.total_entries) || page > PAGE_LIMIT
-    @overflow = true if page > PAGE_LIMIT
+    end until (((page - 1) * PER_PAGE + ((file_number-1) * LIMIT)) >= results.total_entries) || page > PAGE_LIMIT
     rows
   end
 
@@ -138,9 +138,16 @@ class DataSearchFile < ActiveRecord::Base
 
   def upload_file
     where = local_file_path
-    if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-      where = uploaded_file_url
-      update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
+    begin
+      if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
+        where = uploaded_file_url
+        update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
+      else
+        # TODO: we REALLY need to do something here!
+      end
+    rescue => e
+      # TODO: This is an important one to catch!
+      Rails.logger.error "ERROR: could not upload #{where} to Content Server: #{e.message}"
     end
   end
 
@@ -148,9 +155,6 @@ class DataSearchFile < ActiveRecord::Base
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
-    end
-    if @overflow
-      csv << [ Sanitize.clean(I18n.t(:data_search_limit, count: LIMIT)) ]
     end
   end
 

@@ -65,10 +65,8 @@ class DataSearchController < ApplicationController
   private
   
   def get_equivalents(uri)
-    uri = KnownUri.find_by_uri(uri)
-    equivalents = []
-    equivalents = uri.equivalent_known_uris if uri
-    equivalents
+    uri = KnownUri.find_by_uri(uri) 
+    uri ? uri.equivalent_known_uris : []
   end
   
   def create_data_search_file
@@ -97,13 +95,13 @@ class DataSearchController < ApplicationController
     @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]
-    @required_equivalent_values = options[:q] && !options[:q].blank? ?  params[:required_equivalent_values] : nil 
+    @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil 
     @equivalent_attributes = get_equivalents(@attribute)
     equivalent_attributes_ids = @equivalent_attributes.map{|eq| eq.id.to_s}
     # check if it is really an equivalent attribute
     @required_equivalent_attributes = @required_equivalent_attributes.map{|eq| eq if equivalent_attributes_ids.include?(eq) }.compact if @required_equivalent_attributes
     
-    if options[:q] && !options[:q].blank?
+    if !options[:q].blank?
       tku = TranslatedKnownUri.find_by_name(@querystring)
       ku = tku.known_uri if tku
       if ku

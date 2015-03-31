@@ -32,20 +32,21 @@
       %br
       - @equivalent_attributes.each do |eq|
         %li{style: "list-style-type: none;", id: "attr_#{eq.id}"}
-          = check_box_tag "required_equivalent_attributes[]", eq.id, @required_equivalent_attributes && @required_equivalent_attributes.include?(eq.id.to_s)  
-          = display_uri(eq, define: true, data_search: true, capitalize: false)
+          = check_box_tag "required_equivalent_attributes[]", eq.id, @required_equivalent_attributes && @required_equivalent_attributes.include?(eq.id.to_s)
+          = eq.label
+          = display_uri(eq, define: true, data_search: true, capitalize: false, without_label: true)
     - if @equivalent_values && @equivalent_values.count > 0
       %br
       %h2{style: "display: inline;"}
         = I18n.t("data_search.form.equivalent_values")
       %h1{style: "display: inline;"}
-        = "(#{I18n.t("data_search.form.search_again_for_values")})"  
-        
+        = "(#{I18n.t("data_search.form.search_again_for_values")})"
       %br
       - @equivalent_values.each do |eq|
-        %li{style: "list-style-type: none;"}
+        %li{style: "list-style-type: none;", id: "attr_#{eq.id}"}
           = check_box_tag "required_equivalent_values[]", eq.id, @required_equivalent_values && @required_equivalent_values.include?(eq.id.to_s)
-          = display_uri(eq, define: true, data_search: true, capitalize: false)
+          = eq.label
+          = display_uri(eq, define: true, data_search: true, capitalize: false, without_label: true)
       %br  
   .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
     show: I18n.t("data_search.form.search_tools_show_link"),

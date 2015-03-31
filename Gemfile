@@ -100,6 +100,8 @@ group :test do
 end
 
 group :assets do
+  # Compile only assets that have actually changed (in theory):
+  gem "turbo-sprockets-rails3", "0.3.4"
   # Embeds V8 JS engine in Ruby; "needed to run rake tasks in cron" <- old
   # comment, but may still be true, sigh... though we have node.js on all
   # machines now, so we PROBABLY don't need this anymore? TODO

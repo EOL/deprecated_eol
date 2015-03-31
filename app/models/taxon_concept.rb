@@ -685,7 +685,8 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     iucn_list = TaxonData.new(self).iucn_data_objects
-    choose_iucn_status(iucn_list)
+    desc = choose_iucn_status(iucn_list)    
+    DataObject.new(description: desc) unless desc.blank?
   end
 
   # TODO: re-write this to use a query that gets the scientific name from the

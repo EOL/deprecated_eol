@@ -105,7 +105,7 @@ class TaxonData < TaxonUserClassificationFilter
       known_uris = KnownUri.
         includes({ toc_items: :translations }).
         where(
-          id: taxon_data_set.map { |d| d.predicate_known_uri.id }.compact.uniq
+          id: taxon_data_set.map { |d| d.predicate_known_uri_id }.compact.uniq
         )
       @categories = known_uris.flat_map(&:toc_items).compact.uniq
       @taxon_data_set = taxon_data_set

@@ -7,7 +7,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem "capistrano", "2.13.5" # For deploys.
   # For deploys. Note we've customized it...
   gem "capistrano-unicorn-pleary", "=0.1.6.1"
-  gem "rvm-capistrano", "1.2.7" # For deploys.
+  gem "rvm-capistrano", "1.2.7", require: false # For deploys.
   # We use this *extensively* in testing for user-like behavior. Learn this.
   gem "capybara", "1.1.3"
   # This allows tasks to run in the background, like Solr.

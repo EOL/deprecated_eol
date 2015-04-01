@@ -73,6 +73,35 @@ EOL.create_info_ranges_dialog = function(match) {
   $(match).parent().parent().children('ul.glossary').remove();
   $(match).appendTo(document.body);
   };
+  
+EOL.create_info_dialog_for_data_search = function(match) {
+  var $has_id = $(match).closest('[id]');
+  var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
+  $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
+  $(match)
+    .attr('id', "info_"+nearest)
+    .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>') // Spaces 'cause width doesn't work. :\
+    .addClass('tip')
+    .prepend('<a href="#" class="close">&nbsp;</a>');
+  EOL.enable_info_dialogs($('#tip_'+nearest));
+  EOL.enable_data_tab_glossary_links($(match));
+  $(match).appendTo(document.body);
+};
+
+EOL.create_info_ranges_dialog = function(match) {
+  var $has_id = $(match).closest('[id]');
+  var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
+  $(match)
+    .attr('id', "info_"+nearest)
+    .addClass('tip')
+    .prepend('<a href="#" class="close">&nbsp;</a>')
+    .append( $(match).parent().parent().children('ul.glossary'));
+  $(match).parent().parent().append('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>'); // Spaces 'cause width doesn't work. :\
+  EOL.enable_info_dialogs($('#tip_'+nearest), $('table.ranges tr'));
+  EOL.enable_data_tab_glossary_links($(match));
+  $(match).parent().parent().children('ul.glossary').remove();
+  $(match).appendTo(document.body);
+  };
 
 EOL.enable_data_tab_glossary_links = function(info) {
   // want to enable this on the data tab, so check for some element that only exists there
@@ -505,6 +534,10 @@ $(function() {
     EOL.create_info_dialog(this);
   });
 
+  $('form.copy .vital li .info, form.copy .vital.search li .info').each(function() {	
+    EOL.create_info_dialog_for_data_search(this);
+  });
+  
  $('table.ranges tr .info, table.ranges.search tr .info').each(function() {
     EOL.create_info_ranges_dialog(this);
   });

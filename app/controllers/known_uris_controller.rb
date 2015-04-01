@@ -97,6 +97,7 @@ class KnownUrisController < ApplicationController
   end
 
   def create
+    
     allowed_units_target_ids = params[:known_uri].delete(:allowed_units_target_ids)
     @known_uri = KnownUri.new(params[:known_uri])
     if @known_uri.save

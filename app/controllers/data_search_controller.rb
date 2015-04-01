@@ -14,7 +14,6 @@ class DataSearchController < ApplicationController
     prepare_search_parameters(params)
     prepare_attribute_options
     prepare_suggested_searches
-
     respond_to do |format|
       format.html do
         if @taxon_concept && !TaxonData.is_clade_searchable?(@taxon_concept)
@@ -27,7 +26,7 @@ class DataSearchController < ApplicationController
             contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
         t = Time.now
-        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
+        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30)) 
         if @results
           @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))
           log_data_search(time_in_seconds: Time.now - t)
@@ -64,7 +63,12 @@ class DataSearchController < ApplicationController
   end
 
   private
-
+  
+  def get_equivalents(uri)
+    uri = KnownUri.find_by_uri(uri) 
+    uri ? uri.equivalent_known_uris : []
+  end
+  
   def create_data_search_file
     DataSearchFile.create!(@data_search_file_options)
   end
@@ -90,6 +94,23 @@ class DataSearchController < ApplicationController
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
     @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
+    @required_equivalent_attributes = params[:required_equivalent_attributes]
+    @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil 
+    @equivalent_attributes = get_equivalents(@attribute)
+    equivalent_attributes_ids = @equivalent_attributes.map{|eq| eq.id.to_s}
+    # check if it is really an equivalent attribute
+    @required_equivalent_attributes = @required_equivalent_attributes.map{|eq| eq if equivalent_attributes_ids.include?(eq) }.compact if @required_equivalent_attributes
+    
+    if !options[:q].blank?
+      tku = TranslatedKnownUri.find_by_name(@querystring)
+      ku = tku.known_uri if tku
+      if ku
+        @equivalent_values = get_equivalents(ku.uri)
+        equivalent_values_ids = @equivalent_values.map{|eq| eq.id.to_s}
+        @required_equivalent_values = @required_equivalent_values.map{|eq| eq if equivalent_values_ids.include?(eq) }.compact if @required_equivalent_values
+      end
+    end
+    
     #if entered taxon name returns more than one result choose first
     if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)
@@ -110,17 +131,32 @@ class DataSearchController < ApplicationController
     else
       @attribute_known_uri = KnownUri.find_by_uri(@attribute)
     end
+    @attributes = @attribute_known_uri ? @attribute_known_uri.label : @attribute
+    if @required_equivalent_attributes
+      @required_equivalent_attributes.each do |attr|
+        @attributes += " + #{KnownUri.find(attr.to_i).label}"
+      end
+    end
+    
+    @values = @querystring.to_s
+    if @required_equivalent_values
+      @required_equivalent_values.each do |val|
+        @values += " + #{KnownUri.find(val.to_i).label}"
+      end
+    end
+    
     if @attribute_known_uri && ! @attribute_known_uri.units_for_form_select.empty?
       @units_for_select = @attribute_known_uri.units_for_form_select
     else
       @units_for_select = KnownUri.default_units_for_form_select
     end
     @search_options = { querystring: @querystring, attribute: @attribute, min_value: @min_value, max_value: @max_value,
-      unit: @unit, sort: @sort, language: current_language, taxon_concept: @taxon_concept }
+      unit: @unit, sort: @sort, language: current_language, taxon_concept: @taxon_concept, 
+      required_equivalent_attributes: @required_equivalent_attributes, required_equivalent_values: @required_equivalent_values}
     @data_search_file_options = { q: @querystring, uri: @attribute, from: @min_value, to: @max_value,
       sort: @sort, known_uri: @attribute_known_uri, language: current_language,
       user: current_user, taxon_concept_id: (@taxon_concept ? @taxon_concept.id : nil),
-      unit_uri: @unit }
+      unit_uri: @unit}
   end
 
   # TODO - this should be In the DB with an admin/master curator UI behind it. I would also add a "comment" to that model, when

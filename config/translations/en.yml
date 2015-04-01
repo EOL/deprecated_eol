@@ -3389,6 +3389,10 @@ en:
   data_search:
     page_title: "Search TraitBank"
     form:
+      equivalent_attributes: "Equivalent values: "
+      equivalent_values: "Equivalent values: "
+      search_again_for_attributes: "search again to include selected attributes"
+      search_again_for_values: "search again to include selected values"
       header_assistive: "Search form"
       input_summary_intro: "Selected search options"
       new_search_link: "Start a new search"

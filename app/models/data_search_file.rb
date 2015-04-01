@@ -3,6 +3,9 @@ class DataSearchFile < ActiveRecord::Base
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
     :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id, :file_number
   attr_accessor :results
+  
+  has_many :equivalent_attributes, through: :data_search_file_equivalents, :conditions => {:is_attribute => true}
+  has_many :equivalent_values, through: :data_search_file_equivalents, :conditions => {:is_attribute => false}
 
   belongs_to :user
   belongs_to :language

@@ -605,9 +605,7 @@ class DataObject < ActiveRecord::Base
           # matching the database and indexing stale or changed information
           object_to_index = DataObject.find(self.id)
           EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(object_to_index)
-          if d = previous_revision
-            EOL::Solr::DataObjectsCoreRebuilder.reindex_single_object(d)
-          end
+          previous_revision.try(:update_solr_index)
         end
       end
     else

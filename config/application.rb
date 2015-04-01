@@ -57,15 +57,12 @@ module Eol
         # Do nothing. You will have no translations available. Deal with it.
       when 'active'
         config.i18n.load_path += Dir[Rails.root.join('config', 'translations',
-                                                     "{#{Rails.configuration.active_languages.join(',')}}.yml").to_s]
+          "{#{Rails.configuration.active_languages.join(',')}}.yml").to_s]
       when 'all'
         config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "*.yml").to_s]
       else
-        if #{ENV['LOCALE']} =~ /,/
-          config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "{#{ENV['LOCALE']}}.yml").to_s]
-        else
-          config.i18n.load_path += Dir[Rails.root.join('config', 'translations', "#{ENV['LOCALE']}.yml").to_s]
-        end
+        config.i18n.load_path +=
+          Dir[Rails.root.join('config', 'translations', "{#{ENV['LOCALE']}}.yml").to_s]
       end
     else
       config.i18n.load_path += Dir[Rails.root.join('config', 'translations', 'en.yml').to_s]
@@ -350,16 +347,16 @@ module Eol
     $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
     $VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
     $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
-    
+
     # Recaptcha Keys
-    ENV['RECAPTCHA_PUBLIC_KEY'] = ''
-    ENV['RECAPTCHA_PRIVATE_KEY'] = ''
+    ENV['RECAPTCHA_PUBLIC_KEY'] ||= ''
+    ENV['RECAPTCHA_PRIVATE_KEY'] ||= ''
 
     EOL_CODEBASE_MASTER_VERSION = "2.2"
 
     # NOTE - don't put a value in this, and don't change this paragraph of code, so that capistrano can automate it:
 
     # Assign it during deployment with capistrano
-    ENV['APP_VERSION'] = ''
+    ENV['APP_VERSION'] ||= ''
   end
 end

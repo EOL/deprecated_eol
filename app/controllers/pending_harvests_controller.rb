@@ -2,7 +2,6 @@ class PendingHarvestsController < ApplicationController
 
   before_filter :restrict_to_admins_and_master_curators
   before_filter :set_page_title
- # before_filter :pause_button_text
 
   def index
     @pending_harvests = Resource.pending.paginate(page: params[:page], order: 'resources.position', per_page: 500)    
@@ -47,18 +46,13 @@ class PendingHarvestsController < ApplicationController
   end
   
   def pause_harvesting
- #   pause_button_text
- #   respond_to do |format|
- #     format.js { }
- #   end
+    Resource.update_all(pause: true)
+    head :no_content
   end
   
-  def pause_button_text
-    @text = I18n.t(:pause_pending_harvests)
-  end
-  
-  def resume_button_text
-    @text = I18n.t(:resume_pending_harvests)
+  def resume_harvesting
+    Resource.update_all(pause: false)
+    head :no_content
   end
 
 end

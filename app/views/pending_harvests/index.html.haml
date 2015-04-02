@@ -5,9 +5,9 @@
     .site_column
       .hgroup
         %h1= I18n.t(:pending_harvests_title)
-        .pause_pending_harvests
+        #pause_pending_harvests{style: "display: #{Resource.is_paused? ? 'none': 'block'}"}
           = button_to(I18n.t(:pause_pending_harvests), '#', id: 'pause_p_harvest')
-        .resume_pending_harvests
+        #resume_pending_harvests{style: "display: #{Resource.is_paused? ? 'block': 'none'}"}
           = button_to(I18n.t(:resume_pending_harvests), '#', id: 'resume_p_harvest')     
   #content
     #pending_harvests.site_column

@@ -3161,6 +3161,7 @@ en:
   content_partner_resource_status_update_successful_notice: "Status of resource %{resource_title} successfully updated to %{resource_status}."
   content_partner_resource_status_update_unsuccessful_error: "Sorry, an error occurred, status of resource %{resource_title} could not be updated to %{resource_status}."
   content_partner_resource_update_successful_notice: "Content partner resource details successfully updated. Current status of resource data: %{resource_status}."
+  content_partner_resource_update_successful: "Content partner resource details successfully updated."
   content_partner_resource_update_unsuccessful_error: "Sorry, an error occurred, the resource details were not updated."
   content_partner_resource_upload_unsuccessful_error: "Sorry, an error occurred, the resource details were updated, but the resource itself was not uploaded: %{resource_status}."
   content_partner_resource_url_or_dataset_not_both_error: "Dataset URL or file per resource, not both. Please decide whether you want to provide a URL or upload a file for this described resource. Additional resources can be added later."

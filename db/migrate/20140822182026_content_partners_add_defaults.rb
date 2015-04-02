@@ -1,15 +1,15 @@
 class ContentPartnersAddDefaults < ActiveRecord::Migration
   def up
     # TODO: This may not work; you may have to lower these 6000s to 5000s.
-    change_column(:content_partners, :string, :notes, limit: 6000, default: "",
+    change_column(:content_partners, :notes, :string, limit: 6000, default: "",
       null: true)
-    change_column(:content_partners, :string, :description_of_data,
+    change_column(:content_partners, :description_of_data, :string,
       limit: 6000, default: "", null: true)
-    change_column(:content_partners, :string, :description, limit: 6000,
+    change_column(:content_partners, :description, :string, limit: 6000,
       default: "", null: true)
-    change_column(:content_partners, :string, :full_name, default: "",
+    change_column(:content_partners, :full_name, :string, default: "",
       null: true)
-    change_column(:content_partners, :string, :admin_notes, default: "",
+    change_column(:content_partners, :admin_notes, :string, default: "",
       limit: 6000,null: true)
   end
 

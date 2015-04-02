@@ -70,13 +70,24 @@ class HierarchyEntry < ActiveRecord::Base
     set
   end
 
-  def rebuild_names
-    update_attribute(:scientific_name, name.string) # With attribution, no ital
-    update_attribute(:canonical_name, title_canonical) # No attribution, no ital
+  def self.rebuild_all_names
+    connection.execute(
+      "UPDATE hierarchy_entries he "\
+        "INNER JOIN names n ON he.name_id = n.id "\
+        "LEFT JOIN canonical_forms cf ON cf.id = n.canonical_form_id "\
+      "SET scientific_name = n.string, "\
+        "canonical_name = cf.string, "\
+        "species_or_sub = rank_id IN (" + Rank.italicized_ids.join(', ') + ") "\
+      "WHERE he.published = 1"
+    )
   end
 
-  def rebuild_ancestry
-    update_attribute(:ancestry, ancestors.join('|'))
+  def rebuild_names
+    # With attribution, no ital:
+    update_attribute(:scientific_name, name.string)
+    # No attribution, no ital:
+    update_attribute(:canonical_name, name.canonical_form.string)
+    update_attribute(:species_or_sub, species_or_below?)
   end
 
   def has_parent?

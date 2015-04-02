@@ -70,6 +70,15 @@ class HierarchyEntry < ActiveRecord::Base
     set
   end
 
+  def rebuild_names
+    update_attribute(:scientific_name, name.string) # With attribution, no ital
+    update_attribute(:canonical_name, title_canonical) # No attribution, no ital
+  end
+
+  def rebuild_ancestry
+    update_attribute(:ancestry, ancestors.join('|'))
+  end
+
   def has_parent?
     self.parent_id && self.parent_id.to_i > 0
   end

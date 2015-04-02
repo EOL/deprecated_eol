@@ -88,10 +88,10 @@ class DataSearchFile < ActiveRecord::Base
     # TODO - we should also check to see if the job has been canceled.
     rows = []
     page = 1
-    data_search_file_equivalent_attrs = self.data_search_file_equivalents.select{|eq| eq.is_attribute}
-    data_search_file_equivalent_values = self.data_search_file_equivalents.select{|eq| !eq.is_attribute}
-    required_equivalent_attributes = data_search_file_equivalent_attrs.collect{|dsfeq| dsfeq.uri_id}  
-    required_equivalent_values = data_search_file_equivalent_values.collect{|dsfeq| dsfeq.uri_id}
+    data_search_file_equivalent_attrs = !self.data_search_file_equivalents.blank? ? self.data_search_file_equivalents.select{|eq| eq.is_attribute} : nil
+    data_search_file_equivalent_values = !self.data_search_file_equivalents.blank? ? self.data_search_file_equivalents.select{|eq| !eq.is_attribute} : nil
+    required_equivalent_attributes = !data_search_file_equivalent_attrs.blank? ? data_search_file_equivalent_attrs.collect{|dsfeq| dsfeq.uri_id} : nil
+    required_equivalent_values = !data_search_file_equivalent_values.blank? ? data_search_file_equivalent_values.collect{|dsfeq| dsfeq.uri_id} : nil
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
     search_parameters = { querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
                           per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri, offset: (file_number-1)*LIMIT,

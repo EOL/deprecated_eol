@@ -70,7 +70,18 @@ class DataSearchController < ApplicationController
   end
   
   def create_data_search_file
-    DataSearchFile.create!(@data_search_file_options)
+    file = DataSearchFile.create!(@data_search_file_options)
+    unless @required_equivalent_attributes.blank?
+      @required_equivalent_attributes.each do |eq|
+        DataSearchFileEquivalent.create(data_search_file_id: file.id, uri_id: eq.to_i, is_attribute: true)
+      end
+    end
+    unless @required_equivalent_values.blank?
+      @required_equivalent_values.each do |eq|
+        DataSearchFileEquivalent.create(data_search_file_id: file.id, uri_id: eq.to_i, is_attribute: false)
+      end
+    end
+    file
   end
   
   def readable_query_string(string)

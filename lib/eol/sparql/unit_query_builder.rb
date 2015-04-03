@@ -32,7 +32,7 @@ module EOL
       end
 
       def identical_uris(unit_uri)
-        if conversion = DataPointUri.conversions.detect{ |c| c[:starting_units].include?(unit_uri) }
+        if conversion = Trait.conversions.detect{ |c| c[:starting_units].include?(unit_uri) }
           conversion[:starting_units]
         else
           [ unit_uri ]
@@ -64,7 +64,7 @@ module EOL
 
       def magnitude_conversions(starting_unit_uris)
         magnitudes = []
-        DataPointUri.conversions.each do |conversion|
+        Trait.conversions.each do |conversion|
           if ! (conversion[:starting_units] & starting_unit_uris).empty?
             magnitudes << {
               conversion: conversion,

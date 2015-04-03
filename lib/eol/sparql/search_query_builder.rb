@@ -74,18 +74,18 @@ module EOL
       
       def where_clause
         "GRAPH ?graph {
-            ?data_point_uri dwc:measurementType ?attribute .
+            ?trait dwc:measurementType ?attribute .
             #{ attribute_filter }
           } .
-          ?data_point_uri dwc:measurementValue ?value .
-          ?data_point_uri eol:measurementOfTaxon eolterms:true .
-          ?data_point_uri dwc:occurrenceID ?occurrence_id .
+          ?trait dwc:measurementValue ?value .
+          ?trait eol:measurementOfTaxon eolterms:true .
+          ?trait dwc:occurrenceID ?occurrence_id .
           ?occurrence_id dwc:taxonID ?taxon_id .
           ?taxon_id dwc:taxonConceptID ?taxon_concept_id .
           OPTIONAL { ?occurrence_id dwc:lifeStage ?life_stage } .
           OPTIONAL { ?occurrence_id dwc:sex ?sex } .
-          OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
-          OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+          OPTIONAL { ?trait dwc:measurementUnit ?unit_of_measure_uri } .
+          OPTIONAL { ?trait eolterms:statisticalMethod ?statistical_method } .
           #{ filter_clauses }"
       end
 
@@ -95,17 +95,17 @@ module EOL
         elsif @only_count
           "SELECT COUNT(*) as ?count"
         else
-          "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
+          "SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?trait ?graph ?taxon_concept_id"
         end
       end
 
       def inner_select_clause
         if @count_value_uris
-          "SELECT DISTINCT ?data_point_uri, ?value"
+          "SELECT DISTINCT ?trait, ?value"
         elsif @only_count
-          "SELECT DISTINCT ?data_point_uri"
+          "SELECT DISTINCT ?trait"
         else
-          "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id"
+          "SELECT ?attribute ?value ?unit_of_measure_uri ?statistical_method ?life_stage ?sex ?trait ?graph ?taxon_concept_id"
         end
       end
 
@@ -160,7 +160,7 @@ module EOL
       end
 
       def attribute_filter
-        @attribute ? "?data_point_uri dwc:measurementType <#{ @attribute }> ." : ""
+        @attribute ? "?trait dwc:measurementType <#{ @attribute }> ." : ""
       end
     end
   end

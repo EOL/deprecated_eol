@@ -4363,8 +4363,8 @@ pt-BR:
     one: Aparece sobre %{quoted_toc_titles}
     other: Aparece sobre %{quoted_toc_titles}
   data_overview_table_caption: Fatos rápidos
-  data_point_uri_source_missing: falta a fonte
-  data_point_uri_summary_name: dados sobre %{taxon}
+  trait_source_missing: falta a fonte
+  trait_summary_name: dados sobre %{taxon}
   data_provided_by_user: provido por %{whom}
   data_provided_by_content_partner: 'Fonte: %{whom}'
   data_reference_subtable_summary: Referências adicionais sobre este fato.
@@ -4492,7 +4492,7 @@ pt-BR:
   endorsed_collections_with_count:
     one: '%{count} Coleção destacada'
     other: '%{count} Coleções destacadas'
-  eol_administration_console: Console da administração EOL
+  eol_administration_console: Console da administra��ão EOL
   eol_api_data_objects: 'EOL API: Objetos de dados'
   eol_api_colon: 'EOL API:'
   eol_api: EOL API

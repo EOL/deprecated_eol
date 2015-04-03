@@ -1,4 +1,4 @@
-# A Resource is a dataset or compilation of media provided by a partner, harvested by EOL into data_objects and data_point_uris.
+# A Resource is a dataset or compilation of media provided by a partner, harvested by EOL into data_objects and traits.
 # For example, a collection of images of butterflies.
 #
 # NOTES:

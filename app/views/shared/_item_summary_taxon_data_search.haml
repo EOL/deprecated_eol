@@ -1,5 +1,5 @@
 .taxon_summary
-  - taxon_concept = data_point_uri.taxon_concept
+  - taxon_concept = trait.taxon_concept
   - taxon_link = taxon_data_path(taxon_concept)
   - view_style ||= 'default'
   - search_result = nil unless local_assigns.has_key?(:search_result)
@@ -17,5 +17,5 @@
   - unless subtitle.blank?
     = link_to subtitle.firstcap, taxon_link
 .data_summary
-  %span.attribute= raw display_uri(data_point_uri.predicate_uri) + ":"
-  %span.value= raw display_text_for_data_point_uri(data_point_uri)
+  %span.attribute= raw display_uri(trait.predicate_uri) + ":"
+  %span.value= raw display_text_for_trait(trait)

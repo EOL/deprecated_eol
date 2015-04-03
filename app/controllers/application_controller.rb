@@ -758,7 +758,7 @@ protected
     when UserAddedData
       options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
-    when DataPointUri
+    when Trait
       options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
     else
@@ -784,7 +784,7 @@ protected
     when UserAddedData
       options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
-    when DataPointUri
+    when Trait
       options.merge!(anchor: item.anchor)
       taxon_data_url(item.taxon_concept, options)
     else

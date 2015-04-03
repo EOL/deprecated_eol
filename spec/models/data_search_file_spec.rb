@@ -11,7 +11,7 @@ describe DataSearchFile do
   end
 
   def make_and_convert(options)
-    d = DataPointUri.new(options, taxon_concept: TaxonConcept.gen)
+    d = Trait.new(options, taxon_concept: TaxonConcept.gen)
     d.convert_units
     d
   end
@@ -63,10 +63,10 @@ describe DataSearchFile do
 
   it 'removes hidden rows' do
     uris = []
-    uris << DataPointUri.gen
-    uris << DataPointUri.gen
-    uris << DataPointUri.gen
-    uris << DataPointUri.gen(visibility: Visibility.invisible)
+    uris << Trait.gen
+    uris << Trait.gen
+    uris << Trait.gen
+    uris << Trait.gen(visibility: Visibility.invisible)
     expect(uris.last.hidden?).to be_true # Just a sanity check; this isn't really needed.
     uris.should_receive(:total_entries).and_return(4)
     names = uris.map { |n| n.source.name } # The uris array WILL BE MODIFIED, so we can't test off of it directly.

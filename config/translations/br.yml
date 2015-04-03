@@ -233,7 +233,7 @@ br:
         dataset: Restr eus ar c'hoari roadennoù
         description: Deskrivadur ar vammenn
         dwc_archive_url: URL eus an diell Darwin Core
-        dataset_source_url: Mammenn ar roadennoù orin
+        dataset_source_url: Mammenn ar roadenno�� orin
         dataset_hosted_url: Hollad roadennoù tarzh (eilad lec'hel)
         harvest_events: Dastum an darvoudoù
         hierarchy: Urzhaz
@@ -1972,7 +1972,7 @@ br:
       choose_exemplar_image:
         an_unknown_user_chose_exemplar_an_older_data_object_on_taxon: Un implijer
           dianav en deus lakaet "%{data_object}" da skouer war "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_hide_data_on_taxon: Un implijer dianav en deus divizet kuzhat
           roadennoù diwar-benn "%{taxon}".
         user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> en deus divizet
@@ -2692,8 +2692,8 @@ br:
   data_metadata_subtable_summary: Roadennoù ouzhpenn diwar-benn ar fed-mañ.
   data_object_ignore: ober vann deus an elfenn-mañ
   data_object_undo_ignore: tennañ diwar ar roll dianavezout
-  data_point_uri_source_missing: ar vammenn a vank
-  data_point_uri_summary_name: roadennoù diwar-benn %{taxon}
+  trait_source_missing: ar vammenn a vank
+  trait_summary_name: roadennoù diwar-benn %{taxon}
   data_provided_by_user: pourchaset gant %{whom}
   data_provided_by_content_partner: 'Pourchaser : %{whom}'
   data_ranges: Diverradurioù ar roadennoù

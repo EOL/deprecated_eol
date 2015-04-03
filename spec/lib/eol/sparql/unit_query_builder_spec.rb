@@ -15,7 +15,7 @@ describe EOL::Sparql::UnitQueryBuilder do
   describe '#identical_uris' do
     it 'know which units we consider to be identical' do
       expect(@unit_builder.identical_uris(KnownUri.grams.uri)).to eq(
-        DataPointUri.conversions.detect{ |c|
+        Trait.conversions.detect{ |c|
           c[:starting_units].include?(KnownUri.grams.uri) }[:starting_units])
     end
 

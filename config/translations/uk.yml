@@ -617,7 +617,7 @@ uk:
           <em>Заголовок 1</em> зарезервований для заголовку сторінки, тому заголовки
           в області тексту починаються з <em>Заголовка 2</em>. Виберіть <em>Вихідний
           код</em>, щоб перейти до подання вихідного коду HTML, який дозволяє вручну
-          вставляти і редагувати HTML.'
+          вставляти і редагуват�� HTML.'
         meta_description_more: Введіть короткий опис, який коротко описує основні
           поняття вмісту сторінки. Це опис іноді використовується пошуковими системами
           для перевірки релевантності і для включення в результати пошуку.
@@ -956,7 +956,7 @@ uk:
         tweet_text: Збірки %{community_name}
     newsfeeds:
       show:
-        meta_keywords: '%{community_name}, Спільнота Енциклопедії Життя, %{community_name}
+        meta_keywords: '%{community_name}, Спільнота Енциклопедії Житт��, %{community_name}
           стрічка новин, %{community_name} коментарів, %{community_name} активність'
     show:
       meta_description: Спільнота Енциклопедії життя %{community_name} була вилучена
@@ -1411,7 +1411,7 @@ uk:
       message: |-
         Ласкаво просимо в Енциклопедію Життя (ЕЖ) і дякуємо за реєстрацію! Зверніть увагу, що ви увійшли з допомогою %{oauth_provider}, надаючи ЕЖ дозвіл на доступ до базової інформації для потреб автентифікації. URL вашого профілю на EOL - %{profile_url}. Ви можете увійти у свій профіль ЕЖ через %{oauth_provider} на сторінці http://eol.org/login.
 
-        Щоб дізнатися більше про те, як користуватися ЕЖ, включаючи способи створення колекцій ЕЖ, як брати участь у спільнотах ЕЖ і створювати новий вміст, будь ласка, відвідайте наші сторінки довідки на http://eol.org/help.
+        Щоб дізнатися більше про те, як користуватися ЕЖ, включаючи способи створення колекцій ЕЖ, як ��рати участь у спільнотах ЕЖ і створювати новий вміст, будь ласка, відвідайте наші сторінки довідки на http://eol.org/help.
     user_message:
       subject: Повідомлення від Енциклопедії Життя
     user_recover_account:
@@ -1660,7 +1660,7 @@ uk:
           meta_description: Описи і статті про %{scientific_name} прокласифікованого
             %{hierarchy_provider} у Енциклопедії Життя
           meta_description_no_data: Немає статей доступних для %{scientific_name}
-            класифікованих за %{hierarchy_provider} у Енциклопедії Життя. ЕЖ запрошує
+            класифікован��х за %{hierarchy_provider} у Енциклопедії Життя. ЕЖ запрошує
             вас вносити статті про %{scientific_name} зокрема такі як Збереження,
             Поширення, Екологія, Навколишнє середовище, Морфологія і інше.
           meta_description_with_chapter_list: Описи і статті про %{scientific_name}
@@ -1762,7 +1762,7 @@ uk:
         meta_keywords: природне середовище %{scientific_name}, де %{scientific_name}
           живуть
         meta_keywords_with_common_name: природне середовище %{preferred_common_name},
-          де %{preferred_common_name} живуть
+          ��е %{preferred_common_name} живуть
         meta_title: Карти для %{scientific_name}
         meta_title_with_common_name: Карти для %{preferred_common_name} (%{scientific_name})
         tweet_text: Карти для %{scientific_name}
@@ -2250,7 +2250,7 @@ uk:
       yahoo: Yahoo!
     pending:
       header: Дякуємо за реєстрацію!
-      verify_email_instructions: <strong>Будь ласка, перевірте вашу електронну пошту</strong>.
+      verify_email_instructions: <strong>Будь ласка, перевірте в��шу електронну пошту</strong>.
         Підтвердження вже відправлено на адресу, яку ви надали. Для завершення процесу
         реєстрації та набуття прав члена ЕЖ, будь ласка, клацніть по посиланню, вказаному
         в цьому листі. Спасибі!
@@ -2843,7 +2843,7 @@ uk:
         an_unknown_user_chose_exemplar_an_unknown_data_object_on_taxon: Невідомий
           користувач встановив невідомий об'єкт даних як зразок на "%{taxon}".
         an_unknown_user_chose_exemplar_data_object_on_an_unknown_taxon: Невідомий
-          користувач встановив "%{data_object}" як зразок на невідомій сторінці.
+          користувач вст��новив "%{data_object}" як зразок на невідомій сторінці.
         an_unknown_user_chose_exemplar_data_object_on_taxon: Невідомий користувач
           встановив "%{data_object}" як зразок на "%{taxon}".
         user_chose_exemplar_an_older_data_object_on_an_unknown_taxon: <strong>%{user}</strong>
@@ -2901,7 +2901,7 @@ uk:
           це для показу у Огляді на невідомій сторінці.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> вибрав це для показу
           у Огляді на "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Невідомий користувач
           встановив дані як зразок на невідомій сторінці.
         an_unknown_user_set_exemplar_data_on_taxon: Невідомий користувач встановив
@@ -2952,7 +2952,7 @@ uk:
         user_added_an_unknown_name_in_language_to_taxon: <strong>%{user}</strong>
           додав невідому загальну назву на мові %{language} до "%{taxon}".
         user_added_name_in_an_unknown_language_to_an_unknown_taxon: <strong>%{user}</strong>
-          додав загальну назву "%{name}"  невідомою мовою до невідомої сторінки.
+          додав загальну назву "%{name}"  ��евідомою мовою до невідомої сторінки.
         user_added_name_in_language_to_an_unknown_taxon: <strong>%{user}</strong>
           додав загальну назву "%{name}"  мовою %{language} до невідомої сторінки.
         user_added_name_in_an_unknown_language_to_taxon: <strong>%{user}</strong>
@@ -3163,7 +3163,7 @@ uk:
         user_unreviewed_name_in_language_on_taxon: <strong>%{user}</strong> позначив
           загальну назву "%{name}"  мовою %{language} від "%{taxon}" як неперевірену.
         an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: Невідомий
-          користувач позначив невідому загальну назву невідомою мовою як неперевірену.
+          користувач позначив н��відому загальну назву невідомою мовою як неперевірену.
         an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: Невідомий користувач
           позначив невідому загальну назву мовою %{language} як неперевірену.
         an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: Невідомий користувач
@@ -3273,7 +3273,7 @@ uk:
           невідому класифікацію.
         an_unknown_user_split_unknown_entry_from_taxon: Невідомий користувач розділив
           невідому класифікацію від  "%{taxon}".
-        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> розділив
+        user_split_unknown_entry_from_an_unknown_taxon: <strong>%{user}</strong> розділ��в
           невідому класифікацію від невідомого таксону.
         user_split_unknown_entry_from_it: <strong>%{user}</strong> відокремив невідому
           класифікацію.
@@ -3387,7 +3387,7 @@ uk:
           на невідомій сторінці.
         user_update_data_on_taxon: <strong>%{user}</strong> оновив дані на "%{taxon}".
       other_actions:
-        an_unknown_user_curated_an_older_data_object: Невідомий користувач курував
+        an_unknown_user_curated_an_older_data_object: Невідом��й користувач курував
           старішу версію "%{data_object}".
         an_unknown_user_curated_an_unknown_data_object: Невідомий користувач курував
           невідомий об'єкт даних.
@@ -3514,7 +3514,7 @@ uk:
   admin_content_partners_statistics_link: Статистика
   admin_content_partners_statistics_page_title: 'Адміністрація: статистика партнера
     за вмістом'
-  admin_home: адміністративна панель
+  admin_home: адміністрат��вна панель
   admin_news_item_active: Опубліковано
   admin_news_item_create_successful_notice: Елемент новин  <a href="#%{anchor}"><em>%{page_name}</em></a>
     успішно створено.
@@ -3898,7 +3898,7 @@ uk:
     дані.
   curator_level: Рівень куратора
   curator_level_with_indefinite_article_master_curator: <strong>майстер куратор</strong>
-  curator_level_with_indefinite_article_full_curator: <strong>повний куратор</strong>
+  curator_level_with_indefinite_article_full_curator: <strong>пов��ий куратор</strong>
   curator_level_with_indefinite_article_assistant_curator: <strong>помічник куратора</strong>
   click: Клік
   clicked_time: Час кліку
@@ -4427,8 +4427,8 @@ uk:
   data_object_ignore: ігнорувати цей елемент
   data_object_undo_ignore: видалити зі списку ігнорування
   data_overview_table_caption: Характерні дані
-  data_point_uri_source_missing: джерело відсутнє
-  data_point_uri_summary_name: дані про %{taxon}
+  trait_source_missing: джерело відсутнє
+  trait_summary_name: дані про %{taxon}
   data_provided_by_user: надано %{whom}
   data_provided_by_content_partner: 'Постачальник: %{whom}'
   data_ranges: Зведені дані
@@ -4891,7 +4891,7 @@ uk:
   licensing: Ліцензування
   limits_the_number_of_returned_image_objects: обмежує число повернутих об'єктів зображення
   limits_the_number_of_returned_text_objects: обмежує число повернутих текстових об'єктів
-  limits_the_number_of_returned_video_objects: обмежує число повернутих об'єктів відео
+  limits_the_number_of_returned_video_objects: обмежує число повернутих об'єктів віде��
   limits_the_number_of_returned_sound_objects: обмежує число повернутих звукових об'єкти
   limits_the_number_of_returned_map_objects: обмежує число повернутих об'єктів мапи
   link_more_about: Докладніше про це посилання
@@ -5263,7 +5263,7 @@ uk:
   see_notes: див. примітки
   see_more_on_the_data_tab: див. більше на вкладці Дані
   see_this_record_in_virtuoso: див. цей запис у Virtuoso
-  select_an_item_from_the_menu: Виберіть елемент у меню
+  select_an_item_from_the_menu: Вибе��іть елемент у меню
   select_tool_and_go: 'Виберіть інструмент і натисніть "Вперед":'
   select_colon: 'Вибрати:'
   select_topic: оберіть розділ
@@ -5440,7 +5440,7 @@ uk:
   upload_content: завантажити вміст
   uploaded_by: Завантажено
   uploaded_content: Завантажений вміст
-  upload: Завантажити
+  upload: Завант��жити
   uri: URI
   url: URL
   url_not_accessible: Ця URL-адреса недоступна

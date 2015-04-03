@@ -31,12 +31,12 @@
     = will_paginate @results, previous_label: previous_label, next_label: next_label, inner_window: 2
   #taxon_data
     %table.standard.data.search
-      - @results.each_with_index do |data_point_uri, index|
-        - if data_point_uri.hidden?
+      - @results.each_with_index do |trait, index|
+        - if trait.hidden?
           -# This is a "placeholder" for a hidden row.
-          %tr{id: data_point_uri.anchor, class: "data hidden"}
+          %tr{id: trait.anchor, class: "data hidden"}
             %td.placeholder{colspan: 5}
               = I18n.t(:data_search_row_hidden)
         - else
-          = render 'data_point_uris/display_rows', { data_point_uri: data_point_uri, for_search: true,
+          = render 'traits/display_rows', { trait: trait, for_search: true,
             header_id: "result_#{index}" }

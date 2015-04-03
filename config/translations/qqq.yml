@@ -812,7 +812,7 @@ qqq:
     {{Identical|Data}}
   data_master_database_colon: 'This is seen only by admins, and is the label used in a table describing the names of the databases used by EOL (there are five: main, main_master, data_master, data, and logging).'
   data_overview_table_caption: "Screen-reader only; this won't show up on the website for others. Identifies the table of data on the overview tab."
-  data_point_uri_source_missing: |
+  trait_source_missing: |
     See also:
     * {{msg-eol|Website-data provided by user}}
     * {{msg-eol|Website-data provided by content partner}}

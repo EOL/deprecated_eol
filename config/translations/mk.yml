@@ -196,7 +196,7 @@ mk:
       name:
         string: Име
       news_item:
-        page_name: Единствено име
+        page_name: Единстве��о име
         sort_order: Редослед на подредување
         active: Објавено
       notification:
@@ -496,7 +496,7 @@ mk:
         min_with_val: 'Најниска вредност: %{val}'
         min_placeholder: Внесете број
         min_placeholder_disabled: Опсегот е оневозможен
-        q: Конкретна вредност
+        q: К��нкретна вредност
         q_with_val: 'Конкретна вредност: %{val}'
         q_placeholder: Внесете збор, израз или број
         q_placeholder_disabled: Внесен е опсег, а конкретната вредност е оневозможена
@@ -720,7 +720,7 @@ mk:
         create: Создај страница
         edit: Уреди
         preview: Преглед
-        update: Поднови страница
+        update: Поднови ст��аница
       content_partner:
         create: Создај соучесник во содржините
         update: Зачувај информации за соучесник во содржините
@@ -949,7 +949,7 @@ mk:
       index:
         meta_description: Збирките ги состави заедницата %{community_name}.
         meta_keywords: Збирки на %{community_name}
-        meta_title: Збирки на %{community_name}
+        meta_title: Зб��рки на %{community_name}
         tweet_text: Збирки на %{community_name}
     newsfeeds:
       show:
@@ -1277,7 +1277,7 @@ mk:
       subject: Преглед на скорешните активности на содржината доставена од соучесникот
         %{partner_full_name}
       message: |-
-        Ова е автоматска порака од Енциклопедијата на живиот свет (EOL) во која ги наведуваме скорешните коментари и кустоски постапки содржините на EOL доставени од соучесникот %{partner_full_name} (%{partner_profile_url}). Прегледов го добивате бидејќи сте наведени како контакт за %{partner_full_name}.
+        Ова е автоматска порака од Енциклопедијата на живиот свет (EOL) во која ги наведуваме скорешните коментари и кустоски постапки содржините н�� EOL доставени од соучесникот %{partner_full_name} (%{partner_profile_url}). Прегледов го добивате бидејќи сте наведени како контакт за %{partner_full_name}.
 
         Ако имате прашања или ви треба помош за да дојдете до вашата членска сметка, обратете се на %{species_pages_group_email}.
 
@@ -1411,7 +1411,7 @@ mk:
     user_activated_with_open_authentication:
       subject: Вашата сметка на Енциклопедијата на живиот свет е активирана
       message: |-
-        Добре дојдовте во Енциклопедијата на живиот свет (EOL) и ви благодариме што се пријавивте! Пријавувањето го направивте со %{oauth_provider}, овластувајќи ја EOL да пристапи до вашите основни податоци за заверка. URL-адресата на вашиот профил на EOL е %{profile_url}. Можете да се најавите на сметката на EOL со %{oauth_provider} на http://eol.org/login.
+        Добре дојдовте во Енциклопедијата на живиот свет (EOL) и ви бл��годариме што се пријавивте! Пријавувањето го направивте со %{oauth_provider}, овластувајќи ја EOL да пристапи до вашите основни податоци за заверка. URL-адресата на вашиот профил на EOL е %{profile_url}. Можете да се најавите на сметката на EOL со %{oauth_provider} на http://eol.org/login.
 
         За да дознаете повеќе за тоа како се користи EOL, како да создавате збирки, како да учествувате во заедниците и како да придонесувате со содржини, посетете ги страниците за помош на http://eol.org/help.
     user_message:
@@ -1870,7 +1870,7 @@ mk:
         tweet_text: Народни имиња на %{scientific_name}
       synonyms:
         hierarchy_entry:
-          meta_description: Синоними поврзани со %{scientific_name} според класификацијата
+          meta_description: Синоними поврзани со %{scientific_name} според к��асификацијата
             на %{hierarchy_provider}.
           meta_description_with_common_name: Синоними поврзани со %{scientific_name}
             според класификацијата на %{hierarchy_provider} (%{preferred_common_name}).
@@ -2252,7 +2252,7 @@ mk:
             на вашата сметка на Google.
         twitter:
           new_authentication_added: На сметката ви е додадена заверка со Twitter.
-          removed_connection: Успешно ја отстранивме врската со EOL од вашата сметка
+          removed_connection: ��спешно ја отстранивме врската со EOL од вашата сметка
             на Twitter. Ако сакате наполно да ги прекратите сите идни дејства помеѓу
             сметката на Facebook и EOL, ова ќе мора да го сторите преку поставките
             на вашата сметка на Twitter.
@@ -2375,7 +2375,7 @@ mk:
     со ниеден објавен таксон.
   link_not_associated_with_any_published_entries: Оваа врска не е поврзана со ниеден
     објавен таксон.
-  sound_alt_text: Оваа %{vetted_status} аудиоснимка го претставува таксонот %{taxon_name}
+  sound_alt_text: Оваа %{vetted_status} аудиоснимка го претставува так��онот %{taxon_name}
   image_alt_text: Оваа %{vetted_status} слика го претставува таксонот %{taxon_name}
   map_alt_text: Оваа %{vetted_status} карта го претставува таксонот %{taxon_name}
   image_map_alt_text: Оваа %{vetted_status} карта го претставува таксонот %{taxon_name}
@@ -2928,7 +2928,7 @@ mk:
           како пример во Прегледот на непозната страница.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> го укажа како пример
           во Прегледот на „%{taxon}“.
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Непознат корисник укажа
           податоци како урнек на непозната страница.
         an_unknown_user_set_exemplar_data_on_taxon: Непознат корисник укажа податоци
@@ -3375,7 +3375,7 @@ mk:
         move_of_taxon_unlocked_with_error: 'Преместувањето на класификацијата што
           неодамна го побаравте за „%{taxon}“ <strong>не успеа</strong>: %{error}.'
         split_of_an_unknown_taxon_unlocked_with_error: 'Одвојувањето на класификацијата
-          што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа,
+          што неодамна го п��баравте <strong>не успеа</strong>: %{error}. Покрај тоа,
           не можам да ја најдам засегнатата страница.'
         split_of_it_unlocked_with_error: 'Одвојувањето на класификацијата што неодамна
           го побаравте на оваа страница <strong>не успеа</strong>: %{error}.'
@@ -3503,7 +3503,7 @@ mk:
     е успешно подновена.
   admin_content_page_update_unsuccessful_error: За жал, се појави грешка. Не можев
     да ја подновам страницата.
-  admin_content_pages_empty: Не пронајдов содржински страници.
+  admin_content_pages_empty: Не пронајдов содржинск�� страници.
   admin_content_pages_index_information: Следниов список ги содржи сите статични страници
     што се моментално на располагање на мрежното место на EOL. Секоја страница има
     еден или повеќе преводи. Кога создавате нова страница, ќе ви биде побарано да
@@ -3616,7 +3616,7 @@ mk:
     Не можев да го додадам преводот.
   admin_translated_news_item_delete_confirmation: Дали сте сигурни дека сакате да
     ја избришете верзијата на %{language} на новоста „%{page_name}“? Избришаното не
-    може да се поврати.
+    може да се ��оврати.
   admin_translated_news_item_delete_successful_notice: Преводот на %{language} на
     новоста <em>%{page_name}</em> е избришан.
   admin_translated_news_item_edit_subheader: Уредување на преводот на %{language}
@@ -4609,8 +4609,8 @@ mk:
     one: Се води под %{quoted_toc_titles}
     other: Се води под %{quoted_toc_titles}
   data_overview_table_caption: Податоци за одлики
-  data_point_uri_source_missing: недостасува извор
-  data_point_uri_summary_name: податоци за %{taxon}
+  trait_source_missing: недостасува извор
+  trait_summary_name: податоци за %{taxon}
   data_provided_by_user: доставено од %{whom}
   data_provided_by_content_partner: 'Добавувач: %{whom}'
   data_ranges: Резимирани податоци
@@ -5376,7 +5376,7 @@ mk:
   maintained_by: 'одржува:'
   major_heading: Главно заглавие
   make_an_editor: назначи за раководител
-  make_user_an_editor_title: Дозволи му на корисникот %{user} да раководи со една
+  make_user_an_editor_title: Дозволи му на корисникот %{user} д�� раководи со една
     од вашите збирки
   manage_your_profile: Раководење со вашиот профил
   managed_by: 'Раководител:'
@@ -6200,7 +6200,7 @@ mk:
   suggested_result_page_id: 'Назнака за страницата на предложените резултати:'
   suggested_results_avg: Предложени резултати (прос.)
   suggested_vocab_add: препорачан поим
-  suggested_vocab_remove: отстрани препорака
+  suggested_vocab_remove: отстран�� препорака
   summary_thumbnail_title: 'Опис:'
   supplier: Добавувач
   supplier_allcaps: 'ДОБАВУВАЧ:'
@@ -6818,7 +6818,7 @@ mk:
   you_have_been_logged_in_as_username: Најавени сте како %{username}
   you_have_been_logged_out: Одјавени сте.
   you_joined_community: Успешно се приклучивте на заедницата.
-  you_left_community: Успешно ја напуштивте заедницата.
+  you_left_community: Успешно ја напуштив��е заедницата.
   you_may_upload_static_files_fo: Тука можете да подигате неподвижни податотеки за
     употреба во CMS (на пример, PDF, Word-документи, слики и тн.). Ова не треба да
     се користи за подигање на содржини за страниците за видови - ова служи само за

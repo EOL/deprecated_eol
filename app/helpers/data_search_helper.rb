@@ -29,11 +29,11 @@ module DataSearchHelper
     end
     unless search_file.from.nil?
       summary_parts << I18n.t('helpers.label.data_search.min_with_val',
-                val: display_text_for_data_point_uri(search_file.from_as_data_point))
+                val: display_text_for_trait(search_file.from_as_data_point))
     end
     unless search_file.to.nil?
       summary_parts << I18n.t('helpers.label.data_search.max_with_val',
-                val: display_text_for_data_point_uri(search_file.to_as_data_point))
+                val: display_text_for_trait(search_file.to_as_data_point))
     end
     if search_file.complete?
       summary_parts << I18n.t('helpers.label.data_search.total_results',

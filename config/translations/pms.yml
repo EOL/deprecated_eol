@@ -1446,7 +1446,7 @@ pms:
       message: |-
         A l'é disabonasse con sucess a le notìfiche ëd l'Enciclopedìa dla Vita. A peul cangé ij sò paràmeter ëd pòsta eletrònica o abonesse a le notìfiche ansima a la <a href='%{email_prefs_url}'>pàgina dij sò gust për le notìfiche</a>.
 
-        Për savèjne 'd pì ansima a coma dovré l'EdV, comprèis coma creé dle Colession EdV, partissipé a le Comunità EdV e contribuì al contnù, ch'a vìsita për piasì nòstre pàgine d'agiut a l'adrëssa http://eol.org/help.
+        Për savèjne 'd pì ansima a coma dovré l'EdV, comprèis coma creé dle Colession EdV, partissipé a le Comunità EdV e contribuì al contnù, ch'a vìsita për piasì nòstre pàgine d'agiut a l'adr��ssa http://eol.org/help.
     user_activated:
       subject: Sò cont ëd l'Enciclopedìa dla Vita a l'é stàit ativà
       message: |-
@@ -3027,7 +3027,7 @@ pms:
           selessionalo pr'ësmon-e na previsualisassion su na pàgina sconossùa.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> a l'ha selessionnalo
           pr'ësmon-e na previsualisassion su "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: N'utent ësconossù a
           l'ha butà dij dàit coma esempi an s'na pàgina sconossùa.
         an_unknown_user_set_exemplar_data_on_taxon: N'utent ësconossù a l'ha butà

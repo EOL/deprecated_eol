@@ -159,27 +159,27 @@ describe UserAddedData do
     EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
   end
 
-  it 'should create a DataPointURI' do
+  it 'should create a Trait' do
     d = UserAddedData.gen()
-    d.data_point_uri.is_a?(DataPointUri).should be_true
-    d.data_point_uri.uri.should == d.uri
-    d.data_point_uri.taxon_concept_id.should == d.taxon_concept_id
-    d.data_point_uri.class_type.should == 'MeasurementOrFact'
-    d.data_point_uri.user_added_data_id.should == d.id
-    d.data_point_uri.vetted_id.should == d.vetted_id
-    d.data_point_uri.visibility_id.should == d.visibility_id
-    d.data_point_uri.predicate.should == d.predicate
-    d.data_point_uri.object.should == d.object
-    d.data_point_uri.unit_of_measure.should == nil
+    d.trait.is_a?(Trait).should be_true
+    d.trait.uri.should == d.uri
+    d.trait.taxon_concept_id.should == d.taxon_concept_id
+    d.trait.class_type.should == 'MeasurementOrFact'
+    d.trait.user_added_data_id.should == d.id
+    d.trait.vetted_id.should == d.vetted_id
+    d.trait.visibility_id.should == d.visibility_id
+    d.trait.predicate.should == d.predicate
+    d.trait.object.should == d.object
+    d.trait.unit_of_measure.should == nil
   end
 
-  it 'should update its DataPointURI' do
+  it 'should update its Trait' do
     d = UserAddedData.gen(object: 'hello')
-    d.data_point_uri.class.should == DataPointUri
-    d.data_point_uri.object.should == 'hello'
+    d.trait.class.should == Trait
+    d.trait.object.should == 'hello'
     d.object = 'goodbye'
     d.save
-    d.data_point_uri.object.should == 'goodbye'
+    d.trait.object.should == 'goodbye'
   end
 
 end

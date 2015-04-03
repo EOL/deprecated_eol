@@ -665,7 +665,7 @@ FactoryGirl.define do
     association :data_object
   end
 
-  factory :data_point_uri do
+  factory :trait do
     association :taxon_concept
     association :resource
     association :user_added_data

@@ -4,11 +4,12 @@ class AddStringsToHierarchyEntries < ActiveRecord::Migration
     if HierarchyEntry.connection.config[:adapter] == "mysql2"
       # This is (nearly) 3x faster, since we do them all at once, and in our
       # environment, this still takes a LOOOOONG time (like, go to breakfast, man)...
+      # The first one took 4670411.2ms on bocce!
       HierarchyEntry.connection.execute(
         "ALTER TABLE hierarchy_entries "\
         "ADD COLUMN scientific_name VARCHAR(255) DEFAULT '', "\
         "ADD COLUMN canonical_name VARCHAR(255) DEFAULT '', "\
-        "ADD COLUMN scientific_name TINYINT(1) DEFAULT 0"
+        "ADD COLUMN species_or_sub TINYINT(1) DEFAULT 0"
       )
     else # For other database drivers (YEAH RIGHT, HAHAHAHAHAHAHAHA)
       add_column :hierarchy_entries, :scientific_name, :string, default: ""

@@ -21,7 +21,7 @@ class CuratorActivityLog < LoggingModel
   belongs_to :synonym, foreign_key: :target_id
   belongs_to :classification_curation, foreign_key: :target_id
   belongs_to :affected_comment, foreign_key: :target_id, class_name: Comment.to_s
-  belongs_to :data_point_uri, foreign_key: :target_id
+  belongs_to :trait, foreign_key: :target_id
   belongs_to :user_added_data, foreign_key: :target_id
   belongs_to :resource, foreign_key: :target_id
 
@@ -120,10 +120,10 @@ class CuratorActivityLog < LoggingModel
         taxon_concept
       when ChangeableObjectType.curated_taxon_concept_preferred_entry.id
         taxon_concept
-      when ChangeableObjectType.data_point_uri.id
-        data_point_uri
+      when ChangeableObjectType.trait.id
+        trait
       when ChangeableObjectType.user_added_data.id
-        user_added_data.data_point_uri
+        user_added_data.trait
       when ChangeableObjectType.resource_validation.id
         resource
       else
@@ -185,7 +185,7 @@ class CuratorActivityLog < LoggingModel
         taxon_concept.id
       when ChangeableObjectType.classification_curation.id
         taxon_concept.id
-      when ChangeableObjectType.data_point_uri.id
+      when ChangeableObjectType.trait.id
         taxon_concept.id
       when ChangeableObjectType.user_added_data.id
         taxon_concept.id
@@ -216,8 +216,8 @@ class CuratorActivityLog < LoggingModel
     end
   end
 
-  def data_point_uri
-    DataPointUri.find(target_id) if changeable_object_type == ChangeableObjectType.data_point_uri
+  def trait
+    Trait.find(target_id) if changeable_object_type == ChangeableObjectType.trait
   end
 
   def users_data_object
@@ -251,7 +251,7 @@ class CuratorActivityLog < LoggingModel
                                                           Activity.unlock_with_error.id,
                                                           Activity.curate_classifications.id],
       ChangeableObjectType.taxon_concept.id => [Activity.split_classifications.id, Activity.merge_classifications.id],
-      ChangeableObjectType.data_point_uri.id => [Activity.set_exemplar_data.id, Activity.hide.id, Activity.unhide.id],
+      ChangeableObjectType.trait.id => [Activity.set_exemplar_data.id, Activity.hide.id, Activity.unhide.id],
       ChangeableObjectType.user_added_data.id => [Activity.create.id, Activity.update.id]
     }
     return unless self.activity
@@ -341,7 +341,7 @@ private
       add_taxon_concept_recipients(cc.moved_from, recipients) if cc.moved_from
       add_taxon_concept_recipients(cc.moved_to, recipients) if cc.moved_to
     end
-    if self.is_for_type?(:data_point_uri) ||
+    if self.is_for_type?(:trait) ||
        self.is_for_type?(:user_added_data)
       add_taxon_concept_recipients(self.taxon_concept, recipients)
     end

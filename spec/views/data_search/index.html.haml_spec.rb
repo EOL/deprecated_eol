@@ -34,9 +34,9 @@ describe 'data_search/index' do
       tc = build_stubbed(TaxonConcept)
       tc.stub(:latest_version).and_return(tc)
       kuri = create(TranslatedKnownUri, name: "Coolest Name Ever").known_uri # Need to save this for translation to work.  :|
-      @result = build_stubbed(DataPointUri, taxon_concept: tc, predicate_known_uri: kuri,
+      @result = build_stubbed(Trait, taxon_concept: tc, predicate_known_uri: kuri,
                   object: 'result1',  visibility: Visibility.visible)
-      @hidden = build_stubbed(DataPointUri, taxon_concept: tc, predicate_known_uri: kuri,
+      @hidden = build_stubbed(Trait, taxon_concept: tc, predicate_known_uri: kuri,
                   object: 'hidden result', visibility: Visibility.invisible)
       results = [@result, @hidden].paginate
       assign(:results, results)

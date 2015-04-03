@@ -233,7 +233,7 @@ private
         recipients << { ancestor_ids: association.taxon_concept.flattened_ancestor_ids } if
           association.taxon_concept.respond_to?(:flattened_ancestor_ids)
       end
-    elsif self.parent.is_a?(DataPointUri)
+    elsif self.parent.is_a?(Trait)
       if self.parent.taxon_concept
         recipients << self.parent.taxon_concept
         recipients << { ancestor_ids: self.parent.taxon_concept.flattened_ancestor_ids }

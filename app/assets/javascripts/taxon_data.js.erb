@@ -198,7 +198,7 @@ EOL.toggle_actions_row = function(data_row) {
       });
       data_row.data('loading', true);
       $.ajax({
-        url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
+        url: '/traits/' + data_point_id.replace('data_point_', '') + '/show_metadata',
         dataType: 'html',
         success: function(response) {
           var $pasted = $next_row_data.prepend(response);

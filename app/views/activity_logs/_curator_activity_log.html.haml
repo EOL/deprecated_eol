@@ -48,10 +48,10 @@
   - taxon_type = 'an_unknown_taxon'
 - else
   - taxon_link = taxon_url(item.taxon_concept)
-  - if item.is_for_type?(:data_point_uri)
-    - taxon_link = link_to_item(item.data_point_uri)
+  - if item.is_for_type?(:trait)
+    - taxon_link = link_to_item(item.trait)
   - elsif item.is_for_type?(:user_added_data)
-    - taxon_link = link_to_item(item.user_added_data.data_point_uri)
+    - taxon_link = link_to_item(item.user_added_data.trait)
   - translation_vars[:taxon] = link_to(raw(item.taxon_concept.summary_name), taxon_link, :style => link_style)
 -# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):
 -# THE MERGE/SPLIT ACTIVITIES ARE LEGACY...
@@ -76,8 +76,8 @@
   - when Activity.show.id
     = raw I18n.t("show.#{user_type}_showed_#{data_object_type}_on_#{association_type}", translation_vars)
   - when Activity.hide.id
-    - if item.is_for_type?(:data_point_uri)
-      = raw I18n.t("data_point_uri.#{user_type}_#{item.activity.name}_data_on_#{taxon_type}", translation_vars)
+    - if item.is_for_type?(:trait)
+      = raw I18n.t("trait.#{user_type}_#{item.activity.name}_data_on_#{taxon_type}", translation_vars)
     - else
       = raw I18n.t("hide.#{user_type}_hid_#{data_object_type}_on_#{association_type}", translation_vars)
       - unless translation_vars[:reasons].empty? || bulk
@@ -94,10 +94,10 @@
   - when Activity.choose_exemplar_article.id
     = raw I18n.t("choose_exemplar_article.#{user_type}_chose_exemplar_#{data_object_type}_on_#{taxon_type}", translation_vars)
   - when Activity.set_exemplar_data.id
-    = raw I18n.t("data_point_uri.#{user_type}_set_exemplar_data_on_#{taxon_type}", translation_vars)
+    = raw I18n.t("trait.#{user_type}_set_exemplar_data_on_#{taxon_type}", translation_vars)
   - when Activity.unhide.id
-    - if item.is_for_type?(:data_point_uri)
-      = raw I18n.t("data_point_uri.#{user_type}_#{item.activity.name}_data_on_#{taxon_type}", translation_vars)
+    - if item.is_for_type?(:trait)
+      = raw I18n.t("trait.#{user_type}_#{item.activity.name}_data_on_#{taxon_type}", translation_vars)
   - when Activity.crop.id
     = raw I18n.t("crop.#{user_type}_cropped_#{data_object_type}", translation_vars)
   - when Activity.add_common_name.id
@@ -180,13 +180,13 @@
 
 -# placing a blockquote in the paragraph above caused the <p> to be truncated, and an empty <p></p>
 -# to be appended to the text, creating unnecessary whitespace
-- if item.is_for_type?(:data_point_uri)
-  - data_point_uri = item.data_point_uri
+- if item.is_for_type?(:trait)
+  - trait = item.trait
 - elsif item.is_for_type?(:user_added_data)
-  - data_point_uri = item.user_added_data.data_point_uri
+  - trait = item.user_added_data.trait
 - else
-  - data_point_uri = nil
-- if data_point_uri
+  - trait = nil
+- if trait
   %blockquote{:cite => h(item.user.full_name)}
-    = display_uri(data_point_uri.predicate_uri, succeed: ':')
-    = raw display_text_for_data_point_uri(data_point_uri)
+    = display_uri(trait.predicate_uri, succeed: ':')
+    = raw display_text_for_trait(trait)

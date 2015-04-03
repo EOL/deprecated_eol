@@ -39,7 +39,7 @@ describe EOL::Solr::ActivityLog do
       load_foundation_cache
       EolConfig.destroy_all
       @request_head = "#{$SOLR_SERVER}#{$SOLR_ACTIVITY_LOGS_CORE}/select/?wt=json&q=%7B%21lucene%7D"
-      @default_user_added_data_exclusion = "+NOT+action_keyword%3ADataPointUri+NOT+action_keyword%3AUserAddedData+NOT+activity_log_type%3AUserAddedData"
+      @default_user_added_data_exclusion = "+NOT+action_keyword%3ATrait+NOT+action_keyword%3AUserAddedData+NOT+activity_log_type%3AUserAddedData"
       @default_sort = "&sort=date_created+desc"
       @default_fields = "&fl=activity_log_type,activity_log_id,user_id,date_created"
       @default_group = "&group.field=activity_log_unique_key&group.ngroups=true&group=true"

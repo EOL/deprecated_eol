@@ -8,40 +8,40 @@ describe TaxonDataSet do
   end
 
   before(:each) do
-    @row_1 = { data_point_uri: DataPointUri.gen.uri }
-    @row_2 = { data_point_uri: DataPointUri.gen.uri }
-    @row_3 = { data_point_uri: DataPointUri.gen.uri }
-    @row_4 = { data_point_uri: DataPointUri.gen.uri }
+    @row_1 = { trait: Trait.gen.uri }
+    @row_2 = { trait: Trait.gen.uri }
+    @row_3 = { trait: Trait.gen.uri }
+    @row_4 = { trait: Trait.gen.uri }
     @rows = [ @row_1, @row_2, @row_3, @row_4 ]
   end
 
-  it 'should populate DataPointUri instances by taxon concept and uri' do
-    dpuri = DataPointUri.gen(taxon_concept: @taxon_concept, uri: "http://something/new/")
-    @row_1[:data_point_uri] = dpuri.uri
+  it 'should populate Trait instances by taxon concept and uri' do
+    dpuri = Trait.gen(taxon_concept: @taxon_concept, uri: "http://something/new/")
+    @row_1[:trait] = dpuri.uri
     set = TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
     set.first.should == dpuri
   end
 
   it 'should create data point uris where not available, given a uri' do
-    DataPointUri.delete_all
+    Trait.delete_all
     uri = "http://some.place.fun/has_stuff/21" # FactoryGirl.generate(:uri) ?
-    @row_1[:data_point_uri] = uri
+    @row_1[:trait] = uri
     set = TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
     set.first.should_not be_nil
-    DataPointUri.first.uri.should == uri
+    Trait.first.uri.should == uri
   end
 
   # NOTE - we maybe shouldn't care about this, since it's "just" efficiency. But hey.
   it 'should preload associations on data point uris.' do
-    DataPointUri.should_receive(:preload_associations).at_least(2).times
+    Trait.should_receive(:preload_associations).at_least(2).times
     TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
   end
 
   it 'should yield each row on each' do
     set = TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
     index = 0
-    set.each_with_index do |data_point_uri, index|
-      data_point_uri.uri == instance_variable_get("@row_#{index+1}")[:data_point_uri]
+    set.each_with_index do |trait, index|
+      trait.uri == instance_variable_get("@row_#{index+1}")[:trait]
     end
   end
 
@@ -56,14 +56,14 @@ describe TaxonDataSet do
     raw_uri2 = 'http://somewhere/b'
     raw_uri3 = 'http://somewhere/c'
     rows = [
-      { data_point_uri: 'http://eol.org/1', attribute: uri5 },
-      { data_point_uri: 'http://eol.org/2', attribute: raw_uri3 },
-      { data_point_uri: 'http://eol.org/3', attribute: uri4 },
-      { data_point_uri: 'http://eol.org/4', attribute: uri2 },
-      { data_point_uri: 'http://eol.org/5', attribute: raw_uri1 },
-      { data_point_uri: 'http://eol.org/6', attribute: uri1 },
-      { data_point_uri: 'http://eol.org/7', attribute: raw_uri2 },
-      { data_point_uri: 'http://eol.org/8', attribute: uri3 }
+      { trait: 'http://eol.org/1', attribute: uri5 },
+      { trait: 'http://eol.org/2', attribute: raw_uri3 },
+      { trait: 'http://eol.org/3', attribute: uri4 },
+      { trait: 'http://eol.org/4', attribute: uri2 },
+      { trait: 'http://eol.org/5', attribute: raw_uri1 },
+      { trait: 'http://eol.org/6', attribute: uri1 },
+      { trait: 'http://eol.org/7', attribute: raw_uri2 },
+      { trait: 'http://eol.org/8', attribute: uri3 }
     ]
     set = TaxonDataSet.new(rows, taxon_concept: @taxon_concept)
     set.sort.map { |r| r.predicate }.should == [

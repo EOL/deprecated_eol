@@ -3095,7 +3095,7 @@ es:
           seleccionado para mostrarlo en el Resumen de una página desconocida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> lo ha seleccionado
           para mostrarlo en el Resumen de "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un usuario desconocido
           define datos como ejemplar en una página desconocida.
         an_unknown_user_set_exemplar_data_on_taxon: Un usuario desconocido define
@@ -4841,8 +4841,8 @@ es:
     one: Aparece en la %{quoted_toc_titles}
     other: Aparece en las %{quoted_toc_titles}
   data_overview_table_caption: Datos de la característica
-  data_point_uri_source_missing: falta la fuente
-  data_point_uri_summary_name: datos acerca de %{taxon}
+  trait_source_missing: falta la fuente
+  trait_summary_name: datos acerca de %{taxon}
   data_provided_by_user: proporcionado por %{whom}
   data_provided_by_content_partner: 'Proveedor: %{whom}'
   data_ranges: Resúmenes de datos
@@ -4942,7 +4942,7 @@ es:
   dato_new_edit_user_text_fieldset_content_header: Contenido del artículo
   dato_new_edit_user_text_link_fieldset_content_header: Datos del enlace
   dato_new_edit_user_text_fieldset_information_header: Información de artículo
-  dato_new_edit_user_text_link_form_tip: Tu enlace se publicará en la página del taxón.
+  dato_new_edit_user_text_link_form_tip: Tu enlace se publicará en la página del tax��n.
     Si no eres supervisor, será marcado como "no revisado" hasta que un supervisor
     lo revise. La categoría, la descripción y la dirección URL son obligatorios (%{required_icon}),
     todos los demás campos son opcionales. Para obtener más información lee <a href="%{add_article_help_url}">Ayuda

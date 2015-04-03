@@ -69,11 +69,11 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def from_as_data_point
-    DataPointUri.new(object: from, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
+    Trait.new(object: from, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
   end
 
   def to_as_data_point
-    DataPointUri.new(object: to, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
+    Trait.new(object: to, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
   end
 
   private
@@ -95,16 +95,16 @@ class DataSearchFile < ActiveRecord::Base
     results = results.delete_if { |r| r.hidden? }
     begin # Always do this at least once...
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
-      DataPointUri.assign_bulk_metadata(results, user.language)
-      DataPointUri.assign_bulk_references(results, user.language)
-      results.each do |data_point_uri|
+      Trait.assign_bulk_metadata(results, user.language)
+      Trait.assign_bulk_references(results, user.language)
+      results.each do |trait|
         # TODO - really, I think we should move this to TaxonData.search. :\
         # Skip taxon concepts that have been superceded!
-        next if data_point_uri.taxon_concept &&
-          data_point_uri.taxon_concept.superceded?
+        next if trait.taxon_concept &&
+          trait.taxon_concept.superceded?
         # TODO - Whoa! Even when I ran “dpu.to_hash[some_val]”, even though it
         # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
-        rows << data_point_uri.to_hash(user.language)
+        rows << trait.to_hash(user.language)
       end
       # offset = (file_number-1) * LIMIT
       if (((page * PER_PAGE) + ((file_number-1) * LIMIT)) < results.total_entries)

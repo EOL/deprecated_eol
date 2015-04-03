@@ -84,36 +84,36 @@ describe 'taxa/overview/show' do
     end
 
     it "should have a show more link when a row has more data" do
-      point = DataPointUri.gen
-      assign(:overview_data, { point => { data_point_uris: [ point ], show_more: true } } )
+      point = Trait.gen
+      assign(:overview_data, { point => { traits: [ point ], show_more: true } } )
       render
       expect(rendered).to have_tag('td a', text: 'more')
     end
 
     it "should show statistical method" do
-      point = DataPointUri.gen(statistical_method: 'Itsmethod')
-      assign(:overview_data, { point => { data_point_uris: [ point ] } } )
+      point = Trait.gen(statistical_method: 'Itsmethod')
+      assign(:overview_data, { point => { traits: [ point ] } } )
       render
       expect(rendered).to have_tag('span.stat', text: /Itsmethod/)
     end
 
     it "should show life stage" do
-      point = DataPointUri.gen(life_stage: 'Itslifestage')
-      assign(:overview_data, { point => { data_point_uris: [ point ] } } )
+      point = Trait.gen(life_stage: 'Itslifestage')
+      assign(:overview_data, { point => { traits: [ point ] } } )
       render
       expect(rendered).to have_tag('span.stat', text: /Itslifestage/)
     end
 
     it "should show sex" do
-      point = DataPointUri.gen(sex: 'Itssex')
-      assign(:overview_data, { point => { data_point_uris: [ point ] } } )
+      point = Trait.gen(sex: 'Itssex')
+      assign(:overview_data, { point => { traits: [ point ] } } )
       render
       expect(rendered).to have_tag('span.stat', text: /Itssex/)
     end
 
     it "should show combinations of context modifiers" do
-      point = DataPointUri.gen(statistical_method: 'Itsmethod', life_stage: 'Itslifestage', sex: 'Itssex')
-      assign(:overview_data, { point => { data_point_uris: [ point ] } } )
+      point = Trait.gen(statistical_method: 'Itsmethod', life_stage: 'Itslifestage', sex: 'Itssex')
+      assign(:overview_data, { point => { traits: [ point ] } } )
       render
       expect(rendered).to have_tag('span.stat', text: /Itsmethod, Itslifestage, Itssex/)
     end

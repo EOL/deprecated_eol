@@ -232,7 +232,7 @@ oc:
         accesspoint_url: URL del jòc de donadas
         auto_publish: Autopublicar
         bibliographic_citation: Citacion bibliografica
-        dataset: Fichièr del jòc de donadas
+        dataset: Fichi��r del jòc de donadas
         description: Descripcion de la ressorsa
         dwc_archive_url: URL de l’archiu Darwin Core
         dataset_source_url: Font de Donadas Originala
@@ -3049,7 +3049,7 @@ oc:
           per afichar un apercebut sus una pagina desconeguda.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> l'a seleccionat
           per afichar un apercebut sus "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un utilizaire desconegut
           a mes de donadas coma exemple sus una pagina desconeguda.
         an_unknown_user_set_exemplar_data_on_taxon: Un utilizaire desconegut a mes
@@ -4730,8 +4730,8 @@ oc:
     one: Apareis jos %{quoted_toc_titles}
     other: Apareisson jos %{quoted_toc_titles}
   data_overview_table_caption: Donadas del trach
-  data_point_uri_source_missing: font mancanta
-  data_point_uri_summary_name: donadas sus %{taxon}
+  trait_source_missing: font mancanta
+  trait_summary_name: donadas sus %{taxon}
   data_provided_by_user: provesit per %{whom}
   data_provided_by_content_partner: 'Provesidor: %{whom}'
   data_ranges: Resumits de donadas

@@ -181,14 +181,14 @@ module TaxaHelper
     end
   end
 
-  def display_association(data_point_uri, options = {})
+  def display_association(trait, options = {})
     taxon_link = options[:link_to_overview] ?
-      taxon_overview_path(data_point_uri.target_taxon_concept) :
-      taxon_data_path(data_point_uri.target_taxon_concept)
-    if c = data_point_uri.target_taxon_concept.preferred_common_name_in_language(current_language)
+      taxon_overview_path(trait.target_taxon_concept) :
+      taxon_data_path(trait.target_taxon_concept)
+    if c = trait.target_taxon_concept.preferred_common_name_in_language(current_language)
       link_to c, taxon_link
     else
-      link_to raw(data_point_uri.target_taxon_concept.title_canonical), taxon_link
+      link_to raw(trait.target_taxon_concept.title_canonical), taxon_link
     end
   end
 
@@ -222,29 +222,29 @@ module TaxaHelper
   end
 
   # TODO - this has too much business logic; extract
-  def display_text_for_data_point_uri(data_point_uri, options = {})
-    # Metadata rows do not have DataPointUris that are saved in the DB - they are new records.
+  def display_text_for_trait(trait, options = {})
+    # Metadata rows do not have Traits that are saved in the DB - they are new records.
     # Otherwise generate an ID or use the given one (measurements can be shown multiple times on a page
     # and each one needs a different ID if we want them all to have tooltips)
-    text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{options[:id] || data_point_uri.anchor}'>"
-    if data_point_uri.association?
-      text_for_row_value += display_association(data_point_uri, options)
+    text_for_row_value = trait.new_record? ? "" : "<span id='#{options[:id] || trait.anchor}'>"
+    if trait.association?
+      text_for_row_value += display_association(trait, options)
     else
-      text_for_row_value += display_uri(data_point_uri.object_uri, options.merge(val: true)).to_s
+      text_for_row_value += display_uri(trait.object_uri, options.merge(val: true)).to_s
     end
     # displaying unit of measure
-    if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)
+    if trait.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(trait.unit_of_measure_uri)
       text_for_row_value += " " + display_uri(uri_components, val: true)
-    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
+    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(trait.predicate_uri)
       text_for_row_value += " " + display_uri(uri_components, val: true)
     end
     adjust_exponent(text_for_row_value)
     text_for_row_value.gsub(/\n/, '')    
-    text_for_row_value += "</span>" unless data_point_uri.new_record?
+    text_for_row_value += "</span>" unless trait.new_record?
     # displaying context such as life stage, sex.... The overview tab will include the statistical modifier
-    modifiers = data_point_uri.context_labels
-    if options[:include_statistical_method] && data_point_uri.statistical_method_label
-      modifiers.unshift(data_point_uri.statistical_method_label)
+    modifiers = trait.context_labels
+    if options[:include_statistical_method] && trait.statistical_method_label
+      modifiers.unshift(trait.statistical_method_label)
     end
     text_for_row_value += display_text_for_modifiers(modifiers)
     text_for_row_value

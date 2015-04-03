@@ -2264,7 +2264,7 @@ en:
         an_unknown_user_chose_exemplar_it_on_taxon: "An unknown user selected it to show in Overview on \"%{taxon}\"."
         user_chose_exemplar_it_on_an_unknown_taxon: "<strong>%{user}</strong> selected it to show in Overview on an unknown page."
         user_chose_exemplar_it_on_taxon: "<strong>%{user}</strong> selected it to show in Overview on \"%{taxon}\"."
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: "An unknown user set data as exemplar on an unknown page."
         an_unknown_user_set_exemplar_data_on_taxon: "An unknown user set data as exemplar on \"%{taxon}\"."
         user_set_exemplar_data_on_an_unknown_taxon: "<strong>%{user}</strong> set data as exemplar on an unknown page."
@@ -3365,8 +3365,8 @@ en:
     one: "Appears under %{quoted_toc_titles}"
     other: "Appears under %{quoted_toc_titles}"
   data_overview_table_caption: "Trait data"
-  data_point_uri_source_missing: "source missing"
-  data_point_uri_summary_name: "data about %{taxon}"
+  trait_source_missing: "source missing"
+  trait_summary_name: "data about %{taxon}"
   data_provided_by_user: "provided by %{whom}"
   data_provided_by_content_partner: "Supplier: %{whom}"
   data_ranges: "Data summaries"

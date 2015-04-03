@@ -3042,7 +3042,7 @@ it:
           selezionato per mostrarlo in Vista di insieme su una pagina sconosciuta.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> lo ha selezionato
           per mostrarlo nella scheda Panoramica su "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un utente sconosciuto
           ha impostato i dati come esemplari su una pagina sconosciuta.
         an_unknown_user_set_exemplar_data_on_taxon: Un utente sconosciuto ha impostato
@@ -4806,8 +4806,8 @@ it:
     one: Appare in %{quoted_toc_titles}
     other: Appaiono in %{quoted_toc_titles}
   data_overview_table_caption: Dati del carattere
-  data_point_uri_source_missing: sorgente mancante
-  data_point_uri_summary_name: dati circa %{taxon}
+  trait_source_missing: sorgente mancante
+  trait_summary_name: dati circa %{taxon}
   data_provided_by_user: fornito da %{whom}
   data_provided_by_content_partner: 'Fornitore: %{whom}'
   data_ranges: Riepilogo dati

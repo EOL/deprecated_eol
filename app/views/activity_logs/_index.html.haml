@@ -33,7 +33,7 @@
               - else
                 = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.created_at))
             - if item.is_a?(CuratorActivityLog) && item.is_for_type?(:user_added_data)
-            - elsif item.is_a?(CuratorActivityLog) && item.is_for_type?(:data_point_uri)
+            - elsif item.is_a?(CuratorActivityLog) && item.is_for_type?(:trait)
             - elsif item.user && item.respond_to?(:link_to) && item.link_to
               %ul.actions
                 %li.reply= link_to(I18n.t(:reply), link_to_newsfeed(item.link_to) + "#reply-to-#{item.class.name}-#{item.id}", data: { 'reply-to' => item.user.full_name, 'reply-to-type' => item.class.name, 'reply-to-id' => item.id })

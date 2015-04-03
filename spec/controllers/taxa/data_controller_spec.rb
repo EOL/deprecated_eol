@@ -60,7 +60,7 @@ describe Taxa::DataController do
     end
     
     it 'should have data point uris' do      
-      @data.data_point_uris.length.should > 0
+      @data.traits.length.should > 0
     end
     
     it 'should sorted array differs from the original one' do

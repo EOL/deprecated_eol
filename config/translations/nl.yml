@@ -3041,7 +3041,7 @@ nl:
           het geselecteerd voor weergave in het overzicht op een onbekende pagina.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> heeft het geselecteerd
           voor weergave in het overzicht op "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Een onbekende gebruiker
           heeft gegevens als exemplarisch gemarkeerd op een onbekende pagina.
         an_unknown_user_set_exemplar_data_on_taxon: Een onbekende gebruiker heeft
@@ -4811,8 +4811,8 @@ nl:
     one: Verschijnt onder %{quoted_toc_titles}
     other: Verschijnt onder %{quoted_toc_titles}
   data_overview_table_caption: Eigenschapgegevens
-  data_point_uri_source_missing: bron ontbreekt
-  data_point_uri_summary_name: gegevens over %{taxon}
+  trait_source_missing: bron ontbreekt
+  trait_summary_name: gegevens over %{taxon}
   data_provided_by_user: geleverd door %{whom}
   data_provided_by_content_partner: 'Bron: %{whom}'
   data_ranges: Gegevenssamenvattingen

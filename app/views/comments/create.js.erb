@@ -5,8 +5,8 @@ $row.next().find('div.comments').append(
 $row.find('span.comments').html('<%= image_tag('comment_indicator.png') %>');
 
 <% target = nil %>
-<% if @comment.parent.is_a?(DataPointUri) %>
-  <% target = data_point_uri_comments_path(@comment.parent) %>
+<% if @comment.parent.is_a?(Trait) %>
+  <% target = trait_comments_path(@comment.parent) %>
 <% end %>
 <% if target %>
   var $annot_li = $row.next().find('li.annotations');

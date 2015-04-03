@@ -2745,7 +2745,7 @@ sv:
           den att visas i översikten på en okänd sida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> valde den att visas
           i översikten på "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: En okänd användare
           angav data som exemplar på en okänd sida.
         an_unknown_user_set_exemplar_data_on_taxon: En okänd användare angav data
@@ -4197,8 +4197,8 @@ sv:
     one: Förekommer under %{quoted_toc_titles}
     other: Förekommer under %{quoted_toc_titles}
   data_overview_table_caption: Egenskapsdata
-  data_point_uri_source_missing: källa saknas
-  data_point_uri_summary_name: data om %{taxon}
+  trait_source_missing: källa saknas
+  trait_summary_name: data om %{taxon}
   data_provided_by_user: tillhandahållen av %{whom}
   data_provided_by_content_partner: 'Leverantör: %{whom}'
   data_ranges: Datasammanfattningar

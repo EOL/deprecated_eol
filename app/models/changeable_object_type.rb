@@ -9,7 +9,7 @@ class ChangeableObjectType < ActiveRecord::Base
   enumerated :ch_object_type,  # TODO - would be nice to keep this alphabetical. :\
     %w(comment data_object synonym taxon_concept_name tag users_data_object hierarchy_entry
        curated_data_objects_hierarchy_entry data_objects_hierarchy_entry users_submitted_text
-       curated_taxon_concept_preferred_entry taxon_concept classification_curation data_point_uri
+       curated_taxon_concept_preferred_entry taxon_concept classification_curation trait
        user_added_data resource_validation)
 
   class << self

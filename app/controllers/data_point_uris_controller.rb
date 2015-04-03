@@ -1,4 +1,4 @@
-class DataPointUrisController < ApplicationController
+class TraitsController < ApplicationController
 
   before_filter :restrict_to_data_viewers
   before_filter :load_uri
@@ -7,13 +7,13 @@ class DataPointUrisController < ApplicationController
   layout 'basic'
 
   def hide
-    @data_point_uri.hide(current_user)
+    @trait.hide(current_user)
     log_action(:hide)
-    # TaxonDataExemplar.remove(@data_point_uri)
+    # TaxonDataExemplar.remove(@trait)
     # TODO - log activity
     respond_to do |format|
       format.html do
-        redirect_to taxon_data_path(@data_point_uri.taxon_concept)
+        redirect_to taxon_data_path(@trait.taxon_concept)
       end
       format.js { }
     end
@@ -21,12 +21,12 @@ class DataPointUrisController < ApplicationController
 
   # Again, 'unhide' to avoid clash with 'show'... not that we need #show, here, but it's conventional.
   def unhide
-    @data_point_uri.show(current_user)
+    @trait.show(current_user)
     # TODO - log activity
     log_action(:unhide)
     respond_to do |format|
       format.html do
-        redirect_to taxon_data_path(@data_point_uri.taxon_concept)
+        redirect_to taxon_data_path(@trait.taxon_concept)
       end
       format.js { }
     end
@@ -39,16 +39,16 @@ class DataPointUrisController < ApplicationController
 private
 
   def load_uri
-    @data_point_uri = DataPointUri.find(params[:data_point_uri_id] || params[:id])
+    @trait = Trait.find(params[:trait_id] || params[:id])
   end
 
   def log_action(method)
     CuratorActivityLog.create(
       user_id: current_user.id,
-      changeable_object_type: ChangeableObjectType.data_point_uri,
-      target_id: @data_point_uri.id,
+      changeable_object_type: ChangeableObjectType.trait,
+      target_id: @trait.id,
       activity: Activity.send(method),
-      taxon_concept_id: @data_point_uri.taxon_concept_id
+      taxon_concept_id: @trait.taxon_concept_id
     )
   end
 

@@ -1,3 +1,14 @@
+# What I ultimately want to be able to do:
+
+page = Page.find(328598)
+
+page.traits.visible # Array of all non-hidden Traits for this data tab.
+page.traits.overview # Array of all Traits for the overview, duh.
+page.traits.first.meta # Array of all Traits describing the first Trait.
+
+page.images
+
+# Build JSON, really slow:
 class Tramea
   class << self
     def summary_from_taxon_concept(taxon)
@@ -87,9 +98,9 @@ class Tramea
           # TODO: handle paginatation rather than just the summary:
           # NOTE: Yeah, weird structure from this method.
           "traits" => data.get_data_for_overview.values.map do |h|
-            h[:data_point_uris]
+            h[:traits]
           end.flatten.map do |datum|
-            trait_from_data_point_uri(datum)
+            trait_from_trait(datum)
           end
         }
       }
@@ -259,7 +270,7 @@ class Tramea
       end
     end
 
-    def trait_from_data_point_uri(uri)
+    def trait_from_trait(uri)
       meta = uri.get_metadata(Language.default)
       {
         "id" => uri.id,

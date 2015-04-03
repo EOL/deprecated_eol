@@ -19,7 +19,7 @@ class UserAddedData < ActiveRecord::Base
   belongs_to :vetted
   belongs_to :visibility
 
-  has_one :data_point_uri
+  has_one :trait
 
   has_many :comments, as: :parent
   has_many :all_comments, as: :parent, class_name: 'Comment'
@@ -33,8 +33,8 @@ class UserAddedData < ActiveRecord::Base
   before_validation :convert_known_uris
 
   after_create :update_triplestore
-  after_create :create_data_point_uri
-  after_update :update_data_point_uri
+  after_create :create_trait
+  after_update :update_trait
   after_update :update_triplestore
 
   accepts_nested_attributes_for :user_added_data_metadata, allow_destroy: true
@@ -166,9 +166,9 @@ class UserAddedData < ActiveRecord::Base
     @already_expanded = true
   end
 
-  def create_data_point_uri
+  def create_trait
     # TODO: set unit_of_measure
-    DataPointUri.create(
+    Trait.create(
       uri: uri,
       taxon_concept_id: taxon_concept_id,
       class_type: 'MeasurementOrFact',
@@ -180,14 +180,14 @@ class UserAddedData < ActiveRecord::Base
       unit_of_measure: nil )
   end
 
-  def update_data_point_uri
+  def update_trait
     # TODO: set unit_of_measure
-    data_point_uri.vetted_id = vetted_id
-    data_point_uri.visibility_id = visibility_id
-    data_point_uri.predicate = predicate
-    data_point_uri.object = object
-    data_point_uri.unit_of_measure = nil
-    data_point_uri.save
+    trait.vetted_id = vetted_id
+    trait.visibility_id = visibility_id
+    trait.predicate = predicate
+    trait.object = object
+    trait.unit_of_measure = nil
+    trait.save
   end
 
   def notification_recipient_objects()

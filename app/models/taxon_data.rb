@@ -30,14 +30,14 @@ class TaxonData < TaxonUserClassificationFilter
       # TODO - we should probably check for taxon supercedure, here.
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
-        # for each DataPointUri, which is very expensive when downloading lots of rows
+        # for each Trait, which is very expensive when downloading lots of rows
         KnownUri.add_to_data(results)
-        data_point_uris = results.collect do |row|
-          data_point_uri = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row))
-          data_point_uri.convert_units
-          data_point_uri
+        traits = results.collect do |row|
+          trait = Trait.new(Trait.attributes_from_virtuoso_response(row))
+          trait.convert_units
+          trait
         end
-        DataPointUri.preload_associations(data_point_uris, { taxon_concept:
+        Trait.preload_associations(traits, { taxon_concept:
             [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ],
             resource: :content_partner },
           select: {
@@ -48,16 +48,16 @@ class TaxonData < TaxonUserClassificationFilter
           )
       else
         taxon_data_set = TaxonDataSet.new(results)
-        data_point_uris = taxon_data_set.data_point_uris
-        DataPointUri.preload_associations(data_point_uris, :taxon_concept)
+        traits = taxon_data_set.traits
+        Trait.preload_associations(traits, :taxon_concept)
         # This next line is for catching a rare case, seen in development, when the concept
         # referred to by Virtuoso is not in the database
-        data_point_uris.delete_if{ |dp| dp.taxon_concept.nil? }
-        TaxonConcept.preload_for_shared_summary(data_point_uris.collect(&:taxon_concept), language_id: options[:language].id)
+        traits.delete_if{ |dp| dp.taxon_concept.nil? }
+        TaxonConcept.preload_for_shared_summary(traits.collect(&:taxon_concept), language_id: options[:language].id)
       end
-      TaxonConcept.load_common_names_in_bulk(data_point_uris.collect(&:taxon_concept), options[:language].id)
+      TaxonConcept.load_common_names_in_bulk(traits.collect(&:taxon_concept), options[:language].id)
       WillPaginate::Collection.create(options[:page], options[:per_page], total_results) do |pager|
-         pager.replace(data_point_uris)
+         pager.replace(traits)
       end
     end
   end
@@ -144,7 +144,7 @@ class TaxonData < TaxonUserClassificationFilter
         results.each do |result|
           [ :min, :max ].each do |m|
             result[m] = result[m].value.to_f if result[m].is_a?(RDF::Literal)
-            result[m] = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(result).merge(object: result[m]))
+            result[m] = Trait.new(Trait.attributes_from_virtuoso_response(result).merge(object: result[m]))
             result[m].convert_units
         end
       end
@@ -176,17 +176,17 @@ class TaxonData < TaxonUserClassificationFilter
   # to generalize this, for example if we return search results for multiple attributes
   def data_for_ggi
     query = "
-      SELECT DISTINCT ?attribute ?value ?data_point_uri ?graph ?taxon_concept_id
+      SELECT DISTINCT ?attribute ?value ?trait ?graph ?taxon_concept_id
       WHERE {
         GRAPH ?graph {
-          ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value .
+          ?trait dwc:measurementType ?attribute .
+          ?trait dwc:measurementValue ?value .
           FILTER ( ?attribute IN (<#{TaxonData::GGI_URIS.join(">,<")}>))
         } .
         {
-          ?data_point_uri dwc:occurrenceID ?occurrence .
+          ?trait dwc:occurrenceID ?occurrence .
           ?occurrence dwc:taxonID ?taxon .
-          ?data_point_uri eol:measurementOfTaxon eolterms:true .
+          ?trait eol:measurementOfTaxon eolterms:true .
           ?taxon dwc:taxonConceptID ?taxon_concept_id .
           FILTER ( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>) .
         }
@@ -212,15 +212,15 @@ class TaxonData < TaxonUserClassificationFilter
 
   def iucn_data_objects
     query = "
-      SELECT DISTINCT ?attribute ?value ?data_point_uri ?graph ?taxon_concept_id
+      SELECT DISTINCT ?attribute ?value ?trait ?graph ?taxon_concept_id
         WHERE {
           GRAPH ?graph {
-            ?data_point_uri dwc:measurementType ?attribute .
-            ?data_point_uri dwc:measurementValue ?value.
+            ?trait dwc:measurementType ?attribute .
+            ?trait dwc:measurementValue ?value.
             FILTER (?attribute = <http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>)
           }.
           {
-            ?data_point_uri dwc:occurrenceID ?occurrence .
+            ?trait dwc:occurrenceID ?occurrence .
             ?occurrence dwc:taxonID ?taxon .
             ?taxon dwc:taxonConceptID ?taxon_concept_id .
             FILTER (?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
@@ -242,25 +242,25 @@ class TaxonData < TaxonUserClassificationFilter
     def measurement_data(options = {})
       query = "
         SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
-          ?statistical_method ?life_stage ?sex ?data_point_uri ?graph
+          ?statistical_method ?life_stage ?sex ?trait ?graph
           ?taxon_concept_id
         WHERE {
           GRAPH ?graph {
-            ?data_point_uri dwc:measurementType ?attribute .
-            ?data_point_uri dwc:measurementValue ?value .
-            OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
-            OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+            ?trait dwc:measurementType ?attribute .
+            ?trait dwc:measurementValue ?value .
+            OPTIONAL { ?trait dwc:measurementUnit ?unit_of_measure_uri } .
+            OPTIONAL { ?trait eolterms:statisticalMethod ?statistical_method } .
           } .
           {
-            ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
+            ?trait dwc:taxonConceptID ?taxon_concept_id .
             FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
-            OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
-            OPTIONAL { ?data_point_uri dwc:sex ?sex }
+            OPTIONAL { ?trait dwc:lifeStage ?life_stage } .
+            OPTIONAL { ?trait dwc:sex ?sex }
           }
           UNION {
-            ?data_point_uri dwc:occurrenceID ?occurrence .
+            ?trait dwc:occurrenceID ?occurrence .
             ?occurrence dwc:taxonID ?taxon .
-            ?data_point_uri eol:measurementOfTaxon eolterms:true .
+            ?trait eol:measurementOfTaxon eolterms:true .
             GRAPH ?resource_mappings_graph {
               ?taxon dwc:taxonConceptID ?taxon_concept_id .
               FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
@@ -276,7 +276,7 @@ class TaxonData < TaxonUserClassificationFilter
     def association_data(options = {})
       query = "
         SELECT DISTINCT ?attribute ?value ?target_taxon_concept_id
-          ?inverse_attribute ?data_point_uri ?graph
+          ?inverse_attribute ?trait ?graph
         WHERE {
           GRAPH ?resource_mappings_graph {
             ?taxon dwc:taxonConceptID ?source_taxon_concept_id .
@@ -287,15 +287,15 @@ class TaxonData < TaxonUserClassificationFilter
             ?occurrence dwc:taxonID ?taxon .
             ?target_occurrence dwc:taxonID ?value .
             {
-              ?data_point_uri dwc:occurrenceID ?occurrence .
-              ?data_point_uri eol:targetOccurrenceID ?target_occurrence .
-              ?data_point_uri eol:associationType ?attribute
+              ?trait dwc:occurrenceID ?occurrence .
+              ?trait eol:targetOccurrenceID ?target_occurrence .
+              ?trait eol:associationType ?attribute
             }
             UNION
             {
-              ?data_point_uri dwc:occurrenceID ?target_occurrence .
-              ?data_point_uri eol:targetOccurrenceID ?occurrence .
-              ?data_point_uri eol:associationType ?inverse_attribute
+              ?trait dwc:occurrenceID ?target_occurrence .
+              ?trait eol:targetOccurrenceID ?occurrence .
+              ?trait eol:associationType ?inverse_attribute
             }
           } .
           OPTIONAL {
@@ -311,7 +311,7 @@ class TaxonData < TaxonUserClassificationFilter
     def prepare_range_query(options = {})
       query = "
         SELECT ?attribute, ?measurementOfTaxon, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
-          COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
+          COUNT(DISTINCT ?trait) as ?count_measurements,
           MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
         WHERE {
           ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
@@ -319,12 +319,12 @@ class TaxonData < TaxonUserClassificationFilter
           ?t dwc:taxonConceptID ?descendant_concept_id .
           ?occurrence dwc:taxonID ?taxon .
           ?taxon dwc:taxonConceptID ?descendant_concept_id .
-          ?data_point_uri dwc:occurrenceID ?occurrence .
-          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
-          ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value .
+          ?trait dwc:occurrenceID ?occurrence .
+          ?trait eol:measurementOfTaxon ?measurementOfTaxon .
+          ?trait dwc:measurementType ?attribute .
+          ?trait dwc:measurementValue ?value .
           OPTIONAL {
-            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
+            ?trait dwc:measurementUnit ?unit_of_measure_uri
           }
           FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
         }

@@ -1,5 +1,5 @@
 - style = hidden ? 'display: none' : nil
-- if @data_point_uris.blank?
+- if @traits.blank?
   .empty{ style: style }
     - if @taxon_data.bad_connection?
       %p= I18n.t(:data_server_unavailable)
@@ -22,7 +22,7 @@
         = t(:data_disclaimer,
           traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
           traitbank_info_path: cms_page_path('traitbank')).html_safe
-  - category_toc_items = @data_point_uris.collect{ |d| d.predicate_known_uri ? d.predicate_known_uri.toc_items : nil }.flatten.compact.uniq.sort_by(&:view_order)
+  - category_toc_items = @traits.collect{ |d| d.predicate_known_uri ? d.predicate_known_uri.toc_items : nil }.flatten.compact.uniq.sort_by(&:view_order)
   - if @include_other_category
     -# adding nil here to represent no TOC, i.e. the 'other' cagtegory
     - category_toc_items << nil
@@ -39,31 +39,31 @@
       - type_index = 0
       - last_attribute = nil
       - data_for_this_category = category_toc_item.nil? ?
-      -   @data_point_uris.select{ |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? } :
-      -   @data_point_uris.select{ |d| d.predicate_known_uri && d.predicate_known_uri.toc_items.include?(category_toc_item) }
-      - data_for_this_category.each do |data_point_uri|
+      -   @traits.select{ |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? } :
+      -   @traits.select{ |d| d.predicate_known_uri && d.predicate_known_uri.toc_items.include?(category_toc_item) }
+      - data_for_this_category.each do |trait|
         - classes = []
-        - first_of_type = data_point_uri.predicate != last_attribute
+        - first_of_type = trait.predicate != last_attribute
         - if first_of_type
           - type_index += 1
-          - header_id = data_point_uri.header_anchor
-          - last_attribute = data_point_uri.predicate
+          - header_id = trait.header_anchor
+          - last_attribute = trait.predicate
         - else
           - header_id = nil
         - classes << ['first_of_type'] if first_of_type
         - comments = []
-        - comments = data_point_uri.comments # Need to use #all_comments because it might involve multiple instances.
-        - unless data_point_uri.visible?
+        - comments = trait.comments # Need to use #all_comments because it might involve multiple instances.
+        - unless trait.visible?
           - if current_user.is_curator?
             - classes << 'hidden'
           - else
             - next
-        - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
+        - row_is_selected = (@selected_trait_id && @selected_trait_id.to_i == trait.id)
         -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
-        - exemplar = data_point_uri.taxon_data_exemplars.select(&:included?).any?
-        - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded?).any?
-        = render 'data_point_uris/display_rows', {    |
-          data_point_uri: data_point_uri, type_index: type_index,      |
+        - exemplar = trait.taxon_data_exemplars.select(&:included?).any?
+        - excluded = trait.taxon_data_exemplars.select(&:excluded?).any?
+        = render 'traits/display_rows', {    |
+          trait: trait, type_index: type_index,      |
           classes: classes, exemplar: exemplar, excluded: excluded,    |
           row_is_selected: row_is_selected, header_id: header_id,      |
           for_data_tab: true }                                         |

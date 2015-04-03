@@ -1,10 +1,10 @@
-var $add_cmd = $('tr#<%= @data_point_uri.anchor %>').removeClass('hidden').next().find('div.additional_commands');
+var $add_cmd = $('tr#<%= @trait.anchor %>').removeClass('hidden').next().find('div.additional_commands');
 $add_cmd.find('a.remove_exemplar').show();
 $add_cmd.find('a.add_exemplar').show();
 var $hide = $add_cmd.find('a.hide.button');
 if($hide.length > 0) {
   $hide.show();
 } else {
-  $add_cmd.append("<%= escape_javascript link_to(I18n.t(:data_row_hide_button), data_point_uri_hide_path(@data_point_uri), method: :put, class: 'hide button', remote: true) %>");
+  $add_cmd.append("<%= escape_javascript link_to(I18n.t(:data_row_hide_button), trait_hide_path(@trait), method: :put, class: 'hide button', remote: true) %>");
 }
 $add_cmd.find('a.unhide.button').hide();

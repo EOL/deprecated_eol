@@ -1270,7 +1270,7 @@ fr:
       questions_link_discovering_species: Comment les espèces sont découvertes ?
       questions_link_naming_species: Comment les espèces sont nommées ?
       questions_link_binomial_nomenclature: Qu’est-ce que la nomenclature binomiale?
-      questions_link_biological_classification: Qu’est-ce qu’une classification biologique?
+      questions_link_biological_classification: Qu’est-ce qu���une classification biologique?
       questions_link_invasive_species: Qu’est ce qu’une espèce invasive ?
       questions_link_indicator_species: Qu’est-ce qu’une espèce indicatrice?
       questions_link_model_organism: Qu’est-ce qu’un organisme modèle?
@@ -2553,7 +2553,7 @@ fr:
   activity_logs:
     collection_activity_log:
       add_editor:
-        an_unknown_user_of_an_unknown_collection: Un utilisateur inconnu a été ajouté
+        an_unknown_user_of_an_unknown_collection: Un utilisateur inconnu a été ajout��
           en tant que gestionnaire d'une collection inconnue.
         an_unknown_user_of_collection: Un utilisateur inconnu a été ajouté en tant
           que gestionnaire de la collection "%{collection}".
@@ -3075,7 +3075,7 @@ fr:
           pour afficher un aperçu sur une page inconnue.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> l'a sélectionné
           pour afficher un aperçu sur "%{taxon}".
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un utilisateur inconnu
           a mis des données comme exemple sur une page inconnue.
         an_unknown_user_set_exemplar_data_on_taxon: Un utilisateur inconnu a mis des
@@ -4831,8 +4831,8 @@ fr:
     one: Apparaît sous %{quoted_toc_titles}
     other: Apparaissent sous %{quoted_toc_titles}
   data_overview_table_caption: Données du trait
-  data_point_uri_source_missing: source manquante
-  data_point_uri_summary_name: données sur %{taxon}
+  trait_source_missing: source manquante
+  trait_summary_name: données sur %{taxon}
   data_provided_by_user: fourni par %{whom}
   data_provided_by_content_partner: 'Fournisseur : %{whom}'
   data_ranges: Résumés de données
@@ -5387,7 +5387,7 @@ fr:
     one: Les images sont triées par date d’importation dans l’EdlV, avec les éléments
       les plus récents affichés en premier. Il y a une seule image dans cette liste
       d'œuvres.
-    other: Les images sont triées par date d’importation dans l’EdlV, avec les éléments
+    other: Les images sont triées par date d’importation dans l’EdlV, avec les él��ments
       les plus récents affichés en premier. Il y a %{count} images dans cette liste
       d'œuvres.
   images_with_count:
@@ -6515,7 +6515,7 @@ fr:
     des interlocuteurs de langues différentes. Ils peuvent aussi varier régionalement
     pour une même langue. Cet onglet montre tous les noms communs fournis à EdlV pour
     cet organisme par divers fournisseurs, y compris les conservateurs de EdlV. Actuellement,
-    nous ne pouvons définir qu’un seul nom commun préféré par langue sur une page
+    nous ne pouvons définir qu’un seul nom commun pr��féré par langue sur une page
     EdlV donnée, mais tous les noms peuvent être recherchés.
   taxon_concept_stats: Statistiques du concept de taxon
   taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a> rassemble des enregistrements

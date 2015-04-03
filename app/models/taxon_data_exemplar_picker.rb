@@ -11,18 +11,18 @@ class TaxonDataExemplarPicker
     @max_values_per_row
   end
 
-  def self.group_and_sort_data_points(data_point_uris)
-    data_point_uris.delete_if{ |dp| dp.predicate_uri.blank? }
-    grouped_points = data_point_uris.uniq.sort.group_by(&:grouping_factors)
+  def self.group_and_sort_data_points(traits)
+    traits.delete_if{ |dp| dp.predicate_uri.blank? }
+    grouped_points = traits.uniq.sort.group_by(&:grouping_factors)
     # Creating a hash which contains the above groups, indexed by some representative
     # of the group that we can use for display purposes
-    # { representative => [ data_point_uris: ..., show_more: true/false ] }
+    # { representative => [ traits: ..., show_more: true/false ] }
     final_hash = {}
-    grouped_points.each do |grouped_by, data_point_uris|
-      representative = data_point_uris.first
+    grouped_points.each do |grouped_by, traits|
+      representative = traits.first
       final_hash[representative] = {}
-      final_hash[representative][:data_point_uris] = data_point_uris[0...TaxonDataExemplarPicker::max_values_per_row]
-      if data_point_uris.length > TaxonDataExemplarPicker::max_values_per_row
+      final_hash[representative][:traits] = traits[0...TaxonDataExemplarPicker::max_values_per_row]
+      if traits.length > TaxonDataExemplarPicker::max_values_per_row
         final_hash[representative][:show_more] = true
       end
     end
@@ -45,8 +45,8 @@ class TaxonDataExemplarPicker
     return nil unless @taxon_data_set # This occurs if the connection to the triplestore is broken or bad.
     @exemplar_data_points = exemplar_data_points
     reject_excluded_known_uris
-    reject_hidden_data_point_uris
-    reject_excluded_data_point_uris
+    reject_hidden_traits
+    reject_excluded_traits
     reduce_size_of_results
     TaxonDataExemplarPicker.group_and_sort_data_points(@taxon_data_set)
   end
@@ -58,26 +58,26 @@ class TaxonDataExemplarPicker
   #   'http://iobis.org/mindate'
   def reject_excluded_known_uris
     uris_to_reject = KnownUri.excluded_from_exemplars.select('uri').map(&:uri)
-    @taxon_data_set.delete_if do |data_point_uri|
-      if data_point_uri.predicate_known_uri
-        uris_to_reject.detect{ |uri| data_point_uri.predicate_known_uri.matches(uri) }
+    @taxon_data_set.delete_if do |trait|
+      if trait.predicate_known_uri
+        uris_to_reject.detect{ |uri| trait.predicate_known_uri.matches(uri) }
       else
-        uris_to_reject.include?(data_point_uri.predicate)
+        uris_to_reject.include?(trait.predicate)
       end
     end
   end
 
-  def reject_excluded_data_point_uris
+  def reject_excluded_traits
     # TODO - (Possibly) cache this.
     exemplars_to_reject = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).excluded
-    @taxon_data_set.delete_if do |data_point_uri|
-      exemplars_to_reject.any? { |ex| data_point_uri.id == ex.data_point_uri.id }
+    @taxon_data_set.delete_if do |trait|
+      exemplars_to_reject.any? { |ex| trait.id == ex.trait.id }
     end
   end
 
-  def reject_hidden_data_point_uris
-    @taxon_data_set.delete_if do |data_point_uri|
-      data_point_uri.hidden?
+  def reject_hidden_traits
+    @taxon_data_set.delete_if do |trait|
+      trait.hidden?
     end
   end
 
@@ -91,7 +91,7 @@ class TaxonDataExemplarPicker
   end
 
   def exemplar_data_points
-    TaxonDataExemplar.included.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
+    TaxonDataExemplar.included.where(taxon_concept_id: @taxon_concept_id).map(&:trait).delete_if {|p| p.hidden? }
   end
 
 end

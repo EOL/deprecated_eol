@@ -9,9 +9,9 @@ describe 'taxa/data/index' do
     assign(:taxon_data, @taxon_page.data)
     @data = TaxonDataSet.new([])
     @data.stub(:empty?).and_return(false)
-    assign(:data_point_uris, @data)
+    assign(:traits, @data)
     assign(:toc_id, nil)
-    assign(:selected_data_point_uri_id, nil)
+    assign(:selected_trait_id, nil)
     assign(:categories, TocItem.for_uris(Language.english).select{ |toc| @taxon_page.data.categories.include?(toc) })
     assign(:toc_id, nil)
     assign(:supress_disclaimer, true)
@@ -83,7 +83,7 @@ describe 'taxa/data/index' do
       assign(:taxon_page, taxon_page)
       assign(:taxon_data, taxon_data)
       assign(:toc_id, nil)
-      assign(:selected_data_point_uri_id, nil)
+      assign(:selected_trait_id, nil)
       assign(:supress_disclaimer, true) # I don't even know what this is.  remove it?
       assign(:assistive_section_header, 'assist my taxon_data')
       assign(:categories, [])
@@ -102,14 +102,14 @@ describe 'taxa/data/index' do
       @tc = TaxonConcept.gen
     end
 
-    context "without data_point_uris" do
+    context "without traits" do
       before :each do
-        dpu_min = DataPointUri.gen(unit_of_measure_known_uri: @ku,
+        dpu_min = Trait.gen(unit_of_measure_known_uri: @ku,
                                 object: "10",
                                 taxon_concept: @tc,
                                 vetted: Vetted.trusted,
                                 visibility: Visibility.visible)
-        dpu_max = DataPointUri.gen(unit_of_measure_known_uri: @ku,
+        dpu_max = Trait.gen(unit_of_measure_known_uri: @ku,
                                 object: "100",
                                 taxon_concept: @tc,
                                 vetted: Vetted.trusted,
@@ -118,7 +118,7 @@ describe 'taxa/data/index' do
         dpu_max.reload  
         ranges = {attribute: @ku, min: dpu_min, max: dpu_max}           
         assign(:range_data, [ranges])  
-        assign(:data_point_uris, [])  
+        assign(:traits, [])  
       end
       it "go to data_summaries subtab by default" do
         render
@@ -128,7 +128,7 @@ describe 'taxa/data/index' do
     
     context 'with data' do
       before(:each) do
-        @dpu = DataPointUri.gen(unit_of_measure_known_uri: @ku,
+        @dpu = Trait.gen(unit_of_measure_known_uri: @ku,
                               object: ".354",
                               taxon_concept: @tc,
                               vetted: Vetted.trusted,
@@ -137,9 +137,9 @@ describe 'taxa/data/index' do
         curator = User.gen(curator_level_id: 1, curator_approved: 1, :credentials => 'Blah', :curator_scope => 'More blah')   
         session[:user_id] = curator.id
         allow(controller).to receive(:current_user) { curator }
-        @comment = Comment.gen(parent_id: @dpu.id, parent_type: "DataPointUri", body: "This is a comment")
+        @comment = Comment.gen(parent_id: @dpu.id, parent_type: "Trait", body: "This is a comment")
         @dpu.reload
-        assign(:data_point_uris, [@dpu])
+        assign(:traits, [@dpu])
       end
 
       it "should NOT show units when undefined" do
@@ -154,25 +154,25 @@ describe 'taxa/data/index' do
       end
 
       it "should show statistical method" do
-        assign(:data_point_uris, [ DataPointUri.gen(predicate: 'Itspredicate', statistical_method: 'Itsmethod') ])
+        assign(:traits, [ Trait.gen(predicate: 'Itspredicate', statistical_method: 'Itsmethod') ])
         render
         expect(rendered).to have_tag('span.stat', text: /Itsmethod/)
       end
 
       it "should show life stage" do
-        assign(:data_point_uris, [ DataPointUri.gen(life_stage: 'Itslifestage') ])
+        assign(:traits, [ Trait.gen(life_stage: 'Itslifestage') ])
         render
         expect(rendered).to have_tag('span.stat', text: /Itslifestage/)
       end
 
       it "should show sex" do
-        assign(:data_point_uris, [ DataPointUri.gen(sex: 'Itssex') ])
+        assign(:traits, [ Trait.gen(sex: 'Itssex') ])
         render
         expect(rendered).to have_tag('span.stat', text: /Itssex/)
       end
 
       it "should show sex and life stage together" do
-        assign(:data_point_uris, [ DataPointUri.gen(life_stage: 'Itslifestage', sex: 'Itssex') ])
+        assign(:traits, [ Trait.gen(life_stage: 'Itslifestage', sex: 'Itssex') ])
         render
         expect(rendered).to have_tag('span.stat', text: /Itslifestage, Itssex/)
       end

@@ -927,7 +927,7 @@ lb:
   data_column_source: Ubidder
   data_link_to_record: Link op dësem Enregistrement
   data_object_ignore: dëst Element ignoréieren
-  data_point_uri_source_missing: Quell feelt
+  trait_source_missing: Quell feelt
   data_provided_by_content_partner: 'Ubidder: %{whom}'
   data_reference_subtable_summary: >
     Zousätzlech Referenzen iwwer dës

@@ -12,42 +12,42 @@ class TaxonDataSet
     @taxon_concept = options[:taxon_concept]
     @language = options[:language] || Language.default
     KnownUri.add_to_data(virtuoso_results)
-    DataPointUri.preload_data_point_uris!(virtuoso_results, @taxon_concept.try(:id))
-    @data_point_uris = virtuoso_results.collect{ |r| r[:data_point_instance] }
+    Trait.preload_traits!(virtuoso_results, @taxon_concept.try(:id))
+    @traits = virtuoso_results.collect{ |r| r[:data_point_instance] }
     unless options[:preload] == false
-      DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
-      DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
+      Trait.preload_associations(@traits, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
+      Trait.preload_associations(@traits.select{ |d| d.association? }, target_taxon_concept:
         [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ])
-      TaxonConcept.load_common_names_in_bulk(@data_point_uris.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)
-      DataPointUri.initialize_labels_in_language(@data_point_uris, @language)
+      TaxonConcept.load_common_names_in_bulk(@traits.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)
+      Trait.initialize_labels_in_language(@traits, @language)
     end
     convert_units
   end
 
   # NOTE - this is not provided by Enumerable
   def [](which)
-    @data_point_uris[which]
+    @traits[which]
   end
 
   # NOTE - not provided by Enumerable.
   def delete_at(which)
-    @data_point_uris.delete_at(which)
+    @traits.delete_at(which)
     self
   end
 
   # NOTE - not provided by Enumerable.
   def select(&block)
-    @data_point_uris.select do
+    @traits.select do
       yield
     end
   end
 
   def each
-    @data_point_uris.each { |data_point_uri| yield(data_point_uri) }
+    @traits.each { |trait| yield(trait) }
   end
 
   def empty?
-    @data_point_uris.nil? || @data_point_uris.empty?
+    @traits.nil? || @traits.empty?
   end
 
   # NOTE: this is 'destructive', since we don't ever need it to not be. If that
@@ -55,23 +55,23 @@ class TaxonDataSet
   # NOTE: 0 for life stage and 1 for gender
   def sort
     # This looks complicated, but it's actually really fast:
-    last_attribute_pos = @data_point_uris.map do |dpuri|
+    last_attribute_pos = @traits.map do |dpuri|
       dpuri.predicate_known_uri.try(:position) || 0
     end.max || 0 + 1
     stat_positions = get_positions
     last_stat_pos = stat_positions.values.max || 0 + 1
-    @data_point_uris.sort_by! do |data_point_uri|
+    @traits.sort_by! do |trait|
       attribute_label =
-        EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
-      attribute_pos = data_point_uri.predicate_known_uri.try(:position) ||
+        EOL::Sparql.uri_components(trait.predicate_uri)[:label]
+      attribute_pos = trait.predicate_known_uri.try(:position) ||
         last_attribute_pos
       attribute_label = safe_downcase(attribute_label)
-      value_label = safe_downcase(data_point_uri.value_string(@language))
-      gender_sort = data_point_uri.context_labels[GENDER].try(:to_s) || 255.chr
-      stage_sort = data_point_uri.context_labels[LIFE_STAGE].try(:to_s) || ''
+      value_label = safe_downcase(trait.value_string(@language))
+      gender_sort = trait.context_labels[GENDER].try(:to_s) || 255.chr
+      stage_sort = trait.context_labels[LIFE_STAGE].try(:to_s) || ''
       stats_sort = last_stat_pos
-      stats_sort = stat_positions[data_point_uri.statistical_method.to_s] if
-        data_point_uri.statistical_method
+      stats_sort = stat_positions[trait.statistical_method.to_s] if
+        trait.statistical_method
       [ attribute_pos, attribute_label, gender_sort,
         stats_sort, stage_sort, value_label ]
     end
@@ -88,7 +88,7 @@ class TaxonDataSet
   end
 
   def statistical_methods
-    @data_point_uris.map { |d| d.statistical_method.to_s }.sort.uniq.
+    @traits.map { |d| d.statistical_method.to_s }.sort.uniq.
       delete_if { |s| s.blank? }
   end
 
@@ -99,12 +99,12 @@ class TaxonDataSet
 
   # Yet another NOT provided by Enumerable... grrrr...
   def select(&block)
-    @data_point_uris.select { |data_point_uri| yield(data_point_uri) }
+    @traits.select { |trait| yield(trait) }
   end
 
   # Yet another NOT provided by Enumerable... grrrr...
   def delete_if(&block)
-    @data_point_uris.delete_if { |data_point_uri| yield(data_point_uri) }
+    @traits.delete_if { |trait| yield(trait) }
     self
   end
 
@@ -112,24 +112,24 @@ class TaxonDataSet
   # to go away.  :\  We may not care about such cases, though.
   def uniq
     h = {}
-    @data_point_uris.each { |data_point_uri| h["#{data_point_uri.predicate}:#{data_point_uri.object}"] = data_point_uri }
-    @data_point_uris = h.values
+    @traits.each { |trait| h["#{trait.predicate}:#{trait.object}"] = trait }
+    @traits = h.values
     self # Need to return self in order to get chains to work.  :\
   end
 
-  def data_point_uris
-    @data_point_uris.dup
+  def traits
+    @traits.dup
   end
 
   def convert_units
-    @data_point_uris.each do |data_point_uri|
-      data_point_uri.convert_units
+    @traits.each do |trait|
+      trait.convert_units
     end
   end
 
-  # Returns a HASH where the keys are KnownUris and the values are ARRAYS of DataPointUris.
+  # Returns a HASH where the keys are KnownUris and the values are ARRAYS of Traits.
   def categorized
-    categorized = @data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
+    categorized = @traits.group_by { |trait| trait.predicate_uri }
     categorized
   end
 
@@ -142,7 +142,7 @@ class TaxonDataSet
     @taxon_concept.common_names.map do |tcn|
       jsonld['@graph'] << tcn.to_jsonld
     end
-    @data_point_uris.map do |dpuri|
+    @traits.map do |dpuri|
       jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
     end
     fill_context(jsonld)

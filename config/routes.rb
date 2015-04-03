@@ -378,7 +378,7 @@ Eol::Application.routes.draw do
 
   resources :taxon_data_exemplars, :only => [ :create ]
 
-  resources :data_point_uris, :only => [ :show ] do
+  resources :traits, :only => [ :show ] do
     put 'hide'
     put 'unhide'
     get 'show_metadata'

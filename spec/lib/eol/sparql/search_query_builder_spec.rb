@@ -34,16 +34,16 @@ describe EOL::Sparql::SearchQueryBuilder do
     it 'selects the list of fields we want' do
       expect(EOL::Sparql::SearchQueryBuilder.prepare_search_query(querystring:
         'foo')).to include('SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri '+
-                           '?statistical_method ?life_stage ?sex ?data_point_uri ?graph ?taxon_concept_id')
+                           '?statistical_method ?life_stage ?sex ?trait ?graph ?taxon_concept_id')
     end
 
     it 'searches with expected conditions' do
-      [ "?data_point_uri dwc:occurrenceID ?occurrence_id .",
+      [ "?trait dwc:occurrenceID ?occurrence_id .",
         "?occurrence_id dwc:taxonID ?taxon_id .",
         "?taxon_id dwc:taxonConceptID ?taxon_concept_id",
-        "?data_point_uri dwc:measurementType ?attribute .",
-        "?data_point_uri dwc:measurementValue ?value .",
-        "OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } ."
+        "?trait dwc:measurementType ?attribute .",
+        "?trait dwc:measurementValue ?value .",
+        "OPTIONAL { ?trait dwc:measurementUnit ?unit_of_measure_uri } ."
       ].each do |expectation|
         expect(EOL::Sparql::SearchQueryBuilder.prepare_search_query(querystring: 'foo')).
           to include(expectation)

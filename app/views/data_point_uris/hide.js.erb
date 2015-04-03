@@ -1,10 +1,10 @@
-var $row = $('tr#<%= @data_point_uri.anchor %>');
+var $row = $('tr#<%= @trait.anchor %>');
 var $add_cmd = $row.addClass('hidden').next().find('div.additional_commands');
 $add_cmd.find('a.add_exemplar').hide();
 var $unhide = $add_cmd.find('a.unhide.button');
 if($unhide.length > 0) {
   $unhide.show();
 } else {
-  $add_cmd.append("<%= escape_javascript link_to(I18n.t(:data_row_unhide_button), data_point_uri_unhide_path(@data_point_uri), method: :put, class: 'unhide button', remote: true) %>");
+  $add_cmd.append("<%= escape_javascript link_to(I18n.t(:data_row_unhide_button), trait_unhide_path(@trait), method: :put, class: 'unhide button', remote: true) %>");
 }
 $add_cmd.find('a.hide.button').hide();

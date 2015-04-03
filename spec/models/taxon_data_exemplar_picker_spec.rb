@@ -5,8 +5,8 @@ describe TaxonDataExemplarPicker do
   before(:all) do
     Visibility.create_enumerated
     @known_uri_1 = build_stubbed(KnownUri)
-    @shown = build_stubbed(DataPointUri, visibility: Visibility.visible, predicate_known_uri: @known_uri_1)
-    @hidden = build_stubbed(DataPointUri, visibility: Visibility.invisible, predicate_known_uri: @known_uri_1)
+    @shown = build_stubbed(Trait, visibility: Visibility.visible, predicate_known_uri: @known_uri_1)
+    @hidden = build_stubbed(Trait, visibility: Visibility.invisible, predicate_known_uri: @known_uri_1)
     @taxon_concept = build_stubbed(TaxonConcept)
   end
 

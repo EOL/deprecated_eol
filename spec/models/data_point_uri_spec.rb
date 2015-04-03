@@ -1,7 +1,7 @@
 require "spec_helper"
 
 def make_and_convert(options)
-  d = DataPointUri.new(options)
+  d = Trait.new(options)
   d.convert_units
   d
 end
@@ -15,7 +15,7 @@ def create_measurement_from_name(taxon_name)
 end
 
 
-describe DataPointUri do
+describe Trait do
   before(:all) do
     load_foundation_cache
     # These don't cut it. Sigh. Some data from foundation really IS needed, but shouldn't be.
@@ -29,9 +29,9 @@ describe DataPointUri do
   end
   
   it 'should hide/show user_added_data when hidden/show' do
-    d = DataPointUri.gen()
+    d = Trait.gen()
     d.reload  # TODO - this shouldn't be needed; but #hide doesn't work without it. I couldn't figure out why, but was rushing.
-              # app/models/data_point_uri.rb - where #hide is defined
+              # app/models/trait.rb - where #hide is defined
               # lib/eol/curatable_association.rb - where the set_visibility is defined
     d.visibility_id.should == Visibility.visible.id
     d.user_added_data.visibility_id.should == Visibility.visible.id
@@ -44,71 +44,71 @@ describe DataPointUri do
   end
 
   it 'should sort exemplars first' do
-    uris = FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1)
+    uris = FactoryGirl.create_list(:trait, 5, taxon_concept_id: 1)
     last = uris.last
     expect(uris.sort.first).to_not eq(last)
-    last.taxon_data_exemplars << TaxonDataExemplar.new(data_point_uri: last, exclude: false, taxon_concept_id: 1)
+    last.taxon_data_exemplars << TaxonDataExemplar.new(trait: last, exclude: false, taxon_concept_id: 1)
     expect(uris.sort.first).to eq(last)
   end
 
   it 'should sort excluded last' do
-    uris = FactoryGirl.create_list(:data_point_uri, 5, taxon_concept_id: 1)
+    uris = FactoryGirl.create_list(:trait, 5, taxon_concept_id: 1)
     first = uris.first
     expect(uris.sort.last).to_not eq(first)
-    first.taxon_data_exemplars << TaxonDataExemplar.new(data_point_uri: first, exclude: true, taxon_concept_id: 1)
+    first.taxon_data_exemplars << TaxonDataExemplar.new(trait: first, exclude: true, taxon_concept_id: 1)
     expect(uris.sort.last).to eq(first)
   end
 
   it 'should create a proper anchor' do
-    d = DataPointUri.gen
+    d = Trait.gen
     d.id.should >= 1
     d.anchor.should == "data_point_#{d.id}"
   end
 
   it 'should use the right source' do
     user_added_data = UserAddedData.gen
-    user_added_data.data_point_uri.source.should == user_added_data.user
+    user_added_data.trait.source.should == user_added_data.user
 
     r = Resource.gen
-    d = DataPointUri.gen(user_added_data: nil, resource: r)
+    d = Trait.gen(user_added_data: nil, resource: r)
     d.source.should == r.content_partner
   end
 
   it 'should predicate_uri' do
-    d = DataPointUri.gen(predicate_known_uri: nil, predicate: 'mass')
+    d = Trait.gen(predicate_known_uri: nil, predicate: 'mass')
     d.predicate_uri.should == 'mass'
     known_uri = KnownUri.gen
-    d = DataPointUri.gen(predicate_known_uri: known_uri, predicate: 'mass')
+    d = Trait.gen(predicate_known_uri: known_uri, predicate: 'mass')
     d.predicate_uri.should == known_uri
   end
 
   it 'should object_uri' do
-    d = DataPointUri.gen(object_known_uri: nil, object: 'North America')
+    d = Trait.gen(object_known_uri: nil, object: 'North America')
     d.object_uri.should == 'North America'
     known_uri = KnownUri.gen
-    d = DataPointUri.gen(object_known_uri: known_uri, object: 'North America')
+    d = Trait.gen(object_known_uri: known_uri, object: 'North America')
     d.object_uri.should == known_uri
   end
 
   it 'should use the master for get_references' do
-    DataPointUri.should_receive(:with_master).and_return(true)
-    DataPointUri.gen.get_references(Language.english)
+    Trait.should_receive(:with_master).and_return(true)
+    Trait.gen.get_references(Language.english)
   end
 
   it 'should use the master for get_metadata' do
-    DataPointUri.should_receive(:with_master).and_return(true)
-    DataPointUri.gen.get_metadata(Language.english)
+    Trait.should_receive(:with_master).and_return(true)
+    Trait.gen.get_metadata(Language.english)
   end
 
   it 'should use the master for get_other_occurrence_measurements' do
-    DataPointUri.should_receive(:with_master).and_return(true)
-    DataPointUri.gen.get_other_occurrence_measurements(Language.english)
+    Trait.should_receive(:with_master).and_return(true)
+    Trait.gen.get_other_occurrence_measurements(Language.english)
   end
 
 
   context 'with grams as unit of measure' do
 
-    let(:with_grams) { DataPointUri.gen(unit_of_measure_known_uri: nil, unit_of_measure: 'grams') }
+    let(:with_grams) { Trait.gen(unit_of_measure_known_uri: nil, unit_of_measure: 'grams') }
 
     it 'should have "grams" as the unit of measure uri' do
       with_grams.unit_of_measure_uri.should == 'grams'
@@ -118,7 +118,7 @@ describe DataPointUri do
 
   context 'with grams as known_uri' do
 
-    let(:grammy) { DataPointUri.new(object: 70, unit_of_measure_known_uri: KnownUri.grams) }
+    let(:grammy) { Trait.new(object: 70, unit_of_measure_known_uri: KnownUri.grams) }
 
     it 'should unit_of_measure_uri' do
       grammy.unit_of_measure_uri.should == KnownUri.grams
@@ -149,15 +149,15 @@ describe DataPointUri do
   end
 
   it 'should measurement?' do
-    DataPointUri.gen(class_type: 'MeasurementOrFact').measurement?.should == true
-    DataPointUri.gen(class_type: 'Association').measurement?.should == false
-    DataPointUri.gen(class_type: 'Nonsense').measurement?.should == false
+    Trait.gen(class_type: 'MeasurementOrFact').measurement?.should == true
+    Trait.gen(class_type: 'Association').measurement?.should == false
+    Trait.gen(class_type: 'Nonsense').measurement?.should == false
   end
 
   it 'should association?' do
-    DataPointUri.gen(class_type: 'MeasurementOrFact').association?.should == false
-    DataPointUri.gen(class_type: 'Association').association?.should == true
-    DataPointUri.gen(class_type: 'Nonsense').association?.should == false
+    Trait.gen(class_type: 'MeasurementOrFact').association?.should == false
+    Trait.gen(class_type: 'Association').association?.should == true
+    Trait.gen(class_type: 'Nonsense').association?.should == false
   end
 
   it 'should convert units' do
@@ -186,7 +186,7 @@ describe DataPointUri do
   context 'kelvin that should be celsius' do
 
     let(:kelvin) do
-      kelvin = DataPointUri.new(object: 700, unit_of_measure_known_uri: KnownUri.kelvin)
+      kelvin = Trait.new(object: 700, unit_of_measure_known_uri: KnownUri.kelvin)
       kelvin.convert_units
       kelvin
     end
@@ -244,11 +244,11 @@ describe DataPointUri do
         drop_all_virtuoso_graphs
         @name = 'Aus bus'
         @measurement = create_measurement_from_name(@name)
-        @data_point = DataPointUri.gen(uri: @measurement.uri)
+        @data_point = Trait.gen(uri: @measurement.uri)
       end
 
       it 'returns the taxon name associated with a measurement' do
-        DataPointUri.assign_metadata([ @data_point ], Language.english)
+        Trait.assign_metadata([ @data_point ], Language.english)
         expect(@data_point.metadata.first.predicate).to eq('http://rs.tdwg.org/dwc/terms/scientificName')
         expect(@data_point.metadata.first.object).to eq(@name)
       end

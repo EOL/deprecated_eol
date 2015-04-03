@@ -18,12 +18,12 @@ describe CuratorActivityLog do
     end
   end
 
-  it 'should return data_point_uris' do
-    d = DataPointUri.gen
-    c = CuratorActivityLog.create(changeable_object_type_id: ChangeableObjectType.data_point_uri.id, target_id: d.id)
-    c.data_point_uri.should == d
+  it 'should return traits' do
+    d = Trait.gen
+    c = CuratorActivityLog.create(changeable_object_type_id: ChangeableObjectType.trait.id, target_id: d.id)
+    c.trait.should == d
     c = CuratorActivityLog.create(changeable_object_type_id: ChangeableObjectType.comment.id, target_id: d.id)
-    c.data_point_uri.should_not == d
+    c.trait.should_not == d
   end
 
   # it 'should know the #taxon_concept_name for a data object'

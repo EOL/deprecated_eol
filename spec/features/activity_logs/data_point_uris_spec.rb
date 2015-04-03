@@ -22,7 +22,7 @@ end
 
 def hide_row
   visit(taxon_data_path(@taxon_concept))
-  within("##{@user_added_data.data_point_uri.anchor}_actions") do
+  within("##{@user_added_data.trait.anchor}_actions") do
     click_link "Hide Row"
     sleep(1)
   end
@@ -30,7 +30,7 @@ end
 
 def unhide_row
   visit(taxon_data_path(@taxon_concept))
-  within("##{@user_added_data.data_point_uri.anchor}_actions") do
+  within("##{@user_added_data.trait.anchor}_actions") do
     click_link "Unhide Row"
     sleep(1)
   end
@@ -38,7 +38,7 @@ end
 
 def add_to_quick_facts
   visit(taxon_data_path(@taxon_concept))
-  within("##{@user_added_data.data_point_uri.anchor}_actions") do
+  within("##{@user_added_data.trait.anchor}_actions") do
     click_link I18n.t(:data_row_add_exemplar_button)
     sleep(1)
   end
@@ -46,20 +46,20 @@ end
 
 def remove_from_quick_facts
   visit(taxon_data_path(@taxon_concept))
-  within("##{@user_added_data.data_point_uri.anchor}_actions") do
+  within("##{@user_added_data.trait.anchor}_actions") do
     click_link I18n.t(:data_row_remove_exemplar_button)
   end
 end
 
 def comment(text)
   visit(taxon_data_path(@taxon_concept))
-  within(:xpath, "//tr[@id='data_point_#{@user_added_data.data_point_uri.id}']/following::tr") do
+  within(:xpath, "//tr[@id='data_point_#{@user_added_data.trait.id}']/following::tr") do
     fill_in 'comment_body', with: text
     click_button "post comment"
   end
 end
 
-describe 'DataPointUris' do
+describe 'Traits' do
   before :all do
     load_foundation_cache
     EolConfig.delete_all

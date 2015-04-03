@@ -3159,7 +3159,7 @@ de:
           es zur Anzeige in der Übersicht auf einer unbekannten Seite aus.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> wählte es zur Anzeige
           in der Übersicht auf auf „%{taxon}“ aus.
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Ein unbekannter Nutzer
           hat Daten auf einer unbekannten Seite als beispielhaft festgelegt.
         an_unknown_user_set_exemplar_data_on_taxon: Ein unbekannter Nutzer hat die
@@ -4987,8 +4987,8 @@ de:
     one: Erscheint unter %{quoted_toc_titles}
     other: Erscheint unter %{quoted_toc_titles}
   data_overview_table_caption: Eigenschaftsdaten
-  data_point_uri_source_missing: Quelle fehlt
-  data_point_uri_summary_name: Daten über %{taxon}
+  trait_source_missing: Quelle fehlt
+  trait_summary_name: Daten über %{taxon}
   data_provided_by_user: bereitgestellt von %{whom}
   data_provided_by_content_partner: 'Anbieter: %{whom}'
   data_ranges: Datenzusammenfassungen

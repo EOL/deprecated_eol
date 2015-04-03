@@ -1658,7 +1658,7 @@ zh-CN:
           meta_title_with_common_name: 了解%{preferred_common_name}的工具，(%{scientific_name}的分类系统由%{hierarchy_provider}提供）
           tweet_text: 了解%{scientific_name} 的工具，分类系统由%{hierarchy_provider}提供
         meta_title: '%{scientific_name}的教育资源'
-        meta_title_with_common_name: '%{preferred_common_name} 的教育资源(%{scientific_name})'
+        meta_title_with_common_name: '%{preferred_common_name} 的教育资���(%{scientific_name})'
         tweet_text: '%{scientific_name}的教育资源'
       identification_resources:
         hierarchy_entry:
@@ -1936,7 +1936,7 @@ zh-CN:
   this_sound_is_unpublished: 本音频尚未发表。
   article_not_associated_with_any_published_entries: 该文章未与任何已发布的分类单元相关联。
   unknown_type_not_associated_with_any_published_entries: 该数据未与任何已发表的分类单元相关联。
-  image_not_associated_with_any_published_entries: 此图片未与任何已发布的类群相关联。
+  image_not_associated_with_any_published_entries: 此图片未与任何已发布的类群���关联。
   image_map_not_associated_with_any_published_entries: 此地图未与任何已发布的类群相关联。
   map_not_associated_with_any_published_entries: 此地图未与任何已发布的类群相关联。
   video_not_associated_with_any_published_entries: 该视频未与任何已发表类群相关联。
@@ -2325,7 +2325,7 @@ zh-CN:
         an_unknown_user_chose_exemplar_it_on_taxon: 未知用户选择它在“%{taxon}”显示概述。
         user_chose_exemplar_it_on_an_unknown_taxon: <strong>%{user}</strong>选择它在未知页面显示概述。
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong>选择它在“%{taxon}”显示概述。
-      data_point_uri:
+      trait:
         an_unknown_user_set_exemplar_data_on_an_unknown_taxon: 未知用户在未知页面设置数据为范本。
         an_unknown_user_set_exemplar_data_on_taxon: 未知用户在“%{taxon}”设置数据为范本。
         user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong>在未知页面设置数据为范本。
@@ -2675,7 +2675,7 @@ zh-CN:
     ofollow href=%{ligercat_url}>LigerCat</a> 工具来分析，这个工具用最相关的<a rel=
     ofollow href=%{mesh_url}>Medical Subject Headings (MESH)</a>建立云。每个术语的相对大小表示它在PubMed搜索结果中出现的次数。点击一个术语进入具有实时的PubMed搜索能力的全面的LigerCat云。
   biomedical_terms_provided_by: |-
-    条款由 <a  rel=
+    条���由 <a  rel=
     ofollow href=%{supplier_url}>PubMed</a>提供。
   biomedical_terms_clouds_provided_by: |-
     MBL提供的云 <a  rel=
@@ -3110,7 +3110,7 @@ zh-CN:
   curator: 管理员
   curator_question: 管理员？
   curator_level_application_pending_notice: 我们对您申请成为一名管理员表示感谢。一旦您的申请被审核通过，我们将通过email告知您。
-  curator_level_assistant_approved_notice: '"恭喜您！您已成为一名<em>助理管理员</em>。 <a href=""%{more_url}"">了解更多助理管理员职责</a>。"'
+  curator_level_assistant_approved_notice: '"恭喜您���您已成为一名<em>助理管理员</em>。 <a href=""%{more_url}"">了解更多助理管理员职责</a>。"'
   curator_level_assistant_curator: 助理管理员
   curator_level_full_curator: 专业管理员
   curator_level_full_pending_notice: 我们对您申请成为一名<em>专业管理员</em>表示感谢。一旦您的申请被审核通过，我们将通过email告知您。
@@ -3178,8 +3178,8 @@ zh-CN:
   data_object_ignore: 忽略本条目
   data_object_undo_ignore: 从忽略列表中删除
   data_overview_table_caption: 性状数据
-  data_point_uri_source_missing: 丢失来源
-  data_point_uri_summary_name: 关于%{taxon}的数据
+  trait_source_missing: 丢失来源
+  trait_summary_name: 关于%{taxon}的数据
   data_provided_by_user: 由%{whom}提供
   data_provided_by_content_partner: 供应商：%{whom}
   data_ranges: 数据总结
@@ -3294,7 +3294,7 @@ zh-CN:
   email: 邮箱
   email_colon: 邮件：
   email_recipients: 邮件收件人
-  eol_curator_activity_email_message: 网络生命大百科管理员 <a href='%{profile_url}'>%{curator_full_name}</a>
+  eol_curator_activity_email_message: 网络生命大���科管理员 <a href='%{profile_url}'>%{curator_full_name}</a>
     %{action} <a href='%{data_object_url}'>EOL网站</a>的%{comment}
   encyclopedia_of_life: 生命百科
   endorsed_by: 认同者
@@ -3473,7 +3473,7 @@ zh-CN:
   grant_full_curator_link: 授权
   harvest_id: 数据采集ID
   harvesting_processes_log: 采集过程日志
-  harvests_for: 用于%{resource}的采集
+  harvests_for: 用���%{resource}的采集
   has_already_been_taken: 早已被保存。
   has_colon: 拥有的权限：
   has_curated_your_image: 已管理了您的图像
@@ -4370,7 +4370,7 @@ zh-CN:
   the_new_user_was_created: 新用户已创建。
   there_are_currently_no_members_in_this_community: 当前这个社区没有会员。
   there_is_no_singular_eol: 没有单一的EOL分类系统，EOL为许多分类系统建立了索引并比较指出哪些节点涉及相同的分类单元。这些分类单元的元素表现为分类系统的节点，这就是为什么对于一个给定的EOL物种页潜在地有它们中的几个分类节点。
-  the_query_string: 查询字符串
+  the_query_string: 查询字���串
   the_suggested_page_to_direct_users_to_link: 引导用户到链接的推荐页面
   the_topic_was_updated: 主题已更新。
   the_user_was_updated: 用户已更新。

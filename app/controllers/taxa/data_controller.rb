@@ -7,7 +7,7 @@ class Taxa::DataController < TaxaController
   :instantiate_preferred_names, :load_data, :load_glossary
 
   # GET /pages/:taxon_id/data/index
-  def index
+  def old_index
     @assistive_section_header = I18n.t(:assistive_data_header)
     @recently_used = KnownUri.where(uri: session[:rec_uris]) if
       session[:rec_uris]

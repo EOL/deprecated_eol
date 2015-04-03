@@ -44,14 +44,15 @@ class TaxonData < TaxonUserClassificationFilter
     false # TODO!!!
   end
 
+  def traits
+    return @taits if @traits
+    @traits = @taxon_concept.traits
+  end
+
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
     # TODO: not sure why we're #dup'ing here, please explain:
     return @taxon_data_set.dup if defined?(@taxon_data_set)
-    # TODO: For TRAMEA, we should check to see if we can use the DB, and if so:
-    if use_db?
-      return @traits = @taxon_concept.traits
-    end
     if_connection_fails_return(nil) do
       taxon_data_set = TaxonDataSet.new(raw_data,
         taxon_concept: taxon_concept,

@@ -53,6 +53,7 @@ Eol::Application.routes.draw do
       :controller => 'taxa/taxon_concept_reindexing'
     resources :data, :only => [:index], :controller => 'taxa/data' do
       collection do
+        get 'reindex'
         get 'about'
         get 'glossary'
         get 'ranges'

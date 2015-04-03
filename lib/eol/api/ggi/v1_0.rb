@@ -45,21 +45,33 @@ module EOL
               return_hash['vernacularNames'] << common_name_hash
             end
 
-            return_hash['measurements'] = []
-            taxon_data = TaxonPage.new(taxon_concept, nil).data.data_for_ggi
-            taxon_data.each do |result_hash|
-              return_hash['measurements'] << {
-                'resourceID' => result_hash[:resource].id,
-                'source' => result_hash[:resource].title,
-                'measurementType' => result_hash[:attribute].uri,
-                'label' => result_hash[:attribute].name,
-                # TODO - this isn't really safe; nil.to_i is 0, for example.  We should probably sanitize better:
-                'measurementValue' => result_hash[:value].to_s.gsub(/[^.0-9]/, '').to_i
-              }
+            results = TripleStore.ggi(taxon_concept)
+            known_uris = KnownUri.from_triplestore(results, keys: [:attribute])
+            results.each do |r|
+              r[:resource_id] = r[:graph].to_s.split("/").last.to_i
             end
-
+            resources = Resource.select([:id, :title]).
+              where(id: results.map { |r| r[:resource_id ] }.uniq)
+            return_hash['measurements'] = results.map do |row|
+                result_uri = row[:attribute].to_s
+                result_value = row[:value].nil? ? "" :
+                  row[:value].to_s.gsub(/[^.0-9]/, '').to_i
+                result_label = known_uris.find { |uri| uri.uri == result_uri }.
+                  try(:name)
+                result_label ||= result_uri.split("/").last
+                resource_title = resources.
+                  find { |r| r.id == row[:resource_id] }.
+                  title
+                {
+                  'resourceID' => row[:resource_id],
+                  'source' => resource_title,
+                  'measurementType' => result_uri,
+                  'label' => result_label,
+                  'measurementValue' => result_value
+                }
+              end
           end
-          return return_hash
+          return_hash
         end
       end
     end

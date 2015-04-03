@@ -110,6 +110,19 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def self.create_from_triplestore(uri, uri_type)
+    known_uris << KnownUri.create(
+      uri: uri,
+      vetted_id: Vetted.unknown.id,
+      visibility_id: Visibility.visible.id,
+      # NOTE: position is a 20ms query, and _somewhat_ susceptible to race
+      # conditions (if another process is also adding several uris):
+      position: KnownUri.maximum(:position) + 1,
+      hide_from_glossary: true,
+      uri_type_id: uri_type.id
+    )
+  end
+
   def self.clear_uri_caches
     Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
@@ -145,6 +158,7 @@ class KnownUri < ActiveRecord::Base
     known_uri
   end
 
+  #TODO: Does this really belong on THIS class?! Is it clear? :S NO and no.
   def self.taxon_concept_id(val)
     match = val.to_s.scan(TAXON_RE)
     if match.empty?
@@ -162,8 +176,46 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  # TODO: Long method. Break up.
+  def self.from_triplestore(data, options = {})
+    options[:keys] ||= [:attribute, :unit_of_measure_uri, :statistical_method,
+      :sex, :value]
+    # A Pain that we have to store a hash, but if we need to create new URIs, we
+    # need to know from whence they came:
+    uri_type = {}
+    data.each do |datum|
+      is_association = datum[:target_taxon_concept_id]
+      options[:keys].each do |key|
+        if datum[key].try(:uri?) &&
+          ! datum[key].to_s.blank? &&
+          # Not if it's a value from an association (that's a page uri)
+          ! (key == :value && is_association)
+            # UGH, complicated, but hopefully clear enough:
+            uri_type[datum[key].to_s] ||=
+              if is_association
+                UriType.association
+              elsif key == :attribute
+                UriType.measurement
+              else
+                UriType.value
+              end
+        end
+      end
+    end
+    uris = Set.new(uri_type.keys)
+    known_uris = KnownUri.where(uri: uris)
+    uris.each do |uri|
+      unless known_uris.find { |k| k.uri == uri }
+        known_uris << KnownUri.create_from_triplestore(uri, uri_type[uri])
+      end
+    end
+    known_uris
+  end
+
+  # TODO: Stop using this, it's toxic.
   def self.add_to_data(rows)
-    known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
+    known_uris = where(uri: EOL::Sparql.uris_in_data(rows)])
+    # TODO: Oh, look, ANOTHER place where we preload uris! Glorious!  STOP THAT.
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
       { known_uri_relationships_as_target: :from_known_uri }, :toc_items ])
     rows.each do |row|
@@ -173,7 +225,8 @@ class KnownUri < ActiveRecord::Base
       replace_with_uri(row, :statistical_method, known_uris)
       replace_with_uri(row, :sex, known_uris)
       replace_with_uri(row, :life_stage, known_uris)
-      if row[:attribute].to_s == Rails.configuration.uri_association_type && taxon_id = taxon_concept_id(row[:value])
+      if row[:attribute].to_s == Rails.configuration.uri_association_type &&
+        taxon_id = taxon_concept_id(row[:value])
         row[:target_taxon_concept_id] = taxon_id
       end
     end

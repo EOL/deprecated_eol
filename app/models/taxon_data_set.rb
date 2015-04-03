@@ -8,12 +8,11 @@ class TaxonDataSet
   LIFE_STAGE = 0
 
   def initialize(rows, options = {})
-    virtuoso_results = rows
     @taxon_concept = options[:taxon_concept]
     @language = options[:language] || Language.default
-    KnownUri.add_to_data(virtuoso_results)
-    Trait.preload_traits!(virtuoso_results, @taxon_concept.try(:id))
-    @traits = virtuoso_results.collect{ |r| r[:data_point_instance] }
+    @known_uris = KnownUri.from_triplestore(rows)
+    Trait.preload_traits!(rows, @taxon_concept.try(:id))
+    @traits = rows.map { |r| r[:data_point_instance] }
     unless options[:preload] == false
       Trait.preload_associations(@traits, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
       Trait.preload_associations(@traits.select{ |d| d.association? }, target_taxon_concept:

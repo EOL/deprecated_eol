@@ -38,7 +38,7 @@
     %fieldset
       %h4= t('.search_within_taxon_group_header')
       %p= raw t('.search_within_taxon_group_intro_with_count',
-        count: number_with_delimiter(TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH),
+        count: number_with_delimiter(TripleStore::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH),
         contact_us_tech_url: contact_us_path(subject: 'Technical'))
       %dl
         %dt

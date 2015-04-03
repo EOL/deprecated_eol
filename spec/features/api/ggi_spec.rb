@@ -8,9 +8,9 @@ describe 'API:traits' do
     @data = EOL::TestInfo.load('media_heavy')
     @taxon_concept = @data[:taxon_concept]
     @resource = Resource.gen
-    KnownUri.gen_if_not_exists({ uri: TaxonData::GGI_URIS.first, name: 'Rich Pages in EOL' })
+    KnownUri.gen_if_not_exists({ uri: TripleStore::GGI_URIS.first, name: 'Rich Pages in EOL' })
     @measurement = DataMeasurement.new(subject: @taxon_concept, resource: @resource,
-      predicate: TaxonData::GGI_URIS.first, object: '12345')
+      predicate: TripleStore::GGI_URIS.first, object: '12345')
     @measurement.update_triplestore
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
     @best_image = @taxon_concept.exemplar_or_best_image_from_solr
@@ -38,7 +38,7 @@ describe 'API:traits' do
     expect(response['measurements'].length).to eq(1)
     expect(response['measurements'][0]['resourceID']).to eq(@resource.id)
     expect(response['measurements'][0]['source']).to eq(@resource.title)
-    expect(response['measurements'][0]['measurementType']).to eq(TaxonData::GGI_URIS.first)
+    expect(response['measurements'][0]['measurementType']).to eq(TripleStore::GGI_URIS.first)
     expect(response['measurements'][0]['label']).to eq('Rich Pages in EOL')
     expect(response['measurements'][0]['measurementValue']).to eq(@measurement.object.to_i)
   end

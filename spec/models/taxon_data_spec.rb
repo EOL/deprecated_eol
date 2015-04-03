@@ -25,7 +25,7 @@ describe TaxonData do
 
   it 'should NOT run any queries on blank search' do
     EOL::Sparql.connection.should_not_receive(:query)
-    TaxonData.search(querystring: '').should == []
+    TripleStore.search(querystring: '').should == []
   end
 
   it 'should run queries on search and paginate results' do
@@ -33,7 +33,7 @@ describe TaxonData do
     EOL::Sparql.should_receive(:connection).at_least(2).times.and_return(foo)
     foo.should_receive(:query).at_least(2).times.and_return([])
     WillPaginate::Collection.should_receive(:create).and_return([])
-    foo = TaxonData.search(querystring: 'whatever', attribute: 'anything')
+    foo = TripleStore.search(querystring: 'whatever', attribute: 'anything')
   end
 
   it '#get_data should get data from #raw_data' do

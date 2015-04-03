@@ -1,8 +1,9 @@
 # Handles all "expected" errors with virtuoso, helping keep the site "alive" even if the server is unavailable.
 #
-# To use this, include or extend your class with this module. (Include for instance methods, extend for class methods.) This
-# doesn't *solve* the problem, but allows you to return a predictable value, which you can then use to show an warning message
-# rather than... well... crashing.
+# To use this, include or extend your class with this module. (Include for
+# instance methods, extend for class methods.) This doesn't *solve* the problem,
+# but allows you to return a predictable value, which you can then use to show
+# an warning message rather than... well... crashing.
 module EOL
   module Sparql
     module SafeConnection
@@ -25,4 +26,3 @@ module EOL
     end
   end
 end
-

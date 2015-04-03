@@ -2,9 +2,9 @@ class Taxa::DataController < TaxaController
 
   helper DataSearchHelper # Because we include one of its partials.
 
-  before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :load_data
-  before_filter :load_glossary
+  # NOTE: the order matters, here.
+  before_filter :instantiate_taxon_page, :redirect_if_superceded,
+  :instantiate_preferred_names, :load_data, :load_glossary
 
   # GET /pages/:taxon_id/data/index
   def index
@@ -19,10 +19,8 @@ class Taxa::DataController < TaxaController
       @toc_id = nil unless @toc_id == 'other' ||
         @categories.detect { |toc| toc.id.to_s == @toc_id }
     end
-
     @querystring = ''
     @sort = ''
-    current_user.log_activity(:viewed_taxon_concept_data, taxon_concept_id: @taxon_concept.id)
     @jsonld = @taxon_data.jsonld
   end
 
@@ -56,21 +54,38 @@ protected
     @taxon_data = @taxon_page.data
     @range_data = @taxon_data.ranges_of_values
     @traits = @taxon_page.data.get_data
+    # TODO: I don't believe we should store this in an instance var; it should
+    # just be @taxon_data.categories.
     @categories = TocItem.for_uris(current_language).
       select { |toc| @taxon_data.categories.include?(toc) }
+    # TODO: No need for this, handle it directly in the view. :|
     @include_other_category = @traits &&
       @traits.detect { |d| d.predicate_known_uri.nil? ||
         d.predicate_known_uri.toc_items.blank? }
+    # TODO: I think we only need this for admins and master curators:
     @units_for_select = KnownUri.default_units_for_form_select
   end
 
   def load_glossary
-    @glossary_terms = @traits ?
-      ( @traits.select{ |dp| ! dp.predicate_known_uri.blank? }.collect(&:predicate_known_uri) +
-        @traits.select{ |dp| ! dp.object_known_uri.blank? }.collect(&:object_known_uri) +
-        @traits.select{ |dp| ! dp.unit_of_measure_known_uri.blank? }.collect(&:unit_of_measure_known_uri) +
-        @range_data.collect{ |r| r[:attribute] }).compact.uniq
-      : []
+    # TODO: HERE is where I think we should load KnownUris. ...Which means this
+    # method should actually be gathering the IDs and then loading all the
+    # KnownUris that match, not trying to get the KnownUris themselves, which we
+    # would have had to load from six bajillion other places, potentially. Also,
+    # I don't think a default value of [] is valid; if @traits is nil, this
+    # should probably be nil, too.
+    @glossary_terms = if @traits
+      @traits.flat_map do |trait|
+        [
+          trait.try(:predicate_known_uri),
+          trait.try(:object_known_uri),
+          trait.try(:unit_of_measure_known_uri)
+        ]
+      end
+    else
+      []
+    end
+    @glossary_terms += @range_data.map { |r| r[:attribute] } if @range_data
+    @glossary_terms.compact!.uniq!
   end
 
 end

@@ -3,10 +3,22 @@
 page = Page.find(328598)
 
 page.traits.visible # Array of all non-hidden Traits for this data tab.
-page.traits.overview # Array of all Traits for the overview, duh.
-page.traits.first.meta # Array of all Traits describing the first Trait.
+page.traits.first.meta # Array of all Traits describing the first Trait. LATER
 
 page.images
+
+# Trying on Bocce:
+
+tc = TaxonConcept.find 328598
+class DataPointUri
+  default_scope include: :predicate_known_uri,
+    order: "known_uris.position"
+  scope :visible, -> { where(visibility_id: Visibility.visible.id) }
+end
+class TaxonConcept
+  has_many :traits, class_name: "DataPointUri", inverse_of: :taxon_concept
+end
+tc.traits.first
 
 # Build JSON, really slow:
 class Tramea

@@ -111,15 +111,6 @@ class Resource < ActiveRecord::Base
     end
   end
 
-  def self.add_to_data(rows)
-    rows.each{ |r| r[:resource_id] = r[:graph].to_s.split("/").last }
-    resources = where(["id in (?)", rows.collect{ |r| r[:resource_id ] }.uniq ])
-    preload_associations(resources, [ :content_partner ])
-    rows.each do |row|
-      row[:resource] = resources.detect{ |r| r.id == row[:resource_id].to_i }
-    end
-  end
-
   # TODO - generalize this instance-variable reset.
   def reload
     @@ar_instance_vars ||= Resource.new.instance_variables << :mock_proxy # For tests

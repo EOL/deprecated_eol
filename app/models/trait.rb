@@ -27,7 +27,7 @@ class Trait < ActiveRecord::Base
   :sex_known_uri_id, :original_unit_of_measure,
   :original_unit_of_measure_known_uri, :original_value
 
-  belongs_to :taxon_concept
+  belongs_to :taxon_concept, inverse_of: :traits
   belongs_to :vetted
   belongs_to :visibility
   belongs_to :resource
@@ -50,10 +50,14 @@ class Trait < ActiveRecord::Base
 
   before_save :default_visibility
 
+  default_scope include: :predicate_known_uri,
+    order: "known_uris.position"
+  scope :visible, -> { where(visibility_id: Visibility.visible.id) }
+
   def self.preload_traits!(results, taxon_concept_id = nil)
-    # There are potentially hundreds or thousands of Trait inserts
-    # happening here. The transaction makes the inserts much faster - no
-    # committing after each insert
+    # There are potentially hundreds or thousands of Trait inserts happening
+    # here. The transaction makes the inserts much faster - no committing after
+    # each insert.
     transaction do
       partner_data = results.select { |d| d.has_key?(:trait) }
       traits = Trait.where(
@@ -64,6 +68,7 @@ class Trait < ActiveRecord::Base
         where(taxon_concept_id: taxon_concept_id) if
         taxon_concept_id
       # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
+      # TODO: This is NOT storing the most efficient set of attributes; update.
       partner_data.each do |row|
         if trait = traits.
           detect { |dp| dp.uri == row[:trait].to_s }

@@ -55,8 +55,8 @@ class TaxonDataSet
   # NOTE: 0 for life stage and 1 for gender
   def sort
     # This looks complicated, but it's actually really fast:
-    last_attribute_pos = @traits.map do |dpuri|
-      dpuri.predicate_known_uri.try(:position) || 0
+    last_attribute_pos = @traits.map do |trait|
+      trait.predicate_known_uri.try(:position) || 0
     end.max || 0 + 1
     stat_positions = get_positions
     last_stat_pos = stat_positions.values.max || 0 + 1
@@ -142,8 +142,8 @@ class TaxonDataSet
     @taxon_concept.common_names.map do |tcn|
       jsonld['@graph'] << tcn.to_jsonld
     end
-    @traits.map do |dpuri|
-      jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
+    @traits.map do |trait|
+      jsonld['@graph'] << trait.to_jsonld(metadata: true)
     end
     fill_context(jsonld)
     jsonld

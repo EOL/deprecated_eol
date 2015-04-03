@@ -16,10 +16,10 @@ describe TaxonDataSet do
   end
 
   it 'should populate Trait instances by taxon concept and uri' do
-    dpuri = Trait.gen(taxon_concept: @taxon_concept, uri: "http://something/new/")
-    @row_1[:trait] = dpuri.uri
+    trait = Trait.gen(taxon_concept: @taxon_concept, uri: "http://something/new/")
+    @row_1[:trait] = trait.uri
     set = TaxonDataSet.new(@rows, taxon_concept: @taxon_concept)
-    set.first.should == dpuri
+    set.first.should == trait
   end
 
   it 'should create data point uris where not available, given a uri' do

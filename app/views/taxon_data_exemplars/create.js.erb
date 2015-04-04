@@ -1,7 +1,7 @@
 EOL.prep_flashes();
 $('div#flashes p').fadeOut('slow', function() { $(this).remove(); } );
 // If this is the data tab:
-var $row = $('tr#<%= @taxon_data_exemplar.trait.anchor %>');
+var $row = $('tr#<%= @trait.anchor %>');
 if($row.length > 0) {
   var $additional = $row.next().find('div.additional_commands');
   var $div = $row.find('> th > div, > th > span');
@@ -11,7 +11,7 @@ if($row.length > 0) {
   }
   if ($div.length > 0) {
     var $icon = $div.find('img');
-  <% if @taxon_data_exemplar.exclude? %>
+  <% if @trait.overview_exclude? %>
       if ($icon.length > 0) {
         $icon.attr('src', '<%= asset_path('v2/icon_excluded.png') %>');
       } else {
@@ -23,7 +23,7 @@ if($row.length > 0) {
     if($add.length > 0) {
       $add.show();
     } else {
-      $additional.append("<%= escape_javascript link_to(I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: @taxon_data_exemplar.trait.id, taxon_concept_id: @taxon_data_exemplar.taxon_concept_id), method: :post, class: 'add_exemplar button', remote: true) %>");
+      $additional.append("<%= escape_javascript link_to(I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: @trait.id, taxon_concept_id: @trait.taxon_concept_id), method: :post, class: 'add_exemplar button', remote: true) %>");
     }
     $additional.find('span.note').show(); // Won't always work, but might as well do it when it's low-hanging fruit.
     $('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:data_row_exemplar_removed) %></p>");
@@ -39,7 +39,7 @@ if($row.length > 0) {
     if($remove.length > 0) {
       $remove.show();
     } else {
-      $additional.append("<%= escape_javascript link_to(I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: @taxon_data_exemplar.trait.id, taxon_concept_id: @taxon_data_exemplar.taxon_concept_id, exclude: true), method: :post, class: 'remove_exemplar button', remote: true) %>");
+      $additional.append("<%= escape_javascript link_to(I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: @trait.id, taxon_concept_id: @trait.taxon_concept_id, exclude: true), method: :post, class: 'remove_exemplar button', remote: true) %>");
     }
     $additional.find('span.note').hide();
     $('div#flashes').append("<p class='status notice'><%= escape_javascript I18n.t(:data_row_exemplar_added) %></p>");

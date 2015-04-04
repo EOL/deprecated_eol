@@ -17,7 +17,8 @@ class TaxonDataSet
     Trait.preload_traits!(rows, @taxon_concept.try(:id))
     @traits = rows.map { |r| r[:data_point_instance] }
     unless options[:preload] == false
-      Trait.preload_associations(@traits, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
+      Trait.preload_associations(@traits, [ :taxon_concept, :comments,
+        { resource: :content_partner } ])
       Trait.preload_associations(@traits.select{ |d| d.association? }, target_taxon_concept:
         [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ])
       TaxonConcept.load_common_names_in_bulk(@traits.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)

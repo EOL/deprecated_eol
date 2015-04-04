@@ -59,9 +59,9 @@
           - else
             - next
         - row_is_selected = (@selected_trait_id && @selected_trait_id.to_i == trait.id)
-        -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
-        - exemplar = trait.taxon_data_exemplars.select(&:included?).any?
-        - excluded = trait.taxon_data_exemplars.select(&:excluded?).any?
+        -# TODO: No longer need these vars.
+        - exemplar = trait.overview_included?
+        - excluded = trait.overview_excluded?
         = render 'traits/display_rows', {    |
           trait: trait, type_index: type_index,      |
           classes: classes, exemplar: exemplar, excluded: excluded,    |

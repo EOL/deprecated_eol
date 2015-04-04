@@ -51,7 +51,6 @@ class TaxonConcept < ActiveRecord::Base
   has_many :users_data_objects
   has_many :flattened_ancestors, class_name: TaxonConceptsFlattened.to_s
   has_many :superceded_taxon_concepts, class_name: TaxonConcept.to_s, foreign_key: "supercedure_id"
-  has_many :taxon_data_exemplars
   has_many :traits, inverse_of: :taxon_concept
 
   has_one :taxon_classifications_lock

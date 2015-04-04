@@ -9,8 +9,6 @@ class TraitsController < ApplicationController
   def hide
     @trait.hide(current_user)
     log_action(:hide)
-    # TaxonDataExemplar.remove(@trait)
-    # TODO - log activity
     respond_to do |format|
       format.html do
         redirect_to taxon_data_path(@trait.taxon_concept)
@@ -22,7 +20,6 @@ class TraitsController < ApplicationController
   # Again, 'unhide' to avoid clash with 'show'... not that we need #show, here, but it's conventional.
   def unhide
     @trait.show(current_user)
-    # TODO - log activity
     log_action(:unhide)
     respond_to do |format|
       format.html do

@@ -39,11 +39,11 @@ class TaxonDataExemplarPicker
   end
 
   # Note - returns nil if the connection to the triplestore is bad.
+  # TODO: This is now ridiculous. Clean up ... and probably remove.
   def pick
     return nil if @taxon_data.get_data.nil? # The server is down.
     @taxon_data_set = @taxon_data.get_data.clone
     return nil unless @taxon_data_set # This occurs if the connection to the triplestore is broken or bad.
-    @exemplar_data_points = exemplar_data_points
     reject_excluded_known_uris
     reject_hidden_traits
     reject_excluded_traits
@@ -67,31 +67,25 @@ class TaxonDataExemplarPicker
     end
   end
 
+  # TODO: Handle this with a scope. :|
   def reject_excluded_traits
-    # TODO - (Possibly) cache this.
-    exemplars_to_reject = TaxonDataExemplar.where(taxon_concept_id: @taxon_concept_id).excluded
-    @taxon_data_set.delete_if do |trait|
-      exemplars_to_reject.any? { |ex| trait.id == ex.trait.id }
-    end
+    @taxon_data_set.delete_if(&:overview_exclude?)
   end
 
+  # TODO: Handle this with a scope. :|
   def reject_hidden_traits
-    @taxon_data_set.delete_if do |trait|
-      trait.hidden?
-    end
+    @taxon_data_set.delete_if(&:hidden?)
   end
 
   def reduce_size_of_results
-    reduced_set, more_points = @taxon_data_set.partition{ |point| @exemplar_data_points.include?(point) }
+    reduced_set, more_points = @taxon_data_set.
+      partition { |point| point.overview_include? }
     more_points.sort!
-    while TaxonDataExemplarPicker.count_rows_in_set(reduced_set) < TaxonDataExemplarPicker.max_rows && ! more_points.empty?
+    while TaxonDataExemplarPicker.count_rows_in_set(reduced_set) <
+      TaxonDataExemplarPicker.max_rows && ! more_points.empty?
       reduced_set << more_points.shift
     end
     @taxon_data_set = reduced_set
-  end
-
-  def exemplar_data_points
-    TaxonDataExemplar.included.where(taxon_concept_id: @taxon_concept_id).map(&:trait).delete_if {|p| p.hidden? }
   end
 
 end

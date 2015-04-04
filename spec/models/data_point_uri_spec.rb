@@ -27,7 +27,7 @@ describe Trait do
     # UriType.create_enumerated
     # KnownUri.create_enumerated
   end
-  
+
   it 'should hide/show user_added_data when hidden/show' do
     d = Trait.gen()
     d.reload  # TODO - this shouldn't be needed; but #hide doesn't work without it. I couldn't figure out why, but was rushing.
@@ -47,7 +47,7 @@ describe Trait do
     uris = FactoryGirl.create_list(:trait, 5, taxon_concept_id: 1)
     last = uris.last
     expect(uris.sort.first).to_not eq(last)
-    last.taxon_data_exemplars << TaxonDataExemplar.new(trait: last, exclude: false, taxon_concept_id: 1)
+    last.overview_include = true
     expect(uris.sort.first).to eq(last)
   end
 
@@ -55,7 +55,7 @@ describe Trait do
     uris = FactoryGirl.create_list(:trait, 5, taxon_concept_id: 1)
     first = uris.first
     expect(uris.sort.last).to_not eq(first)
-    first.taxon_data_exemplars << TaxonDataExemplar.new(trait: first, exclude: true, taxon_concept_id: 1)
+    first.overview_exclude = true
     expect(uris.sort.last).to eq(first)
   end
 

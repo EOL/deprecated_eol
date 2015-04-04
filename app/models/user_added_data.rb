@@ -24,7 +24,6 @@ class UserAddedData < ActiveRecord::Base
   has_many :comments, as: :parent
   has_many :all_comments, as: :parent, class_name: 'Comment'
   has_many :user_added_data_metadata, class_name: "UserAddedDataMetadata"
-  has_many :taxon_data_exemplars, as: :parent
 
   validates_presence_of :user_id, :subject, :predicate, :object
   validate :predicate_must_be_uri

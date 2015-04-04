@@ -376,6 +376,7 @@ Eol::Application.routes.draw do
 
   resources :user_added_data, :only => [ :create, :edit, :update, :destroy ]
 
+  # TODO: move this to traits#update
   resources :taxon_data_exemplars, :only => [ :create ]
 
   resources :traits, :only => [ :show ] do

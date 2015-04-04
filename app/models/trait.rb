@@ -46,7 +46,6 @@ class Trait < ActiveRecord::Base
   has_many :all_versions, class_name: Trait.to_s, foreign_key: :uri, primary_key: :uri
   has_many :all_comments, class_name: Comment.to_s, through: :all_versions,
     primary_key: :uri, source: :comments
-  has_many :taxon_data_exemplars
   has_many :toc_items, through: :predicate_known_uri
 
   before_save :default_visibility
@@ -642,20 +641,20 @@ class Trait < ActiveRecord::Base
     return @value_string
   end
 
-  # NOTE - Sadly, when using scopes here, it loads each scope for each instance, separately. (WTF?) So I'm not using scopes, I'm
-  # using selects.
   def included?
-    taxon_data_exemplars.select(&:included?).any?
+    overview_include?
   end
 
   def excluded?
-    taxon_data_exemplars.select(&:excluded?).any?
+    overview_exclude?
   end
 
-  # Sort by: position of known_uri, rules of exclusion, and finally value display string
+  # Sort by: position of known_uri, rules of exclusion, and finally value
+  # display string
   def <=>(other)
     this_position = predicate_known_uri ? (1.0 / predicate_known_uri.position) : 0
-    other_position = other.predicate_known_uri ? (1.0 / other.predicate_known_uri.position) : 0
+    other_position = other.predicate_known_uri ?
+      (1.0 / other.predicate_known_uri.position) : 0
     if this_position != other_position
       other_position <=> this_position
     elsif included? && ! other.included?

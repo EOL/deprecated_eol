@@ -29,11 +29,11 @@ class TaxonData < TaxonUserClassificationFilter
     end
     @traits = @taxon_concept.traits.
       includes([:toc_items, :comments, resource: [:content_partner]])
-    # TODO: remove taxon_data_exemplar; just make that a flag in the traits table.
-    # TODO: add
+    # TODO: add converted_units_uri to traits
+    #
     # Find trait_hash instances that are NOT in traits, and save them as traits:
     # we need to store their visibility and vetted values, anyway. See
-    # Trait.preload_traits!
+    # Trait.preload_traits! (but use converted units)
     #
     # Next,
     # TODO: sorting... I don't think we want to do it here, though, but we need

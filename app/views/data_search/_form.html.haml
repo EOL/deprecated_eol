@@ -1,14 +1,14 @@
 - helperstscope = [:helpers, :label, :data_search]
 - # NOTE altering taxon concept defaults if its not searchable but keeping
 - #      variable intact, in case it is still needed... we could just remove it
-- if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept) && !@clade_has_no_data
+- if @taxon_concept && @taxon_concept.traits_searchable? && !@clade_has_no_data
   - taxon_concept_id = @taxon_concept.id
   - taxon_name = { value: @taxon_concept.title_canonical, data: {} }
 - else
   - taxon_concept_id = nil
   - taxon_name = { value: nil }
   - if @taxon_concept
-    - if !TaxonData.is_clade_searchable?(@taxon_concept) || @clade_has_no_data
+    - if !@taxon_concept.traits_searchable? || @clade_has_no_data
       - taxon_name[:data] = { value_removed_placeholder: I18n.t(:taxon_name_placeholder_value_removed,
         taxon_group: @taxon_concept.title_canonical,
         scope: helperstscope) }

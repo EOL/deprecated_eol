@@ -13,7 +13,7 @@
   -# NOTE - we want this to appear on every subtab:
   .help_text{ style: style }
     %p
-      - if is_clade_searchable?
+      - if clade_searchable?
         = t(:data_disclaimer_with_searchable_clade,
           traitbank_info_path: cms_page_path('traitbank'),
           traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),

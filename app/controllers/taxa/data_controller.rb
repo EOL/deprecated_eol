@@ -2,26 +2,15 @@ class Taxa::DataController < TaxaController
 
   helper DataSearchHelper # Because we include one of its partials.
 
-  # NOTE: the order matters, here.
-  before_filter :instantiate_taxon_page, :redirect_if_superceded,
-  :instantiate_preferred_names, :load_data, :load_glossary
+  before_filter :instantiate_taxon_page, :redirect_if_superceded, :set_headers
+  # NOTE: the order matters, here. TODO: remove... I think we can.
+  before_filter :load_data, :load_glossary, execpt: :index
 
   # GET /pages/:taxon_id/data/index
-  def old_index
-    @assistive_section_header = I18n.t(:assistive_data_header)
-    @recently_used = KnownUri.where(uri: session[:rec_uris]) if
-      session[:rec_uris]
-    @selected_trait_id = params.delete(:trait_id)
-    if params[:toc_id].nil?
-      @toc_id = 'ranges' if @traits.blank? && !@range_data.blank?
-    else
-      @toc_id = params[:toc_id]
-      @toc_id = nil unless @toc_id == 'other' ||
-        @categories.detect { |toc| toc.id.to_s == @toc_id }
-    end
-    @querystring = ''
-    @sort = ''
-    @jsonld = @taxon_data.jsonld
+  def index
+    @trait_id = params.delete(:trait_id)
+    @toc_id = params.delete(:toc_id)
+    # TODO: jsonld. It's a bear, and I want to wait for meta_traits.
   end
 
   # GET /pages/:taxon_id/data/about
@@ -88,4 +77,7 @@ protected
     @glossary_terms.compact!.uniq!
   end
 
+  def set_headers
+    @assistive_section_header = I18n.t(:assistive_data_header)
+  end
 end

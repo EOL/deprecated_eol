@@ -9,7 +9,7 @@ module DataSearchHelper
     summary = I18n.t(:count_results_for_search_term,
       count: @results.total_entries,
       search_term: h(search_term_to_show))
-    if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
+    if @taxon_concept && @taxon_concept.traits_searchable?
       summary << ' ' + I18n.t(:searching_within_clade,
         clade_name: link_to(raw(@taxon_concept.title_canonical_italicized),
         taxon_overview_url(@taxon_concept)))

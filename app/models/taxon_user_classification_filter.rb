@@ -11,7 +11,7 @@ class TaxonUserClassificationFilter
 
   attr_reader :taxon_concept, :user
 
-  def initialize(taxon_concept, user = nil, hierarchy_entry = nil) 
+  def initialize(taxon_concept, user = nil, hierarchy_entry = nil)
     @taxon_concept = taxon_concept
     @user = user || EOL::AnonymousUser.new(Language.default)
     @_hierarchy_entry = hierarchy_entry
@@ -50,7 +50,13 @@ class TaxonUserClassificationFilter
     _hierarchy_entry
   end
 
-  # All permutations of presenters need to know how to name themselves:
+  # All permutations of presenters need to know how to name themselves. It's
+  # worth a NOTE here that this is actually a canonical name, not a scientific
+  # name, meaning it does NOT include attribution. This actually makes many
+  # people angry. Also, we're adding the italics in the logic here, rather than
+  # in the view, which is (IMO) wrong. But this is legacy code. TODO: remove the
+  # italics, start using the canonical_form method, or choose to include
+  # attribution. Or both.
   def scientific_name
     hierarchy_entry_or_taxon_concept.title_canonical_italicized
   end
@@ -148,6 +154,11 @@ class TaxonUserClassificationFilter
     related_names['parents'].count + related_names['children'].count
   end
 
+  def common_name
+    # TODO: use a TaxonSummary.
+    @taxon_concept.preferred_common_name_in_language(user.language)
+  end
+
   # TODO - This belongs on TaxonNames or the like:
   # TODO - rewrite EOL::CommonNameDisplay to make use of TaxonPage... and to not suck.
   # options are just passed along to EOL::CommonNameDisplay.
@@ -189,7 +200,7 @@ class TaxonUserClassificationFilter
   # NOTE - this ONLY works on overview and media.
   # TODO - move this to a mixin, which we can then call on those two.
   def correct_bogus_exemplar_image
-    if image.nil? && ! @media.empty? && ! @media.first.map? 
+    if image.nil? && ! @media.empty? && ! @media.first.map?
       TaxonConceptCacheClearing.clear_exemplar_image(taxon_concept)
       @image = nil # Reload it the next time you need it.
     end

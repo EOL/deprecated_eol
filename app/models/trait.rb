@@ -47,13 +47,17 @@ class Trait < ActiveRecord::Base
   has_many :all_comments, class_name: Comment.to_s, through: :all_versions,
     primary_key: :uri, source: :comments
   has_many :taxon_data_exemplars
+  has_many :toc_items, through: :predicate_known_uri
 
   before_save :default_visibility
 
   default_scope include: :predicate_known_uri,
     order: "known_uris.position"
   scope :visible, -> { where(visibility_id: Visibility.visible.id) }
+  scope :measurements, -> { where(class_type: 'MeasurementOrFact') }
+  scope :associations, -> { where(class_type: 'Association') }
 
+  # TODO: remove or re-write (and rename) this.
   def self.preload_traits!(results, taxon_concept_id = nil)
     # There are potentially hundreds or thousands of Trait inserts happening
     # here. The transaction makes the inserts much faster - no committing after

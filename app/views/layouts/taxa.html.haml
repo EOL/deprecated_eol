@@ -4,12 +4,12 @@
     .site_column
       .hgroup
         %h1.scientific_name
-          = raw @scientific_name
+          = raw @taxon_page.scientific_name || @scientific_name
           - unless @assistive_section_header.blank?
             %span.assistive= " &mdash; #{@assistive_section_header}"
-        - unless @preferred_common_name.blank?
+        - unless @taxon_page.common_name.blank? && @preferred_common_name.blank?
           %h2{:title => I18n.t(:preferred_common_name_advisory_information)}
-            = raw @preferred_common_name
+            = raw @taxon_page.common_name || @preferred_common_name
             %small= link_to I18n.t(:learn_more_about_names_for_this_taxon),
               taxon_names_path(@taxon_page)
         - else

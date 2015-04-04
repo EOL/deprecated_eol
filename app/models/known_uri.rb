@@ -214,7 +214,7 @@ class KnownUri < ActiveRecord::Base
 
   # TODO: Stop using this, it's toxic.
   def self.add_to_data(rows)
-    known_uris = where(uri: EOL::Sparql.uris_in_data(rows)])
+    known_uris = where(uri: EOL::Sparql.uris_in_data(rows))
     # TODO: Oh, look, ANOTHER place where we preload uris! Glorious!  STOP THAT.
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
       { known_uri_relationships_as_target: :from_known_uri }, :toc_items ])

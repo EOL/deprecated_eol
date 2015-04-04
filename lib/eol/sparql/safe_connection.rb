@@ -1,4 +1,5 @@
-# Handles all "expected" errors with virtuoso, helping keep the site "alive" even if the server is unavailable.
+# Handles all "expected" errors with virtuoso, helping keep the site "alive"
+# even if the server is unavailable.
 #
 # To use this, include or extend your class with this module. (Include for
 # instance methods, extend for class methods.) This doesn't *solve* the problem,

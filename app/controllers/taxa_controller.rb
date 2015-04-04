@@ -145,7 +145,8 @@ private
   end
 
   def instantiate_preferred_names
-    @preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_language)
+    @preferred_common_name =
+      @taxon_concept.preferred_common_name_in_language(current_language)
     @scientific_name = @taxon_page.scientific_name
   end
 

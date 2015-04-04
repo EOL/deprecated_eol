@@ -1,11 +1,11 @@
 - ajax = false unless ajax == true
 #tabs_sidebar.data
   %ul.tabs.with_icons{ class: ajax ? 'subtabs' : nil }
-    %li.all{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_data)
-    - @categories.each do |cat|
-      %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, taxon_data_path(@taxon_data, toc_id: cat.id), data: { toc_id: cat.id }
+    %li.all{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
+    - @taxon_page.data.toc_items.each do |cat|
+      %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, taxon_data_path(@taxon_page, toc_id: cat.id), data: { toc_id: cat.id }
     - if @include_other_category
-      %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category_subtab), taxon_data_path(@taxon_data, toc_id: 'other'), data: { toc_id:  'other' }
+      %li{ class: (@toc_id == 'other') ? 'active' : nil }= link_to I18n.t(:other_category_subtab), taxon_data_path(@taxon_page, toc_id: 'other'), data: { toc_id:  'other' }
     - unless @range_data.empty?
       %li.ranges{ class: (@toc_id == 'ranges') ? 'active' : nil }= link_to I18n.t(:data_ranges), ranges_taxon_data_path(@taxon_page)
     - unless @glossary_terms.empty?

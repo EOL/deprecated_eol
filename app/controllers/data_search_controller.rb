@@ -17,7 +17,7 @@ class DataSearchController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if @taxon_concept && !TaxonData.is_clade_searchable?(@taxon_concept)
+        if @taxon_concept && !@taxon_concept.traits_searchable?
           flash.now[:notice] = I18n.t('data_search.notice.clade_too_big',
             taxon_name: @taxon_concept.title_canonical_italicized.html_safe,
             contactus_tech_path: contact_us_path(subject: 'Tech')).html_safe
@@ -68,7 +68,7 @@ class DataSearchController < ApplicationController
   def create_data_search_file
     DataSearchFile.create!(@data_search_file_options)
   end
-  
+
   def readable_query_string(string)
     unless string.blank?
       uri = KnownUri.find_by_uri(string)
@@ -77,7 +77,7 @@ class DataSearchController < ApplicationController
     end
     string
   end
-  
+
   def prepare_search_parameters(options)
     @hide_global_search = true
     @querystring_uri = nil
@@ -155,7 +155,7 @@ class DataSearchController < ApplicationController
   # todo improve this hacky way of handling empty attributes
   def prepare_attribute_options
     @attribute_options = []
-    if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
+    if @taxon_concept && @taxon_concept.traits_searchable?
       # Get URIs (attributes) that this clade has measurements or facts for.
       # NOTE excludes associations URIs e.g. preys upon.
       measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept)
@@ -203,7 +203,7 @@ class DataSearchController < ApplicationController
     if params[:attribute] || params[:taxon_concept_id]
       DataSearchLog.create(
         @data_search_file_options.merge({
-          clade_was_ignored: (@taxon_concept && ! TaxonData.is_clade_searchable?(@taxon_concept)) ? true : false,
+          clade_was_ignored: (@taxon_concept && ! @taxon_concept.traits_searchable?) ? true : false,
           user_id: ( logged_in? ? current_user.id : nil ),
           number_of_results: @results.total_entries,
           time_in_seconds: options[:time_in_seconds],

@@ -5,17 +5,40 @@ class TaxonData < TaxonUserClassificationFilter
   extend EOL::Sparql::SafeConnection
   MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
 
+  # TODO: Woof. Review this and clean it up.
   def self.counts_of_values_from_search(options={})
     return { } if options[:attribute].blank?
-    return { } unless EOL::Sparql.connection.counts_of_all_value_known_uris_by_type.keys.map(&:uri).include?(options[:attribute])
+    return { } unless
+      EOL::Sparql.connection.counts_of_all_value_known_uris_by_type.keys.map(&:uri).
+        include?(options[:attribute])
     counts_of_result_value_uris = EOL::Sparql.connection.query(
-      EOL::Sparql::SearchQueryBuilder.prepare_search_query(options.merge({ count_value_uris: true, querystring: nil })))
+      EOL::Sparql::SearchQueryBuilder.
+        prepare_search_query(options.merge({ count_value_uris: true,
+          querystring: nil }))
+    )
     KnownUri.add_to_data(counts_of_result_value_uris)
-    Hash[ counts_of_result_value_uris.collect{ |h| [ h[:value], h[:count] ] } ]
+    Hash[ counts_of_result_value_uris.map { |h| [ h[:value], h[:count] ] } ]
   end
 
-  def self.is_clade_searchable?(taxon_concept)
-    taxon_concept.number_of_descendants <= TripleStore::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
+  # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
+  def get_data
+    return @traits if @traits
+    if_connection_fails_return(nil) do
+      @trait_hash = raw_data
+      raise EOL::Exceptions::SparqlDataEmpty if taxon_data_set.nil?
+    end
+    @traits = @taxon_concept.traits.
+      includes([:toc_items, :comments, resource: [:content_partner]])
+    # TODO: remove taxon_data_exemplar; just make that a flag in the traits table.
+    # TODO: add
+    # Find trait_hash instances that are NOT in traits, and save them as traits:
+    # we need to store their visibility and vetted values, anyway. See
+    # Trait.preload_traits!
+    #
+    # Next,
+    # TODO: sorting... I don't think we want to do it here, though, but we need
+    # to code it in and use it where needed.
+    @traits
   end
 
   def downloadable?
@@ -23,20 +46,24 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def topics
-    if @traits
-      @topics ||=
-        @traits.map { |t| t.try(:predicate_known_uri).try(:name) }.compact.uniq
-    else
-      if_connection_fails_return([]) do
-         get_data.map { |d| d[:attribute] }.select { |a| a.is_a?(KnownUri) }.uniq.compact.map(&:name)
-      end
+    if_connection_fails_return([]) do
+      get_data unless @traits
+      @topics ||= TranslatedKnownUri.where(id: predicate_known_uris.map(&:id)).
+          pluck(:name)
     end
   end
 
-  def categories
+  def predicate_known_uris
     if_connection_fails_return([]) do
-      get_data unless @categories
-      @categories
+      get_data unless @traits
+      @predicate_known_uris ||= @traits.flat_map(&:predicate_known_uri).uniq
+    end
+  end
+
+  def toc_items
+    if_connection_fails_return([]) do
+      get_data unless @traits
+      @toc_items ||= @traits.flat_map(&:toc_items).uniq
     end
   end
 
@@ -44,36 +71,6 @@ class TaxonData < TaxonUserClassificationFilter
     false # TODO!!!
   end
 
-  def traits
-    return @taits if @traits
-    @traits = @taxon_concept.traits
-  end
-
-  # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
-  def get_data
-    # TODO: not sure why we're #dup'ing here, please explain:
-    return @taxon_data_set.dup if defined?(@taxon_data_set)
-    if_connection_fails_return(nil) do
-      taxon_data_set = TaxonDataSet.new(raw_data,
-        taxon_concept: taxon_concept,
-        language: user.language)
-      taxon_data_set.sort
-      # NOTE: I removed some includes here (known_uri_relationships) because I
-      # didn't see them being used _anywhere_. TODO: I don't believe we SHOULD
-      # be including translations. We only need one language. I'd rather select
-      # them all later. I also don't think we should preload these here; we
-      # still have a lot of URIs to gather... soooo... SKIP.
-      known_uris = KnownUri.
-        includes({ toc_items: :translations }).
-        where(
-          id: taxon_data_set.map { |d| d.predicate_known_uri_id }.compact.uniq
-        )
-      @categories = known_uris.flat_map(&:toc_items).compact.uniq
-      @taxon_data_set = taxon_data_set
-    end
-    raise EOL::Exceptions::SparqlDataEmpty if @taxon_data_set.nil?
-    @taxon_data_set
-  end
 
   # TODO - spec for can see data check
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
@@ -161,6 +158,7 @@ class TaxonData < TaxonUserClassificationFilter
     Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
       expires_in: 12.hours) do
       (measurement_data + association_data).
+        # TODO: Just modify the query to skip blank attributes!
         delete_if { |k,v| k[:attribute].blank? }
     end
   end

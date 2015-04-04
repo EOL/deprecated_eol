@@ -1,5 +1,8 @@
 # Basically, I made this quick little class because the sort method required in
 # two places and it didn't belong in one or t'other.
+
+# TODO: delete this. We don't want it anymore. WAY too expensive.
+
 class TaxonDataSet
 
   include Enumerable

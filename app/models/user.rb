@@ -955,6 +955,10 @@ public
     self.curator_level_id && CuratorLevel.assistant && self.curator_level_id == CuratorLevel.assistant.id
   end
 
+  def admin_or_master?
+    admin? || master_curator?
+  end
+
   def is_pending_curator?
     !requested_curator_level.nil? && !requested_curator_level.id.zero?
   end

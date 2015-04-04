@@ -1013,6 +1013,10 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
+  def traits_searchable?
+    number_of_descendants <= TripleStore::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
+  end
+
 private
 
   # Assume this method is expensive.

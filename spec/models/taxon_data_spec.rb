@@ -41,7 +41,7 @@ describe TaxonData do
     taxon_data.get_data
   end
 
-  it '#is_clade_searchable? should know if clade is searchable'
+  it '#clade_searchable? should know if clade is searchable'
 
   it 'should populate sources from resources' do
     resource_trait = Trait.gen(taxon_concept_id: @taxon_concept.id, resource_id: @resource.id,
@@ -89,21 +89,21 @@ describe TaxonData do
     taxon_data.should_receive(:get_data).and_return(1)
     taxon_data.categories
   end
-  
-  it 'should show all them if predicates are different' do    
+
+  it 'should show all them if predicates are different' do
     values = []
     values[0] = {attribute: 'pred1', object: '5', unit_of_measure_uri: {uri: "Kilograms", position: 1}}
     values[1] = {attribute: 'pred2', object: '1'}
     taxon_data.show_preferred_unit(values).length.should == 2
   end
-  
+
   it 'shouldnot show all if atts are the same and one with unit and the other without' do
     values = []
     values[0] = {attribute: 'pred', object: '5', unit_of_measure_uri: {uri: "Kilograms", position: 1}}
     values[1] = {attribute: 'pred', object: '1'}
     taxon_data.show_preferred_unit(values).length.should == 1
   end
-  
+
   it 'should show only attributes that have lower position' do
     values = []
     values[0] = {attribute: 'pred', object: '5', unit_of_measure_uri: {uri: "Kilograms", position: 1}}

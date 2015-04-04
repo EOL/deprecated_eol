@@ -239,7 +239,7 @@ module TaxaHelper
       text_for_row_value += " " + display_uri(uri_components, val: true)
     end
     adjust_exponent(text_for_row_value)
-    text_for_row_value.gsub(/\n/, '')    
+    text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless trait.new_record?
     # displaying context such as life stage, sex.... The overview tab will include the statistical modifier
     modifiers = trait.context_labels
@@ -249,11 +249,11 @@ module TaxaHelper
     text_for_row_value += display_text_for_modifiers(modifiers)
     text_for_row_value
   end
-  
+
   def adjust_exponent(text_for_row_value)
     text_for_row_value.gsub!(/\^(\S)/, "<sup style='vertical-align: baseline;position: relative;top: -0.4em;'>\\1</sup>")
   end
-  
+
   def info_icon
     haml_tag "a.info_icon" do
       haml_concat "&emsp;" # Width doesn't seem to work.  :|
@@ -278,10 +278,12 @@ module TaxaHelper
     end
   end
 
-  def is_clade_searchable?
+  def clade_searchable?
     @taxon_concept &&
-    TaxonData.is_clade_searchable?(@taxon_concept) &&
-    !EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept).empty?
+    @taxon_concept.traits_searchable? # &&
+    # I removed this. It's too expensive a query to call this often. Just search
+    # and fail. Deal.
+    # !EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept).empty?
   end
 
 end

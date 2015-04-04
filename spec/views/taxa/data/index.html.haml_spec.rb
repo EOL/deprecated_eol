@@ -71,7 +71,7 @@ describe 'taxa/data/index' do
   end
 
   context 'logged in' do
-    
+
     before(:each) do
       taxon_concept = build_stubbed(TaxonConcept)
       taxon_concept.stub(:latest_version) { taxon_concept }
@@ -96,7 +96,7 @@ describe 'taxa/data/index' do
       view.stub(:current_user) { user }
       view.stub(:current_language) { Language.default }
       view.stub(:logged_in?) { false }
-      view.stub(:is_clade_searchable?) { true }
+      view.stub(:clade_searchable?) { true }
       @ku = FactoryGirl.build(:known_uri_unit)
       FactoryGirl.build(:translated_known_uri, name: 'chucks', known_uri: @ku)
       @tc = TaxonConcept.gen
@@ -115,17 +115,17 @@ describe 'taxa/data/index' do
                                 vetted: Vetted.trusted,
                                 visibility: Visibility.visible)
         dpu_min.reload
-        dpu_max.reload  
-        ranges = {attribute: @ku, min: dpu_min, max: dpu_max}           
-        assign(:range_data, [ranges])  
-        assign(:traits, [])  
+        dpu_max.reload
+        ranges = {attribute: @ku, min: dpu_min, max: dpu_max}
+        assign(:range_data, [ranges])
+        assign(:traits, [])
       end
       it "go to data_summaries subtab by default" do
         render
-        expect(rendered).to have_tag('h3', text: /Data summaries/)   
-      end   
+        expect(rendered).to have_tag('h3', text: /Data summaries/)
+      end
     end
-    
+
     context 'with data' do
       before(:each) do
         @dpu = Trait.gen(unit_of_measure_known_uri: @ku,
@@ -133,8 +133,8 @@ describe 'taxa/data/index' do
                               taxon_concept: @tc,
                               vetted: Vetted.trusted,
                               visibility: Visibility.visible)
-        
-        curator = User.gen(curator_level_id: 1, curator_approved: 1, :credentials => 'Blah', :curator_scope => 'More blah')   
+
+        curator = User.gen(curator_level_id: 1, curator_approved: 1, :credentials => 'Blah', :curator_scope => 'More blah')
         session[:user_id] = curator.id
         allow(controller).to receive(:current_user) { curator }
         @comment = Comment.gen(parent_id: @dpu.id, parent_type: "Trait", body: "This is a comment")
@@ -176,12 +176,12 @@ describe 'taxa/data/index' do
         render
         expect(rendered).to have_tag('span.stat', text: /Itslifestage, Itssex/)
       end
-        
+
       it "displays the comment" do
         render
         expect(rendered).to include("#{@comment.body}")
       end
-      
+
       it "displays date of comment" do
         render
         expect(rendered).to have_tag('small', text: /ago/)

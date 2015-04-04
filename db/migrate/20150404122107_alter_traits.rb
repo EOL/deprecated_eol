@@ -1,11 +1,18 @@
 class AlterTraits < ActiveRecord::Migration
   def up
     if Trait.connection.config[:adapter] == "mysql2"
+      # These are useless anyway, and migration won't work without this:
+      Trait.where("predicate_known_uri_id IS NULL").delete_all
       # Faster to do them all at once, it's a huge table:
       Trait.connection.execute(
         "ALTER TABLE traits"\
         "  ADD COLUMN overview_include TINYINT(1) NOT NULL DEFAULT 0,"\
-        "  ADD COLUMN overview_exclude TINYINT(1) NOT NULL DEFAULT 0"
+        "  ADD COLUMN overview_exclude TINYINT(1) NOT NULL DEFAULT 0,"\
+        "  ADD COLUMN sex_id INT(11),"\
+        "  ADD COLUMN lifestage_id INT(11),"\
+        "  ADD COLUMN statistical_method_id INT(11),"\
+        "  MODIFY predicate_known_uri_id INT(11) NOT NULL,"\
+        "  RENAME COLUMN predicate_known_uri_id predicate_id,"\
       )
       # TODO: we want to store known_uri ids ONLY (except the uri, which we use
       # for matching to Virtuoso) on this table; we want to add the sex,
@@ -27,6 +34,12 @@ class AlterTraits < ActiveRecord::Migration
         default: false)
       add_column(:traits, :overview_exclude, :boolean, null: false,
         default: false)
+      add_column(:traits, :sex_id, :integer)
+      add_column(:traits, :lifestage_id, :integer)
+      add_column(:traits, :statistical_method_id, :integer)
+      add_column(:traits, :statistical_method_id, :integer)
+      rename_column(:traits, :predicate_known_uri_id, :predicate_id, null: false)
+
       # NOTE: It's nigh impossible that this affects anyone:
       message = "WARNING: I don't know how to populate the traits overview\n"\
         "inclusions and exclusions. You have lost this data. Sorry.\n"

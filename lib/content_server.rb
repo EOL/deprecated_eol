@@ -77,7 +77,7 @@ class ContentServer
     env_name = Rails.env.to_s
     env_name = 'staging' if Rails.env.staging_dev?
     env_name = 'bocce_demo' if Rails.env.bocce_demo_dev?
-    parameters = "function=crop_image&data_object_id=#{data_object_id}&x=#{x}&y=#{y}&w=#{w}&ENV_NAME=#{env_name}"
+    parameters = "function=crop_image_pct&data_object_id=#{data_object_id}&x=#{x}&y=#{y}&w=#{w}&ENV_NAME=#{env_name}"
     call_file_upload_api_with_parameters(parameters, "update data object crop service")
   end
 

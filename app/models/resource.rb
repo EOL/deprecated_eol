@@ -246,8 +246,8 @@ class Resource < ActiveRecord::Base
     harvest_events.blank? ? false : true
   end
   
-  def self.is_paused?    
-    Resource.select(:pause).first 
+  def self.is_paused?
+    Resource.pluck(:pause).first 
   end
 
 private

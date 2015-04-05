@@ -220,13 +220,13 @@ describe ContentServer do
 
     context 'reasonable args' do
 
-      subject { ContentServer.update_data_object_crop(123654, 23, 45, 670) }
+      subject { ContentServer.update_data_object_crop(123654, 23, 45, 67) }
 
       it 'builds expected params' do
         allow(ContentServer).to receive(:call_file_upload_api_with_parameters)
         subject # Calls it.
         expect(ContentServer).to have_received(:call_file_upload_api_with_parameters).
-          with("function=crop_image_pct&data_object_id=123654&x=23&y=45&w=670&ENV_NAME=whatever",
+          with("function=crop_image_pct&data_object_id=123654&x=23&y=45&w=67&ENV_NAME=whatever",
                "update data object crop service")
       end
 
@@ -235,7 +235,7 @@ describe ContentServer do
         allow(ContentServer).to receive(:call_file_upload_api_with_parameters)
         subject # Calls it.
         expect(ContentServer).to have_received(:call_file_upload_api_with_parameters).
-          with("function=crop_image_pct&data_object_id=123654&x=23&y=45&w=670&ENV_NAME=staging",
+          with("function=crop_image_pct&data_object_id=123654&x=23&y=45&w=67&ENV_NAME=staging",
                "update data object crop service")
       end
 
@@ -244,7 +244,7 @@ describe ContentServer do
         allow(ContentServer).to receive(:call_file_upload_api_with_parameters)
         subject # Calls it.
         expect(ContentServer).to have_received(:call_file_upload_api_with_parameters).
-          with("function=crop_image_pct&data_object_id=123654&x=23&y=45&w=670&ENV_NAME=bocce_demo",
+          with("function=crop_image_pct&data_object_id=123654&x=23&y=45&w=67&ENV_NAME=bocce_demo",
                "update data object crop service")
       end
 

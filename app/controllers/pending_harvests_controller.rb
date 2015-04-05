@@ -47,12 +47,12 @@ class PendingHarvestsController < ApplicationController
   
   def pause_harvesting
     Resource.update_all(pause: true)
-    head :no_content
+    head :ok
   end
   
   def resume_harvesting
     Resource.update_all(pause: false)
-    head :no_content
+    head :ok
   end
 
 end

@@ -247,7 +247,7 @@ class Resource < ActiveRecord::Base
   end
   
   def self.is_paused?
-    Resource.pluck(:pause).first 
+    Resource.first.pause 
   end
 
 private

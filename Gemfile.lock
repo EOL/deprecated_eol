@@ -316,7 +316,7 @@ GEM
       addressable (>= 2.3)
     rdoc (3.12.2)
       json (~> 1.4)
-    recaptcha (0.3.4)
+    recaptcha (0.4.0)
     redis (3.0.7)
     redis-namespace (1.2.2)
       redis (~> 3.0.0)
@@ -485,7 +485,7 @@ DEPENDENCIES
   rails (= 3.2.18)
   rails3-jquery-autocomplete (= 1.0.11)!
   rails_autolink (= 1.1.5)
-  recaptcha (= 0.3.4)
+  recaptcha
   redis-namespace (= 1.2.2)
   resque (= 1.23.0)
   rspec-html-matchers (= 0.4.3)

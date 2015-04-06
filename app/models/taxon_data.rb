@@ -105,7 +105,7 @@ class TaxonData < TaxonUserClassificationFilter
       known_uris = KnownUri.
         includes({ toc_items: :translations }).
         where(
-          id: taxon_data_set.map { |d| d.predicate_known_uri.id }.compact.uniq
+          id: taxon_data_set.map { |d| d.predicate_known_uri_id }.compact.uniq
         )
       @categories = known_uris.flat_map(&:toc_items).compact.uniq
       @taxon_data_set = taxon_data_set
@@ -155,7 +155,8 @@ class TaxonData < TaxonUserClassificationFilter
   def show_preferred_unit(results)
     results.group_by { |r| r[:attribute] }.values.map do |attribute_group|
       attribute_group.sort do |a,b|
-        if a[:unit_of_measure_uri] && b[:unit_of_measure_uri]
+        if a[:unit_of_measure_uri] && b[:unit_of_measure_uri] &&
+           a[:unit_of_measure_uri].is_a?(Hash) && b[:unit_of_measure_uri].is_a?(Hash)
           a[:unit_of_measure_uri][:position] <=> b[:unit_of_measure_uri][:position]
         else
           a[:unit_of_measure_uri] ? -1 : 1
@@ -225,7 +226,9 @@ class TaxonData < TaxonUserClassificationFilter
             FILTER (?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
           }
         }"
-    EOL::Sparql.connection.query(query)
+    if_connection_fails_return(nil) do
+      EOL::Sparql.connection.query(query)
+    end
   end
 
   private

@@ -73,10 +73,10 @@ $(function(){
     if((w / h) < ( 540 / 360 ))
     {
       //smaller width, so scaling only happens if height exceeds max
-      if(h > 360) scale_factor = h / 360;
+      if(h > 360) scaleFactor = h / 360;
     } else  {
       //smaller height, so scaling only happens if width exceeds max
-      if(w > 540) scale_factor = w / 540;
+      if(w > 540) scaleFactor = w / 540;
     }
     $cropForm.children('[name="x"]').val(100.0 * c.x * scaleFactor/w);
     $cropForm.children('[name="y"]').val(100.0 * c.y * scaleFactor/h);

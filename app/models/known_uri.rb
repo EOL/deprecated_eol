@@ -88,22 +88,46 @@ class KnownUri < ActiveRecord::Base
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
   scope :visible, -> { where(visibility_id: Visibility.visible.id) }
 
-  COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000009', name: 'kilograms' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000016', name: 'millimeters' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000015', name: 'centimeters' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000008', name: 'meters' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000012', name: 'kelvin' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000033', name: 'days' },
-                  { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' },
-                  { uri: Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
-                  { uri: Rails.configuration.uri_term_prefix + 'log10gram', name: 'log10 grams' } ]
+  COMMON_URIS = [
+    { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000009', name: 'kilograms' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000016', name: 'millimeters' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000015', name: 'centimeters' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000008', name: 'meters' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000012', name: 'kelvin' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000027', name: 'celsius' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000033', name: 'days' },
+    { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' },
+    { uri: Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius',
+      name: '0.1°C' },
+    { uri: Rails.configuration.uri_term_prefix + 'log10gram', name: 'log10 grams' }
+  ]
 
-  # This gets called a LOT.  ...Like... a *lot* a lot. But...
-  # DO NOT make a class variable and forget about it. We will need to flush the cache frequently as we
-  # add/remove accepted values for UnitOfMeasure. Use the cached_with_local_timeout method
+  # Find or create by uri, essentially, but with some intelligence:
+  def self.uri(uri, type = :measurement)
+    return KnownUri.find_buy_uri(uri) if exists?(uri: uri)
+    last_position = KnownUri.maximum(:position) || 0
+    known = KnownUri.create(
+      uri: uri,
+      vetted_id: Vetted.unknown.id,
+      visibility_id: Visibility.visible.id,
+      exclude_from_exemplars: true,
+      position: last_position + 1,
+      uri_type_id: UriType.call(type).id,
+      hide_from_glossary: true
+    )
+    name = uri.split('/').last.underscore.humanize
+    # TODO: Better if we could handle number at the end of the name...
+    TranslatedKnownUri.create(
+      known_uri_id: known.id, name: name, language_id: Language.default.id)
+    known
+  end
+
+  # This gets called a LOT.  ...Like... a *lot* a lot. But... DO NOT make a
+  # class variable and forget about it. We will need to flush the cache
+  # frequently as we add/remove accepted values for UnitOfMeasure. Use the
+  # cached_with_local_timeout method
   def self.unit_of_measure
     cached_with_local_timeout('unit_of_measure') do
       KnownUri.where(uri: Rails.configuration.uri_measurement_unit).includes({ known_uri_relationships_as_subject: :to_known_uri } ).first
@@ -116,14 +140,17 @@ class KnownUri < ActiveRecord::Base
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
   end
 
-  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
-  # really used.  ...So I'm calling it from Sparql:
+  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because
+  # we end up with a lot of stale URIs that aren't really used.  ...So I'm
+  # calling it from Sparql:
   #
-  # TODO - I'm not sure #all_measurement_type_known_uris searches user-added data points.  :| That *might* be intentional (to
-  # exclude them from search options), but I'm not aware of that requirement; if so, that query will need to be extended into a
-  # new method, here.
+  # TODO - I'm not sure #all_measurement_type_known_uris searches user-added
+  # data points.  :| That *might* be intentional (to exclude them from search
+  # options), but I'm not aware of that requirement; if so, that query will need
+  # to be extended into a new method, here.
   #
-  # NOTE - diff this file with b9e79274f5430663af87508457a6a14e850c13f5 for the previous implementation (partial word matches).
+  # NOTE - diff this file with b9e79274f5430663af87508457a6a14e850c13f5 for the
+  # previous implementation (partial word matches).
   def self.by_name(input)
     normal_re = /[^\p{L}0-9 ]/u
     name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...

@@ -10,6 +10,7 @@ class HierarchyEntry < ActiveRecord::Base
   belongs_to :visibility
   belongs_to :parent, class_name: HierarchyEntry.to_s, foreign_key: :parent_id
 
+  has_many :contents, inverse_of: :node
   has_many :agents, through: :agents_hierarchy_entries
   has_many :agents_hierarchy_entries
   has_many :top_images

@@ -186,9 +186,8 @@ gem "rails_autolink", "1.1.5" # Adding links to user-entered text.
 # Autocomplete Ajax.
 gem "rails3-jquery-autocomplete", "1.0.11",
     git: "https://github.com/pleary/rails3-jquery-autocomplete.git"
-# TODO: - update recaptcha.
 # An empathy test to see if you're a human, when creating an account.
-gem "recaptcha", "0.3.4", require: "recaptcha/rails"
+gem "recaptcha", require: "recaptcha/rails"
 # TODO: - update resque. (and redis)
 # For background jobs, like email notifications and classification curation
 gem "resque", "1.23.0", require: "resque/server"

@@ -1,0 +1,29 @@
+= content_for :head do
+  = stylesheet_link_tag "pending_harvests"
+= content_for :main do
+  #page_heading
+    .site_column
+      .hgroup
+        %h1= I18n.t(:pending_harvests_title)
+  #content
+    #pending_harvests.site_column
+      - if @pending_harvests.nil? || @pending_harvests.empty?
+        .empty.about
+          %p= I18n.t(:pending_harvests_none)
+      - else
+        %p.tip= raw(I18n.t(:excluded_icon_tip, excluded_icon: image_tag('v2/icon_excluded.png', title: I18n.t(:data_tab_curator_excluded))))
+        %table#sortable.standard.pending_harvests
+          %thead
+            %tr.header
+              %th= I18n.t(:actions)
+              %th.move= I18n.t(:move)
+          %tbody
+            - @pending_harvests.each do |pending_harvest|
+              %tr{ id: "pending_harvest_#{pending_harvest.id}" }              
+                %td= pending_harvest.title
+                %td.move
+                  = link_to(image_tag('arrow_way_up.gif', alt: I18n.t(:move_to_top), title: I18n.t(:move_to_top)), '#',
+                    class: 'to_top_p_harvest')
+                  = link_to(image_tag('arrow_way_down.gif', alt: I18n.t(:move_to_bottom), title: I18n.t(:move_to_bottom)),
+                    '#', class: 'to_bottom_p_harvest')
+        = will_paginate @pending_harvests

@@ -497,7 +497,7 @@ $(function() {
 
   $('a.button.hidden').hide();
 
-  $('#sortable').sortable({
+  $('#sortable.standard.uris').sortable({
     placeholder: "placeholder", items: "tr:not(.headers)", helper: 'clone', tolerance: 'pointer',
     update: function(e, ui) {
       $.post("/known_uris/sort", { known_uris: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') });
@@ -513,6 +513,23 @@ $(function() {
     $.post("/known_uris/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') });
     return(false);
   });
+  
+  $('#sortable a.to_top_p_harvest').on('click', function() {
+    $.post("/pending_harvests/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') });
+    return(false);
+  });
+
+  $('#sortable a.to_bottom_p_harvest').on('click', function() {
+    $.post("/pending_harvests/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') });
+    return(false);
+  });
+  
+  $('#sortable.standard.pending_harvests').sortable({
+    placeholder: "placeholder", items: "tr:not(.headers)", helper: 'clone', tolerance: 'pointer',
+    update: function(e, ui) {
+      $.post("/pending_harvests/sort", { pending_harvests: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') });
+    }
+  }).disableSelection();
 
   // Definitions of Attributes are dialogs if JS is enabled:
   $('table.data tr .info, table.data.search tr .info').each(function() {

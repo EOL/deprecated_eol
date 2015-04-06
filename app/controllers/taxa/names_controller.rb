@@ -64,7 +64,8 @@ class Taxa::NamesController < TaxaController
         expire_taxa([@taxon_concept.id])
       end
     end
-    redirect_to common_names_taxon_names_path(@taxon_concept)
+    store_location params[:return_to] unless params[:return_to].blank?
+    redirect_to common_names_taxon_names_path(@taxon_concept), status: :moved_permanently
   end
 
   # PUT /pages/:taxon_id/names currently only used to update common_names

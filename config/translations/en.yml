@@ -3893,6 +3893,8 @@ en:
   known_uris_none: "No one has added URIs of this type."
   known_uris_page_title: "URIs for Data on EOL"
   known_uris_sorted: "Order updated."
+  pending_harvests_none: "There are no pending harvests now"
+  pending_harvests_title: "Pending Harvests"
   label: "Label"
   language: "Language:"
   languages: "Languages"

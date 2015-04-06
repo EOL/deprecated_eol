@@ -2062,7 +2062,7 @@ ul.ui-autocomplete
       padding: 40px
       background: $fieldset_light_blue
       border: 1px solid $grayblue
-    .vital
+    .vital 
       padding-right: 150px
       label
         font-size: 1.4em
@@ -2072,6 +2072,17 @@ ul.ui-autocomplete
         margin: 0
         padding: 0
         +ie7-friendly-inline-block
+      li
+        .term
+          display: inline
+          margin_top: -5px  
+        .info_icon
+          width: 20px
+          display: inline
+          &.active
+            @include info_item_with_background(15)
+        &:hover
+          @include hover_info_icon(15)
       dt, dd
         padding-right: 1em
       .summarize_input

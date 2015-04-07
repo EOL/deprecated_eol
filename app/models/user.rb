@@ -20,7 +20,10 @@ class User < ActiveRecord::Base
   belongs_to :language
   belongs_to :agent
 
+  # Tramea:
   has_many :content_curations
+  has_many :traits, inverse_of: :added_by_user
+
   has_many :users_data_objects_ratings
   has_many :members
   has_many :comments

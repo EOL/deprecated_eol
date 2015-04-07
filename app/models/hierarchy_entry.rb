@@ -10,7 +10,10 @@ class HierarchyEntry < ActiveRecord::Base
   belongs_to :visibility
   belongs_to :parent, class_name: HierarchyEntry.to_s, foreign_key: :parent_id
 
+  # Tramea:
   has_many :contents, inverse_of: :node
+  has_many :traits, inverse_of: :node # These are the values in associations.
+
   has_many :agents, through: :agents_hierarchy_entries
   has_many :agents_hierarchy_entries
   has_many :top_images

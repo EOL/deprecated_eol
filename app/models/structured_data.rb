@@ -61,9 +61,9 @@ class StructuredData
   end
 
   def mappings_turtle
-    str = "<#{@taxon_uri}> dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + @subject.id.to_s + ">"
+    str = "<#{@taxon_uri}> dwc:taxonConceptID <" + SparqlQuery::TAXON_PREFIX + @subject.id.to_s + ">"
     if @target_taxon_uri
-      str += ". <#{@target_taxon_uri}> dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + @object.id.to_s + ">"
+      str += ". <#{@target_taxon_uri}> dwc:taxonConceptID <" + SparqlQuery::TAXON_PREFIX + @object.id.to_s + ">"
     end
     return str
   end

@@ -165,8 +165,7 @@ module Eol
     Rails.configuration.uri_inverse = "#{Rails.configuration.uri_owl}inverseOf"
 
 
-    Rails.configuration.uri_prefix_user_added_data = "http://eol.org/pages/" # TODO - this should be a polymorphic hash, ie:
-                                    # { taxon_concept: "http://eol.org/pages/", data_object: "http://eol.org/data_objects/" } ...etc...
+    Rails.configuration.uri_prefix_taxon = "http://eol.org/pages/"
     Rails.configuration.uri_prefix_association = "#{Rails.configuration.uri_prefix}Association"
     Rails.configuration.user_added_data_graph = "http://eol.org/user_data/"
     Rails.configuration.known_uri_graph = "http://eol.org/known_uris"

@@ -44,7 +44,7 @@ module EOL
         "{
           #{ select } WHERE {
             #{ where }
-            ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}> .
+            ?parent_taxon dwc:taxonConceptID <#{SparqlQuery::TAXON_PREFIX}#{taxon_concept_id}> .
             ?parent_taxon dwc:taxonConceptID ?parent_taxon_concept_id .
             ?t dwc:parentNameUsageID+ ?parent_taxon .
             ?t dwc:taxonConceptID ?taxon_concept_id
@@ -53,7 +53,7 @@ module EOL
         } UNION {
           #{ select } WHERE {
             #{ where }
-            ?taxon_id dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept_id}>
+            ?taxon_id dwc:taxonConceptID <#{SparqlQuery::TAXON_PREFIX}#{taxon_concept_id}>
           }
           #{ order ? order : '' }
         }"

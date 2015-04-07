@@ -1,6 +1,8 @@
 # No, I am not putting this in lib. ...These are TOTALLY dependent on EOL and
 # would make no sense in any other universe. It's a model for our use.
 class SparqlQuery
+  TAXON_PREFIX = Rails.configuration.uri_prefix_taxon
+
   GGI_URIS = [
     'http://eol.org/schema/terms/NumberRichSpeciesPagesInEOL',
     'http://eol.org/schema/terms/NumberOfSequencesInGenBank',
@@ -26,7 +28,7 @@ class SparqlQuery
           } .
           {
             ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
-            FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
+            FILTER( ?taxon_concept_id = <#{SparqlQuery::TAXON_PREFIX}#{taxon_concept.id}>)
             OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
             OPTIONAL { ?data_point_uri dwc:sex ?sex }
           }
@@ -36,7 +38,7 @@ class SparqlQuery
             ?data_point_uri eol:measurementOfTaxon eolterms:true .
             GRAPH ?resource_mappings_graph {
               ?taxon dwc:taxonConceptID ?taxon_concept_id .
-              FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
+              FILTER( ?taxon_concept_id = <#{SparqlQuery::TAXON_PREFIX}#{taxon_concept.id}>)
             }
             OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
             OPTIONAL { ?occurrence dwc:sex ?sex }
@@ -53,7 +55,7 @@ class SparqlQuery
         WHERE {
           GRAPH ?resource_mappings_graph {
             ?taxon dwc:taxonConceptID ?source_taxon_concept_id .
-            FILTER(?source_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>) .
+            FILTER(?source_taxon_concept_id = <#{SparqlQuery::TAXON_PREFIX}#{taxon_concept.id}>) .
             ?value dwc:taxonConceptID ?target_taxon_concept_id
           } .
           GRAPH ?graph {
@@ -87,7 +89,7 @@ class SparqlQuery
           COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
           MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
         WHERE {
-          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?parent_taxon dwc:taxonConceptID <#{SparqlQuery::TAXON_PREFIX}#{taxon_concept.id}> .
           ?t dwc:parentNameUsageID+ ?parent_taxon .
           ?t dwc:taxonConceptID ?descendant_concept_id .
           ?occurrence dwc:taxonID ?taxon .
@@ -169,7 +171,7 @@ class SparqlQuery
             ?occurrence dwc:taxonID ?taxon .
             ?data_point_uri eol:measurementOfTaxon eolterms:true .
             ?taxon dwc:taxonConceptID ?taxon_concept_id .
-            FILTER ( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>) .
+            FILTER ( ?taxon_concept_id = <#{SparqlQuery::TAXON_PREFIX}#{taxon_concept.id}>) .
           }
         }
         LIMIT 100"
@@ -189,7 +191,7 @@ class SparqlQuery
               ?data_point_uri dwc:occurrenceID ?occurrence .
               ?occurrence dwc:taxonID ?taxon .
               ?taxon dwc:taxonConceptID ?taxon_concept_id .
-              FILTER (?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
+              FILTER (?taxon_concept_id = <#{SparqlQuery::TAXON_PREFIX}#{taxon_concept.id}>)
             }
           }"
       )

@@ -163,9 +163,9 @@ class KnownUri < ActiveRecord::Base
 
   def self.taxon_uri(taxon_concept_or_id)
     if taxon_concept_or_id.is_a?(TaxonConcept)
-      UserAddedData::SUBJECT_PREFIX + taxon_concept_or_id.id.to_s
+      SparqlQuery::TAXON_PREFIX + taxon_concept_or_id.id.to_s
     elsif taxon_concept_or_id.is_a?(Fixnum) || taxon_concept_or_id.is_numeric?
-      UserAddedData::SUBJECT_PREFIX + taxon_concept_or_id.to_s
+      SparqlQuery::TAXON_PREFIX + taxon_concept_or_id.to_s
     end
   end
 

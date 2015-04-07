@@ -114,7 +114,7 @@ describe UserAddedData do
     normalized_results.should include([ user_added_data.uri, 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type',
       DataMeasurement::CLASS_URI])
     normalized_results.should include([ user_added_data.uri, 'http://rs.tdwg.org/dwc/terms/taxonConceptID',
-      UserAddedData::SUBJECT_PREFIX + user_added_data.subject.id.to_s ])
+      SparqlQuery::TAXON_PREFIX + user_added_data.subject.id.to_s ])
     normalized_results.should include([ user_added_data.uri, 'http://rs.tdwg.org/dwc/terms/measurementType', user_added_data.predicate ])
     normalized_results.should include([ user_added_data.uri, 'http://rs.tdwg.org/dwc/terms/measurementValue', user_added_data.object ])
     normalized_results.length.should == 5

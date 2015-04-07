@@ -1,6 +1,5 @@
 class UserAddedData < ActiveRecord::Base
 
-  SUBJECT_PREFIX = Rails.configuration.uri_prefix_user_added_data
   GRAPH_NAME = Rails.configuration.user_added_data_graph
   URI_REGEX = /#{GRAPH_NAME.sub('/', '\\/')}(\d+)$/
 
@@ -96,7 +95,7 @@ class UserAddedData < ActiveRecord::Base
     raise NotImplementedError unless subject.is_a?(TaxonConcept)
     "<#{uri}> a <#{DataMeasurement::CLASS_URI}>" +
       # TODO - this needs to be dynamic:
-    "; dwc:taxonConceptID <" + UserAddedData::SUBJECT_PREFIX + subject.id.to_s + ">" +
+    "; dwc:taxonConceptID <" + SparqlQuery::TAXON_PREFIX + subject.id.to_s + ">" +
     "; dwc:measurementType " + EOL::Sparql.enclose_value(predicate) +
     "; dwc:measurementValue " + EOL::Sparql.enclose_value(object) +
     "; eol:measurementOfTaxon eolterms:true"

@@ -490,7 +490,7 @@ class ApplicationController < ActionController::Base
     data = {}
     success = nil
     response_title = nil
-    is_allowable_redirect = nil   
+    is_allowable_redirect = nil
     redirect=nil
     I18n.locale = params['lang'] if params['lang']
     begin
@@ -674,8 +674,9 @@ protected
     @meta_open_graph_image_url ||= nil
   end
 
-  # You should pass in :for (the object page you're on), :paginated (a collection of WillPaginate results), and
-  # :url_method (to the object's page--don't use *_path, use *_url).
+  # You should pass in :for (the object page you're on), :paginated (a
+  # collection of WillPaginate results), and :url_method (to the object's
+  # page--don't use *_path, use *_url).
   def set_canonical_urls(options = {})
     page = rel_canonical_href_page_number(options[:paginated])
     parameters = []

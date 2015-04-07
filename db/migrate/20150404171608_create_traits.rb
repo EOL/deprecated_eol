@@ -2,8 +2,10 @@ class CreateTraits < ActiveRecord::Migration
   def change
     create_table :traits do |t|
       t.string :traitbank_uri
+      t.string :value_literal
       # All of these ids actually point to known_uris:
       t.integer :predicate_id, null: false
+      t.integer :value_id
       t.integer :sex_id
       t.integer :lifestage_id
       t.integer :stat_method_id

@@ -104,26 +104,6 @@ class KnownUri < ActiveRecord::Base
     { uri: Rails.configuration.uri_term_prefix + 'log10gram', name: 'log10 grams' }
   ]
 
-  # Find or create by uri, essentially, but with some intelligence:
-  def self.uri(uri, type = :measurement)
-    return KnownUri.find_buy_uri(uri) if exists?(uri: uri)
-    last_position = KnownUri.maximum(:position) || 0
-    known = KnownUri.create(
-      uri: uri,
-      vetted_id: Vetted.unknown.id,
-      visibility_id: Visibility.visible.id,
-      exclude_from_exemplars: true,
-      position: last_position + 1,
-      uri_type_id: UriType.call(type).id,
-      hide_from_glossary: true
-    )
-    name = uri.split('/').last.underscore.humanize
-    # TODO: Better if we could handle number at the end of the name...
-    TranslatedKnownUri.create(
-      known_uri_id: known.id, name: name, language_id: Language.default.id)
-    known
-  end
-
   # This gets called a LOT.  ...Like... a *lot* a lot. But... DO NOT make a
   # class variable and forget about it. We will need to flush the cache
   # frequently as we add/remove accepted values for UnitOfMeasure. Use the

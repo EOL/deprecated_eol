@@ -3,25 +3,26 @@
 # it will be creating a LOT of stuff; thus, if you care about the returned
 # values, you may not find them on the slave...
 #
-# Keys from input data (all values are either an RDF::URI or a literal):
+# Keys from input data (all values are either an RDF::URI or a literal, but can
+# be missing entirely (if the value was nil)):
 #
 # { :attribute, :value, :life_stage, :sex, :data_point_uri, :graph,
-# :taxon_concept_id }
+# :taxon_concept_id, :unit_of_measure_uri }
 class SparqlToTraits
   attr_reader :traits, :contents, :uris
 
   def initialize(data)
     @uris = SparqlToUris.new(data)
     @node_lookup = {}
-    # TODO: Need to load statistical method separately? I'd rather not, and
-    # instead add it to the sparql query... Also units. TODO: Associations!
-    # Shoot.
+    # TODO: Associations! Shoot.
     attributes = data.map do |hash|
       add_node_lookup(hash)
       attributes_from_hash(hash)
     end
-    @traits = Mysql::MassInsert.from_hashes(attributes)
     add_hierarchies_to_lookup
+    # And we have to go through a second time to add associations:
+    add_associations(attributes)
+    @traits = Mysql::MassInsert.from_hashes(attributes)
     content_hashes = @traits.map do |trait|
       content_attributes_from_trait(trait)
     end
@@ -31,16 +32,46 @@ class SparqlToTraits
   def attributes_from_hash(hash)
     literal_value = nil
     value = grab(hash, :value)
-    literal_value = hash[:value] unless value
-    { traitbank_uri: grab(hash, :data_point_uri),
-      predicate_id: @uris.find(grab(hash, :attribute)).id,
-      sex_id: @uris.find(grab(hash, :sex), :value).id,
-      lifestage_id: @uris.find(grab(hash, :life_stage), :value).id,
-      stat_method_id: TODO,
-      units_id: TODO,
-      value_id: value,
-      value_literal: literal_value
+    h = {
+      traitbank_uri: grab(hash, :data_point_uri),
+      predicate_id: uri_id(grab(hash, :attribute)),
+      # TODO: Normalize units...
+      value_id: uri_id(value),
+      value_literal: value ? nil : hash[:value],
+      sex_id: uri_id(grab(hash, :sex)),
+      lifestage_id: uri_id(grab(hash, :life_stage)),
+      stat_method_id: uri_id(grab(hash, :statistical_method)),
+      # TODO: Normalize the gorram units.
+      units_id: uri_id(grab(hash, :unit_of_measure_uri)),
+      inverse_id: uri_id(grab(hash, :inverse_attribute))
     }
+    # NOTE: This is WRONG! It's a TC id; we really want an entry ID, it's more
+    # flexible and gives us the right name that the resource _actually_ used for
+    # the association. We'll fix it in #add_associations...
+    if hash.has_key?(:target_taxon_concept_id)
+      h[:node_id] = grab(hash, :target_taxon_concept_id)
+    end
+    h
+  end
+
+  def add_associations(hashes)
+    hashes.map do |hash|
+      if hash.has_key?(:node_id)
+        key = grab(hash, :data_point_uri)
+        hash[:node_id] = HierarchyEntry.
+          find_by_hierarchy_id_and_taxon_concept_id(
+            @node_lookup[key][:hierarchy_id],
+            hash[:node_id]
+          ).try(:id)
+        hash
+      else
+        hash
+      end
+    end
+  end
+
+  def uri_id(uri)
+    @uris.find { |u| u.uri == uri }.try(:id)
   end
 
   def content_attributes_from_trait(trait)
@@ -52,7 +83,7 @@ class SparqlToTraits
         find_by_hierarchy_id_and_taxon_concept_id(
           @node_lookup[trait.traitbank_uri][:hierarchy_id],
           @node_lookup[trait.traitbank_uri][:page_id]
-        )
+        ).try(:id)
     }
   end
 

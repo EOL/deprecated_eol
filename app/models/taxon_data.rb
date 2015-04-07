@@ -190,8 +190,6 @@ class TaxonData < TaxonUserClassificationFilter
     SparqlQuery.iucn_data_objects(taxon_concept)
   end
 
-  private
-
   def raw_data
     Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
       expires_in: 12.hours) do

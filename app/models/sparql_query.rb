@@ -46,31 +46,6 @@ class SparqlQuery
       )
     end
 
-    def ranges(taxon_concept)
-      EOL::Sparql.connection.query(
-        "SELECT ?attribute, ?measurementOfTaxon, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
-          COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
-          MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
-        WHERE {
-          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-          ?t dwc:parentNameUsageID+ ?parent_taxon .
-          ?t dwc:taxonConceptID ?descendant_concept_id .
-          ?occurrence dwc:taxonID ?taxon .
-          ?taxon dwc:taxonConceptID ?descendant_concept_id .
-          ?data_point_uri dwc:occurrenceID ?occurrence .
-          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
-          ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value .
-          OPTIONAL {
-            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
-          }
-          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
-        }
-        GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
-        ORDER BY DESC(?min)"
-      )
-    end
-
     def associations(taxon_concept)
       EOL::Sparql.connection.query(
         "SELECT DISTINCT ?attribute ?value ?target_taxon_concept_id
@@ -103,6 +78,80 @@ class SparqlQuery
           }
         }
         LIMIT 800"
+      )
+    end
+
+    def ranges(taxon_concept)
+      EOL::Sparql.connection.query(
+        "SELECT ?attribute, ?measurementOfTaxon, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
+          COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
+          MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
+        WHERE {
+          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
+          ?t dwc:parentNameUsageID+ ?parent_taxon .
+          ?t dwc:taxonConceptID ?descendant_concept_id .
+          ?occurrence dwc:taxonID ?taxon .
+          ?taxon dwc:taxonConceptID ?descendant_concept_id .
+          ?data_point_uri dwc:occurrenceID ?occurrence .
+          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
+          ?data_point_uri dwc:measurementType ?attribute .
+          ?data_point_uri dwc:measurementValue ?value .
+          OPTIONAL {
+            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
+          }
+          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
+        }
+        GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
+        ORDER BY DESC(?min)"
+      )
+    end
+
+    def metadata(uris_to_lookup)
+      EOL::Sparql.connection.query(
+        "SELECT DISTINCT ?parent_uri ?attribute ?value ?unit_of_measure_uri
+        WHERE {
+          GRAPH ?graph {
+            {
+              ?parent_uri ?attribute ?value .
+            } UNION {
+              ?parent_uri dwc:occurrenceID ?occurrence .
+              ?occurrence ?attribute ?value .
+            } UNION {
+              ?measurement eol:parentMeasurementID ?parent_uri .
+              ?measurement dwc:measurementType ?attribute .
+              ?measurement dwc:measurementValue ?value .
+              OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
+            } UNION {
+              ?parent_uri dwc:occurrenceID ?occurrence .
+              ?measurement dwc:occurrenceID ?occurrence .
+              ?measurement dwc:measurementType ?attribute .
+              ?measurement dwc:measurementValue ?value .
+              FILTER NOT EXISTS { ?measurement eol:measurementOfTaxon eolterms:true } .
+              OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
+            } UNION {
+              ?measurement eol:associationID ?parent_uri .
+              ?measurement dwc:measurementType ?attribute .
+              ?measurement dwc:measurementValue ?value .
+              OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
+            } UNION {
+              ?parent_uri dwc:occurrenceID ?occurrence .
+              ?occurrence dwc:eventID ?event .
+              ?event ?attribute ?value .
+            } UNION {
+              ?parent_uri dwc:occurrenceID ?occurrence .
+              ?occurrence dwc:taxonID ?taxon .
+              ?taxon ?attribute ?value .
+              FILTER (?attribute = dwc:scientificName)
+            }
+            FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
+                                       dwc:measurementID, eolreference:referenceID,
+                                       eol:targetOccurrenceID, dwc:taxonID, dwc:eventID,
+                                       eol:associationType,
+                                       dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
+                    ) .
+            FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
+          }
+        }"
       )
     end
 

@@ -1,28 +1,47 @@
-# Keys from input data (all values are either an RDF::URI or a literal):
-#
-# { :attribute, :value, :life_stage, :sex, :data_point_uri, :graph,
-# :taxon_concept_id }
 class SparqlToUris
   attr_reader :uris
 
-  # TODO: NOTE! We can't handle associations. You MUST define those beforehand
-  # yourself. ...I think that's reasonable, since there are a limited number of
-  # them and the PHP code also needs to be aware of them.
   def initialize(data)
-    @measurements = data.map { |hash| hash[:attribute].to_s }
-    @values = data.flat_map do |hash|
-      [ hash[:value].to_s if hash[:value].is_a?(RDF::URI),
-        hash[:life_stage].to_s if hash[:value].is_a?(RDF::URI),
-        hash[:sex].to_s if hash[:value].is_a?(RDF::URI)
-      ]
-    end.compact
+    @data = data
+    add_measurements
+    add_values
     @uris = find_or_build_uris
   end
 
   private
 
+  def add_measurements
+    @measurements = Set.new
+    @data.each do |hash|
+      @measurements << grab(hash, :attribute)
+      @measurements << grab(hash, :inverse_attribute)
+    end
+    @measurements.delete(nil)
+  end
+
+  def add_values
+    @values = Set.new
+    @data.each do |hash|
+      @values << grab(hash, :life_stage),
+      @values << grab(hash, :sex),
+      @values << grab(hash, :statistical_method),
+      @values << grab(hash, :unit_of_measure_uri),
+      @values << grab(hash, :value) unless # it's an association, in which case:
+        hash.has_key?(:target_taxon_concept_id)
+    end
+    @values.delete(nil)
+  end
+
+  def grab(hash, key)
+    if hash[key].is_a?(RDF::URI)
+      hash[key].to_s
+    else
+      nil
+    end
+  end
+
   def find_or_build_uris
-    @uris = KnownUri.where(uri: @measurements + @values)
+    @uris = KnownUri.where(uri: (@measurements + @values).to_a)
     hashes = prepare_attributes(@measurements, :measurement)
     hashes += prepare_attributes(@values, :value)
     build_uris

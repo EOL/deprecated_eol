@@ -3,8 +3,11 @@ class CreateTraits < ActiveRecord::Migration
     create_table :traits do |t|
       t.string :traitbank_uri
       t.string :value_literal
+      # Only for associations:
+      t.integer :node_id
       # All of these ids actually point to known_uris:
       t.integer :predicate_id, null: false
+      t.integer :inverse_id
       t.integer :value_id
       t.integer :sex_id
       t.integer :lifestage_id

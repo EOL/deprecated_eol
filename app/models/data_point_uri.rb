@@ -266,55 +266,10 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def self.assign_metadata(data_point_uris, language)
-    data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
-    uris_to_lookup = data_point_uris.select{ |d| d.metadata.nil? }.collect(&:uri)
+    data_point_uris = Array(data_point_uris)
+    uris_to_lookup = data_point_uris.select { |d| d.metadata.nil? }.map(&:uri)
     return if uris_to_lookup.empty?
-    query = "
-      SELECT DISTINCT ?parent_uri ?attribute ?value ?unit_of_measure_uri
-      WHERE {
-        GRAPH ?graph {
-          {
-            ?parent_uri ?attribute ?value .
-          } UNION {
-            ?parent_uri dwc:occurrenceID ?occurrence .
-            ?occurrence ?attribute ?value .
-          } UNION {
-            ?measurement eol:parentMeasurementID ?parent_uri .
-            ?measurement dwc:measurementType ?attribute .
-            ?measurement dwc:measurementValue ?value .
-            OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
-          } UNION {
-            ?parent_uri dwc:occurrenceID ?occurrence .
-            ?measurement dwc:occurrenceID ?occurrence .
-            ?measurement dwc:measurementType ?attribute .
-            ?measurement dwc:measurementValue ?value .
-            FILTER NOT EXISTS { ?measurement eol:measurementOfTaxon eolterms:true } .
-            OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
-          } UNION {
-            ?measurement eol:associationID ?parent_uri .
-            ?measurement dwc:measurementType ?attribute .
-            ?measurement dwc:measurementValue ?value .
-            OPTIONAL { ?measurement dwc:measurementUnit ?unit_of_measure_uri } .
-          } UNION {
-            ?parent_uri dwc:occurrenceID ?occurrence .
-            ?occurrence dwc:eventID ?event .
-            ?event ?attribute ?value .
-          } UNION {
-            ?parent_uri dwc:occurrenceID ?occurrence .
-            ?occurrence dwc:taxonID ?taxon .
-            ?taxon ?attribute ?value .
-            FILTER (?attribute = dwc:scientificName)
-          }
-          FILTER (?attribute NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
-                                     dwc:measurementID, eolreference:referenceID,
-                                     eol:targetOccurrenceID, dwc:taxonID, dwc:eventID,
-                                     eol:associationType,
-                                     dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
-                  ) .
-          FILTER (?parent_uri IN (<#{uris_to_lookup.join('>,<')}>))
-        }
-      }"
-    metadata_rows = EOL::Sparql.connection.query(query)
+    metadata_rows = SparqlQuery.metadata(uris_to_lookup)
     metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)
     KnownUri.add_to_data(metadata_rows)
     # not using TaxonDataSet here since that would create DataPointURI entries in the database, and we really

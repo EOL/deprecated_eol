@@ -7,9 +7,12 @@ end
 describe Taxa::OverviewController do
 
   before(:all) do
-    truncate_all_tables
-    load_scenario_with_caching :testy
-    @testy = EOL::TestInfo.load('testy')
+    load_foundation_cache
+    @testy = {}
+    @testy[:user] = User.gen
+    @testy[:taxon_concept] =  build_taxon_concept(images: [], toc: [], sname: [], comments: [],
+                              flash: [], sounds: [], gbif_map_id: nil, bhl: [], biomedical_terms: nil)
+    @testy[:unpublished_taxon_concept] = TaxonConcept.gen(:published => 0, :supercedure_id => 0)
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 

@@ -115,7 +115,6 @@ module EOL
       end
 
       def self.add_best_match_keywords!(docs, querystring)
-        debugger
         querystring_array = querystring.normalize.split(' ')
         docs.each_with_index do |d, index|
           best_match = nil
@@ -323,7 +322,9 @@ module EOL
         # add spellchecking
         url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10'
         # add paging
-        url << '&rows=10'
+        rows =  options[:rows] ? options[:rows] : 10
+        url << "&rows=#{rows}"
+        puts url
         res = open(url).read
         json = JSON.load(res)
         results = []
@@ -340,14 +341,12 @@ module EOL
       end
 
       def self.taxon_search(query, options={})
-        taxa= []
-        results_with_suggestions = self.simple_taxon_search(query, options)
-        debugger
+        taxa = []
+        results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(query, options)
         suggestions = []
         if results_with_suggestions[:results].blank?
-          # suggested_results = self.highest_score_suggestions(results_with_suggestions[:suggestions], 10)
           results_with_suggestions[:suggestions].each do |s|
-            res = self.simple_taxon_search(s, options)[:results]
+            res = EOL::Solr::SiteSearch.simple_taxon_search(s, options.merge(rows: 1))[:results]
             res.each do |item|
               suggestions << item if item['resource_type'][0] == "TaxonConcept"
             end
@@ -359,16 +358,10 @@ module EOL
           result_title = I18n.t("helpers.label.data_search.taxa_found")
         else
           taxa = suggestions
-          result_title = I18n.t(:did_you_mean, suggestions: nil)
+          result_title = I18n.t(:did_you_mean, :suggestions => nil)
         end
         { taxa: taxa, result_title: result_title }
       end
-
-      # def self.highest_score_suggestions(suggestions, n)
-        # debugger
-          # suggestions = suggestions.sort_by &:score
-          # suggestions[0..n-1]
-      # end
     end
   end
 end

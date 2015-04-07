@@ -322,9 +322,7 @@ module EOL
         # add spellchecking
         url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10'
         # add paging
-        rows =  options[:rows] ? options[:rows] : 10
-        url << "&rows=#{rows}"
-        puts url
+        url << "&rows=#{options[:rows] ? options[:rows] : 10}"
         res = open(url).read
         json = JSON.load(res)
         results = []

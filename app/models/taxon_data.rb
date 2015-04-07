@@ -7,15 +7,6 @@ class TaxonData < TaxonUserClassificationFilter
   MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
   MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 60000
 
-  GGI_URIS = [
-    'http://eol.org/schema/terms/NumberRichSpeciesPagesInEOL',
-    'http://eol.org/schema/terms/NumberOfSequencesInGenBank',
-    'http://eol.org/schema/terms/NumberRecordsInGBIF',
-    'http://eol.org/schema/terms/NumberRecordsInBOLD',
-    'http://eol.org/schema/terms/NumberPublicRecordsInBOLD',
-    'http://eol.org/schema/terms/NumberSpecimensInGGBN',
-    'http://eol.org/schema/terms/NumberReferencesInBHL' ]
-
   # TODO - this doesn't belong here; it has nothing to do with a taxon concept.
   # Move to a DataSearch class. Fix the controller.
   def self.search(options={})
@@ -139,7 +130,8 @@ class TaxonData < TaxonUserClassificationFilter
     return [] unless should_show_clade_range_data
     return @ranges_of_values if defined?(@ranges_of_values)
     EOL::Sparql::Client.if_connection_fails_return({}) do
-      results = EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}
+      results = SparqlQuery.ranges(taxon_concept).
+        delete_if { |r| r[:measurementOfTaxon] != Rails.configuration.uri_true }
         KnownUri.add_to_data(results)
         results.each do |result|
           [ :min, :max ].each do |m|
@@ -171,28 +163,12 @@ class TaxonData < TaxonUserClassificationFilter
     ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
   end
 
-  # we only need a set number of attributes for GGI, and we know there are no associations
-  # so it is more efficient to have a custom query to gather these data. We might be able
-  # to generalize this, for example if we return search results for multiple attributes
+  # we only need a set number of attributes for GGI, and we know there are no
+  # associations so it is more efficient to have a custom query to gather these
+  # data. We might be able to generalize this, for example if we return search
+  # results for multiple attributes
   def data_for_ggi
-    query = "
-      SELECT DISTINCT ?attribute ?value ?data_point_uri ?graph ?taxon_concept_id
-      WHERE {
-        GRAPH ?graph {
-          ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value .
-          FILTER ( ?attribute IN (<#{TaxonData::GGI_URIS.join(">,<")}>))
-        } .
-        {
-          ?data_point_uri dwc:occurrenceID ?occurrence .
-          ?occurrence dwc:taxonID ?taxon .
-          ?data_point_uri eol:measurementOfTaxon eolterms:true .
-          ?taxon dwc:taxonConceptID ?taxon_concept_id .
-          FILTER ( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>) .
-        }
-      }
-      LIMIT 100"
-    results = EOL::Sparql.connection.query(query)
+    results = SparqlQuery.ggi(taxon_concept)
     KnownUri.add_to_data(results)
     Resource.add_to_data(results)
     results
@@ -211,125 +187,24 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def iucn_data_objects
-    query = "
-      SELECT DISTINCT ?attribute ?value ?data_point_uri ?graph ?taxon_concept_id
-        WHERE {
-          GRAPH ?graph {
-            ?data_point_uri dwc:measurementType ?attribute .
-            ?data_point_uri dwc:measurementValue ?value.
-            FILTER (?attribute = <http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>)
-          }.
-          {
-            ?data_point_uri dwc:occurrenceID ?occurrence .
-            ?occurrence dwc:taxonID ?taxon .
-            ?taxon dwc:taxonConceptID ?taxon_concept_id .
-            FILTER (?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
-          }
-        }"
-    EOL::Sparql.connection.query(query)
+    SparqlQuery.iucn_data_objects(taxon_concept)
   end
 
   private
 
-    def raw_data
-      Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
-        expires_in: 12.hours) do
-        (measurement_data + association_data).
-          delete_if { |k,v| k[:attribute].blank? }
-      end
+  def raw_data
+    Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
+      expires_in: 12.hours) do
+      (measurement_data + association_data).
+        delete_if { |k,v| k[:attribute].blank? }
     end
+  end
 
-    def measurement_data(options = {})
-      query = "
-        SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
-          ?statistical_method ?life_stage ?sex ?data_point_uri ?graph
-          ?taxon_concept_id
-        WHERE {
-          GRAPH ?graph {
-            ?data_point_uri dwc:measurementType ?attribute .
-            ?data_point_uri dwc:measurementValue ?value .
-            OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
-            OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
-          } .
-          {
-            ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
-            FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
-            OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
-            OPTIONAL { ?data_point_uri dwc:sex ?sex }
-          }
-          UNION {
-            ?data_point_uri dwc:occurrenceID ?occurrence .
-            ?occurrence dwc:taxonID ?taxon .
-            ?data_point_uri eol:measurementOfTaxon eolterms:true .
-            GRAPH ?resource_mappings_graph {
-              ?taxon dwc:taxonConceptID ?taxon_concept_id .
-              FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
-            }
-            OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
-            OPTIONAL { ?occurrence dwc:sex ?sex }
-          }
-        }
-        LIMIT 800"
-      EOL::Sparql.connection.query(query)
-    end
+  def measurement_data
+    SparqlQuery.measurements(taxon_concept)
+  end
 
-    def association_data(options = {})
-      query = "
-        SELECT DISTINCT ?attribute ?value ?target_taxon_concept_id
-          ?inverse_attribute ?data_point_uri ?graph
-        WHERE {
-          GRAPH ?resource_mappings_graph {
-            ?taxon dwc:taxonConceptID ?source_taxon_concept_id .
-            FILTER(?source_taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>) .
-            ?value dwc:taxonConceptID ?target_taxon_concept_id
-          } .
-          GRAPH ?graph {
-            ?occurrence dwc:taxonID ?taxon .
-            ?target_occurrence dwc:taxonID ?value .
-            {
-              ?data_point_uri dwc:occurrenceID ?occurrence .
-              ?data_point_uri eol:targetOccurrenceID ?target_occurrence .
-              ?data_point_uri eol:associationType ?attribute
-            }
-            UNION
-            {
-              ?data_point_uri dwc:occurrenceID ?target_occurrence .
-              ?data_point_uri eol:targetOccurrenceID ?occurrence .
-              ?data_point_uri eol:associationType ?inverse_attribute
-            }
-          } .
-          OPTIONAL {
-            GRAPH ?mappings {
-              ?inverse_attribute owl:inverseOf ?attribute
-            }
-          }
-        }
-        LIMIT 800"
-      EOL::Sparql.connection.query(query)
-    end
-
-    def prepare_range_query(options = {})
-      query = "
-        SELECT ?attribute, ?measurementOfTaxon, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
-          COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
-          MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
-        WHERE {
-          ?parent_taxon dwc:taxonConceptID <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}> .
-          ?t dwc:parentNameUsageID+ ?parent_taxon .
-          ?t dwc:taxonConceptID ?descendant_concept_id .
-          ?occurrence dwc:taxonID ?taxon .
-          ?taxon dwc:taxonConceptID ?descendant_concept_id .
-          ?data_point_uri dwc:occurrenceID ?occurrence .
-          ?data_point_uri eol:measurementOfTaxon ?measurementOfTaxon .
-          ?data_point_uri dwc:measurementType ?attribute .
-          ?data_point_uri dwc:measurementValue ?value .
-          OPTIONAL {
-            ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
-          }
-          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
-        }
-        GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
-        ORDER BY DESC(?min)"
-      query
-    end
+  def association_data
+    SparqlQuery.associations(taxon_concept)
+  end
 end

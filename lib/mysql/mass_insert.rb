@@ -1,5 +1,5 @@
 class Mysql::MassInsert
-  class < self # Everything is a class method on this one.
+  class << self # Everything is a class method on this one.
     # This is kinda crazy, but it takes an array of hashes and builds a single
     # insert statement.
     def from_hashes(hashes, model)

@@ -3904,6 +3904,7 @@ en:
   languages: "Languages"
   language_selector_advisory_information: "The following is a list of languages that the site's content is available in, to change the current language select an alternative language from this list."
   language_with_count: "%{language} (%{count})"
+  last_harvest_duration: "Last Harvest Duration"
   last_updated: "Last Updated"
   last_updated_time_ago: "Last updated %{time_passed} ago"
   learn_about_collections: "How can I create one?"

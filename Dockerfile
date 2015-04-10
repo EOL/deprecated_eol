@@ -22,4 +22,4 @@ COPY . /app
 
 COPY config/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-CMD bundle exec rake assets:precompile && /usr/bin/supervisord
+CMD /usr/bin/supervisord

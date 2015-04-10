@@ -91,6 +91,10 @@ group :development do
 end
 
 group :test do
+  # This minimizes the re-building of assets, shaving off about three minutes
+  # from a deploy. ...That said, I don't believe it's as aggreesive as it could
+  # be. TODO: see if there are settings to make this compile even less.
+  gem "turbo-sprockets-rails3", "0.3.4"
   # TODO: - update webmock
   # Mock calls to remote APIs, like Open Authentication.
   gem "webmock", "1.8.11", require: false

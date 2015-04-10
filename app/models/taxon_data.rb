@@ -226,7 +226,9 @@ class TaxonData < TaxonUserClassificationFilter
             FILTER (?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
           }
         }"
-    EOL::Sparql.connection.query(query)
+    if_connection_fails_return(nil) do
+      EOL::Sparql.connection.query(query)
+    end
   end
 
   private

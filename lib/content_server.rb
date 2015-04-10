@@ -117,6 +117,8 @@ class ContentServer
   def self.call_file_upload_api_with_parameters(parameters, method_name)
     if response = call_api_with_parameters(parameters, method_name)
       response = Hash.from_xml(response)
+      # TODO: There is duplicate error logging, here... check
+      # #call_api_with_parameters and clean it up.
       if response["response"].class != Hash
         error = "Bad response: #{response["response"]}"
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING

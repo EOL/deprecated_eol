@@ -424,10 +424,9 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   # NOTE: We look for an ITIS entry first, because it is the most robust,
-  # detailed, and stable option. BE CAREFUL IF YOU CHANGE THIS. Google indexes
-  # this, and a change would mean a lot of work on their part. ...It's possible
-  # to do so, but we'll need to let them know if we do. ...So please keep it
-  # with ITIS unless you have strong reasons to switch.
+  # detailed, and stable option. WHEN YOU CHANGE THIS (i.e.: when we get the
+  # so-called "Dynamic EOL Hierarchy"), please let Google know that you've done
+  # so: they will need to reindex things.
   def to_jsonld
     itis_or_other_entry = entry(Hierarchy.itis)
     jsonld = { '@id' => KnownUri.taxon_uri(id),

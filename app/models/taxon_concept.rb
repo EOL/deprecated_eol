@@ -423,6 +423,11 @@ class TaxonConcept < ActiveRecord::Base
     "TaxonConcept ##{id}: #{title}"
   end
 
+  # NOTE: We look for an ITIS entry first, because it is the most robust,
+  # detailed, and stable option. BE CAREFUL IF YOU CHANGE THIS. Google indexes
+  # this, and a change would mean a lot of work on their part. ...It's possible
+  # to do so, but we'll need to let them know if we do. ...So please keep it
+  # with ITIS unless you have strong reasons to switch.
   def to_jsonld
     itis_or_other_entry = entry(Hierarchy.itis)
     jsonld = { '@id' => KnownUri.taxon_uri(id),
@@ -685,7 +690,7 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     iucn_list = TaxonData.new(self).iucn_data_objects
-    desc = choose_iucn_status(iucn_list)    
+    desc = choose_iucn_status(iucn_list)
     DataObject.new(description: desc) unless desc.blank?
   end
 

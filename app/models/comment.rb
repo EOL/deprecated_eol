@@ -1,13 +1,17 @@
-# Comments are just what you expect... but it would be better if you thought of them instead (or additionally) as a
-# kind of "User-entered activity log", because they are viewed inextricably with the activity logs.
-# ...Alternatively, you could think of activity logs as automatically-posted comments with some intellgence built
-# into them.  Whatever works for you.  ...The point is, there two concepts are tightly intertwined.  In terms of the
+# Comments are just what you expect... but it would be better if you thought of
+# them instead (or additionally) as a kind of "User-entered activity log",
+# because they are viewed inextricably with the activity logs.
+# ...Alternatively, you could think of activity logs as automatically-posted
+# comments with some intellgence built into them.  Whatever works for you.
+# ...The point is, there two concepts are tightly intertwined.  In terms of the
 # code, you will need comments to be shown with the activity_log code, though.
 #
-# Comments are polymorphically related to many kind of models.  At the time of this writing, it includes Taxon
-# Concepts, Data Objects, Communities, Collections, and Users... but could be extended in the future.
+# Comments are polymorphically related to many kind of models.  At the time of
+# this writing, it includes Taxon Concepts, Data Objects, Communities,
+# Collections, and Users... but could be extended in the future.
 #
-# User#taxa_commented will need to be updated if you add a comment parent type, for example.
+# User#taxa_commented will need to be updated if you add a comment parent type,
+# for example.
 require 'eol/activity_log_item'
 
 class Comment < ActiveRecord::Base
@@ -123,7 +127,7 @@ class Comment < ActiveRecord::Base
     begin
       solr_connection = SolrAPI.new($SOLR_SERVER, $SOLR_ACTIVITY_LOGS_CORE)
     rescue Errno::ECONNREFUSED => e
-      puts "** WARNING: Solr connection failed."
+      Rails.logger.error "** WARNING: Solr connection failed: #{e.message}"
       return nil
     end
     solr_connection.delete_by_query("activity_log_unique_key:Comment_#{id}")

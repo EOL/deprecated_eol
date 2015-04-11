@@ -5,10 +5,23 @@ class TraitsController < TaxaController
     load_traits
   end
 
+  def about
+    # TODO
+  end
+
+  def glossary
+    #TODO
+  end
+
+  def ranges
+    #TODO
+  end
+
   private
 
   def load_traits
     # TODO: IndexMeta / PageMeta / Canonical URLs (see ContentPartnersController)
-    @taxon_traits = Page::Traits.new(@taxon_page)
+    @traits = Page::Traits.new(@taxon_page)
+    @toc_id =  params[:toc_id]
   end
 end

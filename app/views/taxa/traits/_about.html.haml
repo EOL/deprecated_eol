@@ -1,0 +1,12 @@
+- hidden = false unless hidden == true
+- style = hidden ? 'display: none' : nil
+.about_subtab{ style: style }
+  %h3= I18n.t(:data_about_subtab_header)
+  .explain
+    = raw I18n.t(:data_about_subtab_content,
+      user_register_url: new_user_path,
+      traitbank_path: cms_page_path('traitbank'),
+      contact_contribute_path: contact_us_path(subject: 'Contribute'),
+      contact_traitbank_path: contact_us_path(subject: 'TraitBank'),
+      register_path: new_user_path,
+      login_path: login_path(return_to: request.original_url))

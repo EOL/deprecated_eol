@@ -1,0 +1,52 @@
+- style = hidden ? 'display: none' : nil
+- if @traits.empty?
+  .empty{ style: style }
+    %p
+      = I18n.t(:taxon_data_tab_empty, taxon: @traits.scientific_name).html_safe
+      - unless @traits.ranges.blank?
+        = raw I18n.t(:however_there_are_summaries, summary_url: ranges_taxon_traits_path(@traits))
+      = link_to I18n.t(:learn_how_to_contribute), cms_page_url('contribute', anchor: 'data')
+- else
+  -# NOTE - we want this to appear on every subtab:
+  .help_text{ style: style }
+    %p
+      - if @traits.clade_searchable?
+        = t(:data_disclaimer_with_searchable_clade,
+          traitbank_info_path: cms_page_path('traitbank'),
+          traitbank_search_path: data_search_path(taxon_concept_id: @traits.taxon_concept),
+          taxon_name: @traits.scientific_name).html_safe
+      - else
+        = t(:data_disclaimer,
+          traitbank_search_path: data_search_path(taxon_concept_id: @traits.taxon_concept),
+          traitbank_info_path: cms_page_path('traitbank')).html_safe
+  - @traits.toc_items.each do |toc_item|
+    - show_table = @toc_id ? @toc_id == toc_item.id.to_s : true
+    .header_underlined{ style: show_table ? nil : 'display: none;' }
+      %h3= toc_item.label
+    %table.standard.categorized.data{ summary: I18n.t(:data_table_summary, taxon: @traits.scientific_name), style: show_table ? nil : 'display:none;',
+      data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => toc_item.id } }
+      %caption.assistive= I18n.t(:taxon_data_header, taxon: @traits.scientific_name)
+      - last_attribute = nil
+      - @traits.by_toc(toc_item).each do |trait|
+        - classes = []
+        - first_of_type = trait.predicate != last_attribute
+        - if first_of_type
+          - header_id = trait.predicate.anchor
+          - last_attribute = trait.predicate
+          - classes << ['first_of_type']
+        - else
+          - header_id = nil
+        - classes << 'hidden' unless trait.visible?
+
+-# TODO:
+
+
+        - row_is_selected = (@selected_trait_id && @selected_trait_id.to_i == trait.id)
+        -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
+        - exemplar = trait.taxon_data_exemplars.select(&:included?).any?
+        - excluded = trait.taxon_data_exemplars.select(&:excluded?).any?
+        = render 'traits/display_rows', {    |
+          trait: trait, toc_id: toc_item.id,      |
+          classes: classes, exemplar: exemplar, excluded: excluded,    |
+          row_is_selected: row_is_selected, header_id: header_id,      |
+          for_data_tab: true }                                         |

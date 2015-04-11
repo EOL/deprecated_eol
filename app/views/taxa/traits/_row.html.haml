@@ -1,0 +1,107 @@
+- classes ||= [ ]
+- exemplar = false if exemplar.nil?
+- excluded = false if excluded.nil?
+- row_is_selected = false unless row_is_selected == true
+- for_search = false unless for_search == true
+- if local_assigns.has_key?(:header_id)
+  - first_of_type = header_id
+- else
+  - header_id = nil
+  - first_of_type = true
+- taxon_concept = trait.taxon_concept.latest_version
+- taxon_link = taxon_data_path(taxon_concept)
+- colspan = 4
+- colspan = 5 if for_search
+%tr{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { type: "type_#{toc_id}" } }
+  -# search results get the taxon image and taxon name
+  - if for_search
+    %td.taxon
+      .icon
+        - if image = taxon_concept.exemplar_or_best_image_from_solr
+          - if thumb = image.thumb_or_object('88_88')
+            = link_to image_tag(thumb), taxon_link
+        = link_to content_tag(:span, '', { title: I18n.t(:item_type_taxon_assistive) } ), taxon_link
+      .names
+        %h4
+          = link_to raw(truncate(taxon_concept.collected_name, length: 64)), taxon_link
+        - subtitle = taxon_concept.preferred_common_name_in_language(current_language)
+        - unless subtitle.blank?
+          = link_to subtitle.firstcap, taxon_link
+  %th.predicate{ id: header_id }
+    - span_class = nil
+    - if first_of_type
+      = display_uri(trait.predicate_uri, exemplar: exemplar, excluded: excluded, define: true, capitalize: false, search_link: (! for_search),
+        modifiers: [ trait.statistical_method_label ])
+    - else
+      - if trait.statistical_method_label
+        = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+        %span.stat= trait.statistical_method_label
+        -# Note the '-' here is *needed* because of the haml_cat used in the method:
+        - info_icon
+      - else
+        %span
+          = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+          -# Note the '-' here is *needed* because of the haml_cat used in the method:
+          - info_icon
+  %td.val{ headers: header_id, id: "#{header_id}_d" }
+    %span.fold
+      - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
+      = link_to(image_tag(arrow_file_name,
+        alt: I18n.t(:data_row_additional_detail_alt)),
+        taxon_data_path(trait.taxon_concept,
+        trait_id: trait.id, anchor: trait.anchor),
+        title: I18n.t(:data_row_additional_detail_assistive))
+    = raw display_text_for_trait(trait, define: :after)
+  %td.source
+    %span.source
+      - if trait.source
+        = trait.source.name
+      - else
+        = I18n.t(:trait_source_missing)
+  %td.comment
+    %span.comments
+      - if trait.comments.empty?
+        &nbsp;
+      - else
+        = image_tag('comment_indicator.png')
+%tr{ id: "#{trait.anchor}_actions", class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
+  %td{ colspan: colspan }
+    - if row_is_selected
+      = render 'traits/metadata', { trait: trait, header_id: header_id }
+    .actions
+      %ul
+        %li
+          - if trait.source
+            = raw I18n.t("data_provided_by_#{trait.source.class.name.underscore.downcase}", whom: link_to(trait.source.name, trait.source))
+          - else
+            = I18n.t(:trait_source_missing)
+        - if current_user.is_admin?
+          %li
+            &bull;&ensp;
+            = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(trait.uri)), target: 'data'
+        - if trait.user_added_data
+          - if current_user.can_update?(trait.user_added_data)
+            %li
+              &bull;&ensp;
+              = link_to I18n.t(:edit), edit_user_added_datum_path(trait.user_added_data), method: :get
+            %li
+              &bull;&ensp;
+              = link_to I18n.t(:delete), user_added_datum_path(trait.user_added_data), method: :delete, confirm: I18n.t('this_cannot_be_undone_are_you_sure')
+      = render 'comments/for_data', { comments: trait.comments, data_point_instance: trait }
+      - if current_user.min_curator_level?(:full) || logged_in?
+        .additional_commands.clearfix
+          - if current_user.min_curator_level?(:full)
+            - if trait.visible?
+              - hide_link =  trait_hide_path(trait)
+              = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
+            - elsif trait.invisible?
+              - show_link = trait_unhide_path(trait)
+              = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
+            - unless excluded || for_search
+              = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: trait.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
+            - unless exemplar || for_search
+              = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: trait.taxon_concept.id), method: :post, class: "add_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
+            - if excluded && ! for_search
+              %span.note= I18n.t(:data_row_excluded_from_overview_notice)
+          - elsif logged_in?
+            %p.note= I18n.t(:annotation_note).html_safe

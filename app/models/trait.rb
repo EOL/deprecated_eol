@@ -2,7 +2,7 @@
 # could be a literal (and that literal could be a number or a string).
 class Trait < ActiveRecord::Base
   belongs_to :associated_to, class: "HierarchyEntry"
-  belongs+to :added_by_user, class: "User"
+  belongs_to :added_by_user, class: "User"
   belongs_to :predicate, class: "KnownUri"
   belongs_to :inverse, class: "KnownUri"
   belongs_to :value_uri, class: "KnownUri"
@@ -15,6 +15,9 @@ class Trait < ActiveRecord::Base
   has_many :content_curations, through: :contents
   has_many :nodes, through: :contents, class_name: "HierarchyEntry"
   has_many :pages, through: :nodes, class_name: "TaxonConcept"
+
+  scope :with_uris { includes([predicate: [:toc_items], :inverse, :value_uri, :sex,
+    :lifestage, :stat_method, :units]) }
 
   # This feels dirty. ...But appears to be the most accurate method:
   def value

@@ -1,0 +1,11 @@
+- subtabs = false unless subtabs == true
+#tabs_sidebar.data
+  %ul.tabs.with_icons{ class: subtabs ? 'subtabs' : nil }
+    %li.all{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), taxon_traits_path(@traits)
+    - @tratis.categories.each do |cat|
+      %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, taxon_traits_path(@traits, toc_id: cat.id), data: { toc_id: cat.id }
+    - if @traits.ranges?
+      %li.ranges{ class: (@toc_id == 'ranges') ? 'active' : nil }= link_to I18n.t(:data_ranges), ranges_taxon_traits_path(@taxon_page)
+    - if @traits.glossary?
+      %li.glossary.start_section{ class: (@toc_id == 'glossary') ? 'active' : nil }= link_to I18n.t(:glossary_subhead).html_safe, glossary_taxon_traits_path(@taxon_page)
+    %li.about{ class: [(@toc_id == 'about') ? 'active' : nil, (@traits.glossary? ? nil : 'start_section') ] }= link_to I18n.t(:data_subtab_about), about_taxon_traits_path(@taxon_page)

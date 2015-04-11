@@ -11,7 +11,7 @@ class TaxonUserClassificationFilter
 
   attr_reader :taxon_concept, :user
 
-  def initialize(taxon_concept, user = nil, hierarchy_entry = nil) 
+  def initialize(taxon_concept, user = nil, hierarchy_entry = nil)
     @taxon_concept = taxon_concept
     @user = user || EOL::AnonymousUser.new(Language.default)
     @_hierarchy_entry = hierarchy_entry
@@ -55,10 +55,10 @@ class TaxonUserClassificationFilter
     hierarchy_entry_or_taxon_concept.title_canonical_italicized
   end
 
-  # helper.link_to "foo", app.taxon_overview_path(taxon_page) # Results depend on hierarchy_entry:
-  # => "<a href=\"/pages/910093/hierarchy_entries/16/overview\">foo</a>"
-  # OR
-  # => "<a href=\"/pages/910093/overview\">foo</a>"
+  # helper.link_to "foo", app.taxon_overview_path(taxon_page) # Results depend
+  # on hierarchy_entry: => "<a
+  # href=\"/pages/910093/hierarchy_entries/16/overview\">foo</a>" OR => "<a
+  # href=\"/pages/910093/overview\">foo</a>"
   def to_param
     classification_filter? ? "#{taxon_concept.to_param}/hierarchy_entries/#{_hierarchy_entry.to_param}" :
                             taxon_concept.to_param
@@ -189,7 +189,7 @@ class TaxonUserClassificationFilter
   # NOTE - this ONLY works on overview and media.
   # TODO - move this to a mixin, which we can then call on those two.
   def correct_bogus_exemplar_image
-    if image.nil? && ! @media.empty? && ! @media.first.map? 
+    if image.nil? && ! @media.empty? && ! @media.first.map?
       TaxonConceptCacheClearing.clear_exemplar_image(taxon_concept)
       @image = nil # Reload it the next time you need it.
     end

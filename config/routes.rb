@@ -39,8 +39,8 @@ Eol::Application.routes.draw do
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
   match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
 
-  # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
-  # since it's 90% of the website.  :)
+  # Taxa nested resources with pages as alias... this is quite large, sorry.
+  # Please keep it high in the routes file, since it's 90% of the website.  :)
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do
     resource :overview, :only => [:show], :controller => 'taxa/overview'
     resource :tree, :only => [:show], :controller => 'taxa/trees'
@@ -51,6 +51,13 @@ Eol::Application.routes.draw do
     resources :data_objects, :only => [:create, :new]
     resource :taxon_concept_reindexing, :as => 'reindexing', :only => [:create],
       :controller => 'taxa/taxon_concept_reindexing'
+    resources :traits, :only => [:index], :controller => 'taxa/traits' do
+      collection do
+        get 'about'
+        get 'glossary'
+        get 'ranges'
+      end
+    end
     resources :data, :only => [:index], :controller => 'taxa/data' do
       collection do
         get 'about'

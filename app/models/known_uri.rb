@@ -301,7 +301,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def anchor
-    uri.to_s.gsub(/[^A-Za-z0-9]/, '_')
+    uri.to_s.gsub(/[^A-Za-z0-9]+/, '_')
   end
 
   def non_equivalence_as_subject

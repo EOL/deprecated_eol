@@ -23,5 +23,6 @@ class TraitsController < TaxaController
     # TODO: IndexMeta / PageMeta / Canonical URLs (see ContentPartnersController)
     @traits = Page::Traits.new(@taxon_page)
     @toc_id =  params[:toc_id]
+    @trait_id = params[:trait_id].to_i
   end
 end

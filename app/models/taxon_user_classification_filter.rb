@@ -18,6 +18,10 @@ class TaxonUserClassificationFilter
     after_initialize
   end
 
+  def language_id
+    @user.language_id
+  end
+
   # You could say TaxonUserClassificationFilter has_a overview.  :)
   # NOTE - what is a little odd is that an Overview now has an #overview (inherited).  ...Which is... weird... but hey.
   def overview

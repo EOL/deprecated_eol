@@ -1,63 +1,63 @@
-- classes ||= [ ]
-- exemplar = false if exemplar.nil?
-- excluded = false if excluded.nil?
-- row_is_selected = false unless row_is_selected == true
-- for_search = false unless for_search == true
+- classes ||= []
+- row_is_selected = @trait_id == trait.id
 - if local_assigns.has_key?(:header_id)
-  - first_of_type = header_id
+  - first_of_type = false
 - else
   - header_id = nil
   - first_of_type = true
-- taxon_concept = trait.taxon_concept.latest_version
-- taxon_link = taxon_data_path(taxon_concept)
-- colspan = 4
-- colspan = 5 if for_search
-%tr{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { type: "type_#{toc_id}" } }
-  -# search results get the taxon image and taxon name
-  - if for_search
-    %td.taxon
-      .icon
-        - if image = taxon_concept.exemplar_or_best_image_from_solr
-          - if thumb = image.thumb_or_object('88_88')
-            = link_to image_tag(thumb), taxon_link
-        = link_to content_tag(:span, '', { title: I18n.t(:item_type_taxon_assistive) } ), taxon_link
-      .names
-        %h4
-          = link_to raw(truncate(taxon_concept.collected_name, length: 64)), taxon_link
-        - subtitle = taxon_concept.preferred_common_name_in_language(current_language)
-        - unless subtitle.blank?
-          = link_to subtitle.firstcap, taxon_link
+%tr{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { toc: "toc_#{toc_id}" } }
   %th.predicate{ id: header_id }
-    - span_class = nil
     - if first_of_type
-      = display_uri(trait.predicate_uri, exemplar: exemplar, excluded: excluded, define: true, capitalize: false, search_link: (! for_search),
-        modifiers: [ trait.statistical_method_label ])
+      -# Note the '-' here is *needed* because of the haml_cat used in the method:
+      - info_icon
+      = define(trait.predicate)
+      .term{ data: { term: trait.predicate.anchor } }
+        = add_exemplar_or_excluded_icon(exemplar: trait.exemplar?, excluded: trait.excluded?)
+        = @traits.name_of_uri(trait.predicate)
+        = display_text_for_modifiers(@traits.name_of_uri(trait.stat_method))
     - else
-      - if trait.statistical_method_label
-        = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+      - unless @traits.name_of_uri(trait.stat_method).blank?
+        = add_exemplar_or_excluded_icon(exemplar: trait.exemplar?, excluded: trait.excluded?)
         %span.stat= trait.statistical_method_label
         -# Note the '-' here is *needed* because of the haml_cat used in the method:
         - info_icon
       - else
         %span
-          = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
-          -# Note the '-' here is *needed* because of the haml_cat used in the method:
+          = add_exemplar_or_excluded_icon(exemplar: trait.exemplar?, excluded: trait.excluded?)
           - info_icon
   %td.val{ headers: header_id, id: "#{header_id}_d" }
     %span.fold
-      - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
-      = link_to(image_tag(arrow_file_name,
+      = link_to(image_tag(row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png',
         alt: I18n.t(:data_row_additional_detail_alt)),
-        taxon_data_path(trait.taxon_concept,
-        trait_id: trait.id, anchor: trait.anchor),
+        taxon_traits_path(@traits, trait_id: trait.id),
         title: I18n.t(:data_row_additional_detail_assistive))
-    = raw display_text_for_trait(trait, define: :after)
+    %span{ id: trait.anchor }
+      - if trait.associated_to
+        - link_to(@traits.name_of_association(trait), taxon_data_path(trait.associated_to))
+      - else
+        %span
+          - value = trait.value
+          - if value.is_a?(KnownUri)
+            - uri_as_value(value)
+          - elsif value.is_a?(Float)
+            -# TODO: Unless the URI says "don't reformat this":
+            -# TODO: I don't believe this is I18n'ally correct.
+            = float_value(value)
+          - elsif value.is_a?(Integer)
+            -# TODO: Unless the URI says "don't reformat this":
+            number_with_delimiter(value)
+          - else # String
+            = value
+          - if trait.units
+            = " "
+            - adjust_exponent(uri_as_value(trait.units))
+        - if trait.sex || trait.lifestage
+          %span.stat
+            -# TODO: This is not I18n'ized:
+            = [@traits.name_of_uri(trait.sex), @traits.name_of_uri(trait.lifestage)].join(', ')
   %td.source
     %span.source
-      - if trait.source
-        = trait.source.name
-      - else
-        = I18n.t(:trait_source_missing)
+      = trait.source_name
   %td.comment
     %span.comments
       - if trait.comments.empty?
@@ -65,9 +65,13 @@
       - else
         = image_tag('comment_indicator.png')
 %tr{ id: "#{trait.anchor}_actions", class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
-  %td{ colspan: colspan }
+  %td{ colspan: 4 }
     - if row_is_selected
+      -# TODO: [sigh]
       = render 'traits/metadata', { trait: trait, header_id: header_id }
+
+-# TODO:
+
     .actions
       %ul
         %li
@@ -97,11 +101,11 @@
             - elsif trait.invisible?
               - show_link = trait_unhide_path(trait)
               = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
-            - unless excluded || for_search
-              = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: trait.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
-            - unless exemplar || for_search
-              = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: trait.taxon_concept.id), method: :post, class: "add_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
-            - if excluded && ! for_search
+            - unless trait.excluded?
+              = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: @traits.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
+            - unless trait.exemplar?
+              = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: @traits.taxon_concept.id), method: :post, class: "add_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
+            - if trait.excluded?
               %span.note= I18n.t(:data_row_excluded_from_overview_notice)
           - elsif logged_in?
             %p.note= I18n.t(:annotation_note).html_safe

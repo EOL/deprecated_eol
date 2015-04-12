@@ -1,6 +1,10 @@
 # NOTE: you should not just read the value from a Trait; it could be a Uri, it
 # could be a literal (and that literal could be a number or a string).
 class Trait < ActiveRecord::Base
+  attr_accessor :content
+
+  delegate :visible?, :vetted?, :included?, :excluded?, to: :@content
+
   belongs_to :associated_to, class: "HierarchyEntry"
   belongs_to :added_by_user, class: "User"
   belongs_to :predicate, class: "KnownUri"
@@ -16,9 +20,6 @@ class Trait < ActiveRecord::Base
   has_many :nodes, through: :contents, class_name: "HierarchyEntry"
   has_many :pages, through: :nodes, class_name: "TaxonConcept"
 
-  scope :with_uris { includes([predicate: [:toc_items], :inverse, :value_uri, :sex,
-    :lifestage, :stat_method, :units]) }
-
   # This feels dirty. ...But appears to be the most accurate method:
   def value
     return @value if @value
@@ -30,5 +31,24 @@ class Trait < ActiveRecord::Base
     rescue
       value_literal
     end
+  end
+
+  # In order to know whether a Trait is visible or included in overview and the
+  # like, we need to know the context we're in, via a Content model (q.v.):
+  def context=(content)
+    @content = content
+  end
+
+  def name_of_source
+    # TODO: user-added data...
+    @content.hierarchy_entry.hierarchy.resource.content_partner.display_name
+  end
+
+  def content_partner_id
+    @content.hierarchy_entry.hierarchy.resource.content_partner_id
+  end
+
+  def anchor
+    "trait_#{id}"
   end
 end

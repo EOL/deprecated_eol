@@ -157,14 +157,14 @@ module TaxaHelper
     capture_haml do
       info_icon if options[:define] && ! options[:val]
       if options[:define] && options[:define] != :after && uri.is_a?(KnownUri)
-        define(tag_type, uri, options[:search_link])
+        define(uri, options[:search_link])
       end
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat add_exemplar_or_excluded_icon(options)
         haml_concat raw(format_data_value(display_label, options)) + options[:succeed]
         haml_concat display_text_for_modifiers(options[:modifiers])
         if ( options[:define] && options[:define] == :after || options[:ranges] )&& uri.is_a?(KnownUri)
-          define(tag_type, uri, options[:search_link])
+          define(uri, options[:search_link])
           info_icon if options[:val]
         end
       end
@@ -196,14 +196,7 @@ module TaxaHelper
     value = value.is_a?(DataValue) ? value.label.to_s : value.to_s
     if convert_numbers?(value, options)
       if value.is_float?
-        if value.to_f < 0.1
-          # floats like 0.01234 need to round off to at least 2 significant digits
-          # getting 3 here allows for values like 1.23e-10
-          value = value.to_f.sigfig_to_s(3)
-        else
-          # float values can be rounded off to 2 decimal places
-          value = value.to_f.round(2)
-        end
+        float_value(value.to_f)
       end
       value = number_with_delimiter(value, delimiter: ',')
     else
@@ -214,6 +207,17 @@ module TaxaHelper
     value
   end
 
+  def float_value(value)
+    if value < 0.1
+      # floats like 0.01234 need to round off to at least 2 significant digits
+      # getting 3 here allows for values like 1.23e-10
+      value = value.sigfig_to_s(3)
+    else
+      # float values can be rounded off to 2 decimal places
+      value = value.round(2)
+    end
+  end
+
   def convert_numbers?(value, options = {})
     value.is_numeric? &&
       !(options[:value_for_known_uri] &&
@@ -221,11 +225,20 @@ module TaxaHelper
         options[:value_for_known_uri].treat_as_string?)
   end
 
+  def uri_as_value(value)
+    haml_tag "span.term", data: { term: value.anchor } do
+      haml_concat value.name
+      haml_concat define(value)
+      haml_concat info_icon
+    end
+  end
+
   # TODO - this has too much business logic; extract
   def display_text_for_data_point_uri(data_point_uri, options = {})
-    # Metadata rows do not have DataPointUris that are saved in the DB - they are new records.
-    # Otherwise generate an ID or use the given one (measurements can be shown multiple times on a page
-    # and each one needs a different ID if we want them all to have tooltips)
+    # Metadata rows do not have DataPointUris that are saved in the DB - they
+    # are new records. Otherwise generate an ID or use the given one
+    # (measurements can be shown multiple times on a page and each one needs a
+    # different ID if we want them all to have tooltips)
     text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{options[:id] || data_point_uri.anchor}'>"
     if data_point_uri.association?
       text_for_row_value += display_association(data_point_uri, options)
@@ -239,7 +252,7 @@ module TaxaHelper
       text_for_row_value += " " + display_uri(uri_components, val: true)
     end
     adjust_exponent(text_for_row_value)
-    text_for_row_value.gsub(/\n/, '')    
+    text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless data_point_uri.new_record?
     # displaying context such as life stage, sex.... The overview tab will include the statistical modifier
     modifiers = data_point_uri.context_labels
@@ -249,11 +262,11 @@ module TaxaHelper
     text_for_row_value += display_text_for_modifiers(modifiers)
     text_for_row_value
   end
-  
+
   def adjust_exponent(text_for_row_value)
     text_for_row_value.gsub!(/\^(\S)/, "<sup style='vertical-align: baseline;position: relative;top: -0.4em;'>\\1</sup>")
   end
-  
+
   def info_icon
     haml_tag "a.info_icon" do
       haml_concat "&emsp;" # Width doesn't seem to work.  :|
@@ -261,6 +274,7 @@ module TaxaHelper
   end
 
   def display_text_for_modifiers(modifiers)
+    modifiers = Array(modifiers)
     if modifiers && ! modifiers.empty?
       modifiers = modifiers.compact.uniq
       unless modifiers.empty?
@@ -270,7 +284,7 @@ module TaxaHelper
     ''
   end
 
-  def define(tag_type, uri, search_link)
+  def define(uri, search_link)
     haml_tag "span.info" do
       haml_tag "ul.glossary" do
         haml_concat render(partial: 'known_uris/definition', locals: { known_uri: uri, search_link: search_link, glossary_link: true })

@@ -1,4 +1,4 @@
-- style = hidden ? 'display: none' : nil
+- style = (local_assigns.has_key?(:hidden) && hidden) ? 'display: none' : nil
 - unless @range_data.blank?
   .ranges_subtab{ style: style }
     .help_text

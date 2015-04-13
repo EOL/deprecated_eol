@@ -135,6 +135,71 @@ class SparqlToTraits
     end
   end
 
+# TODO: Account for this:
+elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
+  text_for_row_value += " " + display_uri(uri_components, val: true)
+end
+
+# TODO: Account for all of this crap:
+  def format_data_value(value, options={})
+    value = value.is_a?(DataValue) ? value.label.to_s : value.to_s
+    if convert_numbers?(value, options)
+      if value.is_float?
+        if value.to_f < 0.1
+          # floats like 0.01234 need to round off to at least 2 significant digits
+          # getting 3 here allows for values like 1.23e-10
+          value = value.to_f.sigfig_to_s(3)
+        else
+          # float values can be rounded off to 2 decimal places
+          value = value.to_f.round(2)
+        end
+      end
+      value = number_with_delimiter(value, delimiter: ',')
+    else
+      # other values may have links embedded in them (references, citations, etc.)
+      value = value.add_missing_hyperlinks
+      value = value.firstcap if options[:capitalize]
+    end
+    value
+  end
+
+  def convert_numbers?(value, options = {})
+    value.is_numeric? &&
+      !(options[:value_for_known_uri] &&
+        options[:value_for_known_uri].respond_to?(:treat_as_string?) &&
+        options[:value_for_known_uri].treat_as_string?)
+  end
+
+  # TODO - this has too much business logic; extract
+  def display_text_for_data_point_uri(data_point_uri, options = {})
+    # Metadata rows do not have DataPointUris that are saved in the DB - they are new records.
+    # Otherwise generate an ID or use the given one (measurements can be shown multiple times on a page
+    # and each one needs a different ID if we want them all to have tooltips)
+    text_for_row_value = data_point_uri.new_record? ? "" : "<span id='#{options[:id] || data_point_uri.anchor}'>"
+    if data_point_uri.association?
+      text_for_row_value += display_association(data_point_uri, options)
+    else
+      text_for_row_value += display_uri(data_point_uri.object_uri, options.merge(val: true)).to_s
+    end
+    # displaying unit of measure
+    if data_point_uri.unit_of_measure_uri && uri_components = EOL::Sparql.explicit_measurement_uri_components(data_point_uri.unit_of_measure_uri)
+      text_for_row_value += " " + display_uri(uri_components, val: true)
+    elsif uri_components = EOL::Sparql.implicit_measurement_uri_components(data_point_uri.predicate_uri)
+      text_for_row_value += " " + display_uri(uri_components, val: true)
+    end
+    adjust_exponent(text_for_row_value)
+    text_for_row_value.gsub(/\n/, '')
+    text_for_row_value += "</span>" unless data_point_uri.new_record?
+    # displaying context such as life stage, sex.... The overview tab will include the statistical modifier
+    modifiers = data_point_uri.context_labels
+    if options[:include_statistical_method] && data_point_uri.statistical_method_label
+      modifiers.unshift(data_point_uri.statistical_method_label)
+    end
+    text_for_row_value += display_text_for_modifiers(modifiers)
+    text_for_row_value
+  end
+
+
   # I wanted this to have a short name. It either gets a URI (As a string) or
   # returns nil.
   def grab(hash, key)

@@ -69,16 +69,13 @@
     - if row_is_selected
       -# TODO: [sigh]
       = render 'traits/metadata', { trait: trait, header_id: header_id }
-
--# TODO:
-
     .actions
       %ul
         %li
-          - if trait.source
-            = raw I18n.t("data_provided_by_#{trait.source.class.name.underscore.downcase}", whom: link_to(trait.source.name, trait.source))
-          - else
-            = I18n.t(:trait_source_missing)
+          = raw I18n.t(:data_provided_by_content_partner, whom: link_to(trait.source.name, trait.source))
+
+-# TODO:
+
         - if current_user.is_admin?
           %li
             &bull;&ensp;

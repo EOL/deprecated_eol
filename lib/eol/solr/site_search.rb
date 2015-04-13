@@ -298,14 +298,16 @@ module EOL
         options[:language] ||= Language.default
         url =  $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE + '/select/?wt=json&q=' + CGI.escape(%Q[{!lucene}])
         lucene_query = 'resource_type:TaxonConcept AND '
-        escaped_query = query.downcase.gsub(/"/, "\\\"")
-        escaped_query_words = escaped_query.split(' ')
-        # all words will be searched for in their entirety, the last word will have a wildcard appended to it
+        escaped_query = query.gsub(/[^A-z0-9 ]/, '').downcase.gsub(/"/, "\\\"")
+        escaped_query_words = escaped_query.split
+        # all words will be searched for in their entirety, the last word will
+        # have a wildcard appended to it
         lucene_query << "((#{self.keyword_field_for_term(query)}:" + escaped_query_words.join(" AND #{self.keyword_field_for_term(query)}:") + "*)"
         lucene_query << " OR keyword_exact:\"#{escaped_query}\"^100)"
         lucene_query << " AND (language:sci OR  language:#{options[:language].iso_code})"
 
-        # add search suggestions and weight them way higher. Suggested searches are currently always TaxonConcepts
+        # add search suggestions and weigh them way higher. Suggested searches
+        # are currently always TaxonConcepts
         search_suggestions(query, options[:exact]).each do |ss|
           lucene_query = "((#{lucene_query}) OR (resource_id:\"#{ss.taxon_id}\"^300 AND resource_type:TaxonConcept))"
         end
@@ -320,7 +322,7 @@ module EOL
         # add sorting
         url << '&sort=score+desc'
         # add spellchecking
-        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10'
+        url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10' unless options[:skip_spellcheck]
         # add paging
         url << '&rows=10'
         res = open(url).read
@@ -340,10 +342,12 @@ module EOL
 
       def self.taxon_search(query, options={})
         taxa = []
-        results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(query, options)
+        results_with_suggestions =
+          EOL::Solr::SiteSearch.simple_taxon_search(query, options)
         suggestions = []
         results_with_suggestions[:suggestions].each do |s|
-          res = EOL::Solr::SiteSearch.simple_taxon_search(s, options)[:results]
+          res = EOL::Solr::SiteSearch.simple_taxon_search(s,
+            options.merge(skip_spellcheck: true))[:results]
           res.each do |item|
             suggestions << item if item['resource_type'][0] == "TaxonConcept"
           end

@@ -398,12 +398,12 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def show(user)
-    set_visibility(user, Visibility.visible.id)
+    set_visibility(user, $visible_global.id)
     user_added_data.show(user) if user_added_data
   end
 
   def hide(user)
-    set_visibility(user, Visibility.invisible.id)
+    set_visibility(user, $invisible_global.id)
     user_added_data.hide(user) if user_added_data
   end
 
@@ -647,11 +647,11 @@ class DataPointUri < ActiveRecord::Base
   end
   private
   def default_visibility
-    self.visibility ||= Visibility.visible
+    self.visibility ||= $visible_global
   end
 
   def default_visibility
-    self.visibility ||= Visibility.visible
+    self.visibility ||= $visible_global
   end
 
   def units

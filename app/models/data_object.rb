@@ -171,10 +171,8 @@ class DataObject < ActiveRecord::Base
     if options[:user]
       # admins see everything
       if options[:user].is_admin?
-        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]
-        debugger
-        visibility_ids = Visibility.all_ids.dup
-        debugger
+        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]        
+        visibility_ids = Visibility.all_ids.dup        
       # curators see invisible objects
       elsif options[:user].is_curator? && options[:user].min_curator_level?(:full)
         visibility_ids << $invisible_global.id

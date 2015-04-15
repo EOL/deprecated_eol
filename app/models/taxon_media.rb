@@ -77,7 +77,7 @@ class TaxonMedia < TaxonUserClassificationFilter
     preload_media_details
     correct_bogus_exemplar_image     
     if (image && (@page.nil? || @page == 1))
-      @media.unshift(image) # place exemplar image at the tiop of media page
+      @media.unshift(image) # place exemplar image at the top of media page
     end
   end
 

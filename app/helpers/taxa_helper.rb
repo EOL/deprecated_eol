@@ -150,7 +150,9 @@ module TaxaHelper
   # TODO - this has gotten sloppy.  Refactor.
   def display_uri(uri, options = {})
     options[:succeed] ||= ''
+    options[:without_label] ||= false
     options[:search_link] = true unless options.has_key?(:search_link)
+    # display_label = uri
     display_label = DataValue.new(uri, value_for_known_uri: options[:value_for_known_uri]).label
     tag_type = (options[:define] && ! options[:val] || options[:ranges]) ? 'div' : 'span'
     tag_type << ".#{options[:class]}" if options[:class]
@@ -161,7 +163,7 @@ module TaxaHelper
       end
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat add_exemplar_or_excluded_icon(options)
-        haml_concat raw(format_data_value(display_label, options)) + options[:succeed]
+        haml_concat raw(format_data_value(display_label, options)) + options[:succeed] unless options[:without_label]
         haml_concat display_text_for_modifiers(options[:modifiers])
         if ( options[:define] && options[:define] == :after || options[:ranges] )&& uri.is_a?(KnownUri)
           define(uri, options[:search_link])

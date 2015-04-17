@@ -423,6 +423,10 @@ class TaxonConcept < ActiveRecord::Base
     "TaxonConcept ##{id}: #{title}"
   end
 
+  # NOTE: We look for an ITIS entry first, because it is the most robust,
+  # detailed, and stable option. WHEN YOU CHANGE THIS (i.e.: when we get the
+  # so-called "Dynamic EOL Hierarchy"), please let Google know that you've done
+  # so: they will need to reindex things.
   def to_jsonld
     itis_or_other_entry = entry(Hierarchy.itis)
     jsonld = { '@id' => KnownUri.taxon_uri(id),
@@ -685,7 +689,8 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     iucn_list = TaxonData.new(self).iucn_data_objects
-    choose_iucn_status(iucn_list)
+    desc = choose_iucn_status(iucn_list)
+    DataObject.new(description: desc) unless desc.blank?
   end
 
   # TODO: re-write this to use a query that gets the scientific name from the

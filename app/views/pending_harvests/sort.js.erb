@@ -1,0 +1,19 @@
+<% if @to %>
+  <% if @to == :top %>  	
+    <%# This is a wee bit of a hack. It checks to see if pagination suggests we're on the first page or not: %>
+    if ($('a[rel*=start]').length == 0) {    	
+      $('tr#pending_harvest_<%= @pending_harvest.id %>').insertAfter('table#sortable tr.header');
+    } else {    	
+      $('tr#pending_harvest_<%= @pending_harvest.id %>').remove();
+    }
+  <% elsif @to == :bottom %>
+    <%# This is a wee bit of a hack. It checks to see if pagination suggests we're on the last page or not: %>
+    if ($('a.next_page').length == 0) {
+      $('tr#pending_harvest_<%= @pending_harvest.id %>').appendTo('table#sortable');
+    } else {
+      $('tr#pending_harvest_<%= @pending_harvest.id %>').remove();
+    }
+  <% end %>
+<% end %>
+EOL.prep_flashes();
+EOL.flash_warning("<%= escape_javascript I18n.t(:known_uris_sorted) %>");

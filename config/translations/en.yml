@@ -3390,6 +3390,10 @@ en:
   data_search:
     page_title: "Search TraitBank"
     form:
+      equivalent_attributes: "Equivalent values: "
+      equivalent_values: "Equivalent values: "
+      search_again_for_attributes: "search again to include selected attributes"
+      search_again_for_values: "search again to include selected values"
       header_assistive: "Search form"
       input_summary_intro: "Selected search options"
       new_search_link: "Start a new search"
@@ -3893,6 +3897,8 @@ en:
   known_uris_none: "No one has added URIs of this type."
   known_uris_page_title: "URIs for Data on EOL"
   known_uris_sorted: "Order updated."
+  pending_harvests_none: "There are no pending harvests now"
+  pending_harvests_title: "Pending Harvests"
   label: "Label"
   language: "Language:"
   languages: "Languages"

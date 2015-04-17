@@ -121,7 +121,7 @@ class TaxonOverview < TaxonUserClassificationFilter
 
   def iucn_status
     Rails.cache.fetch(cache_id+"_iucn", expires_in: 10.days) do
-      iucn
+      iucn.try(:description)
     end    
   end
 

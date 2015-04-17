@@ -71,11 +71,12 @@ module EOL
         # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
         EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, outer_order_clause, limit_clause)
       end
-      
+           
       def where_clause
         "GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
-            #{ attribute_filter }
+            {#{ attribute_filter } }
+            #{union_attributes}
           } .
           ?data_point_uri dwc:measurementValue ?value .
           ?data_point_uri eol:measurementOfTaxon eolterms:true .
@@ -124,12 +125,16 @@ module EOL
           filter_clauses += "FILTER(xsd:float(?value) = xsd:float(#{ @querystring })) . "
         # string search term
         elsif @querystring && ! @querystring.strip.empty?
-          matching_known_uris = KnownUri.search(@querystring)
-          filter_clauses += "FILTER(( REGEX(?value, '(^|\\\\W)#{ @querystring }(\\\\W|$)', 'i'))"
-          unless matching_known_uris.empty?
-            filter_clauses << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
+          filter_clauses += "FILTER("
+          f = filter_values(@querystring)
+          if @required_equivalent_values
+            @required_equivalent_values.each do |req|
+              q = TranslatedKnownUri.find_by_known_uri_id(req.to_i).name
+              f += " || #{filter_values(q)}"
+            end
           end
-          filter_clauses += ") . "
+          filter_clauses += f
+          filter_clauses += " ) . "
         end
         if @count_value_uris
           filter_clauses += "FILTER(isURI(?value)) . "
@@ -137,6 +142,16 @@ module EOL
         filter_clauses
       end
 
+      def filter_values(querystring)
+        filter_clauses = ""
+        matching_known_uris = KnownUri.search(querystring)
+        filter_clauses += "( REGEX(?value, '(^|\\\\W)#{ querystring }(\\\\W|$)', 'i'))"
+        unless matching_known_uris.empty?
+          filter_clauses << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
+        end
+        filter_clauses
+      end
+      
       def limit_clause
         @only_count ? "" : "LIMIT #{ @per_page } OFFSET #{ (((@page.to_i - 1) * @per_page) + @offset) }"
       end
@@ -162,6 +177,27 @@ module EOL
       def attribute_filter
         @attribute ? "?data_point_uri dwc:measurementType <#{ @attribute }> ." : ""
       end
+      
+      def union_attributes
+        attrs = ""
+        if @required_equivalent_attributes
+          @required_equivalent_attributes.each do |req|
+            attrs += " union { ?data_point_uri dwc:measurementType <#{KnownUri.find(req.to_i).uri}> . } "
+          end
+        end
+        attrs
+      end
+      
+      def union_values
+        attrs = ""
+        if @required_equivalent_values
+          @required_equivalent_values.each do |req|
+            attrs += " union { ?data_point_uri dwc:measurementType <#{KnownUri.find(req.to_i).uri}> . } "
+          end
+        end
+        attrs
+      end
+ 
     end
   end
 end

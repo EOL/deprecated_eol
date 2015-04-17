@@ -80,7 +80,7 @@ class ContentServer
     env_name = Rails.env.to_s
     env_name = 'staging' if Rails.env.staging_dev?
     env_name = 'bocce_demo' if Rails.env.bocce_demo_dev?
-    parameters = "function=crop_image&data_object_id=#{data_object_id}&x=#{x}&y=#{y}&w=#{w}&ENV_NAME=#{env_name}"
+    parameters = "function=crop_image_pct&data_object_id=#{data_object_id}&x=#{x}&y=#{y}&w=#{w}&ENV_NAME=#{env_name}"
     call_file_upload_api_with_parameters(parameters, "update data object crop service")
   end
 
@@ -117,6 +117,8 @@ class ContentServer
   def self.call_file_upload_api_with_parameters(parameters, method_name)
     if response = call_api_with_parameters(parameters, method_name)
       response = Hash.from_xml(response)
+      # TODO: There is duplicate error logging, here... check
+      # #call_api_with_parameters and clean it up.
       if response["response"].class != Hash
         error = "Bad response: #{response["response"]}"
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING

@@ -54,6 +54,7 @@ module EOL
 
         def self.prepare_hash(results, params={})
           return_hash = []
+          debugger  
           results.compact.each do |r|
             if r.class == HierarchyEntry
               return_hash << { 'eol_page_id' => r.taxon_concept_id }
@@ -62,7 +63,7 @@ module EOL
             end
           end
 
-          return return_hash
+          return return_hash.uniq
         end
       end
     end

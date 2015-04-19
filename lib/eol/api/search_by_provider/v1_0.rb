@@ -60,7 +60,7 @@ module EOL
               return_hash << { 'eol_page_id' => HierarchyEntry.find(r.hierarchy_entry_id).taxon_concept_id }
             end
           end
-          return return_hash
+          return return_hash.uniq
         end
       end
     end

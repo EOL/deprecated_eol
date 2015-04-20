@@ -377,7 +377,7 @@ class KnownUri < ActiveRecord::Base
     options[:language] ||= Language.default
     return [] if term.length < 3
     TranslatedKnownUri.where(language_id: options[:language].id).
-      where("name REGEXP '(^| )#{term}( |$)'").includes(:known_uri).collect(&:known_uri).compact.uniq
+      where("name = ? ",term.strip).includes(:known_uri).map(&:known_uri).compact.uniq
   end
 
   # Sort by: position of known_uri, rules of exclusion, and finally value display string
@@ -410,7 +410,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def remove_whitespaces
-    self.uri.strip! if self.uri
+    self.uri = self.uri.strip if self.uri
   end
 
   def uri_must_be_uri

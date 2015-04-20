@@ -66,7 +66,7 @@ Eol::Application.configure do
       :authentication       => "plain",
       :enable_starttls_auto =>  true,
       :user_name => ENV["EOL_SMTP_USER_NAME"],
-      :password => ENV["EOL_SMTP_PASSWORD"]
+      :password => ENV["EOL_SMTP_PASSWORD"].sub(/^"/, "").sub(/"$/, "")
     }
 
     config.action_mailer.default_url_options =

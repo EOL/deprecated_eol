@@ -48,6 +48,11 @@ class Trait < ActiveRecord::Base
     @content.hierarchy_entry.hierarchy.resource.content_partner_id
   end
 
+  def can_be_updated_by?(user)
+    user.is_admin? || user.min_curator_level?(:master) ||
+    user == added_by_user
+  end
+
   def anchor
     "trait_#{id}"
   end

@@ -1,5 +1,4 @@
--# Using the old Data Point URI model. Deprecated.
-- data_point_instance ||= @data_point_uri
+- trait ||= @trait
 - if logged_in? || ! comments.empty?
   .comments
     - unless comments.empty?
@@ -11,7 +10,7 @@
           %small
             = " ( #{I18n.t(:time_ago, :time_passed => time_ago_in_words(comment.updated_at))} )"
 - if logged_in?
-  = form_for(Comment.new(parent: data_point_instance), remote: true) do |f|
+  = form_for(Comment.new(parent: trait), remote: true) do |f|
     %fieldset
       = f.hidden_field :user_id
       = f.hidden_field :parent_type

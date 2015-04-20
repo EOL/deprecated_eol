@@ -73,36 +73,36 @@
       %ul
         %li
           = raw I18n.t(:data_provided_by_content_partner, whom: link_to(trait.source.name, trait.source))
-
--# TODO:
-
         - if current_user.is_admin?
           %li
             &bull;&ensp;
             = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(trait.uri)), target: 'data'
-        - if trait.user_added_data
-          - if current_user.can_update?(trait.user_added_data)
+        - if trait.added_by_user
+          - if current_user.can_update?(trait)
             %li
               &bull;&ensp;
-              = link_to I18n.t(:edit), edit_user_added_datum_path(trait.user_added_data), method: :get
+              = link_to I18n.t(:edit), "#TODO", method: :get
             %li
               &bull;&ensp;
-              = link_to I18n.t(:delete), user_added_datum_path(trait.user_added_data), method: :delete, confirm: I18n.t('this_cannot_be_undone_are_you_sure')
+              = link_to I18n.t(:delete), "#TODO", method: :delete, confirm: I18n.t('this_cannot_be_undone_are_you_sure')
       = render 'comments/for_data', { comments: trait.comments, data_point_instance: trait }
       - if current_user.min_curator_level?(:full) || logged_in?
         .additional_commands.clearfix
           - if current_user.min_curator_level?(:full)
-            - if trait.visible?
-              - hide_link =  trait_hide_path(trait)
-              = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
-            - elsif trait.invisible?
-              - show_link = trait_unhide_path(trait)
-              = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
-            - unless trait.excluded?
-              = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: @traits.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
-            - unless trait.exemplar?
-              = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: @traits.taxon_concept.id), method: :post, class: "add_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
-            - if trait.excluded?
-              %span.note= I18n.t(:data_row_excluded_from_overview_notice)
+            -# TODO:
+            = "TODO - All curation of traits"
+            - if false
+              - if trait.visible?
+                - hide_link =  trait_hide_path(trait)
+                = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
+              - elsif trait.invisible?
+                - show_link = trait_unhide_path(trait)
+                = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
+              - unless trait.excluded?
+                = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: @traits.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
+              - unless trait.exemplar?
+                = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: trait.id, taxon_concept_id: @traits.taxon_concept.id), method: :post, class: "add_exemplar button#{trait.visible? ? nil : ' hidden'}", remote: true
+              - if trait.excluded?
+                %span.note= I18n.t(:data_row_excluded_from_overview_notice)
           - elsif logged_in?
             %p.note= I18n.t(:annotation_note).html_safe

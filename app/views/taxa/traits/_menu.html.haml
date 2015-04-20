@@ -2,8 +2,8 @@
 #tabs_sidebar.data
   %ul.tabs.with_icons{ class: subtabs ? 'subtabs' : nil }
     %li.all{ class: @toc_id ? nil : 'active' }= link_to I18n.t(:all_categories), taxon_traits_path(@traits)
-    - @tratis.categories.each do |cat|
-      %li{ class: (@toc_id == cat.id.to_s) ? 'active' : nil }= link_to cat.label, taxon_traits_path(@traits, toc_id: cat.id), data: { toc_id: cat.id }
+    - @traits.toc_items.each do |toc_item|
+      %li{ class: (@toc_id == toc_item.id.to_s) ? 'active' : nil }= link_to toc_item.label, taxon_traits_path(@traits, toc_id: toc_item.id), data: { toc_id: cat.id }
     - if @traits.ranges?
       %li.ranges{ class: (@toc_id == 'ranges') ? 'active' : nil }= link_to I18n.t(:data_ranges), ranges_taxon_traits_path(@taxon_page)
     - if @traits.glossary?

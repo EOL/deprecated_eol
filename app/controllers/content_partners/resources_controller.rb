@@ -77,7 +77,13 @@ class ContentPartners::ResourcesController < ContentPartnersController
         @resource.update_attributes(resource_status: ResourceStatus.uploaded)
         enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
       end
-      flash[:notice] = I18n.t(:content_partner_resource_update_successful) unless flash[:error]
+      if params[:resource][:auto_publish].to_i == 0
+        @resource.delete_resource_contributions_file
+      else
+        @resource.save_resource_contributions
+      end
+      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
+                              resource_status: @resource.status_label) unless flash[:error]
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else

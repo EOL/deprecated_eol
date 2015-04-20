@@ -52,6 +52,16 @@ describe Resource do
       HarvestEvent.should_receive(:delete_all)
       subject.destroy_everything
     end
+    
+    it "should call 'delete_resource_contributions_file' for resource" do
+      subject.should receive(:delete_resource_contributions_file)
+      subject.destroy_everything
+    end
+    
+    it "should call 'delete_all' for resource_contributions" do
+      ResourceContribution.should_receive(:delete_all)
+      subject.destroy_everything
+    end
   end
 
 end

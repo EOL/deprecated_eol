@@ -94,6 +94,16 @@ class DataObject < ActiveRecord::Base
 
   def unpublish
     self.update_attribute(:published, false)
+    delete_unpublished_data_object_from_resource_contributions
+  end
+  
+  def delete_unpublished_data_object_from_resource_contributions
+    resource_contributions = ResourceContribution.where("data_object_id = ? ", self.id)
+    resource_contributions.each do |resource_contribution|
+      resource = Resource.find(resource_contribution.resource_id)      
+      resource_contribution.destroy
+      resource.save_resource_contributions if resource
+    end
   end
 
   def mark_for_all_association_as_hidden_untrusted(user)

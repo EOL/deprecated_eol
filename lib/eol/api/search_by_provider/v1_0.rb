@@ -45,7 +45,7 @@ module EOL
           # find a visible match, get the published ones first
           hierarchy_entries = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id],
             :joins => 'JOIN taxon_concepts tc ON (hierarchy_entries.taxon_concept_id=tc.id)',
-            :conditions => "hierarchy_entries.visibility_id = #{$visible_global.id} AND tc.published=1", :order => '(hierarchy_entries.published=1) desc')
+            :conditions => "hierarchy_entries.visibility_id = #{Visibility.get_visible.id} AND tc.published=1", :order => '(hierarchy_entries.published=1) desc')
           prepare_hash(hierarchy_entries, params)
         end
 

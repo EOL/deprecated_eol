@@ -289,13 +289,13 @@ class KnownUrisController < ApplicationController
     @stats_filter_selected_option = params[:stats_filter]
     case @stats_filter_selected_option
     when 'measurement_types'
-      @uri_stats = EOL::Sparql.connection.unknown_measurement_type_uris
+      @uri_stats = measurements_stats
     when 'measurement_values'
-      @uri_stats = EOL::Sparql.connection.unknown_measurement_value_uris
+      @uri_stats = measurement_values_stats
     when 'measurement_units'
-      @uri_stats = EOL::Sparql.connection.unknown_measurement_unit_uris
+      @uri_stats = measurement_units_stats
     when 'association_types'
-      @uri_stats = EOL::Sparql.connection.unknown_association_type_uris
+      @uri_stats = assoication_types_stats
     else
       @stats_filter_selected_option = nil
       @uri_stats = nil
@@ -348,6 +348,30 @@ class KnownUrisController < ApplicationController
     EOL::Sparql::Client.clear_uri_caches
     KnownUri.clear_uri_caches
     expire_fragment('glossary_in_lang_' + current_language.iso_code)
+  end
+  
+  def measurements_stats
+    Rails.cache.fetch("/known_uris/measurements_stats", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
+      EOL::Sparql.connection.unknown_measurement_type_uris
+    end
+  end
+  
+  def measurement_values_stats
+    Rails.cache.fetch("/known_uris/measurement_values_stats", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
+      EOL::Sparql.connection.unknown_measurement_value_uris
+    end
+  end
+  
+  def measurement_units_stats
+    Rails.cache.fetch("/known_uris/measurement_units_stats", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
+      EOL::Sparql.connection.unknown_measurement_unit_uris
+    end
+  end
+  
+  def assoication_types_stats
+    Rails.cache.fetch("/known_uris/assoication_types_stats", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
+      EOL::Sparql.connection.unknown_association_type_uris
+    end
   end
 
 end

@@ -353,7 +353,8 @@ module Eol
     $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
     $VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
     $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
-
+    $VIRTUOSO_CACHING_PERIOD = 12 # HOURS
+    
     # Recaptcha Keys
     ENV['RECAPTCHA_PUBLIC_KEY'] ||= ''
     ENV['RECAPTCHA_PRIVATE_KEY'] ||= ''

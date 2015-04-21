@@ -366,8 +366,9 @@ class DataObjectsController < ApplicationController
       # x and y can be 0
       if x >= 0 && y >= 0 && w > 0
         if new_object_cache_url = ContentServer.update_data_object_crop(@data_object.id, x, y, w)
-          # NOTE: using update_attribute here instead of update_attribute*S* as there can be harvest objects
-          # which would fail Rails validations, yet we still want to update their object_cache_url
+          # NOTE: using update_attribute here instead of update_attribute*S* as
+          # there can be harvest objects which would fail Rails validations, yet
+          # we still want to update their object_cache_url
           @data_object.update_attribute('object_cache_url', new_object_cache_url)
           log_action(@data_object, :crop, notice: false, collect: false)
           current_user.log_activity(:cropped_data_object_id, value: @data_object.id)

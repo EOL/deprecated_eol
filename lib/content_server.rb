@@ -36,7 +36,8 @@ class ContentServer
   def self.upload_content(path_from_root, port = nil)
     ip_with_port = EOL::Server.ip_address.dup
     ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
-    # NOTE - This used to call URI.encode *twice*. If you put that back, _explain why_.
+    # NOTE - This used to call URI.encode *twice*. If you put that back,
+    # _explain why_.
     parameters =
       "function=upload_content&file_path=" +
       "http://#{ip_with_port}#{URI.encode(path_from_root)}"
@@ -70,7 +71,8 @@ class ContentServer
     [ResourceStatus.validation_failed, nil]
   end
 
-  # TODO - these are hard-coded exceptions for OUR environment, just to appease the conventions of PHP. The exceptions should be there, not here, if they
+  # TODO - these are hard-coded exceptions for OUR environment, just to appease
+  # the conventions of PHP. The exceptions should be there, not here, if they
   # exist at all.
   def self.update_data_object_crop(data_object_id, x, y, w)
     return nil if data_object_id.blank?

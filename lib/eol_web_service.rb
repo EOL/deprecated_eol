@@ -48,6 +48,7 @@ class EOLWebService
   def self.local_ip
     begin
       return '0.0.0.0' if Rails.configuration.skip_url_validations
+      return ENV["LOCAL_IP"] if ENV["LOCAL_IP"]
       orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
 
       UDPSocket.open do |s|

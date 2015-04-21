@@ -1,0 +1,42 @@
+{
+  "id": 14,
+  "url": "http://eol.org/content_partners/3/resources/14",
+  "title": "resource_for_associations",
+  "contributions": [
+    {
+      "type": "data_point_uri",
+      "url": "http://eol.org/pages/82655/data#data_point_uri_117809",
+      "identifier": "EOL:590110",
+      "source": "source_url",
+      "page": 82655
+    },
+    {
+      "type": "data_point_uri",
+      "url": "http://eol.org/pages/82655/data#data_point_uri_117810",
+      "identifier": "EOL:590110",
+      "source": "",
+      "page": 82655
+    },
+    {
+      "type": "data_point_uri",
+      "url": "http://eol.org/pages/82655/data#data_point_uri_117811",
+      "identifier": "EOL:590110",
+      "source": "",
+      "page": 82655
+    },
+    {
+      "type": "data_point_uri",
+      "url": "http://eol.org/pages/82655/data#data_point_uri_117812",
+      "identifier": "EOL:590110",
+      "source": "",
+      "page": 82655
+    },
+    {
+      "type": "data_point_uri",
+      "url": "http://eol.org/pages/82655/data#data_point_uri_117813",
+      "identifier": "EOL:590110",
+      "source": "http://eol.org/pages/590110",
+      "page": 82655
+    }
+  ]
+}

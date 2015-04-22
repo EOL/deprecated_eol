@@ -72,20 +72,11 @@ class DataSearchController < ApplicationController
   def create_data_search_file
     DataSearchFile.create!(@data_search_file_options)
   end
-  
-  def readable_query_string(string)
-    unless string.blank?
-      uri = KnownUri.find_by_uri(string)
-      @querystring_uri = string if uri
-      return uri.label if uri
-    end
-    string
-  end
-  
+    
   def prepare_search_parameters(options)
     @hide_global_search = true
     @querystring_uri = nil
-    @querystring = readable_query_string(options[:q])
+    @querystring = options[:q]
     @attribute = options[:attribute]
     @attribute_missing = @attribute.nil? && params.has_key?(:attribute)
     @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'

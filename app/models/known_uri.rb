@@ -376,8 +376,8 @@ class KnownUri < ActiveRecord::Base
   def self.search(term, options = {})
     options[:language] ||= Language.default
     return [] if term.length < 3
-    TranslatedKnownUri.where(language_id: options[:language].id).
-      where("name = ? ",term.strip).includes(:known_uri).map(&:known_uri).compact.uniq
+    return search_by_uri(term, options[:language]) if EOL::Sparql.is_uri?(term)
+    return search_by_name(term, options[:language])
   end
 
   # Sort by: position of known_uri, rules of exclusion, and finally value display string
@@ -420,6 +420,16 @@ class KnownUri < ActiveRecord::Base
   def self.replace_with_uri(hash, key, known_uris)
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
+  end
+  
+  def self.search_by_uri(term, language)
+    TranslatedKnownUri.where(language_id: language.id).
+      where("uri = ? ",term.strip).includes(:known_uri).map(&:known_uri).compact.uniq
+  end
+  
+  def self.search_by_name(term, language)
+    TranslatedKnownUri.where(language_id: language.id).
+      where("name like ? ","%#{term.strip}%").includes(:known_uri).map(&:known_uri).compact.uniq
   end
 
 end

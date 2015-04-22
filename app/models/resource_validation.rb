@@ -1,5 +1,5 @@
 class ResourceValidation
-  @queue = :resource_validation
+  @queue = 'data'
 
   # Everything is a class method, here; no instances.
   class << self

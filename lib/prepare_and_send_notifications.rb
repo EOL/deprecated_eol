@@ -3,7 +3,7 @@
 # Code taken (kinda) from http://railscasts.com/episodes/271-resque
 class PrepareAndSendNotifications
 
-  @queue = :notifications
+  @queue = 'notifications'
 
   def self.perform
     Rails.logger.info "++ #{Time.now.strftime("%F %T")} - PrepareAndSendNotifications performing."

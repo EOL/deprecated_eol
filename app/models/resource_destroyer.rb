@@ -1,7 +1,7 @@
 class ResourceDestroyer
 
   # NOTE: Perhaps not ideal, but we want the ruby worker to pick it up:
-  @queue = :data
+  @queue = 'data'
 
   # TODO: notifications. The user who submitted the request should get a comment
   # on their timeline when this is done, including any error messages.

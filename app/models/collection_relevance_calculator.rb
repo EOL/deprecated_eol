@@ -5,7 +5,7 @@
 
 class CollectionRelevanceCalculator
 
-  @queue = :notifications # TODO - something else?
+  @queue = 'notifications' # TODO - something else?
 
   attr_accessor :collection
 

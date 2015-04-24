@@ -45,6 +45,7 @@ class EOLWebService
   end
 
   #finds local ip used by the host for remote connection
+  # TODO: Bah! need to deduplicate this with EOL::Server
   def self.local_ip
     begin
       return '0.0.0.0' if Rails.configuration.skip_url_validations

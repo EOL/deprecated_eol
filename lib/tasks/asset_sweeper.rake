@@ -4,7 +4,7 @@ namespace :asset_sweeper do
   task :remove_unused_images => :environment do
     require "fileutils"
     img=Dir.glob("**/app/assets/images/**/*.jpg")+Dir.glob("**/app/assets/images/**/*.png")+Dir.glob("**/app/assets/images/**/*.gif")
-    data=Dir.glob("**/*.htm*")+Dir.glob("**/*.css")+Dir.glob("**/*.js")+Dir.glob("**/*.rb")+Dir.glob("**/*.sass")+Dir.glob("**/*.haml")+Dir.glob("**/*.erb")+Dir.glob("**/*.htc")+Dir.glob("**/*.scss")
+    data=Dir.glob("**/*.htm*")+Dir.glob("**/*.css")+Dir.glob("**/*.js")+Dir.glob("**/*.rb")+Dir.glob("**/*.sass")+Dir.glob("**/*.haml")+Dir.glob("**/*.erb")+Dir.glob("**/*.htc")+Dir.glob("**/*.scss")+Dir.glob("**/*.yml")
     puts img.length.to_s+" images found & "+data.length.to_s+" files found to search against"
     content=""
     data.each do |f|

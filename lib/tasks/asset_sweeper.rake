@@ -20,8 +20,8 @@ namespace :asset_sweeper do
   end
 
   task :list_unused_stylesheets => :environment do
-    stylesheets = Dir.glob("**/*.css")
-    data=Dir.glob("**/*.htm*")
+    stylesheets = Dir.glob("**/*.css")+Dir.glob("**/*.scss")+Dir.glob("**/*.sass")
+    data = Dir.glob("**/*.htm*")+Dir.glob("**/*.css")+Dir.glob("**/*.js")+Dir.glob("**/*.rb")+Dir.glob("**/*.sass")+Dir.glob("**/*.haml")+Dir.glob("**/*.erb")+Dir.glob("**/*.htc")+Dir.glob("**/*.scss")+Dir.glob("**/*.yml")+Dir.glob("**/*.xsl")+Dir.glob("**/*.xml")
     content=""
     data.each do |f|
       content+=File.open(f, 'r').read

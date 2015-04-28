@@ -109,6 +109,11 @@
         - res = Resource.load_for_title_only(association)
         %h2= raw(I18n.t("recent_activity.resource_validation", resource: link_to(res.title.html_safe, link_to_item(res, {content_partner: res.content_partner_id}), 
               style: 'color:#195184')))
+      - elsif association.class.name == 'DataPointUri'
+        - items.each do |item|
+          = render('recent_activity_mailer/iconed_activity', { user: item.user,
+          action: raw(I18n.t("recent_activity.curator_activity_log_on_data_point_uri",who: item.user  , item: item)),
+          :created_at => item.created_at })
   - else # No further grouping required:
     - grouped_notes[klass].compact.each do |item|
       = render('recent_activity_mailer/iconed_activity', { :user => item.user,

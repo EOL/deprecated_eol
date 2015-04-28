@@ -35,6 +35,10 @@ class Notification < ActiveRecord::Base
     class_name: 'NotificationFrequency'
   belongs_to :i_am_being_watched, foreign_key: :i_am_being_watched,
     class_name: 'NotificationFrequency'
+  belongs_to :comment_on_my_content_partner_data, foreign_key: :comment_on_my_content_partner_data,
+    class_name: 'NotificationFrequency'
+  belongs_to :curation_on_my_content_partner_data, foreign_key: :curation_on_my_content_partner_data,
+    class_name: 'NotificationFrequency'
 
   validates_presence_of :user
 
@@ -47,7 +51,7 @@ class Notification < ActiveRecord::Base
   end
   
   def self.queue_notifications(notification_recipient_objects, target)
-    notification_queue = notification_recipient_objects.select {|o| self.acceptable_notifications(o, target) }
+    notification_queue = notification_recipient_objects.select {|o| self.acceptable_notifications( o, target) }
     notification_queue.each do |h|
       PendingNotification.create(user: h[:user], notification_frequency: h[:frequency], target: target,
                                  reason: h[:notification_type].to_s)
@@ -64,7 +68,7 @@ class Notification < ActiveRecord::Base
     object.class == Hash && # Passed in something you shouldn't have.
       object[:user] && # Only users receive notifications.
       object[:user].class == User &&
-      target.user_id != object[:user].id && # Users are never notified about their own action.
+      (target.respond_to?(:user_id) ? target.user_id : options[:user].id) != object[:user].id && # Users are never notified about their own action.
       object[:frequency] != NotificationFrequency.never && # User doesn't want any notification at all
       object[:frequency] != NotificationFrequency.newsfeed_only && # User doesn't want email for this
       ! object[:user].disable_email_notifications && # User doesn't want any email at all.

@@ -28,7 +28,7 @@ module PartnerUpdatesEmailer
   def self.send_emails_to_partners(partner_activity, content_partner_contacts, frequency_hours)
     partner_activity.each do |partner_id, activity|
       contacts_for_this_partner = content_partner_contacts.select{|cpc| !cpc.content_partner.nil? && cpc.email_reports_frequency_hours == frequency_hours && cpc.content_partner.id == partner_id}
-      for contact in contacts_for_this_partner
+      for contact in contacts_for_this_partnerz
         Notifier.activity_on_content_partner_content(contact.content_partner, contact, activity).deliver
         contact.last_report_email = Time.now
         contact.save!
@@ -85,10 +85,10 @@ module PartnerUpdatesEmailer
 
   def self.all_actions_since_hour(number_of_hours = 24)
     all_action_ids = ActiveRecord::Base.connection.select_values("
-      SELECT id
+      SELECT id 
       FROM #{CuratorActivityLog.full_table_name}
       WHERE DATE_ADD(created_at, INTERVAL #{number_of_hours} HOUR) >= UTC_TIMESTAMP()
-      AND activity_id IN (#{Activity.trusted.id},#{Activity.untrusted.id},#{Activity.inappropriate.id})")
+      AND activity_id IN (#{Activity.trusted.id},#{Activity.untrusted.id},#{Activity.inappropriate.id}, #{Activity.hide.id}, #{Activity.unhide.id}) ")
 
     partner_actions = {}
     user_actions = {}
@@ -134,6 +134,26 @@ module PartnerUpdatesEmailer
         user_actions[user_id] ||= []
         user_actions[user_id] << r
       end
+    end
+    
+    #Curator Actions (hide/unhide) on Data Point URIs submitted by curators
+    result = CuratorActivityLog.find_by_sql("
+        SELECT cal.*, u.username curator_username, u.id user_id FROM #{CuratorActivityLog.full_table_name} cal
+        JOIN #{User.full_table_name} u ON (cal.user_id=u.id)
+        LEFT JOIN (
+          #{DataPointUri.full_table_name} dpu
+          JOIN #{Resource.full_table_name} res ON (dpu.resource_id=res.id)
+          JOIN #{ContentPartner.full_table_name} cp ON (cp.id = res.id)
+        ) ON (cal.target_id=dpu.id)
+        WHERE cal.id IN (#{all_action_ids.join(',')})
+        AND cal.changeable_object_type_id  =  #{ChangeableObjectType.data_point_uri.id}
+        AND u.id IS NOT NULL
+        GROUP BY u.id, cal.id")
+
+    result.each do |r|
+        user_id = r['user_id'].to_i
+        user_actions[user_id] ||= []
+        user_actions[user_id] << r
     end
 
     return { :partner_actions => partner_actions, :user_actions => user_actions }
@@ -187,8 +207,23 @@ module PartnerUpdatesEmailer
         partner_comments[:pages][partner_id] << r
       end
 
-
-
+     # Comments left on data point uris 
+     result = Comment.find_by_sql("
+        SELECT c.*, uc.username commenter_username, uc.id receiving_user_id FROM #{Comment.full_table_name} c
+        JOIN #{User.full_table_name} uc ON (c.user_id=uc.id)
+        LEFT JOIN (
+          #{DataPointUri.full_table_name} dpu
+        ) ON (c.parent_id=dpu.data_object_id)
+        WHERE c.id IN (#{all_comment_ids.join(',')})
+        AND c.parent_type = 'DataPointUri'
+        AND u.id IS NOT NULL
+        GROUP BY u.id, c.id")
+    
+    result.each do |r|
+        user_id = r['receiving_user_id'].to_i
+        user_comments[:objects][user_id] ||= []
+        user_comments[:objects][user_id] << r
+      end
       # Comments left on text submitted by Users
       result = Comment.find_by_sql("
         SELECT c.*, uc.username commenter_username, u.id receiving_user_id FROM #{Comment.full_table_name} c
@@ -226,8 +261,8 @@ module PartnerUpdatesEmailer
         user_comments[:pages][user_id] ||= []
         user_comments[:pages][user_id] << r
       end
-    end
-
+    
+     end
     return { :partner_comments => partner_comments, :user_comments => user_comments }
   end
 end

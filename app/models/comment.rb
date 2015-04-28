@@ -188,6 +188,7 @@ class Comment < ActiveRecord::Base
     add_recipient_community_members(@notification_recipients)
     add_recipient_users_watching(@notification_recipients)
     add_recipient_author_of_commented_on_text(@notification_recipients)
+    add_recipent_partner_owner_of_resource(@notification_recipients)
     @notification_recipients
   end
 
@@ -296,6 +297,15 @@ private
     if self.parent.respond_to?(:contributing_user)
       if user = self.parent.contributing_user
         user.add_as_recipient_if_listening_to(:comment_on_my_contribution, recipients)
+      end
+    end
+  end
+
+  def add_recipent_partner_owner_of_resource(recipients)
+    if self.parent.is_a?(DataPointUri)
+      source = self.parent.source
+      if source.is_a?(ContentPartner)
+        source.user.add_as_recipient_if_listening_to(:comment_on_my_content_partner_data, recipients)
       end
     end
   end

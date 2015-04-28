@@ -63,6 +63,8 @@ class DataPointUri < ActiveRecord::Base
         end
         # setting the taxon_concept_id since it is not in the Virtuoso response
         row[:taxon_concept_id] ||= taxon_concept_id
+        row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
+        row[:data_point_instance].update_with_virtuoso_response(row)
       end
     end
   end

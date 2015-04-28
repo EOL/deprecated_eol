@@ -366,6 +366,8 @@ en:
         active: "Published"
       notification:
         reply_to_comment: A reply to a comment you made
+        comment_on_my_content_partner_data: A comment on your content patrner data in the Data tab
+        curation_on_my_content_partner_data: Curator actions (hide/unhide) on your content partner data on the Data tab
         comment_on_my_profile: A comment on your profile
         comment_on_my_contribution: A comment and/or curatorial action on a contribution you made
         comment_on_my_collection: A comment on a collection you manage
@@ -1373,6 +1375,8 @@ en:
     curator_activity_on_data_object_by_user: "<b>%{user_name}</b> performed a %{activity_name} action on <b>%{dato_title}</b> (%{dato_type} #%{dato_id})."
     curator_activity_on_taxon_concept_by_user: "<b>%{user_name}</b> performed a %{activity_name} action on <b>%{taxon_concept}</b> (%{taxon_overview_url})."
     data_object_activity_article_added_by_user: "<b>%{user_name}</b> added an article called %{dato_title} to <b>%{taxon_concept}</b> (%{taxon_details_url})."
+    data_point_uri_title: "A curator has curated your data on the Data tab"
+    curator_activity_log_on_data_point_uri: "a curator has curated the data point uri : %{item}"
   recent_activities:
     index:
       list_header: "Last 7 Days"
@@ -4203,6 +4207,7 @@ en:
   notification_frequency_newsfeed_only: "Newsfeed Only"
   notifications_and_messages_review_notice: Please review notifications that will be sent to you by email.
   email_updates_for_eol_addicts: "Updates for EOL addicts."
+  email_updates_for_eol_content_partners: "Updates for Content Partners."
   email_updates_for_eol_members: "Updates most EOL members will want to get."
   notifications_tab_name: "Notifications"
   taxon_not_found_error: "\"%{taxon}\" not found"

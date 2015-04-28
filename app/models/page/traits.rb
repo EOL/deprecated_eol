@@ -1,7 +1,8 @@
 class Page
   # Presenter for page traits.
   class Traits
-    MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 60000
+    MAX_SEARCH_DESCENDANTS = 60000
+    MAX_RANGE_DESCENDANTS = 20000
 
     def initialize(page)
       @page = page
@@ -51,7 +52,20 @@ class Page
     end
 
     def ranges
-      # TODO
+      return [] unless show_ranges?
+      return @ranges if @ranges
+      EOL::Sparql::Client.if_connection_fails_return([]) do
+        results = SparqlQuery.ranges(taxon_concept)
+        # TODO: Ensure we add the attributes and units of measure from these
+        # results to the KnownUri glossary. TODO: we can't do this until we have
+        # normalized units; it is neither trustworthy nor fast enough as-is.
+        return @ranges = []
+      end
+    end
+
+    def show_ranges?
+      return false if taxon_concept.species_or_below?
+      taxon_concept.number_of_descendants.between?(2, MAX_RANGE_DESCENDANTS)
     end
 
     def toc_items
@@ -106,8 +120,7 @@ class Page
     # TODO: This is a very fast query (30ms or so), but I'd still like to cache
     # it, since it doesn't make sense to do it repeatedly.
     def clade_searchable?
-      @page.taxon_concept.number_of_descendants <=
-        MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
+      @page.taxon_concept.number_of_descendants <= MAX_SEARCH_DESCENDANTS
     end
 
     def to_param

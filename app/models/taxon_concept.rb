@@ -1006,6 +1006,7 @@ class TaxonConcept < ActiveRecord::Base
     )
   end
 
+  # TODO: remove. It does not belong here.
   def should_show_clade_range_data
     return false if species_or_below?
     number_of_descendants.between?(2, TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES)

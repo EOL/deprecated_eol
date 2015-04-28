@@ -37,8 +37,8 @@ namespace :asset_sweeper do
   end
 
   task :list_unused_javascripts => :environment do
-    javascripts = Dir.glob("**/*.js")
-    data=Dir.glob("**/*.htm*")
+    javascripts = Dir.glob("**/*.js")+Dir.glob("**/*.erb")+Dir.glob("**/*.htc")
+    data=Dir.glob("**/*.htm*")+Dir.glob("**/*.css")+Dir.glob("**/*.js")+Dir.glob("**/*.rb")+Dir.glob("**/*.sass")+Dir.glob("**/*.haml")+Dir.glob("**/*.erb")+Dir.glob("**/*.htc")+Dir.glob("**/*.scss")+Dir.glob("**/*.yml")
     content=""
     data.each do |f|
       content+=File.open(f, 'r').read

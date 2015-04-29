@@ -3,9 +3,14 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Taxa::NamesController do
 
   before(:all) do
-    truncate_all_tables
-    load_scenario_with_caching :testy
-    @testy = EOL::TestInfo.load('testy')
+    load_foundation_cache
+    @testy = {}
+    @testy[:taxon_concept] =  build_taxon_concept(images: [], toc: [], sname: [], comments: [],
+                              flash: [], sounds: [], gbif_map_id: nil, bhl: [], biomedical_terms: nil)
+    @testy[:curator] = build_curator(@testy[:taxon_concept] )
+    common_name = Faker::Eol.common_name.firstcap + 'tsty'
+    @testy[:taxon_concept].add_common_name_synonym(
+      "testy_common_name", agent: @testy[:curator].agent, language: Language.english)
   end
 
   shared_examples_for 'taxa/names controller' do

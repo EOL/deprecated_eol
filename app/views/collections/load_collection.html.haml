@@ -1,0 +1,20 @@
+.create
+  = form_tag({:action=>'do_loading'}, :method=>'get') do
+    = I18n.t("collection_loading.collection_name")
+    = text_field_tag :collection_name, @collection_name
+    = submit_tag I18n.t("collection_loading.create_collection")
+%br
+.article{style: "float:left;"}
+  = render partial: "input_taxa_list"
+.article{style: "float:right; padding-right: 100px;"}
+  - if !@results_taxa.blank?
+    %h2 
+      = I18n.t("collection_loading.output_list_title")
+    = render partial: "output_taxa_list", locals: { results_taxa: @results_taxa }
+    .new
+      = form_tag({:action=>'new_taxon'}, :method=>'get', :remote => true)do
+        = I18n.t("collection_loading.add_another")
+        = text_field_tag :taxon_name
+        = submit_tag I18n.t("collection_loading.add")
+    
+    

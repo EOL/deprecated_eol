@@ -18,7 +18,9 @@
               - if logged_in? && @user.id != current_user.id
                 %li= link_to I18n.t(:make_an_editor), choose_editor_target_collections_path(:user_id => @user.id), :class => "button collect" 
               - if logged_in? && current_user.is_admin? && @user.is_active? && @user.id != current_user.id
-                %li= link_to I18n.t(:deactivate), {:controller=>'administrator/user', :action=>'deactivate'}, :class => "button", :data => { :confirm => I18n.t(:confirm_deactivate_user) } 
+                %li= link_to I18n.t(:deactivate), {:controller=>'administrator/user', :action=>'deactivate'}, :class => "button", :data => { :confirm => I18n.t(:confirm_deactivate_user) }
+              - if @user.id == current_user.id
+                %li= link_to "Create Collection", {:controller=>'collections', :action=>'load_collection'}, :class => "button"  
       = render 'shared/flash_messages'
   #content
     .site_column

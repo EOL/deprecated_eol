@@ -195,6 +195,13 @@ Eol::Application.routes.draw do
       get 'choose_collect_target'
       get 'choose_editor_target'
       post 'collect_item'
+      get 'load_collection'
+      get 'remove_from_list'
+      get 'new_taxon'
+      get 'do_loading'
+      get 'submit_taxa_list'
+      get 'remove_unselected_taxon'
+      get 'edit_taxon_name'
     end
     resource :newsfeed, :only => [:show], :controller => 'collections/newsfeeds'
     resources :editors, :only => [:index], :controller => 'collections/editors'
@@ -528,7 +535,7 @@ Eol::Application.routes.draw do
   # Named collection routes:
   # NOTE - Not nesting collection_items under collections: creation is complex, plus edit only used for non-JS users
   match '/collections/:id/:filter' => 'collections#show', :as => 'filtered_collection'
-
+  
   # Named user routes:
   # NOTE - can't add dynamic segment to a member in rails 2.3 so we have to specify named routes for the following:
   # TODO - can we do this now that we're rails 3?

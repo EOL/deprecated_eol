@@ -414,7 +414,7 @@ $(function() {
       if ($(e.target).closest('a').length) return; // It's a link, don't handle the row...
       EOL.toggle_actions_row($(this).closest('tr').prev());
     });
-
+    
   $('#recently_used_category a').on('click', function() {
     $('#suggestions').find('.child').hide();
     var $next = $(this).parent().next();

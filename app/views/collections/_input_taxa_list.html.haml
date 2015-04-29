@@ -1,0 +1,6 @@
+%h2 
+  = I18n.t("collection_loading.add_list")
+= form_tag({:action=>'submit_taxa_list'},:method=>'get') do
+  = text_area_tag :list, params[:list], :cols => "40  ", :rows => "20"
+  %br
+  = submit_tag I18n.t("collection_loading.submit")

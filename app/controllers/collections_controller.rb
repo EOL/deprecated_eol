@@ -5,7 +5,8 @@ class CollectionsController < ApplicationController
   # collections
   before_filter :login_with_open_authentication, only: :show
   before_filter :modal, only: [:choose_editor_target, :choose_collect_target]
-  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]
+  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects, :load_collection, :remove_from_list,
+    :new_taxon, :do_loading, :submit_taxa_list, :remove_unselected_taxon, :edit_taxon_name]
   before_filter :prepare_show, only: [:show]
   before_filter :user_able_to_edit_collection, only: [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, only: [:show]
@@ -16,7 +17,6 @@ class CollectionsController < ApplicationController
   before_filter :build_collection_items, only: [:show]
   before_filter :load_item, only: [:choose_editor_target, :choose_collect_target, :create]
   before_filter :restrict_to_admins, only: :reindex
-
   layout 'collections'
 
   def show
@@ -214,6 +214,123 @@ class CollectionsController < ApplicationController
     render nothing: true
   end
 
+  def edit_taxon_name
+    return must_be_logged_in unless logged_in?
+    taxon_name = params[:edited_taxon_name].strip
+    @results_taxa = ActiveSupport::JSON.decode(session[:results_taxa])
+    @error = nil
+    if ! taxon_name.blank? 
+      if !@results_taxa.has_key?(taxon_name) #if not exists before
+        @results_taxa = Hash[@results_taxa.map {|k, v| k == params[:key] ? [taxon_name, v] : [k, v] }]
+        parse_line(taxon_name)
+        session[:results_taxa] = @results_taxa.to_json
+      else
+        @error = "#{taxon_name} #{I18n.t("collection_loading.already_exists")}"
+      end
+    end
+    respond_to do |format|
+      format.js{ render :template => 'collections/output_taxa_list'}
+    end
+  end
+  
+  # this to add only selected items and remove others
+  def remove_unselected_taxon
+    return must_be_logged_in unless logged_in?
+    if !params[:key].blank?
+      @results_taxa = ActiveSupport::JSON.decode(session[:results_taxa])
+      if params[:selected].blank?# there are no selected items then delete all
+        @results_taxa = @results_taxa.reject{|key| key == params[:key]}
+      else
+        @results_taxa[params[:key]] = @results_taxa[params[:key]].reject{|id| !params[:selected].include?(id.to_s)}
+      end
+      session[:results_taxa] = @results_taxa.to_json
+    end
+    respond_to do |format|
+      format.js{ render :template => 'collections/output_taxa_list'}
+    end
+  end
+    
+  def do_loading
+    return must_be_logged_in unless logged_in?
+    @collection_name = params[:collection_name]
+    if params[:collection_name].blank?
+      flash[:error] = I18n.t("collection_loading.missing_name")
+    elsif session[:results_taxa].blank?
+      flash[:error] = I18n.t("collection_loading.missing_list")
+    else
+      @collection = Collection.new(name: @collection_name)
+      if @collection.save
+        @collection.users = [current_user]
+        log_activity(activity: Activity.create)
+        add_items_to_collection        
+        items_count = @collection.collection_items.count
+        if items_count == 0
+          @collection.destroy
+          flash[:error] = I18n.t("collection_loading.missing_valid_items")
+          return redirect_to :back
+        else
+          @collection.collection_items_count = items_count
+          @collection.save
+        end
+        return redirect_to collection_path(@collection)
+      end
+      flash[:error] = I18n.t(:collection_not_created_error, collection_name: @collection.name)
+    end
+    return redirect_to :back
+  end
+  
+  def remove_from_list
+    return must_be_logged_in unless logged_in?
+    if params[:key]
+      @results_taxa = ActiveSupport::JSON.decode(session[:results_taxa]).reject{|key| key == params[:key]}
+      session[:results_taxa] = @results_taxa.to_json      
+    end
+    respond_to do |format|
+      format.js{ render :template => 'collections/output_taxa_list'}
+    end
+  end
+  
+  def new_taxon
+    return must_be_logged_in unless logged_in?
+    @results_taxa = ActiveSupport::JSON.decode(session[:results_taxa])
+    taxon_name = params[:taxon_name].strip
+    if !taxon_name.blank? && !@results_taxa.has_key?(taxon_name)
+      parse_line(taxon_name)
+      session[:results_taxa] = @results_taxa.to_json
+    end
+    respond_to do |format|
+      format.js{ render :template => 'collections/output_taxa_list'}
+    end
+  end
+  
+  def load_collection
+    return must_be_logged_in unless logged_in?
+    @error = nil
+    @collection_name = ""
+    @page_title = I18n.t("collection_loading.load_collection")
+    if session[:results_taxa].blank? || params[:list].blank?
+      @results_taxa = nil
+      session[:results_taxa] = nil
+    else
+      @results_taxa = ActiveSupport::JSON.decode(session[:results_taxa])
+    end
+  end
+  
+  def submit_taxa_list
+    @error = nil
+    @collection_name = ""
+    list = params[:list]
+    if !list.blank?
+      list = list.split(/\r\n/).uniq
+      @results_taxa = {}
+      list.each do |line|
+        parse_line(line) if !line.blank?
+      end
+      session[:results_taxa] = @results_taxa.to_json
+    end
+    redirect_to action: 'load_collection', list: params[:list]
+  end
+  
 protected
 
   def scoped_variables_for_translations
@@ -248,7 +365,62 @@ protected
   end
 
 private
-
+   def add_items_to_collection
+    parsed_json = ActiveSupport::JSON.decode(session[:results_taxa])
+    parsed_json.each do |key, arr|
+      if !arr.blank?
+        arr.each do |id|
+          tc = TaxonConcept.find(id) 
+          @collection.add(tc) if tc    
+        end
+      end
+    end   
+  end
+  
+  def parse_line(line)
+    line = line.strip
+    if line =~ /([0-9])+/
+      #it is an integer
+      tc = TaxonConcept.where(id: line.to_i)
+      if !tc.blank?
+        # this is a valid id
+        tc = tc.first
+        names = tc.preferred_names
+        names = tc.preferred_common_names if names.blank?
+        @results_taxa[line] = [tc.id]
+      else
+        # there is no such an id
+        @results_taxa[line] = nil
+      end
+    else
+      #it is not an integer, it is a string
+      params = {}
+      params[:sort_by] = 'score'
+      params[:type] = ['TaxonConcept']
+      params[:exact] = false
+      search_response = EOL::Solr::SiteSearch.taxon_search_with_limit(line, params.merge({ language_id: current_language.id }))
+      if search_response[:taxa].count == 0 # there is no exact match or suggestions
+        @results_taxa[line] = nil
+     else 
+        if search_response[:taxa].count == 1 #there is one exact match
+          tc = TaxonConcept.find(search_response[:taxa].first["instance"].id)
+          names = tc.preferred_names
+          names = tc.preferred_common_names if names.blank?
+          @results_taxa[line] = [tc.id]
+       else
+          #there isn't exact match but there are suggetions
+          taxa_arr = []
+          search_response[:taxa].each do |res|
+            tc = res["instance"]
+            taxa_arr << tc.id
+          end
+          @results_taxa[line] = taxa_arr
+        end
+      end
+    end
+    @results_taxa
+  end
+  
   def find_collection
     begin
       if params[:collection_id] && params[:collection_id].is_a?(Array)
@@ -728,5 +900,4 @@ private
     end
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(collection_item_ids_to_reindex.uniq)
   end
-
 end

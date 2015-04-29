@@ -1426,7 +1426,56 @@ table.classifications
   background: image-url("v2/icon_more_info.png") ($size - 12.5px) ($size - 13px) no-repeat
   background-size: $size + px $size + px
   display: inline-block
-
+  
+#output_taxa_list
+  table.result
+    position: relative
+    line-height: 90%
+    width: 80%
+    margin: 0px auto
+    padding: 0px 0px 15px
+    tbody
+      border: 0px
+    caption
+      text-align: center !important
+      font-weight: bold
+      text-transform: none
+      letter-spacing: 1px
+      margin-bottom: 0.4em
+      border-bottom: 1px solid $grayblue
+    th
+      width: 150px
+      padding: 0 !important
+    tr.data:hover
+      cursor: pointer
+      background-color: #f6f8fa
+    td.taxon
+      font-size: 1em
+      width: 300px
+      max-width: 380px
+      overflow-x: auto
+      h4
+        margin: 3px 0px 5px
+        font-size: 1.2em
+        a
+          color: #28323a
+          text-decoration: none
+          &:hover
+            text-decoration: underline
+      div.icon
+        width: 50px
+        height: 50px
+        float: left
+        margin-right: 10px
+        background: $fieldset_light_blue image-url("v2/icon_taxa_tabs.png") 50% 50% no-repeat
+        border: 1px solid $grayblue
+        img
+          width: 50px
+          height: 50px
+      div.names
+        margin-left: 10px
+        line-height: 120%
+     
 #taxon_data, #data_comments
   position: relative
   p.about

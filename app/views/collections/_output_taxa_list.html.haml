@@ -1,0 +1,53 @@
+#output_taxa_list
+  - results_taxa.each do |key, taxon_concepts|
+    - if taxon_concepts.blank?
+      %table.result
+        %h3 "#{key}" couldn't be found
+        %tr.data
+          %td.taxon    
+            .actions
+              = form_tag({:action=>'edit_taxon_name'},:method=>'get', remote: true) do
+                = hidden_field_tag 'key', key
+                - if @error && params[:key] == key
+                  .error{style:"color: red;"}= @error
+                = text_field_tag :edited_taxon_name
+                = submit_tag I18n.t("collection_loading.edit_name")
+              .remove{style: "float: right;"}
+                = link_to I18n.t("collection_loading.remove"), {controller: "collections", action: "remove_from_list", results_taxa: results_taxa}, remote: true, method: "get"       
+    - else
+      = form_tag({action: 'remove_unselected_taxon'}, method: 'get', remote: true) do
+        %table.result
+          - exact = true 
+          - if taxon_concepts.count == 1
+            %h3 "#{key}"
+          - else
+            - exact = false
+            %h3 "#{key}" could mean couple of things, what did you mean?
+          - taxon_concepts.each do |id|
+            - taxon_link = taxon_path(id)
+            - tc = TaxonConcept.find(id)
+            %tr.data
+              %td.check
+                - if !exact
+                  = hidden_field_tag 'key', key
+                  = check_box_tag "selected[]", id, false
+              %td.taxon
+                .icon
+                  - if image = tc.exemplar_or_best_image_from_solr
+                    - if thumb = image.thumb_or_object('88_88')
+                      = link_to image_tag(thumb), taxon_link
+                  = link_to content_tag(:span, '', { title: I18n.t(:item_type_taxon_assistive) } ), taxon_link
+                .names
+                  %h1
+                    - subtitle = tc.preferred_common_name_in_language(current_language)
+                    - name = truncate(tc.collected_name, length: 64)
+                    - name = "#{name} (#{subtitle.firstcap})" if subtitle
+                    = link_to raw(name), taxon_link
+                - if exact
+                  .remove{style: "float: right;"}
+                    = link_to I18n.t("collection_loading.remove"), {controller: "collections", action: "remove_from_list", key: key, value: tc.id}, remote: true, method: "get"
+        - if !exact
+          = submit_tag I18n.t("collection_loading.remove_unselected_items") , style:"float: right;"
+          %br
+          %br
+          %br

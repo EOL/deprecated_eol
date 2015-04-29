@@ -429,6 +429,8 @@ Eol::Application.routes.draw do
   resources :pending_harvests do
     collection do
       post 'sort'
+      post 'pause_harvesting'
+      post 'resume_harvesting'
     end
   end
   resources :classifications, :only => [:create]

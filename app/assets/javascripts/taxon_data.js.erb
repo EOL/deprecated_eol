@@ -530,6 +530,20 @@ $(function() {
       $.post("/pending_harvests/sort", { pending_harvests: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') });
     }
   }).disableSelection();
+  
+  $('#pause_p_harvest').on('click', function() {  	
+  	document.getElementById("pause_pending_harvests").style.display = "none"; 
+  	document.getElementById("resume_pending_harvests").style.display = "block";
+    $.post("/pending_harvests/pause_harvesting");
+    return(false);
+  });
+  
+  $('#resume_p_harvest').on('click', function() {  	  	
+  	document.getElementById("resume_pending_harvests").style.display = "none"; 
+  	document.getElementById("pause_pending_harvests").style.display = "block"; 
+    $.post("/pending_harvests/resume_harvesting");
+    return(false);
+  });
 
   // Definitions of Attributes are dialogs if JS is enabled:
   $('table.data tr .info, table.data.search tr .info').each(function() {

@@ -3899,6 +3899,8 @@ en:
   known_uris_sorted: "Order updated."
   pending_harvests_none: "There are no pending harvests now"
   pending_harvests_title: "Pending Harvests"
+  pause_pending_harvests: "Pause harvesting"
+  resume_pending_harvests: "Resume harvesting"
   label: "Label"
   language: "Language:"
   languages: "Languages"

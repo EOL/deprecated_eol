@@ -286,6 +286,10 @@ class Resource < ActiveRecord::Base
     File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json") if File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json")
   end
 
+  def self.is_paused?
+    Resource.first.pause 
+  end
+
 private
 
   def url_or_dataset_not_both

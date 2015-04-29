@@ -44,5 +44,15 @@ class PendingHarvestsController < ApplicationController
       format.js { }
     end
   end
+  
+  def pause_harvesting
+    Resource.update_all(pause: true)
+    head :ok
+  end
+  
+  def resume_harvesting
+    Resource.update_all(pause: false)
+    head :ok
+  end
 
 end

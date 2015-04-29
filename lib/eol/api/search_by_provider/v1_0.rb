@@ -43,19 +43,24 @@ module EOL
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
           # find a visible match, get the published ones first
-          hierarchy_entries = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id],
-            :joins => 'JOIN taxon_concepts tc ON (hierarchy_entries.taxon_concept_id=tc.id)',
-            :conditions => "hierarchy_entries.visibility_id = #{$visible_global.id} AND tc.published=1", :order => '(hierarchy_entries.published=1) desc')
-          prepare_hash(hierarchy_entries, params)
+          hierarchy_entries = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
+          hierarchy_entries.keep_if{|h|  h.visibility_id= Visibility.visible.id & TaxonConcept.find(h.taxon_concept_id).published == 1 }
+          synonyms = Synonym.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
+          synonyms.keep_if{|s| TaxonConcept.find( HierarchyEntry.find(s.hierarchy_entry_id).taxon_concept_id).published == 1 }
+          results= hierarchy_entries + synonyms
+          prepare_hash(results, params)
         end
 
-        def self.prepare_hash(hierarchy_entries, params={})
+        def self.prepare_hash(results, params={})
           return_hash = []
-          hierarchy_entries.each do |r|
-            return_hash << { 'eol_page_id' => r.taxon_concept_id }
-            return_hash << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{r.taxon_concept_id}" }
+          results.compact.each do |r|
+            if r.class == HierarchyEntry
+              return_hash << { 'eol_page_id' => r.taxon_concept_id }
+            else
+              return_hash << { 'eol_page_id' => HierarchyEntry.find(r.hierarchy_entry_id).taxon_concept_id }
+            end
           end
-          return return_hash
+          return return_hash.uniq
         end
       end
     end

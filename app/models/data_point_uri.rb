@@ -192,6 +192,10 @@ class DataPointUri < ActiveRecord::Base
       jsonld['eolterms:statisticalMethod'] = value
     end
     add_metadata_to_hash(jsonld) if options[:metadata]
+    refs = get_references
+    unless refs.empty?
+      jsonld[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
+    end
     jsonld
   end
 
@@ -354,7 +358,7 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
-  def get_references(language)
+  def get_references(language= nil)
     DataPointUri.with_master do
       DataPointUri.assign_references(self, language)
       references

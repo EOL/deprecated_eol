@@ -3,6 +3,8 @@ class DataSearchFile < ActiveRecord::Base
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
     :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id, :file_number
   attr_accessor :results
+  
+  has_many :data_search_file_equivalents
 
   belongs_to :user
   belongs_to :language
@@ -86,9 +88,14 @@ class DataSearchFile < ActiveRecord::Base
     # TODO - we should also check to see if the job has been canceled.
     rows = []
     page = 1
+    data_search_file_equivalent_attrs = !self.data_search_file_equivalents.blank? ? self.data_search_file_equivalents.select{|eq| eq.is_attribute} : nil
+    data_search_file_equivalent_values = !self.data_search_file_equivalents.blank? ? self.data_search_file_equivalents.select{|eq| !eq.is_attribute} : nil
+    required_equivalent_attributes = !data_search_file_equivalent_attrs.blank? ? data_search_file_equivalent_attrs.collect{|dsfeq| dsfeq.uri_id} : nil
+    required_equivalent_values = !data_search_file_equivalent_values.blank? ? data_search_file_equivalent_values.collect{|dsfeq| dsfeq.uri_id} : nil
     # TODO - handle the case where results are empty. ...or at least write a test to verify the behavior is okay/expected.
     search_parameters = { querystring: q, attribute: uri, min_value: from, max_value: to, sort: sort,
-                          per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri, offset: (file_number-1)*LIMIT }
+                          per_page: PER_PAGE, for_download: true, taxon_concept: taxon_concept, unit: unit_uri, offset: (file_number-1)*LIMIT,
+                          required_equivalent_attributes: required_equivalent_attributes, required_equivalent_values: required_equivalent_values }
     results = TaxonData.search(search_parameters)
     # TODO - we should probably add a "hidden" column to the file and allow admins/master curators to see those
     # rows, (as long as they are marked as hidden). For now, though, let's just remove the rows:

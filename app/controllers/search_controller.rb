@@ -35,7 +35,7 @@ class SearchController < ApplicationController
       return redirect_to controller: "api", action: "search", id: @querystring
     end
 
-    if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error) || @querystring.blank?
+    if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error)
       flash[:error] = I18n.t(:must_provide_search_term_error)
       redirect_to root_path
     end

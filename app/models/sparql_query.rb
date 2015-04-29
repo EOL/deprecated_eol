@@ -85,7 +85,7 @@ class SparqlQuery
 
     def ranges(taxon_concept)
       EOL::Sparql.connection.query(
-        "SELECT ?attribute, ?measurementOfTaxon, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
+        "SELECT ?attribute, COUNT(DISTINCT ?descendant_concept_id) as ?count_taxa,
           COUNT(DISTINCT ?data_point_uri) as ?count_measurements,
           MIN(xsd:float(?value)) as ?min, MAX(xsd:float(?value)) as ?max, ?unit_of_measure_uri
         WHERE {
@@ -101,9 +101,13 @@ class SparqlQuery
           OPTIONAL {
             ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri
           }
-          FILTER ( ?attribute IN (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>)))
+          FILTER (
+            ?attribute IN
+              (IRI(<#{KnownUri.uris_for_clade_aggregation.join(">),IRI(<")}>))
+            && ?measurementOfTaxon = <#{Rails.configuration.uri_true}>
+          )
         }
-        GROUP BY ?attribute ?unit_of_measure_uri ?measurementOfTaxon
+        GROUP BY ?attribute ?unit_of_measure_uri
         ORDER BY DESC(?min)"
       )
     end

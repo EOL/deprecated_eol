@@ -3,7 +3,7 @@ class CreateContents < ActiveRecord::Migration
     create_table :contents do |t|
       t.integer :node_id, null: false # Actually a hierarchy_entry _right now_
       t.integer :item_id, null: false
-      t.string :item_type, null: false
+      t.string :item_type, null: false, limit: 24
       # "exemplar"
       t.boolean :overview_include, default: false
       # We only do this on traits... for now... but it's handy to keep from

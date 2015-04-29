@@ -26,13 +26,13 @@ class HierarchyEntry < ActiveRecord::Base
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'hierarchy_entries_refs',
-    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
+    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{$visible_global.id}" }
   has_and_belongs_to_many :ancestors, class_name: HierarchyEntry.to_s, join_table: 'hierarchy_entries_flattened',
     association_foreign_key: 'ancestor_id', order: 'lft'
   # Here is a way to find children and sort by name at the same time (this works for siblings too):
   # HierarchyEntry.find(38802334).children.includes(:name).order('names.string').limit(2)
   has_many :children, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:id, :hierarchy_id],
-    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
+    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{$visible_global.id}, #{$preview_global.id}) AND `hierarchy_entries`.`parent_id` != 0" }
   # IMPORTANT: siblings will also return the entry itself. This is because it is not possible to use conditions which refer
   # to a single node when using this association in preloading. For example you cannot have a condition: where id != #{id}, because
   # ActiveRecord may not have a single 'id', it may have many if preloading for multiple entries at once. This will also not return siblings of
@@ -210,7 +210,7 @@ class HierarchyEntry < ActiveRecord::Base
   end
 
   def outlink_hash
-    return nil if published != 1 && visibility_id != Visibility.visible.id
+    return nil if published != 1 && visibility_id != $visible_global.id
     if url = outlink_url
       return { hierarchy_entry: self, outlink_url: url }
     end
@@ -320,7 +320,7 @@ class HierarchyEntry < ActiveRecord::Base
   private
 
   def default_visibility
-    self.visibility ||= Visibility.visible
+    self.visibility ||= $visible_global
   end
 
 end

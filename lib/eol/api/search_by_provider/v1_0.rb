@@ -44,7 +44,7 @@ module EOL
           validate_and_normalize_input_parameters!(params)
           # find a visible match, get the published ones first
           hierarchy_entries = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
-          hierarchy_entries.keep_if{|h|  h.visibility_id= Visibility.visible.id & TaxonConcept.find(h.taxon_concept_id).published == 1 }
+          hierarchy_entries.keep_if{|h|  h.visibility_id= Visibility.visible.id && TaxonConcept.find(h.taxon_concept_id).published == 1 }
           synonyms = Synonym.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
           synonyms.keep_if{|s| TaxonConcept.find( HierarchyEntry.find(s.hierarchy_entry_id).taxon_concept_id).published == 1 }
           results= hierarchy_entries + synonyms
@@ -54,11 +54,9 @@ module EOL
         def self.prepare_hash(results, params={})
           return_hash = []
           results.compact.each do |r|
-            if r.class == HierarchyEntry
-              return_hash << { 'eol_page_id' => r.taxon_concept_id }
-            else
-              return_hash << { 'eol_page_id' => HierarchyEntry.find(r.hierarchy_entry_id).taxon_concept_id }
-            end
+            tc_id =  (r.class == HierarchyEntry)  ? r.taxon_concept_id :  HierarchyEntry.find(r.hierarchy_entry_id).taxon_concept_id
+            return_hash << { 'eol_page_id' => tc_id}
+            return_hash << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{tc_id}" }
           end
           return return_hash.uniq
         end

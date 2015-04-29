@@ -555,5 +555,10 @@ module ApplicationHelper
     seconds = seconds_diff
     "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}:#{seconds.to_s.rjust(2, '0')}"
   end
+    
+
+  def format_time(given_seconds)
+     Time.at(given_seconds).utc.strftime("%H:%M:%S")
+  end
 
 end

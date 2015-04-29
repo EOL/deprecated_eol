@@ -324,7 +324,7 @@ module EOL
         # add spellchecking
         url << '&spellcheck.q=' + CGI.escape(%Q[#{escaped_query}]) + '&spellcheck=true&spellcheck.count=10' unless options[:skip_spellcheck]
         # add paging
-        url << '&rows=10'
+        url << "&rows=#{options[:rows] ? options[:rows] : 10}"
         res = open(url).read
         json = JSON.load(res)
         results = []
@@ -345,12 +345,13 @@ module EOL
         results_with_suggestions =
           EOL::Solr::SiteSearch.simple_taxon_search(query, options)
         suggestions = []
-        results_with_suggestions[:suggestions].each do |s|
-          res = EOL::Solr::SiteSearch.simple_taxon_search(s,
-            options.merge(skip_spellcheck: true))[:results]
-          res.each do |item|
-            suggestions << item if item['resource_type'][0] == "TaxonConcept"
-          end
+        if results_with_suggestions[:results].blank?
+          results_with_suggestions[:suggestions].each do |s|
+            res = EOL::Solr::SiteSearch.simple_taxon_search(s,
+              options.merge(skip_spellcheck: true, rows: 1))[:results]
+            res.each do |item|
+              suggestions << item if item['resource_type'][0] == "TaxonConcept"
+            end
         end
 
         if suggestions.blank?

@@ -137,11 +137,6 @@ describe KnownUri do
     expect(implied_unit_kn.unit_of_measure?).to eq(true)
   end
 
-  it 'knows what to treat as string' do
-    expect(KnownUri.gen(uri: 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate').treat_as_string?).to eq(true)
-    expect(KnownUri.gen.treat_as_string?).to eq(false)
-  end
-
   it 'should generate an anchor string'
 
   it 'should add_to_triplestore'

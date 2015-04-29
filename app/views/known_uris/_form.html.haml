@@ -54,6 +54,11 @@
           %label
             = f.check_box :value_is_text
             = I18n.t(:yes_answer)
+        %dt= f.label :value_is_verbatim
+        %dd
+          %label
+            = f.check_box :value_is_verbatim
+            = I18n.t(:yes_answer)
         %dt= f.label :hide_from_glossary
         %dd
           %label

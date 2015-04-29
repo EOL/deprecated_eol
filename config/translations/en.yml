@@ -344,6 +344,7 @@ en:
         uri: "URI"
         uri_type: "Type of URI"
         value_is_text: "Values will not be URIs, only text"
+        value_is_verbatim: "Values will not be numbers, only text"
       known_uri_relationship:
         from_known_uri_id: "Subject URI"
         to_known_uri_id: "Target URI"

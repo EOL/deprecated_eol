@@ -158,7 +158,7 @@ class CommunitiesController < ApplicationController
   def revoke_editor
     collection = Collection.find(params[:collection_id])
     # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation if collection.watch_collection?
+    raise EOL::Exceptions::SecurityViolation.new("user attempted to revoke editor on watch collection", :error_revoking_editor_on_watch_collection) if collection.watch_collection?
     raise EOL::Exceptions::SecurityViolation if @community.collections.count <= 1
     @community.collections.delete(collection)
     flash[:notice] = I18n.t(:community_no_longer_has_manager_access_to_collection,

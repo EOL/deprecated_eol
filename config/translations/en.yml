@@ -3556,6 +3556,7 @@ en:
   eol_news: "EOL News"
   eol_pages: "Pages"
   error_log_detail: "Error Log Detail"
+  error_revoking_editor_on_watch_collection: "Editors cannot be removed from watch collections"
   error_log: "Error Log"
   error_logging_active: "Error Logging Active"
   error_401_page_title: "Unauthorized"

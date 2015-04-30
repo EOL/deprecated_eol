@@ -68,7 +68,7 @@ class Notification < ActiveRecord::Base
     object.class == Hash && # Passed in something you shouldn't have.
       object[:user] && # Only users receive notifications.
       object[:user].class == User &&
-      (target.respond_to?(:user_id) ? target.user_id : options[:user].id) != object[:user].id && # Users are never notified about their own action.
+      target.user_id != object[:user].id && # Users are never notified about their own action.
       object[:frequency] != NotificationFrequency.never && # User doesn't want any notification at all
       object[:frequency] != NotificationFrequency.newsfeed_only && # User doesn't want email for this
       ! object[:user].disable_email_notifications && # User doesn't want any email at all.

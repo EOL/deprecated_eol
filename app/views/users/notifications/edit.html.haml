@@ -42,6 +42,19 @@
                 = notification.label :member_joined_my_community
               %dd
                 = notification.select :member_joined_my_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.member_joined_my_community.id)
+          -unless @user.content_partners.nil?
+            %fieldset
+              %h3= I18n.t(:email_updates_for_eol_content_partners)
+              %dl
+                %dt
+                  = notification.label :comment_on_my_content_partner_data
+                %dd
+                  = notification.select :comment_on_my_content_partner_data, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.reply_to_comment.id)
+                %dt
+                  = notification.label :reply_to_comment
+                %dd
+                  = notification.select :reply_to_comment, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.reply_to_comment.id)
+                
           %fieldset
             %h3= I18n.t(:email_updates_for_eol_addicts)
             %dl

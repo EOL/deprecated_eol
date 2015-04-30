@@ -51,7 +51,7 @@ class Notification < ActiveRecord::Base
   end
   
   def self.queue_notifications(notification_recipient_objects, target)
-    notification_queue = notification_recipient_objects.select {|o| self.acceptable_notifications( o, target) }
+    notification_queue = notification_recipient_objects.select {|o| self.acceptable_notifications(o, target) }
     notification_queue.each do |h|
       PendingNotification.create(user: h[:user], notification_frequency: h[:frequency], target: target,
                                  reason: h[:notification_type].to_s)

@@ -113,7 +113,7 @@
         - items.each do |item|
           = render('recent_activity_mailer/iconed_activity', { user: item.user,
           action: raw(I18n.t("recent_activity.curator_activity_log_on_data_point_uri",who: link_to(item.user.full_name, user_url(item.user) ), 
-          action:item.activity.name+"d" , item: taxon_data_url(association.taxon_concept, anchor: association.anchor) ) ),
+          action:item.activity.name , item: taxon_data_url(association.taxon_concept, anchor: association.anchor) ) ),
           created_at: item.created_at })
   - else # No further grouping required:
     - grouped_notes[klass].compact.each do |item|

@@ -59,11 +59,11 @@ private
   def notification_recipient_objects
     return @notification_recipients if @notification_recipients
     @notification_recipients = []
-    add_recipent_partner_owner_of_resource(@notification_recipients)
+    add_recipient_partner_owner_of_resource(@notification_recipients)
     @notification_recipients
   end
 
-  def add_recipent_partner_owner_of_resource(recipients)
+  def add_recipient_partner_owner_of_resource(recipients)
     if @data_point_uri.source.is_a?(ContentPartner)
       @data_point_uri.source.user.add_as_recipient_if_listening_to(:curation_on_my_content_partner_data, recipients)
     end

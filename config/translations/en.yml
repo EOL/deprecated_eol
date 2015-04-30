@@ -1376,7 +1376,7 @@ en:
     curator_activity_on_taxon_concept_by_user: "<b>%{user_name}</b> performed a %{activity_name} action on <b>%{taxon_concept}</b> (%{taxon_overview_url})."
     data_object_activity_article_added_by_user: "<b>%{user_name}</b> added an article called %{dato_title} to <b>%{taxon_concept}</b> (%{taxon_details_url})."
     data_point_uri_title: "A curator has curated your data on the Data tab"
-    curator_activity_log_on_data_point_uri: "%{who} has %{action} the trait: %{item}"
+    curator_activity_log_on_data_point_uri: "%{who} has %{action}d the trait: %{item}"
   recent_activities:
     index:
       list_header: "Last 7 Days"

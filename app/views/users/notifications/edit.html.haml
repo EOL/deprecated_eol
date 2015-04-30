@@ -42,7 +42,7 @@
                 = notification.label :member_joined_my_community
               %dd
                 = notification.select :member_joined_my_community, options_from_collection_for_select(@notification_frequencies, :id, :translated_label, @user.notification.member_joined_my_community.id)
-          -unless @user.content_partners.nil?
+          -if @user.content_partners
             %fieldset
               %h3= I18n.t(:email_updates_for_eol_content_partners)
               %dl

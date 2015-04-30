@@ -352,6 +352,7 @@ module EOL
             res.each do |item|
               suggestions << item if item['resource_type'][0] == "TaxonConcept"
             end
+          end
         end
 
         if suggestions.blank?

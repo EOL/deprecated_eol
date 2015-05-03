@@ -2,10 +2,8 @@ require "spec_helper"
 
 describe 'Taxa worklist' do
   before(:all) do
-    truncate_all_tables
-    load_scenario_with_caching :media_heavy
-    @data = EOL::TestInfo.load('media_heavy')
-    @taxon_concept = @data[:taxon_concept]
+    load_foundation_cache
+    create_taxon_concept_with_media    
     Capybara.reset_sessions!
     CuratorLevel.create_enumerated
     @curator = build_curator(@taxon_concept) # build_curator generates a full curator by default.
@@ -19,6 +17,36 @@ describe 'Taxa worklist' do
     DataObjectsHarvestEvent.connection.execute("UPDATE data_objects_harvest_events SET harvest_event_id=#{hevt.id} WHERE data_object_id=#{image.id}")
     DataObjectsHarvestEvent.connection.execute("COMMIT")
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
+  end
+  
+  def create_taxon_concept_with_media
+    text = []
+    images = []
+    flash = []
+    sounds = []
+    youtube = []
+    toc_items = [ TocItem.overview, TocItem.brief_summary]
+    description = 'This is the text '
+    10.times { images << { :data_rating => 1 + rand(5), :source_url => 'http://photosynth.net/identifying/by/string/is/bad/change/me' } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
+    2.times { text << { :toc_item => toc_items.sample, :description => description + rand(100).to_s } }
+    2.times { text << { :toc_item => toc_items.sample, :vetted => Vetted.unknown, :description => description + rand(100).to_s } }
+    2.times { text << { :toc_item => toc_items.sample, :vetted => Vetted.untrusted, :description => description + rand(100).to_s } }
+    2.times { text << { :toc_item => toc_items.sample, :vetted => Vetted.inappropriate, :description => description + rand(100).to_s } }
+    2.times { flash << { :data_rating => 1 + rand(5) } }
+    2.times { flash << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
+    2.times { flash << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }
+    2.times { flash << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
+    2.times { sounds << { :data_rating => 1 + rand(5) } }
+    2.times { sounds << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
+    2.times { sounds << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }
+    2.times { sounds << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
+    2.times { youtube << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
+    @taxon_concept = build_taxon_concept(:canonical_form => 'Copious picturesqus', :common_names => [ 'Snappy' ],
+                                             :images => images, :flash => flash, :sounds => sounds, :youtube => youtube,
+                                             :toc => text, comments: [])
   end
   
   after(:all) do

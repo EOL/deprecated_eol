@@ -129,10 +129,11 @@ module EOL
 
             return_hash["synonyms"] = if params[:synonyms]
               taxon_concept.scientific_synonyms.
-                includes([:name, :synonym_relation]).
+                includes([:name, :synonym_relation, :hierarchy]).
                 map do |syn|
                 relation = syn.synonym_relation.try(:label) || ""
-                { "synonym" => syn.name.string, "relationship" => relation }
+                resource_title = syn.hierarchy.try(:resource).try(:title) || ""
+                { "synonym" => syn.name.string, "relationship" => relation, "resource" =>  resource_title} #try returns nil when called on nil 
               end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
             else
               []

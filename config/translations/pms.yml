@@ -1652,13 +1652,6 @@ pms:
         tweet_text: Soagneur ëd %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> a sambla dj'argistrassion
-          ëd dàit ëd vàire fornidor. Ch'a selession-a na linia për pi 'd detaj an
-          sl'argistrassion, o <a href="%{traitbank_search_path}">ch'a sërca an  TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          a sambla dj'argistrassion ëd dàit da vàire fornidor. Ch'a selession-a n
-          alinia për pi 'd detaj an sl'argistrassion, o <a href="%{traitbank_search_path}">ch'a
-          sërca an %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Fàit a propòsit ëd %{scientific_name} tanme classificà
             da %{hierarchy_provider} ant l'Enciclopedìa dla Vita.
@@ -3470,23 +3463,29 @@ pms:
         merge_of_an_unknown_taxon_unlocked: L'union ëd pàgine che chiel a l'ha ciamà
           ëd recent a l'é completà, ma la pàgina a l'é introvàbil.
         merge_of_it_unlocked: L'union ch'a l'ha ciamà ëd recent su costa pàgina a
-          l'é completasse.
+          l'é completasse; le pàgine a son an camin a esse ri-indicisà e a l'avran
+          damanca fin-a a 25 ore për che tut a sia livrà.
         merge_of_taxon_unlocked: L'union ëd pàgine che a l'ha ciamà ëd recent për
-          "%{taxon}" a l'é completasse.
+          "%{taxon}" a l'é completasse; le pàgine a son adess an camin a esse ri-indicisà
+          e a-i andrà fin-a a 25 ore për che tut a sia livrà.
         move_of_an_unknown_taxon_unlocked: Ël tramud ëd classificassion ch'a l'ha
           ciamà ëd recent a l'é completà, ma la pàgina a l'é introvàbil.
         move_of_it_unlocked: Ël tramud ëd classificassion ch'a l'ha ciamà ëd recent
-          su costa pàgina a l'é completà.
+          su costa pàgina a l'é completà; le pàgine a son adess an camin a esse ri-indicisà
+          e a-i andrà fin-a a 25 ore për che tut a sia livrà.
         move_of_taxon_unlocked: Ël tramud ëd classificassion ch'a l'ha ciamà ëd recent
-          për "%{taxon}" a l'é completà.
+          për "%{taxon}" a l'é completasse; le pàgine a son adess an camin a esse
+          ri-indicisà e a-i andrà fin-a a 25 ore për che tut a sia livrà.
         split_of_an_unknown_taxon_unlocked: La division ëd classificassion che chiel
           a l'ha ciamà ëd recent a l'é completà, ma la pàgina as treuva nen.
         split_of_it_unlocked: La division ëd classificassion ch'a l'ha ciamà ëd recent
-          su costa pàgina a l'é completà e le classificassion a l'é stàita tramudà
-          a <a href='%{to}'>soa pròpia pàgina</a>.
+          su costa pàgina a l'é completà e le classificassion a son ëstàite tramudà
+          a <a href='%{to}'>soa pròpia pàgina</a>; le pàgine a son adess an camin
+          ch'as ri-andiciso e a-i andrà fin-a a 25 ore për che tut a sia livrà.
         split_of_taxon_unlocked: La division ëd classificassion ch'a l'ha ciamà ëd
           recent për "%{taxon}" a l'é completà a le classificassion a son ëstàite
-          tramudà a <a href='%{to}'>soa pròpia pàgina</a>.
+          tramudà a <a href='%{to}'>soa pròpia pàgina</a>; le pàgine a son adess an
+          camin ch'as ri-andiciso e a-i andrà fin-a a 25 ore për che tut a sia livrà.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'La fusion ëd pàgine che chiel
           a l''ha ciamà ëd recent a l''ha <strong>failed</strong>: %{error}. An dzorpì,
@@ -4326,4 +4325,621 @@ pms:
   content_partner_agreement_create_unsuccessful_error: An dëspias, a-i é staje n'eror,
     l'acòrd an sle condission dël cambrada ëd contnù a l'é nen ëstàit creà.
   content_partner_agreement_subheader: Acòrd ëd cambrada ëd contnù
+  content_partner_agreement_signed_successful_notice: A l'ha acetà con sucess le condission
+    dl'acòrd ëd cambrada, adess a peul gionté dj'arsorse ëd dàit.
+  content_partner_agreement_signed_unsuccessful_error: An dëspias, a l'é ancapitaje
+    n'eror; a smija chMa-i sia un problema técnich con j'acòrd ëd cambrada Ëd contnù.
+    Për piasì, ch'a preuva torna; si ël problema a resta, për piasì ch'a avisa l'EdV.
+  content_partner_agreement_update_successful_notice: Acòrd an sle condission ëd colaborassion
+    ëd contnù agiornà për da bin.
+  content_partner_agreement_update_unsuccessful_error: An dëspias, a-i é staje n'eror,
+    l'acòrd an sle condission ëd colaborassion ëd contnù a l'é nen ëstàit agiornà.
+  content_partner_about_header: A propòsit ëd %{partner_name}
+  content_partner_administration_notes_empty: A-i é gnun-a nòta d'aministrassion.
+  content_partner_administration_notes_header: Nòte d'aministrassion
+  content_partner_administration_settings_header: Paràmeter d'aministrassion
+  content_partner_administration_settings_introduction: Ij camp d'aministrassion sì-dapress
+    a son visìbij e modificàbij mach da j'aministrator dl'EdV.
+  content_partner_collections_empty: Le colession d'un cambrada ëd contnù a listo
+    ij dàit che ël cambrada a l'ha fornì da soe arsorse. Gnun-a colession publicà
+    a l'é stàita trovà për eò moment.
+  content_partner_column_header_partner: Cambrada
+  content_partner_contact_create_successful_notice: Ël contat a l'é stàit giontà.
+  content_partner_contact_create_unsuccessful_error: An dëspias, a-i é staje n'eror,
+    ël contat a l'é nen stàit giontà.
+  content_partner_contact_delete_successful_notice: Ël contat a l'é stàit dëscancelà.
+  content_partner_contact_delete_unsuccessful_error: An dëspias, a-i é staje n'eror,
+    ël contat a l'é nen ëstàit dëscancelà.
+  content_partner_contact_edit_link: Modifiché ël contat
+  content_partner_contact_edit_page_subheader: Modifiché ël contat
+  content_partner_contact_new_link: Gionté un contat neuv
+  content_partner_contact_new_page_subheader: Gionté un contat
+  content_partner_contact_new_edit_form_header: Anformassion ëd contat dël cambrada
+  content_partner_contact_new_edit_form_tip: Ël nòm, ël congnòm e l'adrëssa ëd pòsta
+    eletrònica a son %{required_icon} obligatòri.
+  content_partner_contact_update_successful_notice: Ël contat a l'é stàit agiornà
+    për da bin.
+  content_partner_contact_update_unsuccessful_error: An dëspias, a-i é staje n'eror,
+    ël contat a l'é nen ëstàit agiornà.
+  content_partner_contacts_header: Contat
+  content_partner_current_agreement_empty: Gnun acòrd
+  content_partner_current_agreement_signed_on_with_date: Sot-signà ai %{date}
+  content_partner_current_agreement_view_link: Smon-e
+  content_partner_current_agreement_edit_link: Modifiché
+  content_partner_current_agreement_create_link: Creé un neuv
+  content_partner_current_agreement_not_accepted: Ancor nen acetà
+  content_partner_data_description_header: Descrission dij dàit
+  content_partner_data_description_empty: Gnun a l'ha giontà na descrission ai dàit
+    fornì.
+  content_partner_default_description: Un cambrada ëd contnù dl'Enciclopedìa dla Vita.
+  content_partner_edit_link: Modifiché ël cambrada ëd contnù
+  content_partner_filter_option_vetted_yes: É
+  content_partner_filter_option_vetted_no: Nò
+  content_partner_filter_option_published_never_harvested: Mai cujì
+  content_partner_filter_option_published_never_published: Mai publicà
+  content_partner_filter_option_published_latest_harvest_not_published: Nen publicà
+    pi recent
+  content_partner_filter_option_published_latest_harvest_pending_publish: Ùltima publicassion
+    an atèisa
+  content_partner_filter_option_published_latest_harvest_published: Ùltima publicassion
+  content_partner_filter_option_published_no_resources: Gnun-a arsorsa
+  content_partner_filter_published: Publicà
+  content_partner_has_unpublished_content_true: Contnù nen publicà
+  content_partner_has_unpublished_content_false: Gnun contnù nen publicà
+  content_partner_homepage_link: Visité ël sit an sl'Aragnà dël cambrada
+  content_partner_latest_published_harvest_event_time_ago: Ùltim agiornament %{time_passed}
+    fa;
+  content_partner_logo_alt_text: Marca dël cambrada ëd contnù %{partner_name}
+  content_partner_managed_by_header: Gestì da
+  content_partner_new_page_subheader: Gionté un neuv cambrada ëd contnù
+  content_partner_new_edit_form_profile_header: Anformassion ëd profil dël cambrada
+  content_partner_new_edit_form_tip: Cheidun-e dj'anformassion ch'a buta ambelessì
+    a saran visìbij ëd fasson pùblica. Ël nòm e la descrission dël proget a son %{required_icon}
+    obligatòri.
+  content_partner_notes_header: Nòte dël proget
+  content_partner_notes_empty: A-i é gnun-e armarche adissionaj për ës proget.
+  content_partner_oldest_published_harvest_event_time_ago: Prima publicassion an sl'EdV
+    %{time_passed} fa;
+  content_partner_overview_agreement_header: Acòrd ëd cambrada
+  content_partner_overview_agreement_link: Smon-e l'acòrd atual
+  content_partner_overview_link: Vista d'ansem dël cambrada
+  content_partner_overview_link_back_to: andré a la pàgina dël cambrada
+  content_partner_profile_menu: Profil dël cambrada ëd contnù
+  content_partner_public_false: Privà
+  content_partner_public_true: Pùblich
+  content_partner_registered_time_ago: Anscrivù %{time_passed} fa;
+  content_partner_reports: Rapòrt dël cambrada ëd contnù
+  content_partner_resource_about_header: A propòsit dl'arsorsa
+  content_partner_resource_auto_publish_true: É
+  content_partner_resource_auto_publish_false: Nò
+  content_partner_resource_collection_empty: Gnun-a colession a l'é stàita generà
+    për cost'arsorsa.
+  content_partner_resource_collections_header: Colession
+  content_partner_resource_collection_header: Colession publicà
+  content_partner_resource_collection_show_link: Smon-e la colession publicà
+  content_partner_resource_confirm_force_harvest: É-lo sigur ëd vorèj sforsé la cujìa
+    dl'arsorsa %{resource_title}?
+  content_partner_resource_create_successful_notice: 'Ij detaj an sl''arsorsa dël
+    cambrada ëd contnù a son ëstàit giontà për da bin. Stat atual dij dàit dl''arsorsa:
+    %{resource_status}.'
+  content_partner_resource_create_unsuccessful_error: An dëspias, a-i é rivaje n'eror,
+    l'arsorsa a l'é nen ëstàita giontà.
+  content_partner_resource_dataset_details_header: Ansem ëd dàit
+  content_partner_resource_delete_with_type_link: Dëscancelé tut
+  content_partner_resource_description_empty: Gnun-a descrission a l'é stàita fornìa
+    për costa arsorsa.
+  content_partner_resource_edit_link: Modifiché
+  content_partner_resource_edit_subheader: Modifiché l'arsorsa
+  content_partner_resource_edit_with_type_link: Modifiché l'arsorsa
+  content_partner_resource_harvest_event_confirm_publish: É-lo sigur ëd vorèj modifiché
+    l'eveniment ëd cujìa %{completed_at} për l'arsorsa %{resource_title}? Atension
+    che na vira ch'a conferma che chiel a veul publiché s'eveniment ëd cujìa, soa
+    arcesta a sarà butà an coa për ël tratament e a peulo vorèj-je fin-a a 24 ore
+    për ch'a sia completà.
+  content_partner_resource_harvest_event_current_published: Publicà atualman
+  content_partner_resource_harvest_event_not_published: Nen publicà
+  content_partner_resource_harvest_event_previously_published: Publicà an precedensa
+  content_partner_resource_harvest_event_publish_pending: Publicassion an atèisa
+  content_partner_resource_harvest_events_empty: Gnun eveniment d'arcòlta a l'é stàit
+    trovà.
+  content_partner_resource_harvest_events_for_resource_subheader: Eveniment d'arcòlta
+    për l'arsorsa %{resource_title}
+  content_partner_resource_harvest_events_see_all_link: Vëdde tuti j'<span class="assistive">eveniment
+    d'arcòlta</span>
+  content_partner_resource_harvest_event_update_successful_notice: Eveniment d'arcòlta
+    për %{resource_title} agiornà për da bin.
+  content_partner_resource_harvest_event_update_unsuccessful_error: An dëspias, a-i
+    é staje n'eror, l'eveniment d'arcòlta për %{resource_title} a l'é nen ëstàit agiornà.
+  content_partner_resource_will_be_deleted: Tut lòn ch'a l'é stàit cujì da l'arsorsa
+    %{resource_title} a sarà dëscancelà, për piasì ch'a speta 24 ore për andé anans.
+  content_partner_resource_hierarchy_browsable: Navigàbil
+  content_partner_resource_hierarchy_complete_true: Costa gerarchìa a l'é definìa
+    tanme <strong>organisà</strong>. Na gerarchìa organisà a supon che minca na vos
+    a sia destinà a esse ùnica, visadì che le liasse ëd nòm ch'as rëspondo a saran
+    tratà tanme d'omònim.
+  content_partner_resource_hierarchy_complete_false: Costa gerarchìa a l'é nen definìa
+    tanme controlà. Le vos ch'as rëspondo a peulo esse tratà tanme un concet ùnich.
+  content_partner_resource_hierarchy_confirm_request_publish: É-lo sigur ëd vorèj
+    ëd vorèj fé n'arcesta ëd promeuve soa gerarchìa për ch'a sia consultàbil su EdV?
+  content_partner_resource_hierarchy_edit_link: Modifiché
+  content_partner_resource_hierarchy_edit_subheader: Modifiché la gerarchìa për l'arsorsa
+    <em>%{resource_title}</em>
+  content_partner_resource_hierarchy_not_browsable: Nen navigàbil
+  content_partner_resource_hierarchy_request_publish: Arcesta an atèisa
+  content_partner_resource_hierarchy_unknown: Pa conossù
+  content_partner_resource_hierarchy_update_successful_notice: Gerarchìa agiornà për
+    da bin.
+  content_partner_resource_hierarchy_update_unsuccessful_error: An dëspias, a-i é
+    staje n'eror, la gerarchìa a l'é nen ëstàita agiornà.
+  content_partner_resource_licensing_details_header: Drit e atribussion
+  content_partner_resource_new_edit_form_tip: Ch'a buta j'anformassion a propòsit
+    ëd soa arsorsa. Ch'as sigura ëd buté un nòm ëd l'arsorsa e ëd buté l'adrëssa pùblica
+    an sl'Aragnà dël sò archivi ëd dàit o ëd carié sò archivi ant ël formà GZIP, TAR
+    o XML. S'a forniss n'adrëssa an sl'Aragnà, a peul ëdcò spessifiché con che frequensa
+    a veul che ij sò dàit a sio cujì da l'EdV. Për piasì, ch'as sigura che sò archivi
+    ëd dàit a l'é ant un formà ch'a peul esse amportà da l'EdV. <a href="%{more_url}">Amprende
+    ëd pi an sij formà ëd dàit mantnù</a>.
+  content_partner_resource_new_link: Gionté na neuva arsorsa
+  content_partner_resource_new_subheader: Gionté na neuva arsorsa
+  content_partner_resource_preview_collection_header: Previsualisé la colession
+  content_partner_resource_preview_collection_show_link: Smon-e na previsualisassion
+    ëd la colession
+  content_partner_resource_processing_header: Lë statù e ij gust a son an cors ëd
+    tratament
+  content_partner_resource_resource_status_new: Creà
+  content_partner_resource_show_link_back_to: andré a l'arsorsa
+  content_partner_resource_show_subheader: Detaj ëd l'arsorsa <em>%{resource_title}</em>
+  content_partner_resource_status_update_illegal_transition_error: An dëspias, lë
+    statù atual ëd l'arsorsa %{resource_title} a l'é %{current_resource_status} e
+    a peul pa esse modificà an %{requested_resource_status}.
+  content_partner_resource_status_update_successful_notice: Lë statù ëd l'arsorsa
+    %{resource_title} a l'é stàit modificà an %{resource_status}.
+  content_partner_resource_status_update_unsuccessful_error: An dëspias, a-i é staje
+    n'eror, lë statù ëd l'arsorsa %{resource_title} a l'ha nen podù esse modificà
+    an %{resource_status}.
+  content_partner_resource_update_successful_notice: 'Ij detaj an sl''arsorsa dël
+    cambrada ëd contnù a son ëstàit agiornà për da bin. Statù atual dij dàit ëd l''arsorsa:
+    %{resource_status}.'
+  content_partner_resource_update_unsuccessful_error: An dëspias, a-i é staje n'eror,
+    ij detaj ëd l'arsorsa a son nen ëstàit agiornà.
+  content_partner_resource_upload_unsuccessful_error: 'An dëspias, a-i é staje n''eror,
+    ij detaj ëd l''arsorsa a son ëstàit agiornà, ma l''arsorsa midema a l''é nen ëstàita
+    carià: %{resource_status}.'
+  content_partner_resource_url_or_dataset_not_both_error: Adrëssa d'ansem ëd dàit
+    o archivi për arsorsa, nen tuti doi. Për piasi, ch'a decida s'a preferiss fornì
+    n'adrëssa an sl'Aragnà o carié n'archivi për descrive costa arsorsa. D'arsorse
+    adissionaj a peulo esse giontà pi tard.
+  content_partner_resource_validation_unsuccessful_error: An dëspias, ij detaj dl'arsorsa
+    a son ëstàit agiornà, ma l'arsorsa a l'ha nen podù esse validà. Vëdde le nòte
+    d'esecussion sì-sota.
+  content_partner_resource_vetted_true: É
+  content_partner_resource_vetted_false: Nò
+  content_partner_resource_view_link: Smon-e
+  content_partner_resources_information: J'arsorse a son dj'ansem ëd dàit disponìbij
+    për esse cujì da l'EdV. Ij dàit cujì a son antëgrà ant la base ëd dàit dl'EdV
+    e fornì al pùblich a travers ël sit an sl'Aragnà ëd l'EdV e l'antërfassa ëd programassion.
+    J'archivi dj'arsorse a peulo esse carià diretaman ant l'EdV o bin, si chiel a
+    rend sò archivi d'arsorsa disponìbil an s'un servent ëd l'Aragnà pùblich, l'EdV
+    a peul ëd fasson automàtica tiré ij dàit a antërvaj regolar che chiel a definiss.
+    Minca n'archivi d'arsorsa a dev esse ant ël formà dlë <a href="%{eol_transfer_schema_url}">schema
+    Ëd trasferiment ëd l'EdV</a>
+  content_partner_resources_header: Arsorse
+  content_partner_resources_link_back_to: andré a arsorse &amp; contat
+  content_partner_resources_link: Arsorse &amp; contat
+  content_partner_resources_policy_information: Prima ëd gionté soe arsorse ëd dàit,
+    për piasì ch'a arlesa e a aceta le condission ëd la convension d'usagi tanme cambrada
+    Ëd contnù.
+  content_partner_statistics_column_header_statistic: Statìstiche për ël mèis ëd %{month_name}
+    %{year}
+  content_partner_statistics_column_header_provider_count: Pàgine contenente ël contnù
+    dël fornidor
+  content_partner_statistics_column_header_total_count: Tute le pàgine
+  content_partner_statistics_column_header_provider_proportion: Përsentual dël fornidor
+  content_partner_statistics_empty: Gnun-e statìtiche trovà për %{month_name} %{year}.
+  content_partner_statistics_month_label: Mèis
+  content_partner_statistics_year_label: Ann
+  content_partner_statistics_summary_caption: Resumé dle statìstiche d'usagi dle pàgine
+    ëd tassonomìa ch'a ancludo dij contnù fornì da %{partner_name} rësguardant l'utilisassion
+    total dël sit an sl'Aragnà dl'EdV.
+  content_partner_statistics_link: Statìstiche d'usagi
+  content_partner_statistics_taxa_page_caption: Statìstiche d'usagi detajà për le
+    pàgine ëd tassonomìa ch'a ancludo dij contnù fornì da %{partner_name}.
+  content_partner_statistics_column_header_taxa_page_page_views: Pàgine visualisà
+  content_partner_statistics_column_header_taxa_page_unique_page_views: Pàgine ùniche
+    visualisà
+  content_partner_statistics_column_header_taxa_page_time_on_page_seconds: Temp an
+    sla pàgina (an second)
+  content_partner_stats_message: An saron dle modìfiche ant ël servissi che i dovroma
+    për generé le statìstiche d'usagi, i dàit për ës mèis-sì a son nen disponìbij
+    al moment. Nòstra echip ëd dësvlup a l'é an camin ch'a travaja a na solussion.
+    I mandëroma un mëssagi ai nòstri cambrada na vira che ël problema a sia arzolvù.
+  content_partner_status_empty: Stat pa conossù
+  content_partner_update_successful_notice: J'anformassion an sël cambrada a son ëstàite
+    agionrà për da bin.
+  content_partner_update_unsuccessful_error: An dëspias, a-i é staje n'eror, ij detaj
+    an sël cambrada a son nen ëstàit agiornà.
+  content_partner_vetted_false: Nen revisionà
+  content_partner_vetted_true: Aprovà
+  content_partners_link: Cambrada ëd contnù
+  content_partners_empty: Gnun cambrada ëd contnù a l'é stàit trovà.
+  content_partners_page_title: Cambrada ëd contnù
+  content_partners_page_description: Ij cambrada ëd contnù ëd l'Enciclopedìa dla Vita
+    a l'han na gran quantità d'anformassion a propòsit dla biodiversità an sij sò
+    sit an sl'Aragnà o an soe base ëd dàit, che a partagio ëdcò a travers dle pàgine
+    dl'EdV. I apressioma motobin soa contribussion crìtica a la mission ëd l'EdV e
+    i lo ancoragioma a amprend-ne ëd pi ansima a lor. Savèjne ëd pi an s'coma <a href="%{more_url}">dventé
+    un crambrada ëd contnù.</a>
+  content_partners_with_count:
+    one: '%{count} cambrada ëd contnù'
+    other: '%{count} cambrada ëd contnù'
+  content_server_full_url: Adrëssa completa dël servent ëd contnù
+  content_servers: Servent ëd contnù
+  content_setting_colon: 'Paràmeter ëd contnù:'
+  content_summary_introduction_html: Ij valor sì-dapress a arpresento la soma dle
+    vàire sòrt ëd contnù për costa tassonomìa e tuti ij sò dissendent tassonòmich.
+    Ël contnù ëd %{glossary_term_trusted} a l'é stàit aprovà da 'n conservator ëd
+    l'EdV opurament a ven da 'n fornidor ëd fiusa. Ël contnù ëd %{glossary_term_unreviewed}
+    a l'é ancor nen ëstàit valutà da 'n conservator ëd l'EdV. Minca na gerarchìa tassonòmica
+    a l'é ùnica, donca minca na gerarchìa navigàbil a l'é listà për comparassion.
+  content_summary_table_caption: Resumé dël contnù associà a %{taxon_name} e ij sò
+    dissendent an %{hierarchy_label}
+  content_summary_table_summary: Sa tàula a conten ij cont ëd vàire sòrt ëd contnù
+    separà conforma a sò stat.
+  content_summary_table_type_status_column_header: Sòrt ëd contnù e stat
+  content_summary_table_count_column_header: Nùmer
+  content_summary_table_type_descendants_row: Nùmer ëd dissendent
+  content_summary_table_type_trusted_images_row: Nùmer ëd plance ëd fiusa
+  content_summary_table_type_unreviewed_images_row: Nùmer ëd plance nen controlà
+  content_summary_table_type_trusted_text_row: Nùmer d'element ëd test ëd fiusa
+  content_summary_table_type_unreviewed_text_row: Nùmer d'element ëd test nen controlà
+  content_type: Sòrt ëd contnù
+  contribute: Contribuì
+  copied_all_items_from_collection_with_count:
+    one: N'element copià da %{from} a costa colession.
+    other: Tuti ij %{count} element copià da %{from} a costa colession.
+  copied_all_items_to_collections:
+    one: Tuti j'element copià da %{name} a %{count} colession.
+    other: Tuti j'element copià da %{name} a %{count} colession.
+  copy: Copié
+  copy_of_name: Còpia ëd %{name}
+  copyright: 'DRIT D''AUTOR:'
+  correct_donation_message_with_link: Si st'anformassion a l'é nen giusta, për piasì
+    <a href='%{link}'>torné andré</a> për fé le modìfiche.
+  could_not_find_collection_error: An dëspias, a l'é impossìbil trové sa colession.
+  could_not_find_user: Chiel a l'é nen un mèmber ëd sa comunità.
+  count: Cont
+  count_results_for_search_term:
+    one: '%{count} arzultà për <em>%{search_term}</em>'
+    other: '%{count} arzultà për <em>%{search_term}</em>'
+  count_results_for_traitbank:
+    one: '%{count} arzultà an TraitBank'
+    other: '%{count} arzultà an TraitBank'
+  create_account: creé un cont
+  create_a_new_collection: Creé na neuva colession
+  create_community_unsuccessful_error: An dëspias, a-i é staje n'eror, soa comunità
+    a l'é nen ëstàita creà. Për piasì, ch'a contròla che tuti ij camp a sio compilà
+    për da bin.
+  create_community: Creé na comunità
+  create_community_about_heading: A propòsit ëd la creassion ëd na comunità
+  create_community_about_text: A sta për creé na comunità dantorn ai contnù ëd "%{collection_name}".
+    Tuti j'utent a podran gionz-se a soa comunità, ma mach ij mèmber ai quaj chiel
+    a smon lë statù ëd "gerent" a san autorisà a modifiché la comunità midema o la
+    colession associà a chila-sì.
+  create_community_around_this_collection_header: Creé na comunità dantorn a sa colession
+  create_a_community: Creé na comunità
+  create_a_community_login_advisory: A-j sarà ciamà ëd rintré ant ël sistema prima
+    ëd creé soa comunità
+  create_a_collection: Creé na colession
+  create_collection_button: Creé na colession
+  create_child_page: Creé na sot-pàgina
+  create_community_button: Creé na comunità
+  create_user_unsuccessful_error: An dëspias, a-i é staje n'eror, sò neuv cont a l'é
+    nen ëstàit creà. Për piasì, ch'a contròla che tuti ij camp a sio compilà për da
+    bin.
+  created_at: Creà ai
+  created_by: Creà da
+  created_colon: 'Creà:'
+  created_community: La comunità a l'é stàita creà për da bin.
+  created: Creà
+  creative_commons: Creative Commons
+  credentials: Sertificassion
+  credentials_colon: 'Identificassion:'
+  crop_image: artajé la plancia
+  crop_image_thumbnails: Artajé le plance d'imàgin
+  curated: Goernà
+  curated_association_update_button: Argistré le modìfiche
+  curated_objects_of: oget goernà ëd %{name}
+  curated_species_of: spece goernà ëd %{name}
+  curation_comment: Coment ëd conservassion
+  curation_error_no_hide_reasons_given: Për piasì, ch'a serna na rason pr'ëstërmé
+    sossì an la pàgina %{association}, o ch'a lassa un coment ch'a spiega përchè a
+    lo stërma
+  curation_error_no_untrust_reasons_given: Për piasì, ch'a serna na rason për marché
+    sossì coma nen afidàbil an sla pàgina %{association}, o ch'a lassa un coment pr'ëspieghé
+    përchè a'j dà nen fiusa
+  curation_error_vetted_invalid: A peul nen goerné %{association} a '%{vetted}'
+  curation_error_visibility_invalid: A peul nen goerné %{association} a '%{visibility}'
+  curation_error_untrust_reasons_invalid: Le rason për nen fidesse ëd %{association}
+    a j'ero nen bon-e
+  curation_error_hide_reasons_invalid: Le rason pr'ëstërmé %{association} a j'ero
+    nen bon-e
+  curation_error_object_in_preview_state_cannot_be_curated: S'oget a l'é smonù për
+    l'amportassion e a peul pa esse goernà
+  curation_privileges_page_description: Ch'a serna sò livel ëd supervision desiderà,
+    tanme conservator assistent, complet o mèistr. Le candidadure a conservator complet
+    o mèistr a devo anclude l'argoment e le credensiaj. A arseivrà na notìfica për
+    pòsta eletrònica na vira che ij sò detaj a saran controlà e aceta. Le candidadure
+    a assistent conservator a son nen moderà e a saran dlongh aprovà. Për savèjne
+    ëd pi su coma <a href="%{curators_url}">dventé conservator</a>.
+  curation_privileges_page_title: Dventé un conservator
+  curation_scope: Camp d'assion ëd conservassion
+  curation_reason_placeholder: detaj adissionaj (facoltativ)
+  curator: conservator
+  curator_question: Conservator?
+  curator_level_application_pending_notice: Mersì për soa candidadura pr'ëdventé conservator.
+    I lo aviseroma për pòsta eletrònica cand i l'avroma esaminà soa candidadura.
+  curator_level_assistant_approved_notice: Congratulassion! Adess a l'é n'<em>assistent
+    conservator</em>. <a href="%{more_url}">Savèjne ëd pi an sël ròl d'assistent conservator</a>.
+  curator_level_assistant_curator: Assistent conservator
+  curator_level_full_curator: Conservator complet
+  curator_level_full_pending_notice: Mersì për soa candidadura pr'ëdventé un <em>conservator
+    complet</em>. I lo aviseroma për pòsta eletrònica cand i l'avroma esaminà soa
+    candidadura.
+  curator_level_master_curator: Mèistr conservator
+  curator_level_master_pending_notice: Mersì për soa candidadura pr'ëdventé un <em>mèistr
+    conservator</em>. I lo aviseroma për pòsta eletrònica cand i l'avroma esaminà
+    soa candidadura.
+  curator_profile: profil dël conservator
+  curator_profile_menu: Profil dël conservator
+  curator_profile_of: profil dël conservator ëd %{name}
+  curator_scope_colon: 'Camp d''assion ëd conservassion:'
+  curator_signup_message: Për ciamé ij privilegi ëd conservator, a dev andiché ël
+    camp d'assion ëd soe credensiaj sì-sota. A sarà anformà për pòsta eletrònica si
+    soa domanda dij privilegi ëd conservator a l'é stàita acetà.
+  curator_status_changed_by: Statù ëd conservator modificà da %{user} ai %{date}
+  curators: Conservator
+  curators_empty: Ij nòstri conservator a l'han ancor nen fàit d'assion su costa pàgina.
+  curators_summary_header_with_count:
+    one: Controlà da %{count} conservator
+    other: Controlà da %{count} conservator
+  curators_summary_learn_more_link: Ch'a amprenda coma goerné
+  curators_with_count:
+    one: '%{count} Conservator'
+    other: '%{count} Conservator'
+  your_current_rating_0_of_5: 'Soa cotassion atual: 0 su 5'
+  your_current_rating_1_of_5: 'Soa cotassion atual: 1 su 5'
+  your_current_rating_2_of_5: 'Soa cotassion atual: 2 su 5'
+  your_current_rating_3_of_5: 'Soa cotassion atual: 3 su 5'
+  your_current_rating_4_of_5: 'Soa cotassion atual: 4 of 5'
+  your_current_rating_5_of_5: 'Soa cotassion atual: 5 of 5'
+  your_watch_collection: lista dla ròba che as ten sot-euj
+  current_language: 'Lenga: %{iso_code}'
+  current_harvest_event: Cheuje l'eveniment da «%{resource_title}» për «%{period}»
+    ore
+  currently_running_harvesting: Cujìa an cors atualman
+  currently_in_eol: Ant ës moment ant l'Enciclopedìa dla Vita
+  currently_published: publicà atualman
+  daily: Cotidian
+  darwin_core: Darwin Core
+  dashboard: Cruscòt
+  data: Dàit
+  data_about_subtab_header: A propòsit dij dàit ëd l'EdV
+  data_about_subtab_content: <p><a href="%{traitbank_path}">TraitBank</a> a cheuj
+    dij dàit e dij metadàit da vàire sorgiss an n'ansem ùnich, sentrà an le tassonomìe,
+    complet d'arferiment e acessìbil semanticaman.</p><p><a href="%{contact_contribute_path}">Ch'an
+    contata</a> për d'autre anformassion an sël partagi dj'ansem ëd dàit con EdV o
+    për arcomandé n'ansem ëd dàit da anclude an TraitBank.</p><p><a href="%{register_path}">Ch'as
+    anscriva për avèj un cont a gràtis</a> o <a href="%{login_path}">ch'a rintra ant
+    ël sistema</a> për comenté ij dàit.</p><p>Ij finansiament për ël dësvlup dla fonsionalità
+    ëd dàit calcolàbij a son ëstàit fornì da la fondassion Alfred P. Sloan, la fondassion
+    John D. e Catherine T. MacArthur, e da j'utent Ëd l'EdV ëd tut ël mond. <a href="%{contact_traitbank_path}">Ch'a
+    contata la segretarìa ëd l'EdV</a> për d'àutre anformassion su TraitBank.</p>
+  data_results_only_for_search: Arzultà ëd TraitBank për «%{search_term}»
+  data_search_limit:
+    one: Ij dëscariament d'arserca ëd dàit a son limità a %{count} arzultà.
+    other: Ij dëscariament d'arserca ëd dàit a son limità a %{count} arzultà.
+  data_about_this_record: Dàit su st'argistrassion
+  data_column_tc_id: ID ëd la pàgina dl'EdV
+  data_column_sci_name: Nòm sientìfich
+  data_column_common_name: Nòm comun
+  data_column_classification_summary: Resumé dla classificassion
+  data_column_measurement: Mzurassion
+  data_column_value: Valor
+  data_column_measurement_uri: URI dë mzurassion
+  data_column_value_uri: URI ëd valor
+  data_column_resource: Adrëssa d'arsorsa dël cambrada ëd contnù
+  data_column_name: Tichëtta dla mzurassion
+  data_column_name_uri: URI dla mzurassion
+  data_column_val: Valor (normalisà)
+  data_column_raw_value: Valor brut (diret da la sorgiss)
+  data_column_val_uri: URI dël valor
+  data_column_units: Unità (normalisà)
+  data_column_units_uri: URI dj'unità (normalisà)
+  data_column_raw_units: Unità brute (diret da la sorgiss)
+  data_column_raw_units_uri: URI dj'unità brute (normalisà)
+  data_column_source: Fornidor
+  data_database_colon: 'Dàit:'
+  data_glossary: Glossari dij dàit
+  data_glossary_contribute: Për contibuì con dle neuva paròle a 's glossari,<a href=%{url}>ch'a
+    pija an considerassion ëd carié dij dàit</a>.
+  data_link_to_record: Liura a st'argistrassion
+  data_logging_active: Argistrassion dij dàit ativa
+  data_master_database_colon: 'Dàit mèistr:'
+  data_metadata_subtable_summary: Dàit suplementar për ës fàit.
+  data_measurement_subtable_summary: Dàit suplementar an sla mzurassion d'ës fàit.
+  data_object: Oget ëd dàit
+  data_object_not_associated_with_any_hierarchies: St'oget ëd dàit a l'é associà a
+    gnun-e gerarchìe.
+  data_object_reference: Rëspondensa dl'oget ëd dàit
+  data_object_ignore: ignoré st'element
+  data_object_undo_ignore: gavé da la lista da ignoré
+  data_object_toc_items_list:
+    one: A compariss sota %{quoted_toc_titles}
+    other: A comparisso sota %{quoted_toc_titles}
+  data_overview_table_caption: Dàit dël trat
+  data_point_uri_source_missing: sorgiss mancanta
+  data_point_uri_summary_name: dàit su %{taxon}
+  data_provided_by_user: fornì da %{whom}
+  data_provided_by_content_partner: 'Fornidor : %{whom}'
+  data_ranges: Resumé ëd dàit
+  data_ranges_subheader: Resumé dij dàit për sa partìa tassonòmica
+  data_ranges_subtab_help_text: Për cheidun dj'atribù, EdV a detèrmina l'estension
+    dij valor disponìbij për na tassonomìa a travers tute le sorgiss.
+  data_reference_subtable_summary: Arferiment suplementar ansima a 's fàit.
+  data_row_exemplar_added: Giontà a la vista d'ansem.
+  data_row_exemplar_removed: Gavà da la vista d'ansem.
+  data_row_excluded_from_overview_notice: 'Nòta: costa riga a l''é stàita gavà da
+    la vista d''ansem.'
+  data_row_add_exemplar_button: gionté a la Vista d'ansem
+  data_row_remove_exemplar_button: gavé da la Vista d'ansem
+  data_row_additional_detail_assistive: Carié ij metadàit so cost fàit.
+  data_row_additional_detail_assistive_js: Cangé antra smon-e e stërmé ij metadàit
+    ansima a 's fàit.
+  data_row_additional_detail_alt: Detaj suplementar
+  data_row_additional_detail_show_alt: Smon-e ij detaj suplementar
+  data_row_additional_detail_hide_alt: Stërmé ij detaj suplementar
+  data_row_additional_detail_loading_alt: Cariament dij detaj suplementar
+  data_row_hide_button: Stërmé la riga
+  data_row_unhide_button: Pi nen ëstërmé la riga
+  data_search:
+    page_title: Arserca an TraitBank
+    form:
+      header_assistive: Arserché da
+      input_summary_intro: Opsion d'arserca selessionà
+      new_search_link: Ancaminé na neuva arserca
+      or_range_header: O <span class="assistive">buté n'antërval</span>
+      refine_search_header: Afiné soa arserca (facoltativ)
+      search_suggestions_header: Sa-lo nen d'andoa ancaminé?
+      search_suggestions_subheader_colon: 'Prové un-a dj''arserche ëd dàit sì-dapress:'
+      search_suggestion_whale_mass: Che balen-e a pèiso pi che 10 tonëlà?
+      search_suggestion_diatom_shape: Cole ch'a son le vàire forme dij diatòma?
+      search_suggestion_cavity_nests: Che spece a fàbrico dij ni ant ij përtus?
+      search_suggestion_blue_flowers: Che piante a l'han dle fior bleuve?
+      search_tools_show_link: Smon-e j'opsion d'arserca
+      search_tools_hide_link: Stërmé j'opsion d'arserca
+      search_value_or_range_header: Arserché un valor ëspessìfich o n'antërval
+      search_within_taxon_group_header: Arserché an na partìa ëd tassonomìe
+      search_within_taxon_group_intro_with_count:
+        other: L'arserca andrinta a na partìa ëd tassonomìe a l'é al moment limità
+          a dle partìe con men che %{count} tassonomìa. <a href="%{contact_us_tech_url}">Ch'an
+          contata</a> për savèjne 'd pi an sl'arserca andrinta a partìe pi gròsse.
+      sort_header: Ordiné j'arzultà
+    notice:
+      clade_too_big: An dëspias, j'arzultà smonù a son nen filtrà da %{taxon_name}
+        përchè a l'é tròp gròss. Ch'a serna na partìa pi cita o <a href="%{contactus_tech_path}">ch'an
+        contata</a> për dl'agiut.
+      clade_has_no_data: Gnun a l'ha ancor contribuì a d'argistrassion ëd dàit për
+        %{taxon_name}. <a href="%{contribute_path}">Ch'a amprenda coma contribuì</a>.
+  data_search_link: Sërché dij dàit sientìfich an EdV
+  data_search_explanation: Dovré l'arserca ëd dàit d'EdV për trové dj'element rëspondent
+    a '%{term}' ant j'osservassion,<br />le mzurassion e d'àutre afermassion sientìfiche.
+  data_search_attribute: Arserché an TraitBank dj'argistrassion con ij dàit %{attribute}
+  data_search_destroyed: Ës travaj a sarà pi nen fàit.
+  data_search_files_with_count:
+    one: '%{count} dëscariament ëd dàit'
+    other: '%{count} dëscariament ëd dàit'
+  data_search_row_hidden: Un conservator a l'ha stërmà costa linia ëd dàit.
+  data_server_unavailable: Ij dàit su EdV a son al moment nen disponìbij. Për piasì,
+    ch'a preuva torna pi tard. An dëspias për l'inconvenient.
+  data_show_n_more_rows: Smon-e NNN ëd pi...
+  data_subtab_about: A propòsit ëd
+  data_subtab_glossary: Glossari për %{taxon}
+  data_summary_header_with_count:
+    zero: EdV a l'ha gnun dàit ëd caraterìstica
+    one: EdV a l'ha dij dàit su un-a caraterìstica
+    other: EdV a l'ha dij dàit su %{count} caraterìstiche
+  data_summary_ranges_header_with_count: EdV a l'ha dij dàit sintétich
+  data_tab_curator_exemplar: Costa riga a l'é stàita giontà a la scheda Vista d'ansem.
+  data_tab_curator_excluded: Costa riga a l'é stàita gavà da la scheda Vista d'ansem.
+  data_tab_curator_key_exemplar: '%{image} giontà a la <a href=''%{link}''>Vista d''ansem</a>'
+  data_tab_curator_key_excluded: '%{image} gavà da la <a href=''%{link}''>Vista d''ansem</a>'
+  data_table_summary: 'Dàit ëd caraterìstica për %{taxon}. Minca na riga ëd fàit a
+    l''é un dàit diferent, fornì da ''n cambrada ëd contnù o n''utent. Minca ''n valor
+    a peul anclude na tàula anidà ch''a sintetisa ij metadàit an sël fàit: andoa a
+    l''é stàit cujì, coj ch''a son ij drit an sël dàit e ròba parèj. Ch''a sgnaca
+    an sla riga për che si metadàit a sio smonù. Ch''a sgnaca torna pr''ëstërmeje.
+    La visualisassion dij metadàit a smon ëdcò j''anotassion e a përmet a j''utent
+    ëd gionté doe pròpie anotassion, si necessari. Ij conservator a l''han dle fonsionalità
+    suplementar durant la visualisassion dij metadàit.'
+  data_usage_reports: Rapòrt d'utilisassion dij dàit
+  date_caps: Dàita
+  date_uploaded: Dàita ëd cariament
+  dato_create_cancel: Anulé
+  dato_edit_cancel: Anulé
+  dato_create_user_link_error: An dëspias, a-i é staje n'eror, la liura a l'ha nen
+    podù esse giontà.
+  dato_create_user_text_error: An dëspias, a-i é staje n'eror, l'artìcol a l'ha nen
+    podù esse giontà.
+  dato_location_created: 'Locassion creà: %{loc}'
+  dato_new_edit_user_text_fieldset_content_header: Contnù ëd l'artìcol
+  dato_new_edit_user_text_link_fieldset_content_header: Dàit dla liura
+  dato_new_edit_user_text_fieldset_information_header: Anformassion an sl'artìcol
+  dato_new_edit_user_text_link_form_tip: Soa liura a sarà smonùa an sla pàgina dla
+    tassonomìa. Si chiel a l'é pa un conservator, la liura a sarà marcà coma "nen
+    arlesùa" fin-a che un conservator a-j daga da ment. La categorìa, la descrission
+    e l'adrëssa an sl'Aragnà a son obligatòrie (%{required_icon}), tuti j'àutri camp
+    a son facoltativ. Për pi d'agiut, ch'a lesa <a href="%{add_article_help_url}">gionté
+    n'artìcol/liura agiut</a>.
+  dato_new_edit_user_text_form_tip: Sò artìcol complet a sarà smonù a la pàgina dla
+    tassonomìa. Si chiel a l'é pa un conservator, l'artìcol a sarà marcà tanme "nen
+    revisionà" fin-a a che un conservator a-j daga da ment. Ël sot-capìtol, ël test,
+    la lenga e la licensa a son obligatòri (%{required_icon}), tuti j'àutri camp a
+    son facoltativ. S'a sern na licensa CC-BY (Atribussion), për piasì ch'a buta ëdcò
+    un detentor ëd drit o ch'a lassa ël camp bianch për dovré sò nòm complet. Le license
+    ëd domini pùblich a l'han nen damanca ëd detentor ëd drit. Për pi d'agiut, ch'a
+    lesa <a href="%{add_article_help_url}">l'agiut për gionté n'artìcol</a>.
+  dato_create_user_text_missing_taxon_id_exception: Impossìbil costruù n'oget ëd dàit
+    testuaj o d'utent si l'identificativ ëd tassonomìa a l'é nul.
+  dato_create_user_text_missing_user_exception: Impossìbil costruì un oget ëd dàit
+    testuaj o utent si l'identificativ dla tassonomìa a l'é nul.
+  dato_create_user_text_validation_error: Për piasì, ch'a contròla che a l'ha completà
+    ël formolari për da bin.
+  dato_update_users_text_not_owner_exception: Mach l'autor original ëd s'oget a peul
+    modifichelo.
+  dato_edit_link_button: Modifiché sa liura
+  dato_edit_link_description: Mersì për avèj contribuì con soe conossense a l'EdV.
+    La liura revisionà a sarà giontà a la lista dle ròbe ch'as ten sot-euj, për che
+    chiel a peula vëdde le ciaciarade ch'a la rësguardo e verifiché sò statù ëd conservassion.
+  dato_edit_text_button: Modifiché st'artìcol
+  dato_edit_text_page_description: Mersì ëd soa contribussion a le conossense Ëd l'EdV.
+    L'artìcol revisionà a sarà giontà a la lista ëd lòn ch'a ten sot-euj, an manera
+    che chiel a peula vëtte le ciaciarade ch'a lo rësguardo e verifiché sò statù ëd
+    conservassion.
+  dato_edit_link_title: Modifiché la liura
+  dato_edit_text_title: Modifiché l'artìcol
+  dato_new_text_for_taxon_page_title: Gionté n'artìcol a <i>%{taxon}</i>
+  dato_new_text_link_for_taxon_page_title: Gionté na liura vers <i>%{taxon}</i>
+  dato_new_text_page_description: Mersì për soa contribussion a l'EdV. Sò artìcol
+    a sarà giontà a la lista ëd lòn ch'as ten sot-euj, parèj chiel a podrà vëdde le
+    ciaciarade che a lo rësguardo e verifiché sò statù Ëd conservassion.
+  dato_update_user_text_error: An dëspias, a-i é staje n'eror, l'artìcol a l'han nen
+    podù esse agiornà.
+  deactivate: Disativé
+  development_version_name: EdV v2 Beta
+  default: Për sòlit
+  default_focus_collection_name_from_community: Camp d'anteresse ëd %{name}
+  default_rating: vot për ëstàndard
+  default_rating_value_of_total: 'Vot për ëstàndard: %{rating} su %{total}'
+  default_watch_collection_name: Lista dla ròba che %{username} a ten sot-euj
+  delete_community: Eliminé costa comunità
+  delete: dëscancelé
+  deleted_colon: 'dëscancelà:'
+  delete_firstcap: Dëscancelé
+  description: Descrission
+  description_of: Descrission ëd
+  descriptive_label: Tichëtta descritiva
+  destination_inappropriate_for_logged_in_users: A l'é rintrà ant ël sistema.
+  destroy: Dësblé
+  detail: Detaj
+  details: Detaj
+  details_title: Detaj
+  did_you_mean: 'Vorij-lo dì: %{suggestions} ?'
+  disabled_for_now: AL MOMENT DISATIVÀ
+  discover_link: Dëscoaté
+  displaying_numerical_range_eol_records_with_count:
+    one: Visualisassion d'%{count} argistrassion su EdV
+    other: Visualisassion ëd %{start_number} &ndash; %{end_number} argistrassion su
+      %{count} su EdV
+  donate_link: Doné
+  done_already: Già fàit
 ...

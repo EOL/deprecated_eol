@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Chmee2
+# Author: Cvanca
 # Author: Jachym
 # Author: Jezevec
 # Author: Juandev
@@ -1308,8 +1309,8 @@ cs:
   taxa:
     details:
       index:
-        meta_title: Fakta o %{scientific_name}
-        tweet_text: Fakta o %{scientific_name}
+        meta_title: Popisy a články o %{scientific_name}
+        tweet_text: Články o %{scientific_name}
   users:
     newsfeeds:
       comments_link: komentáře
@@ -1435,7 +1436,7 @@ cs:
   assistive_updates_header: Aktualizace
   associated_submit_button: připojené
   associated_with_header: Asociace s
-  associated_with_article_header: V tomto článku
+  associated_with_article_header: V nejnovějším článku
   associated_with_image_header: Na tomto obrázku
   associated_with_sound_header: V tomto audiu
   associated_with_video_header: V tomto videu

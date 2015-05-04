@@ -3177,22 +3177,28 @@ sv:
         merge_of_an_unknown_taxon_unlocked: Sidsammanslagningen du nyss begärde har
           slutförts, men sidan kan inte hittas.
         merge_of_it_unlocked: Sidsammanslagningen du nyss begärde på denna sida har
-          slutförts.
+          slutförts; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
         merge_of_taxon_unlocked: Sidsammanslagningen du nyss begärde för "%{taxon}"
-          har slutförts.
+          har slutförts; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
         move_of_an_unknown_taxon_unlocked: Klassificeringsflyttningen du nyss begärde
           har slutförts, men sidan kan inte hittas.
         move_of_it_unlocked: Klassificeringsflyttningen du nyss begärde på denna sida
-          har slutförts.
+          har slutförts; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
         move_of_taxon_unlocked: Klassificeringsflyttningen du nyss begärde för "%{taxon}"
-          har slutförts.
+          har slutförts; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
         split_of_an_unknown_taxon_unlocked: Klassificeringsflyttningen du nyss begärde
           har slutförts, men sidan kan inte hittas.
         split_of_it_unlocked: Klassifikationsuppdelningen du nyss begärde har slutförts
-          och klassifikationen har flyttats till <a href='%{to}'>en egen sida</a>.
+          och klassifikationen har flyttats till <a href='%{to}'>en egen sida</a>;
+          sidorna omindexeras nu och kommer att kräva upp till 25 timmar att slutföra.
         split_of_taxon_unlocked: Klassifikationsuppdelningen du nyss begärde för "%{taxon}"
           har slutförts och klassifikationen har flyttats till <a href='%{to}'>en
-          egen sida</a>.
+          egen sida</a>; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Sidsammanslagningen du nyss
           begärde har <strong>misslyckats</strong>: %{error}. Dessutom kan inte den
@@ -3961,6 +3967,7 @@ sv:
   content_partner_resource_create_unsuccessful_error: Tyvärr, ett fel uppstod. Resursen
     lades inte till.
   content_partner_resource_dataset_details_header: Datamängd
+  content_partner_resource_delete_with_type_link: Radera allting
   content_partner_resource_description_empty: Denna resurs har inte försetts med en
     beskrivning.
   content_partner_resource_edit_link: Redigera
@@ -4293,6 +4300,7 @@ sv:
   dato_new_text_for_taxon_page_title: Lägg en artikel till <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Lägg en länk till <i>%{taxon}</i>
   dato_update_user_text_error: Tyvärr, ett fel uppstod. Artikeln kunde inte uppdateras.
+  deactivate: Inaktivera
   development_version_name: EOL V2 Beta
   default: Standard
   default_focus_collection_name_from_community: '%{name}s fokus'
@@ -4493,6 +4501,36 @@ sv:
   filter_newsfeed_option_watchlist: Bevakningslista
   filter_newsfeed_option_curation: Kurering
   filtered_information: Filtrerad information
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxa
+  image_search_keyword:
+    one: bild
+    other: bilder
+  video_search_keyword:
+    one: video
+    other: videor
+  sound_search_keyword:
+    one: ljud
+    other: ljud
+  text_search_keyword:
+    one: artikel
+    other: artiklar
+  data_search_keyword:
+    one: egenskap
+    other: egenskaper
+  link_search_keyword:
+    one: länk
+    other: länkar
+  user_search_keyword:
+    one: person
+    other: personer
+  community_search_keyword:
+    one: gemenskap
+    other: gemenskaper
+  collection_search_keyword:
+    one: samling
+    other: samlingar
   find_taxa_submit_button: hitta taxa
   flash_notice_redirected_from_search_html: Du kom hit genom att söka efter <em>%{search_string}</em>.
     <a href="%{more_results_url}">Klicka här för att gå tillbaka till söksidan.</a>

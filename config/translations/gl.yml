@@ -169,6 +169,7 @@ gl:
         label: Etiqueta
         request_publish: Solicitar a publicación
       known_uri:
+        description: Descrición
         name: Nome
         toc_items: Categorías
         uri: URI
@@ -969,6 +970,10 @@ gl:
       menu_link: Texto enviado polos usuarios
       page_header: Estatísticas do texto enviado polos usuarios
       page_title: Estatísticas
+    data:
+      menu_link: Datos
+      page_header: Estatísticas dos datos
+      page_title: Estatísticas
   forums:
     forums_heading: Foros da EOL
     last_post: Última mensaxe
@@ -1041,6 +1046,7 @@ gl:
       header_learn_more: Máis información
       header_questions: Máis información
       about_link_what_is_eol: Que é a EOL?
+      about_link_traitbank: Que é o TraitBank?
       about_link_eol_blog: O blogue da EOL
       about_link_discover: Descubrir
       about_link_statistics: Estatísticas
@@ -1062,8 +1068,8 @@ gl:
       learn_more_link_crustaceans: Crustáceos
       learn_more_link_mollusks: Moluscos
       learn_more_link_insects: Insectos
-      learn_more_link_spiders: Arañas
-      learn_more_link_plants: Plantas
+      learn_more_link_spiders: Arácnidos
+      learn_more_link_plants: Prantas
       learn_more_link_flowering_plants: Anxiospermas
       learn_more_link_trees: Árbores
       learn_more_link_fungi: Fungos
@@ -1073,6 +1079,8 @@ gl:
       learn_more_link_protists: Protistas
       learn_more_link_archaea: Arqueas
       learn_more_link_viruses: Virus
+      learn_more_link_algae: Algas
+      questions_link_evolution: Que é a evolución?
       questions_link_biodiversity: Que é a biodiversidade?
       questions_link_species: Que é unha especie?
       questions_link_discovering_species: Como se descobren as especies?
@@ -1838,6 +1846,11 @@ gl:
         meta_description: Asociacións de socios de contidos de %{user_full_name}.
         meta_title: Socios de contidos de %{user_full_name}
         tweet_text: Socios de contidos de %{user_full_name}
+    data_downloads:
+      download: descargar
+      is_complete: Si
+      is_not_complete: Non
+      query_empty: (sen filtros)
     edit:
       form_tip_account: Para acceder ao sistema da EOL necesitas un nome de usuario
         e un contrasinal; tamén podes conectarte mediante unha conta de terceiros.
@@ -3560,6 +3573,7 @@ gl:
   belongs_in_count_communities:
     one: Pertence a %{count} comunidade
     other: Pertence a %{count} comunidades
+  beta_warning_note_header: 'Nota:'
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Visita a Biodiversity Heritage Library
   bhl_publication: Publicación BHL
@@ -3589,6 +3603,7 @@ gl:
   calculate_averages_slow: Calcular as medias (lento)
   call_api: Chamar á API
   cancel: Cancelar
+  cancel_and_delete: cancelar e borrar
   cancel_split: Cancelar
   cannot_be_associated_with_both_a_user_and_a_community: Non pode estar asociado a
     un usuario e a unha comunidade á vez
@@ -4287,6 +4302,9 @@ gl:
   darwin_core: Darwin Core
   dashboard: Panel de control
   data: Datos
+  data_column_sci_name: Nome científico
+  data_column_common_name: Nome común
+  data_column_classification_summary: Resumo da clasificación
   data_database_colon: 'Datos:'
   data_logging_active: Rexistro activo dos datos
   data_master_database_colon: 'Datos principais:'
@@ -4299,6 +4317,7 @@ gl:
   data_object_toc_items_list:
     one: Aparece baixo %{quoted_toc_titles}
     other: Aparece baixo %{quoted_toc_titles}
+  data_subtab_about: Acerca de
   data_usage_reports: Informes de uso dos datos
   date_caps: Data
   date_uploaded: Data de carga
@@ -4347,6 +4366,7 @@ gl:
     á túa lista de vixilancia para que poidas seguir calquera conversa relacionada
     con el e comprobar o seu estado de conservación.
   dato_update_user_text_error: Sentímolo, houbo un erro. Non se actualizou o artigo.
+  deactivate: Desactivar
   development_version_name: EOL V2 Beta
   default: Por defecto
   default_focus_collection_name_from_community: Punto de interese de %{name}
@@ -4366,6 +4386,7 @@ gl:
   did_you_mean: 'Quizais quixeches dicir: %{suggestions}'
   disabled_for_now: DESACTIVADO POLO DE AGORA
   discover_link: Descubrir
+  donate_link: Doar
   done_already: Xa está feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Non mostrar
     as datas descoñecidas rexistradas (usuarios da versión 1, todos os anteriores
@@ -4572,6 +4593,33 @@ gl:
   filter_newsfeed_option_watchlist: Lista de vixilancia
   filter_newsfeed_option_curation: Conservación
   filtered_information: Información filtrada
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxons
+  image_search_keyword:
+    one: imaxe
+    other: imaxes
+  video_search_keyword:
+    one: vídeo
+    other: vídeos
+  sound_search_keyword:
+    one: son
+    other: sons
+  text_search_keyword:
+    one: artigo
+    other: artigos
+  link_search_keyword:
+    one: ligazón
+    other: ligazóns
+  user_search_keyword:
+    one: persoa
+    other: persoas
+  community_search_keyword:
+    one: comunidade
+    other: comunidades
+  collection_search_keyword:
+    one: colección
+    other: coleccións
   find_taxa_submit_button: atopar os taxons
   flash_notice_redirected_from_search_html: Chegaches ata aquí procurando <em>%{search_string}</em>.
     <a href="%{more_results_url}">Preme aquí para volver á páxina de procura.</a>
@@ -4640,6 +4688,8 @@ gl:
     indexada pola EOL e ás súas relacións internas
   global_access_tagline: Acceso global ao coñecemento sobre a vida na Terra
   global_navigation: Navegación global
+  glossary: Glosario
+  glossary_subhead: Glosario
   go_back: volver
   go: Ir
   google_analytic_results: Resultados da análise do Google
@@ -4820,6 +4870,7 @@ gl:
   just_pages_with_pictures_and_text: Unicamente aquelas páxinas con imaxes e texto
   keep_split_entry_from_this_entry: Manter separado desta entrada
   key: Clave
+  known_uri_category_header: Categorías
   label: Etiqueta
   language: 'Lingua:'
   languages: Linguas
@@ -5155,6 +5206,7 @@ gl:
     %{names}.'
   no_news_items_for_month_and_year: Non houbo ningunha nova en %{month_and_year}
   none: ningún
+  "no": Non
   num_content_partners: Número de provedores de contido
   num_data_objects: Número de obxectos de datos
   no_record_found_matching_your_criteria: Non se atopou ningún rexistro que coincidise
@@ -5428,7 +5480,7 @@ gl:
   rating_added_notice: A avaliación engadiuse correctamente.
   rating_learn_more_link: Máis información sobre a avaliación
   rating_not_added_error: Sentímolo, houbo un erro. Non se engadiu a avaliación.
-  recaptcha: Escribe as dúas palabras que vexas a continuación
+  recaptcha: Escribe as dúas palabras ou os números que vexas a continuación
   recaptcha_incorrect_error_with_anchor: Os <a href="#%{recaptcha_anchor}">caracteres
     do reCaptcha</a> non coinciden. Inténtao de novo.
   recent_updates: Actualizacións recentes
@@ -5467,6 +5519,10 @@ gl:
     A ligazón proporcionada caducou. Enche o formulario de contrasinais esquecidos
     outra vez para recibir unha nova ligazón.
   resource: Recurso
+  resource_import_frequency:
+    hours_with_count:
+      one: '%{count} hora'
+      other: '%{count} horas'
   resources: Recursos
   response_formats: Formatos de resposta
   response: Resposta
@@ -5609,6 +5665,7 @@ gl:
   show_email_message_area: '[mostrar a zona de mensaxes de correo electrónico]'
   show_full_tree: mostrar a árbore completa...
   show_in_overview: mostrar na vista xeral
+  show_more_row_data_link: máis
   show_status_message: Mostrar a mensaxe de estado
   show_tasks: mostrar as tarefas
   show_warning_message: Mostrar a mensaxe de advertencia
@@ -6039,13 +6096,14 @@ gl:
   updated: Actualizado
   updated_colon: 'Actualizado:'
   updates: Actualizacións
-  upload_content: cargar contidos
+  upload_content: subir contidos
   upload_logo_help_text: Esta será a imaxe principal que representará a comunidade;
     pode ser calquera cousa que queiras.
-  uploaded_by: Cargado por
+  uploaded_by: Subido por
   uploaded_content: Contidos cargados
   uploaded_on: Cargado o
   upload: Subir
+  uri: URI
   url: URL
   url_not_accessible: Non se pode acceder ao enderezo URL
   us_dollars_100: 100 dólares estadounidenses

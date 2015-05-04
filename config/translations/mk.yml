@@ -1605,13 +1605,6 @@ mk:
         tweet_text: Кустоси на %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни
-          записи од многу разни добавувачи. ОДберете ред за да видите повеќе за записот,
-          или пак <a href="%{traitbank_search_path}">пребарајте ја TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          собира податочни записи од многу разни добавувачи. ОДберете ред за да видите
-          повеќе за записот, или пак <a href="%{traitbank_search_path}">пребарајте
-          во рамките на %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Факти за %{scientific_name} според класификацијата на
             %{hierarchy_provider}. Пронајдете слики, филмови и звуци од %{scientific_name}
@@ -3342,23 +3335,26 @@ mk:
       unlock:
         merge_of_an_unknown_taxon_unlocked: Спојувањето што неодамна го побаравте
           е готово, но не можам да ја најдам страницата.
-        merge_of_it_unlocked: Спојувањето што неодамна го побаравте е готово.
+        merge_of_it_unlocked: Спојувањето што неодамна го побаравте е готово. Страниците
+          сега се преиндексираат, и тоа ќе потрае 25 часа.
         merge_of_taxon_unlocked: Спојувањето што неодамна го побаравте за „%{taxon}“
-          е готово.
+          е готово. Страниците сега се преиндексираат, и тоа ќе потрае 25 часа.
         move_of_an_unknown_taxon_unlocked: Преместувањето на класификацијата што неодамна
           го побаравте е готово, но не можам да ја најдам страницата.
         move_of_it_unlocked: Преместувањето на класификацијата што неодамна го побаравте
-          на оваа страница е готово.
+          на оваа страница е готово. Страниците сега се преиндексираат, и тоа ќе потрае
+          25 часа.
         move_of_taxon_unlocked: Преместувањето на класификацијата што неодамна го
-          побаравте за „%{taxon}“ е готово.
+          побаравте за „%{taxon}“ е готово. Страниците сега се преиндексираат, и тоа
+          ќе потрае 25 часа.
         split_of_an_unknown_taxon_unlocked: Одвојувањето на класификацијата што неодамна
           го побаравте е готово, но не можам да ја најдам страницата.
         split_of_it_unlocked: Одвојувањето на класификацијата што неодамна го побаравте
           на оваа страница е готово, и класификациите се преместени на <a href='%{to}'>своја
-          страница</a>.
+          страница</a>. Страниците сега се преиндексираат, и тоа ќе потрае 25 часа.
         split_of_taxon_unlocked: Одвојувањето на класификацијата што неодамна го побаравте
           за „%{taxon}“ е готово, и класификациите се преместени на <a href='%{to}'>своја
-          страница</a>.
+          страница</a>. Страниците сега се преиндексираат, и тоа ќе потрае 25 часа.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Спојувањето на страниците
           што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа,
@@ -4291,8 +4287,8 @@ mk:
     ресурсот %{resource_title} е успешно подновено.
   content_partner_resource_harvest_event_update_unsuccessful_error: Нажалост, се појави
     грешка. Преземањето за ресурсот %{resource_title} не е подновено.
-  content_partner_resource_has_been_deleted: Успешно го избришав сето она што е преземено
-    од ресурсот %{resource_title}
+  content_partner_resource_will_be_deleted: Сето она што го насобра ресурсот %{resource_title}
+    ќе биде избришано. За ова ќе треба да почекате 24 часа.
   content_partner_resource_hierarchy_browsable: Прелистлива
   content_partner_resource_hierarchy_complete_true: Оваа хиерархија е ознечана како
     <strong>згрижена</strong>. Згрижената хиерархија работи под претпоставка дека
@@ -4590,6 +4586,8 @@ mk:
   data_column_raw_units: Сирови единици (непосредно од изворот)
   data_column_raw_units_uri: URI на сировите единици (нормализирано)
   data_column_source: Добавувач
+  data_disclaimer: <a href='/traitbank'>TraitBank</a> собира податочни записи од многу
+    разни добавувачи. Одберете некој ред за да видите повеќе подробности за записот.
   data_database_colon: 'Податочна:'
   data_glossary: Поимник за податоци
   data_glossary_contribute: За да ставите нови поими во поимникот, <a href=%{url}>ви
@@ -4988,6 +4986,36 @@ mk:
   filter_newsfeed_option_watchlist: Набљудувања
   filter_newsfeed_option_curation: Згрижување
   filtered_information: Филтрирани информации
+  taxon_concept_search_keyword:
+    one: таксон
+    other: таксони
+  image_search_keyword:
+    one: слика
+    other: слики
+  video_search_keyword:
+    one: видео
+    other: видеа
+  sound_search_keyword:
+    one: звук
+    other: звуци
+  text_search_keyword:
+    one: статија
+    other: статии
+  data_search_keyword:
+    one: особина
+    other: особини
+  link_search_keyword:
+    one: врска
+    other: врски
+  user_search_keyword:
+    one: лице
+    other: луѓе
+  community_search_keyword:
+    one: заедница
+    other: заедници
+  collection_search_keyword:
+    one: збирка
+    other: збирки
   find_taxa_submit_button: најди таксони
   flash_notice_redirected_from_search_html: Стигнавте тука барајќи го поимот <em>%{search_string}</em>.
     <a href="%{more_results_url}">Стиснете тука за да се вратите на страницата за
@@ -5129,6 +5157,7 @@ mk:
     ќе добивате само доверливи содржни. Ако „проверено“ е 2 тогаш ќе добивате само
     доверливи и непроверени содржини (нема да добивате недоверливи содржини). По основно
     се добиваат сите содржини.
+  reindex_data_object_button: Преиндексирај објект
   reindex_page_button: Преиндексирај страница
   image: Слика
   image_cropped_notice: Сликата е успешно кадрирана.
@@ -5892,6 +5921,8 @@ mk:
   recount_collection_items: Преброј објекти во збирката (исправка на неисправни бројки;
     ова <i>ќе</i> предизвика истек на времето во прелистувачот, но сепак работи)
   recount_collection_items_done: Пребројувањето заврши.
+  redirect_url_ok_title_unavailable: URL на пренасочувањето URL е во ред, насловот
+    е недостапен
   reference: Навод
   references_cabs_colon: 'Наводи:'
   related_names_with_count:
@@ -6401,7 +6432,7 @@ mk:
   the_user_who_performed_this_action_was_removed: Корисникот што го има извршено ова
     дејство е отстранет.
   the_xml_search_response_implements: Пребарувањето со XML-одговори го спроведува
-    форматот на одговори OpenSearch користејќи Atom 1.0. Подробен технички опис на
+    форматот на одговори OpenSearch користејќи Атом 1.0. Подробен технички опис на
     OpenSearch ќе најдете на %{link}
   this_area_shows_all_submission: Во овој дел се наведени сите поднесувања преку страниците
     за контакт на личности и медиуми. За да ги проверите ставките, одберете тема подолу
@@ -6414,6 +6445,7 @@ mk:
   this_community_has_no_focus_list: Оваа заедница нема тематски список на коијто се
     посветува.
   this_community_was_deleted: Оваа заедница е избришана од нејзиниот сопственик.
+  this_data_object_will_be_reindexed: Овој податочен објект ќе биде реиндексиран.
   this_does_not_necessarily_mean: '* ова не мора да значи дека се користат врските,
     туку само дека се определени во database.yml --- мора да ја погледате податотеката
     „config/environments/%{env}.rb“ за да проверите дали се поставении главните (управувачки)

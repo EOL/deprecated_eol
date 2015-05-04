@@ -1685,14 +1685,6 @@ fr:
         tweet_text: Conservateurs de %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> assemble des
-          enregistrements de données de nombreux fournisseurs. Sélectionnez une ligne
-          pour plus de détails sur l’enregistrement, ou <a href="%{traitbank_search_path}">recherchez
-          dans TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          rassemble des enregistrements de données de nombreux fournisseurs. Sélectionnez
-          une ligne pour plus de détails sur l’enregistrement, ou <a href="%{traitbank_search_path}">recherchez
-          dans %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Faits à propos de %{scientific_name} tel que classé selon
             %{hierarchy_provider} dans l’Encyclopédie de la Vie.
@@ -3519,23 +3511,32 @@ fr:
         merge_of_an_unknown_taxon_unlocked: La fusion de page que vous avez récemment
           demandée est terminée, mais la page est introuvable.
         merge_of_it_unlocked: La fusion que vous avez demandé récemment sur cette
-          page s'est terminée.
+          page s'est terminée ; les pages sont maintenant en cours de réindexation
+          et nécessiteront jusqu’à 25 heures pour que tout soit terminé.
         merge_of_taxon_unlocked: La fusion de page que vous avez récemment demandée
-          pour "%{taxon}" s’est terminée.
+          pour "%{taxon}" s’est terminée ; les pages sont maintenant en cours de réindexation
+          et nécessiteront jusqu’à 25 heures pour que tout soit terminé.
         move_of_an_unknown_taxon_unlocked: Le déplacement de classification que vous
           avez récemment demandé s'est terminé, mais la page est introuvable.
         move_of_it_unlocked: Le déplacement de classification que vous avez récemment
-          demandé sur cette page s'est terminé.
+          demandé sur cette page s'est terminé ; les pages sont maintenant en cours
+          de réindexation et nécessiteront jusqu’à 25 heures pour que tout soit terminé.
         move_of_taxon_unlocked: Le déplacement de classification que vous avez récemment
-          demandé pour "%{taxon}" s’est terminée.
+          demandé pour « %{taxon} » s’est terminée ; les pages sont maintenant en
+          cours de réindexation et nécessiteront jusqu’à 25 heures pour que tout soit
+          terminé.
         split_of_an_unknown_taxon_unlocked: La division de classification que vous
           avez récemment demandée est terminée, mais la page est introuvable.
         split_of_it_unlocked: La division de classification que vous avez récemment
           demandée sur cette page est terminée et les classifications ont été déplacées
-          vers <a href='%{to}'>leur propre page</a>.
+          vers <a href='%{to}'>leur propre page</a> ; les pages sont maintenant en
+          cours de réindexation et nécessiteront jusqu’à 25 heures pour que tout soit
+          terminé.
         split_of_taxon_unlocked: La division de classification que vous avez récemment
-          demandée pour "%{taxon}" est terminée et les classifications ont été déplacées
-          vers <a href='%{to}'>leur propre page</a>.
+          demandée pour « %{taxon} » est terminée et les classifications ont été déplacées
+          vers <a href='%{to}'>leur propre page</a> ; les pages sont maintenant en
+          cours de réindexation et nécessiteront jusqu’à 25 heures pour que tout soit
+          terminé.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'La fusion de page que vous
           avez récemment demandée <strong>a échoué</strong>: %{error}. De plus, la
@@ -4500,8 +4501,8 @@ fr:
   content_partner_resource_harvest_event_update_unsuccessful_error: Désolé, une erreur
     s’est produite, l'événement de récolte pour %{resource_title} n’a pas été mis
     à jour.
-  content_partner_resource_has_been_deleted: Tout ce qui a été collecté par la ressource
-    %{resource_title} a bien été supprimé
+  content_partner_resource_will_be_deleted: Tout ce qui a été collecté par la ressource
+    %{resource_title} sera supprimé, veuillez attendre 24 heures pour continuer.
   content_partner_resource_hierarchy_browsable: Navigable
   content_partner_resource_hierarchy_complete_true: Cette hiérarchie est définie comme
     <strong>organisée</strong>. Une hiérarchie supervisée suppose que chaque entrée
@@ -4812,6 +4813,9 @@ fr:
   data_column_raw_units: Unités brutes (directement depuis la source)
   data_column_raw_units_uri: URI des unités brutes (normalisées)
   data_column_source: Fournisseur
+  data_disclaimer: <a href='/traitbank'>TraitBank</a> assemble des enregistrements
+    de données de nombreux fournisseurs. Sélectionner une ligne pour plus de détails
+    sur l’enregistrement.
   data_database_colon: 'Données :'
   data_glossary: Glossaire des données
   data_glossary_contribute: Pour contribuer avec de nouveaux termes dans ce glossaire,
@@ -5217,6 +5221,36 @@ fr:
   filter_newsfeed_option_watchlist: Liste de suivi
   filter_newsfeed_option_curation: Conservation
   filtered_information: Informations filtrées
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxons
+  image_search_keyword:
+    one: image
+    other: images
+  video_search_keyword:
+    one: vidéo
+    other: vidéos
+  sound_search_keyword:
+    one: son
+    other: sons
+  text_search_keyword:
+    one: article
+    other: articles
+  data_search_keyword:
+    one: trait
+    other: traits
+  link_search_keyword:
+    one: lien
+    other: liens
+  user_search_keyword:
+    one: personne
+    other: personnes
+  community_search_keyword:
+    one: communauté
+    other: communautés
+  collection_search_keyword:
+    one: collection
+    other: collections
   find_taxa_submit_button: trouver des taxons
   flash_notice_redirected_from_search_html: Vous êtes arrivé ici en recherchant <em>%{search_string}</em>.
     <a href="%{more_results_url}">Cliquer ici pour retourner à la page de recherche.</a>
@@ -5363,6 +5397,7 @@ fr:
     renvoyé. Si 'vetted' vaut 2, alors seul le contenu fiable et non relu est renvoyé
     (le contenu non fiable n’est pas renvoyé). La valeur par défaut est de retourner
     tout le contenu.
+  reindex_data_object_button: Réindexer l’objet
   reindex_page_button: Réindexer la page
   image: Image
   image_cropped_notice: L’image a bien été rognée.
@@ -6154,6 +6189,8 @@ fr:
     les mauvais comptages d’élément ; cela <i>se terminera</i> en délai dépassé sur
     le navigateur, mais fonctionnera)
   recount_collection_items_done: Fin du recomptage des éléments de la collection.
+  redirect_url_ok_title_unavailable: La redirection de l’URL est OK, le titre n’est
+    pas disponible
   reference: Référence
   references_cabs_colon: 'Références :'
   related_names_with_count:
@@ -6701,6 +6738,7 @@ fr:
     charge aucune collection.
   this_community_has_no_focus_list: Cette communauté n’a aucune liste de discussion.
   this_community_was_deleted: Cette communauté a été supprimée par son propriétaire.
+  this_data_object_will_be_reindexed: Cet objet de donnée sera réindexé.
   this_does_not_necessarily_mean: '* cela ne signifie pas nécessairement que les connexions
     sont utilisées, simplement qu’elles sont définies dans le fichier database.yml
     --- vous devez vérifier le fichier "config/environments/%{env}.rb" pour voir si

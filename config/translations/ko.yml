@@ -3064,6 +3064,12 @@ ko:
   any_integer: 어떤 정수
   any_string: 어떠한 문자열
   api_cache_time_to_live_parameter: 응답을 캐시하도록 할 초 수
+  api_docs_collections_description: 이 모음집 API에 대한 식별자를 주면 모음집과 거기에 포함된 항목에 대한 모든 메타데이터가
+    반환됩니다. 항목 목록은 항목 유형별로 필터되며, 특성에 나열되어 정렬됩니다. 어떤 항목은 선택적으로 'sort_field' 특성에 포함합니다.
+    정렬 필드는 모음집 항목의 특수 주석인 사용자가 제공하는 문자열입니다. 그것은 어떠한 문자열도 넣을 수 없지만, 날짜이면, YYYY-MM-DD
+    형식에 맞춰야 합니다. 분류 항목은 'richness_score'에 포함합니다. 풍부는 광범위한 자료에서 풍부한 내용이 있는 문서를 나타내는
+    높은 수로, 0과 100 사이의 정수로 표현되는 측정 기준입니다. %{richness_url} 등에서, 분류 문서의 업데이트 탭에서 분류 풍요에
+    대해 자세히 읽으세요.
   api_refer_to_the_getting_started_page: EOL API의 사용 예와 이용 약관, API 키의 등록에 대한 정보에 대해서는
     <a href="%{link}">시작하기</a>를 참고하세요.
   application_version_advisory_information: 애플리케이션 버전

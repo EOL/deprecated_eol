@@ -6,6 +6,8 @@
 # Author: Andriykopanytsia
 # Author: Base
 # Author: Dim Grits
+# Author: Erami
+# Author: Lxlalexlxl
 # Author: NataChe
 # Author: Olvin
 # Author: Pig1995z
@@ -478,6 +480,7 @@ uk:
         object_title: Назва
         toc_item: Підрозділ
         refs: Посилання <small>(розміщуйте кожне посилання у новому рядку)</small>
+        refs_order: '*Посилання будуть упорядковані за алфавітом'
         rights_holder: Правовласник
         rights_holder_more: Вкажіть особу або організацію, що володіє або управляє
           правами на ці дані. Якщо залишити це поле порожнім, ми припускаємо, що ви
@@ -513,8 +516,9 @@ uk:
         taxon_name_placeholder: Введіть назву групи таксону для вибору групи
         taxon_name_placeholder_value_removed: '%{taxon_group} видалено, виберіть нову
           групу'
-        taxon_name_more: Наприклад, введіть Trochilidae або кити і виберіть відповідну
-          групу.
+        taxon_name_more: Наприклад, введіть «Trochilidae» або «Кити». Буде використано
+          ЛИШЕ результат вибору з розкривного списку, не редагуйте текст без вибору
+          результату.
         total_results: 'Загальний результат: %{total}'
         unit: Одиниця виміру
       eol_statistic:
@@ -1194,6 +1198,7 @@ uk:
       learn_more_link_protists: Найпростіші
       learn_more_link_archaea: Археї
       learn_more_link_viruses: Віруси
+      questions_link_evolution: Що таке еволюція?
       questions_link_biodiversity: Що таке біорозмаїття?
       questions_link_species: Що таке вид?
       questions_link_discovering_species: Як відкривають види?
@@ -1603,12 +1608,6 @@ uk:
         tweet_text: Куратори %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> збирає записи
-          даних із багатьох постачальників. Виберіть рядок для подробиць про запис
-          або <a href="%{traitbank_search_path}">шукайте TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          збирає записи даних із багатьох постачальників. Виберіть рядок для подробиць
-          про запис або <a href="%{traitbank_search_path}">шукайте у %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Факти про %{scientific_name} прокласифіковані за %{hierarchy_provider}
             у "Енциклопедії Життя".
@@ -1641,9 +1640,10 @@ uk:
         meta_description_with_common_name_no_data: Немає доступних фактів для %{preferred_common_name}
           також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує
           вас внести факти для %{preferred_common_name} (%{scientific_name}).
-        meta_description_with_common_name_with_topics: Які дані вчені вже зібрали
-          для %{preferred_common_name}? Характерні дані про %{scientific_name}, включаючи
-          інформацію про %{topics}.
+        meta_description_with_common_name_with_topics: '%{preferred_common_name} факти,
+          включно з розмірами і властивостями для %{preferred_common_name} (відомий
+          в науці як %{scientific_name}). Розрахункові дані про %{scientific_name}
+          включно з %{topics} з наукових досліджень, що надаються вченими.'
         meta_keywords: '%{scientific_name} факти, факти про %{scientific_name}, %{scientific_name}
           риси, риси %{scientific_name}, %{scientific_name} вимірювання, вимірювання
           для %{scientific_name}, %{scientific_name} факт, факт про %{scientific_name},
@@ -3553,6 +3553,7 @@ uk:
     користувачі з дозволом
   admin_link: Огляд
   admin_page_title: 'Адміністрування: огляд'
+  admin_simple_actions_header: 'Прості дії:'
   admin_spam_delete: Видалити спам
   admin_statistics_link: Статистика
   admin_translated_content_page_create_successful_notice: Переклад був доданий до
@@ -4000,6 +4001,7 @@ uk:
   comments: Коментарі
   comments_filter: Коментарі
   comments_moderated: Модерування коментаря
+  comments_on: Коментарі
   comments_page_title: Коментарі на %{parent}
   comments_with_count:
     few: '%{count} коментарі'
@@ -4065,6 +4067,7 @@ uk:
     other: Належить до %{count} Спільнот
   completed: Готово
   completed_colon: 'Завершено:'
+  confirm_deactivate_user: Ви дійсно хочете усунути цього користувача?
   confirm_leave: Ви впевнені, що хочете вийти з цієї громади?
   confirm_password_colon: 'Підтвердження пароля:'
   contact: Контакт
@@ -4173,6 +4176,7 @@ uk:
   content_partner_resource_create_unsuccessful_error: Вибачте, виникла помилка, ресурс
     не був доданий.
   content_partner_resource_dataset_details_header: Набір даних
+  content_partner_resource_delete_with_type_link: Видалити все
   content_partner_resource_description_empty: Опис не наводиться для даного ресурсу.
   content_partner_resource_edit_link: Редагувати
   content_partner_resource_edit_subheader: Редагувати ресурс

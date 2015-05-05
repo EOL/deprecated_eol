@@ -166,7 +166,7 @@ gem "identity_cache", "0.0.4" # Used to cache objects in a robust way.
 # I forget what it's called.
 gem "indifferent-variable-hash", "0.1.0"
 gem "invert"  # A quick way to array.sort.reverse.
-gem "jquery-rails", "2.1.3" # Of course, this helps almost all of our JS.
+# gem "jquery-rails", "2.1.3" # Of course, this helps almost all of our JS.
 gem "json", "1.8.1" # For APIs that want to return JSON.
 # For creating UUIDs that are unique to the machine that makes them.
 gem "macaddr"

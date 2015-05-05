@@ -4,10 +4,10 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
 
   include ImageManipulation
-  # unless Rails.application.config.consider_all_requests_local
+  unless Rails.application.config.consider_all_requests_local
     rescue_from EOL::Exceptions::SecurityViolation, EOL::Exceptions::MustBeLoggedIn, with: :rescue_from_exception
     rescue_from ActionView::MissingTemplate, with: :rescue_from_exception
-  # end
+  end
 
   around_filter :send_to_statsd
 

@@ -3593,7 +3593,6 @@ en:
       min_assistant_curators_only: "Sorry, access is restricted to EOL Curators with a minimum curator level of Assistant."
       admin_or_master_curators_only: "Sorry, access is restricted to EOL Administrators and EOL Curators with a minimum curator level of Master."
       no_access: "Sorry, this feature is temporarily disabled. Check back soon."
-      
       missing_edit_acess_to_forum_category: "Sorry, only admins can edit this forum category"
       missing_delete_acess_to_forum_category: "Sorry, only admins can delete this forum category"
       missing_edit_acess_to_forum_post: "Sorry, only admins or post's owner can edit this forum post"
@@ -3622,9 +3621,7 @@ en:
       only_data_owner_can_delete: "Sorry, only data owner can delete it"
       error_editing_someone_account: "Sorry, you can edit only your own account"
       can_not_edit_permissions: "Sorry, you can't edit permissions"
-      collection_job_not_valid: Collection job not valid
-      
-      
+      collection_job_not_valid: "Collection job not valid"
   excluded_icon_tip: "Rows marked with the exlcuded icon %{excluded_icon} will never be shown on taxon overview pages."
   expand_all_children: "expand all children"
   expired: "Expired"

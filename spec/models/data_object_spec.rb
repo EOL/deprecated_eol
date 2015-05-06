@@ -923,6 +923,18 @@ describe DataObject do
         expect(DataObject.same_as_last?(@params, @options)).to be_false
       end
 
+  end  
+  
+  describe "Delete data object from resource contributions" do
+    before(:each) do
+      @data_object = DataObject.gen
+      @resource = Resource.gen
+      @resource_contribution = ResourceContribution.gen(data_object_id: @data_object.id, resource_id: @resource.id )
+    end
+    it "should delete data object from resource contributions when unpublish" do
+      @data_object.unpublish
+      expect(ResourceContribution.where("data_object_id = ? ", @data_object.id)).to be_blank      
+    end
   end
 
 end

@@ -4,9 +4,7 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Taxa::ResourcesController do
 
   before(:all) do
-    truncate_all_tables
-    load_scenario_with_caching :testy
-    @testy = EOL::TestInfo.load('testy')
+    load_foundation_cache
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 

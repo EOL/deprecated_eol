@@ -14,7 +14,6 @@ class KnownUri < ActiveRecord::Base
   BASE = Rails.configuration.uri_term_prefix
   TAXON_RE = Rails.configuration.known_taxon_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
-  URIS_TO_LEAVE_AS_STRINGS = [ 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate' ]
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable
@@ -68,7 +67,7 @@ class KnownUri < ActiveRecord::Base
     :exclude_from_exemplars, :name, :known_uri_relationships_as_subject,
     :attribution,   :ontology_information_url, :ontology_source_url, :position,
     :group_by_clade, :clade_exemplar,   :exemplar_for_same_as, :value_is_text,
-    :hide_from_glossary
+    :hide_from_glossary, :value_is_verbatim
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -86,7 +85,7 @@ class KnownUri < ActiveRecord::Base
   scope :values, -> { where(uri_type_id: UriType.value.id) }
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
-  scope :visible, -> { where(visibility_id: Visibility.visible.id) }
+  scope :visible, -> { where(visibility_id: $visible_global.id) }
 
   COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
@@ -377,7 +376,7 @@ class KnownUri < ActiveRecord::Base
     options[:language] ||= Language.default
     return [] if term.length < 3
     TranslatedKnownUri.where(language_id: options[:language].id).
-      where("name REGEXP '(^| )#{term}( |$)'").includes(:known_uri).collect(&:known_uri).compact.uniq
+      where("name = ? ",term.strip).includes(:known_uri).map(&:known_uri).compact.uniq
   end
 
   # Sort by: position of known_uri, rules of exclusion, and finally value display string
@@ -390,8 +389,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def treat_as_string?
-    return true if KnownUri::URIS_TO_LEAVE_AS_STRINGS.include?(uri)
-    false
+    self.value_is_verbatim
   end
 
   def as_json(options = {})
@@ -406,11 +404,11 @@ class KnownUri < ActiveRecord::Base
 
   def default_values
     self.vetted ||= Vetted.unknown
-    self.visibility ||= Visibility.invisible # Since there are so many, we want them "not suggested", first.
+    self.visibility ||= $invisible_global # Since there are so many, we want them "not suggested", first.
   end
 
   def remove_whitespaces
-    self.uri.strip! if self.uri
+    self.uri = self.uri.strip if self.uri
   end
 
   def uri_must_be_uri

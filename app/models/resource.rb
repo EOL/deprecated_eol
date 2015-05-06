@@ -28,6 +28,9 @@ class Resource < ActiveRecord::Base
   belongs_to :dwc_hierarchy, class_name: 'Hierarchy'
   belongs_to :collection
   belongs_to :preview_collection, class_name: 'Collection'
+  
+  #This is added to make the resources act as list for the pending harvest classes
+  acts_as_list
 
   has_many :harvest_events
 
@@ -64,6 +67,15 @@ class Resource < ActiveRecord::Base
     record.errors.add attr, I18n.t(:inaccessible, scope: [:activerecord, :errors, :messages, :models]) unless value.blank? || EOLWebService.url_accepted?(value)
   end
   validate :url_or_dataset_not_both
+
+  def self.pending
+    Resource.where("(resource_status_id IN (#{ResourceStatus.force_harvest.id}, #{ResourceStatus.validation_failed.id}, #{ResourceStatus.processing_failed.id})) OR
+                    (resource_status_id= #{ResourceStatus.validated.id} AND harvested_at IS NULL) OR (refresh_period_hours!=0 AND 
+                    DATE_ADD(harvested_at, INTERVAL (refresh_period_hours) HOUR)<=NOW() AND resource_status_id IN (#{ResourceStatus.upload_failed.id}, 
+                    #{ResourceStatus.validated.id}, #{ResourceStatus.validation_failed.id}, #{ResourceStatus.processed.id}, #{ResourceStatus.processing_failed.id}, 
+                    #{ResourceStatus.published.id}))")
+  
+  end
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
   def can_be_created_by?(user)
@@ -215,11 +227,14 @@ class Resource < ActiveRecord::Base
     false
   end
 
-  def destroy_everything
+  def destroy_everything    
     Rails.logger.error("** Destroying Resource #{id}")
     harvest_events.each(&:destroy_everything)
     begin
       HarvestEvent.delete_all(["resource_id = ?", id])
+      # delete all records from resource contributions related to this record
+      ResourceContribution.delete_all(["resource_id = ?", self.id])
+      delete_resource_contributions_file
     rescue ActiveRecord::StatementInvalid => e
       # This is not *fatal*, it's just unfortunate. Probably because we're
       # harvesting, but waiting for harvests to finish is not possible.
@@ -231,6 +246,48 @@ class Resource < ActiveRecord::Base
 
   def has_harvest_events?
     harvest_events.blank? ? false : true
+  end
+  
+  def save_resource_contributions
+    resource_contributions = ResourceContribution.where("resource_id = ? ", self.id)
+    resource_contributions_json = []
+    resource_contributions.each do |resource_contribution|
+      taxon_concept_id = resource_contribution.taxon_concept_id
+      type = resource_contribution.object_type        
+      url = type == "data_object" ? "#{Rails.configuration.site_domain}/data_objects/#{resource_contribution.data_object_id}": "#{Rails.configuration.site_domain}/pages/#{resource_contribution.taxon_concept_id}/data#data_point_uri_#{resource_contribution.data_point_uri_id}"
+      resource_contribution_json = {
+         type: type,
+         url: url,
+         identifier: resource_contribution.identifier,
+         source: resource_contribution.source,
+         page: taxon_concept_id
+      }
+      data_object_type_id = resource_contribution.data_object_type
+      if data_object_type_id
+        resource_contribution_json[:data_object_type] = DataType.find(data_object_type_id).label
+      end
+      predicate = resource_contribution.predicate
+      if predicate
+        resource_contribution_json[:predicate] = predicate
+      end
+      resource_contributions_json << resource_contribution_json
+    end
+    
+    resource_info_with_contributions = { id: self.id,
+                                         url: "#{Rails.configuration.site_domain}/content_partners/#{self.content_partner_id}/resources/#{self.id}",
+                                         title: self.title,
+                                         contributions: resource_contributions_json }
+    File.open("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json","w") do |f|
+      f.write(JSON.pretty_generate(resource_info_with_contributions))
+    end      
+  end
+  
+  def delete_resource_contributions_file
+    File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json") if File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json")
+  end
+
+  def self.is_paused?
+    Resource.first.pause 
   end
 
 private

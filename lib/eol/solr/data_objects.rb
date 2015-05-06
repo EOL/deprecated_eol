@@ -192,6 +192,7 @@ module EOL
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
         offset = (page - 1) * limit
+        limit -= 1 if page == 1 && options[:exemplar_id]
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
         # puts "\n\nThe SOLR Query: #{url}\n\n"

@@ -10,5 +10,10 @@ class TranslatedKnownUri < ActiveRecord::Base
     :comment, :attribution
 
   validates_presence_of :name
+  before_save :remove_whitespaces
+  
+  def remove_whitespaces
+    self.name = self.name.strip if self.name
+  end
 
 end

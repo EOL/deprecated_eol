@@ -59,10 +59,9 @@ class DataObject < ActiveRecord::Base
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences # I don't think this is used anymore.
-  has_and_belongs_to_many :refs
+  has_and_belongs_to_many :refs  
   has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'data_objects_refs',
-    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.visible.id}" }
-
+    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{$visible_global.id}" }  
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :toc_items, join_table: 'data_objects_table_of_contents', association_foreign_key: 'toc_id'
   has_and_belongs_to_many :taxon_concepts
@@ -94,6 +93,16 @@ class DataObject < ActiveRecord::Base
 
   def unpublish
     self.update_attribute(:published, false)
+    delete_unpublished_data_object_from_resource_contributions
+  end
+  
+  def delete_unpublished_data_object_from_resource_contributions
+    resource_contributions = ResourceContribution.where("data_object_id = ? ", self.id)
+    resource_contributions.each do |resource_contribution|
+      resource = Resource.find(resource_contribution.resource_id)      
+      resource_contribution.destroy
+      resource.save_resource_contributions if resource
+    end
   end
 
   def mark_for_all_association_as_hidden_untrusted(user)
@@ -104,7 +113,7 @@ class DataObject < ActiveRecord::Base
             association: association,
             user: user,
             vetted: Vetted.untrusted,
-            visibility: Visibility.invisible,
+            visibility: $invisible_global,
             untrust_reason_ids: [UntrustReason.misidentified.id, UntrustReason.incorrect.id],
             hide_reason_ids: [UntrustReason.poor.id, UntrustReason.duplicate.id] )
         end
@@ -162,7 +171,7 @@ class DataObject < ActiveRecord::Base
   # on their access.
   def self.filter_list_for_user(data_objects, options={})
     return [] if data_objects.blank?
-    visibility_ids = [Visibility.visible.id]
+    visibility_ids = [$visible_global.id]
     vetted_ids = [Vetted.trusted.id, Vetted.unknown.id, Vetted.untrusted.id]
     show_preview = false
 
@@ -172,11 +181,11 @@ class DataObject < ActiveRecord::Base
     if options[:user]
       # admins see everything
       if options[:user].is_admin?
-        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]
-        visibility_ids = Visibility.all_ids.dup
+        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]        
+        visibility_ids = Visibility.all_ids.dup        
       # curators see invisible objects
       elsif options[:user].is_curator? && options[:user].min_curator_level?(:full)
-        visibility_ids << Visibility.invisible.id
+        visibility_ids << $invisible_global.id
       end
       # the only scenario to see ONLY TRUSTED objects
       if !options[:user].is_admin?
@@ -195,7 +204,7 @@ class DataObject < ActiveRecord::Base
       dato_visibility = d.visibility_by_taxon_concept(tc)
       # partners see all their PREVIEW or PUBLISHED objects
       # user can see preview objects
-      if show_preview && dato_visibility == Visibility.preview
+      if show_preview && dato_visibility == $preview_global
         true
       # Users can see text that they have added:
       elsif d.added_by_user? && d.users_data_object.user_id == options[:user].id
@@ -630,7 +639,7 @@ class DataObject < ActiveRecord::Base
   # TODO - really?  No logging?  Not going through Curation at all?  :S
   def publish_wikipedia_article(taxon_concept)
     return false unless in_wikipedia?
-    return false unless visibility_by_taxon_concept(taxon_concept) == Visibility.preview
+    return false unless visibility_by_taxon_concept(taxon_concept) == $preview_global
 
     connection.execute("UPDATE data_objects SET published=0 WHERE guid='#{guid}'");
     reload
@@ -641,14 +650,14 @@ class DataObject < ActiveRecord::Base
     dato_visibility_id = dato_visibility.id unless dato_visibility.nil?
 
     dato_association = association_with_taxon_or_best_vetted(taxon_concept)
-    dato_association.visibility_id = Visibility.visible.id
+    dato_association.visibility_id = $visible_global.id
     dato_association.vetted_id = Vetted.trusted.id
     dato_association.save!
     self.update_column(:published, 1)
   end
 
   def visible_references
-    @all_refs ||= refs.delete_if {|r| r.published != 1 || r.visibility_id != Visibility.visible.id}
+    @all_refs ||= refs.delete_if {|r| r.published != 1 || r.visibility_id != $visible_global.id}
   end
 
   def to_s
@@ -774,9 +783,9 @@ class DataObject < ActiveRecord::Base
   # that would be confusing. But note that preview associations should NOT be
   # curatable!
   def data_object_taxa_by_visibility(which = {})
-    good_ids = [Visibility.visible.id]
-    good_ids << Visibility.preview.id unless which[:preview] == false
-    good_ids << Visibility.invisible.id if which[:invisible]
+    good_ids = [$visible_global.id]
+    good_ids << $preview_global.id unless which[:preview] == false
+    good_ids << $invisible_global.id if which[:invisible]
     uncached_data_object_taxa.select { |assoc| good_ids.include?(assoc.visibility_id) }
   end
 
@@ -867,7 +876,7 @@ class DataObject < ActiveRecord::Base
                                                     data_object_id: self.id, user_id: user.id,
                                                     data_object_guid: self.guid,
                                                     vetted_id: vetted_id,
-                                                    visibility_id: Visibility.visible.id)
+                                                    visibility_id: $visible_global.id)
     if self.data_type == DataType.image
       TopImage.find_or_create_by_hierarchy_entry_id_and_data_object_id(hierarchy_entry.id, self.id, view_order: 1)
       TopConceptImage.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept_id, self.id, view_order: 1)
@@ -1017,7 +1026,7 @@ class DataObject < ActiveRecord::Base
   def build_relationship_to_taxon_concept_by_user(taxon_concept, user)
     DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(taxon_concept.id, self.id)
     UsersDataObject.create(user: user, data_object: self,
-                           taxon_concept: taxon_concept, visibility: Visibility.visible)
+                           taxon_concept: taxon_concept, visibility: $visible_global)
   end
 
   #TODO: This query is quite slow. Find an alternative; cache it; whatever. Stop doing it.
@@ -1120,7 +1129,7 @@ class DataObject < ActiveRecord::Base
 
   def can_be_made_overview_text_for_user?(user, taxon_concept)
     return false unless published?
-    if visibility_by_taxon_concept(taxon_concept) == Visibility.visible
+    if visibility_by_taxon_concept(taxon_concept) == $visible_global
       overview = taxon_concept.overview_text_for_user(user)
       return true if overview.blank?
       return true if guid != overview.guid

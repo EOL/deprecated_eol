@@ -63,8 +63,6 @@ class DataPointUri < ActiveRecord::Base
         end
         # setting the taxon_concept_id since it is not in the Virtuoso response
         row[:taxon_concept_id] ||= taxon_concept_id
-        row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
-        row[:data_point_instance].update_with_virtuoso_response(row)
       end
     end
   end
@@ -194,6 +192,10 @@ class DataPointUri < ActiveRecord::Base
       jsonld['eolterms:statisticalMethod'] = value
     end
     add_metadata_to_hash(jsonld) if options[:metadata]
+    refs = get_references
+    unless refs.empty?
+      jsonld[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
+    end
     jsonld
   end
 
@@ -356,7 +358,7 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
-  def get_references(language)
+  def get_references(language= nil)
     DataPointUri.with_master do
       DataPointUri.assign_references(self, language)
       references
@@ -398,12 +400,12 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def show(user)
-    set_visibility(user, Visibility.visible.id)
+    set_visibility(user, $visible_global.id)
     user_added_data.show(user) if user_added_data
   end
 
   def hide(user)
-    set_visibility(user, Visibility.invisible.id)
+    set_visibility(user, $invisible_global.id)
     user_added_data.hide(user) if user_added_data
   end
 
@@ -647,11 +649,11 @@ class DataPointUri < ActiveRecord::Base
   end
   private
   def default_visibility
-    self.visibility ||= Visibility.visible
+    self.visibility ||= $visible_global
   end
 
   def default_visibility
-    self.visibility ||= Visibility.visible
+    self.visibility ||= $visible_global
   end
 
   def units

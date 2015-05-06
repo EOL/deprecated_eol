@@ -71,6 +71,43 @@ describe DataSearchController do
       expect(DataSearchLog.last.number_of_results).to eq(0)  # tiplestore truncated, back to 0 results
     end
     
+    describe "equivalent attributes and values" do
+      before :all do
+        Language.create_english
+        #attributes
+        k1 = KnownUri.gen
+        k1.update_attributes(uri: 'http://eol.org/eye_color') 
+        TranslatedKnownUri.create(known_uri_id: k1.id, name: "eye color", language_id: Language.first.id)
+        k2 = KnownUri.gen
+        @k2_id = k2.id
+        k2.update_attributes(uri: 'http://eol.org/color')
+        TranslatedKnownUri.create(known_uri_id: k2.id, name: "color", language_id: Language.first.id)
+        KnownUriRelationship.create(from_known_uri_id: k1.id,to_known_uri_id: k2.id, relationship_uri: 'http://www.w3.org/2002/07/owl#equivalentProperty')
+        #values
+        v1 = KnownUri.gen
+        v1.update_attributes(uri: 'http://eol.org/violet')
+        TranslatedKnownUri.create(known_uri_id: v1.id, name: "violet", language_id: Language.first.id)
+        v2 = KnownUri.gen
+        @v2_id = v2.id
+        v2.update_attributes(uri: 'http://eol.org/purple')
+        TranslatedKnownUri.create(known_uri_id: v2.id, name: "purple", language_id: Language.first.id)
+        KnownUriRelationship.create(from_known_uri_id: v1.id,to_known_uri_id: v2.id, relationship_uri: 'http://www.w3.org/2002/07/owl#equivalentProperty')
+        DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/eye_color', object: 'http://eol.org/purple')).update_triplestore
+        DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/eye_color', object: 'http://eol.org/violet')).update_triplestore
+        DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/color', object: 'http://eol.org/violet')).update_triplestore
+      end
+      
+      it 'should search with equivalent attributes' do
+        get :index, attribute: 'http://eol.org/eye_color', required_equivalent_attributes: ["#{@k2_id}"]
+        expect(DataSearchLog.last.number_of_results).to eq(3)
+      end
+      
+      it 'should search with equivalent values' do
+        get :index, attribute: 'http://eol.org/eye_color', q: "http://eol.org/violet", required_equivalent_values: ["#{@v2_id}"]
+        expect(DataSearchLog.last.number_of_results).to eq(2)
+      end
+    end
+    
     describe "taxon autocomplete" do
       
       before(:all) do

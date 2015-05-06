@@ -16,6 +16,7 @@
 # Author: Mishatk
 # Author: Nastoshka
 # Author: Nemo bis
+# Author: Nivit
 # Author: Ontsed
 # Author: Peg60
 # Author: PeppeAeco
@@ -1651,14 +1652,6 @@ it:
         tweet_text: Curatori di %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> assembla record
-          di dati da molti fornitori di contenuti. Seleziona una riga per maggiori
-          dettagli circa il record o <a href="%{traitbank_search_path}">ricerca su
-          TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          assembla record di dati da molti fornitori di contenuti. Seleziona una riga
-          per maggiori dettagli circa il record o <a href="%{traitbank_search_path}">ricerca
-          su%{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Descrizioni ed articoli su %{scientific_name} classificato
             da %{hierarchy_provider} in Encyclopedia of Life
@@ -3497,24 +3490,30 @@ it:
       unlock:
         merge_of_an_unknown_taxon_unlocked: La fusione di pagina che hai richiesto
           recentemente è stata completata, ma la pagina non può essere trovata.
-        merge_of_it_unlocked: La fusione che hai richiesto recentemente su questa
-          pagina è stata completata.
-        merge_of_taxon_unlocked: La fusione di pagina che hai recentemente richiesto
-          per "%{taxon}" è stata completata.
+        merge_of_it_unlocked: L'unione che hai richiesto recentemente su questa pagina
+          è stata completata; le pagine sono ora in fase di indicizzazione e potrà
+          richiedere fino a 25 ore per il completamento.
+        merge_of_taxon_unlocked: L'unione di pagina che hai recentemente richiesto
+          per "%{taxon}" è stata completata; le pagine sono ora in fase di indicizzazione
+          e potrà richiedere fino a 25 ore per il completamento.
         move_of_an_unknown_taxon_unlocked: Lo spostamento della classificazione richiesta
           recentemente è stato completato, ma la pagina non può essere trovata.
         move_of_it_unlocked: Lo spostamento della classificazione richiesta recentemente
-          su questa pagina è stato completato.
+          su questa pagina è stato completato; le pagine sono ora in fase di indicizzazione
+          e potrà richiedere fino a 25 ore per il completamento.
         move_of_taxon_unlocked: Lo spostamento della classificazione richiesta recentemente
-          per "%{taxon}" è stata completata.
+          per "%{taxon}" è stata completata; le pagine sono ora in fase di indicizzazione
+          e potrà richiedere fino a 25 ore per il completamento.
         split_of_an_unknown_taxon_unlocked: La divisione della classificazione recentemente
           richiesta è stata completata, ma la pagina non può essere trovata.
         split_of_it_unlocked: La divisione della classificazione recentemente richiesta
           su questa pagina è stata completata e la classificazione è stata spostata
-          su <a href='%{to}'>propria pagina</a>.
+          su <a href='%{to}'>propria pagina</a>; le pagine sono ora in fase di indicizzazione
+          e potrà richiedere fino a 25 ore per il completamento.
         split_of_taxon_unlocked: La divisione della classificazione recentemente richiesta
           per "%{taxon}" è stata completata ed è stata spostata su <a href='%{to}'>propria
-          pagina</a>.
+          pagina</a>; le pagine sono ora in fase di indicizzazione e potrà richiedere
+          fino a 25 ore per il completamento.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'La fusione della pagina recentemente
           richiesta è <strong>fallita</strong>: %{error}. Di conseguenza la pagina
@@ -3744,6 +3743,9 @@ it:
     solo quelli con permessi
   admin_link: Panoramica
   admin_page_title: 'Amministrazione: Panoramica'
+  admin_resource_delete_confirmation: Sei sicuro di voler eliminare questa risorsa?
+    Questo comando richiede molto tempo per l'esecuzione. Puoi prenderti una pausa
+    nel frattempo. Non inviare la richiesta due volte.
   admin_simple_actions_header: 'Semplici Azioni:'
   admin_spam_delete: Cancella spam
   admin_statistics_link: Statistiche
@@ -4451,6 +4453,7 @@ it:
   content_partner_resource_create_unsuccessful_error: Spiacenti, si è verificato un
     errore, la risorsa non è stata aggiunta.
   content_partner_resource_dataset_details_header: Gruppo di dati
+  content_partner_resource_delete_with_type_link: Cancella tutto
   content_partner_resource_description_empty: Non è stata fornita alcuna descrizione
     per questa risorsa.
   content_partner_resource_edit_link: Modifica
@@ -4476,6 +4479,8 @@ it:
   content_partner_resource_harvest_event_update_unsuccessful_error: Spiacenti, si
     è verificato un errore, l'evento di raccolta dati per %{resource_title} non è
     stato aggiornato.
+  content_partner_resource_will_be_deleted: Tutto ciò che è stato raccolto dalla risorsa
+    %{resource_title} sarà cancellato, attendi 24 ore per l'elaborazione.
   content_partner_resource_hierarchy_browsable: Navigabile
   content_partner_resource_hierarchy_complete_true: Questa gerarchia è <strong>revisionata</strong>.
     In una gerarchia revisionata ogni voce è da considerarsi unica, cioè immissioni
@@ -4978,6 +4983,8 @@ it:
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Commento non salvato: sembra che hai già postato questo
     commento. ...Hai fatto clic due volte sul pulsante ''Invia il commento''?'
+  duplicate_text_warning: 'Testo non salvato: sembra che tu abbia già postato questo
+    articolo. Hai fatto forse click su ''aggiungi articolo'' due volte?'
   duplicate_items_were_ignored: Gli elementi duplicati sono stati ignorati.
   each_method_documentation_page_has_formatted_responses: Ciascuna pagina documentazione
     del metodo ha un esempio di risposte formattate sia in XML che in JSON.
@@ -5187,6 +5194,36 @@ it:
   filter_newsfeed_option_watchlist: Watch list
   filter_newsfeed_option_curation: Curatela
   filtered_information: Informazioni filtrate
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxa
+  image_search_keyword:
+    one: immagine
+    other: immagini
+  video_search_keyword:
+    one: video
+    other: video
+  sound_search_keyword:
+    one: audio
+    other: audio
+  text_search_keyword:
+    one: articolo
+    other: articoli
+  data_search_keyword:
+    one: caratteristica
+    other: caratteristiche
+  link_search_keyword:
+    one: collegamento
+    other: collegamenti
+  user_search_keyword:
+    one: persona
+    other: persone
+  community_search_keyword:
+    one: comunità
+    other: comunità
+  collection_search_keyword:
+    one: collezione
+    other: collezioni
   find_taxa_submit_button: trova i taxa
   flash_notice_redirected_from_search_html: Sei arrivato qui facendo una ricerca su
     <em>%{search_string}</em>. <a href="%{more_results_url}">Fai clic qui per tornare
@@ -5274,6 +5311,8 @@ it:
   harvest_id: ID raccolta dati
   harvesting_processes_log: Registro dei processi di raccolta dati
   harvests_for: Raccolte dati per %{resource}
+  harvest_resource: Risorsa del raccolto
+  harvest_duration: Durata del raccolto finora
   has_already_been_taken: è già stata presa.
   has_colon: 'Ha:'
   has_curated_your_image: ha verificato la tua immagine
@@ -5331,6 +5370,7 @@ it:
     un valore '2' allora saranno restituiti contenuti attendibili e non revisionati
     (non saranno restituiti contenuti non attendibili). Di default saranno restituiti
     tutti i contenuti.
+  reindex_data_object_button: Indicizza oggetto
   reindex_page_button: Reindirizza la pagina
   image: Immagine
   image_cropped_notice: L'immagina è stata tagliata con successo.
@@ -5810,6 +5850,7 @@ it:
   no_comments_have_been_left_yet: Non ci sono ancora commenti.
   no_errors_are_available: Nessun errore disponibile.
   no_harvesting_logs_for_this_da: Nessun registro di raccolta dati per questa data
+  no_harvesting_events_running_now: Nessun evento di raccolta è in corso ora
   no_items_were_copied_to_collections_error: 'Nessun elemento è stato copiato alle
     collezioni: %{names}.'
   no_news_items_for_month_and_year: Nessuna nuova notizia per %{month_and_year}
@@ -6119,6 +6160,7 @@ it:
     i conteggi degli elementi errati; questo <i>porterà ad un time out</i> nel browser,
     ma funziona)
   recount_collection_items_done: Finito il ri-conteggio degli oggetti della collezione.
+  redirect_url_ok_title_unavailable: URL di reindirizzamento OK; il titolo non è disponibile
   reference: Riferimento
   references_cabs_colon: 'Riferimenti:'
   related_names_with_count:
@@ -6657,6 +6699,7 @@ it:
     alcuna collezione.
   this_community_has_no_focus_list: Questa comunità non ha nessuna focus list.
   this_community_was_deleted: Questa comunità è stata cancellata dal suo proprietario.
+  this_data_object_will_be_reindexed: Questo oggetto dati sarà reindicizzato.
   this_does_not_necessarily_mean: '* questo non significa necessariamente che i collegamenti
     vengono utilizzati, solo che sono definiti nel database.yml---è necessario controllare
     il file "config/environments/%{env}.rb" per vedere se le connessioni master sono
@@ -6978,6 +7021,7 @@ it:
   view_error_log: visualizza registro degli errori
   view_full_size_image: Visualizza immagine a dimensione piena
   view_harvesting_log: Visualizza il registro di raccolta dati
+  view_current_harvesting: Visualizza raccolto corrente
   view_article_source: Vedi l'articolo di origine
   view_image_source: Visualizza fonte dell'immagine
   view_image_map_source: Visualizza fonte della mappa

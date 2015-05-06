@@ -7,9 +7,17 @@ end
 describe Taxa::DetailsController do
 
   before(:all) do
-    truncate_all_tables
-    load_scenario_with_caching :testy
-    @testy = EOL::TestInfo.load('testy')
+    load_foundation_cache
+    Vetted.create_enumerated
+    @testy = {}
+    @testy[:overview] = TocItem.overview
+    @testy[:overview_text] = 'This is a test Overview'
+    @testy[:image] = FactoryGirl.generate(:image)
+    @testy[:taxon_concept] =  build_taxon_concept(images: [{object_cache_url: @testy[:image], data_rating: 2}], 
+                              toc: [{toc_item: @testy[:overview], description: @testy[:overview_text]}], sname: [], comments: [],
+                              flash: [], sounds: [], gbif_map_id: nil, bhl: [], biomedical_terms: nil)
+    @testy[:user] = User.gen
+    @testy[:curator] = build_curator(@testy[:taxon_concept] )
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 

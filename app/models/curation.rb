@@ -17,7 +17,7 @@ class Curation
     @hide_reason_ids = options[:hide_reason_ids] || []
 
     # Automatically hide it, if the curator made it untrusted:
-    @visibility = Visibility.invisible if untrusting?
+    @visibility = $invisible_global.id if untrusting?
   end
 
   def warnings
@@ -51,7 +51,7 @@ class Curation
 private
 
   def hiding?
-    @visibility == Visibility.invisible
+    @visibility == $invisible_global
   end
 
   def untrusting?

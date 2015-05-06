@@ -64,7 +64,7 @@ class Taxa::NamesController < TaxaController
         expire_taxa([@taxon_concept.id])
       end
     end
-    store_location params[:return_to] unless params[:return_to].blank?
+    store_location :back
     redirect_back_or_default common_names_taxon_names_path(@taxon_concept)
   end
 

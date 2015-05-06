@@ -142,7 +142,7 @@ module EOL
       @num_comments    = options.delete(:num_comments)    || 1
       @user            = options.delete(:user)            || User.last
       @vetted          = options.delete(:vetted)          || Vetted.trusted
-      @visibility      = options.delete(:visibility)      || Visibility.visible
+      @visibility      = options.delete(:visibility)      || $visible_global
       scientific_name  = options.delete(:scientific_name) || @he.name(:expert) || FactoryGirl.generate(:scientific_name)
       if @type == 'Text'
         @toc_item = options.delete(:toc_item)

@@ -3,10 +3,14 @@ require "spec_helper"
 describe TaxonConceptExemplarImagesController do
 
   before(:all) do
-    truncate_all_tables
-    load_scenario_with_caching :media_heavy
-    @data = EOL::TestInfo.load('media_heavy')
-    @taxon_concept = @data[:taxon_concept]
+    load_foundation_cache
+    images = []
+    10.times { images << { :data_rating => 1 + rand(5), :source_url => 'http://photosynth.net/identifying/by/string/is/bad/change/me' } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
+    @taxon_concept = build_taxon_concept(:canonical_form => 'Copious picturesqus', :common_names => [ 'Snappy' ],
+                                             :images => images, comments: [])
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 

@@ -500,7 +500,7 @@ private
               params[:references].split("\n").each do |original_ref|
                 reference = original_ref.strip
                 unless reference.blank?
-                  ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
+                  ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, $visible_global.id)
                   @collection_item.refs << ref
                   @collection_item.save!
                 end

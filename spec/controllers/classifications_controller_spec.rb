@@ -3,11 +3,20 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe ClassificationsController do
 
   before(:all) do
-    load_scenario_with_caching :foundation
+   # load_scenario_with_caching :foundation
+    # truncate_all_tables
+    Language.create_english    
+    Visibility.create_enumerated
+    CuratorLevel.create_enumerated
+    Vetted.create_enumerated
+    DataType.create_enumerated
+    SpecialCollection.create_enumerated
+    ChangeableObjectType.create_enumerated
+    Activity.create_enumerated
     @taxon_concept = TaxonConcept.gen # Doesn't need to *do* anything special.
     @hierarchy_entry = HierarchyEntry.gen # Again, can be "dumb".
     @curator = User.gen(:credentials => 'awesome', :curator_scope => 'life')
-    @curator.grant_curator(:full)
+    @curator.grant_curator(:full)    
   end
 
   before(:each) do
@@ -18,7 +27,7 @@ describe ClassificationsController do
   # TODO - this is written as a feature spec.
 
   it 'should work, dammit' do
-    session[:user_id] = @curator.id
+    session[:user_id] = @curator.id    
     post :create, :taxon_concept_id => @taxon_concept.id, :hierarchy_entry_id => @hierarchy_entry.id
     # 'and only have one CTCPE'
     if CuratedTaxonConceptPreferredEntry.count("taxon_concept_id = #{@taxon_concept.id}") > 1
@@ -32,7 +41,7 @@ describe ClassificationsController do
     ctcpe.hierarchy_entry_id.should == @hierarchy_entry.id
     ctcpe.user_id.should == @curator.id
     # 'and should log the right thing'
-    cal = CuratorActivityLog.last
+    cal = CuratorActivityLog.last    
     cal.user.should == @curator
     cal.changeable_object_type.should == ChangeableObjectType.curated_taxon_concept_preferred_entry
     cal.target_id.should == ctcpe.id

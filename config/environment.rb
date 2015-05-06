@@ -12,6 +12,9 @@ Rails.configuration.skip_url_validations = false
 
 InitializerAdditions.add("environments/local")
 Eol::Application.initialize!
+$visible_global = Visibility.visible
+$invisible_global = Visibility.invisible
+$preview_global = Visibility.preview
 
 # Note this defaults to false (because it's nil):
 Rails.configuration.use_secure_acceptance = ENV["EOL_USE_SECURE_ACCEPTANCE"] == "true"

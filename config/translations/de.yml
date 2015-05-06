@@ -1704,14 +1704,6 @@ de:
         tweet_text: Kuratoren zu %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> stellt Datensätze
-          von vielen Anbietern zusammen. Wählen Sie für weitere Einzelheiten über
-          den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">durchsuchen
-          Sie TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          stellt Datensätze von vielen Anbietern zusammen. Wählen Sie für weitere
-          Einzelheiten über den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">suchen
-          Sie innerhalb %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Tatsachen über %{scientific_name}, wie von %{hierarchy_provider}
             in der Enzyklopädie des Lebens klassifiziert.
@@ -3639,23 +3631,29 @@ de:
         merge_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Seitenzusammenführung
           wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
         merge_of_it_unlocked: Die kürzlich angefragte Zusammenführung auf dieser Seite
-          wurde fertig gestellt.
+          wurde fertig gestellt. Die Seiten werden jetzt reindexiert und werden zur
+          Vervollständigung bis zu 25 Stunden benötigen.
         merge_of_taxon_unlocked: Die kürzlich angefragte Seitenzusammenführung für
-          „%{taxon}“ wurde fertig gestellt.
+          „%{taxon}“ wurde fertig gestellt. Die Seiten werden jetzt reindexiert und
+          werden zur Vervollständigung bis zu 25 Stunden benötigen.
         move_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Klassifikationsverschiebung
           wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
         move_of_it_unlocked: Die kürzlich angefragte Klassifikationsverschiebung auf
-          dieser Seite wurde fertig gestellt.
+          dieser Seite wurde fertig gestellt. Die Seiten werden jetzt reindexiert
+          und werden zur Vervollständigung bis zu 25 Stunden benötigen.
         move_of_taxon_unlocked: Die kürzlich angefragte Klassifikationsverschiebung
-          für „%{taxon}“ wurde fertig gestellt.
+          für „%{taxon}“ wurde fertig gestellt. Die Seiten werden jetzt reindexiert
+          und werden zur Vervollständigung bis zu 25 Stunden benötigen.
         split_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Klassifikationsaufteilung
           wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
         split_of_it_unlocked: Die kürzlich angefragte Klassifikationsaufteilung auf
           dieser Seite wurde fertig gestellt und die Klassifikationen wurden auf ihre
-          <a href='%{to}'>eigenständige Seite</a> verschoben.
+          <a href='%{to}'>eigenständige Seite</a> verschoben. Die Seiten werden jetzt
+          reindexiert und werden zur Vervollständigung bis zu 25 Stunden benötigen.
         split_of_taxon_unlocked: Die kürzlich angefragte Klassifikationsaufteilung
           für „%{taxon}“ wurde fertig gestellt und die Klassifikationen wurden auf
-          ihre <a href='%{to}'>eigenständige Seite</a> verschoben.
+          ihre <a href='%{to}'>eigenständige Seite</a> verschoben. Die Seiten werden
+          jetzt reindexiert und werden zur Vervollständigung bis zu 25 Stunden benötigen.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Die kürzlich angefragte Seitenzusammenführung
           ist <strong>fehlgeschlagen</strong>: %{error}. Zudem konnte die betreffende
@@ -4651,8 +4649,8 @@ de:
   content_partner_resource_harvest_event_update_unsuccessful_error: Es ist leider
     ein Fehler aufgetreten, so dass der Datenabruf für %{resource_title} nicht aktualisiert
     wurde.
-  content_partner_resource_has_been_deleted: Alles von der Quelle %{resource_title}
-    Gesammelte wurde erfolgreich gelöscht
+  content_partner_resource_will_be_deleted: Alles von der Quelle %{resource_title}
+    gesammelte wird gelöscht, bitte erlauben Sie für die Verarbeitung 24 Stunden.
   content_partner_resource_hierarchy_browsable: Durchsuchbar
   content_partner_resource_hierarchy_complete_true: Diese Hierarchie wird <strong>kuratiert</strong>.
     Bei einer kuratierten Hierarchie wird davon ausgegangen, das jeder Eintrag eindeutig
@@ -4968,6 +4966,9 @@ de:
   data_column_raw_units: Roheinheiten (direkt von der Quelle)
   data_column_raw_units_uri: Roheinheiten-URI (normalisiert)
   data_column_source: Anbieter
+  data_disclaimer: <a href='/traitbank'>TraitBank</a> stellt Datensätze von vielen
+    Providern zusammen. Wählen Sie für weitere Informationen über den Datensatz eine
+    Zeile aus.
   data_database_colon: 'Datenbanken (Daten):'
   data_glossary: Datenglossar
   data_glossary_contribute: Um neue Begriffe diesem Glossar hinzuzufügen, erwägen
@@ -5387,6 +5388,36 @@ de:
   filter_newsfeed_option_watchlist: Beobachtungsliste
   filter_newsfeed_option_curation: Kuratierung
   filtered_information: Gefilterte Informationen
+  taxon_concept_search_keyword:
+    one: Taxon
+    other: Taxa
+  image_search_keyword:
+    one: Bild
+    other: Bilder
+  video_search_keyword:
+    one: Video
+    other: Videos
+  sound_search_keyword:
+    one: Ton
+    other: Töne
+  text_search_keyword:
+    one: Artikel
+    other: Artikel
+  data_search_keyword:
+    one: Eigenschaft
+    other: Eigenschaften
+  link_search_keyword:
+    one: Link
+    other: Links
+  user_search_keyword:
+    one: Person
+    other: Personen
+  community_search_keyword:
+    one: Gemeinschaft
+    other: Gemeinschaften
+  collection_search_keyword:
+    one: Sammlung
+    other: Sammlungen
   find_taxa_submit_button: Taxa ermitteln
   flash_notice_redirected_from_search_html: Sie haben diese Seite aufgrund Ihrer Suche
     nach <em>%{search_string}</em> erreicht. <a href="%{more_results_url}">Klicken
@@ -5535,6 +5566,7 @@ de:
     wird, werden nur vertrauenswürdige und nicht geprüfte Inhalte ausgeben. Nicht
     vertrauenswürdige Inhalte werden dabei nicht ausgegeben. Die Standardeinstellung
     gibt alle Inhalte ungeachtet des Status aus.
+  reindex_data_object_button: Objekt reindexieren
   reindex_page_button: Seite reindizieren
   image: Bild
   image_cropped_notice: Das Bild wurde erfolgreich zugeschnitten.
@@ -6352,6 +6384,7 @@ de:
   recount_collection_items: Sammlungselemente erneut zählen (ungültige Zähler korrigieren;
     dies <i>wird</i> eine Zeitüberschreitung im Browser verursachen, aber es funktioniert)
   recount_collection_items_done: Erneute Zählung der Sammlungselemente abgeschlossen.
+  redirect_url_ok_title_unavailable: Weiterleitungs-URL in Ordnung, Titel nicht verfügbar
   reference: Nachweis
   references_cabs_colon: 'Quellennachweise:'
   related_names_with_count:
@@ -6897,6 +6930,7 @@ de:
   this_community_has_no_focus_list: Diese Gemeinschaft verfügt über keine Liste an
     Schwerpunkten.
   this_community_was_deleted: Diese Gemeinschaft wurde von ihrem Besitzer gelöscht.
+  this_data_object_will_be_reindexed: Dieses Datenobjekt wird reindexiert.
   this_does_not_necessarily_mean: '* Dies bedeutet nicht notwendigerweise, dass alle
     Verbindungen verwendet werden, sondern lediglich, dass sie in der Datei „database.yml“
     definiert werden. Ob die Hauptverbindungen konfiguriert worden sind, steht in

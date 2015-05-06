@@ -7,6 +7,7 @@
 # Author: Erdemaslancan
 # Author: Incelemeelemani
 # Author: Karduelis
+# Author: Sae1962
 # Author: Ugcan
 # Author: Zafertorun
 ---
@@ -22,6 +23,7 @@ tr:
   translated_activities-name-activity_id-57: oran
   translated_activities-name-activity_id-58: güvenilir
   translated_activities-name-activity_id-59: incelenmemiş
+  translated_activities-name-activity_id-63: topla
   translated_activities-name-activity_id-64: kaldır
   translated_agent_roles-label-agent_role_id-10: Proje
   translated_agent_roles-label-agent_role_id-11: Yayımcı
@@ -37,6 +39,7 @@ tr:
   translated_agent_roles-label-agent_role_id-24: Dilsel incelemeci
   translated_agent_roles-label-agent_role_id-2: Yazar
   translated_agent_roles-label-agent_role_id-3: Derleyici
+  translated_agent_roles-label-agent_role_id-4: besteci
   translated_agent_roles-label-agent_role_id-5: Oluşturan
   translated_agent_roles-label-agent_role_id-6: Yönetmen
   translated_agent_roles-label-agent_role_id-7: Editör
@@ -49,6 +52,7 @@ tr:
   translated_collection_types-label-collection_type_id-11: Bağlantılar
   translated_collection_types-label-collection_type_id-12: Literatür
   translated_collection_types-label-collection_type_id-13: Taksonomi
+  translated_collection_types-label-collection_type_id-14: moleküler barkodlar
   translated_collection_types-label-collection_type_id-15: Açıklama
   translated_collection_types-label-collection_type_id-16: Resimler
   translated_collection_types-label-collection_type_id-17: Dağıtım
@@ -60,10 +64,12 @@ tr:
   translated_collection_types-label-collection_type_id-22: Sesler
   translated_collection_types-label-collection_type_id-23: Bağlantılar
   translated_collection_types-label-collection_type_id-24: Literatür
+  translated_collection_types-label-collection_type_id-2: moleküler barkodlar
   translated_collection_types-label-collection_type_id-3: Açıklama
   translated_collection_types-label-collection_type_id-4: Resimler
   translated_collection_types-label-collection_type_id-5: Dağıtım
   translated_collection_types-label-collection_type_id-6: Korunma durumu
+  translated_collection_types-label-collection_type_id-7: isim bilgisi
   translated_collection_types-label-collection_type_id-8: Moleküler veri
   translated_collection_types-label-collection_type_id-9: Adlandırma
   translated_contact_roles-label-contact_role_id-1: Birincil İletişim
@@ -72,6 +78,15 @@ tr:
   translated_contact_subjects-title-contact_subject_id-24: Üyelik ve kayıt
   translated_contact_subjects-title-contact_subject_id-25: Kullanım koşulları ve lisanslama
   translated_contact_subjects-title-contact_subject_id-26: Öğrenim ve eğitim
+  translated_contact_subjects-title-contact_subject_id-27: içerik ortağı olun
+  translated_contact_subjects-title-contact_subject_id-28: İçerik ortağı desteği
+  translated_contact_subjects-title-contact_subject_id-29: Küratör desteği
+  translated_contact_subjects-title-contact_subject_id-30: Bir düzeltme yap (imla
+    ve gramer, resim, bilgi)
+  translated_contact_subjects-title-contact_subject_id-31: Resim, video ve sesleri
+    katkıda bulun
+  translated_contact_subjects-title-contact_subject_id-32: Medya çağrısı (mülakat,
+    medya anketi, amblem talebi)
   translated_contact_subjects-title-contact_subject_id-33: Finansal bağış yapın
   translated_contact_subjects-title-contact_subject_id-34: Teknik sorular (arama sorunları,
     web site işlevselliği)
@@ -115,6 +130,7 @@ tr:
   translated_licenses-description-license_id-9: Bazı hakları saklıdır
   translated_ranks-label-rank_id-106: form
   translated_ranks-label-rank_id-107: forma
+  translated_ranks-label-rank_id-112: gen
   translated_ranks-label-rank_id-118: cins
   translated_ranks-label-rank_id-169: infra takım
   translated_ranks-label-rank_id-175: infra türler
@@ -138,7 +154,9 @@ tr:
   translated_ranks-label-rank_id-415: alt tür
   translated_ranks-label-rank_id-422: alt oymak
   translated_ranks-label-rank_id-463: üst familya
+  translated_ranks-label-rank_id-472: şube
   translated_ranks-label-rank_id-494: oymak
+  translated_ranks-label-rank_id-503: sıralanmamış
   translated_ranks-label-rank_id-512: var
   translated_ranks-label-rank_id-513: var.
   translated_ranks-label-rank_id-517: varyeteler
@@ -149,11 +167,41 @@ tr:
 
     f
   translated_ranks-label-rank_id-99: aile
+  translated_resource_statuses-label-resource_status_id-11: Yayınlama beklemede
+  translated_resource_statuses-label-resource_status_id-12: Yayınlamama beklemede
   translated_resource_statuses-label-resource_status_id-1: Yükleniyor
   translated_resource_statuses-label-resource_status_id-2: Yüklendi
   translated_resource_statuses-label-resource_status_id-3: Yükleme Başarısız
+  translated_resource_statuses-label-resource_status_id-4: İçerik sunucusuna taşındı
+  translated_resource_statuses-label-resource_status_id-5: Tasdik edilmiş
+  translated_resource_statuses-label-resource_status_id-6: tasdik başarısı
+  translated_resource_statuses-label-resource_status_id-7: işlenmekte
+  translated_resource_statuses-label-resource_status_id-8: işlendi
+  translated_resource_statuses-label-resource_status_id-9: işlenme başarısız
+  translated_service_types-label-service_type_id-1: satır sonu transfer şeması
+  translated_service_types-label-service_type_id-2: diğer
+  translated_sort_styles-name-sort_style_id-1: son zamanda eklenen
+  translated_sort_styles-name-sort_style_id-2: en eski
+  translated_sort_styles-name-sort_style_id-3: alfabetik
+  translated_sort_styles-name-sort_style_id-4: ters alfabetik
+  translated_sort_styles-name-sort_style_id-5: zenginlik
   translated_sort_styles-name-sort_style_id-6: Derecelendirme
+  translated_statuses-label-status_id-1: eklenmiş
+  translated_statuses-label-status_id-2: yenilenmiş
+  translated_statuses-label-status_id-3: değişmedi
+  translated_statuses-label-status_id-4: tekrar kullanıldı
+  translated_synonym_relations-label-synonym_relation_id-10: gen bankası eş anlamlısı
+  translated_synonym_relations-label-synonym_relation_id-12: dahildir
+  translated_synonym_relations-label-synonym_relation_id-14: imla hatası
+  translated_synonym_relations-label-synonym_relation_id-16: belirsiz eş anlamlı
+  translated_synonym_relations-label-synonym_relation_id-17: imla hatalı isim
+  translated_synonym_relations-label-synonym_relation_id-18: geçici olarak kabul edilmiş
+    isim
+  translated_synonym_relations-label-synonym_relation_id-19: kabul edilmiş isim
   translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-20: veri tabanı yapayı
+  translated_synonym_relations-label-synonym_relation_id-21: diğer, yorumlara bakınız
+  translated_synonym_relations-label-synonym_relation_id-22: imla varyantı (imla hatası)
   translated_synonym_relations-label-synonym_relation_id-49: geçerli adı
   translated_synonym_relations-label-synonym_relation_id-51: onaylandı
   translated_synonym_relations-label-synonym_relation_id-63: onaylanmadı

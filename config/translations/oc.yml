@@ -467,6 +467,7 @@ oc:
         object_title: Títol
         toc_item: Soscapítol
         refs: Referéncias <small>(plaçatz cada referéncia sus una novèla linha)</small>
+        refs_order: '*Las referéncias apareisseràn dins l’òrdre alfabetic'
         rights_holder: Detentor dels dreches
         rights_holder_more: Especifica una persona o un organisme que possedís o que
           gerís los dreches sus aquelas donadas. Se daissatz aqueste camp void, supausarem
@@ -1650,14 +1651,6 @@ oc:
         tweet_text: Conservators de %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> assembla d'enregistraments
-          de donadas de fòrça provesidors. Seleccionatz una linha per mai de detalhs
-          sus l’enregistrament, o <a href="%{traitbank_search_path}">recercatz dins
-          TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          recampa d'enregistraments de donadas de fòrça provesidors. Seleccionatz
-          una linha per mai de detalhs sus l’enregistrament, o <a href="%{traitbank_search_path}">recercatz
-          dins %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Faches a prepaus de %{scientific_name} tals coma classat
             segon %{hierarchy_provider} dins l’Enciclopèdia de la Vida.
@@ -3503,23 +3496,29 @@ oc:
         merge_of_an_unknown_taxon_unlocked: La fusion de pagina qu'avètz recentament
           demandada es acabada, mas la pagina es introbabla.
         merge_of_it_unlocked: La fusion de pagina qu'avètz demandada recentament sus
-          aquesta pagina s'es acabada.
+          aquesta pagina s'es acabada ; las paginas  son ara en cors de reïndexacion
+          e necessitaràn fins a 25 oras per que tot s'acabe.
         merge_of_taxon_unlocked: La fusion de pagina qu'avètz demandada recentament
-          per "%{taxon}" s'es acabada.
+          per "%{taxon}" s'es acabada ; las paginas  son ara en cors de reïndexacion
+          e necessitaràn fins a 25 oras per que tot s'acabe.
         move_of_an_unknown_taxon_unlocked: Lo desplaçament de classificacion qu'avètz
           demandat recentament s'es acabat, mas la pagina es introbabla.
         move_of_it_unlocked: Lo desplaçament de classificacion qu'avètz demandat recentament
-          sus aquesta pagina s'es acabat.
+          sus aquesta pagina s'es acabat ; las paginas  son ara en cors de reïndexacion
+          e necessitaràn fins a 25 oras per que tot s'acabe.
         move_of_taxon_unlocked: Lo desplaçament de classificacion qu'avètz demandat
-          recentament per "%{taxon}" s'es acabat.
+          recentament per "%{taxon}" s'es acabat ; las paginas  son ara en cors de
+          reïndexacion e necessitaràn fins a 25 oras per que tot s'acabe.
         split_of_an_unknown_taxon_unlocked: La division de classificacion qu'avètz
           demandada recentament s'es acabat, mas la pagina es introbabla.
         split_of_it_unlocked: La division de classificacion qu'avètz demandada recentament
           sus aquesta pagina es acabada e las classificacions son estadas desplaçadas
-          cap a <a href='%{to}'>lor pròpria pagina</a>.
+          cap a <a href='%{to}'>lor pròpria pagina</a> ; las paginas  son ara en cors
+          de reïndexacion e necessitaràn fins a 25 oras per que tot s'acabe.
         split_of_taxon_unlocked: La division de classificacion qu'avètz demandada
           recentament per "%{taxon}" es acabada e las classificacions son estadas
-          desplaçadas cap a <a href='%{to}'>lor pròpria pagina</a>.
+          desplaçadas cap a <a href='%{to}'>lor pròpria pagina</a> ; las paginas  son
+          ara en cors de reïndexacion e necessitaràn fins a 25 oras per que tot s'acabe.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'La fusion de pagina qu''avètz
           demandada recentament <strong>a fracassat</strong>: %{error}. Amai, la pagina
@@ -4314,6 +4313,7 @@ oc:
     other: Aparten a %{count} Comunautats
   completed: Acabat
   completed_colon: 'Acabat :'
+  confirm_deactivate_user: Sètz segur que volètz desactivar aqueste utilizaire ?
   confirm_delete_community: Sètz segur que volètz suprimir aquesta comunautat ? Los
     membres que demòran la poiràn totjorn veire e lo flux de novetats serà mantengut,
     mas s’aficharà pas dins las recèrcas o sus las paginas de taxinomia, e serà pas
@@ -4679,6 +4679,7 @@ oc:
   your_current_rating_5_of_5: 'Vòstra quòta actuala : 5 sus 5'
   your_watch_collection: vòstra lista de seguiment
   current_language: 'Lenga : %{iso_code}'
+  currently_running_harvesting: Collècta actualament en cors
   currently_in_eol: Actualament dins l’Enciclopèdia de la Vida (EdlV)
   currently_published: publicat actualament
   daily: Quotidian
@@ -5014,6 +5015,36 @@ oc:
   filter_newsfeed_option_watchlist: Lista de seguiment
   filter_newsfeed_option_curation: Conservacion
   filtered_information: Informacions filtradas
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxons
+  image_search_keyword:
+    one: imatge
+    other: imatges
+  video_search_keyword:
+    one: vidèo
+    other: vidèos
+  sound_search_keyword:
+    one: son
+    other: sons
+  text_search_keyword:
+    one: article
+    other: articles
+  data_search_keyword:
+    one: trach
+    other: traches
+  link_search_keyword:
+    one: ligam
+    other: ligams
+  user_search_keyword:
+    one: persona
+    other: personas
+  community_search_keyword:
+    one: comunautat
+    other: comunautats
+  collection_search_keyword:
+    one: coleccion
+    other: colleccions
   find_taxa_submit_button: trobar de taxons
   flash_notice_redirected_from_search_html: Sètz arribat aicí en recercant <em>%{search_string}</em>.
     <a href="%{more_results_url}">Clicar aicí per tornar a la pagina de recèrca.</a>
@@ -5112,6 +5143,7 @@ oc:
     a esquèrra sus la pagina, siquenon de daissar blanc)
   content_upload_url: http://%{domain}%{upload_attachment}
   id: Identificant
+  reindex_data_object_button: Reïndexar l’objècte
   reindex_page_button: Reïndexar la pagina
   image: Imatge
   image_cropped_notice: L’imatge es estat rosegat corrèctament.
@@ -6378,6 +6410,7 @@ oc:
   view_error_log: afichar lo jornal d’error
   view_full_size_image: Veire l’imatge a talha reala
   view_harvesting_log: afichar lo jornal de collècta
+  view_current_harvesting: Afichar la collècta actuala
   view_article_source: Veire la font de l’article
   view_image_source: Veire la font de l’imatge
   view_image_map_source: Veire la font de la mapa

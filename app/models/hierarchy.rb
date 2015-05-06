@@ -20,7 +20,7 @@ class Hierarchy < ActiveRecord::Base
   has_many :hierarchy_entries
   has_many :kingdoms, class_name: HierarchyEntry.to_s, foreign_key: [ :hierarchy_id ], primary_key: [ :id ],
     conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{$visible_global.id}, #{$preview_global.id}) AND `hierarchy_entries`.`parent_id` = 0" }
-
+  has_many :hierarchy_reindexings
   validates_presence_of :label
   validates_length_of :label, maximum: 255
 
@@ -176,6 +176,10 @@ class Hierarchy < ActiveRecord::Base
 
   def repopulate_flattened
     kingdoms.each(&:repopulate_flattened_hierarchy)
+  end
+
+  def reindex
+    HierarchyReindexing.enqueue(self) unless HierarchyReindexing.pending
   end
 
 private

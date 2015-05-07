@@ -47,5 +47,23 @@ describe HierarchyEntry do
       subject.destroy_everything
     end
   end
+  
+  describe "#ancestors" do 
+    before(:all) do 
+      @hierarchy= Hierarchy.gen
+      @parent_hierarchy_entry = HierarchyEntry.gen
+      @hierarchy_entry = HierarchyEntry.gen(hierarchy: @hierarchy, parent_id:@parent_hierarchy_entry.id )
+    end
+    
+    # after(:each) do 
+      # @hierarchy_entry.ancestors
+    # end
+
+    it  "re-heals itself if the ancestors are empty"  do 
+      expect(@hierarchy).to receive(:reindex)
+      @hierarchy_entry.ancestors
+    end
+
+  end
 
 end

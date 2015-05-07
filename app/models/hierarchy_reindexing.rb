@@ -2,7 +2,7 @@ class HierarchyReindexing < ActiveRecord::Base
 
   belongs_to :hierarchy
   scope :pending, -> { where( completed_at: nil ) }
-  @queue = 'HierarchyReindexing Notifications'
+  @queue = 'Hierarchy Reindexings'
 
   def self.enqueue(which)
       @self = HierarchyReindexing.create( hierarchy_id: which.id )

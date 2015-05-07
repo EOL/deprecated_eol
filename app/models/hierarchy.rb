@@ -179,7 +179,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def reindex
-    HierarchyReindexing.enqueue(self) unless HierarchyReindexing.pending
+    HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank? 
   end
 
 private

@@ -4,19 +4,18 @@ class Solr
       raise("This command does not work on Windows. Please use rake solr:run " \
             "to run Solr in the foreground.")
     end
+    system("java -version")
+    if $?.exitstatus != 0
+      puts "ERROR: Java is not installed on machine!!"
+      return false
+    end
     # TODO - move these GLOBALS to Rails.configuration:
     port = $SOLR_SERVER.gsub(/^.*:(\d+).*$/, "\\1")
     FileUtils.cd(File.join($SOLR_DIR)) do
       command = [Rails.root.join("bin", "solr"), "start", "--", "-p", port]
       command << "-r" if $SOLR_SERVER_RAM
       command << "-s" << $SOLR_DIR if $SOLR_DIR
-      system("java -version")
-      if $?.exitstatus != 0
-        puts "ERROR: Java is not installed on machine!!"
-        return false
-      end
       system(Escape.shell_command(command.map { |p| p.to_s }))
-      return true
     end
   end
 

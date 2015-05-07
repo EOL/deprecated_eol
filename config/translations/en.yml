@@ -3136,6 +3136,7 @@ en:
   content_partner_resource_harvest_events_see_all_link: "See all <span class=\"assistive\">harvest events</span>"
   content_partner_resource_harvest_event_update_successful_notice: "Harvest event for %{resource_title} successfully updated."
   content_partner_resource_harvest_event_update_unsuccessful_error: "Sorry, an error occurred, the harvest event for %{resource_title} was not updated."
+  content_partner_resource_page_title: "Encyclopedia of Life - %{content_partner_name}  - %{resource_name}"
   content_partner_resource_will_be_deleted: "Everything harvested by Resource %{resource_title} will be deleted, please allow 24 hours to process."
   content_partner_resource_hierarchy_browsable: "Browsable"
   content_partner_resource_hierarchy_complete_true: "This hierarchy is set as <strong>curated</strong>. A curated hierarchy assumes that every entry is intended to be unique, i.e. matching name strings will be treated as homonyms."

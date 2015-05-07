@@ -1,3 +1,22 @@
+%script{:src => "https://maps.googleapis.com/maps/api/js"}
+:javascript
+  $( document ).ready(function() {
+    initialize("http://www.inaturalist.org/observations/project/#{@inaturalist_project_id}.kml");
+  });
+  function initialize(url) {
+    var mapCanvas = document.getElementById('map-canvas');
+    var mapOptions = {
+      center: new google.maps.LatLng(44.5403, -78.5463),
+      zoom: 3,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(mapCanvas, mapOptions)
+    var georssLayer = new google.maps.KmlLayer({
+      url: url
+    });
+    georssLayer.setMap(map);
+  }
+
 - inat_observations_url = "http://www.inaturalist.org/observations"
 - if @embed_auth_provider
   - auth_provider_question = "?#{@embed_auth_provider}"
@@ -23,8 +42,9 @@
     %a{:href => "http://www.inaturalist.org/#{auth_provider_question}"}
       %img{:src => "http://inaturalist.org/images/logo-small.gif"}
   .inat_observations_map
-    %iframe{:src => "http://maps.google.com/?q=#{inat_observations_url}/project/#{@inaturalist_project_id}.kml&t=p&output=embed", :frameborder => "0",
-            :height => "300", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :width => "500"}
+    #map-canvas{ :style => "width:500px; height:400px;" }
+    -# %iframe{:src => "http://maps.google.com/?q=#{inat_observations_url}/project/#{@inaturalist_project_id}.kml&t=p&output=embed", :frameborder => "0",
+            -# :height => "300", :marginheight => "0", :marginwidth => "0", :scrolling => "no", :width => "500"}
   .copy
     %p
       - link = @inaturalist_project_observations.blank? ? '.view_project_on_inaturalist' : '.view_all_observations_on_inaturalist'

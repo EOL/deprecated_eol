@@ -16,10 +16,10 @@ describe HierarchyReindexing do
     HierarchyReindexing.perform({"id"=> @hierarchy_reindexing.id})
   end
 
-  it "raises error when the id is missing" do 
-    expect{
-      HierarchyReindexing.perform({"id"=> (@hierarchy_reindexing.id +1) })
-    }.to raise_error
+  it "raises error when the id is missing" do
+     Rails.logger.should_receive(:error).twice.with(/HierarchyReindexing/)
+     HierarchyReindexing.perform({"id"=> nil})
+
   end
   
   it "repopulates the flattened ancestors" do 

@@ -54,10 +54,6 @@ describe HierarchyEntry do
       @parent_hierarchy_entry = HierarchyEntry.gen
       @hierarchy_entry = HierarchyEntry.gen(hierarchy: @hierarchy, parent_id:@parent_hierarchy_entry.id )
     end
-    
-    # after(:each) do 
-      # @hierarchy_entry.ancestors
-    # end
 
     it  "re-heals itself if the ancestors are empty"  do 
       expect(@hierarchy).to receive(:reindex)

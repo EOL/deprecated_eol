@@ -10,7 +10,13 @@ class Solr
       command = [Rails.root.join("bin", "solr"), "start", "--", "-p", port]
       command << "-r" if $SOLR_SERVER_RAM
       command << "-s" << $SOLR_DIR if $SOLR_DIR
+      system("java -version")
+      if $?.exitstatus != 0
+        puts "ERROR: Java is not installed on machine!!"
+        return false
+      end
       system(Escape.shell_command(command.map { |p| p.to_s }))
+      return true
     end
   end
 

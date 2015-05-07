@@ -3,8 +3,7 @@ require 'escape'
 namespace :solr do
   desc 'Start the Solr instance'
   task :start => :environment do
-    puts "** Starting Background Solr instance for EOL..."
-    Solr.start
+    puts "** Starting Background Solr instance for EOL..." if Solr.start
   end
 
   desc 'Run the Solr instance in the foreground'

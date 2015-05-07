@@ -129,6 +129,7 @@ module Eol
     # Collection configu settings:
 
     Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
+    Rails.configuration.inat_observations_project_url = "http://www.inaturalist.org/observations/project"
 
     # TAXON DATA configuration settings:
 

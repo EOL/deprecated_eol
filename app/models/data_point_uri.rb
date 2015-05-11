@@ -651,7 +651,7 @@ class DataPointUri < ActiveRecord::Base
   end
   private
   def default_visibility
-    self.visibility ||= $visible_global
+    self.visibility ||= Visibility.visible
   end
 
   def units

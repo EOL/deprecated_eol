@@ -404,7 +404,7 @@ class KnownUri < ActiveRecord::Base
 
   def default_values
     self.vetted ||= Vetted.unknown
-    self.visibility ||= $invisible_global # Since there are so many, we want them "not suggested", first.
+    self.visibility ||= Visibility.invisible # Since there are so many, we want them "not suggested", first.
   end
 
   def remove_whitespaces

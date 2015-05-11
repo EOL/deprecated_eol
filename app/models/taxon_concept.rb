@@ -1016,6 +1016,12 @@ class TaxonConcept < ActiveRecord::Base
       entry(Hierarchy.wikipedia)
     end
   end
+  
+  def self.get_entry_id_of_last_published_taxon
+    taxon_concept_last = TaxonConcept.published.last if TaxonConcept.published
+    entry = taxon_concept_last.entry if taxon_concept_last
+    entry_id  =  entry.id if entry
+  end
 
 private
 

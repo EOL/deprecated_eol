@@ -11,7 +11,7 @@ module EOL
               :name => 'id',
               :type => Integer,
               :required => true,
-              :test_value => (TaxonConcept.find_by_id(205264) || TaxonConcept.last).entry.id ),
+              :test_value => TaxonConcept.get_entry_id_of_last_published_taxon ),
             EOL::Api::DocumentationParameter.new(
               :name => 'common_names',
               :type => 'Boolean',
@@ -104,7 +104,16 @@ module EOL
             ancestor_hash['source'] = taxon_entry_overview_url(ancestor.taxon_concept_id, ancestor)
             return_hash['ancestors'] << ancestor_hash
           end
-
+          
+          return_hash['descendants'] = []
+          HierarchyEntry.preload_associations(hierarchy_entry, { :descendants => [ :rank, :name, :hierarchy ] })
+          hierarchy_entry.descendants.map { |e| return_hash['descendants'] << { sourceIdentifier: e.identifier, taxonID: e.id,
+                                                                                parentNameUsageID: e.parent_id,
+                                                                                taxonConceptID: e.taxon_concept_id,
+                                                                                scientificName:  (e.name.string if e.name),
+                                                                                taxonRank: (e.rank.label if e.rank),
+                                                                                source: e.outlink_url } }
+                                                       
           return_hash['children'] = []
           HierarchyEntry.preload_associations(
             hierarchy_entry, { :children => [ :rank, :name ] }
@@ -121,8 +130,8 @@ module EOL
             return_hash['children'] << child_hash
           end
           return return_hash
-        end
-      end
+        end        
+      end      
     end
-  end
+  end  
 end

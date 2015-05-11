@@ -46,7 +46,7 @@ xml.DataSet "xmlns" => "http://www.tdwg.org/schemas/tcs/1.01",
         
       	@json_response['descendants'].each do |descendant|
       	  xml.TaxonRelationship(:type => 'is ancestor taxon of') do
-            xml.ToTaxonConcept(:ref => url_for(:controller => 'api', :action => 'hierarchy_entries', :id => descendant[:taxonID], :render => 'tcs', :only_path => false), :linktype => 'external')
+            xml.ToTaxonConcept(:ref => url_for(controller: 'api', action: 'hierarchy_entries', id: descendant[:taxonID], render: 'tcs', only_path: false), linktype: 'external')
           end
 	    end
 

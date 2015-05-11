@@ -1018,9 +1018,9 @@ class TaxonConcept < ActiveRecord::Base
   end
   
   def self.get_entry_id_of_last_published_taxon
-    taxon_concept_last = TaxonConcept.published.last if TaxonConcept.published
+    taxon_concept_last = TaxonConcept.published.last if TaxonConcept.published.blank?
     entry = taxon_concept_last.entry if taxon_concept_last
-    entry_id  =  entry.id if entry
+    entry.nil? ? nil : entry.id
   end
 
 private

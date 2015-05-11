@@ -526,7 +526,7 @@ module ApplicationHelper
   def status_class_and_label_for_data_object(data_object)
     vis = data_object.visibility_by_taxon_concept(@taxon_page || @taxon_concept)
     vet = data_object.vetted_by_taxon_concept(@taxon_page || @taxon_concept)
-    if vis == $invisible_global
+    if vis == Visibility.get_invisible
       return 'untrusted', I18n.t(:hidden)
     else
       # Well, shoot. We can't use #label here, because #label is translated.

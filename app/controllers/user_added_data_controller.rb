@@ -50,7 +50,7 @@ class UserAddedDataController < ApplicationController
     end
     if @user_added_data.update_attributes(params[:user_added_data])
       flash[:notice] = I18n.t('user_added_data.update_successful')
-      log_action(:update) unless @user_added_data.visibility_id == $invisible_global.id
+      log_action(:update) unless @user_added_data.visibility_id == Visibility.get_invisible.id
     else
       flash[:error] = I18n.t('user_added_data.update_failed',
                              errors: @user_added_data.errors.full_messages.to_sentence)

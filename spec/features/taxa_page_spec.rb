@@ -38,6 +38,8 @@ describe 'Taxa page' do
     @taxon_concept = @testy[:taxon_concept]
     @hierarchy_entry = @taxon_concept.published_browsable_hierarchy_entries[0]
     @user = @testy[:user]
+    @res = Resource.gen(title: "IUCN Structured Data")
+    (DataMeasurement.new(predicate: "<http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>", object: "Wunderbar", resource: @res, subject: @taxon_concept)).add_to_triplestore
     Capybara.reset_sessions!
     Activity.create_enumerated
   end

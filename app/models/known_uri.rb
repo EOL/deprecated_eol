@@ -85,7 +85,7 @@ class KnownUri < ActiveRecord::Base
   scope :values, -> { where(uri_type_id: UriType.value.id) }
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
-  scope :visible, -> { where(visibility_id: $visible_global.id) }
+  scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
 
   COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
@@ -404,7 +404,7 @@ class KnownUri < ActiveRecord::Base
 
   def default_values
     self.vetted ||= Vetted.unknown
-    self.visibility ||= Visibility.invisible # Since there are so many, we want them "not suggested", first.
+    self.visibility ||= Visibility.get_invisible # Since there are so many, we want them "not suggested", first.
   end
 
   def remove_whitespaces

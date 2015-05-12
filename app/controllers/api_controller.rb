@@ -84,10 +84,6 @@ class ApiController < ApplicationController
         return render_error('Sorry, there was a problem')
       end
     end
-    # create an API Log entry, except for the ping method
-    unless params[:action] == 'ping'
-      create_api_log(params.merge({ id: params[:id] }))
-    end
 
     # return the JSON object generated above, OR
     # render the default (or custom) partial for this method: e.g. api/search_1_0.xml.builder
@@ -154,20 +150,4 @@ class ApiController < ApplicationController
     end
   end
 
-  def create_api_log(params={})
-    # get the API key and match it up to an existing user
-    api_key = params[:key]
-    user = api_key ? User.find_by_api_key(api_key) : nil
-    user_id = user.is_a?(User) ? user.id : nil
-
-    ApiLog.create(
-      request_ip: request.remote_ip,
-      request_uri: request.fullpath,
-      method: params[:action],
-      version: params[:version],
-      format: params[:format],
-      request_id: params[:id],
-      key: api_key,
-      user_id: user_id)
-  end
 end

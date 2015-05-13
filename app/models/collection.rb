@@ -223,6 +223,14 @@ class Collection < ActiveRecord::Base
       false
     end
   end
+  
+  def can_be_updated_by?(user_wanting_access)
+    user_wanting_access.can_edit_collection?(self)
+  end
+  
+  def can_be_deleted_by?(user_wanting_access)
+    self.users.map{|u| u.id}.include? user_wanting_access.id || user_wanting_access.is_admin?
+  end
 
   def as_json(options = {})
     collection = super(

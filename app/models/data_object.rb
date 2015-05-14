@@ -1224,10 +1224,12 @@ class DataObject < ActiveRecord::Base
       last_dato = DataObject.texts.last
       return false unless last_dato
       return false unless UsersDataObject.exists?(data_object_id: last_dato.id)
-      return  UsersDataObject.find_by_data_object_id( last_dato.id ).user_id == options[:user][:id] &&
-              options[:taxon_concept][:id] == UsersDataObject.find_by_data_object_id( last_dato.id ).taxon_concept_id &&
+      udo = UsersDataObject.find_by_data_object_id( last_dato.id )
+      return  udo.user_id == options[:user][:id] &&
+              options[:taxon_concept][:id] == udo.taxon_concept_id &&
               params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&
-              (params[:data_object][:object_title] == last_dato.object_title ||
+              (!params[:data_object][:object_title].blank? && 
+              params[:data_object][:object_title] == last_dato.object_title &&
               params[:data_object][:description] == last_dato.description)
     end
   end

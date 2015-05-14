@@ -104,6 +104,7 @@ describe 'Taxa data tab basic tests' do
   it 'should allow master curators to add data' do
     login_as @master_curator
     visit taxon_data_path(@taxon_concept.id)
+    Rails.cache.clear
     body.should_not have_tag("table.data")
     body.should have_tag("form#new_user_added_data")
     body.should have_tag("form#new_user_added_data input[@type='submit']", value: "submit data value")

@@ -105,15 +105,6 @@ module EOL
             return_hash['ancestors'] << ancestor_hash
           end
 
-          return_hash['descendants'] = []
-          HierarchyEntry.preload_associations(hierarchy_entry, { descendants: [ :rank, :name, :hierarchy ] })
-          hierarchy_entry.descendants.map { |e| return_hash['descendants'] << { sourceIdentifier: e.identifier, taxonID: e.id,
-                                                                                parentNameUsageID: e.parent_id,
-                                                                                taxonConceptID: e.taxon_concept_id,
-                                                                                scientificName:  (e.name.string if e.name),
-                                                                                taxonRank: (e.rank.label if e.rank),
-                                                                                source: e.outlink_url } }
-
           return_hash['children'] = []
           HierarchyEntry.preload_associations(
             hierarchy_entry, { :children => [ :rank, :name ] }

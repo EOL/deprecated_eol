@@ -28,6 +28,10 @@ class Api::DocsController < ApiController
     @page_title = I18n.t(:eol_api_hierarchy_entries)
   end
 
+  def hierarchy_entries_descendants
+    @page_title = I18n.t(:eol_api_hierarchy_entries_descendants)
+  end
+
   def provider_hierarchies
     @page_title = I18n.t(:eol_api_provider_hierarchies)
   end

@@ -22,20 +22,6 @@ else
         xml.dc :source, ancestor['source'] unless ancestor['source'].blank?
       end
     end
-    
-    xml.dwc :Descendants do
-      @json_response['descendants'].each do |descendant|
-	    xml.dwc :Taxon do
-	      xml.dc :identifier, descendant[:sourceIdentifier]
-	      xml.dwc :taxonID, descendant[:taxonID]
-	      xml.dwc :parentNameUsageID, descendant[:parentNameUsageID]
-	      xml.dwc :taxonConceptID, descendant[:taxonConceptID]
-	      xml.dwc :scientificName, descendant[:scientificName]
-	      xml.dwc :taxonRank, descendant[:taxonRank]
-	      xml.dc :source, descendant[:source] unless descendant[:source].blank?
-	    end
-	  end
-    end
 
     xml.dwc :Taxon do
       xml.dc :identifier, @json_response['sourceIdentifier']

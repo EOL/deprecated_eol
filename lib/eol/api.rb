@@ -1,6 +1,6 @@
 module EOL
   module Api
-    METHODS = [ :ping, :pages, :search, :collections, :data_objects, :hierarchy_entries, :hierarchies, :provider_hierarchies, :search_by_provider ]
+    METHODS = [ :ping, :pages, :search, :collections, :data_objects, :hierarchy_entries, :hierarchies, :provider_hierarchies, :hierarchy_entries_descendants, :search_by_provider ]
 
     def self.default_version_of(method)
       begin

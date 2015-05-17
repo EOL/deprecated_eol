@@ -2,7 +2,7 @@ module Wapi
   module V1
     class CollectionsController < ApplicationController
       respond_to :json
-      #before_filter :restrict_access, except: [:index, :show]
+      before_filter :restrict_access, except: [:index, :show]
       before_filter :find_collection, only: [:update, :destroy]
 
       def index
@@ -42,15 +42,35 @@ module Wapi
       end
 
       def update
-        @user = User.find(74)
-        head :unauthorized unless @user.can_update?(@collection)
-        respond_with @collection.update_attributes(params[:collection])
+        head :unauthorized and return unless @user && @user.can_update?(@collection)
+        ActiveRecord::Base.transaction do
+          begin
+            if params[:collection_items]
+              params[:collection_items].each do |item|
+                (@collection.collection_items.select{|col_item| col_item[:id] == item[:id].to_i}.first).update_attributes!(item.except!(:id, :updated_at, :created_at))
+              end
+            end
+            @collection.update_attributes!(params[:collection].except!(:id, :updated_at, :created_at))
+            respond_with do |format|
+              format.json { render json: @collection.to_json, status: :ok }
+            end
+          rescue Exception => e
+            respond_with do |format|
+              format.json { render json: I18n.t("collection_update_failure", collection: @collection.id).to_json, status: :ok }
+            end
+            raise ActiveRecord::Rollback
+          end
+        end
       end
 
       def destroy
-        @user = User.find(74)
-        head :unauthorized unless @user.can_delete?(@collection)
-        respond_with @collection.destroy
+        #@user = User.find(74)
+        head :unauthorized and return unless @user && @user.can_update?(@collection)
+        CollectionItem.destroy(@collection.collection_items.map{|item| item.id})
+        @collection.destroy
+        respond_with do |format|
+          format.json { render json: I18n.t("collection_removed", collection: @collection.id).to_json, status: :ok }
+        end
       end
 
       private
@@ -61,8 +81,8 @@ module Wapi
 
       # -H 'Authorization: Token token="ABCDEF12345"'
       # See also the request specs.
-      def restrict_access        
-        authenticate_or_request_with_http_token do |token, options|          
+      def restrict_access
+        authenticate_or_request_with_http_token do |token, options|
           @user = User.find_by_api_key(token)
         end
       end

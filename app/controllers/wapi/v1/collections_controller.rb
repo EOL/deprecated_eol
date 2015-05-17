@@ -64,7 +64,6 @@ module Wapi
       end
 
       def destroy
-        #@user = User.find(74)
         head :unauthorized and return unless @user && @user.can_update?(@collection)
         CollectionItem.destroy(@collection.collection_items.map{|item| item.id})
         @collection.destroy

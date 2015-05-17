@@ -21,7 +21,7 @@ describe DataSearchHelper do
       before do
         @results = double(Array, total_entries: 3)
         @attribute_known_uri = nil
-        @querystring = "foo"
+        @attributes = "foo"
         @taxon_concept = nil
       end
 

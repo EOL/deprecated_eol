@@ -21,6 +21,7 @@ def add_data(options = {})
 end
 
 def hide_row
+  Rails.cache.clear
   visit(taxon_data_path(@taxon_concept))
   within("##{@user_added_data.data_point_uri.anchor}_actions") do
     click_link "Hide Row"
@@ -29,6 +30,7 @@ def hide_row
 end
 
 def unhide_row
+  Rails.cache.clear
   visit(taxon_data_path(@taxon_concept))
   within("##{@user_added_data.data_point_uri.anchor}_actions") do
     click_link "Unhide Row"
@@ -37,6 +39,7 @@ def unhide_row
 end
 
 def add_to_quick_facts
+  Rails.cache.clear
   visit(taxon_data_path(@taxon_concept))
   within("##{@user_added_data.data_point_uri.anchor}_actions") do
     click_link I18n.t(:data_row_add_exemplar_button)
@@ -52,6 +55,7 @@ def remove_from_quick_facts
 end
 
 def comment(text)
+  Rails.cache.clear
   visit(taxon_data_path(@taxon_concept))
   within(:xpath, "//tr[@id='data_point_#{@user_added_data.data_point_uri.id}']/following::tr") do
     fill_in 'comment_body', with: text

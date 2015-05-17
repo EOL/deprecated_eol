@@ -11,7 +11,11 @@ class DataFileMaker
     DataSearchFile.with_master do
       if DataSearchFile.exists?(args["data_file_id"])
         begin
-          DataSearchFile.find(args["data_file_id"]).build_file
+          dsf = DataSearchFile.find(args["data_file_id"])
+          response = dsf.build_file
+          if !response[:error].blank?
+            dsf.update_attributes(failed_at: Time.now, error: response[:error])
+          end
         rescue => e
           Rails.logger.error "   FAILED: #{e.message}"
         end

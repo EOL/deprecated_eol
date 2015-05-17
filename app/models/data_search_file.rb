@@ -1,7 +1,7 @@
 class DataSearchFile < ActiveRecord::Base
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
-    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id, :file_number
+    :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id, :file_number, :failed_at, :error
   attr_accessor :results
   
   has_many :data_search_file_equivalents
@@ -19,15 +19,21 @@ class DataSearchFile < ActiveRecord::Base
   def build_file
     unless hosted_file_exists?
       write_file
-      upload_file
-      # The user may delete the download before it has finished (if it's hung,
-      # the workers are busy or its just taking a very long time). If so,
-      # we should not email them when the process has finished
-      if hosted_file_exists? && instance_still_exists?
-        send_completion_email
+      response = upload_file 
+      if response[:error].blank?
+        # The user may delete the download before it has finished (if it's hung,
+        # the workers are busy or its just taking a very long time). If so,
+        # we should not email them when the process has finished
+        if hosted_file_exists? && instance_still_exists?
+          send_completion_email
+        end
+        update_attributes(completed_at: Time.now.utc)
+      else
+        # something goes wrong with file uploading
+        return {error: response[:error]}
       end
-      update_attributes(completed_at: Time.now.utc)
     end
+    return {error: nil}
   end
 
   def csv(options = {})
@@ -43,7 +49,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def complete?
-    ! completed_at.nil?
+    failed_at.nil? && ! completed_at.nil?
   end
 
   def instance_still_exists?
@@ -145,17 +151,25 @@ class DataSearchFile < ActiveRecord::Base
 
   def upload_file
     where = local_file_path
+    error = ""
     begin
-      if uploaded_file_url = ContentServer.upload_data_search_file(local_file_url, id)
-        where = uploaded_file_url
-        update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
+      hash = ContentServer.upload_data_search_file(local_file_url, id)
+      if hash.nil?
+        return {error: "Couldn't create the required file"}
       else
-        # TODO: we REALLY need to do something here!
+        uploaded_file_url = hash[:response]
+        error = hash[:error]
+        if uploaded_file_url
+          where = uploaded_file_url
+          update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
+          return {error: nil}
+        end  
       end
     rescue => e
       # TODO: This is an important one to catch!
       Rails.logger.error "ERROR: could not upload #{where} to Content Server: #{e.message}"
     end
+    return {error: error}
   end
 
   def csv_builder(csv, col_heads, rows)

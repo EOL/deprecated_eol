@@ -234,10 +234,8 @@ class TaxonData < TaxonUserClassificationFilter
   private
 
     def raw_data
-      Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
-        expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
-        (measurement_data + association_data).
-          delete_if { |k,v| k[:attribute].blank? }
+      Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
+        (measurement_data + association_data).delete_if { |k,v| k[:attribute].blank? }
       end
     end
 

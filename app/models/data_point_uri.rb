@@ -654,10 +654,6 @@ class DataPointUri < ActiveRecord::Base
     self.visibility ||= Visibility.get_visible
   end
 
-  def default_visibility
-    self.visibility ||= Visibility.get_visible
-  end
-
   def units
     _units(unit_of_measure_uri)
   end

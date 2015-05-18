@@ -103,7 +103,8 @@ describe 'Taxa data tab basic tests' do
 
   it 'should allow master curators to add data' do
     login_as @master_curator
-    visit(taxon_data_path(@taxon_concept))
+    visit taxon_data_path(@taxon_concept.id)
+    Rails.cache.clear
     body.should_not have_tag("table.data")
     body.should have_tag("form#new_user_added_data")
     body.should have_tag("form#new_user_added_data input[@type='submit']", value: "submit data value")
@@ -111,8 +112,10 @@ describe 'Taxa data tab basic tests' do
       fill_in 'user_added_data_predicate', with: Rails.configuration.uri_term_prefix + 'testingadddata'
       fill_in 'user_added_data_object', with: 'testingadddata_value'
       click_button "submit data value"
+      sleep(5)
     end
-    visit(taxon_data_path(@taxon_concept))
+    visit taxon_data_path(@taxon_concept.id)
+    KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_term_prefix + 'testingadddata', name: 'testingadddata')
     body.should have_tag("table.data")
     body.should include("testingadddata")
     body.should include("testingadddata_value")

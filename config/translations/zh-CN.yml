@@ -23,6 +23,7 @@
 # Author: Xiaomingyan
 # Author: Yfdyh000
 # Author: 乌拉跨氪
+# Author: 凡人丶
 # Author: 아라
 ---
 zh-CN:
@@ -163,6 +164,7 @@ zh-CN:
         total_measurement_types: 测量模式
         total_association_types: 关联模式
         total_user_added_data: 用户加入的数据
+        total_data_records: 数据记录
       forum:
         forum_category_id: 类别
         name: 论坛名称
@@ -196,6 +198,7 @@ zh-CN:
         uri: URI
         uri_type: URI形式
         value_is_text: 值不能为URL，只能是文本
+        value_is_verbatim: 值将不会为数字，只是文本
       known_uri_relationship:
         from_known_uri_id: 主题URI
         to_known_uri_id: 目标URI
@@ -1318,6 +1321,7 @@ zh-CN:
       href='%{unsubscribe_url}' style='color:#195184'>更新您的电子邮件设置以退订从EOL的所有自动通知而无需登录</a>。
     contact_us_link: 如果您遇到任何问题，请使用<a href='http://eol.org/contact_us' style='color:#195184'>联系我们</a>。
     see_all_activity: 在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。
+    resource_validation: 来源：%{resource} 已完成确认
     bulk_comments_with_count:
       other: 有%{count}条关于%{on}的新评论
     bulk_comments_on_you_with_count:
@@ -2342,6 +2346,10 @@ zh-CN:
         user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong>使用未知语言加入常用名“%{name}”。
         user_added_name_in_language_to_it: <strong>%{user}</strong>使用%{language}加入常用名“%{name}”。
       remove_common_name:
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: 未知用户从未知页面移除了一种未知语言的常用名。
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: 未知用户从未知页面移除了%{language}的常用名。
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: 未知用户从“%{taxon}”移除了一种未知语言的常用名。
+        an_unknown_user_removed_name_in_language_from_taxon: 未知用户从“%{taxon}”移除了%{language}的常用名。
         an_unknown_user_removed_name_in_an_unknown_language_from_it: 未知用户移除未知语言的常用名。
         an_unknown_user_removed_name_in_language_from_it: 未知用户移除%{language}的常用名。
         user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong>移除了未知语言中的常用名。
@@ -3161,7 +3169,10 @@ zh-CN:
   data_column_units: 单位（已规范化）
   data_column_units_uri: 单位URI（规范化）
   data_column_source: 提供者
-  data_disclaimer: <a href='/traitbank'>TraitBank</a>集合很多提供方的数据记录。选择一行以获取有关记录的更多详情。
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a>集合很多提供方的数据记录。选择一行以获取有关记录的更多详情，或<a
+    href="%{traitbank_search_path}">搜索TraitBank</a>。
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>从很多供应商聚合数据记录。选择一行获取更多记录信息，或<a
+    href="%{traitbank_search_path}">在%{taxon_name}中搜索</a>。
   data_database_colon: 数据：
   data_glossary: 数据词汇表
   data_link_to_record: 链接到此记录
@@ -3190,6 +3201,8 @@ zh-CN:
   data_search:
     page_title: 搜索TraitBank
     form:
+      equivalent_attributes: 等价值：
+      equivalent_values: 等价值：
       header_assistive: 搜索表单
       input_summary_intro: 选择的搜索选项
       new_search_link: 开始一次新搜索
@@ -3238,6 +3251,7 @@ zh-CN:
   default_rating_value_of_total: 默认评级：%{total}的%{rating}
   default_watch_collection_name: '%{username}的关注列表'
   delete_community: 删除此社区
+  delete_data_object: 删除
   delete: 删除
   deleted_colon: 已删除的：
   delete_firstcap: 删除
@@ -3614,6 +3628,9 @@ zh-CN:
   known_uri_label_unit: 有默认单位
   known_uri_label_equivalent: 相似于
   known_uris_page_title: EOL上有关数据的URI
+  pending_harvests_title: 等待收割
+  pause_pending_harvests: 暂停收割
+  resume_pending_harvests: 恢复收割
   label: 标签
   language: 语言：
   languages: 语言

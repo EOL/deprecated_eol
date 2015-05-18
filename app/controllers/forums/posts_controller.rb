@@ -54,17 +54,17 @@ class Forums::PostsController < ForumsController
   # GET /forums/:forum_id/topics/:topic_id/posts/:id/edit
   def edit
     @post = ForumPost.find(params[:id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}" unless current_user.can_update?(@post)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}",
+    :missing_edit_acess_to_forum_post) unless current_user.can_update?(@post)
   end
 
   # PUT /forums/:forum_id/topics/:topic_id/posts/:id
   def update
     @post = ForumPost.find(params[:id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}" unless current_user.can_update?(@post)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}",
+    :missing_edit_acess_to_forum_post) unless current_user.can_update?(@post)
     if @post.update_attributes(params[:forum_post])
       flash[:notice] = I18n.t('forums.posts.update_successful')
     else
@@ -80,9 +80,9 @@ class Forums::PostsController < ForumsController
   def destroy
     @post = ForumPost.find(params[:id])
     topic = @post.forum_topic
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}" unless current_user.can_delete?(@post)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to ForumPost with ID=#{@post.id}",
+    :missing_delete_acess_to_forum_post) unless current_user.can_delete?(@post)
     if @post.topic_starter? && @post.forum_topic.forum_posts.visible.count > 1
       flash[:error] = I18n.t('forums.posts.delete_failed_topic_not_empty')
       redirect_to forum_topic_path(@post.forum_topic.forum, @post.forum_topic)

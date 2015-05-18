@@ -79,41 +79,55 @@ describe 'taxa/overview/show' do
     end
 
     it "should show quick facts" do
+      point = DataPointUri.gen
+      taxon_page = double(TaxonPage)
+      taxon_page.stub(:get_data_for_overview){{ point => { data_point_uris: [ point ]} }}
+      assign(:data, taxon_page)
       render
       expect(rendered).to match /#{I18n.t(:data_summary_header_with_count, count: 0)}/
     end
 
     it "should have a show more link when a row has more data" do
       point = DataPointUri.gen
-      assign(:overview_data, { point => { data_point_uris: [ point ], show_more: true } } )
+      taxon_page = double(TaxonPage)
+      taxon_page.stub(:get_data_for_overview){{ point => { data_point_uris: [ point ], show_more: true } }}
+      assign(:data, taxon_page)
       render
       expect(rendered).to have_tag('td a', text: 'more')
     end
 
     it "should show statistical method" do
       point = DataPointUri.gen(statistical_method: 'Itsmethod')
-      assign(:overview_data, { point => { data_point_uris: [ point ] } } )
+      taxon_page = double(TaxonPage)
+      taxon_page.stub(:get_data_for_overview) {{ point => { data_point_uris: [ point ] } }}
+      assign(:data, taxon_page)
       render
       expect(rendered).to have_tag('span.stat', text: /Itsmethod/)
     end
 
     it "should show life stage" do
       point = DataPointUri.gen(life_stage: 'Itslifestage')
-      assign(:overview_data, { point => { data_point_uris: [ point ] } } )
+      taxon_page = double(TaxonPage)
+      taxon_page.stub(:get_data_for_overview) {{ point => { data_point_uris: [ point ] } }}
+      assign(:data, taxon_page)
       render
       expect(rendered).to have_tag('span.stat', text: /Itslifestage/)
     end
 
     it "should show sex" do
       point = DataPointUri.gen(sex: 'Itssex')
-      assign(:overview_data, { point => { data_point_uris: [ point ] } } )
+      taxon_page = double(TaxonPage)
+      taxon_page.stub(:get_data_for_overview) {{ point => { data_point_uris: [ point ] } }}
+      assign(:data, taxon_page)
       render
       expect(rendered).to have_tag('span.stat', text: /Itssex/)
     end
 
     it "should show combinations of context modifiers" do
       point = DataPointUri.gen(statistical_method: 'Itsmethod', life_stage: 'Itslifestage', sex: 'Itssex')
-      assign(:overview_data, { point => { data_point_uris: [ point ] } } )
+      taxon_page = double(TaxonPage)
+      taxon_page.stub(:get_data_for_overview) {{ point => { data_point_uris: [ point ] } }}
+      assign(:data, taxon_page)
       render
       expect(rendered).to have_tag('span.stat', text: /Itsmethod, Itslifestage, Itssex/)
     end

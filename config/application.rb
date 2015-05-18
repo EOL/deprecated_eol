@@ -123,6 +123,9 @@ module Eol
     #Server's IP address
     Rails.configuration.site_domain = "eol.org" #domain name for url links communicated outside, for example for emails
 
+    #logos path in media server
+    Rails.configuration.partner_logos = "http://160.111.248.28/content/partner_logos/"
+
     # If you're testing a new feature, they will be asked to go here to provide feedback:
     Rails.configuration.beta_test_feedback_link = 'https://www.surveymonkey.com/s/9FDTDQP'
 
@@ -330,6 +333,7 @@ module Eol
 
     $NEWS_ON_HOME_PAGE = 6
     $ACTIVITIES_ON_HOME_PAGE = 6
+    $SPONSORS_ON_HOME_PAGE = 7
     $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
     $HOMEPAGE_NEWS_CACHE_TIME = 10  # minutes
     $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5

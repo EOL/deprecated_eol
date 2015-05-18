@@ -54,7 +54,7 @@ module Wapi
             respond_with do |format|
               format.json { render json: @collection.to_json, status: :ok }
             end
-          rescue Exception => e
+          rescue
             respond_with do |format|
               format.json { render json: I18n.t("collection_update_failure", collection: @collection.id).to_json, status: :ok }
             end
@@ -65,7 +65,7 @@ module Wapi
 
       def destroy
         head :unauthorized and return unless @user && @user.can_update?(@collection)
-        CollectionItem.destroy(@collection.collection_items.map{|item| item.id})
+        @collection.collection_items.destroy_all
         @collection.destroy
         respond_with do |format|
           format.json { render json: I18n.t("collection_removed", collection: @collection.id).to_json, status: :ok }

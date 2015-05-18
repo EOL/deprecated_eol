@@ -152,13 +152,15 @@ describe "Collections API V1" do
       expect(items).to include("item1_updated")
     end
     
-    it "shouldnot update the collection items if the passed ones don't exist" do
+    it "should not update the collection items if the passed ones don't exist" do
       items = @collection.collection_items
       put "/wapi/collections/#{@collection.id}", {collection: {name: "another_name"}, collection_items:[
-        {"annotation" => "item2_updated", "collected_item_id" => @data_object.id, "collected_item_type" => "DataObject", "id"=> items[items.find_index{|ind| ind.annotation == "item2"}].id},
+        {"annotation" => "updated_it2", "collected_item_id" => @data_object.id, "collected_item_type" => "DataObject", "id"=> items[items.find_index{|ind| ind.annotation == "item2"}].id},
         {"annotation" => "item1_updated", "collected_item_id" => @taxon.id, "collected_item_type" => "TaxonConcept", "sort_field" => "12", "id"=> "not_found"}
       ]}, {"HTTP_AUTHORIZATION" => encode(@key)}
       expect(response.body).to include("update failed")
+      items = (items.reload).map{|name| name.annotation}
+      expect(items).not_to include("updated_it2") 
     end
   end
   

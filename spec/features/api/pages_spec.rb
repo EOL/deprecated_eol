@@ -280,7 +280,7 @@ describe 'API:pages' do
       hierarchy = Hierarchy.gen(label: 'my hierarchy', browsable: 1)
       @resource = Resource.gen(title: "resource_title", hierarchy_id: hierarchy.id)
       hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy, taxon_concept: @taxon, rank: Rank.gen_if_not_exists(label: 'species'))
-      name = Name.gen(string: 'my synonym')
+      name = Name.gen(string: 'my synonym 1')
       relation = SynonymRelation.gen_if_not_exists(label: 'not common name')
       synonym = Synonym.gen(hierarchy_entry: hierarchy_entry, name: name, synonym_relation: relation)  
     end

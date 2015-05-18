@@ -59,7 +59,7 @@ class Ref < ActiveRecord::Base
                   AND udo.visibility_id = ?
                   AND do.published=1
                   AND refs.published=1
-                  AND refs.visibility_id=?", taxon_concept_id, $visible_global.id, $visible_global.id, $visible_global.id, taxon_concept_id, $visible_global.id, taxon_concept_id, $visible_global.id, $visible_global.id])
+                  AND refs.visibility_id=?", taxon_concept_id, Visibility.get_visible.id, Visibility.get_visible.id, Visibility.get_visible.id, taxon_concept_id, Visibility.get_visible.id, taxon_concept_id, Visibility.get_visible.id, Visibility.get_visible.id])
   end
 
   # Determines whether or not the TaxonConcept has Literature References
@@ -79,7 +79,7 @@ class Ref < ActiveRecord::Base
                 AND (dohe.visibility_id = ? OR cdohe.visibility_id = ?)
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1", taxon_concept_id, $visible_global.id, $visible_global.id, $visible_global.id])
+                LIMIT 1", taxon_concept_id, Visibility.get_visible.id, Visibility.get_visible.id, Visibility.get_visible.id])
     return true if ref_count > 0
 
     # HierarchyEntry references
@@ -91,7 +91,7 @@ class Ref < ActiveRecord::Base
                 AND he.published=1
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1", taxon_concept_id, $visible_global.id])
+                LIMIT 1", taxon_concept_id, Visibility.get_visible.id])
     return true if ref_count > 0
 
     # User DataObject references
@@ -104,14 +104,14 @@ class Ref < ActiveRecord::Base
                 AND do.published=1
                 AND refs.published=1
                 AND refs.visibility_id=?
-                LIMIT 1", taxon_concept_id, $visible_global.id])
+                LIMIT 1", taxon_concept_id, Visibility.get_visible.id])
     ref_count > 0
   end
 
   private
 
   def default_visibility
-    self.visibility ||= $visible_global
+    self.visibility ||= Visibility.get_visible
   end
 
 end

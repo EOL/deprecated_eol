@@ -196,6 +196,7 @@ describe 'taxa/data/index' do
       end
 
       it "doesn't format data value for verbatim known uris" do
+        Rails.cache.clear
         assign(:data_point_uris, [ DataPointUri.gen(predicate_known_uri_id: @known_uri.id, object: @big_value ) ])
         render
         expect(rendered).to match /#{@big_value}/

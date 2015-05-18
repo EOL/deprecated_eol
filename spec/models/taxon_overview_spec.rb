@@ -3,7 +3,8 @@ require "spec_helper"
 describe TaxonOverview do
 
   before(:all) do
-    load_foundation_cache
+    load_foundation_cache  
+    @res = Resource.gen(title: "IUCN Structured Data")  
   end
 
   before(:each) do # NOTE - we want these 'pristine' for each test, because values get cached.
@@ -173,16 +174,15 @@ describe TaxonOverview do
   end
 
   it 'should know iucn status' do
-    iucn = DataObject.gen(description: 'wunderbar')
-    @taxon_concept.stub_chain(:data_objects, :where, :order, :first).and_return(iucn)
-    @overview.iucn_status.should == 'wunderbar'
+    (DataMeasurement.new(predicate: "<http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>", object: "Wunderbar", resource: @res, subject: @taxon_concept)).add_to_triplestore    
+    @overview.iucn_status.should == 'Wunderbar'
   end
   
   it 'has default iucn status = nil' do
     expect(@overview.iucn_status).to be_nil
   end
   
-  it 'has default iucn url = nil' do
+  it 'has default iucn url = nil' do    
     expect(@overview.iucn_url).to be_nil
   end
 

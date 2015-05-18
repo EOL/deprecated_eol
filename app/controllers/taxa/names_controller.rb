@@ -94,7 +94,8 @@ class Taxa::NamesController < TaxaController
       log_action(@taxon_concept, synonym, :remove_common_name)
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, @taxon_concept.id)
       unless current_user.can_delete?(tcn)
-        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to Synonym with ID=#{synonym_id}"
+        raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to Synonym with ID=#{synonym_id}", 
+        :missing_delete_access_to_synonym)
       end
       @taxon_concept.delete_common_name(tcn)
       @taxon_concept.reindex_in_solr

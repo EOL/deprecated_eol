@@ -108,13 +108,14 @@ describe DataObjectsController do
       assigns[:data_object].source_url.should == "http://eol.org"  # even though it was submitted as eol.org
     end
     it 'fails validation on invalid link URLs' do
-      EOLWebService.should_receive('url_accepted?').at_least(3).times.with('http://').and_return(false)
+      # EOLWebService.should_receive('url_accepted?').at_least(3).times.with('http://').and_return(false)
       post :create, { :taxon_id => @taxon_concept.id, :commit_link => true,
                       :data_object => { :toc_items => { :id => TocItem.overview.id.to_s }, :data_type_id => DataType.text.id.to_s,
                                         :link_types => { :id => LinkType.blog.id.to_s }, :source_url => 'http://',
                                         :object_title => "Link to EOL", :language_id => Language.english.id.to_s,
                                         :description => "Link text" } },
                       { :user => @user, :user_id => @user.id }
+      
       expect(assigns[:data_object]).to have(1).error_on(:source_url)
       expect(assigns[:data_object].errors_on(:source_url)).to include(I18n.t(:url_not_accessible))
     end

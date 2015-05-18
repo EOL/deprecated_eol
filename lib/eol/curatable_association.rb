@@ -2,23 +2,23 @@ module EOL
   module CuratableAssociation
 
     def show(user)
-      set_visibility(user, $visible_global.id)
+      set_visibility(user, Visibility.get_visible.id)
     end
 
     def hide(user)
-      set_visibility(user, $invisible_global.id)
+      set_visibility(user, Visibility.get_invisible.id)
     end
 
     def preview?
-      visibility_id == $preview_global.id
+      visibility_id == Visibility.get_preview.id
     end
 
     def visible?
-      visibility_id == $visible_global.id
+      visibility_id == Visibility.get_visible.id
     end
 
     def invisible?
-      visibility_id == $invisible_global.id
+      visibility_id == Visibility.get_invisible.id
     end
     alias hidden? invisible?
 

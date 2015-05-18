@@ -146,6 +146,7 @@ mk:
         total_measurement_types: Типови на мерења
         total_association_types: Типови на поврзаност
         total_user_added_data: Кориснички-додадени податоци
+        total_data_records: Податочни записи
       forum:
         forum_category_id: Категорија
         name: Име на форумот
@@ -179,6 +180,7 @@ mk:
         uri: URI
         uri_type: Тип на URI
         value_is_text: Вредностите нема да бидат URI-ја, туку само текст
+        value_is_verbatim: Вредностите нема да бидат броеви, туку само текст
       known_uri_relationship:
         from_known_uri_id: URI на темата
         to_known_uri_id: Целно URI
@@ -1460,6 +1462,7 @@ mk:
       style='color:#195184'>нè контактирате</a>.
     see_all_activity: Сите претходни активности ќе ги најдете на <a href='%{activity_url}'
       style='color:#195184'>вашата страница за актуелности</a>.
+    resource_validation: 'Ресурсот: проверката на %{resource} е завршена'
     bulk_comments_with_count:
       one: Има еден нов коментар на %{on}
       other: Има %{count} коментари на %{on}
@@ -4144,6 +4147,8 @@ mk:
     Преостанатите членови сепак ќе можат да ја гледаат. Каналот со новости ќе продолжи
     да работи, но нема да се прикажува во пребарувањата и таксонските страници и повеќе
     нема да може да се уредува.
+  confirm_delete_data_object: Дали сте сигурни дека сакате да го избришете овој податочен
+    објект? Ова дејство е неповратно.
   confirm_leave: Дали сте сигурни дека сакате да ја напуштите заедницава?
   confirm_password_colon: Потврди лозинка
   contact: Контакт
@@ -4265,6 +4270,8 @@ mk:
     соучесникот се успешно додадени. Тековниот статус на ресурсните податоци е: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: За жал, се појави грешка. Не
     можев да го додадам ресурсот.
+  content_partner_resource_validation_finish_notice: Проверката на соработникот во
+    содржините заврши, и неговиот статус е %{resource_status}.
   content_partner_resource_dataset_details_header: Податочен збир
   content_partner_resource_delete_with_type_link: Избриши сè
   content_partner_resource_description_empty: Овој ресурс нема опис.
@@ -4331,6 +4338,8 @@ mk:
     Не можев да го сменам статусот на %{resource_title} во %{resource_status}.
   content_partner_resource_update_successful_notice: 'Подробностите за ресурсот од
     соучесникот се успешно подновени. Тековниот статус на ресурсните податоци е: %{resource_status}.'
+  content_partner_resource_update_successful: Податоците за соработникот во содржините
+    се успешно подновени.
   content_partner_resource_update_unsuccessful_error: За жал, се појави грешка. Не
     можев да го подновам ресурсот.
   content_partner_resource_upload_unsuccessful_error: 'За жал, се појави грешка. Податоците
@@ -4564,8 +4573,10 @@ mk:
     на Секретаријатот на EOL</a>.</p>
   data_results_only_for_search: Резултати на TraitBank за „%{search_term}“
   data_search_limit:
-    one: Преземањата на пребарани податоци се ограничени на еден резултат.
-    other: Преземањата на пребарани податоци се ограничени на %{count} резултати.
+    one: Исходот од пребарувањето на податоците ќе бидат преземени како %{count} запис
+      по податотека.
+    other: Исходот од пребарувањето на податоците ќе бидат преземени како %{count}
+      записи по податотека.
   data_about_this_record: Податоци за овој запис
   data_column_tc_id: Назнака на страницата на EOL
   data_column_sci_name: Научно име
@@ -4586,8 +4597,13 @@ mk:
   data_column_raw_units: Сирови единици (непосредно од изворот)
   data_column_raw_units_uri: URI на сировите единици (нормализирано)
   data_column_source: Добавувач
-  data_disclaimer: <a href='/traitbank'>TraitBank</a> собира податочни записи од многу
-    разни добавувачи. Одберете некој ред за да видите повеќе подробности за записот.
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни
+    записи од многу разни добавувачи. Одберете некој ред за да видите повеќе подробности
+    за записот, или <a href="%{traitbank_search_path}">пребарајте ја TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    собира податочни записи од многу разни добавувачи. ОДберете ред за да видите повеќе
+    за записот, или пак <a href="%{traitbank_search_path}">пребарајте во рамките на
+    %{taxon_name}</a>.
   data_database_colon: 'Податочна:'
   data_glossary: Поимник за податоци
   data_glossary_contribute: За да ставите нови поими во поимникот, <a href=%{url}>ви
@@ -4598,6 +4614,7 @@ mk:
   data_metadata_subtable_summary: Дополнителни податоци за овој факт.
   data_measurement_subtable_summary: Дополнителни податоци за мерењето на овој факт.
   data_object: Податочен објект
+  data_object_deleted: Податочниот објект е успешно избришан
   data_object_not_associated_with_any_hierarchies: Овој податочен објект не е поврзан
     со ниедна хиерархија.
   data_object_reference: Навод на подат. објект
@@ -4633,6 +4650,10 @@ mk:
   data_search:
     page_title: Преварај по TraitBank
     form:
+      equivalent_attributes: 'Еквивалентни вредности:'
+      equivalent_values: 'Еквивалентни вредности:'
+      search_again_for_attributes: пребарај повторно, вклучувајќи ги избраните атрибути
+      search_again_for_values: пребарај повторно, вклучувајќи ги избраните вредности
       header_assistive: Образец за пребарување
       input_summary_intro: Избрани поставки за пребарувањето
       new_search_link: Започнете ново пребарување
@@ -4747,6 +4768,7 @@ mk:
   default_rating_value_of_total: 'Стандардна оцена: %{rating} од %{total}'
   default_watch_collection_name: Збирка на %{username}
   delete_community: Избриши ја заедницава
+  delete_data_object: Избриши
   delete: избриши
   deleted_colon: 'избришани:'
   delete_firstcap: Избриши
@@ -4845,6 +4867,8 @@ mk:
   eol_news: Новости
   eol_pages: Страници
   error_log_detail: Подробност од днев. на грешки
+  error_revoking_editor_on_watch_collection: Не можете да отстранувате уредници од
+    набљудуваните збирки
   error_log: Дневник на грешки
   error_logging_active: Заведувањето на грешки е активно
   error_401_page_title: Нема овластување
@@ -5289,12 +5313,17 @@ mk:
   known_uris_none: Никој нема додадено URI-ја за овој тип.
   known_uris_page_title: URI-ја за податоци на EOL
   known_uris_sorted: Редоследот е изменет.
+  pending_harvests_none: Сега нема преземања во исчекување.
+  pending_harvests_title: Преземања во исчекување
+  pause_pending_harvests: Запри го преземањето
+  resume_pending_harvests: Продолжи со преземањето
   label: Натпис
   language: 'Јазик:'
   languages: Јазици
   language_selector_advisory_information: Ова е список на расположивите јазици на
     мрежното место. Одберете јазик ако сакате да го смените тековниот.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Траење на последното преземање
   last_updated: Последна актуелност
   last_updated_time_ago: Последната измена е направена пред %{time_passed}
   learn_about_collections: Како да направам збирка?

@@ -26,6 +26,24 @@ class Visibility < ActiveRecord::Base
         [v.curation_label, v.id, {class: v.to_action}]
       end.compact.sort
   end
+  
+  def self.get_visible
+    Rails.cache.fetch("visibility/visible", expires_in: 10.days) do
+      Visibility.visible
+    end
+  end
+  
+  def self.get_invisible
+    Rails.cache.fetch("visibility/invisible", expires_in: 10.days) do
+      Visibility.invisible
+    end    
+  end
+  
+  def self.get_preview
+    Rails.cache.fetch("visibility/preview", expires_in: 10.days) do
+      Visibility.preview
+    end    
+  end
 
   def curation_label
     self.id == Visibility.invisible.id ? I18n.t(:hidden) : self.label

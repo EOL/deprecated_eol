@@ -11,6 +11,7 @@
 # Author: Gianfranco
 # Author: Inskatolata
 # Author: Luigipiccoli
+# Author: Macofe
 # Author: Maria victoria
 # Author: Mario
 # Author: Mishatk
@@ -4838,6 +4839,7 @@ it:
   data_search:
     page_title: Ricerca su TraitBank
     form:
+      equivalent_attributes: 'Valori equivalenti:'
       header_assistive: Modulo di ricerca
       input_summary_intro: Opzioni di ricerca selezionate
       new_search_link: Avvia una nuova ricerca
@@ -4955,6 +4957,7 @@ it:
   default_rating_value_of_total: 'Valutazione di default: %{rating} di %{total}'
   default_watch_collection_name: Lista di controllo di %{username}
   delete_community: Elimina questa comunità
+  delete_data_object: Cancella
   delete: cancella
   deleted_colon: 'cancellato:'
   delete_firstcap: Cancella

@@ -179,7 +179,7 @@ class ContentController < ApplicationController
     Rails.logger.fatal "~~ FATAL #{time}"
     Rails.logger.error "** ERROR #{time}"
     Rails.logger.warn  "!! WARN #{time}"
-    Rails.logger.info  "++ INFO #{time}"
+    Rails.logger.error  "++ INFO #{time}"
     Rails.logger.debug ".. DEBUG #{time}"
     render text: "Logs written at #{time}."
   end

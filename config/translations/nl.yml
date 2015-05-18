@@ -9,6 +9,7 @@
 # Author: HanV
 # Author: Inholland
 # Author: McDutchie
+# Author: MedShot
 # Author: Patio
 # Author: Robin0van0der0vliet
 # Author: Romaine
@@ -1652,13 +1653,6 @@ nl:
         tweet_text: Conservatoren van %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> voegt informatie
-          van veel aanbieders samen. Selecteer een rij voor meer informatie over het
-          record, of <a href="%{traitbank_search_path}">doorzoek TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          voegt informatie van veel aanbieders samen. Selecteer een rij voor meer
-          informatie over het record, of <a href="%{traitbank_search_path}">zoek binnen
-          %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Fieten over %{scientific_name} als ingedeeld door %{hierarchy_provider}in
             de Encyclopedia of Life.
@@ -3519,24 +3513,30 @@ nl:
       unlock:
         merge_of_an_unknown_taxon_unlocked: Het samenvoegen van pagina's waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
-        merge_of_it_unlocked: Het samenvoegen van pagina's waar u recentelijk om hebt
-          gevraagd is uitgevoerd.
+        merge_of_it_unlocked: Het samenvoegen wat u heeft aangevraagd voor deze pagina
+          is afgerond; de pagina's worden opnieuw geïndexeerd en kan tot 25 uur in
+          beslag nemen.
         merge_of_taxon_unlocked: Het samenvoegen van pagina's voor "%{taxon}" waar
-          u recentelijk om hebt gevraagd is uitgevoerd
+          u recentelijk om hebt gevraagd is uitgevoerd;  de pagina's worden opnieuw
+          geïndexeerd en kan tot 25 uur in beslag nemen.
         move_of_an_unknown_taxon_unlocked: De classificatiewijziging waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
         move_of_it_unlocked: De classificatiewijziging waar u recentelijk om hebt
-          gevraagd is uitgevoerd.
+          gevraagd is uitgevoerd; de pagina's worden opnieuw geïndexeerd en kan tot
+          25 uur in beslag nemen.
         move_of_taxon_unlocked: De classificatiewijziging voor "%{taxon}" waar u recentelijk
-          om hebt gevraagd is uitgevoerd.
+          om hebt gevraagd is uitgevoerd; de pagina's worden opnieuw geïndexeerd en
+          kan tot 25 uur in beslag nemen.
         split_of_an_unknown_taxon_unlocked: De classificatiesplitsing waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
         split_of_it_unlocked: De classificatiesplitsing die u recentelijk voor deze
           pagina heeft aangevraagd is uitgevoerd en de classificaties zijn verplaatst
-          naar <a href='%{to}'>hun eigen pagina</a>.
+          naar <a href='%{to}'>hun eigen pagina</a>; de pagina's worden opnieuw geïndexeerd
+          en kan tot 25 uur in beslag nemen.
         split_of_taxon_unlocked: De classificatiesplitsing die u recentelijk voor
           "%{taxon}" heeft aangevraagd is uitgevoerd en de classificaties zijn verplaatst
-          naar <a href='%{to}'>hun eigen pagina</a>.
+          naar <a href='%{to}'>hun eigen pagina</a>; de pagina's worden opnieuw geïndexeerd
+          en kan tot 25 uur in beslag nemen.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Het samenvoegen van pagina''s
           waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}.
@@ -3771,6 +3771,9 @@ nl:
     gebruikers met rechten
   admin_link: Beheerconsole
   admin_page_title: 'Beheer: Overzicht'
+  admin_resource_delete_confirmation: Weet u zeker dat u deze bron wilt verwijderen?
+    Het uitvoeren van dit commando kan lang duren. Het is mogelijk dat u een timeout
+    te zien krijgt tijdens het uitvoeren. Dien deze opdracht niet opnieuw in.
   admin_simple_actions_header: 'Simpele handelingen:'
   admin_spam_delete: Spam verwijderen
   admin_statistics_link: Statistieken
@@ -4469,6 +4472,7 @@ nl:
   content_partner_resource_create_unsuccessful_error: Er is een fout opgetreden. De
     bron is niet toegevoegd.
   content_partner_resource_dataset_details_header: Dataset
+  content_partner_resource_delete_with_type_link: Alles verwijderen
   content_partner_resource_description_empty: Er is geen beschrijving verstrekt voor
     deze bron.
   content_partner_resource_edit_link: Bewerken
@@ -4981,6 +4985,8 @@ nl:
   duplicate_comment_warning: 'De reactie is niet opgeslagen: het lijkt erop dat u
     al hebt gereageerd op dit bericht. Hebt u wellicht per ongeluk uw reactie twee
     keer opgeslagen?'
+  duplicate_text_warning: De tekst is niet opgeslagen. Het lijkt erop dat u dit artikel
+    al hebt opgeslagen. Hebt u wellicht twee keer op "Artikel toevoegen" geklikt?
   duplicate_items_were_ignored: Dubbele items zijn genegeerd.
   each_method_documentation_page_has_formatted_responses: De documentatiepagina van
     iedere methode heeft een voorbeeld van antwoorden in de vorm van XML en JSON.
@@ -5336,6 +5342,7 @@ nl:
     alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft,
     dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde
     inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
+  reindex_data_object_button: Object herindexeren
   reindex_page_button: Pagina opnieuw indexeren
   image: Afbeelding
   image_cropped_notice: De afbeelding bijgesneden.
@@ -6091,6 +6098,7 @@ nl:
   recount_collection_items: Verzamelingsitems opnieuw tellen (corrigeert verkeerde
     tellers; de browser krijgt een timeout, maar dit werkt <i>wel</i>)
   recount_collection_items_done: Het opnieuw tellen van verzamelingsitems is afgerond.
+  redirect_url_ok_title_unavailable: Redirect URL oké, titel niet beschikbaar
   reference: Referentie
   references_cabs_colon: 'Referenties:'
   related_names_with_count:
@@ -6618,6 +6626,7 @@ nl:
     verzamelingen.
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
   this_community_was_deleted: Deze gemeenschap is verwijderd door de eigenaar.
+  this_data_object_will_be_reindexed: Dit gegevens object zal worden geïndexeerd.
   this_does_not_necessarily_mean: '* dit betekent niet per se dat de verbindingen
     worden gebruikt, allen dat ze zijn ingesteld in database.yml. U moet controleren
     of de masterverbindingen zijn ingesteld in het bestand "config/environments/%{env}.rb".'

@@ -7,7 +7,7 @@ module Wapi
 
       def index
         # TODO: pagination! This would be HUGE.
-        respond_with Collection.where(published: true).all.limit(10)
+        respond_with Collection.where(published: true).all
       end
 
       def show

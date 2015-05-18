@@ -177,6 +177,7 @@ fr:
         total_measurement_types: Types de mesure
         total_association_types: Types d’association
         total_user_added_data: Données ajoutées par l’utilisateur
+        total_data_records: Enregistrements de données
       forum:
         forum_category_id: Catégorie
         name: Nom du forum
@@ -210,6 +211,7 @@ fr:
         uri: URI
         uri_type: Type d’URI
         value_is_text: Les valeurs ne seront pas des URIs, seulement du texte
+        value_is_verbatim: Les valeurs ne sont pas des nombres, seulement du texte
       known_uri_relationship:
         from_known_uri_id: URI du sujet
         to_known_uri_id: URI cible
@@ -1531,6 +1533,7 @@ fr:
       style='color:#195184'>nous contacter</a>.
     see_all_activity: Voyez toutes vos activités précédentes sur votre page d’utilisateur
       <a href='%{activity_url}' style='color:#195184'></a>.
+    resource_validation: 'La validation de la ressource : %{resource} est terminée'
     bulk_comments_with_count:
       one: Il y a un nouveau commentaire sur %{on}
       other: Il y a %{count} nouveaux commentaires sur %{on}
@@ -1685,14 +1688,6 @@ fr:
         tweet_text: Conservateurs de %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> assemble des
-          enregistrements de données de nombreux fournisseurs. Sélectionnez une ligne
-          pour plus de détails sur l’enregistrement, ou <a href="%{traitbank_search_path}">recherchez
-          dans TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          rassemble des enregistrements de données de nombreux fournisseurs. Sélectionnez
-          une ligne pour plus de détails sur l’enregistrement, ou <a href="%{traitbank_search_path}">recherchez
-          dans %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Faits à propos de %{scientific_name} tel que classé selon
             %{hierarchy_provider} dans l’Encyclopédie de la Vie.
@@ -3519,23 +3514,32 @@ fr:
         merge_of_an_unknown_taxon_unlocked: La fusion de page que vous avez récemment
           demandée est terminée, mais la page est introuvable.
         merge_of_it_unlocked: La fusion que vous avez demandé récemment sur cette
-          page s'est terminée.
+          page s'est terminée ; les pages sont maintenant en cours de réindexation
+          et nécessiteront jusqu’à 25 heures pour que tout soit terminé.
         merge_of_taxon_unlocked: La fusion de page que vous avez récemment demandée
-          pour "%{taxon}" s’est terminée.
+          pour "%{taxon}" s’est terminée ; les pages sont maintenant en cours de réindexation
+          et nécessiteront jusqu’à 25 heures pour que tout soit terminé.
         move_of_an_unknown_taxon_unlocked: Le déplacement de classification que vous
           avez récemment demandé s'est terminé, mais la page est introuvable.
         move_of_it_unlocked: Le déplacement de classification que vous avez récemment
-          demandé sur cette page s'est terminé.
+          demandé sur cette page s'est terminé ; les pages sont maintenant en cours
+          de réindexation et nécessiteront jusqu’à 25 heures pour que tout soit terminé.
         move_of_taxon_unlocked: Le déplacement de classification que vous avez récemment
-          demandé pour "%{taxon}" s’est terminée.
+          demandé pour « %{taxon} » s’est terminée ; les pages sont maintenant en
+          cours de réindexation et nécessiteront jusqu’à 25 heures pour que tout soit
+          terminé.
         split_of_an_unknown_taxon_unlocked: La division de classification que vous
           avez récemment demandée est terminée, mais la page est introuvable.
         split_of_it_unlocked: La division de classification que vous avez récemment
           demandée sur cette page est terminée et les classifications ont été déplacées
-          vers <a href='%{to}'>leur propre page</a>.
+          vers <a href='%{to}'>leur propre page</a> ; les pages sont maintenant en
+          cours de réindexation et nécessiteront jusqu’à 25 heures pour que tout soit
+          terminé.
         split_of_taxon_unlocked: La division de classification que vous avez récemment
-          demandée pour "%{taxon}" est terminée et les classifications ont été déplacées
-          vers <a href='%{to}'>leur propre page</a>.
+          demandée pour « %{taxon} » est terminée et les classifications ont été déplacées
+          vers <a href='%{to}'>leur propre page</a> ; les pages sont maintenant en
+          cours de réindexation et nécessiteront jusqu’à 25 heures pour que tout soit
+          terminé.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'La fusion de page que vous
           avez récemment demandée <strong>a échoué</strong>: %{error}. De plus, la
@@ -4347,6 +4351,8 @@ fr:
     Les membres restants pourront toujours la voir et le flux de nouveautés sera maintenu,
     mais elle ne s’affichera pas dans les recherches ou sur les pages de taxinomie,
     et ne sera plus modifiable.
+  confirm_delete_data_object: Êtes-vous sûr de vouloir supprimer cet Objet de données ?
+    Cette action ne peut pas être annulée.
   confirm_leave: Êtes-vous sûr de vouloir quitter cette communauté ?
   confirm_password_colon: 'Confirmez le mot de passe :'
   contact: Contact
@@ -4473,6 +4479,8 @@ fr:
     du partenaire ont été ajoutés. Statut actuel de la ressource : %{resource_status}'
   content_partner_resource_create_unsuccessful_error: Une erreur s’est produite. La
     ressource n’a pas été ajoutée.
+  content_partner_resource_validation_finish_notice: La validation de la ressource
+    du partenaire de contenu est terminée et son état est %{resource_status}.
   content_partner_resource_dataset_details_header: Jeu de données
   content_partner_resource_delete_with_type_link: Tout supprimer
   content_partner_resource_description_empty: Aucune description n’a été fournie pour
@@ -4500,8 +4508,8 @@ fr:
   content_partner_resource_harvest_event_update_unsuccessful_error: Désolé, une erreur
     s’est produite, l'événement de récolte pour %{resource_title} n’a pas été mis
     à jour.
-  content_partner_resource_has_been_deleted: Tout ce qui a été collecté par la ressource
-    %{resource_title} a bien été supprimé
+  content_partner_resource_will_be_deleted: Tout ce qui a été collecté par la ressource
+    %{resource_title} sera supprimé, veuillez attendre 24 heures pour continuer.
   content_partner_resource_hierarchy_browsable: Navigable
   content_partner_resource_hierarchy_complete_true: Cette hiérarchie est définie comme
     <strong>organisée</strong>. Une hiérarchie supervisée suppose que chaque entrée
@@ -4550,6 +4558,8 @@ fr:
     Le statut de la ressource %{resource_title} n’a pas pu être modifié en %{resource_status}.
   content_partner_resource_update_successful_notice: 'Les informations sur la ressource
     du partenaire ont été mis à jour. Statut actuel de la ressource : %{resource_status}'
+  content_partner_resource_update_successful: Détails de la ressource du partenaire
+    de contenu bien mis à jour.
   content_partner_resource_update_unsuccessful_error: Une erreur s’est produite. Les
     informations sur la ressource n’ont pas été mis à jour.
   content_partner_resource_upload_unsuccessful_error: 'Une erreur s’est produite.
@@ -4790,8 +4800,10 @@ fr:
     secrétariat de EdlV</a> pour plus d’information sur TraitBank.</p>
   data_results_only_for_search: Résultats de TraitBank pour « %{search_term} »
   data_search_limit:
-    one: Les téléchargements de recherche de données sont limités à %{count} résultat.
-    other: Les téléchargements de recherche de données sont limités à %{count} résultats.
+    one: Les résultats de recherche de données seront téléchargés à raison de %{count}
+      enregistrement par fichier.
+    other: Les résultats de recherche de données seront téléchargés à raison de %{count}
+      enregistrements par fichier.
   data_about_this_record: Données sur cet enregistrement
   data_column_tc_id: ID de la page de EdlV
   data_column_sci_name: Nom scientifique
@@ -4812,6 +4824,13 @@ fr:
   data_column_raw_units: Unités brutes (directement depuis la source)
   data_column_raw_units_uri: URI des unités brutes (normalisées)
   data_column_source: Fournisseur
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> assemble des enregistrements
+    de données de nombreux fournisseurs. Sélectionner une ligne pour plus de détails
+    sur l’enregistrement, ou <a href="%{traitbank_search_path}">recherche sur TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    assemble des enregistrements de données de nombreux fournisseurs. Sélectionner
+    une ligne pour plus de détails sur l’enregistrement, ou <a href="%{traitbank_search_path}">rechercher
+    avec %{taxon_name}</a>.
   data_database_colon: 'Données :'
   data_glossary: Glossaire des données
   data_glossary_contribute: Pour contribuer avec de nouveaux termes dans ce glossaire,
@@ -4822,6 +4841,7 @@ fr:
   data_metadata_subtable_summary: Données supplémentaire sur ce fait.
   data_measurement_subtable_summary: Données supplémentaires sur la mesure de ce fait.
   data_object: Objet de données
+  data_object_deleted: L’objet de données a bien été supprimé
   data_object_not_associated_with_any_hierarchies: Cet objet de données n’est associé
     à aucune hiérarchie.
   data_object_reference: Référence de l’objet de données
@@ -4858,6 +4878,11 @@ fr:
   data_search:
     page_title: Rechercher dans TraitBank
     form:
+      equivalent_attributes: 'Valeurs équivalentes :'
+      equivalent_values: 'Valeurs équivalentes :'
+      search_again_for_attributes: chercher de nouveau pour inclure les attributs
+        sélectionnés
+      search_again_for_values: chercher à nouveau pour inclure les valeurs sélectionnées
       header_assistive: Rechercher depuis
       input_summary_intro: Options de recherche sélectionnées
       new_search_link: Démarrer une nouvelle recherche
@@ -4981,6 +5006,7 @@ fr:
   default_rating_value_of_total: 'Note par défaut : %{rating} sur %{total}'
   default_watch_collection_name: Liste de suivi de %{username}
   delete_community: Supprimer cette communauté
+  delete_data_object: Supprimer
   delete: supprimer
   deleted_colon: 'supprimé :'
   delete_firstcap: Supprimer
@@ -5080,6 +5106,8 @@ fr:
   eol_news: Actualités EdlV
   eol_pages: Pages
   error_log_detail: Détails du journal d’erreurs
+  error_revoking_editor_on_watch_collection: Les éditeurs ne peuvent pas être supprimés
+    des collections de suivi
   error_log: Journal d’erreurs
   error_logging_active: Journalisation des erreurs active
   error_401_page_title: Non autorisé
@@ -5217,6 +5245,36 @@ fr:
   filter_newsfeed_option_watchlist: Liste de suivi
   filter_newsfeed_option_curation: Conservation
   filtered_information: Informations filtrées
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxons
+  image_search_keyword:
+    one: image
+    other: images
+  video_search_keyword:
+    one: vidéo
+    other: vidéos
+  sound_search_keyword:
+    one: son
+    other: sons
+  text_search_keyword:
+    one: article
+    other: articles
+  data_search_keyword:
+    one: trait
+    other: traits
+  link_search_keyword:
+    one: lien
+    other: liens
+  user_search_keyword:
+    one: personne
+    other: personnes
+  community_search_keyword:
+    one: communauté
+    other: communautés
+  collection_search_keyword:
+    one: collection
+    other: collections
   find_taxa_submit_button: trouver des taxons
   flash_notice_redirected_from_search_html: Vous êtes arrivé ici en recherchant <em>%{search_string}</em>.
     <a href="%{more_results_url}">Cliquer ici pour retourner à la page de recherche.</a>
@@ -5363,6 +5421,7 @@ fr:
     renvoyé. Si 'vetted' vaut 2, alors seul le contenu fiable et non relu est renvoyé
     (le contenu non fiable n’est pas renvoyé). La valeur par défaut est de retourner
     tout le contenu.
+  reindex_data_object_button: Réindexer l’objet
   reindex_page_button: Réindexer la page
   image: Image
   image_cropped_notice: L’image a bien été rognée.
@@ -5500,6 +5559,10 @@ fr:
   known_uris_none: Personne n’a ajouté d’URI de ce type.
   known_uris_page_title: URIs pour les données dans EdlV
   known_uris_sorted: Ordre mis à jour.
+  pending_harvests_none: Il n’y a pas de collecte en attente pour le moment
+  pending_harvests_title: Collectes en attente
+  pause_pending_harvests: Suspendre la collecte
+  resume_pending_harvests: Reprendre la collecte
   label: Libellé
   language: 'Langue :'
   languages: Langues
@@ -5507,6 +5570,7 @@ fr:
     lesquelles le contenu du site est disponible; pour modifier le choix actuel de
     la langue, choisissez-en une autre dans cette liste.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Durée de la dernière collecte
   last_updated: Dernière mise à jour
   last_updated_time_ago: Dernière mise à jour il y a %{time_passed}
   learn_about_collections: Comment puis-je en créer une ?
@@ -6154,6 +6218,8 @@ fr:
     les mauvais comptages d’élément ; cela <i>se terminera</i> en délai dépassé sur
     le navigateur, mais fonctionnera)
   recount_collection_items_done: Fin du recomptage des éléments de la collection.
+  redirect_url_ok_title_unavailable: La redirection de l’URL est OK, le titre n’est
+    pas disponible
   reference: Référence
   references_cabs_colon: 'Références :'
   related_names_with_count:
@@ -6701,6 +6767,7 @@ fr:
     charge aucune collection.
   this_community_has_no_focus_list: Cette communauté n’a aucune liste de discussion.
   this_community_was_deleted: Cette communauté a été supprimée par son propriétaire.
+  this_data_object_will_be_reindexed: Cet objet de donnée sera réindexé.
   this_does_not_necessarily_mean: '* cela ne signifie pas nécessairement que les connexions
     sont utilisées, simplement qu’elles sont définies dans le fichier database.yml
     --- vous devez vérifier le fichier "config/environments/%{env}.rb" pour voir si

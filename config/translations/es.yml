@@ -28,6 +28,7 @@
 # Author: Penarc
 # Author: Peter Bowman
 # Author: Rbcastroc
+# Author: Rubenwap
 # Author: Sampalahnuk
 # Author: Shirayuki
 # Author: Toliño
@@ -175,6 +176,7 @@ es:
         total_measurement_types: Tipos de medición
         total_association_types: Tipos de asociación
         total_user_added_data: Datos agregados del usuario
+        total_data_records: Registros De Datos
       forum:
         forum_category_id: Categoría
         name: Nombre del foro
@@ -221,7 +223,7 @@ es:
         token: Símbolo (token)
         updated_at: Última actualización
         user_id: Identificador de usuario
-        verified_at: Última vez verificado
+        verified_at: Última verificación
       name:
         string: Nombre
       news_item:
@@ -316,7 +318,7 @@ es:
         tag_line: Lema
         username: Nombre de usuario
       user_added_data:
-        predicate: Característica
+        predicate: Rasgo
         object: Valor
         user: Añadido por
       user_added_data_metadata:
@@ -533,15 +535,15 @@ es:
         max: Valor máximo
         max_with_val: 'Valor máximo: %{val}'
         max_placeholder: Introduzca un número
-        max_placeholder_disabled: Intervalo deshabilitado
+        max_placeholder_disabled: Intervalo desactivado
         min: Valor mínimo
         min_with_val: 'Valor mínimo: %{val}'
         min_placeholder: Introduzca un número
-        min_placeholder_disabled: Intervalo deshabilitado
+        min_placeholder_disabled: Intervalo desactivado
         q: Valor específico
         q_with_val: 'Valor específico: %{val}'
         q_placeholder: Introduzca una palabra, frase o número
-        q_placeholder_disabled: Rango ingresado, valor específico deshabilitado
+        q_placeholder_disabled: Intervalo establecido, valor específico desactivado
         q_more: Por ejemplo, heterótrofos.
         taxon_name: Grupo de taxonomía
         taxon_name_with_val: 'Grupo de taxonomía: %{val}'
@@ -1114,7 +1116,7 @@ es:
       page_title: Estadísticas
     data:
       menu_link: Datos
-      page_header: Estadísticas de Datos
+      page_header: Estadísticas de datos
       page_title: Estadísticas
   forums:
     forums_heading: Foros EOL
@@ -1146,13 +1148,13 @@ es:
       reply: responder
       link: enlace
     categories:
-      create: Cree una categoría
-      edit: Editar una categoría
+      create: Crear una categoría
+      edit: Editar categoría
       create_successful: La categoría ha sido creada con éxito
       create_failed: Ha ocurrido un error, la categoría no ha podido ser añadida
       update_successful: La categoría ha sido actualizada con éxito
       update_failed: Ha ocurrido un error, la categoría no ha podido ser actualizada
-      delete_successful: La categoría ha sido eliminada con éxcito
+      delete_successful: La categoría ha sido eliminada con éxito
       delete_failed_not_empty: La categoría no ha podido ser eliminada porque no está
         vacía
       move_successful: La categoría ha sido movida con éxito
@@ -1528,6 +1530,7 @@ es:
       style='color:#195184'>pónte en contacto con nosotros</a>.
     see_all_activity: Ver toda la actividad anterior en <a href='%{activity_url}'
       style='color:#195184'>su página de noticias de usuario</a>.
+    resource_validation: 'El recurso: La validación de %{resource} ha terminado'
     bulk_comments_with_count:
       one: Hay un nuevo comentario en %{on}
       other: Hay %{count} nuevos comentarios %{on}
@@ -1682,14 +1685,6 @@ es:
         tweet_text: Conservadores de %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> reúne a los
-          registros de datos de muchos proveedores. Seleccione una fila para obtener
-          más información acerca del registro, o <a href="%{traitbank_search_path}">la
-          búsqueda de TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          reúne a los registros de datos de muchos proveedores. Seleccione una fila
-          para más detalles sobre el registro, o <a href="%{traitbank_search_path}">buscar
-          dentro de %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Hechos acerca de %{scientific_name} según la clasificación
             de %{hierarchy_provider} en la Enciclopedia de la vida
@@ -3544,24 +3539,30 @@ es:
         merge_of_an_unknown_taxon_unlocked: La fusión de página que has solicitado
           recientemente se ha completado, pero no se puede encontrar la página.
         merge_of_it_unlocked: La fusión que has solicitado recientemente sobre esta
-          página se ha completado.
+          página se ha completado. Las páginas se están reindizando y tomará hasta
+          25 horas para completarse.
         merge_of_taxon_unlocked: La fusión de página que has solicitado recientemente
-          para "%{taxon}" se ha completado.
+          para "%{taxon}" se ha completado. Las páginas se están reindizando y tomará
+          hasta 25 horas para completarse.
         move_of_an_unknown_taxon_unlocked: El movimiento de clasificación que has
           solicitado recientemente se ha completado, pero no se puede encontrar la
           página.
         move_of_it_unlocked: El movimiento de clasificación que has solicitado recientemente
-          sobre esta página se ha completado.
+          sobre esta página se ha completado. Las páginas se están reindizando y tomará
+          hasta 25 horas para completarse.
         move_of_taxon_unlocked: El movimiento de clasificación que has solicitado
-          recientemente para "%{taxon}" se ha completado.
+          recientemente para "%{taxon}" se ha completado. Las páginas se están reindizando
+          y tomará hasta 25 horas para completarse.
         split_of_an_unknown_taxon_unlocked: La división de clasificación que has solicitado
           recientemente se ha completado, pero no se puede encontrar la página.
         split_of_it_unlocked: La división de clasificación que has solicitado recientemente
           se ha completado y las clasificaciones se han trasladado a <a href='%{to}'>su
-          propia página</a>.
+          propia página</a>. Las páginas se están reindizando y tomará hasta 25 horas
+          para completarse.
         split_of_taxon_unlocked: La división de clasificación que has solicitado recientemente
           para "%{taxon}" se ha completado y las clasificaciones se han trasladado
-          a <a href='%{to}'>su propia página</a>.
+          a <a href='%{to}'>su propia página</a>. Las páginas se están reindizando
+          y tomará hasta 25 horas para completarse.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'La fusión de páginas que has
           solicitado recientemente ha <strong>fallado</strong>: %{error}. Además,
@@ -3791,6 +3792,9 @@ es:
     sólo los usuarios con permiso
   admin_link: Consola de Administración
   admin_page_title: Consola de Administración
+  admin_resource_delete_confirmation: ¿Estás seguro de querer borrar este recurso?
+    Este comando tarda mucho en ejecutarse. Puede que se agote el tiempo de espera
+    al usarlo. No lo envíes dos veces.
   admin_simple_actions_header: 'Acciones sencillas:'
   admin_spam_delete: Eliminar spam
   admin_statistics_link: Estadísticas
@@ -4370,13 +4374,15 @@ es:
   confirm_delete_community: ¿Estás seguro de querer suprimir esta comunidad? Miembros
     restantes todavía será capaz de ver y el suministro de noticias se mantendrá,
     pero no aparecerá en las búsquedas o en el taxón páginas, y ya no será editable.
+  confirm_delete_data_object: ¿Estás seguro de que deseas borrar este Objeto de Datos?
+    Esta acción no se puede deshacer.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
   confirm_password_colon: 'Confirmar contraseña:'
   contact: Contacto
   contact_information: Información de contacto
   contact_updated: Contacto actualizado
-  contact_us: Contáctenos
-  contact_us_link: Contáctenos
+  contact_us: contáctanos
+  contact_us_link: Contáctanos
   contact_us_functions: Contáctenos Funciones
   contact_us_submissions: Envíos de contacto
   contact_us_topics: Temas de contacto
@@ -4822,6 +4828,9 @@ es:
   data_column_raw_units: Unidades en bruto (directo desde la fuente)
   data_column_raw_units_uri: Unidades URI en bruto (normalizado)
   data_column_source: Proveedor
+  data_disclaimer: <a href='/traitbank'>TraitBank</a> reúne los registros de datos
+    de muchos proveedores. Seleccione una fila para obtener más detalles sobre el
+    registro.
   data_database_colon: 'Datos:'
   data_glossary: Glosario de datos
   data_glossary_contribute: Para contribuir con términos nuevos en este glosario,
@@ -4840,7 +4849,7 @@ es:
   data_object_toc_items_list:
     one: Aparece en la %{quoted_toc_titles}
     other: Aparece en las %{quoted_toc_titles}
-  data_overview_table_caption: Datos de la característica
+  data_overview_table_caption: Datos del rasgo
   data_point_uri_source_missing: falta la fuente
   data_point_uri_summary_name: datos acerca de %{taxon}
   data_provided_by_user: proporcionado por %{whom}
@@ -4868,6 +4877,8 @@ es:
   data_search:
     page_title: Búsqueda TraitBank
     form:
+      equivalent_attributes: 'Valores equivalentes:'
+      equivalent_values: 'Valores equivalentes:'
       header_assistive: Formulario de búsqueda
       input_summary_intro: Opciones de búsqueda seleccionadas
       new_search_link: Iniciar una nueva búsqueda
@@ -4988,6 +4999,7 @@ es:
   default_rating_value_of_total: 'Calificación predeterminada: %{rating} de %{total}'
   default_watch_collection_name: lista de vigilancia de %{username}
   delete_community: Borrar esta comunidad
+  delete_data_object: Borrar
   delete: borra
   deleted_colon: 'borrado:'
   delete_firstcap: Eliminar
@@ -5017,6 +5029,8 @@ es:
   duplicate_comment_warning: 'El comentario no ha sido guardado: parece que ya has
     publicado este comentario. ... ¿Has hecho clic en el botón "publicar comentario"
     dos veces?'
+  duplicate_text_warning: 'No se guardó el texto: parece que ya has publicado este
+    artículo. ¿Has hecho clic dos veces en el botón ''añadir artículo''?'
   duplicate_items_were_ignored: Elementos duplicados fueron ignoradas.
   each_method_documentation_page_has_formatted_responses: Cada página de documentación
     de un método tiene un ejemplo de respuesta forrajeada en XML y en JSON.
@@ -5210,7 +5224,7 @@ es:
   filter_by_type_image_option_with_count:
     one: Imágenes (%{count})
     other: Imágenes (%{count})
-  filter_by_type_data_option: Características
+  filter_by_type_data_option: Rasgos
   filter_by_type_link_option: Enlaces
   filter_by_type_text_option: Artículos
   filter_by_type_user_option: Personas
@@ -5236,6 +5250,36 @@ es:
   filter_newsfeed_option_watchlist: Lista de seguimiento
   filter_newsfeed_option_curation: Supervisión
   filtered_information: Información filtrada
+  taxon_concept_search_keyword:
+    one: taxón
+    other: taxones
+  image_search_keyword:
+    one: imagen
+    other: imágenes
+  video_search_keyword:
+    one: video
+    other: videos
+  sound_search_keyword:
+    one: sonido
+    other: sonidos
+  text_search_keyword:
+    one: artículo
+    other: artículos
+  data_search_keyword:
+    one: rasgo
+    other: rasgos
+  link_search_keyword:
+    one: enlace
+    other: enlaces
+  user_search_keyword:
+    one: persona
+    other: personas
+  community_search_keyword:
+    one: comunidad
+    other: comunidades
+  collection_search_keyword:
+    one: colección
+    other: collecciones
   find_taxa_submit_button: Encontrar taxones
   flash_notice_redirected_from_search_html: Ha llegado aquí buscando <em>%{search_string}</em>.
     <a href="%{more_results_url}">Haga clic aquí para volver a la página de búsqueda.</a>
@@ -5378,6 +5422,7 @@ es:
     contenido de confianza. Si 'vetted' es 2 entonces solo se devolverá contenido
     de confianza y no revisado (no se mostrarán contenidos no fiables). Por defecto,
     se retornará todo el contenido.
+  reindex_data_object_button: Reindizar el objeto
   reindex_page_button: Reindexar la página
   image: Imagen
   image_cropped_notice: La imagen se recortó correctamente.
@@ -6168,6 +6213,7 @@ es:
     el mal conteo de elementos; esto <i>superará</i> el tiempo de espera en el navegador,
     pero funciona)
   recount_collection_items_done: Terminado el recuento de los elementos de la colección.
+  redirect_url_ok_title_unavailable: URL de redirección correcto, título no disponible
   reference: Referencia
   references_cabs_colon: 'Referencias:'
   related_names_with_count:
@@ -6707,6 +6753,7 @@ es:
     colección.
   this_community_has_no_focus_list: Esta comunidad no tiene ninguna lista de foco.
   this_community_was_deleted: Esta comunidad fue borrada por su dueño.
+  this_data_object_will_be_reindexed: Se reindizará este objeto de datos.
   this_does_not_necessarily_mean: '* esto no significa necesariamente que se estén
     utilizando las conexiones, sólo que están definidas en el archivo database.yml
     --- debe comprobar el archivo "config/environments/%{env}.rb" para ver si están
@@ -7007,7 +7054,7 @@ es:
   values: Valores
   value: Valor
   value_empty: (vacío)
-  value_default: (por defecto)
+  value_default: (predeterminado)
   version_1_0_uses_fields_from_the_latest_version: la versión 1.0 usa campos de la
     última versión del esquema %{link}
   versions_colon: 'Versiones:'

@@ -5,6 +5,7 @@
 # Author: Anaclaudiaml
 # Author: Dianakc
 # Author: Elival
+# Author: Fasouzafreitas
 # Author: Giro720
 # Author: Gusta
 # Author: Jesielt
@@ -13,6 +14,7 @@
 # Author: Luckas Blade
 # Author: Mordecaista
 # Author: Rodrigo codignoli
+# Author: SoraRenard
 # Author: TheGabrielZaum
 # Author: Tuliouel
 # Author: Webysther
@@ -186,6 +188,7 @@ pt-BR:
         description: Descrição
         exclude_from_exemplars: Excluir da Visão Global
         group_by_clade: Usar para Grupos de Classe Taxonômica
+        hide_from_glossary: Ocultar do Glossário de Dados
         name: Nome
         toc_items: Categorias
         uri: URI
@@ -490,6 +493,7 @@ pt-BR:
         object_title: Título
         toc_item: Subcapítulo
         refs: Referências <small>(colocar cada referência em uma nova linha)</small>
+        refs_order: '*Referências irão aparecer em ordem alfabética'
         rights_holder: Detentor dos direitos
         rights_holder_more: Especifique uma pessoa ou uma organização de posse ou
           a gestão dos direitos a esses dados. Se você deixar este campo em branco,
@@ -528,8 +532,10 @@ pt-BR:
           selecionado
         taxon_name_placeholder_value_removed: '%{taxon_group}removido, selecione novo
           grupo'
-        taxon_name_more: Por exemplo, introduza Trochilidae ou Baleias e selecione
-          um grupo correspondente
+        taxon_name_more: Por exemplo, introduza Trochilidae ou Baleias. APENAS seleções
+          do menu drop-down serão utilizadas, não edite o texto sem selecionar um
+          resultado.
+        taxa_found: Táxon encontrado
         total_results: 'Resultados: %{total}'
         unit: Unidade de medida
       eol_statistic:
@@ -568,6 +574,8 @@ pt-BR:
           na EOL.
       known_uri_relationship:
         from_known_uri: Para URI conhecido
+        relationship_uri: Selecione a relação
+        to_known_uri: Introduza e selecione a URI de destino
       news_item:
         active: Publicado
         active_more: Notícias publicadas estarão visíveis publicamente na data e horário
@@ -820,6 +828,7 @@ pt-BR:
         create: Enviar solicitação
   will_paginate:
     next_label: Próximo
+    page_gap: '&hellip;'
     previous_label: Anterior
   datepicker:
     day_names:
@@ -1149,7 +1158,10 @@ pt-BR:
     import_successful: Ontologia de termos importada com sucesso
     more_than_one_field_mapped_to_type: Mais de um atributo está mapeado para "%{type}"
     no_results: Não há resultados para a estatística selecionada
+    no_relationships: Nenhuma relação foi encontrada para esta URI.
     please_select_field_types: Por favor selecione um mapeamento para cada atributo
+    please_select_category_for_stats: Por favor, selecione uma categoria para ver
+      as estatísticas.
     please_select_uris_to_import: Por favor seleciona as URIs para importar
     relationships: Relações
     relationships_from_this_uri: Relações a partir desta URI
@@ -1214,6 +1226,8 @@ pt-BR:
       learn_more_link_protists: Protistas
       learn_more_link_archaea: Archaea
       learn_more_link_viruses: Vírus
+      learn_more_link_algae: Algas
+      questions_link_evolution: O que é evolução?
       questions_link_biodiversity: O que é biodiversidade?
       questions_link_species: O que é uma espécie?
       questions_link_discovering_species: Como as espécies são descobertas?
@@ -1634,13 +1648,6 @@ pt-BR:
         tweet_text: Curadores de %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> Reúne os registros
-          de dados de diversos provedores. Selecione uma linha para mais detalhes
-          sobre os registros, ou<a href="%{traitbank_search_path}">Pesquisa TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          Reúne os registros dos dados de provedores diversos. Selecione uma linha
-          para mais detalhes sobre os registros, ou <a href="%{traitbank_search_path}">buscar
-          dentro de %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Fatos sobre %{scientific_name} como classificada por %{hierarchy_provider}
             na Enciclopédia da Vida
@@ -1664,60 +1671,90 @@ pt-BR:
         meta_description: '%{scientific_name} fatos incluindo medidas e traits para
           %{scientific_name}. Dados computados sobre %{scientific_name} de pesquisas
           cientificas providas por cientistas.'
-        meta_description_no_data: Nenhuma informação geográfica está disponível de
-          %{scientific_name} na Enciclopédia da Vida. EOL convida você a contribuir
-          para mapas de %{scientific_name}.
-        meta_keywords: '%{scientific_name} dados computaveis, informações sobre %{scientific_name}'
-        meta_keywords_with_common_name: '%{preferred_common_name} dados computáveis'
-        tweet_text: Dados computáveis de %{scientific_name}
+        meta_description_no_data: Não há nenhuma informação disponível para %{scientific_name}
+          na Enciclopédia da Vida. EDV convida você a contribuir com informações sobre
+          %{scientific_name}.
+        meta_description_with_common_name: '%{preferred_common_name} informações incluindo
+          medições e traços para %{preferred_common_name} (cientificamente conhecido
+          como %{scientific_name}). Dados computáveis para %{scientific_name} de pesquisa
+          científica provida por cientistas.'
+        meta_description_with_common_name_no_data: Não há nenhuma informação disponível
+          para %{preferred_common_name} também conhecido como %{scientific_name} na
+          Enciclopédia da Vida. EDV convida você a contribuir com informações sobre
+          %{preferred_common_name} (%{scientific_name}).
+        meta_description_with_common_name_with_topics: '%{preferred_common_name} informações
+          incluindo medidas e traços para o(a) %{preferred_common_name} (conhecido
+          cientificamente como %{scientific_name}). Dados computáveis para %{scientific_name}
+          incluindo %{topics} de pesquisas científicas providas por cientistas.'
+        meta_keywords: '%{scientific_name} informações,informações sobre %{scientific_name},%{scientific_name}
+          traços,traços de %{scientific_name},%{scientific_name} medidas,medidas para
+          %{scientific_name},%{scientific_name} informação,informação sobre %{scientific_name},%{scientific_name}
+          traço,traço de %{scientific_name},%{scientific_name} medida,medida para
+          %{scientific_name}'
+        meta_keywords_with_common_name: '%{preferred_common_name} fatos,fatos sobre
+          %{preferred_common_name},%{preferred_common_name} traços,traços de %{preferred_common_name},%{preferred_common_name}
+          medidas,medidas para %{preferred_common_name},%{scientific_name} fatos,fatos
+          sobre %{scientific_name},%{scientific_name} traços,traços de %{scientific_name},%{scientific_name}
+          medidas,medidas para %{scientific_name},%{preferred_common_name} fato,fato
+          sobre %{preferred_common_name},%{preferred_common_name} traço,traço de %{preferred_common_name},%{preferred_common_name}
+          medida,medida para %{preferred_common_name},%{scientific_name} fato,fato
+          sobre %{scientific_name},%{scientific_name} traço,traço de %{scientific_name},%{scientific_name}
+          medida,medida para %{scientific_name}'
+        meta_title: Medidas e fatos sobre %{scientific_name}
+        meta_title_with_common_name: Medidas e fatos sobre %{preferred_common_name}
+          (%{scientific_name})
+        tweet_text: Fatos sobre %{scientific_name}
     details:
       index:
         hierarchy_entry:
-          meta_description: Fatos sobre %{scientific_name} como classificada por %{hierarchy_provider}
-            na Enciclopédia da Vida
-          meta_description_no_data: Não há fatos estão disponíveis de %{scientific_name}
-            como classificada por %{hierarchy_provider} na Enciclopédia da Vida. EOL
-            convida você a contribuir com fatos sobre %{scientific_name} tais como
-            Conservação, Distribuição, Ecologia, Habitat, Morfologia e muito mais.
-          meta_description_with_chapter_list: Fatos sobre %{scientific_name} como
-            classificada por %{hierarchy_provider} na Enciclopédia da Vida. Incluindo
-            informações de %{chapter_list} de %{scientific_name}.
-          meta_description_with_common_name: Fatos sobre o %{preferred_common_name},
-            cientificamente conhecido como %{scientific_name} como classificada por
-            %{hierarchy_provider} na Enciclopédia da Vida.
-          meta_description_with_common_name_no_data: Não há fatos estão disponíveis
-            de %{preferred_common_name} também conhecido como %{scientific_name} como
-            classificada por %{hierarchy_provider} na Enciclopédia da Vida. EOL convida
-            você a contribuir com fatos sobre %{preferred_common_name} (%{scientific_name})
-            tais como Conservação, Distribuição, Ecologia, Habitat, Morfologia e muito
-            mais.
-          meta_description_with_common_name_with_chapter_list: Fatos sobre %{preferred_common_name},
-            cientificamente conhecido como %{scientific_name} como classificada por
-            %{hierarchy_provider} na Enciclopédia da Vida. Incluindo fatos sobre %{chapter_list}.
-          meta_title: Fatos sobre %{scientific_name} como classificada por %{hierarchy_provider}
-          meta_title_with_common_name: Fatos sobre %{preferred_common_name} (%{scientific_name}
-            como classificada por %{hierarchy_provider})
-          tweet_text: Fatos sobre %{scientific_name} como classificada por %{hierarchy_provider}
-        meta_description: Fatos sobre %{scientific_name} na Enciclopédia da Vida
-        meta_description_no_data: Não há fatos estão disponíveis de %{scientific_name}
-          na Enciclopédia da Vida. EOL convida você a contribuir com fatos sobre %{scientific_name}
-          tais como Conservação, Distribuição, Ecologia, Habitat, Morfologia e muito
-          mais.
-        meta_description_with_chapter_list: Fatos sobre %{scientific_name} na Enciclopédia
-          da Vida. Incluindo fatos sobre %{chapter_list}.
-        meta_description_with_common_name: Fatos sobre %{preferred_common_name}, cientificamente
-          conhecido como %{scientific_name} na Enciclopédia da Vida.
-        meta_description_with_common_name_no_data: Não há fatos estão disponíveis
-          de %{preferred_common_name} também conhecido como %{scientific_name} na
-          Enciclopédia da Vida. EOL convida você a contribuir com fatos sobre %{preferred_common_name}
-          (%{scientific_name}) tais como Conservação, Distribuição, Ecologia, Habitat,
-          Morfologia e muito mais.
-        meta_description_with_common_name_with_chapter_list: Fatos sobre %{preferred_common_name},
-          cientificamente conhecido como %{scientific_name} na Enciclopédia da Vida.
-          Incluindo fatos sobre %{chapter_list}.
-        meta_title: Fatos sobre %{scientific_name}
-        meta_title_with_common_name: Fatos sobre %{preferred_common_name} (%{scientific_name})
-        tweet_text: Fatos sobre %{scientific_name}
+          meta_description: Descrições e artigos sobre %{scientific_name} como classificados
+            por %{hierarchy_provider} na Enciclopédia da Vida
+          meta_description_no_data: Não artigos disponíveis de %{scientific_name}
+            como classificados por %{hierarchy_provider} na Enciclopédia da Vida.
+            A EDV convida você a contribuir com artigos sobre %{scientific_name} tais
+            como Conservação, Distribuição, Ecologia, Habitat, Morfologia e mais.
+          meta_description_with_chapter_list: Descrições e artigos sobre %{scientific_name}
+            como classificados por %{hierarchy_provider} na Enciclopédia da Vida.
+            Inclui %{chapter_list} para %{scientific_name}.
+          meta_description_with_common_name: Descrições e artigos sobre o(a) %{preferred_common_name},
+            cientificamente conhecido(a) como %{scientific_name} como classificados
+            por %{hierarchy_provider} na Enciclopédia da Vida.
+          meta_description_with_common_name_no_data: Não há artigos disponíveis para
+            %{preferred_common_name} também conhecido(a) como %{scientific_name} como
+            classificados por %{hierarchy_provider} na Enciclopédia da Vida. A EDV
+            convida você a contribuir com artigos sobre %{preferred_common_name} (%{scientific_name})
+            tais como Conservação, Distribuição, Ecologia, Habitat, Morfologia e mais.
+          meta_description_with_common_name_with_chapter_list: Descrições e artigos
+            sobre o(a) %{preferred_common_name}, cientificamente conhecido(a) como
+            %{scientific_name} como classificados por %{hierarchy_provider} na Enciclopédia
+            da Vida. Inclui %{chapter_list}.
+          meta_title: Descrições e artigos sobre %{scientific_name} como classificados
+            por %{hierarchy_provider}
+          meta_title_with_common_name: Descrições e artigos sobre o(a) %{preferred_common_name}
+            (%{scientific_name} como classificados por %{hierarchy_provider})
+          tweet_text: Artigos sobre %{scientific_name} como classificados por %{hierarchy_provider}
+        meta_description: Descrições e artigos sobre %{scientific_name} na Enciclopédia
+          da Vida
+        meta_description_no_data: Não há artigos disponíveis para %{scientific_name}
+          na Enciclopédia da Vida. A EDV convida você a contribuir com artigos sobre
+          %{scientific_name} tais como Conservação, Distribuição, Ecologia, Habitat,
+          Morfologia e mais.
+        meta_description_with_chapter_list: Descrições e artigos sobre %{scientific_name}
+          na Enciclopédia da Vida. Inclui %{chapter_list}.
+        meta_description_with_common_name: Descrições e artigos sobre %{preferred_common_name},
+          cientificamente conhecido(a) como %{scientific_name} na Enciclopédia da
+          Vida.
+        meta_description_with_common_name_no_data: Não há artigos disponíveis para
+          %{preferred_common_name} também conhecido(a) como %{scientific_name} na
+          Enciclopédia da Vida. A EDV convida você a contribuir com artigos sobre
+          %{preferred_common_name} (%{scientific_name}) tais como Conservação, Distribuição,
+          Ecologia, Habitat, Morfologia e mais.
+        meta_description_with_common_name_with_chapter_list: Descrições a artigos
+          sobre o(a) %{preferred_common_name}, cientificamente conhecido(a) como %{scientific_name}
+          na Enciclopédia da Vida. Inclui %{chapter_list}.
+        meta_title: Descrições a artigos sobre %{scientific_name}
+        meta_title_with_common_name: Fatos sobre o(a) %{preferred_common_name} (%{scientific_name})
+        tweet_text: Artigos sobre %{scientific_name}
     literature:
       bhl:
         hierarchy_entry:
@@ -1901,6 +1938,16 @@ pt-BR:
         meta_title: Sinônimos de %{scientific_name}
         meta_title_with_common_name: Sinônimos de %{preferred_common_name} (%{scientific_name})
         tweet_text: Sinônimos de %{scientific_name}
+    overview:
+      show:
+        hierarchy_entry:
+          meta_description: Um resumo de informações sobre %{scientific_name} foi
+            reconhecido como %{hierarchy_provider} na Enciclopédia da Vida.
+          meta_description_with_common_name: Um resumo de informações sobre %{preferred_common_name},
+            também conhecido(a) como %{scientific_name} como foi reconhecido por %{hierarchy_provider}
+            na Enciclopédia da Vida.
+          meta_keywords: '%{scientific_name} reconhecido por %{hierarchy_provider},
+            %{scientific_name} classificado por %{hierarchy_provider}'
     resources:
       show:
         hierarchy_entry:
@@ -2005,6 +2052,22 @@ pt-BR:
         meta_description: Comunidades que %{user_full_name} é um membro.
         meta_title: Comunidades de %{user_full_name}
         tweet_text: comunidades de %{user_full_name}
+    data_downloads:
+      download: baixar
+      page_title: Downloads de dados
+      query_head: Pesquisa
+      attribute_head: Atributo
+      created_head: Criado
+      updated_head: Última Ação
+      complete_head: Completar?
+      actions_head: Ações
+      is_complete: Sim
+      is_not_complete: Não
+      query_empty: (sem filtros)
+      processing: processando
+      refresh: atualizar
+      row_count: Contar
+      search_again: procurar novamente
     edit:
       form_tip_account: Para entrar no EOL você nem precisa de um nome de usuário
         e senha EOL, ou você pode se conectar a conta de terceiros. Nome de usuário
@@ -2275,6 +2338,10 @@ pt-BR:
     submit_data: submeter valor dos dados
     update_successful: Dados atualizados com sucesso
     update_failed: 'Não foi possível atualizar seus dados: %{errors}'
+  data_search_files:
+    from: Valor mínimo
+    to: Valor máximo
+    unit_uri: Unidade de Medida
   this_article_cannot_be_curated_because_unpublished: Este artigo não pode ser curado,
     porque não esta publicado.
   this_article_is_unpublished: Este artigo é inédito.
@@ -3487,8 +3554,13 @@ pt-BR:
     no processo de transferência de funcionalidade administrativa de V1. Se não aparece
     a seção de administração de que está à procura, visite a <a href="/administrator">V1
     Console de Administração</a>.
+  admin_option_all_users_can_see_data: Todos os usuários podem ver os dados, não apenas
+    os usuários com permissão
   admin_link: Visão geral
   admin_page_title: 'Administração: Visão geral'
+  admin_resource_delete_confirmation: Tem certeza de que deseja apagar este recurso?
+    Este comando leva muito tempo para ser executado. Você pode ter o tempo expirado
+    quando o utilizar. Não o submeta novamente.
   admin_spam_delete: Eliminar Spam
   admin_statistics_link: Estatísticas
   admin_translated_content_page_create_successful_notice: Foi adicionada uma tradução
@@ -3542,6 +3614,7 @@ pt-BR:
     formato para obter a resposta XML; adicionar uma extensão XML dará uma resposta
     idêntica:'
   all_articles: Todos os artigos
+  all_categories: Tudo
   all_changes: Todas as mudanças
   all_collections: Todas as coleções
   all_comments_entered_by_users: Todos os comentários inseridos pelos usuários no
@@ -3571,6 +3644,8 @@ pt-BR:
   amount: Quantidade
   an_unknown_user: Um usuário desconhecido
   annotation_cabs_colon: 'Anotação:'
+  annotation_submit: Postar comentário
+  annotation_body_default: Adicionar uma questão ou comentário
   anonymous_user_full_name: Usuário Anônimo
   anonymous_user_given_name: Anônimo
   anonymous_user_tag_line: Não está logado
@@ -3600,6 +3675,7 @@ pt-BR:
     one: 'Artigo nesta página esta disponível em %{count} outra língua:'
     other: 'Artigos nesta página estão disponíveis em %{count} outras línguas:'
   assistive_overview_header: Visão geral
+  assistive_data_header: Fatos e Informações
   assistive_media_header: Mídia
   assistive_details_header: Detalhes
   assistive_literature_header: Literatura
@@ -3664,6 +3740,7 @@ pt-BR:
   belongs_in_count_communities:
     one: Pertence a %{count} Comunidade
     other: Pertence a %{count} Comunidades
+  beta_warning_note_header: 'Nota:'
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Acesse Biodiversity Heritage Library
   bhl_publication: Publicação BHL
@@ -3692,6 +3769,7 @@ pt-BR:
   calculate_averages_slow: Calcular médias (lento)
   call_api: Chamada API
   cancel: Cancelar
+  cancel_and_delete: cancelar e apagar
   cancel_split: Cancelar
   cannot_be_associated_with_both_a_user_and_a_community: Não pode ser associado com
     o usuário e uma comunidade
@@ -3716,6 +3794,7 @@ pt-BR:
     of Life, disponível em <a href="http://eol.org/pages/460427" target="_blank">http://eol.org/pages/460427</a>.
     Consultado em 15 Jan 2009.
   citing_link: Citando
+  clade: Grupo taxonômico
   classification_already_preferred: 'Erro: Essa classificação já foi marcada como
     preferida.'
   classification_curation_pending: Curadoria pendente. Esta classificação pode mover
@@ -3957,6 +4036,7 @@ pt-BR:
     one: pertence a  %{count} comunidade
     other: Pertence a %{count} comunidades
   completed: Concluído
+  completed_colon: 'Concluído:'
   confirm_delete_community: Tem a certeza que quer excluir esta comunidade? Os membros
     restantes ainda poderão vê-la e as notícias serão mantidas, mas não aparecerá
     em procuras ou em páginas de taxon, e não poderá mais ser editada.
@@ -4076,6 +4156,7 @@ pt-BR:
   content_partner_resource_create_unsuccessful_error: Desculpe, ocorreu um erro, o
     recurso não foi adicionado.
   content_partner_resource_dataset_details_header: Conjunto de dados
+  content_partner_resource_delete_with_type_link: Apagar tudo
   content_partner_resource_description_empty: Não foi fornecida uma descrição para
     este recurso.
   content_partner_resource_edit_link: Editar
@@ -4372,6 +4453,30 @@ pt-BR:
   data_row_exemplar_removed: Fato rápido removido.
   data_row_excluded_from_overview_notice: 'Nota: Esta linha foi excluída dos fatos
     rápidos.'
+  data_row_additional_detail_alt: Detalhes adicionais
+  data_row_additional_detail_show_alt: Mostrar detalhes adicionais
+  data_row_additional_detail_hide_alt: Ocultar detalhes adicionais
+  data_row_additional_detail_loading_alt: Carregando detalhes adicionais
+  data_row_hide_button: Ocultar fila
+  data_row_unhide_button: Exibir fila
+  data_search:
+    page_title: Pesquisa TraitBank
+    form:
+      header_assistive: Formulário de busca
+      input_summary_intro: Opções de busca selecionadas
+      new_search_link: Iniciar uma nova busca
+      refine_search_header: Refinar sua busca (opcional)
+      search_suggestions_header: Não tem certeza de onde começar?
+      search_suggestions_subheader_colon: 'Tentar uma das seguintes buscas de dados:'
+      search_suggestion_whale_mass: Quais baleias pesam mais de 10.000 kg?
+      search_suggestion_cavity_nests: Quais espécies constroem ninhos em cavidades?
+      search_suggestion_blue_flowers: Quais plantas têm flores azuis?
+      search_tools_show_link: Exibir opções de busca
+      search_tools_hide_link: Ocultar opções de busca
+      search_value_or_range_header: Buscar um valor específico ou uma faixa
+  data_search_destroyed: Este trabalho não será mais processado.
+  data_search_row_hidden: Um curador escondeu esta fila de dados.
+  data_subtab_about: Sobre
   data_usage_reports: Relatórios de uso de dados
   date_caps: Data
   date_uploaded: Data de envio
@@ -4420,6 +4525,7 @@ pt-BR:
     será adicionado à sua Lista de Vigilância para que possa acompanhar qualquer conversa
     relacionada a ele e verificar o seu estado de curadoria.
   dato_update_user_text_error: Desculpe, ocorreu um erro, o artigo não pôde ser atualizado.
+  deactivate: Desativar
   development_version_name: EOL V2 Beta
   default: Padrão
   default_focus_collection_name_from_community: Foco de %{name}
@@ -4439,6 +4545,7 @@ pt-BR:
   did_you_mean: 'Você quis dizer: %{suggestions} ?'
   disabled_for_now: DESABILITADO NESTE MOMENTO
   discover_link: Descobrir
+  donate_link: Doar
   done_already: Já feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Não mostrar
     datas registadas desconhecidas (usuários da V1, todos anteriores a 5 de janeiro
@@ -4552,6 +4659,8 @@ pt-BR:
         de recuperação de conta para verificar o seu endereço de e-mail e ativar sua
         conta.
   expand_all_children: expandir todos os descendentes
+  expired: Expirado
+  expires_in_colon: 'Expira em:'
   explore: Explore
   explore_what_we_know_about_taxon: Explore o que EOL conhece sobre %{taxon}.
   export_this_list_as_csv: Exportar esta lista como CSV
@@ -4674,6 +4783,8 @@ pt-BR:
     indexada pelo EOL e as suas relações internas
   global_access_tagline: Acesso global ao conhecimento sobre a vida na terra.
   global_navigation: Navegação global
+  glossary: Glossário
+  glossary_subhead: Glossário
   go_back: voltar
   go: Ir
   google_analytic_results: Resultados do Google Analytics
@@ -4683,6 +4794,8 @@ pt-BR:
   google: Google
   google_images: Google Imagens
   google_scholar: Google Acadêmico
+  grant_manager_link: Conceder função de administrador
+  grant_permission: conceder
   grant_full_curator_link: Conceder
   has_already_been_taken: já foram tomadas.
   has_colon: 'Tem:'
@@ -4823,6 +4936,15 @@ pt-BR:
   keep_split_entry_from_this_entry: Mantenha separada esta entrada
   key: Chave
   known_uri_category_header: Categorias
+  known_uri_missing_translation: Não traduzido, por favor edite
+  known_uri_label_inverse: é um inverso de
+  known_uri_label_allowed_val: permite um valor de
+  known_uri_label_allowed_unit: permite uma unidade de
+  known_uri_label_unit: possui um valor-padrão de
+  known_uri_label_equivalent: é equivalente a
+  known_uri_label_indirectly_equivalent: equivale indiretamente a
+  known_uris_empty_sorry: Desculpe-nos, ainda não há URIs sugeridas para esta categoria.
+  known_uris_none: Ninguém adicionou URIs deste tipo.
   label: Etiqueta
   language: 'Idioma:'
   languages: Idiomas
@@ -4838,6 +4960,7 @@ pt-BR:
   learn_about_eol: Como posso usar a EOL?
   learn_about_contributing: Como posso contribuir?
   learn_about_joining: Como posso me juntar?
+  learn_how_to_contribute: Aprenda como contribuir.
   learn_more_about_communities_link: Aprenda mais sobre Comunidades
   learn_more_about_names_for_this_taxon: aprenda mais sobre nomes para este taxon
   learn_more_link: (%{learn_more})
@@ -4846,7 +4969,9 @@ pt-BR:
   leave_a_comment: Deixe um comentário
   leave_reply: Deixar resposta
   left_content_area: Área de conteúdo à esquerda
+  legend: 'Legenda:'
   license: Licença
+  license_none: Ninguém
   license_all_rights_reserved: Todos os direitos reservados
   license_cc_by: Creative Commons Attribution (CC BY)
   license_cc_by_2_0: Creative Commons Attribution 2.0 (CC BY 2.0)
@@ -4880,6 +5005,7 @@ pt-BR:
   license_cc_by_sa_3_0: Creative Commons Attribution - Partilha nos Mesmos Termos
     3.0 (CC BY-SA 3.0)
   license_cc_zero: Creative Commons — CC0 1.0 Universal
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: GNU Free Documentation License (GNU FDL)
   license_gnu_gpl: GNU General Public License (GNU GPL)
   license_no_known_copyright_restrictions: Não há restrições de direitos autorais
@@ -4898,6 +5024,7 @@ pt-BR:
   limits_the_number_of_returned_iucn_objects: incluir objeto de estado IUCN Red List
   link_more_about: Saiba mais sobre este link
   link_name: Nome do Link
+  link_to_top_of_page: Para cima
   links_with_count:
     one: '%{count} link'
     other: '%{count} links'
@@ -4928,7 +5055,9 @@ pt-BR:
   login_or_create_account: Entrar ou criar uma conta
   login_to_the_website_as: Login para o site como %{username}
   logo_header: Logótipo
+  logo_type_error: O logotipo não é um formato válido de imagem (deve ser PNG ou JPEG).
   logout: Sair
+  looking_up_url: Buscando endereço URL...
   main_database_colon: 'Principal:'
   maintained_by: mantido por
   make_user_an_editor_title: Permitir %{user} a gerenciar as seguintes coleções
@@ -5093,6 +5222,7 @@ pt-BR:
     %{names}.'
   no_news_items_for_month_and_year: Nenhuma notícia de %{month_and_year}
   none: nenhum
+  "no": Não
   num_content_partners: Número de parceiros de conteúdo
   num_data_objects: Número de objetos de dados
   no_record_found_matching_your_criteria: Nenhum registro encontrado correspondente
@@ -5106,6 +5236,7 @@ pt-BR:
   not_evaluated: Não avaliado
   not_recognized_by_available_hierarchies: Não reconhecido por qualquer uma das classificações
     disponíveis
+  not_specified: não especificado
   not_yet_implemented_error: Desculpe, esse recurso ainda não foi implementado.
   note: 'Nota:'
   note_about_homonym_problems: 'Nota: Apenas mudar este atributo se tiver certeza
@@ -5166,6 +5297,7 @@ pt-BR:
   older_version_of_latest_published_data_object_title_link: Versão mais antiga de
     %{link}
   other_version_links: 'Outras versões: %{version_links}'
+  other_category_subtab: Outros
   percentage_of_children_with_images: '% de descendentes com imagens'
   percentage_of_children_with_text: '% de descendentes com texto'
   on_time_col_header: ativo
@@ -5239,6 +5371,7 @@ pt-BR:
   post_comment: Postar comentário
   preferred_common_name_advisory_information: Nome comum preferido para este táxon.
   press_room: Sala de imprensa
+  preview_changes: Prever mudanças
   preview: Pré-visualizar
   previously_published: Publicado anteriormente
   proceed_to_checkout_page: Proceda para a página de pagamento
@@ -5284,6 +5417,12 @@ pt-BR:
   reset_password_enter_new_password_notice: A senha usada só é válida para esta sessão,
     por favor entre com um nova senha para continuar.
   resource: Recurso
+  resource_import_frequency:
+    once: Importar uma vez
+    weekly: Semanalmente
+    monthly: Mensalmente
+    bimonthly: Bimensalmente
+    quarterly: Quadrimensalmente
   resources: Recursos
   response_formats: Formatos de resposta
   response: Resposta
@@ -5344,8 +5483,13 @@ pt-BR:
   selected_items: Itens selecionados
   send_email_colon: Enviar e-mail
   send: Enviar
+  share_a_collection: Compartilhar uma coleção
   show: Mostrar
+  show_data_from_all_content_partners: Remover o filtro de classificação
   show_in_overview: mostrar em Resumo
+  show_status_message: Exibir mensagem de status
+  show_tasks: mostrar tarefas
+  show_warning_message: Mostrar mensagem de aviso
   sign_in: Entrar
   sign_in_successful_notice: Login bem-sucedido.
   sign_out: Sair

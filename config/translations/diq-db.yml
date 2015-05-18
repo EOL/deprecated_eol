@@ -48,6 +48,8 @@ diq:
   translated_collection_types-label-collection_type_id-15: Şınasnayış
   translated_collection_types-label-collection_type_id-16: Resımi
   translated_collection_types-label-collection_type_id-17: Vılakerdış
+  translated_collection_types-label-collection_type_id-18: Halê mışewreyi
+  translated_collection_types-label-collection_type_id-19: Zanışiya nameyi
   translated_collection_types-label-collection_type_id-1: Taxsonomi
   translated_collection_types-label-collection_type_id-22: Vengi
   translated_collection_types-label-collection_type_id-23: Gırey
@@ -55,7 +57,9 @@ diq:
   translated_collection_types-label-collection_type_id-3: Şınasnayış
   translated_collection_types-label-collection_type_id-4: Resımi
   translated_collection_types-label-collection_type_id-5: Vılakerdış
+  translated_collection_types-label-collection_type_id-6: Halê mışewreyi
   translated_collection_types-label-collection_type_id-7: Zanışiya nami
+  translated_contact_roles-label-contact_role_id-2: İrtıbatê İdareyi
   translated_contact_roles-label-contact_role_id-3: İrtıbatê Tekniki
   translated_content_partner_statuses-label-content_partner_status_id-1: Vınderde
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktiv
@@ -101,6 +105,7 @@ diq:
   translated_ranks-label-rank_id-352: familyaya bıni
   translated_ranks-label-rank_id-375: leteyê bıni
   translated_ranks-label-rank_id-383: familyaya bıni
+  translated_ranks-label-rank_id-494: eşire
   translated_ranks-label-rank_id-51: Sınıfe
   translated_ranks-label-rank_id-74: mıntıqe
   translated_ranks-label-rank_id-85: k
@@ -116,6 +121,7 @@ diq:
   translated_service_types-label-service_type_id-1: Transfer şemaya EOL'i
   translated_service_types-label-service_type_id-2: Zewbi
   translated_sort_styles-name-sort_style_id-2: Tewr kehan
+  translated_sort_styles-name-sort_style_id-3: Alfabetik
   translated_sort_styles-name-sort_style_id-5: Dewlemendiye
   translated_sort_styles-name-sort_style_id-6: Nısbetkerden
   translated_statuses-label-status_id-1: Pırakerde

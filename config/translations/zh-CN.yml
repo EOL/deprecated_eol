@@ -23,6 +23,7 @@
 # Author: Xiaomingyan
 # Author: Yfdyh000
 # Author: 乌拉跨氪
+# Author: 凡人丶
 # Author: 아라
 ---
 zh-CN:
@@ -163,6 +164,7 @@ zh-CN:
         total_measurement_types: 测量模式
         total_association_types: 关联模式
         total_user_added_data: 用户加入的数据
+        total_data_records: 数据记录
       forum:
         forum_category_id: 类别
         name: 论坛名称
@@ -196,6 +198,7 @@ zh-CN:
         uri: URI
         uri_type: URI形式
         value_is_text: 值不能为URL，只能是文本
+        value_is_verbatim: 值将不会为数字，只是文本
       known_uri_relationship:
         from_known_uri_id: 主题URI
         to_known_uri_id: 目标URI
@@ -316,9 +319,9 @@ zh-CN:
         empty: 不能为空
         blank: 不能为空
         too_long:
-          other: 过长（最多%{count}个字符）
+          other: 太长了（最多%{count}个字符）
         too_short:
-          other: 过短（最少%{count}个字符）
+          other: 太短了（最少%{count}个字符）
         wrong_length: 长度错误（应为%{count}个字符）
         not_a_number: 不是一个数字
         not_an_integer: 必需是整数
@@ -351,7 +354,7 @@ zh-CN:
         known_uri:
           attributes:
             uri:
-              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
         open_authentications:
           guid_provider_must_be_unique: 该第三方账户已经连接至一个EOL账户
           provider_user_id_must_be_unique: 一个EOL账户只能连接每个第三方提供者的一个账户
@@ -370,18 +373,18 @@ zh-CN:
         user_added_data:
           attributes:
             predicate:
-              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
               namespace: 使用的是未确认的名字空间
             subject:
-              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
               namespace: 使用的是未确认的名字空间
         user_added_data_metadata:
           attributes:
             predicate:
-              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
               namespace: 使用的是未确认的命名空间
             subject:
-              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/%E7%BB%9F%E4%B8%80%E8%B5%84%E6%BA%90%E6%A0%87%E5%BF%97%E7%AC%A6'>URI</a>
+              must_be_uri: 必须是正确格式的<a href='https://zh.wikipedia.org/wiki/统一资源标志符'>URI</a>
               namespace: 使用的是未确认的命名空间
         known_uri_relationship:
           attributes:
@@ -509,8 +512,7 @@ zh-CN:
         active: 已发布
         active_more: 已发布的页面将在选定的日期和时间公开可见。如果你想要阻止普通用户查看该页面任何语言的版本，请取消选中<em>已发布</em>。
         page_name: 独特名称<small>（仅小写ISO基本拉丁文字数字字符和下划线）</small>
-        page_name_more: 请为该新闻页面输入一个独特的，自我描述性的，有意义的持续性标识符。你输入的名称用于生成该新闻页面的URL，例如独特名称<em>terms_of_use</em>将被转化为URL
-          <em>http://eol.org/info/terms_of_use</em>。
+        page_name_more: 请为该新闻页面输入一个独特的，自我描述性的，有意义的持续性标识符。您输入的名称用于生成该新闻页面的URL，例如独特名称<em>new_version_of_eol</em>将被转化为URL<em>http://eol.org/news/new_version_of_eol</em>。
       open_authentication:
         connected: 已连接
         connect: 添加
@@ -521,8 +523,7 @@ zh-CN:
         dataset: 数据集
         dataset_existing_replace: 该文件 <em>%{file_name}</em> 当前与这个资源关联。 上传一个新文件替换<em>%{file_name}</em>原有文件。
         dataset_existing_remove: 该文件 <em>%{file_name}</em> 当前与这个资源关联。如果您想替换原文件<em>%{file_name}</em>，输入一个URL并上传资源（推荐）。
-        dwc_archive_url: '"如果有符合达尔文核心标准的数据文件，请在这里填写该文件的连接地址<small>(TAR.GZIP, TAR.GZ
-          or TGZ only)</small>:"'
+        dwc_archive_url: 如果有与此资源相关的达尔文核心档案，请在此处填写URL<small>（仅限TAR.GZIP、TAR.GZ或TGZ）</small>：
         hierarchy: 分类系统
         oldest_published_harvest_event: 首次发布
         latest_published_harvest_event: 最近发布的
@@ -581,11 +582,11 @@ zh-CN:
         email_reports_frequency_hours: 您希望多长时间接收一次与您的贡献有关的活动信息？
         email_settings_submit: 邮件设置
         email: 邮件地址
-        entered_password: 密码 <small>(4 - 16 个字符)</small>
+        entered_password: 密码<small>（4~16个字符）</small>
         generate_api_key: 请求API密匙
-        generate_api_key_more: '"如果您对使用EOL的API感兴趣，您可以为自己的应用程序生成一个API密匙。查看更多关于<a href=""%{api_docs_url}"">为您的API请求添加密匙</a>。"'
+        generate_api_key_more: 如果您对使用EOL的API感兴趣，您可以为自己的应用程序生成一个API密匙。查看更多关于<a href="%{api_docs_url}">为您的API请求添加密匙</a>。
         logo: 上传一张新照片
-        new_password: 新密码<small>(4-16 个字符)</small>
+        new_password: 新密码<small>（4~16个字符）</small>
         new_password_confirmation: 新密码确认
         news_in_preferred_language: 显示所有首选语言的新闻
         notification_settings: 通知设置
@@ -598,7 +599,7 @@ zh-CN:
           如果您是专家或者是有资历的研究生。选择 <em>高级管理员</em> 如果您是有EOL经验的管理员，并希望在EOL中承担更多责任。
         tag_line: 标签或标题 <small>如:“鸟类爱好者”</small>
         user_identities: 我是
-        username: 用户名<small>（4-32 个字符）</small>
+        username: 用户名<small>（4~32个字符）</small>
         username_or_email: 用户名或电子邮件地址
       wikipedia_queue:
         revision_url: 修订版本的 URL <small>（例如 https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069）</small>
@@ -1320,6 +1321,7 @@ zh-CN:
       href='%{unsubscribe_url}' style='color:#195184'>更新您的电子邮件设置以退订从EOL的所有自动通知而无需登录</a>。
     contact_us_link: 如果您遇到任何问题，请使用<a href='http://eol.org/contact_us' style='color:#195184'>联系我们</a>。
     see_all_activity: 在<a href='%{activity_url}' style='color:#195184'>您的个人消息页面</a>中查看之前的所有消息。
+    resource_validation: 来源：%{resource} 已完成确认
     bulk_comments_with_count:
       other: 有%{count}条关于%{on}的新评论
     bulk_comments_on_you_with_count:
@@ -1435,10 +1437,6 @@ zh-CN:
         tweet_text: '%{scientific_name}的管理员'
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a>从很多供应商聚合数据记录。选择一行获取更多记录信息，或<a
-          href="%{traitbank_search_path}">搜索TraitBank</a>。
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>从很多供应商聚合数据记录。选择一行获取更多记录信息，或<a
-          href="%{traitbank_search_path}">在%{taxon_name}中搜索</a>。
         hierarchy_entry:
           meta_description: 在网络生命大百科中关于%{scientific_name}被%{hierarchy_provider}分类的事实
           meta_description_no_data: 生物大百科全书中没有提供按%{hierarchy_provider}分类界定为%{scientific_name}的可分析的数据资料。EOL
@@ -2348,6 +2346,10 @@ zh-CN:
         user_added_name_in_an_unknown_language_to_it: <strong>%{user}</strong>使用未知语言加入常用名“%{name}”。
         user_added_name_in_language_to_it: <strong>%{user}</strong>使用%{language}加入常用名“%{name}”。
       remove_common_name:
+        an_unknown_user_removed_name_in_an_unknown_language_from_an_unknown_taxon: 未知用户从未知页面移除了一种未知语言的常用名。
+        an_unknown_user_removed_name_in_language_from_an_unknown_taxon: 未知用户从未知页面移除了%{language}的常用名。
+        an_unknown_user_removed_name_in_an_unknown_language_from_taxon: 未知用户从“%{taxon}”移除了一种未知语言的常用名。
+        an_unknown_user_removed_name_in_language_from_taxon: 未知用户从“%{taxon}”移除了%{language}的常用名。
         an_unknown_user_removed_name_in_an_unknown_language_from_it: 未知用户移除未知语言的常用名。
         an_unknown_user_removed_name_in_language_from_it: 未知用户移除%{language}的常用名。
         user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong>移除了未知语言中的常用名。
@@ -2584,7 +2586,7 @@ zh-CN:
   jsonp_by_adding_a_callback_parameter: …以及通过添加回调参数而成的JSONP
   any_integer: 任何整数
   any_string: 任何字符串
-  api_docs_collections_description: 给收藏一个标识符，此API将返回所有关于收藏和它包含的条目的元数据。条目列表可按条目类型筛选，并按上面列出的属性排序。
+  api_docs_collections_description: 给收藏一个标识符，此API将返回所有关于收藏和它包含的条目的元数据。条目列表可按条目类型筛选，并按上面列出的属性排序。部分项目将包含一个可选的“sort_field”属性。分类字段是由用户提供的，在一个收藏项目上特别指定的字符串。它可以是任何字符串，但如果它是日期，它应该匹配格式YYYY-MM-DD。分类项目将包含“richness_score”。丰富度是一个公制度量，表示为0到100之间整数，数字越大，就表示一个页面带有越多的来自各种来源的富媒体内容。在分类页面的更新标签阅读更多有关分类丰富度，例如%{richness_url}。
   a_pipe_delimited_list_of_licenses: '"一个用""|""符号分隔的协议列表，或是用""all""表示任意协议。任意协议是指所有缩写为""cc-""的协议"'
   a_pipe_delimited_list_of_spm_info_item_subject_names: “概述”以返回概述文本（如果存在），来自%{subjects_text}列表（例如TaxonBiology、FossilHistory）的对象名称的竖线（“|”）分隔列表，或“所有”以获得任何对象中的文本。总是返回作为首条结果的一段概述文本（如果提供的上下文存在）。
   application_version_advisory_information: 应用程序版本
@@ -3167,6 +3169,10 @@ zh-CN:
   data_column_units: 单位（已规范化）
   data_column_units_uri: 单位URI（规范化）
   data_column_source: 提供者
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a>集合很多提供方的数据记录。选择一行以获取有关记录的更多详情，或<a
+    href="%{traitbank_search_path}">搜索TraitBank</a>。
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>从很多供应商聚合数据记录。选择一行获取更多记录信息，或<a
+    href="%{traitbank_search_path}">在%{taxon_name}中搜索</a>。
   data_database_colon: 数据：
   data_glossary: 数据词汇表
   data_link_to_record: 链接到此记录
@@ -3195,6 +3201,8 @@ zh-CN:
   data_search:
     page_title: 搜索TraitBank
     form:
+      equivalent_attributes: 等价值：
+      equivalent_values: 等价值：
       header_assistive: 搜索表单
       input_summary_intro: 选择的搜索选项
       new_search_link: 开始一次新搜索
@@ -3243,6 +3251,7 @@ zh-CN:
   default_rating_value_of_total: 默认评级：%{total}的%{rating}
   default_watch_collection_name: '%{username}的关注列表'
   delete_community: 删除此社区
+  delete_data_object: 删除
   delete: 删除
   deleted_colon: 已删除的：
   delete_firstcap: 删除
@@ -3414,6 +3423,26 @@ zh-CN:
   filter_newsfeed_option_watchlist: 关注列表
   filter_newsfeed_option_curation: 管理
   filtered_information: 筛选的信息
+  taxon_concept_search_keyword:
+    other: 分类单元
+  image_search_keyword:
+    other: 图片
+  video_search_keyword:
+    other: 视频
+  sound_search_keyword:
+    other: 声音
+  text_search_keyword:
+    other: 条目
+  data_search_keyword:
+    other: 特征
+  link_search_keyword:
+    other: 链接
+  user_search_keyword:
+    other: 人
+  community_search_keyword:
+    other: 社区
+  collection_search_keyword:
+    other: 收藏
   find_taxa_submit_button: 查找分类阶元
   flash_notice_redirected_from_search_html: '"这是由 <em>%{search_string}</em>检索得到的结果。
     <a href=""%{more_results_url}"">返回检索页。</a>"'
@@ -3452,7 +3481,7 @@ zh-CN:
   get_help_choosing_a_subchapter: 获取关于“如何选择内容条目”的帮助
   get_more_tasks: 获取更多任务
   given_name_colon: 名：
-  data_object_api_description: '"如果给定数据项的标识符,本API会返回所有关于内容合作伙伴提交给EOL的关于此数据项的所有元数据。内容合作伙伴会作为第一个机构元素被引用,并且拥有""合作伙伴""的角色。"'
+  data_object_api_description: 如果给定数据项的标识符,本API会返回所有关于内容合作伙伴提交给EOL的关于此数据项的所有元数据。内容合作伙伴会作为第一个机构元素被引用并且拥有“合作伙伴”的角色。
   given_the_vast_number: '"从数量巨大的学名和俗名(约2000万个名字)中，用户很难准确找到其期望的物种, 比如,Robin这个名字既是几种鸟的名字(American
     Robin, Alpine Robin, Smoky Robin), 也是几种鱼的名字,还可能是曾经给一些物种命名、名叫Robin的分类学家。我们的检索结果会包含确切的检索条件，但是不能保证返回的结果一定是您的理想结果。我们将不断尝试改进这些相关的检索结果。"'
   gives_access_to_a_single_hierarchy_indexed_by_eol: 开放对EOL索引的单一分类系统及其内部关系的访问
@@ -3487,7 +3516,7 @@ zh-CN:
   hidden_comment: 隐藏的评论
   hide: 隐藏
   hierarchy: 分类系统
-  hierarchy_entry_switch_missing_id_error: '"抱歉,由于缺少标识符，没有找到您选择的分类节点的页面。"'
+  hierarchy_entry_switch_missing_id_error: 抱歉，由于缺少标识符，没有找到您选择的分类节点的页面。
   hierarchy_roots_colon: 分类系统根结点：
   hierarchy_updated: 分类系统已更新
   hierarchies_title: 分类系统
@@ -3505,6 +3534,7 @@ zh-CN:
     %{linka} 资源类型词汇中的值。文本主题将会是 %{linkb} 之一。
   check_this_to_browse_eol_by_the_hierarchy: （如果选择此复选框，分类选项将会显示在名字标签上而不用使用“显示所有分类”）
   return_content_by_vettedness: 如果vetted = 1则仅返回可信内容.如果vetted = 2则返回仅可信和未审核的内容(不返回不可信的内容)。默认返回所有内容。
+  reindex_data_object_button: 重新索引对象
   reindex_page_button: 重新索引页面
   image: 图像
   image_cropped_notice: 图片裁剪完成
@@ -3598,6 +3628,9 @@ zh-CN:
   known_uri_label_unit: 有默认单位
   known_uri_label_equivalent: 相似于
   known_uris_page_title: EOL上有关数据的URI
+  pending_harvests_title: 等待收割
+  pause_pending_harvests: 暂停收割
+  resume_pending_harvests: 恢复收割
   label: 标签
   language: 语言：
   languages: 语言
@@ -3615,7 +3648,7 @@ zh-CN:
   learn_more_about_communities_link: 深入了解社区
   learn_more_about_names_for_this_taxon: 深入了解分类阶元的名字
   learn_more_link: (%{learn_more})
-  learn_more_lowercase: 深入了解
+  learn_more_lowercase: 了解更多
   leave_community_button: 离开这个社区
   leave_a_comment: 留下评论
   leave_reply: 留下回复
@@ -3962,7 +3995,7 @@ zh-CN:
   page_views_th: 页面访问量
   pages_curator_section_link: 管理员
   pages_admin_section_link: 管理员
-  pages_method_description: 使用一个EOL页面标识符返回这个页面的学名，同时为识别这个分类单元的分类树可选地返回俗名，多媒体（文本，图像和视频）和参考文献。
+  pages_method_description: 使用一个EOL页面标识符返回这个页面的学名，同时为识别这个分类单元的分类树可选地返回俗名，多媒体（文本，图像和视频）和参考文献于页面
   pagination_page_number: 第%{number}页
   pagination_next: 下一页
   pagination_next_with_count:
@@ -4044,8 +4077,7 @@ zh-CN:
   rating_learn_more_link: 了解评级
   rating_not_added_error: '"抱歉, 出现了一个错误, 评级无法添加。"'
   recaptcha: 输入下面您看到的两个单词或数字
-  recaptcha_incorrect_error_with_anchor: '" <a href=""#%{recaptcha_anchor}"">验证码</a>
-    不匹配, 请重试。"'
+  recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">验证码</a>不匹配，请重试。
   recent_updates: 最近更新
   recently_visited: 最近访问
   recently_used_link: 最近使用
@@ -4055,6 +4087,7 @@ zh-CN:
   recognized_by_from_source_as_a_rank: '%{recognized_by} 在 %{source} 作为 %{taxon_rank}'
   record_count: 记录计数
   record_not_found: '[未找到记录]'
+  redirect_url_ok_title_unavailable: 重定向URL可以，标题不可用
   reference: 参考资料
   references_cabs_colon: 参考文献：
   related_names_with_count:
@@ -4113,6 +4146,8 @@ zh-CN:
   sci_name_avg_table_head: 学名平均
   search: 搜索
   search_by_term_page_title: 搜索： %{term}
+  search_by_provider_method_description_with_link: 获取EOL页面ID，提供一个提供方的hierarchy_id和提供方自己的唯一标识符<br
+    />（例如为ITIS TSN 180542搜索EOL页面ID：%{link}）
   search_for_comments_containing_the_text: 搜索包含这些文本的评论：
   search_for_curators_containing: 搜索包含这些内容的管理员：
   search_for_messages_containing: 搜索包含这些内容的消息：
@@ -4316,8 +4351,8 @@ zh-CN:
   taxon_partner_links_empty: 内容合作伙伴还没有为该页面提供来源链接。
   taxon_partner_links_empty_learn_more_link: 了解如何成为一个内容合作伙伴
   taxon_partner_links_header: 合作伙伴链接
-  taxon_partner_links_intro: '"以下是合作者列表及其信息, 包括内容合作伙伴。上面的链接可能带您到相应的合作者的网站。这些被每个合作者使用的分类单元的唯一的标识被包含在这些链接中，这些唯一标识同样可以通过<a
-    href=""%{eol_api_link}"">EOL API</a>进入。"'
+  taxon_partner_links_intro: 以下是合作者列表及其信息，包括内容合作伙伴。上面的链接可能带您到相应的合作者的网站。这些被每个合作者使用的分类单元的唯一的标识被包含在这些链接中，这些唯一标识同样可以通过<a
+    href="%{eol_api_link}">EOL API</a>进入。
   taxon_partner_links_link: 合作伙伴链接
   taxon_page_content_disclaimer_header: 免责声明
   taxon_page_content_disclaimer: EOL的内容来自许多不同的内容提供者并自动组合在一起。因此，偶尔您会在EOL上发现令人不解的页面。
@@ -4327,7 +4362,7 @@ zh-CN:
   taxon_selected_from_search_res: 从搜索结果中选择的分类单元
   taxon_suggested: 建议的类群
   technical_functions: 技术功能
-  terms_agreement_form_fallback: '"请在进入您的帐户前请检查并同意<a href=""%{terms_url}"">使用条款</a>。"'
+  terms_agreement_form_fallback: 在您可以访问您的账户前，请检阅并同意<a href="%{terms_url}">使用条款</a>。
   terms_agreement_form_header: 使用项
   terms_agreement_form_submit: 我同意
   terms_of_use_link: 使用条款与隐私
@@ -4352,12 +4387,13 @@ zh-CN:
   the_content_was_updated: 内容已更新。
   the_cp_count_info: 该数目为在各自的物种信息模块主题类别中发布了数据对象的内容合作伙伴的总数。
   the_count_represents_the_total: 该数目为在每个物种信息模块主题类别中发布的数据对象的总数。
-  hierarchies_entries_description: 网络生命大百科并不是基于一个单一的分类学系统，而是包含了很多分类系统，并给这些系统建立索引，比较它们之间的区别。因此任何网络生命大百科网站网页中的数据节点都可能来自多个分类系统。该API允许访问单一的分类系统以及它的内部关系。参考网络生命大百科其它网页中的API文档信息，可以访问其它的分类系统。taxonConceptID是网络生命大百科网页标识符，可用于API页面。
+  hierarchies_entries_description: 网络生命大百科并不是基于一个单一的分类学系统，而是包含了很多分类系统，并给这些系统建立索引，比较它们之间的区别。因此任何网络生命大百科网站网页中的数据节点都可能来自多个分类系统。该API允许访问单一的分类系统以及它的内部关系。参考网络生命大百科其它网页中的API文档信息，可以访问其它的分类系统。“taxonConceptID”是网络生命大百科网页标识符，可用于API页面。
   hierarchies_description: 网络生命大百科不基于一个分类系统建立物种页。EOL为许多分类系统建立了索引并对它们做了比较。该API列出关于分类系统的元数据，例如数据提供者、源URL，以及分类树所有根节点的分类单元的元数据。
   the_file_was_uploaded: 文件已上传。
   the_following_bibliography: 下面的书目通过将我们内容合作伙伴提供的所有参考文献整合到一起而生成。来自各个内容合伙人提供的所有文献。可能有重复。
   topics_avilable_to_contact_us_info: 下面的主题区域可从联系我们的页面获得。您可以增加或者编辑主题区域以及相应的邮件地址。所有的更新都是即时的。
-  the_darwin_core_taxon_elements: 附属信息中的达尔文核心分类元素(dwct:Taxon)包括了由EOL索引的分类系统中节点的标识符。它们包括一个在<i>提供者数据库</i>中的分类单元的唯一的ID-dc:identifier。
+  the_data_object_id_can_be: ID参数可以是整数（一个DataObject版本ID）或16字符长的GUID，它将返回对象的最新版本
+  the_darwin_core_taxon_elements: 在“additionalInformation”下面的达尔文核心分类基础（dwct:Taxon）包含了由EOL索引的分类系统中节点的标识符。它们包含一个dc:identifier，它是用于<i>提供方数据库</i>的分类的唯一ID。
   the_following_users_were_prese: 下列用户会出现在弹出的调查窗口，并对调查的请求作出如下响应：
   the_id_of_provider_hierarchy_you_are_searching: 您正在使用数据提供者分类系统的ID。核对%{link}是否为有效IDs。
   the_image_from_this_source_has_not_been_reviewed: 这个来源的图像还未被审核。
@@ -4383,6 +4419,7 @@ zh-CN:
   this_community_has_no_endorsed_collections: 该社区没有任何特色的收藏。
   this_community_has_no_focus_list: 这个社会没有关注列表。
   this_community_was_deleted: 这个社区被所有者删除。
+  this_data_object_will_be_reindexed: 此数据对象将被重新索引。
   this_does_not_necessarily_mean: '* 这只是说明在database.yml中定义了链接，并不意味着一定会使用到。您需要在“config/environments/%{env}.rb”文件中确认主连接是否建立。'
   this_is_a_flat_list_of_10_million_strings: 这是一个一千万字符串的平面列表-不是让您浏览它的
   this_is_a_focus_collection_for_community: 这是 %{community}关注的焦点。
@@ -4394,7 +4431,8 @@ zh-CN:
   page_method_description: 此方法接受一个EOL页面的标识符并返回该页面的学名，并可选择地返回识别该页面分类单元的分类系统的关于俗名、媒体（文本，图像和视频）及参考文献。
   ping_method_description: 此方法失败（这种情况EOL错误页面极可能返回）或返回一个成功信息，没有其它可能信息。
   provider_hierarchies_method_description: 此方法将返回EOL内容合作伙伴所提供的所有分类系统的参考文献。返回结果包括分类系统的标签和在分类系统呈现的EOL唯一ID
-  this_method_takes_an_integer_or_string: 此方法接受来自提供者数据库中分类单元的整数或字符串唯一标识符，及表示提供者的hierarchy_id并返回分类单元的EOL页面ID。例如使用%{link_provider}API，我可以获得ITIS的EOL分类系统ID是%{itis_id}。之后我可以通过调用%{link_url}在EOL中搜索ITIS中180542的分类序列号（TSN），<i>Ursus
+  this_method_takes_an_integer_or_string: 此方法接受来自提供者数据库中分类单元的整数或字符串唯一标识符，及表示提供者的hierarchy_id并返回分类单元的EOL页面ID。例如使用%{link_provider}
+    API，我可以获得ITIS的EOL分类系统ID是%{itis_id}。之后我可以通过调用%{link_url}在EOL中搜索ITIS中180542的分类序列号（TSN），<i>Ursus
     maritimus</i>
   this_page_shows_information_ab: 该页面显示关于一个特殊搜素词的信息，执行搜索后用户可以单击。
   this_resource_unpublished_notice: 该资源此时未被系统管理员设定为已发布。

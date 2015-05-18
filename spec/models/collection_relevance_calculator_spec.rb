@@ -37,18 +37,18 @@ describe CollectionRelevanceCalculator do
       time = Time.now
       allow(time).to receive(:strftime) { 'this is the strftime' }
       allow(Time).to receive(:now) { time }
-      allow(Rails.logger).to receive(:info)
+      allow(Rails.logger).to receive(:error)
       CollectionRelevanceCalculator.perform(@collection.id)
-      expect(Rails.logger).to have_received(:info).
+      expect(Rails.logger).to have_received(:error).
         with(/this is the strftime/).at_least(:once)
     end
 
     it 'logs errors' do
       e = "THIS"
-      allow(Rails.logger).to receive(:info)
+      allow(Rails.logger).to receive(:error)
       allow(@calculator).to receive(:set_relevance).and_raise(e)
       CollectionRelevanceCalculator.perform(@collection.id)
-      expect(Rails.logger).to have_received(:info).with(/ERROR.*THIS/)
+      expect(Rails.logger).to have_received(:error).with(/ERROR.*THIS/)
       expect(@calculator).to have_received(:set_relevance)
     end
 

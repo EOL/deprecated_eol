@@ -16,8 +16,8 @@ class Taxa::DetailsController < TaxaController
   # TODO - this doesn't belong here.
   def set_article_as_exemplar
     unless current_user && current_user.min_curator_level?(:assistant)
-      # TODO - second argument to constructor should be an I18n key for a human-readable error.
-      raise EOL::Exceptions::SecurityViolation, "User does not have set_article_as_exemplar privileges"
+      
+      raise EOL::Exceptions::SecurityViolation.new("User does not have set_article_as_exemplar privileges", :missing_set_article_as_exemplar_privilege)
       return
     end
     @taxon_concept = TaxonConcept.find(params[:taxon_id].to_i) rescue nil

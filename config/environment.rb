@@ -13,9 +13,6 @@ Rails.configuration.skip_url_validations = false
 InitializerAdditions.add("environment_eol_org")
 InitializerAdditions.add("environments/local")
 Eol::Application.initialize!
-$visible_global = Visibility.visible
-$invisible_global = Visibility.invisible
-$preview_global = Visibility.preview
 
 # TODO - Set defaults for some horrible global variables that really
 # needed to get cleaned up.  Currently most get overriden in appropriate

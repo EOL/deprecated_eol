@@ -19,8 +19,9 @@ class Users::DataDownloadsController < UsersController
       @data_search_file.destroy
       flash[:notice] = I18n.t(:data_search_destroyed)
     else
-      # TODO - second argument to constructor should be an I18n key for a human-readable error.
-      raise EOL::Exceptions::SecurityViolation
+      
+      raise EOL::Exceptions::SecurityViolation.new("User with id = #{current_user.id} try to delete data search file with id = #{@data_search_file}", 
+      :missing_delete_access_to_data_search_file)
     end
     redirect_to action: :index
   end

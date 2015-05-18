@@ -95,7 +95,7 @@
           - if current_user.min_curator_level?(:full)
             - if data_point_uri.visible?
               - hide_link =  data_point_uri_hide_path(data_point_uri)
-              = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true
+              = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true, style: "margin-right: 10px;"
             - elsif data_point_uri.invisible?
               - show_link = data_point_uri_unhide_path(data_point_uri)
               = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true

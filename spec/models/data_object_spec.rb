@@ -891,14 +891,14 @@ describe DataObject do
                                                description: @last_text.description)}
       end
 
-      it 'fails when adding text with the same title' do
+      it 'passes when adding text with the same title and different description' do
         @params[:data_object][:description]= "different description"
-        expect(DataObject.same_as_last?(@params, @options)).to be_true
+        expect(DataObject.same_as_last?(@params, @options)).to be_false
       end
 
-       it 'fails when adding text with the same description' do
+       it 'passes when adding text with the same description and different title' do
          @params[:data_object][:object_title]= "different title"
-         expect(DataObject.same_as_last?(@params, @options)).to be_true
+         expect(DataObject.same_as_last?(@params, @options)).to be_false
       end
 
       it 'passes when adding text with the different description and title' do

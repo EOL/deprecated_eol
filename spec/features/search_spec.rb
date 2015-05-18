@@ -112,12 +112,10 @@ describe 'Search' do
     default_body = body.gsub(/content[0-9]{1,2}\./, 'content1.')  # normalizing content server host names
     default_body.gsub!(/return_to.*?\"/, '')
     default_body.gsub!(/referred_page.*?\"/, '')
-    default_body.gsub!(/<input id=\"search_log_id\".*?>/, '')  # removing search_log_id, which increments
     visit("/search?q=#{@name_for_all_types}&sort_by=score")
     newest_body = body.gsub(/content[0-9]{1,2}\./, 'content1.')  # normalizing content server host names
     newest_body.gsub!(/return_to.*?\"/, '')
     newest_body.gsub!(/referred_page.*?\"/, '')
-    newest_body.gsub!(/<input id=\"search_log_id\".*?>/, '')  # removing search_log_id, which increments
     default_body.should == newest_body
   end
 

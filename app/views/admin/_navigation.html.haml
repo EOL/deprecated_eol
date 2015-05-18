@@ -48,11 +48,6 @@
     = link_to I18n.t("page_statistics_and_tools"), {:controller => 'administrator/stats', :action => 'index'}, {:class=>'toc_item active'}
   %li
     = link_to I18n.t("taxonomic_summary_of_content"), {:controller => 'administrator/stats', :action => 'content_taxonomic'}, {:class => 'toc_item active'}
-
-  -# Disabled in V1
-  -# %li
-  -#   = link_to I18n.t("search_term_reports"), search_logs_url(:reverse => true, :averages => false), {:class=>'toc_item active'}
-
   %li
     = link_to I18n.t("table_of_contents_breakdown"), {:controller => 'administrator/stats', :action => 'toc_breakdown'}, {:class=>'toc_item active'}
   %li

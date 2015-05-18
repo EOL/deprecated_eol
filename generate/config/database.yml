@@ -1,22 +1,134 @@
-# SQLite version 3.x
-#   gem install sqlite3-ruby (not necessary on OS X Leopard)
+# * See README for more information on database configuration.
+# * The convention for database names is "eol_<DATABASENAME>_<Rails.env>".
+
+
+# == Common settings
+# Common settings are shared across indivudal databases. The example settings
+# assume that some databases are on the same database server and use the same
+# authentication. You can override these settings for individual databases by
+# replacing references to common settings with specific settings.
+
+# Common settings for all databases.
+common: &common
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  # socket: /var/run/mysql2d/mysql2d.sock
+
+# Common settings for development databases.
+devel_common: &dev
+  host: localhost
+  username: root
+  password: root
+
+# Common settings for test databases.
+tst_common: &tst
+  host: localhost
+  username: root
+  password: root
+
+# Common settings for integration, staging and production databases.
+# Note this is an example file, in reality production databases should be on a
+# separate host.
+int_common: &remote
+  host: remote.example.com
+  username: user
+  password: password
+
+
+# == Development environment databases
 development:
-  adapter: sqlite3
-  database: db/development.sqlite3
-  pool: 5
-  timeout: 5000
+  <<: *common
+  <<: *dev
+  database: eol_development
 
-# Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
+development_data:
+  <<: *common
+  <<: *dev
+  database: eol_data_development
+
+development_logging:
+  <<: *common
+  <<: *dev
+  database: eol_logging_development
+
+# == Test environment databases
+# Support for read/write splitting is included in the application and is tested
+# using master/slave databases in the test environment.
 test:
-  adapter: sqlite3
-  database: db/test.sqlite3
-  pool: 5
-  timeout: 5000
+  <<: *common
+  <<: *tst
+  database: eol_test
 
-production:
-  adapter: sqlite3
-  database: db/production.sqlite3
-  pool: 5
-  timeout: 5000
+test_data:
+  <<: *common
+  <<: *tst
+  database: eol_data_test
+
+test_logging:
+  <<: *common
+  <<: *tst
+  database: eol_logging_test
+
+test_master:
+  <<: *common
+  <<: *tst
+  database: eol_test_master
+
+test_master_data:
+  <<: *common
+  <<: *tst
+  database: eol_data_test_master
+
+test_master_logging:
+  <<: *common
+  <<: *tst
+  database: eol_logging_test_master
+
+# == Integration environment databases
+integration:
+  <<: *common
+  <<: *remote
+  database: eol_integration
+
+integration_data:
+  <<: *common
+  <<: *remote
+  database: eol_data_integration
+
+integration_logging:
+  <<: *common
+  <<: *remote
+  database: eol_logging_production
+
+# == Staging environment databases
+staging:
+  <<: *common
+  <<: *remote
+  database: eol_staging
+
+staging_data:
+  <<: *common
+  <<: *remote
+  database: eol_data_staging
+
+staging_logging:
+  <<: *common
+  <<: *remote
+  database: eol_logging_production
+
+# == Production environment databases
+master_database:
+  <<: *common
+  <<: *remote
+  database: eol_integration
+
+master_data_database:
+  <<: *common
+  <<: *remote
+  database: eol_data_integration
+
+master_logging_database:
+  <<: *common
+  <<: *remote
+  database: eol_logging_production

@@ -145,6 +145,7 @@ pms:
         total_measurement_types: Tipo dë mzura
         total_association_types: Tipo d'associassion
         total_user_added_data: Dàit giontà da l'utent
+        total_data_records: Argistrassion ëd dàit
       forum:
         forum_category_id: Categorìa
         name: Nòm ëd la piassa ëd discussion
@@ -178,6 +179,7 @@ pms:
         uri: URI
         uri_type: Sòrt d'URI
         value_is_text: Ij valor a saran pa dle liure, mach ëd test
+        value_is_verbatim: Ij valor a saran pa dij nùmer, mach ëd test
       known_uri_relationship:
         from_known_uri_id: Liura dl'argoment
         to_known_uri_id: Liura bërsaj
@@ -1106,6 +1108,8 @@ pms:
     administration: Aministrassion
     no_topics: A-i é gnun-e discussion an costa piassa
     buttons:
+      move_up: '&uarr;'
+      move_down: '&darr;'
       delete: scancelé
       edit: modifiché
       reply: rësponde
@@ -1506,6 +1510,7 @@ pms:
       style='color:#195184'>ch'an contata</a>.
     see_all_activity: Ch'a vëdda tute soe atività precedente ansima a <a href='%{activity_url}'
       style='color:#195184'>soa pàgina ëd fluss ëd neuve</a>.
+    resource_validation: 'La validassion ëd l''arsorsa: %{resource} a l''é finìa'
     bulk_comments_with_count:
       one: A-i {{é un neuv coment on %{on}
       other: A-i {{son %{count} neuv coment on %{on}
@@ -4301,6 +4306,8 @@ pms:
     restant a podran ancora s-ciairela e ël fluss ëd neuve a sarà goernà, ma chila
     a sarà nen ësmonùa ant j'Arserche o an sle pàgine ëd tassonomìa, e a sarà pi nen
     modificàbil.
+  confirm_delete_data_object: É-lo sigur ëd vorèj dëscancelé st'Oget ëd dàit? Costa
+    assion a peul nen esse anulà.
   confirm_leave: É-lo sigur ëd vorèj chité sa comunità?
   confirm_password_colon: 'Ch''a confirma la ciav:'
   contact: Contat
@@ -4424,6 +4431,8 @@ pms:
     %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: An dëspias, a-i é rivaje n'eror,
     l'arsorsa a l'é nen ëstàita giontà.
+  content_partner_resource_validation_finish_notice: La validassion dl'arsorsa dël
+    cambrada ëd contnù a l'é finìa e sò stat a l'é %{resource_status}.
   content_partner_resource_dataset_details_header: Ansem ëd dàit
   content_partner_resource_delete_with_type_link: Dëscancelé tut
   content_partner_resource_description_empty: Gnun-a descrission a l'é stàita fornìa
@@ -4500,6 +4509,8 @@ pms:
   content_partner_resource_update_successful_notice: 'Ij detaj an sl''arsorsa dël
     cambrada ëd contnù a son ëstàit agiornà për da bin. Statù atual dij dàit ëd l''arsorsa:
     %{resource_status}.'
+  content_partner_resource_update_successful: Detaj dl'arsorsa dël cambrada ëd contnù
+    agiornà për da bin.
   content_partner_resource_update_unsuccessful_error: An dëspias, a-i é staje n'eror,
     ij detaj ëd l'arsorsa a son nen ëstàit agiornà.
   content_partner_resource_upload_unsuccessful_error: 'An dëspias, a-i é staje n''eror,
@@ -4758,6 +4769,12 @@ pms:
   data_column_raw_units: Unità brute (diret da la sorgiss)
   data_column_raw_units_uri: URI dj'unità brute (normalisà)
   data_column_source: Fornidor
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> a sambla dj'argistrassion
+    ëd dàit ëd tanti fornidor. Serne na riga për pi 'd detaj an sl'argistrassion,
+    opura <a href="%{traitbank_search_path}">arserca su TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    a sambla dj'argistrassion ëd dàit ëd vàire fornidor. Serne na riga për pi 'd detaj
+    an sl'argistrassion, o <a href="%{traitbank_search_path}">sërché con %{taxon_name}</a>.
   data_database_colon: 'Dàit:'
   data_glossary: Glossari dij dàit
   data_glossary_contribute: Për contibuì con dle neuva paròle a 's glossari,<a href=%{url}>ch'a
@@ -4768,6 +4785,7 @@ pms:
   data_metadata_subtable_summary: Dàit suplementar për ës fàit.
   data_measurement_subtable_summary: Dàit suplementar an sla mzurassion d'ës fàit.
   data_object: Oget ëd dàit
+  data_object_deleted: L'oget ëd dàit a l'é stàit dëscancelà për da bin
   data_object_not_associated_with_any_hierarchies: St'oget ëd dàit a l'é associà a
     gnun-e gerarchìe.
   data_object_reference: Rëspondensa dl'oget ëd dàit
@@ -4804,6 +4822,10 @@ pms:
   data_search:
     page_title: Arserca an TraitBank
     form:
+      equivalent_attributes: 'Valor equivalent:'
+      equivalent_values: 'Valor equivalent:'
+      search_again_for_attributes: sërché torna d'anclude j'atribù selessionà
+      search_again_for_values: sërché torna d'anclude ij valor selessionà
       header_assistive: Arserché da
       input_summary_intro: Opsion d'arserca selessionà
       new_search_link: Ancaminé na neuva arserca
@@ -4922,6 +4944,7 @@ pms:
   default_rating_value_of_total: 'Vot për ëstàndard: %{rating} su %{total}'
   default_watch_collection_name: Lista dla ròba che %{username} a ten sot-euj
   delete_community: Eliminé costa comunità
+  delete_data_object: Dëscancelé
   delete: dëscancelé
   deleted_colon: 'dëscancelà:'
   delete_firstcap: Dëscancelé
@@ -4942,4 +4965,43 @@ pms:
       %{count} su EdV
   donate_link: Doné
   done_already: Già fàit
+  dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Smon-e nen
+    le date d'anscrission ësconossùe (utent V1, tuti prima dij 5 gené 2009)
+  do_you_want_to_be_a_curator: Veul-lo esse un conservator?
+  download_wav_file: Dëscarié l'archivi WAV
+  download_data: Dëscarié ij dàit
+  dublin_core: Dublin Core
+  duplicate_comment_warning: |-
+    Coment nen argistrà: a smija che chiel a l'ha già publicà 's coment.
+    ...Ha-lo sgancà ël boton 'Mandé un coment' doe vire?
+  duplicate_text_warning: 'Test nen argistrà: a smija che chiel a l''ha già publicà
+    s''artìcol. ...Ha-lo sgnacà doe vire an sël boton ''gionté n''artìcol''?'
+  duplicate_items_were_ignored: J'element dobi a son ëstàit ignorà.
+  each_method_documentation_page_has_formatted_responses: Minca na pàgina ëd documentassion
+    ëd métod a comprend n'esempi dle doe rispòste an formà XML e JSON.
+  edit_comment: Modifiché ël coment
+  edit_comment_lowercase: modifiché ël coment
+  edit_community: Modifiché la comunità
+  edit_contact_us_topic: 'Modifiché ël soget: Contatene'
+  edit_contact_us_topics: 'modifiché ij soget: contatene'
+  edit: modifiché
+  edited_colon: 'modificà:'
+  edit_hierarchy: modifiché la gerarchìa
+  edit_collection_details: Modifiché ij detaj dla colession
+  edit_collection_details_header: Modifiché ij detaj dla colession
+  edit_my_profile: Modifiché mè profil
+  edit_news_items: modifiché le neuve
+  edit_page_contents: modifiché ël contnù ëd la pàgina
+  edit_permission_header: 'Modifiché j''autorisassion: %{permission}'
+  edit_search_suggestion: Modifiché ël sugeriment d'arserca
+  edit_search_suggestions: modifiché ij sugeriment d'arserca
+  edit_table_of_contents: modifiché la tàula dij contnù
+  edit_tag_suggestions: modifiché ij sugeriment ëd tichëtte
+  edit_the_topic_area_intro: Ch'a modìfica la zòna ëd test e j'adrësse ëd pòsta eletrònica
+    sì-sota e ch'a marca la casela ativa a mostré a j'utent an sla pàgina ëd contat
+    dël sit.
+  edit_user_details_instructions: Ch'a modìfica sì-sota j'anformassion an sl'utent.
+    A peul mandeje a st'utent-sì un mëssagi ëd pòsta eletrònica dal sistema an ësgnacand
+    su 'smon-e la zòna ëd mëssagi ëd pòsta eletrònica' sì-sota e an butandje ël test
+    mëssagi. Ch'a buta na ciav neuva mach s'a veul cangela, dësnò ch'a lo lassa veuid.
 ...

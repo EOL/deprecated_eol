@@ -28,6 +28,7 @@
 # Author: Penarc
 # Author: Peter Bowman
 # Author: Rbcastroc
+# Author: Rubenwap
 # Author: Sampalahnuk
 # Author: Shirayuki
 # Author: Toliño
@@ -175,6 +176,7 @@ es:
         total_measurement_types: Tipos de medición
         total_association_types: Tipos de asociación
         total_user_added_data: Datos agregados del usuario
+        total_data_records: Registros De Datos
       forum:
         forum_category_id: Categoría
         name: Nombre del foro
@@ -1528,6 +1530,7 @@ es:
       style='color:#195184'>pónte en contacto con nosotros</a>.
     see_all_activity: Ver toda la actividad anterior en <a href='%{activity_url}'
       style='color:#195184'>su página de noticias de usuario</a>.
+    resource_validation: 'El recurso: La validación de %{resource} ha terminado'
     bulk_comments_with_count:
       one: Hay un nuevo comentario en %{on}
       other: Hay %{count} nuevos comentarios %{on}
@@ -4371,6 +4374,8 @@ es:
   confirm_delete_community: ¿Estás seguro de querer suprimir esta comunidad? Miembros
     restantes todavía será capaz de ver y el suministro de noticias se mantendrá,
     pero no aparecerá en las búsquedas o en el taxón páginas, y ya no será editable.
+  confirm_delete_data_object: ¿Estás seguro de que deseas borrar este Objeto de Datos?
+    Esta acción no se puede deshacer.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
   confirm_password_colon: 'Confirmar contraseña:'
   contact: Contacto
@@ -4872,6 +4877,8 @@ es:
   data_search:
     page_title: Búsqueda TraitBank
     form:
+      equivalent_attributes: 'Valores equivalentes:'
+      equivalent_values: 'Valores equivalentes:'
       header_assistive: Formulario de búsqueda
       input_summary_intro: Opciones de búsqueda seleccionadas
       new_search_link: Iniciar una nueva búsqueda
@@ -4992,6 +4999,7 @@ es:
   default_rating_value_of_total: 'Calificación predeterminada: %{rating} de %{total}'
   default_watch_collection_name: lista de vigilancia de %{username}
   delete_community: Borrar esta comunidad
+  delete_data_object: Borrar
   delete: borra
   deleted_colon: 'borrado:'
   delete_firstcap: Eliminar

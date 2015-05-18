@@ -10,6 +10,7 @@
 # Author: Imperadeiro98
 # Author: Leosls
 # Author: Luckas
+# Author: Macofe
 # Author: Malafaya
 # Author: McDutchie
 # Author: Polyethylen
@@ -1754,6 +1755,7 @@ pt-PT:
   default_focus_collection_name_from_community: Foco de %{name}
   default_watch_collection_name: Páginas vigiadas por %{username}
   delete_community: Eliminar esta comunidade
+  delete_data_object: Eliminar
   delete: eliminar
   deleted_colon: 'eliminado:'
   delete_firstcap: Apagar

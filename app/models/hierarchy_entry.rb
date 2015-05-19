@@ -27,7 +27,8 @@ class HierarchyEntry < ActiveRecord::Base
   has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'hierarchy_entries_refs',
     association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.get_visible.id}" }
-  has_and_belongs_to_many :ancestors, class_name: HierarchyEntry.to_s, join_table: 'hierarchy_entries_flattened',
+  has_and_belongs_to_many :flat_ancestors, class_name: HierarchyEntry.to_s, join_table: 'hierarchy_entries_flattened',
+
     association_foreign_key: 'ancestor_id', order: 'lft'
   # Here is a way to find children and sort by name at the same time (this works for siblings too):
   # HierarchyEntry.find(38802334).children.includes(:name).order('names.string').limit(2)
@@ -153,6 +154,12 @@ class HierarchyEntry < ActiveRecord::Base
 
   def kingdom
     return ancestors.first rescue nil
+  end
+
+  def ancestors
+    ancestors = flat_ancestors
+    hierarchy.reindex if ancestors.empty? and parent_id > 0
+    ancestors
   end
 
   # Some HEs have a "source database" agent, which needs to be considered in addition to normal sources.

@@ -26,16 +26,16 @@ class Forums::CategoriesController < ForumsController
   # GET /forum_categories/:id/edit
   def edit
     @category = ForumCategory.find(params[:id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}" unless current_user.can_update?(@category)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}",
+    :missing_edit_acess_to_forum_category) unless current_user.can_update?(@category)
   end
 
   # PUT /forum_categories/:id
   def update
     @category = ForumCategory.find(params[:id])
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}" unless current_user.can_update?(@category)
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}",
+    :missing_edit_acess_to_forum_category)unless current_user.can_update?(@category)
     if @category.update_attributes(params[:forum_category])
       flash[:notice] = I18n.t('forums.categories.update_successful')
     else
@@ -49,8 +49,8 @@ class Forums::CategoriesController < ForumsController
   # DELETE /forum_categories/:id
   def destroy
     @category = ForumCategory.find(params[:id])
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}" unless current_user.can_delete?(@category)
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to ForumCategory with ID=#{@category.id}",
+    :missing_delete_acess_to_forum_category) unless current_user.can_delete?(@category)
     if @category.forums.count == 0
       @category.destroy
       flash[:notice] = I18n.t('forums.categories.delete_successful')

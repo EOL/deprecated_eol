@@ -8,10 +8,9 @@ class Users::OpenAuthenticationsController < UsersController
   # GET /users/:user_id/open_authentications
   def index
     @user = User.find(params[:user_id], include: :open_authentications)
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have permission to view open authentications"\
-      " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have permission to view open authentications"\
+      " for User with ID=#{@user.id}", :missing_permission_to_view_open_authentications) unless current_user.can_update?(@user)
 
     # Clean up session from previous incomplete authorizations, e.g. when users use browser back button
     session.delete_if{|k,v| k.to_s.match /^[a-z]+(?:_request_token_(?:token|secret)|_oauth_state)$/i}
@@ -25,10 +24,9 @@ class Users::OpenAuthenticationsController < UsersController
     end
 
     @user = User.find(params[:user_id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have permission to add open authentications"\
-      " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have permission to add open authentications"\
+      " for User with ID=#{@user.id}", :missing_permission_to_add_open_authentications) unless current_user.can_update?(@user)
 
     @open_auth = EOL::OpenAuth.init(oauth_provider,
                       verify_open_authentication_users_url(oauth_provider: oauth_provider),
@@ -88,10 +86,10 @@ class Users::OpenAuthenticationsController < UsersController
   def destroy
     @user = User.find(params[:user_id], include: :open_authentications)
     open_authentication = OpenAuthentication.find(params[:id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have"\
+    
+    raise EOL::Exceptions::SecurityViolation("User with ID=#{current_user.id} does not have"\
       " permission to remove OpenAuthentication with ID=#{open_authentication.id} connected to"\
-      " User with ID=#{@user.id}" unless current_user.can_delete?(open_authentication)
+      " User with ID=#{@user.id}", :missing_permission_to_delete_open_authentications) unless current_user.can_delete?(open_authentication)
     if @user.open_authentications.delete(open_authentication)
       if @user.open_authentications.blank? && @user.hashed_password.blank?
         flash.now[:warning] = I18n.t(:no_way_to_login,

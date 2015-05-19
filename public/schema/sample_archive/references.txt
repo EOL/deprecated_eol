@@ -1,2 +1,0 @@
-ReferenceID	PublicationType	Full Reference	PrimaryTitle	SecondaryTitle	Pages	PageStart	PageEnd	Volume	Edition	Publisher	AuthorList	EditorList	DateCreated	Language	URL	DOI	LocalityOfPublisher
-Ref1	Book		A voyage towards the North Pole undertaken by His Majesty's command			185				J. Nourse	Constantine John Phipps		1774	en	http://www.biodiversitylibrary.org/ia/voyagetowardsnor00mulg	http://dx.doi.org/10.5962/bhl.title.15240	London

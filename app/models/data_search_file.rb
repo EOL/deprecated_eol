@@ -29,11 +29,10 @@ class DataSearchFile < ActiveRecord::Base
         end
         update_attributes(completed_at: Time.now.utc)
       else
-        # something goes wrong with file uploading
-        return {error: response[:error]}
+        # something goes wrong with uploading file 
+        update_attributes(failed_at: Time.now.utc, error: response[:error])
       end
     end
-    return {error: nil}
   end
 
   def csv(options = {})

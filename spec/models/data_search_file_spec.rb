@@ -26,7 +26,7 @@ describe DataSearchFile do
 
   it 'should upload files' do
     @search_file.hosted_file_url = nil
-    ContentServer.should_receive(:upload_data_search_file).with(@search_file.local_file_url, @search_file.id).and_return('download.csv.zip')
+    ContentServer.should_receive(:upload_data_search_file).with(@search_file.local_file_url, @search_file.id).and_return({response:'download.csv.zip', error: nil})
     expect(@search_file.hosted_file_url).to eq(nil)
     @search_file.build_file
     expect(@search_file.hosted_file_url).to eq(Rails.configuration.hosted_dataset_path + 'download.csv.zip')

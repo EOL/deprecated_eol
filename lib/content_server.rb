@@ -50,7 +50,9 @@ class ContentServer
     return nil if file_url.blank?
     return nil if resource_id.blank?
     parameters = "function=upload_resource&resource_id=#{resource_id}&file_path=#{file_url}"
-    if response[:response] = call_api_with_parameters(parameters, "content partner dataset service")
+    hash = call_api_with_parameters(parameters, "content partner dataset service")
+    response = response[:response]
+    if response
       response = Hash.from_xml(response)
       # set status to response - we've validated the resource
       if response["response"].key? "status"

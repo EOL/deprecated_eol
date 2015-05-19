@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="extension_view.xsl"?>
+<extension xmlns="http://rs.gbif.org/extension/"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="http://rs.gbif.org/extension/ http://rs.gbif.org/schema/extension.xsd"
+            xmlns:dc="http://purl.org/dc/terms/"
+            dc:title="EOL Agents Extension 1.0"
+            name="EOLAgentsExtension"
+            namespace="http://www.eol.org/schema/transfer#"
+            rowType="http://eol.org/schema/agent/Agent">
+<property name="identifier" namespace="http://purl.org/dc/terms/" qualName="http://purl.org/dc/terms/identifier" dc:description="An identifier for a resource that is referenced, cited, or otherwise pointed to by a taxon or media resource." required="true" examples="agent111"/>
+<property name="term_name" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_name" dc:description="A name for some thing" examples="Jane Doe"/>
+<property name="term_firstName" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_firstName" dc:description="The first name of a person" examples="Jane"/>
+<property name="term_familyName" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_familyName" dc:description="The family name of some person" examples="Doe"/>
+<property name="agentRole" namespace="http://eol.org/schema/agent/" qualName="http://eol.org/schema/agent/agentRole" dc:description="The role the agent played in the preparation or delivery of a resource." examples="photographer"/>
+<property name="term_mbox" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_mbox" dc:description="A personal mailbox." examples="someone@example.com"/>
+<property name="term_homepage" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_homepage" dc:description="A homepage for some thing." examples="http://example.com/agent111"/>
+<property name="term_logo" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_logo" dc:description="A logo representing some thing." examples="http://farm3.staticflickr.com/2198/buddyicons/11571226@N04.jpg?1269816342#11571226@N04"/>
+<property name="term_currentProject" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_currentProject" dc:description="A current project this person works on."/>
+<property name="organization" namespace="http://eol.org/schema/agent/" qualName="http://eol.org/schema/agent/organization" dc:description="An organization this person is affiliated with."/>
+<property name="term_accountName" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_accountName" dc:description="Indicates the name (identifier) associated with this online account." examples="jdoe"/>
+<property name="term_openid" namespace="http://xmlns.com/foaf/spec/#" qualName="http://xmlns.com/foaf/spec/#term_openid" dc:description="An OpenID for an Agent."/>
+</extension>

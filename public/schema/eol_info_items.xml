@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="owl_view.xsl"?>
+
+<rdf:RDF
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+  xmlns:owl="http://www.w3.org/2002/07/owl#"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xml:base="http://www.eol.org/schema/eol_info_items.xml"
+  xmlns="http://www.eol.org/schema/eol_info_items.xml#">
+  
+  <owl:Ontology rdf:about="http://www.eol.org/schema/eol_info_items.xml">
+    <dc:title>EOL Biodiversity Subjects Ontology</dc:title>
+    <dc:creator>Patrick Leary</dc:creator>
+    <dc:publisher>Encyclopedia of Life</dc:publisher>
+    <dcterms:issued>2010-12-28</dcterms:issued>
+    <dc:description>A vocabulary of subjects used to define organisms</dc:description>
+    <owl:versionInfo>0.1</owl:versionInfo>
+  </owl:Ontology>
+  
+  <owl:Class rdf:ID="Barcode">
+    <rdfs:label>Barcode</rdfs:label>
+    <dc:title>Barcode</dc:title>
+    <dc:description>Links to barcode data, including BOL and others.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="CitizenScience">
+    <rdfs:label>Citizen Science</rdfs:label>
+    <dc:title>Citizen Science</dc:title>
+    <dc:description>Links to citizen science projects relevant to this taxon.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="Development">
+    <rdfs:label>Development</rdfs:label>
+    <dc:title>Development</dc:title>
+    <dc:description>Aspects of development in the focal taxon, including ontogenetic changes. This does not include life cycle information.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="Education">
+    <rdfs:label>Education</rdfs:label>
+    <dc:title>Education</dc:title>
+    <dc:description>Notes about education</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="EducationResources">
+    <rdfs:label>Education Resources</rdfs:label>
+    <dc:title>Education Resources</dc:title>
+    <dc:description>Links to education resources relevant to this taxon.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="FossilHistory">
+    <rdfs:label>Fossil History</rdfs:label>
+    <dc:title>Fossil History</dc:title>
+    <dc:description>A description of the known fossil history of the taxon. Known from what period and in what areas.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="FunctionalAdaptations">
+    <rdfs:label>Functional Adaptations</rdfs:label>
+    <dc:title>Functional Adaptations</dc:title>
+    <dc:description>Biomechanics and other descriptions establishing relationships between morphologies, properties, or behaviors and their functions or adaptive significance.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="Genome">
+    <rdfs:label>Genome</rdfs:label>
+    <dc:title>Genome</dc:title>
+    <dc:description>Links to genomic information or full genomes of the focal taxon.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="IdentificationResources">
+    <rdfs:label>Identification Resources</rdfs:label>
+    <dc:title>Identification Resources</dc:title>
+    <dc:description>Links to identification keys or other identification resources that include this taxon.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="Notes">
+    <rdfs:label>Notes</rdfs:label>
+    <dc:title>Notes</dc:title>
+    <dc:description>A category intended as a place to map content that is difficult to fit into EOL subchapters or because it contains content intended for a wide variety of subchapters.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="NucleotideSequences">
+    <rdfs:label>Nucleotide Sequences</rdfs:label>
+    <dc:title>Nucleotide Sequences</dc:title>
+    <dc:description>Links to sources of nucleotide sequences, including DNA, RNA, fragment length polymorphisms, SNP's, microsatellites, etc.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="SystematicsOrPhylogenetics">
+    <rdfs:label>Systematics or Phylogenetics</rdfs:label>
+    <dc:title>Systematics or Phylogenetics</dc:title>
+    <dc:description>Description of the evolutionary relationships of this taxon and any controversies or important changes in the understanding of relationships. Also descriptions of any systematic or phylogenetic treatments of the taxon.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="Taxonomy">
+    <rdfs:label>Taxonomy</rdfs:label>
+    <dc:title>Taxonomy</dc:title>
+    <dc:description>Information about taxonomic history, nomenclatural issues.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="TypeInformation">
+    <rdfs:label>Type Information</rdfs:label>
+    <dc:title>Type Information</dc:title>
+    <dc:description>Information about type specimens associated with a given taxon; e.g., label data, the collection where they are stored, information about the specimens' history, etc.</dc:description>
+    <rdfs:isDefinedBy rdf:resource="http://www.eol.org/schema/eol_info_items.xml"/>
+  </owl:Class>
+   
+</rdf:RDF>

@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="owl_view.xsl"?>
+<!DOCTYPE rdf:RDF [
+    <!ENTITY terms "http://purl.org/dc/terms/" >
+    <!ENTITY foaf "http://xmlns.com/foaf/0.1/" >
+    <!ENTITY dwc "http://rs.tdwg.org/dwc/terms/" >
+    <!ENTITY bibo "http://purl.org/ontology/bibo/" >
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY resource "http://www.eol.org/schema/transfer#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+<rdf:RDF xmlns="&resource;"
+   xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+   xmlns:foaf="http://xmlns.com/foaf/0.1/"
+   xmlns:terms="http://purl.org/dc/terms/"
+   xmlns:resource="http://www.eol.org/schema/transfer#"
+   xmlns:dwc="http://rs.tdwg.org/dwc/terms/"
+   xmlns:bibo="http://purl.org/ontology/bibo/"
+   xmlns:owl="http://www.w3.org/2002/07/owl#"
+   xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   
+  <owl:Ontology rdf:about="&resource;">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment>New EOL Media Ontology</rdfs:comment>
+    <owl:imports rdf:resource="file:/Users/pleary/Apache/eol/public/schema/subjects.rdf#"/>
+    <owl:imports rdf:resource="file:/Users/pleary/Apache/eol/public/schema/subtypes.rdf#"/>
+  </owl:Ontology>
+  
+  <!-- &resource;MediaResource -->
+  <owl:Class rdf:ID="MediaResource">
+     <rdfs:label></rdfs:label>
+     <rdfs:comment></rdfs:comment>
+     <rdfs:subClassOf rdf:resource="&foaf;Document"/>
+  </owl:Class>
+  
+  <owl:ObjectProperty rdf:ID="mediaResourceID">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:subPropertyOf rdf:resource="&terms;identifier"/>
+  </owl:ObjectProperty>
+  
+  <!-- http://dublincore.org/documents/dcmi-terms/#H7 -->
+  <owl:ObjectProperty rdf:ID="type">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;type"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="subtype">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:range>
+      <owl:Class>
+        <owl:unionOf rdf:parseType="Collection">
+          <owl:Class rdf:about="&resource;StillImageSubtype"/>
+          <owl:Class rdf:about="&resource;MovingImageSubtype"/>
+          <owl:Class rdf:about="&resource;SoundSubtype"/>
+          <owl:Class rdf:about="&resource;TextSubtype"/>
+          <owl:Class rdf:about="&resource;DatasetSubtype"/>
+        </owl:unionOf>
+      </owl:Class>
+    </rdfs:range>
+    <rdfs:subPropertyOf rdf:resource="&resource;type"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="title">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;title"/>
+  </owl:ObjectProperty>
+  
+  <!-- http://www.iana.org/assignments/media-types/ -->
+  <owl:ObjectProperty rdf:ID="mimeType">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:subPropertyOf rdf:resource="&terms;format"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="fileURL">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:range rdf:resource="&xsd;anyURI"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="thumbnailURL">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:range rdf:resource="&xsd;anyURI"/>
+    <rdfs:subPropertyOf rdf:resource="&resource;fileURL"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="additionalInformationURL">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:range rdf:resource="&xsd;anyURI"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="created">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;created"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="modified">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;modified"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="available">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;available"/>
+  </owl:ObjectProperty>
+  
+  <!-- http://www.loc.gov/standards/iso639-2/langhome.html -->
+  <owl:ObjectProperty rdf:ID="language">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;language"/>
+  </owl:ObjectProperty>
+  
+  <!-- http://www.loc.gov/standards/iso639-2/langhome.html -->
+  <owl:ObjectProperty rdf:ID="metadataLanguage">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:subPropertyOf rdf:resource="&resource;language"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="providerManagedIdentifier">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:subPropertyOf rdf:resource="&terms;identifier"/>
+  </owl:ObjectProperty>
+  
+  <!-- essentially equivalent to http://ns.adobe.com/xap/1.0/rating, http://partners.adobe.com/public/developer/en/xmp/sdk/XMPspecification.pdf -->
+  <owl:ObjectProperty rdf:ID="rating">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment>A rating of the media resources, provided by users or editors, with -1 defining 'rejected', '0' defining 'unrated', and '1' (worst) to '5' (best)</rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="license">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;license"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="rights">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;rights"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="rightsHolder">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;rightsHolder"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="bibliographicCitation">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;bibliographicCitation"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="audience">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;educationLevel"/>
+  </owl:ObjectProperty>
+  
+  <!-- http://www.iana.org/assignments/media-types/ -->
+  <owl:ObjectProperty rdf:ID="subject">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <rdfs:range rdf:resource="&resource;Subject"/>
+    <rdfs:subPropertyOf rdf:resource="&foaf;primaryTopic"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="publisher">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;publisher"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="contributor">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;contributor"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="creator">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;creator"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="description">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&terms;description"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="locality">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&dwc;locality"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="latitude">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&dwc;decimalLatitude"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="longitude">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+    <owl:equivalentProperty rdf:resource="&dwc;decimalLongitude"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="altitude">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;MediaResource"/>
+  </owl:ObjectProperty>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <owl:Class rdf:ID="Subject">
+     <rdfs:label></rdfs:label>
+     <rdfs:comment></rdfs:comment>
+  </owl:Class>
+  
+  <owl:ObjectProperty rdf:ID="parentSubject">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;Subject"/>
+    <rdfs:range rdf:resource="&resource;Subject"/>
+  </owl:ObjectProperty>
+  
+  
+  <owl:Class rdf:ID="Subtype">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="StillImageSubtype">
+     <rdfs:label></rdfs:label>
+     <rdfs:comment></rdfs:comment>
+     <rdfs:subClassOf rdf:resource="&resource;Subtype"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="MovingImageSubtype">
+     <rdfs:label></rdfs:label>
+     <rdfs:comment></rdfs:comment>
+     <rdfs:subClassOf rdf:resource="&resource;Subtype"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="SoundSubtype">
+     <rdfs:label></rdfs:label>
+     <rdfs:comment></rdfs:comment>
+     <rdfs:subClassOf rdf:resource="&resource;Subtype"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="TextSubtype">
+     <rdfs:label></rdfs:label>
+     <rdfs:comment></rdfs:comment>
+     <rdfs:subClassOf rdf:resource="&resource;Subtype"/>
+  </owl:Class>
+  
+  <owl:Class rdf:ID="DatasetSubtype">
+     <rdfs:label></rdfs:label>
+     <rdfs:comment></rdfs:comment>
+     <rdfs:subClassOf rdf:resource="&resource;Subtype"/>
+  </owl:Class>
+  
+  
+  
+  
+  
+  
+  
+  
+  <!-- &resource;MediaResource -->
+  <owl:Class rdf:ID="Document">
+     <rdfs:label></rdfs:label>
+     <rdfs:comment></rdfs:comment>
+     <owl:equivalentClass rdf:resource="http://xmlns.com/foaf/0.1/Document"/>
+     <owl:equivalentClass rdf:resource="http://purl.org/ontology/bibo/Document"/>
+  </owl:Class>
+  
+  <owl:ObjectProperty rdf:ID="authorList">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;Document"/>
+    <owl:equivalentProperty rdf:resource="&bibo;authorList"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="editorList">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;Document"/>
+    <owl:equivalentProperty rdf:resource="&bibo;editorList"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="created">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;Document"/>
+    <owl:equivalentProperty rdf:resource="&terms;created"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="title">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;Document"/>
+    <owl:equivalentProperty rdf:resource="&terms;title"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="publisher">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;Document"/>
+    <owl:equivalentProperty rdf:resource="&terms;publisher"/>
+  </owl:ObjectProperty>
+  
+  <owl:ObjectProperty rdf:ID="language">
+    <rdfs:label></rdfs:label>
+    <rdfs:comment></rdfs:comment>
+    <rdfs:domain rdf:resource="&resource;Document"/>
+    <owl:equivalentProperty rdf:resource="&terms;language"/>
+  </owl:ObjectProperty>
+  
+  
+  
+  
+</rdf:RDF>

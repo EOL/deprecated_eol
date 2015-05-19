@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="file:/Users/pleary/ontologies/subtypes.rdf#" uri="subtypes.rdf"/>
+    <uri id="Imports Wizard Entry" name="file:/Users/pleary/ontologies/subjects.rdf#" uri="subjects.rdf"/>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=1" prefer="public" xml:base=""/>
+</catalog>

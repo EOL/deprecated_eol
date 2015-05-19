@@ -1,0 +1,7 @@
+TaxonID	Name	Source Reference	Language	Locality	CountryCode	IsPreferredName	TaxonRemarks
+Taxon1	Polar bear		en			true	
+Taxon1	Ours blanc		fr			true	
+Taxon1	Ours polaire		fr			false	
+Taxon9	The Death Cap		en			true	
+Taxon9	Deathcap		en			false	
+Taxon9	Grønn fluesopp		no			true	

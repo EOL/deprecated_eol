@@ -1,0 +1,1 @@
+!function(){var e={exec:function(e){e.openDialog("embed")}};CKEDITOR.plugins.add("embed",{lang:["en","el","ru","uk"],requires:["dialog"],init:function(t){var i="embed";t.addCommand(i,e),t.ui.addButton("Embed",{label:t.lang.embed.button,command:i,icon:this.path+"images/embed.png"}),CKEDITOR.dialog.add(i,CKEDITOR.getUrl(this.path+"dialogs/embed.js"))}})}();

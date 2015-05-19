@@ -3316,6 +3316,7 @@ en:
   current_harvest_event: "Harvest event from \"%{resource_title}\" ran for \"%{period}\" hours"
   currently_running_harvesting: "Currently Running Harvesting"
   currently_in_eol: "Currently in the Encyclopedia of Life"
+  institutional_sponsors: "Institutional Sponsors"
   currently_published: "currently published"
   daily: "Daily"
   darwin_core: "Darwin Core"

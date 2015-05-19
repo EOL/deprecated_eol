@@ -91,7 +91,7 @@ module EOL
           end
 
           return_hash['ancestors'] = []
-          HierarchyEntry.preload_associations(hierarchy_entry, { :ancestors => [ :rank, :name ] })
+          HierarchyEntry.preload_associations(hierarchy_entry, { :flat_ancestors => [ :rank, :name ] })
           hierarchy_entry.ancestors.each do |ancestor|
             next if ancestor.id == hierarchy_entry.id
             ancestor_hash = {}

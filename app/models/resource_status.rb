@@ -16,7 +16,8 @@ class ResourceStatus < ActiveRecord::Base
     'Validated',
     'Validation Failed',
     'Published',
-    'Obsolete'
+    'Obsolete',
+    'Harvest Failed'
   ]
 
 end

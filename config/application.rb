@@ -352,13 +352,6 @@ module Eol
     $CURATOR_COMMUNITY_NAME = 'EOL Curators'
     $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
-    $VIRTUOSO_USER = 'dba'
-    $VIRTUOSO_PW = 'dba'
-    $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
-    $VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
-    $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
-    $VIRTUOSO_CACHING_PERIOD = 12 # HOURS
-    
     # Recaptcha Keys
     ENV['RECAPTCHA_PUBLIC_KEY'] ||= ''
     ENV['RECAPTCHA_PRIVATE_KEY'] ||= ''

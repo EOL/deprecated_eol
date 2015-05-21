@@ -25,6 +25,13 @@ Eol::Application.configure do
   # Raise exceptions instead of rendering exception templates
   config.action_dispatch.show_exceptions = false
 
+  $VIRTUOSO_USER = 'dba'
+  $VIRTUOSO_PW = 'dba'
+  $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8891/sparql'
+  $VIRTUOSO_UPLOAD_URI = 'http://localhost:8891/DAV/home/dba/upload'
+  $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8891/describe/?url='
+  $VIRTUOSO_CACHING_PERIOD = 12 # HOURS
+
   # Disable request forgery protection in test environment
   config.action_controller.allow_forgery_protection    = false
 

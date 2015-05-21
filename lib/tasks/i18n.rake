@@ -20,7 +20,8 @@ namespace :i18n do
       translations = YAML.load_file(File.join(lang_dir, file))
       locale = translations.keys.first # There's only one.
       puts "  ++ #{locale} -> #{file} (#{translations[locale].keys.count} keys)"
-      I18n.backend.store_translations(locale, translations[locale], :escape => false)
+      I18n.backend.store_translations(locale, translations[locale], escape: false)
+      I18n.backend.store.set(file)
     end
   end
 

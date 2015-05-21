@@ -203,4 +203,3 @@ gem "uuid", "2.3.5" # Used when creating data objects
 gem "will_paginate", "~> 3.0" # Used ALL OVER THE SITE for pagination.
 gem "nunes", "0.3.0"  # This makes it easier to handle statsd
 gem "execjs", "2.0.2"  # needed to run rake tasks in cron
-gem 'cached_key_value_store'

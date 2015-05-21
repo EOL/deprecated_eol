@@ -76,8 +76,6 @@ GEM
       treetop (~> 1.4)
       unicode_utils (~> 1.4)
     builder (3.0.4)
-    cached_key_value_store (0.1.0)
-      activesupport
     capistrano (2.13.5)
       highline
       net-scp (>= 1.0.0)
@@ -433,7 +431,6 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   biodiversity (= 3.1.2)
-  cached_key_value_store
   capistrano (= 2.13.5)
   capistrano-unicorn-pleary (= 0.1.6.1)
   capybara (= 1.1.3)

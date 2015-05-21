@@ -47,8 +47,6 @@ module Eol
 
     # Just shut up about this warning:
     I18n.enforce_available_locales = false
-    # config.i18n.fallbacks = true
-    
 
     # We're only loading 'en.yml' by default, here. See the other environments
     # for how to "turn on" all the other YML files.  This makes startup times SO

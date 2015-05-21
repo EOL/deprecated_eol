@@ -15,7 +15,6 @@ class ApplicationController < ActionController::Base
   before_filter :global_warning, except: [ :fetch_external_page_title ]
   before_filter :check_user_agreed_with_terms, except: [ :fetch_external_page_title, :error ]
   before_filter :set_locale, except: [ :fetch_external_page_title ]
-  before_filter :ensure_fresh_i18n
 
   prepend_before_filter :redirect_to_http_if_https
   prepend_before_filter :keep_home_page_fresh
@@ -59,7 +58,6 @@ class ApplicationController < ActionController::Base
     I18n.locale = current_language.iso_639_1
   rescue
     I18n.locale = 'en' # Yes, I am hard-coding that because I don't want an error from Language.  Ever.
-    
   end
 
   def allow_login_then_submit
@@ -953,17 +951,6 @@ private
       end
     else
       yield
-    end
-  end
-
-  def ensure_fresh_i18n
-    # debugger
-    if I18n.backend.ensure_freshness! I18n.locale
-      debugger
-      lang_dir = Rails.root.join('config', 'translations')
-      file =  Dir.entries(lang_dir).grep(/#{I18n.locale.to_s}.yml$/)
-      translations = YAML.load_file(File.join(lang_dir, file))
-      I18n.backend.store_translations(I18n.locale.to_s, translations[I18n.locale.to_s], escape: false)
     end
   end
 

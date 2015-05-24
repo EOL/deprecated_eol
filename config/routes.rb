@@ -197,6 +197,8 @@ Eol::Application.routes.draw do
       get 'choose_collect_target'
       get 'choose_editor_target'
       post 'collect_item'
+      get 'load_collection'
+      get 'submit_taxa_list'
     end
     resource :newsfeed, :only => [:show], :controller => 'collections/newsfeeds'
     resources :editors, :only => [:index], :controller => 'collections/editors'

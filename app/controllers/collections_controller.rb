@@ -5,7 +5,7 @@ class CollectionsController < ApplicationController
   # collections
   before_filter :login_with_open_authentication, only: :show
   before_filter :modal, only: [:choose_editor_target, :choose_collect_target]
-  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]
+  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects, :load_collection, :submit_taxa_list]
   before_filter :prepare_show, only: [:show]
   before_filter :user_able_to_edit_collection, only: [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, only: [:show]
@@ -214,6 +214,65 @@ class CollectionsController < ApplicationController
     render nothing: true
   end
 
+  def load_collection
+    return must_be_logged_in unless logged_in?
+    @page_title = I18n.t("collection_loading.load_collection")
+  end
+  
+  def submit_taxa_list
+    return must_be_logged_in unless logged_in?
+    if params[:collection_name].blank?
+      flash[:error] = I18n.t("collection_loading.missing_name")
+    elsif params[:list].blank?
+      flash[:error] = I18n.t("collection_loading.missing_list")
+    else
+      @collection = Collection.new(name: params[:collection_name])
+      if @collection.save
+        @collection.users = [current_user]
+        log_activity(activity: Activity.create)
+        #create a list of strings
+        @col_list = CollectionFromList.new(collection: @collection)
+        if @col_list.save
+          params[:list].split(/\r\n/).map{|s| s.strip}.uniq.each do |line|
+            CollectionFromListString.create(string: line.strip, collection_from_list: @col_list)
+          end
+          @col_list.find_matches
+          add_items_to_collection
+        end
+      end
+      return redirect_to collection_path(@collection)
+    end
+    return redirect_to action: 'load_collection', collection_name: params[:collection_name], list: params[:list]
+  end
+  
+  # def do_loading
+    # return must_be_logged_in unless logged_in?
+    # @collection_name = params[:collection_name]
+    # if params[:collection_name].blank?
+      # flash[:error] = I18n.t("collection_loading.missing_name")
+    # elsif session[:results_taxa].blank?
+      # flash[:error] = I18n.t("collection_loading.missing_list")
+    # else
+      # @collection = Collection.new(name: @collection_name)
+      # if @collection.save
+        # @collection.users = [current_user]
+        # log_activity(activity: Activity.create)
+        # add_items_to_collection        
+        # items_count = @collection.collection_items.count
+        # if items_count == 0
+          # @collection.destroy
+          # flash[:error] = I18n.t("collection_loading.missing_valid_items")
+          # return redirect_to :back
+        # else
+          # @collection.collection_items_count = items_count
+          # @collection.save
+        # end
+        # return redirect_to collection_path(@collection)
+      # end
+      # flash[:error] = I18n.t(:collection_not_created_error, collection_name: @collection.name)
+    # end
+    # return redirect_to :back
+  # end
 protected
 
   def scoped_variables_for_translations
@@ -249,6 +308,15 @@ protected
 
 private
 
+  def add_items_to_collection
+    exact = @col_list.strings.exact
+    if exact.count > 0
+      exact.matches.each do |match|
+        @collection.add(TaxonConcept.find(match.taxon_concept_id))
+      end
+    end   
+  end
+  
   def find_collection
     begin
       if params[:collection_id] && params[:collection_id].is_a?(Array)

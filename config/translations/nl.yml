@@ -10,6 +10,7 @@
 # Author: Inholland
 # Author: McDutchie
 # Author: MedShot
+# Author: Ndijkstra
 # Author: Patio
 # Author: Robin0van0der0vliet
 # Author: Romaine
@@ -79,7 +80,7 @@ nl:
         description: Tekst
         object_title: Naam
         rights_holder: Rechtenhouder
-        rights_statement: Verklaring van de rechten
+        rights_statement: Rechtenverklaring
         source_url: Bron-URL
       data_object_link:
         description: Beschrijving
@@ -110,7 +111,7 @@ nl:
         data_objects_texts: Tekstobjecten
         data_objects_images: Afbeeldingsobjecten
         data_objects_videos: Video-objecten
-        data_objects_sounds: Audio objecten
+        data_objects_sounds: Audio-objecten
         data_objects_maps: Kaartobjecten
         data_objects_trusted: Vertrouwde gegevensobjecten
         data_objects_unreviewed: Ongecontroleerde gegevensobjecten
@@ -164,6 +165,7 @@ nl:
         total_measurement_types: Meettypen
         total_association_types: Gekoppelde typen
         total_user_added_data: Door gebruikers toegevoegde gegevens
+        total_data_records: Gegevensrecords
       forum:
         forum_category_id: Categorie
         name: Forumnaam
@@ -197,6 +199,7 @@ nl:
         uri: URI
         uri_type: Type URI
         value_is_text: Waarden zijn geen URI's, alleen tekst
+        value_is_verbatim: Waarden worden geen nummer, alleen tekst
       known_uri_relationship:
         from_known_uri_id: Onderwerp-URI
         to_known_uri_id: Doel-URI
@@ -4754,6 +4757,7 @@ nl:
     "%{period}" uur uitgevoerd
   currently_running_harvesting: Er wordt op dit moment geoogst
   currently_in_eol: Nu in Encyclopedia of Life
+  institutional_sponsors: Institutionele sponsoren
   currently_published: op dit moment gepubliceerd
   daily: Dagelijks
   darwin_core: Darwin Core
@@ -4842,6 +4846,8 @@ nl:
   data_search:
     page_title: TraitBank doorzoeken
     form:
+      equivalent_attributes: 'Vergelijkbare waarden:'
+      equivalent_values: 'Vergelijkbare waarden:'
       header_assistive: Zoekformulier
       input_summary_intro: Geselecteerde zoekopties
       new_search_link: Nieuwe zoekopdracht starten
@@ -4956,6 +4962,7 @@ nl:
   default_rating_value_of_total: 'Standaard waardering: %{rating} van %{total}'
   default_watch_collection_name: Volglijst van %{username}
   delete_community: Deze gemeenschap verwijderen
+  delete_data_object: Verwijderen
   delete: verwijderen
   deleted_colon: 'verwijderd:'
   delete_firstcap: Verwijderen
@@ -5111,6 +5118,55 @@ nl:
         en EOL-conservatoren met een minimaal conservatorniveau van Meester.
       no_access: Deze functie is helaas tijdelijk uitgeschakeld. Kom snel terug om
         te kijken of die weer werkt.
+      missing_edit_acess_to_forum_category: Alleen beheerders kunnen deze forumcategorie
+        bewerken
+      missing_delete_acess_to_forum_category: Alleen beheerders kunnen deze forumcategorie
+        verwijderen
+      missing_edit_acess_to_forum_post: Alleen beheerders of berichteigenaren kunnen
+        dit forumbericht bewerken
+      missing_delete_acess_to_forum_post: Alleen beheerders of berichteigenaren kunnen
+        dit forumbericht verwijderen
+      missing_set_article_as_exemplar_privilege: Alleen conservatoren kunnen pagina's
+        als exemplarisch instellen
+      missing_delete_access_to_synonym: Alleen agenten kunnen dit synoniem verwijderen
+      missing_delete_access_to_data_search_file: Alleen bekeerders, meesterconservatoren
+        of eigenaren van bestanden kunnen dit bestand verwijderen
+      missing_permission_to_view_open_authentications: Alleen beheerders en accounteigenaren
+        kunnen de open authenticaties voor deze account bekijken
+      missing_permission_to_add_open_authentications: Alleen beheerders en accounteigenaren
+        kunnen autheniticaties voor deze account bekijken
+      missing_permission_to_delete_open_authentications: Alleen beheerders en accounteigenaren
+        kunnen open autheniticaties voor deze account verwijderen
+      this_action_requires_higher_curation_level: Voor deze handeling is een hoger
+        conservatorniveau nodig
+      admins_and_joined_only_can_read: Wordt lid van deze verzameling om hem te kunnen
+        bekijken
+      owner_and_managers_only_can_edit: Alleen de eigenaren van verzamelingen of managers
+        kunnen dit bewerken
+      error_revoking_editor_on_watch_collection: Bewerkers kunnen niet verwijderd
+        worden uit gevolgde verzamelingen
+      error_revoking_editor_on_an_empty_community: Bewerkers kunnen niet verwijderd
+        worden uit een lege gemeenschap
+      only_managers_can_edit_community: Alleen managers kunnen deze gemeenschap bewerken
+      only_managers_can_delete_community: Alleen managers kunnen deze gemeenschap
+        verwijderen
+      only_admins_can_view_content_pages: Alleen beheerders kunnen inhoudspagina's
+        bekijken
+      only_admins_can_view_translated_content_pages: Alleen beheerders kunnen pagina's
+        met vertaalde inhoud bekijken
+      only_admins_can_edit_forums: Alleen beheerders kunnen forums bewerken
+      must_be_logged_in: U moet aangemeld zijn
+      only_admins_can_read_hidden_news_items: Alleen beheerders kunnen verborgen nieuwsberichten
+        lezen
+      only_admins_can_read_hidden_translated_news_items: Alleen beheerders kunnen
+        verborgen vertaalde nieuwsberichten lezen
+      can_not_access_unpublished_taxon: U hebt geen toegang tot een ongepubliceerd
+        taxon
+      only_data_owner_can_edit: Alleen de gegevenseigenaar kan het bewerken
+      only_data_owner_can_delete: Alleen de gegevenseigenaar kan het verwijderen
+      error_editing_someone_account: U kunt alleen uw eigen account bewerken
+      can_not_edit_permissions: U kunt rechten niet bewerken
+      collection_job_not_valid: Verzamelingstaak niet geldig
   excluded_icon_tip: Rijen gemarkeerd met het pictogram uitgezonderd %{excluded_icon}
     worden nooit weergegeven worden op de overzichtspagina's van taxa.
   expand_all_children: alle kinderen uitvouwen

@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ale.salmo
 # Author: Beta16
+# Author: Chris96
 # Author: Damiano Martino
 # Author: Darth Kule
 # Author: EdoDodo
@@ -170,6 +171,7 @@ it:
         total_measurement_types: Tipi di misurazione
         total_association_types: Tipi di associazione
         total_user_added_data: Dati aggiunti dall'utente
+        total_data_records: Record dei Dati
       forum:
         forum_category_id: Categoria
         name: Nome del forum
@@ -203,6 +205,7 @@ it:
         uri: URI
         uri_type: Tipo di URI
         value_is_text: I valori non saranno gli URI, solo testo
+        value_is_verbatim: I valori non possono essere numeri, solo testo
       known_uri_relationship:
         from_known_uri_id: Oggetto URI
         to_known_uri_id: Target URI

@@ -2867,6 +2867,7 @@ zh-CN:
   completed_colon: 完成：
   confirm_deactivate_user: 您确信您要停用此用户？
   confirm_delete_community: 您确认要删除这个社区？社区的其他会员还可以浏览该社区的内容，但是该社区的内容已经不能进行查询和显示在物种页面，也无法在进行编辑。
+  confirm_delete_data_object: 您确信您要删除此数据对象？此操作不能被撤销。
   confirm_leave: 您确认要离开这个社区？
   confirm_password_colon: 确认密码：
   contact: 联系
@@ -3358,6 +3359,20 @@ zh-CN:
       min_master_curators_only: 抱歉，访问权限制为至少硕士级的EOL管理层。
       min_full_curators_only: 抱歉，访问的最低权限是EOL管理员。
       no_access: 抱歉，此功能暂时禁用。请稍后再试。
+      missing_edit_acess_to_forum_category: 对不起，只有管理员可以编辑此论坛分类
+      missing_delete_acess_to_forum_category: 对不起，只有管理员可以删除此论坛分类
+      missing_set_article_as_exemplar_privilege: 抱歉，只有馆长可以将条目设置为标本
+      this_action_requires_higher_curation_level: 对不起，此操作需要更高的管理等级
+      only_admins_can_view_content_pages: 对不起，只有管理员可以查看内容页面
+      only_admins_can_view_translated_content_pages: 对不起，只有管理员可以查看已翻译的内容页面
+      only_admins_can_edit_forums: 对不起，只有管理员可以编辑论坛
+      must_be_logged_in: 对不起，您必须登录
+      only_admins_can_read_hidden_news_items: 对不起，只有管理员可以阅读隐藏的新闻项目
+      only_data_owner_can_edit: 对不起，只有数据所有者可以编辑它
+      only_data_owner_can_delete: 对不起，只有数据所有者可以删除它
+      error_editing_someone_account: 对不起，您只可以编辑您自己的账户
+      can_not_edit_permissions: 对不起，您不能编辑权限
+      collection_job_not_valid: 收藏工作无效
   expand_all_children: 展开所有子节点
   expired: 届满的
   expires_in_colon: 届满于：

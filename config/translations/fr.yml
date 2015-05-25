@@ -8,6 +8,7 @@
 # Author: DavidL
 # Author: Davidtsm
 # Author: Euloiix
+# Author: Freak2fast4u
 # Author: Gomoko
 # Author: Hashar
 # Author: Immortal
@@ -5166,6 +5167,8 @@ fr:
         et aux conservateurs de EdlV ayant un niveau minimum de conservateur maître.
       no_access: Désolé, cette fonctionnalité est temporairement désactivée. Revérifiez
         prochainement.
+      missing_set_article_as_exemplar_privilege: Désolé, seuls les conservateurs peuvent
+        qualifier un article comme exemplaire.
   excluded_icon_tip: Les lignes marquées avec l’icône d’exclusion %{excluded_icon}
     ne seront jamais affichées dans les pages de présentation des taxons.
   expand_all_children: Développer tous les enfants

@@ -4729,6 +4729,7 @@ pms:
     ore
   currently_running_harvesting: Cujìa an cors atualman
   currently_in_eol: Ant ës moment ant l'Enciclopedìa dla Vita
+  institutional_sponsors: Supòrt anstitussionaj
   currently_published: publicà atualman
   daily: Cotidian
   darwin_core: Darwin Core
@@ -5004,4 +5005,33 @@ pms:
     A peul mandeje a st'utent-sì un mëssagi ëd pòsta eletrònica dal sistema an ësgnacand
     su 'smon-e la zòna ëd mëssagi ëd pòsta eletrònica' sì-sota e an butandje ël test
     mëssagi. Ch'a buta na ciav neuva mach s'a veul cangela, dësnò ch'a lo lassa veuid.
+  edit_the_user_s_comment_below: Ch'a modìfica sì-sota ij coment ëd l'utent.
+  edit_upload: Modifiché ël cariament
+  edit_username: Modifiché %{username}
+  edit_web_users: modifiché j'utent ëd l'Aragnà
+  editors_tab_label: Gestionari
+  email: Pòsta eletrònica
+  email_colon: 'Pòsta eletrònica:'
+  email_recipients: Destinatari dël mëssagi
+  eol_accepted_subjects: Soget acetà ansima a EdV
+  eol_curator_activity_email_message: Ël conservator ëd l'Enciclopedìa dla Vita <a
+    href='%{profile_url}'>%{curator_full_name}</a> %{action} an sël <a href='%{data_object_url}'>sit
+    ëd l'EdV</a>%{comment}
+  encyclopedia_of_life: Enciclopedìa dla Vita
+  endorsed_by: Presentà da
+  endorsed_collections: Colession an vista
+  endorsed_collections_with_count:
+    one: '%{count} Colession aprovà'
+    other: '%{count} Colession aprovà'
+  enter_in_a_search_term_users_a: Ch'a buta un tèrmin d'arserca che j'utent a arserco
+    e, apress, l'identificativ dla tassonomìa/pàgina anté ch'a dovrìo esse ridirigiù
+    'me sugeriment për s'arserca. L'identificativ dla tassonomìa/pàgina as treuva
+    ant l'adrëssa dla pàgina andoa chiel a veul ridirigg-je (për es. www.eol.org/pages/5
+    a l'ha n'identificativ ëd tassonomìa/pàgina ëd 5). Ël nòm ëd la pàgina e la prima
+    plancia a saran arcupërà s'a son disponìbij e goernà con l'arzultà.
+  eol_administration_console: Plancia d'aministrassion ëd l'EdV
+  eol_api_data_objects: 'IPA dl''EdV: oget ëd dàit'
+  eol_api_colon: 'IPA dl''EdV:'
+  eol_api: IPA dl'EdV
+  eol_api_hierarchies: 'IPA dl''EdV: gerarchìe'
 ...

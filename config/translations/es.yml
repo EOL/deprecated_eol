@@ -5,6 +5,7 @@
 # Author: AndreyWiki
 # Author: Armando-Martin
 # Author: Bernardom
+# Author: Cgalindo
 # Author: Crazymadlover
 # Author: Csbotero
 # Author: Dalton2
@@ -29,6 +30,7 @@
 # Author: Peter Bowman
 # Author: Rbcastroc
 # Author: Rubenwap
+# Author: Ryo567
 # Author: Sampalahnuk
 # Author: Shirayuki
 # Author: Toliño
@@ -210,6 +212,7 @@ es:
         uri: URI
         uri_type: Tipo de URI
         value_is_text: Los valores no serán URIs, solo texto
+        value_is_verbatim: Los valores no serán números, solo texto
       known_uri_relationship:
         from_known_uri_id: Tema URI
         to_known_uri_id: URI de destino
@@ -1001,13 +1004,13 @@ es:
         taxa_observed:
           one: '%{count} taxón observado'
           other: '%{count} taxones observados'
-        top_contributors: Principales contribuyentes a iNaturalist
+        top_contributors: Principales contribuyentes a NaturaLista
         tweet_text: Observaciones iNaturalistas de %{collection_name}
         view_all_observations_on_inaturalist: Ver todas las observaciones de %{project_title}
-          en iNaturalist
+          en NaturaLista
         view_more_observations_on_inaturalist: Ver más observaciones de %{project_title}
           en iNaturalista
-        view_project_on_inaturalist: Ver %{project_title} en iNaturalist
+        view_project_on_inaturalist: Ver %{project_title} en NaturaLista
   communities:
     collections:
       index:
@@ -4828,9 +4831,13 @@ es:
   data_column_raw_units: Unidades en bruto (directo desde la fuente)
   data_column_raw_units_uri: Unidades URI en bruto (normalizado)
   data_column_source: Proveedor
-  data_disclaimer: <a href='/traitbank'>TraitBank</a> reúne los registros de datos
-    de muchos proveedores. Seleccione una fila para obtener más detalles sobre el
-    registro.
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> reúne los registros
+    de datos de muchos proveedores. Selecciona una fila para obtener más detalles
+    sobre el registro, o <a href="%{traitbank_search_path}">busca en TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    reúne los registros de datos de muchos proveedores. Selecciona una fila para obtener
+    más detalles sobre el registro, o <a href="%{traitbank_search_path}">busca dentro
+    de %{taxon_name}</a>.
   data_database_colon: 'Datos:'
   data_glossary: Glosario de datos
   data_glossary_contribute: Para contribuir con términos nuevos en este glosario,
@@ -4841,6 +4848,7 @@ es:
   data_metadata_subtable_summary: Datos adicionales sobre este hecho.
   data_measurement_subtable_summary: Datos adicionales sobre la medición de este hecho.
   data_object: Objeto de datos
+  data_object_deleted: Se eliminó con éxito el objeto de datos
   data_object_not_associated_with_any_hierarchies: Este objeto de datos no está asociado
     con ninguna jerarquía.
   data_object_reference: Referencia de objeto de datos
@@ -4879,6 +4887,8 @@ es:
     form:
       equivalent_attributes: 'Valores equivalentes:'
       equivalent_values: 'Valores equivalentes:'
+      search_again_for_attributes: buscar de nuevo para incluir los atributos seleccionados
+      search_again_for_values: buscar de nuevo para incluir los valores seleccionados
       header_assistive: Formulario de búsqueda
       input_summary_intro: Opciones de búsqueda seleccionadas
       new_search_link: Iniciar una nueva búsqueda
@@ -5101,6 +5111,8 @@ es:
   eol_news: Noticias EOL
   eol_pages: Páginas
   error_log_detail: Detalle del registro de error
+  error_revoking_editor_on_watch_collection: No se pueden eliminar a los editores
+    de las colecciones de seguimieto
   error_log: Registro de errores
   error_logging_active: Registro activo de errores
   error_401_page_title: No autorizado
@@ -5161,6 +5173,58 @@ es:
       admin_or_master_curators_only: Lo sentimos, el acceso está restringido a administradores
         y curadores de EOL con un nivel mínimo de Maestro.
       no_access: Esta funcionalidad está desactivada temporalmente. Vuelva pronto.
+      missing_edit_acess_to_forum_category: Solo los administradores pueden editar
+        esta categoría del foro
+      missing_delete_acess_to_forum_category: Solo los administradores pueden eliminar
+        esta categoría del foro
+      missing_edit_acess_to_forum_post: Solo los administradores o los propietarios
+        de las publicaciones pueden editar esta publicación del foro
+      missing_delete_acess_to_forum_post: Solo los administradores o los propietarios
+        de las publicaciones pueden eliminar esta publicación del foro
+      missing_set_article_as_exemplar_privilege: Solo los curadores pueden establecer
+        artículos como ejemplos
+      missing_delete_access_to_synonym: Solo los agentes eliminan este sinónimo
+      missing_delete_access_to_data_search_file: Solo los administradores, los curadores
+        maestros o el propietario del archivo pueden eliminar este archivo
+      missing_permission_to_view_open_authentications: Solo los administradores y
+        el propietario de la cuenta pueden ver autenticaciones abiertas para esta
+        cuenta
+      missing_permission_to_add_open_authentications: Solo los administradores y el
+        propietario de la cuenta pueden añadir autenticaciones abiertas para esta
+        cuenta
+      missing_permission_to_delete_open_authentications: Solo los administradores
+        y el propietario de la cuenta pueden eliminar autenticaciones abiertas para
+        esta cuenta
+      this_action_requires_higher_curation_level: Esta acción requiere de un mayor
+        nivel de curación
+      admins_and_joined_only_can_read: Debes unirte a estas colecciones para poder
+        verlo
+      owner_and_managers_only_can_edit: Solo el propietario de la colección o los
+        administradores pueden editarla
+      error_revoking_editor_on_watch_collection: No se pueden eliminar a los editores
+        de las colecciones de seguimieto
+      error_revoking_editor_on_an_empty_community: No se pueden eliminar a los editores
+        de una comunidad vacía
+      only_managers_can_edit_community: Solo los administradores pueden editar esta
+        comunidad
+      only_managers_can_delete_community: Solo los administradores pueden eliminar
+        esta comunidad
+      only_admins_can_view_content_pages: Solo los administradores pueden ver páginas
+        de contenido
+      only_admins_can_view_translated_content_pages: Solo los administradores pueden
+        ver páginas de contenido traducidas
+      only_admins_can_edit_forums: Solo los administradores pueden editar los foros
+      must_be_logged_in: Debes iniciar sesión
+      only_admins_can_read_hidden_news_items: Solo los administradores pueden leer
+        elementos de noticias ocultas
+      only_admins_can_read_hidden_translated_news_items: Solo los administradores
+        pueden leer elementos de noticias ocultas traducidas
+      can_not_access_unpublished_taxon: No puedes acceder al taxón no pubicado
+      only_data_owner_can_edit: Sólo el propietario de los datos puede editarlos
+      only_data_owner_can_delete: Sólo el propietario de los datos puede eliminalos
+      error_editing_someone_account: Solo puedes editar tu propia cuenta
+      can_not_edit_permissions: No puedes editar permisos
+      collection_job_not_valid: Trabajo de colección no válido
   excluded_icon_tip: Las filas marcadas con el ícono de excluido %{excluded_icon}
     nunca será mostrado en el taxón de descripción de páginas.
   expand_all_children: expandir todas las dependencias
@@ -5367,6 +5431,7 @@ es:
   harvest_id: Identificador ID de la recogida
   harvesting_processes_log: Registro de procesos de recogida
   harvests_for: Recogidas de %{resource}
+  harvest_resource: Recolectando recursos
   has_already_been_taken: ya ha sido tomado.
   has_colon: 'Tiene:'
   has_curated_your_image: ha supervisado tu imagen

@@ -44,7 +44,6 @@ class Taxa::NamesController < TaxaController
     @related_names = @taxon_page.related_names
     @rel_canonical_href = taxon_names_url(@taxon_page)
     @assistive_section_header = I18n.t(:assistive_names_related_header)
-    current_user.log_activity(:viewed_taxon_concept_names_related_names, taxon_concept_id: @taxon_concept.id)
     common_names_count
   end
 
@@ -77,7 +76,6 @@ class Taxa::NamesController < TaxaController
         @taxon_concept.add_common_name_synonym(name.string, agent: current_user.agent, language: language, preferred: 1, vetted: Vetted.trusted)
         expire_taxa([@taxon_concept.id])
       end
-      current_user.log_activity(:updated_common_names, taxon_concept_id: @taxon_concept.id)
     end
     if !params[:hierarchy_entry_id].blank?
       redirect_to common_names_taxon_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), status: :moved_permanently
@@ -117,7 +115,6 @@ class Taxa::NamesController < TaxaController
     TaxonConcept.preload_associations(@taxon_concept, associations, options )
     @assistive_section_header = I18n.t(:assistive_names_synonyms_header)
     @rel_canonical_href = synonyms_taxon_names_url(@taxon_page)
-    current_user.log_activity(:viewed_taxon_concept_names_synonyms, taxon_concept_id: @taxon_concept.id)
     common_names_count
   end
 
@@ -129,7 +126,6 @@ class Taxa::NamesController < TaxaController
     @common_names_count = @common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     @rel_canonical_href = common_names_taxon_names_url(@taxon_page)
-    current_user.log_activity(:viewed_taxon_concept_names_common_names, taxon_concept_id: @taxon_concept.id)
   end
 
   def vet_common_name
@@ -137,7 +133,6 @@ class Taxa::NamesController < TaxaController
     name_id = params[:id].to_i
     vetted = Vetted.find(params[:vetted_id])
     @taxon_concept.vet_common_name(language_id: language_id, name_id: name_id, vetted: vetted, user: current_user)
-    current_user.log_activity(:vetted_common_name, taxon_concept_id: @taxon_concept.id, value: name_id)
 
     synonym = Synonym.find_by_name_id(name_id);
     if synonym

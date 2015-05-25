@@ -25,7 +25,6 @@ class TaxaController < ApplicationController
     category_id = params[:category_id].to_i
     redirect_url = "/pages/#{tc.id}"
     redirect_url += "?category_id=#{category_id}" unless category_id.blank? || category_id == 0
-    current_user.log_activity(:published_wikipedia_article, taxon_concept_id: tc.id)
     redirect_to redirect_url
   end
 

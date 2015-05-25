@@ -242,37 +242,6 @@ class Administrator::UserController  < AdminController
       return
   end
 
-  def view_user_activity
-    @page_title = I18n.t(:user_activity_page_title)
-    @user_id = params[:user_id] || ''
-    @user_list = User.users_with_activity_log
-    @activity_id = params[:activity_id] || 'All'
-    @translated_activity_list = TranslatedActivity.all.sort_by {|a| a.name }
-    page = params[:page] || 1
-    @activities = UserActivityLog.user_activity(@user_id, @activity_id, page)
-  end
-
-  def view_common_activities
-    @page_title = I18n.t(:common_user_activity_page_title)
-    page = params[:page] || 1
-    @activities = UserActivityLog.most_common_activities(page)
-  end
-
-  def view_common_combinations
-    start = Time.now
-    activity_id = params[:activity_id]
-    @page_title = I18n.t(:common_user_activity_page_title)
-    @activities = UserActivityLog.most_common_combinations(activity_id)
-    if(activity_id)
-      @activity = Activity.find(activity_id)
-      @activities.delete_if {|value1,value2| !value1.include? @activity.name}
-    end
-    b = DateTime.now
-    time_elapsed = (Time.now - start)/60
-    time_elapsed = '%.2f' % time_elapsed
-    @time_elapsed = time_elapsed.to_s + " mins."
-  end
-
   def list_newsletter_emails
     @emails = User.newsletter.
       select([:given_name, :family_name, :username, :email, :curator_level_id]).

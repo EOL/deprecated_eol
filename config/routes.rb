@@ -561,13 +561,9 @@ Eol::Application.routes.draw do
         get 'revoke_curator'
         get 'clear_curatorship'
         get 'login_as_user'
-        get 'view_common_combinations'
         get 'deactivate'
       end
       collection do
-        get 'view_common_combinations'
-        get 'view_user_activity'
-        get 'view_common_activities'
         get 'list_newsletter_emails'
       end
     end

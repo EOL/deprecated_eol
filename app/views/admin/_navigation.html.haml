@@ -13,9 +13,7 @@
     = link_to I18n.t("view_user_comments"), {:controller => 'administrator/comment', :action => 'index'}, {:class=>'toc_item active'}
   %li
     = link_to I18n.t("view_added_text"), {:controller => 'administrator/user_data_object', :action => 'index'}, {:class=>'toc_item active'}
-  %li
-    = link_to I18n.t("view_user_activity"), {:controller => 'administrator/user', :action => 'view_user_activity'}, {:class=>'toc_item active'}
-
+  
   %h3
     =I18n.t("web_users")
   %li

@@ -77,7 +77,7 @@ RSpec.configure do |config|
     end
   end
 
-  config.after(:all) do
+  config.after(:suite) do
     Solr.stop
   end
 end

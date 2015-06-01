@@ -80,6 +80,7 @@ RSpec.configure do |config|
   config.after(:suite) do
     Solr.stop
   end
+
 end
 
 def wait_for_insert_delayed(&block)

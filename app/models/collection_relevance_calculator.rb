@@ -11,13 +11,13 @@ class CollectionRelevanceCalculator
 
   # TODO - this logging is miserable and doesn't cover enough. Improve.
   def self.perform(id)
-    Rails.logger.info "++ #{Time.now.strftime("%F %T")} - CollectionRelevanceCalculator performing for collection ##{id}."
+    Rails.logger.error "++ #{Time.now.strftime("%F %T")} - CollectionRelevanceCalculator performing for collection ##{id}."
     begin
       CollectionRelevanceCalculator.new(Collection.find(id)).set_relevance
     rescue => e
-      Rails.logger.info "++ #{Time.now.strftime("%F %T")} - ERROR: #{e.message}\n #{e.backtrace[0..10].join("\n  ")})."
+      Rails.logger.error "++ #{Time.now.strftime("%F %T")} - ERROR: #{e.message}\n #{e.backtrace[0..10].join("\n  ")})."
     end
-    Rails.logger.info "++ #{Time.now.strftime("%F %T")} - Done."
+    Rails.logger.error "++ #{Time.now.strftime("%F %T")} - Done."
   end
 
   def initialize(collection)

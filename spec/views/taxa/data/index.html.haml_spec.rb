@@ -196,6 +196,7 @@ describe 'taxa/data/index' do
       end
 
       it "doesn't format data value for verbatim known uris" do
+        @known_uri.update_attributes(value_is_verbatim: true)
         assign(:data_point_uris, [ DataPointUri.gen(predicate_known_uri_id: @known_uri.id, object: @big_value ) ])
         render
         expect(rendered).to match /#{@big_value}/

@@ -60,6 +60,18 @@ describe Hierarchy do
     desc_label.form_label.should ==  "Decscriptive label"
   end
 
+  describe "#reindex" do 
+    before(:all) do 
+      @hierarchy = Hierarchy.gen
+    end
+    
+    it " enqueues the Hierachy to be reindexed" do 
+      expect(HierarchyReindexing).to receive(:enqueue).with(@hierarchy)
+      @hierarchy.reindex
+    end
+  end
+
+
   # let(:hierarchy) { Hierarchy.find_by_label($DEFAULT_HIERARCHY_NAME) }
   # 
   # it "should return kingdoms of the hierarchy sorted by default by scientific names" do

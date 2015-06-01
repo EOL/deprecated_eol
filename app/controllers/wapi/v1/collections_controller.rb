@@ -7,7 +7,7 @@ module Wapi
 
       def index
         # TODO: pagination! This would be HUGE.
-        respond_with Collection.where(published: true).all.limit(10)
+        respond_with Collection.where(published: true).all.take(10)
       end
 
       def show
@@ -42,13 +42,34 @@ module Wapi
       end
 
       def update
-        head :unauthorized unless @user.can_update?(@collection)
-        respond_with @collection.update(params[:collection])
+        head :unauthorized and return unless @user && @user.can_update?(@collection)
+        ActiveRecord::Base.transaction do
+          begin
+            if params[:collection_items]
+              params[:collection_items].each do |item|
+                (@collection.collection_items.select{|col_item| col_item[:id] == item[:id].to_i}.first).update_attributes!(item.except!(:id, :updated_at, :created_at))
+              end
+            end
+            @collection.update_attributes!(params[:collection].except!(:id, :updated_at, :created_at))
+            respond_with do |format|
+              format.json { render json: @collection.to_json, status: :ok }
+            end
+          rescue
+            respond_with do |format|
+              format.json { render json: I18n.t("collection_update_failure", collection: @collection.id).to_json, status: :ok }
+            end
+            raise ActiveRecord::Rollback
+          end
+        end
       end
 
       def destroy
-        head :unauthorized unless @user.can_delete?(@collection)
-        respond_with @collection.destroy
+        head :unauthorized and return unless @user && @user.can_update?(@collection)
+        @collection.collection_items.destroy_all
+        @collection.destroy
+        respond_with do |format|
+          format.json { render json: I18n.t("collection_removed", collection: @collection.id).to_json, status: :ok }
+        end
       end
 
       private

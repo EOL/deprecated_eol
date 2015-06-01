@@ -320,7 +320,7 @@ class User < ActiveRecord::Base
   end
 
   def total_data_submitted
-    return user_added_data.where(visibility_id: $visible_global.id, vetted_id: [Vetted.trusted.id, Vetted.unknown.id],
+    return user_added_data.where(visibility_id: Visibility.get_visible.id, vetted_id: [Vetted.trusted.id, Vetted.unknown.id],
       deleted_at: nil).count
   end
 
@@ -524,7 +524,7 @@ class User < ActiveRecord::Base
   def hide_all_submitted_datos
     all_submitted_datos.each do |dato|
       dato.users_data_object.vetted = Vetted.untrusted
-      dato.users_data_object.visibility = $invisible_global
+      dato.users_data_object.visibility = Visibility.get_invisible
       dato.users_data_object.save!
     end
   end

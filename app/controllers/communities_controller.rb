@@ -157,9 +157,9 @@ class CommunitiesController < ApplicationController
 
   def revoke_editor
     collection = Collection.find(params[:collection_id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation.new("user attempted to revoke editor on watch collection", :error_revoking_editor_on_watch_collection) if collection.watch_collection?
-    raise EOL::Exceptions::SecurityViolation if @community.collections.count <= 1
+    
+    raise EOL::Exceptions::SecurityViolation.new("User attempted to revoke editor on watch collection", :error_revoking_editor_on_watch_collection) if collection.watch_collection?
+    raise EOL::Exceptions::SecurityViolation.new("User attempted to revoke editor on an empty community", :error_revoking_editor_on_an_empty_community) if @community.collections.count <= 1
     @community.collections.delete(collection)
     flash[:notice] = I18n.t(:community_no_longer_has_manager_access_to_collection,
                             community: link_to_name(@community),
@@ -266,8 +266,9 @@ private
 
   def restrict_edit
     @current_member ||= current_user.member_of(@community)
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation unless @current_member && @current_member.manager?
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with id = #{current_user.id} tried to edit community with id = #{@community.id} but he is not a manager", 
+    :only_managers_can_edit_community) unless @current_member && @current_member.manager?
   end
 
   def _must_be_logged_in

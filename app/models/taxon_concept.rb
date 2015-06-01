@@ -29,7 +29,7 @@ class TaxonConcept < ActiveRecord::Base
   has_many :hierarchy_entries
   has_many :scientific_synonyms, through: :hierarchy_entries
   has_many :published_hierarchy_entries, class_name: HierarchyEntry.to_s,
-    conditions: Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{$visible_global.id}" }
+    conditions: Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.get_visible.id}" }
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :curator_activity_logs
@@ -134,7 +134,7 @@ class TaxonConcept < ActiveRecord::Base
           tc.preferred_entry.hierarchy_entry
         end
       end.flatten.compact
-      HierarchyEntry.preload_associations(he, { flattened_ancestors: { ancestor: :name } } )
+      HierarchyEntry.preload_associations(he, { flattened_ancestors: { flat_ancestor: :name } } )
     end
     if options[:language_id] && ! options[:skip_common_names]
       # loading the names for the preferred common names in the user's language
@@ -285,7 +285,7 @@ class TaxonConcept < ActiveRecord::Base
         collection_types: '*',
         translated_collection_types: '*' },
       include: { hierarchy: [ { resource: :content_partner }, :agent, { collection_types: :translations }]},
-      conditions: "published = 1 AND visibility_id = #{$visible_global.id} AND vetted_id != #{Vetted.untrusted.id}",
+      conditions: "published = 1 AND visibility_id = #{Visibility.get_visible.id} AND vetted_id != #{Vetted.untrusted.id}",
       order: 'id DESC'
     )
     entries_for_this_concept.each do |he|
@@ -613,7 +613,7 @@ class TaxonConcept < ActiveRecord::Base
           # Someone has selected an exemplar image which is now unpublished. Remove it.
           concept_exemplar_image.destroy
         # TODO - we should have a DataObject#visible_for_taxon_concept?(tc) method.
-        elsif the_best_image.visibility_by_taxon_concept(self).id == $visible_global.id
+        elsif the_best_image.visibility_by_taxon_concept(self).id == Visibility.get_visible.id
           the_best_image = the_best_image.latest_published_version_in_same_language
           @published_exemplar_image = the_best_image
         end
@@ -627,7 +627,7 @@ class TaxonConcept < ActiveRecord::Base
     return nil unless taxon_concept_exemplar_article
     if the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language
       return nil if the_best_article.language != language
-      return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == $visible_global.id
+      return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.get_visible.id
     end
   end
 

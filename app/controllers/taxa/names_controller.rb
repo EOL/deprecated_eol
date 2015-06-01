@@ -19,13 +19,13 @@ class Taxa::NamesController < TaxaController
       @other_hierarchy_entries = @taxon_concept.deep_published_nonbrowsable_hierarchy_entries
     end
     HierarchyEntry.preload_associations(@hierarchy_entries,
-      [ { hierarchy: [ { resource: :content_partner }, :dwc_resource ] }, :rank, :ancestors ])
+      [ { hierarchy: [ { resource: :content_partner }, :dwc_resource ] }, :rank, :flat_ancestors ])
 
     # preloading the names for the current nodes and their ancestors. Children and sublings will be loaded later in
     # the views which is more efficient as we can preload only the first $max_children of each, sorted by name. It
     # is not possible to get for example "the first 10 children, alphabetically, for these 15 entries". That must be
     # done for each entry individually
-    HierarchyEntry.preload_associations((@hierarchy_entries + @hierarchy_entries.collect(&:ancestors)).flatten, :name)
+    HierarchyEntry.preload_associations((@hierarchy_entries + @hierarchy_entries.collect(&:flat_ancestors)).flatten, :name)
 
     @pending_moves = HierarchyEntryMove.pending.find_all_by_hierarchy_entry_id(@hierarchy_entries)
 
@@ -94,7 +94,8 @@ class Taxa::NamesController < TaxaController
       log_action(@taxon_concept, synonym, :remove_common_name)
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, @taxon_concept.id)
       unless current_user.can_delete?(tcn)
-        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to Synonym with ID=#{synonym_id}"
+        raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to Synonym with ID=#{synonym_id}", 
+        :missing_delete_access_to_synonym)
       end
       @taxon_concept.delete_common_name(tcn)
       @taxon_concept.reindex_in_solr

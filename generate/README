@@ -109,7 +109,7 @@ the Ruby logger class from inside your controllers. Example:
     def destroy
       @weblog = Weblog.find(params[:id])
       @weblog.destroy
-      Rails.logger.info("#{Time.now} Destroyed Weblog ID ##{@weblog.id}!")
+      Rails.logger.error("#{Time.now} Destroyed Weblog ID ##{@weblog.id}!")
     end
   end
 

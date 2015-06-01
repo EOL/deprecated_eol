@@ -28,6 +28,7 @@
 # Author: Sprinter
 # Author: Striking Blue
 # Author: Александр Сигачёв
+# Author: Дмитрий
 # Author: Максим777
 ---
 ru:
@@ -2333,6 +2334,7 @@ ru:
   dato_create_cancel: Отмена
   dato_edit_cancel: Отмена
   default: По умолчанию
+  delete_data_object: Удалить
   delete: удалить
   delete_firstcap: Удалить
   description: Описание

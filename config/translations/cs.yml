@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Chmee2
 # Author: Cvanca
+# Author: H4nek
 # Author: Jachym
 # Author: Jezevec
 # Author: Juandev
@@ -1680,6 +1681,9 @@ cs:
   error_500_page_title: Interní chyba serveru
   example_colon: 'Příklad:'
   exception: Výjimka
+  exceptions:
+    security_violations:
+      must_be_logged_in: Omlouváme se, ale musíte být přihlášeni
   expand_all_children: Rozbalit všechny podřazené
   explore: Prozkoumat
   explore_what_we_know_about_taxon: Objevte co je na EOL o %{taxon}.

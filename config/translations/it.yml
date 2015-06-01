@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Ale.salmo
 # Author: Beta16
+# Author: Chris96
 # Author: Damiano Martino
 # Author: Darth Kule
 # Author: EdoDodo
@@ -11,6 +12,7 @@
 # Author: Gianfranco
 # Author: Inskatolata
 # Author: Luigipiccoli
+# Author: Macofe
 # Author: Maria victoria
 # Author: Mario
 # Author: Mishatk
@@ -169,6 +171,7 @@ it:
         total_measurement_types: Tipi di misurazione
         total_association_types: Tipi di associazione
         total_user_added_data: Dati aggiunti dall'utente
+        total_data_records: Record dei Dati
       forum:
         forum_category_id: Categoria
         name: Nome del forum
@@ -202,6 +205,7 @@ it:
         uri: URI
         uri_type: Tipo di URI
         value_is_text: I valori non saranno gli URI, solo testo
+        value_is_verbatim: I valori non possono essere numeri, solo testo
       known_uri_relationship:
         from_known_uri_id: Oggetto URI
         to_known_uri_id: Target URI
@@ -4838,6 +4842,7 @@ it:
   data_search:
     page_title: Ricerca su TraitBank
     form:
+      equivalent_attributes: 'Valori equivalenti:'
       header_assistive: Modulo di ricerca
       input_summary_intro: Opzioni di ricerca selezionate
       new_search_link: Avvia una nuova ricerca
@@ -4955,6 +4960,7 @@ it:
   default_rating_value_of_total: 'Valutazione di default: %{rating} di %{total}'
   default_watch_collection_name: Lista di controllo di %{username}
   delete_community: Elimina questa comunità
+  delete_data_object: Cancella
   delete: cancella
   deleted_colon: 'cancellato:'
   delete_firstcap: Cancella

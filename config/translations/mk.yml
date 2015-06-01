@@ -146,6 +146,7 @@ mk:
         total_measurement_types: Типови на мерења
         total_association_types: Типови на поврзаност
         total_user_added_data: Кориснички-додадени податоци
+        total_data_records: Податочни записи
       forum:
         forum_category_id: Категорија
         name: Име на форумот
@@ -179,6 +180,7 @@ mk:
         uri: URI
         uri_type: Тип на URI
         value_is_text: Вредностите нема да бидат URI-ја, туку само текст
+        value_is_verbatim: Вредностите нема да бидат броеви, туку само текст
       known_uri_relationship:
         from_known_uri_id: URI на темата
         to_known_uri_id: Целно URI
@@ -264,7 +266,7 @@ mk:
         api_key: Извршнички клуч
         bio: Био
         credentials: Полномоштва
-        curator_level: Степен на кустоство
+        curator_level: Кустоски чин
         curator_scope: Опсег на згрижувањето
         disable_email_notifications: Не сакам да добивам НИКАКВИ актуелности по е-пошта
         email: Е-пошта
@@ -276,7 +278,7 @@ mk:
         given_name: Име
         language_abbr: Претпочитан јазик
         permissions: Дозволи
-        requested_curator_level_id: Посакувано ниво на згрижување
+        requested_curator_level_id: Посакувано ниво на кустоство
         tag_line: Гесло
         username: Корисничко име
       user_added_data:
@@ -1460,6 +1462,7 @@ mk:
       style='color:#195184'>нè контактирате</a>.
     see_all_activity: Сите претходни активности ќе ги најдете на <a href='%{activity_url}'
       style='color:#195184'>вашата страница за актуелности</a>.
+    resource_validation: 'Ресурсот: проверката на %{resource} е завршена'
     bulk_comments_with_count:
       one: Има еден нов коментар на %{on}
       other: Има %{count} коментари на %{on}
@@ -4144,6 +4147,8 @@ mk:
     Преостанатите членови сепак ќе можат да ја гледаат. Каналот со новости ќе продолжи
     да работи, но нема да се прикажува во пребарувањата и таксонските страници и повеќе
     нема да може да се уредува.
+  confirm_delete_data_object: Дали сте сигурни дека сакате да го избришете овој податочен
+    објект? Ова дејство е неповратно.
   confirm_leave: Дали сте сигурни дека сакате да ја напуштите заедницава?
   confirm_password_colon: Потврди лозинка
   contact: Контакт
@@ -4265,6 +4270,8 @@ mk:
     соучесникот се успешно додадени. Тековниот статус на ресурсните податоци е: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: За жал, се појави грешка. Не
     можев да го додадам ресурсот.
+  content_partner_resource_validation_finish_notice: Проверката на соработникот во
+    содржините заврши, и неговиот статус е %{resource_status}.
   content_partner_resource_dataset_details_header: Податочен збир
   content_partner_resource_delete_with_type_link: Избриши сè
   content_partner_resource_description_empty: Овој ресурс нема опис.
@@ -4331,6 +4338,8 @@ mk:
     Не можев да го сменам статусот на %{resource_title} во %{resource_status}.
   content_partner_resource_update_successful_notice: 'Подробностите за ресурсот од
     соучесникот се успешно подновени. Тековниот статус на ресурсните податоци е: %{resource_status}.'
+  content_partner_resource_update_successful: Податоците за соработникот во содржините
+    се успешно подновени.
   content_partner_resource_update_unsuccessful_error: За жал, се појави грешка. Не
     можев да го подновам ресурсот.
   content_partner_resource_upload_unsuccessful_error: 'За жал, се појави грешка. Податоците
@@ -4545,6 +4554,7 @@ mk:
   current_harvest_event: Преземањето од „%{resource_title}“ траеше „%{period}“ часа
   currently_running_harvesting: Пеземања во тек
   currently_in_eol: Моментално во Енциклопедијата на живиот свет
+  institutional_sponsors: Установни покровители
   currently_published: тековно објавено
   daily: Дневно
   darwin_core: Darwin Core
@@ -4564,8 +4574,10 @@ mk:
     на Секретаријатот на EOL</a>.</p>
   data_results_only_for_search: Резултати на TraitBank за „%{search_term}“
   data_search_limit:
-    one: Преземањата на пребарани податоци се ограничени на еден резултат.
-    other: Преземањата на пребарани податоци се ограничени на %{count} резултати.
+    one: Исходот од пребарувањето на податоците ќе бидат преземени како %{count} запис
+      по податотека.
+    other: Исходот од пребарувањето на податоците ќе бидат преземени како %{count}
+      записи по податотека.
   data_about_this_record: Податоци за овој запис
   data_column_tc_id: Назнака на страницата на EOL
   data_column_sci_name: Научно име
@@ -4586,8 +4598,13 @@ mk:
   data_column_raw_units: Сирови единици (непосредно од изворот)
   data_column_raw_units_uri: URI на сировите единици (нормализирано)
   data_column_source: Добавувач
-  data_disclaimer: <a href='/traitbank'>TraitBank</a> собира податочни записи од многу
-    разни добавувачи. Одберете некој ред за да видите повеќе подробности за записот.
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни
+    записи од многу разни добавувачи. Одберете некој ред за да видите повеќе подробности
+    за записот, или <a href="%{traitbank_search_path}">пребарајте ја TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    собира податочни записи од многу разни добавувачи. ОДберете ред за да видите повеќе
+    за записот, или пак <a href="%{traitbank_search_path}">пребарајте во рамките на
+    %{taxon_name}</a>.
   data_database_colon: 'Податочна:'
   data_glossary: Поимник за податоци
   data_glossary_contribute: За да ставите нови поими во поимникот, <a href=%{url}>ви
@@ -4598,6 +4615,7 @@ mk:
   data_metadata_subtable_summary: Дополнителни податоци за овој факт.
   data_measurement_subtable_summary: Дополнителни податоци за мерењето на овој факт.
   data_object: Податочен објект
+  data_object_deleted: Податочниот објект е успешно избришан
   data_object_not_associated_with_any_hierarchies: Овој податочен објект не е поврзан
     со ниедна хиерархија.
   data_object_reference: Навод на подат. објект
@@ -4633,6 +4651,10 @@ mk:
   data_search:
     page_title: Преварај по TraitBank
     form:
+      equivalent_attributes: 'Еквивалентни вредности:'
+      equivalent_values: 'Еквивалентни вредности:'
+      search_again_for_attributes: пребарај повторно, вклучувајќи ги избраните атрибути
+      search_again_for_values: пребарај повторно, вклучувајќи ги избраните вредности
       header_assistive: Образец за пребарување
       input_summary_intro: Избрани поставки за пребарувањето
       new_search_link: Започнете ново пребарување
@@ -4747,6 +4769,7 @@ mk:
   default_rating_value_of_total: 'Стандардна оцена: %{rating} од %{total}'
   default_watch_collection_name: Збирка на %{username}
   delete_community: Избриши ја заедницава
+  delete_data_object: Избриши
   delete: избриши
   deleted_colon: 'избришани:'
   delete_firstcap: Избриши
@@ -4845,6 +4868,8 @@ mk:
   eol_news: Новости
   eol_pages: Страници
   error_log_detail: Подробност од днев. на грешки
+  error_revoking_editor_on_watch_collection: Не можете да отстранувате уредници од
+    набљудуваните збирки
   error_log: Дневник на грешки
   error_logging_active: Заведувањето на грешки е активно
   error_401_page_title: Нема овластување
@@ -4897,6 +4922,58 @@ mk:
       admin_or_master_curators_only: Нажалост, пристап имаат само администраторите
         и вишите кустоси.
       no_access: За жал, оваа функција е привремено оневозможена. Навратете се наскоро.
+      missing_edit_acess_to_forum_category: За жал, само администратори можат да ја
+        менуваат оваа форумска категорија.
+      missing_delete_acess_to_forum_category: За жал, само администратори можат да
+        ја избришат оваа форумска категорија.
+      missing_edit_acess_to_forum_post: За жал, само администратори или сопственикот
+        на објавата можат да ја менуваат оваа форумска објава.
+      missing_delete_acess_to_forum_post: За жал, само администратори или сопственикот
+        на објавата можат да ја избришат оваа форумска објава.
+      missing_set_article_as_exemplar_privilege: За жал, само кустоси можат да назначуваат
+        статии за пример.
+      missing_delete_access_to_synonym: За жал, само агенти можат да го избришат овој
+        синоним
+      missing_delete_access_to_data_search_file: За жал, сам,о администратори, виши
+        кустоси и сопственикот на податотеката можат да ја избришат
+      missing_permission_to_view_open_authentications: За жал, само администратори
+        и сопственикот а сметката можат да ја гледаат оваа отворена заверка на сметкава
+      missing_permission_to_add_open_authentications: За жал, само администратори
+        и сопственикот на сметката можат да ѝ додаваат отворени заверки на сметкава
+      missing_permission_to_delete_open_authentications: За жал, само администратори
+        и сопственикот а сметката можат да бришат отворени заверки на сметкава
+      this_action_requires_higher_curation_level: За жал, ова дејство бара повисок
+        кустоски чин
+      admins_and_joined_only_can_read: За жал, ќе треба да им се приклучите на збиркиве
+        за да можете да ги гледате
+      owner_and_managers_only_can_edit: За жал, само сосптвеникот на збиркава или
+        раководителите можат да ја уредуваат
+      error_revoking_editor_on_watch_collection: За жал, уредниците не можат да се
+        остранат од набљудуваните збирки
+      error_revoking_editor_on_an_empty_community: За жал, уредниците не можат да
+        се остранат од празна заедница
+      only_managers_can_edit_community: За жал, само раководителоте можат да ја менуваат
+        заедницава
+      only_managers_can_delete_community: За жал, само раководителоте можат да ја
+        избришат заедницава
+      only_admins_can_view_content_pages: За жал, само раководителоте можат да гледаат
+        содржински страници
+      only_admins_can_view_translated_content_pages: За жал, само администраторите
+        можат да гледаат преведени содржински страници
+      only_admins_can_edit_forums: За жал, само администратори можат да менуваат форуми
+      must_be_logged_in: За жал, мора да сте најавени
+      only_admins_can_read_hidden_news_items: За жал, само администраторите можат
+        да читаат скриени новости
+      only_admins_can_read_hidden_translated_news_items: За жал, само администраторите
+        можат да читаат преведени скриени новости
+      can_not_access_unpublished_taxon: За жал, немате пристап до необјавени таксони
+      only_data_owner_can_edit: За жал, само сопственикот на податоците можат да ги
+        менуваат
+      only_data_owner_can_delete: За жал, само сопственикот на податоците може да
+        ги избрише
+      error_editing_someone_account: За жал, можете да ја менувате само вашата сметка
+      can_not_edit_permissions: За жал, не можете да менувате дозволи
+      collection_job_not_valid: Задачата на збирката не е важечка
   excluded_icon_tip: Редовите означени за иконата за изземање %{excluded_icon} никогаш
     нема да се прикажуваат во прегледните страници на таксоните.
   expand_all_children: отвори ги сите поттаксони
@@ -5289,12 +5366,17 @@ mk:
   known_uris_none: Никој нема додадено URI-ја за овој тип.
   known_uris_page_title: URI-ја за податоци на EOL
   known_uris_sorted: Редоследот е изменет.
+  pending_harvests_none: Сега нема преземања во исчекување.
+  pending_harvests_title: Преземања во исчекување
+  pause_pending_harvests: Запри го преземањето
+  resume_pending_harvests: Продолжи со преземањето
   label: Натпис
   language: 'Јазик:'
   languages: Јазици
   language_selector_advisory_information: Ова е список на расположивите јазици на
     мрежното место. Одберете јазик ако сакате да го смените тековниот.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Траење на последното преземање
   last_updated: Последна актуелност
   last_updated_time_ago: Последната измена е направена пред %{time_passed}
   learn_about_collections: Како да направам збирка?

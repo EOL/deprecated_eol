@@ -44,7 +44,7 @@ module EOL
           validate_and_normalize_input_parameters!(params)
           # find a visible match, get the published ones first
           hierarchy_entries = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
-          hierarchy_entries.keep_if{|h|  h.visibility_id= Visibility.visible.id && TaxonConcept.find(h.taxon_concept_id).published == 1 }
+          hierarchy_entries.keep_if{|h|  h.visibility_id= Visibility.get_visible.id && h.published == 1 && TaxonConcept.find(h.taxon_concept_id).published == 1 }
           synonyms = Synonym.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
           synonyms.keep_if{|s| TaxonConcept.find( HierarchyEntry.find(s.hierarchy_entry_id).taxon_concept_id).published == 1 }
           results= hierarchy_entries + synonyms

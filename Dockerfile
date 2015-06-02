@@ -22,4 +22,7 @@ COPY . /app
 
 COPY config/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN chmod a+rx /
+RUN umask 0022
+
 CMD /usr/bin/supervisord

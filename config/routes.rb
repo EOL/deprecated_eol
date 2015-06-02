@@ -398,9 +398,6 @@ Eol::Application.routes.draw do
 
   resources :data_search_files, only: [:index, :destroy]
 
-  # Old V1 admin search logs:
-  resources :search_logs, :controller => 'administrator/search_logs'
-
   resources :news_items, :only => [:index, :show] do
     resources :translated_news_items, :as => :translations, :except => [:show, :index]
   end

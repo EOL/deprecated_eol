@@ -1773,6 +1773,7 @@ en:
       is_not_complete: "No"
       query_empty: "(no filters)"
       processing: "processing"
+      error: "something went wrong with this file"
       refresh: "refresh"
       row_count: "Count"
       search_again: "search again"

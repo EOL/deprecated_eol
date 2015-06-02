@@ -294,7 +294,7 @@ EOL.limit_data_rows = function() {
   $('table.data tr.data.first_of_type:visible').each(function() {
     var type = $(this).data('type');
     var $nested_set = $(this).closest('table').find('tr[data-type="' + type + '"]:visible');
-    if ($nested_set.length > EOL.max_meta_rows) {
+    if ($nested_set.length > EOL.max_meta_rows+1) {
       var $index = 1;
       $nested_set.each(function() { if ($index > EOL.max_meta_rows) $(this).hide(); $index++; });
       $nested_set.filter(':last').after(

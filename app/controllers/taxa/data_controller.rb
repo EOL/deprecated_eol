@@ -22,7 +22,6 @@ class Taxa::DataController < TaxaController
 
     @querystring = ''
     @sort = ''
-    current_user.log_activity(:viewed_taxon_concept_data, taxon_concept_id: @taxon_concept.id)
     @jsonld = @taxon_data.jsonld
   end
 

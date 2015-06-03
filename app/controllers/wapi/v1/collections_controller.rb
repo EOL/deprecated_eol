@@ -6,8 +6,7 @@ module Wapi
       before_filter :find_collection, only: [:update, :destroy]
 
       def index
-        # TODO: pagination! This would be HUGE.
-        respond_with Collection.where(published: true).all.take(10)
+        respond_with Collection.where(published: true).paginate(page: params[:page] ||= 1, per_page: params[:per_page] ||= 30)
       end
 
       def show

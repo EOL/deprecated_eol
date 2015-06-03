@@ -17,6 +17,9 @@ describe "Collections API V1" do
   describe "GET /wapi/collections" do
     before(:all) do
       @collection = Collection.gen
+      50.times do
+        @collection.collection_items << CollectionItem.gen
+      end
     end
 
     before do
@@ -26,6 +29,26 @@ describe "Collections API V1" do
 
     it "returns the collections" do
       expect(json.map { |c| c["name"]}).to include(@collection.name)
+    end
+    
+    it "should return 30 collections per page" do
+      get '/wapi/collections'
+      expect(json.count).to be == 30
+    end
+    
+    it "should return less than 30 if requested by user" do
+      get '/wapi/collections', {per_page: 20}
+      expect(json.count).to be == 20
+    end
+    
+    it "should enable user to specify the page" do
+      get '/wapi/collections', {page: 2}
+      expect(json.count).to be < 30
+    end
+    
+    it "should enable user to specify both page and per page" do
+      get '/wapi/collections', {per_page: 20, page: 3}
+      expect(json.count).to be == 11
     end
   end
 

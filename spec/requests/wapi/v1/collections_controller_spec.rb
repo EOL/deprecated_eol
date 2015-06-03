@@ -36,19 +36,19 @@ describe "Collections API V1" do
       expect(json.count).to eq(30)
     end
     
-    it "should return less than 30 if requested by user" do
+    it "should return less than 30 per page if requested by user" do
       get '/wapi/collections', {per_page: 20}
       expect(json.count).to eq(20)
     end
     
-    it "should enable user to specify the page" do
+    it "should return less than 30 in second page" do
       get '/wapi/collections', {page: 2}
-      expect(json.count).to be < 30
+      expect(json.count).to be < 30 #total number of collections are 51 so second page will have 21 collections in this case
     end
     
-    it "should enable user to specify both page and per page" do
+    it "should return less than 20 in last page where the user specufy 20 per page" do
       get '/wapi/collections', {per_page: 20, page: 3}
-      expect(json.count).to eq(11)
+      expect(json.count).to eq(11) #total number is 51 so in third page we will have 11 collections only 
     end
   end
 

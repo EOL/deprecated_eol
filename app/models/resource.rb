@@ -60,6 +60,8 @@ class Resource < ActiveRecord::Base
       ")"
     )
   end
+  scope :failed,
+    -> { where(resource_status_id: ResourceStatus.harvest_failed.id) }
 
   # The order of the list affects the order of harvesting:
   acts_as_list

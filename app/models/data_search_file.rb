@@ -104,19 +104,18 @@ class DataSearchFile < ActiveRecord::Base
     results = TaxonData.search(search_parameters)
     # TODO - we should probably add a "hidden" column to the file and allow admins/master curators to see those
     # rows, (as long as they are marked as hidden). For now, though, let's just remove the rows:
-    results = results.delete_if { |r| r.hidden? }
     begin # Always do this at least once...
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
       DataPointUri.assign_bulk_metadata(results, user.language)
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|
-        # TODO - really, I think we should move this to TaxonData.search. :\
-        # Skip taxon concepts that have been superceded!
-        next if data_point_uri.taxon_concept &&
-          data_point_uri.taxon_concept.superceded?
-        # TODO - Whoa! Even when I ran “dpu.to_hash[some_val]”, even though it
-        # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
-        rows << data_point_uri.to_hash(user.language)
+        if data_point_uri.hidden?
+          rows << {I18n.t(:data_column_tc_id) => I18n.t(:data_search_row_hidden)}
+        else
+          # TODO - Whoa! Even when I ran “dpu.to_hash[some_val]”, even though it
+          # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
+          rows << data_point_uri.to_hash(user.language)  
+        end
       end
       # offset = (file_number-1) * LIMIT
       if (((page * PER_PAGE) + ((file_number-1) * LIMIT)) < results.total_entries)

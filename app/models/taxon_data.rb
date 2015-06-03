@@ -31,12 +31,16 @@ class TaxonData < TaxonUserClassificationFilter
       if options[:for_download]
         # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
         # for each DataPointUri, which is very expensive when downloading lots of rows
-        KnownUri.add_to_data(results)
-        data_point_uris = results.collect do |row|
-          data_point_uri = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row))
-          data_point_uri.convert_units
-          data_point_uri
-        end
+        # KnownUri.add_to_data(results)
+        # data_point_uris = results.collect do |row|
+          # data_point_uri = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row))
+          # data_point_uri.convert_units
+          # data_point_uri
+        # end
+        
+        
+        taxon_data_set = TaxonDataSet.new(results)
+        data_point_uris = taxon_data_set.data_point_uris
         DataPointUri.preload_associations(data_point_uris, { taxon_concept:
             [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ],
             resource: :content_partner },

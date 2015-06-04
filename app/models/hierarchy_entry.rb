@@ -30,6 +30,11 @@ class HierarchyEntry < ActiveRecord::Base
   has_and_belongs_to_many :flat_ancestors, class_name: HierarchyEntry.to_s, join_table: 'hierarchy_entries_flattened',
 
     association_foreign_key: 'ancestor_id', order: 'lft'
+
+  has_many :hierarchy_descendants_relationship, class_name: HierarchyEntriesFlattened.to_s, foreign_key: 'ancestor_id'
+
+  has_many :descendants, through: :hierarchy_descendants_relationship, source: 'hierarchy_entry'
+
   # Here is a way to find children and sort by name at the same time (this works for siblings too):
   # HierarchyEntry.find(38802334).children.includes(:name).order('names.string').limit(2)
   has_many :children, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:id, :hierarchy_id],
@@ -245,8 +250,8 @@ class HierarchyEntry < ActiveRecord::Base
     rgt - lft - 1
   end
 
-  # NOTE: THIS IS EXPENSIVE. Use with find_each, and use sparingly.
-  def descendants
+  #NOTE: THIS IS EXPENSIVE. Use with find_each, and use sparingly.
+  def get_descendants
     HierarchyEntry.
       where(["lft BETWEEN ? AND ? AND hierarchy_id = ?",
         lft, rgt, hierarchy_id])
@@ -318,7 +323,7 @@ class HierarchyEntry < ActiveRecord::Base
   # have the option of reindexing a lower node if needed.
   def repopulate_flattened_hierarchy
     HierarchyEntry.with_master do
-      descendants.select([:id, :lft, :rgt, :hierarchy_id]).find_each do |entry|
+      get_descendants.select([:id, :lft, :rgt, :hierarchy_id]).find_each do |entry|
         entry.repopulate_flattened_descendants
       end
     end

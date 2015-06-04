@@ -101,6 +101,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       @resource = @partner.resources.find(params[:id])
     end
     @page_subheader = I18n.t(:content_partner_resource_show_subheader, resource_title: Sanitize.clean(@resource.title))
+    @meta_data = { title: I18n.t(:content_partner_resource_page_title, :content_partner_name => @partner.full_name, :resource_name => @resource.title) }
   end
 
   # GET /content_partners/:content_partner_id/resources/:id/force_harvest

@@ -83,20 +83,12 @@ class DataSearchController < ApplicationController
     end
     file
   end
-  
-  def readable_query_string(string)
-    unless string.blank?
-      uri = KnownUri.find_by_uri(string)
-      @querystring_uri = string if uri
-      return uri.label if uri
-    end
-    string
-  end
-  
+    
   def prepare_search_parameters(options)
     @hide_global_search = true
     @querystring_uri = nil
-    @querystring = readable_query_string(options[:q])
+    @querystring = options[:q]
+    @querystring_uri =  @querystring if EOL::Sparql.is_uri?(@querystring)
     @attribute = options[:attribute]
     @attribute_missing = @attribute.nil? && params.has_key?(:attribute)
     @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'
@@ -149,7 +141,13 @@ class DataSearchController < ApplicationController
       end
     end
     
-    @values = @querystring.to_s
+    #@values = @querystring.to_s
+    if @querystring_uri
+      known_uri = KnownUri.find_by_uri(@querystring_uri)
+      @values = known_uri.label if known_uri
+    else
+      @values = @querystring.to_s
+    end    
     if @required_equivalent_values
       @required_equivalent_values.each do |val|
         @values += " + #{KnownUri.find(val.to_i).label}"

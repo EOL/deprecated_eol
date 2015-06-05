@@ -65,5 +65,9 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   def self.drop_tmp
     connection.execute("DROP TEMPORARY TABLE IF EXISTS #{tmp_table}")
   end
-  
+
+  # TODO: This should really be an aliased attribute (I think), but I'm in a rush.
+  def ancestor
+    flat_ancestor
+  end
 end

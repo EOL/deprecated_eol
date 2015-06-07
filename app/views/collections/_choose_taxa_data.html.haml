@@ -1,0 +1,8 @@
+#choose_collections
+  - unless @taxa_items.empty?
+    = form_tag(download_taxa_data_collections_path, :method => :put) do |f|
+      %fieldset
+        %ul
+          - @taxa_items.each do |taxa_item|
+            = taxa_item.collected_item_id
+      = link_to I18n.t(:download_collection_data), download_taxa_data_collections_path(collection_id: @collection), :class => 'button'

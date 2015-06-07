@@ -3824,6 +3824,7 @@ en:
   return_content_by_vettedness: "If 'vetted' is given a value of '1', then only trusted content will be returned. If 'vetted' is '2', then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content."
   reindex_data_object_button: "Reindex object"
   reindex_page_button: "Reindex page"
+  download_collection_data: "Download Data"
   image: "Image"
   image_cropped_notice: "Image was cropped successfully."
   image_crop_failed_error: "Sorry, an error occurred, the image could not be cropped."

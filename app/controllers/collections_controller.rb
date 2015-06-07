@@ -208,6 +208,25 @@ class CollectionsController < ApplicationController
     end
   end
 
+  def choose_taxa_data
+    return must_be_logged_in unless logged_in?
+    #@taxa_items = distinct_predicates
+    @taxa_items = []
+    @collection.collection_items.taxa.each do |taxon_concept|
+      @taxa_items << TaxonPage.new(taxon_concept).data.get_data
+    end
+    @taxa_items.collect{ |d| d.predicate }.compact
+    debugger
+    respond_to do |format|
+      format.html { render 'choose_taxa_data'}
+      format.js { render partial: 'choose_taxa_data' }
+    end
+  end
+  
+  def download_taxa_data
+    debugger
+  end
+
   # TODO - this should really be its own resource in its own controller.
   def cache_inaturalist_projects
     InaturalistProjectInfo.cache_all if InaturalistProjectInfo.needs_caching?

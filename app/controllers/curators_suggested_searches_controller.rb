@@ -1,6 +1,8 @@
 class CuratorsSuggestedSearchesController < ApplicationController
 
-  before_filter :restrict_to_master_curators 
+  before_filter :restrict_to_master_curators
+    before_filter :modal, only: [:new, :edit]
+
   def show
       @suggestion_search = CuratorsSuggestedSearch.find(params.find[:id])
   end
@@ -26,6 +28,11 @@ class CuratorsSuggestedSearchesController < ApplicationController
    flash[:success] = I18n.t :the_suggested_search_deleted
    redirect_to request.referrer || root_url
 
+  end
+
+   def modal
+    @modal = true # When this is JS, we need a "go back" link at the bottom if there's an error, and this needs
+                  # to be set super-early!
   end
 
   def prepare_attribute_options

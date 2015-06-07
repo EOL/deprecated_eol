@@ -352,6 +352,8 @@ GEM
     rubyzip (0.9.9)
     rvm-capistrano (1.2.7)
       capistrano (>= 2.0.0)
+    safe_attributes (1.0.10)
+      activerecord (>= 3.0.0)
     sanitize (2.0.3)
       nokogiri (>= 1.4.4, < 1.6)
     sass (3.2.12)
@@ -489,6 +491,7 @@ DEPENDENCIES
   ruby-hmac (= 0.4.0)
   ruby-prof (= 0.11.2)
   rvm-capistrano (= 1.2.7)
+  safe_attributes
   sanitize (= 2.0.3)
   sass-rails (= 3.2.5)
   simplecov (~> 0.7.1)

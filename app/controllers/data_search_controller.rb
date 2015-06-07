@@ -154,7 +154,7 @@ class DataSearchController < ApplicationController
       end
     end
     
-    if @attribute_known_uri && ! @attribute_known_uri.units_for_form_select.empty?
+    if @attribute_known_uri && ! @attribute_known_uri.units_for_form_select.blank?
       @units_for_select = @attribute_known_uri.units_for_form_select
     else
       @units_for_select = KnownUri.default_units_for_form_select
@@ -174,27 +174,7 @@ class DataSearchController < ApplicationController
   #
   # That said, we will have to consider how to deal with I18n, both for the "comment" and for the label.
   def prepare_suggested_searches
-    @suggested_searches = [
-      { label_key: 'search_suggestion_whale_mass',
-        params: {
-          sort: 'desc',
-          min: 10000,
-          taxon_concept_id: 7649,
-          attribute: 'http://purl.obolibrary.org/obo/VT_0001259',
-          unit: 'http://purl.obolibrary.org/obo/UO_0000009' }},
-      { label_key: 'search_suggestion_cavity_nests',
-        params: {
-          q: 'cavity',
-          attribute: 'http://eol.org/schema/terms/NestType' }},
-      { label_key: 'search_suggestion_diatom_shape',
-        params: {
-          attribute: 'http://purl.obolibrary.org/obo/OBA_0000052',
-          taxon_concept_id: 3685 }},
-      { label_key: 'search_suggestion_blue_flowers',
-        params: {
-          q: 'http://purl.obolibrary.org/obo/PATO_0000318',
-          attribute: 'http://purl.obolibrary.org/obo/TO_0000537' }}
-    ]
+    @suggested_searches = CuratorsSuggestedSearch.suggested_searches(current_language) 
   end
 
   # todo improve this hacky way of handling empty attributes
@@ -205,23 +185,23 @@ class DataSearchController < ApplicationController
       # NOTE excludes associations URIs e.g. preys upon.
       measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept)
       @attribute_options = convert_uris_to_options(measurement_uris)
-      @clade_has_no_data = true if @attribute_options.empty?
+      @clade_has_no_data = true if @attribute_options.blank?
     end
 
-    if @attribute_options.empty?
+    if @attribute_options.blank?
       # NOTE - because we're pulling this from Sparql, user-added known uris may not be included. However, it's superior to
       # KnownUri insomuch as it ensures that KnownUris with NO data are ignored.
       measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris
       @attribute_options = convert_uris_to_options(measurement_uris)
     end
 
-    if @attribute.nil?
+    if @attribute.blank?
       # NOTE we should (I assume) only get nil attribute when the user first
       #      loads the search, so for that context we select an example default,
       #      starting with [A-Z] seems more readable. If my assumption is wrong
       #      then we should rethink this and tell the user why attribute is nil
       match = @attribute_options.select{|o| o[0] =~ /^[A-Z]/}
-      @attribute_default = match.first[1] unless match.empty?
+      @attribute_default = match.first[1] unless match.blank?
     end
   end
 

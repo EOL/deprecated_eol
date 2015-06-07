@@ -397,6 +397,7 @@ Eol::Application.routes.draw do
   end
 
   resources :data_search_files, only: [:index, :destroy]
+  resources :curators_suggested_searches , controller: 'curators_suggested_searches'
 
   resources :news_items, :only => [:index, :show] do
     resources :translated_news_items, :as => :translations, :except => [:show, :index]

@@ -1,0 +1,16 @@
+.suggestions
+  %h3= t('data_search.form.search_suggestions_header')
+  %h4= t('data_search.form.search_suggestions_subheader_colon') 
+  %h6= link_to("create new", new_curators_suggested_search_url)
+  %ul.suggested_search
+    - unless suggested_searches.blank?
+      - suggested_searches.each do |suggestion|
+        %ul.row
+          %li.row= link_to suggestion.label,
+            data_search_url(attribute: suggestion.uri, q: suggestion.q,
+            min: suggestion.from, max: suggestion.to, taxon_concept_id: suggestion.taxon_concept_id,
+            unit: suggestion.unit_uri, sort: suggestion.sort)
+          -if current_user.master_curator?
+            %li.row= link_to raw(I18n.t :edit), edit_curators_suggested_search_url(suggestion)
+            %li.row= link_to raw(I18n.t :delete),  suggestion,  method: :delete, controller: 'curators_suggested_searches', id: suggestion.id , confirm: 'Are you sure?'
+

@@ -397,6 +397,7 @@ Eol::Application.routes.draw do
   end
 
   resources :data_search_files, only: [:index, :destroy]
+  resources :curators_suggested_searches , controller: 'curators_suggested_searches'
 
   # Old V1 admin search logs:
   resources :search_logs, :controller => 'administrator/search_logs'

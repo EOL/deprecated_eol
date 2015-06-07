@@ -110,6 +110,7 @@ class DataSearchFile < ActiveRecord::Base
       DataPointUri.assign_bulk_references(results, user.language)
       results.each do |data_point_uri|
         if data_point_uri.hidden?
+          # data_column_tc_id is used here just because it is the first cloumn in the downloaded file.
           rows << {I18n.t(:data_column_tc_id) => I18n.t(:data_search_row_hidden)}
         else
           # TODO - Whoa! Even when I ran “dpu.to_hash[some_val]”, even though it

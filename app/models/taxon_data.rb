@@ -124,6 +124,7 @@ class TaxonData < TaxonUserClassificationFilter
   def distinct_predicates
     data = get_data
     unless data.nil? || ranges_of_values.nil?
+      debugger
       ( data.collect{ |d| d.predicate }.compact +
         ranges_of_values.collect{ |r| r[:attribute] } ).uniq
     else

@@ -5830,7 +5830,6 @@ sv:
   view_added_text: visa tillagd text
   view_as_button: Ändra vy
   view_as_label: Visa som
-  view_common_activities: visa vanliga aktiviteter
   view_curators: visa kuratorer
   view_current_version_link: Visa aktuell version
   view_in_classification: visa i klassificeringen
@@ -5844,11 +5843,9 @@ sv:
   view_sound_source: Visa ljudkälla
   view_source: Visa källa
   view_video_source: Visa videokälla
-  view_common_activities_link: Visa lista med de vanligaste aktiviteterna.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Visa bara sidor med minst
     en bild eller ett textstycke
   view_this_hierarchy: visa denna hierarki
-  view_user_activity: visa användaraktivitet
   view_user_comments: visa användarkommentarer
   view_your_curator_profile: Visa din kuratorprofil
   vimeo: Vimeo

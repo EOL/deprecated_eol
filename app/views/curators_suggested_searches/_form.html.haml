@@ -5,14 +5,14 @@
 - taxon_concept_id = nil
 - taxon_name = { value: nil }
  
-= form_for @suggested_search ,method: 'get', class: 'suggested_search' do |f|
+= form_for @suggested_search ,method: 'get', class: 'suggested_search' do 
   .vital
     %fieldset
       %dl
         %dt
-          = 'label'
+          = label_tag I18n.t :title
         %dd
-          = text_field :label
+          = search_field_tag :title
     %fieldset
       %dl
         %dt

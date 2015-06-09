@@ -1,0 +1,7 @@
+- content_for :head do
+  = javascript_include_tag 'navigation'
+- content_for :main do
+  #content
+    .suggested_search
+      = yield
+= render :file => 'layouts/css_layout'

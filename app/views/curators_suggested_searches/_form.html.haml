@@ -1,27 +1,23 @@
 #suggested_search
 - helperstscope = [:helpers, :label, :data_search]
-- @taxon_concept = TaxonConcept.last
-- if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept) && !@clade_has_no_data
-  - taxon_concept_id = @taxon_concept.id
-  - taxon_name = { value: @taxon_concept.title_canonical, data: {} }
-- else
-  - taxon_concept_id = nil
-  - taxon_name = { value: nil }
-  - if @taxon_concept
-    - if !TaxonData.is_clade_searchable?(@taxon_concept) || @clade_has_no_data
-      - taxon_name[:data] = { value_removed_placeholder: I18n.t(:taxon_name_placeholder_value_removed,
-        taxon_group: @taxon_concept.title_canonical,
-        scope: helperstscope) }
-%h3.assistive= t('data_search.form.header')
-= form_tag data_search_path, method: 'get', class: 'copy', id: 'traitbank_search' do
-  = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
+
+
+- taxon_concept_id = nil
+- taxon_name = { value: nil }
+ 
+= form_for @suggested_search ,method: 'get', class: 'suggested_search' do 
   .vital
+    %fieldset
+      %dl
+        %dt
+          = label_tag I18n.t :title
+        %dd
+          = search_field_tag :title
     %fieldset
       %dl
         %dt
           = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
         %dd
-          -# TODO - || [] is lame here, fix:
           = select_tag(:attribute, options_for_select(@attribute_options || [], @attribute || @attribute_default), {id: 'attributes_select'})
     %fieldset
       %dl
@@ -65,7 +61,7 @@
         %dt
           = label_tag :unit, I18n.t(:unit, scope: helperstscope)
         %dd
-          - unit_options =nil# { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
+          - unit_options = nil#{ I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
           =  select_tag :unit #, options_for_select(unit_options, @unit)
     %fieldset.sort
       %dl

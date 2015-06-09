@@ -348,29 +348,16 @@ $(function() {
   
   // creating a new curators suggested search:
   $('a.suggested_search').modal({
-    <!-- beforeSend: function() { $('a.suggested_search').fadeTo(225, 0.3); }, -->
     beforeShow: function() {
-      <!-- $('form#new_collection :submit').on('click', function() {
-        if($('#collection_name').val() === ''){
-          $('.collection_name_error').show();
-          return(false);
-        }
+      $('form#suggested_search :submit').on('click', function() {
         EOL.prep_flashes();
         EOL.ajax_submit($(this), { update: $('#flashes') });
-        $('#choose_collections a.close').click();
+        $('#suggested_search a.close').click();
         return(false);
       });
-      $('form#new_collection_item :submit').on('click', function() {
-        EOL.prep_flashes();
-        EOL.ajax_submit($(this), { update: $('#flashes') });
-        $('#choose_collections a.close').click();
-        return(false);
-      }); -->
-      $('#suggested_search a.close_and_go').on('click', function() { $('#choose_collections a.close').click(); });
+      $('#suggested_search a.close_and_go').on('click', function() { $('#suggested_search a.close').click(); });
     },
-    afterClose: function() {
-      $('a.collect').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });
-    },
+
     duration: 200
   });
 

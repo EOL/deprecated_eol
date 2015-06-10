@@ -2665,7 +2665,6 @@ ru:
   view_added_text: просмотреть добавленный текст
   view_as_button: Изменить вид
   view_as_label: Просмотреть как
-  view_common_activities: просмотреть общую активность
   view_contact_us_submissions: просмотреть добавленные отзывы
   view_curators: просмотреть кураторов
   view_current_version_link: Просмотр текущей версии
@@ -2681,11 +2680,9 @@ ru:
   view_sound_source: Источник аудиофайла
   view_source: Источник
   view_video_source: Источник видеофайла
-  view_common_activities_link: Посмотреть список наиболее распространенных видов активности.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Просмотреть страницы с
     изображением или фрагментом текста
   view_this_hierarchy: просмотреть иерархию
-  view_user_activity: просмотреть активность пользователей
   view_user_comments: просмотреть комментарии пользователей
   view_your_curator_profile: Просмотр профиля куратор
   visible_title: Видимость

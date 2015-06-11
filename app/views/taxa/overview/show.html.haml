@@ -123,9 +123,9 @@
         .header
           %h3= I18n.t(:data_summary_header_with_count, count: @taxon_page.data.distinct_predicates.count)
           - if overview_data.blank? && ! @range_data.blank?
-            = link_to(raw(I18n.t(:see_all_data_summaries)), ranges_taxon_data_path(@overview))
+            = link_to(raw(I18n.t(:see_all_data_summaries)), ranges_taxon_data_path(@taxon_page))
           - elsif ! overview_data.blank?
-            = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @taxon_page.data.distinct_predicates.count)), taxon_data_path(@overview))
+            = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @taxon_page.data.distinct_predicates.count)), taxon_data_path(@taxon_page))
         - if overview_data.blank? && @range_data.blank?
           .empty
             %p

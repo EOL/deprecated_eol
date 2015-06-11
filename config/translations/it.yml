@@ -16,6 +16,7 @@
 # Author: Maria victoria
 # Author: Mario
 # Author: Mishatk
+# Author: Mpiva
 # Author: Nastoshka
 # Author: Nemo bis
 # Author: Nivit
@@ -4332,6 +4333,8 @@ it:
   confirm_delete_community: Sei sicuro di che voler eliminare questa comunità? I membri
     rimanenti saranno ancora in grado di vederla e il newsfeed sarà mantenuto, tuttavia
     essa non apparirà nelle ricerche o sulle pagine taxon e non sarà più modificabile.
+  confirm_delete_data_object: Sei sicuro di voler eliminare questo oggetto dati? Questa
+    azione non può essere annullata.
   confirm_leave: Sei sicuro di voler lasciare questa comunità?
   confirm_password_colon: 'Conferma password:'
   contact: Contatto
@@ -4456,6 +4459,8 @@ it:
     %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Spiacenti, si è verificato un
     errore, la risorsa non è stata aggiunta.
+  content_partner_resource_validation_finish_notice: La validazione della risorsa
+    partner di contenuti è completata e il suo stato è %{resource_status}.
   content_partner_resource_dataset_details_header: Gruppo di dati
   content_partner_resource_delete_with_type_link: Cancella tutto
   content_partner_resource_description_empty: Non è stata fornita alcuna descrizione
@@ -4530,6 +4535,8 @@ it:
   content_partner_resource_update_successful_notice: 'I dettagli sulla risorsa fornita
     dal Partner di contenuti è stata aggiornata con successo. Stato attuale della
     risorsa: %{resource_status}.'
+  content_partner_resource_update_successful: I dettagli della risorsa partner di
+    contenuti sono stati aggiornati con successo.
   content_partner_resource_update_unsuccessful_error: Spiacenti, si è verificato un
     errore, i dettagli della risorsa non sono stati aggiornati.
   content_partner_resource_upload_unsuccessful_error: 'Spiacenti, si è verificato
@@ -4756,6 +4763,7 @@ it:
     ore
   currently_running_harvesting: Raccolta Attualmente in Corso
   currently_in_eol: Attualmente in Encyclopedia of Life
+  institutional_sponsors: Sponsor istituzionali
   currently_published: attualmente pubblicato
   daily: Giornaliero
   darwin_core: Darwin Core
@@ -4796,6 +4804,12 @@ it:
   data_column_raw_units: Valore grezzo (direttamente da fonte)
   data_column_raw_units_uri: Unità grezza URI (normalizzata)
   data_column_source: Fornitore
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> riunisce record
+    di dati di molti fornitori. Seleziona una riga per ulteriori dettagli sul singolo
+    record o <a href="%{traitbank_search_path}">cerca in TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    riunisce record di dati di molti fornitori. Seleziona una riga per ulteriori dettagli
+    sul singolo record o <a href="%{traitbank_search_path}">cerca per %{taxon_name}</a>.
   data_database_colon: 'Dati:'
   data_glossary: Glossario dati
   data_glossary_contribute: Per contribuire alla creazione di nuovi termini di questo
@@ -4806,6 +4820,7 @@ it:
   data_metadata_subtable_summary: Ulteriori dati su questo contributo.
   data_measurement_subtable_summary: Ulteriori dati circa la misura di questo contributo.
   data_object: Oggetto dati
+  data_object_deleted: L'oggetto dati è stato eliminato con successo.
   data_object_not_associated_with_any_hierarchies: Questo oggetto dati non è associato
     ad alcuna gerarchia.
   data_object_reference: Riferimento dell'oggetto dati
@@ -4843,6 +4858,9 @@ it:
     page_title: Ricerca su TraitBank
     form:
       equivalent_attributes: 'Valori equivalenti:'
+      equivalent_values: 'Valori equivalenti:'
+      search_again_for_attributes: ricerca di nuovo per includere gli attributi selezionati
+      search_again_for_values: ricerca di nuovo per includere i valori selezionati
       header_assistive: Modulo di ricerca
       input_summary_intro: Opzioni di ricerca selezionate
       new_search_link: Avvia una nuova ricerca
@@ -7018,7 +7036,6 @@ it:
   view_added_text: Mostra testo aggiunto
   view_as_button: Cambia visualizzazione
   view_as_label: Mostra come
-  view_common_activities: visualizza attività comuni
   view_contact_us_submissions: visualizza gli invii a Contattaci
   view_curators: visualizza i curatori
   view_current_version_link: Visualizza versione corrente
@@ -7035,11 +7052,9 @@ it:
   view_sound_source: Visualizza fonte dell'audio
   view_source: Visualizza fonte
   view_video_source: Visualizza fonte del video
-  view_common_activities_link: Visualizza la lista delle attività più comuni.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Mostra solo pagine con
     almeno una foto o del testo
   view_this_hierarchy: visualizza questa gerarchia
-  view_user_activity: visualizza attività utente
   view_user_comments: visualizza i commenti degli utenti
   view_your_curator_profile: Visualizza il tuo profilo da curatore
   vimeo: Vimeo

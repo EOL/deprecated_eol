@@ -5544,7 +5544,6 @@ ar:
   view_added_text: عرض النص المضاف
   view_as_button: تغيير طريقة العرض
   view_as_label: اعرض في شكل
-  view_common_activities: اعرض الأنشطة المشتركة
   view_contact_us_submissions: عرض إضافات الاتصال بنا
   view_curators: عرض المشرفين
   view_current_version_link: عرض النسخة الحالية
@@ -5560,11 +5559,9 @@ ar:
   view_sound_source: عرض مصدر المقطع الصوتي
   view_source: اعرض المصدر
   view_video_source: عرض مصدر مقطع الفيديو
-  view_common_activities_link: اعرض قائمة بأكثر الأنشطة شيوعًا
   view_only_pages_with_at_least_a_picture_or_piece_of_text: عرض الصفحات التي تضم صورة
     أو جزء من نص
   view_this_hierarchy: عرض التسلسل الهرمي هذا
-  view_user_activity: عرض نشاط المستخدم
   view_user_comments: عرض تعليقات المستخدم
   view_your_curator_profile: اعرض الصفحة الشخصية الخاصة بك كمشرف.
   visible_title: مرئي

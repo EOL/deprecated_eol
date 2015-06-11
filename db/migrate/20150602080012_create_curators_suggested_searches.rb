@@ -1,7 +1,7 @@
 class CreateCuratorsSuggestedSearches < ActiveRecord::Migration
   def change
     create_table :curators_suggested_searches do |t|
-      t.text :label
+      t.text :label, null: false
       t.string :q
       t.float    :from
       t.float    :to

@@ -126,7 +126,6 @@ class SearchController < ApplicationController
   end
 
   def autocomplete_taxon
-    debugger
     @from_site_search = !! params[:site_search]
     @querystring = params[:term].strip
     # NOTE - the regex here looks for ANY WORD in the string which is shorter than three characters. Thus "Aba c" will NOT work.

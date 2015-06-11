@@ -7134,7 +7134,6 @@ es:
   view_added_text: ver texto añadido
   view_as_button: Cambiar vista
   view_as_label: Ver como
-  view_common_activities: Ver actividades comunes
   view_contact_us_submissions: ver las solicitudes a contáctenos
   view_curators: ver curadores
   view_current_version_link: Ver la versión actual
@@ -7150,11 +7149,9 @@ es:
   view_sound_source: Ver código fuente del audio
   view_source: Ver código fuente
   view_video_source: Ver el fuente de vídeo
-  view_common_activities_link: Ver lista de las actividades más comunes.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Mira sólo las páginas
     con al menos una imagen o texto
   view_this_hierarchy: ver esta jerarquía
-  view_user_activity: ver la actividad del usuario
   view_user_comments: Ver comentarios de usuario
   view_your_curator_profile: Ver tu perfil de supervisor
   vimeo: Vimeo

@@ -36,7 +36,6 @@ class DataObjectsController < ApplicationController
       @page_title = I18n.t(:dato_new_text_for_taxon_page_title, taxon: Sanitize.clean(@taxon_concept.title_canonical))
     end
     @page_description = I18n.t(:dato_new_text_page_description)
-    current_user.log_activity(:creating_new_data_object, taxon_concept_id: @taxon_concept.id)
     render :new
   end
 
@@ -73,8 +72,6 @@ class DataObjectsController < ApplicationController
     else
       @taxon_concept.reload # Clears caches, too!
       add_references(@data_object)
-      current_user.log_activity(:created_data_object_id, value: @data_object.id,
-                                taxon_concept_id: @taxon_concept.id)
       # add this new object to the user's watch collection
       collection_item = CollectionItem.create(
         collected_item: @data_object,
@@ -182,8 +179,6 @@ class DataObjectsController < ApplicationController
       update_failed(I18n.t(:dato_update_user_text_error)) and return
     else
       add_references(new_data_object)
-      current_user.log_activity(:updated_data_object_id, value: new_data_object.id,
-                                taxon_concept_id: new_data_object.taxon_concept_for_users_text.id)
       redirect_to data_object_path(new_data_object), status: :moved_permanently
     end
   end
@@ -203,7 +198,6 @@ class DataObjectsController < ApplicationController
 
     if stars.to_i > 0
       rated_successfully = @data_object.rate(current_user, stars.to_i)
-      current_user.log_activity(:rated_data_object_id, value: @data_object.id) if rated_successfully
     end
 
     respond_to do |format|
@@ -238,7 +232,6 @@ class DataObjectsController < ApplicationController
     # TODO - nononono, this isn't how DataObjectCaching is meant to be used! Call @data_object.best_title and let that class handle
     # the caching.
     @page_title = DataObjectCaching.title(@data_object, current_language)
-    get_attribution
     @slim_container = true
     DataObject.preload_associations(@data_object,
       [ { data_object_translation: { original_data_object: :language } },
@@ -258,7 +251,6 @@ class DataObjectsController < ApplicationController
 
   # GET /data_objects/1/attribution
   def attribution
-    get_attribution
     render partial: 'attribution', locals: { data_object: @data_object }, layout: @layout
   end
 
@@ -371,7 +363,6 @@ class DataObjectsController < ApplicationController
           # we still want to update their object_cache_url
           @data_object.update_attribute('object_cache_url', new_object_cache_url)
           log_action(@data_object, :crop, notice: false, collect: false)
-          current_user.log_activity(:cropped_data_object_id, value: @data_object.id)
           flash[:notice] = I18n.t(:image_cropped_notice)
         else
           flash[:error] = I18n.t(:image_crop_failed_error)
@@ -473,10 +464,6 @@ private
     with_master_if_curator do
       @data_object ||= DataObject.find(params[:id])
     end
-  end
-
-  def get_attribution
-    current_user.log_activity(:showed_attributions_for_data_object_id, value: @data_object.id)
   end
 
   def set_text_data_object_options

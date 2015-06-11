@@ -19,6 +19,9 @@ class ApiController < ApplicationController
   def hierarchy_entries
   end
 
+  def hierarchy_entries_descendants
+  end
+
   def synonyms
   end
 

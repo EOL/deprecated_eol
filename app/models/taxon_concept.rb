@@ -134,7 +134,7 @@ class TaxonConcept < ActiveRecord::Base
           tc.preferred_entry.hierarchy_entry
         end
       end.flatten.compact
-      HierarchyEntry.preload_associations(he, { flattened_ancestors: { flat_ancestor: :name } } )
+      HierarchyEntry.preload_associations(he, { flattened_ancestors: { ancestor: :name } } )
     end
     if options[:language_id] && ! options[:skip_common_names]
       # loading the names for the preferred common names in the user's language
@@ -1015,6 +1015,12 @@ class TaxonConcept < ActiveRecord::Base
     if Hierarchy.wikipedia
       entry(Hierarchy.wikipedia)
     end
+  end
+
+  def self.get_entry_id_of_last_published_taxon
+    taxon_concept_last = TaxonConcept.published.last unless TaxonConcept.published.blank?
+    entry = taxon_concept_last.entry if taxon_concept_last
+    entry ? entry.id : nil
   end
 
 private

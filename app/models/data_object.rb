@@ -1236,9 +1236,8 @@ class DataObject < ActiveRecord::Base
       return  udo.user_id == options[:user][:id] &&
               options[:taxon_concept][:id] == udo.taxon_concept_id &&
               params[:data_object][:data_type_id].to_i  == last_dato.data_type_id &&
-              (!params[:data_object][:object_title].blank? && 
-              params[:data_object][:object_title] == last_dato.object_title &&
-              params[:data_object][:description] == last_dato.description)
+              (params[:data_object][:object_title] == last_dato.object_title &&
+               params[:data_object][:description] == last_dato.description)
     end
   end
 

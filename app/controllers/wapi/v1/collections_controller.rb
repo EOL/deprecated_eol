@@ -4,10 +4,10 @@ module Wapi
       respond_to :json
       before_filter :restrict_access, except: [:index, :show]
       before_filter :find_collection, only: [:update, :destroy]
+      DEFAULT_ITEMS_NUMBER_PER_PAGE = 30
 
       def index
-        # TODO: pagination! This would be HUGE.
-        respond_with Collection.where(published: true).all.take(10)
+        respond_with Collection.where(published: true).paginate(page: params[:page] ||= 1, per_page: params[:per_page] ||= DEFAULT_ITEMS_NUMBER_PER_PAGE)
       end
 
       def show

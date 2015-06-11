@@ -398,9 +398,6 @@ Eol::Application.routes.draw do
 
   resources :data_search_files, only: [:index, :destroy]
 
-  # Old V1 admin search logs:
-  resources :search_logs, :controller => 'administrator/search_logs'
-
   resources :news_items, :only => [:index, :show] do
     resources :translated_news_items, :as => :translations, :except => [:show, :index]
   end
@@ -561,13 +558,9 @@ Eol::Application.routes.draw do
         get 'revoke_curator'
         get 'clear_curatorship'
         get 'login_as_user'
-        get 'view_common_combinations'
         get 'deactivate'
       end
       collection do
-        get 'view_common_combinations'
-        get 'view_user_activity'
-        get 'view_common_activities'
         get 'list_newsletter_emails'
       end
     end

@@ -6,7 +6,6 @@ class IpAddress < LazyLoggingModel
   before_validation :set_provider_if_null
 
   has_many :data_object_logs
-  has_many :search_logs
 
   # these fields are required in the database
   # and they don't require successful geocoding

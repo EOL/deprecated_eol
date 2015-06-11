@@ -45,28 +45,6 @@ describe User do
     @user.unsubscribe_key.should == Digest::MD5.hexdigest(@user.email + @user.created_at.to_s + $UNSUBSCRIBE_NOTIFICATIONS_KEY)
   end
 
-  it 'should have a log method that creates a UserActivityLog entry (when enabled)' do
-    old_log_val = $LOG_USER_ACTIVITY
-    begin
-      $LOG_USER_ACTIVITY = true
-      count = UserActivityLog.count
-      @user.log_activity(:clicked_link)
-      wait_for_insert_delayed do
-        UserActivityLog.count.should == count + 1
-      end
-      UserActivityLog.last.user_id.should == @user.id
-    ensure
-      $LOG_USER_ACTIVITY = old_log_val
-    end
-  end
-
-  it 'should NOT log activity on a "fake" (unsaved, temporary, non-logged-in) user' do
-    user = User.new
-    count = UserActivityLog.count
-    user.log_activity(:clicked_link)
-    UserActivityLog.count.should == count
-  end
-
   it 'should authenticate existing user with correct password, returning true and user back' do
     success, user=User.authenticate( @user.username, @password)
     success.should be_true

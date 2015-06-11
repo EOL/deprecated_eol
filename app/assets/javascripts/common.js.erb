@@ -352,14 +352,15 @@ $(function() {
       $('form#suggested_search :submit').on('click', function() {
         EOL.prep_flashes();
         EOL.ajax_submit($(this), { update: $('#flashes') });
-        $('#suggested_search a.close').click();
+        $('#suggested_search a.submit').click();
         return(false);
       });
-      $('#suggested_search a.close_and_go').on('click', function() { $('#suggested_search a.close').click(); });
+      $('#suggested_search a.submit').on('click', function() { $('#suggested_search a.submit').click(); });
     },
 
     duration: 200
   });
+
 
   $('a.reindex').on('click', function() {
     var $reindex = $('a.reindex');

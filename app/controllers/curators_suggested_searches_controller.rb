@@ -19,6 +19,7 @@ class CuratorsSuggestedSearchesController < ApplicationController
     else
     @suggested_search ||=  CuratorsSuggestedSearch.new
     end
+    debugger
     update_attributes(params)
     flash[:success] = 'suggestion added'
     redirect_to data_search_path
@@ -42,7 +43,6 @@ class CuratorsSuggestedSearchesController < ApplicationController
   end
 
   def  update_attributes(params)
-    debugger  
     @suggested_search.update_attributes(params[:curators_suggested_search])
     @suggested_search.save
   end

@@ -14,8 +14,8 @@
 = form_for @suggested_search,  url: curators_suggested_searches_path(@suggested_search), method:'post', class: 'suggested_search' do |f|
   = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
   .vital
-    %fieldset
-      %dl
+    %fieldset.required
+      %dl.required
         %dt.required
           = f.label I18n.t :label
         %dd.required

@@ -140,7 +140,6 @@ class ContentController < ApplicationController
           end
           @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title
           @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
-          current_user.log_activity(:viewed_content_page_id, value: @page_id)
           @rel_canonical_href = cms_page_url(@content)
         end
       end

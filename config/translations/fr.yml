@@ -8,6 +8,7 @@
 # Author: DavidL
 # Author: Davidtsm
 # Author: Euloiix
+# Author: Framafan
 # Author: Freak2fast4u
 # Author: Gomoko
 # Author: Hashar
@@ -4781,6 +4782,7 @@ fr:
     « %{period} » heures
   currently_running_harvesting: Collecte actuellement en cours
   currently_in_eol: Actuellement dans l’Encyclopédie de la Vie (EdlV)
+  institutional_sponsors: Partenaires institutionnels
   currently_published: publié actuellement
   daily: Quotidien
   darwin_core: Darwin Core
@@ -5167,8 +5169,63 @@ fr:
         et aux conservateurs de EdlV ayant un niveau minimum de conservateur maître.
       no_access: Désolé, cette fonctionnalité est temporairement désactivée. Revérifiez
         prochainement.
+      missing_edit_acess_to_forum_category: Désolé, seuls les admins peuvent modifier
+        cette catégorie de forum
+      missing_delete_acess_to_forum_category: Désolé, seuls les admins peuvent supprimer
+        cette catégorie de forum
+      missing_edit_acess_to_forum_post: Désolé, seuls les admins ou l'auteur du sujet
+        peuvent modifier ce post sur le forum
+      missing_delete_acess_to_forum_post: Désolé, seuls les admins ou l'auteur du
+        sujet peuvent supprimer ce post sur le forum
       missing_set_article_as_exemplar_privilege: Désolé, seuls les conservateurs peuvent
         qualifier un article comme exemplaire.
+      missing_delete_access_to_synonym: Désolé, seuls les agents peuvent supprimer
+        ce synonyme
+      missing_delete_access_to_data_search_file: Désolé, seuls les admins, maîtres
+        des conservateurs ou le propriétaire du fichier peut supprimer ce fichier
+      missing_permission_to_view_open_authentications: Désolé, seul les administrateurs
+        peuvent consulter les caractères authentification pour ce compte
+      missing_permission_to_add_open_authentications: Désolé, seuls les admins et
+        le compte du propriétaire peut ajouter de nouvelles authentifications pour
+        ce compte
+      missing_permission_to_delete_open_authentications: Désolé, seuls les admins
+        et le compte du propriétaire peuvent supprimer les ouvertures d'authentifications
+        pour ce compte
+      this_action_requires_higher_curation_level: Désolé, cette action exige de plus
+        haut niveau de la créditation
+      admins_and_joined_only_can_read: Désolé, vous devriez vous joindre à cette collections
+        pour pouvoir l'afficher
+      owner_and_managers_only_can_edit: Désolé, seulement le propriétaire de la collection
+        ou ses gestionnaires peuvent l'éditer
+      error_revoking_editor_on_watch_collection: Désolé, les éditeurs ne peuvent pas
+        être supprimés des collections de suivi
+      error_revoking_editor_on_an_empty_community: Désolé, les éditeurs ne peuvent
+        pas être supprimés à partir d'une communauté vide
+      only_managers_can_edit_community: Désolé, seuls les gestionnaires peuvent modifier
+        cette communauté
+      only_managers_can_delete_community: Désolé, seuls les gestionnaires peuvent
+        supprimer cette communauté
+      only_admins_can_view_content_pages: Désolé, seuls les administrateurs peuvent
+        consulter les pages de contenu
+      only_admins_can_view_translated_content_pages: Désolé, seuls les administrateurs
+        peuvent voir les pages de contenu traduites
+      only_admins_can_edit_forums: Désolé, seuls les administrateurs peuvent modifier
+        les forums
+      must_be_logged_in: Désolé, vous devez être connecté
+      only_admins_can_read_hidden_news_items: Désolé, seuls les administrateurs peuvent
+        lire les éléments d’actualité masqués
+      only_admins_can_read_hidden_translated_news_items: Désolé, seuls les administrateurs
+        peuvent lire les éléments d’informations masqués traduits
+      can_not_access_unpublished_taxon: Désolé, vous ne pouvez pas accéder à un taxon
+        non publié
+      only_data_owner_can_edit: Désolé, seul le propriétaire de la donnée peut la
+        modifier
+      only_data_owner_can_delete: Désolé, seul le propriétaire de la donnée peut la
+        supprimer
+      error_editing_someone_account: Désolé, vous ne pouvez modifier que votre propre
+        compte
+      can_not_edit_permissions: Désolé, vous ne pouvez pas modifier les droits
+      collection_job_not_valid: Tâche de collecte non valide
   excluded_icon_tip: Les lignes marquées avec l’icône d’exclusion %{excluded_icon}
     ne seront jamais affichées dans les pages de présentation des taxons.
   expand_all_children: Développer tous les enfants
@@ -7085,7 +7142,6 @@ fr:
   view_added_text: voir le texte ajouté
   view_as_button: Changer de vue
   view_as_label: Voir comme
-  view_common_activities: voir les activités communes
   view_contact_us_submissions: voir les envois de Contactez-nous
   view_curators: voir les conservateurs
   view_current_version_link: Afficher la version courante
@@ -7102,11 +7158,9 @@ fr:
   view_sound_source: Afficher la source audio
   view_source: Afficher la source
   view_video_source: Afficher la source vidéo
-  view_common_activities_link: Afficher la liste des activités les plus courantes.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Voir seulement les pages
     avec au moins une image ou un morceau de texte
   view_this_hierarchy: afficher cette hiérarchie
-  view_user_activity: afficher l’activité utilisateur
   view_user_comments: afficher les commentaires utilisateur
   view_your_curator_profile: Voir votre profil de conservateur
   vimeo: Vimeo

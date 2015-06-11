@@ -6839,7 +6839,6 @@ mk:
   view_added_text: погл. додаден текст
   view_as_button: Промени изглед
   view_as_label: Види како
-  view_common_activities: погл. вообичаени активности
   view_contact_us_submissions: погл. контактирања
   view_curators: погл. кустоси
   view_current_version_link: Тековна верзија
@@ -6856,11 +6855,9 @@ mk:
   view_sound_source: Погл. извор на аудиоснимката
   view_source: Извор
   view_video_source: Погл. извор на видеоснимката
-  view_common_activities_link: Погл. список на највообичаени активности.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Само страниците со барем
     по една слика или некаков текст
   view_this_hierarchy: погл. оваа хиерархија
-  view_user_activity: погл. кориснички активности
   view_user_comments: погл. кориснички коментари
   view_your_curator_profile: Погл. вашиот кустоски профил
   vimeo: Vimeo

@@ -3335,7 +3335,6 @@ sr:
   view_added_text: погледај додати текст
   view_as_button: Промени приказ
   view_as_label: Погледај као
-  view_common_activities: погледај уобичајену активност
   view_contact_us_submissions: погледај контактирања
   view_curators: погледај кустосе
   view_current_version_link: Погледај текућу верзију
@@ -3350,11 +3349,9 @@ sr:
   view_map_source: Погледај извор карте
   view_sound_source: Погледај извор звучног снимка
   view_video_source: Погледај извор видео-снимка
-  view_common_activities_link: Погледај списак најуобичајених активности.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Само странице с најмање
     једном сликом и нешто текста
   view_this_hierarchy: погледај ову хијерархију
-  view_user_activity: погледај корисничке активности
   view_user_comments: погледај корисничке коментаре
   view_your_curator_profile: Погледај свој кустоски профил
   visible_title: Видљиво

@@ -5034,4 +5034,52 @@ pms:
   eol_api_colon: 'IPA dl''EdV:'
   eol_api: IPA dl'EdV
   eol_api_hierarchies: 'IPA dl''EdV: gerarchìe'
+  eol_api_hierarchy_entries: 'API ëd l''EdV: vos ëd gerarchìa'
+  eol_api_pages: 'API ëd l''EdV: pàgine'
+  eol_api_ping: 'API ëd l''EdV: ping'
+  eol_api_provider_hierarchies: 'API ëd l''EdV: gerarchìe ëd fornidor'
+  eol_api_search_by_provider: 'API ëd l''EdV: arserca për fornidor'
+  eol_api_search: 'API ëd l''EdV: arserca'
+  eol_api_collections: 'API ëd l''EdV: colession'
+  eol_colon: 'EdV:'
+  eol_flickr_group: Companìa EdV su Flickr
+  eol_news: Neuve ëd l'EdV
+  eol_pages: Pàgine
+  error_log_detail: Detaj dl'argistr dj'eror
+  error_revoking_editor_on_watch_collection: J'editor a peulo nen esse gavà da le
+    colession ch'as ten-o sot-euj
+  error_log: Argist dj'eror
+  error_logging_active: Argistrassion dj'eror ativa
+  error_401_page_title: Nen autorisà
+  error_401_description: An dëspias, chiel a l'é nen autorisà a acede a costa adrëssa.
+  error_403_page_title: Vietà
+  error_403_description: An dëspias, chiel a l'é nen autorisà a acede a costa adrëssa.
+  error_404_page_title: Nen trovà
+  error_404_description: An dëspias, i l'ome trovà gnun-a pàgina a cost'adrëssa.
+  error_500_page_title: Contacc!
+  error_500_description: An dëspias, a-i é staje un problema. S'a continua, për piasì
+    ch'a manda un mëssagi a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+  error_default_description: An dëspias, a-i é staje un problema. S'a continua, për
+    piasì ch'a manda un mëssagi a <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+  error_default_page_title: Contacc!
+  error_classifications_locked_cannot_reindex: An dëspias, costa pàgina a peul nen
+    esse ri-indicisà për adess. Le classificassion a son blocà.
+  error_couldnt_find_collection_by_id: Impossìbil trové na colession ch'a peul masenté
+    con l'id %{id}.
+  error_couldnt_find_community_by_id: Impossìbil trové na comunità che chiel a peul
+    masenté con l'identificativ %{id}.
+  error_exemplar_chosen_with_invalid_action: 'An dëspias, ma la classificassion ch''a
+    l''ha sernù a l''é nen ëstàita modificà: na part ëd l''arcesta a l''é spërdusse.
+    A dovrà torna prové.'
+  error_homepage_or_search_option: 'A peul o bin torné a l''<a href="/">intrada</a>,
+    opura dovré nòstr utiss d''arserca:'
+  error_no_items_selected: A dev selessioné j'element da la colession, opura selessioné
+    «Tuti j'element» da la lista dësrolanta.
+  error_watch_collections_cannot_be_shared: Le colession ëd lòn ch'as ten sot-euj
+    a peulo nen esse partagià
+  error_updating_user: A- é staje n'eror an agiornand l'argistrassion ëd s'utent
+  every_method_can_also_return_json_response: Qualsëssìa métod a peul ëdcò dé na rispòsta
+    JSON an giontant n'estension .json
+  example_colon: 'Esempi:'
+  exception: Ecession
 ...

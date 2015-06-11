@@ -22,7 +22,6 @@ class WikipediaImportsController < ApplicationController
   def create
     access_denied unless current_user.is_curator? || current_user.is_admin?
     @revision_url = params[:wikipedia_queue][:revision_url]
-    current_user.log_activity(:left_for_wikipedia_url, value: @revision_url)
     if matches = @revision_url.match(/^http:\/\/en\.wikipedia\.org\/w\/index\.php\?title=(.*?)&oldid=([0-9]{9})$/i)
       flash[:notice] = I18n.t(:wikipedia_queue_create_successful_notice, article: matches[1], rev: matches[2])
       WikipediaQueue.create(revision_id: matches[2], user_id: current_user.id)

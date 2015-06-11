@@ -176,17 +176,6 @@ class User < ActiveRecord::Base
     return rset
   end
 
-  # TODO - This is only used in the admin controller, and can probably be removed.
-  def self.users_with_activity_log
-    sql = "SELECT distinct u.id , u.given_name, u.family_name
-      FROM users u
-        JOIN #{UserActivityLog.full_table_name} al ON u.id = al.user_id
-      ORDER BY u.family_name, u.given_name"
-    User.with_master do
-      User.find_by_sql([sql])
-    end
-  end
-
   def self.hash_password(raw)
     Digest::MD5.hexdigest(raw)
   end
@@ -572,11 +561,6 @@ class User < ActiveRecord::Base
       return_ratings[udor.data_object_guid] = udor.rating
     end
     return_ratings
-  end
-
-  # This is *very* generalized and tracks nearly everything:
-  def log_activity(what, options = {})
-    UserActivityLog.log(what, options.merge(user: self)) if self.id && self.id != 0
   end
 
   def join_community(community)

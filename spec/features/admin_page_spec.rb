@@ -29,12 +29,6 @@ describe 'Admin Pages' do
 
     @toc_item = TocItem.gen_if_not_exists(label: "sample label")
     @info_item = InfoItem.gen(toc_id: @toc_item.id)
-
-    @activity = Activity.gen_if_not_exists(name: "sample activity")
-    @user_with_activity = User.gen(given_name: "John", family_name: "Doe")
-
-    # I expect @user_with_activity to do a few things, one of which includes @activity...  right?
-    UserActivityLog.gen(user_id: @user_with_activity.id, activity_id: @activity.id)
   end
 
   after :each do
@@ -99,19 +93,5 @@ describe 'Admin Pages' do
     page.should have_content(@toc_item.label)
   end
 
-  it "should get data from a form and display user activity"
-
-  it "should list activity combinations in a 5-min. duration" do
-    login_as(@user)
-    visit("/administrator/user/view_common_combinations")
-    page.should have_content("List of activity combinations in a 5-min. duration")
-    page.should have_content(@activity.name)
-  end
-
-  it "should list activity combinations in a 5-min. duration for a given activity" do
-    login_as(@user)
-    visit("/administrator/user/view_common_combinations?activity_id=#{@activity.id}")
-    page.should have_content("List of activity combinations in a 5-min. duration for activity #{@activity.name}")
-  end
 
 end

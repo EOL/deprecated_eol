@@ -81,7 +81,6 @@ class NewsItemsController < ApplicationController
           @translated_news_items = translations_available_to_user
           @translated_news_item = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
           @page_title = @translated_news_item.nil? ? I18n.t(:news_missing_content_title) : @translated_news_item.title
-          current_user.log_activity(:viewed_content_page_id, value: page_id)
           @rel_canonical_href = news_url(news_item)
         end
       end

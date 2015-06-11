@@ -50,7 +50,9 @@ class ContentServer
     return nil if file_url.blank?
     return nil if resource_id.blank?
     parameters = "function=upload_resource&resource_id=#{resource_id}&file_path=#{file_url}"
-    if response = call_api_with_parameters(parameters, "content partner dataset service")
+    hash = call_api_with_parameters(parameters, "content partner dataset service")
+    response = response[:response]
+    if response
       response = Hash.from_xml(response)
       # set status to response - we've validated the resource
       if response["response"].key? "status"
@@ -98,12 +100,8 @@ class ContentServer
     count = 0
     begin
       begin
-        response = EOLWebService.call(:parameters => parameters)
-        if response.blank?
-          ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} timed out") if $ERROR_LOGGING
-        else
-          return response
-        end
+        response = EOLWebService.call(:parameters => parameters)     
+        return {response: response, exception: nil}
       rescue Exception => ex
         Rails.logger.error "#{$WEB_SERVICE_BASE_URL} #{method_name} #{ex.message}"
         ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} has an error") if $ERROR_LOGGING
@@ -111,25 +109,35 @@ class ContentServer
         count += 1
       end
     end while count < 5
-    nil
+    return {response: nil, exception: "#{method_name} has an error"}
   end
 
   def self.call_file_upload_api_with_parameters(parameters, method_name)
-    if response = call_api_with_parameters(parameters, method_name)
+    hash = call_api_with_parameters(parameters, method_name)
+    response = hash[:response]
+    exception = hash[:exception]
+    error = nil
+    if response.blank? 
+      if exception.nil?
+        ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} timed out") if $ERROR_LOGGING
+        error = "#{method_name} timed out"
+      else
+        error = exception # couldn't connect
+      end
+    else
       response = Hash.from_xml(response)
-      # TODO: There is duplicate error logging, here... check
-      # #call_api_with_parameters and clean it up.
       if response["response"].class != Hash
         error = "Bad response: #{response["response"]}"
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
-      elsif response["response"].key? "file_path"
-        return response["response"]["file_path"]
       elsif response["response"].key? "error"
         error = response["response"]["error"]
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
+      elsif response["response"].key? "file_path"
+        path = response["response"]["file_path"]
+        return path.blank? ? {response: nil, error: "File path is nil"} : {response: path, error: nil}
       end
     end
-    nil
+    return {response: nil, error: error}
   end
 
 end

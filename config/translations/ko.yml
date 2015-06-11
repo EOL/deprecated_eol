@@ -5139,7 +5139,6 @@ ko:
   view_added_text: 추가된 텍스트 보기
   view_as_button: 바뀜 보기
   view_as_label: 보기 방식
-  view_common_activities: 공통 활동 보기
   view_contact_us_submissions: 문의하기 제출 보기
   view_curators: 큐레이터 보기
   view_current_version_link: 현재 버전 보기
@@ -5155,11 +5154,9 @@ ko:
   view_sound_source: 소리 원본 보기
   view_source: 원본 보기
   view_video_source: 동영상 원본 보기
-  view_common_activities_link: 가장 일발적인 활동의 목록을 봅니다.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: 적어도 텍스트의 사진이나 조각으로 된 문서만
     보기
   view_this_hierarchy: 이 계층 보기
-  view_user_activity: 사용자 활동 보기
   view_user_comments: 사용자 덧글 보기
   view_your_curator_profile: 내 큐레이터 프로필 보기
   vimeo: 비메오

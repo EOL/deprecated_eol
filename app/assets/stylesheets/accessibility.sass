@@ -2135,13 +2135,20 @@ ul.ui-autocomplete
         top: 30px
         right: 30px
         width: 38%
+        h4, h6
+          display: inline
+          margin-bottom: 10px
         ul.row
           position: relative
-          right: 60px
+          right: 59px
+          margin-top: 1em
+          margin-bottom: .5em
+          width: 120%
           li.row
             margin: 0
             position: relative
             display: inline-block
+            margin-left: .4em
       .range
         width: 30%
         float: left
@@ -2155,6 +2162,13 @@ ul.ui-autocomplete
       position: absolute
       top: 35px
       right: 40px
+      background-image: none
+.suggested_search
+  .range
+    width: 30%
+    float: left
+    input[type="search"], input[type="text"] /* its an ie7 thing */
+      width: 90%
 .ui-autocomplete.ui-front.ui-menu.ui-widget.ui-widget-content.ui-corner-all
   z-index: 2147483647
   tab-index: 66666666666666666666

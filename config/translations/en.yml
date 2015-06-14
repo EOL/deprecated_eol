@@ -3310,6 +3310,7 @@ en:
     one: "%{count} Curator"
     other: "%{count} Curators"
   curators_suggested_searches_added: "The suggested search was successfuly added."
+  curators_suggested_searches_create_new: "(create new)"
   curators_suggested_searches_delete_confirmation: "Are you sure you want to delete \'%{label}\'? Deleted suggested searches cannot be recovered."
   curators_suggested_searches_deleted: "The suggested search was successfuly deleted."
   your_current_rating_0_of_5: "Your current rating: 0 of 5"

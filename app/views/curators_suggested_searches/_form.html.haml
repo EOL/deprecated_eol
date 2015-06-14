@@ -11,14 +11,15 @@
       - taxon_name[:data] = { value_removed_placeholder: I18n.t(:taxon_name_placeholder_value_removed,
         taxon_group: @taxon_concept.title_canonical,
         scope: helperstscope) }
-= form_for @suggested_search,  url: curators_suggested_searches_path(@suggested_search), method:'post', class: 'suggested_search' do |f|
+= form_for @suggested_search,  url: curators_suggested_searches_path(@suggested_search), :builder => ApplicationHelper::EolFormBuilder, method:'post', class: 'suggested_search' do |f|
   = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
   .vital
-    %fieldset.required
-      %dl.required
+    = validation_errors_for(@suggested_search)
+    %fieldset
+      %dl
         %dt.required
           = f.label I18n.t :label
-        %dd.required
+        %dd
           = f.search_field :label
     %fieldset
       %dl

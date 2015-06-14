@@ -1,0 +1,6 @@
+- content_for :head do
+  = javascript_include_tag 'navigation'
+- content_for :main do
+   #content
+      = yield
+= render :file => 'layouts/application'

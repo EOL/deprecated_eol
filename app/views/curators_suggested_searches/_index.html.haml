@@ -12,5 +12,5 @@
             unit: suggestion.unit_uri, sort: suggestion.sort)
           -if current_user.master_curator?
             %li.row= link_to raw(I18n.t :edit, class: 'suggested_search'), edit_curators_suggested_search_url(suggestion), class: 'suggested_search'
-            %li.row= link_to raw(I18n.t :delete, class: 'suggested_search'),  suggestion,  method: :delete, controller: 'curators_suggested_searches', id: suggestion.id , confirm: 'Are you sure?'
+            %li.row= link_to raw(I18n.t :delete),  suggestion, method: :delete, controller: 'curators_suggested_searches', id: suggestion.id , confirm: raw(I18n.t :curators_suggested_searches_delete_confirmation , label:suggestion.label)
 

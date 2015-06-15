@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe CuratorsSuggestedSearchController do
+describe CuratorsSuggestedSearchesController do
 
 end

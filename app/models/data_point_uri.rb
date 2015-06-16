@@ -223,7 +223,8 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def predicate_uri
-    predicate_known_uri || predicate
+    return KnownUri.find_by_uri(predicate) if predicate
+    predicate_known_uri
   end
 
   def object_uri

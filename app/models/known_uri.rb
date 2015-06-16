@@ -400,6 +400,20 @@ class KnownUri < ActiveRecord::Base
     )
   end
 
+  #this solves the problem of method_missing for alias_method_chain
+  def self.find_by_uri(*args); super; end
+
+  def self.find_by_uri_with_generate(*args)
+    known_uri = KnownUri.find_by_uri_without_generate(*args)
+    if known_uri.nil?
+      uri = args.first
+      name = DataValue.new(uri).label
+      known_uri= KnownUri.create( uri: uri, uri_type_id: 6, visibility_id: Visibility.visible.id, vetted_id: Vetted.trusted.id )
+      TranslatedKnownUri.create(name: name, known_uri_id: known_uri.id, language_id: Language.english.id)
+    end
+    known_uri
+  end
+  klass = class << self; alias_method_chain :find_by_uri, :generate; end
   private
 
   def default_values

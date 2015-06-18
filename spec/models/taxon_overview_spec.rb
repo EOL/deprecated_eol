@@ -106,7 +106,7 @@ describe TaxonOverview do
   it 'should know how many classifications it has available' do
     hiers = []
     4.times { hiers << HierarchyEntry.gen(taxon_concept: @taxon_concept) }
-    @taxon_concept.should_receive(:published_browsable_hierarchy_entries).and_return(hiers)
+    @taxon_concept.should_receive(:published_hierarchy_entries).and_return(hiers)
     @overview.classifications_count.should == 4
   end
 

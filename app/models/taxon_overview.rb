@@ -47,9 +47,8 @@ class TaxonOverview < TaxonUserClassificationFilter
     @classification_curated ||= curator_chosen_classification
   end
 
-  # NOTE - This is actually meant to be a count of *browsable* hierarchies, so we don't go to tc.
   def classifications_count
-    @classifications_count ||= hierarchy_entries.length
+    @classifications_count ||= taxon_concept.published_hierarchy_entries.length 
   end
 
   def details?

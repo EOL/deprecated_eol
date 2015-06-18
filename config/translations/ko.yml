@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: 102orion
+# Author: Alex00728
 # Author: Clockoon
 # Author: Csparr
 # Author: Cwt96
@@ -221,6 +222,7 @@ ko:
         harvest_events: 수확 사건
         hierarchy: 체계
         language_id: 기본 언어
+        dataset_license_id: 라이선스
         license_id: 기본 라이선스
         notes: 과정 참고
         resource_status_id: 자료 상태
@@ -768,8 +770,8 @@ ko:
       page_title: 피드백을 남겨주세요
   collections:
     show:
-      meta_description_default: '%{collection_name} 제목의 생명의 백과사전 모음집입니다.'
-      meta_description_default_focus_collection: '%{collection_name} 제목의 생명의 백과사전
+      meta_description_default: '%{collection_name} 제목의 생명체 백과사전 모음집입니다.'
+      meta_description_default_focus_collection: '%{collection_name} 제목의 생명체 백과사전
         집중 모음집입니다.'
       meta_description_default_watch_collection: '생명의 백과사전 주시문서 목록: %{collection_name}.'
       meta_keywords: '%{collection_name}, 생명의 백과사전 모음집'
@@ -969,12 +971,15 @@ ko:
       create_failed: 죄송합니다, 오류가 발생해 스레드를 추가할 수 없습니다
       delete_successful: 스레드를 성공적으로 삭제했습니다
       delete_failed_not_empty: 스레드가 비어있지 않으므로 스레드를 삭제할 수 없습니다
+  known_uris:
+    select: 선택
   layouts:
     application:
       header_about: EOL 소개
       header_learn_more: 더 알아보기
       header_questions: 더 말하기
       about_link_what_is_eol: EOL은 무엇입니까?
+      about_link_traitbank: TraitBank가 무엇인가요?
       about_link_eol_blog: EOL 블로그
       about_link_discover: 발견
       about_link_statistics: 통계
@@ -1007,6 +1012,7 @@ ko:
       learn_more_link_protists: 원생생물
       learn_more_link_archaea: 고세균
       learn_more_link_viruses: 바이러스
+      questions_link_evolution: 진화가 무엇인가요?
       questions_link_biodiversity: 생물 다양성이 무엇입니까?
       questions_link_species: 종은 무엇입니까?
       questions_link_discovering_species: 어떻게 종을 발견합니까?
@@ -1929,10 +1935,13 @@ ko:
   user_added_data:
     add_data_header: 자신이 가진 데이터를 기여
     edit_data_header: 데이터 편집
+    add_metadata_header: 추가 정보
     create_successful: 데이터가 성공적으로 추가 되었습니다
     delete_successful: 데이터가 지워졌습니다
     new_value: 값
   data_search_files:
+    from: 가장 낮은 값
+    to: 가장 높은 값
     unit_uri: 측정 단위
   this_article_cannot_be_curated_because_unpublished: 이 문서는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_article_is_unpublished: 이 문서는 게시하지 않았습니다.
@@ -3240,6 +3249,7 @@ ko:
   clear_entire_cache_store: 캐시 저장소 모두 지우기
   clear_species_page: 종 문서 지우기
   cms_available_in_languages: '이 문서는 다음 언어로 읽을 수 있습니다:'
+  cms_editor: CMS 편집기
   cms_missing_content_title: 번역 없음
   cms_missing_content_message: 죄송합니다, 이 문서는 %{selected_language}로 읽을 수 없습니다.
   curator_level: 큐레이터 수준
@@ -3387,6 +3397,7 @@ ko:
     other: 공동체 %{count}개에 속함
   completed: 완료
   completed_colon: '완료:'
+  confirm_deactivate_user: 정말로 이 사용자를 비활성화하겠습니까?
   confirm_delete_community: 이 공동체를 삭제하겠습니까? 남은 구성원은 여전히 내용을 볼 수 있으며 뉴스피드는 관리되지만, 검색
     결과나 분류 문서에서 나타나지 않으며, 더 이상 편집할 수 없습니다.
   confirm_leave: 이 공동체를 떠나겠습니까?
@@ -3493,6 +3504,7 @@ ko:
     자료 데이터의 현재 상태: %{resource_status}'
   content_partner_resource_create_unsuccessful_error: 죄송합니다, 오류가 발생해 자료를 추가하지 못했습니다.
   content_partner_resource_dataset_details_header: 데이터 집합
+  content_partner_resource_delete_with_type_link: 전체 삭제
   content_partner_resource_description_empty: 설명이 이 자료에 제공하지 않았습니다.
   content_partner_resource_edit_link: 편집
   content_partner_resource_edit_subheader: 자료 편집
@@ -3697,8 +3709,13 @@ ko:
   daily: 매일
   darwin_core: 다윈 코어
   dashboard: 데시보드
+  data: 데이터
+  data_about_subtab_header: EOL에 있는 데이터에 대하여
   data_results_only_for_search: '"%{search_term}"에 대한 TraitBank 결과'
+  data_column_tc_id: EOL 문서 ID
   data_column_sci_name: 학명
+  data_column_common_name: 공통 이름
+  data_column_value: 값
   data_column_source: 공급자
   data_database_colon: '날짜:'
   data_glossary_contribute: 새로운 용어를 용어집에 넣으려면, <a href=%{url}>데이터 올리기를 고려해주세요</a>.
@@ -3717,6 +3734,7 @@ ko:
   data_provided_by_content_partner: '공급자: %{whom}'
   data_ranges: 데이터 요약
   data_ranges_subheader: 이 분류 그룹의 데이터 요약
+  data_row_exemplar_added: 둘러보기에 추가
   data_row_exemplar_removed: 둘러보기에서 제거되었습니다.
   data_row_add_exemplar_button: 둘러보기에 추가
   data_row_remove_exemplar_button: 둘러보기에서 제거
@@ -3725,7 +3743,10 @@ ko:
   data_row_additional_detail_show_alt: 추가 자세한 정보 보이기
   data_row_additional_detail_hide_alt: 추가 자세한 정보 숨기기
   data_row_additional_detail_loading_alt: 추가 자세한 정보 불러오는 중
+  data_row_hide_button: 줄 삭제
+  data_row_unhide_button: 줄 보이기
   data_search:
+    page_title: TraitBank 검색
     form:
       header_assistive: 검색 양식
       input_summary_intro: 선택된 검색 옵션
@@ -3776,11 +3797,13 @@ ko:
   dato_new_text_for_taxon_page_title: <i>%{taxon}</i>로 문서 추가
   dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
   dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
+  deactivate: 비활성화
   development_version_name: EOL V2 베타
   default: 기본값
   default_focus_collection_name_from_community: '%{name}의 집중'
   default_watch_collection_name: '%{username} 사용자의 주시문서 목록'
   delete_community: 이 공동체 삭제
+  delete_data_object: 삭제
   delete: 삭제
   deleted_colon: '삭제됨:'
   delete_firstcap: 삭제
@@ -3893,6 +3916,17 @@ ko:
       min_master_curators_only: 죄송합니다, 접근은 마스터의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
       min_full_curators_only: 죄송합니다, 접근은 전체의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
       min_assistant_curators_only: 죄송합니다, 접근은 조수의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
+      no_access: 죄송합니다, 이 기능은 일시적으로 비활성화되었습니다. 잠시 후에 다시 확인해주세요.
+      missing_edit_acess_to_forum_category: 죄송합니다, 관리자들만 이 포험의 분류를 편집할 수 있습니다.
+      missing_delete_acess_to_forum_category: 죄송합니다, 관리자들만 이 포럼의 분류를 삭제할 수 있습니다.
+      missing_edit_acess_to_forum_post: 죄송합니다, 관리자나 게시글 작성자만이 이 포럼의 게시글을 편집할 수 있습니다.
+      missing_delete_acess_to_forum_post: 죄송합니다, 관리자나 게시글 작성자만이 이 포럼의 게시글을 삭제할 수 있습니다.
+      only_admins_can_view_content_pages: 죄송합니다, 관리자만이 문서의 내용을 볼 수 있습니다.
+      only_admins_can_view_translated_content_pages: 죄송합니다, 관리자들만 이 문서의 번역본을 볼 수 있습니다.
+      only_admins_can_edit_forums: 죄송합니다, 관리자들만 포럼을 편집할 수 있습니다.
+      must_be_logged_in: 죄송합니다, 반드시 로그인 하셔야 합니다.
+      error_editing_someone_account: 죄송합니다, 계정을 가진 사람만 편집할 수 있습니다.
+      can_not_edit_permissions: 죄송합니다, 당신은 권한을 수정할 수 없습니다.
   expand_all_children: 모든 하위 확장
   expired: 만료됨
   expires_in_colon: '만료일:'
@@ -4168,6 +4202,7 @@ ko:
   leave_reply: 답글 남기기
   left_content_area: 왼쪽 내용 영역
   license: 라이선스
+  license_none: 없음
   license_all_rights_reserved: 모든 권리 소유
   license_cc_by: 크리에이티브 커먼즈 저작자표시 (CC BY)
   license_cc_by_2_0: 크리에이티브 커먼즈 저작자표시 2.0 (CC BY 2.0)
@@ -4188,6 +4223,7 @@ ko:
   license_cc_by_sa_2_5: 크리에이티브 커먼즈 저작자표시-동일조건변경허락 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: 크리에이티브 커먼즈 저작자표시-동일조건변경허락 3.0 (CC BY-SA 3.0)
   license_cc_zero: 크리에이티브 커먼즈 — CC0 1.0 보편적
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: GNU 자유 문서 사용 허가서 (GNU FDL)
   license_gnu_gpl: GNU 일반 공중 사용 허가서 (GNU GPL)
   license_no_known_copyright_restrictions: 알려진 저작권 제한 없음
@@ -4202,6 +4238,7 @@ ko:
   limits_the_number_of_returned_iucn_objects: IUCN 레드 리스트 상태 개체 포함
   link_more_about: 이 링크에 대해 더 알아보기
   link_name: 링크 이름
+  link_to_top_of_page: 위쪽
   links_with_count:
     one: 링크 %{count}개
     other: 링크 %{count}개
@@ -4395,6 +4432,7 @@ ko:
   no_items_were_copied_to_collections_error: '모음집에 복사한 항목이 없습니다: %{names}'
   no_news_items_for_month_and_year: '%{month_and_year}에 대한 뉴스 항목이 없습니다'
   none: 없음
+  "no": 아니오
   num_content_partners: 콘텐츠 파트너의 No.
   num_data_objects: 데이터 개체의 No.
   no_record_found_matching_your_criteria: 조건과 일치하는 기록을 찾을 수 없습니다.
@@ -4453,6 +4491,7 @@ ko:
   object_visibility_invisible_option: 숨겨짐
   older_version_of_latest_published_data_object_title_link: '%{link}의 이전 버전'
   other_version_links: '다른 버전: %{version_links}'
+  other_category_subtab: 기타
   percentage_of_children_with_images: 그림으로 된 어린이의 %
   percentage_of_children_with_text: 텍스트로 된 어린이의 %
   number_of_taxa_at_this_entry: '이 항목에서 분류의 #'
@@ -4583,7 +4622,7 @@ ko:
   rating_added_notice: 등급을 성공적으로 추가했습니다.
   rating_learn_more_link: 평가에 대해 알아보기
   rating_not_added_error: 죄송합니다, 오류가 발생해 평가를 추가할 수 없습니다.
-  recaptcha: 아래에 보이는 단어 2개를 입력하세요
+  recaptcha: 아래에 보이는 단어나 숫자를 2개를 입력하세요
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha
     글자</a>가 일치하지 않습니다. 다시 시도하세요.
   recent_updates: 최근 업데이트
@@ -4616,6 +4655,10 @@ ko:
   required_form_element: 필수
   reset_password_enter_new_password_notice: 한 번 로그인되어 있으며 계속하려면 새 비밀번호를 입력하세요.
   resource: 자료
+  resource_import_frequency:
+    weekly: 주간
+    monthly: 매월
+    bimonthly: 격월의
   resources: 자료
   response_formats: 응답 형식
   response: 응답
@@ -4816,7 +4859,9 @@ ko:
   sub_heading: 하위 문단 제목
   subject: 제목
   submit: 제출
+  submitting: 기다려 주세요...
   submitted_colon: '제출:'
+  suggested_attributes: '추천 속성:'
   suggested_result_page_id: '제안한 결과 문서 ID:'
   suggested_results_avg: 제안한 결과 평균
   suggested_vocab_remove: 추천 삭제
@@ -4959,6 +5004,7 @@ ko:
   translation_saved: 번역이 저장됨
   translations_submit: 번역 보기
   trigger_search_term_entered_by: 사용자가 입력한 검색어를 트리거
+  "true": 참
   true_label: 참
   truncated_comment_omission: '... <a href=''%{link}''>더 보기</a>'
   truncated_comment_omission_linkless: '...'
@@ -5031,6 +5077,7 @@ ko:
   user_activity_stats_common_names_removed:
     one: 공통 이름 %{count}개 제거됨
     other: 공통 이름 %{count}개 제거됨
+  user_activity_stats_data_added_dropdown: 데이터 추가됨
   user_activity_stats_header: 활동
   user_activity_stats_objects_curated:
     one: 개체 %{count}개가 큐레이트됨
@@ -5139,7 +5186,6 @@ ko:
   view_added_text: 추가된 텍스트 보기
   view_as_button: 바뀜 보기
   view_as_label: 보기 방식
-  view_common_activities: 공통 활동 보기
   view_contact_us_submissions: 문의하기 제출 보기
   view_curators: 큐레이터 보기
   view_current_version_link: 현재 버전 보기
@@ -5155,11 +5201,9 @@ ko:
   view_sound_source: 소리 원본 보기
   view_source: 원본 보기
   view_video_source: 동영상 원본 보기
-  view_common_activities_link: 가장 일발적인 활동의 목록을 봅니다.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: 적어도 텍스트의 사진이나 조각으로 된 문서만
     보기
   view_this_hierarchy: 이 계층 보기
-  view_user_activity: 사용자 활동 보기
   view_user_comments: 사용자 덧글 보기
   view_your_curator_profile: 내 큐레이터 프로필 보기
   vimeo: 비메오

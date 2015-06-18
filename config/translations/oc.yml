@@ -6401,7 +6401,6 @@ oc:
   view_added_text: veire lo tèxte apondut
   view_as_button: Cambiar de vista
   view_as_label: Veire coma
-  view_common_activities: veire las activitats comunas
   view_contact_us_submissions: veire los mandadisses de Contactatz-nos
   view_curators: veire los conservators
   view_current_version_link: Afichar la version correnta
@@ -6418,11 +6417,9 @@ oc:
   view_sound_source: Afichar la font àudio
   view_source: Afichar la font
   view_video_source: Afichar la font vidèo
-  view_common_activities_link: Afichar la lista de las activitats las mai correntas.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Veire solament las paginas
     amb al mens un imatge o un tròç de tèxte
   view_this_hierarchy: afichar aquesta ierarquia
-  view_user_activity: afichar l’activitat d'utilizaire
   view_user_comments: afichar los comentaris d'utilizaire
   view_your_curator_profile: Veire vòstre perfil de conservator
   vimeo: Vimeo

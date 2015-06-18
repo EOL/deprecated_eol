@@ -13,6 +13,7 @@
 # Author: Luckas
 # Author: Luckas Blade
 # Author: Mordecaista
+# Author: PedroMaia
 # Author: Rodrigo codignoli
 # Author: SoraRenard
 # Author: TheGabrielZaum
@@ -161,6 +162,7 @@ pt-BR:
         total_measurement_types: Modo da medição
         total_association_types: Tipos de Associação
         total_user_added_data: Dados adicionados pelo usuário
+        total_data_records: Registro de dados
       forum:
         forum_category_id: Categoria
         name: Nome do fórum
@@ -194,6 +196,7 @@ pt-BR:
         uri: URI
         uri_type: Tipo de URI
         value_is_text: Os valores não serão URLs, somente texto
+        value_is_verbatim: Valores não serão números, somente textos
       known_uri_relationship:
         from_known_uri_id: URI tema
         to_known_uri_id: URI alvo
@@ -1501,6 +1504,7 @@ pt-BR:
       style='color:#195184'>entre em contato conosco</a>.
     see_all_activity: Veja toda a atividade anterior em <a href='%{activity_url}'
       style='color:#195184'>sua página de usuário e feed de notícias</a>.
+    resource_validation: 'A pesquisa: %{pesquisa} validação terminada'
     bulk_comments_with_count:
       one: Há um novo comentário sobre %{on}
       other: Há %{count} novos comentários sobre %{on}
@@ -1948,6 +1952,25 @@ pt-BR:
             na Enciclopédia da Vida.
           meta_keywords: '%{scientific_name} reconhecido por %{hierarchy_provider},
             %{scientific_name} classificado por %{hierarchy_provider}'
+          meta_keywords_with_common_name: '%{scientific_name} reconhecido por %{hierarchy_provider},
+            %{scientific_name} classificado por %{hierarchy_provider}'
+          meta_title: '%{scientific_name}classificada por %{hierarchy_provider}'
+          meta_title_with_common_name: '%{preferred_common_name} Sinônimos (%{scientific_name}
+            classificados por %{hierarchy_provider})'
+          tweet_text: Mapas de %{scientific_name} como classificada por %{hierarchy_provider}
+        meta_description: Informação sobre %{scientific_name} na Enciclopédia da vida.
+        meta_description_with_common_name: Descrições e artigos sobre %{preferred_common_name},
+          cientificamente conhecido(a) como %{scientific_name} na Enciclopédia da
+          Vida.
+        meta_keywords: informação sobre %{scientific_name}, informação sobre %{scientific_name}
+        meta_keywords_with_common_name: informação sobre %{scientific_name}, informação
+          sobre %{preferred_common_name}, informação e fatos sobre %{scientific_name},
+          informação sobre %{preferred_common_name}
+        meta_title: '%{scientific_name} - Informação sobre %{scientific_name}'
+        meta_title_with_common_name: |-
+          %{preferred_common_name} (%{scientific_name})
+          informação  sobre %{preferred_common_name}
+        tweet_text: Informação sobre %{scientific_name}
     resources:
       show:
         hierarchy_entry:
@@ -1971,6 +1994,9 @@ pt-BR:
         meta_description_with_common_name: '%{preferred_common_name} fontes e citações
           de parceiros para %{scientific_name}.'
         meta_keywords: '%{scientific_name} fontes, %{scientific_name} provedores de
+          conteúdo'
+        meta_keywords_with_common_name: '%{preferred_common_name}recursos,%{preferred_common_name}provedores
+          de conteúdo,%{scientific_name}provedores,%{scientific_name} provedores de
           conteúdo'
         meta_title: Recursos de conteúdo sobre %{scientific_name}
         meta_title_with_common_name: Recursos de conteúdo sobre %{preferred_common_name}
@@ -2005,6 +2031,9 @@ pt-BR:
           (%{scientific_name})
         tweet_text: Identificação de recursos sobre %{scientific_name}
       nucleotide_sequences:
+        hierarchy_entry:
+          tweet_text: Sequências nucleotídicas de %{scientific_name} sao classificadas
+            por %{hierarchy_provider}
         meta_title: Sequências nucleotídicas de %{scientific_name}
         meta_title_with_common_name: Sequências nucleotídicas de %{preferred_common_name}
           (%{scientific_name})
@@ -3373,7 +3402,8 @@ pt-BR:
         merge_of_an_unknown_taxon_unlocked: A fusão da página que você solicitou recentemente
           foi concluída, mas a página não pode ser encontrada.
         merge_of_it_unlocked: A fusão que pediu recentemente sobre esta página foi
-          concluída.
+          concluída. As paginas estão sendo reindexadas e exigirão 25 horas para estarem
+          completas.
         move_of_an_unknown_taxon_unlocked: O movimento da classificação que você solicitou
           recentemente foi concluída, mas a página não pode ser encontrada.
         move_of_it_unlocked: O movimento da classificação que você solicitou recentemente
@@ -5914,7 +5944,6 @@ pt-BR:
   view_added_text: Ver texto adicionado
   view_as_button: Mudar de vista
   view_as_label: Ver como
-  view_common_activities: Ver as atividades comuns
   view_contact_us_submissions: Ver os pedidos de entrar em contato conosco
   view_curators: Ver curadores
   view_current_version_link: Ver versão atual
@@ -5930,11 +5959,9 @@ pt-BR:
   view_sound_source: Ver fonte de áudio
   view_source: Ver código-fonte
   view_video_source: Ver fonte de vídeo
-  view_common_activities_link: Ver a lista da maioria das atividades comuns.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Exibir páginas só com
     pelo menos uma imagem ou um pedaço de texto
   view_this_hierarchy: Ver esta hierarquia
-  view_user_activity: Ver a atividade do usuário
   view_user_comments: Ver os comentários do usuário
   view_your_curator_profile: Ver o seu perfil de curador
   vimeo: Vimeo

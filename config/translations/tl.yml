@@ -6222,7 +6222,6 @@ tl:
   view_added_text: tingnan ang nadagdag na teksto
   view_as_button: Baguhin ang pagtanaw
   view_as_label: Tingnan bilang
-  view_common_activities: tingnan ang karaniwang mga gawain
   view_contact_us_submissions: tingnan ang mga pagpapasa sa makipag-ugnayan sa amin
   view_curators: tingnan ang mga kurador
   view_current_version_link: Tingnan ang pangkasalukuyang bersiyon
@@ -6238,11 +6237,9 @@ tl:
   view_sound_source: Tingnan ang pinagmulan ng tunog
   view_source: Tingnan ang pinagmulan
   view_video_source: Tingnan ang pinagmulan ng bidyo
-  view_common_activities_link: Tingnan ang tala ng pinaka pangkaraniwang mga gawain.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Tingnan lamang ang mga
     pahinang may kahit na isang larawan o piraso ng teksto
   view_this_hierarchy: tingnan ang hirarkiyang ito
-  view_user_activity: tingnan ang gawain ng tagagamit
   view_user_comments: tingnan ang mga pagpuna ng tagagamit
   view_your_curator_profile: Tingnan ang iyong balangkas-katangian ng kurador
   visible_title: Nakikita

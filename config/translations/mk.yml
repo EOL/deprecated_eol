@@ -2058,6 +2058,7 @@ mk:
       is_not_complete: Не
       query_empty: (без филтри)
       processing: се обработува
+      error: нешто не е во ред со податотекава
       refresh: превчитај
       row_count: Број
       search_again: барај повторно
@@ -3989,6 +3990,9 @@ mk:
     other: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонати.
   collection_delete_link: Трајно избриши ја збиркава
   collection_destroyed: Збирката е избришена.
+  collection_removed: Збирката %{collection} е избришана.
+  collection_update_failure: Подновата на збирката %{collection} не успеа. Проверете
+    да не има некој проблем со ставките во збирката
   collection_error_no_items_selected: 'Грешка: нема избрано ставки, па затоа дејството
     не е извршено.'
   collection_image: Слика за збирката
@@ -4294,6 +4298,8 @@ mk:
     ресурсот %{resource_title} е успешно подновено.
   content_partner_resource_harvest_event_update_unsuccessful_error: Нажалост, се појави
     грешка. Преземањето за ресурсот %{resource_title} не е подновено.
+  content_partner_resource_page_title: Енциклопедија на живиот свет — %{content_partner_name}
+    — %{resource_name}
   content_partner_resource_will_be_deleted: Сето она што го насобра ресурсот %{resource_title}
     ќе биде избришано. За ова ќе треба да почекате 24 часа.
   content_partner_resource_hierarchy_browsable: Прелистлива
@@ -4857,6 +4863,8 @@ mk:
   eol_api: Извршник на EOL
   eol_api_hierarchies: 'EOL API: Хиерархии'
   eol_api_hierarchy_entries: 'EOL API: Хиерархиски ставки'
+  eol_api_hierarchy_entries_descendants: 'Извршник на EOL: Потомци на хиерархиските
+    ставки'
   eol_api_pages: 'Извршник на EOL: Страници'
   eol_api_ping: 'Извршник на EOL: Одѕивност'
   eol_api_provider_hierarchies: 'Извршник на EOL: Добавувачки хиерархии'
@@ -5157,12 +5165,14 @@ mk:
     па затоа очекувајте подобрувања во подредувањето на резултатите во блиска иднина.
   gives_access_to_a_single_hierarchy_indexed_by_eol: дава пристап до една хиерархија
     индексирана од EOL и нејзините внатрешни односи
+  gives_access_to_a_single_hierarchy_descendants_by_eol: дава пристап до потомците
+    на извесна хиерархиска ставка
   global_access_tagline: Глобален пристап до знаењето за живиот свет на Земјата
   global_navigation: Општа навигација
   glossary: Поимник
   glossary_subhead: Поимник
   go_back: назад
-  go: Оди
+  go: Дај
   google_analytic_results: Резултати од Google-овата аналитика
   google_analytics_active: Google-овата аналитика е активна
   google_analytics_google_account_and_access_required: Google Analytics (се бара сметка
@@ -6180,7 +6190,7 @@ mk:
   select_a_hierarchy_around_whic: 'Одберете хиерархија според која ќе ги организирате
     кратките описи на содржините:'
   select_an_item_from_the_menu: Одберете ставка од менито
-  select_tool_and_go: 'Одберете алатка и стиснете на „Оди“:'
+  select_tool_and_go: 'Одберете алатка и стиснете на „Дај“:'
   select_colon: 'Одберете:'
   select_topic: Изберете тематика
   selected_language_advisory_information: Ова е моментално избраниот јазик.
@@ -6458,6 +6468,8 @@ mk:
     како да дојдете до други хиерархии што соодветствуваат на дадена страница на EOL.
     Полето „taxonConceptID“ ја содржи назнаката на страницата на EOL што може да се
     употреби во API на страниците.
+  hierarchies_entries_descendants_description: За дадена назнака на хиерархиска ставка,
+    овој извршник ги дава сите нејзини потомци.
   hierarchies_description: Енциклопедијата на живиот свет нема единствена таксономска
     хиерархија според која ги создава страниците, туку индексира повеќе разни хиерархии
     и ги споредува. Овој API ги наведува метаподатоците за хиерархијата како име на
@@ -6839,7 +6851,6 @@ mk:
   view_added_text: погл. додаден текст
   view_as_button: Промени изглед
   view_as_label: Види како
-  view_common_activities: погл. вообичаени активности
   view_contact_us_submissions: погл. контактирања
   view_curators: погл. кустоси
   view_current_version_link: Тековна верзија
@@ -6856,11 +6867,9 @@ mk:
   view_sound_source: Погл. извор на аудиоснимката
   view_source: Извор
   view_video_source: Погл. извор на видеоснимката
-  view_common_activities_link: Погл. список на највообичаени активности.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Само страниците со барем
     по една слика или некаков текст
   view_this_hierarchy: погл. оваа хиерархија
-  view_user_activity: погл. кориснички активности
   view_user_comments: погл. кориснички коментари
   view_your_curator_profile: Погл. вашиот кустоски профил
   vimeo: Vimeo

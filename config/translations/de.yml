@@ -2199,6 +2199,7 @@ de:
       is_not_complete: Nein
       query_empty: (keine Filter)
       processing: verarbeitend
+      error: Etwas ist mit dieser Datei schief gelaufen
       refresh: aktualisieren
       row_count: Anzahl
       search_again: erneut suchen
@@ -4331,6 +4332,9 @@ de:
       Sammlungsobjekten erstellt.
   collection_delete_link: Diese Sammlung dauerhaft löschen
   collection_destroyed: Die Sammlung wurde gelöscht.
+  collection_removed: Die Sammlung %{collection} wurde gelöscht.
+  collection_update_failure: Das Aktualisieren der Sammlung %{collection} ist fehlgeschlagen.
+    Überprüfen Sie, ob es ein Problem in Sammlungsobjekten gibt
   collection_error_no_items_selected: 'Fehler: Es wurden keine Objekte ausgewählt,
     so dass keine Aktion ausgeführt werden konnte.'
   collection_image: Bild der Sammlung
@@ -4657,6 +4661,8 @@ de:
   content_partner_resource_harvest_event_update_unsuccessful_error: Es ist leider
     ein Fehler aufgetreten, so dass der Datenabruf für %{resource_title} nicht aktualisiert
     wurde.
+  content_partner_resource_page_title: Enzyklopädie des Lebens – %{content_partner_name}
+    – %{resource_name}
   content_partner_resource_will_be_deleted: Alles von der Quelle %{resource_title}
     gesammelte wird gelöscht, bitte erlauben Sie für die Verarbeitung 24 Stunden.
   content_partner_resource_hierarchy_browsable: Durchsuchbar
@@ -4935,7 +4941,7 @@ de:
   current_harvest_event: Abruf von %{resource_title} läuft seit %{period} Stunden
   currently_running_harvesting: Aktuell laufender Abruf
   currently_in_eol: 'Derzeit in der Enzyklopädie des Lebens verzeichnet:'
-  institutional_sponsors: Einrichtungssponsoren
+  institutional_sponsors: Institutionelle Sponsoren
   currently_published: derzeit veröffentlicht
   daily: Täglich
   darwin_core: Darwin Core
@@ -5252,6 +5258,7 @@ de:
   eol_api: EOL-API
   eol_api_hierarchies: 'EOL-API: Hierarchien'
   eol_api_hierarchy_entries: 'EOL-API: Hierarchieeinträge'
+  eol_api_hierarchy_entries_descendants: 'EOL-API: Nachfahren der Hierarchieeinträge'
   eol_api_pages: 'EOL-API: Seiten'
   eol_api_ping: 'EOL-API: Ping'
   eol_api_provider_hierarchies: 'EOL-API: Anbieterhierarchien'
@@ -5561,6 +5568,8 @@ de:
     Suchergebnisse zu erwarten.
   gives_access_to_a_single_hierarchy_indexed_by_eol: ermöglicht den Zugriff auf eine
     einzelne von EOL indizierte Hierarchie und seine internen Beziehungen
+  gives_access_to_a_single_hierarchy_descendants_by_eol: gewährt Zugriff auf Nachfahren
+    eines einzelnen Hierarchieeintrags
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
   glossary: Glossar
@@ -6928,6 +6937,8 @@ de:
     um zu erfahren, wie man auf andere Hierarchien zugreifen kann, die mit einer bestimmten
     Seite der EOL in Verbindung stehen. Das Feld „taxonConceptID“ enthält die Kennung
     der EOL-Seite, die in der Seiten-API genutzt werden kann.
+  hierarchies_entries_descendants_description: Durch das Angeben der Bezeichnung eines
+    Hierarchieeintrags gibt diese API alle Nachfahren dieses Hierarchieeintrags zurück.
   hierarchies_description: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne
     taxonomische Hierarchie auf deren Basis die Seiten erstellt werden. Tatsächlich
     indexiert EOL viele Hierarchien und vergleicht sie miteinander. Diese API listet
@@ -7327,7 +7338,6 @@ de:
   view_added_text: hinzugefügten Text anzeigen
   view_as_button: Ansicht ändern
   view_as_label: Betrachten als
-  view_common_activities: allgemeine Aktivitäten anzeigen
   view_contact_us_submissions: Kontaktaufnahmen zu uns anzeigen
   view_curators: Kuratoren anzeigen
   view_current_version_link: Aktuelle Version anzeigen
@@ -7344,11 +7354,9 @@ de:
   view_sound_source: Quelle der Audiodatei anzeigen
   view_source: Quelle anzeigen
   view_video_source: Quelle der Videodatei anzeigen
-  view_common_activities_link: Liste der häufigsten Aktivitäten ansehen.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Nur Seiten mit mindestens
     einem Bild oder Text anzeigen.
   view_this_hierarchy: diese Hierarchie ansehen
-  view_user_activity: Nutzeraktivität anzeigen
   view_user_comments: Nutzerkommentare anzeigen
   view_your_curator_profile: Ihr Profil als Kurator ansehen
   vimeo: Vimeo

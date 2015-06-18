@@ -1,6 +1,7 @@
 # Messages for Galician (galego)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Banjo
 # Author: McDutchie
 # Author: Toliño
 # Author: Vivaelcelta
@@ -224,6 +225,9 @@ gl:
         harvest_events: Rexistros de colleita
         hierarchy: Xerarquía
         language_id: Lingua por defecto
+        dataset_license_id: Licenza
+        dataset_rights_holder: Titular dos dereitos
+        dataset_rights_statement: Declaración dos dereitos
         license_id: Licenza por defecto
         notes: Notas de procesamento
         resource_status_id: Estado dos recursos
@@ -238,6 +242,9 @@ gl:
         meta_keywords: Palabras clave dos metadatos
         meta_description: Descrición dos metadatos
         title: Título
+      translated_known_uri:
+        definition: Definición
+        comment: Comentario
       translated_news_item:
         active_translation: Publicado
         body: Corpo
@@ -266,6 +273,12 @@ gl:
         requested_curator_level_id: Nivel de conservación desexado
         tag_line: Slogan
         username: Nome de usuario
+      user_added_data:
+        object: Valor
+        user: Engadido por
+      user_added_data_metadata:
+        predicate: Atributo
+        object: Valor
     errors:
       format: '%{attribute} %{message}'
       template:
@@ -305,6 +318,8 @@ gl:
         even: debe ser par
         inaccessible: é inaccesible
         wrong_type: é de tipo incorrecto
+        models:
+          inaccessible: é inaccesible
       full_messages:
         format: '%{attribute} %{message}'
       models:
@@ -6272,7 +6287,6 @@ gl:
   view_added_text: ollar o texto engadido
   view_as_button: Cambiar a vista
   view_as_label: Ollar como
-  view_common_activities: ollar as actividades comúns
   view_contact_us_submissions: ollar os envíos de contacto
   view_curators: ollar os conservadores
   view_current_version_link: Ollar a versión actual
@@ -6288,11 +6302,9 @@ gl:
   view_sound_source: Ollar a fonte do son
   view_source: Ver o código fonte
   view_video_source: Ollar a fonte do vídeo
-  view_common_activities_link: Ollar a lista das actividades máis comúns.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Ollar unicamente as páxinas
     con, polo menos, unha imaxe ou un anaco de texto
   view_this_hierarchy: ollar esta xerarquía
-  view_user_activity: ollar a actividade do usuario
   view_user_comments: ollar os comentarios do usuario
   view_your_curator_profile: Ollar o teu perfil de conservador
   vimeo: Vimeo

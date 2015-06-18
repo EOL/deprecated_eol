@@ -5532,7 +5532,6 @@ uk:
   view_added_text: переглянути доданий текст
   view_as_button: Змінити перегляд
   view_as_label: Переглянути як
-  view_common_activities: переглянути загальну діяльність
   view_contact_us_submissions: переглянути додані відгуки
   view_curators: переглянути кураторів
   view_current_version_link: Перегляд поточної версії
@@ -5547,11 +5546,9 @@ uk:
   view_sound_source: Перегляд джерела звуку
   view_source: Перегляд джерела
   view_video_source: Перегляд джерела відео
-  view_common_activities_link: Переглянути список найпоширеніших видів діяльності.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Переглянути сторінки із
     зображенням або фрагментом тексту
   view_this_hierarchy: переглянути ієрархію
-  view_user_activity: переглянути діяльність користувачів
   view_user_comments: переглянути коментарі користувачів
   view_your_curator_profile: Перегляд профілю куратора
   vimeo: Vimeo

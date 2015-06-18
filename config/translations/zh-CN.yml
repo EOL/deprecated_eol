@@ -7,6 +7,7 @@
 # Author: Hydra
 # Author: Hzy980512
 # Author: Impersonator 1
+# Author: JuneAugust
 # Author: Liangent
 # Author: Linforest
 # Author: Linxue9786
@@ -1739,6 +1740,7 @@ zh-CN:
       is_not_complete: 否
       query_empty: （无过滤）
       processing: 处理中
+      error: 此文件有些错误
       refresh: 刷新
       row_count: 計數
       search_again: 重新搜尋
@@ -2355,6 +2357,7 @@ zh-CN:
         user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong>移除了未知语言中的常用名。
         user_removed_name_in_language_from_it: <strong>%{user}</strong>移除了%{language}中的常用名。
       untrust_common_name:
+        an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 未知用户使用未知语言在一个未知的页面将一个未知的常用名标记为不受信任。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 未知用户使用未知语言将一个未知的常用名标记为不受信任。
         an_unknown_user_untrusted_an_unknown_name_in_language_on_it: 未知用户使用%{language}将一个未知的常用名标记为不受信任。
         an_unknown_user_untrusted_name_in_an_unknown_language_on_it: 未知用户使用未知语言将常用名“%{name}”标记为不受信任。
@@ -2979,6 +2982,7 @@ zh-CN:
   content_partner_resource_harvest_events_see_all_link: 查看全部 <span class=assistive>采集事件</span>
   content_partner_resource_harvest_event_update_successful_notice: 资源%{resource_title}的采集事件成功更新。
   content_partner_resource_harvest_event_update_unsuccessful_error: 抱歉，出现了一个错误，资源%{resource_title}的收获事件未能更新。
+  content_partner_resource_page_title: 网络生命大百科 - %{content_partner_name} - %{resource_name}
   content_partner_resource_hierarchy_browsable: 可浏览的
   content_partner_resource_hierarchy_complete_true: '"这个分类系统设定为<strong>已审核</strong>。已审核的分类系统认为每个条目都是唯一的，例如,名称相同的字符串被视为同名异物。"'
   content_partner_resource_hierarchy_complete_false: 这个分类系统未经审核。相匹配的条目被视为同一概念。
@@ -4633,7 +4637,6 @@ zh-CN:
   view_added_text: 查看新增文本
   view_as_button: 更改视图
   view_as_label: 查看方式
-  view_common_activities: 查看常见活动
   view_contact_us_submissions: 查看从联系页面提交的内容
   view_curators: 查看管理员
   view_current_version_link: 查看当前版本
@@ -4649,10 +4652,8 @@ zh-CN:
   view_sound_source: 查看音频来源
   view_source: 查看来源
   view_video_source: 查看视频来源
-  view_common_activities_link: 查看最常见活动清单。
   view_only_pages_with_at_least_a_picture_or_piece_of_text: 查看至少包含一幅图片或者一段文字的页面。
   view_this_hierarchy: 查看该分类系统结构
-  view_user_activity: 查看用户的活动
   view_user_comments: 查看用户评论
   view_your_curator_profile: 查看您的管理员信息
   vimeo: Vimeo

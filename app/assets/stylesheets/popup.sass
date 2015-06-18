@@ -1,0 +1,149 @@
+.overlay
+  display: none
+  background-color: #e6e7e8
+  border: 2px solid #6a8d00 !important
+  position: absolute
+  z-index: 1000
+  overflow: auto
+  max-height: 540px
+  .contentWrap
+    margin: 10px
+    overflow: hidden
+
+.overlay .close
+  float: right
+  margin: 5px
+  cursor: pointer
+  height: 12px
+  width: 12px
+  background-image: image-url("close_button.gif")
+
+.popup
+  &.vetted
+    border-color: #99cc00
+    border-left: 20px solid #99cc00
+  &.unvetted
+    border-color: #d8c142
+    border-left: 20px solid #ffff99
+
+.overlay
+  margin-top: 13px
+  h3
+    color: #557700
+  h1
+    font: normal 20px / 21px verdana, arial
+    border-bottom: 2px solid #d6d6d6
+    margin-bottom: 5px
+    padding-top: 3px
+    padding-bottom: 5px
+
+#content #page-content #center-page-content h1
+  font: normal 20px / 21px verdana, arial
+  border-bottom: 2px solid #d6d6d6
+  margin-bottom: 5px
+  padding-top: 3px
+  padding-bottom: 5px
+
+.popup
+  h3
+    font-size: 14pt
+    font-weight: 500 !important
+    letter-spacing: -1px
+    line-height: 6pt
+  span.date
+    color: #557700
+  form
+    &#new_data_object
+      col.labels
+        width: 25%
+
+.pop-up-ajax-indicator
+  float: right
+  z-index: 2005
+
+a.close-button
+  float: right
+  height: 12px !important
+  width: 12px !important
+  background-image: image-url("close_button.gif")
+  background-repeat: no-repeat
+  z-index: 1000
+  &:hover
+    background-image: image-url("close_button_active.gif")
+
+@mixin image-button($left)
+  position: absolute
+  top: 0px
+  left: $left
+
+div
+  &#right-image-buttons div.spinner
+    @include image-button(0px)
+  &#large-image-curator-button
+    @include image-button(90px)
+  &#large-image-comment-button
+    @include image-button(120px)
+  &#large-image-tagging-button
+    @include image-button(150px)
+    background: transparent image-url("icons/icons.gif") no-repeat -47px 0px
+    &:hover
+      background: transparent image-url("icons/icons.gif") no-repeat -47px -32px
+
+.attribution-icon
+  background: transparent image-url("icons/icons.gif") no-repeat 1px 0px
+  display: inline-block
+  width: 25px
+  height: 24px
+  a
+    display: inline-block
+    height: 100%
+    width: 100%
+  &:hover
+    background: transparent image-url("icons/icons.gif") no-repeat 1px -32px
+    display: inline-block
+
+.text-comments-head p
+  font-size: 6pt
+  padding-top: 2px
+
+.insert_text
+  position: relative !important
+  width: 431px !important
+  margin-bottom: 40px
+
+div.insert_text table td
+  padding: 5px
+  vertical-align: top
+
+.toc_select label
+  display: inline !important
+
+.multi_new_text_error
+  color: red
+  text-align: right
+
+form.curation
+  .buttons
+    padding-top: 15px
+    text-align: center
+  .curation-section .label
+    text-transform: uppercase
+    float: left
+  .options
+    padding-left: 60pt
+
+form.curation
+  .label
+    color: #999999
+    font-size: 12px
+    font-weight: 700
+  .curation-section
+    padding-top: 15px
+  div.option
+    padding-left: 8px
+  .options .untrust .reason
+    padding-left: 20px
+
+form.curation 
+  .comment
+    padding-left: 8px

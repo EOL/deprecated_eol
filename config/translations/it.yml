@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ale.salmo
+# Author: Alexmar983
 # Author: Beta16
 # Author: Chris96
 # Author: Damiano Martino
@@ -2109,6 +2110,7 @@ it:
       is_not_complete: "No"
       query_empty: (senza filtri)
       processing: Elaborazione in corso
+      error: qualcosa è andato storto con questo file
       refresh: Aggiorna
       row_count: Conteggio
       search_again: cerca ancora

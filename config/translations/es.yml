@@ -93,7 +93,7 @@ es:
       content_partner_contact:
         email_reports_frequency_hours: Frecuencia de los informes de correo electrónico
       data_object:
-        bibliographic_citation: Citación bibliográfica
+        bibliographic_citation: Cita bibliográfica
         description: Texto
         object_title: Título
         rights_holder: Posesor de los derechos
@@ -178,7 +178,7 @@ es:
         total_measurement_types: Tipos de medición
         total_association_types: Tipos de asociación
         total_user_added_data: Datos agregados del usuario
-        total_data_records: Registros De Datos
+        total_data_records: Registros de datos
       forum:
         forum_category_id: Categoría
         name: Nombre del foro
@@ -234,13 +234,13 @@ es:
         sort_order: Orden de clasificación
         active: Publicado
       notification:
-        reply_to_comment: Una respuesta a un comentario que hisiste
-        comment_on_my_profile: Un comentario en su perfil
+        reply_to_comment: Una respuesta a un comentario que hiciste
+        comment_on_my_profile: Un comentario en tu perfil
         comment_on_my_contribution: Un comentario y/o una acción de supervisión en
           una de sus aportaciones
         comment_on_my_collection: Un comentario en una colección que administras
         comment_on_my_community: Un comentario en una de las comunidades de la que
-          es miembro
+          eres miembro
         made_me_a_manager: Ha sido hecho administrador de una colección o comunidad
         member_joined_my_community: Un nuevo miembro se ha unido a una comunidad que
           administra
@@ -457,9 +457,9 @@ es:
         name: Tu nombre
       content_page:
         active: Publicado
-        active_more: Las páginas publicadas serás visibles para el público. Desmarque
-          <em>published</em> si desea evitar que los usuarios en general puedan ver
-          las versiones de esta página en cualquier idioma.
+        active_more: Las páginas publicadas serán visibles para el público. Desmarca
+          <em>publicada</em> si quieres evitar que los usuarios en general puedan
+          ver las versiones de esta página en cualquier idioma.
         page_name: Nombre único <small>(caracteres alfanuméricos del alfabeto ISO
           Latino básico, en minúsculas y subrayados)</small>
         page_name_more: Introduzca un único identificador de auto descriptivo y significativo
@@ -715,8 +715,8 @@ es:
           clave a las llamadas de API</a> .
         bio: Sobre mí
         credentials: Credenciales
-        curation_priveleges_credentials: Credenciales <small>(sólo para conservadores
-          de máximo rango & maestros conservadores)</small>
+        curation_priveleges_credentials: Credenciales <small>(sólo para verificadores
+          de máximo rango & maestros verificadores)</small>
         credentials_more: 'Por favor, indique al menos una credencial específica de
           esta lista:'
         credentials_more_academic: Facultad, personal o estudiante graduado en un
@@ -730,7 +730,7 @@ es:
         curation_application: Convertirse en revisor
         curation_application_more: Si desea modificar sus privilegios de revisor,
           tan sólo presente una solicitud y vamos a revisar su elegibilidad.
-        curator_level: Actualmente estás %{curator_level_with_indefinite_article}.
+        curator_level: Actualmente eres %{curator_level_with_indefinite_article}.
         curator_scope: Alcance de la revisión
         curator_scope_more: 'Por favor, indique el alcance de su experiencia. Por
           ejemplo: "Los roedores de Borneo", "Tri-tróficos interacciones", o "Problemas
@@ -752,7 +752,7 @@ es:
         notification_settings: Configuración de notificaciones
         notification_settings_more: Configure las opciones de notificación.
         open_authentications: Cuentas conectadas
-        open_authentications_more: Administre las conexiones a cuentas externas que
+        open_authentications_more: Administra las conexiones a cuentas externas que
           se pueden utilizar para iniciar sesión en EOL. <a href="%{open_authentications_url}">Editar
           cuentas conectadas</a>.
         open_authentications_connected_accounts: Sus cuentas conectadas
@@ -1110,7 +1110,7 @@ es:
       page_header: Cobertura marina en EOL
       page_title: Estadísticas
     page_richness:
-      menu_link: Páginas populeres
+      menu_link: Páginas populares
       page_header: Estadísticas de las páginas populares
       page_title: Estadísticas
     users_data_objects:
@@ -1173,7 +1173,7 @@ es:
       update_successful: El artículo fue actualizado correctamente
       update_failed: Ha ocurrido un error, el mensaje no ha podido ser actualizado
       delete_successful: El mensaje ha sido eliminado con éxito
-      topic_and_post_delete_successful: Se eliminó el post y el hilo correctamente
+      topic_and_post_delete_successful: Se eliminaron la publicación y el hilo correctamente
       delete_failed_topic_not_empty: el artículo no se puede eliminar, porque el hilo
         no está vacio
       post_has_been_deleted: Este artículo ha sido eliminado
@@ -2173,6 +2173,7 @@ es:
       is_not_complete: "No"
       query_empty: (sin filtros)
       processing: procesando
+      error: algo salió mal con este archivo
       refresh: actualizar
       row_count: Conteo
       search_again: buscar de nuevo
@@ -3437,9 +3438,8 @@ es:
           user_split_classifications_from_taxon: <strong>%{user}</strong> divide las
             clasificaciones por %{classifications} desde %{taxon} hasta <a href='%{to}'>su
             propia página</a>.
-          user_split_classifications_from_it: |2-
-
-            <strong>%{user}</strong> divide la clasificacion en %{classifications} a <a href='%{to}'>su propia pagina</a>.
+          user_split_classifications_from_it: <strong>%{user}</strong> divide la clasificación
+            por %{classifications} a <a href='%{to}'>su propia página</a>.
         merge:
           an_unknown_user_merged_to_an_unknown_taxon: Un usuario desconocido ha fusionado
             dos páginas desconocidas.
@@ -3693,8 +3693,8 @@ es:
     creada correctamente.
   admin_content_page_create_unsuccessful_error: Lo sentimos, ha ocurrido un error,
     la página no se ha creado.
-  admin_content_page_delete_confirmation: ¿Está seguro de que desea eliminar "%{page_name}"
-    y todas las traducciones? No se puede recuperar las páginas eliminadas.
+  admin_content_page_delete_confirmation: ¿Seguro quieres eliminar "%{page_name}"
+    y todas las traducciones? No se pueden recuperar las páginas eliminadas.
   admin_content_page_delete_successful_notice: Page %{page_name} y traducciones asociadas
     han sido eliminadas.
   admin_content_page_edit_header: Actualiza la información de la página básica <em>%{page_name}</em>
@@ -3760,8 +3760,8 @@ es:
     se ha creado correctamente.
   admin_news_item_create_unsuccessful_error: Lo sentimos, ha ocurrido un error, la
     noticia no se ha creado.
-  admin_news_item_delete_confirmation: ¿Está seguro de que desea eliminar "%{page_name}"
-    y todas las traducciones? No se puede recuperar las páginas eliminadas.
+  admin_news_item_delete_confirmation: ¿Seguro quieres eliminar "%{page_name}" y todas
+    las traducciones? No se pueden recuperar las páginas eliminadas.
   admin_news_item_delete_successful_notice: La noticia %{page_name} y sus traducciones
     asociadas se han eliminado.
   admin_news_item_edit_header: Actualizar la información básica de la noticia <em>%{page_name}</em>
@@ -4072,7 +4072,7 @@ es:
   by_caps: Por
   by_scientific_name_table_header: por nombre científico
   cache_store: Almacenamiento de la memoria caché
-  caching_results: Almacenado en cache de resultados
+  caching_results: Resultados en caché
   calculate_averages_slow: Calcular las medias (lento)
   call_api: Llamada API
   cancel: Cancelar
@@ -4255,7 +4255,7 @@ es:
   collection_not_destroyed_error: Lo sentimos, la colección no se ha eliminado.
   collection_not_found_error: Lo sentimos, no se pudo encontrar esa colección.
   collection_created_notice: Colección <em>%{collection_name}</em> creado correctamente.
-  collection_redindexed: La colección re-indexada.
+  collection_redindexed: Colección reindizada.
   collection_updated_notice: Colección <em>%{collection_name}</em> actualizado correctamente.
   collection_was_removed_by_owner: Esta colección fue retirada por su propietario.
   collection_not_updated_error: Lo sentimos, ha ocurrido un error, la colección no
@@ -4374,9 +4374,9 @@ es:
   completed: Completado
   completed_colon: 'Completado:'
   confirm_deactivate_user: ¿Está seguro que desea desactivar a este usuario?
-  confirm_delete_community: ¿Estás seguro de querer suprimir esta comunidad? Miembros
-    restantes todavía será capaz de ver y el suministro de noticias se mantendrá,
-    pero no aparecerá en las búsquedas o en el taxón páginas, y ya no será editable.
+  confirm_delete_community: ¿Seguro que quieres suprimir esta comunidad? Los miembros
+    restantes todavía podrán verla y se mantendrá el suministro de noticias, pero
+    no aparecerá en las búsquedas ni en las páginas de taxones, y ya no será editable.
   confirm_delete_data_object: ¿Estás seguro de que deseas borrar este Objeto de Datos?
     Esta acción no se puede deshacer.
   confirm_leave: ¿Está seguro de que deseas salir de esta comunidad?
@@ -4526,6 +4526,8 @@ es:
     correctamente el evento de recogida de %{resource_title}.
   content_partner_resource_harvest_event_update_unsuccessful_error: Lo sentimos, ha
     ocurrido un error, no se ha actualizado el evento de recogida %{resource_title}.
+  content_partner_resource_page_title: Enciclopedia de la Vida - %{content_partner_name}  -
+    %{resource_name}
   content_partner_resource_hierarchy_browsable: Navegable
   content_partner_resource_hierarchy_complete_true: Esta jerarquía se establece como
     <strong>supervisada</strong>. Se asume que en una jerarquía supervisada cada entrada
@@ -4714,7 +4716,7 @@ es:
   created_at: Creado el
   created_by: Creado por
   created_colon: 'Creado:'
-  created_community: La comunidad se ha actualizado correctamente.
+  created_community: La comunidad se ha creado correctamente.
   created: Creado
   creative_commons: Creative Commons
   credentials: Credenciales
@@ -5007,7 +5009,7 @@ es:
   default_focus_collection_name_from_community: '%{name}''s enfoque'
   default_rating: calificación predeterminada
   default_rating_value_of_total: 'Calificación predeterminada: %{rating} de %{total}'
-  default_watch_collection_name: lista de vigilancia de %{username}
+  default_watch_collection_name: Lista de seguimiento de %{username}
   delete_community: Borrar esta comunidad
   delete_data_object: Borrar
   delete: borra
@@ -5057,7 +5059,7 @@ es:
   edit_my_profile: Editar mi perfil
   edit_news_items: editar artículos de noticias
   edit_page_contents: editar el contenido de la página
-  edit_permission_header: 'Editando Permiso: %{permission}'
+  edit_permission_header: 'Edición de permiso: %{permission}'
   edit_search_suggestion: Editar las sugerencias de búsqueda
   edit_search_suggestions: Editar sugerencias de búsqueda
   edit_table_of_contents: editar la tabla de contenidos
@@ -5881,7 +5883,7 @@ es:
   names_relationship_column_header: Relación
   names_sources_column_header: Fuentes
   names_status_column_header: Estado
-  names_synonyms_empty: No hay sinónimos se han asociado con este taxón todavía.
+  names_synonyms_empty: Ningún sinónimo se ha asociado con este taxón todavía.
   curator_colon: 'Curador:'
   mobile:
     contents:
@@ -5974,7 +5976,7 @@ es:
   num_data_objects: Número de objetos de datos
   no_record_found_matching_your_criteria: Ningún registro encontrado coincide con
     sus criterios.
-  no_related_names: Ninguno de los nombres se ha relacionado con este taxón todavía.
+  no_related_names: Ningún nombre se ha relacionado con este taxón todavía.
   no_results_for_search_term: Ningún resultado para "%{search_term}"
   no_search_suggestions_are_avai: No hay ninguna sugerencia de búsqueda disponible
     que coincida con sus criterios de búsqueda.
@@ -6327,7 +6329,7 @@ es:
   resources: Recursos
   response_formats: Formatos de Respuesta
   response: Respuesta
-  resque_status_header: 'Estado de salvamento:'
+  resque_status_header: 'Estado de Resque:'
   resque_pending_job_count:
     one: Hay %{count} trabajo pendiente en la cola de  "%{queue}".
     other: Hay %{count} trabajos pendientes en la cola de "%{queue}".
@@ -6523,7 +6525,7 @@ es:
   sort_by_rating_option: Calificación
   sort_by_richness_option: Riqueza
   sort_by_alphabetical_option: Alfabético
-  sort_by_hierarchy_publish_request_option: Hierarchy Publish Request
+  sort_by_hierarchy_publish_request_option: Solicitud de publicación de jerarquía
   sort_by_reverse_alphabetical_option: Alfabético Inverso
   sort_by_recently_added_option: Añadido recientemente
   sort_by_status_option: Estado
@@ -6554,8 +6556,8 @@ es:
   source_colon: 'Fuente:'
   source_url: URL de origen
   special_collection: Colección especial
-  special_collections_cannot_be_destroyed: Esta colección es la única colección asociada
-    a su comunidad y no puede ser eliminada.
+  special_collections_cannot_be_destroyed: Esta colección es la única asociada a su
+    comunidad y no puede eliminarse.
   species_curated: Especie curada
   species_profile_model_cp_count_title: Modelo de perfil de especies - Número de socios
     de contenido
@@ -6832,10 +6834,10 @@ es:
     menú desplegable de selección de jerarquía
   this_is_the_label_that_will_be_used_for_attribution: Esta es la etiqueta que se
     utilizará para la atribución
-  this_older_version: Esta versión más vieja del método Pages API acepta los mismos
-    parametros y devuelve mas o menos la misma información. De hecho la respuesta
-    de JSON es idéntica a la versión 1.0, pero la respuesta XML tiene una estructura
-    ligeramente diferente.
+  this_older_version: Esta versión antigua del método Pages API acepta los mismos
+    parámetros y devuelve casi la misma información. De hecho, la respuesta de JSON
+    es idéntica a la versión 1.0, pero la respuesta XML tiene una estructura ligeramente
+    diferente.
   this_page_will_be_reindexed: Esta página será reindexada en segundo plano, y pueden
     ser necesarias hasta 24 horas para completar el proceso.
   gbif_occurrence_disclaimer: Este mapa se basa en registros de ocurrencias disponibles
@@ -7073,8 +7075,8 @@ es:
     other: '%{count}<span class="assistive"> notificaciones</span>'
   user_pending_notifications_comments_assistive: <span class="assistive">Comentarios</span>
   user_pending_notifications_comments_with_count:
-    one: '%{count} Comentario'
-    other: '%{count} Comentarios'
+    one: '%{count} comentario'
+    other: '%{count} comentarios'
   user_pending_notifications_comments_with_count_assistive:
     one: '%{count}<span class="assistive"> comentario</span>'
     other: '%{count}<span class="assistive"> comentarios</span>'
@@ -7162,7 +7164,7 @@ es:
   watch_list: Lista de Vigilancia
   watch_list_newsfeed: Suministro de Noticias de la Lista de Vigilancia
   watch_collections_cannot_be_destroyed: Esta colección es la única asociada a su
-    comunidad y no puede ser eliminada.
+    comunidad y no puede eliminarse.
   warning_you_are_editing_as_admin: 'AVISO: solo estás autorizado a editar esta página
     porque eres administrador.'
   web_service_base_url: URL base del servicio Web

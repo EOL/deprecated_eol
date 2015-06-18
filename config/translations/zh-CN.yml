@@ -1740,6 +1740,7 @@ zh-CN:
       is_not_complete: 否
       query_empty: （无过滤）
       processing: 处理中
+      error: 此文件有些错误
       refresh: 刷新
       row_count: 計數
       search_again: 重新搜尋
@@ -2981,6 +2982,7 @@ zh-CN:
   content_partner_resource_harvest_events_see_all_link: 查看全部 <span class=assistive>采集事件</span>
   content_partner_resource_harvest_event_update_successful_notice: 资源%{resource_title}的采集事件成功更新。
   content_partner_resource_harvest_event_update_unsuccessful_error: 抱歉，出现了一个错误，资源%{resource_title}的收获事件未能更新。
+  content_partner_resource_page_title: 网络生命大百科 - %{content_partner_name} - %{resource_name}
   content_partner_resource_hierarchy_browsable: 可浏览的
   content_partner_resource_hierarchy_complete_true: '"这个分类系统设定为<strong>已审核</strong>。已审核的分类系统认为每个条目都是唯一的，例如,名称相同的字符串被视为同名异物。"'
   content_partner_resource_hierarchy_complete_false: 这个分类系统未经审核。相匹配的条目被视为同一概念。

@@ -1,6 +1,7 @@
 # Messages for Galician (galego)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Banjo
 # Author: McDutchie
 # Author: Toliño
 # Author: Vivaelcelta
@@ -224,6 +225,9 @@ gl:
         harvest_events: Rexistros de colleita
         hierarchy: Xerarquía
         language_id: Lingua por defecto
+        dataset_license_id: Licenza
+        dataset_rights_holder: Titular dos dereitos
+        dataset_rights_statement: Declaración dos dereitos
         license_id: Licenza por defecto
         notes: Notas de procesamento
         resource_status_id: Estado dos recursos
@@ -238,6 +242,9 @@ gl:
         meta_keywords: Palabras clave dos metadatos
         meta_description: Descrición dos metadatos
         title: Título
+      translated_known_uri:
+        definition: Definición
+        comment: Comentario
       translated_news_item:
         active_translation: Publicado
         body: Corpo
@@ -266,6 +273,12 @@ gl:
         requested_curator_level_id: Nivel de conservación desexado
         tag_line: Slogan
         username: Nome de usuario
+      user_added_data:
+        object: Valor
+        user: Engadido por
+      user_added_data_metadata:
+        predicate: Atributo
+        object: Valor
     errors:
       format: '%{attribute} %{message}'
       template:
@@ -305,6 +318,8 @@ gl:
         even: debe ser par
         inaccessible: é inaccesible
         wrong_type: é de tipo incorrecto
+        models:
+          inaccessible: é inaccesible
       full_messages:
         format: '%{attribute} %{message}'
       models:

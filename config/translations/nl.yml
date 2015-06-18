@@ -11,6 +11,7 @@
 # Author: Inholland
 # Author: McDutchie
 # Author: MedShot
+# Author: Milenej
 # Author: Ndijkstra
 # Author: Patio
 # Author: Robin0van0der0vliet
@@ -1576,9 +1577,9 @@ nl:
       header: Uw download staat klaar!
   sessions:
     new:
-      login_with_facebook_assistive: Aanmelden bij EOL met uw Facebook-account.
-      login_with_google_assistive: Aanmelden bij EOL met uw Google-account.
-      login_with_twitter_assistive: Aanmelden bij EOL met uw Twitter-account.
+      login_with_facebook_assistive: Aanmelden bij EOL met uw Facebookaccount.
+      login_with_google_assistive: Aanmelden bij EOL met uw Googleaccount.
+      login_with_twitter_assistive: Aanmelden bij EOL met uw Twitteraccount.
       login_with_yahoo_assistive: Aanmelden bij EOL met uw Yahoo!-gebruiker.
       login_with_eol_authentication_header: 'Of aanmelden met uw EOL-gebruiker:'
       meta_title: Aanmelden
@@ -2113,6 +2114,7 @@ nl:
       is_not_complete: Nee
       query_empty: (geen filters)
       processing: bezig met verwerken
+      error: er is iets misgegaan met dit bestand
       refresh: vernieuwen
       row_count: Aantal
       search_again: opnieuw zoeken
@@ -2138,7 +2140,7 @@ nl:
         aanmaken
       create_user_with_eol_authentication_header: 'Of geef nieuwe referenties op:'
       meta_title: Wordt lid van EOL
-      sign_up_with_facebook_assistive: Meld aan bij EOL met uw Facebook-account.
+      sign_up_with_facebook_assistive: Registreer u bij EOL met uw Facebookaccount.
       sign_up_with_google_assistive: Meld aan bij EOL met uw Google-account.
       sign_up_with_twitter_assistive: Meld aan bij EOL met uw Twitter-account.
       sign_up_with_yahoo_assistive: Meld aan bij EOL met uw Yahoo!-gebruiker.
@@ -4194,6 +4196,9 @@ nl:
       items.
   collection_delete_link: Verzameling permanent verwijderen
   collection_destroyed: De verzameling is verwijderd.
+  collection_removed: Verzameling %{collection} ' is verwijderd.
+  collection_update_failure: Verzameling %{collection} - update is mislukt. Controleer
+    of er een probleem in de collectie items is
   collection_error_no_items_selected: 'Fout: er zijn geen items geselecteerd of handelingen
     uitgevoerd.'
   collection_image: Verzamelingsafbeelding
@@ -4504,6 +4509,8 @@ nl:
     %{resource_title} is bijgewerkt.
   content_partner_resource_harvest_event_update_unsuccessful_error: Er is een fout
     opgetreden. De oogstgebeurtenis voor %{resource_title} is niet bijgewerkt.
+  content_partner_resource_page_title: Encyclopedie van het Leven - %{content_partner_name}
+    - %{resource_name}
   content_partner_resource_will_be_deleted: Alles geoogst door Resource %{resource_title}
     zal worden verwijderd, gelieve 24 uur te wachten om te verwerken.
   content_partner_resource_hierarchy_browsable: Doorzoekbaar
@@ -5069,6 +5076,7 @@ nl:
   eol_api: EOL API
   eol_api_hierarchies: 'EOL API: hiërarchieën'
   eol_api_hierarchy_entries: 'EOL API: hiërarchie-invoer'
+  eol_api_hierarchy_entries_descendants: 'EOL-API: Hiërarchie-Items'' Nakomelingen'
   eol_api_pages: 'EOL API: pagina''s'
   eol_api_ping: 'EOL API: ping'
   eol_api_provider_hierarchies: 'EOL API: providerhiërarchieën'
@@ -5361,6 +5369,8 @@ nl:
     te verbeteren, dus in de nabije toekomst kunt betere zoekresultaten verwachten.
   gives_access_to_a_single_hierarchy_indexed_by_eol: geeft toegang tot een enkele
     hiërarchie en de interne relaties als geïndexeerd door EOL
+  gives_access_to_a_single_hierarchy_descendants_by_eol: geeft toegang tot de nakomelingen
+    van een enkele hiërarchie-entry
   global_access_tagline: Wereldwijde toegang tot kennis over het leven op aarde.
   global_navigation: Globale navigatie
   glossary: Woordenlijst
@@ -6655,6 +6665,8 @@ nl:
     voor informatie over toegang tot andere hiërarchieën die overeenkomen met een
     bepaalde pagina in EOL. Het veld "taxonConceptID" bevat het pagina-ID van EOL
     dat gebruikt kan worden in de API voor pagina's.
+  hierarchies_entries_descendants_description: Gezien de identifier van een hiërarchie-item
+    geeft deze API g alle nakomelingen van deze hiërarchie-entry terug.
   hierarchies_description: Encyclopedia of Life heeft niet één enkele taxonomische
     hiërarchie waarvan pagina's gemaakt worden. EOL indexeert veel hiërarchieën en
     vergelijkt ze met elkaar. Via deze API wordt metadata weergegeven over een hiërarchie

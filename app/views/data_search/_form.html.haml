@@ -1,3 +1,12 @@
+%head
+  %meta{:charset => "UTF-8"}
+    %title Basic ComboBox - jQuery EasyUI Demo
+    %link{:href => "http://www.jeasyui.com/easyui/themes/default/easyui.css", :rel => "stylesheet", :type => "text/css"}
+      %link{:href => "http://www.jeasyui.com/easyui/themes/icon.css", :rel => "stylesheet", :type => "text/css"}
+        %link{:href => "http://www.jeasyui.com/easyui/demo/demo.css", :rel => "stylesheet", :type => "text/css"}
+          %script{:src => "http://www.jeasyui.com/easyui/jquery.easyui.min.js", :type => "text/javascript"}
+
+
 - helperstscope = [:helpers, :label, :data_search]
 - # NOTE altering taxon concept defaults if its not searchable but keeping
 - #      variable intact, in case it is still needed... we could just remove it
@@ -22,12 +31,12 @@
           = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
         %dd
           -# TODO - || [] is lame here, fix:
-          = select_tag(:attribute, options_for_select(@attribute_options || [], @attribute || @attribute_default), {id: 'attributes_select'})
+          = select_tag(:attribute, options_for_select(@attribute_options || [], @attribute || @attribute_default), {id: 'attributes_select' , class: "easyui-combobox"})
     - if @equivalent_attributes && @equivalent_attributes.count > 0
       %br
       %h2{style: "display: inline;"}
         = I18n.t("data_search.form.equivalent_attributes")
-      %h1{style: "display: inline;"} 
+      %h1{style: "display: inline;"}
         = "(#{I18n.t("data_search.form.search_again_for_attributes")})"
       %br
       - @equivalent_attributes.each do |eq|
@@ -47,7 +56,7 @@
           = check_box_tag "required_equivalent_values[]", eq.id, @required_equivalent_values && @required_equivalent_values.include?(eq.id.to_s)
           = eq.label
           = display_uri(eq, define: true, data_search: true, capitalize: false, without_label: true)
-      %br  
+      %br
   .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
     show: I18n.t("data_search.form.search_tools_show_link"),
     hide: I18n.t("data_search.form.search_tools_hide_link")}}
@@ -122,4 +131,3 @@
   %fieldset.actions
     = submit_tag I18n.t(:search)
     = link_to t('.new_search_link'), data_search_path
-  

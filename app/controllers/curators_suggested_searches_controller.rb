@@ -6,14 +6,16 @@ class CuratorsSuggestedSearchesController < ApplicationController
   before_filter :restrict_to_master_curators
   layout 'curators_suggested_searches'
 
+  def index
+    @suggested_searches = CuratorsSuggestedSearch.all
+  end
   def new
     @suggested_search =  CuratorsSuggestedSearch.new
     prepare_search_parameters(params)
     prepare_attribute_options
   end
-  
+
   def create
-    debugger
     if params[:format]
       @suggested_search ||= CuratorsSuggestedSearch.find(params[:format])
     else

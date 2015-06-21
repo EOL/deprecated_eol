@@ -51,8 +51,7 @@
   .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
     show: I18n.t("data_search.form.search_tools_show_link"),
     hide: I18n.t("data_search.form.search_tools_hide_link")}}
-    =render 'curators_suggested_searches/index', suggested_searches: @suggested_searches
-    %h3= t('.refine_search_header')
+    =render :file => 'curators_suggested_searches/index'    %h3= t('.refine_search_header')
     %fieldset
       %h4= t('.search_within_taxon_group_header')
       %p= raw t('.search_within_taxon_group_intro_with_count',

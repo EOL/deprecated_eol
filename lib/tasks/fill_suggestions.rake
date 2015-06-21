@@ -7,8 +7,7 @@ namespace :suggested_searches do
      CuratorsSuggestedSearch.create(label: "What are the various shapes of diatoms?",
      q: 'cavity',  uri: 'http://eol.org/schema/terms/NestType')
      CuratorsSuggestedSearch.create( label: "Which species build cavity nests?",
-          uri: 'http://purl.obolibrary.org/obo/OBA_0000052',
-          taxon_concept_id: 3685 )
+          uri: 'http://purl.obolibrary.org/obo/OBA_0000052', taxon_concept_id: 3685 )
       CuratorsSuggestedSearch.create( label: "Which plants have blue flowers?",
           q: 'http://purl.obolibrary.org/obo/PATO_0000318',
           uri: 'http://purl.obolibrary.org/obo/TO_0000537')

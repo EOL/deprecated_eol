@@ -48,7 +48,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   end
 
   def classifications_count
-    @classifications_count ||= taxon_concept.published_hierarchy_entries.length
+    @classifications_count ||= taxon_concept.deep_published_browsable_hierarchy_entries.length
   end
 
   def details?

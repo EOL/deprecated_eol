@@ -418,14 +418,15 @@ class KnownUri < ActiveRecord::Base
     known_uri = KnownUri.find_by_uri_without_generate(*args)
     if known_uri.nil?
       uri = args.first
-      name = EOL::Sparql.uri_to_readable_label(uri)  #DataValue.new(uri).label
+      name = EOL::Sparql.uri_to_readable_label(uri)
       return if name.nil?
-      known_uri= KnownUri.create( uri: uri, uri_type_id: 6, visibility_id: Visibility.visible.id, vetted_id: Vetted.trusted.id )
+      known_uri= KnownUri.create( uri: uri, uri_type_id: UriType.measurement.id, visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id )
       TranslatedKnownUri.create(name: name, known_uri_id: known_uri.id, language_id: Language.english.id)
     end
     known_uri
   end
   klass = class << self; alias_method_chain :find_by_uri, :generate; end
+
   private
 
   def default_values

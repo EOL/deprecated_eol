@@ -149,7 +149,6 @@ module TaxaHelper
 
   # TODO - this has gotten sloppy.  Refactor.
   def display_uri(uri, options = {})
-    debugger if uri.is_a?(String)
     options[:succeed] ||= ''
     options[:without_label] ||= false
     options[:search_link] = true unless options.has_key?(:search_link)

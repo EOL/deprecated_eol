@@ -5136,4 +5136,10 @@ pms:
         ës cont
       this_action_requires_higher_curation_level: An dëspias, s'assion a l'ha damanca
         un livel ëd conservassion pi àut
+      admins_and_joined_only_can_read: An dëspias, a dovrìa giontesse a costa colession
+        për podèj vëdd-la
+      owner_and_managers_only_can_edit: An dëspias, mach ël propietari dla colession
+        o ij sò gestor a peulo modifichela
+      error_revoking_editor_on_watch_collection: An dëspias, j'editor a peulo nen
+        esse gavà da le colession ëd lòn ch'as ten sot-euj
 ...

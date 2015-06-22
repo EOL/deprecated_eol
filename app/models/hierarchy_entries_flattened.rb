@@ -67,7 +67,7 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   end
 
   # TODO: This should really be an aliased attribute (I think), but I'm in a rush.
-  def ancestor
-    flat_ancestor
+  def flat_ancestor
+    ancestor
   end
 end

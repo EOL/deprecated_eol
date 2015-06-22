@@ -276,7 +276,8 @@ class HierarchyEntry < ActiveRecord::Base
 
   def kingdom_and_immediate_parent
     return [ nil, nil ] if flattened_ancestors.blank?
-    sorted_ancestors = flattened_ancestors.sort{ |a,b| a.ancestor.lft <=> b.ancestor.lft }
+    sorted_ancestors =
+      flattened_ancestors.sort { |a,b| a.ancestor.lft <=> b.ancestor.lft }
     sorted_ancestors.shift if hierarchy == Hierarchy.ncbi
     return [ nil, nil ] if sorted_ancestors.blank?  # sorted ancestors might be blank now
     root_ancestor = sorted_ancestors.first.ancestor

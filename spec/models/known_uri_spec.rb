@@ -152,4 +152,18 @@ describe KnownUri do
     known_uri= KnownUri.gen(uri: uri)
     expect(known_uri.uri).to eq(Rails.configuration.uri_term_prefix+"anything")
   end
+
+  describe '.find_by_uri' do 
+    it 'generates a known_uri if not exists' do 
+      uri = Rails.configuration.uri_term_prefix+"a_non_existing_uri"
+      known_uri= KnownUri.find_by_uri(uri)
+      expect(known_uri.class).to eq(KnownUri)
+    end
+
+    it 'does not generate a known_uri if data_object uri' do
+      uri = "http://eol.org/data_objects/"+rand(1000).to_s
+      known_uri= KnownUri.find_by_uri(uri)
+      expect(known_uri).to eq(nil)
+    end
+  end
 end

@@ -99,7 +99,7 @@ class DataSearchController < ApplicationController
     @page = options[:page] || 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]
     @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil 
-    @equivalent_attributes = @attribute ? get_equivalents(@attribute) : []
+    @equivalent_attributes = get_equivalents(@attribute)
     equivalent_attributes_ids = @equivalent_attributes.map{|eq| eq.id.to_s}
     # check if it is really an equivalent attribute
     @required_equivalent_attributes = @required_equivalent_attributes.map{|eq| eq if equivalent_attributes_ids.include?(eq) }.compact if @required_equivalent_attributes

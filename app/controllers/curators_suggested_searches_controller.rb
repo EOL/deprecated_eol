@@ -15,7 +15,7 @@ class CuratorsSuggestedSearchesController < ApplicationController
     if params[:format]
       @suggested_search ||= CuratorsSuggestedSearch.find(params[:format])
     else
-    @suggested_search ||= CuratorsSuggestedSearch.new
+      @suggested_search ||= CuratorsSuggestedSearch.new
     end
     if params[:taxon_concept_id].to_i != @suggested_search.taxon_concept_id
       params[:curators_suggested_search][:taxon_concept_id]=  params[:taxon_concept_id]

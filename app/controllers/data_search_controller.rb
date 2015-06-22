@@ -85,7 +85,7 @@ class DataSearchController < ApplicationController
   #
   # That said, we will have to consider how to deal with I18n, both for the "comment" and for the label.
   def prepare_suggested_searches
-    @suggested_searches = CuratorsSuggestedSearch.suggested_searches(current_language) 
+    @suggested_searches = CuratorsSuggestedSearch.all
   end
 
   # Add an entry to the database recording the number of results and time of search operation

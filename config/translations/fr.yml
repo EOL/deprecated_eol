@@ -4894,11 +4894,6 @@ fr:
       search_suggestions_header: Vous ne savez pas où commencer ?
       search_suggestions_subheader_colon: 'Essayer une des recherches de données suivantes
         :'
-      search_suggestion_whale_mass: Quelles baleines pèsent plus de 10 tonnes ?
-      search_suggestion_diatom_shape: Quelles sont les différentes formes de diatomées ?
-      search_suggestion_cavity_nests: Quelles espèces construisent des nids dans les
-        cavités ?
-      search_suggestion_blue_flowers: Quelles plantes ont des fleurs bleues ?
       search_tools_show_link: Afficher les options de recherche
       search_tools_hide_link: Masquer les options de recherche
       search_value_or_range_header: Rechercher une valeur spécifique ou une plage

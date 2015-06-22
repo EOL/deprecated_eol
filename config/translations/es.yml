@@ -4897,10 +4897,6 @@ es:
       search_suggestions_header: ¿No está seguro dónde empezar?
       search_suggestions_subheader_colon: 'Pruebe una de las siguientes búsquedas
         de datos:'
-      search_suggestion_whale_mass: ¿Cuáles ballenas pesan más de 10 000 kg?
-      search_suggestion_diatom_shape: ¿Cuáles son las distintas formas de diatomeas?
-      search_suggestion_cavity_nests: ¿Cuáles especies construyen nidos en cavidades?
-      search_suggestion_blue_flowers: ¿Cuáles plantas tienen flores de color azul?
       search_tools_show_link: Mostrar opciones de búsqueda
       search_tools_hide_link: Ocultar opciones de búsqueda
       search_value_or_range_header: Buscar un valor específico o un rango

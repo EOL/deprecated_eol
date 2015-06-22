@@ -6,7 +6,8 @@
 - else
   - taxon_concept_id = nil
   - taxon_name = { value: nil }
-= form_for @suggested_search,  url: curators_suggested_searches_path(@suggested_search), builder: ApplicationHelper::EolFormBuilder, method:'post', class: 'suggested_search' do |f|
+= form_for @suggested_search,  url: curators_suggested_searches_path(@suggested_search), builder: ApplicationHelper::EolFormBuilder,
+   method:'post', class: 'suggested_search' do |f|
   = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
   .vital
     %fieldset
@@ -66,3 +67,4 @@
           = f.select :sort, options_for_select(sort_options, @suggested_search.sort)
   %fieldset.actions
     = submit_tag I18n.t(:save)
+    = link_to(I18n.t(:cancel), data_search_path, :class => 'close')

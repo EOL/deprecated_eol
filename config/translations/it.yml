@@ -4868,10 +4868,6 @@ it:
       refine_search_header: Affina la tua ricerca (opzionale)
       search_suggestions_header: Non sai da dove iniziare?
       search_suggestions_subheader_colon: 'Prova una delle seguenti ricerche dati:'
-      search_suggestion_whale_mass: Quali balene pesano più di 10.000 kg?
-      search_suggestion_diatom_shape: Quali sono le varie forme di diatomee?
-      search_suggestion_cavity_nests: Quali specie costruiscono nidi in cavità?
-      search_suggestion_blue_flowers: Quali piante hanno fiori blu?
       search_tools_show_link: Mostra opzioni di ricerca
       search_tools_hide_link: Nascondi opzioni di ricerca
       search_value_or_range_header: Ricerca un valore specifico o una specifico range

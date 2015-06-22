@@ -7,7 +7,6 @@ class CreateCuratorsSuggestedSearches < ActiveRecord::Migration
       t.float    :to
       t.string   :sort, default: 'desc'
       t.string   :uri, null: false
-      t.integer  :language_id , default: Language.default
       t.string   :unit_uri
       t.integer  :taxon_concept_id
       t.timestamps

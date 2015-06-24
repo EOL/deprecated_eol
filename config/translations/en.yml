@@ -2862,7 +2862,7 @@ en:
   classifications_split_column_header: "Split / Move"
   classifications_split_one_classification_only: "Please select only one classification to split. Other classifications can be moved to the new page after it has been created"
   classifications_summary_header_with_count:
-    zero: "Classification not normally visible on EOL"
+    zero: "EOL has no classifications for this taxon"
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"
   classifications_with_count:

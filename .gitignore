@@ -71,7 +71,7 @@ public/uploads/data_search_files/*
 public/uploads/datasets/*
 public/uploads/Image/*
 public/uploads/images/collection_icons/*
-public/resource_contributions/*
+public/resource_contributions/*json
 solr/logs/*.*
 # This is the old one, but some people will still have it:
 solr/solr/data/*

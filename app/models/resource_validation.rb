@@ -1,15 +1,16 @@
 class ResourceValidation
+<<<<<<< HEAD
   @queue = 'data'
 
   # Everything is a class method, here; no instances.
   class << self
-    def perform(current_user_id, content_partner_id, resource_id, port)
-      log("START user ##{current_user_id} resource ##{resource_id} port #{port}")
+    def perform(current_user_id, content_partner_id, resource_id, loc)
+      log("START user ##{current_user_id} resource ##{resource_id} loc #{loc}")
       partner = ContentPartner.find(content_partner_id, include: {resources: :resource_status })
       log("Content Partner: #{partner.display_name}")
       resource = partner.resources.find(resource_id)
       log("Resource: #{resource.title}")
-      resource.upload_resource_to_content_master!(port)
+      resource.upload_resource_to_content_master(loc)
       write_log_send_mail(current_user_id, resource_id)
     end
 

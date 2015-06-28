@@ -1,7 +1,8 @@
 - content_for :head do
-  = javascript_include_tag 'navigation'
+  = javascript_include_tag 'data_search'
+  = javascript_include_tag "autocomplete-rails.js"
 - content_for :main do
   #content
     .suggested_search
       = yield
-= render :file => 'layouts/css_layout'
+= render file: 'layouts/css_layout'

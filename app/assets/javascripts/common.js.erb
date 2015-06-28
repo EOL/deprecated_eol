@@ -353,16 +353,11 @@ $(function() {
         EOL.prep_flashes();
         EOL.ajax_submit($(this), { update: $('#flashes') });
         $('#suggested_search a.submit').click();
-             $(this).append($('ul.ui-autocomplete'));
         return(false);
       });
       $('#suggested_search a.close_and_go').on('click', function() { $('#suggested_search a.close').click(); });
     },
-
-
-    
   });
-
 
   $('a.reindex').on('click', function() {
     var $reindex = $('a.reindex');

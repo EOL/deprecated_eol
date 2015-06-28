@@ -210,13 +210,11 @@ class CollectionsController < ApplicationController
 
   def choose_taxa_data
     return must_be_logged_in unless logged_in?
-    #@taxa_items = distinct_predicates
-    @taxa_items = []
-    @collection.collection_items.taxa.each do |taxon_concept|
-      @taxa_items << TaxonPage.new(taxon_concept).data.get_data
+    taxon_items = []
+    @collection.collection_items.taxa.each do |taxon_item|
+      taxon_items += TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris
     end
-    @taxa_items.collect{ |d| d.predicate }.compact
-    debugger
+    @taxon_collected_items = taxon_items.compact.uniq(&:predicate).paginate(page: params[:page], per_page: 30)
     respond_to do |format|
       format.html { render 'choose_taxa_data'}
       format.js { render partial: 'choose_taxa_data' }
@@ -224,7 +222,8 @@ class CollectionsController < ApplicationController
   end
   
   def download_taxa_data
-    debugger
+    Resque.enqueue(TaxaDownload, params[:data_point_uri], current_user.id, @collection.id)
+    redirect_to collection_path(@collection)
   end
 
   # TODO - this should really be its own resource in its own controller.

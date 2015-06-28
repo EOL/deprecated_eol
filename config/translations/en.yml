@@ -943,6 +943,9 @@ en:
     new:
       page_title: "Please leave your feedback"
   collections:
+    download_taxa_data:
+      attribute_header: "Attribute"
+      user_downloaded_collection: "Data Download for %{collection_name}"
     show:
       meta_description: "%{collection_description}"
       meta_description_default: "An Encyclopedia of Life collection titled %{collection_name}."
@@ -1383,6 +1386,10 @@ en:
   recent_activity_mailer:
     data_search_file_download_ready:
       subject: "Your EOL search is ready for downloading"
+      message: "You can view this and other downloads by visiting the <a href='%{download_link}'>data downloads tab in your profile</a>."
+      header: "Your download is ready!"
+    collection_download_ready:
+      subject: "Your EOL Collection selected attributes are ready for downloading"
       message: "You can view this and other downloads by visiting the <a href='%{download_link}'>data downloads tab in your profile</a>."
       header: "Your download is ready!"
   sessions:
@@ -3319,6 +3326,7 @@ en:
   current_harvest_event: "Harvest event from \"%{resource_title}\" ran for \"%{period}\" hours"
   currently_running_harvesting: "Currently Running Harvesting"
   currently_in_eol: "Currently in the Encyclopedia of Life"
+  create_download_data_file: "Create File"
   institutional_sponsors: "Institutional Sponsors"
   currently_published: "currently published"
   daily: "Daily"
@@ -3501,6 +3509,7 @@ en:
   do_you_want_to_be_a_curator: "Do you want to be a curator"
   download_wav_file: "Download WAV file"
   download_data: "Download Data"
+  download_collection_data: "Download Data"
   dublin_core: "Dublin Core"
   duplicate_comment_warning: "Comment not saved: it appears you have already posted this comment. ...Did you click the 'post comment' button twice?"
   duplicate_text_warning: "Text not saved: it appears you have already posted this article. ...Did you click the 'add article' button twice?"
@@ -3824,7 +3833,6 @@ en:
   return_content_by_vettedness: "If 'vetted' is given a value of '1', then only trusted content will be returned. If 'vetted' is '2', then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content."
   reindex_data_object_button: "Reindex object"
   reindex_page_button: "Reindex page"
-  download_collection_data: "Download Data"
   image: "Image"
   image_cropped_notice: "Image was cropped successfully."
   image_crop_failed_error: "Sorry, an error occurred, the image could not be cropped."

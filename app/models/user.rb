@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
   has_many :forum_posts
   has_many :user_added_data, class_name: UserAddedData.to_s
   has_many :data_search_files
+  has_many :collection_download_files
 
   # TODO - content_partners should be has_one:
   has_many :content_partners

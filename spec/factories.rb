@@ -684,6 +684,14 @@ FactoryGirl.define do
     completed_at  Time.now
     file_number   1
   end
+  
+  factory :collection_download_file do
+    user_id 1
+    collection_id 1
+    file_number 1
+    row_count 1
+    error "Error"
+  end
 
   factory :data_type do
     schema_value ''

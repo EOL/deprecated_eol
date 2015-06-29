@@ -41,7 +41,6 @@ class RecentActivityMailer < ActionMailer::Base
 
   def data_search_file_download_ready(data_search_file)
     @user = data_search_file.user
-    @data_search_file = data_search_file
     @show_activity_links_in_email = false
     set_locale(@user)
     mail(
@@ -53,7 +52,7 @@ class RecentActivityMailer < ActionMailer::Base
   
   def collection_file_download_ready(collection_download_file)
     @user = collection_download_file.user
-    # @data_search_file = collection_download_file
+    @data_search_file = collection_download_file
     @show_activity_links_in_email = false
     set_locale(@user)
     mail(

@@ -7,11 +7,7 @@ class CollectionDownloadFile < ActiveRecord::Base
   def build_file(data_point_uris, user_lang)
     unless hosted_file_exists?
       write_file(data_point_uris, user_lang)
-      debugger
       response = upload_file(id, local_file_path, local_file_url)
-      debugger
-      send_completion_email
-      debugger
       if response[:error].blank?
         if hosted_file_exists? && instance_still_exists?
           send_completion_email

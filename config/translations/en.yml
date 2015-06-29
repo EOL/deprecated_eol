@@ -1768,6 +1768,8 @@ en:
         one: "Data download"
         other: "%{count} Data downloads"
       empty: "You have no downloads. You can <a href='%{data_search_url}'>search for data</a> and request to download the results."
+      empty_taxa_collection: "No traits found on this collection"
+      no_selected_attributes: "You did not select attribute. please select at least one!"
       download: "download"
       page_title: "Data Downloads"
       query_head: "Query"

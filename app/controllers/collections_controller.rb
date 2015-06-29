@@ -222,8 +222,13 @@ class CollectionsController < ApplicationController
   end
   
   def download_taxa_data
-    Resque.enqueue(TaxaDownload, params[:data_point_uri], current_user.id, @collection.id)
-    redirect_to collection_path(@collection)
+    if params[:data_point_uri].nil? || params[:data_point_uri].empty?
+      flash[:warning] = I18n.t("users.data_downloads.no_selected_attributes")
+      return redirect_to params.merge(action: 'choose_taxa_data', collection: @collection)
+    else
+      Resque.enqueue(TaxaDownload, params[:data_point_uri], current_user.id, @collection.id)
+      redirect_to collection_path(@collection)
+    end
   end
 
   # TODO - this should really be its own resource in its own controller.

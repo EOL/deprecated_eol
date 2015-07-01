@@ -945,7 +945,7 @@ en:
   collections:
     download_taxa_data:
       attribute_header: "Attribute"
-      collection_download_under_processing: "Collection download is under processing now."
+      collection_download_under_processing: "Collection download is under processing now. An email will be sent to you when the download complete"
       user_downloaded_collection: "Data download for %{collection_name}"
     show:
       meta_description: "%{collection_description}"

@@ -1,6 +1,6 @@
 = stylesheet_link_tag 'taxon_collection'
 #taxon_collection
-  - if @taxon_collected_items.nil? || @taxon_collected_items.empty?
+  - if @taxon_collected_items.blank?
     .empty
       %p= raw I18n.t('users.data_downloads.empty_taxa_collection')
   - else

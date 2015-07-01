@@ -945,7 +945,8 @@ en:
   collections:
     download_taxa_data:
       attribute_header: "Attribute"
-      user_downloaded_collection: "Data Download for %{collection_name}"
+      collection_download_under_processing: "Collection download is under processing now."
+      user_downloaded_collection: "Data download for %{collection_name}"
     show:
       meta_description: "%{collection_description}"
       meta_description_default: "An Encyclopedia of Life collection titled %{collection_name}."
@@ -1391,7 +1392,7 @@ en:
     collection_download_ready:
       subject: "Your EOL Collection selected attributes are ready for downloading"
       message: "You can view this and other downloads by visiting the <a href='%{download_link}'>data downloads tab in your profile</a>."
-      header: "Your download is ready!"
+      header: "Your collection download is ready!"
   sessions:
     new:
       login_with_facebook_assistive: "Login to EOL using your Facebook credentials."
@@ -1768,8 +1769,8 @@ en:
         one: "Data download"
         other: "%{count} Data downloads"
       empty: "You have no downloads. You can <a href='%{data_search_url}'>search for data</a> and request to download the results."
-      empty_taxa_collection: "No traits found on this collection"
-      no_selected_attributes: "You did not select attribute. please select at least one!"
+      empty_taxa_collection: "No traits were found on this collection"
+      no_selected_attributes: "No attribute was selected. Please select at least one"
       download: "download"
       page_title: "Data Downloads"
       query_head: "Query"

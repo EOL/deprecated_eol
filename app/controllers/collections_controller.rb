@@ -18,6 +18,8 @@ class CollectionsController < ApplicationController
   before_filter :restrict_to_admins, only: :reindex
 
   layout 'collections'
+  
+  RECORDS_PER_PAGE = 30
 
   def show
     # TODO - this line should be somewhere else:
@@ -214,19 +216,20 @@ class CollectionsController < ApplicationController
     @collection.collection_items.taxa.each do |taxon_item|
       taxon_items += TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris
     end
-    @taxon_collected_items = taxon_items.compact.uniq(&:predicate).paginate(page: params[:page], per_page: 30)
+    @taxon_collected_items = taxon_items.compact.uniq(&:predicate).paginate(page: params[:page], per_page: RECORDS_PER_PAGE)
     respond_to do |format|
       format.html { render 'choose_taxa_data'}
-      format.js { render partial: 'choose_taxa_data' }
+      format.js { render 'choose_taxa_data' }
     end
   end
   
   def download_taxa_data
-    if params[:data_point_uri].nil? || params[:data_point_uri].empty?
+    if params[:data_point_uri].blank?
       flash[:warning] = I18n.t("users.data_downloads.no_selected_attributes")
       return redirect_to params.merge(action: 'choose_taxa_data', collection: @collection)
     else
       Resque.enqueue(TaxaDownload, params[:data_point_uri], current_user.id, @collection.id)
+      flash[:warning] = I18n.t("collections.download_taxa_data.collection_download_under_processing")
       redirect_to collection_path(@collection)
     end
   end

@@ -13,16 +13,17 @@ class Users::DataDownloadsController < UsersController
     # NOTE this #joins avoids the problem where known_uri can be nil. Don't remove it unless you choose to clean that mess:
     @background_processes = DataSearchFile.where(user_id: @user.id).joins(:known_uri)
     @background_processes += CollectionDownloadFile.where(user_id: @user.id)
-    @background_processes.sort_by!(&:updated_at).reverse!
+    @background_processes.compact.sort_by!(&:updated_at).reverse!
     @rel_canonical_href = user_data_downloads_url(@user)
   end
 
   def destroy
-    if params[:type] == DATA_SEARCH_FILE_TYPE
-      @data_file = DataSearchFile.find(params[:id])
-    else
-      @data_file = CollectionDownloadFile.find(params[:id])
-    end
+    @data_file = params[:type] == DATA_SEARCH_FILE_TYPE ? DataSearchFile.find(params[:id]) : CollectionDownloadFile.find(params[:id])
+    # if params[:type] == DATA_SEARCH_FILE_TYPE
+      # @data_file = DataSearchFile.find(params[:id])
+    # else
+      # @data_file = CollectionDownloadFile.find(params[:id])
+    # end
     if @data_file.user == current_user || current_user.is_admin? || current_user.min_curator_level?(:master)
       @data_file.destroy
       flash[:notice] = I18n.t(:data_search_destroyed)

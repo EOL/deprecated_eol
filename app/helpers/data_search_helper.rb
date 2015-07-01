@@ -19,7 +19,7 @@ module DataSearchHelper
   end
   
   def data_search_file?(download_file)
-    download_file.class.name == "DataSearchFile" ? true : false
+    download_file.class.name == "DataSearchFile"
   end
 
   def data_search_file_summary(search_file)

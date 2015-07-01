@@ -117,7 +117,7 @@
 
 #sidebar
   - if current_user.can_see_data?
-    - cache("overview_#{@taxon_page.id}_traits_#{current_language}", expires_in: 24.hours) do
+    - cache("overview/#{@taxon_page.to_param}/traits/#{current_language}", expires_in: 24.hours) do
       - overview_data = @data.get_data_for_overview
       #data_summary.article
         .header

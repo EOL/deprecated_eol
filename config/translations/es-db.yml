@@ -189,7 +189,7 @@ es:
   translated_resource_statuses-label-resource_status_id-3: Envío fallido
   translated_resource_statuses-label-resource_status_id-4: Movido al servidor de contenido
   translated_resource_statuses-label-resource_status_id-5: Validado
-  translated_resource_statuses-label-resource_status_id-6: Validación fallida
+  translated_resource_statuses-label-resource_status_id-6: Falló la validación
   translated_resource_statuses-label-resource_status_id-7: Procesando
   translated_resource_statuses-label-resource_status_id-8: Procesado
   translated_resource_statuses-label-resource_status_id-9: Proceso fallido

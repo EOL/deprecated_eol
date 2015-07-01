@@ -4091,7 +4091,7 @@ pms:
     da separé. J'àutre classificassion a peulo esse tramudà ant la neuva pàgina apress
     soa creassion
   classifications_summary_header_with_count:
-    zero: Classificassion ëd sòlit nen visìbil ans l'EdV
+    zero: L'EdV a l'ha gnun-e classificassion për costa tassonomìa
     one: Trovà an %{count} classificassion
     other: Trovà an %{count} classificassion
   classifications_with_count:
@@ -5142,4 +5142,28 @@ pms:
         o ij sò gestor a peulo modifichela
       error_revoking_editor_on_watch_collection: An dëspias, j'editor a peulo nen
         esse gavà da le colession ëd lòn ch'as ten sot-euj
+      error_revoking_editor_on_an_empty_community: An dëspias, j'editor a peulo pa
+        esse gavà da na comunità veuida
+      only_managers_can_edit_community: An dëspias, mach ij gestor a peulo modifiché
+        sa comunità-sì
+      only_managers_can_delete_community: An dëspias, mach ij gestor a peulo dëscancelé
+        costa comunità
+      only_admins_can_view_content_pages: An dëspias, mach j'aministrator a peulo
+        consulté le pàgine ëd contnù
+      only_admins_can_view_translated_content_pages: An dëspias, mach j'aministrator
+        a peulo vëdde le pàgine ëd contnù voltà an tradussion
+      only_admins_can_edit_forums: An dëspias, mach j'aministrator a peulo modifiché
+        le piasse ëd discussion
+      must_be_logged_in: An dëspias, a venta ch'a sia rintrà ant ël sistema
+      only_admins_can_read_hidden_news_items: An dëspias, mach j'aministrator a peulo
+        lese j'element ëd neuve stërmà
+      only_admins_can_read_hidden_translated_news_items: An dëspias, mach j'aministrator
+        a peulo lese j'element ëd neuve stërmà con tradussion
+      can_not_access_unpublished_taxon: An dëspias, a peul nen acede a na tassonomìa
+        nen publicà
+      only_data_owner_can_edit: An dëspias, mach ël propietari dij dàit a peul modificheje
+      only_data_owner_can_delete: An dëspias, mach ël propietari dij dàit a peul dëscanceleje
+      error_editing_someone_account: An dëspias, a peul mach modifiché sò cont përsonal
+      can_not_edit_permissions: An dëspias, a peul pa modifiché ij përmess
+      collection_job_not_valid: Travaj ëd cujìa nen vàlid
 ...

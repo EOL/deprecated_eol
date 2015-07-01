@@ -2737,6 +2737,7 @@ zh-CN:
   classifications_rank_column_header: 等级
   classifications_split_column_header: 拆分/移动
   classifications_summary_header_with_count:
+    zero: EOL没有用于此分类的分类系统
     other: '在 %{count}个分类系统中发现 '
   classifications_with_count:
     other: '%{count} 个分类系统'

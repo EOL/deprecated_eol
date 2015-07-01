@@ -4168,6 +4168,7 @@ es:
     para dividir. Las otras clasificaciones se pueden mover a la nueva página después
     de que se haya creado
   classifications_summary_header_with_count:
+    zero: EOL no tiene clasificación para este taxón
     one: 'Encontrado en %{count} clasificación '
     other: Encontrado en %{count} clasificaciones
   classifications_with_count:
@@ -4215,6 +4216,7 @@ es:
       elemento de la colección.
   collection_delete_link: Elimina permanentemente esta colección
   collection_destroyed: La colección fue eliminada.
+  collection_removed: La colección %{collection} se ha eliminado.
   collection_error_no_items_selected: 'Error: no hay artículos seleccionados, no se
     llevó a a cabo ninguna acción.'
   collection_image: Imagen de colección
@@ -4792,6 +4794,7 @@ es:
   your_watch_collection: su lista de vigilancia
   current_language: 'Idioma: %{iso_code}'
   currently_in_eol: Actualmente en la Enciclopedia de la Vida
+  institutional_sponsors: Patrocinadores institucionales
   currently_published: publicado actualmente
   daily: Diariamente
   darwin_core: Darwin Core

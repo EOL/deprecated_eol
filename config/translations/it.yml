@@ -10,6 +10,7 @@
 # Author: EdoDodo
 # Author: Eleonora negri
 # Author: F. Cosoleto
+# Author: Federico Mugnaini
 # Author: Gianfranco
 # Author: Inskatolata
 # Author: Luigipiccoli
@@ -1512,6 +1513,7 @@ it:
       style='color:#195184'>contattaci</a>.
     see_all_activity: Vedi tutte le attività precedenti nel <a href='%{activity_url}'
       style='color:#195184'>tuo newsfeed </a>.
+    resource_validation: 'La risorsa: %{resource}convalidata è finita'
     bulk_comments_with_count:
       one: C'è un nuovo commento su %{on}
       other: Ci sono %{count} nuovi commenti su %{on}

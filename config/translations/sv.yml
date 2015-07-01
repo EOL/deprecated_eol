@@ -3690,6 +3690,7 @@ sv:
   classifications_rank_column_header: Rankning
   classifications_split_column_header: Dela / flytta
   classifications_summary_header_with_count:
+    zero: EOL har inga klassificeringar för detta taxon
     one: Hittades i %{count} klassificering
     other: Hittades i %{count} klassificeringar
   classifications_with_count:
@@ -3723,6 +3724,7 @@ sv:
     other: Samlingen <em>%{collection_name}</em> skapades med %{count} samlingsobjekt.
   collection_delete_link: Radera denna samling permanent
   collection_destroyed: Samlingen har tagits bort.
+  collection_removed: Samlingen %{collection} har raderats.
   collection_error_no_items_selected: 'Fel: Inga objekt valda, inga åtgärder vidtogs'
   collection_image: Samlingsbild
   collection_is_empty: Denna samling är för närvarande tom.

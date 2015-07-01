@@ -90,11 +90,4 @@ describe CollectionDownloadFile do
     end
   end
   
-# 
-  # it 'should know when expired?' do
-    # @collection_file.completed_at = Time.now
-    # expect(@collection_file.expired?).to eq(false)
-    # @collection_file.completed_at = 1.minute.ago - DataSearchFile::EXPIRATION_TIME
-    # expect(@collection_file.expired?).to eq(true)
-  # end
 end

@@ -13,7 +13,7 @@ class Users::DataDownloadsController < UsersController
     # NOTE this #joins avoids the problem where known_uri can be nil. Don't remove it unless you choose to clean that mess:
     @background_processes = DataSearchFile.where(user_id: @user.id).joins(:known_uri)
     @background_processes += CollectionDownloadFile.where(user_id: @user.id)
-    @background_processes.compact.sort_by!(&:updated_at).reverse!
+    @background_processes.sort_by!(&:updated_at).reverse!
     @rel_canonical_href = user_data_downloads_url(@user)
   end
 

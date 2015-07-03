@@ -1,8 +1,8 @@
 - content_for :head do
   %link{:href => "http://www.jeasyui.com/easyui/themes/default/easyui.css", :rel => "stylesheet", :type => "text/css"}
-  = stylesheet_link_tag "data_search"
+  = stylesheet_link_tag "advanced_search"
 
-- helperstscope = [:helpers, :label, :data_search]
+- helperstscope = [:helpers, :label, :advanced_search]
 - # NOTE altering taxon concept defaults if its not searchable but keeping
 - #      variable intact, in case it is still needed... we could just remove it
 - if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept) && !@clade_has_no_data
@@ -24,77 +24,54 @@
     %fieldset
       %dl
         %dt
-          = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
-        %dt
-          -# TODO - || [] is lame here, fix:
-          = select_tag(:attribute, options_for_select(select_options, @attribute || @attribute_default), { include_blank: true, id: 'attributes_select', class: "easyui-combobox", style: "width:200px;"})
-    - if @equivalent_attributes && @equivalent_attributes.count > 0
-      %br
-      %h2{style: "display: inline;"}
-        = I18n.t("data_search.form.equivalent_attributes")
-      %h1{style: "display: inline;"}
-        = "(#{I18n.t("data_search.form.search_again_for_attributes")})"
-      %br
-      - @equivalent_attributes.each do |eq|
-        %li{style: "list-style-type: none;", id: "attr_#{eq.id}"}
-          = check_box_tag "required_equivalent_attributes[]", eq.id, @required_equivalent_attributes && @required_equivalent_attributes.include?(eq.id.to_s)
-          = eq.label
-          = display_uri(eq, define: true, data_search: true, capitalize: false, without_label: true)
-    - if @equivalent_values && @equivalent_values.count > 0
-      %br
-      %h2{style: "display: inline;"}
-        = I18n.t("data_search.form.equivalent_values")
-      %h1{style: "display: inline;"}
-        = "(#{I18n.t("data_search.form.search_again_for_values")})"
-      %br
-      - @equivalent_values.each do |eq|
-        %li{style: "list-style-type: none;", id: "attr_#{eq.id}"}
-          = check_box_tag "required_equivalent_values[]", eq.id, @required_equivalent_values && @required_equivalent_values.include?(eq.id.to_s)
-          = eq.label
-          = display_uri(eq, define: true, data_search: true, capitalize: false, without_label: true)
-      %br
-  .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
-    show: I18n.t("data_search.form.search_tools_show_link"),
-    hide: I18n.t("data_search.form.search_tools_hide_link")}}
-    .suggestions
-      %h3= t('.search_suggestions_header')
-      %h4= t('.search_suggestions_subheader_colon')
-      %ul
-        - unless @suggested_searches.blank?
-          - @suggested_searches.each do |suggestion|
-            %li= link_to t(".#{suggestion[:label_key]}"),
-              data_search_path(suggestion[:params])
-    %h3= t('.refine_search_header')
-    %fieldset
-      %h4= t('.search_within_taxon_group_header')
-      %p= raw t('.search_within_taxon_group_intro_with_count',
-        count: number_with_delimiter(TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH),
-        contact_us_tech_url: contact_us_path(subject: 'Technical'))
-      %dl
-        %dt
           = label_tag :taxon_name, I18n.t(:taxon_name, scope: helperstscope)
         %dd
           = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
             name: 'taxon_name', 'data-min-length' => 3, type: 'search',
             update_elements: { id: '#taxon_concept_id' },
             value: taxon_name[:value],
-            placeholder: I18n.t('helpers.label.data_search.taxon_name_placeholder'),
             data: taxon_name[:data]
-          %p= I18n.t(:taxon_name_more, scope: helperstscope)
+    %br        
     %fieldset
-      %h4= t('.search_value_or_range_header')
       %dl
         %dt
+          %br
+          %br
+          = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
+        %dt
+          -# TODO - || [] is lame here, fix:
+          = select_tag(:attribute, options_for_select(select_options, @attribute || @attribute_default), { include_blank: true, id: 'attributes_select', class: "easyui-combobox", style: "width:200px;"})
+     
+  .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
+    show: I18n.t("data_search.form.search_tools_show_link"),
+    hide: I18n.t("data_search.form.search_tools_hide_link")}}
+    %fieldset
+      %dl
+        %dt
+          = label_tag :attribute, I18n.t(:unit_select, scope: helperstscope)
+        %dt
+          -# TODO - || [] is lame here, fix:
+          = select_tag(:attribute, options_for_select(select_options, @attribute || @attribute_default), { include_blank: true, id: 'attributes_select', class: "easyui-combobox", style: "width:200px;"})
+     
+    %fieldset
+      %dl
+        %dt
+          %br
+          %br
           = label_tag :q, I18n.t(:q, scope: helperstscope)
         %dd
+
           = search_field_tag :q, @querystring,
             placeholder: I18n.t(:q_placeholder, scope: helperstscope),
             data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
             scope: helperstscope)}
-          %p= I18n.t(:q_more, scope: helperstscope)
+          %br
+            
+           
       %h5= t('.or_range_header').html_safe
       %dl.range
         %dt
+          %br
           = label_tag :min, I18n.t(:min, scope: helperstscope)
         %dd
           = search_field_tag :min, @min_value,
@@ -103,18 +80,13 @@
             scope: helperstscope)}
       %dl.range
         %dt
+          %br
           = label_tag :max, I18n.t(:max, scope: helperstscope)
         %dd
           = search_field_tag :max, @max_value,
             placeholder: I18n.t(:max_placeholder, scope: helperstscope),
             data: {disabled_placeholder: I18n.t(:max_placeholder_disabled,
             scope: helperstscope)}
-      %dl.range
-        %dt
-          = label_tag :unit, I18n.t(:unit, scope: helperstscope)
-        %dd
-          - unit_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
-          = select_tag :unit, options_for_select(unit_options, @unit)
     %fieldset.sort
       %h4= t('.sort_header')
       %dl
@@ -124,6 +96,28 @@
           - sort_options = { I18n.t(:sort_by_value_ascending) => 'asc',
             I18n.t(:sort_by_value_descending) => 'desc' }
           = select_tag :sort, options_for_select(sort_options, @sort)
+    %fieldset
+      %dl
+        %dt
+          %label= I18n.t(:filter_by_type)
+        %dd
+          %ul
+          - [:all, :taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community, :collection, :content_page].each do |opt|
+            &nbsp
+            %li{ style: "display: inline"}
+            &nbsp
+            %label
+              &nbsp
+              &nbsp
+              &nbsp
+              &nbsp
+              &nbsp
+              
+              = check_box_tag "type[]"
+              = I18n.t("filter_by_type_#{opt}_option")     
   %fieldset.actions
     = submit_tag I18n.t(:search)
     = link_to t('.new_search_link'), data_search_path
+
+
+

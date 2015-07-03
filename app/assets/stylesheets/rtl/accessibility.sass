@@ -2016,6 +2016,125 @@ ul.ui-autocomplete
     .ui-state-focus
       background-image: none
 
+#advanced_search
+  #search_results #main
+    clear: both
+    float: none
+  > form
+    position: relative
+    dd p
+      line-height: 170%
+      padding-right: 10px
+    input[type="search"]
+      +input
+      -webkit-appearance: none
+    input[type="submit"]
+      font-size: 1em
+      font-weight: bold
+      line-height: 160%
+    &.copy
+      h3
+        position: relative
+        font-size: 1.4em
+      h4
+        font-size: 1.3em
+        font-weight: normal
+        margin-top: 30px
+        + p
+          margin-top: -10px
+      p
+        max-width: 70%
+      dl, dd
+        margin: 0
+      dd p
+        margin-bottom: 0
+      ul
+        margin-right: 30px
+        margin-left: 0
+      li
+        margin: 4px 0 0
+        line-height: 180%
+        a
+          +ie7-friendly-inline-block
+    .sort
+      clear: both
+    .vital, .actions
+      margin: 0
+      padding: 40px
+      background: $fieldset_light_blue
+      border: 1px solid $grayblue
+    .vital
+      padding-left: 150px
+      label
+        font-size: 1.4em
+        position: relative
+        top: 2px
+      fieldset, dl, dt, dd, > a
+        margin: 0
+        padding: 0
+        +ie7-friendly-inline-block
+      dt, dd
+        padding-left: 1em
+      .summarize_input
+        width: 100%
+        display: block
+        clear: both
+        word-break: break-all
+        position: absolute
+        +ie7-hack(position, relative)
+        dt, dd
+          display: block
+          float: right
+        dt
+          height: 40px
+          max-width: 30%
+          font-weight: normal
+          padding-left: 0
+          &:after
+            content: '\2014'
+        dd
+          max-width: 60%
+    .extras
+      zoom: 1
+      display: block
+      margin: 0
+      position: relative
+      padding: 30px 40px
+      border: 1px solid #ccd399
+      border-width: 0 1px 1px
+      background: #f1f4dc
+      dl
+        padding-right: 20px
+      h5
+        margin: 10 0 10px
+        text-transform: uppercase
+        padding-right: 100px
+      fieldset, > h3
+        margin-left: 30%
+      label
+        text-transform: uppercase
+        color: $loafer_text_color
+        &[for="sort"]
+          +screenreader-accessible
+      .suggestions
+        margin: 0
+        position: absolute
+        top: 30px
+        left: 30px
+        width: 38%
+      .range
+        width: 30%
+        float: right
+        input[type="search"], input[type="text"] /* its an ie7 thing */
+          width: 90%
+    .actions
+      border-top-width: 0
+      > a
+        padding-right: 50px
+    .prominent_actions
+      position: absolute
+      top: 35px
+      left: 40px
 #data_search
   #search_results #main
     clear: both
@@ -2106,9 +2225,9 @@ ul.ui-autocomplete
       dl
         padding-right: 20px
       h5
-        margin: 0 0 10px
+        margin: 0 10px 10px
         text-transform: uppercase
-        padding-right: 60px
+        padding-right: 100px
       fieldset, > h3
         margin-left: 30%
       label
@@ -2135,7 +2254,6 @@ ul.ui-autocomplete
       position: absolute
       top: 35px
       left: 40px
-
 // Additional fixes for RTL only
 #discover_twocol #content
   float: right !important

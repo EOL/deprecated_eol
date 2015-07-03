@@ -12,13 +12,16 @@ class UserAddedDataController < ApplicationController
     convert_fields_to_uri
     # TODO - fix this later:
     type = params[:user_added_data].delete(:subject_type)
+    
     raise "I don't know anything about #{type}, can't find one." unless type == 'TaxonConcept'
     subject = TaxonConcept.find(params[:user_added_data].delete(:subject_id))
     @user_added_data = UserAddedData.new(params[:user_added_data].reverse_merge(user: current_user,
                                                                                 subject: subject))
+
     if @user_added_data.save
       flash[:notice] = I18n.t('user_added_data.create_successful')
       log_action(:create)
+     #I18n.t('user_added_data.create_successful')
     else
       # NOTE - we can't just use validation messages quite yet, since it's created in another controller. :\
       if @user_added_data.errors.any?
@@ -101,9 +104,10 @@ class UserAddedDataController < ApplicationController
     add_uri_to_session(convert_field_to_uri(params[:user_added_data], :predicate))
     convert_field_to_uri(params[:user_added_data], :object)
     params[:user_added_data][:user_added_data_metadata_attributes].each do |index, meta|
-      convert_field_to_uri(meta, :predicate)
+     convert_field_to_uri(meta, :predicate)
       convert_field_to_uri(meta, :object)
     end
+    hash
   end
 
   # NOTE - just passing in the field wasn't working (thought it would be by ref, but I guess not), so we need the

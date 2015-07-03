@@ -29,7 +29,7 @@
                       - item_class = (@wildcard_search || count == 0) ? 'no_results' : nil
                       - item_class = nil if opt == :data && @attributes && ! @attributes.blank?
                       %li{ :class => item_class }
-                        %label
+                      %label
                           = check_box_tag "type[]", opt, @params_type.include?(opt.to_s.camelize),
                             { :name => "type[]", :id => "type_#{opt.to_s}"}
                           = I18n.t("filter_by_type_#{opt}_option")

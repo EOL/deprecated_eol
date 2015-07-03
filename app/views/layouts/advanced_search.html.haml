@@ -1,0 +1,31 @@
+- content_for :head do
+  = javascript_include_tag 'advanced_search'
+- content_for :main do
+  #page_heading
+    .site_column
+      .hgroup
+        - if @attribute.blank?
+          %h1= t('.page_header')
+        - else
+          %h1= t('.page_header_results')
+          %h2= data_search_results_summary
+          - if @querystring_uri
+            %h2.greyedout="(#{@querystring_uri})"
+      .page_actions
+        %ul
+          - if @results && !@results.blank?
+            - limited = (@results.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_search_limit, count: DataSearchFile::LIMIT) : nil
+            %li.data_download{ data: { alert: limited } }
+              = link_to I18n.t(:download_data),
+                download_data_search_path(params: params),
+                method: :post, :class => 'button'
+      = render 'shared/flash_messages'
+  #content
+    .site_column
+      #advanced_search{ data: { results_total: @results.blank? ? 0 : @results.total_entries } }
+        = render 'advanced_search/form'
+        #search_results
+          #main
+            = yield
+
+= render file: 'layouts/application'

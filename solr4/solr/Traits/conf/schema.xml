@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This schema is done for the traits only. This is used in the data page in its simplest form ie no metadata is shown.
+ -->   
+<schema name="traits" version="1.5">
+
+    <!-- define data types -->
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    </types>
+
+    <!-- begin schema -->
+    <fields>
+        <field name="_version_" type="int" indexed="true" stored="true" multiValued="false"/>
+    	<!--This is used to identify the traits. this enables us to retrieve its metadata from core 2-->
+        <field name="trait_id" type="int" indexed="true" stored="true" required="true"/>
+        <!--This is the taxon concept id of that page-->
+        <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="true"/>
+        <!--This is the predicate shown value (eg length)-->
+        <field name="predicate_label" type="string" indexed="true" stored="true" required="true"/>
+        <!--This is the predicate uri (eg http://purl.obolibrary.org/obo/CMO_0000013)-->
+        <field name="predicate_uri" type="string" indexed="true" stored="true" required="false"/>
+        <!--This is the statistical method that is shown besides the trait (eg min)-->
+        <field name="stat_method_literal" type="string" indexed="true" stored="true" required="false"/>
+        <!--This is the value itself (eg 5 or Male and etc..)-->
+        <field name="value_literal" type="string" indexed="true" stored="true" required="true"/>
+        <!--This is the vlaue uri (if any)-->
+        <field name="value_uri" type="string" indexed="true" stored="true" required="false"/>
+        <!--This field is used when there is an association. In case of association the value is a link to another page-->
+        <field name="value_id" type="int" indexed="true" stored="true" required="false"/>
+        <!--This is the unit label that is shown (eg m)-->
+        <field name="unit_literal" type="string" indexed="true" stored="true" required="false"/>
+        <!--This is the source name shown in the trait record (eg OBIS Environmental Information)-->
+        <field name="source_name" type="string" indexed="true" stored="true" required="false"/>
+    </fields>
+     <uniqueKey>trait_id</uniqueKey>    
+</schema>

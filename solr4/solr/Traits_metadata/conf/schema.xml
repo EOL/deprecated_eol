@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    This schema is done for the metadata traits
+ -->   
+<schema name="metadata_traits" version="1.5">
+
+    <!-- define data types -->
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+    </types>
+
+    <!-- begin schema -->
+    <fields>
+        <field name="_version_" type="int" indexed="true" stored="true" multiValued="false"/>
+        <!--This is used to identify the traits. Using the trait id given from core 1, we can retrieve the metadata from here (core 2)-->
+        <field name="trait_id" type="int" indexed="true" stored="true" required="true"/>
+        <!--This is taxon concept id. This is used in cases such as pages API to get all references associated to this page-->
+        <field name="taxon_concept_id" type="int" indexed="true" stored="true" required="true"/>
+        <!--This is predicate label that will be shown in the metadata (eg statistical_method)-->
+        <field name="predicate_label" type="string" indexed="true" stored="true" required="true"/>
+        <!--This is predicate uri (eg http://rs.tdwg.org/dwc/terms/eventDate)-->
+        <field name="predicate_uri" type="string" indexed="true" stored="true" required="false"/>
+        <!--This is the value label that shown besides the predicate-->
+        <field name="value_literal" type="string" indexed="true" stored="true" required="true"/>
+        <!--This is the value uri (eg http://semanticscience.org/resource/SIO_001113)-->
+        <field name="value_uri" type="string" indexed="true" stored="true" required="false"/>
+        <!--this is supplier id of this metadata who is the content partner id (in order to build the link)-->
+        <field name="supplier_id" type="int" indexed="true" stored="true" required="false"/>
+        <!--this is supplier of this metadata who is the content partner-->
+        <field name="supplier" type="string" indexed="true" stored="true" required="false"/>
+    </fields>
+    <uniqueKey>trait_id</uniqueKey>
+        
+</schema>
+

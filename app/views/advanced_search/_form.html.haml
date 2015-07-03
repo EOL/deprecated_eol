@@ -45,6 +45,7 @@
   .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
     show: I18n.t("data_search.form.search_tools_show_link"),
     hide: I18n.t("data_search.form.search_tools_hide_link")}}
+  - if @equivalent_attributes && @equivalent_attributes.count > 0
     %fieldset
       %dl
         %dt

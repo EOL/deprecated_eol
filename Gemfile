@@ -7,7 +7,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem "capistrano", "2.13.5" # For deploys.
   # For deploys. Note we've customized it...
   gem "capistrano-unicorn-pleary", "=0.1.6.1"
-  gem "rvm-capistrano", "1.2.7" # For deploys.
+  gem "rvm-capistrano", "1.2.7", require: false # For deploys.
   # We use this *extensively* in testing for user-like behavior. Learn this.
   gem "capybara", "1.1.3"
   # This allows tasks to run in the background, like Solr.
@@ -23,7 +23,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   # Handles command-line arguments. We currently only use this for Solr tasks.
   gem "optiflag", "0.7"
   gem "rspec-rails", "2.14" # This is what we use for testing. Learn it.
-  gem "ruby-prof", "0.11.2" # Used to measure performance.
+  gem "ruby-prof", "0.11.2" # Used to measure performance.sass
   # TODO: - update nokogiri
   # Yeah, I know this has given us grief in the past.  :\ Trying things out, is
   # all.
@@ -87,7 +87,7 @@ end
 group :development do
   # NEVER EVER *EVER* run this in production. Ever. Don't. It will be
   # immediately obvious what it does in dev.
-  gem "better_errors"
+  gem "better_errors","1.0.1"
 end
 
 group :test do
@@ -189,6 +189,7 @@ gem "recaptcha", require: "recaptcha/rails"
 # For background jobs, like email notifications and classification curation
 gem "resque", "1.23.0", require: "resque/server"
 gem "sanitize", "2.0.3" # To clean up user-enter HTML.
+gem "sass","3.2.19"
 gem "sass-rails", "3.2.5" # To make CSS easier to write.
 gem "sitemap_generator"
 # TODO: - update sparql-client

@@ -1,0 +1,124 @@
+- content_for :head do
+  %link{:href => "http://www.jeasyui.com/easyui/themes/default/easyui.css", :rel => "stylesheet", :type => "text/css"}
+  = stylesheet_link_tag "advanced_search"
+
+- helperstscope = [:helpers, :label, :advanced_search]
+- # NOTE altering taxon concept defaults if its not searchable but keeping
+- #      variable intact, in case it is still needed... we could just remove it
+- if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept) && !@clade_has_no_data
+  - taxon_concept_id = @taxon_concept.id
+  - taxon_name = { value: @taxon_concept.title_canonical, data: {} }
+- else
+  - taxon_concept_id = nil
+  - taxon_name = { value: nil }
+  - if @taxon_concept
+    - if !TaxonData.is_clade_searchable?(@taxon_concept) || @clade_has_no_data
+      - taxon_name[:data] = { value_removed_placeholder: I18n.t(:taxon_name_placeholder_value_removed,
+        taxon_group: @taxon_concept.title_canonical,
+        scope: helperstscope) }
+%h3.assistive= t('.header')
+- select_options = @attribute_options || []
+= form_tag data_search_path, method: 'get', class: 'copy', id: 'traitbank_search' do
+  = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
+  .vital
+    %fieldset
+      %dl
+        %dt
+          = label_tag :taxon_name, I18n.t(:taxon_name, scope: helperstscope)
+        %dd
+          = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
+            name: 'taxon_name', 'data-min-length' => 3, type: 'search',
+            update_elements: { id: '#taxon_concept_id' },
+            value: taxon_name[:value],
+            data: taxon_name[:data]
+    %br        
+    %fieldset
+      %dl
+        %dt
+          %br
+          %br
+          = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
+        %dt
+          -# TODO - || [] is lame here, fix:
+          = select_tag(:attribute, options_for_select(select_options, @attribute || @attribute_default), { include_blank: true, id: 'attributes_select', class: "easyui-combobox", style: "width:200px;"})
+     
+  .extras{data: { summary_intro: I18n.t("data_search.form.input_summary_intro"),
+    show: I18n.t("data_search.form.search_tools_show_link"),
+    hide: I18n.t("data_search.form.search_tools_hide_link")}}
+  - if @equivalent_attributes && @equivalent_attributes.count > 0
+    %fieldset
+      %dl
+        %dt
+          = label_tag :attribute, I18n.t(:unit_select, scope: helperstscope)
+        %dt
+          -# TODO - || [] is lame here, fix:
+          = select_tag(:attribute, options_for_select(select_options, @attribute || @attribute_default), { include_blank: true, id: 'attributes_select', class: "easyui-combobox", style: "width:200px;"})
+     
+    %fieldset
+      %dl
+        %dt
+          %br
+          %br
+          = label_tag :q, I18n.t(:q, scope: helperstscope)
+        %dd
+
+          = search_field_tag :q, @querystring,
+            placeholder: I18n.t(:q_placeholder, scope: helperstscope),
+            data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
+            scope: helperstscope)}
+          %br
+            
+           
+      %h5= t('.or_range_header').html_safe
+      %dl.range
+        %dt
+          %br
+          = label_tag :min, I18n.t(:min, scope: helperstscope)
+        %dd
+          = search_field_tag :min, @min_value,
+            placeholder: I18n.t(:min_placeholder, scope: helperstscope),
+            data: {disabled_placeholder: I18n.t(:min_placeholder_disabled,
+            scope: helperstscope)}
+      %dl.range
+        %dt
+          %br
+          = label_tag :max, I18n.t(:max, scope: helperstscope)
+        %dd
+          = search_field_tag :max, @max_value,
+            placeholder: I18n.t(:max_placeholder, scope: helperstscope),
+            data: {disabled_placeholder: I18n.t(:max_placeholder_disabled,
+            scope: helperstscope)}
+    %fieldset.sort
+      %h4= t('.sort_header')
+      %dl
+        %dt
+          = label_tag :sort, I18n.t(:sort_by_label)
+        %dd
+          - sort_options = { I18n.t(:sort_by_value_ascending) => 'asc',
+            I18n.t(:sort_by_value_descending) => 'desc' }
+          = select_tag :sort, options_for_select(sort_options, @sort)
+    %fieldset
+      %dl
+        %dt
+          %label= I18n.t(:filter_by_type)
+        %dd
+          %ul
+          - [:all, :taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community, :collection, :content_page].each do |opt|
+            &nbsp
+            %li{ style: "display: inline"}
+            &nbsp
+            %label
+              &nbsp
+              &nbsp
+              &nbsp
+              &nbsp
+              &nbsp
+              
+              = check_box_tag "type[]"
+              = I18n.t("filter_by_type_#{opt}_option")     
+  %fieldset.actions
+    = submit_tag I18n.t(:search)
+    = link_to t('.new_search_link'), data_search_path
+
+
+

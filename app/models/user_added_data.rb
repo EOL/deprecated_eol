@@ -62,8 +62,10 @@ class UserAddedData < ActiveRecord::Base
         target = TaxonConcept.find(target.to_i)
         DataAssociation.new(metadata: user_added_data_metadata, subject: subject,
                             graph_name: GRAPH_NAME, object: target).add_to_triplestore
+        to_solr_core_trait
       else
         sparql.insert_data(data: [turtle], graph_name: GRAPH_NAME)
+        to_solr_core_trait
         user_added_data_metadata.each do |metadata|
           sparql.insert_data(data: [metadata.turtle], graph_name: GRAPH_NAME)
         end
@@ -198,6 +200,22 @@ class UserAddedData < ActiveRecord::Base
     add_recipient_users_watching(@notification_recipients)
     @notification_recipients
   end
+  def to_solr_core_trait
+   hash={
+            'trait_id'=>self.subject_id,
+            'taxon_concept_id'=>self.subject_id,
+            'predicate_label'=>predicate_label, 
+            'predicate'=>self.predicate,
+            'stat_method_literal'=>nil,
+            'value_uri'=>self.object,
+            'value_literal'=>object_labels,
+            'value_id'=>self.object_known_uri_id,
+            'unit_literal'=>nil,
+            'source'=>self.user_id
+          }
+            EOL::Solr::TraitsCoreRebuilder.reindex_single_object(hash)
+
+   end
 
   def queue_notifications
     Notification.queue_notifications(notification_recipient_objects, self)

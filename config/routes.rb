@@ -41,6 +41,8 @@ Eol::Application.routes.draw do
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
   match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
 
+
+
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do
@@ -395,7 +397,16 @@ Eol::Application.routes.draw do
       post 'download'
     end
   end
-
+  resource :advanced_search, :only => [:index], :controller => 'advanced_search' do
+    collection do
+      get 'update_attributes'
+      get 'index'
+      get 'download'
+      post 'download'
+    end
+  end
+  
+  
   resources :data_search_files, only: [:index, :destroy]
 
   resources :news_items, :only => [:index, :show] do

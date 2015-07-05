@@ -340,10 +340,10 @@ class User < ActiveRecord::Base
   end
 
   def can_see_data?
-    return false if ENV["NO_DATA"] # Trumps all other settings
-    return true if (EolConfig.all_users_can_see_data rescue false)
-    return true if can?(:see_data)
-    false
+   # return false if ENV["NO_DATA"] # Trumps all other settings
+    #return true if (EolConfig.all_users_can_see_data rescue false)
+    #return true if can?(:see_data)
+    return true
   end
 
   def can_manage_community?(community)

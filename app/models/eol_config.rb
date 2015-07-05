@@ -16,7 +16,7 @@ class EolConfig < ActiveRecord::Base
     { email_actions_to_curators: '',
       email_actions_to_curators_address: '',
       global_site_warning: '',
-      all_users_can_see_data: 'false', # NOTE - this should probably be false, at least for a while, when we deploy to prod...
+      all_users_can_see_data: 'true', # NOTE - this should probably be false, at least for a while, when we deploy to prod...
       reference_parsing_enabled: '',
       reference_parser_pid: '',
       reference_parser_endpoint: '',

@@ -2148,3 +2148,134 @@ ul.ui-autocomplete
       position: absolute
       top: 35px
       right: 40px
+
+#advanced_search
+  #search_results #main
+    clear: both
+    float: none
+  > form
+    position: relative
+    dd p
+      line-height: 170%
+      padding-left: 10px
+    input[type="search"]
+      +input
+      -webkit-appearance: none
+    input[type="submit"]
+      font-size: 1em
+      font-weight: bold
+      line-height: 160%
+    &.copy
+      h3
+        position: relative
+        font-size: 1.4em
+      h4
+        font-size: 1.3em
+        font-weight: normal
+        margin-top: 10px
+        + p
+          margin-top: -10px
+      p
+        max-width: 70%
+      dl, dd
+        margin: 0
+      dd p
+        margin-bottom: 0
+      ul
+        margin-left: 30px
+        margin-right: 0
+      li
+        margin: 4px 0 0
+        line-height: 180%
+        a
+          +ie7-friendly-inline-block
+    .sort
+      clear: both
+    .vital, .actions
+      margin: 0
+      padding: 40px
+      background: $fieldset_light_blue
+      border: 1px solid $grayblue
+    .vital 
+      padding-right: 150px
+      label
+        font-size: 1.4em
+        position: relative
+        top: 2px
+      fieldset, dl, dt, dd, > a
+        margin: 0
+        padding: 0
+        +ie7-friendly-inline-block
+      li
+        .term
+          display: inline
+          margin_top: -5px  
+        .info_icon
+          width: 20px
+          display: inline
+          &.active
+            @include info_item_with_background(15)
+        &:hover
+          @include hover_info_icon(15)
+      dt, dd
+        padding-right: 1em
+      .summarize_input
+        width: 100%
+        display: block
+        clear: both
+        word-break: break-all
+        position: absolute
+        +ie7-hack(position, relative)
+        dt, dd
+          display: block
+          float: left
+        dt
+          height: 40px
+          max-width: 30%
+          font-weight: normal
+          padding-right: 0
+          &:after
+            content: '\2014'
+        dd
+          max-width: 60%
+    .extras
+      zoom: 1
+      display: block
+      margin: 0
+      position: relative
+      padding: 30px 40px
+      border: 1px solid #ccd399
+      border-width: 0 1px 1px
+      background: #f1f4dc
+      dl
+        padding-left: 20px
+      h5
+        margin: 0 0 10px
+        text-transform: uppercase
+        padding-left: 60px
+      fieldset, > h3
+        margin-right: 30%
+      label
+        text-transform: uppercase
+        color: $loafer_text_color
+        &[for="sort"]
+          +screenreader-accessible
+      .suggestions
+        margin: 0
+        position: absolute
+        top: 30px
+        right: 30px
+        width: 38%
+      .range
+        width: 30%
+        float: left
+        input[type="search"], input[type="text"] /* its an ie7 thing */
+          width: 90%
+    .actions
+      border-top-width: 0
+      > a
+        padding-left: 50px
+    .prominent_actions
+      position: absolute
+      top: 35px
+      right: 40px

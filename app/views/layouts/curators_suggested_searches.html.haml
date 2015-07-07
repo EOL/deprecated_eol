@@ -1,8 +1,15 @@
-- content_for :head do
-  = javascript_include_tag 'data_search'
-  = javascript_include_tag "autocomplete-rails.js"
 - content_for :main do
+  #page_heading
+    .site_column
+      .hgroup
+        - if @suggested_search.label.blank?
+          %h1= t :add_a_new_search_suggestion
+        - else
+          %h2= t :edit_curators_search_suggestion, label: @suggested_search.label
+      = render 'shared/flash_messages'
   #content
-    .suggested_search
-      = yield
-= render file: 'layouts/css_layout'
+    .site_column
+      .suggested_search
+        = yield
+= render file: 'layouts/application'
+

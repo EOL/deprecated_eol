@@ -1,6 +1,6 @@
 #suggested_search
 - helperstscope = [:helpers, :label, :data_search]
-- if @taxon_concept 
+- if @taxon_concept
   - taxon_concept_id = @taxon_concept.id
   - taxon_name = { value: @taxon_concept.title_canonical, data: {} }
 - else
@@ -9,62 +9,62 @@
 = form_for @suggested_search,  url: curators_suggested_searches_path(@suggested_search), builder: ApplicationHelper::EolFormBuilder,
    method:'post', class: 'suggested_search' do |f|
   = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
-  .vital
-    %fieldset
-      %dl
-        %dt.required
-          = f.label I18n.t :label
-        %dd
-          = f.search_field :label , required: true
-    %fieldset
-      %dl
-        %dt
-          = f.label :uri, I18n.t(:attribute, scope: helperstscope)
-        %dd
-          = f.select(:uri, options_for_select(@attribute_options,  @suggested_search.uri || @attribute_default), {id: 'attributes_select'})
-    %fieldset
-      %dl
-        %dt
-          = label_tag :taxon_name, I18n.t(:taxon_name, scope: helperstscope)
-        %dd
-          = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
-            name: 'taxon_name', 'data-min-length' => 3, type: 'search',
-            update_elements: { id: '#taxon_concept_id' },
-            value: taxon_name[:value],
-            placeholder: I18n.t('helpers.label.data_search.taxon_name_placeholder'),
-            data: taxon_name[:data]
-    %fieldset
-      %h4= t('data_search.form.search_value_or_range_header')
-      %dl
-        %dt
-          = f.label :q, I18n.t(:q, scope: helperstscope)
-        %dd
-          = f.search_field :q
-      %h5= t('data_search.form.or_range_header').html_safe
-      %dl.range
-        %dt
-          = f.label :from, I18n.t(:min, scope: helperstscope)
-        %dd
-          = f.search_field :from
-      %dl.range
-        %dt
-          = f.label :to, I18n.t(:max, scope: helperstscope)
-        %dd
-          = f.search_field :to 
-      %dl.range
-        %dt
-          = f.label :unit_uri, I18n.t(:unit, scope: helperstscope)
-        %dd
-          - unit_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
-          =  f.select :unit_uri , options_for_select(unit_options, @suggested_search.unit_uri)
-    %fieldset.sort
-      %dl
-        %dt
-          = f.label :sort, I18n.t(:sort_by_label)
-        %dd
-          - sort_options = { I18n.t(:sort_by_value_ascending) => 'asc',
-            I18n.t(:sort_by_value_descending) => 'desc' }
-          = f.select :sort, options_for_select(sort_options, @suggested_search.sort)
+
+  %fieldset
+    %dl
+      %dt.required
+        = f.label I18n.t :label
+      %dd.required
+        = f.search_field :label , required: true
+  %fieldset
+    %dl
+      %dt
+        = f.label :uri, I18n.t(:attribute, scope: helperstscope)
+      %dd
+        = f.select(:uri, options_for_select(@attribute_options,  @suggested_search.uri || @attribute_default), {id: 'attributes_select'})
+  %fieldset
+    %dl
+      %dt
+        = label_tag :taxon_name, I18n.t(:taxon_name, scope: helperstscope)
+      %dd
+        = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
+          name: 'taxon_name', 'data-min-length' => 3, type: 'search',
+          update_elements: { id: '#taxon_concept_id' },
+          value: taxon_name[:value],
+          placeholder: I18n.t('helpers.label.data_search.taxon_name_placeholder'),
+          data: taxon_name[:data]
+  %fieldset
+    %h4= t('data_search.form.search_value_or_range_header')
+    %dl
+      %dt
+        = f.label :q, I18n.t(:q, scope: helperstscope)
+      %dd
+        = f.search_field :q
+    %h5= t('data_search.form.or_range_header').html_safe
+    %dl.range
+      %dt
+        = f.label :from, I18n.t(:min, scope: helperstscope)
+      %dd
+        = f.search_field :from
+    %dl.range
+      %dt
+        = f.label :to, I18n.t(:max, scope: helperstscope)
+      %dd
+        = f.search_field :to
+    %dl.range
+      %dt
+        = f.label :unit_uri, I18n.t(:unit, scope: helperstscope)
+      %dd
+        - unit_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
+        =  f.select :unit_uri , options_for_select(unit_options, @suggested_search.unit_uri)
+  %fieldset.sort
+    %dl
+      %dt
+        = f.label :sort, I18n.t(:sort_by_label)
+      %dd
+        - sort_options = { I18n.t(:sort_by_value_ascending) => 'asc',
+          I18n.t(:sort_by_value_descending) => 'desc' }
+        = f.select :sort, options_for_select(sort_options, @suggested_search.sort)
   %fieldset.actions
     = submit_tag I18n.t(:save)
     = link_to(I18n.t(:cancel), data_search_path, :class => 'close')

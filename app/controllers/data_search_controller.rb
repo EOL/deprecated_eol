@@ -26,7 +26,7 @@ class DataSearchController < ApplicationController
             contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
         t = Time.now
-        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30)) 
+        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
         if @results
           @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))
           log_data_search(time_in_seconds: Time.now - t)
@@ -64,7 +64,7 @@ class DataSearchController < ApplicationController
 
   private
 
-  
+
   def create_data_search_file
     file = DataSearchFile.create!(@data_search_file_options)
     unless @required_equivalent_attributes.blank?

@@ -12,7 +12,7 @@ class CuratorsSuggestedSearchesController < ApplicationController
     prepare_search_parameters(params)
     prepare_attribute_options
   end
-  
+
   def create
     if params[:format]
       @suggested_search ||= CuratorsSuggestedSearch.find(params[:format])

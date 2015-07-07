@@ -1,5 +1,4 @@
 class ResourceValidation
-<<<<<<< HEAD
   @queue = 'data'
 
   # Everything is a class method, here; no instances.

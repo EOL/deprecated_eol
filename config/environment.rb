@@ -13,13 +13,11 @@ Rails.configuration.skip_url_validations = false
 InitializerAdditions.add("environment_eol_org")
 InitializerAdditions.add("environments/local")
 Eol::Application.initialize!
-Haml::Template.options[:escape_attrbs] = false
-Haml::Template.options[:escape_html] = false
 
 # TODO - Set defaults for some horrible global variables that really
 # needed to get cleaned up.  Currently most get overriden in appropriate
 # environment files, but we need defaults to get tests working without
-# getting the eol-private stuff.                                                                                                                                                                                              
+# getting the eol-private stuff.
 
 $DEFAULT_EMAIL_ADDRESS = "noreply@eol.org"
 $SPECIES_PAGES_GROUP_EMAIL_ADDRESS = $DEFAULT_EMAIL_ADDRESS

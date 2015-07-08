@@ -29,9 +29,13 @@ class CuratorsSuggestedSearchesController < ApplicationController
         params[:curators_suggested_search][:taxon_concept_id]= @taxon_concept.id
       end
     end
-    update_attributes(params)
-    redirect_to data_search_path
-    flash.now[:notice] = I18n.t :curators_suggested_searches_added
+    if update_attributes(params)
+      redirect_to data_search_path
+      flash.now[:notice] = I18n.t "curators_suggested_searches.added"
+     else
+       flash.now[:error] = I18n.t "curators_suggested_searches.empty_label_error"
+       render :new
+     end
   end
 
   def edit
@@ -51,10 +55,11 @@ class CuratorsSuggestedSearchesController < ApplicationController
     @suggested_search||= CuratorsSuggestedSearch.find(params[:id])
     @suggested_search.destroy
     redirect_to data_search_path
-    flash.now[:notice] = I18n.t :curators_suggested_searches_deleted
+    flash.now[:notice] = I18n.t "curators_suggested_searches.deleted"
   end
 
   def update_attributes(params)
+    return false if params[:curators_suggested_search][:label].blank?
     @suggested_search.update_attributes(params[:curators_suggested_search])
     @suggested_search.save
   end

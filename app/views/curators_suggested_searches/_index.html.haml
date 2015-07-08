@@ -1,9 +1,9 @@
 .suggestions
   %h3= t('data_search.form.search_suggestions_header')
-  %h4= t('data_search.form.search_suggestions_subheader_colon') 
+  %h4= t('data_search.form.search_suggestions_subheader_colon')
   -if current_user.min_curator_level?(:master)
     %h6
-    = link_to( raw(I18n.t :curators_suggested_searches_create_new), new_curators_suggested_search_url, class: 'suggested_search')
+    = link_to( raw(I18n.t "curators_suggested_searches.create_new"), new_curators_suggested_search_url, class: 'suggested_search')
   %ul.suggested_search
     - unless suggested_searches.blank?
       - suggested_searches.each do |suggestion|
@@ -14,6 +14,6 @@
             unit: suggestion.unit_uri, sort: suggestion.sort)
           -if current_user.min_curator_level?(:master)
             %li.row= link_to raw(I18n.t :edit, class: 'suggested_search'), edit_curators_suggested_search_url(suggestion), class: 'suggested_search'
-            %li.row= link_to raw(I18n.t :delete),  suggestion, method: :delete, controller: 'curators_suggested_searches',
-            id: suggestion.id , confirm: raw(I18n.t :curators_suggested_searches_delete_confirmation , label:suggestion.label)
+            %li.row= link_to raw(I18n.t :delete), suggestion, method: :delete, controller: 'curators_suggested_searches',
+            id: suggestion.id , confirm: raw(I18n.t "curators_suggested_searches.delete_confirmation" , label:suggestion.label)
 

@@ -3945,6 +3945,7 @@ mk:
     за раздвојување. Другите класификации ќе бидат преместени на новата страница откако
     ќе ја создадете
   classifications_summary_header_with_count:
+    zero: EOL нема класификации за овој таксон
     one: Пронајдено во %{count} класификација
     other: Пронајдено во %{count} класификации
   classifications_with_count:

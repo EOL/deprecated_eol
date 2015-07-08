@@ -4217,6 +4217,8 @@ es:
   collection_delete_link: Elimina permanentemente esta colección
   collection_destroyed: La colección fue eliminada.
   collection_removed: La colección %{collection} se ha eliminado.
+  collection_update_failure: Error al actualizar la colección %{collection}. Verifica
+    si hay problemas en los elementos de la colección
   collection_error_no_items_selected: 'Error: no hay artículos seleccionados, no se
     llevó a a cabo ninguna acción.'
   collection_image: Imagen de colección
@@ -4504,6 +4506,8 @@ es:
     de contenido agregados exitosamente. Estado actual de los datos de recurso: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Lo sentimos, ha ocurrido un
     error, el recurso no se ha agregado.
+  content_partner_resource_validation_finish_notice: La validación de recursos de
+    los socios de contenido ha terminado y su estado es %{resource_status}.
   content_partner_resource_dataset_details_header: Conjunto de datos
   content_partner_resource_delete_with_type_link: Borrar todo
   content_partner_resource_description_empty: No ha proporcionado una descripción
@@ -4575,6 +4579,8 @@ es:
     un error, no se pudo actualizar el estado del recurso %{resource_title} a %{resource_status}.
   content_partner_resource_update_successful_notice: 'Detalles de recurso de socio
     de contenido actualizados exitosamente. Estado actual del recurso de datos: %{resource_status}.'
+  content_partner_resource_update_successful: Se actualizaron correctamente los detalles
+    de los recursos de los socios de contenido.
   content_partner_resource_update_unsuccessful_error: Lo sentimos, ha ocurrido un
     error, los detalles de los recursos no se han actualizado.
   content_partner_resource_upload_unsuccessful_error: 'Lo sentimos, ha ocurrido un

@@ -4283,6 +4283,7 @@ de:
     auswählen. Andere Klassifikationen können auf die neue Seite nach der Erstellung
     verschoben werden.
   classifications_summary_header_with_count:
+    zero: EOL hat keine Klassifikation für dieses Taxon
     one: In einer Klassifikation gefunden
     other: In %{count} Klassifikationen gefunden
   classifications_with_count:

@@ -5166,4 +5166,38 @@ pms:
       error_editing_someone_account: An dëspias, a peul mach modifiché sò cont përsonal
       can_not_edit_permissions: An dëspias, a peul pa modifiché ij përmess
       collection_job_not_valid: Travaj ëd cujìa nen vàlid
+  excluded_icon_tip: Le righe marcà con la plancia d'esclusion %{excluded_icon} a
+    saran mai smonùe an sle pàgine ëd presentassion dle tassonomìe.
+  expand_all_children: dësvlupé tute le masnà
+  expired: Scadù
+  expires_in_colon: 'A scad da-sì:'
+  explore: Da esploré
+  explore_what_we_know_about_taxon: Ch'a esplòra lòn che l'EdV a conòss a propòsit
+    ëd %{taxon}.
+  export_curator_csv_link: '[esporté tuti ij conservator an CSV]'
+  export_this_list_as_csv: Esporté sa lista an CSV
+  external_link_header: Liura esterna
+  external_link_icon_alt_text: Liura esterna.
+  external_report_click_url_to_proceed: Rapòrt estern. Ch'a sgnaca an sl'adrëssa për
+    andé anans.
+  external_report_click_year_to_proceed: Rapòrt estern. Ch'a sgnaca an sl'ann për
+    andé anans.
+  facebook: Facebook
+  faculty_staff_or_grad_student_credential_option: statù ëd professor, ëd personal
+    o dë student ëd dotorà ant un dipartiment ëd n'università o ëd na scòla apropià
+  failed_login_attempts_with_count:
+    one: (%{count} tentativ ëd conession falì)- a dev esse verificà për che l'utent
+      a rintra ant ël sistema
+    other: (%{count} tentativ ëd conession falì)- a dev esse verificà për che l'utent
+      a rintra ant ël sistema
+  false_label: Fàuss
+  family_name_colon: 'Cognòm:'
+  feedback: Opinion
+  file: Archivi
+  file_download_pending: Për creé l'archivi da dëscarié a-i va un pò 'd temp, antlora
+    i l'oma tacà un travaj dë sfond për lòn. A peul <a href='%{link}'>verifiché lë
+    stat ëd sò travaj</a> cand ch'a veul.
+  file_download_ready: EdV a l'ha livrà ëd creé n'archivi ëd dàit arsercà për soa
+    arcesta ëd «%{query}». A peul <a href='%{file}'>dëscarielo cand a veul ant ij
+    di ch'a ven-o</a>.
 ...

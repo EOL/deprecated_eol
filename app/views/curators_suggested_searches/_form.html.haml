@@ -19,7 +19,6 @@
   %fieldset
     %dl
       %dt
-        - debugger
         = f.label :uri, I18n.t(:attribute, scope: helperstscope)
       %dd
         = f.select(:uri, options_for_select(@attribute_options,  @suggested_search.uri || @attribute_default), {id: 'attributes_select'})

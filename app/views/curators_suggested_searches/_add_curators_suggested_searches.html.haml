@@ -1,8 +1,0 @@
-#suggested_search
-= form_for @suggested_search || CuratorsSuggestedSearch.new, :builder => ApplicationHelper::EolFormBuilder do |f|
-  %fieldset
-    %dl
-      %dt
-        = f.label 'label'
-      %dd
-        = f.text_field :label

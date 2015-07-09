@@ -3,9 +3,9 @@
     .site_column
       .hgroup
         - if @suggested_search.label.blank?
-          %h1= t :add_a_new_search_suggestion
+          %h2= t 'curators_suggested_searches.add_a_new_search_suggestion'
         - else
-          %h2= t :edit_curators_search_suggestion, label: @suggested_search.label
+          %h2= t 'curators_suggested_searches.edit_search_suggestion', label: @suggested_search.label
       = render 'shared/flash_messages'
   #content
     .site_column

@@ -3,6 +3,7 @@ common: &common
   adapter: mysql2
   encoding: utf8
   reconnect: true
+  wait_timeout: 300
   # socket: /tmp/mysql.sock
 
 # common settings for any development databases

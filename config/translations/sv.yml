@@ -180,6 +180,7 @@ sv:
         uri: URI
         uri_type: URI-typ
         value_is_text: Värden kommer inte vara URI:er, endast text
+        value_is_verbatim: Värden kommer inte att vara siffror, endast text
       known_uri_relationship:
         from_known_uri_id: Ämnes-URI
         to_known_uri_id: Mål-URI
@@ -454,6 +455,7 @@ sv:
         object_title: Titel
         toc_item: Underkapitel
         refs: Referenser <small>(lägg in varje referens på en ny rad)</small>
+        refs_order: '*Referenser kommer att visas i alfabetisk ordning'
         rights_holder: Rättighetsinnehavare
         rights_holder_more: Ange en person eller en organisation som äger eller hanterar
           rättigheterna till dessa data. Om du lämnar detta fält tomt kommer vi anta
@@ -486,6 +488,7 @@ sv:
         taxon_name_placeholder_value_removed: '%{taxon_group} borttagen, välj ny grupp'
         taxon_name_more: Till exempel, ange kolibri eller valar. ENDAST val från rullgardinsmenyn
           kommer att användas; redigera inte texten utan att välja ett resultat.
+        taxa_found: Taxa hittades
         total_results: 'Totala resultat: %{total}'
         unit: Måttenhet
       eol_statistic:
@@ -1343,6 +1346,7 @@ sv:
       style='color:#195184'>kontakta oss</a>.
     see_all_activity: Se alla tidigare aktiviteter på <a href='%{activity_url}' style='color:#195184'>din
       sida för användarnyhetsflöden</a>.
+    resource_validation: Verifiering för resursen %{resource} har slutförts
     bulk_comments_with_count:
       one: Det finns en ny kommentar på %{on}
       other: Det finns %{count} nya kommentarer på %{on}
@@ -1494,6 +1498,12 @@ sv:
         hierarchy_entry:
           meta_description: Fakta om %{scientific_name} som klassificeras av %{hierarchy_provider}
             i Encyclopedia of Life.
+          meta_description_no_data: Ingen fakta finns tillgänglig för %{scientific_name}
+            som klassificerats av %{hierarchy_provider} i Encyclopedia of Life. EOL
+            välkomnar dig till att bidra fakta om %{scientific_name}.
+          meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt
+            känd som %{scientific_name} som är klassificerad som %{hierarchy_provider}
+            i Encyclopedia of Life.
           meta_description_with_common_name_no_data: Inga fakta finns tillgänglig
             för %{preferred_common_name} även känd som %{scientific_name} som klassificeras
             av %{hierarchy_provider} i Encyclopedia of Life. EOL välkomnar dig till
@@ -1510,6 +1520,10 @@ sv:
           från vetenskaplig forskning tillhandahållen av forskare.
         meta_description_no_data: Ingen fakta finns tillgänglig för %{scientific_name}
           i Encyclopedia of Life. EOL välkomnar dig till att bidra fakta om %{scientific_name}.
+        meta_description_with_common_name_no_data: Ingen fakta finns tillgänglig för
+          %{preferred_common_name} även känd som %{scientific_name} i Encyclopedia
+          of Life. EOL välkomnar dig till att bidra fakta om %{preferred_common_name}
+          (%{scientific_name}).
         meta_title: Mätningar och fakta om %{scientific_name}
         meta_title_with_common_name: Mått och fakta om %{preferred_common_name} (%{scientific_name})
         tweet_text: Fakta om %{scientific_name}
@@ -1904,6 +1918,7 @@ sv:
       is_not_complete: Nej
       query_empty: (inga filter)
       processing: bearbetar
+      error: någonting gick fel med denna fil
       refresh: uppdatera
       row_count: Antal
       search_again: sök igen
@@ -3712,6 +3727,11 @@ sv:
   click: Klick
   click_on_an_activity_to_see_th: Klicka på en aktivitet för att se alla andra aktiviteter
     inom en tidsperiod på fem minuter.
+  click_on_a_username_to_view_the_users_detailed_profile: Klicka på ett användarnamn
+    för att visa användarens detaljerade profil, klicka på datatypen för att visa
+    det kommenterade objektet (använd din webbläsares tillbakaknapp för att återvända
+    hit), klicka på "redigera" för att redigera kommentaren eller klicka på "radera"
+    för att permanent radera kommentaren.
   close_this_window_to_return_to_edit_window: STÄNG DETTA FÖNSTER FÖR ATT ÅTERVÄNDA
     TILL REDIGERINGSFÖNSRET
   collect_item: Samla in objekt
@@ -3976,9 +3996,12 @@ sv:
   content_partner_resource_edit_link: Redigera
   content_partner_resource_edit_subheader: Redigera resurs
   content_partner_resource_edit_with_type_link: Redigera resurs
+  content_partner_resource_harvest_event_current_published: För närvarande publicerad
   content_partner_resource_harvest_event_not_published: Inte publicerad
   content_partner_resource_harvest_event_previously_published: Tidigare publicerat
   content_partner_resource_harvest_event_publish_pending: Publicering pågår
+  content_partner_resource_page_title: Encyclopedia of Life - %{content_partner_name}  -
+    %{resource_name}
   content_partner_resource_hierarchy_browsable: Bläddringsbar
   content_partner_resource_hierarchy_confirm_request_publish: Är du säker på att du
     vill lägga in en begäran om att befrämja din hierarki att bli bläddringsbar på
@@ -4199,6 +4222,7 @@ sv:
   data_glossary: Dataordlista
   data_link_to_record: Länk till denna post
   data_logging_active: Dataloggning aktiv
+  data_master_database_colon: 'Datamaster:'
   data_object: Dataobjekt
   data_object_not_associated_with_any_hierarchies: Detta dataobjekt är inte associerat
     med några hierarkier.

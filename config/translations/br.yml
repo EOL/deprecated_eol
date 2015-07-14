@@ -146,6 +146,7 @@ br:
         total_associations: Kevredigezhioù
         total_measurement_types: Doareoù muzuliañ
         total_user_added_data: Roadennoù ouzhpennet gant an implijer
+        total_data_records: Enrolladennoù roadennoù
       forum:
         forum_category_id: Rummad
         name: Anv ar forom

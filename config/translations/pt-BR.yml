@@ -1564,7 +1564,7 @@ pt-BR:
         da enciclopédia da vida
   recent_activity_mailer:
     data_search_file_download_ready:
-      subject: Sua pesquisa EOL está pronta para baixar
+      subject: Sua pesquisa está pronta para download
       message: Você pode ver este e outros downloads visitando a <a href='%{download_link}'>aba
         de downloads no seu perfil</a>.
       header: O seu download está pronto!
@@ -1574,7 +1574,7 @@ pt-BR:
       login_with_google_assistive: Login usando suas credenciais do Google.
       login_with_twitter_assistive: Login usando suas credenciais do Twitter.
       login_with_yahoo_assistive: Login usando suas credenciais do Yahoo.
-      login_with_eol_authentication_header: 'Ou login com suas credenciais do EOL:'
+      login_with_eol_authentication_header: 'Ou entre com suas credenciais do EOL:'
       meta_title: Login
       problems_signing_in_with_connected_accounts: Problemas para entrar com suas
         contas conectadas?
@@ -4499,11 +4499,13 @@ pt-BR:
       search_suggestions_header: Não tem certeza de onde começar?
       search_suggestions_subheader_colon: 'Tentar uma das seguintes buscas de dados:'
       search_suggestion_whale_mass: Quais baleias pesam mais de 10.000 kg?
+      search_suggestion_diatom_shape: Quais são as várias formas de diatomáceas?
       search_suggestion_cavity_nests: Quais espécies constroem ninhos em cavidades?
       search_suggestion_blue_flowers: Quais plantas têm flores azuis?
       search_tools_show_link: Exibir opções de busca
       search_tools_hide_link: Ocultar opções de busca
       search_value_or_range_header: Buscar um valor específico ou uma faixa
+      sort_header: Classificar os resultados
   data_search_destroyed: Este trabalho não será mais processado.
   data_search_row_hidden: Um curador escondeu esta fila de dados.
   data_subtab_about: Sobre
@@ -5235,6 +5237,8 @@ pt-BR:
   newsfeed_help_for_community: O feed de notícias para a comunidade EOL reúne atualizações
     associadas com os itens pertencentes a sua gestão de coleções, incluindo as atividades
     de seus membros e comentários de outros usuários EOL.
+  newsletter_banner: Torne-se parte da comunidade EOL&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>se
+    inscreva para o Boletim EOL hoje mesmo</a>
   new_upload: Novo Upload
   new_user: Novo usuário
   next: Próximo
@@ -5480,13 +5484,13 @@ pt-BR:
     viva que você deseja conhecer mais a fundo. Você também pode procurar por membros
     da EOL, coleções e comunidades.
   search_results: Resultados da Busca
-  search_field_label: Pesquisa EOL
+  search_field_label: Pesquisa
   search_field_common_name: Nome comum
   search_field_preferred_common_name: Nome comum preferido
   search_field_preferred_scientific: Nome científico preferido
   search_field_surrogate: Substituto
   search_field_synonym: Sinônimo
-  search_placeholder: Pesquisa EOL ...
+  search_placeholder: Pesquisar...
   search_the_site: Pesquisar no site
   see_all_classifications_with_count_html:
     one: Veja a <span class="assistive">%{count} classificação aprovada na qual esta
@@ -5969,6 +5973,7 @@ pt-BR:
   visitors: Visitantes
   vivisimo: Vivisimo
   wants_colon: 'Quer:'
+  watch_list: Páginas vigiadas
   watch_collections_cannot_be_destroyed: Esta coleção é a única coleção associada
     à sua comunidade e não pode ser excluída.
   warning_you_are_editing_as_admin: 'Atenção: Você só tem permissão para editar esta

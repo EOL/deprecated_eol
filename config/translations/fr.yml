@@ -4148,8 +4148,8 @@ fr:
     à diviser. Les autres classifications peuvent être déplacées vers la nouvelle
     page après sa création
   classifications_summary_header_with_count:
+    zero: EdlV n’a aucune classification pour ce taxon
     one: Trouvé dans %{count} classification
-    zero: Classification normalement non visible dans l’EdlV
     other: Trouvé dans %{count} classifications
   classifications_with_count:
     one: '%{count} classification'
@@ -5182,10 +5182,10 @@ fr:
         cette catégorie de forum
       missing_delete_acess_to_forum_category: Désolé, seuls les admins peuvent supprimer
         cette catégorie de forum
-      missing_edit_acess_to_forum_post: Désolé, seuls les admins ou l'auteur du sujet
-        peuvent modifier ce post sur le forum
-      missing_delete_acess_to_forum_post: Désolé, seuls les admins ou l'auteur du
-        sujet peuvent supprimer ce post sur le forum
+      missing_edit_acess_to_forum_post: Désolé, seuls les admins ou l’auteur du sujet
+        peuvent modifier ce billet sur le forum
+      missing_delete_acess_to_forum_post: Désolé, seuls les admins ou l’auteur du
+        sujet peuvent supprimer ce billet du forum
       missing_set_article_as_exemplar_privilege: Désolé, seuls les conservateurs peuvent
         qualifier un article comme exemplaire.
       missing_delete_access_to_synonym: Désolé, seuls les agents peuvent supprimer

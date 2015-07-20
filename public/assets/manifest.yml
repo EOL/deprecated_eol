@@ -681,6 +681,8 @@ v1.css: v1-f6390c5bd00e9edb538130b93f585df8.css
 v1/index.css: v1-f6390c5bd00e9edb538130b93f585df8.css
 whitespace-reset.css: whitespace-reset-3157a8e44467bf57d47fce19466e9ef9.css
 whitespace-reset/index.css: whitespace-reset-3157a8e44467bf57d47fce19466e9ef9.css
+wikipedia.css: wikipedia-deb7d49f8c0b017555ec36e360bed14b.css
+wikipedia/index.css: wikipedia-deb7d49f8c0b017555ec36e360bed14b.css
 autocomplete-rails-uncompressed.js: autocomplete-rails-uncompressed-ae27be96f5666950b887027fddc77040.js
 autocomplete-rails-uncompressed/index.js: autocomplete-rails-uncompressed-ae27be96f5666950b887027fddc77040.js
 autocomplete-rails.js: autocomplete-rails-ae27be96f5666950b887027fddc77040.js

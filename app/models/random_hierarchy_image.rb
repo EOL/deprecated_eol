@@ -11,98 +11,131 @@ class RandomHierarchyImage < ActiveRecord::Base
 
   has_many :taxon_concept_metrics, primary_key: 'taxon_concept_id', foreign_key: 'taxon_concept_id'
 
-  def self.random_set_cached
-    RandomHierarchyImage.random_set_precache_class_loads
-    Rails.cache.fetch('homepage/random_images', expires_in: 30.minutes) do
+  class << self
+    def random_set_cached
+      RandomHierarchyImage.random_set_precache_class_loads
+      Rails.cache.fetch('homepage/random_images', expires_in: 30.minutes) do
+        RandomHierarchyImage.random_set(12)
+      end
+    rescue TypeError => e
+      # TODO - FIXME  ... This appears to have to do with Rails.cache.fetch (obviously)... not sure why, though.
       RandomHierarchyImage.random_set(12)
     end
-  rescue TypeError => e
-    # TODO - FIXME  ... This appears to have to do with Rails.cache.fetch (obviously)... not sure why, though.
-    RandomHierarchyImage.random_set(12)
-  end
 
-  # Classes that MUST be loaded before attempting to cache random images.
-  def self.random_set_precache_class_loads
-    DataObject
-    TaxonConcept
-    TaxonConceptPreferredEntry
-    Name
-    TaxonConceptExemplarImage
-    Hierarchy
-    Vetted
-  end
-
-  # TODO - rewrite this, it's WAY too complex. Most of these features are unused
-  # and unnecessary. Also, it should just keep looking for random images until
-  # it finds enough... not relying on the "limit * 3" thing to get more than it
-  # needs. Of course, that algorithm will need to watch for endless loops.
-  def self.random_set(limit = 10, hierarchy = nil, options = {})
-    options[:size] ||= '130_130'
-    options[:language] ||= Language.english
-    
-    if hierarchy
-      starting_id = rand(self.hierarchy_count(hierarchy) - limit).floor
-      # This next line only applies when there are very few RandomTaxa.
-      starting_id = 0 if starting_id > (self.hierarchy_count(hierarchy) - limit)
-      starting_id = starting_id + self.min_id()
-    else
-      starting_id = rand(self.max_id() - limit).floor
-      # This next line only applies when there are very few RandomTaxa.
-      starting_id = 0 if starting_id > (self.max_id() - limit)
+    # Classes that MUST be loaded before attempting to cache random images.
+    def random_set_precache_class_loads
+      DataObject
+      TaxonConcept
+      TaxonConceptPreferredEntry
+      Name
+      TaxonConceptExemplarImage
+      Hierarchy
+      Vetted
     end
 
-    # this query now grabs all the metadata we'll need including:
-    # sci_name, common_name, taxon_concept_id, object_cache_url
-    # it also looks for twice the limit as we still have some concepts with more than one preferred common name
+    # TODO - rewrite this, it's WAY too complex. Most of these features are unused
+    # and unnecessary. Also, it should just keep looking for random images until
+    # it finds enough... not relying on the "limit * 3" thing to get more than it
+    # needs. Of course, that algorithm will need to watch for endless loops.
+    def random_set(limit = 10, hierarchy = nil, options = {})
+      options[:size] ||= '130_130'
+      options[:language] ||= Language.english
 
-    hierarchy_condition = hierarchy ? "AND hierarchy_id=#{hierarchy.id}" : ""
-    random_image_result = if $HOMEPAGE_MARCH_RICHNESS_THRESHOLD
-      RandomHierarchyImage.joins(:taxon_concept_metrics, :taxon_concept).
-        where(["random_hierarchy_images.id > ? AND richness_score > ? AND published = 1 #{hierarchy_condition} AND supercedure_id = 0",
-              starting_id, $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).limit(limit * 3)
-                          else
-      RandomHierarchyImage.joins(:taxon_concept).
-        where(["random_hierarchy_images.id > ? AND published=1 #{hierarchy_condition} AND supercedure_id = 0", starting_id]).limit(limit * 3)
-                          end
+      if hierarchy
+        starting_id = rand(hierarchy_count(hierarchy) - limit).floor
+        # This next line only applies when there are very few RandomTaxa.
+        starting_id = 0 if starting_id > (hierarchy_count(hierarchy) - limit)
+        starting_id = starting_id + min_id()
+      else
+        starting_id = rand(max_id() - limit).floor
+        # This next line only applies when there are very few RandomTaxa.
+        starting_id = 0 if starting_id > (max_id() - limit)
+      end
 
-    used_concepts = {}
-    random_images = []
-    random_image_result.each do |ri|
-      next if !used_concepts[ri.taxon_concept_id].nil?
-      random_images << ri
-      used_concepts[ri.taxon_concept_id] = true
-      break if random_images.length >= limit
+      # this query now grabs all the metadata we'll need including:
+      # sci_name, common_name, taxon_concept_id, object_cache_url
+      # it also looks for twice the limit as we still have some concepts with more than one preferred common name
+
+      hierarchy_condition = hierarchy ? "AND hierarchy_id=#{hierarchy.id}" : ""
+      random_image_result = if $HOMEPAGE_MARCH_RICHNESS_THRESHOLD
+        RandomHierarchyImage.joins(:taxon_concept_metrics, :taxon_concept).
+          where(["random_hierarchy_images.id > ? AND richness_score > ? AND published = 1 #{hierarchy_condition} AND supercedure_id = 0",
+                starting_id, $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).limit(limit * 3)
+                            else
+        RandomHierarchyImage.joins(:taxon_concept).
+          where(["random_hierarchy_images.id > ? AND published=1 #{hierarchy_condition} AND supercedure_id = 0", starting_id]).limit(limit * 3)
+                            end
+
+      used_concepts = {}
+      random_images = []
+      random_image_result.each do |ri|
+        next if !used_concepts[ri.taxon_concept_id].nil?
+        random_images << ri
+        used_concepts[ri.taxon_concept_id] = true
+        break if random_images.length >= limit
+      end
+
+      RandomHierarchyImage.preload_associations(random_images,
+        [ { taxon_concept: [
+            { preferred_entry: { hierarchy_entry: [ :hierarchy, { name: [ :canonical_form, :ranked_canonical_form ] } ] } },
+            { taxon_concept_exemplar_image: :data_object },
+            { preferred_common_names: :name } ] } ])
+
+      random_images = random_set(limit, nil, size: options[:size]) if random_images.blank? && hierarchy
+      Rails.logger.warn "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
+      return random_images
     end
 
-    RandomHierarchyImage.preload_associations(random_images,
-      [ { taxon_concept: [
-          { preferred_entry: { hierarchy_entry: [ :hierarchy, { name: [ :canonical_form, :ranked_canonical_form ] } ] } },
-          { taxon_concept_exemplar_image: :data_object },
-          { preferred_common_names: :name } ] } ])
-
-    random_images = self.random_set(limit, nil, size: options[:size]) if random_images.blank? && hierarchy
-    Rails.logger.warn "Found no Random Taxa in the database (#{starting_id}, #{limit})" if random_images.blank?
-    return random_images
-  end
-
-  def self.min_id()
-    Rails.cache.fetch('random_hierarchy_image/min_id', expires_in: 60.minutes) do
-      self.connection.select_value("select min(id) min from random_hierarchy_images").to_i
+    def min_id()
+      Rails.cache.fetch('random_hierarchy_image/min_id', expires_in: 60.minutes) do
+        minimum(:id)
+      end
     end
-  end
-  
-  def self.max_id()
-    Rails.cache.fetch('random_hierarchy_image/max_id', expires_in: 60.minutes) do
-      self.connection.select_value("select max(id) min from random_hierarchy_images").to_i
-    end
-  end
-  
 
-  def self.hierarchy_count(hierarchy)
-    hierarchy ||= Hierarchy.default
-    Rails.cache.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", expires_in: 60.minutes) do
-      self.connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
+    def max_id()
+      Rails.cache.fetch('random_hierarchy_image/max_id', expires_in: 60.minutes) do
+        maximum(:id)
+      end
     end
+
+
+    def hierarchy_count(hierarchy)
+      hierarchy ||= Hierarchy.default
+      Rails.cache.fetch("random_hierarchy_image/hierarchy_count_#{hierarchy.id}", expires_in: 60.minutes) do
+        connection.select_value("select count(*) count from random_hierarchy_images rhi WHERE rhi.hierarchy_id=#{hierarchy.id}").to_i
+      end
+    end
+
+    def create_random_images_from_rich_taxa
+      # Not doing this with a big join right now because the top_concept_images
+      # table was out of date at the time of writing.
+      set = Set.new
+      TaxonConcept.joins(hierarchy_entries: [ :name ]).
+        where(["taxon_concepts.published = 1 AND taxon_concepts.vetted_id = ? AND "\
+          "(hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
+          "hierarchy_entries.rank_id IN (?)) AND "\
+          "taxon_concepts.id in (?)",
+          Vetted.trusted.id,
+          Rank.species_rank_ids,
+          TaxonConceptMetric.
+            where(["richness_score > ?", $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).
+            pluck(:taxon_concept_id)
+        ]).find_each do |taxon|
+          img = taxon.exemplar_or_best_image_from_solr
+          next unless img
+          set << {
+            data_object_id: img.id,
+            hierarchy_entry_id: taxon.entry.id,
+            hierarchy_id: taxon.entry.hierarchy_id,
+            taxon_concept_id:taxon.id,
+            name: taxon.entry.name.italicized
+          }
+        end
+      set.to_a.shuffle.each do |values|
+        RandomHierarchyImage.create(values)
+      end
+    end
+
   end
 
 end

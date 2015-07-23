@@ -3731,6 +3731,7 @@ ko:
     one: '%{quoted_toc_titles}에 따라 나타냄'
     other: '%{quoted_toc_titles}에 따라 나타냄'
   data_overview_table_caption: 특성 데이터
+  data_point_uri_source_missing: 원본 없음
   data_provided_by_content_partner: '공급자: %{whom}'
   data_ranges: 데이터 요약
   data_ranges_subheader: 이 분류 그룹의 데이터 요약

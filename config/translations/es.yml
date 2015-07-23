@@ -970,8 +970,8 @@ es:
       meta_description_default: Una colección de Encyclopedia of Life titulada %{collection_name}.
       meta_description_default_focus_collection: Una colección de enfoque de Encyclopedia
         of Life titulada %{collection_name}.
-      meta_description_default_watch_collection: 'Una lista de vigilancia de Encyclopedia
-        of Life: %{collection_name}.'
+      meta_description_default_watch_collection: 'Una lista de seguimiento de la Enciclopedia
+        de la Vida: %{collection_name}.'
       meta_keywords: '%{collection_name}, Colección Enciclopedia de la Vida'
     editors:
       show:
@@ -3909,12 +3909,13 @@ es:
     La lista de elementos puede ser filtrada por tipo de elemento, y ordenada por
     los atributos listados. Algunos elementos contendrán un atributo 'sort_field'
     opcional. El campo de atributos, es una cadena suministrada por el usuario y es
-    una anotación especial sobre un elemento de la colección. Pude ser cualquier cadena
-    caracteres, pero si es una fecha, tiene que ajustarse al formato YYYY-MM-DD. Los
-    elementos del taxón contendrán un 'richness_score'. Riqueza es una medida representada
-    por un entero entre  0 y 100, con un numero mayor denotando a una pagina con contenido
-    rico de una variedad de fuentes. Lee más sobre la riqueza de los taxónes en la
-    pestaña de actualizaciones de la pagina de un taxón, ej. %{richness_url}.
+    una anotación especial sobre un elemento de la colección. Puede ser cualquier
+    cadena de caracteres, pero si es una fecha, tiene que ajustarse al formato AAAA-MM-DD.
+    Los elementos del taxón contendrán un 'richness_score'. Riqueza es una medida
+    representada por un entero entre  0 y 100, con un número mayor denotando a una
+    página con contenido rico de una variedad de fuentes. Lee más sobre la riqueza
+    de los taxones en la pestaña de actualizaciones de la página de un taxón, p. ej.
+    %{richness_url}.
   a_pipe_delimited_list_of_licenses: una lista de licencias delimitada por barras
     verticales | o bien, 'todo' para obtener objetos bajo cualquier licencia. Las
     licencias abreviadas cc- son todas licencias de %{creative_commons_link}. Visita
@@ -3927,14 +3928,14 @@ es:
   api_refer_to_the_getting_started_page: Vea la <a href="%{link}">introducción</a>
     de la página para ver ejemplos sobre el uso de la API de EOL , condiciones de
     uso e información sobre cómo registrarse para una clave de API.
-  api_results_can_be_cached: La respuesta de cualquier llamada a la API puede ser
-    almacenada por un periodo de tiempo especificado. Un parámetro "cache_ttl" puede
-    ser provisto cuyo valor es el numero de segundos que se almacenara la respuesta.
-    Esto creará encabezados HTTP indicando que el resultado deberá ser almacenado
-    por buscadores web, y adicionalmente la respuesta será almacenada en los servidores
-    de EOL por el numero especificado de segundos. Si el valor de "cache_ttl" es cambiado,
-    la primera petición con el nuevo valor no llegara a la cache,  pero subsecuentes
-    solicitudes harán uso de la nueva repuesta almacenada.
+  api_results_can_be_cached: La respuesta de cualquier llamada a la API puede almacenarse
+    por un periodo de tiempo especificado. Un parámetro "cache_ttl" puede ser provisto
+    cuyo valor es el numero de segundos que se almacenara la respuesta. Esto creará
+    encabezados HTTP indicando que el resultado deberá ser almacenado por buscadores
+    web, y adicionalmente la respuesta se almacenará en los servidores de EOL por
+    el número especificado de segundos. Si el valor de "cache_ttl" se cambia, la primera
+    petición con el nuevo valor no llegará a la caché, pero las solicitudes subsecuentes
+    usarán la nueva repuesta en caché.
   application_version_advisory_information: Versión de la aplicación
   are_you_sure: ¿Está usted seguro?
   are_you_sure_this_action_cannot_be_undone: ¿Estás seguro?  No se puede deshacer
@@ -4083,8 +4084,8 @@ es:
   cannot_be_empty: no puede estar vacío.
   cannot_create_collection_item_from_class_error: No se puede crear un elemento de
     la colección de un %{klass}
-  cannot_create_community_from_watch_collection_error: No puede crear una comunidad
-    a partir de una lista de vigilancia.
+  cannot_create_community_from_watch_collection_error: No puedes crear una comunidad
+    a partir de una lista de seguimiento.
   cannot_curate_association_in_preview_mode: La asociación %{name} no puede ser supervisada
     porque está siendo previsualizada después de una recogida.
   cannot_expand_children: no se pueden expandir las dependencias
@@ -4797,7 +4798,7 @@ es:
   your_current_rating_3_of_5: 'Tu calificación actual: 3 de 5'
   your_current_rating_4_of_5: 'Tu calificación actual: 4 de 5'
   your_current_rating_5_of_5: 'Tu calificación actual: 5 de 5'
-  your_watch_collection: su lista de vigilancia
+  your_watch_collection: tu lista de seguimiento
   current_language: 'Idioma: %{iso_code}'
   currently_in_eol: Actualmente en la Enciclopedia de la Vida
   institutional_sponsors: Patrocinadores institucionales
@@ -4997,18 +4998,18 @@ es:
     de texto puede editarlo.
   dato_edit_link_button: Editar este enlace
   dato_edit_link_description: Gracias por contribuir con tu experiencia a EOL. El
-    enlace revisado será añadido a tu Lista de Vigilancia para que pueda seguir las
+    enlace revisado se añadirá a tu lista de seguimiento para que puedas seguir las
     conversaciones relacionadas con él y comprobar su estado de supervisión.
   dato_edit_text_button: Editar este artículo
-  dato_edit_text_page_description: ¡Gracias por contribuir con su experiencia de EOL.
-    El artículo revisado será añadido a su Lista de Vigilancia para que pueda seguir
+  dato_edit_text_page_description: ¡Gracias por contribuir con tu experiencia a EOL.
+    El artículo revisado se añadirá a tu lista de seguimiento para que puedas seguir
     las conversaciones relacionadas con él y comprobar su estado de curación.
   dato_edit_link_title: Editar enlace
   dato_edit_text_title: Editar artículo
   dato_new_text_for_taxon_page_title: Agregar un artículo a <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Añadir un enlace a <i>%{taxon}</i>
-  dato_new_text_page_description: ¡Gracias por contribuir a la EOL! Su artículo será
-    añadido a su lista de vigilancia para que pueda seguir las conversaciones relacionadas
+  dato_new_text_page_description: ¡Gracias por contribuir a la EOL! Tu artículo se
+    añadirá a tu lista de seguimiento para que puedas seguir las conversaciones relacionadas
     con él y comprobar su estado de preservación.
   dato_update_user_text_error: Lo sentimos, ha ocurrido un error, el artículo no se
     pudo actualizar.
@@ -6164,7 +6165,7 @@ es:
   pages_method_description: toma un identificador de página de EOL y retorna el nombre
     científico para esa página, y opcionalmente información sobre nombres comunes,
     medios (texto, imágenes y vídeos), y referencias a las jerarquías que reconocen
-    el taxón descrito en la pagina
+    el taxón descrito en la página
   pagination_page_number: Página %{number}
   pagination_next: Siguiente
   pagination_next_with_count:
@@ -6644,13 +6645,13 @@ es:
   taxon_citizen_science_resources_empty: Nadie ha contribuido aún con un enlace de
     ciencia ciudadana a esta página.
   taxon_common_names_subtab_explanation: Mucha gente conoce organismos solo por los
-    nombres comunes, o "lengua" local. A diferencia de los nombres científicos, nombres
-    comunes son casi siempre diferentes para hablantes de diferentes idiomas. También
-    pueden variar regionalmente dentro de un idioma. Esta pestaña muestra todos los
-    nombres comunes, proporcionados desde una variedad de proveedores a EOL incluyendo
-    curadores EOL, para este organismo. Actualmente solo podemos poner un nombre común
-    por idioma en una determinada pagina EOL, pero todos los nombres deberia ser posible
-    buscarlos.
+    nombres comunes, o "lengua" local. A diferencia de los nombres científicos, los
+    nombres comunes son casi siempre diferentes para hablantes de diferentes idiomas.
+    También pueden variar regionalmente dentro de un idioma. Esta pestaña muestra
+    todos los nombres comunes, proporcionados desde una variedad de proveedores a
+    EOL incluyendo curadores EOL, para este organismo. Actualmente solo podemos poner
+    un nombre común por idioma en una determinada página EOL, pero todos los nombres
+    deberían poder buscarse.
   taxon_concept_stats: Estadísticas de concepto taxonómico
   taxon_data_tab_empty: <a href='/traitbank'>TraitBank</a> reúne a los registros de
     datos de muchos proveedores. Todavía nadie ha contribuido con registros de datos
@@ -7170,8 +7171,8 @@ es:
   visitors: Visitantes
   vivisimo: Vivisimo
   wants_colon: 'Quiere:'
-  watch_list: Lista de Vigilancia
-  watch_list_newsfeed: Suministro de Noticias de la Lista de Vigilancia
+  watch_list: Lista de seguimiento
+  watch_list_newsfeed: Suministro de noticias de la lista de seguimiento
   watch_collections_cannot_be_destroyed: Esta colección es la única asociada a su
     comunidad y no puede eliminarse.
   warning_you_are_editing_as_admin: 'AVISO: solo estás autorizado a editar esta página

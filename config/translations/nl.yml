@@ -683,7 +683,7 @@ nl:
           hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
       user:
         agreed_with_terms: Ik ga akkoord met de <a href="%{terms_url}">gebruiksvoorwaarden</a>
-        api_key_more: Lees meer over <a href="%{api_docs_url}">een sleutel toevoegen
+        api_key_more: Meer lezen over <a href="%{api_docs_url}">een sleutel toevoegen
           aan uw API-verzoeken</a>.
         bio: Over mij
         credentials: Gebruikersgegevens
@@ -4149,6 +4149,7 @@ nl:
     classificatie. Andere classificaties kunnen worden verplaatst naar de nieuwe pagina
     nadat u deze hebt gemaakt
   classifications_summary_header_with_count:
+    zero: EOL heeft geen classificaties voor dit taxon
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
   classifications_with_count:

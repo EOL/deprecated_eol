@@ -5235,4 +5235,64 @@ pms:
   filter_by_type_user_option: Përson-e
   filter_by_type_photosynth_option: Sìntesi fotogràfiche
   filter_by_type_sound_option: Son
+  filter_by_type_sound_option_with_count:
+    one: Argistrassion sonore (%{count})
+    other: Argistrassion sonore (%{count})
+  filter_by_type_taxon_concept_option: Tassonomìe
+  filter_by_type_video_option: Filmà
+  filter_by_type_video_option_with_count:
+    one: Filmà (%{count})
+    other: Filmà (%{count})
+  filter_by_type_comment_option: Coment
+  filter_by_type_object_curated_option: Oget conservà
+  filter_by_type_name_option: Nòm
+  filter_by_type_taxa_comment_option: Coment dle tassonomìe
+  filter_media: filtré ij mojen
+  filter_newsfeed_option_all: Tuti
+  filter_newsfeed_option_messages: Coment
+  filter_newsfeed_option_community: Comunità
+  filter_newsfeed_option_collections: Colession
+  filter_newsfeed_option_watchlist: Lista dla ròba ch'as ten sot-euj
+  filter_newsfeed_option_curation: Conservassion
+  filtered_information: Anformassion filtrà
+  taxon_concept_search_keyword:
+    one: tassonomìa
+    other: tassonomìe
+  image_search_keyword:
+    one: plancia
+    other: plance
+  video_search_keyword:
+    one: filmà
+    other: filmà
+  sound_search_keyword:
+    one: son
+    other: son
+  text_search_keyword:
+    one: artìcol
+    other: artìcoj
+  data_search_keyword:
+    one: caraterìstica
+    other: caraterìstiche
+  link_search_keyword:
+    one: liura
+    other: liure
+  user_search_keyword:
+    one: përson-a
+    other: përson-e
+  community_search_keyword:
+    one: comunità
+    other: comunità
+  collection_search_keyword:
+    one: colession
+    other: colession
+  find_taxa_submit_button: trové dle tassonomìe
+  flash_notice_redirected_from_search_html: A l'é rivà ambelessì arsercand <em>%{search_string}</em>.
+    <a href="%{more_results_url}">Ch'a sgnaca ambelessì për torné a la pàgina d'arserca.</a>
+  flash_notice_redirected_from_search_html_more_results: A l'é rivà ambelessì arsercand
+    <em>%{search_string}</em>. <a href="%{more_results_url}">Ch'a sgnaca ambelessì
+    për vëdde d'àutri arzultà d'arserca.</a>
+  flash_video: Filmà curt
+  flickr: Flickr
+  focus_collection_edit: A peul modifiché le colession ëd sa comunità diretaman an
+    sla pàgina ëd modìfica ëd minca na colession.
 ...

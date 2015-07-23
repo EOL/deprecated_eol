@@ -146,6 +146,7 @@ oc:
         total_measurement_types: Tipes de mesura
         total_association_types: Tipes d’associacion
         total_user_added_data: Donadas apondudas per l’utilizaire
+        total_data_records: Enregistraments de donadas
       forum:
         forum_category_id: Categoria
         name: Nom de forum
@@ -179,6 +180,7 @@ oc:
         uri: URI
         uri_type: Tipe d’URI
         value_is_text: Las valors seràn pas d'URIs, solament de tèxte
+        value_is_verbatim: Las valors son pas de nombres, solament de tèxte
       known_uri_relationship:
         from_known_uri_id: URI del subjècte
         to_known_uri_id: URI cibla
@@ -1498,6 +1500,7 @@ oc:
       style='color:#195184'>nos contactar</a>.
     see_all_activity: Vejatz totas vòstras activitats precedentas sus vòstra pagina
       d’utilizaire <a href='%{activity_url}' style='color:#195184'></a>.
+    resource_validation: 'La validacion de la ressorsa : %{resource} es acabada'
     bulk_comments_with_count:
       one: I a un comentari novèl sus %{on}
       other: I a %{count} comentaris novèls sus %{on}
@@ -2123,6 +2126,7 @@ oc:
       is_not_complete: Non
       query_empty: (pas cap de filtre)
       processing: en tractament
+      error: quicòm s’es mal passat amb aqueste fichièr
       refresh: refrescar
       row_count: Nombre
       search_again: cercar tornarmai
@@ -4112,8 +4116,8 @@ oc:
     de devesir. Las autras classificacions pòdon èsser desplaçadas cap a la novèla
     pagina aprèp sa creacion
   classifications_summary_header_with_count:
+    zero: EdlV a pas cap de classificacion per aqueste taxon
     one: Trobat dins %{count} classificacion
-    zero: Classificacion normalament pas visibla dins l’EdlV
     other: Trobat dins %{count} classificacions
   classifications_with_count:
     one: '%{count} classificacion'
@@ -4158,6 +4162,7 @@ oc:
     provesida seràn renviats
   collection_delete_link: Suprimir definitivament aquesta colleccion.
   collection_destroyed: La colleccion es estada suprimida.
+  collection_removed: La colleccion %{collection} es suprimida.
   collection_error_no_items_selected: 'Error : Cap d''element pas seleccionat, cap
     d''accion serà pas efectuada.'
   collection_image: Imatge de la colleccion
@@ -4681,6 +4686,7 @@ oc:
   current_language: 'Lenga : %{iso_code}'
   currently_running_harvesting: Collècta actualament en cors
   currently_in_eol: Actualament dins l’Enciclopèdia de la Vida (EdlV)
+  institutional_sponsors: Partenaris institucionals
   currently_published: publicat actualament
   daily: Quotidian
   darwin_core: Darwin Core
@@ -4689,8 +4695,10 @@ oc:
   data_about_subtab_header: A prepaus de las donadas de EdlV
   data_results_only_for_search: Resultats de TraitBank per « %{search_term} »
   data_search_limit:
-    one: Los telecargaments de recèrca de donadas son limitats a %{count} resultat.
-    other: Los telecargaments de recèrca de donadas son limitats a %{count} resultats.
+    one: Los resultats de recèrca de donadas seràn telecargats a rason de %{count}
+      enregistrament per fichièr.
+    other: Los resultats de recèrca de donadas seràn telecargats a rason de %{count}
+      enregistraments per fichièr.
   data_about_this_record: Donadas sus aquesta enregistrament
   data_column_tc_id: ID de la pagina d'EdlV
   data_column_sci_name: Nom scientific
@@ -4756,6 +4764,8 @@ oc:
   data_search:
     page_title: Recercar dins TraitBank
     form:
+      equivalent_attributes: 'Valors equivalentas :'
+      equivalent_values: 'Valors equivalentas :'
       header_assistive: Recercar dempuèi
       input_summary_intro: Opcions de recèrca seleccionadas
       new_search_link: Aviar una novèla recèrca
@@ -4836,6 +4846,7 @@ oc:
   default_rating_value_of_total: 'Nòta per defaut : %{rating} sus %{total}'
   default_watch_collection_name: Lista de seguiment de %{username}
   delete_community: Suprimir aquesta comunautat
+  delete_data_object: Suprimir
   delete: suprimir
   deleted_colon: 'suprimit :'
   delete_firstcap: Suprimir
@@ -4954,6 +4965,12 @@ oc:
         de EdlV amb un nivèl de conservacion minimal d’assistent.
       no_access: O planhèm, aquesta foncionalitat es temporàriament desactivada. Reverificatz
         mai tard.
+      missing_edit_acess_to_forum_category: O planhèm, sols los admins pòdon modificar
+        aquesta categoria de forum
+      missing_delete_acess_to_forum_category: O planhèm, sols los admins pòdon suprimir
+        aquesta categoria de forum
+      can_not_access_unpublished_taxon: O planhèm, podètz pas accedir a un taxon non
+        publicat
   expand_all_children: Desvolopar totes los enfants
   expired: Expirat
   expires_in_colon: 'Expira dins :'

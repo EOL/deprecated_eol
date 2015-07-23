@@ -878,7 +878,7 @@ zh-CN:
       meta_description_map: 地图 - %{dato_description}
       meta_description_sound: 声音 - %{dato_description}
       meta_description_video: 视频 - %{dato_description}
-      meta_description_default: 来自%{supplier}的%{dato_title}
+      meta_description_default: 来自 %{supplier} 的 %{dato_title}。
       meta_description_default_article: 文章——来自%{supplier}的%{dato_title}。
       meta_description_default_image: 图片——来自%{supplier}的%{dato_title}。
       meta_description_default_image_map: 地图——来自%{supplier}的%{dato_title}。
@@ -886,8 +886,8 @@ zh-CN:
       meta_description_default_sound: 音频——来自%{supplier}的%{dato_title}。
       meta_description_default_video: 视频——来自%{supplier}的%{dato_title}。
       meta_supplier_default: 一个贡献者
-      meta_title: 来自 %{supplier}的%{dato_title} \
-      tweet_text: 来自 %{supplier}的%{dato_title} \
+      meta_title: 来自 %{supplier} 的 %{dato_title}
+      tweet_text: 来自 %{supplier} 的 %{dato_title}
   eol_statistics:
     comparing_dates: <span class="assistive">比较</span> <span class="date_one">%{date_one}</span>
       <span class="assistive">和</span> <span class="date_two">%{date_two}</span>

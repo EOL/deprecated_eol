@@ -576,7 +576,7 @@ class DataPointUri < ActiveRecord::Base
         @value_string = target_taxon_concept.title_canonical
       end
     else
-      val = EOL::Sparql.uri_components(object_uri)[:label]  # TODO - see if we need that #to_s; seems redundant.
+      val = EOL::Sparql.uri_components(object_uri)[:label].to_s  # TODO - see if we need that #to_s; seems redundant.
       if val.is_numeric?
         # float values can be rounded off to 2 decimal places
         if val.is_float?

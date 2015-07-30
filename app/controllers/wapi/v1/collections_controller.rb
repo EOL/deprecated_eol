@@ -16,43 +16,61 @@ module Wapi
       end
 
       def create
-        if params[:collection]
-          if params[:collection][:collection_items]
-            # Rails wants "collection_items_attributes", which it would use if
-            # generating the form itself, but that's lame in the context of 3rd
-            # party input JSON, so I update it here:
-            params[:collection][:collection_items_attributes] =
-              params[:collection].delete(:collection_items)
-            params[:collection][:collection_items_attributes].each do |hash|
-              hash[:added_by_user_id] = @user.id
+        
+        # @user = User.find_by_api_key("AB12345") #delete this line , it's just for testing
+        ActiveRecord::Base.transaction do
+          begin
+            if params[:collection]
+              if params[:collection][:collection_items]
+                # Rails wants "collection_items_attributes", which it would use if
+                # generating the form itself, but that's lame in the context of 3rd
+                # party input JSON, so I update it here:
+                params[:collection][:collection_items_attributes] =
+                 params[:collection].delete(:collection_items)
+                params[:collection][:collection_items_attributes].each do |hash|
+                  hash[:added_by_user_id] = @user.id
+                end
+              end
+              # And, of course, we expect the user to be pre-populated based on key:
+              params[:collection][:users] = [@user]
             end
-          end
-          # And, of course, we expect the user to be pre-populated based on key:
-          params[:collection][:users] = [@user]
+            @collection = Collection.create!(params[:collection].merge(collection_items_count: params[:collection][:collection_items_attributes].count))
+            @collection.save
+            @collection.users = [@user]
+            respond_with @collection.reload
+          rescue
+            respond_with(@collection, status: :unprocessable_entity) do |format|
+              format.json { render json: { errors: @collection.errors.full_messages }.to_json }
+            end
+            raise ActiveRecord::Rollback
         end
-        @collection = Collection.create(params[:collection])
-        if @collection.save
-          @collection.users = [@user]
-          respond_with @collection
-        else
-          respond_with(@collection, status: :unprocessable_entity) do |format|
-            format.json { render json: { errors: @collection.errors.full_messages }.to_json }
-          end
         end
       end
 
       def update
+        # debugger
+        # @user = User.find_by_api_key("AB12345") #delete this line , it's just for testing
+        if @collection.blank?
+          respond_with do |format|
+            format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :ok }
+          end
+          return
+        end
         head :unauthorized and return unless @user && @user.can_update?(@collection)
         ActiveRecord::Base.transaction do
           begin
-            if params[:collection_items]
-              params[:collection_items].each do |item|
-                (@collection.collection_items.select{|col_item| col_item[:id] == item[:id].to_i}.first).update_attributes!(item.except!(:id, :updated_at, :created_at))
+            if params[:collection]
+              if params[:collection][:collection_items]
+              @collection.items.destroy_all
+                params[:collection][:collection_items].each do |item|
+                  collection_item = CollectionItem.create( item.except!(:id, :updated_at, :created_at).merge(collection_id: @collection.id))
+                end
               end
-            end
-            @collection.update_attributes!(params[:collection].except!(:id, :updated_at, :created_at))
-            respond_with do |format|
-              format.json { render json: @collection.to_json, status: :ok }
+              @collection.update_attributes(params[:collection].except!(:id, :updated_at, :created_at, :collection_items).
+               merge(collection_items_count: @collection.items.count))
+              respond_with do |format|
+                format.json { render json: @collection.to_json, status: :ok }
+              end
             end
           rescue
             respond_with do |format|
@@ -64,6 +82,13 @@ module Wapi
       end
 
       def destroy
+        # @user = User.find_by_api_key("AB12345") #delete this line , it's just for testing
+        if @collection.blank?
+           respond_with do |format|
+          format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :ok }
+            end
+          return
+        end
         head :unauthorized and return unless @user && @user.can_update?(@collection)
         @collection.collection_items.destroy_all
         @collection.destroy
@@ -75,7 +100,7 @@ module Wapi
       private
 
       def find_collection
-        @collection = Collection.find(params[:id])
+        @collection = Collection.find_by_id(params[:id])
       end
 
       # -H 'Authorization: Token token="ABCDEF12345"'

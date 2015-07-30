@@ -2896,6 +2896,7 @@ en:
   collection_destroyed: "The collection was deleted."
   collection_removed: "Collection %{collection} is deleted."
   collection_update_failure: "Collection %{collection} update failed. Check if there is a problem in collection items"
+  collection_not_existing: "Collection %{collection} does not exist."
   collection_error_no_items_selected: "Error: No items selected, no actions were taken."
   collection_image: "Collection image"
   collection_is_empty: "This collection is currently empty."

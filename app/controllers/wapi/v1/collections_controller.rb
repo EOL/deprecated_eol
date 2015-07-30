@@ -48,7 +48,7 @@ module Wapi
       end
 
       def update
-        # debugger
+
         # @user = User.find_by_api_key("AB12345") #delete this line , it's just for testing
         if @collection.blank?
           respond_with do |format|

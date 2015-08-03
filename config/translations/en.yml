@@ -2889,6 +2889,7 @@ en:
   collect_item: "Collect item"
   collect_items: "Collect items"
   collection_api_sort_field_notes: "If a sort_field parameter is included, only collection items whose sort field exactly matches the given string will be returned"
+  collection_create_failure: "Collection create failed. Check if there is a problem in the passed parameters."
   collection_created_with_count_notice:
     one: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
     other: "Collection <em>%{collection_name}</em> successfully created with %{count} collection items."

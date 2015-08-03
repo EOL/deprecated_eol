@@ -16,8 +16,7 @@ module Wapi
       end
 
       def create
-        
-        # @user = User.find_by_api_key("AB12345") #delete this line , it's just for testing
+
         ActiveRecord::Base.transaction do
           begin
             if params[:collection]
@@ -34,13 +33,15 @@ module Wapi
               # And, of course, we expect the user to be pre-populated based on key:
               params[:collection][:users] = [@user]
             end
-            @collection = Collection.create!(params[:collection].merge(collection_items_count: params[:collection][:collection_items_attributes].count))
+            unless params[:collection][:collection_items_attributes].blank?
+              params[:collection].merge(collection_items_count: params[:collection][:collection_items_attributes].count)
+            end
+            @collection = Collection.create!(params[:collection])
             @collection.save
-            @collection.users = [@user]
             respond_with @collection.reload
           rescue
             respond_with(@collection, status: :unprocessable_entity) do |format|
-              format.json { render json: { errors: @collection.errors.full_messages }.to_json }
+              format.json { render json: (I18n.t :collection_create_failure).to_json }
             end
             raise ActiveRecord::Rollback
         end
@@ -49,10 +50,9 @@ module Wapi
 
       def update
 
-        # @user = User.find_by_api_key("AB12345") #delete this line , it's just for testing
         if @collection.blank?
           respond_with do |format|
-            format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :ok }
+            format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :not_found }
           end
           return
         end
@@ -82,10 +82,9 @@ module Wapi
       end
 
       def destroy
-        # @user = User.find_by_api_key("AB12345") #delete this line , it's just for testing
         if @collection.blank?
            respond_with do |format|
-          format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :ok }
+          format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :not_found }
             end
           return
         end

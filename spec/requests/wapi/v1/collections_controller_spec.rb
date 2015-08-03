@@ -61,7 +61,7 @@ describe "Collections API V1" do
           { "HTTP_AUTHORIZATION" => encode(@key) }
       end
       it "FAILS" do
-        expect(json).to include("errors")
+        expect(response.body).to include(I18n.t :collection_create_failure)
       end
       it "does not create a collection" do
         expect(Collection.count).to eq(0)

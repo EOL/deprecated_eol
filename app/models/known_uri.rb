@@ -15,6 +15,7 @@ class KnownUri < ActiveRecord::Base
   TAXON_RE = Rails.configuration.known_taxon_uri_re
   DATO_RE = Rails.configuration.known_data_object_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
+  
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable
@@ -409,6 +410,22 @@ class KnownUri < ActiveRecord::Base
       attribution: attribution
     )
   end
+
+  #this solves the problem of method_missing for alias_method_chain
+  def self.find_by_uri(*args); super; end
+
+  def self.find_by_uri_with_generate(*args)
+    known_uri = KnownUri.find_by_uri_without_generate(*args)
+    if known_uri.nil?
+      uri = args.first
+      name = EOL::Sparql.uri_to_readable_label(uri)
+      return if name.nil?
+      known_uri= KnownUri.create( uri: uri, uri_type_id: UriType.measurement.id, visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id )
+      TranslatedKnownUri.create(name: name, known_uri_id: known_uri.id, language_id: Language.english.id)
+    end
+    known_uri
+  end
+  klass = class << self; alias_method_chain :find_by_uri, :generate; end
 
   private
 

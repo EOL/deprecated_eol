@@ -474,7 +474,7 @@ class DataPointUri < ActiveRecord::Base
            end
     # Nice measurement:
     hash[I18n.t(:data_column_measurement)] = predicate_uri.try(:label) || ''
-    hash[I18n.t(:data_column_value)] = value_string(language)
+    hash[I18n.t(:data_column_value)] = value_string(language, hash_data: true)
     # URI measurement / value
     hash[I18n.t(:data_column_measurement_uri)] = predicate
     hash[I18n.t(:data_column_value_uri)] = value_uri_or_blank
@@ -519,7 +519,7 @@ class DataPointUri < ActiveRecord::Base
           count = 1
           key = "#{orig_key} #{count += 1}" while hash.has_key?(key)
         end
-        hash[key] = datum.value_string(language)
+        hash[key] = datum.value_string(language, hash_data: true)
       end
     end
   end
@@ -566,7 +566,7 @@ class DataPointUri < ActiveRecord::Base
   end
 
   # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
-  def value_string(lang = Language.default)
+  def value_string(lang = Language.default, options={})
     return @value_string unless @value_string.blank?
     @value_string = nil
     if association? && target_taxon_concept
@@ -576,7 +576,7 @@ class DataPointUri < ActiveRecord::Base
         @value_string = target_taxon_concept.title_canonical
       end
     else
-      val = EOL::Sparql.uri_components(object_uri)[:label].to_s # TODO - see if we need that #to_s; seems redundant.
+      val = EOL::Sparql.uri_components(object_uri)[:label].to_s  # TODO - see if we need that #to_s; seems redundant.
       if val.is_numeric?
         # float values can be rounded off to 2 decimal places
         if val.is_float?
@@ -586,7 +586,7 @@ class DataPointUri < ActiveRecord::Base
         end
       end
       # other values may have links embedded in them (references, citations, etc.)
-      @value_string = val.add_missing_hyperlinks
+      @value_string = options[:hash_data] ? val : val.add_missing_hyperlinks
     end
     return @value_string
   end

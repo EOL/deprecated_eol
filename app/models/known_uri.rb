@@ -13,6 +13,7 @@ class KnownUri < ActiveRecord::Base
 
   BASE = Rails.configuration.uri_term_prefix
   TAXON_RE = Rails.configuration.known_taxon_uri_re
+  DATO_RE = Rails.configuration.known_data_object_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
@@ -146,6 +147,15 @@ class KnownUri < ActiveRecord::Base
 
   def self.taxon_concept_id(val)
     match = val.to_s.scan(TAXON_RE)
+    if match.empty?
+      false
+    else
+      match.first.second # Where the actual first matching group is stored.
+    end
+  end
+
+  def self.data_object_id(val)
+    match = val.to_s.scan(DATO_RE)
     if match.empty?
       false
     else

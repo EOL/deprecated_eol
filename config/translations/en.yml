@@ -5118,7 +5118,7 @@ en:
   wikipedia_queue_new_instructions_step_three: "Follow the 'Permanent link' menu item. This is the current revision URL and will take you to the current version of the article from which you can navigate to previous versions."
   wikipedia_queue_new_instructions_step_four: "Copy the revision URL from your browser and paste it into the Wikipedia import request form displayed here, the revision URL should look something like <a rel=\"nofollow\" href=\"https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069\">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>"
   wikipedia_queue_new_page_title: "Request an import of a Wikipedia article"
-  will_find_taxon_pages_matching_the_search_term: "will find taxon pages if the preferred name or any synonym or common name exactly matches the search term"
+  will_find_taxon_pages_matching_the_search_term: "will find taxon pages if the title or any synonym or common name exactly matches the search term"
   would_you_like_to_become_a_curator_notice: "Would you like to become a curator? You can request access on <a href='%{url}'>your profile page</a>."
   worklist: "Worklist"
   xml_response: "XML Response"

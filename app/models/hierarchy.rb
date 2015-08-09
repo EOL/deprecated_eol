@@ -89,6 +89,12 @@ class Hierarchy < ActiveRecord::Base
       Hierarchy.find_by_label("NCBI Taxonomy", order: "hierarchy_group_version desc")
     end
   end
+  
+  def self.worms
+    @@worms ||= cached('worms') do
+      Hierarchy.find_by_label("WORMS Species Information (Marine Species)")
+    end
+  end
 
   def self.itis
     @@itis ||= cached('itis') do

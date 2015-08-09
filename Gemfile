@@ -178,7 +178,7 @@ gem "newrelic_rpm", "~> 3.9"
 gem "oauth", "0.4.7" # Logging in via Facebook and Twitter, older version.
 gem "oauth2", "0.8.0" # Logging in via Facebook and Twitter
 # Uploading files, such as icons for users and collections.
-gem "paperclip", "4.1.1"
+gem "paperclip", "4.3.0"
 gem "rails_autolink", "1.1.5" # Adding links to user-entered text.
 # Autocomplete Ajax.
 gem "rails3-jquery-autocomplete", "1.0.11",

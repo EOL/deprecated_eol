@@ -33,7 +33,7 @@
             %li{:class => resource_is_active('communities')}= link_to I18n.t(:communities_with_count, :count => @user.communities.published.count), user_communities_path(@user)
             %li{:class => resource_is_active('content_partners')}= link_to I18n.t(:content_partners_with_count, :count => @user.content_partners.count), user_content_partners_path(@user)
             - if current_user.can_update?(@user)
-              %li{:class => resource_is_active('data_downloads')}= link_to I18n.t(:data_search_files_with_count, :count => @user.data_search_files.count), user_data_downloads_path(@user)
+              %li{:class => resource_is_active('data_downloads')}= link_to I18n.t(:data_search_files_with_count, :count => @user.data_search_files.count+@user.collection_download_files.count), user_data_downloads_path(@user)
       = yield
 
 = render :file => 'layouts/application'

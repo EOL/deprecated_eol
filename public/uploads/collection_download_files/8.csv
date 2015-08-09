@@ -1,0 +1,3 @@
+EOL page ID,Scientific Name,Common Name,Measurement,Value,Measurement URI,Value URI,Units (normalized),Units URI (normalized),Raw Value (direct from source),Raw Units (direct from source),Raw Units URI (normalized),Supplier,Content Partner Resource URL
+1449,Lasius neglectus,,dsds,10,http://eol.org/schema/terms/dsds,"",kilograms,http://purl.obolibrary.org/obo/UO_0000009,10,kilograms,http://purl.obolibrary.org/obo/UO_0000009,Catalogue of Life,http://eol.org/content_partners/2/resources/115
+1500,Strumigenys eggersi,,kak,10,http://eol.org/schema/terms/kak,"",kilograms,http://purl.obolibrary.org/obo/UO_0000009,10,kilograms,http://purl.obolibrary.org/obo/UO_0000009,Catalogue of Life,http://eol.org/content_partners/2/resources/115

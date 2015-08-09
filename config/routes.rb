@@ -196,7 +196,9 @@ Eol::Application.routes.draw do
       get 'cache_inaturalist_projects'
       get 'choose_collect_target'
       get 'choose_editor_target'
+      get 'choose_taxa_data'
       post 'collect_item'
+      post 'download_taxa_data'
     end
     resource :newsfeed, :only => [:show], :controller => 'collections/newsfeeds'
     resources :editors, :only => [:index], :controller => 'collections/editors'

@@ -1,0 +1,20 @@
+= stylesheet_link_tag 'taxon_collection'
+#taxon_collection
+  - if @taxon_collected_items.blank?
+    .empty
+      %p= raw I18n.t('users.data_downloads.empty_taxa_collection')
+  - else
+    = form_tag(download_taxa_data_collections_path(collection_id: @collection), method: :post) do |f|
+      %table#sortable.standard.taxon_collection
+        %thead
+          %tr.header
+            %th
+            %th= I18n.t("collections.download_taxa_data.attribute_header")
+        %tbody
+          - @taxon_collected_items.each do |taxon_item|
+            %fieldset
+              %tr{ id: "taxon_collection_#{taxon_item.id}" }
+                %td= check_box_tag 'data_point_uri[]', taxon_item.id
+                %td= taxon_item.predicate
+      = will_paginate @taxon_collected_items
+      = submit_tag I18n.t(:create_download_data_file)

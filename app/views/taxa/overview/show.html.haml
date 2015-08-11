@@ -118,7 +118,6 @@
 #sidebar
   - if current_user.can_see_data?
     - cache("overview/#{@taxon_page.to_param}/traits/#{current_language}", skip_digest: true, expires_in: 24.hours) do
-      -debugger
       - overview_data = @data.get_data_for_overview
       #data_summary.article
         .header

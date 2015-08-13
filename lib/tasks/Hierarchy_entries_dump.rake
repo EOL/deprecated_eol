@@ -2,7 +2,6 @@ namespace :hierarchy_entries do
   desc 'hierarchy entries dump'
   task :hierarchy_entries_dump => :environment do
     puts "Started (#{Time.now})\n"
-    # Cache the ranks so we're not constantly looking them up:
     ncbi_id = Hierarchy.ncbi ? Hierarchy.ncbi.id : -1 
     col_id = Hierarchy.col ? Hierarchy.col.id : -1
     worms_id = Hierarchy.worms ? Hierarchy.worms.id : -1
@@ -18,9 +17,17 @@ namespace :hierarchy_entries do
         data[:ncbi_outlink_id] = ncbi_id == he.hierarchy.id ? ncbi_id : ""
         data[:worms_outlink_id] = worms_id == he.hierarchy.id ? worms_id : ""
         data[:col_outlink_id] = col_id == he.hierarchy.id ? col_id : ""
-        data[:scientnific_name] = he.italicized_name.firstcap
+        data[:scientnific_name] = he.name.string
         data[:outlink_url] = he.outlink_url
-        
+        data[:outlinks] = []
+        if TaxonConcept.find(data[:tc_id]).published?
+          TaxonConcept.find(data[:tc_id]).published_hierarchy_entries.delete_if{|ent| ent.id == he.id}.each do |entry|
+            content_partner_name = name = he.hierarchy.resource.try(:content_partner).try(:display_name)? name : ""
+            entry_outlink = {}
+            entry_outlink[content_partner_name] = entry.outlink_url
+            data[:outlinks] << entry_outlink
+          end
+        end
         file.write(data.to_json + ",\n")
       end
       file.write("]\n")

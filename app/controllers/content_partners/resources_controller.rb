@@ -41,7 +41,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       flash.now[:error] = I18n.t(:content_partner_resource_create_unsuccessful_error)
       render :new
     end
-    @resource.update_attributes(resource_status: ResourceStatus.uploaded)
+    @resource.update_attributes(resource_status: ResourceStatus.uploading)
     enqueue_job(current_user.id, params[:content_partner_id], @resource.id)
   end
 
@@ -70,7 +70,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     end
     if @resource.update_attributes(params[:resource])
       if upload_required
-        @resource.update_attributes(resource_status: ResourceStatus.uploaded)
+        @resource.update_attributes(resource_status: ResourceStatus.uploading)
         enqueue_job(current_user.id, params[:content_partner_id], params[:id])
       end
       if params[:resource][:auto_publish].to_i == 0

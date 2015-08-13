@@ -217,6 +217,7 @@ class CollectionsController < ApplicationController
       taxon_items += TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris
     end
     @taxon_collected_items = taxon_items.compact.uniq(&:predicate).paginate(page: params[:page], per_page: RECORDS_PER_PAGE)
+    debugger
     respond_to do |format|
       format.html { render 'choose_taxa_data'}
       format.js { render 'choose_taxa_data' }
@@ -232,6 +233,10 @@ class CollectionsController < ApplicationController
       flash[:warning] = I18n.t("collections.download_taxa_data.collection_download_under_processing")
       redirect_to collection_path(@collection)
     end
+  end
+  
+  def has_taxa?
+    @collection.collection_items.taxa.any?
   end
 
   # TODO - this should really be its own resource in its own controller.

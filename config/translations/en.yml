@@ -945,6 +945,7 @@ en:
   collections:
     download_taxa_data:
       attribute_header: "Attribute"
+      select_all_checkbox: "Select All"
       collection_download_under_processing: "Collection download is under processing now. An email will be sent to you when the download complete"
       user_downloaded_collection: "Data download for %{collection_name}"
     show:

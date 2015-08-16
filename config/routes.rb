@@ -193,6 +193,8 @@ Eol::Application.routes.draw do
       get 'reindex'
     end
     collection do
+      get 'get_name'
+      get 'get_uri'
       get 'cache_inaturalist_projects'
       get 'choose_collect_target'
       get 'choose_editor_target'

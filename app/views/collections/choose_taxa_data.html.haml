@@ -18,7 +18,7 @@
                 %td= check_box_tag 'data_point_uri[]', taxon_item.id
                 %td
                   %span
-                    = get_uri_name(taxon_item.predicate)
+                    = get_name(taxon_item.predicate)
                     - info_icon
       = will_paginate @taxon_collected_items
       = submit_tag I18n.t(:create_download_data_file)

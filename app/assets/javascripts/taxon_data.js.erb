@@ -91,34 +91,44 @@ EOL.create_info_ranges_dialog = function(match) {
 EOL.create_collection_taxon_info_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
   var nearest = $has_id.attr('id');
-  var $glossary_id = "glossary_"+nearest;
   $(match)
     .attr('id', "info_"+nearest)
     .addClass('tip')
-    .prepend('<a href="#" class="close">&nbsp;</a>')
-    .prepend("<ul id = glossary_" + nearest + " class = glossary></ul>");
+    .prepend('<a href="#" class="close">&nbsp;</a>');
   $(match).parent().parent().append('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>');
-  EOL.enable_info_dialogs($('#tip_'+nearest), $('table.taxon_collection tr'));
-  EOL.enable_collection_taxa_glossary_links($(match));
+  EOL.enable_collection_taxa_info_dialogs($('#tip_'+nearest), $('table.taxon_collection tr'));
   $(match).parent().parent().children('ul.glossary').remove();
   $(match).appendTo(document.body);
   };
 
-EOL.enable_collection_taxa_glossary_links = function(info) {
-    info.find('.glossary').each(function() {
-    	alert("kokowawa");
-      $(this).text("<%= I18n.t(:see_in_glossary_tab) %> kak");
+EOL.enable_collection_taxa_info_dialogs = function(tip, table_row) {
+  tip.unbind('click').on('click', function(e) {
+      $('.site_column').unbind('click');
+      var $link = $(this);
+      var $info = $('#info_'+$(this).data('info'));
+      if ($info.is(':visible')) {
+        $info.hide('fast');
+      } else {
+        $('.info_icon.tip').hide('fast');
+        var pos = $(this).offset();
+		$info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
+		var id_no = $(this).data('info').split(/[_]+/).pop();
+        $.ajax({
+        	url: "<%= Rails.application.routes.url_helpers.get_uri_collections_path %>",
+        	type: "GET",
+        	data: {id: id_no},
+        	complete: function() {},
+        	success: function(data, textStatus, xhr){
+        		$info.show('fast', function() {
+		            $('.site_column').on('click', function() { $('.info_icon').hide('fast'); $('.site_column').unbind('click'); });
+		        }).find('a.close').on('click', function() { $('.info_icon').hide('fast'); return(false); });
+        		$info.text(data["value"]);
+		    },
+		    error: function() {}	
+	    });
+      }
     });
-    info.find('.glossary').on('click', function(e) {
-    	alert("totomama");
-      e.preventDefault();
-      var link_clicked = $(this);
-      link_clicked.closest('.info').hide();
-      $('#tabs_sidebar li.glossary a').trigger('click');
-      setTimeout(function() {
-        $('html,body').animate({ scrollTop: $("#" + link_clicked.data('anchor')).offset().top }, 500);
-      }, 100);
-    });
+    EOL.info_icon_mouse_hover(table_row);
 };
 
 EOL.enable_data_tab_glossary_links = function(info) {
@@ -150,7 +160,6 @@ EOL.enable_info_dialogs = function(tip, table_row) {
       if ($info.is(':visible')) {
         $info.hide('fast');
       } else {
-      	alert("Inside else");
         $('.info.tip').hide('fast');
         var pos = $(this).offset();
         $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });

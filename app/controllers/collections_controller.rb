@@ -5,7 +5,7 @@ class CollectionsController < ApplicationController
   # collections
   before_filter :login_with_open_authentication, only: :show
   before_filter :modal, only: [:choose_editor_target, :choose_collect_target]
-  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]
+  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects, :get_uri, :get_name]
   before_filter :prepare_show, only: [:show]
   before_filter :user_able_to_edit_collection, only: [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, only: [:show]
@@ -217,7 +217,6 @@ class CollectionsController < ApplicationController
       taxon_items += TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris
     end
     @taxon_collected_items = taxon_items.compact.uniq(&:predicate).paginate(page: params[:page], per_page: RECORDS_PER_PAGE)
-    debugger
     respond_to do |format|
       format.html { render 'choose_taxa_data'}
       format.js { render 'choose_taxa_data' }
@@ -232,6 +231,19 @@ class CollectionsController < ApplicationController
       Resque.enqueue(TaxaDownload, params[:data_point_uri], current_user.id, @collection.id)
       flash[:warning] = I18n.t("collections.download_taxa_data.collection_download_under_processing")
       redirect_to collection_path(@collection)
+    end
+  end
+  
+  #This maynot be the right place to put this. This method is used to get the name of the given uri from the KnownURIs.
+  def get_name(uri)
+    KnownUri.find_by_uri(uri).name
+  end
+  helper_method :get_name
+  
+  #This maynot be the right place to put this. This method is used to get the uri of the given data point uri id.
+  def get_uri
+    respond_to do |format|
+      format.json { render json: {"value" => DataPointUri.find(params[:id]).predicate}}
     end
   end
   

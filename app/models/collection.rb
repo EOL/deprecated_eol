@@ -91,7 +91,6 @@ class Collection < ActiveRecord::Base
   end
   
   def collection_has_data?
-    debugger
     self.collection_items.taxa.each do |taxon_item|
       return true if TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris.size > 0
     end

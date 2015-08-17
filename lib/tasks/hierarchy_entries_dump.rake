@@ -14,7 +14,7 @@ namespace :hierarchy_entries do
         outlinks = []
         if TaxonConcept.find(he.taxon_concept_id).published?
           TaxonConcept.find(he.taxon_concept_id).published_hierarchy_entries.delete_if{|ent| ent.id == he.id}.each do |entry|
-            content_partner_name = name = he.hierarchy.resource.try(:content_partner).try(:display_name)? name : ""
+            content_partner_name = he.hierarchy.resource.try(:content_partner).try(:display_name)? content_partner_name : ""
             entry_outlink = {}
             entry_outlink[content_partner_name] = entry.outlink_url ? entry.outlink_url : ""
             outlinks << entry_outlink

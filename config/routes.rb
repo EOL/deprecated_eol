@@ -194,7 +194,7 @@ Eol::Application.routes.draw do
     end
     collection do
       get 'get_name'
-      get 'get_uri'
+      get 'get_uri_name'
       get 'cache_inaturalist_projects'
       get 'choose_collect_target'
       get 'choose_editor_target'

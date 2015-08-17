@@ -112,17 +112,16 @@ EOL.enable_collection_taxa_info_dialogs = function(tip, table_row) {
         $('.info_icon.tip').hide('fast');
         var pos = $(this).offset();
 		$info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
-		var id_no = $(this).data('info').split(/[_]+/).pop();
         $.ajax({
-        	url: "<%= Rails.application.routes.url_helpers.get_uri_collections_path %>",
+        	url: "<%= Rails.application.routes.url_helpers.get_uri_name_collections_path %>",
         	type: "GET",
-        	data: {id: id_no},
+        	data: {id: $(this).data('info').split(/[_]+/).pop()},
         	complete: function() {},
         	success: function(data, textStatus, xhr){
         		$info.show('fast', function() {
 		            $('.site_column').on('click', function() { $('.info_icon').hide('fast'); $('.site_column').unbind('click'); });
 		        }).find('a.close').on('click', function() { $('.info_icon').hide('fast'); return(false); });
-        		$info.text(data["value"]);
+        		$info.html('<div style="color:#616e7a; font-size:1.1em">'+data["name"] +'</div>'+ '<div style="color:#93a4b0">'+data["uri"]+'</div>');
 		    },
 		    error: function() {}	
 	    });

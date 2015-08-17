@@ -5,7 +5,7 @@ class CollectionsController < ApplicationController
   # collections
   before_filter :login_with_open_authentication, only: :show
   before_filter :modal, only: [:choose_editor_target, :choose_collect_target]
-  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects, :get_uri, :get_name]
+  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects, :get_uri_name, :get_name]
   before_filter :prepare_show, only: [:show]
   before_filter :user_able_to_edit_collection, only: [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, only: [:show]
@@ -241,9 +241,10 @@ class CollectionsController < ApplicationController
   helper_method :get_name
   
   #This maynot be the right place to put this. This method is used to get the uri of the given data point uri id.
-  def get_uri
+  def get_uri_name
+    predicate = DataPointUri.find(params[:id]).predicate
     respond_to do |format|
-      format.json { render json: {"value" => DataPointUri.find(params[:id]).predicate}}
+      format.json { render json: {"uri" => predicate, "name" => KnownUri.find_by_uri(predicate).name}}
     end
   end
   

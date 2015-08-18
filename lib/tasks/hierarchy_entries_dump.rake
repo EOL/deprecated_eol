@@ -13,7 +13,7 @@ namespace :hierarchy_entries do
       HierarchyEntry.published.find_each(batch_size: batch_size) do |he|
         if TaxonConcept.find(he.taxon_concept_id).published?
           file.write([he.id, he.taxon_concept_id, ncbi_id == he.hierarchy.id ? ncbi_id : "", worms_id == he.hierarchy.id ? worms_id : "", 
-            col_id == he.hierarchy.id ? col_id : "", he.name.string, he.outlink_url].to_csv)
+            col_id == he.hierarchy.id ? col_id : "", he.name.string ? he.name.string : "", he.outlink_url ? he.outlink_url : ""].to_csv)
         end
       end
     end

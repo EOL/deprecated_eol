@@ -14,3 +14,4 @@ class ResourceValidation
     PendingNotification.create!(user_id: user_id, notification_frequency_id: NotificationFrequency.immediately.id, target: log, reason: 'auto_email_after_validation')
     Resque.enqueue(PrepareAndSendNotifications)
   end
+end

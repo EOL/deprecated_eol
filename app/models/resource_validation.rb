@@ -1,5 +1,5 @@
 class ResourceValidation
-  @queue = :resource_validation
+  @queue = :data
 
   def self.perform(current_user_id, content_partner_id, resource_id, loc)
     partner = ContentPartner.find(content_partner_id, include: {resources: :resource_status })

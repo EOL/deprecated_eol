@@ -4283,6 +4283,7 @@ de:
     auswählen. Andere Klassifikationen können auf die neue Seite nach der Erstellung
     verschoben werden.
   classifications_summary_header_with_count:
+    zero: EOL hat keine Klassifikation für dieses Taxon
     one: In einer Klassifikation gefunden
     other: In %{count} Klassifikationen gefunden
   classifications_with_count:
@@ -6937,8 +6938,8 @@ de:
     um zu erfahren, wie man auf andere Hierarchien zugreifen kann, die mit einer bestimmten
     Seite der EOL in Verbindung stehen. Das Feld „taxonConceptID“ enthält die Kennung
     der EOL-Seite, die in der Seiten-API genutzt werden kann.
-  hierarchies_entries_descendants_description: Das Angeben der Bezeichnung einer Hierarchie
-    in dieser API gibt alle Nachfahren dieses Hierarchieeintrags zurück.
+  hierarchies_entries_descendants_description: Durch das Angeben der Bezeichnung eines
+    Hierarchieeintrags gibt diese API alle Nachfahren dieses Hierarchieeintrags zurück.
   hierarchies_description: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne
     taxonomische Hierarchie auf deren Basis die Seiten erstellt werden. Tatsächlich
     indexiert EOL viele Hierarchien und vergleicht sie miteinander. Diese API listet

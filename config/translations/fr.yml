@@ -11,6 +11,7 @@
 # Author: Framafan
 # Author: Freak2fast4u
 # Author: Gomoko
+# Author: Great11
 # Author: Hashar
 # Author: Immortal
 # Author: Jean-Frédéric
@@ -2161,6 +2162,7 @@ fr:
       is_not_complete: Non
       query_empty: (aucun filtre)
       processing: en traitement
+      error: quelque chose s’est mal passé avec ce fichier
       refresh: rafraîchir
       row_count: Nombre
       search_again: chercher de nouveau
@@ -4146,8 +4148,8 @@ fr:
     à diviser. Les autres classifications peuvent être déplacées vers la nouvelle
     page après sa création
   classifications_summary_header_with_count:
+    zero: EdlV n’a aucune classification pour ce taxon
     one: Trouvé dans %{count} classification
-    zero: Classification normalement non visible dans l’EdlV
     other: Trouvé dans %{count} classifications
   classifications_with_count:
     one: '%{count} classification'
@@ -4192,6 +4194,9 @@ fr:
     fournie seront renvoyés
   collection_delete_link: Supprimer définitivement cette collection.
   collection_destroyed: La collection a été supprimée.
+  collection_removed: La collection %{collection} est supprimée.
+  collection_update_failure: La mise à jour de la collection %{collection} a échoué.
+    Vérifiez s’il y a un problème dans les éléments de la collection
   collection_error_no_items_selected: 'Erreur: Aucun élément sélectionné, aucune action
     ne sera effectuée.'
   collection_image: Image de la collection
@@ -4510,6 +4515,8 @@ fr:
   content_partner_resource_harvest_event_update_unsuccessful_error: Désolé, une erreur
     s’est produite, l'événement de récolte pour %{resource_title} n’a pas été mis
     à jour.
+  content_partner_resource_page_title: Encyclopédie de la Vie - %{content_partner_name}
+    - %{resource_name}
   content_partner_resource_will_be_deleted: Tout ce qui a été collecté par la ressource
     %{resource_title} sera supprimé, veuillez attendre 24 heures pour continuer.
   content_partner_resource_hierarchy_browsable: Navigable
@@ -5098,6 +5105,8 @@ fr:
   eol_api: IPA de l’EdlV
   eol_api_hierarchies: 'IPA de l’EdlV : hiérarchies'
   eol_api_hierarchy_entries: 'IPA de l’EdlV : entrées de hiérarchie'
+  eol_api_hierarchy_entries_descendants: 'EOL API: la Hiérarchie des Entrées des Descendants
+    de'
   eol_api_pages: 'IPA de l’EdlV : pages'
   eol_api_ping: 'IPA de l’EdlV : ping'
   eol_api_provider_hierarchies: 'IPA de l’EdlV : hiérarchies de fournisseurs'
@@ -5173,10 +5182,10 @@ fr:
         cette catégorie de forum
       missing_delete_acess_to_forum_category: Désolé, seuls les admins peuvent supprimer
         cette catégorie de forum
-      missing_edit_acess_to_forum_post: Désolé, seuls les admins ou l'auteur du sujet
-        peuvent modifier ce post sur le forum
-      missing_delete_acess_to_forum_post: Désolé, seuls les admins ou l'auteur du
-        sujet peuvent supprimer ce post sur le forum
+      missing_edit_acess_to_forum_post: Désolé, seuls les admins ou l’auteur du sujet
+        peuvent modifier ce billet sur le forum
+      missing_delete_acess_to_forum_post: Désolé, seuls les admins ou l’auteur du
+        sujet peuvent supprimer ce billet du forum
       missing_set_article_as_exemplar_privilege: Désolé, seuls les conservateurs peuvent
         qualifier un article comme exemplaire.
       missing_delete_access_to_synonym: Désolé, seuls les agents peuvent supprimer
@@ -5404,6 +5413,8 @@ fr:
     proche avenir.
   gives_access_to_a_single_hierarchy_indexed_by_eol: donne accès à une seule hiérarchie
     indexée par l’EdlV et à ses relations internes
+  gives_access_to_a_single_hierarchy_descendants_by_eol: donne accès aux descendants
+    d’une entrée de la hiérarchie
   global_access_tagline: Accès global à la connaissance sur la vie sur Terre.
   global_navigation: Navigation globale
   glossary: Glossaire
@@ -6752,6 +6763,8 @@ fr:
     à la documentation sur l’IPA des pages pour plus d’information sur l’accès à d’autres
     hiérarchies qui correspondent à une page EdlV particulière. Le champ 'taxonConceptID'
     contient l’identifiant de la page EdlV qui peut être utilisé dans l’IPA des pages.
+  hierarchies_entries_descendants_description: À partir de l’identifiant d’une entrée
+    de la hiérarchie, cette API renvoie tous les descendants de cette entrée.
   hierarchies_description: L’Encyclopédie de la Vie n’a pas de hiérarchie taxinomique
     unique, utilisée pour organiser ses pages. À la place, l’EdlV indexe plusieurs
     hiérarchies et les compare entre elles. Cette IPA liste les métadonnées d’une

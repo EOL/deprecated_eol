@@ -2122,6 +2122,7 @@ pms:
       is_not_complete: Nò
       query_empty: (gnun filtr)
       processing: tratament
+      error: cheicòs a l'é andàit mal con s'archivi
       refresh: agiorné
       row_count: Cont
       search_again: sërché torna
@@ -4090,7 +4091,7 @@ pms:
     da separé. J'àutre classificassion a peulo esse tramudà ant la neuva pàgina apress
     soa creassion
   classifications_summary_header_with_count:
-    zero: Classificassion ëd sòlit nen visìbil ans l'EdV
+    zero: L'EdV a l'ha gnun-e classificassion për costa tassonomìa
     one: Trovà an %{count} classificassion
     other: Trovà an %{count} classificassion
   classifications_with_count:
@@ -4140,6 +4141,9 @@ pms:
       a conten %{count} element.
   collection_delete_link: Eliminé costa colession ëd fasson definitiva
   collection_destroyed: La colession a l'é stàita eliminà.
+  collection_removed: La colession %{collection} a l'é dëscancelà.
+  collection_update_failure: La colession %{collection} a l'ha pa podù esse agiornà.
+    Ch'a contròla s'a-i é un problema ant j'element dla colession
   collection_error_no_items_selected: 'Eror: Gnun element selessionà, gnun-a assion
     a l''é stàita fàita.'
   collection_image: Plancia dla colession
@@ -4459,6 +4463,8 @@ pms:
     për %{resource_title} agiornà për da bin.
   content_partner_resource_harvest_event_update_unsuccessful_error: An dëspias, a-i
     é staje n'eror, l'eveniment d'arcòlta për %{resource_title} a l'é nen ëstàit agiornà.
+  content_partner_resource_page_title: Enciclopedìa dla Vita - %{content_partner_name}  -
+    %{resource_name}
   content_partner_resource_will_be_deleted: Tut lòn ch'a l'é stàit cujì da l'arsorsa
     %{resource_title} a sarà dëscancelà, për piasì ch'a speta 24 ore për andé anans.
   content_partner_resource_hierarchy_browsable: Navigàbil
@@ -5035,6 +5041,7 @@ pms:
   eol_api: IPA dl'EdV
   eol_api_hierarchies: 'IPA dl''EdV: gerarchìe'
   eol_api_hierarchy_entries: 'API ëd l''EdV: vos ëd gerarchìa'
+  eol_api_hierarchy_entries_descendants: 'EOL API: Dissendent dla gerarchìa dle vos'
   eol_api_pages: 'API ëd l''EdV: pàgine'
   eol_api_ping: 'API ëd l''EdV: ping'
   eol_api_provider_hierarchies: 'API ëd l''EdV: gerarchìe ëd fornidor'
@@ -5082,4 +5089,210 @@ pms:
     JSON an giontant n'estension .json
   example_colon: 'Esempi:'
   exception: Ecession
+  exceptions:
+    security_violations:
+      administrators_only: An dëspias, l'acess a l'é limità a j'aministrator ëd l'EdV.
+      default: Acess negà.
+      hidden_user_login: An dëspias, la conession a l'é disativà për cost cont.
+      hidden_user_recover_account: An dëspias, l'arcuperassion dël cont a l'é disativà
+        për ës cont.
+      hidden_user_temporary_login: An dëspias, l'arcuperassion dël cont e la conession
+        a son disativà për ës cont.
+      inactive_user_login: An dëspias, ës cont a l'é ancor nen ativ. Si chiel a l'ha
+        nen arseivù un mëssagi ëd verìfica cand a l'é anscrivusse, për piasì ch'a
+        fasa la procedura d'arcuperassion dël cont për verifiché soa adrëssa ëd pòsa
+        eletrònica e ativé sò cont.
+      min_master_curators_only: An dëspias, l'acess a l'é arzervà ai Conservator ëd
+        l'EdV con un livel minimal ëd conservassion ëd Mèistr.
+      min_full_curators_only: An dëspias, l'acess a l'é arzervà ai Conservator ëd
+        l'EdV con un livel mìnim ëd conservassion ëd Total.
+      min_assistant_curators_only: An dëspias, l'acess a l'é arzervà ai conservator
+        ëd l'EdV con un livel ëd conservassion mìnim d'assistent.
+      admin_or_master_curators_only: An dëspias, l'acess a l'é arzervà a j'aministrator
+        e ai conservator ëd l'EdV con un lìvel mìnim ëd conservassion ëd Mèistr.
+      no_access: An dëspias, costa fonsionalità a l'é për ël moment disabilità. Ch'a
+        verìfica torna tòst.
+      missing_edit_acess_to_forum_category: An dëspias, mach j'aministrator a peulo
+        modifiché sa categorìa ëd piassa ëd discussion
+      missing_delete_acess_to_forum_category: An dëspias, mach j'aministrator a peulo
+        eliminé sa categorìa ëd piassa ëd discussion
+      missing_edit_acess_to_forum_post: An dëspias, mach j'aministrator o l'autor
+        ëd la publicassion a peulo modifiché costa publicassion an sla piassa ëd discussion
+      missing_delete_acess_to_forum_post: An dëspias, mach j'aministrator o l'autor
+        dël soget a peulo dëscancelé costa publicassion an sla piassa ëd discussion
+      missing_set_article_as_exemplar_privilege: An dëspias, mach ij conservator a
+        peulo qualifiché n'artìcol tanme esemplar
+      missing_delete_access_to_synonym: An dëspias, mach j'agent a peulo dëscancelé
+        ës sinònim
+      missing_delete_access_to_data_search_file: An dëspias, mach j'aministrator,
+        ij mèistr conservator o ël propietari dl'archivi a peulo dëscancelé st'archivi
+      missing_permission_to_view_open_authentications: An dëspias, mach j'aministrator
+        e ël propietari dël cont a peulo vëdde l'autentificassion duverta për ës cont
+      missing_permission_to_add_open_authentications: An dëspias, mach j'aministrator
+        e ël propietari dël cont a peulo gionté d'autentificassion duverte për ës
+        cont
+      missing_permission_to_delete_open_authentications: An dëspias, mach j'aministrator
+        e ël propietari dël cont a peulo dëscancelé j'autentificassion duverte për
+        ës cont
+      this_action_requires_higher_curation_level: An dëspias, s'assion a l'ha damanca
+        un livel ëd conservassion pi àut
+      admins_and_joined_only_can_read: An dëspias, a dovrìa giontesse a costa colession
+        për podèj vëdd-la
+      owner_and_managers_only_can_edit: An dëspias, mach ël propietari dla colession
+        o ij sò gestor a peulo modifichela
+      error_revoking_editor_on_watch_collection: An dëspias, j'editor a peulo nen
+        esse gavà da le colession ëd lòn ch'as ten sot-euj
+      error_revoking_editor_on_an_empty_community: An dëspias, j'editor a peulo pa
+        esse gavà da na comunità veuida
+      only_managers_can_edit_community: An dëspias, mach ij gestor a peulo modifiché
+        sa comunità-sì
+      only_managers_can_delete_community: An dëspias, mach ij gestor a peulo dëscancelé
+        costa comunità
+      only_admins_can_view_content_pages: An dëspias, mach j'aministrator a peulo
+        consulté le pàgine ëd contnù
+      only_admins_can_view_translated_content_pages: An dëspias, mach j'aministrator
+        a peulo vëdde le pàgine ëd contnù voltà an tradussion
+      only_admins_can_edit_forums: An dëspias, mach j'aministrator a peulo modifiché
+        le piasse ëd discussion
+      must_be_logged_in: An dëspias, a venta ch'a sia rintrà ant ël sistema
+      only_admins_can_read_hidden_news_items: An dëspias, mach j'aministrator a peulo
+        lese j'element ëd neuve stërmà
+      only_admins_can_read_hidden_translated_news_items: An dëspias, mach j'aministrator
+        a peulo lese j'element ëd neuve stërmà con tradussion
+      can_not_access_unpublished_taxon: An dëspias, a peul nen acede a na tassonomìa
+        nen publicà
+      only_data_owner_can_edit: An dëspias, mach ël propietari dij dàit a peul modificheje
+      only_data_owner_can_delete: An dëspias, mach ël propietari dij dàit a peul dëscanceleje
+      error_editing_someone_account: An dëspias, a peul mach modifiché sò cont përsonal
+      can_not_edit_permissions: An dëspias, a peul pa modifiché ij përmess
+      collection_job_not_valid: Travaj ëd cujìa nen vàlid
+  excluded_icon_tip: Le righe marcà con la plancia d'esclusion %{excluded_icon} a
+    saran mai smonùe an sle pàgine ëd presentassion dle tassonomìe.
+  expand_all_children: dësvlupé tute le masnà
+  expired: Scadù
+  expires_in_colon: 'A scad da-sì:'
+  explore: Da esploré
+  explore_what_we_know_about_taxon: Ch'a esplòra lòn che l'EdV a conòss a propòsit
+    ëd %{taxon}.
+  export_curator_csv_link: '[esporté tuti ij conservator an CSV]'
+  export_this_list_as_csv: Esporté sa lista an CSV
+  external_link_header: Liura esterna
+  external_link_icon_alt_text: Liura esterna.
+  external_report_click_url_to_proceed: Rapòrt estern. Ch'a sgnaca an sl'adrëssa për
+    andé anans.
+  external_report_click_year_to_proceed: Rapòrt estern. Ch'a sgnaca an sl'ann për
+    andé anans.
+  facebook: Facebook
+  faculty_staff_or_grad_student_credential_option: statù ëd professor, ëd personal
+    o dë student ëd dotorà ant un dipartiment ëd n'università o ëd na scòla apropià
+  failed_login_attempts_with_count:
+    one: (%{count} tentativ ëd conession falì)- a dev esse verificà për che l'utent
+      a rintra ant ël sistema
+    other: (%{count} tentativ ëd conession falì)- a dev esse verificà për che l'utent
+      a rintra ant ël sistema
+  false_label: Fàuss
+  family_name_colon: 'Cognòm:'
+  feedback: Opinion
+  file: Archivi
+  file_download_pending: Për creé l'archivi da dëscarié a-i va un pò 'd temp, antlora
+    i l'oma tacà un travaj dë sfond për lòn. A peul <a href='%{link}'>verifiché lë
+    stat ëd sò travaj</a> cand ch'a veul.
+  file_download_ready: EdV a l'ha livrà ëd creé n'archivi ëd dàit arsercà për soa
+    arcesta ëd «%{query}». A peul <a href='%{file}'>dëscarielo cand a veul ant ij
+    di ch'a ven-o</a>.
+  file_download_refreshing: Për rinfrësché un dëscariament a-i va un pò 'd temp, i
+    l'oma donca anviarà un travaj an slë sfond për lòn. A peul <a href='%{link}'>verifiché
+    lë stat ëd sò travaj</a> cand ch'a veul.
+  file_id: Identificativ dl'archivi
+  file_size: Taja dl'archivi
+  filed_under_label_with_date: Rangià sota %{label} ai %{date}
+  fill_in_a_message_below_to_send_email_to_user: Ch'a pronta un mëssagi sì-sota për
+    mandelo a s'utent dal sit. Ël mëssagi a sarà mandà cand a spediss ëd formolari.
+  filter_button: Filtr
+  filter_by_day: Filtré për di
+  filter_by_subject: Filtré për argoment
+  filter_by_status_all_option: Tuti jë statù
+  filter_by_status_trusted_option: Fidà
+  filter_by_status_unreviewed_option: Nen revisionà
+  filter_by_status_untrusted_option: Nen fidà
+  filter_by_status_inappropriate_option: Inapropià
+  filter_by_status: Filtré pr'ëstatù
+  filter_by_type: Filtré për sòrt
+  filter_by_type_all_option: Tute le sòrt
+  filter_by_type_all_option_with_count:
+    one: Tute le sòrt (%{count})
+    other: Tute le sòrt (%{count})
+  filter_by_type_collection_option: Colession
+  filter_by_type_community_option: Comunità
+  filter_by_type_content_page_option: A propòsit ëd l'EdV
+  filter_by_type_image_option: Plance
+  filter_by_type_image_option_with_count:
+    one: Plance (%{count})
+    other: Plance (%{count})
+  filter_by_type_data_option: Caraterìstiche
+  filter_by_type_link_option: Liure
+  filter_by_type_text_option: Artìcoj
+  filter_by_type_user_option: Përson-e
+  filter_by_type_photosynth_option: Sìntesi fotogràfiche
+  filter_by_type_sound_option: Son
+  filter_by_type_sound_option_with_count:
+    one: Argistrassion sonore (%{count})
+    other: Argistrassion sonore (%{count})
+  filter_by_type_taxon_concept_option: Tassonomìe
+  filter_by_type_video_option: Filmà
+  filter_by_type_video_option_with_count:
+    one: Filmà (%{count})
+    other: Filmà (%{count})
+  filter_by_type_comment_option: Coment
+  filter_by_type_object_curated_option: Oget conservà
+  filter_by_type_name_option: Nòm
+  filter_by_type_taxa_comment_option: Coment dle tassonomìe
+  filter_media: filtré ij mojen
+  filter_newsfeed_option_all: Tuti
+  filter_newsfeed_option_messages: Coment
+  filter_newsfeed_option_community: Comunità
+  filter_newsfeed_option_collections: Colession
+  filter_newsfeed_option_watchlist: Lista dla ròba ch'as ten sot-euj
+  filter_newsfeed_option_curation: Conservassion
+  filtered_information: Anformassion filtrà
+  taxon_concept_search_keyword:
+    one: tassonomìa
+    other: tassonomìe
+  image_search_keyword:
+    one: plancia
+    other: plance
+  video_search_keyword:
+    one: filmà
+    other: filmà
+  sound_search_keyword:
+    one: son
+    other: son
+  text_search_keyword:
+    one: artìcol
+    other: artìcoj
+  data_search_keyword:
+    one: caraterìstica
+    other: caraterìstiche
+  link_search_keyword:
+    one: liura
+    other: liure
+  user_search_keyword:
+    one: përson-a
+    other: përson-e
+  community_search_keyword:
+    one: comunità
+    other: comunità
+  collection_search_keyword:
+    one: colession
+    other: colession
+  find_taxa_submit_button: trové dle tassonomìe
+  flash_notice_redirected_from_search_html: A l'é rivà ambelessì arsercand <em>%{search_string}</em>.
+    <a href="%{more_results_url}">Ch'a sgnaca ambelessì për torné a la pàgina d'arserca.</a>
+  flash_notice_redirected_from_search_html_more_results: A l'é rivà ambelessì arsercand
+    <em>%{search_string}</em>. <a href="%{more_results_url}">Ch'a sgnaca ambelessì
+    për vëdde d'àutri arzultà d'arserca.</a>
+  flash_video: Filmà curt
+  flickr: Flickr
+  focus_collection_edit: A peul modifiché le colession ëd sa comunità diretaman an
+    sla pàgina ëd modìfica ëd minca na colession.
 ...

@@ -878,7 +878,7 @@ zh-CN:
       meta_description_map: 地图 - %{dato_description}
       meta_description_sound: 声音 - %{dato_description}
       meta_description_video: 视频 - %{dato_description}
-      meta_description_default: 来自%{supplier}的%{dato_title}
+      meta_description_default: 来自 %{supplier} 的 %{dato_title}。
       meta_description_default_article: 文章——来自%{supplier}的%{dato_title}。
       meta_description_default_image: 图片——来自%{supplier}的%{dato_title}。
       meta_description_default_image_map: 地图——来自%{supplier}的%{dato_title}。
@@ -886,8 +886,8 @@ zh-CN:
       meta_description_default_sound: 音频——来自%{supplier}的%{dato_title}。
       meta_description_default_video: 视频——来自%{supplier}的%{dato_title}。
       meta_supplier_default: 一个贡献者
-      meta_title: 来自 %{supplier}的%{dato_title} \
-      tweet_text: 来自 %{supplier}的%{dato_title} \
+      meta_title: 来自 %{supplier} 的 %{dato_title}
+      tweet_text: 来自 %{supplier} 的 %{dato_title}
   eol_statistics:
     comparing_dates: <span class="assistive">比较</span> <span class="date_one">%{date_one}</span>
       <span class="assistive">和</span> <span class="date_two">%{date_two}</span>
@@ -1740,6 +1740,7 @@ zh-CN:
       is_not_complete: 否
       query_empty: （无过滤）
       processing: 处理中
+      error: 此文件有些错误
       refresh: 刷新
       row_count: 計數
       search_again: 重新搜尋
@@ -2736,6 +2737,7 @@ zh-CN:
   classifications_rank_column_header: 等级
   classifications_split_column_header: 拆分/移动
   classifications_summary_header_with_count:
+    zero: EOL没有用于此分类的分类系统
     other: '在 %{count}个分类系统中发现 '
   classifications_with_count:
     other: '%{count} 个分类系统'
@@ -2981,6 +2983,7 @@ zh-CN:
   content_partner_resource_harvest_events_see_all_link: 查看全部 <span class=assistive>采集事件</span>
   content_partner_resource_harvest_event_update_successful_notice: 资源%{resource_title}的采集事件成功更新。
   content_partner_resource_harvest_event_update_unsuccessful_error: 抱歉，出现了一个错误，资源%{resource_title}的收获事件未能更新。
+  content_partner_resource_page_title: 网络生命大百科 - %{content_partner_name} - %{resource_name}
   content_partner_resource_hierarchy_browsable: 可浏览的
   content_partner_resource_hierarchy_complete_true: '"这个分类系统设定为<strong>已审核</strong>。已审核的分类系统认为每个条目都是唯一的，例如,名称相同的字符串被视为同名异物。"'
   content_partner_resource_hierarchy_complete_false: 这个分类系统未经审核。相匹配的条目被视为同一概念。

@@ -175,6 +175,7 @@ module Eol
     Rails.configuration.user_added_data_graph = "http://eol.org/user_data/"
     Rails.configuration.known_uri_graph = "http://eol.org/known_uris"
     Rails.configuration.known_taxon_uri_re = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.
+    Rails.configuration.known_data_object_uri_re = /^http:\/\/(www\.)?eol\.org\/data_objects\/(\d+)/i
     Rails.configuration.optional_reference_uris = { # Be careful changing these...  :)
       identifier: "http://purl.org/dc/terms/identifier",
       publicationType: "http://eol.org/schema/reference/publicationType",

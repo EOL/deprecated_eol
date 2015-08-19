@@ -147,7 +147,7 @@ zh-TW:
         total_associations: 關係
         total_measurement_types: 測量模式
         total_association_types: 關聯類型
-        total_user_added_data: 用戶添加的數據
+        total_user_added_data: 使用者新增的資料
       forum:
         forum_category_id: 分類
         name: 論壇名稱
@@ -3947,7 +3947,7 @@ zh-TW:
   merge_data: 合併分類
   merge_pending: 這個合併操作將需要一段時間。在合併完成之前，涉及的分類群會被鎖住、不能再做進一步的分類編輯。當過程結束時，您將會收到一封email，它會出現在此頁面的newsfeed內。
   message_colon: 訊息：
-  message_will_disappear: (這個訊息馬上就會消失)
+  message_will_disappear: (此訊息馬上就會消失)
   meta_description_colon: Meta描述：
   meta_keywords_colon: Meta關鍵字：
   meta_title_site_name: 生命大百科

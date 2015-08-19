@@ -106,7 +106,7 @@ describe TaxonOverview do
   it 'should know how many classifications it has available' do
     hiers = []
     4.times { hiers << HierarchyEntry.gen(taxon_concept: @taxon_concept) }
-    @taxon_concept.should_receive(:published_browsable_hierarchy_entries).and_return(hiers)
+    @taxon_concept.should_receive(:published_hierarchy_entries).and_return(hiers)
     @overview.classifications_count.should == 4
   end
 
@@ -190,4 +190,13 @@ describe TaxonOverview do
     @overview.cache_id.should == "taxon_overview_#{@taxon_concept.id}_#{@language.iso_639_1}"
   end
 
+  it 'includes the nonbrowsable hierarchy_entries in the classifications_count' do
+    browsable_hierarchy = Hierarchy.gen(browsable: 1)
+    nonbrowsable_hierarchy = Hierarchy.gen(browsable: 0)
+    tc = TaxonConcept.gen
+    3.times{ HierarchyEntry.gen(hierarchy_id: browsable_hierarchy.id, published: 1, taxon_concept_id: tc.id )}
+    2.times{ HierarchyEntry.gen(hierarchy_id: nonbrowsable_hierarchy.id, published: 1, taxon_concept_id: tc.id )}
+    overview = TaxonOverview.new(tc, @user)
+    expect(overview.classifications_count).to eq(5)
+  end
 end

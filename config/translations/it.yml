@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Ale.salmo
+# Author: Alexmar983
 # Author: Beta16
 # Author: Chris96
 # Author: Damiano Martino
@@ -9,6 +10,7 @@
 # Author: EdoDodo
 # Author: Eleonora negri
 # Author: F. Cosoleto
+# Author: Federico Mugnaini
 # Author: Gianfranco
 # Author: Inskatolata
 # Author: Luigipiccoli
@@ -1511,6 +1513,7 @@ it:
       style='color:#195184'>contattaci</a>.
     see_all_activity: Vedi tutte le attività precedenti nel <a href='%{activity_url}'
       style='color:#195184'>tuo newsfeed </a>.
+    resource_validation: 'La risorsa: %{resource}convalidata è finita'
     bulk_comments_with_count:
       one: C'è un nuovo commento su %{on}
       other: Ci sono %{count} nuovi commenti su %{on}
@@ -2109,6 +2112,7 @@ it:
       is_not_complete: "No"
       query_empty: (senza filtri)
       processing: Elaborazione in corso
+      error: qualcosa è andato storto con questo file
       refresh: Aggiorna
       row_count: Conteggio
       search_again: cerca ancora

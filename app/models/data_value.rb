@@ -10,7 +10,7 @@ class DataValue
     elsif options[:value_for_known_uri] && options[:value_for_known_uri].is_a?(KnownUri) && options[:value_for_known_uri].value_is_text
       @uri = known_uri_or_string
       @label = known_uri_or_string
-    elsif label = EOL::Sparql.uri_to_readable_label(known_uri_or_string)
+    elsif label = EOL::Sparql.uri_to_readable_label(known_uri_or_string) and !label.blank?
       @uri = known_uri_or_string
       @label = label
     else

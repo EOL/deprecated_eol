@@ -2862,7 +2862,7 @@ en:
   classifications_split_column_header: "Split / Move"
   classifications_split_one_classification_only: "Please select only one classification to split. Other classifications can be moved to the new page after it has been created"
   classifications_summary_header_with_count:
-    zero: "Classification not normally visible on EOL"
+    zero: "EOL has no classifications for this taxon"
     one: "Found in %{count} classification"
     other: "Found in %{count} classifications"
   classifications_with_count:
@@ -2889,6 +2889,7 @@ en:
   collect_item: "Collect item"
   collect_items: "Collect items"
   collection_api_sort_field_notes: "If a sort_field parameter is included, only collection items whose sort field exactly matches the given string will be returned"
+  collection_create_failure: "Collection create failed. Check if there is a problem in the passed parameters."
   collection_created_with_count_notice:
     one: "Collection <em>%{collection_name}</em> successfully created with %{count} collection item."
     other: "Collection <em>%{collection_name}</em> successfully created with %{count} collection items."
@@ -2896,6 +2897,7 @@ en:
   collection_destroyed: "The collection was deleted."
   collection_removed: "Collection %{collection} is deleted."
   collection_update_failure: "Collection %{collection} update failed. Check if there is a problem in collection items"
+  collection_not_existing: "Collection %{collection} does not exist."
   collection_error_no_items_selected: "Error: No items selected, no actions were taken."
   collection_image: "Collection image"
   collection_is_empty: "This collection is currently empty."

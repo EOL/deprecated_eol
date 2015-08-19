@@ -140,7 +140,7 @@ uk:
         curators_full: Повноправні куратори
         curators_master: Куратори-майстри
         active_curators: Активні куратори
-        pages_curated_by_active_curators: Сторіноки, рецензовані активними кураторами
+        pages_curated_by_active_curators: Сторінки, рецензовані активними кураторами
         objects_curated_in_the_last_30_days: Об'єкти, під наглядом кураторів за останні
           30 днів
         curator_actions_in_the_last_30_days: Дії куратора протягом останніх 30 днів
@@ -149,7 +149,7 @@ uk:
         rich_hotlist_pages: Насичені високорейтингові сторінки
         rich_hotlist_pages_percentage: Насичені високорейтингові сторінки %
         redhotlist_pages: Червоні високорейтингові списки
-        rich_redhotlist_pages: Насичені червоні високо-рейтингові списки
+        rich_redhotlist_pages: Насичені червоні високорейтингові списки
         rich_redhotlist_pages_percentage: Насичені червоні високорейтингові сторінки
           %
         pages_with_score_10_to_39: Сторінки з оцінкою 10-40
@@ -1463,6 +1463,7 @@ uk:
       style='color:#195184'>зв'яжіться з нами</a>.
     see_all_activity: Переглянути усю попередню діяльність на <a href='%{activity_url}'
       style='color:#195184'>стрічці новин у вашій сторінці користувача</a>.
+    resource_validation: 'Перевірку ресурсу: %{resource} завершено'
     bulk_comments_with_count:
       one: Новий коментар на %{on}}
       other: '%{count} нові коментарі на %{on}'
@@ -1649,8 +1650,16 @@ uk:
           для %{scientific_name}, %{scientific_name} факт, факт про %{scientific_name},
           %{scientific_name} риса, риса %{scientific_name}, %{scientific_name} вимірювання,
           вимірювання % {scientific_name}'
-        meta_keywords_with_common_name: обчислювані дані %{preferred_common_name}
-        meta_title: Характерні дані для %{scientific_name}
+        meta_keywords_with_common_name: '%{preferred_common_name} факти,факти про
+          %{preferred_common_name},%{preferred_common_name} риси,риси %{preferred_common_name},%{preferred_common_name}
+          розміри,розміри %{preferred_common_name},%{scientific_name} факти,факти
+          про %{scientific_name},%{scientific_name} риси,риси %{scientific_name},%{scientific_name}
+          розміри,розміри %{scientific_name},%{preferred_common_name} факт,факт про
+          %{preferred_common_name},%{preferred_common_name} риса,риса %{preferred_common_name},%{preferred_common_name}
+          розмір,розмір %{preferred_common_name},%{scientific_name} факт,факт про
+          %{scientific_name},%{scientific_name} риса,риса %{scientific_name},%{scientific_name}
+          розмір,розмір %{scientific_name}'
+        meta_title: Розміри і факти про %{scientific_name}
         meta_title_with_common_name: Вимірювання і факти про %{preferred_common_name}
           (%{scientific_name})
         tweet_text: Факти про %{scientific_name}
@@ -2041,6 +2050,7 @@ uk:
       is_not_complete: Ні
       query_empty: (без фільтрів)
       processing: обробка
+      error: щось пішло не так з цим файлом
       refresh: оновити
       row_count: Число
       search_again: шукати знову

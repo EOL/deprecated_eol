@@ -694,6 +694,10 @@ class DataPointUri < ActiveRecord::Base
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v / 10 },
         reverse_function: lambda { |v| v * 10 } },
+      { starting_units:   [ 'http://purl.obolibrary.org/obo/UO_0000025' ],  # picogram
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v * (10 ** -12) },
+        reverse_function: lambda { |v| v * (10 ** 12) } },
       { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#US_pound' ],  # pound
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v * 453.592 },

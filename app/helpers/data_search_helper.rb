@@ -17,6 +17,10 @@ module DataSearchHelper
     end
     raw summary
   end
+  
+  def data_search_file?(download_file)
+    download_file.class.name == "DataSearchFile"
+  end
 
   def data_search_file_summary(search_file)
     summary_parts = []

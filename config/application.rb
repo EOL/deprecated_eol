@@ -199,6 +199,8 @@ module Eol
 
     Rails.configuration.data_search_file_rel_path = '/uploads/data_search_files/:id.csv'
     Rails.configuration.data_search_file_full_path = "#{Rails.public_path}#{Rails.configuration.data_search_file_rel_path}"
+    Rails.configuration.collection_download_file_rel_path = '/uploads/collection_download_files/:id.csv'
+    Rails.configuration.collection_download_file_full_path = "#{Rails.public_path}#{Rails.configuration.collection_download_file_rel_path}"
 
     Rails.configuration.hosted_dataset_path = 'http://localhost/eol_php_code/applications/content_server/datasets/'
 

@@ -89,6 +89,13 @@ class Collection < ActiveRecord::Base
   def editable_by?(whom)
     whom.can_edit_collection?(self)
   end
+  
+  def collection_has_data?
+    self.collection_items.taxa.each do |taxon_item|
+      return true if TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris.size > 0
+    end
+    return false
+  end
 
   def is_resource_collection?
     return true if resource || resource_preview

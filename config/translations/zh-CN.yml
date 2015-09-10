@@ -44,7 +44,7 @@ zh-CN:
       collection_item:
         annotation: 注释
         sort_field: 排序方式
-        refs: 参考资料
+        refs: 参考文献
       comment:
         body: 评论
       community:
@@ -2765,6 +2765,8 @@ zh-CN:
     other: 成功创建了 <em>%{collection_name}</em>收藏，包含 %{count} 项内容。
   collection_delete_link: 永久删除此收藏
   collection_destroyed: 该收藏已被删除。
+  collection_removed: 收藏%{collection}已删除。
+  collection_update_failure: 收藏%{collection}更新失败。请检查收藏项目中是否有问题
   collection_image: 收藏图像
   collection_is_empty: 该收藏当前为空。
   collection_item_edit_page_title: 编辑<em>%{collection_name}</em>收藏中的条目
@@ -3136,7 +3138,7 @@ zh-CN:
     other: 由%{count}个管理员审核
   curators_summary_learn_more_link: 了解如何管理
   curators_with_count:
-    other: '%{count}个管理员'
+    other: '%{count}个馆长'
   your_current_rating_0_of_5: 您当前的评级： 0/5
   your_current_rating_1_of_5: 您当前的评级： 1/5
   your_current_rating_2_of_5: 您当前的评级： 2/5
@@ -3146,6 +3148,7 @@ zh-CN:
   your_watch_collection: 您的关注列表
   current_language: 语言： %{iso_code}
   currently_in_eol: 目前在网络生命大百科中
+  institutional_sponsors: 慈善赞助商
   currently_published: 目前已发布
   daily: 每日
   darwin_core: 达尔文核心
@@ -3216,6 +3219,8 @@ zh-CN:
       search_suggestions_header: 不确定从何开始？
       search_tools_show_link: 显示搜索选项
       search_tools_hide_link: 隐藏搜索选项
+      search_within_taxon_group_intro_with_count:
+        other: 在分类组中搜索目前限定为少于%{count}分类群的组。<a href="%{contact_us_tech_url}">联络我们</a>以查找更多有关搜索更大群组的信息。
       sort_header: 排序结果
   data_search_attribute: 在TraitBank搜索带%{attribute}数据的记录
   data_show_n_more_rows: 展示NNN更多......
@@ -3251,7 +3256,7 @@ zh-CN:
   dato_update_user_text_error: 抱歉，发生了一个错误，此文章不能被更新。
   deactivate: 停用
   development_version_name: EOL V2 Beta
-  default: 默认的
+  default: 默认
   default_focus_collection_name_from_community: '%{name}的关注'
   default_rating: 默认评级
   default_rating_value_of_total: 默认评级：%{total}的%{rating}
@@ -3324,6 +3329,7 @@ zh-CN:
   eol_api: EOL API
   eol_api_hierarchies: 'EOL API: 分类系统'
   eol_api_hierarchy_entries: 'EOL API: 分类系统条目'
+  eol_api_hierarchy_entries_descendants: EOL API：层级条目的后代
   eol_api_pages: 'EOL API: 页面'
   eol_api_ping: 'EOL API: 连接测试'
   eol_api_provider_hierarchies: 'EOL API: 提供者的分类系统结构'
@@ -3367,12 +3373,20 @@ zh-CN:
       missing_edit_acess_to_forum_category: 对不起，只有管理员可以编辑此论坛分类
       missing_delete_acess_to_forum_category: 对不起，只有管理员可以删除此论坛分类
       missing_set_article_as_exemplar_privilege: 抱歉，只有馆长可以将条目设置为标本
+      missing_delete_access_to_data_search_file: 对不起，只有管理员、主馆长或文件的主人可以删除此文件
+      missing_permission_to_view_open_authentications: 对不起，只有管理员和账户主人可以查看用于此账户的开放验证
+      missing_permission_to_add_open_authentications: 对不起，只有管理员和账户主任科员添加用于此账户的开放验证
+      missing_permission_to_delete_open_authentications: 对不起，只有管理员和账户主人可以删除用于此账户的开放验证
       this_action_requires_higher_curation_level: 对不起，此操作需要更高的管理等级
+      owner_and_managers_only_can_edit: 对不起，只有收藏的主人或经理可以编辑它
+      only_managers_can_edit_community: 对不起，只有经理可以编辑此社群
+      only_managers_can_delete_community: 对不起，只有经理可以删除此社群
       only_admins_can_view_content_pages: 对不起，只有管理员可以查看内容页面
       only_admins_can_view_translated_content_pages: 对不起，只有管理员可以查看已翻译的内容页面
       only_admins_can_edit_forums: 对不起，只有管理员可以编辑论坛
       must_be_logged_in: 对不起，您必须登录
       only_admins_can_read_hidden_news_items: 对不起，只有管理员可以阅读隐藏的新闻项目
+      can_not_access_unpublished_taxon: 对不起，您不能访问未发布的分类单元
       only_data_owner_can_edit: 对不起，只有数据所有者可以编辑它
       only_data_owner_can_delete: 对不起，只有数据所有者可以删除它
       error_editing_someone_account: 对不起，您只可以编辑您自己的账户
@@ -3505,6 +3519,7 @@ zh-CN:
   given_the_vast_number: '"从数量巨大的学名和俗名(约2000万个名字)中，用户很难准确找到其期望的物种, 比如,Robin这个名字既是几种鸟的名字(American
     Robin, Alpine Robin, Smoky Robin), 也是几种鱼的名字,还可能是曾经给一些物种命名、名叫Robin的分类学家。我们的检索结果会包含确切的检索条件，但是不能保证返回的结果一定是您的理想结果。我们将不断尝试改进这些相关的检索结果。"'
   gives_access_to_a_single_hierarchy_indexed_by_eol: 开放对EOL索引的单一分类系统及其内部关系的访问
+  gives_access_to_a_single_hierarchy_descendants_by_eol: 提供对单一层级条目的后代的访问权
   global_access_tagline: 为全球提供地球上生命的知识
   global_navigation: 全球导航
   glossary: 术语表
@@ -4108,7 +4123,7 @@ zh-CN:
   record_count: 记录计数
   record_not_found: '[未找到记录]'
   redirect_url_ok_title_unavailable: 重定向URL可以，标题不可用
-  reference: 参考资料
+  reference: 参考文献
   references_cabs_colon: 参考文献：
   related_names_with_count:
     other: '%{count}个相关名称'
@@ -4266,7 +4281,7 @@ zh-CN:
   social_sharing_header: 社交网站上的EOL
   social_sharing_twitter_tweet_button: Tweet
   social_sharing_twitter_follow_eol_button: 关注 @eol
-  some_required_fields_were_not_entered: 一些必填项为空（您必须输入一个标题和内容或一个URL）
+  some_required_fields_were_not_entered: 一些必填项为空（您必须输入一个标题和内容或一个URL）。
   sort_by_button: 排序
   sort_by_label: 排序项
   sort_by_newest_option: 最新
@@ -4383,7 +4398,7 @@ zh-CN:
   taxon_suggested: 建议的类群
   technical_functions: 技术功能
   terms_agreement_form_fallback: 在您可以访问您的账户前，请检阅并同意<a href="%{terms_url}">使用条款</a>。
-  terms_agreement_form_header: 使用项
+  terms_agreement_form_header: 使用条款
   terms_agreement_form_submit: 我同意
   terms_of_use_link: 使用条款与隐私
   term_for_search_admin_ui: 项
@@ -4408,6 +4423,7 @@ zh-CN:
   the_cp_count_info: 该数目为在各自的物种信息模块主题类别中发布了数据对象的内容合作伙伴的总数。
   the_count_represents_the_total: 该数目为在每个物种信息模块主题类别中发布的数据对象的总数。
   hierarchies_entries_description: 网络生命大百科并不是基于一个单一的分类学系统，而是包含了很多分类系统，并给这些系统建立索引，比较它们之间的区别。因此任何网络生命大百科网站网页中的数据节点都可能来自多个分类系统。该API允许访问单一的分类系统以及它的内部关系。参考网络生命大百科其它网页中的API文档信息，可以访问其它的分类系统。“taxonConceptID”是网络生命大百科网页标识符，可用于API页面。
+  hierarchies_entries_descendants_description: 提供此API返回所有此层级条目后代时，出现的层级条目的标识符。
   hierarchies_description: 网络生命大百科不基于一个分类系统建立物种页。EOL为许多分类系统建立了索引并对它们做了比较。该API列出关于分类系统的元数据，例如数据提供者、源URL，以及分类树所有根节点的分类单元的元数据。
   the_file_was_uploaded: 文件已上传。
   the_following_bibliography: 下面的书目通过将我们内容合作伙伴提供的所有参考文献整合到一起而生成。来自各个内容合伙人提供的所有文献。可能有重复。

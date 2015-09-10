@@ -1,16 +1,19 @@
 # Messages for Vietnamese (Tiếng Việt)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Dinhxuanduyet
 # Author: Prenn
 # Author: Trần Nguyễn Minh Huy
 # Author: Tuankiet65
 ---
 vi:
+  translated_activities-name-activity_id-19: Hồ sơ
   translated_activities-name-activity_id-50: không đáng tin cậy
   translated_activities-name-activity_id-51: hiện
   translated_activities-name-activity_id-52: tạo
   translated_activities-name-activity_id-53: ẩn
   translated_activities-name-activity_id-54: cập nhật
+  translated_activities-name-activity_id-55: Không phù hợp
   translated_activities-name-activity_id-56: xóa
   translated_activities-name-activity_id-58: đáng tin cậy
   translated_activities-name-activity_id-64: xóa
@@ -23,19 +26,54 @@ vi:
   translated_agent_roles-label-agent_role_id-21: nhà cung cấp
   translated_agent_roles-label-agent_role_id-22: Biên dịch viên
   translated_agent_roles-label-agent_role_id-2: Tác giả
+  translated_agent_roles-label-agent_role_id-3: Biên dịch
+  translated_agent_roles-label-agent_role_id-4: Người soạn
   translated_agent_roles-label-agent_role_id-5: Người tạo
+  translated_agent_roles-label-agent_role_id-6: Giám đốc
   translated_agent_roles-label-agent_role_id-7: Biên tập viên
+  translated_agent_roles-label-agent_role_id-8: Người minh họa
   translated_agent_roles-label-agent_role_id-9: Nhiếp ảnh gia
   translated_audiences-label-audience_id-1: Người dùng chuyên nghiệp
   translated_audiences-label-audience_id-2: Công chúng nói chung
   translated_audiences-label-audience_id-3: Trẻ em
+  translated_collection_types-label-collection_type_id-10: Âm thanh
   translated_collection_types-label-collection_type_id-11: Liên kết
   translated_collection_types-label-collection_type_id-15: Miêu tả
   translated_collection_types-label-collection_type_id-16: Hình ảnh
+  translated_collection_types-label-collection_type_id-3: Mô tả
+  translated_collection_types-label-collection_type_id-4: Hình ảnh
+  translated_contact_subjects-title-contact_subject_id-30: Tạo một bộ sưu tập (phát
+    âm và ngữ pháp, hình ảnh, thông tin)
+  translated_contact_subjects-title-contact_subject_id-31: Đóng góp hình ảnh, video
+    hoặc âm thanh
+  translated_data_types-label-data_type_id-1: Hình ảnh
+  translated_data_types-label-data_type_id-2: Âm thanh
+  translated_data_types-label-data_type_id-3: Văn bản
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: Hình ảnh GBIF
   translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Không quyền nào được bảo lưu
+  translated_licenses-description-license_id-29: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-2: '&#169; Tất cả các quyền được bảo
+    lưu'
+  translated_licenses-description-license_id-30: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-31: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-32: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-33: Vài quyền được bảo lưu
   translated_licenses-description-license_id-34: Phạm vi công cộng
   translated_licenses-description-license_id-35: Phạm vi công cộng
+  translated_licenses-description-license_id-36: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-37: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-38: Vài quyền được bảo lưu
   translated_licenses-description-license_id-39: Phạm vi công cộng
+  translated_licenses-description-license_id-3: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-42: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-4: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-5: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-6: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-7: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-8: Vài quyền được bảo lưu
+  translated_licenses-description-license_id-9: Vài quyền được bảo lưu
   translated_ranks-label-rank_id-106: biểu mẫu
   translated_ranks-label-rank_id-107: biểu mẫu
   translated_ranks-label-rank_id-112: chi
@@ -152,4 +190,6 @@ vi:
   translated_vetted-label-vetted_id-4: Không đáng tin cậy
   translated_vetted-label-vetted_id-5: Đáng tin cậy
   translated_vetted-label-vetted_id-6: Không phù hợp
+  translated_visibilities-label-visibility_id-0: Ẩn
+  translated_visibilities-label-visibility_id-1: Hiện
 ...

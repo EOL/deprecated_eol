@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Alcali
+# Author: Almondega
 # Author: Anaclaudiaml
 # Author: Dianakc
 # Author: Elival
@@ -2049,6 +2050,8 @@ pt-BR:
         meta_description_with_common_name: Notícias sobre %{preferred_common_name}
           e atualizações sobre %{scientific_name}.
         meta_keywords: Notícias sobre %{scientific_name}, atualizações sobre %{scientific_name}
+        meta_keywords_with_common_name: Notícias sobre %{preferred_common_name}, atualizações
+          sobre %{preferred_common_name}, atualizações sobre %{scientific_name}
         meta_title: Comentários sobre %{scientific_name}
         meta_title_with_common_name: Comentários sobre %{preferred_common_name} (%{scientific_name})
         tweet_text: Comentários sobre %{scientific_name}

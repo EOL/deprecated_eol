@@ -1,4 +1,5 @@
 class DataSearchFile < ActiveRecord::Base
+  include FileDownloadHelper
 
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
     :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id, :file_number, :failed_at, :error
@@ -14,12 +15,11 @@ class DataSearchFile < ActiveRecord::Base
   PER_PAGE = 500 # Number of results we feel confident to process at one time (ie: one query for each)
   PAGE_LIMIT = 500 # Maximum number of "pages" of data to allow in one file.
   LIMIT = PAGE_LIMIT * PER_PAGE
-  EXPIRATION_TIME = 2.weeks
 
   def build_file
     unless hosted_file_exists?
       write_file
-      response = upload_file 
+      response = upload_file(id, local_file_path, local_file_url)
       if response[:error].blank?
         # The user may delete the download before it has finished (if it's hung,
         # the workers are busy or its just taking a very long time). If so,
@@ -43,28 +43,8 @@ class DataSearchFile < ActiveRecord::Base
     end
   end
 
-  def hosted_file_exists?
-    !! (hosted_file_url && EOLWebService.url_accepted?(hosted_file_url))
-  end
-
-  def complete?
-    failed_at.nil? && ! completed_at.nil?
-  end
-
   def instance_still_exists?
     !! DataSearchFile.find_by_id(id)
-  end
-
-  def downloadable?
-    complete? && hosted_file_url && ! ( expired? || row_count.blank? || row_count == 0)
-  end
-
-  def expired?
-    Time.now > expires_at
-  end
-
-  def expires_at
-    completed_at + EXPIRATION_TIME
   end
 
   def local_file_url
@@ -129,14 +109,6 @@ class DataSearchFile < ActiveRecord::Base
     rows
   end
 
-  def get_headers(rows)
-    col_heads = Set.new
-    rows.each do |row|
-      col_heads.merge(row.keys)
-    end
-    col_heads
-  end
-
   # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file for users of Excel. q.v.:
   # http://stackoverflow.com/questions/9886705/how-to-write-bom-marker-to-a-file-in-ruby
   def write_file
@@ -146,36 +118,6 @@ class DataSearchFile < ActiveRecord::Base
       csv_builder(csv, col_heads, rows)
     end
     update_attributes(row_count: rows.count)
-  end
-
-  def upload_file
-    where = local_file_path
-    error = ""
-    begin
-      hash = ContentServer.upload_data_search_file(local_file_url, id)
-      if hash.nil?
-        return {error: "Couldn't create the required file"}
-      else
-        uploaded_file_url = hash[:response]
-        error = hash[:error]
-        if uploaded_file_url
-          where = uploaded_file_url
-          update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
-          return {error: nil}
-        end  
-      end
-    rescue => e
-      # TODO: This is an important one to catch!
-      Rails.logger.error "ERROR: could not upload #{where} to Content Server: #{e.message}"
-    end
-    return {error: error}
-  end
-
-  def csv_builder(csv, col_heads, rows)
-    csv << col_heads
-    rows.each do |row|
-      csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
-    end
   end
 
   def send_completion_email

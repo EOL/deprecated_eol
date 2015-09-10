@@ -5295,4 +5295,139 @@ pms:
   flickr: Flickr
   focus_collection_edit: A peul modifiché le colession ëd sa comunità diretaman an
     sla pàgina ëd modìfica ëd minca na colession.
+  focus_list_newsfeed: Fluss ëd neuve dla lista dij soget prinsipaj
+  forgot_password: I l'hai dësmentià mia ciav
+  forgot_password_form_cancel: Anulé
+  forgot_password_form_choose_username_instructions: A-i é vàire cont associà a l'adrëssa
+    <em>%{email}</em>, për piasì ch'a serna ël cont dont a veul ri-inissialisé la
+    ciav.
+  forgot_password_form_choose_username_legend: Serne un cont
+  forgot_password_form_choose_username_blank_error: Ch'a selession-a ël cont dont
+    a veul riamposté la ciav.
+  forgot_password_form_username_or_email_blank_error: Ch'a buta sò stranòm e adrëssa
+    ëd pòsta eletrònica për riamposté soa ciav.
+  forgot_password_form_header: Riamposté la ciav
+  forgot_password_form_helper: Ch'a ten-a da ment che ij mëssagi ëd riampostassion
+    dle ciav a son <em>soens</em> marcà tanme 'Rumenta' dai filtr ëd pòsta eletrònica.
+    Për piasì, ch'a verìfica sò dossié dla rumenta s'a l'ha nen arseivù sò mëssagi
+    da-sì n'ora.
+  forgot_password_cannot_find_user_from_username_or_email_error: An dëspias, a-i é
+    gnun cont con lë stranòm o l'adrëssa ëd pòsta eletrònica fornì <em>%{username_or_email}</em>.
+  for_example_for_the_taxon_element_for_a_node: Për esempi, për l'element tassonomìa
+    për un neu ant la gerarchìa ITIS, ël dc:identifier a sarà ël TSN ITIS. L'element
+    dwct:taxonID a conten <i>identificativ EdV</i> da dovré ant l'API %{link}.
+  for_images_to_reference_parens: (për le plance da revisioné)
+  for_pdfs_and_docs_parens: (për ij PDF e Word)
+  form_validation_errors_for_attribute_assistive: A-i é n'eror ëd validassion su st'element
+  fragment_caching_enabled: Memorisassion local dij frament ativà
+  frequency: Frequensa
+  frequency_daily: Cotidian
+  frequency_monthly: Mensil
+  frequency_never: Mai
+  frequency_weekly: Ebdomadari
+  friendly_url: Adrëssa amichèivol
+  from_community: da la comunità %{community}
+  from_communities: 'da le comumità: %{communities}'
+  full_content_url: Adrëssa dël contnù complet
+  gbif_map: Carta GBIF
+  general_site_admin: aministrassion general dël sit
+  get_help_choosing_a_subject: Oten-e dl'agiut për serne n'argoment
+  get_help_choosing_a_subchapter: Oten-e dl'agiut për serne un sot-capìtol
+  get_more_tasks: oten-e pi d'assion
+  given_name_colon: 'Nòm:'
+  data_object_api_description: A parte da l'identificativ ëd n'oget ëd dàit, cost
+    API a smon tuti ij metadàit an sl'oget coma mandà a l'EdV dal cambrada ëd contnù
+    ch'a l'ha contribuì. Ël cambrada ëd cpntnù a l'é sità tanme prim element agent
+    e a l'ha ël ròl ëd 'cambrada'.
+  given_the_vast_number: An rason dla gran quantità ëd nòm sientìfich e comun (an
+    tut, scasi 20 milion) a l'é malfé fornì a j'utent le spece precise che lor a spero
+    trové. Për esempi, a-i é vàire spece d'osej ch'a l'han l'istess nòm dë spece ëd
+    pess. I l'oma ancludù un paràmeter 'precis' pr'ësmon-e mach l'arzultà dont ël
+    nòm a l'é precis a la paròla sërcà, ma i podoma pa garantì che le tassonomìe smonùe
+    a son cole che chiel a së spetava ëd trové. I sercoma an continuassion d'amelioré
+    la përtinensa ëd nòstri arzultà d'arserca, ch'a së speta donca chèiche ameliorassion
+    ant l'ordinament ëd l'arserca an n'avnì davzin.
+  gives_access_to_a_single_hierarchy_indexed_by_eol: a dà acess a na sola gerarchìa
+    andicisà da l'EdV e a soe relassion anterne
+  gives_access_to_a_single_hierarchy_descendants_by_eol: a dà acess ai dissendent
+    ëd na sìngola vos ëd la gerarchìa
+  global_access_tagline: Acess global a la conossensa an sla vita an sla Tèra
+  global_navigation: Navigassion global
+  glossary: Glossari
+  glossary_subhead: Glossari
+  go_back: torné andré
+  go: Andé
+  google_analytic_results: Arzultà ëd Google Analytics
+  google_analytics_active: Google Analytics ativà
+  google_analytics_google_account_and_access_required: Google Analytics (cont e acess
+    a Google obligatòri)
+  google: Google
+  google_images: Plance Google
+  google_scholar: Google savant
+  grant_manager_link: Acordé ël ròl ëd mansé
+  grant_permission: autorisé
+  grant_full_curator_link: Autorisé
+  harvest_id: Identificativ ëd cujìa
+  harvesting_processes_log: Argistr dij process ëd cujìa
+  harvests_for: Cujìe ëd %{resource}
+  harvest_resource: Cujìa dl'arsorsa
+  harvest_duration: Durà dla cujìa fin-a adess
+  has_already_been_taken: a l'é già stàit pijà
+  has_colon: 'A l''ha:'
+  has_curated_your_image: a l'ha goernà soa plancia
+  has_hidden_your_image: a l'ha stërmà soa plancia
+  has_trusted_your_image: a l'ha daje fiusa a soa plancia
+  has_untrusted_your_image: a l'ha gavà la fiusa da soa plancia
+  hello_user: Cerea %{user}
+  help: Agiut
+  here: ambelessì
+  hidden: Stërmà
+  hidden_comment: coment ëstërmà
+  hide: stërmé
+  hierarchy: Gerarchìa
+  hierarchy_entry_switch_missing_id_error: An dëspias, la pàgina d'intrada dla gerarchìa
+    che a l'ha selessionà a l'é nen ëstàita trovà, an rason ëd n'identificativ mancant.
+  hierarchy_node_missing: An dëspias, ij dàit d'ës neu a manco.
+  hierarchy_roots_colon: 'Rèis ëd la gerarchìa:'
+  hierarchy_updated: Gerarchìa agiornà
+  hierarchies_title: Gerarchìe
+  home: Pàgina d'intrada
+  home_page_cache_last_cleared_on: Memorisassion local dla pàgina d'intrada a l'é
+    stàita dëscancelà l'ùltima vira ai %{date}
+  home_page_link_advisory_information: Sa liura a lo menërà a la pàgina d'intrada
+    dël sit ëd l'Enciclopedìa dla Vita
+  however_there_are_summaries: Tutun, <a href='%{summary_url}'>EdV a sintetisa ij
+    dàit ëd le sot-partìe</a>.
+  html_format: (formà HTML)
+  html_format_with_left_col: (FORMÀ HTML, buté mach s'a veul avèj na colòna a snistra
+    an sla pàgina, dësnò lassé veuid)
+  content_upload_url: http://%{domain}%{upload_attachment}
+  content_upload_restrictions_note: (a dev esse anferior a 10MB an taja, l'archivi
+    a sarà goernà coma carià, visadì a-i sarà gnun ridimensionament ëd le plance)
+  id: Identificativ
+  if_checked_and_user_is_saved: S'a l'é spontà e si l'utent a l'é argistrà, antlora
+    soe anformassion d'identificassion, d'argoment, d'aprovassion e ëd colegament
+    selessionà a saran ësganfà e l'utent a sarà pi nen ësmonù tanme conservator. Chiel
+    a dovrìa gionté na nòta sì-sota për smon-e la rason. Gnun-a anformassion a l'é
+    mandà a l'utent.
+  if_multiple_media_objects_are_returned: 'Si vàre oget multimediaj a son ësmonùm
+    la lista a sarà ordinà për sòrt d''oget. Për minca na sòrt, j''element a saran
+    ordinà për ëstat d''aprovassion (''Afidàbil'' &gt; ''Nen revisionà'' &gt; ''Nen
+    afidàbil''), peui për vot dël dàit. Tutun, për chèich sòrt ëd dàit, dj''element
+    particolar a l''han na priorità pi àuta: si un ëd costi element a l''é smonù,
+    a sarà listà për prim. Për le plance, le plance esemplar a l''han la priorità
+    pi àuta. Con le sòrt ëd test, ij test d''ansem a l''han la priorirà pi àuta.'
+  if_the_details_parameter_is_not_set: Si ël paràmeter 'detaj' a l'é nen definì, antlora
+    mach l'identificativ dl'oget ëd dàit, la sòrt dël dàit e, ant ël cas d'artìcoj,
+    ël soget, a saran ësmonù. La sòrt ëd dàit a sarà un valor dël vocabolari ëd sòrt
+    d'arsorsa %{linka}. Ël soget dËl test a sarà un dij %{linkb}.
+  check_this_to_browse_eol_by_the_hierarchy: (Si costa casela a l'é spontà, la classificassion
+    a sarà smonùa an sij nòm dë schede sensa dovèj "Smon-e tute le classificassion".)
+  return_content_by_vettedness: Si 'vetted' a val 1, antlora mach ël contnù afidàbil
+    a sarà smonù. Si 'vetted' a l'é 2, antlora mach ël contnù afidàbil e nen revisionà
+    a sarà smonù (ël contnù nen afidàbil a sarà pa smonù). Ël valor predefinì a l'é
+    dë smon-e tut ël contnù.
+  reindex_data_object_button: Andicisé torna l'oget
+  reindex_page_button: Andicisé torna la pàgina
+  image: Plancia
 ...

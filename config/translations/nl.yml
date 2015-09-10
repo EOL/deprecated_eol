@@ -1511,7 +1511,7 @@ nl:
       style='color:#195184'>neem dan contact met ons op</a>.
     see_all_activity: U kunt al uw activiteiten bekijken op de <a href='%{activity_url}'
       style='color:#195184'>pagina met uw nieuwsoverzicht</a>.
-    resource_validation: 'De bron: %{bron} validatie is voltooid'
+    resource_validation: Het valideren van de bron %{resource} is voltooid
     bulk_comments_with_count:
       one: Er is een nieuwe reactie op %{on}
       other: Er zijn %{count} nieuwe reacties op %{on}
@@ -4363,8 +4363,8 @@ nl:
     De leden kunnen de gemeenschap daarna nog steeds en het nieuwsoverzicht wordt
     bijgehouden, maar beiden worden niet langer weergegeven in zoekopdrachten of op
     taxonpagina's, en zijn niet langer te bewerken.
-  confirm_delete_data_object: Weet u zeker dat u uw Gegevens verwijderd worden? Deze
-    actie kan niet ongedaan worden gemaakt.
+  confirm_delete_data_object: Weet u zeker dat u dit gegevensobject wilt verwijderen?
+    Deze actie kan niet ongedaan worden gemaakt.
   confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: 'Wachtwoord bevestigen:'
   contact: Contact
@@ -4484,8 +4484,8 @@ nl:
     zijn toegevoegd. De huidige status van de brongegevens: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Er is een fout opgetreden. De
     bron is niet toegevoegd.
-  content_partner_resource_validation_finish_notice: Inhoud partner resource validatie
-    is voltooid en de status van %{resource_status}.
+  content_partner_resource_validation_finish_notice: Het valideren van de inhoudspartnerbron
+    is voltooid. De status is %{resource_status}.
   content_partner_resource_dataset_details_header: Dataset
   content_partner_resource_delete_with_type_link: Alles verwijderen
   content_partner_resource_description_empty: Er is geen beschrijving verstrekt voor
@@ -4512,8 +4512,8 @@ nl:
     opgetreden. De oogstgebeurtenis voor %{resource_title} is niet bijgewerkt.
   content_partner_resource_page_title: Encyclopedie van het Leven - %{content_partner_name}
     - %{resource_name}
-  content_partner_resource_will_be_deleted: Alles geoogst door Resource %{resource_title}
-    zal worden verwijderd, gelieve 24 uur te wachten om te verwerken.
+  content_partner_resource_will_be_deleted: Alle van de bron %{resource_title} afkomstige
+    gegevens worden verwijderd. Dit proces kan 24 uur duren.
   content_partner_resource_hierarchy_browsable: Doorzoekbaar
   content_partner_resource_hierarchy_complete_true: Deze hiërarchie is ingesteld als
     <strong>geconserveerd</strong>. Bij een geconserveerde hiërarchie wordt ervan

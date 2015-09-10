@@ -1711,6 +1711,15 @@ ul.tabs
       width: 50%
       float: right
 
+table.taxon_collection
+  tbody 
+    tr
+      .info_icon
+        width: 16px
+        &.active
+          @include info_item_with_background(14)
+      &.def:hover
+        @include hover_info_icon(14)
 // Helps position the (?) icon in various places. ...want to keep these together:
 table.categorized
   th.predicate

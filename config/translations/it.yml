@@ -30,6 +30,7 @@
 # Author: Rippitippi
 # Author: Rosh
 # Author: Semiramide
+# Author: Statix64
 # Author: Viscontino
 # Author: Ximo17
 ---
@@ -4125,7 +4126,7 @@ it:
     classificazione da dividere. Altre classificazioni possono essere spostate in
     una nuova pagina dopo che è stata creata
   classifications_summary_header_with_count:
-    zero: Classificazione normalmente non visibile su EOL
+    zero: EOL non ha una classificazione per questo taxon
     one: Trovato in %{count} classificazione
     other: Trovato in %{count} classificazioni
   classifications_with_count:
@@ -4173,6 +4174,7 @@ it:
       elementi della collezione.
   collection_delete_link: Eliminare definitivamente questa collezione
   collection_destroyed: La collezione è stata cancellata.
+  collection_removed: La raccolta %{collection} è stata cancellata.
   collection_error_no_items_selected: 'Errore: Nessun elemento selezionato, nessuna
     azione intrapresa.'
   collection_image: Collezione di immagini
@@ -4492,6 +4494,8 @@ it:
   content_partner_resource_harvest_event_update_unsuccessful_error: Spiacenti, si
     è verificato un errore, l'evento di raccolta dati per %{resource_title} non è
     stato aggiornato.
+  content_partner_resource_page_title: Enciclopedia della Vita - %{content_partner_name}
+    - %{resource_name}
   content_partner_resource_will_be_deleted: Tutto ciò che è stato raccolto dalla risorsa
     %{resource_title} sarà cancellato, attendi 24 ore per l'elaborazione.
   content_partner_resource_hierarchy_browsable: Navigabile
@@ -5136,6 +5140,30 @@ it:
       admin_or_master_curators_only: Spiacenti, l'accesso è consentito agli Amministratori
         EOL e ai Curatori di livello Master.
       no_access: Spiacenti, l'accesso non è consentito. Torna tra poco.
+      missing_edit_acess_to_forum_category: Spiacente, solo gli amministratori possono
+        modificare questa categoria del forum
+      missing_delete_acess_to_forum_category: Spiacente, solo gli amministratori possono
+        eliminare questa categoria del forum
+      missing_edit_acess_to_forum_post: Spiacente, solo gli amministratori o l'autore
+        del post possono modificare questo post del forum
+      missing_delete_acess_to_forum_post: Spiacente, solo gli amministratori o l'autore
+        del post possono cancellare questo post del forum
+      missing_set_article_as_exemplar_privilege: Spiacente, solo i curatori possono
+        impostare l'articolo come esemplare
+      admins_and_joined_only_can_read: Spiacente, dovresti aderire a questa raccolta
+        per poterla visualizzare
+      owner_and_managers_only_can_edit: Spiacente, solo il proprietario della raccolta
+        o i manager possono modificarla
+      only_managers_can_edit_community: Spiacente, solo i manager possono eliminare
+        questa community
+      only_managers_can_delete_community: Spiacente, solo i manager possono eliminare
+        questa community
+      only_admins_can_edit_forums: Spiacente, solo gli amministratori possono modificare
+        i forum
+      must_be_logged_in: Spiacente, devi effettuare l'accesso
+      only_data_owner_can_edit: Spiacente, solo il proprietario dei dati può modificarlo
+      only_data_owner_can_delete: Spiacente, solo il proprietario dei dati può cancellarlo
+      can_not_edit_permissions: Spiacente, non puoi modificare i permessi
   excluded_icon_tip: Le righe contrassegnate con l'icona di esclusione %{excluded_icon}
     non verranno mai mostrate sulle pagine della scheda Panoramica del taxon.
   expand_all_children: espandi tutte le pagine figlio
@@ -5536,6 +5564,9 @@ it:
   known_uris_none: Nessuno ha aggiunto gli URI di questo tipo.
   known_uris_page_title: URI per i dati su EOL
   known_uris_sorted: Ordine aggiornato.
+  pending_harvests_title: Raccolte in sospeso
+  pause_pending_harvests: Metti in pausa la raccolta
+  resume_pending_harvests: Continua la raccolta
   label: Etichetta
   language: 'Lingua:'
   languages: Lingue

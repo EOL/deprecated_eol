@@ -13,6 +13,7 @@
 # Author: Pig1995z
 # Author: SteveR
 # Author: Ua2004
+# Author: Ата
 # Author: Максим Підліснюк
 # Author: Тест
 ---
@@ -235,7 +236,7 @@ uk:
         changes_to_my_watched_community: Зміни в спільнотах, за якими Ви спостерігаєте
         member_joined_my_watched_community: Нові учасники приєдналися до спільноти,
           де ви також берете участь
-        member_left_my_community: Деякі учасники залишили спільноту, якою ви керуєте...
+        member_left_my_community: Деякі учасники залишили спільноту, якою Ви керуєте
         new_manager_in_my_community: Інший користувач також став керівником спільноти,
           якою керуєте Ви
         i_am_being_watched: Вас було додано до списку спостереження іншим користувачем
@@ -387,18 +388,18 @@ uk:
           attributes:
             predicate:
               must_be_uri: має бути правильно сформована <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-              namespace: використаний простір імен, який не розпізнаний
+              namespace: використаний простір назв, який не розпізнаний
             subject:
               must_be_uri: має бути правильно сформована <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-              namespace: використаний простір імен, який не розпізнаний
+              namespace: використаний простір назв, який не розпізнаний
         user_added_data_metadata:
           attributes:
             predicate:
               must_be_uri: має бути правильно сформована <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-              namespace: використаний простір імен, який не розпізнаний
+              namespace: використаний простір назв, який не розпізнаний
             subject:
               must_be_uri: має бути правильно сформована <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-              namespace: використаний простір імен, який не розпізнаний
+              namespace: використаний простір назв, який не розпізнаний
         known_uri_relationship:
           attributes:
             to_known_uri_id:
@@ -943,7 +944,7 @@ uk:
         taxa_observed:
           one: в спостереженні %{count} таксон
           other: в спостереженні %{count} таксони
-        top_contributors: Найктивніші учасники iNaturalist
+        top_contributors: Найактивніші дописувачі iNaturalist
         tweet_text: Спостереження iNaturalist для %{collection_name}
         view_all_observations_on_inaturalist: Переглянути всі спостереження %{project_title}
           на iNaturalist
@@ -1013,7 +1014,7 @@ uk:
       meta_description_default_map: Карта - %{dato_title} від %{supplier}.
       meta_description_default_sound: Звук - %{dato_title} від %{supplier}.
       meta_description_default_video: Відео - %{dato_title} від %{supplier}.
-      meta_supplier_default: учасник
+      meta_supplier_default: дописувач
       meta_title: '%{dato_title} від %{supplier}'
       tweet_text: '%{dato_title} від %{supplier}'
   eol_statistics:
@@ -1144,10 +1145,10 @@ uk:
     unrecognized_measurement_units: Нерозпізана одиниця вимірювання URIs
     unrecognized_association_types: Нерозпізнаний тип асоціації URIs
     uri_placeholder_text: Наприклад, http://purl.org/dc/terms/contributor
-    name_placeholder_text: Наприклад, учасник
+    name_placeholder_text: Наприклад, дописувач
     definition_placeholder_text: наприклад. Організація, відповідальна за внесення
       вкладів у ресурс.
-    comment_placeholder_text: Наприклад, дані учасника, включаючи особу, організацію
+    comment_placeholder_text: Наприклад, дані дописувача, включаючи особу, організацію
       або службу.
     attribution_placeholder_text: Наприклад, з Dublin Core; див. http://dublincore.org/usage/terms/history/#contributorT-001.
     ontology_information_url_placeholder_text: Наприклад, http://dublincore.org/documents/dcmi-terms/

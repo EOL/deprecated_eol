@@ -1,6 +1,7 @@
 # Messages for Spanish (español)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: AlejandroMedia
 # Author: Almupg
 # Author: AndreyWiki
 # Author: Armando-Martin
@@ -2123,9 +2124,9 @@ es:
           of Life.
         meta_description_with_common_name: Estadísticas y datos sobre %{preferred_common_name}
           también conocido como %{scientific_name} en la Encyclopedia of Life.
-        meta_keywords: Estadisticas sobre %{scientific_name}, estadísticas sobre %{scientific_name},
+        meta_keywords: estadísticas sobre %{scientific_name}, estadísticas sobre %{scientific_name},
           datos sobre %{scientific_name}
-        meta_keywords_with_common_name: Estadisticas sobre %{preferred_common_name},
+        meta_keywords_with_common_name: estadísticas sobre %{preferred_common_name},
           estadísticas sobre %{preferred_common_name}, datos sobre %{preferred_common_name}
         meta_title: Riqueza de %{scientific_name}
         meta_title_with_common_name: Riqueza de %{preferred_common_name} (%{scientific_name})
@@ -3937,7 +3938,7 @@ es:
     petición con el nuevo valor no llegará a la caché, pero las solicitudes subsecuentes
     usarán la nueva repuesta en caché.
   application_version_advisory_information: Versión de la aplicación
-  are_you_sure: ¿Está usted seguro?
+  are_you_sure: ¿Estás seguro?
   are_you_sure_this_action_cannot_be_undone: ¿Estás seguro?  No se puede deshacer
     esta acción.
   admin_login_confirmation: ¿Está seguro que desea identificarse en el registro de
@@ -4535,6 +4536,8 @@ es:
     ocurrido un error, no se ha actualizado el evento de recogida %{resource_title}.
   content_partner_resource_page_title: Enciclopedia de la Vida - %{content_partner_name}  -
     %{resource_name}
+  content_partner_resource_will_be_deleted: Todo lo cosechado por los Recursos de
+    %{resource_title} serán borrados, por favor, espere 24 horas para procesar.
   content_partner_resource_hierarchy_browsable: Navegable
   content_partner_resource_hierarchy_complete_true: Esta jerarquía se establece como
     <strong>supervisada</strong>. Se asume que en una jerarquía supervisada cada entrada
@@ -5397,7 +5400,7 @@ es:
   frequency_daily: Diario
   frequency_monthly: Menuale
   frequency_never: Nunca
-  frequency_weekly: Seminal
+  frequency_weekly: Semanal
   friendly_url: Dirección URL amigable
   from_community: de la comunidad %{community}.
   from_communities: 'de las comunidades: %{communities}'
@@ -5872,7 +5875,7 @@ es:
     idioma.'
   name_preferred_taxonomically_for_source_help_tip: '%{icon} marca el nombre preferido
     para cada recurso.'
-  name_preferred_taxonomically_for_source_yes: Preferred
+  name_preferred_taxonomically_for_source_yes: Preferido
   names: Nombres
   names_filter: Nombres
   names_children_column_header: Niños
@@ -6393,9 +6396,9 @@ es:
     en las columnas para ordenar por esa columna.  Después de buscar, haga clic en
     un término de búsqueda para ver información sobre las páginas a las que accedieron
     los usuarios (si existe).
-  search_method_description: dado un valor para un elemento específico  (e.g., scientific
-    name=Homo sapiens), devuelve una lista paginada de las páginas de EOL que contienen
-    el termino buscado
+  search_method_description: dado un valor para un elemento específico  (p. ej., nombre
+    científico=Homo sapiens), devuelve una lista paginada de las páginas de EOL que
+    contienen el término buscado
   search_next_label: Siguiente
   search_previous_label: Anterior
   search_input_advisory_information: Escriba un nombre común o un nombre científico

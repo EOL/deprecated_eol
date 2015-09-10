@@ -187,7 +187,7 @@ gl:
         value_is_text: Os valores non serán URI, unicamente texto
         value_is_verbatim: Os valores non serán números, unicamente texto
       known_uri_relationship:
-        from_known_uri_id: URI do suxeito
+        from_known_uri_id: URI do asunto
         to_known_uri_id: URI de destino
         to_known_uri: URI de destino
         relationship_uri: URI da relación
@@ -406,7 +406,7 @@ gl:
             to_known_uri_id:
               must_be_known_uri: debe ser un URI coñecido
               must_be_measurement: debe ser unha unidade de medida
-              must_be_different: debe ser diferente do URI do suxeito
+              must_be_different: debe ser diferente do URI do asunto
             relationship_uri:
               only_one_measurement: non está permitido; unicamente pode haber unha
                 unidade por defecto
@@ -1083,9 +1083,9 @@ gl:
     views: Visitas
     create: Crear un foro
     create_successful: O foro creouse correctamente
-    create_failed: Sentímolo, houbo un erro; non se engadiu o foro
+    create_failed: Sentímolo, houbo un erro. Non se engadiu o foro.
     update_successful: O foro actualizouse correctamente
-    update_failed: Sentímolo, houbo un erro; non se actualizou o foro
+    update_failed: Sentímolo, houbo un erro. Non se actualizou o foro.
     delete_successful: O foro borrouse correctamente
     delete_failed_not_empty: Non se puido borrar o foro porque non está baleiro
     move_successful: O foro trasladouse correctamente
@@ -1104,9 +1104,9 @@ gl:
       create: Crear unha categoría
       edit: Editar a categoría
       create_successful: A categoría creouse correctamente
-      create_failed: Sentímolo, houbo un erro; non se engadiu a categoría
+      create_failed: Sentímolo, houbo un erro. Non se engadiu a categoría.
       update_successful: A categoría actualizouse correctamente
-      update_failed: Sentímolo, houbo un erro; non se actualizou a categoría
+      update_failed: Sentímolo, houbo un erro. Non se actualizou a categoría.
       delete_successful: A categoría borrouse correctamente
       delete_failed_not_empty: Non se puido borrar a categoría porque non está baleira
       move_successful: A categoría trasladouse correctamente
@@ -1118,9 +1118,9 @@ gl:
       post_written_by_user: '%{user} escribiu:'
       replying_to_post: 'Respondendo a:'
       create_successful: A mensaxe creouse correctamente
-      create_failed: Sentímolo, houbo un erro; non se engadiu a mensaxe
+      create_failed: Sentímolo, houbo un erro. Non se engadiu a mensaxe.
       update_successful: A mensaxe actualizouse correctamente
-      update_failed: Sentímolo, houbo un erro; non se actualizou a mensaxe
+      update_failed: Sentímolo, houbo un erro. Non se actualizou a mensaxe.
       delete_successful: A mensaxe borrouse correctamente
       topic_and_post_delete_successful: A mensaxe e mais o fío borráronse correctamente
       delete_failed_topic_not_empty: Non se puido borrar a mensaxe porque o fío non
@@ -1137,13 +1137,43 @@ gl:
       create: Comezar un novo fío de conversa
       no_posts: Non hai mensaxes neste fío de conversa
       create_successful: O fío creouse correctamente
-      create_failed: Sentímolo, houbo un erro; non se engadiu o fío
+      create_failed: Sentímolo, houbo un erro. Non se engadiu o fío.
       delete_successful: O fío borrouse correctamente
       delete_failed_not_empty: Non se puido borrar o fío porque non está baleiro
   known_uris:
+    add_a_relationship: Engadir unha relación
+    equivalent_to: Relacións de equivalencia
+    import_successful: Os termos de ontoloxía importáronse correctamente
+    more_than_one_field_mapped_to_type: Hai máis dun atributo asignado a "%{type}"
+    no_results: Non hai resultados para a estatística seleccionada
+    no_relationships: Non se atoparon relacións para este URI.
+    please_select_field_types: Selecciona unha asignación para cada atributo
+    please_select_category_for_stats: Selecciona unha categoría para ver as estatísticas.
+    please_select_uris_to_import: Selecciona a importación de URI
     relationships: Relacións
+    relationships_from_this_uri: Relacións desde este URI
+    relationships_to_this_uri: Relacións a este URI
+    select_a_category_to_view_stats: 'Selecciona unha categoría para ver as estatísticas:'
+    unrecognized_measurement_types: Non se recoñecen os URI de tipos de medición
+    unrecognized_measurement_values: Non se recoñecen os URI de valores de medición
+    unrecognized_measurement_units: Non se recoñecen os URI de unidades de medición
+    unrecognized_association_types: Non se recoñecen os URI de tipos de asociación
+    uri_placeholder_text: por exemplo, http://purl.org/dc/terms/contributor
+    name_placeholder_text: por exemplo, colaborador
+    definition_placeholder_text: por exemplo, unha entidade responsable de facer contribucións
+      ao recurso.
+    comment_placeholder_text: por exemplo, exemplos dun colaborador inclúen unha persoa,
+      unha organización ou un servizo.
+    attribution_placeholder_text: por exemplo, de Dublin Core; véxase http://dublincore.org/usage/terms/history/#contributorT-001.
+    ontology_information_url_placeholder_text: por exemplo, http://dublincore.org/documents/dcmi-terms/
+    ontology_source_url_placeholder_text: por exemplo, http://dublincore.org/2012/06/14/dcterms.rdf
+    select_a_preferred_uri_for_this_group: Selecciona un URI preferido
     preferred_for_equivalence_group: Preferido
     select: seleccionar
+  known_uri_relationships:
+    created: A relación creouse correctamente
+    create_failed: Sentímolo, houbo un erro. Non se puido engadir a relación.
+    deleted: A relación borrouse correctamente
   layouts:
     application:
       header_about: Acerca da EOL
@@ -1516,6 +1546,12 @@ gl:
       meta_title: Actividade comunitaria da EOL
       meta_keywords: actividade comunitaria da eol, acitivade recente na eol, actividades
         na enciclopedia da vida
+  recent_activity_mailer:
+    data_search_file_download_ready:
+      subject: A túa procura na EOL está lista para a súa descarga
+      message: Podes ver esta e outras descargas visitando a <a href='%{download_link}'>lapela
+        de descargas de datos do teu perfil</a>.
+      header: A túa descarga está lista!
   sessions:
     new:
       login_with_facebook_assistive: Accede á EOL mediante as túas credenciais do
@@ -1965,10 +2001,22 @@ gl:
         meta_title: Socios de contidos de %{user_full_name}
         tweet_text: Socios de contidos de %{user_full_name}
     data_downloads:
+      index:
+        meta_description: Descargas de datos solicitadas por %{user_full_name}.
+        meta_title: Descargas de datos de %{user_full_name}
+        tweet_text: Descargas de datos de %{user_full_name}
+      header_with_count:
+        one: Descarga de datos
+        other: '%{count} descargas de datos'
+      empty: Non tes descargas. Podes <a href='%{data_search_url}'>procurar datos</a>
+        e solicitar a descarga dos resultados.
       download: descargar
+      page_title: Descargas de datos
+      query_head: Pescuda
       attribute_head: Atributo
       created_head: Creado
       updated_head: Última acción
+      complete_head: Está completo?
       actions_head: Accións
       is_complete: Si
       is_not_complete: Non
@@ -2234,9 +2282,24 @@ gl:
       unsubscribe_notifications_failed: Sentímolo, houbo un erro. Non se puido cancelar
         a subscrición ás notificacións do usuario.
   user_added_data:
+    add_data_header: Achega os teus propios datos
+    additional_fields: Datos sobre este rexistro
+    edit_data_header: Edita os teus datos
     add_metadata_header: Información adicional
+    edit_metadata_header: Editar os metadatos
+    create_successful: O datos engadíronse correctamente
+    create_failed: 'Non se puideron engadir os teus datos: %{errors}'
+    delete_successful: Os datos borráronse correctamente
+    new_field: Novo campo...
     new_value: Valor
+    source_field_helper: Engadir unha referencia bibliográfica ou un enderezo URL
+      a un recurso de datos en liña.
+    submit_data: enviar un valor de datos
+    update_successful: Os datos actualizáronse correctamente
+    update_failed: 'Non se puideron actualizar os teus datos: %{errors}'
   data_search_files:
+    file_ready_for_download: A procura de "%{known_uri_label}" que solicitaches recentemente
+      pódese descargar desde <a href='%{download_url}'>%{download_url}</a>.
     from: Valor mínimo
     to: Valor máximo
     unit_uri: Unidade de medida
@@ -3327,6 +3390,21 @@ gl:
           imaxe descoñecida.
         user_cropped_it: <strong>%{user}</strong> modificou a miniatura dunha imaxe
           descoñecida.
+      user_added_data:
+        an_unknown_user_create_data_on_an_unknown_taxon: Un usuario descoñecido engadiu
+          datos a unha páxina descoñecida.
+        an_unknown_user_create_data_on_taxon: Un usuario descoñecido engadiu datos
+          a "%{taxon}".
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> engadiu datos
+          a unha páxina descoñecida.
+        user_create_data_on_taxon: <strong>%{user}</strong> engadiu datos a "%{taxon}".
+        an_unknown_user_update_data_on_an_unknown_taxon: Un usuario descoñecido actualizou
+          datos nunha páxina descoñecida.
+        an_unknown_user_update_data_on_taxon: Un usuario descoñecido actualizou datos
+          en "%{taxon}".
+        user_update_data_on_an_unknown_taxon: <strong>%{user}</strong> actualizou
+          datos nunha páxina descoñecida.
+        user_update_data_on_taxon: <strong>%{user}</strong> actualizou datos en "%{taxon}".
       other_actions:
         an_unknown_user_curated_an_older_data_object: Un usuario descoñecido conservou
           unha versión vella de "%{data_object}".
@@ -3345,6 +3423,8 @@ gl:
   a_maximum_of_30_results_are_returned: devólvese un máximo de 30 resultados por páxina.
     Este parámetro permite obter máis páxinas de resultados se hai máis de 30 coincidencias
   activity_log_empty: Ninguén proporcionou actualización ningunha aínda.
+  activity_user_created_data: <strong>%{user}</strong> engadiu datos sobre "%{object_name}"
+    a "%{taxon_concept}".
   activity_user_created_link: <strong>%{user}</strong> engadiu unha ligazón a "%{object_name}"
     en "%{taxon_concept}".
   activity_user_created_text: <strong>%{user}</strong> engadiu texto a "%{object_name}"
@@ -3364,6 +3444,7 @@ gl:
   add_a_new_topic_area: Engadir un novo tema
   add_a_new_user: Engadir un novo usuario
   add_a_taxon_association_label: Engadir unha asociación de taxon
+  add_another_metadata_field: Engadir un novo campo de metadatos
   add_article_instead: engadir un artigo no seu lugar
   add_article_to_page_button: Engadir un artigo
   add_association_submit_button: engadir a asociación
@@ -3490,8 +3571,15 @@ gl:
     no proceso de transferir as funcións administrativas desde a versión 1. Se a sección
     de administración que buscas non aparece aquí, vai á <a href="/administrator">versión
     1 da consola de administración</a>.
+  admin_options_warning: As modificacións realizadas aquí poden tardar 10 minutos
+    en facerse efectivas.
+  admin_option_all_users_can_see_data: Todos os usuarios poden ver os datos, non só
+    os usuarios con permiso
   admin_link: Vista xeral
   admin_page_title: 'Administración: Vista xeral'
+  admin_resource_delete_confirmation: Estás seguro de querer borrar este recurso?
+    Este comando tarda un anaco en executarse. Podes exceder o tempo de espera ao
+    utilizalo. Non reenvíes o comando.
   admin_simple_actions_header: 'Accións simples:'
   admin_spam_delete: Borrar o spam
   admin_statistics_link: Estatísticas
@@ -3539,6 +3627,7 @@ gl:
     %{language} da páxina <a href="#%{anchor}"><em>%{page_name}</em></a>.
   admin_translated_news_item_update_unsuccessful_error: Sentímolo, houbo un erro.
     Non se actualizou a tradución.
+  admin_updated_config: Configuración actualizada para %{name}
   admin_user_delete_successful_notice: Borrouse o usuario
   admin_user_hide_successful_notice: Agochouse o usuario
   admin_user_unhide_successful_notice: Descubriuse o usuario
@@ -3583,6 +3672,9 @@ gl:
     one: '%{count} anotación'
     other: '%{count} anotacións'
   annotation_submit: publicar o comentario
+  annotation_note: Os comentarios han compartirse cos provedores de datos (se están
+    dispoñibles).
+  annotation_body_default: engadir unha pregunta ou un comentario...
   anonymous_user_full_name: Usuario anónimo
   anonymous_user_given_name: Anónimo
   anonymous_user_tag_line: Non accedeu ao sistema
@@ -3658,6 +3750,7 @@ gl:
     one: Atopouse %{count} termo que coincidise cos teus criterios de procura.
     other: Atopáronse %{count} termos que coincidisen cos teus criterios de procura.
   assistive_overview_header: Vista xeral
+  assistive_data_header: Feitos e información
   assistive_media_header: Ficheiros multimedia
   assistive_details_header: Detalles
   assistive_literature_header: Literatura
@@ -3678,6 +3771,8 @@ gl:
   associated_with_map_header: No último mapa
   associated_with_sound_header: No último son
   associated_with_video_header: No último vídeo
+  association_added_flash: Engadiuse a asociación. A(s) páxina(s) pode(n) tardar uns
+    minutos en actualizarse.
   association_trusted_for_taxa:
     one: 'De confianza para:'
     other: 'De confianza para:'
@@ -3720,6 +3815,12 @@ gl:
   belongs_in_count_communities:
     one: Pertence a %{count} comunidade
     other: Pertence a %{count} comunidades
+  beta_warning_header: Estás usando unha característica en probas
+  beta_warning_body: A maioría dos usuarios non poden ver nin utilizar esta característica,
+    que está en continuo desenvolvemento. O rendemento e mais os datos poden ser impredecibles,
+    pero pode explorar o que quiera coa característica. Por favor, enche a nosa <a
+    href='https://www.surveymonkey.com/s/9FDTDQP'>enquisa</a> despois de revisar as
+    nosas capacidades de datos.
   beta_warning_note_header: 'Nota:'
   bhl: Biodiversity Heritage Library
   bhl_partner_footer: Visita a Biodiversity Heritage Library
@@ -3765,6 +3866,10 @@ gl:
   cannot_find_member: Non se pode atopar un membro con ese identificador.
   cannot_index_collection_item_type_error: Non podemos indexar un elemento de colección
     a partir de %{type}
+  categories_title: 'Selecciona unha categoría e despois un atributo:'
+  category_suggestions: 'Se non tes a certeza de que URI usar para os atributos e
+    os valores, as seguintes ligazóns proporcionan algúns URI suxeridos por conservadores
+    da EOL:'
   change: Cambiar
   change_rating_to_1_of_5: Cambiar a valoración de 1 a 5
   change_rating_to_2_of_5: Cambiar a valoración de 2 a 5
@@ -3884,6 +3989,9 @@ gl:
     other: Creouse a colección <em>%{collection_name}</em> con %{count} elementos.
   collection_delete_link: Borrar permanentemente esta colección
   collection_destroyed: Borrouse a colección.
+  collection_removed: A colección "%{collection}" foi borrada.
+  collection_update_failure: Houbo un erro ao actualizar a colección "%{collection}".
+    Comproba se hai algún problema nos elementos da colección.
   collection_error_no_items_selected: 'Erro: Non se seleccionou elemento ningún. Non
     se levou a cabo ningunha acción.'
   collection_image: Imaxe da colección
@@ -3966,6 +4074,7 @@ gl:
   comments_filter: Comentarios
   comments_moderated: Comentarios moderados
   comments_on: Comentarios en
+  comments_page_title: Comentarios en %{parent}
   comments_with_count:
     one: '%{count} comentario'
     other: '%{count} comentarios'
@@ -4035,9 +4144,13 @@ gl:
     one: Pertence a %{count} comunidade
     other: Pertence a %{count} comunidades
   completed: Completado
+  completed_colon: 'Completado:'
+  confirm_deactivate_user: Estás seguro de querer desactivar a este usuario?
   confirm_delete_community: Estás seguro de querer borrar a comunidade? Os membros
     restantes seguirán véndoa e manterase a fonte de novas, pero non aparecerá nas
     procuras ou nas páxinas de taxons; tampouco se poderá editar máis.
+  confirm_delete_data_object: Estás seguro de querer borrar este obxecto de datos?
+    Esta acción non se pode desfacer.
   confirm_leave: Estás seguro de querer deixar esta comunidade?
   confirm_password_colon: 'Confirmar o contrasinal:'
   contact: Contacto
@@ -4141,11 +4254,11 @@ gl:
   content_partner_overview_agreement_link: Ollar o acordo actual
   content_partner_overview_link: Vista xeral do socio
   content_partner_overview_link_back_to: volver á vista xeral do socio
-  content_partner_profile_menu: Perfil do provedor de contidos
+  content_partner_profile_menu: Perfil do socio de contidos
   content_partner_public_false: Privado
   content_partner_public_true: Público
   content_partner_registered_time_ago: Rexistrado hai %{time_passed};
-  content_partner_reports: Informes do provedor de contidos
+  content_partner_reports: Informes do socio de contidos
   content_partner_resource_about_header: Acerca do recurso
   content_partner_resource_auto_publish_true: Si
   content_partner_resource_auto_publish_false: Non
@@ -4160,6 +4273,8 @@ gl:
     %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Sentímolo, houbo un erro. Non
     se engadiu o recurso.
+  content_partner_resource_validation_finish_notice: A validación do recurso do socio
+    de contidos rematou e o seu estado é %{resource_status}.
   content_partner_resource_dataset_details_header: Conxunto de datos
   content_partner_resource_delete_with_type_link: Borrar todo
   content_partner_resource_description_empty: Non se proporcionou ningunha descrición
@@ -4187,6 +4302,8 @@ gl:
     un erro. Non se actualizou o rexistro de colleita de %{resource_title}.
   content_partner_resource_page_title: Enciclopedia da vida - %{content_partner_name}
     - %{resource_name}
+  content_partner_resource_will_be_deleted: Todo o recollido polo recurso %{resource_title}
+    ha borrarse. Agarde 24 horas para completar o proceso.
   content_partner_resource_hierarchy_browsable: Navegable
   content_partner_resource_hierarchy_complete_true: Esta xerarquía está definida como
     <strong>conservada</strong>. Unha xerarquía conservada supón que cada entrada
@@ -4232,6 +4349,8 @@ gl:
   content_partner_resource_update_successful_notice: 'Actualizáronse correctamente
     os detalles do recurso do socio de contidos. Estado actual dos datos do recurso:
     %{resource_status}.'
+  content_partner_resource_update_successful: Actualizáronse correctamente os detalles
+    do recurso do socio de contidos.
   content_partner_resource_update_unsuccessful_error: Sentímolo, houbo un erro. Non
     se actualizaron os detalles do recurso.
   content_partner_resource_upload_unsuccessful_error: 'Sentímolo, houbo un erro. Actualizáronse
@@ -4262,7 +4381,7 @@ gl:
   content_partner_statistics_column_header_statistic: Estatísticas correspondentes
     a %{month_name} de %{year}
   content_partner_statistics_column_header_provider_count: Páxinas con contidos do
-    provedor
+    socio
   content_partner_statistics_column_header_total_count: Todas as páxinas
   content_partner_statistics_column_header_provider_proportion: Porcentaxe do provedor
   content_partner_statistics_empty: Non se atoparon estatísticas para %{month_name}
@@ -4349,6 +4468,9 @@ gl:
   count_results_for_search_term:
     one: '%{count} resultado para <em>%{search_term}</em>'
     other: '%{count} resultados para <em>%{search_term}</em>'
+  count_results_for_traitbank:
+    one: '%{count} resultado no TraitBank'
+    other: '%{count} resultados no TraitBank'
   create_account: crear unha conta
   create_a_new_collection: Crear unha nova colección
   create_community_unsuccessful_error: Sentímolo, houbo un erro. Non se creou a túa
@@ -4449,6 +4571,9 @@ gl:
   your_current_rating_5_of_5: 'A túa valoración actual: 5 de 5'
   your_watch_collection: a túa lista de vixilancia
   current_language: 'Lingua: %{iso_code}'
+  current_harvest_event: O rexistro de colleita de "%{resource_title}" executouse
+    durante %{period} horas
+  currently_running_harvesting: Actualmente hai unha colleita en execución
   currently_in_eol: Actualmente na Enciclopedia da vida
   institutional_sponsors: Patrocinadores institucionais
   currently_published: publicado actualmente
@@ -4458,18 +4583,40 @@ gl:
   data: Datos
   data_about_subtab_header: Acerca dos datos na EOL
   data_results_only_for_search: Resultados do TraitBank para "%{search_term}"
+  data_search_limit:
+    one: Os datos da procura vanse descargar como %{count} rexistro por ficheiro.
+    other: Os datos da procura vanse descargar como %{count} rexistros por ficheiro.
   data_about_this_record: Datos sobre este rexistro
   data_column_tc_id: ID de páxina da EOL
   data_column_sci_name: Nome científico
   data_column_common_name: Nome común
   data_column_classification_summary: Resumo da clasificación
+  data_column_measurement: Medición
   data_column_value: Valor
+  data_column_measurement_uri: URI da medición
+  data_column_value_uri: URI do valor
+  data_column_resource: URL do recurso do socio de contidos
+  data_column_name: Etiqueta da medición
+  data_column_name_uri: URI da medición
+  data_column_val: Valor (normalizado)
+  data_column_raw_value: Valor bruto (directamente desde a fonte)
+  data_column_val_uri: URI do valor
+  data_column_units: Unidades (normalizadas)
+  data_column_units_uri: URI das unidades (normalizadas)
+  data_column_raw_units: Unidades brutas (directamente desde a fonte)
+  data_column_raw_units_uri: URI das unidades brutas (normalizadas)
   data_column_source: Provedor
   data_database_colon: 'Datos:'
   data_glossary: Glosario de datos
+  data_glossary_contribute: Para achegar novos termos a este glosario, <a href=%{url}>considera
+    cargar datos</a>.
+  data_link_to_record: Ligazón a este rexistro
   data_logging_active: Rexistro activo dos datos
   data_master_database_colon: 'Datos principais:'
+  data_metadata_subtable_summary: Datos adicionais sobre este feito.
+  data_measurement_subtable_summary: Datos adicionais sobre a medición deste feito.
   data_object: Obxecto de datos
+  data_object_deleted: O obxecto de datos borrouse correctamente
   data_object_not_associated_with_any_hierarchies: Este obxecto de datos non está
     asociado con ningunha xerarquía.
   data_object_reference: Referencia do obxecto de datos
@@ -4478,7 +4625,34 @@ gl:
   data_object_toc_items_list:
     one: Aparece baixo %{quoted_toc_titles}
     other: Aparece baixo %{quoted_toc_titles}
+  data_point_uri_source_missing: falta a fonte
+  data_point_uri_summary_name: datos acerca de %{taxon}
+  data_provided_by_user: proporcionados por %{whom}
+  data_provided_by_content_partner: 'Provedor: %{whom}'
+  data_ranges: Resumos de datos
+  data_ranges_subheader: Resumos de datos para este grupo taxonómico
+  data_reference_subtable_summary: Referencias adicionais sobre este feito.
+  data_row_exemplar_added: Engadido á vista xeral.
+  data_row_exemplar_removed: Eliminado da vista xeral.
+  data_row_excluded_from_overview_notice: 'Nota: Esta ringleira excluíuse da vista
+    xeral.'
+  data_row_add_exemplar_button: engadir á vista xeral
+  data_row_remove_exemplar_button: eliminar da vista xeral
+  data_row_hide_button: Agochar a ringleira
+  data_row_unhide_button: Descubrir a ringleira
+  data_search:
+    page_title: Procurar en TraitBank
+    form:
+      equivalent_attributes: 'Valores equivalentes:'
+      equivalent_values: 'Valores equivalentes:'
   data_subtab_about: Acerca de
+  data_subtab_glossary: Glosario para %{taxon}
+  data_summary_ranges_header_with_count: A EOL ten un resumo dos datos
+  data_tab_curator_exemplar: Esta ringleira engadiuse á lapela da vista xeral.
+  data_tab_curator_excluded: Esta ringleira eliminouse da lapela da vista xeral.
+  data_tab_curator_key_exemplar: '%{image} engadiuse á <a href=''%{link}''>vista xeral</a>'
+  data_tab_curator_key_excluded: '%{image} eliminouse da <a href=''%{link}''>vista
+    xeral</a>'
   data_usage_reports: Informes de uso dos datos
   date_caps: Data
   date_uploaded: Data de carga
@@ -4531,6 +4705,8 @@ gl:
   development_version_name: EOL V2 Beta
   default: Por defecto
   default_focus_collection_name_from_community: Punto de interese de %{name}
+  default_rating: cualificación por defecto
+  default_rating_value_of_total: 'Cualificación por defecto: %{rating} de %{total}'
   default_watch_collection_name: Lista de vixilancia de %{username}
   delete_community: Borrar esta comunidade
   delete_data_object: Borrar
@@ -4555,9 +4731,12 @@ gl:
     ao 5 de xaneiro de 2009)
   do_you_want_to_be_a_curator: Queres converterte nun conservador
   download_wav_file: Descargar o ficheiro WAV
+  download_data: Descargar os datos
   dublin_core: Dublin Core
   duplicate_comment_warning: Non se gardou o comentario. Semella que xa publicaches
     este comentario. Premiches no botón "Publicar o comentario" dúas veces?
+  duplicate_text_warning: Non se gardou o texto. Semella que xa publicaches este artigo.
+    Premiches no botón "Engadir o artigo" dúas veces?
   duplicate_items_were_ignored: Ignoráronse os elementos duplicados.
   each_method_documentation_page_has_formatted_responses: A páxina de documentación
     de cada método contén un exemplo de resposta tanto en formato XML coma JSON.
@@ -4615,6 +4794,8 @@ gl:
   eol_api: API da EOL
   eol_api_hierarchies: 'API da EOL: Xerarquías'
   eol_api_hierarchy_entries: 'API da EOL: Entradas de xerarquía'
+  eol_api_hierarchy_entries_descendants: 'API da EOL: Descendentes das entradas de
+    xerarquía'
   eol_api_pages: 'API da EOL: Páxinas'
   eol_api_ping: 'API da EOL: Ping'
   eol_api_provider_hierarchies: 'API da EOL: Xerarquías do provedor'
@@ -4626,6 +4807,8 @@ gl:
   eol_news: Novas da EOL
   eol_pages: Páxinas
   error_log_detail: Detalles no rexistro de erros
+  error_revoking_editor_on_watch_collection: Non se pode eliminar aos editores das
+    coleccións de seguimento
   error_log: Rexistro de erros
   error_logging_active: Rexistro activo dos erros
   error_401_page_title: Non autorizado
@@ -4683,7 +4866,14 @@ gl:
         da EOL cun nivel mínimo de conservador completo.
       min_assistant_curators_only: Sentímolo, o acceso está restrinxido aos conservadores
         da EOL cun nivel mínimo de conservador axudante.
+      admin_or_master_curators_only: Sentímolo, o acceso está restrinxido aos administradores
+        da EOL cun nivel mínimo de mestre conservador.
+      collection_job_not_valid: Traballo de colección non válido
+  excluded_icon_tip: As ringleiras marcadas coa icona de exclusión %{excluded_icon}
+    nunca se mostrarán nas páxinas de presentación dos taxons.
   expand_all_children: expandir todas as dependencias
+  expired: Caducado
+  expires_in_colon: 'Caduca en:'
   explore: Explorar
   explore_what_we_know_about_taxon: Explorar o que a EOL sabe acerca de %{taxon}.
   export_curator_csv_link: '[exportar todos os conservadores en formato CSV]'
@@ -4712,6 +4902,7 @@ gl:
     cando envíe o formulario:'
   filter_button: Filtrar
   filter_by_day: Filtrar por día
+  filter_by_subject: Filtrar por asunto
   filter_by_status_all_option: Todos os estados
   filter_by_status_trusted_option: De confianza
   filter_by_status_unreviewed_option: Sen revisar
@@ -4848,6 +5039,8 @@ gl:
     ir mellorando co tempo.
   gives_access_to_a_single_hierarchy_indexed_by_eol: dá acceso a unha única xerarquía
     indexada pola EOL e ás súas relacións internas
+  gives_access_to_a_single_hierarchy_descendants_by_eol: dá acceso aos descendentes
+    dunha única entrada de xerarquía
   global_access_tagline: Acceso global ao coñecemento sobre a vida na Terra
   global_navigation: Navegación global
   glossary: Glosario
@@ -4867,6 +5060,8 @@ gl:
   harvest_id: ID da colleita
   harvesting_processes_log: Rexistro de procesos de colleita
   harvests_for: Colleitas de %{resource}
+  harvest_resource: Recurso de colleita
+  harvest_duration: Duración da colleita ata agora
   has_already_been_taken: xa está collido.
   has_colon: 'Ten:'
   has_curated_your_image: conservou a túa imaxe
@@ -4891,6 +5086,8 @@ gl:
     o %{date}
   home_page_link_advisory_information: Esta ligazón leva ata a páxina de inicio do
     sitio web da Enciclopedia da vida
+  however_there_are_summaries: Non obstante, <a href='%{summary_url}'>a EOL resume
+    os datos dos subgrupos</a>.
   html_format: (formato HTML)
   html_format_with_left_col: (FORMATO HTML, a inserir unicamente se queres ter unha
     columna á esquerda na páxina; en caso contrario, déixao en branco)
@@ -4921,6 +5118,7 @@ gl:
     contido de confianza. Se "vetted" é "2", entón unicamente se devolverá contido
     de confianza e non revisado (deixando sen mostrar aqueles contidos que non sexan
     de confianza). A opción predeterminada é devolver todo o contido.
+  reindex_data_object_button: Reindexar o obxecto
   reindex_page_button: Reindexar a páxina
   image: Imaxe
   image_cropped_notice: A imaxe cortouse correctamente.
@@ -4949,9 +5147,13 @@ gl:
     one: '%{count} imaxe'
     other: '%{count} imaxes'
   import_once: Importar unha vez
+  import_ontology: Importar a ontoloxía
   inappropriate: Inadecuado
   inaturalist_tab_label: Observacións de iNaturalist
   include_all_metadata: incluír todos os metadatos dos obxectos de datos
+  including_traitbank_count:
+    one: ', incluíndo %{count} atributo do TraitBank'
+    other: ', incluíndo %{count} atributos do TraitBank'
   in_collection: na colección
   in_community: na comunidade
   indexed: Indexado
@@ -4978,6 +5180,7 @@ gl:
   item_details_missing: Sentímolo, houbo un erro. Non se recuperaron os detalles do
     elemento.
   item_type_article: Artigo
+  item_type_cms_page: Información sobre a EOL
   item_type_collection: Colección
   item_type_community: Comunidade
   item_type_image: Imaxe
@@ -4989,6 +5192,7 @@ gl:
   item_type_taxon: Taxon
   item_type_video: Vídeo
   item_type_article_assistive: Este elemento é un artigo
+  item_type_cms_page_assistive: Este elemento é contido informativo sobre a EOL
   item_type_collection_assistive: Este elemento é unha colección
   item_type_community_assistive: Este elemento é unha comunidade
   item_type_image_assistive: Este elemento é unha imaxe
@@ -5034,6 +5238,24 @@ gl:
   keep_split_entry_from_this_entry: Manter separado desta entrada
   key: Clave
   known_uri_category_header: Categorías
+  known_uri_created: Engadiuse o URI.
+  known_uri_missing_translation: Sen traducir; edítao
+  known_uri_name_and_uri: '%{name} (%{uri})'
+  known_uri_updated: Actualizouse o URI.
+  known_uri_label_inverse: é un inverso de
+  known_uri_label_allowed_val: permite un valor de
+  known_uri_label_allowed_unit: permite unha unidade de
+  known_uri_label_unit: ten unha unidade por defecto de
+  known_uri_label_equivalent: é equivalente a
+  known_uri_label_indirectly_equivalent: é indirectamente equivalente a
+  known_uris_empty_sorry: Sentímolo, aínda non hai ningún URI suxerido para esta categoría.
+  known_uris_none: Ninguén engadiu ningún URI deste tipo.
+  known_uris_page_title: URI para datos na EOL
+  known_uris_sorted: Actualizouse a orde.
+  pending_harvests_none: Actualmente non hai colleitas pendentes
+  pending_harvests_title: Colleitas pendentes
+  pause_pending_harvests: Pausar a colleita
+  resume_pending_harvests: Continuar a colleita
   label: Etiqueta
   language: 'Lingua:'
   languages: Linguas
@@ -5041,6 +5263,7 @@ gl:
     nas que hai dispoñibles contidos do sitio. Para cambiar a lingua actual selecciona
     unha das que está na lista.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Duración da última colleita
   last_updated: Última actualización
   last_updated_time_ago: Última actualización hai %{time_passed}
   learn_about_collections: Como podo crear unha?
@@ -5049,6 +5272,7 @@ gl:
   learn_about_eol: Como podo usar a EOL?
   learn_about_contributing: Como podo contribuír?
   learn_about_joining: Como podo unirme?
+  learn_how_to_contribute: Aprende a contribuír.
   learn_more_about_communities_link: Descubre máis sobre as comunidades
   learn_more_about_names_for_this_taxon: descubre máis sobre os nomes deste taxon
   learn_more_link: (%{learn_more})
@@ -5057,7 +5281,9 @@ gl:
   leave_a_comment: Deixar un comentario
   leave_reply: Deixar a resposta
   left_content_area: Deixou a zona de contidos
+  legend: 'Lenda:'
   license: Licenza
+  license_none: Ningunha
   license_all_rights_reserved: Todos os dereitos reservados
   license_cc_by: Creative Commons recoñecemento (CC BY)
   license_cc_by_2_0: Creative Commons recoñecemento 2.0 (CC BY 2.0)
@@ -5090,6 +5316,7 @@ gl:
   license_cc_by_sa_3_0: Creative Commons recoñecemento compartir igual 3.0 (CC BY-SA
     3.0)
   license_cc_zero: Creative Commons — CC0 1.0 Universal
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: Licenza de documentación libre de GNU (GNU FDL)
   license_gnu_gpl: Licenza pública xeral GNU (GNU GPL)
   license_no_known_copyright_restrictions: Sen restricións coñecidas por dereitos
@@ -5110,6 +5337,8 @@ gl:
     vermella da IUCN
   link_more_about: Máis información sobre esta ligazón
   link_name: Nome da ligazón
+  link_to_this_term: ligazón cara este termo
+  link_to_top_of_page: arriba
   links_with_count:
     one: '%{count} ligazón'
     other: '%{count} ligazóns'
@@ -5140,6 +5369,7 @@ gl:
   login_or_create_account: Iniciar sesión ou crear unha conta
   login_to_the_website_as: Iniciar sesión como %{username}
   logo_header: Logotipo
+  logo_type_error: O logotipo non ten un tipo de imaxe válido (debe ser PNG ou JPEG).
   logout: Saír
   looking_up_url: Buscando o enderezo URL...
   main_content_area: 'Zona de contidos principal:'
@@ -5370,7 +5600,7 @@ gl:
   no_news_items_for_month_and_year: Non houbo ningunha nova en %{month_and_year}
   none: ningún
   "no": Non
-  num_content_partners: Número de provedores de contido
+  num_content_partners: Número de socios de contido
   num_data_objects: Número de obxectos de datos
   no_record_found_matching_your_criteria: Non se atopou ningún rexistro que coincidise
     cos teus criterios de procura.
@@ -5930,6 +6160,7 @@ gl:
   sub_heading: Subcabeceira
   subject: asunto
   submit: Enviar
+  submitting: Por favor, agarda…
   suggested_result_page_id: 'ID da páxina de resultados suxeridos:'
   suggested_results_avg: Media dos resultados suxeridos
   summary_thumbnail_title: 'Resumo:'
@@ -6087,9 +6318,9 @@ gl:
     electrónico. Todos os cambios feitos son inmediatos.
   too_many_descendants_to_curate_with_count:
     one: 'ERRO: O sistema automático non pode procesar a túa conservación. Hai %{count}
-      dependencia que supera o máximo permitido.'
+      descendente que supera o máximo permitido.'
     other: 'ERRO: O sistema automático non pode procesar a túa conservación. Hai %{count}
-      dependencias que superan o máximo permitido.'
+      descendentes que superan o máximo permitido.'
   the_data_object_id_can_be: o parámetro ID pode ser un enteiro (un ID de versión
     de DataObject) ou un identificador único global (GUID) de 16 caracteres que ha
     devolver a última versión dese obxecto
@@ -6108,10 +6339,10 @@ gl:
     non foi revisada.
   the_json_response_for_this_method: A resposta JSON deste método devolve máis información
     que a resposta XML. A resposta JSON inclúe varias estatísticas acerca deste nodo
-    e as súas dependencias taxonómicas. Por exemplo, hai un campo de devolución denominado
+    e os seus descendentes taxonómicos. Por exemplo, hai un campo de devolución denominado
     "total_descendants" que lista o número de nodos que dependen daquel especificado,
     segundo esta xerarquía; "total_trusted_text" inclúe o número total de obxectos
-    de datos de texto únicos ligados con esta páxina ou con calquera das súas dependencias.
+    de datos de texto únicos ligados con esta páxina ou con calquera dos seus descendentes.
   the_message_was_sent: Enviouse a mensaxe.
   the_new_topic_was_created: Creouse o novo tema.
   the_new_user_was_created: Creouse o novo usuario.

@@ -206,7 +206,7 @@ ko:
   translated_synonym_relations-label-synonym_relation_id-19: 허용한 이름
   translated_synonym_relations-label-synonym_relation_id-1: 동의어
   translated_synonym_relations-label-synonym_relation_id-20: 데이터베이스 유물
-  translated_synonym_relations-label-synonym_relation_id-21: 기타, 덧글 참고
+  translated_synonym_relations-label-synonym_relation_id-21: 기타, 댓글 참조
   translated_synonym_relations-label-synonym_relation_id-22: 정향 진화의 변종 (잘못된 철자)
   translated_synonym_relations-label-synonym_relation_id-23: 오용
   translated_synonym_relations-label-synonym_relation_id-24: 거부된 이름
@@ -265,7 +265,7 @@ ko:
   translated_synonym_relations-label-synonym_relation_id-9: 젠뱅크 공통 이름
   translated_table_of_contents-label-table_of_contents_id-13: 공통 이름
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
-  translated_table_of_contents-label-table_of_contents_id-17: 문헌 참고
+  translated_table_of_contents-label-table_of_contents_id-17: 참고 문헌
   translated_table_of_contents-label-table_of_contents_id-194: 크기
   translated_table_of_contents-label-table_of_contents_id-1: 둘러보기
   translated_table_of_contents-label-table_of_contents_id-218: 분산
@@ -336,7 +336,7 @@ ko:
   translated_table_of_contents-label-table_of_contents_id-346: 생명 공학 용어
   translated_table_of_contents-label-table_of_contents_id-347: 분류
   translated_table_of_contents-label-table_of_contents_id-348: 종류 정보
-  translated_table_of_contents-label-table_of_contents_id-34: 덧글
+  translated_table_of_contents-label-table_of_contents_id-34: 댓글
   translated_table_of_contents-label-table_of_contents_id-3: 물리적 설명
   translated_table_of_contents-label-table_of_contents_id-41: 서식지
   translated_table_of_contents-label-table_of_contents_id-4: 생태학

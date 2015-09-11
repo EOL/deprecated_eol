@@ -143,7 +143,7 @@ class TaxonDataSet
       jsonld['@graph'] << tcn.to_jsonld
     end
     @data_point_uris.map do |dpuri|
-      jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
+      jsonld['@graph'] << dpuri.to_jsonld_with_meta_cached
     end
     fill_context(jsonld)
     jsonld

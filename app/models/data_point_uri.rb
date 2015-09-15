@@ -166,7 +166,8 @@ class DataPointUri < ActiveRecord::Base
     "data_point_#{id}"
   end
 
-  # NOTE: We never want these to expire, so we store them in Redis:
+  # NOTE: We never want these to expire, so we store them in Redis.
+  # NOTE: THIS IS A STOP-GAP SOLUTION. Remove, once we are storing data in Solr.
   def to_jsonld_with_meta_cached
     jsonld = Resque.redis.get("data_point_uri:#{id}:meta")
     return jsonld if jsonld
@@ -382,8 +383,9 @@ class DataPointUri < ActiveRecord::Base
     data_point_uris.each_slice(1000){ |d| assign_references(d, language) }
   end
 
-  # NOTE - User-added data references aren't added with these URIs and therefore don't get "seen" by this method.
-  # TODO - (low priority) fix that; we should get user-added references.
+  # NOTE - User-added data references aren't added with these URIs and therefore
+  # don't get "seen" by this method. TODO - (low priority) fix that; we should
+  # get user-added references.
   def self.assign_references(data_point_uris, language)
     data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
     uris_to_lookup = data_point_uris.select{ |d| d.references.nil? }.collect(&:uri)

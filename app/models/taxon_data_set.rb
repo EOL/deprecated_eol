@@ -142,6 +142,8 @@ class TaxonDataSet
     @taxon_concept.common_names.map do |tcn|
       jsonld['@graph'] << tcn.to_jsonld
     end
+    # Speed things up immensely (but still not FAST):
+    DataPointUri.assign_metadata(@data_point_uris, Language.default)
     @data_point_uris.map do |dpuri|
       jsonld['@graph'] << dpuri.to_jsonld_with_meta_cached
     end

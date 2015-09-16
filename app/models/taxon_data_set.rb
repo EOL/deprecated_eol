@@ -145,7 +145,7 @@ class TaxonDataSet
     # Speed things up immensely (but still not FAST):
     DataPointUri.assign_metadata(@data_point_uris, Language.default)
     @data_point_uris.map do |dpuri|
-      jsonld['@graph'] << dpuri.to_jsonld_with_meta_cached
+      jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
     end
     fill_context(jsonld)
     jsonld

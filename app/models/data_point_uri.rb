@@ -166,16 +166,6 @@ class DataPointUri < ActiveRecord::Base
     "data_point_#{id}"
   end
 
-  # NOTE: We never want these to expire, so we store them in Redis.
-  # NOTE: THIS IS A STOP-GAP SOLUTION. Remove, once we are storing data in Solr.
-  def to_jsonld_with_meta_cached
-    jsonld = Resque.redis.get("data_point_uri:#{id}:meta")
-    return jsonld if jsonld
-    jsonld = to_jsonld(metadata: true)
-    Resque.redis.set("data_point_uri:#{id}:meta", jsonld)
-    jsonld
-  end
-
   def to_jsonld(options = {})
     jsonld = {
       '@id' => uri,

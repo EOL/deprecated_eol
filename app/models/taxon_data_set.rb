@@ -134,6 +134,7 @@ class TaxonDataSet
   end
 
   def to_jsonld
+    EOL.log("#to_jsonld for #{@taxon_concept.id}")
     raise "Cannot build JSON+LD without taxon concept" unless @taxon_concept
     jsonld = { '@graph' => [ @taxon_concept.to_jsonld ] }
     if wikipedia_entry = @taxon_concept.wikipedia_entry
@@ -142,12 +143,16 @@ class TaxonDataSet
     @taxon_concept.common_names.map do |tcn|
       jsonld['@graph'] << tcn.to_jsonld
     end
+    EOL.log("assigning metadata")
     # Speed things up immensely (but still not FAST):
     DataPointUri.assign_metadata(@data_point_uris, Language.default)
+    EOL.log("building graph")
     @data_point_uris.map do |dpuri|
       jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
     end
+    EOL.log("filling context")
     fill_context(jsonld)
+    EOL.log("#to_jsonld done")
     jsonld
   end
 

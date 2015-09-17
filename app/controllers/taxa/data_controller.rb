@@ -8,6 +8,7 @@ class Taxa::DataController < TaxaController
 
   # GET /pages/:taxon_id/data/index
   def index
+    EOL.log("Taxa::DataController#index")
     @assistive_section_header = I18n.t(:assistive_data_header)
     @recently_used = KnownUri.where(uri: session[:rec_uris]) if
       session[:rec_uris]
@@ -22,7 +23,9 @@ class Taxa::DataController < TaxaController
 
     @querystring = ''
     @sort = ''
+    EOL.log("building jsonld")
     @jsonld = @taxon_data.jsonld
+    EOL.log("#index done, rendering")
   end
 
   # GET /pages/:taxon_id/data/about

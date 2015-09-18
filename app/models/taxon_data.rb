@@ -89,11 +89,15 @@ class TaxonData < TaxonUserClassificationFilter
 
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
+    EOL.log("TaxonData#get_data", prefix: '#')
+    # #dup used here because the return value is often altered to suit the
+    # rendering, and we don't want to much with the data stored here.
     return @taxon_data_set.dup if defined?(@taxon_data_set)
     if_connection_fails_return(nil) do
       taxon_data_set = TaxonDataSet.new(raw_data,
         taxon_concept: taxon_concept,
         language: user.language)
+      EOL.log("sorting", prefix: '.')
       taxon_data_set.sort
       # NOTE: I removed some includes here (known_uri_relationships) because I
       # didn't see them being used _anywhere_.
@@ -107,7 +111,7 @@ class TaxonData < TaxonUserClassificationFilter
     end
     raise EOL::Exceptions::SparqlDataEmpty if @taxon_data_set.nil?
     @taxon_data_set
-  end  
+  end
 
   # TODO - spec for can see data check
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
@@ -327,7 +331,7 @@ class TaxonData < TaxonUserClassificationFilter
         ORDER BY DESC(?min)"
       query
     end
-        
+
     def range_data
       Rails.cache.fetch("/taxa/#{taxon_concept.id}/range_data", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
         EOL::Sparql.connection.query(prepare_range_query).delete_if{ |r| r[:measurementOfTaxon] != Rails.configuration.uri_true}

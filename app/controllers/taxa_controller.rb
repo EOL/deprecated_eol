@@ -114,6 +114,7 @@ protected
 private
 
   def instantiate_taxon_page
+    EOL.log("", prefix: "\n")
     EOL.log("#instantiate_taxon_page")
     tc_id = params[:taxon_concept_id] || params[:taxon_id] || params[:id]
     # we had cases of app servers not properly getting the page ID from parameters and throwing 404

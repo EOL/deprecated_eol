@@ -65,6 +65,6 @@ module EOL
     options[:prefix] ||= '*'
     # Have to use #error to get it to show up in production:
     Rails.logger.error("#{options[:prefix]}#{options[:prefix]} "\
-      "#{Time.now.to_s(:number)} #{msg}")
+      "#{Time.now.strftime("%Y%m%d-%H:%M:%S.%L")} #{msg}")
   end
 end

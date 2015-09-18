@@ -15,7 +15,7 @@ class KnownUri < ActiveRecord::Base
   TAXON_RE = Rails.configuration.known_taxon_uri_re
   DATO_RE = Rails.configuration.known_data_object_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
-  
+
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable
@@ -173,9 +173,11 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.add_to_data(rows)
+    EOL.log("KnownUri#add_to_data", prefix: '#')
     known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
       { known_uri_relationships_as_target: :from_known_uri }, :toc_items ])
+    EOL.log("replacing rows", prefix: '.')
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
@@ -446,12 +448,12 @@ class KnownUri < ActiveRecord::Base
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
   end
-  
+
   def self.search_by_uri(term, language)
     TranslatedKnownUri.where(language_id: language.id).
       where("uri = ? ",term.strip).includes(:known_uri).map(&:known_uri).compact.uniq
   end
-  
+
   def self.search_by_name(term, language)
     TranslatedKnownUri.where(language_id: language.id).
       where("name like ? ","%#{term.strip}%").includes(:known_uri).map(&:known_uri).compact.uniq

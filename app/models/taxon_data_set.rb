@@ -8,19 +8,31 @@ class TaxonDataSet
   LIFE_STAGE = 0
 
   def initialize(rows, options = {})
+    EOL.log("TaxonDataSet#initialize", prefix: '#')
     virtuoso_results = rows
     @taxon_concept = options[:taxon_concept]
     @language = options[:language] || Language.default
     KnownUri.add_to_data(virtuoso_results)
-    DataPointUri.preload_data_point_uris!(virtuoso_results, @taxon_concept.try(:id))
+    DataPointUri.preload_data_point_uris!(virtuoso_results,
+      @taxon_concept.try(:id))
     @data_point_uris = virtuoso_results.collect{ |r| r[:data_point_instance] }
     unless options[:preload] == false
+      EOL.log("preloading TCs, comments, exemplars, CPs", prefix: '.')
       DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
-      DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
-        [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ])
-      TaxonConcept.load_common_names_in_bulk(@data_point_uris.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)
+      EOL.log("preloading target TCs w/ preferred_entries", prefix: '.')
+      DataPointUri.preload_associations(
+        @data_point_uris.select { |d| d.association? },
+        target_taxon_concept: [ {
+          preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } }
+        } ]
+      )
+      TaxonConcept.load_common_names_in_bulk(
+        @data_point_uris.select { |d| d.association? }.
+          collect(&:target_taxon_concept), @language.id
+      )
       DataPointUri.initialize_labels_in_language(@data_point_uris, @language)
     end
+    EOL.log("converting units", prefix: '.')
     convert_units
   end
 

@@ -75,6 +75,11 @@ class TaxonDataSet
     last_stat_pos = stat_positions.values.max || 0 + 1
     EOL.log("sorting by method", prefix: '.')
     @data_point_uris.sort_by! do |data_point_uri|
+      # These two calls both hit the database. They are not terribly slow
+      # queries, but there are many, many of them on a large page. Furthermore,
+      # I don't see anything (here) dealing with language. FURTHERMORE, this
+      # whole process seems superfluous and convoluted. We should just re-write
+      # the whole way we handle labels, really.
       attribute_label =
         EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
       attribute_pos = data_point_uri.predicate_known_uri.try(:position) ||
@@ -122,8 +127,9 @@ class TaxonDataSet
     self
   end
 
-  # TODO - in my sample data (which had a single duplicate value for 'weight'), running this then caused the "more"
-  # to go away.  :\  We may not care about such cases, though.
+  # TODO - in my sample data (which had a single duplicate value for 'weight'),
+  # running this then caused the "more" to go away.  :\  We may not care about
+  # such cases, though.
   def uniq
     h = {}
     @data_point_uris.each { |data_point_uri| h["#{data_point_uri.predicate}:#{data_point_uri.object}"] = data_point_uri }
@@ -141,7 +147,8 @@ class TaxonDataSet
     end
   end
 
-  # Returns a HASH where the keys are KnownUris and the values are ARRAYS of DataPointUris.
+  # Returns a HASH where the keys are KnownUris and the values are ARRAYS of
+  # DataPointUris.
   def categorized
     categorized = @data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
     categorized

@@ -89,7 +89,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
-    EOL.log("TaxonData#get_data", prefix: '#')
+    EOL.log_call
     # #dup used here because the return value is often altered to suit the
     # rendering, and we don't want to much with the data stored here.
     return @taxon_data_set.dup if defined?(@taxon_data_set)

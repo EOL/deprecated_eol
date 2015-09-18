@@ -8,7 +8,7 @@ class TaxonDataSet
   LIFE_STAGE = 0
 
   def initialize(rows, options = {})
-    EOL.log("TaxonDataSet#initialize", prefix: '#')
+    EOL.log_call
     virtuoso_results = rows
     @taxon_concept = options[:taxon_concept]
     @language = options[:language] || Language.default

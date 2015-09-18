@@ -114,6 +114,7 @@ protected
 private
 
   def instantiate_taxon_page
+    EOL.log("#instantiate_taxon_page")
     tc_id = params[:taxon_concept_id] || params[:taxon_id] || params[:id]
     # we had cases of app servers not properly getting the page ID from parameters and throwing 404
     # errors instead of 500. This may cause site crawlers to think pages don't exist. So throw errors instead
@@ -123,10 +124,10 @@ private
     end
     unless @taxon_concept.published?
       if logged_in?
-        
+
         raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}",:can_not_access_unpublished_taxon)
       else
-        
+
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have access to TaxonConcept with ID=#{@taxon_concept.id}"
       end
     end
@@ -144,6 +145,7 @@ private
   end
 
   def instantiate_preferred_names
+    EOL.log("#instantiate_preferred_names")
     @preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_language)
     @scientific_name = @taxon_page.scientific_name
   end

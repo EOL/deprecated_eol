@@ -61,6 +61,16 @@ module EOL
     return false
   end
 
+  # Intended to (safely) log the name of the method being invoked.
+  def self.log_call
+    begin
+      EOL.log("#{caller[1].split.last[1..-2].classify}#"\
+        "#{caller[0].split.last[1..-2]}", prefix: '#')
+    rescue
+      EOL.log("Starting method, unable to determine context.")
+    end
+  end
+
   def self.log(msg, options = {})
     options[:prefix] ||= '*'
     # Have to use #error to get it to show up in production:

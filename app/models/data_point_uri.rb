@@ -43,7 +43,7 @@ class DataPointUri < ActiveRecord::Base
   before_save :default_visibility
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
-    EOL.log("DataPointUri#preload_data_point_uris!", prefix: '#')
+    EOL.log_call
     # There are potentially hundreds or thousands of DataPointUri inserts
     # happening here. The transaction makes the inserts much faster - no
     # committing after each insert
@@ -64,7 +64,6 @@ class DataPointUri < ActiveRecord::Base
         end
         # setting the taxon_concept_id since it is not in the Virtuoso response
         row[:taxon_concept_id] ||= taxon_concept_id
-        EOL.log("adding DPURI: #{row[:data_point_uri].to_s}")
         row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
         row[:data_point_instance].update_with_virtuoso_response(row)
       end
@@ -72,7 +71,7 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def self.initialize_labels_in_language(data_point_uris, language = Language.default)
-    EOL.log("DataPointUri#initialize_labels_in_language", prefix: '#')
+    EOL.log_call
     data_point_uris.each do |data_point_uri|
       # calling value_string now while we have the proper language for loading the proper
       # translations and common names. This will cache the value for use later, such as in sorting
@@ -92,12 +91,15 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def self.create_from_virtuoso_response(row)
+    EOL.log_call
+    EOL.log("for #{row[:data_point_uri].to_s}", prefix: '..')
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     if data_point_uri = DataPointUri.find_by_taxon_concept_id_and_uri(
       new_attributes[:taxon_concept_id], new_attributes[:uri]
     )
       data_point_uri.update_with_virtuoso_response(row)
     else
+      EOL.log("Missing, calling #create", prefix: '..')
       data_point_uri = DataPointUri.create(new_attributes)
     end
     data_point_uri
@@ -420,6 +422,7 @@ class DataPointUri < ActiveRecord::Base
   # TODO: This is expensive. It's eating up quite a lot of traffic on EOL.
   # Find a way to avoid it.
   def update_with_virtuoso_response(row)
+    EOL.log_call
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     new_attributes.each do |k, v|
       send("#{k}=", v)

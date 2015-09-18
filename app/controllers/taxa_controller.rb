@@ -114,15 +114,17 @@ protected
 private
 
   def instantiate_taxon_page
-    EOL.log("", prefix: "\n")
+    EOL.log("// PAGE", prefix: "\n")
     EOL.log("#instantiate_taxon_page")
     tc_id = params[:taxon_concept_id] || params[:taxon_id] || params[:id]
-    # we had cases of app servers not properly getting the page ID from parameters and throwing 404
-    # errors instead of 500. This may cause site crawlers to think pages don't exist. So throw errors instead
+    # we had cases of app servers not properly getting the page ID from
+    # parameters and throwing 404 errors instead of 500. This may cause site
+    # crawlers to think pages don't exist. So throw errors instead
     raise if tc_id.blank? || tc_id == 0
     with_master_if_curator do
       @taxon_concept = TaxonConcept.find(tc_id)
     end
+    EOL.log("id: #{@taxon_concept.id}", prefix: '.')
     unless @taxon_concept.published?
       if logged_in?
 

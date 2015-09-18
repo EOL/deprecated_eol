@@ -97,7 +97,6 @@ class TaxonData < TaxonUserClassificationFilter
       taxon_data_set = TaxonDataSet.new(raw_data,
         taxon_concept: taxon_concept,
         language: user.language)
-      EOL.log("sorting", prefix: '.')
       taxon_data_set.sort
       # NOTE: I removed some includes here (known_uri_relationships) because I
       # didn't see them being used _anywhere_.

@@ -5,13 +5,13 @@ namespace :load_graphs_into_data_point_uris do
       load_trait_data(taxon_concept)
     end
   end
-  
+
   def load_trait_data(taxon_concept)
     virtuoso_results = raw_data(taxon_concept)
     KnownUri.add_to_data(virtuoso_results)
     preload_data_point_uris!(virtuoso_results, taxon_concept.try(:id))
   end
-  
+
   def raw_data(taxon_concept)
     (measurement_data(taxon_concept) + association_data(taxon_concept)).delete_if { |k,v| k[:attribute].blank? }
   end
@@ -50,7 +50,7 @@ namespace :load_graphs_into_data_point_uris do
       "
     EOL::Sparql.connection.query(query)
   end
-  
+
   def association_data(taxon_concept)
     query = "
       SELECT DISTINCT ?attribute ?value ?target_taxon_concept_id
@@ -85,7 +85,7 @@ namespace :load_graphs_into_data_point_uris do
       }"
     EOL::Sparql.connection.query(query)
   end
-  
+
   def preload_data_point_uris!(results, taxon_concept_id = nil)
     ActiveRecord::Base.transaction do
       partner_data = results.select{ |d| d.has_key?(:data_point_uri) }
@@ -97,7 +97,6 @@ namespace :load_graphs_into_data_point_uris do
       row[:taxon_concept_id] ||= taxon_concept_id
       row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
       row[:data_point_instance].update_with_virtuoso_response(row)
-      end
     end
   end
 end

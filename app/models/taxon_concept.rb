@@ -173,6 +173,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def self.load_common_names_in_bulk(taxon_concepts, language_id)
+    EOL.log("TaxonConcept#load_common_names_in_bulk", prefix: '#')
     taxon_concepts_to_load = taxon_concepts.compact.select do |tc|
       tc.common_names_in_language ||= {}
       ! tc.common_names_in_language.has_key?(language_id)

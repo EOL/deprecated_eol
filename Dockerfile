@@ -12,17 +12,14 @@ RUN apt-get update -q && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-COPY config/docker/nginx-sites.conf /etc/nginx/sites-enabled/default
-
 WORKDIR /app
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
-RUN bundle install
-COPY . /app
 
+COPY config/docker/nginx-sites.conf /etc/nginx/sites-enabled/default
 COPY config/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+COPY . /app
+RUN bundle install
+
 RUN chmod a+rx /
-RUN umask 0022
 
 CMD /usr/bin/supervisord

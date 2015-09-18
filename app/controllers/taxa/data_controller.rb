@@ -8,7 +8,7 @@ class Taxa::DataController < TaxaController
 
   # GET /pages/:taxon_id/data/index
   def index
-    EOL.log("Taxa::DataController#index")
+    EOL.log_call
     @assistive_section_header = I18n.t(:assistive_data_header)
     @recently_used = KnownUri.where(uri: session[:rec_uris]) if
       session[:rec_uris]
@@ -53,7 +53,7 @@ protected
   end
 
   def load_data
-    EOL.log("#load_data")
+    EOL.log_call
     # Sad that we need to load all of this for the about and glossary tabs, but
     # TODO - we can cache this, later:
     @taxon_data = @taxon_page.data

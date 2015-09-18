@@ -63,15 +63,17 @@ class TaxonDataSet
   end
 
   # NOTE: this is 'destructive', since we don't ever need it to not be. If that
-  # changes, make the corresponding method and add a bang to this one.
-  # NOTE: 0 for life stage and 1 for gender
+  # changes, make the corresponding method and add a bang to this one. NOTE: 0
+  # for life stage and 1 for gender
   def sort
+    EOL.log_call
     # This looks complicated, but it's actually really fast:
     last_attribute_pos = @data_point_uris.map do |dpuri|
       dpuri.predicate_known_uri.try(:position) || 0
     end.max || 0 + 1
     stat_positions = get_positions
     last_stat_pos = stat_positions.values.max || 0 + 1
+    EOL.log("sorting by method", prefix: '.')
     @data_point_uris.sort_by! do |data_point_uri|
       attribute_label =
         EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]

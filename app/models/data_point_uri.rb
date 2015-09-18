@@ -65,7 +65,9 @@ class DataPointUri < ActiveRecord::Base
         # setting the taxon_concept_id since it is not in the Virtuoso response
         row[:taxon_concept_id] ||= taxon_concept_id
         row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
-        row[:data_point_instance].update_with_virtuoso_response(row)
+        row[:data_point_instance].update_with_virtuoso_response(row) if
+          row[:data_point_instance].updated_at < 3.weeks.ago
+        end
       end
     end
   end
@@ -73,8 +75,9 @@ class DataPointUri < ActiveRecord::Base
   def self.initialize_labels_in_language(data_point_uris, language = Language.default)
     EOL.log_call
     data_point_uris.each do |data_point_uri|
-      # calling value_string now while we have the proper language for loading the proper
-      # translations and common names. This will cache the value for use later, such as in sorting
+      # calling value_string now while we have the proper language for loading
+      # the proper translations and common names. This will cache the value for
+      # use later, such as in sorting
       data_point_uri.value_string(language)
     end
   end
@@ -97,7 +100,8 @@ class DataPointUri < ActiveRecord::Base
     if data_point_uri = DataPointUri.find_by_taxon_concept_id_and_uri(
       new_attributes[:taxon_concept_id], new_attributes[:uri]
     )
-      data_point_uri.update_with_virtuoso_response(row)
+      data_point_uri.update_with_virtuoso_response(row) if
+        data_point_uri.updated_at < 3.weeks.ago
     else
       EOL.log("Missing, calling #create", prefix: '..')
       data_point_uri = DataPointUri.create(new_attributes)
@@ -422,6 +426,8 @@ class DataPointUri < ActiveRecord::Base
   # TODO: This is expensive. It's eating up quite a lot of traffic on EOL.
   # Find a way to avoid it.
   def update_with_virtuoso_response(row)
+    # DO NOT call this (it's slow) unless the data is really stale:
+    return unless updated_at < 4.weeks.ago
     EOL.log_call
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     new_attributes.each do |k, v|
@@ -594,14 +600,15 @@ class DataPointUri < ActiveRecord::Base
           @value_string = val.to_i
         end
       end
-      # other values may have links embedded in them (references, citations, etc.)
+      # other values may have links embedded in them (references, citations,
+      # etc.)
       @value_string = options[:hash_data] ? val : val.add_missing_hyperlinks
     end
     return @value_string
   end
 
-  # NOTE - Sadly, when using scopes here, it loads each scope for each instance, separately. (WTF?) So I'm not using scopes, I'm
-  # using selects.
+  # NOTE - Sadly, when using scopes here, it loads each scope for each instance,
+  # separately. (WTF?) So I'm not using scopes, I'm using selects.
   def included?
     taxon_data_exemplars.select(&:included?).any?
   end

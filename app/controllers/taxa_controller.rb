@@ -115,7 +115,7 @@ private
 
   def instantiate_taxon_page
     EOL.log("// PAGE", prefix: "\n")
-    EOL.log("#instantiate_taxon_page")
+    EOL.log_call
     tc_id = params[:taxon_concept_id] || params[:taxon_id] || params[:id]
     # we had cases of app servers not properly getting the page ID from
     # parameters and throwing 404 errors instead of 500. This may cause site
@@ -148,7 +148,7 @@ private
   end
 
   def instantiate_preferred_names
-    EOL.log("#instantiate_preferred_names")
+    EOL.log_call
     @preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_language)
     @scientific_name = @taxon_page.scientific_name
   end

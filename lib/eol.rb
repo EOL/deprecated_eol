@@ -64,10 +64,13 @@ module EOL
   # Intended to (safely) log the name of the method being invoked.
   def self.log_call
     begin
-      EOL.log("#{caller[1].split.last[1..-2].classify}#"\
-        "#{caller[0].split.last[1..-2]}", prefix: '#')
+      (file, method) = caller.first.split
+      EOL.log(
+        "#{file.split('/').last.split(':')[0..1].join(':')}#"\
+        "#{method[1..-2]}", prefix: '#'
+      )
     rescue
-      EOL.log("Starting method, unable to determine context.")
+      EOL.log("Starting method #{caller.first}")
     end
   end
 

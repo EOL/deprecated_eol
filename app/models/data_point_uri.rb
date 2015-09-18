@@ -1,8 +1,10 @@
 # encoding: utf-8
-# Gives us a SQL representation of a triple stored in the SparQL Database, so we can do rails-y things with it.
+# Gives us a SQL representation of a triple stored in the SparQL Database, so we
+# can do rails-y things with it.
 
-# TODO - it is really unclear how predicate and object work... how do I set them in tests, how do I know if they are
-# URIs, why are there sixteen flavors of each?  ...This needs to be re-engineered.
+# TODO - it is really unclear how predicate and object work... how do I set them
+# in tests, how do I know if they are URIs, why are there sixteen flavors of
+# each?  ...This needs to be re-engineered.
 
 class DataPointUri < ActiveRecord::Base
 
@@ -67,7 +69,6 @@ class DataPointUri < ActiveRecord::Base
         row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
         row[:data_point_instance].update_with_virtuoso_response(row) if
           row[:data_point_instance].updated_at < 3.weeks.ago
-        end
       end
     end
   end
@@ -799,6 +800,4 @@ class DataPointUri < ActiveRecord::Base
                                           ! conversion[:ending_unit].unit_of_measure? }
     @@conversions
   end
-
-
 end

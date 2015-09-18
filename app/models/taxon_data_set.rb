@@ -74,16 +74,12 @@ class TaxonDataSet
     stat_positions = get_positions
     last_stat_pos = stat_positions.values.max || 0 + 1
     EOL.log("sorting by method", prefix: '.')
+    predicates = KnownUri.
+      where(uri: @data_point_uris.map { |uri| uri.predicate } )
     @data_point_uris.sort_by! do |data_point_uri|
-      # These two calls both hit the database. They are not terribly slow
-      # queries, but there are many, many of them on a large page. Furthermore,
-      # I don't see anything (here) dealing with language. FURTHERMORE, this
-      # whole process seems superfluous and convoluted. We should just re-write
-      # the whole way we handle labels, really.
-      attribute_label =
-        EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
-      attribute_pos = data_point_uri.predicate_known_uri.try(:position) ||
-        last_attribute_pos
+      predicate = predicates.find { |k| k.uri == data_point_uri.uri }
+      attribute_label = predicate.try(:name)
+      attribute_pos = predicate.try(:position) || last_attribute_pos
       attribute_label = safe_downcase(attribute_label)
       value_label = safe_downcase(data_point_uri.value_string(@language))
       gender_sort = data_point_uri.context_labels[GENDER].try(:to_s) || 255.chr

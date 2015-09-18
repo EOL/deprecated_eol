@@ -102,9 +102,10 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
                   { uri: Rails.configuration.uri_term_prefix + 'log10gram', name: 'log10 grams' } ]
 
-  # This gets called a LOT.  ...Like... a *lot* a lot. But...
-  # DO NOT make a class variable and forget about it. We will need to flush the cache frequently as we
-  # add/remove accepted values for UnitOfMeasure. Use the cached_with_local_timeout method
+  # This gets called a LOT.  ...Like... a *lot* a lot. But... DO NOT make a
+  # class variable and forget about it. We will need to flush the cache
+  # frequently as we add/remove accepted values for UnitOfMeasure. Use the
+  # cached_with_local_timeout method
   def self.unit_of_measure
     cached_with_local_timeout('unit_of_measure') do
       KnownUri.where(uri: Rails.configuration.uri_measurement_unit).includes({ known_uri_relationships_as_subject: :to_known_uri } ).first

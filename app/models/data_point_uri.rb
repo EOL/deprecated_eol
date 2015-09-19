@@ -235,12 +235,12 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def predicate_uri
-    p = KnownUri.find_by_uri(predicate) if predicate
+    p = KnownUri.find_by_uri(predicate) if predicate && EOL::Sparql.is_uri?(predicate)
     p || predicate_known_uri || predicate
   end
 
   def object_uri
-    obj = KnownUri.find_by_uri(object) if object
+    obj = KnownUri.find_by_uri(object) if object && EOL::Sparql.is_uri?(object)
     obj || object_known_uri || object
   end
 
@@ -534,10 +534,11 @@ class DataPointUri < ActiveRecord::Base
       mdata.each do |datum|
         key = if options[:uris]
           # Try to fetch it from the array passed in,
-          it = options[:uris].find { |k| k.uri == datum.predicate } ||
-            # ...otherwise, "find" it (which actually creates it if missing!)
-            KnownUri.find_by_uri(datum.predicate)
-          it.try(:name)
+          if name = options[:uris].find { |k| k.uri == datum.predicate }
+            name.try(:name) || k.uri
+          else
+            EOL::Sparql.uri_to_readable_label(datum.predicate)
+          end
         else
           EOL::Sparql.uri_components(datum.predicate_uri)[:label]
         end

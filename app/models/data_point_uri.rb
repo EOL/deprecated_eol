@@ -204,8 +204,9 @@ class DataPointUri < ActiveRecord::Base
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(statistical_method_known_uri || statistical_method)
       jsonld['eolterms:statisticalMethod'] = value
     end
-    add_metadata_to_hash(jsonld, uris: options[:meta_uris]) if options[:metadata]
-    refs = get_references
+    # NOTE: JSONLD is _always_ in English (this is standard; never localized)!
+    add_metadata_to_hash(jsonld, Language.english, uris: options[:meta_uris]) if options[:metadata]
+    refs = get_references(Language.english)
     unless refs.empty?
       jsonld[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
     end

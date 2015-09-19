@@ -73,8 +73,130 @@
         -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
         - exemplar = data_point_uri.taxon_data_exemplars.select(&:included?).any?
         - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded?).any?
-        = render 'data_point_uris/display_rows', {    |
+        -# OLD: render 'data_point_uris/display_rows', {    |
           data_point_uri: data_point_uri, type_index: type_index,      |
           classes: classes, exemplar: exemplar, excluded: excluded,    |
           row_is_selected: row_is_selected, header_id: header_id,      |
           for_data_tab: true }                                         |
+        -# TODO: I just copy/pasted this from the partial, here. No changes. This is NOT the right way to do things, so you should change this later.
+        - for_data_tab = true
+        - EOL.log("_display_rows.html.haml", prefix: 'v')
+        - classes ||= [ ]
+        - type_index ||= nil
+        - exemplar = false if exemplar.nil?
+        - excluded = false if excluded.nil?
+        - row_is_selected = false unless row_is_selected == true
+        - for_search = false unless for_search == true
+        - if local_assigns.has_key?(:header_id)
+          - first_of_type = header_id
+        - else
+          - header_id = nil
+          - first_of_type = true
+        - EOL.log("getting comments (again)", prefix: 'v')
+        - comments = data_point_uri.comments
+        - EOL.log("getting latest version of TC", prefix: 'v')
+        - taxon_concept = data_point_uri.taxon_concept.latest_version
+        - taxon_link = taxon_data_path(taxon_concept)
+        - colspan = 4
+        - colspan = 5 if for_search
+        %tr{ id: data_point_uri.anchor, class: (classes + ['data']).join(' '), data: { type: type_index.nil? ? nil : "type_#{type_index}" } }
+          -# search results get the taxon image and taxon name
+          - if for_search
+            %td.taxon
+              .icon
+                - if image = taxon_concept.exemplar_or_best_image_from_solr
+                  - if thumb = image.thumb_or_object('88_88')
+                    = link_to image_tag(thumb), taxon_link
+                = link_to content_tag(:span, '', { title: I18n.t(:item_type_taxon_assistive) } ), taxon_link
+              .names
+                %h4
+                  = link_to raw(truncate(taxon_concept.collected_name, length: 64)), taxon_link
+                - subtitle = taxon_concept.preferred_common_name_in_language(current_language)
+                - unless subtitle.blank?
+                  = link_to subtitle.firstcap, taxon_link
+          - EOL.log("predicate", prefix: 'v')
+          %th.predicate{ id: header_id }
+            - span_class = nil
+            - if first_of_type
+              - EOL.log("First of type (again)", prefix: 'v')
+              = display_uri(data_point_uri.predicate_uri, exemplar: exemplar, excluded: excluded, define: true, capitalize: false, search_link: (! for_search),
+                modifiers: [ data_point_uri.statistical_method_label ])
+            - else
+              - if data_point_uri.statistical_method_label
+                - EOL.log("stat method", prefix: 'v')
+                = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+                %span.stat= data_point_uri.statistical_method_label
+                -# Note the '-' here is *needed* because of the haml_cat used in the method:
+                - info_icon
+              - else
+                %span
+                  = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+                  -# Note the '-' here is *needed* because of the haml_cat used in the method:
+                  - info_icon
+          - EOL.log("value", prefix: 'v')
+          %td.val{ headers: header_id, id: "#{header_id}_d" }
+            %span.fold
+              - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
+              = link_to(image_tag(arrow_file_name,
+                alt: I18n.t(:data_row_additional_detail_alt)),
+                taxon_data_path(data_point_uri.taxon_concept,
+                data_point_uri_id: data_point_uri.id, anchor: data_point_uri.anchor),
+                title: I18n.t(:data_row_additional_detail_assistive))
+            = raw display_text_for_data_point_uri(data_point_uri, define: :after, value_for_known_uri: data_point_uri.predicate_uri)
+          - EOL.log("source", prefix: 'v')
+          %td.source
+            %span.source
+              - if data_point_uri.source
+                = data_point_uri.source.name
+              - else
+                = I18n.t(:data_point_uri_source_missing)
+          - EOL.log("comment", prefix: 'v')
+          %td.comment
+            %span.comments
+              - if comments.empty?
+                &nbsp;
+              - else
+                = image_tag('comment_indicator.png')
+        - EOL.log("actions", prefix: 'v')
+        %tr{ id: "#{data_point_uri.anchor}_actions", class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
+          %td{ colspan: colspan }
+            - if row_is_selected
+              = render 'data_point_uris/metadata', { data_point_uri: data_point_uri, header_id: header_id }
+            .actions
+              %ul
+                %li
+                  - if data_point_uri.source
+                    = raw I18n.t("data_provided_by_#{data_point_uri.source.class.name.underscore.downcase}", whom: link_to(data_point_uri.source.name, data_point_uri.source))
+                  - else
+                    = I18n.t(:data_point_uri_source_missing)
+                - if current_user.is_admin?
+                  %li
+                    &bull;&ensp;
+                    = link_to I18n.t(:see_this_record_in_virtuoso), ($VIRTUOSO_FACET_BROWSER_URI_PREFIX + CGI.escape(data_point_uri.uri)), target: 'data'
+                - if data_point_uri.user_added_data
+                  - if current_user.can_update?(data_point_uri.user_added_data)
+                    %li
+                      &bull;&ensp;
+                      = link_to I18n.t(:edit), edit_user_added_datum_path(data_point_uri.user_added_data), method: :get
+                    %li
+                      &bull;&ensp;
+                      = link_to I18n.t(:delete), user_added_datum_path(data_point_uri.user_added_data), method: :delete, confirm: I18n.t('this_cannot_be_undone_are_you_sure')
+              = render 'comments/for_data', { comments: comments, data_point_instance: data_point_uri }
+              - if current_user.min_curator_level?(:full) || logged_in?
+                - EOL.log("curation", prefix: 'v')
+                .additional_commands.clearfix
+                  - if current_user.min_curator_level?(:full)
+                    - if data_point_uri.visible?
+                      - hide_link =  data_point_uri_hide_path(data_point_uri)
+                      = link_to I18n.t(:data_row_hide_button), hide_link, method: :put, class: 'hide button', remote: true, style: "margin-right: 10px;"
+                    - elsif data_point_uri.invisible?
+                      - show_link = data_point_uri_unhide_path(data_point_uri)
+                      = link_to I18n.t(:data_row_unhide_button), show_link, method: :put, class: 'unhide button', remote: true
+                    - unless excluded || for_search
+                      = link_to I18n.t(:data_row_remove_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: data_point_uri.taxon_concept.id, exclude: true), method: :post, class: "remove_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
+                    - unless exemplar || for_search
+                      = link_to I18n.t(:data_row_add_exemplar_button), taxon_data_exemplars_path(id: data_point_uri.id, taxon_concept_id: data_point_uri.taxon_concept.id), method: :post, class: "add_exemplar button#{data_point_uri.visible? ? nil : ' hidden'}", remote: true
+                    - if excluded && ! for_search
+                      %span.note= I18n.t(:data_row_excluded_from_overview_notice)
+                  - elsif logged_in?
+                    %p.note= I18n.t(:annotation_note).html_safe

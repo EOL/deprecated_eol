@@ -203,7 +203,7 @@ class DataPointUri < ActiveRecord::Base
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(statistical_method_known_uri || statistical_method)
       jsonld['eolterms:statisticalMethod'] = value
     end
-    add_metadata_to_hash(jsonld) if options[:metadata]
+    add_metadata_to_hash(jsonld, uris: options[:meta_uris]) if options[:metadata]
     refs = get_references
     unless refs.empty?
       jsonld[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
@@ -278,12 +278,13 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def self.assign_bulk_metadata(data_point_uris, language)
-    data_point_uris.each_slice(1000){ |d| assign_metadata(d, language) }
+    data_point_uris.each_slice(1000) { |d| assign_metadata(d, language) }
   end
 
   def self.assign_metadata(data_point_uris, language)
     data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
-    uris_to_lookup = data_point_uris.select{ |d| d.metadata.nil? }.collect(&:uri)
+    uris_to_lookup = data_point_uris.
+      select { |d| d.metadata.nil? }.collect(&:uri)
     return if uris_to_lookup.empty?
     query = "
       SELECT DISTINCT ?parent_uri ?attribute ?value ?unit_of_measure_uri
@@ -471,8 +472,8 @@ class DataPointUri < ActiveRecord::Base
     false
   end
 
-  # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
-  # this model class.
+  # Note... this method is actually kind of view-like (something like XML
+  # Builder would be ideal) and perhaps shouldn't be in this model class.
   def to_hash(language = Language.default, options = {})
     hash = if taxon_concept
              {
@@ -525,11 +526,19 @@ class DataPointUri < ActiveRecord::Base
   # TODO: replace add_metadata_to_hash with add_metadata_uris_to_hash and then
   # call a method like TaxonDataSet#context_from_uris on the result; but extract
   # that into a (new) JsonLd class.
-  def add_metadata_to_hash(hash, language = nil)
+  def add_metadata_to_hash(hash, language = nil, options = {})
     language ||= Language.english
-    if metadata = get_metadata(language)
-      metadata.each do |datum|
-        key = EOL::Sparql.uri_components(datum.predicate_uri)[:label]
+    if mdata = metadata || get_metadata(language)
+      mdata.each do |datum|
+        key = if options[:uris]
+          # Try to fetch it from the array passed in,
+          it = options[:uris].find { |k| k.uri == data_point_uri.uri } ||
+            # ...otherwise, "find" it (which actually creates it if missing!)
+            KnownUri.find_by_uri(datum.predicate)
+          it.try(:name)
+        else
+          EOL::Sparql.uri_components(datum.predicate_uri)[:label]
+        end
         if hash.has_key?(key) # Uh-oh. Make it original, please:
           orig_key = key.dup
           count = 1

@@ -163,9 +163,11 @@ class TaxonDataSet
     EOL.log("assigning metadata")
     # Speed things up immensely (but still not FAST):
     DataPointUri.assign_metadata(@data_point_uris, Language.default)
+    # This is usually only a handful of results!
+    meta_uris = @data_point_uris.flat_map { |u| u.metadata }.uniq
     EOL.log("building graph")
     @data_point_uris.map do |dpuri|
-      jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
+      jsonld['@graph'] << dpuri.to_jsonld(metadata: true, meta_uris: meta_uris)
     end
     EOL.log("filling context")
     fill_context(jsonld)

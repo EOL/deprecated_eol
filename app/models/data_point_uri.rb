@@ -177,6 +177,7 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def to_jsonld(options = {})
+    EOL.log_call
     jsonld = {
       '@id' => uri,
       'data_point_uri_id' => id,
@@ -532,7 +533,7 @@ class DataPointUri < ActiveRecord::Base
       mdata.each do |datum|
         key = if options[:uris]
           # Try to fetch it from the array passed in,
-          it = options[:uris].find { |k| k.uri == data_point_uri.uri } ||
+          it = options[:uris].find { |k| k.uri == datum.predicate } ||
             # ...otherwise, "find" it (which actually creates it if missing!)
             KnownUri.find_by_uri(datum.predicate)
           it.try(:name)

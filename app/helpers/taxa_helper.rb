@@ -163,9 +163,13 @@ module TaxaHelper
       end
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat add_exemplar_or_excluded_icon(options)
-        haml_concat raw(format_data_value(display_label, options)) + options[:succeed] unless options[:without_label]
+        haml_concat raw(format_data_value(display_label, options)) + options[:succeed] unless
+          options[:without_label]
         haml_concat display_text_for_modifiers(options[:modifiers])
-        if ( options[:define] && options[:define] == :after || options[:ranges] )&& uri.is_a?(KnownUri)
+        if ( options[:define] &&
+          options[:define] == :after ||
+          options[:ranges] ) &&
+          uri.is_a?(KnownUri)
           define(tag_type, uri, options[:search_link])
           info_icon if options[:val]
         end
@@ -241,7 +245,7 @@ module TaxaHelper
       text_for_row_value += " " + display_uri(uri_components, val: true)
     end
     adjust_exponent(text_for_row_value)
-    text_for_row_value.gsub(/\n/, '')    
+    text_for_row_value.gsub(/\n/, '')
     text_for_row_value += "</span>" unless data_point_uri.new_record?
     # displaying context such as life stage, sex.... The overview tab will include the statistical modifier
     modifiers = data_point_uri.context_labels
@@ -251,11 +255,11 @@ module TaxaHelper
     text_for_row_value += display_text_for_modifiers(modifiers)
     text_for_row_value
   end
-  
+
   def adjust_exponent(text_for_row_value)
     text_for_row_value.gsub!(/\^(\S)/, "<sup style='vertical-align: baseline;position: relative;top: -0.4em;'>\\1</sup>")
   end
-  
+
   def info_icon
     haml_tag "a.info_icon" do
       haml_concat "&emsp;" # Width doesn't seem to work.  :|

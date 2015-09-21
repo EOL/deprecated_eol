@@ -6,5 +6,6 @@
           %tbody
             %tr.comments
               %td
-                = render 'comments/for_data', { comments: @parent.comments,
-                  parent: @parent }
+                - if logged_in? || ! @parent.comments.empty?
+                  = render 'comments/for_data', { comments: @parent.comments,
+                    parent: @parent }

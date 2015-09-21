@@ -60,17 +60,15 @@
           - last_attribute = data_point_uri.predicate
         - else
           - header_id = nil
-        - classes << ['first_of_type'] if first_of_type
-        - comments = []
-        - EOL.log("getting comments", prefix: 'v')
-        - comments = data_point_uri.comments # Need to use #all_comments because it might involve multiple instances.
+        - classes << 'first_of_type' if first_of_type
         - unless data_point_uri.visible?
           - if current_user.is_curator?
             - classes << 'hidden'
           - else
             - next
         - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
-        -# using the instance methods as opposed to scopes allows us to use preloaded taxon_data_exemplars
+        -# using the instance methods as opposed to scopes allows us to use
+        -# preloaded taxon_data_exemplars
         - exemplar = data_point_uri.taxon_data_exemplars.select(&:included?).any?
         - excluded = data_point_uri.taxon_data_exemplars.select(&:excluded?).any?
         = render 'data_point_uris/display_rows', {    |

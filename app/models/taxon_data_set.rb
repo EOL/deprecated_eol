@@ -73,13 +73,14 @@ class TaxonDataSet
     end.max || 0 + 1
     stat_positions = get_positions
     last_stat_pos = stat_positions.values.max || 0 + 1
+    # Cache all those known URIs—they are expensive to look up individually!
+    EOL.log("loading kuris", prefix: '.')
+    load_kuris
     EOL.log("sorting by method", prefix: '.')
-    predicates = KnownUri.
-      where(uri: @data_point_uris.map { |uri| uri.predicate } )
     @data_point_uris.sort_by! do |data_point_uri|
-      predicate = predicates.find { |k| k.uri == data_point_uri.uri }
-      attribute_label = predicate.try(:name)
-      attribute_pos = predicate.try(:position) || last_attribute_pos
+      attribute_label = data_point_uri.predicate_kuri.try(:name)
+      attribute_pos = data_point_uri.predicate_kuri.try(:position) ||
+        last_attribute_pos
       attribute_label = safe_downcase(attribute_label)
       value_label = safe_downcase(data_point_uri.value_string(@language))
       gender_sort = data_point_uri.context_labels[GENDER].try(:to_s) || 255.chr
@@ -148,6 +149,17 @@ class TaxonDataSet
   def categorized
     categorized = @data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
     categorized
+  end
+
+  def load_kuris
+    predicates = KnownUri.where(uri: @data_point_uris.map(&:predicate).uniq)
+    @data_point_uris.each do |dpuri|
+      dpuri.predicate_kuri = predicates.find { |p| p.uri == dpuri.predicate }
+    end
+    objects = KnownUri.where(uri: @data_point_uris.map(&:object).uniq)
+    @data_point_uris.each do |dpuri|
+      dpuri.object_kuri = objects.find { |p| p.uri == dpuri.object }
+    end
   end
 
   def to_jsonld

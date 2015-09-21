@@ -543,12 +543,11 @@ class DataPointUri < ActiveRecord::Base
           # Try to fetch it from the array passed in,
           if name = options[:uris].find { |k| k.uri == datum.predicate }
             name.try(:name) || k.uri
-          else
-            EOL::Sparql.uri_to_readable_label(datum.predicate)
           end
         else
           EOL::Sparql.uri_components(datum.predicate_uri)[:label]
         end
+        key ||= EOL::Sparql.uri_to_readable_label(datum.predicate)
         if hash.has_key?(key) # Uh-oh. Make it original, please:
           orig_key = key.dup
           count = 1

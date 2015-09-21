@@ -18,16 +18,17 @@
   -# NOTE - we want this to appear on every subtab:
   .help_text{ style: style }
     %p
-      - EOL.log("searchable clades", prefix: 'v')
-      - if is_clade_searchable?
-        = t(:data_disclaimer_with_searchable_clade,
-          traitbank_info_path: cms_page_path('traitbank'),
-          traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
-          taxon_name: @taxon_page.scientific_name).html_safe
-      - else
-        = t(:data_disclaimer,
-          traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
-          traitbank_info_path: cms_page_path('traitbank')).html_safe
+      - EOL.log("searchable clades (skipping)", prefix: 'v')
+      - if false
+        - if is_clade_searchable?
+          = t(:data_disclaimer_with_searchable_clade,
+            traitbank_info_path: cms_page_path('traitbank'),
+            traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
+            taxon_name: @taxon_page.scientific_name).html_safe
+        - else
+          = t(:data_disclaimer,
+            traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
+            traitbank_info_path: cms_page_path('traitbank')).html_safe
   - EOL.log("building TOC", prefix: 'v')
   - category_toc_items = @data_point_uris.collect{ |d| d.predicate_known_uri ? d.predicate_known_uri.toc_items : nil }.flatten.compact.uniq.sort_by(&:view_order)
   - if @include_other_category

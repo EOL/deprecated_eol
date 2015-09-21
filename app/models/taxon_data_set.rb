@@ -7,9 +7,8 @@ class TaxonDataSet
   GENDER = 1
   LIFE_STAGE = 0
 
-  def initialize(rows, options = {})
+  def initialize(virtuoso_results, options = {})
     EOL.log_call
-    virtuoso_results = rows
     @taxon_concept = options[:taxon_concept]
     @language = options[:language] || Language.default
     KnownUri.add_to_data(virtuoso_results)

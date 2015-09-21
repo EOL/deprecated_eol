@@ -47,29 +47,40 @@ class DataPointUri < ActiveRecord::Base
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
     EOL.log_call
-    # There are potentially hundreds or thousands of DataPointUri inserts
-    # happening here. The transaction makes the inserts much faster - no
-    # committing after each insert
-    transaction do
-      partner_data = results.select { |d| d.has_key?(:data_point_uri) }
-      data_point_uris = DataPointUri.where(
-        uri: partner_data.map { |d| d[:data_point_uri].to_s }.compact.uniq
-      )
-      # Use the index, if we can (we cannot on searches):
-      data_point_uris = data_point_uris.
-        where(taxon_concept_id: taxon_concept_id) if
-        taxon_concept_id
-      # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
-      partner_data.each do |row|
-        if data_point_uri = data_point_uris.
-          detect { |dp| dp.uri == row[:data_point_uri].to_s }
-          row[:data_point_instance] = data_point_uri
-        end
-        # setting the taxon_concept_id since it is not in the Virtuoso response
-        row[:taxon_concept_id] ||= taxon_concept_id
-        row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
-        row[:data_point_instance].update_with_virtuoso_response(row) if
-          row[:data_point_instance].updated_at < 3.weeks.ago
+    updates = []
+    partner_data = results.select { |d| d.has_key?(:data_point_uri) }
+    data_point_uris = DataPointUri.where(
+      uri: partner_data.map { |d| d[:data_point_uri].to_s }.compact.uniq
+    )
+    # Use the index, if we can (we cannot on searches):
+    data_point_uris = data_point_uris.
+      where(taxon_concept_id: taxon_concept_id) if
+      taxon_concept_id
+    EOL.log("Processing Virtuoso rows", prefix: '.')
+    partner_data.each do |row|
+      if data_point_uri = data_point_uris.
+        detect { |dp| dp.uri == row[:data_point_uri].to_s }
+        row[:data_point_instance] = data_point_uri
+      end
+      # setting the taxon_concept_id since it is not in the Virtuoso response
+      row[:taxon_concept_id] ||= taxon_concept_id
+      if row[:data_point_instance].nil?
+        # We've never seen this one before, make a new one:
+        row[:data_point_instance] ||=
+          DataPointUri.create_from_virtuoso_response(row)
+          updates << row[:data_point_instance]
+      else # We have one, just make sure we have the right info:
+        change = row[:data_point_instance].update_with_virtuoso_response(row)
+        updates << row[:data_point_instance] if change
+      end
+    end
+    unless updates.empty?
+      EOL.log("Updating records", prefix: '.')
+      # There are potentially hundreds (or thousands) of DataPointUri inserts
+      # happening here. The transaction makes the inserts much faster - no
+      # committing after each insert:
+      transaction do
+        updates.each { |dpuri| dpuri.save }
       end
     end
   end
@@ -87,9 +98,11 @@ class DataPointUri < ActiveRecord::Base
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
   def self.replace_licenses_with_mock_known_uris(metadata_rows, language)
     metadata_rows.each do |row|
-      if row[:attribute] == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(row[:value].to_s)
+      if row[:attribute] == UserAddedDataMetadata::LICENSE_URI &&
+        license = License.find_by_source_url(row[:value].to_s)
         row[:value] = KnownUri.new(uri: row[:value],
-          translations: [ TranslatedKnownUri.new(name: license.title, language: language) ])
+          translations: [ TranslatedKnownUri.
+            new(name: license.title, language: language) ])
       end
     end
     metadata_rows
@@ -105,15 +118,16 @@ class DataPointUri < ActiveRecord::Base
       data_point_uri.update_with_virtuoso_response(row) if
         data_point_uri.updated_at < 3.weeks.ago
     else
-      EOL.log("Missing, calling #create", prefix: '..')
-      data_point_uri = DataPointUri.create(new_attributes)
+      EOL.log("Missing, calling #new", prefix: '..')
+      data_point_uri = DataPointUri.new(new_attributes)
     end
     data_point_uri
   end
 
   def self.attributes_from_virtuoso_response(row)
     attributes = { uri: row[:data_point_uri].to_s }
-    # taxon_concept_id may come from solr as a URI, or set elsewhere as an Integer
+    # taxon_concept_id may come from solr as a URI, or set elsewhere as an
+    # Integer
     if row[:taxon_concept_id]
       if taxon_concept_id = KnownUri.taxon_concept_id(row[:taxon_concept_id])
         attributes[:taxon_concept_id] = taxon_concept_id
@@ -128,15 +142,20 @@ class DataPointUri < ActiveRecord::Base
       statistical_method: :statistical_method,
       life_stage: :life_stage,
       sex: :sex }
-    virtuoso_to_data_point_mapping.each do |virtuoso_response_key, data_point_uri_key|
+    virtuoso_to_data_point_mapping.
+      each do |virtuoso_response_key, data_point_uri_key|
       next if row[virtuoso_response_key].blank?
       # this requires that
       if row[virtuoso_response_key].is_a?(KnownUri)
         attributes[data_point_uri_key] = row[virtuoso_response_key].uri
-        # each of these attributes has a corresponging known_uri_id (e.g. predicate_known_uri_id)
-        attributes[(data_point_uri_key.to_s + "_known_uri_id").to_sym] = row[virtuoso_response_key].id
-        # setting the instance as well to take advantage of preloaded associations on KnownUri
-        attributes[(data_point_uri_key.to_s + "_known_uri").to_sym] = row[virtuoso_response_key]
+        # each of these attributes has a corresponging known_uri_id (e.g.
+        # predicate_known_uri_id)
+        attributes[(data_point_uri_key.to_s + "_known_uri_id").to_sym] =
+          row[virtuoso_response_key].id
+        # setting the instance as well to take advantage of preloaded
+        # associations on KnownUri
+        attributes[(data_point_uri_key.to_s + "_known_uri").to_sym] =
+          row[virtuoso_response_key]
       else
         attributes[data_point_uri_key] = row[virtuoso_response_key].to_s
       end
@@ -156,15 +175,16 @@ class DataPointUri < ActiveRecord::Base
     attributes
   end
 
-  # Required for commentable items. NOTE - This requires four queries from the DB, unless you preload the
-  # information.  TODO - preload these:
-  # TaxonConcept Load (10.3ms)  SELECT `taxon_concepts`.* FROM `taxon_concepts` WHERE `taxon_concepts`.`id` = 17
-  # LIMIT 1
-  # TaxonConceptPreferredEntry Load (15.0ms)  SELECT `taxon_concept_preferred_entries`.* FROM
-  # `taxon_concept_preferred_entries` WHERE `taxon_concept_preferred_entries`.`taxon_concept_id` = 17 LIMIT 1
-  # HierarchyEntry Load (0.8ms)  SELECT `hierarchy_entries`.* FROM `hierarchy_entries` WHERE
-  # `hierarchy_entries`.`id` = 12 LIMIT 1
-  # Name Load (0.5ms)  SELECT `names`.* FROM `names` WHERE `names`.`id` = 25 LIMIT 1
+  # Required for commentable items. NOTE - This requires four queries from the
+  # DB, unless you preload the information.  TODO - preload these: TaxonConcept
+  # Load (10.3ms)  SELECT `taxon_concepts`.* FROM `taxon_concepts` WHERE
+  # `taxon_concepts`.`id` = 17 LIMIT 1 TaxonConceptPreferredEntry Load (15.0ms)
+  # SELECT `taxon_concept_preferred_entries`.* FROM
+  # `taxon_concept_preferred_entries` WHERE
+  # `taxon_concept_preferred_entries`.`taxon_concept_id` = 17 LIMIT 1
+  # HierarchyEntry Load (0.8ms)  SELECT `hierarchy_entries`.* FROM
+  # `hierarchy_entries` WHERE `hierarchy_entries`.`id` = 12 LIMIT 1 Name Load
+  # (0.5ms)  SELECT `names`.* FROM `names` WHERE `names`.`id` = 25 LIMIT 1
   def summary_name
     I18n.t(:data_point_uri_summary_name, taxon: taxon_concept.summary_name)
   end
@@ -437,14 +457,12 @@ class DataPointUri < ActiveRecord::Base
   # TODO: This is expensive. It's eating up quite a lot of traffic on EOL.
   # Find a way to avoid it.
   def update_with_virtuoso_response(row)
-    # DO NOT call this (it's slow) unless the data is really stale:
-    return unless updated_at < 4.weeks.ago
     EOL.log_call
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     new_attributes.each do |k, v|
       send("#{k}=", v)
     end
-    save if changed?
+    return changed?
   end
 
   def convert_units
@@ -599,18 +617,21 @@ class DataPointUri < ActiveRecord::Base
     _units_safe(original_units, attr, options)
   end
 
-  # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
+  # TODO - this logic is duplicated in the taxa helper; remove it from there.
+  # Maybe move to DataValue?
   def value_string(lang = Language.default, options={})
     return @value_string unless @value_string.blank?
     @value_string = nil
     if association? && target_taxon_concept
-      if common_name = target_taxon_concept.preferred_common_name_in_language(lang)
+      if common_name =
+        target_taxon_concept.preferred_common_name_in_language(lang)
         @value_string = common_name
       else
         @value_string = target_taxon_concept.title_canonical
       end
     else
-      val = EOL::Sparql.uri_components(object_uri)[:label].to_s  # TODO - see if we need that #to_s; seems redundant.
+      # TODO - see if we need this #to_s; seems redundant:
+      val = EOL::Sparql.uri_components(object_uri)[:label].to_s
       if val.is_numeric?
         # float values can be rounded off to 2 decimal places
         if val.is_float?
@@ -620,7 +641,7 @@ class DataPointUri < ActiveRecord::Base
         end
       end
       # other values may have links embedded in them (references, citations,
-      # etc.)
+      # etc.) TODO - this should be saved in the DB somewhere.
       @value_string = options[:hash_data] ? val : val.add_missing_hyperlinks
     end
     return @value_string

@@ -94,6 +94,7 @@ namespace :load_graphs_into_data_point_uris do
         if data_point_uri = data_point_uris.detect{ |dp| dp.uri == row[:data_point_uri].to_s }
           row[:data_point_instance] = data_point_uri
         end
+      end
       row[:taxon_concept_id] ||= taxon_concept_id
       row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
       row[:data_point_instance].update_with_virtuoso_response(row)

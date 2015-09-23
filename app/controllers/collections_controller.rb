@@ -5,7 +5,7 @@ class CollectionsController < ApplicationController
   # collections
   before_filter :login_with_open_authentication, only: :show
   before_filter :modal, only: [:choose_editor_target, :choose_collect_target]
-  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects]
+  before_filter :find_collection, except: [:new, :create, :choose_editor_target, :choose_collect_target, :cache_inaturalist_projects, :get_uri_name, :get_name]
   before_filter :prepare_show, only: [:show]
   before_filter :user_able_to_edit_collection, only: [:edit, :destroy] # authentication of update in the method
   before_filter :user_able_to_view_collection, only: [:show]
@@ -18,6 +18,8 @@ class CollectionsController < ApplicationController
   before_filter :restrict_to_admins, only: :reindex
 
   layout 'collections'
+  
+  RECORDS_PER_PAGE = 30
 
   def show
     # TODO - this line should be somewhere else:
@@ -206,6 +208,48 @@ class CollectionsController < ApplicationController
       end
       format.js { render partial: 'choose_collect_target' }
     end
+  end
+
+  def choose_taxa_data
+    return must_be_logged_in unless logged_in?
+    taxon_items = []
+    @collection.collection_items.taxa.each do |taxon_item|
+      taxon_items += TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris
+    end
+    @taxon_collected_items = taxon_items.compact.uniq(&:predicate).paginate(page: params[:page], per_page: RECORDS_PER_PAGE)
+    respond_to do |format|
+      format.html { render 'choose_taxa_data'}
+      format.js { render 'choose_taxa_data' }
+    end
+  end
+  
+  def download_taxa_data
+    if params[:data_point_uri].blank?
+      flash[:warning] = I18n.t("users.data_downloads.no_selected_attributes")
+      return redirect_to params.merge(action: 'choose_taxa_data', collection: @collection)
+    else
+      Resque.enqueue(TaxaDownload, params[:data_point_uri], current_user.id, @collection.id)
+      flash[:warning] = I18n.t("collections.download_taxa_data.collection_download_under_processing")
+      redirect_to collection_path(@collection)
+    end
+  end
+  
+  #This maynot be the right place to put this. This method is used to get the name of the given uri from the KnownURIs.
+  def get_name(uri)
+    KnownUri.find_by_uri(uri).name
+  end
+  helper_method :get_name
+  
+  #This maynot be the right place to put this. This method is used to get the uri of the given data point uri id.
+  def get_uri_name
+    predicate = DataPointUri.find(params[:id]).predicate
+    respond_to do |format|
+      format.json { render json: {"uri" => predicate, "name" => KnownUri.find_by_uri(predicate).name}}
+    end
+  end
+  
+  def has_taxa?
+    @collection.collection_items.taxa.any?
   end
 
   # TODO - this should really be its own resource in its own controller.
@@ -500,7 +544,7 @@ private
               params[:references].split("\n").each do |original_ref|
                 reference = original_ref.strip
                 unless reference.blank?
-                  ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.visible.id)
+                  ref = Ref.find_or_create_by_full_reference_and_user_submitted_and_published_and_visibility_id(reference, 1, 1, Visibility.get_visible.id)
                   @collection_item.refs << ref
                   @collection_item.save!
                 end
@@ -607,8 +651,9 @@ private
   def user_able_to_view_collection
     unless @collection && current_user.can_read?(@collection)
       if logged_in?
-        # TODO - second argument to constructor should be an I18n key for a human-readable error.
-        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to Collection with ID=#{@collection.id}"
+        
+        raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have read access to Collection with ID=#{@collection.id}",
+        :admins_and_joined_only_can_read)
       else
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to Collection with id=#{@collection.id}"
       end
@@ -619,8 +664,9 @@ private
   def user_able_to_edit_collection
     unless @collection && current_user.can_edit_collection?(@collection)
       if logged_in?
-        # TODO - second argument to constructor should be an I18n key for a human-readable error.
-        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to Collection with ID=#{@collection.id}"
+        
+        raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to Collection with ID=#{@collection.id}",
+        :owner_and_managers_only_can_edit)
       else
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have edit access to Collection with id=#{@collection.id}"
       end

@@ -1,0 +1,76 @@
+# common settings for all databases
+common: &common
+  adapter: mysql2
+  encoding: utf8
+  reconnect: true
+  wait_timeout: 300
+  # socket: /tmp/mysql.sock
+
+# common settings for any development databases
+devel_common: &dev
+  host: localhost
+  username: root
+  password:
+
+# common settings for all test databases
+tst_common: &tst
+  host: localhost
+  username: root
+  password:
+
+#######################
+development:
+  <<: *common
+  <<: *dev
+  database: eol_development
+
+development_logging:
+  <<: *common
+  <<: *dev
+  database: eol_logging_development
+
+############################
+test: &test
+  <<: *common
+  <<: *tst
+  database: eol_test
+
+test_logging:
+  <<: *common
+  <<: *tst
+  database: eol_logging_test
+
+# read-write split testing:
+test_master:
+  <<: *common
+  <<: *tst
+  database: eol_test_master
+
+test_master_logging:
+  <<: *common
+  <<: *tst
+  database: eol_logging_test_master
+
+staging:
+  <<: *common
+  host: <%= ENV['EOL_DATABASE_HOST'] %>
+  port: <%= ENV['EOL_DATABASE_PORT'] %>
+  database: <%= ENV['EOL_DATABASE_NAME'] %>
+  username: <%= ENV['EOL_DATABASE_USER'] %>
+  password: <%= ENV['EOL_DATABASE_PASSWORD'] %>
+
+production:
+  <<: *common
+  host: <%= ENV['EOL_DATABASE_HOST'] %>
+  port: <%= ENV['EOL_DATABASE_PORT'] %>
+  database: <%= ENV['EOL_DATABASE_NAME'] %>
+  username: <%= ENV['EOL_DATABASE_USER'] %>
+  password: <%= ENV['EOL_DATABASE_PASSWORD'] %>
+
+production_logging:
+  <<: *common
+  host: <%= ENV['EOL_DATABASE_HOST'] %>
+  port: <%= ENV['EOL_DATABASE_PORT'] %>
+  database: <%= ENV['EOL_LOGGING_DATABASE_NAME'] %>
+  username: <%= ENV['EOL_DATABASE_USER'] %>
+  password: <%= ENV['EOL_DATABASE_PASSWORD'] %>

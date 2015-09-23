@@ -684,6 +684,14 @@ FactoryGirl.define do
     completed_at  Time.now
     file_number   1
   end
+  
+  factory :collection_download_file do
+    user_id 1
+    collection_id 1
+    file_number 1
+    row_count 1
+    error "Error"
+  end
 
   factory :data_type do
     schema_value ''
@@ -1513,6 +1521,13 @@ FactoryGirl.define do
     association :user
     year { generate(:year) }
     month { generate(:month) }
+  end
+  
+  factory :institutional_sponsor do
+    name "Sponsor_name"
+    logo_url "Sponosr_logo_url"
+    url "Sponsor_url"
+    active false
   end
 
 end

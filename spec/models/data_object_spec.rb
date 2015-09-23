@@ -891,14 +891,14 @@ describe DataObject do
                                                description: @last_text.description)}
       end
 
-      it 'fails when adding text with the same title' do
+      it 'passes when adding text with the same title and different description' do
         @params[:data_object][:description]= "different description"
-        expect(DataObject.same_as_last?(@params, @options)).to be_true
+        expect(DataObject.same_as_last?(@params, @options)).to be_false
       end
 
-       it 'fails when adding text with the same description' do
+       it 'passes when adding text with the same description and different title' do
          @params[:data_object][:object_title]= "different title"
-         expect(DataObject.same_as_last?(@params, @options)).to be_true
+         expect(DataObject.same_as_last?(@params, @options)).to be_false
       end
 
       it 'passes when adding text with the different description and title' do
@@ -923,6 +923,18 @@ describe DataObject do
         expect(DataObject.same_as_last?(@params, @options)).to be_false
       end
 
+  end  
+  
+  describe "Delete data object from resource contributions" do
+    before(:each) do
+      @data_object = DataObject.gen
+      @resource = Resource.gen
+      @resource_contribution = ResourceContribution.gen(data_object_id: @data_object.id, resource_id: @resource.id )
+    end
+    it "should delete data object from resource contributions when unpublish" do
+      @data_object.unpublish
+      expect(ResourceContribution.where("data_object_id = ? ", @data_object.id)).to be_blank      
+    end
   end
 
 end

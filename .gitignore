@@ -36,7 +36,6 @@ mkmf.log
 extconf.h
 .DS_Store
 config/database.BKUP
-config/database.yml
 config/deploy
 config/deploy.rb
 config/environments/integration_local.rb
@@ -49,10 +48,10 @@ config/environments/dev_cache_rails3.rb
 config/environments/test_dev.rb
 config/environments/local.rb
 config/resque.yml
-config/shards.yml
 config/systems/
-config/newrelic.yml
-config/shards.yml
+config/production.env
+config/production_pro.env
+config/staging.env
 db/*_structure.sql
 db/schema.rb
 db/structure.sql
@@ -60,7 +59,6 @@ doc/app
 lang/tmp.yml
 log/*.txt
 public/feeds
-public/assets/*css
 public/*csv
 public/files/solr_import_file_*.csv
 public/javascripts/*packaged.js
@@ -73,8 +71,11 @@ public/uploads/data_search_files/*
 public/uploads/datasets/*
 public/uploads/Image/*
 public/uploads/images/collection_icons/*
+public/resource_contributions/*json
 solr/logs/*.*
+# This is the old one, but some people will still have it:
 solr/solr/data/*
+solr/data/*
 vendor/eol_org
 tags
 public/files/solr_import_file.csv

@@ -6,11 +6,14 @@
 # Author: Andriykopanytsia
 # Author: Base
 # Author: Dim Grits
+# Author: Erami
+# Author: Lxlalexlxl
 # Author: NataChe
 # Author: Olvin
 # Author: Pig1995z
 # Author: SteveR
 # Author: Ua2004
+# Author: Ата
 # Author: Максим Підліснюк
 # Author: Тест
 ---
@@ -138,7 +141,7 @@ uk:
         curators_full: Повноправні куратори
         curators_master: Куратори-майстри
         active_curators: Активні куратори
-        pages_curated_by_active_curators: Сторіноки, рецензовані активними кураторами
+        pages_curated_by_active_curators: Сторінки, рецензовані активними кураторами
         objects_curated_in_the_last_30_days: Об'єкти, під наглядом кураторів за останні
           30 днів
         curator_actions_in_the_last_30_days: Дії куратора протягом останніх 30 днів
@@ -147,7 +150,7 @@ uk:
         rich_hotlist_pages: Насичені високорейтингові сторінки
         rich_hotlist_pages_percentage: Насичені високорейтингові сторінки %
         redhotlist_pages: Червоні високорейтингові списки
-        rich_redhotlist_pages: Насичені червоні високо-рейтингові списки
+        rich_redhotlist_pages: Насичені червоні високорейтингові списки
         rich_redhotlist_pages_percentage: Насичені червоні високорейтингові сторінки
           %
         pages_with_score_10_to_39: Сторінки з оцінкою 10-40
@@ -233,7 +236,7 @@ uk:
         changes_to_my_watched_community: Зміни в спільнотах, за якими Ви спостерігаєте
         member_joined_my_watched_community: Нові учасники приєдналися до спільноти,
           де ви також берете участь
-        member_left_my_community: Деякі учасники залишили спільноту, якою ви керуєте...
+        member_left_my_community: Деякі учасники залишили спільноту, якою Ви керуєте
         new_manager_in_my_community: Інший користувач також став керівником спільноти,
           якою керуєте Ви
         i_am_being_watched: Вас було додано до списку спостереження іншим користувачем
@@ -385,18 +388,18 @@ uk:
           attributes:
             predicate:
               must_be_uri: має бути правильно сформована <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-              namespace: використаний простір імен, який не розпізнаний
+              namespace: використаний простір назв, який не розпізнаний
             subject:
               must_be_uri: має бути правильно сформована <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-              namespace: використаний простір імен, який не розпізнаний
+              namespace: використаний простір назв, який не розпізнаний
         user_added_data_metadata:
           attributes:
             predicate:
               must_be_uri: має бути правильно сформована <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-              namespace: використаний простір імен, який не розпізнаний
+              namespace: використаний простір назв, який не розпізнаний
             subject:
               must_be_uri: має бути правильно сформована <a href='https://en.wikipedia.org/wiki/Uniform_resource_identifier'>URI</a>
-              namespace: використаний простір імен, який не розпізнаний
+              namespace: використаний простір назв, який не розпізнаний
         known_uri_relationship:
           attributes:
             to_known_uri_id:
@@ -478,6 +481,7 @@ uk:
         object_title: Назва
         toc_item: Підрозділ
         refs: Посилання <small>(розміщуйте кожне посилання у новому рядку)</small>
+        refs_order: '*Посилання будуть упорядковані за алфавітом'
         rights_holder: Правовласник
         rights_holder_more: Вкажіть особу або організацію, що володіє або управляє
           правами на ці дані. Якщо залишити це поле порожнім, ми припускаємо, що ви
@@ -513,8 +517,9 @@ uk:
         taxon_name_placeholder: Введіть назву групи таксону для вибору групи
         taxon_name_placeholder_value_removed: '%{taxon_group} видалено, виберіть нову
           групу'
-        taxon_name_more: Наприклад, введіть Trochilidae або кити і виберіть відповідну
-          групу.
+        taxon_name_more: Наприклад, введіть «Trochilidae» або «Кити». Буде використано
+          ЛИШЕ результат вибору з розкривного списку, не редагуйте текст без вибору
+          результату.
         total_results: 'Загальний результат: %{total}'
         unit: Одиниця виміру
       eol_statistic:
@@ -939,7 +944,7 @@ uk:
         taxa_observed:
           one: в спостереженні %{count} таксон
           other: в спостереженні %{count} таксони
-        top_contributors: Найктивніші учасники iNaturalist
+        top_contributors: Найактивніші дописувачі iNaturalist
         tweet_text: Спостереження iNaturalist для %{collection_name}
         view_all_observations_on_inaturalist: Переглянути всі спостереження %{project_title}
           на iNaturalist
@@ -1009,7 +1014,7 @@ uk:
       meta_description_default_map: Карта - %{dato_title} від %{supplier}.
       meta_description_default_sound: Звук - %{dato_title} від %{supplier}.
       meta_description_default_video: Відео - %{dato_title} від %{supplier}.
-      meta_supplier_default: учасник
+      meta_supplier_default: дописувач
       meta_title: '%{dato_title} від %{supplier}'
       tweet_text: '%{dato_title} від %{supplier}'
   eol_statistics:
@@ -1140,10 +1145,10 @@ uk:
     unrecognized_measurement_units: Нерозпізана одиниця вимірювання URIs
     unrecognized_association_types: Нерозпізнаний тип асоціації URIs
     uri_placeholder_text: Наприклад, http://purl.org/dc/terms/contributor
-    name_placeholder_text: Наприклад, учасник
+    name_placeholder_text: Наприклад, дописувач
     definition_placeholder_text: наприклад. Організація, відповідальна за внесення
       вкладів у ресурс.
-    comment_placeholder_text: Наприклад, дані учасника, включаючи особу, організацію
+    comment_placeholder_text: Наприклад, дані дописувача, включаючи особу, організацію
       або службу.
     attribution_placeholder_text: Наприклад, з Dublin Core; див. http://dublincore.org/usage/terms/history/#contributorT-001.
     ontology_information_url_placeholder_text: Наприклад, http://dublincore.org/documents/dcmi-terms/
@@ -1194,6 +1199,7 @@ uk:
       learn_more_link_protists: Найпростіші
       learn_more_link_archaea: Археї
       learn_more_link_viruses: Віруси
+      questions_link_evolution: Що таке еволюція?
       questions_link_biodiversity: Що таке біорозмаїття?
       questions_link_species: Що таке вид?
       questions_link_discovering_species: Як відкривають види?
@@ -1458,6 +1464,7 @@ uk:
       style='color:#195184'>зв'яжіться з нами</a>.
     see_all_activity: Переглянути усю попередню діяльність на <a href='%{activity_url}'
       style='color:#195184'>стрічці новин у вашій сторінці користувача</a>.
+    resource_validation: 'Перевірку ресурсу: %{resource} завершено'
     bulk_comments_with_count:
       one: Новий коментар на %{on}}
       other: '%{count} нові коментарі на %{on}'
@@ -1603,12 +1610,6 @@ uk:
         tweet_text: Куратори %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> збирає записи
-          даних із багатьох постачальників. Виберіть рядок для подробиць про запис
-          або <a href="%{traitbank_search_path}">шукайте TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          збирає записи даних із багатьох постачальників. Виберіть рядок для подробиць
-          про запис або <a href="%{traitbank_search_path}">шукайте у %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Факти про %{scientific_name} прокласифіковані за %{hierarchy_provider}
             у "Енциклопедії Життя".
@@ -1641,16 +1642,25 @@ uk:
         meta_description_with_common_name_no_data: Немає доступних фактів для %{preferred_common_name}
           також відомого як %{scientific_name} в "Енциклопедії Життя". ЕЖ запрошує
           вас внести факти для %{preferred_common_name} (%{scientific_name}).
-        meta_description_with_common_name_with_topics: Які дані вчені вже зібрали
-          для %{preferred_common_name}? Характерні дані про %{scientific_name}, включаючи
-          інформацію про %{topics}.
+        meta_description_with_common_name_with_topics: '%{preferred_common_name} факти,
+          включно з розмірами і властивостями для %{preferred_common_name} (відомий
+          в науці як %{scientific_name}). Розрахункові дані про %{scientific_name}
+          включно з %{topics} з наукових досліджень, що надаються вченими.'
         meta_keywords: '%{scientific_name} факти, факти про %{scientific_name}, %{scientific_name}
           риси, риси %{scientific_name}, %{scientific_name} вимірювання, вимірювання
           для %{scientific_name}, %{scientific_name} факт, факт про %{scientific_name},
           %{scientific_name} риса, риса %{scientific_name}, %{scientific_name} вимірювання,
           вимірювання % {scientific_name}'
-        meta_keywords_with_common_name: обчислювані дані %{preferred_common_name}
-        meta_title: Характерні дані для %{scientific_name}
+        meta_keywords_with_common_name: '%{preferred_common_name} факти,факти про
+          %{preferred_common_name},%{preferred_common_name} риси,риси %{preferred_common_name},%{preferred_common_name}
+          розміри,розміри %{preferred_common_name},%{scientific_name} факти,факти
+          про %{scientific_name},%{scientific_name} риси,риси %{scientific_name},%{scientific_name}
+          розміри,розміри %{scientific_name},%{preferred_common_name} факт,факт про
+          %{preferred_common_name},%{preferred_common_name} риса,риса %{preferred_common_name},%{preferred_common_name}
+          розмір,розмір %{preferred_common_name},%{scientific_name} факт,факт про
+          %{scientific_name},%{scientific_name} риса,риса %{scientific_name},%{scientific_name}
+          розмір,розмір %{scientific_name}'
+        meta_title: Розміри і факти про %{scientific_name}
         meta_title_with_common_name: Вимірювання і факти про %{preferred_common_name}
           (%{scientific_name})
         tweet_text: Факти про %{scientific_name}
@@ -2041,6 +2051,7 @@ uk:
       is_not_complete: Ні
       query_empty: (без фільтрів)
       processing: обробка
+      error: щось пішло не так з цим файлом
       refresh: оновити
       row_count: Число
       search_again: шукати знову
@@ -3553,6 +3564,7 @@ uk:
     користувачі з дозволом
   admin_link: Огляд
   admin_page_title: 'Адміністрування: огляд'
+  admin_simple_actions_header: 'Прості дії:'
   admin_spam_delete: Видалити спам
   admin_statistics_link: Статистика
   admin_translated_content_page_create_successful_notice: Переклад був доданий до
@@ -4000,6 +4012,7 @@ uk:
   comments: Коментарі
   comments_filter: Коментарі
   comments_moderated: Модерування коментаря
+  comments_on: Коментарі
   comments_page_title: Коментарі на %{parent}
   comments_with_count:
     few: '%{count} коментарі'
@@ -4065,6 +4078,7 @@ uk:
     other: Належить до %{count} Спільнот
   completed: Готово
   completed_colon: 'Завершено:'
+  confirm_deactivate_user: Ви дійсно хочете усунути цього користувача?
   confirm_leave: Ви впевнені, що хочете вийти з цієї громади?
   confirm_password_colon: 'Підтвердження пароля:'
   contact: Контакт
@@ -4173,6 +4187,7 @@ uk:
   content_partner_resource_create_unsuccessful_error: Вибачте, виникла помилка, ресурс
     не був доданий.
   content_partner_resource_dataset_details_header: Набір даних
+  content_partner_resource_delete_with_type_link: Видалити все
   content_partner_resource_description_empty: Опис не наводиться для даного ресурсу.
   content_partner_resource_edit_link: Редагувати
   content_partner_resource_edit_subheader: Редагувати ресурс
@@ -5528,7 +5543,6 @@ uk:
   view_added_text: переглянути доданий текст
   view_as_button: Змінити перегляд
   view_as_label: Переглянути як
-  view_common_activities: переглянути загальну діяльність
   view_contact_us_submissions: переглянути додані відгуки
   view_curators: переглянути кураторів
   view_current_version_link: Перегляд поточної версії
@@ -5543,11 +5557,9 @@ uk:
   view_sound_source: Перегляд джерела звуку
   view_source: Перегляд джерела
   view_video_source: Перегляд джерела відео
-  view_common_activities_link: Переглянути список найпоширеніших видів діяльності.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Переглянути сторінки із
     зображенням або фрагментом тексту
   view_this_hierarchy: переглянути ієрархію
-  view_user_activity: переглянути діяльність користувачів
   view_user_comments: переглянути коментарі користувачів
   view_your_curator_profile: Перегляд профілю куратора
   vimeo: Vimeo

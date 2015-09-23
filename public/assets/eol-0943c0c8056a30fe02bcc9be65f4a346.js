@@ -1,0 +1,1 @@
+if(!EOL)var EOL={};EOL.log_enabled=!0,EOL.log=function(t){if(EOL.log_enabled)try{console.log(t)}catch(e){EOL.log_enabled=!1}},EOL.close_open_overlays=function(){$(".overlay a.close").click()},jQuery.ajaxSetup({beforeSend:function(t){t.setRequestHeader("Accept","text/javascript")}});

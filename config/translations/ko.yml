@@ -2,11 +2,14 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: 102orion
+# Author: Alex00728
 # Author: Clockoon
 # Author: Csparr
 # Author: Cwt96
+# Author: Hwangjy9
 # Author: Hym411
 # Author: Jskang
+# Author: Kurousagi
 # Author: Priviet
 # Author: Revi
 # Author: 아라
@@ -22,15 +25,15 @@ ko:
         sort_style_id: 기본 정렬 방향
         logo: 주 모음집 그림
         additional_annotation_fields: 추가 주석 필드
-        show_references: 참고 (텍스트 또는 URL)
+        show_references: 각주 (텍스트 또는 URL)
       collection_job:
         overwrite: 중복 바꾸기
       collection_item:
         annotation: 주석
         sort_field: 정렬 기준
-        refs: 참고
+        refs: 각주
       comment:
-        body: 덧글
+        body: 댓글
       community:
         name: 공동체 이름
         description: 공동체 설명
@@ -142,7 +145,9 @@ ko:
         lifedesk_taxa: LifeDesks 분류
         lifedesk_data_objects: LifeDesks 데이터 개체
         total_taxa_with_data: 데이터가 있는 문서
+        total_measurements: 측정
         total_associations: 협회
+        total_measurement_types: 측정 방식
         total_user_added_data: 사용자가 추가한 데이터
       forum:
         forum_category_id: 분류
@@ -194,14 +199,14 @@ ko:
         sort_order: 정렬 순서
         active: 게시함
       notification:
-        reply_to_comment: 당신이 달아놓은 덧글에 답변
-        comment_on_my_profile: 당신의 프로필에 대한 덧글
-        comment_on_my_contribution: 당신의 기여에 덧글과/이나 큐레이션 작업
-        comment_on_my_collection: 당신이 관리한 모음집에 대한 덧글
-        comment_on_my_community: 당신이 구성원에 있는 공동체 중 덧글 하나
+        reply_to_comment: 당신이 달아놓은 댓글에 답변
+        comment_on_my_profile: 당신의 프로필에 대한 댓글
+        comment_on_my_contribution: 당신의 기여에 댓글과/이나 큐레이션 작업
+        comment_on_my_collection: 당신이 관리한 모음집에 대한 댓글
+        comment_on_my_community: 당신이 구성원에 있는 공동체 중 댓글 하나
         made_me_a_manager: 모음집이나 공동체 관리를 만들었습니다
         member_joined_my_community: 새 구성원이 당신이 관리하는 공동체에 가입했습니다
-        comment_on_my_watched_item: 주시문서 목록에서 개체, 분류, 모음집, 또는 공동체에 대한 덧글
+        comment_on_my_watched_item: 주시문서 목록에서 개체, 분류, 모음집, 또는 공동체에 대한 댓글
         curation_on_my_watched_item: 주시문서 목록에서 개체, 분류, 모음집, 또는 공동체에 대한 큐레이터 행위
         new_data_on_my_watched_item: 주시문서 목록에 분류에 새 기여
         changes_to_my_watched_collection: 주시문서 목록에 있는 모음집에 대한 바뀜
@@ -221,6 +226,7 @@ ko:
         harvest_events: 수확 사건
         hierarchy: 체계
         language_id: 기본 언어
+        dataset_license_id: 라이선스
         license_id: 기본 라이선스
         notes: 과정 참고
         resource_status_id: 자료 상태
@@ -237,7 +243,7 @@ ko:
         title: 제목
       translated_known_uri:
         definition: 정의
-        comment: 덧글
+        comment: 댓글
       translated_news_item:
         active_translation: 게시함
         body: 본문
@@ -344,11 +350,11 @@ ko:
         view_style_id: 기본 보기
       collection_item:
         annotation: 주석
-        refs: 참고 <small>(새 행에 각 참조를 넣으세요)</small>
+        refs: 각주 <small>(새 행에 각 각주를 넣으세요)</small>
         sort_field: 정렬 기준 <small>(YYYY.MM.DD 날짜, 숫자, 또는 텍스트)</small>
         sort_field_show: '값 정렬:'
       comment:
-        body_edit: 덧글 편집
+        body_edit: 댓글 편집
       contact:
         comments: 내 메시지
         contact_subject_id: 제목
@@ -398,7 +404,7 @@ ko:
         license_id_more: <a href="%{policy_url}">EOL 라이선스 정책</a>을 읽으세요
         object_title: 제목
         toc_item: 절
-        refs: 참고 <small>(새 행에 각 참조를 넣으세요)</small>
+        refs: 각주 <small>(새 행에 각 각주를 넣으세요)</small>
         rights_holder: 권한 소유자
         rights_holder_more: 이 데이터에 대한 권리를 소유 또는 관리하는 사람이나 조직을 지정합니다. 이 입력란을 공백으로 남겨두면
           퍼블릭 도메인을 제외한 모든 라이선스 권리 보유자로 가정할 것입니다. 퍼블릭 도메인 라이선스는 저작권 보유자가 필요하지 않습니다.
@@ -528,13 +534,13 @@ ko:
         title_more: 이 뉴스 항목의 제목은 문서의 머리글 영역에 나타납니다. 제목은 내용에 가장 관련있는 키워드를 포함해야 합니다.
       user:
         agreed_with_terms: <a href="%{terms_url}">이용 약관</a>에 동의합니다
-        api_key_more: <a href="%{api_docs_url}">API 호출에 키 추가</a>에 대해 더 참고하세요.
+        api_key_more: <a href="%{api_docs_url}">API 호출에 키 추가</a>에 대해 더 읽으세요.
         bio: 내 소개
         credentials: 자격 증명
         curation_priveleges_credentials: 자격 증명 <small>(전체 및 마스터 큐레이터만)</small>
         credentials_more: '이 목록에서 하나 이상의 특정 자격 증명을 정하세요:'
         credentials_more_academic: 관련 대학 학과의 교직원, 직원 또는 ​​대학생 상태입니다
-        credentials_more_author: 피어 검토한 출판물의 저자입니다. (참조 제공)
+        credentials_more_author: 피어 검토한 출판물의 저자입니다. (각주 제공)
         credentials_more_professional: 전문적인 사회성의 구성원입니다.
         credentials_more_successful_assistant_curator: 조수 큐레이터로서 성공의 역사입니다.
         credentials_more_referral: 현재 큐레이터의 추천입니다.
@@ -551,7 +557,7 @@ ko:
         entered_password: 비밀번호 <small>(4 - 16 글자)</small>
         generate_api_key: API 키 요청
         generate_api_key_more: EOL API를 사용하는 데 관심이 있다면 애플리케이션을 식별하기 위한 API를 생성할 수
-          있습니다. <a href="%{api_docs_url}">API 호출에 키 추가</a>에 대해 더 참고하세요.
+          있습니다. <a href="%{api_docs_url}">API 호출에 키 추가</a>에 대해 더 읽으세요.
         logo: 새 사진 올리기
         new_password: 새 비밀번호 <small>(4 - 16 글자)</small>
         new_password_confirmation: 새 비밀번호 <small>(확인 차원)</small>
@@ -768,8 +774,8 @@ ko:
       page_title: 피드백을 남겨주세요
   collections:
     show:
-      meta_description_default: '%{collection_name} 제목의 생명의 백과사전 모음집입니다.'
-      meta_description_default_focus_collection: '%{collection_name} 제목의 생명의 백과사전
+      meta_description_default: '%{collection_name} 제목의 생명체 백과사전 모음집입니다.'
+      meta_description_default_focus_collection: '%{collection_name} 제목의 생명체 백과사전
         집중 모음집입니다.'
       meta_description_default_watch_collection: '생명의 백과사전 주시문서 목록: %{collection_name}.'
       meta_keywords: '%{collection_name}, 생명의 백과사전 모음집'
@@ -781,7 +787,7 @@ ko:
         tweet_text: '%{collection_name} 관리자'
     newsfeeds:
       show:
-        meta_description: '%{collection_name} 생명이 백과사전 모음집에 대한 뉴스, 덧글과 구성원 활동입니다.'
+        meta_description: '%{collection_name} 생명의 백과사전 모음집에 대한 뉴스, 댓글과 구성원 활동입니다.'
         meta_keywords: '%{collection_name} 뉴스'
         meta_title: '%{collection_name} 뉴스'
         tweet_text: '%{collection_name} 뉴스'
@@ -817,7 +823,7 @@ ko:
     newsfeeds:
       show:
         meta_keywords: '%{community_name}, 생명의 백과사전 공동체, %{community_name} 뉴스 피드,
-          %{community_name} 덧글, %{community_name} 활동'
+          %{community_name} 댓글, %{community_name} 활동'
     show:
       meta_description: '%{community_name} 생명의 백과사전 공동체가 주인에 의해 제거되었습니다'
       meta_title: '%{community_name}(이)가 주인에 의해 제거됨'
@@ -969,12 +975,15 @@ ko:
       create_failed: 죄송합니다, 오류가 발생해 스레드를 추가할 수 없습니다
       delete_successful: 스레드를 성공적으로 삭제했습니다
       delete_failed_not_empty: 스레드가 비어있지 않으므로 스레드를 삭제할 수 없습니다
+  known_uris:
+    select: 선택
   layouts:
     application:
       header_about: EOL 소개
       header_learn_more: 더 알아보기
       header_questions: 더 말하기
       about_link_what_is_eol: EOL은 무엇입니까?
+      about_link_traitbank: TraitBank가 무엇인가요?
       about_link_eol_blog: EOL 블로그
       about_link_discover: 발견
       about_link_statistics: 통계
@@ -1007,6 +1016,7 @@ ko:
       learn_more_link_protists: 원생생물
       learn_more_link_archaea: 고세균
       learn_more_link_viruses: 바이러스
+      questions_link_evolution: 진화가 무엇인가요?
       questions_link_biodiversity: 생물 다양성이 무엇입니까?
       questions_link_species: 종은 무엇입니까?
       questions_link_discovering_species: 어떻게 종을 발견합니까?
@@ -1071,7 +1081,7 @@ ko:
       %{curator_level} %{users_name} (%{users_url})(은)는 부적절함으로 표시했습니다:
       %{object_name} (%{object_url})
       %{action_date}.
-    comments_empty: 최근 덧글이 없습니다.
+    comments_empty: 최근 댓글이 없습니다.
     greeting_dear_name_with_comma: '%{name}에게,'
     signature_basic: 생명의 백과사전 팀
     signature_with_contact_us_link: |-
@@ -1083,29 +1093,29 @@ ko:
 
       생명의 백과사전 팀
     user_commented_on_something_date_body: |-
-      %{curator_level} %{users_name} (%{users_url}) 다음에 덧글을 남겼습니다:
+      %{curator_level} %{users_name} (%{users_url}) 다음에 댓글을 남겼습니다:
       %{commented_on_name} (%{commented_on_url})
       %{comment_date}:
       %{comment_body}
     activity_on_content_partner_content:
       subject: '%{partner_full_name} 콘텐츠 파트너에 의해 생명의 백과사전에 제공한 내용에 대한 최근 활동의 요약입니다'
       message: |-
-        최근 덧글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 행동을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.
+        최근 댓글과 %{partner_full_name} (%{partner_profile_url}) 콘텐츠 파트너가 생명의 백과사전(EOL)에 제공하는 내용에 대한 큐레이트 행동을 요약한 EOL에서 자동으로 보낸 이메일입니다. %{partner_full_name}(이)가 연락처 목록에 나타나 있기 때문에 이 요약을 받고 있습니다.
 
         질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다
 
         큐레이트 행동:
         %{curator_activity_log}
 
-        데이터 개체에 대한 덧글:
+        데이터 개체에 대한 댓글:
         %{data_object_comments}
 
-        데이터와 연관된 문서에 대한 덧글:
+        데이터와 연관된 문서에 대한 댓글:
         %{page_comments}
     activity_on_user_content:
       subject: 생명의 백과사전에 추가한 내용에 대한 최근 활동의 요약
       message: |-
-        %{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 덧글과 큐레이트 행동을 요약한  EOL에서 자동으로 보낸 이메일입니다.
+        %{members_username} 사용자 이름의 구성원 계정을 통해 생명의 백과사전(EOL)에 추가한 내용에 최근 댓글과 큐레이트 행동을 요약한  EOL에서 자동으로 보낸 이메일입니다.
 
         질문이나 EOL 구성원 계정에 접근하는 데 도움이 필요하면 %{species_pages_group_email} 로 연락하시기 바랍니다
 
@@ -1113,10 +1123,10 @@ ko:
         큐레이트 행동:
         %{curator_activity_log}
 
-        데이터 개체에 대한 덧글:
+        데이터 개체에 대한 댓글:
         %{data_object_comments}
 
-        데이터와 연관된 문서에 대한 덧글:
+        데이터와 연관된 문서에 대한 댓글:
         %{page_comments}
     contact_us_message:
       subject: 'EOL로의 메시지: %{title}'
@@ -1130,7 +1140,7 @@ ko:
     contact_us_auto_response:
       subject: 생명의 백과사전에 문의해 주셔서 감사합니다
       message: |-
-        생명의 백과사전 프로젝트에 문의해 주셔서 감사합니다. 덧글은 해당 그룹에 보냈습니다.
+        생명의 백과사전 프로젝트에 문의해 주셔서 감사합니다. 댓글은 해당 그룹에 보냈습니다.
 
         의견에 감사합니다.
     content_partner_created:
@@ -1267,11 +1277,11 @@ ko:
     see_all_activity: <a href='%{activity_url}' style='color:#195184'>내 사용자 뉴스 피드
       문서</a>에서 이전의 모든 활동을 보세요.
     bulk_comments_with_count:
-      one: '%{on}에 새 덧글이 있습니다'
-      other: '%{on}에 새 덧글 %{count}개가 있습니다'
+      one: '%{on}에 새 댓글이 있습니다'
+      other: '%{on}에 새 댓글 %{count}개가 있습니다'
     bulk_comments_on_you_with_count:
-      one: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 덧글이 있습니다
-      other: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 덧글 %{count}개가 있습니다
+      one: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 댓글이 있습니다
+      other: <a href='%{url}' style='color:#195184'>내 프로필</a>에 새 댓글 %{count}개가 있습니다
     bulk_curation_with_count:
       one: 큐레이터가 %{to}에 대한 개선을 만들었습니다
       other: 큐레이터가 %{to}에 대한 개선 %{count}개를 만들었습니다
@@ -1287,14 +1297,14 @@ ko:
     default_subject: EOL에 대한 최근 활동
     comment_body_brief: '%{body} - %{author}'
     reply_to_comment_body_brief: '%{reply_to_author} %{body} - %{author}'
-    comment_title: '%{who} 사용자가 %{what}에 덧글을 남겼습니다'
-    comment_title_your_newsfeed: '%{who} 사용자가 뉴스 피드에 덧글을 남겼습니다'
+    comment_title: '%{who} 사용자가 %{what}에 댓글을 남겼습니다'
+    comment_title_your_newsfeed: '%{who} 사용자가 뉴스 피드에 댓글을 남겼습니다'
     collection_activity_log_title: '%{who} 사용자가 모음집을 수정했습니다'
     community_activity_log_title: '%{who} 사용자가 공동체를 수정했습니다'
     curator_activity_log_title: '%{who} 사용자가 누군가하게 큐레이트했습니다'
     data_object_title: '%{who} 사용자가 EOL에 새 내용을 추가했습니다'
-    someone_commented_on_something: <b>%{who}</b> 사용자가 <b>%{what}</b>에 덧글을 남겼습니다.
-    comment_link: EOL에 대한 덧글 보기
+    someone_commented_on_something: <b>%{who}</b> 사용자가 <b>%{what}</b>에 댓글을 남겼습니다.
+    comment_link: EOL에 대한 댓글 보기
     collection_activity_by_user: <b>%{user_name}</b> 사용자가 <b>%{collection_name}</b>
       모음집에 %{activity_name} 행동을 수행했습니다.
     collection_activity_user_added_item: '<b>%{user_name}</b> 사용자가 <b>%{collection_name}</b>
@@ -1461,7 +1471,7 @@ ko:
           tweet_text: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 #BHL 문헌'
         meta_title: '%{scientific_name}에 대한 BHL 인용'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
-          대한 BHL 참고'
+          대한 BHL 각주'
         tweet_text: '%{scientific_name}에 대한 #BHL 문헌'
       show:
         hierarchy_entry:
@@ -1677,10 +1687,10 @@ ko:
         meta_keywords: '%{scientific_name} 뉴스, %{scientific_name} 업데이트'
         meta_keywords_with_common_name: '%{preferred_common_name} 뉴스, %{preferred_common_name}
           업데이트, %{scientific_name} 업데이트'
-        meta_title: '%{scientific_name}에 대한 덧글'
+        meta_title: '%{scientific_name}에 대한 댓글'
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})에
-          대한 덧글'
-        tweet_text: '%{scientific_name}에 대한 덧글'
+          대한 댓글'
+        tweet_text: '%{scientific_name}에 대한 댓글'
       statistics:
         hierarchy_entry:
           meta_title: '%{hierarchy_provider}에 의해 분류한 %{scientific_name}에 대한 통계'
@@ -1701,7 +1711,7 @@ ko:
   users:
     activities:
       show:
-        meta_description: '%{user_full_name}에 의한 큐레이션 활동과 덧글'
+        meta_description: '%{user_full_name}에 의한 큐레이션 활동과 댓글'
         meta_title: '%{user_full_name} 활동'
         tweet_text: '%{user_full_name} 활동'
     collections:
@@ -1765,16 +1775,16 @@ ko:
       sign_up_with_yahoo_assistive: 야후 자격 증명을 통해 EOL에 가입합니다.
     newsfeeds:
       activity_link: 활동
-      comments_link: 덧글
+      comments_link: 댓글
       newsfeed_link: 뉴스 피드
       show:
         meta_description: '%{user_full_name}에 대한 뉴스, 활동 업데이트와 덧글입니다.'
         meta_title: '%{user_full_name} 뉴스 피드'
         tweet_text: '%{user_full_name} 뉴스 피드'
       comments:
-        meta_description: '%{user_full_name}에 대한 덧글 피드'
-        meta_title: '%{user_full_name} 덧글 피드'
-        tweet_text: '%{user_full_name} 덧글 피드'
+        meta_description: '%{user_full_name}에 대한 댓글 피드'
+        meta_title: '%{user_full_name} 댓글 피드'
+        tweet_text: '%{user_full_name} 댓글 피드'
       activity:
         meta_title: '%{user_full_name} 활동 피드'
         tweet_text: '%{user_full_name} 활동 피드'
@@ -1929,10 +1939,13 @@ ko:
   user_added_data:
     add_data_header: 자신이 가진 데이터를 기여
     edit_data_header: 데이터 편집
+    add_metadata_header: 추가 정보
     create_successful: 데이터가 성공적으로 추가 되었습니다
     delete_successful: 데이터가 지워졌습니다
     new_value: 값
   data_search_files:
+    from: 가장 낮은 값
+    to: 가장 높은 값
     unit_uri: 측정 단위
   this_article_cannot_be_curated_because_unpublished: 이 문서는 게시하지 않았기 때문에 큐레이트할 수 없습니다.
   this_article_is_unpublished: 이 문서는 게시하지 않았습니다.
@@ -2881,8 +2894,8 @@ ko:
   activity_user_updated_text: <strong>%{user}</strong> 사용자가 "%{taxon_concept}"에 "%{object_name}"
     텍스트를 업데이트했습니다.
   add_a_collection_to_a_community: 공동체에 "%{collection}" 추가
-  add_a_comment: 덧글을 추가합니다.
-  add_a_comment_colon: '덧글 추가:'
+  add_a_comment: 댓글을 추가합니다.
+  add_a_comment_colon: '댓글 추가:'
   add: 추가
   add_a_new_common_name: 새 공통 이름 추가
   add_a_new_file_brackets: '[새 파일 추가]'
@@ -3027,7 +3040,7 @@ ko:
   all_articles: 모든 문서
   all_changes: 모든 바뀜
   all_collections: 모든 모음집
-  all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 덧글은 만들어진 시간 역순으로 정렬되어 아래에 보입니다.
+  all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 댓글은 만들어진 시간 역순으로 정렬되어 아래에 보입니다.
   all_communities: 모든 공동체
   all_count: 모든 (%{count})
   all_filter: 모두
@@ -3053,8 +3066,8 @@ ko:
   amount: 금액
   an_unknown_user: 알 수 없는 사용자
   annotation_cabs_colon: '주석:'
-  annotation_submit: 덧글 남기기
-  annotation_note: (사용할 수 있으면) 덧글은 데이터 공급자와 공유됩니다.
+  annotation_submit: 댓글 남기기
+  annotation_note: (사용할 수 있으면) 댓글은 데이터 공급자와 공유됩니다.
   anonymous_user_full_name: 익명 사용자
   anonymous_user_given_name: 익명
   anonymous_user_tag_line: 로그인하지 않음
@@ -3064,6 +3077,12 @@ ko:
   any_integer: 어떤 정수
   any_string: 어떠한 문자열
   api_cache_time_to_live_parameter: 응답을 캐시하도록 할 초 수
+  api_docs_collections_description: 이 모음집 API에 대한 식별자를 주면 모음집과 거기에 포함된 항목에 대한 모든 메타데이터가
+    반환됩니다. 항목 목록은 항목 유형별로 필터되며, 특성에 나열되어 정렬됩니다. 어떤 항목은 선택적으로 'sort_field' 특성에 포함합니다.
+    정렬 필드는 모음집 항목의 특수 주석인 사용자가 제공하는 문자열입니다. 그것은 어떠한 문자열도 넣을 수 없지만, 날짜이면, YYYY-MM-DD
+    형식에 맞춰야 합니다. 분류 항목은 'richness_score'에 포함합니다. 풍부는 광범위한 자료에서 풍부한 내용이 있는 문서를 나타내는
+    높은 수로, 0과 100 사이의 정수로 표현되는 측정 기준입니다. %{richness_url} 등에서, 분류 문서의 업데이트 탭에서 분류 풍요에
+    대해 자세히 읽으세요.
   api_refer_to_the_getting_started_page: EOL API의 사용 예와 이용 약관, API 키의 등록에 대한 정보에 대해서는
     <a href="%{link}">시작하기</a>를 참고하세요.
   application_version_advisory_information: 애플리케이션 버전
@@ -3088,11 +3107,11 @@ ko:
     one: '%{time}동안 고유 방문자 %{count}명이 방문했습니다'
     other: '%{time}동안 고유 방문자 %{count}명이 방문했습니다'
   a_total_of_comment_were_found_matching_your_criteria:
-    one: 기준과 일치하는 덧글 총 %{count}개를 찾았습니다.
-    other: 기준과 일치하는 덧글 총 %{count}개를 찾았습니다.
+    one: 기준과 일치하는 댓글 총 %{count}개를 찾았습니다.
+    other: 기준과 일치하는 댓글 총 %{count}개를 찾았습니다.
   a_total_of_items_were_found_matching_your_criteria:
     one: 기준과 일치하는 항목 총 %{count}개를 찾았습니다.
-    other: 기준과 일치하는 덧글 총 %{count}개를 찾았습니다.
+    other: 기준과 일치하는 항목 총 %{count}개를 찾았습니다.
   a_total_of_terms_were_found_matching_your:
     one: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
     other: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
@@ -3139,7 +3158,7 @@ ko:
   audio_mute: 음소거
   audio_unmute: 음소거 해제
   authoritative_information: 권위 있는 정보
-  author_of_peer_reviewed_publication_credential_option: 피어 검토한 출판물의 저자 (참조 제공)
+  author_of_peer_reviewed_publication_credential_option: 피어 검토한 출판물의 저자 (각주 제공)
   available: 사용 가능
   average_rating: 평가의 평균
   average_rating_value_of_total: '평균 평점: %{total} 중 %{rating}'
@@ -3234,6 +3253,7 @@ ko:
   clear_entire_cache_store: 캐시 저장소 모두 지우기
   clear_species_page: 종 문서 지우기
   cms_available_in_languages: '이 문서는 다음 언어로 읽을 수 있습니다:'
+  cms_editor: CMS 편집기
   cms_missing_content_title: 번역 없음
   cms_missing_content_message: 죄송합니다, 이 문서는 %{selected_language}로 읽을 수 없습니다.
   curator_level: 큐레이터 수준
@@ -3305,31 +3325,31 @@ ko:
   collections_with_count:
     one: 모음집 %{count}개
     other: 모음집 %{count}개
-  comment: 덧글
-  comment_added_notice: 덧글을 성공적으로 추가했습니다.
-  comment_body_label: 내 덧글
+  comment: 댓글
+  comment_added_notice: 댓글을 성공적으로 추가했습니다.
+  comment_body_label: 내 댓글
   comment_created_at: 만든 날짜
-  comment_delete_confirm: 덧글을 삭제하겠습니까?
-  comment_edit_by_javascript_not_authorized_error: 죄송합니다, 이 덧글을 편집할 수 있는 권한이 없습니다.
-    이 덧글 작성자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
-  comment_or_rate_on_this_article: 이 문서에 덧글을 남기거나 평가하기
-  comment_or_rate_on_this_link: 이 링크에 덧글을 남기거나 평가하기
-  comment_not_added_error: 죄송합니다, 오류가 발생해 덧글을 추가할 수 없습니다.
-  comment_not_deleted_error: 죄송합니다, 오류가 발생해 덧글을 삭제할 수 없습니다.
-  comment_not_updated_error: 죄송합니다, 오류가 발생해 덧글을 업데이트할 수 없습니다.
-  comment_new_title: 새 덧글 추가
+  comment_delete_confirm: 댓글을 삭제하겠습니까?
+  comment_edit_by_javascript_not_authorized_error: 죄송합니다, 이 댓글을 편집할 수 있는 권한이 없습니다.
+    이 댓글 작성자일 때는 문서를 새로 고치고 로그인되어 있는지 확인하세요.
+  comment_or_rate_on_this_article: 이 문서에 댓글을 남기거나 평가하기
+  comment_or_rate_on_this_link: 이 링크에 댓글을 남기거나 평가하기
+  comment_not_added_error: 죄송합니다, 오류가 발생해 댓글을 추가할 수 없습니다.
+  comment_not_deleted_error: 죄송합니다, 오류가 발생해 댓글을 삭제할 수 없습니다.
+  comment_not_updated_error: 죄송합니다, 오류가 발생해 댓글을 업데이트할 수 없습니다.
+  comment_new_title: 새 댓글 추가
   comment_new_posters_image_alt: 사진을 제공할 때의 프로필 사진입니다.
-  comment_new_posters_image_advisory_info: 프로필 사진과 이름이 목록에 덧글 옆에 나타납니다.
+  comment_new_posters_image_advisory_info: 프로필 사진과 이름이 목록에 댓글 옆에 나타납니다.
   comment_show_posters_image_alt: 이 행동을 한 %{posters_name}의 프로필 사진입니다.
-  comments_and_tags: 덧글과 태그
-  comments: 덧글
-  comments_filter: 덧글
-  comments_moderated: 덧글 검토됨
-  comments_on: 덧글 남긴 곳
-  comments_page_title: '%{parent}에 대한 덧글'
+  comments_and_tags: 댓글과 태그
+  comments: 댓글
+  comments_filter: 댓글
+  comments_moderated: 댓글 검토됨
+  comments_on: 댓글 남긴 곳
+  comments_page_title: '%{parent}에 대한 댓글'
   comments_with_count:
-    one: 덧글 %{count}개
-    other: 덧글 %{count}개
+    one: 댓글 %{count}개
+    other: 댓글 %{count}개
   common_activities_by_logged_in: 로그인한 사용자의 공통 활동입니다.
   common_name_avg: 공통 이름 평균
   common_name: 공통 이름
@@ -3381,6 +3401,7 @@ ko:
     other: 공동체 %{count}개에 속함
   completed: 완료
   completed_colon: '완료:'
+  confirm_deactivate_user: 정말로 이 사용자를 비활성화하겠습니까?
   confirm_delete_community: 이 공동체를 삭제하겠습니까? 남은 구성원은 여전히 내용을 볼 수 있으며 뉴스피드는 관리되지만, 검색
     결과나 분류 문서에서 나타나지 않으며, 더 이상 편집할 수 없습니다.
   confirm_leave: 이 공동체를 떠나겠습니까?
@@ -3487,6 +3508,7 @@ ko:
     자료 데이터의 현재 상태: %{resource_status}'
   content_partner_resource_create_unsuccessful_error: 죄송합니다, 오류가 발생해 자료를 추가하지 못했습니다.
   content_partner_resource_dataset_details_header: 데이터 집합
+  content_partner_resource_delete_with_type_link: 전체 삭제
   content_partner_resource_description_empty: 설명이 이 자료에 제공하지 않았습니다.
   content_partner_resource_edit_link: 편집
   content_partner_resource_edit_subheader: 자료 편집
@@ -3638,7 +3660,7 @@ ko:
   curated_association_update_button: 바뀜 저장
   curated_objects_of: '%{name}의 큐레이트한 개체'
   curated_species_of: '%{name}의 큐레이트한 종'
-  curation_comment: 큐레이션 덧글
+  curation_comment: 큐레이션 댓글
   curation_error_vetted_invalid: '''%{vetted}''(으)로 %{association}(을)를 큐레이트할 수 없습니다.'
   curation_error_visibility_invalid: '''%{visibility}''(으)로 %{association}(을)를 큐레이트할
     수 없습니다.'
@@ -3690,9 +3712,14 @@ ko:
   currently_published: 현재 게시함
   daily: 매일
   darwin_core: 다윈 코어
-  dashboard: 데시보드
+  dashboard: 대시보드
+  data: 데이터
+  data_about_subtab_header: EOL에 있는 데이터에 대하여
   data_results_only_for_search: '"%{search_term}"에 대한 TraitBank 결과'
+  data_column_tc_id: EOL 문서 ID
   data_column_sci_name: 학명
+  data_column_common_name: 공통 이름
+  data_column_value: 값
   data_column_source: 공급자
   data_database_colon: '날짜:'
   data_glossary_contribute: 새로운 용어를 용어집에 넣으려면, <a href=%{url}>데이터 올리기를 고려해주세요</a>.
@@ -3701,16 +3728,18 @@ ko:
   data_master_database_colon: '데이터 마스터:'
   data_object: 데이터 개체
   data_object_not_associated_with_any_hierarchies: 이 데이터 개체는 어떠한 계층과도 연결되어 있지 않습니다.
-  data_object_reference: 데이터 개체 참고
+  data_object_reference: 데이터 개체 각주
   data_object_ignore: 이 항목 무시
   data_object_undo_ignore: 무시 목록에서 제거
   data_object_toc_items_list:
     one: '%{quoted_toc_titles}에 따라 나타냄'
     other: '%{quoted_toc_titles}에 따라 나타냄'
   data_overview_table_caption: 특성 데이터
+  data_point_uri_source_missing: 원본 없음
   data_provided_by_content_partner: '공급자: %{whom}'
   data_ranges: 데이터 요약
   data_ranges_subheader: 이 분류 그룹의 데이터 요약
+  data_row_exemplar_added: 둘러보기에 추가
   data_row_exemplar_removed: 둘러보기에서 제거되었습니다.
   data_row_add_exemplar_button: 둘러보기에 추가
   data_row_remove_exemplar_button: 둘러보기에서 제거
@@ -3719,7 +3748,10 @@ ko:
   data_row_additional_detail_show_alt: 추가 자세한 정보 보이기
   data_row_additional_detail_hide_alt: 추가 자세한 정보 숨기기
   data_row_additional_detail_loading_alt: 추가 자세한 정보 불러오는 중
+  data_row_hide_button: 줄 삭제
+  data_row_unhide_button: 줄 보이기
   data_search:
+    page_title: TraitBank 검색
     form:
       header_assistive: 검색 양식
       input_summary_intro: 선택된 검색 옵션
@@ -3770,11 +3802,13 @@ ko:
   dato_new_text_for_taxon_page_title: <i>%{taxon}</i>로 문서 추가
   dato_new_text_link_for_taxon_page_title: <i>%{taxon}</i>로 링크 추가
   dato_update_user_text_error: 죄송합니다, 오류가 발생해 문서를 업데이트할 수 없습니다.
+  deactivate: 비활성화
   development_version_name: EOL V2 베타
   default: 기본값
   default_focus_collection_name_from_community: '%{name}의 집중'
   default_watch_collection_name: '%{username} 사용자의 주시문서 목록'
   delete_community: 이 공동체 삭제
+  delete_data_object: 삭제
   delete: 삭제
   deleted_colon: '삭제됨:'
   delete_firstcap: 삭제
@@ -3797,8 +3831,8 @@ ko:
   download_wav_file: WAV 파일 다운로드
   dublin_core: 더블린 코어
   duplicate_items_were_ignored: 중복된 항목은 무시했습니다.
-  edit_comment: 덧글 편집
-  edit_comment_lowercase: 덧글 편집
+  edit_comment: 댓글 편집
+  edit_comment_lowercase: 댓글 편집
   edit_community: 공동체 편집
   edit_contact_us_topic: 주제 문의하기 편집
   edit_contact_us_topics: 주제 문의하기 편집
@@ -3815,7 +3849,7 @@ ko:
   edit_search_suggestions: 검색 제안 편집
   edit_table_of_contents: 목차 편집
   edit_tag_suggestions: 태그 제안 편집
-  edit_the_user_s_comment_below: 아래에 사용자의 덧글을 편집하세요.
+  edit_the_user_s_comment_below: 아래에 사용자의 댓글을 편집하세요.
   edit_upload: 올리기 편집
   edit_username: '%{username} 편집'
   edit_web_users: 웹 사용자 편집
@@ -3887,6 +3921,17 @@ ko:
       min_master_curators_only: 죄송합니다, 접근은 마스터의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
       min_full_curators_only: 죄송합니다, 접근은 전체의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
       min_assistant_curators_only: 죄송합니다, 접근은 조수의 최소 큐레이터 수준의 EOL 큐레이터로 제한됩니다.
+      no_access: 죄송합니다, 이 기능은 일시적으로 비활성화되었습니다. 잠시 후에 다시 확인해주세요.
+      missing_edit_acess_to_forum_category: 죄송합니다, 관리자들만 이 포험의 분류를 편집할 수 있습니다.
+      missing_delete_acess_to_forum_category: 죄송합니다, 관리자들만 이 포럼의 분류를 삭제할 수 있습니다.
+      missing_edit_acess_to_forum_post: 죄송합니다, 관리자나 게시글 작성자만이 이 포럼의 게시글을 편집할 수 있습니다.
+      missing_delete_acess_to_forum_post: 죄송합니다, 관리자나 게시글 작성자만이 이 포럼의 게시글을 삭제할 수 있습니다.
+      only_admins_can_view_content_pages: 죄송합니다, 관리자만이 문서의 내용을 볼 수 있습니다.
+      only_admins_can_view_translated_content_pages: 죄송합니다, 관리자들만 이 문서의 번역본을 볼 수 있습니다.
+      only_admins_can_edit_forums: 죄송합니다, 관리자들만 포럼을 편집할 수 있습니다.
+      must_be_logged_in: 죄송합니다, 반드시 로그인 하셔야 합니다.
+      error_editing_someone_account: 죄송합니다, 계정을 가진 사람만 편집할 수 있습니다.
+      can_not_edit_permissions: 죄송합니다, 당신은 권한을 수정할 수 없습니다.
   expand_all_children: 모든 하위 확장
   expired: 만료됨
   expires_in_colon: '만료일:'
@@ -3946,13 +3991,13 @@ ko:
   filter_by_type_video_option_with_count:
     one: 동영상 (%{count}개)
     other: 동영상 (%{count}개)
-  filter_by_type_comment_option: 덧글
+  filter_by_type_comment_option: 댓글
   filter_by_type_object_curated_option: 개체가 큐레이트됨
   filter_by_type_name_option: 이름
-  filter_by_type_taxa_comment_option: 분류 덧글
+  filter_by_type_taxa_comment_option: 분류 댓글
   filter_media: 미디어 필터
   filter_newsfeed_option_all: 모두
-  filter_newsfeed_option_messages: 덧글
+  filter_newsfeed_option_messages: 댓글
   filter_newsfeed_option_community: 공동체
   filter_newsfeed_option_collections: 모음집
   filter_newsfeed_option_watchlist: 주시문서 목록
@@ -4028,7 +4073,7 @@ ko:
   help: 도움말
   here: 여기
   hidden: 숨겨짐
-  hidden_comment: 숨겨진 덧글
+  hidden_comment: 숨겨진 댓글
   hide: 숨기기
   hierarchy: 계층
   hierarchy_node_missing: 죄송합니다, 이 노드에 대한 데이터가 없습니다.
@@ -4158,10 +4203,11 @@ ko:
   learn_more_link: (%{learn_more})
   learn_more_lowercase: 더 알아보기
   leave_community_button: 이 공동체 남기기
-  leave_a_comment: 덧글 남기기
+  leave_a_comment: 댓글 남기기
   leave_reply: 답글 남기기
   left_content_area: 왼쪽 내용 영역
   license: 라이선스
+  license_none: 없음
   license_all_rights_reserved: 모든 권리 소유
   license_cc_by: 크리에이티브 커먼즈 저작자표시 (CC BY)
   license_cc_by_2_0: 크리에이티브 커먼즈 저작자표시 2.0 (CC BY 2.0)
@@ -4182,6 +4228,7 @@ ko:
   license_cc_by_sa_2_5: 크리에이티브 커먼즈 저작자표시-동일조건변경허락 2.5 (CC BY-SA 2.5)
   license_cc_by_sa_3_0: 크리에이티브 커먼즈 저작자표시-동일조건변경허락 3.0 (CC BY-SA 3.0)
   license_cc_zero: 크리에이티브 커먼즈 — CC0 1.0 보편적
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
   license_gnu_fdl: GNU 자유 문서 사용 허가서 (GNU FDL)
   license_gnu_gpl: GNU 일반 공중 사용 허가서 (GNU GPL)
   license_no_known_copyright_restrictions: 알려진 저작권 제한 없음
@@ -4196,6 +4243,7 @@ ko:
   limits_the_number_of_returned_iucn_objects: IUCN 레드 리스트 상태 개체 포함
   link_more_about: 이 링크에 대해 더 알아보기
   link_name: 링크 이름
+  link_to_top_of_page: 위쪽
   links_with_count:
     one: 링크 %{count}개
     other: 링크 %{count}개
@@ -4206,10 +4254,10 @@ ko:
   literature: 문헌
   literature_bhl_link: BHL에서 발견한 참고 문헌 보기
   literature_empty: 참고을 찾을 수 없습니다.
-  literature_header: 참고
+  literature_header: 각주
   literature_links: 문헌 링크
   literature_links_link: 문헌 링크
-  literature_references: 문헌 참고
+  literature_references: 참고 문헌
   location: 위치
   location_colon: '위치:'
   login_required_button: 로그인 필요
@@ -4382,13 +4430,14 @@ ko:
   no_answer: 아니오
   no_classificaitons_selected: 선택한 분류가 없습니다. 아무 것도 이동하지 않습니다.
   no_collections_apply: 관리자가 추가할 수 없는 모음집을 접근할 수 있습니다.
-  no_comments_are_available_for_subject: '%{subject}에 대해 사용할 수 있는 덧글이 없습니다.'
-  no_comments_have_been_left_yet: 아직 남긴 덧글이 없습니다.
+  no_comments_are_available_for_subject: '%{subject}에 대해 사용할 수 있는 댓글이 없습니다.'
+  no_comments_have_been_left_yet: 아직 남긴 댓글이 없습니다.
   no_errors_are_available: 존재하는 오류가 없습니다.
   no_harvesting_logs_for_this_da: 이 날짜에 대한 수확 기록이 없습니다
   no_items_were_copied_to_collections_error: '모음집에 복사한 항목이 없습니다: %{names}'
   no_news_items_for_month_and_year: '%{month_and_year}에 대한 뉴스 항목이 없습니다'
   none: 없음
+  "no": 아니오
   num_content_partners: 콘텐츠 파트너의 No.
   num_data_objects: 데이터 개체의 No.
   no_record_found_matching_your_criteria: 조건과 일치하는 기록을 찾을 수 없습니다.
@@ -4447,6 +4496,7 @@ ko:
   object_visibility_invisible_option: 숨겨짐
   older_version_of_latest_published_data_object_title_link: '%{link}의 이전 버전'
   other_version_links: '다른 버전: %{version_links}'
+  other_category_subtab: 기타
   percentage_of_children_with_images: 그림으로 된 어린이의 %
   percentage_of_children_with_text: 텍스트로 된 어린이의 %
   number_of_taxa_at_this_entry: '이 항목에서 분류의 #'
@@ -4487,7 +4537,7 @@ ko:
   page: 문서
   page_results_avg: 문서 결과 평균
   page_urls: '문서 URL:'
-  pages_title: 참고
+  pages_title: 각주
   pages_with_count:
     one: '%{count}개'
     other: '%{count}개'
@@ -4536,7 +4586,7 @@ ko:
   please_refresh: EOL 웹사이트의 최신 버전을 보려면 브라우저를 새로 고치세요
   please_return_to_eol_homepage: EOL 홈 페이지로 돌아가세요
   please_wait: 기다려 주세요...
-  post_comment: 덧글 남기기
+  post_comment: 댓글 남기기
   posts_from_year: '%{year}년에서의 게시물'
   preferred_common_name_advisory_information: 이 분류에 대한 선호하는 공통 이름입니다.
   press_room: 프레스 룸
@@ -4577,7 +4627,7 @@ ko:
   rating_added_notice: 등급을 성공적으로 추가했습니다.
   rating_learn_more_link: 평가에 대해 알아보기
   rating_not_added_error: 죄송합니다, 오류가 발생해 평가를 추가할 수 없습니다.
-  recaptcha: 아래에 보이는 단어 2개를 입력하세요
+  recaptcha: 아래에 보이는 단어나 숫자를 2개를 입력하세요
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">reCaptcha
     글자</a>가 일치하지 않습니다. 다시 시도하세요.
   recent_updates: 최근 업데이트
@@ -4587,8 +4637,8 @@ ko:
   recognized_by_as_a_rank: '%{taxon_rank}로 %{recognized_by}'
   recognized_by_from_source_as_a_rank: '%{taxon_rank}로 %{source}에서 %{recognized_by}'
   record_not_found: '[기록을 찾을 수 없습니다]'
-  reference: 출처
-  references_cabs_colon: '참고:'
+  reference: 각주
+  references_cabs_colon: '각주:'
   related_names_with_count:
     one: 관련된 이름 %{count}개
     other: 관련된 이름 %{count}개
@@ -4610,6 +4660,10 @@ ko:
   required_form_element: 필수
   reset_password_enter_new_password_notice: 한 번 로그인되어 있으며 계속하려면 새 비밀번호를 입력하세요.
   resource: 자료
+  resource_import_frequency:
+    weekly: 주간
+    monthly: 매월
+    bimonthly: 격월의
   resources: 자료
   response_formats: 응답 형식
   response: 응답
@@ -4633,7 +4687,7 @@ ko:
   rights_holder: 권한 소유자
   rights_statement: 권한 정책
   richness_score: 풍부한 점수
-  save_comment_lowercase: 덧글 저장
+  save_comment_lowercase: 댓글 저장
   save_curated_association_submit_button: 연관 저장
   save_email_settings: 이메일 설정 저장
   save: 저장
@@ -4641,7 +4695,7 @@ ko:
   sci_name_avg_table_head: 과학적인 이름 평균
   search: 검색
   search_by_term_page_title: '검색: %{term}'
-  search_for_comments_containing_the_text: '텍스트를 포함하는 덧글 검색:'
+  search_for_comments_containing_the_text: '텍스트를 포함하는 댓글 검색:'
   search_for_curators_containing: '포함하는 큐레이터 검색:'
   search_for_messages_containing: '포함하는 메시지 검색:'
   search_for_terms_containing: '포함하는 용어 검색:'
@@ -4684,11 +4738,11 @@ ko:
     one: <span class="assistive">이 문서가 표시하는 모음 %{count}개</span> 보기
     other: <span class="assistive">이 문서가 표시하는 모음 %{count}개</span> 모두 보기
   see_all_comments_with_count_for_link_or_rate:
-    one: 이 링크나 평가에 대한 덧글 %{count}개 보기
-    other: 이 링크나 평가에 대한 덧글 %{count}개 보기
+    one: 이 링크나 평가에 대한 댓글 %{count}개 보기
+    other: 이 링크나 평가에 대한 댓글 %{count}개 보기
   see_all_comments_with_count_for_text_or_rate:
-    one: 이 문서나 평가에 대한 덧글 %{count}개 보기
-    other: 이 문서나 평가에 대한 덧글 %{count}개 보기
+    one: 이 문서나 평가에 대한 댓글 %{count}개 보기
+    other: 이 문서나 평가에 대한 댓글 %{count}개 보기
   see_all_communities_with_count_html:
     one: <span class="assistive">이 문서를 갖춘 공동체 %{count}개</span> 보기
     other: <span class="assistive">이 문서를 갖춘 공동체 %{count}개</span> 모두 보기
@@ -4810,7 +4864,9 @@ ko:
   sub_heading: 하위 문단 제목
   subject: 제목
   submit: 제출
+  submitting: 기다려 주세요...
   submitted_colon: '제출:'
+  suggested_attributes: '추천 속성:'
   suggested_result_page_id: '제안한 결과 문서 ID:'
   suggested_results_avg: 제안한 결과 평균
   suggested_vocab_remove: 추천 삭제
@@ -4866,7 +4922,7 @@ ko:
   taxon_page_content_disclaimer_header: 면책 조항
   taxon_page_content_disclaimer: EOL 내용은 여러 내용 제공자로부터 자동으로 조립됩니다. 따라서 때때로 EOL에서 찾는
     문서의 내용이 앞뒤가 맞지 않을 수도 있습니다.
-  taxon_page_content_disclaimer_suggest_improvement: 개선하도록 요청하려면 문서에 덧글을 남겨주세요. 감사합니다!
+  taxon_page_content_disclaimer_suggest_improvement: 개선하도록 요청하려면 문서에 댓글을 남겨주세요. 감사합니다!
   taxon_related_organizations_link: 관련 기관
   taxonomic_summary_of_content: 내용의 분류 요약
   taxon_recognized_by: '%{whom}에 의해 인정한 분류'
@@ -4895,8 +4951,8 @@ ko:
   thank_you_for_your_generous_support: 관대한 지원에 감사합니다!
   thank_you: 감사합니다
   the_amount_entered_was: '입력한 금액: %{number} 미국 달러'
-  the_comment_was_successfully_updated: 덧글을 성공적으로 업데이트했습니다.
-  the_comment_was_successfully_deleted: 덧글을 성공적으로 삭제했습니다.
+  the_comment_was_successfully_updated: 댓글을 성공적으로 업데이트했습니다.
+  the_comment_was_successfully_deleted: 댓글을 성공적으로 삭제했습니다.
   the_content_could_not_be_displ: 컨텐츠를 볼 수 없습니다.
   the_content_was_updated: 컨텐츠가 업데이트되었습니다.
   the_file_was_uploaded: 파일이 올려졌습니다.
@@ -4919,7 +4975,7 @@ ko:
   the_user_was_updated: 사용자를 업데이트했습니다.
   this_cannot_be_undone_are_you_sure: 되돌릴 수 없습니다. 확실합니까?
   this_collection_has_no_managers: 이 모음집에 관리자가 없습니다.
-  this_comment_was_deleted: 이 덧글은 삭제되었습니다.
+  this_comment_was_deleted: 이 댓글은 삭제되었습니다.
   this_community_has_no_endorsed_collections: 이 공동체는 어떠한 모음집도 알차지 않습니다.
   this_community_has_no_focus_list: 이 공동체는 포커스 목록이 없습니다.
   this_community_was_deleted: 이 공동체는 소유자에 의해 삭제됐습니다.
@@ -4939,8 +4995,8 @@ ko:
   to_submit_a_species_photograph_for: '%{taxon} 분류에 대한 종 사진을 제출하려면 %{flickr_link}(으)로
     사진을 보내고 해당 그룹의 홈페이지에 보이는 지시를 따르세요.'
   total_comments_have_been_submitted:
-    one: 덧글 %{count}개를 %{string}에 제출했습니다
-    other: 총 덧글 %{count}개를 %{string}에 제출했습니다
+    one: 댓글 %{count}개를 %{string}에 제출했습니다
+    other: 총 댓글 %{count}개를 %{string}에 제출했습니다
   total_distinct_searches: '전체 고유 검색:'
   total_items_with_count:
     one: 항목 %{count}개
@@ -4953,6 +5009,7 @@ ko:
   translation_saved: 번역이 저장됨
   translations_submit: 번역 보기
   trigger_search_term_entered_by: 사용자가 입력한 검색어를 트리거
+  "true": 참
   true_label: 참
   truncated_comment_omission: '... <a href=''%{link}''>더 보기</a>'
   truncated_comment_omission_linkless: '...'
@@ -5014,8 +5071,8 @@ ko:
     other: 문서 %{count}개 추가됨
   user_activity_stats_articles_added_dropdown: 문서 추가됨
   user_activity_stats_comment_submitted:
-    one: 덧글 %{count}개 추가됨
-    other: 덧글 %{count}개 추가됨
+    one: 댓글 %{count}개 추가됨
+    other: 댓글 %{count}개 추가됨
   user_activity_stats_common_names_added:
     one: 공통 이름 %{count}개 추가됨
     other: 공통 이름 %{count}개 추가됨
@@ -5025,6 +5082,7 @@ ko:
   user_activity_stats_common_names_removed:
     one: 공통 이름 %{count}개 제거됨
     other: 공통 이름 %{count}개 제거됨
+  user_activity_stats_data_added_dropdown: 데이터 추가됨
   user_activity_stats_header: 활동
   user_activity_stats_objects_curated:
     one: 개체 %{count}개가 큐레이트됨
@@ -5040,12 +5098,12 @@ ko:
     one: 그림 %{count}개를 표본으로 설정했습니다
     other: 그림 %{count}개를 표본으로 설정했습니다
   user_activity_stats_taxa_commented:
-    one: 분류 %{count}개에 덧글 달림
-    other: 분류 %{count}개에 덧글 달림
+    one: 분류 %{count}개에 댓글 달림
+    other: 분류 %{count}개에 댓글 달림
   user_activity_stats_taxa_comments:
-    one: 분류 덧글 %{count}개
-    other: 분류 덧글 %{count}개
-  user_activity_stats_taxa_comments_dropdown: 분류 덧글
+    one: 분류 댓글 %{count}개
+    other: 분류 댓글 %{count}개
+  user_activity_stats_taxa_comments_dropdown: 분류 댓글
   user_activity_stats_taxa_curated:
     one: 분류 %{count}개가 큐레이트됨
     other: 분류 %{count}개가 큐레이트됨
@@ -5054,24 +5112,24 @@ ko:
     other: 위키백과 문서 %{count}개를 추천했습니다
   user_agent: 유저 에이전트
   user_already_active_notice: 계정이 이미 활성화되어 있습니다, 로그인하세요.
-  user_comments: 사용자 덧글
-  user_comment: 사용자 덧글
-  user_commented_on_something_colon: '<strong>%{user}</strong> 사용자가 "%{what}"에 덧글을
+  user_comments: 사용자 댓글
+  user_comment: 사용자 댓글
+  user_commented_on_something_colon: '<strong>%{user}</strong> 사용자가 "%{what}"에 댓글을
     남겼습니다:'
   user_commented_on_older_data_object_colon: '<strong>%{user}</strong> 사용자가 %{what}의
-    이전 판에 덧글을 남겼습니다:'
+    이전 판에댓글을 남겼습니다:'
   user_commented_on_themself: '<strong>%{user_with_link}</strong> 사용자가 <a href=''%{link}''>%{username}의
-    뉴스 피드</a>에 덧글을 남겼습니다:'
+    뉴스 피드</a>에 댓글을 남겼습니다:'
   user_commented_on_deleted_user: '<strong>%{user_with_link}</strong> 사용자가 제거한 사용자의
-    문서에 덧글을 남겼습니다:'
+    문서에 댓글을 남겼습니다:'
   user_commented_on_your_image: |-
-    <strong>%{user}</strong> 사용자가 <a href='%{data_object_link}'>생명의 백과사전 사이트</a>에 있는 내 그림에 덧글을 남겼습니다:
+    <strong>%{user}</strong> 사용자가 <a href='%{data_object_link}'>생명의 백과사전 사이트</a>에 있는 내 그림에 댓글을 남겼습니다:
     %{comment_body}
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: 사용자 ID
   user_joined_community_on_date: '%{username} 사용자가 %{date}에 이 공동체에 가입했습니다.'
   user_joined_when: '"%{user}" 사용자는 %{when}에 가입했습니다'
-  user_left_comment_on_date: '%{username} 사용자가 %{date}에 덧글을 남겼습니다.'
+  user_left_comment_on_date: '%{username} 사용자가 %{date}에 댓글을 남겼습니다.'
   user_no_longer_active_message: 이 사용자는 더 이상 활동하지 않습니다
   user_no_longer_has_manager_access_to_collection: '%{user} 사용자는 더 이상 "%{collection}"
     모음집으로 관리자 접근할 수 없습니다.'
@@ -5082,13 +5140,13 @@ ko:
   user_pending_notifications_with_count_assitive:
     one: <span class="assistive">알림 </span>%{count}개
     other: <span class="assistive">알림 </span>%{count}개
-  user_pending_notifications_comments_assistive: <span class="assistive">덧글</span>
+  user_pending_notifications_comments_assistive: <span class="assistive">댓글</span>
   user_pending_notifications_comments_with_count:
-    one: 덧글 %{count}개
-    other: 덧글 %{count}개
+    one: 댓글 %{count}개
+    other: 댓글 %{count}개
   user_pending_notifications_comments_with_count_assistive:
-    one: <span class="assistive">덧글 </span>%{count}개
-    other: <span class="assistive">덧글 </span>%{count}개
+    one: <span class="assistive">댓글 </span>%{count}개
+    other: <span class="assistive">댓글 </span>%{count}개
   user_was_added_as_editor_of_collection: 이 사용자가 "%{collection}"의 관리자로 추가했습니다.
   username_taken: '%{name} 사용자는 이미 토큰이 있습니다'
   username_colon: '사용자 이름:'
@@ -5133,7 +5191,6 @@ ko:
   view_added_text: 추가된 텍스트 보기
   view_as_button: 바뀜 보기
   view_as_label: 보기 방식
-  view_common_activities: 공통 활동 보기
   view_contact_us_submissions: 문의하기 제출 보기
   view_curators: 큐레이터 보기
   view_current_version_link: 현재 버전 보기
@@ -5149,12 +5206,10 @@ ko:
   view_sound_source: 소리 원본 보기
   view_source: 원본 보기
   view_video_source: 동영상 원본 보기
-  view_common_activities_link: 가장 일발적인 활동의 목록을 봅니다.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: 적어도 텍스트의 사진이나 조각으로 된 문서만
     보기
   view_this_hierarchy: 이 계층 보기
-  view_user_activity: 사용자 활동 보기
-  view_user_comments: 사용자 덧글 보기
+  view_user_comments: 사용자 댓글 보기
   view_your_curator_profile: 내 큐레이터 프로필 보기
   vimeo: 비메오
   visible_title: 보임

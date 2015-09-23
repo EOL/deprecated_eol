@@ -76,8 +76,8 @@ class TaxonMedia < TaxonUserClassificationFilter
     repair_bad_counts(@media.total_entries) # Doing this before preload in the off chance that that method alters counts.
     preload_media_details
     correct_bogus_exemplar_image     
-    if (image && (@page.nil? || @page == 1))
-      @media.unshift(image) # place exemplar image at the tiop of media page
+    if (!@exemplar_id.blank? && (@page.nil? || @page == 1) && image)
+      @media.unshift(image) # place exemplar image at the top of media page
     end
   end
 

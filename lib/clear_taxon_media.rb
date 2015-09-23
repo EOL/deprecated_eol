@@ -1,7 +1,7 @@
 class ClearTaxonMedia
 
   # TODO - we might want to pick a different queue, but that means setting it up:
-  @queue = :notifications
+  @queue = 'notifications'
 
   def self.perform(id)
     tc = TaxonConcept.find(id)

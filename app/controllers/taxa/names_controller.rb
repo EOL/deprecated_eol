@@ -19,13 +19,13 @@ class Taxa::NamesController < TaxaController
       @other_hierarchy_entries = @taxon_concept.deep_published_nonbrowsable_hierarchy_entries
     end
     HierarchyEntry.preload_associations(@hierarchy_entries,
-      [ { hierarchy: [ { resource: :content_partner }, :dwc_resource ] }, :rank, :ancestors ])
+      [ { hierarchy: [ { resource: :content_partner }, :dwc_resource ] }, :rank, :flat_ancestors ])
 
     # preloading the names for the current nodes and their ancestors. Children and sublings will be loaded later in
     # the views which is more efficient as we can preload only the first $max_children of each, sorted by name. It
     # is not possible to get for example "the first 10 children, alphabetically, for these 15 entries". That must be
     # done for each entry individually
-    HierarchyEntry.preload_associations((@hierarchy_entries + @hierarchy_entries.collect(&:ancestors)).flatten, :name)
+    HierarchyEntry.preload_associations((@hierarchy_entries + @hierarchy_entries.collect(&:flat_ancestors)).flatten, :name)
 
     @pending_moves = HierarchyEntryMove.pending.find_all_by_hierarchy_entry_id(@hierarchy_entries)
 
@@ -44,7 +44,6 @@ class Taxa::NamesController < TaxaController
     @related_names = @taxon_page.related_names
     @rel_canonical_href = taxon_names_url(@taxon_page)
     @assistive_section_header = I18n.t(:assistive_names_related_header)
-    current_user.log_activity(:viewed_taxon_concept_names_related_names, taxon_concept_id: @taxon_concept.id)
     common_names_count
   end
 
@@ -64,7 +63,7 @@ class Taxa::NamesController < TaxaController
         expire_taxa([@taxon_concept.id])
       end
     end
-    store_location params[:return_to] unless params[:return_to].blank?
+    store_location :back
     redirect_back_or_default common_names_taxon_names_path(@taxon_concept)
   end
 
@@ -77,7 +76,6 @@ class Taxa::NamesController < TaxaController
         @taxon_concept.add_common_name_synonym(name.string, agent: current_user.agent, language: language, preferred: 1, vetted: Vetted.trusted)
         expire_taxa([@taxon_concept.id])
       end
-      current_user.log_activity(:updated_common_names, taxon_concept_id: @taxon_concept.id)
     end
     if !params[:hierarchy_entry_id].blank?
       redirect_to common_names_taxon_entry_names_path(@taxon_concept, params[:hierarchy_entry_id]), status: :moved_permanently
@@ -94,7 +92,8 @@ class Taxa::NamesController < TaxaController
       log_action(@taxon_concept, synonym, :remove_common_name)
       tcn = TaxonConceptName.find_by_synonym_id_and_taxon_concept_id(synonym_id, @taxon_concept.id)
       unless current_user.can_delete?(tcn)
-        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have edit access to Synonym with ID=#{synonym_id}"
+        raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to Synonym with ID=#{synonym_id}", 
+        :missing_delete_access_to_synonym)
       end
       @taxon_concept.delete_common_name(tcn)
       @taxon_concept.reindex_in_solr
@@ -116,7 +115,6 @@ class Taxa::NamesController < TaxaController
     TaxonConcept.preload_associations(@taxon_concept, associations, options )
     @assistive_section_header = I18n.t(:assistive_names_synonyms_header)
     @rel_canonical_href = synonyms_taxon_names_url(@taxon_page)
-    current_user.log_activity(:viewed_taxon_concept_names_synonyms, taxon_concept_id: @taxon_concept.id)
     common_names_count
   end
 
@@ -128,7 +126,6 @@ class Taxa::NamesController < TaxaController
     @common_names_count = @common_names.collect{|cn| [cn.name.id,cn.language.id]}.uniq.count
     @assistive_section_header = I18n.t(:assistive_names_common_header)
     @rel_canonical_href = common_names_taxon_names_url(@taxon_page)
-    current_user.log_activity(:viewed_taxon_concept_names_common_names, taxon_concept_id: @taxon_concept.id)
   end
 
   def vet_common_name
@@ -136,7 +133,6 @@ class Taxa::NamesController < TaxaController
     name_id = params[:id].to_i
     vetted = Vetted.find(params[:vetted_id])
     @taxon_concept.vet_common_name(language_id: language_id, name_id: name_id, vetted: vetted, user: current_user)
-    current_user.log_activity(:vetted_common_name, taxon_concept_id: @taxon_concept.id, value: name_id)
 
     synonym = Synonym.find_by_name_id(name_id);
     if synonym

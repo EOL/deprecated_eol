@@ -5,10 +5,14 @@
 # Author: B4bol4t
 # Author: Breghtje
 # Author: Carsrac
+# Author: Esketti
 # Author: GerardM
 # Author: HanV
 # Author: Inholland
 # Author: McDutchie
+# Author: MedShot
+# Author: Milenej
+# Author: Ndijkstra
 # Author: Patio
 # Author: Robin0van0der0vliet
 # Author: Romaine
@@ -78,7 +82,7 @@ nl:
         description: Tekst
         object_title: Naam
         rights_holder: Rechtenhouder
-        rights_statement: Verklaring van de rechten
+        rights_statement: Rechtenverklaring
         source_url: Bron-URL
       data_object_link:
         description: Beschrijving
@@ -109,7 +113,7 @@ nl:
         data_objects_texts: Tekstobjecten
         data_objects_images: Afbeeldingsobjecten
         data_objects_videos: Video-objecten
-        data_objects_sounds: Audio objecten
+        data_objects_sounds: Audio-objecten
         data_objects_maps: Kaartobjecten
         data_objects_trusted: Vertrouwde gegevensobjecten
         data_objects_unreviewed: Ongecontroleerde gegevensobjecten
@@ -163,6 +167,7 @@ nl:
         total_measurement_types: Meettypen
         total_association_types: Gekoppelde typen
         total_user_added_data: Door gebruikers toegevoegde gegevens
+        total_data_records: Gegevensrecords
       forum:
         forum_category_id: Categorie
         name: Forumnaam
@@ -196,6 +201,7 @@ nl:
         uri: URI
         uri_type: Type URI
         value_is_text: Waarden zijn geen URI's, alleen tekst
+        value_is_verbatim: Waarden worden geen nummer, alleen tekst
       known_uri_relationship:
         from_known_uri_id: Onderwerp-URI
         to_known_uri_id: Doel-URI
@@ -677,7 +683,7 @@ nl:
           hoort trefwoorden te bevatten die het meest relevant zijn voor de inhoud.
       user:
         agreed_with_terms: Ik ga akkoord met de <a href="%{terms_url}">gebruiksvoorwaarden</a>
-        api_key_more: Lees meer over <a href="%{api_docs_url}">een sleutel toevoegen
+        api_key_more: Meer lezen over <a href="%{api_docs_url}">een sleutel toevoegen
           aan uw API-verzoeken</a>.
         bio: Over mij
         credentials: Gebruikersgegevens
@@ -1505,6 +1511,7 @@ nl:
       style='color:#195184'>neem dan contact met ons op</a>.
     see_all_activity: U kunt al uw activiteiten bekijken op de <a href='%{activity_url}'
       style='color:#195184'>pagina met uw nieuwsoverzicht</a>.
+    resource_validation: Het valideren van de bron %{resource} is voltooid
     bulk_comments_with_count:
       one: Er is een nieuwe reactie op %{on}
       other: Er zijn %{count} nieuwe reacties op %{on}
@@ -1570,9 +1577,9 @@ nl:
       header: Uw download staat klaar!
   sessions:
     new:
-      login_with_facebook_assistive: Aanmelden bij EOL met uw Facebook-account.
-      login_with_google_assistive: Aanmelden bij EOL met uw Google-account.
-      login_with_twitter_assistive: Aanmelden bij EOL met uw Twitter-account.
+      login_with_facebook_assistive: Aanmelden bij EOL met uw Facebookaccount.
+      login_with_google_assistive: Aanmelden bij EOL met uw Googleaccount.
+      login_with_twitter_assistive: Aanmelden bij EOL met uw Twitteraccount.
       login_with_yahoo_assistive: Aanmelden bij EOL met uw Yahoo!-gebruiker.
       login_with_eol_authentication_header: 'Of aanmelden met uw EOL-gebruiker:'
       meta_title: Aanmelden
@@ -1652,13 +1659,6 @@ nl:
         tweet_text: Conservatoren van %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> voegt informatie
-          van veel aanbieders samen. Selecteer een rij voor meer informatie over het
-          record, of <a href="%{traitbank_search_path}">doorzoek TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          voegt informatie van veel aanbieders samen. Selecteer een rij voor meer
-          informatie over het record, of <a href="%{traitbank_search_path}">zoek binnen
-          %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Fieten over %{scientific_name} als ingedeeld door %{hierarchy_provider}in
             de Encyclopedia of Life.
@@ -2114,6 +2114,7 @@ nl:
       is_not_complete: Nee
       query_empty: (geen filters)
       processing: bezig met verwerken
+      error: er is iets misgegaan met dit bestand
       refresh: vernieuwen
       row_count: Aantal
       search_again: opnieuw zoeken
@@ -2139,7 +2140,7 @@ nl:
         aanmaken
       create_user_with_eol_authentication_header: 'Of geef nieuwe referenties op:'
       meta_title: Wordt lid van EOL
-      sign_up_with_facebook_assistive: Meld aan bij EOL met uw Facebook-account.
+      sign_up_with_facebook_assistive: Registreer u bij EOL met uw Facebookaccount.
       sign_up_with_google_assistive: Meld aan bij EOL met uw Google-account.
       sign_up_with_twitter_assistive: Meld aan bij EOL met uw Twitter-account.
       sign_up_with_yahoo_assistive: Meld aan bij EOL met uw Yahoo!-gebruiker.
@@ -3519,24 +3520,30 @@ nl:
       unlock:
         merge_of_an_unknown_taxon_unlocked: Het samenvoegen van pagina's waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
-        merge_of_it_unlocked: Het samenvoegen van pagina's waar u recentelijk om hebt
-          gevraagd is uitgevoerd.
+        merge_of_it_unlocked: Het samenvoegen wat u heeft aangevraagd voor deze pagina
+          is afgerond; de pagina's worden opnieuw geïndexeerd en kan tot 25 uur in
+          beslag nemen.
         merge_of_taxon_unlocked: Het samenvoegen van pagina's voor "%{taxon}" waar
-          u recentelijk om hebt gevraagd is uitgevoerd
+          u recentelijk om hebt gevraagd is uitgevoerd;  de pagina's worden opnieuw
+          geïndexeerd en kan tot 25 uur in beslag nemen.
         move_of_an_unknown_taxon_unlocked: De classificatiewijziging waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
         move_of_it_unlocked: De classificatiewijziging waar u recentelijk om hebt
-          gevraagd is uitgevoerd.
+          gevraagd is uitgevoerd; de pagina's worden opnieuw geïndexeerd en kan tot
+          25 uur in beslag nemen.
         move_of_taxon_unlocked: De classificatiewijziging voor "%{taxon}" waar u recentelijk
-          om hebt gevraagd is uitgevoerd.
+          om hebt gevraagd is uitgevoerd; de pagina's worden opnieuw geïndexeerd en
+          kan tot 25 uur in beslag nemen.
         split_of_an_unknown_taxon_unlocked: De classificatiesplitsing waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
         split_of_it_unlocked: De classificatiesplitsing die u recentelijk voor deze
           pagina heeft aangevraagd is uitgevoerd en de classificaties zijn verplaatst
-          naar <a href='%{to}'>hun eigen pagina</a>.
+          naar <a href='%{to}'>hun eigen pagina</a>; de pagina's worden opnieuw geïndexeerd
+          en kan tot 25 uur in beslag nemen.
         split_of_taxon_unlocked: De classificatiesplitsing die u recentelijk voor
           "%{taxon}" heeft aangevraagd is uitgevoerd en de classificaties zijn verplaatst
-          naar <a href='%{to}'>hun eigen pagina</a>.
+          naar <a href='%{to}'>hun eigen pagina</a>; de pagina's worden opnieuw geïndexeerd
+          en kan tot 25 uur in beslag nemen.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Het samenvoegen van pagina''s
           waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}.
@@ -3771,6 +3778,9 @@ nl:
     gebruikers met rechten
   admin_link: Beheerconsole
   admin_page_title: 'Beheer: Overzicht'
+  admin_resource_delete_confirmation: Weet u zeker dat u deze bron wilt verwijderen?
+    Het uitvoeren van dit commando kan lang duren. Het is mogelijk dat u een timeout
+    te zien krijgt tijdens het uitvoeren. Dien deze opdracht niet opnieuw in.
   admin_simple_actions_header: 'Simpele handelingen:'
   admin_spam_delete: Spam verwijderen
   admin_statistics_link: Statistieken
@@ -4139,6 +4149,7 @@ nl:
     classificatie. Andere classificaties kunnen worden verplaatst naar de nieuwe pagina
     nadat u deze hebt gemaakt
   classifications_summary_header_with_count:
+    zero: EOL heeft geen classificaties voor dit taxon
     one: Gevonden in één goedgekeurde classificatie
     other: Gevonden in %{count} classificaties
   classifications_with_count:
@@ -4186,6 +4197,9 @@ nl:
       items.
   collection_delete_link: Verzameling permanent verwijderen
   collection_destroyed: De verzameling is verwijderd.
+  collection_removed: Verzameling %{collection} ' is verwijderd.
+  collection_update_failure: Verzameling %{collection} - update is mislukt. Controleer
+    of er een probleem in de collectie items is
   collection_error_no_items_selected: 'Fout: er zijn geen items geselecteerd of handelingen
     uitgevoerd.'
   collection_image: Verzamelingsafbeelding
@@ -4349,6 +4363,8 @@ nl:
     De leden kunnen de gemeenschap daarna nog steeds en het nieuwsoverzicht wordt
     bijgehouden, maar beiden worden niet langer weergegeven in zoekopdrachten of op
     taxonpagina's, en zijn niet langer te bewerken.
+  confirm_delete_data_object: Weet u zeker dat u dit gegevensobject wilt verwijderen?
+    Deze actie kan niet ongedaan worden gemaakt.
   confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: 'Wachtwoord bevestigen:'
   contact: Contact
@@ -4468,7 +4484,10 @@ nl:
     zijn toegevoegd. De huidige status van de brongegevens: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Er is een fout opgetreden. De
     bron is niet toegevoegd.
+  content_partner_resource_validation_finish_notice: Het valideren van de inhoudspartnerbron
+    is voltooid. De status is %{resource_status}.
   content_partner_resource_dataset_details_header: Dataset
+  content_partner_resource_delete_with_type_link: Alles verwijderen
   content_partner_resource_description_empty: Er is geen beschrijving verstrekt voor
     deze bron.
   content_partner_resource_edit_link: Bewerken
@@ -4491,6 +4510,10 @@ nl:
     %{resource_title} is bijgewerkt.
   content_partner_resource_harvest_event_update_unsuccessful_error: Er is een fout
     opgetreden. De oogstgebeurtenis voor %{resource_title} is niet bijgewerkt.
+  content_partner_resource_page_title: Encyclopedie van het Leven - %{content_partner_name}
+    - %{resource_name}
+  content_partner_resource_will_be_deleted: Alle van de bron %{resource_title} afkomstige
+    gegevens worden verwijderd. Dit proces kan 24 uur duren.
   content_partner_resource_hierarchy_browsable: Doorzoekbaar
   content_partner_resource_hierarchy_complete_true: Deze hiërarchie is ingesteld als
     <strong>geconserveerd</strong>. Bij een geconserveerde hiërarchie wordt ervan
@@ -4533,6 +4556,7 @@ nl:
     De status van de bron %{resource_title} kon niet worden bijgewerkt naar %{resource_status}.
   content_partner_resource_update_successful_notice: 'De brongegevens voor de contentpartner
     zijn bijgewerkt. De huidige status van de brongegevens: %{resource_status}.'
+  content_partner_resource_update_successful: Inhoud partner bron details bijgewerkt.
   content_partner_resource_update_unsuccessful_error: Er is een fout opgetreden. De
     bron is niet bijgewerkt.
   content_partner_resource_upload_unsuccessful_error: 'Er is een fout opgetreden.
@@ -4750,6 +4774,7 @@ nl:
     "%{period}" uur uitgevoerd
   currently_running_harvesting: Er wordt op dit moment geoogst
   currently_in_eol: Nu in Encyclopedia of Life
+  institutional_sponsors: Institutionele sponsoren
   currently_published: op dit moment gepubliceerd
   daily: Dagelijks
   darwin_core: Darwin Core
@@ -4770,8 +4795,7 @@ nl:
     Secretariaat van EOL</a> voor meer informatie over TraitBank.</p>
   data_results_only_for_search: Resultaten uit TraitBank voor "%{search_term}"
   data_search_limit:
-    one: Het downloaden van resultaatbestanden is mogelijk tot %{count} resultaat.
-    other: Het downloaden van resultaatbestanden is mogelijk tot %{count} resultaten.
+    other: =Gegevens zoekresultaten worden gedownload als %{count} record per bestand.
   data_about_this_record: Gegevens over dit record
   data_column_tc_id: EOL pagina-ID
   data_column_sci_name: Wetenschappelijke naam
@@ -4792,6 +4816,13 @@ nl:
   data_column_raw_units: Ruwe eenheden (direct van bron)
   data_column_raw_units_uri: URI voor ruwe eenheden (genormaliseerd)
   data_column_source: Leverancier
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> verzamelt gegevens
+    records uit de vele aanbieders. Selecteer een rij voor meer informatie over de
+    record of <a href="%{traitbank_search_path}">zoekopdracht TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    verzamelt gegevens records uit de vele aanbieders. Selecteer een rij voor meer
+    informatie over de record of <a href="%{traitbank_search_path}">zoekopdracht in
+    %{taxon_name}</a>.
   data_database_colon: 'Gegevens:'
   data_glossary: Woordenlijst voor gegevens
   data_glossary_contribute: Om nieuwe termen toe te voegen deze woordenlijst kunt
@@ -4802,6 +4833,7 @@ nl:
   data_metadata_subtable_summary: Aanvullende gegevens over dit feit.
   data_measurement_subtable_summary: Aanvullende gegevens over de meting van dit feit.
   data_object: Gegevensobject
+  data_object_deleted: Gegevens Object is succesvol verwijderd
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld
     aan een hiërarchie.
   data_object_reference: Gegevensobjectkoppeling
@@ -4838,6 +4870,10 @@ nl:
   data_search:
     page_title: TraitBank doorzoeken
     form:
+      equivalent_attributes: 'Vergelijkbare waarden:'
+      equivalent_values: 'Vergelijkbare waarden:'
+      search_again_for_attributes: zoek opnieuw onder de geselecteerde kenmerken
+      search_again_for_values: zoek opnieuw zijn waarde gekozen
       header_assistive: Zoekformulier
       input_summary_intro: Geselecteerde zoekopties
       new_search_link: Nieuwe zoekopdracht starten
@@ -4952,6 +4988,7 @@ nl:
   default_rating_value_of_total: 'Standaard waardering: %{rating} van %{total}'
   default_watch_collection_name: Volglijst van %{username}
   delete_community: Deze gemeenschap verwijderen
+  delete_data_object: Verwijderen
   delete: verwijderen
   deleted_colon: 'verwijderd:'
   delete_firstcap: Verwijderen
@@ -4981,6 +5018,8 @@ nl:
   duplicate_comment_warning: 'De reactie is niet opgeslagen: het lijkt erop dat u
     al hebt gereageerd op dit bericht. Hebt u wellicht per ongeluk uw reactie twee
     keer opgeslagen?'
+  duplicate_text_warning: De tekst is niet opgeslagen. Het lijkt erop dat u dit artikel
+    al hebt opgeslagen. Hebt u wellicht twee keer op "Artikel toevoegen" geklikt?
   duplicate_items_were_ignored: Dubbele items zijn genegeerd.
   each_method_documentation_page_has_formatted_responses: De documentatiepagina van
     iedere methode heeft een voorbeeld van antwoorden in de vorm van XML en JSON.
@@ -5038,6 +5077,7 @@ nl:
   eol_api: EOL API
   eol_api_hierarchies: 'EOL API: hiërarchieën'
   eol_api_hierarchy_entries: 'EOL API: hiërarchie-invoer'
+  eol_api_hierarchy_entries_descendants: 'EOL-API: Hiërarchie-Items'' Nakomelingen'
   eol_api_pages: 'EOL API: pagina''s'
   eol_api_ping: 'EOL API: ping'
   eol_api_provider_hierarchies: 'EOL API: providerhiërarchieën'
@@ -5049,6 +5089,8 @@ nl:
   eol_news: EOL-nieuws
   eol_pages: Pagina's
   error_log_detail: Detailgegevens foutenlogboek
+  error_revoking_editor_on_watch_collection: Bewerkers kunnen niet verwijderd worden
+    uit gevolgde verzamelingen
   error_log: Foutenlogboek
   error_logging_active: Er worden foutgegevens verzameld
   error_401_page_title: Niet bevoegd
@@ -5105,6 +5147,55 @@ nl:
         en EOL-conservatoren met een minimaal conservatorniveau van Meester.
       no_access: Deze functie is helaas tijdelijk uitgeschakeld. Kom snel terug om
         te kijken of die weer werkt.
+      missing_edit_acess_to_forum_category: Alleen beheerders kunnen deze forumcategorie
+        bewerken
+      missing_delete_acess_to_forum_category: Alleen beheerders kunnen deze forumcategorie
+        verwijderen
+      missing_edit_acess_to_forum_post: Alleen beheerders of berichteigenaren kunnen
+        dit forumbericht bewerken
+      missing_delete_acess_to_forum_post: Alleen beheerders of berichteigenaren kunnen
+        dit forumbericht verwijderen
+      missing_set_article_as_exemplar_privilege: Alleen conservatoren kunnen pagina's
+        als exemplarisch instellen
+      missing_delete_access_to_synonym: Alleen agenten kunnen dit synoniem verwijderen
+      missing_delete_access_to_data_search_file: Alleen bekeerders, meesterconservatoren
+        of eigenaren van bestanden kunnen dit bestand verwijderen
+      missing_permission_to_view_open_authentications: Alleen beheerders en accounteigenaren
+        kunnen de open authenticaties voor deze account bekijken
+      missing_permission_to_add_open_authentications: Alleen beheerders en accounteigenaren
+        kunnen autheniticaties voor deze account bekijken
+      missing_permission_to_delete_open_authentications: Alleen beheerders en accounteigenaren
+        kunnen open autheniticaties voor deze account verwijderen
+      this_action_requires_higher_curation_level: Voor deze handeling is een hoger
+        conservatorniveau nodig
+      admins_and_joined_only_can_read: Wordt lid van deze verzameling om hem te kunnen
+        bekijken
+      owner_and_managers_only_can_edit: Alleen de eigenaren van verzamelingen of managers
+        kunnen dit bewerken
+      error_revoking_editor_on_watch_collection: Bewerkers kunnen niet verwijderd
+        worden uit gevolgde verzamelingen
+      error_revoking_editor_on_an_empty_community: Bewerkers kunnen niet verwijderd
+        worden uit een lege gemeenschap
+      only_managers_can_edit_community: Alleen managers kunnen deze gemeenschap bewerken
+      only_managers_can_delete_community: Alleen managers kunnen deze gemeenschap
+        verwijderen
+      only_admins_can_view_content_pages: Alleen beheerders kunnen inhoudspagina's
+        bekijken
+      only_admins_can_view_translated_content_pages: Alleen beheerders kunnen pagina's
+        met vertaalde inhoud bekijken
+      only_admins_can_edit_forums: Alleen beheerders kunnen forums bewerken
+      must_be_logged_in: U moet aangemeld zijn
+      only_admins_can_read_hidden_news_items: Alleen beheerders kunnen verborgen nieuwsberichten
+        lezen
+      only_admins_can_read_hidden_translated_news_items: Alleen beheerders kunnen
+        verborgen vertaalde nieuwsberichten lezen
+      can_not_access_unpublished_taxon: U hebt geen toegang tot een ongepubliceerd
+        taxon
+      only_data_owner_can_edit: Alleen de gegevenseigenaar kan het bewerken
+      only_data_owner_can_delete: Alleen de gegevenseigenaar kan het verwijderen
+      error_editing_someone_account: U kunt alleen uw eigen account bewerken
+      can_not_edit_permissions: U kunt rechten niet bewerken
+      collection_job_not_valid: Verzamelingstaak niet geldig
   excluded_icon_tip: Rijen gemarkeerd met het pictogram uitgezonderd %{excluded_icon}
     worden nooit weergegeven worden op de overzichtspagina's van taxa.
   expand_all_children: alle kinderen uitvouwen
@@ -5193,6 +5284,25 @@ nl:
   filter_newsfeed_option_watchlist: Volglijst
   filter_newsfeed_option_curation: Conservering
   filtered_information: Gefilterde gegevens
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxa
+  image_search_keyword:
+    other: =image
+  video_search_keyword:
+    other: =video
+  sound_search_keyword:
+    other: =geluid
+  text_search_keyword:
+    other: =artikel
+  data_search_keyword:
+    other: =eigenschap
+  link_search_keyword:
+    other: =link
+  user_search_keyword:
+    other: =persoon
+  community_search_keyword: NOT WORKING
+  collection_search_keyword: NOT WORKING
   find_taxa_submit_button: taxa zoeken
   flash_notice_redirected_from_search_html: U bent hier aangekomen door te zoeken
     naar <em>%{search_string}</em>. <a href="%{more_results_url}">Klik hier om terug
@@ -5260,6 +5370,8 @@ nl:
     te verbeteren, dus in de nabije toekomst kunt betere zoekresultaten verwachten.
   gives_access_to_a_single_hierarchy_indexed_by_eol: geeft toegang tot een enkele
     hiërarchie en de interne relaties als geïndexeerd door EOL
+  gives_access_to_a_single_hierarchy_descendants_by_eol: geeft toegang tot de nakomelingen
+    van een enkele hiërarchie-entry
   global_access_tagline: Wereldwijde toegang tot kennis over het leven op aarde.
   global_navigation: Globale navigatie
   glossary: Woordenlijst
@@ -5336,6 +5448,7 @@ nl:
     alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft,
     dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde
     inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
+  reindex_data_object_button: Object herindexeren
   reindex_page_button: Pagina opnieuw indexeren
   image: Afbeelding
   image_cropped_notice: De afbeelding bijgesneden.
@@ -5467,6 +5580,10 @@ nl:
   known_uris_none: Niemand heeft nog URI's van dit type toegevoegd.
   known_uris_page_title: URI's voor gegevens op EOL
   known_uris_sorted: Volgorde bijgewerkt.
+  pending_harvests_none: Er zijn geen hangende oogst nu
+  pending_harvests_title: In Afwachting Van De Oogst
+  pause_pending_harvests: Pauze oogsten
+  resume_pending_harvests: Cv oogsten
   label: Label
   language: 'Taal:'
   languages: Talen
@@ -5474,6 +5591,7 @@ nl:
     de inhoud van de website beschikbaar is. Selecteer een taal uit de lijst om de
     inhoud in die taal te bekijken.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Laatste Oogst Duur
   last_updated: Laatst bijgewerkt
   last_updated_time_ago: '%{time_passed} geleden voor het laatst bijgewerkt'
   learn_about_collections: Hoe kan ik er een aanmaken?
@@ -6091,6 +6209,7 @@ nl:
   recount_collection_items: Verzamelingsitems opnieuw tellen (corrigeert verkeerde
     tellers; de browser krijgt een timeout, maar dit werkt <i>wel</i>)
   recount_collection_items_done: Het opnieuw tellen van verzamelingsitems is afgerond.
+  redirect_url_ok_title_unavailable: Redirect URL oké, titel niet beschikbaar
   reference: Referentie
   references_cabs_colon: 'Referenties:'
   related_names_with_count:
@@ -6547,6 +6666,8 @@ nl:
     voor informatie over toegang tot andere hiërarchieën die overeenkomen met een
     bepaalde pagina in EOL. Het veld "taxonConceptID" bevat het pagina-ID van EOL
     dat gebruikt kan worden in de API voor pagina's.
+  hierarchies_entries_descendants_description: Gezien de identifier van een hiërarchie-item
+    geeft deze API g alle nakomelingen van deze hiërarchie-entry terug.
   hierarchies_description: Encyclopedia of Life heeft niet één enkele taxonomische
     hiërarchie waarvan pagina's gemaakt worden. EOL indexeert veel hiërarchieën en
     vergelijkt ze met elkaar. Via deze API wordt metadata weergegeven over een hiërarchie
@@ -6618,6 +6739,7 @@ nl:
     verzamelingen.
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
   this_community_was_deleted: Deze gemeenschap is verwijderd door de eigenaar.
+  this_data_object_will_be_reindexed: Dit gegevens object zal worden geïndexeerd.
   this_does_not_necessarily_mean: '* dit betekent niet per se dat de verbindingen
     worden gebruikt, allen dat ze zijn ingesteld in database.yml. U moet controleren
     of de masterverbindingen zijn ingesteld in het bestand "config/environments/%{env}.rb".'
@@ -6927,7 +7049,6 @@ nl:
   view_added_text: toegevoegde tekst bekijken
   view_as_button: Weergave wijzigen
   view_as_label: Weergeven als
-  view_common_activities: algemene activiteiten bekijken
   view_contact_us_submissions: contactpogingen bekijken
   view_curators: conservatoren bekijken
   view_current_version_link: Huidige versie bekijken
@@ -6944,11 +7065,9 @@ nl:
   view_sound_source: Audiobron weergeven
   view_source: Bron weergeven
   view_video_source: Videobron weergeven
-  view_common_activities_link: Lijst van de meest voorkomende activiteiten bekijken.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Alleen pagina's bekijken
     met tenminste een afbeelding of tekst
   view_this_hierarchy: hiërarchie weergeven
-  view_user_activity: Gebruikersactiviteit bekijken
   view_user_comments: gebruikersreacties bekijken
   view_your_curator_profile: Uw conservatorprofiel bekijken
   vimeo: Vimeo

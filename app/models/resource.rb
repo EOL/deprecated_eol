@@ -28,11 +28,43 @@ class Resource < ActiveRecord::Base
   belongs_to :dwc_hierarchy, class_name: 'Hierarchy'
   belongs_to :collection
   belongs_to :preview_collection, class_name: 'Collection'
-  
-  #This is added to make the resources act as list for the pending harvest classes
-  acts_as_list
 
   has_many :harvest_events
+
+  scope :by_priority, -> { order(:position) }
+  scope :force_harvest,
+    -> { where(resource_status_id: ResourceStatus.force_harvest.id) }
+  scope :unharvested, -> { where("harvested_at IS NULL") }
+  # This is, of course, ridiculous. But it's what is used in PHP, sooo...
+  scope :ready, -> do
+    where(
+      "resource_status_id = #{ResourceStatus.force_harvest.id} OR "\
+      "("\
+        "harvested_at IS NULL AND ("\
+          "resource_status_id = #{ResourceStatus.validated.id} OR "\
+          "resource_status_id = #{ResourceStatus.validation_failed.id} OR "\
+          "resource_status_id = #{ResourceStatus.processing_failed.id}"\
+        ") "\
+      ") OR ( "\
+        "refresh_period_hours != 0 AND "\
+        "DATE_ADD(harvested_at, "\
+          "INTERVAL(refresh_period_hours) HOUR) <= NOW() AND "\
+        "resource_status_id IN ("\
+          "#{ResourceStatus.upload_failed.id}, "\
+          "#{ResourceStatus.validated.id}, "\
+          "#{ResourceStatus.validation_failed.id}, "\
+          "#{ResourceStatus.processed.id}, "\
+          "#{ResourceStatus.processing_failed.id}, "\
+          "#{ResourceStatus.published.id}"\
+        ")"\
+      ")"
+    )
+  end
+  scope :failed,
+    -> { where(resource_status_id: ResourceStatus.harvest_failed.id) }
+
+  # The order of the list affects the order of harvesting:
+  acts_as_list
 
   has_attached_file :dataset,
     path: $DATASET_UPLOAD_DIRECTORY,
@@ -68,13 +100,8 @@ class Resource < ActiveRecord::Base
   end
   validate :url_or_dataset_not_both
 
-  def self.pending
-    Resource.where("(resource_status_id IN (#{ResourceStatus.force_harvest.id}, #{ResourceStatus.validation_failed.id}, #{ResourceStatus.processing_failed.id})) OR
-                    (resource_status_id= #{ResourceStatus.validated.id} AND harvested_at IS NULL) OR (refresh_period_hours!=0 AND 
-                    DATE_ADD(harvested_at, INTERVAL (refresh_period_hours) HOUR)<=NOW() AND resource_status_id IN (#{ResourceStatus.upload_failed.id}, 
-                    #{ResourceStatus.validated.id}, #{ResourceStatus.validation_failed.id}, #{ResourceStatus.processed.id}, #{ResourceStatus.processing_failed.id}, 
-                    #{ResourceStatus.published.id}))")
-  
+  def self.next
+    ready.by_priority.first
   end
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
@@ -196,12 +223,11 @@ class Resource < ActiveRecord::Base
     @latest_harvest
   end
 
-  def upload_resource_to_content_master!(port = nil)
+  def upload_resource_to_content_master(ip_with_port)
     if self.accesspoint_url.blank?
-      self.resource_status = ResourceStatus.uploaded      
-      ip_with_port = EOL::Server.ip_address.dup
-      ip_with_port += ":" + port if port && !ip_with_port.match(/:[0-9]+$/)
-      file_url = "http://" + ip_with_port + $DATASET_UPLOAD_PATH + id.to_s + "."+ dataset_file_name.split(".")[-1]
+      self.resource_status = ResourceStatus.uploaded
+      file_url = "http://" + ip_with_port + $DATASET_UPLOAD_PATH + id.to_s +
+        "." + dataset_file_name.split(".")[-1]
     else
       file_url = accesspoint_url
     end
@@ -232,6 +258,9 @@ class Resource < ActiveRecord::Base
     harvest_events.each(&:destroy_everything)
     begin
       HarvestEvent.delete_all(["resource_id = ?", id])
+      # delete all records from resource contributions related to this record
+      ResourceContribution.delete_all(["resource_id = ?", self.id])
+      delete_resource_contributions_file
     rescue ActiveRecord::StatementInvalid => e
       # This is not *fatal*, it's just unfortunate. Probably because we're
       # harvesting, but waiting for harvests to finish is not possible.
@@ -243,6 +272,48 @@ class Resource < ActiveRecord::Base
 
   def has_harvest_events?
     harvest_events.blank? ? false : true
+  end
+
+  def save_resource_contributions
+    resource_contributions = ResourceContribution.where("resource_id = ? ", self.id)
+    resource_contributions_json = []
+    resource_contributions.each do |resource_contribution|
+      taxon_concept_id = resource_contribution.taxon_concept_id
+      type = resource_contribution.object_type
+      url = type == "data_object" ? "#{Rails.configuration.site_domain}/data_objects/#{resource_contribution.data_object_id}": "#{Rails.configuration.site_domain}/pages/#{resource_contribution.taxon_concept_id}/data#data_point_uri_#{resource_contribution.data_point_uri_id}"
+      resource_contribution_json = {
+         type: type,
+         url: url,
+         identifier: resource_contribution.identifier,
+         source: resource_contribution.source,
+         page: taxon_concept_id
+      }
+      data_object_type_id = resource_contribution.data_object_type
+      if data_object_type_id
+        resource_contribution_json[:data_object_type] = DataType.find(data_object_type_id).label
+      end
+      predicate = resource_contribution.predicate
+      if predicate
+        resource_contribution_json[:predicate] = predicate
+      end
+      resource_contributions_json << resource_contribution_json
+    end
+
+    resource_info_with_contributions = { id: self.id,
+                                         url: "#{Rails.configuration.site_domain}/content_partners/#{self.content_partner_id}/resources/#{self.id}",
+                                         title: self.title,
+                                         contributions: resource_contributions_json }
+    File.open("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json","w") do |f|
+      f.write(JSON.pretty_generate(resource_info_with_contributions))
+    end
+  end
+
+  def delete_resource_contributions_file
+    File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json") if File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json")
+  end
+
+  def self.is_paused?
+    Resource.first.pause
   end
 
 private

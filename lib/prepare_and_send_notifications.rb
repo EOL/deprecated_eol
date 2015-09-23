@@ -3,24 +3,24 @@
 # Code taken (kinda) from http://railscasts.com/episodes/271-resque
 class PrepareAndSendNotifications
 
-  @queue = :notifications
+  @queue = 'notifications'
 
   def self.perform
-    Rails.logger.info "++ #{Time.now.strftime("%F %T")} - PrepareAndSendNotifications performing."
+    Rails.logger.error "++ #{Time.now.strftime("%F %T")} - PrepareAndSendNotifications performing."
     PendingNotification.send_notifications(:immediately)
     
     if (NotificationEmailerSettings.last_daily_emails_sent + 24.hours) < Time.now
-      Rails.logger.info "++ #{Time.now.strftime("%F %T")} - Sending daily mail."
+      Rails.logger.error "++ #{Time.now.strftime("%F %T")} - Sending daily mail."
       PendingNotification.send_notifications(:daily)
       NotificationEmailerSettings.last_daily_emails_sent = Time.now
     end
     
     if (NotificationEmailerSettings.last_weekly_emails_sent + 1.week) < Time.now
-      Rails.logger.info "++ #{Time.now.strftime("%F %T")} - Sending weekly mail."
+      Rails.logger.error "++ #{Time.now.strftime("%F %T")} - Sending weekly mail."
       PendingNotification.send_notifications(:weekly)
       NotificationEmailerSettings.last_weekly_emails_sent = Time.now
     end
-    Rails.logger.info "++ #{Time.now.strftime("%F %T")} - Done."
+    Rails.logger.error "++ #{Time.now.strftime("%F %T")} - Done."
   end
 
 end

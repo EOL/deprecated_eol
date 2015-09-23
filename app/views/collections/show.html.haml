@@ -8,6 +8,8 @@
   = render 'collections/editable_actions', { :editable => editable }
   - if current_user.is_admin? && @collection_results && @collection_results.is_a?(WillPaginate::Collection) && @collection_results.total_entries < Collection::REINDEX_LIMIT
     %li= link_to I18n.t(:reindex_page_button), reindex_collection_path(@collection), :class => 'button'
+    - if @collection.collection_has_data?
+      = link_to I18n.t(:download_collection_data), choose_taxa_data_collections_path(collection_id: @collection), :class => 'button'
 - if @collection_items.blank?
   #sidebar
     .collection_contributors

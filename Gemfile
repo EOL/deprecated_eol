@@ -7,7 +7,7 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem "capistrano", "2.13.5" # For deploys.
   # For deploys. Note we've customized it...
   gem "capistrano-unicorn-pleary", "=0.1.6.1"
-  gem "rvm-capistrano", "1.2.7" # For deploys.
+  gem "rvm-capistrano", "1.2.7", require: false # For deploys.
   # We use this *extensively* in testing for user-like behavior. Learn this.
   gem "capybara", "1.1.3"
   # This allows tasks to run in the background, like Solr.
@@ -100,6 +100,10 @@ group :test do
 end
 
 group :assets do
+  # This minimizes the re-building of assets, shaving off about three minutes
+  # from a deploy. ...That said, I don't believe it's as aggreesive as it could
+  # be. TODO: see if there are settings to make this compile even less.
+  gem "turbo-sprockets-rails3", "0.3.4"
   # Embeds V8 JS engine in Ruby; "needed to run rake tasks in cron" <- old
   # comment, but may still be true, sigh... though we have node.js on all
   # machines now, so we PROBABLY don't need this anymore? TODO
@@ -166,7 +170,6 @@ gem "identity_cache", "0.0.4" # Used to cache objects in a robust way.
 # I forget what it's called.
 gem "indifferent-variable-hash", "0.1.0"
 gem "invert"  # A quick way to array.sort.reverse.
-gem "jquery-rails", "2.1.3" # Of course, this helps almost all of our JS.
 gem "json", "1.8.1" # For APIs that want to return JSON.
 # For creating UUIDs that are unique to the machine that makes them.
 gem "macaddr"

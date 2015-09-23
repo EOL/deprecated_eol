@@ -22,6 +22,7 @@ class SearchLog < LazyLoggingModel
      rescue => e
        Rails.logger.warn("Bogus invocation of SearchLog creation function by user #{user.id}")
        Rails.logger.warn(e.message)
+       return nil
      end
 
   end

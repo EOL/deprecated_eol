@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Chinrur
+# Author: Cwlin0416
 # Author: Dream
 # Author: Hkjacksonhk
 # Author: LNDDYL
@@ -146,7 +147,7 @@ zh-TW:
         total_associations: 關係
         total_measurement_types: 測量模式
         total_association_types: 關聯類型
-        total_user_added_data: 用戶添加的數據
+        total_user_added_data: 使用者新增的資料
       forum:
         forum_category_id: 分類
         name: 論壇名稱
@@ -184,7 +185,7 @@ zh-TW:
         guid: 全球唯一識別碼(GUID)
         provider: 第三方提供者
         secret: 保密的
-        token: 密鑰
+        token: 金鑰
         updated_at: 最後更新
         user_id: 使用者 ID
         verified_at: 最後核對
@@ -250,7 +251,7 @@ zh-TW:
         curator_level: 管理者層級
         curator_scope: 管理範圍
         disable_email_notifications: 不要經由email寄給我任何更新資訊
-        email: Email位址
+        email: 電子郵件地址
         email_confirmation: 請再次輸入email地址<small>(以確認)</small>
         entered_password: 密碼
         entered_password_confirmation: 請再次輸入密碼 <small>(以確認)</small>
@@ -1617,6 +1618,8 @@ zh-TW:
         meta_description: '%{user_full_name} 內容合作夥伴的關係。'
         meta_title: '%{user_full_name} 內容合作夥伴'
         tweet_text: '%{user_full_name} 內容合作夥伴'
+    data_downloads:
+      refresh: 重新整理
     edit:
       form_tip_account: 要登入EOL，您需要使用者名稱和密碼，或者您可以連結至第三方帳號。如果您沒有一個連結帳號，您的使用者名稱和密碼即為必填項目；但是如果您想要修改現有的密碼，在此請只單獨輸入一個新密碼。所有使用者都必須有
         (%{required_icon}) email地址和優先語言資料。
@@ -3112,9 +3115,9 @@ zh-TW:
   contact_updated: 聯絡方式已更新
   contact_us: 聯絡我們
   contact_us_link: 聯絡我們
-  contact_us_functions: '''聯絡我們''功能'
-  contact_us_submissions: '''聯絡我們''提交'
-  contact_us_topics: '''聯絡我們''主題'
+  contact_us_functions: 「聯絡我們」功能
+  contact_us_submissions: 「聯絡我們」提交
+  contact_us_topics: 「聯絡我們」主題
   containing_value: 包含 %{value}。
   content_has_been_updated: 內容已被更新。
   content_notes_not_shown_to_us: 內容附註(未顯示給使用者)：
@@ -3478,8 +3481,8 @@ zh-TW:
   edit_comment: 編輯評論
   edit_comment_lowercase: 編輯評論
   edit_community: 編輯社群
-  edit_contact_us_topic: 編輯'聯絡我們'主題
-  edit_contact_us_topics: 編輯'聯絡我們'主題
+  edit_contact_us_topic: 編輯「聯絡我們」主題
+  edit_contact_us_topics: 編輯「聯絡我們」主題
   edit: 編輯
   edited_colon: 已編輯：
   edit_hierarchy: 編輯階層
@@ -3827,7 +3830,7 @@ zh-TW:
   learn_more_about_communities_link: 深入瞭解社群
   learn_more_about_names_for_this_taxon: 深入瞭解這個分類單元的名稱
   learn_more_link: (%{learn_more})
-  learn_more_lowercase: 深入瞭解
+  learn_more_lowercase: 瞭解更多
   leave_community_button: 離開這個社群
   leave_a_comment: 留下評論
   leave_reply: 留下回覆
@@ -3944,7 +3947,7 @@ zh-TW:
   merge_data: 合併分類
   merge_pending: 這個合併操作將需要一段時間。在合併完成之前，涉及的分類群會被鎖住、不能再做進一步的分類編輯。當過程結束時，您將會收到一封email，它會出現在此頁面的newsfeed內。
   message_colon: 訊息：
-  message_will_disappear: (這個訊息馬上就會消失)
+  message_will_disappear: (此訊息馬上就會消失)
   meta_description_colon: Meta描述：
   meta_keywords_colon: Meta關鍵字：
   meta_title_site_name: 生命大百科
@@ -4037,7 +4040,7 @@ zh-TW:
   main_species_page_link_with_spaces: ' &nbsp;&nbsp; 物種頁面>>'
   never: 從不
   new_collection: 新典藏
-  new_contact_us_topic: 新的'聯絡我們'主題
+  new_contact_us_topic: 新的「聯絡我們」主題
   new_news_item: 新的新聞項目
   news_and_event_links: 新聞與活動連結
   news_archive_page: 新聞存檔頁面
@@ -4212,7 +4215,7 @@ zh-TW:
     other: '%{count} 個人'
   percentage_of_descendants_with_images: 有影像的子分類單元的百分比
   percentage_of_descendants_with_text: 有文字的子分類單元的百分比
-  permalink: 固定連結
+  permalink: 靜態連結
   permissions_list_header: EOL權限
   permission_granted: 授予權限
   permission_revoked: 撤銷權限
@@ -4866,8 +4869,7 @@ zh-TW:
   view_added_text: 瀏覽新增文字
   view_as_button: 更改顯示
   view_as_label: 顯示為
-  view_common_activities: 瀏覽常見活動
-  view_contact_us_submissions: 瀏覽提交自'聯絡我們'的內容
+  view_contact_us_submissions: 瀏覽提交自「聯絡我們」的內容
   view_curators: 瀏覽管理者
   view_current_version_link: 瀏覽目前版本
   view_in_classification: 在分類系統中瀏覽
@@ -4882,10 +4884,8 @@ zh-TW:
   view_sound_source: 瀏覽聲音來源
   view_source: 瀏覽來源
   view_video_source: 瀏覽影片來源
-  view_common_activities_link: 瀏覽最常見活動的清單。
   view_only_pages_with_at_least_a_picture_or_piece_of_text: 瀏覽至少包含一張圖像或一段文字的頁面。
   view_this_hierarchy: 瀏覽這個階層
-  view_user_activity: 瀏覽使用者活動
   view_user_comments: 瀏覽使用者評論
   view_your_curator_profile: 瀏覽您的管理者簡介
   vimeo: Vimeo

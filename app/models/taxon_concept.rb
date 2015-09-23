@@ -29,7 +29,7 @@ class TaxonConcept < ActiveRecord::Base
   has_many :hierarchy_entries
   has_many :scientific_synonyms, through: :hierarchy_entries
   has_many :published_hierarchy_entries, class_name: HierarchyEntry.to_s,
-    conditions: Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.visible.id}" }
+    conditions: Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.get_visible.id}" }
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :curator_activity_logs
@@ -173,6 +173,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def self.load_common_names_in_bulk(taxon_concepts, language_id)
+    EOL.log_call
     taxon_concepts_to_load = taxon_concepts.compact.select do |tc|
       tc.common_names_in_language ||= {}
       ! tc.common_names_in_language.has_key?(language_id)
@@ -285,7 +286,7 @@ class TaxonConcept < ActiveRecord::Base
         collection_types: '*',
         translated_collection_types: '*' },
       include: { hierarchy: [ { resource: :content_partner }, :agent, { collection_types: :translations }]},
-      conditions: "published = 1 AND visibility_id = #{Visibility.visible.id} AND vetted_id != #{Vetted.untrusted.id}",
+      conditions: "published = 1 AND visibility_id = #{Visibility.get_visible.id} AND vetted_id != #{Vetted.untrusted.id}",
       order: 'id DESC'
     )
     entries_for_this_concept.each do |he|
@@ -613,7 +614,7 @@ class TaxonConcept < ActiveRecord::Base
           # Someone has selected an exemplar image which is now unpublished. Remove it.
           concept_exemplar_image.destroy
         # TODO - we should have a DataObject#visible_for_taxon_concept?(tc) method.
-        elsif the_best_image.visibility_by_taxon_concept(self).id == Visibility.visible.id
+        elsif the_best_image.visibility_by_taxon_concept(self).id == Visibility.get_visible.id
           the_best_image = the_best_image.latest_published_version_in_same_language
           @published_exemplar_image = the_best_image
         end
@@ -627,7 +628,7 @@ class TaxonConcept < ActiveRecord::Base
     return nil unless taxon_concept_exemplar_article
     if the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language
       return nil if the_best_article.language != language
-      return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.visible.id
+      return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.get_visible.id
     end
   end
 
@@ -1016,6 +1017,12 @@ class TaxonConcept < ActiveRecord::Base
     if Hierarchy.wikipedia
       entry(Hierarchy.wikipedia)
     end
+  end
+
+  def self.get_entry_id_of_last_published_taxon
+    taxon_concept_last = TaxonConcept.published.last unless TaxonConcept.published.blank?
+    entry = taxon_concept_last.entry if taxon_concept_last
+    entry ? entry.id : nil
   end
 
 private

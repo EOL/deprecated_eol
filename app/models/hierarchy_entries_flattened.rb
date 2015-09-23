@@ -1,6 +1,6 @@
 class HierarchyEntriesFlattened < ActiveRecord::Base
   self.table_name = "hierarchy_entries_flattened"
-  belongs_to :hierarchy_entries
+  belongs_to :hierarchy_entry, class_name: HierarchyEntry.to_s, foreign_key: :hierarchy_entry_id
   belongs_to :ancestor, class_name: HierarchyEntry.to_s, foreign_key: :ancestor_id
 
   # NOTE: this does NOT "cascade": all of these descendants will be aware of
@@ -65,5 +65,9 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   def self.drop_tmp
     connection.execute("DROP TEMPORARY TABLE IF EXISTS #{tmp_table}")
   end
-  
+
+  # TODO: This should really be an aliased attribute (I think), but I'm in a rush.
+  def flat_ancestor
+    ancestor
+  end
 end

@@ -800,7 +800,7 @@ private
     raise EOL::Exceptions::SecurityViolation.new(
       "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
       " that is restricted to EOL #{level} curators and above, and was disallowed.",
-      "min_#{level}_curators_only") unless current_user.min_curator_level?(level)
+      "min_#{level}_curators_only", :this_action_requires_higher_curation_level) unless current_user.min_curator_level?(level)
   end
 
   # Currently only used by collections and content controllers to log in users coming from iNaturalist

@@ -7,7 +7,6 @@ class Taxa::LiteratureController < TaxaController
     @references = Ref.sort_by_full_reference(@references)
     @assistive_section_header = I18n.t(:assistive_literature_header)
     @rel_canonical_href = taxon_literature_url(@taxon_page)
-    current_user.log_activity(:viewed_taxon_concept_literature, taxon_concept_id: @taxon_concept.id)
   end
 
   def bhl
@@ -19,8 +18,6 @@ class Taxa::LiteratureController < TaxaController
 
     set_canonical_urls(for: @taxon_page, paginated: @bhl_results[:results],
                        url_method: :bhl_taxon_literature_url)
-
-    current_user.log_activity(:viewed_taxon_concept_literature, taxon_concept_id: @taxon_concept.id)
   end
 
   def bhl_title
@@ -32,7 +29,6 @@ class Taxa::LiteratureController < TaxaController
     @bhl_title_results = EOL::Solr::BHL.search_publication(@taxon_concept, @title_item_id)
     # TODO: user natural sort to sort numerically, also romain numerals... not by string
     @rel_canonical_href = bhl_title_url(@taxon_page, @title_item_id)
-    current_user.log_activity(:viewed_taxon_concept_bhl_title, taxon_concept_id: @taxon_concept.id)
   end
 
   def literature_links

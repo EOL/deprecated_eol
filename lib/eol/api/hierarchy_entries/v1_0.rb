@@ -11,7 +11,7 @@ module EOL
               :name => 'id',
               :type => Integer,
               :required => true,
-              :test_value => (TaxonConcept.find_by_id(205264) || TaxonConcept.last).entry.id ),
+              :test_value => TaxonConcept.get_entry_id_of_last_published_taxon ),
             EOL::Api::DocumentationParameter.new(
               :name => 'common_names',
               :type => 'Boolean',
@@ -91,7 +91,7 @@ module EOL
           end
 
           return_hash['ancestors'] = []
-          HierarchyEntry.preload_associations(hierarchy_entry, { :ancestors => [ :rank, :name ] })
+          HierarchyEntry.preload_associations(hierarchy_entry, { :flat_ancestors => [ :rank, :name ] })
           hierarchy_entry.ancestors.each do |ancestor|
             next if ancestor.id == hierarchy_entry.id
             ancestor_hash = {}

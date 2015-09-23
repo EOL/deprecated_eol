@@ -1,4 +1,5 @@
-# TODO: move this to lib/eol/logos ...This is strangely being made available everywhere.
+# TODO: move this to lib/eol/logos ...This is strangely being made available
+# everywhere. (Note you will have to fix "request" where it's used.)
 module ImageManipulation
   def upload_logo(obj, options = {})
     ext = options[:name].split(".")[-1] if options[:name]

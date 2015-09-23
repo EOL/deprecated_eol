@@ -18,4 +18,4 @@
     = link_to subtitle.firstcap, taxon_link
 .data_summary
   %span.attribute= raw display_uri(data_point_uri.predicate_uri) + ":"
-  %span.value= raw display_text_for_data_point_uri(data_point_uri)
+  %span.value= raw display_text_for_data_point_uri(data_point_uri, value_for_known_uri: data_point_uri.predicate_uri)

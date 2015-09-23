@@ -112,8 +112,9 @@ class ContentController < ApplicationController
     if ! @content.nil? && ! current_user.can_read?(@content) && ! logged_in?
       raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to ContentPage with ID=#{@content.id}"
     elsif ! current_user.can_read?(@content)
-      # TODO - second argument to constructor should be an I18n key for a human-readable error.
-      raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to ContentPage with ID=#{@content.id}"
+      
+      raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have read access to ContentPage with ID=#{@content.id}",
+      :only_admins_can_view_content_pages)
     else # page exists so now we look for actual content i.e. a translated page
       if @content.translations.blank?
         raise ActiveRecord::RecordNotFound, "Couldn't find TranslatedContentPage with content_page_id=#{@content.id}"
@@ -121,8 +122,9 @@ class ContentController < ApplicationController
         translations_available_to_user = @content.translations.select{|t| current_user.can_read?(t)}.compact
         if translations_available_to_user.blank?
           if logged_in?
-            # TODO - second argument to constructor should be an I18n key for a human-readable error.
-            raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to any TranslatedContentPage with content_page_id=#{@content.id}"
+            
+            raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have read access to any TranslatedContentPage with content_page_id=#{@content.id}",
+            :only_admins_can_view_translated_content_pages)
           else
             raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to any TranslatedContentPage with content_page_id=#{@content.id}"
           end
@@ -138,7 +140,6 @@ class ContentController < ApplicationController
           end
           @page_title = @translated_content.nil? ? I18n.t(:cms_missing_content_title) : @translated_content.title
           @navigation_tree_breadcrumbs = ContentPage.get_navigation_tree_with_links(@content.id)
-          current_user.log_activity(:viewed_content_page_id, value: @page_id)
           @rel_canonical_href = cms_page_url(@content)
         end
       end
@@ -177,7 +178,7 @@ class ContentController < ApplicationController
     Rails.logger.fatal "~~ FATAL #{time}"
     Rails.logger.error "** ERROR #{time}"
     Rails.logger.warn  "!! WARN #{time}"
-    Rails.logger.info  "++ INFO #{time}"
+    Rails.logger.error  "++ INFO #{time}"
     Rails.logger.debug ".. DEBUG #{time}"
     render text: "Logs written at #{time}."
   end

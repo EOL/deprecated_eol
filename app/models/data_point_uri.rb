@@ -1,8 +1,10 @@
 # encoding: utf-8
-# Gives us a SQL representation of a triple stored in the SparQL Database, so we can do rails-y things with it.
+# Gives us a SQL representation of a triple stored in the SparQL Database, so we
+# can do rails-y things with it.
 
-# TODO - it is really unclear how predicate and object work... how do I set them in tests, how do I know if they are
-# URIs, why are there sixteen flavors of each?  ...This needs to be re-engineered.
+# TODO - it is really unclear how predicate and object work... how do I set them
+# in tests, how do I know if they are URIs, why are there sixteen flavors of
+# each?  ...This needs to be re-engineered.
 
 class DataPointUri < ActiveRecord::Base
 
@@ -18,11 +20,12 @@ class DataPointUri < ActiveRecord::Base
     :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
     :sex, :sex_known_uri, :sex_known_uri_id
 
-  attr_accessor :metadata, :references,
-    :statistical_method, :statistical_method_known_uri, :statistical_method_known_uri_id,
-    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id,
-    :sex, :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure, :original_unit_of_measure_known_uri,
-    :original_value
+  attr_accessor :metadata, :references, :statistical_method,
+    :statistical_method_known_uri, :statistical_method_known_uri_id,
+    :life_stage, :life_stage_known_uri, :life_stage_known_uri_id, :sex,
+    :sex_known_uri, :sex_known_uri_id, :original_unit_of_measure,
+    :original_unit_of_measure_known_uri, :original_value, :predicate_kuri,
+    :object_kuri
 
   belongs_to :taxon_concept
   belongs_to :vetted
@@ -43,36 +46,51 @@ class DataPointUri < ActiveRecord::Base
   before_save :default_visibility
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
-    # There are potentially hundreds or thousands of DataPointUri inserts
-    # happening here. The transaction makes the inserts much faster - no
-    # committing after each insert
-    transaction do
-      partner_data = results.select { |d| d.has_key?(:data_point_uri) }
-      data_point_uris = DataPointUri.where(
-        uri: partner_data.map { |d| d[:data_point_uri].to_s }.compact.uniq
-      )
-      # Use the index, if we can (we cannot on searches):
-      data_point_uris = data_point_uris.
-        where(taxon_concept_id: taxon_concept_id) if
-        taxon_concept_id
-      # NOTE - this is /slightly/ scary, as it generates new URIs on the fly
-      partner_data.each do |row|
-        if data_point_uri = data_point_uris.
-          detect { |dp| dp.uri == row[:data_point_uri].to_s }
-          row[:data_point_instance] = data_point_uri
-        end
-        # setting the taxon_concept_id since it is not in the Virtuoso response
-        row[:taxon_concept_id] ||= taxon_concept_id
-        row[:data_point_instance] ||= DataPointUri.create_from_virtuoso_response(row)
-        row[:data_point_instance].update_with_virtuoso_response(row)
+    EOL.log_call
+    updates = []
+    partner_data = results.select { |d| d.has_key?(:data_point_uri) }
+    data_point_uris = DataPointUri.where(
+      uri: partner_data.map { |d| d[:data_point_uri].to_s }.compact.uniq
+    )
+    # Use the index, if we can (we cannot on searches):
+    data_point_uris = data_point_uris.
+      where(taxon_concept_id: taxon_concept_id) if
+      taxon_concept_id
+    EOL.log("Processing Virtuoso rows", prefix: '.')
+    partner_data.each do |row|
+      if data_point_uri = data_point_uris.
+        detect { |dp| dp.uri == row[:data_point_uri].to_s }
+        row[:data_point_instance] = data_point_uri
+      end
+      # setting the taxon_concept_id since it is not in the Virtuoso response
+      row[:taxon_concept_id] ||= taxon_concept_id
+      if row[:data_point_instance].nil?
+        # We've never seen this one before, make a new one:
+        row[:data_point_instance] ||=
+          DataPointUri.create_from_virtuoso_response(row)
+          updates << row[:data_point_instance]
+      else # We have one, just make sure we have the right info:
+        change = row[:data_point_instance].update_with_virtuoso_response(row)
+        updates << row[:data_point_instance] if change
+      end
+    end
+    unless updates.empty?
+      EOL.log("Updating records", prefix: '.')
+      # There are potentially hundreds (or thousands) of DataPointUri inserts
+      # happening here. The transaction makes the inserts much faster - no
+      # committing after each insert:
+      transaction do
+        updates.each { |dpuri| dpuri.save }
       end
     end
   end
 
   def self.initialize_labels_in_language(data_point_uris, language = Language.default)
+    EOL.log_call
     data_point_uris.each do |data_point_uri|
-      # calling value_string now while we have the proper language for loading the proper
-      # translations and common names. This will cache the value for use later, such as in sorting
+      # calling value_string now while we have the proper language for loading
+      # the proper translations and common names. This will cache the value for
+      # use later, such as in sorting
       data_point_uri.value_string(language)
     end
   end
@@ -80,29 +98,36 @@ class DataPointUri < ActiveRecord::Base
   # Licenses are special (NOTE we also cache them here on a per-page basis...):
   def self.replace_licenses_with_mock_known_uris(metadata_rows, language)
     metadata_rows.each do |row|
-      if row[:attribute] == UserAddedDataMetadata::LICENSE_URI && license = License.find_by_source_url(row[:value].to_s)
+      if row[:attribute] == UserAddedDataMetadata::LICENSE_URI &&
+        license = License.find_by_source_url(row[:value].to_s)
         row[:value] = KnownUri.new(uri: row[:value],
-          translations: [ TranslatedKnownUri.new(name: license.title, language: language) ])
+          translations: [ TranslatedKnownUri.
+            new(name: license.title, language: language) ])
       end
     end
     metadata_rows
   end
 
   def self.create_from_virtuoso_response(row)
+    EOL.log_call
+    EOL.log("for #{row[:data_point_uri].to_s}", prefix: '..')
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     if data_point_uri = DataPointUri.find_by_taxon_concept_id_and_uri(
       new_attributes[:taxon_concept_id], new_attributes[:uri]
     )
-      data_point_uri.update_with_virtuoso_response(row)
+      data_point_uri.update_with_virtuoso_response(row) if
+        data_point_uri.updated_at < 3.weeks.ago
     else
-      data_point_uri = DataPointUri.create(new_attributes)
+      EOL.log("Missing, calling #new", prefix: '..')
+      data_point_uri = DataPointUri.new(new_attributes)
     end
     data_point_uri
   end
 
   def self.attributes_from_virtuoso_response(row)
     attributes = { uri: row[:data_point_uri].to_s }
-    # taxon_concept_id may come from solr as a URI, or set elsewhere as an Integer
+    # taxon_concept_id may come from solr as a URI, or set elsewhere as an
+    # Integer
     if row[:taxon_concept_id]
       if taxon_concept_id = KnownUri.taxon_concept_id(row[:taxon_concept_id])
         attributes[:taxon_concept_id] = taxon_concept_id
@@ -117,15 +142,20 @@ class DataPointUri < ActiveRecord::Base
       statistical_method: :statistical_method,
       life_stage: :life_stage,
       sex: :sex }
-    virtuoso_to_data_point_mapping.each do |virtuoso_response_key, data_point_uri_key|
+    virtuoso_to_data_point_mapping.
+      each do |virtuoso_response_key, data_point_uri_key|
       next if row[virtuoso_response_key].blank?
       # this requires that
       if row[virtuoso_response_key].is_a?(KnownUri)
         attributes[data_point_uri_key] = row[virtuoso_response_key].uri
-        # each of these attributes has a corresponging known_uri_id (e.g. predicate_known_uri_id)
-        attributes[(data_point_uri_key.to_s + "_known_uri_id").to_sym] = row[virtuoso_response_key].id
-        # setting the instance as well to take advantage of preloaded associations on KnownUri
-        attributes[(data_point_uri_key.to_s + "_known_uri").to_sym] = row[virtuoso_response_key]
+        # each of these attributes has a corresponging known_uri_id (e.g.
+        # predicate_known_uri_id)
+        attributes[(data_point_uri_key.to_s + "_known_uri_id").to_sym] =
+          row[virtuoso_response_key].id
+        # setting the instance as well to take advantage of preloaded
+        # associations on KnownUri
+        attributes[(data_point_uri_key.to_s + "_known_uri").to_sym] =
+          row[virtuoso_response_key]
       else
         attributes[data_point_uri_key] = row[virtuoso_response_key].to_s
       end
@@ -145,15 +175,16 @@ class DataPointUri < ActiveRecord::Base
     attributes
   end
 
-  # Required for commentable items. NOTE - This requires four queries from the DB, unless you preload the
-  # information.  TODO - preload these:
-  # TaxonConcept Load (10.3ms)  SELECT `taxon_concepts`.* FROM `taxon_concepts` WHERE `taxon_concepts`.`id` = 17
-  # LIMIT 1
-  # TaxonConceptPreferredEntry Load (15.0ms)  SELECT `taxon_concept_preferred_entries`.* FROM
-  # `taxon_concept_preferred_entries` WHERE `taxon_concept_preferred_entries`.`taxon_concept_id` = 17 LIMIT 1
-  # HierarchyEntry Load (0.8ms)  SELECT `hierarchy_entries`.* FROM `hierarchy_entries` WHERE
-  # `hierarchy_entries`.`id` = 12 LIMIT 1
-  # Name Load (0.5ms)  SELECT `names`.* FROM `names` WHERE `names`.`id` = 25 LIMIT 1
+  # Required for commentable items. NOTE - This requires four queries from the
+  # DB, unless you preload the information.  TODO - preload these: TaxonConcept
+  # Load (10.3ms)  SELECT `taxon_concepts`.* FROM `taxon_concepts` WHERE
+  # `taxon_concepts`.`id` = 17 LIMIT 1 TaxonConceptPreferredEntry Load (15.0ms)
+  # SELECT `taxon_concept_preferred_entries`.* FROM
+  # `taxon_concept_preferred_entries` WHERE
+  # `taxon_concept_preferred_entries`.`taxon_concept_id` = 17 LIMIT 1
+  # HierarchyEntry Load (0.8ms)  SELECT `hierarchy_entries`.* FROM
+  # `hierarchy_entries` WHERE `hierarchy_entries`.`id` = 12 LIMIT 1 Name Load
+  # (0.5ms)  SELECT `names`.* FROM `names` WHERE `names`.`id` = 25 LIMIT 1
   def summary_name
     I18n.t(:data_point_uri_summary_name, taxon: taxon_concept.summary_name)
   end
@@ -167,6 +198,7 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def to_jsonld(options = {})
+    EOL.log_call
     jsonld = {
       '@id' => uri,
       'data_point_uri_id' => id,
@@ -193,7 +225,12 @@ class DataPointUri < ActiveRecord::Base
     if value = DataPointUri.jsonld_value_from_string_or_known_uri(statistical_method_known_uri || statistical_method)
       jsonld['eolterms:statisticalMethod'] = value
     end
-    add_metadata_to_hash(jsonld) if options[:metadata]
+    # NOTE: JSONLD is _always_ in English (this is standard; never localized)!
+    add_metadata_to_hash(jsonld, Language.english, uris: options[:meta_uris]) if options[:metadata]
+    refs = get_references(Language.english)
+    unless refs.empty?
+      jsonld[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
+    end
     jsonld
   end
 
@@ -219,11 +256,19 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def predicate_uri
-    predicate_known_uri || predicate
+    p = @predicate_kuri
+    if p.nil? && predicate && EOL::Sparql.is_uri?(predicate)
+      p = KnownUri.find_by_uri(predicate)
+    end
+    p || predicate_known_uri || predicate
   end
 
   def object_uri
-    object_known_uri || object
+    obj = @object_kuri
+    if obj.nil? && object && EOL::Sparql.is_uri?(object)
+      obj = KnownUri.find_by_uri(object)
+    end
+    obj || object_known_uri || object
   end
 
   def unit_of_measure_uri
@@ -262,7 +307,7 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def self.assign_bulk_metadata(data_point_uris, language)
-    data_point_uris.each_slice(1000){ |d| assign_metadata(d, language) }
+    data_point_uris.each_slice(1000) { |d| assign_metadata(d, language) }
   end
 
   def self.assign_metadata(data_point_uris, language)
@@ -311,7 +356,7 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
-  def get_references(language)
+  def get_references(language= nil)
     DataPointUri.with_master do
       DataPointUri.assign_references(self, language)
       references
@@ -322,8 +367,9 @@ class DataPointUri < ActiveRecord::Base
     data_point_uris.each_slice(1000){ |d| assign_references(d, language) }
   end
 
-  # NOTE - User-added data references aren't added with these URIs and therefore don't get "seen" by this method.
-  # TODO - (low priority) fix that; we should get user-added references.
+  # NOTE - User-added data references aren't added with these URIs and therefore
+  # don't get "seen" by this method. TODO - (low priority) fix that; we should
+  # get user-added references.
   def self.assign_references(data_point_uris, language)
     data_point_uris = [ data_point_uris ] unless data_point_uris.is_a?(Array)
     uris_to_lookup = data_point_uris.select{ |d| d.references.nil? }.collect(&:uri)
@@ -353,23 +399,24 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def show(user)
-    set_visibility(user, Visibility.visible.id)
+    set_visibility(user, Visibility.get_visible.id)
     user_added_data.show(user) if user_added_data
   end
 
   def hide(user)
-    set_visibility(user, Visibility.invisible.id)
+    set_visibility(user, Visibility.get_invisible.id)
     user_added_data.hide(user) if user_added_data
   end
 
   # TODO: This is expensive. It's eating up quite a lot of traffic on EOL.
   # Find a way to avoid it.
   def update_with_virtuoso_response(row)
+    EOL.log_call
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     new_attributes.each do |k, v|
       send("#{k}=", v)
     end
-    save if changed?
+    return changed?
   end
 
   def convert_units
@@ -406,8 +453,8 @@ class DataPointUri < ActiveRecord::Base
     false
   end
 
-  # Note... this method is actually kind of view-like (something like XML Builder would be ideal) and perhaps shouldn't be in
-  # this model class.
+  # Note... this method is actually kind of view-like (something like XML
+  # Builder would be ideal) and perhaps shouldn't be in this model class.
   def to_hash(language = Language.default, options = {})
     hash = if taxon_concept
              {
@@ -425,7 +472,7 @@ class DataPointUri < ActiveRecord::Base
            end
     # Nice measurement:
     hash[I18n.t(:data_column_measurement)] = predicate_uri.try(:label) || ''
-    hash[I18n.t(:data_column_value)] = value_string(language)
+    hash[I18n.t(:data_column_value)] = value_string(language, hash_data: true)
     # URI measurement / value
     hash[I18n.t(:data_column_measurement_uri)] = predicate
     hash[I18n.t(:data_column_value_uri)] = value_uri_or_blank
@@ -460,17 +507,25 @@ class DataPointUri < ActiveRecord::Base
   # TODO: replace add_metadata_to_hash with add_metadata_uris_to_hash and then
   # call a method like TaxonDataSet#context_from_uris on the result; but extract
   # that into a (new) JsonLd class.
-  def add_metadata_to_hash(hash, language = nil)
+  def add_metadata_to_hash(hash, language = nil, options = {})
     language ||= Language.english
-    if metadata = get_metadata(language)
-      metadata.each do |datum|
-        key = EOL::Sparql.uri_components(datum.predicate_uri)[:label]
+    if mdata = metadata || get_metadata(language)
+      mdata.each do |datum|
+        key = if options[:uris]
+          # Try to fetch it from the array passed in,
+          if name = options[:uris].find { |k| k.uri == datum.predicate }
+            name.try(:name) || k.uri
+          end
+        else
+          EOL::Sparql.uri_components(datum.predicate_uri)[:label]
+        end
+        key ||= EOL::Sparql.uri_to_readable_label(datum.predicate)
         if hash.has_key?(key) # Uh-oh. Make it original, please:
           orig_key = key.dup
           count = 1
           key = "#{orig_key} #{count += 1}" while hash.has_key?(key)
         end
-        hash[key] = datum.value_string(language)
+        hash[key] = datum.value_string(language, hash_data: true)
       end
     end
   end
@@ -516,18 +571,21 @@ class DataPointUri < ActiveRecord::Base
     _units_safe(original_units, attr, options)
   end
 
-  # TODO - this logic is duplicated in the taxa helper; remove it from there. Maybe move to DataValue?
-  def value_string(lang = Language.default)
+  # TODO - this logic is duplicated in the taxa helper; remove it from there.
+  # Maybe move to DataValue?
+  def value_string(lang = Language.default, options={})
     return @value_string unless @value_string.blank?
     @value_string = nil
     if association? && target_taxon_concept
-      if common_name = target_taxon_concept.preferred_common_name_in_language(lang)
+      if common_name =
+        target_taxon_concept.preferred_common_name_in_language(lang)
         @value_string = common_name
       else
         @value_string = target_taxon_concept.title_canonical
       end
     else
-      val = EOL::Sparql.uri_components(object_uri)[:label].to_s # TODO - see if we need that #to_s; seems redundant.
+      # TODO - see if we need this #to_s; seems redundant:
+      val = EOL::Sparql.uri_components(object_uri)[:label].to_s
       if val.is_numeric?
         # float values can be rounded off to 2 decimal places
         if val.is_float?
@@ -536,14 +594,15 @@ class DataPointUri < ActiveRecord::Base
           @value_string = val.to_i
         end
       end
-      # other values may have links embedded in them (references, citations, etc.)
-      @value_string = val.add_missing_hyperlinks
+      # other values may have links embedded in them (references, citations,
+      # etc.) TODO - this should be saved in the DB somewhere.
+      @value_string = options[:hash_data] ? val : val.add_missing_hyperlinks
     end
     return @value_string
   end
 
-  # NOTE - Sadly, when using scopes here, it loads each scope for each instance, separately. (WTF?) So I'm not using scopes, I'm
-  # using selects.
+  # NOTE - Sadly, when using scopes here, it loads each scope for each instance,
+  # separately. (WTF?) So I'm not using scopes, I'm using selects.
   def included?
     taxon_data_exemplars.select(&:included?).any?
   end
@@ -602,11 +661,7 @@ class DataPointUri < ActiveRecord::Base
   end
   private
   def default_visibility
-    self.visibility ||= Visibility.visible
-  end
-
-  def default_visibility
-    self.visibility ||= Visibility.visible
+    self.visibility ||= Visibility.get_visible
   end
 
   def units
@@ -647,6 +702,10 @@ class DataPointUri < ActiveRecord::Base
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v / 10 },
         reverse_function: lambda { |v| v * 10 } },
+      { starting_units:   [ 'http://purl.obolibrary.org/obo/UO_0000025' ],  # picogram
+        ending_unit:      KnownUri.grams.uri,
+        function:         lambda { |v| v * (10 ** -12) },
+        reverse_function: lambda { |v| v * (10 ** 12) } },
       { starting_units:   [ 'http://mimi.case.edu/ontologies/2009/1/UnitsOntology#US_pound' ],  # pound
         ending_unit:      KnownUri.grams.uri,
         function:         lambda { |v| v * 453.592 },
@@ -734,6 +793,4 @@ class DataPointUri < ActiveRecord::Base
                                           ! conversion[:ending_unit].unit_of_measure? }
     @@conversions
   end
-
-
 end

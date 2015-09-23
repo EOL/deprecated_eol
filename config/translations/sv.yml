@@ -4,6 +4,7 @@
 # Author: Fader
 # Author: Freked
 # Author: Jopparn
+# Author: Josve05a
 # Author: Liftarn
 # Author: Lokal Profil
 # Author: Per
@@ -179,6 +180,7 @@ sv:
         uri: URI
         uri_type: URI-typ
         value_is_text: Värden kommer inte vara URI:er, endast text
+        value_is_verbatim: Värden kommer inte att vara siffror, endast text
       known_uri_relationship:
         from_known_uri_id: Ämnes-URI
         to_known_uri_id: Mål-URI
@@ -453,6 +455,7 @@ sv:
         object_title: Titel
         toc_item: Underkapitel
         refs: Referenser <small>(lägg in varje referens på en ny rad)</small>
+        refs_order: '*Referenser kommer att visas i alfabetisk ordning'
         rights_holder: Rättighetsinnehavare
         rights_holder_more: Ange en person eller en organisation som äger eller hanterar
           rättigheterna till dessa data. Om du lämnar detta fält tomt kommer vi anta
@@ -485,6 +488,7 @@ sv:
         taxon_name_placeholder_value_removed: '%{taxon_group} borttagen, välj ny grupp'
         taxon_name_more: Till exempel, ange kolibri eller valar. ENDAST val från rullgardinsmenyn
           kommer att användas; redigera inte texten utan att välja ett resultat.
+        taxa_found: Taxa hittades
         total_results: 'Totala resultat: %{total}'
         unit: Måttenhet
       eol_statistic:
@@ -1342,6 +1346,7 @@ sv:
       style='color:#195184'>kontakta oss</a>.
     see_all_activity: Se alla tidigare aktiviteter på <a href='%{activity_url}' style='color:#195184'>din
       sida för användarnyhetsflöden</a>.
+    resource_validation: Verifiering för resursen %{resource} har slutförts
     bulk_comments_with_count:
       one: Det finns en ny kommentar på %{on}
       other: Det finns %{count} nya kommentarer på %{on}
@@ -1493,6 +1498,12 @@ sv:
         hierarchy_entry:
           meta_description: Fakta om %{scientific_name} som klassificeras av %{hierarchy_provider}
             i Encyclopedia of Life.
+          meta_description_no_data: Ingen fakta finns tillgänglig för %{scientific_name}
+            som klassificerats av %{hierarchy_provider} i Encyclopedia of Life. EOL
+            välkomnar dig till att bidra fakta om %{scientific_name}.
+          meta_description_with_common_name: Fakta om %{preferred_common_name}, vetenskapligt
+            känd som %{scientific_name} som är klassificerad som %{hierarchy_provider}
+            i Encyclopedia of Life.
           meta_description_with_common_name_no_data: Inga fakta finns tillgänglig
             för %{preferred_common_name} även känd som %{scientific_name} som klassificeras
             av %{hierarchy_provider} i Encyclopedia of Life. EOL välkomnar dig till
@@ -1509,6 +1520,10 @@ sv:
           från vetenskaplig forskning tillhandahållen av forskare.
         meta_description_no_data: Ingen fakta finns tillgänglig för %{scientific_name}
           i Encyclopedia of Life. EOL välkomnar dig till att bidra fakta om %{scientific_name}.
+        meta_description_with_common_name_no_data: Ingen fakta finns tillgänglig för
+          %{preferred_common_name} även känd som %{scientific_name} i Encyclopedia
+          of Life. EOL välkomnar dig till att bidra fakta om %{preferred_common_name}
+          (%{scientific_name}).
         meta_title: Mätningar och fakta om %{scientific_name}
         meta_title_with_common_name: Mått och fakta om %{preferred_common_name} (%{scientific_name})
         tweet_text: Fakta om %{scientific_name}
@@ -1903,6 +1918,7 @@ sv:
       is_not_complete: Nej
       query_empty: (inga filter)
       processing: bearbetar
+      error: någonting gick fel med denna fil
       refresh: uppdatera
       row_count: Antal
       search_again: sök igen
@@ -3177,22 +3193,28 @@ sv:
         merge_of_an_unknown_taxon_unlocked: Sidsammanslagningen du nyss begärde har
           slutförts, men sidan kan inte hittas.
         merge_of_it_unlocked: Sidsammanslagningen du nyss begärde på denna sida har
-          slutförts.
+          slutförts; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
         merge_of_taxon_unlocked: Sidsammanslagningen du nyss begärde för "%{taxon}"
-          har slutförts.
+          har slutförts; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
         move_of_an_unknown_taxon_unlocked: Klassificeringsflyttningen du nyss begärde
           har slutförts, men sidan kan inte hittas.
         move_of_it_unlocked: Klassificeringsflyttningen du nyss begärde på denna sida
-          har slutförts.
+          har slutförts; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
         move_of_taxon_unlocked: Klassificeringsflyttningen du nyss begärde för "%{taxon}"
-          har slutförts.
+          har slutförts; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
         split_of_an_unknown_taxon_unlocked: Klassificeringsflyttningen du nyss begärde
           har slutförts, men sidan kan inte hittas.
         split_of_it_unlocked: Klassifikationsuppdelningen du nyss begärde har slutförts
-          och klassifikationen har flyttats till <a href='%{to}'>en egen sida</a>.
+          och klassifikationen har flyttats till <a href='%{to}'>en egen sida</a>;
+          sidorna omindexeras nu och kommer att kräva upp till 25 timmar att slutföra.
         split_of_taxon_unlocked: Klassifikationsuppdelningen du nyss begärde för "%{taxon}"
           har slutförts och klassifikationen har flyttats till <a href='%{to}'>en
-          egen sida</a>.
+          egen sida</a>; sidorna omindexeras nu och kommer att kräva upp till 25 timmar
+          att slutföra.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Sidsammanslagningen du nyss
           begärde har <strong>misslyckats</strong>: %{error}. Dessutom kan inte den
@@ -3683,6 +3705,7 @@ sv:
   classifications_rank_column_header: Rankning
   classifications_split_column_header: Dela / flytta
   classifications_summary_header_with_count:
+    zero: EOL har inga klassificeringar för detta taxon
     one: Hittades i %{count} klassificering
     other: Hittades i %{count} klassificeringar
   classifications_with_count:
@@ -3704,6 +3727,11 @@ sv:
   click: Klick
   click_on_an_activity_to_see_th: Klicka på en aktivitet för att se alla andra aktiviteter
     inom en tidsperiod på fem minuter.
+  click_on_a_username_to_view_the_users_detailed_profile: Klicka på ett användarnamn
+    för att visa användarens detaljerade profil, klicka på datatypen för att visa
+    det kommenterade objektet (använd din webbläsares tillbakaknapp för att återvända
+    hit), klicka på "redigera" för att redigera kommentaren eller klicka på "radera"
+    för att permanent radera kommentaren.
   close_this_window_to_return_to_edit_window: STÄNG DETTA FÖNSTER FÖR ATT ÅTERVÄNDA
     TILL REDIGERINGSFÖNSRET
   collect_item: Samla in objekt
@@ -3716,6 +3744,7 @@ sv:
     other: Samlingen <em>%{collection_name}</em> skapades med %{count} samlingsobjekt.
   collection_delete_link: Radera denna samling permanent
   collection_destroyed: Samlingen har tagits bort.
+  collection_removed: Samlingen %{collection} har raderats.
   collection_error_no_items_selected: 'Fel: Inga objekt valda, inga åtgärder vidtogs'
   collection_image: Samlingsbild
   collection_is_empty: Denna samling är för närvarande tom.
@@ -3961,14 +3990,18 @@ sv:
   content_partner_resource_create_unsuccessful_error: Tyvärr, ett fel uppstod. Resursen
     lades inte till.
   content_partner_resource_dataset_details_header: Datamängd
+  content_partner_resource_delete_with_type_link: Radera allting
   content_partner_resource_description_empty: Denna resurs har inte försetts med en
     beskrivning.
   content_partner_resource_edit_link: Redigera
   content_partner_resource_edit_subheader: Redigera resurs
   content_partner_resource_edit_with_type_link: Redigera resurs
+  content_partner_resource_harvest_event_current_published: För närvarande publicerad
   content_partner_resource_harvest_event_not_published: Inte publicerad
   content_partner_resource_harvest_event_previously_published: Tidigare publicerat
   content_partner_resource_harvest_event_publish_pending: Publicering pågår
+  content_partner_resource_page_title: Encyclopedia of Life - %{content_partner_name}  -
+    %{resource_name}
   content_partner_resource_hierarchy_browsable: Bläddringsbar
   content_partner_resource_hierarchy_confirm_request_publish: Är du säker på att du
     vill lägga in en begäran om att befrämja din hierarki att bli bläddringsbar på
@@ -4170,8 +4203,10 @@ sv:
   data_about_subtab_header: Om data på EOL
   data_results_only_for_search: TraitBank-resultat för "%{search_term}"
   data_search_limit:
-    one: Nedladdningar av datasökningar är begränsad till %{count} resultat.
-    other: Nedladdningar av datasökningar är begränsade till %{count} resultat.
+    one: Resultaten från datasökningen kommer att laddas ned som %{count} post per
+      fil.
+    other: Resultaten från datasökningen kommer att laddas ned som %{count} poster
+      per fil.
   data_about_this_record: Data om denna post
   data_column_tc_id: EOL sid-ID
   data_column_sci_name: Vetenskapligt namn
@@ -4187,6 +4222,7 @@ sv:
   data_glossary: Dataordlista
   data_link_to_record: Länk till denna post
   data_logging_active: Dataloggning aktiv
+  data_master_database_colon: 'Datamaster:'
   data_object: Dataobjekt
   data_object_not_associated_with_any_hierarchies: Detta dataobjekt är inte associerat
     med några hierarkier.
@@ -4293,6 +4329,7 @@ sv:
   dato_new_text_for_taxon_page_title: Lägg en artikel till <i>%{taxon}</i>
   dato_new_text_link_for_taxon_page_title: Lägg en länk till <i>%{taxon}</i>
   dato_update_user_text_error: Tyvärr, ett fel uppstod. Artikeln kunde inte uppdateras.
+  deactivate: Inaktivera
   development_version_name: EOL V2 Beta
   default: Standard
   default_focus_collection_name_from_community: '%{name}s fokus'
@@ -4300,6 +4337,7 @@ sv:
   default_rating_value_of_total: 'Standardbetyg: %{rating} av %{total}'
   default_watch_collection_name: '%{username}s samling'
   delete_community: Ta bort denna gemenskap
+  delete_data_object: Radera
   delete: radera
   deleted_colon: 'raderad:'
   delete_firstcap: Radera
@@ -4415,6 +4453,34 @@ sv:
         en bekräftelse via e-post när du registrerade dig, var god återställ ditt
         konto för att verifiera din e-postadress och aktivera ditt konto.
       no_access: Tyvärr, denna funktion är tillfälligt inaktiverad. Kom tillbaka senare.
+      missing_edit_acess_to_forum_category: Tyvärr, endast administratörer kan redigera
+        denna forumskategori
+      missing_delete_acess_to_forum_category: Tyvärr, endast administratörer kan radera
+        denna forumkategori
+      missing_edit_acess_to_forum_post: Tyvärr, endast administratörer eller inläggets
+        ägare kan redigera detta foruminlägg
+      missing_delete_acess_to_forum_post: Tyvärr, endast administratörer eller inläggets
+        ägare kan radera detta foruminlägg
+      admins_and_joined_only_can_read: Tyvärr, du bör kunna gå med i denna samling
+        för att se den
+      error_revoking_editor_on_watch_collection: Tyvärr, redigerare kan inte tas bort
+        från bevakningssamlingar
+      error_revoking_editor_on_an_empty_community: Tyvärr, redigerare kan inte tas
+        bort från en tom gemenskap
+      only_admins_can_view_content_pages: Tyvärr, endast administratörer kan se innehållssidor
+      only_admins_can_view_translated_content_pages: Tyvärr, endast administratörer
+        kan se översatta innehållssidor
+      only_admins_can_edit_forums: Tyvärr, endast administratörer kan redigera forum
+      must_be_logged_in: Tyvärr, du måste vara inloggad
+      only_admins_can_read_hidden_news_items: Tyvärr, endast administratörer kan läsa
+        dolda nyhetsobjekt
+      only_admins_can_read_hidden_translated_news_items: Tyvärr, endast administratörer
+        kan läsa översatta dolda objekt
+      can_not_access_unpublished_taxon: Tyvärr, du kan inte komma åt opublicerat taxon
+      only_data_owner_can_edit: Tyvärr, endast dataägare kan redigera den
+      only_data_owner_can_delete: Tyvärr, endast dataägare kan radera den
+      error_editing_someone_account: Tyvärr, du kan endast redigera ditt eget konto
+      can_not_edit_permissions: Tyvärr, du kan inte redigera behörigheter
   excluded_icon_tip: Rader markerade med undantagsikonen %{excluded_icon} kommer aldrig
     visas på översiktssidorna för taxon.
   expand_all_children: expandera alla undersidor
@@ -4493,6 +4559,36 @@ sv:
   filter_newsfeed_option_watchlist: Bevakningslista
   filter_newsfeed_option_curation: Kurering
   filtered_information: Filtrerad information
+  taxon_concept_search_keyword:
+    one: taxon
+    other: taxa
+  image_search_keyword:
+    one: bild
+    other: bilder
+  video_search_keyword:
+    one: video
+    other: videor
+  sound_search_keyword:
+    one: ljud
+    other: ljud
+  text_search_keyword:
+    one: artikel
+    other: artiklar
+  data_search_keyword:
+    one: egenskap
+    other: egenskaper
+  link_search_keyword:
+    one: länk
+    other: länkar
+  user_search_keyword:
+    one: person
+    other: personer
+  community_search_keyword:
+    one: gemenskap
+    other: gemenskaper
+  collection_search_keyword:
+    one: samling
+    other: samlingar
   find_taxa_submit_button: hitta taxa
   flash_notice_redirected_from_search_html: Du kom hit genom att söka efter <em>%{search_string}</em>.
     <a href="%{more_results_url}">Klicka här för att gå tillbaka till söksidan.</a>
@@ -5760,7 +5856,6 @@ sv:
   view_added_text: visa tillagd text
   view_as_button: Ändra vy
   view_as_label: Visa som
-  view_common_activities: visa vanliga aktiviteter
   view_curators: visa kuratorer
   view_current_version_link: Visa aktuell version
   view_in_classification: visa i klassificeringen
@@ -5774,11 +5869,9 @@ sv:
   view_sound_source: Visa ljudkälla
   view_source: Visa källa
   view_video_source: Visa videokälla
-  view_common_activities_link: Visa lista med de vanligaste aktiviteterna.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Visa bara sidor med minst
     en bild eller ett textstycke
   view_this_hierarchy: visa denna hierarki
-  view_user_activity: visa användaraktivitet
   view_user_comments: visa användarkommentarer
   view_your_curator_profile: Visa din kuratorprofil
   vimeo: Vimeo

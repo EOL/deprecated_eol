@@ -163,10 +163,14 @@ module TaxaHelper
       end
       haml_tag("#{tag_type}.term", 'data-term' => uri.is_a?(KnownUri) ? uri.anchor : nil) do
         haml_concat add_exemplar_or_excluded_icon(options)
-        haml_concat raw(format_data_value(display_label, options)) + options[:succeed] unless options[:without_label]
+        haml_concat raw(format_data_value(display_label, options)) + options[:succeed] unless
+          options[:without_label]
         haml_concat display_text_for_modifiers(options[:modifiers])
-        if ( options[:define] && options[:define] == :after || options[:ranges] )&& uri.is_a?(KnownUri)
-          define(uri, options[:search_link])
+        if ( options[:define] &&
+          options[:define] == :after ||
+          options[:ranges] ) &&
+          uri.is_a?(KnownUri)
+          define(tag_type, uri, options[:search_link])
           info_icon if options[:val]
         end
       end

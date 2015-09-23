@@ -526,7 +526,7 @@ module ApplicationHelper
   def status_class_and_label_for_data_object(data_object)
     vis = data_object.visibility_by_taxon_concept(@taxon_page || @taxon_concept)
     vet = data_object.vetted_by_taxon_concept(@taxon_page || @taxon_concept)
-    if vis == Visibility.invisible
+    if vis == Visibility.get_invisible
       return 'untrusted', I18n.t(:hidden)
     else
       # Well, shoot. We can't use #label here, because #label is translated.
@@ -554,6 +554,11 @@ module ApplicationHelper
     seconds_diff -= minutes * 60
     seconds = seconds_diff
     "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}:#{seconds.to_s.rjust(2, '0')}"
+  end
+    
+
+  def format_time(given_seconds)
+     Time.at(given_seconds).utc.strftime("%H:%M:%S")
   end
 
 end

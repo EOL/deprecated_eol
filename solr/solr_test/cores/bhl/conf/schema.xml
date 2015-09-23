@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema name="bhl" version="1.4">
+    
+    <!-- define data types -->
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true" omitNorms="true"/>
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" omitNorms="true" positionIncrementGap="0"/>
+        <fieldType name="date" class="solr.TrieDateField" omitNorms="true" precisionStep="0" positionIncrementGap="0"/>
+        
+        <!-- this is our main text type with all the taxon name filters -->
+        <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.ASCIIFoldingFilterFactory"/>
+                <!-- split up bi-maculata, 2maculata, 1766c, etc. -->
+                <filter class="solr.WordDelimiterFilterFactory"
+                    generateWordParts="1" generateNumberParts="1" catenateWords="1"
+                    catenateNumbers="1" catenateAll="0" splitOnCaseChange="1" splitOnNumerics="1" preserveOriginal="1"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.WhitespaceTokenizerFactory"/>
+                <filter class="solr.ASCIIFoldingFilterFactory"/>
+                <!-- don't need the extra catenation on search - increase performance -->
+                <filter class="solr.WordDelimiterFilterFactory"
+                    generateWordParts="1" generateNumberParts="1" catenateWords="0"
+                    catenateNumbers="0" catenateAll="0" splitOnCaseChange="1" splitOnNumerics="1" preserveOriginal="1"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.RemoveDuplicatesTokenFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        
+        <!-- This is our *exact* text field, with limited tokenizers.
+          Thought about whitespace tokenizer, but I think that would defeat the purpose! "Felis familiaris" would match on
+          "felis", I think. Downside is, "felis familaris" won't match "felis     familiaris". -->
+        <fieldType name="textExact" class="solr.TextField" positionIncrementGap="4">
+            <analyzer type="index">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.KeywordTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+                <filter class="solr.TrimFilterFactory"/>
+            </analyzer>
+        </fieldType>
+    </types>
+    
+    <!-- begin schema -->
+    <fields>
+        <!-- can contain multiple types (DataObject and Image and Map) -->
+        <field name="id" type="int" indexed="true" stored="true" required="true"/>
+        <field name="year" type="int" indexed="true" stored="true"/>
+        <field name="volume" type="textExact" indexed="true" stored="true"/>
+        <field name="issue" type="textExact" indexed="true" stored="true"/>
+        <field name="number" type="textExact" indexed="true" stored="true"/>
+        <field name="prefix" type="string" indexed="false" stored="true"/>
+        <!-- from publications -->
+        <field name="start_year" type="int" indexed="true" stored="true"/>
+        <field name="end_year" type="int" indexed="true" stored="true"/>
+        <field name="publication_id" type="string" indexed="true" stored="true" required="true"/>
+        <field name="publication_title" type="textExact" indexed="true" stored="true" required="true"/>
+        <field name="details" type="string" indexed="false" stored="true"/>
+        <field name="name_id" type="int" indexed="true" stored="true" multiValued="true"/>
+        <field name="title_item_id" type="string" indexed="true" stored="true" required="true"/>
+        <field name="volume_info" type="string" indexed="true" stored="true" required="false"/>
+    </fields>
+    
+    <!-- no unique key -->
+    <uniqueKey>id</uniqueKey>
+    
+    <!-- default unqualified search field -->
+    <defaultSearchField>publication_title</defaultSearchField>
+</schema>

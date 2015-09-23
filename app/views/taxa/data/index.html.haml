@@ -1,16 +1,22 @@
+- EOL.log("index.html.haml rendering", prefix: 'v')
 - content_for :social_sharing do
   - unless @taxon_data.bad_connection?
     = render 'shared/social_sharing'
 -# TODO - These should actually be links to filtered versions of this page, for
 -# accessibility.
+- EOL.log("cache: taxa/#{@taxon_data.taxon_concept.id}/data_view", prefix: 'v')
 - cache("taxa/#{@taxon_data.taxon_concept.id}/data_view", expires_in: 24.hours) do
   = render 'menu', { ajax: true }
   .main_container#taxon_data
     %h3.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
+    - EOL.log(".about", prefix: 'v')
     = render 'about', { hidden: true }
     - only_ranges = @data_point_uris.blank? && !@range_data.blank?
+    - EOL.log(".data", prefix: 'v')
     = render 'data', { hidden: only_ranges }
+    - EOL.log(".ranges", prefix: 'v')
     = render 'ranges', { hidden: !only_ranges }
+    - EOL.log(".glossary", prefix: 'v')
     = render 'glossary', { hidden: true }
 
     - if ! @data_point_uris.blank? && current_user.min_curator_level?(:full)
@@ -25,7 +31,10 @@
     .article
       .header
         %h3= I18n.t('user_added_data.add_data_header')
+      - EOL.log(".user_added_data/form", prefix: 'v')
       = render 'user_added_data/form'
       -# You can't have nested forms, so this is external. ...It will be handled by Ajax (only), anyway.
       #suggestions{ style: 'display:none;' }
+        - EOL.log(".known_uris/categories", prefix: 'v')
         = render 'known_uris/categories'
+- EOL.log("index.html.haml FINISHED", prefix: 'v')

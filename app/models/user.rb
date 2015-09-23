@@ -47,6 +47,7 @@ class User < ActiveRecord::Base
   has_many :forum_posts
   has_many :user_added_data, class_name: UserAddedData.to_s
   has_many :data_search_files
+  has_many :collection_download_files
 
   # TODO - content_partners should be has_one:
   has_many :content_partners
@@ -178,17 +179,6 @@ class User < ActiveRecord::Base
       ORDER BY users.family_name, users.given_name"
     rset = User.find_by_sql([sql])
     return rset
-  end
-
-  # TODO - This is only used in the admin controller, and can probably be removed.
-  def self.users_with_activity_log
-    sql = "SELECT distinct u.id , u.given_name, u.family_name
-      FROM users u
-        JOIN #{UserActivityLog.full_table_name} al ON u.id = al.user_id
-      ORDER BY u.family_name, u.given_name"
-    User.with_master do
-      User.find_by_sql([sql])
-    end
   end
 
   def self.hash_password(raw)
@@ -324,7 +314,7 @@ class User < ActiveRecord::Base
   end
 
   def total_data_submitted
-    return user_added_data.where(visibility_id: Visibility.visible.id, vetted_id: [Vetted.trusted.id, Vetted.unknown.id],
+    return user_added_data.where(visibility_id: Visibility.get_visible.id, vetted_id: [Vetted.trusted.id, Vetted.unknown.id],
       deleted_at: nil).count
   end
 
@@ -528,7 +518,7 @@ class User < ActiveRecord::Base
   def hide_all_submitted_datos
     all_submitted_datos.each do |dato|
       dato.users_data_object.vetted = Vetted.untrusted
-      dato.users_data_object.visibility = Visibility.invisible
+      dato.users_data_object.visibility = Visibility.get_invisible
       dato.users_data_object.save!
     end
   end
@@ -576,11 +566,6 @@ class User < ActiveRecord::Base
       return_ratings[udor.data_object_guid] = udor.rating
     end
     return_ratings
-  end
-
-  # This is *very* generalized and tracks nearly everything:
-  def log_activity(what, options = {})
-    UserActivityLog.log(what, options.merge(user: self)) if self.id && self.id != 0
   end
 
   def join_community(community)

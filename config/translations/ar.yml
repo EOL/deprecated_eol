@@ -7,6 +7,7 @@
 # Author: Bachounda
 # Author: Claw eg
 # Author: DRIHEM
+# Author: Fatz
 # Author: Ghada.nabeel
 # Author: Malhargan
 # Author: Meno25
@@ -78,13 +79,14 @@ ar:
         email_reports_frequency_hours: تواتر تقارير البريد الإلكتروني
       data_object:
         bibliographic_citation: الاقتباس الببليوغرافي
-        description: الوصف
+        description: النص
         object_title: عنوان
         rights_holder: صاحب حقوق الملكية
         rights_statement: إقرار الحقوق
         source_url: رابط المصدر
       data_object_link:
         description: وصف
+        source_url: رابط URL
       eol_statistic:
         created_at: تم إنشائه في
         members_count: الأعضاء
@@ -173,6 +175,8 @@ ar:
         label: صنف
         request_publish: طلب النشر
       known_uri:
+        description: الوصف
+        name: الاسم
         toc_items: تصنيفات
       open_authentication:
         created_at: أنشئت
@@ -3263,7 +3267,7 @@ ar:
     one: 'ينتمي إلى %{count} مجتمع '
     other: 'ينتمي إلى %{count} مجتمع '
   bhl_publication: إصدار لمكتبة التنوع الحيوي
-  bi_monthly: نصف شهريًّا
+  bi_monthly: نصف شهريًّا
   biodiversity_heritage_library: مكتبة تراث التنوع البيولوجي
   biomedical_terms: مصطلحات بيولوجية طبية
   biomedical_terms_introduction: تم اشتقاق تلك المصطلحات عن طريق البحث في قاعدة بيانات
@@ -3656,7 +3660,7 @@ ar:
     ويعزز التسلسل الهرمي المقيم من فرضية تميز كل مدخل، أي أنه سوف يتم التعامل مع التسلسلات
     ذات الاسماء المتطابقة كجناس.
   content_partner_resource_hierarchy_complete_false: "لم يتم تصنيف التسلسل الهرمي
-    كمقيَّم. يمكن \nالتعامل مع المداخل المتطابقة باعتبارها مفهوم واحد."
+    كمقيَّم. يمكن \nالتعامل مع المداخل المتطابقة باعتبارها مفهوم واحد."
   content_partner_resource_hierarchy_confirm_request_publish: هل أنت متأكد من رغبتك
     في تقديم طلب لترقية التسلسل الهرمي الخاص بك ليصبح قابل للتصفح بموسوعة الحياة؟
   content_partner_resource_hierarchy_edit_link: تعديل
@@ -3873,7 +3877,7 @@ ar:
   current_language: 'اللغة: %{iso_code}'
   currently_in_eol: حاليًا في موسوعة الحياة
   currently_published: منشور حاليًا
-  daily: يوميًّا
+  daily: يوميًّا
   darwin_core: أرشيف داروين كور
   dashboard: لوحة البيانات
   data: بيانات
@@ -3947,7 +3951,7 @@ ar:
   details: التفاصيل
   details_title: التفاصيل
   did_you_mean: 'هل تقصد: %{suggestions}؟'
-  disabled_for_now: معطل حاليًّا
+  disabled_for_now: معطل حاليًّا
   discover_link: استكشف
   done_already: تم بالفعل
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: عدم إظهار التواريخ
@@ -4169,10 +4173,10 @@ ar:
   form_validation_errors_for_attribute_assistive: هنالك خطأ في التحقق بذلك العنصر
   fragment_caching_enabled: تفعيل التحكم في الذاكرة لفترة معينة
   frequency: التكرار
-  frequency_daily: يوميًّا
+  frequency_daily: يوميًّا
   frequency_monthly: شهريا
   frequency_never: أبدًا
-  frequency_weekly: أسبوعيًّا
+  frequency_weekly: أسبوعيًّا
   friendly_url: عنوان URL صديق
   from_community: من مجتمع  %{community}
   from_communities: 'من مجتمعات: %{communities}'
@@ -4842,7 +4846,7 @@ ar:
     هذا المورد هنا ***'
   please_refresh: يرجى تحديث المتصفح لمشاهدة أحدث نسخة من الموقع الإلكتروني لموسوعة
     الحياة
-  please_indicate_curation_reason: 'يرجى اختيار سبب، و/أو أضف تعليق تقييمي اختياريًّا:'
+  please_indicate_curation_reason: 'يرجى اختيار سبب، و/أو أضف تعليق تقييمي اختياريًّا:'
   please_state_one_credential: رجاء ذكر مؤهل محدَّد واحد على الأقل من هذه القائمة
   please_note_wiki_etc_are_not_spm: لاحظ أن ويكيبيديا والتعليم والباركود موضوعات داخلية
     خاصة بموسوعة الحياة وليست جزءًا من برنامج SPM.
@@ -4953,7 +4957,7 @@ ar:
   save_comment_lowercase: احفظ التعليق
   save_curated_association_submit_button: حفظ الارتباط
   save_email_settings: حفظ إعدادات البريد الإلكتروني
-  save: حفظ
+  save: احفظ
   scientific_name: اسم علمي
   sci_name_avg_table_head: متوسط الأسماء العلمية
   search: بحث
@@ -5073,7 +5077,7 @@ ar:
   social_sharing_twitter_tweet_button: توت
   social_sharing_twitter_follow_eol_button: اتبعنا على @eol
   some_required_fields_were_not_entered: هناك خانات إلزامية لم تُملأ (يجب أن تضيف
-    عنوانًا، ومحتوى أو عنوانًا إلكترونيًّا).
+    عنوانًا، ومحتوى أو عنوانًا إلكترونيًّا).
   sort_by_button: ترتيب
   sort_by_label: الترتيب حسب
   sort_by_newest_option: الأحدث
@@ -5138,7 +5142,7 @@ ar:
   submit: إرسال
   suggested_result_page_id: 'مُعرِّف صفحة النتيجة النمقترحة:'
   suggested_results_avg: متوسط النتائج المقترحة
-  supplier: المُورِّد
+  supplier: المُورِّد
   supplier_allcaps: 'المُورِّد:'
   supplier_colon: 'المُورِّد:'
   survey_link: شارك في استقصائنا
@@ -5540,7 +5544,6 @@ ar:
   view_added_text: عرض النص المضاف
   view_as_button: تغيير طريقة العرض
   view_as_label: اعرض في شكل
-  view_common_activities: اعرض الأنشطة المشتركة
   view_contact_us_submissions: عرض إضافات الاتصال بنا
   view_curators: عرض المشرفين
   view_current_version_link: عرض النسخة الحالية
@@ -5556,11 +5559,9 @@ ar:
   view_sound_source: عرض مصدر المقطع الصوتي
   view_source: اعرض المصدر
   view_video_source: عرض مصدر مقطع الفيديو
-  view_common_activities_link: اعرض قائمة بأكثر الأنشطة شيوعًا
   view_only_pages_with_at_least_a_picture_or_piece_of_text: عرض الصفحات التي تضم صورة
     أو جزء من نص
   view_this_hierarchy: عرض التسلسل الهرمي هذا
-  view_user_activity: عرض نشاط المستخدم
   view_user_comments: عرض تعليقات المستخدم
   view_your_curator_profile: اعرض الصفحة الشخصية الخاصة بك كمشرف.
   visible_title: مرئي

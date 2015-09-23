@@ -2215,6 +2215,13 @@ ms:
   active_colon: 'Aktif:'
   active: Aktif
   activity: Kegiatan
+  activity_logs:
+    collection_activity_log:
+      add_editor:
+        an_unknown_user_of_an_unknown_collection: Seorang pengguna tidak dikenali
+          telah ditambahkan sebagai pengurus koleksi tidak dikenali.
+        user_of_an_unknown_collection: <strong>%{user}</strong> telah ditambahkan
+          sebagai pengurus koleksi tidak dikenali.
   activity_log_empty: Kemas kini belum disediakan.
   activity_user_created_text: <strong>%{user}</strong> membubuh teks pada "%{object_name}"
     di "%{taxon_concept}".
@@ -4106,7 +4113,6 @@ ms:
   view_image_source: Lihat sumber gambar
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Hanya lihat halaman yang
     mempunyai sekurang-kurangnya satu gambar atau serangkap teks.
-  view_user_activity: lihat kegiatan pengguna
   view_user_comments: lihat komen pengguna
   visible_title: Boleh dilihat
   wants_colon: 'Mahu:'

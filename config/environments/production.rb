@@ -22,7 +22,7 @@ Eol::Application.configure do
   config.assets.expire_after 2.months
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
+  config.assets.compile = true
 
   # Generate digests for assets URLs
   config.assets.digest = true
@@ -33,7 +33,7 @@ Eol::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
-  config.action_mailer.asset_host = "http://eol.org"
+  config.action_mailer.asset_host = ENV["EOL_ASSET_HOST"]
 
   config.log_level = :error
 
@@ -41,10 +41,81 @@ Eol::Application.configure do
     config.i18n.load_path += Dir[Rails.root.join('config', 'translations', '*.yml').to_s]
   end
 
-  # # Send deprecation notices to registered listeners
-  # config.active_support.deprecation = :notify
-
   require File.expand_path('../../../lib/initializer_additions', __FILE__)
-  InitializerAdditions.add("environments/#{Rails.env}_eol_org")
+
+  config.before_configuration do
+    config.cache_store = :dalli_store, ENV["EOL_DALLI_HOST"]
+  end
+
+  config.action_controller.asset_host = ENV["EOL_ASSET_HOST"]
+  config.assets.prefix = ENV["EOL_ASSET_PREFIX"]
+
+  config.after_initialize do
+
+    $WEB_SERVICE_BASE_URL = ENV["EOL_WEB_SERVICE_BASE_URL"]
+    $CONTENT_SERVER = ENV["EOL_CONTENT_SERVER"]
+    $SINGLE_DOMAIN_CONTENT_SERVER = ENV["EOL_SINGLE_DOMAIN_CONTENT_SERVER"]
+    $SOLR_SERVER = ENV["EOL_SOLR_SERVER"]
+    $SITE_DOMAIN_OR_IP = ENV["EOL_SITE_DOMAIN_OR_IP"]
+
+    ActionMailer::Base.delivery_method = :smtp
+    ActionMailer::Base.smtp_settings = {
+      :address => ENV["EOL_SMTP_ADDRESS"],
+      :port => ENV["EOL_SMTP_PORT"],
+      :domain => ENV["EOL_SMTP_DOMAIN"],
+      :authentication       => "plain",
+      :enable_starttls_auto =>  true,
+      :user_name => ENV["EOL_SMTP_USER_NAME"],
+      :password => ENV["EOL_SMTP_PASSWORD"].sub(/^"/, "").sub(/"$/, "")
+    }
+
+    config.action_mailer.default_url_options =
+      { :host => ENV["EOL_SMTP_DOMAIN"] }
+    ActionMailer::Base.default_url_options[:host] = ENV["EOL_SMTP_DOMAIN"]
+
+    $FACEBOOK_APP_ID = ENV["EOL_FACEBOOK_APP_ID"]
+    $FACEBOOK_CONSUMER_KEY = ENV["EOL_FACEBOOK_CONSUMER_KEY"]
+    $FACEBOOK_CONSUMER_SECRET = ENV["EOL_FACEBOOK_CONSUMER_SECRET"]
+    $GOOGLE_CONSUMER_KEY = ENV["EOL_GOOGLE_CONSUMER_KEY"]
+    $GOOGLE_CONSUMER_SECRET = ENV["EOL_GOOGLE_CONSUMER_SECRET"]
+    $TWITTER_CONSUMER_KEY = ENV["EOL_TWITTER_CONSUMER_KEY"]
+    $TWITTER_CONSUMER_SECRET = ENV["EOL_TWITTER_CONSUMER_SECRET"]
+    $YAHOO_CONSUMER_KEY = ENV["EOL_YAHOO_CONSUMER_KEY"]
+    $YAHOO_CONSUMER_SECRET = ENV["EOL_YAHOO_CONSUMER_SECRET"]
+    $YAHOO_APP_ID = ENV["EOL_YAHOO_APP_ID"]
+    $PINTEREST_VERIFICATION_CODE = ENV["EOL_PINTEREST_VERIFICATION_CODE"]
+    $UNSUBSCRIBE_NOTIFICATIONS_KEY = ENV["EOL_UNSUBSCRIBE_NOTIFICATIONS_KEY"]
+    $ENABLE_ANALYTICS = ENV["EOL_ENABLE_ANALYTICS"] == "true"
+    $GOOGLE_ANALYTICS_ID = ENV["EOL_GOOGLE_ANALYTICS_ID"]
+    $GOOGLE_UNIVERSAL_ANALYTICS_ID = ENV["EOL_GOOGLE_UNIVERSAL_ANALYTICS_ID"]
+    $ENABLE_QUANTCAST = ENV["EOL_ENABLE_QUANTCAST"] == "true"
+    $QUANTCAST_ID =  ENV["EOL_QUANTCAST_ID"]
+    $ENABLE_WEBTRENDS = ENV["EOL_ENABLE_WEBTRENDS"] == "true"
+    $STATSD_HOST = ENV["EOL_STATSD_HOST"]
+    $STATSD_PORT = ENV["EOL_STATSD_PORT"]
+
+    $STATSD = Statsd.new $STATSD_HOST, $STATSD_PORT
+
+    $VIRTUOSO_USER = ENV["EOL_VIRTUOSO_USER"]
+    $VIRTUOSO_PW = ENV["EOL_VIRTUOSO_PW"]
+    $VIRTUOSO_SPARQL_ENDPOINT_URI = ENV["EOL_VIRTUOSO_SPARQL_ENDPOINT_URI"]
+    $VIRTUOSO_UPLOAD_URI = ENV["EOL_VIRTUOSO_UPLOAD_URI"]
+    $VIRTUOSO_FACET_BROWSER_URI_PREFIX =
+      ENV["EOL_VIRTUOSO_FACET_BROWSER_URI_PREFIX"]
+    $CONTENT_PARTNER_REGISTRY_EMAIL_ADDRESS =
+      ENV["EOL_CONTENT_PARTNER_REGISTRY_EMAIL_ADDRESS"]
+
+    config.action_controller[:session] = {
+      :session_key => ENV["EOL_SESSION_KEY"],
+      :secret      => ENV["EOL_SESSION_SECRET"]
+    }
+
+    Resque.redis = ENV["EOL_REDIS_HOST"]
+
+    Rails.configuration.hosted_dataset_path = ENV["EOL_HOSTED_DATASET_PATH"]
+    Rails.configuration.google_site_verification_keys =
+      ENV["EOL_GOOGLE_SITE_VERIFICATION_KEYS"].split
+
+  end
 
 end

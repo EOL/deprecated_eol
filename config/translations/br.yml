@@ -146,6 +146,7 @@ br:
         total_associations: Kevredigezhioù
         total_measurement_types: Doareoù muzuliañ
         total_user_added_data: Roadennoù ouzhpennet gant an implijer
+        total_data_records: Enrolladennoù roadennoù
       forum:
         forum_category_id: Rummad
         name: Anv ar forom
@@ -3504,7 +3505,6 @@ br:
   view_map_source: Gwelet tarzh ar gartenn
   view_source: Sellet ouzh tarzh an destenn
   view_this_hierarchy: gwelet an urzhaz-mañ
-  view_user_activity: gwelet obererezh an implijer
   visible_title: Gwelus
   visitors: Gweladennerien
   vivisimo: Vivisimo

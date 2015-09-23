@@ -145,7 +145,7 @@ module EOL
       tables = []
       conn.tables.each do |table|
         next if table == 'schema_migrations'
-        count_rows = conn.execute("SELECT 1 FROM #{table} LIMIT 1").count
+        count_rows = conn.execute("SELECT 1 FROM `#{table}` LIMIT 1").count
         tables << table if count_rows > 0
       end
       tables

@@ -45,9 +45,11 @@ class EOLWebService
   end
 
   #finds local ip used by the host for remote connection
+  # TODO: Bah! need to deduplicate this with EOL::Server
   def self.local_ip
     begin
       return '0.0.0.0' if Rails.configuration.skip_url_validations
+      return ENV["LOCAL_IP"] if ENV["LOCAL_IP"]
       orig, Socket.do_not_reverse_lookup = Socket.do_not_reverse_lookup, true  # turn off reverse DNS resolution temporarily
 
       UDPSocket.open do |s|
@@ -75,7 +77,7 @@ class EOLWebService
       logging_message='*** WEB SERVICE CALL (' + elapsedSeconds.to_s + 's'
       logging_message+=' TIMED OUT AFTER ' + timeout_seconds.to_s + ' s' if elapsedSeconds.to_f >= timeout_seconds.to_f
       logging_message+='): ' + base_url + parameters
-      Rails.logger.info logging_message
+      Rails.logger.error logging_message
     else
       resp=self.web_service_call(params)
     end

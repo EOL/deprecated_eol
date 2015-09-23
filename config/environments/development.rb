@@ -8,6 +8,8 @@ Eol::Application.configure do
   # every request. This slows down response time but is perfect for development
   # since you don't have to restart the web server when you make code changes.
   config.cache_store = :null_store
+  config.action_dispatch.rack_cache = nil
+
   config.cache_classes = false
 
   # Log error messages when you accidentally call methods on nil.

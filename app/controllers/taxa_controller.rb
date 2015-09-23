@@ -25,7 +25,6 @@ class TaxaController < ApplicationController
     category_id = params[:category_id].to_i
     redirect_url = "/pages/#{tc.id}"
     redirect_url += "?category_id=#{category_id}" unless category_id.blank? || category_id == 0
-    current_user.log_activity(:published_wikipedia_article, taxon_concept_id: tc.id)
     redirect_to redirect_url
   end
 
@@ -115,19 +114,23 @@ protected
 private
 
   def instantiate_taxon_page
+    EOL.log("// PAGE", prefix: "\n")
+    EOL.log_call
     tc_id = params[:taxon_concept_id] || params[:taxon_id] || params[:id]
-    # we had cases of app servers not properly getting the page ID from parameters and throwing 404
-    # errors instead of 500. This may cause site crawlers to think pages don't exist. So throw errors instead
+    # we had cases of app servers not properly getting the page ID from
+    # parameters and throwing 404 errors instead of 500. This may cause site
+    # crawlers to think pages don't exist. So throw errors instead
     raise if tc_id.blank? || tc_id == 0
     with_master_if_curator do
       @taxon_concept = TaxonConcept.find(tc_id)
     end
+    EOL.log("id: #{@taxon_concept.id}", prefix: '.')
     unless @taxon_concept.published?
       if logged_in?
-        # TODO - second argument to constructor should be an I18n key for a human-readable error.
-        raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}"
+
+        raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}",:can_not_access_unpublished_taxon)
       else
-        # TODO - second argument to constructor should be an I18n key for a human-readable error.
+
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have access to TaxonConcept with ID=#{@taxon_concept.id}"
       end
     end
@@ -145,6 +148,7 @@ private
   end
 
   def instantiate_preferred_names
+    EOL.log_call
     @preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_language)
     @scientific_name = @taxon_page.scientific_name
   end

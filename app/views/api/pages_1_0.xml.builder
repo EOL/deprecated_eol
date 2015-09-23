@@ -13,7 +13,7 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
     xml.dwc :scientificName, @json_response['scientificName']
 
     @json_response['synonyms'].each do |synonym|
-      xml.synonym synonym['synonym'], :relationship => synonym['relationship']
+      xml.synonym synonym['synonym'], :relationship => synonym['relationship'], :resource => synonym['resource'] 
     end
 
     @json_response['vernacularNames'].each do |common_name|

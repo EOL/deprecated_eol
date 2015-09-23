@@ -3,7 +3,9 @@ Eol::Application.routes.draw do
 
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
-
+  
+  #resque
+  mount Resque::Server.new, at: "/resque"
   # Permanent redirects. Position them before any routes they take precedence over.
   match '/podcast' => redirect('http://podcast.eol.org/podcast')
   match '/pages/:taxon_id/curators' => redirect("/pages/%{taxon_id}/community/curators")
@@ -198,10 +200,14 @@ Eol::Application.routes.draw do
       get 'reindex'
     end
     collection do
+      get 'get_name'
+      get 'get_uri_name'
       get 'cache_inaturalist_projects'
       get 'choose_collect_target'
       get 'choose_editor_target'
+      get 'choose_taxa_data'
       post 'collect_item'
+      post 'download_taxa_data'
     end
     resource :newsfeed, :only => [:show], :controller => 'collections/newsfeeds'
     resources :editors, :only => [:index], :controller => 'collections/editors'
@@ -403,9 +409,6 @@ Eol::Application.routes.draw do
 
   resources :data_search_files, only: [:index, :destroy]
 
-  # Old V1 admin search logs:
-  resources :search_logs, :controller => 'administrator/search_logs'
-
   resources :news_items, :only => [:index, :show] do
     resources :translated_news_items, :as => :translations, :except => [:show, :index]
   end
@@ -434,6 +437,8 @@ Eol::Application.routes.draw do
   resources :pending_harvests do
     collection do
       post 'sort'
+      post 'pause_harvesting'
+      post 'resume_harvesting'
     end
   end
   resources :classifications, :only => [:create]
@@ -564,13 +569,9 @@ Eol::Application.routes.draw do
         get 'revoke_curator'
         get 'clear_curatorship'
         get 'login_as_user'
-        get 'view_common_combinations'
         get 'deactivate'
       end
       collection do
-        get 'view_common_combinations'
-        get 'view_user_activity'
-        get 'view_common_activities'
         get 'list_newsletter_emails'
       end
     end

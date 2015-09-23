@@ -19,6 +19,7 @@
 # Author: Kaganer
 # Author: Lunacy1911
 # Author: Lvova
+# Author: Mariya
 # Author: Meshkov.a
 # Author: Nemo bis
 # Author: Okras
@@ -27,6 +28,7 @@
 # Author: Sprinter
 # Author: Striking Blue
 # Author: Александр Сигачёв
+# Author: Дмитрий
 # Author: Максим777
 ---
 ru:
@@ -493,6 +495,7 @@ ru:
         object_title: Заголовок
         toc_item: Подраздел
         refs: Ссылки <small>(каждую ссылку на новой строке)</small>
+        refs_order: ссылки будут появляться в алфавитном порядке
         rights_holder: Правообладатель
         rights_holder_more: Укажите лицо или организацию владеющую или управляющую
           правами на эти данные. Если оставить это поле пустым, мы предполагаем, что
@@ -531,6 +534,7 @@ ru:
         taxon_name_more: Например, введите «Trochilidae» или «Киты». Будет использован
           ТОЛЬКО результат выбора из выпадающего списка, не редактируйте текст без
           выбера результата.
+        taxa_found: виды найдены
         total_results: 'Всего результатов: %{total}'
         unit: Единица измерения
       eol_statistic:
@@ -1217,6 +1221,8 @@ ru:
       learn_more_link_protists: Простейших
       learn_more_link_archaea: Археях
       learn_more_link_viruses: Вирусах
+      learn_more_link_algae: водоросли
+      questions_link_evolution: Что такое эволюция?
       questions_link_biodiversity: Что такое биоразнообразие?
       questions_link_species: Что такое вид?
       questions_link_discovering_species: Как открывают виды?
@@ -1629,20 +1635,61 @@ ru:
         tweet_text: Кураторы %{scientific_name}
     data:
       index:
-        data_disclaimer: "<a href=\"%{traitbank_info_path}\">TraitBank</a> \nсобирает
-          записи данных из многих поставщиков. Выберите строку для подробностей о
-          записи или <a href=\"%{traitbank_search_path}\">ищите TraitBank</a>."
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          собирает записи данных из многих поставщиков. Выберите строку для подробностей
-          о записи или <a href="%{traitbank_search_path}">ищите в %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Факты %{scientific_name} проклассифицированы по %{hierarchy_provider}
             в Энциклопедии Жизнь.
+          meta_description_no_data: Нет доступных фактов для %{scientific_name}, которые
+            классифицируются как %{hierarchy_provider} в Энциклопедии Жизни. Энциклопедия
+            Жизни приглашает вас внести свой вклад, добавив факты о %{scientific_name}.
+          meta_description_with_common_name: Данные о %{preferred_common_name}, известны
+            ученным %{scientific_name} в классификации %{hierarchy_provider} в Энциклопедии
+            Жзни.
+          meta_description_with_common_name_no_data: Данные о %{preferred_common_name},
+            также известным как %{scientific_name}, который классифицируется как %{hierarchy_provider}
+            в Энциклопедии Жизни. Энциклопедии Жизни приглашает вас внести свой вклад,
+            добавляя данные о %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Данные о %{preferred_common_name},
+            которые классифицируются как %{hierarchy_provider}? Характеристика данных
+            о %{scientific_name}, включая информацию о %{topics}.
+          meta_title: Данные о %{scientific_name}, классифицированные как classified
+            by %{hierarchy_provider}
+          meta_title_with_common_name: данные о , классифицированные как
+          tweet_text: данные о , классифицированные как
+        meta_description: данные, включая параметры и свойства для .Вычислительные
+          данные для  из научных работ, предоставленых исследователями.
+        meta_description_with_common_name: данные, включая параметры и свойства для
+          . Вычислительные данные для из научных работ, предоставленных исследователями.
+        meta_keywords_with_common_name: данные, данные о, свойства, свойства , параметры,
+          параметры для, данные, данные о, свойства, свойства, параметры, параметры
+          для,данные, данные о, свойства, свойства , параметры, параметры для, данные,
+          данные о, свойства, свойства, параметры, параметры для,
         meta_title: Измерения и факты о %{scientific_name}
         tweet_text: Факты о %{scientific_name}
     details:
       index:
+        hierarchy_entry:
+          meta_description_with_chapter_list: Описание и статьи о %{scientific_name}
+            классифицированные %{hierarchy_provider} в Энциклопедии Жизни. Включают
+            в себя %{chapter_list} for %{scientific_name}.
+          meta_description_with_common_name: Описания и статьи о %{preferred_common_name},
+            известные в науке как %{scientific_name} классифицируются как %{hierarchy_provider}
+            в Энциклопедии Жизни.
+          meta_description_with_common_name_no_data: 'Нет доступных статей для  ,так
+            же известных как , классифицированные как в Энциклопедии Жизни. Вы можете
+            внести свой вклад в Энциклопедии Жизни и написать такие статьи как: охрана
+            природы, распространение, экология, среда обитания,морфология и многое
+            другое.'
+          meta_description_with_common_name_with_chapter_list: Описание статей о ,известное
+            среди ученных как, классифицированный в Энциклопедии Жизни. Состоит из
+          meta_title: Описания и статьи о %{scientific_name}, классифицированные как
+            {hierarchy_provider}
         meta_description: Описания и статьи о %{scientific_name} в Энциклопедии жизни
+        meta_description_no_data: Нет доступных статей для  %{scientific_name} в Энциклопедии
+          Жизни. Вы можете внести свой вклад в Энциклопедию Жизни и написать статьи
+          о %{scientific_name} такие как охрана, распространение, экология, среда
+          обитания и другие.
+        meta_description_with_chapter_list: Описания и статьи  о %{scientific_name}
+          в Энциклопедии жизни. Содержание %{chapter_list}.
         meta_title: Описания и статьи о %{scientific_name}
         meta_title_with_common_name: Описания и статьи о %{preferred_common_name}
           (%{scientific_name})
@@ -1659,6 +1706,10 @@ ru:
         tweet_text: Статьи и книги о %{scientific_name}
     maps:
       show:
+        hierarchy_entry:
+          meta_description_with_common_name: Где  найти %{preferred_common_name}и
+            где они живут? Географические сведения о %{scientific_name} классифицируются
+            как %{hierarchy_provider} где они живут и где их природная среда обитания.
         meta_title: Карты для %{scientific_name}
         meta_title_with_common_name: Карты для %{preferred_common_name} (%{scientific_name})
         tweet_text: Карты для %{scientific_name}
@@ -2283,6 +2334,7 @@ ru:
   dato_create_cancel: Отмена
   dato_edit_cancel: Отмена
   default: По умолчанию
+  delete_data_object: Удалить
   delete: удалить
   delete_firstcap: Удалить
   description: Описание
@@ -2613,7 +2665,6 @@ ru:
   view_added_text: просмотреть добавленный текст
   view_as_button: Изменить вид
   view_as_label: Просмотреть как
-  view_common_activities: просмотреть общую активность
   view_contact_us_submissions: просмотреть добавленные отзывы
   view_curators: просмотреть кураторов
   view_current_version_link: Просмотр текущей версии
@@ -2629,11 +2680,9 @@ ru:
   view_sound_source: Источник аудиофайла
   view_source: Источник
   view_video_source: Источник видеофайла
-  view_common_activities_link: Посмотреть список наиболее распространенных видов активности.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Просмотреть страницы с
     изображением или фрагментом текста
   view_this_hierarchy: просмотреть иерархию
-  view_user_activity: просмотреть активность пользователей
   view_user_comments: просмотреть комментарии пользователей
   view_your_curator_profile: Просмотр профиля куратор
   visible_title: Видимость

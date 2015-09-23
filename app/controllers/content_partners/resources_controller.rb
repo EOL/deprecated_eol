@@ -40,13 +40,9 @@ class ContentPartners::ResourcesController < ContentPartnersController
       set_new_resource_options
       flash.now[:error] = I18n.t(:content_partner_resource_create_unsuccessful_error)
       render :new
-    end    
-    @resource.update_attributes(resource_status: ResourceStatus.uploaded)
-    enqueue_job(current_user.id, params[:content_partner_id], @resource.id, request.port.to_s)
-  end
-
-  def enqueue_job(user_id, content_partner_id, resource_id, port_no)
-    Resque.enqueue(ResourceValidation, user_id, content_partner_id, resource_id, port_no)
+    end
+    @resource.update_attributes(resource_status: ResourceStatus.uploading)
+    enqueue_job(current_user.id, params[:content_partner_id], @resource.id)
   end
 
   # GET /content_partners/:content_partner_id/resources/:id/edit
@@ -74,10 +70,16 @@ class ContentPartners::ResourcesController < ContentPartnersController
     end
     if @resource.update_attributes(params[:resource])
       if upload_required
-        @resource.update_attributes(resource_status: ResourceStatus.uploaded)
-        enqueue_job(current_user.id, params[:content_partner_id], params[:id], request.port.to_s)
+        @resource.update_attributes(resource_status: ResourceStatus.uploading)
+        enqueue_job(current_user.id, params[:content_partner_id], params[:id])
       end
-      flash[:notice] = I18n.t(:content_partner_resource_update_successful) unless flash[:error]
+      if params[:resource][:auto_publish].to_i == 0
+        @resource.delete_resource_contributions_file
+      else
+        @resource.save_resource_contributions
+      end
+      flash[:notice] = I18n.t(:content_partner_resource_update_successful_notice,
+                              resource_status: @resource.status_label) unless flash[:error]
       store_location(params[:return_to]) unless params[:return_to].blank?
       redirect_back_or_default content_partner_resource_path(@partner, @resource)
     else
@@ -95,6 +97,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       @resource = @partner.resources.find(params[:id])
     end
     @page_subheader = I18n.t(:content_partner_resource_show_subheader, resource_title: Sanitize.clean(@resource.title))
+    @meta_data = { title: I18n.t(:content_partner_resource_page_title, :content_partner_name => @partner.full_name, :resource_name => @resource.title) }
   end
 
   # GET /content_partners/:content_partner_id/resources/:id/force_harvest
@@ -136,6 +139,11 @@ class ContentPartners::ResourcesController < ContentPartnersController
   end
 
 private
+
+  def enqueue_job(user_id, content_partner_id, resource_id)
+    Resque.enqueue(ResourceValidation, user_id, content_partner_id, resource_id,
+      "#{EOL::Server.ip_address}:#{request.port.to_s}")
+  end
 
   def redirect_if_terms_not_accepted
     @current_agreement = @partner.agreement

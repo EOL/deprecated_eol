@@ -20,14 +20,9 @@ class TaxonData < TaxonUserClassificationFilter
       results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(options))
       # TODO - we should probably check for taxon supercedure, here.
       if options[:for_download]
-        # when downloading, we don't the full TaxonDataSet which will want to insert rows into MySQL
-        # for each DataPointUri, which is very expensive when downloading lots of rows
         KnownUri.add_to_data(results)
-        data_point_uris = results.collect do |row|
-          data_point_uri = DataPointUri.new(DataPointUri.attributes_from_virtuoso_response(row))
-          data_point_uri.convert_units
-          data_point_uri
-        end
+        DataPointUri.preload_data_point_uris!(results, options[:taxon_concept].try(:id))
+        data_point_uris = results.collect{ |r| r[:data_point_instance] }
         DataPointUri.preload_associations(data_point_uris, { taxon_concept:
             [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ],
             resource: :content_partner },
@@ -85,7 +80,10 @@ class TaxonData < TaxonUserClassificationFilter
 
   # NOTE - nil implies bad connection. You should get a TaxonDataSet otherwise!
   def get_data
+    # #dup used here because the return value is often altered to suit the
+    # rendering, and we don't want to much with the data stored here.
     return @taxon_data_set.dup if defined?(@taxon_data_set)
+    EOL.log_call
     if_connection_fails_return(nil) do
       taxon_data_set = TaxonDataSet.new(raw_data,
         taxon_concept: taxon_concept,
@@ -192,10 +190,45 @@ class TaxonData < TaxonUserClassificationFilter
 
   def raw_data
     Rails.cache.fetch("/taxa/#{taxon_concept.id}/raw_data",
-      expires_in: 12.hours) do
+      expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
       (measurement_data + association_data).
         delete_if { |k,v| k[:attribute].blank? }
-    end
+  end
+
+  private
+
+  def measurement_data(options = {})
+    query = "
+      SELECT DISTINCT ?attribute ?value ?unit_of_measure_uri
+        ?statistical_method ?life_stage ?sex ?data_point_uri ?graph
+        ?taxon_concept_id
+      WHERE {
+        GRAPH ?graph {
+          ?data_point_uri dwc:measurementType ?attribute .
+          ?data_point_uri dwc:measurementValue ?value .
+          OPTIONAL { ?data_point_uri dwc:measurementUnit ?unit_of_measure_uri } .
+          OPTIONAL { ?data_point_uri eolterms:statisticalMethod ?statistical_method } .
+        } .
+        {
+          ?data_point_uri dwc:taxonConceptID ?taxon_concept_id .
+          FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
+          OPTIONAL { ?data_point_uri dwc:lifeStage ?life_stage } .
+          OPTIONAL { ?data_point_uri dwc:sex ?sex }
+        }
+        UNION {
+          ?data_point_uri dwc:occurrenceID ?occurrence .
+          ?occurrence dwc:taxonID ?taxon .
+          ?data_point_uri eol:measurementOfTaxon eolterms:true .
+          GRAPH ?resource_mappings_graph {
+            ?taxon dwc:taxonConceptID ?taxon_concept_id .
+            FILTER( ?taxon_concept_id = <#{UserAddedData::SUBJECT_PREFIX}#{taxon_concept.id}>)
+          }
+          OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
+          OPTIONAL { ?occurrence dwc:sex ?sex }
+        }
+      }
+      LIMIT 800"
+    EOL::Sparql.connection.query(query)
   end
 
   def measurement_data

@@ -19,7 +19,8 @@ class Hierarchy < ActiveRecord::Base
   has_one :dwc_resource, class_name: Resource.to_s, foreign_key: :dwc_hierarchy_id
   has_many :hierarchy_entries
   has_many :kingdoms, class_name: HierarchyEntry.to_s, foreign_key: [ :hierarchy_id ], primary_key: [ :id ],
-    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
+    conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.get_visible.id}, #{Visibility.get_preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
+  has_many :hierarchy_reindexings
 
   validates_presence_of :label
   validates_length_of :label, maximum: 255
@@ -86,6 +87,12 @@ class Hierarchy < ActiveRecord::Base
   def self.ncbi
     @@ncbi ||= cached('ncbi') do
       Hierarchy.find_by_label("NCBI Taxonomy", order: "hierarchy_group_version desc")
+    end
+  end
+  
+  def self.worms
+    @@worms ||= cached('worms') do
+      Hierarchy.find_by_label("WORMS Species Information (Marine Species)")
     end
   end
 
@@ -176,6 +183,10 @@ class Hierarchy < ActiveRecord::Base
 
   def repopulate_flattened
     kingdoms.each(&:repopulate_flattened_hierarchy)
+  end
+
+  def reindex
+    HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank? 
   end
 
 private

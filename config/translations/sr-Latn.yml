@@ -2984,7 +2984,6 @@ sr-Latn:
   view_added_text: pogledaj dodati tekst
   view_as_button: Promeni prikaz
   view_as_label: Pogledaj kao
-  view_common_activities: pogledaj uobičajenu aktivnost
   view_contact_us_submissions: pogledaj kontaktiranja
   view_curators: pogledaj kustose
   view_in_classification: pogledaj u klasifikaciji
@@ -2998,11 +2997,9 @@ sr-Latn:
   view_map_source: Pogledaj izvor karte
   view_sound_source: Pogledaj izvor zvučnog snimka
   view_video_source: Pogledaj izvor video-snimka
-  view_common_activities_link: Pogledaj spisak najuobičajenih aktivnosti.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Samo stranice s najmanje
     jednom slikom i nešto teksta
   view_this_hierarchy: pogledaj ovu hijerarhiju
-  view_user_activity: pogledaj korisničke aktivnosti
   view_user_comments: pogledaj korisničke komentare
   view_your_curator_profile: Pogledaj svoj kustoski profil
   visible_title: Vidljivo

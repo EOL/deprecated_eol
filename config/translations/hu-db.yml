@@ -1,0 +1,147 @@
+# Messages for Hungarian (magyar)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Csega
+# Author: Dani
+# Author: Dj
+---
+hu:
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: nem megbízható
+  translated_activities-name-activity_id-51: mutat
+  translated_activities-name-activity_id-52: létrehoz
+  translated_activities-name-activity_id-53: elrejt
+  translated_activities-name-activity_id-54: frissítés
+  translated_activities-name-activity_id-55: nem megfelelő
+  translated_activities-name-activity_id-56: törlés
+  translated_activities-name-activity_id-58: megbízható
+  translated_activities-name-activity_id-59: nincs átnézve
+  translated_activities-name-activity_id-64: eltávolítás
+  translated_agent_roles-label-agent_role_id-10: Projekt
+  translated_agent_roles-label-agent_role_id-11: Közzétevő
+  translated_agent_roles-label-agent_role_id-13: Forrás
+  translated_agent_roles-label-agent_role_id-14: Forrás adatbázis
+  translated_agent_roles-label-agent_role_id-15: Kapcsolattartó személy
+  translated_agent_roles-label-agent_role_id-16: Közreműködő
+  translated_agent_roles-label-agent_role_id-1: Animátor
+  translated_agent_roles-label-agent_role_id-21: szolgáltató
+  translated_agent_roles-label-agent_role_id-22: Fordító
+  translated_agent_roles-label-agent_role_id-23: Tudományos lektor
+  translated_agent_roles-label-agent_role_id-24: Nyelvi lektor
+  translated_agent_roles-label-agent_role_id-2: Szerző
+  translated_agent_roles-label-agent_role_id-3: Fordító
+  translated_agent_roles-label-agent_role_id-5: Készítő
+  translated_agent_roles-label-agent_role_id-7: Szerkesztő
+  translated_agent_roles-label-agent_role_id-8: Illusztrátor
+  translated_agent_roles-label-agent_role_id-9: Fotográfus
+  translated_audiences-label-audience_id-1: Szakértő felhasználók
+  translated_audiences-label-audience_id-3: Gyermekek
+  translated_collection_types-label-collection_type_id-10: Hangok
+  translated_collection_types-label-collection_type_id-11: Hivatkozások
+  translated_collection_types-label-collection_type_id-12: Irodalom
+  translated_collection_types-label-collection_type_id-13: Taxonómia
+  translated_collection_types-label-collection_type_id-14: Molekuláris vonalkódok
+  translated_collection_types-label-collection_type_id-15: Leírás
+  translated_collection_types-label-collection_type_id-16: Képek
+  translated_collection_types-label-collection_type_id-17: Elterjedés
+  translated_collection_types-label-collection_type_id-18: Természetvédelmi státusz
+  translated_collection_types-label-collection_type_id-19: Névinformációk
+  translated_collection_types-label-collection_type_id-1: Taxonómia
+  translated_collection_types-label-collection_type_id-20: Molekuláris adatok
+  translated_collection_types-label-collection_type_id-21: Nevezéktan
+  translated_collection_types-label-collection_type_id-22: Hangok
+  translated_collection_types-label-collection_type_id-23: Hivatkozások
+  translated_collection_types-label-collection_type_id-24: Irodalom
+  translated_collection_types-label-collection_type_id-2: Molekuláris vonalkódok
+  translated_collection_types-label-collection_type_id-3: Leírás
+  translated_collection_types-label-collection_type_id-4: Képek
+  translated_collection_types-label-collection_type_id-5: Elterjedés
+  translated_collection_types-label-collection_type_id-6: Természetvédelmi státusz
+  translated_collection_types-label-collection_type_id-7: Névinformációk
+  translated_collection_types-label-collection_type_id-8: Molekuláris adatok
+  translated_collection_types-label-collection_type_id-9: Nevezéktan
+  translated_contact_roles-label-contact_role_id-1: Elsődleges kapcsolattartó
+  translated_contact_roles-label-contact_role_id-3: Technikai kapcsolattartó
+  translated_contact_subjects-title-contact_subject_id-24: Tagság és regisztráció
+  translated_contact_subjects-title-contact_subject_id-26: Tanulás és oktatás
+  translated_contact_subjects-title-contact_subject_id-27: Legyél tartalompartner
+  translated_content_partner_statuses-label-content_partner_status_id-1: Függőben
+  translated_content_partner_statuses-label-content_partner_status_id-2: Aktív
+  translated_content_partner_statuses-label-content_partner_status_id-3: Archiválva
+  translated_content_partner_statuses-label-content_partner_status_id-4: Inaktív
+  translated_content_tables-label-content_table_id-1: Részletek
+  translated_data_types-label-data_type_id-10: Térkép
+  translated_data_types-label-data_type_id-1: Kép
+  translated_data_types-label-data_type_id-2: Hang
+  translated_data_types-label-data_type_id-3: Szöveg
+  translated_data_types-label-data_type_id-4: Videó
+  translated_data_types-label-data_type_id-5: GBIF kép
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Nincsen jog fenntartva
+  translated_licenses-description-license_id-29: Néhány jog fenntartva
+  translated_licenses-description-license_id-2: '&#169; Minden jog fenntartva'
+  translated_licenses-description-license_id-30: Néhány jog fenntartva
+  translated_licenses-description-license_id-31: Néhány jog fenntartva
+  translated_licenses-description-license_id-32: Néhány jog fenntartva
+  translated_licenses-description-license_id-33: Néhány jog fenntartva
+  translated_licenses-description-license_id-34: Közkincs
+  translated_licenses-description-license_id-35: Közkincs
+  translated_licenses-description-license_id-36: Néhány jog fenntartva
+  translated_licenses-description-license_id-37: Néhány jog fenntartva
+  translated_licenses-description-license_id-38: Néhány jog fenntartva
+  translated_licenses-description-license_id-39: Közkincs
+  translated_licenses-description-license_id-3: Néhány jog fenntartva
+  translated_licenses-description-license_id-42: Néhány jog fenntartva
+  translated_licenses-description-license_id-4: Néhány jog fenntartva
+  translated_licenses-description-license_id-5: Néhány jog fenntartva
+  translated_licenses-description-license_id-6: Néhány jog fenntartva
+  translated_licenses-description-license_id-7: Néhány jog fenntartva
+  translated_licenses-description-license_id-8: Néhány jog fenntartva
+  translated_licenses-description-license_id-9: Néhány jog fenntartva
+  translated_ranks-label-rank_id-106: űrlap
+  translated_ranks-label-rank_id-107: alak
+  translated_ranks-label-rank_id-266: rend
+  translated_ranks-label-rank_id-335: fajok
+  translated_ranks-label-rank_id-370: alosztály
+  translated_ranks-label-rank_id-383: alcsalád
+  translated_ranks-label-rank_id-422: altörzs
+  translated_ranks-label-rank_id-494: törzs
+  translated_ranks-label-rank_id-503: nem besorolt
+  translated_ranks-label-rank_id-51: osztály
+  translated_ranks-label-rank_id-74: törzs
+  translated_ranks-label-rank_id-99: család
+  translated_resource_statuses-label-resource_status_id-10: Közzétéve
+  translated_resource_statuses-label-resource_status_id-11: Közzététel függőben
+  translated_resource_statuses-label-resource_status_id-12: Visszavonás függőben
+  translated_resource_statuses-label-resource_status_id-1: Feltöltés
+  translated_resource_statuses-label-resource_status_id-2: Feltöltve
+  translated_resource_statuses-label-resource_status_id-3: Feltöltés sikertelen
+  translated_resource_statuses-label-resource_status_id-4: Tartalom áthelyezve a szerverre
+  translated_resource_statuses-label-resource_status_id-5: Érvényesített
+  translated_resource_statuses-label-resource_status_id-6: Érvényesítés sikertelen
+  translated_resource_statuses-label-resource_status_id-7: Feldolgozás alatt
+  translated_resource_statuses-label-resource_status_id-8: Feldolgozott
+  translated_resource_statuses-label-resource_status_id-9: Feldolgozás nem sikerült
+  translated_table_of_contents-label-table_of_contents_id-1: Áttekintés
+  translated_table_of_contents-label-table_of_contents_id-2: Rövid összefoglalás
+  translated_table_of_contents-label-table_of_contents_id-327: Pszichológia
+  translated_table_of_contents-label-table_of_contents_id-328: Sejtbiológia
+  translated_table_of_contents-label-table_of_contents_id-329: Genetika
+  translated_table_of_contents-label-table_of_contents_id-331: Vonalkód
+  translated_table_of_contents-label-table_of_contents_id-332: Genom
+  translated_table_of_contents-label-table_of_contents_id-333: Molekuláris biológia
+  translated_table_of_contents-label-table_of_contents_id-337: Oktatás
+  translated_table_of_contents-label-table_of_contents_id-33: Trendek
+  translated_table_of_contents-label-table_of_contents_id-34: Hozzászólások
+  translated_table_of_contents-label-table_of_contents_id-4: Ökológia
+  translated_untrust_reasons-label-untrust_reason_id-5: Egyéb
+  translated_vetted-label-vetted_id-0: Ismeretlen
+  translated_vetted-label-vetted_id-4: Nem megbízható
+  translated_vetted-label-vetted_id-5: Megbízható
+  translated_vetted-label-vetted_id-6: Nem megfelelő
+  translated_view_styles-name-view_style_id-2: Galéria
+  translated_visibilities-label-visibility_id-0: Láthatatlan
+  translated_visibilities-label-visibility_id-1: Látható
+  translated_visibilities-label-visibility_id-2: Előnézet
+...

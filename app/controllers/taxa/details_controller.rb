@@ -10,14 +10,13 @@ class Taxa::DetailsController < TaxaController
     @show_add_link_buttons = true
     @assistive_section_header = I18n.t(:assistive_details_header)
     @rel_canonical_href = taxon_details_url(@taxon_page)
-    current_user.log_activity(:viewed_taxon_concept_details, taxon_concept_id: @taxon_concept.id)
   end
 
   # TODO - this doesn't belong here.
   def set_article_as_exemplar
     unless current_user && current_user.min_curator_level?(:assistant)
-      # TODO - second argument to constructor should be an I18n key for a human-readable error.
-      raise EOL::Exceptions::SecurityViolation, "User does not have set_article_as_exemplar privileges"
+      
+      raise EOL::Exceptions::SecurityViolation.new("User does not have set_article_as_exemplar privileges", :missing_set_article_as_exemplar_privilege)
       return
     end
     @taxon_concept = TaxonConcept.find(params[:taxon_id].to_i) rescue nil

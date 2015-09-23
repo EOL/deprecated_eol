@@ -1,0 +1,1 @@
+$(function(){$(".overlay_link a[rel]").overlay({onBeforeLoad:function(){var e=this.getOverlay().find(".content-wrap");e.text(""),e.append("<h2>Loading, please wait...</h2>"),e.load(this.getTrigger().attr("href"))}})});

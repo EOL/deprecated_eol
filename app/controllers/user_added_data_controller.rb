@@ -33,9 +33,9 @@ class UserAddedDataController < ApplicationController
   def edit
     @user_added_data = UserAddedData.find(params[:id])
     unless current_user.can_update?(@user_added_data)
-      # TODO - second argument to constructor should be an I18n key for a human-readable error.
-      raise EOL::Exceptions::SecurityViolation,
-        "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}"
+      
+      raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}",
+      :only_data_owner_can_edit)
     end
   end
 
@@ -44,13 +44,13 @@ class UserAddedDataController < ApplicationController
     delete_empty_metadata
     @user_added_data = UserAddedData.find(params[:id])
     unless current_user.can_update?(@user_added_data)
-      # TODO - second argument to constructor should be an I18n key for a human-readable error.
-      raise EOL::Exceptions::SecurityViolation,
-        "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}"
+      
+      raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}",
+      :only_data_owner_can_edit)
     end
     if @user_added_data.update_attributes(params[:user_added_data])
       flash[:notice] = I18n.t('user_added_data.update_successful')
-      log_action(:update) unless @user_added_data.visibility_id == Visibility.invisible.id
+      log_action(:update) unless @user_added_data.visibility_id == Visibility.get_invisible.id
     else
       flash[:error] = I18n.t('user_added_data.update_failed',
                              errors: @user_added_data.errors.full_messages.to_sentence)
@@ -63,9 +63,9 @@ class UserAddedDataController < ApplicationController
   # DELETE /user_added_data/:id
   def destroy
     user_added_data = UserAddedData.find(params[:id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}" unless current_user.can_delete?(user_added_data)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}",
+    :only_data_owner_can_delete) unless current_user.can_delete?(user_added_data)
     user_added_data.update_attributes({ deleted_at: Time.now })
     flash[:notice] = I18n.t('user_added_data.delete_successful')
     redirect_to taxon_data_path(user_added_data.taxon_concept_id)

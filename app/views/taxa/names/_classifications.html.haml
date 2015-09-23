@@ -9,7 +9,7 @@
 - if stored_classifications.blank?
   - stored_classifications = false
 - else
-  - HierarchyEntry.preload_associations(stored_classifications.map { |i| HierarchyEntry.find(i) rescue nil }, [ { hierarchy: [ { resource: :content_partner }, :dwc_resource ] }, :rank, :ancestors, :name ])
+  - HierarchyEntry.preload_associations(stored_classifications.map { |i| HierarchyEntry.find(i) rescue nil }, [ { hierarchy: [ { resource: :content_partner }, :dwc_resource ] }, :rank, :flat_ancestors, :name ])
 - stored_entries_on_this_page = false # When true, disables the "merge" button for the page (can't merge to yourself)
 - allow_more_splits = false if stored_classifications && !@hierarchy_entries.map {|h| h.id.to_s}.include?(stored_classifications.first.to_s)
 - allow_more_splits = false if @taxon_page.classifications_locked?

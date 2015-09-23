@@ -3,9 +3,9 @@ require File.dirname(__FILE__) + '/../../spec_helper'
 describe Users::NewsfeedsController do
 
   before(:all) do
-    truncate_all_tables
-    load_scenario_with_caching :testy
-    @testy = EOL::TestInfo.load('testy')
+   load_foundation_cache
+    @testy = {}
+    @testy[:user] = User.gen
   end
 
   describe 'GET show' do

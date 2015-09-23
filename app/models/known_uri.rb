@@ -13,8 +13,9 @@ class KnownUri < ActiveRecord::Base
 
   BASE = Rails.configuration.uri_term_prefix
   TAXON_RE = Rails.configuration.known_taxon_uri_re
+  DATO_RE = Rails.configuration.known_data_object_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
-  URIS_TO_LEAVE_AS_STRINGS = [ 'http://rs.tdwg.org/dwc/terms/measurementDeterminedDate' ]
+
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable
@@ -68,7 +69,7 @@ class KnownUri < ActiveRecord::Base
     :exclude_from_exemplars, :name, :known_uri_relationships_as_subject,
     :attribution,   :ontology_information_url, :ontology_source_url, :position,
     :group_by_clade, :clade_exemplar,   :exemplar_for_same_as, :value_is_text,
-    :hide_from_glossary
+    :hide_from_glossary, :value_is_verbatim
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -86,7 +87,7 @@ class KnownUri < ActiveRecord::Base
   scope :values, -> { where(uri_type_id: UriType.value.id) }
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
-  scope :visible, -> { where(visibility_id: Visibility.visible.id) }
+  scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
 
   COMMON_URIS = [
     { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
@@ -101,7 +102,8 @@ class KnownUri < ActiveRecord::Base
     { uri: Rails.configuration.uri_obo + 'UO_0000036', name: 'years' },
     { uri: Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius',
       name: '0.1°C' },
-    { uri: Rails.configuration.uri_term_prefix + 'log10gram', name: 'log10 grams' }
+    { uri: Rails.configuration.uri_term_prefix + 'log10gram',
+      name: 'log10 grams' }
   ]
 
   # This gets called a LOT.  ...Like... a *lot* a lot. But... DO NOT make a
@@ -161,6 +163,15 @@ class KnownUri < ActiveRecord::Base
     end
   end
 
+  def self.data_object_id(val)
+    match = val.to_s.scan(DATO_RE)
+    if match.empty?
+      false
+    else
+      match.first.second # Where the actual first matching group is stored.
+    end
+  end
+
   def self.taxon_uri(taxon_concept_or_id)
     if taxon_concept_or_id.is_a?(TaxonConcept)
       SparqlQuery::TAXON_PREFIX + taxon_concept_or_id.id.to_s
@@ -170,9 +181,11 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.add_to_data(rows)
+    EOL.log_call
     known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
       { known_uri_relationships_as_target: :from_known_uri }, :toc_items ])
+    EOL.log("replacing rows", prefix: '.')
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
@@ -383,8 +396,8 @@ class KnownUri < ActiveRecord::Base
   def self.search(term, options = {})
     options[:language] ||= Language.default
     return [] if term.length < 3
-    TranslatedKnownUri.where(language_id: options[:language].id).
-      where("name REGEXP '(^| )#{term}( |$)'").includes(:known_uri).collect(&:known_uri).compact.uniq
+    return search_by_uri(term, options[:language]) if EOL::Sparql.is_uri?(term)
+    return search_by_name(term, options[:language])
   end
 
   # Sort by: position of known_uri, rules of exclusion, and finally value display string
@@ -397,8 +410,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   def treat_as_string?
-    return true if KnownUri::URIS_TO_LEAVE_AS_STRINGS.include?(uri)
-    false
+    self.value_is_verbatim
   end
 
   def as_json(options = {})
@@ -409,15 +421,31 @@ class KnownUri < ActiveRecord::Base
     )
   end
 
+  #this solves the problem of method_missing for alias_method_chain
+  def self.find_by_uri(*args); super; end
+
+  def self.find_by_uri_with_generate(*args)
+    known_uri = KnownUri.find_by_uri_without_generate(*args)
+    if known_uri.nil?
+      uri = args.first
+      name = EOL::Sparql.uri_to_readable_label(uri)
+      return if name.nil?
+      known_uri= KnownUri.create( uri: uri, uri_type_id: UriType.measurement.id, visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id )
+      TranslatedKnownUri.create(name: name, known_uri_id: known_uri.id, language_id: Language.english.id)
+    end
+    known_uri
+  end
+  klass = class << self; alias_method_chain :find_by_uri, :generate; end
+
   private
 
   def default_values
     self.vetted ||= Vetted.unknown
-    self.visibility ||= Visibility.invisible # Since there are so many, we want them "not suggested", first.
+    self.visibility ||= Visibility.get_invisible # Since there are so many, we want them "not suggested", first.
   end
 
   def remove_whitespaces
-    self.uri.strip! if self.uri
+    self.uri = self.uri.strip if self.uri
   end
 
   def uri_must_be_uri
@@ -427,6 +455,16 @@ class KnownUri < ActiveRecord::Base
   def self.replace_with_uri(hash, key, known_uris)
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
+  end
+
+  def self.search_by_uri(term, language)
+    TranslatedKnownUri.where(language_id: language.id).
+      where("uri = ? ",term.strip).includes(:known_uri).map(&:known_uri).compact.uniq
+  end
+
+  def self.search_by_name(term, language)
+    TranslatedKnownUri.where(language_id: language.id).
+      where("name like ? ","%#{term.strip}%").includes(:known_uri).map(&:known_uri).compact.uniq
   end
 
 end

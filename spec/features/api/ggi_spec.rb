@@ -1,12 +1,16 @@
 require File.dirname(__FILE__) + '/../../spec_helper'
 
 describe 'API:traits' do
-  before(:all) do
-    truncate_all_tables
+  before(:all) do    
+    load_foundation_cache
     drop_all_virtuoso_graphs
-    load_scenario_with_caching :media_heavy
-    @data = EOL::TestInfo.load('media_heavy')
-    @taxon_concept = @data[:taxon_concept]
+    images = []
+    10.times { images << { :data_rating => 1 + rand(5), :source_url => 'http://photosynth.net/identifying/by/string/is/bad/change/me' } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.unknown } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.untrusted } }
+    10.times { images << { :data_rating => 1 + rand(5), :vetted => Vetted.inappropriate } }
+    @taxon_concept = build_taxon_concept(:canonical_form => 'Copious picturesqus', :common_names => [ 'Snappy' ],
+                                             :images => images, comments: [])
     @resource = Resource.gen
     KnownUri.gen_if_not_exists({ uri: SparqlQuery::GGI_URIS.first, name: 'Rich Pages in EOL' })
     @measurement = DataMeasurement.new(subject: @taxon_concept, resource: @resource,

@@ -128,18 +128,19 @@ describe 'taxa/data/index' do
     
     context 'with data' do
       before(:each) do
-        @dpu = DataPointUri.gen(unit_of_measure_known_uri: @ku,
-                              object: ".354",
-                              taxon_concept: @tc,
-                              vetted: Vetted.trusted,
-                              visibility: Visibility.visible)
-        
+        @data_point_uris = []
+        for i in 0..10
+          @data_point_uris << DataPointUri.gen(unit_of_measure_known_uri: @ku,
+                                              object: i.to_s,
+                                              taxon_concept: @tc,
+                                              vetted: Vetted.trusted,
+                                              visibility: Visibility.visible)
+        end
         curator = User.gen(curator_level_id: 1, curator_approved: 1, :credentials => 'Blah', :curator_scope => 'More blah')   
         session[:user_id] = curator.id
         allow(controller).to receive(:current_user) { curator }
-        @comment = Comment.gen(parent_id: @dpu.id, parent_type: "DataPointUri", body: "This is a comment")
-        @dpu.reload
-        assign(:data_point_uris, [@dpu])
+        @comment = Comment.gen(parent_id: @data_point_uris[0].id, parent_type: "DataPointUri", body: "This is a comment")
+        assign(:data_point_uris, @data_point_uris)
       end
 
       it "should NOT show units when undefined" do
@@ -148,7 +149,7 @@ describe 'taxa/data/index' do
       end
 
       it "should show units when defined" do
-        EOL::Sparql.should_receive(:explicit_measurement_uri_components).with(@ku).and_return(DataValue.new('chucks'))
+        EOL::Sparql.should_receive(:explicit_measurement_uri_components).with(@ku).at_least(11).times.and_return(DataValue.new('chucks'))
         render
         expect(rendered).to have_tag('span', text: /chucks/)
       end
@@ -185,6 +186,46 @@ describe 'taxa/data/index' do
       it "displays date of comment" do
         render
         expect(rendered).to have_tag('small', text: /ago/)
+      end
+      
+      it "should not display show 1 more" do
+        render
+        expect(rendered).not_to include("show 1 more")
+      end
+      
+      it "display show n more" do
+        extra_one = DataPointUri.gen(unit_of_measure_known_uri: @ku,
+                                              object: "100",
+                                              taxon_concept: @tc,
+                                              vetted: Vetted.trusted,
+                                              visibility: Visibility.visible)
+        extra = @data_point_uris
+        extra << extra_one
+        assign(:data_point_uris, extra)
+        render
+        expect(rendered).not_to include("show 2 more")
+      end
+      
+    end
+    context "treat values as strings" do
+      
+      before(:all) do 
+        @known_uri = KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_term_prefix+"verbatim_uri", value_is_verbatim: true)
+        @big_value = "199999999999.99999999"
+      end
+
+      it "doesn't format data value for verbatim known uris" do
+        @known_uri.update_attributes(value_is_verbatim: true)
+        assign(:data_point_uris, [ DataPointUri.gen(predicate_known_uri_id: @known_uri.id, object: @big_value ) ])
+        render
+        expect(rendered).to match /#{@big_value}/
+      end
+
+      it "doesn't format data value for verbatim known uris" do
+        @known_uri.update_attributes(value_is_verbatim: false)
+        assign(:data_point_uris, [ DataPointUri.gen(predicate_known_uri_id: @known_uri.id, object: @big_value ) ])
+        render
+        expect(rendered).not_to match /#{@big_value}/
       end
     end
   end

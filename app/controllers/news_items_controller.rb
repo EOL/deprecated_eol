@@ -57,8 +57,9 @@ class NewsItemsController < ApplicationController
     if ! news_item.nil? && ! current_user.can_read?(news_item) && ! logged_in?
       raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to NewsItem with ID=#{news_item.id}"
     elsif ! current_user.can_read?(news_item)
-      # TODO - second argument to constructor should be an I18n key for a human-readable error.
-      raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to NewsItem with ID=#{news_item.id}"
+      
+      raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have read access to NewsItem with ID=#{news_item.id}",
+      :only_admins_can_read_hidden_news_items)
     else # page exists so now we look for actual content i.e. a translated page
       if news_item.translations.blank?
         raise ActiveRecord::RecordNotFound, "Couldn't find TranslatedNewsItem with content_page_id=#{news_item.id}"
@@ -66,10 +67,11 @@ class NewsItemsController < ApplicationController
         translations_available_to_user = news_item.translations.select{|t| current_user.can_read?(t)}.compact
         if translations_available_to_user.blank?
           if logged_in?
-            # TODO - second argument to constructor should be an I18n key for a human-readable error.
-            raise EOL::Exceptions::SecurityViolation, "User with ID=#{current_user.id} does not have read access to any TranslatedNewsItem with news_item_id=#{news_item.id}"
+            
+            raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have read access to any TranslatedNewsItem with news_item_id=#{news_item.id}",
+            :only_admins_can_read_hidden_translated_news_items)
           else
-            # TODO - second argument to constructor should be an I18n key for a human-readable error.
+            
             raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to any TranslatedNewsItem with news_item_id=#{news_item.id}"
           end
         else
@@ -79,7 +81,6 @@ class NewsItemsController < ApplicationController
           @translated_news_items = translations_available_to_user
           @translated_news_item = translations_available_to_user.select{|t| t.language_id == @selected_language.id}.compact.first
           @page_title = @translated_news_item.nil? ? I18n.t(:news_missing_content_title) : @translated_news_item.title
-          current_user.log_activity(:viewed_content_page_id, value: page_id)
           @rel_canonical_href = news_url(news_item)
         end
       end

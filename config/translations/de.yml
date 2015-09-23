@@ -1,6 +1,7 @@
 # Messages for German (Deutsch)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Andreasburmeister
 # Author: Das Schäfchen
 # Author: DeeKay
 # Author: Eloquence
@@ -163,6 +164,7 @@ de:
         total_measurement_types: Messungstypen
         total_association_types: Verbindungstypen
         total_user_added_data: Von Nutzern hinzugefügte Daten
+        total_data_records: Datensätze
       forum:
         forum_category_id: Kategorie
         name: Forumname
@@ -196,6 +198,7 @@ de:
         uri: URI
         uri_type: URI-Typ
         value_is_text: Werte werden keine URIs sein, nur Text
+        value_is_verbatim: Werte werden keine Zahlen sein, nur Text
       known_uri_relationship:
         from_known_uri_id: Themen-URI
         to_known_uri_id: Ziel-URI
@@ -1542,6 +1545,7 @@ de:
       style='color:#195184'>kontaktieren Sie uns</a> bitte.
     see_all_activity: Alle bisherigen Aktivitäten auf <a href='%{activity_url}' style='color:#195184'>der
       Seite mit Ihrem Nachrichtenfeed</a>.
+    resource_validation: Die Überprüfung der Ressource %{resource} ist beendet
     bulk_comments_with_count:
       one: Es ist ein neuer Kommenar zu %{on} vorhanden.
       other: Es sind %{count} neue Kommentare zu %{on}vorhanden.
@@ -1704,14 +1708,6 @@ de:
         tweet_text: Kuratoren zu %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> stellt Datensätze
-          von vielen Anbietern zusammen. Wählen Sie für weitere Einzelheiten über
-          den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">durchsuchen
-          Sie TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          stellt Datensätze von vielen Anbietern zusammen. Wählen Sie für weitere
-          Einzelheiten über den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">suchen
-          Sie innerhalb %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Tatsachen über %{scientific_name}, wie von %{hierarchy_provider}
             in der Enzyklopädie des Lebens klassifiziert.
@@ -2203,6 +2199,7 @@ de:
       is_not_complete: Nein
       query_empty: (keine Filter)
       processing: verarbeitend
+      error: Etwas ist mit dieser Datei schief gelaufen
       refresh: aktualisieren
       row_count: Anzahl
       search_again: erneut suchen
@@ -3639,23 +3636,29 @@ de:
         merge_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Seitenzusammenführung
           wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
         merge_of_it_unlocked: Die kürzlich angefragte Zusammenführung auf dieser Seite
-          wurde fertig gestellt.
+          wurde fertig gestellt. Die Seiten werden jetzt reindexiert und werden zur
+          Vervollständigung bis zu 25 Stunden benötigen.
         merge_of_taxon_unlocked: Die kürzlich angefragte Seitenzusammenführung für
-          „%{taxon}“ wurde fertig gestellt.
+          „%{taxon}“ wurde fertig gestellt. Die Seiten werden jetzt reindexiert und
+          werden zur Vervollständigung bis zu 25 Stunden benötigen.
         move_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Klassifikationsverschiebung
           wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
         move_of_it_unlocked: Die kürzlich angefragte Klassifikationsverschiebung auf
-          dieser Seite wurde fertig gestellt.
+          dieser Seite wurde fertig gestellt. Die Seiten werden jetzt reindexiert
+          und werden zur Vervollständigung bis zu 25 Stunden benötigen.
         move_of_taxon_unlocked: Die kürzlich angefragte Klassifikationsverschiebung
-          für „%{taxon}“ wurde fertig gestellt.
+          für „%{taxon}“ wurde fertig gestellt. Die Seiten werden jetzt reindexiert
+          und werden zur Vervollständigung bis zu 25 Stunden benötigen.
         split_of_an_unknown_taxon_unlocked: Die kürzlich angefragte Klassifikationsaufteilung
           wurde fertig gestellt, aber die Seite konnte nicht gefunden werden.
         split_of_it_unlocked: Die kürzlich angefragte Klassifikationsaufteilung auf
           dieser Seite wurde fertig gestellt und die Klassifikationen wurden auf ihre
-          <a href='%{to}'>eigenständige Seite</a> verschoben.
+          <a href='%{to}'>eigenständige Seite</a> verschoben. Die Seiten werden jetzt
+          reindexiert und werden zur Vervollständigung bis zu 25 Stunden benötigen.
         split_of_taxon_unlocked: Die kürzlich angefragte Klassifikationsaufteilung
           für „%{taxon}“ wurde fertig gestellt und die Klassifikationen wurden auf
-          ihre <a href='%{to}'>eigenständige Seite</a> verschoben.
+          ihre <a href='%{to}'>eigenständige Seite</a> verschoben. Die Seiten werden
+          jetzt reindexiert und werden zur Vervollständigung bis zu 25 Stunden benötigen.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Die kürzlich angefragte Seitenzusammenführung
           ist <strong>fehlgeschlagen</strong>: %{error}. Zudem konnte die betreffende
@@ -4280,6 +4283,7 @@ de:
     auswählen. Andere Klassifikationen können auf die neue Seite nach der Erstellung
     verschoben werden.
   classifications_summary_header_with_count:
+    zero: EOL hat keine Klassifikation für dieses Taxon
     one: In einer Klassifikation gefunden
     other: In %{count} Klassifikationen gefunden
   classifications_with_count:
@@ -4329,6 +4333,9 @@ de:
       Sammlungsobjekten erstellt.
   collection_delete_link: Diese Sammlung dauerhaft löschen
   collection_destroyed: Die Sammlung wurde gelöscht.
+  collection_removed: Die Sammlung %{collection} wurde gelöscht.
+  collection_update_failure: Das Aktualisieren der Sammlung %{collection} ist fehlgeschlagen.
+    Überprüfen Sie, ob es ein Problem in Sammlungsobjekten gibt
   collection_error_no_items_selected: 'Fehler: Es wurden keine Objekte ausgewählt,
     so dass keine Aktion ausgeführt werden konnte.'
   collection_image: Bild der Sammlung
@@ -4500,6 +4507,8 @@ de:
     auch der Nachrichtenfeed wird aufrecht erhalten. Die Gemeinschaft wird allerdings
     nicht mehr bei den Suchergebnissen oder auf den Seiten zu Taxa angezeigt. Auch
     wird sie nicht länger bearbeitbar sein.
+  confirm_delete_data_object: Möchten Sie dieses Datenobjekt wirklich löschen? Diese
+    Aktion kann nicht rückgängig gemacht werden.
   confirm_leave: Sind Sie sich sicher, dass Sie diese Gemeinschaft verlassen möchten?
   confirm_password_colon: 'Passwort bestätigen:'
   contact: Kontakt
@@ -4625,6 +4634,8 @@ de:
     %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Es ist leider ein Fehler aufgetreten,
     so dass die Quelle nicht hinzugefügt werden konnte.
+  content_partner_resource_validation_finish_notice: Die Überprüfung der Inhaltspartnerressourcen
+    ist abgeschlossen und ihr Status ist %{resource_status}.
   content_partner_resource_dataset_details_header: Dataset
   content_partner_resource_delete_with_type_link: Alles löschen
   content_partner_resource_description_empty: Für diese Quelle wurde noch keine Beschreibung
@@ -4651,8 +4662,10 @@ de:
   content_partner_resource_harvest_event_update_unsuccessful_error: Es ist leider
     ein Fehler aufgetreten, so dass der Datenabruf für %{resource_title} nicht aktualisiert
     wurde.
-  content_partner_resource_has_been_deleted: Alles von der Quelle %{resource_title}
-    Gesammelte wurde erfolgreich gelöscht
+  content_partner_resource_page_title: Enzyklopädie des Lebens – %{content_partner_name}
+    – %{resource_name}
+  content_partner_resource_will_be_deleted: Alles von der Quelle %{resource_title}
+    gesammelte wird gelöscht, bitte erlauben Sie für die Verarbeitung 24 Stunden.
   content_partner_resource_hierarchy_browsable: Durchsuchbar
   content_partner_resource_hierarchy_complete_true: Diese Hierarchie wird <strong>kuratiert</strong>.
     Bei einer kuratierten Hierarchie wird davon ausgegangen, das jeder Eintrag eindeutig
@@ -4698,6 +4711,8 @@ de:
   content_partner_resource_update_successful_notice: 'Die Informationen zur Quelle
     des Inhaltspartners wurde erfolgreich aktualisiert. Der aktuelle Status der Quellendaten:
     %{resource_status}.'
+  content_partner_resource_update_successful: Einzelheiten der Inhaltspartnerressourcen
+    erfolgreich aktualisiert.
   content_partner_resource_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten,
     so dass die Quelle nicht aktualisiert werden konnte.
   content_partner_resource_upload_unsuccessful_error: 'Es ist leider ein Fehler aufgetreten,
@@ -4927,6 +4942,7 @@ de:
   current_harvest_event: Abruf von %{resource_title} läuft seit %{period} Stunden
   currently_running_harvesting: Aktuell laufender Abruf
   currently_in_eol: 'Derzeit in der Enzyklopädie des Lebens verzeichnet:'
+  institutional_sponsors: Institutionelle Sponsoren
   currently_published: derzeit veröffentlicht
   daily: Täglich
   darwin_core: Darwin Core
@@ -4946,8 +4962,8 @@ de:
     weitere Informationen zu TraitBank.</p>
   data_results_only_for_search: TraitBank-Ergebnisse für „%{search_term}“
   data_search_limit:
-    one: Datensuchdownloads sind beschränkt auf ein Ergebnis.
-    other: Datensuchdownloads sind beschränkt auf %{count} Ergebnisse.
+    one: Die Ergebnisse der Datensuche wird als %{count} Satz pro Datei heruntergeladen.
+    other: Die Ergebnisse der Datensuche wird als %{count} Sätze pro Datei heruntergeladen.
   data_about_this_record: Daten über diese Aufzeichnung
   data_column_tc_id: EOL-Seitenkennung
   data_column_sci_name: Wissenschaftlicher Name
@@ -4968,6 +4984,13 @@ de:
   data_column_raw_units: Roheinheiten (direkt von der Quelle)
   data_column_raw_units_uri: Roheinheiten-URI (normalisiert)
   data_column_source: Anbieter
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> stellt Datensätze
+    von vielen Providern zusammen. Wählen Sie für weitere Informationen über den Datensatz
+    eine Zeile aus oder <a href="%{traitbank_search_path}">durchsuchen Sie TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    stellt Datensätze von vielen Providern zusammen. Wählen Sie für weitere Einzelheiten
+    über den Datensatz eine Zeile aus oder <a href="%{traitbank_search_path}">suchen
+    Sie innerhalb %{taxon_name}</a>.
   data_database_colon: 'Datenbanken (Daten):'
   data_glossary: Datenglossar
   data_glossary_contribute: Um neue Begriffe diesem Glossar hinzuzufügen, erwägen
@@ -4978,6 +5001,7 @@ de:
   data_metadata_subtable_summary: Zusätzliche Daten über diese Tatsache.
   data_measurement_subtable_summary: Zusätzliche Daten über die Messung dieser Tatsache.
   data_object: Datenobjekt
+  data_object_deleted: Das Datenobjekt wurde erfolgreich gelöscht
   data_object_not_associated_with_any_hierarchies: Dieses Datenobjekt ist keiner Hierarchien
     zugeordnet.
   data_object_reference: Datenobjektquelle
@@ -5014,6 +5038,11 @@ de:
   data_search:
     page_title: TraitBank durchsuchen
     form:
+      equivalent_attributes: 'Äquivalente Werte:'
+      equivalent_values: 'Äquivalente Werte:'
+      search_again_for_attributes: erneut suchen zum Einschließen der ausgewählten
+        Attribute
+      search_again_for_values: erneut suchen zum Einschließen der ausgewählten Werte
       header_assistive: Suchformular
       input_summary_intro: Ausgewählte Suchoptionen
       new_search_link: Eine neue Suche starten
@@ -5137,6 +5166,7 @@ de:
   default_rating_value_of_total: 'Standardbewertung: %{rating} von %{total}'
   default_watch_collection_name: '%{username}s Beobachtungsliste'
   delete_community: Diese Gemeinschaft löschen
+  delete_data_object: Löschen
   delete: löschen
   deleted_colon: 'löschte:'
   delete_firstcap: Löschen
@@ -5229,6 +5259,7 @@ de:
   eol_api: EOL-API
   eol_api_hierarchies: 'EOL-API: Hierarchien'
   eol_api_hierarchy_entries: 'EOL-API: Hierarchieeinträge'
+  eol_api_hierarchy_entries_descendants: 'EOL-API: Nachfahren der Hierarchieeinträge'
   eol_api_pages: 'EOL-API: Seiten'
   eol_api_ping: 'EOL-API: Ping'
   eol_api_provider_hierarchies: 'EOL-API: Anbieterhierarchien'
@@ -5240,6 +5271,8 @@ de:
   eol_news: Nachrichten der EOL
   eol_pages: Seiten
   error_log_detail: Fehlerprotokolldetail
+  error_revoking_editor_on_watch_collection: Bearbeiter können nicht von der Beobachtung
+    von Sammlungen entfernt werden
   error_log: Fehlerprotokoll
   error_logging_active: Fehlerprotokollierung aktive
   error_401_page_title: Nicht berechtigt
@@ -5299,6 +5332,55 @@ de:
         und EOL-Kuratoren beschränkt, die mindestens Hauptkuratoren sind.
       no_access: Leider ist diese Funktion derzeit deaktiviert. Schauen Sie später
         wieder vorbei.
+      missing_edit_acess_to_forum_category: Nur Administratoren können diese Forumkategorie
+        bearbeiten
+      missing_delete_acess_to_forum_category: Nur Administratoren können diese Forumkategorie
+        löschen
+      missing_edit_acess_to_forum_post: Nur Administratoren oder Beitragsbesitzer
+        können diesen Forumsbeitrag bearbeiten
+      missing_delete_acess_to_forum_post: Nur Administratoren oder Beitragsbesitzer
+        können diesen Forumsbeitrag löschen
+      missing_set_article_as_exemplar_privilege: Nur Kuratoren können Artikel als
+        Exemplare festlegen
+      missing_delete_access_to_synonym: Nur Agenten löschen dieses Synonym
+      missing_delete_access_to_data_search_file: Nur Administratoren, Hauptkuratoren
+        oder Dateibesitzer können diese Datei löschen
+      missing_permission_to_view_open_authentications: Nur Administratoren und Kontenbesitzer
+        können diese offene Authentifizierung für dieses Konto ansehen
+      missing_permission_to_add_open_authentications: Nur Administratoren und Kontenbesitzer
+        können offene Authentifizierungen für dieses Konto hinzufügen
+      missing_permission_to_delete_open_authentications: Nur Administratoren und Kontenbesitzer
+        können offene Authentifizierungen für dieses Konto löschen
+      this_action_requires_higher_curation_level: Diese Aktion erfordert ein höheres
+        Kuratierungsniveau
+      admins_and_joined_only_can_read: Sie sollten diesen Sammlungen beitreten, um
+        sie ansehen zu können
+      owner_and_managers_only_can_edit: Nur Sammlungsbesitzer oder Verwalter können
+        diese bearbeiten
+      error_revoking_editor_on_watch_collection: Bearbeiter können nicht von der Beobachtung
+        von Sammlungen entfernt werden
+      error_revoking_editor_on_an_empty_community: Bearbeiter können nicht von einer
+        leeren Gemeinschaft entfernt werden
+      only_managers_can_edit_community: Nur Verwalter können diese Gemeinschaft bearbeiten
+      only_managers_can_delete_community: Nur Verwalter können diese Gemeinschaft
+        löschen
+      only_admins_can_view_content_pages: Nur Administratoren können Inhaltsseiten
+        ansehen
+      only_admins_can_view_translated_content_pages: Nur Administratoren können übersetzte
+        Inhaltsseiten ansehen
+      only_admins_can_edit_forums: Nur Administratoren können Foren bearbeiten
+      must_be_logged_in: Sie müssen angemeldet sein
+      only_admins_can_read_hidden_news_items: Nur Administratoren können versteckte
+        Nachrichtenelemente lesen
+      only_admins_can_read_hidden_translated_news_items: Nur Administratoren können
+        übersetzte versteckte Nachrichtenelemente lesen
+      can_not_access_unpublished_taxon: Sie haben keinen Zugriff auf dieses unveröffentlichte
+        Taxon.
+      only_data_owner_can_edit: Nur Datenbesitzer können diese bearbeiten
+      only_data_owner_can_delete: Nur Datenbesitzer können diese löschen
+      error_editing_someone_account: Sie können nur Ihr eigenes Konto bearbeiten
+      can_not_edit_permissions: Sie können keine Berechtigungen bearbeiten
+      collection_job_not_valid: Der Sammlungsauftrag ist ungültig
   excluded_icon_tip: Zeilen, die mit dem Symbol %{excluded_icon} gekennzeichnet sind,
     werden nie auf Taxonübersichtsseiten angezeigt.
   expand_all_children: alle untergeordneten Objekte expandieren
@@ -5387,6 +5469,36 @@ de:
   filter_newsfeed_option_watchlist: Beobachtungsliste
   filter_newsfeed_option_curation: Kuratierung
   filtered_information: Gefilterte Informationen
+  taxon_concept_search_keyword:
+    one: Taxon
+    other: Taxa
+  image_search_keyword:
+    one: Bild
+    other: Bilder
+  video_search_keyword:
+    one: Video
+    other: Videos
+  sound_search_keyword:
+    one: Ton
+    other: Töne
+  text_search_keyword:
+    one: Artikel
+    other: Artikel
+  data_search_keyword:
+    one: Eigenschaft
+    other: Eigenschaften
+  link_search_keyword:
+    one: Link
+    other: Links
+  user_search_keyword:
+    one: Person
+    other: Personen
+  community_search_keyword:
+    one: Gemeinschaft
+    other: Gemeinschaften
+  collection_search_keyword:
+    one: Sammlung
+    other: Sammlungen
   find_taxa_submit_button: Taxa ermitteln
   flash_notice_redirected_from_search_html: Sie haben diese Seite aufgrund Ihrer Suche
     nach <em>%{search_string}</em> erreicht. <a href="%{more_results_url}">Klicken
@@ -5457,6 +5569,8 @@ de:
     Suchergebnisse zu erwarten.
   gives_access_to_a_single_hierarchy_indexed_by_eol: ermöglicht den Zugriff auf eine
     einzelne von EOL indizierte Hierarchie und seine internen Beziehungen
+  gives_access_to_a_single_hierarchy_descendants_by_eol: gewährt Zugriff auf Nachfahren
+    eines einzelnen Hierarchieeintrags
   global_access_tagline: Globaler Zugang zum Wissen über das Leben auf der Erde.
   global_navigation: Globale Navigation
   glossary: Glossar
@@ -5535,6 +5649,7 @@ de:
     wird, werden nur vertrauenswürdige und nicht geprüfte Inhalte ausgeben. Nicht
     vertrauenswürdige Inhalte werden dabei nicht ausgegeben. Die Standardeinstellung
     gibt alle Inhalte ungeachtet des Status aus.
+  reindex_data_object_button: Objekt reindexieren
   reindex_page_button: Seite reindizieren
   image: Bild
   image_cropped_notice: Das Bild wurde erfolgreich zugeschnitten.
@@ -5675,6 +5790,10 @@ de:
   known_uris_none: Niemand hat URIs dieses Typs hinzugefügt.
   known_uris_page_title: URIs für Daten auf EOL
   known_uris_sorted: Reihenfolge aktualisiert.
+  pending_harvests_none: Es gibt jetzt keine ausstehenden Abrufe
+  pending_harvests_title: Ausstehende Abrufe
+  pause_pending_harvests: Abruf pausieren
+  resume_pending_harvests: Abruf fortsetzen
   label: Bezeichnung
   language: 'Sprache:'
   languages: Sprachen
@@ -5682,6 +5801,7 @@ de:
     in denen die Inhalte der Website verfügbar sind. Um die aktuell genutzte Sprache
     zu ändern, wählen Sie bitte eine andere Sprache aus dieser Liste.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Dauer des letzten Abrufs
   last_updated: Zuletzt aktualisiert
   last_updated_time_ago: Letztmalig vor %{time_passed} aktualisiert
   learn_about_collections: Wie kann ich eine erstellen?
@@ -6352,6 +6472,7 @@ de:
   recount_collection_items: Sammlungselemente erneut zählen (ungültige Zähler korrigieren;
     dies <i>wird</i> eine Zeitüberschreitung im Browser verursachen, aber es funktioniert)
   recount_collection_items_done: Erneute Zählung der Sammlungselemente abgeschlossen.
+  redirect_url_ok_title_unavailable: Weiterleitungs-URL in Ordnung, Titel nicht verfügbar
   reference: Nachweis
   references_cabs_colon: 'Quellennachweise:'
   related_names_with_count:
@@ -6817,6 +6938,8 @@ de:
     um zu erfahren, wie man auf andere Hierarchien zugreifen kann, die mit einer bestimmten
     Seite der EOL in Verbindung stehen. Das Feld „taxonConceptID“ enthält die Kennung
     der EOL-Seite, die in der Seiten-API genutzt werden kann.
+  hierarchies_entries_descendants_description: Durch das Angeben der Bezeichnung eines
+    Hierarchieeintrags gibt diese API alle Nachfahren dieses Hierarchieeintrags zurück.
   hierarchies_description: Bei der Enzyklopädie des Lebens (EOL) gibt es keine einzelne
     taxonomische Hierarchie auf deren Basis die Seiten erstellt werden. Tatsächlich
     indexiert EOL viele Hierarchien und vergleicht sie miteinander. Diese API listet
@@ -6897,6 +7020,7 @@ de:
   this_community_has_no_focus_list: Diese Gemeinschaft verfügt über keine Liste an
     Schwerpunkten.
   this_community_was_deleted: Diese Gemeinschaft wurde von ihrem Besitzer gelöscht.
+  this_data_object_will_be_reindexed: Dieses Datenobjekt wird reindexiert.
   this_does_not_necessarily_mean: '* Dies bedeutet nicht notwendigerweise, dass alle
     Verbindungen verwendet werden, sondern lediglich, dass sie in der Datei „database.yml“
     definiert werden. Ob die Hauptverbindungen konfiguriert worden sind, steht in
@@ -7215,7 +7339,6 @@ de:
   view_added_text: hinzugefügten Text anzeigen
   view_as_button: Ansicht ändern
   view_as_label: Betrachten als
-  view_common_activities: allgemeine Aktivitäten anzeigen
   view_contact_us_submissions: Kontaktaufnahmen zu uns anzeigen
   view_curators: Kuratoren anzeigen
   view_current_version_link: Aktuelle Version anzeigen
@@ -7232,11 +7355,9 @@ de:
   view_sound_source: Quelle der Audiodatei anzeigen
   view_source: Quelle anzeigen
   view_video_source: Quelle der Videodatei anzeigen
-  view_common_activities_link: Liste der häufigsten Aktivitäten ansehen.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Nur Seiten mit mindestens
     einem Bild oder Text anzeigen.
   view_this_hierarchy: diese Hierarchie ansehen
-  view_user_activity: Nutzeraktivität anzeigen
   view_user_comments: Nutzerkommentare anzeigen
   view_your_curator_profile: Ihr Profil als Kurator ansehen
   vimeo: Vimeo

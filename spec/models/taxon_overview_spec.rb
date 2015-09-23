@@ -3,7 +3,8 @@ require "spec_helper"
 describe TaxonOverview do
 
   before(:all) do
-    load_foundation_cache
+    load_foundation_cache  
+    @res = Resource.gen(title: "IUCN Structured Data")  
   end
 
   before(:each) do # NOTE - we want these 'pristine' for each test, because values get cached.
@@ -105,7 +106,7 @@ describe TaxonOverview do
   it 'should know how many classifications it has available' do
     hiers = []
     4.times { hiers << HierarchyEntry.gen(taxon_concept: @taxon_concept) }
-    @taxon_concept.should_receive(:published_browsable_hierarchy_entries).and_return(hiers)
+    @taxon_concept.should_receive(:published_hierarchy_entries).and_return(hiers)
     @overview.classifications_count.should == 4
   end
 
@@ -173,16 +174,15 @@ describe TaxonOverview do
   end
 
   it 'should know iucn status' do
-    iucn = DataObject.gen(description: 'wunderbar')
-    @taxon_concept.stub_chain(:data_objects, :where, :order, :first).and_return(iucn)
-    @overview.iucn_status.should == 'wunderbar'
+    (DataMeasurement.new(predicate: "<http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>", object: "Wunderbar", resource: @res, subject: @taxon_concept)).add_to_triplestore    
+    @overview.iucn_status.should == 'Wunderbar'
   end
   
   it 'has default iucn status = nil' do
     expect(@overview.iucn_status).to be_nil
   end
   
-  it 'has default iucn url = nil' do
+  it 'has default iucn url = nil' do    
     expect(@overview.iucn_url).to be_nil
   end
 
@@ -190,4 +190,13 @@ describe TaxonOverview do
     @overview.cache_id.should == "taxon_overview_#{@taxon_concept.id}_#{@language.iso_639_1}"
   end
 
+  it 'includes the nonbrowsable hierarchy_entries in the classifications_count' do
+    browsable_hierarchy = Hierarchy.gen(browsable: 1)
+    nonbrowsable_hierarchy = Hierarchy.gen(browsable: 0)
+    tc = TaxonConcept.gen
+    3.times{ HierarchyEntry.gen(hierarchy_id: browsable_hierarchy.id, published: 1, taxon_concept_id: tc.id )}
+    2.times{ HierarchyEntry.gen(hierarchy_id: nonbrowsable_hierarchy.id, published: 1, taxon_concept_id: tc.id )}
+    overview = TaxonOverview.new(tc, @user)
+    expect(overview.classifications_count).to eq(5)
+  end
 end

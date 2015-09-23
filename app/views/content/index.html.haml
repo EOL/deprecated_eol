@@ -46,3 +46,8 @@
           %dl
             %dt= link_to I18n.t(:data), data_search_path
             %dd= number_with_delimiter(EOL::GlobalStatistics.find("data"), :delimiter => ",")
+    .article.sponsors
+      %h3
+        = raw I18n.t(:institutional_sponsors)
+        - cache(:action => 'index', :action_suffix => "sponsors_#{current_language.iso_639_1}") do
+          = render 'institutional_sponsors/index'

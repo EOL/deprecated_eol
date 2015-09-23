@@ -7,20 +7,31 @@ class TaxonDataSet
   GENDER = 1
   LIFE_STAGE = 0
 
-  def initialize(rows, options = {})
-    virtuoso_results = rows
+  def initialize(virtuoso_results, options = {})
+    EOL.log_call
     @taxon_concept = options[:taxon_concept]
     @language = options[:language] || Language.default
     KnownUri.add_to_data(virtuoso_results)
-    DataPointUri.preload_data_point_uris!(virtuoso_results, @taxon_concept.try(:id))
+    DataPointUri.preload_data_point_uris!(virtuoso_results,
+      @taxon_concept.try(:id))
     @data_point_uris = virtuoso_results.collect{ |r| r[:data_point_instance] }
     unless options[:preload] == false
+      EOL.log("preloading TCs, comments, exemplars, CPs", prefix: '.')
       DataPointUri.preload_associations(@data_point_uris, [ :taxon_concept, :comments, :taxon_data_exemplars, { resource: :content_partner } ])
-      DataPointUri.preload_associations(@data_point_uris.select{ |d| d.association? }, target_taxon_concept:
-        [ { preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } } } ])
-      TaxonConcept.load_common_names_in_bulk(@data_point_uris.select{ |d| d.association? }.collect(&:target_taxon_concept), @language.id)
+      EOL.log("preloading target TCs w/ preferred_entries", prefix: '.')
+      DataPointUri.preload_associations(
+        @data_point_uris.select { |d| d.association? },
+        target_taxon_concept: [ {
+          preferred_entry: { hierarchy_entry: { name: :ranked_canonical_form } }
+        } ]
+      )
+      TaxonConcept.load_common_names_in_bulk(
+        @data_point_uris.select { |d| d.association? }.
+          collect(&:target_taxon_concept), @language.id
+      )
       DataPointUri.initialize_labels_in_language(@data_point_uris, @language)
     end
+    EOL.log("converting units", prefix: '.')
     convert_units
   end
 
@@ -51,19 +62,23 @@ class TaxonDataSet
   end
 
   # NOTE: this is 'destructive', since we don't ever need it to not be. If that
-  # changes, make the corresponding method and add a bang to this one.
-  # NOTE: 0 for life stage and 1 for gender
+  # changes, make the corresponding method and add a bang to this one. NOTE: 0
+  # for life stage and 1 for gender
   def sort
+    EOL.log_call
     # This looks complicated, but it's actually really fast:
     last_attribute_pos = @data_point_uris.map do |dpuri|
       dpuri.predicate_known_uri.try(:position) || 0
     end.max || 0 + 1
     stat_positions = get_positions
     last_stat_pos = stat_positions.values.max || 0 + 1
+    # Cache all those known URIs—they are expensive to look up individually!
+    EOL.log("loading kuris", prefix: '.')
+    load_kuris
+    EOL.log("sorting by method", prefix: '.')
     @data_point_uris.sort_by! do |data_point_uri|
-      attribute_label =
-        EOL::Sparql.uri_components(data_point_uri.predicate_uri)[:label]
-      attribute_pos = data_point_uri.predicate_known_uri.try(:position) ||
+      attribute_label = data_point_uri.predicate_kuri.try(:name)
+      attribute_pos = data_point_uri.predicate_kuri.try(:position) ||
         last_attribute_pos
       attribute_label = safe_downcase(attribute_label)
       value_label = safe_downcase(data_point_uri.value_string(@language))
@@ -108,8 +123,9 @@ class TaxonDataSet
     self
   end
 
-  # TODO - in my sample data (which had a single duplicate value for 'weight'), running this then caused the "more"
-  # to go away.  :\  We may not care about such cases, though.
+  # TODO - in my sample data (which had a single duplicate value for 'weight'),
+  # running this then caused the "more" to go away.  :\  We may not care about
+  # such cases, though.
   def uniq
     h = {}
     @data_point_uris.each { |data_point_uri| h["#{data_point_uri.predicate}:#{data_point_uri.object}"] = data_point_uri }
@@ -127,13 +143,26 @@ class TaxonDataSet
     end
   end
 
-  # Returns a HASH where the keys are KnownUris and the values are ARRAYS of DataPointUris.
+  # Returns a HASH where the keys are KnownUris and the values are ARRAYS of
+  # DataPointUris.
   def categorized
     categorized = @data_point_uris.group_by { |data_point_uri| data_point_uri.predicate_uri }
     categorized
   end
 
+  def load_kuris
+    predicates = KnownUri.where(uri: @data_point_uris.map(&:predicate).uniq)
+    @data_point_uris.each do |dpuri|
+      dpuri.predicate_kuri = predicates.find { |p| p.uri == dpuri.predicate }
+    end
+    objects = KnownUri.where(uri: @data_point_uris.map(&:object).uniq)
+    @data_point_uris.each do |dpuri|
+      dpuri.object_kuri = objects.find { |p| p.uri == dpuri.object }
+    end
+  end
+
   def to_jsonld
+    EOL.log("#to_jsonld for #{@taxon_concept.id}")
     raise "Cannot build JSON+LD without taxon concept" unless @taxon_concept
     jsonld = { '@graph' => [ @taxon_concept.to_jsonld ] }
     if wikipedia_entry = @taxon_concept.wikipedia_entry
@@ -142,10 +171,20 @@ class TaxonDataSet
     @taxon_concept.common_names.map do |tcn|
       jsonld['@graph'] << tcn.to_jsonld
     end
+    EOL.log("assigning metadata")
+    # Speed things up immensely (but still not FAST):
+    DataPointUri.assign_metadata(@data_point_uris, Language.default)
+    # This is usually only a handful of results!
+    meta_uris = KnownUri.where(
+      uri: @data_point_uris.flat_map { |u| u.metadata.map(&:predicate) }.uniq
+    )
+    EOL.log("building graph")
     @data_point_uris.map do |dpuri|
-      jsonld['@graph'] << dpuri.to_jsonld(metadata: true)
+      jsonld['@graph'] << dpuri.to_jsonld(metadata: true, meta_uris: meta_uris)
     end
+    EOL.log("filling context")
     fill_context(jsonld)
+    EOL.log("#to_jsonld done")
     jsonld
   end
 

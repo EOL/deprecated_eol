@@ -14,7 +14,6 @@ class Taxa::OverviewController < TaxaController
     end
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = taxon_overview_url(@overview)
-    current_user.log_activity(:viewed_taxon_concept_overview, taxon_concept_id: @taxon_concept.id)
   end
 
 end

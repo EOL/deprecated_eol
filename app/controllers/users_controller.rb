@@ -37,9 +37,9 @@ class UsersController < ApplicationController
   # GET /users/:id/edit
   def edit
     @user = User.find(params[:id], include: :open_authentications)
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}",
+    :error_editing_someone_account) unless current_user.can_update?(@user)
     redirect_if_user_is_inactive
     flash.now[:notice] = I18n.t(:warning_you_are_editing_as_admin) if current_user.id != @user.id
     instantiate_variables_for_edit
@@ -48,18 +48,18 @@ class UsersController < ApplicationController
    # GET /users/:id/curation_privileges
   def curation_privileges
     @user = User.find(params[:id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}",
+    :error_editing_someone_account) unless current_user.can_update?(@user)
     instantiate_variables_for_curation_privileges
   end
 
   # PUT /users/:id
   def update
     @user = User.find(params[:id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}" unless current_user.can_update?(@user)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to User with ID=#{@user.id}",
+    :error_editing_someone_account)unless current_user.can_update?(@user)
     redirect_to curation_privileges_user_path(@user), status: :moved_permanently and return if params[:commit_curation_privileges_get]
     redirect_to edit_user_notification_path(@user), status: :moved_permanently and return if params[:commit_notification_settings_get]
     generate_api_key and return if params[:commit_generate_api_key]
@@ -74,7 +74,6 @@ class UsersController < ApplicationController
         @user,
         name: params[:user][:logo].original_filename
       ) unless params[:user][:logo].blank?
-      current_user.log_activity(:updated_user)
       store_location params[:return_to] if params[:return_to]
       provide_feedback
       redirect_back_or_default @user
@@ -119,8 +118,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     collection = Collection.find(params[:collection_id])
     raise EOL::Exceptions::ObjectNotFound unless collection
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation if collection.watch_collection?
+    
+    raise EOL::Exceptions::SecurityViolation.new("User attempted to revoke editor on watch collection", :error_revoking_editor_on_watch_collection) if collection.watch_collection?
     @user.collections.delete(collection)
     flash[:notice] = I18n.t(:user_no_longer_has_manager_access_to_collection, user: @user.username,
                             collection: collection.name)
@@ -214,10 +213,9 @@ class UsersController < ApplicationController
   # GET and POST for member /users/:id/terms_agreement
   def terms_agreement
     @user = User.find(params[:id])
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "User with ID=#{current_user.id} does not have permission to access terms agreement"\
-      " for User with ID=#{@user.id}" unless current_user.can_update?(@user)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have permission to access terms agreement"\
+      " for User with ID=#{@user.id}", :error_editing_someone_account) unless current_user.can_update?(@user)
     if request.post? && params[:commit_agreed]
       @user.update_column(:agreed_with_terms, true) # saving without validation to avoid issues with invalid legacy users
       @user.expire_primary_index
@@ -279,10 +277,9 @@ class UsersController < ApplicationController
   # GET /users/verify_open_authentication
   # Third-party apps redirect here from authorization screens, when existing users request to add connected accounts
   def verify_open_authentication
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation,
-      "We got an authorization callback from a third-party app to add a connected account,"\
-      "but we don't have a current user account to add it to, as no one is logged in." unless logged_in?
+    
+    raise EOL::Exceptions::SecurityViolation.new("We got an authorization callback from a third-party app to add a connected account,"\
+      "but we don't have a current user account to add it to, as no one is logged in.", :must_be_logged_in) unless logged_in?
     params.delete(:controller)
     params.delete(:action)
     redirect_to new_user_open_authentication_url(params.merge({user_id: current_user.id}))
@@ -309,7 +306,7 @@ class UsersController < ApplicationController
         user = @users.first
       end
       if user.hidden?
-        # TODO - second argument to constructor should be an I18n key for a human-readable error.
+        
         raise EOL::Exceptions::SecurityViolation.new(
           "Hidden User with ID=#{user.id} attempted to recover their account and was disallowed.",
           :hidden_user_recover_account)
@@ -337,7 +334,7 @@ class UsersController < ApplicationController
       flash[:error] = I18n.t('users.recover_account.errors.temporary_login_user_not_found')
     else
       if user.hidden?
-        # TODO - second argument to constructor should be an I18n key for a human-readable error.
+        
         raise EOL::Exceptions::SecurityViolation.new(
           "Hidden User with ID=#{user.id} attempted to use a temporary login link and was disallowed.",
           :hidden_user_temporary_login)
@@ -370,8 +367,9 @@ class UsersController < ApplicationController
     user = User.find(params[:id])
     @permission = Permission.find(params[:permission_id])
     raise EOL::Exceptions::ObjectNotFound unless @permission
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation unless current_user.can?(:edit_permissions)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with id = #{current_user.id} tried to grant permission with id = #{params[:permission_id]}",
+    :can_not_edit_permissions) unless current_user.can?(:edit_permissions)
     user.grant_permission(@permission)
     respond_to do |format|
       format.html do
@@ -386,8 +384,9 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @permission = Permission.find(params[:permission_id])
     raise EOL::Exceptions::ObjectNotFound unless @permission
-    # TODO - second argument to constructor should be an I18n key for a human-readable error.
-    raise EOL::Exceptions::SecurityViolation unless current_user.can?(:edit_permissions)
+    
+    raise EOL::Exceptions::SecurityViolation.new("User with id = #{current_user.id} tried to grant permission with id = #{params[:permission_id]}",
+    :can_not_edit_permissions) unless current_user.can?(:edit_permissions)
     @user.revoke_permission(@permission)
     respond_to do |format|
       format.html do

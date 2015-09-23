@@ -146,6 +146,7 @@ mk:
         total_measurement_types: Типови на мерења
         total_association_types: Типови на поврзаност
         total_user_added_data: Кориснички-додадени податоци
+        total_data_records: Податочни записи
       forum:
         forum_category_id: Категорија
         name: Име на форумот
@@ -179,6 +180,7 @@ mk:
         uri: URI
         uri_type: Тип на URI
         value_is_text: Вредностите нема да бидат URI-ја, туку само текст
+        value_is_verbatim: Вредностите нема да бидат броеви, туку само текст
       known_uri_relationship:
         from_known_uri_id: URI на темата
         to_known_uri_id: Целно URI
@@ -264,7 +266,7 @@ mk:
         api_key: Извршнички клуч
         bio: Био
         credentials: Полномоштва
-        curator_level: Степен на кустоство
+        curator_level: Кустоски чин
         curator_scope: Опсег на згрижувањето
         disable_email_notifications: Не сакам да добивам НИКАКВИ актуелности по е-пошта
         email: Е-пошта
@@ -276,7 +278,7 @@ mk:
         given_name: Име
         language_abbr: Претпочитан јазик
         permissions: Дозволи
-        requested_curator_level_id: Посакувано ниво на згрижување
+        requested_curator_level_id: Посакувано ниво на кустоство
         tag_line: Гесло
         username: Корисничко име
       user_added_data:
@@ -1460,6 +1462,7 @@ mk:
       style='color:#195184'>нè контактирате</a>.
     see_all_activity: Сите претходни активности ќе ги најдете на <a href='%{activity_url}'
       style='color:#195184'>вашата страница за актуелности</a>.
+    resource_validation: 'Ресурсот: проверката на %{resource} е завршена'
     bulk_comments_with_count:
       one: Има еден нов коментар на %{on}
       other: Има %{count} коментари на %{on}
@@ -1605,13 +1608,6 @@ mk:
         tweet_text: Кустоси на %{scientific_name}
     data:
       index:
-        data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни
-          записи од многу разни добавувачи. ОДберете ред за да видите повеќе за записот,
-          или пак <a href="%{traitbank_search_path}">пребарајте ја TraitBank</a>.
-        data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-          собира податочни записи од многу разни добавувачи. ОДберете ред за да видите
-          повеќе за записот, или пак <a href="%{traitbank_search_path}">пребарајте
-          во рамките на %{taxon_name}</a>.
         hierarchy_entry:
           meta_description: Факти за %{scientific_name} според класификацијата на
             %{hierarchy_provider}. Пронајдете слики, филмови и звуци од %{scientific_name}
@@ -2062,6 +2058,7 @@ mk:
       is_not_complete: Не
       query_empty: (без филтри)
       processing: се обработува
+      error: нешто не е во ред со податотекава
       refresh: превчитај
       row_count: Број
       search_again: барај повторно
@@ -3342,23 +3339,26 @@ mk:
       unlock:
         merge_of_an_unknown_taxon_unlocked: Спојувањето што неодамна го побаравте
           е готово, но не можам да ја најдам страницата.
-        merge_of_it_unlocked: Спојувањето што неодамна го побаравте е готово.
+        merge_of_it_unlocked: Спојувањето што неодамна го побаравте е готово. Страниците
+          сега се преиндексираат, и тоа ќе потрае 25 часа.
         merge_of_taxon_unlocked: Спојувањето што неодамна го побаравте за „%{taxon}“
-          е готово.
+          е готово. Страниците сега се преиндексираат, и тоа ќе потрае 25 часа.
         move_of_an_unknown_taxon_unlocked: Преместувањето на класификацијата што неодамна
           го побаравте е готово, но не можам да ја најдам страницата.
         move_of_it_unlocked: Преместувањето на класификацијата што неодамна го побаравте
-          на оваа страница е готово.
+          на оваа страница е готово. Страниците сега се преиндексираат, и тоа ќе потрае
+          25 часа.
         move_of_taxon_unlocked: Преместувањето на класификацијата што неодамна го
-          побаравте за „%{taxon}“ е готово.
+          побаравте за „%{taxon}“ е готово. Страниците сега се преиндексираат, и тоа
+          ќе потрае 25 часа.
         split_of_an_unknown_taxon_unlocked: Одвојувањето на класификацијата што неодамна
           го побаравте е готово, но не можам да ја најдам страницата.
         split_of_it_unlocked: Одвојувањето на класификацијата што неодамна го побаравте
           на оваа страница е готово, и класификациите се преместени на <a href='%{to}'>своја
-          страница</a>.
+          страница</a>. Страниците сега се преиндексираат, и тоа ќе потрае 25 часа.
         split_of_taxon_unlocked: Одвојувањето на класификацијата што неодамна го побаравте
           за „%{taxon}“ е готово, и класификациите се преместени на <a href='%{to}'>своја
-          страница</a>.
+          страница</a>. Страниците сега се преиндексираат, и тоа ќе потрае 25 часа.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Спојувањето на страниците
           што неодамна го побаравте <strong>не успеа</strong>: %{error}. Покрај тоа,
@@ -3945,6 +3945,7 @@ mk:
     за раздвојување. Другите класификации ќе бидат преместени на новата страница откако
     ќе ја создадете
   classifications_summary_header_with_count:
+    zero: EOL нема класификации за овој таксон
     one: Пронајдено во %{count} класификација
     other: Пронајдено во %{count} класификации
   classifications_with_count:
@@ -3990,6 +3991,9 @@ mk:
     other: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонати.
   collection_delete_link: Трајно избриши ја збиркава
   collection_destroyed: Збирката е избришена.
+  collection_removed: Збирката %{collection} е избришана.
+  collection_update_failure: Подновата на збирката %{collection} не успеа. Проверете
+    да не има некој проблем со ставките во збирката
   collection_error_no_items_selected: 'Грешка: нема избрано ставки, па затоа дејството
     не е извршено.'
   collection_image: Слика за збирката
@@ -4148,6 +4152,8 @@ mk:
     Преостанатите членови сепак ќе можат да ја гледаат. Каналот со новости ќе продолжи
     да работи, но нема да се прикажува во пребарувањата и таксонските страници и повеќе
     нема да може да се уредува.
+  confirm_delete_data_object: Дали сте сигурни дека сакате да го избришете овој податочен
+    објект? Ова дејство е неповратно.
   confirm_leave: Дали сте сигурни дека сакате да ја напуштите заедницава?
   confirm_password_colon: Потврди лозинка
   contact: Контакт
@@ -4269,6 +4275,8 @@ mk:
     соучесникот се успешно додадени. Тековниот статус на ресурсните податоци е: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: За жал, се појави грешка. Не
     можев да го додадам ресурсот.
+  content_partner_resource_validation_finish_notice: Проверката на соработникот во
+    содржините заврши, и неговиот статус е %{resource_status}.
   content_partner_resource_dataset_details_header: Податочен збир
   content_partner_resource_delete_with_type_link: Избриши сè
   content_partner_resource_description_empty: Овој ресурс нема опис.
@@ -4291,8 +4299,10 @@ mk:
     ресурсот %{resource_title} е успешно подновено.
   content_partner_resource_harvest_event_update_unsuccessful_error: Нажалост, се појави
     грешка. Преземањето за ресурсот %{resource_title} не е подновено.
-  content_partner_resource_has_been_deleted: Успешно го избришав сето она што е преземено
-    од ресурсот %{resource_title}
+  content_partner_resource_page_title: Енциклопедија на живиот свет — %{content_partner_name}
+    — %{resource_name}
+  content_partner_resource_will_be_deleted: Сето она што го насобра ресурсот %{resource_title}
+    ќе биде избришано. За ова ќе треба да почекате 24 часа.
   content_partner_resource_hierarchy_browsable: Прелистлива
   content_partner_resource_hierarchy_complete_true: Оваа хиерархија е ознечана како
     <strong>згрижена</strong>. Згрижената хиерархија работи под претпоставка дека
@@ -4335,6 +4345,8 @@ mk:
     Не можев да го сменам статусот на %{resource_title} во %{resource_status}.
   content_partner_resource_update_successful_notice: 'Подробностите за ресурсот од
     соучесникот се успешно подновени. Тековниот статус на ресурсните податоци е: %{resource_status}.'
+  content_partner_resource_update_successful: Податоците за соработникот во содржините
+    се успешно подновени.
   content_partner_resource_update_unsuccessful_error: За жал, се појави грешка. Не
     можев да го подновам ресурсот.
   content_partner_resource_upload_unsuccessful_error: 'За жал, се појави грешка. Податоците
@@ -4549,6 +4561,7 @@ mk:
   current_harvest_event: Преземањето од „%{resource_title}“ траеше „%{period}“ часа
   currently_running_harvesting: Пеземања во тек
   currently_in_eol: Моментално во Енциклопедијата на живиот свет
+  institutional_sponsors: Установни покровители
   currently_published: тековно објавено
   daily: Дневно
   darwin_core: Darwin Core
@@ -4568,8 +4581,10 @@ mk:
     на Секретаријатот на EOL</a>.</p>
   data_results_only_for_search: Резултати на TraitBank за „%{search_term}“
   data_search_limit:
-    one: Преземањата на пребарани податоци се ограничени на еден резултат.
-    other: Преземањата на пребарани податоци се ограничени на %{count} резултати.
+    one: Исходот од пребарувањето на податоците ќе бидат преземени како %{count} запис
+      по податотека.
+    other: Исходот од пребарувањето на податоците ќе бидат преземени како %{count}
+      записи по податотека.
   data_about_this_record: Податоци за овој запис
   data_column_tc_id: Назнака на страницата на EOL
   data_column_sci_name: Научно име
@@ -4590,6 +4605,13 @@ mk:
   data_column_raw_units: Сирови единици (непосредно од изворот)
   data_column_raw_units_uri: URI на сировите единици (нормализирано)
   data_column_source: Добавувач
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> собира податочни
+    записи од многу разни добавувачи. Одберете некој ред за да видите повеќе подробности
+    за записот, или <a href="%{traitbank_search_path}">пребарајте ја TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    собира податочни записи од многу разни добавувачи. ОДберете ред за да видите повеќе
+    за записот, или пак <a href="%{traitbank_search_path}">пребарајте во рамките на
+    %{taxon_name}</a>.
   data_database_colon: 'Податочна:'
   data_glossary: Поимник за податоци
   data_glossary_contribute: За да ставите нови поими во поимникот, <a href=%{url}>ви
@@ -4600,6 +4622,7 @@ mk:
   data_metadata_subtable_summary: Дополнителни податоци за овој факт.
   data_measurement_subtable_summary: Дополнителни податоци за мерењето на овој факт.
   data_object: Податочен објект
+  data_object_deleted: Податочниот објект е успешно избришан
   data_object_not_associated_with_any_hierarchies: Овој податочен објект не е поврзан
     со ниедна хиерархија.
   data_object_reference: Навод на подат. објект
@@ -4635,6 +4658,10 @@ mk:
   data_search:
     page_title: Преварај по TraitBank
     form:
+      equivalent_attributes: 'Еквивалентни вредности:'
+      equivalent_values: 'Еквивалентни вредности:'
+      search_again_for_attributes: пребарај повторно, вклучувајќи ги избраните атрибути
+      search_again_for_values: пребарај повторно, вклучувајќи ги избраните вредности
       header_assistive: Образец за пребарување
       input_summary_intro: Избрани поставки за пребарувањето
       new_search_link: Започнете ново пребарување
@@ -4749,6 +4776,7 @@ mk:
   default_rating_value_of_total: 'Стандардна оцена: %{rating} од %{total}'
   default_watch_collection_name: Збирка на %{username}
   delete_community: Избриши ја заедницава
+  delete_data_object: Избриши
   delete: избриши
   deleted_colon: 'избришани:'
   delete_firstcap: Избриши
@@ -4836,6 +4864,8 @@ mk:
   eol_api: Извршник на EOL
   eol_api_hierarchies: 'EOL API: Хиерархии'
   eol_api_hierarchy_entries: 'EOL API: Хиерархиски ставки'
+  eol_api_hierarchy_entries_descendants: 'Извршник на EOL: Потомци на хиерархиските
+    ставки'
   eol_api_pages: 'Извршник на EOL: Страници'
   eol_api_ping: 'Извршник на EOL: Одѕивност'
   eol_api_provider_hierarchies: 'Извршник на EOL: Добавувачки хиерархии'
@@ -4847,6 +4877,8 @@ mk:
   eol_news: Новости
   eol_pages: Страници
   error_log_detail: Подробност од днев. на грешки
+  error_revoking_editor_on_watch_collection: Не можете да отстранувате уредници од
+    набљудуваните збирки
   error_log: Дневник на грешки
   error_logging_active: Заведувањето на грешки е активно
   error_401_page_title: Нема овластување
@@ -4899,6 +4931,58 @@ mk:
       admin_or_master_curators_only: Нажалост, пристап имаат само администраторите
         и вишите кустоси.
       no_access: За жал, оваа функција е привремено оневозможена. Навратете се наскоро.
+      missing_edit_acess_to_forum_category: За жал, само администратори можат да ја
+        менуваат оваа форумска категорија.
+      missing_delete_acess_to_forum_category: За жал, само администратори можат да
+        ја избришат оваа форумска категорија.
+      missing_edit_acess_to_forum_post: За жал, само администратори или сопственикот
+        на објавата можат да ја менуваат оваа форумска објава.
+      missing_delete_acess_to_forum_post: За жал, само администратори или сопственикот
+        на објавата можат да ја избришат оваа форумска објава.
+      missing_set_article_as_exemplar_privilege: За жал, само кустоси можат да назначуваат
+        статии за пример.
+      missing_delete_access_to_synonym: За жал, само агенти можат да го избришат овој
+        синоним
+      missing_delete_access_to_data_search_file: За жал, сам,о администратори, виши
+        кустоси и сопственикот на податотеката можат да ја избришат
+      missing_permission_to_view_open_authentications: За жал, само администратори
+        и сопственикот а сметката можат да ја гледаат оваа отворена заверка на сметкава
+      missing_permission_to_add_open_authentications: За жал, само администратори
+        и сопственикот на сметката можат да ѝ додаваат отворени заверки на сметкава
+      missing_permission_to_delete_open_authentications: За жал, само администратори
+        и сопственикот а сметката можат да бришат отворени заверки на сметкава
+      this_action_requires_higher_curation_level: За жал, ова дејство бара повисок
+        кустоски чин
+      admins_and_joined_only_can_read: За жал, ќе треба да им се приклучите на збиркиве
+        за да можете да ги гледате
+      owner_and_managers_only_can_edit: За жал, само сосптвеникот на збиркава или
+        раководителите можат да ја уредуваат
+      error_revoking_editor_on_watch_collection: За жал, уредниците не можат да се
+        остранат од набљудуваните збирки
+      error_revoking_editor_on_an_empty_community: За жал, уредниците не можат да
+        се остранат од празна заедница
+      only_managers_can_edit_community: За жал, само раководителоте можат да ја менуваат
+        заедницава
+      only_managers_can_delete_community: За жал, само раководителоте можат да ја
+        избришат заедницава
+      only_admins_can_view_content_pages: За жал, само раководителоте можат да гледаат
+        содржински страници
+      only_admins_can_view_translated_content_pages: За жал, само администраторите
+        можат да гледаат преведени содржински страници
+      only_admins_can_edit_forums: За жал, само администратори можат да менуваат форуми
+      must_be_logged_in: За жал, мора да сте најавени
+      only_admins_can_read_hidden_news_items: За жал, само администраторите можат
+        да читаат скриени новости
+      only_admins_can_read_hidden_translated_news_items: За жал, само администраторите
+        можат да читаат преведени скриени новости
+      can_not_access_unpublished_taxon: За жал, немате пристап до необјавени таксони
+      only_data_owner_can_edit: За жал, само сопственикот на податоците можат да ги
+        менуваат
+      only_data_owner_can_delete: За жал, само сопственикот на податоците може да
+        ги избрише
+      error_editing_someone_account: За жал, можете да ја менувате само вашата сметка
+      can_not_edit_permissions: За жал, не можете да менувате дозволи
+      collection_job_not_valid: Задачата на збирката не е важечка
   excluded_icon_tip: Редовите означени за иконата за изземање %{excluded_icon} никогаш
     нема да се прикажуваат во прегледните страници на таксоните.
   expand_all_children: отвори ги сите поттаксони
@@ -4988,6 +5072,36 @@ mk:
   filter_newsfeed_option_watchlist: Набљудувања
   filter_newsfeed_option_curation: Згрижување
   filtered_information: Филтрирани информации
+  taxon_concept_search_keyword:
+    one: таксон
+    other: таксони
+  image_search_keyword:
+    one: слика
+    other: слики
+  video_search_keyword:
+    one: видео
+    other: видеа
+  sound_search_keyword:
+    one: звук
+    other: звуци
+  text_search_keyword:
+    one: статија
+    other: статии
+  data_search_keyword:
+    one: особина
+    other: особини
+  link_search_keyword:
+    one: врска
+    other: врски
+  user_search_keyword:
+    one: лице
+    other: луѓе
+  community_search_keyword:
+    one: заедница
+    other: заедници
+  collection_search_keyword:
+    one: збирка
+    other: збирки
   find_taxa_submit_button: најди таксони
   flash_notice_redirected_from_search_html: Стигнавте тука барајќи го поимот <em>%{search_string}</em>.
     <a href="%{more_results_url}">Стиснете тука за да се вратите на страницата за
@@ -5052,12 +5166,14 @@ mk:
     па затоа очекувајте подобрувања во подредувањето на резултатите во блиска иднина.
   gives_access_to_a_single_hierarchy_indexed_by_eol: дава пристап до една хиерархија
     индексирана од EOL и нејзините внатрешни односи
+  gives_access_to_a_single_hierarchy_descendants_by_eol: дава пристап до потомците
+    на извесна хиерархиска ставка
   global_access_tagline: Глобален пристап до знаењето за живиот свет на Земјата
   global_navigation: Општа навигација
   glossary: Поимник
   glossary_subhead: Поимник
   go_back: назад
-  go: Оди
+  go: Дај
   google_analytic_results: Резултати од Google-овата аналитика
   google_analytics_active: Google-овата аналитика е активна
   google_analytics_google_account_and_access_required: Google Analytics (се бара сметка
@@ -5129,6 +5245,7 @@ mk:
     ќе добивате само доверливи содржни. Ако „проверено“ е 2 тогаш ќе добивате само
     доверливи и непроверени содржини (нема да добивате недоверливи содржини). По основно
     се добиваат сите содржини.
+  reindex_data_object_button: Преиндексирај објект
   reindex_page_button: Преиндексирај страница
   image: Слика
   image_cropped_notice: Сликата е успешно кадрирана.
@@ -5260,12 +5377,17 @@ mk:
   known_uris_none: Никој нема додадено URI-ја за овој тип.
   known_uris_page_title: URI-ја за податоци на EOL
   known_uris_sorted: Редоследот е изменет.
+  pending_harvests_none: Сега нема преземања во исчекување.
+  pending_harvests_title: Преземања во исчекување
+  pause_pending_harvests: Запри го преземањето
+  resume_pending_harvests: Продолжи со преземањето
   label: Натпис
   language: 'Јазик:'
   languages: Јазици
   language_selector_advisory_information: Ова е список на расположивите јазици на
     мрежното место. Одберете јазик ако сакате да го смените тековниот.
   language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Траење на последното преземање
   last_updated: Последна актуелност
   last_updated_time_ago: Последната измена е направена пред %{time_passed}
   learn_about_collections: Како да направам збирка?
@@ -5892,6 +6014,8 @@ mk:
   recount_collection_items: Преброј објекти во збирката (исправка на неисправни бројки;
     ова <i>ќе</i> предизвика истек на времето во прелистувачот, но сепак работи)
   recount_collection_items_done: Пребројувањето заврши.
+  redirect_url_ok_title_unavailable: URL на пренасочувањето URL е во ред, насловот
+    е недостапен
   reference: Навод
   references_cabs_colon: 'Наводи:'
   related_names_with_count:
@@ -6067,7 +6191,7 @@ mk:
   select_a_hierarchy_around_whic: 'Одберете хиерархија според која ќе ги организирате
     кратките описи на содржините:'
   select_an_item_from_the_menu: Одберете ставка од менито
-  select_tool_and_go: 'Одберете алатка и стиснете на „Оди“:'
+  select_tool_and_go: 'Одберете алатка и стиснете на „Дај“:'
   select_colon: 'Одберете:'
   select_topic: Изберете тематика
   selected_language_advisory_information: Ова е моментално избраниот јазик.
@@ -6345,6 +6469,8 @@ mk:
     како да дојдете до други хиерархии што соодветствуваат на дадена страница на EOL.
     Полето „taxonConceptID“ ја содржи назнаката на страницата на EOL што може да се
     употреби во API на страниците.
+  hierarchies_entries_descendants_description: За дадена назнака на хиерархиска ставка,
+    овој извршник ги дава сите нејзини потомци.
   hierarchies_description: Енциклопедијата на живиот свет нема единствена таксономска
     хиерархија според која ги создава страниците, туку индексира повеќе разни хиерархии
     и ги споредува. Овој API ги наведува метаподатоците за хиерархијата како име на
@@ -6401,7 +6527,7 @@ mk:
   the_user_who_performed_this_action_was_removed: Корисникот што го има извршено ова
     дејство е отстранет.
   the_xml_search_response_implements: Пребарувањето со XML-одговори го спроведува
-    форматот на одговори OpenSearch користејќи Atom 1.0. Подробен технички опис на
+    форматот на одговори OpenSearch користејќи Атом 1.0. Подробен технички опис на
     OpenSearch ќе најдете на %{link}
   this_area_shows_all_submission: Во овој дел се наведени сите поднесувања преку страниците
     за контакт на личности и медиуми. За да ги проверите ставките, одберете тема подолу
@@ -6414,6 +6540,7 @@ mk:
   this_community_has_no_focus_list: Оваа заедница нема тематски список на коијто се
     посветува.
   this_community_was_deleted: Оваа заедница е избришана од нејзиниот сопственик.
+  this_data_object_will_be_reindexed: Овој податочен објект ќе биде реиндексиран.
   this_does_not_necessarily_mean: '* ова не мора да значи дека се користат врските,
     туку само дека се определени во database.yml --- мора да ја погледате податотеката
     „config/environments/%{env}.rb“ за да проверите дали се поставении главните (управувачки)
@@ -6725,7 +6852,6 @@ mk:
   view_added_text: погл. додаден текст
   view_as_button: Промени изглед
   view_as_label: Види како
-  view_common_activities: погл. вообичаени активности
   view_contact_us_submissions: погл. контактирања
   view_curators: погл. кустоси
   view_current_version_link: Тековна верзија
@@ -6742,11 +6868,9 @@ mk:
   view_sound_source: Погл. извор на аудиоснимката
   view_source: Извор
   view_video_source: Погл. извор на видеоснимката
-  view_common_activities_link: Погл. список на највообичаени активности.
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Само страниците со барем
     по една слика или некаков текст
   view_this_hierarchy: погл. оваа хиерархија
-  view_user_activity: погл. кориснички активности
   view_user_comments: погл. кориснички коментари
   view_your_curator_profile: Погл. вашиот кустоски профил
   vimeo: Vimeo

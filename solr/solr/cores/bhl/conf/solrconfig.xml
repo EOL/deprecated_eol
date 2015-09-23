@@ -95,7 +95,7 @@
        replication is in use, this should match the replication
        configuration.
     -->
-  <dataDir>${solr.data.dir:./solr/data/bhl}</dataDir>
+  <dataDir>${solr.data.dir:./data/bhl}</dataDir>
 
 
   <!-- The DirectoryFactory to use for indexes.

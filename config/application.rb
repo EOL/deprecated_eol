@@ -123,12 +123,16 @@ module Eol
     #Server's IP address
     Rails.configuration.site_domain = "eol.org" #domain name for url links communicated outside, for example for emails
 
+    #logos path in media server
+    Rails.configuration.partner_logos = "http://eol.org/content/partner_logos/"
+
     # If you're testing a new feature, they will be asked to go here to provide feedback:
     Rails.configuration.beta_test_feedback_link = 'https://www.surveymonkey.com/s/9FDTDQP'
 
     # Collection configu settings:
 
     Rails.configuration.inat_project_prefix = "http://eol.org/collections/"
+    Rails.configuration.inat_observations_project_url = "http://www.inaturalist.org/observations/project"
 
     # TAXON DATA configuration settings:
 
@@ -170,6 +174,7 @@ module Eol
     Rails.configuration.user_added_data_graph = "http://eol.org/user_data/"
     Rails.configuration.known_uri_graph = "http://eol.org/known_uris"
     Rails.configuration.known_taxon_uri_re = /^http:\/\/(www\.)?eol\.org\/pages\/(\d+)/i # Note this stops looking past the id.
+    Rails.configuration.known_data_object_uri_re = /^http:\/\/(www\.)?eol\.org\/data_objects\/(\d+)/i
     Rails.configuration.optional_reference_uris = { # Be careful changing these...  :)
       identifier: "http://purl.org/dc/terms/identifier",
       publicationType: "http://eol.org/schema/reference/publicationType",
@@ -193,6 +198,8 @@ module Eol
 
     Rails.configuration.data_search_file_rel_path = '/uploads/data_search_files/:id.csv'
     Rails.configuration.data_search_file_full_path = "#{Rails.public_path}#{Rails.configuration.data_search_file_rel_path}"
+    Rails.configuration.collection_download_file_rel_path = '/uploads/collection_download_files/:id.csv'
+    Rails.configuration.collection_download_file_full_path = "#{Rails.public_path}#{Rails.configuration.collection_download_file_rel_path}"
 
     Rails.configuration.hosted_dataset_path = 'http://localhost/eol_php_code/applications/content_server/datasets/'
 
@@ -264,16 +271,10 @@ module Eol
     # ERROR HANDLING CONFIGURATION
     $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
     $ERROR_LOGGING = true # set to true to record uncaught application errors in sql database file
-    $EXCEPTION_EMAIL_ADDRESS = %("EOL Application Error" <no-reply@example.comma>)
     $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied"] # array of exceptions to ignore when logging or notifying
     $IGNORED_EXCEPTION_CLASSES = [ 'ActionController::RoutingError', 'EOL::Exceptions::MustBeLoggedIn', 'EOL::Exceptions::SecurityViolation' ] # array of exceptions to ignore when logging or notifying
 
     # EMAIL NOTIFIER CONFIGURATION
-    $SPECIES_PAGES_GROUP_EMAIL_ADDRESS = "from@example.com"
-    $SUPPORT_EMAIL_ADDRESS = "from@example.com"
-    $ERROR_EMAIL_ADDRESS = "from@example.com"
-    $STATISTICS_EMAIL_FROM_ADDRESS = "from@example.com"
-    $EDUCATION_EMAIL = 'from@example.com'
     $MEDIA_INQUIRY_CONTACT_SUBJECT_ID = 1 # this should match the ContactSubject table with the ID of the media inquiry row (used on the special Media Contact page)
     $CONTRIBUTE_INQUIRY_CONTACT_SUBJECT_IDS = "13,14" # this should match the ContactSubject table with the IDs of the request to curate or contribute rows as a string in comma delimuted format  (used on the Contact us page to show an extra field)
 
@@ -329,6 +330,7 @@ module Eol
 
     $NEWS_ON_HOME_PAGE = 6
     $ACTIVITIES_ON_HOME_PAGE = 6
+    $SPONSORS_ON_HOME_PAGE = 7
     $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME = 10  # minutes
     $HOMEPAGE_NEWS_CACHE_TIME = 10  # minutes
     $HOMEPAGE_MARCH_RICHNESS_THRESHOLD = 0.5
@@ -352,7 +354,8 @@ module Eol
     $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
     $VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
     $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
-
+    $VIRTUOSO_CACHING_PERIOD = 12 # HOURS
+    
     # Recaptcha Keys
     ENV['RECAPTCHA_PUBLIC_KEY'] ||= ''
     ENV['RECAPTCHA_PRIVATE_KEY'] ||= ''

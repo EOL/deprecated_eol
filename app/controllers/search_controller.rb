@@ -35,7 +35,7 @@ class SearchController < ApplicationController
       return redirect_to controller: "api", action: "search", id: @querystring
     end
 
-    if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error)
+    if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error) || @querystring.blank? 
       flash[:error] = I18n.t(:must_provide_search_term_error)
       redirect_to root_path
     end
@@ -76,8 +76,6 @@ class SearchController < ApplicationController
       @all_results = search_response[:results]
       @facets = (@wildcard_search) ? {} : EOL::Solr::SiteSearch.get_facet_counts(@querystring)
       @suggestions = search_response[:suggestions]
-      log_search(request) unless params[:mobile_search]
-      current_user.log_activity(:text_search_on, value: params[:q])
       # TODO - there is a weird, rare border case where total_entries == 1 and #length == 0. Not sure what causes it, but we should handle that
       # case here, probably by re-submitting the search (because, at least in the case I saw, the next load of the page was fine).
       if params[:show_all].blank? && @all_results.length == 1 && @all_results.total_entries == 1
@@ -127,18 +125,6 @@ class SearchController < ApplicationController
     [].paginate(page: 1, per_page: @@results_per_page, total_entries: 0)
   end
 
-  # Add an entry to the database desrcibing the fruitfullness of this search.
-  def log_search(req)
-    logged_search = SearchLog.log(
-      { search_term: @querystring,
-        search_type: @params_type.join(";"),
-        parent_search_log_id: nil,
-        total_number_of_results: @all_results.length },
-      req,
-      current_user)
-    @logged_search_id = logged_search.nil? ? '' : logged_search.id
-  end
-
   def autocomplete_taxon
     @from_site_search = !! params[:site_search]
     @querystring = params[:term].strip
@@ -148,17 +134,19 @@ class SearchController < ApplicationController
     if @querystring.blank? || @querystring.length < 3 || @querystring.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)
       json = {}
     else
-      res = EOL::Solr::SiteSearch.taxon_search(@querystring, language: current_language)
-      taxa = res[:taxa]
-      result_title = res[:result_title]
-      json = taxa.each_with_index.map do |result, index|
-        { id: result['instance'].id,
-          value: result['instance'].title_canonical,
-          label: render_to_string(
-          partial: 'shared/item_summary_taxon_autocomplete',
-          locals: { item: result['instance'], search_result: result, result_title: result_title, index: index } )
-        }
-      end.delete_if { |r| r[:value].blank? }
+      Rails.cache.fetch("autocomplete_taxon-#{@querystring}-#{@from_site_search}", expires_in: 10.days) do 
+        res = EOL::Solr::SiteSearch.taxon_search(@querystring, language: current_language)
+        taxa = res[:taxa]
+        result_title = res[:result_title]
+        json = taxa.each_with_index.map do |result, index|
+          { id: result['instance'].id,
+            value: result['instance'].title_canonical,
+            label: render_to_string(
+            partial: 'shared/item_summary_taxon_autocomplete',
+            locals: { item: result['instance'], search_result: result, result_title: result_title, index: index } )
+          }
+        end.delete_if { |r| r[:value].blank? }
+      end
     end
     render json: json
   end

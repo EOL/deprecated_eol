@@ -51,7 +51,7 @@ class TocItem < ActiveRecord::Base
         join data_objects_table_of_contents dotoc on (toc.id=dotoc.toc_id)
         join data_objects do on (dotoc.data_object_id=do.id)
         join data_objects_hierarchy_entries dohe on do.id = dohe.data_object_id
-        where do.published=1 and dohe.visibility_id=#{Visibility.visible.id} group by toc.id")
+        where do.published=1 and dohe.visibility_id=#{Visibility.get_visible.id} group by toc.id")
       count_hash.each do |id, count|
         counts[id.to_i] = count.to_i
       end

@@ -91,7 +91,9 @@ class TaxonDataExemplarPicker
   end
 
   def exemplar_data_points
-    TaxonDataExemplar.included.where(taxon_concept_id: @taxon_concept_id).map(&:data_point_uri).delete_if {|p| p.hidden? }
+    TaxonDataExemplar.included.
+      where(taxon_concept_id: @taxon_concept_id).
+      map(&:data_point_uri).compact.delete_if {|p| p.hidden? }
   end
 
 end

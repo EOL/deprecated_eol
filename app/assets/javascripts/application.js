@@ -10,7 +10,8 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
+//= require jquery-2.1.3
+//= require jquery-migrate-1.2.1
 //= require jquery_ujs
 //= require jquery-ui-1.10.3.custom.min
 //= require autocomplete-rails
@@ -20,6 +21,7 @@
 //= require jquery.modal
 //= require comments
 //= require navigation
+//= require jquery.easyui.min
 
 $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");

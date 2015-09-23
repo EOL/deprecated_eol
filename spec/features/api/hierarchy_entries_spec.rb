@@ -5,7 +5,7 @@ describe 'API:hierarchy_entries' do
     load_foundation_cache
     @canonical_form = CanonicalForm.create(string: 'Aus bus')
     @name = Name.create(canonical_form: @canonical_form, string: 'Aus bus Linnaeus 1776')
-    @hierarchy = Hierarchy.gen(label: 'Test Hierarchy', browsable: 1)
+    @hierarchy = Hierarchy.gen(label: 'Test Hierarchy', browsable: 1, outlink_uri: "outlink")
     @rank = Rank.gen_if_not_exists(label: 'species')
     @hierarchy_entry = HierarchyEntry.gen(identifier: '123abc', hierarchy: @hierarchy, name: @name, published: 1, rank: @rank)
 

@@ -273,6 +273,27 @@ describe 'API:pages' do
     visit("/api/pages/1.0/#{taxon.id}?synonyms=1")
     source.should include '<synonym'
   end
+  
+  describe "synonyms" do
+    before(:all) do
+      @taxon = TaxonConcept.gen(published: 1, supercedure_id: 0)
+      hierarchy = Hierarchy.gen(label: 'my hierarchy', browsable: 1)
+      @resource = Resource.gen(title: "resource_title", hierarchy_id: hierarchy.id)
+      hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy, taxon_concept: @taxon, rank: Rank.gen_if_not_exists(label: 'species'))
+      name = Name.gen(string: 'my synonym 1')
+      relation = SynonymRelation.gen_if_not_exists(label: 'not common name')
+      synonym = Synonym.gen(hierarchy_entry: hierarchy_entry, name: name, synonym_relation: relation)  
+    end
+    it "displays resource_name in json format" do
+      visit("/api/pages/1.0/#{@taxon.id}.json?synonyms=1")
+      source.should include "#{@resource.title}"
+    end
+    
+    it "displays resource_name in xml format" do
+      visit("/api/pages/1.0/#{@taxon.id}?synonyms=1")
+      source.should include "#{@resource.title}"  
+    end
+  end
 
   it 'pages should be able to render a JSON response' do
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&text=1&images=1")

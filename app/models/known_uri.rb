@@ -226,7 +226,7 @@ class KnownUri < ActiveRecord::Base
     build_cache_if_needed
     kuri = @cache.find { |u| u.uri == uri }
     return kuri if kuri
-    kuri ||= find_by_uri(uri)
+    kuri ||= find_by_uri(uri) if EOL::Sparql.is_uri?(uri)
     @cache << kuri if kuri
     kuri
   end
@@ -234,7 +234,7 @@ class KnownUri < ActiveRecord::Base
   def self.by_uris(uris)
     build_cache_if_needed
     results = []
-    uris.each { |uri| results << by_uri(uri) }
+    uris.each { |uri| results << by_uri(uri) }.compact
     results
   end
 

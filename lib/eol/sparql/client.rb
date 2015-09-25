@@ -117,7 +117,7 @@ module EOL
         uris = self.class.cache_fetch_with_local_timeout(
           self.class.cache_key("all_measurement_type_known_uris"), :expires_in => 1.day) do
             all_uris = all_measurement_type_uris
-            all_known_uris = KnownUri.where(uri: all_uris)
+            all_known_uris = KnownUri.by_uris(all_uris)
             all_uris.map { |uri| all_known_uris.detect { |kn| kn.uri == uri } }
         end
         # If that list is empty, it indicates that Virtuoso is broken. Don't
@@ -136,7 +136,7 @@ module EOL
           self.class.clade_cache_key(taxon_concept.id),
           :expires_in => 1.day) do
           all_uris = counts_of_all_measurement_type_uris_in_clade(taxon_concept).map { |k,v| k }
-          all_known_uris = KnownUri.where(uri: all_uris)
+          all_known_uris = KnownUri.by_uris(all_uris)
           all_uris.map { |uri| all_known_uris.detect { |kn| kn.uri == uri } }
         end
       end
@@ -159,7 +159,7 @@ module EOL
           :expires_in => 1.day) do
             counts = counts_of_all_value_uris_by_type
             Hash[
-              KnownUri.where(uri: counts.keys.compact).map do |kuri|
+              KnownUri.by_uris(counts.keys.compact).map do |kuri|
                 [ kuri, counts[kuri.uri] ]
               end
             ]
@@ -180,7 +180,7 @@ module EOL
 
       def unknown_uris_from_array(uris_with_counts)
         unknown_uris_with_counts = uris_with_counts
-        known_uris = KnownUri.where(uri: unknown_uris_with_counts.keys)
+        known_uris = KnownUri.by_uris(unknown_uris_with_counts.keys)
         known_uris.each do |known_uri|
           unknown_uris_with_counts.delete_if { |uri, count| known_uri.matches(uri) }
         end

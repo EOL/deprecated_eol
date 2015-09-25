@@ -20,6 +20,11 @@ COPY config/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY . /app
 RUN bundle install
 
+RUN mkdir /app/public/uploads/data_search_files && \
+    mkdir /app/public/uploads/datasets && \
+    mkdir /app/public/uploads/images && \
+    chmod a+rx /app/public/uploads/* && \
+    chown -R www-data:www-data /app/public/uploads
 RUN chmod a+rx /
 
 CMD /usr/bin/supervisord

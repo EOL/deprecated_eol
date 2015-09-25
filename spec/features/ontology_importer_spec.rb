@@ -66,13 +66,13 @@ describe 'Ontology Importer' do
 
   it 'imports the terms' do
     import_ontology
-    termA = KnownUri.find_by_uri('http://some.ontology/termA')
+    termA = KnownUri.by_uri('http://some.ontology/termA')
     expect(termA).to be_a(KnownUri)
     expect(termA.label(:en)).to eq('First term label')
     expect(termA.definition(:en)).to eq('First term definition')
     expect(termA.comment(:en)).to eq('First term comment')
     expect(termA.hide_from_glossary).to eq(false)
-    termB = KnownUri.find_by_uri('http://some.ontology/termB')
+    termB = KnownUri.by_uri('http://some.ontology/termB')
     expect(termB).to be_a(KnownUri)
     expect(termB.label(:en)).to eq('Second term label')
     expect(termB.definition(:en)).to eq('Second term definition')
@@ -82,9 +82,9 @@ describe 'Ontology Importer' do
 
   it 'imports with a hide_from_glossary flag' do
     import_ontology(hide_from_glossary: true)
-    termA = KnownUri.find_by_uri('http://some.ontology/termA')
+    termA = KnownUri.by_uri('http://some.ontology/termA')
     expect(termA.hide_from_glossary).to eq(true)
-    termB = KnownUri.find_by_uri('http://some.ontology/termB')
+    termB = KnownUri.by_uri('http://some.ontology/termB')
     expect(termB.hide_from_glossary).to eq(true)
   end
 

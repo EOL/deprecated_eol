@@ -8,6 +8,7 @@
 # Author: Hamilton Abreu
 # Author: Imperadeiro90
 # Author: Imperadeiro98
+# Author: Jkb8
 # Author: Leosls
 # Author: Luckas
 # Author: Macofe
@@ -842,6 +843,8 @@ pt-PT:
     new:
       page_title: Por favor, dê-nos a sua opinião
   collections:
+    download_taxa_data:
+      attribute_header: Atributo
     show:
       meta_description_default: Uma colecção da Enciclopédia da Vida intitulada %{collection_name}.
       meta_description_default_focus_collection: Uma colecção da Enciclopédia da Vida
@@ -1011,6 +1014,10 @@ pt-PT:
       subject: Uma mensagem da Enciclopédia da Vida
   recent_activity:
     intro_immediately: Olá, %{name} -
+  recent_activity_mailer:
+    collection_download_ready:
+      message: Pode ver esta e outras descargas visitando a <a href="%{download_link}">tabulação
+        de descargas de dados em teu perfil</a>.
   users:
     data_downloads:
       empty: Você não tem nenhum download. Pode <a href='%{data_search_url}'>pesquisar
@@ -1773,6 +1780,7 @@ pt-PT:
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Não mostrar
     datas registadas desconhecidas (usuários da V1, todos anteriores a 5 de janeiro
     de 2009)
+  download_collection_data: Descarregar Dados
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Itens duplicados foram ignorados.
   each_method_documentation_page_has_formatted_responses: A página de documentação

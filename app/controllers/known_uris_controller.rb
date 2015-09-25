@@ -49,7 +49,7 @@ class KnownUrisController < ApplicationController
     else
       @terms = SchemaTermParser.parse_terms_from(@ontology_uri)
       @ingested_terms = []
-      @existing_known_uris = KnownUri.where(uri: @terms.collect{ |uri, metadata| uri }).includes({ translations: :language })
+      @existing_known_uris = KnownUri.by_uris(@terms.map { |uri, metadata| uri })
       if params[:importing]
         attribute_types_selected = {}
         attribute_mappings = { 'rdfs:label' => 'name' }
@@ -80,7 +80,7 @@ class KnownUrisController < ApplicationController
   end
 
   def categories
-    @recently_used = KnownUri.where(['uri IN (?)', session[:rec_uris]]) if session[:rec_uris]
+    @recently_used = KnownUri.by_uris(session[:rec_uris]) if session[:rec_uris]
     respond_to do |format|
       format.html { }
       format.js { }
@@ -97,7 +97,7 @@ class KnownUrisController < ApplicationController
   end
 
   def create
-    
+
     allowed_units_target_ids = params[:known_uri].delete(:allowed_units_target_ids)
     @known_uri = KnownUri.new(params[:known_uri])
     if @known_uri.save
@@ -122,7 +122,7 @@ class KnownUrisController < ApplicationController
   def sort
     last_position = nil
     @known_uri = KnownUri.find(params['moved_id'].sub('known_uri_', ''))
-    if params['known_uris'] 
+    if params['known_uris']
       position_in_results = params['known_uris'].index(params['moved_id'])
       if position_in_results == params['known_uris'].length - 1
         # the URI was moved to the last position. It will be 1 higher than the previous last,
@@ -161,7 +161,7 @@ class KnownUrisController < ApplicationController
     redirect_to action: 'index', uri_type_id: @known_uri.uri_type_id
   end
 
-  def hide 
+  def hide
     @known_uri = KnownUri.find(params[:id])
     if current_user.is_admin?
       @known_uri.hide(current_user)
@@ -349,25 +349,25 @@ class KnownUrisController < ApplicationController
     KnownUri.clear_uri_caches
     expire_fragment('glossary_in_lang_' + current_language.iso_code)
   end
-  
+
   def measurements_stats
     Rails.cache.fetch("/known_uris/measurements_stats", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
       EOL::Sparql.connection.unknown_measurement_type_uris
     end
   end
-  
+
   def measurement_values_stats
     Rails.cache.fetch("/known_uris/measurement_values_stats", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
       EOL::Sparql.connection.unknown_measurement_value_uris
     end
   end
-  
+
   def measurement_units_stats
     Rails.cache.fetch("/known_uris/measurement_units_stats", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
       EOL::Sparql.connection.unknown_measurement_unit_uris
     end
   end
-  
+
   def assoication_types_stats
     Rails.cache.fetch("/known_uris/assoication_types_stats", expires_in: $VIRTUOSO_CACHING_PERIOD.hours) do
       EOL::Sparql.connection.unknown_association_type_uris

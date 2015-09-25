@@ -26,7 +26,7 @@ class DataSearchController < ApplicationController
             contribute_path: cms_page_path('contribute', anchor: 'data')).html_safe
         end
         t = Time.now
-        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30)) 
+        @results = TaxonData.search(@search_options.merge(page: @page, per_page: 30))
         if @results
           @counts_of_values_from_search = TaxonData.counts_of_values_from_search(@search_options.merge(page: @page, per_page: 30))
           log_data_search(time_in_seconds: Time.now - t)
@@ -63,12 +63,12 @@ class DataSearchController < ApplicationController
   end
 
   private
-  
+
   def get_equivalents(uri)
-    uri = KnownUri.find_by_uri(uri) 
+    uri = KnownUri.by_uri(uri)
     uri ? uri.equivalent_known_uris : []
   end
-  
+
   def create_data_search_file
     file = DataSearchFile.create!(@data_search_file_options)
     unless @required_equivalent_attributes.blank?
@@ -83,7 +83,7 @@ class DataSearchController < ApplicationController
     end
     file
   end
-    
+
   def prepare_search_parameters(options)
     @hide_global_search = true
     @querystring_uri = nil
@@ -98,12 +98,12 @@ class DataSearchController < ApplicationController
     @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]
-    @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil 
+    @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil
     @equivalent_attributes = get_equivalents(@attribute)
     equivalent_attributes_ids = @equivalent_attributes.map{|eq| eq.id.to_s}
     # check if it is really an equivalent attribute
     @required_equivalent_attributes = @required_equivalent_attributes.map{|eq| eq if equivalent_attributes_ids.include?(eq) }.compact if @required_equivalent_attributes
-    
+
     if !options[:q].blank?
       tku = TranslatedKnownUri.find_by_name(@querystring)
       ku = tku.known_uri if tku
@@ -113,7 +113,7 @@ class DataSearchController < ApplicationController
         @required_equivalent_values = @required_equivalent_values.map{|eq| eq if equivalent_values_ids.include?(eq) }.compact if @required_equivalent_values
       end
     end
-    
+
     #if entered taxon name returns more than one result choose first
     if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)
@@ -132,7 +132,7 @@ class DataSearchController < ApplicationController
         @querystring = options[:q] = ''
       end
     else
-      @attribute_known_uri = KnownUri.find_by_uri(@attribute)
+      @attribute_known_uri = KnownUri.by_uri(@attribute)
     end
     @attributes = @attribute_known_uri ? @attribute_known_uri.label : @attribute
     if @required_equivalent_attributes
@@ -140,27 +140,27 @@ class DataSearchController < ApplicationController
         @attributes += " + #{KnownUri.find(attr.to_i).label}"
       end
     end
-    
+
     #@values = @querystring.to_s
     if @querystring_uri
-      known_uri = KnownUri.find_by_uri(@querystring_uri)
+      known_uri = KnownUri.by_uri(@querystring_uri)
       @values = known_uri.label if known_uri
     else
       @values = @querystring.to_s
-    end    
+    end
     if @required_equivalent_values
       @required_equivalent_values.each do |val|
         @values += " + #{KnownUri.find(val.to_i).label}"
       end
     end
-    
+
     if @attribute_known_uri && ! @attribute_known_uri.units_for_form_select.empty?
       @units_for_select = @attribute_known_uri.units_for_form_select
     else
       @units_for_select = KnownUri.default_units_for_form_select
     end
     @search_options = { querystring: @querystring, attribute: @attribute, min_value: @min_value, max_value: @max_value,
-      unit: @unit, sort: @sort, language: current_language, taxon_concept: @taxon_concept, 
+      unit: @unit, sort: @sort, language: current_language, taxon_concept: @taxon_concept,
       required_equivalent_attributes: @required_equivalent_attributes, required_equivalent_values: @required_equivalent_values}
     @data_search_file_options = { q: @querystring, uri: @attribute, from: @min_value, to: @max_value,
       sort: @sort, known_uri: @attribute_known_uri, language: current_language,

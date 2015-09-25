@@ -4,7 +4,7 @@ class DataSearchFile < ActiveRecord::Base
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q, :sort, :to, :uri, :user, :user_id,
     :completed_at, :hosted_file_url, :row_count, :unit_uri, :taxon_concept_id, :file_number, :failed_at, :error
   attr_accessor :results
-  
+
   has_many :data_search_file_equivalents
 
   belongs_to :user
@@ -29,7 +29,7 @@ class DataSearchFile < ActiveRecord::Base
         end
         update_attributes(completed_at: Time.now.utc)
       else
-        # something goes wrong with uploading file 
+        # something goes wrong with uploading file
         update_attributes(failed_at: Time.now.utc, error: response[:error])
       end
     end
@@ -52,7 +52,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def unit_known_uri
-    KnownUri.find_by_uri(unit_uri)
+    KnownUri.by_uri(unit_uri)
   end
 
   def from_as_data_point
@@ -95,7 +95,7 @@ class DataSearchFile < ActiveRecord::Base
         else
           # TODO - Whoa! Even when I ran “dpu.to_hash[some_val]”, even though it
           # had loaded the whole thing, it looked up taxon_concept names. …WTFH?!?
-          rows << data_point_uri.to_hash(user.language)  
+          rows << data_point_uri.to_hash(user.language)
         end
       end
       # offset = (file_number-1) * LIMIT

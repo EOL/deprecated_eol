@@ -19,8 +19,8 @@ namespace :known_uris do
   desc 'sets the value of selected known_uris to verbatim value'
   task :verbatim_value => :environment do
     known_uris.each do |u|
-      uri= KnownUri.find_by_uri(u)
-      uri.update_attribute(value_is_verbatim: 1) if uri 
+      uri= KnownUri.by_uri(u)
+      uri.update_attribute(value_is_verbatim: 1) if uri
     end
   end
 end

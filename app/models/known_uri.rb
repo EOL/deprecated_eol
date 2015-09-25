@@ -11,11 +11,14 @@
 
 class KnownUri < ActiveRecord::Base
 
+  class << self
+    attr_accessor :cache, :cache_time
+  end
+
   BASE = Rails.configuration.uri_term_prefix
   TAXON_RE = Rails.configuration.known_taxon_uri_re
   DATO_RE = Rails.configuration.known_data_object_uri_re
   GRAPH_NAME = Rails.configuration.known_uri_graph
-
 
   extend EOL::Sparql::SafeConnection # Note we ONLY need the class methods, so #extend
   extend EOL::LocalCacheable
@@ -79,6 +82,7 @@ class KnownUri < ActiveRecord::Base
   validates_uniqueness_of :uri
   validate :uri_must_be_uri
 
+  before_save :update_cache
   before_validation :default_values
   before_validation :remove_whitespaces
 
@@ -116,6 +120,7 @@ class KnownUri < ActiveRecord::Base
     Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
+    @cache = nil
   end
 
   # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
@@ -213,6 +218,31 @@ class KnownUri < ActiveRecord::Base
       ku.name.blank? ||
       ( ku.measurement? &&
         ! EOL::Sparql.connection.all_measurement_type_known_uris.include?(ku)) }
+  end
+
+  # NOTE - I am NOT using an alias_method_chain here because I cannot account
+  # for all possible params. Deal with it.
+  def self.by_uri(uri)
+    build_cache_if_needed
+    kuri = @cache.find { |u| u.uri == uri }
+    return kuri if kuri
+    kuri ||= find_by_uri(uri)
+    @cache << kuri if kuri
+    kuri
+  end
+
+  def self.by_uris(uris)
+    build_cache_if_needed
+    results = []
+    uris.each { |uri| results << by_uri(uri) }
+    results
+  end
+
+  def self.build_cache_if_needed
+    if @cache.nil? || @cache_time < 1.week.ago
+      @cache ||= KnownUri.includes(:translated_known_uris).all
+      @cache_time = Time.now
+    end
   end
 
   def units_for_form_select
@@ -389,7 +419,7 @@ class KnownUri < ActiveRecord::Base
   def self.search(term, options = {})
     options[:language] ||= Language.default
     return [] if term.length < 3
-    return search_by_uri(term, options[:language]) if EOL::Sparql.is_uri?(term)
+    return by_uri(term) if EOL::Sparql.is_uri?(term)
     return search_by_name(term, options[:language])
   end
 
@@ -418,12 +448,12 @@ class KnownUri < ActiveRecord::Base
   def self.find_by_uri(*args); super; end
 
   def self.find_by_uri_with_generate(*args)
-    known_uri = KnownUri.find_by_uri_without_generate(*args)
+    known_uri = find_by_uri_without_generate(*args)
     if known_uri.nil?
       uri = args.first
       name = EOL::Sparql.uri_to_readable_label(uri)
       return if name.nil?
-      known_uri= KnownUri.create( uri: uri, uri_type_id: UriType.measurement.id, visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id )
+      known_uri= create( uri: uri, uri_type_id: UriType.measurement.id, visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id )
       TranslatedKnownUri.create(name: name, known_uri_id: known_uri.id, language_id: Language.english.id)
     end
     known_uri
@@ -431,6 +461,11 @@ class KnownUri < ActiveRecord::Base
   klass = class << self; alias_method_chain :find_by_uri, :generate; end
 
   private
+
+  def update_cache
+    @cache.delete_if { |u| u.uri == self[:uri] }
+    @cache << self
+  end
 
   def default_values
     self.vetted ||= Vetted.unknown
@@ -448,11 +483,6 @@ class KnownUri < ActiveRecord::Base
   def self.replace_with_uri(hash, key, known_uris)
     uri = known_uris.find { |known_uri| known_uri.matches(hash[key]) }
     hash[key] = uri if uri
-  end
-
-  def self.search_by_uri(term, language)
-    TranslatedKnownUri.where(language_id: language.id).
-      where("uri = ? ",term.strip).includes(:known_uri).map(&:known_uri).compact.uniq
   end
 
   def self.search_by_name(term, language)

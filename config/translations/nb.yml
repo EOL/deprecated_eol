@@ -5,6 +5,7 @@
 # Author: Event
 # Author: Nghtwlkr
 # Author: Simen47
+# Author: Tarjeimo
 # Author: Wouterkoch
 ---
 nb:
@@ -3717,6 +3718,7 @@ nb:
   done_already: Allerede gjort
   do_you_want_to_be_a_curator: Vil du bli en kurator
   download_wav_file: Last ned WAV-fil
+  download_collection_data: Last ned data
   dublin_core: Dublin Core
   edit_comment: Rediger kommentar
   edit_comment_lowercase: rediger kommentar

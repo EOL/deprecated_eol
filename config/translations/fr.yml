@@ -21,6 +21,7 @@
 # Author: Linedwell
 # Author: Ljubinka
 # Author: Lucky
+# Author: Macofe
 # Author: Manohisoa
 # Author: Maxim21
 # Author: McDutchie
@@ -961,6 +962,12 @@ fr:
     new:
       page_title: Veuillez entrer vos commentaires
   collections:
+    download_taxa_data:
+      attribute_header: Attribut
+      select_all_checkbox: Tout sélectionner
+      collection_download_under_processing: Le téléchargement de la collection est
+        actuellement en cours. Un courriel vous sera envoyé quand il sera terminé
+      user_downloaded_collection: Téléchargement de données pour %{collection_name}
     show:
       meta_description_default: Une collection de l’Encyclopédie de la Vie intitulée
         %{collection_name}.
@@ -1601,6 +1608,13 @@ fr:
         href='%{download_link}'>l’onglet des téléchargements de données dans votre
         profil</a>.
       header: Votre téléchargement est prêt !
+    collection_download_ready:
+      subject: Votre les attributs sélectionnés de votre collection de EdlV sont prêts
+        à être téléchargés
+      message: Vous pouvez afficher cela et d’autres téléchargements en allant sur
+        l’<a href='%{download_link}'>onglet des téléchargements de données de votre
+        profil</a>.
+      header: Votre téléchargement de collection est maintenant prêt !
   sessions:
     new:
       login_with_facebook_assistive: Connexion à l’EdlV en utilisant vos informations
@@ -2150,6 +2164,9 @@ fr:
         other: '%{count} téléchargements de données'
       empty: Vous n’avez aucun téléchargement. Vous pouvez <a href='%{data_search_url}'>rechercher
         des données</a> et demander à télécharger les résultats.
+      empty_taxa_collection: Aucun trait trouvé dans cette collection
+      no_selected_attributes: Aucun attribut n’a été sélectionné. Veuillez en sélectionner
+        au moins un
       download: télécharger
       page_title: Téléchargements de données
       query_head: Requête
@@ -4192,11 +4209,14 @@ fr:
   collection_api_sort_field_notes: Si un paramètre sort_field est inclus, seuls les
     éléments de la collection dont le champ de tri correspond exactement à la chaîne
     fournie seront renvoyés
+  collection_create_failure: La création de la collection a échoué. Vérifiez s’il
+    y a eu un problème dans les paramètres passés.
   collection_delete_link: Supprimer définitivement cette collection.
   collection_destroyed: La collection a été supprimée.
   collection_removed: La collection %{collection} est supprimée.
   collection_update_failure: La mise à jour de la collection %{collection} a échoué.
     Vérifiez s’il y a un problème dans les éléments de la collection
+  collection_not_existing: La collection %{collection} n’existe pas.
   collection_error_no_items_selected: 'Erreur: Aucun élément sélectionné, aucune action
     ne sera effectuée.'
   collection_image: Image de la collection
@@ -4789,6 +4809,7 @@ fr:
     « %{period} » heures
   currently_running_harvesting: Collecte actuellement en cours
   currently_in_eol: Actuellement dans l’Encyclopédie de la Vie (EdlV)
+  create_download_data_file: Créer le fichier
   institutional_sponsors: Partenaires institutionnels
   currently_published: publié actuellement
   daily: Quotidien
@@ -5042,6 +5063,7 @@ fr:
   do_you_want_to_be_a_curator: Voulez-vous être un conservateur ?
   download_wav_file: Télécharger le fichier WAV
   download_data: Télécharger les données
+  download_collection_data: Télécharger les données
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Commentaire non enregistré : il semble que vous avez
     déjà posté ce commentaire. ...Avez-vous cliqué sur le bouton ''envoyer un commentaire''

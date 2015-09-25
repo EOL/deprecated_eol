@@ -712,6 +712,8 @@ zh-TW:
     new:
       page_title: 請留下您的回饋意見
   collections:
+    download_taxa_data:
+      select_all_checkbox: 全選
     show:
       meta_description_default: 標題為 %{collection_name} 的生命大百科典藏。
       meta_description_default_focus_collection: 標題為 %{collection_name} 的生命大百科重點典藏。

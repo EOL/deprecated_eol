@@ -967,6 +967,9 @@ es:
     new:
       page_title: Por favor deja tu comentario
   collections:
+    download_taxa_data:
+      attribute_header: Atributo
+      select_all_checkbox: Seleccionar todo
     show:
       meta_description_default: Una colección de Encyclopedia of Life titulada %{collection_name}.
       meta_description_default_focus_collection: Una colección de enfoque de Encyclopedia
@@ -1597,6 +1600,9 @@ es:
       message: Puede ver esta y otras descargas visitando la <a href='%{download_link}'>pestaña
         de descargas en su perfil</a>.
       header: ¡Su descarga está lista!
+    collection_download_ready:
+      message: Puede ver ésta y otras descargas visitando la <a href='%{download_link}'>pestaña
+        de descargas de datos en tu perfil</a>.
   sessions:
     new:
       login_with_facebook_assistive: Iniciar sesión en EOL utilizando tus credenciales
@@ -5050,6 +5056,7 @@ es:
   do_you_want_to_be_a_curator: ¿Desea ser supervisor?
   download_wav_file: Descargar archivo WAV
   download_data: Descargar datos
+  download_collection_data: Descargar datos
   dublin_core: Dublin Core
   duplicate_comment_warning: 'El comentario no ha sido guardado: parece que ya has
     publicado este comentario. ... ¿Has hecho clic en el botón "publicar comentario"

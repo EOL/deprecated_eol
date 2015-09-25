@@ -900,6 +900,12 @@ mk:
     new:
       page_title: Внесете мислење
   collections:
+    download_taxa_data:
+      attribute_header: Атрибут
+      select_all_checkbox: Избери сè
+      collection_download_under_processing: Преземањето на збирката сега е во тек.
+        Кога ќе заврши, ќе добиете известување по е-пошта.
+      user_downloaded_collection: Преземање на податоци за %{collection_name}
     show:
       meta_description_default: Збирка на Енциклопедијата на живиот свет насловена
         како %{collection_name}.
@@ -1525,6 +1531,11 @@ mk:
       message: Можете да го погледате ова и други преземања ако појдете во <a href='%{download_link}'>јазичето
         за преземени податоци во вашиот профил</a>.
       header: Преземањето е спремно!
+    collection_download_ready:
+      subject: Избраните атрибути на збирката се спремни за преземање
+      message: Можете да го погледате ова и други преземања ако појдете во <a href='%{download_link}'>јазичето
+        за преземени податоци во вашиот профил</a>.
+      header: Збирката е спремна за преземање!
   sessions:
     new:
       login_with_facebook_assistive: Најава на EOL со сметка на Facebook.
@@ -2046,6 +2057,8 @@ mk:
         other: '%{count} преземања на податоци'
       empty: Немате преземања. Можете да <a href='%{data_search_url}'>пребарате податоци</a>
         и да побарате преземање на резултатите.
+      empty_taxa_collection: Не пронајдов одлики во оваа збирка
+      no_selected_attributes: Немате избрано атрибут. Изберете барем еден
       download: преземи
       page_title: Преземања на податоци
       query_head: Барање
@@ -3646,7 +3659,7 @@ mk:
   all_changes: Сите промени
   all_collections: Сите збирки
   all_comments_entered_by_users: Подолу се прикажани сите коментари од корисници на
-    мрежното место, подредени по обратен хронолошки редослед.
+    мрежното место, подредени по обратен временски редослед.
   all_communities: Сите заедници
   all_count: Сите (%{count})
   all_filter: сè
@@ -3660,7 +3673,7 @@ mk:
   all_taxa: Сите таксони
   all_title: Сè
   all_user_submitted_texts_on_the_website: Сите текстови поднесени од корисници се
-    прикажани подолу (подредени по обратен хронолошки редослед).
+    прикажани подолу (подредени по обратен временски редослед).
   all_videos: Сите видеоснимки
   allow_user_logins: Дозволи најавувања на корисници
   allowed_html_tags: 'Допуштени HTML-ознаки: %{comma_separated_tags}'
@@ -3986,6 +3999,8 @@ mk:
   collection_api_sort_field_notes: Ако се содржи параметар „sort_field“, ќе се даваат
     само експонати (предмети) чие поле на подредување точно се совпаѓа со дадената
     низа
+  collection_create_failure: Не можев да ја создадам збирката. Видете дали има проблем
+    во наведените параметри.
   collection_created_with_count_notice:
     one: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонат.
     other: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонати.
@@ -3994,6 +4009,7 @@ mk:
   collection_removed: Збирката %{collection} е избришана.
   collection_update_failure: Подновата на збирката %{collection} не успеа. Проверете
     да не има некој проблем со ставките во збирката
+  collection_not_existing: Збирката %{collection} не постои.
   collection_error_no_items_selected: 'Грешка: нема избрано ставки, па затоа дејството
     не е извршено.'
   collection_image: Слика за збирката
@@ -4561,6 +4577,7 @@ mk:
   current_harvest_event: Преземањето од „%{resource_title}“ траеше „%{period}“ часа
   currently_running_harvesting: Пеземања во тек
   currently_in_eol: Моментално во Енциклопедијата на живиот свет
+  create_download_data_file: Создај податотека
   institutional_sponsors: Установни покровители
   currently_published: тековно објавено
   daily: Дневно
@@ -4803,6 +4820,7 @@ mk:
   do_you_want_to_be_a_curator: Дали сакате да бидете кустос
   download_wav_file: Преземи WAV податотека
   download_data: Преземи податоци
+  download_collection_data: Преземи податоци
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Коментарот не е зачуван: веќе го имате објавено. ...Можеби
     двапати стиснавте на копчето „Објави коментар“?'
@@ -6701,10 +6719,10 @@ mk:
   user_activity_click_on_the_numbers: Стиснете на бројките за да ги видите соодветните
     канали за активности.
   user_activity_report_intro: Извештај за корисничка активност. Одберете некој корисник
-    за да добиете преглед на неговите активности, подредени по обратен хронолошки
-    редослед. Ако одберете „Сите“, ќе ви се прикажат сите кориснички активности. Потоа
-    стиснете на „Пребарај“ за да продолжите (тука враќајте се со копчето за одење
-    назад во прелистувачот).
+    за да добиете преглед на неговите активности, подредени по обратен временски редослед.
+    Ако одберете „Сите“, ќе ви се прикажат сите кориснички активности. Потоа стиснете
+    на „Пребарај“ за да продолжите (тука враќајте се со копчето за одење назад во
+    прелистувачот).
   user_activity_page_title: Кориснички активности
   user_activity_stats_articles_added:
     one: Додадена е %{count} статија

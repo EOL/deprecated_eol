@@ -929,6 +929,13 @@ pms:
     new:
       page_title: Për piasì, ch'a lassa sò coment
   collections:
+    download_taxa_data:
+      attribute_header: Atribù
+      select_all_checkbox: Selessioné tut
+      collection_download_under_processing: Ël dëscariament ëd la colession a l'é
+        an cors. A-j sarà mandà un mëssagi ëd pòsta eletrònica cand ël dËscariament
+        a sarà completà
+      user_downloaded_collection: Dëscariament dij dàit për %{collection_name}
     show:
       meta_description_default: Na colession ëd l'Enciclopedìa dla Vita antitolà %{collection_name}.
       meta_description_default_focus_collection: Na colession mirà ëd l'Enciclopedìa
@@ -1573,6 +1580,11 @@ pms:
       message: A peul vëdde cost e d'àutri dëscariament an visitand la <a href='%{download_link}'>scheda
         dij dëscariament ëd dàit an sò profil</a>.
       header: Sò dëscariament a l'é pront!
+    collection_download_ready:
+      subject: Ij sò atribù selessionà dla Colession dl'EdV a son pront për esse dëscarià
+      message: A peul vëdde cost e d'àutri dëscariament an visitand la <a href='%{download_link}'>scheda
+        dij dëscariament ëd dàit an sò profil</a>.
+      header: Ël dëscariament ëd soa colession a l'é pront!
   sessions:
     new:
       login_with_facebook_assistive: Rintré ant l'EdV an dovrand soe credensiaj ëd
@@ -2110,6 +2122,9 @@ pms:
         other: '%{count} dëscariament ëd dàit'
       empty: A l'ha gnun dëscariament. A peul <a href='%{data_search_url}'>arserché
         dij dàit</a> e ciamé ëd dëscarié j'arzultà.
+      empty_taxa_collection: Gnun-e caraterìstiche a son ëstàite trovà an sa colession
+      no_selected_attributes: Gnun atribù a l'é stàit selessionà. Për piasì, ch'a
+        na serna almanch un
       download: dëscarié
       page_title: Dëscariament ëd dàit
       query_head: Arcesta
@@ -4134,6 +4149,8 @@ pms:
   collection_api_sort_field_notes: Si un paràmeter sort_field a l'é ancludù, mach
     j'element ëd la colession dont ël camp ëd selession a rëspond con precision a
     la stringa fornìa a saran ësmonù.
+  collection_create_failure: La creassion dla colession a l'ha falì. Ch'a controla
+    s'a-i fussa un problema con ij paràmeter dàit.
   collection_created_with_count_notice:
     one: La colession <em>%{collection_name}</em> a l'é stàita creà për da bin e a
       conten %{count} element.
@@ -4144,6 +4161,7 @@ pms:
   collection_removed: La colession %{collection} a l'é dëscancelà.
   collection_update_failure: La colession %{collection} a l'ha pa podù esse agiornà.
     Ch'a contròla s'a-i é un problema ant j'element dla colession
+  collection_not_existing: La colession %{collection} a esist pa.
   collection_error_no_items_selected: 'Eror: Gnun element selessionà, gnun-a assion
     a l''é stàita fàita.'
   collection_image: Plancia dla colession
@@ -4735,6 +4753,7 @@ pms:
     ore
   currently_running_harvesting: Cujìa an cors atualman
   currently_in_eol: Ant ës moment ant l'Enciclopedìa dla Vita
+  create_download_data_file: Creé n'Archivi
   institutional_sponsors: Supòrt anstitussionaj
   currently_published: publicà atualman
   daily: Cotidian
@@ -4977,6 +4996,7 @@ pms:
   do_you_want_to_be_a_curator: Veul-lo esse un conservator?
   download_wav_file: Dëscarié l'archivi WAV
   download_data: Dëscarié ij dàit
+  download_collection_data: Dëscarié ij dàit
   dublin_core: Dublin Core
   duplicate_comment_warning: |-
     Coment nen argistrà: a smija che chiel a l'ha già publicà 's coment.
@@ -5430,4 +5450,42 @@ pms:
   reindex_data_object_button: Andicisé torna l'oget
   reindex_page_button: Andicisé torna la pàgina
   image: Plancia
+  image_cropped_notice: La plancia a l'é stàita rusià për da bin.
+  image_crop_failed_error: An dëspias, a-i é staje n'eror, la plancia a l'é nen podusse
+    rusié.
+  image_is_no_longer_available: La plancia a l'é pi nen disponìbil
+  image_map_from: carta ëd
+  image_not_found: Plancia nen trovà
+  image_object: Oget imàgin
+  image_objects_will_contain_two_mediaurl_elements: J'oget plancia a conten-o doi
+    element 'mediaURL' - ël prim a l'é l'adrëssa dël sit an sl'aragnà dël fornidor
+    ëd la plancia e ël second l'adrëssa dla version memorisà dël mojen ospità an s'un
+    servent ëd l'EdV. La version EdV dla plancia a sarà stàita ardimensionà (conservand
+    ij rapòrt ëd dimension) si la plancia original a l'é pi gròssa che 460 pontin
+    ëd larghëssa o 345 pontin d'autëssa.
+  image_title_with_taxa: Plancia ëd %{taxa}
+  image_title_without_taxa: Plancia ëd na tassonomìa nen conossùa
+  images: Plance
+  images_in_red_are_not_trusted: Le plance an ross a son nen afidàbij.
+  images_in_yellow_are_not_reviewed: Le plance an giàun a son nen ëstàite controlà.
+  images_sort_worklist_note:
+    one: Le plance a son ordinà për dàita d'amportassion ant l'EdV, con j'element
+      pi recent smonù prima. A-i é mach na plancia an costa lista d'euvre.
+    other: Le plance a son ordinà për dàita d'amportassion ant l'EdV, con j'element
+      pi recent smonù prima. A-i é %{count} plance an costa lista d'euvre.
+  images_with_count:
+    one: '%{count} plancia'
+    other: '%{count} plance'
+  import_once: Amporté na vira
+  import_ontology: Amporté n'ontologìa
+  inappropriate: Inapropià
+  inaturalist_tab_label: Osservassion iNaturalist
+  include_all_metadata: anclus tuti ij metadàit për j'oget ëd dàit
+  including_traitbank_count:
+    one: ', comprèis %{count} atribù ëd TraitBank'
+    other: ', comprèis %{count} atribù ëd TraitBank'
+  in_collection: ant la colession
+  in_community: ant la comunità
+  indexed: Andicisà
+  info_item: Element d'anformassion
 ...

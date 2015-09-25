@@ -944,6 +944,10 @@ it:
     new:
       page_title: Inserisci il tuo feedback
   collections:
+    download_taxa_data:
+      attribute_header: Attributo
+      select_all_checkbox: Seleziona tutto
+      user_downloaded_collection: Scarica dati per %{collection_name}
     show:
       meta_description_default: Una collezione di Encyclopedia of Life intitolata
         %{collection_name}.
@@ -2101,6 +2105,7 @@ it:
         other: '%{count} Data downloads'
       empty: Non vi sono download. Puoi <a href='%{data_search_url}'>ricerca dati</a>
         e richiedere di scaricare i risultati.
+      no_selected_attributes: Nessun attributo selezionato. Selezionane almeno uno
       download: download
       page_title: Download dati
       query_head: Interrogazione
@@ -4771,6 +4776,7 @@ it:
     ore
   currently_running_harvesting: Raccolta Attualmente in Corso
   currently_in_eol: Attualmente in Encyclopedia of Life
+  create_download_data_file: Crea file
   institutional_sponsors: Sponsor istituzionali
   currently_published: attualmente pubblicato
   daily: Giornaliero
@@ -4790,8 +4796,10 @@ it:
     Secretariat</a> per ulteriori informazioni su TraitBank.</p>
   data_results_only_for_search: Risultati da TraitBank per "%{search_term}"
   data_search_limit:
-    one: I download della ricerca dati sono limitati a %{count} risultato.
-    other: I download della ricerca dati sono limitati a %{count} risultati.
+    one: I dati del risultato della ricerca saranno scaricati in %{count} record per
+      file.
+    other: I dati del risultato della ricerca saranno scaricati in %{count} record
+      per file.
   data_about_this_record: Dati relativi a questo record
   data_column_tc_id: ID EOL della pagina
   data_column_sci_name: Nome Scientifico
@@ -5012,6 +5020,7 @@ it:
   do_you_want_to_be_a_curator: Vuoi essere un curatore
   download_wav_file: Scarica il file .WAV
   download_data: Scarica dati
+  download_collection_data: Scarica dati
   dublin_core: Dublin Core
   duplicate_comment_warning: 'Commento non salvato: sembra che hai già postato questo
     commento. ...Hai fatto clic due volte sul pulsante ''Invia il commento''?'

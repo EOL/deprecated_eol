@@ -14,6 +14,7 @@
 # Author: Eleferen
 # Author: Eroha
 # Author: Express2000
+# Author: INS Pirat
 # Author: Ilnur efende
 # Author: Iluvatar
 # Author: Kaganer
@@ -928,6 +929,9 @@ ru:
     new:
       page_title: Оставьте, пожалуйста, свой отзыв
   collections:
+    download_taxa_data:
+      select_all_checkbox: Выбрать все
+      user_downloaded_collection: Скачивание данных для %{collection_name}
     show:
       meta_description_default: Коллекция энциклопедии жизни коллекции под названием
         %{collection_name}
@@ -1554,6 +1558,8 @@ ru:
       message: Вы можете посмотреть эту и другие загрузки, посетив <a href='%{download_link}'>вкладку
         загрузок данных в вашем профиле</a>.
       header: Загрузка готова!
+    collection_download_ready:
+      header: Ваша коллекция готова для скачивания!
   sessions:
     new:
       login_with_facebook_assistive: Войти в EOL с помощью учетной записи Facebook.
@@ -1653,8 +1659,9 @@ ru:
             о %{scientific_name}, включая информацию о %{topics}.
           meta_title: Данные о %{scientific_name}, классифицированные как classified
             by %{hierarchy_provider}
-          meta_title_with_common_name: данные о , классифицированные как
-          tweet_text: данные о , классифицированные как
+          meta_title_with_common_name: Факты о %{preferred_common_name} (%{scientific_name}
+            по классификации %{hierarchy_provider})
+          tweet_text: Факты о %{scientific_name} по классификации %{hierarchy_provider}
         meta_description: данные, включая параметры и свойства для .Вычислительные
           данные для  из научных работ, предоставленых исследователями.
         meta_description_with_common_name: данные, включая параметры и свойства для
@@ -1722,8 +1729,14 @@ ru:
           meta_keywords: Синонимы %{scientific_name}
         meta_description: Синонимы %{scientific_name}.
         meta_keywords: Синонимы %{scientific_name}
+        meta_keywords_with_common_name: Синонимы %{preferred_common_name}, синонимы
+          %{scientific_name}
         meta_title: Синонимы %{scientific_name}
+        meta_title_with_common_name: Синонимы %{preferred_common_name} (%{scientific_name})
         tweet_text: Синонимы %{scientific_name}
+    overview:
+      show:
+        tweet_text: Информация о %{scientific_name}
     resources:
       education:
         meta_title: Образовательные ресурсы на тему %{scientific_name}
@@ -1817,6 +1830,8 @@ ru:
       header: Спасибо за регистрацию!
     recover_account:
       errors:
+        user_not_found_by_email_address: Учётная запись EOL с таким адресом электронной
+          почты не найдена.
         unable_to_update_token: Извините, произошла ошибка, и письмо не было отправлено,
           пожалуйста, попробуйте еще раз.
       form_header: Восстановить учётную запись
@@ -1824,6 +1839,9 @@ ru:
     recover_account_choose_account:
       form_header: Восстановить учётную запись
       legend_choose_account: Выберите учётную запись
+    unsubscribe_notifications:
+      already_unsubscribed: Вы уже отписались от уведомлений.
+      unsubscribed_notifications_successfully: Вы успешно отписались от уведомлений.
   user_added_data:
     additional_fields: Данные об этой записи
     edit_data_header: Редактировать ваши данные
@@ -1875,8 +1893,125 @@ ru:
   activity: Действия
   activity_logs:
     collection_activity_log:
+      create:
+        an_unknown_user_created_it: Создал неизвестный пользователь.
+        user_created_it: Создал пользователь <strong>%{user}</strong>.
       remove_all:
+        an_unknown_user_cleared_an_unknown_collection: Неизвестный пользователь удалил
+          все элементы из неизвестной коллекции.
+        an_unknown_user_cleared_collection: Неизвестный пользователь удалил все элементы
+          из коллекции «%{collection}».
+        user_cleared_an_unknown_collection: Пользователь <strong>%{user}</strong>
+          удалил все элементы из неизвестной коллекции.
+        user_cleared_collection: Пользователь <strong>%{user}</strong> удалил все
+          элементы из коллекции «%{collection}».
+        an_unknown_user_cleared_it: Неизвестный пользователь удалил все элементы.
         user_cleared_it: <strong>%{user}</strong> удалил все элементы.
+      remove:
+        an_unknown_user_removed_an_unknown_item_from_an_unknown_collection: Неизвестный
+          пользователь удалил неизвестный элемент из неизвестной коллекции.
+        an_unknown_user_removed_an_unknown_item_from_collection: Неизвестный пользователь
+          удалил неизвестный элемент из коллекции «%{collection}».
+        an_unknown_user_removed_item_from_an_unknown_collection: Неизвестный пользователь
+          удалил «%{item}» из неизвестной коллекции.
+        an_unknown_user_removed_item_from_collection: Неизвестный пользователь удалил
+          «%{item}» из коллекции «%{collection}».
+        user_removed_an_unknown_item_from_an_unknown_collection: Пользователь <strong>%{user}</strong>
+          удалил неизвестный элемент из неизвестной коллекции.
+        user_removed_an_unknown_item_from_collection: Пользователь <strong>%{user}</strong>
+          удалил неизвестный элемент из коллекции «%{collection}».
+        user_removed_item_from_an_unknown_collection: Пользователь <strong>%{user}</strong>
+          удалил «%{item}» из неизвестной коллекции.
+        user_removed_item_from_collection: Пользователь <strong>%{user}</strong> удалил
+          «%{item}» из коллекции «%{collection}».
+        an_unknown_user_removed_an_unknown_item_from_it: Неизвестный пользователь
+          удалил неизвестный элемент.
+        an_unknown_user_removed_item_from_it: Неизвестный пользователь удалил элемент
+          «%{item}».
+        user_removed_an_unknown_item_from_it: Пользователь <strong>%{user}</strong>
+          удалил неизвестный элемент.
+        user_removed_item_from_it: Пользователь <strong>%{user}</strong> удалил элемент
+          «%{item}».
+      collect:
+        an_unknown_user_added_an_unknown_item_to_an_unknown_collection: Неизвестный
+          пользователь добавил неизвестный элемент в неизвестную коллекцию.
+        an_unknown_user_added_an_unknown_item_to_collection: Неизвестный пользователь
+          добавил неизвестный элемент в коллекцию «%{collection}».
+        an_unknown_user_added_item_to_an_unknown_collection: Неизвестный пользователь
+          добавил «%{item}» в неизвестную коллекцию.
+        an_unknown_user_added_item_to_collection: Неизвестный пользователь добавил
+          «%{item}» в коллекцию «%{collection}».
+        user_added_an_unknown_item_to_an_unknown_collection: Пользователь <strong>%{user}</strong>
+          добавил неизвестный элемент в неизвестную коллекцию.
+        user_added_an_unknown_item_to_collection: Пользователь <strong>%{user}</strong>
+          добавил неизвестный элемент в коллекцию «%{collection}».
+        user_added_item_to_an_unknown_collection: Пользователь <strong>%{user}</strong>
+          добавил «%{item}» в неизвестную коллекцию.
+        user_added_item_to_collection: Пользователь <strong>%{user}</strong> добавил
+          «%{item}» в коллекцию «%{collection}».
+        an_unknown_user_added_an_unknown_item_to_it: Неизвестный пользователь добавил
+          неизвестный элемент.
+        an_unknown_user_added_item_to_it: Неизвестный пользователь добавил элемент
+          «%{item}».
+        user_added_an_unknown_item_to_it: Пользователь <strong>%{user}</strong> добавил
+          неизвестный элемент.
+        user_added_item_to_it: Пользователь <strong>%{user}</strong> добавил элемент
+          «%{item}».
+      other_actions:
+        an_unknown_user_modified_an_unknown_collection: Неизвестный пользователь изменил
+          неизвестную коллекцию.
+        an_unknown_user_modified_collection: Неизвестный пользователь изменил коллекцию
+          «%{collection}».
+        user_modified_an_unknown_collection: Пользователь <strong>%{user}</strong>
+          изменил неизвестную коллекцию.
+        user_modified_collection: Пользователь <strong>%{user}</strong> изменил коллекцию
+          «%{collection}».
+    community_activity_log:
+      create:
+        an_unknown_user_created_an_unknown_community: Неизвестный пользователь создал
+          неизвестное сообщество.
+        an_unknown_user_created_community: Неизвестный пользователь создал сообщество
+          «%{community}».
+        user_created_an_unknown_community: Пользователь <strong>%{user}</strong> создал
+          неизвестное сообщество.
+        user_created_community: Пользователь <strong>%{user}</strong> создал сообщество
+          «%{community}».
+      join:
+        an_unknown_user_joined_an_unknown_community: Неизвестный пользователь присоединился
+          к неизвестному сообществу.
+        an_unknown_user_joined_community: Неизвестный пользователь присоединился к
+          сообществу «%{community}».
+        user_joined_an_unknown_community: Пользователь <strong>%{user}</strong> присоединился
+          к неизвестному сообществу.
+        user_joined_community: Пользователь <strong>%{user}</strong> присоединился
+          к сообществу «%{community}».
+      leave:
+        an_unknown_user_left_an_unknown_community: Неизвестный пользователь покинул
+          неизвестное сообщество.
+        an_unknown_user_left_community: Неизвестный пользователь покинул сообщество
+          «%{community}».
+        user_left_an_unknown_community: Пользователь <strong>%{user}</strong> покинул
+          неизвестное сообщество.
+        user_left_community: Пользователь <strong>%{user}</strong> покинул сообщество
+          «%{community}».
+      change_description:
+        an_unknown_user_changed_the_description_of_an_unknown_community: Неизвестный
+          пользователь изменил описание неизвестного сообщества.
+        an_unknown_user_changed_the_description_of_community: Неизвестный пользователь
+          изменил описание сообщества «%{community}».
+        user_changed_the_description_of_an_unknown_community: Пользователь <strong>%{user}</strong>
+          изменил описание неизвестного сообщества.
+        user_changed_the_description_of_community: <strong>%{user}</strong> изменил
+          описание сообщества «%{community}».
+      change_name:
+        an_unknown_user_changed_the_name_of_an_unknown_community: Неизвестный пользователь
+          переименовал неизвестное сообщество.
+        an_unknown_user_changed_the_name_of_community: Неизвестный пользователь переименовал
+          сообщество «%{community}».
+        user_changed_the_name_of_an_unknown_community: Пользователь <strong>%{user}</strong>
+          переименовал неизвестное сообщество.
+        user_changed_the_name_of_community: Пользователь <strong>%{user}</strong>
+          переименовал сообщество «%{community}».
   add_a_collection_to_a_community: Добавить "%{collection}" в сообщество
   add_a_comment: Добавьте комментарий.
   add_a_comment_colon: 'Добавить комментарий:'
@@ -2207,7 +2342,11 @@ ru:
   communities_index_header: Активные сообщества
   community: Сообщество
   community_activity: Активность сообщества
+  community_description_default: Сообщество Энциклопедии жизни
+  community_empty_notice: В этом сообществе нет членов.
   community_focus: Управляемые коллекции
+  community_invitation_comment: Я бы хотел пригласить вас присоединиться к сообществу
+    «%{community}».
   community_logo_alt_text: Логотип для сообщества %{community_name}
   community_members: Члены сообщества
   community_name_label: Название сообщества
@@ -2257,6 +2396,8 @@ ru:
   content_partner_contact_edit_page_subheader: Редактировать контакт
   content_partner_contact_new_link: Добавить новый контакт
   content_partner_contact_new_page_subheader: Добавить контакт
+  content_partner_contact_new_edit_form_tip: '%{required_icon} необходимо указать
+    имя, фамилию и электронную почту.'
   content_partner_contact_update_successful_notice: Контакт успешно обновлен.
   content_partner_contact_update_unsuccessful_error: Извините, произошла ошибка, контакт
     не был обновлен.
@@ -2310,6 +2451,9 @@ ru:
   create_community_about_heading: О создании сообщества
   create_a_community: Создать сообщество
   create_child_page: Создать дочернюю страницу
+  create_community_button: Создать сообщество
+  created_community: Сообщество успешно создано.
+  creative_commons: Creative Commons
   curated_association_update_button: Сохранить изменения
   your_current_rating_0_of_5: 'Ваш текущий рейтинг: 0 из 5'
   your_current_rating_1_of_5: 'Ваш текущий рейтинг: 1 из 5'
@@ -2326,6 +2470,8 @@ ru:
       header_assistive: Форма поиска
       input_summary_intro: Выбранные параметры поиска
       new_search_link: Начать новый поиск
+      search_suggestion_whale_mass: Какие киты весят больше 10 000 килограммов?
+      search_suggestion_blue_flowers: У каких растений синие цветы?
       search_tools_show_link: Показать параметры поиска
       search_tools_hide_link: Скрыть параметры поиска
       search_value_or_range_header: Искать конкретное значение или диапазон
@@ -2347,6 +2493,8 @@ ru:
   edit_community: Редактировать сообщество
   edit: редактировать
   encyclopedia_of_life: Энциклопедия жизни
+  endorsed_collections: Избранные коллекции
+  eol_flickr_group: Группа EOL на Flickr
   eol_news: Новости EOL
   eol_pages: Страницы
   error_500_page_title: Ой!
@@ -2393,6 +2541,8 @@ ru:
   glossary: Глоссарий
   glossary_subhead: Глоссарий
   google: Google
+  google_images: Google Картинки
+  google_scholar: Google Академия
   help: Помощь
   id: ID
   image: Изображение
@@ -2411,6 +2561,8 @@ ru:
   item_type_person: Человек
   item_type_sound: Звуки
   item_type_video: Видео
+  join_community_button: Присоединиться к этому сообществу
+  joined_time_ago: Присоединился %{time_passed} назад
   just_pages_with_pictures_and_text: Только страницы с иллюстрациями и текстом
   key: Ключ
   known_uri_category_header: Категории
@@ -2455,6 +2607,7 @@ ru:
   login_hidden_user_message: Учетная запись %{given_name} больше не активна
   logo_header: Логотип
   logout: Выйти
+  media_list_empty_search: Нет медиафайлов, соответствующих вашим критериям поиска.
   members_with_count:
     one: '%{count} участник'
     few: '%{count} участника'
@@ -2478,7 +2631,9 @@ ru:
     на другую страницу. Для завершения процесса выберите «разделить на новую страницу»
     или перейдите на вкладку «Имена» у нужного объекта данных и затем выберите «объединить
     классификации».
+  must_be_logged_in: Для совершения этого действия вам нужно авторизоваться.
   names_children_column_header: Дети
+  names_synonyms_empty: К этому таксону ещё не приведено синонимов.
   mobile:
     contents:
       home: Главная
@@ -2506,23 +2661,39 @@ ru:
       no_results_found: Ничего не найдено
       results: Результаты
   never: Никогда
+  new_collection: Новая коллекция
   news_archive_page: архив новостей
   no_answer: Нет
   nucleotide_sequences: Нуклеотидные последовательности
   object_type_text_option: Текст
+  page_not_found: Страница не найдена
   pages_with_pictures_and_text: Страницы с иллюстрациями и текстом
   pages_admin_section_link: Администраторы
   password_colon: 'Пароль:'
+  permalink: Постоянная ссылка
+  pinterest: Pinterest
   please_return_to_eol_homepage: Пожалуйста, вернитесь на главную страницу EOL
   references_cabs_colon: 'Примечания:'
+  request_mailing_list_colon: 'Пользователь не хочет получать электронную почту:'
+  reset_password_instructions_sent_to_user_notice: Инструкции по сбросу пароля к вашей
+    учётной записи <em>%{username}</em> высланы на вашу электронную почту.
   rights: Права
   rights_holder: Правообладатель
   rights_statement: Заявление о правах
   save: Сохранить
+  search_for_comments_containing_the_text: 'Искать комментарии с текстом:'
+  search_field_synonym: Синоним
+  see_all_of_your_collections: Посмотреть все ваши коллекции
+  see_all_of_your_communities: Посмотреть все ваши сообщества
+  see_all_maps_link: Посмотреть все карты
   select_topic: Пожалуйста, выберите тему сообщения
+  server_ip_address: IP-адрес сервера
   show: Показать
   show_in_overview: показать в описании
+  sign_in: Войти
   sign_out: Выйти
+  site_information: Информация о сайте
+  site_language: Язык сайта
   skip_to_content: Перейти к данным
   source_url: URL источника
   supplier: Поставщик

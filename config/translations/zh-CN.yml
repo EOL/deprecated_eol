@@ -52,7 +52,7 @@ zh-CN:
         description: 小组描述
         logo: 上传logo
       contact:
-        comments: 信息
+        comments: 消息
         contact_subject_id: 联系主题
         email: 电子邮件
         name: 名称
@@ -796,6 +796,10 @@ zh-CN:
     new:
       page_title: 请留下您的反馈
   collections:
+    download_taxa_data:
+      attribute_header: 属性
+      select_all_checkbox: 全选
+      user_downloaded_collection: 用于%{collection_name}的数据下载
     show:
       meta_description_default: 标题为 %{collection_name} 的生物大百科全书合集。
       meta_description_default_focus_collection: 题为 %{collection_name}的生物大百科全书重点收藏。
@@ -2767,6 +2771,7 @@ zh-CN:
   collection_destroyed: 该收藏已被删除。
   collection_removed: 收藏%{collection}已删除。
   collection_update_failure: 收藏%{collection}更新失败。请检查收藏项目中是否有问题
+  collection_not_existing: 收藏%{collection}不存在。
   collection_image: 收藏图像
   collection_is_empty: 该收藏当前为空。
   collection_item_edit_page_title: 编辑<em>%{collection_name}</em>收藏中的条目
@@ -3148,6 +3153,7 @@ zh-CN:
   your_watch_collection: 您的关注列表
   current_language: 语言： %{iso_code}
   currently_in_eol: 目前在网络生命大百科中
+  create_download_data_file: 创建文件
   institutional_sponsors: 慈善赞助商
   currently_published: 目前已发布
   daily: 每日
@@ -3283,6 +3289,7 @@ zh-CN:
   do_you_want_to_be_a_curator: 您想成为管理员吗
   download_wav_file: 下载WAV文件
   download_data: 下载数据
+  download_collection_data: 下载数据
   dublin_core: 都柏林核心
   duplicate_items_were_ignored: 重复的条目被忽略。
   each_method_documentation_page_has_formatted_responses: 每个方法的文档页都有XML格式和JSON格式的响应例子。
@@ -3793,7 +3800,7 @@ zh-CN:
   merge_concepts: 合并概念
   merge_data: 合并分类
   merge_pending: 此合并操作将需要一些时间。此页面目前被锁定，无法做出更多分类编辑，直到合并完成。在过程结束后您将接收到一封邮件，并且将出现在用于页面的新闻供稿中。
-  message_colon: '消息:'
+  message_colon: 消息：
   meta_description_colon: 元描述：
   meta_keywords_colon: 元关键词：
   meta_title_site_name: 生命百科

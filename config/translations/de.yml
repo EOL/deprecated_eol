@@ -959,6 +959,13 @@ de:
     new:
       page_title: Bitte geben Sie uns eine Rückmeldung
   collections:
+    download_taxa_data:
+      attribute_header: Attribut
+      select_all_checkbox: Alle auswählen
+      collection_download_under_processing: Das Herunterladen der Sammlung wird jetzt
+        verarbeitet. Eine E-Mail wird an Sie versandt, wenn der Download vollständig
+        ist.
+      user_downloaded_collection: Datendownload für %{collection_name}
     show:
       meta_description_default: Eine Sammlung der Enzyklopädie des Lebens (EOL) namens
         %{collection_name}.
@@ -1612,6 +1619,11 @@ de:
       message: Sie können diese und andere Suchen durch den Besuch des <a href='%{download_link}'>Reiters
         für Datendownloads in Ihrem Profil</a> ansehen.
       header: Ihr Download ist fertig!
+    collection_download_ready:
+      subject: Ihre ausgewählten EOL-Sammlungsattribute sind bereit zum Herunterladen
+      message: Sie können diesen und andere Downloads ansehen durch das Besuchen der
+        <a href='%{download_link}'>Datendownload-Registerkarte in Ihrem Profil</a>.
+      header: Ihre Sammlung ist bereit zum Herunterladen!
   sessions:
     new:
       login_with_facebook_assistive: Melden Sie sich bei der EOL mit Ihren Anmeldedaten
@@ -2187,6 +2199,9 @@ de:
         other: '%{count} Datendownloads'
       empty: Sie haben keine Downloads. Sie können <a href='%{data_search_url}'>nach
         Daten suchen</a> und die Ergebnisse herunterladen.
+      empty_taxa_collection: In dieser Sammlung wurden keine Eigenschaften gefunden
+      no_selected_attributes: Es wurde kein Attribut ausgewählt. Bitte wählen Sie
+        mindestens ein Attribut aus.
       download: herunterladen
       page_title: Datendownloads
       query_head: Abfrage
@@ -4326,6 +4341,8 @@ de:
   collection_api_sort_field_notes: Falls ein Parameter „sort_field“ angegeben ist,
     werden nur Sammlungsobjekte zurückgegeben, deren Sortierfeld exakt der angegebenen
     Zeichenfolge entspricht.
+  collection_create_failure: Das Erstellen der Sammlung ist fehlgeschlagen. Bitte
+    überprüfen Sie, ob es ein Problem in den übergebenen Parametern gibt.
   collection_created_with_count_notice:
     one: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit einem Sammlungsobjekt
       erstellt.
@@ -4336,6 +4353,7 @@ de:
   collection_removed: Die Sammlung %{collection} wurde gelöscht.
   collection_update_failure: Das Aktualisieren der Sammlung %{collection} ist fehlgeschlagen.
     Überprüfen Sie, ob es ein Problem in Sammlungsobjekten gibt
+  collection_not_existing: Die Sammlung %{collection} ist nicht vorhanden.
   collection_error_no_items_selected: 'Fehler: Es wurden keine Objekte ausgewählt,
     so dass keine Aktion ausgeführt werden konnte.'
   collection_image: Bild der Sammlung
@@ -4942,6 +4960,7 @@ de:
   current_harvest_event: Abruf von %{resource_title} läuft seit %{period} Stunden
   currently_running_harvesting: Aktuell laufender Abruf
   currently_in_eol: 'Derzeit in der Enzyklopädie des Lebens verzeichnet:'
+  create_download_data_file: Datei erstellen
   institutional_sponsors: Institutionelle Sponsoren
   currently_published: derzeit veröffentlicht
   daily: Täglich
@@ -5192,6 +5211,7 @@ de:
   do_you_want_to_be_a_curator: Möchten Sie ein Kurator werden?
   download_wav_file: WAV-Datei herunterladen
   download_data: Daten herunterladen
+  download_collection_data: Daten herunterladen
   dublin_core: Dublin Core
   duplicate_comment_warning: Der Kommentar wurde nicht gespeichert. Es scheint, als
     ob Sie bereits diesen Kommentar veröffentlicht haben. … Haben Sie die Schaltfläche

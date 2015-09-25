@@ -97,7 +97,6 @@ class TaxonDataSet
   def get_positions
     Hash[
       KnownUri.by_uris(statistical_methods).
-        select( [ :uri, :position ] ).
         map { |k| [ k.uri, k.position ] }
     ]
   end

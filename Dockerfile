@@ -22,6 +22,11 @@ COPY . /app
 
 COPY config/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
+RUN mkdir /app/public/uploads/data_search_files && \
+    mkdir /app/public/uploads/datasets && \
+    mkdir /app/public/uploads/images && \
+    chmod a+rx /app/public/uploads/* && \
+    chown -R www-data:www-data /app/public/uploads
 RUN chmod a+rx /
 RUN umask 0022
 

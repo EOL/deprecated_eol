@@ -10,8 +10,7 @@ class Taxa::DataController < TaxaController
   def index
     EOL.log_call
     @assistive_section_header = I18n.t(:assistive_data_header)
-    @recently_used = KnownUri.where(uri: session[:rec_uris]) if
-      session[:rec_uris]
+    @recently_used = KnownUri.by_uris(session[:rec_uris]) if session[:rec_uris]
     @selected_data_point_uri_id = params.delete(:data_point_uri_id)
     if params[:toc_id].nil?
       @toc_id = 'ranges' if @data_point_uris.blank? && !@range_data.blank?

@@ -96,7 +96,7 @@ class TaxonDataSet
   # Bulk load of complex data:
   def get_positions
     Hash[
-      KnownUri.where(uri: statistical_methods).
+      KnownUri.by_uris(statistical_methods).
         select( [ :uri, :position ] ).
         map { |k| [ k.uri, k.position ] }
     ]
@@ -151,11 +151,11 @@ class TaxonDataSet
   end
 
   def load_kuris
-    predicates = KnownUri.where(uri: @data_point_uris.map(&:predicate).uniq)
+    predicates = KnownUri.by_uris(@data_point_uris.map(&:predicate).uniq)
     @data_point_uris.each do |dpuri|
       dpuri.predicate_kuri = predicates.find { |p| p.uri == dpuri.predicate }
     end
-    objects = KnownUri.where(uri: @data_point_uris.map(&:object).uniq)
+    objects = KnownUri.by_uris(@data_point_uris.map(&:object).uniq)
     @data_point_uris.each do |dpuri|
       dpuri.object_kuri = objects.find { |p| p.uri == dpuri.object }
     end
@@ -174,9 +174,9 @@ class TaxonDataSet
     EOL.log("assigning metadata")
     # Speed things up immensely (but still not FAST):
     DataPointUri.assign_metadata(@data_point_uris, Language.default)
-    # This is usually only a handful of results!
-    meta_uris = KnownUri.where(
-      uri: @data_point_uris.flat_map { |u| u.metadata.map(&:predicate) }.uniq
+    # This is usually only a handful of results! TODO - this cache is no longer needed.
+    meta_uris = KnownUri.by_uris(
+      @data_point_uris.flat_map { |u| u.metadata.map(&:predicate) }.uniq
     )
     EOL.log("building graph")
     @data_point_uris.map do |dpuri|

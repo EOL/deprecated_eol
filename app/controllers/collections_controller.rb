@@ -18,7 +18,7 @@ class CollectionsController < ApplicationController
   before_filter :restrict_to_admins, only: :reindex
 
   layout 'collections'
-  
+
   RECORDS_PER_PAGE = 30
 
   def show
@@ -222,7 +222,7 @@ class CollectionsController < ApplicationController
       format.js { render 'choose_taxa_data' }
     end
   end
-  
+
   def download_taxa_data
     if params[:data_point_uri].blank?
       flash[:warning] = I18n.t("users.data_downloads.no_selected_attributes")
@@ -233,21 +233,21 @@ class CollectionsController < ApplicationController
       redirect_to collection_path(@collection)
     end
   end
-  
+
   #This maynot be the right place to put this. This method is used to get the name of the given uri from the KnownURIs.
   def get_name(uri)
-    KnownUri.find_by_uri(uri).name
+    KnownUri.by_uri(uri).name
   end
   helper_method :get_name
-  
+
   #This maynot be the right place to put this. This method is used to get the uri of the given data point uri id.
   def get_uri_name
     predicate = DataPointUri.find(params[:id]).predicate
     respond_to do |format|
-      format.json { render json: {"uri" => predicate, "name" => KnownUri.find_by_uri(predicate).name}}
+      format.json { render json: {"uri" => predicate, "name" => KnownUri.by_uri(predicate).name}}
     end
   end
-  
+
   def has_taxa?
     @collection.collection_items.taxa.any?
   end
@@ -651,7 +651,7 @@ private
   def user_able_to_view_collection
     unless @collection && current_user.can_read?(@collection)
       if logged_in?
-        
+
         raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have read access to Collection with ID=#{@collection.id}",
         :admins_and_joined_only_can_read)
       else
@@ -664,7 +664,7 @@ private
   def user_able_to_edit_collection
     unless @collection && current_user.can_edit_collection?(@collection)
       if logged_in?
-        
+
         raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to Collection with ID=#{@collection.id}",
         :owner_and_managers_only_can_edit)
       else

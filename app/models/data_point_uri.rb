@@ -258,7 +258,7 @@ class DataPointUri < ActiveRecord::Base
   def predicate_uri
     p = @predicate_kuri
     if p.nil? && predicate && EOL::Sparql.is_uri?(predicate)
-      p = KnownUri.find_by_uri(predicate)
+      p = KnownUri.by_uri(predicate)
     end
     p || predicate_known_uri || predicate
   end
@@ -266,7 +266,7 @@ class DataPointUri < ActiveRecord::Base
   def object_uri
     obj = @object_kuri
     if obj.nil? && object && EOL::Sparql.is_uri?(object)
-      obj = KnownUri.find_by_uri(object)
+      obj = KnownUri.by_uri(object)
     end
     obj || object_known_uri || object
   end

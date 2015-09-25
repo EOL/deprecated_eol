@@ -5,7 +5,7 @@ class KnownUriRelationshipsController < ApplicationController
   # POST /known_uri_relationships
   def create
     if params[:known_uri_relationship][:to_known_uri_id].blank? && params[:autocomlete][:to_known_uri]
-      if known_uri = KnownUri.find_by_uri(params[:autocomplete][:to_known_uri].strip)
+      if known_uri = KnownUri.by_uri(params[:autocomplete][:to_known_uri].strip)
         params[:known_uri_relationship][:to_known_uri_id] = known_uri.id
       end
     end

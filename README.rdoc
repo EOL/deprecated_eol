@@ -543,7 +543,7 @@ operations tend to fall into two categories: dimensions and facts.  In short, di
 (primary) data. Facts are derived (secondary) caches of information which is more meaningful to the user.  Fact
 table design is highly dependent on the user interface design, because we only need to generate facts if the
 information will actually be shown.  For performance reasons regarding the expected database size, fact tables
-are also intended to be highly denormalized, non-authoritive sources of information.
+are also intended to be highly denormalized, non-authoritative sources of information.
 
 Location-based facts require the primary data to go through a geocoding process which requires an external web
 service.  This process is thus performed asynchronously from the main site. Results of IP location lookups are

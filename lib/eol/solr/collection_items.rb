@@ -2,6 +2,19 @@
 module EOL
   module Solr
     class CollectionItems
+      def initialize
+        @solr = RSolr.connect(url: $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE)
+      end
+
+      def optimize
+        EOL.log_call
+        response = @solr.update(:data => '<optimize/>')
+        EOL.log("Optimizing CollectionItems Solr core done: #{response.to_json}",
+          prefix: '.')
+      end
+
+      # THE REST OF THESE METHODS ARE OLD:
+
       def self.search_with_pagination(collection_id, options = {})
         options[:page]        ||= 1
         options[:per_page]    ||= 40

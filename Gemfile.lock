@@ -322,6 +322,8 @@ GEM
       redis-namespace (~> 1.0)
       sinatra (>= 0.9.2)
       vegas (~> 0.1.2)
+    rsolr (1.0.12)
+      builder (>= 2.1.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -487,6 +489,7 @@ DEPENDENCIES
   recaptcha
   redis-namespace (= 1.2.2)
   resque (= 1.23.0)
+  rsolr
   rspec-html-matchers (= 0.4.3)
   rspec-rails (= 2.14)
   ruby-hmac (= 0.4.0)

@@ -6,9 +6,11 @@ class EolConfig < ActiveRecord::Base
   after_update :clear_caches
   validates_uniqueness_of :parameter
 
-  # Arbitrary string (stored in cache when there is no global site warning); something you would never use as a global site warning:
+  # Arbitrary string (stored in cache when there is no global site warning);
+  # something you would never use as a global site warning:
   EMPTY_WARNING = 'none'
-  # How often you want these values to be re-checked. Shorter times mean quicker changes, but more time reading the DB instead of cache.
+  # How often you want these values to be re-checked. Shorter times mean quicker
+  # changes, but more time reading the DB instead of cache.
   REFRESH_TIME = 10.minutes
 
   def self.create_defaults
@@ -16,7 +18,7 @@ class EolConfig < ActiveRecord::Base
     { email_actions_to_curators: '',
       email_actions_to_curators_address: '',
       global_site_warning: '',
-      all_users_can_see_data: 'false', # NOTE - this should probably be false, at least for a while, when we deploy to prod...
+      all_users_can_see_data: 'true',
       reference_parsing_enabled: '',
       reference_parser_pid: '',
       reference_parser_endpoint: '',

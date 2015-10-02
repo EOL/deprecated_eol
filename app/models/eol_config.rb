@@ -19,6 +19,7 @@ class EolConfig < ActiveRecord::Base
       email_actions_to_curators_address: '',
       global_site_warning: '',
       all_users_can_see_data: 'true',
+      last_solr_rebuild: '',
       reference_parsing_enabled: '',
       reference_parser_pid: '',
       reference_parser_endpoint: '',

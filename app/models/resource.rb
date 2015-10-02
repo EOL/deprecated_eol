@@ -62,6 +62,7 @@ class Resource < ActiveRecord::Base
   end
   scope :failed,
     -> { where(resource_status_id: ResourceStatus.harvest_failed.id) }
+  scope :harvestable, -> { where(harvestable: true) }
 
   # The order of the list affects the order of harvesting:
   acts_as_list
@@ -101,7 +102,7 @@ class Resource < ActiveRecord::Base
   validate :url_or_dataset_not_both
 
   def self.next
-    ready.by_priority.first
+    ready.by_priority.harvestable.first
   end
 
   # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
@@ -312,6 +313,7 @@ class Resource < ActiveRecord::Base
     File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json") if File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json")
   end
 
+  # TODO - Whoa, this is not the right way to store this. Use EolConfig.
   def self.is_paused?
     Resource.first.pause
   end

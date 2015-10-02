@@ -22,6 +22,7 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :flattened_ancestors, class_name: HierarchyEntriesFlattened.to_s
   has_many :curator_activity_logs
   has_many :hierarchy_entry_moves
+  has_many :curated_data_objects_hierarchy_entries
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
@@ -73,6 +74,10 @@ class HierarchyEntry < ActiveRecord::Base
   def self.preload_deeply_browsable(set)
     HierarchyEntry.preload_associations(set, [ { agents_hierarchy_entries: :agent }, :rank, { hierarchy: :agent } ], select: {hierarchy_entries: [:id, :parent_id, :taxon_concept_id]} )
     set
+  end
+
+  def self.use_index(which)
+    from("#{self.table_name} USE INDEX(#{which})")
   end
 
   def has_parent?

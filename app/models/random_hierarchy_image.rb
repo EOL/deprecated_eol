@@ -113,10 +113,11 @@ class RandomHierarchyImage < ActiveRecord::Base
         pluck(:taxon_concept_id)
       EOL.log("Found #{tc_ids} rich taxa", prefix: '.')
       # Not doing this with a big join right now because the top_concept_images
-      # table was out of date at the time of writing.
+      # table was out of date at the time of writing. TODO - move the trusted
+      # check; that should be done when called, not here!
       set = Set.new
       TaxonConcept.includes(hierarchy_entries: [ :name ]).
-        where(id: tc_ids, published: true, vetted_id: Vetted.trusted.id).
+        where(id: tc_ids, vetted_id: Vetted.trusted.id).
         where(["hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
           "hierarchy_entries.rank_id IN (?)", Rank.species_rank_ids]).
         find_each do |taxon|

@@ -6,7 +6,7 @@ module EOL
       :charset   => ENV['CHARSET']   || 'utf8',
       :collation => ENV['COLLATION'] || 'utf8_general_ci'
     }
-    
+
     def self.all_connections
       connections = [ActiveRecord::Base, LoggingModel]
       connections.map {|c| c.connection}
@@ -108,6 +108,43 @@ module EOL
 
     def self.truncate_table(conn, table)
       conn.execute "TRUNCATE TABLE `#{table}`"
+    end
+
+    # This is a little ... raw. You pass in the class, an ordered array of the
+    # fields represented by the data, and the data as an array _of strings_
+    # (because we don't know how you want them quoted, without doing a bunch of
+    # work—KISS ...and faster), with the fields quoted and in the same order as
+    # the fields. TODO - this would be better with a hash rather than two
+    # arrays.
+    def self.bulk_insert(klass, fields, rows, options = {})
+      EOL.log_call
+      table = klass.table_name
+      table += "_tmp" if options[:tmp]
+      EOL.log("#{rows.count} rows into #{table}", prefix: '.')
+      rows.in_groups_of(5000) do |group|
+        klass.connection.execute(
+          "INSERT INTO #{table} "\
+          "(`#{fields.join("`, `")}`) "\
+          "VALUES (#{group.join("), (")})"
+        )
+      end
+    end
+
+    def self.with_tmp_tables(klasses, &block)
+      begin
+        klasses.each do |klass|
+          klass.connection.
+            execute("DROP TABLE IF EXISTS #{klass.table_name}_tmp")
+          klass.connection.execute("CREATE TABLE #{klass.table_name}_tmp "\
+            "LIKE #{klass.table_name}")
+        end
+        yield
+      ensure
+        klasses.each do |klass|
+          klass.connection.
+            execute("DROP TABLE IF EXISTS #{klass.table_name}_tmp")
+        end
+      end
     end
 
   end

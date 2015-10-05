@@ -23,8 +23,8 @@ class DataObjectsTableOfContent < ActiveRecord::Base
       where("info_items.toc_id != 0").
       includes(:info_item).
       find_in_batches do |doii|
-      dotocs += doii.map { |doii| "(#{doii.data_object_id}, "\
-        "#{doii.info_item.toc_id})" }
+      dotocs += doii.map { |doii| "#{doii.data_object_id}, "\
+        "#{doii.info_item.toc_id}" }
     end
     if dotocs.empty?
       EOL.log("WARNING: Unable to find data object TOC items; skipping.", prefix: '*')
@@ -32,11 +32,7 @@ class DataObjectsTableOfContent < ActiveRecord::Base
       EOL.log("Found appropriate data object TOC items, rebuilding...", prefix: '.')
       ActiveRecord::Base.transaction do
         ActiveRecord::Base.connection.execute("TRUNCATE TABLE `#{table_name}`")
-        ActiveRecord::Base.connection.execute(
-          "INSERT INTO #{table_name} "\
-          "(`data_object_id`, `toc_id`) "\
-          "VALUES #{dotocs.to_a.join(", ")}"
-        )
+        EOL::Db.bulk_insert(self, [:data_object_id, :toc_id], dotocs.to_a)
       end
       EOL.log("#rebuild finished; exiting", prefix: '#')
     end

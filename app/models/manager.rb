@@ -34,8 +34,16 @@ class Manager
       # harvest... no need to rebuild the WHOLE THING every time! Just silly.
       # Bah. ...Can't add that until we port harvesting, though.
       DataObjectsTableOfContent.rebuild
+      # TODO: this is not an efficient algorithm. We should change this to store
+      # the scores in the DB as well as some kind of tree-structure of taxa
+      # (which could also be used elsewhere!), and then build things that way;
+      # we should also actually store the sort order in this table, rather than
+      # overloading the id (!); that would allow us to update the table only as
+      # needed, based on what got harvested (i.e.: a list of data objects
+      # inserted could be used to figure out where they lie in the sort, and
+      # update the orders as needed based on that—much faster.)
+      TopImage.rebuild
       # TODO:
-      # PHP: "/top_images.php
       # PHP: // "/random_hierarchy_images.php
       # PHP: "/create_preferred_entries.php
 

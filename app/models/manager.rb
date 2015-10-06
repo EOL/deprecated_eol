@@ -15,7 +15,7 @@ class Manager
       if resource.nil? || @batch.complete?
         @batch.post_harvesting
         denormalize_tables
-        rebuild_solr_if_needed
+        optimize_solr_if_needed
         @batch = HarvestBatch.new
       end
       if resource
@@ -43,8 +43,8 @@ class Manager
       # inserted could be used to figure out where they lie in the sort, and
       # update the orders as needed based on that—much faster.)
       TopImage.rebuild
+      RandomHierarchyImage.create_random_images_from_rich_taxa
       # TODO:
-      # PHP: // "/random_hierarchy_images.php
       # PHP: "/create_preferred_entries.php
 
       EOL.log("denormalize_tables finished", prefix: "#")
@@ -69,7 +69,7 @@ class Manager
       Resource.is_paused?
     end
 
-    def rebuild_solr_if_needed
+    def optimize_solr_if_needed
       if in_solr_rebuild_window?
         EOL.log("Rebuilding Solr indexes.")
         # TODO - Nice to make this a loop...

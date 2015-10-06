@@ -25,8 +25,8 @@ class TopImage
         EOL::Db.with_tmp_tables([TopImage, TopUnpublishedImage]) do
           bulk_insert_tmp_images(@top_images, @top_unpublished_images)
           bulk_insert_clade_cascades
-          swap_tmp_table(:top_images)
-          swap_tmp_table(:top_unpublished_images)
+          EOL::Db.swap_tmp_table(TopImage)
+          EOL::Db.swap_tmp_table(TopUnpublishedImage)
           build_species_table_from("top_images", "top_species_images")
           build_species_table_from("top_unpublished_images",
             "top_unpublished_species_images")
@@ -275,19 +275,7 @@ class TopImage
       end
     end
 
-    def swap_tmp_table(table_name)
-      EOL.log_call
-      count = begin
-        TopImage.connection.select_value("select count(*) from #{table_name}_tmp")
-      rescue
-        0
-      end
-      if count > 0
-        TopImage.connection.execute("RENAME TABLE #{table_name} TO #{table_name}_swap, "\
-          "#{table_name}_tmp TO #{table_name}, "\
-          "#{table_name}_swap TO #{table_name}_tmp")
-      end
-    end
+
 
   end
 end

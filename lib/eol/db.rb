@@ -147,6 +147,24 @@ module EOL
       end
     end
 
+    # NOTE: ensures that there is at least one row in the tmp table! So you
+    # cannot swap an empty table into place, sorry.
+    def self.swap_tmp_table(klass)
+      EOL.log_call
+      count = begin
+        klass.connection.select_value("SELECT COUNT(*) "\
+          "FROM #{klass.table_name}_tmp")
+      rescue
+        0
+      end
+      if count > 0
+        klass.connection.execute("RENAME TABLE #{klass.table_name} "\
+          "TO #{klass.table_name}_swap, "\
+          "#{klass.table_name}_tmp TO #{klass.table_name}, "\
+          "#{klass.table_name}_swap TO #{klass.table_name}_tmp")
+      end
+    end
+
   end
 
 end

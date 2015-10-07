@@ -18,7 +18,9 @@ class HarvestBatch
   def post_harvesting
     flatten_hierarchies_TODO # (see the PHP FlattenHierarchies library, as if passing in the hierarchy_ids!)
     pubish_pending_resources_TODO
-    fix_published_flags_on_taxa_TODO
+    TaxonConcept.publish_concepts_with_published_entries
+    TaxonConcept.unpublish_concepts_with_no_published_entries
+    TaxonConcept.superceded.update_all(published: false)
     TaxonConcept.trust_concepts_with_visible_trusted_entries(
       @harvests.map(&:hierarchy_id))
     # No nice way to do this on a set of hierarchies:

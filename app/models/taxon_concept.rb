@@ -166,6 +166,24 @@ class TaxonConcept < ActiveRecord::Base
   end
   class << self; alias_method_chain :find, :supercedure ; end
 
+  def self.publish_concepts_with_published_entries
+    TaxonConcept.unpublished.
+      joins("JOIN hierarchy_entries "\
+        "ON (hierarchy_entries.taxon_concept_id = taxon_concepts.id)").
+      where(hierarchy_entries: { published: true,
+        visibility_id: Visibility.get_visible.id }).
+      update_all(["taxon_concepts.published = ?", true])
+  end
+
+  def self.unpublish_concepts_with_no_published_entries
+    published.
+      joins("LEFT JOIN hierarchy_entries "\
+        "ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id "\
+        "AND hierarchy_entries.published = 1)").
+      where("hierarchy_entries.id IS NULL").
+      update_all(["taxon_concepts.published = ?", false])
+  end
+
   def self.untrust_concepts_with_no_visible_trusted_entries
     published.trusted.unsuperceded.
       joins("LEFT JOIN hierarchy_entries "\
@@ -173,7 +191,7 @@ class TaxonConcept < ActiveRecord::Base
         "hierarchy_entries.visibility_id = #{Visibility.get_visible.id} AND "\
         "hierarchy_entries.vetted_id = #{Vetted.trusted.id})").
       where("hierarchy_entries.id IS NULL").
-        update_all(["taxon_concepts.vetted_id = ?", Vetted.unknown.id])
+      update_all(["taxon_concepts.vetted_id = ?", Vetted.unknown.id])
   end
 
   def self.trust_concepts_with_visible_trusted_entries(hierarchy_ids)

@@ -51,6 +51,7 @@ class HierarchyEntry < ActiveRecord::Base
   counter_culture :hierarchy
 
   scope :published, -> { where(published: true) }
+  scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
 
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }

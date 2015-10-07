@@ -21,7 +21,7 @@ class Manager
       end
       if resource
         @batch.add(resource)
-        resource.harvest_TODO # DO THIS LAST.
+        resource.harvest
       else
         EOL.log("Finished")
       end
@@ -72,16 +72,13 @@ class Manager
       if in_solr_rebuild_window?
         EOL.log("Rebuilding Solr indexes.")
         # TODO - Nice to make this a loop...
-        solr = SolrCore::DataObjects.new
-        solr.optimize
-        solr = SolrCore::CollectionItems.new
-        solr.optimize
-        solr = SolrCore::HierarchyEntries.new
-        solr.optimize
-        solr = SolrCore::HierarchyEntryRelationship.new
-        solr.optimize
-        solr = SolrCore::SiteSearch.new
-        solr.optimize
+        [SolrCore::DataObjects,
+          SolrCore::CollectionItems,
+          SolrCore::HierarchyEntries,
+          SolrCore::HierarchyEntryRelationship,
+          SolrCore::SiteSearch].each do |klass|
+          solr = klass.optimize
+        end
         EolConfig.where(parameter: 'last_solr_rebuild').
           update_all(value: Time.now.to_s)
       end

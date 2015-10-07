@@ -20,6 +20,6 @@ class HarvestBatch
     pubish_pending_resources_TODO
     fix_published_flags_on_taxa_TODO
     fix_improperly_trusted_concepts_TODO
-    remove_superceded_collection_items_TODO
+    CollectionItem.remove_superceded_taxa
   end
 end

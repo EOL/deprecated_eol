@@ -105,19 +105,27 @@ class Resource < ActiveRecord::Base
     ready.by_priority.harvestable.first
   end
 
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  def harvest
+    Resource::Harvester.harvest(self)
+  end
+
+  # TODO: This assumes one to one relationship between user and content partner
+  # and will need to be modified when we move to many to many
   def can_be_created_by?(user)
     content_partner.user_id == user.id || user.is_admin?
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  # TODO: This assumes one to one relationship between user and content partner
+  # and will need to be modified when we move to many to many
   def can_be_read_by?(user)
     true # NOTE - this was changed on 2013-10-18 in order to allow users to see resource pages and get (c) info on them.
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  # TODO: This assumes one to one relationship between user and content partner
+  # and will need to be modified when we move to many to many
   def can_be_updated_by?(user)
     content_partner.user_id == user.id || user.is_admin?
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  # TODO: This assumes one to one relationship between user and content partner
+  # and will need to be modified when we move to many to many
   def can_be_deleted_by?(user)
     content_partner.user_id == user.id || user.is_admin?
   end

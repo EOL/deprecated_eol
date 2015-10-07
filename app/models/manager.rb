@@ -4,8 +4,9 @@ class Manager
     def tend
       EOL.log_call
       if paused?
-        # TODO - this is a good place for a rescue/throw pair.
-        unless(pause)
+        begin
+          pause
+        rescue EOL::Exceptions::HarvestPauseTimeExceeded => e
           EOL.log("Harvesting pause exceeded wait time, exiting.")
           return false
         end
@@ -44,9 +45,7 @@ class Manager
       # update the orders as needed based on that—much faster.)
       TopImage.rebuild
       RandomHierarchyImage.create_random_images_from_rich_taxa
-      # TODO:
-      # PHP: "/create_preferred_entries.php
-
+      TaxonConceptPreferredEntry.rebuild
       EOL.log("denormalize_tables finished", prefix: "#")
     end
 
@@ -58,7 +57,7 @@ class Manager
         sleep(60)
         count += 1
         if count > 240 # We've waited 4 hours...
-          return false
+          raise EOL::Exceptions::HarvestPauseTimeExceeded.new
         end
       end
       EOL.log("Unpaused. Continuing.")

@@ -1,4 +1,4 @@
-# This is only here to help specs load things to the right database.  Ignore it.
+# Denormalized relationship table for speed.
 class DataObjectsTableOfContent < ActiveRecord::Base
   belongs_to :data_object
   belongs_to :toc_item, foreign_key: :toc_id

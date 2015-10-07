@@ -8,6 +8,7 @@ module EOL
     class ClassificationsLocked < StandardError; end
     class CollectionJobRequiresScope < StandardError; end
     class FailedToCreateTag < StandardError; end
+    class HarvestPauseTimeExceeded < StandardError; end
     class InvalidCollectionItemType < StandardError; end
     class MaxCollectionItemsExceeded < StandardError; end
     class MustBeLoggedIn < StandardError; end
@@ -49,4 +50,3 @@ module EOL
     class WrongCurator < StandardError; end
   end
 end
-

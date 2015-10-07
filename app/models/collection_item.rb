@@ -85,10 +85,10 @@ class CollectionItem < ActiveRecord::Base
   # TODO - would be nice to have a list of superceded taxa from the harvest!
   def self.remove_superceded_taxa
     taxa.
-      select("collection_items.*, taxon_concepts.supercedure_id new_tc_id").
+      select("collection_items.*, supercedure_id new_tc_id").
       joins("JOIN taxon_concepts ON taxon_concepts.id = "\
       "collection_items.collected_item_id").
-      where("taxon_concepts.supercedure_id != 0").find_in_batches do |items|
+      where("supercedure_id != 0").find_in_batches do |items|
       items.each do |item|
         begin
           item.update_attribute(:collected_item_id, item[:new_tc_id])
@@ -99,7 +99,6 @@ class CollectionItem < ActiveRecord::Base
       end
       # Pre-load taxa to avoid N+1 problem:
       preload_collected_items(items, richness_score: true)
-
       SolrCore::CollectionItems.reindex_items(items)
     end
   end

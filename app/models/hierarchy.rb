@@ -75,9 +75,9 @@ class Hierarchy < ActiveRecord::Base
       Hierarchy.find_by_label("Encyclopedia of Life Contributors", include: :agent)
     end
   end
-  
+
   def self.iucn_structured_data
-    @iucn_structured_data ||= Resource.iucn_structured_data.hierarchy    
+    @iucn_structured_data ||= Resource.iucn_structured_data.hierarchy
   end
 
   def self.ubio
@@ -89,7 +89,7 @@ class Hierarchy < ActiveRecord::Base
       Hierarchy.find_by_label("NCBI Taxonomy", order: "hierarchy_group_version desc")
     end
   end
-  
+
   def self.worms
     @@worms ||= cached('worms') do
       Hierarchy.find_by_label("WORMS Species Information (Marine Species)")
@@ -186,10 +186,11 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def reindex
-    HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank? 
+    HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank?
   end
 
 private
+
   def reset_request_publish
     self.request_publish = false
     return true

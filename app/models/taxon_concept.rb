@@ -21,7 +21,6 @@ require 'eol/activity_loggable'
 class TaxonConcept < ActiveRecord::Base
   include EOL::ActivityLoggable
 
-  scope :published, -> { where(published: true) }
   belongs_to :vetted
 
   attr_accessor :entries # TODO - this is used by DataObjectsController#add_association (and its partial) and probably shouldn't be.
@@ -60,6 +59,15 @@ class TaxonConcept < ActiveRecord::Base
   has_one :preferred_entry, class_name: 'TaxonConceptPreferredEntry'
 
   has_and_belongs_to_many :data_objects
+
+  scope :published, -> { where(published: true) }
+  scope :superceded, -> { where("supercedure_id != 0") }
+  scope :trusted, -> { where(vetted_id: Vetted.trusted.id) }
+  scope :unpublished, -> { where(published: false) }
+  scope :unsuperceded, -> { where("supercedure_id = 0 OR "\
+    "supercedure_id IS NULL") }
+  # A bit of a cheat—we happen to know it will ONLY be unknown, not untrusted.
+  scope :untrusted, -> { where(vetted_id: Vetted.unknown.id) }
 
   attr_accessor :common_names_in_language
 
@@ -157,6 +165,27 @@ class TaxonConcept < ActiveRecord::Base
     return concept
   end
   class << self; alias_method_chain :find, :supercedure ; end
+
+  def self.untrust_concepts_with_no_visible_trusted_entries
+    published.trusted.unsuperceded.
+      joins("LEFT JOIN hierarchy_entries "\
+        "ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id AND "\
+        "hierarchy_entries.visibility_id = #{Visibility.get_visible.id} AND "\
+        "hierarchy_entries.vetted_id = #{Vetted.trusted.id})").
+      where("hierarchy_entries.id IS NULL").
+        update_all(["taxon_concepts.vetted_id = ?", Vetted.unknown.id])
+  end
+
+  def self.trust_concepts_with_visible_trusted_entries(hierarchy_ids)
+    trusted.
+      joins("JOIN hierarchy_entries "\
+        "ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id)").
+      where(["hierarchy_entries.visibility_id = ? AND "\
+        "hierarchy_entries.vetted_id = ? AND "\
+        "hierarchy_entries.hierarchy_id IN (?)",
+        Visibility.get_visible.id, Vetted.trusted.id, hierarchy_ids]).
+        update_all(["taxon_concepts.vetted_id = ?", Vetted.trusted.id])
+  end
 
   def superceded?
     !supercedure_id.nil? && supercedure_id != 0

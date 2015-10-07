@@ -13,13 +13,10 @@ class DataObjectsTaxonConceptsDenormalizer
   end
 
   def self.denormalize_using_joins_via_table(joins, visibility_table)
-    TaxonConcept.
+    TaxonConcept.unsuperceded.
       select("taxon_concepts.id, data_objects.id as dato_id").
       joins(joins).
-      # TODO: force supercedure_id to be Railsy, then use rails expressions:
-      where(["(taxon_concepts.supercedure_id IS NULL OR "\
-        "taxon_concepts.supercedure_id = 0) AND "\
-        "(data_objects.published = 1 OR "\
+      where(["(data_objects.published = 1 OR "\
         "#{visibility_table}.visibility_id != ?)",
         Visibility.get_visible.id ]).
       find_in_batches(batch_size: 50000) do |taxa|

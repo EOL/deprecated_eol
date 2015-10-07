@@ -19,7 +19,10 @@ class HarvestBatch
     flatten_hierarchies_TODO # (see the PHP FlattenHierarchies library, as if passing in the hierarchy_ids!)
     pubish_pending_resources_TODO
     fix_published_flags_on_taxa_TODO
-    fix_improperly_trusted_concepts_TODO
+    TaxonConcept.trust_concepts_with_visible_trusted_entries(
+      @harvests.map(&:hierarchy_id))
+    # No nice way to do this on a set of hierarchies:
+    TaxonConcept.untrust_concepts_with_no_visible_trusted_entries
     CollectionItem.remove_superceded_taxa
   end
 end

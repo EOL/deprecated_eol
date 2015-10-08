@@ -105,6 +105,16 @@ class Resource < ActiveRecord::Base
     ready.by_priority.harvestable.first
   end
 
+  def self.pending
+    where(id: HarvestEvent.pending.pluck(:resource_id))
+  end
+
+  def self.publish_pending
+    pending.each do |resource|
+      resource.publish
+    end
+  end
+
   def harvest
     Resource::Harvester.harvest(self)
   end
@@ -128,6 +138,10 @@ class Resource < ActiveRecord::Base
   # and will need to be modified when we move to many to many
   def can_be_deleted_by?(user)
     content_partner.user_id == user.id || user.is_admin?
+  end
+
+  def publish
+    Resource::Publisher.publish(self)
   end
 
   def status_can_be_changed_to?(new_status)
@@ -192,9 +206,8 @@ class Resource < ActiveRecord::Base
     @oldest_published_harvest = Rails.cache.read(Resource.cached_name_for(cache_key))
     # not using fetch as only want to set expiry when there is no harvest event
     if @oldest_published_harvest.nil? #cache miss
-      @oldest_published_harvest = HarvestEvent.find(:first,
-        conditions: ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-        limit: 1, order: 'published_at')
+      @oldest_published_harvest =
+        oldest_published_harvest_event_uncached
       if @oldest_published_harvest.nil?
         # resource not yet published store 0 in cache with expiry so we don't try to find it again for a while
         Rails.cache.write(Resource.cached_name_for(cache_key), 0, expires_in: 6.hours)
@@ -207,19 +220,33 @@ class Resource < ActiveRecord::Base
     @oldest_published_harvest
   end
 
+  def oldest_published_harvest_event_uncached
+    HarvestEvent.published.complete.where(resource_id: id).
+      order(:published_at).first
+  end
+
   def latest_published_harvest_event
     return @latest_published_harvest if defined? @latest_published_harvest
     HarvestEvent
     cache_key = "latest_published_harvest_event_for_resource_#{id}"
-    @latest_published_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
-      # Uses 0 instead of nil when setting for cache because cache treats nil as a miss
-      HarvestEvent.where(["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id]). \
-        order('published_at desc').first || 0
+    @latest_published_harvest =
+      Rails.cache.fetch(Resource.cached_name_for(cache_key),
+      expires_in: 6.hours) do
+      # Uses 0 instead of nil when setting for cache because cache treats nil as
+      # a miss
+      latest_published_harvest_event_uncached || 0
     end
     @latest_published_harvest = nil if @latest_published_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_published_harvest
   end
 
+  def latest_published_harvest_event_uncached
+    HarvestEvent.published.complete.where(resource_id: id).
+      order("published_at DESC").first
+  end
+
+  # TODO: If we REALLY use this often enough to warrant caching it, PUT IT IN
+  # THE DATABASE.
   def latest_harvest_event
     return @latest_harvest if defined? @latest_harvest
     HarvestEvent
@@ -284,6 +311,8 @@ class Resource < ActiveRecord::Base
   end
 
   def save_resource_contributions
+    EOL.log_call
+    # TODO: why isn't this a simple relation?
     resource_contributions = ResourceContribution.where("resource_id = ? ", self.id)
     resource_contributions_json = []
     resource_contributions.each do |resource_contribution|

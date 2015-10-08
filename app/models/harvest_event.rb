@@ -9,6 +9,9 @@ class HarvestEvent < ActiveRecord::Base
   validates_inclusion_of :publish, in: [false], unless: :publish_is_allowed?
 
   scope :incomplete, -> { where(completed_at: nil) }
+  scope :pending, -> { where(publish: true, published_at: nil) }
+  scope :published, -> { where("published_at IS NOT NULL") }
+  scope :complete, -> { where("completed_at IS NOT NULL") }
 
   def self.last_incomplete_resource
     return nil if incomplete.count < 1
@@ -21,15 +24,17 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def self.last_published
-    last_published=HarvestEvent.find(:all, conditions: "published_at != 'null'", limit: 1, order: 'published_at desc')
-    return (last_published.blank? ? nil : last_published[0])
+    published.order("published_at DESC").first
   end
 
+  # Seriously? This should be an instance method. Not even; it should be a
+  # relationship. What the heck was this person thinking?  (Sorry, but:
+  # seriously! Welcome to Rails.)
   def self.data_object_ids_from_harvest(harvest_event_id)
-    query = "Select dohe.data_object_id
-    From harvest_events he
-    Join data_objects_harvest_events dohe ON he.id = dohe.harvest_event_id
-    Where he.id = #{harvest_event_id}"
+    query = "SELECT dohe.data_object_id
+    FROM harvest_events he
+    JOIN data_objects_harvest_events dohe ON he.id = dohe.harvest_event_id
+    WHERE he.id = #{harvest_event_id}"
     rset = self.find_by_sql [query]
     arr=[]
     for fld in rset
@@ -42,6 +47,7 @@ class HarvestEvent < ActiveRecord::Base
     resource.content_partner
   end
 
+  # TODO: THIS IS HORRIBLE!  AUGH!
   def curated_data_objects(params = {})
     year = params[:year] || nil
     month = params[:month] || nil
@@ -94,12 +100,74 @@ class HarvestEvent < ActiveRecord::Base
     curator_activity_logs.sort_by{ |ah| Invert(ah.id) }
   end
 
+  def complete?
+    self[:completed_at]
+  end
+
+  def latest?
+    self[:id] == resource.latest_harvest_event.id
+  end
+
+  def published?
+    self[:published_at]
+  end
+
   def publish_is_allowed?
-    self.published_at.blank? && !self.completed_at.blank? && self == self.resource.latest_harvest_event
+    ! published? &&
+      complete &&
+      latest?
   end
 
   def publish_pending?
-    self.published_at.blank? && self.publish?
+    ! published? && self.publish?
+  end
+
+  def preserve_curations
+    EOL.log_call
+    previous = resource.latest_published_harvest_event_uncached
+    if previous.nil?
+      EOL.log("First harvest! Nothing to preserve.")
+      return
+    end
+    # TODO:
+    # $last_harvest = new HarvestEvent($last_published_harvest_event_id);
+    # // make sure its in the same resource
+    # if($last_harvest->resource_id != $this->resource_id) return false;
+    # // make sure this is newer
+    # if($last_harvest->id > $this->id) return false;
+    #
+    # $outfile = $GLOBALS['db_connection']->select_into_outfile("
+    #     SELECT do_current.id, dohent_previous.visibility_id, dohent_previous.hierarchy_entry_id
+    #     FROM
+    #         (data_objects_harvest_events dohe_previous
+    #         JOIN data_objects do_previous ON (dohe_previous.data_object_id=do_previous.id)
+    #         JOIN data_objects_hierarchy_entries dohent_previous ON (dpo_previous.id=dohent_previous.data_object_id))
+    #     JOIN
+    #         (data_objects_harvest_events dohe_current
+    #         JOIN data_objects do_current ON (dohe_current.data_object_id=do_current.id))
+    #     ON (dohe_previous.guid=dohe_current.guid AND dohe_previous.data_object_id!=dohe_current.data_object_id)
+    #     WHERE dohe_previous.harvest_event_id=$last_harvest->id
+    #     AND dohe_current.harvest_event_id=$this->id
+    #     AND dohent_previous.visibility_id IN (".Visibility::invisible()->id.")");
+    #
+    # if (!($FILE = fopen($outfile, "r")))
+    # {
+    #   debug(__CLASS__ .":". __LINE__ .": Couldn't open file: " . $outfile);
+    #   return;
+    # }
+    # while(!feof($FILE))
+    # {
+    #     if($line = fgets($FILE, 4096))
+    #     {
+    #         $values = explode("\t", trim($line));
+    #         $data_object_id = $values[0];
+    #         $visibility_id = $values[1];
+    #         $hierarchy_entry_id = $values[2];
+    #         $GLOBALS['db_connection']->update("UPDATE data_objects_hierarchy_entries SET visibility_id=$visibility_id WHERE data_object_id=$data_object_id AND hierarchy_entry_id=$hierarchy_entry_id");
+    #     }
+    # }
+    # fclose($FILE);
+    # unlink($outfile);
   end
 
   def destroy_everything

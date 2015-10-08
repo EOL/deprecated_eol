@@ -46,6 +46,12 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :siblings, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:parent_id, :hierarchy_id],
     conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
 
+  # Only used when reindexing, to populate solr.
+  # TODO: STORE IT IN THE GORRAM TABLE!!!!
+  attr_accessor :ancestor_names
+  # Can't easily put these in the table, but could denormalize!
+  attr_accessor :synonyms, :common_names, :canonical_synonyms
+
   before_save :default_visibility
 
   counter_culture :hierarchy
@@ -138,6 +144,32 @@ class HierarchyEntry < ActiveRecord::Base
       # do nothing
     end
     @title_canonical_italicized
+  end
+
+  # NOTE: it is assumed here (for now, TODO) that you have loaded the synonyms,
+  # ancestors, and the like before calling this, lest you get a pretty boring
+  # hash. See SolrCore::HierarchyEntries for info on how those are populated,
+  # but be warned: it's complex. :|
+  def to_hash
+    hash = {
+      id: id,
+      common_name: common_names,
+      synonym: synonyms,
+      synonym_canonical: canonical_synonyms,
+      parent_id: parent_id,
+      taxon_concept_id: taxon_concept_id,
+      hierarchy_id: hierarchy_id,
+      rank_id: rank_id,
+      vetted_id: vetted_id,
+      published: published,
+      name: self["string"],
+      canonical_form: self["canonical_form"],
+      # TODO: I don't know that we need this anymore (it was an unfiltered
+      # version of the canonical form):
+      canonical_form_string: self["canonical_form_string"]
+    }
+    hash.merge!(ancestor_names) if ancestor_names
+    hash
   end
 
   def rank_label

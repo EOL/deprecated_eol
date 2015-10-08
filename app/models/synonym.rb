@@ -81,6 +81,11 @@ class Synonym < ActiveRecord::Base
     agents_roles += agents_synonyms
   end
 
+  def common_name?
+    language_id && language_id != Language.scientific.id ||
+      SynonymRelation.common_name_ids.include?(synonym_relation_id)
+  end
+
   # TODO - is this being used?
   def vet(vet_obj, by_whom)
     update_attributes!(vetted: vet_obj)

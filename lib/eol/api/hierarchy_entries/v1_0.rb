@@ -109,7 +109,7 @@ module EOL
           HierarchyEntry.preload_associations(
             hierarchy_entry, { :children => [ :rank, :name ] }
           )
-          hierarchy_entry.children.published.each do |child|
+          hierarchy_entry.children.select { |he| he.published? }.each do |child|
             child_hash = {}
             child_hash['sourceIdentifier'] = child.identifier unless child.identifier.blank?
             child_hash['taxonID'] = child.id

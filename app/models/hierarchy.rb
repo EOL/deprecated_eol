@@ -21,6 +21,7 @@ class Hierarchy < ActiveRecord::Base
   has_many :kingdoms, class_name: HierarchyEntry.to_s, foreign_key: [ :hierarchy_id ], primary_key: [ :id ],
     conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.get_visible.id}, #{Visibility.get_preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
   has_many :hierarchy_reindexings
+  has_many :synonyms, through: :hierarchy_entries
 
   validates_presence_of :label
   validates_length_of :label, maximum: 255
@@ -149,6 +150,11 @@ class Hierarchy < ActiveRecord::Base
     end
   end
 
+  def unpublish
+    unpublish_and_hide_hierarchy_entries
+    unpublish_synonyms
+  end
+
   def user_or_agent
     if resource && resource.content_partner && resource.content_partner.user
       resource.content_partner.user
@@ -195,4 +201,15 @@ private
     self.request_publish = false
     return true
   end
+
+  def unpublish_and_hide_hierarchy_entries
+    hierarchy_entries.where(published: true).
+      update_all(published: false, visibility_id: Visibility.get_invisible.id)
+  end
+
+  def unpublish_synonyms
+    synonyms.where(published: true).
+      update_all(published: false)
+  end
+
 end

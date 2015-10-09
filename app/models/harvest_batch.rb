@@ -16,8 +16,15 @@ class HarvestBatch
   end
 
   def post_harvesting
+    # YOU WERE HERE (you're working on a submethod of publish_pending ATM (in
+    # resource/publisher.rb), but also need to do the next line, obviously:)
     flatten_hierarchies_TODO # (see the PHP FlattenHierarchies library, as if passing in the hierarchy_ids!)
-    Resource.publish_pending
+    begin
+      Resource.publish_pending
+    rescue => e
+      EOL.log("ERROR: #{e.message}", prefix: "!")
+      # TODO: there are myriad errors that harvesting can throw; catch them here.
+    end
     CollectionItem.remove_superceded_taxa
   end
 end

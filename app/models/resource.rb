@@ -109,6 +109,8 @@ class Resource < ActiveRecord::Base
     where(id: HarvestEvent.pending.pluck(:resource_id))
   end
 
+  # NOTE: this can raise various exceptions. You want to wrap any call to this
+  # in a begin/rescue block.
   def self.publish_pending
     pending.each do |resource|
       resource.publish
@@ -236,7 +238,8 @@ class Resource < ActiveRecord::Base
       # a miss
       latest_published_harvest_event_uncached || 0
     end
-    @latest_published_harvest = nil if @latest_published_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
+    # return nil or HarvestEvent, i.e. not the 0 cache hit
+    @latest_published_harvest = nil if @latest_published_harvest == 0
     @latest_published_harvest
   end
 
@@ -313,12 +316,18 @@ class Resource < ActiveRecord::Base
   def save_resource_contributions
     EOL.log_call
     # TODO: why isn't this a simple relation?
-    resource_contributions = ResourceContribution.where("resource_id = ? ", self.id)
+    resource_contributions = ResourceContribution.
+      where("resource_id = ? ", self.id)
     resource_contributions_json = []
     resource_contributions.each do |resource_contribution|
       taxon_concept_id = resource_contribution.taxon_concept_id
       type = resource_contribution.object_type
-      url = type == "data_object" ? "#{Rails.configuration.site_domain}/data_objects/#{resource_contribution.data_object_id}": "#{Rails.configuration.site_domain}/pages/#{resource_contribution.taxon_concept_id}/data#data_point_uri_#{resource_contribution.data_point_uri_id}"
+      url = type == "data_object" ?
+        "#{Rails.configuration.site_domain}/data_objects/"\
+          "#{resource_contribution.data_object_id}" :
+        "#{Rails.configuration.site_domain}/pages/"\
+          "#{resource_contribution.taxon_concept_id}/"\
+          "data#data_point_uri_#{resource_contribution.data_point_uri_id}"
       resource_contribution_json = {
          type: type,
          url: url,
@@ -328,7 +337,8 @@ class Resource < ActiveRecord::Base
       }
       data_object_type_id = resource_contribution.data_object_type
       if data_object_type_id
-        resource_contribution_json[:data_object_type] = DataType.find(data_object_type_id).label
+        resource_contribution_json[:data_object_type] =
+          DataType.find(data_object_type_id).label
       end
       predicate = resource_contribution.predicate
       if predicate
@@ -337,22 +347,48 @@ class Resource < ActiveRecord::Base
       resource_contributions_json << resource_contribution_json
     end
 
-    resource_info_with_contributions = { id: self.id,
-                                         url: "#{Rails.configuration.site_domain}/content_partners/#{self.content_partner_id}/resources/#{self.id}",
-                                         title: self.title,
-                                         contributions: resource_contributions_json }
-    File.open("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json","w") do |f|
+    resource_info_with_contributions = {
+      id: self.id,
+      url: "#{Rails.configuration.site_domain}/content_partners/"\
+        "#{self.content_partner_id}/resources/#{self.id}",
+      title: self.title,
+      contributions: resource_contributions_json
+    }
+    # TODO: This, of course, will not be available on both app servers. :(
+    File.open("#{$RESOURCE_CONTRIBUTIONS_DIR}/"\
+      "resource_contributions_#{self.id}.json","w") do |f|
       f.write(JSON.pretty_generate(resource_info_with_contributions))
     end
   end
 
+  # TODO: the name of this file is not DRY and is too long. Extract a method.
   def delete_resource_contributions_file
-    File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json") if File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json")
+    File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/"\
+      "resource_contributions_#{self.id}.json") if
+      File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/"\
+        "resource_contributions_#{self.id}.json")
   end
 
   # TODO - Whoa, this is not the right way to store this. Use EolConfig.
   def self.is_paused?
     Resource.first.pause
+  end
+
+  # TODO: we should really store the resource_id on the data object; then use
+  # that to unpublish everything. As-is, we _must_ rely on harvest events, which
+  # (NOTE) leaves the opportunity (albeit a rare one—a process would have to
+  # break in the middle for this to happen) that an old harvest will still have
+  # published objects...
+  def unpublish_data_objects
+    EOL.log_call
+    latest_published_harvest_event_uncached.data_objects.
+      where(data_objects: { published: true }).
+      update_all(published: false)
+  end
+
+  def unpublish_hierarchy
+    EOL.log_call
+    hierarchy.unpublish
   end
 
 private

@@ -31,6 +31,14 @@ module EOL
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
 
+          if false # TODO: this is more efficient. Really.
+            hierarchy_entry = HierarchyEntry.
+              where(id: params[:id]).
+              includes(name: :canonical_form, flat_ancestors: [:rank, :name],
+                children: [:rank, :name]).
+              first
+          end
+
           begin
             associations = [ { :name => :canonical_form }]
             selects = { :hierarchy_entries => '*', :canonical_forms => [ :id, :string ] }
@@ -109,7 +117,7 @@ module EOL
           HierarchyEntry.preload_associations(
             hierarchy_entry, { :children => [ :rank, :name ] }
           )
-          hierarchy_entry.children.published.each do |child|
+          hierarchy_entry.children.select { |he| he.published? }.each do |child|
             child_hash = {}
             child_hash['sourceIdentifier'] = child.identifier unless child.identifier.blank?
             child_hash['taxonID'] = child.id

@@ -11,7 +11,7 @@ class Resource
 
     def harvest
       EOL.log_call
-      # TODO
+      # TODO: YOU WERE HERE: you'll have to call PHP, now. :(
     end
   end
 end

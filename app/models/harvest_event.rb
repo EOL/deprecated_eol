@@ -122,52 +122,60 @@ class HarvestEvent < ActiveRecord::Base
     ! published? && self.publish?
   end
 
-  def preserve_curations
+  def publish_data_objects
+    count = data_objects.where(published: false).update_all(published: true)
+    update_attributes(published_at: Time.now)
+    count
+  end
+
+  # NOTE: this also makes them visible, and it also publishes associated TCs and
+  # synonyms. TODO: that's misleading. Rename/breakup. TODO: pluck may be
+  # inefficient here, we could try joins and/or associations.
+  def publish_hierarchy_entries
+    hierarchy_entries.update_all(published: true,
+      visibility_id: Visibility.get_visible.id)
+    TaxonConcept.where(id: hierarchy_entries.pluck(:taxon_concept_id)).
+      update_all(published: true)
+    Synonym.where(hierarchy_entry_id: hierarchy_entries.pluck(:id)).
+      update_all(published: true)
+    publish_hierarchy_entry_parents
+    # YOU WERE HERE TODO
+$this->make_hierarchy_entry_parents_visible();
+
+  end
+
+  # TODO: private
+  def publish_hierarchy_entry_parents
+    count = 0
+    begin
+    end while count > 0
+  end
+
+  def preserve_invisible
     EOL.log_call
-    previous = resource.latest_published_harvest_event_uncached
-    if previous.nil?
+    previously = resource.latest_published_harvest_event_uncached
+    if previously.nil?
       EOL.log("First harvest! Nothing to preserve.")
       return
     end
-    # TODO:
-    # $last_harvest = new HarvestEvent($last_published_harvest_event_id);
-    # // make sure its in the same resource
-    # if($last_harvest->resource_id != $this->resource_id) return false;
-    # // make sure this is newer
-    # if($last_harvest->id > $this->id) return false;
-    #
-    # $outfile = $GLOBALS['db_connection']->select_into_outfile("
-    #     SELECT do_current.id, dohent_previous.visibility_id, dohent_previous.hierarchy_entry_id
-    #     FROM
-    #         (data_objects_harvest_events dohe_previous
-    #         JOIN data_objects do_previous ON (dohe_previous.data_object_id=do_previous.id)
-    #         JOIN data_objects_hierarchy_entries dohent_previous ON (dpo_previous.id=dohent_previous.data_object_id))
-    #     JOIN
-    #         (data_objects_harvest_events dohe_current
-    #         JOIN data_objects do_current ON (dohe_current.data_object_id=do_current.id))
-    #     ON (dohe_previous.guid=dohe_current.guid AND dohe_previous.data_object_id!=dohe_current.data_object_id)
-    #     WHERE dohe_previous.harvest_event_id=$last_harvest->id
-    #     AND dohe_current.harvest_event_id=$this->id
-    #     AND dohent_previous.visibility_id IN (".Visibility::invisible()->id.")");
-    #
-    # if (!($FILE = fopen($outfile, "r")))
-    # {
-    #   debug(__CLASS__ .":". __LINE__ .": Couldn't open file: " . $outfile);
-    #   return;
-    # }
-    # while(!feof($FILE))
-    # {
-    #     if($line = fgets($FILE, 4096))
-    #     {
-    #         $values = explode("\t", trim($line));
-    #         $data_object_id = $values[0];
-    #         $visibility_id = $values[1];
-    #         $hierarchy_entry_id = $values[2];
-    #         $GLOBALS['db_connection']->update("UPDATE data_objects_hierarchy_entries SET visibility_id=$visibility_id WHERE data_object_id=$data_object_id AND hierarchy_entry_id=$hierarchy_entry_id");
-    #     }
-    # }
-    # fclose($FILE);
-    # unlink($outfile);
+    # NOTE: Ick. This actually runs moderately fast, but... ick. TODO - This
+    # would be much simpler if we had the harvest_event_id in the dohe table...
+    # or something like that...
+    invisible_ids = DataObjectsHierarchyEntry.invisible.
+      joins("JOIN data_objects_harvest_events ON (data_objects_harvest_events.data_object_id = data_objects_hierarchy_entries.data_object_id AND data_objects_harvest_events.harvest_event_id = #{previously.id})").
+      where(visibility_id: Visibility.get_invisible.id).
+        pluck(:data_object_id)
+    DataObjectsHierarchyEntry.
+      joins("JOIN data_objects_harvest_events ON (data_objects_harvest_events.data_object_id = data_objects_hierarchy_entries.data_object_id AND data_objects_harvest_events.harvest_event_id = #{id})").
+      update_all(visibility_id: Visibility.get_invisible.id)
+  end
+
+  def show_preview_objects
+    DataObjectsHierarchyEntry.
+      joins(:data_object, data_object: :data_objects_harvest_events).
+      where(visibility_id: Visibility.get_preview.id,
+        data_objects_harvest_events: { harvest_event_id: id }).
+      update_all(["visibility_id = ?", Visibility.get_visible.id])
   end
 
   def destroy_everything

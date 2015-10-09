@@ -25,40 +25,35 @@ class Resource
         raise "Harvest event not published!" unless @harvest_event.published?
         raise "Harvest event not complete!" unless @harvest_event.complete?
         raise "Publish flag not set!" unless @harvest_event.publish?
-        raise "No hierarchy!" unless @resource.
-        @harvest_event.show_preview_objects_TODO # harvest_event->make_objects_visible
-        @harvest_event.preserve_curations # Also TODO, but see class
-        @resource.unpublish_data_objects_TODO
-        @harvest_event.publish_data_objects_TODO # $harvest_event->publish_objects();
-        @harvest_event.update_attributes(published_at: Time.now)
+        raise "No hierarchy!" unless @resource.hierarchy
+        @harvest_event.show_preview_objects
+        @harvest_event.preserve_invisible
+        # TODO: I'm not sure we preserve _curations_. :\ We _only_ preserve
+        # invisibilities... but we don't ever touch
+        # curated_data_objects_hierarchy_entries in this process, so perhaps we
+        # don't have to?
+        @resource.unpublish_data_objects
+        @harvest_event.publish_data_objects
       end
       ActiveRecord::Base.connection.transaction do
-        @resource.unpublish_hierarchy_entries_TODO
-      end
-      ActiveRecord::Base.connection.transaction do
+        @resource.unpublish_hierarchy
+        # YOU WERE HERE:
         @harvest_event.publish_hierarchy_entries_TODO
       end
       TaxonConcept.post_harvest_cleanup(@resource)
-
-      # YOU WERE HERE - TODO
-      # // Rebuild the Solr index for this hierarchy
-      # $indexer = new HierarchyEntryIndexer();
-      # $indexer->index($this->hierarchy_id);
-      #
-      # // Compare this hierarchy to all others and store the
-      # // results in the hierarchy_entry_relationships table
-      # $harvest_event->compare_new_hierarchy_entries();
+      SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
+      @harvest_event.compare_hierarchy_entry_relationships_TODO
+      # That will be : $harvest_event->compare_new_hierarchy_entries(); and
       # $harvest_event->create_taxon_relations_graph();
-      #
-      # $this->update_names();
-      # $this->mysqli->commit();
-      #
-      # $harvest_event->resource->refresh();
-      # $harvest_event->create_collection();
-      # $harvest_event->index_for_search();
-      #
-      # $this->mysqli->update("UPDATE resources SET resource_status_id=". ResourceStatus::published()->id ." WHERE id=$this->id");
-      # $this->mysqli->end_transaction();
+      ActiveRecord::Base.connection.transaction do
+        @resuorce.update_names_TODO # $this->update_names();
+      end
+      ActiveRecord::Base.connection.transaction do
+        @harvest_event.create_collection_TODO # $harvest_event->create_collection();
+      end
+      @harvest_event.index_for_search_TODO # $harvest_event->index_for_search();
+      @resource.update_attributes(resource_status_id:
+        ResourceStatus.published.id)
       @resource.save_resource_contributions
     end
   end

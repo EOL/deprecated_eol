@@ -37,8 +37,7 @@ class Resource
       end
       ActiveRecord::Base.connection.transaction do
         @resource.unpublish_hierarchy
-        # YOU WERE HERE:
-        @harvest_event.publish_hierarchy_entries_TODO
+        @harvest_event.publish_hierarchy_entries
       end
       TaxonConcept.post_harvest_cleanup(@resource)
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)

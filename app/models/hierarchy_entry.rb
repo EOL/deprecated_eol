@@ -26,10 +26,15 @@ class HierarchyEntry < ActiveRecord::Base
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
-  has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'hierarchy_entries_refs',
-    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.get_visible.id}" }
-  has_and_belongs_to_many :flat_ancestors, class_name: HierarchyEntry.to_s, join_table: 'hierarchy_entries_flattened',
-  association_foreign_key: 'ancestor_id', order: 'lft'
+  has_and_belongs_to_many :published_refs, class_name: Ref.to_s,
+    join_table: 'hierarchy_entries_refs',
+    association_foreign_key: 'ref_id',
+    conditions: Proc.new {
+      "published=1 AND visibility_id=#{Visibility.get_visible.id}" }
+  has_and_belongs_to_many :flat_ancestors, class_name: HierarchyEntry.to_s,
+    join_table: 'hierarchy_entries_flattened',
+    association_foreign_key: 'ancestor_id', order: 'lft'
+  has_and_belongs_to_many :harvest_events
 
   has_many :hierarchy_descendants_relationship, class_name: HierarchyEntriesFlattened.to_s, foreign_key: 'ancestor_id'
 
@@ -58,6 +63,8 @@ class HierarchyEntry < ActiveRecord::Base
 
   scope :published, -> { where(published: true) }
   scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
+  scope :not_visible, -> { where(["visibility_id != ?",
+    Visibility.get_visible.id]) }
 
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }

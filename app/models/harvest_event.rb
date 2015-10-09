@@ -138,17 +138,7 @@ class HarvestEvent < ActiveRecord::Base
       update_all(published: true)
     Synonym.where(hierarchy_entry_id: hierarchy_entries.pluck(:id)).
       update_all(published: true)
-    publish_hierarchy_entry_parents
-    # YOU WERE HERE TODO
-$this->make_hierarchy_entry_parents_visible();
-
-  end
-
-  # TODO: private
-  def publish_hierarchy_entry_parents
-    count = 0
-    begin
-    end while count > 0
+    publish_and_show_hierarchy_entry_parents
   end
 
   def preserve_invisible
@@ -206,4 +196,38 @@ $this->make_hierarchy_entry_parents_visible();
     Rails.logger.error("** Destroyed HarvestEvent #{id}")
   end
 
+  private
+
+  # NOTE: this assumes flattened_ancestors has been constructed! TODO: this
+  # seems absurd, in a way... this method implies that only child hierarchy
+  # entries are associated with the harvest, which doesn't seem right. ...but,
+  # hey: it was coded this way, so perhaps it's the case that harvested entries
+  # don't necessarily have their parents harvested at the same time. (?) IT
+  # SMELLS TO ME LIKE THIS METHOD WAS ADDED TO "FIX" A PROBLEM, WHEN IN FACT IT
+  # IS JUST COMPLICATING THINGS. NOTE: This will "run" all the queries even if
+  # it never finds any published ancestors. I figured this is fine—it doesn't
+  # affect anything and it keeps logs consistent. TODO: this does NOT do
+  # synonyms, which is weird, since it does synonyms for the harvested entries.
+  # Find out if that's correct.
+  def publish_and_show_hierarchy_entry_parents
+    EOL.log_call
+    # NOTE: this is a little weird, but it's actually more efficient than the
+    # previous PHP algorithm (which walked up the ancestry!). It involves two
+    # plucks, which could be done inline, but I'm separating for clarity:
+    harvested = hierarchy_entries.published.pluck(:id)
+    EOL.log("Found #{harvested.count} published harvested entries", prefix: '.')
+    ancestors = HierarchyEntriesFlattened.
+      where(hierarchy_entry_id: harvested).pluck("DISTINCT ancestor_id")
+    EOL.log("Found #{ancestors.count} ancestors", prefix: '.')
+    count = HierarchyEntry.where(id: ancestors, published: false).
+      update_all(published: true)
+    EOL.log("Published #{count} ancestor entries", prefix: '.')
+    count = HierarchyEntry.not_visible.where(id: ancestors).
+      update_all(visibility_id: Visibility.get_visible.id)
+    EOL.log("Showed #{count} ancestor entries", prefix: '.')
+    count = TaxonConcept.unpublished.joins(:hierarchy_entries).
+      where(hierarchy_entries: { id: ancestors}).
+      update_all("taxon_concepts.published = true")
+    EOL.log("Published #{count} ancestor taxa", prefix: '.')
+  end
 end

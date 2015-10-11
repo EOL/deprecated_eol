@@ -125,9 +125,11 @@ class TaxonDataSet
     data_point_uris.each do |dpuri|
       set << dpuri unless set.any? do |d|
         d.taxon_concept == dpuri.taxon_concept &&
-          d.uri == dpuri.uri &&
-          d.predicate == dpuri.predicate &&
-          d.object == dpuri.object
+        d.predicate == dpuri.predicate &&
+        d.object == dpuri.object &&
+        d.statistical_method == dpuri.statistical_method &&
+        d.life_stage == dpuri.life_stage &&
+        d.sex == dpuri.sex
       end
     end
     return set

@@ -633,23 +633,6 @@ class DataPointUri < ActiveRecord::Base
     return [ life_stage_label, sex_label ].compact
   end
   private
-
-  # TODO: this is TOTALLY copy/pasted from TaxonDataSet (q.v.)... De-duplicate.
-  def remove_duplicates(data_point_uris)
-    return data_point_uris unless data_point_uris && data_point_uris.count > 0
-    # Not using an actual Set because "uniqueness" is measured specifically:
-    set = []
-    data_point_uris.each do |dpuri|
-      set << dpuri unless set.any? do |d|
-        d.taxon_concept == dpuri.taxon_concept &&
-          d.uri == dpuri.uri &&
-          d.predicate == dpuri.predicate &&
-          d.object == dpuri.object
-      end
-    end
-    return set
-  end
-
   def default_visibility
     self.visibility ||= Visibility.visible
   end

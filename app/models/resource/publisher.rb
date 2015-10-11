@@ -41,11 +41,17 @@ class Resource
       end
       TaxonConcept.post_harvest_cleanup(@resource)
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
-      @harvest_event.compare_hierarchy_entry_relationships_TODO
-      # That will be : $harvest_event->compare_new_hierarchy_entries(); and
-      # $harvest_event->create_taxon_relations_graph();
+      # NOTE: this is the doozy (TODO: rename)!!! This is where new concepts are
+      # created and entries are mapped to existing concepts. This is it, folks:
+      # harvesting. ...And we call it "publishing". Weird. Not what I expected.
+      # YOU WERE HERE (Working on Relator.)
+      @harvest_event.compare_new_hierarchy_entries
+      SolrCore::Something.do_something_TODO # $harvest_event->create_taxon_relations_graph();
       ActiveRecord::Base.connection.transaction do
         @resuorce.update_names_TODO # $this->update_names();
+        # That gets all of the TCs from this harvest_event (not ancestors), then
+        # runs Tasks::update_taxon_concept_names($taxon_concept_ids), which is
+        # very, very long and complicated, but rebuilds taxon_concept_names
       end
       ActiveRecord::Base.connection.transaction do
         @harvest_event.create_collection_TODO # $harvest_event->create_collection();

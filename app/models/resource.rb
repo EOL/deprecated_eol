@@ -256,10 +256,14 @@ class Resource < ActiveRecord::Base
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
     @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
       # Use 0 instead of nil when setting for cache because cache treats nil as a miss
-      HarvestEvent.where(resource_id: id).last || 0
+      latest_harvest_event_uncached || 0
     end
     @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_harvest
+  end
+
+  def latest_harvest_event_uncached
+    HarvestEvent.where(resource_id: id).last
   end
 
   def upload_resource_to_content_master(ip_with_port)

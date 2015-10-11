@@ -1,9 +1,13 @@
 class HarvestEvent < ActiveRecord::Base
 
   belongs_to :resource
+
+  has_one :hierarchy, through: :resource
+
   has_many :data_objects_harvest_events
   has_many :data_objects, through: :data_objects_harvest_events
   has_many :harvest_events_hierarchy_entries
+
   has_and_belongs_to_many :hierarchy_entries
 
   validates_inclusion_of :publish, in: [false], unless: :publish_is_allowed?
@@ -45,6 +49,58 @@ class HarvestEvent < ActiveRecord::Base
 
   def content_partner
     resource.content_partner
+  end
+
+  # TODO: move, private, rename
+  def _create_collection
+    if published?
+      if resource.collection.nil?
+        resource.collection = Collection.create(
+          name: resource.title,
+          published: true
+        )
+        resource.save
+      end
+      resource.collection
+    else
+      if resource.preview_collection.nil?
+        resource.preview_collection = Collection.create(
+          name: resource.title,
+          published: false
+        )
+        resource.save
+      end
+      resource.preview_collection
+    end
+  end
+
+  def create_collection
+    collection = _create_collection
+    # YOU WERE HERE
+    # $description = trim($this->resource->content_partner->description);
+    # if($description && !preg_match("/\.$/", $description)) $description = trim($description) . ".";
+    # $description .= " Last indexed ". date('F j, Y', strtotime($this->completed_at));
+    #
+    # $collection->name = $this->resource->title;
+    # $collection->logo_cache_url = $this->resource->content_partner->logo_cache_url;
+    # if(!$collection->logo_cache_url) $collection->logo_cache_url = $this->resource->content_partner->user->logo_cache_url;
+    # $collection->description = trim($description);
+    # $collection->updated_at = 'NOW()';
+    # $collection->save();
+    # $user_id = $this->resource->content_partner->user_id;
+    # $GLOBALS['db_connection']->insert("DELETE FROM collections_users WHERE collection_id = $collection->id AND user_id = $user_id");
+    # $GLOBALS['db_connection']->insert("INSERT IGNORE INTO collections_users (collection_id, user_id) VALUES ($collection->id, $user_id)");
+    #
+    # $this->sync_with_collection($collection);
+    #
+    # if($this->published_at)
+    # {
+    #     // make sure the collection can be searched for
+    #     $indexer = new SiteSearchIndexer();
+    #     $indexer->index_collection($collection->id);
+    #     // delete the existing preview collection
+    #     if($this->resource->preview_collection) $this->resource->preview_collection->delete();
+    # }
   end
 
   # TODO: THIS IS HORRIBLE!  AUGH!
@@ -92,12 +148,35 @@ class HarvestEvent < ActiveRecord::Base
     DataObject.preload_associations(data_objects, includes)
     DataObject.preload_associations(data_objects, :users_data_object)
     curator_activity_logs.each do |cal|
-      if d = data_objects.detect{ |o| cal.data_object.guid == o.guid }
+      if d = data_objects.detect { |o| cal.data_object.guid == o.guid }
         cal.data_object = d
       end
     end
+    curator_activity_logs.sort_by { |ah| Invert(ah.id) }
+  end
 
-    curator_activity_logs.sort_by{ |ah| Invert(ah.id) }
+  # TODO: move
+  def previous_harvest
+    HarvestEvent.where(resource_id: resource_id).where(["id < ?", id]).last
+  end
+
+  # TODO: move NOTE: Can't use an association here, sadly, because of resource
+  # being in the middle.
+  def hierarchy_entries_with_ancestors
+    hierarchy.hierarchy_entries
+  end
+
+  # TODO: this method is too unassuming; it is the meat and potatoes of
+  # harvesting. It should be glowing, with large signs pointing at it and a
+  # yellow brick road leading to it. Here is where the rubber meets the
+  # harvesting road. It is horribly named, for starters. It deserves its own
+  # class, secondly.
+  def compare_new_hierarchy_entries
+    EOL.log_call
+    Hierarchy::Relator.relate(hierarchy, modified_hierarchy_entry_ids)
+    # YOU WERE HERE (too)
+    # // use them to create concepts
+    # CompareHierarchies::begin_concept_assignment($this->resource->hierarchy_id, true);
   end
 
   def complete?
@@ -198,6 +277,26 @@ class HarvestEvent < ActiveRecord::Base
 
   private
 
+  def modified_hierarchy_entry_ids
+    if previous = resource.latest_harvest_event_uncached
+      these_entry_ids = Set.new(hierarchy_entries.pluck(:id))
+      # PHPland: "all entries created since last harvest. This is IMPORTANT
+      # because we are not currently listing ancestor entries in
+      # harvest_events_hierarchy_entries (though perhaps we should)"
+      previous_entry_ids = Set.new(HierarchyEntry.
+        where(hierarchy_id: hierarchy.id).
+        where(["id > ?", previous.hierarchy_entries.max(:id)]).
+        pluck(:id))
+      overlap = previous_entry_ids & these_entry_ids
+      # In the previous, but not this:
+      (previous_entry_ids - overlap +
+        # In this, but not previous:
+        these_entry_ids - overlap).to_a
+    else
+      hierarchy_entries_with_ancestors.pluck(:id)
+    end
+  end
+
   # NOTE: this assumes flattened_ancestors has been constructed! TODO: this
   # seems absurd, in a way... this method implies that only child hierarchy
   # entries are associated with the harvest, which doesn't seem right. ...but,
@@ -211,6 +310,7 @@ class HarvestEvent < ActiveRecord::Base
   # Find out if that's correct.
   def publish_and_show_hierarchy_entry_parents
     EOL.log_call
+    # TODO: this is "wrong"—the PHP had another way of getting these that didn't use the denormalized DB. Use #hierachy_entries_with_ancestors
     # NOTE: this is a little weird, but it's actually more efficient than the
     # previous PHP algorithm (which walked up the ancestry!). It involves two
     # plucks, which could be done inline, but I'm separating for clarity:

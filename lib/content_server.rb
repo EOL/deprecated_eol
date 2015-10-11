@@ -42,7 +42,7 @@ class ContentServer
       "function=upload_content&file_path=" +
       "http://#{ip_with_port}#{URI.encode(path_from_root)}"
     call_file_upload_api_with_parameters(parameters,
-      "content partner logo upload service")
+      "content partner logo upload service")[:response]
   end
 
   # only uploading resources
@@ -85,7 +85,7 @@ class ContentServer
     env_name = 'staging' if Rails.env.staging_dev?
     env_name = 'bocce_demo' if Rails.env.bocce_demo_dev?
     parameters = "function=crop_image_pct&data_object_id=#{data_object_id}&x=#{x}&y=#{y}&w=#{w}&ENV_NAME=#{env_name}"
-    call_file_upload_api_with_parameters(parameters, "update data object crop service")
+    call_file_upload_api_with_parameters(parameters, "update data object crop service")[:response]
   end
 
   def self.upload_data_search_file(file_url, data_search_file_id)

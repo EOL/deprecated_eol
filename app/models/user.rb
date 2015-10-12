@@ -60,9 +60,6 @@ class User < ActiveRecord::Base
     joins(:notification).
     where(disable_email_notifications: false,
       notifications: { eol_newsletter: true } ) }
-  # scope :count_users_data_objects, -> {
-#     
-  # } 
 
   before_save :check_credentials
   before_save :encrypt_password

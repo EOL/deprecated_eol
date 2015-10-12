@@ -28,9 +28,15 @@ class UsersController < ApplicationController
       flash[:notice] = I18n.t(:user_no_longer_active_message)
     end
     @user_submitted_text_count = User.count_submitted_datos(@user.id)
-    @common_names_added = Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
-    @common_names_removed = Curator.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
-    @common_names_curated = Curator.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
+    @common_names_added = Rails.cache.fetch("users/common_names_added/#{@user.id}", expires_in: 24.hours) do
+      Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    end
+    @common_names_removed = Rails.cache.fetch("users/common_names_removed/#{@user.id}", expires_in: 24.hours) do
+    Curator.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    end
+    @common_names_curated = Rails.cache.fetch("users/common_names_curated/#{@user.id}", expires_in: 24.hours) do
+      Curator.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
+    end
     @rel_canonical_href = user_url(@user)
   end
 

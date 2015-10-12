@@ -9,7 +9,11 @@ class UsersDataObject < ActiveRecord::Base
   validates_uniqueness_of :data_object_id
 
   belongs_to :user
+   # counter_culture :user, :column_names => {["user_added_data.visibility_id = ? and user_added_data.vetted_id = ? or user_added_data.vetted_id = ? and user_added_data.deleted_at = ?
+      # ", "#{Visibility.get_visible.id}", "#{Vetted.trusted.id}", "#{Vetted.unknown.id}", nil] => 'data_records_count'}
+ 
   belongs_to :data_object
+  counter_culture :user, :column_names => {["users_data_objects.data_object_id in (select id from data_objects where user_id = users.id group by guid)"] => "articles_count"}
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility

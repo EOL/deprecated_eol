@@ -60,6 +60,9 @@ class User < ActiveRecord::Base
     joins(:notification).
     where(disable_email_notifications: false,
       notifications: { eol_newsletter: true } ) }
+  # scope :count_users_data_objects, -> {
+#     
+  # } 
 
   before_save :check_credentials
   before_save :encrypt_password
@@ -303,6 +306,12 @@ class User < ActiveRecord::Base
       end
     end
     @taxa_commented = set.to_a
+  end
+  
+  def count_taxa_commented
+    Rails.cache.fetch("users/cached_taxa_commented/#{self.id}", expires_in: 24.hours) do
+      self.taxa_commented.length
+    end
   end
 
   def total_comment_submitted
@@ -849,7 +858,34 @@ public
   end
 
   def total_species_curated
-    Curator.taxon_concept_ids_curated(self.id).length
+    Rails.cache.fetch("users/total_species_curated/#{self.id}", expires_in: 24.hours) do
+      Curator.taxon_concept_ids_curated(self.id).length
+    end
+  end
+  
+  def total_user_objects_curated
+    Rails.cache.fetch("users/total_user_objects_curated/#{self.id}", expires_in: 24.hours) do
+      Curator.total_objects_curated_by_action_and_user(nil, @user.id)
+    end
+  end
+  
+  def total_user_exemplar_images
+    Rails.cache.fetch("users/total_user_exemplar_images/#{self.id}", expires_in: 24.hours) do
+      Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_image.id, self.id)
+    end
+  end
+  
+  def total_user_overview_articles
+    Rails.cache.fetch("users/total_user_overview_articles/#{self.id}", expires_in: 24.hours) do
+      Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_article.id, self.id)
+    end
+  end
+  
+  
+  def total_user_preferred_classifications
+    Rails.cache.fetch("users/total_user_preferred_classifications/#{self.id}", expires_in: 24.hours) do
+      Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, self.id, [ChangeableObjectType.curated_taxon_concept_preferred_entry.id])
+    end
   end
 
   def vet object

@@ -141,8 +141,26 @@ ActiveRecord::Base.transaction do
   # create_if_not_exists NormalizedQualifier label: 'Author'
   # create_if_not_exists NormalizedQualifier label: 'Year'
 
-  %w{kingdom phylum order class family genus species subspecies infraspecies variety form}.each do |rank|
-    Rank.gen_if_not_exists(label: rank)
+  rank_groups = {
+    1 => ["sp.", "species"],
+    2 => ["gen.", "genus"],
+    3 => ["a", "f.", "f.sp.", "form", "infraspecies", "subsp.", "subspecies", "var.", "variety", "ß", "nothospecies", "b"],
+    4 => ["sect.", "ser.", "stirps", "subgen.", "subgenus", "subsect."],
+    5 => ["fam.", "family"],
+    6 => ["order", "ord."],
+    7 => ["subf.", "subfamily"],
+    8 => ["divis", "divisio", "division", "diviso", "phylum", "phyl."],
+    9 => ["kingdom", "regn."],
+    10 => ["cl.", "class"],
+    11 => ["trib.", "tribe"]
+  }
+  rank_groups.keys.each do |group_id|
+    rank_groups[group_id].each do |label|
+      Rank.gen_if_not_exists(label: label)
+      rank = TranslatedRank.where(label: label,
+        language_id: Language.default.id).first.rank
+      rank.update_attributes(rank_group_id: group_id)
+    end
   end
 
   ChangeableObjectType.create_enumerated

@@ -41,5 +41,11 @@ module SolrCore
       delete_by_ids(items.map(&:id))
       @connection.add(items.map(&:to_hash))
     end
+
+    # NOTE: returns eval'ed ruby (a hash):
+    def select(q, options = {})
+      params = options.merge(q: q)
+      connection.select(params: params)
+    end
   end
 end

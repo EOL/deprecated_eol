@@ -44,8 +44,9 @@ class Resource
       # NOTE: this is the doozy (TODO: rename)!!! This is where new concepts are
       # created and entries are mapped to existing concepts. This is it, folks:
       # harvesting. ...And we call it "publishing". Weird. Not what I expected.
-      # YOU WERE HERE (Working on Relator.)
-      @harvest_event.compare_new_hierarchy_entries
+      @harvest_event.relate_hierarchy_entries
+      # YOU WERE HERE
+      @resource.hierarchy.assign_concepts
       SolrCore::Something.do_something_TODO # $harvest_event->create_taxon_relations_graph();
       ActiveRecord::Base.connection.transaction do
         @resuorce.update_names_TODO # $this->update_names();

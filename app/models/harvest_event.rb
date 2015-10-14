@@ -16,6 +16,7 @@ class HarvestEvent < ActiveRecord::Base
   scope :pending, -> { where(publish: true, published_at: nil) }
   scope :published, -> { where("published_at IS NOT NULL") }
   scope :complete, -> { where("completed_at IS NOT NULL") }
+  scope :unpublished, -> { where("published_at IS NULL") }
 
   def self.last_incomplete_resource
     return nil if incomplete.count < 1
@@ -166,17 +167,9 @@ class HarvestEvent < ActiveRecord::Base
     hierarchy.hierarchy_entries
   end
 
-  # TODO: this method is too unassuming; it is the meat and potatoes of
-  # harvesting. It should be glowing, with large signs pointing at it and a
-  # yellow brick road leading to it. Here is where the rubber meets the
-  # harvesting road. It is horribly named, for starters. It deserves its own
-  # class, secondly.
-  def compare_new_hierarchy_entries
+  def relate_hierarchy_entries
     EOL.log_call
     Hierarchy::Relator.relate(hierarchy, modified_hierarchy_entry_ids)
-    # YOU WERE HERE (too)
-    # // use them to create concepts
-    # CompareHierarchies::begin_concept_assignment($this->resource->hierarchy_id, true);
   end
 
   def complete?

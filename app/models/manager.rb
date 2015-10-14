@@ -75,7 +75,7 @@ class Manager
         [SolrCore::DataObjects,
           SolrCore::CollectionItems,
           SolrCore::HierarchyEntries,
-          SolrCore::HierarchyEntryRelationship,
+          SolrCore::HierarchyEntryRelationships,
           SolrCore::SiteSearch].each do |klass|
           solr = klass.optimize
         end

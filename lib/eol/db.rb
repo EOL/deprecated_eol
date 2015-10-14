@@ -1,7 +1,5 @@
 module EOL
-
   module Db
-
     @@db_defaults = {
       :charset   => ENV['CHARSET']   || 'utf8',
       :collation => ENV['COLLATION'] || 'utf8_general_ci'
@@ -132,7 +130,7 @@ module EOL
 
     def self.with_tmp_tables(klasses, &block)
       begin
-        klasses.each do |klass|
+        Array(klasses).each do |klass|
           klass.connection.
             execute("DROP TABLE IF EXISTS #{klass.table_name}_tmp")
           klass.connection.execute("CREATE TABLE #{klass.table_name}_tmp "\
@@ -140,7 +138,7 @@ module EOL
         end
         yield
       ensure
-        klasses.each do |klass|
+        Array(klasses).each do |klass|
           klass.connection.
             execute("DROP TABLE IF EXISTS #{klass.table_name}_tmp")
         end
@@ -165,6 +163,14 @@ module EOL
       end
     end
 
+    def self.update_ignore_id_by_field(klass, id1, id2, field)
+      raise "Danger: field '#{field}' not allowed on #{klass}" unless
+        klass.columns.map(&:name).include?(field.to_s)
+      klass.connection.execute(
+        klass.send(:sanitize_sql, ["UPDATE IGNORE #{klass.table_name} "\
+          "SET #{field} = ? WHERE #{field} = ?", id1, id2])
+      )
+      klass.where(["#{field} = ?", id2]).delete_all
+    end
   end
-
 end

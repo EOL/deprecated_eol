@@ -1,6 +1,12 @@
 class Hierarchy
   class Relator
 
+    # Quick test (be sure you know what you're doing):
+    if (false)
+      h = Hierarchy.last
+      Hierarchy::Relator.relate(h, entries: h.hierarchy_entry_ids)
+    end
+
     # NOTE: PHP actually had a bug (!) where this was _only_ Kingdom, but the
     # intent was clearly supposed to be this, so I'm going with it: TODO - this
     # should be in the DB, anyway. :\
@@ -45,21 +51,20 @@ class Hierarchy
 
     def relate
       return false unless @hierarchy # TODO: necessary?
-      time_comparisons_started = Time.now # TODO: remove
       if @entry_ids
-        iterate_through_selected_entries
+        compare_entries_by_id
       else
         raise NotImplementedError.new("cannot relate without list of ids")
-        # iterate_through_entire_hierarchy_TODO # not doing this now.
+        # iterate_through_entire_hierarchy # not doing this now.
       end
-      # YOU WERE HERE:
-      finalize_process_TODO
+      add_curator_assertions
+      insert_relationships
+      reindex_relationships
     end
 
-    # TODO: private somewhere here
+    private
 
-    # TODO: rename
-    def iterate_through_selected_entries
+    def compare_entries_by_id
       EOL.log_call
       group_size = 200 # Limited size due to sending Solr queries via POST.
       @entry_ids.in_groups_of(group_size, false) do |batch|
@@ -67,39 +72,27 @@ class Hierarchy
           select("hierarchy_id:#{@hierarchy.id} AND "\
           "id:(#{batch.join(" OR ")})", rows: group_size)
         # TODO: error-handling.
-        iterate_through_entries(response["response"]["docs"])
-      end
-    end
-
-    def iterate_through_entries(entries) # TODO: rename
-      hierarchy_entry_matches = {}
-      entries.each do |entry_from_solr|
-        # TODO: rename return val
-        matches = start_comparing_entry_from_solr(entry_from_solr)
-        hierarchy_entry_matches[entry_from_solr["id"]] = {}
-        matches.each do |match|
-          hierarchy_entry_matches[entry_from_solr["id"]][match[:id]] =
-            match[:score]
+        response["response"]["docs"].each do |entry|
+          compare_entry(entry)
         end
       end
-      write_relationships_to_temp_file(hierarchy_entry_matches)
     end
 
-    def start_comparing_entry_from_solr(entry_from_solr) # TODO: renames
+    def compare_entry(entry)
       matches = []
-      entry_from_solr["rank_id"] ||= 0
-      if entry_from_solr["name"]
+      entry["rank_id"] ||= 0
+      if entry["name"]
         # TODO: do we need to do any unencoding here, since it came from Solr?
-        search_name = entry_from_solr["name"]
+        search_name = entry["name"]
         # PHP TODO: "what about subgenera?"
         # TODO: clean up
         if Name.is_surrogate_or_hybrid?(search_name)
           search_canonical = ""
-        elsif entry_from_solr["kingdom"] &&
-          entry_from_solr["kingdom"].downcase == "virus" ||
-          entry_from_solr["kingdom"].downcase == "viruses"
+        elsif entry["kingdom"] &&
+          entry["kingdom"].downcase == "virus" ||
+          entry["kingdom"].downcase == "viruses"
           search_canonical = ""
-        elsif canonical_form_string = entry_from_solr["canonical_form"]
+        elsif canonical_form_string = entry["canonical_form"]
           search_canonical = canonical_form_string # TODO: unencode?
         else
           search_canonical = ""
@@ -128,54 +121,26 @@ class Hierarchy
           select(query, rows: 400) # TODO: generalize rows variable
         # TODO: error-handling
         matching_entries_from_solr = response["response"]["docs"]
-        matching_entries_from_solr.each do |matching_entry_from_solr|
-          matching_entry_from_solr["rank_id"] ||= 0
-          score = compare_entries_from_solr(entry_from_solr,
-            matching_entry_from_solr)
+        matching_entries_from_solr.each do |matching_entry|
+          matching_entry["rank_id"] ||= 0
+          score = compare_entries_from_solr(entry,
+            matching_entry)
           if score
-            store_relationship(entry_from_solr["id"],
-              matching_entry_from_solr["id"], score)
+            store_relationship(entry["id"],
+              matching_entry["id"], score)
           end
-          inverted_score = compare_entries_from_solr(matching_entry_from_solr,
-            entry_from_solr)
+          inverted_score = compare_entries_from_solr(matching_entry,
+            entry)
           if inverted_score
-            store_relationship(matching_entry_from_solr["id"],
-              entry_from_solr["id"], score)
+            store_relationship(matching_entry["id"],
+              entry["id"], score)
           end
         end
       else
-        EOL.log("WARNING: solr entry had no name: #{entry_from_solr}",
+        EOL.log("WARNING: solr entry had no name: #{entry}",
           prefix: "!")
       end
     end
-
-if(false)
-  rel = Hierarchy::Relator.new(Hierarchy.last)
-  e1 = { "id" => 1 }
-  e2 = { "id" => 1 }
-  # Should return nil:
-  rel.compare_entries_from_solr(e1, e2)
-  e1 = { "id" => 1, "name" => "" }
-  e2 = { "id" => 2, "name" => "foo" }
-  # Should return nil:
-  rel.compare_entries_from_solr(e1, e2)
-  e1 = { "id" => 1, "name" => "bar", "hierarchy_id" => @hierarchy.id }
-  e2 = { "id" => 2, "name" => "foo", "hierarchy_id" => @hierarchy.id }
-  # Should return nil:
-  rel.compare_entries_from_solr(e1, e2)
-  e1 = { "id" => 1, "name" => "bar", "hierarchy_id" => 1,
-    "rank_id" => TranslatedRank.find_by_label("gen.").rank_id }
-  e2 = { "id" => 2, "name" => "foo", "hierarchy_id" => 2,
-    "rank_id" => TranslatedRank.find_by_label("species").rank_id }
-  # Should return nil
-  rel.compare_entries_from_solr(e1, e2)
-  e1 = { "id" => 1, "name" => "bar", "hierarchy_id" => 1,
-    "rank_id" => 123 }
-  e2 = { "id" => 2, "name" => "foo", "hierarchy_id" => 2,
-    "rank_id" => 234 }
-  # Should return ... lots more to test, above is template...
-  rel.compare_entries_from_solr(e1, e2)
-end
 
     def compare_entries_from_solr(e1, e2) # TODO (from_entry, to_entry)
       return nil if e1["id"] == e2["id"]
@@ -184,6 +149,7 @@ end
         e1["hierarchy_id"] == @hierarchy.id &&
         e2["hierarchy_id"] == @hierarchy.id
       return nil if rank_ids_conflict?(e1["rank_id"], e2["rank_id"])
+      synonym = false
       # PHP: "viruses are a pain and will not match properly right now"
       is_virus = e1["name"].downcase =~ /virus$/ ||
         e2["name"].downcase =~ /virus$/
@@ -191,7 +157,8 @@ end
       name_match = compare_names(e1, e2, is_virus) # nil, 0.5, or 1... TODO :|
       # If it's not a complete match (and not a virus), check for synonyms:
       if ! name_match && ! is_virus
-        name_match = compare_synonyms(e1, e2) * -1 # TODO :| on the -1
+        name_match = compare_synonyms(e1, e2)
+        synonym = true if name_match > 0
       end
       ancestry_match = compare_ancestries(e1, e2)
       total_score = if ancestry_match.nil?
@@ -201,9 +168,9 @@ end
         # Ancestry was reasonable match:
         name_match * ancestry_match
       else
-        0
+        0 # TODO: should we even _store_ scores of 0?!
       end
-      total_score
+      { score: total_score, synonym: synonym }
     end
 
     def rank_ids_conflict?(rid1, rid2)
@@ -300,13 +267,53 @@ end
     end
 
     def store_relationship(from, to, score)
-      type = 'name'
-      # TODO: fucking stupid, change
-      if score < 0
-        score = score.abs
-        type = 'syn'
+      type = score[:synonym] ? 'syn' : 'name'
+      @relationships << "#{from}, #{to}, '#{type}', #{score}"
+    end
+
+    def add_curator_assertions
+      EOL.log_call
+      [1, 2].each do |entry_in_hierarchy|
+        CuratedHierarchyEntryRelationship.
+          select("he1.id id1, he2.id id2").
+          joins("JOIN hierarchy_entries he1 ON "\
+            "(curated_hierarchy_entry_relationships.hierarchy_entry_id_1 = "\
+            "he1.id) JOIN hierarchy_entries he2 ON "\
+            "(curated_hierarchy_entry_relationships.hierarchy_entry_id_2 = "\
+            "he2.id)").
+          where(["equivalent = 1 AND he#{entry_in_hierarchy}.hierarchy_id = ?",
+            @hierarchy.id]).
+          each do |cher|
+          store_relationship(cher["id1"], cher["id2"],
+            { score: 1, synonym: false })
+          # And the inverse (yes, PHP did this, but with another query (?)):
+          store_relationship(cher["id2"], cher["id1"],
+            { score: 1, synonym: false })
+        end
       end
-      @relationships << [nil, from, to, type, score]
+    end
+
+    def insert_relationships
+      EOL.log_call
+      EOL::Db.with_tmp_tables(HierarchyEntryRelationship) do
+        EOL::Db.bulk_insert(HierarchyEntryRelationship,
+          [ "hierarchy_entry_id_1", "hierarchy_entry_id_2",
+            "relationship", "score" ],
+          @relationships,
+          tmp: true, ignore: true)
+        # Errr... in PHP, the tables never get swapped! That can't be right, so
+        # I'm doing it:
+        EOL::Db.swap_tmp_table(HierarchyEntryRelationship)
+      end
+    end
+
+    # NOTE: PHP did this before swapping the tmp tables (because it never did,
+    # perhaps), so the code _there_ actually reads from the tmp table. That
+    # didn't make sense to me (too convoluted), so I've moved it.
+    def reindex_relationships
+      EOL.log_call
+      SolrCore::HierarchyEntryRelationships.
+        reindex_entries_in_hierarchy(@hierarchy, @entry_ids)
     end
   end
 end

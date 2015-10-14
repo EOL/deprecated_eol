@@ -197,6 +197,10 @@ class Resource < ActiveRecord::Base
     Resource.find(find_this)
   end
 
+  def assign_concepts
+    Hiearchy::ConceptAssignment.assign_for_hierarchy(self)
+  end
+
   def status_label
     (resource_status.nil?) ?  I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
   end

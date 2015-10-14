@@ -245,6 +245,49 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
+  # NOTE: this does not update collection items. You may wish to do so. ...Among
+  # many other things (see various denormalization functions, in TODOs). Sigh.
+  # NOTE: you may wish to run this in a transaction (if you aren't in one
+  # already); that is the _caller's_ responsibility. NOTE: this returns the
+  # SUPERCEDED TaxonConcept!!! Why? So you can see both the id that was
+  # superceded as well as the supercedure_id to see where it went. If you're
+  # calling this, you probably care about both.
+  def self.merge_ids(id1, id2)
+    EOL.log_call
+    return TaxonConcept.find(id1) if id1 == id2
+    # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
+    (id1, id2) = [id1, id2].sort
+    tc2 = TaxonConcept.find(id2)
+    tc2.update_attributes(supercedure_id: id1)
+    EOL.log("Matching hierarchy_entries to superceded taxon_concept_id(#{id1})",
+      prefix: '.')
+    HierarchyEntry.where(taxon_concept_id: id2).
+      update_all(taxon_concept_id: id1)
+    EOL.log("Updating ancilary tables", prefix: '.')
+    UsersDataObject.where(taxon_concept_id: id2).
+      update_all(taxon_concept_id:id1)
+    update_ignore_id(TaxonConceptName, id1, id2)
+    update_ignore_id(DataObjectsTaxonConcept, id1, id2)
+    update_ignore_id(TaxonConceptsFlattened, id1, id2)
+    update_ignore_ancestor_id(TaxonConceptsFlattened, id1, id2)
+    # NOTE: this one used to also do a join to hierarchy_entries and ensure that
+    # the tc id was id2. ...But that has already changed by this point, sooo...
+    # that never worked. :| Also, it seems entirely superfluous. Just using the
+    # tc id on that table:
+    update_ignore_id(RandomHierarchyImage, id1, id2)
+    TaxonConcept.find(id2)
+  end
+
+  # TODO: Rails doesn't have a way to UPDATE IGNORE ... WTF?
+  def self.update_ignore_id(klass, id1, id2)
+    EOL::Db.update_ignore_id_by_field(klass, id1, id2, "taxon_concept_id")
+  end
+
+  def self.update_ignore_ancestor_id(klass, id1, id2)
+    EOL::Db.update_ignore_id_by_field(klass, id1, id2, "ancestor_id")
+  end
+
+  # TODO: Move to EOL::Db.
   def preferred_common_name_in_language(language = Language.default)
     if common_names_in_language && common_names_in_language.has_key?(language.id)
       # sometimes we preload preferred names in all languages for lots of taxa

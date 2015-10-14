@@ -17,6 +17,11 @@ module SolrCore
       solr.reindex_items(items)
     end
 
+    # Does NOT delete items by ID beforehand.
+    def add_items(items)
+      @connection.add(Array(items).map(&:to_hash))
+    end
+
     def connect(name)
       return if @connection
       @core = name
@@ -29,11 +34,22 @@ module SolrCore
       @connection.delete_by_id(ids)
     end
 
+    def delete(query)
+      @connection.delete_by_query(query)
+    end
+
     def optimize
       EOL.log_call
       response = @connection.update(:data => '<optimize/>')
       EOL.log("Optimizing #{@core} Solr core done: #{response.to_json}",
         prefix: '.')
+    end
+
+    def paginate(q, options = {})
+      options[:page] ||= 1
+      options[:per_page] ||= 30
+      connection.paginate(options.delete(:page), options.delete(:per_page),
+        "select", params: options.merge(q: q))
     end
 
     def reindex_items(items)

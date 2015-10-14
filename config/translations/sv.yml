@@ -149,6 +149,7 @@ sv:
         total_measurement_types: Mätningstyper
         total_association_types: Associationstyper
         total_user_added_data: Data tillagd av användare
+        total_data_records: Dataposter
       forum:
         forum_category_id: Kategori
         name: Forumnamn
@@ -818,6 +819,9 @@ sv:
     new:
       page_title: Var god lämna din feedback
   collections:
+    download_taxa_data:
+      select_all_checkbox: Markera alla
+      user_downloaded_collection: Datanedladdning för %{collection_name}
     show:
       meta_description_default: En Encyclopedia of Life-samling med titeln %{collection_name}.
       meta_description_default_focus_collection: En fokussamling från Encyclopedia
@@ -1410,6 +1414,8 @@ sv:
       message: Du kan se denna och andra nedladdningar genom att besöka <a href='%{download_link}'>fliken
         för datanedladdningar i din profil</a>.
       header: Din nedladdning är redo!
+    collection_download_ready:
+      header: Din samlingsnedladdning är redo!
   sessions:
     new:
       login_with_facebook_assistive: Logga in på EOL med dina inloggningsuppgifter
@@ -1906,6 +1912,7 @@ sv:
         other: '%{count} datanedladdningar'
       empty: Du har inga nedladdningar. Du kan <a href='%{data_search_url}'>söka efter
         data</a> och begära att ladda ned resultaten.
+      empty_taxa_collection: Inga egenskaper hittades på denna samling
       download: ladda ned
       page_title: Datanedladdningar
       query_head: Förfrågan
@@ -3745,6 +3752,9 @@ sv:
   collection_delete_link: Radera denna samling permanent
   collection_destroyed: Samlingen har tagits bort.
   collection_removed: Samlingen %{collection} har raderats.
+  collection_update_failure: Uppdatering av samlingen %{collection} misslyckades.
+    Kontrollera om det finns ett problem bland samlingsobjekten
+  collection_not_existing: Samlingen %{collection} finns inte.
   collection_error_no_items_selected: 'Fel: Inga objekt valda, inga åtgärder vidtogs'
   collection_image: Samlingsbild
   collection_is_empty: Denna samling är för närvarande tom.
@@ -4196,6 +4206,7 @@ sv:
   your_watch_collection: din bevakningssamling
   current_language: 'Språk: %{iso_code}'
   currently_in_eol: Just nu i Encyclopedia of Life
+  create_download_data_file: Skapa fil
   currently_published: för närvarande publicerad
   daily: Dagligen
   dashboard: Kontrollpanel
@@ -4223,7 +4234,9 @@ sv:
   data_link_to_record: Länk till denna post
   data_logging_active: Dataloggning aktiv
   data_master_database_colon: 'Datamaster:'
+  data_metadata_subtable_summary: Ytterligare data om detta fakta.
   data_object: Dataobjekt
+  data_object_deleted: Dataobjektet raderades
   data_object_not_associated_with_any_hierarchies: Detta dataobjekt är inte associerat
     med några hierarkier.
   data_object_reference: Dataobjektsreferens
@@ -4362,6 +4375,7 @@ sv:
   do_you_want_to_be_a_curator: Vill du bli en kurator
   download_wav_file: Ladda ned WAV-fil
   download_data: Ladda ned data
+  download_collection_data: Ladda ned data
   duplicate_comment_warning: 'Kommentaren sparades inte: Det verkar som du redan har
     skickat denna kommentar. ...Klickade du på knappen ''Skicka kommentar'' två gånger?'
   duplicate_items_were_ignored: Dubbletter av objekt ignorerades.
@@ -5319,7 +5333,12 @@ sv:
   results_per_page: 'Resultat per sida:'
   results: Resultat
   results_offset: Resultat %{from} - %{to} av %{total} för <em>%{for}</em>
+  return_common_names_for_the_page_taxon: returnera alla vanliga namn för sidans taxon
   return: gå tillbaka
+  return_all_common_names_for_this_taxon: returnera alla vanliga namn för detta taxon
+  return_all_synonyms_for_this_taxon: returnera alla synonymer för detta taxon
+  return_references_for_the_page_taxon: returnera alla referenser för sidans taxon
+  return_synonyms_for_the_page_taxon: returnera alla synonymer för sidans taxon
   revisions: Versioner
   rights: Rättigheter
   rights_holder: Rättighetsinnehavare
@@ -5617,6 +5636,7 @@ sv:
     samlingar.
   this_community_has_no_focus_list: Denna gemenskap har ingen fokuseringslista.
   this_community_was_deleted: Denna gemenskap har tagits bort av sin ägare.
+  this_data_object_will_be_reindexed: Detta dataobjekt kommer att omindexeras.
   this_is_a_focus_collection_for_community: Denna samling är i fokus för "%{community}".
   gbif_occurrence_learn_more_link: Kom åt dessa data genom GBIF-portalen.
   threat_status_header_colon: '<abbr title="International Union for Conservation of
@@ -5915,6 +5935,7 @@ sv:
   would_you_like_to_become_a_curator_notice: Vill du bli en kurator? Du kan begära
     tillgång på <a href='%{url}'>din profilsida</a>.
   worklist: Arbetslista
+  xml_response: XML-svar
   yahoo_images: Yahoo Bilder
   yahoo: Yahoo
   year: År

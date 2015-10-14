@@ -5488,4 +5488,75 @@ pms:
   in_community: ant la comunità
   indexed: Andicisà
   info_item: Element d'anformassion
+  info_items_col_header: Element d'anformassion
+  information_for_any_audience: Anformassion për tut ël pùblich
+  information_intended_for_beginners: Anformassion destinà ai prinsipiant
+  information_intended_for_experts: Anformassion destinà a j'espert
+  in_providing_its_content_to_eo: An fornend sò contnù a l'EdV,
+  in_this_data_type: 'an cost %{data_type}:'
+  insufficient_privileges_to_add_common_names: An dëspias, a l'ha pa dij privilegi
+    a basta për gionté dij nòm comun.
+  insufficient_privileges_to_curate_names: An dëspias, a l'ha pa sij privilegi a basta
+    për conservé dij nòm.
+  internal_ip_address: adrëssa IP anterna
+  inverse_sort: Órdin anvertì
+  invite_members_label: Anvité dij mèmber
+  invite_members_help_text: Ch'a gionta chèich utent ëd l'EdV ambelessì e a arseivran
+    n'anvit a vòstra neuva comunità!
+  ip_address: Adrëssa IP
+  ip: IP
+  item_added_to_watch_collection_notice: « %{item_name} » a l'é stàit giontà a %{collection_name}.
+  item_added_to_collection_notice: L’element a l'é stàit giontà a la colession <em>%{collection_name}</em>
+  item_details_missing: An dëspias, a-i é rivaje n'eror, l'element a l'ha nen podù
+    esse arcuperà.
+  item_type_article: Artìcol
+  item_type_cms_page: Anformassion an sl'EdV
+  item_type_collection: Colession
+  item_type_community: Comunità
+  item_type_image: Plancia
+  item_type_image_map: Carta
+  item_type_link: Liura
+  item_type_map: Carta
+  item_type_person: Përson-a
+  item_type_sound: Argistrassion sonora
+  item_type_taxon: Tassonomìa
+  item_type_video: Filmà
+  item_type_article_assistive: S'element a l'é n'artìcol
+  item_type_cms_page_assistive: S'element a l'ha dël contnù anformativ an sl'EdV
+  item_type_collection_assistive: S'element a l'é na colession
+  item_type_community_assistive: S'element a l'é na comunità
+  item_type_image_assistive: St'element-sì a l'é na plancia
+  item_type_image_map_assistive: St'element-sì a l'é na plancia ëd na carta
+  item_type_link_assistive: St'element-sì a l'é na liura
+  item_type_map_assistive: St'element-sì a l'é na carta
+  item_type_person_assistive: S'element-sì a l'é na përson-a
+  item_type_sound_assistive: S'element-sì a l'é n'argistrassion sonora
+  item_type_taxon_assistive: S'element-sì a l'é na tassonomìa
+  item_type_video_assistive: S'element-sì a l'é un filmà
+  item_not_added_already_in_collection: S'element-sì a l'é già stàit giontà a la colession.
+  item_not_added_to_itself_notice: An dëspias, a peul nen gionté la colession <em>%{collection_name}</em>
+    a chila-midema.
+  item_not_added_to_collection_error: An dëspias, a-i é staje n'eror, l'element selessionà
+    a l'ha nen podù esse giontà a la colession.
+  item_not_updated_in_collection_error: An dëspias, a-i é staje n'eror, l'element
+    ëd colession a l'ha nen podù esse agiornà.
+  item_updated_in_collection_notice: Element agiornà për da bin ant la colession <em>%{collection_name}</em>.
+  items_no_copy_none_selected_warning: Gnun element a l'é stàit copià dagià che gnun
+    a l'é stàit selessionà. Për copié j'element an n'àutra colession, për prima còsa
+    ch'a selession-a la casela adiacenta a j'element ant la lista che a veul copié.
+  items_no_move_none_selected_warning: Gnun element a l'é stàit tramudà përchè gnun
+    a l'é stàit selessionà. Për tramudé dj'element an n'àutra colession, për prima
+    còsa ch'a selession-a la casela adiacenta a j'element ëd la lista ch'a veul tramudé.
+  items_no_remove_none_selected_warning: Gnun element a l'é stàit eliminà përchè gnun
+    a l'é stàit selessionà. Për eliminé dj'element da la colession, për prima còsa
+    ch'a selession-a la casela adiacenta a j'element ëd la lista ch'a veul eliminé.
+  items_with_count_semi_colon:
+    one: '%{count} element;'
+    other: '%{count} element;'
+  iucn_red_list_status_advisory_information: Sa liura a lo menërà an sël sit an sl'aragnà
+    ëd l'Union antërnassional për la Conservassion ëd la Natura (UACN) anté che a
+    podrà trové pi d'anformassion an sla lista rossa dle spece mnassà ëd l'UACN.
+  join_community_button: Giontesse a costa comunità
+  join_eol_community_html: Fé part ëd la comunità <abbr title="Enciclopedìa dla Vita">EdV</abbr>!
+  join_eol_button_html: Unisse a <abbr title="Enciclopedìa dla Vita">EdV</abbr> adess
 ...

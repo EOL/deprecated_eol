@@ -273,22 +273,24 @@ class Hierarchy
 
     def add_curator_assertions
       EOL.log_call
+      # This is lame, and obfuscated... but these are how two relationships are
+      # named when they join to the same table. ...So we use them for
+      # specificity (but to otherwise avoid complex SQL):
+      join_table_names = [
+        :hierarchy_entries,
+        :to_hierarchy_entries_curated_hierarchy_entry_relationships
+      ]
       [1, 2].each do |entry_in_hierarchy|
-        CuratedHierarchyEntryRelationship.
-          select("he1.id id1, he2.id id2").
-          joins("JOIN hierarchy_entries he1 ON "\
-            "(curated_hierarchy_entry_relationships.hierarchy_entry_id_1 = "\
-            "he1.id) JOIN hierarchy_entries he2 ON "\
-            "(curated_hierarchy_entry_relationships.hierarchy_entry_id_2 = "\
-            "he2.id)").
-          where(["equivalent = 1 AND he#{entry_in_hierarchy}.hierarchy_id = ?",
-            @hierarchy.id]).
+        CuratedHierarchyEntryRelationship.equivalent.
+          joins(:from_hierarchy_entry, :to_hierarchy_entry).
+          where(join_table_names[entry_in_hierarchy-1] =>
+            { hierarchy_id: @hierarchy.id }).
           each do |cher|
-          store_relationship(cher["id1"], cher["id2"],
-            { score: 1, synonym: false })
-          # And the inverse (yes, PHP did this, but with another query (?)):
-          store_relationship(cher["id2"], cher["id1"],
-            { score: 1, synonym: false })
+          # Yes, PHP stores both, but it used two queries (inefficiently):
+          store_relationship(cher.hierarchy_entry_id_1,
+            cher.hierarchy_entry_id_2, { score: 1, synonym: false })
+          store_relationship(cher.hierarchy_entry_id_2,
+            cher.hierarchy_entry_id_1, { score: 1, synonym: false })
         end
       end
     end

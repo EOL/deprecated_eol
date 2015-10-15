@@ -11,6 +11,9 @@ class Hierarchy
       @confirmed_exclusions = {}
       @entries_matched = []
       @superceded = {}
+      @visible_id = Visibility.get_visible.id
+      @preview_id = Visibility.get_preview.id
+      @rel_page_size = Rails.configuration.solr_relationships_page_size
     end
 
     # NOTE: this used to use DB transactions, but A) it was doing it wrong
@@ -19,8 +22,6 @@ class Hierarchy
     # with it.
     def assign
       EOL.log_call
-      # PHP: "looking up which hierarchies might have nodes in preview mode this
-      # will save time later on when we need to check published vs preview taxa"
       lookup_preview_harvests
       get_confirmed_exclusions
       # TODO: this is slow; once we have harvesting ported, we can ensure that
@@ -32,14 +33,13 @@ class Hierarchy
       # Also make sure curators can set that value from the resource page.
       hierarchies = Hierarchy.where(["id NOT in (?)", 129]).
         order("hierarchy_entries_count DESC")
-      # This is REALLY WEIRD (and lame), but it's what PHP did; This is, again,
-      # a GBIF Nub taxonomy. The only effect this has is to make it last in the
-      # list of hierarchies to compare. ...I haven't worked through this enough
-      # to decide whether that means it's less likely to match (if it's matched
-      # once, will it not match again?), so perhaps that's the intent. Perhaps
-      # it is not worth sorting by entry count; perhaps the curators should
-      # choose the order in which they are matched, if that's the case.
-      hierarchies.find { |h| h.id == 800 }.hierarchy_entries_count = 1
+      # TODO: again, shouldn't be hard-coded! ...I haven't worked through this
+      # enough to decide whether moving it to the end of the array means it's
+      # less likely to match (if it's matched once, will it not match again?),
+      # so perhaps that's the intent. Perhaps the curators should choose the
+      # order in which hierarchies are matched, if that's the case.
+      gbif_nub = hierarchies.find { |h| h.id == 800 }
+      hierarchies.insert(-1, hierarchies.delete(gbif_nub) )
       hierarchies.each do |other_hierarchy|
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actuall the "same", so we need to compare those to
@@ -52,65 +52,67 @@ class Hierarchy
 
     private
 
-    # TODO: break up, this is ginormous.
     def compare_hierarchies(h1, h2)
       (hierarchy1, hierarchy2) = fewer_entries_first(h1, h2)
       EOL.log("Comparing hierarchy #{hierarchy1.id} (#{hierarchy1.label}; "\
         "#{hierarchy1.hierarchy_entries_count} entries) to #{hierarchy2.id} "\
         "(#{hierarchy2.label}; #{hierarchy2.hierarchy_entries_count} "\
         "entries)")
-
       solr = SolrCore::HierarchyEntryRelationships.new
       # TODO: add (relationship:name OR confidence:[0.25 TO *]) [see below]
-
       entries = [] # Just to prevent weird infinite loops below. :\
       begin
         page ||= 0
         page += 1
-        # NOTE: This is a REALLY slow query. ...Which sucks. :\ Yes, even for Solr... it takes a VERY long time.
-        response = solr.paginate(query,
-          options.merge(page: page, per_page: 10000))
-        # TODO: error-checking that solr response; sample "responseHeader":
-        # {"status"=>0, "QTime"=>14641, "params"=>{"sort"=>"relationship etc",
-        # "wt"=>"ruby", "start"=>"0", "q"=>"blah blah", "rows"=>"10"}}
-        response["response"]["docs"].each do |entry|
-          handle_entry(entry)
+        get_page_of_relationships_from_solr(hierarchy1, hierarchy2, page).
+          each do |relationship|
+          merge_matching_concepts(relationship)
         end
       end while entries.count > 0
     end
 
-    def compare_hierarchies_query
-      visible_id = Visibility.get_visible.id
-      preview_id = Visibility.get_preview.id
-      query = "hierarchy_id_1:#{hierarchy1.id} AND "\
-        "(visibility_id_1:#{visible_id} OR visibility_id_1:#{preview_id}) "\
-        "AND hierarchy_id_2:#{hierarchy2.id} AND "\
-        "(visibility_id_2:#{visible_id} OR visibility_id_2:#{preview_id}) "\
-        "AND same_concept:false"
+    # NOTE: This is a REALLY slow query. ...Which sucks. :\ Yes, even for
+    # Solr... it takes a VERY long time.
+    def get_page_of_relationships_from_solr(hierarchy1, hierarchy2, page)
+      EOL.log_call
+      response = solr.paginate(compare_hierarchies_query(hierarchy1,
+        hierarchy2), compare_hierarchies_options(page)
+      unless response["responseHeader"]["status"] == 0
+        raise "Solr error! #{response["responseHeader"]}"
+      end
+      EOL.log("gporfs query: #{response["responseHeader"]["q"]}",
+        prefix: ".")
+      EOL.log("gporfs Request took #{response["responseHeader"]["QTime"]}ms",
+        prefix: ".")
+      response["response"]["docs"]
+    end
 
+    def compare_hierarchies_query(hierarchy1, hierarchy2)
+      query = "hierarchy_id_1:#{hierarchy1.id} AND "\
+        "(visibility_id_1:#{@visible_id} OR visibility_id_1:#{@preview_id}) "\
+        "AND hierarchy_id_2:#{hierarchy2.id} AND "\
+        "(visibility_id_2:#{@visible_id} OR visibility_id_2:#{@preview_id}) "\
+        "AND same_concept:false"
       query
     end
 
-    def compare_hierarchies_options
-      # YOU WERE HERE
+    def compare_hierarchies_options(page)
       { sort: "relationship asc, visibility_id_1 asc, "\
         "visibility_id_2 asc, confidence desc, hierarchy_entry_id_1 asc, "\
-        "hierarchy_entry_id_2 asc"}
+        "hierarchy_entry_id_2 asc"}.merge(page: page, per_page: @rel_page_size))
     end
 
-    def handle_entry(entry)
-      # Sample "entry": { "hierarchy_entry_id_1"=>47111837,
+    def merge_matching_concepts(relationship)
+      # Sample "relationship": { "hierarchy_entry_id_1"=>47111837,
       # "taxon_concept_id_1"=>71511, "hierarchy_id_1"=>949,
       # "visibility_id_1"=>1, "hierarchy_entry_id_2"=>20466468,
       # "taxon_concept_id_2"=>71511, "hierarchy_id_2"=>107,
       # "visibility_id_2"=>0, "same_concept"=>true, "relationship"=>"name",
       # "confidence"=>1.0 }
       # TODO: move this criterion to the solr query (see above):
-      return(nil) if entry["relationship"] == 'syn' && entry["confidence"] < 0.25
-      id1 = entry["hierarchy_entry_id_1"]
-      tc_id1 = entry["taxon_concept_id_1"]
-      id2 = entry["hierarchy_entry_id_2"]
-      tc_id2 = entry["taxon_concept_id_2"]
+      return(nil) if relationship["relationship"] == 'syn' && relationship["confidence"] < 0.25
+      (id1, tc_id1, hiearchy1, id2, tc_id2, hierarchy2) =
+        assign_local_vars_from_relationship(relationship)
       # this node in hierarchy 1 has already been matched
       return(nil) if hierarchy1.complete? && @entries_matched.include?(id2)
       return(nil) if hierarchy2.complete? && @entries_matched.include?(id1)
@@ -131,33 +133,13 @@ class Hierarchy
       tc_id1 = follow_supercedure(tc_id1)
       tc_id2 = follow_supercedure(tc_id2)
       return(nil) if tc_id1 == tc_id2
-      EOL.log("Comparing entry #{id1} (hierarchy #{hierarchy1.id}) "\
+      EOL.log("Comparing entry #{tc_id1} (hierarchy #{hierarchy1.id}) "\
         "with #{id2} (hierarchy #{hierarchy2.id})", prefix: "?")
-      # PHP: "compare visible entries to other published entries"
-      if entry_published_in_hierarchy?(1, entry, hierarchy1)
-        EOL.log("SKIP: concept #{id2} published in hierarchy of #{id1}",
-          prefix: ".")
-        return(nil)
-      end
-      if entry_published_in_hierarchy?(2, entry, hierarchy2)
-        EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
-          "#{hierarchy2.id}", prefix: ".")
-        return(nil)
-      end
-      if entry_preview_in_hierarchy?(1, entry, hierarchy1)
-        EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
-          "#{hierarchy1.id}", prefix: ".")
-        return(nil)
-      end
-      if entry_preview_in_hierarchy?(2, entry, hierarchy2)
-        EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
-          "#{hierarchy2.id}", prefix: ".")
-        return(nil)
-      end
-      if curators_denied_relationship?(entry)
-        EOL.log("SKIP: merge of entry #{id1} (concept #{tc_id1}) with "\
+      return(nil) if concepts_of_one_already_in_other?(relationship)
+      if curators_denied_relationship?(relationship)
+        EOL.log("SKIP: merge of relationship #{id1} (concept #{tc_id1}) with "\
           " #{id2} (concept #{tc_id2}) rejected by curator", prefix: ".")
-          return(nil)
+        return(nil)
       end
       if affected = additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
         EOL.log("SKIP: A merge of #{id1} (concept #{tc_id1}) and #{id2} "\
@@ -166,10 +148,19 @@ class Hierarchy
         return(nil)
       end
       EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
-      #  - log the supercedure somewhere to be cleaned up, e.g.: in
-      # CollectionItem.remove_superceded_taxa
+      # TODO: store the supercedure somewhere so that we can use it later to
+      # know what to clean up, e.g.: in CollectionItem.remove_superceded_taxa
       tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
       @superceded[tc.id] = tc.supercedure_id
+    end
+
+    def assign_local_vars_from_relationship(relationship)
+      (relationship["hierarchy_entry_id_1"],
+        relationship["taxon_concept_id_1"],
+        relationship["hierarchy_id_1"],
+        relationship["hierarchy_entry_id_2"],
+        relationship["taxon_concept_id_2"],
+        relationship["hierarchy_id_2"])
     end
 
     def lookup_preview_harvests
@@ -199,6 +190,32 @@ class Hierarchy
         @confirmed_exclusions[to_entry] ||= []
         @confirmed_exclusions[to_entry] << from_tc
       end
+    end
+
+    def concepts_of_one_already_in_other?(relationship)
+      (id1, tc_id1, hiearchy1, id2, tc_id2, hierarchy2) =
+        assign_local_vars_from_relationship(relationship)
+      if entry_published_in_hierarchy?(1, relationship, hierarchy1)
+        EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1}",
+          prefix: ".")
+        return true
+      end
+      if entry_published_in_hierarchy?(2, relationship, hierarchy2)
+        EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
+          "#{hierarchy2.id}", prefix: ".")
+        return true
+      end
+      if entry_preview_in_hierarchy?(1, relationship, hierarchy1)
+        EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
+          "#{hierarchy1.id}", prefix: ".")
+        return true
+      end
+      if entry_preview_in_hierarchy?(2, relationship, hierarchy2)
+        EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
+          "#{hierarchy2.id}", prefix: ".")
+        return true
+      end
+      false
     end
 
     # NOTE: we could query the DB to buld this full list. It takes about 30
@@ -236,21 +253,21 @@ class Hierarchy
       @compared << compared_key(id1, id2)
     end
 
-    def entry_published_in_hierarchy?(which, entry, hierarchy)
-      entry_has_vis_id_in_hierarchy?(which, entry, Visibility.get_visible.id,
+    def entry_published_in_hierarchy?(which, relationship, hierarchy)
+      entry_has_vis_id_in_hierarchy?(which, relationship, @visible_id,
         hierarchy)
     end
 
-    def entry_preview_in_hierarchy?(which, entry, hierarchy)
-      entry_has_vis_id_in_hierarchy?(which, entry, Visibility.get_preview.id,
+    def entry_preview_in_hierarchy?(which, relationship, hierarchy)
+      entry_has_vis_id_in_hierarchy?(which, relationship, @preview_id,
         hierarchy)
     end
 
-    def entry_has_vis_id_in_hierarchy?(which, entry, vis_id, hierarchy)
+    def entry_has_vis_id_in_hierarchy?(which, relationship, vis_id, hierarchy)
       other = which == 1 ? 2 : 1
       hierarchy.complete &&
-        entry["visibility_id_#{which}"] == vis_id &&
-        concept_has_vis_id_in_hierarchy(entry["taxon_concept_id_#{other}"],
+        relationship["visibility_id_#{which}"] == vis_id &&
+        concept_has_vis_id_in_hierarchy(relationship["taxon_concept_id_#{other}"],
           vis_id, hierarchy)
     end
 
@@ -259,13 +276,13 @@ class Hierarchy
         hierarchy_id: hierarchy.id, visibility_id: vis_id)
     end
 
-    def curators_denied_relationship?(entry)
-      if @confirmed_exclusions.has_key?(entry["hierarchy_entry_id_1"])
-        return confirmed_exclusions_matches?(entry["hierarchy_entry_id_1"],
-          entry["taxon_concept_id_2"])
-      elsif @confirmed_exclusions.has_key?(entry["hierarchy_entry_id_2"])
-        return confirmed_exclusions_matches?(entry["hierarchy_entry_id_2"],
-          entry["taxon_concept_id_1"])
+    def curators_denied_relationship?(relationship)
+      if @confirmed_exclusions.has_key?(relationship["hierarchy_entry_id_1"])
+        return confirmed_exclusions_matches?(relationship["hierarchy_entry_id_1"],
+          relationship["taxon_concept_id_2"])
+      elsif @confirmed_exclusions.has_key?(relationship["hierarchy_entry_id_2"])
+        return confirmed_exclusions_matches?(relationship["hierarchy_entry_id_2"],
+          relationship["taxon_concept_id_1"])
       end
       false
     end

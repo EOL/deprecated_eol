@@ -110,7 +110,8 @@ class RandomHierarchyImage < ActiveRecord::Base
       # Not doing this with a big join right now because the top_concept_images
       # table was out of date at the time of writing.
       set = Set.new
-      TaxonConcept.joins(hierarchy_entries: [ :name ]).
+      # TODO: complex query, use :names instead of ?s.
+      TaxonConcept.includes(hierarchy_entries: [ :name ]).
         where(["taxon_concepts.published = 1 AND taxon_concepts.vetted_id = ? AND "\
           "(hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
           "hierarchy_entries.rank_id IN (?)) AND "\
@@ -121,7 +122,11 @@ class RandomHierarchyImage < ActiveRecord::Base
             where(["richness_score > ?", $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).
             pluck(:taxon_concept_id)
         ]).find_each do |taxon|
+          # TODO: we could re-write this to query solr for a SET of taxa's best
+          # images...
           img = taxon.exemplar_or_best_image_from_solr
+          # That is Solr-heavy, so let's lighten the load just a wee bit:
+          sleep(0.01) # TODO: not needed once we query batches.
           next unless img
           set << {
             data_object_id: img.id,

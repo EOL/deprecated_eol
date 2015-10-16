@@ -52,6 +52,7 @@ module SolrCore
         "select", params: options.merge(q: q))
     end
 
+    # NOTE: this will NOT work on items with composite primary keys.
     def reindex_items(items)
       items = Array(items)
       delete_by_ids(items.map(&:id))

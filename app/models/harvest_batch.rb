@@ -11,13 +11,21 @@ class HarvestBatch
   end
 
   def complete?
-    Time.now > @start_time + 10.hours ||
-      @harvested_resources.count >= 5
+    time_out? || maximum_count?
+  end
+
+  def count
+    @harvested_resources.count
+  end
+
+  def maximum_count?
+    count >= EolConfig.max_harvest_batch_count.to_i rescue 5
   end
 
   def post_harvesting
     begin
       @harvested_resources.each do |resource|
+        # TODO: probably not the right level of abstraction:
         resource.hierarchy.flatten
         resource.publish
       end
@@ -26,5 +34,9 @@ class HarvestBatch
       # TODO: there are myriad errors that harvesting can throw; catch them here.
     end
     CollectionItem.remove_superceded_taxa
+  end
+
+  def time_out?
+    Time.now > @start_time + 10.hours
   end
 end

@@ -1,8 +1,9 @@
 class Manager
   class << self
     # The main method of this class:
-    def tend
+    def tend(options = {})
       EOL.log_call
+      options[:max_runs] = 30
       if paused?
         begin
           pause
@@ -11,21 +12,20 @@ class Manager
           return false
         end
       end
-      @batch ||= HarvestBatch.new
-      resource = Resource.next
-      if resource.nil? || @batch.complete?
-        @batch.post_harvesting
-        denormalize_tables
-        optimize_solr_if_needed
-        @batch = HarvestBatch.new
-      end
-      if resource
-        @batch.add(resource)
+      batch ||= HarvestBatch.new
+      while resource = Resource.next && ! batch.complete?
+        EOL.log("Manager found resource #{resource.id} to harvest...",
+          prefix: '@')
+        batch.add(resource)
         resource.harvest
-      else
-        EOL.log("Finished")
       end
-      true
+      EOL.log("Finished with batch of #{batch.count} resources", prefix: '@')
+      EOL.log("(maximum count)", prefix: '.') if batch.maximum_count?
+      EOL.log("(timed out, started at #{batch.start_time})", prefix: '.') if
+        batch.time_out?
+      batch.post_harvesting
+      denormalize_tables
+      optimize_solr_if_needed
     end
 
     def denormalize_tables
@@ -88,7 +88,7 @@ class Manager
       last_rebuild = EolConfig.last_solr_rebuild
       return true if last_rebuild.nil?
       Time.now > Time.parse(last_rebuild) + 3.days &&
-        [0,6].include?(last_rebuild.wday)
+        [0,6].include?(Time.now.wday)
     end
   end
 end

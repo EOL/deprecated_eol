@@ -8,7 +8,7 @@ class Resource
     end
 
     def initialize(resource)
-      @resource = Array(resource)
+      @resource = resource
       @harvest_event = HarvestEvent.where(resource_id: @resource.id).last
     end
 
@@ -17,12 +17,13 @@ class Resource
     # whether we acutally _need_ transactions! ...We can assume the HEs that
     # we're working on are not being touched... the worst that might happen is
     # curation of something that gets missed here, but we might be able to
-    # capture that in another way.
+    # capture that in another way. NOTE: This _requires_ that the flattened
+    # hierarchy have been rebuilt when this is called.
     def publish
       EOL.log_call
       ActiveRecord::Base.connection.transaction do
         raise "No harvest event!" unless @harvest_event
-        raise "Harvest event not published!" unless @harvest_event.published?
+        raise "Harvest event already published!" if @harvest_event.published?
         raise "Harvest event not complete!" unless @harvest_event.complete?
         raise "Publish flag not set!" unless @harvest_event.publish?
         raise "No hierarchy!" unless @resource.hierarchy
@@ -39,6 +40,7 @@ class Resource
         @resource.unpublish_hierarchy
         @harvest_event.publish_hierarchy_entries
       end
+      # TODO: rename:
       TaxonConcept.post_harvest_cleanup(@resource)
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       # NOTE: this is the doozy (TODO: rename)!!! This is where new concepts are
@@ -58,6 +60,7 @@ class Resource
         @harvest_event.create_collection_TODO # $harvest_event->create_collection();
       end
       @harvest_event.index_for_search_TODO # $harvest_event->index_for_search();
+      # TODO: make sure the harvest event is marked as published!
       @resource.update_attributes(resource_status_id:
         ResourceStatus.published.id)
       @resource.save_resource_contributions

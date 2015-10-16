@@ -212,8 +212,7 @@ private
   end
 
   def unpublish_synonyms
-    synonyms.where(published: true).
-      update_all(published: false)
+    synonyms.where(published: true).update_all(published: false)
   end
 
 end

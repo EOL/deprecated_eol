@@ -202,17 +202,21 @@ class HarvestEvent < ActiveRecord::Base
 
   # NOTE: this also makes them visible, and it also publishes associated TCs and
   # synonyms. TODO: that's misleading. Rename/breakup. TODO: pluck may be
-  # inefficient here, we could try joins and/or associations.
+  # inefficient here, we could try joins and/or associations. TODO: the
+  # #publish_and_show_he_parents method is more efficient, and could have been
+  # written to do this as well.
   def publish_hierarchy_entries
     hierarchy_entries.update_all(published: true,
       visibility_id: Visibility.get_visible.id)
-    TaxonConcept.where(id: hierarchy_entries.pluck(:taxon_concept_id)).
-      update_all(published: true)
-    Synonym.where(hierarchy_entry_id: hierarchy_entries.pluck(:id)).
-      update_all(published: true)
+    TaxonConcept.where(id: hierarchy_entries.pluck(:taxon_concept_id),
+      published: false).update_all(published: true)
+    Synonym.where(hierarchy_entry_id: hierarchy_entries.pluck(:id),
+      published: false).update_all(published: true)
     publish_and_show_hierarchy_entry_parents
   end
 
+  # TODO: this would be unnecessary if, during a harvest, we just looked for the
+  # previous harvest event's associations and honored those visibilities.
   def preserve_invisible
     EOL.log_call
     previously = resource.latest_published_harvest_event_uncached
@@ -224,11 +228,16 @@ class HarvestEvent < ActiveRecord::Base
     # would be much simpler if we had the harvest_event_id in the dohe table...
     # or something like that...
     invisible_ids = DataObjectsHierarchyEntry.invisible.
-      joins("JOIN data_objects_harvest_events ON (data_objects_harvest_events.data_object_id = data_objects_hierarchy_entries.data_object_id AND data_objects_harvest_events.harvest_event_id = #{previously.id})").
-      where(visibility_id: Visibility.get_invisible.id).
-        pluck(:data_object_id)
+      joins("JOIN data_objects_harvest_events ON "\
+        "(data_objects_harvest_events.data_object_id = "\
+        "data_objects_hierarchy_entries.data_object_id AND "\
+        "data_objects_harvest_events.harvest_event_id = #{previously.id})").
+      pluck(:data_object_id)
     DataObjectsHierarchyEntry.
-      joins("JOIN data_objects_harvest_events ON (data_objects_harvest_events.data_object_id = data_objects_hierarchy_entries.data_object_id AND data_objects_harvest_events.harvest_event_id = #{id})").
+      joins("JOIN data_objects_harvest_events ON "\
+        "(data_objects_harvest_events.data_object_id = "\
+        "data_objects_hierarchy_entries.data_object_id AND "\
+        "data_objects_harvest_events.harvest_event_id = #{id})").
       update_all(visibility_id: Visibility.get_invisible.id)
   end
 
@@ -294,13 +303,11 @@ class HarvestEvent < ActiveRecord::Base
   # seems absurd, in a way... this method implies that only child hierarchy
   # entries are associated with the harvest, which doesn't seem right. ...but,
   # hey: it was coded this way, so perhaps it's the case that harvested entries
-  # don't necessarily have their parents harvested at the same time. (?) IT
-  # SMELLS TO ME LIKE THIS METHOD WAS ADDED TO "FIX" A PROBLEM, WHEN IN FACT IT
-  # IS JUST COMPLICATING THINGS. NOTE: This will "run" all the queries even if
-  # it never finds any published ancestors. I figured this is fine—it doesn't
-  # affect anything and it keeps logs consistent. TODO: this does NOT do
-  # synonyms, which is weird, since it does synonyms for the harvested entries.
-  # Find out if that's correct.
+  # don't necessarily have their parents harvested at the same time. (?)  NOTE:
+  # This will "run" all the queries even if it never finds any published
+  # ancestors. I figured this is fine—it doesn't affect anything and it keeps
+  # logs consistent. TODO: this does NOT do synonyms, which is weird, since it
+  # does synonyms for the harvested entries. Find out if that's correct.
   def publish_and_show_hierarchy_entry_parents
     EOL.log_call
     # TODO: this is "wrong"—the PHP had another way of getting these that didn't use the denormalized DB. Use #hierachy_entries_with_ancestors

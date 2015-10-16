@@ -20,6 +20,7 @@ class EolConfig < ActiveRecord::Base
       global_site_warning: '',
       all_users_can_see_data: 'true',
       last_solr_rebuild: '',
+      max_harvest_batch_count: '5',
       reference_parsing_enabled: '',
       reference_parser_pid: '',
       reference_parser_endpoint: '',

@@ -274,8 +274,5 @@ class TopImage
         next_level_of_parents
       end
     end
-
-
-
   end
 end

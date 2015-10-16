@@ -160,7 +160,7 @@ class HierarchyEntry < ActiveRecord::Base
   # NOTE: it is assumed here (for now, TODO) that you have loaded the synonyms,
   # ancestors, and the like before calling this, lest you get a pretty boring
   # hash. See SolrCore::HierarchyEntries for info on how those are populated,
-  # but be warned: it's complex. :|
+  # but be warned: it's complex. :| TODO: add a for_hash scope...
   def to_hash
     hash = {
       id: id,

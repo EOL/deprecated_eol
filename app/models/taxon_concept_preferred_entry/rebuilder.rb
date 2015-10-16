@@ -14,7 +14,7 @@ class TaxonConceptPreferredEntry
       # TODO - remove the backslash. I'm just getting around an Atom bug.
       "IUCN \Red List (Species Assessed for Global Conservation)",
       "Index Fungorum",
-      "Paleobiology Database",
+      "Paleobiology Database"
     ]
 
     def self.hierarchy_sort_order(label)

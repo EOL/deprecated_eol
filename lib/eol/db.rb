@@ -118,8 +118,9 @@ module EOL
       EOL.log_call
       table = klass.table_name
       table += "_tmp" if options[:tmp]
+      fields = Array(fields)
       EOL.log("#{rows.count} rows into #{table}", prefix: '.')
-      rows.in_groups_of(5000, false) do |group|
+      Array(rows).in_groups_of(5000, false) do |group|
         klass.connection.execute(
           "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\
           "(`#{fields.join("`, `")}`) "\

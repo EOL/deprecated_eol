@@ -132,6 +132,10 @@ class Hierarchy < ActiveRecord::Base
     9999
   end
 
+  def flatten
+    Hierarchy::Flattener.flatten(self)
+  end
+
   def form_label
     return descriptive_label unless descriptive_label.blank?
     return label

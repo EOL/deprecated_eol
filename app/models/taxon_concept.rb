@@ -251,7 +251,8 @@ class TaxonConcept < ActiveRecord::Base
   # already); that is the _caller's_ responsibility. NOTE: this returns the
   # SUPERCEDED TaxonConcept!!! Why? So you can see both the id that was
   # superceded as well as the supercedure_id to see where it went. If you're
-  # calling this, you probably care about both.
+  # calling this, you probably care about both. TODO: move this to another
+  # class.
   def self.merge_ids(id1, id2)
     EOL.log_call
     return TaxonConcept.find(id1) if id1 == id2

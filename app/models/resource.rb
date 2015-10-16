@@ -110,8 +110,9 @@ class Resource < ActiveRecord::Base
     where(id: HarvestEvent.pending.pluck(:resource_id))
   end
 
-  # NOTE: this can raise various exceptions. You want to wrap any call to this
-  # in a begin/rescue block.
+  # Publish _all_ resources that are "ready" for publishing. You would only want
+  # to call this if your harvest process failed with some resources complete and
+  # others not.
   def self.publish_pending
     pending.each do |resource|
       resource.publish
@@ -143,6 +144,8 @@ class Resource < ActiveRecord::Base
     content_partner.user_id == user.id || user.is_admin?
   end
 
+  # NOTE: this can raise various exceptions. You want to wrap any call to this
+  # in a begin/rescue block.
   def publish
     Resource::Publisher.publish(self)
   end

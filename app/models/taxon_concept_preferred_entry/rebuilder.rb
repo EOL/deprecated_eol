@@ -4,6 +4,7 @@ class TaxonConceptPreferredEntry
     attr_reader :all_entries, :curated_entries, :best_entries
 
     # TODO - THIS SHOULD NOT BE HARD-CODED! (╯°□°)╯︵ ┻━┻
+    # NOTE: this is ALSO hard-coded in Hierarchy.sort_order!! Same? TODO
     @hierarchy_match_priority = [
       /^Species 2000 & ITIS Catalogue of Life/i,
       /^Integrated Taxonomic Information System/i,

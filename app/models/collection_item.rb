@@ -199,7 +199,7 @@ class CollectionItem < ActiveRecord::Base
       # TODO: test whether these defaults are actually needed:
       date_created: created_at || '1960-01-01T00:00:01Z',
       date_modified: updated_at || '1960-01-01T00:00:01Z',
-      title: collected_item.collected_name || "User", # TODO: Why this default?
+      title: collected_item.collected_name,
       richness_score: richness_score || 0,
       data_rating: data_object_rating,
       sort_field: sort_field

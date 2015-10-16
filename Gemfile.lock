@@ -489,7 +489,7 @@ DEPENDENCIES
   recaptcha
   redis-namespace (= 1.2.2)
   resque (= 1.23.0)
-  rsolr
+  rsolr (= 1.0.12)
   rspec-html-matchers (= 0.4.3)
   rspec-rails (= 2.14)
   ruby-hmac (= 0.4.0)

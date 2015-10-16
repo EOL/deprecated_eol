@@ -47,9 +47,9 @@ class Resource
       # created and entries are mapped to existing concepts. This is it, folks:
       # harvesting. ...And we call it "publishing". Weird. Not what I expected.
       @harvest_event.relate_hierarchy_entries
-      # YOU WERE HERE
       @resource.hierarchy.assign_concepts
-      SolrCore::Something.do_something_TODO # $harvest_event->create_taxon_relations_graph();
+      create_taxon_mappings_graph
+      # YOU WERE HERE
       ActiveRecord::Base.connection.transaction do
         @resuorce.update_names_TODO # $this->update_names();
         # That gets all of the TCs from this harvest_event (not ancestors), then
@@ -64,6 +64,24 @@ class Resource
       @resource.update_attributes(resource_status_id:
         ResourceStatus.published.id)
       @resource.save_resource_contributions
+    end
+
+    # TODO: This doesn't feel like the right place for this method; too much
+    # Sparql knowledge. Not sure where is "right," probably a new class.
+    def create_taxon_mappings_graph
+      sparql = EOL::Sparql::Connection.new
+      mappings_graph = sparql.mappings_graph_name(@resource)
+      triples = Set.new
+      HierarchyEntry.has_identifier.
+        where(hierarchy_id: @resource.hierarchy_id).
+        select("id, identifier, taxon_concept_id").find_each do |entry|
+        triples <<
+          "<#{sparql.entry_uri(entry, resource: @resource)}> "\
+          "dwc:taxonConceptID "\
+          "<#{sparql.taxon_concept_uri(entry.taxon_concept_id)}>"
+      end
+      sparql.delete_graph(mappings_graph)
+      sparql.insert_into_graph(mappings_graph, triples)
     end
   end
 end

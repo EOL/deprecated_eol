@@ -69,6 +69,8 @@ class HierarchyEntry < ActiveRecord::Base
     [Visibility.get_visible.id, Visibility.get_preview.id]]) }
   scope :not_untrusted, -> { where(["vetted_id != ?",
     Vetted.untrusted.id]) }
+  scope :has_identifier, -> { where("identifier IS NOT NULL AND "\
+    "identifier != ''") }
 
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }

@@ -150,6 +150,11 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.publish(self)
   end
 
+  # TODO: this _probably_ belongs on the Publisher. No,
+  def update_names
+    TaxonConceptName.update_ids(latest_harvest_event.taxon_concept_ids)
+  end
+
   def status_can_be_changed_to?(new_status)
     return false if resource_status == new_status
     case new_status

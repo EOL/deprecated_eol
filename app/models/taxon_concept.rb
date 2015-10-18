@@ -166,6 +166,10 @@ class TaxonConcept < ActiveRecord::Base
   end
   class << self; alias_method_chain :find, :supercedure ; end
 
+  # TODO: This does not belong here. TODO: handle the specific resources that
+  # were harvested, not EVERYTHING UNDER THE SUN (if that's possible). TODO:
+  # rename and/or breakup—I see two things happening here, cleaning up published
+  # flags and cleaning up trust.
   def self.post_harvest_cleanup(resources = nil)
     publish_concepts_with_published_entries
     unpublish_concepts_with_no_published_entries

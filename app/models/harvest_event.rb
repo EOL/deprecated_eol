@@ -167,7 +167,7 @@ class HarvestEvent < ActiveRecord::Base
     hierarchy.hierarchy_entries
   end
 
-  def relate_hierarchy_entries
+  def merge_matching_taxon_concepts
     EOL.log_call
     Hierarchy::Relator.relate(hierarchy, modified_hierarchy_entry_ids)
   end
@@ -247,6 +247,14 @@ class HarvestEvent < ActiveRecord::Base
       where(visibility_id: Visibility.get_preview.id,
         data_objects_harvest_events: { harvest_event_id: id }).
       update_all(["visibility_id = ?", Visibility.get_visible.id])
+  end
+
+  def taxon_concept_ids
+    HarvestEventsHierarchyEntry.
+      select("DISTINCT hierarchy_entries.taxon_concept_id").
+      joins(:hierarchy_entry).
+      where(harvest_event_id: id).
+      pluck("hierarchy_entries.taxon_concept_id")
   end
 
   def destroy_everything

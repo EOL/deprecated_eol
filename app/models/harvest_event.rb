@@ -52,58 +52,6 @@ class HarvestEvent < ActiveRecord::Base
     resource.content_partner
   end
 
-  # TODO: move, private, rename
-  def _create_collection
-    if published?
-      if resource.collection.nil?
-        resource.collection = Collection.create(
-          name: resource.title,
-          published: true
-        )
-        resource.save
-      end
-      resource.collection
-    else
-      if resource.preview_collection.nil?
-        resource.preview_collection = Collection.create(
-          name: resource.title,
-          published: false
-        )
-        resource.save
-      end
-      resource.preview_collection
-    end
-  end
-
-  def create_collection
-    collection = _create_collection
-    # YOU WERE HERE
-    # $description = trim($this->resource->content_partner->description);
-    # if($description && !preg_match("/\.$/", $description)) $description = trim($description) . ".";
-    # $description .= " Last indexed ". date('F j, Y', strtotime($this->completed_at));
-    #
-    # $collection->name = $this->resource->title;
-    # $collection->logo_cache_url = $this->resource->content_partner->logo_cache_url;
-    # if(!$collection->logo_cache_url) $collection->logo_cache_url = $this->resource->content_partner->user->logo_cache_url;
-    # $collection->description = trim($description);
-    # $collection->updated_at = 'NOW()';
-    # $collection->save();
-    # $user_id = $this->resource->content_partner->user_id;
-    # $GLOBALS['db_connection']->insert("DELETE FROM collections_users WHERE collection_id = $collection->id AND user_id = $user_id");
-    # $GLOBALS['db_connection']->insert("INSERT IGNORE INTO collections_users (collection_id, user_id) VALUES ($collection->id, $user_id)");
-    #
-    # $this->sync_with_collection($collection);
-    #
-    # if($this->published_at)
-    # {
-    #     // make sure the collection can be searched for
-    #     $indexer = new SiteSearchIndexer();
-    #     $indexer->index_collection($collection->id);
-    #     // delete the existing preview collection
-    #     if($this->resource->preview_collection) $this->resource->preview_collection->delete();
-    # }
-  end
-
   # TODO: THIS IS HORRIBLE!  AUGH!
   def curated_data_objects(params = {})
     year = params[:year] || nil
@@ -247,6 +195,10 @@ class HarvestEvent < ActiveRecord::Base
       where(visibility_id: Visibility.get_preview.id,
         data_objects_harvest_events: { harvest_event_id: id }).
       update_all(["visibility_id = ?", Visibility.get_visible.id])
+  end
+
+  def sync_collection
+    HarvestEvent::Collection.sync(self)
   end
 
   def taxon_concept_ids

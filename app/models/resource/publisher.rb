@@ -47,15 +47,11 @@ class Resource
       @resource.hierarchy.assign_concepts
       create_taxon_mappings_graph
       ActiveRecord::Base.connection.transaction do
-        # YOU WERE HERE TODO: rename, re-place... this rebuilds
-        # taxon_concept_names (and perhaps other things):
-        @resource.update_names_TODO # $this->update_names();
-        # That gets all of the TCs from this harvest_event (not ancestors), then
-        # runs Tasks::update_taxon_concept_names($taxon_concept_ids), which is
-        # very, very long and complicated, but rebuilds taxon_concept_names
+        @resource.rebuild_taxon_concept_names
       end
       ActiveRecord::Base.connection.transaction do
-        @harvest_event.create_collection_TODO # $harvest_event->create_collection();
+        # YOU WERE HERE TODO:
+        @harvest_event.sync_collection
       end
       @harvest_event.index_for_search_TODO # $harvest_event->index_for_search();
       # TODO: make sure the harvest event is marked as published!

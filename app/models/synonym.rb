@@ -13,6 +13,11 @@ class Synonym < ActiveRecord::Base
   has_many :agents, through: :agents_synonyms
   has_many :agents_synonyms
 
+  scope :common_names, -> { where(["language_id != 0 AND "\
+    "(synonym_relation_id IN (?))", SynonymRelation.common_name_ids]) }
+  scope :not_common_names, -> { where(["language_id = 0 AND "\
+    "synonym_relation_id NOT IN (?)", SynonymRelation.common_and_acronym_ids]) }
+
   before_save :set_preferred
   after_update :update_taxon_concept_name
   after_create :create_taxon_concept_name

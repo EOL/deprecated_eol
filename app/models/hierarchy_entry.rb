@@ -67,8 +67,14 @@ class HierarchyEntry < ActiveRecord::Base
     Visibility.get_visible.id]) }
   scope :visible_or_preview, -> { where(["visibility_id IN (?)",
     [Visibility.get_visible.id, Visibility.get_preview.id]]) }
-  scope :not_untrusted, -> { where(["vetted_id != ?",
-    Vetted.untrusted.id]) }
+  # NOTE: this is a bit different from visible_or_preview; pay attention! Also
+  # NOTE that I've had to include the table name in this one because the field
+  # names are common. :\
+  scope :published_or_preview, -> { where("((hierarchy_entries.published = 1 AND "\
+    "hierarchy_entries.visibility_id = #{Visibility.get_visible.id}) OR "\
+    "(hierarchy_entries.published = 0 AND hierarchy_entries.visibility_id = "\
+    "#{Visibility.get_preview.id}))") }
+  scope :not_untrusted, -> { where(["vetted_id != ?", Vetted.untrusted.id]) }
   scope :has_identifier, -> { where("identifier IS NOT NULL AND "\
     "identifier != ''") }
 

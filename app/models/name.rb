@@ -39,7 +39,7 @@ class Name < ActiveRecord::Base
     'mixed', 'library', 'genomic', 'unidentified', 'parasite', 'synthetic',
     'phytoplasma', 'bacterium'
   ]
-  RED_FLAG_REGEX = /(^|[^\w])(#{RED_FLAG_WORDS.join('|')})([^\w]|$)/i
+  RED_FLAG_REGEX = /\b(#{RED_FLAG_WORDS.join('|')})\b/i
   SURROGATE_REGEXES = [
     RED_FLAG_REGEX,
     / [abcd] /i,
@@ -48,13 +48,13 @@ class Name < ActiveRecord::Base
     /[a-z][0-9]/i,
     /[a-z]-[0-9]/i,
     / [0-9]{1,3}$/,
-    /(^|[^\w])[0-9]{1,3}-[0-9]{1,3}(^|[^\w])/,
+    /\b[0-9]{1,3}-[0-9]{1,3}\b/,
     /[0-9]{5,}/,
     /[03456789][0-9]{3}/, # years should start with 1 or 2
     /1[02345][0-9]{2}/, # 1600 - 1999
     /2[1-9][0-9]{2}/, # 2000 - 2100
-    /virus([^\w]|$)/i,
-    /viruses([^\w]|$)/i
+    /virus\b/i,
+    /viruses\b/i
   ]
 
 

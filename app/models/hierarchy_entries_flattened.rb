@@ -11,7 +11,6 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   def self.delete_hierarchy_id(hierarchy_id)
     EOL.log_call
     ids = in_hierarchy(hierarchy_id).
-      select("hierarchy_entry_id, ancestor_id").
       map { |r| "(#{r.hierarchy_entry_id}, #{r.ancestor_id})" }
     return if ids.empty?
     where("(hierarchy_entry_id, ancestor_id) IN (#{ids.join(", ")})").delete_all

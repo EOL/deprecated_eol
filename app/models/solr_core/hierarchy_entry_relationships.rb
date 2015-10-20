@@ -20,19 +20,7 @@ module SolrCore
       end
       EOL.log("Looking up relationships")
       relationships = []
-      # Whoa. PHP query... sigh:
-      HierarchyEntryRelationship.
-        select("he1.id id1, he1.taxon_concept_id taxon_concept_id1, "\
-          "he1.hierarchy_id hierarchy_id1, he1.visibility_id visibility_id1, "\
-          "he2.id id2, he2.taxon_concept_id taxon_concept_id2, "\
-          "he2.hierarchy_id hierarchy_id2, he2.visibility_id visibility_id2, "\
-          "he1.taxon_concept_id = he2.taxon_concept_id same_concept, "\
-          "hierarchy_entry_relationships.relationship, "\
-          "hierarchy_entry_relationships.score").
-        joins("JOIN hierarchy_entries he1 ON "\
-          "(hierarchy_entry_relationships.hierarchy_entry_id_1 = he1.id) JOIN "\
-          "hierarchy_entries he2 ON "\
-          "(hierarchy_entry_relationships.hierarchy_entry_id_2 = he2.id)").
+      HierarchyEntryRelationship.for_hashes.
         find_each do |relationship|
         relationships << relationship.to_hash # TODO
       end

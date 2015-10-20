@@ -115,9 +115,10 @@ class HarvestEvent < ActiveRecord::Base
     hierarchy.hierarchy_entries
   end
 
+  # TODO: move this to hierarchy.
   def merge_matching_taxon_concepts
     EOL.log_call
-    Hierarchy::Relator.relate(hierarchy, modified_hierarchy_entry_ids)
+    Hierarchy::Relator.relate(hierarchy, entry_ids: new_hierarchy_entry_ids)
   end
 
   def complete?
@@ -198,7 +199,7 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def sync_collection
-    HarvestEvent::Collection.sync(self)
+    HarvestEvent::CollectionManager.sync(self)
   end
 
   def taxon_concept_ids
@@ -239,21 +240,25 @@ class HarvestEvent < ActiveRecord::Base
 
   private
 
-  def modified_hierarchy_entry_ids
+  # TODO: I don't know if this is the right thing to do; the "overlap" here may
+  # or may not work depending on whether the harvest event has a list of ALL
+  # entry ids from the harvest, or only the new entry ids from the harvest. The
+  # "Right Thing To Do" is to actually store a list of all entry ids affected by
+  # the harvest (which you would have to do during the harvest). We can't affect
+  # that yet, sooo...
+  def new_hierarchy_entry_ids
+    # TODO: ensure we're calling the right methodf here.
     if previous = resource.latest_harvest_event_uncached
-      these_entry_ids = Set.new(hierarchy_entries.pluck(:id))
-      # PHPland: "all entries created since last harvest. This is IMPORTANT
-      # because we are not currently listing ancestor entries in
-      # harvest_events_hierarchy_entries (though perhaps we should)"
-      previous_entry_ids = Set.new(HierarchyEntry.
+      these_leaf_node_ids = Set.new(hierarchy_entries.pluck(:id))
+      # We are not currently listing ancestor entries in
+      # harvest_events_hierarchy_entries (though perhaps we should). ...So this
+      # query looks for the last entry_id from the last harvest, and grabs all
+      # ids that are higher than that from THIS harvest.
+      ancestor_ids = Set.new(HierarchyEntry.
         where(hierarchy_id: hierarchy.id).
         where(["id > ?", previous.hierarchy_entries.max(:id)]).
         pluck(:id))
-      overlap = previous_entry_ids & these_entry_ids
-      # In the previous, but not this:
-      (previous_entry_ids - overlap +
-        # In this, but not previous:
-        these_entry_ids - overlap).to_a
+      ancestor_ids + these_leaf_node_ids
     else
       hierarchy_entries_with_ancestors.pluck(:id)
     end

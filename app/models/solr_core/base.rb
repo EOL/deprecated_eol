@@ -48,8 +48,12 @@ module SolrCore
     def paginate(q, options = {})
       options[:page] ||= 1
       options[:per_page] ||= 30
-      connection.paginate(options.delete(:page), options.delete(:per_page),
-        "select", params: options.merge(q: q))
+      response = connection.paginate(options.delete(:page),
+        options.delete(:per_page), "select", params: options.merge(q: q))
+      unless response["responseHeader"]["status"] == 0
+        raise "Solr error! #{response["responseHeader"]}"
+      end
+      response
     end
 
     # NOTE: this will NOT work on items with composite primary keys.
@@ -62,7 +66,11 @@ module SolrCore
     # NOTE: returns eval'ed ruby (a hash):
     def select(q, options = {})
       params = options.merge(q: q)
-      connection.select(params: params)
+      response = connection.select(params: params)
+      unless response["responseHeader"]["status"] == 0
+        raise "Solr error! #{response["responseHeader"]}"
+      end
+      response
     end
   end
 end

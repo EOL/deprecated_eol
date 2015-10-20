@@ -31,20 +31,21 @@ class Hierarchy
       # TODO: DON'T hard-code this (this is GBIF Nub Taxonomy). Instead, add an
       # attribute to hierarchies called "never_merge_concepts" and check that.
       # Also make sure curators can set that value from the resource page.
-      hierarchies = Hierarchy.where(["id NOT in (?)", 129]).
+      @hierarchies = Hierarchy.where(["id NOT in (?)", 129]).
         order("hierarchy_entries_count DESC")
       # TODO: again, shouldn't be hard-coded! ...I haven't worked through this
       # enough to decide whether moving it to the end of the array means it's
       # less likely to match (if it's matched once, will it not match again?),
       # so perhaps that's the intent. Perhaps the curators should choose the
       # order in which hierarchies are matched, if that's the case.
-      gbif_nub = hierarchies.find { |h| h.id == 800 }
-      hierarchies.insert(-1, hierarchies.delete(gbif_nub) )
-      hierarchies.each do |other_hierarchy|
+      gbif_nub = @hierarchies.find { |h| h.id == 800 }
+      @hierarchies.insert(-1, @hierarchies.delete(gbif_nub) )
+      @hierarchies.each do |other_hierarchy|
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actuall the "same", so we need to compare those to
         # themselves; otherwise, skip:
         next if @hierarchy.id == other_hierarchy.id && @hierarchy.complete?
+        # TODO: this shouldn't even be required.
         next if already_compared?(@hierarchy.id, other_hierarchy.id)
         compare_hierarchies(@hierarchy, other_hierarchy)
       end
@@ -58,8 +59,10 @@ class Hierarchy
         "#{hierarchy1.hierarchy_entries_count} entries) to #{hierarchy2.id} "\
         "(#{hierarchy2.label}; #{hierarchy2.hierarchy_entries_count} "\
         "entries)")
+      # TODO: why keep building this for each comparison?!
       solr = SolrCore::HierarchyEntryRelationships.new
       # TODO: add (relationship:name OR confidence:[0.25 TO *]) [see below]
+      # TODO: Set?
       entries = [] # Just to prevent weird infinite loops below. :\
       begin
         page ||= 0
@@ -77,9 +80,6 @@ class Hierarchy
       EOL.log_call
       response = solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page)
-      unless response["responseHeader"]["status"] == 0
-        raise "Solr error! #{response["responseHeader"]}"
-      end
       EOL.log("gporfs query: #{response["responseHeader"]["q"]}",
         prefix: ".")
       EOL.log("gporfs Request took #{response["responseHeader"]["QTime"]}ms",
@@ -110,28 +110,23 @@ class Hierarchy
       # "visibility_id_2"=>0, "same_concept"=>true, "relationship"=>"name",
       # "confidence"=>1.0 }
       # TODO: move this criterion to the solr query (see above):
-      return(nil) if relationship["relationship"] == 'syn' && relationship["confidence"] < 0.25
-      (id1, tc_id1, hiearchy1, id2, tc_id2, hierarchy2) =
+      return(nil) if relationship["relationship"] == 'syn' &&
+        relationship["confidence"] < 0.25
+      (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
         assign_local_vars_from_relationship(relationship)
-      # this node in hierarchy 1 has already been matched
+      # skip if the node in the hierarchy has already been matched:
       return(nil) if hierarchy1.complete? && @entries_matched.include?(id2)
       return(nil) if hierarchy2.complete? && @entries_matched.include?(id1)
       @entries_matched += [id1, id2]
-      # PHP: "this comparison happens here instead of the query to ensure
-      # the sorting is always the same if this happened in the query and the
-      # entry was related to more than one taxa, and this function is run
-      # more than once then we'll start to get huge groups of concepts - all
-      # transitively related to one another"
+      # PHP: "this comparison happens here instead of the query to ensure the
+      # sorting is always the same if this happened in the query and the entry
+      # was related to more than one taxa, and this function is run more than
+      # once then we'll start to get huge groups of concepts - all transitively
+      # related to one another" ...Sounds to me like we're doing something
+      # wrong, if this is true. :\
       return(nil) if tc_id1 == tc_id2
       tc_id1 = follow_supercedure_cached(tc_id1)
       tc_id2 = follow_supercedure_cached(tc_id2)
-      # NOTE: yes, PHP did this check again here. I wouldn't have, but I
-      # don't know if the problem explained above would continue to happen.
-      # I doubt it but it's only one quick check, so not worth the risk:
-      return(nil) if tc_id1 == tc_id2
-      # NOTE: the #find method follows supercedure
-      tc_id1 = follow_supercedure(tc_id1)
-      tc_id2 = follow_supercedure(tc_id2)
       return(nil) if tc_id1 == tc_id2
       EOL.log("Comparing entry #{tc_id1} (hierarchy #{hierarchy1.id}) "\
         "with #{id2} (hierarchy #{hierarchy2.id})", prefix: "?")
@@ -157,10 +152,14 @@ class Hierarchy
     def assign_local_vars_from_relationship(relationship)
       (relationship["hierarchy_entry_id_1"],
         relationship["taxon_concept_id_1"],
-        relationship["hierarchy_id_1"],
+        find_hierarchy(relationship["hierarchy_id_1"]),
         relationship["hierarchy_entry_id_2"],
         relationship["taxon_concept_id_2"],
-        relationship["hierarchy_id_2"])
+        find_hierarchy(relationship["hierarchy_id_2"]))
+    end
+
+    def find_hierarchy(id)
+      @hierarchies.find { |h| h.id == id }
     end
 
     def lookup_preview_harvests
@@ -193,7 +192,7 @@ class Hierarchy
     end
 
     def concepts_of_one_already_in_other?(relationship)
-      (id1, tc_id1, hiearchy1, id2, tc_id2, hierarchy2) =
+      (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
         assign_local_vars_from_relationship(relationship)
       if entry_published_in_hierarchy?(1, relationship, hierarchy1)
         EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1}",
@@ -218,14 +217,25 @@ class Hierarchy
       false
     end
 
-    # NOTE: we could query the DB to buld this full list. It takes about 30
-    # seconds, and returns 32M results (as of this writing). ...We don't need
-    # all of them, though, so doing this does save us quite a bit of time.
+    # NOTE: we could query the DB to buld this full list, using
+    # TaxonConcept.superceded. It takes about 30 seconds, and returns 32M
+    # results (as of this writing). ...We don't need all of them, though, so
+    # doing this does potentially save us a bit of time.... I think. I guess it
+    # depends on how many TaxonConcepts we call #find for. TODO: we could just
+    # have a "supercedure" table. ...That would actually be pretty handy, though
+    # it would be another case of having to pay attention to a denormalized
+    # table, and I'm not sure it's worth that, either. Worth checking, I
+    # suppose.
     def follow_supercedure_cached(id)
-      while @superceded.has_key?(id)
-        id = @superceded[id]
+      new_id = if @superceded.has_key?(id)
+        @superceded[id]
+      else
+        follow_supercedure(id)
       end
-      id
+      while @superceded.has_key?(new_id)
+        new_id = @superceded[new_id]
+      end
+      new_id
     end
 
     def follow_supercedure(id)

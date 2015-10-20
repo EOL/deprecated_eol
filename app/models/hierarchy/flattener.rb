@@ -25,7 +25,7 @@ class Hierarchy
       study_hierarchy
       build_ancestry
       build_flat_entries_and_concepts
-      update_table
+      update_tables
     end
 
     private
@@ -36,7 +36,7 @@ class Hierarchy
       @taxa = {}
       HierarchyEntry.published.visible_or_preview.not_untrusted.
         select("id, parent_id, taxon_concept_id").
-        where(hierarchy_id: @hierarchy.id).each do |entry|
+        where(hierarchy_id: @hierarchy.id).find_each do |entry|
         @children[entry.parent_id] ||= Set.new
         @children[entry.parent_id] << entry.id
         @taxa[entry.id] = entry.taxon_concept_id
@@ -47,15 +47,14 @@ class Hierarchy
     def build_ancestry
       EOL.log_call
       @ancestry = {}
-      puts "Keys: #{@children.keys.join(",")}"
       @children[0].each do |root|
         walk_down_tree(root, [])
       end
     end
 
     def walk_down_tree(id, ancestors)
-      ancestors << id
       return unless @children.has_key?(id)
+      ancestors << id
       @children[id].each do |child_id|
         # NOTE: doesn't work without #reverse ... not sure why (?), but that's
         # fine, this is actually more accurate ... we just never _need_ to know
@@ -77,7 +76,7 @@ class Hierarchy
       end
     end
 
-    def update_table
+    def update_tables
       EOL.log_call
       HierarchyEntriesFlattened.delete_hierarchy_id(@hierarchy.id)
       EOL::Db.bulk_insert(HierarchyEntriesFlattened,

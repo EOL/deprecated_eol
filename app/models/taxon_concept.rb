@@ -157,7 +157,7 @@ class TaxonConcept < ActiveRecord::Base
     return concept unless concept.respond_to? :supercedure_id # sometimes it's an array.
     return concept if concept.supercedure_id == 0
     attempts = 0
-    while concept.supercedure_id != 0 and attempts <= 6
+    while concept.supercedure_id != 0 and attempts <= 6 # TODO: Configurable
       concept = TaxonConcept.find_without_supercedure(concept.supercedure_id)
       attempts += 1
     end
@@ -180,17 +180,19 @@ class TaxonConcept < ActiveRecord::Base
     untrust_concepts_with_no_visible_trusted_entries
   end
 
+  # TODO: pass in hierarchy ids
   def self.publish_concepts_with_published_entries
     TaxonConcept.unpublished.
-      joins("JOIN hierarchy_entries "\
-        "ON (hierarchy_entries.taxon_concept_id = taxon_concepts.id)").
+      joins(:hierarchy_entries).
       where(hierarchy_entries: { published: true,
         visibility_id: Visibility.get_visible.id }).
       update_all(["taxon_concepts.published = ?", true])
   end
 
+  # TODO: pass in hierarchy ids
   def self.unpublish_concepts_with_no_published_entries
     published.
+      # TODO: clean up with ARel (yes, LEFT joins are hard, but still:)
       joins("LEFT JOIN hierarchy_entries "\
         "ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id "\
         "AND hierarchy_entries.published = 1)").
@@ -200,6 +202,7 @@ class TaxonConcept < ActiveRecord::Base
 
   def self.untrust_concepts_with_no_visible_trusted_entries
     published.trusted.unsuperceded.
+      # TODO: clean up with ARel (yes, LEFT joins are hard, but still:)
       joins("LEFT JOIN hierarchy_entries "\
         "ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id AND "\
         "hierarchy_entries.visibility_id = #{Visibility.get_visible.id} AND "\
@@ -208,16 +211,16 @@ class TaxonConcept < ActiveRecord::Base
       update_all(["taxon_concepts.vetted_id = ?", Vetted.unknown.id])
   end
 
+  # TODO: pass in hierarchy ids
   def self.trust_concepts_with_visible_trusted_entries(hierarchy_ids)
     hierarchy_ids = Array(hierarchy_ids)
     trusted.
-      joins("JOIN hierarchy_entries "\
-        "ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id)").
+      joins(:hierarchy_entries).
       where(["hierarchy_entries.visibility_id = ? AND "\
         "hierarchy_entries.vetted_id = ? " + hierarchy_ids.empty? ? '' :
-          "AND hierarchy_entries.hierarchy_id IN (?)",
+        "AND hierarchy_entries.hierarchy_id IN (?)",
         Visibility.get_visible.id, Vetted.trusted.id, hierarchy_ids]).
-        update_all(["taxon_concepts.vetted_id = ?", Vetted.trusted.id])
+      update_all(["taxon_concepts.vetted_id = ?", Vetted.trusted.id])
   end
 
   def superceded?

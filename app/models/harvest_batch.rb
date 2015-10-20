@@ -25,7 +25,6 @@ class HarvestBatch
   def post_harvesting
     begin
       @harvested_resources.each do |resource|
-        # TODO: probably not the right level of abstraction:
         resource.hierarchy.flatten
         resource.publish
       end

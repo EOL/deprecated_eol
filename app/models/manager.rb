@@ -4,16 +4,16 @@ class Manager
     def tend(options = {})
       EOL.log_call
       options[:max_runs] = 30
-      if paused?
-        begin
-          pause
-        rescue EOL::Exceptions::HarvestPauseTimeExceeded => e
-          EOL.log("Harvesting pause exceeded wait time, exiting.")
-          return false
-        end
-      end
       batch ||= HarvestBatch.new
       while resource = Resource.next && ! batch.complete?
+        if paused?
+          begin
+            pause
+          rescue EOL::Exceptions::HarvestPauseTimeExceeded => e
+            EOL.log("Harvesting pause exceeded wait time, exiting.")
+            return false
+          end
+        end
         EOL.log("Manager found resource #{resource.id} to harvest...",
           prefix: '@')
         batch.add(resource)

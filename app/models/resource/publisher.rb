@@ -44,7 +44,7 @@ class Resource
       TaxonConcept.post_harvest_cleanup(@resource)
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       @harvest_event.merge_matching_taxon_concepts
-      @resource.hierarchy.assign_concepts
+      @resource.assign_concepts
       create_taxon_mappings_graph
       ActiveRecord::Base.connection.transaction do
         @resource.rebuild_taxon_concept_names

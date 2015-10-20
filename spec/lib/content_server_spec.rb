@@ -53,7 +53,7 @@ describe ContentServer do
     end
 
     it 'should start with the content server' do
-      ContentServer.uploaded_content_url('whatever', '.ext').should =~ /^#{$SINGLE_DOMAIN_CONTENT_SERVER}/
+      ContentServer.uploaded_content_url('whatever', '.ext').should =~ /^#{Rails.configuration.asset_host}/
     end
 
     it 'should include the CONTENT_SERVER_CONTENT_PATH' do

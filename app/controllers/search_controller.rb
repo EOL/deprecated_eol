@@ -19,7 +19,7 @@ class SearchController < ApplicationController
     @all_params = []
     [:taxon_concept, :image, :video, :sound, :text, :data, :link, :user, :community ,:collection].each do |keyword|
       @all_params << [I18n.t("#{keyword}_search_keyword", count: 1),I18n.t("#{keyword}_search_keyword", count: 123),keyword]
-    end    
+    end
     @sort_by = params[:sort_by]
     @params_type = params[:type]
     @params_type = ['all'] if @params_type.map(&:downcase).include?('all')
@@ -35,7 +35,7 @@ class SearchController < ApplicationController
       return redirect_to controller: "api", action: "search", id: @querystring
     end
 
-    if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error) || @querystring.blank? 
+    if @querystring == I18n.t(:search_placeholder) || @querystring == I18n.t(:must_provide_search_term_error) || @querystring.blank?
       flash[:error] = I18n.t(:must_provide_search_term_error)
       redirect_to root_path
     end
@@ -69,10 +69,6 @@ class SearchController < ApplicationController
         params[:type] = @params_type
       end
       search_response = EOL::Solr::SiteSearch.search_with_pagination(@querystring, params.merge({ per_page: @@results_per_page, language_id: current_language.id }))
-      if $STATSD
-        $STATSD.increment 'all_searches'
-        # $STATSD.increment "searches.#{@querystring}"
-      end
       @all_results = search_response[:results]
       @facets = (@wildcard_search) ? {} : EOL::Solr::SiteSearch.get_facet_counts(@querystring)
       @suggestions = search_response[:suggestions]
@@ -134,7 +130,7 @@ class SearchController < ApplicationController
     if @querystring.blank? || @querystring.length < 3 || @querystring.match(/(^|[^a-z])[a-z]{0,2}([^a-z]|$)/i)
       json = {}
     else
-      Rails.cache.fetch("autocomplete_taxon-#{@querystring}-#{@from_site_search}", expires_in: 10.days) do 
+      Rails.cache.fetch("autocomplete_taxon-#{@querystring}-#{@from_site_search}", expires_in: 10.days) do
         res = EOL::Solr::SiteSearch.taxon_search(@querystring, language: current_language)
         taxa = res[:taxa]
         result_title = res[:result_title]

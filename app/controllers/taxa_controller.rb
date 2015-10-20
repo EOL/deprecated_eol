@@ -108,7 +108,7 @@ protected
 
   def meta_open_graph_image_url
     @meta_open_graph_image_url ||= (@taxon_concept && dato = @taxon_concept.exemplar_or_best_image_from_solr) ?
-       dato.thumb_or_object('260_190', specified_content_host: $SINGLE_DOMAIN_CONTENT_SERVER).presence : nil
+       dato.thumb_or_object('260_190', specified_content_host: Rails.configuration.asset_host).presence : nil
   end
 
 private
@@ -201,10 +201,6 @@ private
       activity: Activity.send(method),
       taxon_concept_id: tc.id
     )
-    if $STATSD
-      $STATSD.increment 'all_curations'
-      $STATSD.increment "curations.#{method}"
-    end
   end
 
   def entry_id_is_in_param_id?

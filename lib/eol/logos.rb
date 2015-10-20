@@ -32,7 +32,7 @@ module EOL
       elsif logo_cache_url.blank?
         "v2/logos/#{self.class.name.underscore.sub(%r{/.*\z}, '')}_default.png"
       else
-        link = opts[:linked?] ? $SINGLE_DOMAIN_CONTENT_SERVER : nil
+        link = opts[:linked?] ? Rails.configuration.asset_host : nil
         DataObject.image_cache_path(
           logo_cache_url,
           opts[:size] == :small ? "88_88" : "130_130",

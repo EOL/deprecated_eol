@@ -59,9 +59,9 @@ class DataObject < ActiveRecord::Base
 
   has_and_belongs_to_many :hierarchy_entries
   has_and_belongs_to_many :audiences # I don't think this is used anymore.
-  has_and_belongs_to_many :refs  
+  has_and_belongs_to_many :refs
   has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'data_objects_refs',
-    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.get_visible.id}" }  
+    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.get_visible.id}" }
   has_and_belongs_to_many :agents
   has_and_belongs_to_many :toc_items, join_table: 'data_objects_table_of_contents', association_foreign_key: 'toc_id'
   has_and_belongs_to_many :taxon_concepts
@@ -95,11 +95,11 @@ class DataObject < ActiveRecord::Base
     self.update_attribute(:published, false)
     delete_unpublished_data_object_from_resource_contributions
   end
-  
+
   def delete_unpublished_data_object_from_resource_contributions
     resource_contributions = ResourceContribution.where("data_object_id = ? ", self.id)
     resource_contributions.each do |resource_contribution|
-      resource = Resource.find(resource_contribution.resource_id)      
+      resource = Resource.find(resource_contribution.resource_id)
       resource_contribution.destroy
       resource.save_resource_contributions if resource
     end
@@ -181,8 +181,8 @@ class DataObject < ActiveRecord::Base
     if options[:user]
       # admins see everything
       if options[:user].is_admin?
-        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]        
-        visibility_ids = Visibility.all_ids.dup        
+        vetted_ids += [Vetted.untrusted.id, Vetted.unknown.id, Vetted.inappropriate.id]
+        visibility_ids = Visibility.all_ids.dup
       # curators see invisible objects
       elsif options[:user].is_curator? && options[:user].min_curator_level?(:full)
         visibility_ids << Visibility.get_invisible.id
@@ -840,13 +840,15 @@ class DataObject < ActiveRecord::Base
   alias :summary_name :best_title
   alias :collected_name :best_title
 
-  # NOTE - if you plan on calling this, you are behooved by adding object_title to your selects. You MUST select
-  # description and data_type_id.
-  # TODO - this really doesn't belong here. Truncation belongs in the view (or a helper). Also, it duplicates SOME of
-  # the logic of best_title, but not all of it (why?). Very poor design.
+  # NOTE - if you plan on calling this, you are behooved by adding object_title
+  # to your selects. You MUST select description and data_type_id. TODO - this
+  # really doesn't belong here. Truncation belongs in the view (or a helper).
+  # Also, it duplicates SOME of the logic of best_title, but not all of it
+  # (why?). Very poor design.
   def short_title
     return safe_object_title unless safe_object_title.blank?
-    # TODO - ideally, we should extract some of the logic from data_objects/show to make this "Image of Procyon Lotor".
+    # TODO - ideally, we should extract some of the logic from data_objects/show
+    # to make this "Image of Procyon Lotor".
     return data_type.label if description.blank?
     st = description.gsub(/\n.*$/, '')
     st = st[0..29] + '...' if st.length > 32

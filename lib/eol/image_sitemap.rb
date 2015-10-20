@@ -38,7 +38,7 @@ module EOL
           :conditions => base_conditions + " AND id BETWEEN #{start} AND #{start + iteration_size - 1} AND data_type_id=#{DataType.image.id}")
         DataObject.preload_associations(data_objects, :license)
         data_objects.each do |data_object|
-          image_metadata = { :loc => DataObject.image_cache_path(data_object.object_cache_url, '580_360', :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER) }
+          image_metadata = { :loc => DataObject.image_cache_path(data_object.object_cache_url, '580_360', :specified_content_host => Rails.configuration.asset_host) }
           image_metadata[:title] = data_object.object_title unless data_object.object_title.blank?
           image_metadata[:geo_location] = data_object.location unless data_object.location.blank?
           # license field asks for a URL so only include the Creative Commons URLs

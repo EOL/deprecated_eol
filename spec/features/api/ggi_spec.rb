@@ -32,7 +32,7 @@ describe 'API:traits' do
     expect(response['scientificName']).to eq(@taxon_concept.entry.name.string)
     expect(response['bestImage']['identifier']).to eq(@best_image.guid)
     expect(response['bestImage']['eolMediaURL']).to eq(DataObject.image_cache_path(
-      @best_image.object_cache_url, :orig, :specified_content_host => $SINGLE_DOMAIN_CONTENT_SERVER))
+      @best_image.object_cache_url, :orig, :specified_content_host => Rails.configuration.asset_host))
 
     expect(response['vernacularNames'].length).to eq(1)
     expect(response['vernacularNames'][0]['vernacularName']).to eq('Snappy')

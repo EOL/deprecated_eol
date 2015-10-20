@@ -110,10 +110,6 @@ private
     @taxon_concept.images_from_solr.each { |img| DataObjectCaching.clear(img) }
     auto_collect(@taxon_concept) # SPG asks for all curation to add the item to their watchlist.
     CuratorActivityLog.log_preferred_classification(preferred_entry, user: current_user)
-    if $STATSD
-      $STATSD.increment 'all_curations'
-      $STATSD.increment "curations.preferred_classification"
-    end
   end
 
   def params_exemplar

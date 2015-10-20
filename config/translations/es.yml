@@ -267,7 +267,7 @@ es:
         bibliographic_citation: Cita bibliográfica
         dataset: Archivo del conjunto de datos
         description: Descripción del recurso
-        dwc_archive_url: Darwin Core Archivo URL
+        dwc_archive_url: URL del Archivo Darwin Core
         dataset_source_url: Fuente de Datos Original
         dataset_hosted_url: Fuente de datos (copia local)
         harvest_events: Recoger eventos
@@ -495,7 +495,7 @@ es:
           socio que creó el contenido y a los administradores de EOL.
         user_id: Detalles de Socio Contenido administrados por
       content_partner_agreement:
-        mou_url: Dirección URL del fichero del acuerdo <small>(alternativa opcional)</small>
+        mou_url: URL del archivo del acuerdo <small>(alternativa opcional)</small>
         mou_url_more: Opcionalmente, escriba una dirección URL para el archivo que
           contiene el acuerdo de este socio. Este archivo anulará cualquier otro texto
           de acuerdo. Si desea almacenar el archivo (por ejemplo, un archivo PDF)
@@ -3651,8 +3651,8 @@ es:
     a "%{taxon_concept}".
   activity_user_created_link: <strong>%{user}</strong> ha añadido un enlace a "%{object_name}"
     en "%{taxon_concept}".
-  activity_user_created_text: <strong>%{user}</strong> añado el texto a "%{object_name}"
-    on "%{taxon_concept}".
+  activity_user_created_text: <strong>%{user}</strong> ha añadido texto a "%{object_name}"
+    de "%{taxon_concept}".
   activity_user_updated_link: <strong>%{user}</strong> ha actualizado el enlace "%{object_name}"
     en "%{taxon_concept}".
   activity_user_updated_text: <strong>%{user}</strong> actualizado "%{object_name}"
@@ -5408,10 +5408,10 @@ es:
   frequency_monthly: Menuale
   frequency_never: Nunca
   frequency_weekly: Semanal
-  friendly_url: Dirección URL amigable
+  friendly_url: URL amigable
   from_community: de la comunidad %{community}.
   from_communities: 'de las comunidades: %{communities}'
-  full_content_url: Dirección URL del contenido completo
+  full_content_url: URL del contenido completo
   gbif_map: Mapa GBIF
   general_site_admin: administrador general del sitio
   get_help_choosing_a_subject: Obtener ayuda escogiendo un asunto
@@ -5757,7 +5757,7 @@ es:
   logo_header: Logo
   logo_type_error: El logotipo no es un tipo de imagen válido (debe ser PNG o JPEG).
   logout: Cerrar sesión
-  looking_up_url: Buscando dirección URL...
+  looking_up_url: Buscando URL...
   main_content_area: 'Área de contenido principal:'
   main_database_colon: 'Principal:'
   main_master_database_colon: 'Maestro principal:'
@@ -6126,7 +6126,7 @@ es:
     target="_blank">http://%{domain_or_ip}%{this_url}</a>". Accedido %{date}'
   page: Página
   page_results_avg: Media de los resultados de páginas
-  page_urls: 'Dirección(es) URL de la página:'
+  page_urls: 'URL de la página:'
   pages_title: Referencias
   pages_with_count:
     one: '%{count}}'
@@ -7224,8 +7224,8 @@ es:
     aquí, el URL de revisión URL debería asemejarse a <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_page_title: Solicite la importación de un artículo de Wikipedia
   will_find_taxon_pages_matching_the_search_term: encontrará páginas de taxón si el
-    nombre preferido o cualquier sinónimo o nombre común coincide exactamente con
-    el término buscado
+    título o cualquier sinónimo o nombre común coincide exactamente con el término
+    buscado
   would_you_like_to_become_a_curator_notice: ¿Te gustaría convertirte en un conservador/a?
     Puedes solicitar acceso a <a href='%{url}'>tu página de perfil</a>.
   worklist: Lista de trabajo

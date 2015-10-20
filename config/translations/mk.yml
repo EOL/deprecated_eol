@@ -67,7 +67,7 @@ mk:
         object_title: Наслов
         rights_holder: Сопственик на правата
         rights_statement: Изјава за правата
-        source_url: Изворна URL-адреса
+        source_url: Изворна URL
       data_object_link:
         description: Опис
         source_url: URL на врската
@@ -564,7 +564,7 @@ mk:
       resource:
         administration_settings: Административни нагодувања <small>(видливи само за
           администратори на EOL)</small>
-        accesspoint_url: URL-адреса на податочниот збир
+        accesspoint_url: URL на податочниот збир
         accesspoint_url_existing_remove: Ресурсот во моментов се вчитува од URL-адресата
           со завршеток <em>%{accesspoint_url}</em>. Ако сакате да ја отстраните постоечката
           URL-адреса, подигнете податотека и вчитајте го ресурсот од неа (не се препорачува).
@@ -573,7 +573,7 @@ mk:
           поврзана со овој ресурс. Подигнете нова за да ја замените постоечката податотека
           <em>%{file_name}</em>.
         dataset_existing_remove: Податотеката <em>%{file_name}</em> е моментално поврзана
-          со овј извор. Внесете URL-адреса ако сакате да ја замените постоечката податотека
+          со овј извор. Внесете URL ако сакате да ја замените постоечката податотека
           <em>%{file_name}</em> и да го вчитате ресурсот од URL-адреса (препорачано).
         dwc_archive_url: 'Доколку постои архив на Darwin Core поврзан со овј ресурс,
           внесете ја URL-адресата тука <small>(само TAR.GZIP, TAR.GZ или TGZ)</small>:'
@@ -584,7 +584,7 @@ mk:
         refresh_period_hours: Честота
         resource_status_id: Статус
         resource_status: Статус
-        resource_url_or_file: Ресурсни податоци <small>(одберете дали да внесете URL-адреса
+        resource_url_or_file: Ресурсни податоци <small>(одберете дали да внесете URL
           или да подигнете податотека)</small>
         resource_url_or_file_url: Вчитај ресурс од URL
         resource_url_or_file_upload: Подигни ресурсна податотека
@@ -702,7 +702,7 @@ mk:
         username: Корисничко име <small>(4 - 32 знаци)</small>
         username_or_email: Корисничко име или е-пошта
       wikipedia_queue:
-        revision_url: URL-адреса на преработката <small>(на пр. https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424)</small>
+        revision_url: URL на преработката <small>(на пр. https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424)</small>
         revision_url_more: Внесувајќи ја URL-адресата на преработката од Википедија,
           барате од EOL да ја преземе таа верзија како проверена. Со ова ќе ја замените
           тековната верзија на таа статија на EOL, ако има таква.
@@ -2322,11 +2322,11 @@ mk:
       meta_description_curator: Членски профил на %{curator_level} %{user_full_name}
         во Енциклопедијата на живиот свет.
     unsubscribe_notifications:
-      already_unsubscribed: Веќе ја имате откажано претплатата на известувања.
-      unsubscribed_notifications_successfully: Успешно ја откажавте претплатата на
-        известувањата.
+      already_unsubscribed: Веќе ја имате отпишано од претплатата на известувања.
+      unsubscribed_notifications_successfully: Успешно се отпишавте од претплатата
+        на известувањата.
       unsubscribe_notifications_failed: Нажалост, се појави грешка. На корисникот
-        не можев да му ја откажам претплатата на известувања.
+        не можев да ве отпишам од известувањата.
   user_added_data:
     add_data_header: Придонесувајте со ваши податоци
     additional_fields: Податоци за овој запис
@@ -4433,7 +4433,7 @@ mk:
   content_partners_with_count:
     one: '%{count} соучесник во содржините'
     other: '%{count} соучесници во содржините'
-  content_server_full_url: Полна URL-адреса на опслужувачот на содржините
+  content_server_full_url: Полна URL на опслужувачот на содржините
   content_servers: Опслужувачи на содржините
   content_setting_colon: 'Поставка на содржината:'
   content_summary_introduction_html: Следниве вредности претставуваат збир од разни
@@ -4900,11 +4900,11 @@ mk:
   error_log: Дневник на грешки
   error_logging_active: Заведувањето на грешки е активно
   error_401_page_title: Нема овластување
-  error_401_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
+  error_401_description: Нажалост, не сте овластени за да ја отворите таа URL.
   error_403_page_title: Забрането
-  error_403_description: Нажалост, не сте овластени за да ја отворите таа URL-адреса.
+  error_403_description: Нажалост, не сте овластени за да ја отворите таа URL.
   error_404_page_title: Не е најдено
-  error_404_description: За жал, не можев да ја најдам страницата на таа URL-адреса.
+  error_404_description: За жал, не можев да ја најдам страницата на таа URL.
   error_500_page_title: Внатрешна грешка во опслужувачот
   error_500_description: Нажалост, наидовме на проблем. Ако проблемот и понатаму продолжи,
     обратете се на <a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
@@ -5160,10 +5160,10 @@ mk:
   frequency_monthly: Месечно
   frequency_never: Никогаш
   frequency_weekly: Неделно
-  friendly_url: Згодна URL-адреса
+  friendly_url: Згодна URL
   from_community: од заедницата %{community}.
   from_communities: 'од заедниците: %{communities}'
-  full_content_url: URL-адреса на полната содржина
+  full_content_url: URL на полната содржина
   gbif_map: GBIF-карта
   general_site_admin: општ раководител на мреж. место
   get_help_choosing_a_subject: Помош со одбирањето на наслов
@@ -6261,7 +6261,7 @@ mk:
   social_sharing_twitter_tweet_button: Објави на Twitter
   social_sharing_twitter_follow_eol_button: Следи го @eol
   some_required_fields_were_not_entered: Немате пополнето некои задолжителни полиња
-    (мора да внесете наслов и содржина ИЛИ URL-адреса).
+    (мора да внесете наслов и содржина ИЛИ URL).
   sort_by_button: Подреди
   sort_by_label: Подреди по
   sort_by_newest_option: Најнови
@@ -6298,7 +6298,7 @@ mk:
   source_and_additional_information: Извор и дополнителни информации
   source: Извор
   source_colon: 'Извор:'
-  source_url: Изворна URL-адреса
+  source_url: Изворна URL
   special_collection: Посебна збирка
   special_collections_cannot_be_destroyed: Збиркава е единствената збирка поврзана
     со оваа заедница и затоа не може да се избрише.
@@ -6937,8 +6937,7 @@ mk:
     треба да биде од следниов облик: <a href="https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424">https://mk.wikipedia.org/w/index.php?title=Тигар&oldid=584424</a>'
   wikipedia_queue_new_page_title: Барање за увоз на статија од Википедија
   will_find_taxon_pages_matching_the_search_term: ќе најде страници од таксонот ако
-    пребараното точно се совпаѓа со претпочитаното име, некој од синонимите или народното
-    име
+    пребараното точно се совпаѓа со насловот, некој од синонимите или народното име
   would_you_like_to_become_a_curator_notice: Дали би сакале да станете кустос? Кустоски
     пристап може да побарате на <a href='%{url}'>вашата профилна страница</a>.
   worklist: Работен список

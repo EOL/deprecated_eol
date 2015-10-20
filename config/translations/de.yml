@@ -7427,8 +7427,8 @@ de:
     Versions-URL sollte in etwa wie folgt aussehen: <a href="https://de.wikipedia.org/w/index.php?title=Giraffe&oldid=94027029">https://de.wikipedia.org/w/index.php?title=Giraffe&oldid=94027029</a>'
   wikipedia_queue_new_page_title: Den Import eines Wikipedia-Artikels beantragen
   will_find_taxon_pages_matching_the_search_term: wird die Seiten von Taxa ermitteln,
-    sofern der bevorzugte Name oder jedes Synonym oder jeder gebräuchliche Name genau
-    dem Suchbegriff entspricht
+    sofern der Titel, jedes Synonym oder jeder gebräuchliche Name genau dem Suchbegriff
+    entspricht
   would_you_like_to_become_a_curator_notice: Möchten Sie gerne ein Kurator werden?
     Sie können diese Berechtigung über <a href='%{url}'>Ihre Profilseite</a> beantragen.
   worklist: Arbeitsliste

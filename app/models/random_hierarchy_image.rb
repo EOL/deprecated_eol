@@ -107,32 +107,37 @@ class RandomHierarchyImage < ActiveRecord::Base
     end
 
     def create_random_images_from_rich_taxa
+      EOL.log_call
+      tc_ids = TaxonConceptMetric.
+        where(["richness_score > ?", $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).
+        pluck(:taxon_concept_id)
+      EOL.log("Found #{tc_ids} rich taxa", prefix: '.')
       # Not doing this with a big join right now because the top_concept_images
-      # table was out of date at the time of writing.
+      # table was out of date at the time of writing. TODO - move the trusted
+      # check; that should be done when called, not here!
       set = Set.new
-      TaxonConcept.joins(hierarchy_entries: [ :name ]).
-        where(["taxon_concepts.published = 1 AND taxon_concepts.vetted_id = ? AND "\
-          "(hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
-          "hierarchy_entries.rank_id IN (?)) AND "\
-          "taxon_concepts.id in (?)",
-          Vetted.trusted.id,
-          Rank.species_rank_ids,
-          TaxonConceptMetric.
-            where(["richness_score > ?", $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).
-            pluck(:taxon_concept_id)
-        ]).find_each do |taxon|
-          img = taxon.exemplar_or_best_image_from_solr
-          next unless img
-          set << {
-            data_object_id: img.id,
-            hierarchy_entry_id: taxon.entry.id,
-            hierarchy_id: taxon.entry.hierarchy_id,
-            taxon_concept_id:taxon.id,
-            name: taxon.entry.name.italicized
-          }
+      TaxonConcept.includes(hierarchy_entries: [ :name ]).
+        where(id: tc_ids, vetted_id: Vetted.trusted.id).
+        where(["hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
+          "hierarchy_entries.rank_id IN (?)", Rank.species_rank_ids]).
+        find_each do |taxon|
+        img = taxon.exemplar_or_best_image_from_solr
+        next unless img
+        set << {
+          data_object_id: img.id,
+          hierarchy_entry_id: taxon.entry.id,
+          hierarchy_id: taxon.entry.hierarchy_id,
+          taxon_concept_id:taxon.id,
+          name: taxon.entry.name.italicized
+        }
+      end
+      EOL.log("Found #{set.count} of species with images", prefix: '.')
+      RandomHierarchyImage.connection.transaction do
+        RandomHierarchyImage.delete_all
+        # TODO - this could be much faster with a bulk insert
+        set.to_a.shuffle.each do |values|
+          RandomHierarchyImage.create(values)
         end
-      set.to_a.shuffle.each do |values|
-        RandomHierarchyImage.create(values)
       end
     end
 

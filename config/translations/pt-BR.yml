@@ -19,6 +19,7 @@
 # Author: SoraRenard
 # Author: TheGabrielZaum
 # Author: Tuliouel
+# Author: Walesson
 # Author: Webysther
 ---
 pt-BR:
@@ -937,6 +938,12 @@ pt-BR:
     new:
       page_title: Por favor, deixe seu comentário
   collections:
+    download_taxa_data:
+      attribute_header: Atributo
+      select_all_checkbox: Selecionar Tudo
+      collection_download_under_processing: Download coleção está sob processamento
+        agora. Um e-mail será enviado para você quando o download completo
+      user_downloaded_collection: Download de dados para%{collection_name}
     show:
       meta_description_default: Uma coleção da Enciclopédia da Vida intitulada %{collection_name}
       meta_description_default_focus_collection: Uma coleção de foco da Enciclopédia
@@ -1569,6 +1576,12 @@ pt-BR:
       message: Você pode ver este e outros downloads visitando a <a href='%{download_link}'>aba
         de downloads no seu perfil</a>.
       header: O seu download está pronto!
+    collection_download_ready:
+      subject: Os seus atributos Coleção EOL selecionados estão prontos para fazer
+        o download
+      message: Você pode ver este e outros downloads visitando a <a href='%{download_link}'>aba
+        de downloads no seu perfil</a>.
+      header: Seu download coleção está pronto!
   sessions:
     new:
       login_with_facebook_assistive: Login usando suas credenciais do Facebook.
@@ -2061,6 +2074,8 @@ pt-BR:
             %{hierarchy_provider}
           meta_title_with_common_name: Estatísticas sobre %{preferred_common_name}
             (%{scientific_name} como classificada por %{hierarchy_provider})
+          tweet_text: Ferramentas de aprendizagem de %{scientific_name} como classificada
+            por %{hierarchy_provider}
         meta_description: Estatísticas e dados sobre %{scientific_name} na Enciclopédia
           da Vida.
         meta_description_with_common_name: Estatísticas e dados sobre %{preferred_common_name}
@@ -2069,9 +2084,13 @@ pt-BR:
           dados sobre %{scientific_name}
         meta_keywords_with_common_name: Estatísticas sobre %{preferred_common_name},
           estatísticas sobre %{preferred_common_name}, dados sobre %{preferred_common_name}
+        meta_title: Riqueza de%{scientific_name}
+        meta_title_with_common_name: Riqueza de%{preferred_common_name}, %{scientific_name}
+        tweet_text: Pontuação riqueza para%{scientific_name}
   users:
     activities:
       show:
+        meta_description: Atividade curadoria e comentários por%{user_full_name}
         meta_title: Atividade de %{user_full_name}
         tweet_text: atividade de %{user_full_name}
     collections:
@@ -2084,7 +2103,19 @@ pt-BR:
         meta_description: Comunidades que %{user_full_name} é um membro.
         meta_title: Comunidades de %{user_full_name}
         tweet_text: comunidades de %{user_full_name}
+    content_partners:
+      index:
+        meta_description: '%{user_full_name}associações parceiras de conteúdo.'
+        meta_title: '%{user_full_name}Parceiros de Conteúdo'
+        tweet_text: '%{user_full_name}parceiros de conteúdo'
     data_downloads:
+      index:
+        meta_description: Downloads de dados solicitada por%{user_full_name}.
+        meta_title: '%{user_full_name}Dados Downloads'
+        tweet_text: Descargas de datos de %{user_full_name}
+      header_with_count:
+        one: Download de dados
+        other: '%{count} Download de dados'
       download: baixar
       page_title: Downloads de dados
       query_head: Pesquisa

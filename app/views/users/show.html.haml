@@ -53,7 +53,7 @@
           %br
         %dt= link_to I18n.t(:user_activity_stats_taxa_commented, :count => @user.count_taxa_commented), user_activity_path(@user, :filter => "taxa_comments")
         %dt= link_to I18n.t(:user_activity_stats_comment_submitted, :count => @user.comments_count), user_activity_path(@user, :filter => "comments")
-        %dt= link_to I18n.t(:user_activity_stats_articles_added, :count => @user.articles_count), user_activity_path(@user, :filter => "added_data_objects")
+        %dt= link_to I18n.t(:user_activity_stats_articles_added, :count => @user_submitted_text_count), user_activity_path(@user, :filter => "added_data_objects")
         - if current_user.can_see_data?
           %dt= link_to I18n.t(:user_activity_stats_data_added, :count => @user.data_records_count), user_activity_path(@user, :filter => "added_data")
         %dt= I18n.t(:user_counts_refresh_daily)

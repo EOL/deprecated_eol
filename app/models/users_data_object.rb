@@ -10,7 +10,6 @@ class UsersDataObject < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :data_object
-  counter_culture :user, :column_names => {["users_data_objects.data_object_id in (select id from data_objects where user_id = users.id group by guid)"] => "articles_count"}
   belongs_to :taxon_concept
   belongs_to :vetted
   belongs_to :visibility

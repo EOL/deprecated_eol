@@ -1,4 +1,5 @@
 class HarvestEvent
+  # TODO: rename
   class CollectionManager
     def self.sync(event)
       manager = new(event)

@@ -1,0 +1,38 @@
+* write HarvestEvent.index_for_search (which needs to be renamed)
+* Code review
+  - Go over the TODOs: which are important to do now, which can wait...
+  - ensure that logging is sufficient
+  - Make things clearer where possible
+* Testing indivdual pieces (manually) ...to ensure the code is compiled and
+  running
+* Write model specs (aim for 50 is ok, 70 w/b good)
+  - What needs to be speced now
+  - What can wait to be speced later
+  - And notes about how to create tesable data
+- Map of all methods; refactor so it's clear what happens
+- Testing against moderate-sized resources which are moderately complex
+- Write integration specs
+- we can't use the manager (NOTE)
+- edit the PHP code to run a harvest, then enqueue something for Ruby to run
+  denormalization; remove the denorm stuff from harvest_resources_cron_task
+- write a codebrige ruby process to watch for that, run denormalization
+- Start running a single harvest
+- Profit.
+
+each resource:
+  flatten hierarchy - Amr
+  publish
+    super-complicated
+remove superceded collection items - Huda
+denormalize tables - Youstina
+  DataObjectsTaxonConceptsDenormalizer.denormalize
+    foo
+    bar
+      boozer
+      whuzzit
+        rebuild of this table.
+    baz
+  DataObjectsTableOfContent.rebuild
+  TopImage.rebuild
+  RandomHierarchyImage.create_random_images_from_rich_taxa
+  TaxonConceptPreferredEntry.rebuild

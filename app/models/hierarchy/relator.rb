@@ -70,7 +70,6 @@ class Hierarchy
         response = @solr.
           select("hierarchy_id:#{@hierarchy.id} AND "\
           "id:(#{batch.join(" OR ")})", rows: group_size)
-        # TODO: error-handling.
         response["response"]["docs"].each do |entry|
           compare_entry(entry)
         end
@@ -85,7 +84,6 @@ class Hierarchy
         # TODO: do we need to do any unencoding here, since it came from Solr?
         search_name = entry["name"]
         # PHP TODO: "what about subgenera?"
-        # TODO: clean up
         search_canonical = ""
         if ! Name.is_surrogate_or_hybrid?(search_name) &&
           ! entry_is_in_virus_kingdom?(entry) &&
@@ -131,7 +129,7 @@ class Hierarchy
         entry["kingdom"].downcase == "viruses"
     end
 
-    def compare_entries_from_solr(entry, matching_entry) # TODO (from_entry, to_entry)
+    def compare_entries_from_solr(entry, matching_entry)
       matching_entry["rank_id"] ||= 0
       # TODO: why bother returning a value rather than just storing it?
       score = score_comparison(entry,

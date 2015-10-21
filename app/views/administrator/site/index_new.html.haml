@@ -68,7 +68,7 @@
     %td.odd
       =I18n.t("content_servers")
     %td.odd
-      = $CONTENT_SERVER
+      = Rails.configuration.asset_host
   %tr
     %td.even
       =I18n.t("allow_user_logins")

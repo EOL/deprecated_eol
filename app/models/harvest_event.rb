@@ -115,8 +115,7 @@ class HarvestEvent < ActiveRecord::Base
     hierarchy.hierarchy_entries
   end
 
-  # TODO: move this to hierarchy.
-  def merge_matching_taxon_concepts
+  def relate_hierarchy
     EOL.log_call
     Hierarchy::Relator.relate(hierarchy, entry_ids: new_hierarchy_entry_ids)
   end
@@ -264,15 +263,13 @@ class HarvestEvent < ActiveRecord::Base
     end
   end
 
-  # NOTE: this assumes flattened_ancestors has been constructed! TODO: this
-  # seems absurd, in a way... this method implies that only child hierarchy
-  # entries are associated with the harvest, which doesn't seem right. ...but,
-  # hey: it was coded this way, so perhaps it's the case that harvested entries
-  # don't necessarily have their parents harvested at the same time. (?)  NOTE:
-  # This will "run" all the queries even if it never finds any published
-  # ancestors. I figured this is fine—it doesn't affect anything and it keeps
-  # logs consistent. TODO: this does NOT do synonyms, which is weird, since it
-  # does synonyms for the harvested entries. Find out if that's correct.
+  # NOTE: this assumes flattened_ancestors has been constructed! NOTE: only
+  # child hierarchy entries are associated with the harvest (which doesn't seem
+  # right).  NOTE: This will "run" all the queries even if it never finds any
+  # published ancestors. I figured this is fine—it doesn't affect anything and
+  # it keeps logs consistent. TODO: this does NOT do synonyms, which is weird,
+  # since it does synonyms for the harvested entries. Find out if that's
+  # correct.
   def publish_and_show_hierarchy_entry_parents
     EOL.log_call
     # TODO: this is "wrong"—the PHP had another way of getting these that didn't use the denormalized DB. Use #hierachy_entries_with_ancestors

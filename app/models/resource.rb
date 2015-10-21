@@ -208,7 +208,7 @@ class Resource < ActiveRecord::Base
 
   # TODO: move to hierarchy. Also, rename... this simply MERGES concepts.
   def assign_concepts
-    Hiearchy::ConceptAssignment.assign_for_hierarchy(self)
+    Hierarchy::ConceptAssignment.assign_for_hierarchy(self)
   end
 
   def status_label

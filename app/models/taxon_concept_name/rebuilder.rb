@@ -184,6 +184,8 @@ class TaxonConceptName
       end
     end
 
+    # TODO: badly named; this is three steps: preparing the data, deleting
+    # existing rows, and inserting the data. Break up and name appropriately.
     def insert_scientific_names
       data = Set.new
       @matching_ids.each do |tc_id, arr|

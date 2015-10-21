@@ -17,15 +17,6 @@ class TaxonConceptPreferredEntry
       "Paleobiology Database"
     ]
 
-    def self.hierarchy_sort_order(label)
-      @hierarchy_match_priority.each_with_index do |match, weight|
-        if match.is_a?(Regexp) ? label =~ match : label == match
-          return weight + 1
-        end
-        return 999
-      end
-    end
-
     def initialize
       @all_entries = {}
       @curated_entries = {}
@@ -62,8 +53,7 @@ class TaxonConceptPreferredEntry
           hierarchy_entry_id: taxon["hierarchy_entry_id"].to_i,
           vetted_view_order: taxon["vetted_view_order"].to_i,
           browsable: taxon["browsable"].to_i,
-          hierarchy_sort_order: TaxonConceptPreferredEntry::Rebuilder.
-            hierarchy_sort_order(taxon["label"])
+          hierarchy_sort_order: hierarchy_sort_order(taxon["label"])
         }
       end
     end
@@ -117,6 +107,15 @@ class TaxonConceptPreferredEntry
         0 - entry[:browsable],
         entry[:hierarchy_sort_order],
         entry[:hierarchy_entry_id] ]
+    end
+
+    def hierarchy_sort_order(label)
+      @hierarchy_match_priority.each_with_index do |match, weight|
+        if match.is_a?(Regexp) ? label =~ match : label == match
+          return weight + 1
+        end
+        return 999
+      end
     end
   end
 end

@@ -87,13 +87,13 @@ class CollectionItem < ActiveRecord::Base
     taxa.
       select("collection_items.*, supercedure_id new_tc_id").
       joins("JOIN taxon_concepts ON taxon_concepts.id = "\
-      "collection_items.collected_item_id").
+        "collection_items.collected_item_id").
       where("supercedure_id != 0").find_in_batches do |items|
       items.each do |item|
         begin
           item.update_attribute(:collected_item_id, item[:new_tc_id])
         rescue ActiveRecord::RecordNotUnique
-          # No thanks, we've already GOT one.
+          # The superceded taxon was already in the collection; safe to ignore:
           item.destroy
         end
       end

@@ -19,10 +19,6 @@ class Manager
         batch.add(resource)
         resource.harvest
       end
-      EOL.log("Finished with batch of #{batch.count} resources", prefix: '@')
-      EOL.log("(maximum count)", prefix: '.') if batch.maximum_count?
-      EOL.log("(timed out, started at #{batch.start_time})", prefix: '.') if
-        batch.time_out?
       batch.post_harvesting
       denormalize_tables
       optimize_solr_if_needed

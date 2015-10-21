@@ -44,13 +44,12 @@ class Resource
       TaxonConcept.post_harvest_cleanup(@resource)
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       @harvest_event.merge_matching_taxon_concepts
-      @resource.assign_concepts
+      @resource.relate_hierarchy
       create_taxon_mappings_graph
       ActiveRecord::Base.connection.transaction do
         @resource.rebuild_taxon_concept_names
       end
       ActiveRecord::Base.connection.transaction do
-        # YOU WERE HERE TODO:
         @harvest_event.sync_collection
       end
       @harvest_event.index_for_search_TODO # $harvest_event->index_for_search();

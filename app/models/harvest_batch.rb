@@ -11,6 +11,10 @@ class HarvestBatch
   end
 
   def complete?
+    EOL.log_call
+    EOL.log("Y: maximum count", prefix: '.') if batch.maximum_count?
+    EOL.log("Y: timed out, started at #{start_time}", prefix: '.') if
+      batch.time_out?
     time_out? || maximum_count?
   end
 

@@ -4,7 +4,8 @@ require 'will_paginate/array'
 
 APPLICATION_DEFAULT_LANGUAGE_ISO = 'en'
 unless Rails.env.test?
-  $SOLR_SERVER = 'http://localhost:8983/solr/'
+  # $SOLR_SERVER = 'http://localhost:8983/solr/'
+  $SOLR_SERVER = 'http://172.18.0.24/solr/'
   $SOLR_DIR    = File.join(Rails.root, 'solr', 'solr')
 else
   $SOLR_SERVER = 'http://localhost:8984/solr/'

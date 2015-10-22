@@ -8,9 +8,12 @@ common: &common
 
 # common settings for any development databases
 devel_common: &dev
-  host: localhost
+  # host: localhost
+  host: 172.18.0.23
   username: root
-  password:
+  # password: root
+  password: wEBJPBaFYoLA56QXDJXS
+  
 
 # common settings for all test databases
 tst_common: &tst
@@ -22,7 +25,8 @@ tst_common: &tst
 development:
   <<: *common
   <<: *dev
-  database: eol_development
+  # database: eol_development
+  database: eol_production
 
 development_logging:
   <<: *common

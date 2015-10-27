@@ -16,10 +16,6 @@ class UserAddedData < ActiveRecord::Base
 
   belongs_to :subject, polymorphic: true
   belongs_to :user
-  
-  counter_culture :user, :column_names => {["user_added_data.visibility_id = ? and user_added_data.vetted_id = ? or user_added_data.vetted_id = ? and user_added_data.deleted_at = ?
-      ", "#{Visibility.get_visible.id}", "#{Vetted.trusted.id}", "#{Vetted.unknown.id}", nil] => 'data_records_count'}
-  
   belongs_to :vetted
   belongs_to :visibility
 

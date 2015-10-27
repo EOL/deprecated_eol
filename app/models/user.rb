@@ -880,8 +880,14 @@ public
   end
   
   def count_taxa_commented
-    Rails.cache.fetch("users/cached_taxa_commented/#{self.id}", expires_in: 24.hours) do
+    Rails.cache.fetch("users/count_taxa_commented/#{self.id}", expires_in: 24.hours) do
       self.taxa_commented.length
+    end
+  end
+  
+  def count_total_data_records
+    Rails.cache.fetch("users/count_total_data_records/#{self.id}", expires_in: 24.hours) do
+      self.total_data_submitted
     end
   end
 

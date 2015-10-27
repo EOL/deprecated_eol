@@ -1,16 +1,33 @@
 class HierarchyEntriesFlattened < ActiveRecord::Base
   self.table_name = "hierarchy_entries_flattened"
+  self.primary_keys = :hierarchy_entry_id, :ancestor_id
+
   belongs_to :hierarchy_entry, class_name: HierarchyEntry.to_s, foreign_key: :hierarchy_entry_id
   belongs_to :ancestor, class_name: HierarchyEntry.to_s, foreign_key: :ancestor_id
+
+  scope :in_hierarchy, ->(hierarchy_id) { joins(:hierarchy_entry).
+    where(hierarchy_entries: { hierarchy_id: hierarchy_id }) }
+
+  def self.delete_hierarchy_id(hierarchy_id)
+    EOL.log_call
+    ids = in_hierarchy(hierarchy_id).
+      map { |r| "(#{r.hierarchy_entry_id}, #{r.ancestor_id})" }
+    return if ids.empty?
+    where("(hierarchy_entry_id, ancestor_id) IN (#{ids.join(", ")})").delete_all
+  end
+
+  # scope :in_hierarchy, ->(hierarchy_id) { where("(hierarchy_entry_id, "\
+  #   "ancestor_id) IN (#{in_hierarchy_pks(hierarchy_id).to_sql})") }
+    # where("product_id IN (#{select("product_id").joins(:artist).where("artist.is_disabled = TRUE").to_sql})")
 
   # NOTE: this does NOT "cascade": all of these descendants will be aware of
   # THIS node, but NOT about all interceding nodes. i.e., if you run this on
   # "Animalia", then "Carnivora" will know "Animalia" is an ancestor, and
   # "Procyon" will know that "Animalia" is an ancestor, but THIS command will
   # NOT make "Procyon" know that "Carnivora" is an ancestor!  You have been
-  # warned.
-  # On the positive side, this command is actually pretty dern fast, all things
-  # considered. ...Had to use raw SQL here, though, to get the performance. :\
+  # warned. On the positive side, this command is actually pretty dern fast, all
+  # things considered. ...Had to use raw SQL here, though, to get the
+  # performance. :\
   def self.repopulate(entry)
     with_master do
       big = entry.number_of_descendants > 1000

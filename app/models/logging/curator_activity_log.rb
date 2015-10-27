@@ -164,7 +164,7 @@ class CuratorActivityLog < LoggingModel
   def deduce_taxon_concept_id
     case changeable_object_type_id
       when ChangeableObjectType.data_object.id
-        hiearchy_entry.try(:taxon_concept_id)
+        hierarchy_entry.try(:taxon_concept_id)
       when ChangeableObjectType.comment.id
         if comment_object.parent_type == 'TaxonConcept'
           comment_parent.id

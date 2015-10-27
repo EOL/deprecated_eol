@@ -75,7 +75,6 @@ module EOL
   end
 
   def self.log(msg, options = {})
-    return # DISABLING THIS FOR PRODUCTION
     options[:prefix] ||= '*'
     # Have to use #error to get it to show up in production:
     Rails.logger.error("#{options[:prefix]}#{options[:prefix]} "\

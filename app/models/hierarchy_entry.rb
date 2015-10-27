@@ -22,13 +22,19 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :flattened_ancestors, class_name: HierarchyEntriesFlattened.to_s
   has_many :curator_activity_logs
   has_many :hierarchy_entry_moves
+  has_many :curated_data_objects_hierarchy_entries
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs
-  has_and_belongs_to_many :published_refs, class_name: Ref.to_s, join_table: 'hierarchy_entries_refs',
-    association_foreign_key: 'ref_id', conditions: Proc.new { "published=1 AND visibility_id=#{Visibility.get_visible.id}" }
-  has_and_belongs_to_many :flat_ancestors, class_name: HierarchyEntry.to_s, join_table: 'hierarchy_entries_flattened',
-  association_foreign_key: 'ancestor_id', order: 'lft'
+  has_and_belongs_to_many :published_refs, class_name: Ref.to_s,
+    join_table: 'hierarchy_entries_refs',
+    association_foreign_key: 'ref_id',
+    conditions: Proc.new {
+      "published=1 AND visibility_id=#{Visibility.get_visible.id}" }
+  has_and_belongs_to_many :flat_ancestors, class_name: HierarchyEntry.to_s,
+    join_table: 'hierarchy_entries_flattened',
+    association_foreign_key: 'ancestor_id', order: 'lft'
+  has_and_belongs_to_many :harvest_events
 
   has_many :hierarchy_descendants_relationship, class_name: HierarchyEntriesFlattened.to_s, foreign_key: 'ancestor_id'
 
@@ -45,11 +51,32 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :siblings, class_name: HierarchyEntry.to_s, foreign_key: [:parent_id, :hierarchy_id], primary_key: [:parent_id, :hierarchy_id],
     conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.visible.id}, #{Visibility.preview.id}) AND `hierarchy_entries`.`parent_id` != 0" }
 
+  # Only used when reindexing, to populate solr.
+  # TODO: STORE IT IN THE GORRAM TABLE!!!!
+  attr_accessor :ancestor_names
+  # Can't easily put these in the table, but could denormalize!
+  attr_accessor :synonyms, :common_names, :canonical_synonyms
+
   before_save :default_visibility
 
   counter_culture :hierarchy
 
   scope :published, -> { where(published: true) }
+  scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
+  scope :not_visible, -> { where(["visibility_id != ?",
+    Visibility.get_visible.id]) }
+  scope :visible_or_preview, -> { where(["visibility_id IN (?)",
+    [Visibility.get_visible.id, Visibility.get_preview.id]]) }
+  # NOTE: this is a bit different from visible_or_preview; pay attention! Also
+  # NOTE that I've had to include the table name in this one because the field
+  # names are common. :\
+  scope :published_or_preview, -> { where("((hierarchy_entries.published = 1 AND "\
+    "hierarchy_entries.visibility_id = #{Visibility.get_visible.id}) OR "\
+    "(hierarchy_entries.published = 0 AND hierarchy_entries.visibility_id = "\
+    "#{Visibility.get_preview.id}))") }
+  scope :not_untrusted, -> { where(["vetted_id != ?", Vetted.untrusted.id]) }
+  scope :has_identifier, -> { where("identifier IS NOT NULL AND "\
+    "identifier != ''") }
 
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }
@@ -73,6 +100,10 @@ class HierarchyEntry < ActiveRecord::Base
   def self.preload_deeply_browsable(set)
     HierarchyEntry.preload_associations(set, [ { agents_hierarchy_entries: :agent }, :rank, { hierarchy: :agent } ], select: {hierarchy_entries: [:id, :parent_id, :taxon_concept_id]} )
     set
+  end
+
+  def self.use_index(which)
+    from("#{self.table_name} USE INDEX(#{which})")
   end
 
   def has_parent?
@@ -132,6 +163,32 @@ class HierarchyEntry < ActiveRecord::Base
       # do nothing
     end
     @title_canonical_italicized
+  end
+
+  # NOTE: it is assumed here (for now, TODO) that you have loaded the synonyms,
+  # ancestors, and the like before calling this, lest you get a pretty boring
+  # hash. See SolrCore::HierarchyEntries for info on how those are populated,
+  # but be warned: it's complex. :| TODO: add a for_hash scope...
+  def to_hash
+    hash = {
+      id: id,
+      common_name: common_names,
+      synonym: synonyms,
+      synonym_canonical: canonical_synonyms,
+      parent_id: parent_id,
+      taxon_concept_id: taxon_concept_id,
+      hierarchy_id: hierarchy_id,
+      rank_id: rank_id,
+      vetted_id: vetted_id,
+      published: published,
+      name: self["string"],
+      canonical_form: self["canonical_form"],
+      # TODO: I don't know that we need this anymore (it was an unfiltered
+      # version of the canonical form):
+      canonical_form_string: self["canonical_form_string"]
+    }
+    hash.merge!(ancestor_names) if ancestor_names
+    hash
   end
 
   def rank_label

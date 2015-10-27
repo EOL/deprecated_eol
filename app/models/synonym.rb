@@ -13,6 +13,11 @@ class Synonym < ActiveRecord::Base
   has_many :agents, through: :agents_synonyms
   has_many :agents_synonyms
 
+  scope :common_names, -> { where(["language_id != 0 AND "\
+    "(synonym_relation_id IN (?))", SynonymRelation.common_name_ids]) }
+  scope :not_common_names, -> { where(["language_id = 0 AND "\
+    "synonym_relation_id NOT IN (?)", SynonymRelation.common_and_acronym_ids]) }
+
   before_save :set_preferred
   after_update :update_taxon_concept_name
   after_create :create_taxon_concept_name
@@ -79,6 +84,11 @@ class Synonym < ActiveRecord::Base
       agents_roles << AgentsSynonym.new(synonym: self, agent: h_agent, agent_role: role, view_order: 0)
     end
     agents_roles += agents_synonyms
+  end
+
+  def common_name?
+    language_id && language_id != Language.scientific.id ||
+      SynonymRelation.common_name_ids.include?(synonym_relation_id)
   end
 
   # TODO - is this being used?

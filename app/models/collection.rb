@@ -89,7 +89,7 @@ class Collection < ActiveRecord::Base
   def editable_by?(whom)
     whom.can_edit_collection?(self)
   end
-  
+
   def collection_has_data?
     self.collection_items.taxa.each do |taxon_item|
       return true if TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris.size > 0
@@ -221,6 +221,10 @@ class Collection < ActiveRecord::Base
     end.flatten.compact.uniq
   end
 
+  def fix_item_count
+    update_attributes(collection_items_count: collection_items.count)
+  end
+
   def unpublish
     if update_attributes(published: false)
       EOL::GlobalStatistics.decrement('collections')
@@ -230,11 +234,11 @@ class Collection < ActiveRecord::Base
       false
     end
   end
-  
+
   def can_be_updated_by?(user_wanting_access)
     user_wanting_access.can_edit_collection?(self)
   end
-  
+
   def can_be_deleted_by?(user_wanting_access)
     self.users.map{|u| u.id}.include? user_wanting_access.id || user_wanting_access.is_admin?
   end

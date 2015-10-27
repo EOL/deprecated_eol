@@ -1,0 +1,88 @@
+* write HarvestEvent.index_for_search (which needs to be renamed)
+* Code review
+  - Go over the TODOs: which are important to do now, which can wait...
+  - ensure that logging is sufficient
+  - Make things clearer where possible
+* Testing individual pieces (manually) ...to ensure the code is compiled and
+  running
+* Write model specs (aim for 50% is ok, 70% w/b good, 80% great.)
+  - What needs to be specced now
+  - What can wait to be specced later
+  - And notes about how to create testable data
+- Map of all methods; refactor so it's clear what happens
+- Testing against moderate-sized resources which are moderately complex
+- Write integration specs
+- we can't use the manager (NOTE)
+- edit the PHP code to run a harvest, then enqueue something for Ruby to run
+  denormalization; remove the denormalized stuff from
+  #harvest_resources_cron_task
+- write a CodeBridge ruby process to watch for that, run denormalization
+- Start running a single harvest
+- Profit.
+
+== The Post-Harvesting Workflow:
+
+each resource:
+  Hierarchy::Flattener.flatten - Amr
+    # Rebuilds HierarchyEntriesFlattened (deleting everything in the hierarchy)
+    # and TaxonConceptsFlattened (no deletes, so it COULD leave stale entries).
+  Resource#publish
+    # uses multiple transactions (some may be nested, not sure yet)
+    HarvestEvent#show_preview_objects
+      # set dato visibility to true where it was preview
+    HarvestEvent#preserve_invisible
+      # set dato visibility to invisible where it was invisible from previous
+      # harvest. I don't know how this would happen, since that _usually_ is
+      # preserved using curated_data_objects_hierarchy_entries.
+    Resource#unpublish_data_objects # does what it says on the tin.
+    HarvestEvent#publish_data_objects # also sets the event to published! :S
+    Resource#unpublish_hierarchy # all entries, all synonyms.
+    HarvestEvent#publish_hierarchy_entries
+      # Also makes them visible. Also publishes associated TCs. Also publishes
+      # associated synonyms. ...At least for all the nodes that have data
+      # objects associated with them. The ancestors of them are only handled if
+      # they have a flattened_hierarchy (which should be done at this point—it's
+      # the first step in post-harvesting). This does NOT publish Synonyms of
+      # ancestors, which might be a bug (easy to fix, if desired). TODO: fix?
+    TaxonConcept.post_harvest_cleanup
+      # Absurdly huge queries (in terms of rows affected). TODO: track what a
+      # harvest affected, only work on those
+      publish_concepts_with_published_entries # what you would expect
+      unpublish_concepts_with_no_published_entries # again, as expected
+      superceded.update_all(published: false) # Yes, that's global. :\ 30+sec!
+      trust_concepts_with_visible_trusted_entries # All concepts!
+      untrust_concepts_with_no_visible_trusted_entries # All concepts!
+    SolrCore::HierarchyEntries.reindex_hierarchy # What you would expect.
+    Hierarchy::Relator.relate
+      # Rebuilds HierarchyEntryRelationship, indexes in Solr. This is used for
+      # concept assignment... and I believe nothing else. :\ TODO: rename,
+      # should be HierarchyEntryRelationship.rebuilder to be consistent.
+    Hierarchy::ConceptAssignment.assign_for_hierarchy
+      # merges taxon concepts which appear to be "matching" TODO: rename. :|
+    Resource::Publisher#create_taxon_mappings_graph
+      # Creates (replaces) a Virtuoso graph which maps all the entries in the
+      # hierarchy to their taxon concepts.
+    TaxonConceptName::Rebuilder.by_taxon_concept_id
+      # This is a WEIRD table, with a strange combination of canonical forms,
+      # preferred scientific names, and common names all smooshed together.
+    HarvestEvent::CollectionManager.sync
+      # Creates/updates collection, adds new items, deletes removed items,
+      # reindexes everything in solr.
+    HarvestEvent#index_for_search # Not written yet. :\
+    Resource#save_resource_contributions # creates a file (!) with a manifest of
+      # who created what. In JSON. TODO: the problem is that Rails cannot serve
+      # the files it creates without moving them to the Content Server, which it
+      # cannot... so we need to make that possible!
+CollectionItem.remove_superceded_taxa - Huda
+  # Also reindexes them in Solr.
+Manager#denormalize_tables - Youstina
+  DataObjectsTaxonConceptsDenormalizer.denormalize # rebuilds ALL of them! :S
+  DataObjectsTableOfContent.rebuild # Again, ALL of them...
+  TopImage::Rebuilder#rebuild
+    # Yes, ALL of them. Also TopUnpublishedImage. I don't think this touches
+    # Solr, though.
+  RandomHierarchyImage.create_random_images_from_rich_taxa # For March of Life.
+  TaxonConceptPreferredEntry::Rebuilder.rebuild
+    # used, of course, to select which Entry is "best" on a TaxonConcept.
+Manager#optimize_solr_if_needed
+  # simply calls "optimize" on all Solr Cores, once a week or so.

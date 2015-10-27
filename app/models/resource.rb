@@ -1,5 +1,6 @@
-# A Resource is a dataset or compilation of media provided by a partner, harvested by EOL into data_objects and data_point_uris.
-# For example, a collection of images of butterflies.
+# A Resource is a dataset or compilation of media provided by a partner,
+# harvested by EOL into data_objects and data_point_uris. For example, a
+# collection of images of butterflies.
 #
 # NOTES:
 #
@@ -62,6 +63,7 @@ class Resource < ActiveRecord::Base
   end
   scope :failed,
     -> { where(resource_status_id: ResourceStatus.harvest_failed.id) }
+  scope :harvestable, -> { where(harvestable: true) }
 
   # The order of the list affects the order of harvesting:
   acts_as_list
@@ -101,24 +103,56 @@ class Resource < ActiveRecord::Base
   validate :url_or_dataset_not_both
 
   def self.next
-    ready.by_priority.first
+    ready.by_priority.harvestable.first
   end
 
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  def self.pending
+    where(id: HarvestEvent.pending.pluck(:resource_id))
+  end
+
+  # Publish _all_ resources that are "ready" for publishing. You would only want
+  # to call this if your harvest process failed with some resources complete and
+  # others not.
+  def self.publish_pending
+    pending.each do |resource|
+      resource.publish
+    end
+  end
+
+  def harvest
+    Resource::Harvester.harvest(self)
+  end
+
+  # TODO: This assumes one to one relationship between user and content partner
+  # and will need to be modified when we move to many to many
   def can_be_created_by?(user)
     content_partner.user_id == user.id || user.is_admin?
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  # TODO: This assumes one to one relationship between user and content partner
+  # and will need to be modified when we move to many to many
   def can_be_read_by?(user)
     true # NOTE - this was changed on 2013-10-18 in order to allow users to see resource pages and get (c) info on them.
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  # TODO: This assumes one to one relationship between user and content partner
+  # and will need to be modified when we move to many to many
   def can_be_updated_by?(user)
     content_partner.user_id == user.id || user.is_admin?
   end
-  # TODO: This assumes one to one relationship between user and content partner and will need to be modified when we move to many to many
+  # TODO: This assumes one to one relationship between user and content partner
+  # and will need to be modified when we move to many to many
   def can_be_deleted_by?(user)
     content_partner.user_id == user.id || user.is_admin?
+  end
+
+  # NOTE: this can raise various exceptions. You want to wrap any call to this
+  # in a begin/rescue block.
+  def publish
+    Resource::Publisher.publish(self)
+  end
+
+  def rebuild_taxon_concept_names
+    TaxonConceptName.rebuild_by_taxon_concept_id(
+      latest_harvest_event.taxon_concept_ids)
   end
 
   def status_can_be_changed_to?(new_status)
@@ -172,6 +206,11 @@ class Resource < ActiveRecord::Base
     Resource.find(find_this)
   end
 
+  # TODO: move to hierarchy. Also, rename... this simply MERGES concepts.
+  def assign_concepts
+    Hierarchy::ConceptAssignment.assign_for_hierarchy(self)
+  end
+
   def status_label
     (resource_status.nil?) ?  I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
   end
@@ -183,9 +222,8 @@ class Resource < ActiveRecord::Base
     @oldest_published_harvest = Rails.cache.read(Resource.cached_name_for(cache_key))
     # not using fetch as only want to set expiry when there is no harvest event
     if @oldest_published_harvest.nil? #cache miss
-      @oldest_published_harvest = HarvestEvent.find(:first,
-        conditions: ["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id],
-        limit: 1, order: 'published_at')
+      @oldest_published_harvest =
+        oldest_published_harvest_event_uncached
       if @oldest_published_harvest.nil?
         # resource not yet published store 0 in cache with expiry so we don't try to find it again for a while
         Rails.cache.write(Resource.cached_name_for(cache_key), 0, expires_in: 6.hours)
@@ -198,29 +236,48 @@ class Resource < ActiveRecord::Base
     @oldest_published_harvest
   end
 
+  def oldest_published_harvest_event_uncached
+    HarvestEvent.published.complete.where(resource_id: id).
+      order(:published_at).first
+  end
+
   def latest_published_harvest_event
     return @latest_published_harvest if defined? @latest_published_harvest
     HarvestEvent
     cache_key = "latest_published_harvest_event_for_resource_#{id}"
-    @latest_published_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
-      # Uses 0 instead of nil when setting for cache because cache treats nil as a miss
-      HarvestEvent.where(["published_at IS NOT NULL AND completed_at IS NOT NULL AND resource_id = ?", id]). \
-        order('published_at desc').first || 0
+    @latest_published_harvest =
+      Rails.cache.fetch(Resource.cached_name_for(cache_key),
+      expires_in: 6.hours) do
+      # Uses 0 instead of nil when setting for cache because cache treats nil as
+      # a miss
+      latest_published_harvest_event_uncached || 0
     end
-    @latest_published_harvest = nil if @latest_published_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
+    # return nil or HarvestEvent, i.e. not the 0 cache hit
+    @latest_published_harvest = nil if @latest_published_harvest == 0
     @latest_published_harvest
   end
 
+  def latest_published_harvest_event_uncached
+    HarvestEvent.published.complete.where(resource_id: id).
+      order("published_at DESC").first
+  end
+
+  # TODO: If we REALLY use this often enough to warrant caching it, PUT IT IN
+  # THE DATABASE.
   def latest_harvest_event
     return @latest_harvest if defined? @latest_harvest
     HarvestEvent
     cache_key = "latest_harvest_event_for_resource_#{self.id}"
     @latest_harvest = Rails.cache.fetch(Resource.cached_name_for(cache_key), expires_in: 6.hours) do
       # Use 0 instead of nil when setting for cache because cache treats nil as a miss
-      HarvestEvent.where(resource_id: id).last || 0
+      latest_harvest_event_uncached || 0
     end
     @latest_harvest = nil if @latest_harvest == 0 # return nil or HarvestEvent, i.e. not the 0 cache hit
     @latest_harvest
+  end
+
+  def latest_harvest_event_uncached
+    HarvestEvent.where(resource_id: id).last
   end
 
   def upload_resource_to_content_master(ip_with_port)
@@ -275,12 +332,20 @@ class Resource < ActiveRecord::Base
   end
 
   def save_resource_contributions
-    resource_contributions = ResourceContribution.where("resource_id = ? ", self.id)
+    EOL.log_call
+    # TODO: why isn't this a simple relation?
+    resource_contributions = ResourceContribution.
+      where("resource_id = ? ", self.id)
     resource_contributions_json = []
     resource_contributions.each do |resource_contribution|
       taxon_concept_id = resource_contribution.taxon_concept_id
       type = resource_contribution.object_type
-      url = type == "data_object" ? "#{Rails.configuration.site_domain}/data_objects/#{resource_contribution.data_object_id}": "#{Rails.configuration.site_domain}/pages/#{resource_contribution.taxon_concept_id}/data#data_point_uri_#{resource_contribution.data_point_uri_id}"
+      url = type == "data_object" ?
+        "#{Rails.configuration.site_domain}/data_objects/"\
+          "#{resource_contribution.data_object_id}" :
+        "#{Rails.configuration.site_domain}/pages/"\
+          "#{resource_contribution.taxon_concept_id}/"\
+          "data#data_point_uri_#{resource_contribution.data_point_uri_id}"
       resource_contribution_json = {
          type: type,
          url: url,
@@ -290,7 +355,8 @@ class Resource < ActiveRecord::Base
       }
       data_object_type_id = resource_contribution.data_object_type
       if data_object_type_id
-        resource_contribution_json[:data_object_type] = DataType.find(data_object_type_id).label
+        resource_contribution_json[:data_object_type] =
+          DataType.find(data_object_type_id).label
       end
       predicate = resource_contribution.predicate
       if predicate
@@ -299,21 +365,48 @@ class Resource < ActiveRecord::Base
       resource_contributions_json << resource_contribution_json
     end
 
-    resource_info_with_contributions = { id: self.id,
-                                         url: "#{Rails.configuration.site_domain}/content_partners/#{self.content_partner_id}/resources/#{self.id}",
-                                         title: self.title,
-                                         contributions: resource_contributions_json }
-    File.open("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json","w") do |f|
+    resource_info_with_contributions = {
+      id: self.id,
+      url: "#{Rails.configuration.site_domain}/content_partners/"\
+        "#{self.content_partner_id}/resources/#{self.id}",
+      title: self.title,
+      contributions: resource_contributions_json
+    }
+    # TODO: This, of course, will not be available on both app servers. :(
+    File.open("#{$RESOURCE_CONTRIBUTIONS_DIR}/"\
+      "resource_contributions_#{self.id}.json","w") do |f|
       f.write(JSON.pretty_generate(resource_info_with_contributions))
     end
   end
 
+  # TODO: the name of this file is not DRY and is too long. Extract a method.
   def delete_resource_contributions_file
-    File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json") if File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/resource_contributions_#{self.id}.json")
+    File.delete("#{$RESOURCE_CONTRIBUTIONS_DIR}/"\
+      "resource_contributions_#{self.id}.json") if
+      File.file?("#{$RESOURCE_CONTRIBUTIONS_DIR}/"\
+        "resource_contributions_#{self.id}.json")
   end
 
+  # TODO - Whoa, this is not the right way to store this. Use EolConfig.
   def self.is_paused?
     Resource.first.pause
+  end
+
+  # TODO: we should really store the resource_id on the data object; then use
+  # that to unpublish everything. As-is, we _must_ rely on harvest events, which
+  # (NOTE) leaves the opportunity (albeit a rare one—a process would have to
+  # break in the middle for this to happen) that an old harvest will still have
+  # published objects...
+  def unpublish_data_objects
+    EOL.log_call
+    latest_published_harvest_event_uncached.data_objects.
+      where(data_objects: { published: true }).
+      update_all(published: false)
+  end
+
+  def unpublish_hierarchy
+    EOL.log_call
+    hierarchy.unpublish
   end
 
 private

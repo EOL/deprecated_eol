@@ -3,7 +3,7 @@ Eol::Application.routes.draw do
 
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
-  
+
   #resque
   mount Resque::Server.new, at: "/resque"
   # Permanent redirects. Position them before any routes they take precedence over.
@@ -526,7 +526,6 @@ Eol::Application.routes.draw do
   match '/privacy' => 'content#show', :defaults => {:id => 'privacy'}, :as => 'privacy'
   match '/curators' => 'content#show', :defaults => {:id => 'curators'}, :as => 'curators'
   match '/traitbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank'
-  match '/traithbank' => 'content#show', :defaults => {:id => 'traitbank'}, :as => 'traitbank' # Typo in newsletter. TODO - remove after 12-1-2014.
   match '/curators/*ignore' => 'content#show', :defaults => {:id => 'curators'}
   match '/info/:id' => 'content#show', :as => 'cms_page'
   match '/info/*crumbs' => 'content#show', :as => 'cms_crumbs'

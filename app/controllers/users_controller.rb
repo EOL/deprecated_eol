@@ -53,7 +53,7 @@ class UsersController < ApplicationController
   def reindex
     @user = User.find(params[:id])
     cache_keys = [:common_names_added, :common_names_removed, :common_names_curated, :total_species_curated, :total_user_objects_curated,
-      :total_user_exemplar_images, :total_user_overview_articles, :total_user_preferred_classifications, :cached_taxa_commented, :count_submitted_objects]
+      :total_user_exemplar_images, :total_user_overview_articles, :total_user_preferred_classifications, :count_taxa_commented, :count_submitted_objects, :count_total_data_records]
     cache_keys.each do |key|
       Rails.cache.delete("users/#{key}/#{@user.id}")
     end
@@ -66,6 +66,7 @@ class UsersController < ApplicationController
     @user.total_user_overview_articles
     @user.total_user_preferred_classifications
     @user.count_taxa_commented
+    @user.count_total_data_records
 
     flash[:notice]= I18n.t(:user_count_reindexed)
     respond_to do |format|

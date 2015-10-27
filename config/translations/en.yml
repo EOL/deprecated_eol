@@ -5056,7 +5056,7 @@ en:
     one: "%{count} current content partner"
     other: "%{count} current content partners"
   users_curation_header: "Curator qualifications"
-  user_counts_refresh_daily: "counts are refreshed daily"
+  user_counts_refresh_daily: "*counts are refreshed daily"
   users_form_account_header: "Your account"
   users_form_curation_header: "Curator qualifications"
   users_form_profile_info_header: "Public profile information"

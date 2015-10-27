@@ -3,7 +3,6 @@ class AddCountsToUsers < ActiveRecord::Migration
   def self.up
 
     add_column :users, :wikipedia_queues_count, :integer, :null => false, :default => 0
-    add_column :users, :data_records_count, :integer, :null => false, :default => 0
     add_column :users, :comments_count, :integer, :null => false, :default => 0
 
   end
@@ -11,7 +10,6 @@ class AddCountsToUsers < ActiveRecord::Migration
   def self.down
 
     remove_column :users, :wikipedia_queues_count
-    remove_column :users, :data_records_count
     remove_column :users, :comments_count
     
   end

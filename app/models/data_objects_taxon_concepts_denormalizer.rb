@@ -8,7 +8,7 @@ class DataObjectsTaxonConceptsDenormalizer
     denormalize_using_joins_via_table({ hierarchy_entries:
       { curated_data_objects_hierarchy_entries: :data_object } },
       "curated_data_objects_hierarchy_entries")
-    denormalize_using_joins_via_table({ users_data_objects: :data_objects },
+    denormalize_using_joins_via_table({ users_data_objects: :data_object },
       "users_data_objects")
   end
 

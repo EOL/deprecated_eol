@@ -1,13 +1,10 @@
-module SolrCore
+class SolrCore
   class HierarchyEntries < SolrCore::Base
     CORE_NAME = "hierarchy_entries"
 
-    if (false) # Tests:
-      solr = SolrCore::HierarchyEntries.new
-      solr.reindex_hierarchy(Hierarchy.find(6))
-    end
-
-    # TODO: Absolutely absurd that this is not in the rank table.
+    # TODO: Absolutely ABSURD that this is not in the rank table. We're using
+    # "groups", without giving each group an appropriate label. We should do
+    # that.
     @solr_rank_map = {
       'kingdom' => :kingdom,
       'regn.' => :kingdom,
@@ -44,23 +41,24 @@ module SolrCore
       solr.reindex_hierarchy(hierarchy)
     end
 
+    # TODO: whoa, whoa, whoa: we should NOT be doing this here. :| We should be
+    # calling GN for this kind of thing. ...And it should already be in the DB!
+    # Argh.
+    def self.clean_canonical_form(string)
+      # TODO: do we _really_ want the "sp" here? I doubt it aids searches. :\
+      if string =~ /^(.* sp)\.?\b/
+        $1
+      else
+        string.gsub(/\s+(var|convar|subsp|ssp|cf|f|f\.sp|c|\*)\.?\b/, "")
+      end
+    end
+
     def initialize
       connect(CORE_NAME)
       @ancestors = {}
     end
 
-    # TODO: whoa, whoa, whoa: we should NOT be doing this here. :| We should be
-    # calling GN for this kind of thing. ...And it should already be in the DB!
-    # Argh.
-    def clean_canonical_form(string)
-      if string =~ /^(.* sp)\.?( |$)/
-        $1
-      else
-        string.gsub(/ (var|convar|subsp|ssp|cf|f|f\.sp|c|\*)\.?( |$)/, "\\2")
-      end
-    end
-
-    # TODO: PUT THE GORRAM CANONICAL FORM / STRING IN THE HE TABLE!!! GRRR!
+    # TODO: PUT THE GORRAM CANONICAL FORM / STRING IN THE H.E. TABLE!!! GRRR!
     def reindex_hierarchy(hierarchy)
       # NOTE: This could be MILLIONS of entries! Be sure you have the memory:
       objects = lookup_with_names(hierarchy.id)
@@ -83,7 +81,9 @@ module SolrCore
         where(hierarchy_id: hierarchy_id).find_in_batches do |entries|
         entries.each do |entry|
           if string = entry["canonical_form_string"]
-            entry["canonical_form"] = clean_canonical_form(string)
+            # TODO: deprecated. Don't do this.
+            entry["canonical_form"] =
+              self.class.clean_canonical_form(string)
           end
         end
         lookup_ancestries(entries)
@@ -93,12 +93,15 @@ module SolrCore
       objects
     end
 
+    # TODO: why don't we use flattened ancestors here? :S
     def lookup_ancestries(children)
       EOL.log_call
       already_found = Set.new(@ancestors.keys)
       next_ancestors = {}
       children.each do |child|
+        next if child["parent_id"] == 0
         next_ancestors[child.id] = child["parent_id"]
+        puts "next ancestor for #{child.id} = #{child["parent_id"]}"
       end
       parents = Set.new(next_ancestors.values)
       while ! parents.blank?
@@ -115,9 +118,9 @@ module SolrCore
           where([ "hierarchy_entries.id IN (?)", this_layer - already_found ]).
           find_each do |entry|
           # We will use the string field, though prefer canonical if it exists:
-          string = entry["canonical_form"] unless
-            entry["canonical_form"].blank?
+          string = entry["canonical_form"] unless entry["canonical_form"].blank?
           rank = self.class.rank_label(entry.rank_id)
+          puts "Rank of #{entry.id} is #{rank} (id #{entry.rank_id})"
           @ancestors[entry.id] = { rank: rank, string: string,
             next: entry["parent_id"] }
           parents << entry["parent_id"]
@@ -126,14 +129,12 @@ module SolrCore
         # Now add what we know to the children:
         children.each do |child|
           if ancestor = @ancestors[next_ancestors[child.id]]
-            EOL.log("#{ancestor[:rank]} -> #{ancestor[:string]}")
-            child.ancestor_names ||= {}
-            child.ancestor_names[ancestor[:rank]] = ancestor[:string] if
-              ancestor[:rank]
+            if ancestor[:rank]
+              child.ancestor_names ||= {}
+              child.ancestor_names.merge!(ancestor[:rank] => ancestor[:string])
+              puts "#{child.id} ancestors: #{child.ancestor_names.to_json}"
+            end
             next_ancestors[child.id] = ancestor[:next]
-          else
-            EOL.log("WARNING: could not find ancestor HE for "\
-              "#{child["next_ancestor"]}", prefix: "!")
           end
         end
         # Don't go past root nodes.
@@ -163,7 +164,7 @@ module SolrCore
           entry.synonyms << synonym["string"]
           if synonym["canonical_form"]
             entry.canonical_synonyms ||= []
-            entry.canonical_synonyms <<
+            entry.canonical_synonyms << self.class.
               clean_canonical_form(synonym["canonical_form"])
           end
         end

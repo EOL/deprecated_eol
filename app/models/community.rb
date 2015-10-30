@@ -8,18 +8,13 @@ class Community < ActiveRecord::Base
 
   has_many :members
   has_many :users, through: :members
-  has_many :collection_items, as: :collected_item # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION!
-  has_many :containing_collections, through: :collection_items, source: :collection
+  # THIS IS COLLECTION ITEMS POINTING AT THIS COLLECTION:
+  has_many :collection_items, as: :collected_item
+  has_many :containing_collections, through: :collection_items,
+    source: :collection
   has_many :comments, as: :parent
 
-  scope :published, conditions: 'published = 1'
-
-  scope :in_group, lambda{ |group| {
-      select: "`photos`.*",
-      joins: "INNER JOIN `users` on `users`.id = `photos`.user_id INNER
-  JOIN `groups_users` ON `users`.id = `groups_users`.user_id",
-      conditions: ["`groups_users`.group_id = ?", group.id]
-    }}
+  scope :published, -> { where(published: true) }
 
   validates_presence_of :name, message: I18n.t(:cannot_be_empty)
   validates_length_of :name, maximum: 127, message: I18n.t(:must_be_less_than_128_characters_long)
@@ -93,7 +88,7 @@ class Community < ActiveRecord::Base
   def all_items_in_all_collections_count
     @all_items_count ||= collections.map { |c| c.collection_items_count }.reduce(:+)
   end
-  
+
   def cached_count_members
     Rails.cache.fetch("communities/cached_count_members/#{self.id}", expires_in: 10.minutes) do
       members.count

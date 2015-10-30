@@ -17,6 +17,7 @@ class Synonym < ActiveRecord::Base
     "(synonym_relation_id IN (?))", SynonymRelation.common_name_ids]) }
   scope :not_common_names, -> { where(["language_id = 0 AND "\
     "synonym_relation_id NOT IN (?)", SynonymRelation.common_and_acronym_ids]) }
+  scope :unpublished, -> { where(published: false) }
 
   before_save :set_preferred
   after_update :update_taxon_concept_name

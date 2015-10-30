@@ -1,4 +1,4 @@
-module SolrCore
+class SolrCore
   class HierarchyEntryRelationships < SolrCore::Base
     # Yes, it's really singular. I didn't design it:
     CORE_NAME = "hierarchy_entry_relationship"

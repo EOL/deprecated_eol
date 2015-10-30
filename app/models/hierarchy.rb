@@ -154,9 +154,20 @@ class Hierarchy < ActiveRecord::Base
     end
   end
 
+  def merge_matching_concepts
+    Hierarchy::ConceptMerger.merges_for_hierarchy(self)
+  end
+
+  # Returns (a potentially VERY large) array of ids that were previously
+  # published.
   def unpublish
-    unpublish_and_hide_hierarchy_entries
+    ids = unpublish_and_hide_hierarchy_entries
     unpublish_synonyms
+    ids
+  end
+
+  def request_to_publish_can_be_made?
+    !self.browsable? && !request_publish
   end
 
   def user_or_agent
@@ -175,10 +186,6 @@ class Hierarchy < ActiveRecord::Base
     else
       label
     end
-  end
-
-  def request_to_publish_can_be_made?
-    !self.browsable? && !request_publish
   end
 
   def display_title
@@ -207,8 +214,10 @@ private
   end
 
   def unpublish_and_hide_hierarchy_entries
-    hierarchy_entries.where(published: true).
+    entry_ids = hierarchy_entries.where(published: true).pluck(:id)
+    hierarchy_entries.where(id: entry_ids).
       update_all(published: false, visibility_id: Visibility.get_invisible.id)
+    entry_ids
   end
 
   def unpublish_synonyms

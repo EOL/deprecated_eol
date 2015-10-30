@@ -22,7 +22,12 @@ class Hierarchy
     # be rather hairy! TODO
     def flatten
       EOL.log_call
-      study_hierarchy
+      begin
+        study_hierarchy
+      rescue EmptyHierarchyFlattened => e
+        EOL.log("WARNING: Hiearrchy #{@hierarchy.id} is empty!", prefix: "!")
+        return nil
+      end
       build_ancestry
       build_flat_entries_and_concepts
       update_tables
@@ -41,7 +46,7 @@ class Hierarchy
         @children[entry.parent_id] << entry.id
         @taxa[entry.id] = entry.taxon_concept_id
       end
-      raise "Empty hierarchy" if @children.empty?
+      raise EOL::Exceptions::EmptyHierarchyFlattened.new if @children.empty?
     end
 
     def build_ancestry
@@ -77,6 +82,7 @@ class Hierarchy
     end
 
     def update_tables
+      debugger
       EOL.log_call
       HierarchyEntriesFlattened.delete_hierarchy_id(@hierarchy.id)
       EOL::Db.bulk_insert(HierarchyEntriesFlattened,

@@ -634,7 +634,7 @@ FactoryGirl.define do
   factory :data_objects_harvest_event do
     association :harvest_event
     association :data_object
-    guid        { s = ''; 32.times { s += ((0..9).to_a.map{|n| n.to_s} + %w{a b c d e f}).sample }; s } # ICK!
+    guid        { data_object.guid }
     status      { Status.inserted || Status.gen_if_not_exists(:label => 'inserted') }
   end
 
@@ -684,7 +684,7 @@ FactoryGirl.define do
     completed_at  Time.now
     file_number   1
   end
-  
+
   factory :collection_download_file do
     user_id 1
     collection_id 1
@@ -843,24 +843,24 @@ FactoryGirl.define do
   end
 
   factory :hierarchy_entry do
-    guid           { generate(:guid) }
-    identifier     ''
-    source_url     ''
-    association    :name
-    association    :rank
-    parent_id      0
-    association    :hierarchy
-    rank_id        184
-    ancestry       ''
-    lft            1
-    rgt            2
-    depth          2
-    association    :taxon_concept
-    vetted         { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
-    published      1
+    guid        { generate(:guid) }
+    identifier  ''
+    source_url  ''
+    association :name
+    association :rank
+    parent_id   0
+    association :hierarchy
+    rank_id     184
+    ancestry    ''
+    lft         1
+    rgt         2
+    depth       2
+    association :taxon_concept
+    vetted      { Vetted.trusted || Vetted.gen_if_not_exists(:label => 'Trusted') }
+    published   true
     visibility  { Visibility.visible }
-    created_at     Time.now
-    updated_at     Time.now
+    created_at  Time.now
+    updated_at  Time.now
   end
 
   factory :image_crop do
@@ -1157,7 +1157,7 @@ FactoryGirl.define do
     association :taxon_concept
     association :data_object
   end
-  
+
   factory :taxon_concept_exemplar_article do
     association :taxon_concept
     association :data_object
@@ -1522,7 +1522,7 @@ FactoryGirl.define do
     year { generate(:year) }
     month { generate(:month) }
   end
-  
+
   factory :institutional_sponsor do
     name "Sponsor_name"
     logo_url "Sponosr_logo_url"

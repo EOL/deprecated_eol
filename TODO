@@ -57,7 +57,7 @@ each resource:
       # Rebuilds HierarchyEntryRelationship, indexes in Solr. This is used for
       # concept assignment... and I believe nothing else. :\ TODO: rename,
       # should be HierarchyEntryRelationship.rebuilder to be consistent.
-    Hierarchy::ConceptAssignment.assign_for_hierarchy
+    Hierarchy::ConceptMerger.ConceptMerger
       # merges taxon concepts which appear to be "matching" TODO: rename. :|
     Resource::Publisher#create_taxon_mappings_graph
       # Creates (replaces) a Virtuoso graph which maps all the entries in the

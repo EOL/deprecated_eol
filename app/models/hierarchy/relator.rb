@@ -1,6 +1,9 @@
+# This is a bit of a misnomer. ...This class could have been called
+# HierarchyEntryRelationship::Relator (or the like), however it seemed more
+# natural to be called from the context of a hierachy, so I'm putting it here.
+# It creates HierarchyEntryRelationships, though.
 class Hierarchy
-  # TODO: (major) ... what are HierarchyEntryRelationships _for_? It's not at
-  # all clear. TODO: score are stored as floats... this is dangerous, and we
+  # TODO: scores are stored as floats... this is dangerous, and we
   # don't do anything with them that warrants it (other than multiply, which can
   # be achieved other ways). Let's switch to using a 0-100 scale, which is more
   # stable.
@@ -16,6 +19,7 @@ class Hierarchy
     ]
     RANK_WEIGHTS = { "family" => 100, "order" => 80, "class" => 60,
       "phylum" => 40, "kingdom" => 20 }
+
     RANK_GROUPS = Hash[ *(Rank.where("rank_group_id != 0").
       flat_map { |r| [ r.id, r.rank_group_id ] }) ]
     # I am not going to freak out about the fact that TODO: this needs to be in

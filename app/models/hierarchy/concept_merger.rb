@@ -1,6 +1,6 @@
 class Hierarchy
-  class ConceptAssignment
-    def self.assign_for_hierarchy(hierarchy)
+  class ConceptMerger
+    def self.merges_for_hierarchy(hierarchy)
       assigner = self.new(hierarchy)
       assigner.assign
     end

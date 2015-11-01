@@ -206,11 +206,6 @@ class Resource < ActiveRecord::Base
     Resource.find(find_this)
   end
 
-  # TODO: move to hierarchy. Also, rename... this simply MERGES concepts.
-  def assign_concepts
-    Hierarchy::ConceptAssignment.assign_for_hierarchy(self)
-  end
-
   def status_label
     (resource_status.nil?) ?  I18n.t(:content_partner_resource_resource_status_new) : resource_status.label
   end
@@ -392,11 +387,11 @@ class Resource < ActiveRecord::Base
     Resource.first.pause
   end
 
-  # TODO: we should really store the resource_id on the data object; then use
-  # that to unpublish everything. As-is, we _must_ rely on harvest events, which
-  # (NOTE) leaves the opportunity (albeit a rare one—a process would have to
-  # break in the middle for this to happen) that an old harvest will still have
-  # published objects...
+  # TODO: we should really store the resource_id (indexed, even) on the data
+  # object; then use that to unpublish everything. As-is, we _must_ rely on
+  # harvest events, which (NOTE) leaves the opportunity (albeit a rare one—a
+  # process would have to break in the middle for this to happen) that an old
+  # harvest will still have published objects...
   def unpublish_data_objects
     EOL.log_call
     latest_published_harvest_event_uncached.data_objects.

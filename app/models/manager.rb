@@ -20,29 +20,7 @@ class Manager
         resource.harvest
       end
       batch.post_harvesting
-      denormalize_tables
       optimize_solr_if_needed
-    end
-
-    def denormalize_tables
-      EOL.log_call
-      DataObjectsTaxonConceptsDenormalizer.denormalize
-      # TODO: this is really silly. We should just handle this as we do the
-      # harvest... no need to rebuild the WHOLE THING every time! Just silly.
-      # Bah. ...Can't add that until we port harvesting, though.
-      DataObjectsTableOfContent.rebuild
-      # TODO: this is not an efficient algorithm. We should change this to store
-      # the scores in the DB as well as some kind of tree-structure of taxa
-      # (which could also be used elsewhere!), and then build things that way;
-      # we should also actually store the sort order in this table, rather than
-      # overloading the id (!); that would allow us to update the table only as
-      # needed, based on what got harvested (i.e.: a list of data objects
-      # inserted could be used to figure out where they lie in the sort, and
-      # update the orders as needed based on that—much faster.)
-      TopImage.rebuild
-      RandomHierarchyImage.create_random_images_from_rich_taxa
-      TaxonConceptPreferredEntry.rebuild
-      EOL.log("denormalize_tables finished", prefix: "#")
     end
 
     def pause

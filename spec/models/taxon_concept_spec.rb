@@ -70,13 +70,13 @@ describe TaxonConcept do
     @child1              = @testy[:child1]
     @child2              = @testy[:child2]
     @sub_child           = @testy[:sub_child]
-    
+
     @taxon_concept_common_name_at_start = @taxon_concept.preferred_common_name_in_language(Language.default) # allows changes later if needed
     @taxon_media_parameters = {}
     @taxon_media_parameters[:per_page] = 100
     @taxon_media_parameters[:data_type_ids] = DataType.image_type_ids + DataType.video_type_ids + DataType.sound_type_ids
     @taxon_media_parameters[:return_hierarchically_aggregated_objects] = true
-    
+
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
   end
 
@@ -241,14 +241,14 @@ describe TaxonConcept do
       item.vetted_by_taxon_concept(@taxon_concept)
     }.uniq.should == [Vetted.trusted, Vetted.unknown]
   end
-  
+
   it 'should return media sorted by trusted, unknown, untrusted' do
     @taxon_concept.reload
     @taxon_concept.data_objects_from_solr(@taxon_media_parameters.merge(data_type_ids: DataType.image_type_ids, vetted_types: ['trusted', 'unreviewed', 'untrusted'])).map { |item|
       item.vetted_by_taxon_concept(@taxon_concept)
     }.uniq.should == [Vetted.trusted, Vetted.unknown, Vetted.untrusted]
   end
-  
+
 
   it 'should sort the vetted images by data rating' do
     ratings = @taxon_concept.images_from_solr(100).select { |item|
@@ -485,7 +485,7 @@ describe TaxonConcept do
     # Here
     @testy[:has_one_image].exemplar_or_best_image_from_solr.id.should == @testy[:the_one_image].id
   end
-  
+
   it 'should not return unpublished exemplar image' do
     @testy[:has_one_unpublished_image].exemplar_or_best_image_from_solr.should be_nil
   end
@@ -740,7 +740,7 @@ describe TaxonConcept do
 
   it 'should know what is a species_or_below?' do
     # HE.rank_id cannot be NULL
-    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'), 
+    expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'),
                                comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: []).species_or_below?).to eq(false)
     expect(build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'genus')),
                                comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: []).species_or_below?).to eq(false)
@@ -802,7 +802,7 @@ describe TaxonConcept do
     it 'should lock classifications and create a ClassificationCuration' do
       @taxon_concept.classifications_locked?.should_not be_true
       ClassificationCuration.should_receive(:create).and_return(nil)
-      @taxon_concept.split_classifications(@entries, user: @user, exemplar_id: @exemplar) 
+      @taxon_concept.split_classifications(@entries, user: @user, exemplar_id: @exemplar)
       @taxon_concept.reload
       @taxon_concept.classifications_locked?.should be_true
     end
@@ -888,7 +888,5 @@ describe TaxonConcept do
       @taxon_concept.merge_classifications(@entries, with: @with, user: @user, forced: true,
                                            exemplar_id: @exemplar)
     end
-
   end
-
 end

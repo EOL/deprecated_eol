@@ -193,16 +193,15 @@ class CollectionItem < ActiveRecord::Base
       object_type: collected_item_type,
       object_id: collected_item_id,
       collection_id: collection_id,
-      # TODO: test whether symbols work: ;×"'|\n\r\t utf8 nil
-      annotation: annotation,
+      annotation: SolrCore.string(annotation),
       added_by_user_id: added_by_user_id,
-      # TODO: test whether these defaults are actually needed:
-      date_created: created_at || '1960-01-01T00:00:01Z',
-      date_modified: updated_at || '1960-01-01T00:00:01Z',
-      title: collected_item.collected_name,
+      # TODO: test whether these defaults are actually needed: ALSO, these need to be formatted.
+      date_created: SolrCore.date(created_at),
+      date_modified: SolrCore.date(updated_at),
+      title: SolrCore.string(collected_item.collected_name),
       richness_score: richness_score || 0,
       data_rating: data_object_rating,
-      sort_field: sort_field
+      sort_field: SolrCore.string(sort_field)
     }
   end
 end

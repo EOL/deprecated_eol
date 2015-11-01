@@ -1,5 +1,7 @@
 module DataSearchHelper
 
+  DATA_SEARCH_FILE_MAX_DURATION = 4
+
   def data_search_results_summary
     return "" if @results.nil?
     search_term_to_show = [
@@ -16,6 +18,10 @@ module DataSearchHelper
         taxon_overview_url(@taxon_concept)))
     end
     raw summary
+  end
+  
+  def long_processing_data_search_file?(search_file)
+    ((Time.now - search_file.created_at)/1.hour).round > DATA_SEARCH_FILE_MAX_DURATION
   end
   
   def data_search_file?(download_file)

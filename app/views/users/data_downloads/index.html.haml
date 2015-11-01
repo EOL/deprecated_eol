@@ -53,6 +53,8 @@
                       %li= link_to(I18n.t(:delete), user_data_download_path(search_file.user, search_file, type: 0), method: :delete, confirm: I18n.t(:are_you_sure))
                     - else
                       %li= link_to(I18n.t(:cancel_and_delete), user_data_download_path(search_file.user, search_file, type: 0), method: :delete, confirm: I18n.t(:are_you_sure))
+                      - if long_processing_data_search_file?(search_file)
+                        %li= link_to(I18n.t('users.data_downloads.contact_us'), contact_us_path)
                     %li= link_to(I18n.t('users.data_downloads.search_again'), redo_search_url)
             - else
               %li.data{ class: (! search_file.complete?) ? 'pending' : nil }

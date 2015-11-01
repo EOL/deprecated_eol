@@ -124,6 +124,7 @@ class Collection < ActiveRecord::Base
         raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
                                                                     klass: what.class.name))
       end
+      debugger
     collection_items << item = CollectionItem.create(collected_item: what, name: name, collection: self, added_by_user: opts[:user])
     item # Convenience.  Allows us to know the collection_item created and possibly chain it.
   end

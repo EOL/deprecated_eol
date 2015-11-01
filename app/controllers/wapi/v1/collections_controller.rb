@@ -16,40 +16,27 @@ module Wapi
       end
 
       def create
-
+        if params[:collection]
+          # And, of course, we expect the user to be pre-populated based on key:
+          params[:collection][:users] = [@user]
+          coll_items_params = params[:collection][:collection_items]? params[:collection].delete(:collection_items) : nil
+        end
         ActiveRecord::Base.transaction do
           begin
-            if params[:collection]
-              if params[:collection][:collection_items]
-                # Rails wants "collection_items_attributes", which it would use if
-                # generating the form itself, but that's lame in the context of 3rd
-                # party input JSON, so I update it here:
-                params[:collection][:collection_items_attributes] =
-                 params[:collection].delete(:collection_items)
-                params[:collection][:collection_items_attributes].each do |hash|
-                  hash[:added_by_user_id] = @user.id
-                end
-              end
-              # And, of course, we expect the user to be pre-populated based on key:
-              params[:collection][:users] = [@user]
-            end
-            unless params[:collection][:collection_items_attributes].blank?
-              params[:collection].merge(collection_items_count: params[:collection][:collection_items_attributes].count)
-            end
             @collection = Collection.create!(params[:collection])
+            collection_items = add_collection_items(coll_items_params) if coll_items_params
             @collection.save
             respond_with @collection.reload
-          rescue
+          rescue Exception => e
             respond_with(@collection, status: :unprocessable_entity) do |format|
-              format.json { render json: (I18n.t :collection_create_failure).to_json }
+              format.json { render json: (I18n.t(:collection_create_failure) + e.to_s).to_json }
             end
             raise ActiveRecord::Rollback
-        end
+          end
         end
       end
 
       def update
-
         if @collection.blank?
           respond_with do |format|
             format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :not_found }
@@ -63,7 +50,7 @@ module Wapi
               if params[:collection][:collection_items]
               @collection.items.destroy_all
                 params[:collection][:collection_items].each do |item|
-                  collection_item = CollectionItem.create( item.except!(:id, :updated_at, :created_at).merge(collection_id: @collection.id))
+                  collection_item = CollectionItem.create!( item.except!(:id, :updated_at, :created_at).merge(collection_id: @collection.id))
                 end
               end
               @collection.update_attributes(params[:collection].except!(:id, :updated_at, :created_at, :collection_items).
@@ -74,7 +61,7 @@ module Wapi
             end
           rescue
             respond_with do |format|
-              format.json { render json: I18n.t("collection_update_failure", collection: @collection.id).to_json, status: :ok }
+              format.json { render json: (I18n.t("collection_update_failure", collection: @collection.id) + e.to_s).to_json, status: :ok }
             end
             raise ActiveRecord::Rollback
           end
@@ -98,6 +85,19 @@ module Wapi
 
       private
 
+      def add_collection_items(coll_items_params)
+        collection_items = []
+        coll_items_params.each do |item_params|
+          raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
+            klass: item_params["collected_item_type"])) if ! ['TaxonConcept', 'User', 'DataObject', 'Community', 'Collection'].include? item_params["collected_item_type"]
+          item_params[:collection_id] = @collection.id
+          item_params[:added_by_user_id] = @user.id
+          collection_items << CollectionItem.create!(item_params)
+        end
+        @collection.collection_items = collection_items
+        @collection.collection_items_count = collection_items.count
+      end
+      
       def find_collection
         @collection = Collection.find_by_id(params[:id])
       end

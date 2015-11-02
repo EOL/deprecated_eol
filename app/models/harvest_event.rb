@@ -123,7 +123,12 @@ class HarvestEvent < ActiveRecord::Base
     HarvestEvent::SiteSearchIndexer.index_harvest_event(self)
   end
 
-  def relate_hierarchy
+  def merge_matching_concepts
+    relate_new_hierarchy_entries
+    hierarchy.merge_matching_concepts
+  end
+
+  def relate_new_hierarchy_entries
     EOL.log_call
     Hierarchy::Relator.relate(hierarchy, entry_ids: new_hierarchy_entry_ids)
   end

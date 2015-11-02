@@ -31,6 +31,10 @@ class TaxonConceptName
       # This also populates @preferred_in_language (they are related)
       get_common_names
       ensure_languages_have_a_preferred_name
+      prepare_scientific_names
+      prepare_common_names
+      # NOTE: this removes both scientific AND common!
+      delete_existing_taxon_concept_names
       insert_scientific_names
       insert_common_names
     end
@@ -113,8 +117,7 @@ class TaxonConceptName
             # DB ignored that value and forced it to be 0. Since that's the
             # way it's been since time began, I'm going to keep it that way,
             # and just make it clearer here that it will NOT be preferred:
-            @matching_ids[tc_id][name["canonical_name_id"]][0] =
-              :synonym
+            @matching_ids[tc_id][name["canonical_name_id"]][0] = :synonym
           end
         end
       end
@@ -150,7 +153,7 @@ class TaxonConceptName
         ( synonym.hierarchy_entry.published? &&
           synonym.hierarchy_entry.visibility_id == Visibility.get_visible.id )
         # NOTE: yes, this really is has_key? and does NOT check the value of the
-        # boolean. I think this Is trying to say "this one can't be preferred if
+        # boolean. I think this is trying to say "this one can't be preferred if
         # we already have a preferred entry in this language."
         preferred = false if
           @preferred_in_language[tc_id].has_key?(synonym.language_id)
@@ -173,12 +176,12 @@ class TaxonConceptName
     end
 
     def ensure_languages_have_a_preferred_name
-      @common_names.each do |tc_id, arr| # TODO rename
-        arr.each_with_index do |hash, i|
-          if there_was_no_preferred_name(tc_id, hash[:language_id]) &&
-            not_untrusted?(hash[:vetted_id])
-            @common_names[tc_id][i][:preferred] = true
-            @preferred_in_language[tc_id][hash[:language_id]] = true
+      @common_names.each do |tc_id, common_name_hashes|
+        common_name_hashes.each_with_index do |common_name_h, index|
+          if there_was_no_preferred_name(tc_id, common_name_h[:language_id]) &&
+            not_untrusted?(common_name_h[:vetted_id])
+            @common_names[tc_id][index][:preferred] = true
+            @preferred_in_language[tc_id][common_name_h[:language_id]] = true
           end
         end
       end
@@ -186,7 +189,7 @@ class TaxonConceptName
 
     # TODO: badly named; this is three steps: preparing the data, deleting
     # existing rows, and inserting the data. Break up and name appropriately.
-    def insert_scientific_names
+    def prepare_scientific_names
       data = Set.new
       @matching_ids.each do |tc_id, arr|
         arr.each do |name_id, arr2| # TODO: rename
@@ -197,8 +200,13 @@ class TaxonConceptName
           end
         end
       end
+    end
+
+    def delete_existing_taxon_concept_names
       TaxonConceptName.where(taxon_concept_id: tc_ids).delete_all
-      # "Insert the scientific names"
+    end
+
+    def insert_scientific_names
       EOL::Db.bulk_insert(TaxonConceptName,
         # NOTE: PHP didn't bother with the last two fields, synonym_id and
         # vetted_id. I guess that means scientific names are always considered
@@ -210,7 +218,7 @@ class TaxonConceptName
         data.to_a)
     end
 
-    def insert_common_names
+    def prepare_common_names
       data = Set.new
       @common_names.each do |tc_id, arr| # TODO rebnamne
         arr.each do |key, arr2| # TODO rename
@@ -219,6 +227,9 @@ class TaxonConceptName
             "#{arr2[:synonym_id]},#{arr2[:vetted_id]}"
         end
       end
+    end
+
+    def insert_common_names
       EOL::Db.bulk_insert(TaxonConceptName,
         [:taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id,
           :vern, :preferred, :synonym_id, :vetted_id],

@@ -61,7 +61,7 @@ module EOL
         "http://eol.org"
       end
 
-      def mappings_graph_name(resource)
+      def entry_to_taxon_graph_name(resource)
         resource_graph_name(resource) + "/mappings"
       end
 

@@ -2,7 +2,7 @@ class Hierarchy
   class ConceptMerger
     def self.merges_for_hierarchy(hierarchy)
       assigner = self.new(hierarchy)
-      assigner.assign
+      assigner.merges_for_hierarchy
     end
 
     def initialize(hierarchy)
@@ -19,15 +19,14 @@ class Hierarchy
     # NOTE: this used to use DB transactions, but A) it was doing it wrong
     # (nested), and B) it did them "every 50 batches", which is awkward and...
     # well... useless anyway. I am going to do this WITHOUT A TRANSACTION. Deal
-    # with it.
-    def assign
+    # with it. NOTE: this relies on hierarchy_entries_counts being correct. ...I
+    # am making that assumption because I just saw the code in harvesting that
+    # sets it, so I think it's there. :) However, you may still wish TODO to fix
+    # counts periodically (say, once a month).
+    def merges_for_hierarchy
       EOL.log_call
       lookup_preview_harvests
       get_confirmed_exclusions
-      # TODO: this is slow; once we have harvesting ported, we can ensure that
-      # it is corrected for each harvest, which is adequate. In that case,
-      # simply remove this fix_counts:
-      HierarchyEntry.counter_culture_fix_counts
       # TODO: DON'T hard-code this (this is GBIF Nub Taxonomy). Instead, add an
       # attribute to hierarchies called "never_merge_concepts" and check that.
       # Also make sure curators can set that value from the resource page.
@@ -269,6 +268,9 @@ class Hierarchy
     end
 
     def entry_preview_in_hierarchy?(which, relationship, hierarchy)
+      # TODO: I'm not sure this actually saves us much time. Worth it?
+      return false unless
+        @latest_preview_events_by_hierarchy.has_key?(hierarchy.id)
       entry_has_vis_id_in_hierarchy?(which, relationship, @preview_id,
         hierarchy)
     end
@@ -305,12 +307,9 @@ class Hierarchy
       false
     end
 
-    # TODO: I don't get this. I've peeled it apart from the PHP method, and I'm
-    # sure this represents what it was doing (much more elegantly and
-    # efficiently). ...But this seems _incredibly_ common: one taxon concept has
-    # an entry in a complete hierarchy and the other taxon concept also has an
-    # entry in that hierarchy. ...Wouldn't that happen... almost always? [shrug]
-    # Keeping it as-is, but: not sure we want this test! :|
+    # One taxon concept has an entry in a complete hierarchy and the other taxon
+    # concept also has an entry in that hierarchy. ...Merging them would violate
+    # the other hierarchy's assertion that they are different entities.
     def additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
       from_first = HierarchyEntry.visible.
         joins(:hierarchy).

@@ -22,7 +22,7 @@ class SolrCore
       relationships = []
       HierarchyEntryRelationship.for_hashes.
         find_each do |relationship|
-        relationships << relationship.to_hash # TODO
+        relationships << relationship.to_hash
       end
       # TODO: I am not 100% that this will work with a really big array:
       add_items(relationships)

@@ -43,12 +43,9 @@ class Resource
       TaxonConcept.unpublish_and_hide_by_entry_ids(
         new_entry_ids - old_entry_ids)
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
-      # TODO: Honestly, I think this should be part of #merge_matching_concepts,
-      # somehow...
-      @harvest_event.relate_hierarchy
       # NOTE: This is a doozy of a method!
-      @resource.hierarchy.merge_matching_concepts
-      create_taxon_mappings_graph
+      @harvest_event.merge_matching_concepts
+      EOL::Sparql::EntryToTaxonMap.create_graph(resource)
       ActiveRecord::Base.connection.transaction do
         @resource.rebuild_taxon_concept_names
       end
@@ -61,24 +58,6 @@ class Resource
       @resource.update_attributes(resource_status_id:
         ResourceStatus.published.id)
       @resource.save_resource_contributions
-    end
-
-    # TODO: This doesn't feel like the right place for this method; too much
-    # Sparql knowledge. Not sure where is "right," probably a new class.
-    def create_taxon_mappings_graph
-      sparql = EOL::Sparql::Connection.new
-      mappings_graph = sparql.mappings_graph_name(@resource)
-      triples = Set.new
-      HierarchyEntry.has_identifier.
-        where(hierarchy_id: @resource.hierarchy_id).
-        select("id, identifier, taxon_concept_id").find_each do |entry|
-        triples <<
-          "<#{sparql.entry_uri(entry, resource: @resource)}> "\
-          "dwc:taxonConceptID "\
-          "<#{sparql.taxon_concept_uri(entry.taxon_concept_id)}>"
-      end
-      sparql.delete_graph(mappings_graph)
-      sparql.insert_into_graph(mappings_graph, triples)
     end
   end
 end

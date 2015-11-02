@@ -1199,7 +1199,7 @@ en:
       about_link_what_is_eol: What is EOL?
       about_link_traitbank: What is TraitBank?
       about_link_eol_blog: The EOL Blog
-      about_link_discover: Discover
+      about_link_discover: Education
       about_link_statistics: Statistics
       about_link_glossary: Glossary
       about_link_podcasts: Podcasts
@@ -3506,7 +3506,7 @@ en:
   details_title: "Details"
   did_you_mean: "Did you mean: %{suggestions} ?"
   disabled_for_now: "DISABLED FOR NOW"
-  discover_link: "Discover"
+  discover_link: "Education"
   displaying_numerical_range_eol_records_with_count:
     one: "Displaying the %{count} record on EOL"
     other: "Displaying %{start_number} &ndash; %{end_number} of %{count} records on EOL"

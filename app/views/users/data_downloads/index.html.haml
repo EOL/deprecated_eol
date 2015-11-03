@@ -44,6 +44,10 @@
                   %p.meta
                     = raw I18n.t(:submitted_colon)
                     = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(search_file.updated_at))
+                    %br
+                    - if long_processing_data_search_file?(search_file)
+                      = I18n.t('users.data_downloads.file_not_processed')
+                      = link_to(I18n.t('users.data_downloads.contact_us'), contact_us_path)
                 %ul.actions
                   - if search_file.complete?
                     - if search_file.downloadable?
@@ -53,8 +57,6 @@
                       %li= link_to(I18n.t(:delete), user_data_download_path(search_file.user, search_file, type: 0), method: :delete, confirm: I18n.t(:are_you_sure))
                     - else
                       %li= link_to(I18n.t(:cancel_and_delete), user_data_download_path(search_file.user, search_file, type: 0), method: :delete, confirm: I18n.t(:are_you_sure))
-                      - if long_processing_data_search_file?(search_file)
-                        %li= link_to(I18n.t('users.data_downloads.contact_us'), contact_us_path)
                     %li= link_to(I18n.t('users.data_downloads.search_again'), redo_search_url)
             - else
               %li.data{ class: (! search_file.complete?) ? 'pending' : nil }

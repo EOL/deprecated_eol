@@ -1,6 +1,6 @@
 module DataSearchHelper
 
-  DATA_SEARCH_FILE_MAX_DURATION = 4
+  DATA_SEARCH_FILE_MAX_DURATION = 4.hours
 
   def data_search_results_summary
     return "" if @results.nil?
@@ -21,7 +21,7 @@ module DataSearchHelper
   end
   
   def long_processing_data_search_file?(search_file)
-    ((Time.now - search_file.created_at)/1.hour).round > DATA_SEARCH_FILE_MAX_DURATION
+    search_file.created_at + DATA_SEARCH_FILE_MAX_DURATION < Time.now
   end
   
   def data_search_file?(download_file)

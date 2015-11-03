@@ -41,45 +41,51 @@ module Wapi
           respond_with do |format|
             format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :not_found }
           end
-          return
-        end
-        head :unauthorized and return unless @user && @user.can_update?(@collection)
-        ActiveRecord::Base.transaction do
-          begin
-            if params[:collection]
-              if params[:collection][:collection_items]
-              @collection.items.destroy_all
-                params[:collection][:collection_items].each do |item|
-                  collection_item = CollectionItem.create!( item.except!(:id, :updated_at, :created_at).merge(collection_id: @collection.id))
+        elsif !@user || !@user.can_update?(@collection)
+          respond_with do |format|
+            format.json { render json: (I18n.t("collection_update_unauthorized_user", collection_id: @collection.id)).to_json, status: :ok }
+          end  
+        else
+          ActiveRecord::Base.transaction do
+            begin
+              if params[:collection]
+                if params[:collection][:collection_items]
+                @collection.items.destroy_all
+                  params[:collection][:collection_items].each do |item|
+                    collection_item = CollectionItem.create!( item.except!(:id, :updated_at, :created_at).merge(collection_id: @collection.id))
+                  end
+                end
+                @collection.update_attributes(params[:collection].except!(:id, :updated_at, :created_at, :collection_items).
+                 merge(collection_items_count: @collection.items.count))
+                respond_with do |format|
+                  format.json { render json: @collection.to_json, status: :ok }
                 end
               end
-              @collection.update_attributes(params[:collection].except!(:id, :updated_at, :created_at, :collection_items).
-               merge(collection_items_count: @collection.items.count))
+            rescue
               respond_with do |format|
-                format.json { render json: @collection.to_json, status: :ok }
+                format.json { render json: (I18n.t("collection_update_failure", collection: @collection.id) + e.to_s).to_json, status: :ok }
               end
+              raise ActiveRecord::Rollback
             end
-          rescue
-            respond_with do |format|
-              format.json { render json: (I18n.t("collection_update_failure", collection: @collection.id) + e.to_s).to_json, status: :ok }
-            end
-            raise ActiveRecord::Rollback
           end
         end
       end
 
       def destroy
         if @collection.blank?
-           respond_with do |format|
-          format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :not_found }
-            end
-          return
-        end
-        head :unauthorized and return unless @user && @user.can_update?(@collection)
-        @collection.collection_items.destroy_all
-        @collection.destroy
-        respond_with do |format|
-          format.json { render json: I18n.t("collection_removed", collection: @collection.id).to_json, status: :ok }
+          respond_with do |format|
+            format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :not_found }
+          end
+        elsif !@user || !@user.can_delete?(@collection)
+          respond_with do |format|
+            format.json { render json: I18n.t("collection_delete_unauthorized_user", collection_id: @collection.id).to_json, status: :ok }
+          end
+        else 
+          @collection.collection_items.destroy_all
+          @collection.destroy
+          respond_with do |format|
+            format.json { render json: I18n.t("collection_removed", collection: @collection.id).to_json, status: :ok }
+          end
         end
       end
 

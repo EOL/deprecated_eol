@@ -3,7 +3,9 @@ describe "Collections API V1" do
 
   before(:all) do
     @key = "1234123"
+    @another_key = "56789567"
     @user = User.gen(api_key: @key)
+    @unauthorized_user = User.gen(api_key: @another_key)
     DataType.create_enumerated
     License.create_enumerated
   end
@@ -200,14 +202,9 @@ describe "Collections API V1" do
         @collection = Collection.last
     end
     
-    it "should deny access to unauthorized users" do
-      put "/wapi/collections/#{@collection.id}", {collection: {name: "another_name"}}
-      expect(response.response_code) == :unauthorized
-    end
-    
-    it "should deny access to wrong token user" do
-      put "/wapi/collections/#{@collection.id}", {collection: {name: "another_name"}}, {"HTTP_AUTHORIZATION" => encode("wrong_key")}
-      expect(response.response_code) == :unauthorized
+    it "should not allow a user to edit a collection without edit access" do
+      put "/wapi/collections/#{@collection.id}", {collection: {name: "another_name"}}, {"HTTP_AUTHORIZATION" => encode(@another_key)}
+      expect(response.body).to include(I18n.t("collection_update_unauthorized_user", collection_id: @collection.id))
     end
     
     it "should update the collection name" do
@@ -223,7 +220,7 @@ describe "Collections API V1" do
 end 
   
   describe "Delete collection" do
-    before :all do
+    before :each do
       taxon =  TaxonConcept.gen
       Collection.delete_all
       $FOO = true
@@ -243,13 +240,8 @@ end
     end
     
     it "should deny access to unauthorized user" do
-      delete "/wapi/collections/#{@collection.id}", {collection: {name: "another_name"}}
-      expect(response.response_code) == :unauthorized
-    end
-    
-    it "should deny access to wrong token user" do
-      delete "/wapi/collections/#{@collection.id}", {collection: {name: "another_name"}}, {"HTTP_AUTHORIZATION" => encode("wrong_key")}
-      expect(response.response_code) == :unauthorized
+      delete "/wapi/collections/#{@collection.id}", {collection: {name: "another_name"}}, {"HTTP_AUTHORIZATION" => encode(@another_key)}
+      expect(response.body).to include(I18n.t("collection_delete_unauthorized_user", collection_id: @collection.id))
     end
     
     it "should delete the list and returns success" do

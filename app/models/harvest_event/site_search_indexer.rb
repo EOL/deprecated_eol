@@ -20,24 +20,5 @@ class HarvestEvent
       @solr.index_type(TaxonConcept, HierarchyEntry.where(
         id: @harvest_event.new_hierarchy_entry_ids).pluck(:taxon_concept_id))
     end
-
-    def insert_batch(klass, ids) # TODO: this is what gets called, sooo...
-      objects = call("get_#{klass.underscore.pluralize}")
-      ids.in_groups_of(1000, false) do |batch|
-        @solr.delete("resource_type:#{klass} AND "\
-          "resource_id:(#{batch.join(" OR ")})")
-      end
-      if objects
-      end
-      @solr.commit
-      # // add new ones if available
-      # if(isset($this->objects) && $this->objects)
-      # {
-      #     if($class_name == 'TaxonConcept') $this->send_concept_objects_to_solr();
-      #     else $this->solr->send_attributes_in_bulk($this->objects);
-      # }
-      # $this->solr->commit();
-
-    end
   end
 end

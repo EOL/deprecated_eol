@@ -115,12 +115,12 @@ class HarvestEvent < ActiveRecord::Base
       where(hierarchy_entry_id: harvested).pluck("DISTINCT ancestor_id")
   end
 
-  def index_new_data_objects
-    DataObject::Indexer.by_data_object_ids(new_data_object_ids)
-  end
-
   def index_for_site_search
     HarvestEvent::SiteSearchIndexer.index_harvest_event(self)
+  end
+
+  def index_new_data_objects
+    DataObject::Indexer.by_data_object_ids(new_data_object_ids)
   end
 
   def merge_matching_concepts

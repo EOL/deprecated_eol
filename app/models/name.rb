@@ -42,12 +42,12 @@ class Name < ActiveRecord::Base
   RED_FLAG_REGEX = /\b(#{RED_FLAG_WORDS.join('|')})\b/i
   SURROGATE_REGEXES = [
     RED_FLAG_REGEX,
-    / [abcd] /i,
+    /\b[abcd]\b/i,
     /(_|'|")/i,
     /[0-9][a-z]/i,
     /[a-z][0-9]/i,
     /[a-z]-[0-9]/i,
-    / [0-9]{1,3}$/,
+    /\b[0-9]{1,3}$/,
     /\b[0-9]{1,3}-[0-9]{1,3}\b/,
     /[0-9]{5,}/,
     /[03456789][0-9]{3}/, # years should start with 1 or 2

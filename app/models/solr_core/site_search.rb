@@ -3,17 +3,17 @@ class SolrCore
     CORE_NAME = "site_search"
     MIN_CHAR_REGEX = /^[0-9a-z]{32}/i
     TAXON_NAME_FIELDS = {
-      preferred_scientifics: { keyword: 'PreferredScientific', weight: 1 }
-      synonyms: { keyword: 'Synonym', weight: 3 }
-      surrogates: { keyword: 'Surrogate', weight: 500 }
-      preferred_commons: { keyword: 'PreferredCommonName', weight: 2 }
+      preferred_scientifics: { keyword: 'PreferredScientific', weight: 1 },
+      synonyms: { keyword: 'Synonym', weight: 3 },
+      surrogates: { keyword: 'Surrogate', weight: 500 },
+      preferred_commons: { keyword: 'PreferredCommonName', weight: 2 },
       commons: { keyword: 'CommonName', weight: 4 }
     }
 
     def initialize
       connect(CORE_NAME)
       # Used when building indexes with this class:
-      @objects = {}
+      @objects = Set.new
     end
 
     def index_type(klass, ids)
@@ -23,23 +23,25 @@ class SolrCore
       commit
     end
 
-    def insert_batch(klass, &ids)
-      send("get_#{klass.underscore.pluralize}", ids)
-      ids.in_groups_of(1000) do |group|
-        delete("resource_type:#{klass} AND resource_id:(#{group.join(" OR ")})")
+    def insert_batch(klass, ids)
+      send("get_#{klass.name.underscore.pluralize}", ids)
+      ids.in_groups_of(1000, false) do |group|
+        delete("resource_type:#{klass.name} AND "\
+          "resource_id:(#{group.join(" OR ")})")
       end
-      if klass == TaxonConcept
-        @connection.add(convert_taxa_to_search_objects)
-      else
-        connection.add(@objects)
-      end
-      @objects = {} # Saves some memory (hopefully).
+      @objects.delete(nil)
+      @objects.delete({})
+      connection.add(@objects.to_a)
+      connection.commit
+      @objects = nil # Saves some memory (hopefully).
     end
 
     def get_taxon_concepts(ids)
+      @taxa ||= {}
       get_taxon_names(ids)
       get_taxon_ancestors(ids)
       get_taxon_richness(ids)
+      convert_taxa_to_search_objects
     end
 
     def get_taxon_names(ids)
@@ -52,48 +54,50 @@ class SolrCore
         language_id = tcn.language_id
         string = SolrCore.string(tcn.name.string)
         name_vetted_id = tcn.vetted_id
-        if tcn.vern
+        if tcn.vern?
           iso = Language.iso_code(language_id) || 'unknown'
-          if tcn.preferred && iso != 'unknown'
-            add_to_object(id, preferred_commons: { iso => string })
+          if tcn.preferred? && iso != 'unknown'
+            add_to_taxa(id, preferred_commons: { iso => string })
           elsif name_vetted_id != Vetted.untrusted.id &&
             vetted_id != Vetted.inappropriate.id
-            add_to_object(id, commons: { iso => string })
+            add_to_taxa(id, commons: { iso => string })
           end
         elsif tcn.source_hierarchy_entry_id && tcn.source_hierarchy_entry_id > 0
           if Name.is_surrogate_or_hybrid?(string)
-            add_to_object(id, surrogates: string)
-          elsif tcn.preferred
-            add_to_object(id, preferred_scientifics: string)
+            add_to_taxa(id, surrogates: string)
+          elsif tcn.preferred?
+            add_to_taxa(id, preferred_scientifics: string)
           else
-            add_to_object(id, synonyms: string)
+            add_to_taxa(id, synonyms: string)
           end
         end
       end
       remove_common_names_in_scientifics
     end
 
-    def add_to_object(id, add = {})
-      @objects[id] ||= {}
+    def add_to_taxa(id, add = {})
+      @taxa[id] ||= {}
       [:surrogates, :preferred_scientifics, :synonyms].each do |attribute|
-        @objects[id][attribute] ||= Set.new
-        @objects[id][attribute] << add[attribute] if add.has_key?(attribute)
+        @taxa[id][attribute] ||= Set.new
+        if add.has_key?(attribute)
+          @taxa[id][attribute] << add[attribute]
+        end
       end
       # Trickier to set: common languages contain hashes, keyed by language ISO
       # code and with values of strings in that language.
       [:preferred_commons, :commons].each do |common_type|
+        @taxa[id][common_type] ||= {}
         if add.has_key?(common_type)
-          @objects[id][common_type] ||= {}
           add[common_type].each do |iso, string|
-            @objects[id][common_type][iso] ||= Set.new
-            @objects[id][common_type][iso] << string
+            @taxa[id][common_type][iso] ||= Set.new
+            @taxa[id][common_type][iso] << string
           end
         end
       end
     end
 
     def remove_common_names_in_scientifics
-      @objects.each do |id, object|
+      @taxa.each do |id, object|
         remove_duplicate_common_names_in(:preferred_commons, object)
         remove_duplicate_common_names_in(:commons, object)
       end
@@ -104,9 +108,9 @@ class SolrCore
         names.each do |name|
           if object[:preferred_scientifics].include?(name) ||
              object[:synonyms].include?(name)
-            @objects[id][type][iso].delete(name)
-            @objects[id][type].delete(iso) if
-              @objects[id][type][iso].empty?
+            @taxa[id][type][iso].delete(name)
+            @taxa[id][type].delete(iso) if
+              @taxa[id][type][iso].empty?
           end
         end
       end
@@ -115,7 +119,8 @@ class SolrCore
     def get_taxon_ancestors(ids)
       TaxonConceptsFlattened.where(["taxon_concept_id IN (?)", ids]).
         find_each do |tcf|
-        @objects[tcf.taxon_concept_id][:ancestor_taxon_concept_id] =
+        @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] ||= []
+        @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] <<
           tcf.ancestor_id
       end
     end
@@ -123,46 +128,49 @@ class SolrCore
     def get_taxon_richness(ids)
       TaxonConceptMetric.select("taxon_concept_id, richness_score").
         where(["taxon_concept_id IN (?)", ids]).find_each do |tcr|
-        @objects[tcr.taxon_concept_id][:richness_score] = tcr.richness_score
+        @taxa[tcr.taxon_concept_id][:richness_score] = tcr.richness_score
       end
     end
 
+    # TODO: this is clearly wrong. Re-write.
     def convert_taxa_to_search_objects
-      objects_to_send = []
-      @objects.each do |id, object|
+      @taxa.each do |id, taxon|
         base_attributes = {
-          resource_type:             'TaxonConcept',
+          resource_type:             "TaxonConcept",
           resource_id:               id,
           resource_unique_key:       "TaxonConcept_#{id}",
-          ancestor_taxon_concept_id: object[:ancestor_taxon_concept_id],
-          top_image_id:              object[:top_image_id],
-          richness_score:            object[:richness_score]
+          ancestor_taxon_concept_id: taxon[:ancestor_taxon_concept_id],
+          top_image_id:              taxon[:top_image_id],
+          richness_score:            taxon[:richness_score]
         }
-        [ :preferred_scientifics, :synonyms, :surrogates, :commons,
-          :preferred_commons ].each do |field|
-          add_taxon_search_obect(base_attributes, object, field)
+        [:preferred_scientifics, :synonyms, :surrogates].each do |field|
+          objs = add_scientific_to_objects(base_attributes, taxon, field)
+          @objects += objs
+        end
+        [:commons, :preferred_commons].each do |field|
+          objs = add_common_to_objects(base_attributes, taxon, field)
+          @objects += objs
         end
       end
-      objects_to_send
     end
 
-    def add_taxon_search_obect(base, object, field)
-      if object[field].empty?
-        nil
-      elsif object[field].is_a?(Hash)
-        object[field].map do |iso, names|
-          base.merge(
-            keyword_type: TAXON_NAME_FIELDS[field][:keyword],
-            keyword: names,
-            language: iso,
-            resource_weight: TAXON_NAME_FIELDS[field][:weight]
-          )
-        end
-      else # array
+    def add_scientific_to_objects(base, object, field)
+      return [] if object[field].empty?
+      [base.merge(
+        keyword_type: TAXON_NAME_FIELDS[field][:keyword],
+        keyword: object[field].to_a,
+        language: 'sci',
+        resource_weight: TAXON_NAME_FIELDS[field][:weight]
+      )]
+    end
+
+    def add_common_to_objects(base, object, field)
+      return [] if object[field].empty?
+      object[field].map do |iso, names|
         base.merge(
           keyword_type: TAXON_NAME_FIELDS[field][:keyword],
-          keyword: object[field],
-          language: 'sci',
+          keyword: names.to_a,
+          language: iso,
           resource_weight: TAXON_NAME_FIELDS[field][:weight]
         )
       end
@@ -189,11 +197,15 @@ class SolrCore
           do.created_at, do.updated_at,  l.iso_639_1, do.data_type_id
           FROM data_objects do
           LEFT JOIN languages l ON (do.language_id=l.id)
-          LEFT JOIN data_objects_hierarchy_entries dohe ON (do.id=dohe.data_object_id)
-          LEFT JOIN curated_data_objects_hierarchy_entries cdohe ON (do.id=cdohe.data_object_id)
+          LEFT JOIN data_objects_hierarchy_entries dohe
+            ON (do.id=dohe.data_object_id)
+          LEFT JOIN curated_data_objects_hierarchy_entries cdohe
+            ON (do.id=cdohe.data_object_id)
           LEFT JOIN users_data_objects udo ON (do.id=udo.data_object_id)
           WHERE do.published=1
-          AND (dohe.visibility_id=#{Visibility.visible.id} OR cdohe.visibility_id=#{Visibility.visible.id} OR udo.visibility_id=#{Visibility.visible.id})
+          AND (dohe.visibility_id = #{Visibility.visible.id}
+            OR cdohe.visibility_id = #{Visibility.visible.id}
+            OR udo.visibility_id = #{Visibility.visible.id})
           AND do.id IN (#{ids.join(',')})"
       used_ids = []
       DataObject.connection.select_rows(query).each do |row|
@@ -225,35 +237,35 @@ class SolrCore
           date_modified:       updated_at
         }
         fields_to_index = [
-          { keyword_type:    => 'object_title',
-            keyword:         => object_title,
-            full_text:       => false,
-            resource_weight: => resource_weight
+          { keyword_type:    'object_title',
+            keyword:         object_title,
+            full_text:       false,
+            resource_weight: resource_weight
           },
-          { keyword_type:    => 'description',
-            keyword:         => description,
-            full_text:       => true,
-            resource_weight: => resource_weight + 2
+          { keyword_type:    'description',
+            keyword:         description,
+            full_text:       true,
+            resource_weight: resource_weight + 2
           },
-          { keyword_type:    => 'rights_statement',
-            keyword:         => rights_statement,
-            full_text:       => false,
-            resource_weight: => resource_weight + 3
+          { keyword_type:    'rights_statement',
+            keyword:         rights_statement,
+            full_text:       false,
+            resource_weight: resource_weight + 3
           },
-          { keyword_type:    => 'rights_holder',
-            keyword:         => rights_holder,
-            full_text:       => false,
-            resource_weight: => resource_weight + 4
+          { keyword_type:    'rights_holder',
+            keyword:         rights_holder,
+            full_text:       false,
+            resource_weight: resource_weight + 4
           },
-          { keyword_type:    => 'bibliographic_citation',
-            keyword:         => bibliographic_citation,
-            full_text:       => false,
-            resource_weight: => resource_weight + 5
+          { keyword_type:    'bibliographic_citation',
+            keyword:         bibliographic_citation,
+            full_text:       false,
+            resource_weight: resource_weight + 5
           },
-          { keyword_type:    => 'location',
-            keyword:         => location,
-            full_text:       => false,
-            resource_weight: => resource_weight + 6
+          { keyword_type:    'location',
+            keyword:         location,
+            full_text:       false,
+            resource_weight: resource_weight + 6
           }
         ]
         fields_to_index.each do |field_to_index|

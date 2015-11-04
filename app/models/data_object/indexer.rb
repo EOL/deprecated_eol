@@ -1,17 +1,6 @@
 class DataObject
   class Indexer
     ASSOCIATION_TYPES = ["entry", "che", "user"]
-    VETTED_PREFIX = {
-      Vetted.trusted.id => 'trusted',
-      Vetted.unknown.id => 'unreviewed',
-      Vetted.untrusted.id => 'untrusted',
-      Vetted.inappropriate.id => 'inappropriate'
-    }
-    VISIBILITY_PREFIX = {
-      Visibility.invisible.id => 'invisible',
-      Visibility.visible.id => 'visible',
-      Visibility.preview.id => 'preview'
-    }
 
     def self.by_data_object_ids(data_object_ids)
       indexer = self.new
@@ -19,6 +8,7 @@ class DataObject
     end
 
     def initialize
+      set_prefixes
       @solr = SolrCore::DataObjects.new
     end
 
@@ -31,11 +21,28 @@ class DataObject
 
     private
 
+    # Because these are indexed by values that aren't in the DB during testing,
+    # we should read them when we call the method:
+    def set_prefixes
+      @vetted_prefix ||= {
+        Vetted.trusted.id => 'trusted',
+        Vetted.unknown.id => 'unreviewed',
+        Vetted.untrusted.id => 'untrusted',
+        Vetted.inappropriate.id => 'inappropriate'
+      }
+      @visibility_prefix ||= {
+        Visibility.invisible.id => 'invisible',
+        Visibility.visible.id => 'visible',
+        Visibility.preview.id => 'preview'
+      }
+    end
+
     def index_batch(data_object_ids)
       EOL.log_call
-      @objects = {} # TODO: poor variable management, fix
+      @objects = {}
       get_objects(data_object_ids)
-      ids = @objects.keys # TODO: lame
+      # Ids that we actually found (some from data_object_ids c/h/b missing)
+      ids = @objects.keys
       add_ancestries_from_result(get_ancestries(ids))
       add_ancestries_from_result(get_curated_ancestries(ids))
       add_ancestries_from_result(get_user_added_ancestries(ids))
@@ -75,10 +82,6 @@ class DataObject
         end
       end
       last = @objects.keys.first
-      # Sorry this is complicated; it's really just pulling out the :instance
-      # (which is a data object), calling #to_hash on that (q.v.), then merging
-      # it with what's left in the object (which is all that ancilary stuff we
-      # just added.)
       @solr.reindex_hashes(objects_to_hashes)
     end
 
@@ -86,15 +89,16 @@ class DataObject
       EOL.log_call
       DataObject.
         # TODO: This was designed to minimize queries... to go to the DB once
-        # (per batch) and get back everything needed. I don't see that as very
-        # efficient. This could be much clearer code, and not take THAT much
-        # longer if it just gathered the IDs it needed and made multiple
-        # queries, one for each type of table. The juice is not worth the
-        # squeeze, with this design. NOTE: I broke these up on single lines,
-        # because there was so much going on here, this was clearer than
-        # smooshing them into longer lines. Sorry to take up so much space,
-        # though. NOTE: Yes, "entry_entry_id" is redundant; necessary. See
-        # below.
+        # (per batch) and get back everything needed. I don't see that as
+        # especially efficient. This could be much clearer code, and not take
+        # THAT much longer if it just gathered the IDs it needed and made
+        # multiple queries, one for each type of table (i.e.: with #includes).
+        # The juice is not worth the squeeze, with this design (not to mention,
+        # it's what we do for all the other attributes). NOTE: I broke these up
+        # on single lines, because there was so much going on here, this was
+        # clearer than smooshing them into longer lines. Sorry to take up so
+        # much space, though. NOTE: Yes, "entry_entry_id" is a redundant name;
+        # we parse it that way. See below.
         select("data_objects.*, "\
           "he.id entry_entry_id, "\
           "he.taxon_concept_id entry_concept_id, "\
@@ -138,6 +142,10 @@ class DataObject
       end
     end
 
+    # TODO: (LOW-PRIORITY) it w/b nice to use Sets, here, to avoid duplicates
+    # (which we get a lot of). Solr doesn't care, though, so... whatever. For
+    # now. NOTE that it's not just a case of turning them into Sets—you must
+    # then call #to_a on all of those sets just before dumping them into Solr!
     def add_association(type, dato)
       concept_id = dato["#{type}_concept_id"]
       @objects[dato.id][:taxon_concept_id] ||= []
@@ -150,8 +158,8 @@ class DataObject
         @objects[dato.id][:added_by_user_id] = dato["user_id"]
       end
       [
-        VETTED_PREFIX[dato["#{type}_vetted_id"]],
-        VISIBILITY_PREFIX[dato["#{type}_visibility_id"]]
+        @vetted_prefix[dato["#{type}_vetted_id"]],
+        @visibility_prefix[dato["#{type}_visibility_id"]]
       ].compact.
         each do |prefix|
         @objects[dato.id]["#{prefix}_taxon_concept_id".to_sym] ||= []
@@ -172,7 +180,8 @@ class DataObject
         # error). But this says "where the object is published, or, if it's not,
         # where the association is NOT visible." That does not seem right. :|
         # TODO: is this a bug? ...That said, I imagine the only reason we would
-        # want to index _unpublished_ images is if they are preview.
+        # want to index _unpublished_ images is if they are preview, which is
+        # likely the intent.
         where(["(data_objects.published = 1 OR "\
           "data_objects_hierarchy_entries.visibility_id != ?) AND "\
           "data_objects.id IN (?)",
@@ -219,8 +228,8 @@ class DataObject
         @objects[dato.id][field_suffix] ||= [] # TODO: set?
         @objects[dato.id][field_suffix] << concept_id if concept_id
         @objects[dato.id][field_suffix] << ancestor_id if ancestor_id
-        [ VETTED_PREFIX[dato["vetted_id"]],
-          VISIBILITY_PREFIX[dato["visibility_id"]] ].compact.
+        [ @vetted_prefix[dato["vetted_id"]],
+          @visibility_prefix[dato["visibility_id"]] ].compact.
           each do |prefix|
           @objects[dato.id]["#{prefix}_#{field_suffix}".to_sym] ||= []
           @objects[dato.id]["#{prefix}_#{field_suffix}".to_sym] <<
@@ -248,7 +257,8 @@ class DataObject
     end
 
     # TODO: do we really use this?  :S  It's in the wrong place, even if we do.
-    # ...and, of course, ChangeableObjectType is the worst thing ever.
+    # ...and, of course, ChangeableObjectType is the worst thing ever. TODO: we
+    # also should NOT be relying on english translations of activities. Sheesh.
     def get_curation(data_object_ids)
       CuratorActivityLog.
         select("target_id, user_id").
@@ -298,8 +308,7 @@ class DataObject
       EOL.log_call
       # TODO: don't cache this; if we change something, we want it recalculated.
       @hashes ||= @objects.values.map do |object|
-        object.delete(:instance).
-        to_hash.merge(object)
+        object.delete(:instance).to_hash.merge(object)
       end
     end
   end

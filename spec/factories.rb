@@ -620,15 +620,10 @@ FactoryGirl.define do
     published              true
   end
 
-  factory :data_object_tag do
-    key   { generate(:string) }
-    value { generate(:string) }
-  end
-
-  factory :data_object_tags do
+  factory :data_object_translation do
     association :data_object
-    association :data_object_tag
-    data_object_guid { data_object.guid }
+    language { Language.english }
+    association :original_data_object, factory: :data_object
   end
 
   factory :data_objects_harvest_event do

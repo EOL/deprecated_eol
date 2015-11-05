@@ -7,9 +7,22 @@ class Resource
       publisher.publish
     end
 
+    def self.preview(resource)
+      publisher = self.new(resource)
+      publisher.preview
+    end
+
     def initialize(resource)
       @resource = resource
-      @harvest_event = HarvestEvent.where(resource_id: @resource.id).last
+      @harvest_event = resource.harvest_events.last
+    end
+
+    # A "light" version of publishing for resources that we keep in
+    # "preview mode"
+    def preview
+      SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
+      @harvest_event.merge_matching_concepts
+      @harvest_event.sync_collection
     end
 
     # NOTE: yes, PHP used multiple transactions. I suppose it was to avoid

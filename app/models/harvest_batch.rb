@@ -30,7 +30,13 @@ class HarvestBatch
     ActiveRecord::Base.connection.with_master do
       @harvested_resources.each do |resource|
         resource.hierarchy.flatten
-        resource.publish
+        if resource.publish?
+          resource.publish
+        else
+          # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
+          # resource. Make it run #publish (in the background)! YOU WERE HERE
+          resource.preview
+        end
       end
       denormalize_tables
     rescue => e

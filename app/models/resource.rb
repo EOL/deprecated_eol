@@ -150,6 +150,10 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.publish(self)
   end
 
+  def preview
+    Resource::Publisher.publish(self)
+  end
+
   def rebuild_taxon_concept_names
     TaxonConceptName.rebuild_by_taxon_concept_id(
       latest_harvest_event.taxon_concept_ids)

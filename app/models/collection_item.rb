@@ -193,6 +193,7 @@ class CollectionItem < ActiveRecord::Base
       object_type: collected_item_type,
       object_id: collected_item_id,
       collection_id: collection_id,
+      collection_item_id: id,
       annotation: SolrCore.string(annotation),
       added_by_user_id: added_by_user_id,
       # TODO: test whether these defaults are actually needed: ALSO, these need to be formatted.

@@ -79,8 +79,11 @@ class SolrCore
     def reindex_items(items)
       items = Array(items)
       delete_by_ids(items.map(&:id))
-      @connection.add(items.map(&:to_hash))
-      # TODO: error-checking
+      begin
+        @connection.add(items.map(&:to_hash))
+      rescue RSolr::Error::Http => e
+        EOL.log("WARNING: Failed to reindex items: #{e.message}", prefix: "!")
+      end
       @connection.commit
     end
 

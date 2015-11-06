@@ -14,6 +14,7 @@ class Hierarchy
       @visible_id = Visibility.get_visible.id
       @preview_id = Visibility.get_preview.id
       @rel_page_size = Rails.configuration.solr_relationships_page_size
+      @solr = SolrCore::HierarchyEntryRelationships.new
     end
 
     # NOTE: this used to use DB transactions, but A) it was doing it wrong
@@ -38,7 +39,7 @@ class Hierarchy
       # so perhaps that's the intent. Perhaps the curators should choose the
       # order in which hierarchies are matched, if that's the case.
       gbif_nub = @hierarchies.find { |h| h.id == 800 }
-      @hierarchies.insert(-1, @hierarchies.delete(gbif_nub) )
+      @hierarchies.insert(-1, @hierarchies.delete(gbif_nub) ) if gbif_nub
       @hierarchies.each do |other_hierarchy|
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actuall the "same", so we need to compare those to
@@ -58,8 +59,6 @@ class Hierarchy
         "#{hierarchy1.hierarchy_entries_count} entries) to #{hierarchy2.id} "\
         "(#{hierarchy2.label}; #{hierarchy2.hierarchy_entries_count} "\
         "entries)")
-      # TODO: why keep building this for each comparison?!
-      solr = SolrCore::HierarchyEntryRelationships.new
       # TODO: add (relationship:name OR confidence:[0.25 TO *]) [see below]
       # TODO: Set?
       entries = [] # Just to prevent weird infinite loops below. :\
@@ -77,8 +76,8 @@ class Hierarchy
     # Solr... it takes a VERY long time.
     def get_page_of_relationships_from_solr(hierarchy1, hierarchy2, page)
       EOL.log_call
-      response = solr.paginate(compare_hierarchies_query(hierarchy1,
-        hierarchy2), compare_hierarchies_options(page)
+      response = @solr.paginate(compare_hierarchies_query(hierarchy1,
+        hierarchy2), compare_hierarchies_options(page))
       EOL.log("gporfs query: #{response["responseHeader"]["q"]}",
         prefix: ".")
       EOL.log("gporfs Request took #{response["responseHeader"]["QTime"]}ms",
@@ -98,7 +97,7 @@ class Hierarchy
     def compare_hierarchies_options(page)
       { sort: "relationship asc, visibility_id_1 asc, "\
         "visibility_id_2 asc, confidence desc, hierarchy_entry_id_1 asc, "\
-        "hierarchy_entry_id_2 asc"}.merge(page: page, per_page: @rel_page_size))
+        "hierarchy_entry_id_2 asc"}.merge(page: page, per_page: @rel_page_size)
     end
 
     def merge_matching_concepts(relationship)
@@ -112,7 +111,7 @@ class Hierarchy
       return(nil) if relationship["relationship"] == 'syn' &&
         relationship["confidence"] < 0.25
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
-        assign_local_vars_from_relationship(relationship)
+        *assign_local_vars_from_relationship(relationship)
       # skip if the node in the hierarchy has already been matched:
       return(nil) if hierarchy1.complete? && @entries_matched.include?(id2)
       return(nil) if hierarchy2.complete? && @entries_matched.include?(id1)
@@ -149,12 +148,12 @@ class Hierarchy
     end
 
     def assign_local_vars_from_relationship(relationship)
-      (relationship["hierarchy_entry_id_1"],
+      [ relationship["hierarchy_entry_id_1"],
         relationship["taxon_concept_id_1"],
         find_hierarchy(relationship["hierarchy_id_1"]),
         relationship["hierarchy_entry_id_2"],
         relationship["taxon_concept_id_2"],
-        find_hierarchy(relationship["hierarchy_id_2"]))
+        find_hierarchy(relationship["hierarchy_id_2"]) ]
     end
 
     def find_hierarchy(id)
@@ -192,7 +191,7 @@ class Hierarchy
 
     def concepts_of_one_already_in_other?(relationship)
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
-        assign_local_vars_from_relationship(relationship)
+        *assign_local_vars_from_relationship(relationship)
       if entry_published_in_hierarchy?(1, relationship, hierarchy1)
         EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1}",
           prefix: ".")

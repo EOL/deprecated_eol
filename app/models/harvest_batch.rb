@@ -27,21 +27,24 @@ class HarvestBatch
   end
 
   def post_harvesting
-    ActiveRecord::Base.connection.with_master do
-      @harvested_resources.each do |resource|
-        resource.hierarchy.flatten
-        if resource.publish?
-          resource.publish
-        else
-          # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
-          # resource. Make it run #publish (in the background)! YOU WERE HERE
-          resource.preview
+    ActiveRecord::Base.with_master do
+      begin
+        @harvested_resources.each do |resource|
+          resource.hierarchy.flatten
+          if resource.auto_publish?
+            resource.publish
+          else
+            # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
+            # resource. Make it run #publish (in the background)! YOU WERE HERE
+            resource.preview
+          end
         end
+        denormalize_tables
+      # TODO: there are myriad specific errors that harvesting can throw; catch
+      # them here.
+      rescue => e
+        EOL.log_error(e)
       end
-      denormalize_tables
-    rescue => e
-      EOL.log("ERROR: #{e.message}", prefix: "!")
-      # TODO: there are myriad errors that harvesting can throw; catch them here.
     end
   end
 

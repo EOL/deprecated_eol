@@ -19,7 +19,7 @@ class HarvestEvent
       end
       # NOTE: because it's updated, it will ALSO reindex the collection in Solr:
       collection.fix_item_count
-      if @event.published?
+      if @event.published? && resource.preview_collection
         resource.preview_collection.users = []
         resource.preview_collection.destroy
       end
@@ -27,6 +27,7 @@ class HarvestEvent
 
     private
 
+    # TODO: break this method up.
     def add_items_collection
       EOL.log_call
       data = Set.new()
@@ -117,15 +118,15 @@ class HarvestEvent
 
     def remove_collection_items_not_in_harvest
       EOL.log_call
-      CollectionItem.data_objects.
+      ids = CollectionItem.data_objects.
         select("collection_items.id").
         joins("LEFT JOIN data_objects_harvest_events dohe ON "\
           "(collection_items.collected_item_id = dohe.data_object_id "\
           "AND dohe.harvest_event_id = #{@event.id})").
         where(collection_id: collection.id).
         where("data_object_id IS NULL").
-        delete_all
-      CollectionItem.taxa.
+        pluck(:id)
+      ids += CollectionItem.taxa.
         select("collection_items.id").
         joins("LEFT JOIN (harvest_events_hierarchy_entries hehe JOIN "\
           "hierarchy_entries he ON (hehe.hierarchy_entry_id=he.id AND "\
@@ -133,7 +134,8 @@ class HarvestEvent
           "(collection_items.collected_item_id = he.taxon_concept_id)").
         where(collection_id: collection.id).
         where("hehe.hierarchy_entry_id IS NULL").
-        delete_all
+        pluck(:id)
+      CollectionItem.delete(ids)
     end
 
     def resource
@@ -159,7 +161,7 @@ class HarvestEvent
       max_id = collection.collection_items.maximum(:id) || 0
       yield
       collection.collection_items.where(["id > ?", max_id]).find_in_batches do |batch|
-        SolrCore::CollectionItem.reindex_items(
+        SolrCore::CollectionItems.reindex_items(
           CollectionItem.preload_collected_items(batch, richness_score: true))
       end
     end

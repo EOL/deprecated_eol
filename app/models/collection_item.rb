@@ -196,7 +196,7 @@ class CollectionItem < ActiveRecord::Base
       collection_item_id: id,
       annotation: SolrCore.string(annotation),
       added_by_user_id: added_by_user_id,
-      # TODO: test whether these defaults are actually needed: ALSO, these need to be formatted.
+      # TODO: test whether these defaults are actually needed:
       date_created: SolrCore.date(created_at),
       date_modified: SolrCore.date(updated_at),
       title: SolrCore.string(collected_item.collected_name),

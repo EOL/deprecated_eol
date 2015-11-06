@@ -398,7 +398,9 @@ class Resource < ActiveRecord::Base
   # harvest will still have published objects...
   def unpublish_data_objects
     EOL.log_call
-    latest_published_harvest_event_uncached.data_objects.
+    event = latest_published_harvest_event_uncached
+    return unless event
+    event.data_objects.
       where(data_objects: { published: true }).
       update_all(published: false)
   end

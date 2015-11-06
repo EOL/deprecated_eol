@@ -110,9 +110,12 @@ class HarvestEvent < ActiveRecord::Base
 
   # NOTE: this assumes flattened_ancestors has been updated for this Hierarchy!
   def hierarchy_entry_ids_with_ancestors
-    @hierarchy_entry_ids_with_ancestors ||= hierarchy_entries.pluck(:id) +
-      HierarchyEntriesFlattened.
-      where(hierarchy_entry_id: harvested).pluck("DISTINCT ancestor_id")
+    return @hierarchy_entry_ids_with_ancestors if
+      @hierarchy_entry_ids_with_ancestors
+    harvested = hierarchy_entries.pluck(:id)
+    ancestors = HierarchyEntriesFlattened.where(hierarchy_entry_id: harvested).
+      pluck("DISTINCT ancestor_id")
+    @hierarchy_entry_ids_with_ancestors = Set.new(harvested + ancestors).to_a
   end
 
   def index_for_site_search
@@ -162,7 +165,7 @@ class HarvestEvent < ActiveRecord::Base
   def publish_data_objects
     EOL.log_call
     count = data_objects.where(published: false).update_all(published: true)
-    EOL.log_call("(#{count} objects)", prefix: ".")
+    EOL.log("(#{count} objects)", prefix: ".")
     count
   end
 
@@ -333,7 +336,7 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def publish_synonyms
-    count = Synonym.unpublished.joins(:hierarchy_entries).
+    count = Synonym.unpublished.joins(:hierarchy_entry).
       where(hierarchy_entries: { id: hierarchy_entry_ids_with_ancestors}).
       update_all("synonyms.published = true")
     EOL.log("Published #{count} synonyms", prefix: '.')

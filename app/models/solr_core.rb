@@ -6,6 +6,7 @@ class SolrCore
   def self.date(date)
     # "setting the default to 1969-12-31T07:00:01Z"
     date = 1 if ! date || date == 'NULL'
+    date = Time.at(date) if date.is_a?(Integer)
     date.to_time.utc.iso8601
   end
 

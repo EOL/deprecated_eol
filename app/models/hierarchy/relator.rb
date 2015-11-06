@@ -43,7 +43,7 @@ class Hierarchy
 
     def initialize(hierarchy, options = {})
       @hierarchy = hierarchy
-      @new_entry_ids = options[:entries]
+      @new_entry_ids = options[:entry_ids]
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
       @count = 0
@@ -129,8 +129,8 @@ class Hierarchy
 
     def entry_is_in_virus_kingdom?(entry)
       entry["kingdom"] &&
-        entry["kingdom"].downcase == "virus" ||
-        entry["kingdom"].downcase == "viruses"
+        (entry["kingdom"].downcase == "virus" ||
+        entry["kingdom"].downcase == "viruses")
     end
 
     def compare_entries_from_solr(entry, matching_entry)
@@ -291,9 +291,9 @@ class Hierarchy
       type = score[:synonym] ? 'syn' : 'name'
       key = "#{from}, #{to}, '#{type}',"
       old_relationship = @relationships.find { |r| r[0..key.length - 1] == key }
+      old_score = old_relationship && old_relationship.split(', ').last.to_f
       @relationships << "#{key} #{score[:score]}" unless
-        # We already had this relationship with a higher score:
-        old_relationship.split(', ').last.to_f < score[:score]
+        old_score && old_score < score[:score]
     end
 
     def add_curator_assertions
@@ -317,17 +317,13 @@ class Hierarchy
       end
     end
 
-    # NOTE: since we've build all relationships to and from this hierarchy, we
+    # NOTE: since we've built all relationships to and from this hierarchy, we
     # can delete both from the DB:
     def delete_existing_relationships
-      HierarchyEntryRelationship.
-        joins(:from_hierarchy_entry).
-        where(hierarchy_entries: { hierarchy_id: @hierarchy.id }).
-        delete_all
-      HierarchyEntryRelationship.
-        joins(:to_hierarchy_entry).
-        where(hierarchy_entries: { hierarchy_id: @hierarchy.id }).
-        delete_all
+      @hierarchy.hierarchy_entry_ids.in_groups_of(6400, false) do |ids|
+        HierarchyEntryRelationship.where(hierarchy_entry_id_1: ids).delete_all
+        HierarchyEntryRelationship.where(hierarchy_entry_id_2: ids).delete_all
+      end
     end
 
     def insert_relationships
@@ -335,21 +331,7 @@ class Hierarchy
       EOL::Db.bulk_insert(HierarchyEntryRelationship,
         [ "hierarchy_entry_id_1", "hierarchy_entry_id_2",
           "relationship", "score" ],
-        @relationships.to_a,
-        tmp: true, ignore: true) # TODO: we don't need ignore anymore
-      # TODO: we do NOT want to do this if we have a single hierarchy!
-      if false
-        EOL::Db.with_tmp_tables(HierarchyEntryRelationship) do
-          EOL::Db.bulk_insert(HierarchyEntryRelationship,
-            [ "hierarchy_entry_id_1", "hierarchy_entry_id_2",
-              "relationship", "score" ],
-            @relationships.to_a,
-            tmp: true, ignore: true) # TODO: we don't need ignore anymore
-          # Errr... in PHP, the tables never get swapped! That can't be right, so
-          # I'm doing it:
-          EOL::Db.swap_tmp_table(HierarchyEntryRelationship)
-        end
-      end
+        @relationships.to_a)
     end
 
     # NOTE: PHP did this before swapping the tmp tables (because it never did,

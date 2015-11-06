@@ -20,12 +20,16 @@ class SolrCore
       end
       EOL.log("Looking up relationships")
       relationships = []
-      HierarchyEntryRelationship.for_hashes.
+      HierarchyEntryRelationship.by_hierarchy_for_hashes(@hierarchy_id).
         find_each do |relationship|
-        relationships << relationship.to_hash
+        hash = relationship.to_hash
+        # TODO: remove this!
+        debugger unless hash.has_key?("visibility_id_1")
+        relationships << hash unless hash.blank?
       end
-      # TODO: I am not 100% that this will work with a really big array:
-      add_items(relationships)
+      relationships.in_groups_of(5000, false) do |group|
+        add_items(group)
+      end
     end
   end
 end

@@ -189,13 +189,11 @@ class HierarchyEntry < ActiveRecord::Base
       canonical_form_string: self["canonical_form_string"]
     }
     if ancestor_names
-      puts "Adding ancestor names..."
       ancestor_names.keys.each do |key|
         ancestor_names[key] = SolrCore.string(ancestor_names[key])
       end
       hash.merge!(ancestor_names)
     end
-    pp hash
     hash
   end
 

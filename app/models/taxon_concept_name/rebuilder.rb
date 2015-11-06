@@ -1,6 +1,6 @@
 class TaxonConceptName
   class Rebuilder
-    def by_taxon_concept_id(ids)
+    def self.by_taxon_concept_id(ids)
       rebuilder = new
       rebuilder.by_taxon_concept_id(ids)
     end
@@ -29,14 +29,14 @@ class TaxonConceptName
       # This uses matching_ids (in part) to flesh out name_ids:
       get_canonical_form_name_ids
       # This also populates @preferred_in_language (they are related)
-      get_common_names
+      get_common_names(tc_ids)
       ensure_languages_have_a_preferred_name
-      prepare_scientific_names
-      prepare_common_names
+      sci_names = prepare_scientific_names
+      common = prepare_common_names
       # NOTE: this removes both scientific AND common!
-      delete_existing_taxon_concept_names
-      insert_scientific_names
-      insert_common_names
+      delete_existing_taxon_concept_names(tc_ids)
+      insert_scientific_names(sci_names)
+      insert_common_names(common)
     end
 
     def get_name_ids(preferred, synonyms)
@@ -123,7 +123,7 @@ class TaxonConceptName
       end
     end
 
-    def get_common_names
+    def get_common_names(tc_ids)
       @common_names = {}
       @preferred_in_language = {}
       Synonym.common_names.
@@ -187,8 +187,6 @@ class TaxonConceptName
       end
     end
 
-    # TODO: badly named; this is three steps: preparing the data, deleting
-    # existing rows, and inserting the data. Break up and name appropriately.
     def prepare_scientific_names
       data = Set.new
       @matching_ids.each do |tc_id, arr|
@@ -200,13 +198,14 @@ class TaxonConceptName
           end
         end
       end
+      data
     end
 
-    def delete_existing_taxon_concept_names
+    def delete_existing_taxon_concept_names(tc_ids)
       TaxonConceptName.where(taxon_concept_id: tc_ids).delete_all
     end
 
-    def insert_scientific_names
+    def insert_scientific_names(data)
       EOL::Db.bulk_insert(TaxonConceptName,
         # NOTE: PHP didn't bother with the last two fields, synonym_id and
         # vetted_id. I guess that means scientific names are always considered
@@ -227,9 +226,10 @@ class TaxonConceptName
             "#{arr2[:synonym_id]},#{arr2[:vetted_id]}"
         end
       end
+      data
     end
 
-    def insert_common_names
+    def insert_common_names(data)
       EOL::Db.bulk_insert(TaxonConceptName,
         [:taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id,
           :vern, :preferred, :synonym_id, :vetted_id],

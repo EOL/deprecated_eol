@@ -52,9 +52,9 @@ class Resource
         @harvest_event.finish_publishing
         new_entry_ids =
           Set.new(@harvest_event.hierarchy_entry_ids_with_ancestors)
+        TaxonConcept.unpublish_and_hide_by_entry_ids(
+          new_entry_ids - old_entry_ids)
       end
-      TaxonConcept.unpublish_and_hide_by_entry_ids(
-        new_entry_ids - old_entry_ids)
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       # NOTE: This is a doozy of a method!
       @harvest_event.merge_matching_concepts

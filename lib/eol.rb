@@ -74,6 +74,17 @@ module EOL
     end
   end
 
+  def self.log_error(e)
+    EOL.log("ERROR: #{e.message}", prefix: "!")
+    i = 0
+    while e.backtrace[i] !~ /config\/initializers/ &&
+      e.backtrace[i] !~ /__pry__/ &&
+      i < e.backtrace.length
+      EOL.log("#{e.backtrace[i]}", prefix: "!")
+      i += 1
+    end
+  end
+
   def self.log(msg, options = {})
     options[:prefix] ||= '*'
     # Have to use #error to get it to show up in production:

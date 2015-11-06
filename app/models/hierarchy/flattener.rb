@@ -24,8 +24,8 @@ class Hierarchy
       EOL.log_call
       begin
         study_hierarchy
-      rescue EmptyHierarchyFlattened => e
-        EOL.log("WARNING: Hiearrchy #{@hierarchy.id} is empty!", prefix: "!")
+      rescue EOL::Exceptions::EmptyHierarchyFlattened => e
+        EOL.log("WARNING: Hierarchy #{@hierarchy.id} is empty!", prefix: "!")
         return nil
       end
       build_ancestry
@@ -39,7 +39,9 @@ class Hierarchy
       EOL.log_call
       @children = {}
       @taxa = {}
-      HierarchyEntry.published.visible_or_preview.not_untrusted.
+      # I'm changing this... not sure it's for the better:
+      HierarchyEntry.
+      # HierarchyEntry.published.visible_or_preview.not_untrusted.
         select("id, parent_id, taxon_concept_id").
         where(hierarchy_id: @hierarchy.id).find_each do |entry|
         @children[entry.parent_id] ||= Set.new
@@ -82,7 +84,6 @@ class Hierarchy
     end
 
     def update_tables
-      debugger
       EOL.log_call
       HierarchyEntriesFlattened.delete_hierarchy_id(@hierarchy.id)
       EOL::Db.bulk_insert(HierarchyEntriesFlattened,

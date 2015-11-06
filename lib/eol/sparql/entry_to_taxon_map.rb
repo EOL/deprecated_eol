@@ -1,10 +1,8 @@
 module EOL
   module Sparql
-    # TODO: The name is stupid, but it's a lot of work to rename everything
-    # associated with it. This is really just a list of which entries are in
-    # which taxon concepts.
     class EntryToTaxonMap
       def self.create_graph(resource)
+        EOL.log_call
         sparql = EOL::Sparql::Connection.new
         entry_to_taxon_graph = sparql.entry_to_taxon_graph_name(resource)
         triples = Set.new
@@ -16,8 +14,11 @@ module EOL
             "dwc:taxonConceptID "\
             "<#{sparql.taxon_concept_uri(entry.taxon_concept_id)}>"
         end
+        puts "Graph: #{entry_to_taxon_graph}"
         sparql.delete_graph(entry_to_taxon_graph)
-        sparql.insert_into_graph(entry_to_taxon_graph, triples)
+        puts "Whoa, adding:"
+        pp triples
+        sparql.insert_into_graph(entry_to_taxon_graph, triples.to_a)
       end
     end
   end

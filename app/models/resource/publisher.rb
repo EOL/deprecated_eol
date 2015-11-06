@@ -58,7 +58,7 @@ class Resource
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       # NOTE: This is a doozy of a method!
       @harvest_event.merge_matching_concepts
-      EOL::Sparql::EntryToTaxonMap.create_graph(resource)
+      EOL::Sparql::EntryToTaxonMap.create_graph(@resource)
       ActiveRecord::Base.connection.transaction do
         @resource.rebuild_taxon_concept_names
       end

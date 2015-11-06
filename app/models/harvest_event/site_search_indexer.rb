@@ -15,7 +15,7 @@ class HarvestEvent
     # the time we're calling this, we've already done it (at least so far as has
     # been ported). TODO: really, we should be able to check whether that's been
     # done and call it if not; worth adding a flag to the DB to indicate that.
-    def index_harvest_event(event)
+    def index
       @solr.index_type(DataObject, @harvest_event.new_data_object_ids)
       @solr.index_type(TaxonConcept, HierarchyEntry.where(
         id: @harvest_event.new_hierarchy_entry_ids).pluck(:taxon_concept_id))

@@ -117,7 +117,7 @@ class SolrCore
     end
 
     def get_taxon_ancestors(ids)
-      TaxonConceptsFlattened.where(["taxon_concept_id IN (?)", ids]).
+      TaxonConceptsFlattened.where(["taxon_concept_id IN (?)", @taxa.keys]).
         find_each do |tcf|
         @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] ||= []
         @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] <<
@@ -127,12 +127,11 @@ class SolrCore
 
     def get_taxon_richness(ids)
       TaxonConceptMetric.select("taxon_concept_id, richness_score").
-        where(["taxon_concept_id IN (?)", ids]).find_each do |tcr|
+        where(["taxon_concept_id IN (?)", @taxa.keys]).find_each do |tcr|
         @taxa[tcr.taxon_concept_id][:richness_score] = tcr.richness_score
       end
     end
 
-    # TODO: this is clearly wrong. Re-write.
     def convert_taxa_to_search_objects
       @taxa.each do |id, taxon|
         base_attributes = {

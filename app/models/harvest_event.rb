@@ -119,7 +119,7 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def index_for_site_search
-    HarvestEvent::SiteSearchIndexer.index_harvest_event(self)
+    HarvestEvent::SiteSearchIndexer.index(self)
   end
 
   def index_new_data_objects
@@ -254,7 +254,6 @@ class HarvestEvent < ActiveRecord::Base
     Rails.logger.error("** Destroyed HarvestEvent #{id}")
   end
 
-  private
 
   # TODO: The "Right Thing To Do" is to actually store a list of all entry ids
   # affected by the harvest (which you would have to do during the harvest). We
@@ -317,6 +316,8 @@ class HarvestEvent < ActiveRecord::Base
       where(hierarchy_entry_id: new_hierarchy_entry_ids)
   end
 
+  private
+  
   def publish_and_show_hierarchy_entries
     EOL.log_call
     count = HierarchyEntry.where(id: hierarchy_entry_ids_with_ancestors,

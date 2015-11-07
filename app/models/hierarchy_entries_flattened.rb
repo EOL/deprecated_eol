@@ -13,7 +13,10 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
     ids = in_hierarchy(hierarchy_id).
       map { |r| "(#{r.hierarchy_entry_id}, #{r.ancestor_id})" }
     return if ids.empty?
-    where("(hierarchy_entry_id, ancestor_id) IN (#{ids.join(", ")})").delete_all
+    ids.in_groups_of(6400, false) do |group|
+      where("(hierarchy_entry_id, ancestor_id) IN (#{group.join(", ")})").
+        delete_all
+    end
   end
 
   # scope :in_hierarchy, ->(hierarchy_id) { where("(hierarchy_entry_id, "\

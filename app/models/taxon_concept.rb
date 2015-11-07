@@ -218,6 +218,8 @@ class TaxonConcept < ActiveRecord::Base
     EOL.log("Updating ancilary tables", prefix: '.')
     UsersDataObject.where(taxon_concept_id: id2).
       update_all(taxon_concept_id:id1)
+    # TODO: these don't actually delete records that need to be deleted. This
+    # algorithm is wrong.
     update_ignore_id(TaxonConceptName, id1, id2)
     update_ignore_id(DataObjectsTaxonConcept, id1, id2)
     update_ignore_id(TaxonConceptsFlattened, id1, id2)

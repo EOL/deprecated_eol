@@ -101,7 +101,6 @@ class SolrCore
       children.each do |child|
         next if child["parent_id"] == 0
         next_ancestors[child.id] = child["parent_id"]
-        puts "next ancestor for #{child.id} = #{child["parent_id"]}"
       end
       parents = Set.new(next_ancestors.values)
       while ! parents.blank?
@@ -120,7 +119,6 @@ class SolrCore
           # We will use the string field, though prefer canonical if it exists:
           string = entry["canonical_form"] unless entry["canonical_form"].blank?
           rank = self.class.rank_label(entry.rank_id)
-          puts "Rank of #{entry.id} is #{rank} (id #{entry.rank_id})"
           @ancestors[entry.id] = { rank: rank, string: string,
             next: entry["parent_id"] }
           parents << entry["parent_id"]
@@ -132,7 +130,6 @@ class SolrCore
             if ancestor[:rank]
               child.ancestor_names ||= {}
               child.ancestor_names.merge!(ancestor[:rank] => ancestor[:string])
-              puts "#{child.id} ancestors: #{child.ancestor_names.to_json}"
             end
             next_ancestors[child.id] = ancestor[:next]
           end

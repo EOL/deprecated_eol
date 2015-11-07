@@ -80,7 +80,8 @@ class Hierarchy
       end
     end
 
-    # TODO: cleanup. :|
+    # TODO: cleanup. :| TODO: Speed up. This is a very, very slow process, even
+    # with a tiny test database. Definitely need to improve the algorithm, here.
     def compare_entry(entry)
       matches = []
       entry["rank_id"] ||= 0
@@ -122,8 +123,16 @@ class Hierarchy
           compare_entries_from_solr(entry, matching_entry)
         end
       else
-        EOL.log("WARNING: solr entry had no name: #{entry}",
-          prefix: "!")
+        # This is caused by entries with only a canonical form. I'm not sure if
+        # this is "right," but it is certainly "normal," so I'm not sure we
+        # actually need to warn about it. I'm leaving this on for now, though,
+        # to get a sense of frequency and possibly spark a conversation about
+        # whether we should be doing something different. It seems so—the name
+        # on an entry should be the preferred scientific name, so this error
+        # implies we have entries with no such thing... which is... odd. Should
+        # it just be the canonical form?
+        EOL.log("WARNING: solr entry had no name: #{entry["id"]} "\
+          "(#{entry["canonical_form"]})", prefix: "!")
       end
     end
 

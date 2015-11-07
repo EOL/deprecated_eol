@@ -61,13 +61,11 @@ class Hierarchy
 
     def walk_down_tree(id, ancestors)
       return unless @children.has_key?(id)
-      ancestors << id
+      ancestors_here = ancestors.dup
+      ancestors_here << id
       @children[id].each do |child_id|
-        # NOTE: doesn't work without #reverse ... not sure why (?), but that's
-        # fine, this is actually more accurate ... we just never _need_ to know
-        # the order. ;)
-        @ancestry[child_id] = ancestors.reverse
-        walk_down_tree(child_id, ancestors)
+        @ancestry[child_id] = ancestors_here
+        walk_down_tree(child_id, ancestors_here)
       end
     end
 

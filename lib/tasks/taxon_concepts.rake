@@ -3,8 +3,6 @@ namespace :taxon_concepts do
   task :generate_json => :environment do
     puts "Started (#{Time.now})\n"
     # Cache the ranks so we're not constantly looking them up:
-    # ranks = TranslatedRank.where(language_id: Language.english.id)
-    # languages = TranslatedLanguage.where(language_id: Language.english.id)
     ranks = []
     TranslatedRank.select("rank_id, label").where(language_id: Language.english.id).collect{|rank|ranks[rank.rank_id] = rank.label}
     languages = []
@@ -14,7 +12,6 @@ namespace :taxon_concepts do
     end
     File.open("public/taxon_concepts.json", "wb") do |file|
       # Headers:
-      file.write("Started (#{Time.now})\n")
       file.write("[")
       index = 0
       batch_size = 1000
@@ -60,14 +57,11 @@ namespace :taxon_concepts do
           }
         end
         batch << data.to_json
-        # file.write(data.to_json + ",\n")
       end
       if !batch.blank?
         file.write(batch.join("\n"))
       end
       file.write("]\n")
-      file.write("Done (#{Time.now})\n")
-      file.write("Done (#{index})\n")
       print "\n Done \n"
     end
   end

@@ -8,7 +8,10 @@ namespace :taxon_concepts do
     ranks = []
     TranslatedRank.select("rank_id, label").where(language_id: Language.english.id).collect{|rank|ranks[rank.rank_id] = rank.label}
     languages = []
-    TranslatedLanguage.where(language_id: Language.english.id).collect{|lang|languages[lang.language_id] = lang}
+    TranslatedLanguage.where(language_id: Language.english.id).each do|lang|
+      iso = Language.find(lang.original_language_id).iso_639_1
+      languages[lang.original_language_id] = iso.blank? ? 'UNKNOWN': iso  
+    end
     File.open("public/taxon_concepts.json", "wb") do |file|
       # Headers:
       file.write("Started (#{Time.now})\n")
@@ -41,7 +44,7 @@ namespace :taxon_concepts do
           
         data[:preferred_scientific_names] =
           tcpe.published_taxon_concept.preferred_names.map { |pn| pn.name.try(:string) }.
-          compact.uniq
+          compact.sort.uniq
         data[:preferred_common_names] =
           tcpe.published_taxon_concept.preferred_common_names.
           map { |pn| { name: pn.name.try(:string) || '[MISSING]',

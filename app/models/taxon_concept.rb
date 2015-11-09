@@ -926,11 +926,11 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def published_browsable_hierarchy_entries
-    published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    published_hierarchy_entries.select { |he| he.hierarchy.browsable? }
   end
 
   def count_of_viewable_synonyms
-    Synonym.where(hierarchy_entry_id: published_browsable_hierarchy_entries.collect(&:id)).where(
+    Synonym.where(hierarchy_entry_id: published_hierarchy_entries.collect(&:id)).where(
       "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
   end
 

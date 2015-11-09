@@ -117,6 +117,25 @@ class TaxonUserClassificationFilter
     @hierarchy_entries
   end
 
+  # This includes non-browsable entries (but not unpublished)! NOTE: I
+  # copy/pasted almost all of this from the previous method without generalizing
+  # the two, because the differences are subtle but significant. You might feel
+  # differently and extract a common method. I won't mind. :)
+  def all_hierarchy_entries
+    return @all_hierarchy_entries if @all_hierarchy_entries
+    TaxonConcept.preload_associations(taxon_concept, { hierarchy_entries: :hierarchy })
+    @all_hierarchy_entries = taxon_concept.published_hierarchy_entries
+    @all_hierarchy_entries = [_hierarchy_entry] if
+      _hierarchy_entry && @all_hierarchy_entries.empty?
+    HierarchyEntry.preload_associations(
+      @all_hierarchy_entries,
+      [ { agents_hierarchy_entries: :agent }, :rank, { hierarchy: :agent } ],
+      select: {hierarchy_entries: [:id, :parent_id, :taxon_concept_id]}
+    )
+    @all_hierarchy_entries
+  end
+
+
   # This is used by the TaxaController (and thus all its children) to help build
   # information for ALL translations:
   def hierarchy_provider

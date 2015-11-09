@@ -1,4 +1,8 @@
 class TaxonConceptName
+  # As I note in the main TCN class... TCN is ... weird. A conglomeration of
+  # multiple types of names. It's not clearly designed, it's not clear (at all)
+  # to use, and it's certainly not clear to build. This needs serious
+  # re-thinking.
   class Rebuilder
     def self.by_taxon_concept_id(ids)
       rebuilder = new
@@ -11,19 +15,19 @@ class TaxonConceptName
 
     def by_taxon_concept_id(tc_ids)
       EOL.log_call
-      Array(tc_ids).in_groups_of(500, false) do |tc_ids|
+      Array(tc_ids).in_groups_of(500, false) do |ids|
         sleep(0.2) # Let's not throttle the DB.
-        rebuild_tc_ids(tc_ids)
+        rebuild_tc_ids(ids)
       end
     end
 
     def rebuild_tc_ids(tc_ids)
       preferred = HierarchyEntry.published_or_preview.
         where(["taxon_concept_id IN (?)", tc_ids])
-      synonyms = HierarchyEntry.published_or_preview.
-        includes(:synonyms).joins(:synonyms).
-        where(["taxon_concept_id IN (?)", tc_ids]).
-        merge(Synonym.not_common_names)
+      synonyms = Synonym.not_common_names.joins(:hierarchy_entry).
+        includes(:hierarchy_entry).
+        merge(HierarchyEntry.published_or_preview).
+        where(["taxon_concept_id IN (?)", tc_ids])
       get_name_ids(preferred, synonyms)
       get_matching_ids(preferred, synonyms)
       # This uses matching_ids (in part) to flesh out name_ids:
@@ -40,25 +44,23 @@ class TaxonConceptName
     end
 
     def get_name_ids(preferred, synonyms)
-      @name_ids = {}
+      @taxa_by_synonym = {}
       get_preferred_name_ids(preferred)
       get_synonym_name_ids(synonyms)
-      raise("No name IDs found...") if @name_ids.empty?
+      raise("No name IDs found...") if @taxa_by_synonym.empty?
     end
 
     def get_preferred_name_ids(entries)
       entries.each do |entry|
-        @name_ids[entry.id] ||= Set.new
-        @name_ids[entry.id] << entry.taxon_concept_id
+        @taxa_by_synonym[entry.id] ||= Set.new
+        @taxa_by_synonym[entry.id] << entry.taxon_concept_id
       end
     end
 
-    def get_synonym_name_ids(entries)
-      entries.each do |entry|
-        entry.synonyms.each do |synonym|
-          @name_ids[synonym.id] ||= Set.new
-          @name_ids[synonym.id] << entry.taxon_concept_id
-        end
+    def get_synonym_name_ids(synonyms)
+      synonyms.each do |synonym|
+        @taxa_by_synonym[synonym.id] ||= Set.new
+        @taxa_by_synonym[synonym.id] << synonym.hierarchy_entry.taxon_concept_id
       end
     end
 
@@ -84,13 +86,12 @@ class TaxonConceptName
     end
 
     def get_synonym_matching_ids(synonyms)
-      synonyms.each do |entry|
-        @matching_ids[entry.taxon_concept_id] ||= {}
-        entry.synonyms.each do |synonym|
-          @matching_ids[entry.taxon_concept_id][synonym.name_id] ||= {}
-          @matching_ids[entry.taxon_concept_id][synonym.name_id][entry.id] =
-            :synonym
-        end
+      synonyms.each do |synonym|
+        tc_id = synonym.hierarchy_entry.taxon_concept_id
+        @matching_ids[tc_id] ||= {}
+        @matching_ids[tc_id][synonym.name_id] ||= {}
+        @matching_ids[tc_id][synonym.name_id][synonym.hierarchy_entry_id] =
+          :synonym
       end
     end
 
@@ -102,10 +103,10 @@ class TaxonConceptName
         select("names.id, names_canonical_forms.id canonical_name_id").
         where(["names.id IN (?) AND "\
           "names_canonical_forms.string = canonical_forms.string",
-          @name_ids.keys]).
+          @taxa_by_synonym.keys]).
         find_each do |name|
         unless name.id == name["canonical_name_id"]
-          @name_ids[name.id].each do |tc_id|
+          @taxa_by_synonym[name.id].each do |tc_id|
             @matching_ids[tc_id] ||= {}
             @matching_ids[tc_id][name["canonical_name_id"]] ||= {}
             # NOTE: this is implying (by using 0) that there is no
@@ -144,10 +145,11 @@ class TaxonConceptName
       preferred = synonym.preferred
       # TODO: Don't hard-code this! :( Should be a flag on hierarchy called
       # "ignore_common_names" or the like.
-      return if synonym.hierarchy_id == Hierarchy.wikipedia.id
-      is_curator_name = synonym.hierarchy_id == Hierarchy.eol_contributors.id
+      return if synonym.hierarchy_id == Hierarchy.wikipedia.try(:id)
+      is_curator_name = synonym.hierarchy_id ==
+        Hierarchy.eol_contributors.try(:id)
       # TODO: Don't hard-code this! Add a "check_unpublished_names" column...
-      check_unpublished_names = synonym.hierarchy_id == Hierarchy.ubio.id
+      check_unpublished_names = synonym.hierarchy_id == Hierarchy.ubio.try(:id)
       @preferred_in_language[tc_id] ||= {}
       if is_curator_name || check_unpublished_names ||
         ( synonym.hierarchy_entry.published? &&
@@ -157,7 +159,7 @@ class TaxonConceptName
         # we already have a preferred entry in this language."
         preferred = false if
           @preferred_in_language[tc_id].has_key?(synonym.language_id)
-        if preferred && curator_name && not_untrusted?(synonym.vetted_id)
+        if preferred && is_curator_name && not_untrusted?(synonym.vetted_id)
           @preferred_in_language[tc_id][synonym.language_id] = true
         else
           preferred = false
@@ -189,12 +191,11 @@ class TaxonConceptName
 
     def prepare_scientific_names
       data = Set.new
-      @matching_ids.each do |tc_id, arr|
-        arr.each do |name_id, arr2| # TODO: rename
-          arr2.each do |hierarchy_entry_id, type|
-            preferred = hierarchy_entry_id && type == :preferred
-            data << "#{tc_id},#{name_id},#{hierarchy_entry_id},0,0,"\
-              "#{preferred ? 1 : 0}"
+      @matching_ids.each do |tc_id, names|
+        names.each do |name_id, entries|
+          entries.each do |entry_id, type|
+            preferred = entry_id && type == :preferred
+            data << "#{tc_id},#{name_id},#{entry_id},0,0,#{preferred ? 1 : 0}"
           end
         end
       end
@@ -219,11 +220,11 @@ class TaxonConceptName
 
     def prepare_common_names
       data = Set.new
-      @common_names.each do |tc_id, arr| # TODO rebnamne
-        arr.each do |key, arr2| # TODO rename
-          data << "#{tc_id},#{arr2[:name_id]},#{arr2[:hierarchy_entry_id]},"\
-            "#{arr2[:language_id]},1,#{arr2[:preferred] ? 1 : 0},"\
-            "#{arr2[:synonym_id]},#{arr2[:vetted_id]}"
+      @common_names.each do |tc_id, common_names|
+        common_names.each do |name|
+          data << "#{tc_id},#{name[:name_id]},#{name[:hierarchy_entry_id]},"\
+            "#{name[:language_id]},1,#{name[:preferred] ? 1 : 0},"\
+            "#{name[:synonym_id]},#{name[:vetted_id]}"
         end
       end
       data

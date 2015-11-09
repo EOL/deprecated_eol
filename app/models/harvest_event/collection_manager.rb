@@ -9,6 +9,8 @@ class HarvestEvent
       @event = event
     end
 
+    # TODO: something in this process is slow. Figure out what it is and speed
+    # it up!
     def sync
       EOL.log_call
       update_attributes
@@ -36,7 +38,7 @@ class HarvestEvent
         data << "'#{title}', 'DataObject', #{object.id}, #{collection.id}"
       end
       harvested_entries_not_already_in_collection.find_each do |entry|
-        data << "'#{entry.name.string}', 'TaxonConcept', "\
+        data << "'#{entry.name.string.gsub("'", "''")}', 'TaxonConcept', "\
           "#{entry.taxon_concept_id}, #{collection.id}"
       end
       EOL::Db.bulk_insert(CollectionItem,

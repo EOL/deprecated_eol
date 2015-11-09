@@ -72,6 +72,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.eol_contributors
+    Agent # ARRRRRRGH... Dumbest error; can't use the include in tests w/o this.
     @@eol_contributors ||= cached('eol_contributors') do
       Hierarchy.find_by_label("Encyclopedia of Life Contributors", include: :agent)
     end

@@ -77,18 +77,26 @@ module EOL
   def self.log_error(e)
     EOL.log("ERROR: #{e.message}", prefix: "!")
     i = 0
-    while e.backtrace[i] !~ /config\/initializers/ &&
-      e.backtrace[i] !~ /__pry__/ &&
+    while e.backtrace[i] !~ /__pry__/ &&
       i < e.backtrace.length
-      EOL.log("#{e.backtrace[i]}", prefix: "!")
+      EOL.log("#{e.backtrace[i]}", prefix: "!") unless
+        # Skip Rails (unless it's the most proximal stuff)
+        i > 1 && e.backtrace[i] =~ /gems\/active/
       i += 1
     end
   end
 
   def self.log(msg, options = {})
+    diff = if @last_log_time
+      d = (Time.now - @last_log_time).round(2)
+      d == 0 ? "" : "(#{d})"
+    else
+      ""
+    end
     options[:prefix] ||= '*'
     # Have to use #error to get it to show up in production:
     Rails.logger.error("#{options[:prefix]}#{options[:prefix]} "\
-      "#{Time.now.strftime("%Y%m%d-%H:%M:%S.%L")} #{msg}")
+      "#{Time.now.strftime("%H:%M:%S.%L")}#{diff} #{msg}")
+    @last_log_time = Time.now
   end
 end

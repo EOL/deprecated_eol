@@ -12,6 +12,7 @@ class SolrCore
 
   def self.string(text)
     return nil if text.nil?
+    text = text.to_s # Sometimes we get Fixnums, etc.
     return nil if text == 'NULL' # Can come from DB
     return text if text.is_numeric?
     return text if text =~ CLEAN_TEXT_REGEX

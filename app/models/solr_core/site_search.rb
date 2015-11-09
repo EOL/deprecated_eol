@@ -12,31 +12,41 @@ class SolrCore
 
     def initialize
       connect(CORE_NAME)
-      # Used when building indexes with this class:
-      @objects = Set.new
     end
 
     def index_type(klass, ids)
       ids.in_groups_of(10_000, false) do |batch|
         insert_batch(klass, batch)
       end
+      EOL.log("committing...")
       commit
     end
 
     def insert_batch(klass, ids)
+      EOL.log_call
+      # Used when building indexes with this class:
+      @objects = Set.new
       send("get_#{klass.name.underscore.pluralize}", ids)
+      EOL.log("Delete old items...")
       ids.in_groups_of(1000, false) do |group|
         delete("resource_type:#{klass.name} AND "\
           "resource_id:(#{group.join(" OR ")})")
       end
       @objects.delete(nil)
       @objects.delete({})
-      connection.add(@objects.to_a)
+      # TODO: change that 5!!!
+      @objects.to_a.in_groups_of(5, false) do |group|
+        EOL.log("Adding #{group.count} items...")
+        connection.add(group)
+      end
+      EOL.log("Committing...")
       connection.commit
+      EOL.log("Finished...")
       @objects = nil # Saves some memory (hopefully).
     end
 
     def get_taxon_concepts(ids)
+      EOL.log_call
       @taxa ||= {}
       get_taxon_names(ids)
       get_taxon_ancestors(ids)
@@ -45,6 +55,7 @@ class SolrCore
     end
 
     def get_taxon_names(ids)
+      EOL.log_call
       TaxonConceptName.includes(:taxon_concept, :name).joins(:taxon_concept).
         merge(TaxonConcept.unsuperceded.published.where(id: ids)).
         find_each do |tcn|
@@ -53,6 +64,11 @@ class SolrCore
         vetted_id = tcn.taxon_concept.vetted_id
         language_id = tcn.language_id
         string = SolrCore.string(tcn.name.string)
+        if string.blank?
+          EOL.log("WARNING: Blank string from #{tcn.name.string}; name id "\
+            "#{tcn.name.id} taxon_concept_id #{tcn.taxon_concept_id}")
+          next
+        end
         name_vetted_id = tcn.vetted_id
         if tcn.vern?
           iso = Language.iso_code(language_id) || 'unknown'
@@ -97,13 +113,14 @@ class SolrCore
     end
 
     def remove_common_names_in_scientifics
+      EOL.log_call
       @taxa.each do |id, object|
-        remove_duplicate_common_names_in(:preferred_commons, object)
-        remove_duplicate_common_names_in(:commons, object)
+        remove_duplicate_common_names_in(:preferred_commons, object, id)
+        remove_duplicate_common_names_in(:commons, object, id)
       end
     end
 
-    def remove_duplicate_common_names_in(type, object)
+    def remove_duplicate_common_names_in(type, object, id)
       object[type].each do |iso, names|
         names.each do |name|
           if object[:preferred_scientifics].include?(name) ||
@@ -117,6 +134,7 @@ class SolrCore
     end
 
     def get_taxon_ancestors(ids)
+      EOL.log_call
       TaxonConceptsFlattened.where(["taxon_concept_id IN (?)", @taxa.keys]).
         find_each do |tcf|
         @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] ||= []
@@ -126,13 +144,17 @@ class SolrCore
     end
 
     def get_taxon_richness(ids)
+      EOL.log_call
       TaxonConceptMetric.select("taxon_concept_id, richness_score").
         where(["taxon_concept_id IN (?)", @taxa.keys]).find_each do |tcr|
         @taxa[tcr.taxon_concept_id][:richness_score] = tcr.richness_score
       end
     end
 
+    # TODO: it looks like this (or something shortly after it) takes a LONG time
+    # to run; find and improve.
     def convert_taxa_to_search_objects
+      EOL.log_call
       @taxa.each do |id, taxon|
         base_attributes = {
           resource_type:             "TaxonConcept",
@@ -181,6 +203,7 @@ class SolrCore
     # null!), and this is all VERY obfuscated. :| I'm not pleased with this
     # code. I definitely wouldn't have done it this way!
     def get_data_objects(ids)
+      EOL.log_call
       set_data_type_and_weight
       get_object_agents(ids)
       get_object_users(ids)
@@ -221,8 +244,8 @@ class SolrCore
         location = SolrCore.string(row[7])
         created_at = SolrCore.date(row[8])
         updated_at = SolrCore.date(row[9])
-        iso = SolrCore.string(row[10])
-        data_type_id = SolrCore.string(row[11])
+        iso = SolrCore.string(row[10]) # NOTE: ATM we don't use this, but...
+        data_type_id = row[11]
         unless @data_type_and_weight.has_key?(data_type_id)
           EOL.log("WARNING: unknown data type id #{data_type_id}", prefix: "!")
         end
@@ -231,44 +254,45 @@ class SolrCore
           resource_type:       @data_type_and_weight[data_type_id][:type],
           resource_id:         id,
           resource_unique_key: "DataObject_#{id}",
-          language:            'en',
+          language:            'en', # TODO: should this be iso ?
           date_created:        created_at,
           date_modified:       updated_at
         }
         fields_to_index = [
-          { keyword_type:    'object_title',
+          { keyword_type:    "object_title",
             keyword:         object_title,
             full_text:       false,
             resource_weight: resource_weight
           },
-          { keyword_type:    'description',
+          { keyword_type:    "description",
             keyword:         description,
             full_text:       true,
             resource_weight: resource_weight + 2
           },
-          { keyword_type:    'rights_statement',
+          { keyword_type:    "rights_statement",
             keyword:         rights_statement,
             full_text:       false,
             resource_weight: resource_weight + 3
           },
-          { keyword_type:    'rights_holder',
+          { keyword_type:    "rights_holder",
             keyword:         rights_holder,
             full_text:       false,
             resource_weight: resource_weight + 4
           },
-          { keyword_type:    'bibliographic_citation',
+          { keyword_type:    "bibliographic_citation",
             keyword:         bibliographic_citation,
             full_text:       false,
             resource_weight: resource_weight + 5
           },
-          { keyword_type:    'location',
+          { keyword_type:    "location",
             keyword:         location,
             full_text:       false,
             resource_weight: resource_weight + 6
           }
         ]
         fields_to_index.each do |field_to_index|
-          keyword = field_to_index['keyword'].gsub(/ +/, " ").strip
+          next if field_to_index["keyword"].nil?
+          keyword = field_to_index["keyword"].gsub(/ +/, " ").strip
           next if keyword.blank?
           @objects << base_attributes.merge(
             keyword_type:    field_to_index[:keyword_type],
@@ -280,7 +304,7 @@ class SolrCore
         @agents_for_objects[id].each do |agent_name|
           next if agent_name.blank?
           @objects << base_attributes.merge(
-            keyword_type:    'agent',
+            keyword_type:    "agent",
             keyword:         agent_name,
             resource_weight: resource_weight + 1
           )
@@ -289,6 +313,7 @@ class SolrCore
     end
 
     def get_object_agents(ids)
+      EOL.log_call
       @agents_for_objects ||= {}
       Agent.includes(:data_objects).joins(:data_objects).
         where(["agents_data_objects.data_object_id IN (?) "\
@@ -300,13 +325,15 @@ class SolrCore
           EOL.log("WARNING: Agent with no names: #{agent.id}", prefix: "!")
         else
           agent.data_objects.each do |dato|
-            @agents_for_objects[dato.id] = agent_name
+            @agents_for_objects[dato.id] ||= []
+            @agents_for_objects[dato.id] << agent_name
           end
         end
       end
     end
 
     def get_object_users(ids)
+      EOL.log_call
       User.includes(:data_objects).
         where(["users_data_objects.data_object_id IN (?) AND "\
           "data_objects.published = 1", ids]).
@@ -315,19 +342,19 @@ class SolrCore
         given_name = SolrCore.string(user.given_name)
         family_name = SolrCore.string(user.family_name)
         user.data_objects.each do |dato|
+          @agents_for_objects[dato.id] ||= []
           unless username.blank?
-            @agents_for_objects[dato.id] =
-              @agents_for_objects[dato.id].blank? ?
-              username :
-              @agents_for_objects[dato.id] + " #{username}"
+            @agents_for_objects[dato.id] << username
           end
           if full_name = user.full_name && ! full_name.blank?
             @agents_for_objects[dato.id] << full_name
+          end
         end
       end
     end
 
     def set_data_type_and_weight
+      EOL.log_call
       @data_type_and_weight = {}
       DataType.sound_type_ids.each do |dt_id|
         @data_type_and_weight[dt_id] = { type: 'Sound', weight: 70 }
@@ -350,6 +377,7 @@ class SolrCore
     end
 
     def get_users(ids)
+      EOL.log_call
       User.active.not_hidden.where(id: ids).find_each do |user|
         base = {
           resource_type:       'User',
@@ -366,6 +394,7 @@ class SolrCore
     end
 
     def get_collections(ids)
+      EOL.log_call
       Collection.published.non_watch.where(id: ids).find_each do |collection|
         base = {
           resource_type:       "Collection",
@@ -384,6 +413,7 @@ class SolrCore
     end
 
     def get_communities(ids)
+      EOL.log_call
       Community.published.where(id: ids).find_each do |community|
         base = {
           resource_type:       'Community',
@@ -402,38 +432,38 @@ class SolrCore
     end
 
     def get_content_pages(ids)
+      EOL.log_call
       TranslatedContentPage.active.joins(:content_page).
         where(["content_page_id IN (?) AND content_pages.active = 1"]).
         find_each do |page|
-          iso = Language.iso_code(page.language_id)
-          next unless iso
-          base = {
-            resource_type:       "ContentPage",
-            resource_id:         page.id,
-            resource_unique_key: "ContentPage_#{id}",
-            resource_weight:     25,
-            date_created:        SolrCore.date(page.created_at),
-            date_modified:       SolrCore.date(page.updated_at)
-          }
-          if name = SolrCore.string(page.content_page.name) && ! name.blank?
-            @objects << base.merge(keyword_type: "page_name", keyword: name,
-              language: Language.default.iso_code)
-          end
-          # Now safe to add:
-          base[:language] = iso
-          { "title" => page.title,
-            "meta_keywords" => page.meta_keywords,
-          }.each do |type, value|
-            add_object_with_keyword_if_non_blank(base, type, value)
-          end
-          # Safe to add:
-          base[:full_text] = true
-          { "left_content" => page.left_content,
-            "main_content" => page.main_content,
-            "meta_description" => page.meta_description
-          }.each do |type, value|
-            add_object_with_keyword_if_non_blank(base, type, value)
-          end
+        iso = Language.iso_code(page.language_id)
+        next unless iso
+        base = {
+          resource_type:       "ContentPage",
+          resource_id:         page.id,
+          resource_unique_key: "ContentPage_#{id}",
+          resource_weight:     25,
+          date_created:        SolrCore.date(page.created_at),
+          date_modified:       SolrCore.date(page.updated_at)
+        }
+        if name = SolrCore.string(page.content_page.name) && ! name.blank?
+          @objects << base.merge(keyword_type: "page_name", keyword: name,
+            language: Language.default.iso_code)
+        end
+        # Now safe to add:
+        base[:language] = iso
+        { "title" => page.title,
+          "meta_keywords" => page.meta_keywords,
+        }.each do |type, value|
+          add_object_with_keyword_if_non_blank(base, type, value)
+        end
+        # Safe to add:
+        base[:full_text] = true
+        { "left_content" => page.left_content,
+          "main_content" => page.main_content,
+          "meta_description" => page.meta_description
+        }.each do |type, value|
+          add_object_with_keyword_if_non_blank(base, type, value)
         end
       end
     end

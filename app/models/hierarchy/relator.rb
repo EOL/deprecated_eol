@@ -52,6 +52,7 @@ class Hierarchy
     end
 
     def relate
+      EOL.log_call
       return false unless @hierarchy # TODO: necessary?
       if @new_entry_ids
         compare_entries_by_id
@@ -90,6 +91,7 @@ class Hierarchy
         search_name = entry["name"]
         # PHP TODO: "what about subgenera?"
         search_canonical = ""
+        # TODO: store surrogate flag... somewhere. Store virus value there too
         if ! Name.is_surrogate_or_hybrid?(search_name) &&
           ! entry_is_in_virus_kingdom?(entry) &&
           ! entry["canonical_form"].blank?
@@ -99,7 +101,7 @@ class Hierarchy
         query_or_clause = []
         query_or_clause << "canonical_form_string:\"#{search_canonical}\"" if
           search_canonical
-        query_or_clause << "name:#{search_name}"
+        query_or_clause << "name:\"#{search_name}\""
         # TODO: should we add this? The PHP code had NO WAY of getting to this:
         if(false)
           query_or_clause << "synonym_canonical:\"#{search_canonical}\""
@@ -241,6 +243,7 @@ class Hierarchy
     def compare_ancestries(from_entry, to_entry)
       return nil if empty_ancestry?(from_entry)
       return nil if empty_ancestry?(to_entry)
+      EOL.log("ancestors: #{from_entry["id"]} -> #{to_entry["id"]}")
       score = best_matching_weight(from_entry, to_entry)
       # TODO: logging. ...We need some kind of record that explains why matches
       # were made or refused for each pair. :|
@@ -329,6 +332,7 @@ class Hierarchy
     # NOTE: since we've built all relationships to and from this hierarchy, we
     # can delete both from the DB:
     def delete_existing_relationships
+      EOL.log_call
       @hierarchy.hierarchy_entry_ids.in_groups_of(6400, false) do |ids|
         HierarchyEntryRelationship.where(hierarchy_entry_id_1: ids).delete_all
         HierarchyEntryRelationship.where(hierarchy_entry_id_2: ids).delete_all

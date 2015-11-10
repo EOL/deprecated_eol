@@ -4,9 +4,11 @@ namespace :taxon_concepts do
     puts "Started (#{Time.now})\n"
     # Cache the ranks so we're not constantly looking them up:
     ranks = []
-    TranslatedRank.select("rank_id, label").where(language_id: Language.english.id).collect{|rank|ranks[rank.rank_id] = rank.label}
+    TranslatedRank.select("rank_id, label").
+      where(language_id: Language.english.id).
+      each { |rank| ranks[rank.rank_id] = rank.label}
     languages = []
-    TranslatedLanguage.where(language_id: Language.english.id).each do|lang|
+    TranslatedLanguage.where(language_id: Language.english.id).each do |lang|
       iso = Language.find(lang.original_language_id).iso_639_1
       languages[lang.original_language_id] = iso.blank? ? 'UNKNOWN': iso  
     end

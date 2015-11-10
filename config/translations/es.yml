@@ -312,7 +312,7 @@ es:
         email_confirmation: Escriba de nuevo la dirección de correo electrónico <small>(para
           confirmar)</small>
         entered_password: Contraseña
-        entered_password_confirmation: Contraseña otra vez <small>(para confirmar)</small>
+        entered_password_confirmation: Repite la contraseña <small>(para confirmar)</small>
         family_name: Apellido
         full_name: Nombre completo
         given_name: Nombre
@@ -970,6 +970,7 @@ es:
     download_taxa_data:
       attribute_header: Atributo
       select_all_checkbox: Seleccionar todo
+      user_downloaded_collection: Descarga de datos de %{collection_name}
     show:
       meta_description_default: Una colección de Encyclopedia of Life titulada %{collection_name}.
       meta_description_default_focus_collection: Una colección de enfoque de Encyclopedia
@@ -2168,6 +2169,7 @@ es:
         other: '%{count} descargas de datos'
       empty: No tiene descargas. Puede <a href='%{data_search_url}'>buscar datos</a>
         y solicitar la descarga de los resultados.
+      no_selected_attributes: Ningún atributo seleccionado. Selecciona al menos uno
       download: descargar
       page_title: Descarga de datos
       query_head: Consulta
@@ -4810,6 +4812,7 @@ es:
   your_watch_collection: tu lista de seguimiento
   current_language: 'Idioma: %{iso_code}'
   currently_in_eol: Actualmente en la Enciclopedia de la Vida
+  create_download_data_file: Crear archivo
   institutional_sponsors: Patrocinadores institucionales
   currently_published: publicado actualmente
   daily: Diariamente

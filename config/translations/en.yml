@@ -1199,7 +1199,7 @@ en:
       about_link_what_is_eol: What is EOL?
       about_link_traitbank: What is TraitBank?
       about_link_eol_blog: The EOL Blog
-      about_link_discover: Discover
+      about_link_discover: Education
       about_link_statistics: Statistics
       about_link_glossary: Glossary
       about_link_podcasts: Podcasts
@@ -1788,6 +1788,8 @@ en:
       refresh: "refresh"
       row_count: "Count"
       search_again: "search again"
+      file_not_processed: "This file has not processed yet, "
+      contact_us: "please contact us for assistance"
     edit:
       form_tip_account: "To sign in to EOL you either need an EOL username and password, or you can connect a third-party account. Username and password are required if you do not have a connected account, however only enter a new password here if you'd like to change your existing one. Email address and preferred language are required (%{required_icon}) for all users."
       form_tip_account_oauth: "Email address and preferred language are required %{required_icon} for all users."
@@ -3506,7 +3508,7 @@ en:
   details_title: "Details"
   did_you_mean: "Did you mean: %{suggestions} ?"
   disabled_for_now: "DISABLED FOR NOW"
-  discover_link: "Discover"
+  discover_link: "Education"
   displaying_numerical_range_eol_records_with_count:
     one: "Displaying the %{count} record on EOL"
     other: "Displaying %{start_number} &ndash; %{end_number} of %{count} records on EOL"

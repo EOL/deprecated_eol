@@ -10,7 +10,7 @@
       %p.help_text
         = raw(I18n.t(:name_preferred_taxonomically_for_source_help_tip,
           icon: image_tag("v2/icon_required.png", alt: I18n.t(:name_preferred_for_language_yes), class: 'indicator')))
-      - @taxon_page.hierarchy_entries.each do |he|
+      - @taxon_page.all_hierarchy_entries.each do |he|
         - unless he.scientific_synonyms.blank?
           %h4= hierarchy_display_title(he.hierarchy, show_link: false)
           %table.standard.synonyms

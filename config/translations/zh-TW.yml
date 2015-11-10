@@ -599,7 +599,7 @@ zh-TW:
         curation_application: 立即申請
         curation_privileges: 提交要求
         generate_api_key: 產生一個key
-        recover_account: 發送email
+        recover_account: 傳送電子郵件
         notification_settings: 通知的設定
         sign_up_with_facebook: 在Facebook註冊
         sign_up_with_google: 在Google註冊
@@ -2662,10 +2662,10 @@ zh-TW:
   admin_content_partners_page_title: 管理：管理內容合作夥伴
   admin_content_partners_notifications_link: 通知
   admin_content_partners_notifications_page_title: 管理：內容合作夥伴通知
-  admin_content_partners_notifications_sent_to_recipients_header: 通知已發送至：
+  admin_content_partners_notifications_sent_to_recipients_header: 通知已傳送至：
   admin_content_partners_notifications_statistics_reminder_header: 網路使用統計的提醒通知
   admin_content_partners_notifications_statistics_reminder_description: 對所有內容合作夥伴聯絡方式發送一封email，通知他們已經可以查看他們在EOL的資料上個月的網路使用統計。附註：人為操作這封email通知被送出是個臨時的解決方法，應該在建立自動化解決方案之後予以刪除。
-  admin_content_partners_notifications_statistics_reminder_send_submit: 發送提醒通知
+  admin_content_partners_notifications_statistics_reminder_send_submit: 傳送提醒通知
   admin_content_partners_notifications_statistics_reminder_send_confirmation: 您確定要發送網站使用統計的email提醒通知給所有的內容合作夥伴嗎？
   admin_content_partners_statistics_date_from_label: 來自於
   admin_content_partners_statistics_date_to_label: 到
@@ -4095,11 +4095,11 @@ zh-TW:
   note_that_it_may_take_a_few_mi: 請注意：您的檔案需要傳送至內容伺服器，因此上傳後可能需要幾分鐘URL才會生效。
   note_that_you_can_reference_im: 請注意：您可以使用 HTML &lt;img&gt; 標籤來引用影像，但是所引用的影像必須存在於一個網址上，比方說是其來源網站或是如Flickr這樣的網站。我們沒有上傳影像以直接使用在新聞項目中的設施。
   notification_frequency_daily_digest: 每日摘要
-  notification_frequency_send_immediately: 立即發送
+  notification_frequency_send_immediately: 立刻傳送
   notification_frequency_never: 從不
   notification_frequency_weekly: 每週
   notification_frequency_newsfeed_only: 僅Newsfeed
-  notifications_and_messages_review_notice: 請審核將以email發送給您的通知。
+  notifications_and_messages_review_notice: 請檢閱將透過 Email 傳送給您的通知。
   email_updates_for_eol_addicts: 為EOL超級粉絲準備的更新資料。
   email_updates_for_eol_members: 大多數EOL會員們會想得到的更新資料。
   notifications_tab_name: 通知
@@ -4410,9 +4410,9 @@ zh-TW:
   select_topic: 請選擇一個主題區
   selected_language_advisory_information: 這是目前所選擇的語言。
   selected_items: 選擇的項目
-  send_contact_email: 發送聯絡人Email
+  send_contact_email: 傳送聯絡人 Email
   send_email_colon: 傳送電郵：
-  send: 發送
+  send: 傳送
   sent_invitations_to_users:
     one: 已邀請 %{users}。
     other: 已邀請 %{users}。

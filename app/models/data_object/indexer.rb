@@ -215,7 +215,7 @@ class DataObject
         where(["data_objects.id IN (?)", data_object_ids])
     end
 
-    def add_ancestries_from_result(query, field_suffix = :ancestor_id)
+    def add_ancestries_from_result(query)
       EOL.log_call
       query.find_each do |dato|
         # NOTE: this should not happen, but PHP had it. :\
@@ -223,16 +223,16 @@ class DataObject
         # A modicum of brevity:
         taxon_id = dato["taxon_concept_id"]
         ancestor_id = dato["ancestor_id"]
-        @objects[dato.id][field_suffix] ||= [] # TODO: set?
-        @objects[dato.id][field_suffix] << taxon_id if taxon_id
-        @objects[dato.id][field_suffix] << ancestor_id if ancestor_id
+        @objects[dato.id][:ancestor_id] ||= [] # TODO: set?
+        @objects[dato.id][:ancestor_id] << taxon_id if taxon_id
+        @objects[dato.id][:ancestor_id] << ancestor_id if ancestor_id
         [ @vetted_prefix[dato["vetted_id"]],
           @visibility_prefix[dato["visibility_id"]] ].compact.
           each do |prefix|
-          @objects[dato.id]["#{prefix}_#{field_suffix}".to_sym] ||= []
-          @objects[dato.id]["#{prefix}_#{field_suffix}".to_sym] <<
+          @objects[dato.id]["#{prefix}_ancestor_id".to_sym] ||= []
+          @objects[dato.id]["#{prefix}_ancestor_id".to_sym] <<
             taxon_id if taxon_id
-          @objects[dato.id]["#{prefix}_#{field_suffix}".to_sym] <<
+          @objects[dato.id]["#{prefix}_ancestor_id".to_sym] <<
             ancestor_id if ancestor_id
         end
       end

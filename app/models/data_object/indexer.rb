@@ -1,6 +1,5 @@
 class DataObject
   class Indexer
-    ASSOCIATION_TYPES = ["entry", "che", "user"]
 
     def self.by_data_object_ids(data_object_ids)
       indexer = self.new
@@ -40,7 +39,9 @@ class DataObject
     def index_batch(data_object_ids)
       EOL.log_call
       @objects = {}
-      get_objects(data_object_ids)
+      add_native_associations(data_object_ids)
+      add_curated_associations(data_object_ids)
+      add_user_associations(data_object_ids)
       # Ids that we actually found (some from data_object_ids c/h/b missing)
       ids = @objects.keys
       add_ancestries_from_result(get_ancestries(ids))
@@ -85,60 +86,56 @@ class DataObject
       @solr.reindex_hashes(objects_to_hashes)
     end
 
-    def get_objects(data_object_ids)
-      EOL.log_call
-      DataObject.
-        # TODO: This was designed to minimize queries... to go to the DB once
-        # (per batch) and get back everything needed. I don't see that as
-        # especially efficient. This could be much clearer code, and not take
-        # THAT much longer if it just gathered the IDs it needed and made
-        # multiple queries, one for each type of table (i.e.: with #includes).
-        # The juice is not worth the squeeze, with this design (not to mention,
-        # it's what we do for all the other attributes). NOTE: I broke these up
-        # on single lines, because there was so much going on here, this was
-        # clearer than smooshing them into longer lines. Sorry to take up so
-        # much space, though. NOTE: Yes, "entry_entry_id" is a redundant name;
-        # we parse it that way. See below.
-        select("data_objects.*, "\
-          "he.id entry_entry_id, "\
-          "he.taxon_concept_id entry_concept_id, "\
-          "dohe.vetted_id entry_vetted_id, "\
-          "dohe.visibility_id entry_visibility_id, "\
-          "che.id che_entry_id, "\
-          "che.taxon_concept_id che_concept_id, "\
-          "cudohe.vetted_id che_vetted_id, "\
-          "cudohe.visibility_id che_visibility_id, "\
-          "udo.taxon_concept_id user_concept_id, "\
-          "udo.vetted_id user_vetted_id, "\
-          "udo.visibility_id user_visibility_id, "\
-          "udo.user_id user_id").
-        joins("LEFT JOIN "\
-          "  (data_objects_hierarchy_entries dohe "\
-          "    JOIN hierarchy_entries he ON (dohe.hierarchy_entry_id=he.id))"\
-          "  ON (data_objects.id=dohe.data_object_id) "\
-          "LEFT JOIN "\
-          "  (curated_data_objects_hierarchy_entries cudohe "\
-          "    JOIN hierarchy_entries che "\
-          "    ON (cudohe.hierarchy_entry_id=che.id)) "\
-          "  ON (data_objects.id=cudohe.data_object_id) "\
-          "LEFT JOIN users_data_objects udo "\
-          "  ON (data_objects.id=udo.data_object_id)").
-        where(["data_objects.published = 1 OR dohe.visibility_id = ? AND "\
-          "data_objects.id IN (?)", Visibility.preview.id, data_object_ids]).
+    def add_native_associations(data_object_ids)
+      DataObject.where(id: data_object_ids).
+        includes(data_objects_hierarchy_entries: :hierarchy_entry).
         find_each do |dato|
-        # Because of LEFT JOINs (sigh), we could have the same data object
-        # more than once, sooo:
-        unless @objects.has_key?(dato.id)
-          dato.data_subtype_id ||= 0
-          dato.language_id ||= 0
-          dato.license_id ||= 0
-          @objects[dato.id] = { instance: dato }
-        end
-        ASSOCIATION_TYPES.each do |type|
-          if dato["#{type}_taxon_concept_id"]
-            add_association(type, dato)
+        add_data_object_base(dato)
+        dato.data_objects_hierarchy_entries.each do |native_association|
+          next unless dato.published? || native_association.preview?
+          if taxon_id = native_association.hierarchy_entry.taxon_concept_id
+            add_association(dato, native_association,
+              type: :entry, taxon_id: taxon_id,
+              entry_id: native_association.hierarchy_entry.id)
           end
         end
+      end
+    end
+
+    def add_curated_associations(data_object_ids)
+      DataObject.where(id: data_object_ids).
+        includes(curated_data_objects_hierarchy_entries: :hierarchy_entry).
+        find_each do |dato|
+        dato.curated_data_objects_hierarchy_entries.each do |curated_association|
+          next unless dato.published? || curated_association.preview?
+          if taxon_id = curated_association.hierarchy_entry.taxon_concept_id
+            add_association(dato, curated_association,
+              type: :che, taxon_id: taxon_id,
+              entry_id: curated_association.hierarchy_entry.id)
+          end
+        end
+      end
+    end
+
+    def add_user_associations(data_object_ids)
+      DataObject.where(id: data_object_ids).
+        includes(:users_data_object).
+        find_each do |dato|
+        next unless dato.users_data_object
+        next unless dato.published? || dato.users_data_object.preview?
+        if taxon_id = dato.users_data_object.taxon_concept_id
+          add_association(dato, dato.users_data_object, type: :user,
+            taxon_id: taxon_id, user_id: dato.users_data_object.user_id)
+        end
+      end
+    end
+
+    def add_data_object_base(dato)
+      unless @objects.has_key?(dato.id)
+        dato.data_subtype_id ||= 0
+        dato.language_id ||= 0
+        dato.license_id ||= 0
+        @objects[dato.id] = { instance: dato }
       end
     end
 
@@ -146,24 +143,25 @@ class DataObject
     # (which we get a lot of). Solr doesn't care, though, so... whatever. For
     # now. NOTE that it's not just a case of turning them into Sets—you must
     # then call #to_a on all of those sets just before dumping them into Solr!
-    def add_association(type, dato)
-      concept_id = dato["#{type}_concept_id"]
+    def add_association(dato, association, options = {})
+      taxon_id = options[:taxon_id]
+      type = options[:type]
       @objects[dato.id][:taxon_concept_id] ||= []
-      @objects[dato.id][:taxon_concept_id] << concept_id
-      if entry_id = dato["#{type}_entry_id"]
+      @objects[dato.id][:taxon_concept_id] << taxon_id
+      if options[:entry_id]
         @objects[dato.id][:hierarchy_entry_id] ||= []
-        @objects[dato.id][:hierarchy_entry_id] << entry_id
+        @objects[dato.id][:hierarchy_entry_id] << options[:entry_id]
       end
-      if dato["user_id"]
-        @objects[dato.id][:added_by_user_id] = dato["user_id"]
+      if options["user_id"]
+        @objects[dato.id][:added_by_user_id] = options["user_id"]
       end
       [
-        @vetted_prefix[dato["#{type}_vetted_id"]],
-        @visibility_prefix[dato["#{type}_visibility_id"]]
+        @vetted_prefix[association.vetted_id],
+        @visibility_prefix[association.visibility_id]
       ].compact.
         each do |prefix|
         @objects[dato.id]["#{prefix}_taxon_concept_id".to_sym] ||= []
-        @objects[dato.id]["#{prefix}_taxon_concept_id".to_sym] << entry_id
+        @objects[dato.id]["#{prefix}_taxon_concept_id".to_sym] << taxon_id
       end
     end
 
@@ -223,17 +221,17 @@ class DataObject
         # NOTE: this should not happen, but PHP had it. :\
         next unless @objects.has_key?(dato.id)
         # A modicum of brevity:
-        concept_id = dato["taxon_concept_id"]
+        taxon_id = dato["taxon_concept_id"]
         ancestor_id = dato["ancestor_id"]
         @objects[dato.id][field_suffix] ||= [] # TODO: set?
-        @objects[dato.id][field_suffix] << concept_id if concept_id
+        @objects[dato.id][field_suffix] << taxon_id if taxon_id
         @objects[dato.id][field_suffix] << ancestor_id if ancestor_id
         [ @vetted_prefix[dato["vetted_id"]],
           @visibility_prefix[dato["visibility_id"]] ].compact.
           each do |prefix|
           @objects[dato.id]["#{prefix}_#{field_suffix}".to_sym] ||= []
           @objects[dato.id]["#{prefix}_#{field_suffix}".to_sym] <<
-            concept_id if concept_id
+            taxon_id if taxon_id
           @objects[dato.id]["#{prefix}_#{field_suffix}".to_sym] <<
             ancestor_id if ancestor_id
         end

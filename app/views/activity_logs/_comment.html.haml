@@ -77,7 +77,7 @@
           = raw I18n.t(:time_ago, :time_passed => time_ago_in_words(item.updated_at))
     - unless item.deleted?
       %ul.actions
-        - unless @latest_published_revision.nil?
+        - if ! defined?(@latest_published_revision) || @latest_published_revision
           - if parent_newsfeed && item.parent_type != "DataPointUri"
             %li.reply= link_to(I18n.t(:reply), parent_newsfeed + "#reply-to-Comment-#{item.id}", data: { 'reply-to' => item.user.full_name, 'reply-to-type' => item.class.name, 'reply-to-id' => item.id })
           - if editable && current_user.can_update?(item)

@@ -18,7 +18,14 @@ module EOL
         end
         results
       end
-
+      
+      def self.get_image_count(taxon_concept_id, options = {})
+        url = prepare_search_url(taxon_concept_id, options)
+        res = open(url).read
+        res = JSON.load res
+        res['response']['numFound']
+      end
+      
       def self.unique_link_type_ids(taxon_concept_id, options = {})
         options[:get_unique_link_type_ids] = 1
         facets = get_special_facet_counts(taxon_concept_id, options, 'link_type_id')

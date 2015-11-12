@@ -16,6 +16,7 @@ module ImageManipulation
       if file_path.has_key?(:response) {
         obj.update_attributes(:logo_cache_url => file_path[:response])
       }
+      end
     end
   end
 

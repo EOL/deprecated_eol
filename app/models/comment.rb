@@ -19,6 +19,7 @@ class Comment < ActiveRecord::Base
   include EOL::ActivityLogItem
 
   belongs_to :user # always always posted by a user.
+  counter_culture :user
   belongs_to :parent, polymorphic: true
   belongs_to :reply_to, polymorphic: true
   has_one :curator_activity_log # Because you can post a comment along with activity, and we want the two to have a

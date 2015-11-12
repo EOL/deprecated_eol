@@ -3,6 +3,7 @@ class WikipediaQueue < ActiveRecord::Base
   self.table_name = "wikipedia_queue"
 
   belongs_to :user
+  counter_culture :user
   attr_accessor :revision_url
 
   validates_presence_of :revision_id

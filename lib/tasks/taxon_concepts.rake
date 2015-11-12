@@ -34,7 +34,6 @@ namespace :taxon_concepts do
         end
         data = {}
         data[:taxon_concept_id] = tcpe.taxon_concept_id
-        # data[:rank] = ranks.find { |r| r.rank_id == tcpe.hierarchy_entry.rank_id }.try(:label) # TODO make hash [id=> label]
         data[:rank] = ranks[tcpe.published_hierarchy_entry.rank_id]
         data[:ancestor_taxon_concepts_ids] = HierarchyEntry.select(:taxon_concept_id).
           where(['id IN (?)',
@@ -51,11 +50,10 @@ namespace :taxon_concepts do
         data[:outlinks] = []
         tcpe.published_taxon_concept.published_hierarchy_entries.each do |entry|
           data[:outlinks] << {
-            hierarchy_entry_id: tcpe.hierarchy_entry_id,
-            resource_id: tcpe.published_hierarchy_entry.try(:hierarchy).try(:resource).
-              try(:id),
-            resource: tcpe.published_hierarchy_entry.try(:hierarchy).try(:label),
-            identifier: tcpe.published_hierarchy_entry.identifier
+            hierarchy_entry_id: entry.id,
+            resource_id: entry.try(:hierarchy).try(:resource).try(:id),
+            resource: entry.try(:hierarchy).try(:label),
+            identifier: entry.identifier
           }
         end
         batch << data.to_json

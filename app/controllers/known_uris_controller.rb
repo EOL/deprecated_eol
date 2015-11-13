@@ -21,7 +21,10 @@ class KnownUrisController < ApplicationController
       @uri_type ||= params.has_key?(:uri_type_id) ? UriType.find(params[:uri_type_id]) : UriType.measurement
       wheres[:uri_type_id] = @uri_type.id
     end
-    @known_uris = KnownUri.includes([:uri_type, :toc_items, :translated_known_uris, known_uri_relationships_as_subject: :to_known_uri]).where(wheres).
+    @known_uris = KnownUri.show_in_gui.
+      includes([:uri_type, :toc_items, :translated_known_uris,
+        known_uri_relationships_as_subject: :to_known_uri]).
+      where(wheres).
       paginate(page: params[:page], order: 'known_uris.position', per_page: 500)
     respond_to do |format|
       format.html do

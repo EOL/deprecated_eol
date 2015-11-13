@@ -92,6 +92,7 @@ class KnownUri < ActiveRecord::Base
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
   scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
+  scope :show_in_gui, -> { where(hide_from_gui: false) }
 
   COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
@@ -453,7 +454,10 @@ class KnownUri < ActiveRecord::Base
       uri = args.first
       name = EOL::Sparql.uri_to_readable_label(uri)
       return if name.nil?
-      known_uri= create( uri: uri, uri_type_id: UriType.measurement.id, visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id )
+      # Auto-generated URIs are well-hidden, but in the DB for speed:
+      known_uri= create(uri: uri, uri_type_id: UriType.measurement.id,
+        visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id,
+        hide_from_gui: true, hide_from_glossary: true)
       TranslatedKnownUri.create(name: name, known_uri_id: known_uri.id, language_id: Language.english.id)
     end
     known_uri

@@ -13,12 +13,12 @@ module ImageManipulation
           prefix: "!")
         raise file_path[:error]
       end
-      if file_path.has_key?(:response) {
+      if file_path.has_key?(:response)
         obj.update_attributes(:logo_cache_url => file_path[:response])
-      }
+      end
     end
   end
-end
+
   def self.local_file_name(obj, options = {})
     return '' unless obj.logo_file_name
     "#{obj.class.table_name}_#{obj.id.to_s}." +

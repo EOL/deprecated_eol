@@ -18,7 +18,7 @@ module ImageManipulation
       }
     end
   end
-
+end
   def self.local_file_name(obj, options = {})
     return '' unless obj.logo_file_name
     "#{obj.class.table_name}_#{obj.id.to_s}." +

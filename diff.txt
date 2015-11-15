@@ -1,8 +1,0 @@
-app/assets/javascripts/application.js
-app/assets/javascripts/combobox.js
-app/assets/javascripts/data_search.js
-app/assets/javascripts/data_search.js.erb
-app/assets/javascripts/jquery-ui-1.10.3.custom.min.js
-app/assets/javascripts/jquery.easyui.min.js
-app/assets/stylesheets/data_search.sass
-app/views/data_search/_form.html.haml

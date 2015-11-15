@@ -166,6 +166,7 @@ gem "redis-namespace", "1.2.2"
 # this gem otherwise.
 gem "ruby-hmac", "0.4.0"
 gem "identity_cache", "0.0.4" # Used to cache objects in a robust way.
+gem "jquery-rails", "2.1.3" # Of course, this helps almost all of our JS.
 # TODO: - remove this, Rails has something like this baked in.
 # I forget what it's called.
 gem "indifferent-variable-hash", "0.1.0"

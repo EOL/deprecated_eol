@@ -255,8 +255,7 @@ var limit_search_summaries = function(known_uri_id) {
     summaryDiv.append($('<span class="more"></span>').append(link));
   }
 };
-
 function intialize_attribute_list() {
-	$("input.textbox-text").attr('placeholder',"<%= I18n.t('helpers.label.data_search.attribute') %>");
-	$("#_easyui_combobox_i1_0").remove();
-}
+  $(".custom-combobox-input").val("");
+ $(".custom-combobox-input").attr('placeholder',"<%= I18n.t('helpers.label.data_search.attribute') %>");
+} 

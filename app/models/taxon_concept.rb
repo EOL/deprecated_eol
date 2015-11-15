@@ -31,7 +31,7 @@ class TaxonConcept < ActiveRecord::Base
   has_many :published_hierarchy_entries, class_name: HierarchyEntry.to_s,
     conditions: Proc.new { "hierarchy_entries.published=1 AND hierarchy_entries.visibility_id=#{Visibility.get_visible.id}" }
   has_many :published_entries, class_name: HierarchyEntry.to_s,
-    conditions: Proc.new { "hierarchy_entries.published=1" }
+    conditions: -> { "hierarchy_entries.published = 1" }
   has_many :top_concept_images
   has_many :top_unpublished_concept_images
   has_many :curator_activity_logs
@@ -928,11 +928,11 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def published_browsable_hierarchy_entries
-    published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    published_hierarchy_entries.select { |he| he.hierarchy.browsable? }
   end
 
   def count_of_viewable_synonyms
-    Synonym.where(hierarchy_entry_id: published_browsable_hierarchy_entries.collect(&:id)).where(
+    Synonym.where(hierarchy_entry_id: published_hierarchy_entries.collect(&:id)).where(
       "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
   end
 

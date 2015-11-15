@@ -4,7 +4,6 @@
         this.wrapper = $( "<span>" )
           .addClass( "custom-combobox" )
           .insertAfter( this.element );
-         // debugger;
         this.element.hide();
         this._createAutocomplete();
         this._createShowAllButton();

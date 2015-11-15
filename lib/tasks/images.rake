@@ -1,62 +1,35 @@
 namespace :images do
   desc 'get list of  (scientific name of entity, # of trusted eol.org images)'
   task :count_trusted => :environment do
-    batch_size = 10000
+    batch_size = 10
     trusted_id = Vetted.trusted.id
     visible_id = Visibility.visible.id
+    solr_query_parameters = {ignore_translations: true, return_hierarchically_aggregated_objects: true,
+      data_type_ids: [1], vetted_types: ['trusted'], visibility_types: ['visible'], get_taxon_concept_ids: true,
+      published: 1, preload_select: { data_objects: [:published ] }}
+    options = TaxonConcept.default_solr_query_parameters(solr_query_parameters)
     data = {}
+    
     File.open("public/images_count.json", "wb") do |file|
+      file.write( "Started (#{Time.now})\n")
       file.write("[")
-      TaxonConcept.find_each(batch_size: batch_size, conditions: "published = true") do |taxon|
-        solr_query_parameters = {
-        ignore_translations: true,
-        return_hierarchically_aggregated_objects: true,
-        data_type_ids: DataType.image_type_ids,
-        vetted_types: ['trusted'],
-        visibility_types: ['visible'],
-        published: 1,
-        preload_select: { data_objects: [:published ] }}
-        
-        count = EOL::Solr::DataObjects.get_image_count(taxon.id, TaxonConcept.default_solr_query_parameters(solr_query_parameters))
-        
-        preferred_entry = TaxonConceptPreferredEntry.find_all_by_taxon_concept_id(taxon.id, select:{taxon_concept_preferred_entries:[:hierarchy_entry_id]})
-        data[:name] = ! preferred_entry.blank? ?
-           Name.find(HierarchyEntry.find(preferred_entry.first.hierarchy_entry_id, select: {hierarchy_entries: :name_id}).name_id, select: {names: :string}).string : 
-           HierarchyEntry.sort_by_vetted(hes).first.name.string
-        data[:count] = count
-        file.write(data.to_json + ",\n")
-      end 
+      TaxonConceptPreferredEntry.
+        includes(published_taxon_concept: { preferred_names: [:name]}).
+        find_each(batch_size: batch_size) do |tcpe|
+          if tcpe.published_taxon_concept
+            data[:name] = tcpe.published_taxon_concept.preferred_names.map { |pn| pn.name.try(:string) }.compact.sort.first
+            data[:count]= get_count_from_solr(tcpe.published_taxon_concept.id, options)
+            file.write(data.to_json+"\n")
+          end
+        end
+      
       file.write("]\n")
+      file.write( "End (#{Time.now})\n")
     end
   end
+  
+  def get_count_from_solr(id, options)
+    count = EOL::Solr::DataObjects.get_image_count(id, options)  
+  end
 end
-# namespace :images do
-  # desc 'get list of  (scientific name of entity, # of trusted eol.org images)'
-  # task :count_trusted => :environment do
-    # batch_size = 10000
-    # trusted_id = Vetted.trusted.id
-    # visible_id = Visibility.visible.id
-    # data = {}
-    # File.open("public/images_count.json", "wb") do |file|
-      # file.write("[")
-      # TaxonConcept.find_each(batch_size: batch_size, conditions: "published = true") do |taxon|
-        # count = 0
-        # hes = HierarchyEntry.find_all_by_taxon_concept_id_and_published(taxon.id, true, select: { hierarchy_entries: [ :id, :vetted_id, :hierarchy_id, :taxon_concept_id, :name_id]})
-        # if ! hes.blank?
-          # hes.each do |entry|
-            # count += entry.data_objects.images.count(:conditions => "data_objects_hierarchy_entries.vetted_id = #{trusted_id} and data_objects_hierarchy_entries.visibility_id = #{visible_id}")
-          # end
-          # preferred_entry = TaxonConceptPreferredEntry.find_all_by_taxon_concept_id(taxon.id, select:{taxon_concept_preferred_entries:[:hierarchy_entry_id]})
-          # if ! preferred_entry.blank?
-            # data[:name] = Name.find(HierarchyEntry.find(preferred_entry.first.hierarchy_entry_id, select: {hierarchy_entries: :name_id}).name_id, select: {names: :string}).string
-          # else
-            # data[:name] = HierarchyEntry.sort_by_vetted(hes).first.name.string       
-          # end
-          # data[:count] = count
-          # file.write(data.to_json + ",\n")
-        # end
-      # end 
-      # file.write("]\n")
-    # end
-  # end
-# end
+

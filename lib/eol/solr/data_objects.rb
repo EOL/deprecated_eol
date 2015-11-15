@@ -19,8 +19,9 @@ module EOL
         results
       end
       
-      def self.get_image_count(taxon_concept_id, options = {})
-        url = prepare_search_url(taxon_concept_id, options)
+      def self.get_image_count(id, options = {})
+        url = prepare_search_url(id, options)
+        url << '&rows=0'
         res = open(url).read
         res = JSON.load res
         res['response']['numFound']
@@ -107,7 +108,7 @@ module EOL
           url << CGI.escape(")")
         end
         url << CGI.escape(" NOT (preview_#{field_suffix}:#{search_id})")
-
+        
         if options[:data_type_ids]
            # TODO: do we want to remove IUCN from this query?
           url << CGI.escape(" AND (data_type_id:#{options[:data_type_ids].join(' OR data_type_id:')})")

@@ -1,5 +1,5 @@
 FROM encoflife/ruby
-MAINTAINER Dmitry Mozzherin
+MAINTAINER Jeremy Rice <jrice@eol.org>
 ENV LAST_FULL_REBUILD 2015-03-05
 RUN apt-get update -q && \
     apt-get install -qq -y software-properties-common nodejs \

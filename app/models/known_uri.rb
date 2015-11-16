@@ -82,7 +82,7 @@ class KnownUri < ActiveRecord::Base
   validates_uniqueness_of :uri
   validate :uri_must_be_uri
 
-  before_save :update_cache
+  after_save :update_cache
   before_validation :default_values
   before_validation :remove_whitespaces
 
@@ -248,6 +248,13 @@ class KnownUri < ActiveRecord::Base
       @cache ||= KnownUri.includes(:translated_known_uris).all
       @cache_time = Time.now
     end
+    @cache
+  end
+
+  def self.update_cache(uri)
+    self.build_cache_if_needed
+    @cache.delete_if { |u| u.uri == uri[:uri] }
+    @cache << KnownUri.where(id: uri.id).includes(:translated_known_uris).first
   end
 
   def units_for_form_select
@@ -471,9 +478,7 @@ class KnownUri < ActiveRecord::Base
   private
 
   def update_cache
-    build_cache_if_needed
-    @cache.delete_if { |u| u.uri == self[:uri] }
-    @cache << self
+    KnownUri.update_cache(self)
   end
 
   def default_values

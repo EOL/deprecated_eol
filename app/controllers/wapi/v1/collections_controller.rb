@@ -16,75 +16,64 @@ module Wapi
       end
 
       def create
-
+        errors = nil
         ActiveRecord::Base.transaction do
           begin
-            if params[:collection]
-              if params[:collection][:collection_items]
-                # Rails wants "collection_items_attributes", which it would use if
-                # generating the form itself, but that's lame in the context of 3rd
-                # party input JSON, so I update it here:
-                params[:collection][:collection_items_attributes] =
-                 params[:collection].delete(:collection_items)
-                params[:collection][:collection_items_attributes].each do |hash|
-                  hash[:added_by_user_id] = @user.id
-                end
-              end
-              # And, of course, we expect the user to be pre-populated based on key:
+            unless params[:collection].blank?
               params[:collection][:users] = [@user]
+              params[:collection][:collection_items_attributes] =
+                 params[:collection].delete(:collection_items)
+              @collection = Collection.create!(params[:collection])
+              CollectionItem.counter_culture_fix_counts
+            else
+              raise Exception.new I18n.t :collection_create_empty_parameters_failure
             end
-            unless params[:collection][:collection_items_attributes].blank?
-              params[:collection].merge(collection_items_count: params[:collection][:collection_items_attributes].count)
-            end
-            @collection = Collection.create!(params[:collection])
-            @collection.save
-            respond_with @collection.reload
-          rescue
+          rescue Exception => e
             respond_with(@collection, status: :unprocessable_entity) do |format|
-              format.json { render json: (I18n.t :collection_create_failure).to_json }
+              format.json { render json: (I18n.t(:collection_create_failure) + e.to_s).to_json }
             end
+            errors = true
             raise ActiveRecord::Rollback
         end
         end
+         respond_with @collection.reload , status: :ok unless errors
       end
 
       def update
-
         if @collection.blank?
           respond_with do |format|
-            format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :not_found }
+            format.json { render json: I18n.t(:collection_not_existing, collection:params[:id]).to_json, status: :not_found }
           end
           return
         end
+        errors = nil
         head :unauthorized and return unless @user && @user.can_update?(@collection)
         ActiveRecord::Base.transaction do
           begin
-            if params[:collection]
+            unless params[:collection].blank?
+               @collection.update_attributes(params[:collection].except(:collection_items))
               if params[:collection][:collection_items]
-              @collection.items.destroy_all
-                params[:collection][:collection_items].each do |item|
-                  collection_item = CollectionItem.create( item.except!(:id, :updated_at, :created_at).merge(collection_id: @collection.id))
-                end
-              end
-              @collection.update_attributes(params[:collection].except!(:id, :updated_at, :created_at, :collection_items).
-               merge(collection_items_count: @collection.items.count))
-              respond_with do |format|
-                format.json { render json: @collection.to_json, status: :ok }
-              end
+                 @collection.items.destroy_all
+                 add_collection_items
+               end
+            else
+              raise Exception.new I18n.t :collection_update_empty_parameters_failure
             end
-          rescue
+          rescue Exception => e
             respond_with do |format|
-              format.json { render json: I18n.t("collection_update_failure", collection: @collection.id).to_json, status: :ok }
+              format.json { render json: (I18n.t(:collection_update_failure, collection: @collection.id) + e.to_s).to_json, status: :unprocessable_entity }
             end
+            errors = true
             raise ActiveRecord::Rollback
           end
         end
+         respond_with @collection.reload  unless errors
       end
 
       def destroy
         if @collection.blank?
            respond_with do |format|
-          format.json { render json: I18n.t("collection_not_existing", collection:params[:id]).to_json, status: :not_found }
+          format.json { render json: I18n.t(:collection_not_existing, collection:params[:id]).to_json, status: :not_found }
             end
           return
         end
@@ -92,7 +81,7 @@ module Wapi
         @collection.collection_items.destroy_all
         @collection.destroy
         respond_with do |format|
-          format.json { render json: I18n.t("collection_removed", collection: @collection.id).to_json, status: :ok }
+          format.json { render json: I18n.t(:collection_removed, collection: @collection.id).to_json, status: :ok }
         end
       end
 
@@ -109,6 +98,13 @@ module Wapi
           @user = User.find_by_api_key(token)
         end
       end
+
+      def add_collection_items
+        params[:collection][:collection_items].each do |hash|
+          item = CollectionItem.create!(hash.merge(added_by_user_id: @user.id, collection_id: @collection.id))
+        end
+      end
+
     end
   end
 end

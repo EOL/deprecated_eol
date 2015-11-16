@@ -122,16 +122,20 @@ class KnownUri < ActiveRecord::Base
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
     @cache = nil
+    build_cache_if_needed
   end
 
-  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
-  # really used.  ...So I'm calling it from Sparql:
+  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because
+  # we end up with a lot of stale URIs that aren't really used.  ...So I'm
+  # calling it from Sparql:
   #
-  # TODO - I'm not sure #all_measurement_type_known_uris searches user-added data points.  :| That *might* be intentional (to
-  # exclude them from search options), but I'm not aware of that requirement; if so, that query will need to be extended into a
-  # new method, here.
+  # TODO - I'm not sure #all_measurement_type_known_uris searches user-added
+  # data points.  :| That *might* be intentional (to exclude them from search
+  # options), but I'm not aware of that requirement; if so, that query will need
+  # to be extended into a new method, here.
   #
-  # NOTE - diff this file with b9e79274f5430663af87508457a6a14e850c13f5 for the previous implementation (partial word matches).
+  # NOTE - diff this file with b9e79274f5430663af87508457a6a14e850c13f5 for the
+  # previous implementation (partial word matches).
   def self.by_name(input)
     normal_re = /[^\p{L}0-9 ]/u
     name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...
@@ -467,6 +471,7 @@ class KnownUri < ActiveRecord::Base
   private
 
   def update_cache
+    build_cache_if_needed
     @cache.delete_if { |u| u.uri == self[:uri] }
     @cache << self
   end

@@ -1,7 +1,7 @@
 namespace :images do
   desc 'get list of  (scientific name of entity, # of trusted eol.org images)'
   task :count_trusted => :environment do
-    batch_size = 10
+    batch_size = 10000
     trusted_id = Vetted.trusted.id
     visible_id = Visibility.visible.id
     solr_query_parameters = {ignore_translations: true, return_hierarchically_aggregated_objects: true,
@@ -9,9 +9,7 @@ namespace :images do
       published: 1, preload_select: { data_objects: [:published ] }}
     options = TaxonConcept.default_solr_query_parameters(solr_query_parameters)
     data = {}
-    
     File.open("public/images_count.json", "wb") do |file|
-      file.write( "Started (#{Time.now})\n")
       file.write("[")
       TaxonConceptPreferredEntry.
         includes(published_taxon_concept: { preferred_names: [:name]}).
@@ -22,9 +20,7 @@ namespace :images do
             file.write(data.to_json+"\n")
           end
         end
-      
       file.write("]\n")
-      file.write( "End (#{Time.now})\n")
     end
   end
   

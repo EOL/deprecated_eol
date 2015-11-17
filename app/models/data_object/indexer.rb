@@ -242,7 +242,7 @@ class DataObject
     # resource_id in it.
     def get_resources(data_object_ids)
       DataObjectsHarvestEvent.
-        select("data_object_id, resource_id").
+        select("data_object_id, harvest_events.resource_id").
         joins(:harvest_event).
         where(["data_object_id IN (?) AND harvest_event_id IN (?)",
           data_object_ids, HarvestEvent.latest_ids])
@@ -286,6 +286,7 @@ class DataObject
           @objects[id][options[:attribute]] ||= []
           @objects[id][options[:attribute]] << item[options[:value_field].to_s]
         else
+          debugger
           @objects[id][options[:attribute]] = item[options[:value_field].to_s]
         end
       end

@@ -286,7 +286,6 @@ class DataObject
           @objects[id][options[:attribute]] ||= []
           @objects[id][options[:attribute]] << item[options[:value_field].to_s]
         else
-          debugger
           @objects[id][options[:attribute]] = item[options[:value_field].to_s]
         end
       end

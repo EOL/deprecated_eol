@@ -660,6 +660,25 @@ class DataObject < ActiveRecord::Base
     @all_refs ||= refs.delete_if {|r| r.published != 1 || r.visibility_id != Visibility.get_visible.id}
   end
 
+  # NOTE: this is NOT a sufficient hash to index Solr, unlike other SolrCore
+  # classes that rely on #. For this to be indexed, you need a LOT more,
+  # which was way (WAY!) beyond the scope of this method, so it's all in the
+  # DataObject::Indexer.
+  def to_hash
+    {
+      data_object_id: id,
+      guid: guid,
+      data_type_id: data_type_id,
+      data_subtype_id: data_subtype_id,
+      language_id: language_id,
+      license_id: license_id,
+      published: published? ? 1 : 0,
+      data_rating: data_rating,
+      created_at: SolrCore.date(created_at),
+      description: description
+    }
+  end
+
   def to_s
     "[DataObject id:#{id}]"
   end
@@ -840,13 +859,15 @@ class DataObject < ActiveRecord::Base
   alias :summary_name :best_title
   alias :collected_name :best_title
 
-  # NOTE - if you plan on calling this, you are behooved by adding object_title to your selects. You MUST select
-  # description and data_type_id.
-  # TODO - this really doesn't belong here. Truncation belongs in the view (or a helper). Also, it duplicates SOME of
-  # the logic of best_title, but not all of it (why?). Very poor design.
+  # NOTE - if you plan on calling this, you are behooved by adding object_title
+  # to your selects. You MUST select description and data_type_id. TODO - this
+  # really doesn't belong here. Truncation belongs in the view (or a helper).
+  # Also, it duplicates SOME of the logic of best_title, but not all of it
+  # (why?). Very poor design.
   def short_title
     return safe_object_title unless safe_object_title.blank?
-    # TODO - ideally, we should extract some of the logic from data_objects/show to make this "Image of Procyon Lotor".
+    # TODO - ideally, we should extract some of the logic from data_objects/show
+    # to make this "Image of Procyon Lotor".
     return data_type.label if description.blank?
     st = description.gsub(/\n.*$/, '')
     st = st[0..29] + '...' if st.length > 32

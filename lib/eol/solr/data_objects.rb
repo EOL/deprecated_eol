@@ -1,7 +1,6 @@
 module EOL
   module Solr
     class DataObjects
-
       def self.search_with_pagination(taxon_concept_id, options = {})
         options[:page]        ||= 1
         options[:per_page]    ||= 30

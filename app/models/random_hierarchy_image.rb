@@ -1,6 +1,6 @@
-#
-# ... why is this a model / table?   Why isn't this just TaxonConcept.random?   ...Because the table itself is
-# randomized to save time: we can grab 10 (or however many) taxa in a row and know that they are non-contiguous.
+# ... why is this a model / table?   Why isn't this just TaxonConcept.random?
+# ...Because the table itself is randomized to save time: we can grab 10 (or
+# however many) taxa in a row and know that they are non-contiguous.
 #
 class RandomHierarchyImage < ActiveRecord::Base
 
@@ -116,28 +116,33 @@ class RandomHierarchyImage < ActiveRecord::Base
       # table was out of date at the time of writing. TODO - move the trusted
       # check; that should be done when called, not here!
       set = Set.new
+      # TODO: complex query, use :names instead of ?s.
       TaxonConcept.includes(hierarchy_entries: [ :name ]).
-        where(id: tc_ids, vetted_id: Vetted.trusted.id).
-        where(["hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
-          "hierarchy_entries.rank_id IN (?)", Rank.species_rank_ids]).
-        find_each do |taxon|
-        img = taxon.exemplar_or_best_image_from_solr
-        next unless img
-        set << {
-          data_object_id: img.id,
-          hierarchy_entry_id: taxon.entry.id,
-          hierarchy_id: taxon.entry.hierarchy_id,
-          taxon_concept_id:taxon.id,
-          name: taxon.entry.name.italicized
-        }
-      end
-      EOL.log("Found #{set.count} of species with images", prefix: '.')
-      RandomHierarchyImage.connection.transaction do
-        RandomHierarchyImage.delete_all
-        # TODO - this could be much faster with a bulk insert
-        set.to_a.shuffle.each do |values|
-          RandomHierarchyImage.create(values)
-        end
+        where(["taxon_concepts.published = 1 AND taxon_concepts.vetted_id = ? AND "\
+          "(hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
+          "hierarchy_entries.rank_id IN (?)) AND "\
+          "taxon_concepts.id in (?)",
+          Vetted.trusted.id,
+          Rank.species_rank_ids,
+          TaxonConceptMetric.
+            where(["richness_score > ?", $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).
+            pluck(:taxon_concept_id)
+        ]).find_each do |taxon|
+          # TODO: we could re-write this to query solr for a SET of taxa's best
+          # images...
+          img = taxon.exemplar_or_best_image_from_solr
+          # That is Solr-heavy, so let's lighten the load just a wee bit:
+          sleep(0.01) # TODO: not needed once we query batches.
+          next unless img
+          set << {
+            data_object_id: img.id,
+            hierarchy_entry_id: taxon.entry.id,
+            hierarchy_id: taxon.entry.hierarchy_id,
+            taxon_concept_id:taxon.id,
+            name: taxon.entry.name.italicized
+          }
+# >>>>>>> 8daa2d659c811a91ece10481294dc01b2a3100ee
+        # end
       end
     end
 

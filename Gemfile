@@ -197,6 +197,9 @@ gem "sass-rails", "3.2.5" # To make CSS easier to write.
 gem "sitemap_generator"
 # TODO: - update sparql-client
 gem "sparql-client", "1.0.4.1" # For the data tab
+gem "statsd-ruby", "1.2.1" # For recording various stats around the site.
+# A new, STANDARDIZED (!) way to talk to Solr. What a concept:
+gem "rsolr", "1.0.12"
 gem "uglifier", "2.3.1" # For smaller JS when assets are compiled
 # TODO: - update unicorn.
 gem "unicorn", "4.4.0" # This is our webserver

@@ -31,6 +31,14 @@ module EOL
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
 
+          if false # TODO: this is more efficient. Really.
+            hierarchy_entry = HierarchyEntry.
+              where(id: params[:id]).
+              includes(name: :canonical_form, flat_ancestors: [:rank, :name],
+                children: [:rank, :name]).
+              first
+          end
+
           begin
             associations = [ { :name => :canonical_form }]
             selects = { :hierarchy_entries => '*', :canonical_forms => [ :id, :string ] }

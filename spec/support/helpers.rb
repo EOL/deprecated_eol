@@ -1,4 +1,11 @@
 module Helpers
+  def truncate_tables(*table_names)
+    table_names.each do |name|
+      connection = name.to_s.classify.constantize.send(:connection)
+      EOL::Db.truncate_table(connection, name)
+    end
+  end
+
   def populate_tables(*table_names)
     table_names.each do |name|
       begin

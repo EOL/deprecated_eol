@@ -1,6 +1,30 @@
+# This is a denormalized table, based on (published+visible or
+# unpublished+preview) names, including the preferred scientific name from each
+# associated hierarchy entry, its canonical form, and all synonyms (common or
+# not... but, according to the code, NOT including acronyms). If it's a
+# canonical form, it has exactly the same string as either a preferred common
+# name or a synonym... meaning, if the canonical form of one of those names did
+# NOT match the original string, you won't find that canonical form in this
+# table. I don't know why that decision was made. :\  TODO: I believe that was
+# actually a bug. (Honestly, at the time of this writing, I'm not _exactly_ sure
+# how TCN is used. I know it is, and in seveal places, but I don't know well
+# enough to determine the ramifications of these decisions. One thing it's used
+# for is indexing site search, though.)
+#
+# NOTE: if the source_hierarchy_entry_id is 0, you are looking at a canonical
+# form. Further, scientific names (including canonical forms) have neither a
+# language_id (it's 0; this should be expected if you're familiar with the Names
+# table) nor a synonym_id (which, again, makes sense: it's not a synonym; it's
+# either a canonical form or a preferred scientific name for a hierarchy entry).
+#
+# ...All of this strikes me as pretty weird, really. :\ This is not how I would
+# have build a denormalized table of names per taxon concept. ...Other than for
+# search (which we store in Solr), there's never really a need for all these
+# types at once... so ... go figure. [shrug]
 class TaxonConceptName < ActiveRecord::Base
 
-  self.primary_keys = :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id, :synonym_id
+  self.primary_keys = :taxon_concept_id, :name_id, :source_hierarchy_entry_id,
+    :language_id, :synonym_id
 
   belongs_to :language
   belongs_to :name
@@ -10,6 +34,9 @@ class TaxonConceptName < ActiveRecord::Base
   belongs_to :vetted
 
   scope :preferred, -> { where(preferred: true) }
+  scope :non_preferred, -> { where(preferred: false) }
+  scope :vernacular, -> { where(vern: true) }
+  scope :scientific, -> { where(vern: false) }
 
   def can_be_deleted_by?(user)
     agents.map(&:user).include?(user)
@@ -22,6 +49,10 @@ class TaxonConceptName < ActiveRecord::Base
        tcn.preferred * -1,
        tcn.name.try(:string)]
     end
+  end
+
+  def self.rebuild_by_taxon_concept_id(ids)
+    TaxonConceptName::Rebuilder.by_taxon_concept_id(ids)
   end
 
   def to_jsonld

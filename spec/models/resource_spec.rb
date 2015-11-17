@@ -3,9 +3,11 @@ require "spec_helper"
 describe Resource do
 
   before(:all) do
-    load_foundation_cache
-    iucn_user = User.find_by_given_name('IUCN')
-    iucn_content_partner = ContentPartner.find_by_user_id(iucn_user.id)
+    populate_tables(:vetted, :visibilities, :resource_statuses,
+      :content_partner_statuses, :licenses)
+    iucn_user = User.gen(given_name: 'IUCN')
+    Agent.gen(user: iucn_user, full_name: 'IUCN')
+    iucn_content_partner = ContentPartner.gen(user: iucn_user)
     @iucn_resource1 = Resource.gen(content_partner: iucn_content_partner)
     @iucn_resource2 = Resource.gen(content_partner: iucn_content_partner)
     content_partner = ContentPartner.gen(user: User.gen)
@@ -52,15 +54,36 @@ describe Resource do
       HarvestEvent.should_receive(:delete_all)
       subject.destroy_everything
     end
-    
+
     it "should call 'delete_resource_contributions_file' for resource" do
       subject.should receive(:delete_resource_contributions_file)
       subject.destroy_everything
     end
-    
+
     it "should call 'delete_all' for resource_contributions" do
       ResourceContribution.should_receive(:delete_all)
       subject.destroy_everything
+    end
+
+    describe "#unpublish_data_objects" do
+      it "should unpublish all data objects associated with the latest harvest"
+      # NOTE: you should probably just add three published data objects to a
+      # harvest event, and attach that harvest event to this resource. Then run
+      # the method and check that they are all published. There are other things
+      # one could test here, but that's all that really matters.
+    end
+
+    describe "#unpublish_hierarchy" do
+      let(:hierarchy) { Hierarchy.gen }
+      subject { Resource.gen(hierarchy: hierarchy) }
+      # I'm adding this one as an example of testing delegation... even though
+      # we don't _really_ care about this level of detail _quite yet_ for the
+      # ported code. ;)
+      it "should delegate to hierarchy#unpublish" do
+        hierarchy.should receive(:unpublish) { true }
+        resource.unpublish_hierarchy
+      end
+      it "should return a list of ids affected"
     end
   end
 

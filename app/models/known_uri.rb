@@ -121,7 +121,7 @@ class KnownUri < ActiveRecord::Base
     Rails.cache.delete(KnownUri.cached_name_for('unit_of_measure'))
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
-    @cache = nil
+    @cache = []
   end
 
   # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
@@ -467,6 +467,7 @@ class KnownUri < ActiveRecord::Base
   private
 
   def update_cache
+    @cache ||= []
     @cache.delete_if { |u| u.uri == self[:uri] }
     @cache << self
   end

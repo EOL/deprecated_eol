@@ -70,10 +70,6 @@ describe DataObject::Indexer do
           to include(@curation.user_id)
       end
       
-      it "should index resources (Argh. Should be on the table.)" do
-        expect(@result["resource_id"]).to eq(@resource.id)
-      end
-      
       it "should index TOC items" do
         expect(@result["toc_id"]).to include(@dotoc.toc_id)
       end

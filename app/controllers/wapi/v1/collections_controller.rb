@@ -4,6 +4,7 @@ module Wapi
       respond_to :json
       before_filter :restrict_access, except: [:index, :show]
       before_filter :find_collection, only: [:update, :destroy]
+      after_filter :reindex_collection, only: [:create, :update]
       DEFAULT_ITEMS_NUMBER_PER_PAGE = 30
 
       def index
@@ -21,9 +22,13 @@ module Wapi
           begin
             unless params[:collection].blank?
               params[:collection][:users] = [@user]
-              params[:collection][:collection_items_attributes] =
-                 params[:collection].delete(:collection_items)
-              @collection = Collection.create!(params[:collection])
+              @collection = Collection.create!(params[:collection].except(:collection_items))
+              grouped_collection_items =  params[:collection][:collection_items].
+              group_by{ |i| i["collected_item_type"]} rescue []
+              valid_collected_item_type?(grouped_collection_items.keys)
+              grouped_collection_items.each do |key, group |
+                add_grouped_collection_items(key, group)
+              end
               CollectionItem.counter_culture_fix_counts
             else
               raise Exception.new I18n.t :collection_create_empty_parameters_failure
@@ -35,7 +40,7 @@ module Wapi
             errors = true
             raise ActiveRecord::Rollback
         end
-        end
+      end
          respond_with @collection.reload , status: :ok unless errors
       end
 
@@ -54,8 +59,13 @@ module Wapi
                @collection.update_attributes(params[:collection].except(:collection_items))
               if params[:collection][:collection_items]
                  @collection.items.destroy_all
-                 add_collection_items
-               end
+                    grouped_collection_items =  params[:collection][:collection_items].
+                  group_by{ |i| i["collected_item_type"]} rescue []
+                  valid_collected_item_type?(grouped_collection_items.keys)
+                  grouped_collection_items.each do |key, group |
+                    add_grouped_collection_items(key, group)
+                  end
+              end
             else
               raise Exception.new I18n.t :collection_update_empty_parameters_failure
             end
@@ -67,7 +77,7 @@ module Wapi
             raise ActiveRecord::Rollback
           end
         end
-         respond_with @collection.reload  unless errors
+         respond_with @collection.reload , status: :ok unless errors
       end
 
       def destroy
@@ -104,7 +114,55 @@ module Wapi
           item = CollectionItem.create!(hash.merge(added_by_user_id: @user.id, collection_id: @collection.id))
         end
       end
+      
+      def add_grouped_collection_items(key, group)
+        inserts = []
+        duplicate_entries?(key, group)
+        group.each do |item|
+          missing_values?(item)
+          name = item["name"].blank? ? "NULL" : "'#{item["name"]}'" 
+           type = item["collected_item_type"].blank? ? "NULL" : "'#{item["collected_item_type"]}'"
+           annotation = item["annotation"].blank? ? "NULL" : "'#{item["annotation"]}'"
+           sort_field = item["sort_field"].blank? ? "NULL" : "'#{item["sort_field"]}'"
 
+          inserts.push "(#{name} , #{type}" +
+           " , #{item["collected_item_id"]}, #{@collection.id}" +
+           " , #{annotation} , #{@user.id}, #{sort_field})"
+        end
+        sql = "INSERT INTO collection_items (`name`, `collected_item_type`, `collected_item_id`,"+
+        " `collection_id`, `annotation`, `added_by_user_id`, `sort_field`) VALUES #{inserts.join(", ")}"
+        ActiveRecord::Base.connection.execute sql
+      end
+    
+      def valid_collected_item_type?(types)
+        invalid = types.delete_if{|t| ['Collection','Community','DataObject','TaxonConcept', 'User'].include?(t)}
+         raise EOL::Exceptions::InvalidCollectionItemType.new(
+          I18n.t(:cannot_create_collection_items_from_invalid_types,
+          types: invalid.join(","))) unless invalid.blank?
+      end
+      
+      def missing_values?(item)
+        i = CollectionItem.new item
+         raise EOL::Exceptions::CollectionItemMissingValues.new(
+          I18n.t :collection_items_missing_values,
+           item: i.attributes.to_s ) unless i.valid?
+      end
+  
+      def duplicate_entries?(type, collection_items)
+        duplicates = collection_items.group_by{|item| item[:collected_item_id] }.
+        select { |k, v| v.size > 1 }.keys
+         raise EOL::Exceptions::DuplicateCollectionItems.new( I18n.t(:collection_items_duplicate_ids,
+        values: duplicates.join(","), type: type )) unless duplicates.blank?
+      end
+
+      def reindex_collection
+        if @collection
+            EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(@collection)
+          @collection.update_attribute(:collection_items_count,
+           @collection.collection_items.count)
+        
+        end
+        end
     end
   end
 end

@@ -26,8 +26,8 @@ class CollectionItem < ActiveRecord::Base
   # of unused fields in collection_activity_logs, so it's actually better to have these "zombie" rows here!)
   validates_presence_of :collected_item_id, :collected_item_type
   validates_uniqueness_of :collected_item_id, scope: [:collection_id, :collected_item_type],
-    message: I18n.t(:item_not_added_already_in_collection, item: '%{value}'), if: Proc.new { |ci| ci.collection_id }
-  validate :valid_collected_item_type
+    message: I18n.t(:item_not_added_already_in_collection), if: Proc.new { |ci| ci.collection_id }
+  # validate :valid_collected_item_type
   # validate :existing_collected_item
 
   # Note we DO NOT update relevance on the collection on save or delete, since we sometimes add/delete 1000 items at

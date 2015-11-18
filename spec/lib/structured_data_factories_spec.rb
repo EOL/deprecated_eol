@@ -32,19 +32,19 @@ describe 'Structured Data Factories' do
     it 'should be able to interact with the triplestore' do
       s = DataMeasurement.new(@default_options.merge(predicate: "eol:weight", object: "14"))
       EOL::Sparql.count_triples_in_graph(s.graph_name).should == 0
-      EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 0
+      EOL::Sparql.count_triples_in_graph(s.entry_to_taxon_graph_name).should == 0
       s.add_to_triplestore
       EOL::Sparql.count_triples_in_graph(s.graph_name).should == 7
-      EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 1
+      EOL::Sparql.count_triples_in_graph(s.entry_to_taxon_graph_name).should == 1
       s.remove_from_triplestore
       EOL::Sparql.count_triples_in_graph(s.graph_name).should == 0
-      EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 0
+      EOL::Sparql.count_triples_in_graph(s.entry_to_taxon_graph_name).should == 0
       s.update_triplestore
       EOL::Sparql.count_triples_in_graph(s.graph_name).should == 7
-      EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 1
+      EOL::Sparql.count_triples_in_graph(s.entry_to_taxon_graph_name).should == 1
       s.update_triplestore
       EOL::Sparql.count_triples_in_graph(s.graph_name).should == 7
-      EOL::Sparql.count_triples_in_graph(s.mappings_graph_name).should == 1
+      EOL::Sparql.count_triples_in_graph(s.entry_to_taxon_graph_name).should == 1
       s.remove_from_triplestore
     end
   end
@@ -71,19 +71,19 @@ describe 'Structured Data Factories' do
     it 'should be able to interact with the triplestore' do
       a = DataAssociation.new(@default_options)
       EOL::Sparql.count_triples_in_graph(a.graph_name).should == 0
-      EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 0
+      EOL::Sparql.count_triples_in_graph(a.entry_to_taxon_graph_name).should == 0
       a.add_to_triplestore
       EOL::Sparql.count_triples_in_graph(a.graph_name).should == 7
-      EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 2
+      EOL::Sparql.count_triples_in_graph(a.entry_to_taxon_graph_name).should == 2
       a.remove_from_triplestore
       EOL::Sparql.count_triples_in_graph(a.graph_name).should == 0
-      EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 0
+      EOL::Sparql.count_triples_in_graph(a.entry_to_taxon_graph_name).should == 0
       a.update_triplestore
       EOL::Sparql.count_triples_in_graph(a.graph_name).should == 7
-      EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 2
+      EOL::Sparql.count_triples_in_graph(a.entry_to_taxon_graph_name).should == 2
       a.update_triplestore
       EOL::Sparql.count_triples_in_graph(a.graph_name).should == 7
-      EOL::Sparql.count_triples_in_graph(a.mappings_graph_name).should == 2
+      EOL::Sparql.count_triples_in_graph(a.entry_to_taxon_graph_name).should == 2
       a.remove_from_triplestore
     end
   end

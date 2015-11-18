@@ -21,6 +21,7 @@ class Hierarchy < ActiveRecord::Base
   has_many :kingdoms, class_name: HierarchyEntry.to_s, foreign_key: [ :hierarchy_id ], primary_key: [ :id ],
     conditions: Proc.new { "`hierarchy_entries`.`visibility_id` IN (#{Visibility.get_visible.id}, #{Visibility.get_preview.id}) AND `hierarchy_entries`.`parent_id` = 0" }
   has_many :hierarchy_reindexings
+  has_many :synonyms, through: :hierarchy_entries
 
   validates_presence_of :label
   validates_length_of :label, maximum: 255
@@ -71,13 +72,14 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.eol_contributors
+    Agent # ARRRRRRGH... Dumbest error; can't use the include in tests w/o this.
     @@eol_contributors ||= cached('eol_contributors') do
       Hierarchy.find_by_label("Encyclopedia of Life Contributors", include: :agent)
     end
   end
-  
+
   def self.iucn_structured_data
-    @iucn_structured_data ||= Resource.iucn_structured_data.hierarchy    
+    @iucn_structured_data ||= Resource.iucn_structured_data.hierarchy
   end
 
   def self.ubio
@@ -89,7 +91,7 @@ class Hierarchy < ActiveRecord::Base
       Hierarchy.find_by_label("NCBI Taxonomy", order: "hierarchy_group_version desc")
     end
   end
-  
+
   def self.worms
     @@worms ||= cached('worms') do
       Hierarchy.find_by_label("WORMS Species Information (Marine Species)")
@@ -131,6 +133,10 @@ class Hierarchy < ActiveRecord::Base
     9999
   end
 
+  def flatten
+    Hierarchy::Flattener.flatten(self)
+  end
+
   def form_label
     return descriptive_label unless descriptive_label.blank?
     return label
@@ -147,6 +153,22 @@ class Hierarchy < ActiveRecord::Base
     elsif agent.user && !agent.user.content_partners.blank?
       agent.user.content_partners.first
     end
+  end
+
+  def merge_matching_concepts
+    Hierarchy::ConceptMerger.merges_for_hierarchy(self)
+  end
+
+  # Returns (a potentially VERY large) array of ids that were previously
+  # published.
+  def unpublish
+    ids = unpublish_and_hide_hierarchy_entries
+    unpublish_synonyms
+    ids
+  end
+
+  def request_to_publish_can_be_made?
+    !self.browsable? && !request_publish
   end
 
   def user_or_agent
@@ -167,10 +189,6 @@ class Hierarchy < ActiveRecord::Base
     end
   end
 
-  def request_to_publish_can_be_made?
-    !self.browsable? && !request_publish
-  end
-
   def display_title
     if resource
       resource.title
@@ -186,12 +204,26 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def reindex
-    HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank? 
+    HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank?
   end
 
 private
+
   def reset_request_publish
     self.request_publish = false
     return true
   end
+
+  def unpublish_and_hide_hierarchy_entries
+    entry_ids = hierarchy_entries.where(published: true).pluck(:id)
+    hierarchy_entries.where(id: entry_ids).
+      update_all(published: false, visibility_id: Visibility.get_invisible.id)
+    entry_ids
+  end
+
+  def unpublish_synonyms
+    synonyms.where(synonyms: { published: true }).
+      update_all(["synonyms.published = ?", false])
+  end
+
 end

@@ -135,7 +135,6 @@ class TaxonUserClassificationFilter
     @all_hierarchy_entries
   end
 
-
   # This is used by the TaxaController (and thus all its children) to help build
   # information for ALL translations:
   def hierarchy_provider

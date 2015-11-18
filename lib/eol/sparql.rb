@@ -21,8 +21,10 @@ module EOL
         'anage' => 'http://anage.org/schema/terms/'
       }
 
-    # NOTE - yes, this appears to be rebuilding the connection every time, but when I benchmarked it, it was very, very fast, so I'm not
-    # worried about that.
+    # NOTE - yes, this appears to be rebuilding the connection every time, but
+    # when I benchmarked it, it was very, very fast, so I'm not so worried about
+    # that. That said, on another task, I started making the Connection class,
+    # below. Not great, but I don't have time to rewrite all of this. :D
     def self.connection
       @@connection ||= EOL::Sparql::VirtuosoClient.new(
         :endpoint_uri => $VIRTUOSO_SPARQL_ENDPOINT_URI,
@@ -31,7 +33,64 @@ module EOL
         :password => $VIRTUOSO_PW)
     end
 
-    # camelCase (with starting lower) seems to be more standard for these, but we prefer underscores, soooo...
+    class Connection
+      def initialize
+        @connection = EOL::Sparql.connection
+      end
+
+      # options must include :graph_name, :data (array). TODO: I am not crazy
+      # about how #insert_data was implemented, but it's something to use for
+      # now. I cut the size of inserts in half from PHP; it seemed quite large
+      # to me. TODO: it would be nice to get some kind of return value and/or
+      # catch exceptions. :\
+      def insert_into_graph(graph_name, data)
+        EOL.log("insert_into_graph(#{graph_name}, #{Array(data).count} rows)",
+          prefix: "#")
+        Array(data).in_groups_of(2500, false) do |group|
+          @connection.insert_data(data: group, graph_name: graph_name)
+        end
+      end
+
+      def delete_graph(graph_name)
+        EOL.log("delete_graph(#{graph_name})", prefix: "#")
+        @connection.delete_graph(graph_name)
+      end
+
+      # TODO: This should come from a config.
+      def eol_uri
+        "http://eol.org"
+      end
+
+      def entry_to_taxon_graph_name(resource)
+        resource_graph_name(resource) + "/mappings"
+      end
+
+      def entry_uri(entry, options = {})
+        resource = options[:resource] || entry.hierarchy.resource
+        "#{resource_graph_name(resource)}/taxa/#{underscore(entry.identifier)}"
+      end
+
+      def resource_graph_name(resource)
+        "#{eol_uri}/resources/#{resource.id}"
+      end
+
+      # Obnoxiously heavy conversion under the hood of this one: :|
+      def underscore(string)
+        EOL::Sparql.to_underscore(string)
+      end
+
+      def taxon_concept_uri(taxon_concept)
+        taxon_concept = taxon_concept.id unless taxon_concept.is_a?(Integer)
+        "#{eol_uri}/pages/#{taxon_concept}"
+      end
+    end
+
+    def self.delete_graph(graph_name)
+      connection.delete_graph(graph_name)
+    end
+
+    # camelCase (with starting lower) seems to be more standard for these, but
+    # we "prefer" underscores, soooo...
     def self.to_underscore(str)
       convert(str.strip.downcase.gsub(/\s+/, '_'))
     end
@@ -122,6 +181,5 @@ module EOL
       uris += rows.map { |row| row[:sex] }.select { |attr| attr.is_a?(RDF::URI) }
       uris.map(&:to_s).uniq
     end
-
   end
 end

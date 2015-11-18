@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :members
   has_many :comments
   has_many :users_data_objects
+  has_many :data_objects, through: :users_data_objects
   has_many :collection_items, as: :collected_item
   has_many :containing_collections, through: :collection_items, source: :collection
   has_and_belongs_to_many :collections, conditions: 'collections.published = 1'
@@ -53,6 +54,7 @@ class User < ActiveRecord::Base
   scope :admins, -> { where("admin IS NOT NULL") }
   scope :curators, -> { where("curator_level_id IS NOT NULL") }
   scope :active, -> { where(active: true) }
+  scope :not_hidden, -> { where(hidden: false) }
   scope :has_email, -> { where("email IS NOT NULL") }
   scope :newsletter, -> {
     active.
@@ -206,23 +208,30 @@ class User < ActiveRecord::Base
     @@a_somewhat_recent_user ||= User.find(:all, order: 'id desc', limit: 30).last
   end
 
-  # Please use consistent format for naming Users across the site.  At the moment, this means using #full_name unless
-  # you KNOW you have an exception.
+  # Please use consistent format for naming Users across the site.  At the
+  # moment, this means using #full_name unless you KNOW you have an exception.
   def full_name(options={})
-    reload_all_values_if_missing([:curator_level_id, :given_name, :family_name, :username])
+    reload_all_values_if_missing([:curator_level_id, :given_name, :family_name,
+      :username])
     if is_curator? # MUST show their name:
-      return [given_name, family_name].join(' ').strip
-    else # Other users show their full name when available, otherwise their username:
+      return build_full_name
+    else
+      # Other users show their full name when available, otherwise their
+      # username:
       if options[:ignore_empty_family_name] || username.blank?
-        return [given_name, family_name].join(' ').strip unless given_name.blank? && family_name.blank?
+        return build_full_name unless given_name.blank? && family_name.blank?
       end
       return username if given_name.blank? || family_name.blank?
-      return [given_name, family_name].join(' ').strip
+      return build_full_name
     end
   end
   alias :summary_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
   alias :collected_name :full_name # This is for collection item duck-typing, you need not use this elsewhere.
   alias :name :full_name # This is for data tab only (ATM), used to mimic ContentPartner#name in real-estate.
+
+  def build_full_name
+    [given_name, family_name].join(' ').strip
+  end
 
   # Note that this can end up being expensive, but avoids errors.  Watch your qeries!
   def reload_all_values_if_missing(which)

@@ -204,7 +204,7 @@ module EOL
           :includes => [ { :hierarchy_entry => [ :name, :taxon_concept, { :hierarchy => [ :agent ] } ] },
                          :user, :untrust_reasons ],
           :selects => {
-            :curator_activity_logs => '*', :hiearchy => [ :agent_id ], :names => [ :string ],
+            :curator_activity_logs => '*', :hierarchy => [ :agent_id ], :names => [ :string ],
             :agents => [ :full_name ], :users => '*', :untrust_reasons => '*'
           })
         EOL::Solr.add_standard_instance_to_docs!(CommunityActivityLog,

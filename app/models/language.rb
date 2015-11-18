@@ -38,6 +38,15 @@ class Language < ActiveRecord::Base
     end
   end
 
+  # NOTE: Sorry, black magic here. I don't care. Lost all hope of avoiding SQL
+  # around here. :| This command creates a hash of ids and their iso codes, then
+  # looks up the value in that hash based on the id passed in.
+  def self.iso_code(id)
+    @iso_by_id ||= Hash[*(Language.connection.select_rows("SELECT id, "\
+      "iso_639_1 FROM languages WHERE iso_639_1 != ''").flatten)]
+    @iso_by_id[id]
+  end
+
   def self.from_iso(iso)
     @@from_iso ||= {}
     @@from_iso[iso] ||= cached_find(:iso_639_1, iso)

@@ -27,8 +27,6 @@ class CollectionItem < ActiveRecord::Base
   validates_presence_of :collected_item_id, :collected_item_type
   validates_uniqueness_of :collected_item_id, scope: [:collection_id, :collected_item_type],
     message: I18n.t(:item_not_added_already_in_collection), if: Proc.new { |ci| ci.collection_id }
-  # validate :valid_collected_item_type
-  # validate :existing_collected_item
 
   # Note we DO NOT update relevance on the collection on save or delete, since we sometimes add/delete 1000 items at
   # a time, and that would be a disaster, since the collection only need be recalculated once.
@@ -105,17 +103,4 @@ class CollectionItem < ActiveRecord::Base
     end
     return  false
   end
-  private
-    def valid_collected_item_type
-      valid = ['Collection','Community','DataObject','TaxonConcept', 'User'].include?(collected_item_type)
-      raise EOL::Exceptions::InvalidCollectionItemType.new(I18n.t(:cannot_create_collection_item_from_class_error,
-            klass: collected_item_type)) unless valid
-    end
-
-    def existing_collected_item
-      found= Object.const_get(collected_item_type).find(collected_item_id) rescue false
-      raise EOL::Exceptions::InvalidCollectionItemType.new I18n.t :cannot_create_collection_item_from_non_existing_item,
-       klass:collected_item_type , id: collected_item_id if found.blank?
-    end
-
 end

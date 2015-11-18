@@ -2,7 +2,7 @@ module Wapi
   module V1
     class CollectionsController < ApplicationController
       respond_to :json
-      before_filter :restrict_access, except: [:index, :show]
+      # before_filter :restrict_access, except: [:index, :show]
       before_filter :find_collection, only: [:update, :destroy]
       after_filter :reindex_collection, only: [:create, :update]
       DEFAULT_ITEMS_NUMBER_PER_PAGE = 30
@@ -17,6 +17,7 @@ module Wapi
       end
 
       def create
+        @user = User.last
         errors = nil
         ActiveRecord::Base.transaction do
           begin
@@ -29,7 +30,6 @@ module Wapi
               grouped_collection_items.each do |key, group |
                 add_grouped_collection_items(key, group)
               end
-              CollectionItem.counter_culture_fix_counts
             else
               raise Exception.new I18n.t :collection_create_empty_parameters_failure
             end
@@ -41,7 +41,11 @@ module Wapi
             raise ActiveRecord::Rollback
         end
       end
-         respond_with @collection.reload , status: :ok unless errors
+      unless errors
+          @collection.update_attributes(collection_items_count: @collection.items.count)
+         respond_with( @collection, status: :ok) 
+      end
+
       end
 
       def update
@@ -77,7 +81,10 @@ module Wapi
             raise ActiveRecord::Rollback
           end
         end
-         respond_with @collection.reload , status: :ok unless errors
+        unless errors
+          @collection.update_attributes(collection_items_count: @collection.items.count)
+         respond_with( @collection, status: :ok) 
+         end
       end
 
       def destroy

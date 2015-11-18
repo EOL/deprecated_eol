@@ -211,11 +211,8 @@ class TaxonConcept < ActiveRecord::Base
     (id1, id2) = [id1, id2].sort
     tc2 = TaxonConcept.find(id2)
     tc2.update_attributes(supercedure_id: id1, published: false)
-    EOL.log("Matching hierarchy_entries to superceded taxon_concept_id(#{id1})",
-      prefix: '.')
     HierarchyEntry.where(taxon_concept_id: id2).
       update_all(taxon_concept_id: id1)
-    EOL.log("Updating ancilary tables", prefix: '.')
     UsersDataObject.where(taxon_concept_id: id2).
       update_all(taxon_concept_id:id1)
     # TODO: these don't actually delete records that need to be deleted. This

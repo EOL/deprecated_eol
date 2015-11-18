@@ -184,11 +184,9 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.add_to_data(rows)
-    EOL.log_call
     known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
       { known_uri_relationships_as_target: :from_known_uri }, :toc_items ])
-    EOL.log("replacing rows", prefix: '.')
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)

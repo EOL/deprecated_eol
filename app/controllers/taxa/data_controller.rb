@@ -56,18 +56,13 @@ protected
     # Sad that we need to load all of this for the about and glossary tabs, but
     # TODO - we can cache this, later:
     @taxon_data = @taxon_page.data
-    EOL.log("ranges_of_values", prefix: '.')
     @range_data = @taxon_data.ranges_of_values
-    EOL.log("get_data", prefix: '.')
     @data_point_uris = @taxon_page.data.get_data
-    EOL.log("for_uris", prefix: '.')
     @categories = TocItem.for_uris(current_language).
       select { |toc| @taxon_data.categories.include?(toc) }
-    EOL.log("include_other_category", prefix: '.')
     @include_other_category = @data_point_uris &&
       @data_point_uris.detect { |d| d.predicate_known_uri.nil? ||
         d.predicate_known_uri.toc_items.blank? }
-    EOL.log("default_units_for_form_select", prefix: '.')
     @units_for_select = KnownUri.default_units_for_form_select
   end
 

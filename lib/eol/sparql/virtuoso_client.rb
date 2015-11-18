@@ -24,7 +24,8 @@ module EOL
 
       def insert_data(options = {})
         unless options[:data].blank?
-          query = "INSERT DATA INTO <#{options[:graph_name]}> { "+ options[:data].join(" .\n") +" }"
+          query = "INSERT DATA INTO <#{options[:graph_name]}> "\
+            "{ #{options[:data].join(" .\n")} }"
           uri = URI(upload_uri)
           request = Net::HTTP::Post.new(uri.request_uri)
           request.basic_auth(username, password)

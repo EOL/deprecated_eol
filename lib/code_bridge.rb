@@ -24,6 +24,7 @@ class CodeBridge
       if tc
         TaxonConceptCacheClearing.clear(tc)
       end
+    # TODO: this one will no longer ne needed, soon:
     elsif args['cmd'] == 'update_resource_contributions'
       resource = Resource.find(args['resource_id'])
       resource.save_resource_contributions

@@ -67,10 +67,12 @@ public/search.xml
 public/falo_data.json
 public/falo_mappings.json
 public/stylesheets/*packaged.css
-public/uploads/data_search_files/*
-public/uploads/datasets/*
-public/uploads/Image/*
-public/uploads/images/collection_icons/*
+public/uploads/data_search_files/*csv
+public/uploads/datasets/*csv
+public/uploads/images/collection_icons/*jpg
+public/uploads/images/collection_icons/*jpeg
+public/uploads/images/collection_icons/*png
+public/uploads/images/collection_icons/*gif
 public/resource_contributions/*json
 solr/logs/*.*
 # This is the old one, but some people will still have it:

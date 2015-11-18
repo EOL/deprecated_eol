@@ -8,6 +8,8 @@ class TranslatedContentPage < ActiveRecord::Base
 
   before_destroy :archive_self
 
+  scope :active, -> { where(active_translation: true) }
+
   def can_be_read_by?(user_wanting_access)
     user_wanting_access.is_admin? || active_translation?
   end

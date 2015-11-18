@@ -46,6 +46,10 @@ Rails.configuration.donate_footer_url =
 Rails.configuration.inat_collection_url =
   ENV["EOL_DONATE_INAT_COLLECTION_URL"] || ''
 
+# Solr Stuff:
+Rails.configuration.solr_relationships_page_size =
+  ENV["SOLR_RELATIONSHIPS_PAGE_SIZE"] || 10000
+
 Eol::Application.configure do
   config.after_initialize do
     no_email = "someguy@some.whe.re"

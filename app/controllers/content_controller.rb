@@ -1,7 +1,8 @@
+# TODO: this controller is ancient. It's one of the first ones ever created for
+# the project, and thus was written before having a proper understanding of
+# rails. Thus, it's awful. Simply awful. There is much TODO here, but
+# essentially it's worth thinking of this as needing a re-write. :|
 class ContentController < ApplicationController
-
-  DONATION_MIN = 1.0
-
   include ActionView::Helpers::SanitizeHelper
   include ActionView::Helpers::NumberHelper
 
@@ -112,7 +113,7 @@ class ContentController < ApplicationController
     if ! @content.nil? && ! current_user.can_read?(@content) && ! logged_in?
       raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have read access to ContentPage with ID=#{@content.id}"
     elsif ! current_user.can_read?(@content)
-      
+
       raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have read access to ContentPage with ID=#{@content.id}",
       :only_admins_can_view_content_pages)
     else # page exists so now we look for actual content i.e. a translated page
@@ -122,7 +123,7 @@ class ContentController < ApplicationController
         translations_available_to_user = @content.translations.select{|t| current_user.can_read?(t)}.compact
         if translations_available_to_user.blank?
           if logged_in?
-            
+
             raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have read access to any TranslatedContentPage with content_page_id=#{@content.id}",
             :only_admins_can_view_translated_content_pages)
           else

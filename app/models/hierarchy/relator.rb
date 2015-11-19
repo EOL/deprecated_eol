@@ -319,6 +319,8 @@ class Hierarchy
         CuratedHierarchyEntryRelationship.equivalent.
           joins(:from_hierarchy_entry, :to_hierarchy_entry).
           where(entry_in_hierarchy => { hierarchy_id: @hierarchy.id }).
+          # Some of the entries have gone missing! Skip those:
+          select { |ce| ce.from_hierarchy_entry && ce.to_hierarchy_entry }.
           each do |cher|
           # NOTE: Yes, PHP stores both, but it used two queries (inefficiently):
           store_relationship(cher.hierarchy_entry_id_1,

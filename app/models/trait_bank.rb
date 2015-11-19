@@ -99,6 +99,7 @@ class TraitBank
       EOL::Sparql.connection.query(query)
     end
 
+    # Given a page, get all of its traits and all of its metadata.
     def page_with_traits(page, limit = 1000, offset)
       query = "
       SELECT DISTINCT *
@@ -108,6 +109,9 @@ class TraitBank
           ?trait a eol:trait .
           ?trait ?trait_predicate ?value .
           OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
+          FILTER ( ?predicate NOT a)
+          FILTER ( ?meta_predicate NOT a)
+          FILTER ( ?trait_predicate NOT a)
         }
       }
       LIMIT #{limit}
@@ -115,6 +119,7 @@ class TraitBank
       EOL::Sparql.connection.query(query)
     end
 
+    # Given a list of traits, get all the metadata for them:
     def get_traits(traits, limit = 1000, offset = nil)
       query = "
       SELECT DISTINCT *
@@ -129,27 +134,6 @@ class TraitBank
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
       EOL::Sparql.connection.query(query)
-    end
-
-    def see_results
-      query = "
-      SELECT DISTINCT ?page ?predicate ?trait_predicate ?value
-        ?meta_predicate ?meta_value
-      WHERE {
-        GRAPH <http://eol.org/traitbank> {
-          ?page ?predicate ?trait .
-          ?trait ?trait_predicate ?value .
-          optional { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
-          ?page a eol:page .
-          ?trait a eol:trait .
-          FILTER ( ?predicate NOT a)
-          FILTER ( ?meta_predicate NOT a)
-          FILTER ( ?trait_predicate NOT a)
-        }
-      }
-      LIMIT 40
-      "
-      pp EOL::Sparql.connection.query(query)
     end
 
     def measurements_query(limit = 640, offset = nil)

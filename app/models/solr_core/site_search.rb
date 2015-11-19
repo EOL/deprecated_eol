@@ -291,8 +291,8 @@ class SolrCore
           }
         ]
         fields_to_index.each do |field_to_index|
-          next if field_to_index["keyword"].nil?
-          keyword = field_to_index["keyword"].gsub(/ +/, " ").strip
+          next if field_to_index[:keyword].nil?
+          keyword = field_to_index[:keyword].gsub(/ +/, " ").strip
           next if keyword.blank?
           @objects << base_attributes.merge(
             keyword_type:    field_to_index[:keyword_type],
@@ -369,10 +369,10 @@ class SolrCore
         @data_type_and_weight[dt_id] = { type: 'Text', weight: 40 }
       end
       DataType.map_type_ids.each do |dt_id|
-        @data_type_and_weight[dt_id] = { type: 'DataObject', weight: 100 }
+        @data_type_and_weight[dt_id] = { type: 'DataObject', weight: 100 } # TODO should this be Map
       end
       DataType.link_type_ids.each do |dt_id|
-        @data_type_and_weight[dt_id] = { type: 'DataObject', weight: 100 }
+        @data_type_and_weight[dt_id] = { type: 'DataObject', weight: 100 } # TODO should this be Link
       end
     end
 

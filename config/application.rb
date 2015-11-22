@@ -98,6 +98,18 @@ module Eol
     config.assets.precompile += ['*.css', '*.js']
 
     config.assets.initialize_on_precompile = false
+    
+    # This uses Rack CORs gem to enable CORs on EOL API.
+    # Currently we allow all origins to access EOL API  
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        
+        resource '*', 
+          headers: :any, 
+          methods: [:get, :post, :options, :put]
+      end
+    end
 
     if defined?(Sass)
       config.sass.line_comments = false

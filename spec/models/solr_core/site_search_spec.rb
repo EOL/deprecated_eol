@@ -16,9 +16,6 @@ describe SolrCore::SiteSearch do
         # also uses names and languages, but that's minor.
         @taxon = TaxonConcept.gen
         he = HierarchyEntry.gen(taxon_concept_id: @taxon.id)
-        @data_obj = DataObject.gen
-        TaxonConceptPreferredEntry.create(taxon_concept_id: @taxon.id, hierarchy_entry_id: he.id)
-        TopImage.gen(hierarchy_entry_id: he.id, data_object_id: @data_obj.id)
         @ancestor =
           TaxonConceptsFlattened.create(taxon_concept_id: @taxon.id,
             ancestor_id: 1245)
@@ -104,23 +101,17 @@ describe SolrCore::SiteSearch do
           "resource_type:TaxonConcept")["response"]["docs"].first
           expect(doc["richness_score"]).to eq(@richness_score.richness_score)
       end
-      it "should record top_images" do
-        doc = @indexer.select("resource_id:#{@taxon.id} AND "\
-        "resource_type:TaxonConcept")["response"]["docs"].first
-        expect(doc["top_image_id"]).to eq(@data_obj.id)
-      end
     end
 
     describe "with data objects" do
       def get_data_object_doc(indexer, id, string, type)
-        docs = indexer.select("keyword_type: \"#{string}\"")["response"]["docs"]
-        docs.find { |doc| doc["resource_id"] == id &&
-          doc["resource_type"].include?(type) }
+        docs = indexer.select("keyword_type: \"#{string}\" AND resource_id: #{id}")["response"]["docs"]
+        docs.find { |doc| doc["resource_type"].include?(type) }
       end
       before(:all) do
         DataObject.delete_all
-        @agent = Agent.gen
-        @user = User.gen
+        @agent = Agent.gen(full_name: "fullname", given_name: "givenname", family_name: "familyname")
+        @user = User.gen(username: "username", given_name: "givenname", family_name: "familyname")
         @data_objects = []
         # Image, Article, Map
         [DataType.image_type_ids.first, DataType.text_type_ids.first, DataType.map_type_ids.first].each do |type|
@@ -162,23 +153,36 @@ describe SolrCore::SiteSearch do
         expect(data_obj_doc["keyword"].include?(@data_objects[0].location)).to be_true 
       end
       it "should add associated agents" do
-        data_obj_doc = get_data_object_doc(@indexer, @data_objects[0].id, "agent", "Image")
         name = SolrCore.string("#{@agent.full_name} #{@agent.given_name} #{@agent.family_name}")
-        debugger
-        expect(data_obj_doc["keyword"].include?(name)).to be_true 
+        docs = @indexer.select("keyword_type: \"agent\" AND resource_id: #{@data_objects[0].id}")["response"]["docs"]
+        required_doc = docs.find { |doc| doc["keyword"].include?("#{name}") }
+        expect(required_doc).not_to be_nil 
       end
-      it "should add associated users (full name + username)" do
-        # data_obj_doc = get_data_object_doc(@indexer, @data_obj.id, "agent", "Image")
-        # expect(data_obj_doc["keyword"].include?(@user.full_name)).to be_true
-        # expect(data_obj_doc["keyword"].include?(@user.user_name)).to be_true 
+      it "should add associated users full name" do
+        docs = @indexer.select("keyword_type: \"agent\" AND resource_id: #{@data_objects[1].id}")["response"]["docs"]
+        required_doc = docs.find { |doc| doc["keyword"].include?("#{@user.full_name}") }
+        expect(required_doc).not_to be_nil
       end
+      it "should add associated users user name" do
+        docs = @indexer.select("keyword_type: \"agent\" AND resource_id: #{@data_objects[1].id}")["response"]["docs"]
+        required_doc = docs.find { |doc| doc["keyword"].include?("#{@user.username}") }
+        expect(required_doc).not_to be_nil 
+      end
+      
       it "should give images a weight around 60" do
-        data_obj_doc = get_data_object_doc(@indexer, @data_objects[0].id, "resource_weight", "Image")
+        data_obj_doc = @indexer.select("resource_id: #{@data_objects[0].id} AND resource_type: \"Image\"")["response"]["docs"].first
         expect(data_obj_doc["resource_weight"]).to equal(60) 
       end
       
-      it "should give articles a weight around 40"
-      it "should give maps a weight around 100"
+      it "should give articles a weight around 40" do
+        data_obj_doc = @indexer.select("resource_id: #{@data_objects[1].id} AND resource_type: \"Text\"")["response"]["docs"].first
+        expect(data_obj_doc["resource_weight"]).to equal(40)
+      end
+      
+      it "should give maps a weight around 100" do
+        data_obj_doc = @indexer.select("resource_id: #{@data_objects[2].id} AND resource_type: \"DataObject\"")["response"]["docs"].first
+        expect(data_obj_doc["resource_weight"]).to equal(100)
+      end
     end
   end
 end

@@ -156,14 +156,13 @@ class SolrCore
     def convert_taxa_to_search_objects
       EOL.log_call
       @taxa.each do |id, taxon|
-        base_attributes = {
-          resource_type:             "TaxonConcept",
-          resource_id:               id,
-          resource_unique_key:       "TaxonConcept_#{id}",
-          ancestor_taxon_concept_id: taxon[:ancestor_taxon_concept_id],
-          top_image_id:              taxon[:top_image_id],
-          richness_score:            taxon[:richness_score]
-        }
+          base_attributes = {
+            resource_type:             "TaxonConcept",
+            resource_id:               id,
+            resource_unique_key:       "TaxonConcept_#{id}",
+            ancestor_taxon_concept_id: taxon[:ancestor_taxon_concept_id],
+            richness_score:            taxon[:richness_score]
+          }
         [:preferred_scientifics, :synonyms, :surrogates].each do |field|
           objs = add_scientific_to_objects(base_attributes, taxon, field)
           @objects += objs
@@ -249,9 +248,12 @@ class SolrCore
         unless @data_type_and_weight.has_key?(data_type_id)
           EOL.log("WARNING: unknown data type id #{data_type_id}", prefix: "!")
         end
+        data_types = ["DataObject"]
+        extra_type = @data_type_and_weight[data_type_id][:type]
+        data_types << extra_type if !extra_type.blank?
         resource_weight = @data_type_and_weight[data_type_id][:weight]
         base_attributes = {
-          resource_type:       @data_type_and_weight[data_type_id][:type],
+          resource_type:       data_types,
           resource_id:         id,
           resource_unique_key: "DataObject_#{id}",
           language:            'en', # TODO: should this be iso ?
@@ -339,14 +341,13 @@ class SolrCore
           "data_objects.published = 1", ids]).
         find_each do |user|
         username = SolrCore.string(user.username)
-        given_name = SolrCore.string(user.given_name)
-        family_name = SolrCore.string(user.family_name)
+        full_name = SolrCore.string(user.full_name)
         user.data_objects.each do |dato|
           @agents_for_objects[dato.id] ||= []
           unless username.blank?
             @agents_for_objects[dato.id] << username
           end
-          if full_name = user.full_name && ! full_name.blank?
+          if ! full_name.blank?
             @agents_for_objects[dato.id] << full_name
           end
         end
@@ -369,10 +370,10 @@ class SolrCore
         @data_type_and_weight[dt_id] = { type: 'Text', weight: 40 }
       end
       DataType.map_type_ids.each do |dt_id|
-        @data_type_and_weight[dt_id] = { type: 'DataObject', weight: 100 } # TODO should this be Map
+        @data_type_and_weight[dt_id] = { type: '', weight: 100 }
       end
       DataType.link_type_ids.each do |dt_id|
-        @data_type_and_weight[dt_id] = { type: 'DataObject', weight: 100 } # TODO should this be Link
+        @data_type_and_weight[dt_id] = { type: '', weight: 100 }
       end
     end
 

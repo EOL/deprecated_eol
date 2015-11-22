@@ -205,3 +205,4 @@ gem "uuid", "2.3.5" # Used when creating data objects
 # TODO: - update will_paginate
 gem "will_paginate", "~> 3.0" # Used ALL OVER THE SITE for pagination.
 gem "execjs", "2.0.2"  # needed to run rake tasks in cron
+gem 'rack-cors', require: 'rack/cors' #needed to enable CORs for EOL API

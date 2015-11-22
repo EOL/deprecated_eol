@@ -105,7 +105,7 @@ module Eol
       allow do
         origins '*'
         
-        resource '*', 
+        resource '/wapi/*', 
           headers: :any, 
           methods: [:get, :post, :options, :put]
       end

@@ -192,7 +192,6 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def to_jsonld(options = {})
-    EOL.log_call
     jsonld = {
       '@id' => uri,
       'data_point_uri_id' => id,
@@ -553,8 +552,8 @@ class DataPointUri < ActiveRecord::Base
       mdata.each do |datum|
         key = if options[:uris]
           # Try to fetch it from the array passed in,
-          if name = options[:uris].find { |k| k.uri == datum.predicate }
-            name.try(:name) || k.uri
+          if name = options[:uris].find { |k| k.try(:uri) == datum.predicate }
+            name.try(:name) || k.try(:uri)
           end
         else
           EOL::Sparql.uri_components(datum.predicate_uri)[:label]

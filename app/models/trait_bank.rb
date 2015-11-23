@@ -5,17 +5,23 @@ class TraitBank
       EOL::Sparql.connection.send :namespaces_prefixes
     end
 
-    def fix_old_data
-      graph_name = "http://eol.org/traitbank"
+    def graph_name
+      "http://eol.org/traitbank"
+    end
+
+    def study_traits
       # TODO: we don't actually want to nuke the graph when we do this, we want
       # to build a new one and replace the old. ...Not sure how best to do that,
       # though.
       EOL::Sparql.connection.query("CLEAR GRAPH <#{graph_name}>")
       triples = []
+      taxa = Set.new
+      taxon_re = /^.*\/(\d+)$/
       traits = Set.new
       limit = 1000 # TODO: change
       EOL::Sparql.connection.query(measurements_query(limit)).each do |h|
         raise "No value for #{h[:trait]}!" unless h[:value]
+        taxa << h[:page].to_s.sub(taxon_re, "\\1")
         triples << "<#{h[:page]}> a eol:page ; "\
           "<#{h[:predicate]}> <#{h[:trait]}>"
         triples << "<#{h[:trait]}> a eol:trait"
@@ -32,7 +38,6 @@ class TraitBank
         add_meta(triples, h, "source", :resource)
         traits << h[:trait]
       end
-      puts triples[0..12].join("\n")
       EOL::Sparql.connection.query(associations_query(limit)).each do |h|
         triples << "<#{h[:page]}> a <http://eol.org/schema/page> ;"\
           "<#{h[:predicate]}> <#{h[:target_page]}> ;"\
@@ -55,10 +60,26 @@ class TraitBank
         end
       end
       EOL::Sparql.connection.insert_data(data: triples, graph_name: graph_name)
+      flatten_taxa(taxa)
+    end
+
+    def flatten_taxa(taxa)
+      EOL.log_call
+      taxa.to_a.in_groups_of(640, false) do |group|
+        triples = []
+        TaxonConceptsFlattened.where(taxon_concept_id: group).
+          find_each do |flat|
+          # Note the *ancestor* might not be a page yet: (often isn't!)
+          triples << "<http://eol.org/pages/#{flat.ancestor_id}> a eol:page"
+          triples << "<http://eol.org/pages/#{flat.taxon_concept_id}> "\
+            "eol:has_ancestor <http://eol.org/pages/#{flat.ancestor_id}>"
+        end
+        EOL::Sparql.connection.insert_data(data: triples,
+          graph_name: graph_name)
+      end
     end
 
     def add_meta(triples, h, uri, key, options = {})
-      puts "checking #{key} from #{h.keys.join(",")}"
       return if h[key].nil?
       triple = "<#{h[:trait]}> <#{uri}> "
       if options[:literal]
@@ -66,7 +87,6 @@ class TraitBank
       else
         triple << "<#{h[key]}>"
       end
-      puts "Adding: #{triple}"
       triples << triple
     end
 
@@ -99,8 +119,11 @@ class TraitBank
       EOL::Sparql.connection.query(query)
     end
 
-    # Given a page, get all of its traits and all of its metadata.
-    def page_with_traits(page, limit = 1000, offset)
+    # Given a page, get all of its traits and all of its metadata. Note that
+    # this necessarily returns a bunch of predicates of
+    # <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>, which you should
+    # ignore. Sorry!
+    def page_with_traits(page, limit = 1000, offset = nil)
       query = "
       SELECT DISTINCT *
       WHERE {
@@ -109,9 +132,41 @@ class TraitBank
           ?trait a eol:trait .
           ?trait ?trait_predicate ?value .
           OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
-          FILTER ( ?predicate NOT a)
-          FILTER ( ?meta_predicate NOT a)
-          FILTER ( ?trait_predicate NOT a)
+        }
+      }
+      LIMIT #{limit}
+      #{"OFFSET #{offset}" if offset}"
+      EOL::Sparql.connection.query(query)
+    end
+
+    # e.g.: http://purl.obolibrary.org/obo/OBA_1000036 on http://eol.org/pages/41
+    def data_search(predicate, limit = 1000, offset = nil)
+      query = "
+      SELECT DISTINCT *
+      WHERE {
+        GRAPH <http://eol.org/traitbank> {
+          ?page <#{predicate}> ?trait .
+          ?trait a eol:trait .
+          ?trait ?trait_predicate ?value .
+          OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
+        }
+      }
+      LIMIT #{limit}
+      #{"OFFSET #{offset}" if offset}"
+      EOL::Sparql.connection.query(query)
+    end
+
+    # NOTE: I copy/pasted this. TODO: generalize. 37 should include 41, and NOT include 904.
+    def data_search_within_clade(predicate, clade, limit = 1000, offset = nil)
+      query = "
+      SELECT DISTINCT *
+      WHERE {
+        GRAPH <http://eol.org/traitbank> {
+          ?page <#{predicate}> ?trait .
+          ?page eol:has_ancestor <http://eol.org/pages/#{clade}> .
+          ?trait a eol:trait .
+          ?trait ?trait_predicate ?value .
+          OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
         }
       }
       LIMIT #{limit}

@@ -72,7 +72,7 @@ class KnownUri < ActiveRecord::Base
     :exclude_from_exemplars, :name, :known_uri_relationships_as_subject,
     :attribution,   :ontology_information_url, :ontology_source_url, :position,
     :group_by_clade, :clade_exemplar,   :exemplar_for_same_as, :value_is_text,
-    :hide_from_glossary, :value_is_verbatim
+    :hide_from_glossary, :value_is_verbatim, :hide_from_gui
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -82,7 +82,7 @@ class KnownUri < ActiveRecord::Base
   validates_uniqueness_of :uri
   validate :uri_must_be_uri
 
-  before_save :update_cache
+  after_save :update_cache
   before_validation :default_values
   before_validation :remove_whitespaces
 
@@ -229,7 +229,7 @@ class KnownUri < ActiveRecord::Base
     build_cache_if_needed
     kuri = @cache.find { |u| u.uri == uri }
     return kuri if kuri
-    kuri ||= find_by_uri(uri)
+    kuri ||= find_by_uri(uri) if EOL::Sparql.is_uri?(uri)
     @cache << kuri if kuri
     kuri
   end
@@ -237,7 +237,7 @@ class KnownUri < ActiveRecord::Base
   def self.by_uris(uris)
     build_cache_if_needed
     results = []
-    uris.each { |uri| results << by_uri(uri) }
+    uris.each { |uri| results << by_uri(uri) }.compact
     results
   end
 
@@ -246,6 +246,13 @@ class KnownUri < ActiveRecord::Base
       @cache ||= KnownUri.includes(:translated_known_uris).all
       @cache_time = Time.now
     end
+    @cache
+  end
+
+  def self.update_cache(uri)
+    self.build_cache_if_needed
+    @cache.delete_if { |u| u.uri == uri[:uri] }
+    @cache << KnownUri.where(id: uri.id).includes(:translated_known_uris).first
   end
 
   def units_for_form_select
@@ -469,9 +476,7 @@ class KnownUri < ActiveRecord::Base
   private
 
   def update_cache
-    build_cache_if_needed
-    @cache.delete_if { |u| u.uri == self[:uri] }
-    @cache << self
+    KnownUri.update_cache(self)
   end
 
   def default_values

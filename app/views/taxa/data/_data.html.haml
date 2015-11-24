@@ -1,24 +1,18 @@
-- EOL.log("_data.html.haml", prefix: 'v')
 - style = hidden ? 'display: none' : nil
 - if @data_point_uris.blank?
-  - EOL.log("...empty URIs", prefix: 'v')
   .empty{ style: style }
     - if @taxon_data.bad_connection?
-      - EOL.log("BAD CONNECTION!", prefix: 'v')
       %p= I18n.t(:data_server_unavailable)
     - else
       %p
         = I18n.t(:taxon_data_tab_empty, taxon: @taxon_page.scientific_name).html_safe
-        - EOL.log("...range data", prefix: 'v')
         - unless @range_data.blank?
           = raw I18n.t(:however_there_are_summaries, summary_url: ranges_taxon_data_path(@taxon_page))
         = link_to I18n.t(:learn_how_to_contribute), cms_page_url('contribute', anchor: 'data')
 - else
-  - EOL.log("...not empty", prefix: 'v')
   -# NOTE - we want this to appear on every subtab:
   .help_text{ style: style }
     %p
-      - EOL.log("searchable clades (skipping)", prefix: 'v')
       - if false
         - if is_clade_searchable?
           = t(:data_disclaimer_with_searchable_clade,
@@ -29,7 +23,6 @@
           = t(:data_disclaimer,
             traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
             traitbank_info_path: cms_page_path('traitbank')).html_safe
-  - EOL.log("building TOC", prefix: 'v')
   - category_toc_items = @data_point_uris.collect{ |d| d.predicate_known_uri ? d.predicate_known_uri.toc_items : nil }.flatten.compact.uniq.sort_by(&:view_order)
   - if @include_other_category
     -# adding nil here to represent no TOC, i.e. the 'other' cagtegory
@@ -41,13 +34,11 @@
       - show_table = category_toc_item.nil? ? (@toc_id == 'other') : (@toc_id == category_toc_item.id.to_s)
     .header_underlined{ style: show_table ? nil : 'display: none;' }
       %h3= category_toc_item.nil? ? I18n.t(:other_category_subtab) : category_toc_item.label
-    - EOL.log("building table", prefix: 'v')
     %table.standard.categorized.data{summary: I18n.t(:data_table_summary, taxon: @taxon_page.scientific_name), style: show_table ? nil : 'display:none;',
       data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => category_toc_item.nil? ? 'other' : category_toc_item.id} }
       %caption.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)
       - type_index = 0
       - last_attribute = nil
-      - EOL.log("getting data for category", prefix: 'v')
       - data_for_this_category = category_toc_item.nil? ?
       -   @data_point_uris.select{ |d| d.predicate_known_uri.nil? || d.predicate_known_uri.toc_items.blank? } :
       -   @data_point_uris.select{ |d| d.predicate_known_uri && d.predicate_known_uri.toc_items.include?(category_toc_item) }
@@ -55,7 +46,6 @@
         - classes = []
         - first_of_type = data_point_uri.predicate != last_attribute
         - if first_of_type
-          - EOL.log("first of type", prefix: 'v')
           - type_index += 1
           - header_id = data_point_uri.header_anchor
           - last_attribute = data_point_uri.predicate

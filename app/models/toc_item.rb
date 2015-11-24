@@ -1,7 +1,7 @@
 class TocItem < ActiveRecord::Base
 
   self.table_name = 'table_of_contents'
-  
+
   uses_translations(foreign_key: 'table_of_contents_id')
   acts_as_tree order: 'view_order'
 
@@ -30,7 +30,7 @@ class TocItem < ActiveRecord::Base
     'Database and Repository Coverage'
   ]
 
-  class << self 
+  class << self
 
     # TODO - sure, we can code this with english labels, but it should STORE ids.
     def exclude_editable
@@ -263,6 +263,7 @@ class TocItem < ActiveRecord::Base
     end
 
     def for_uris(lang)
+      InfoItem # Argh. Must be loaded.
       lang = lang.iso_code if lang.respond_to?(:iso_code)
       @@for_uris ||= {}
       @@for_uris[lang] ||= FOR_URIS.map do
@@ -276,7 +277,7 @@ class TocItem < ActiveRecord::Base
     end
 
   end
-    
+
   def object_count
     counts = TocItem.toc_object_counts
     return counts[id] || 0

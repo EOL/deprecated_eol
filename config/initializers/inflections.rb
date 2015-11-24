@@ -17,4 +17,6 @@
 ActiveSupport::Inflector.inflections do |inflect|
   inflect.irregular 'taxon', 'taxa'
   inflect.irregular 'focus', 'focuses'
+  # It's not really true, you COULD have multiple trait banks, but we don't:
+  inflect.uncountable 'trait_bank'
 end

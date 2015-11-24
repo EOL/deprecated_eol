@@ -3,10 +3,16 @@ class TaxonConceptPreferredEntry < ActiveRecord::Base
   belongs_to :hierarchy_entry
   belongs_to :published_taxon_concept, class_name: TaxonConcept.to_s, foreign_key: :taxon_concept_id, 
     conditions: Proc.new { "taxon_concepts.published=1" }
+    
   def self.expire_time
     1.week
   end
-  
+
+  def self.rebuild
+    builder = TaxonConceptPreferredEntry::Rebuilder.new
+    builder.rebuild
+  end
+
   def expired?
     return true if !self.updated_at
     ( self.updated_at + TaxonConceptPreferredEntry.expire_time ) < Time.now()

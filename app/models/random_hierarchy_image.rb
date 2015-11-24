@@ -1,6 +1,6 @@
-#
-# ... why is this a model / table?   Why isn't this just TaxonConcept.random?   ...Because the table itself is
-# randomized to save time: we can grab 10 (or however many) taxa in a row and know that they are non-contiguous.
+# ... why is this a model / table?   Why isn't this just TaxonConcept.random?
+# ...Because the table itself is randomized to save time: we can grab 10 (or
+# however many) taxa in a row and know that they are non-contiguous.
 #
 class RandomHierarchyImage < ActiveRecord::Base
 

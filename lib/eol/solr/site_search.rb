@@ -1,10 +1,24 @@
 module EOL
   module Solr
     class SiteSearch
+      def initialize
+        @solr = RSolr.connect(url: $SOLR_SERVER + $SOLR_SITE_SEARCH_CORE)
+      end
 
-      # its used for a wildcard search if we're not looking for everything, or all concepts
+      def optimize
+        EOL.log_call
+        response = @solr.update(:data => '<optimize/>')
+        EOL.log("Optimizing SiteSearch Solr core done: #{response.to_json}",
+          prefix: '.')
+      end
+
+      # THE REST OF THESE METHODS ARE OLD:
+
+      # its used for a wildcard search if we're not looking for everything, or
+      # all concepts
       def self.types_to_show_all
-        [ 'Image', 'Video', 'Sound', 'User', 'Community', 'Collection', 'ContentPage' ]
+        [ 'Image', 'Video', 'Sound', 'User', 'Community', 'Collection',
+          'ContentPage' ]
       end
 
       def self.search_with_pagination(query, options = {})

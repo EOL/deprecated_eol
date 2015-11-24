@@ -7,12 +7,21 @@ module EOL
 
       # NOTE - this is VERY DANGEROUS. Your gun, your foot.
       def self.drop_all_graphs
-        EOL::Sparql.connection.query("SELECT ?graph WHERE { GRAPH ?graph { ?s ?p ?o } } GROUP BY ?graph").each do |result|
+        all_graph_names.each do |result|
           graph_name = result[:graph].to_s
           if graph_name =~ /^http:\/\/eol\.org\//
-            EOL::Sparql.connection.delete_graph(graph_name)
+            delete_graph(graph_name)
           end
         end
+      end
+
+      def self.all_graph_names
+        EOL::Sparql.connection.query(
+          "SELECT ?graph WHERE { GRAPH ?graph { ?s ?p ?o } } GROUP BY ?graph")
+      end
+
+      def self.delete_graph(graph_name)
+        EOL::Sparql.delete_graph(graph_name)
       end
 
       # Virtuoso data is getting posted to upload_uri
@@ -24,7 +33,9 @@ module EOL
 
       def insert_data(options = {})
         unless options[:data].blank?
-          query = "INSERT DATA INTO <#{options[:graph_name]}> { "+ options[:data].join(" .\n") +" }"
+          EOL.log("inserting #{options[:data].count} triples", prefix: ".")
+          query = "INSERT DATA INTO <#{options[:graph_name]}> "\
+            "{ #{options[:data].join(" .\n")} }"
           uri = URI(upload_uri)
           request = Net::HTTP::Post.new(uri.request_uri)
           request.basic_auth(username, password)

@@ -1,0 +1,82 @@
+{
+  "_comment": "This is an attempt at creating a minimal, _flexible_ 'packet' of information capable of rendering a taxon on EOL (for now—other uses could be dreamt up).",
+  "source": "The Encyclopedia of Life",
+  "identifiers": [
+    { "id": 328598,
+      "url": "http://eol.org/pages/328598",
+      "_comment": "note this one is missing a 'source'—this implies that the source is the same as the source of the taxa_pack." },
+    { "id": "Procyon lotor",
+      "source": "Species 2000 & ITIS Catalogue of Life: April 2013",
+      "url": "http://some_url/i/dont/have-right.now" }
+  ],
+  "names": [
+    { "_comment": "Note that the order of names implies preference.",
+      "string": "Procyon lotor (Linnaeus, 1758)",
+      "parts": {
+        "_comments": "'parts' is optional, and does NOT specify which keys are valid; it's up to the parser to handle each part as it cares to (clever parsers should make note of which part keys were not recognized, of course).",
+        "canonical_form": "Procyon lotor",
+        "authority": "Linnaeus",
+        "genus": "Procyon",
+        "specific_epithet": "lotor",
+        "date_of_publication": "1758"
+      },
+      "info": [
+        { "_comment": "'info' nodes are optional, 'pseudo-free-form' additional information about the node to which they are attached; each hash in the array must have a 'type' and a 'value'; may optionally have 'units', optionally a 'source', and optionally a 'meta'—the 'meta' is kind of like a nested 'info', but does not allow 'source' (it must be the same as the parent info item) and does not itself allow a 'meta'. Values for 'type' are NOT enforced—again, the parser should handle them.",
+          "type": "type",
+          "value": "scientific"
+        }
+      ]
+    }
+  ],
+  "classification": {
+    "rank": "species",
+    "ancestors": [
+      { "_comment": "the order of ancestors is reverse: proximal relatives first; the intent of calling the string 'epithet' is to imply that the name should NOT include authority, etc.",
+        "epithet": "Procyon",
+        "rank": "genus"
+      },
+      { "epithet": "Procyonidae", "rank": "family" }
+    ]
+  },
+  "literature_references": [
+    { "_comment": "'title' and 'url' are optional, here; 'description' is required.",
+      "title": "Of the American Museum of Natural History",
+      "description": "1991. Of the American Museum of Natural History. American Museum of Natural History. E.U.A." },
+    { "description": "INPN 2003-2014. Fiche descriptive de : Procyon lotor (Linnaeus, 1758), Muséum national d'Histoire naturelle. Service du Patrimoine naturel.",
+      "url": "http://inpn.mnhn.fr/espece/cd_nom/60822/tab/fiche" }
+  ],
+  "info": [
+    { "type": "http://eol.org/schema/terms/NativeRange",
+      "value": "Belize",
+      "source": "http://www.cabi.org/isc/?compid=5&dsid=67856&loadmodule=datasheet&page=481&site=144",
+      "meta": [
+        { "type": "http://purl.org/dc/terms/bibliographicCitation",
+          "value": "CABI International Invasive Species Compendium, 2014. Procyon lotor."
+        },
+        { "type": "refernce",
+          "value": "Goldman EA, 1950. Raccoons of North and Middle America. Washingotn, D.C., USA: United States Government Printing Office, 153 pp. [North America Fauna 60.]"
+        }
+      ]
+    }
+  ],
+  "media": [
+    { "_comment": "media should be sorted in order of descending relevance (however the source decides to evaluate this). 'also_includes' is an array of IDs (from the source of the taxa_pack)",
+      "title": "Procyon lotor (Raccoon)",
+      "body": "Raccoon (Procyon lotor) on Clyde Lake, Ontario, Canada. Photographed on 4 October 2011.",
+      "source_url": "http://media.eol.org/content/2013/01/24/10/86040_orig.jpg",
+      "mime_type": "image/jpg",
+      "source": "http://eol.org/content_partners/18/resources/15",
+      "also_includes": [7695100],
+      "license": "http://creativecommons.org/licenses/by-nc-sa/2.0",
+      "copyright": "© Arthur Chapman. Some rights reserved.",
+      "info": [
+        { "type": "source",
+          "value": "http://www.flickr.com/photos/arthur_chapman/6223266004/" },
+        { "type": "supplier", "value": "Flickr: EOL Images" },
+        { "type": "photographer", "value": "Arthur Chapman" },
+        { "type": "location_created", "value": "Ontario, Canada" },
+        { "type": "full_size_url", "value": "http://media.eol.org/content/2013/01/24/10/86040_orig.jpg" }
+      ]
+    }
+  ]
+}

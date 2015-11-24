@@ -68,7 +68,7 @@ class Rank < ActiveRecord::Base
   end
 
   def self.species_rank_ids
-    species_ranks.map(&:id)
+    species_ranks.compact.map(&:id)
   end
 
   def self.english_rank_labels_to_translate

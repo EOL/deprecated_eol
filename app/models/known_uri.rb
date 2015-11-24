@@ -72,7 +72,7 @@ class KnownUri < ActiveRecord::Base
     :exclude_from_exemplars, :name, :known_uri_relationships_as_subject,
     :attribution,   :ontology_information_url, :ontology_source_url, :position,
     :group_by_clade, :clade_exemplar,   :exemplar_for_same_as, :value_is_text,
-    :hide_from_glossary, :value_is_verbatim
+    :hide_from_glossary, :value_is_verbatim, :hide_from_gui
 
   accepts_nested_attributes_for :translated_known_uris
 
@@ -82,7 +82,7 @@ class KnownUri < ActiveRecord::Base
   validates_uniqueness_of :uri
   validate :uri_must_be_uri
 
-  before_save :update_cache
+  after_save :update_cache
   before_validation :default_values
   before_validation :remove_whitespaces
 
@@ -92,6 +92,7 @@ class KnownUri < ActiveRecord::Base
   scope :associations, -> { where(uri_type_id: UriType.association.id) }
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
   scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
+  scope :show_in_gui, -> { where(hide_from_gui: false) }
 
   COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
@@ -121,16 +122,20 @@ class KnownUri < ActiveRecord::Base
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_aggregation'))
     Rails.cache.delete(KnownUri.cached_name_for('uris_for_clade_exemplars'))
     @cache = nil
+    build_cache_if_needed
   end
 
-  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because we end up with a lot of stale URIs that aren't
-  # really used.  ...So I'm calling it from Sparql:
+  # NOTE - I'm not actually using TranslatedKnownUri here.  :\  That's because
+  # we end up with a lot of stale URIs that aren't really used.  ...So I'm
+  # calling it from Sparql:
   #
-  # TODO - I'm not sure #all_measurement_type_known_uris searches user-added data points.  :| That *might* be intentional (to
-  # exclude them from search options), but I'm not aware of that requirement; if so, that query will need to be extended into a
-  # new method, here.
+  # TODO - I'm not sure #all_measurement_type_known_uris searches user-added
+  # data points.  :| That *might* be intentional (to exclude them from search
+  # options), but I'm not aware of that requirement; if so, that query will need
+  # to be extended into a new method, here.
   #
-  # NOTE - diff this file with b9e79274f5430663af87508457a6a14e850c13f5 for the previous implementation (partial word matches).
+  # NOTE - diff this file with b9e79274f5430663af87508457a6a14e850c13f5 for the
+  # previous implementation (partial word matches).
   def self.by_name(input)
     normal_re = /[^\p{L}0-9 ]/u
     name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...
@@ -179,11 +184,9 @@ class KnownUri < ActiveRecord::Base
   end
 
   def self.add_to_data(rows)
-    EOL.log_call
     known_uris = where(["uri in (?)", EOL::Sparql.uris_in_data(rows)])
     preload_associations(known_uris, [ :uri_type, { known_uri_relationships_as_subject: :to_known_uri },
       { known_uri_relationships_as_target: :from_known_uri }, :toc_items ])
-    EOL.log("replacing rows", prefix: '.')
     rows.each do |row|
       replace_with_uri(row, :attribute, known_uris)
       replace_with_uri(row, :value, known_uris)
@@ -226,7 +229,7 @@ class KnownUri < ActiveRecord::Base
     build_cache_if_needed
     kuri = @cache.find { |u| u.uri == uri }
     return kuri if kuri
-    kuri ||= find_by_uri(uri)
+    kuri ||= find_by_uri(uri) if EOL::Sparql.is_uri?(uri)
     @cache << kuri if kuri
     kuri
   end
@@ -234,7 +237,7 @@ class KnownUri < ActiveRecord::Base
   def self.by_uris(uris)
     build_cache_if_needed
     results = []
-    uris.each { |uri| results << by_uri(uri) }
+    uris.each { |uri| results << by_uri(uri) }.compact
     results
   end
 
@@ -243,6 +246,13 @@ class KnownUri < ActiveRecord::Base
       @cache ||= KnownUri.includes(:translated_known_uris).all
       @cache_time = Time.now
     end
+    @cache
+  end
+
+  def self.update_cache(uri)
+    self.build_cache_if_needed
+    @cache.delete_if { |u| u.uri == uri[:uri] }
+    @cache << KnownUri.where(id: uri.id).includes(:translated_known_uris).first
   end
 
   def units_for_form_select
@@ -453,7 +463,10 @@ class KnownUri < ActiveRecord::Base
       uri = args.first
       name = EOL::Sparql.uri_to_readable_label(uri)
       return if name.nil?
-      known_uri= create( uri: uri, uri_type_id: UriType.measurement.id, visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id )
+      # Auto-generated URIs are well-hidden, but in the DB for speed:
+      known_uri= create(uri: uri, uri_type_id: UriType.measurement.id,
+        visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id,
+        hide_from_gui: true, hide_from_glossary: true)
       TranslatedKnownUri.create(name: name, known_uri_id: known_uri.id, language_id: Language.english.id)
     end
     known_uri
@@ -463,8 +476,7 @@ class KnownUri < ActiveRecord::Base
   private
 
   def update_cache
-    @cache.delete_if { |u| u.uri == self[:uri] }
-    @cache << self
+    KnownUri.update_cache(self)
   end
 
   def default_values

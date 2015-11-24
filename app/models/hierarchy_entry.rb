@@ -172,22 +172,28 @@ class HierarchyEntry < ActiveRecord::Base
   def to_hash
     hash = {
       id: id,
-      common_name: common_names,
-      synonym: synonyms,
-      synonym_canonical: canonical_synonyms,
+      common_name: common_names && common_names.map { |s| SolrCore.string(s) },
+      synonym: synonyms && synonyms.map { |s| SolrCore.string(s) },
+      synonym_canonical: canonical_synonyms &&
+        canonical_synonyms.map { |s| SolrCore.string(s) },
       parent_id: parent_id,
       taxon_concept_id: taxon_concept_id,
       hierarchy_id: hierarchy_id,
       rank_id: rank_id,
       vetted_id: vetted_id,
       published: published,
-      name: self["string"],
-      canonical_form: self["canonical_form"],
+      name: SolrCore.string(self["string"]),
+      canonical_form: SolrCore.string(self["canonical_form"]),
       # TODO: I don't know that we need this anymore (it was an unfiltered
       # version of the canonical form):
       canonical_form_string: self["canonical_form_string"]
     }
-    hash.merge!(ancestor_names) if ancestor_names
+    if ancestor_names
+      ancestor_names.keys.each do |key|
+        ancestor_names[key] = SolrCore.string(ancestor_names[key])
+      end
+      hash.merge!(ancestor_names)
+    end
     hash
   end
 

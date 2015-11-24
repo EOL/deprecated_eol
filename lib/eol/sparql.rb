@@ -61,7 +61,7 @@ module EOL
         "http://eol.org"
       end
 
-      def mappings_graph_name(resource)
+      def entry_to_taxon_graph_name(resource)
         resource_graph_name(resource) + "/mappings"
       end
 
@@ -92,7 +92,7 @@ module EOL
     # camelCase (with starting lower) seems to be more standard for these, but
     # we "prefer" underscores, soooo...
     def self.to_underscore(str)
-      convert(str.strip.underscore)
+      convert(str.strip.downcase.gsub(/\s+/, '_'))
     end
 
     def self.uri_to_readable_label(uri)

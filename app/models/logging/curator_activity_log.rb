@@ -361,6 +361,7 @@ private
     if target_is_a_data_object?
       recipients << self.data_object
       self.data_object.data_object_taxa(published: true).each do |assoc|
+        next unless assoc.taxon_concept
         recipients << assoc.taxon_concept
         recipients << { ancestor_ids: assoc.taxon_concept.flattened_ancestor_ids }
       end

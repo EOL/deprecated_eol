@@ -1,18 +1,20 @@
-# This represents the details (text objects) of a taxon concept, providing a minimal interface to only the aspects you
-# might need to display one.
+# This represents the details (text objects) of a taxon concept, providing a
+# minimal interface to only the aspects you might need to display one.
 #
-# NOTE that this class uses a plural name for a single instance; this is a fairly standard practice for these types of 
-# Presenter objects, when appropriate.
+# NOTE that this class uses a plural name for a single instance; this is a
+# fairly standard practice for these types of  Presenter objects, when
+# appropriate.
 class TaxonDetails < TaxonUserClassificationFilter
 
-  TEXT_OBJECT_LIMIT = 600 # NOTE - artificial limit of text objects here to increase the default 30
+  # NOTE - artificial limit of text objects here to increase the default 30
+  TEXT_OBJECT_LIMIT = 600
 
   def articles_in_other_languages?
     !count_by_language.blank?
   end
 
   def count_by_language
-    return @count_by_language if defined? @count_by_language 
+    return @count_by_language if defined? @count_by_language
     @count_by_language = {}
     details_in_all_other_languages.select { |obj| obj.approved_language? }.each do |obj|
       @count_by_language[obj.language] ||= 0

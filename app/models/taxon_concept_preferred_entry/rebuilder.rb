@@ -5,7 +5,7 @@ class TaxonConceptPreferredEntry
 
     # TODO - THIS SHOULD NOT BE HARD-CODED! (╯°□°)╯︵ ┻━┻
     # NOTE: this is ALSO hard-coded in Hierarchy.sort_order!! Same? TODO
-    @hierarchy_match_priority = [
+    HIERARCHY_MATCH_PRIORITY = [
       /^Species 2000 & ITIS Catalogue of Life/i,
       /^Integrated Taxonomic Information System/i,
       "Avibase - IOC World Bird Names (2011)",
@@ -110,7 +110,7 @@ class TaxonConceptPreferredEntry
     end
 
     def hierarchy_sort_order(label)
-      @hierarchy_match_priority.each_with_index do |match, weight|
+      HIERARCHY_MATCH_PRIORITY.each_with_index do |match, weight|
         if match.is_a?(Regexp) ? label =~ match : label == match
           return weight + 1
         end

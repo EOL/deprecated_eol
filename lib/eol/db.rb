@@ -101,7 +101,7 @@ module EOL
             "."
         end
       end
-      EOL.forget_everything # expensive, but without it, would risk errors.
+      # EOL.forget_everything # expensive, but without it, would risk errors.
     end
 
     def self.truncate_table(conn, table)

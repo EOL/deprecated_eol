@@ -1,6 +1,9 @@
+# This is a bit of a misnomer. ...This class could have been called
+# HierarchyEntryRelationship::Relator (or the like), however it seemed more
+# natural to be called from the context of a hierachy, so I'm putting it here.
+# It creates HierarchyEntryRelationships, though.
 class Hierarchy
-  # TODO: (major) ... what are HierarchyEntryRelationships _for_? It's not at
-  # all clear. TODO: score are stored as floats... this is dangerous, and we
+  # TODO: scores are stored as floats... this is dangerous, and we
   # don't do anything with them that warrants it (other than multiply, which can
   # be achieved other ways). Let's switch to using a 0-100 scale, which is more
   # stable.
@@ -16,6 +19,7 @@ class Hierarchy
     ]
     RANK_WEIGHTS = { "family" => 100, "order" => 80, "class" => 60,
       "phylum" => 40, "kingdom" => 20 }
+
     RANK_GROUPS = Hash[ *(Rank.where("rank_group_id != 0").
       flat_map { |r| [ r.id, r.rank_group_id ] }) ]
     # I am not going to freak out about the fact that TODO: this needs to be in
@@ -39,7 +43,7 @@ class Hierarchy
 
     def initialize(hierarchy, options = {})
       @hierarchy = hierarchy
-      @new_entry_ids = options[:entries]
+      @new_entry_ids = options[:entry_ids]
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
       @count = 0
@@ -48,6 +52,7 @@ class Hierarchy
     end
 
     def relate
+      EOL.log_call
       return false unless @hierarchy # TODO: necessary?
       if @new_entry_ids
         compare_entries_by_id
@@ -76,7 +81,8 @@ class Hierarchy
       end
     end
 
-    # TODO: cleanup. :|
+    # TODO: cleanup. :| TODO: Speed up. This is a very, very slow process, even
+    # with a tiny test database. Definitely need to improve the algorithm, here.
     def compare_entry(entry)
       matches = []
       entry["rank_id"] ||= 0
@@ -85,6 +91,7 @@ class Hierarchy
         search_name = entry["name"]
         # PHP TODO: "what about subgenera?"
         search_canonical = ""
+        # TODO: store surrogate flag... somewhere. Store virus value there too
         if ! Name.is_surrogate_or_hybrid?(search_name) &&
           ! entry_is_in_virus_kingdom?(entry) &&
           ! entry["canonical_form"].blank?
@@ -94,7 +101,7 @@ class Hierarchy
         query_or_clause = []
         query_or_clause << "canonical_form_string:\"#{search_canonical}\"" if
           search_canonical
-        query_or_clause << "name:#{search_name}"
+        query_or_clause << "name:\"#{search_name}\""
         # TODO: should we add this? The PHP code had NO WAY of getting to this:
         if(false)
           query_or_clause << "synonym_canonical:\"#{search_canonical}\""
@@ -118,15 +125,23 @@ class Hierarchy
           compare_entries_from_solr(entry, matching_entry)
         end
       else
-        EOL.log("WARNING: solr entry had no name: #{entry}",
-          prefix: "!")
+        # This is caused by entries with only a canonical form. I'm not sure if
+        # this is "right," but it is certainly "normal," so I'm not sure we
+        # actually need to warn about it. I'm leaving this on for now, though,
+        # to get a sense of frequency and possibly spark a conversation about
+        # whether we should be doing something different. It seems so—the name
+        # on an entry should be the preferred scientific name, so this error
+        # implies we have entries with no such thing... which is... odd. Should
+        # it just be the canonical form?
+        EOL.log("WARNING: solr entry had no name: #{entry["id"]} "\
+          "(#{entry["canonical_form"]})", prefix: "!")
       end
     end
 
     def entry_is_in_virus_kingdom?(entry)
       entry["kingdom"] &&
-        entry["kingdom"].downcase == "virus" ||
-        entry["kingdom"].downcase == "viruses"
+        (entry["kingdom"].downcase == "virus" ||
+        entry["kingdom"].downcase == "viruses")
     end
 
     def compare_entries_from_solr(entry, matching_entry)
@@ -228,6 +243,7 @@ class Hierarchy
     def compare_ancestries(from_entry, to_entry)
       return nil if empty_ancestry?(from_entry)
       return nil if empty_ancestry?(to_entry)
+      EOL.log("ancestors: #{from_entry["id"]} -> #{to_entry["id"]}")
       score = best_matching_weight(from_entry, to_entry)
       # TODO: logging. ...We need some kind of record that explains why matches
       # were made or refused for each pair. :|
@@ -287,9 +303,9 @@ class Hierarchy
       type = score[:synonym] ? 'syn' : 'name'
       key = "#{from}, #{to}, '#{type}',"
       old_relationship = @relationships.find { |r| r[0..key.length - 1] == key }
+      old_score = old_relationship && old_relationship.split(', ').last.to_f
       @relationships << "#{key} #{score[:score]}" unless
-        # We already had this relationship with a higher score:
-        old_relationship.split(', ').last.to_f < score[:score]
+        old_score && old_score < score[:score]
     end
 
     def add_curator_assertions
@@ -303,6 +319,8 @@ class Hierarchy
         CuratedHierarchyEntryRelationship.equivalent.
           joins(:from_hierarchy_entry, :to_hierarchy_entry).
           where(entry_in_hierarchy => { hierarchy_id: @hierarchy.id }).
+          # Some of the entries have gone missing! Skip those:
+          select { |ce| ce.from_hierarchy_entry && ce.to_hierarchy_entry }.
           each do |cher|
           # NOTE: Yes, PHP stores both, but it used two queries (inefficiently):
           store_relationship(cher.hierarchy_entry_id_1,
@@ -313,17 +331,14 @@ class Hierarchy
       end
     end
 
-    # NOTE: since we've build all relationships to and from this hierarchy, we
+    # NOTE: since we've built all relationships to and from this hierarchy, we
     # can delete both from the DB:
     def delete_existing_relationships
-      HierarchyEntryRelationship.
-        joins(:from_hierarchy_entry).
-        where(hierarchy_entries: { hierarchy_id: @hierarchy.id }).
-        delete_all
-      HierarchyEntryRelationship.
-        joins(:to_hierarchy_entry).
-        where(hierarchy_entries: { hierarchy_id: @hierarchy.id }).
-        delete_all
+      EOL.log_call
+      @hierarchy.hierarchy_entry_ids.in_groups_of(6400, false) do |ids|
+        HierarchyEntryRelationship.where(hierarchy_entry_id_1: ids).delete_all
+        HierarchyEntryRelationship.where(hierarchy_entry_id_2: ids).delete_all
+      end
     end
 
     def insert_relationships
@@ -331,21 +346,7 @@ class Hierarchy
       EOL::Db.bulk_insert(HierarchyEntryRelationship,
         [ "hierarchy_entry_id_1", "hierarchy_entry_id_2",
           "relationship", "score" ],
-        @relationships.to_a,
-        tmp: true, ignore: true) # TODO: we don't need ignore anymore
-      # TODO: we do NOT want to do this if we have a single hierarchy!
-      if false
-        EOL::Db.with_tmp_tables(HierarchyEntryRelationship) do
-          EOL::Db.bulk_insert(HierarchyEntryRelationship,
-            [ "hierarchy_entry_id_1", "hierarchy_entry_id_2",
-              "relationship", "score" ],
-            @relationships.to_a,
-            tmp: true, ignore: true) # TODO: we don't need ignore anymore
-          # Errr... in PHP, the tables never get swapped! That can't be right, so
-          # I'm doing it:
-          EOL::Db.swap_tmp_table(HierarchyEntryRelationship)
-        end
-      end
+        @relationships.to_a)
     end
 
     # NOTE: PHP did this before swapping the tmp tables (because it never did,

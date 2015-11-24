@@ -20,6 +20,7 @@ require 'eol/activity_loggable'
 
 class TaxonConcept < ActiveRecord::Base
   include EOL::ActivityLoggable
+  class << self ; include TaxonConcept::Cleanup ; end
 
   belongs_to :vetted
 
@@ -166,63 +167,6 @@ class TaxonConcept < ActiveRecord::Base
   end
   class << self; alias_method_chain :find, :supercedure ; end
 
-  # TODO: This does not belong here. TODO: handle the specific resources that
-  # were harvested, not EVERYTHING UNDER THE SUN (if that's possible). TODO:
-  # rename and/or breakup—I see two things happening here, cleaning up published
-  # flags and cleaning up trust.
-  def self.post_harvest_cleanup(resources = nil)
-    publish_concepts_with_published_entries
-    unpublish_concepts_with_no_published_entries
-    superceded.update_all(published: false)
-    trust_concepts_with_visible_trusted_entries(
-      Array(resources).map(&:hierarchy_id))
-    # No nice way to do this on a set of hierarchies:
-    untrust_concepts_with_no_visible_trusted_entries
-  end
-
-  # TODO: pass in hierarchy ids
-  def self.publish_concepts_with_published_entries
-    TaxonConcept.unpublished.
-      joins(:hierarchy_entries).
-      where(hierarchy_entries: { published: true,
-        visibility_id: Visibility.get_visible.id }).
-      update_all(["taxon_concepts.published = ?", true])
-  end
-
-  # TODO: pass in hierarchy ids
-  def self.unpublish_concepts_with_no_published_entries
-    published.
-      # TODO: clean up with ARel (yes, LEFT joins are hard, but still:)
-      joins("LEFT JOIN hierarchy_entries "\
-        "ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id "\
-        "AND hierarchy_entries.published = 1)").
-      where("hierarchy_entries.id IS NULL").
-      update_all(["taxon_concepts.published = ?", false])
-  end
-
-  def self.untrust_concepts_with_no_visible_trusted_entries
-    published.trusted.unsuperceded.
-      # TODO: clean up with ARel (yes, LEFT joins are hard, but still:)
-      joins("LEFT JOIN hierarchy_entries "\
-        "ON (taxon_concepts.id = hierarchy_entries.taxon_concept_id AND "\
-        "hierarchy_entries.visibility_id = #{Visibility.get_visible.id} AND "\
-        "hierarchy_entries.vetted_id = #{Vetted.trusted.id})").
-      where("hierarchy_entries.id IS NULL").
-      update_all(["taxon_concepts.vetted_id = ?", Vetted.unknown.id])
-  end
-
-  # TODO: pass in hierarchy ids
-  def self.trust_concepts_with_visible_trusted_entries(hierarchy_ids)
-    hierarchy_ids = Array(hierarchy_ids)
-    trusted.
-      joins(:hierarchy_entries).
-      where(["hierarchy_entries.visibility_id = ? AND "\
-        "hierarchy_entries.vetted_id = ? " + hierarchy_ids.empty? ? '' :
-        "AND hierarchy_entries.hierarchy_id IN (?)",
-        Visibility.get_visible.id, Vetted.trusted.id, hierarchy_ids]).
-      update_all(["taxon_concepts.vetted_id = ?", Vetted.trusted.id])
-  end
-
   def superceded?
     !supercedure_id.nil? && supercedure_id != 0
   end
@@ -266,7 +210,7 @@ class TaxonConcept < ActiveRecord::Base
     # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
     (id1, id2) = [id1, id2].sort
     tc2 = TaxonConcept.find(id2)
-    tc2.update_attributes(supercedure_id: id1)
+    tc2.update_attributes(supercedure_id: id1, published: false)
     EOL.log("Matching hierarchy_entries to superceded taxon_concept_id(#{id1})",
       prefix: '.')
     HierarchyEntry.where(taxon_concept_id: id2).
@@ -274,6 +218,8 @@ class TaxonConcept < ActiveRecord::Base
     EOL.log("Updating ancilary tables", prefix: '.')
     UsersDataObject.where(taxon_concept_id: id2).
       update_all(taxon_concept_id:id1)
+    # TODO: these don't actually delete records that need to be deleted. This
+    # algorithm is wrong.
     update_ignore_id(TaxonConceptName, id1, id2)
     update_ignore_id(DataObjectsTaxonConcept, id1, id2)
     update_ignore_id(TaxonConceptsFlattened, id1, id2)
@@ -1035,11 +981,11 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def published_browsable_hierarchy_entries
-    published_hierarchy_entries.select{ |he| he.hierarchy.browsable? }
+    published_hierarchy_entries.select { |he| he.hierarchy.browsable? }
   end
 
   def count_of_viewable_synonyms
-    Synonym.where(hierarchy_entry_id: published_browsable_hierarchy_entries.collect(&:id)).where(
+    Synonym.where(hierarchy_entry_id: published_hierarchy_entries.collect(&:id)).where(
       "synonym_relation_id NOT IN (#{SynonymRelation.common_name_ids.join(',')})").count
   end
 

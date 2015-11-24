@@ -1,4 +1,4 @@
-module SolrCore
+class SolrCore
   class CollectionItems < SolrCore::Base
     CORE_NAME = "collection_items"
 

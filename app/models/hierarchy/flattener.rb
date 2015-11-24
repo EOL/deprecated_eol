@@ -22,7 +22,12 @@ class Hierarchy
     # be rather hairy! TODO
     def flatten
       EOL.log_call
-      study_hierarchy
+      begin
+        study_hierarchy
+      rescue EOL::Exceptions::EmptyHierarchyFlattened => e
+        EOL.log("WARNING: Hierarchy #{@hierarchy.id} is empty!", prefix: "!")
+        return nil
+      end
       build_ancestry
       build_flat_entries_and_concepts
       update_tables
@@ -34,14 +39,16 @@ class Hierarchy
       EOL.log_call
       @children = {}
       @taxa = {}
-      HierarchyEntry.published.visible_or_preview.not_untrusted.
+      # I'm changing this... not sure it's for the better:
+      HierarchyEntry.
+      # HierarchyEntry.published.visible_or_preview.not_untrusted.
         select("id, parent_id, taxon_concept_id").
         where(hierarchy_id: @hierarchy.id).find_each do |entry|
         @children[entry.parent_id] ||= Set.new
         @children[entry.parent_id] << entry.id
         @taxa[entry.id] = entry.taxon_concept_id
       end
-      raise "Empty hierarchy" if @children.empty?
+      raise EOL::Exceptions::EmptyHierarchyFlattened.new if @children.empty?
     end
 
     def build_ancestry
@@ -54,13 +61,11 @@ class Hierarchy
 
     def walk_down_tree(id, ancestors)
       return unless @children.has_key?(id)
-      ancestors << id
+      ancestors_here = ancestors.dup
+      ancestors_here << id
       @children[id].each do |child_id|
-        # NOTE: doesn't work without #reverse ... not sure why (?), but that's
-        # fine, this is actually more accurate ... we just never _need_ to know
-        # the order. ;)
-        @ancestry[child_id] = ancestors.reverse
-        walk_down_tree(child_id, ancestors)
+        @ancestry[child_id] = ancestors_here
+        walk_down_tree(child_id, ancestors_here)
       end
     end
 

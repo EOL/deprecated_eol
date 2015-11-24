@@ -26,6 +26,8 @@ class HierarchyEntryRelationship < ActiveRecord::Base
       "hierarchy_entries he2 ON "\
       "(hierarchy_entry_relationships.hierarchy_entry_id_2 = he2.id)")
   }
+  scope :by_hierarchy_for_hashes, ->(hier_id) { for_hashes.
+    where(["he1.hierarchy_id = ? OR he2.hierarchy_id = ?", hier_id, hier_id]) }
 
   def to_hash
     {

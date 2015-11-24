@@ -58,6 +58,7 @@ end
 
 class BridgeMerge < Bridge
   def bridge
+    # TODO: This is no longer needed! Yay!  We just need to background this...
     CodeBridge.merge_taxa(curation.source_id, curation.target_id, notify: curation.user_id,
                           classification_curation_id: curation.id)
   end
@@ -134,7 +135,7 @@ class ClassificationCuration < ActiveRecord::Base
       end
     end
   end
-  
+
   def log_completion
     log_activity_on(moved_from || moved_to)
     log_unlock_and_notify(Activity.unlock)

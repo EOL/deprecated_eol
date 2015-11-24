@@ -60,20 +60,28 @@ describe Hierarchy do
     desc_label.form_label.should ==  "Decscriptive label"
   end
 
-  describe "#reindex" do 
-    before(:all) do 
+  describe "#reindex" do
+    before(:all) do
       @hierarchy = Hierarchy.gen
     end
-    
-    it " enqueues the Hierachy to be reindexed" do 
+
+    it " enqueues the Hierachy to be reindexed" do
       expect(HierarchyReindexing).to receive(:enqueue).with(@hierarchy)
       @hierarchy.reindex
     end
   end
 
+  describe "#unpublish" do
+    it "should unpublish published hierarchy entries "
+    # NOTE: I would just do two of them, here
+    it "should hide visible hierarchy entries"
+    # Again, two. NOTE that "hide" means "make invisible"
+    it "should unpublish published synonyms"
+    it "should return an array of affected entries"
+  end
 
   # let(:hierarchy) { Hierarchy.find_by_label($DEFAULT_HIERARCHY_NAME) }
-  # 
+  #
   # it "should return kingdoms of the hierarchy sorted by default by scientific names" do
   #   #TODO fix this one, sometimes it does not work
   #   # kingdoms = hierarchy.kingdoms
@@ -83,20 +91,20 @@ describe Hierarchy do
   #   # names = kingdoms.map { |k| k.name($DEFAULT_EXPERTISE, Language.english) }
   #   # names.should == names.sort
   # end
-  # 
+  #
   # it "should return kingdoms sorted by common name in a particular language" do
   # end
-  # 
+  #
   # describe "#kingdoms_hash(detail_level = :middle, language = Language.english)" do
   # end
-  # 
+  #
   # describe "#kingdom_details(params = {})" do
   # end
-  # 
+  #
   # describe "#node_to_hash(node, detail_level)" do
-  # 
+  #
   # end
   # describe "#attribution" do
   # end
-  
+
 end

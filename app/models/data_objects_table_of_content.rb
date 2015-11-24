@@ -16,15 +16,14 @@ class DataObjectsTableOfContent < ActiveRecord::Base
     where("data_objects_info_items.data_object_id IS NULL").
       joins("LEFT JOIN data_objects_info_items USING (data_object_id)").
       find_in_batches do |batch|
-      dotocs += batch.map { |dotoc| "(#{dotoc["data_object_id", "toc_id"].
-        join(", ")})" }
+      dotocs += batch.map { |dotoc| "#{dotoc["data_object_id"]}, #{dotoc["toc_id"]}" }
     end
     DataObjectsInfoItem.
       where("info_items.toc_id != 0").
       includes(:info_item).
       find_in_batches do |doii|
-      dotocs += doii.map { |doii| "#{doii.data_object_id}, "\
-        "#{doii.info_item.toc_id}" }
+      dotocs += doii.map { |doii_item| "#{doii_item.data_object_id}, "\
+        "#{doii_item.info_item.toc_id}" }
     end
     if dotocs.empty?
       EOL.log("WARNING: Unable to find data object TOC items; skipping.", prefix: '*')

@@ -57,7 +57,7 @@ each resource:
       # Rebuilds HierarchyEntryRelationship, indexes in Solr. This is used for
       # concept assignment... and I believe nothing else. :\ TODO: rename,
       # should be HierarchyEntryRelationship.rebuilder to be consistent.
-    Hierarchy::ConceptAssignment.assign_for_hierarchy
+    Hierarchy::ConceptMerger.ConceptMerger
       # merges taxon concepts which appear to be "matching" TODO: rename. :|
     Resource::Publisher#create_taxon_mappings_graph
       # Creates (replaces) a Virtuoso graph which maps all the entries in the
@@ -86,3 +86,99 @@ Manager#denormalize_tables - Youstina
     # used, of course, to select which Entry is "best" on a TaxonConcept.
 Manager#optimize_solr_if_needed
   # simply calls "optimize" on all Solr Cores, once a week or so.
+
+--
+
+Ignore this, I'm thinking.
+
+Thoughts: This would make rendering pages and API trivially fast, which would be nice, but it's not really how these data "should" be stored; we can't do queries like food webs and the like.
+
+Document Store:
+
+page_summary:
+  scientific_name: String
+  common_names:
+    iso: String
+    name: String
+  counts:
+    media: Int
+    maps: Int
+  image:
+    small: Url
+    medium: Url
+    large: Url
+
+# NOTE: Predicates/values are English-only. Sorry. This is not searchable! This
+# is only for rendering the page/api, and NOT with metadata.
+page_traits:
+  _id: Int (the taxon concept id)
+  glossary:
+    uri: Uri
+    name: String
+    description: String
+    categories:
+      name: String
+      iso: String
+    attribution: String
+    info_url: Uri
+    source_url: Uri
+  traits:
+    predicate: Uri
+    qualifiers:
+      qualifier: String
+    object:
+      uri: Uri        # Note for associations, this will be a page URL. PROBLEM: we don't have taxon id at harvest time
+      value: String   # Note that numbers are stored as strings, here. Association name (en) here, too.
+      units: String
+    resource:
+      name: String
+      id: Int
+    meta:
+      predicate: Uri
+      object:
+        uri: Uri
+        value: String
+
+--
+
+Another idea. Ignore this one, too.
+
+Graph Store:
+
+// php:
+$trait_uri = eol:resources/$resource_id/traits/$trait_id
+$entry_uri = eol:resources/$resource_id/entries/$hierarchy_entry_id
+
+// Turtle:
+@prefix eol: <http://eol.org/schema/> .
+// First:
+eol:resources/$resource_id a eol:resource .
+
+// Then:
+$entry_uri a eol:entry ;
+  eol:recognized_by eol:resources/$resource_id.
+
+// Finally:
+$trait_uri a eol:trait ;
+  eol:predicate $predicate ;
+  eol:recognized_as $entry_uri ;
+  eol:value $value ;
+  eol:source $resource_uri .
+$entry_uri $predicate $trait_uri .
+
+// For each of the references:
+$trait_uri [some_meta_predicate] [some_meta_value] .
+
+
+Class names:
+
+'http://rs.tdwg.org/dwc/terms/Taxon' => '\eol_schema\Taxon',
+'http://rs.tdwg.org/dwc/terms/Occurrence' => '\eol_schema\Occurrence',
+'http://rs.tdwg.org/dwc/terms/MeasurementOrFact' => '\eol_schema\MeasurementOrFact',
+'http://rs.tdwg.org/dwc/terms/Event' => '\eol_schema\Event',
+'http://eol.org/schema/Association' => '\eol_schema\Association',
+'http://eol.org/schema/reference/Reference' => '\eol_schema\Reference'
+
+...Each one has a PRIMARY_KEY which needs to be in the row. Each also has a "graph name" which determines the "node_uri", which is a unique name for the row, stored as a type based on the ROW_TYPE for each. Sheesh.
+
+There are things called "events" which are handled in the same way (but separately, with a different name) as occurrences.

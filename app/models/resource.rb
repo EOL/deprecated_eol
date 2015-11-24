@@ -150,6 +150,10 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.publish(self)
   end
 
+  def preview
+    Resource::Publisher.publish(self)
+  end
+
   def rebuild_taxon_concept_names
     TaxonConceptName.rebuild_by_taxon_concept_id(
       latest_harvest_event.taxon_concept_ids)
@@ -204,11 +208,6 @@ class Resource < ActiveRecord::Base
 
   def self.load_for_title_only(find_this)
     Resource.find(find_this)
-  end
-
-  # TODO: move to hierarchy. Also, rename... this simply MERGES concepts.
-  def assign_concepts
-    Hierarchy::ConceptAssignment.assign_for_hierarchy(self)
   end
 
   def status_label
@@ -392,14 +391,16 @@ class Resource < ActiveRecord::Base
     Resource.first.pause
   end
 
-  # TODO: we should really store the resource_id on the data object; then use
-  # that to unpublish everything. As-is, we _must_ rely on harvest events, which
-  # (NOTE) leaves the opportunity (albeit a rare one—a process would have to
-  # break in the middle for this to happen) that an old harvest will still have
-  # published objects...
+  # TODO: we should really store the resource_id (indexed, even) on the data
+  # object; then use that to unpublish everything. As-is, we _must_ rely on
+  # harvest events, which (NOTE) leaves the opportunity (albeit a rare one—a
+  # process would have to break in the middle for this to happen) that an old
+  # harvest will still have published objects...
   def unpublish_data_objects
     EOL.log_call
-    latest_published_harvest_event_uncached.data_objects.
+    event = latest_published_harvest_event_uncached
+    return unless event
+    event.data_objects.
       where(data_objects: { published: true }).
       update_all(published: false)
   end

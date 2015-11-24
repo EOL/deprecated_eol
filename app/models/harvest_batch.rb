@@ -27,16 +27,47 @@ class HarvestBatch
   end
 
   def post_harvesting
-    begin
-      @harvested_resources.each do |resource|
-        resource.hierarchy.flatten
-        resource.publish
+    ActiveRecord::Base.with_master do
+      begin
+        @harvested_resources.each do |resource|
+          resource.hierarchy.flatten
+          if resource.auto_publish?
+            resource.publish
+          else
+            # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
+            # resource. Make it run #publish (in the background)! YOU WERE HERE
+            resource.preview
+          end
+        end
+        denormalize_tables
+      # TODO: there are myriad specific errors that harvesting can throw; catch
+      # them here.
+      rescue => e
+        EOL.log_error(e)
       end
-    rescue => e
-      EOL.log("ERROR: #{e.message}", prefix: "!")
-      # TODO: there are myriad errors that harvesting can throw; catch them here.
     end
+  end
+
+  def denormalize_tables
+    EOL.log_call
+    DataObjectsTaxonConceptsDenormalizer.denormalize
+    # TODO: this is really silly. We should just handle this as we do the
+    # harvest... no need to rebuild the WHOLE THING every time! Just silly.
+    # Bah. ...Can't add that until we port harvesting, though.
+    DataObjectsTableOfContent.rebuild
+    # TODO: this is not an efficient algorithm. We should change this to store
+    # the scores in the DB as well as some kind of tree-structure of taxa
+    # (which could also be used elsewhere!), and then build things that way;
+    # we should also actually store the sort order in this table, rather than
+    # overloading the id (!); that would allow us to update the table only as
+    # needed, based on what got harvested (i.e.: a list of data objects
+    # inserted could be used to figure out where they lie in the sort, and
+    # update the orders as needed based on that—much faster.)
+    TopImage.rebuild
+    RandomHierarchyImage.create_random_images_from_rich_taxa
+    TaxonConceptPreferredEntry.rebuild
     CollectionItem.remove_superceded_taxa
+    EOL.log("denormalize_tables finished", prefix: "#")
   end
 
   def time_out?

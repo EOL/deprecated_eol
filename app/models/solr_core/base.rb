@@ -1,4 +1,4 @@
-module SolrCore
+class SolrCore
   class Base
     attr_reader :connection
 
@@ -17,9 +17,19 @@ module SolrCore
       solr.reindex_items(items)
     end
 
+    def date(date)
+      SolrCore.date(date)
+    end
+
+    def string(text)
+      SolrCore.string(text)
+    end
+
     # Does NOT delete items by ID beforehand.
     def add_items(items)
       @connection.add(Array(items).map(&:to_hash))
+      # TODO: error-checking
+      @connection.commit
     end
 
     def connect(name)
@@ -28,14 +38,23 @@ module SolrCore
       @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{name}")
     end
 
+    def commit
+      EOL.log_call
+      @connection.commit
+    end
+
     def delete_by_ids(ids)
       ids = Array(ids)
       # NOTE: yes, this call is singular (but can take an array)
       @connection.delete_by_id(ids)
+      # TODO: error-checking
+      @connection.commit
     end
 
     def delete(query)
       @connection.delete_by_query(query)
+      # TODO: error-checking
+      @connection.commit
     end
 
     def optimize
@@ -60,7 +79,12 @@ module SolrCore
     def reindex_items(items)
       items = Array(items)
       delete_by_ids(items.map(&:id))
-      @connection.add(items.map(&:to_hash))
+      begin
+        @connection.add(items.map(&:to_hash))
+      rescue RSolr::Error::Http => e
+        EOL.log("WARNING: Failed to reindex items: #{e.message}", prefix: "!")
+      end
+      @connection.commit
     end
 
     # NOTE: returns eval'ed ruby (a hash):

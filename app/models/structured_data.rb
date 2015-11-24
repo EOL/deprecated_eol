@@ -1,7 +1,7 @@
 class StructuredData
 
   attr_accessor :graph_name
-  attr_reader :subject, :predicate, :object, :graph_name, :mappings_graph_name, :uri, :taxon_uri,
+  attr_reader :subject, :predicate, :object, :graph_name, :entry_to_taxon_graph_name, :uri, :taxon_uri,
     :target_taxon_uri, :metadata
 
   def initialize(opts={})
@@ -17,7 +17,7 @@ class StructuredData
     @resource = options.delete(:resource)
     @taxon_name = options.delete(:taxon_name)
     @graph_name = options.delete(:graph_name) || "#{Rails.configuration.uri_resources_prefix}#{@resource.id}"
-    @mappings_graph_name = "#{@graph_name}/mappings"
+    @entry_to_taxon_graph_name = "#{@graph_name}/mappings"
     @unique_id = Digest::MD5.hexdigest(self.inspect)
     @taxon_uri = taxon_uri_for(@subject)
     @occurrence_uri = occurrence_uri_for(@subject)
@@ -42,18 +42,18 @@ class StructuredData
 
   def remove_from_triplestore
     sparql.delete_uri(graph_name: @graph_name, uri: @uri)
-    sparql.delete_uri(graph_name: @mappings_graph_name, uri: @taxon_uri)
+    sparql.delete_uri(graph_name: @entry_to_taxon_graph_name, uri: @taxon_uri)
     sparql.delete_uri(graph_name: @graph_name, uri: @occurrence_uri)
-    sparql.delete_uri(graph_name: @mappings_graph_name, uri: @target_taxon_uri) if @target_taxon_uri
+    sparql.delete_uri(graph_name: @entry_to_taxon_graph_name, uri: @target_taxon_uri) if @target_taxon_uri
     if @target_occurrence_uri
       sparql.delete_uri(graph_name: @graph_name, uri: @target_occurrence_uri)
-      sparql.delete_uri(graph_name: @mappings_graph_name, uri: @target_occurrence_uri)
+      sparql.delete_uri(graph_name: @entry_to_taxon_graph_name, uri: @target_occurrence_uri)
     end
   end
 
   def add_to_triplestore
     sparql.insert_data(data: [ turtle ], graph_name: @graph_name)
-    sparql.insert_data(data: [ mappings_turtle ], graph_name: @mappings_graph_name)    
+    sparql.insert_data(data: [ mappings_turtle ], graph_name: @entry_to_taxon_graph_name)
   end
 
   def turtle

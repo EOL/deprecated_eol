@@ -119,6 +119,7 @@
         <field name="ancestor_taxon_concept_id" type="int" indexed="true" stored="true" required="false" multiValued="true"/>
         <field name="richness_score" type="float" indexed="true" stored="true" required="false"/>
         <field name="resource_weight" type="sint" indexed="true" stored="true" required="false"/>
+        <!-- if this isn't used any where we should get rid of it -->
         <field name="top_image_id" type="int" indexed="false" stored="true" required="false"/>
         <field name="date_created" type="date" indexed="true" stored="true" required="false"/>
         <field name="date_modified" type="date" indexed="true" stored="true" required="false"/>

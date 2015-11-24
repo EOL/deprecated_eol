@@ -5,10 +5,11 @@
 # canonical form, it has exactly the same string as either a preferred common
 # name or a synonym... meaning, if the canonical form of one of those names did
 # NOT match the original string, you won't find that canonical form in this
-# table. I don't know why that decision was made. :\  (Honestly, at the time of
-# this writing, I'm not exactly how TCN is used. I know it is, and in seveal
-# places, but I don't know well enough to determine the ramifications of these
-# decisions.)
+# table. I don't know why that decision was made. :\  TODO: I believe that was
+# actually a bug. (Honestly, at the time of this writing, I'm not _exactly_ sure
+# how TCN is used. I know it is, and in seveal places, but I don't know well
+# enough to determine the ramifications of these decisions. One thing it's used
+# for is indexing site search, though.)
 #
 # NOTE: if the source_hierarchy_entry_id is 0, you are looking at a canonical
 # form. Further, scientific names (including canonical forms) have neither a
@@ -22,7 +23,8 @@
 # types at once... so ... go figure. [shrug]
 class TaxonConceptName < ActiveRecord::Base
 
-  self.primary_keys = :taxon_concept_id, :name_id, :source_hierarchy_entry_id, :language_id, :synonym_id
+  self.primary_keys = :taxon_concept_id, :name_id, :source_hierarchy_entry_id,
+    :language_id, :synonym_id
 
   belongs_to :language
   belongs_to :name
@@ -32,6 +34,9 @@ class TaxonConceptName < ActiveRecord::Base
   belongs_to :vetted
 
   scope :preferred, -> { where(preferred: true) }
+  scope :non_preferred, -> { where(preferred: false) }
+  scope :vernacular, -> { where(vern: true) }
+  scope :scientific, -> { where(vern: false) }
 
   def can_be_deleted_by?(user)
     agents.map(&:user).include?(user)

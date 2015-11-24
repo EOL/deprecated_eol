@@ -2,7 +2,7 @@ module Wapi
   module V1
     class CollectionsController < ApplicationController
       respond_to :json
-      # before_filter :restrict_access, except: [:index, :show]
+       before_filter :restrict_access, except: [:index, :show]
       before_filter :find_collection, only: [:update, :destroy]
       after_filter :reindex_collection, only: [:create, :update]
       DEFAULT_ITEMS_NUMBER_PER_PAGE = 30
@@ -17,7 +17,6 @@ module Wapi
       end
 
       def create
-        @user = User.last
         errors = nil
         ActiveRecord::Base.transaction do
           begin
@@ -41,17 +40,17 @@ module Wapi
             raise ActiveRecord::Rollback
         end
       end
-      unless errors
-          @collection.update_attributes(collection_items_count: @collection.items.count)
+       unless errors
+         @collection.update_attributes(collection_items_count: @collection.items.count)
          respond_with( @collection, status: :ok) 
-      end
-
+       end
       end
 
       def update
         if @collection.blank?
           respond_with do |format|
-            format.json { render json: I18n.t(:collection_not_existing, collection:params[:id]).to_json, status: :not_found }
+            format.json { render json: I18n.t(:collection_not_existing,
+               collection:params[:id]).to_json, status: :not_found }
           end
           return
         end
@@ -75,7 +74,8 @@ module Wapi
             end
           rescue Exception => e
             respond_with do |format|
-              format.json { render json: (I18n.t(:collection_update_failure, collection: @collection.id) + e.to_s).to_json, status: :unprocessable_entity }
+              format.json { render json: (I18n.t(:collection_update_failure, 
+                collection: @collection.id) + e.to_s).to_json, status: :unprocessable_entity }
             end
             errors = true
             raise ActiveRecord::Rollback
@@ -83,14 +83,17 @@ module Wapi
         end
         unless errors
           @collection.update_attributes(collection_items_count: @collection.items.count)
-         respond_with( @collection, status: :ok) 
-         end
+         respond_with do |format|
+          format.json { render json: @collection.to_json, status: :ok }
+        end
+       end
       end
 
       def destroy
         if @collection.blank?
            respond_with do |format|
-          format.json { render json: I18n.t(:collection_not_existing, collection:params[:id]).to_json, status: :not_found }
+          format.json { render json: I18n.t(:collection_not_existing,
+             collection:params[:id]).to_json, status: :not_found }
             end
           return
         end
@@ -98,7 +101,8 @@ module Wapi
         @collection.collection_items.destroy_all
         @collection.destroy
         respond_with do |format|
-          format.json { render json: I18n.t(:collection_removed, collection: @collection.id).to_json, status: :ok }
+          format.json { render json: I18n.t(:collection_removed, 
+            collection: @collection.id).to_json, status: :ok }
         end
       end
 
@@ -126,17 +130,17 @@ module Wapi
         inserts = []
         duplicate_entries?(key, group)
         group.each do |item|
-          missing_values?(item)
-          name = item["name"].blank? ? "NULL" : "'#{item["name"]}'" 
-           type = item["collected_item_type"].blank? ? "NULL" : "'#{item["collected_item_type"]}'"
-           annotation = item["annotation"].blank? ? "NULL" : "'#{item["annotation"]}'"
-           sort_field = item["sort_field"].blank? ? "NULL" : "'#{item["sort_field"]}'"
+           missing_values?(item)
+          name = item[:name].blank? ? "NULL" : "'#{item[:name]}'" 
+           type = item[:collected_item_type].blank? ? "NULL" : "'#{item[:collected_item_type]}'"
+           annotation = item[:annotation].blank? ? "NULL" : "'#{item[:annotation]}'"
+           sort_field = item[:sort_field].blank? ? "NULL" : "'#{item[:sort_field]}'"
 
-          inserts.push "(#{name} , #{type}" +
-           " , #{item["collected_item_id"]}, #{@collection.id}" +
+           inserts.push "(#{name} , #{type}" \
+           " , #{item[:collected_item_id]}, #{@collection.id}" \
            " , #{annotation} , #{@user.id}, #{sort_field})"
         end
-        sql = "INSERT INTO collection_items (`name`, `collected_item_type`, `collected_item_id`,"+
+        sql = "INSERT INTO collection_items (`name`, `collected_item_type`, `collected_item_id`,"\
         " `collection_id`, `annotation`, `added_by_user_id`, `sort_field`) VALUES #{inserts.join(", ")}"
         ActiveRecord::Base.connection.execute sql
       end
@@ -150,8 +154,7 @@ module Wapi
       
       def missing_values?(item)
         i = CollectionItem.new item
-         raise EOL::Exceptions::CollectionItemMissingValues.new(
-          I18n.t :collection_items_missing_values,
+         raise EOL::Exceptions::CollectionItemMissingValues.new( I18n.t :collection_items_missing_values,
            item: i.attributes.to_s ) unless i.valid?
       end
   
@@ -164,12 +167,11 @@ module Wapi
 
       def reindex_collection
         if @collection
-            EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(@collection)
-          @collection.update_attribute(:collection_items_count,
-           @collection.collection_items.count)
+          EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(@collection)
+          @collection.update_attribute(:collection_items_count, @collection.collection_items.count)
         
         end
-        end
+      end
     end
   end
 end

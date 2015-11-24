@@ -303,13 +303,15 @@ class SolrCore
             resource_weight: field_to_index[:resource_weight]
           )
         end
-        @agents_for_objects[id].each do |agent_name|
-          next if agent_name.blank?
-          @objects << base_attributes.merge(
-            keyword_type:    "agent",
-            keyword:         agent_name,
-            resource_weight: resource_weight + 1
-          )
+        if ! @agents_for_objects.blank?
+          @agents_for_objects[id].each do |agent_name|
+            next if agent_name.blank?
+            @objects << base_attributes.merge(
+              keyword_type:    "agent",
+              keyword:         agent_name,
+              resource_weight: resource_weight + 1
+            )
+          end  
         end
       end
     end

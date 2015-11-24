@@ -174,10 +174,9 @@ class Hierarchy
     end
 
     def get_confirmed_exclusions
-      CuratedHierarchyEntryRelationship.not_equivalent.
+      CuratedHierarchyEntryRelationship.
         includes(:from_hierarchy_entry, :to_hierarchy_entry).
-        # Some of the entries have gone missing! Skip those:
-        select { |ce| ce.from_hierarchy_entry && ce.to_hierarchy_entry }.
+        where(equivalent: 0).
         each do |cher|
         from_entry = cher.from_hierarchy_entry.id
         from_tc = cher.from_hierarchy_entry.taxon_concept_id

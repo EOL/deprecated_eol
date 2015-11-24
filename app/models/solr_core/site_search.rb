@@ -311,7 +311,7 @@ class SolrCore
               keyword:         agent_name,
               resource_weight: resource_weight + 1
             )
-          end  
+          end 
         end
       end
     end

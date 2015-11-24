@@ -1,7 +1,7 @@
 # encoding: utf-8
 class SolrCore
   BAD_CHARS_REGEX = /[;×\"'|\n\r\t ]+/
-  CLEAN_TEXT_REGEX = /^[a-zA-Z0-9 \(\),\.&-_]+$/
+  CLEAN_TEXT_REGEX = /^[a-zA-Z0-9 \(\),\.&-]+$/
 
   def self.date(date)
     # "setting the default to 1969-12-31T07:00:01Z"

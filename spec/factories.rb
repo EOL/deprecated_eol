@@ -1457,6 +1457,11 @@ FactoryGirl.define do
     association :data_object
     association :user
   end
+  
+  factory :worklist_ignored_data_object do
+    association :user
+    association :data_object
+  end
 
   factory :user_info do
     areas_of_interest 'derp derp'

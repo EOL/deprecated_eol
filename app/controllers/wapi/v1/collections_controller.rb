@@ -120,12 +120,6 @@ module Wapi
         end
       end
 
-      def add_collection_items
-        params[:collection][:collection_items].each do |hash|
-          item = CollectionItem.create!(hash.merge(added_by_user_id: @user.id, collection_id: @collection.id))
-        end
-      end
-      
       def add_grouped_collection_items(key, group)
         inserts = []
         duplicate_entries?(key, group)

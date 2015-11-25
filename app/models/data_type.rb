@@ -48,6 +48,11 @@ class DataType < ActiveRecord::Base
     @@image_type_ids ||= [DataType.image.id]
   end
 
+  def self.media_type_ids
+    @@media_type_ids ||= sound_type_ids + image_type_ids + video_type_ids +
+      map_type_ids
+  end
+
   def self.video_type_ids
     @@video_type_ids ||= [DataType.youtube.id, DataType.flash.id, DataType.video.id]
   end
@@ -55,11 +60,11 @@ class DataType < ActiveRecord::Base
   def self.text_type_ids
     @@text_type_ids ||= [DataType.text.id]
   end
-  
+
   def self.map_type_ids
     @@map_type_ids ||= [DataType.map.id]
   end
-  
+
   def self.link_type_ids
     @@link_type_ids ||= [DataType.link.id]
   end

@@ -116,29 +116,6 @@ class RandomHierarchyImage < ActiveRecord::Base
       # table was out of date at the time of writing. TODO - move the trusted
       # check; that should be done when called, not here!
       set = Set.new
-# <<<<<<< HEAD
-      # TaxonConcept.includes(hierarchy_entries: [ :name ]).
-        # where(id: tc_ids, vetted_id: Vetted.trusted.id).
-        # where(["hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
-          # "hierarchy_entries.rank_id IN (?)", Rank.species_rank_ids]).
-        # find_each do |taxon|
-        # img = taxon.exemplar_or_best_image_from_solr
-        # next unless img
-        # set << {
-          # data_object_id: img.id,
-          # hierarchy_entry_id: taxon.entry.id,
-          # hierarchy_id: taxon.entry.hierarchy_id,
-          # taxon_concept_id:taxon.id,
-          # name: taxon.entry.name.italicized
-        # }
-      # end
-      # EOL.log("Found #{set.count} of species with images", prefix: '.')
-      # RandomHierarchyImage.connection.transaction do
-        # RandomHierarchyImage.delete_all
-        # # TODO - this could be much faster with a bulk insert
-        # set.to_a.shuffle.each do |values|
-          # RandomHierarchyImage.create(values)
-# =======
       # TODO: complex query, use :names instead of ?s.
       TaxonConcept.includes(hierarchy_entries: [ :name ]).
         where(["taxon_concepts.published = 1 AND taxon_concepts.vetted_id = ? AND "\
@@ -164,8 +141,9 @@ class RandomHierarchyImage < ActiveRecord::Base
             taxon_concept_id:taxon.id,
             name: taxon.entry.name.italicized
           }
-# >>>>>>> 2a3b9aa539ac8befeb1939e7b4e25a630913488a
-        # end
+      end
+      set.to_a.shuffle.each do |values|
+        RandomHierarchyImage.create(values)
       end
     end
 

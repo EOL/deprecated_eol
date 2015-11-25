@@ -148,7 +148,34 @@ describe "Collections API V1" do
         expect(items.map(&:added_by_user)).to eq([@user, @user])
         expect(collection.users).to include(@user)
       end
-  
+    end
+
+    describe "creating failures" do
+
+      it "does not create a collection with invalid collection item's type" do 
+         post '/wapi/collections',
+          { collection: {
+            name: "any name",
+            description: "any description",
+            collection_items: [
+               { "collected_item_id" => 1,
+               "collected_item_type" => "InvalidType",
+              }] } },
+          { "HTTP_AUTHORIZATION" => encode(@key) }
+          expect(response.body).to include I18n.t(
+          :cannot_create_collection_items_from_invalid_types, types: "InvalidType")
+      end
+
+      it "does not accept missing non-optional attributes " do 
+        post '/wapi/collections',
+          { collection: {
+            name: "any name",
+              description: "any description",
+              collection_items: [ collected_item_type: "TaxonConcept",
+              annotation: " an item without type & id" ] } },
+          { "HTTP_AUTHORIZATION" => encode(@key) }
+          expect(response.body).to include I18n.t(:collection_create_failure)
+      end
     end
   end
   

@@ -87,12 +87,12 @@ describe 'Sitemaps' do
     @rake['sitemap:build_images_xml'].execute
     sitemap_contents = Zlib::GzipReader.open(Rails.root.join('public', 'sitemap', 'images', 'sitemap_1.xml.gz')).read
     
-    sitemap_contents.should include(DataObject.image_cache_path(@published_image_cc_license.object_cache_url, '580_360', specified_content_host: $SINGLE_DOMAIN_CONTENT_SERVER))
+    sitemap_contents.should include(DataObject.image_cache_path(@published_image_cc_license.object_cache_url, '580_360', specified_content_host: Rails.configuration.asset_host))
     sitemap_contents.should include(@published_image_cc_license.license.source_url)
-    sitemap_contents.should include(DataObject.image_cache_path(@published_image_non_cc_license.object_cache_url, '580_360', specified_content_host: $SINGLE_DOMAIN_CONTENT_SERVER))
+    sitemap_contents.should include(DataObject.image_cache_path(@published_image_non_cc_license.object_cache_url, '580_360', specified_content_host: Rails.configuration.asset_host))
     
     sitemap_contents.should_not include(@published_image_non_cc_license.license.source_url)
-    sitemap_contents.should_not include(DataObject.image_cache_path(@unpublished_image.object_cache_url, '580_360', specified_content_host: $SINGLE_DOMAIN_CONTENT_SERVER))
+    sitemap_contents.should_not include(DataObject.image_cache_path(@unpublished_image.object_cache_url, '580_360', specified_content_host: Rails.configuration.asset_host))
   end
   
   it 'should be able to destroy image sitemaps' do

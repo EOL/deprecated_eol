@@ -8,7 +8,6 @@ class TopImage < ActiveRecord::Base
   belongs_to :data_object
 
   def self.rebuild
-    builder = TopImage::Rebuilder.new
-    builder.rebuild
+    TopImage::Rebuilder.rebuild
   end
 end

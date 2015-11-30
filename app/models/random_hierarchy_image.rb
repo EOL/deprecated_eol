@@ -107,8 +107,14 @@ class RandomHierarchyImage < ActiveRecord::Base
     end
 
     def create_random_images_from_rich_taxa
+      EOL.log_call
+      tc_ids = TaxonConceptMetric.
+        where(["richness_score > ?", $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).
+        pluck(:taxon_concept_id)
+      EOL.log("Found #{tc_ids} rich taxa", prefix: '.')
       # Not doing this with a big join right now because the top_concept_images
-      # table was out of date at the time of writing.
+      # table was out of date at the time of writing. TODO - move the trusted
+      # check; that should be done when called, not here!
       set = Set.new
       # TODO: complex query, use :names instead of ?s.
       TaxonConcept.includes(hierarchy_entries: [ :name ]).
@@ -135,7 +141,7 @@ class RandomHierarchyImage < ActiveRecord::Base
             taxon_concept_id:taxon.id,
             name: taxon.entry.name.italicized
           }
-        end
+      end
       set.to_a.shuffle.each do |values|
         RandomHierarchyImage.create(values)
       end

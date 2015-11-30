@@ -7148,9 +7148,8 @@ it:
     L'URL di revisione dovrebbe apparire simile a qualcosa del genere <a rel="nofollow"
     href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_page_title: Richiedi l'importazione di un articolo di Wikipedia
-  will_find_taxon_pages_matching_the_search_term: troverai pagine taxon se il nome
-    preferito o qualsiasi sinonimo o nome comune corrisponde esattamente al termine
-    di ricerca
+  will_find_taxon_pages_matching_the_search_term: troverai pagine taxon se il titolo
+    o qualsiasi sinonimo o nome comune corrisponde esattamente al termine di ricerca
   would_you_like_to_become_a_curator_notice: Ti piacerebbe diventare curatore? Puoi
     fare richiesta sulla <a href='%{url}'>pagina del tuo profilo</a>.
   worklist: Lista di lavoro

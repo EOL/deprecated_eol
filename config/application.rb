@@ -231,7 +231,7 @@ module Eol
 
     # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
     $CONTENT_SERVER = 'http://localhost/'
-    $SINGLE_DOMAIN_CONTENT_SERVER = 'http://localhost/'
+    Rails.configuration.asset_host = 'http://localhost/'
     $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
     $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
     $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"

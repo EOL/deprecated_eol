@@ -227,6 +227,8 @@ ko:
         hierarchy: 체계
         language_id: 기본 언어
         dataset_license_id: 라이선스
+        dataset_rights_holder: 권한 소유자
+        dataset_rights_statement: 권한 정책
         license_id: 기본 라이선스
         notes: 과정 참고
         resource_status_id: 자료 상태
@@ -910,6 +912,7 @@ ko:
       page_title: 통계
     data:
       menu_link: 데이터
+      page_title: 통계
   forums:
     forums_heading: EOL 포럼
     last_post: 마지막 게시물
@@ -976,6 +979,8 @@ ko:
       delete_successful: 스레드를 성공적으로 삭제했습니다
       delete_failed_not_empty: 스레드가 비어있지 않으므로 스레드를 삭제할 수 없습니다
   known_uris:
+    relationships: 관계
+    preferred_for_equivalence_group: 선호
     select: 선택
   layouts:
     application:
@@ -3038,6 +3043,7 @@ ko:
   all_apis_return_by_default_an_xml_response: '모든 API는 기본적으로 XML 응답을 반환합니다. API 메서드는
     XML 응답을 얻을 수 있는 형식 확장 기능 없이 호출할 수 있고, XML 확장을 추가하면 동일한 응답을 제공합니다:'
   all_articles: 모든 문서
+  all_categories: 모두
   all_changes: 모든 바뀜
   all_collections: 모든 모음집
   all_comments_entered_by_users: 웹사이트에 사용자가 입력한 모든 댓글은 만들어진 시간 역순으로 정렬되어 아래에 보입니다.
@@ -3168,6 +3174,7 @@ ko:
   belongs_in_count_communities:
     one: 공동체 %{count}개에 속함
     other: 공동체 %{count}개에 속함
+  beta_warning_note_header: '참고:'
   bhl: 생물 다양성 유산 도서관
   bhl_partner_footer: 생물 다양성 유산 도서관 방문하기
   bhl_publication: BHL 출판

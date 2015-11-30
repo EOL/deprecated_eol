@@ -28,6 +28,8 @@ if Rails.configuration.use_secure_acceptance
   }
 end
 
+Rails.configuration.asset_host = ENV["EOL_ASSET_HOST"] || 'localhost'
+
 # None, by default, but defined:
 Rails.configuration.google_site_verification_keys = []
 Rails.configuration.donate_header_url =

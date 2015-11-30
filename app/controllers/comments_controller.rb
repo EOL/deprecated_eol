@@ -32,9 +32,6 @@ class CommentsController < ApplicationController
       flash[:notice] = I18n.t(:duplicate_comment_warning)
     elsif @comment.save
       flash[:notice] = I18n.t(:comment_added_notice)
-      if $STATSD
-        $STATSD.increment 'comments'
-      end
       auto_collect(@comment.parent)
     else
       flash[:error] = I18n.t(:comment_not_added_error)

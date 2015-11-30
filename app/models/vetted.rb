@@ -33,12 +33,17 @@ class Vetted < ActiveRecord::Base
       end.compact.sort
   end
 
+  def self.weight
+    @@weight ||= { Vetted.trusted.id => 1, Vetted.unknown.id => 2,
+      Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4 }
+  end
+
   def curation_label
     self.id == Vetted.unknown.id ? I18n.t(:unreviewed) : self.label
   end
 
   def sort_weight
-    weights = vetted_weight
+    weights = Vetted.weight
     return weights.has_key?(id) ? weights[id] : 4
   end
 
@@ -72,15 +77,6 @@ class Vetted < ActiveRecord::Base
     when Vetted.unknown.id
       object.unreviewed(user)
     end
-  end
-
-private
-
-  # TODO - this should be in the DB.
-  def vetted_weight
-    @@vetted_weight = { Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4 } if
-      Rails.env.test?
-    @@vetted_weight ||= { Vetted.trusted.id => 1, Vetted.unknown.id => 2, Vetted.untrusted.id => 3, Vetted.inappropriate.id => 4 }
   end
 
 end

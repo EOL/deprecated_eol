@@ -1,5 +1,4 @@
 describe Hierarchy::Flattener do
-
   before(:all) do
     populate_tables(:vetted, :visibilities)
   end

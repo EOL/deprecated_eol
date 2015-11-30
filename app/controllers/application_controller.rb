@@ -9,8 +9,6 @@ class ApplicationController < ActionController::Base
     rescue_from ActionView::MissingTemplate, with: :rescue_from_exception
   end
 
-  around_filter :send_to_statsd
-
   before_filter :original_request_params, except: [ :fetch_external_page_title ] # store unmodified copy of request params
   before_filter :global_warning, except: [ :fetch_external_page_title ]
   before_filter :check_user_agreed_with_terms, except: [ :fetch_external_page_title, :error ]
@@ -27,21 +25,6 @@ class ApplicationController < ActionController::Base
   unless $ENABLE_RECAPTCHA
     def verify_recaptcha
       true
-    end
-  end
-
-  def send_to_statsd
-    if $STATSD
-      if logged_in?
-        $STATSD.increment("logged_in")
-      else
-        $STATSD.increment("not_logged_in")
-      end
-      $STATSD.time("page_load_time.#{params[:controller]}.#{params[:action]}") do
-        yield
-      end
-    else
-      yield
     end
   end
 
@@ -490,7 +473,7 @@ class ApplicationController < ActionController::Base
     data = {}
     success = nil
     response_title = nil
-    is_allowable_redirect = nil   
+    is_allowable_redirect = nil
     redirect=nil
     I18n.locale = params['lang'] if params['lang']
     begin
@@ -554,10 +537,6 @@ protected
       response_code = :not_found
     end
     render_exception_response(exception, response_code, status_code)
-    if $STATSD
-      $STATSD.increment 'all_errors'
-      $STATSD.increment "errors.#{exception.class.name.gsub(/[^A-Za-z0-9]+/, '_')}"
-    end
     # Log to database
     if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
       ErrorLog.create(

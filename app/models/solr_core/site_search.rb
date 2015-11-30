@@ -34,8 +34,7 @@ class SolrCore
       end
       @objects.delete(nil)
       @objects.delete({})
-      # TODO: change that 5!!!
-      @objects.to_a.in_groups_of(5, false) do |group|
+      @objects.to_a.in_groups_of(6400, false) do |group|
         EOL.log("Adding #{group.count} items...")
         connection.add(group)
       end
@@ -311,7 +310,7 @@ class SolrCore
               keyword:         agent_name,
               resource_weight: resource_weight + 1
             )
-          end  
+          end
         end
       end
     end

@@ -87,7 +87,7 @@ EOL.create_info_ranges_dialog = function(match) {
   $(match).parent().parent().children('ul.glossary').remove();
   $(match).appendTo(document.body);
   };
-  
+
 EOL.create_collection_taxon_info_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
   var nearest = $has_id.attr('id');
@@ -113,7 +113,8 @@ EOL.enable_collection_taxa_info_dialogs = function(tip, table_row) {
         var pos = $(this).offset();
 		$info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
         $.ajax({
-        	url: "<%= Rails.application.routes.url_helpers.get_uri_name_collections_path %>",
+          // NOTE: this shouldn't be a hard-coded path, but it was a pain:
+        	url: "/collections/get_uri_name",
         	type: "GET",
         	data: {id: $(this).data('info').split(/[_]+/).pop()},
         	complete: function() {},
@@ -123,7 +124,7 @@ EOL.enable_collection_taxa_info_dialogs = function(tip, table_row) {
 		        }).find('a.close').on('click', function() { $('.info_icon').hide('fast'); return(false); });
         		$info.html('<div style="color:#616e7a; font-size:1.1em">'+data["name"] +'</div>'+ '<div style="color:#93a4b0">'+data["uri"]+'</div>');
 		    },
-		    error: function() {}	
+		    error: function() {}
 	    });
       }
     });
@@ -555,7 +556,7 @@ $(function() {
     $.post("/known_uris/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') });
     return(false);
   });
-  
+
   $('#sortable a.to_top_p_harvest').on('click', function() {
     $.post("/pending_harvests/sort", { to: 'top', moved_id: $(this).closest('tr').attr('id') });
     return(false);
@@ -565,24 +566,24 @@ $(function() {
     $.post("/pending_harvests/sort", { to: 'bottom', moved_id: $(this).closest('tr').attr('id') });
     return(false);
   });
-  
+
   $('#sortable.standard.pending_harvests').sortable({
     placeholder: "placeholder", items: "tr:not(.headers)", helper: 'clone', tolerance: 'pointer',
     update: function(e, ui) {
       $.post("/pending_harvests/sort", { pending_harvests: $("#sortable").sortable('toArray'), moved_id: ui.item.attr('id') });
     }
   }).disableSelection();
-  
-  $('#pause_p_harvest').on('click', function() {  	
-  	document.getElementById("pause_pending_harvests").style.display = "none"; 
+
+  $('#pause_p_harvest').on('click', function() {
+  	document.getElementById("pause_pending_harvests").style.display = "none";
   	document.getElementById("resume_pending_harvests").style.display = "block";
     $.post("/pending_harvests/pause_harvesting");
     return(false);
   });
-  
-  $('#resume_p_harvest').on('click', function() {  	  	
-  	document.getElementById("resume_pending_harvests").style.display = "none"; 
-  	document.getElementById("pause_pending_harvests").style.display = "block"; 
+
+  $('#resume_p_harvest').on('click', function() {
+  	document.getElementById("resume_pending_harvests").style.display = "none";
+  	document.getElementById("pause_pending_harvests").style.display = "block";
     $.post("/pending_harvests/resume_harvesting");
     return(false);
   });
@@ -592,14 +593,14 @@ $(function() {
     EOL.create_info_dialog(this);
   });
 
-  $('form.copy .vital li .info, form.copy .vital.search li .info').each(function() {	
+  $('form.copy .vital li .info, form.copy .vital.search li .info').each(function() {
     EOL.create_info_dialog_for_data_search(this);
   });
-  
+
  $('table.ranges tr .info, table.ranges.search tr .info').each(function() {
     EOL.create_info_ranges_dialog(this);
   });
-  
+
  $('table.taxon_collection tr .info_icon, table.taxon_collection.search tr .info_icon').each(function() {
     EOL.create_collection_taxon_info_dialog(this);
   });

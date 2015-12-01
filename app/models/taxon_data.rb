@@ -92,6 +92,10 @@ class TaxonData < TaxonUserClassificationFilter
     # #dup used here because the return value is often altered to suit the
     # rendering, and we don't want to much with the data stored here.
     return @taxon_data_set.dup if defined?(@taxon_data_set)
+    unless user.can_see_data?
+      @categories = []
+      return @taxon_data_set = []
+    end
     EOL.log_call
     if_connection_fails_return(nil) do
       taxon_data_set = TaxonDataSet.new(raw_data,

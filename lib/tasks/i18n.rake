@@ -3,8 +3,7 @@ require 'haml'
 
 desc 'Tasks useful for internatiolization'
 namespace :i18n do
-  lang_dir = Rails.root.join("config", "locales")
-  lang_dir = Rails.root.join("config", "translations") if Rails.env.development? || Rails.env.test_dev?
+  lang_dir = Rails.root.join("config", "translations")
   gibberish_lang_dir = Rails.root.join("lang")
   en_file = "translation_template.yml"
   tmp_file = File.join([lang_dir, "tmp.yml"])
@@ -503,7 +502,7 @@ namespace :i18n do
     end
 
     puts "Writing to en-db.yml"
-    en_file = Rails.root.join("config", "locales" , "en-db.yml")
+    en_file = Rails.root.join("config", "translations" , "en-db.yml")
     en_data = open(en_file, 'w')
     en_data.write en_strings
     en_data.close
@@ -512,15 +511,15 @@ namespace :i18n do
   desc 'Task to import db translations in db'
   task :import_db_translations => :environment do
     def load_language_keys(lang_abbr)
-      filename = Rails.root.join("config", "locales", lang_abbr + "-db.yml")
+      filename = Rails.root.join("config", "translations", lang_abbr + "-db.yml")
       return nil unless File.exists?(filename)
-      temp_yml = YAML.load_file(Rails.root.join("config", "locales", lang_abbr + "-db.yml"))
+      temp_yml = YAML.load_file(Rails.root.join("config", "translations", lang_abbr + "-db.yml"))
       return temp_yml[lang_abbr] || temp_yml.values.last # this || fixes a bug with Arabic.  Not sure why.
     end
 
     def get_languages
       # returns array of language abbriviations for those a pattern of *-dt.yml
-      Dir.chdir(Rails.root.join("config", "locales"))
+      Dir.chdir(Rails.root.join("config", "translations"))
       files = Dir.glob(File.join("**", "*-db.yml"))
 
       return_lang = Array.new

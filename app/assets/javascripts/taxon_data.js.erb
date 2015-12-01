@@ -113,7 +113,8 @@ EOL.enable_collection_taxa_info_dialogs = function(tip, table_row) {
         var pos = $(this).offset();
 		$info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
         $.ajax({
-        	url: "<%= Rails.application.routes.url_helpers.get_uri_name_collections_path %>",
+          <%- # NOTE: this shouldn't be a hard-coded path, but it was a pain: -%>
+        	url: "/collections/get_uri_name",
         	type: "GET",
         	data: {id: $(this).data('info').split(/[_]+/).pop()},
         	complete: function() {},

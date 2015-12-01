@@ -72,7 +72,7 @@ class KnownUri < ActiveRecord::Base
     :exclude_from_exemplars, :name, :known_uri_relationships_as_subject,
     :attribution,   :ontology_information_url, :ontology_source_url, :position,
     :group_by_clade, :clade_exemplar,   :exemplar_for_same_as, :value_is_text,
-    :hide_from_glossary, :value_is_verbatim
+    :hide_from_glossary, :value_is_verbatim, :hide_from_gui
 
   accepts_nested_attributes_for :translated_known_uris
 

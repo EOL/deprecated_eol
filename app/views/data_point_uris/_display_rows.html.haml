@@ -1,4 +1,3 @@
-- EOL.log("_display_rows.html.haml", prefix: 'v')
 - classes ||= [ ]
 - type_index ||= nil
 - exemplar = false if exemplar.nil?
@@ -10,9 +9,7 @@
 - else
   - header_id = nil
   - first_of_type = true
-- EOL.log("getting comments", prefix: 'v')
 - comments = data_point_uri.comments
-- EOL.log("getting latest version of TC", prefix: 'v')
 - taxon_concept = data_point_uri.taxon_concept.latest_version
 - taxon_link = taxon_data_path(taxon_concept)
 - colspan = 4
@@ -32,16 +29,15 @@
         - subtitle = taxon_concept.preferred_common_name_in_language(current_language)
         - unless subtitle.blank?
           = link_to subtitle.firstcap, taxon_link
-  - EOL.log("predicate", prefix: 'v')
   %th.predicate{ id: header_id }
     - span_class = nil
     - if first_of_type
-      - EOL.log("First of type (again)", prefix: 'v')
+      -# TODO - Here is one problem. ALL calls to predicate_uri (and the like)
+      -# are expensive.
       = display_uri(data_point_uri.predicate_uri, exemplar: exemplar, excluded: excluded, define: true, capitalize: false, search_link: (! for_search),
         modifiers: [ data_point_uri.statistical_method_label ])
     - else
       - if data_point_uri.statistical_method_label
-        - EOL.log("stat method", prefix: 'v')
         = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
         %span.stat= data_point_uri.statistical_method_label
         -# Note the '-' here is *needed* because of the haml_cat used in the method:
@@ -51,7 +47,6 @@
           = add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
           -# Note the '-' here is *needed* because of the haml_cat used in the method:
           - info_icon
-  - EOL.log("value", prefix: 'v')
   %td.val{ headers: header_id, id: "#{header_id}_d" }
     %span.fold
       - arrow_file_name = row_is_selected ? 'arrow_fold_down.png' : 'arrow_fold_right.png'
@@ -62,21 +57,18 @@
         title: I18n.t(:data_row_additional_detail_assistive))
     -# TODO - Here is another call to predicate_uri which needs to be fixed.
     = raw display_text_for_data_point_uri(data_point_uri, define: :after, value_for_known_uri: data_point_uri.predicate_uri)
-  - EOL.log("source", prefix: 'v')
   %td.source
     %span.source
       - if data_point_uri.source
         = data_point_uri.source.name
       - else
         = I18n.t(:data_point_uri_source_missing)
-  - EOL.log("comment", prefix: 'v')
   %td.comment
     %span.comments
       - if comments.empty?
         &nbsp;
       - else
         = image_tag('comment_indicator.png')
-- EOL.log("actions", prefix: 'v')
 %tr{ id: "#{data_point_uri.anchor}_actions", class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
   %td{ colspan: colspan }
     - if row_is_selected
@@ -103,7 +95,6 @@
       - if logged_in? || ! comments.empty?
         = render 'comments/for_data', { comments: comments, data_point_instance: data_point_uri }
       - if current_user.min_curator_level?(:full) || logged_in?
-        - EOL.log("curation", prefix: 'v')
         .additional_commands.clearfix
           - if current_user.min_curator_level?(:full)
             - if data_point_uri.visible?

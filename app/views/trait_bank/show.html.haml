@@ -1,0 +1,72 @@
+#tabs_sidebar.data
+  %ul.tabs.with_icons{ class: 'subtabs' }
+    %li "Ignore this"
+.main_container#taxon_data
+  %h3.assistive= "Hi there"
+  .header_underlined
+    %h3= "Some TOC Item here"
+  %table.standard.categorized.data{ summary: I18n.t(:data_table_summary,
+    taxon: @taxon_page.scientific_name),
+    data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => "something" } }
+    -# uri = @glossary.find { |ku| ku.uri == data_point_uri.predicate }
+    - @page_traits.traits.each do |trait|
+      - if trait.point.nil?
+        %tr.data
+          %th.predicate
+            %div.term
+              = "Could not find a data point for #{trait.point}"
+      - else
+        %tr.data{ id: trait.anchor }
+          %th.predicate
+            %a.info_icon
+              \&nbsp;
+            .term{ data: { term: "TODO" }}
+              -# add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+              = trait.predicate_name
+              - if method = trait.statistical_method?
+                %span.stat
+                  = trait.statistical_methods.join(", ")
+              %span.info
+                %ul.glossary
+                  = render(partial: 'known_uris/definition',
+                  locals: { known_uri: trait.predicate_uri, search_link: true, glossary_link: true })
+          %td.val
+            %span.fold
+              = link_to(image_tag("arrow_fold_down.png",
+                alt: I18n.t(:data_row_additional_detail_alt)),
+                taxon_data_path(trait.point.taxon_concept,
+                data_point_uri_id: trait.point.id, anchor: trait.point.anchor),
+                title: I18n.t(:data_row_additional_detail_assistive))
+            .term{ data: { term: "TODO" }}
+              -# add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+              = trait.value_name
+              - if trait.value_uri
+                %span.info
+                  %ul.glossary
+                    = render(partial: 'known_uris/definition',
+                      locals: { known_uri: trait.value_uri, search_link: true,
+                      glossary_link: true })
+          %td.source
+            - if trait.resource
+              = link_to(trait.resource.content_partner.name,
+                [trait.partner, trait.resource])
+            - else
+              = "oops"
+              = link_to(trait.source_url, trait.source_url)
+          %td.comment
+            %span.comments
+              - if trait.comments.empty?
+                &nbsp;
+              - else
+                = image_tag('comment_indicator.png')
+        %tr.actions{ id: "#{trait.anchor}_actions" }
+          %td{ colspan: 4 }
+            .actions
+              %ul
+                %li
+                  - if trait.content_partner
+                    = raw I18n.t("data_provided_by_content_partner",
+                      whom: link_to(trait.content_partner.name,
+                      trait.content_partner))
+                  - else
+                    = I18n.t(:data_point_uri_source_missing)

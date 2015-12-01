@@ -4,12 +4,11 @@ module InitializerAdditions
     if File.exists?(file)
       begin
         require file
-        puts "** LOADED: #{name} **"
       rescue LoadError
-        puts "** WARNING: COULD NOT LOAD #{file} **"
+        EOL.log("WARNING: COULD NOT LOAD #{file} **", prefix: "*")
       end
     else
-      puts "++ No config for #{name} found, skipping."
+      EOL.log("No config for #{name} found, skipping.", prefix: "+")
     end
   end
 end

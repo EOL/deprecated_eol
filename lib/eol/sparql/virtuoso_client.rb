@@ -33,6 +33,7 @@ module EOL
 
       def insert_data(options = {})
         unless options[:data].blank?
+          EOL.log("inserting #{options[:data].count} triples", prefix: ".")
           query = "INSERT DATA INTO <#{options[:graph_name]}> "\
             "{ #{options[:data].join(" .\n")} }"
           uri = URI(upload_uri)

@@ -3,24 +3,24 @@ require "spec_helper"
 describe ContentServer do
 
   before(:all) do
-    @old_val = $CONTENT_SERVER
-    $CONTENT_SERVER = 'http://c1.org'
+    @old_val = Rails.configuration.asset_host
+    Rails.configuration.asset_host = 'http://c1.org'
   end
 
   after(:all) do
-    $CONTENT_SERVER = @old_val
+    Rails.configuration.asset_host = @old_val
   end
 
   describe '.cache_path' do
 
     it 'should use CONTENT_SERVER_CONTENT_PATH by default' do
       ContentServer.should_receive(:cache_url_to_path).with('url').and_return('nice_path')
-      ContentServer.cache_path('url').should =~ /http.*c\d.*#{$CONTENT_SERVER_CONTENT_PATH}.*nice_path/
+      ContentServer.cache_path('url').should =~ /http.*c\d.*#{Rails.configuration.content_path}.*nice_path/
     end
     
     it 'should allow a content host to be specified' do
       ContentServer.should_receive(:cache_url_to_path).with('url').and_return('nice_path')
-      ContentServer.cache_path('url', specified_content_host: 'http://someotherhost.com/').should =~ /http:\/\/someotherhost\.com\/#{$CONTENT_SERVER_CONTENT_PATH}nice_path/
+      ContentServer.cache_path('url', specified_content_host: 'http://someotherhost.com/').should =~ /http:\/\/someotherhost\.com\/#{Rails.configuration.content_path}nice_path/
     end
 
   end
@@ -57,7 +57,7 @@ describe ContentServer do
     end
 
     it 'should include the CONTENT_SERVER_CONTENT_PATH' do
-      ContentServer.uploaded_content_url('whatever', '.ext').should =~ /#{$CONTENT_SERVER_CONTENT_PATH}/
+      ContentServer.uploaded_content_url('whatever', '.ext').should =~ /#{Rails.configuration.content_path}/
     end
 
   end

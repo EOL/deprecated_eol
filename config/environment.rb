@@ -29,6 +29,13 @@ if Rails.configuration.use_secure_acceptance
 end
 
 Rails.configuration.asset_host = ENV["EOL_ASSET_HOST"] || 'localhost'
+# If you put leading and trailing slashes here you get double slashes in the
+# URLs, which work fine but aren't right
+Rails.configuration.content_path = "content"
+# The extension of all species images on the content server; avoids storing
+# another three characters in the data_objects table (which is a hundred million
+# rows)
+Rails.configuration.species_img_fmt = "jpg"
 
 # None, by default, but defined:
 Rails.configuration.google_site_verification_keys = []

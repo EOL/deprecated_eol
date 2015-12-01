@@ -1,7 +1,5 @@
 - content_for :head do
-  %link{:href => "http://www.jeasyui.com/easyui/themes/default/easyui.css", :rel => "stylesheet", :type => "text/css"}
   = stylesheet_link_tag "data_search"
-
 - helperstscope = [:helpers, :label, :data_search]
 - # NOTE altering taxon concept defaults if its not searchable but keeping
 - #      variable intact, in case it is still needed... we could just remove it
@@ -21,13 +19,12 @@
 = form_tag data_search_path, method: 'get', class: 'copy', id: 'traitbank_search' do
   = hidden_field_tag :taxon_concept_id, (taxon_concept_id)
   .vital
-    %fieldset
+    %fieldset{class: "ui-widget"}
       %dl
         %dt
           = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
-        %dt
-          -# TODO - || [] is lame here, fix:
-          = select_tag(:attribute, options_for_select(select_options, @attribute || @attribute_default), { include_blank: true, id: 'attributes_select', class: "easyui-combobox", style: "width:200px;"})
+        %dt{id: "combobox"}
+          = select_tag :attribute,  options_for_select(select_options, @attribute || @attribute_default) , include_blank: true
     - if @equivalent_attributes && @equivalent_attributes.count > 0
       %br
       %h2{style: "display: inline;"}

@@ -27,11 +27,57 @@ class UsersController < ApplicationController
     if @user.is_hidden?
       flash[:notice] = I18n.t(:user_no_longer_active_message)
     end
-    @user_submitted_text_count = User.count_submitted_datos(@user.id)
-    @common_names_added = Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
-    @common_names_removed = Curator.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
-    @common_names_curated = Curator.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
+    count_submitted_objects
+    adjust_common_names_counts
     @rel_canonical_href = user_url(@user)
+  end
+  
+  def count_submitted_objects
+    @user_submitted_text_count = Rails.cache.fetch("users/count_submitted_objects/#{@user.id}", expires_in: 24.hours) do
+      User.count_submitted_datos(@user.id)
+    end
+  end
+  
+  def adjust_common_names_counts
+    @common_names_added = Rails.cache.fetch("users/common_names_added/#{@user.id}", expires_in: 24.hours) do
+      Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    end
+    @common_names_removed = Rails.cache.fetch("users/common_names_removed/#{@user.id}", expires_in: 24.hours) do
+    Curator.total_objects_curated_by_action_and_user(Activity.remove_common_name.id, @user.id, [ChangeableObjectType.synonym.id])
+    end
+    @common_names_curated = Rails.cache.fetch("users/common_names_curated/#{@user.id}", expires_in: 24.hours) do
+      Curator.total_objects_curated_by_action_and_user([Activity.trust_common_name.id, Activity.untrust_common_name.id, Activity.unreview_common_name.id, Activity.inappropriate_common_name.id], @user.id, [ChangeableObjectType.synonym.id])
+    end
+  end
+  
+  def reindex
+    @user = User.find(params[:id])
+    cache_keys = [:common_names_added, :common_names_removed, :common_names_curated, :total_species_curated, :total_user_objects_curated,
+      :total_user_exemplar_images, :total_user_overview_articles, :total_user_preferred_classifications, :count_taxa_commented, :count_submitted_objects, :count_total_data_records]
+    cache_keys.each do |key|
+      Rails.cache.delete("users/#{key}/#{@user.id}")
+    end
+    #call reindex methods
+    count_submitted_objects
+    adjust_common_names_counts
+    @user.total_species_curated
+    @user.total_user_objects_curated
+    @user.total_user_exemplar_images
+    @user.total_user_overview_articles
+    @user.total_user_preferred_classifications
+    @user.count_taxa_commented
+    @user.count_total_data_records
+
+    flash[:notice]= I18n.t(:user_count_reindexed)
+    respond_to do |format|
+      format.html do
+        redirect_to user_path(@user)
+      end
+      format.js do
+        convert_flash_messages_for_ajax
+        render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
+      end
+    end
   end
 
   # GET /users/:id/edit

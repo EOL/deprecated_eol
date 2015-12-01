@@ -98,6 +98,18 @@ module Eol
     config.assets.precompile += ['*.css', '*.js']
 
     config.assets.initialize_on_precompile = false
+    
+    # This uses Rack CORs gem to enable CORs on EOL API.
+    # Currently we allow all origins to access EOL API  
+    config.middleware.insert_before 0, "Rack::Cors" do
+      allow do
+        origins '*'
+        
+        resource '/wapi/*', 
+          headers: :any, 
+          methods: [:get, :post, :options, :put]
+      end
+    end
 
     if defined?(Sass)
       config.sass.line_comments = false
@@ -229,14 +241,6 @@ module Eol
     # number of images created in the cached_images tables.  (EOL presently sets cached_image limits at 500.)
     $IMAGE_LIMIT = 200
 
-    # THIS IS WHERE ALL THE IMAGES/VIDEOS LIVE:
-    $CONTENT_SERVER = 'http://localhost/'
-    Rails.configuration.asset_host = 'http://localhost/'
-    $CONTENT_SERVER_CONTENT_PATH = "content" # if you put leading and trailing slashes here you get double slashes in the URLs, which work fine but aren't right
-    $CONTENT_SERVER_RESOURCES_PATH = "/resources/"
-    $CONTENT_SERVER_AGENT_LOGOS_PATH = "/content_partners/"
-    $SPECIES_IMAGE_FORMAT = "jpg" # the extension of all species images on the content server
-
     # MEDIA CENTER CONFIGURATION
     $MAX_IMAGES_PER_PAGE = 40 # number of thumbnail images to show per page
     $PREFER_REMOTE_IMAGES = false # if set to true, then remote image URLs are used to show images when possible (helpful to preserve EOL bandwidth if needed)
@@ -356,7 +360,7 @@ module Eol
     $VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
     $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='
     $VIRTUOSO_CACHING_PERIOD = 12 # HOURS
-    
+
     # Recaptcha Keys
     ENV['RECAPTCHA_PUBLIC_KEY'] ||= ''
     ENV['RECAPTCHA_PRIVATE_KEY'] ||= ''

@@ -5559,4 +5559,28 @@ pms:
   join_community_button: Giontesse a costa comunità
   join_eol_community_html: Fé part ëd la comunità <abbr title="Enciclopedìa dla Vita">EdV</abbr>!
   join_eol_button_html: Unisse a <abbr title="Enciclopedìa dla Vita">EdV</abbr> adess
+  joined_mailing_list: Mach coj ch'a son giontasse a la lista ëd difusion.
+  joined_time_ago: Giontà %{time_passed} fa
+  json_response: Rispòsta JSON
+  just_pages_with_pictures_and_text: Mach cole pàgine con le plance e ël test
+  keep_split_entry_from_this_entry: Ten-e separà da costa vos
+  key: Ciav
+  known_uri_category_header: Categorìe
+  known_uri_created: URI giontà.
+  known_uri_missing_translation: Nen voltà, për piasì ch'a lo modìfica
+  known_uri_name_and_uri: '%{name} (%{uri})'
+  known_uri_updated: URI agiornà.
+  known_uri_label_inverse: a l'é n'anvers ëd
+  known_uri_label_allowed_val: a përmet un valor ëd
+  known_uri_label_allowed_unit: a përmet n'unità ëd
+  known_uri_label_unit: a l'ha n'unità tanme predefinìa
+  known_uri_label_equivalent: a l'é equivalent a
+  known_uri_label_indirectly_equivalent: a l'é ëd fasson indireta equivalent a
+  known_uris_empty_sorry: An dëspias, a-i é ancor nen d'URI sugerì për costa categorìa.
+  known_uris_none: Gnun a l'ha giontà n'URI ëd costa sòrt.
+  known_uris_page_title: URI për ij dàit ant l'EdV
+  known_uris_sorted: Órdin agiornà.
+  pending_harvests_none: A-ié gnun-e cujìe an atèisa për ël moment
+  pending_harvests_title: Cujìe an atèisa
+  pause_pending_harvests: Antërompe la cujìa
 ...

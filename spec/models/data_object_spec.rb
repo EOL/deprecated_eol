@@ -21,7 +21,7 @@ describe DataObject do
 
     @big_int = 20081014234567
     @image_cache_path = %r/2008\/10\/14\/23\/4567/
-    content_server_match = $CONTENT_SERVER + $CONTENT_SERVER_CONTENT_PATH
+    content_server_match = Rails.configuration.asset_host + Rails.configuration.content_path
     content_server_match.gsub!(/\d+/, '\\d+') # Because we don't care *which* server it hits...
     @content_server_match = %r/#{content_server_match}/
     @flash_dato = DataObject.gen(data_type: DataType.find_by_translated(:label, 'flash'), object_cache_url: @big_int)
@@ -351,7 +351,7 @@ describe DataObject do
 
   it 'should delegate #image_cache_path to ContentServer' do
     ContentServer.should_receive(:cache_path).with(:foo, {}).and_return("worked")
-    DataObject.image_cache_path(:foo, :large).should == "worked_large.#{$SPECIES_IMAGE_FORMAT}"
+    DataObject.image_cache_path(:foo, :large).should == "worked_large.#{Rails.configuration.species_img_fmt}"
   end
 
   it 'should default to the object_title' do

@@ -234,7 +234,7 @@ class DataObject < ActiveRecord::Base
   def self.image_cache_path(cache_url, size = '580_360', options={})
     return if cache_url.blank? || cache_url == 0
     size = size ? "_" + size.to_s : ''
-    ContentServer.cache_path(cache_url, options) + "#{size}.#{$SPECIES_IMAGE_FORMAT}"
+    ContentServer.cache_path(cache_url, options) + "#{size}.#{Rails.configuration.species_img_fmt}"
   end
 
   # NOTE - this used to have a select, but there are too many ancillary methods that get called which need other

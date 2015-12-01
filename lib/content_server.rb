@@ -13,9 +13,9 @@ class ContentServer
 
   def self.cache_path(cache_url, options={})
     if options[:specified_content_host]
-      (options[:specified_content_host] + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url))
+      (options[:specified_content_host] + Rails.configuration.content_path + self.cache_url_to_path(cache_url))
     else
-      $CONTENT_SERVER + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(cache_url)
+      Rails.configuration.asset_host + Rails.configuration.content_path + self.cache_url_to_path(cache_url)
     end
   end
 
@@ -29,7 +29,7 @@ class ContentServer
 
   def self.uploaded_content_url(url, ext)
     return self.blank if url.blank?
-    Rails.configuration.asset_host + $CONTENT_SERVER_CONTENT_PATH + self.cache_url_to_path(url) + ext
+    Rails.configuration.asset_host + Rails.configuration.content_path + self.cache_url_to_path(url) + ext
   end
 
   # only uploading logos
@@ -102,7 +102,7 @@ class ContentServer
     count = 0
     begin
       begin
-        response = EOLWebService.call(:parameters => parameters)     
+        response = EOLWebService.call(:parameters => parameters)
         return {response: response, exception: nil}
       rescue Exception => ex
         Rails.logger.error "#{$WEB_SERVICE_BASE_URL} #{method_name} #{ex.message}"
@@ -119,7 +119,7 @@ class ContentServer
     response = hash[:response]
     exception = hash[:exception]
     error = nil
-    if response.blank? 
+    if response.blank?
       if exception.nil?
         ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} timed out") if $ERROR_LOGGING
         error = "#{method_name} timed out"

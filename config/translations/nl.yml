@@ -564,7 +564,7 @@ nl:
         published_at: Gepubliceerd
         published_status: Status
       hierarchy:
-        browsable_more: Vink "doorbladerbaar" aan om deze hiërarchie te bevorderen
+        browsable_more: Selecteer "doorbladerbaar" om deze hiërarchie te bevorderen
           naar de primaire doorbladerbare hiërarchieën in EOL.
         browsable_status_with_colon: 'Bladerbare status:'
         complete: Geconserveerd
@@ -583,8 +583,8 @@ nl:
       news_item:
         active: Gepubliceerd
         active_more: Gepubliceerde nieuwsberichten zijn openbaar vanaf de geselecteerde
-          datum en tijd. Vink <em>gepubliceerd</em> uit als u wilt voorkomen dat alle
-          gebruikers de versies van dit nieuwsbericht in elke taal kunnen bekijken.
+          datum en tijd. Deselecteer <em>gepubliceerd</em> als u wilt voorkomen dat
+          alle gebruikers de versies van dit nieuwsbericht in elke taal kunnen bekijken.
         page_name: Unieke naam <small>(alleen kleine letters ISO fundamentele Latijnse
           alfanumerieke tekens en onderstrepingstekens)</small>
         page_name_more: Voer een unieke, zelfbeschrijvende, zinvolle en blijvende
@@ -628,7 +628,7 @@ nl:
       translated_content_page:
         active_translation: Gepubliceerd
         active_translation_more: Gepubliceerde vertalingen zijn openbaar, tenzij de
-          pagina zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt
+          pagina zelf niet openbaar is. Deselecteer <em>gepubliceerd</em> als u wilt
           voorkomen dat iedereen deze versie van de pagina te zien krijgt.
         language_id: Taal
         left_content_more: '(optioneel) Voeg een ongesorteerde lijst toe met navigatieerwijzingen.
@@ -661,8 +661,8 @@ nl:
       translated_news_item:
         active_translation: Gepubliceerd
         active_translation_more: Gepubliceerde vertalingen zijn openbaar, tenzij het
-          nieuwsitem zelf niet openbaar is. Vink <em>gepubliceerd</em> uit als u wilt
-          voorkomen dat iedereen deze versie van het nieuwsitem te zien krijgt.
+          nieuwsitem zelf niet openbaar is. Deselecteer <em>gepubliceerd</em> als
+          u wilt voorkomen dat iedereen deze versie van het nieuwsitem te zien krijgt.
         language_id: Taal
         body_more: 'Voer de hoofdinhoud voor het nieuwsitem in in het tekstvak. Gebruik
           de dropdown <em>Vormgeving</em> om de toepasselijke semantische tekstelementen
@@ -937,6 +937,12 @@ nl:
     new:
       page_title: Geef uw terugkoppeling
   collections:
+    download_taxa_data:
+      attribute_header: Eigenschap
+      select_all_checkbox: Alles selecteren
+      collection_download_under_processing: De collectiedownload wordt nu verwerkt.
+        Er wordt een e-mail naar u gestuurd als het downloaden is afgerond
+      user_downloaded_collection: Gegevensdownload voor %{collection_name}
     show:
       meta_description_default: Een Encyclopedia of Life-verzameling met de naam %{collection_name}.
       meta_description_default_focus_collection: Een Encyclopedia of Life-focusverzameling
@@ -1575,6 +1581,12 @@ nl:
       message: U kunt deze en andere downloads bekijken door het bezoeken van het
         <a href='%{download_link}'>tabblad "Gegevensdownloads" in uw profiel</a>.
       header: Uw download staat klaar!
+    collection_download_ready:
+      subject: De geselecteerde eigenschappen van een EOL-collectie kunnen nu gedownload
+        worden
+      message: U kunt deze en andere downloads bekijken door te gaan naar <a href='%{download_link}'>het
+        tabblad Gegevensdownloads in uw profiel</a>.
+      header: Uw collectiedownload staat klaar.
   sessions:
     new:
       login_with_facebook_assistive: Aanmelden bij EOL met uw Facebookaccount.
@@ -2102,6 +2114,9 @@ nl:
         other: '%{count} gegevensdownloads'
       empty: U hebt geen downloads. U kunt <a href='%{data_search_url}'>naar gegevens
         zoeken</a> en de resultaten downloaden.
+      empty_taxa_collection: Er zijn geen kenmerken voor deze collectie
+      no_selected_attributes: Er is geen kenmerk geselecteerd. Selecteer er tenminste
+        één
       download: downloaden
       page_title: Gegevensdownloads
       query_head: Zoekopdracht
@@ -2142,7 +2157,7 @@ nl:
       meta_title: Wordt lid van EOL
       sign_up_with_facebook_assistive: Registreer u bij EOL met uw Facebookaccount.
       sign_up_with_google_assistive: Meld aan bij EOL met uw Google-account.
-      sign_up_with_twitter_assistive: Meld aan bij EOL met uw Twitter-account.
+      sign_up_with_twitter_assistive: Meld aan bij EOL met uw Twitteraccount.
       sign_up_with_yahoo_assistive: Meld aan bij EOL met uw Yahoo!-gebruiker.
     newsfeeds:
       activity_link: activiteit
@@ -2185,9 +2200,8 @@ nl:
           om de koppeling te verwijderen.
         facebook:
           add_connection_failed_account_already_connected: Het is niet mogelijk uw
-            EOL-gebruiker te koppelen met uw Facebookgebruiker, omdat uw Facebookgebruiker
-            al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is
-            gekoppeld.
+            EOL-account te koppelen met uw Facebookaccount, omdat uw Facebookaccount
+            al aan een <a href="%{existing_eol_account_url}">EOL-account</a> is gekoppeld.
           login_failed_not_connected: We hebben geen koppeling kunnen vinden tussen
             uw Facebookgebruiker en EOL. Als u al een EOL-gebruiker heeft, <a href="%{login_url}">meld
             dan aan bij EOL</a> met andere gebruikersgegevens en koppel dan met uw
@@ -2199,11 +2213,11 @@ nl:
           new_authentication_not_added: Er is een probleem opgetreden. Het was niet
             mogelijk uw Facebookgebruiker te koppelen.
           not_authorized_to_add_authentication: Er is geen toestemming om te koppelen
-            met uw Facebook-account.
+            met uw Facebookaccount.
           not_authorized_to_login: Er is geen toestemming om u aan te melden bij EOL
             met uw Facebookgebruiker.
           not_authorized_to_signup: Er is geen toestemming om u te registreren bij
-            EOL met uw Facebook-account.
+            EOL met uw Facebookaccount.
           signup_failed_account_already_connected: Het is niet mogelijk een nieuwe
             EOL-gebruiker te registeren met uw Facebookgebruiker, omdat uw Facebookgebruiker
             al aan een <a href="%{existing_eol_account_url}">EOL-gebruiker</a> is
@@ -2295,7 +2309,7 @@ nl:
       notices:
         facebook:
           new_authentication_added: Facebookauthenticatie is toegevoegd aan uw gebruiker.
-          removed_connection: Uw EOL-account is is niet langer gekoppeld aan uw Facebook-account.
+          removed_connection: Uw EOL-account is is niet langer gekoppeld aan uw Facebookaccount.
             Om alle toekomstige interacties tussen uw Facebook-account en EOL te voorkomen,
             moet u naar Facebook gaan en uw gebruikersinstellingen aanpassen.
         google:
@@ -2365,7 +2379,7 @@ nl:
       form_header: Wachtwoord vergeten
       form_tip: Er zijn meerdere gebruikers ingeschreven met het e-mailadres <em>%{email}</em>.
         Selecteer de gebruiker waar u weer toegang toe wilt krijgen.
-      legend_choose_account: Kies een gebruiker
+      legend_choose_account: Kies een account
     show:
       meta_description: Gebruikersprofiel voor %{user_full_name} bij Encyclopedia
         of Life.
@@ -2476,7 +2490,7 @@ nl:
     hebt over een bron die u wilt koppelen aan EOL, neem dan <a href=''%{contact_us_link}''>contact
     met ons op</a>.'
   account_information: Gebruikersgegevens
-  account_information_menu: Gebruikersgegevens
+  account_information_menu: Accountgegevens
   account_registered_but_not_ready_try_later: Uw gebruiker is aangemaakt, maar kan
     nog niet gebruikt worden. Probeer het over vijf minuten nog een keer.
   action: Handeling
@@ -3520,30 +3534,30 @@ nl:
       unlock:
         merge_of_an_unknown_taxon_unlocked: Het samenvoegen van pagina's waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
-        merge_of_it_unlocked: Het samenvoegen wat u heeft aangevraagd voor deze pagina
-          is afgerond; de pagina's worden opnieuw geïndexeerd en kan tot 25 uur in
-          beslag nemen.
+        merge_of_it_unlocked: Het samenvoegen dat u heeft aangevraagd op deze pagina
+          is afgerond; de pagina's worden opnieuw geïndexeerd en dit kan tot 25 uur
+          in beslag nemen.
         merge_of_taxon_unlocked: Het samenvoegen van pagina's voor "%{taxon}" waar
           u recentelijk om hebt gevraagd is uitgevoerd;  de pagina's worden opnieuw
-          geïndexeerd en kan tot 25 uur in beslag nemen.
+          geïndexeerd en dit kan tot 25 uur in beslag nemen.
         move_of_an_unknown_taxon_unlocked: De classificatiewijziging waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
         move_of_it_unlocked: De classificatiewijziging waar u recentelijk om hebt
-          gevraagd is uitgevoerd; de pagina's worden opnieuw geïndexeerd en kan tot
-          25 uur in beslag nemen.
+          gevraagd is uitgevoerd; de pagina's worden opnieuw geïndexeerd en dit kan
+          tot 25 uur in beslag nemen.
         move_of_taxon_unlocked: De classificatiewijziging voor "%{taxon}" waar u recentelijk
           om hebt gevraagd is uitgevoerd; de pagina's worden opnieuw geïndexeerd en
-          kan tot 25 uur in beslag nemen.
+          dit kan tot 25 uur in beslag nemen.
         split_of_an_unknown_taxon_unlocked: De classificatiesplitsing waar u recentelijk
           om hebt gevraagd is uitgevoerd, maar de pagina kan niet gevonden worden.
         split_of_it_unlocked: De classificatiesplitsing die u recentelijk voor deze
           pagina heeft aangevraagd is uitgevoerd en de classificaties zijn verplaatst
           naar <a href='%{to}'>hun eigen pagina</a>; de pagina's worden opnieuw geïndexeerd
-          en kan tot 25 uur in beslag nemen.
+          en dit kan tot 25 uur in beslag nemen.
         split_of_taxon_unlocked: De classificatiesplitsing die u recentelijk voor
           "%{taxon}" heeft aangevraagd is uitgevoerd en de classificaties zijn verplaatst
           naar <a href='%{to}'>hun eigen pagina</a>; de pagina's worden opnieuw geïndexeerd
-          en kan tot 25 uur in beslag nemen.
+          en dit kan tot 25 uur in beslag nemen.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Het samenvoegen van pagina''s
           waar u recentelijk om hebt gevraagd is <strong>mislukt</strong>: %{error}.
@@ -4087,7 +4101,7 @@ nl:
   classification_already_preferred: 'Fout: deze classificatie als is al gemarkeerd
     als voorkeursclassificatie.'
   classification_curation_pending: In afwachting van conservering. Deze classificatie
-    kan in de nabije toekomst nog veranderen naar een andere pagina.
+    kan in de nabije toekomst nog wijzigen naar een andere pagina.
   classification_curation_split_comment_with_count:
     one: Eén classificatie van deze pagina is <a href='%{url}'>afgesplitst in een
       eigen pagina</a>.
@@ -4191,15 +4205,18 @@ nl:
   collection_api_sort_field_notes: ��Als de parameter "sort_field" is opgenomen, worden
     alleen verzamelingsitems teruggegeven waarvan het sorteerveld precies overeenkomt
     met de opgegeven tekst.
+  collection_create_failure: Het aanmaken van de collectie is mislukt. Controleer
+    of er een probleem is met de doorgegeven parameters.
   collection_created_with_count_notice:
     one: De verzameling <em>%{collection_name}</em> is aangemaakt  met één item..
     other: De verzameling <em>%{collection_name}</em> is aangemaakt  met %{count}
       items.
   collection_delete_link: Verzameling permanent verwijderen
   collection_destroyed: De verzameling is verwijderd.
-  collection_removed: Verzameling %{collection} ' is verwijderd.
-  collection_update_failure: Verzameling %{collection} - update is mislukt. Controleer
-    of er een probleem in de collectie items is
+  collection_removed: Verzameling %{collection} is verwijderd.
+  collection_update_failure: Het bijwerken van verzameling %{collection} is mislukt.
+    Controleer of er een probleem in de collectie-items is
+  collection_not_existing: De collectie %{collection} bestaat niet.
   collection_error_no_items_selected: 'Fout: er zijn geen items geselecteerd of handelingen
     uitgevoerd.'
   collection_image: Verzamelingsafbeelding
@@ -4364,7 +4381,7 @@ nl:
     bijgehouden, maar beiden worden niet langer weergegeven in zoekopdrachten of op
     taxonpagina's, en zijn niet langer te bewerken.
   confirm_delete_data_object: Weet u zeker dat u dit gegevensobject wilt verwijderen?
-    Deze actie kan niet ongedaan worden gemaakt.
+    Deze handeling kan niet ongedaan worden gemaakt.
   confirm_leave: Weet u zeker dat u deze gemeenschap wilt verlaten?
   confirm_password_colon: 'Wachtwoord bevestigen:'
   contact: Contact
@@ -4484,7 +4501,7 @@ nl:
     zijn toegevoegd. De huidige status van de brongegevens: %{resource_status}.'
   content_partner_resource_create_unsuccessful_error: Er is een fout opgetreden. De
     bron is niet toegevoegd.
-  content_partner_resource_validation_finish_notice: Het valideren van de inhoudspartnerbron
+  content_partner_resource_validation_finish_notice: Het valideren van de contentpartnerbron
     is voltooid. De status is %{resource_status}.
   content_partner_resource_dataset_details_header: Dataset
   content_partner_resource_delete_with_type_link: Alles verwijderen
@@ -4510,10 +4527,10 @@ nl:
     %{resource_title} is bijgewerkt.
   content_partner_resource_harvest_event_update_unsuccessful_error: Er is een fout
     opgetreden. De oogstgebeurtenis voor %{resource_title} is niet bijgewerkt.
-  content_partner_resource_page_title: Encyclopedie van het Leven - %{content_partner_name}
-    - %{resource_name}
-  content_partner_resource_will_be_deleted: Alle van de bron %{resource_title} afkomstige
-    gegevens worden verwijderd. Dit proces kan 24 uur duren.
+  content_partner_resource_page_title: Encyclopedia of Life - %{content_partner_name}  -
+    %{resource_name}
+  content_partner_resource_will_be_deleted: Alle inhoud die geoogst is vanuit de bron
+    %{resource_title} wordt verwijderd. Dit kan tot 24 uur duren voordat het is doorgevoerd.
   content_partner_resource_hierarchy_browsable: Doorzoekbaar
   content_partner_resource_hierarchy_complete_true: Deze hiërarchie is ingesteld als
     <strong>geconserveerd</strong>. Bij een geconserveerde hiërarchie wordt ervan
@@ -4556,7 +4573,8 @@ nl:
     De status van de bron %{resource_title} kon niet worden bijgewerkt naar %{resource_status}.
   content_partner_resource_update_successful_notice: 'De brongegevens voor de contentpartner
     zijn bijgewerkt. De huidige status van de brongegevens: %{resource_status}.'
-  content_partner_resource_update_successful: Inhoud partner bron details bijgewerkt.
+  content_partner_resource_update_successful: De gegevens van de contentpartnerbron
+    zijn bijgewerkt.
   content_partner_resource_update_unsuccessful_error: Er is een fout opgetreden. De
     bron is niet bijgewerkt.
   content_partner_resource_upload_unsuccessful_error: 'Er is een fout opgetreden.
@@ -4774,6 +4792,7 @@ nl:
     "%{period}" uur uitgevoerd
   currently_running_harvesting: Er wordt op dit moment geoogst
   currently_in_eol: Nu in Encyclopedia of Life
+  create_download_data_file: Bestand aanmaken
   institutional_sponsors: Institutionele sponsoren
   currently_published: op dit moment gepubliceerd
   daily: Dagelijks
@@ -4795,7 +4814,9 @@ nl:
     Secretariaat van EOL</a> voor meer informatie over TraitBank.</p>
   data_results_only_for_search: Resultaten uit TraitBank voor "%{search_term}"
   data_search_limit:
-    other: =Gegevens zoekresultaten worden gedownload als %{count} record per bestand.
+    one: Zoekresultaten van gegevens worden gedownload als %{count} record per bestand.
+    other: Zoekresultaten van gegevens worden gedownload als %{count} records per
+      bestand.
   data_about_this_record: Gegevens over dit record
   data_column_tc_id: EOL pagina-ID
   data_column_sci_name: Wetenschappelijke naam
@@ -4817,12 +4838,11 @@ nl:
   data_column_raw_units_uri: URI voor ruwe eenheden (genormaliseerd)
   data_column_source: Leverancier
   data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> verzamelt gegevens
-    records uit de vele aanbieders. Selecteer een rij voor meer informatie over de
-    record of <a href="%{traitbank_search_path}">zoekopdracht TraitBank</a>.
+    van vele aanbieders. Selecteer een rij voor meer details over het record of, of
+    <a href="%{traitbank_search_path}">doorzoek TraitBank</a>.
   data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
-    verzamelt gegevens records uit de vele aanbieders. Selecteer een rij voor meer
-    informatie over de record of <a href="%{traitbank_search_path}">zoekopdracht in
-    %{taxon_name}</a>.
+    verzamelt gegevens van vele aanbieders. Selecteer een rij voor meer details over
+    het record of <a href="%{traitbank_search_path}">zoek binnen %{taxon_name}</a>.
   data_database_colon: 'Gegevens:'
   data_glossary: Woordenlijst voor gegevens
   data_glossary_contribute: Om nieuwe termen toe te voegen deze woordenlijst kunt
@@ -4833,7 +4853,7 @@ nl:
   data_metadata_subtable_summary: Aanvullende gegevens over dit feit.
   data_measurement_subtable_summary: Aanvullende gegevens over de meting van dit feit.
   data_object: Gegevensobject
-  data_object_deleted: Gegevens Object is succesvol verwijderd
+  data_object_deleted: Gegevensobject is verwijderd
   data_object_not_associated_with_any_hierarchies: Dit gegevensobject is niet gekoppeld
     aan een hiërarchie.
   data_object_reference: Gegevensobjectkoppeling
@@ -4872,8 +4892,9 @@ nl:
     form:
       equivalent_attributes: 'Vergelijkbare waarden:'
       equivalent_values: 'Vergelijkbare waarden:'
-      search_again_for_attributes: zoek opnieuw onder de geselecteerde kenmerken
-      search_again_for_values: zoek opnieuw zijn waarde gekozen
+      search_again_for_attributes: opnieuw zoeken om de geselecteerde eigenschappen
+        op te nemen
+      search_again_for_values: opnieuw zoeken om de geselecteerde waarden op te nemen
       header_assistive: Zoekformulier
       input_summary_intro: Geselecteerde zoekopties
       new_search_link: Nieuwe zoekopdracht starten
@@ -5014,6 +5035,7 @@ nl:
   do_you_want_to_be_a_curator: Wilt u conservator worden
   download_wav_file: WAV-bestand downloaden
   download_data: Gegevens downloaden
+  download_collection_data: Gegevens downloaden
   dublin_core: Dublin Core
   duplicate_comment_warning: 'De reactie is niet opgeslagen: het lijkt erop dat u
     al hebt gereageerd op dit bericht. Hebt u wellicht per ongeluk uw reactie twee
@@ -5042,8 +5064,8 @@ nl:
   edit_table_of_contents: inhoudsopgave bewerken
   edit_tag_suggestions: labelsuggesties bewerken
   edit_the_topic_area_intro: Bewerk het veld voor onderwerp en e-mailadressen hieronder
-    en vink het vinkvakje "Actief" aan om gebruikers op de pagina "Neem contact met
-    ons op" van de website weer te geven.
+    en selecteer het selectievakje "Actief" om gebruikers op de pagina "Neem contact
+    met ons op" van de website weer te geven.
   edit_user_details_instructions: Bewerk de gebruikersgegevens hieronder. U kunt deze
     gebruiker een e-mail sturen vanuit het systeem door hieronder op "E-mailberichtgebied
     weergeven" te klikken en dan de tekst voor de e-mail in te voeren. Voer alleen
@@ -5077,7 +5099,8 @@ nl:
   eol_api: EOL API
   eol_api_hierarchies: 'EOL API: hiërarchieën'
   eol_api_hierarchy_entries: 'EOL API: hiërarchie-invoer'
-  eol_api_hierarchy_entries_descendants: 'EOL-API: Hiërarchie-Items'' Nakomelingen'
+  eol_api_hierarchy_entries_descendants: 'EOL-API: Hiërarchie voor de nakomelingen
+    van een item'
   eol_api_pages: 'EOL API: pagina''s'
   eol_api_ping: 'EOL API: ping'
   eol_api_provider_hierarchies: 'EOL API: providerhiërarchieën'
@@ -5090,7 +5113,7 @@ nl:
   eol_pages: Pagina's
   error_log_detail: Detailgegevens foutenlogboek
   error_revoking_editor_on_watch_collection: Bewerkers kunnen niet verwijderd worden
-    uit gevolgde verzamelingen
+    uit gevolgde collecties
   error_log: Foutenlogboek
   error_logging_active: Er worden foutgegevens verzameld
   error_401_page_title: Niet bevoegd
@@ -5130,9 +5153,9 @@ nl:
       administrators_only: Toegang is alleen mogelijk voor EOL-beheerders.
       default: Geen toegang.
       hidden_user_login: Aanmelden is uitgeschakeld voor deze gebruiker.
-      hidden_user_recover_account: Gebruikersherstel is uitgeschakeld voor deze gebruiker.
-      hidden_user_temporary_login: Gebruikersherstel en aanmelden zijn uitgeschakeld
-        voor deze gebruiker.
+      hidden_user_recover_account: Accountherstel is uitgeschakeld voor die account.
+      hidden_user_temporary_login: Accountherstel en aanmelden zijn uitgeschakeld
+        voor die account.
       inactive_user_login: Deze gebruiker is nog niet actief. Als u geen bevestiging
         per e-mail hebt ontvangen toen u lid bent geworden, volg dan de aanwijzingen
         voor gebruikersherstel om uw e-mailadres te bevestigen en uw gebruiker te
@@ -5288,21 +5311,32 @@ nl:
     one: taxon
     other: taxa
   image_search_keyword:
-    other: =image
+    one: afbeelding
+    other: afbeeldingen
   video_search_keyword:
-    other: =video
+    one: video
+    other: video's
   sound_search_keyword:
-    other: =geluid
+    one: geluid
+    other: geluiden
   text_search_keyword:
-    other: =artikel
+    one: artikel
+    other: artikelen
   data_search_keyword:
-    other: =eigenschap
+    one: eigenschap
+    other: eigenschappen
   link_search_keyword:
-    other: =link
+    one: koppeling
+    other: koppelingen
   user_search_keyword:
-    other: =persoon
-  community_search_keyword: NOT WORKING
-  collection_search_keyword: NOT WORKING
+    one: persoon
+    other: personen
+  community_search_keyword:
+    one: gemeenschap
+    other: gemeenschappen
+  collection_search_keyword:
+    one: collectie
+    other: collecties
   find_taxa_submit_button: taxa zoeken
   flash_notice_redirected_from_search_html: U bent hier aangekomen door te zoeken
     naar <em>%{search_string}</em>. <a href="%{more_results_url}">Klik hier om terug
@@ -5320,7 +5354,7 @@ nl:
   forgot_password_form_choose_username_instructions: Er zijn meerdere gebruikers geregistreerd
     met het e-mailadres <em>%{email}</em>. Selecteer de gebruiker waarvoor u het wachtwoord
     opnieuw wilt instellen.
-  forgot_password_form_choose_username_legend: Kies een gebruiker
+  forgot_password_form_choose_username_legend: Kies een account
   forgot_password_form_choose_username_blank_error: Selecteer de gebruiker waarvoor
     u het wachtwoord opnieuw wilt instellen.
   forgot_password_form_username_or_email_blank_error: Voer uw gebruikersnaam of e-mailadres
@@ -5371,7 +5405,7 @@ nl:
   gives_access_to_a_single_hierarchy_indexed_by_eol: geeft toegang tot een enkele
     hiërarchie en de interne relaties als geïndexeerd door EOL
   gives_access_to_a_single_hierarchy_descendants_by_eol: geeft toegang tot de nakomelingen
-    van een enkele hiërarchie-entry
+    van een enkel hiërarchie-item
   global_access_tagline: Wereldwijde toegang tot kennis over het leven op aarde.
   global_navigation: Globale navigatie
   glossary: Woordenlijst
@@ -5580,10 +5614,10 @@ nl:
   known_uris_none: Niemand heeft nog URI's van dit type toegevoegd.
   known_uris_page_title: URI's voor gegevens op EOL
   known_uris_sorted: Volgorde bijgewerkt.
-  pending_harvests_none: Er zijn geen hangende oogst nu
-  pending_harvests_title: In Afwachting Van De Oogst
-  pause_pending_harvests: Pauze oogsten
-  resume_pending_harvests: Cv oogsten
+  pending_harvests_none: Er wordt op het moment niet geoogst
+  pending_harvests_title: Uit te voeren oogsten
+  pause_pending_harvests: Oogsten pauzeren
+  resume_pending_harvests: Oogsten hervatten
   label: Label
   language: 'Taal:'
   languages: Talen
@@ -5591,7 +5625,7 @@ nl:
     de inhoud van de website beschikbaar is. Selecteer een taal uit de lijst om de
     inhoud in die taal te bekijken.
   language_with_count: '%{language} (%{count})'
-  last_harvest_duration: Laatste Oogst Duur
+  last_harvest_duration: Duur laatste oogst
   last_updated: Laatst bijgewerkt
   last_updated_time_ago: '%{time_passed} geleden voor het laatst bijgewerkt'
   learn_about_collections: Hoe kan ik er een aanmaken?
@@ -5947,10 +5981,10 @@ nl:
   note_all_times_utc: Alle tijden worden weergegeven in UTC (gecoördineerde wereldtijd)
   note_that_it_may_take_a_few_mi: Het kan na uploaden enige minuten duren voordat
     de URL's werken, omdat uw bestand beschikbaar gesteld moet worden aan de webservers.
-  note_that_you_can_reference_im: U kunt afbeeldingen toevoegen met de HTML-tag &lt;img&gt;,
-    maar deze afbeeldingen moeten bestaan op een URL, zoals bij de website waar ze
-    vandaan komen of een site zoals Flickr. U kunt afbeeldingen niet via deze site
-    uploaden en ze daarna in een nieuwsitem gebruiken.
+  note_that_you_can_reference_im: U kunt afbeeldingen toevoegen met de HTML-label
+    &lt;img&gt;, maar deze afbeeldingen moeten bestaan op een URL, zoals bij de website
+    waar ze vandaan komen of een site zoals Flickr. U kunt afbeeldingen niet via deze
+    site uploaden en ze daarna in een nieuwsitem gebruiken.
   notification_frequency_daily_digest: Dagelijks overzicht
   notification_frequency_send_immediately: Onmiddellijk verzenden
   notification_frequency_never: Nooit
@@ -6209,7 +6243,7 @@ nl:
   recount_collection_items: Verzamelingsitems opnieuw tellen (corrigeert verkeerde
     tellers; de browser krijgt een timeout, maar dit werkt <i>wel</i>)
   recount_collection_items_done: Het opnieuw tellen van verzamelingsitems is afgerond.
-  redirect_url_ok_title_unavailable: Redirect URL oké, titel niet beschikbaar
+  redirect_url_ok_title_unavailable: URL voor doorverwijzing oké, titel niet beschikbaar
   reference: Referentie
   references_cabs_colon: 'Referenties:'
   related_names_with_count:
@@ -6419,7 +6453,7 @@ nl:
   showing_all_harvest_logs: <b>Alle oogsten</b> weergeven
   showing_harvest_logs_from_date: 'Weergegeven: oogst van <b>%{date}</b>'
   shown_to_the_user_parens: (zichtbaar voor de gebruiker)
-  shown_to_user_as_the_title_of_page: weergegeven als paginatitel
+  shown_to_user_as_the_title_of_page: weergegeven als paginanaam
   sign_in: Aanmelden
   sign_in_remember_me_disallowed_for_admins_notice: Om veiligheidsredenen kunnen beheerders
     geen gebruik maken van de mogelijkheid om hun wachtwoord te laten onthouden.
@@ -6524,7 +6558,7 @@ nl:
   supplier_allcaps: 'Leverancier:'
   supplier_colon: 'Leverancier:'
   survey_link: Doe mee aan ons onderzoek
-  switch_language_advisory_information: De taal van de site veranderen naar %{language_label}
+  switch_language_advisory_information: De taal van de site wijzigen naar %{language_label}
   synonym: Synoniem
   synonyms_with_count:
     one: Eén synoniem
@@ -6666,8 +6700,8 @@ nl:
     voor informatie over toegang tot andere hiërarchieën die overeenkomen met een
     bepaalde pagina in EOL. Het veld "taxonConceptID" bevat het pagina-ID van EOL
     dat gebruikt kan worden in de API voor pagina's.
-  hierarchies_entries_descendants_description: Gezien de identifier van een hiërarchie-item
-    geeft deze API g alle nakomelingen van deze hiërarchie-entry terug.
+  hierarchies_entries_descendants_description: Als het ID van een hiërarchie-item
+    wordt opgegeven, geeft deze API alle nakomelingen van dit hiërarchie-item terug.
   hierarchies_description: Encyclopedia of Life heeft niet één enkele taxonomische
     hiërarchie waarvan pagina's gemaakt worden. EOL indexeert veel hiërarchieën en
     vergelijkt ze met elkaar. Via deze API wordt metadata weergegeven over een hiërarchie
@@ -6739,7 +6773,7 @@ nl:
     verzamelingen.
   this_community_has_no_focus_list: Deze gemeenschap heeft geen focuslijst.
   this_community_was_deleted: Deze gemeenschap is verwijderd door de eigenaar.
-  this_data_object_will_be_reindexed: Dit gegevens object zal worden geïndexeerd.
+  this_data_object_will_be_reindexed: Dit gegevensobject wordt geïndexeerd.
   this_does_not_necessarily_mean: '* dit betekent niet per se dat de verbindingen
     worden gebruikt, allen dat ze zijn ingesteld in database.yml. U moet controleren
     of de masterverbindingen zijn ingesteld in het bestand "config/environments/%{env}.rb".'
@@ -6857,7 +6891,7 @@ nl:
   update_collection_submit_button: Collectiegegevens bijwerken
   update_language: Taal bijwerken
   update_page: Pagina bijwerken
-  update_user_successful_notice: De gebruiker is bijgewerkt.
+  update_user_successful_notice: De account is bijgewerkt.
   update_user_unsuccessful_error: Er is een fout opgetreden. Uw gebruiker is niet
     bijgewerkt. Controleer of alle velden correct zijn ingevuld.
   updated_community: De gemeenschap is bijgewerkt
@@ -6953,7 +6987,7 @@ nl:
     other: '%{count} Wikipediapagina genomineerd'
   new_uri_warning: De term die u gaat toevoegen is geen aanbevolen term in EOL.
   user_agent: Gebruikersagent
-  user_already_active_notice: Uw gebruiker is al actief. Meld u aan.
+  user_already_active_notice: Uw account is al actief. Meld u aan.
   user_comments: Opmerkingen van gebruikers
   user_comment: Reactie van gebruiker
   user_commented_on_something_colon: '<strong>%{user}</strong> heeft gereageerd op
@@ -6965,7 +6999,7 @@ nl:
   user_commented_on_deleted_user: '<strong>%{user_with_link}</strong> heeft gereageerd
     op de pagina van een gebruiker die is verwijderd:'
   user_commented_on_your_image: |-
-    <strong>%{user}</strong> heeft gereageerd op jouw afbeelding op de <a href='%{data_object_link}'>site Encyclopedia of Life</a>:
+    <strong>%{user}</strong> heeft gereageerd op uw afbeelding op de <a href='%{data_object_link}'>site Encyclopedia of Life</a>:
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong> heeft gereageerd op gegevens
     die zijn verwijderd.
@@ -7115,7 +7149,7 @@ nl:
     adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit
     Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>.'
   wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
-  will_find_taxon_pages_matching_the_search_term: vindt taxonpagina's als de voorkeursnaam,
+  will_find_taxon_pages_matching_the_search_term: vindt taxonpagina's als de naam,
     een synoniem of gewone naam precies overeen komt met de zoekterm
   would_you_like_to_become_a_curator_notice: Wilt u conservator worden? U kunt toegang
     vragen op <a href='%{url}'>uw profielpagina</a>.

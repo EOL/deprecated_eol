@@ -20,8 +20,13 @@ module EOL
         PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
+              :name => 'batch',
+              :type => 'Boolean',
+              :test_value => false,
+              :notes => I18n.t('returns_either_a_batch_or_not') ),
+            EOL::Api::DocumentationParameter.new(
               :name => 'id',
-              :type => Integer,
+              :type => Array,
               :required => true,
               :test_value => (TaxonConcept.find_by_id(1045608) || TaxonConcept.last).id ),
             EOL::Api::DocumentationParameter.new(
@@ -110,12 +115,19 @@ module EOL
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
           begin
-            taxon_concept = TaxonConcept.find(params[:id])
+            taxon_concepts = TaxonConcept.find(params[:id].split(","))
           rescue
-            raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
+            # raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
           end
-          raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") if !taxon_concept.published?
-          prepare_hash(taxon_concept, params)
+          # raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") if !taxon_concept.published?
+          if (params[:batch])
+            taxon_concepts.each do |taxon_concept|
+              debugger
+              prepare_hash(taxon_concept, params)
+            end
+          else
+            prepare_hash(taxon_concepts.first, params)
+          end
         end
 
         def self.prepare_hash(taxon_concept, params={})
@@ -200,12 +212,13 @@ module EOL
           end
           options[:vetted_types] = solr_search_params[:vetted_types]
 
+          license = options[:licenses]
           options[:licenses] = nil if options[:licenses].include?('all')
           process_license_options!(options)
           solr_search_params[:license_ids] = options[:licenses].blank? ? nil : options[:licenses].collect(&:id)
           options[:license_ids] = solr_search_params[:license_ids]
           process_subject_options!(options)
-
+          
           text_objects = load_text(taxon_concept, options, solr_search_params)
           image_objects = load_images(taxon_concept, options, solr_search_params)
           video_objects = load_videos(taxon_concept, options, solr_search_params)
@@ -230,6 +243,7 @@ module EOL
           # preload necessary associations for API response
           DataObject.preload_associations(all_data_objects, [
             :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs, :audiences ] )
+          options[:licenses] = license            
           all_data_objects
         end
 

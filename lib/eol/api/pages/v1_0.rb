@@ -115,16 +115,17 @@ module EOL
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
           begin
-            taxon_concepts = TaxonConcept.find(params[:id].split(","))
+            taxon_concepts = TaxonConcept.find(params[:id].split(",")) #if params[:id].split(",").length < 3
           rescue
             # raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
           end
           # raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") if !taxon_concept.published?
           if (params[:batch])
+            batch_concepts = []
             taxon_concepts.each do |taxon_concept|
-              debugger
-              prepare_hash(taxon_concept, params)
+              batch_concepts.push(prepare_hash(taxon_concept, params))
             end
+            batch_concepts.to_json
           else
             prepare_hash(taxon_concepts.first, params)
           end

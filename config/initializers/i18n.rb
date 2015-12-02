@@ -3,7 +3,9 @@ require 'i18n' # without this, the gem will be loaded in the server but not in t
 # https://github.com/svenfuchs/i18n/wiki/Fallbacks
 I18n::Backend::KeyValue.send(:include, I18n::Backend::Fallbacks)
 # And now we switch to using Redis:
-I18n.backend = I18n::Backend::KeyValue.new(Redis.new(db: 'eol_i18n'))
+(host, port) = ENV["EOL_REDIS_HOST"].split(":")
+redis = Redis.new(host: host, port: port, db: 'eol_i18n')
+I18n.backend = I18n::Backend::KeyValue.new(redis)
 
 # Often we'll get these from non-default languages that haven't updated their values.
 I18n.config.missing_interpolation_argument_handler = Proc.new do |key, hash, string|

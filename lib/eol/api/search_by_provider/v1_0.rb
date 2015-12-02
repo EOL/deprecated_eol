@@ -42,12 +42,15 @@ module EOL
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
-          # find a visible match, get the published ones first
-          hierarchy_entries = HierarchyEntry.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
-          hierarchy_entries.keep_if{|h|  h.visibility_id= Visibility.get_visible.id && h.published == 1 && TaxonConcept.find(h.taxon_concept_id).published == 1 }
-          synonyms = Synonym.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
-          synonyms.keep_if{|s| TaxonConcept.find( HierarchyEntry.find(s.hierarchy_entry_id).taxon_concept_id).published == 1 }
-          results= hierarchy_entries + synonyms
+          hierarchy_entries = HierarchyEntry.includes(:taxon_concept).
+            where(hierarchy_id: params[:hierarchy_id], identifier: params[:id],
+              visibility_id: Visibility.get_visible.id, published: true)
+          hierarchy_entries.keep_if { |h| h.taxon_concept.published? }
+          # synonyms = Synonym.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
+          synonyms = Synonym.includes(hierarchy_entry: :taxon_concept).
+            where(hierarchy_id: params[:hierarchy_id], identifier: params[:id])
+          synonyms.keep_if { |s| s.hierarchy_entry.taxon_concept.published? }
+          results = hierarchy_entries + synonyms
           prepare_hash(results, params)
         end
 

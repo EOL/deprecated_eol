@@ -20,8 +20,6 @@ class Hierarchy
     RANK_WEIGHTS = { "family" => 100, "order" => 80, "class" => 60,
       "phylum" => 40, "kingdom" => 20 }
 
-    RANK_GROUPS = Hash[ *(Rank.where("rank_group_id != 0").
-      flat_map { |r| [ r.id, r.rank_group_id ] }) ]
     # I am not going to freak out about the fact that TODO: this needs to be in
     # the database. I've lost my energy to freak out about such things. :|
     GOOD_SYNONYMY_HIERARCHY_IDS = [
@@ -42,6 +40,9 @@ class Hierarchy
     end
 
     def initialize(hierarchy, options = {})
+      # We load this at runtime, so new ranks are read in:
+      @rank_groups = Hash[ *(Rank.where("rank_group_id != 0").
+        flat_map { |r| [ r.id, r.rank_group_id ] }) ]
       @hierarchy = hierarchy
       @new_entry_ids = options[:entry_ids]
       # TODO: Never used, currently; saving for later port work:
@@ -199,8 +200,8 @@ class Hierarchy
     end
 
     def rank_ids_conflict?(rid1, rid2)
-      if RANK_GROUPS.has_key?(rid1) || RANK_GROUPS.has_key?(rid2)
-        RANK_GROUPS[rid1] != RANK_GROUPS[rid2]
+      if @rank_groups.has_key?(rid1) || @rank_groups.has_key?(rid2)
+        @rank_groups[rid1] != @rank_groups[rid2]
       else
         rid1 && rid2 && rid1 != rid2
       end

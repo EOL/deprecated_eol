@@ -192,6 +192,8 @@ gem "recaptcha", require: "recaptcha/rails"
 # TODO: - update resque. (and redis)
 # For background jobs, like email notifications and classification curation
 gem "resque", "1.23.0", require: "resque/server"
+# Solr, done right (barring Sunspot, which is done better):
+gem "rsolr", "1.0.12"
 gem "sanitize", "2.0.3" # To clean up user-enter HTML.
 gem "sass-rails", "3.2.5" # To make CSS easier to write.
 gem "sitemap_generator"

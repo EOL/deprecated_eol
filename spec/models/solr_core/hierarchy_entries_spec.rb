@@ -93,12 +93,14 @@ describe "SolrCore::HierarchyEntries" do
         not_to be_nil
     end
   
-    it "should call .clean_canonical_form on the canonical_form of an entry" do
-     
-    end
-    
-    it "should call .clean_canonical_form on the canonical_form of a synonym" do
-      
+    it "should call .clean_canonical_form on the canonical_form of an entry and synonym" do
+      SolrCore::HierarchyEntries.should_receive(:clean_canonical_form).once.
+        with(@parent_canonical_form.string)
+      SolrCore::HierarchyEntries.should_receive(:clean_canonical_form).once.
+        with(@canonical_form.string)
+      SolrCore::HierarchyEntries.should_receive(:clean_canonical_form).once.
+        with(@scientific_canonical_form.string)
+      @indexer.reindex_hierarchy(@hierarchy)
     end
   end
 

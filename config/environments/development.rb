@@ -55,5 +55,5 @@ end
 # TODO - Where do these go, now?  :S
 $UNSUBSCRIBE_NOTIFICATIONS_KEY = 'f0de2a0651aa88a090e5679e5e3a7d28'
 
-require File.expand_path('../../../lib/initializer_additions', __FILE__)
-InitializerAdditions.add("environments/#{Rails.env}_eol_org")
+# require File.expand_path('../../../lib/initializer_additions', __FILE__)
+# InitializerAdditions.add("environments/#{Rails.env}_eol_org")

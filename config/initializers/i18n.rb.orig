@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 require 'i18n' # without this, the gem will be loaded in the server but not in the console, for whatever reason
+
+=======
 # This allows some "intelligent" fallbacks for missing translations. See
 # https://github.com/svenfuchs/i18n/wiki/Fallbacks
 I18n::Backend::KeyValue.send(:include, I18n::Backend::Fallbacks)
@@ -6,10 +9,18 @@ I18n::Backend::KeyValue.send(:include, I18n::Backend::Fallbacks)
 I18n.backend = I18n::Backend::KeyValue.new(Redis.new(db: 'eol_i18n'))
 
 # Often we'll get these from non-default languages that haven't updated their values.
+>>>>>>> WEB-6009
 I18n.config.missing_interpolation_argument_handler = Proc.new do |key, hash, string|
   I18n.t(:missing_interpolation_argument_error)
 end
 
+<<<<<<< HEAD
+# This allows some "intelligent" fallbacks for missing translations. See
+# https://github.com/svenfuchs/i18n/wiki/Fallbacks
+I18n::Backend::KeyValue.send(:include, I18n::Backend::Fallbacks)
+# And now we switch to using Redis:
+I18n.backend = I18n::Backend::KeyValue.new(Redis.new(db: 'eol_i18n'))
+=======
 lang_dir = Rails.root.join('config', 'translations')
 Dir.entries(lang_dir).grep(/yml$/).each do |file|
     file_last_version = I18n.backend.store.get(file)
@@ -21,3 +32,4 @@ Dir.entries(lang_dir).grep(/yml$/).each do |file|
       I18n.backend.store.set(file, file_current_version)
     end
   end
+>>>>>>> WEB-6009

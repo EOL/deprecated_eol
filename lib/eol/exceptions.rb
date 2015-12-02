@@ -6,8 +6,10 @@ module EOL
   module Exceptions
     class CannotMergeClassificationsToSelf < StandardError; end
     class ClassificationsLocked < StandardError; end
+    class CollectionItemMissingValues < StandardError; end
     class CollectionJobRequiresScope < StandardError; end
     class EmptyHierarchyFlattened < StandardError; end
+    class DuplicateCollectionItems < StandardError; end
     class FailedToCreateTag < StandardError; end
     class HarvestPauseTimeExceeded < StandardError; end
     class InvalidCollectionItemType < StandardError; end

@@ -8,7 +8,14 @@ module ImageManipulation
         Rails.configuration.logo_uploads.relative_path +
         ImageManipulation.local_file_name(obj, ext: ext), request.port.to_s
       )
-      obj.update_attributes(:logo_cache_url => file_path)
+      if file_path[:error]
+        EOL.log("ERROR: Failed to update icon: #{file_path[:error]}",
+          prefix: "!")
+        raise file_path[:error]
+      end
+      if file_path.has_key?(:response)
+        obj.update_attributes(:logo_cache_url => file_path[:response])
+      end
     end
   end
 

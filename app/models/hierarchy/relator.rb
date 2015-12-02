@@ -75,6 +75,7 @@ class Hierarchy
         response = @solr.
           select("hierarchy_id:#{@hierarchy.id} AND "\
           "id:(#{batch.join(" OR ")})", rows: group_size)
+        EOL.log("comparing #{response["response"]["docs"].count} entries")
         response["response"]["docs"].each do |entry|
           compare_entry(entry)
         end
@@ -243,7 +244,6 @@ class Hierarchy
     def compare_ancestries(from_entry, to_entry)
       return nil if empty_ancestry?(from_entry)
       return nil if empty_ancestry?(to_entry)
-      EOL.log("ancestors: #{from_entry["id"]} -> #{to_entry["id"]}")
       score = best_matching_weight(from_entry, to_entry)
       # TODO: logging. ...We need some kind of record that explains why matches
       # were made or refused for each pair. :|
@@ -344,8 +344,7 @@ class Hierarchy
     def insert_relationships
       EOL.log_call
       EOL::Db.bulk_insert(HierarchyEntryRelationship,
-        [ "hierarchy_entry_id_1", "hierarchy_entry_id_2",
-          "relationship", "score" ],
+        [:hierarchy_entry_id_1, :hierarchy_entry_id_2, :relationship, :score],
         @relationships.to_a)
     end
 

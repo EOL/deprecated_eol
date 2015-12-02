@@ -26,6 +26,7 @@ class Hierarchy
     # counts periodically (say, once a month).
     def merges_for_hierarchy
       EOL.log_call
+      fix_entry_counts if fix_entry_counts_needed?
       lookup_preview_harvests
       get_confirmed_exclusions
       # TODO: DON'T hard-code this (this is GBIF Nub Taxonomy). Instead, add an
@@ -53,6 +54,19 @@ class Hierarchy
 
     private
 
+    # This is not the greatest way to check accuracy, but catches most problem
+    # scenarios and is faster than always fixing:
+    def fix_entry_counts_needed?
+      Hierarchy.where(hierarchy_entries_count: 0).find_each do |hier|
+        return true if hier.hierarchy_entries.count > 0
+      end
+      false
+    end
+
+    def fix_entry_counts
+      HierarchyEntry.counter_culture_fix_counts
+    end
+
     def compare_hierarchies(h1, h2)
       (hierarchy1, hierarchy2) = fewer_entries_first(h1, h2)
       EOL.log("Comparing hierarchy #{hierarchy1.id} (#{hierarchy1.label}; "\
@@ -78,10 +92,11 @@ class Hierarchy
       EOL.log_call
       response = @solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page))
-      EOL.log("gporfs query: #{response["responseHeader"]["q"]}",
-        prefix: ".")
-      EOL.log("gporfs Request took #{response["responseHeader"]["QTime"]}ms",
-        prefix: ".")
+      rhead = response["responseHeader"]
+      if rhead["QTime"] && rhead["QTime"].to_i > 1000
+        EOL.log("gporfs query: #{rhead["q"]}", prefix: ".")
+        EOL.log("gporfs Request took #{rhead["QTime"]}ms", prefix: ".")
+      end
       response["response"]["docs"]
     end
 

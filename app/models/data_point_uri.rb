@@ -46,7 +46,6 @@ class DataPointUri < ActiveRecord::Base
   before_save :default_visibility
 
   def self.preload_data_point_uris!(results, taxon_concept_id = nil)
-    EOL.log_call
     updates = []
     partner_data = results.select { |d| d.has_key?(:data_point_uri) }
     data_point_uris = DataPointUri.where(
@@ -56,7 +55,6 @@ class DataPointUri < ActiveRecord::Base
     data_point_uris = data_point_uris.
       where(taxon_concept_id: taxon_concept_id) if
       taxon_concept_id
-    EOL.log("Processing Virtuoso rows", prefix: '.')
     partner_data.each do |row|
       if data_point_uri = data_point_uris.
         detect { |dp| dp.uri == row[:data_point_uri].to_s }
@@ -75,7 +73,6 @@ class DataPointUri < ActiveRecord::Base
       end
     end
     unless updates.empty?
-      EOL.log("Updating records", prefix: '.')
       # There are potentially hundreds (or thousands) of DataPointUri inserts
       # happening here. The transaction makes the inserts much faster - no
       # committing after each insert:
@@ -86,7 +83,6 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def self.initialize_labels_in_language(data_point_uris, language = Language.default)
-    EOL.log_call
     data_point_uris.each do |data_point_uri|
       # calling value_string now while we have the proper language for loading
       # the proper translations and common names. This will cache the value for
@@ -109,8 +105,6 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def self.create_from_virtuoso_response(row)
-    EOL.log_call
-    EOL.log("for #{row[:data_point_uri].to_s}", prefix: '..')
     new_attributes = DataPointUri.attributes_from_virtuoso_response(row)
     if data_point_uri = DataPointUri.find_by_taxon_concept_id_and_uri(
       new_attributes[:taxon_concept_id], new_attributes[:uri]
@@ -198,7 +192,6 @@ class DataPointUri < ActiveRecord::Base
   end
 
   def to_jsonld(options = {})
-    EOL.log_call
     jsonld = {
       '@id' => uri,
       'data_point_uri_id' => id,
@@ -559,8 +552,8 @@ class DataPointUri < ActiveRecord::Base
       mdata.each do |datum|
         key = if options[:uris]
           # Try to fetch it from the array passed in,
-          if name = options[:uris].find { |k| k.uri == datum.predicate }
-            name.try(:name) || k.uri
+          if name = options[:uris].find { |k| k.try(:uri) == datum.predicate }
+            name.try(:name) || k.try(:uri)
           end
         else
           EOL::Sparql.uri_components(datum.predicate_uri)[:label]

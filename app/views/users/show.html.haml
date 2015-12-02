@@ -39,23 +39,24 @@
       %dl
         - if @user.is_curator?
           - if !@user.assistant_curator?
-            %dt= link_to I18n.t(:user_activity_stats_objects_curated, :count => Curator.total_objects_curated_by_action_and_user(nil, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
+            %dt= link_to I18n.t(:user_activity_stats_objects_curated, :count => @user.total_user_objects_curated), user_activity_path(@user, :filter => "data_object_curation")
           %dt= I18n.t(:user_activity_stats_taxa_curated, :count => @user.total_species_curated)
-          %dt= link_to I18n.t(:user_activity_stats_set_exemplar, :count => Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_image.id, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
-          %dt= link_to I18n.t(:user_activity_stats_selected_articles_for_overview, :count => Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_article.id, @user.id)), user_activity_path(@user, :filter => "data_object_curation")
-          %dt= I18n.t(:user_activity_stats_preferred_classifications_selected, :count => Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, @user.id, [ChangeableObjectType.curated_taxon_concept_preferred_entry.id]))
+          %dt= link_to I18n.t(:user_activity_stats_set_exemplar, :count => @user.total_user_exemplar_images), user_activity_path(@user, :filter => "data_object_curation")
+          %dt= link_to I18n.t(:user_activity_stats_selected_articles_for_overview, :count => @user.total_user_overview_articles), user_activity_path(@user, :filter => "data_object_curation")
+          %dt= I18n.t(:user_activity_stats_preferred_classifications_selected, :count => @user.total_user_preferred_classifications)
           %br
           %dt= link_to I18n.t(:user_activity_stats_common_names_added, :count => @common_names_added), user_activity_path(@user, :filter => "names")
           %dt= link_to I18n.t(:user_activity_stats_common_names_removed, :count => @common_names_removed), user_activity_path(@user, :filter => "names")
           %dt= link_to I18n.t(:user_activity_stats_common_names_curated, :count => @common_names_curated), user_activity_path(@user, :filter => "names")
           - if @user.total_wikipedia_nominated > 0
-            %dt= I18n.t(:user_activity_stats_wikipedia_nominated, :count => @user.total_wikipedia_nominated)
+            %dt= I18n.t(:user_activity_stats_wikipedia_nominated, :count => @user.wikipedia_queues_count)
           %br
-        %dt= link_to I18n.t(:user_activity_stats_taxa_commented, :count => @user.taxa_commented.length), user_activity_path(@user, :filter => "taxa_comments")
-        %dt= link_to I18n.t(:user_activity_stats_comment_submitted, :count => @user.total_comment_submitted), user_activity_path(@user, :filter => "comments")
+        %dt= link_to I18n.t(:user_activity_stats_taxa_commented, :count => @user.count_taxa_commented), user_activity_path(@user, :filter => "taxa_comments")
+        %dt= link_to I18n.t(:user_activity_stats_comment_submitted, :count => @user.comments_count), user_activity_path(@user, :filter => "comments")
         %dt= link_to I18n.t(:user_activity_stats_articles_added, :count => @user_submitted_text_count), user_activity_path(@user, :filter => "added_data_objects")
         - if current_user.can_see_data?
-          %dt= link_to I18n.t(:user_activity_stats_data_added, :count => @user.total_data_submitted), user_activity_path(@user, :filter => "added_data")
+          %dt= link_to I18n.t(:user_activity_stats_data_added, :count => @user.count_total_data_records), user_activity_path(@user, :filter => "added_data")
+        %dt= I18n.t(:user_counts_refresh_daily)
     - if @user.is_curator?
       .article
         .header

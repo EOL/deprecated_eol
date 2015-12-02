@@ -50,6 +50,16 @@ describe "Collections API V1" do
       get '/wapi/collections', {per_page: 20, page: 3}
       expect(json.count).to eq(Collection.count % 20 ) #total number is 51 so in third page we will have 11 collections only 
     end
+    
+    it 'should not return CORs when not provided in request' do
+      get '/wapi/collections'
+      expect(response.header['Access-Control-Allow-Origin']).to be_nil
+    end
+    
+    it 'should return CORs headers' do
+      get '/wapi/collections', {}, { "HTTP_ORIGIN" => Rails.configuration.site_domain }
+      expect(response.header['Access-Control-Allow-Origin']).to eq(Rails.configuration.site_domain)
+    end
   end
 
   describe "Create new collection"do
@@ -81,6 +91,13 @@ describe "Collections API V1" do
       it "sets the owner" do
         expect(Collection.last.users).to include(@user)
       end
+      
+      it "should not return CORs headers for nonpreflight request" do
+        expect(response.header['Access-Control-Allow-Origin']).to be_nil
+        expect(response.header['Access-Control-Allow-Methods']).to be_nil
+        expect(response.header['Access-Control-Expose-Headers']).to be_nil
+        expect(response.header['Access-Control-Max-Age']).to be_nil
+      end
     end
   
     describe "POST with full example" do
@@ -105,9 +122,17 @@ describe "Collections API V1" do
               }
             ]
           } },
-          { "HTTP_AUTHORIZATION" => encode(@key) }
+          { "HTTP_AUTHORIZATION" => encode(@key), 
+            "HTTP_ORIGIN" => Rails.configuration.site_domain}
       end
   
+      it "should return CORs headers for preflight request" do
+        expect(response.header['Access-Control-Allow-Origin']).to eq(Rails.configuration.site_domain)
+        expect(response.header['Access-Control-Allow-Methods']).not_to be_nil
+        expect(response.header['Access-Control-Expose-Headers']).not_to be_nil
+        expect(response.header['Access-Control-Max-Age']).not_to be_nil
+      end
+      
       # Using many assertions in one #it block because it's expensive to run.
       it "creates the exepected collection" do
         expect(Collection.count).to be(1)
@@ -123,7 +148,34 @@ describe "Collections API V1" do
         expect(items.map(&:added_by_user)).to eq([@user, @user])
         expect(collection.users).to include(@user)
       end
-  
+    end
+
+    describe "creating failures" do
+
+      it "does not create a collection with invalid collection item's type" do 
+         post '/wapi/collections',
+          { collection: {
+            name: "any name",
+            description: "any description",
+            collection_items: [
+               { "collected_item_id" => 1,
+               "collected_item_type" => "InvalidType",
+              }] } },
+          { "HTTP_AUTHORIZATION" => encode(@key) }
+          expect(response.body).to include I18n.t(
+          :cannot_create_collection_items_from_invalid_types, types: "InvalidType")
+      end
+
+      it "does not accept missing non-optional attributes " do 
+        post '/wapi/collections',
+          { collection: {
+            name: "any name",
+              description: "any description",
+              collection_items: [ collected_item_type: "TaxonConcept",
+              annotation: " an item without type & id" ] } },
+          { "HTTP_AUTHORIZATION" => encode(@key) }
+          expect(response.body).to include I18n.t(:collection_create_failure)
+      end
     end
   end
   

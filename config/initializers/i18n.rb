@@ -15,16 +15,19 @@ I18n.config.missing_interpolation_argument_handler = Proc.new do |key, hash, str
   I18n.t(:missing_interpolation_argument_error)
 end
 
+# If you're curious, this block takes 0.14sec to run in production (if it
+# doesn't load anything). # TODO: generalize this with lib/tasks/i18n.rake
 lang_dir = Rails.root.join('config', 'translations')
 Dir.entries(lang_dir).grep(/yml$/).each do |file|
   file_last_version = I18n.backend.store.get(file)
-  file_current_version = File.mtime(File.join(lang_dir, file)).to_s
-  if file_current_version != file_last_version
+  last_time = file_last_version ? Time.parse(file_last_version) : Time.new(1)
+  current_time = File.mtime(File.join(lang_dir, file))
+  file_current_version = current_time.to_s
+  if current_time > last_time
     if Rails.env.production?
       # We don't want to auto-load in production, but we should warn them somehow.
-      Rails.logger.error("YOU MAY BE RUNNING WITH AN OLD I18n STORE!")
-      Rails.logger.error("  ")
-      Rails.logger.error("  (run `rake i18n:to_redis`)")
+      Rails.logger.error("OLD I18n STORE: #{file} (run `rake i18n:to_redis`)")
+      puts("OLD I18n STORE: #{file} (run `rake i18n:to_redis`)")
     else
       Rails.logger.error("Loading #{file} into Redis...")
       puts("Loading #{file} into Redis...")

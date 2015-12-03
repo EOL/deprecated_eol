@@ -13,6 +13,9 @@ namespace :i18n do
     "translated_info_items", "translated_content_pages", "translated_content_page_archives", "translated_languages"]
   db_field_delim = '-' # Double-underscore does not work with TW.
 
+  # NOTE: You probably only need to run this in production; starting the
+  # environment should automatically load translations when it detects that they
+  # are out of date! # TODO: generalize this with config/initializers/i18n.rb
   desc "Load all translations into redis."
   task :to_redis => :environment do
     Dir.entries(lang_dir).grep(/yml$/).each do |file|
@@ -20,7 +23,7 @@ namespace :i18n do
       locale = translations.keys.first # There's only one.
       puts "  ++ #{locale} -> #{file} (#{translations[locale].keys.count} keys)"
       I18n.backend.store_translations(locale, translations[locale], escape: false)
-      I18n.backend.store.set(file)
+      I18n.backend.store.set(file, File.mtime(File.join(lang_dir, file)).to_s)
     end
   end
 

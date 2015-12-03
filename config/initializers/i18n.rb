@@ -17,12 +17,21 @@ end
 
 lang_dir = Rails.root.join('config', 'translations')
 Dir.entries(lang_dir).grep(/yml$/).each do |file|
-    file_last_version = I18n.backend.store.get(file)
-    file_current_version = File.mtime(File.join(lang_dir, file)).to_s
-    if file_current_version != file_last_version
+  file_last_version = I18n.backend.store.get(file)
+  file_current_version = File.mtime(File.join(lang_dir, file)).to_s
+  if file_current_version != file_last_version
+    if Rails.env.production?
+      # We don't want to auto-load in production, but we should warn them somehow.
+      Rails.logger.error("YOU MAY BE RUNNING WITH AN OLD I18n STORE!")
+      Rails.logger.error("  ")
+      Rails.logger.error("  (run `rake i18n:to_redis`)")
+    else
+      Rails.logger.error("Loading #{file} into Redis...")
+      puts("Loading #{file} into Redis...")
       translations = YAML.load_file(File.join(lang_dir, file))
       locale = translations.keys.first # There's only one.
       I18n.backend.store_translations(locale, translations[locale], escape: false)
       I18n.backend.store.set(file, file_current_version)
     end
   end
+end

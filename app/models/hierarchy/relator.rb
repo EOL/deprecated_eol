@@ -187,7 +187,9 @@ class Hierarchy
         synonym = true if name_match > 0 # TODO: ensure this cant be nil
       end
       ancestry_match = compare_ancestries(from_entry, to_entry)
-      total_score = if ancestry_match.nil?
+      total_score = if name_match.nil?
+        0
+      elsif ancestry_match.nil?
         # One of the ancestries was totally empty:
         name_match * 0.5
       elsif ancestry_match > 0

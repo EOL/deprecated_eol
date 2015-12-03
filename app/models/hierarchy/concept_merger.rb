@@ -34,13 +34,6 @@ class Hierarchy
       # Also make sure curators can set that value from the resource page.
       @hierarchies = Hierarchy.where(["id NOT in (?)", 129]).
         order("hierarchy_entries_count DESC")
-      # TODO: again, shouldn't be hard-coded! ...I haven't worked through this
-      # enough to decide whether moving it to the end of the array means it's
-      # less likely to match (if it's matched once, will it not match again?),
-      # so perhaps that's the intent. Perhaps the curators should choose the
-      # order in which hierarchies are matched, if that's the case.
-      gbif_nub = @hierarchies.find { |h| h.id == 800 }
-      @hierarchies.insert(-1, @hierarchies.delete(gbif_nub) ) if gbif_nub
       @hierarchies.each do |other_hierarchy|
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actuall the "same", so we need to compare those to

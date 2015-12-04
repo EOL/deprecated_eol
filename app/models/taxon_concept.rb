@@ -741,6 +741,7 @@ class TaxonConcept < ActiveRecord::Base
   # ...But the API is using this and I don't want to touch the API quite yet.
   def iucn
     return @iucn if @iucn
+    return nil unless EolConfig.data?
     iucn_list = TaxonData.new(self).iucn_data_objects
     desc = choose_iucn_status(iucn_list)
     DataObject.new(description: desc) unless desc.blank?

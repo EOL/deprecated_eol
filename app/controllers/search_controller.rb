@@ -180,8 +180,9 @@ class SearchController < ApplicationController
 
   def search_data?
     return false if @querystring.blank?
+    can_data = EolConfig.all_users_can_see_data rescue true
+    return false unless can_data
     return true if @params_type.include?('All') || @params_type.include?('Data')
     false
   end
-
 end

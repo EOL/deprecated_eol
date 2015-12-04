@@ -32,6 +32,7 @@ module EOL
       end
 
       def insert_data(options = {})
+        return false unless EolConfig.data?
         unless options[:data].blank?
           EOL.log("inserting #{options[:data].count} triples", prefix: ".")
           query = "INSERT DATA INTO <#{options[:graph_name]}> "\

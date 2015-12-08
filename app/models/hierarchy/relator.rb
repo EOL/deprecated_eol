@@ -74,7 +74,7 @@ class Hierarchy
       # Limited size due to sending Solr queries via POST, but NOTE that
       # pagination DOES NOT HELP here, the offset in the query seems to
       # determine the speed of the request, and not in a good way...
-      group_size = 640
+      group_size = 250
       @new_entry_ids.in_groups_of(group_size, false) do |batch|
         response = @solr.
           select("hierarchy_id:#{@hierarchy.id} AND "\

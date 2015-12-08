@@ -23,6 +23,13 @@ class Resource
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       @harvest_event.merge_matching_concepts
       @harvest_event.sync_collection
+      denormalize
+      true
+    end
+
+    def denormalize
+      @resource.insert_data_objects_taxon_concepts
+      @harvest_event.insert_dotocs
     end
 
     # NOTE: yes, PHP used multiple transactions. I suppose it was to avoid
@@ -71,6 +78,9 @@ class Resource
       @resource.update_attributes(resource_status_id:
         ResourceStatus.published.id)
       @resource.save_resource_contributions
+      @resource.insert_data_objects_taxon_concepts
+      denormalize
+      true
     end
   end
 end

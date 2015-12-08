@@ -50,11 +50,6 @@ class HarvestBatch
 
   def denormalize_tables
     EOL.log_call
-    DataObjectsTaxonConceptsDenormalizer.denormalize
-    # TODO: this is really silly. We should just handle this as we do the
-    # harvest... no need to rebuild the WHOLE THING every time! Just silly.
-    # Bah. ...Can't add that until we port harvesting, though.
-    DataObjectsTableOfContent.rebuild
     # TODO: this is not an efficient algorithm. We should change this to store
     # the scores in the DB as well as some kind of tree-structure of taxa
     # (which could also be used elsewhere!), and then build things that way;

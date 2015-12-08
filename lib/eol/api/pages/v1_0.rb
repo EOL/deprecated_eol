@@ -110,6 +110,8 @@ module EOL
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
           begin
+            # TODO: When we called #validate_and_normalize_input_parameters, the
+            # TC was already loaded (but not stored); this is redundant: fix.
             taxon_concept = TaxonConcept.find(params[:id])
           rescue
             raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
@@ -133,7 +135,7 @@ module EOL
                 map do |syn|
                 relation = syn.synonym_relation.try(:label) || ""
                 resource_title = syn.hierarchy.try(:resource).try(:title) || "" #try returns nil when called on nil
-                { "synonym" => syn.name.string, "relationship" => relation, "resource" => resource_title}  
+                { "synonym" => syn.name.string, "relationship" => relation, "resource" => resource_title}
               end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
             else
               []

@@ -316,8 +316,14 @@ class HarvestEvent < ActiveRecord::Base
       where(hierarchy_entry_id: new_hierarchy_entry_ids)
   end
 
-  private
-  
+  def insert_dotocs
+    data_objects.select("id").find_in_batches(batch_size: 10_000) do |batch|
+      DataObjectsTableOfContent.rebuild_by_ids(batch.map(&:id))
+    end
+  end
+
+private
+
   def publish_and_show_hierarchy_entries
     EOL.log_call
     count = HierarchyEntry.where(id: hierarchy_entry_ids_with_ancestors,

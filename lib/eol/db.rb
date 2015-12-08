@@ -59,6 +59,9 @@ module EOL
       # This looks like duplication with #populate, but it skips truncating, since the DBs are fresh.  Faster:
       # TODO - still no reason you couldn't extract this.  :|
       ENV['NAME'] = 'bootstrap'
+      # Not sure if reload will work, but otherwise the following will fail; the
+      # wrong models are loaded into memory at this point.
+      reload!
       Rake::Task['scenarios:load'].invoke
       Rake::Task['solr:rebuild_all'].invoke
     end

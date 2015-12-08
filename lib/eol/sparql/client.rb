@@ -66,6 +66,7 @@ module EOL
       # http://localhost:8890%2FDAV%2Fxx%2Fyy . If so, delete it and try again
       def query(query, options = {})
         results = []
+        return results unless EolConfig.data?
         begin
           if Rails.configuration.respond_to?('show_sparql_queries') && Rails.configuration.show_sparql_queries
             Rails.logger.error "#{options[:prefix]}\n#{namespaces_prefixes}\n#{query}"

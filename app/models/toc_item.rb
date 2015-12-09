@@ -6,6 +6,8 @@ class TocItem < ActiveRecord::Base
   acts_as_tree order: 'view_order'
 
   has_many :info_items, foreign_key: :toc_id
+  # TODO: I hate translations. They screw everything up.
+  has_many :translated_toc_items, foreign_key: 'table_of_contents_id'
 
   has_and_belongs_to_many :data_objects, join_table: 'data_objects_table_of_contents', foreign_key: 'toc_id'
   has_and_belongs_to_many :content_tables, join_table: 'content_table_items', foreign_key: 'toc_id'

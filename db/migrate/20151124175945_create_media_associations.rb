@@ -1,3 +1,4 @@
+# 20151124175945
 class CreateMediaAssociations < ActiveRecord::Migration
   def up
     create_table :media_associations do |t|

@@ -22,15 +22,41 @@ class PageTraits
     @rdf = TraitBank.page_with_traits(id)
     trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
     @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
-      includes(:comments)
+      includes(:comments, :taxon_data_exemplars)
     uris = Set.new(@rdf.flat_map { |trait|
       trait.values.select { |v| v.uri? } })
-    @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s))
+    @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
+      includes(toc_items: :translated_toc_items)
     traits = @rdf.group_by { |trait| trait[:trait] }
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
     source_ids = Set.new(@traits.map { |trait| trait.source_id })
     source_ids.delete(nil) # Just in case.
     @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
+  end
+
+  def categories
+    return @categories if @categories
+    @categories = Set.new(traits.flat_map { |trait| trait.categories }).
+      to_a.sort_by(&:view_order)
+    @categories
+  end
+
+  def categories_need_other?
+    @need_other
+  end
+
+  def traits_by_category(category)
+    subset = traits.select { |trait| trait.categories.include?(category) }
+    subset.sort_by do |trait|
+      predicate = trait.predicate_name.downcase
+      value_label = trait.value_name.downcase
+      sex_sort = trait.sex_name || 255.chr
+      stage_sort = trait.life_stage_name || ''
+      stats_sort = trait.statistical_method? ?
+        trait.statistical_methods.first.position : 65000
+      [ trait.predicate_uri.position, predicate, sex_sort,
+        stats_sort, stage_sort, value_label ]
+    end
   end
 
   # NOTE: this is largely copied from TaxonDataSet#to_jsonld, because it will

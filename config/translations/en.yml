@@ -4517,6 +4517,7 @@ en:
   return_all_synonyms_for_this_taxon: "return all synonyms for this taxon"
   return_references_for_the_page_taxon: "return all references for the page's taxon"
   return_synonyms_for_the_page_taxon: "return all synonyms for the page's taxon"
+  return_any_taxonomy_details_from_different_hierarchy_providers: "return any taxonomy details from different taxon hierarchy providers, in an array named \"taxonConcepts\""
   returns_all_metadata_about_a_particular_collection: "returns all metadata about a particular collection and the items it contains indexed by EOL"
   returns_all_metadata_about_a_particular_data_object: "returns all metadata about a particular data object (text, image or video) indexed by EOL"
   returns_either_a_positive_or_negative_response: "returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time)."

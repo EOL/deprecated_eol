@@ -95,6 +95,11 @@ module EOL
               :test_value => true,
               :notes => I18n.t('return_references_for_the_page_taxon') ),
             EOL::Api::DocumentationParameter.new(
+              :name => 'taxonomy',
+              :type => 'Boolean',
+              :test_value => true,
+              :notes => I18n.t('return_any_taxonomy_details_from_different_hierarchy_providers') ),
+            EOL::Api::DocumentationParameter.new(
               :name => 'vetted',
               :type => Integer,
               :values => [ 0, 1, 2 ],
@@ -165,18 +170,20 @@ module EOL
               return_hash['references'].uniq!
             end
 
-            return_hash['taxonConcepts'] = []
-            taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
-              entry_hash = {
-                'identifier'      => entry.id,
-                'scientificName'  => entry.name.string,
-                'nameAccordingTo' => entry.hierarchy.label,
-                'canonicalForm'   => (entry.name.canonical_form.string rescue '')
-              }
-              entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
-              entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
-              entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
-              return_hash['taxonConcepts'] << entry_hash
+            if params[:taxonomy]
+              return_hash['taxonConcepts'] = []
+              taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
+                entry_hash = {
+                  'identifier'      => entry.id,
+                  'scientificName'  => entry.name.string,
+                  'nameAccordingTo' => entry.hierarchy.label,
+                  'canonicalForm'   => (entry.name.canonical_form.string rescue '')
+                }
+                entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
+                entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
+                entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
+                return_hash['taxonConcepts'] << entry_hash
+              end
             end
           end
 

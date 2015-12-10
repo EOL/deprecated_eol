@@ -4520,6 +4520,7 @@ en:
   returns_all_metadata_about_a_particular_collection: "returns all metadata about a particular collection and the items it contains indexed by EOL"
   returns_all_metadata_about_a_particular_data_object: "returns all metadata about a particular data object (text, image or video) indexed by EOL"
   returns_either_a_positive_or_negative_response: "returns either a positive response (indicating APIs are functional), or returns a negative response or nothing at all (indicating APIs are not functional at that time)."
+  returns_either_a_batch_or_not: "returns either a batch or not"
   revisions: "Revisions"
   rights: "Rights"
   rights_holder: "Rights holder"

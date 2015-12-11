@@ -149,6 +149,8 @@ class KnownUri < ActiveRecord::Base
     return uris.select { |k| k.name.gsub(normal_re, '') =~ /#{name}/i }
   end
 
+  # TODO: clean up or remove. Only used by user-added data. Probably redundant
+  # with (and inferior to) #find_by_uri_with_generate 
   def self.custom(name, language)
     known_uri = KnownUri.find_or_create_by_uri(BASE + EOL::Sparql.to_underscore(name))
     translated_known_uri =

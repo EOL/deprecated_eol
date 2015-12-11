@@ -290,6 +290,13 @@ class KnownUrisController < ApplicationController
       [I18n.t('known_uris.unrecognized_measurement_units'), 'measurement_units'],
       [I18n.t('known_uris.unrecognized_association_types'), 'association_types'] ]
     @stats_filter_selected_option = params[:stats_filter]
+
+    # TODO: Rebuild this. The queries involved time out.
+    @uri_stats = []
+    @stats_filter_selected_option = nil
+    return true
+    
+    # NOTE: this is what needs rebuilding:
     case @stats_filter_selected_option
     when 'measurement_types'
       @uri_stats = measurements_stats

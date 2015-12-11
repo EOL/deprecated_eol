@@ -1,0 +1,39 @@
+#data_summary.article
+  .header
+    %h3= I18n.t(:data_summary_header_with_count, count: @traits.predicate_count)
+    - if @traits.blank? && ! @range_data.blank?
+      = link_to(raw(I18n.t(:see_all_data_summaries)), ranges_taxon_data_path(@taxon_page))
+    - elsif ! @traits.blank?
+      = link_to(raw(I18n.t(:see_all_data_with_count_html, count: @traits.predicate_count)), taxon_data_path(@taxon_page))
+  - if @traits.blank? && @range_data.blank?
+    .empty
+      %p
+        = I18n.t(:taxon_data_overview_empty, taxon: @taxon_page.scientific_name).html_safe
+        = link_to I18n.t(:learn_how_to_contribute), cms_page_url('contribute', anchor: 'data')
+  - else
+    .data_div
+      %table.standard.data
+        %caption.assistive= I18n.t(:data_overview_table_caption)
+        -# TODO: for now, this will alwasy be [], so I've not edited it:
+        - @range_data.each do |range_data|
+          %tr
+            %th
+              = display_uri(range_data[:attribute], capitalize: false)
+            %td
+              - min_value = range_data[:min].object.round(2)
+              - if range_data[:min].unit_of_measure != range_data[:max].unit_of_measure
+                - uri_components = EOL::Sparql.explicit_measurement_uri_components(range_data[:min].unit_of_measure_uri)
+                - min_value = min_value.to_s + " " + display_uri(uri_components)
+              = raw [ min_value, display_text_for_data_point_uri(range_data[:max]) ].join(' - ')
+        - unless @traits.blank?
+          - @traits.traits_overview.each do |uri, data|
+            %tr
+              %th= display_uri(uri, capitalize: false)
+              %td
+                - text_for_rows = data.traits.map do |trait|
+                  - format_value(trait)
+                - if data.more?
+                  - text_for_rows << link_to(I18n.t(:show_more_row_data_link),
+                    taxon_data_path(@overview, toc_id: uri.toc_items.first.id,
+                    anchor: uri))
+                = raw text_for_rows.join("<br/>")

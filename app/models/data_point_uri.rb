@@ -354,6 +354,8 @@ class DataPointUri < ActiveRecord::Base
         }
       }"
     metadata_rows = EOL::Sparql.connection.query(query)
+    # Accounts for a row that shows up because of new TraitBank class:
+    metadata_rows.delete_if { |r| r[:attribute].to_s == "source" }
     metadata_rows = DataPointUri.replace_licenses_with_mock_known_uris(metadata_rows, language)
     KnownUri.add_to_data(metadata_rows)
     # not using TaxonDataSet here since that would create DataPointURI entries in the database, and we really

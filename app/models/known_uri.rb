@@ -150,7 +150,7 @@ class KnownUri < ActiveRecord::Base
   end
 
   # TODO: clean up or remove. Only used by user-added data. Probably redundant
-  # with (and inferior to) #find_by_uri_with_generate 
+  # with (and inferior to) #find_by_uri_with_generate
   def self.custom(name, language)
     known_uri = KnownUri.find_or_create_by_uri(BASE + EOL::Sparql.to_underscore(name))
     translated_known_uri =
@@ -229,9 +229,9 @@ class KnownUri < ActiveRecord::Base
   # for all possible params. Deal with it.
   def self.by_uri(uri)
     build_cache_if_needed
-    kuri = @cache.find { |u| u.uri == uri }
+    kuri = @cache.find { |u| u.uri == uri.to_s }
     return kuri if kuri
-    kuri ||= find_by_uri(uri) if EOL::Sparql.is_uri?(uri)
+    kuri ||= find_by_uri(uri.to_s) if EOL::Sparql.is_uri?(uri.to_s)
     @cache << kuri if kuri
     kuri
   end

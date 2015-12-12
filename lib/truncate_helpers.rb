@@ -10,14 +10,14 @@ module TruncateHelpers
     unless $truncated_all_tables_once
       $truncated_all_tables_once = true
       print "truncating tables ... "
-      EOL::Db.truncate_all_tables
+      # EOL::Db.truncate_all_tables
       puts "done"
     end
   end
 
   # truncates all tables in all databases
   def truncate_all_tables(options = {})
-    EOL::Db.truncate_all_tables(options)
+    # EOL::Db.truncate_all_tables(options)
   end
 
 end

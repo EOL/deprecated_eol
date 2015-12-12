@@ -2,6 +2,11 @@
 # TopUnpublishedImage.
 class TopImage
   class Rebuilder
+    def self.rebuild
+      builder = self.new
+      builder.rebuild
+    end
+
     def initialize
       @image_data_objects = {}
       @baseline_concept_images = {}
@@ -10,11 +15,54 @@ class TopImage
       @top_unpublished_images = {}
     end
 
+    def rebuild
+      MediaAssociation.rebuild
+      published = Set.new
+      unpublished = Set.new
+      fields = [:hierarchy_entry_id, :data_object_id, :view_order]
+      # This pluck could be huge... many millions of results:
+      MediaAssociation.pluck(:hierarchy_entry_id).
+        in_groups_of(6400, false) do |ids|
+        MediaAssociation.select("hierarchy_entry_id, data_object_id").
+          where(hierarchy_entry_id: ids, published: true, visible: true).
+          order("hierarchy_entry_id, vet_sort ASC, rating DESC, "\
+            "data_object_id ASC").
+          group_by { |ma| ma.hierarchy_entry_id }.each do |he_id, assocs|
+          assocs.each_with_index do |assoc, pos|
+            published << "#{assoc.hierarchy_entry_id},#{assoc.data_object_id},"\
+              "#{pos}"
+          end
+        end
+        # Again, but slightly different (unpublished):
+        MediaAssociation.select("hierarchy_entry_id, data_object_id").
+          where(hierarchy_entry_id: ids).
+          where(["published = ? OR visible = ?", false, false]).
+          order("vet_sort ASC, rating DESC, data_object_id ASC").
+          group_by { |ma| ma.hierarchy_entry_id }.each do |he_id, assocs|
+          assocs.each_with_index do |assoc, pos|
+            unpublished << "#{assoc.hierarchy_entry_id},"\
+              "#{assoc.data_object_id},#{pos}"
+          end
+        end
+      end
+      # TopImages isn't really used in production (it's just used to build
+      # Solr), so this is safe:
+      EOL::Db.truncate_table(TopImage.connection, :top_images)
+      EOL::Db.bulk_insert(TopImage, fields, published)
+      EOL::Db.truncate_table(TopUnpublishedImage.connection,
+        :top_unpublished_images)
+      EOL::Db.bulk_insert(TopUnpublishedImage, fields, unpublished)
+      # I didn't optimize this stuff, but it seems minimal as-is:
+      build_species_table_from("top_images", "top_species_images")
+      build_species_table_from("top_unpublished_images",
+        "top_unpublished_species_images")
+    end
+
     # NOTE - this is probably not a good idea. NOTE - this actually also handles
     # top_unpublished_images. TODO - instead, we should probably handle these
     # during harvests, replacing candidates as required. More thoughts in the
     # comment where this method is invoked in Manager.
-    def rebuild
+    def old_rebuild
       EOL.log_call
       # TODO - more logging
       get_image_data_objects

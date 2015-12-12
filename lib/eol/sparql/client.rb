@@ -36,6 +36,12 @@ module EOL
         @sparql_client = SPARQL::Client.new(endpoint_uri)
       end
 
+      # NOTE: "callret-0" is the name of the symbol returned by a COUNT query.
+      def size_of_resource(resource)
+        sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
+          "<#{resource.graph_name}> { ?s ?p ?o } }").first[:"callret-0"].to_i
+      end
+
       # You must implement this in your child class.
       def insert_data(options={})
         raise NotImplementedError

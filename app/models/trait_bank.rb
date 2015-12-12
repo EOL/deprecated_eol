@@ -1,4 +1,6 @@
 class TraitBank
+  class << self ; attr_reader :default_limit end
+  @default_limit = 5000
   class << self
     # Stupid that this is hidden as much as it is:
     def prefixes
@@ -9,63 +11,88 @@ class TraitBank
       "http://eol.org/traitbank"
     end
 
-    def study_traits
-      # TODO: we don't actually want to nuke the graph when we do this, we want
-      # to build a new one and replace the old. ...Not sure how best to do that,
-      # though.
+    # TODO: All queries with "LIMIT" must paginate! NOTE: CAREFUL! If you are
+    # running the data live, this will destroy all data before it begins and you
+    # will have NO DATA ON THE SITE. This is meant to be a _complete_ rebuild,
+    # run in emergencies!
+    def rebuild
       EOL::Sparql.connection.query("CLEAR GRAPH <#{graph_name}>")
+      taxa = Set.new
+      Resource.where("harvested_at IS NOT NULL").find_each do |resource|
+        count = EOL::Sparql.connection.size_of_resource(resource)
+        # Rebuild this one if there are any triples in the (old) graph:
+        taxa += rebuild_resource(resource) if count > 0
+      end
+      # This could be QUITE a lot... many millions. :\
+      flatten_taxa(taxa)
+    end
+
+    def rebuild_resource(resource)
+      EOL.log("Rebuilding resource #{resource.title} (#{resource.id})")
+      # TODO: Ideally, we would first get a diff of what's in the graph vs what
+      # we're going to put in the graph, and add the new stuff and remove the
+      # old. That's a lot of work! Not doing that now.
       triples = []
       taxa = Set.new
       taxon_re = /^.*\/(\d+)$/
       traits = Set.new
-      limit = 1000 # TODO: change
-      EOL::Sparql.connection.query(measurements_query(limit)).each do |h|
-        raise "No value for #{h[:trait]}!" unless h[:value]
-        taxa << h[:page].to_s.sub(taxon_re, "\\1")
-        triples << "<#{h[:page]}> a eol:page ; "\
-          "<#{h[:predicate]}> <#{h[:trait]}>"
-        triples << "<#{h[:trait]}> a eol:trait"
-        add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/measurementValue",
-          :value, literal: true)
-        add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/measurementUnit",
-          :units)
-        add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/sex",
-          :sex)
-        add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/lifeStage",
-          :life_stage)
-        add_meta(triples, h, "http://eol.org/schema/terms/statisticalMethod",
-          :statistical_method)
-        add_meta(triples, h, "source", :resource)
-        traits << h[:trait]
-      end
-      EOL::Sparql.connection.query(associations_query(limit)).each do |h|
-        triples << "<#{h[:page]}> a <http://eol.org/schema/page> ;"\
-          "<#{h[:predicate]}> <#{h[:target_page]}> ;"\
-          "<source> <#{h[:resource]}>"
-        triples << "<#{h[:target_page]}> a <http://eol.org/schema/page> ;"\
-          "<#{h[:inverse]}> <#{h[:page]}> ;"\
-          "<source> <#{h[:resource]}>"
-        traits << h[:trait]
-      end
-      # ?trait ?predicate ?meta_trait ?value ?units
-      EOL::Sparql.connection.query(metadata_query(traits, limit)).each do |h|
-        if h[:units].blank?
-          add_meta(triples, h, h[:predicate], :value, literal: h[:value].literal?)
-        else
-          triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}> ."
-          val = h[:value].literal? ? "\"#{h[:value]}\"" : "<#{h[:value]}>"
-          triples << "<#{h[:meta_trait]}> a eol:trait ;"\
-            "<http://rs.tdwg.org/dwc/terms/measurementValue> #{val} ;"\
-            "<http://rs.tdwg.org/dwc/terms/measurementUnit> <#{h[:units]}>"
+      paginate(measurements_query(resource)) do |results|
+        results.each do |h|
+          raise "No value for #{h[:trait]}!" unless h[:value]
+          taxa << h[:page].to_s.sub(taxon_re, "\\1")
+          triples << "<#{h[:page]}> a eol:page ; "\
+            "<#{h[:predicate]}> <#{h[:trait]}>"
+          triples << "<#{h[:trait]}> a eol:trait"
+          add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/measurementValue",
+            :value, literal: true)
+          add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/measurementUnit",
+            :units)
+          add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/sex",
+            :sex)
+          add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/lifeStage",
+            :life_stage)
+          add_meta(triples, h, "http://eol.org/schema/terms/statisticalMethod",
+            :statistical_method)
+          triples << "<#{h[:trait]}> <source> <#{resource.graph_name}>"
+          traits << h[:trait]
         end
       end
+      paginate(associations_query(resource)) do |results|
+        results.each do |h|
+          triples << "<#{h[:page]}> a <http://eol.org/schema/page> ;"\
+            "<#{h[:predicate]}> <#{h[:target_page]}> ;"\
+            "<source> <#{resource.graph_name}>"
+          triples << "<#{h[:target_page]}> a <http://eol.org/schema/page> ;"\
+            "<#{h[:inverse]}> <#{h[:page]}> ;"\
+            "<source> <#{resource.graph_name}>"
+          traits << h[:trait]
+        end
+      end
+      traits.to_a.in_groups_of(default_limit, false) do |group|
+        EOL::Sparql.connection.query(metadata_query(resource, group)).
+          each do |h|
+          # ?trait ?predicate ?meta_trait ?value ?units
+          if h[:units].blank?
+            add_meta(triples, h, h[:predicate], :value,
+              literal: h[:value].literal?)
+          else
+            triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}> ."
+            val = h[:value].literal? ? "\"#{h[:value]}\"" : "<#{h[:value]}>"
+            triples << "<#{h[:meta_trait]}> a eol:trait ;"\
+              "<http://rs.tdwg.org/dwc/terms/measurementValue> #{val} ;"\
+              "<http://rs.tdwg.org/dwc/terms/measurementUnit> <#{h[:units]}>"
+          end
+        end
+      end
+      # TODO: paginate the insert
       EOL::Sparql.connection.insert_data(data: triples, graph_name: graph_name)
-      flatten_taxa(taxa)
+      taxa
     end
 
     def flatten_taxa(taxa)
       EOL.log_call
-      taxa.to_a.in_groups_of(640, false) do |group|
+      EOL.log("Flattening #{taxa.count} taxa...", prefix: ".")
+      taxa.to_a.in_groups_of(1000, false) do |group|
         triples = []
         TaxonConceptsFlattened.where(taxon_concept_id: group).
           find_each do |flat|
@@ -76,6 +103,7 @@ class TraitBank
         end
         EOL::Sparql.connection.insert_data(data: triples,
           graph_name: graph_name)
+        EOL.log("Completed #{group.count}...", prefix: ".")
       end
     end
 
@@ -119,11 +147,27 @@ class TraitBank
       EOL::Sparql.connection.query(query)
     end
 
+    def paginate(query, options = {}, &block)
+      EOL.log_call
+      results = []
+      limit = options[:limit] || default_limit
+      limit = limit.to_i
+      limit = default_limit if limit == 0
+      offset = 0
+      begin
+        limited_query = query + " LIMIT #{limit}"
+        limited_query += " OFFSET #{offset}" if offset > 0
+        results = EOL::Sparql.connection.query(limited_query)
+        yield(results) if results.count > 0
+        offset += limit
+      end until results.empty?
+    end
+
     # Given a page, get all of its traits and all of its metadata. Note that
     # this necessarily returns a bunch of predicates of
     # <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>, which you should
     # ignore. Sorry!
-    def page_with_traits(page, limit = 1000, offset = nil)
+    def page_with_traits(page, limit = 10_000, offset = nil)
       query = "
       SELECT DISTINCT *
       WHERE {
@@ -140,7 +184,7 @@ class TraitBank
     end
 
     # e.g.: http://purl.obolibrary.org/obo/OBA_1000036 on http://eol.org/pages/41
-    def data_search(predicate, limit = 1000, offset = nil)
+    def data_search(predicate, limit = 10_000, offset = nil)
       query = "
       SELECT DISTINCT *
       WHERE {
@@ -156,8 +200,9 @@ class TraitBank
       EOL::Sparql.connection.query(query)
     end
 
-    # NOTE: I copy/pasted this. TODO: generalize. 37 should include 41, and NOT include 904.
-    def data_search_within_clade(predicate, clade, limit = 1000, offset = nil)
+    # NOTE: I copy/pasted this. TODO: generalize. For testing, 37 should include
+    # 41, and NOT include 904.
+    def data_search_within_clade(predicate, clade, limit = 10_000, offset = nil)
       query = "
       SELECT DISTINCT *
       WHERE {
@@ -175,7 +220,7 @@ class TraitBank
     end
 
     # Given a list of traits, get all the metadata for them:
-    def get_traits(traits, limit = 1000, offset = nil)
+    def get_traits(traits, limit = 10_000, offset = nil)
       query = "
       SELECT DISTINCT *
       WHERE {
@@ -191,13 +236,11 @@ class TraitBank
       EOL::Sparql.connection.query(query)
     end
 
-    def measurements_query(limit = 640, offset = nil)
+    def measurements_query(resource)
       "#{prefixes}
-        SELECT DISTINCT ?predicate ?value ?units
-          ?statistical_method ?life_stage ?sex ?taxon ?trait ?resource
-          ?page
+        SELECT DISTINCT *
         WHERE {
-          GRAPH ?resource {
+          GRAPH <#{resource.graph_name}> {
             ?trait dwc:measurementType ?predicate .
             ?trait dwc:measurementValue ?value .
             OPTIONAL { ?trait dwc:measurementUnit ?units } .
@@ -212,27 +255,26 @@ class TraitBank
             ?trait dwc:occurrenceID ?occurrence .
             ?occurrence dwc:taxonID ?taxon .
             ?trait eol:measurementOfTaxon eolterms:true .
-            GRAPH ?resource_mappings_graph {
+            GRAPH <#{resource.mappings_graph_name}> {
               ?taxon dwc:taxonConceptID ?page
             }
             OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
             OPTIONAL { ?occurrence dwc:sex ?sex }
           }
-        }
-        LIMIT #{limit}
-        #{"OFFSET #{offset}" if offset}"
+        }"
     end
 
-    def associations_query(limit = 640, offset = nil)
+    # TODO: http://eol.org/known_uris should probably be a function somewhere.
+    def associations_query(resource)
       "#{prefixes}
         SELECT DISTINCT ?page ?predicate ?target_page
-          ?inverse ?trait ?resource
+          ?inverse ?trait
         WHERE {
-          GRAPH ?resource_mappings_graph {
+          GRAPH <#{resource.mappings_graph_name}> {
             ?taxon dwc:taxonConceptID ?page .
             ?value dwc:taxonConceptID ?target_page
           } .
-          GRAPH ?resource {
+          GRAPH <#{resource.graph_name}> {
             ?occurrence dwc:taxonID ?taxon .
             ?target_occurrence dwc:taxonID ?value .
             {
@@ -248,23 +290,18 @@ class TraitBank
             }
           } .
           OPTIONAL {
-            GRAPH ?mappings {
+            GRAPH <http://eol.org/known_uris> {
               ?inverse owl:inverseOf ?predicate
             }
           }
-        }
-        LIMIT #{limit}
-        #{"OFFSET #{offset}" if offset}"
+        }"
     end
 
-    def metadata_query(traits, limit, offset = 0)
-      left = offset ? 0 : offset
-      right = (offset + limit) - 1
-      right = traits.count - 1 if traits.count - 1 > right
+    def metadata_query(resource, traits)
       "#{prefixes}
       SELECT DISTINCT ?trait ?predicate ?meta_trait ?value ?units
       WHERE {
-        GRAPH ?graph {
+        GRAPH <#{resource.graph_name}> {
           {
             ?trait ?predicate ?value .
           } UNION {
@@ -303,7 +340,7 @@ class TraitBank
                                      eol:associationType,
                                      dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
                   ) .
-          FILTER (?trait IN (<#{traits.to_a[left..right].join('>,<')}>))
+          FILTER (?trait IN (<#{traits.to_a.join('>,<')}>))
         }
       }"
     end

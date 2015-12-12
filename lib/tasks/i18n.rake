@@ -17,7 +17,7 @@ namespace :i18n do
   # environment should automatically load translations when it detects that they
   # are out of date! # TODO: generalize this with config/initializers/i18n.rb
   desc "Load all translations into redis."
-  task :to_redis => :environment do
+  task :to_redis do
     Dir.entries(lang_dir).grep(/yml$/).each do |file|
       translations = YAML.load_file(File.join(lang_dir, file))
       locale = translations.keys.first # There's only one.

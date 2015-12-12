@@ -1,5 +1,6 @@
-# Yes, this uses raw SQL. The way things were written, this is unavoidable...
-# but in the name of speed, it makes sense here anyway. ...more or less.
+# DO NOT USE THIS CLASS (often). It takes a RAELLY long time! You probably want
+# to use Hierarchy#insert_data_objects_taxon_concepts on whatever you just
+# harvested isntead.
 class DataObjectsTaxonConceptsDenormalizer
   def self.denormalize
     EOL.log_call
@@ -14,12 +15,13 @@ class DataObjectsTaxonConceptsDenormalizer
 
   def self.denormalize_using_joins_via_table(joins, visibility_table)
     TaxonConcept.unsuperceded.
-      select("taxon_concepts.id, data_objects.id as dato_id").
+      select("").
       joins(joins).
       where(["(data_objects.published = 1 OR "\
         "#{visibility_table}.visibility_id != ?)",
         Visibility.get_visible.id ]).
-      find_in_batches(batch_size: 6400) do |taxa|
+      # NOTE: I found this batch size to be the most effective on Dec 7 2015
+      find_in_batches(batch_size: 25000) do |taxa|
         DataObjectsTaxonConcept.connection.execute(
           "INSERT IGNORE INTO data_objects_taxon_concepts "\
           "(`taxon_concept_id`, `data_object_id`) "\

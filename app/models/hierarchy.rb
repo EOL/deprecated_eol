@@ -207,7 +207,31 @@ class Hierarchy < ActiveRecord::Base
     HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank?
   end
 
+  def insert_data_objects_taxon_concepts
+    EOL.log_call
+    self.class.connection.
+      execute(insert_dot_dohe_query("data_objects_hierarchy_entries"))
+    EOL.log("curated", prefix: ".")
+    self.class.connection.
+      execute(insert_dot_dohe_query("curated_data_objects_hierarchy_entries"))
+    EOL.log("done", prefix: ".")
+  end
+
 private
+
+  # There's no nice way to do this in Rails and can be super slow if you don't
+  # use the INSERT SELECT!
+  def insert_dot_dohe_query(table)
+    "INSERT IGNORE INTO data_objects_taxon_concepts (`taxon_concept_id`, "\
+    "`data_object_id`) SELECT taxon_concepts.id, data_objects.id FROM "\
+    "taxon_concepts JOIN hierarchy_entries ON (taxon_concepts.id = "\
+    "hierarchy_entries.taxon_concept_id AND hierarchy_entries.hierarchy_id = "\
+    "#{id}) JOIN #{table} ON "\
+    "(#{table}.hierarchy_entry_id = hierarchy_entries.id) "\
+    "JOIN data_objects ON (#{table}.data_object_id = "\
+    "data_objects.id) WHERE (data_objects.published = 1 OR "\
+    "#{table}.visibility_id != #{Visibility.get_visible.id})"
+  end
 
   def reset_request_publish
     self.request_publish = false

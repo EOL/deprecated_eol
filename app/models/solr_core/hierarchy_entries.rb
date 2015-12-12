@@ -6,7 +6,7 @@ class SolrCore
     # "groups", without giving each group an appropriate label. We should do
     # that.
     @solr_rank_map = {
-      'kingdom' => :kingdom,
+      'kingdom' =>  :kingdom,
       'regn.' => :kingdom,
       'phylum' => :phylum,
       'phyl.' => :phylum,
@@ -150,7 +150,7 @@ class SolrCore
           "ON (synonyms.name_id = n.id)").
         where(["hierarchy_entry_id IN (?)", entries.map(&:id)]).
         each do |synonym|
-        relation_id = synonym.synonym_relation_id
+        relation_id = synonym.synonym_relation_id # this variable is not used here?
         entry =
           entries.find { |e| e.id == synonym.hierarchy_entry_id }
         if synonym.common_name?

@@ -14,10 +14,7 @@ module EOL
             "dwc:taxonConceptID "\
             "<#{sparql.taxon_concept_uri(entry.taxon_concept_id)}>"
         end
-        puts "Graph: #{entry_to_taxon_graph}"
         sparql.delete_graph(entry_to_taxon_graph)
-        puts "Whoa, adding:"
-        pp triples
         sparql.insert_into_graph(entry_to_taxon_graph, triples.to_a)
       end
     end

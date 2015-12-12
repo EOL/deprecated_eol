@@ -10,6 +10,7 @@ redis = Redis.new(host: host, port: port, db: 'eol_i18n')
 I18n.backend = I18n::Backend::KeyValue.new(redis)
 
 # Often we'll get these from non-default languages that haven't updated their values.
+
 I18n.config.missing_interpolation_argument_handler = Proc.new do |key, hash, string|
   I18n.t(:missing_interpolation_argument_error)
 end

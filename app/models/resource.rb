@@ -144,6 +144,18 @@ class Resource < ActiveRecord::Base
     content_partner.user_id == user.id || user.is_admin?
   end
 
+  def graph_name
+    # TODO: move that method. Stupid to have to create an object here:
+    sparql = EOL::Sparql::Connection.new
+    sparql.resource_graph_name(self)
+  end
+
+  def mappings_graph_name
+    # TODO: move that method. Stupid to have to create an object here:
+    sparql = EOL::Sparql::Connection.new
+    sparql.entry_to_taxon_graph_name(self)
+  end
+
   # NOTE: this can raise various exceptions. You want to wrap any call to this
   # in a begin/rescue block.
   def publish

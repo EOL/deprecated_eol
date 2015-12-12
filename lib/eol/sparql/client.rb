@@ -119,7 +119,7 @@ module EOL
                 ?measurement eol:measurementOfTaxon eolterms:true .
                 FILTER (isURI(?uri))
               }")
-            result.map { |r| r[:uri] }
+            result.map { |r| r[:uri].to_s }
           end
         end
 

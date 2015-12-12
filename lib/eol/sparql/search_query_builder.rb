@@ -17,7 +17,7 @@ module EOL
 
       # Class method to build a query
       # This is likely the only thing that will get called outside this class
-      # 
+      #
       # NOTE - options are (currently) every single instance variable you see
       # in this class. (TODO - clarify)
       def self.prepare_search_query(options)
@@ -71,7 +71,7 @@ module EOL
         # see http://virtuoso.openlinksw.com/dataspace/doc/dav/wiki/Main/VirtTipsAndTricksHowToHandleBandwidthLimitExceed
         EOL::Sparql::SearchQueryBuilder.build_query(outer_select_clause, inner_query, outer_order_clause, limit_clause)
       end
-           
+
       def where_clause
         "GRAPH ?graph {
             ?data_point_uri dwc:measurementType ?attribute .
@@ -146,12 +146,12 @@ module EOL
         filter_clauses = ""
         matching_known_uris = KnownUri.search(querystring)
         filter_clauses += "( REGEX(?value, '(^|\\\\W)#{ querystring }(\\\\W|$)', 'i'))"
-        unless matching_known_uris.empty?
+        unless Array(matching_known_uris).empty?
           filter_clauses << " || ?value IN (<#{ matching_known_uris.collect(&:uri).join('>,<') }>)"
         end
         filter_clauses
       end
-      
+
       def limit_clause
         @only_count ? "" : "LIMIT #{ @per_page } OFFSET #{ (((@page.to_i - 1) * @per_page) + @offset) }"
       end
@@ -177,7 +177,7 @@ module EOL
       def attribute_filter
         @attribute ? "?data_point_uri dwc:measurementType <#{ @attribute }> ." : ""
       end
-      
+
       def union_attributes
         attrs = ""
         if @required_equivalent_attributes
@@ -187,7 +187,7 @@ module EOL
         end
         attrs
       end
-      
+
       def union_values
         attrs = ""
         if @required_equivalent_values
@@ -197,7 +197,7 @@ module EOL
         end
         attrs
       end
- 
+
     end
   end
 end

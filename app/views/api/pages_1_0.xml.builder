@@ -14,18 +14,18 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
 
     @json_response['synonyms'].each do |synonym|
       xml.synonym synonym['synonym'], :relationship => synonym['relationship'], :resource => synonym['resource'] 
-    end
+    end if  @json_response['synonyms']
 
     @json_response['vernacularNames'].each do |common_name|
       attributes = {}
       attributes['xml:lang'.to_sym] = common_name['language'] unless common_name['language'].blank?
       attributes[:eol_preferred] = common_name['eol_preferred'] unless common_name['eol_preferred'].blank?
       xml.commonName common_name['vernacularName'], attributes
-    end
+    end if @json_response['vernacularNames']
 
     @json_response['references'].each do |ref|
       xml.reference ref
-    end
+    end if @json_response['references']
 
     xml.additionalInformation do
       xml.richness_score @json_response['richness_score']
@@ -37,11 +37,11 @@ xml.response "xmlns" => "http://www.eol.org/transfer/content/1.0",
           xml.dwc :nameAccordingTo, tc['nameAccordingTo']
           xml.dwc :taxonRank, tc['taxonRank']
         end
-      end
+      end if @json_response['taxonConcepts']
     end
   end
 
   @json_response['dataObjects'].each do |data_object|
     xml << render(partial: 'data_object_1_0', layout: false, locals: { :data_object_hash => data_object, :taxon_concept_id => @json_response['identifier'] } )
-  end
+  end if @json_response['dataObjects']
 end

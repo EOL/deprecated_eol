@@ -4,7 +4,7 @@ if params[:details]
   xml.mimeType data_object_hash['mimeType'] unless data_object_hash['mimeType'].blank?
   data_object_hash['agents'].each do |agent|
     xml.agent agent['full_name'], :homepage => agent['homepage'], :role => agent['role']
-  end
+  end if data_object_hash['agents']
   xml.dcterms :created, data_object_hash['created'] unless data_object_hash['created'].blank?
   xml.dcterms :modified, data_object_hash['modified'] unless data_object_hash['modified'].blank?
   xml.dc :title, data_object_hash['title'] unless data_object_hash['title'].blank?
@@ -16,7 +16,7 @@ if params[:details]
   unless data_object_hash['audience'].blank?
     data_object_hash['audience'].each do |label|
       xml.audience label
-    end
+    end if data_object_hash['audience']
   end
   xml.dc :source, data_object_hash['source'] unless data_object_hash['source'].blank?
 end
@@ -40,7 +40,7 @@ if params[:details]
 
   data_object_hash['references'].each do |ref|
     xml.reference ref
-  end
+  end if data_object_hash['references']
 end
 
 xml.additionalInformation do

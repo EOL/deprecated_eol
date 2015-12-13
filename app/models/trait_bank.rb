@@ -11,10 +11,9 @@ class TraitBank
       "http://eol.org/traitbank"
     end
 
-    # TODO: All queries with "LIMIT" must paginate! NOTE: CAREFUL! If you are
-    # running the data live, this will destroy all data before it begins and you
-    # will have NO DATA ON THE SITE. This is meant to be a _complete_ rebuild,
-    # run in emergencies!
+    # NOTE: CAREFUL! If you are running the data live, this will destroy all
+    # data before it begins and you will have NO DATA ON THE SITE. This is meant
+    # to be a _complete_ rebuild, run in emergencies!
     def rebuild
       EOL::Sparql.connection.query("CLEAR GRAPH <#{graph_name}>")
       taxa = Set.new
@@ -27,6 +26,11 @@ class TraitBank
       flatten_taxa(taxa)
     end
 
+    # TODO: the problem is that the mappings graphs appear to be mucked up! So,
+    # bypass them here. :\ We'll have to call HierarchyEntry.where(hierarchy_id:
+    # 1502, identifier: identifier).taxon_concept_id on each identifier (which
+    # you get by pulling off ... the start of the taxonId URL). This sucks, but
+    # it's a reasonable workaround. Not sure why this happened!
     def rebuild_resource(resource)
       EOL.log("Rebuilding resource #{resource.title} (#{resource.id})")
       # TODO: Ideally, we would first get a diff of what's in the graph vs what
@@ -68,7 +72,7 @@ class TraitBank
           traits << h[:trait]
         end
       end
-      traits.to_a.in_groups_of(default_limit, false) do |group|
+      traits.to_a.in_groups_of(default_limit / 5, false) do |group|
         EOL::Sparql.connection.query(metadata_query(resource, group)).
           each do |h|
           # ?trait ?predicate ?meta_trait ?value ?units
@@ -267,8 +271,7 @@ class TraitBank
     # TODO: http://eol.org/known_uris should probably be a function somewhere.
     def associations_query(resource)
       "#{prefixes}
-        SELECT DISTINCT ?page ?predicate ?target_page
-          ?inverse ?trait
+        SELECT DISTINCT *
         WHERE {
           GRAPH <#{resource.mappings_graph_name}> {
             ?taxon dwc:taxonConceptID ?page .
@@ -299,7 +302,7 @@ class TraitBank
 
     def metadata_query(resource, traits)
       "#{prefixes}
-      SELECT DISTINCT ?trait ?predicate ?meta_trait ?value ?units
+      SELECT DISTINCT *
       WHERE {
         GRAPH <#{resource.graph_name}> {
           {

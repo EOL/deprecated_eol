@@ -30,7 +30,6 @@ Dir.entries(lang_dir).grep(/yml$/).each do |file|
       puts("OLD I18n STORE: #{file} (run `rake i18n:to_redis`)")
     else
       Rails.logger.error("Loading #{file} into Redis...")
-      puts("Loading #{file} into Redis...")
       translations = YAML.load_file(File.join(lang_dir, file))
       locale = translations.keys.first # There's only one.
       I18n.backend.store_translations(locale, translations[locale], escape: false)

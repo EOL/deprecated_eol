@@ -261,6 +261,7 @@ class HarvestEvent < ActiveRecord::Base
   def new_hierarchy_entry_ids
     @new_hierarchy_entry_ids ||= if previous_published_harvest
       these_leaf_node_ids = Set.new(hierarchy_entries.pluck(:id))
+      raise "No entries!" if these_leaf_node_ids.empty?
       # We are not currently listing ancestor entries in
       # harvest_events_hierarchy_entries (though perhaps we should). ...So this
       # query looks for the last entry_id from the last harvest, and grabs all
@@ -316,8 +317,14 @@ class HarvestEvent < ActiveRecord::Base
       where(hierarchy_entry_id: new_hierarchy_entry_ids)
   end
 
-  private
-  
+  def insert_dotocs
+    data_objects.select("id").find_in_batches(batch_size: 10_000) do |batch|
+      DataObjectsTableOfContent.rebuild_by_ids(batch.map(&:id))
+    end
+  end
+
+private
+
   def publish_and_show_hierarchy_entries
     EOL.log_call
     count = HierarchyEntry.where(id: hierarchy_entry_ids_with_ancestors,

@@ -26,6 +26,7 @@ class Hierarchy
     # counts periodically (say, once a month).
     def merges_for_hierarchy
       EOL.log_call
+      fix_entry_counts if fix_entry_counts_needed?
       lookup_preview_harvests
       get_confirmed_exclusions
       # TODO: DON'T hard-code this (this is GBIF Nub Taxonomy). Instead, add an
@@ -33,13 +34,6 @@ class Hierarchy
       # Also make sure curators can set that value from the resource page.
       @hierarchies = Hierarchy.where(["id NOT in (?)", 129]).
         order("hierarchy_entries_count DESC")
-      # TODO: again, shouldn't be hard-coded! ...I haven't worked through this
-      # enough to decide whether moving it to the end of the array means it's
-      # less likely to match (if it's matched once, will it not match again?),
-      # so perhaps that's the intent. Perhaps the curators should choose the
-      # order in which hierarchies are matched, if that's the case.
-      gbif_nub = @hierarchies.find { |h| h.id == 800 }
-      @hierarchies.insert(-1, @hierarchies.delete(gbif_nub) ) if gbif_nub
       @hierarchies.each do |other_hierarchy|
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actuall the "same", so we need to compare those to
@@ -52,6 +46,19 @@ class Hierarchy
     end
 
     private
+
+    # This is not the greatest way to check accuracy, but catches most problem
+    # scenarios and is faster than always fixing:
+    def fix_entry_counts_needed?
+      Hierarchy.where(hierarchy_entries_count: 0).find_each do |hier|
+        return true if hier.hierarchy_entries.count > 0
+      end
+      false
+    end
+
+    def fix_entry_counts
+      HierarchyEntry.counter_culture_fix_counts
+    end
 
     def compare_hierarchies(h1, h2)
       (hierarchy1, hierarchy2) = fewer_entries_first(h1, h2)
@@ -78,10 +85,11 @@ class Hierarchy
       EOL.log_call
       response = @solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page))
-      EOL.log("gporfs query: #{response["responseHeader"]["q"]}",
-        prefix: ".")
-      EOL.log("gporfs Request took #{response["responseHeader"]["QTime"]}ms",
-        prefix: ".")
+      rhead = response["responseHeader"]
+      if rhead["QTime"] && rhead["QTime"].to_i > 1000
+        EOL.log("gporfs query: #{rhead["q"]}", prefix: ".")
+        EOL.log("gporfs Request took #{rhead["QTime"]}ms", prefix: ".")
+      end
       response["response"]["docs"]
     end
 
@@ -174,9 +182,10 @@ class Hierarchy
     end
 
     def get_confirmed_exclusions
-      CuratedHierarchyEntryRelationship.
+      CuratedHierarchyEntryRelationship.not_equivalent.
         includes(:from_hierarchy_entry, :to_hierarchy_entry).
-        where(equivalent: 0).
+        # Some of the entries have gone missing! Skip those:
+        select { |ce| ce.from_hierarchy_entry && ce.to_hierarchy_entry }.
         each do |cher|
         from_entry = cher.from_hierarchy_entry.id
         from_tc = cher.from_hierarchy_entry.taxon_concept_id

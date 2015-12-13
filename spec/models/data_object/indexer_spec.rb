@@ -5,7 +5,6 @@
 # prod, you would probably have a wait of about 57 DAYS. You have been warned!
 describe DataObject::Indexer do
   describe "#by_data_object_ids" do
-    
     before(:all) do
       populate_tables(:vetted, :visibilities, :licenses, :data_types,
         :activities, :changeable_object_types, :content_partner_statuses)
@@ -142,6 +141,5 @@ describe DataObject::Indexer do
         expect(@result["is_translation"]).to be_false
       end
     end
-    
   end
 end

@@ -8,4 +8,5 @@ class CuratedHierarchyEntryRelationship < ActiveRecord::Base
     foreign_key: "hierarchy_entry_id_2"
 
   scope :equivalent, -> { where(equivalent: true) }
+  scope :not_equivalent, -> { where(equivalent: false) }
 end

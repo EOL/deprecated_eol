@@ -20,8 +20,6 @@ class Hierarchy
     RANK_WEIGHTS = { "family" => 100, "order" => 80, "class" => 60,
       "phylum" => 40, "kingdom" => 20 }
 
-    RANK_GROUPS = Hash[ *(Rank.where("rank_group_id != 0").
-      flat_map { |r| [ r.id, r.rank_group_id ] }) ]
     # I am not going to freak out about the fact that TODO: this needs to be in
     # the database. I've lost my energy to freak out about such things. :|
     GOOD_SYNONYMY_HIERARCHY_IDS = [
@@ -42,6 +40,9 @@ class Hierarchy
     end
 
     def initialize(hierarchy, options = {})
+      # We load this at runtime, so new ranks are read in:
+      @rank_groups = Hash[ *(Rank.where("rank_group_id != 0").
+        flat_map { |r| [ r.id, r.rank_group_id ] }) ]
       @hierarchy = hierarchy
       @new_entry_ids = options[:entry_ids]
       # TODO: Never used, currently; saving for later port work:
@@ -70,11 +71,15 @@ class Hierarchy
 
     def compare_entries_by_id
       EOL.log_call
-      group_size = 200 # Limited size due to sending Solr queries via POST.
+      # Limited size due to sending Solr queries via POST, but NOTE that
+      # pagination DOES NOT HELP here, the offset in the query seems to
+      # determine the speed of the request, and not in a good way...
+      group_size = 640
       @new_entry_ids.in_groups_of(group_size, false) do |batch|
         response = @solr.
           select("hierarchy_id:#{@hierarchy.id} AND "\
           "id:(#{batch.join(" OR ")})", rows: group_size)
+        EOL.log("comparing #{response["response"]["docs"].count} entries")
         response["response"]["docs"].each do |entry|
           compare_entry(entry)
         end
@@ -185,7 +190,9 @@ class Hierarchy
         synonym = true if name_match > 0 # TODO: ensure this cant be nil
       end
       ancestry_match = compare_ancestries(from_entry, to_entry)
-      total_score = if ancestry_match.nil?
+      total_score = if name_match.nil?
+        0
+      elsif ancestry_match.nil?
         # One of the ancestries was totally empty:
         name_match * 0.5
       elsif ancestry_match > 0
@@ -198,8 +205,8 @@ class Hierarchy
     end
 
     def rank_ids_conflict?(rid1, rid2)
-      if RANK_GROUPS.has_key?(rid1) || RANK_GROUPS.has_key?(rid2)
-        RANK_GROUPS[rid1] != RANK_GROUPS[rid2]
+      if @rank_groups.has_key?(rid1) || @rank_groups.has_key?(rid2)
+        @rank_groups[rid1] != @rank_groups[rid2]
       else
         rid1 && rid2 && rid1 != rid2
       end
@@ -243,7 +250,6 @@ class Hierarchy
     def compare_ancestries(from_entry, to_entry)
       return nil if empty_ancestry?(from_entry)
       return nil if empty_ancestry?(to_entry)
-      EOL.log("ancestors: #{from_entry["id"]} -> #{to_entry["id"]}")
       score = best_matching_weight(from_entry, to_entry)
       # TODO: logging. ...We need some kind of record that explains why matches
       # were made or refused for each pair. :|
@@ -319,6 +325,8 @@ class Hierarchy
         CuratedHierarchyEntryRelationship.equivalent.
           joins(:from_hierarchy_entry, :to_hierarchy_entry).
           where(entry_in_hierarchy => { hierarchy_id: @hierarchy.id }).
+          # Some of the entries have gone missing! Skip those:
+          select { |ce| ce.from_hierarchy_entry && ce.to_hierarchy_entry }.
           each do |cher|
           # NOTE: Yes, PHP stores both, but it used two queries (inefficiently):
           store_relationship(cher.hierarchy_entry_id_1,
@@ -342,8 +350,7 @@ class Hierarchy
     def insert_relationships
       EOL.log_call
       EOL::Db.bulk_insert(HierarchyEntryRelationship,
-        [ "hierarchy_entry_id_1", "hierarchy_entry_id_2",
-          "relationship", "score" ],
+        [:hierarchy_entry_id_1, :hierarchy_entry_id_2, :relationship, :score],
         @relationships.to_a)
     end
 

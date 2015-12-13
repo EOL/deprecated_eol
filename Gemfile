@@ -192,6 +192,8 @@ gem "recaptcha", require: "recaptcha/rails"
 # TODO: - update resque. (and redis)
 # For background jobs, like email notifications and classification curation
 gem "resque", "1.23.0", require: "resque/server"
+# Solr, done right (barring Sunspot, which is done better):
+gem "rsolr", "1.0.12"
 gem "sanitize", "2.0.3" # To clean up user-enter HTML.
 gem "sass-rails", "3.2.5" # To make CSS easier to write.
 gem "sitemap_generator"
@@ -206,3 +208,4 @@ gem "uuid", "2.3.5" # Used when creating data objects
 gem "will_paginate", "~> 3.0" # Used ALL OVER THE SITE for pagination.
 gem "execjs", "2.0.2"  # needed to run rake tasks in cron
 gem 'rack-cors', require: 'rack/cors' #needed to enable CORs for EOL API
+gem 'cached_key_value_store'

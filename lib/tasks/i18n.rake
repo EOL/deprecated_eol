@@ -3,7 +3,7 @@ require 'haml'
 
 desc 'Tasks useful for internatiolization'
 namespace :i18n do
-  lang_dir = Rails.root.join("config", "locales")
+  lang_dir = Rails.root.join("config", "translations")
   gibberish_lang_dir = Rails.root.join("lang")
   en_file = "translation_template.yml"
   tmp_file = File.join([lang_dir, "tmp.yml"])
@@ -13,6 +13,19 @@ namespace :i18n do
     "translated_info_items", "translated_content_pages", "translated_content_page_archives", "translated_languages"]
   db_field_delim = '-' # Double-underscore does not work with TW.
 
+  # NOTE: You probably only need to run this in production; starting the
+  # environment should automatically load translations when it detects that they
+  # are out of date! # TODO: generalize this with config/initializers/i18n.rb
+  desc "Load all translations into redis."
+  task :to_redis do
+    Dir.entries(lang_dir).grep(/yml$/).each do |file|
+      translations = YAML.load_file(File.join(lang_dir, file))
+      locale = translations.keys.first # There's only one.
+      puts "  ++ #{locale} -> #{file} (#{translations[locale].keys.count} keys)"
+      I18n.backend.store_translations(locale, translations[locale], escape: false)
+      I18n.backend.store.set(file, File.mtime(File.join(lang_dir, file)).to_s)
+    end
+  end
 
   desc 'convert old yml language files from Gibberish format to support i18n '
   task :convert_yml do
@@ -492,7 +505,7 @@ namespace :i18n do
     end
 
     puts "Writing to en-db.yml"
-    en_file = Rails.root.join("config", "locales" , "en-db.yml")
+    en_file = Rails.root.join("config", "translations" , "en-db.yml")
     en_data = open(en_file, 'w')
     en_data.write en_strings
     en_data.close
@@ -501,15 +514,15 @@ namespace :i18n do
   desc 'Task to import db translations in db'
   task :import_db_translations => :environment do
     def load_language_keys(lang_abbr)
-      filename = Rails.root.join("config", "locales", lang_abbr + "-db.yml")
+      filename = Rails.root.join("config", "translations", lang_abbr + "-db.yml")
       return nil unless File.exists?(filename)
-      temp_yml = YAML.load_file(Rails.root.join("config", "locales", lang_abbr + "-db.yml"))
+      temp_yml = YAML.load_file(Rails.root.join("config", "translations", lang_abbr + "-db.yml"))
       return temp_yml[lang_abbr] || temp_yml.values.last # this || fixes a bug with Arabic.  Not sure why.
     end
 
     def get_languages
       # returns array of language abbriviations for those a pattern of *-dt.yml
-      Dir.chdir(Rails.root.join("config", "locales"))
+      Dir.chdir(Rails.root.join("config", "translations"))
       files = Dir.glob(File.join("**", "*-db.yml"))
 
       return_lang = Array.new

@@ -91,11 +91,13 @@ class Collection < ActiveRecord::Base
     whom.can_edit_collection?(self)
   end
 
+  # Note: this is stupid, TODO - we CANNOT load the data for all the taxa in the
+  # collection! That's *absurd*. (That's what it was doing). We'll need to find
+  # another way. Maybe just a DataPointUri.where(taxon_concept_id:
+  # collection_items.taxa.map(&:id).count > 0, but I don't want to try that
+  # right now). So I'm just seeing whether there are taxa at all:
   def collection_has_data?
-    self.collection_items.taxa.each do |taxon_item|
-      return true if TaxonPage.new(TaxonConcept.find(taxon_item.collected_item_id)).data.get_data.data_point_uris.size > 0
-    end
-    return false
+    collection_items.taxa.count > 0
   end
 
   def is_resource_collection?

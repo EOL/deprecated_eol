@@ -5,10 +5,10 @@ module InitializerAdditions
       begin
         require file
       rescue LoadError
-        EOL.log("WARNING: COULD NOT LOAD #{file} **", prefix: "*")
+        puts "WARNING: COULD NOT LOAD #{file} **"
       end
     else
-      EOL.log("No config for #{name} found, skipping.", prefix: "+")
+      puts "No config for #{name} found, skipping."
     end
   end
 end

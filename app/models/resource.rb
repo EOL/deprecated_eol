@@ -150,8 +150,9 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.publish(self)
   end
 
+  # TODO - this should be doing something different, neh?
   def preview
-    Resource::Publisher.publish(self)
+    Resource::Publisher.preview(self)
   end
 
   def rebuild_taxon_concept_names

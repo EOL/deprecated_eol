@@ -58,16 +58,22 @@ class TaxonData < TaxonUserClassificationFilter
   end
 
   def self.counts_of_values_from_search(options={})
-    return { } if options[:attribute].blank?
-    return { } unless EOL::Sparql.connection.counts_of_all_value_known_uris_by_type.keys.map(&:uri).include?(options[:attribute])
+    return {} if options[:attribute].blank?
+    return {} unless EolConfig.data?
+    return {} unless EOL::Sparql.connection.
+      counts_of_all_value_known_uris_by_type.keys.map(&:uri).
+      include?(options[:attribute])
     counts_of_result_value_uris = EOL::Sparql.connection.query(
-      EOL::Sparql::SearchQueryBuilder.prepare_search_query(options.merge({ count_value_uris: true, querystring: nil })))
+      EOL::Sparql::SearchQueryBuilder.
+      prepare_search_query(options.
+      merge({ count_value_uris: true, querystring: nil })))
     KnownUri.add_to_data(counts_of_result_value_uris)
     Hash[ counts_of_result_value_uris.collect{ |h| [ h[:value], h[:count] ] } ]
   end
 
   def self.is_clade_searchable?(taxon_concept)
-    taxon_concept.number_of_descendants <= TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
+    taxon_concept.number_of_descendants <=
+      TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
   end
 
   def downloadable?
@@ -76,7 +82,8 @@ class TaxonData < TaxonUserClassificationFilter
 
   def topics
     if_connection_fails_return([]) do
-      @topics ||= get_data.map { |d| d[:attribute] }.select { |a| a.is_a?(KnownUri) }.uniq.compact.map(&:name)
+      @topics ||= get_data.map { |d| d[:attribute] }.
+        select { |a| a.is_a?(KnownUri) }.uniq.compact.map(&:name)
     end
   end
 
@@ -92,6 +99,10 @@ class TaxonData < TaxonUserClassificationFilter
     # #dup used here because the return value is often altered to suit the
     # rendering, and we don't want to much with the data stored here.
     return @taxon_data_set.dup if defined?(@taxon_data_set)
+    unless user.can_see_data?
+      @categories = []
+      return @taxon_data_set = []
+    end
     EOL.log_call
     if_connection_fails_return(nil) do
       taxon_data_set = TaxonDataSet.new(raw_data,

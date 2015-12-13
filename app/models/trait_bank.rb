@@ -9,6 +9,8 @@ class TraitBank
       "http://eol.org/traitbank"
     end
 
+    # TODO: We need to scale this up! It's not ready to handle Multiple
+    # resources with millions of rows, yet...
     def study_traits
       # TODO: we don't actually want to nuke the graph when we do this, we want
       # to build a new one and replace the old. ...Not sure how best to do that,
@@ -18,7 +20,7 @@ class TraitBank
       taxa = Set.new
       taxon_re = /^.*\/(\d+)$/
       traits = Set.new
-      limit = 1000 # TODO: change
+      limit = 6400
       EOL::Sparql.connection.query(measurements_query(limit)).each do |h|
         raise "No value for #{h[:trait]}!" unless h[:value]
         taxa << h[:page].to_s.sub(taxon_re, "\\1")

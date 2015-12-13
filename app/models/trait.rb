@@ -23,6 +23,10 @@ class Trait
     value_rdf.to_s =~ TAXON_RE
   end
 
+  def categories
+    @categories ||= predicate_uri.toc_items
+  end
+
   def comments
     @point.comments
   end
@@ -33,6 +37,14 @@ class Trait
 
   def glossary
     @page_traits.glossary
+  end
+
+  def life_stage
+    # TODO
+  end
+
+  def life_stage_name
+    # TODO
   end
 
   def partner
@@ -52,7 +64,9 @@ class Trait
   end
 
   def rdf_to_uri(rdf)
-    glossary.find { |ku| ku.uri == rdf.to_s }
+    uri = glossary.find { |ku| ku.uri == rdf.to_s }
+    return uri if uri
+    UnknownUri.new(rdf.to_s, literal: rdf.literal?)
   end
 
   def rdf_value(uri)
@@ -62,6 +76,14 @@ class Trait
   def rdf_values(uri)
     @rdf.select { |datum| datum[:trait_predicate].to_s == uri }.
       map { |datum| datum[:value] }
+  end
+
+  def sex
+    # TODO
+  end
+
+  def sex_name
+    # TODO
   end
 
   def source_id
@@ -88,9 +110,12 @@ class Trait
     rdf_values("http://eol.org/schema/terms/statisticalMethod")
   end
 
-  # NOTE: This won't work if the statistical methods aren't known URIs:
   def statistical_methods
-    statistical_method_rdfs.map { |rdf| rdf_to_uri(rdf).name }
+    statistical_method_rdfs.map { |rdf| rdf_to_uri(rdf) }
+  end
+
+  def statistical_method_names
+    statistical_methods.map(&:name)
   end
 
   def value_rdf
@@ -98,8 +123,7 @@ class Trait
   end
 
   def value_name
-    uri = rdf_to_uri(value_rdf)
-    uri ? uri.name : value_rdf.to_s
+    value_rdf.literal? ? value_rdf.to_s : value_uri.name
   end
 
   def value_uri

@@ -147,7 +147,9 @@ module EOL
             return_hash['references'] << r.full_reference
             return_hash['references'].uniq!
           end
-
+          return_hash.each_key do |key|
+            return_hash.delete(key) if return_hash[key].blank?
+          end
           return return_hash
         end
       end

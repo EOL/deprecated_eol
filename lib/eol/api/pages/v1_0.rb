@@ -231,7 +231,6 @@ module EOL
           solr_search_params[:license_ids] = options[:licenses].blank? ? nil : options[:licenses].collect(&:id)
           options[:license_ids] = solr_search_params[:license_ids]
           process_subject_options!(options)
-          
           text_objects = load_text(taxon_concept, options, solr_search_params)
           image_objects = load_images(taxon_concept, options, solr_search_params)
           video_objects = load_videos(taxon_concept, options, solr_search_params)

@@ -229,7 +229,33 @@ describe 'API:pages' do
     vetted_stasuses.include?(Vetted.trusted.id).should == true
     vetted_stasuses.include?(Vetted.untrusted.id).should == false
   end
-
+  
+  it 'pages should filter out trusted and untrusted objects' do
+    vetted_stasuses = []
+    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=3")
+    response['dataObjects'].each do |data_object|
+      data_object = DataObject.find_by_guid(data_object['identifier'], order: 'id desc')
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
+    end
+    vetted_stasuses.uniq!
+    vetted_stasuses.include?(Vetted.unknown.id).should == true
+    vetted_stasuses.include?(Vetted.trusted.id).should == false
+    vetted_stasuses.include?(Vetted.untrusted.id).should == false
+  end
+  
+  it 'pages should filter out trusted and unknown objects' do
+    vetted_stasuses = []
+    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=4")
+    response['dataObjects'].each do |data_object|
+      data_object = DataObject.find_by_guid(data_object['identifier'], order: 'id desc')
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
+    end
+    vetted_stasuses.uniq!
+    vetted_stasuses.include?(Vetted.unknown.id).should == false
+    vetted_stasuses.include?(Vetted.trusted.id).should == false
+    vetted_stasuses.include?(Vetted.untrusted.id).should == true
+  end
+  
   it 'pages should be able to toggle common names' do
     visit("/api/pages/0.4/#{@taxon_concept.id}")
     source.should_not include '<commonName'

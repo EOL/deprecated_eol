@@ -10,11 +10,13 @@ common: &common
 devel_common: &dev
   host: localhost
   username: root
+  password: root
 
 # common settings for all test databases
 tst_common: &tst
   host: localhost
   username: root
+  password: root
 
 #######################
 development:

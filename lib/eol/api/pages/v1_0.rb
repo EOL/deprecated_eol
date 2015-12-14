@@ -119,22 +119,20 @@ module EOL
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
-          begin
             # TODO: When we called #validate_and_normalize_input_parameters, the
             # TC was already loaded (but not stored); this is redundant: fix.
-            taxon_concepts = TaxonConcept.find(params[:id].split(",")) #if params[:id].split(",").length < 3
-          rescue
-            # raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
-          end
-          # raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") if !taxon_concept.published?
+          taxon_concepts = TaxonConcept.find_all_by_id(params[:id].split(","))
           if (params[:batch])
             batch_concepts = []
             taxon_concepts.each do |taxon_concept|
-              batch_concepts.push(prepare_hash(taxon_concept, params))
+              batch_concepts.push(prepare_hash(taxon_concept, params)) if taxon_concept
             end
-            batch_concepts.to_json
+            batch_concepts
           else
-            prepare_hash(taxon_concepts.first, params)
+            taxon_concept = taxon_concepts.first
+            raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless taxon_concept
+            raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") unless taxon_concept.published?
+            prepare_hash(taxon_concept, params)
           end
         end
 
@@ -204,6 +202,11 @@ module EOL
           data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
           data_objects.each do |data_object|
             return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
+          end
+          if params[:batch]
+            batch_hash = {}
+            batch_hash[taxon_concept.id] = return_hash
+            return batch_hash
           end
           return return_hash
         end

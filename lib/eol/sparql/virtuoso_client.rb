@@ -33,10 +33,11 @@ module EOL
 
       def insert_data(options = {})
         return false unless EolConfig.data?
-        unless options[:data].blank?
-          EOL.log("inserting #{options[:data].count} triples", prefix: ".")
+        return false if options[:data].blank?
+        options[:data].in_groups_of(10_000, false) do |group|
+          EOL.log("inserting #{group.count} triples", prefix: ".")
           query = "INSERT DATA INTO <#{options[:graph_name]}> "\
-            "{ #{options[:data].join(" .\n")} }"
+            "{ #{group.join(" .\n")} }"
           uri = URI(upload_uri)
           request = Net::HTTP::Post.new(uri.request_uri)
           request.basic_auth(username, password)
@@ -56,8 +57,11 @@ module EOL
             Rails.logger.error "** User: #{username}"
             Rails.logger.error "** Namespaces prefixes: #{namespaces_prefixes}"
             Rails.logger.error "** Query: #{query}"
+            Rails.logger.error "** Response class: #{response.class_name}"
+            return false
           end
         end
+        true
       end
     end
   end

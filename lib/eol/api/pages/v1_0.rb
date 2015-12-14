@@ -185,7 +185,7 @@ module EOL
           data_objects.each do |data_object|
             return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
           end
-         return_hash.delete('dataObjects') if  return_hash['dataObjects'].blank?
+         return_hash.delete('dataObjects') unless (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
           return return_hash
         end
 

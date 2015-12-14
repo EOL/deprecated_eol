@@ -229,7 +229,6 @@ describe 'API:pages' do
     vetted_stasuses.include?(Vetted.trusted.id).should == true
     vetted_stasuses.include?(Vetted.untrusted.id).should == false
   end
-  
   it 'pages should filter out trusted and untrusted objects' do
     vetted_stasuses = []
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=3")
@@ -238,11 +237,10 @@ describe 'API:pages' do
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
     end
     vetted_stasuses.uniq!
-    vetted_stasuses.include?(Vetted.unknown.id).should == true
-    vetted_stasuses.include?(Vetted.trusted.id).should == false
-    vetted_stasuses.include?(Vetted.untrusted.id).should == false
+    expect(vetted_stasuses.include?(Vetted.unknown.id)).to be_true
+    expect(vetted_stasuses.include?(Vetted.trusted.id)).to be_false
+    expect(vetted_stasuses.include?(Vetted.untrusted.id)).to be_false
   end
-  
   it 'pages should filter out trusted and unknown objects' do
     vetted_stasuses = []
     response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=4")
@@ -251,11 +249,10 @@ describe 'API:pages' do
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
     end
     vetted_stasuses.uniq!
-    vetted_stasuses.include?(Vetted.unknown.id).should == false
-    vetted_stasuses.include?(Vetted.trusted.id).should == false
-    vetted_stasuses.include?(Vetted.untrusted.id).should == true
+    expect(vetted_stasuses.include?(Vetted.unknown.id)).to be_false
+    expect(vetted_stasuses.include?(Vetted.trusted.id)).to be_false
+    expect(vetted_stasuses.include?(Vetted.untrusted.id)).to be_true
   end
-  
   it 'pages should be able to toggle common names' do
     visit("/api/pages/0.4/#{@taxon_concept.id}")
     source.should_not include '<commonName'
@@ -299,7 +296,7 @@ describe 'API:pages' do
     visit("/api/pages/1.0/#{taxon.id}?synonyms=1")
     source.should include '<synonym'
   end
-  
+
   describe "synonyms" do
     before(:all) do
       @taxon = TaxonConcept.gen(published: 1, supercedure_id: 0)
@@ -308,16 +305,16 @@ describe 'API:pages' do
       hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy, taxon_concept: @taxon, rank: Rank.gen_if_not_exists(label: 'species'))
       name = Name.gen(string: 'my synonym 1')
       relation = SynonymRelation.gen_if_not_exists(label: 'not common name')
-      synonym = Synonym.gen(hierarchy_entry: hierarchy_entry, name: name, synonym_relation: relation)  
+      synonym = Synonym.gen(hierarchy_entry: hierarchy_entry, name: name, synonym_relation: relation)
     end
     it "displays resource_name in json format" do
       visit("/api/pages/1.0/#{@taxon.id}.json?synonyms=1")
       source.should include "#{@resource.title}"
     end
-    
+
     it "displays resource_name in xml format" do
       visit("/api/pages/1.0/#{@taxon.id}?synonyms=1")
-      source.should include "#{@resource.title}"  
+      source.should include "#{@resource.title}"
     end
   end
 

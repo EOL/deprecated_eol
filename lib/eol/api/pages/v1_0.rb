@@ -97,7 +97,7 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'vetted',
               :type => Integer,
-              :values => [ 0, 1, 2, 3, 4 ],
+              values:  [ 0, 1, 2, 3, 4 ],
               :default => 0,
               :notes => I18n.t('return_content_by_vettedness') ),
             EOL::Api::DocumentationParameter.new(
@@ -198,9 +198,9 @@ module EOL
           elsif options[:vetted] == 2  # 2 = everything except untrusted
             solr_search_params[:vetted_types] = ['trusted', 'unreviewed']
           elsif options[:vetted] == 3  # 3 = unreviewed
-            solr_search_params[:vetted_types] = ['unreviewed'] 
+            solr_search_params[:vetted_types] = ["unreviewed"]
           elsif options[:vetted] == 4  # 4 = untrusted
-            solr_search_params[:vetted_types] = ['untrusted'] 
+            solr_search_params[:vetted_types] = ["untrusted"]
           else  # 0 = everything
             solr_search_params[:vetted_types] = ['trusted', 'unreviewed', 'untrusted']
           end

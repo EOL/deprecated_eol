@@ -129,7 +129,8 @@ module EOL
               params[:data_object]
             return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
 
-            return_hash["synonyms"] = if params[:synonyms]
+            if params[:synonyms]
+              return_hash["synonyms"] = 
               taxon_concept.scientific_synonyms.
                 includes([:name, :synonym_relation, :hierarchy]).
                 map do |syn|
@@ -137,12 +138,10 @@ module EOL
                 resource_title = syn.hierarchy.try(:resource).try(:title) || "" #try returns nil when called on nil
                 { "synonym" => syn.name.string, "relationship" => relation, "resource" => resource_title}
               end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
-            else
-              []
-            end
+              end
 
-            return_hash['vernacularNames'] = []
             if params[:common_names]
+              return_hash['vernacularNames'] = []
               taxon_concept.common_names.each do |tcn|
                 lang = tcn.language ? tcn.language.iso_639_1 : ''
                 common_name_hash = {
@@ -155,8 +154,8 @@ module EOL
               end
             end
 
-            return_hash['references'] = []
             if params[:references]
+              return_hash['references'] = []
               references = Ref.find_refs_for(taxon_concept.id)
               references = Ref.sort_by_full_reference(references)
               references.each do |r|
@@ -178,6 +177,7 @@ module EOL
               entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
               return_hash['taxonConcepts'] << entry_hash
             end
+              return_hash.delete('taxonConcepts') if  return_hash['taxonConcepts'].blank?
           end
 
           return_hash['dataObjects'] = []
@@ -185,9 +185,7 @@ module EOL
           data_objects.each do |data_object|
             return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
           end
-          return_hash.each_key do |key|
-            return_hash.delete(key) if return_hash[key].blank?
-          end
+         return_hash.delete('dataObjects') if  return_hash['dataObjects'].blank?
           return return_hash
         end
 
@@ -258,7 +256,7 @@ module EOL
             options[:text_subjects] = options[:text_subjects].flat_map { |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.compact
             options[:toc_items] = options[:text_subjects].flat_map { |ii| ii.toc_item }.compact
           end
-        end
+        end          
 
         def self.load_text(taxon_concept, options, solr_search_params)
           text_objects = []

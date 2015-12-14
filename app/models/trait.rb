@@ -40,11 +40,11 @@ class Trait
   end
 
   def life_stage
-    # TODO
+    rdf_value("http://rs.tdwg.org/dwc/terms/lifeStage")
   end
 
   def life_stage_name
-    # TODO
+    life_stage.try(:name)
   end
 
   def partner
@@ -64,13 +64,15 @@ class Trait
   end
 
   def rdf_to_uri(rdf)
+    return nil if rdf.nil?
     uri = glossary.find { |ku| ku.uri == rdf.to_s }
     return uri if uri
     UnknownUri.new(rdf.to_s, literal: rdf.literal?)
   end
 
   def rdf_value(uri)
-    @rdf.find { |datum| datum[:trait_predicate].to_s == uri }[:value]
+    rdf = @rdf.find { |datum| datum[:trait_predicate].to_s == uri }
+    rdf ? rdf[:value] : nil
   end
 
   def rdf_values(uri)
@@ -79,11 +81,11 @@ class Trait
   end
 
   def sex
-    # TODO
+    rdf_value("http://rs.tdwg.org/dwc/terms/sex")
   end
 
   def sex_name
-    # TODO
+    sex.try(:name)
   end
 
   def source_id
@@ -107,7 +109,7 @@ class Trait
   end
 
   def statistical_method?
-    rdf_values("http://eol.org/schema/terms/statisticalMethod")
+    ! rdf_values("http://eol.org/schema/terms/statisticalMethod").blank?
   end
 
   def statistical_methods
@@ -118,11 +120,22 @@ class Trait
     statistical_methods.map(&:name)
   end
 
+  #TODO: associations.  :\
+  def target_taxon_name
+    "TODO: association"
+  end
+
+  def target_taxon_uri
+    "http://eol.org/todo"
+  end
+
   def value_rdf
     rdf_value("http://rs.tdwg.org/dwc/terms/measurementValue")
   end
 
   def value_name
+    #TODO: associations.  :\
+    return nil if value_rdf.nil?
     value_rdf.literal? ? value_rdf.to_s : value_uri.name
   end
 

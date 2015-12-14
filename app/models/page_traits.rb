@@ -25,6 +25,7 @@ class PageTraits
       includes(:comments, :taxon_data_exemplars)
     uris = Set.new(@rdf.flat_map { |trait|
       trait.values.select { |v| v.uri? } })
+    # TODO: associations. We need the names of those taxa.
     @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
       includes(toc_items: :translated_toc_items)
     traits = @rdf.group_by { |trait| trait[:trait] }
@@ -34,9 +35,22 @@ class PageTraits
     @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
   end
 
+  def blank?
+    traits.blank?
+  end
+
+  def predicates
+    @predicates ||= Set.new(traits.map(&:predicate_uri).compact).
+      sort_by(&:position)
+  end
+
+  def predicate_count
+    @predicate_count ||= predicates.count
+  end
+
   def categories
     return @categories if @categories
-    @categories = Set.new(traits.flat_map { |trait| trait.categories }).
+    @categories = Set.new(traits.flat_map(&:categories)).
       to_a.sort_by(&:view_order)
     @categories
   end
@@ -45,13 +59,16 @@ class PageTraits
     @need_other
   end
 
+  # NOTE: Sorry this is complex, but: there are a lot of considerations for
+  # sort!
   def traits_by_category(category)
     subset = traits.select { |trait| trait.categories.include?(category) }
     subset.sort_by do |trait|
-      predicate = trait.predicate_name.downcase
-      value_label = trait.value_name.downcase
+      predicate = trait.predicate_name.try(:downcase)
+      value_label = trait.value_name.try(:downcase)
       sex_sort = trait.sex_name || 255.chr
       stage_sort = trait.life_stage_name || ''
+      # NOTE: it's possible to have more than one, but we only care about first:
       stats_sort = trait.statistical_method? ?
         trait.statistical_methods.first.position : 65000
       [ trait.predicate_uri.position, predicate, sex_sort,
@@ -59,11 +76,22 @@ class PageTraits
     end
   end
 
+  # TODO: I forget whether KnownUris can be excluded from the overview. Check.
+  def traits_overview
+    uris = predicates[0..OverviewTraits.max_rows]
+    overview = traits.select { |trait| uris.include?(trait.predicate_uri) &&
+      ! trait.point.excluded? }.group_by(&:predicate_uri)
+    overview.keys.each do |uri|
+      overview[uri] = OverviewTraits.new(overview[uri])
+    end
+    overview
+  end
+
   # NOTE: this is largely copied from TaxonDataSet#to_jsonld, because it will
   # eventually replace it, so the duplication will go away. No point in
   # generalizing. TODO: this doesn't belong here; make a new class and pass self
   # in. NOTE: jsonld is ALWAYS in English. Period. This is expected and normal.
-  def to_jsonld
+  def jsonld
     concept = TaxonConcept.find(@id)
     jsonld = { '@graph' => [ concept.to_jsonld ] }
     if wikipedia_entry = concept.wikipedia_entry
@@ -86,7 +114,7 @@ class PageTraits
         'dwc:taxonID' => KnownUri.taxon_uri(@id),
       }
       trait.rdf.each do |rdf|
-        predicate = rdf[:trait_predicate].to_s
+        predicate = rdf[:trait_predicate].dup.to_s
         # They don't care about the type we store it as...
         next if predicate == A_URI
         prefixes.each { |r,v| predicate.sub!(r,v) }

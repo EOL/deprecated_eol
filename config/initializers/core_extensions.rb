@@ -122,16 +122,3 @@ module ActiveRecord
     end
   end
 end
-
-if $ENABLE_TRANSLATION_LOGS
-  module I18n
-    def self.translate_with_logging(*args)
-      TranslationLog.inc(args[0])
-      I18n.translate_without_logging(*args)
-    end
-    class << self
-      alias_method_chain :translate, :logging
-      alias :t :translate
-    end
-  end
-end

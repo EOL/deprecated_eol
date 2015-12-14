@@ -8,6 +8,7 @@ module EOL
 
       def self.clear_uri_caches
         Rails.cache.delete(cache_key("all_measurement_type_uris"))
+        Rails.cache.delete("known_uris/measurements/show_in_gui/uris")
         Rails.cache.delete(cache_key("all_measurement_type_known_uris"))
         id = 1
         while tcid = Rails.cache.read(cache_key("cached_taxon_#{id}")) do
@@ -33,6 +34,12 @@ module EOL
         @password = options[:password]
         @namespaces = EOL::Sparql::NAMESPACES
         @sparql_client = SPARQL::Client.new(endpoint_uri)
+      end
+
+      # NOTE: "callret-0" is the name of the symbol returned by a COUNT query.
+      def size_of_resource(resource)
+        sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
+          "<#{resource.graph_name}> { ?s ?p ?o } }").first[:"callret-0"].to_i
       end
 
       # You must implement this in your child class.
@@ -108,6 +115,21 @@ module EOL
       end
 
       def all_measurement_type_uris
+        # NOTE: THIS STILL TAKE A LOOOOONG TIME TO RUN... about a minute! :S
+        return Rails.cache.fetch("known_uris/measurements/show_in_gui/uris",
+          expires_in: 1.week) do
+          EOL::Sparql::Client.if_connection_fails_return([]) do
+            result = query("
+              SELECT DISTINCT ?uri WHERE {
+                ?measurement dwc:measurementType ?uri .
+                ?measurement eol:measurementOfTaxon eolterms:true .
+                FILTER (isURI(?uri))
+              }")
+            result.map { |r| r[:uri].to_s }
+          end
+        end
+
+        # TODO: re-write this, the query always times out and is overloading the system.
         self.class.cache_fetch_with_local_timeout(
           self.class.cache_key("all_measurement_type_uris"), :expires_in => 1.day) do
           counts_of_all_measurement_type_uris.map { |k,v| k }

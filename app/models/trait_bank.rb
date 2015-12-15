@@ -364,7 +364,7 @@ class TraitBank
                                      eol:associationType,
                                      dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
                   ) .
-          FILTER (?trait  = <#{trait}>))
+          FILTER (?trait  = <#{trait}>)
         }
       }"
     end

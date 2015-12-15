@@ -423,6 +423,14 @@ class Resource < ActiveRecord::Base
     hierarchy.unpublish
   end
 
+  def trait_count
+    EOL::Sparql.connection.traits_in_resource(self)
+  end
+
+  def triple_count
+    EOL::Sparql.connection.triples_in_resource(self)
+  end
+
 private
 
   def url_or_dataset_not_both

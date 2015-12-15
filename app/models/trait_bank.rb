@@ -16,7 +16,10 @@ class TraitBank
       EOL.log_call
       EOL.log("Prefixes, for convenience:", prefix: ".")
       EOL.log(prefixes, prefix: ".")
-      EOL::Sparql.connection.query("CLEAR GRAPH <#{graph_name}>")
+      # Ruh-roh. After some number of triples (about a million, which comes
+      # quickly!), a command like this takes too long, and it times out, and
+      # nothing works. :\
+      # EOL::Sparql.connection.query("CLEAR GRAPH <#{graph_name}>")
       taxa = Set.new
       Resource.where("harvested_at IS NOT NULL").find_each do |resource|
         count = EOL::Sparql.connection.size_of_resource(resource)
@@ -81,7 +84,9 @@ class TraitBank
                 literal: h[:value].literal?)
             else
               triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}> ."
-              val = h[:value].literal? ? "\"#{h[:value]}\"" : "<#{h[:value]}>"
+              val = h[:value].literal? ?
+                "\"#{h[:value].to_s.gsub(/"/, "\\\"")}\"" :
+                "<#{h[:value]}>"
               triples << "<#{h[:meta_trait]}> a eol:trait ;"\
                 "<http://rs.tdwg.org/dwc/terms/measurementValue> #{val} ;"\
                 "<http://rs.tdwg.org/dwc/terms/measurementUnit> <#{h[:units]}>"
@@ -99,7 +104,8 @@ class TraitBank
 
     def flatten_taxa(taxa)
       EOL.log_call
-      taxa.to_a.in_groups_of(640, false) do |group|
+      EOL.log("Flattening #{taxa.count} taxa...", prefix: ".")
+      taxa.to_a.in_groups_of(10_000, false) do |group|
         triples = []
         TaxonConceptsFlattened.where(taxon_concept_id: group).
           find_each do |flat|
@@ -117,7 +123,7 @@ class TraitBank
       return if h[key].nil?
       triple = "<#{h[:trait]}> <#{uri}> "
       if options[:literal]
-        triple << "\"#{h[key]}\""
+        triple << "\"#{h[key].to_s.gsub(/"/, "\\\"")}\""
       else
         triple << "<#{h[key]}>"
       end

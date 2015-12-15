@@ -75,7 +75,7 @@ describe Resource do
 
     describe "#unpublish_hierarchy" do
       let(:hierarchy) { Hierarchy.gen }
-      subject { Resource.gen(hierarchy: hierarchy) }
+      let(:resource) { Resource.gen(hierarchy: hierarchy)  }
       # I'm adding this one as an example of testing delegation... even though
       # we don't _really_ care about this level of detail _quite yet_ for the
       # ported code. ;)

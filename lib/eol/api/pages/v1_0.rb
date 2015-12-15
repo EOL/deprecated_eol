@@ -164,28 +164,29 @@ module EOL
               return_hash['references'].uniq!
             end
 
-            return_hash['taxonConcepts'] = []
-            taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
-              entry_hash = {
-                'identifier'      => entry.id,
-                'scientificName'  => entry.name.string,
-                'nameAccordingTo' => entry.hierarchy.label,
-                'canonicalForm'   => (entry.name.canonical_form.string rescue '')
-              }
-              entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
-              entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
-              entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
-              return_hash['taxonConcepts'] << entry_hash
+          unless params["taxonConcepts"] == false
+              return_hash['taxonConcepts'] = []
+              taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
+                entry_hash = {
+                  'identifier'      => entry.id,
+                  'scientificName'  => entry.name.string,
+                  'nameAccordingTo' => entry.hierarchy.label,
+                  'canonicalForm'   => (entry.name.canonical_form.string rescue '')
+                }
+                entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
+                entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
+                entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
+                return_hash['taxonConcepts'] << entry_hash
+              end
+          end
+          end
+          if (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
+            return_hash['dataObjects'] = []
+            data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
+            data_objects.each do |data_object|
+              return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
             end
-              return_hash.delete('taxonConcepts') if  return_hash['taxonConcepts'].blank?
-          end
-
-          return_hash['dataObjects'] = []
-          data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
-          data_objects.each do |data_object|
-            return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
-          end
-         return_hash.delete('dataObjects') unless (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
+        end
           return return_hash
         end
 
@@ -256,7 +257,7 @@ module EOL
             options[:text_subjects] = options[:text_subjects].flat_map { |l| InfoItem.cached_find_translated(:label, l, 'en', :find_all => true) }.compact
             options[:toc_items] = options[:text_subjects].flat_map { |ii| ii.toc_item }.compact
           end
-        end          
+        end
 
         def self.load_text(taxon_concept, options, solr_search_params)
           text_objects = []

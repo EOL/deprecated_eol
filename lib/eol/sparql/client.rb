@@ -53,7 +53,7 @@ module EOL
       # that now.
       def triples_in_resource(resource)
         sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
-          "<#{resource.graph_name}> { ?s ?p ?o } }").first[:"callret-0"].to_i
+          "<#{resource.graph_name}> { ?s dwc:taxonID ?o } }").first[:"callret-0"].to_i
       end
 
       # You must implement this in your child class.

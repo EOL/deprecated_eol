@@ -37,9 +37,13 @@ module EOL
       end
 
       # NOTE: "callret-0" is the name of the symbol returned by a COUNT query.
+      # NOTE we aren't counting triples, we are counting the number of taxonIDs
+      # referenced, because both measurements and associations use this to mark
+      # the association between an "occurrence" and a "taxon" (which is really a
+      # hierarchy_entry.identifier)
       def size_of_resource(resource)
         sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
-          "<#{resource.graph_name}> { ?s ?p ?o } }").first[:"callret-0"].to_i
+          "<#{resource.graph_name}> { ?s dwc:taxonID ?o } }").first[:"callret-0"].to_i
       end
 
       # You must implement this in your child class.

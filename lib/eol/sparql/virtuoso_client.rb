@@ -35,9 +35,9 @@ module EOL
         return false unless EolConfig.data?
         return false if options[:data].blank?
         options[:data].in_groups_of(10_000, false) do |group|
+          triples = group.join(" .\n")
           EOL.log("inserting #{group.count} triples", prefix: ".")
-          query = "INSERT DATA INTO <#{options[:graph_name]}> "\
-            "{ #{group.join(" .\n")} }"
+          query = "INSERT DATA INTO <#{options[:graph_name]}> { #{triples} }"
           uri = URI(upload_uri)
           request = Net::HTTP::Post.new(uri.request_uri)
           request.basic_auth(username, password)

@@ -22,7 +22,7 @@ class TraitBank
       # EOL::Sparql.connection.query("CLEAR GRAPH <#{graph_name}>")
       taxa = Set.new
       Resource.where("harvested_at IS NOT NULL").find_each do |resource|
-        count = EOL::Sparql.connection.size_of_resource(resource)
+        count = resource.trait_count
         # Rebuild this one if there are any triples in the (old) graph:
         taxa += rebuild_resource(resource, count) if count > 0
       end
@@ -74,9 +74,12 @@ class TraitBank
           "<source> <#{h[:resource]}>"
         traits << h[:trait]
       end
-      traits.to_a.in_groups_of(default_limit / 50, false) do |group|
+      # Metadata is VERY SLOW! ...Have to do them ONE AT A TIME! :S
+      EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
+      traits.each_with_index do |trait, index|
+        EOL.log(index, prefix: ".") if index % 10_000 == 0
         begin
-          EOL::Sparql.connection.query(metadata_query(resource, group)).
+          EOL::Sparql.connection.query(metadata_query(resource, trait)).
             each do |h|
             # ?trait ?predicate ?meta_trait ?value ?units
             if h[:units].blank?
@@ -358,7 +361,7 @@ class TraitBank
                                      eol:associationType,
                                      dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
                   ) .
-          FILTER (?trait IN (<#{traits.to_a[left..right].join('>,<')}>))
+          FILTER (?trait  = <#{trait}>))
         }
       }"
     end

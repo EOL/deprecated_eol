@@ -41,9 +41,19 @@ module EOL
       # referenced, because both measurements and associations use this to mark
       # the association between an "occurrence" and a "taxon" (which is really a
       # hierarchy_entry.identifier)
-      def size_of_resource(resource)
+      def traits_in_resource(resource)
         sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
           "<#{resource.graph_name}> { ?s dwc:taxonID ?o } }").first[:"callret-0"].to_i
+      end
+
+      # In Dec 2015 it became clear that harvesting was adding triples for taxa
+      # and references, even when there is NO DATA in the resource. This will
+      # help us find those, and, if we decide it's safe, drop the graphs.
+      # ...It's possible that it's required for searches, though, so not doing
+      # that now.
+      def triples_in_resource(resource)
+        sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
+          "<#{resource.graph_name}> { ?s ?p ?o } }").first[:"callret-0"].to_i
       end
 
       # You must implement this in your child class.

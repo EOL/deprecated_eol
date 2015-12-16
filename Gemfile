@@ -12,6 +12,8 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem "capybara", "1.1.3"
   # This allows tasks to run in the background, like Solr.
   gem "daemons", "1.1.9"
+  # For testing emails within RSpec.
+  gem "email_spec", "1.4.0"
   # We use this *extensively* in testing to create "real" models. Learn this.
   gem "factory_girl_rails", "4.3.0"
   # We use this for creating "realistic" names for testing / bootstrapping.
@@ -151,8 +153,6 @@ gem "dalli", "2.6.4"
 # customize it for our needs:
 gem "ar-octopus", "0.4.0", git: "https://github.com/pleary/octopus.git",
   branch: "0.4.0", require: "octopus"
-# For testing emails within RSpec.
-gem "email_spec", "1.4.0"
 # provides several HTML/URI/shell escaping functions - TODO: - I don't think we
 # need this?
 gem "escape"

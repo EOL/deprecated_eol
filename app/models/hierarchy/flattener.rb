@@ -39,9 +39,11 @@ class Hierarchy
       EOL.log_call
       @children = {}
       @taxa = {}
-      # I'm changing this... not sure it's for the better:
+      # I'm changing this... not sure it's for the better, but my thinking is
+      # that it doesn't really matter if it's published or whatnot, since you're
+      # always calling it by id... so you're checking published on that id:
+      # WAS: HierarchyEntry.published.visible_or_preview.not_untrusted.
       HierarchyEntry.
-      # HierarchyEntry.published.visible_or_preview.not_untrusted.
         select("id, parent_id, taxon_concept_id").
         where(hierarchy_id: @hierarchy.id).find_each do |entry|
         @children[entry.parent_id] ||= Set.new
@@ -83,9 +85,19 @@ class Hierarchy
 
     def update_tables
       EOL.log_call
-      HierarchyEntriesFlattened.delete_hierarchy_id(@hierarchy.id)
+      currently = HierarchyEntriesFlattened.pks_in_hierarchy(@hierarchy)
+      old = currently - @flat_entries
+      create = @flat_entries - currently
+
+      EOL.log("Currently: #{currently.count}", prefix: ".")
+      EOL.log("Desired: #{@flat_entries.count}", prefix: ".")
+      EOL.log("Old: #{old.count}", prefix: ".")
+      EOL.log("New: #{create.count}", prefix: ".")
+      
+      HierarchyEntriesFlattened.delete_set(old)
       EOL::Db.bulk_insert(HierarchyEntriesFlattened,
-        [ "hierarchy_entry_id", "ancestor_id" ], @flat_entries)
+        [ "hierarchy_entry_id", "ancestor_id" ], create)
+
       EOL::Db.bulk_insert(TaxonConceptsFlattened,
         [ "taxon_concept_id", "ancestor_id" ], @flat_concepts, ignore: true)
     end

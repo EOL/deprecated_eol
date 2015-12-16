@@ -26,7 +26,7 @@ module EOL
               :notes => I18n.t('returns_either_a_batch_or_not') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'id',
-              :type => Array,
+              :type => String,
               :required => true,
               :test_value => (TaxonConcept.find_by_id(1045608) || TaxonConcept.last).id ),
             EOL::Api::DocumentationParameter.new(

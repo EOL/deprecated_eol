@@ -93,6 +93,43 @@ describe 'API:pages' do
     @default_pages_body = source
   end
 
+  context 'batch mode' do
+    before :all do
+      @taxon_concept1 = build_taxon_concept(
+         comments: [],
+         bhl: [],
+         sounds: [],
+         flash:           [{description: @video_1_text}],
+         youtube:         [{description: @video_3_text}],
+         images:          [{object_cache_url: @image_1}],
+         toc:             [{toc_item: @overview, description: @overview_text, license: License.by_nc, rights_holder: "Someone"}])
+    end
+    
+    context 'JSON response format' do
+      it 'should return array of length 1 for one id' do
+        response = get_as_json("/api/pages/1.0.json?batch=true&id=#{@taxon_concept.id}&images=0&text=10&videos=0&details=1")
+        expect(response.length).to eq(1)
+      end
+      
+      it 'should return array of length 2 for three ids' do
+        response = get_as_json("/api/pages/1.0.json?batch=true&id=#{@taxon_concept.id}%2C#{@taxon_concept1.id}&images=0&text=10&videos=0&details=1")
+        expect(response.length).to eq(2)
+      end
+    end
+    
+    context 'XML response format' do
+      it 'should have taxonConcepts element' do
+        response = get_as_xml("/api/pages/1.0.xml?batch=true&id=#{@taxon_concept.id}&images=0&text=10&videos=0&details=1")
+        expect(response.xpath('//xmlns:taxonConcepts', "xmlns" => "http://www.eol.org/transfer/content/1.0").length).to eq(1)
+      end
+      
+      it 'should return array of length 2 for three ids' do
+        response = get_as_xml("/api/pages/1.0.xml?batch=true&id=#{@taxon_concept.id}%2C#{@taxon_concept1.id}&images=0&text=10&videos=0&details=1")
+        expect(response.xpath('//xmlns:taxonConcepts//xmlns:taxonConcept', "xmlns" => "http://www.eol.org/transfer/content/1.0").length).to eq(2)
+      end
+    end
+  end
+
   it 'pages should take api key and save it to the log' do
     check_api_key("/api/pages/#{@taxon_concept.id}.json?key=#{@user.api_key}", @user)
   end

@@ -99,4 +99,13 @@ module EOL
       "#{Time.now.strftime("%H:%M:%S.%L")}#{diff} #{msg}")
     @last_log_time = Time.now
   end
+
+  # NOTE: Yes, this "really" belongs in EOL::Db, but I didn't want to have to
+  # type that when I needed it. :\ NOTE: You really don't need the single-pk
+  # version of this. You just want to #pluck(:id) in those cases. I only keep it
+  # here to avoid surprise.
+  def self.pluck_pks(klass, query)
+    keys = klass.primary_keys || Array(klass.primary_key)
+    query.pluck("CONCAT(#{keys.map(&:to_s).join(", ',', ")}) pk")
+  end
 end

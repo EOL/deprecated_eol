@@ -1,11 +1,13 @@
+# An ancestry tree for hierarchy entries. It's a bit absurd to me that
+# hierarchy_id isn't in the fields. It's also crazy that we don't index
+# individual fields (just the PK, which is the combo)... but so far, things
+# aren't _that_ slow, so we perservere.
 class HierarchyEntriesFlattened < ActiveRecord::Base
   self.table_name = "hierarchy_entries_flattened"
   self.primary_keys = :hierarchy_entry_id, :ancestor_id
 
   belongs_to :hierarchy_entry, class_name: HierarchyEntry.to_s, foreign_key: :hierarchy_entry_id
   belongs_to :ancestor, class_name: HierarchyEntry.to_s, foreign_key: :ancestor_id
-
-    where(hierarchy_entries: { hierarchy_id: hierarchy_id }) }
 
   # NOTE: This is very, very, VERY slow. It's using the PK, so that's not the
   # problem... It's just that deletes are very slow. Don't call this. Seriously.
@@ -25,13 +27,11 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
       delete_all
   end
 
-  # TODO: It's a bit absurd that hierarchy_id isn't in this table. :|
   def self.pks_in_hierarchy(hierarchy)
     pks = Set.new
     ids = hierarchy.hierarchy_entries.pluck(:id)
     ids.in_groups_of(10_000).each do |group|
-      pks += where(hierarchy_entry_id: group).
-        pluck("CONCAT(hierarchy_entry_id, ',', ancestor_id) pk")
+      pks += EOL.pluck_pks(self, where(hierarchy_entry_id: group))
     end
     pks
   end

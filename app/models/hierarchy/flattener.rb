@@ -41,14 +41,17 @@ class Hierarchy
       @taxa = {}
       # I'm changing this... not sure it's for the better, but my thinking is
       # that it doesn't really matter if it's published or whatnot, since you're
-      # always calling it by id... so you're checking published on that id:
-      # WAS: HierarchyEntry.published.visible_or_preview.not_untrusted.
-      HierarchyEntry.
-        select("id, parent_id, taxon_concept_id").
-        where(hierarchy_id: @hierarchy.id).find_each do |entry|
-        @children[entry.parent_id] ||= Set.new
-        @children[entry.parent_id] << entry.id
-        @taxa[entry.id] = entry.taxon_concept_id
+      # always calling it by id... so you're checking published on that id: WAS:
+      # HierarchyEntry.published.visible_or_preview.not_untrusted. This query
+      # takes about 25 seconds on 500K entries, and the block takes a few
+      # seconds more to process.
+      HierarchyEntry.where(hierarchy_id: @hierarchy.id).
+        pluck("CONCAT(id, ',', parent_id, ',', taxon_concept_id) ids").
+        each do |str|
+        (entry,parent,taxon) = str.split(",")
+        @children[parent] ||= Set.new
+        @children[parent] << entry
+        @taxa[entry] = taxon
       end
       raise EOL::Exceptions::EmptyHierarchyFlattened.new if @children.empty?
     end
@@ -93,7 +96,7 @@ class Hierarchy
       EOL.log("Desired: #{@flat_entries.count}", prefix: ".")
       EOL.log("Old: #{old.count}", prefix: ".")
       EOL.log("New: #{create.count}", prefix: ".")
-      
+
       HierarchyEntriesFlattened.delete_set(old)
       EOL::Db.bulk_insert(HierarchyEntriesFlattened,
         [ "hierarchy_entry_id", "ancestor_id" ], create)

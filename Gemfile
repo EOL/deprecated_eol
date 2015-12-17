@@ -120,7 +120,9 @@ gem "rails", "3.2.18"
 # the version, per se, this is just to avoid CVE-2014-2538:
 gem "rack-ssl", "1.3.3"
 
-gem "active_type", "~> 0.2" # Facilitates context-driven model subclasses.
+# Facilitates context-driven model subclasses. See ContentPartner::AsUnassisted
+# for an exemplar.
+gem "active_type", "~> 0.2"
 # Used for drag-and-drop reordering of KnownUri instances. ...We could be making
 # wider use of this.
 gem "acts_as_list", "0.3.0"
@@ -130,8 +132,6 @@ gem "acts_as_tree_rails3", "0.1.0"
 # Amazon web services:
 gem "aws-sdk", "~> 1.58"
 
-# "used for generation of scientific names with ranks on the species page"
-gem "biodiversity", "3.1.2"
 # Used by identity_cache to speed up the creation of hash keys.
 gem "cityhash", "0.8.1"
 # We use this in many places, such as creating data objects, to allow rich text

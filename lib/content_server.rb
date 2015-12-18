@@ -81,11 +81,10 @@ class ContentServer
     return nil if x.blank?
     return nil if y.blank?
     return nil if w.blank?
-    env_name = Rails.env.to_s
-    env_name = 'staging' if Rails.env.staging_dev?
-    env_name = 'bocce_demo' if Rails.env.bocce_demo_dev?
-    parameters = "function=crop_image_pct&data_object_id=#{data_object_id}&x=#{x}&y=#{y}&w=#{w}&ENV_NAME=#{env_name}"
-    call_file_upload_api_with_parameters(parameters, "update data object crop service")
+    parameters = "function=crop_image_pct&data_object_id=#{data_object_id}"\
+      "&x=#{x}&y=#{y}&w=#{w}&ENV_NAME=#{Rails.env}"
+    call_file_upload_api_with_parameters(parameters,
+      "update data object crop service")
   end
 
   def self.upload_data_search_file(file_url, data_search_file_id)
@@ -102,16 +101,16 @@ class ContentServer
     count = 0
     begin
       begin
-        response = EOLWebService.call(:parameters => parameters)
-        return {response: response, exception: nil}
+        response = EOLWebService.call(parameters: parameters)
+        return { response: response, exception: nil }
       rescue Exception => ex
         Rails.logger.error "#{$WEB_SERVICE_BASE_URL} #{method_name} #{ex.message}"
         ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} has an error") if $ERROR_LOGGING
       ensure
         count += 1
       end
-    end while count < 5
-    return {response: nil, exception: "#{method_name} has an error"}
+    end while count < 3 # TODO: this should be configurable.
+    return { response: nil, exception: "#{method_name} has an error" }
   end
 
   def self.call_file_upload_api_with_parameters(parameters, method_name)
@@ -121,13 +120,20 @@ class ContentServer
     error = nil
     if response.blank?
       if exception.nil?
-        ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} timed out") if $ERROR_LOGGING
+        ErrorLog.create(url: $WEB_SERVICE_BASE_URL,
+          exception_name: "#{method_name} timed out") if $ERROR_LOGGING
         error = "#{method_name} timed out"
       else
         error = exception # couldn't connect
       end
     else
-      response = Hash.from_xml(response)
+      begin
+        response = Hash.from_xml(response)
+      rescue REXML::ParseException => e
+        msg = e.to_s.split("\n").first
+        EOL.log("ERROR: [API CALL] (#{$WEB_SERVICE_BASE_URL}#{parameters}) "\
+          "#{msg}")
+      end
       if response["response"].class != Hash
         error = "Bad response: #{response["response"]}"
         ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
@@ -139,7 +145,7 @@ class ContentServer
         return path.blank? ? {response: nil, error: "File path is nil"} : {response: path, error: nil}
       end
     end
-    return {response: nil, error: error}
+    return { response: nil, error: error }
   end
 
 end

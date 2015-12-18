@@ -40,7 +40,7 @@ class SolrCore
       end
       EOL.log("Committing...")
       connection.commit
-      EOL.log("Finished...")
+      EOL.log_return
       @objects = nil # Saves some memory (hopefully).
     end
 

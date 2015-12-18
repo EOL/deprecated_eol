@@ -228,7 +228,7 @@ class TopImage
           last if view_order > IMAGE_LIMIT
         end
       end
-      EOL.log("#crazy_hash_sort finished", prefix: '#')
+      EOL.log_return
       results
     end
 

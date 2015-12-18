@@ -60,6 +60,7 @@ class SolrCore
 
     # TODO: PUT THE GORRAM CANONICAL FORM / STRING IN THE H.E. TABLE!!! GRRR!
     def reindex_hierarchy(hierarchy)
+      EOL.log_call
       # NOTE: This could be MILLIONS of entries! Be sure you have the memory:
       objects = lookup_with_names(hierarchy.id)
       # NOTE: we do not delete by ids, here, since we want to delete HEs that

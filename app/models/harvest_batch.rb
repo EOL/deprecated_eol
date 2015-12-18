@@ -62,7 +62,7 @@ class HarvestBatch
     RandomHierarchyImage.create_random_images_from_rich_taxa
     TaxonConceptPreferredEntry.rebuild
     CollectionItem.remove_superceded_taxa
-    EOL.log("denormalize_tables finished", prefix: "#")
+    EOL.log_return
   end
 
   def time_out?

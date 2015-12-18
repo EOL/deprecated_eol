@@ -74,6 +74,18 @@ module EOL
     end
   end
 
+  def self.log_return
+    begin
+      (file, method) = caller.first.split
+      EOL.log(
+        "Return from #{file.split('/').last.split(':')[0..1].join(':')}#"\
+        "#{method[1..-2]}", prefix: '#'
+      )
+    rescue
+      EOL.log("Returning from method #{caller.first}")
+    end
+  end
+
   def self.log_error(e)
     EOL.log("ERROR: #{e.message}", prefix: "!")
     i = 0

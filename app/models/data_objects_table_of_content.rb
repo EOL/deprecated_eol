@@ -31,7 +31,7 @@ class DataObjectsTableOfContent < ActiveRecord::Base
         ActiveRecord::Base.connection.execute("TRUNCATE TABLE `#{table_name}`")
         EOL::Db.bulk_insert(self, [:data_object_id, :toc_id], dotocs.to_a)
       end
-      EOL.log("#rebuild finished; exiting", prefix: '#')
+      EOL.log_return
     end
   end
 end

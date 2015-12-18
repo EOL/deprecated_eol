@@ -21,16 +21,12 @@ module EOL
         'anage' => 'http://anage.org/schema/terms/'
       }
 
-    # NOTE - yes, this appears to be rebuilding the connection every time, but
-    # when I benchmarked it, it was very, very fast, so I'm not so worried about
-    # that. That said, on another task, I started making the Connection class,
-    # below. Not great, but I don't have time to rewrite all of this. :D
     def self.connection
       @@connection ||= EOL::Sparql::VirtuosoClient.new(
         :endpoint_uri => $VIRTUOSO_SPARQL_ENDPOINT_URI,
         :upload_uri => $VIRTUOSO_UPLOAD_URI,
         :username => $VIRTUOSO_USER,
-        :password => $VIRTUOSO_PW)
+        :password => $VIRTUOSO_PWD)
     end
 
     class Connection

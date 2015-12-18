@@ -98,15 +98,15 @@ module Eol
     config.assets.precompile += ['*.css', '*.js']
 
     config.assets.initialize_on_precompile = false
-    
+
     # This uses Rack CORs gem to enable CORs on EOL API.
-    # Currently we allow all origins to access EOL API  
+    # Currently we allow all origins to access EOL API
     config.middleware.insert_before 0, "Rack::Cors" do
       allow do
         origins '*'
-        
-        resource '/wapi/*', 
-          headers: :any, 
+
+        resource '/wapi/*',
+          headers: :any,
           methods: [:get, :post, :options, :put]
       end
     end
@@ -355,7 +355,7 @@ module Eol
     $CURATOR_COMMUNITY_DESC = 'This is a special community intended for EOL curators to discuss matters related to curation on the Encylopedia of Life.'
 
     $VIRTUOSO_USER = 'dba'
-    $VIRTUOSO_PW = 'dba'
+    $VIRTUOSO_PWD = 'dba'
     $VIRTUOSO_SPARQL_ENDPOINT_URI = 'http://localhost:8890/sparql'
     $VIRTUOSO_UPLOAD_URI = 'http://localhost:8890/DAV/home/dba/upload'
     $VIRTUOSO_FACET_BROWSER_URI_PREFIX = 'http://localhost:8890/describe/?url='

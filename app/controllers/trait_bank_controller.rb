@@ -1,5 +1,4 @@
 class TraitBankController < ApplicationController
-
   layout "taxa"
 
   def show
@@ -8,5 +7,6 @@ class TraitBankController < ApplicationController
     @scientific_name = @taxon_page.title
     # Use TC id here, not param, incase it was superceded!
     @page_traits = PageTraits.new(@taxon_concept.id)
+    @jsonld = @page_traits.jsonld
   end
 end

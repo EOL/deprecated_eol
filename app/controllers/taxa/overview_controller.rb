@@ -9,11 +9,13 @@ class Taxa::OverviewController < TaxaController
   def show
     with_master_if_curator do
       @overview = @taxon_page.overview
-      @data = @taxon_page.data
-      @range_data = @data.ranges_for_overview
+      @traits = PageTraits.new(@taxon_concept.id)
+      # TEMPORARY! ...We've got to get past the problem we're having...
+      # @data = @taxon_page.data
+      # @range_data = @data.ranges_for_overview
+      @range_data = []
     end
     @assistive_section_header = I18n.t(:assistive_overview_header)
     @rel_canonical_href = taxon_overview_url(@overview)
   end
-
 end

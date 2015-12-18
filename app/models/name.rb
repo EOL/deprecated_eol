@@ -146,6 +146,19 @@ class Name < ActiveRecord::Base
     string.match(/^[A-Z][^ ]+ \([A-Z][^ ]+\)($| [A-Z])/)
   end
 
+  def clean_canonical_form
+    # TODO: whoa, whoa, whoa: we should NOT be doing this here. :| We should be
+    # calling GN for this kind of thing. ...And it should already be in the DB!
+    # Argh.
+    string = canonical_form.string
+    # TODO: do we _really_ want the "sp" here? I doubt it aids searches. :\
+    if string =~ /^(.* sp)\.?\b/
+      $1
+    else
+      string.gsub(/\s+(var|convar|subsp|ssp|cf|f|f\.sp|c|\*)\.?\b/, "")
+    end
+  end
+
 private
 
   def clean_name_must_be_unique

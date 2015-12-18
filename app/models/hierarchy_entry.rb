@@ -54,8 +54,6 @@ class HierarchyEntry < ActiveRecord::Base
   # Only used when reindexing, to populate solr.
   # TODO: STORE IT IN THE GORRAM TABLE!!!!
   attr_accessor :ancestor_names
-  # Can't easily put these in the table, but could denormalize!
-  attr_accessor :synonyms, :common_names, :canonical_synonyms
 
   before_save :default_visibility
 
@@ -121,8 +119,6 @@ class HierarchyEntry < ActiveRecord::Base
     end
   end
 
-  # this method is probably unnecessary and just returns the canonical_form of
-  # the original name string - which might very well be nil
   def canonical_form
     return name.canonical_form
   end
@@ -172,21 +168,22 @@ class HierarchyEntry < ActiveRecord::Base
   def to_hash
     hash = {
       id: id,
-      common_name: common_names && common_names.map { |s| SolrCore.string(s) },
-      synonym: synonyms && synonyms.map { |s| SolrCore.string(s) },
-      synonym_canonical: canonical_synonyms &&
-        canonical_synonyms.map { |s| SolrCore.string(s) },
+      common_name: synonyms && synonyms.select { |s| s.common_name? }.
+        map { |s| SolrCore.string(s.name.string) },
+      synonym: synonyms && synonyms.map { |s| SolrCore.string(s.name.string) },
+      synonym_canonical: synonyms && synonyms.
+        select { |s| s.name && s.name.canonical_form }.
+        map { |s| SolrCore.string(s.name.canonical_form.string) },
       parent_id: parent_id,
       taxon_concept_id: taxon_concept_id,
       hierarchy_id: hierarchy_id,
       rank_id: rank_id,
       vetted_id: vetted_id,
       published: published,
-      name: SolrCore.string(self["string"]),
-      canonical_form: SolrCore.string(self["canonical_form"]),
-      # TODO: I don't know that we need this anymore (it was an unfiltered
-      # version of the canonical form):
-      canonical_form_string: self["canonical_form_string"]
+      name: SolrCore.string(name.string),
+      canonical_form: name.clean_canonical_form,
+      # TODO: I don't know that we need this anymore:
+      canonical_form_string: name.canonical_form.string
     }
     if ancestor_names
       ancestor_names.keys.each do |key|

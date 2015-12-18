@@ -129,6 +129,17 @@ class Rank < ActiveRecord::Base
     end
   end
 
+  def self.label(rank_id)
+    unless @rank_labels
+      @rank_labels = {}
+      TranslatedRank.where(language_id: Language.english.id).each do |trank|
+        @rank_labels[trank.rank_id] = @solr_rank_map[trank.label] if
+          @solr_rank_map.has_key?(trank.label)
+      end
+    end
+    @rank_labels[rank_id]
+  end
+
   def tcs_code
     if c = Rank.tcs_codes.include?(label.downcase)
       return Rank.tcs_codes.fetch(label.downcase)

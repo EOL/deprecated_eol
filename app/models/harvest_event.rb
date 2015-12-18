@@ -171,7 +171,9 @@ class HarvestEvent < ActiveRecord::Base
 
   # NOTE: You need to call publish_data_objects before this; we don't do it
   # here, because it ends up being inefficient; it's best to do data_objects in
-  # a separate transaction, so it needed to be separate.
+  # a separate transaction, so it needed to be separate. TODO: this is a bad
+  # name, should be something like publish_objects; mark_as_published should be
+  # separate.
   def finish_publishing
     EOL.log_call
     publish_and_show_hierarchy_entries

@@ -217,6 +217,10 @@ class Hierarchy < ActiveRecord::Base
     EOL.log("done", prefix: ".")
   end
 
+  def ancestry_set
+    @ancestry_set ||= HierarchyEntriesFlattened.pks_in_hierarchy(self)
+  end
+
 private
 
   # There's no nice way to do this in Rails and can be super slow if you don't

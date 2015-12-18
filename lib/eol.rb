@@ -113,11 +113,15 @@ module EOL
   end
 
   # NOTE: Yes, this "really" belongs in EOL::Db, but I didn't want to have to
-  # type that when I needed it. :\ NOTE: You really don't need the single-pk
+  # type that when I needed it. :\ NOTE: You really don't _need_ the single-pk
   # version of this. You just want to #pluck(:id) in those cases. I only keep it
   # here to avoid surprise.
   def self.pluck_pks(klass, query)
     keys = klass.primary_keys || Array(klass.primary_key)
-    query.pluck("CONCAT(#{keys.map(&:to_s).join(", ',', ")}) pk")
+    pluck_fields(keys)
+  end
+
+  def self.pluck_fields(fields, query)
+    query.pluck("CONCAT(#{fields.map(&:to_s).join(", ',', ")}) f")
   end
 end

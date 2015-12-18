@@ -59,7 +59,7 @@ class Hierarchy
     def build_ancestry
       EOL.log_call
       @ancestry = {}
-      @children[0].each do |root|
+      @children["0"].each do |root|
         walk_down_tree(root, [])
       end
     end
@@ -84,11 +84,14 @@ class Hierarchy
           @flat_concepts << "#{@taxa[child]},#{@taxa[ancestor]}"
         end
       end
+      # Without returning something simple, the return value is huge, slowing
+      # things down.
+      true
     end
 
     def update_tables
       EOL.log_call
-      currently = HierarchyEntriesFlattened.pks_in_hierarchy(@hierarchy)
+      currently = @hierarchy.ancestry_set
       old = currently - @flat_entries
       create = @flat_entries - currently
 

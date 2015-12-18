@@ -64,7 +64,7 @@ class TraitBank
             :life_stage)
           add_meta(triples, h, "http://eol.org/schema/terms/statisticalMethod",
             :statistical_method)
-          triples << "<#{h[:trait]}> <source> <#{resource.graph_name}>"
+          triples << "<#{h[:trait]}> dc:source <#{resource.graph_name}>"
           traits << h[:trait]
         end
       end
@@ -72,10 +72,10 @@ class TraitBank
         results.each do |h|
           triples << "<#{h[:page]}> a <http://eol.org/schema/page> ;"\
             "<#{h[:predicate]}> <#{h[:target_page]}> ;"\
-            "<source> <#{resource.graph_name}>"
+            "dc:source <#{resource.graph_name}>"
           triples << "<#{h[:target_page]}> a <http://eol.org/schema/page> ;"\
             "<#{h[:inverse]}> <#{h[:page]}> ;"\
-            "<source> <#{resource.graph_name}>"
+            "dc:source <#{resource.graph_name}>"
           traits << h[:trait]
         end
       end

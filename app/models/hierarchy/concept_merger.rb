@@ -20,10 +20,7 @@ class Hierarchy
     # NOTE: this used to use DB transactions, but A) it was doing it wrong
     # (nested), and B) it did them "every 50 batches", which is awkward and...
     # well... useless anyway. I am going to do this WITHOUT A TRANSACTION. Deal
-    # with it. NOTE: this relies on hierarchy_entries_counts being correct. ...I
-    # am making that assumption because I just saw the code in harvesting that
-    # sets it, so I think it's there. :) However, you may still wish TODO to fix
-    # counts periodically (say, once a month).
+    # with it.
     def merges_for_hierarchy
       EOL.log_call
       fix_entry_counts if fix_entry_counts_needed?

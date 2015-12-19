@@ -57,6 +57,8 @@ class CollectionItem < ActiveRecord::Base
                  links:       { facet: 'Link',         i18n_key: "links" } }
   end
 
+  # TODO: I don't believe this is the right way to do things. :\ I suggest we
+  # take a different tack.
   def self.preload_collected_items(all_items, options = {})
     groups = all_items.group_by(&:collected_item_type)
     groups.each do |type, items|
@@ -73,7 +75,7 @@ class CollectionItem < ActiveRecord::Base
           select { |i| i.taxon_concept? }.
           map(&:collected_item_id)).
         each do |metric|
-        items.each do |item|
+        all_items.each do |item|
           item["richness_score"] = metric.richness_score if
             item.collected_item_id == metric.taxon_concept_id
         end

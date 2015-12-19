@@ -118,7 +118,7 @@ module EOL
   # here to avoid surprise.
   def self.pluck_pks(klass, query)
     keys = klass.primary_keys || Array(klass.primary_key)
-    pluck_fields(keys)
+    pluck_fields(keys, query)
   end
 
   def self.pluck_fields(fields, query)

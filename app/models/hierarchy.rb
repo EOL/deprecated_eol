@@ -216,7 +216,8 @@ class Hierarchy < ActiveRecord::Base
       execute(insert_dot_dohe_query("curated_data_objects_hierarchy_entries"))
     EOL.log("done", prefix: ".")
   end
-
+  
+  # This  query takes 10min in production for 533_548 entries:
   def ancestry_set
     @ancestry_set ||= HierarchyEntriesFlattened.pks_in_hierarchy(self)
   end

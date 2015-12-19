@@ -23,6 +23,7 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   end
 
   def self.delete_set(group)
+    return if group.empty?
     where("(hierarchy_entry_id, ancestor_id) IN (#{group.to_a.join(",")})").
       delete_all
   end

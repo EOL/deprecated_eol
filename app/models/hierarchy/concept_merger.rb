@@ -22,7 +22,7 @@ class Hierarchy
     # well... useless anyway. I am going to do this WITHOUT A TRANSACTION. Deal
     # with it.
     def merges_for_hierarchy
-      EOL.log_call
+      EOL.log("Start merges for hierarchy #{@hierarchy.display_title}")
       fix_entry_counts if fix_entry_counts_needed?
       lookup_preview_harvests
       get_confirmed_exclusions
@@ -40,6 +40,7 @@ class Hierarchy
         next if already_compared?(@hierarchy.id, other_hierarchy.id)
         compare_hierarchies(@hierarchy, other_hierarchy)
       end
+      EOL.log("Completed merges for hierarchy #{@hierarchy.display_title}")
     end
 
     private
@@ -74,6 +75,8 @@ class Hierarchy
           merge_matching_concepts(relationship)
         end
       end while entries.count > 0
+      EOL.log("Completed comparing hierarchy #{hierarchy1.id} to "\
+        "#{hierarchy2.id}")
     end
 
     # NOTE: This is a REALLY slow query. ...Which sucks. :\ Yes, even for

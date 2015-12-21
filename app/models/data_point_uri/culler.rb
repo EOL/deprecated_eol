@@ -1,6 +1,7 @@
 class DataPointUri
   class Culler
     def self.cull
+      culled = 0
       batch_size = 1000 # 10_000 was too high (query broke)
       last = DataPointUri.maximum(:id)
       low = DataPointUri.minimum(:id)
@@ -25,13 +26,15 @@ class DataPointUri
         if diff.count > 0
           puts "  Need to delete #{diff.count} DPURIs..."
           count = DataPointUri.where(uri: diff).delete_all
-          puts "  Deleted #{count}."
+          culled += count
+          puts "  Deleted #{count} (running total: #{culled})."
         else
           puts "  Nothing to delete."
         end
         low += batch_size
         high += batch_size
       end
+      puts "Completed. Deleted #{culled} unused data point URIs."
     end
   end
 end

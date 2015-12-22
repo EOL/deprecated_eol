@@ -244,9 +244,9 @@ describe 'API:pages' do
   end
   it "pages should filter out trusted and untrusted objects in xml" do
     response = get_as_xml("/api/pages/1.0/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=3")
-    response.xpath('//xmlns:taxon/xmlns:dataObject').each do |i|
-      response.xpath('//xmlns:taxon/xmlns:dataObject[i]/xmlns:additionalInformation/xmlns:vettedStatus')
-      .inner_text.should == "Unreviewed"
+    response.xpath('//xmlns:taxon/xmlns:dataObject').each do
+      response.xpath('//xmlns:taxon/xmlns:dataObject[i]/xmlns:additionalInformation/xmlns:vettedStatus').
+        inner_text.should == "Unreviewed"
     end
   end
   it "pages should filter out trusted and unknown objects" do
@@ -264,9 +264,9 @@ describe 'API:pages' do
   end
   it "pages should filter out trusted and unknown objects in xml" do
     response = get_as_xml("/api/pages/1.0/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=4")
-    response.xpath('//xmlns:taxon/xmlns:dataObject').each do |i|
-      response.xpath('//xmlns:taxon/xmlns:dataObject[i]/xmlns:additionalInformation/xmlns:vettedStatus')
-      .inner_text.should == "Untrusted"
+    response.xpath('//xmlns:taxon/xmlns:dataObject').each do
+      response.xpath('//xmlns:taxon/xmlns:dataObject[i]/xmlns:additionalInformation/xmlns:vettedStatus').
+        inner_text.should == "Untrusted"
     end
   end
   it 'pages should be able to toggle common names' do

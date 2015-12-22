@@ -258,7 +258,6 @@ class HarvestEvent < ActiveRecord::Base
     Rails.logger.error("** Destroyed HarvestEvent #{id}")
   end
 
-
   # TODO: The "Right Thing To Do" is to actually store a list of all entry ids
   # affected by the harvest (which you would have to do during the harvest). We
   # can't affect that yet, sooo...
@@ -273,7 +272,7 @@ class HarvestEvent < ActiveRecord::Base
       new_ancestor_ids = Set.new(HierarchyEntry.
         where(hierarchy_id: hierarchy.id).
         where(["id > ?",
-          previous_published_harvest.hierarchy_entries.max(:id)]).
+          previous_published_harvest.hierarchy_entries.maximum(:id)]).
         pluck(:id))
       (new_ancestor_ids + these_leaf_node_ids).to_a
     else

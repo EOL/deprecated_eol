@@ -15,6 +15,8 @@ class Name < ActiveRecord::Base
   has_many :taxon_concept_names
   has_many :hierarchy_entries
 
+  alias entries hierarchy_entries
+
   validates_presence_of   :string
   # this is being commented out because we are enforcing the uniqueness of clean_name not string
   # string is not indexed so that was creating a query that took a long time to run

@@ -75,6 +75,8 @@ class HierarchyEntry < ActiveRecord::Base
   scope :not_untrusted, -> { where(["vetted_id != ?", Vetted.untrusted.id]) }
   scope :has_identifier, -> { where("identifier IS NOT NULL AND "\
     "identifier != ''") }
+  scope :roots, -> { where(parent_id: 0) }
+  scope :active, -> { published.visible.not_untrusted }
 
   def self.sort_by_name(hierarchy_entries)
     hierarchy_entries.sort_by{ |he| he.name.string.downcase }

@@ -187,7 +187,6 @@ describe 'API:pages' do
     # and they should still contain vetted and rating info
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:vettedStatus').
       inner_text.should == images.first.vetted_by_taxon_concept(@taxon_concept).label
-      debugger
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"][last()]/xmlns:additionalInformation/xmlns:dataRating').
       inner_text.should == images.first.data_rating.to_s
   end

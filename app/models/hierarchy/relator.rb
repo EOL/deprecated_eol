@@ -314,6 +314,8 @@ class Hierarchy
       old_score = old_relationship && old_relationship.split(', ').last.to_f
       @relationships << "#{key} #{score[:score]}" unless
         old_score && old_score < score[:score]
+      count = @relationships.count
+      EOL.log("#{count} relationships...", prefix: ".") if count % 1000 == 0
     end
 
     def add_curator_assertions

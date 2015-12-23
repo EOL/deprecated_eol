@@ -70,8 +70,8 @@ class Hierarchy
       begin
         page ||= 0
         page += 1
-        get_page_of_relationships_from_solr(hierarchy1, hierarchy2, page).
-          each do |relationship|
+        entries = get_page_from_solr(hierarchy1, hierarchy2, page)
+        entries.each do |relationship|
           merge_matching_concepts(relationship)
         end
       end while entries.count > 0
@@ -81,7 +81,7 @@ class Hierarchy
 
     # NOTE: This is a REALLY slow query. ...Which sucks. :\ Yes, even for
     # Solr... it takes a VERY long time.
-    def get_page_of_relationships_from_solr(hierarchy1, hierarchy2, page)
+    def get_page_from_solr(hierarchy1, hierarchy2, page)
       EOL.log_call
       response = @solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page))

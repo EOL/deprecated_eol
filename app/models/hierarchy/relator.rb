@@ -71,18 +71,24 @@ class Hierarchy
 
     def compare_entries_by_id
       EOL.log_call
-      # NOTE that pagination DOES NOT HELP here, the offset in the query seems
-      # to determine the speed of the request, and not in a good way...
-      group_size = Rails.configuration.solr_relationships_page_size
-      @new_entry_ids.in_groups_of(group_size, false) do |batch|
-        response = @solr.
-          select("hierarchy_id:#{@hierarchy.id} AND "\
-          "id:(#{batch.join(" OR ")})", rows: group_size)
-        EOL.log("comparing #{response["response"]["docs"].count} entries")
-        response["response"]["docs"].each do |entry|
-          compare_entry(entry)
+      begin
+        page ||= 0
+        page += 1
+        entries = get_page_from_solr(page)
+        entries.each do |entry|
+          compare_entry(entry) if @new_entry_ids.include?(entry["id"])
         end
+      end while entries.count > 0
+    end
+
+    def get_page_from_solr(page)
+      response = @solr.paginate("hierarchy_id:#{@hierarchy.id}")
+      rhead = response["responseHeader"]
+      if rhead["QTime"] && rhead["QTime"].to_i > 1000
+        EOL.log("relator query: #{rhead["q"]}", prefix: ".")
+        EOL.log("relator request took #{rhead["QTime"]}ms", prefix: ".")
       end
+      response["response"]["docs"]
     end
 
     # TODO: cleanup. :| TODO: Speed up. This is a very, very slow process, even

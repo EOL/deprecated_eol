@@ -35,7 +35,11 @@ class SolrCore
     def connect(name)
       return if @connection
       @core = name
-      @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{name}")
+      # TODO: make this timeout dynamic. We don't really want production waiting
+      # this long! This was meant for publishing tasks.
+      timeout = 1024
+      @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{name}",
+        :read_timeout => timeout, :open_timeout => timeout)
     end
 
     def commit

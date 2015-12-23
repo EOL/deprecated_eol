@@ -48,19 +48,16 @@ class Hierarchy
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
       @count = 0
+      @per_page = Rails.configuration.solr_relationships_page_size
       @solr = SolrCore::HierarchyEntries.new
       @relationships = Set.new
     end
 
     def relate
       EOL.log_call
+      debugger
       return false unless @hierarchy # TODO: necessary?
-      if @new_entry_ids
-        compare_entries_by_id
-      else
-        raise NotImplementedError.new("cannot relate without list of ids")
-        # iterate_through_entire_hierarchy # not doing this now.
-      end
+      compare_entries
       add_curator_assertions
       delete_existing_relationships
       insert_relationships
@@ -69,7 +66,7 @@ class Hierarchy
 
     private
 
-    def compare_entries_by_id
+    def compare_entries
       EOL.log_call
       begin
         page ||= 0
@@ -82,7 +79,8 @@ class Hierarchy
     end
 
     def get_page_from_solr(page)
-      response = @solr.paginate("hierarchy_id:#{@hierarchy.id}")
+      response = @solr.paginate("hierarchy_id:#{@hierarchy.id}",
+        page: page, per_page: @per_page)
       rhead = response["responseHeader"]
       if rhead["QTime"] && rhead["QTime"].to_i > 1000
         EOL.log("relator query: #{rhead["q"]}", prefix: ".")

@@ -13,7 +13,7 @@ class Hierarchy
       @superceded = {}
       @visible_id = Visibility.get_visible.id
       @preview_id = Visibility.get_preview.id
-      @rel_page_size = Rails.configuration.solr_relationships_page_size
+      @per_page = Rails.configuration.solr_relationships_page_size
       @solr = SolrCore::HierarchyEntryRelationships.new
     end
 
@@ -105,7 +105,7 @@ class Hierarchy
     def compare_hierarchies_options(page)
       { sort: "relationship asc, visibility_id_1 asc, "\
         "visibility_id_2 asc, confidence desc, hierarchy_entry_id_1 asc, "\
-        "hierarchy_entry_id_2 asc"}.merge(page: page, per_page: @rel_page_size)
+        "hierarchy_entry_id_2 asc"}.merge(page: page, per_page: @per_page)
     end
 
     def merge_matching_concepts(relationship)

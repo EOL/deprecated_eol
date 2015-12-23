@@ -37,7 +37,7 @@ class SolrCore
       @core = name
       # TODO: make this timeout dynamic. We don't really want production waiting
       # this long! This was meant for publishing tasks.
-      timeout = 1024
+      timeout = 30.minutes.to_i
       @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{name}",
         :read_timeout => timeout, :open_timeout => timeout)
     end

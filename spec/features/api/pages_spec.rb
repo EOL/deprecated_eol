@@ -231,7 +231,8 @@ describe 'API:pages' do
   end
   it "pages should filter out trusted and untrusted objects" do
     vetted_stasuses = []
-    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=3")
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}."\
+     "json?images=0&text=10&videos=0&details=1&vetted=3")
     response["dataObjects"].each do |data_object|
       data_object = DataObject.find_by_guid(data_object["identifier"],
                                             order: "id desc")
@@ -243,15 +244,18 @@ describe 'API:pages' do
     expect(vetted_stasuses.include?(Vetted.untrusted.id)).to be_false
   end
   it "pages should filter out trusted and untrusted objects in xml" do
-    response = get_as_xml("/api/pages/1.0/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=3")
+    response = get_as_xml("/api/pages/1.0/#{@taxon_concept.id}"\
+     "?images=0&text=10&videos=0&details=1&vetted=3")
     response.xpath('//xmlns:taxon/xmlns:dataObject').each do
-      response.xpath('//xmlns:taxon/xmlns:dataObject[i]/xmlns:additionalInformation/xmlns:vettedStatus').
-        inner_text.should == "Unreviewed"
+      response.xpath('//xmlns:taxon/xmlns:dataObject[i]/'\
+       'xmlns:additionalInformation/xmlns:vettedStatus').
+         inner_text.should == "Unreviewed"
     end
   end
   it "pages should filter out trusted and unknown objects" do
     vetted_stasuses = []
-    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=4")
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}."\
+     "json?images=0&text=10&videos=0&details=1&vetted=4")
     response["dataObjects"].each do |data_object|
       data_object = DataObject.find_by_guid(data_object["identifier"],
                                             order: "id desc")
@@ -263,9 +267,11 @@ describe 'API:pages' do
     expect(vetted_stasuses.include?(Vetted.untrusted.id)).to be_true
   end
   it "pages should filter out trusted and unknown objects in xml" do
-    response = get_as_xml("/api/pages/1.0/#{@taxon_concept.id}?images=0&text=10&videos=0&details=1&vetted=4")
+    response = get_as_xml("/api/pages/1.0/#{@taxon_concept.id}"\
+     "?images=0&text=10&videos=0&details=1&vetted=4")
     response.xpath('//xmlns:taxon/xmlns:dataObject').each do
-      response.xpath('//xmlns:taxon/xmlns:dataObject[i]/xmlns:additionalInformation/xmlns:vettedStatus').
+      response.xpath('//xmlns:taxon/xmlns:dataObject[i]'\
+       '/xmlns:additionalInformation/xmlns:vettedStatus').
         inner_text.should == "Untrusted"
     end
   end

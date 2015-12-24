@@ -287,7 +287,7 @@ class Hierarchy
       other = which == 1 ? 2 : 1
       hierarchy.complete &&
         relationship["visibility_id_#{which}"] == vis_id &&
-        concept_has_vis_id_in_hierarchy(relationship["taxon_concept_id_#{other}"],
+        concept_has_vis_id_in_hierarchy?(relationship["taxon_concept_id_#{other}"],
           vis_id, hierarchy)
     end
 

@@ -249,7 +249,7 @@ describe 'API:pages' do
     response.xpath('//xmlns:taxon/xmlns:dataObject').each do
       response.xpath('//xmlns:taxon/xmlns:dataObject[i]/'\
        'xmlns:additionalInformation/xmlns:vettedStatus').
-         inner_text.should == "Unreviewed"
+        inner_text.should == "Unreviewed"
     end
   end
   it "pages should filter out trusted and unknown objects" do

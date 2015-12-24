@@ -71,8 +71,8 @@
     def paginate(q, options = {})
       page = options.delete(:page) || 1
       per_page = options.delete(:per_page) || 30
-      begin
-        response = connection.paginate(page, per_page, "select", params: options.merge(q: q))
+      response = begin
+        connection.paginate(page, per_page, "select", params: options.merge(q: q))
       rescue Timeout::Error => e
         EOL.log("SOLR TIMEOUT: page/per: #{page}/#{per_page} ; q: #{q}",
           prefix: "!")
@@ -99,7 +99,12 @@
     # NOTE: returns eval'ed ruby (a hash):
     def select(q, options = {})
       params = options.merge(q: q)
-      response = connection.select(params: params)
+      response = begin
+        connection.select(params: params)
+      rescue Timeout::Error => e
+        EOL.log("SOLR TIMEOUT: q: #{q}", prefix: "!")
+        raise(e)
+      end
       unless response["responseHeader"]["status"] == 0
         raise "Solr error! #{response["responseHeader"]}"
       end

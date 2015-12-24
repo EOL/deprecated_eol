@@ -21,7 +21,7 @@ class Hierarchy
     def merge_tree(root)
       # We reset the hash of merges for each new tree, but make it an instance
       # variable so we don't have to pass it around.
-      @merges = {}
+      @matches = {}
       # Same: we want to know ancestry as we walk down the tree, so we can check
       # for previous merges.
       @ancestry = {}
@@ -32,14 +32,19 @@ class Hierarchy
         where(["lft BETWEEN ? AND ?", root.lft, root.rgt]).
         order(:lft)
       # TODO: Hmmmn... tricky: we want to stop when we've found a virus.
-      descendants.find_each do |entry| # TODO: probably not.
-        remember_ancestors(entry)
-        match(entry, entry.name)
-        match(entry, entry.name.canonical_form.name)
-        entry.synonyms.each do |synonym|
-          match(entry, synonym.name)
-          match(entry, synonym.name.canonical_form.name)
-        end
+      descendants.find_each do |entry|
+        find_matches(entry)
+      end
+    end
+
+    def find_matches(entry)
+      remember_ancestors(entry)
+      remember_matches(entry)
+      match(entry, entry.name)
+      match(entry, entry.name.canonical_form.name)
+      entry.synonyms.each do |synonym|
+        match(entry, synonym.name)
+        match(entry, synonym.name.canonical_form.name)
       end
     end
 
@@ -51,13 +56,17 @@ class Hierarchy
       end
     end
 
-    def match(entry, name)
+    def remember_matches(entry)
+      @matches[entry.id] = entry.taxon_concept.entry_ids
+    end
+
+    def match(this, name)
       return if name.nil?
+      ancestors = @ancestry[this.id]
       matches = name.entries.active.select(@entry_attributes).
         includes(:taxon_concept)
-      # TODO: something... so, we've got a list here of entries that we could
-      # potentially merge with.
-
+      matches.each do |other|
+      end
       # We want to see if we've matched any of its ancestors, first... because
       # if we have, it "scores" better for merging. We need to check the taxon
       # concept of each; if there are matches in any other single hierarchy, we

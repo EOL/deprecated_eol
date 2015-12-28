@@ -4,7 +4,7 @@ class CreateMediaAssociations < ActiveRecord::Migration
     create_table :media_associations do |t|
       t.integer :hierarchy_entry_id, null: false
       t.integer :data_object_id, null: false
-      # NOTE: this is not a float, like it usual is! I'm minimizing size.
+      # NOTE: this is not a float, like it usually is! I'm minimizing size.
       t.integer :rating, null: false, default: 250
       t.integer :vet_sort, null: false, default: 1, :limit => 2
       t.boolean :visible, null: false, default: true

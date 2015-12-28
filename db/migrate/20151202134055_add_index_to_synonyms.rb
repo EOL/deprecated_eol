@@ -1,3 +1,4 @@
+# 20151202134055
 class AddIndexToSynonyms < ActiveRecord::Migration
   def change
     # INSERT INTO `schema_migrations` (`version`) VALUES ('20151202134055')

@@ -19,12 +19,14 @@ class MediaAssociation < ActiveRecord::Base
     end
 
     def merge_associations_from_table(assocs, klass, batch_size = 6400)
+      EOL.log_call
       visible = Visibility.get_visible.id
       preview = Visibility.get_preview.id
       weights = Vetted.weight
       offset = 0
       count = 1 # Arbitrary non-zero value
       while count != 0
+        EOL.log("offset: #{offset}", prefix: ".")
         query = "SELECT assocs.hierarchy_entry_id he_id, dato.id do_id, "\
           "  dato.data_rating rate, assocs.visibility_id vis, "\
           "  assocs.vetted_id vet, dato.published d_pub, he.published h_pub "\

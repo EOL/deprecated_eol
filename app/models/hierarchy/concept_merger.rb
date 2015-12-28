@@ -144,8 +144,8 @@ class Hierarchy
       end
       if affected = additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
         EOL.log("SKIP: A merge of #{id1} (concept #{tc_id1}) and #{id2} "\
-          "(concept #{tc_id2}) is not allowed by complete hierarchy "\
-          "#{affected.label} (#{affected.id})", prefix: ".")
+          "(concept #{tc_id2}) is not allowed by complete hierarchy",
+          prefix: ".")
         return(nil)
       end
       EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
@@ -308,7 +308,7 @@ class Hierarchy
     end
 
     def confirmed_exclusions_matches?(id, other_tc_id)
-      @confirmed_exclusions[id1].each do |tc_id|
+      @confirmed_exclusions[id].each do |tc_id|
         tc_id = follow_supercedure_cached(tc_id)
         return true if tc_id == other_tc_id
       end
@@ -321,13 +321,11 @@ class Hierarchy
     def additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
       from_first = HierarchyEntry.visible.
         joins(:hierarchy).
-        where(taxon_concept_id: tc_id1, hierarchy: { complete: true }).
-        pluck(&:hierarchy_id)
-      entry = HierarchyEntry.visible.
-        includes(:hierarchy).
+        where(taxon_concept_id: tc_id1, hierarchies: { complete: true }).
+        pluck(:hierarchy_id)
+      HierarchyEntry.visible.
         where(taxon_concept_id: tc_id2, hierarchy_id: from_first).
-        first
-      return entry && entry.hierarchy
+        exists?
     end
   end
 end

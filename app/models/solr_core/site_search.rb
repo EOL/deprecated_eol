@@ -318,10 +318,11 @@ class SolrCore
     def get_object_agents(ids)
       EOL.log_call
       @agents_for_objects ||= {}
+      # TODO: this is a REALLY slow query. We must be missing an index.
       Agent.includes(:data_objects).joins(:data_objects).
         where(["agents_data_objects.data_object_id IN (?) "\
           "AND data_objects.published = 1", ids]).
-        find_each do |agent|
+        find_each(batch_size: 100) do |agent|
         agent_name = SolrCore.string("#{agent.full_name} #{agent.given_name} "\
           "#{agent.family_name}")
         if agent_name.blank?

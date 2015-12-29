@@ -42,8 +42,10 @@ module EOL
       # the association between an "occurrence" and a "taxon" (which is really a
       # hierarchy_entry.identifier)
       def traits_in_resource(resource)
-        sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
-          "<#{resource.graph_name}> { ?s dwc:taxonID ?o } }").first[:"callret-0"].to_i
+        sparql_client.query("PREFIX dwc: <#{EOL::Sparql::NAMESPACES["dwc"]}> "\
+          "SELECT COUNT(*) WHERE { GRAPH "\
+          "<#{resource.graph_name}> { ?s dwc:taxonID ?o } }").
+          first[:"callret-0"].to_i
       end
 
       # In Dec 2015 it became clear that harvesting was adding triples for taxa

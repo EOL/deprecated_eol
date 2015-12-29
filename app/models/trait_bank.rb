@@ -170,6 +170,10 @@ class TraitBank
       EOL::Sparql.connection.query(query)
     end
 
+    # NOTE (IMPORTANT!) - some versions of Virtuoso don't seem to paginate
+    # correctly, and may skip some entries or produce duplicates. I'm not sure
+    # why ours is different, but I did check it: pagination seems to work just
+    # fine (without using an ORDER BY). [shrug] You should probably check!
     def paginate(query, options = {}, &block)
       EOL.log_call
       results = []
@@ -321,7 +325,7 @@ class TraitBank
         }"
     end
 
-    def metadata_query(resource, traits)
+    def metadata_query(resource, trait)
       "SELECT DISTINCT *
       # metadata_query
       WHERE {

@@ -29,6 +29,10 @@ class Resource
 
     def denormalize
       @resource.hierarchy.insert_data_objects_taxon_concepts
+      # TODO: this next command isn't technically enough. (it will work, but it
+      # will leave zombie entries). We need to add a step that says "delete all
+      # entries in dotoc where ids in (list of ids that were in previous event
+      # but not this one)"
       @harvest_event.insert_dotocs
     end
 

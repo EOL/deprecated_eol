@@ -28,7 +28,7 @@ class DataObjectsTableOfContent < ActiveRecord::Base
     else
       EOL.log("Found appropriate data object TOC items, rebuilding...", prefix: '.')
       ActiveRecord::Base.transaction do
-        ActiveRecord::Base.connection.execute("TRUNCATE TABLE `#{table_name}`")
+        where(data_object_id: ids).delete_all
         EOL::Db.bulk_insert(self, [:data_object_id, :toc_id], dotocs.to_a)
       end
       EOL.log_return

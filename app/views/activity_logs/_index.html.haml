@@ -26,7 +26,10 @@
             = link_to image_tag(item.user.logo_url(size: :small), :alt => I18n.t(:comment_show_posters_image_alt,
               :posters_name => h(item.user.full_name)), width: 48, height: 48), user_url(item.user), :class => 'avatar'
           .details
-            = render "activity_logs/#{item.class.name.underscore}", {:item => item, :display_curator => display_curator}
+            - begin
+              = render "activity_logs/#{item.class.name.underscore}", {:item => item, :display_curator => display_curator}
+            - rescue ActiveRecord::RecordNotFound => e
+              %p= t(:object_removed)
             %p.meta
               - if actual_date
                 = raw I18n.l(item.created_at, :format => :long_utc)

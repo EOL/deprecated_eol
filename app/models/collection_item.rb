@@ -92,6 +92,7 @@ class CollectionItem < ActiveRecord::Base
     batch = 10_000
     current = 1
     while current < last
+      items = []
       taxa.
       select("collection_items.*, supercedure_id new_tc_id").
       includes(collected_item: :taxon_concept_metric).
@@ -99,16 +100,15 @@ class CollectionItem < ActiveRecord::Base
         "collection_items.collected_item_id").
       where(["supercedure_id != 0 AND collection_items.id > ? AND "\
         "collection_items.id < ?", current, current + batch]).
-      find_in_batches do |items|
-        items.each do |item|
-          begin
-            item.update_attribute(:collected_item_id, item[:new_tc_id])
-          rescue ActiveRecord::RecordNotUnique
-            # The superceded taxon was already in the collection; safe to ignore:
-            item.destroy
-          end
+      find_each do |item|
+        begin
+          item.update_attribute(:collected_item_id, item[:new_tc_id])
           item["richness_score"] =
             item.collected_item.taxon_concept_metric.try(:richness_score)
+          items << item
+        rescue ActiveRecord::RecordNotUnique
+          # The superceded taxon was already in the collection; safe to ignore:
+          item.destroy
         end
         SolrCore::CollectionItems.reindex_items(items)
       end

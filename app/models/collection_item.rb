@@ -94,8 +94,8 @@ class CollectionItem < ActiveRecord::Base
     while current < last
       taxa.
       select("collection_items.*, supercedure_id new_tc_id").
-      includes(:taxon_concept_metric).
-      joins("JOIN taxon_concepts ON taxon_concepts.id = "\
+      includes(collected_item: :taxon_concept_metric).
+        joins("JOIN taxon_concepts ON taxon_concepts.id = "\
         "collection_items.collected_item_id").
       where(["supercedure_id != 0 AND collection_items.id > ? AND "\
         "collection_items.id < ?", current, current + batch]).
@@ -107,6 +107,8 @@ class CollectionItem < ActiveRecord::Base
             # The superceded taxon was already in the collection; safe to ignore:
             item.destroy
           end
+          item["richness_score"] =
+            item.collected_item.taxon_concept_metric.try(:richness_score)
         end
         SolrCore::CollectionItems.reindex_items(items)
       end

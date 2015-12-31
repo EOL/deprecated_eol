@@ -94,6 +94,7 @@ class CollectionItem < ActiveRecord::Base
     while current < last
       taxa.
       select("collection_items.*, supercedure_id new_tc_id").
+      includes(:taxon_concept_metric).
       joins("JOIN taxon_concepts ON taxon_concepts.id = "\
         "collection_items.collected_item_id").
       where(["supercedure_id != 0 AND collection_items.id > ? AND "\
@@ -107,8 +108,6 @@ class CollectionItem < ActiveRecord::Base
             item.destroy
           end
         end
-        # Pre-load taxa to avoid N+1 problem:
-        preload_collected_items(items, richness_score: true)
         SolrCore::CollectionItems.reindex_items(items)
       end
       current += batch

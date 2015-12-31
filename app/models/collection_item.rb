@@ -11,6 +11,7 @@ class CollectionItem < ActiveRecord::Base
     foreign_key: :added_by_user_id
   has_and_belongs_to_many :refs
 
+  # NOTE: type is not an indexed field, so don't rely on this for speed:
   scope :collections, conditions: { collected_item_type: 'Collection' }
   scope :communities, conditions: { collected_item_type: 'Community' }
   scope :data_objects, conditions: { collected_item_type: 'DataObject' }
@@ -86,22 +87,31 @@ class CollectionItem < ActiveRecord::Base
 
   # TODO - would be nice to have a list of superceded taxa from the harvest!
   def self.remove_superceded_taxa
-    taxa.
+    # No appropriate indexes, here, so we have to use ID:
+    last = CollectionItem.maximum(:id)
+    batch = 10_000
+    current = 1
+    while current < last
+      taxa.
       select("collection_items.*, supercedure_id new_tc_id").
       joins("JOIN taxon_concepts ON taxon_concepts.id = "\
         "collection_items.collected_item_id").
-      where("supercedure_id != 0").find_in_batches do |items|
-      items.each do |item|
-        begin
-          item.update_attribute(:collected_item_id, item[:new_tc_id])
-        rescue ActiveRecord::RecordNotUnique
-          # The superceded taxon was already in the collection; safe to ignore:
-          item.destroy
+      where(["supercedure_id != 0 AND collection_items.id > ? AND "\
+        "collection_items.id < ?", current, current + batch]).
+      find_in_batches do |items|
+        items.each do |item|
+          begin
+            item.update_attribute(:collected_item_id, item[:new_tc_id])
+          rescue ActiveRecord::RecordNotUnique
+            # The superceded taxon was already in the collection; safe to ignore:
+            item.destroy
+          end
         end
+        # Pre-load taxa to avoid N+1 problem:
+        preload_collected_items(items, richness_score: true)
+        SolrCore::CollectionItems.reindex_items(items)
       end
-      # Pre-load taxa to avoid N+1 problem:
-      preload_collected_items(items, richness_score: true)
-      SolrCore::CollectionItems.reindex_items(items)
+      current += batch
     end
   end
 

@@ -4019,6 +4019,7 @@ en:
   limits_the_number_of_returned_sound_objects: "limits the number of returned sound objects"
   limits_the_number_of_returned_map_objects: "limits the number of returned map objects"
   limits_the_number_of_returned_iucn_objects: "include the IUCN Red List status object"
+  limits_the_returned_to_a_specific_language: "provides the results in the specified language."
   link_more_about: "Learn more about this link"
   link_name: "Link Name"
   link_to_this_term: "link to this term"

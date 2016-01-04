@@ -23,13 +23,16 @@ class TraitBank
       # nothing works. :\
       # EOL::Sparql.connection.query("CLEAR GRAPH <#{graph_name}>")
       taxa = Set.new
-      Resource.where("harvested_at IS NOT NULL").find_each do |resource|
-        count = resource.trait_count
-        # Rebuild this one if there are any triples in the (old) graph:
-        taxa += rebuild_resource(resource, count) if count > 0
+      begin
+        Resource.where("harvested_at IS NOT NULL").find_each do |resource|
+          count = resource.trait_count
+          # Rebuild this one if there are any triples in the (old) graph:
+          taxa += rebuild_resource(resource, count) if count > 0
+        end
+      ensure
+        # This could be QUITE a lot... many millions. :\
+        flatten_taxa(taxa)
       end
-      # This could be QUITE a lot... many millions. :\
-      flatten_taxa(taxa)
     end
 
     # TODO: the problem is that the mappings graphs appear to be mucked up! So,
@@ -70,10 +73,10 @@ class TraitBank
       end
       paginate(associations_query(resource)) do |results|
         results.each do |h|
-          triples << "<#{h[:page]}> a <http://eol.org/schema/page> ;"\
+          triples << "<#{h[:page]}> a eol:page ;"\
             "<#{h[:predicate]}> <#{h[:target_page]}> ;"\
             "dc:source <#{resource.graph_name}>"
-          triples << "<#{h[:target_page]}> a <http://eol.org/schema/page> ;"\
+          triples << "<#{h[:target_page]}> a eol:page ;"\
             "<#{h[:inverse]}> <#{h[:page]}> ;"\
             "dc:source <#{resource.graph_name}>"
           traits << h[:trait]
@@ -153,21 +156,6 @@ class TraitBank
       EOL::Sparql.connection.query(query).map do |r|
         r[:page].to_s.sub(/.*\/(\d+)$/, '\1')
       end
-    end
-
-    def traits_for_page(page, limit = 1000, offset)
-      query = "
-      SELECT DISTINCT *
-      # traits_for_page
-      WHERE {
-        GRAPH <http://eol.org/traitbank> {
-          <http://eol.org/pages/#{page}> ?predicate ?trait .
-          ?trait a eol:trait .
-        }
-      }
-      LIMIT #{limit}
-      #{"OFFSET #{offset}" if offset}"
-      EOL::Sparql.connection.query(query)
     end
 
     # NOTE (IMPORTANT!) - some versions of Virtuoso don't seem to paginate

@@ -34,8 +34,10 @@ class Collection < ActiveRecord::Base
   scope :non_watch, -> { where(
     "special_collection_id != #{SpecialCollection.watch.id}") }
   scope :watch, -> { where(special_collection_id: SpecialCollection.watch.id) }
+  scope :spammy, -> { where(["created_at > ? AND (name LIKE '%movie%' OR name "\
+    "LIKE '%watch%' OR name LIKE '%putlocker%' OR name LIKE '%put-locker%' OR "\
+    "name LIKE '%full MKV%') AND name NOT LIKE '%Watch List%'", 1.week.ago]) }
 
-  validates_presence_of :name
   # JRice removed the requirement for the uniqueness of the name. Why? Imagine
   # user#1 creates a collection named "foo". She then gives user#2 acess to
   # "foo".  user#2 already has a collection called "foo", but this collection is
@@ -46,6 +48,7 @@ class Collection < ActiveRecord::Base
   # see any of these messages as clear... or helpful. ...more trouble than it's
   # worth, and the restriction is fairly arbitrary anyway: it's just there for
   # the clarity of the user.  Now the user needs to manage this by themselves.
+  validates_presence_of :name
 
   before_update :set_relevance_if_collection_items_changed
 
@@ -77,6 +80,15 @@ class Collection < ActiveRecord::Base
       end
     end
     return taxa_counts
+  end
+
+  # NOTE: you don't want to do this unless you REALLY know what you are doing.
+  def scrub!
+    name = "Violation of TOS removed"
+    description = ""
+    collection_items.delete_all
+    save
+    EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(self)
   end
 
   def special?

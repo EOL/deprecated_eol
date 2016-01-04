@@ -315,6 +315,13 @@ class DataObject < ActiveRecord::Base
     source_url
   end
 
+  def scrub!(by_user)
+    mark_for_all_association_as_hidden_untrusted(by_user)
+    unpublish
+    remove_data_object_from_solr
+    remove_all_collection_items #remove any collection items containing it (This will also remove them from solr)
+  end
+
   def created_by_user?
     user != nil
   end
@@ -1312,7 +1319,11 @@ class DataObject < ActiveRecord::Base
   end
 
   def remove_data_object_from_solr
+    # Old:
     EOL::Solr::DataObjectsCoreRebuilder.remove_data_object(self)
+    # New (and a different core):
+    @solr = SolrCore::SiteSearch.new
+    @solr.delete_item(self)
   end
 private
 

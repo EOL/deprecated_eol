@@ -51,13 +51,16 @@ module EOL
           end
 
           if response.code.to_i != 201 && Rails.logger
-            Rails.logger.error "** SOME DATA FAILED TO LOAD IN VIRTUOSO:"
-            Rails.logger.error "** Graph: #{options[:graph_name]}"
-            Rails.logger.error "** URI: #{uri.request_uri}"
-            Rails.logger.error "** User: #{username}"
-            Rails.logger.error "** Namespaces prefixes: #{namespaces_prefixes}"
-            Rails.logger.error "** Query: #{query}"
-            Rails.logger.error "** Response class: #{response.class_name}"
+            EOL.log("SOME DATA FAILED TO LOAD IN VIRTUOSO", prefix: "!")
+            EOL.log("Graph: #{options[:graph_name]}", prefix: "!")
+            EOL.log("URI: #{uri.request_uri}", prefix: "!")
+            EOL.log("User: #{username}", prefix: "!")
+            EOL.log("Namespaces prefixes: #{namespaces_prefixes}", prefix: "!")
+            EOL.log("Query: #{query}", prefix: "!")
+            EOL.log("Response: (#{response.message}) #{res.to_hash.inspect}",
+              prefix: "!")
+            EOL.log("Response Body: #{response.body}", prefix: "!") if
+              response.response_body_permitted?
             return false
           end
         end

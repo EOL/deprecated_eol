@@ -22,6 +22,11 @@ class SolrCore
       commit
     end
 
+    def delete_item(item)
+      delete("resource_type:#{item.class.name} AND "\
+        "resource_id:(#{item.id})")
+    end
+
     def insert_batch(klass, ids)
       EOL.log_call
       # Used when building indexes with this class:

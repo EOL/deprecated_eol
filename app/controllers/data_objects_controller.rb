@@ -219,10 +219,7 @@ class DataObjectsController < ApplicationController
 
   #GET /data_objects/:id/delete
   def delete
-    @data_object.mark_for_all_association_as_hidden_untrusted(current_user)
-    @data_object.unpublish
-    @data_object.remove_data_object_from_solr
-    @data_object.remove_all_collection_items #remove any collection items containing it (This will also remove them from solr)
+    @data_object.scrub!
     log_action(@data_object, :delete, collect: false)
     redirect_to data_object_path(@data_object), notice: I18n.t(:data_object_deleted)
   end

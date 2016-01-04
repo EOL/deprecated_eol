@@ -271,6 +271,8 @@ class User < ActiveRecord::Base
   def deactivate
     update_column(:active, false)
     remove_from_index
+    # This is to tell IdentityCache that the user is invalid and clear it:
+    save
   end
 
   def activate

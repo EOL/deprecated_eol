@@ -206,6 +206,11 @@ class Comment < ActiveRecord::Base
       parent_type == last_comment.parent_type
   end
 
+  def spammy?
+    return false unless body =~ EOL.spam_re
+    return user.created_at > 1.week.ago
+  end
+
 private
 
   def add_recipient_user_making_comment(recipients)

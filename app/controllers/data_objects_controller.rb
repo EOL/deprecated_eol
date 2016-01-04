@@ -54,6 +54,9 @@ class DataObjectsController < ApplicationController
     if DataObject.same_as_last?(params, user: current_user,taxon_concept: @taxon_concept )
       flash[:notice] = I18n.t(:duplicate_text_warning)
       self.new && return
+    elsif DataObject.spammy?(params, current_user)
+      flash[:notice] = I18n.t(:error_violates_tos)
+      self.new && return
     end
     @data_object = DataObject.create_user_text(
       params[:data_object],

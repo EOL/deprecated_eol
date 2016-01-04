@@ -1269,6 +1269,13 @@ class DataObject < ActiveRecord::Base
     end
   end
 
+  def self.spammy?(params, user)
+    return false unless user.newish?
+    return true if params[:data_object][:description] =~ EOL.spam_re
+    return true if params[:data_object][:object_title] =~ EOL.spam_re
+    return false
+  end
+
   def exemplar?
     TaxonConceptExemplarImage.exists?(data_object_id: id) ||
       TaxonConceptExemplarArticle.exists?(data_object_id: id)

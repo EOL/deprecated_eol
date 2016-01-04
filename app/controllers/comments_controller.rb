@@ -30,6 +30,8 @@ class CommentsController < ApplicationController
 
     if @comment.same_as_last?
       flash[:notice] = I18n.t(:duplicate_comment_warning)
+    elsif @comment.spammy?
+      flash[:notice] = I18n.t(:error_violates_tos)
     elsif @comment.save
       flash[:notice] = I18n.t(:comment_added_notice)
       auto_collect(@comment.parent)

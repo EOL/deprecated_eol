@@ -147,7 +147,6 @@ module EOL
             return_hash['references'] << r.full_reference
             return_hash['references'].uniq!
           end
-
           return return_hash
         end
       end

@@ -352,4 +352,13 @@ describe 'API:pages' do
     response['vernacularNames'][0]['eol_preferred'].should == true
   end
 
+  it 'excludes the empty attributes from the response' do 
+    taxon_concept = TaxonConcept.gen
+    response = get_as_xml("/api/data_objects/#{taxon_concept.id}")
+    expect(response["references"]).to be_nil
+    expect(response["agents"]).to be_nil
+    response = get_as_json("/api/data_objects/#{taxon_concept.id}.json")
+    expect(response["references"]).to be_nil
+    expect(response["agents"]).to be_nil
+  end
 end

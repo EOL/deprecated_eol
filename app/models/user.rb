@@ -209,6 +209,8 @@ class User < ActiveRecord::Base
   end
 
   def newish?
+    # If they are approved to curate, we give them a pass:
+    return false if min_curator_level?(:full)
     created_at > 1.week.ago
   end
 

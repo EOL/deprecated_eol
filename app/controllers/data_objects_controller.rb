@@ -54,6 +54,9 @@ class DataObjectsController < ApplicationController
     if DataObject.same_as_last?(params, user: current_user,taxon_concept: @taxon_concept )
       flash[:notice] = I18n.t(:duplicate_text_warning)
       self.new && return
+    elsif DataObject.spammy?(params, current_user)
+      flash[:notice] = I18n.t(:error_violates_tos)
+      self.new && return
     end
     @data_object = DataObject.create_user_text(
       params[:data_object],
@@ -163,6 +166,10 @@ class DataObjectsController < ApplicationController
   # old @data_object is loaded in before_filter :load_data_object
   def update
     @references = params[:references]
+    if DataObject.spammy?(params, current_user, refs: @references)
+      update_failed(I18n.t(:error_violates_tos)) and return
+    end
+
     # Important that you're getting the latest version:
     DataObject.with_master do
       if @data_object.users_data_object.user_id != current_user.id
@@ -219,10 +226,7 @@ class DataObjectsController < ApplicationController
 
   #GET /data_objects/:id/delete
   def delete
-    @data_object.mark_for_all_association_as_hidden_untrusted(current_user)
-    @data_object.unpublish
-    @data_object.remove_data_object_from_solr
-    @data_object.remove_all_collection_items #remove any collection items containing it (This will also remove them from solr)
+    @data_object.scrub!
     log_action(@data_object, :delete, collect: false)
     redirect_to data_object_path(@data_object), notice: I18n.t(:data_object_deleted)
   end

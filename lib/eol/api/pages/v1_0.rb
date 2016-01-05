@@ -129,7 +129,8 @@ module EOL
               params[:data_object]
             return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
 
-            return_hash["synonyms"] = if params[:synonyms]
+            if params[:synonyms]
+              return_hash["synonyms"] = 
               taxon_concept.scientific_synonyms.
                 includes([:name, :synonym_relation, :hierarchy]).
                 map do |syn|
@@ -137,12 +138,10 @@ module EOL
                 resource_title = syn.hierarchy.try(:resource).try(:title) || "" #try returns nil when called on nil
                 { "synonym" => syn.name.string, "relationship" => relation, "resource" => resource_title}
               end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
-            else
-              []
-            end
+              end
 
-            return_hash['vernacularNames'] = []
             if params[:common_names]
+              return_hash['vernacularNames'] = []
               taxon_concept.common_names.each do |tcn|
                 lang = tcn.language ? tcn.language.iso_639_1 : ''
                 common_name_hash = {
@@ -155,8 +154,8 @@ module EOL
               end
             end
 
-            return_hash['references'] = []
             if params[:references]
+              return_hash['references'] = []
               references = Ref.find_refs_for(taxon_concept.id)
               references = Ref.sort_by_full_reference(references)
               references.each do |r|
@@ -165,26 +164,29 @@ module EOL
               return_hash['references'].uniq!
             end
 
-            return_hash['taxonConcepts'] = []
-            taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
-              entry_hash = {
-                'identifier'      => entry.id,
-                'scientificName'  => entry.name.string,
-                'nameAccordingTo' => entry.hierarchy.label,
-                'canonicalForm'   => (entry.name.canonical_form.string rescue '')
-              }
-              entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
-              entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
-              entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
-              return_hash['taxonConcepts'] << entry_hash
+          unless params["taxonConcepts"] == false
+              return_hash['taxonConcepts'] = []
+              taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
+                entry_hash = {
+                  'identifier'      => entry.id,
+                  'scientificName'  => entry.name.string,
+                  'nameAccordingTo' => entry.hierarchy.label,
+                  'canonicalForm'   => (entry.name.canonical_form.string rescue '')
+                }
+                entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
+                entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
+                entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
+                return_hash['taxonConcepts'] << entry_hash
+              end
+          end
+          end
+          if (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
+            return_hash['dataObjects'] = []
+            data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
+            data_objects.each do |data_object|
+              return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
             end
-          end
-
-          return_hash['dataObjects'] = []
-          data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
-          data_objects.each do |data_object|
-            return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
-          end
+        end
           return return_hash
         end
 

@@ -99,4 +99,8 @@ module EOL
       "#{Time.now.strftime("%H:%M:%S.%L")}#{diff} #{msg}")
     @last_log_time = Time.now
   end
+
+  def self.spam_re
+    @spam_re ||= /\b(movie|watch|putlocker|put-locker|full mkv|http)\b/i
+  end
 end

@@ -19,6 +19,7 @@ namespace :i18n do
   desc "Load all translations into redis."
   task :to_redis => :environment do
     Dir.entries(lang_dir).grep(/yml$/).each do |file|
+      next if file =~ /^qqq/ # These files are for comments only.
       translations = YAML.load_file(File.join(lang_dir, file))
       locale = translations.keys.first # There's only one.
       puts "  ++ #{locale} -> #{file} (#{translations[locale].keys.count} keys)"

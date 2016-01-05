@@ -162,7 +162,6 @@ describe 'API:synonyms' do
     image.object_url = 'http://images.marinespecies.org/resized/23745_electra-crustulenta-pallas-1766.jpg'
     image.object_cache_url = 200911302039366
     image.save!
-
     response = get_as_xml("/api/data_objects/#{image.guid}")
     response.xpath('/').inner_html.should_not == ""
     response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == image.guid
@@ -210,6 +209,16 @@ describe 'API:synonyms' do
     d.curated_data_objects_hierarchy_entries[1].update_column(:visibility_id, Visibility.invisible.id)
     response = get_as_json("/api/data_objects/#{d.guid}.json")
     response['identifier'].should == nil
+  end
+
+  it 'excludes the empty attributes from the response' do 
+    data_object = DataObject.gen
+    response = get_as_xml("/api/data_objects/#{data_object.guid}")
+    expect(response["references"]).to be_nil
+    expect(response["agents"]).to be_nil
+    response = get_as_json("/api/data_objects/#{data_object.guid}.json")
+    expect(response["references"]).to be_nil
+    expect(response["agents"]).to be_nil
   end
 
   describe 'adding crop fields to images' do

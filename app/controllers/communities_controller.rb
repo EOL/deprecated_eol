@@ -41,6 +41,11 @@ class CommunitiesController < ApplicationController
       return redirect_to @collection
     end
     @community = Community.new(params[:community])
+    if @community.description =~ EOL.spam_re or
+      @community.name =~ EOL.spam_re
+      flash[:error] = I18n.t(:error_violates_tos)
+      return redirect_to @collection
+    end
     if @community.save
       @collection.communities << @community
       @community.initialize_as_created_by(current_user)
@@ -157,7 +162,7 @@ class CommunitiesController < ApplicationController
 
   def revoke_editor
     collection = Collection.find(params[:collection_id])
-    
+
     raise EOL::Exceptions::SecurityViolation.new("User attempted to revoke editor on watch collection", :error_revoking_editor_on_watch_collection) if collection.watch_collection?
     raise EOL::Exceptions::SecurityViolation.new("User attempted to revoke editor on an empty community", :error_revoking_editor_on_an_empty_community) if @community.collections.count <= 1
     @community.collections.delete(collection)
@@ -266,8 +271,8 @@ private
 
   def restrict_edit
     @current_member ||= current_user.member_of(@community)
-    
-    raise EOL::Exceptions::SecurityViolation.new("User with id = #{current_user.id} tried to edit community with id = #{@community.id} but he is not a manager", 
+
+    raise EOL::Exceptions::SecurityViolation.new("User with id = #{current_user.id} tried to edit community with id = #{@community.id} but he is not a manager",
     :only_managers_can_edit_community) unless @current_member && @current_member.manager?
   end
 

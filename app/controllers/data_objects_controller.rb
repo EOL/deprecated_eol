@@ -166,6 +166,10 @@ class DataObjectsController < ApplicationController
   # old @data_object is loaded in before_filter :load_data_object
   def update
     @references = params[:references]
+    if DataObject.spammy?(params, current_user, refs: @references)
+      update_failed(I18n.t(:error_violates_tos)) and return
+    end
+
     # Important that you're getting the latest version:
     DataObject.with_master do
       if @data_object.users_data_object.user_id != current_user.id

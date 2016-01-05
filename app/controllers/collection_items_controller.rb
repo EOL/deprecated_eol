@@ -61,6 +61,8 @@ class CollectionItemsController < ApplicationController
   private
 
   def update_collection_item
+    return false if
+      CollectionItem.spammy?(params[:collection_item], current_user)
     return false unless @collection_item.
       update_attributes(params[:collection_item])
     update_collection_item_references

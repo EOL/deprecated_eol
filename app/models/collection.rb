@@ -88,6 +88,8 @@ class Collection < ActiveRecord::Base
     description = ""
     collection_items.delete_all
     save
+    @solr = SolrCore::SiteSearch.new
+    @solr.delete_item(self)
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(self)
   end
 

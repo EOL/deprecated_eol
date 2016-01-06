@@ -83,11 +83,15 @@ class TaxonConceptPreferredEntry
 
     def get_best_entries
       EOL.log_call
+      count = 0
       @entries.each do |taxon_concept_id, concept_entries|
+        EOL.log("#{count}", prefix: ".") if count % 100_000 == 0
+        count += 1
         @best_entries[taxon_concept_id] = concept_entries.
           sort_by { |entry| entry_sort(entry) }.
           first[:id]
       end
+      EOL.log("adding curated entries", prefix: ".")
       @curated_entries.each do |taxon_concept_id, hierarchy_entry_id|
         # NOTE this trumps any value that may have already been in there...
         @best_entries[taxon_concept_id] = hierarchy_entry_id if
@@ -101,9 +105,11 @@ class TaxonConceptPreferredEntry
     def insert_best_entries
       EOL.log_call
       values = []
+      EOL.log("preparing", prefix: ".")
       @best_entries.each do |taxon_concept_id, hierarchy_entry_id|
         values << "#{taxon_concept_id}, #{hierarchy_entry_id}"
       end
+      EOL.log("inserting", prefix: ".")
       EOL::Db.bulk_insert(TaxonConceptPreferredEntry,
         [:taxon_concept_id, :hierarchy_entry_id],
         values, tmp: true)

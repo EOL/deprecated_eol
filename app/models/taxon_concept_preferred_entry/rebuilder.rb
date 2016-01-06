@@ -1,7 +1,7 @@
 class TaxonConceptPreferredEntry
   class Rebuilder
 
-    attr_reader :all_entries, :curated_entries, :best_entries
+    attr_reader :entries, :curated_entries, :best_entries
 
     # TODO - THIS SHOULD NOT BE HARD-CODED! (╯°□°)╯︵ ┻━┻
     # NOTE: this is ALSO hard-coded in Hierarchy.sort_order!! Same? TODO
@@ -17,7 +17,8 @@ class TaxonConceptPreferredEntry
     ]
 
     def initialize
-      @all_entries = {}
+      @entries = {}
+      @hierarchies = {}
       @curated_entries = {}
       @best_entries = {}
     end
@@ -25,7 +26,8 @@ class TaxonConceptPreferredEntry
     def rebuild
       EOL.log_call
       EOL::Db.with_tmp_tables([TaxonConceptPreferredEntry]) do
-        get_all_entries
+        get_entries
+        get_hierarchies
         get_curated_entries
         get_best_entries
         insert_best_entries
@@ -33,24 +35,47 @@ class TaxonConceptPreferredEntry
       end
     end
 
-    def get_all_entries
+    def get_entries
       EOL.log_call
       count = 0
-      HierarchyEntry.published.includes(:taxon_concept, :hierarchy).
-        find_each do |entry|
-        count += 1
-        EOL.log(".. entry #{count}") if count % 10_000 == 0
-        @all_entries[entry.taxon_concept_id] ||= []
-        @all_entries[entry.taxon_concept_id] << {
-          hierarchy_entry_id: entry.id,
-          vetted_view_order: Vetted.weight[entry.vetted_id],
-          browsable: entry.hierarchy.browsable,
-          hierarchy_sort_order: hierarchy_sort_order(entry.hierarchy.label)
-        }
-      end
+      last = HierarchyEntry.maximum(:id)
+      batch = 10_000
+      low = HierarchyEntry.published.first.id
+      fields = [:id, :taxon_concept_id, :hierarchy_id, :vetted_id]
+      dat = []
+      begin
+        dat = EOL.pluck_fields(fields,
+          HierarchyEntry.published.
+          where(["id > ? AND id < ?", low, low + batch]))
+        dat.each do |row|
+          h = EOL.unpluck_ids(fields, row)
+          concept_id = h.delete(:taxon_concept_id)
+          @entries[concept_id] ||= []
+          @entries[concept_id] << h
+        end
+        low += batch + 1
+      end until low > last
     end
 
-
+    def get_hierarchies
+      EOL.log_call
+      count = 0
+      last = Hierarchy.maximum(:id)
+      batch = 10_000
+      low = Hierarchy.first.id
+      fields = [:id, :browsable, :label]
+      dat = []
+      begin
+        dat = EOL.pluck_fields(fields,
+          Hierarchy.where(["id > ? AND id < ?", low, low + batch]))
+        dat.compact.each do |row|
+          (id, browsable, label) = row.split(",", 3)
+          @hierarchies[id] = { browsable: browsable,
+            sort: hierarchy_sort_order(label) }
+        end
+        low += batch + 1
+      end until low > last
+    end
 
     def get_curated_entries
       EOL.log_call
@@ -66,10 +91,10 @@ class TaxonConceptPreferredEntry
 
     def get_best_entries
       EOL.log_call
-      @all_entries.each do |taxon_concept_id, concept_entries|
+      @entries.each do |taxon_concept_id, concept_entries|
         @best_entries[taxon_concept_id] = concept_entries.
           sort_by { |entry| entry_sort(entry) }.
-          first[:hierarchy_entry_id]
+          first[:id]
       end
       @curated_entries.each do |taxon_concept_id, hierarchy_entry_id|
         # NOTE this trumps any value that may have already been in there...
@@ -93,9 +118,11 @@ class TaxonConceptPreferredEntry
     end
 
     def entry_sort(entry)
-      [ entry[:vetted_view_order],
-        0 - entry[:browsable],
-        entry[:hierarchy_sort_order],
+      hierarchy = @hierarchies[entry[:hierarchy_id] ||
+        { browsable: 0, sort: 999}
+      [ Vetted.weight[entry[:vetted_id]],
+        0 - hierarchy[:browsable],
+        hierarchy[:sort],
         entry[:hierarchy_entry_id] ]
     end
 

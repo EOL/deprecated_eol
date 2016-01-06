@@ -124,4 +124,9 @@ module EOL
   def self.pluck_fields(fields, query)
     query.pluck("CONCAT(#{fields.map(&:to_s).join(", ',', ")}) f")
   end
+
+  # Black magic to turn fields into hash: ONLY WORKS ON INTEGER FIELDS!
+  def self.unpluck_ids(fields, row)
+    Hash[*fields.zip(row.split(",").map(&:to_i)).flatten]
+  end
 end

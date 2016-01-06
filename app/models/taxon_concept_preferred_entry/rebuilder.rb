@@ -43,13 +43,10 @@ class TaxonConceptPreferredEntry
       batch = 50_000
       low = HierarchyEntry.published.first.id
       fields = [:id, :taxon_concept_id, :hierarchy_id, :vetted_id]
-      dat = []
       begin
         EOL.log("#{low}", prefix: ".") if count % 10 == 0
-        dat = EOL.pluck_fields(fields,
-          HierarchyEntry.published.
-          where(["id > ? AND id < ?", low, low + batch]))
-        dat.each do |row|
+        EOL.pluck_fields(fields, HierarchyEntry.published.
+          where(["id > ? AND id < ?", low, low + batch])).each do |row|
           h = EOL.unpluck_ids(fields, row)
           concept_id = h.delete(:taxon_concept_id)
           @entries[concept_id] ||= []
@@ -62,11 +59,7 @@ class TaxonConceptPreferredEntry
 
     def get_hierarchies
       EOL.log_call
-      count = 0
-      last = Hierarchy.maximum(:id)
-      EOL.log("last: #{last}", prefix: ".")
       fields = [:id, :browsable, :label]
-      EOL.log("#{low}", prefix: ".") if count % 10 == 0
       dat = EOL.pluck_fields(fields, Hierarchy.all)
       dat.compact.each do |row|
         (id, browsable, label) = row.split(",", 3)

@@ -40,12 +40,12 @@ class TaxonConceptPreferredEntry
       count = 0
       last = HierarchyEntry.maximum(:id)
       EOL.log("last: #{last}", prefix: ".")
-      batch = 10_000
+      batch = 50_000
       low = HierarchyEntry.published.first.id
       fields = [:id, :taxon_concept_id, :hierarchy_id, :vetted_id]
       dat = []
       begin
-        EOL.log("#{low}", prefix: ".")
+        EOL.log("#{low}", prefix: ".") if count % 10 == 0
         dat = EOL.pluck_fields(fields,
           HierarchyEntry.published.
           where(["id > ? AND id < ?", low, low + batch]))
@@ -55,7 +55,8 @@ class TaxonConceptPreferredEntry
           @entries[concept_id] ||= []
           @entries[concept_id] << h
         end
-        low += batch + 1
+        count += 1
+        low += batch
       end until low > last
     end
 
@@ -64,21 +65,14 @@ class TaxonConceptPreferredEntry
       count = 0
       last = Hierarchy.maximum(:id)
       EOL.log("last: #{last}", prefix: ".")
-      batch = 10_000
-      low = Hierarchy.first.id
       fields = [:id, :browsable, :label]
-      dat = []
-      begin
-        EOL.log("#{low}", prefix: ".")
-        dat = EOL.pluck_fields(fields,
-          Hierarchy.where(["id > ? AND id < ?", low, low + batch]))
-        dat.compact.each do |row|
-          (id, browsable, label) = row.split(",", 3)
-          @hierarchies[id] = { browsable: browsable,
-            sort: hierarchy_sort_order(label) }
-        end
-        low += batch + 1
-      end until low > last
+      EOL.log("#{low}", prefix: ".") if count % 10 == 0
+      dat = EOL.pluck_fields(fields, Hierarchy.all)
+      dat.compact.each do |row|
+        (id, browsable, label) = row.split(",", 3)
+        @hierarchies[id] = { browsable: browsable,
+          sort: hierarchy_sort_order(label) }
+      end
     end
 
     def get_curated_entries

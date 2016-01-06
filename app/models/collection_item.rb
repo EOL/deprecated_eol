@@ -212,7 +212,7 @@ class CollectionItem < ActiveRecord::Base
       # TODO: test whether these defaults are actually needed:
       date_created: SolrCore.date(created_at),
       date_modified: SolrCore.date(updated_at),
-      title: SolrCore.string(collected_item.collected_name),
+      title: SolrCore.string(collected_item.collected_name) || collected_item_type,
       richness_score: richness_score || 0,
       data_rating: data_object_rating,
       sort_field: SolrCore.string(sort_field)

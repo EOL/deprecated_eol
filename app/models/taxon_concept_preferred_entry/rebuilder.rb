@@ -39,11 +39,13 @@ class TaxonConceptPreferredEntry
       EOL.log_call
       count = 0
       last = HierarchyEntry.maximum(:id)
+      EOL.log("last: #{last}", prefix: ".")
       batch = 10_000
       low = HierarchyEntry.published.first.id
       fields = [:id, :taxon_concept_id, :hierarchy_id, :vetted_id]
       dat = []
       begin
+        EOL.log("#{low}", prefix: ".")
         dat = EOL.pluck_fields(fields,
           HierarchyEntry.published.
           where(["id > ? AND id < ?", low, low + batch]))
@@ -61,11 +63,13 @@ class TaxonConceptPreferredEntry
       EOL.log_call
       count = 0
       last = Hierarchy.maximum(:id)
+      EOL.log("last: #{last}", prefix: ".")
       batch = 10_000
       low = Hierarchy.first.id
       fields = [:id, :browsable, :label]
       dat = []
       begin
+        EOL.log("#{low}", prefix: ".")
         dat = EOL.pluck_fields(fields,
           Hierarchy.where(["id > ? AND id < ?", low, low + batch]))
         dat.compact.each do |row|

@@ -26,9 +26,9 @@ class TaxonConceptPreferredEntry
     def rebuild
       EOL.log_call
       EOL::Db.with_tmp_tables([TaxonConceptPreferredEntry]) do
-        get_entries
         get_hierarchies
         get_curated_entries
+        get_entries
         get_best_entries
         insert_best_entries
         EOL::Db.swap_tmp_table(TaxonConceptPreferredEntry)
@@ -40,11 +40,11 @@ class TaxonConceptPreferredEntry
       count = 0
       last = HierarchyEntry.maximum(:id)
       EOL.log("last: #{last}", prefix: ".")
-      batch = 50_000
+      batch = 20_000
       low = HierarchyEntry.published.first.id
       fields = [:id, :taxon_concept_id, :hierarchy_id, :vetted_id]
       begin
-        EOL.log("#{low}", prefix: ".") if count % 10 == 0
+        EOL.log("#{low}", prefix: ".") if count % 20 == 0
         EOL.pluck_fields(fields, HierarchyEntry.published.
           where(["id > ? AND id < ?", low, low + batch])).each do |row|
           h = EOL.unpluck_ids(fields, row)
@@ -60,7 +60,8 @@ class TaxonConceptPreferredEntry
     def get_hierarchies
       EOL.log_call
       fields = [:id, :browsable, :label]
-      dat = EOL.pluck_fields(fields, Hierarchy.all)
+      # NOTE: weird id > 0 used because #all runs query immediately. :(
+      dat = EOL.pluck_fields(fields, Hierarchy.where("id > 0"))
       dat.compact.each do |row|
         (id, browsable, label) = row.split(",", 3)
         @hierarchies[id] = { browsable: browsable,

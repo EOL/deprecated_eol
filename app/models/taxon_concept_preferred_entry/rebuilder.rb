@@ -118,7 +118,7 @@ class TaxonConceptPreferredEntry
     end
 
     def entry_sort(entry)
-      hierarchy = @hierarchies[entry[:hierarchy_id] ||
+      hierarchy = @hierarchies[entry[:hierarchy_id]] ||
         { browsable: 0, sort: 999}
       [ Vetted.weight[entry[:vetted_id]],
         0 - hierarchy[:browsable],

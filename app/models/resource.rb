@@ -461,14 +461,15 @@ class Resource < ActiveRecord::Base
 
   def port_uris
     EOL.log_call
-    # TODO: you need to make a query that will find all "?s dc:source
-    # <#{graph_name}>", and then delete all triples with that subject, but
-    # filtering out anything that's "?s a eol:page". Yeesh.
-    # NOTE: we're grabbing the list of uris using the OLD format, grrr:
-    all_traits.in_groups_of(1000, false) do |group|
-
-    end
+    # NOTE that #all_traits uses the OLD format for traits, so this won't work
+    # if we stop creating those!
+    TraitBank.delete_traits(all_traits)
     taxa = TraitBank.rebuild_resource(self)
+    # NOTE: this is depressingly expensive, when it's really not likely to add
+    # much value. But we do need to try and add all of the flattened taxa for
+    # this resource, so that search will find the children. (Usually, they are
+    # all there, but we need to be sure!)
+    flatten_taxa(taxa)
     remove_missing_data_point_uris
   end
 

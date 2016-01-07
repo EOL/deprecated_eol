@@ -27,6 +27,15 @@ class TraitBank
       "http://eol.org/traitbank"
     end
 
+    def delete_traits(traits)
+      # TODO: you need to make a query that will find all "?s dc:source
+      # <#{graph_name}>", and then delete all triples with that subject, but
+      # filtering out anything that's "?s a eol:page". Yeesh.
+      traits.in_groups_of(1000, false) do |group|
+
+      end
+    end
+
     # NOTE: CAREFUL! If you are running the data live, this will destroy all
     # data before it begins and you will have NO DATA ON THE SITE. This is meant
     # to be a _complete_ rebuild, run in emergencies!

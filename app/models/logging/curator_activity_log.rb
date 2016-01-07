@@ -217,7 +217,11 @@ class CuratorActivityLog < LoggingModel
   end
 
   def data_point_uri
-    DataPointUri.find(target_id) if changeable_object_type == ChangeableObjectType.data_point_uri
+    begin
+      DataPointUri.find(target_id) if changeable_object_type == ChangeableObjectType.data_point_uri
+    rescue ActiveRecord::RecordNotFound => e
+      nil
+    end
   end
 
   def users_data_object

@@ -48,9 +48,9 @@
   - taxon_type = 'an_unknown_taxon'
 - else
   - taxon_link = taxon_url(item.taxon_concept)
-  - if item.is_for_type?(:data_point_uri)
+  - if item.is_for_type?(:data_point_uri) && item.data_point_uri
     - taxon_link = link_to_item(item.data_point_uri)
-  - elsif item.is_for_type?(:user_added_data)
+  - elsif item.is_for_type?(:user_added_data) && item.user_added_data.try(:data_point_uri)
     - taxon_link = link_to_item(item.user_added_data.data_point_uri)
   - translation_vars[:taxon] = link_to(raw(item.taxon_concept.summary_name), taxon_link, :style => link_style)
 -# NOTE the weird exception: merge_classifications uses the *object* taxon concept, not the source TC (for now):

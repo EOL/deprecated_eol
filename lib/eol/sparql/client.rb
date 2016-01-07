@@ -28,7 +28,7 @@ module EOL
         cache_key("all_measurement_type_known_uris_for_clade_#{id}")
       end
 
-      def initialize(options={})
+      def initialize(options = {})
         @endpoint_uri = options[:endpoint_uri]
         @username = options[:username]
         @password = options[:password]
@@ -41,9 +41,26 @@ module EOL
       # referenced, because both measurements and associations use this to mark
       # the association between an "occurrence" and a "taxon" (which is really a
       # hierarchy_entry.identifier)
-      def traits_in_resource(resource)
+      def count_traits_in_resource(resource)
         sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
           "<#{resource.graph_name}> { ?s dwc:taxonID ?o } }").first[:"callret-0"].to_i
+      end
+
+      def traits_in_resource(resource)
+        EOL.log_call
+        traits = Set.new
+        these = []
+        offset = 0
+        batch = 10_000
+        begin
+          EOL.log("#{offset}", prefix: ".")
+          these = sparql_client.query("SELECT ?s WHERE { GRAPH "\
+            "<#{resource.graph_name}> { ?s dwc:taxonID ?o } } "\
+            "LIMIT #{batch} OFFSET #{offset}")
+          traits += these.map { |t| t[:s].to_s }
+          offset += batch
+        end until these.empty?
+        traits.to_a
       end
 
       # In Dec 2015 it became clear that harvesting was adding triples for taxa
@@ -51,6 +68,7 @@ module EOL
       # help us find those, and, if we decide it's safe, drop the graphs.
       # ...It's possible that it's required for searches, though, so not doing
       # that now.
+      def count_triples_in_resource(resource)
         sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
           "<#{resource.graph_name}> { ?s ?p ?o } }").first[:"callret-0"].to_i
       end

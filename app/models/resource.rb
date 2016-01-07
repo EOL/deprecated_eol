@@ -31,6 +31,7 @@ class Resource < ActiveRecord::Base
   belongs_to :preview_collection, class_name: 'Collection'
 
   has_many :harvest_events
+  has_many :data_point_uris
 
   scope :by_priority, -> { order(:position) }
   scope :force_harvest,
@@ -424,11 +425,51 @@ class Resource < ActiveRecord::Base
   end
 
   def trait_count
-    EOL::Sparql.connection.traits_in_resource(self)
+    EOL::Sparql.connection.count_traits_in_resource(self)
   end
 
   def triple_count
-    EOL::Sparql.connection.triples_in_resource(self)
+    EOL::Sparql.connection.count_triples_in_resource(self)
+  end
+
+  def all_traits
+    @all_traits ||= EOL::Sparql.connection.traits_in_resource(self)
+  end
+
+  def remove_missing_data_point_uris
+    EOL.log_call
+    # data_point_uris is NOT indexed (doesn't really need to be except here), so
+    # doing a lot of work to make the query finish. This still takes a long
+    # time. :|
+    low = DataPointUri.minimum(:id)
+    max = DataPointUri.maximum(:id)
+    batch = 25_000
+    points = []
+    while low < max
+      data_point_uris.where(["id > ? AND id < ?", low, low + batch]).
+        find_each do |point|
+        points << point
+      end
+      low += batch
+    end
+    points.in_groups_of(1000) do |group|
+      uris = Set.new(group.map(&:uri))
+      exist = TraitBank.group_exists?(uris)
+      DataPointUri.where(uri: (uris - exist).to_a).delete_all
+    end
+  end
+
+  def port_uris
+    EOL.log_call
+    # TODO: you need to make a query that will find all "?s dc:source
+    # <#{graph_name}>", and then delete all triples with that subject, but
+    # filtering out anything that's "?s a eol:page". Yeesh.
+    # NOTE: we're grabbing the list of uris using the OLD format, grrr:
+    all_traits.in_groups_of(1000, false) do |group|
+
+    end
+    taxa = TraitBank.rebuild_resource(self)
+    remove_missing_data_point_uris
   end
 
 private

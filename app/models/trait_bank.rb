@@ -7,6 +7,22 @@ class TraitBank
       EOL::Sparql.connection.send :namespaces_prefixes
     end
 
+    def exists?(uri)
+      r = EOL::Sparql.connection.query("SELECT COUNT(*) { <#{uri}> ?o ?p }")
+      return false unless r.first && r.first.has_key?(:"callret-0")
+      r.first[:"callret-0"].to_i > 0
+    end
+
+    # Returns an Set (not an array!) of which uris DO exist.
+    def group_exists?(uris)
+      exist = Set.new
+      uris.to_a.in_groups_of(1000, false) do |group|
+        resp = EOL::Sparql.connection.query("SELECT DISTINCT(?s) { ?s ?o ?p } "\
+          "FILTER ( ?s IN (<#{uris.join(">,<")}>) )")
+        exist += resp.map { |u| u[:s].to_s }
+      end
+    end
+
     def graph_name
       "http://eol.org/traitbank"
     end
@@ -40,7 +56,7 @@ class TraitBank
     # 1502, identifier: identifier).taxon_concept_id on each identifier (which
     # you get by pulling off ... the start of the taxonId URL). This sucks, but
     # it's a reasonable workaround. Not sure why this happened!
-    def rebuild_resource(resource, count)
+    def rebuild_resource(resource, count = 'unknown')
       EOL.log("Rebuilding resource #{resource.title} (##{resource.id}, "\
         "#{count} triples)")
       # TODO: Ideally, we would first get a diff of what's in the graph vs what

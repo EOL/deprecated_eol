@@ -58,6 +58,12 @@ class CollectionsController < ApplicationController
   def create
     return must_be_logged_in unless logged_in?
     @collection = Collection.new(params[:collection])
+    if @collection.description =~ EOL.spam_re or
+      @collection.title =~ EOL.spam_re and
+      current_user.newish?
+      flash[:error] = I18n.t(:error_violates_tos)
+      return redirect_to request.referer
+    end
     if @collection.save
       @collection.users = [current_user]
       log_activity(activity: Activity.create)
@@ -106,6 +112,12 @@ class CollectionsController < ApplicationController
     # TODO - This is really the only stuff that needs to stay here!
     name_change = params[:collection][:name] != @collection.name
     description_change = params[:collection][:description] != @collection.description
+    if params[:collection][:description] =~ EOL.spam_re or
+      params[:collection][:title] =~ EOL.spam_re and
+      current_user.newish?
+      flash[:error] = I18n.t(:error_violates_tos)
+      return render(action: :edit)
+    end
     if @collection.update_attributes(params[:collection])
       upload_logo(
         @collection,

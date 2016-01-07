@@ -51,7 +51,6 @@ module EOL
       # help us find those, and, if we decide it's safe, drop the graphs.
       # ...It's possible that it's required for searches, though, so not doing
       # that now.
-      def triples_in_resource(resource)
         sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
           "<#{resource.graph_name}> { ?s ?p ?o } }").first[:"callret-0"].to_i
       end

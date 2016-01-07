@@ -31,7 +31,7 @@ class EOLWebService
       header = http.head(parsed_url.path == '' ? '/' : parsed_url.path)
       if header.kind_of?(Net::HTTPRedirection) && ! is_a_redirect
         if in_allowable_redirection_domains(parsed_url)
-          return url_accepted?(header['location'], true, true) 
+          return url_accepted?(header['location'], true, true)
         else
           return url_accepted?(header['location'], true)
         end
@@ -64,24 +64,26 @@ class EOLWebService
       Socket.do_not_reverse_lookup = orig
   end
 
- # calls the webservice with the supplied querystring parameters and returns the XML response if the call was successful, otherwise returns NIL
+ # calls the webservice with the supplied querystring parameters and returns the
+ # XML response if the call was successful, otherwise returns NIL
   def self.call(params)
-    resp=""
-    base_url=params[:base_url] || $WEB_SERVICE_BASE_URL
-    timeout_seconds=params[:timeout_seconds] || $WEB_SERVICE_TIMEOUT_SECONDS
-    parameters=params[:parameters] || ""
+    resp = ""
     if $LOG_WEB_SERVICE_EXECUTION_TIME
+      # TODO: remove this. We never use it; it's lame.
+      base_url = params[:base_url] || $WEB_SERVICE_BASE_URL
+      parameters = params[:parameters] || ""
+      timeout_seconds = params[:timeout_seconds] || $WEB_SERVICE_TIMEOUT_SECONDS
       elapsedSeconds = Benchmark::realtime do
-        resp=self.web_service_call(params)
+        resp = self.web_service_call(params)
       end
-      logging_message='*** WEB SERVICE CALL (' + elapsedSeconds.to_s + 's'
-      logging_message+=' TIMED OUT AFTER ' + timeout_seconds.to_s + ' s' if elapsedSeconds.to_f >= timeout_seconds.to_f
-      logging_message+='): ' + base_url + parameters
+      logging_message = '*** WEB SERVICE CALL (' + elapsedSeconds.to_s + 's'
+      logging_message += ' TIMED OUT AFTER ' + timeout_seconds.to_s + ' s' if elapsedSeconds.to_f >= timeout_seconds.to_f
+      logging_message += '): ' + base_url + parameters
       Rails.logger.error logging_message
     else
-      resp=self.web_service_call(params)
+      resp = self.web_service_call(params)
     end
-    if resp.nil? == false && resp.code == "200"
+    if resp.try(:code) == "200"
       return resp.body
     else
       return nil
@@ -90,17 +92,21 @@ class EOLWebService
 
   # make the actual call to the web service
   def self.web_service_call(params)
-    base_url=params[:base_url] || $WEB_SERVICE_BASE_URL
-    parameters=params[:parameters] || ""
-    timeout_seconds=params[:timeout_seconds] || $WEB_SERVICE_TIMEOUT_SECONDS
+    EOL.log_call
+    base_url = params[:base_url] || $WEB_SERVICE_BASE_URL
+    parameters = params[:parameters] || ""
+    timeout_seconds = params[:timeout_seconds] || $WEB_SERVICE_TIMEOUT_SECONDS
     begin
-      return Timeout::timeout(timeout_seconds) {resp=Net::HTTP.get_response(URI.parse(base_url + parameters))}
+      return Timeout::timeout(timeout_seconds) do
+        EOL.log(base_url + parameters)
+        Net::HTTP.get_response(URI.parse(base_url + parameters))
+      end
     rescue TimeoutError
       if $ERROR_LOGGING
         ErrorLog.create(
-          :url=>base_url,
-          :exception_name=>"web service timed out",
-          :backtrace=>parameters
+          url: base_url,
+          exception_name: "web service timed out",
+          backtrace: parameters
         )
       end
       return nil
@@ -125,10 +131,9 @@ class EOLWebService
     params = new_params.join(amp)
     params.blank? ? uri : "#{uri}?#{params}"
   end
-  
+
   def self.in_allowable_redirection_domains(url)
     url.host.include?("dx.doi.org")
   end
 
 end
-

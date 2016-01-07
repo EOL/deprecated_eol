@@ -216,7 +216,11 @@ module EOL
         offset = (page - 1) * limit
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
-        res = open(url).read
+        begin
+          res = open(url).read
+        rescue Timeout::Error => e
+          EOL.Log("TIMEOUT: #{url}", prefix: "!")
+        end
         JSON.load res
       end
 

@@ -75,14 +75,13 @@ class EolConfig < ActiveRecord::Base
     end
   end
 
-  # I got sick of doing this everywhere:
   def self.data?
     return false if ENV["NO_DATA"]
     EolConfig.all_users_can_see_data rescue false
   end
 
-  # NOTE: This doesn't work for site warning.
   def clear_caches
+    EolConfig.clear_global_site_warning
     Rails.cache.delete(EolConfig.cached_name_for("parameter/#{self.parameter}"))
   end
 end

@@ -22,18 +22,19 @@ class SolrCore
       commit
     end
 
+    def delete_item(item)
+      delete("resource_type:#{item.class.name} AND "\
+        "resource_id:(#{item.id})")
+    end
+
     def insert_batch(klass, ids)
       EOL.log_call
       # Used when building indexes with this class:
       @objects = Set.new
       send("get_#{klass.name.underscore.pluralize}", ids)
-      EOL.log("Delete old items...")
-      ids.in_groups_of(1000, false) do |group|
-        delete("resource_type:#{klass.name} AND "\
-          "resource_id:(#{group.join(" OR ")})")
-      end
       @objects.delete(nil)
       @objects.delete({})
+      delete_batch(klass, ids)
       @objects.to_a.in_groups_of(6400, false) do |group|
         EOL.log("Adding #{group.count} items...")
         connection.add(group)
@@ -42,6 +43,15 @@ class SolrCore
       connection.commit
       EOL.log_return
       @objects = nil # Saves some memory (hopefully).
+    end
+
+    def delete_batch(klass, ids)
+      EOL.log_call
+      ids.in_groups_of(1000, false) do |group|
+        EOL.log("deleting #{group.count}", prefix: ".")
+        delete("resource_type:#{klass.name} AND "\
+        "resource_id:(#{group.join(" OR ")})")
+      end
     end
 
     # NOTE: called by #insert_batch via dynamic #send

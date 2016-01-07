@@ -18,14 +18,15 @@ end
 # If you're curious, this block takes 0.14sec to run in production (if it
 # doesn't load anything). # TODO: generalize this with lib/tasks/i18n.rake
 lang_dir = Rails.root.join('config', 'translations')
+old_stores = []
 Dir.entries(lang_dir).grep(/yml$/).each do |file|
- file_last_version = I18n.backend.store.get(file)
- file_current_version = File.mtime(File.join(lang_dir, file)).to_s
- if file_current_version != file_last_version
-  if Rails.env.production?
+  next if file =~ /^qqq/
+  file_last_version = I18n.backend.store.get(file)
+  file_current_version = File.mtime(File.join(lang_dir, file)).to_s
+  if file_current_version != file_last_version
+    if Rails.env.production?
       # We don't want to auto-load in production, but we should warn them somehow.
-      Rails.logger.error("OLD I18n STORE: #{file} (run `rake i18n:to_redis`)")
-      puts("OLD I18n STORE: #{file} (run `rake i18n:to_redis`)")
+      old_stores << file
     else
       Rails.logger.error("Loading #{file} into Redis...")
       translations = YAML.load_file(File.join(lang_dir, file))
@@ -34,4 +35,12 @@ Dir.entries(lang_dir).grep(/yml$/).each do |file|
       I18n.backend.store.set(file, file_current_version)
     end
  end
+end
+if old_stores.count > 0
+  message = old_stores.count > 1 ?
+    "OLD I18n STORES: (#{old_stores.count} files)" :
+    "OLD I18n STORE: #{old_stores.first}"
+  message += " (run `rake i18n:to_redis`)"
+  Rails.logger.error(message)
+  puts(message)
 end

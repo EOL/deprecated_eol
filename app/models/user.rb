@@ -208,6 +208,12 @@ class User < ActiveRecord::Base
     @@a_somewhat_recent_user ||= User.find(:all, order: 'id desc', limit: 30).last
   end
 
+  def newish?
+    # If they are approved to curate, we give them a pass:
+    return false if min_curator_level?(:full)
+    created_at > 1.week.ago
+  end
+
   # Please use consistent format for naming Users across the site.  At the
   # moment, this means using #full_name unless you KNOW you have an exception.
   def full_name(options={})
@@ -267,6 +273,8 @@ class User < ActiveRecord::Base
   def deactivate
     update_column(:active, false)
     remove_from_index
+    # This is to tell IdentityCache that the user is invalid and clear it:
+    save
   end
 
   def activate
@@ -862,38 +870,38 @@ public
       Curator.taxon_concept_ids_curated(self.id).length
     end
   end
-  
+
   def total_user_objects_curated
     Rails.cache.fetch("users/total_user_objects_curated/#{self.id}", expires_in: 24.hours) do
       Curator.total_objects_curated_by_action_and_user(nil, self.id)
     end
   end
-  
+
   def total_user_exemplar_images
     Rails.cache.fetch("users/total_user_exemplar_images/#{self.id}", expires_in: 24.hours) do
       Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_image.id, self.id)
     end
   end
-  
+
   def total_user_overview_articles
     Rails.cache.fetch("users/total_user_overview_articles/#{self.id}", expires_in: 24.hours) do
       Curator.total_objects_curated_by_action_and_user(Activity.choose_exemplar_article.id, self.id)
     end
   end
-  
-  
+
+
   def total_user_preferred_classifications
     Rails.cache.fetch("users/total_user_preferred_classifications/#{self.id}", expires_in: 24.hours) do
       Curator.total_objects_curated_by_action_and_user(Activity.preferred_classification.id, self.id, [ChangeableObjectType.curated_taxon_concept_preferred_entry.id])
     end
   end
-  
+
   def count_taxa_commented
     Rails.cache.fetch("users/count_taxa_commented/#{self.id}", expires_in: 24.hours) do
       self.taxa_commented.length
     end
   end
-  
+
   def count_total_data_records
     Rails.cache.fetch("users/count_total_data_records/#{self.id}", expires_in: 24.hours) do
       self.total_data_submitted

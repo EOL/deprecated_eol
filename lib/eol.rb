@@ -129,4 +129,8 @@ module EOL
   def self.unpluck_ids(fields, row)
     Hash[*fields.zip(row.split(",").map(&:to_i)).flatten]
   end
+
+  def self.spam_re
+    @spam_re ||= /\b(movie|watch|putlocker|put-locker|full mkv|http)\b/i
+  end
 end

@@ -186,7 +186,6 @@ module EOL
 
       def self.solr_search(taxon_concept_id, options = {})
         url = prepare_search_url(taxon_concept_id, options)
-
         # add paging
         limit  = options[:per_page] ? options[:per_page].to_i : 10
         page = options[:page] ? options[:page].to_i : 1
@@ -194,8 +193,12 @@ module EOL
         limit -= 1 if page == 1 && options[:exemplar_id]
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
-        # puts "\n\nThe SOLR Query: #{url}\n\n"
-        res = open(url).read
+        res = begin
+          open(url).read
+        rescue Errno::ECONNRESET => e
+          EOL.log("Solr connection reset: #{url}")
+          raise e
+        end
         JSON.load res
       end
 

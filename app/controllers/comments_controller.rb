@@ -30,6 +30,8 @@ class CommentsController < ApplicationController
 
     if @comment.same_as_last?
       flash[:notice] = I18n.t(:duplicate_comment_warning)
+    elsif @comment.spammy?
+      flash[:notice] = I18n.t(:error_violates_tos)
     elsif @comment.save
       flash[:notice] = I18n.t(:comment_added_notice)
       auto_collect(@comment.parent)
@@ -77,6 +79,15 @@ class CommentsController < ApplicationController
     # @comment set in before_filter :allow_modify_comments
     actual_date = params[:actual_date]
     actual_date ||= false
+    if current_user.newish? && params[:comment][:body] =~ EOL.spam_re
+      format.html do
+        flash[:error] = I18n.t(:error_violates_tos)
+        render action: 'edit'
+      end
+      format.js do
+        render text: I18n.t(:error_violates_tos)
+      end
+    end
     if @comment.update_attributes(params[:comment])
       respond_to do |format|
         format.html do

@@ -453,6 +453,8 @@ class Resource < ActiveRecord::Base
     remove_missing_data_point_uris
   end
 
+  # This takes an obnoxiously long time. Not much to be done about that. :\ This
+  # method helps keep the table a managable size, though.
   def remove_missing_data_point_uris
     EOL.log_call
     # data_point_uris is NOT indexed (doesn't really need to be except here), so
@@ -460,19 +462,18 @@ class Resource < ActiveRecord::Base
     # time. :|
     low = DataPointUri.minimum(:id)
     max = DataPointUri.maximum(:id)
-    batch = 25_000
+    batch = 250_000 # Huge batches, but I checked that this was okay.
     points = []
     while low < max
-      data_point_uris.where(["id > ? AND id < ?", low, low + batch]).
-      find_each do |point|
-        points << point
-      end
+      points += resource.data_point_uris.  ########################## TODO remove the resource! TODO TODO  TODO
+        where(["id > ? AND id < ?", low, low + batch]).
+        pluck(:uri)
       low += batch
     end
-    points.in_groups_of(1000) do |group|
-      uris = Set.new(group.map(&:uri))
-      exist = TraitBank.group_exists?(uris)
-      DataPointUri.where(uri: (uris - exist).to_a).delete_all
+    points.in_groups_of(1000, false) do |group|
+      uris = Set.new(group)
+      exist = TraitBank.group_exists?(uris.to_a)
+      DataPointUri.where(uri: (uris - exist).to_a).delete_all unless exist.empty?
     end
   end
 

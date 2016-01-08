@@ -17,10 +17,15 @@ class TraitBank
     def group_exists?(uris)
       exist = Set.new
       uris.to_a.in_groups_of(1000, false) do |group|
-        resp = EOL::Sparql.connection.query("SELECT DISTINCT(?s) { ?s ?o ?p } "\
-          "FILTER ( ?s IN (<#{uris.join(">,<")}>) )")
-        exist += resp.map { |u| u[:s].to_s }
+        begin
+          resp = EOL::Sparql.connection.query("SELECT DISTINCT(?s) { ?s ?o ?p } "\
+            "FILTER ( ?s IN (<#{uris.join(">,<")}>) )")
+          exist += resp.map { |u| u[:s].to_s }
+        rescue EOL::Exceptions::SparqlDataEmpty => e
+          # Nothing to add.
+        end
       end
+      exist
     end
 
     def graph_name

@@ -90,7 +90,7 @@
                   title: I18n.t(:data_row_additional_detail_assistive))
               .term{ data: { term: "TODO" }}
                 - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
-                = format_value(trait)
+                = format_value(trait).html_safe
                 - if trait.value_uri && trait.value_uri.is_a?(KnownUri)
                   %span.info
                     %ul.glossary

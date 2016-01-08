@@ -42,8 +42,9 @@ module EOL
       # the association between an "occurrence" and a "taxon" (which is really a
       # hierarchy_entry.identifier)
       def count_traits_in_resource(resource)
-        sparql_client.query("SELECT COUNT(*) WHERE { GRAPH "\
-          "<#{resource.graph_name}> { ?s dwc:taxonID ?o } }").first[:"callret-0"].to_i
+        query("SELECT COUNT(*) WHERE { GRAPH "\
+          "<#{resource.graph_name}> { ?s dwc:taxonID ?o } }").
+          first[:"callret-0"].to_i
       end
 
       def traits_in_resource(resource)
@@ -54,7 +55,7 @@ module EOL
         batch = 10_000
         begin
           EOL.log("#{offset}", prefix: ".")
-          these = sparql_client.query("SELECT ?s WHERE { GRAPH "\
+          these = query("SELECT ?s WHERE { GRAPH "\
             "<#{resource.graph_name}> { ?s dwc:taxonID ?o } } "\
             "LIMIT #{batch} OFFSET #{offset}")
           traits += these.map { |t| t[:s].to_s }

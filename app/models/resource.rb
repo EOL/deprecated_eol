@@ -436,6 +436,23 @@ class Resource < ActiveRecord::Base
     @all_traits ||= EOL::Sparql.connection.traits_in_resource(self)
   end
 
+  # "Ports" all of the traits for the resource from the old PHP format to the
+  # new Rails format.
+  def port_traits
+    EOL.log_call
+    # NOTE that #all_traits uses the OLD format for traits, so this won't work
+    # if we stop creating those!
+    TraitBank.delete_traits(all_traits)
+    taxa = TraitBank.rebuild_resource(self)
+    # NOTE: this is depressingly expensive, when it's really not likely to add
+    # much value. But we do need to try and add all of the flattened taxa for
+    # this resource, so that search will find the children. (Usually, they are
+    # all there, but we need to be sure!) TODO: we could look up all of the taxa
+    # to get a delta and just add those.
+    TraitBank.flatten_taxa(taxa)
+    remove_missing_data_point_uris
+  end
+
   def remove_missing_data_point_uris
     EOL.log_call
     # data_point_uris is NOT indexed (doesn't really need to be except here), so
@@ -447,7 +464,7 @@ class Resource < ActiveRecord::Base
     points = []
     while low < max
       data_point_uris.where(["id > ? AND id < ?", low, low + batch]).
-        find_each do |point|
+      find_each do |point|
         points << point
       end
       low += batch
@@ -457,20 +474,6 @@ class Resource < ActiveRecord::Base
       exist = TraitBank.group_exists?(uris)
       DataPointUri.where(uri: (uris - exist).to_a).delete_all
     end
-  end
-
-  def port_uris
-    EOL.log_call
-    # NOTE that #all_traits uses the OLD format for traits, so this won't work
-    # if we stop creating those!
-    TraitBank.delete_traits(all_traits)
-    taxa = TraitBank.rebuild_resource(self)
-    # NOTE: this is depressingly expensive, when it's really not likely to add
-    # much value. But we do need to try and add all of the flattened taxa for
-    # this resource, so that search will find the children. (Usually, they are
-    # all there, but we need to be sure!)
-    flatten_taxa(taxa)
-    remove_missing_data_point_uris
   end
 
 private

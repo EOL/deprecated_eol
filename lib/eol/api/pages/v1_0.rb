@@ -20,8 +20,13 @@ module EOL
         PARAMETERS = Proc.new {
           [
             EOL::Api::DocumentationParameter.new(
+              :name => 'batch',
+              :type => 'Boolean',
+              :test_value => false,
+              :notes => I18n.t('returns_either_a_batch_or_not') ),
+            EOL::Api::DocumentationParameter.new(
               :name => 'id',
-              :type => Integer,
+              :type => String,
               :required => true,
               :test_value => (TaxonConcept.find_by_id(1045608) || TaxonConcept.last).id ),
             EOL::Api::DocumentationParameter.new(
@@ -95,6 +100,11 @@ module EOL
               :test_value => true,
               :notes => I18n.t('return_references_for_the_page_taxon') ),
             EOL::Api::DocumentationParameter.new(
+              :name => 'taxonomy',
+              :type => 'Boolean',
+              :test_value => true,
+              :notes => I18n.t('return_any_taxonomy_details_from_different_hierarchy_providers') ),
+            EOL::Api::DocumentationParameter.new(
               :name => 'vetted',
               :type => Integer,
               :values => [ 0, 1, 2 ],
@@ -109,15 +119,21 @@ module EOL
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
-          begin
             # TODO: When we called #validate_and_normalize_input_parameters, the
             # TC was already loaded (but not stored); this is redundant: fix.
-            taxon_concept = TaxonConcept.find(params[:id])
-          rescue
-            raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
+          taxon_concepts = TaxonConcept.find_all_by_id(params[:id].split(","))
+          if (params[:batch])
+            batch_concepts = []
+            taxon_concepts.each do |taxon_concept|
+              batch_concepts.push(prepare_hash(taxon_concept, params)) if taxon_concept
+            end
+            batch_concepts
+          else
+            taxon_concept = taxon_concepts.first
+            raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless taxon_concept
+            raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") unless taxon_concept.published?
+            prepare_hash(taxon_concept, params)
           end
-          raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") if !taxon_concept.published?
-          prepare_hash(taxon_concept, params)
         end
 
         def self.prepare_hash(taxon_concept, params={})
@@ -164,7 +180,11 @@ module EOL
               return_hash['references'].uniq!
             end
 
+<<<<<<< HEAD
           unless params["taxonConcepts"] == false
+=======
+            if params[:taxonomy]
+>>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
               return_hash['taxonConcepts'] = []
               taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
                 entry_hash = {
@@ -178,8 +198,13 @@ module EOL
                 entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
                 return_hash['taxonConcepts'] << entry_hash
               end
+<<<<<<< HEAD
+=======
+            end
+>>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
           end
           end
+<<<<<<< HEAD
           if (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
             return_hash['dataObjects'] = []
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
@@ -187,6 +212,13 @@ module EOL
               return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
             end
         end
+=======
+          if params[:batch]
+            batch_hash = {}
+            batch_hash[taxon_concept.id] = return_hash
+            return batch_hash
+          end
+>>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
           return return_hash
         end
 
@@ -204,12 +236,12 @@ module EOL
           end
           options[:vetted_types] = solr_search_params[:vetted_types]
 
+          license = options[:licenses]
           options[:licenses] = nil if options[:licenses].include?('all')
           process_license_options!(options)
           solr_search_params[:license_ids] = options[:licenses].blank? ? nil : options[:licenses].collect(&:id)
           options[:license_ids] = solr_search_params[:license_ids]
           process_subject_options!(options)
-
           text_objects = load_text(taxon_concept, options, solr_search_params)
           image_objects = load_images(taxon_concept, options, solr_search_params)
           video_objects = load_videos(taxon_concept, options, solr_search_params)
@@ -234,6 +266,7 @@ module EOL
           # preload necessary associations for API response
           DataObject.preload_associations(all_data_objects, [
             :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs, :audiences ] )
+          options[:licenses] = license            
           all_data_objects
         end
 

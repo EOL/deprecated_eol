@@ -15,6 +15,11 @@ module EOL
               :test_value => (DataObject.latest_published_version_of_guid('d72801627bf4adf1a38d9c5f10cc767f') || DataObject.last).id,
               :notes => I18n.t('the_data_object_id_can_be') ),
             EOL::Api::DocumentationParameter.new(
+              :name => 'taxonomy',
+              :type => 'Boolean',
+              :test_value => true,
+              :notes => I18n.t('return_any_taxonomy_details_from_different_hierarchy_providers') ),
+            EOL::Api::DocumentationParameter.new(
               :name => 'cache_ttl',
               :type => Integer,
               :notes => I18n.t('api_cache_time_to_live_parameter'))

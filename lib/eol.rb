@@ -101,6 +101,6 @@ module EOL
   end
 
   def self.spam_re
-    @spam_re ||= /\b(movie|watch|putlocker|put-locker|full mkv|http)\b/i
+    @spam_re ||= /\b(movie|watch|episode|putlocker|online free|put-locker|full mkv|http)\b/i
   end
 end

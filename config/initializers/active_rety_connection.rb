@@ -1,3 +1,4 @@
+# From https://engineering.groupon.com/2013/rails/removing-the-ping-sting-from-rails-db-connections/
 module ActiveRetryConnection
   def self.included(base)
     base.class_eval do

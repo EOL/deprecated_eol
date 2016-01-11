@@ -9,27 +9,40 @@ class CodeBridge
     Rails.logger.error "++ CodeBridge"
     if args['cmd'] == 'check_status_and_notify'
       Rails.logger.error "   check status and notify (if complete)"
-      begin
+      with_error_handling do
         ClassificationCuration.find(args['classification_curation_id']).check_status_and_notify
-      rescue => e
-        Rails.logger.error "** ERROR: #{e.message}"
-        Rails.logger.error "   -- KEYS:"
-        args.keys.each do |key|
-          Rails.logger.error "   #{key}: #{args[key]}"
-        end
-        Rails.logger.error "   --"
       end
+    elsif args['cmd'] == 'publish_batch'
+      with_error_handling do
+        batch = HarvestBatch.new
+        args['resource_ids'].each do |id|
+          batch.add Resource.find(id)
+        end
+        batch.post_harvesting
+        Resque.enqueue(CodeBridge, { 'cmd' => 'top_images' })
+      end
+    elsif args['cmd'] == 'denormalize_tables'
+      batch = HarvestBatch.new
+      with_error_handling { batch.denormalize_tables }
     elsif args['cmd'] == 'clear_cache'
       tc = TaxonConcept.find(args['taxon_concept_id'])
       if tc
-        TaxonConceptCacheClearing.clear(tc)
+        with_error_handling { TaxonConceptCacheClearing.clear(tc) }
       end
-    # TODO: this one will no longer ne needed, soon:
-    elsif args['cmd'] == 'update_resource_contributions'
-      resource = Resource.find(args['resource_id'])
-      resource.save_resource_contributions
     else
-      Rails.logger.error "** ERROR: NO command responds to #{args['cmd']}"
+      EOL.log("ERROR: NO command responds to #{args['cmd']}", prefix: "*")
+    end
+  end
+
+  def self.with_error_handling(&:block)
+    begin
+      yield
+    rescue => e
+      EOL.log("ERROR: #{e.message}", prefix: "*")
+      EOL.log("KEYS:", prefix: ".")
+      args.keys.each do |key|
+        EOL.log("#{key}: #{args[key]}", prefix: ".")
+      end
     end
   end
 

@@ -39,7 +39,7 @@ class HarvestBatch
             resource.preview
           end
         end
-        denormalize_tables
+        #WAIT: needs to be called async'ly: denormalize_tables
       # TODO: there are myriad specific errors that harvesting can throw; catch
       # them here.
       rescue => e
@@ -58,7 +58,7 @@ class HarvestBatch
     # needed, based on what got harvested (i.e.: a list of data objects
     # inserted could be used to figure out where they lie in the sort, and
     # update the orders as needed based on that—much faster.)
-    TopImage.rebuild
+    # WAIT: don't trust this; do it from harvest: TopImage.rebuild
     RandomHierarchyImage.create_random_images_from_rich_taxa
     TaxonConceptPreferredEntry.rebuild
     CollectionItem.remove_superceded_taxa

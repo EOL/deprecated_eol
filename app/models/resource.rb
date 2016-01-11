@@ -31,6 +31,7 @@ class Resource < ActiveRecord::Base
   belongs_to :preview_collection, class_name: 'Collection'
 
   has_many :harvest_events
+  has_many :data_point_uris
 
   scope :by_priority, -> { order(:position) }
   scope :force_harvest,
@@ -424,11 +425,56 @@ class Resource < ActiveRecord::Base
   end
 
   def trait_count
-    EOL::Sparql.connection.traits_in_resource(self)
+    EOL::Sparql.connection.count_traits_in_resource(self)
   end
 
   def triple_count
-    EOL::Sparql.connection.triples_in_resource(self)
+    EOL::Sparql.connection.count_triples_in_resource(self)
+  end
+
+  def all_traits
+    @all_traits ||= EOL::Sparql.connection.traits_in_resource(self)
+  end
+
+  # "Ports" all of the traits for the resource from the old PHP format to the
+  # new Rails format.
+  def port_traits
+    EOL.log_call
+    # NOTE that #all_traits uses the OLD format for traits, so this won't work
+    # if we stop creating those!
+    TraitBank.delete_traits(all_traits)
+    taxa = TraitBank.rebuild_resource(self)
+    # NOTE: this is depressingly expensive, when it's really not likely to add
+    # much value. But we do need to try and add all of the flattened taxa for
+    # this resource, so that search will find the children. (Usually, they are
+    # all there, but we need to be sure!) TODO: we could look up all of the taxa
+    # to get a delta and just add those.
+    TraitBank.flatten_taxa(taxa)
+    remove_missing_data_point_uris
+  end
+
+  # This takes an obnoxiously long time. Not much to be done about that. :\ This
+  # method helps keep the table a managable size, though.
+  def remove_missing_data_point_uris
+    EOL.log_call
+    # data_point_uris is NOT indexed (doesn't really need to be except here), so
+    # doing a lot of work to make the query finish. This still takes a long
+    # time. :|
+    low = DataPointUri.minimum(:id)
+    max = DataPointUri.maximum(:id)
+    batch = 250_000 # Huge batches, but I checked that this was okay.
+    points = []
+    while low < max
+      points += resource.data_point_uris.  ########################## TODO remove the resource! TODO TODO  TODO
+        where(["id > ? AND id < ?", low, low + batch]).
+        pluck(:uri)
+      low += batch
+    end
+    points.in_groups_of(1000, false) do |group|
+      uris = Set.new(group)
+      exist = TraitBank.group_exists?(uris.to_a)
+      DataPointUri.where(uri: (uris - exist).to_a).delete_all unless exist.empty?
+    end
   end
 
 private

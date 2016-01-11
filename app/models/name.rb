@@ -15,6 +15,8 @@ class Name < ActiveRecord::Base
   has_many :taxon_concept_names
   has_many :hierarchy_entries
 
+  alias entries hierarchy_entries
+
   validates_presence_of   :string
   # this is being commented out because we are enforcing the uniqueness of clean_name not string
   # string is not indexed so that was creating a query that took a long time to run
@@ -144,6 +146,19 @@ class Name < ActiveRecord::Base
 
   def is_subgenus?
     string.match(/^[A-Z][^ ]+ \([A-Z][^ ]+\)($| [A-Z])/)
+  end
+
+  def clean_canonical_form
+    # TODO: whoa, whoa, whoa: we should NOT be doing this here. :| We should be
+    # calling GN for this kind of thing. ...And it should already be in the DB!
+    # Argh.
+    string = canonical_form.string
+    # TODO: do we _really_ want the "sp" here? I doubt it aids searches. :\
+    if string =~ /^(.* sp)\.?\b/
+      $1
+    else
+      string.gsub(/\s+(var|convar|subsp|ssp|cf|f|f\.sp|c|\*)\.?\b/, "")
+    end
   end
 
 private

@@ -74,6 +74,18 @@ module EOL
     end
   end
 
+  def self.log_return
+    begin
+      (file, method) = caller.first.split
+      EOL.log(
+        "Return from #{file.split('/').last.split(':')[0..1].join(':')}#"\
+        "#{method[1..-2]}", prefix: '#'
+      )
+    rescue
+      EOL.log("Returning from method #{caller.first}")
+    end
+  end
+
   def self.log_error(e)
     EOL.log("ERROR: #{e.message}", prefix: "!")
     i = 0
@@ -100,7 +112,25 @@ module EOL
     @last_log_time = Time.now
   end
 
+  # NOTE: Yes, this "really" belongs in EOL::Db, but I didn't want to have to
+  # type that when I needed it. :\ NOTE: You really don't _need_ the single-pk
+  # version of this. You just want to #pluck(:id) in those cases. I only keep it
+  # here to avoid surprise.
+  def self.pluck_pks(klass, query)
+    keys = klass.primary_keys || Array(klass.primary_key)
+    pluck_fields(keys, query)
+  end
+
+  def self.pluck_fields(fields, query)
+    query.pluck("CONCAT(#{fields.map(&:to_s).join(", ',', ")}) f")
+  end
+
+  # Black magic to turn fields into hash: ONLY WORKS ON INTEGER FIELDS!
+  def self.unpluck_ids(fields, row)
+    Hash[*fields.zip(row.split(",").map(&:to_i)).flatten]
+  end
+
   def self.spam_re
-    @spam_re ||= /\b(movie|watch|putlocker|put-locker|full mkv|http)\b/i
+    @spam_re ||= /\b(movie|watch|episode|putlocker|online free|put-locker|full mkv|http)\b/i
   end
 end

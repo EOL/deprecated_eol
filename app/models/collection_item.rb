@@ -11,6 +11,7 @@ class CollectionItem < ActiveRecord::Base
     foreign_key: :added_by_user_id
   has_and_belongs_to_many :refs
 
+  # NOTE: type is not an indexed field, so don't rely on this for speed:
   scope :collections, conditions: { collected_item_type: 'Collection' }
   scope :communities, conditions: { collected_item_type: 'Community' }
   scope :data_objects, conditions: { collected_item_type: 'DataObject' }
@@ -57,6 +58,8 @@ class CollectionItem < ActiveRecord::Base
                  links:       { facet: 'Link',         i18n_key: "links" } }
   end
 
+  # TODO: I don't believe this is the right way to do things. :\ I suggest we
+  # take a different tack.
   def self.preload_collected_items(all_items, options = {})
     groups = all_items.group_by(&:collected_item_type)
     groups.each do |type, items|
@@ -73,7 +76,7 @@ class CollectionItem < ActiveRecord::Base
           select { |i| i.taxon_concept? }.
           map(&:collected_item_id)).
         each do |metric|
-        items.each do |item|
+        all_items.each do |item|
           item["richness_score"] = metric.richness_score if
             item.collected_item_id == metric.taxon_concept_id
         end
@@ -84,22 +87,32 @@ class CollectionItem < ActiveRecord::Base
 
   # TODO - would be nice to have a list of superceded taxa from the harvest!
   def self.remove_superceded_taxa
-    taxa.
+    # No appropriate indexes, here, so we have to use ID:
+    last = CollectionItem.maximum(:id)
+    batch = 10_000
+    current = 1
+    while current < last
+      items = []
+      taxa.
       select("collection_items.*, supercedure_id new_tc_id").
-      joins("JOIN taxon_concepts ON taxon_concepts.id = "\
+      includes(collected_item: :taxon_concept_metric).
+        joins("JOIN taxon_concepts ON taxon_concepts.id = "\
         "collection_items.collected_item_id").
-      where("supercedure_id != 0").find_in_batches do |items|
-      items.each do |item|
+      where(["supercedure_id != 0 AND collection_items.id > ? AND "\
+        "collection_items.id < ?", current, current + batch]).
+      find_each do |item|
         begin
           item.update_attribute(:collected_item_id, item[:new_tc_id])
+          item["richness_score"] =
+            item.collected_item.taxon_concept_metric.try(:richness_score)
+          items << item
         rescue ActiveRecord::RecordNotUnique
           # The superceded taxon was already in the collection; safe to ignore:
           item.destroy
         end
+        SolrCore::CollectionItems.reindex_items(items)
       end
-      # Pre-load taxa to avoid N+1 problem:
-      preload_collected_items(items, richness_score: true)
-      SolrCore::CollectionItems.reindex_items(items)
+      current += batch
     end
   end
 
@@ -205,7 +218,7 @@ class CollectionItem < ActiveRecord::Base
       # TODO: test whether these defaults are actually needed:
       date_created: SolrCore.date(created_at),
       date_modified: SolrCore.date(updated_at),
-      title: SolrCore.string(collected_item.collected_name),
+      title: SolrCore.string(collected_item.collected_name) || collected_item_type,
       richness_score: richness_score || 0,
       data_rating: data_object_rating,
       sort_field: SolrCore.string(sort_field)

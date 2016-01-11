@@ -41,7 +41,7 @@ class SolrCore
       end
       EOL.log("Committing...")
       connection.commit
-      EOL.log("Finished...")
+      EOL.log_return
       @objects = nil # Saves some memory (hopefully).
     end
 
@@ -54,6 +54,7 @@ class SolrCore
       end
     end
 
+    # NOTE: called by #insert_batch via dynamic #send
     def get_taxon_concepts(ids)
       EOL.log_call
       @taxa ||= {}
@@ -160,18 +161,17 @@ class SolrCore
       end
     end
 
-    # TODO: it looks like this (or something shortly after it) takes a LONG time
-    # to run; find and improve.
+    # TODO: it looks like this takes a LONG time to run; improve.
     def convert_taxa_to_search_objects
-      EOL.log_call
+      EOL.log("converting #{@taxa.count} taxa to search objects", prefix: "#")
       @taxa.each do |id, taxon|
-          base_attributes = {
-            resource_type:             "TaxonConcept",
-            resource_id:               id,
-            resource_unique_key:       "TaxonConcept_#{id}",
-            ancestor_taxon_concept_id: taxon[:ancestor_taxon_concept_id],
-            richness_score:            taxon[:richness_score]
-          }
+        base_attributes = {
+          resource_type:             "TaxonConcept",
+          resource_id:               id,
+          resource_unique_key:       "TaxonConcept_#{id}",
+          ancestor_taxon_concept_id: taxon[:ancestor_taxon_concept_id],
+          richness_score:            taxon[:richness_score]
+        }
         [:preferred_scientifics, :synonyms, :surrogates].each do |field|
           objs = add_scientific_to_objects(base_attributes, taxon, field)
           @objects += objs
@@ -209,7 +209,8 @@ class SolrCore
     # not necessary (so many nulls); I'm not sure nulls are handled properly
     # (well, it does remove blanks, but that's a lot of work to find out it's
     # null!), and this is all VERY obfuscated. :| I'm not pleased with this
-    # code. I definitely wouldn't have done it this way!
+    # code. I definitely wouldn't have done it this way! # NOTE: called by
+    # #insert_batch via dynamic #send
     def get_data_objects(ids)
       EOL.log_call
       set_data_type_and_weight
@@ -328,18 +329,22 @@ class SolrCore
     def get_object_agents(ids)
       EOL.log_call
       @agents_for_objects ||= {}
-      Agent.includes(:data_objects).joins(:data_objects).
-        where(["agents_data_objects.data_object_id IN (?) "\
-          "AND data_objects.published = 1", ids]).
-        find_each do |agent|
-        agent_name = SolrCore.string("#{agent.full_name} #{agent.given_name} "\
-          "#{agent.family_name}")
-        if agent_name.blank?
-          EOL.log("WARNING: Agent with no names: #{agent.id}", prefix: "!")
-        else
-          agent.data_objects.each do |dato|
-            @agents_for_objects[dato.id] ||= []
-            @agents_for_objects[dato.id] << agent_name
+      # NOTE: I tried using find_each, here, but it causes an ORDER BY clause
+      # (it needs to, to keep track of things), so I'll just limit the query
+      # size by grouping ids:
+      ids.in_groups_of(500, false) do |group|
+        Agent.includes(:data_objects).joins(:data_objects).
+          where(["agents_data_objects.data_object_id IN (?) "\
+            "AND data_objects.published = 1", group]).each do |agent|
+          agent_name = SolrCore.string("#{agent.full_name} "\
+            "#{agent.given_name} #{agent.family_name}")
+          if agent_name.blank?
+            EOL.log("WARNING: Agent with no names: #{agent.id}", prefix: "!")
+          else
+            agent.data_objects.each do |dato|
+              @agents_for_objects[dato.id] ||= []
+              @agents_for_objects[dato.id] << agent_name
+            end
           end
         end
       end
@@ -388,6 +393,7 @@ class SolrCore
       end
     end
 
+    # NOTE: called by #insert_batch via dynamic #send
     def get_users(ids)
       EOL.log_call
       User.active.not_hidden.where(id: ids).find_each do |user|
@@ -405,6 +411,7 @@ class SolrCore
       end
     end
 
+    # NOTE: called by #insert_batch via dynamic #send
     def get_collections(ids)
       EOL.log_call
       Collection.published.non_watch.where(id: ids).find_each do |collection|
@@ -424,6 +431,7 @@ class SolrCore
       end
     end
 
+    # NOTE: called by #insert_batch via dynamic #send
     def get_communities(ids)
       EOL.log_call
       Community.published.where(id: ids).find_each do |community|
@@ -443,6 +451,7 @@ class SolrCore
       end
     end
 
+    # NOTE: called by #insert_batch via dynamic #send
     def get_content_pages(ids)
       EOL.log_call
       TranslatedContentPage.active.joins(:content_page).

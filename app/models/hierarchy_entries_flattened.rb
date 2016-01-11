@@ -1,3 +1,7 @@
+# An ancestry tree for hierarchy entries. It's a bit absurd to me that
+# hierarchy_id isn't in the fields. It's also crazy that we don't index
+# individual fields (just the PK, which is the combo)... but so far, things
+# aren't _that_ slow, so we perservere.
 class HierarchyEntriesFlattened < ActiveRecord::Base
   self.table_name = "hierarchy_entries_flattened"
   self.primary_keys = :hierarchy_entry_id, :ancestor_id
@@ -5,18 +9,32 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   belongs_to :hierarchy_entry, class_name: HierarchyEntry.to_s, foreign_key: :hierarchy_entry_id
   belongs_to :ancestor, class_name: HierarchyEntry.to_s, foreign_key: :ancestor_id
 
-  scope :in_hierarchy, ->(hierarchy_id) { joins(:hierarchy_entry).
-    where(hierarchy_entries: { hierarchy_id: hierarchy_id }) }
-
+  # NOTE: This is very, very, VERY slow. It's using the PK, so that's not the
+  # problem... It's just that deletes are very slow. Don't call this. Seriously.
+  # You probably want to create a diff and delete only the things you need to.
   def self.delete_hierarchy_id(hierarchy_id)
     EOL.log_call
     ids = in_hierarchy(hierarchy_id).
       map { |r| "(#{r.hierarchy_entry_id}, #{r.ancestor_id})" }
     return if ids.empty?
-    ids.in_groups_of(6400, false) do |group|
-      where("(hierarchy_entry_id, ancestor_id) IN (#{group.join(", ")})").
-        delete_all
+    ids.in_groups_of(6400, false) do |set|
+      delete_set(set)
     end
+  end
+
+  def self.delete_set(group)
+    return if group.empty?
+    where("(hierarchy_entry_id, ancestor_id) IN (#{group.to_a.join(",")})").
+      delete_all
+  end
+
+  def self.pks_in_hierarchy(hierarchy)
+    pks = Set.new
+    ids = hierarchy.hierarchy_entries.pluck(:id)
+    ids.in_groups_of(10_000).each do |group|
+      pks += EOL.pluck_pks(self, where(hierarchy_entry_id: group))
+    end
+    pks
   end
 
   # scope :in_hierarchy, ->(hierarchy_id) { where("(hierarchy_entry_id, "\

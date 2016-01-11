@@ -48,7 +48,7 @@ Rails.configuration.inat_collection_url =
 
 # Solr Stuff:
 Rails.configuration.solr_relationships_page_size =
-  ENV["SOLR_RELATIONSHIPS_PAGE_SIZE"] || 10000
+  ENV["SOLR_RELATIONSHIPS_PAGE_SIZE"] || 1000
 
 Eol::Application.configure do
   config.after_initialize do

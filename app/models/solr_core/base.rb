@@ -1,5 +1,5 @@
-class SolrCore
-  class Base
+  class SolrCore
+    class Base
     attr_reader :connection
 
     def self.delete_by_ids(ids)
@@ -35,7 +35,11 @@ class SolrCore
     def connect(name)
       return if @connection
       @core = name
-      @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{name}")
+      # TODO: make this timeout dynamic. We don't really want production waiting
+      # this long! This was meant for publishing tasks.
+      timeout = 10.minutes.to_i
+      @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{name}",
+        read_timeout: timeout, open_timeout: timeout)
     end
 
     def commit
@@ -65,10 +69,15 @@ class SolrCore
     end
 
     def paginate(q, options = {})
-      options[:page] ||= 1
-      options[:per_page] ||= 30
-      response = connection.paginate(options.delete(:page),
-        options.delete(:per_page), "select", params: options.merge(q: q))
+      page = options.delete(:page) || 1
+      per_page = options.delete(:per_page) || 30
+      response = begin
+        connection.paginate(page, per_page, "select", params: options.merge(q: q))
+      rescue Timeout::Error => e
+        EOL.log("SOLR TIMEOUT: page/per: #{page}/#{per_page} ; q: #{q}",
+          prefix: "!")
+        raise(e)
+      end
       unless response["responseHeader"]["status"] == 0
         raise "Solr error! #{response["responseHeader"]}"
       end
@@ -90,7 +99,12 @@ class SolrCore
     # NOTE: returns eval'ed ruby (a hash):
     def select(q, options = {})
       params = options.merge(q: q)
-      response = connection.select(params: params)
+      response = begin
+        connection.select(params: params)
+      rescue Timeout::Error => e
+        EOL.log("SOLR TIMEOUT: q: #{q}", prefix: "!")
+        raise(e)
+      end
       unless response["responseHeader"]["status"] == 0
         raise "Solr error! #{response["responseHeader"]}"
       end

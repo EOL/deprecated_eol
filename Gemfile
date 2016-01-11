@@ -12,6 +12,8 @@ group :development, :test, :staging_dev, :test_dev, :bocce_demo_dev do
   gem "capybara", "1.1.3"
   # This allows tasks to run in the background, like Solr.
   gem "daemons", "1.1.9"
+  # For testing emails within RSpec.
+  gem "email_spec", "1.4.0"
   # We use this *extensively* in testing to create "real" models. Learn this.
   gem "factory_girl_rails", "4.3.0"
   # We use this for creating "realistic" names for testing / bootstrapping.
@@ -118,7 +120,9 @@ gem "rails", "3.2.18"
 # the version, per se, this is just to avoid CVE-2014-2538:
 gem "rack-ssl", "1.3.3"
 
-gem "active_type", "~> 0.2" # Facilitates context-driven model subclasses.
+# Facilitates context-driven model subclasses. See ContentPartner::AsUnassisted
+# for an exemplar.
+gem "active_type", "~> 0.2"
 # Used for drag-and-drop reordering of KnownUri instances. ...We could be making
 # wider use of this.
 gem "acts_as_list", "0.3.0"
@@ -128,8 +132,6 @@ gem "acts_as_tree_rails3", "0.1.0"
 # Amazon web services:
 gem "aws-sdk", "~> 1.58"
 
-# "used for generation of scientific names with ranks on the species page"
-gem "biodiversity", "3.1.2"
 # Used by identity_cache to speed up the creation of hash keys.
 gem "cityhash", "0.8.1"
 # We use this in many places, such as creating data objects, to allow rich text
@@ -151,8 +153,6 @@ gem "dalli", "2.6.4"
 # customize it for our needs:
 gem "ar-octopus", "0.4.0", git: "https://github.com/pleary/octopus.git",
   branch: "0.4.0", require: "octopus"
-# For testing emails within RSpec.
-gem "email_spec", "1.4.0"
 # provides several HTML/URI/shell escaping functions - TODO: - I don't think we
 # need this?
 gem "escape"

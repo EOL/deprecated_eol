@@ -19,13 +19,14 @@ class MediaAssociation < ActiveRecord::Base
     end
 
     def merge_associations_from_table(assocs, klass, batch_size = 6400)
+      EOL.log_call
       visible = Visibility.get_visible.id
       preview = Visibility.get_preview.id
       weights = Vetted.weight
-      total = klass.send :count
-      count = 0
-      this_count = 1 # Arbitrary non-zero value
-      while count < total && this_count != 0
+      offset = 0
+      count = 1 # Arbitrary non-zero value
+      while count != 0
+        EOL.log("offset: #{offset}", prefix: ".")
         query = "SELECT assocs.hierarchy_entry_id he_id, dato.id do_id, "\
           "  dato.data_rating rate, assocs.visibility_id vis, "\
           "  assocs.vetted_id vet, dato.published d_pub, he.published h_pub "\
@@ -33,10 +34,10 @@ class MediaAssociation < ActiveRecord::Base
           "  JOIN data_objects dato ON (assocs.data_object_id = dato.id AND "\
           "    dato.data_type_id IN (#{DataType.media_type_ids.join(",")})) "\
           "  JOIN hierarchy_entries he ON (assocs.hierarchy_entry_id = he.id) "
-          "LIMIT #{batch_size} OFFSET #{count}"
+          "LIMIT #{batch_size} OFFSET #{offset}"
         these = klass.connection.select(query)
-        this_count = these.count
-        count += this_count
+        count = these.count
+        offset += count
         these.each do |this|
           assocs[this["he_id"]] ||= []
           assocs[this["he_id"]] <<

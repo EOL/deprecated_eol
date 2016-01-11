@@ -48,6 +48,7 @@ class Hierarchy
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
       @count = 0
+      @per_page = Rails.configuration.solr_relationships_page_size
       @solr = SolrCore::HierarchyEntries.new
       @relationships = Set.new
     end
@@ -55,12 +56,7 @@ class Hierarchy
     def relate
       EOL.log_call
       return false unless @hierarchy # TODO: necessary?
-      if @new_entry_ids
-        compare_entries_by_id
-      else
-        raise NotImplementedError.new("cannot relate without list of ids")
-        # iterate_through_entire_hierarchy # not doing this now.
-      end
+      compare_entries
       add_curator_assertions
       delete_existing_relationships
       insert_relationships
@@ -69,21 +65,27 @@ class Hierarchy
 
     private
 
-    def compare_entries_by_id
+    def compare_entries
       EOL.log_call
-      # Limited size due to sending Solr queries via POST, but NOTE that
-      # pagination DOES NOT HELP here, the offset in the query seems to
-      # determine the speed of the request, and not in a good way...
-      group_size = 640
-      @new_entry_ids.in_groups_of(group_size, false) do |batch|
-        response = @solr.
-          select("hierarchy_id:#{@hierarchy.id} AND "\
-          "id:(#{batch.join(" OR ")})", rows: group_size)
-        EOL.log("comparing #{response["response"]["docs"].count} entries")
-        response["response"]["docs"].each do |entry|
-          compare_entry(entry)
+      begin
+        page ||= 0
+        page += 1
+        entries = get_page_from_solr(page)
+        entries.each do |entry|
+          compare_entry(entry) if @new_entry_ids.include?(entry["id"])
         end
+      end while entries.count > 0
+    end
+
+    def get_page_from_solr(page)
+      response = @solr.paginate("hierarchy_id:#{@hierarchy.id}",
+        page: page, per_page: @per_page)
+      rhead = response["responseHeader"]
+      if rhead["QTime"] && rhead["QTime"].to_i > 1000
+        EOL.log("relator query: #{rhead["q"]}", prefix: ".")
+        EOL.log("relator request took #{rhead["QTime"]}ms", prefix: ".")
       end
+      response["response"]["docs"]
     end
 
     # TODO: cleanup. :| TODO: Speed up. This is a very, very slow process, even
@@ -312,6 +314,8 @@ class Hierarchy
       old_score = old_relationship && old_relationship.split(', ').last.to_f
       @relationships << "#{key} #{score[:score]}" unless
         old_score && old_score < score[:score]
+      count = @relationships.count
+      EOL.log("#{count} relationships...", prefix: ".") if count % 1000 == 0
     end
 
     def add_curator_assertions

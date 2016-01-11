@@ -111,16 +111,18 @@ class RandomHierarchyImage < ActiveRecord::Base
       tc_ids = TaxonConceptMetric.
         where(["richness_score > ?", $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).
         pluck(:taxon_concept_id)
-      EOL.log("Found #{tc_ids} rich taxa", prefix: '.')
+      EOL.log("Found #{tc_ids.count} rich taxa", prefix: '.')
       # Not doing this with a big join right now because the top_concept_images
       # table was out of date at the time of writing. TODO - move the trusted
       # check; that should be done when called, not here!
       set = Set.new
+      batch_size = 500
       TaxonConcept.includes(hierarchy_entries: [ :name ]).
         where(id: tc_ids, vetted_id: Vetted.trusted.id).
         where(["hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
           "hierarchy_entries.rank_id IN (?)", Rank.species_rank_ids]).
-        find_each do |taxon|
+        find_each(batch_size: batch_size) do |taxon|
+        EOL.log(set.count, prefix: ".") if batch_size % 500 == 0
         img = taxon.exemplar_or_best_image_from_solr
         next unless img
         set << {

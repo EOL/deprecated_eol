@@ -31,15 +31,15 @@ class HarvestBatch
       begin
         @harvested_resources.each do |resource|
           resource.hierarchy.flatten
+          # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
+          # resource. Make it run #publish (in the background)! YOU WERE HERE
           if resource.auto_publish?
             resource.publish
           else
-            # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
-            # resource. Make it run #publish (in the background)! YOU WERE HERE
             resource.preview
           end
         end
-        denormalize_tables
+        #WAIT: needs to be called async'ly: denormalize_tables
       # TODO: there are myriad specific errors that harvesting can throw; catch
       # them here.
       rescue => e
@@ -58,11 +58,11 @@ class HarvestBatch
     # needed, based on what got harvested (i.e.: a list of data objects
     # inserted could be used to figure out where they lie in the sort, and
     # update the orders as needed based on that—much faster.)
-    TopImage.rebuild
+    # WAIT: don't trust this; do it from harvest: TopImage.rebuild
     RandomHierarchyImage.create_random_images_from_rich_taxa
     TaxonConceptPreferredEntry.rebuild
     CollectionItem.remove_superceded_taxa
-    EOL.log("denormalize_tables finished", prefix: "#")
+    EOL.log_return
   end
 
   def time_out?

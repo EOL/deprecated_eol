@@ -13,19 +13,16 @@ class Hierarchy
       @superceded = {}
       @visible_id = Visibility.get_visible.id
       @preview_id = Visibility.get_preview.id
-      @rel_page_size = Rails.configuration.solr_relationships_page_size
+      @per_page = Rails.configuration.solr_relationships_page_size
       @solr = SolrCore::HierarchyEntryRelationships.new
     end
 
     # NOTE: this used to use DB transactions, but A) it was doing it wrong
     # (nested), and B) it did them "every 50 batches", which is awkward and...
     # well... useless anyway. I am going to do this WITHOUT A TRANSACTION. Deal
-    # with it. NOTE: this relies on hierarchy_entries_counts being correct. ...I
-    # am making that assumption because I just saw the code in harvesting that
-    # sets it, so I think it's there. :) However, you may still wish TODO to fix
-    # counts periodically (say, once a month).
+    # with it.
     def merges_for_hierarchy
-      EOL.log_call
+      EOL.log("Start merges for hierarchy #{@hierarchy.display_title}")
       fix_entry_counts if fix_entry_counts_needed?
       lookup_preview_harvests
       get_confirmed_exclusions
@@ -43,6 +40,7 @@ class Hierarchy
         next if already_compared?(@hierarchy.id, other_hierarchy.id)
         compare_hierarchies(@hierarchy, other_hierarchy)
       end
+      EOL.log("Completed merges for hierarchy #{@hierarchy.display_title}")
     end
 
     private
@@ -72,16 +70,18 @@ class Hierarchy
       begin
         page ||= 0
         page += 1
-        get_page_of_relationships_from_solr(hierarchy1, hierarchy2, page).
-          each do |relationship|
+        entries = get_page_from_solr(hierarchy1, hierarchy2, page)
+        entries.each do |relationship|
           merge_matching_concepts(relationship)
         end
       end while entries.count > 0
+      EOL.log("Completed comparing hierarchy #{hierarchy1.id} to "\
+        "#{hierarchy2.id}")
     end
 
     # NOTE: This is a REALLY slow query. ...Which sucks. :\ Yes, even for
     # Solr... it takes a VERY long time.
-    def get_page_of_relationships_from_solr(hierarchy1, hierarchy2, page)
+    def get_page_from_solr(hierarchy1, hierarchy2, page)
       EOL.log_call
       response = @solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page))
@@ -105,7 +105,7 @@ class Hierarchy
     def compare_hierarchies_options(page)
       { sort: "relationship asc, visibility_id_1 asc, "\
         "visibility_id_2 asc, confidence desc, hierarchy_entry_id_1 asc, "\
-        "hierarchy_entry_id_2 asc"}.merge(page: page, per_page: @rel_page_size)
+        "hierarchy_entry_id_2 asc"}.merge(page: page, per_page: @per_page)
     end
 
     def merge_matching_concepts(relationship)
@@ -144,8 +144,8 @@ class Hierarchy
       end
       if affected = additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
         EOL.log("SKIP: A merge of #{id1} (concept #{tc_id1}) and #{id2} "\
-          "(concept #{tc_id2}) is not allowed by complete hierarchy "\
-          "#{affected.label} (#{affected.id})", prefix: ".")
+          "(concept #{tc_id2}) is not allowed by complete hierarchy",
+          prefix: ".")
         return(nil)
       end
       EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
@@ -287,7 +287,7 @@ class Hierarchy
       other = which == 1 ? 2 : 1
       hierarchy.complete &&
         relationship["visibility_id_#{which}"] == vis_id &&
-        concept_has_vis_id_in_hierarchy(relationship["taxon_concept_id_#{other}"],
+        concept_has_vis_id_in_hierarchy?(relationship["taxon_concept_id_#{other}"],
           vis_id, hierarchy)
     end
 
@@ -308,7 +308,7 @@ class Hierarchy
     end
 
     def confirmed_exclusions_matches?(id, other_tc_id)
-      @confirmed_exclusions[id1].each do |tc_id|
+      @confirmed_exclusions[id].each do |tc_id|
         tc_id = follow_supercedure_cached(tc_id)
         return true if tc_id == other_tc_id
       end
@@ -321,13 +321,11 @@ class Hierarchy
     def additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
       from_first = HierarchyEntry.visible.
         joins(:hierarchy).
-        where(taxon_concept_id: tc_id1, hierarchy: { complete: true }).
-        pluck(&:hierarchy_id)
-      entry = HierarchyEntry.visible.
-        includes(:hierarchy).
+        where(taxon_concept_id: tc_id1, hierarchies: { complete: true }).
+        pluck(:hierarchy_id)
+      HierarchyEntry.visible.
         where(taxon_concept_id: tc_id2, hierarchy_id: from_first).
-        first
-      return entry && entry.hierarchy
+        exists?
     end
   end
 end

@@ -28,7 +28,11 @@ class Resource
     end
 
     def denormalize
-      @resource.insert_data_objects_taxon_concepts
+      @resource.hierarchy.insert_data_objects_taxon_concepts
+      # TODO: this next command isn't technically enough. (it will work, but it
+      # will leave zombie entries). We need to add a step that says "delete all
+      # entries in dotoc where ids in (list of ids that were in previous event
+      # but not this one)"
       @harvest_event.insert_dotocs
     end
 
@@ -41,6 +45,7 @@ class Resource
     # hierarchy have been rebuilt when this is called.
     def publish
       EOL.log_call
+      EOL.log("Publishing #{resource.title}")
       raise "No harvest event!" unless @harvest_event
       raise "Harvest event already published!" if @harvest_event.published?
       raise "Harvest event not complete!" unless @harvest_event.complete?
@@ -56,6 +61,7 @@ class Resource
       end
       ActiveRecord::Base.connection.transaction do
         old_entry_ids = Set.new(@resource.unpublish_hierarchy)
+        # TODO: that's a bad name.
         @harvest_event.finish_publishing
         new_entry_ids =
           Set.new(@harvest_event.hierarchy_entry_ids_with_ancestors)
@@ -65,6 +71,9 @@ class Resource
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       # NOTE: This is a doozy of a method!
       @harvest_event.merge_matching_concepts
+      # TODO: this really only needs to run if there are any traits in the
+      # resource, so we should add a check for that (actually, I think we have
+      # one...)
       EOL::Sparql::EntryToTaxonMap.create_graph(@resource)
       ActiveRecord::Base.connection.transaction do
         @resource.rebuild_taxon_concept_names
@@ -74,12 +83,13 @@ class Resource
       end
       @harvest_event.index_for_site_search
       @harvest_event.index_new_data_objects
+      @resource.port_traits
       # TODO: make sure the harvest event is marked as published!
       @resource.update_attributes(resource_status_id:
         ResourceStatus.published.id)
       @resource.save_resource_contributions
-      @resource.insert_data_objects_taxon_concepts
       denormalize
+      EOL.log("Completed publish of #{resource.title}")
       true
     end
   end

@@ -6,6 +6,26 @@ class Rank < ActiveRecord::Base
     primary_key: 'rank_group_id', foreign_key: 'rank_group_id'
   belongs_to :rank_group, class_name: 'Rank', foreign_key: 'rank_group_id'
 
+  # TODO: Absolutely ABSURD that this is not in the table. We're using "groups",
+  # without giving each group an appropriate label. We should do that.
+  @solr_rank_map = {
+    'kingdom' =>  :kingdom,
+    'regn.' => :kingdom,
+    'phylum' => :phylum,
+    'phyl.' => :phylum,
+    'class' => :class,
+    'cl.' => :class,
+    'order' => :order,
+    'ord.' => :order,
+    'family' => :family,
+    'fam.' => :family,
+    'f.' => :family,
+    'genus' => :genus,
+    'gen.' => :genus,
+    'species' => :species,
+    'sp.' => :species
+  }
+
   def self.kingdom
     cached_find_translated(:label, 'kingdom', include: :group_members)
   end
@@ -127,6 +147,17 @@ class Rank < ActiveRecord::Base
         'species'     => 'sp',
         'sp'          => 'sp' }
     end
+  end
+
+  def self.label(rank_id)
+    unless @rank_labels
+      @rank_labels = {}
+      TranslatedRank.where(language_id: Language.english.id).each do |trank|
+        @rank_labels[trank.rank_id] = @solr_rank_map[trank.label] if
+          @solr_rank_map.has_key?(trank.label)
+      end
+    end
+    @rank_labels[rank_id]
   end
 
   def tcs_code

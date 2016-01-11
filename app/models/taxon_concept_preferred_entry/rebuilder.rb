@@ -1,7 +1,7 @@
 class TaxonConceptPreferredEntry
   class Rebuilder
 
-    attr_reader :all_entries, :curated_entries, :best_entries
+    attr_reader :entries, :curated_entries, :best_entries
 
     # TODO - THIS SHOULD NOT BE HARD-CODED! (╯°□°)╯︵ ┻━┻
     # NOTE: this is ALSO hard-coded in Hierarchy.sort_order!! Same? TODO
@@ -11,14 +11,14 @@ class TaxonConceptPreferredEntry
       "Avibase - IOC World Bird Names (2011)",
       "WORMS Species Information (Marine Species)",
       "FishBase (Fish Species)",
-      # TODO - remove the backslash. I'm just getting around an Atom bug.
-      "IUCN \Red List (Species Assessed for Global Conservation)",
+      "IUCN Red List (Species Assessed for Global Conservation)",
       "Index Fungorum",
       "Paleobiology Database"
     ]
 
     def initialize
-      @all_entries = {}
+      @entries = {}
+      @hierarchies = {}
       @curated_entries = {}
       @best_entries = {}
     end
@@ -26,61 +26,72 @@ class TaxonConceptPreferredEntry
     def rebuild
       EOL.log_call
       EOL::Db.with_tmp_tables([TaxonConceptPreferredEntry]) do
-        get_all_entries
+        get_hierarchies
         get_curated_entries
+        get_entries
         get_best_entries
         insert_best_entries
         EOL::Db.swap_tmp_table(TaxonConceptPreferredEntry)
       end
     end
 
-    def get_all_entries
+    def get_entries
       EOL.log_call
-      # TODO - this was just copied from PHP. Improve.
-      TaxonConcept.select("taxon_concepts.id id, "\
-        "he.id hierarchy_entry_id, "\
-        "he.visibility_id, v.view_order vetted_view_order, "\
-        "h.id hierarchy_id, h.browsable, h.label").
-        joins("STRAIGHT_JOIN hierarchy_entries he "\
-          "ON (taxon_concepts.id = he.taxon_concept_id) "\
-          "STRAIGHT_JOIN hierarchies h ON (he.hierarchy_id = h.id) "\
-          "STRAIGHT_JOIN vetted v ON (he.vetted_id = v.id)").
-        where("he.published = 1").
-        find_each do |taxon|
-        EOL.log(".. taxon #{taxon.id}")
-        @all_entries[taxon.id] ||= []
-        @all_entries[taxon.id] << {
-          hierarchy_entry_id: taxon["hierarchy_entry_id"].to_i,
-          vetted_view_order: taxon["vetted_view_order"].to_i,
-          browsable: taxon["browsable"].to_i,
-          hierarchy_sort_order: hierarchy_sort_order(taxon["label"])
-        }
+      count = 0
+      last = HierarchyEntry.maximum(:id)
+      EOL.log("last: #{last}", prefix: ".")
+      batch = 20_000
+      low = HierarchyEntry.published.first.id
+      fields = [:id, :taxon_concept_id, :hierarchy_id, :vetted_id]
+      begin
+        EOL.log("#{low}", prefix: ".") if count % 20 == 0
+        EOL.pluck_fields(fields, HierarchyEntry.published.
+          where(["id > ? AND id < ?", low, low + batch])).each do |row|
+          h = EOL.unpluck_ids(fields, row)
+          concept_id = h.delete(:taxon_concept_id)
+          @entries[concept_id] ||= []
+          @entries[concept_id] << h
+        end
+        count += 1
+        low += batch
+      end until low > last
+    end
+
+    def get_hierarchies
+      EOL.log_call
+      fields = [:id, :browsable, :label]
+      # NOTE: weird id > 0 used because #all runs query immediately. :(
+      dat = EOL.pluck_fields(fields, Hierarchy.where("id > 0"))
+      dat.compact.each do |row|
+        (id, browsable, label) = row.split(",", 3)
+        @hierarchies[id] = { browsable: browsable,
+          sort: hierarchy_sort_order(label) }
       end
     end
 
     def get_curated_entries
       EOL.log_call
-      # TODO - this could be done with a group by query, I think. Maybe not.
-      CuratedTaxonConceptPreferredEntry.
-        select("curated_taxon_concept_preferred_entries.taxon_concept_id, "\
-          "curated_taxon_concept_preferred_entries.hierarchy_entry_id").
-        joins("JOIN hierarchy_entries").
+      CuratedTaxonConceptPreferredEntry.includes(:hierarchy_entry).
+        joins(:hierarchy_entry).
         where(hierarchy_entries: { published: true,
           visibility_id: Visibility.get_visible.id }).
-        find_each do |ctcpe|
-        # NOTE: there is only one preferred hierarchy (for now)
-        @curated_entries[ctcpe["taxon_concept_id"]] =
-          ctcpe["hierarchy_entry_id"]
+        find_each do |pref|
+        # NOTE: there is only one preferred entry per concept (for now)
+        @curated_entries[pref.taxon_concept_id] = pref.hierarchy_entry_id
       end
     end
 
     def get_best_entries
       EOL.log_call
-      @all_entries.each do |taxon_concept_id, concept_entries|
+      count = 0
+      @entries.each do |taxon_concept_id, concept_entries|
+        EOL.log("#{count}", prefix: ".") if count % 100_000 == 0
+        count += 1
         @best_entries[taxon_concept_id] = concept_entries.
           sort_by { |entry| entry_sort(entry) }.
-          first[:hierarchy_entry_id]
+          first[:id]
       end
+      EOL.log("adding curated entries", prefix: ".")
       @curated_entries.each do |taxon_concept_id, hierarchy_entry_id|
         # NOTE this trumps any value that may have already been in there...
         @best_entries[taxon_concept_id] = hierarchy_entry_id if
@@ -94,18 +105,22 @@ class TaxonConceptPreferredEntry
     def insert_best_entries
       EOL.log_call
       values = []
+      EOL.log("preparing", prefix: ".")
       @best_entries.each do |taxon_concept_id, hierarchy_entry_id|
         values << "#{taxon_concept_id}, #{hierarchy_entry_id}"
       end
+      EOL.log("inserting", prefix: ".")
       EOL::Db.bulk_insert(TaxonConceptPreferredEntry,
         [:taxon_concept_id, :hierarchy_entry_id],
         values, tmp: true)
     end
 
     def entry_sort(entry)
-      [ entry[:vetted_view_order],
-        0 - entry[:browsable],
-        entry[:hierarchy_sort_order],
+      hierarchy = @hierarchies[entry[:hierarchy_id]] ||
+        { browsable: 0, sort: 999}
+      [ Vetted.weight[entry[:vetted_id]],
+        0 - hierarchy[:browsable],
+        hierarchy[:sort],
         entry[:hierarchy_entry_id] ]
     end
 

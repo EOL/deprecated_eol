@@ -14,7 +14,7 @@ module TraitBankHelper
       end
       value = number_with_delimiter(value, delimiter: ',')
     else
-      value = add_missing_hyperlinks(value)
+      value = value.to_s.add_missing_hyperlinks
     end
     if trait.sex
       value += "<span class='stat'>#{trait.sex_name}</span>"

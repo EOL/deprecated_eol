@@ -127,12 +127,12 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def merge_matching_concepts
+    EOL.log_call
     relate_new_hierarchy_entries
     hierarchy.merge_matching_concepts
   end
 
   def relate_new_hierarchy_entries
-    EOL.log_call
     Hierarchy::Relator.relate(hierarchy, entry_ids: new_hierarchy_entry_ids)
   end
 
@@ -171,12 +171,16 @@ class HarvestEvent < ActiveRecord::Base
 
   # NOTE: You need to call publish_data_objects before this; we don't do it
   # here, because it ends up being inefficient; it's best to do data_objects in
-  # a separate transaction, so it needed to be separate.
+  # a separate transaction, so it needed to be separate. TODO: this is a bad
+  # name, should be something like publish_objects; mark_as_published should be
+  # separate.
   def finish_publishing
+    EOL.log_call
     publish_and_show_hierarchy_entries
     publish_taxon_concepts
     publish_synonyms
     mark_as_published
+    EOL.log_return
   end
 
   # TODO: this would be unnecessary if, during a harvest, we just looked for the
@@ -254,7 +258,6 @@ class HarvestEvent < ActiveRecord::Base
     Rails.logger.error("** Destroyed HarvestEvent #{id}")
   end
 
-
   # TODO: The "Right Thing To Do" is to actually store a list of all entry ids
   # affected by the harvest (which you would have to do during the harvest). We
   # can't affect that yet, sooo...
@@ -269,7 +272,7 @@ class HarvestEvent < ActiveRecord::Base
       new_ancestor_ids = Set.new(HierarchyEntry.
         where(hierarchy_id: hierarchy.id).
         where(["id > ?",
-          previous_published_harvest.hierarchy_entries.max(:id)]).
+          previous_published_harvest.hierarchy_entries.maximum(:id)]).
         pluck(:id))
       (new_ancestor_ids + these_leaf_node_ids).to_a
     else
@@ -337,16 +340,26 @@ private
   end
 
   def publish_taxon_concepts
+    EOL.log_call
     count = TaxonConcept.unpublished.joins(:hierarchy_entries).
       where(hierarchy_entries: { id: hierarchy_entry_ids_with_ancestors}).
       update_all("taxon_concepts.published = true")
-    EOL.log("Published #{count} taxa", prefix: '.')
+    if count > 0
+      EOL.log("Published #{count} taxa", prefix: '.')
+    else
+      EOL.log("No taxa needed publishing.")
+    end
   end
 
   def publish_synonyms
+    EOL.log_call
     count = Synonym.unpublished.joins(:hierarchy_entry).
       where(hierarchy_entries: { id: hierarchy_entry_ids_with_ancestors}).
       update_all("synonyms.published = true")
-    EOL.log("Published #{count} synonyms", prefix: '.')
+    if count > 0
+      EOL.log("Published #{count} synonyms", prefix: '.')
+    else
+      EOL.log("No synonyms needed publishing.")
+    end
   end
 end

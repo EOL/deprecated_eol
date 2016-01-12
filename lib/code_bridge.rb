@@ -6,25 +6,25 @@ class CodeBridge
 
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
-    Rails.logger.error "++ CodeBridge"
+    EOL.log("CodeBridge (of #{Resque.size("notifications")})", prefix: "+")
     if args['cmd'] == 'check_status_and_notify'
-      Rails.logger.error "   check status and notify (if complete)"
+      EOL.log("Check and Notify", prefix: ".")
       with_error_handling do
         ClassificationCuration.find(args['classification_curation_id']).check_status_and_notify
       end
     elsif args['cmd'] == 'publish_batch'
+      EOL.log("Publish Batch", prefix: ".")
       with_error_handling do
-        batch = HarvestBatch.new
-        args['resource_ids'].each do |id|
-          batch.add Resource.find(id)
-        end
+        batch = HarvestBatch.new(args['resource_ids'])
         batch.post_harvesting
         Resque.enqueue(CodeBridge, { 'cmd' => 'top_images' })
       end
     elsif args['cmd'] == 'denormalize_tables'
+      EOL.log("Denormalize", prefix: ".")
       batch = HarvestBatch.new
       with_error_handling { batch.denormalize_tables }
     elsif args['cmd'] == 'clear_cache'
+      EOL.log("Clear Cache", prefix: ".")
       tc = TaxonConcept.find(args['taxon_concept_id'])
       if tc
         with_error_handling { TaxonConceptCacheClearing.clear(tc) }

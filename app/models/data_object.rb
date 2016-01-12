@@ -1269,10 +1269,11 @@ class DataObject < ActiveRecord::Base
     end
   end
 
-  def self.spammy?(params, user)
+  def self.spammy?(params, user, options = {})
     return false unless user.newish?
     return true if params[:data_object][:description] =~ EOL.spam_re
     return true if params[:data_object][:object_title] =~ EOL.spam_re
+    return true if options[:refs] and options[:refs] =~ EOL.spam_re
     return false
   end
 

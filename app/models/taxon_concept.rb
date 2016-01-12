@@ -666,7 +666,7 @@ class TaxonConcept < ActiveRecord::Base
           # Someone has selected an exemplar image which is now unpublished. Remove it.
           concept_exemplar_image.destroy
         # TODO - we should have a DataObject#visible_for_taxon_concept?(tc) method.
-        elsif the_best_image.visibility_by_taxon_concept(self).id == Visibility.get_visible.id
+        elsif the_best_image.visibility_by_taxon_concept(self).try(:id) == Visibility.get_visible.id
           the_best_image = the_best_image.latest_published_version_in_same_language
           @published_exemplar_image = the_best_image
         end

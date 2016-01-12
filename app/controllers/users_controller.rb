@@ -8,6 +8,7 @@ class UsersController < ApplicationController
                                                           :recover_account, :temporary_login]
   before_filter :check_user_agreed_with_terms, except: [:terms_agreement, :temporary_login, :usernames]
   before_filter :extend_for_open_authentication, only: [:new, :create]
+  before_filter :restrict_to_admins_and_curators, only: [:scrub]
 
   rescue_from OAuth::Unauthorized, with: :oauth_unauthorized_rescue
   rescue_from EOL::Exceptions::OpenAuthUnauthorized, with: :oauth_unauthorized_rescue
@@ -443,6 +444,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def scrub
+    @user = User.find params[:id]
+    @user.comments.map{ |c| c.hide(current_user) }
+    
+  end
 protected
 
   def scoped_variables_for_translations

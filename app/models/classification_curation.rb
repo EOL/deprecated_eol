@@ -112,6 +112,7 @@ class ClassificationCuration < ActiveRecord::Base
   end
 
   def check_status_and_notify
+    EOL.log_call
     if ready_to_complete? && ! already_complete?
       mark_as_complete # Nothing else should pick this up for work, now...
       if failed?
@@ -121,6 +122,7 @@ class ClassificationCuration < ActiveRecord::Base
         log_completion
       end
     end
+    EOL.log_return
   end
 
   def reindex_taxa

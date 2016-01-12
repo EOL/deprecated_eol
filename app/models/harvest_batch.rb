@@ -1,25 +1,33 @@
 class HarvestBatch
 
-  attr_reader :harvested_resources, :start_time
+  attr_reader :resources, :start_time
+
+  def initialize(resources)
+    EOL.log_call
+    @start_time = Time.now
+    @resources = resources
+    EOL.log("Resources: #{@resources.map(&:id)}", prefix: ".") unless
+      @resources.empty?
+  end
 
   def add(resource)
-    if @harvested_resources.nil?
-      @harvested_resources = []
-      @start_time = Time.now
-    end
-    @harvested_resources << resource
+    @resources << resource
   end
 
   def complete?
     EOL.log_call
-    EOL.log("Y: maximum count", prefix: '.') if batch.maximum_count?
-    EOL.log("Y: timed out, started at #{start_time}", prefix: '.') if
-      batch.time_out?
-    time_out? || maximum_count?
+    if batch.maximum_count?
+      EOL.log("count (#{count}) exceeds maximum count", prefix: '.')
+      return true
+    elsif batch.time_out?
+      EOL.log("timed out, started at #{start_time}", prefix: '.')
+      return true
+    end
+    false
   end
 
   def count
-    @harvested_resources.count
+    @resources.count
   end
 
   def maximum_count?
@@ -27,9 +35,10 @@ class HarvestBatch
   end
 
   def post_harvesting
+    EOL.log_call
     ActiveRecord::Base.with_master do
       begin
-        @harvested_resources.each do |resource|
+        @resources.each do |resource|
           resource.hierarchy.flatten
           # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
           # resource. Make it run #publish (in the background)! YOU WERE HERE
@@ -46,8 +55,10 @@ class HarvestBatch
         EOL.log_error(e)
       end
     end
+    EOL.log_return
   end
 
+  # TODO: this does not belong here. Move it.
   def denormalize_tables
     EOL.log_call
     # TODO: this is not an efficient algorithm. We should change this to store

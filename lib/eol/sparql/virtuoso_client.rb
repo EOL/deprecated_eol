@@ -34,7 +34,8 @@ module EOL
       def insert_data(options = {})
         return false unless EolConfig.data?
         return false if options[:data].blank?
-        options[:data].in_groups_of(10_000, false) do |group|
+        # NOTE: groups of 10,000 was NOT working.
+        options[:data].in_groups_of(5_000, false) do |group|
           triples = group.join(" .\n")
           EOL.log("inserting #{group.count} triples", prefix: ".")
           query = "INSERT DATA INTO <#{options[:graph_name]}> { #{triples} }"
@@ -57,7 +58,7 @@ module EOL
             EOL.log("User: #{username}", prefix: "!")
             EOL.log("Namespaces prefixes: #{namespaces_prefixes}", prefix: "!")
             EOL.log("Query: #{query}", prefix: "!")
-            EOL.log("Response: (#{response.message}) #{res.to_hash.inspect}",
+            EOL.log("Response: (#{response.message}) #{response.to_hash.inspect}",
               prefix: "!")
             EOL.log("Response Body: #{response.body}", prefix: "!") if
               response.response_body_permitted?

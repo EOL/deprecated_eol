@@ -2,13 +2,17 @@ class TraitBank
   class << self ; attr_reader :default_limit end
   @default_limit = 5000
   class << self
+    def connection
+      @conneciton ||= EOL::Sparql.connection
+    end
+
     # Stupid that this is hidden as much as it is:
     def prefixes
-      EOL::Sparql.connection.send :namespaces_prefixes
+      connection.send :namespaces_prefixes
     end
 
     def exists?(uri)
-      r = EOL::Sparql.connection.query("SELECT COUNT(*) { <#{uri}> ?o ?p }")
+      r = connection.query("SELECT COUNT(*) { <#{uri}> ?o ?p }")
       return false unless r.first && r.first.has_key?(:"callret-0")
       r.first[:"callret-0"].to_i > 0
     end
@@ -18,7 +22,7 @@ class TraitBank
       exist = Set.new
       uris.to_a.in_groups_of(1000, false) do |group|
         begin
-          resp = EOL::Sparql.connection.query("SELECT DISTINCT(?s) { ?s ?o ?p } "\
+          resp = connection.query("SELECT DISTINCT(?s) { ?s ?o ?p } "\
             "FILTER ( ?s IN (<#{uris.join(">,<")}>) )")
           exist += resp.map { |u| u[:s].to_s }
         rescue EOL::Exceptions::SparqlDataEmpty => e
@@ -51,7 +55,7 @@ class TraitBank
       # Ruh-roh. After some number of triples (about a million, which comes
       # quickly!), a command like this takes too long, and it times out, and
       # nothing works. :\
-      # EOL::Sparql.connection.query("CLEAR GRAPH <#{graph_name}>")
+      # connection.query("CLEAR GRAPH <#{graph_name}>")
       taxa = Set.new
       begin
         Resource.where("harvested_at IS NOT NULL").find_each do |resource|
@@ -81,6 +85,18 @@ class TraitBank
       taxa = Set.new
       taxon_re = /^.*\/(\d+)$/
       traits = Set.new
+      # TODO: make a delete method? NOTE that this is stupid syntax, but it's
+      # what you have to do with Sparql. Yes, it looks very redundant!
+      paginate("SELECT DISTINCT(?p) { GRAPH <http://eol.org/traitbank> "\
+        "{ ?p dc:source <#{resource.graph_name}> } }") do |results|
+          triples = results.map { |r| delete += "  <#{r[:p]}> ?s ?o .\n" }
+        delete = "WITH GRAPH <#{graph_name}> DELETE {\n"
+        delete += triples
+        delete += "} WHERE {"
+        delete += triples
+        delete += "}"
+        connection.query(delete)
+      end
       paginate(measurements_query(resource)) do |results|
         results.each do |h|
           raise "No value for #{h[:trait]}!" unless h[:value]
@@ -116,9 +132,9 @@ class TraitBank
       # Metadata is VERY SLOW! ...Have to do them ONE AT A TIME! :S
       EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
       traits.each_with_index do |trait, index|
-        EOL.log(index, prefix: ".") if index % 10_000 == 0
+        EOL.log("at #{index}", prefix: ".") if index % 10_000 == 0
         begin
-          EOL::Sparql.connection.query(metadata_query(resource, trait)).
+          connection.query(metadata_query(resource, trait)).
             each do |h|
             # ?trait ?predicate ?meta_trait ?value ?units
             if h[:units].blank?
@@ -140,8 +156,9 @@ class TraitBank
           raise e
         end
       end
-      # TODO: paginate the insert
-      EOL::Sparql.connection.insert_data(data: triples, graph_name: graph_name)
+      unless connection.insert_data(data: triples, graph_name: graph_name)
+        raise "Failed to insert data (see logs)!"
+      end
       EOL.log_return
       taxa
     end
@@ -158,7 +175,7 @@ class TraitBank
           triples << "<http://eol.org/pages/#{flat.taxon_concept_id}> "\
             "eol:has_ancestor <http://eol.org/pages/#{flat.ancestor_id}>"
         end
-        EOL::Sparql.connection.insert_data(data: triples,
+        connection.insert_data(data: triples,
           graph_name: graph_name)
         EOL.log("Completed #{group.count}...", prefix: ".")
       end
@@ -185,7 +202,7 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
-      EOL::Sparql.connection.query(query).map do |r|
+      connection.query(query).map do |r|
         r[:page].to_s.sub(/.*\/(\d+)$/, '\1')
       end
     end
@@ -205,7 +222,7 @@ class TraitBank
         limited_query = query + " LIMIT #{limit}"
         limited_query += " OFFSET #{offset}" if offset > 0
         EOL.log(limited_query, prefix: "Q")
-        results = EOL::Sparql.connection.query(limited_query)
+        results = connection.query(limited_query)
         EOL.log("#{results.count} results", prefix: ".")
         yield(results) if results.count > 0
         offset += limit
@@ -229,7 +246,7 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
-      EOL::Sparql.connection.query(query)
+      connection.query(query)
     end
 
     # e.g.: http://purl.obolibrary.org/obo/OBA_1000036 on http://eol.org/pages/41
@@ -246,7 +263,7 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
-      EOL::Sparql.connection.query(query)
+      connection.query(query)
     end
 
     # NOTE: I copy/pasted this. TODO: generalize. For testing, 37 should include
@@ -265,7 +282,7 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
-      EOL::Sparql.connection.query(query)
+      connection.query(query)
     end
 
     # Given a list of traits, get all the metadata for them:
@@ -282,7 +299,7 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
-      EOL::Sparql.connection.query(query)
+      connection.query(query)
     end
 
     def measurements_query(resource)

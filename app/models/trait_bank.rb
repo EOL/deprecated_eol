@@ -56,13 +56,15 @@ class TraitBank
       begin
         Resource.where("harvested_at IS NOT NULL").find_each do |resource|
           count = resource.trait_count
+          EOL.log("#{resource.title} (#{resource.id}): #{count}")
           # Rebuild this one if there are any triples in the (old) graph:
-          taxa += rebuild_resource(resource, count) if count > 0
+          taxa += rebuild_resource(resource) if count > 0
         end
       ensure
         # This could be QUITE a lot... many millions. :\
         flatten_taxa(taxa)
       end
+      EOL.log_return
     end
 
     # TODO: the problem is that the mappings graphs appear to be mucked up! So,
@@ -70,9 +72,8 @@ class TraitBank
     # 1502, identifier: identifier).taxon_concept_id on each identifier (which
     # you get by pulling off ... the start of the taxonId URL). This sucks, but
     # it's a reasonable workaround. Not sure why this happened!
-    def rebuild_resource(resource, count = 'unknown')
-      EOL.log("Rebuilding resource #{resource.title} (##{resource.id}, "\
-        "#{count} triples)")
+    def rebuild_resource(resource)
+      EOL.log_call
       # TODO: Ideally, we would first get a diff of what's in the graph vs what
       # we're going to put in the graph, and add the new stuff and remove the
       # old. That's a lot of work! Not doing that now.
@@ -141,6 +142,7 @@ class TraitBank
       end
       # TODO: paginate the insert
       EOL::Sparql.connection.insert_data(data: triples, graph_name: graph_name)
+      EOL.log_return
       taxa
     end
 

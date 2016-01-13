@@ -5,7 +5,7 @@
 -# TODO - These should actually be links to filtered versions of this page, for
 -# accessibility.
 - EOL.log("cache: taxa/#{@taxon_data.taxon_concept.id}/data_view", prefix: 'v')
-- cache("taxa/#{@taxon_data.taxon_concept.id}/data_view", expires_in: 24.hours) do
+- cache("taxa/#{@taxon_data.taxon_concept.id}/data_view", skip_digest: true, expires_in: 24.hours) do
   = render 'menu', { ajax: true }
   .main_container#taxon_data
     %h3.assistive= I18n.t(:taxon_data_header, taxon: @taxon_page.scientific_name)

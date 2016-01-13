@@ -3,7 +3,7 @@ class DataPointUrisController < ApplicationController
   before_filter :restrict_to_data_viewers
   before_filter :load_uri
   skip_before_filter :original_request_params, :global_warning, :check_user_agreed_with_terms, :keep_home_page_fresh, only: :show_metadata
-
+  after_filter :flush_cached_data, only: [:hide, :unhide]
   layout 'basic'
 
   def hide
@@ -52,4 +52,7 @@ private
     )
   end
 
+  def flush_cached_data
+    expire_fragment("taxa/#{@data_point_uri.taxon_concept.id}/data_view", skip_digest: true)
+  end
 end

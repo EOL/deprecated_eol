@@ -315,9 +315,20 @@ class DataObject < ActiveRecord::Base
     source_url
   end
 
+  # NOTE that this leaves NO backup of the object! If you really care, do that
+  # yourself.
   def scrub!(by_user)
     mark_for_all_association_as_hidden_untrusted(by_user)
-    unpublish
+    # NOTE: not using #unpublish here because that assumes it was a content
+    # partner, and we generally only "scrub" user-created content.
+    msg = "This content was considered a violation of EOL's Terms of Use and "\
+      "has been permanently removed."
+    update_attributes(
+      description: msg,
+      description_linked: msg,
+      source_url: "http://eol.org/terms_of_use",
+      published: false,
+      object_title: "Removed Due to Terms of Use Violation")
     remove_data_object_from_solr
     remove_all_collection_items #remove any collection items containing it (This will also remove them from solr)
   end

@@ -2,7 +2,7 @@ class HarvestBatch
 
   attr_reader :resources, :start_time
 
-  def initialize(resources)
+  def initialize(resources = [])
     EOL.log_call
     @start_time = Time.now
     @resources = Array(resources)

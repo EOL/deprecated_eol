@@ -790,29 +790,10 @@ class User < ActiveRecord::Base
     data_objects.map{ |d| d.scrub!(by) }
     communities.map(&:destroy)
     added_common_names.map(&:destroy)
-    reindex_user_counts
   end
 
   def added_common_names
     AgentsSynonym.find_all_by_agent_id(agent_id).map(&:synonym)
-  end
-
-  def reindex_user_counts
-    cache_keys = [:common_names_added, :common_names_removed, :common_names_curated, :total_species_curated, :total_user_objects_curated,
-      :total_user_exemplar_images, :total_user_overview_articles, :total_user_preferred_classifications, :count_taxa_commented, :count_submitted_objects, :count_total_data_records]
-    cache_keys.each do |key|
-      Rails.cache.delete("users/#{key}/#{@user.id}")
-    end
-    #call reindex methods
-    count_submitted_objects
-    adjust_common_names_counts
-    @user.total_species_curated
-    @user.total_user_objects_curated
-    @user.total_user_exemplar_images
-    @user.total_user_overview_articles
-    @user.total_user_preferred_classifications
-    @user.count_taxa_commented
-    @user.count_total_data_records
   end
 
 private

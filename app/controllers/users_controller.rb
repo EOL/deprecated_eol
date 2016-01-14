@@ -53,16 +53,13 @@ class UsersController < ApplicationController
   
   def reindex
     @user = User.find(params[:id])
-    @user.reindex_user_counts
-    flash[:notice]= I18n.t(:user_count_reindexed)
-    respond_to do |format|
-      format.html do
-        redirect_to user_path(@user)
-      end
-      format.js do
-        convert_flash_messages_for_ajax
-        render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
-      end
+    update_counts
+    format.html do
+      redirect_to user_path(@user)
+    end
+    format.js do
+      convert_flash_messages_for_ajax
+      render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
     end
   end
 
@@ -432,6 +429,7 @@ class UsersController < ApplicationController
   def scrub
     @user = User.find params[:id]
     @user.scrub!(current_user)
+    update_counts
     redirect_to @user, notice: I18n.t(:scrub_user_notice)
   end
 protected
@@ -466,6 +464,24 @@ protected
 
 # NOTE - there are a few "protected" methods above, be careful.
 private
+
+  def update_counts
+    cache_keys = [:common_names_added, :common_names_removed, :common_names_curated, :total_species_curated, :total_user_objects_curated,
+    :total_user_exemplar_images, :total_user_overview_articles, :total_user_preferred_classifications, :count_taxa_commented, :count_submitted_objects, :count_total_data_records]
+    cache_keys.each do |key|
+      Rails.cache.delete("users/#{key}/#{@user.id}")
+    end
+    #call reindex methods
+    count_submitted_objects
+    adjust_common_names_counts
+    @user.total_species_curated
+    @user.total_user_objects_curated
+    @user.total_user_exemplar_images
+    @user.total_user_overview_articles
+    @user.total_user_preferred_classifications
+    @user.count_taxa_commented
+    @user.count_total_data_records
+  end
 
   def extend_for_open_authentication
     self.extend(EOL::OpenAuth::ExtendUsersController) if params[:oauth_provider] ||

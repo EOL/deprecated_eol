@@ -8,6 +8,7 @@ class UsersController < ApplicationController
                                                           :recover_account, :temporary_login]
   before_filter :check_user_agreed_with_terms, except: [:terms_agreement, :temporary_login, :usernames]
   before_filter :extend_for_open_authentication, only: [:new, :create]
+  before_filter :restrict_to_admins_and_curators, only: [:scrub]
 
   rescue_from OAuth::Unauthorized, with: :oauth_unauthorized_rescue
   rescue_from EOL::Exceptions::OpenAuthUnauthorized, with: :oauth_unauthorized_rescue
@@ -52,22 +53,7 @@ class UsersController < ApplicationController
   
   def reindex
     @user = User.find(params[:id])
-    cache_keys = [:common_names_added, :common_names_removed, :common_names_curated, :total_species_curated, :total_user_objects_curated,
-      :total_user_exemplar_images, :total_user_overview_articles, :total_user_preferred_classifications, :count_taxa_commented, :count_submitted_objects, :count_total_data_records]
-    cache_keys.each do |key|
-      Rails.cache.delete("users/#{key}/#{@user.id}")
-    end
-    #call reindex methods
-    count_submitted_objects
-    adjust_common_names_counts
-    @user.total_species_curated
-    @user.total_user_objects_curated
-    @user.total_user_exemplar_images
-    @user.total_user_overview_articles
-    @user.total_user_preferred_classifications
-    @user.count_taxa_commented
-    @user.count_total_data_records
-
+    @user.reindex_user_counts
     flash[:notice]= I18n.t(:user_count_reindexed)
     respond_to do |format|
       format.html do
@@ -443,6 +429,11 @@ class UsersController < ApplicationController
     end
   end
 
+  def scrub
+    @user = User.find params[:id]
+    @user.scrub!(current_user)
+    redirect_to @user, notice: I18n.t(:scrub_user_notice)
+  end
 protected
 
   def scoped_variables_for_translations

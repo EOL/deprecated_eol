@@ -1389,3 +1389,102 @@ qqq:
   yes_answer: '{{Identical|Yes}}'
   you_may_upload_static_files_fo: "MOU stands for 'Memorandum of Understanding,' which is just an agreement between EOL and the content partner."
   youtube: '{{Identical|YouTube}}'
+  enums:
+    activities:
+      profile: "{{Identical|Profile}}"
+      hide: "{{Identical|Hide}}"
+      update: "{{Identical|Update}}"
+      inappropriate: "{{Identical|Inappropriate}}"
+      delete: "{{Identical|Delete}}"
+      rate: "califica"
+      unreviewed: "{{Identical|Unreviewed}}"
+    agent_roles:
+      publisher: "{{Identical|Publisher}}"
+      recorder: "Field label for a person or company which created a recording of a sound, such as someone who made a field recording of, say, a wolf howl.
+"
+      source: "{{Identical|Source}}"
+      contributor: "{{Identical|Contributor}}"
+      author: "{{Identical|Author}}"
+      provider: "{{Identical|Provider}}"
+      translator: "{{Identical|Translator}}"
+      creator: "{{Identical|Creator}}"
+      editor: "{{Identical|Editor}}"
+      illustrator: "{{Identical|Illustrator}}"
+    collection_types:
+      taxonomy: "{{Identical|Taxonomy}}"
+      links: "{{Identical|Link}}"
+      taxonomy: "{{Identical|Taxonomy}}"
+      description: "{{Identical|Description}}"
+      images: "{{Identical|Image}}"
+      links: "{{Identical|Link}}"
+      description: "{{Identical|Description}}"
+      images: "{{Identical|Image}}"
+    content_partner_statuses:
+      pending: "{{Identical|Pending}}"
+      active: "{{Identical|Active}}"
+      archived: "{{Identical|Archive}}"
+      inactive: "{{Identical|Inactive}}"
+    data_types:
+      image: "{{Identical|Image}}"
+      map: "{{Identical|Map}}"
+      text: "{{Identical|Text}}"
+      video: "{{Identical|Video}}"
+      flash: "This means 'Adobe Flash"."
+      youtube: "{{Identical|YouTube}}"
+    licenses:
+      public_domain: "{{Identical|Public domain}}"
+      public_domain: "{{Identical|Public domain}}"
+      public_domain: "{{Identical|Public domain}}"
+    ranks:
+      forma: "A botanical nomenclature term, see [[w:Forma (botany)]]."
+      order: "{{Identical|Order}}"
+      section: "{{Identical|Section}}"
+      subdivision: "{{Identical|Subdivision}}"
+      class: "{{Identical|Class}}"
+      f: "Abbreviation for 'family'."
+      f_: "Abbreviation for 'family'."
+    resource_statuses:
+      uploading: "{{Identical|Uploading}}"
+      published: "{{Identical|Published}}"
+      uploaded: "{{Identical|Uploaded}}"
+      upload_failed: "{{Identical|Upload failed}}"
+    service_types:
+      other: "{{Identical|Other}}"
+    sort_styles:
+      oldest: "{{Identical|Oldest}}"
+    synonym_relations:
+      synonym: "{{Identical|Synonym}}"
+      in_part: "The “in-part” nametype is included for retrieval terms that have a broader range of application than the taxon or taxa at which they appear. For example, we list reptiles and Reptilia as in-part nametypes at our nodes Testudines (the turtles), Lepidosauria (the lizards and snakes), and Crocodylidae (the crocodilians)[http://www.ncbi.nlm.nih.gov/books/NBK21100/]."
+      common_name: "{{Identical|Common name}}"
+      blast_name: "The 'blast name' is a common name for a large group of organisms (e.g. 'mammals' 'flatworms' or 'fungi') that is intended to give a general idea of what kind of organism this is, when the scientific name is not familiar[http://www.ncbi.nlm.nih.gov/blast/taxblasthelp.shtml]."
+      valid: "{{Identical|Valid}}"
+      invalid: "{{Identical|Invalid}}"
+    table_of_contents:
+      overview: "{{Identical|Overview}}"
+      common_names: "{{Identical|Common name}}"
+      iucn: "IUCN stands for stands for [https://en.wikipedia.org/wiki/International_Union_for_Conservation_of_Nature International Union for Conservation of Nature]"
+      size: "{{Identical|Size}}"
+      associations: "{{Identical|Association}}"
+      education: "{{Identical|Education}}"
+      wikipedia: "{{Identical|Wikipedia}}"
+      synonyms: "{{Identical|Synonym}}"
+      reproduction: "This refers to biological reproduction (mating, budding, spore-production, etc.).
+"
+      notes: "{{Identical|Note}}"
+      education: "{{Identical|Education}}"
+      comments: "{{Identical|Comment}}"
+      data: "{{Identical|Data}}"
+      taxonomy: "{{Identical|Taxonomy}}"
+    untrust_reasons:
+      duplicate: "{{Identical|Duplicate}}"
+      other: "{{Identical|Other}}"
+    user_identities:
+      a_student: "{{Identical|Student}}"
+    vetted:
+      unknown: "{{Identical|Unknown}}"
+      inappropriate: "{{Identical|Inappropriate}}"
+    view_styles:
+      list: "{{Identical|List}}"
+      gallery: "{{Identical|Gallery}}"
+    visibilities:
+      visible: "{{Identical|Visible}}"

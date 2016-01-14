@@ -1,29 +1,36 @@
 # Creates a set of named and numbered defaults for a ActiveRecord::Base class, which is aware of translations, if any.
 #
-# This provides three conveniences:
-#   • a (well-cached) set of methods to call each of these named defaults, and
-#   • a #create_enumerated method which will (safely) ensure everything it expects to find is actually in the DB. See below.
-#   • a #enumerations method which allows you to get the full list of known defaults.
+# This provides three conveniences: • a (well-cached) set of methods to call
+# each of these named defaults, and • a #create_enumerated method which will
+# (safely) ensure everything it expects to find is actually in the DB. See
+# below. • a #enumerations method which allows you to get the full list of known
+# defaults.
 #
-# To use, include Enumerated in your class, then call the class method #enumerated, which takes the name of the field to
-# populate, plus an array of what it's populated with.
+# To use, include Enumerated in your class, then call the class method
+# #enumerated, which takes the name of the field to populate, plus an array of
+# what it's populated with.
 #
 #   enumerated :label, %w(Trusted Untrusted Unknown)
 #
-# ...in this case, you will get methods named #trusted, #untrusted, and #unknown pointing to instances with those labels. The
-# #create_enumerated method will also automatically create those instances. #enumerations will return { :trusted => 'Trusted',
+# ...in this case, you will get methods named #trusted, #untrusted, and #unknown
+# pointing to instances with those labels. The #create_enumerated method will
+# also automatically create those instances. #enumerations will return {
+# :trusted => 'Trusted',
 #
-# names (as symbols). If you need to specify aliases for the values, pass a hash in place of the string:
+# names (as symbols). If you need to specify aliases for the values, pass a hash
+# in place of the string:
 #
 #   enumerated :name, [{create_action: 'Create'}, 'Add', 'Another Action']
 #
-# ...in this case, you will get methods named #create_action, #add, and #another_action pointing to instances with those names. The
-# #create_enumerated method will also automatically create those instances. #enumerations will return the array [:create_action,
-# :create, :add].
+# ...in this case, you will get methods named #create_action, #add, and
+# #another_action pointing to instances with those names. The #create_enumerated
+# method will also automatically create those instances. #enumerations will
+# return the array [:create_action, :create, :add].
 #
-# If your instances require additional fields specified when created, you should override the #create_enumerated method, and call
-# #enumeration_creator with a hash. The keys of the hash MUST be the symbols returned by #enumerations, plus an additional key
-# :defaults. For (a contrived) example:
+# If your instances require additional fields specified when created, you should
+# override the #create_enumerated method, and call #enumeration_creator with a
+# hash. The keys of the hash MUST be the symbols returned by #enumerations, plus
+# an additional key :defaults. For (a contrived) example:
 #
 #   def self.create_enumerated
 #     enumeration_creator(
@@ -34,12 +41,17 @@
 #     )
 #   end
 #
-# For example, in this case, #add will now be created with an #action_type of ActionType.normal (because it's in the defaults).
+# For example, in this case, #add will now be created with an #action_type of
+# ActionType.normal (because it's in the defaults).
 #
 module Enumerated
 
   def self.included(base)
     base.extend(ClassMethods)
+  end
+
+  def self.from(str)
+    str.downcase.gsub(/\W/, "_")
   end
 
   module ClassMethods

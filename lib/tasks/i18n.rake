@@ -4,7 +4,6 @@ require 'haml'
 desc 'Tasks useful for internatiolization'
 namespace :i18n do
   lang_dir = Rails.root.join("config", "translations")
-  gibberish_lang_dir = Rails.root.join("lang")
   en_file = "translation_template.yml"
   tmp_file = File.join([lang_dir, "tmp.yml"])
   en_yml = File.join([lang_dir, "en.yml"])
@@ -28,117 +27,44 @@ namespace :i18n do
     end
   end
 
-  desc 'convert old yml language files from Gibberish format to support i18n '
-  task :convert_yml do
-    Dir.glob(File.join([gibberish_lang_dir,"*"])).each do |file|
-      puts file
-      if file.match(/\b[a-z]{2}\.yml\b/)
-        lang = File.split(file)[-1][0..1]
-        if lang=="en"
-          puts " --No action"
-        else
-          cur_file = open(file)
-          line = cur_file.readline
-          line = line.gsub("\xEF\xBB\xBF", '')
-          if(line.match(/^[a-z]{2}:/))
-            converted=false
-            cur_file.close
-            puts " --Nothing to do, file already converted before."
-          else
-            tmp = open(tmp_file, 'w')
-            tmp.write lang+":\n"
-	   				tmp.write "  "+line.gsub('{','%{')
-            while (!cur_file.eof? && line = cur_file.readline)
-              tmp.write "  " + line.gsub('{','%{')
-            end
-            tmp.close
-            cur_file.close
-            File.rename(tmp_file,File.join([lang_dir, lang + ".yml"]))
-            puts " --Converted successfully :)"
-	  end
-        end
-      else
-        #File.delete file
-        puts "  --Not a valid locale file"
-      end
+  desc 'convert old db translation files to be in the main file'
+  task :convert_db do
+    load 'lib/enumerated.rb'
+    yaml = YAML.load_file(File.join(lang_dir, "en-db.yml"))
+    translations = yaml.values.first # Only one!
+    enums = {}
+    translations.keys.each do |key|
+      raise "Nested data! #{file}->#{key}" if translations[key].is_a?(Hash)
+      (table, field, source, id) = key.split(/-/, 4)
+      raise "ID (#{id}) not numeric! #{key}" unless id =~ /^\d+$/
+      enums[table] ||= {}
+      enums[table][field] ||= {}
+      enums[table][field][source] ||= {}
+      enums[table][field][source][id] = translations[key]
     end
-  end
-
-  desc 'Convert from Gibberish to i18n in all app/ files'
-  task :gibberish_to_i18n do
-    new_keys = {}
-    named_keys = []
-
-    #read en.yml file if already exist
-    if File.exist?(en_yml)
-      en = open(en_yml)
-      write_type = 'a'
-      en_content = ''
-      en.read.each do |line|
-        if line.match(/^\s\s(\s*)([\w_?]*):\s/)
-          en_content << line + "\n"
+    Dir.entries(lang_dir).grep(/-db\.yml$/).each do |file|
+      yaml = YAML.load_file(File.join(lang_dir, file))
+      locale = yaml.keys.first
+      translations = yaml.values.first
+      open(File.join(lang_dir, "#{locale}.yml"), 'a') do |out|
+        out.puts "  enums:"
+        last_table = ""
+        translations.keys.sort.each do |key|
+          raise "Nested data! #{file}->#{key}" if translations[key].is_a?(Hash)
+          (table, field, source, id) = key.split(/-/, 4)
+          table_name = table.sub(/^translated_/, "")
+          raise "ID not numeric! #{key}" unless id =~ /^\d+$/
+          which = enums[table][field][source][id]
+          raise "No matching key in english! #{key}" unless which
+          if table_name != last_table
+            last_table = table_name
+            out.puts "    #{table_name}:"
+          end
+          out.puts "      #{Enumerated.from(which)}: "\
+            "\"#{translations[key].sub(/"/, '\'')}\""
         end
       end
-      en.close
-      new_keys  = YAML.load(en_content)
-      puts "en.yml file exist and available contents are loaded"
-    else
-      write_type='w'
-      named_keys << "en:\n"
-      puts "New en.yml file will be created"
     end
-
-    #loop on each file in the app folder
-    Dir.glob(Rails.root.join("app", "**", "*")).each do |file|
-      if file.match(/(erb|haml|rb)$/)
-        tmp = open(tmp_file, 'w')
-        puts "File: " + file + "\n"
-        open(file).read.each_with_index do |line, count|
-          begin
-            found=false
-            if wmatch = line.match(/\s*(("([^<>="]*?)")|('([^<>=']*?)'))\[\]/)
-              value = wmatch[1][1..-2]
-              key =  wmatch[1].gsub(/[^\w\d\s]/, '').strip.downcase.gsub(/\s+/, "_")
-              found=true
-              puts "KEY= "+key+"----VALUE="+value
-            elsif wmatch = line.match(/(("([^<>="]*?)")|('([^<>=']*?)'))\[\s*:([\w\s_,.]*)\]/)
-              value = wmatch[1][1..-2]
-              key = wmatch[0].match(/\[\s*:[\w_]*\s*(\]|,)/).to_s.gsub(/(\[|\]|,|\s|:)+/,"")
-	      if wmatch[0].match(/\[\s*:[\w_]*\s*,/)
-                params= wmatch[0].split(":"+key)[-1][0..-2]
-                param_keys = value.scan(/\{[\w_]*\}/)
-                param_values = params.strip.split(",")
-                params=""
-                (0..param_keys.size-1).each do |i|
-                  params+=" , :%s => %s"  % [ param_keys[i].strip[1..-2], param_values[i+1].strip ]
-                end
-                value = value.gsub('{','%{')
-              end
-              puts "KEY= "+key+"----VALUE="+value
-              found=true
-            end
-            if found==true && key.length==0
-               found=false
-            end
-            if found==true
-              line = line.gsub(wmatch[0], " I18n.t(:%s%s) " % [key,params])
-	      if(!new_keys.key?(key))
-                new_keys[key] = value
-                named_keys << "  %s: \"%s\"\n" % [key,value.gsub('"',"\"")]
-              end
-            end
-          end while found==true
-          tmp.write line
-        end
-        tmp.close
-        File.rename(tmp_file,file+"")
-      end
-    end
-    en = open(en_yml,write_type)
-    named_keys.each do |line|
-      en.write(line)
-    end
-    en.close
   end
 
   desc 'Synchronize english template with other language files'

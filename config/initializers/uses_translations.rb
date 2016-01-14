@@ -8,7 +8,8 @@ module ActiveRecord
       def uses_translations(options={})
         begin
           translated_class = Kernel.const_get("Translated" + self.to_s)
-          has_many :translations, :class_name => translated_class.to_s, :foreign_key => options[:foreign_key]
+          has_many :translations, :class_name => translated_class.to_s,
+            :foreign_key => options[:foreign_key]
           default_scope :include => :translations
           const_set(:USES_TRANSLATIONS, true)
           const_set(:TRANSLATION_CLASS, translated_class)
@@ -18,42 +19,49 @@ module ActiveRecord
           # also creating a method Class.attribute(language_iso_code)
           # which will return that attribute in the given language
           if defined?(translated_class) && translated_class.table_exists?
-            translated_class.column_names.each do |a|
-              # the two columns that the translation will always have which shouldn't override the main class
-              unless a == 'id' || a == 'language_id'
-                # if there is already an attribute with the same name as the translate attribute,
-                # then none of thise will happen
-                unless column_names.include?(a)
-                  attr_accessor "translated_#{a}".to_sym
+            translated_class.column_names.each do |col|
+              # the two columns that the translation will always have which
+              # shouldn't override the main class
+              unless col == 'id' || col == 'language_id'
+                # if there is already an attribute with the same name as the
+                # translate attribute, then none of this will happen
+                unless column_names.include?(col)
+                  attr_accessor "translated_#{col}".to_sym
 
-                  # creating a method with the name of the translated attribute. For example
-                  # if we translated label, we're making
-                  # def label(language_iso)
-                  define_method(a.to_sym) do |*args|
-                    # this is a funny way to check for the Language model existing. defined? would fail
-                    # unless there was some reference to Language earlier in the application instance, thus
-                    # the additional check for the model, which will load the model definition
-                    language_exists = defined?(Language) || Language rescue nil
-                    return nil unless language_exists
-
-                    language_iso = args[0] || I18n.locale.to_s || APPLICATION_DEFAULT_LANGUAGE_ISO || nil
-                    unless self.current_translation_language && language_iso == self.current_translation_language.iso_code
+                  # creating a method with the name of the translated attribute.
+                  # For example if we translated label, we're making
+                  # #label(language_iso)
+                  define_method(col.to_sym) do |*args|
+                    return nil unless Language
+                    language_iso = args[0] || I18n.locale.to_s ||
+                      APPLICATION_DEFAULT_LANGUAGE_ISO || nil
+                    current_iso = self.current_translation_language.
+                      try(:iso_code)
+                    if language_iso != current_iso
                       l = Language.from_iso(language_iso)
                       return nil if l.nil?
-                      # load the translated fields as attributes of the current model
-                      return nil unless set_translation_language(l)
+                      # load the translated fields as attributes of the current
+                      # model
+                      set_translation_language(l)
                     end
-
-                    return send("translated_#{a}")
+                    # new:
+                    key = "#{translated_class.to_s.underscore}-"\
+                      "#{col}-"\
+                      "#{self.class.name.underscore}_id-"\
+                      "#{id}"
+                    EOL.log(key)
+                    EOL.log(I18n.t(key, locale: "#{language_iso}-db"))
+                    # old:
+                    send("translated_#{col}")
                   end
                 end
               end
             end
           end
 
-          # this method will search translations of this model whose language matches the parameter,
-          # and creates attributes of the model corresponding to the translated fields
-          # def set_translation_language(language_iso)
+          # this method will search translations of this model whose language
+          # matches the parameter, and creates attributes of the model
+          # corresponding to the translated fields
           define_method(:set_translation_language) do |language|
             return nil if language.class != Language
             return true if language == self.current_translation_language

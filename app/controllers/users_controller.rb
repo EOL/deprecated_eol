@@ -54,12 +54,15 @@ class UsersController < ApplicationController
   def reindex
     @user = User.find(params[:id])
     update_counts
-    format.html do
-      redirect_to user_path(@user)
-    end
-    format.js do
-      convert_flash_messages_for_ajax
-      render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
+    flash[:notice]= I18n.t(:user_count_reindexed)
+    respond_to do |format|
+      format.html do
+        redirect_to user_path(@user)
+      end
+      format.js do
+        convert_flash_messages_for_ajax
+        render partial: 'shared/flash_messages', layout: false # JS will handle rendering these.
+      end
     end
   end
 

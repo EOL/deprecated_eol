@@ -97,11 +97,11 @@ class TraitBank
       # limit must be restricted as the SQL query can get too long. Sigh.
       paginate("SELECT DISTINCT(?p) { GRAPH <http://eol.org/traitbank> "\
         "{ ?p dc:source <#{resource.graph_name}> } }", limit: 1000) do |results|
-        triples = results.map { |r| "  <#{r[:p]}> ?s ?o ." }.join("\n")
+        old_trips = results.map { |r| "  <#{r[:p]}> ?s ?o ." }.join("\n")
         delete = "WITH GRAPH <#{graph_name}> DELETE {\n"
-        delete += triples
+        delete += old_trips
         delete += "} WHERE {\n"
-        delete += triples
+        delete += old_trips
         delete += "}"
         begin
           connection.query(delete)

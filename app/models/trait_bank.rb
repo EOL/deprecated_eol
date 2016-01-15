@@ -11,6 +11,10 @@ class TraitBank
       connection.send :namespaces_prefixes
     end
 
+    def quote_literal(literal)
+      "\"#{literal.to_s.gsub(/\n/, " ").gsub(/"/, "\\\"")}\""
+    end
+
     def exists?(uri)
       r = connection.query("SELECT COUNT(*) { <#{uri}> ?o ?p }")
       return false unless r.first && r.first.has_key?(:"callret-0")
@@ -144,7 +148,7 @@ class TraitBank
       # Metadata is VERY SLOW! ...Have to do them ONE AT A TIME! :S
       EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
       traits.each_with_index do |trait, index|
-        EOL.log("at #{index}", prefix: ".") if index % 10_000 == 0
+        EOL.log("index #{index}", prefix: ".") if index % 10_000 == 0
         begin
           connection.query(metadata_query(resource, trait)).
             each do |h|
@@ -197,7 +201,7 @@ class TraitBank
       return if h[key].nil?
       triple = "<#{h[:trait]}> <#{uri}> "
       if options[:literal]
-        triple << "\"#{h[key].to_s.gsub(/"/, "\\\"")}\""
+        triple << quote_literal(h[key])
       else
         triple << "<#{h[key]}>"
       end

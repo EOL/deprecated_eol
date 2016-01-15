@@ -64,9 +64,16 @@ class TraitBank
           # Rebuild this one if there are any triples in the (old) graph:
           taxa += rebuild_resource(resource) if count > 0
         end
+      rescue => e
+        EOL.log("FAILED! Will still flatten available taxa...", prefix: "!")
+        raise e
       ensure
-        # This could be QUITE a lot... many millions. :\
-        flatten_taxa(taxa)
+        if taxa.count > 0
+          # This could be QUITE a lot... many millions. :\
+          flatten_taxa(taxa)
+        else
+          EOL.log("No taxa detected; nothing flattened.", prefix: ".")
+        end
       end
       EOL.log_return
     end

@@ -19,6 +19,7 @@ namespace :i18n do
   task :to_redis => :environment do
     Dir.entries(lang_dir).grep(/yml$/).each do |file|
       next if file =~ /^qqq/ # These files are for comments only.
+      next if file =~ /-db\.yml$/ # Not using these anymore.
       translations = YAML.load_file(File.join(lang_dir, file))
       locale = translations.keys.first # There's only one.
       puts "  ++ #{locale} -> #{file} (#{translations[locale].keys.count} keys)"

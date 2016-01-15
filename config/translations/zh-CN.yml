@@ -4961,7 +4961,7 @@ zh-CN:
       accepted_name: "被接受的名称"
       common_name: "俗名"
       database_artifact: "数据库产物"
-      other__see_comments: "'其他, 见评论""
+      other__see_comments: '"其他, 见评论"'
       orthographic_variant__misspelling_: "正字的变体(拼写错误)"
       misapplied: "误用的"
       rejected_name: "被拒绝的名称"
@@ -4971,22 +4971,22 @@ zh-CN:
       nomen_oblitum: "遗忘名"
       junior_synonym: "次异名"
       acronym: "首字母缩写词"
-      unavailable__database_artifact: "'不可用的, 数据库产物""
+      unavailable__database_artifact: "不可用的, 数据库产物"
       unnecessary_replacement: "不必要的替换"
       subsequent_name_combination: "后续的名称/组合"
-      unavailable__literature_misspelling: "'不可用的,文献拼写错误""
+      unavailable__literature_misspelling: '"不可用的,文献拼写错误"'
       original_name_combination: "原始的名称/组合"
-      unavailable__incorrect_orig__spelling: "'不可用的, 不正确的原始拼写""
+      unavailable__incorrect_orig__spelling: '"不可用的, 不正确的原始拼写"'
       junior_homonym: "次同名"
       homonym___junior_synonym: "同名及次异名"
-      unavailable__suppressed_by_ruling: "'不可用的,按规则被禁用""
+      unavailable__suppressed_by_ruling: '"不可用的,按规则被禁用"'
       unjustified_emendation: "不合理的修订"
       anamorph: "无性型"
-      unavailable__other: "'不可用的, 其他""
-      unavailable__nomen_nudum: "'不可用的, 无记述名""
+      unavailable__other: '"不可用的, 其他"'
+      unavailable__nomen_nudum: '"不可用的, 无记述名"'
       nomen_dubium: "可疑名"
-      invalidly_published__other: "'无效发表, 其他""
-      invalidly_published__nomen_nudum: "'无效发表, 无记述名""
+      invalidly_published__other: '"无效发表, 其他"'
+      invalidly_published__nomen_nudum: '"无效发表, 无记述名"'
       basionym: "基本异名"
       heterotypic_synonym: "异型同物异名"
       homotypic_synonym: "同型同物异名"

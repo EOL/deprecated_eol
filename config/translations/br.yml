@@ -3543,7 +3543,6 @@ br:
   your_rating: Ho priziadenn
   youtube: YouTube
   youtube_video: Video YouTube
-...
   enums:
     activities:
       profile: "profil"
@@ -3903,3 +3902,4 @@ br:
       invisible: "Diwelus"
       visible: "Gwelus"
       preview: "Rakwelet"
+...

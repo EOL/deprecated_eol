@@ -2129,7 +2129,6 @@ cs:
   your_ip_address: Vaše IP adresa
   your_preferences: Vaše nastavení
   your_rating: Vaše hodnocení
-...
   enums:
     activities:
       profile: "profil"
@@ -2450,3 +2449,4 @@ cs:
       invisible: "Neviditelný"
       visible: "Viditelný"
       preview: "Náhled"
+...

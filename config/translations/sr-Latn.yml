@@ -3080,7 +3080,6 @@ sr-Latn:
   your_rating: Vaša ocena
   youtube: Jutjub
   youtube_video: Snimak na Jutjubu
-...
   enums:
     activities:
       profile: "profil"
@@ -3439,3 +3438,4 @@ sr-Latn:
       invisible: "Nevidljivo"
       visible: "Vidljivo"
       preview: "Pregled"
+...

@@ -7195,7 +7195,6 @@ it:
   your_rating: Il tuo voto
   youtube: YouTube
   youtube_video: Video di YouTube
-...
   enums:
     activities:
       profile: "profilo"
@@ -7576,3 +7575,4 @@ it:
       invisible: "Invisibile"
       visible: "Visibile"
       preview: "Anteprima"
+...

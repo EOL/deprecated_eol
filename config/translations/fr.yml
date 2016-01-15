@@ -7294,7 +7294,6 @@ fr:
   your_rating: Votre cote
   youtube: YouTube
   youtube_video: Vidéo YouTube
-...
   enums:
     activities:
       profile: "profil"
@@ -7675,3 +7674,4 @@ fr:
       invisible: "Invisible"
       visible: "Visible"
       preview: "Aperçu"
+...

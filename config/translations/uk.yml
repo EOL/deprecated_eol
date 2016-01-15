@@ -5594,7 +5594,6 @@ uk:
   your_rating: Ваш рейтинг
   youtube: YouTube
   youtube_video: Відео YouTube
-...
   enums:
     activities:
       profile: "профіль"
@@ -5974,3 +5973,4 @@ uk:
       invisible: "Невидимий"
       visible: "Видимий"
       preview: "Попередній перегляд"
+...

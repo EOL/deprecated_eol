@@ -6981,7 +6981,6 @@ mk:
   your_rating: Ваша оценка
   youtube: YouTube
   youtube_video: Снимка од Youtube
-...
   enums:
     activities:
       profile: "профил"
@@ -7362,3 +7361,4 @@ mk:
       invisible: "Невидливо"
       visible: "Видливо"
       preview: "Преглед"
+...

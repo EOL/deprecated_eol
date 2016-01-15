@@ -5961,7 +5961,6 @@ sv:
   your_rating: Ditt betyg
   youtube: YouTube
   youtube_video: YouTube-video
-...
   enums:
     activities:
       profile: "profil"
@@ -6306,3 +6305,4 @@ sv:
       invisible: "Osynlig"
       visible: "Synlig"
       preview: "Förhandsgranska"
+...

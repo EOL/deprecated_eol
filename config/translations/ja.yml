@@ -1391,7 +1391,6 @@ ja:
   your_rating: あなたの評価
   youtube: YouTube
   youtube_video: YouTube 動画
-...
   enums:
     activities:
       profile: "プロフィール"
@@ -1699,3 +1698,4 @@ ja:
       invisible: "不可視"
       visible: "可視"
       preview: "プレビュー"
+...

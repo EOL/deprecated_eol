@@ -2443,7 +2443,6 @@ pt:
   your_rating: A sua classificação
   youtube: YouTube
   youtube_video: Vídeo do YouTube
-...
   enums:
     activities:
       profile: "perfil"
@@ -2824,3 +2823,4 @@ pt:
       invisible: "Invisível"
       visible: "Visível"
       preview: "Pré-Visualização"
+...

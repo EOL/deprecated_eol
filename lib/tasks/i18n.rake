@@ -46,24 +46,38 @@ namespace :i18n do
       yaml = YAML.load_file(File.join(lang_dir, file))
       locale = yaml.keys.first
       translations = yaml.values.first
-      open(File.join(lang_dir, "#{locale}.yml"), 'a') do |out|
-        out.puts "  enums:"
-        last_table = ""
-        translations.keys.sort.each do |key|
-          raise "Nested data! #{file}->#{key}" if translations[key].is_a?(Hash)
-          (table, field, source, id) = key.split(/-/, 4)
-          table_name = table.sub(/^translated_/, "")
-          raise "ID not numeric! #{key}" unless id =~ /^\d+$/
-          which = enums[table][field][source][id]
-          raise "No matching key in english! #{key}" unless which
-          if table_name != last_table
-            last_table = table_name
-            out.puts "    #{table_name}:"
-          end
-          out.puts "      #{Enumerated.from(which)}: "\
-            "\"#{translations[key].sub(/"/, '\'')}\""
-        end
+      filename = File.join(lang_dir, "#{locale}.yml")
+      exists = File.exist?(filename)
+      out = open(filename, exists ? 'r+' : 'w' )
+      if exists
+        puts "Old file: #{locale}"
+        last_pos = 0
+        last_line = ""
+        # TWN adds a "..." to the end of files:
+        out.each { |line| last_line = line ; last_pos = out.pos unless out.eof? }
+        out.seek(last_pos, IO::SEEK_SET) if last_line =~ /^\.\.\./
+        puts "Position: #{last_pos}"
+      else
+        puts "New file: #{locale}"
+        out.puts "#{locale}:"
       end
+      out.puts "  enums:"
+      last_table = ""
+      translations.keys.sort.each do |key|
+        raise "Nested data! #{file}->#{key}" if translations[key].is_a?(Hash)
+        (table, field, source, id) = key.split(/-/, 4)
+        table_name = table.sub(/^translated_/, "")
+        raise "ID not numeric! #{key}" unless id =~ /^\d+$/
+        which = enums[table][field][source][id]
+        raise "No matching key in english! #{key}" unless which
+        if table_name != last_table
+          last_table = table_name
+          out.puts "    #{table_name}:"
+        end
+        out.puts "      #{Enumerated.from(which)}: "\
+          "\"#{translations[key].sub(/"/, '\'')}\""
+      end
+      out.puts "..."
     end
   end
 

@@ -6486,7 +6486,6 @@ oc:
   your_rating: Vòstra quòta
   youtube: YouTube
   youtube_video: Vidèo YouTube
-...
   enums:
     activities:
       profile: "perfil"
@@ -6867,3 +6866,4 @@ oc:
       invisible: "Invisible"
       visible: "Visible"
       preview: "Apercebut"
+...

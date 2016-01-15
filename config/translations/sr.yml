@@ -3462,7 +3462,6 @@ sr:
   your_rating: Ваша оцена
   youtube: Јутјуб
   youtube_video: Снимак на Јутјубу
-...
   enums:
     activities:
       profile: "профил"
@@ -3824,3 +3823,4 @@ sr:
       invisible: "Невидљиво"
       visible: "Видљиво"
       preview: "Преглед"
+...

@@ -7192,7 +7192,6 @@ nl:
   your_rating: Uw waardering
   youtube: YouTube
   youtube_video: YouTubevideo
-...
   enums:
     activities:
       profile: "profiel"
@@ -7573,3 +7572,4 @@ nl:
       invisible: "Onzichtbaar"
       visible: "Zichtbaar"
       preview: "Voorvertoning"
+...

@@ -6340,7 +6340,6 @@ tl:
   your_rating: Kaantasan mo
   youtube: YouTube
   youtube_video: Bidyo ng YouTube
-...
   enums:
     activities:
       profile: "balangkas"
@@ -6721,3 +6720,4 @@ tl:
       invisible: "Hindi nakikita"
       visible: "Nakikita"
       preview: "Paunang pagtanaw"
+...

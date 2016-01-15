@@ -1416,7 +1416,6 @@ ca:
     les jerarquies subministrats per EOL socis de contingut. La resposta s'inclouen
     l'etiqueta de la jerarquia i l'IDENTIFICADOR únic EOL en representació de la jerarquia
   twitter: Twitter
-...
   enums:
     activities:
       profile: "perfil"
@@ -1735,3 +1734,4 @@ ca:
       invisible: "Invisible"
       visible: "Visible"
       preview: "Vista prèvia"
+...

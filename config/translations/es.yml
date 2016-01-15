@@ -7274,7 +7274,6 @@ es:
   your_rating: Tu calificación
   youtube: YouTube
   youtube_video: Video de YouTube
-...
   enums:
     activities:
       profile: "perfil"
@@ -7655,3 +7654,4 @@ es:
       invisible: "Invisible"
       visible: "Visible"
       preview: "Previsualizar"
+...

@@ -7475,7 +7475,6 @@ de:
   your_rating: Ihre Bewertung
   youtube: YouTube
   youtube_video: YouTube Video
-...
   enums:
     activities:
       profile: "Profil"
@@ -7856,3 +7855,4 @@ de:
       invisible: "Nicht sichtbar"
       visible: "Sichtbar"
       preview: "Vorschau"
+...

@@ -6783,7 +6783,6 @@ gl:
   your_rating: A túa valoración
   youtube: YouTube
   youtube_video: Vídeo do YouTube
-...
   enums:
     activities:
       profile: "perfil"
@@ -7164,3 +7163,4 @@ gl:
       invisible: "Invisible"
       visible: "Visible"
       preview: "Vista previa"
+...

@@ -4175,7 +4175,6 @@ ms:
   your_preferences: Keutamaan Anda
   your_rating: Penilaian anda
   youtube_video: Video YouTube
-...
   enums:
     activities:
       profile: "profil"
@@ -4556,3 +4555,4 @@ ms:
       invisible: "Tidak boleh dilihat"
       visible: "Boleh dilihat"
       preview: "Pralihat"
+...

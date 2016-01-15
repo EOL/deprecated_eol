@@ -2893,7 +2893,6 @@ ru:
   your_rating: Ваша оценка
   youtube: YouTube
   youtube_video: Видео YouTube
-...
   enums:
     activities:
       profile: "профиль"
@@ -3274,3 +3273,4 @@ ru:
       invisible: "Невидимый"
       visible: "Видимый"
       preview: "Предпросмотр"
+...

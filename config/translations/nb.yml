@@ -4518,7 +4518,6 @@ nb:
   your_rating: Din vurdering
   youtube: YouTube
   youtube_video: YouTube-video
-...
   enums:
     activities:
       profile: "profil"
@@ -4899,3 +4898,4 @@ nb:
       invisible: "Usynlig"
       visible: "Synlig"
       preview: "Forhåndsvisning"
+...

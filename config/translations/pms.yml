@@ -5583,7 +5583,6 @@ pms:
   pending_harvests_none: A-ié gnun-e cujìe an atèisa për ël moment
   pending_harvests_title: Cujìe an atèisa
   pause_pending_harvests: Antërompe la cujìa
-...
   enums:
     activities:
       profile: "profil"
@@ -5964,3 +5963,4 @@ pms:
       invisible: "Invisìbil"
       visible: "Visìbil"
       preview: "Preuva"
+...

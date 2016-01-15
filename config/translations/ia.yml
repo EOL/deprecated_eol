@@ -2723,7 +2723,6 @@ ia:
     qualcunque numero pote esser usate in ligamines perque tote illos es equivalente.
   your_preferences: Tu preferentias
   your_rating: Tu evalutation
-...
   enums:
     activities:
       profile: "profilo"
@@ -3104,3 +3103,4 @@ ia:
       invisible: "Invisibile"
       visible: "Visibile"
       preview: "Previsualisation"
+...

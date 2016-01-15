@@ -5266,7 +5266,6 @@ ko:
   your_rating: 내 평가
   youtube: 유튜브
   youtube_video: 유튜브 비디오
-...
   enums:
     activities:
       profile: "프로필"
@@ -5647,3 +5646,4 @@ ko:
       invisible: "보이지 않음"
       visible: "보임"
       preview: "미리 보기"
+...

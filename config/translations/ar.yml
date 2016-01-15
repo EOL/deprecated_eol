@@ -5639,7 +5639,6 @@ ar:
   your_rating: تقييمك
   youtube: يوتيوب
   youtube_video: مقطع فيديو يوتيوب
-...
   enums:
     activities:
       profile: "ملف"
@@ -6020,3 +6019,4 @@ ar:
       invisible: "غير مرئي"
       visible: "مرئي"
       preview: "عرض مسبق"
+...

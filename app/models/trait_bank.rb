@@ -157,7 +157,7 @@ class TraitBank
               add_meta(triples, h, h[:predicate], :value,
                 literal: h[:value].literal?)
             else
-              triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}> ."
+              triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}>"
               val = h[:value].literal? ?
                 "\"#{h[:value].to_s.gsub(/"/, "\\\"")}\"" :
                 "<#{h[:value]}>"

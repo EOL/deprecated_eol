@@ -38,8 +38,8 @@ module EOL
           raise "insert_data asked to insert class #{options[:data].class}: "\
             "#{options[:data].inspect}"
         end
-        # NOTE: groups of 5,000 was NOT working.
-        options[:data].in_groups_of(2500, false) do |group|
+        # TODO: I am not sure what group size here is optimal.
+        options[:data].in_groups_of(5000, false) do |group|
           triples = group.join(" .\n")
           EOL.log("inserting #{group.count} triples", prefix: ".")
           query = "INSERT DATA INTO <#{options[:graph_name]}> { #{triples} }"

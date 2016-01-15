@@ -1,6 +1,6 @@
 class TraitBank
   class << self ; attr_reader :default_limit end
-  @default_limit = 2500
+  @default_limit = 5000
   class << self
     def connection
       @conneciton ||= EOL::Sparql.connection
@@ -86,9 +86,10 @@ class TraitBank
       taxon_re = /^.*\/(\d+)$/
       traits = Set.new
       # TODO: make a delete method? NOTE that this is stupid syntax, but it's
-      # what you have to do with Sparql. Yes, it looks very redundant!
+      # what you have to do with Sparql. Yes, it looks very redundant! NOTE:
+      # limit must be restricted as the SQL query can get too long. Sigh.
       paginate("SELECT DISTINCT(?p) { GRAPH <http://eol.org/traitbank> "\
-        "{ ?p dc:source <#{resource.graph_name}> } }") do |results|
+        "{ ?p dc:source <#{resource.graph_name}> } }", limit: 1000) do |results|
         triples = results.map { |r| "  <#{r[:p]}> ?s ?o ." }.join("\n")
         delete = "WITH GRAPH <#{graph_name}> DELETE {\n"
         delete += triples

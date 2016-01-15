@@ -89,10 +89,10 @@ class TraitBank
       # what you have to do with Sparql. Yes, it looks very redundant!
       paginate("SELECT DISTINCT(?p) { GRAPH <http://eol.org/traitbank> "\
         "{ ?p dc:source <#{resource.graph_name}> } }") do |results|
-          triples = results.map { |r| "  <#{r[:p]}> ?s ?o .\n" }
+        triples = results.map { |r| "  <#{r[:p]}> ?s ?o ." }.join("\n")
         delete = "WITH GRAPH <#{graph_name}> DELETE {\n"
         delete += triples
-        delete += "} WHERE {"
+        delete += "} WHERE {\n"
         delete += triples
         delete += "}"
         connection.query(delete)

@@ -76,7 +76,8 @@ namespace :i18n do
           out.puts "    #{table_name}:"
         end
         out.puts "      #{Enumerated.from(which)}: "\
-          "\"#{translations[key].sub(/"/, '\'')}\""
+          # TODO: quoting doesn't really work. :\
+          "\"#{translations[key].sub(/"/, '""')}\""
       end
       out.puts "..."
     end

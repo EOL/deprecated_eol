@@ -1,6 +1,6 @@
 class TraitBank
   class << self ; attr_reader :default_limit end
-  @default_limit = 5000
+  @default_limit = 2500
   class << self
     def connection
       @conneciton ||= EOL::Sparql.connection
@@ -95,7 +95,11 @@ class TraitBank
         delete += "} WHERE {\n"
         delete += triples
         delete += "}"
-        connection.query(delete)
+        begin
+          connection.query(delete)
+        rescue EOL::Exceptions::SparqlDataEmpty => e
+          # Do nothing... this is acceptable for a delete...
+        end
       end
       paginate(measurements_query(resource)) do |results|
         results.each do |h|

@@ -34,6 +34,10 @@ module EOL
       def insert_data(options = {})
         return false unless EolConfig.data?
         return false if options[:data].blank?
+        unless options[:data].respond_to?(:in_groups_of)
+          raise "insert_data asked to insert class #{options[:data].class}: "\
+            "#{options[:data].inspect}"
+        end
         # NOTE: groups of 5,000 was NOT working.
         options[:data].in_groups_of(2500, false) do |group|
           triples = group.join(" .\n")

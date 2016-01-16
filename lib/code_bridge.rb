@@ -6,7 +6,10 @@ class CodeBridge
 
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
-    EOL.log("CodeBridge (of #{Resque.size("notifications")})", prefix: "+")
+    EOL.log_call
+    EOL.log("Notifications: #{Resque.size("notifications")})", prefix: ".")
+    EOL.log("Data: #{Resque.size("data")})", prefix: ".")
+    EOL.log("Harvesting: #{Resque.size("harvesting")})", prefix: ".")
     if args['cmd'] == 'check_status_and_notify'
       EOL.log("Check and Notify", prefix: ".")
       with_error_handling do
@@ -34,7 +37,7 @@ class CodeBridge
     end
   end
 
-  def self.with_error_handling(&:block)
+  def self.with_error_handling(&block)
     begin
       yield
     rescue => e

@@ -160,8 +160,6 @@ gem "ezcrypto" # TODO: - remove this, I don"t think we use it.
 # This is how we handle ALL of our HTML, you need to learn this.
 gem "haml", "4.0.4"
 # http://www.rubysec.com/advisories/OSVDB-96425/
-# TODO: - this can be removed once we update redis/resque.
-gem "redis-namespace", "1.2.2"
 # Used ONLY for CyberSource donations. ...but I'm not sure how best to group
 # this gem otherwise.
 gem "ruby-hmac", "0.4.0"
@@ -189,9 +187,8 @@ gem "rails3-jquery-autocomplete", "1.0.11",
     git: "https://github.com/pleary/rails3-jquery-autocomplete.git"
 # An empathy test to see if you're a human, when creating an account.
 gem "recaptcha", require: "recaptcha/rails"
-# TODO: - update resque. (and redis)
 # For background jobs, like email notifications and classification curation
-gem "resque", "1.23.0", require: "resque/server"
+gem "resque", "1.25.2", require: "resque/server"
 # Solr, done right (barring Sunspot, which is done better):
 gem "rsolr", "1.0.12"
 gem "sanitize", "2.0.3" # To clean up user-enter HTML.

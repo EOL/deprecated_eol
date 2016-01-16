@@ -18,7 +18,8 @@ class CodeBridge
     elsif args['cmd'] == 'publish_batch'
       EOL.log("Publish Batch", prefix: ".")
       with_error_handling(args) do
-        batch = HarvestBatch.new(args['resource_ids'])
+        resources = Resource.where(id: Array(args['resource_ids']))
+        batch = HarvestBatch.new(resources)
         batch.post_harvesting
         Resque.enqueue(CodeBridge, { 'cmd' => 'top_images' })
       end

@@ -433,6 +433,7 @@ class UsersController < ApplicationController
     @user = User.find params[:id]
     @user.scrub!(current_user)
     update_counts
+    clear_cached_homepage_activity_logs
     redirect_to @user, notice: I18n.t(:scrub_user_notice)
   end
 protected

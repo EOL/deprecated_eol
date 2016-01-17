@@ -1282,6 +1282,8 @@ class DataObject < ActiveRecord::Base
 
   def self.spammy?(params, user, options = {})
     return false unless user.newish?
+    # TODO: really, we should disable the "add link instead" button for new users.
+    return true if params[:commit_link] # No link objects for new users. :(
     return true if params[:data_object][:description] =~ EOL.spam_re
     return true if params[:data_object][:object_title] =~ EOL.spam_re
     return true if options[:refs] and options[:refs] =~ EOL.spam_re

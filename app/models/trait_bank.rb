@@ -148,7 +148,7 @@ class TraitBank
       # Metadata is VERY SLOW! ...Have to do them ONE AT A TIME! :S
       EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
       traits.each_with_index do |trait, index|
-        EOL.log("index #{index}", prefix: ".") if index % 10_000 == 0
+        EOL.log("index #{index}", prefix: ".") if index % 1_000 == 0
         begin
           connection.query(metadata_query(resource, trait)).
             each do |h|
@@ -172,8 +172,13 @@ class TraitBank
           raise e
         end
       end
-      unless connection.insert_data(data: triples, graph_name: graph_name)
-        raise "Failed to insert data (see logs)!"
+      if triples.empty
+        EOL.log("No data to insert, skipping.", prefix: ".")
+      else
+        unless connection.insert_data(data: triples, graph_name: graph_name)
+          EOL.log("Data not inserted: #{triples.inspect}", prefix: "!")
+          raise "Failed to insert data"
+        end
       end
       EOL.log_return
       taxa

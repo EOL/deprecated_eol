@@ -97,6 +97,13 @@ describe ContentPartners::ResourcesController do
       assigns[:resource].should == @resource
       response.should render_template('content_partners/resources/show')
     end
+    it "shows the resource page even if the partner's id is missing" do
+      log_in_for_controller(controller, @user)
+      get :show, { id: @resource.id }, {user: @user, user_id: @user.id}
+      expect(response).to render_template('content_partners/resources/show')
+      expect(assigns[:partner]).to eq(@content_partner)
+      expect(assigns[:resource]).to eq(@resource)
+    end
   end
   
   describe 'DELETE destroy' do

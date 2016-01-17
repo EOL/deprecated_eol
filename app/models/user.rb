@@ -309,7 +309,7 @@ class User < ActiveRecord::Base
       { parent: [ { data_objects_hierarchy_entries: [ :hierarchy_entry, :vetted ] }, :all_curated_data_objects_hierarchy_entries, { users_data_object: :vetted } ] },
       select: [ { data_objects: :id } ])
     comments.each do |comment|
-      next unless comment.parent_id # Not worth checking...
+      next unless comment.parent_id  || comment.visible_at.nil? # Not worth checking...
       # NOTE - We're avoiding instantiating the parent unless it's a DataObject, so if we add new Comment parent
       # types, this code will need to be updated.
       case comment.parent_type
@@ -323,7 +323,7 @@ class User < ActiveRecord::Base
   end
 
   def total_comment_submitted
-    return comments.count
+    return comments.select{ |c| !c.visible_at.nil? }.count
   end
 
   def total_data_submitted
@@ -783,6 +783,17 @@ class User < ActiveRecord::Base
     begin
       self[:api_key] = self.class.generate_key
     end while self.class.exists?(api_key: self[:api_key])
+  end
+
+  def scrub!(by)
+    comments.map{ |c| c.hide(by) }
+    data_objects.map{ |d| d.scrub!(by) }
+    communities.map(&:destroy)
+    added_common_names.map(&:destroy)
+  end
+
+  def added_common_names
+    AgentsSynonym.find_all_by_agent_id(agent_id).map(&:synonym)
   end
 
 private

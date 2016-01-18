@@ -146,7 +146,7 @@ module EOL
             return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
 
             if params[:synonyms]
-              return_hash["synonyms"] = 
+              return_hash["synonyms"] =
               taxon_concept.scientific_synonyms.
                 includes([:name, :synonym_relation, :hierarchy]).
                 map do |syn|
@@ -154,7 +154,7 @@ module EOL
                 resource_title = syn.hierarchy.try(:resource).try(:title) || "" #try returns nil when called on nil
                 { "synonym" => syn.name.string, "relationship" => relation, "resource" => resource_title}
               end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
-              end
+            end
 
             if params[:common_names]
               return_hash['vernacularNames'] = []
@@ -180,11 +180,7 @@ module EOL
               return_hash['references'].uniq!
             end
 
-<<<<<<< HEAD
-          unless params["taxonConcepts"] == false
-=======
             if params[:taxonomy]
->>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
               return_hash['taxonConcepts'] = []
               taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
                 entry_hash = {
@@ -198,27 +194,14 @@ module EOL
                 entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
                 return_hash['taxonConcepts'] << entry_hash
               end
-<<<<<<< HEAD
-=======
             end
->>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
           end
-          end
-<<<<<<< HEAD
-          if (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
-            return_hash['dataObjects'] = []
-            data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
-            data_objects.each do |data_object|
-              return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
-            end
-        end
-=======
+
           if params[:batch]
             batch_hash = {}
             batch_hash[taxon_concept.id] = return_hash
             return batch_hash
           end
->>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
           return return_hash
         end
 
@@ -266,7 +249,7 @@ module EOL
           # preload necessary associations for API response
           DataObject.preload_associations(all_data_objects, [
             :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs, :audiences ] )
-          options[:licenses] = license            
+          options[:licenses] = license
           all_data_objects
         end
 

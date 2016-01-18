@@ -46,14 +46,16 @@ module ActiveRecord
                     end
                     # TODO: the Right Thing To Do here is to put the english
                     # word BACK into the main table. ...but I'd rather do that
-                    # later. So instead I'm going to load the English
-                    # translations from the Translation table up-front, store
-                    # that, and use that to pull the I18n translation into
-                    # place.
-                    # new:
-                    translation = self.class.get_translation(self.id).send(col)
-                    key = "enums.#{self.class.table_name}.#{translation}"
-                    EOL.log(key) # TEMPORARY! Remove this quickly.
+                    # later. So we go to the Translation class:
+                    translation = self.class.get_translation(self.id)
+                    return nil if translation.nil?
+                    translation = translation.send(col)
+                    return nil if translation.nil?
+                    # No need to look it up (again) if it's English:
+                    return translation if
+                      language_iso == Language.english.iso_639_1
+                    key = "enums.#{self.class.table_name}."\
+                      "#{Enumerated.from(translation)}"
                     I18n.t(key, locale: language_iso)
                   end
                 end
@@ -133,9 +135,10 @@ module ActiveRecord
           self.class.send(:define_method, :get_translation) do |this_id|
             @all_translations ||=
               self::TRANSLATION_CLASS.where(language_id: Language.english.id)
-            @all_translations.find do |trans|
-              trans.send("#{self.to_s.underscore}_id") == this_id
-            end
+            assoc = self.to_s.underscore.singularize.to_sym
+            fk = self::TRANSLATION_CLASS.
+              reflect_on_association(assoc).foreign_key.to_sym
+            @all_translations.find { |trans| trans.send(fk) == this_id }
           end
 
         rescue => e

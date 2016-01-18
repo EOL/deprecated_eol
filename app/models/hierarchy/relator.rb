@@ -11,12 +11,7 @@ class Hierarchy
     # NOTE: PHP actually had a bug (!) where this was _only_ Kingdom, but the
     # intent was clearly supposed to be this, so I'm going with it: TODO - this
     # should be in the DB, anyway. :\
-    RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY = [
-      Rank.kingdom.id,
-      Rank.phylum.id,
-      Rank.class_rank.id,
-      Rank.order.id
-    ]
+
     RANK_WEIGHTS = { "family" => 100, "order" => 80, "class" => 60,
       "phylum" => 40, "kingdom" => 20 }
 
@@ -40,6 +35,12 @@ class Hierarchy
     end
 
     def initialize(hierarchy, options = {})
+      @ranks_allowed_to_match_at_kingdom_only = [
+        Rank.kingdom.id,
+        Rank.phylum.id,
+        Rank.class_rank.id,
+        Rank.order.id
+      ]
       # We load this at runtime, so new ranks are read in:
       @rank_groups = Hash[ *(Rank.where("rank_group_id != 0").
         flat_map { |r| [ r.id, r.rank_group_id ] }) ]
@@ -263,9 +264,9 @@ class Hierarchy
         # the rank of this entry is a kingdom, phylm, class, or order:
         # TODO: delete this unless SPG can explain it...
         kingdom_match_valid_1 =
-          RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY.include?(from_entry["rank_id"])
+          @ranks_allowed_to_match_at_kingdom_only.include?(from_entry["rank_id"])
         kingdom_match_valid_2 =
-          RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY.include?(to_entry["rank_id"])
+          @ranks_allowed_to_match_at_kingdom_only.include?(to_entry["rank_id"])
         return 0 unless allowed_to_match_at_kingdom_only?(from_entry, to_entry)
         return 0 if from_entry["rank_id"].blank? || to_entry["rank_id"].blank?
         # TODO: Wait, what? They aren't allowed to match if they are the same
@@ -297,7 +298,7 @@ class Hierarchy
     def allowed_to_match_at_kingdom_only?(entries)
       Array(entries).each do |entry|
         return false unless
-          RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY.include?(entry["rank_id"])
+          @ranks_allowed_to_match_at_kingdom_only.include?(entry["rank_id"])
       end
       true
     end

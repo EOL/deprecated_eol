@@ -331,13 +331,18 @@ class KnownUri < ActiveRecord::Base
 
   def turtle
     statements = []
+    return nil if uri.nil?
     turtle = known_uri_relationships_as_subject.each do |r|
+      next if r.to_known_uri.nil?
+      next if r.relationship_uri.nil?
       statements << "<#{uri}> <#{r.relationship_uri}> <#{r.to_known_uri.uri}>"
       if r.relationship_uri == KnownUriRelationship::INVERSE_URI
         statements << "<#{r.to_known_uri.uri}> <#{r.relationship_uri}> <#{uri}>"
       end
     end
     turtle = known_uri_relationships_as_target.each do |r|
+      next if r.from_known_uri.nil?
+      next if r.relationship_uri.nil?
       if r.relationship_uri == KnownUriRelationship::INVERSE_URI
         statements << "<#{uri}> <#{r.relationship_uri}> <#{r.from_known_uri.uri}>"
         statements << "<#{r.from_known_uri.uri}> <#{r.relationship_uri}> <#{uri}>"

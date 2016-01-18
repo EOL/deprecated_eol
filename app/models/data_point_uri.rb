@@ -654,6 +654,14 @@ class DataPointUri < ActiveRecord::Base
 
   # Sort by: position of known_uri, rules of exclusion, and finally value display string
   def <=>(other)
+    if predicate_known_uri.position.nil?
+      if other.predicate_known_uri.position.nil?
+        return 0
+      else
+        return 1
+      end
+    end
+    return -1 if other.predicate_known_uri.position.nil?
     this_position = predicate_known_uri ? (1.0 / predicate_known_uri.position) : 0
     other_position = other.predicate_known_uri ? (1.0 / other.predicate_known_uri.position) : 0
     if this_position != other_position

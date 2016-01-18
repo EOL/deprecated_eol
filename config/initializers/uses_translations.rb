@@ -44,15 +44,17 @@ module ActiveRecord
                       # model
                       set_translation_language(l)
                     end
+                    # TODO: the Right Thing To Do here is to put the english
+                    # word BACK into the main table. ...but I'd rather do that
+                    # later. So instead I'm going to load the English
+                    # translations from the Translation table up-front, store
+                    # that, and use that to pull the I18n translation into
+                    # place.
                     # new:
-                    key = "#{translated_class.to_s.underscore}-"\
-                      "#{col}-"\
-                      "#{self.class.name.underscore}_id-"\
-                      "#{id}"
-                    EOL.log(key)
-                    EOL.log(I18n.t(key, locale: "#{language_iso}-db"))
-                    # old:
-                    send("translated_#{col}")
+                    translation = self.class.get_translation(self.id).send(col)
+                    key = "enums.#{self.class.table_name}.#{translation}"
+                    EOL.log(key) # TEMPORARY! Remove this quickly.
+                    I18n.t(key, locale: language_iso)
                   end
                 end
               end
@@ -125,6 +127,14 @@ module ActiveRecord
             cache_key += "/all" if find_all
             cached(cache_key) do
               find_by_translated(field, value, language_iso, options_hash)
+            end
+          end
+
+          self.class.send(:define_method, :get_translation) do |this_id|
+            @all_translations ||=
+              self::TRANSLATION_CLASS.where(language_id: Language.english.id)
+            @all_translations.find do |trans|
+              trans.send("#{self.to_s.underscore}_id") == this_id
             end
           end
 

@@ -40,32 +40,37 @@ class CommunitiesController < ApplicationController
       flash[:error] = I18n.t(:cannot_create_community_from_watch_collection_error)
       return redirect_to @collection
     end
-    @community = Community.new(params[:community])
-    if @community.description =~ EOL.spam_re or
-      @community.name =~ EOL.spam_re
-      flash[:error] = I18n.t(:error_violates_tos)
-      return redirect_to @collection
-    end
-    if @community.save
-      @collection.communities << @community
-      @community.initialize_as_created_by(current_user)
-      sent_to = send_invitations(find_invitees)
-      notice = I18n.t(:created_community)
-      notice += " #{I18n.t(:sent_invitations_to_users, count: sent_to.length, users: sent_to.to_sentence)}" unless sent_to.empty?
-      upload_logo(
-        @community,
-        name: params[:community][:logo].original_filename
-      ) unless params[:community][:logo].blank?
-      EOL::GlobalStatistics.increment('communities') if @community.published?
-      log_action(:create)
-      auto_collect(@community)
-      @community.collections.each do |focus|
-        auto_collect(focus)
-      end
-      redirect_to(community_newsfeed_path(@community), notice: notice, status: :moved_permanently)
-    else
-      flash.now[:error] = I18n.t(:create_community_unsuccessful_error)
+    if limit_communities
+      flash[:error] = I18n.t(:error_user_limited)
       render action: "new", layout: 'new_community'
+    else
+      @community = Community.new(params[:community])
+      if @community.description =~ EOL.spam_re or
+        @community.name =~ EOL.spam_re
+        flash[:error] = I18n.t(:error_violates_tos)
+        return redirect_to @collection
+      end
+      if @community.save
+        @collection.communities << @community
+        @community.initialize_as_created_by(current_user)
+        sent_to = send_invitations(find_invitees)
+        notice = I18n.t(:created_community)
+        notice += " #{I18n.t(:sent_invitations_to_users, count: sent_to.length, users: sent_to.to_sentence)}" unless sent_to.empty?
+        upload_logo(
+          @community,
+          name: params[:community][:logo].original_filename
+        ) unless params[:community][:logo].blank?
+        EOL::GlobalStatistics.increment('communities') if @community.published?
+        log_action(:create)
+        auto_collect(@community)
+        @community.collections.each do |focus|
+          auto_collect(focus)
+        end
+        redirect_to(community_newsfeed_path(@community), notice: notice, status: :moved_permanently)
+      else
+        flash.now[:error] = I18n.t(:create_community_unsuccessful_error)
+        render action: "new", layout: 'new_community'
+      end
     end
   end
 
@@ -331,4 +336,14 @@ private
    self.class.helpers.link_to(collection.name, collection_path(collection))
   end
 
+  def limit_communities
+     if current_user.newish? || (current_user.newish? && current_user.assistant_curator?)
+       community_owner = Member.where(user_id: current_user.id, manager: true,
+                          created_at: DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
+       return !community_owner.blank?
+     else
+       return false
+     end
+
+  end
 end

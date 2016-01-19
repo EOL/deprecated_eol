@@ -2,7 +2,7 @@ class AddMaxItemsPerPageToViewStyles < ActiveRecord::Migration
   def self.up
     add_column :view_styles, :max_items_per_page, :int
     ViewStyle.reset_column_information
-    ViewStyle.all.each do |vs|
+    ViewStyle.find_each do |vs|
       if vs.name.downcase == 'annotated'
         vs.max_items_per_page = 50
         vs.save

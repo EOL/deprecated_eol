@@ -10,7 +10,7 @@ describe PendingNotification do
 
   # These have lambdas, so I want to test them.
   it 'scopes work' do
-    NotificationFrequency.all.each do |type|
+    NotificationFrequency.find_each do |type|
       # Skipping FactoryGirl, since it's not really needed:
       PendingNotification.create(notification_frequency: type)
     end

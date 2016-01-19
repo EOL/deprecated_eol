@@ -575,7 +575,7 @@ ActiveRecord::Base.transaction do
   end
 
   # delete all concepts with no hierarchy entries
-  TaxonConcept.all.each do |tc|
+  TaxonConcept.find_each do |tc|
     if tc.hierarchy_entries.empty?
       TaxonConcept.delete(tc.id)
     end
@@ -592,14 +592,14 @@ ActiveRecord::Base.transaction do
   EOL::Data.flatten_hierarchies
 
   # NOTE - don't use DATE_SUB in MySQL.  It's retarded when it comes to DST.  This is never run in prod, so...
-  DataObject.all.each do |dato|
+  DataObject.find_each do |dato|
     begin
       dato.update_attribute(:updated_at, dato.id.hours.ago) 
     rescue ActiveRecord::StatementInvalid
       dato.update_attribute(:updated_at, (dato.id + 2).hours.ago) 
     end
   end
-  Comment.all.each do |comment|
+  Comment.find_each do |comment|
     begin
       comment.update_attribute(:updated_at, comment.id.hours.ago)
     rescue ActiveRecord::StatementInvalid

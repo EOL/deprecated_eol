@@ -57,6 +57,9 @@ class DataObjectsController < ApplicationController
     elsif DataObject.spammy?(params, current_user)
       flash[:notice] = I18n.t(:error_violates_tos)
       self.new && return
+    elsif limit_data_objects
+      flash[:error] = I18n.t(:error_user_limited)
+      self.new && return
     end
     @data_object = DataObject.create_user_text(
       params[:data_object],
@@ -166,7 +169,7 @@ class DataObjectsController < ApplicationController
   # old @data_object is loaded in before_filter :load_data_object
   def update
     @references = params[:references]
-    if DataObject.spammy?(params, current_user, refs: @references)
+    if DataObject.spammy?(params, current_user)
       update_failed(I18n.t(:error_violates_tos)) and return
     end
 
@@ -589,6 +592,16 @@ private
 
   def visibility_from_params(he)
     params["visibility_id_#{he.id}"] ? Visibility.find(params["visibility_id_#{he.id}"]) : nil
+  end
+
+  def limit_data_objects
+    if current_user.newish? || (current_user.newish? && current_user.assistant_curator?)
+       articles =  current_user.data_objects.where(data_type_id: DataType.text.id,
+                    created_at: DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
+       return !articles.blank?
+     else
+       return false
+     end
   end
 
 end

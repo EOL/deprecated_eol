@@ -14,7 +14,7 @@ class Taxa::NamesController < TaxaController
     if params[:all]
       @hierarchy_entries = @taxon_concept.deep_published_sorted_hierarchy_entries
       @other_hierarchy_entries = []
-    else 
+    else
       @hierarchy_entries = @taxon_concept.deep_published_browsable_hierarchy_entries
       @other_hierarchy_entries = @taxon_concept.deep_published_nonbrowsable_hierarchy_entries
     end
@@ -53,14 +53,18 @@ class Taxa::NamesController < TaxaController
       current_user.add_agent unless current_user.agent
       agent = current_user.agent
       language = Language.find(params[:name][:synonym][:language_id])
-      synonym = @taxon_concept.add_common_name_synonym(params[:name][:string],
-                agent: agent, language: language, vetted: Vetted.trusted)
-      unless synonym.errors.blank?
-        flash[:error] = I18n.t(:common_name_exists, name_string: params[:name][:string])
+      if limit_names
+         flash[:error] = I18n.t(:error_user_limited)
       else
-        @taxon_concept.reindex_in_solr
-        log_action(@taxon_concept, synonym, :add_common_name)
-        expire_taxa([@taxon_concept.id])
+         synonym = @taxon_concept.add_common_name_synonym(params[:name][:string],
+                agent: agent, language: language, vetted: Vetted.trusted)
+         unless synonym.errors.blank?
+           flash[:error] = I18n.t(:common_name_exists, name_string: params[:name][:string])
+         else
+           @taxon_concept.reindex_in_solr
+           log_action(@taxon_concept, synonym, :add_common_name)
+           expire_taxa([@taxon_concept.id])
+         end
       end
     end
     store_location :back
@@ -200,4 +204,16 @@ private
     @move_to = params[:move_to]
   end
 
+  def limit_names
+    if current_user.newish? || (current_user.newish? && current_user.assistant_curator?)
+       names_count = Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, current_user.id, [ChangeableObjectType.synonym.id],
+                             return_type = 'count', created_at = DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
+       if names_count == 0
+          return false
+       else
+         return true
+       end
+    end
+    return false
+  end
 end

@@ -19,37 +19,39 @@ class CommentsController < ApplicationController
       return_to ||= session[:submitted_data][:return_to]
       session.delete(:submitted_data)
     end
-
-    @comment = Comment.new(comment_data)
-    @comment.user_id = current_user.id
-    current_user_is_curator = current_user.is_curator?
-    @comment.from_curator = current_user_is_curator.blank? ? false : true
-
-    return_to ||= link_to_item(@comment.parent) rescue nil
-    store_location(return_to)
-
-    if @comment.same_as_last?
-      flash[:notice] = I18n.t(:duplicate_comment_warning)
-    elsif @comment.spammy?
-      flash[:notice] = I18n.t(:error_violates_tos)
-    elsif @comment.save
-      flash[:notice] = I18n.t(:comment_added_notice)
-      auto_collect(@comment.parent)
+    if limit_comment
+      flash[:error] = I18n.t(:error_user_limited)
     else
-      flash[:error] = I18n.t(:comment_not_added_error)
-      flash[:error] << " #{@comment.errors.full_messages.join('; ')}." if @comment.errors.any?
-    end
+      @comment = Comment.new(comment_data)
+      @comment.user_id = current_user.id
+      current_user_is_curator = current_user.is_curator?
+      @comment.from_curator = current_user_is_curator.blank? ? false : true
 
-    respond_to do |format|
-      format.html do
-        redirect_back_or_default
+      return_to ||= link_to_item(@comment.parent) rescue nil
+      store_location(return_to)
+
+      if @comment.same_as_last?
+        flash[:notice] = I18n.t(:duplicate_comment_warning)
+      elsif @comment.spammy?
+        flash[:notice] = I18n.t(:error_violates_tos)
+      elsif @comment.save
+        flash[:notice] = I18n.t(:comment_added_notice)
+        auto_collect(@comment.parent)
+      else
+        flash[:error] = I18n.t(:comment_not_added_error)
+        flash[:error] << " #{@comment.errors.full_messages.join('; ')}." if @comment.errors.any?
       end
-      format.js do
-        # NOTE - At the moment, this is ONLY being done on the data tab!  The JS will have to be re-written if we do it
-        # elsewhere...
-        convert_flash_messages_for_ajax
+     end
+      respond_to do |format|
+        format.html do
+          redirect_back_or_default
+        end
+        format.js do
+          # NOTE - At the moment, this is ONLY being done on the data tab!  The JS will have to be re-written if we do it
+          # elsewhere...
+          convert_flash_messages_for_ajax
+        end
       end
-    end
   end
 
   # GET /comments/:id/edit
@@ -159,4 +161,12 @@ private
     end
   end
 
+  def limit_comment
+     if current_user.newish? ||( current_user.newish? && current_user.assistant_curator?)
+       comments =  Comment.where(user_id: current_user.id , created_at: DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
+       return !comments.blank?
+     else
+       return false
+     end
+  end
 end

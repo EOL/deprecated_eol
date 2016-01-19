@@ -59,31 +59,44 @@ class CollectionsController < ApplicationController
     return must_be_logged_in unless logged_in?
     @collection = Collection.new(params[:collection])
     if @collection.description =~ EOL.spam_re or
-      @collection.title =~ EOL.spam_re and
+      @collection.name =~ EOL.spam_re and
       current_user.newish?
       flash[:error] = I18n.t(:error_violates_tos)
       return redirect_to request.referer
     end
-    if @collection.save
-      @collection.users = [current_user]
-      log_activity(activity: Activity.create)
-      flash[:notice] = I18n.t(:collection_created_with_count_notice,
-                              collection_name: link_to_name(@collection),
-                              count: @collection.collection_items.count)
-      if params[:source_collection_id] # We got here by creating a new collection FROM an existing collection:
-        return create_collection_from_existing
-      else
-        auto_collect(@collection)
-        return create_collection_from_item
-      end
+    if limit_collection
+      flash[:error] = I18n.t(:error_user_limited)
+       respond_to do |format|
+         format.js do
+           convert_flash_messages_for_ajax
+           render partial: 'shared/flash_messages', layout: false
+         end
+       end
+      return
     else
+      if @collection.save
+        @collection.users = [current_user]
+        log_activity(activity: Activity.create)
+        flash[:notice] = I18n.t(:collection_created_with_count_notice,
+                                collection_name: link_to_name(@collection),
+                                count: @collection.collection_items.count)
+        if params[:source_collection_id] # We got here by creating a new collection FROM an existing collection:
+          return create_collection_from_existing
+        else
+          auto_collect(@collection)
+          return create_collection_from_item
+        end
+      else
+        flash[:error] = I18n.t(:collection_not_created_error, collection_name: @collection.name)
+        return redirect_to request.referer
+      end
+    end
+      # You shouldn't get here; something weird happened.
       flash[:error] = I18n.t(:collection_not_created_error, collection_name: @collection.name)
       return redirect_to request.referer
-    end
-    # You shouldn't get here; something weird happened.
-    flash[:error] = I18n.t(:collection_not_created_error, collection_name: @collection.name)
-    return redirect_to request.referer
+
   end
+
 
   def edit
     set_edit_vars
@@ -790,4 +803,16 @@ private
     EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection_items_by_ids(collection_item_ids_to_reindex.uniq)
   end
 
+  def limit_collection
+     if current_user.newish? || (current_user.newish? && current_user.assistant_curator?)
+       collections = current_user.collections.where(created_at: DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
+       if collections.any? {|x| x[:special_collection_id] != 2}
+          return !collections.blank?
+       else
+          return false
+       end
+     else
+       return false
+     end
+  end
 end

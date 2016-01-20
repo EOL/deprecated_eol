@@ -29,8 +29,10 @@ class Comment < ActiveRecord::Base
   # I *do not* have any idea why Time.now wasn't working (I assume it was a time-zone thing), but this works:
   scope :visible, -> { where('visible_at <= ?', 0.seconds.from_now) }
   scope :undeleted, -> { where(deleted: false) }
-  scope :comments_of_today, ->(current_user) { where(user_id: current_user.id,
-                                       created_at: DateTime.now.in_time_zone.to_date.beginning_of_day..DateTime.now.in_time_zone.to_date.end_of_day)}
+  scope :comments_of_today, ->(current_user) {
+    where(user_id: current_user.id,
+    created_at: DateTime.now.in_time_zone.to_date.beginning_of_day..DateTime.now.in_time_zone.to_date.end_of_day)
+  }
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr
   after_create :queue_notifications

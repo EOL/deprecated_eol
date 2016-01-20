@@ -81,9 +81,9 @@ class DataObject < ActiveRecord::Base
   scope :images, -> { where(data_type_id: DataType.image.id) }
   scope :texts,  -> { where(data_type_id: DataType.text.id) }
   scope :articles_of_today, ->(current_user) {
-    DataObject.joins(:users_data_object).where(users_data_objects: {user_id: current_user.id},data_type_id: DataType.text.id,
+    DataObject.joins(:users_data_object).where(users_data_objects: { user_id: current_user.id }, data_type_id: DataType.text.id,
     created_at: DateTime.now.in_time_zone.to_date.beginning_of_day..DateTime.now.in_time_zone.to_date.end_of_day)
- }
+  }
   index_with_solr keywords: [ :object_title, :rights_statement, :rights_holder,
     :location, :bibliographic_citation, :agents_for_solr ], fulltexts: [ :description ]
 

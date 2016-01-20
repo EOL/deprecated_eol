@@ -40,6 +40,7 @@ class TraitBank
         # data_search
         WHERE {
           GRAPH <http://eol.org/traitbank> {
+            ?page a eol:page .
             ?page <#{predicate}> ?trait .
             ?trait a eol:trait .
             ?trait ?trait_predicate ?value .

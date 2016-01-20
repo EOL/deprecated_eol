@@ -40,6 +40,7 @@
             -# preloaded taxon_data_exemplars
             - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
             - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
+            - taxon_link = taxon_data_path(trait.page)
             %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' ') }
               %td.taxon
                 .icon

@@ -9,7 +9,7 @@ class SearchTraits < TraitSet
   #   required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
     # TODO: some of this could be generalized into TraitSet.
-    @rdf = TraitBank::Search.for(search_options)
+    @rdf = TraitBank::Scan.for(search_options)
     @pages = get_pages(@rdf.map { |trait| trait[:page] })
     trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
     @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).

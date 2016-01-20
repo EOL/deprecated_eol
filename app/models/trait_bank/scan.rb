@@ -34,10 +34,14 @@ class TraitBank
         end
       end
 
-      # e.g.: http://purl.obolibrary.org/obo/OBA_1000036 on http://eol.org/pages/41
+      # e.g.: http://purl.obolibrary.org/obo/OBA_1000036 on
+      # http://eol.org/pages/41 NOTE: the "ORDER BY" here slows things down
+      # considerably. ...From nigh instantaneous to seconds. Sigh. :( It might
+      # actually be worth EXCLUDING the metadata for this query and calling the
+      # metadata on the set of returned traits... <- TODO
       def data_search_predicate(predicate, limit = 100, offset = nil)
-        query = "SELECT DISTINCT *
-        # data_search
+        query = "SELECT DISTINCT ?trait
+        # data_search part 1
         WHERE {
           GRAPH <http://eol.org/traitbank> {
             ?page a eol:page .
@@ -47,8 +51,23 @@ class TraitBank
             OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
           }
         }
+        ORDER BY ?trait
         LIMIT #{limit}
         #{"OFFSET #{offset}" if offset}"
+        traits = TraitBank.connection.query(query).map { |r| r[:trait].to_s }
+        query = "SELECT DISTINCT *
+        # data_search part 2
+        WHERE {
+          GRAPH <http://eol.org/traitbank> {
+            ?page a eol:page .
+            ?page <#{predicate}> ?trait .
+            ?trait a eol:trait .
+            ?trait ?trait_predicate ?value .
+            OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
+            FILTER ( ?trait IN (<#{traits.join(">, <")}>) )
+          }
+        }
+        ORDER BY ?trait"
         TraitBank.connection.query(query)
       end
 
@@ -66,6 +85,7 @@ class TraitBank
             OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
           }
         }
+        ORDER BY ?trait
         LIMIT #{limit}
         #{"OFFSET #{offset}" if offset}"
         TraitBank.connection.query(query)

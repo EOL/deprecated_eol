@@ -145,7 +145,7 @@ class Name < ActiveRecord::Base
   end
 
   def is_subgenus?
-    string.match(/^[A-Z][^ ]+ \([A-Z][^ ]+\)($| [A-Z])/)
+    string.match(/^[A-Z][^ ]+ \([A-Z][^ ]+\)($| [A-Z])/) ? true : false
   end
 
   def clean_canonical_form

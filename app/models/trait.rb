@@ -17,7 +17,7 @@ class Trait
       if rdf.first[:page] =~ TraitBank.taxon_re
         id = $2.to_i
         @page = taxa.find { |taxon| taxon.id == id }
-        @page ||= TaxonConcept.find(id)
+        @page ||= TaxonConcept.find(id) unless id == 0
       end
     end
   end

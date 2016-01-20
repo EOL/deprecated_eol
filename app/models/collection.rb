@@ -37,6 +37,10 @@ class Collection < ActiveRecord::Base
   scope :spammy, -> { where(["created_at > ? AND (name LIKE '%movie%' OR name "\
     "LIKE '%watch%' OR name LIKE '%putlocker%' OR name LIKE '%put-locker%' OR "\
     "name LIKE '%full MKV%') AND name NOT LIKE '%Watch List%'", 1.week.ago]) }
+  scope :non_watch_collections_of_today, ->(current_user) {Collection.joins(:users).select(non_watch).
+    where(users: {id: current_user.id},
+    created_at: DateTime.now.in_time_zone.to_date.beginning_of_day..DateTime.now.in_time_zone.to_date.end_of_day)
+  }
 
   # JRice removed the requirement for the uniqueness of the name. Why? Imagine
   # user#1 creates a collection named "foo". She then gives user#2 acess to

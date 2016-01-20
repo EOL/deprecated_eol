@@ -595,13 +595,10 @@ private
   end
 
   def limit_data_objects
-    if current_user.newish? || (current_user.newish? && current_user.assistant_curator?)
-       articles =  current_user.data_objects.where(data_type_id: DataType.text.id,
-                    created_at: DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
-       return !articles.blank?
-     else
-       return false
-     end
+    if current_user.newish? && !current_user.is_trusted_user?
+      return DataObject.articles_of_today(current_user).blank? ? false : true
+    else
+      return false
+    end
   end
-
 end

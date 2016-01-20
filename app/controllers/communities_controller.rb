@@ -42,7 +42,7 @@ class CommunitiesController < ApplicationController
     end
     if limit_communities
       flash[:error] = I18n.t(:error_user_limited)
-      render action: "new", layout: 'new_community'
+      return redirect_to @collection
     else
       @community = Community.new(params[:community])
       if @community.description =~ EOL.spam_re or
@@ -337,13 +337,9 @@ private
   end
 
   def limit_communities
-     if current_user.newish? || (current_user.newish? && current_user.assistant_curator?)
-       community_owner = Member.where(user_id: current_user.id, manager: true,
-                          created_at: DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
-       return !community_owner.blank?
-     else
-       return false
+     if current_user.newish? && !current_user.is_trusted_user?
+       return Member.recent_community_owner(current_user).blank? ? false : true
      end
-
+     return false
   end
 end

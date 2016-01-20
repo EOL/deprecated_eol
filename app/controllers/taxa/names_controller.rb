@@ -54,17 +54,16 @@ class Taxa::NamesController < TaxaController
       agent = current_user.agent
       language = Language.find(params[:name][:synonym][:language_id])
       if limit_names
-         flash[:error] = I18n.t(:error_user_limited)
-      else
-         synonym = @taxon_concept.add_common_name_synonym(params[:name][:string],
+        flash[:error] = I18n.t(:error_user_limited)
+      end
+      synonym = @taxon_concept.add_common_name_synonym(params[:name][:string],
                 agent: agent, language: language, vetted: Vetted.trusted)
-         unless synonym.errors.blank?
-           flash[:error] = I18n.t(:common_name_exists, name_string: params[:name][:string])
-         else
-           @taxon_concept.reindex_in_solr
-           log_action(@taxon_concept, synonym, :add_common_name)
-           expire_taxa([@taxon_concept.id])
-         end
+      unless synonym.errors.blank?
+        flash[:error] = I18n.t(:common_name_exists, name_string: params[:name][:string])
+      else
+        @taxon_concept.reindex_in_solr
+        log_action(@taxon_concept, synonym, :add_common_name)
+        expire_taxa([@taxon_concept.id])
       end
     end
     store_location :back
@@ -205,14 +204,11 @@ private
   end
 
   def limit_names
-    if current_user.newish? || (current_user.newish? && current_user.assistant_curator?)
-       names_count = Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, current_user.id, [ChangeableObjectType.synonym.id],
-                             return_type = 'count', created_at = DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
-       if names_count == 0
-          return false
-       else
-         return true
-       end
+    if current_user.newish? && !current_user.is_trusted_user?
+      names_count = Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id, current_user.id,
+                    [ChangeableObjectType.synonym.id], "count",
+                    DateTime.now.in_time_zone.to_date.beginning_of_day..DateTime.now.in_time_zone.to_date.end_of_day)
+      return names_count != 0
     end
     return false
   end

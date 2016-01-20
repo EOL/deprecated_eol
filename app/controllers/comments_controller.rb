@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
       return_to ||= session[:submitted_data][:return_to]
       session.delete(:submitted_data)
     end
-    if limit_comment
+    if limit_comments
       flash[:error] = I18n.t(:error_user_limited)
     else
       @comment = Comment.new(comment_data)
@@ -161,12 +161,10 @@ private
     end
   end
 
-  def limit_comment
-     if current_user.newish? ||( current_user.newish? && current_user.assistant_curator?)
-       comments =  Comment.where(user_id: current_user.id , created_at: DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
-       return !comments.blank?
-     else
-       return false
+  def limit_comments
+     if current_user.newish? && !current_user.is_trusted_user?
+       return Comment.comments_of_today(current_user).blank? ? false : true
      end
+     return false
   end
 end

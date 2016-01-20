@@ -212,6 +212,7 @@ class User < ActiveRecord::Base
     created_at > 1.week.ago
   end
 
+
   # Please use consistent format for naming Users across the site.  At the
   # moment, this means using #full_name unless you KNOW you have an exception.
   def full_name(options={})
@@ -460,6 +461,9 @@ class User < ActiveRecord::Base
     content_partners.blank? ? false : true
   end
 
+  def is_trusted_user?
+    min_curator_level?(:full) || is_admin?
+  end
   # Returns an array of data objects submitted by this user.  NOT USED ANYWHERE.  This is a convenience method for
   # developers to use.
   def all_submitted_datos
@@ -690,7 +694,7 @@ class User < ActiveRecord::Base
 
   # An eol authentication indicates a user that has no open authentications, i.e. only has eol credentials
   def eol_authentication?
-    open_authentications.blank?
+     open_authentications.blank?
   end
 
   # This returns false unless the user wants an email notification for the given type, then it returns the

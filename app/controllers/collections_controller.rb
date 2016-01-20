@@ -66,12 +66,12 @@ class CollectionsController < ApplicationController
     end
     if limit_collection
       flash[:error] = I18n.t(:error_user_limited)
-       respond_to do |format|
-         format.js do
-           convert_flash_messages_for_ajax
-           render partial: 'shared/flash_messages', layout: false
-         end
-       end
+      respond_to do |format|
+        format.js do
+          convert_flash_messages_for_ajax
+          render partial: 'shared/flash_messages', layout: false
+        end
+      end
       return
     else
       if @collection.save
@@ -804,15 +804,9 @@ private
   end
 
   def limit_collection
-     if current_user.newish? || (current_user.newish? && current_user.assistant_curator?)
-       collections = current_user.collections.where(created_at: DateTime.now.to_date.beginning_of_day..DateTime.now.to_date.end_of_day)
-       if collections.any? {|x| x[:special_collection_id] != 2}
-          return !collections.blank?
-       else
-          return false
-       end
-     else
-       return false
-     end
+     if current_user.newish? && !current_user.is_trusted_user?
+       return Collection.non_watch_collections_of_today(current_user).blank? ? false : true
+    end
+    return false
   end
 end

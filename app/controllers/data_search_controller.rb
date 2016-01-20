@@ -191,6 +191,7 @@ class DataSearchController < ApplicationController
   def prepare_attribute_options
     @attribute_options = []
     if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
+      # TODO: re-write this, it's garbage.
       # Get URIs (attributes) that this clade has measurements or facts for.
       # NOTE excludes associations URIs e.g. preys upon.
       measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept)
@@ -201,8 +202,16 @@ class DataSearchController < ApplicationController
     if @attribute_options.empty?
       # NOTE - because we're pulling this from Sparql, user-added known uris may not be included. However, it's superior to
       # KnownUri insomuch as it ensures that KnownUris with NO data are ignored.
-      measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris
-      @attribute_options = convert_uris_to_options(measurement_uris)
+      #OLD: measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris
+      @attribute_options = #OLD: convert_uris_to_options(measurement_uris)
+        EOL.pluck_fields([:known_uri_id, :uri, :name],
+          TranslatedKnownUri.joins(:known_uri).
+            where(language_id: Language.english.id,
+              known_uris: { hide_from_gui: false, uri_type_id: [UriType.measurement.id, UriType.association]}).
+            where("name IS NOT NULL AND name != ''")).map do |string|
+          (id, uri, name) = string.split(',', 3)
+          [ truncate(name, length: 30), uri, { 'data-known_uri_id' => id } ]
+        end
     end
 
     if @attribute.nil?

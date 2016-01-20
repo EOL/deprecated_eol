@@ -84,9 +84,9 @@ describe DataSearchFile do
     TaxonData.should_receive(:search).and_return(uris)
     csv = @search_file.csv
     expect(csv).to include("1.0")
-    expect(csv).to include("grams")
+    expect(csv).to include( KnownUri.grams.label || KnownUri.grams.uri)
     expect(csv).to include("1000")
-    expect(csv).to include("milligrams")
+    expect(csv).to include( KnownUri.milligrams.label || KnownUri.milligrams.uri)
   end
 
   it 'maintains original unit even when not converted' do
@@ -95,7 +95,7 @@ describe DataSearchFile do
     TaxonData.should_receive(:search).and_return(uris)
     csv = @search_file.csv
     # there are two places to see units - converted and original value columns
-    expect(csv).to match(/(500.*milligrams.*){2}/)
+    expect(csv).to match(/(500.*[milligrams|#{KnownUri.milligrams.uri}].*){2}/)
   end
 
 end

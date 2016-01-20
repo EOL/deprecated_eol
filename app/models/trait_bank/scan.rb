@@ -34,24 +34,21 @@ class TraitBank
         end
       end
 
-      # e.g.: http://purl.obolibrary.org/obo/OBA_1000036 on
-      # http://eol.org/pages/41 NOTE: the "ORDER BY" here slows things down
-      # considerably. ...From nigh instantaneous to seconds. Sigh. :( It might
-      # actually be worth EXCLUDING the metadata for this query and calling the
-      # metadata on the set of returned traits... <- TODO
+      # NOTE: PREFIX eol: <http://eol.org/schema/>
+      # PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
+      # e.g.: http://purl.obolibrary.org/obo/OBA_0000056
       def data_search_predicate(predicate, limit = 100, offset = nil)
         query = "SELECT DISTINCT ?trait
         # data_search part 1
         WHERE {
           GRAPH <http://eol.org/traitbank> {
             ?page a eol:page .
-            ?page <#{predicate}> ?trait .
+            ?page <http://purl.obolibrary.org/obo/OBA_0000056> ?trait .
             ?trait a eol:trait .
-            ?trait ?trait_predicate ?value .
-            OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
+            ?trait dwc:measurementValue ?value .
           }
         }
-        ORDER BY ?trait
+        ORDER BY ?value
         LIMIT #{limit}
         #{"OFFSET #{offset}" if offset}"
         traits = TraitBank.connection.query(query).map { |r| r[:trait].to_s }

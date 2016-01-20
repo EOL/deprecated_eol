@@ -3,28 +3,12 @@ class Taxa::DataController < TaxaController
   helper DataSearchHelper # Because we include one of its partials.
 
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
-  before_filter :load_data
-  before_filter :load_glossary
+  before_filter :load_data, except: [:index]
 
   # GET /pages/:taxon_id/data/index
   def index
-    EOL.log_call
-    @assistive_section_header = I18n.t(:assistive_data_header)
-    @recently_used = KnownUri.by_uris(session[:rec_uris]) if session[:rec_uris]
-    @selected_data_point_uri_id = params.delete(:data_point_uri_id)
-    if params[:toc_id].nil?
-      @toc_id = 'ranges' if @data_point_uris.blank? && !@range_data.blank?
-    else
-      @toc_id = params[:toc_id]
-      @toc_id = nil unless @toc_id == 'other' ||
-        @categories.detect { |toc| toc.id.to_s == @toc_id }
-    end
-
-    @querystring = ''
-    @sort = ''
-    EOL.log("building jsonld")
-    @jsonld = @taxon_data.jsonld
-    EOL.log("#index done, rendering")
+    @page_traits = PageTraits.new(@taxon_concept.id)
+    @jsonld = @page_traits.jsonld
   end
 
   # GET /pages/:taxon_id/data/about
@@ -34,6 +18,7 @@ class Taxa::DataController < TaxaController
 
   # GET /pages/:taxon_id/data/glossary
   def glossary
+    load_glossary
     @toc_id = 'glossary'
   end
 

@@ -1,7 +1,6 @@
 module TraitBankHelper
   def format_value(trait)
     value = trait.value_name
-    # TODO: associations. :\
     if trait.association?
       value = link_to(trait.target_taxon_name, trait.target_taxon_uri)
     elsif value.is_numeric? && ! trait.predicate_uri.treat_as_string?

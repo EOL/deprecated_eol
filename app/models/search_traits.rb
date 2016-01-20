@@ -1,7 +1,7 @@
 class SearchTraits < TraitSet
   attr_accessor :pages
 
-  # e.g.: s = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
+  # e.g.: @traits = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
   # search_options = { querystring: @querystring, attribute: @attribute,
   #   min_value: @min_value, max_value: @max_value,
@@ -40,12 +40,7 @@ class SearchTraits < TraitSet
         ids << $2
       end
     end
-    # TODO: various convenient joins and includes and the like, I'm sure:
-#     TaxonConceptPreferredEntry Load (1.6ms)  SELECT `taxon_concept_preferred_entries`.* FROM `taxon_concept_preferred_entries` WHERE `taxon_concept_preferred_entries`.`taxon_concept_id` = 485165 LIMIT 1
-# HierarchyEntry Load (2.1ms)  SELECT `hierarchy_entries`.* FROM `hierarchy_entries` WHERE `hierarchy_entries`.`id` = 53125426 LIMIT 1
-# Name Load (1.9ms)  SELECT `names`.* FROM `names` WHERE `names`.`id` = 6871071 LIMIT 1
-# CanonicalForm Load (1.7ms)  SELECT `canonical_forms`.* FROM `canonical_forms` WHERE `canonical_forms`.`id` = 321761 LIMIT 1
   # TaxonConceptName Load (2.3ms)  SELECT `taxon_concept_names`.* FROM `taxon_concept_names` WHERE `taxon_concept_names`.`taxon_concept_id` =
-    TaxonConcept.where(id: ids.to_a)
+    TaxonConcept.where(id: ids.to_a).with_titles
   end
 end

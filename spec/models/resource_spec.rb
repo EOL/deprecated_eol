@@ -81,7 +81,7 @@ describe Resource do
       # ported code. ;)
       it "should delegate to hierarchy#unpublish" do
         hierarchy.should receive(:unpublish) { true }
-        resource.unpublish_hierarchy
+        subject.unpublish_hierarchy
       end
       it "should return a list of ids affected"
     end

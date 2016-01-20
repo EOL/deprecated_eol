@@ -70,7 +70,7 @@ class TraitBank
       begin
         Resource.where("harvested_at IS NOT NULL").find_each do |resource|
           count = resource.trait_count
-          EOL.log("#{resource.title} (#{resource.id}): #{count}")
+          EOL.log("Rebuild resource? #{resource.title} (#{resource.id}): #{count}")
           # Rebuild this one if there are any triples in the (old) graph:
           taxa += rebuild_resource(resource) if count > 0
         end
@@ -247,7 +247,6 @@ class TraitBank
       begin
         limited_query = query + " LIMIT #{limit}"
         limited_query += " OFFSET #{offset}" if offset > 0
-        EOL.log(limited_query, prefix: "Q")
         results = connection.query(limited_query)
         EOL.log("#{results.count} results", prefix: ".")
         yield(results) if results && results.count > 0

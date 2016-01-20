@@ -62,7 +62,7 @@ module EOL
         f.write("Class Name\tID\tField\tValue\n")
         translated_models.each do |m, fields|
           klass = m.to_s.constantize
-          klass.all.each do |i|
+          klass.find_each do |i|
             i.attributes.each do |a, v|
               if fields.include?(a.to_sym)
                 f.write("#{klass.to_s}\t#{i.id}\t#{a}\t#{v}\n")

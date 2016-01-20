@@ -13,6 +13,7 @@ class HarvestEvent
     # it up!
     def sync
       EOL.log_call
+      EOL.log("Using collection http://eol.org/collections/#{collection.id}")
       update_attributes
       add_user_to_collection
       remove_collection_items_not_in_harvest
@@ -64,16 +65,8 @@ class HarvestEvent
     end
 
     def collection
-      @collection ||= create_collection
-    end
-
-    def content_partner
-      resource.content_partner
-    end
-
-    def create_collection
-      EOL.log_call
-      if @event.published?
+      @collection ||= if @event.published?
+        EOL.log_call
         if resource.collection.nil?
           resource.collection = create_collection_object
           resource.save
@@ -86,6 +79,10 @@ class HarvestEvent
         end
         resource.preview_collection
       end
+    end
+
+    def content_partner
+      resource.content_partner
     end
 
     def create_collection_object

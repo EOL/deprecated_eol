@@ -1,6 +1,8 @@
 class TraitBankController < ApplicationController
   layout "taxa"
 
+  # TODO: remove this entire controller and all accoutrements. It's wired up to
+  # the taxa family of controllers, now.
   def show
     @taxon_concept = TaxonConcept.find(params[:id])
     @taxon_page = TaxonPage.new(@taxon_concept, current_user)

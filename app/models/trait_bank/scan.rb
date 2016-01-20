@@ -1,5 +1,8 @@
 class TraitBank
-  class Search
+  # NOTE: You CANNOT call this "Search," you will get an error. I think we've
+  # used that name elsewhere and it conflicts. A Rails 3 problem, that, but I
+  # don't care enough to find and fix it.
+  class Scan
     class << self
       # LATER:
       # - querystrings
@@ -45,7 +48,7 @@ class TraitBank
         }
         LIMIT #{limit}
         #{"OFFSET #{offset}" if offset}"
-        connection.query(query)
+        TraitBank.connection.query(query)
       end
 
       # NOTE: I copy/pasted this. TODO: generalize. For testing, 37 should include
@@ -64,7 +67,7 @@ class TraitBank
         }
         LIMIT #{limit}
         #{"OFFSET #{offset}" if offset}"
-        connection.query(query)
+        TraitBank.connection.query(query)
       end
     end
   end

@@ -4,19 +4,23 @@ class Trait
   # TODO: put this in configuration:
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
 
-  def initialize(rdf, source_set, taxa = [])
+  def initialize(rdf, source_set, options = {})
     @rdf = rdf
     @source_set = source_set
-    # ALL of the nodes carry the predicate, so just read any one of them:
-    @predicate = rdf.first[:predicate].to_s
+    if options.has_key?(:predicate)
+      @predicate = options[:predicate]
+    else
+      # ALL of the nodes carry the predicate, so just read any one of them:
+      @predicate = rdf.first[:predicate].to_s
+    end
     # Again, they all have the "trait", sooo:
     trait_uri = rdf.first[:trait]
     @point = @source_set.points.find { |point| point.uri == trait_uri }
     if rdf.first.has_key?(:page)
       # If there's a page, they all have it:
-      if rdf.first[:page] =~ TraitBank.taxon_re
+      if rdf.first[:page].to_s =~ TraitBank.taxon_re
         id = $2.to_i
-        @page = taxa.find { |taxon| taxon.id == id }
+        @page = options[:taxa].find { |taxon| taxon.id == id }
         @page ||= TaxonConcept.find(id) unless id == 0
       end
     end
@@ -74,7 +78,8 @@ class Trait
     return nil if rdf.nil?
     uri = glossary.find { |ku| ku.uri == rdf.to_s }
     return uri if uri
-    UnknownUri.new(rdf.to_s, literal: rdf.literal?)
+    literal = rdf.respond_to?(:literal?) ? rdf.literal? : true
+    UnknownUri.new(rdf.to_s, literal: literal)
   end
 
   def rdf_value(uri)
@@ -100,7 +105,7 @@ class Trait
   end
 
   def source_rdf
-    rdf_value("source")
+    rdf_value("http://purl.org/dc/terms/source")
   end
 
   def source_url

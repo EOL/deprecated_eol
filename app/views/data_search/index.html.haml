@@ -40,7 +40,6 @@
             -# preloaded taxon_data_exemplars
             - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
             - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
-              - last_predicate = trait.predicate_name
             %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' ') }
               %td.taxon
                 .icon

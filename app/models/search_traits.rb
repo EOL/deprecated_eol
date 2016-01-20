@@ -10,26 +10,33 @@ class SearchTraits < TraitSet
   #   required_equivalent_attributes: @required_equivalent_attributes,
   #   required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
-    raise "MUST specify a predicate" if search_options[:attribute].blank?
-    # TODO: some of this could be generalized into TraitSet.
-    @rdf = TraitBank::Scan.for(search_options)
-    @pages = get_pages(@rdf.map { |trait| trait[:page].to_s })
-    trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
-    @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
-      includes(:comments, :taxon_data_exemplars)
-    uris = Set.new(@rdf.flat_map { |trait| trait.values.select { |v| v.uri? } })
-    uris << search_options[:attribute]
-    # TODO: associations. We need the names of those taxa.
-    @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
-      includes(toc_items: :translated_toc_items)
-    traits = @rdf.group_by { |trait| trait[:trait] }
-    @traits = traits.keys.map do |trait|
-      Trait.new(traits[trait], self, taxa: @pages,
-        predicate: search_options[:attribute])
+    @rdf = []
+    @pages = []
+    @points = []
+    @glossary = []
+    @traits = []
+    @sources = []
+    unless search_options[:attribute].blank?
+      # TODO: some of this could be generalized into TraitSet.
+      @rdf = TraitBank::Scan.for(search_options)
+      @pages = get_pages(@rdf.map { |trait| trait[:page].to_s })
+      trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
+      @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
+        includes(:comments, :taxon_data_exemplars)
+      uris = Set.new(@rdf.flat_map { |trait| trait.values.select { |v| v.uri? } })
+      uris << search_options[:attribute]
+      # TODO: associations. We need the names of those taxa.
+      @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
+        includes(toc_items: :translated_toc_items)
+      traits = @rdf.group_by { |trait| trait[:trait] }
+      @traits = traits.keys.map do |trait|
+        Trait.new(traits[trait], self, taxa: @pages,
+          predicate: search_options[:attribute])
+      end
+      source_ids = Set.new(@traits.map { |trait| trait.source_id })
+      source_ids.delete(nil) # Just in case.
+      @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
     end
-    source_ids = Set.new(@traits.map { |trait| trait.source_id })
-    source_ids.delete(nil) # Just in case.
-    @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
   end
 
   def get_pages(uris)

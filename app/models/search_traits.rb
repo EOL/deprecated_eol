@@ -10,7 +10,7 @@ class SearchTraits < TraitSet
   def initialize(search_options)
     # TODO: some of this could be generalized into TraitSet.
     @rdf = TraitBank::Scan.for(search_options)
-    @pages = get_pages(@rdf.map { |trait| trait[:page] })
+    @pages = get_pages(@rdf.map { |trait| trait[:page].to_s })
     trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
     @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
       includes(:comments, :taxon_data_exemplars)
@@ -34,6 +34,6 @@ class SearchTraits < TraitSet
       end
     end
     # TODO: various convenient joins and includes and the like, I'm sure:
-    TaxonConcept.where(id: ids)
+    TaxonConcept.where(id: ids.to_a)
   end
 end

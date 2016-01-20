@@ -18,18 +18,18 @@ class TraitBank
       #   required_equivalent_attributes: @required_equivalent_attributes,
       #   required_equivalent_values: @required_equivalent_values }
       def for(search)
-        if search[:taxon_concept]
-          if search[:querystring]
-            raise "Not yet"
+        if search[:taxon_concept].blank?
+          if search[:querystring].blank?
+            data_search_predicate(search[:attribute])
           else
-            data_search_within_clade(search[:attribute],
-              search[:taxon_concept].id)
+            raise "Not yet"
           end
         else
-          if search[:querystring]
-            raise "Not yet"
+          if search[:querystring].blank?
+            data_search_within_clade(search[:attribute],
+              search[:taxon_concept].id)
           else
-            data_search_predicate(search[:attribute])
+            raise "Not yet"
           end
         end
       end

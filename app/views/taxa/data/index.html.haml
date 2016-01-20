@@ -37,7 +37,10 @@
     .header_underlined
       %h3= category.label
     - last_predicate = nil
-    - type_index = 0 # TODO: what is this for?
+    -# TODO: what is this for? Clearly it counts the number of predicates, but
+    -# it's not clear to me (I haven't looked at JS, maybe it's there) what it
+    -# is ultimately used for other than creating a class on the node...
+    - type_index = 0
     %table.standard.categorized.data{ summary: I18n.t(:data_table_summary,
       taxon: @taxon_page.scientific_name),
       data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => category.id } }

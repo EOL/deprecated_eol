@@ -1,18 +1,25 @@
 class Trait
-  attr_reader :predicate, :point, :rdf
+  attr_reader :predicate, :point, :rdf, :page
 
-  # TODO: put these in configuration:
+  # TODO: put this in configuration:
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
-  TAXON_RE = Rails.configuration.known_taxon_uri_re
 
-  def initialize(rdf, page_traits)
+  def initialize(rdf, source_set, taxa = [])
     @rdf = rdf
-    @page_traits = page_traits
+    @source_set = source_set
     # ALL of the nodes carry the predicate, so just read any one of them:
     @predicate = rdf.first[:predicate].to_s
     # Again, they all have the "trait", sooo:
     trait_uri = rdf.first[:trait]
-    @point = @page_traits.points.find { |point| point.uri == trait_uri }
+    @point = @source_set.points.find { |point| point.uri == trait_uri }
+    if rdf.first.has_key?(:page)
+      # If there's a page, they all have it:
+      if rdf.first[:page] =~ TraitBank.taxon_re
+        id = $2.to_i
+        @page = taxa.find { |taxon| taxon.id == id }
+        @page ||= TaxonConcept.find(id)
+      end
+    end
   end
 
   def anchor
@@ -20,7 +27,7 @@ class Trait
   end
 
   def association?
-    value_rdf.to_s =~ TAXON_RE
+    value_rdf.to_s =~ TraitBank.taxon_re
   end
 
   def categories
@@ -36,7 +43,7 @@ class Trait
   end
 
   def glossary
-    @page_traits.glossary
+    @source_set.glossary
   end
 
   def life_stage
@@ -101,7 +108,7 @@ class Trait
   end
 
   def sources
-    @page_traits.sources
+    @source_set.sources
   end
 
   def statistical_method_rdfs

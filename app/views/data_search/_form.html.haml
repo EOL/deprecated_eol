@@ -24,7 +24,7 @@
         %dt
           = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
         %dt{id: "combobox"}
-          = select_tag :attribute,  options_for_select(select_options, @attribute || @attribute_default) , include_blank: true
+          = select_tag :attribute, options_for_select(select_options, @attribute || @attribute_default) , include_blank: true
     - if @equivalent_attributes && @equivalent_attributes.count > 0
       %br
       %h2{style: "display: inline;"}

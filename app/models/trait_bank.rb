@@ -1,6 +1,12 @@
 class TraitBank
-  class << self ; attr_reader :default_limit end
+  class << self
+    attr_reader :default_limit
+    attr_reader :taxon_re
+  end
+
   @default_limit = 5000
+  @taxon_re = Rails.configuration.known_taxon_uri_re
+
   class << self
     def connection
       @conneciton ||= EOL::Sparql.connection
@@ -94,7 +100,6 @@ class TraitBank
       # old. That's a lot of work! Not doing that now.
       triples = []
       taxa = Set.new
-      taxon_re = /^.*\/(\d+)$/
       traits = Set.new
       # TODO: make a delete method? NOTE that this is stupid syntax, but it's
       # what you have to do with Sparql. Yes, it looks very redundant! NOTE:
@@ -260,42 +265,6 @@ class TraitBank
       WHERE {
         GRAPH <http://eol.org/traitbank> {
           <http://eol.org/pages/#{page}> ?predicate ?trait .
-          ?trait a eol:trait .
-          ?trait ?trait_predicate ?value .
-          OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
-        }
-      }
-      LIMIT #{limit}
-      #{"OFFSET #{offset}" if offset}"
-      connection.query(query)
-    end
-
-    # e.g.: http://purl.obolibrary.org/obo/OBA_1000036 on http://eol.org/pages/41
-    def data_search(predicate, limit = 10_000, offset = nil)
-      query = "SELECT DISTINCT *
-      # data_search
-      WHERE {
-        GRAPH <http://eol.org/traitbank> {
-          ?page <#{predicate}> ?trait .
-          ?trait a eol:trait .
-          ?trait ?trait_predicate ?value .
-          OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
-        }
-      }
-      LIMIT #{limit}
-      #{"OFFSET #{offset}" if offset}"
-      connection.query(query)
-    end
-
-    # NOTE: I copy/pasted this. TODO: generalize. For testing, 37 should include
-    # 41, and NOT include 904.
-    def data_search_within_clade(predicate, clade, limit = 10_000, offset = nil)
-      query = "SELECT DISTINCT *
-      # data_search_within_clade
-      WHERE {
-        GRAPH <http://eol.org/traitbank> {
-          ?page <#{predicate}> ?trait .
-          ?page eol:has_ancestor <http://eol.org/pages/#{clade}> .
           ?trait a eol:trait .
           ?trait ?trait_predicate ?value .
           OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }

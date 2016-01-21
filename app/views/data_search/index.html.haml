@@ -85,8 +85,7 @@
                   = link_to(trait.resource.content_partner.name,
                     [trait.partner, trait.resource])
                 - else
-                  = "No resource!"
-                  = link_to(trait.source_url, trait.source_url)
+                  = link_to(I18n.t(:source_url), trait.source_url)
               %td.comment
                 %span.comments
                   - if trait.comments.empty?

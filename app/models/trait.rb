@@ -105,7 +105,13 @@ class Trait
   end
 
   def source_rdf
-    rdf_value("http://purl.org/dc/terms/source")
+    return @source_rdf if @source_rdf
+    @source_rdf = rdf_value("http://purl.org/dc/terms/source")
+    # Old resources were stored as "source":
+    unless @source_rdf =~ SOURCE_RE
+      take_two = rdf_value("source")
+      @source_rdf = take_two if take_two =~ SOURCE_RE
+    end
   end
 
   def source_url

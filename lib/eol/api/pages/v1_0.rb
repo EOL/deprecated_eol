@@ -180,11 +180,7 @@ module EOL
               return_hash['references'].uniq!
             end
 
-<<<<<<< HEAD
-          unless params["taxonConcepts"] == false
-=======
             if params[:taxonomy]
->>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
               return_hash['taxonConcepts'] = []
               taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
                 entry_hash = {
@@ -198,27 +194,22 @@ module EOL
                 entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
                 return_hash['taxonConcepts'] << entry_hash
               end
-<<<<<<< HEAD
-=======
             end
->>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
           end
-          end
-<<<<<<< HEAD
+          
           if (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
             return_hash['dataObjects'] = []
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
             data_objects.each do |data_object|
               return_hash['dataObjects'] << EOL::Api::DataObjects::V1_0.prepare_hash(data_object, params)
             end
-        end
-=======
+          end
+
           if params[:batch]
             batch_hash = {}
             batch_hash[taxon_concept.id] = return_hash
             return batch_hash
           end
->>>>>>> 14898788b180d40fe4c83a666ea4b828b6a25be1
           return return_hash
         end
 

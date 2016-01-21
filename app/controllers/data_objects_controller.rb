@@ -226,7 +226,7 @@ class DataObjectsController < ApplicationController
 
   #GET /data_objects/:id/delete
   def delete
-    @data_object.scrub!
+    @data_object.scrub!(current_user)
     log_action(@data_object, :delete, collect: false)
     redirect_to data_object_path(@data_object), notice: I18n.t(:data_object_deleted)
   end

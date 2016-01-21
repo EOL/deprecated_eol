@@ -1,5 +1,5 @@
 class SearchTraits < TraitSet
-  attr_accessor :pages, :page
+  attr_accessor :pages, :page, :attribute
 
   # e.g.: @traits = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
@@ -10,6 +10,7 @@ class SearchTraits < TraitSet
     # required_equivalent_attributes: @required_equivalent_attributes,
     # required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
+    @attribute = search_options[:attribute]
     @rdf = []
     @pages = []
     @points = []
@@ -18,7 +19,7 @@ class SearchTraits < TraitSet
     @sources = []
     @page = search_options[:page] || 1
     @per_page = search_options[:per_page] || 100
-    unless search_options[:attribute].blank?
+    unless @attribute.blank?
       # TODO: some of this could be generalized into TraitSet.
       @rdf = begin
         TraitBank::Scan.for(search_options)
@@ -30,14 +31,14 @@ class SearchTraits < TraitSet
       @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
         includes(:comments, :taxon_data_exemplars)
       uris = Set.new(@rdf.flat_map { |trait| trait.values.select { |v| v.uri? } })
-      uris << search_options[:attribute]
+      uris << @attribute
       # TODO: associations. We need the names of those taxa.
       @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
         includes(toc_items: :translated_toc_items)
       rdf_by_trait = @rdf.group_by { |trait| trait[:trait] }
       traits = rdf_by_trait.keys.map do |trait|
         Trait.new(rdf_by_trait[trait], self, taxa: @pages,
-          predicate: search_options[:attribute])
+          predicate: @attribute)
       end
       # TODO: a real count:
       total = traits.count == 100 ? 1_000_000 : traits.count

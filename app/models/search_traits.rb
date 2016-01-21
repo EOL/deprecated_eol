@@ -1,5 +1,5 @@
 class SearchTraits < TraitSet
-  attr_accessor :pages
+  attr_accessor :pages, :page
 
   # e.g.: @traits = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
@@ -16,6 +16,8 @@ class SearchTraits < TraitSet
     @glossary = []
     @traits = []
     @sources = []
+    @page = search_options[:page] || 1
+    @per_page = search_options[:per_page] || 100
     unless search_options[:attribute].blank?
       # TODO: some of this could be generalized into TraitSet.
       @rdf = TraitBank::Scan.for(search_options)
@@ -28,10 +30,14 @@ class SearchTraits < TraitSet
       # TODO: associations. We need the names of those taxa.
       @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
         includes(toc_items: :translated_toc_items)
-      traits = @rdf.group_by { |trait| trait[:trait] }
-      @traits = traits.keys.map do |trait|
-        Trait.new(traits[trait], self, taxa: @pages,
+      rdf_by_trait = @rdf.group_by { |trait| trait[:trait] }
+      traits = rdf_by_trait.keys.map do |trait|
+        Trait.new(rdf_by_trait[trait], self, taxa: @pages,
           predicate: search_options[:attribute])
+      end
+      total = 1_000_000 # TODO
+      @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|
+        pager.replace traits
       end
       source_ids = Set.new(@traits.map { |trait| trait.source_id })
       source_ids.delete(nil) # Just in case.

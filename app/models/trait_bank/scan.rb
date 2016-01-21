@@ -22,11 +22,7 @@ class TraitBank
         clade = search.delete(:taxon_concept).try(:id)
         options = { limit: 100, clade: clade }.merge(search)
         traits = get_trait_list(predicate, clade: clade, options)
-        results = get_metadata(predicate, traits)
-        WillPaginate::Collection.create(search[:page] ||
-          1, 100, 1_000_000) do |pager|
-          pager.replace results
-        end
+        get_metadata(predicate, traits)
       end
 
       # NOTE: PREFIX eol: <http://eol.org/schema/>

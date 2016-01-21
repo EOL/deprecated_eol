@@ -78,40 +78,41 @@
             placeholder: I18n.t('helpers.label.data_search.taxon_name_placeholder'),
             data: taxon_name[:data]
           %p= I18n.t(:taxon_name_more, scope: helperstscope)
-    %fieldset
-      %h4= t('.search_value_or_range_header')
-      %dl
-        %dt
-          = label_tag :q, I18n.t(:q, scope: helperstscope)
-        %dd
-          = search_field_tag :q, @querystring,
-            placeholder: I18n.t(:q_placeholder, scope: helperstscope),
-            data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
-            scope: helperstscope)}
-          %p= I18n.t(:q_more, scope: helperstscope)
-      %h5= t('.or_range_header').html_safe
-      %dl.range
-        %dt
-          = label_tag :min, I18n.t(:min, scope: helperstscope)
-        %dd
-          = search_field_tag :min, @min_value,
-            placeholder: I18n.t(:min_placeholder, scope: helperstscope),
-            data: {disabled_placeholder: I18n.t(:min_placeholder_disabled,
-            scope: helperstscope)}
-      %dl.range
-        %dt
-          = label_tag :max, I18n.t(:max, scope: helperstscope)
-        %dd
-          = search_field_tag :max, @max_value,
-            placeholder: I18n.t(:max_placeholder, scope: helperstscope),
-            data: {disabled_placeholder: I18n.t(:max_placeholder_disabled,
-            scope: helperstscope)}
-      %dl.range
-        %dt
-          = label_tag :unit, I18n.t(:unit, scope: helperstscope)
-        %dd
-          - unit_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
-          = select_tag :unit, options_for_select(unit_options, @unit)
+    - if false # DISABLED FOR NOW.  :(
+      %fieldset
+        %h4= t('.search_value_or_range_header')
+        %dl
+          %dt
+            = label_tag :q, I18n.t(:q, scope: helperstscope)
+          %dd
+            = search_field_tag :q, @querystring,
+              placeholder: I18n.t(:q_placeholder, scope: helperstscope),
+              data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
+              scope: helperstscope)}
+            %p= I18n.t(:q_more, scope: helperstscope)
+        %h5= t('.or_range_header').html_safe
+        %dl.range
+          %dt
+            = label_tag :min, I18n.t(:min, scope: helperstscope)
+          %dd
+            = search_field_tag :min, @min_value,
+              placeholder: I18n.t(:min_placeholder, scope: helperstscope),
+              data: {disabled_placeholder: I18n.t(:min_placeholder_disabled,
+              scope: helperstscope)}
+        %dl.range
+          %dt
+            = label_tag :max, I18n.t(:max, scope: helperstscope)
+          %dd
+            = search_field_tag :max, @max_value,
+              placeholder: I18n.t(:max_placeholder, scope: helperstscope),
+              data: {disabled_placeholder: I18n.t(:max_placeholder_disabled,
+              scope: helperstscope)}
+        %dl.range
+          %dt
+            = label_tag :unit, I18n.t(:unit, scope: helperstscope)
+          %dd
+            - unit_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
+            = select_tag :unit, options_for_select(unit_options, @unit)
     %fieldset.sort
       %h4= t('.sort_header')
       %dl

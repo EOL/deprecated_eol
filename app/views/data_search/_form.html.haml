@@ -22,8 +22,8 @@
     %fieldset{class: "ui-widget"}
       %dl
         %dt
-          - lab_txt = I18n.t(:attribute, scope: i18n_scope)
-          = label_tag :attribute, lab_txt
+          = "@attribute_default = #{@attribute_default} ; "
+          = label_tag :attribute, I18n.t(:attribute, scope: i18n_scope)
         %dt{id: "combobox"}
           = select_tag :attribute, options_for_select(select_options, @attribute || @attribute_default) , include_blank: true
     - if @equivalent_attributes && @equivalent_attributes.count > 0
@@ -65,9 +65,6 @@
     %h3= t('.refine_search_header')
     %fieldset
       %h4= t('.search_within_taxon_group_header')
-      %p= raw t('.search_within_taxon_group_intro_with_count',
-        count: number_with_delimiter(10_000_000),
-        contact_us_tech_url: contact_us_path(subject: 'Technical'))
       %dl
         %dt
           = label_tag :taxon_name, I18n.t(:taxon_name, scope: i18n_scope)

@@ -7,6 +7,7 @@
       %ul.glossary
         = render('known_uris/definition', { known_uri: @known_uri, attribution: true, glossary_link: true })
   .header
+    = "We are here in the header"
     - per_page = @traits.traits.per_page
     - start_number = (@page - 1) * per_page + 1
     - end_number = [ (start_number + per_page - 1), @traits.traits.total_entries ].min
@@ -15,6 +16,7 @@
     %h3= raw(I18n.t(:displaying_numerical_range_eol_records_with_count, start_number: start_number, end_number: end_number, count: @traits.traits.total_entries))
     = will_paginate @traits.traits, previous_label: previous_label, next_label: next_label, inner_window: 2
   #taxon_data
+    %h3= "There are #{@traits.traits.count} traits to show..."
     %table.standard.data.search
       - @traits.traits.each do |trait|
         - if trait.point.nil?

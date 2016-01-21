@@ -29,11 +29,11 @@ class TraitBank
       # PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
       # e.g.: http://purl.obolibrary.org/obo/OBA_0000056
       def get_trait_list(predicate, options = {})
-        limit = options[:limit]
+        limit = options[:limit] || 100
         offset = options[:offset]
         clade = options[:clade]
         query = "# data_search part 1\n"\
-          "SELECT DISTINCT ?trait "\
+          "SELECT DISTINCT ?page ?trait "\
           "WHERE { "\
           "  GRAPH <http://eol.org/traitbank> { "\
           "    ?page a eol:page . "\
@@ -49,24 +49,27 @@ class TraitBank
           "ORDER BY xsd:float(?value) "\
           "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
-        TraitBank.connection.query(query).map { |r| r[:trait].to_s }
+        TraitBank.connection.query(query)
       end
 
       def get_metadata(predicate, traits)
+        trait_strings = traits.map { |r| r[:trait].to_s }
         query = "SELECT DISTINCT *
         # data_search part 2
         WHERE {
           GRAPH <http://eol.org/traitbank> {
-            ?page a eol:page .
-            ?page <#{predicate}> ?trait .
             ?trait a eol:trait .
             ?trait ?trait_predicate ?value .
             OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
-            FILTER ( ?trait IN (<#{traits.join(">, <")}>) )
+            FILTER ( ?trait IN (<#{trait_strings.join(">, <")}>) )
           }
         }
         ORDER BY ?trait"
-        TraitBank.connection.query(query)
+        trait_data = TraitBank.connection.query(query)
+        trait_data.each do |td|
+          td[:page] = traits.find { |t| t[:trait] == td[:trait] }[:page]
+        end
+        trait_data
       end
     end
   end

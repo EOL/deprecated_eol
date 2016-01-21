@@ -46,7 +46,7 @@ class TraitBank
           "    ?trait dwc:measurementValue ?value . "\
           "  } "\
           "} "\
-          "ORDER BY xsd:float(?value) "\
+          "ORDER BY xsd:float(REPLACE(?value, \",\", \"\")) "\
           "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
         TraitBank.connection.query(query)

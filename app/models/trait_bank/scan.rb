@@ -9,7 +9,6 @@ class TraitBank
       # - min / max values
       # - units
       # - equivalent values
-      # - pagination
       #
       # { querystring: @querystring, attribute: @attribute,
       #   min_value: @min_value, max_value: @max_value, page: @page,
@@ -17,13 +16,17 @@ class TraitBank
       #   taxon_concept: @taxon_concept,
       #   required_equivalent_attributes: @required_equivalent_attributes,
       #   required_equivalent_values: @required_equivalent_values }
+      # TODO: someday we might want to pass in a page size / limit
       def for(search)
         predicate = search.delete(:attribute)
         clade = search.delete(:taxon_concept).try(:id)
         options = { limit: 100, clade: clade }.merge(search)
-        # TODO: someday we might want to pass in a page size / limit
         traits = get_trait_list(predicate, clade: clade, options)
-        get_metadata(predicate, traits)
+        results = get_metadata(predicate, traits)
+        WillPaginate::Collection.create(search[:page] ||
+          1, 100, 1_000_000) do |pager|
+          pager.replace results
+        end
       end
 
       # NOTE: PREFIX eol: <http://eol.org/schema/>
@@ -46,7 +49,7 @@ class TraitBank
           "    ?trait dwc:measurementValue ?value . "\
           "  } "\
           "} "\
-          "ORDER BY ?value "\
+          "ORDER BY xsd:float(?value) "\ # TODO: only really works if numeric! :S
           "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
         TraitBank.connection.query(query).map { |r| r[:trait].to_s }

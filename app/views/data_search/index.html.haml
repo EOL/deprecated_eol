@@ -7,13 +7,13 @@
       %ul.glossary
         = render('known_uris/definition', { known_uri: @known_uri, attribution: true, glossary_link: true })
   .header
-    -# TODO! Gah!
-    -# - start_number = (@traits.current_page - 1) * @traits.per_page + 1
-    -# - end_number = [ (start_number + @traits.per_page - 1), @traits.total_entries ].min
-    -# - previous_label = (@traits.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, count: @traits.per_page)
-    -# - next_label = (@traits.current_page == @traits.total_pages) ? '' : I18n.t(:pagination_next_with_count, count: @traits.per_page)
-    -# %h3= raw(I18n.t(:displaying_numerical_range_eol_records_with_count, start_number: start_number, end_number: end_number, count: @traits.total_entries))
-    -# = will_paginate @traits, previous_label: previous_label, next_label: next_label, inner_window: 2
+    -# TODO: replace those 100s. :\
+    - start_number = (@page - 1) * 100 + 1
+    - end_number = [ (start_number + 100 - 1), @traits.total_entries ].min
+    - previous_label = (@page == 1) ? '' : I18n.t(:pagination_previous_with_count, count: 100)
+    - next_label = (@traits.traits.count < 100) ? '' : I18n.t(:pagination_next_with_count, count: 100)
+    %h3= raw(I18n.t(:displaying_numerical_range_eol_records_with_count, start_number: start_number, end_number: end_number, count: @traits.total_entries))
+    = will_paginate @traits.traits, previous_label: previous_label, next_label: next_label, inner_window: 2
   #taxon_data
     %table.standard.data.search
       - @traits.traits.each do |trait|

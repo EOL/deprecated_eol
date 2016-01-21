@@ -4,11 +4,11 @@ class SearchTraits < TraitSet
   # e.g.: @traits = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
   # search_options = { querystring: @querystring, attribute: @attribute,
-  #   min_value: @min_value, max_value: @max_value,
-  #   unit: @unit, sort: @sort, language: current_language,
-  #   taxon_concept: @taxon_concept,
-  #   required_equivalent_attributes: @required_equivalent_attributes,
-  #   required_equivalent_values: @required_equivalent_values }
+    # min_value: @min_value, max_value: @max_value, page: @page,
+    # offset: @offset, unit: @unit, sort: @sort, language: current_language,
+    # taxon_concept: @taxon_concept,
+    # required_equivalent_attributes: @required_equivalent_attributes,
+    # required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
     @rdf = []
     @pages = []

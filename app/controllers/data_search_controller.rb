@@ -82,6 +82,8 @@ class DataSearchController < ApplicationController
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
     @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page] || 1
+    # TODO: someday we might want to use a page size...
+    @offset = (@page - 1) * 100 + 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]
     @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil
     @equivalent_attributes = get_equivalents(@attribute)
@@ -89,7 +91,7 @@ class DataSearchController < ApplicationController
     # check if it is really an equivalent attribute
     @required_equivalent_attributes = @required_equivalent_attributes.map{|eq| eq if equivalent_attributes_ids.include?(eq) }.compact if @required_equivalent_attributes
 
-    if !options[:q].blank?
+    if ! options[:q].blank?
       tku = TranslatedKnownUri.find_by_name(@querystring)
       ku = tku.known_uri if tku
       if ku
@@ -110,7 +112,7 @@ class DataSearchController < ApplicationController
 
     @taxon_concept ||= TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
-    unless @querystring.blank? || EOL::Sparql.connection.all_measurement_type_uris.include?(@attribute)
+    unless @querystring.blank?
       @attribute_known_uri = KnownUri.by_name(@querystring).first
       if @attribute_known_uri
         @attribute = @attribute_known_uri.uri
@@ -145,8 +147,8 @@ class DataSearchController < ApplicationController
       @units_for_select = KnownUri.default_units_for_form_select
     end
     @search_options = { querystring: @querystring, attribute: @attribute,
-      min_value: @min_value, max_value: @max_value,
-      unit: @unit, sort: @sort, language: current_language,
+      min_value: @min_value, max_value: @max_value, page: @page,
+      offset: @offset, unit: @unit, sort: @sort, language: current_language,
       taxon_concept: @taxon_concept,
       required_equivalent_attributes: @required_equivalent_attributes,
       required_equivalent_values: @required_equivalent_values }

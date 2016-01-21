@@ -12,25 +12,25 @@ class TraitBank
       # - pagination
       #
       # { querystring: @querystring, attribute: @attribute,
-      #   min_value: @min_value, max_value: @max_value,
-      #   unit: @unit, sort: @sort, language: current_language,
+      #   min_value: @min_value, max_value: @max_value, page: @page,
+      #   offset: @offset, unit: @unit, sort: @sort, language: current_language,
       #   taxon_concept: @taxon_concept,
       #   required_equivalent_attributes: @required_equivalent_attributes,
       #   required_equivalent_values: @required_equivalent_values }
       def for(search)
-        if search[:querystring].blank?
-          data_search_predicate(search[:attribute],
-            clade: search[:taxon_concept].try(:id))
-        else
-          raise "Not yet"
-        end
+        predicate = search.delete(:attribute)
+        clade = search.delete(:taxon_concept).try(:id)
+        options = { limit: 100, clade: clade }.merge(search)
+        # TODO: someday we might want to pass in a page size / limit
+        traits = get_trait_list(predicate, clade: clade, options)
+        get_metadata(predicate, traits)
       end
 
       # NOTE: PREFIX eol: <http://eol.org/schema/>
       # PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
       # e.g.: http://purl.obolibrary.org/obo/OBA_0000056
-      def data_search_predicate(predicate, options = {})
-        limit = options[:limit] || 100
+      def get_trait_list(predicate, options = {})
+        limit = options[:limit]
         offset = options[:offset]
         clade = options[:clade]
         query = "# data_search part 1\n"\
@@ -49,7 +49,10 @@ class TraitBank
           "ORDER BY ?value "\
           "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
-        traits = TraitBank.connection.query(query).map { |r| r[:trait].to_s }
+        TraitBank.connection.query(query).map { |r| r[:trait].to_s }
+      end
+
+      def get_metadata(predicate, traits)
         query = "SELECT DISTINCT *
         # data_search part 2
         WHERE {
@@ -63,26 +66,6 @@ class TraitBank
           }
         }
         ORDER BY ?trait"
-        TraitBank.connection.query(query)
-      end
-
-      # NOTE: I copy/pasted this. TODO: generalize. For testing, 37 should include
-      # 41, and NOT include 904.
-      def data_search_within_clade(predicate, clade, limit = 100, offset = nil)
-        query = "SELECT DISTINCT *
-        # data_search_within_clade
-        WHERE {
-          GRAPH <http://eol.org/traitbank> {
-            ?page <#{predicate}> ?trait .
-            ?page eol:has_ancestor <http://eol.org/pages/#{clade}> .
-            ?trait a eol:trait .
-            ?trait ?trait_predicate ?value .
-            OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
-          }
-        }
-        ORDER BY ?trait
-        LIMIT #{limit}
-        #{"OFFSET #{offset}" if offset}"
         TraitBank.connection.query(query)
       end
     end

@@ -3,14 +3,14 @@ module DataSearchHelper
   DATA_SEARCH_FILE_MAX_DURATION = 4.hours
 
   def data_search_results_summary
-    return "" if @results.nil?
+    return "" if @traits.nil?
     search_term_to_show = [
       @attributes,
       # NOTE - I think the hard-coded colon is okay here. It's just a visual separator with no value.
       @values ].delete_if{ |t| t.blank? }.join(' : ')
 
     summary = I18n.t(:count_results_for_search_term,
-      count: @results.total_entries,
+      count: @traits.traits.total_entries,
       search_term: h(search_term_to_show))
     if @taxon_concept
       summary << ' ' + I18n.t(:searching_within_clade,

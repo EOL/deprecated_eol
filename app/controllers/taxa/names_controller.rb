@@ -207,7 +207,7 @@ private
     if current_user.newish? && !current_user.is_trusted_user?
       names_count = Curator.total_objects_curated_by_action_and_user(Activity.add_common_name.id,
                     current_user.id, [ChangeableObjectType.synonym.id], "count",
-                    DateTime.now.in_time_zone.to_date.beginning_of_day..DateTime.now.in_time_zone.to_date.end_of_day)
+                    Time.current.beginning_of_day..Time.current.end_of_day)
       return names_count != 0
     end
     return false

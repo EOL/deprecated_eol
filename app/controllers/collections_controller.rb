@@ -804,7 +804,7 @@ private
   end
 
   def limit_collection
-     if current_user.newish? && !current_user.is_trusted_user?
+    if current_user.newish? && !current_user.is_trusted_user?
        return Collection.non_watch_collections_of_today(current_user).blank? ? false : true
     end
     return false

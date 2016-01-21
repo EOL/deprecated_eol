@@ -597,8 +597,7 @@ private
   def limit_data_objects
     if current_user.newish? && !current_user.is_trusted_user?
       return DataObject.articles_of_today(current_user).blank? ? false : true
-    else
-      return false
     end
-  end
+    return false
+    end
 end

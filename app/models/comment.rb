@@ -31,7 +31,7 @@ class Comment < ActiveRecord::Base
   scope :undeleted, -> { where(deleted: false) }
   scope :comments_of_today, ->(current_user) {
     where(user_id: current_user.id,
-    created_at: DateTime.now.in_time_zone.to_date.beginning_of_day..DateTime.now.in_time_zone.to_date.end_of_day)
+    created_at: Time.current.beginning_of_day..Time.current.end_of_day)
   }
   before_create :set_visible_at, :set_from_curator
   after_create :log_activity_in_solr

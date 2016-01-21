@@ -21,11 +21,12 @@
   .vital
     %fieldset{class: "ui-widget"}
       %dl
+        - placeholder = I18n.t(:attribute, scope: i18n_scope)
         %dt
-          = "@attribute_default = #{@attribute_default} ; "
-          = label_tag :attribute, I18n.t(:attribute, scope: i18n_scope)
+          = "@attribute = #{@attribute}  (nil? #{@attribute.nil?}) ; "
+          = label_tag :attribute, placeholder
         %dt{id: "combobox"}
-          = select_tag :attribute, options_for_select(select_options, @attribute || @attribute_default) , include_blank: true
+          = select_tag :attribute, options_for_select(select_options, @attribute || placeholder) , include_blank: true
     - if @equivalent_attributes && @equivalent_attributes.count > 0
       %br
       %h2{style: "display: inline;"}

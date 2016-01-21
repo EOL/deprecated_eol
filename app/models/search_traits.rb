@@ -20,7 +20,11 @@ class SearchTraits < TraitSet
     @per_page = search_options[:per_page] || 100
     unless search_options[:attribute].blank?
       # TODO: some of this could be generalized into TraitSet.
-      @rdf = TraitBank::Scan.for(search_options)
+      @rdf = begin
+        TraitBank::Scan.for(search_options)
+      rescue EOL::Exceptions::SparqlDataEmpty => e
+        []
+      end
       @pages = get_pages(@rdf.map { |trait| trait[:page].to_s })
       trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
       @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
@@ -35,7 +39,8 @@ class SearchTraits < TraitSet
         Trait.new(rdf_by_trait[trait], self, taxa: @pages,
           predicate: search_options[:attribute])
       end
-      total = 1_000_000 # TODO
+      # TODO: a real count:
+      total = traits.count == 100 ? 1_000_000 : traits.count
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|
         pager.replace traits
       end

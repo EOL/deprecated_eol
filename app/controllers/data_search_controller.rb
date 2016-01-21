@@ -194,7 +194,6 @@ class DataSearchController < ApplicationController
   # the view.
   def prepare_attribute_options
     # TODO: attributes within clades (only)
-
     # TODO: this is sloppy, refactor.
     @attribute_options =
       EOL.pluck_fields([:known_uri_id, :uri, :name],
@@ -207,15 +206,6 @@ class DataSearchController < ApplicationController
         (id, uri, name) = string.split(',', 3)
         [ truncate(name, length: 30), uri, { 'data-known_uri_id' => id } ]
       end
-
-    if @attribute.nil?
-      # NOTE we should (I assume) only get nil attribute when the user first
-      #      loads the search, so for that context we select an example default,
-      #      starting with [A-Z] seems more readable. If my assumption is wrong
-      #      then we should rethink this and tell the user why attribute is nil
-      match = @attribute_options.select { |o| o[2] =~ /^[A-Z]/ }
-      @attribute_default = match.first[1] unless match.empty?
-    end
   end
 
   # Add an entry to the database recording the number of results and time of search operation

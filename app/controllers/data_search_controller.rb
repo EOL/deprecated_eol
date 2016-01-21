@@ -202,8 +202,7 @@ class DataSearchController < ApplicationController
           where(language_id: Language.english.id,
             known_uris: { hide_from_gui: false,
               uri_type_id: [UriType.measurement.id, UriType.association]}).
-          where("name IS NOT NULL AND name != ''")).
-          order("name").
+          where("name IS NOT NULL AND name != ''").order("name")).
           map do |string|
         (id, uri, name) = string.split(',', 3)
         [ truncate(name, length: 30), uri, { 'data-known_uri_id' => id } ]

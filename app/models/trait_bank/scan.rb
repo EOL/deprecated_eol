@@ -21,7 +21,7 @@ class TraitBank
         predicate = search.delete(:attribute)
         clade = search.delete(:taxon_concept).try(:id)
         options = { limit: 100, clade: clade }.merge(search)
-        traits = get_trait_list(predicate, clade: clade, options)
+        traits = get_trait_list(predicate, options)
         get_metadata(predicate, traits)
       end
 

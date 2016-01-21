@@ -38,7 +38,7 @@ class TraitBank
           "WHERE { "\
           "  GRAPH <http://eol.org/traitbank> { "\
           "    ?page a eol:page . "\
-          "    ?page <http://purl.obolibrary.org/obo/OBA_0000056> ?trait . "
+          "    ?page <#{predicate}> ?trait . "
         if clade
           query += "  ?page eol:has_ancestor <http://eol.org/pages/#{clade}> . "
         end

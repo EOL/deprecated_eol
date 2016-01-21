@@ -122,7 +122,7 @@ describe KnownUri do
   end
 
   it 'should know if it matches another KnownUri (by URI)' do
-    kn = KnownUri.gen(uri: 'http://eol.org/test')
+    kn = KnownUri.gen_if_not_exists(uri: 'http://eol.org/test')
     expect(kn.matches('http://eol.org/test')).to eq(true)
     expect(kn.matches('http://EOL.org/test')).to eq(true)
     expect(kn.matches('HTTP://EOL.ORG/TEST')).to eq(true)

@@ -41,11 +41,12 @@ class TraitBank
         if clade
           query += "  ?page eol:has_ancestor <http://eol.org/pages/#{clade}> . "
         end
+        # TODO: This ORDER BY only really works if numeric! :S
         query += "?trait a eol:trait . "\
           "    ?trait dwc:measurementValue ?value . "\
           "  } "\
           "} "\
-          "ORDER BY xsd:float(?value) "\ # TODO: only really works if numeric! :S
+          "ORDER BY xsd:float(?value) "\
           "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
         TraitBank.connection.query(query).map { |r| r[:trait].to_s }

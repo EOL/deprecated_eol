@@ -1,6 +1,6 @@
 - content_for :head do
   = stylesheet_link_tag "data_search"
-- helperstscope = [:helpers, :label, :data_search]
+- i18n_scope = [:helpers, :label, :data_search]
 - # NOTE altering taxon concept defaults if its not searchable but keeping
 - #      variable intact, in case it is still needed... we could just remove it
 - if @taxon_concept && ! @clade_has_no_data
@@ -13,7 +13,7 @@
     - if @clade_has_no_data
       - taxon_name[:data] = { value_removed_placeholder: I18n.t(:taxon_name_placeholder_value_removed,
         taxon_group: @taxon_concept.title_canonical,
-        scope: helperstscope) }
+        scope: i18n_scope) }
 %h3.assistive= t('.header')
 - select_options = @attribute_options || []
 = form_tag data_search_path, method: 'get', class: 'copy', id: 'traitbank_search' do
@@ -22,7 +22,8 @@
     %fieldset{class: "ui-widget"}
       %dl
         %dt
-          = label_tag :attribute, I18n.t(:attribute, scope: helperstscope)
+          - lab_txt = I18n.t(:attribute, scope: i18n_scope)
+          = label_tag :attribute, lab_txt
         %dt{id: "combobox"}
           = select_tag :attribute, options_for_select(select_options, @attribute || @attribute_default) , include_blank: true
     - if @equivalent_attributes && @equivalent_attributes.count > 0
@@ -69,7 +70,7 @@
         contact_us_tech_url: contact_us_path(subject: 'Technical'))
       %dl
         %dt
-          = label_tag :taxon_name, I18n.t(:taxon_name, scope: helperstscope)
+          = label_tag :taxon_name, I18n.t(:taxon_name, scope: i18n_scope)
         %dd
           = autocomplete_field :autocomplete, 'q', autocomplete_taxon_search_path,
             name: 'taxon_name', 'data-min-length' => 3, type: 'search',
@@ -77,39 +78,39 @@
             value: taxon_name[:value],
             placeholder: I18n.t('helpers.label.data_search.taxon_name_placeholder'),
             data: taxon_name[:data]
-          %p= I18n.t(:taxon_name_more, scope: helperstscope)
+          %p= I18n.t(:taxon_name_more, scope: i18n_scope)
     - if false # DISABLED FOR NOW.  :(
       %fieldset
         %h4= t('.search_value_or_range_header')
         %dl
           %dt
-            = label_tag :q, I18n.t(:q, scope: helperstscope)
+            = label_tag :q, I18n.t(:q, scope: i18n_scope)
           %dd
             = search_field_tag :q, @querystring,
-              placeholder: I18n.t(:q_placeholder, scope: helperstscope),
+              placeholder: I18n.t(:q_placeholder, scope: i18n_scope),
               data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
-              scope: helperstscope)}
-            %p= I18n.t(:q_more, scope: helperstscope)
+              scope: i18n_scope)}
+            %p= I18n.t(:q_more, scope: i18n_scope)
         %h5= t('.or_range_header').html_safe
         %dl.range
           %dt
-            = label_tag :min, I18n.t(:min, scope: helperstscope)
+            = label_tag :min, I18n.t(:min, scope: i18n_scope)
           %dd
             = search_field_tag :min, @min_value,
-              placeholder: I18n.t(:min_placeholder, scope: helperstscope),
+              placeholder: I18n.t(:min_placeholder, scope: i18n_scope),
               data: {disabled_placeholder: I18n.t(:min_placeholder_disabled,
-              scope: helperstscope)}
+              scope: i18n_scope)}
         %dl.range
           %dt
-            = label_tag :max, I18n.t(:max, scope: helperstscope)
+            = label_tag :max, I18n.t(:max, scope: i18n_scope)
           %dd
             = search_field_tag :max, @max_value,
-              placeholder: I18n.t(:max_placeholder, scope: helperstscope),
+              placeholder: I18n.t(:max_placeholder, scope: i18n_scope),
               data: {disabled_placeholder: I18n.t(:max_placeholder_disabled,
-              scope: helperstscope)}
+              scope: i18n_scope)}
         %dl.range
           %dt
-            = label_tag :unit, I18n.t(:unit, scope: helperstscope)
+            = label_tag :unit, I18n.t(:unit, scope: i18n_scope)
           %dd
             - unit_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
             = select_tag :unit, options_for_select(unit_options, @unit)

@@ -187,54 +187,31 @@ class DataSearchController < ApplicationController
     ]
   end
 
-  # todo improve this hacky way of handling empty attributes
+  # TODO: the format of @attribute_options is plain stupid. Simplify and change
+  # the view.
   def prepare_attribute_options
-    @attribute_options = []
-    if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
-      # TODO: re-write this, it's garbage.
-      # Get URIs (attributes) that this clade has measurements or facts for.
-      # NOTE excludes associations URIs e.g. preys upon.
-      measurement_uris = EOL::Sparql.connection.all_measurement_type_known_uris_for_clade(@taxon_concept)
-      @attribute_options = convert_uris_to_options(measurement_uris)
-      @clade_has_no_data = true if @attribute_options.empty?
-    end
+    # TODO: attributes within clades (only)
 
-    if @attribute_options.empty?
-      # TODO: this is sloppy, refactor.
-      @attribute_options =
-        EOL.pluck_fields([:known_uri_id, :uri, :name],
-          TranslatedKnownUri.joins(:known_uri).
-            where(language_id: Language.english.id,
-              known_uris: { hide_from_gui: false,
-                uri_type_id: [UriType.measurement.id, UriType.association]}).
-            where("name IS NOT NULL AND name != ''")).map do |string|
-          (id, uri, name) = string.split(',', 3)
-          [ truncate(name, length: 30), uri, { 'data-known_uri_id' => id } ]
-        end
-    end
+    # TODO: this is sloppy, refactor.
+    @attribute_options =
+      EOL.pluck_fields([:known_uri_id, :uri, :name],
+        TranslatedKnownUri.joins(:known_uri).
+          where(language_id: Language.english.id,
+            known_uris: { hide_from_gui: false,
+              uri_type_id: [UriType.measurement.id, UriType.association]}).
+          where("name IS NOT NULL AND name != ''")).map do |string|
+        (id, uri, name) = string.split(',', 3)
+        [ truncate(name, length: 30), uri, { 'data-known_uri_id' => id } ]
+      end
 
     if @attribute.nil?
       # NOTE we should (I assume) only get nil attribute when the user first
       #      loads the search, so for that context we select an example default,
       #      starting with [A-Z] seems more readable. If my assumption is wrong
       #      then we should rethink this and tell the user why attribute is nil
-      match = @attribute_options.select{|o| o[0] =~ /^[A-Z]/}
+      match = @attribute_options.select { |o| o[2] =~ /^[A-Z]/ }
       @attribute_default = match.first[1] unless match.empty?
     end
-  end
-
-  def convert_uris_to_options(measurement_uris)
-    # TODO - this could be greatly simplified with duck-typing.  :|
-    measurement_uris.collect do |uri|
-      label = uri.respond_to?(:name) ? uri.name : EOL::Sparql.uri_to_readable_label(uri)
-      if label.nil?
-        nil
-      else
-        [ truncate(label, length: 30),
-          uri.respond_to?(:uri) ? uri.uri : uri,
-          { 'data-known_uri_id' => uri.respond_to?(:id) ? uri.id : nil } ]
-      end
-    end.compact.sort_by { |o| o.first.downcase }.uniq
   end
 
   # Add an entry to the database recording the number of results and time of search operation
@@ -246,7 +223,7 @@ class DataSearchController < ApplicationController
     if params[:attribute] || params[:taxon_concept_id]
       DataSearchLog.create(
         @data_search_file_options.merge({
-          clade_was_ignored: (@taxon_concept && ! TaxonData.is_clade_searchable?(@taxon_concept)) ? true : false,
+          clade_was_ignored: false,
           user_id: ( logged_in? ? current_user.id : nil ),
           number_of_results: @results.total_entries,
           time_in_seconds: options[:time_in_seconds],

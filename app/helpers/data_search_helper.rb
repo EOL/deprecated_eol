@@ -8,22 +8,22 @@ module DataSearchHelper
       @attributes,
       # NOTE - I think the hard-coded colon is okay here. It's just a visual separator with no value.
       @values ].delete_if{ |t| t.blank? }.join(' : ')
-      
+
     summary = I18n.t(:count_results_for_search_term,
       count: @results.total_entries,
       search_term: h(search_term_to_show))
-    if @taxon_concept && TaxonData.is_clade_searchable?(@taxon_concept)
+    if @taxon_concept
       summary << ' ' + I18n.t(:searching_within_clade,
         clade_name: link_to(raw(@taxon_concept.title_canonical_italicized),
         taxon_overview_url(@taxon_concept)))
     end
     raw summary
   end
-  
+
   def long_processing_data_search_file?(search_file)
     search_file.created_at + DATA_SEARCH_FILE_MAX_DURATION < Time.now
   end
-  
+
   def data_search_file?(download_file)
     download_file.class.name == "DataSearchFile"
   end

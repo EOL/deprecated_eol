@@ -15,7 +15,7 @@ class DataObjectsTaxonConceptsDenormalizer
 
   def self.denormalize_using_joins_via_table(joins, visibility_table)
     TaxonConcept.unsuperceded.
-      select("").
+      select("taxon_concepts.id, data_objects.id as dato_id").
       joins(joins).
       where(["(data_objects.published = 1 OR "\
         "#{visibility_table}.visibility_id != ?)",

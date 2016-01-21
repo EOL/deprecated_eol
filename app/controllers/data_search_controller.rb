@@ -82,7 +82,7 @@ class DataSearchController < ApplicationController
     @min_value = (options[:min] && options[:min].is_numeric?) ? options[:min].to_f : nil
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
     @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
-    @page = options[:page] || 1
+    @page = options[:page].try(:to_i) || 1
     # TODO: someday we might want to use a page size...
     @offset = (@page - 1) * 100 + 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]

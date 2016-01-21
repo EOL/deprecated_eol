@@ -18,39 +18,37 @@ class TraitBank
       #   required_equivalent_attributes: @required_equivalent_attributes,
       #   required_equivalent_values: @required_equivalent_values }
       def for(search)
-        if search[:taxon_concept].blank?
-          if search[:querystring].blank?
-            data_search_predicate(search[:attribute])
-          else
-            raise "Not yet"
-          end
+        if search[:querystring].blank?
+          data_search_predicate(search[:attribute],
+            clade: search[:taxon_concept].try(:id))
         else
-          if search[:querystring].blank?
-            data_search_within_clade(search[:attribute],
-              search[:taxon_concept].id)
-          else
-            raise "Not yet"
-          end
+          raise "Not yet"
         end
       end
 
       # NOTE: PREFIX eol: <http://eol.org/schema/>
       # PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
       # e.g.: http://purl.obolibrary.org/obo/OBA_0000056
-      def data_search_predicate(predicate, limit = 100, offset = nil)
-        query = "SELECT DISTINCT ?trait
-        # data_search part 1
-        WHERE {
-          GRAPH <http://eol.org/traitbank> {
-            ?page a eol:page .
-            ?page <http://purl.obolibrary.org/obo/OBA_0000056> ?trait .
-            ?trait a eol:trait .
-            ?trait dwc:measurementValue ?value .
-          }
-        }
-        ORDER BY ?value
-        LIMIT #{limit}
-        #{"OFFSET #{offset}" if offset}"
+      def data_search_predicate(predicate, options = {})
+        limit = options[:limit] || 100
+        offset = options[:offset]
+        clade = options[:clade]
+        query = "# data_search part 1\n"\
+          "SELECT DISTINCT ?trait "\
+          "WHERE { "\
+          "  GRAPH <http://eol.org/traitbank> { "\
+          "    ?page a eol:page . "\
+          "    ?page <http://purl.obolibrary.org/obo/OBA_0000056> ?trait . "
+        if clade
+          query += "  ?page eol:has_ancestor <http://eol.org/pages/#{clade}> . "
+        end
+        query += "?trait a eol:trait . "\
+          "    ?trait dwc:measurementValue ?value . "\
+          "  } "\
+          "} "\
+          "ORDER BY ?value "\
+          "LIMIT #{limit} "\
+          "#{"OFFSET #{offset}" if offset}"
         traits = TraitBank.connection.query(query).map { |r| r[:trait].to_s }
         query = "SELECT DISTINCT *
         # data_search part 2

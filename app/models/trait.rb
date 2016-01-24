@@ -116,17 +116,17 @@ class Trait
   end
 
   def source_id
-    source_url =~ SOURCE_RE ? $1.to_i : nil
+    @source_id ||= source_url =~ SOURCE_RE ? $1.to_i : nil
   end
 
   def source_rdf
-    return @source_rdf if @source_rdf
-    @source_rdf = rdf_value("http://purl.org/dc/terms/source")
+    rdf = rdf_value("http://purl.org/dc/terms/source")
     # Old resources were stored as "source":
-    unless @source_rdf =~ SOURCE_RE
+    unless rdf =~ SOURCE_RE
       take_two = rdf_value("source")
-      @source_rdf = take_two if take_two =~ SOURCE_RE
+      rdf = take_two if take_two =~ SOURCE_RE
     end
+    rdf
   end
 
   def source_url

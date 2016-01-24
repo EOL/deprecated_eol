@@ -101,7 +101,11 @@ class Trait
   end
 
   def sex_name
-    sex.try(:name)
+    sex_uri.name
+  end
+
+  def sex_uri
+    rdf_to_uri(sex)
   end
 
   def source_id

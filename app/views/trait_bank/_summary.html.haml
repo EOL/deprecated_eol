@@ -35,5 +35,5 @@
                 - if data.more?
                   - text_for_rows << link_to(I18n.t(:show_more_row_data_link),
                     taxon_data_path(@overview, toc_id: uri.toc_items.first.id,
-                    anchor: uri)).html_safe
+                    anchor: uri))
                 = raw text_for_rows.join("<br/>")

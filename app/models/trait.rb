@@ -55,7 +55,7 @@ class Trait
   end
 
   def life_stage_name
-    life_stage_uri.name
+    life_stage_uri.try(:name)
   end
 
   def life_stage_uri
@@ -67,7 +67,7 @@ class Trait
   end
 
   def predicate_name
-    predicate_uri.name
+    predicate_uri.try(:name)
   end
 
   def predicate_uri
@@ -101,7 +101,7 @@ class Trait
   end
 
   def sex_name
-    sex_uri.name
+    sex_uri.try(:name)
   end
 
   def sex_uri
@@ -162,7 +162,7 @@ class Trait
   def value_name
     #TODO: associations.  :\
     return nil if value_rdf.nil?
-    value_rdf.literal? ? value_rdf.to_s : value_uri.name
+    value_rdf.literal? ? value_rdf.to_s : value_uri.try(:name)
   end
 
   def value_uri

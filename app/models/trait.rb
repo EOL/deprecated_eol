@@ -79,7 +79,7 @@ class Trait
     @resource = sources.find { |source| source.id == source_id }
     if @resource.nil?
       @resource = Resource.where(id: source_id).includes(:content_partner)
-      sources += @resource if @resource
+      sources += @resource if sources && @resource
     end
     @resource
   end

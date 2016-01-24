@@ -78,6 +78,7 @@ class Trait
     @resource if @resource
     @resource = sources.find { |source| source.id == source_id }
     if @resource.nil?
+      EOL.log("JIT-loading resource #{source_id}")
       @resource = Resource.where(id: source_id).includes(:content_partner).first
       sources += @resource if sources && @resource
     end

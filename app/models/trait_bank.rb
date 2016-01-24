@@ -177,7 +177,7 @@ class TraitBank
           raise e
         end
       end
-      if triples.empty
+      if triples.empty?
         EOL.log("No data to insert, skipping.", prefix: ".")
       else
         unless connection.insert_data(data: triples, graph_name: graph_name)

@@ -1,5 +1,6 @@
 class PageTraits < TraitSet
 
+  # e.g.: pt = PageTraits.new(328598)
   def initialize(id)
     EOL.log_call
     @id = id

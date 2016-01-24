@@ -11,15 +11,16 @@ class SearchTraits < TraitSet
     # required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
     @attribute = search_options[:attribute]
-    @rdf = []
-    @pages = []
-    @points = []
-    @glossary = []
-    @traits = []
-    @sources = []
     @page = search_options[:page] || 1
     @per_page = search_options[:per_page] || 100
-    unless @attribute.blank?
+    if @attribute.blank?
+      @rdf = []
+      @pages = []
+      @points = []
+      @glossary = []
+      @sources = []
+      @traits = [].paginate
+    else
       # TODO: some of this could be generalized into TraitSet.
       @rdf = begin
         TraitBank::Scan.for(search_options)

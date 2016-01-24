@@ -14,7 +14,8 @@ class PageTraits < TraitSet
     traits = @rdf.group_by { |trait| trait[:trait] }
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
     source_ids = Set.new(@traits.map { |trait| trait.source_id })
-    source_ids.delete(nil) # Just in case.
+    source_ids.delete(nil) # It happens.
+    EOL.log("Loading resources: #{source_ids.to_a.join(", ")}.")
     @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
   end
 

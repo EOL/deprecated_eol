@@ -100,10 +100,6 @@
                       = render(partial: 'known_uris/definition',
                         locals: { known_uri: trait.value_uri, search_link: true,
                         glossary_link: true })
-                - if trait.sex
-                  %span.stat= trait.sex_name
-                - if trait.life_stage
-                  %span.stat= trait.life_stage_name
             %td.source
               - if trait.resource
                 = link_to(trait.resource.content_partner.name,

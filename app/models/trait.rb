@@ -75,7 +75,13 @@ class Trait
   end
 
   def resource
-    sources.find { |source| source.id == source_id }
+    @resource if @resource
+    @resource = sources.find { |source| source.id == source_id }
+    if @resource.nil?
+      @resource = Resource.where(id: source_id).includes(:content_partner)
+      sources += @resource if @resource
+    end
+    @resource
   end
 
   def rdf_to_uri(rdf)

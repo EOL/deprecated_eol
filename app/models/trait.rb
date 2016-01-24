@@ -167,7 +167,7 @@ class Trait
 
   def value_name
     #TODO: associations.  :\
-    return nil if value_rdf.nil?
+    return "" if value_rdf.nil?
     value_uri.respond_to?(:name) ? value_uri.name  : value_rdf.to_s
   end
 

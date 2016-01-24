@@ -55,7 +55,11 @@ class Trait
   end
 
   def life_stage_name
-    life_stage.try(:name)
+    life_stage_uri.name
+  end
+
+  def life_stage_uri
+    rdf_to_uri(life_stage)
   end
 
   def partner

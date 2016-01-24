@@ -162,7 +162,7 @@ class Trait
   def value_name
     #TODO: associations.  :\
     return nil if value_rdf.nil?
-    value_rdf.literal? ? value_rdf.to_s : value_uri.try(:name)
+    value_rdf.try(:name) || value_rdf.to_s
   end
 
   def value_uri

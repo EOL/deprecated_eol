@@ -71,12 +71,13 @@ class DataSearchController < ApplicationController
     file
   end
 
+  # NOTE: this takes a LONG (!) time! Can take 20 seconds!  Why?! TODO
   def prepare_search_parameters(options)
     EOL.log_call
     @hide_global_search = true
     @querystring_uri = nil
     @querystring = options[:q]
-    @querystring_uri =  @querystring if EOL::Sparql.is_uri?(@querystring)
+    @querystring_uri = @querystring if EOL::Sparql.is_uri?(@querystring)
     @attribute = options[:attribute]
     @attribute_missing = @attribute.nil? && params.has_key?(:attribute)
     @sort = (options[:sort] && [ 'asc', 'desc' ].include?(options[:sort])) ? options[:sort] : 'desc'
@@ -89,12 +90,14 @@ class DataSearchController < ApplicationController
     @offset = (@page - 1) * 100 + 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]
     @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil
+    EOL.log("get equivs", prefix: ".")
     @equivalent_attributes = get_equivalents(@attribute)
     equivalent_attributes_ids = @equivalent_attributes.map{|eq| eq.id.to_s}
     # check if it is really an equivalent attribute
     @required_equivalent_attributes = @required_equivalent_attributes.map{|eq| eq if equivalent_attributes_ids.include?(eq) }.compact if @required_equivalent_attributes
 
     if ! options[:q].blank?
+      EOL.log("handle q", prefix: ".")
       tku = TranslatedKnownUri.find_by_name(@querystring)
       ku = tku.known_uri if tku
       if ku
@@ -106,6 +109,7 @@ class DataSearchController < ApplicationController
 
     #if entered taxon name returns more than one result choose first
     if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
+      EOL.log("simple taxon search", prefix: ".")
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)
       results = results_with_suggestions[:results]
       if !(results.blank?)
@@ -116,12 +120,14 @@ class DataSearchController < ApplicationController
     @taxon_concept ||= TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
     unless @querystring.blank?
+      EOL.log("lookup uri based on query", prefix: ".")
       @attribute_known_uri = KnownUri.by_name(@querystring).first
       if @attribute_known_uri
         @attribute = @attribute_known_uri.uri
         @querystring = options[:q] = ''
       end
     else
+      EOL.log("lookup uri", prefix: ".")
       @attribute_known_uri = KnownUri.by_uri(@attribute)
     end
     @attributes = @attribute_known_uri ? @attribute_known_uri.label : @attribute
@@ -132,6 +138,7 @@ class DataSearchController < ApplicationController
     end
 
     #@values = @querystring.to_s
+    EOL.log("querystring uri", prefix: ".")
     if @querystring_uri
       known_uri = KnownUri.by_uri(@querystring_uri)
       @values = known_uri.label if known_uri
@@ -144,6 +151,7 @@ class DataSearchController < ApplicationController
       end
     end
 
+    EOL.log("attribute known uri", prefix: ".")
     if @attribute_known_uri && ! @attribute_known_uri.units_for_form_select.empty?
       @units_for_select = @attribute_known_uri.units_for_form_select
     else
@@ -162,6 +170,7 @@ class DataSearchController < ApplicationController
       user: current_user,
       taxon_concept_id: (@taxon_concept ? @taxon_concept.id : nil),
       unit_uri: @unit }
+    EOL.log("exiting #prepare_search_parameters", prefix: ".")
   end
 
   # TODO - this should be In the DB with an admin/master curator UI behind it. I

@@ -10,6 +10,7 @@ class DataSearchController < ApplicationController
   layout 'data_search'
   # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index
+    EOL.log_call
     @page_title = I18n.t('data_search.page_title')
     prepare_search_parameters(params)
     prepare_attribute_options
@@ -71,6 +72,7 @@ class DataSearchController < ApplicationController
   end
 
   def prepare_search_parameters(options)
+    EOL.log_call
     @hide_global_search = true
     @querystring_uri = nil
     @querystring = options[:q]
@@ -161,20 +163,24 @@ class DataSearchController < ApplicationController
       unit_uri: @unit }
   end
 
-  # TODO - this should be In the DB with an admin/master curator UI behind it. I would also add a "comment" to that model, when
-  # we build it, which would populate a flash message after the search is run; that would allow things like "notice how this
-  # search specifies a URI as the query" and the like, calling out specific features of each search.
+  # TODO - this should be In the DB with an admin/master curator UI behind it. I
+  # would also add a "comment" to that model, when we build it, which would
+  # populate a flash message after the search is run; that would allow things
+  # like "notice how this search specifies a URI as the query" and the like,
+  # calling out specific features of each search.
   #
-  # That said, we will have to consider how to deal with I18n, both for the "comment" and for the label.
+  # That said, we will have to consider how to deal with I18n, both for the
+  # "comment" and for the label.
   def prepare_suggested_searches
+    EOL.log_call
     @suggested_searches = [
-      { label_key: 'search_suggestion_whale_mass',
-        params: {
-          sort: 'desc',
-          min: 10000,
-          taxon_concept_id: 7649,
-          attribute: 'http://purl.obolibrary.org/obo/VT_0001259',
-          unit: 'http://purl.obolibrary.org/obo/UO_0000009' }},
+      # { label_key: 'search_suggestion_whale_mass',
+      #   params: {
+      #     sort: 'desc',
+      #     min: 10000,
+      #     taxon_concept_id: 7649,
+      #     attribute: 'http://purl.obolibrary.org/obo/VT_0001259',
+      #     unit: 'http://purl.obolibrary.org/obo/UO_0000009' }},
       { label_key: 'search_suggestion_cavity_nests',
         params: {
           q: 'cavity',
@@ -193,6 +199,7 @@ class DataSearchController < ApplicationController
   # TODO: the format of @attribute_options is plain stupid. Simplify and change
   # the view.
   def prepare_attribute_options
+    EOL.log_call
     # TODO: attributes within clades (only)
     # TODO: this is sloppy, refactor.
     @attribute_options = TraitBank.predicates.map do |array|

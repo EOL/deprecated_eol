@@ -75,7 +75,8 @@ class Trait
   end
 
   def resource
-    @resource if @resource
+    return @resource if @resource
+    return nil if source_id.nil?
     @resource = sources.find { |source| source.id == source_id }
     if @resource.nil?
       EOL.log("JIT-loading resource #{source_id}")

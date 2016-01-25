@@ -40,7 +40,7 @@ class TraitBank
         clade = options[:clade]
         query = "# data_search part 1\n"
         fields = "DISTINCT(?page ?trait)"
-        fields = "COUNT(#{fields})" if options[:count]
+        fields = "COUNT(*)" if options[:count]
         query += "SELECT #{fields} WHERE { "\
           "GRAPH <http://eol.org/traitbank> { "\
           "?page a eol:page . "\

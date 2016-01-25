@@ -165,17 +165,6 @@ class DataSearchController < ApplicationController
   # That said, we will have to consider how to deal with I18n, both for the "comment" and for the label.
   def prepare_suggested_searches
     @suggested_searches = [
-      { label_key: 'search_suggestion_whale_mass',
-        params: {
-          sort: 'desc',
-          min: 10000,
-          taxon_concept_id: 7649,
-          attribute: 'http://purl.obolibrary.org/obo/VT_0001259',
-          unit: 'http://purl.obolibrary.org/obo/UO_0000009' }},
-      { label_key: 'search_suggestion_cavity_nests',
-        params: {
-          q: 'cavity',
-          attribute: 'http://eol.org/schema/terms/NestType' }},
       { label_key: 'search_suggestion_diatom_shape',
         params: {
           attribute: 'http://purl.obolibrary.org/obo/OBA_0000052',

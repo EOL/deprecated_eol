@@ -42,7 +42,7 @@ class SearchTraits < TraitSet
           predicate: @attribute)
       end
       # TODO: a real count:
-      total = traits.count >= @per_page ?
+      total = traits.count >= @per_page || @page > 1 ?
         TraitBank::Scan.trait_count(search_options) :
         traits.count
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|

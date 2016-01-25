@@ -6,8 +6,8 @@ class PageTraits < TraitSet
     trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
     @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
       includes(:comments, :taxon_data_exemplars)
-    uris = Set.new(@rdf.flat_map { |trait|
-      trait.values.select { |v| v.uri? } })
+    uris = Set.new(@rdf.flat_map { |rdf|
+      rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) } })
     # TODO: associations. We need the names of those taxa.
     @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
       includes(toc_items: :translated_toc_items)

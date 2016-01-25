@@ -6,7 +6,7 @@ class SearchTraits < TraitSet
   # search_options = { querystring: @querystring, attribute: @attribute,
     # min_value: @min_value, max_value: @max_value, page: @page,
     # offset: @offset, unit: @unit, sort: @sort, language: current_language,
-    # taxon_concept: @taxon_concept,
+    # clade: @taxon_concept.id,
     # required_equivalent_attributes: @required_equivalent_attributes,
     # required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
@@ -42,7 +42,9 @@ class SearchTraits < TraitSet
           predicate: @attribute)
       end
       # TODO: a real count:
-      total = traits.count == 100 ? 1_000_000 : traits.count
+      total = traits.count >= @per_page ?
+        TraitBank::Scan.trait_count(search_options) :
+        traits.count
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|
         pager.replace traits
       end

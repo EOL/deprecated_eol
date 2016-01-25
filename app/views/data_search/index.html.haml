@@ -18,10 +18,9 @@
   #taxon_data
     %table.standard.data.search
       - @traits.traits.each do |trait|
-        - EOL.log("Rendering trait", prefix: "V")
         - if trait.point.nil?
           -# This is a "placeholder" for a hidden row.
-          %tr{id: trait.point.anchor, class: "data hidden"}
+          %tr{id: "missing_point", class: "data hidden"}
             %td.placeholder{colspan: 6}
               = "Could not find a data point for #{trait.point}"
         - elsif trait.point.hidden?
@@ -30,6 +29,7 @@
             %td.placeholder{colspan: 6}
               = I18n.t(:data_search_row_hidden)
         - else
+          - EOL.log("Rendering trait #{trait.point.anchor}", prefix: "V")
           - classes = []
           - unless trait.point.visible?
             - if current_user.is_curator?

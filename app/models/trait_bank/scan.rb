@@ -23,7 +23,8 @@ class TraitBank
       end
 
       def trait_count(options)
-        TraitBank.connection.query(scan_query(options.merge(count: true)))
+        TraitBank.connection.
+          query(scan_query(options.merge(count: true)))[:"callret-0"].to_i
       end
 
       def trait_list(options)
@@ -38,7 +39,7 @@ class TraitBank
         offset = options[:offset]
         clade = options[:clade]
         query = "# data_search part 1\n"
-        fields = "DISTINCT ?page ?trait"
+        fields = "DISTINCT(?page ?trait)"
         fields = "COUNT(#{fields})" if options[:count]
         query += "SELECT #{fields} WHERE { "\
           "GRAPH <http://eol.org/traitbank> { "\
@@ -49,10 +50,13 @@ class TraitBank
         end
         # TODO: This ORDER BY only really works if numeric! :S
         query += "?trait a eol:trait . "\
-          "?trait dwc:measurementValue ?value . } } "\
-          "ORDER BY xsd:float(REPLACE(?value, \",\", \"\")) "\
+          "?trait dwc:measurementValue ?value . } } "
+        unless options[:count]
+          query += "ORDER BY xsd:float(REPLACE(?value, \",\", \"\")) "\
           "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
+        end
+        query
       end
 
       def metadata(traits)

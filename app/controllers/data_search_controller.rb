@@ -152,7 +152,7 @@ class DataSearchController < ApplicationController
     @search_options = { querystring: @querystring, attribute: @attribute,
       min_value: @min_value, max_value: @max_value, page: @page,
       offset: @offset, unit: @unit, sort: @sort, language: current_language,
-      clade: @taxon_concept ? @taxon_concept.id : nil),
+      clade: @taxon_concept ? @taxon_concept.id : nil,
       required_equivalent_attributes: @required_equivalent_attributes,
       required_equivalent_values: @required_equivalent_values }
     @data_search_file_options = { q: @querystring, uri: @attribute,

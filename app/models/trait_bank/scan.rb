@@ -53,8 +53,10 @@ class TraitBank
         query += "?trait a eol:trait . "\
           "?trait dwc:measurementValue ?value . } } "
         unless options[:count]
-          query += "ORDER BY xsd:float(REPLACE(?value, \",\", \"\")) "\
-          "LIMIT #{limit} "\
+          orders = ["xsd:float(REPLACE(?value, \",\", \"\"))", "?value"]
+          orders.map! { |ord| "DESC(#{ord})" } if options[:sort] =~ /^desc$/i
+          query += "ORDER BY #{orders.join(" ")} "
+          query += "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
         end
         query

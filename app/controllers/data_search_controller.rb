@@ -195,17 +195,10 @@ class DataSearchController < ApplicationController
   def prepare_attribute_options
     # TODO: attributes within clades (only)
     # TODO: this is sloppy, refactor.
-    @attribute_options =
-      EOL.pluck_fields([:known_uri_id, :uri, :name],
-        TranslatedKnownUri.joins(:known_uri).
-          where(language_id: Language.english.id,
-            known_uris: { hide_from_gui: false,
-              uri_type_id: [UriType.measurement.id, UriType.association]}).
-          where("name IS NOT NULL AND name != ''").order("name")).
-          map do |string|
-        (id, uri, name) = string.split(',', 3)
-        [ truncate(name, length: 30), uri, { 'data-known_uri_id' => id } ]
-      end
+    @attribute_options = TraitBank.predicates.map do |array|
+      (id, uri, name) = array
+      [ truncate(name, length: 30), uri, { 'data-known_uri_id' => id } ]
+    end
   end
 
   # Add an entry to the database recording the number of results and time of search operation

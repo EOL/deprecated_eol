@@ -32,7 +32,7 @@ class SearchTraits < TraitSet
       @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
         includes(:comments, :taxon_data_exemplars)
       uris = Set.new(@rdf.flat_map { |rdf|
-        rdf.values.select { |v| v.uri? }.map(&:to_s) })
+        rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) } })
       uris << @attribute
       # TODO: associations. We need the names of those taxa.
       @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).

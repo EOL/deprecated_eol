@@ -194,10 +194,10 @@ class DataSearchController < ApplicationController
       #     taxon_concept_id: 7649,
       #     attribute: 'http://purl.obolibrary.org/obo/VT_0001259',
       #     unit: 'http://purl.obolibrary.org/obo/UO_0000009' }},
-      { label_key: 'search_suggestion_cavity_nests',
-        params: {
-          q: 'cavity',
-          attribute: 'http://eol.org/schema/terms/NestType' }},
+      # { label_key: 'search_suggestion_cavity_nests',
+      #   params: {
+      #     q: 'cavity',
+      #     attribute: 'http://eol.org/schema/terms/NestType' }},
       { label_key: 'search_suggestion_diatom_shape',
         params: {
           attribute: 'http://purl.obolibrary.org/obo/OBA_0000052',

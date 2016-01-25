@@ -31,7 +31,8 @@ class SearchTraits < TraitSet
       trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
       @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
         includes(:comments, :taxon_data_exemplars)
-      uris = Set.new(@rdf.flat_map { |trait| trait.values.select { |v| v.uri? } })
+      uris = Set.new(@rdf.flat_map { |rdf|
+        rdf.values.select { |v| v.uri? }.map(&:to_s) })
       uris << @attribute
       # TODO: associations. We need the names of those taxa.
       @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).

@@ -18,41 +18,44 @@ class TraitBank
       #   required_equivalent_values: @required_equivalent_values }
       # TODO: someday we might want to pass in a page size / limit
       def for(search)
-        predicate = search.delete(:attribute)
-        clade = search.delete(:taxon_concept).try(:id)
-        options = { limit: 100, clade: clade }.merge(search)
-        traits = get_trait_list(predicate, options)
-        get_metadata(predicate, traits)
+        traits = trait_list(options)
+        metadata(traits)
       end
 
       # NOTE: PREFIX eol: <http://eol.org/schema/>
       # PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
       # e.g.: http://purl.obolibrary.org/obo/OBA_0000056
-      def get_trait_list(predicate, options = {})
+      def scan_query(options = {})
         limit = options[:limit] || 100
         offset = options[:offset]
         clade = options[:clade]
-        query = "# data_search part 1\n"\
-          "SELECT DISTINCT ?page ?trait "\
-          "WHERE { "\
-          "  GRAPH <http://eol.org/traitbank> { "\
-          "    ?page a eol:page . "\
-          "    ?page <#{predicate}> ?trait . "
+        query = "# data_search part 1\n"
+        fields = "DISTINCT ?page ?trait"
+        fields = "COUNT(#{fields})" if options[:count]
+        query += "SELECT #{fields} WHERE { "\
+          "GRAPH <http://eol.org/traitbank> { "\
+          "?page a eol:page . "\
+          "?page <#{options[:attribute]}> ?trait . "
         if clade
-          query += "  ?page eol:has_ancestor <http://eol.org/pages/#{clade}> . "
+          query += "?page eol:has_ancestor <http://eol.org/pages/#{clade}> . "
         end
         # TODO: This ORDER BY only really works if numeric! :S
         query += "?trait a eol:trait . "\
-          "    ?trait dwc:measurementValue ?value . "\
-          "  } "\
-          "} "\
+          "?trait dwc:measurementValue ?value . } } "\
           "ORDER BY xsd:float(REPLACE(?value, \",\", \"\")) "\
           "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
-        TraitBank.connection.query(query)
       end
 
-      def get_metadata(predicate, traits)
+      def trait_count(options)
+        TraitBank.connection.query(scan_query(options.merge(count: true)))
+      end
+
+      def trait_list(options)
+        TraitBank.connection.query(scan_query(options))
+      end
+
+      def metadata(traits)
         trait_strings = traits.map { |r| r[:trait].to_s }
         query = "SELECT DISTINCT *
         # data_search part 2

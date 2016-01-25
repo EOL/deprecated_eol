@@ -60,7 +60,6 @@ class SearchTraits < TraitSet
         ids << $2
       end
     end
-  # TaxonConceptName Load (2.3ms)  SELECT `taxon_concept_names`.* FROM `taxon_concept_names` WHERE `taxon_concept_names`.`taxon_concept_id` =
     TaxonConcept.where(id: ids.to_a).with_titles
   end
 end

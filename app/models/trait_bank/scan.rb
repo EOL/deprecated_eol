@@ -24,7 +24,8 @@ class TraitBank
 
       def trait_count(options)
         TraitBank.connection.
-          query(scan_query(options.merge(count: true)))[:"callret-0"].to_i
+          query(scan_query(options.merge(count: true))).
+          first[:"callret-0"].to_i
       end
 
       def trait_list(options)

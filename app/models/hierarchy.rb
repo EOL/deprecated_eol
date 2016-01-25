@@ -63,6 +63,8 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def self.gbif
+    # TODO; it's gone ATM and I'm not sure why. :\ Later.
+    return nil
     @@gbif ||= cached_find(:label, 'GBIF Nub Taxonomy')
   end
 
@@ -216,7 +218,7 @@ class Hierarchy < ActiveRecord::Base
       execute(insert_dot_dohe_query("curated_data_objects_hierarchy_entries"))
     EOL.log("done", prefix: ".")
   end
-  
+
   # This  query takes 10min in production for 533_548 entries:
   def ancestry_set
     @ancestry_set ||= HierarchyEntriesFlattened.pks_in_hierarchy(self)

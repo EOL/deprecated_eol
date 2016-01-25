@@ -152,7 +152,7 @@ class DataSearchController < ApplicationController
     # NOTE: Offset in controller starts at 1 (TODO: why?), so I correct:
     @search_options = { querystring: @querystring, attribute: @attribute,
       min_value: @min_value, max_value: @max_value, page: @page,
-      offset: @offset - 1, unit: @unit, sort: @sort, language: current_language,
+      offset: @offset - 1, unit: @unit, sort: @sort,
       clade: @taxon_concept ? @taxon_concept.id : nil,
       required_equivalent_attributes: @required_equivalent_attributes,
       required_equivalent_values: @required_equivalent_values }

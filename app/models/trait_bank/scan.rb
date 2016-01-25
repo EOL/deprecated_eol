@@ -39,7 +39,7 @@ class TraitBank
         offset = options[:offset]
         clade = options[:clade]
         query = "# data_search part 1\n"
-        fields = "DISTINCT(?page ?trait)"
+        fields = "DISTINCT ?page ?trait"
         fields = "COUNT(*)" if options[:count]
         query += "SELECT #{fields} WHERE { "\
           "GRAPH <http://eol.org/traitbank> { "\

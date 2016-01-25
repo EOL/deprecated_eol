@@ -52,7 +52,7 @@ class DataSearchController < ApplicationController
   private
 
   def get_equivalents(uri)
-    uri = KnownUri.by_uri(uri)
+    uri = KnownUri.where(uri: uri).first
     uri ? uri.equivalent_known_uris : []
   end
 
@@ -71,7 +71,6 @@ class DataSearchController < ApplicationController
     file
   end
 
-  # NOTE: this takes a LONG (!) time! Can take 20 seconds!  Why?! TODO
   def prepare_search_parameters(options)
     EOL.log_call
     @hide_global_search = true
@@ -94,7 +93,11 @@ class DataSearchController < ApplicationController
     @equivalent_attributes = get_equivalents(@attribute)
     equivalent_attributes_ids = @equivalent_attributes.map{|eq| eq.id.to_s}
     # check if it is really an equivalent attribute
-    @required_equivalent_attributes = @required_equivalent_attributes.map{|eq| eq if equivalent_attributes_ids.include?(eq) }.compact if @required_equivalent_attributes
+    if @required_equivalent_attributes
+      @required_equivalent_attributes =
+        @required_equivalent_attributes.
+        select { |eq| equivalent_attributes_ids.include?(eq) }
+    end
 
     if ! options[:q].blank?
       EOL.log("handle q", prefix: ".")
@@ -128,7 +131,7 @@ class DataSearchController < ApplicationController
       end
     else
       EOL.log("lookup uri", prefix: ".")
-      @attribute_known_uri = KnownUri.by_uri(@attribute)
+      @attribute_known_uri = KnownUri.where(uri: @attribute).first
     end
     @attributes = @attribute_known_uri ? @attribute_known_uri.label : @attribute
     if @required_equivalent_attributes
@@ -140,7 +143,7 @@ class DataSearchController < ApplicationController
     #@values = @querystring.to_s
     EOL.log("querystring uri", prefix: ".")
     if @querystring_uri
-      known_uri = KnownUri.by_uri(@querystring_uri)
+      known_uri = KnownUri.where(uri: @querystring_uri).first
       @values = known_uri.label if known_uri
     else
       @values = @querystring.to_s
@@ -198,11 +201,11 @@ class DataSearchController < ApplicationController
       { label_key: 'search_suggestion_diatom_shape',
         params: {
           attribute: 'http://purl.obolibrary.org/obo/OBA_0000052',
-          taxon_concept_id: 3685 }},
-      { label_key: 'search_suggestion_blue_flowers',
-        params: {
-          q: 'http://purl.obolibrary.org/obo/PATO_0000318',
-          attribute: 'http://purl.obolibrary.org/obo/TO_0000537' }}
+          taxon_concept_id: 3685 }} #,
+      # { label_key: 'search_suggestion_blue_flowers',
+      #   params: {
+      #     q: 'http://purl.obolibrary.org/obo/PATO_0000318',
+      #     attribute: 'http://purl.obolibrary.org/obo/TO_0000537' }}
     ]
   end
 

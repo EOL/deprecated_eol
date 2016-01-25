@@ -17,9 +17,17 @@ class TraitBank
       #   required_equivalent_attributes: @required_equivalent_attributes,
       #   required_equivalent_values: @required_equivalent_values }
       # TODO: someday we might want to pass in a page size / limit
-      def for(search)
+      def for(options)
         traits = trait_list(options)
         metadata(traits)
+      end
+
+      def trait_count(options)
+        TraitBank.connection.query(scan_query(options.merge(count: true)))
+      end
+
+      def trait_list(options)
+        TraitBank.connection.query(scan_query(options))
       end
 
       # NOTE: PREFIX eol: <http://eol.org/schema/>
@@ -45,14 +53,6 @@ class TraitBank
           "ORDER BY xsd:float(REPLACE(?value, \",\", \"\")) "\
           "LIMIT #{limit} "\
           "#{"OFFSET #{offset}" if offset}"
-      end
-
-      def trait_count(options)
-        TraitBank.connection.query(scan_query(options.merge(count: true)))
-      end
-
-      def trait_list(options)
-        TraitBank.connection.query(scan_query(options))
       end
 
       def metadata(traits)

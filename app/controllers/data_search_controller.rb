@@ -149,9 +149,10 @@ class DataSearchController < ApplicationController
     else
       @units_for_select = KnownUri.default_units_for_form_select
     end
+    # NOTE: Offset in controller starts at 1 (TODO: why?), so I correct:
     @search_options = { querystring: @querystring, attribute: @attribute,
       min_value: @min_value, max_value: @max_value, page: @page,
-      offset: @offset, unit: @unit, sort: @sort, language: current_language,
+      offset: @offset - 1, unit: @unit, sort: @sort, language: current_language,
       clade: @taxon_concept ? @taxon_concept.id : nil,
       required_equivalent_attributes: @required_equivalent_attributes,
       required_equivalent_values: @required_equivalent_values }

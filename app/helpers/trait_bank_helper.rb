@@ -18,6 +18,7 @@ module TraitBankHelper
     end
     if trait.units?
       value += " #{trait.units_name}"
+    end
     if trait.sex
       value += " <span class='stat'>#{trait.sex_name}</span>".html_safe
     end

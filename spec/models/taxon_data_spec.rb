@@ -41,8 +41,6 @@ describe TaxonData do
     taxon_data.get_data
   end
 
-  it '#is_clade_searchable? should know if clade is searchable'
-
   it 'should populate sources from resources' do
     resource_data_point_uri = DataPointUri.gen(taxon_concept_id: @taxon_concept.id, resource_id: @resource.id,
       uri: 'http://resource_data/', user_added_data_id: nil)

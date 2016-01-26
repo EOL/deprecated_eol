@@ -247,52 +247,12 @@ EOL.toggle_actions_row = function(data_row) {
     $table.hide();
   } else {
     var data_point_id = data_row.attr('id');
-    // the metadata table hasn't been loaded yet, so load it dynamically
-    if (data_row.data('loading') !== true && data_row.data('loaded') !== true) {
-      $folder.attr({
-        src: '<%= asset_path "indicator_arrows_black.gif" %>',
-        alt: '<%= I18n.t(:data_row_additional_detail_loading_alt) %>'
-      });
-      data_row.data('loading', true);
-      $.ajax({
-        url: '/data_point_uris/' + data_point_id.replace('data_point_', '') + '/show_metadata',
-        dataType: 'html',
-        success: function(response) {
-          var $pasted = $next_row_data.prepend(response);
-          $pasted.find('.info').each(function() {
-            var html = $(this).find('ul.glossary > li')[0].outerHTML;
-            var uri = $(this).find('.uri').text();
-            EOL.create_info_dialog(this);
-            // only add the term if it is not already in the glossary
-            $('.glossary_subtab ul.glossary:not(:contains("' + uri + '"))').append(html);
-          });
-          // sort the glossary now that new items have been added to the end
-          $(".glossary_subtab ul.glossary > li").sort(EOL.sort_glossary).appendTo('.glossary_subtab ul.glossary');
-          EOL.enable_hover_list_items();
-        },
-        error: function(xhr, stat, err) { $next_row.html('<p>Sorry, there was an error: '+stat+'</p>'); },
-        complete: function() {
-          $folder.attr({
-            src: '<%= asset_path "arrow_fold_down.png" %>',
-            alt: '<%= I18n.t(:data_row_additional_detail_hide_alt) %>'
-          });
-          $next_row.show();
-          EOL.yank_glossary_terms($next_row);
-          $table.show();
-          data_row.data('loading', false);
-          data_row.data('loaded', true);
-          $folder.attr('src', '<%= asset_path "arrow_fold_down.png" %>');
-        }
-      });
-    } else if(data_row.data('loading') !== true)
-    {
-      $folder.attr({
-        src: '<%= asset_path "arrow_fold_down.png" %>',
-        alt: '<%= I18n.t(:data_row_additional_detail_hide_alt) %>'
-      });
-      $next_row.show();
-      $table.show();
-    }
+    $folder.attr({
+      src: '<%= asset_path "arrow_fold_down.png" %>',
+      alt: '<%= I18n.t(:data_row_additional_detail_hide_alt) %>'
+    });
+    $next_row.show();
+    $table.show();
   }
 };
 

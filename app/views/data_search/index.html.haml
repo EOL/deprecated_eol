@@ -43,7 +43,7 @@
             - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
             - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
             - taxon_link = taxon_data_path(trait.page)
-            %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' ') }
+            %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { loaded: true } }
               %td.taxon
                 .icon
                   - if image = trait.page.exemplar_or_best_image_from_solr

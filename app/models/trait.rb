@@ -62,6 +62,25 @@ class Trait
     rdf_to_uri(life_stage)
   end
 
+  def meta
+    return @meta if @meta
+    @meta = {}
+    @rdf.each do |rdf|
+      pred = rdf[:trait_predicate].to_s
+      val = rdf[:value].to_s
+      # Skip type of row:
+      next if pred == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+      # Skip the value (that's already shown):
+      next if pred == "http://rs.tdwg.org/dwc/terms/measurementValue"
+      # Skip resource as "source"
+      next if val =~ SOURCE_RE
+      pred_uri = glossary.find { |g| g.uri == pred }
+      val_uri = glossary.find { |g| g.uri == val }
+      @meta[pred_uri || pred] = val_uri || val
+    end
+    @meta
+  end
+
   def partner
     resource && resource.content_partner
   end

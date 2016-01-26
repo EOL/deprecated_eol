@@ -1,0 +1,35 @@
+-# NOTE: this was copied from app/views/known_uris/_definition.html.haml ;
+-# should replace that but I don't want to look for all uses right now. :\
+- known_uri ||= nil
+- if known_uri && known_uri.is_a?(KnownUri)
+  - search_link = false unless local_assigns.has_key?(:search_link)
+  - top_link = false unless local_assigns.has_key?(:top_link)
+  - glossary_link = false unless local_assigns.has_key?(:glossary_link)
+  - attribution = false unless local_assigns.has_key?(:attribution)
+  - glossary_permalink = false unless local_assigns.has_key?(:glossary_permalink)
+  %span.info
+    %ul.glossary
+      %li{ id: known_uri.anchor, data: { toc_id: known_uri.toc_items.collect(&:id).join(' ') } }
+        %dt
+          = known_uri.name
+        - unless known_uri.definition.blank?
+          %dd
+            = raw known_uri.definition.add_missing_hyperlinks
+        - if attribution && ! known_uri.attribution.blank?
+          %dd.attribution
+            = raw known_uri.attribution.add_missing_hyperlinks
+        %dd.uri= known_uri.uri
+        %ul.helpers
+          - if top_link
+            %li= link_to I18n.t(:link_to_top_of_page), '#'
+          - if glossary_link
+            %li= link_to I18n.t(:see_in_data_glossary), data_glossary_url(anchor: known_uri.anchor), class: :glossary,
+              data: { anchor: known_uri.anchor, tab_link_message: I18n.t(:see_in_glossary_tab) }
+          - elsif glossary_permalink
+            %li= link_to I18n.t(:link_to_this_term), data_glossary_url(anchor: known_uri.anchor), class: :glossary,
+              data: { anchor: known_uri.anchor }
+          -# TODO - we shouldn't be calling this class method here:
+          - if search_link && EOL::Sparql.connection.all_measurement_type_uris.include?(known_uri.uri)
+            %li= link_to I18n.t(:more_taxa_with_attribute), data_search_path(attribute: known_uri.uri, sort: 'desc')
+          - if current_user.is_admin? && ! known_uri.new_record?
+            %li.hover= link_to I18n.t(:edit), edit_known_uri_path(known_uri)

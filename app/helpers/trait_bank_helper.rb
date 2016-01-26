@@ -16,6 +16,8 @@ module TraitBankHelper
     else
       value = value.to_s.add_missing_hyperlinks.html_safe
     end
+    if trait.units?
+      value += " #{trait.units_name}"
     if trait.sex
       value += " <span class='stat'>#{trait.sex_name}</span>".html_safe
     end

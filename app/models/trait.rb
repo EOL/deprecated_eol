@@ -163,6 +163,22 @@ class Trait
     "http://eol.org/todo"
   end
 
+  def units?
+    units
+  end
+
+  def units
+    rdf_value("http://rs.tdwg.org/dwc/terms/measurementUnit")
+  end
+
+  def units_uri
+    rdf_to_uri(units)
+  end
+
+  def units_name
+    units_uri.try(:name)
+  end
+
   def value_rdf
     rdf_value("http://rs.tdwg.org/dwc/terms/measurementValue")
   end

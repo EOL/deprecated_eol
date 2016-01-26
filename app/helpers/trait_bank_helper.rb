@@ -17,7 +17,7 @@ module TraitBankHelper
       value = value.to_s.add_missing_hyperlinks.html_safe
     end
     if trait.units?
-      value += " #{trait.units_name}"
+      value += " #{add_superscripts(trait.units_name)}"
     end
     if trait.sex
       value += " <span class='stat'>#{trait.sex_name}</span>".html_safe
@@ -26,5 +26,11 @@ module TraitBankHelper
       value += " <span class='stat'>#{trait.life_stage_name}</span>".html_safe
     end
     value
+  end
+
+  def add_superscripts(str)
+    str.gsub(/^2\b/, "&sup2;").
+      gsub(/^3\b/, "&sup3;").
+      gsub(/^(\S+)/, "<sup>$1</sup>")
   end
 end

@@ -130,7 +130,7 @@
                     %th
                       = I18n.t(:data_link_to_record)
                       - info_icon
-                    - link = taxon_data_url(trait.page, anchor: trait.point.anchor)
+                    - link = taxon_data_url(@taxon_page, anchor: trait.point.anchor)
                     %td= link_to link, link
               .actions
                 %ul

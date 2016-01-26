@@ -71,7 +71,7 @@
             - type_index += 1
             - header_id = trait.point.header_anchor
             - last_predicate = trait.predicate_name
-          %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { type: type_index.nil? ? nil : "type_#{type_index}" } }
+          %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { loaded: true, type: type_index.nil? ? nil : "type_#{type_index}" } }
             %th.predicate{ id: header_id }
               - if first
                 %a.info_icon
@@ -107,6 +107,30 @@
                   = image_tag('comment_indicator.png')
           %tr.actions{ id: "#{trait.anchor}_actions", class: (classes + ['actions']).join(' ') }
             %td{ colspan: 4 }
+              .metadata
+                %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
+                  %caption.title= I18n.t(:data_about_this_record)
+                  - i = 0
+                  - trait.meta.each do |pred, val|
+                    - i += 1
+                    - row_id = "#{trait.point.anchor}_meta_#{i}"
+                    %tr{id: "#{row_id}_h"}
+                      - if pred.is_a?(KnownUri)
+                        = pred.name
+                        = render(partial: 'trait_bank/definition', locals: { known_uri: meta.predicate_uri, search_link: true, glossary_link: true })
+                      - else
+                        = pred
+                    %td{id: "#{row_id}_d"}
+                      - if val.is_a?(KnownUri)
+                        = val.name
+                      - else
+                        = raw val.add_missing_hyperlinks
+                  %tr
+                    %th
+                      = I18n.t(:data_link_to_record)
+                      - info_icon
+                    - link = taxon_data_url(trait.page, anchor: trait.point.anchor)
+                    %td= link_to link, link
               .actions
                 %ul
                   %li

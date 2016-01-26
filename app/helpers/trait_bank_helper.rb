@@ -17,15 +17,15 @@ module TraitBankHelper
       value = value.to_s.add_missing_hyperlinks.html_safe
     end
     if trait.units?
-      value += " #{add_superscripts(trait.units_name)}"
+      value += " #{add_superscripts(trait.units_name)}".html_safe
     end
     if trait.sex
-      value += " <span class='stat'>#{trait.sex_name}</span>"
+      value += " <span class='stat'>#{trait.sex_name}</span>".html_safe
     end
     if trait.life_stage
-      value += " <span class='stat'>#{trait.life_stage_name}</span>"
+      value += " <span class='stat'>#{trait.life_stage_name}</span>".html_safe
     end
-    value.html_safe
+    value
   end
 
   def add_superscripts(str)

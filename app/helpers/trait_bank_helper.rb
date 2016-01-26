@@ -20,17 +20,17 @@ module TraitBankHelper
       value += " #{add_superscripts(trait.units_name)}"
     end
     if trait.sex
-      value += " <span class='stat'>#{trait.sex_name}</span>".html_safe
+      value += " <span class='stat'>#{trait.sex_name}</span>"
     end
     if trait.life_stage
-      value += " <span class='stat'>#{trait.life_stage_name}</span>".html_safe
+      value += " <span class='stat'>#{trait.life_stage_name}</span>"
     end
-    value
+    value.html_safe
   end
 
   def add_superscripts(str)
-    str.gsub(/^2\b/, "&sup2;").
-      gsub(/^3\b/, "&sup3;").
-      gsub(/^(\S+)/, "<sup>$1</sup>")
+    str.gsub(/\^2\b/, "&sup2;").
+      gsub(/\^3\b/, "&sup3;").
+      gsub(/\^(\S+)/, "<sup>\\1</sup>")
   end
 end

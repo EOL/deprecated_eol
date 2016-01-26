@@ -2,7 +2,7 @@ class Trait
   attr_reader :predicate, :point, :rdf, :page
 
   # TODO: put this in configuration:
-  SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
+  SOURCE_RE = TraitBank::SOURCE_RE
 
   def initialize(rdf, source_set, options = {})
     @rdf = rdf

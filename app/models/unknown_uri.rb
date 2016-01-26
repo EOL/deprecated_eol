@@ -3,7 +3,7 @@ class UnknownUri
   attr_reader :name, :uri
   def initialize(uri, options = {})
     @uri = uri
-    @name = EOL::Sparql.uri_to_readable_label(uri)
+    @name = EOL::Sparql.uri_to_readable_label(uri) || uri.to_s
     EOL.log("WARNING: Unknown URI (#{uri})", prefix: "!") unless
       options[:literal]
   end

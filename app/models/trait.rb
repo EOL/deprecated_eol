@@ -55,7 +55,11 @@ class Trait
   end
 
   def life_stage_name
-    life_stage.try(:name)
+    life_stage_uri.try(:name)
+  end
+
+  def life_stage_uri
+    rdf_to_uri(life_stage)
   end
 
   def partner
@@ -63,7 +67,7 @@ class Trait
   end
 
   def predicate_name
-    predicate_uri.name
+    predicate_uri.try(:name)
   end
 
   def predicate_uri
@@ -71,7 +75,15 @@ class Trait
   end
 
   def resource
-    sources.find { |source| source.id == source_id }
+    return @resource if @resource
+    return nil if source_id.nil?
+    @resource = sources.find { |source| source.id == source_id }
+    if @resource.nil?
+      EOL.log("JIT-loading resource #{source_id}")
+      @resource = Resource.where(id: source_id).includes(:content_partner).first
+      sources += @resource if sources && @resource
+    end
+    @resource
   end
 
   def rdf_to_uri(rdf)
@@ -97,15 +109,25 @@ class Trait
   end
 
   def sex_name
-    sex.try(:name)
+    sex_uri.try(:name)
+  end
+
+  def sex_uri
+    rdf_to_uri(sex)
   end
 
   def source_id
-    source_url =~ SOURCE_RE ? $1.to_i : nil
+    @source_id ||= source_url =~ SOURCE_RE ? $1.to_i : nil
   end
 
   def source_rdf
-    rdf_value("http://purl.org/dc/terms/source")
+    rdf = rdf_value("http://purl.org/dc/terms/source")
+    # Old resources were stored as "source":
+    unless rdf =~ SOURCE_RE
+      take_two = rdf_value("source")
+      rdf = take_two if take_two =~ SOURCE_RE
+    end
+    rdf
   end
 
   def source_url
@@ -146,9 +168,9 @@ class Trait
   end
 
   def value_name
-    #TODO: associations.  :\
-    return nil if value_rdf.nil?
-    value_rdf.literal? ? value_rdf.to_s : value_uri.name
+    #TODO: associations. :\
+    return "" if value_rdf.nil?
+    value_uri.respond_to?(:name) ? value_uri.name  : value_rdf.to_s
   end
 
   def value_uri

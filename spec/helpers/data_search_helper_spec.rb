@@ -39,7 +39,6 @@ describe DataSearchHelper do
         @attribute_known_uri = nil
         @querystring = "foo"
         @taxon_concept = double(TaxonConcept, title_canonical_italicized: "rawr")
-        allow(TaxonData).to receive(:is_clade_searchable?) { true }
       end
 
       it 'reminds us it\'s searching in a clade' do

@@ -1,14 +1,16 @@
 class SearchTraits < TraitSet
-  attr_accessor :pages
+  attr_accessor :pages, :page, :attribute
+
+  # e.g.: @traits = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
   # e.g.: s = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
   # search_options = { querystring: @querystring, attribute: @attribute,
-  #   min_value: @min_value, max_value: @max_value,
-  #   unit: @unit, sort: @sort, language: current_language,
-  #   taxon_concept: @taxon_concept,
-  #   required_equivalent_attributes: @required_equivalent_attributes,
-  #   required_equivalent_values: @required_equivalent_values }
+    # min_value: @min_value, max_value: @max_value, page: @page,
+    # offset: @offset, unit: @unit, sort: @sort, language: current_language,
+    # clade: @taxon_concept.id,
+    # required_equivalent_attributes: @required_equivalent_attributes,
+    # required_equivalent_values: @required_equivalent_values }
   def initialize(search_options)
     @attribute = search_options[:attribute]
     @page = search_options[:page] || 1
@@ -53,9 +55,6 @@ class SearchTraits < TraitSet
       source_ids.delete(nil) # Just in case.
       @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
     end
-    source_ids = Set.new(@traits.map { |trait| trait.source_id })
-    source_ids.delete(nil) # Just in case.
-    @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
   end
 
   def get_pages(uris)
@@ -66,12 +65,6 @@ class SearchTraits < TraitSet
         ids << $2
       end
     end
-    # TODO: various convenient joins and includes and the like, I'm sure:
-#     TaxonConceptPreferredEntry Load (1.6ms)  SELECT `taxon_concept_preferred_entries`.* FROM `taxon_concept_preferred_entries` WHERE `taxon_concept_preferred_entries`.`taxon_concept_id` = 485165 LIMIT 1
-# HierarchyEntry Load (2.1ms)  SELECT `hierarchy_entries`.* FROM `hierarchy_entries` WHERE `hierarchy_entries`.`id` = 53125426 LIMIT 1
-# Name Load (1.9ms)  SELECT `names`.* FROM `names` WHERE `names`.`id` = 6871071 LIMIT 1
-# CanonicalForm Load (1.7ms)  SELECT `canonical_forms`.* FROM `canonical_forms` WHERE `canonical_forms`.`id` = 321761 LIMIT 1
-  # TaxonConceptName Load (2.3ms)  SELECT `taxon_concept_names`.* FROM `taxon_concept_names` WHERE `taxon_concept_names`.`taxon_concept_id` =
-    TaxonConcept.where(id: ids.to_a)
+    TaxonConcept.where(id: ids.to_a).with_titles
   end
 end

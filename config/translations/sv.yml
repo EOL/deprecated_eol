@@ -820,6 +820,7 @@ sv:
       page_title: Var god lämna din feedback
   collections:
     download_taxa_data:
+      attribute_header: Attribut
       select_all_checkbox: Markera alla
       user_downloaded_collection: Datanedladdning för %{collection_name}
     show:
@@ -1067,7 +1068,7 @@ sv:
       about_link_what_is_eol: Vad är EOL?
       about_link_traitbank: Vad är TraitBank?
       about_link_eol_blog: EOL-bloggen
-      about_link_discover: Upptäck
+      about_link_discover: Utbildning
       about_link_statistics: Statistik
       about_link_glossary: Ordlista
       about_link_podcasts: Poddsändningar
@@ -3657,8 +3658,8 @@ sv:
   cannot_be_associated_with_both_a_user_and_a_community: Kan inte associeras med både
     en användare och en gemenskap
   cannot_be_empty: kan inte vara tom.
-  cannot_create_collection_item_from_class_error: Jag kan inte skapa ett samlingsobjekt
-    från en %{klass}
+  cannot_create_collection_item_from_class_error: 'Vi kan inte skapa ett samlingsobjekt
+    från en typ: %{klass}'
   cannot_create_community_from_watch_collection_error: Du kan inte skapa en gemenskap
     från en bevakningslista.
   cannot_expand_children: kan inte expandera underordnade objekt
@@ -4207,6 +4208,7 @@ sv:
   current_language: 'Språk: %{iso_code}'
   currently_in_eol: Just nu i Encyclopedia of Life
   create_download_data_file: Skapa fil
+  institutional_sponsors: Institutionella sponsorer
   currently_published: för närvarande publicerad
   daily: Dagligen
   dashboard: Kontrollpanel
@@ -4364,7 +4366,7 @@ sv:
   details_title: Detaljer
   did_you_mean: 'Menade du: %{suggestions} ?'
   disabled_for_now: INAKTIVERAD FÖR NU
-  discover_link: Upptäck
+  discover_link: Utbildning
   displaying_numerical_range_eol_records_with_count:
     one: Visa den enda posten på EOL
     other: Visar %{start_number} &ndash; %{end_number} av %{count} poster på EOL
@@ -4763,7 +4765,7 @@ sv:
   item_type_sound_assistive: Detta objekt är ett ljud
   item_type_taxon_assistive: Detta objekt är ett taxon
   item_type_video_assistive: Detta objekt är en video
-  item_not_added_already_in_collection: Detta objekt har redan lagts till i samlingen.
+  item_not_added_already_in_collection: Objektet %{value} har redan lagts till i samlingen.
   item_not_added_to_itself_notice: Tyvärr, du kan inte lägga till samlingen <em>%{collection_name}</em>
     till sig själv.
   item_not_added_to_collection_error: Tyvärr, ett fel uppstod. Det valda objektet
@@ -5048,6 +5050,8 @@ sv:
   newsfeed_help_for_taxon: Nyhetsflödet för denna EOL Taxon-sida samlar uppdateringar
     som är associerade med objekt som visas på den, inklusive kuratoråtgärder och
     kommentarer från EOL-användare.
+  newsletter_banner: Bli en del av EOL:s gemenskap&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>registrera
+    dig för EOL:s nyhetsbrev idag</a>
   new_upload: Ny uppladdning
   new_user: Ny användare
   next: Nästa

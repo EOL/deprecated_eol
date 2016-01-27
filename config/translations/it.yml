@@ -13,6 +13,7 @@
 # Author: Federico Mugnaini
 # Author: Gianfranco
 # Author: Inskatolata
+# Author: JackLantern
 # Author: Luigipiccoli
 # Author: Macofe
 # Author: Maria victoria
@@ -103,7 +104,7 @@ it:
         created_at: Creato il
         members_count: Membri
         communities_count: Comunità
-        collections_count: raccolte
+        collections_count: Collezioni
         pages_count: Totale pagine
         pages_with_content: Pagine con contenuti
         pages_with_text: Pagine con testo
@@ -626,7 +627,7 @@ it:
         title: Nome della risorsa
       session:
         password: Password
-        remember_me: Mantienimi loggato per 2 settimane
+        remember_me: Mantienimi colleggato per 2 settimane
         username_or_email: Nome utente o indirizzo e-mail
       translated_content_page:
         active_translation: Pubblicato
@@ -947,6 +948,8 @@ it:
     download_taxa_data:
       attribute_header: Attributo
       select_all_checkbox: Seleziona tutto
+      collection_download_under_processing: Il download della collezione è attualmente
+        in elaborazione. Una email ti sarà inviata quando sarà completo
       user_downloaded_collection: Scarica dati per %{collection_name}
     show:
       meta_description_default: Una collezione di Encyclopedia of Life intitolata
@@ -1218,7 +1221,7 @@ it:
       about_link_what_is_eol: Che cosa è EOL?
       about_link_traitbank: Che cosa è TraitBank?
       about_link_eol_blog: Il blog EOL
-      about_link_discover: Scopri
+      about_link_discover: Istruzione
       about_link_statistics: Statistiche
       about_link_glossary: Glossario
       about_link_podcasts: Podcast
@@ -1581,6 +1584,12 @@ it:
       message: È possibile visualizzare questo ed altri download visitando la <a href='%{download_link}'>scheda
         download dati nel tuo profilo</a>.
       header: Il download è pronto!
+    collection_download_ready:
+      subject: Gli attributi selezionati della tua collezione EOL sono pronti per
+        essere scaricati
+      message: È possibile visualizzare questo ed altri download visitando la <a href='%{download_link}'>scheda
+        download dati nel tuo profilo</a>.
+      header: La collezione è pronta per essere scaricata!
   sessions:
     new:
       login_with_facebook_assistive: Accedi ad EOL utilizzando le tue credenziali
@@ -2122,6 +2131,8 @@ it:
       refresh: Aggiorna
       row_count: Conteggio
       search_again: cerca ancora
+      file_not_processed: Questo file non è stato ancora elaborato,
+      contact_us: contattaci per assistenza
     edit:
       form_tip_account: Per accedere ad EOL è necessario un nome utente e password
         EOL, oppure è possibile collegarsi da un account di terze parti. Nome utente
@@ -4041,8 +4052,10 @@ it:
   cannot_be_associated_with_both_a_user_and_a_community: Non può essere associato
     sia con un utente e con una comunità
   cannot_be_empty: non può essere vuoto.
-  cannot_create_collection_item_from_class_error: Non è possibile creare un elemento
-    della collezione da %{klass}
+  cannot_create_collection_item_from_class_error: 'Non è possibile creare un elemento
+    della collezione da un tipo: %{klass}'
+  cannot_create_collection_items_from_invalid_types: 'Non è possibile creare un elemento
+    della collezione da un tipo: (%{types})'
   cannot_create_community_from_watch_collection_error: Non è possibile creare una
     comunità da una lista di controllo.
   cannot_curate_association_in_preview_mode: L'associazione a %{name} non può essere
@@ -4172,6 +4185,7 @@ it:
   collection_api_sort_field_notes: Se il parametro sort_field è incluso verranno restituiti
     solo gli elementi della collezione il cui campo di ordinamento corrisponde esattamente
     alla stringa specificata
+  collection_create_failure: Creazione collezione fallita.
   collection_created_with_count_notice:
     one: Collezione <em>%{collection_name}</em> creata con successo con %{count} elemento
       della collezione.
@@ -4179,7 +4193,10 @@ it:
       elementi della collezione.
   collection_delete_link: Eliminare definitivamente questa collezione
   collection_destroyed: La collezione è stata cancellata.
-  collection_removed: La raccolta %{collection} è stata cancellata.
+  collection_removed: La collezione %{collection} è stata cancellata.
+  collection_update_failure: Aggiornamento della collezione %{collection} non riuscito.
+    Verifica se c'è un problema negli elementi della collezione
+  collection_not_existing: La collezione %{collection} non esiste.
   collection_error_no_items_selected: 'Errore: Nessun elemento selezionato, nessuna
     azione intrapresa.'
   collection_image: Collezione di immagini
@@ -4194,6 +4211,8 @@ it:
     zero: Vuoto
     one: '%{count} elemento'
     other: '%{count} elementi'
+  collection_items_missing_values: ' collected_item_id/collected_item_type non può
+    essere nullo in:%{item}'
   collection_copy_complete_with_count:
     one: Copiato %{count} elemento da %{from} a %{to}.
     other: Copiato un totale di %{count} elementi da %{from} a %{to}.
@@ -4215,7 +4234,7 @@ it:
     other: 'Spostati %{count} elementi da "%{collection}" a:'
   collection_name_cannot_be_blank: Il nome della collezione non può essere vuoto.
   collection_name_label: Nome della collezione
-  collection_newsfeed: Raccolta di newsfeed
+  collection_newsfeed: Newsfeed collezione
   collection_not_created_error: Spiacenti, si è verificato un errore, la collezione
     <em>%{collection_name}</em> non può essere creata.
   collection_not_destroyed_error: Spiacenti, la collezione non è stata eliminata.
@@ -4270,8 +4289,8 @@ it:
   comments_on: Commenti su
   comments_page_title: Commenti su %{parent}
   comments_with_count:
-    one: '%{count} Commento'
-    other: '%{count} Commenti'
+    one: '%{count} commento'
+    other: '%{count} commenti'
   common_activities_by_logged_in: Attività comuni da parte degli utenti registrati.
   common_name_avg: Numero medio dei nomi comuni
   common_name: Nome comune
@@ -4774,7 +4793,7 @@ it:
   current_language: 'Lingua: %{iso_code}'
   current_harvest_event: La festa del raccolto da "%{resource_title}" è durata "%{period}"
     ore
-  currently_running_harvesting: Raccolta Attualmente in Corso
+  currently_running_harvesting: Raccolta attualmente in corso
   currently_in_eol: Attualmente in Encyclopedia of Life
   create_download_data_file: Crea file
   institutional_sponsors: Sponsor istituzionali
@@ -5008,7 +5027,7 @@ it:
   details_title: Dettagli
   did_you_mean: 'Forse intendevi: %{suggestions} ?'
   disabled_for_now: PER ORA DISABILITATO
-  discover_link: Scopri
+  discover_link: Istruzione
   displaying_numerical_range_eol_records_with_count:
     one: Visualizzazione di %{count} record su EOL
     other: Visualizzazione %{start_number} &ndash; %{end_number} di %{count} record
@@ -5159,6 +5178,8 @@ it:
         del post possono cancellare questo post del forum
       missing_set_article_as_exemplar_privilege: Spiacente, solo i curatori possono
         impostare l'articolo come esemplare
+      missing_delete_access_to_data_search_file: Siamo spiacenti, ma solo gli amministratori,
+        curatori master o il proprietario del file può eliminare questo file.
       admins_and_joined_only_can_read: Spiacente, dovresti aderire a questa raccolta
         per poterla visualizzare
       owner_and_managers_only_can_edit: Spiacente, solo il proprietario della raccolta
@@ -5173,6 +5194,7 @@ it:
       only_data_owner_can_edit: Spiacente, solo il proprietario dei dati può modificarlo
       only_data_owner_can_delete: Spiacente, solo il proprietario dei dati può cancellarlo
       can_not_edit_permissions: Spiacente, non puoi modificare i permessi
+      collection_job_not_valid: Job collezione non valido
   excluded_icon_tip: Le righe contrassegnate con l'icona di esclusione %{excluded_icon}
     non verranno mai mostrate sulle pagine della scheda Panoramica del taxon.
   expand_all_children: espandi tutte le pagine figlio
@@ -5311,7 +5333,7 @@ it:
     resettare la password
   forgot_password_form_username_or_email_blank_error: Inserisci il tuo nome utente
     o il tuo indirizzo e-mail per resettare la tua password
-  forgot_password_form_header: Resetta la tua password
+  forgot_password_form_header: Reimposta la tua password
   forgot_password_form_helper: 'Nota: le e-mail di reset della password <em>spesso</em>
     vengono segnalate come ''Spam'' dai filtri di posta elettronica. Controlla la
     cartella dello spam se non  ricevi la e-mail entro un''ora.'
@@ -5522,8 +5544,8 @@ it:
   item_type_sound_assistive: Questo elemento è un suono
   item_type_taxon_assistive: Questo elemento è un taxon
   item_type_video_assistive: Questo elemento è un video
-  item_not_added_already_in_collection: Questo elemento è già stato aggiunto alla
-    collezione.
+  item_not_added_already_in_collection: Questo elemento:%{value} è già stato aggiunto
+    alla collezione.
   item_not_added_to_itself_notice: Spiacenti, non puoi aggiungere la collezione <em>%{collection_name}</em>
     a se stessa.
   item_not_added_to_collection_error: Spiacenti, si è verificato un errore, l'elemento
@@ -5604,19 +5626,19 @@ it:
   license: Licenza
   license_none: Nessuno
   license_all_rights_reserved: Tutti i diritti riservati.
-  license_cc_by: Creative Commons Attribution (CC BY)
-  license_cc_by_2_0: Creative Commons Attribution 2.0 (CC BY 2.0)
-  license_cc_by_2_5: Creative Commons Attribution 2.5 (CC BY 2.5)
-  license_cc_by_3_0: Creative Commons Attribution 3.0 (CC BY 3.0)
-  license_cc_by_nc: Creative Commons Attribution-Non Commercial (CC BY-NC)
-  license_cc_by_nc_2_0: Creative Commons Attribution-Non Commercial 2.0 (CC BY-NC
+  license_cc_by: Creative Commons Attribuzione (CC BY)
+  license_cc_by_2_0: Creative Commons Attribuzione 2.0 (CC BY 2.0)
+  license_cc_by_2_5: Creative Commons Attribuzione 2.5 (CC BY 2.5)
+  license_cc_by_3_0: Creative Commons Attribuzione 3.0 (CC BY 3.0)
+  license_cc_by_nc: Creative Commons Attribuzione-Non commerciale (CC BY-NC)
+  license_cc_by_nc_2_0: Creative Commons Attribuzione-Non commerciale 2.0 (CC BY-NC
     2.0)
-  license_cc_by_nc_2_5: Creative Commons Attribution-Non Commercial 2.5 (CC BY-NC
+  license_cc_by_nc_2_5: Creative Commons Attribuzione-Non commerciale 2.5 (CC BY-NC
     2.5)
-  license_cc_by_nc_3_0: Creative Commons Attribution-Non Commercial 3.0 (CC BY-NC
+  license_cc_by_nc_3_0: Creative Commons Attribuzione-Non commerciale 3.0 (CC BY-NC
     3.0)
-  license_cc_by_nc_sa: Creative Commons Attribution-Non Commercial-Share Alike (CC
-    BY-NC-SA)
+  license_cc_by_nc_sa: Creative Commons Attribuzione-Non commerciale-Condividi allo
+    stesso modo (CC BY-NC-SA)
   license_cc_by_nc_sa_1_0: Creative Commons Attribuzione-Non commerciale-Condividi
     allo stesso modo 1.0 (CC BY-NC-SA 1.0)
   license_cc_by_nc_sa_2_0: Creative Commons Attribuzione-Non commerciale-Condividi
@@ -5685,11 +5707,11 @@ it:
   login: entra
   login_header: Accedi a <abbr title="Encyclopedia of Life">EOL</abbr>
   login_hidden_user_message: L'account %{given_name} non è più attivo
-  login_or_create_account: Entra o Crea un Account
+  login_or_create_account: Entra o registrati
   login_to_the_website_as: Accesso al sito come %{username}
   logo_header: Logo
   logo_type_error: Il logo non è un tipo di immagine valido (deve essere PNG o JPEG).
-  logout: Logout
+  logout: Esci
   looking_up_url: Ricerco URL
   main_content_area: 'Area principale di contenuto:'
   main_database_colon: Principale
@@ -5988,6 +6010,7 @@ it:
   object: Oggetto
   object_curated: Oggetto revisionato.
   objects_curated: Oggetti curati
+  object_removed: (questo oggetto è stato rimosso dal database)
   object_status: Stato oggetto
   object_status_all_option: Tutti
   object_status_trusted_option: Attendibile

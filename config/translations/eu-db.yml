@@ -1,0 +1,137 @@
+# Messages for Basque (euskara)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Subi
+# Author: Theklan
+---
+eu:
+  translated_activities-name-activity_id-19: profila
+  translated_activities-name-activity_id-50: ziurtatu gabea
+  translated_activities-name-activity_id-51: erakutsi
+  translated_activities-name-activity_id-52: sortu
+  translated_activities-name-activity_id-53: ezkutatu
+  translated_activities-name-activity_id-54: eguneratu
+  translated_activities-name-activity_id-55: desegokia
+  translated_activities-name-activity_id-56: ezabatu
+  translated_activities-name-activity_id-57: baloratu
+  translated_activities-name-activity_id-58: ziurtatua
+  translated_activities-name-activity_id-59: berrikusi gabea
+  translated_activities-name-activity_id-63: bildu
+  translated_activities-name-activity_id-64: ezabatu
+  translated_agent_roles-label-agent_role_id-10: Proiektua
+  translated_agent_roles-label-agent_role_id-11: Argitaletxea
+  translated_agent_roles-label-agent_role_id-22: Itzultzailea
+  translated_agent_roles-label-agent_role_id-6: Zuzendaria
+  translated_agent_roles-label-agent_role_id-7: Editorea
+  translated_agent_roles-label-agent_role_id-8: Irudigilea
+  translated_agent_roles-label-agent_role_id-9: Argazkilaria
+  translated_audiences-label-audience_id-1: Erabiltzaile adituak
+  translated_audiences-label-audience_id-2: Publiko orokorra
+  translated_audiences-label-audience_id-3: Haurrak
+  translated_collection_types-label-collection_type_id-10: Soinuak
+  translated_collection_types-label-collection_type_id-13: Taxonomia
+  translated_collection_types-label-collection_type_id-14: Barra-kode molekularrak
+  translated_collection_types-label-collection_type_id-15: Deskribapena
+  translated_collection_types-label-collection_type_id-16: Irudiak
+  translated_collection_types-label-collection_type_id-1: Taxonomia
+  translated_collection_types-label-collection_type_id-20: Datu molekularrak
+  translated_collection_types-label-collection_type_id-21: Nomenklatura
+  translated_collection_types-label-collection_type_id-22: Soinuak
+  translated_collection_types-label-collection_type_id-23: Loturak
+  translated_collection_types-label-collection_type_id-24: Literatura
+  translated_collection_types-label-collection_type_id-2: Barra-kode molekularrak
+  translated_collection_types-label-collection_type_id-3: Deskribapena
+  translated_collection_types-label-collection_type_id-4: Irudiak
+  translated_collection_types-label-collection_type_id-8: Datu molekularrak
+  translated_collection_types-label-collection_type_id-9: Nomenklatura
+  translated_data_types-label-data_type_id-10: Mapa
+  translated_data_types-label-data_type_id-1: Irudia
+  translated_data_types-label-data_type_id-2: Soinua
+  translated_data_types-label-data_type_id-3: Testua
+  translated_data_types-label-data_type_id-4: Bideoa
+  translated_data_types-label-data_type_id-5: GBIF Irudia
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Eskubide babesturik gabe
+  translated_licenses-description-license_id-29: Eskubide babestu batzuk
+  translated_licenses-description-license_id-2: '&#169; Eskubide guztiak babestuak'
+  translated_licenses-description-license_id-30: Eskubide babestu batzuk
+  translated_licenses-description-license_id-31: Eskubide babestu batzuk
+  translated_licenses-description-license_id-32: Eskubide babestu batzuk
+  translated_licenses-description-license_id-33: Eskubide babestu batzuk
+  translated_licenses-description-license_id-34: Domeinu Askea
+  translated_licenses-description-license_id-35: Domeinu Askea
+  translated_licenses-description-license_id-36: Eskubide babestu batzuk
+  translated_licenses-description-license_id-37: Eskubide babestu batzuk
+  translated_licenses-description-license_id-38: Eskubide babestu batzuk
+  translated_licenses-description-license_id-39: Domeinu Askea
+  translated_licenses-description-license_id-3: Eskubide babestu batzuk
+  translated_licenses-description-license_id-42: Eskubide babestu batzuk
+  translated_licenses-description-license_id-43: Lizentzia ez da aplikagarria
+  translated_licenses-description-license_id-4: Eskubide babestu batzuk
+  translated_licenses-description-license_id-5: Eskubide babestu batzuk
+  translated_licenses-description-license_id-6: Eskubide babestu batzuk
+  translated_licenses-description-license_id-7: Eskubide babestu batzuk
+  translated_licenses-description-license_id-8: Eskubide babestu batzuk
+  translated_licenses-description-license_id-9: Eskubide babestu batzuk
+  translated_ranks-label-rank_id-106: formularioa
+  translated_ranks-label-rank_id-107: forma
+  translated_ranks-label-rank_id-112: gen
+  translated_ranks-label-rank_id-113: gen.
+  translated_ranks-label-rank_id-118: generoa
+  translated_ranks-label-rank_id-169: infraordena
+  translated_ranks-label-rank_id-175: infraespeziea
+  translated_ranks-label-rank_id-183: erreinua
+  translated_ranks-label-rank_id-266: ordena
+  translated_ranks-label-rank_id-280: filuma
+  translated_ranks-label-rank_id-313: sekz
+  translated_ranks-label-rank_id-314: sekz.
+  translated_ranks-label-rank_id-317: sekzioa
+  translated_ranks-label-rank_id-324: seriea
+  translated_sort_styles-name-sort_style_id-1: Berriki gehituak
+  translated_sort_styles-name-sort_style_id-2: Zaharrenak
+  translated_sort_styles-name-sort_style_id-3: Alfabetikoki
+  translated_sort_styles-name-sort_style_id-4: Alderantziz alfabetikoki
+  translated_synonym_relations-label-synonym_relation_id-14: ortografia-akatsa
+  translated_synonym_relations-label-synonym_relation_id-16: sinonimo anbiguoa
+  translated_synonym_relations-label-synonym_relation_id-18: aldi baterako onartutako
+    izena
+  translated_synonym_relations-label-synonym_relation_id-19: onartutako izena
+  translated_synonym_relations-label-synonym_relation_id-1: sinonimoa
+  translated_synonym_relations-label-synonym_relation_id-2: izen arrunta
+  translated_synonym_relations-label-synonym_relation_id-3: akronimoa
+  translated_table_of_contents-label-table_of_contents_id-13: Izen arruntak
+  translated_table_of_contents-label-table_of_contents_id-14: NKNB
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologia
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografia
+  translated_table_of_contents-label-table_of_contents_id-289: Eboluzioa
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Izenak eta Taxonomia
+  translated_table_of_contents-label-table_of_contents_id-305: Sinonimoak
+  translated_table_of_contents-label-table_of_contents_id-326: Biologia Molekularra
+    eta Genetika
+  translated_table_of_contents-label-table_of_contents_id-327: Fisiologia
+  translated_table_of_contents-label-table_of_contents_id-328: Biologia Zelularra
+  translated_table_of_contents-label-table_of_contents_id-329: Genetika
+  translated_table_of_contents-label-table_of_contents_id-330: Nukleotido-sekuentziak
+  translated_table_of_contents-label-table_of_contents_id-331: Barra-kodea
+  translated_table_of_contents-label-table_of_contents_id-332: Genoma
+  translated_table_of_contents-label-table_of_contents_id-333: Biologia Molekularra
+  translated_table_of_contents-label-table_of_contents_id-334: Mehatxuak
+  translated_table_of_contents-label-table_of_contents_id-335: Legedia
+  translated_table_of_contents-label-table_of_contents_id-336: Oharrak
+  translated_table_of_contents-label-table_of_contents_id-337: Hezkuntza
+  translated_table_of_contents-label-table_of_contents_id-33: Joerak
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomia
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-4: Ekologia
+  translated_user_identities-label-user_identity_id-2: ikasle bat
+  translated_user_identities-label-user_identity_id-3: hezitzaile bat
+  translated_user_identities-label-user_identity_id-5: zientzialari profesional bat
+  translated_vetted-label-vetted_id-0: Ezezaguna
+  translated_view_styles-name-view_style_id-2: Galeria
+  translated_visibilities-label-visibility_id-0: Ikusezin
+  translated_visibilities-label-visibility_id-1: Ikusgai
+  translated_visibilities-label-visibility_id-2: Aurrebista
+...

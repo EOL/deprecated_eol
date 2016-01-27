@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Cedric31
+# Author: Macofe
 ---
 oc:
   activerecord:
@@ -5235,7 +5236,8 @@ oc:
   item_type_sound_assistive: Aqueste element es un enregistrament sonòr
   item_type_taxon_assistive: Aqueste element es un taxon
   item_type_video_assistive: Aqueste element es una vidèo
-  item_not_added_already_in_collection: Aqueste element es ja estat apondut a la colleccion.
+  item_not_added_already_in_collection: Aqueste element:%{value} es ja estat apondut
+    a la colleccion.
   item_not_added_to_itself_notice: O planhèm, podètz pas apondre la colleccion <em>%{collection_name}</em>
     a ela meteissa.
   item_not_added_to_collection_error: O planhèm, una error s'es producha ; l’element

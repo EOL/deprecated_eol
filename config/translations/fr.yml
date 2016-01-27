@@ -1,6 +1,7 @@
 # Messages for French (français)
 # Exported from translatewiki.net
 # Export driver: phpyaml
+# Author: Appleuseryu
 # Author: Boniface
 # Author: Coyau
 # Author: Cquoi
@@ -82,10 +83,10 @@ fr:
         homepage: URL du projet
         id: Identifiant
         notes: Notes du projet
-        is_public: Public
+        is_public: Publique
         resources: Ressources
         user_id: Géré par
-        vetted: Approuvé
+        vetted: Vérifié
       content_partner_agreement:
         created_at: Créé le
         signed_by: Signé par
@@ -1244,7 +1245,7 @@ fr:
       about_link_what_is_eol: Qu’est-ce que l’EdlV ?
       about_link_traitbank: Qu’est-ce que TraitBank ?
       about_link_eol_blog: Le blog de EdlV
-      about_link_discover: Découvrir
+      about_link_discover: Éducation
       about_link_statistics: Statistiques
       about_link_glossary: Glossaire
       about_link_podcasts: Podcasts
@@ -2183,6 +2184,8 @@ fr:
       refresh: rafraîchir
       row_count: Nombre
       search_again: chercher de nouveau
+      file_not_processed: Ce fichier n’a pas encore été traité,
+      contact_us: veuillez nous contacter pour de l’aide
     edit:
       form_tip_account: Pour vous connecter à EdlV, vous devez doit avoir un nom d’utilisateur
         et un mot de passe de EdlV, soit vous connecter avec un compte tiers. Le nom
@@ -4072,8 +4075,10 @@ fr:
   cannot_be_associated_with_both_a_user_and_a_community: Ne peux être associé à la
     fois à un utilisateur et une communauté
   cannot_be_empty: ne peut pas être vide.
-  cannot_create_collection_item_from_class_error: On ne peut créer aucun élément de
-    collection à partir d’une %{klass}
+  cannot_create_collection_item_from_class_error: 'On ne peut pas créer un élément
+    de collection à partir d’un type : %{klass}'
+  cannot_create_collection_items_from_invalid_types: 'On ne peut pas créer un élément
+    de collection pour le(s) type(s) : (%{types})'
   cannot_create_community_from_watch_collection_error: Vous ne pouvez créer aucune
     communauté à partir d’une liste de suivi.
   cannot_curate_association_in_preview_mode: L'association avec %{name} ne peut pas
@@ -4209,8 +4214,7 @@ fr:
   collection_api_sort_field_notes: Si un paramètre sort_field est inclus, seuls les
     éléments de la collection dont le champ de tri correspond exactement à la chaîne
     fournie seront renvoyés
-  collection_create_failure: La création de la collection a échoué. Vérifiez s’il
-    y a eu un problème dans les paramètres passés.
+  collection_create_failure: La création de la collection a échoué.
   collection_delete_link: Supprimer définitivement cette collection.
   collection_destroyed: La collection a été supprimée.
   collection_removed: La collection %{collection} est supprimée.
@@ -4231,6 +4235,10 @@ fr:
     zero: Vide
     one: '%{count} élément'
     other: '%{count} éléments'
+  collection_items_duplicate_ids: 'Impossible de créer une collection pour un ID dupliqué
+    %{type} : (%{values})'
+  collection_items_missing_values: ' collected_item_id/collected_item_type ne peut
+    pas être nul dans : %{item}'
   collection_copy_complete_with_count:
     one: '%{count} élément copié de %{from} à %{to}.'
     other: '%{count} éléments au total, copiés de %{from} à %{to}.'
@@ -5051,7 +5059,7 @@ fr:
   details_title: Détails
   did_you_mean: 'Vouliez-vous dire : %{suggestions} ?'
   disabled_for_now: DÉSACTIVÉ POUR L’INSTANT
-  discover_link: Découvrir
+  discover_link: Éducation
   displaying_numerical_range_eol_records_with_count:
     one: Affichage de l’enregistrement sur EdlV
     other: Affichage de %{start_number} &ndash; %{end_number} sur %{count} enregistrements
@@ -5140,10 +5148,13 @@ fr:
   eol_news: Actualités EdlV
   eol_pages: Pages
   error_log_detail: Détails du journal d’erreurs
-  error_revoking_editor_on_watch_collection: Les éditeurs ne peuvent pas être supprimés
-    des collections de suivi
   error_log: Journal d’erreurs
   error_logging_active: Journalisation des erreurs active
+  error_violates_tos: Votre contenu semble violer les conditions d’utilisation du
+    service d’EdlV. Si vous pensez que c’est une erreur, veuillez nous contacter pour
+    de l’aide.
+  error_revoking_editor_on_watch_collection: Les éditeurs ne peuvent pas être supprimés
+    des collections de suivi
   error_401_page_title: Non autorisé
   error_401_description: Désolé, vous n’êtes pas autorisé à accéder à cette URL.
   error_403_page_title: Interdit
@@ -5516,6 +5527,7 @@ fr:
     tout le contenu.
   reindex_data_object_button: Réindexer l’objet
   reindex_page_button: Réindexer la page
+  reindex_users_button: Réindexer les compteurs utilisateur
   image: Image
   image_cropped_notice: L’image a bien été rognée.
   image_crop_failed_error: Désolé, une erreur s’est produite, l’image n’a pas pu être
@@ -5602,7 +5614,8 @@ fr:
   item_type_sound_assistive: Cet élément est un enregistrement sonore
   item_type_taxon_assistive: Cet objet est un taxon
   item_type_video_assistive: Cet élément est une vidéo
-  item_not_added_already_in_collection: Cet élément a déjà été ajouté à la collection.
+  item_not_added_already_in_collection: 'Cet élément : %{value} a déjà été ajouté
+    à la collection.'
   item_not_added_to_itself_notice: Désolé, vous ne pouvez pas ajouter la collection
     <em>%{collection_name}</em> à elle-même.
   item_not_added_to_collection_error: Désolé, une erreur est survenue ; l’élément
@@ -6068,6 +6081,7 @@ fr:
   object: Objet
   object_curated: Objet conservé.
   objects_curated: Objets conservés
+  object_removed: (cet objet a été supprimé de la base de données)
   object_status: État de l’objet
   object_status_all_option: Tous
   object_status_trusted_option: Fiable
@@ -6378,6 +6392,9 @@ fr:
     la page
   return_synonyms_for_the_page_taxon: renvoie tous les synonymes pour le taxon de
     la page
+  return_any_taxonomy_details_from_different_hierarchy_providers: renvoyer tous les
+    détails de taxinomie des différents fournisseurs de hiérarchie de taxons, dans
+    un tableau appelé « taxonConcepts »
   returns_all_metadata_about_a_particular_collection: renvoie toutes les métadonnées
     relatives à une collection particulière et les éléments qu’elle contient, indexés
     par l’EdlV
@@ -6386,6 +6403,7 @@ fr:
   returns_either_a_positive_or_negative_response: renvoie soit une réponse positive
     (indiquant les IPAs qui sont fonctionnelles), soit une réponse négative, ou rien
     du tout (indiquant que les IPAs ne sont pas fonctionnelles pour le moment).
+  returns_either_a_batch_or_not: renvoie soit un traitement par lot, soit rien
   revisions: Révisions
   rights: Droits
   rights_holder: Détenteur des droits
@@ -7097,6 +7115,7 @@ fr:
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong> a commenté des données
     qui ont été supprimées.
+  user_count_reindexed: Les compteurs utilisateur ont été réindexés
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: ID de l’utilisateur
   user_index_intro: Tous les utilisateurs Web inscrits dans le système sont affichés
@@ -7145,6 +7164,7 @@ fr:
     one: '%{count} partenaire de contenu actuel'
     other: '%{count} partenaires de contenu actuels'
   users_curation_header: Qualifications de conservateur
+  user_counts_refresh_daily: '*les compteurs sont rafraîchis quotidiennement'
   users_form_account_header: Votre compte
   users_form_curation_header: Diplômes de superviseur
   users_form_profile_info_header: Informations du profil public
@@ -7246,8 +7266,7 @@ fr:
     affiché ici; l’URL de la révision doit resssembler à <a href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>
   wikipedia_queue_new_page_title: Demander l’importation d’un article de Wikipédia
   will_find_taxon_pages_matching_the_search_term: trouvera les pages de taxon si le
-    nom préféré ou un synonyme ou son nom vulgaire correspond exactement au critère
-    de recherche
+    titre ou un synonyme ou son nom vulgaire correspond exactement au critère de recherche
   would_you_like_to_become_a_curator_notice: Vous souhaitez devenir un conservateur
     ? Vous pouvez demander l’accès depuis <a href='%{url}'>votre page de profil</a>.
   worklist: Liste des tâches

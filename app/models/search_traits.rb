@@ -3,6 +3,8 @@ class SearchTraits < TraitSet
 
   # e.g.: @traits = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
+  # e.g.: s = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
+
   # search_options = { querystring: @querystring, attribute: @attribute,
     # min_value: @min_value, max_value: @max_value, page: @page,
     # page_size: @page_size, unit: @unit, sort: @sort, language: current_language,

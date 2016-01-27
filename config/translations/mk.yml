@@ -1166,7 +1166,7 @@ mk:
       about_link_what_is_eol: Што е EOL?
       about_link_traitbank: Што е тоа TraitBank?
       about_link_eol_blog: Блогот на EOL
-      about_link_discover: Откријте
+      about_link_discover: Образование
       about_link_statistics: Статистики
       about_link_glossary: Поимник
       about_link_podcasts: Подкастови
@@ -1211,7 +1211,7 @@ mk:
       questions_link_contributing_to_research: Како можам да имам удел во истражувањата?
     data_search:
       page_header: Пребарување по TraitBank
-      page_header_results: Резултати од TraitBank
+      page_header_results: Исход од TraitBank
     footer:
       google_plus: Енциклопедија на живиот свет на Google+
     taxa:
@@ -2075,6 +2075,8 @@ mk:
       refresh: превчитај
       row_count: Број
       search_again: барај повторно
+      file_not_processed: Податотекава сè уште не е обработена,
+      contact_us: обратете ни се за помош
     edit:
       form_tip_account: За да се најавите на EOL ќе ви треба корисничко име и лозинка
         на самата EOL, или пак со поврзување на надворешна сметка. Корисничкото име
@@ -2450,16 +2452,16 @@ mk:
         user_of_it: Корисникот <strong>%{user}</strong> е додаден како раководител.
       bulk_add:
         an_unknown_user_added_bulk_items_to_an_unknown_collection: Непознат корисник
-          додаде експонати на ангро во непозната збирка.
+          додаде експонати во висок обем во непозната збирка.
         an_unknown_user_added_bulk_items_to_collection: Непознат корисник додаде експонати
-          на ангро во збирката „%{collection}“.
+          во висок обем во збирката „%{collection}“.
         user_added_bulk_items_to_an_unknown_collection: <strong>%{user}</strong> додаде
-          експонати на ангро во непозната збирка.
+          експонати во висок обем во непозната збирка.
         user_added_bulk_items_to_collection: <strong>%{user}</strong> додаде експонати
-          на ангро во збирката „%{collection}“.
+          во висок обем во збирката „%{collection}“.
         an_unknown_user_added_bulk_items_to_it: Непознат корисник додаде експонати
-          на ангро.
-        user_of_it: <strong>%{user}</strong> додаде експонати на ангро.
+          во висок обем.
+        user_of_it: <strong>%{user}</strong> додаде експонати во висок обем.
       create:
         an_unknown_user_created_an_unknown_collection: Непознат корисник создаде непозната
           збирка.
@@ -3870,7 +3872,9 @@ mk:
     поврзано со корисник и заедница
   cannot_be_empty: не може да стои празно.
   cannot_create_collection_item_from_class_error: Не можам да создадам експонат во
-    збирката од %{klass}
+    збирката од типот %{klass}
+  cannot_create_collection_items_from_invalid_types: 'Не можам да создадам ставка
+    во збирка од типот: (%{types})'
   cannot_create_community_from_watch_collection_error: Не можете да создадете заедница
     од список на набљудувања.
   cannot_curate_association_in_preview_mode: Поврзаноста со %{name} не може да се
@@ -3999,8 +4003,7 @@ mk:
   collection_api_sort_field_notes: Ако се содржи параметар „sort_field“, ќе се даваат
     само експонати (предмети) чие поле на подредување точно се совпаѓа со дадената
     низа
-  collection_create_failure: Не можев да ја создадам збирката. Видете дали има проблем
-    во наведените параметри.
+  collection_create_failure: Не можев да ја создадам збирката.
   collection_created_with_count_notice:
     one: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонат.
     other: Збирката <em>%{collection_name}</em> е успешно создадена со %{count} експонати.
@@ -4023,6 +4026,10 @@ mk:
     zero: Празно
     one: '%{count} објект'
     other: '%{count} објекти'
+  collection_items_duplicate_ids: Не можам да создадам збирка од дупликат со назнака
+    %{type}:(%{values})
+  collection_items_missing_values: ' collected_item_id/collected_item_type не може
+    да стои празно во:%{item}'
   collection_copy_complete_with_count:
     one: Прекопиран еден објект од %{from} во %{to}.
     other: Прекопирани вкупно %{count} објекти од %{from} во %{to}.
@@ -4807,7 +4814,7 @@ mk:
   details_title: Подробно
   did_you_mean: 'Дали мислевте на: %{suggestions} ?'
   disabled_for_now: ЗАСЕГА ОНЕВОЗМОЖЕНО
-  discover_link: Откријте
+  discover_link: Образование
   displaying_numerical_range_eol_records_with_count:
     one: Го прикажувам едниот запис на EOL
     other: Прикажувам %{start_number} &ndash; %{end_number} од вкупно %{count} записи
@@ -4895,10 +4902,12 @@ mk:
   eol_news: Новости
   eol_pages: Страници
   error_log_detail: Подробност од днев. на грешки
-  error_revoking_editor_on_watch_collection: Не можете да отстранувате уредници од
-    набљудуваните збирки
   error_log: Дневник на грешки
   error_logging_active: Заведувањето на грешки е активно
+  error_violates_tos: Изгледа дека вашата содржина ги нарушува условите на користење
+    на EOL. Ако мислите дека ова е грешка, обратете ни се за помош.
+  error_revoking_editor_on_watch_collection: Не можете да отстранувате уредници од
+    набљудуваните збирки
   error_401_page_title: Нема овластување
   error_401_description: Нажалост, не сте овластени за да ја отворите таа URL.
   error_403_page_title: Забрането
@@ -5265,6 +5274,7 @@ mk:
     се добиваат сите содржини.
   reindex_data_object_button: Преиндексирај објект
   reindex_page_button: Преиндексирај страница
+  reindex_users_button: Преиндексирај кориснички пребројувања
   image: Слика
   image_cropped_notice: Сликата е успешно кадрирана.
   image_crop_failed_error: Нажалост, се појави грешка. Не можев да ја кадрирам сликата.
@@ -5347,7 +5357,8 @@ mk:
   item_type_sound_assistive: Овој експонат е звук
   item_type_taxon_assistive: Овој експонат е таксон
   item_type_video_assistive: Овој експонат е видеоснимка
-  item_not_added_already_in_collection: Овој експонат е веќе додаден во збирката.
+  item_not_added_already_in_collection: 'Овој експонат: %{value} е веќе додаден во
+    збирката.'
   item_not_added_to_itself_notice: За жал, не можете да ја додадете збирката <em>%{collection_name}</em>
     сама во себе.
   item_not_added_to_collection_error: За жал, се појави грешка. Не можев да го додадам
@@ -5798,6 +5809,7 @@ mk:
   object: Објект
   object_curated: Објектот е згрижен.
   objects_curated: Згрижени објекти
+  object_removed: (оваа ставка е отстранета од базата)
   object_status: Статус на објектот
   object_status_all_option: Сè
   object_status_trusted_option: Доверливо
@@ -6095,6 +6107,8 @@ mk:
   return_all_synonyms_for_this_taxon: дај ги сите синоними за таксонов
   return_references_for_the_page_taxon: дај ги сите наводи за таксонот на страницата
   return_synonyms_for_the_page_taxon: дај ги сите синоними за таксонот на страницата
+  return_any_taxonomy_details_from_different_hierarchy_providers: дај било какви таксономски
+    пдоатоци од различи добавувачи на таксономска хиерархија, во низа наречена „taxonConcepts“
   returns_all_metadata_about_a_particular_collection: ги дава сите метаподатоци за
     дадена збирка и објектите што ги содржи индексирани од EOL
   returns_all_metadata_about_a_particular_data_object: ги дава сите метаподатоци за
@@ -6102,6 +6116,7 @@ mk:
   returns_either_a_positive_or_negative_response: дава или позитивен одговор (означувајќи
     дека извршниците се функционални) или негативен одговор, или пак ништо (означувајќи
     дека извршниците моментално не се функционални).
+  returns_either_a_batch_or_not: дава група или не
   revisions: Преработки
   rights: Права
   rights_holder: Сопственик на правата
@@ -6137,7 +6152,7 @@ mk:
   search_input_advisory_information: Внесете го народното или научното име на некое
     живо суштество што ве интересира. Можете и да пребарувате по членовите, збирките
     и заедниците на EOL.
-  search_results: Резултати од пребарувањето
+  search_results: Исход од пребарувањето
   search_field_label: Пребарување по EOL
   search_field_common_name: Народно име
   search_field_preferred_common_name: Претпочитано народно име
@@ -6788,6 +6803,7 @@ mk:
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong> коментираше на отстранети
     податоци.
+  user_count_reindexed: Корисничките пребројувања се индексирани
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: Корисничка назнака
   user_index_intro: Сите семрежни корисници регистрирани на системот се прикажани
@@ -6838,6 +6854,7 @@ mk:
     one: '%{count} тековен соучесник во содржините'
     other: '%{count} тековни соучесници во содржините'
   users_curation_header: Квалификации на кустосот
+  user_counts_refresh_daily: '*бројките се подновуваат секојдневно'
   users_form_account_header: Ваша сметка
   users_form_curation_header: Квалификации на кустосот
   users_form_profile_info_header: Информации за јавниот профил
@@ -6909,7 +6926,7 @@ mk:
     со вашето најавување, па затоа ве одјавивме. Но старите податоци за најава би
     требало да работат следниот пат. Се извинуваме!
   welcome_to_the_eol_administrat: Добре дојдовте на Административната конзола на EOL.
-    Одберете функција од страничната лента лево.
+    Одберете функција од страничникот лево.
   welcome: Добре дојдовте
   what_do_these_numbers_mean: Што значат бројкиве?
   what_is_eol: Што е EOL?

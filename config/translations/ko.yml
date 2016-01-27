@@ -990,7 +990,7 @@ ko:
       about_link_what_is_eol: EOL은 무엇입니까?
       about_link_traitbank: TraitBank가 무엇인가요?
       about_link_eol_blog: EOL 블로그
-      about_link_discover: 발견
+      about_link_discover: 교육
       about_link_statistics: 통계
       about_link_glossary: 용어집
       about_link_podcasts: 팟캐스트
@@ -1083,7 +1083,7 @@ ko:
       %{taxon_name} (%{taxon_url})에 대한 %{object_name} (%{object_url})
       %{action_date}.
     activity_user_marked_data_object_as_inappropriate_on_date: |-
-      %{curator_level} %{users_name} (%{users_url})(은)는 부적절함으로 표시했습니다:
+      %{curator_level} %{users_name} (%{users_url})(은)는 부적절한 것으로 표시했습니다:
       %{object_name} (%{object_url})
       %{action_date}.
     comments_empty: 최근 댓글이 없습니다.

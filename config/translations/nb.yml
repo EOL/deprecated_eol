@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Danmichaelo
 # Author: Event
+# Author: Gadnihasj
 # Author: Nghtwlkr
 # Author: Simen47
 # Author: Tarjeimo
@@ -240,9 +241,9 @@ nb:
         credentials: Akkreditiver
         curator_level: Kuratornivå
         curator_scope: Kurateringsområde
-        disable_email_notifications: Ikke send meg NOE oppdateringer per e-post
+        disable_email_notifications: Ikke send meg NOEN oppdateringer per e-post
         email: E-postadresse
-        email_confirmation: Passord på nytt <small>(bekreftelse)</small>
+        email_confirmation: Gjenta e-postadressen <small>(bekreftelse)</small>
         entered_password: Passord
         entered_password_confirmation: Passord på nytt <small>(bekreftelse)</small>
         family_name: Etternavn
@@ -3903,7 +3904,8 @@ nb:
   item_type_sound_assistive: Dette objektet er en lyd
   item_type_taxon_assistive: Dette objektet er et takson
   item_type_video_assistive: Dette objektet er en video
-  item_not_added_already_in_collection: Dette objektet er allerede lagt inn i samlingen.
+  item_not_added_already_in_collection: Elementet:%{value} har allerede blitt lagt
+    til i samlingen.
   item_not_added_to_itself_notice: Beklager, du kan ikke legge samlingen <em>%{collection_name}</em>
     til seg selv.
   items_with_count_semi_colon:

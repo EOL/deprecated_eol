@@ -22,6 +22,7 @@
 # Author: Lvova
 # Author: Mariya
 # Author: Meshkov.a
+# Author: Metastasis
 # Author: Nemo bis
 # Author: Okras
 # Author: Orsa
@@ -31,6 +32,7 @@
 # Author: Александр Сигачёв
 # Author: Дмитрий
 # Author: Максим777
+# Author: Ядерный Трамвай
 ---
 ru:
   activerecord:
@@ -931,6 +933,8 @@ ru:
   collections:
     download_taxa_data:
       select_all_checkbox: Выбрать все
+      collection_download_under_processing: Загрузка началась. Также на Вашу электронную
+        почту будет выслано письмо, когда загрузка завершится.
       user_downloaded_collection: Скачивание данных для %{collection_name}
     show:
       meta_description_default: Коллекция энциклопедии жизни коллекции под названием
@@ -1559,6 +1563,8 @@ ru:
         загрузок данных в вашем профиле</a>.
       header: Загрузка готова!
     collection_download_ready:
+      message: Вы можете просмотреть то, что Вы загрузили, перейдя <a href='%{download_link}'>в
+        раздел "Загрузки" в Вашем профиле</a>.
       header: Ваша коллекция готова для скачивания!
   sessions:
     new:
@@ -1664,13 +1670,24 @@ ru:
           tweet_text: Факты о %{scientific_name} по классификации %{hierarchy_provider}
         meta_description: данные, включая параметры и свойства для .Вычислительные
           данные для  из научных работ, предоставленых исследователями.
+        meta_description_no_data: Энциклопедии Жизни ничего не известно о %{scientific_name}.
+          ЭЖ предлагает Вам внести свой вклад, описав %{scientific_name}.
         meta_description_with_common_name: данные, включая параметры и свойства для
           . Вычислительные данные для из научных работ, предоставленных исследователями.
+        meta_description_with_common_name_no_data: Какой-либо информации по %{preferred_common_name}
+          (или {scientific_name}) в Энциклопедии Жизни не найдено. ЭЖ предлагает Вам
+          внести свой вклад, рассказав о %{preferred_common_name} (%{scientific_name}).
+        meta_keywords: факты о %{scientific_name},факты о %{scientific_name},особенности
+          %{scientific_name},особенности %{scientific_name},анализ %{scientific_name},анализ
+          %{scientific_name},факт о %{scientific_name},факт о %{scientific_name},особенность
+          %{scientific_name},особенность %{scientific_name},анализ %{scientific_name},анализ
+          %{scientific_name}
         meta_keywords_with_common_name: данные, данные о, свойства, свойства , параметры,
           параметры для, данные, данные о, свойства, свойства, параметры, параметры
           для,данные, данные о, свойства, свойства , параметры, параметры для, данные,
           данные о, свойства, свойства, параметры, параметры для,
         meta_title: Измерения и факты о %{scientific_name}
+        meta_title_with_common_name: Анализ и факты о %{preferred_common_name} (%{scientific_name})
         tweet_text: Факты о %{scientific_name}
     details:
       index:
@@ -1690,6 +1707,9 @@ ru:
             среди ученных как, классифицированный в Энциклопедии Жизни. Состоит из
           meta_title: Описания и статьи о %{scientific_name}, классифицированные как
             {hierarchy_provider}
+          meta_title_with_common_name: Описание и статьи о %{preferred_common_name}
+            (%{scientific_name}, классифицированной как %{hierarchy_provider})
+          tweet_text: Статьи о %{scientific_name}, классифицированной как %{hierarchy_provider}
         meta_description: Описания и статьи о %{scientific_name} в Энциклопедии жизни
         meta_description_no_data: Нет доступных статей для  %{scientific_name} в Энциклопедии
           Жизни. Вы можете внести свой вклад в Энциклопедию Жизни и написать статьи
@@ -1697,11 +1717,21 @@ ru:
           обитания и другие.
         meta_description_with_chapter_list: Описания и статьи  о %{scientific_name}
           в Энциклопедии жизни. Содержание %{chapter_list}.
+        meta_description_with_common_name: Описание и статьи о %{preferred_common_name}
+          (%{scientific_name}).
         meta_title: Описания и статьи о %{scientific_name}
         meta_title_with_common_name: Описания и статьи о %{preferred_common_name}
           (%{scientific_name})
         tweet_text: Статьи о %{scientific_name}
     literature:
+      bhl:
+        hierarchy_entry:
+          tweet_text: 'Литература из #BHL по %{scientific_name}, классифицированный
+            по %{hierarchy_provider}.'
+        meta_title: Цитата о %{scientific_name} из BHL
+        meta_title_with_common_name: Ссылка на %{preferred_common_name} (%{scientific_name})
+          на BHL
+        tweet_text: 'Литература из #BHL о %{scientific_name}'
       show:
         meta_description: Книги, статьи и библиографии на %{scientific_name} в Encyclopedia
           of Life. Читать литературу о %{scientific_name} на Encyclopedia of Life.
@@ -2487,6 +2517,7 @@ ru:
   details: Подробности
   details_title: Подробности
   did_you_mean: 'Вы имели в виду: %{suggestions}?'
+  discover_link: Образование
   donate_link: Пожертвовать
   edit_comment: Редактировать комментарий
   edit_comment_lowercase: редактировать комментарий
@@ -2665,6 +2696,7 @@ ru:
   news_archive_page: архив новостей
   no_answer: Нет
   nucleotide_sequences: Нуклеотидные последовательности
+  object_removed: (этот объект был удалён из базы данных)
   object_type_text_option: Текст
   page_not_found: Страница не найдена
   pages_with_pictures_and_text: Страницы с иллюстрациями и текстом

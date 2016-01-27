@@ -1,7 +1,7 @@
 module TraitBankHelper
   def format_value(trait)
     value = trait.value_name
-    # TODO: associations. :\
+    return "[data missing]" if value.nil?
     if trait.association?
       value = link_to(trait.target_taxon_name, trait.target_taxon_uri)
     elsif value.is_numeric? && ! trait.predicate_uri.treat_as_string?
@@ -14,13 +14,13 @@ module TraitBankHelper
       end
       value = number_with_delimiter(value, delimiter: ',')
     else
-      value = value.to_s.add_missing_hyperlinks
+      value = value.to_s.add_missing_hyperlinks.html_safe
     end
     if trait.sex
-      value += "<span class='stat'>#{trait.sex_name}</span>"
+      value += " <span class='stat'>#{trait.sex_name}</span>".html_safe
     end
     if trait.life_stage
-      value += "<span class='stat'>#{trait.life_stage_name}</span>"
+      value += " <span class='stat'>#{trait.life_stage_name}</span>".html_safe
     end
     value
   end

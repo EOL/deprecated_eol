@@ -4,20 +4,24 @@ class Trait
   # TODO: put this in configuration:
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
 
-  def initialize(rdf, source_set, taxa = [])
+  def initialize(rdf, source_set, options = {})
     @rdf = rdf
     @source_set = source_set
-    # ALL of the nodes carry the predicate, so just read any one of them:
-    @predicate = rdf.first[:predicate].to_s
+    if options.has_key?(:predicate)
+      @predicate = options[:predicate]
+    else
+      # ALL of the nodes carry the predicate, so just read any one of them:
+      @predicate = rdf.first[:predicate].to_s
+    end
     # Again, they all have the "trait", sooo:
     trait_uri = rdf.first[:trait]
     @point = @source_set.points.find { |point| point.uri == trait_uri }
     if rdf.first.has_key?(:page)
       # If there's a page, they all have it:
-      if rdf.first[:page] =~ TraitBank.taxon_re
+      if rdf.first[:page].to_s =~ TraitBank.taxon_re
         id = $2.to_i
-        @page = taxa.find { |taxon| taxon.id == id }
-        @page ||= TaxonConcept.find(id)
+        @page = options[:taxa].find { |taxon| taxon.id == id }
+        @page ||= TaxonConcept.find(id) unless id == 0
       end
     end
   end
@@ -51,7 +55,11 @@ class Trait
   end
 
   def life_stage_name
-    life_stage.try(:name)
+    life_stage_uri.try(:name)
+  end
+
+  def life_stage_uri
+    rdf_to_uri(life_stage)
   end
 
   def partner
@@ -59,7 +67,7 @@ class Trait
   end
 
   def predicate_name
-    predicate_uri.name
+    predicate_uri.try(:name)
   end
 
   def predicate_uri
@@ -67,14 +75,23 @@ class Trait
   end
 
   def resource
-    sources.find { |source| source.id == source_id }
+    return @resource if @resource
+    return nil if source_id.nil?
+    @resource = sources.find { |source| source.id == source_id }
+    if @resource.nil?
+      EOL.log("JIT-loading resource #{source_id}")
+      @resource = Resource.where(id: source_id).includes(:content_partner).first
+      sources += @resource if sources && @resource
+    end
+    @resource
   end
 
   def rdf_to_uri(rdf)
     return nil if rdf.nil?
     uri = glossary.find { |ku| ku.uri == rdf.to_s }
     return uri if uri
-    UnknownUri.new(rdf.to_s, literal: rdf.literal?)
+    literal = rdf.respond_to?(:literal?) ? rdf.literal? : true
+    UnknownUri.new(rdf.to_s, literal: literal)
   end
 
   def rdf_value(uri)
@@ -92,15 +109,25 @@ class Trait
   end
 
   def sex_name
-    sex.try(:name)
+    sex_uri.try(:name)
+  end
+
+  def sex_uri
+    rdf_to_uri(sex)
   end
 
   def source_id
-    source_url =~ SOURCE_RE ? $1.to_i : nil
+    @source_id ||= source_url =~ SOURCE_RE ? $1.to_i : nil
   end
 
   def source_rdf
-    rdf_value("source")
+    rdf = rdf_value("http://purl.org/dc/terms/source")
+    # Old resources were stored as "source":
+    unless rdf =~ SOURCE_RE
+      take_two = rdf_value("source")
+      rdf = take_two if take_two =~ SOURCE_RE
+    end
+    rdf
   end
 
   def source_url
@@ -141,9 +168,9 @@ class Trait
   end
 
   def value_name
-    #TODO: associations.  :\
-    return nil if value_rdf.nil?
-    value_rdf.literal? ? value_rdf.to_s : value_uri.name
+    #TODO: associations. :\
+    return "" if value_rdf.nil?
+    value_uri.respond_to?(:name) ? value_uri.name  : value_rdf.to_s
   end
 
   def value_uri

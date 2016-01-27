@@ -5,7 +5,6 @@ class TaxonData < TaxonUserClassificationFilter
   extend EOL::Sparql::SafeConnection
   DEFAULT_PAGE_SIZE = 30
   MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
-  MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 60000
 
   GGI_URIS = [
     'http://eol.org/schema/terms/NumberRichSpeciesPagesInEOL',
@@ -69,11 +68,6 @@ class TaxonData < TaxonUserClassificationFilter
       merge({ count_value_uris: true, querystring: nil })))
     KnownUri.add_to_data(counts_of_result_value_uris)
     Hash[ counts_of_result_value_uris.collect{ |h| [ h[:value], h[:count] ] } ]
-  end
-
-  def self.is_clade_searchable?(taxon_concept)
-    taxon_concept.number_of_descendants <=
-      TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
   end
 
   def downloadable?

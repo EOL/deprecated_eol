@@ -1,3 +1,4 @@
+- EOL.log("Starting index view")
 #tabs_sidebar.data
   %ul.tabs.with_icons{ class: 'subtabs' }
     %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
@@ -100,17 +101,12 @@
                       = render(partial: 'known_uris/definition',
                         locals: { known_uri: trait.value_uri, search_link: true,
                         glossary_link: true })
-                - if trait.sex
-                  %span.stat= trait.sex_name
-                - if trait.life_stage
-                  %span.stat= trait.life_stage_name
             %td.source
               - if trait.resource
                 = link_to(trait.resource.content_partner.name,
                   [trait.partner, trait.resource])
               - else
-                = "No resource!"
-                = link_to(trait.source_url, trait.source_url)
+                = link_to("See original source", trait.source_url)
             %td.comment
               %span.comments
                 - if trait.comments.empty?
@@ -127,4 +123,5 @@
                         whom: link_to(trait.content_partner.name,
                         trait.content_partner))
                     - else
-                      = I18n.t(:trait.point_source_missing)
+                      = I18n.t(:data_point_uri_source_missing)
+- EOL.log("Finished with index view")

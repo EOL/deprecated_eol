@@ -1,3 +1,4 @@
+- EOL.log("Search index", prefix: "V")
 - if @traits.blank?
   .empty
     %p= data_search_results_summary
@@ -7,19 +8,19 @@
       %ul.glossary
         = render('known_uris/definition', { known_uri: @known_uri, attribution: true, glossary_link: true })
   .header
-    -# TODO! Gah!
-    -# - start_number = (@traits.current_page - 1) * @traits.per_page + 1
-    -# - end_number = [ (start_number + @traits.per_page - 1), @traits.total_entries ].min
-    -# - previous_label = (@traits.current_page == 1) ? '' : I18n.t(:pagination_previous_with_count, count: @traits.per_page)
-    -# - next_label = (@traits.current_page == @traits.total_pages) ? '' : I18n.t(:pagination_next_with_count, count: @traits.per_page)
-    -# %h3= raw(I18n.t(:displaying_numerical_range_eol_records_with_count, start_number: start_number, end_number: end_number, count: @traits.total_entries))
-    -# = will_paginate @traits, previous_label: previous_label, next_label: next_label, inner_window: 2
+    - per_page = @traits.traits.per_page
+    - start_number = (@page - 1) * per_page + 1
+    - end_number = [ (start_number + per_page - 1), @traits.traits.total_entries ].min
+    - previous_label = (@page == 1) ? '' : I18n.t(:pagination_previous_with_count, count: per_page)
+    - next_label = (@traits.traits.count < per_page) ? '' : I18n.t(:pagination_next_with_count, count: per_page)
+    %h3= raw(I18n.t(:displaying_numerical_range_eol_records_with_count, start_number: start_number, end_number: end_number, count: @traits.traits.total_entries))
+    = will_paginate @traits.traits, previous_label: previous_label, next_label: next_label, inner_window: 2
   #taxon_data
     %table.standard.data.search
       - @traits.traits.each do |trait|
         - if trait.point.nil?
           -# This is a "placeholder" for a hidden row.
-          %tr{id: trait.point.anchor, class: "data hidden"}
+          %tr{id: "missing_point", class: "data hidden"}
             %td.placeholder{colspan: 6}
               = "Could not find a data point for #{trait.point}"
         - elsif trait.point.hidden?
@@ -28,6 +29,7 @@
             %td.placeholder{colspan: 6}
               = I18n.t(:data_search_row_hidden)
         - else
+          - EOL.log("Rendering trait #{trait.point.anchor}", prefix: "V")
           - classes = []
           - unless trait.point.visible?
             - if current_user.is_curator?
@@ -40,7 +42,7 @@
             -# preloaded taxon_data_exemplars
             - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
             - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
-              - last_predicate = trait.predicate_name
+            - taxon_link = taxon_data_path(trait.page)
             %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' ') }
               %td.taxon
                 .icon
@@ -85,8 +87,7 @@
                   = link_to(trait.resource.content_partner.name,
                     [trait.partner, trait.resource])
                 - else
-                  = "No resource!"
-                  = link_to(trait.source_url, trait.source_url)
+                  = link_to(I18n.t(:source_url), trait.source_url)
               %td.comment
                 %span.comments
                   - if trait.comments.empty?
@@ -103,4 +104,5 @@
                           whom: link_to(trait.content_partner.name,
                           trait.content_partner))
                       - else
-                        = I18n.t(:trait.point_source_missing)
+                        = I18n.t(:data_point_uri_source_missing)
+- EOL.log("Search index DONE", prefix: "V")

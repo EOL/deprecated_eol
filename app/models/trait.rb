@@ -42,10 +42,6 @@ class Trait
     @point.comments
   end
 
-  def content_partner
-    resource && resource.content_partner
-  end
-
   def glossary
     @source_set.glossary
   end
@@ -84,6 +80,7 @@ class Trait
   def partner
     resource && resource.content_partner
   end
+  alias :content_partner :partner
 
   def predicate_name
     predicate_uri.try(:name)

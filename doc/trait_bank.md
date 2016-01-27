@@ -81,6 +81,17 @@ data.glossary # => An array of KnownUri instances for ALL traits in the data, in
 data.traits # => An array of Trait instances for the page.
 data.traits_by_category(category) # => An array of Trait instances matching the TocItem instance of category.
 trait = data.traits.first # => A single Trait instance, of course.
+
+# A search:
+uri = "http://purl.obolibrary.org/obo/OBA_0000056"
+concept = TaxonConcept.find(1234)
+traits = SearchTraits.new(attribute: uri, sort: "desc", clade: concept.id, page: 2)
+traits.blank? # => true if there were no results.
+traits.traits # => An WillPaginate::Collection instance, containing Trait instances.
+trait = traits.traits.first # => A single instance of a Trait.
+
+# A trait instance:
+trait.page # => (Only for search results:) a TaxonConcept instance.
 trait.point # => A DataPointUri instance.
 trait.predicate_uri # => The KnownUri for the predicate, or an UnknownUri if one wasn't found.
 trait.predicate_name # => The STRING for the predicate. Usually, this is the #name of a KnownUri.
@@ -91,6 +102,8 @@ trait.value_uri # => The KnownUri (or an UnknownUri) for the value.
 trait.value_name # => The string for the value.
 trait.comments # => An array of Comment instances.
 trait.content_partner # => An instance of ContentPartner associated with the trait. Could be nil!
+trait.source_url # => The URI (string) of the source for the trait; could (rarely) be nil.
+trait.meta # => A hash of predicate => value pairs; both predicate and values are either KnownUris (when appropriate) or strings.
 # Note that in a view, you can use the following helper on the trait instance to render it with all
 # its ancilary information (sex, life stage, etc):
 format_value(trait)

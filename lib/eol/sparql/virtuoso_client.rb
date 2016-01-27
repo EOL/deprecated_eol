@@ -38,10 +38,14 @@ module EOL
           raise "insert_data asked to insert class #{options[:data].class}: "\
             "#{options[:data].inspect}"
         end
+        total = options[:data].count
+        index = 0
         # TODO: I am not sure what group size here is optimal.
         options[:data].in_groups_of(5000, false) do |group|
+          EOL.log("inserting #{group.count} triples: #{index}/#{total} ",
+            prefix: ".") if index % 100_000 == 0
           triples = group.join(" .\n")
-          EOL.log("inserting #{group.count} triples", prefix: ".")
+          index += group.count
           query = "INSERT DATA INTO <#{options[:graph_name]}> { #{triples} }"
           uri = URI(upload_uri)
           request = Net::HTTP::Post.new(uri.request_uri)

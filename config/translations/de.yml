@@ -15,6 +15,7 @@
 # Author: McDutchie
 # Author: Metalhead64
 # Author: Nipsky
+# Author: Predatorix
 # Author: Purodha
 # Author: Tbleher
 ---
@@ -33,7 +34,7 @@ de:
       collection_job:
         overwrite: Duplikate ersetzen
       collection_item:
-        annotation: Annotation
+        annotation: Anmerkung
         sort_field: Sortieren nach
         refs: Quellen
       comment:
@@ -1244,7 +1245,7 @@ de:
       about_link_what_is_eol: Was ist EOL?
       about_link_traitbank: Was ist TraitBank?
       about_link_eol_blog: Blog der EOL
-      about_link_discover: Entdecken
+      about_link_discover: Bildung
       about_link_statistics: Statistiken
       about_link_glossary: Glossar
       about_link_podcasts: Podcasts
@@ -2218,6 +2219,8 @@ de:
       refresh: aktualisieren
       row_count: Anzahl
       search_again: erneut suchen
+      file_not_processed: Diese Datei wurde noch nicht verarbeitet.
+      contact_us: bitte kontaktieren Sie uns für Unterstützung
     edit:
       form_tip_account: Um sich bei der EOL anmelden zu können, benötigen Sie entweder
         einen Nutzernamen mit Passwort, oder Sie verknüpfen ein Drittanbieterkonto.
@@ -4205,8 +4208,10 @@ de:
   cannot_be_associated_with_both_a_user_and_a_community: Konnte weder einem Nutzer
     noch einer Gemeinschaft zugeordnet werden.
   cannot_be_empty: darf nicht leer sein.
-  cannot_create_collection_item_from_class_error: Es kann kein Objekt für eine Sammlung
-    aus einer %{klass} erstellt werden.
+  cannot_create_collection_item_from_class_error: Wir konnten kein Objekt für eine
+    Sammlung des Typs %{klass} erstellen
+  cannot_create_collection_items_from_invalid_types: Wir konnten kein Sammlungsobjekt
+    des Typs (%{types}) erstellen
   cannot_create_community_from_watch_collection_error: Sie können keine Gemeinschaft
     auf Basis einer Beobachtungsliste erstellen.
   cannot_curate_association_in_preview_mode: Die Zuordnung zu %{name} kann nicht kuratiert
@@ -4341,8 +4346,7 @@ de:
   collection_api_sort_field_notes: Falls ein Parameter „sort_field“ angegeben ist,
     werden nur Sammlungsobjekte zurückgegeben, deren Sortierfeld exakt der angegebenen
     Zeichenfolge entspricht.
-  collection_create_failure: Das Erstellen der Sammlung ist fehlgeschlagen. Bitte
-    überprüfen Sie, ob es ein Problem in den übergebenen Parametern gibt.
+  collection_create_failure: Das Erstellen der Sammlung ist fehlgeschlagen.
   collection_created_with_count_notice:
     one: Die Sammlung <em>%{collection_name}</em> wurde erfolgreich mit einem Sammlungsobjekt
       erstellt.
@@ -4369,6 +4373,10 @@ de:
     zero: Leer
     one: Ein Objekt
     other: '%{count} Objekte'
+  collection_items_duplicate_ids: Es konnte keine Sammlung von einer doppelten ID
+    erstellt werden %{type}:(%{values})
+  collection_items_missing_values: 'collected_item_id/collected_item_type kann nicht
+    Null sein in: %{item}'
   collection_copy_complete_with_count:
     one: Kopierte ein Objekt von %{from} nach %{to}.
     other: Kopierte %{count} Objekte von %{from} nach %{to}.
@@ -5199,7 +5207,7 @@ de:
   details_title: Einzelheiten
   did_you_mean: 'Meinten Sie: %{suggestions}?'
   disabled_for_now: MOMENTAN DEAKTIVIERT
-  discover_link: Entdecken
+  discover_link: Bildung
   displaying_numerical_range_eol_records_with_count:
     one: Ein Datensatz auf EOL anzeigen
     other: Die Datensätze %{start_number} &ndash; %{end_number} von %{count} auf EOL
@@ -5291,10 +5299,13 @@ de:
   eol_news: Nachrichten der EOL
   eol_pages: Seiten
   error_log_detail: Fehlerprotokolldetail
-  error_revoking_editor_on_watch_collection: Bearbeiter können nicht von der Beobachtung
-    von Sammlungen entfernt werden
   error_log: Fehlerprotokoll
   error_logging_active: Fehlerprotokollierung aktive
+  error_violates_tos: Es scheint, als ob Ihr Inhalt die Nutzungsbedingungen von EOL
+    verletzt. Falls Sie denken, dass dies ein Fehler war, kontaktieren Sie uns zur
+    Unterstützung.
+  error_revoking_editor_on_watch_collection: Bearbeiter können nicht von der Beobachtung
+    von Sammlungen entfernt werden
   error_401_page_title: Nicht berechtigt
   error_401_description: Sie sind leider nicht berechtigt auf diese URL zuzugreifen.
   error_403_page_title: Nicht gestattet
@@ -5671,6 +5682,7 @@ de:
     gibt alle Inhalte ungeachtet des Status aus.
   reindex_data_object_button: Objekt reindexieren
   reindex_page_button: Seite reindizieren
+  reindex_users_button: Nutzerzähler neu indexieren
   image: Bild
   image_cropped_notice: Das Bild wurde erfolgreich zugeschnitten.
   image_crop_failed_error: Leider ist ein Fehler aufgetreten. Das Bild konnte nicht
@@ -5757,7 +5769,8 @@ de:
   item_type_sound_assistive: Dieses Objekt ist ein Geräusch
   item_type_taxon_assistive: Dieses Objekt ist ein Taxon
   item_type_video_assistive: Dieses Objekt ist ein Video
-  item_not_added_already_in_collection: Dieses Objekt wurde bereits zur Sammlung hinzugefügt.
+  item_not_added_already_in_collection: Das Objekt %{value} wurde bereits zur Sammlung
+    hinzugefügt.
   item_not_added_to_itself_notice: Die Sammlung <em>%{collection_name}</em> kann nicht
     zu sich selbst hinzugefügt werden.
   item_not_added_to_collection_error: Es ist leider ein Fehler aufgetreten, so dass
@@ -6239,6 +6252,7 @@ de:
   object: Objekt
   object_curated: Kuratierte Objekte.
   objects_curated: Kuratierte Objekte
+  object_removed: (dieses Objekt wurde von der Datenbank entfernt)
   object_status: Objektstatus
   object_status_all_option: Alle
   object_status_trusted_option: Vertrauenswürdige
@@ -6554,6 +6568,9 @@ de:
   return_all_synonyms_for_this_taxon: Alle Synonyme dieses Taxons ausgeben
   return_references_for_the_page_taxon: Alle Quellen für das Seitentaxon ausgeben
   return_synonyms_for_the_page_taxon: Alle Synonyme für das Seitentaxon ausgeben
+  return_any_taxonomy_details_from_different_hierarchy_providers: gibt Einzelheiten
+    zur Taxonomie von anderen Taxonhierarchieanbietern zurück, in einer Anordnung
+    namens „taxonConcepts“
   returns_all_metadata_about_a_particular_collection: gibt alle Metadaten zu einer
     bestimmten Sammlung sowie den in ihr enthaltenen und von EOL indexierten Elemente
     zurück
@@ -6562,6 +6579,7 @@ de:
   returns_either_a_positive_or_negative_response: gibt entweder eine positive (alle
     API funktionieren) oder aber eine negative bzw. gar keine Antwort (alle API funktionieren
     momentan nicht) zurück
+  returns_either_a_batch_or_not: gibt entweder einen Stapel zurück oder nicht
   revisions: Versionen
   rights: Berechtigungen
   rights_holder: Rechteinhaber
@@ -7278,6 +7296,7 @@ de:
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong> kommentierte zu Daten,
     die entfernt wurden.
+  user_count_reindexed: Nutzerzähler wurden neu indexiert
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: Nutzerkennung
   user_index_intro: Alle registrierten Nutzer werden unten, in umgekehrter Reihenfolge
@@ -7327,6 +7346,7 @@ de:
     one: '%{count} aktueller Inhaltspartner'
     other: '%{count} aktuelle Inhaltspartner'
   users_curation_header: Meine Qualifikationen als Kurator
+  user_counts_refresh_daily: '*Zähler werden täglich aktualisiert'
   users_form_account_header: Ihr Konto
   users_form_curation_header: Meine Qualifikationen als Kurator
   users_form_profile_info_header: Öffentliche Profilinformationen

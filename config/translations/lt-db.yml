@@ -168,47 +168,72 @@ lt:
   translated_synonym_relations-label-synonym_relation_id-52: institucija
   translated_synonym_relations-label-synonym_relation_id-53: nepublikuotas pavadinimas
   translated_synonym_relations-label-synonym_relation_id-57: rašybos alternatyvą
+  translated_synonym_relations-label-synonym_relation_id-63: ne priimtas
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-17: Literatūros šaltiniai
   translated_table_of_contents-label-table_of_contents_id-194: Dydis
   translated_table_of_contents-label-table_of_contents_id-1: Peržiūra
+  translated_table_of_contents-label-table_of_contents_id-221: Rizikos
   translated_table_of_contents-label-table_of_contents_id-225: Tinkle
   translated_table_of_contents-label-table_of_contents_id-227: Ieškoti žiniatinklyje
   translated_table_of_contents-label-table_of_contents_id-244: Bibliografijos
   translated_table_of_contents-label-table_of_contents_id-267: Morfologija
   translated_table_of_contents-label-table_of_contents_id-278: Bibliografija
+  translated_table_of_contents-label-table_of_contents_id-285: Asociacijos
   translated_table_of_contents-label-table_of_contents_id-289: Evoliucija
+  translated_table_of_contents-label-table_of_contents_id-296: Valdymas
   translated_table_of_contents-label-table_of_contents_id-299: Švietimas
   translated_table_of_contents-label-table_of_contents_id-300: Vikipedija
+  translated_table_of_contents-label-table_of_contents_id-303: Pavadinimai ir taksonomija
+  translated_table_of_contents-label-table_of_contents_id-304: Susiję pavadinimai
   translated_table_of_contents-label-table_of_contents_id-305: Sinonimai
   translated_table_of_contents-label-table_of_contents_id-306: Puslapio statistiką
+  translated_table_of_contents-label-table_of_contents_id-310: Valdymas
   translated_table_of_contents-label-table_of_contents_id-312: Migracija
+  translated_table_of_contents-label-table_of_contents_id-313: Ligos ir parazitai
+  translated_table_of_contents-label-table_of_contents_id-314: Populiacijos biologija
+  translated_table_of_contents-label-table_of_contents_id-315: Gyvenimo istorija ir
+    elgesys
+  translated_table_of_contents-label-table_of_contents_id-316: Elgesys
   translated_table_of_contents-label-table_of_contents_id-318: Gyvavimo ciklas
   translated_table_of_contents-label-table_of_contents_id-320: Reprodukcija
   translated_table_of_contents-label-table_of_contents_id-321: Augimas
+  translated_table_of_contents-label-table_of_contents_id-322: Fosilijų istorija
+  translated_table_of_contents-label-table_of_contents_id-325: Fiziologija ir ląstelės
+    biologija
   translated_table_of_contents-label-table_of_contents_id-327: Fiziologija
+  translated_table_of_contents-label-table_of_contents_id-328: Ląstelės biologija
   translated_table_of_contents-label-table_of_contents_id-329: Genetika
   translated_table_of_contents-label-table_of_contents_id-331: Brūkšninis kodas
+  translated_table_of_contents-label-table_of_contents_id-332: Genomas
+  translated_table_of_contents-label-table_of_contents_id-333: Molekulinė biologija
+  translated_table_of_contents-label-table_of_contents_id-334: Grėsmės
   translated_table_of_contents-label-table_of_contents_id-336: Pastabos
   translated_table_of_contents-label-table_of_contents_id-337: Švietimas
   translated_table_of_contents-label-table_of_contents_id-338: Švietimo nuorodos
   translated_table_of_contents-label-table_of_contents_id-339: Švietimo ištekliai
   translated_table_of_contents-label-table_of_contents_id-344: Duomenys
   translated_table_of_contents-label-table_of_contents_id-345: Duomenų šaltiniai
+  translated_table_of_contents-label-table_of_contents_id-347: Taksonomija
+  translated_table_of_contents-label-table_of_contents_id-348: Tipo informacija
   translated_table_of_contents-label-table_of_contents_id-34: Komentarai
   translated_table_of_contents-label-table_of_contents_id-3: Fizinis aprašymas
   translated_table_of_contents-label-table_of_contents_id-4: Ekologija
   translated_table_of_contents-label-table_of_contents_id-7: Nuorodos ir daugiau informacijos
+  translated_table_of_contents-label-table_of_contents_id-8: Išsaugojimas
   translated_untrust_reasons-label-untrust_reason_id-3: žemos kokybės
   translated_untrust_reasons-label-untrust_reason_id-4: Pasikartojantis
   translated_untrust_reasons-label-untrust_reason_id-5: Kita
+  translated_user_identities-label-user_identity_id-1: entuziastas
   translated_user_identities-label-user_identity_id-2: studentas
+  translated_user_identities-label-user_identity_id-5: profesionalus mokslininkas
   translated_vetted-label-vetted_id-0: Nežinomas
   translated_vetted-label-vetted_id-4: Nepatikimas
   translated_vetted-label-vetted_id-5: Patikimas
   translated_vetted-label-vetted_id-6: Netinkamas
   translated_view_styles-name-view_style_id-1: Sąrašas
   translated_view_styles-name-view_style_id-2: Galerija
+  translated_view_styles-name-view_style_id-3: Anotuota
   translated_visibilities-label-visibility_id-0: Nematomas
   translated_visibilities-label-visibility_id-1: Matomas
   translated_visibilities-label-visibility_id-2: Peržiūra

@@ -44,14 +44,14 @@ ko:
   translated_collection_types-label-collection_type_id-10: 소리
   translated_collection_types-label-collection_type_id-11: 링크
   translated_collection_types-label-collection_type_id-12: 문헌
-  translated_collection_types-label-collection_type_id-13: 분류
+  translated_collection_types-label-collection_type_id-13: 분류학
   translated_collection_types-label-collection_type_id-14: 분자 바코드
   translated_collection_types-label-collection_type_id-15: 설명
   translated_collection_types-label-collection_type_id-16: 그림
   translated_collection_types-label-collection_type_id-17: 배포
   translated_collection_types-label-collection_type_id-18: 보존 상태
   translated_collection_types-label-collection_type_id-19: 이름 정보
-  translated_collection_types-label-collection_type_id-1: 분류
+  translated_collection_types-label-collection_type_id-1: 분류학
   translated_collection_types-label-collection_type_id-20: 분자 데이터
   translated_collection_types-label-collection_type_id-21: 명명법
   translated_collection_types-label-collection_type_id-22: 소리
@@ -334,7 +334,7 @@ ko:
   translated_table_of_contents-label-table_of_contents_id-344: 데이터
   translated_table_of_contents-label-table_of_contents_id-345: 데이터 원본
   translated_table_of_contents-label-table_of_contents_id-346: 생명 공학 용어
-  translated_table_of_contents-label-table_of_contents_id-347: 분류
+  translated_table_of_contents-label-table_of_contents_id-347: 분류학
   translated_table_of_contents-label-table_of_contents_id-348: 종류 정보
   translated_table_of_contents-label-table_of_contents_id-34: 댓글
   translated_table_of_contents-label-table_of_contents_id-3: 물리적 설명

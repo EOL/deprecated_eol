@@ -1547,7 +1547,7 @@ sr-Latn:
   details_title: Detalji
   did_you_mean: Da niste mislili na %{suggestions}?
   disabled_for_now: ZASAD ONEMOGUĆEN
-  discover_link: Otkrijte
+  discover_link: Obrazovanje
   done_already: Već urađeno
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Ne prikazuj
     nepoznate upisane korisnike (korisnike prvog izdanja, pre 5. januara 2009.)
@@ -1878,7 +1878,7 @@ sr-Latn:
   item_type_sound_assistive: Ova stavka je zvuk
   item_type_taxon_assistive: Ova stavka je takson
   item_type_video_assistive: Ova stavka je video-snimak
-  item_not_added_already_in_collection: Ova stavka se već nalazi u zbirci.
+  item_not_added_already_in_collection: Ova stavka:%{value} se već nalazi u zbirci.
   item_not_added_to_itself_notice: Nažalost, ne možete dodati zbirku <em>%{collection_name}</em>
     u samu sebe.
   item_not_added_to_collection_error: Nažalost, došlo je do greške. Ne mogu da dodam

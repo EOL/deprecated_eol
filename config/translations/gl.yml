@@ -4807,10 +4807,10 @@ gl:
   eol_news: Novas da EOL
   eol_pages: Páxinas
   error_log_detail: Detalles no rexistro de erros
-  error_revoking_editor_on_watch_collection: Non se pode eliminar aos editores das
-    coleccións de seguimento
   error_log: Rexistro de erros
   error_logging_active: Rexistro activo dos erros
+  error_revoking_editor_on_watch_collection: Non se pode eliminar aos editores das
+    coleccións de seguimento
   error_401_page_title: Non autorizado
   error_401_description: Sentímolo, non ten autorización para acceder a este enderezo
     URL.
@@ -5203,7 +5203,7 @@ gl:
   item_type_sound_assistive: Este elemento é un son
   item_type_taxon_assistive: Este elemento é un taxon
   item_type_video_assistive: Este elemento é un vídeo
-  item_not_added_already_in_collection: Este elemento xa se engadira á colección.
+  item_not_added_already_in_collection: Este elemento:%{value} xa se engadira á colección.
   item_not_added_to_itself_notice: Sentímolo, non se pode engadir a colección <em>%{collection_name}</em>
     a si mesma.
   item_not_added_to_collection_error: Sentímolo, houbo un erro. Non se engadiron os

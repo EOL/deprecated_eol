@@ -4,6 +4,7 @@
 # Author: AnakngAraw
 # Author: Jewel457
 # Author: Jojit fb
+# Author: Leeheonjin
 # Author: TheSleepyhollow02
 ---
 tl:
@@ -1832,6 +1833,8 @@ tl:
         meta_description: Mga kaugnayang kawaksi sa nilalaman ni %{user_full_name}.
         meta_title: Mga Kawaksi sa Nilalaman ni %{user_full_name}
         tweet_text: mga kawaksi sa nilalaman ni %{user_full_name}
+    data_downloads:
+      file_not_processed: Hindi pa nai-proseso ang talaksang ito,
     edit:
       form_tip_account: Upang lumagdang papasok sa EOL maaaring mangailangan ka ng
         pangalan ng tagagamit at hudyat ng EOL, o maaari kang kumunekta sa isang akawnt
@@ -4405,7 +4408,7 @@ tl:
   details_title: Mga detalye
   did_you_mean: 'Ibig mo bang sabihin: %{suggestions} ?'
   disabled_for_now: HINDI PINAGAGANA SA NGAYON
-  discover_link: Tumuklas
+  discover_link: Edukasyon
   done_already: Nagawa na
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Huwag ipakita
     ang hindi nakikilalang mga petsang nakarehistro (mga tagagamit ng V1, lahat bago

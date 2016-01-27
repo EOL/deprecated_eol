@@ -2787,7 +2787,7 @@ zh-TW:
     %{creative_commons_link} 的授權，請造訪他們的網站以取得他們提供的各類授權資訊。
   a_pipe_delimited_list_of_spm_info_item_subject_names: 用'概要'回報概要的文字(若是存在的話)、一個從 %{subjects_text}
     清單(例如：TaxonBiology, FossilHistory)得到的以'|'符號分隔的主題名稱清單、或是以'all'取得任何主題之下的文字。永遠回報一個概要的文字作為第一個結果(若是在所給上下文情況之下存在的話)。
-  api_results_can_be_cached: 呼叫API得到的任何回應都可以被快取並指定保存時間。使用 "cache_ttl" 參數，其數值即是API的回應快取被保存的秒數。如此一來HTTP標投中便會指示瀏覽器替結果建立快取，同時在EOL的伺服器裡也將建立快取並保存參數中指定的秒數。如果參數
+  api_results_can_be_cached: 呼叫API得到的任何回應都可以被快取並指定儲存時間。使用 "cache_ttl" 參數，其數值即是API的回應快取被儲存的秒數。如此一來HTTP標投中便會指示瀏覽器替結果建立快取，同時在EOL的伺服器裡也將建立快取並儲存參數中指定的秒數。如果參數
     "cache_ttl" 的數值被改變，第一個使用新值的連線請求將不會使用快取，但後續請求將得以運用新的快取回應內容。
   application_version_advisory_information: 應用版本
   are_you_sure: 您確定嗎？
@@ -4869,7 +4869,7 @@ zh-TW:
     other: '%{count} 個影片'
   view_verb: 瀏覽
   view_added_text: 瀏覽新增文字
-  view_as_button: 更改顯示
+  view_as_button: 變更顯示
   view_as_label: 顯示為
   view_contact_us_submissions: 瀏覽提交自「聯絡我們」的內容
   view_curators: 瀏覽管理者

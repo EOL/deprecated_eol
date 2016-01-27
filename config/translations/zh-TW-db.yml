@@ -3,6 +3,7 @@
 # Export driver: phpyaml
 # Author: Cwlin0416
 # Author: Dream
+# Author: LNDDYL
 # Author: Liuxinyu970226
 # Author: Taieol
 ---
@@ -86,7 +87,7 @@ zh-TW:
   translated_content_partner_statuses-label-content_partner_status_id-2: 營運中
   translated_content_partner_statuses-label-content_partner_status_id-3: 已歸檔
   translated_content_partner_statuses-label-content_partner_status_id-4: 未運作
-  translated_content_tables-label-content_table_id-1: 詳細資訊
+  translated_content_tables-label-content_table_id-1: 詳細資料
   translated_data_types-label-data_type_id-10: 地圖
   translated_data_types-label-data_type_id-1: 圖像
   translated_data_types-label-data_type_id-2: 聲音

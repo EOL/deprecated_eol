@@ -5,6 +5,7 @@
 # Author: Milicevic01
 # Author: Rancher
 # Author: Srdjan m
+# Author: Сербијана
 ---
 sr:
   activerecord:
@@ -21,13 +22,17 @@ sr:
       collection_item:
         annotation: Забелешка
         sort_field: Поређај по
-        refs: Наводи
+        refs: Референце
       comment:
         body: Коментар
       community:
         name: Назив заједнице
         description: Опис заједнице
         logo: Отпреми логотип
+      contact:
+        comments: Порука
+        email: Имејл
+        name: Име
       content_page:
         page_name: Јединствени назив
         sort_order: Редослед сврставања
@@ -53,7 +58,7 @@ sr:
         signed_by: Потписник
         signed_on_date: Датум
       content_partner_contact:
-        email_reports_frequency_hours: Учесталост извештаја преко е-поште
+        email_reports_frequency_hours: Учесталост извештаја преко имејла
       data_object:
         bibliographic_citation: Библиографско навођење
         description: Текст
@@ -61,6 +66,8 @@ sr:
         rights_holder: Носилац права
         rights_statement: Изјава о правима
         source_url: Изворна адреса
+      data_object_link:
+        description: Опис
       eol_statistic:
         created_at: Направљено на
         members_count: Чланови
@@ -172,7 +179,7 @@ sr:
         credentials: Уверења
         curator_level: Ниво кустосирања
         curator_scope: Опсег кустосирања
-        email: Е-адреса
+        email: Имејл адреса
         entered_password: Лозинка
         entered_password_confirmation: Потврда лозинке
         family_name: Презиме
@@ -299,7 +306,7 @@ sr:
           онда је најпре <a href="%{upload_content_url}">отпремите</a>, па ћете потом
           добити њену адресу.
       content_partner_contact:
-        email_reports_frequency_hours_more: Извештаји преко е-поште се шаљу само ако
+        email_reports_frequency_hours_more: Извештаји преко имејла се шаљу само ако
           има коментара или кустоских радњи на вашим подацима или таксонским страницама
           који се односе на њих.
       data_object:
@@ -579,6 +586,9 @@ sr:
   eol_statistics:
     data:
       page_title: Статистике
+  layouts:
+    application:
+      about_link_discover: Образовање
   members:
     index:
       meta_description: Чланови заједнице %{community_name}.
@@ -669,7 +679,7 @@ sr:
       message: |-
         Следећа порука је послата на EOL преко обрасца за контакт:
         Од: %{from_name}
-        Е-адреса: %{from_email}
+        Имејл: %{from_email}
         Наслов: %{subject}
 
         %{message}
@@ -1892,7 +1902,7 @@ sr:
   details_title: Детаљи
   did_you_mean: Да нисте мислили на %{suggestions}?
   disabled_for_now: ЗАСАД ОНЕМОГУЋЕН
-  discover_link: Откријте
+  discover_link: Образовање
   done_already: Већ урађено
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Не приказуј
     непознате уписане кориснике (кориснике првог издања, пре 5. јануара 2009.)
@@ -1919,10 +1929,10 @@ sr:
   edit_search_suggestions: уреди предлоге претраге
   edit_table_of_contents: уреди табелу садржаја
   edit_tag_suggestions: уреди предлоге ознаке
-  edit_the_topic_area_intro: Испод уредите област теме и е-адресу, и означите активну
-    кућицу да бисте их приказали корисницима на страници за контакт.
+  edit_the_topic_area_intro: Испод уредите област теме и имејл адресу, и означите
+    активну кућицу да бисте их приказали корисницима на страници за контакт.
   edit_user_details_instructions: Испод уредите корисничке податке. Кориснику можете
-    да пошаљете поруку од система тако што ћете кликнути на „прикажи поље за е-пошту“
+    да пошаљете поруку од система тако што ћете кликнути на „прикажи поље за имејл“
     и написати садржај поруке. Унесите нову лозинку само ако желите да промените постојећу,
     иначе оставите поље празно.
   edit_the_user_s_comment_below: Испод уредите коментар корисника.
@@ -1930,8 +1940,8 @@ sr:
   edit_username: Уреди %{username}
   edit_web_users: уреди кориснике
   editors_tab_label: Управници
-  email: Е-адреса
-  email_colon: 'Е-адреса:'
+  email: Имејл
+  email_colon: 'Имејл:'
   email_recipients: Примаоци е-порука
   eol_curator_activity_email_message: Кустос <a href='%{profile_url}'>%{curator_full_name}</a>
     %{action} на <a href='%{data_object_url}'>EOL-у</a>%{comment}
@@ -2231,7 +2241,7 @@ sr:
   item_type_sound_assistive: Ова ставка је звук
   item_type_taxon_assistive: Ова ставка је таксон
   item_type_video_assistive: Ова ставка је видео-снимак
-  item_not_added_already_in_collection: Ова ставка се већ налази у збирци.
+  item_not_added_already_in_collection: Ова ставка:%{value} се већ налази у збирци.
   item_not_added_to_itself_notice: Нажалост, не можете додати збирку <em>%{collection_name}</em>
     у саму себе.
   item_not_added_to_collection_error: Нажалост, дошло је до грешке. Не могу да додам
@@ -2332,7 +2342,7 @@ sr:
     назива из текста који се налази на дигитализованим страницама збирке BHL-а.
   literature_bhl_link: Погледај Откривену библиографију на BHL-у
   literature_empty: Не могу да пронађем наводе.
-  literature_header: Наводи
+  literature_header: Референце
   literature_references: Наводи из литературе
   location: Место
   location_colon: 'Место:'
@@ -2634,7 +2644,7 @@ sr:
   page: Страница
   page_results_avg: Резултата на страници (просечно)
   page_urls: 'Адреса странице:'
-  pages_title: Наводи
+  pages_title: Референце
   pages_with_count:
     one: '%{count} страница'
     other: '%{count} странице'
@@ -2762,7 +2772,7 @@ sr:
   recognized_by_as_a_rank: '%{recognized_by} као %{taxon_rank}'
   recognized_by_from_source_as_a_rank: '%{recognized_by} у %{source} као %{taxon_rank}'
   record_not_found: (запис није пронађен)
-  references_cabs_colon: 'Наводи:'
+  references_cabs_colon: 'Референце:'
   related_names_with_count:
     one: '%{count} сродни назив'
     other: '%{count} сродна назива'
@@ -2776,13 +2786,13 @@ sr:
   removed_count_items_from_collection_notice:
     one: Из збирке је уклоњена %{count} ставка.
     other: Из збирке су уклоњене %{count} ставке.
-  request_mailing_list_colon: 'Корисник не жели да прима е-пошту:'
+  request_mailing_list_colon: 'Корисник не жели да прима имејл:'
   request: Захтевање
   required_form_element: Неопходно
   reset_password_enter_new_password_notice: Ово је једнократна пријава. Унесите нову
     лозинку да бисте наставили.
   reset_password_instructions_sent_to_user_notice: Упутства за постављање нове лозинке
-    за налог <em>%{username}</em> су послата на вашу е-адресу.
+    за налог <em>%{username}</em> су послата на Вашу имејл адресу.
   reset_password_token_expired_error: Нажалост, не могу да изменим лозинку. Наведена
     веза је истекла. Поново попуните и пошаљите образац да бисте примили нову везу.
   resource: Ресурс
@@ -2884,8 +2894,8 @@ sr:
   select_topic: Изаберите тематику
   selected_language_advisory_information: Тренутно је изабран овај језик.
   selected_items: Изабране ставке
-  send_contact_email: Пошаљи е-пошту за контакт
-  send_email_colon: 'Пошаљите е-поруку:'
+  send_contact_email: Пошаљи имејл за контакт
+  send_email_colon: 'Пошаљите имејл:'
   send: Пошаљи
   sent_invitations_to_users:
     one: Порука је послата на %{users}.
@@ -2896,7 +2906,7 @@ sr:
   share_a_collection: Дели збирку
   show: Прикажи
   show_data_from_all_content_partners: Уклони филтер за класификацију
-  show_email_message_area: (прикажи подручје за е-пошту)
+  show_email_message_area: (прикажи подручје за имејл)
   show_full_tree: прикажи цело стабло
   show_status_message: Прикажи статусну поруку
   show_tasks: прикажи задатке

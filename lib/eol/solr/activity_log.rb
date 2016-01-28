@@ -228,7 +228,7 @@ module EOL
       end
 
       def self.solr_search(query, options = {})
-        unless options[:user] && options[:user].can_see_data?
+        unless options[:user] && EolConfig.data?
           query += " NOT action_keyword:DataPointUri NOT action_keyword:UserAddedData NOT activity_log_type:UserAddedData"
         end
         per_page  = options[:per_page] ? options[:per_page].to_i : 10

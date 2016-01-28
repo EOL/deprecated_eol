@@ -92,7 +92,6 @@ describe 'taxa/data/index' do
       assign(:include_other_category, true)
       assign(:units_for_select, KnownUri.default_units_for_form_select)
       user = build_stubbed(User)
-      user.stub(:can_see_data?) { true }
       view.stub(:current_user) { user }
       view.stub(:current_language) { Language.default }
       view.stub(:logged_in?) { false }

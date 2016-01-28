@@ -4,7 +4,6 @@ class DataSearchController < ApplicationController
 
   include ActionView::Helpers::TextHelper
 
-  before_filter :restrict_to_data_viewers
   before_filter :allow_login_then_submit, only: :download
 
   layout 'data_search'

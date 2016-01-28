@@ -130,9 +130,10 @@ describe 'API:pages' do
     end
   end
 
-  it 'pages should take api key and save it to the log' do
-    check_api_key("/api/pages/#{@taxon_concept.id}.json?key=#{@user.api_key}", @user)
-  end
+  # not logging API anymore!
+  # it 'pages should take api key and save it to the log' do
+    # check_api_key("/api/pages/#{@taxon_concept.id}.json?key=#{@user.api_key}", @user)
+  # end
 
   it 'pages should return only published concepts' do
     @taxon_concept.update_column(:published, 0)

@@ -12,10 +12,11 @@ describe 'API:collections' do
     EOL::Solr::CollectionItemsCoreRebuilder.begin_rebuild
   end
 
-  it 'should create an API log including API key' do
-    user = User.gen(api_key: User.generate_key)
-    check_api_key("/api/collections/#{@collection.id}?key=#{user.api_key}", user)
-  end
+  # not logging API anymore!
+  # it 'should create an API log including API key' do
+    # user = User.gen(api_key: User.generate_key)
+    # check_api_key("/api/collections/#{@collection.id}?key=#{user.api_key}", user)
+  # end
 
   it 'should return XML' do
     response = get_as_xml("/api/collections/#{@collection.id}.xml")

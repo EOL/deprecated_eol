@@ -94,11 +94,12 @@
                 = format_value(trait).html_safe
                 = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
             %td.source
-              - if trait.resource
-                = link_to(trait.resource.content_partner.name,
-                  [trait.partner, trait.resource])
-              - else
-                = link_to("See original source", trait.source_url)
+              %span.source
+                - if trait.resource
+                  = link_to(trait.resource.content_partner.name,
+                    [trait.partner, trait.resource])
+                - else
+                  = link_to("See original source", trait.source_url)
             %td.comment
               %span.comments
                 - if trait.comments.empty?

@@ -22,7 +22,7 @@ unless page.blank?
     xml.additionalInformation do
       page['taxonConcepts'].each do |tc|
         xml.dwct :Taxon do
-          xml.dc :identifier, tc['sourceIdentfier']
+          xml.dc :identifier, tc['sourceIdentifier']
           xml.dwct :taxonID, url_for(:controller => 'api', :action => 'hierarchy_entries', :id => tc['identifier'], :only_path => false)
           xml.dwct :scientificName, tc['scientificName']
           xml.dwct :nameAccordingTo, tc['nameAccordingTo']

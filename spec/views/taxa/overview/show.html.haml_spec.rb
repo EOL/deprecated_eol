@@ -72,7 +72,6 @@ describe 'taxa/overview/show' do
       user = double(User)
       user.stub(:min_curator_level?) { false }
       user.stub(:watch_collection) { nil }
-      user.stub(:can_see_data?) { true }
       user.stub(:logo_url) { 'whatever' }
       view.stub(:current_user) { user }
       view.stub(:logged_in?) { false }

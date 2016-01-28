@@ -299,8 +299,8 @@ protected
 private
 
   def periodically_recalculate_homepage_parts
-    Rails.cache.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1 + '/data-' + current_user.can_see_data?.to_s, expires_in: $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      expire_fragment(action: 'index', action_suffix: "activity_#{current_language.iso_639_1}_data-#{current_user.can_see_data?.to_s}")
+    Rails.cache.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1 + '/data-' + EolConfig.data?.to_s, expires_in: $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
+      expire_fragment(action: 'index', action_suffix: "activity_#{current_language.iso_639_1}_data-#{EolConfig.data?.to_s}")
     end
     Rails.cache.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, expires_in: 120.seconds) do
       expire_fragment(action: 'index', action_suffix: "march_of_life_#{current_language.iso_639_1}")

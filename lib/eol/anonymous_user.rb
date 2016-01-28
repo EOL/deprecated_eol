@@ -44,10 +44,6 @@ module EOL
       object.respond_to?(:can_be_read_by?) ? object.can_be_read_by?(self) : false
     end
 
-    def can_see_data?
-      EolConfig.data?
-    end
-
     def defaults
       @defaults ||=
         Rails.cache.fetch("anonymous/#{@lang}") do

@@ -42,7 +42,7 @@ protected
   end
 
   def load_data
-    raise "Data is temporarily disabled" unless current_user.can_see_data?
+    raise "Data is temporarily disabled" unless EolConfig.data?
     EOL.log_call
     # Sad that we need to load all of this for the about and glossary tabs, but
     # TODO - we can cache this, later:

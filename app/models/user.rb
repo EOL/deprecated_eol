@@ -357,13 +357,6 @@ class User < ActiveRecord::Base
     resource.can_be_deleted_by?(self)
   end
 
-  def can_see_data?
-    return false if ENV["NO_DATA"] # Trumps all other settings
-    return true if (EolConfig.all_users_can_see_data rescue false)
-    return true if can?(:see_data)
-    false
-  end
-
   def can_manage_community?(community)
     if member = member_of(community) # Not a community she's even in.
       return true if community && member.manager? # She's a manager

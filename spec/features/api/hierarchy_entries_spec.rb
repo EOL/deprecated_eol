@@ -17,10 +17,11 @@ describe 'API:hierarchy_entries' do
     @synonym = Synonym.gen(hierarchy_entry: @hierarchy_entry, synonym_relation: not_common_name)
   end
 
-  it 'should create an API log including API key' do
-    user = User.gen(api_key: User.generate_key)
-    check_api_key("/api/hierarchy_entries/#{@hierarchy_entry.id}?key=#{user.api_key}", user)
-  end
+  # not logging API anymore!
+  # it 'should create an API log including API key' do
+    # user = User.gen(api_key: User.generate_key)
+    # check_api_key("/api/hierarchy_entries/#{@hierarchy_entry.id}?key=#{user.api_key}", user)
+  # end
 
   it 'hierarchy_entries should show all information for hierarchy entries in DWC format' do
     visit("/api/hierarchy_entries/#{@hierarchy_entry.id}")

@@ -20,10 +20,11 @@ describe 'API:traits' do
     @best_image = @taxon_concept.exemplar_or_best_image_from_solr
   end
 
-  it 'should create an API log including API key' do
-    user = User.gen(api_key: User.generate_key)
-    check_api_key("/api/ggi/#{@taxon_concept.id}?key=#{user.api_key}", user)
-  end
+  # not logging API anymore!
+  # it 'should create an API log including API key' do
+    # user = User.gen(api_key: User.generate_key)
+    # check_api_key("/api/ggi/#{@taxon_concept.id}?key=#{user.api_key}", user)
+  # end
 
   it 'pages should be able to render a JSON response' do
     response = get_as_json("/api/ggi/1.0/#{@taxon_concept.id}")

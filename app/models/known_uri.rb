@@ -59,10 +59,10 @@ class KnownUri < ActiveRecord::Base
 
   has_many :translated_known_uris
   has_many :user_added_data
-  has_many :known_uri_relationships_as_subject, class_name: KnownUriRelationship.name, foreign_key: :from_known_uri_id,
-    dependent: :destroy
-  has_many :known_uri_relationships_as_target, class_name: KnownUriRelationship.name, foreign_key: :to_known_uri_id,
-    dependent: :destroy
+  has_many :known_uri_relationships_as_subject, dependent: :destroy,
+    class_name: KnownUriRelationship.name, foreign_key: :from_known_uri_id
+  has_many :known_uri_relationships_as_target, dependent: :destroy,
+    class_name: KnownUriRelationship.name, foreign_key: :to_known_uri_id
 
   has_and_belongs_to_many :toc_items
 

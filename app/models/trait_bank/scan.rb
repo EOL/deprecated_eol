@@ -12,11 +12,11 @@ class TraitBank
       #
       # { querystring: @querystring, attribute: @attribute,
       #   min_value: @min_value, max_value: @max_value, page: @page,
-      #   offset: @offset, unit: @unit, sort: @sort, language: current_language,
+      #   unit: @unit, sort: @sort, language: current_language,
       #   taxon_concept: @taxon_concept,
       #   required_equivalent_attributes: @required_equivalent_attributes,
       #   required_equivalent_values: @required_equivalent_values }
-      # TODO: someday we might want to pass in a page size / limit
+      # TODO: someday we might want to pass in a page size
       def for(options)
         traits = trait_list(options)
         metadata(traits)
@@ -36,8 +36,8 @@ class TraitBank
       # PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
       # e.g.: http://purl.obolibrary.org/obo/OBA_0000056
       def scan_query(options = {})
-        limit = options[:limit] || 100
-        offset = options[:offset]
+        size = options[:page_size] || 100
+        offset = ((options[:page] || 1) - 1) * size
         clade = options[:clade]
         query = "# data_search part 1\n"
         fields = "DISTINCT ?page ?trait"
@@ -57,8 +57,8 @@ class TraitBank
           orders = ["xsd:float(REPLACE(?value, \",\", \"\"))"] #, "?value"]
           orders.map! { |ord| "DESC(#{ord})" } if options[:sort] =~ /^desc$/i
           query += "ORDER BY #{orders.join(" ")} "
-          query += "LIMIT #{limit} "\
-          "#{"OFFSET #{offset}" if offset}"
+          query += "LIMIT #{size} "
+          query += "OFFSET #{offset}" if offset && offset > 0
         end
         query
       end

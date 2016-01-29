@@ -105,19 +105,8 @@ class UserAddedDataController < ApplicationController
     end
   end
 
-  # NOTE - just passing in the field wasn't working (thought it would be by ref, but I guess not), so we need the
-  # hash and the key:
   def convert_field_to_uri(hash, key)
-    return unless hash[key]
-    return if EOL::Sparql.is_uri?(hash[key])
-    converted = convert_to_uri(hash[key])
-    if converted.blank?
-      # They want to create a new EOL-based URI:
-      hash[key] = KnownUri.custom(hash[key], current_language).uri unless key == :object # Not for values.
-    else
-      hash[key] = converted
-    end
-    hash[key]
+    raise NotImplementedError
   end
 
   # NOTE that this only takes the first one it finds.

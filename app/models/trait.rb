@@ -2,7 +2,7 @@ class Trait
   attr_reader :predicate, :point, :rdf, :page
 
   # TODO: put this in configuration:
-  SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
+  SOURCE_RE = TraitBank::SOURCE_RE
 
   def initialize(rdf, source_set, options = {})
     @rdf = rdf
@@ -42,10 +42,6 @@ class Trait
     @point.comments
   end
 
-  def content_partner
-    resource && resource.content_partner
-  end
-
   def glossary
     @source_set.glossary
   end
@@ -62,9 +58,29 @@ class Trait
     rdf_to_uri(life_stage)
   end
 
+  def meta
+    return @meta if @meta
+    @meta = {}
+    @rdf.each do |rdf|
+      pred = rdf[:trait_predicate].to_s
+      val = rdf[:value].to_s
+      # Skip type of row:
+      next if pred == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+      # Skip the value (that's already shown):
+      next if pred == "http://rs.tdwg.org/dwc/terms/measurementValue"
+      # Skip resource as "source"
+      next if val =~ SOURCE_RE
+      pred_uri = glossary.find { |g| g.uri == pred }
+      val_uri = glossary.find { |g| g.uri == val }
+      @meta[pred_uri || pred] = val_uri || val
+    end
+    @meta
+  end
+
   def partner
     resource && resource.content_partner
   end
+  alias :content_partner :partner
 
   def predicate_name
     predicate_uri.try(:name)
@@ -79,7 +95,7 @@ class Trait
     return nil if source_id.nil?
     @resource = sources.find { |source| source.id == source_id }
     if @resource.nil?
-      EOL.log("JIT-loading resource #{source_id}")
+      EOL.log("JIT-loading resource #{source_id} (this is not good)")
       @resource = Resource.where(id: source_id).includes(:content_partner).first
       sources += @resource if sources && @resource
     end
@@ -161,6 +177,22 @@ class Trait
 
   def target_taxon_uri
     "http://eol.org/todo"
+  end
+
+  def units?
+    units
+  end
+
+  def units
+    rdf_value("http://rs.tdwg.org/dwc/terms/measurementUnit")
+  end
+
+  def units_uri
+    rdf_to_uri(units)
+  end
+
+  def units_name
+    units_uri.try(:name)
   end
 
   def value_rdf

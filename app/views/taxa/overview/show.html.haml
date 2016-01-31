@@ -116,7 +116,7 @@
         %p= link_to I18n.t(:learn_more_about_communities_link), cms_page_path('communities')
 
 #sidebar
-  - if current_user.can_see_data?
+  - if EolConfig.data?
     -# TEMP! Don't want this to affect testing:
     -# cache("overview/#{@taxon_page.to_param}/traits/#{current_language}", expires_in: 24.hours) do
     = render('trait_bank/summary')

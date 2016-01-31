@@ -3,13 +3,16 @@ require "spec_helper"
 describe Resource do
 
   before(:all) do
+    Resource.delete_all
+    Agent.delete_all
+    ContentPartner.delete_all
     populate_tables(:vetted, :visibilities, :resource_statuses,
       :content_partner_statuses, :licenses)
     iucn_user = User.gen(given_name: 'IUCN')
     Agent.gen(user: iucn_user, full_name: 'IUCN')
-    iucn_content_partner = ContentPartner.gen(user: iucn_user)
-    @iucn_resource1 = Resource.gen(content_partner: iucn_content_partner)
-    @iucn_resource2 = Resource.gen(content_partner: iucn_content_partner)
+    @iucn_content_partner = ContentPartner.gen(user: iucn_user)
+    @iucn_resource1 = Resource.gen(content_partner: @iucn_content_partner)
+
     content_partner = ContentPartner.gen(user: User.gen)
     @resource = Resource.gen(content_partner: content_partner)
     HarvestEvent.delete_all
@@ -33,7 +36,8 @@ describe Resource do
   end
 
   it '#iucn returns the last IUCN resource' do
-    Resource.iucn.should == @iucn_resource2
+    iucn_resource2 = Resource.gen(content_partner: @iucn_content_partner)
+    Resource.iucn.should == iucn_resource2
   end
 
   describe ".destroy_everything" do

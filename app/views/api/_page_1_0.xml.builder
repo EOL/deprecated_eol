@@ -22,7 +22,7 @@ unless page.blank?
 	  xml.richness_score page['richness_score']
 	  page['taxonConcepts'].each do |tc|
 	    xml.taxon do
-	      xml.dc :identifier, tc['sourceIdentfier']
+	      xml.dc :identifier, tc['sourceIdentifier']
 	      xml.dwc :taxonID, tc['identifier']
 	      xml.dwc :scientificName, tc['scientificName']
 	      xml.dwc :nameAccordingTo, tc['nameAccordingTo']
@@ -34,5 +34,5 @@ unless page.blank?
 
   page['dataObjects'].each do |data_object|
     xml << render(partial: 'data_object_1_0', layout: false, locals: { :data_object_hash => data_object, :taxon_concept_id => page['identifier'] } )
-  end
+  end if page['dataObjects']
 end

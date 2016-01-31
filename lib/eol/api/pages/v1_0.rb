@@ -189,7 +189,7 @@ module EOL
                   'nameAccordingTo' => entry.hierarchy.label,
                   'canonicalForm'   => (entry.name.canonical_form.string rescue '')
                 }
-                entry_hash['sourceIdentfier'] = entry.identifier unless entry.identifier.blank?
+                entry_hash['sourceIdentifier'] = entry.identifier unless entry.identifier.blank?
                 entry_hash['taxonRank'] = entry.rank.label.firstcap unless entry.rank.nil?
                 entry_hash['hierarchyEntry'] = entry unless params[:format] == 'json'
                 return_hash['taxonConcepts'] << entry_hash

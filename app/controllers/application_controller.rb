@@ -360,13 +360,6 @@ class ApplicationController < ActionController::Base
     restrict_to_curators_of_level(:assistant)
   end
 
-  def restrict_to_data_viewers
-    raise EOL::Exceptions::SecurityViolation.new(
-      "User with ID=#{current_user.id} attempted to access an area (#{current_url}) or perform an action"\
-      " that is restricted to Data Viewers, and was disallowed.",
-      :no_access) unless current_user.can_see_data?
-  end
-
   # A user is not authorized for the particular controller/action:
   def access_denied(exception = nil)
     if exception.respond_to?(:flash_error)

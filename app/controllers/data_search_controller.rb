@@ -4,7 +4,6 @@ class DataSearchController < ApplicationController
 
   include ActionView::Helpers::TextHelper
 
-  before_filter :restrict_to_data_viewers
   before_filter :allow_login_then_submit, only: :download
 
   layout 'data_search'
@@ -85,8 +84,6 @@ class DataSearchController < ApplicationController
     @max_value = (options[:max] && options[:max].is_numeric?) ? options[:max].to_f : nil
     @min_value,@max_value = @max_value,@min_value if @min_value && @max_value && @min_value > @max_value
     @page = options[:page].try(:to_i) || 1
-    # TODO: someday we might want to use a page size...
-    @offset = (@page - 1) * 100 + 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]
     @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil
     EOL.log("get equivs", prefix: ".")
@@ -160,10 +157,10 @@ class DataSearchController < ApplicationController
     else
       @units_for_select = KnownUri.default_units_for_form_select
     end
-    # NOTE: Offset in controller starts at 1 (TODO: why?), so I correct:
+    # TODO: Someday we might want a dynamic page size.
     @search_options = { querystring: @querystring, attribute: @attribute,
       min_value: @min_value, max_value: @max_value, page: @page,
-      offset: @offset - 1, unit: @unit, sort: @sort,
+      unit: @unit, sort: @sort,
       clade: @taxon_concept ? @taxon_concept.id : nil,
       required_equivalent_attributes: @required_equivalent_attributes,
       required_equivalent_values: @required_equivalent_values }

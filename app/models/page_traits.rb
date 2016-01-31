@@ -11,6 +11,7 @@ class PageTraits < TraitSet
       includes(:comments, :taxon_data_exemplars)
     uris = Set.new(@rdf.flat_map { |rdf|
       rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) } })
+    uris.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }
     # TODO: associations. We need the names of those taxa.
     EOL.log("glossary", prefix: ".")
     @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).

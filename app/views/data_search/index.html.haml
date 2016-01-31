@@ -43,7 +43,7 @@
             - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
             - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
             - taxon_link = taxon_data_path(trait.page)
-            %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' ') }
+            %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { loaded: true } }
               %td.taxon
                 .icon
                   - if image = trait.page.exemplar_or_best_image_from_solr
@@ -64,27 +64,15 @@
                   = trait.predicate_name
                   - if trait.statistical_method?
                     %span.stat= trait.statistical_method_names.join(", ")
-                  %span.info
-                    %ul.glossary
-                      = render(partial: 'known_uris/definition',
-                        locals: { known_uri: trait.predicate_uri, search_link: true, glossary_link: true })
+                  = render(partial: 'trait_bank/definition', locals: { known_uri: trait.predicate_uri, search_link: true, glossary_link: true })
               %td.val
                 .term{ data: { term: "TODO" }}
                   - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
                   = format_value(trait).html_safe
-                  - if trait.value_uri && trait.value_uri.is_a?(KnownUri)
-                    %span.info
-                      %ul.glossary
-                        = render(partial: 'known_uris/definition',
-                          locals: { known_uri: trait.value_uri, search_link: true,
-                          glossary_link: true })
-                  - if trait.sex
-                    %span.stat= trait.sex_name
-                  - if trait.life_stage
-                    %span.stat= trait.life_stage_name
+                  = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
               %td.source
-                - if trait.resource
-                  = link_to(trait.resource.content_partner.name,
+                - if trait.resource && trait.partner
+                  = link_to(trait.partner.name,
                     [trait.partner, trait.resource])
                 - else
                   = link_to(I18n.t(:source_url), trait.source_url)
@@ -96,13 +84,38 @@
                     = image_tag('comment_indicator.png')
             %tr.actions{ id: "#{trait.anchor}_actions", class: (classes + ['actions']).join(' ') }
               %td{ colspan: 5 }
+                .metadata
+                  %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
+                    %caption.title= I18n.t(:data_about_this_record)
+                    - i = 0
+                    - trait.meta.each do |pred, val|
+                      - i += 1
+                      - row_id = "#{trait.point.anchor}_meta_#{i}"
+                      %tr
+                        %th{id: "#{row_id}_h"}
+                          - if pred.is_a?(KnownUri)
+                            = pred.name
+                            = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
+                          - else
+                            = pred
+                        %td{id: "#{row_id}_d"}
+                          - if val.is_a?(KnownUri)
+                            = val.name
+                            = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
+                          - else
+                            = raw val.add_missing_hyperlinks
+                    %tr
+                      %th
+                        = I18n.t(:data_link_to_record)
+                        - info_icon
+                      - link = taxon_data_url(trait.page, anchor: trait.point.anchor)
+                      %td= link_to link, link
                 .actions
                   %ul
                     %li
-                      - if trait.content_partner
-                        = raw I18n.t("data_provided_by_content_partner",
-                          whom: link_to(trait.content_partner.name,
-                          trait.content_partner))
+                      - if trait.partner
+                        = raw I18n.t(:data_provided_by_content_partner,
+                          whom: link_to(trait.partner.name, trait.partner))
                       - else
                         = I18n.t(:data_point_uri_source_missing)
 - EOL.log("Search index DONE", prefix: "V")

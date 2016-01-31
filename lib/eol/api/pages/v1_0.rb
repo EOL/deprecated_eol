@@ -146,7 +146,7 @@ module EOL
             return_hash['richness_score'] = taxon_concept.taxon_concept_metric.richness_for_display(5) rescue 0
 
             if params[:synonyms]
-              return_hash["synonyms"] = 
+              return_hash["synonyms"] =
               taxon_concept.scientific_synonyms.
                 includes([:name, :synonym_relation, :hierarchy]).
                 map do |syn|
@@ -196,7 +196,7 @@ module EOL
               end
             end
           end
-          
+
           if (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
             return_hash['dataObjects'] = []
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
@@ -257,7 +257,7 @@ module EOL
           # preload necessary associations for API response
           DataObject.preload_associations(all_data_objects, [
             :users_data_object, { :agents_data_objects => [ :agent, :agent_role ] }, :published_refs, :audiences ] )
-          options[:licenses] = license            
+          options[:licenses] = license
           all_data_objects
         end
 

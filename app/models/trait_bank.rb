@@ -4,6 +4,8 @@ class TraitBank
     attr_reader :taxon_re
   end
 
+  SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
+
   @default_limit = 5000
   @taxon_re = Rails.configuration.known_taxon_uri_re
 

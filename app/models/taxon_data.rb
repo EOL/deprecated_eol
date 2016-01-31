@@ -93,7 +93,7 @@ class TaxonData < TaxonUserClassificationFilter
     # #dup used here because the return value is often altered to suit the
     # rendering, and we don't want to much with the data stored here.
     return @taxon_data_set.dup if defined?(@taxon_data_set)
-    unless user.can_see_data?
+    unless EolConfig.data?
       @categories = []
       return @taxon_data_set = []
     end
@@ -120,7 +120,7 @@ class TaxonData < TaxonUserClassificationFilter
   # TODO - spec for can see data check
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
   def get_data_for_overview
-    return nil unless user.can_see_data?
+    return nil unless EolConfig.data?
     picker = TaxonDataExemplarPicker.new(self).pick
   end
 
@@ -170,7 +170,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   # TODO - spec for can see data check
   def ranges_for_overview
-    return nil unless user.can_see_data?
+    return nil unless EolConfig.data?
     ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
   end
 

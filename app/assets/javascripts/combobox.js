@@ -13,11 +13,10 @@
         // var selected = this.element.children("#attribute").children( ":selected" ),
         var selected = this.element.children( ":selected" ),
           value = selected.val() ? selected.text() : "";
- 
         this.input = $( "<input>" )
           .appendTo( this.wrapper )
           .val( value )
-          .attr( "title", "" )
+          .attr( {placeholder: document.getElementById("attribute").getAttribute("placeholder")}  )
           .addClass( "custom-combobox-input ui-widget ui-widget-content ui-state-default ui-corner-left" )
           .autocomplete({
             delay: 0,

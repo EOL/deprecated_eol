@@ -71,13 +71,13 @@ describe 'Ontology Importer' do
     expect(termA.label(:en)).to eq('First term label')
     expect(termA.definition(:en)).to eq('First term definition')
     expect(termA.comment(:en)).to eq('First term comment')
-    expect(termA.hide_from_glossary).to eq(false)
+    expect(termA.hide_from_glossary).to eq(true)
     termB = KnownUri.by_uri('http://some.ontology/termB')
     expect(termB).to be_a(KnownUri)
     expect(termB.label(:en)).to eq('Second term label')
     expect(termB.definition(:en)).to eq('Second term definition')
     expect(termB.comment(:en)).to eq('Second term comment')
-    expect(termB.hide_from_glossary).to eq(false)
+    expect(termB.hide_from_glossary).to eq(true)
   end
 
   it 'imports with a hide_from_glossary flag' do

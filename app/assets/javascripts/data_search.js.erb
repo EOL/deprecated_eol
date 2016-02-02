@@ -3,7 +3,6 @@ $(document).ready(function () {
   $('#taxon_name_id, #autocomplete_q').bind('change', function(event) {
     $.ajax({ url: "/data_search/update_attributes", dataType: "script"});
   });
-  intialize_attribute_list();
 });
 
 (function ($) {
@@ -255,7 +254,4 @@ var limit_search_summaries = function(known_uri_id) {
     summaryDiv.append($('<span class="more"></span>').append(link));
   }
 };
-function intialize_attribute_list() {
-  (".custom-combobox-input").val("");
-  $(".custom-combobox-input").attr('placeholder',"<%= I18n.t('helpers.label.data_search.attribute') %>");
-}
+

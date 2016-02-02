@@ -4,7 +4,9 @@ class PageTraits < TraitSet
   def initialize(id)
     EOL.log_call
     @id = id
-    @rdf = TraitBank.page_with_traits(id)
+    @rdf = Rails.cache.fetch("trait_bank/pages/#{id}", expires_in: 1.day) do
+      TraitBank.page_with_traits(id)
+    end
     trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
     EOL.log("points", prefix: ".")
     @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).

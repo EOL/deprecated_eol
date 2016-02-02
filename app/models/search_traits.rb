@@ -44,7 +44,6 @@ class SearchTraits < TraitSet
         Trait.new(rdf_by_trait[trait], self, taxa: @pages,
           predicate: @attribute)
       end
-      # TODO: a real count:
       total = traits.count >= @per_page || @page > 1 ?
         TraitBank::Scan.trait_count(search_options) :
         traits.count

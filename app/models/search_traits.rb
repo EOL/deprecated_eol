@@ -52,9 +52,13 @@ class SearchTraits < TraitSet
         Trait.new(rdf_by_trait[trait], self, taxa: @pages,
           predicate: @attribute)
       end
-      total = traits.count >= @per_page || @page > 1 ?
-        TraitBank::Scan.trait_count(search_options) :
+      total = if traits.count >= @per_page || @page > 1
+        Rails.cache.fetch(@key.sub('search', 'search/count'), expires_in: 1.day) do
+          TraitBank::Scan.trait_count(search_options)
+        end
+      else
         traits.count
+      end
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|
         pager.replace traits
       end

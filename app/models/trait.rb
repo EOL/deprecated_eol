@@ -136,10 +136,18 @@ class Trait
     @source_id ||= source_url =~ SOURCE_RE ? $1.to_i : nil
   end
 
+  def all_source_rdfs
+    rdf_values("http://purl.org/dc/terms/source")
+  end
+
+  def other_sources
+    all_source_rdfs.select { |r| r.to_s !~ TraitBank::SOURCE_RE }.map(&:to_s)
+  end
+
   def source_rdf
-    rdf = rdf_value("http://purl.org/dc/terms/source")
+    rdf = all_source_rdfs.find { |r| r.to_s =~ TraitBank::SOURCE_RE }
     # Old resources were stored as "source":
-    unless rdf =~ SOURCE_RE
+    unless rdf
       take_two = rdf_value("source")
       rdf = take_two if take_two =~ SOURCE_RE
     end
@@ -177,6 +185,10 @@ class Trait
 
   def target_taxon_uri
     "http://eol.org/todo"
+  end
+
+  def to_hash
+    TraitBank::ToHash.from(self)
   end
 
   def units?

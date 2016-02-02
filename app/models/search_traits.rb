@@ -15,6 +15,12 @@ class SearchTraits < TraitSet
     @attribute = search_options[:attribute]
     @page = search_options[:page] || 1
     @per_page = search_options[:per_page] || 100
+    # NOTE ********************* IMPORTANT  !!!!! **********************
+    # If you make changes to search, you MUST consider any necessary changes to
+    # the cache key!!!
+    @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}/"\
+      "page/#{@page}/per/@per_page"
+    @key += "/desc" if search_options[:sort] =~ /^desc$/i
     if @attribute.blank?
       @rdf = []
       @pages = []
@@ -25,7 +31,9 @@ class SearchTraits < TraitSet
     else
       # TODO: some of this could be generalized into TraitSet.
       @rdf = begin
-        TraitBank::Scan.for(search_options)
+        Rails.cache.fetch(@key, expires_in: 1.day) do
+          TraitBank::Scan.for(search_options)
+        end
       rescue EOL::Exceptions::SparqlDataEmpty => e
         []
       end

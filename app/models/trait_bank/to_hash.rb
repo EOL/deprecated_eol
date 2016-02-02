@@ -1,4 +1,5 @@
-# e.g.: s = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056") ; 1
+# e.g.: attr = "http://purl.obolibrary.org/obo/OBA_0000056"
+# s = SearchTraits.new(attribute: attr) ; 1
 # trait = s.traits.first ; 1
 # trait.to_hash
 class TraitBank

@@ -313,7 +313,12 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
-      connection.query(query)
+      begin
+        connection.query(query)
+      rescue EOL::Exceptions::SparqlDataEmpty => e
+        EOL.log_error(e)
+        []
+      end
     end
 
     # Given a list of traits, get all the metadata for them:

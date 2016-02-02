@@ -8,11 +8,11 @@ class TraitBank
       hash = {}
       if trait.page
         # Taxon Concept ID:
-        hash[I18n.t(:data_column_tc_id)] = trait.page.id,
+        hash[I18n.t(:data_column_tc_id)] = trait.page.id
         # WAIT - # Some classification context (stealing from search for now):
         # WAIT - I18n.t(:data_column_classification_summary) => trait.page.entry.preferred_classification_summary,
         # Scientific Name:
-        hash[I18n.t(:data_column_sci_name)] = trait.page.title_canonical,
+        hash[I18n.t(:data_column_sci_name)] = trait.page.title_canonical
         # Common Name:
         hash[I18n.t(:data_column_common_name)] =
           trait.page.preferred_common_name_in_language(language)
@@ -28,10 +28,10 @@ class TraitBank
       hash[I18n.t(:data_column_value_uri)] =
         EOL::Sparql.is_uri?(uri) ? uri : nil
       # Units:
-      hash[I18n.t(:data_column_units)] = trait.units_name
+      hash[I18n.t(:data_column_raw_units)] = trait.units_name
       # Units URI:
       uri = trait.units_uri.try(:uri)
-      hash[I18n.t(:data_column_units_uri)] =
+      hash[I18n.t(:data_column_raw_units_uri)] =
         EOL::Sparql.is_uri?(uri) ? uri : nil
       # Sources:
       hash[I18n.t(:data_column_source)] = trait.other_sources.join(" ")

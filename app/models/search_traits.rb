@@ -1,6 +1,15 @@
 class SearchTraits < TraitSet
   attr_accessor :pages, :page, :attribute
 
+  def self.warm
+    EOL.log_call
+    preds = TraitBank.predicates
+    preds.each do |p|
+      r = SearchTraits.new(attribute: p[1])
+      EOL.log("#{r.traits.count} results for #{p[1]} (#{p[2]})")
+    end
+  end
+
   # e.g.: @traits = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
   # e.g.: s = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")

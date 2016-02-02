@@ -18,9 +18,6 @@ class SearchTraits < TraitSet
     # NOTE ********************* IMPORTANT  !!!!! **********************
     # If you make changes to search, you MUST consider any necessary changes to
     # the cache key!!!
-    @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}/"\
-      "page/#{@page}/per/@per_page"
-    @key += "/desc" if search_options[:sort] =~ /^desc$/i
     if @attribute.blank?
       @rdf = []
       @pages = []
@@ -29,6 +26,9 @@ class SearchTraits < TraitSet
       @sources = []
       @traits = [].paginate
     else
+      @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}/"\
+      "page/#{@page}/per/@per_page"
+      @key += "/desc" if search_options[:sort] =~ /^desc$/i
       # TODO: some of this could be generalized into TraitSet.
       @rdf = begin
         Rails.cache.fetch(@key, expires_in: 1.day) do

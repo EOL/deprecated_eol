@@ -9,7 +9,7 @@ module EOL
         # know what options are available to .prepare_search_query. So, this
         # should be a list of variables.
         options.each { |k,v| instance_variable_set("@#{k}", v) }
-        @per_page ||= TaxonData::DEFAULT_PAGE_SIZE
+        @per_page ||= 30
         @page ||= 1
         @only_count = true if @count_value_uris
         @offset ||= 0

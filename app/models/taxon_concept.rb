@@ -752,9 +752,10 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     return nil unless EolConfig.data?
-    iucn_list = TaxonData.new(self).iucn_data_objects
-    desc = choose_iucn_status(iucn_list)
-    DataObject.new(description: desc) unless desc.blank?
+    # TODO.  Sorry!
+    # iucn_list = TaxonData.new(self).iucn_data_objects
+    # desc = choose_iucn_status(iucn_list)
+    # DataObject.new(description: desc) unless desc.blank?
   end
 
   # TODO: re-write this to use a query that gets the scientific name from the
@@ -1070,9 +1071,9 @@ class TaxonConcept < ActiveRecord::Base
     )
   end
 
+  # TODO
   def should_show_clade_range_data
-    return false if species_or_below?
-    number_of_descendants.between?(2, TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES)
+    return false
   end
 
   def wikipedia_entry

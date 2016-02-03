@@ -10,6 +10,24 @@ class TraitBank
   @taxon_re = Rails.configuration.known_taxon_uri_re
 
   class << self
+    def cache_query(key, &block)
+      result = Rails.cache.fetch(key, expires_in: 1.day) do
+        begin
+          yield
+        rescue EOL::Exceptions::SparqlDataEmpty => e
+          []
+        end
+      end
+      if result.nil? || result.blank?
+        # Don't store empty results:
+        Rails.cache.delete(key)
+        EOL.log("TB.cache_query: #{key} (0 results, not saved)")
+      else
+        EOL.log("TB.cache_query: #{key} (#{result.count} results)")
+      end
+      result
+    end
+
     def connection
       @conneciton ||= EOL::Sparql.connection
     end

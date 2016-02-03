@@ -42,12 +42,8 @@ class SearchTraits < TraitSet
         search_options[:clade].blank?
       @key += "/desc" if search_options[:sort] =~ /^desc$/i
       # TODO: some of this could be generalized into TraitSet.
-      @rdf = begin
-        Rails.cache.fetch(@key, expires_in: 1.day) do
-          TraitBank::Scan.for(search_options)
-        end
-      rescue EOL::Exceptions::SparqlDataEmpty => e
-        []
+      @rdf = TraitBank.cache_query(@key) do
+        TraitBank::Scan.for(search_options)
       end
       @pages = get_pages(@rdf.map { |trait| trait[:page].to_s })
       trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })

@@ -72,10 +72,8 @@ class DataSearchFile < ActiveRecord::Base
     # TODO - we should also check to see if the job has been canceled.
     rows = []
     page = 1
-    search =
-      { querystring: q, attribute: uri, min_value: from, max_value: to,
-        sort: sort, per_page: PER_PAGE, page: page,
-        clade: taxon_concept_id, unit: unit_uri }
+    search = { querystring: q, attribute: uri, min_value: from, max_value: to,
+        sort: sort, page: page, clade: taxon_concept_id, unit: unit_uri }
     results = SearchTraits.new(search)
     total = results.traits.total_entries
     count = results.traits.count

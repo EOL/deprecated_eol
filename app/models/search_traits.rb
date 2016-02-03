@@ -35,8 +35,8 @@ class SearchTraits < TraitSet
       @sources = []
       @traits = [].paginate
     else
-      @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}/"
-      @key += "page/#{@page}" unless @page == 1
+      @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}"
+      @key += "/page/#{@page}" unless @page == 1
       @key += "/per/#{@per_page}" unless @per_page == 100
       @key += "/clade/#{search_options[:clade]}" unless
         search_options[:clade].blank?

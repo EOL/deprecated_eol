@@ -198,7 +198,7 @@ module EOL
             end
           end
 
-          if (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
+          unless (params[:text] == 0 && params[:images] == 0 && params[:videos] == 0 && params[:maps] == 0 && params[:sounds] == 0)
             return_hash['dataObjects'] = []
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
             data_objects.each do |data_object|

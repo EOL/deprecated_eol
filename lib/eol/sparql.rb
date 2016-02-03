@@ -18,7 +18,8 @@ module EOL
         'foaf' => 'http://xmlns.com/foaf/0.1/',
         'obis' => 'http://iobis.org/schema/terms/',
         'owl' => 'http://www.w3.org/2002/07/owl#',
-        'anage' => 'http://anage.org/schema/terms/'
+        'anage' => 'http://anage.org/schema/terms/',
+        'xsd' => 'http://www.w3.org/2001/XMLSchema#'
       }
 
     def self.connection

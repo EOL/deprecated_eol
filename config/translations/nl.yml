@@ -14,6 +14,7 @@
 # Author: Milenej
 # Author: Ndijkstra
 # Author: Patio
+# Author: Robin van der Vliet
 # Author: Robin0van0der0vliet
 # Author: Romaine
 # Author: SPQRobin
@@ -1209,7 +1210,7 @@ nl:
       about_link_what_is_eol: Wat is EOL?
       about_link_traitbank: Wat is TraitBank?
       about_link_eol_blog: De EOL-blog
-      about_link_discover: Ontdekken
+      about_link_discover: Onderwijs
       about_link_statistics: Statistieken
       about_link_glossary: Woordenlijst
       about_link_podcasts: Podcasts
@@ -2133,6 +2134,8 @@ nl:
       refresh: vernieuwen
       row_count: Aantal
       search_again: opnieuw zoeken
+      file_not_processed: Het bestand is nog niet verwerkt,
+      contact_us: neem contact met ons op voor ondersteuning
     edit:
       form_tip_account: Om bij EOL aan te melden heeft u een gebruikernaam en wachtwoord
         van EOL nodig, of u kunt aanmelden met een gebruiker van een derde partij.
@@ -3910,7 +3913,7 @@ nl:
     als een getal tussen 0 en 100, waarbij een hoger getal aangeeft dat een pagina
     rijk is aan inhoud vanuit verschillende bronnen. Leest meer over de rijkheid van
     taxa via het tabblad "Updates" op een taxonpagina, bijvoorbeeld %{richness_url}.
-  a_pipe_delimited_list_of_licenses: Een door het pipe-teken ("|") gescheiden lijst
+  a_pipe_delimited_list_of_licenses: Een door een sluisteken ("|") gescheiden lijst
     met licenties, of "all" om objecten op te vragen die aan de opgegeven licenties
     voldoen. Licenties die afgekort beginnen met "cc-" zijn allemaal %{creative_commons_link}-licenties.
     Kijk op hun site voor meer informatie over de verschillende licenties die ze aanbieden.
@@ -4072,7 +4075,9 @@ nl:
     een gebruiker en een gemeenschap
   cannot_be_empty: mag niet leeg zijn.
   cannot_create_collection_item_from_class_error: Het is niet mogelijk een verzamelingsitem
-    aan te maken van klasse %{klass}
+    aan te maken van type %{klass}
+  cannot_create_collection_items_from_invalid_types: 'Het is niet mogelijk een verzamelingsitem
+    aan te maken van type(n): (%{types})'
   cannot_create_community_from_watch_collection_error: U kunt geen gemeenschap aanmaken
     vanuit een volglijst.
   cannot_curate_association_in_preview_mode: De koppeling met %{name} kan niet geconserveerd
@@ -4205,8 +4210,7 @@ nl:
   collection_api_sort_field_notes: ��Als de parameter "sort_field" is opgenomen, worden
     alleen verzamelingsitems teruggegeven waarvan het sorteerveld precies overeenkomt
     met de opgegeven tekst.
-  collection_create_failure: Het aanmaken van de collectie is mislukt. Controleer
-    of er een probleem is met de doorgegeven parameters.
+  collection_create_failure: Het aanmaken van de collectie is mislukt.
   collection_created_with_count_notice:
     one: De verzameling <em>%{collection_name}</em> is aangemaakt  met één item..
     other: De verzameling <em>%{collection_name}</em> is aangemaakt  met %{count}
@@ -4231,6 +4235,10 @@ nl:
     zero: Leeg
     one: '%{count} item'
     other: '%{count} items'
+  collection_items_duplicate_ids: 'Heti s niet mogelijk een verzameling te maken van
+    een duplicaat-ID of -ID''s %{type}: (%{values})'
+  collection_items_missing_values: ' collected_item_id/collected_item_type kan niet
+    leeg zijn in: %{item}'
   collection_copy_complete_with_count:
     one: Eén item gekopieerd van %{from} naar %{to}.
     other: In totaal %{count} items gekopieerd van %{from} naar %{to}.
@@ -5023,7 +5031,7 @@ nl:
   details_title: Details
   did_you_mean: 'Bedoelde u: %{suggestions}?'
   disabled_for_now: Op dit moment niet beschikbaar
-  discover_link: Ontdekken
+  discover_link: Onderwijs
   displaying_numerical_range_eol_records_with_count:
     one: Het enige resultaat op EOL wordt weergegeven
     other: '%{start_number} &ndash; %{end_number} van %{count} resultaten op EOL worden
@@ -5112,10 +5120,13 @@ nl:
   eol_news: EOL-nieuws
   eol_pages: Pagina's
   error_log_detail: Detailgegevens foutenlogboek
-  error_revoking_editor_on_watch_collection: Bewerkers kunnen niet verwijderd worden
-    uit gevolgde collecties
   error_log: Foutenlogboek
   error_logging_active: Er worden foutgegevens verzameld
+  error_violates_tos: Het lijkt erop dat u de servicevoorwaarden van EOL overtreedt
+    met deze inhoud. Als u van mening bent dat deze kwalificatie onjuist is, neem
+    dan contact met ons op voor assistentie.
+  error_revoking_editor_on_watch_collection: Bewerkers kunnen niet verwijderd worden
+    uit gevolgde collecties
   error_401_page_title: Niet bevoegd
   error_401_description: U heeft geen toegang tot deze URL.
   error_403_page_title: Niet toegestaan
@@ -5484,6 +5495,7 @@ nl:
     inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
   reindex_data_object_button: Object herindexeren
   reindex_page_button: Pagina opnieuw indexeren
+  reindex_users_button: Gebruikerstellingen herindexeren
   image: Afbeelding
   image_cropped_notice: De afbeelding bijgesneden.
   image_crop_failed_error: Er is een fout opgetreden. De afbeelding kon niet worden
@@ -5567,7 +5579,8 @@ nl:
   item_type_sound_assistive: Dit item is een geluid
   item_type_taxon_assistive: Dit item is een taxon
   item_type_video_assistive: Dit item is een video
-  item_not_added_already_in_collection: Dit object is al toegevoegd aan de verzameling.
+  item_not_added_already_in_collection: Dit object:%{value} is al toegevoegd aan de
+    verzameling.
   item_not_added_to_itself_notice: U kunt de verzameling <em>%{collection_name}</em>
     niet aan zichzelf toevoegen.
   item_not_added_to_collection_error: Er is een fout opgetreden. Het geselecteerde
@@ -6016,6 +6029,7 @@ nl:
   object: Object
   object_curated: Object geconserveerd.
   objects_curated: Geconserveerde objecten
+  object_removed: (dit object is uit de database verwijderd)
   object_status: Objectstatus
   object_status_all_option: Alle
   object_status_trusted_option: Vertrouwd
@@ -6307,6 +6321,9 @@ nl:
     teruggeven
   return_synonyms_for_the_page_taxon: alle synoniemen voor het taxon van de pagina
     teruggeven
+  return_any_taxonomy_details_from_different_hierarchy_providers: geeft beschikbare
+    taxonomiegegevens terug van verschillende taxonomieleveranciers in een array met
+    de naam "taxonConcepts"
   returns_all_metadata_about_a_particular_collection: geeft alle metadata van een
     bepaalde verzameling terug en de items die erin zijn opgenomen en zijn geïndexeerd
     door EOL
@@ -6315,6 +6332,7 @@ nl:
   returns_either_a_positive_or_negative_response: geeft een bevestigend antwoord (dat
     aangeeft dat de API's functioneel zijn) of geeft een negatief antwoord of helemaal
     geen antwoord (dat aangeeft dat de API's niet functioneel zijn op dat moment)
+  returns_either_a_batch_or_not: geeft een batch terug of niet
   revisions: Versies
   rights: Rechten
   rights_holder: Rechthebbende
@@ -7003,6 +7021,7 @@ nl:
     %{comment_body}
   user_commented_on_removed_data: <strong>%{user}</strong> heeft gereageerd op gegevens
     die zijn verwijderd.
+  user_count_reindexed: Gebruikerstellingen zijn geherindexeerd
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: Gebruikers-ID
   user_index_intro: Hieronder worden alle geregistreerde webgebruikers weergegeven,
@@ -7051,6 +7070,7 @@ nl:
     one: Eén huidige contentpartner
     other: '%{count} huidige contentpartners'
   users_curation_header: Conservatorkwalificaties
+  user_counts_refresh_daily: '* tellingen worden dagelijks vernieuwd'
   users_form_account_header: Uw account
   users_form_curation_header: Conservatorkwalificaties
   users_form_profile_info_header: Openbare profielgegevens

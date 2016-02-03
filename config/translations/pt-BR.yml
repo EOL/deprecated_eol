@@ -13,6 +13,7 @@
 # Author: Leosls
 # Author: Luckas
 # Author: Luckas Blade
+# Author: Macofe
 # Author: Mordecaista
 # Author: PedroMaia
 # Author: Rodrigo codignoli
@@ -2116,6 +2117,11 @@ pt-BR:
       header_with_count:
         one: Download de dados
         other: '%{count} Download de dados'
+      empty: Você não tem downloads. Você pode <a href='%{data_search_url}'> busca
+        de dados</a> e pedido para transferir os resultados.
+      empty_taxa_collection: Não há traços foram encontrados nesta coleção
+      no_selected_attributes: Nenhum atributo foi selecionado. Por favor, selecione
+        pelo menos um
       download: baixar
       page_title: Downloads de dados
       query_head: Pesquisa
@@ -2128,9 +2134,12 @@ pt-BR:
       is_not_complete: Não
       query_empty: (sem filtros)
       processing: processando
+      error: algo deu errado com este arquivo
       refresh: atualizar
       row_count: Contar
       search_again: procurar novamente
+      file_not_processed: Este arquivo não processou ainda,
+      contact_us: entre em contato conosco para obter ajuda
     edit:
       form_tip_account: Para entrar no EOL você nem precisa de um nome de usuário
         e senha EOL, ou você pode se conectar a conta de terceiros. Nome de usuário
@@ -2145,6 +2154,8 @@ pt-BR:
       form_tip_profile_oauth: Primeiro nome é obrigatório, outros itens marcados como
         necessários %{required_icon} são opcionais para usuários em geral, mas necessário
         para curadores.
+      form_tip_curation: Poderes e escopo curadoria são opcionais para assistentes
+        Curadores, mas necessário%{required_icon} para o pleno e Mestres Curadores
     new:
       complete_registration_header: Completar seu cadastro em EOL
       create_user_header: Criar uma nova conta <abbr title="Enciclopédia da Vida">EOL</abbr>
@@ -2402,6 +2413,8 @@ pt-BR:
     update_successful: Dados atualizados com sucesso
     update_failed: 'Não foi possível atualizar seus dados: %{errors}'
   data_search_files:
+    file_ready_for_download: A pesquisa que recentemente pediu para "%{known_uri_label}"
+      agora pode ser baixado em <a href='%{download_url}'>%{download_url}</a>.
     from: Valor mínimo
     to: Valor máximo
     unit_uri: Unidade de Medida
@@ -2674,6 +2687,7 @@ pt-BR:
           comunidade desconhecida.
         user_modified_community: <strong>%{user}</strong> modificou a comunidade "%{community}".
     curator_activity_log:
+      reasons_to_untrust: 'Razões para untrust: %{reasons}'
       reasons_to_hide: 'Razões para esconder: %{reasons}'
       trusted:
         an_unknown_user_trusted_an_older_data_object_on_an_unknown_association: Um
@@ -3022,6 +3036,27 @@ pt-BR:
           para mostrar em Resumo em uma página desconhecida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> selecionou para
           mostrar em Resumo de "%{taxon}".
+      data_point_uri:
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Um usuário desconhecido
+          definir dados como exemplar na página de uma desconhecida.
+        an_unknown_user_set_exemplar_data_on_taxon: Um desconhecido dados do conjunto
+          de usuário como exemplar em "%{taxon}".
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> definir
+          dados como exemplar na página de uma desconhecida.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> definido como exemplar
+          em dados   "%{taxon}".
+        an_unknown_user_hide_data_on_an_unknown_taxon: Um usuário desconhecido escolheu
+          para ocultar dados em uma página desconhecida.
+        an_unknown_user_hide_data_on_taxon: Um usuário desconhecido escolheu para
+          esconder dados sobre "%{taxon}".
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> escolheu para
+          ocultar dados em uma página desconhecida.
+        user_hide_data_on_taxon: <strong>%{user}</strong> escolheu para esconder dados
+          sobre "%{taxon}".
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Um usuário desconhecido escolheu
+          para mostrar dados em uma página desconhecida.
+        an_unknown_user_unhide_data_on_taxon: Um usuário desconhecido escolheu para
+          mostrar dados sobre "%{taxon}".
       add_common_name:
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Um
           usuário desconhecido acrescentou um nome comum desconhecido em uma língua
@@ -4969,7 +5004,8 @@ pt-BR:
   item_type_sound_assistive: Este item é um som
   item_type_taxon_assistive: Este item é um táxon
   item_type_video_assistive: Este item é um vídeo
-  item_not_added_already_in_collection: Este item já esteve adicionado à coleção.
+  item_not_added_already_in_collection: Este item:%{value} já esteve adicionado à
+    coleção.
   item_not_added_to_itself_notice: Desculpe, não pode adicionar a <em>%{collection_name}</em>
     a si mesmo.
   item_not_added_to_collection_error: Desculpe, ocorreu um erro, o item selecionado

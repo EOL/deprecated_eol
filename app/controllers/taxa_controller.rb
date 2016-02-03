@@ -120,15 +120,17 @@ private
     # crawlers to think pages don't exist. So throw errors instead
     raise if tc_id.blank? || tc_id == 0
     with_master_if_curator do
-      @taxon_concept = TaxonConcept.find(tc_id)
+      @taxon_concept = TaxonConcept.with_titles.find(tc_id)
     end
     unless @taxon_concept.published?
       if logged_in?
-
-        raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have access to TaxonConcept with id=#{@taxon_concept.id}",:can_not_access_unpublished_taxon)
+        raise EOL::Exceptions::SecurityViolation.
+          new("User with ID=#{current_user.id} does not have access to "\
+            "TaxonConcept with id=#{@taxon_concept.id}",
+          :can_not_access_unpublished_taxon)
       else
-
-        raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does not have access to TaxonConcept with ID=#{@taxon_concept.id}"
+        raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does "\
+          "not have access to TaxonConcept with ID=#{@taxon_concept.id}"
       end
     end
 
@@ -137,21 +139,26 @@ private
       @selected_hierarchy_entry_id = params[:id]
     end
     unless @selected_hierarchy_entry_id.blank?
-      @selected_hierarchy_entry = HierarchyEntry.find_by_id(@selected_hierarchy_entry_id) rescue nil
+      @selected_hierarchy_entry =
+        HierarchyEntry.find(@selected_hierarchy_entry_id) rescue nil
       @selected_hierarchy_entry = nil unless @selected_hierarchy_entry &&
         @selected_hierarchy_entry.hierarchy.browsable?
     end
-    @taxon_page = TaxonPage.new(@taxon_concept, current_user, @selected_hierarchy_entry)
+    @taxon_page = TaxonPage.new(@taxon_concept, current_user,
+      @selected_hierarchy_entry)
   end
 
   def instantiate_preferred_names
-    @preferred_common_name = @taxon_concept.preferred_common_name_in_language(current_language)
+    @preferred_common_name = @taxon_concept.
+      preferred_common_name_in_language(current_language)
     @scientific_name = @taxon_page.scientific_name
   end
 
   def redirect_if_superceded
     if @taxon_concept.superceded_the_requested_id?
-      redirect_to url_for(controller: params[:controller], action: params[:action], taxon_id: @taxon_concept.id), status: :moved_permanently
+      redirect_to url_for(controller: params[:controller],
+        action: params[:action], taxon_id: @taxon_concept.id),
+        status: :moved_permanently
       return false
     end
   end

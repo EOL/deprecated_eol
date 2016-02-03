@@ -30,14 +30,19 @@ class Taxa::DataController < TaxaController
 protected
 
   def meta_description
-    @taxon_data.topics
     translation_vars = scoped_variables_for_translations.dup
-    translation_vars[:topics] = @taxon_data.topics.join("; ") unless @taxon_data.topics.empty?
+    if @taxon_data # For Ajaxy pages; will remove this when replaced.
+      @taxon_data.topics
+      translation_vars[:topics] = @taxon_data.topics.join("; ") unless @taxon_data.topics.empty?
+    elsif @page_traits && ! @page_traits.categories.blank?
+      translation_vars[:topics] = @page_traits.categories.map { |c| c.label }.
+        join("; ")
+    end
     I18n.t("meta_description#{translation_vars[:topics] ? '_with_topics' : '_no_data'}", translation_vars)
   end
 
   def load_data
-    raise "Data is temporarily disabled" unless current_user.can_see_data?
+    raise "Data is temporarily disabled" unless EolConfig.data?
     EOL.log_call
     # Sad that we need to load all of this for the about and glossary tabs, but
     # TODO - we can cache this, later:

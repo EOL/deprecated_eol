@@ -1,7 +1,5 @@
 class DataGlossaryController < ApplicationController
 
-  before_filter :restrict_to_data_viewers
-
   layout 'basic'
 
   # GET /data_glossary

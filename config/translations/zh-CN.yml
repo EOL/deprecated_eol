@@ -1038,7 +1038,7 @@ zh-CN:
       about_link_what_is_eol: EOL是什么？
       about_link_traitbank: 什么是TraitBank？
       about_link_eol_blog: EOL博客
-      about_link_discover: 发现
+      about_link_discover: 教育
       about_link_statistics: 统计
       about_link_glossary: 术语表
       about_link_podcasts: 播客
@@ -1380,6 +1380,8 @@ zh-CN:
       message: 您可以通过访问<a href='%{download_link}'>数据下载选项卡，在您的配置文件中</a>查看这个和其他下载内容。
       header: 你的下载已就绪！
     collection_download_ready:
+      subject: 已准备好下载您的EOL收藏中选定的属性
+      message: 您可以通过访问<a href='%{download_link}'>数据下载选项卡，在您的配置文件中</a>查看这个和其他下载内容。
       header: 您的收藏下载已准备就绪！
   sessions:
     new:
@@ -1454,7 +1456,7 @@ zh-CN:
             %)的数据信息。
           meta_description_with_common_name_with_topics: 科学家已经收集了按%{hierarchy_provider}分类界定为
             %{preferred_common_name}的哪些数据？%{scientific_name}的可分析数据包括有关%{topics}的信息。
-          meta_title: 有关%{hierarchy_provider}分类界定为%{scientific_name}的可分析性数据
+          meta_title: 有关%{scientific_name}的事实由%{hierarchy_provider}分类
           meta_title_with_common_name: 有关%{hierarchy_provider}分类界定为%{preferred_common_name}  (%{scientific_name}
             %)的可分析数据资料
           tweet_text: 有关%{scientific_name}的事实由%{hierarchy_provider}分类
@@ -1519,7 +1521,7 @@ zh-CN:
           tweet_text: '%{scientific_name}的文献，分类系统由%{hierarchy_provider}提供'
         meta_description: 网络生命大百科中关于%{scientific_name}的文献和书籍。阅读在网络生命大百科中关于%{scientific_name}
           的文献。
-        meta_description_with_common_name: '{preferred_common_name}（或网络生命大百科中%{scientific_name}）上的书籍、文章和参考文献。在网络生命大百科中阅读文学作品。'
+        meta_description_with_common_name: 在%{preferred_common_name}书籍、文章和参考文献也被称作网络生命大百科中的%{scientific_name}。在网络生命大百科中阅读有关%{preferred_common_name}的文献。
         meta_keywords: '%{scientific_name}的条目、%{scientific_name}的图书、%{scientific_name}的书目、%{scientific_name}的作品'
         meta_keywords_with_common_name: '%{preferred_common_name} 文章、 %{preferred_common_name}
           书籍、 %{preferred_common_name} 文学作品、 %{scientific_name} 文章、 %{scientific_name}书籍、
@@ -1751,6 +1753,8 @@ zh-CN:
       refresh: 刷新
       row_count: 計數
       search_again: 重新搜尋
+      file_not_processed: 此文件尚未处理，
+      contact_us: 请联络我们以获取帮助
     edit:
       form_tip_account: 要登录到EOL，您需要用户名和密码，或者您可以连接一个第三方帐户。如果您没有关联帐户，用户名和密码是必填的，但是如果您想改变现有的密码，只需在此输入新密码即可。电子邮件地址和首选语言对所有用户都是必须的(%{required_icon})
         。
@@ -2363,6 +2367,15 @@ zh-CN:
         an_unknown_user_removed_name_in_language_from_it: 未知用户移除%{language}的常用名。
         user_removed_name_in_an_unknown_language_from_it: <strong>%{user}</strong>移除了未知语言中的常用名。
         user_removed_name_in_language_from_it: <strong>%{user}</strong>移除了%{language}中的常用名。
+      trust_common_name:
+        an_unknown_user_trusted_an_unknown_name_in_an_unknown_language_on_it: 未知用户使用未知语言将一个未知的常用名标记为可信任。
+        an_unknown_user_trusted_an_unknown_name_in_language_on_it: 未知用户使用%{language}将一个未知的常用名标记为可信任。
+        an_unknown_user_trusted_name_in_an_unknown_language_on_it: 未知用户使用未知语言将常用名“%{name}”标记为可信任。
+        an_unknown_user_trusted_name_in_language_on_it: 未知用户标记%{language}的常用名“%{name}”为可信任。
+        user_trusted_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>使用未知语言将一个未知的常用名标记为可信任。
+        user_trusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong>使用%{language}将一个未知的常用名标记为可信任。
+        user_trusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong>使用未知语言将常用名“%{name}”标记为可信任。
+        user_trusted_name_in_language_on_it: <strong>%{user}</strong>标记%{language}的常用名“%{name}”为可信任。
       untrust_common_name:
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_an_unknown_taxon: 未知用户使用未知语言在一个未知的页面将一个未知的常用名标记为不受信任。
         an_unknown_user_untrusted_an_unknown_name_in_an_unknown_language_on_it: 未知用户使用未知语言将一个未知的常用名标记为不受信任。
@@ -2599,6 +2612,12 @@ zh-CN:
   api_docs_collections_description: 给收藏一个标识符，此API将返回所有关于收藏和它包含的条目的元数据。条目列表可按条目类型筛选，并按上面列出的属性排序。部分项目将包含一个可选的“sort_field”属性。分类字段是由用户提供的，在一个收藏项目上特别指定的字符串。它可以是任何字符串，但如果它是日期，它应该匹配格式YYYY-MM-DD。分类项目将包含“richness_score”。丰富度是一个公制度量，表示为0到100之间整数，数字越大，就表示一个页面带有越多的来自各种来源的富媒体内容。在分类页面的更新标签阅读更多有关分类丰富度，例如%{richness_url}。
   a_pipe_delimited_list_of_licenses: '"一个用""|""符号分隔的协议列表，或是用""all""表示任意协议。任意协议是指所有缩写为""cc-""的协议"'
   a_pipe_delimited_list_of_spm_info_item_subject_names: “概述”以返回概述文本（如果存在），来自%{subjects_text}列表（例如TaxonBiology、FossilHistory）的对象名称的竖线（“|”）分隔列表，或“所有”以获得任何对象中的文本。总是返回作为首条结果的一段概述文本（如果提供的上下文存在）。
+  api_results_can_be_cached: 任何API调用的响应可在指定的时间长度内缓存。会提供一个“cache_ttl”参数，其数值是响应缓存所需的秒数。This
+    will create HTTP headers indicating the result should be cached by web browsers,
+    and additionally the response will be cached on EOL's servers for the specified
+    number of seconds. If the value of "cache_ttl" is changed, the first request with
+    the new value will not hit the cache, but subsequent requests will leverage the
+    newly cached response.
   application_version_advisory_information: 应用程序版本
   are_you_sure: 您确定吗？
   are_you_sure_this_action_cannot_be_undone: 您确定吗？本次操作不能恢复。
@@ -2709,7 +2728,8 @@ zh-CN:
   cancel_split: 取消
   cannot_be_associated_with_both_a_user_and_a_community: 无法同时与用户和社区建立关联
   cannot_be_empty: 不能为空。
-  cannot_create_collection_item_from_class_error: 我们不能从一个%{klass}创建一个收藏条目
+  cannot_create_collection_item_from_class_error: 我们不能从这个类型创建一个收藏条目：%{klass}
+  cannot_create_collection_items_from_invalid_types: 我们不能从这些类型中创建收藏项目：(%{types})
   cannot_create_community_from_watch_collection_error: 您不能从关注列表中创建社区。
   cannot_curate_association_in_preview_mode: ％{name}的关联不能管理，因为在一次采集后，它正在被预览。
   cannot_expand_children: 不能扩展子类
@@ -2768,6 +2788,7 @@ zh-CN:
   close_this_window_to_return_to_edit_window: 关闭本窗口返回编辑窗口
   collect_item: 收藏条目
   collect_items: 收藏条目
+  collection_create_failure: 收藏创建失败。
   collection_created_with_count_notice:
     other: 成功创建了 <em>%{collection_name}</em>收藏，包含 %{count} 项内容。
   collection_delete_link: 永久删除此收藏
@@ -2783,9 +2804,14 @@ zh-CN:
   collection_items_count:
     zero: 空
     other: '%{count}项'
+  collection_items_duplicate_ids: 不能从重复的ID %{type}:(%{values})创建收藏
+  collection_items_missing_values: ' collected_item_id/collected_item_type不能为零in:%{item}'
   collection_copy_complete_with_count:
     one: 从%{from}复制%{count}个项目至%{to}。
     other: 从%{from}复制共计%{count}个项目至%{to}。
+  collection_remove_complete_with_count:
+    one: 已从%{from}移除%{count}个项目。
+    other: 已从%{from}移除%{count}个项目。
   collection_copy_choose_all_items_target_title: 从“%{collection}”复制所有项目至：
   collection_move_choose_all_items_target_title: 从“%{collection}”移动所有项目至：
   collection_name_cannot_be_blank: 集合名不能为空
@@ -3285,7 +3311,7 @@ zh-CN:
   details_title: 详细信息
   did_you_mean: 您的意思是：%{suggestions} ？
   disabled_for_now: 现在禁用
-  discover_link: 探索
+  discover_link: 教育
   donate_link: 捐助
   done_already: 已完成
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 不显示未知的注册日期（V1版本用户，在2009年1月5日之前）
@@ -3324,6 +3350,7 @@ zh-CN:
   email: 邮箱
   email_colon: 邮件：
   email_recipients: 邮件收件人
+  eol_accepted_subjects: EOL接受的科目
   eol_curator_activity_email_message: 网络生命大百科管理员 <a href='%{profile_url}'>%{curator_full_name}</a>
     %{action} <a href='%{data_object_url}'>EOL网站</a>的%{comment}
   encyclopedia_of_life: 生命百科
@@ -3353,6 +3380,7 @@ zh-CN:
   error_log_detail: 错误日志详细信息
   error_log: 错误日志
   error_logging_active: 错误日志激活
+  error_violates_tos: 您的内容看起来违反了EOL的服务条款。如果您认为这是错误，请联络我们以获取帮助。
   error_401_page_title: 未授权
   error_401_description: 抱歉，您没有权限访问这个URL。
   error_403_page_title: 禁止
@@ -3581,6 +3609,7 @@ zh-CN:
   return_content_by_vettedness: 如果vetted = 1则仅返回可信内容.如果vetted = 2则返回仅可信和未审核的内容(不返回不可信的内容)。默认返回所有内容。
   reindex_data_object_button: 重新索引对象
   reindex_page_button: 重新索引页面
+  reindex_users_button: 重建用户数的索引
   image: 图像
   image_cropped_notice: 图片裁剪完成
   image_crop_failed_error: 抱歉，出现了一个错误，无法裁剪图像。
@@ -3646,7 +3675,7 @@ zh-CN:
   item_type_sound_assistive: 此项是一段音频
   item_type_taxon_assistive: 此项是一个分类阶元
   item_type_video_assistive: 此项是一段视频
-  item_not_added_already_in_collection: 此项已被添加到收藏中
+  item_not_added_already_in_collection: 此item:%{value}已被添加到收藏中
   item_not_added_to_itself_notice: 您不能把<em>%{collection_name}</em>收藏添加给它自身。
   item_not_added_to_collection_error: 抱歉，出现了一个错误，已选择的项目不能添加到收藏中。
   item_not_updated_in_collection_error: '"抱歉,出现一个错误，收藏的条目无法更新。"'
@@ -3966,6 +3995,7 @@ zh-CN:
   object_curation: 数据项管理
   object: 数据项
   objects_curated: 已管理的数据项
+  object_removed: （此对象已从数据库中移除）
   object_status: 数据项状态
   object_status_all_option: 所有
   object_status_trusted_option: 可信的
@@ -4121,6 +4151,7 @@ zh-CN:
   rating_added_notice: 已成功添加评级。
   rating_learn_more_link: 了解评级
   rating_not_added_error: '"抱歉, 出现了一个错误, 评级无法添加。"'
+  reading_from_ontology: 正在从<a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>阅读
   recaptcha: 输入下面您看到的两个单词或数字
   recaptcha_incorrect_error_with_anchor: <a href="#%{recaptcha_anchor}">验证码</a>不匹配，请重试。
   recent_updates: 最近更新
@@ -4175,9 +4206,11 @@ zh-CN:
   return: 返回
   return_all_common_names_for_this_taxon: 返回该分类群的所有俗名
   return_all_synonyms_for_this_taxon: 返回该分类群的所有异名
+  return_any_taxonomy_details_from_different_hierarchy_providers: 从不同的分类层级提供方返回任何分类学详细信息，在名叫“taxonConcepts”的数组中
   returns_all_metadata_about_a_particular_collection: 返回一个特殊收藏的所有元数据以及该收藏中被EOL索引的数据项
   returns_all_metadata_about_a_particular_data_object: 返回一个被EOL索引的特殊数据项的所有元数据（文本，图像或视频）
   returns_either_a_positive_or_negative_response: 返回一个肯定的响应（表示APIs工作正常），或者返回一个否定的响应，或者不做任何响应（表示APIs此时工作不正常）。
+  returns_either_a_batch_or_not: 返回一批与否
   revisions: 修订
   rights: 权利
   rights_holder: 权利持有人
@@ -4222,6 +4255,7 @@ zh-CN:
   search_term: 搜索项
   search_the_site: 搜索网站
   searching_within_clade: '%{clade_name}之内'
+  see_all_activity_combinations: 在5分钟内查看所有活跃的组合。
   see_all_of_your_collections: 查看您的所有收藏
   see_all_of_your_communities: 查看您的所有社区
   see_all_classifications_with_count_html:
@@ -4370,6 +4404,7 @@ zh-CN:
   task_status_ignored_option: 忽略
   tasks_with_count:
     other: 发现%{count}个任务
+  taxa_count: 分类群计数
   taxa_column_header: 分类单元
   taxa_with_count:
     other: '%{count}个分类单元'
@@ -4458,7 +4493,7 @@ zh-CN:
   the_user_was_updated: 用户已更新。
   the_user_who_performed_this_action_was_removed: 执行此操作的用户已被移除。
   the_xml_search_response_implements: XML搜索响应实现了使用Atom 1.0.的OpenSearch响应格式。查看%{link}全面了解OpenSearch的说明
-  this_area_shows_all_submission: 这个区域显示了所有通过联系我们或媒体联系页面提交的信息。要查看条目，选择下面的主题或者点击%{link}
+  this_area_shows_all_submission: 这个区域显示了所有通过联系我们或媒体联系页面提交的信息。要查看记录，选择下面的主题或<a href=%{link}>将所有记录导出为CSV文件</a>。
   this_cannot_be_undone_are_you_sure: 不能取消，您确定吗？
   this_collection_has_no_managers: 该收藏没有管理者。
   this_comment_was_deleted: 该评论已删除。
@@ -4530,6 +4565,9 @@ zh-CN:
   unknown_hierarchy: 未知的分类系统
   unknown_data_object_title: 未知数据对象
   unpublished: 未发布
+  unpublished_collections_with_count:
+    one: '%{count}个隐藏收藏'
+    other: '%{count}个隐藏收藏'
   unreviewed: 未审核
   unreviewed_images: 未审核图像
   unreviewed_maps: 未审核地图
@@ -4577,6 +4615,9 @@ zh-CN:
     other: 已审核%{count}个俗名
   user_activity_stats_common_names_removed:
     other: 已删除%{count}个俗名
+  user_activity_stats_data_added:
+    one: 已添加%{count}条数据记录
+    other: 已添加%{count}条数据记录
   user_activity_stats_data_added_dropdown: 数据已加入
   user_activity_stats_header: 活动统计
   user_activity_stats_objects_curated:
@@ -4602,6 +4643,7 @@ zh-CN:
   user_commented_on_themself: '<strong>%{user_with_link}</strong> 对<a href=''%{link}''>%{username}的动态</a>的评论:'
   user_commented_on_deleted_user: '<strong>%{user_with_link}</strong> 对已移除用户的页面的评论:'
   user_commented_on_your_image: <strong>%{user}</strong>对您在<a href='%{data_object_link}'>网络生命大百科网站</a>的图片做出评论：%{comment_body}
+  user_count_reindexed: 已重建用户计数的索引
   user_full_name_with_curator: '%{user} (%{curator_level})'
   user_id: 用户ID
   user_index_intro: 系统中注册的所有网络用户如下，按照注册时间逆序排列。注：网络生命大百科V2版本（2009年1月5日）之前注册的用户没有注册日期。点击用户名以编辑用户。
@@ -4637,6 +4679,7 @@ zh-CN:
   users_content_partners_with_count:
     other: '%{count}内容合作伙伴'
   users_curation_header: 管理员资格
+  user_counts_refresh_daily: '*数量会每天刷新'
   users_form_account_header: 您的帐户
   users_form_curation_header: 管理员资格
   users_form_profile_info_header: 公开的简介信息

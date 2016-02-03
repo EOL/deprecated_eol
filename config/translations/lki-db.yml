@@ -1,0 +1,284 @@
+# Messages for Laki (لەکی‎)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Arash71
+# Author: Hosseinblue
+# Author: Lakzon
+---
+lki:
+  translated_activities-name-activity_id-19: نمایه
+  translated_activities-name-activity_id-50: بی اعتماد
+  translated_activities-name-activity_id-51: نیشان دائن
+  translated_activities-name-activity_id-52: دؤِرس کردن/سازین
+  translated_activities-name-activity_id-53: ئآشاردن-پنهان کردن
+  translated_activities-name-activity_id-54: تازۀئا کردن
+  translated_activities-name-activity_id-55: نادؤِرِس
+  translated_activities-name-activity_id-56: حۀذف کردن
+  translated_activities-name-activity_id-57: ارزش
+  translated_activities-name-activity_id-58: مطمئن بی
+  translated_activities-name-activity_id-59: بازبینی‌ نؤی
+  translated_activities-name-activity_id-63: گردآکردن
+  translated_activities-name-activity_id-64: پاکاکردن
+  translated_agent_roles-label-agent_role_id-10: پروژۀ
+  translated_agent_roles-label-agent_role_id-11: بۀشا کۀر-ناشر
+  translated_agent_roles-label-agent_role_id-12: ضبط کننده
+  translated_agent_roles-label-agent_role_id-13: بِنچۀک
+  translated_agent_roles-label-agent_role_id-14: بِنچۀک پایگاه‌داده
+  translated_agent_roles-label-agent_role_id-15: تماس ئةگرد شةخص
+  translated_agent_roles-label-agent_role_id-16: هؤمکاری کِرۀل
+  translated_agent_roles-label-agent_role_id-1: پويانما
+  translated_agent_roles-label-agent_role_id-21: إرائة دةر
+  translated_agent_roles-label-agent_role_id-22: چاوواشۀگر زوون
+  translated_agent_roles-label-agent_role_id-23: بازبین علمی
+  translated_agent_roles-label-agent_role_id-24: بازبین زوون‌شناسی
+  translated_agent_roles-label-agent_role_id-2: مولف
+  translated_agent_roles-label-agent_role_id-3: گردآکۀر
+  translated_agent_roles-label-agent_role_id-4: دۀنگئر گر-آهنگ ساز
+  translated_agent_roles-label-agent_role_id-5: دورس کۀر-بِساز
+  translated_agent_roles-label-agent_role_id-6: مؤدیر
+  translated_agent_roles-label-agent_role_id-7: دەسکاری کەر
+  translated_agent_roles-label-agent_role_id-8: تصویرگر
+  translated_agent_roles-label-agent_role_id-9: ئۀسگ ئاژ-عکاس
+  translated_audiences-label-audience_id-1: کاربرۀل متخصص
+  translated_audiences-label-audience_id-3: آیلۀل
+  translated_collection_types-label-collection_type_id-10: دۀنگۀل
+  translated_collection_types-label-collection_type_id-11: لینکۀل
+  translated_collection_types-label-collection_type_id-12: أدۀبیات
+  translated_collection_types-label-collection_type_id-13: دۀسۀ بۀنی
+  translated_collection_types-label-collection_type_id-14: بارکؤد ملکولی
+  translated_collection_types-label-collection_type_id-15: توضیحۀل
+  translated_collection_types-label-collection_type_id-16: تۀصویرۀل
+  translated_collection_types-label-collection_type_id-17: بۀشا کردن
+  translated_collection_types-label-collection_type_id-18: وضعيت حفاظت
+  translated_collection_types-label-collection_type_id-19: اطلاعات نام
+  translated_collection_types-label-collection_type_id-1: دۀسۀ بۀنی
+  translated_collection_types-label-collection_type_id-20: دادۀل مولکولی
+  translated_collection_types-label-collection_type_id-21: لیست واژۀل و اصطلاحۀل
+  translated_collection_types-label-collection_type_id-22: دۀنگۀل
+  translated_collection_types-label-collection_type_id-23: لینکۀل
+  translated_collection_types-label-collection_type_id-24: أدۀبیات
+  translated_collection_types-label-collection_type_id-2: بارکؤد ملکولی
+  translated_collection_types-label-collection_type_id-3: توضیحۀل
+  translated_collection_types-label-collection_type_id-4: تۀصویرۀل
+  translated_collection_types-label-collection_type_id-5: بۀشا کردن
+  translated_collection_types-label-collection_type_id-6: وضعيت حفاظت
+  translated_collection_types-label-collection_type_id-7: اطلاعات نام
+  translated_collection_types-label-collection_type_id-8: دادۀل مولکولی
+  translated_collection_types-label-collection_type_id-9: لیست واژۀل و اصطلاحۀل
+  translated_contact_roles-label-contact_role_id-1: تماس اولین
+  translated_contact_roles-label-contact_role_id-2: تماس اداری
+  translated_contact_roles-label-contact_role_id-3: تماس فنی
+  translated_contact_subjects-title-contact_subject_id-24: عضویت و نان نویسی
+  translated_contact_subjects-title-contact_subject_id-25: ضوابط استفاده و مجوز
+  translated_contact_subjects-title-contact_subject_id-26: یادگیری و آموزش
+  translated_contact_subjects-title-contact_subject_id-27: هام یاری أڕ نۆم جِک(محتوا)
+  translated_contact_subjects-title-contact_subject_id-28: پشتیبانی هومکاری کرۀل
+  translated_contact_subjects-title-contact_subject_id-29: پشتیبانی مسئول
+  translated_contact_subjects-title-contact_subject_id-30: (اصلاح کنید (املا و دستور
+    زبان، تصاویر، اطلاعات
+  translated_contact_subjects-title-contact_subject_id-31: هامیاری وە عەسگەل، فیلمەل
+    و یا دەنگەل
+  translated_contact_subjects-title-contact_subject_id-32: (درخواست‌های مدیا (مصاحبه‌ها،
+    سوالات مطبوعات، درخواست لوگو
+  translated_contact_subjects-title-contact_subject_id-33: کمک مالی بکۀن
+  translated_contact_subjects-title-contact_subject_id-34: (پرسش‌های فنی (اشکالات
+    جستجو، عملکرد وب‌گاه
+  translated_contact_subjects-title-contact_subject_id-35: انتقادات و پیشنهادات عمومی
+  translated_content_partner_statuses-label-content_partner_status_id-1: در انتظار
+  translated_content_partner_statuses-label-content_partner_status_id-2: فعال)کارکَر)
+  translated_content_partner_statuses-label-content_partner_status_id-3: بایگانی‌بیۀ
+  translated_content_partner_statuses-label-content_partner_status_id-4: غیر فعال
+  translated_content_tables-label-content_table_id-1: جزئیات
+  translated_data_types-label-data_type_id-10: نۀخشۀ
+  translated_data_types-label-data_type_id-1: تۀصویر
+  translated_data_types-label-data_type_id-2: دۀنگ
+  translated_data_types-label-data_type_id-3: متن-نؤیسریا
+  translated_data_types-label-data_type_id-4: ویدیو
+  translated_data_types-label-data_type_id-5: GBIFعۀسگ
+  translated_data_types-label-data_type_id-7: فلش
+  translated_data_types-label-data_type_id-8: یوتیوب
+  translated_licenses-description-license_id-1: هؤیچ حقوقی محفوظ نیۀ
+  translated_licenses-description-license_id-29: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-2: © کلیه حقوق محفوظۀ
+  translated_licenses-description-license_id-30: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-31: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-32: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-33: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-34: مالکیت عمومی
+  translated_licenses-description-license_id-35: مالکیت عمومی
+  translated_licenses-description-license_id-36: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-37: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-38: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-39: مالکیت عمومی
+  translated_licenses-description-license_id-3: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-42: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-43: مجوز قاوول استفاده نیۀ
+  translated_licenses-description-license_id-4: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-5: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-6: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-7: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-8: بعضی إژ حقوق محفوظۀ
+  translated_licenses-description-license_id-9: بعضی إژ حقوق محفوظۀ
+  translated_ranks-label-rank_id-106: فرم
+  translated_ranks-label-rank_id-107: فرم
+  translated_ranks-label-rank_id-112: ژِن
+  translated_ranks-label-rank_id-113: ژِن
+  translated_ranks-label-rank_id-118: دۀسۀ
+  translated_ranks-label-rank_id-183: ژئر دۀسۀ
+  translated_ranks-label-rank_id-266: راسۀ
+  translated_ranks-label-rank_id-280: پۀل-شاخه
+  translated_ranks-label-rank_id-317: بۀخش
+  translated_ranks-label-rank_id-335: گونه
+  translated_ranks-label-rank_id-352: ژئر-تیرۀ
+  translated_ranks-label-rank_id-370: ژئررده
+  translated_ranks-label-rank_id-375: ژئربۀخش
+  translated_ranks-label-rank_id-383: ژئر-تیرۀ
+  translated_ranks-label-rank_id-396: ژئر فرمانرو
+  translated_ranks-label-rank_id-399: ژئر راسته
+  translated_ranks-label-rank_id-401: ژئر پۀل - شاخه
+  translated_ranks-label-rank_id-411: ژئر گونه
+  translated_ranks-label-rank_id-415: ژئر گونه
+  translated_ranks-label-rank_id-503: بدون رتبه‌بندی
+  translated_ranks-label-rank_id-517: varietas
+  translated_ranks-label-rank_id-518: تنوع
+  translated_ranks-label-rank_id-51: ڕزگ
+  translated_ranks-label-rank_id-74: تقسیم
+  translated_ranks-label-rank_id-99: تیره
+  translated_resource_statuses-label-resource_status_id-10: پخش بیۀسا
+  translated_resource_statuses-label-resource_status_id-11: در انتظار بۀشابین
+  translated_resource_statuses-label-resource_status_id-12: عدم انتشار معلق
+  translated_resource_statuses-label-resource_status_id-1: در حال بارنیائن
+  translated_resource_statuses-label-resource_status_id-2: بارگذاری بی
+  translated_resource_statuses-label-resource_status_id-3: بارنیائن  انجام نؤی
+  translated_resource_statuses-label-resource_status_id-4: منتقل بیِ سرور نۆم جِک(محتوا)
+  translated_resource_statuses-label-resource_status_id-5: تأییدبی
+  translated_resource_statuses-label-resource_status_id-6: اعتبار سنجی انجام نؤی
+  translated_resource_statuses-label-resource_status_id-7: در حال پردازش
+  translated_resource_statuses-label-resource_status_id-8: پردازش بی
+  translated_resource_statuses-label-resource_status_id-9: پردازش ناموفق بی
+  translated_service_types-label-service_type_id-1: ' EOLطرح انتقال'
+  translated_service_types-label-service_type_id-2: بۀقیۀ
+  translated_sort_styles-name-sort_style_id-1: تازۀ اضافۀ بیۀ
+  translated_sort_styles-name-sort_style_id-2: قدیمی ترین
+  translated_sort_styles-name-sort_style_id-3: الفبایی
+  translated_sort_styles-name-sort_style_id-4: الفبایی چاوواشۀ
+  translated_sort_styles-name-sort_style_id-5: باارزش
+  translated_sort_styles-name-sort_style_id-6: رتبه بندی
+  translated_statuses-label-status_id-1: قرار دریا
+  translated_statuses-label-status_id-2: تازۀسازی بی
+  translated_statuses-label-status_id-3: نۀگؤۀریا-تۀقیر نهۀنگت
+  translated_statuses-label-status_id-4: دووارۀ استفادۀ بیۀ
+  translated_synonym_relations-label-synonym_relation_id-11: در بۀخش
+  translated_synonym_relations-label-synonym_relation_id-12: شامل
+  translated_synonym_relations-label-synonym_relation_id-14: غلط املایی
+  translated_synonym_relations-label-synonym_relation_id-18: نام موقت پذیرفته بیۀ
+  translated_synonym_relations-label-synonym_relation_id-19: ' نام  قبول بی'
+  translated_synonym_relations-label-synonym_relation_id-21: نظرۀلئ تریژ سئرکۀن
+  translated_synonym_relations-label-synonym_relation_id-22: (گونه‌های مختلف املایی
+    (غلط املایی
+  translated_synonym_relations-label-synonym_relation_id-23: غلط املایی
+  translated_synonym_relations-label-synonym_relation_id-24: نام رد شده
+  translated_synonym_relations-label-synonym_relation_id-25: (کلمهٔ متشابه-چوی یۀک
+    (غلط
+  translated_synonym_relations-label-synonym_relation_id-27: (تغییر نام بیش از حد
+    (نامشروع
+  translated_synonym_relations-label-synonym_relation_id-29: مترادف گؤِجۀرتر
+  translated_synonym_relations-label-synonym_relation_id-2: نام مشترک
+  translated_synonym_relations-label-synonym_relation_id-31: جایگزین کردنۀل غیرضروری
+  translated_synonym_relations-label-synonym_relation_id-34: نام اصلی/ترکیبی
+  translated_synonym_relations-label-synonym_relation_id-36: ' کلمهٔ گؤجۀر متشابه-چوی
+    یۀک'
+  translated_synonym_relations-label-synonym_relation_id-40: غیر قابل دسترس، بۀقیۀ
+  translated_synonym_relations-label-synonym_relation_id-49: نام معتبر
+  translated_synonym_relations-label-synonym_relation_id-50: معتبر
+  translated_synonym_relations-label-synonym_relation_id-51: قبول بی
+  translated_synonym_relations-label-synonym_relation_id-52: توانایی
+  translated_synonym_relations-label-synonym_relation_id-53: نام منتشر نؤی
+  translated_synonym_relations-label-synonym_relation_id-54: مترادف ذهنی
+  translated_synonym_relations-label-synonym_relation_id-56: املای نادرست
+  translated_synonym_relations-label-synonym_relation_id-57: املای دیگر
+  translated_synonym_relations-label-synonym_relation_id-58: lexical variant
+  translated_synonym_relations-label-synonym_relation_id-59: مترادف (عینی = هم‌شکل)
+  translated_synonym_relations-label-synonym_relation_id-60: (مترادف (ذهنی = دگرشکل
+  translated_synonym_relations-label-synonym_relation_id-62: مترادف کۀلنگتر
+  translated_synonym_relations-label-synonym_relation_id-63: قبول نؤی
+  translated_synonym_relations-label-synonym_relation_id-64: نامعتبر
+  translated_synonym_relations-label-synonym_relation_id-65: مترادف سرده
+  translated_synonym_relations-label-synonym_relation_id-66: بازنمایی دیگر
+  translated_synonym_relations-label-synonym_relation_id-68: گؤڵ پروری
+  translated_synonym_relations-label-synonym_relation_id-6: نام معادل
+  translated_table_of_contents-label-table_of_contents_id-13: نامۀل متداول
+  translated_table_of_contents-label-table_of_contents_id-194: اندازۀ
+  translated_table_of_contents-label-table_of_contents_id-1: چشم‌انداز
+  translated_table_of_contents-label-table_of_contents_id-221: خطرات
+  translated_table_of_contents-label-table_of_contents_id-225: در وب
+  translated_table_of_contents-label-table_of_contents_id-227: مِنِی کردن وە وب
+  translated_table_of_contents-label-table_of_contents_id-251: سوودۀل
+  translated_table_of_contents-label-table_of_contents_id-267: ریخت‌شناسی
+  translated_table_of_contents-label-table_of_contents_id-278: کتاوو شناسی
+  translated_table_of_contents-label-table_of_contents_id-286: وضعيت حفاظت
+  translated_table_of_contents-label-table_of_contents_id-289: تکامل
+  translated_table_of_contents-label-table_of_contents_id-296: مدیریت
+  translated_table_of_contents-label-table_of_contents_id-299: آموزش
+  translated_table_of_contents-label-table_of_contents_id-2: چکیدۀ
+  translated_table_of_contents-label-table_of_contents_id-300: ویکی پدیا
+  translated_table_of_contents-label-table_of_contents_id-303: ' نامؤ ئؤ دۀسۀبۀنی'
+  translated_table_of_contents-label-table_of_contents_id-304: نامۀل مرتبط
+  translated_table_of_contents-label-table_of_contents_id-305: مترادف‌ۀل
+  translated_table_of_contents-label-table_of_contents_id-306: آمارەل وەلگە
+  translated_table_of_contents-label-table_of_contents_id-307: خلاصه نۆم جِک(محتوا)
+  translated_table_of_contents-label-table_of_contents_id-309: بۀشا کردن
+  translated_table_of_contents-label-table_of_contents_id-310: توسعه
+  translated_table_of_contents-label-table_of_contents_id-315: تاریخچه ژیائن ئؤ رۀفتار
+  translated_table_of_contents-label-table_of_contents_id-316: رۀفتار
+  translated_table_of_contents-label-table_of_contents_id-318: چرخه ژیائن
+  translated_table_of_contents-label-table_of_contents_id-319: امید وە ژیائن
+  translated_table_of_contents-label-table_of_contents_id-320: زاووآر زی-تولیدمثل
+  translated_table_of_contents-label-table_of_contents_id-321: رشد
+  translated_table_of_contents-label-table_of_contents_id-322: تاریخچه سنگوارها
+  translated_table_of_contents-label-table_of_contents_id-324: سازگاری عملکردی
+  translated_table_of_contents-label-table_of_contents_id-325: فیزیولوژی و زنی شناسی
+    سلولی
+  translated_table_of_contents-label-table_of_contents_id-326: زنی شناسی ملکولی و
+    ژنتیک
+  translated_table_of_contents-label-table_of_contents_id-327: فیزیولوژی
+  translated_table_of_contents-label-table_of_contents_id-328: زیست‌شناسی سلولی
+  translated_table_of_contents-label-table_of_contents_id-329: ژنتیک
+  translated_table_of_contents-label-table_of_contents_id-330: توالی نوکلئوتید
+  translated_table_of_contents-label-table_of_contents_id-331: بارکد
+  translated_table_of_contents-label-table_of_contents_id-332: ژنوم
+  translated_table_of_contents-label-table_of_contents_id-333: زنی شناسی ملکولی
+  translated_table_of_contents-label-table_of_contents_id-334: تهدید
+  translated_table_of_contents-label-table_of_contents_id-335: قوانین
+  translated_table_of_contents-label-table_of_contents_id-336: ویرنۆیسة-یادداشت
+  translated_table_of_contents-label-table_of_contents_id-337: آموزش
+  translated_table_of_contents-label-table_of_contents_id-338: پئوندۀل آموزشی
+  translated_table_of_contents-label-table_of_contents_id-339: منبعۀل آموزشی
+  translated_table_of_contents-label-table_of_contents_id-33: روند
+  translated_table_of_contents-label-table_of_contents_id-344: دادۀل
+  translated_table_of_contents-label-table_of_contents_id-345: منبعۀل داده
+  translated_table_of_contents-label-table_of_contents_id-346: ضوابط زیست‌پزشکی
+  translated_table_of_contents-label-table_of_contents_id-347: دۀسۀبۀنی علمی
+  translated_table_of_contents-label-table_of_contents_id-348: اطلاعات گونه
+  translated_table_of_contents-label-table_of_contents_id-34: دیدگائل-قسۀل
+  translated_table_of_contents-label-table_of_contents_id-3: توضیحات فیزیکی
+  translated_table_of_contents-label-table_of_contents_id-41: زیستگاه/جا زِنِی
+  translated_table_of_contents-label-table_of_contents_id-4: بوم‌شناسی
+  translated_table_of_contents-label-table_of_contents_id-7: منبعۀل و اطلاعات ویشتر
+  translated_table_of_contents-label-table_of_contents_id-8: حفاظت بی
+  translated_untrust_reasons-label-untrust_reason_id-2: نادرست/گمراه کننده
+  translated_untrust_reasons-label-untrust_reason_id-3: گۀڵئ کیفیت دری- کیفیت هووارِ
+  translated_untrust_reasons-label-untrust_reason_id-4: تکراری
+  translated_untrust_reasons-label-untrust_reason_id-5: بۀقیۀ
+  translated_user_identities-label-user_identity_id-2: دانش‌آموز
+  translated_user_identities-label-user_identity_id-3: آموزگار
+  translated_vetted-label-vetted_id-0: ناشنا
+  translated_vetted-label-vetted_id-4: نامطمئن
+  translated_vetted-label-vetted_id-5: مطمئن
+  translated_vetted-label-vetted_id-6: نامناسب
+  translated_view_styles-name-view_style_id-1: لیست
+  translated_view_styles-name-view_style_id-2: گالری
+  translated_visibilities-label-visibility_id-0: دیار نیۀ
+  translated_visibilities-label-visibility_id-1: دیارۀ-نمایان
+  translated_visibilities-label-visibility_id-2: سئرکردن
+...

@@ -4,6 +4,8 @@ class TraitBank
     attr_reader :taxon_re
   end
 
+  SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
+
   @default_limit = 5000
   @taxon_re = Rails.configuration.known_taxon_uri_re
 
@@ -70,7 +72,7 @@ class TraitBank
       begin
         Resource.where("harvested_at IS NOT NULL").find_each do |resource|
           count = resource.trait_count
-          EOL.log("#{resource.title} (#{resource.id}): #{count}")
+          EOL.log("Rebuild resource? #{resource.title} (#{resource.id}): #{count}")
           # Rebuild this one if there are any triples in the (old) graph:
           taxa += rebuild_resource(resource) if count > 0
         end
@@ -177,7 +179,7 @@ class TraitBank
           raise e
         end
       end
-      if triples.empty
+      if triples.empty?
         EOL.log("No data to insert, skipping.", prefix: ".")
       else
         unless connection.insert_data(data: triples, graph_name: graph_name)
@@ -247,7 +249,6 @@ class TraitBank
       begin
         limited_query = query + " LIMIT #{limit}"
         limited_query += " OFFSET #{offset}" if offset > 0
-        EOL.log(limited_query, prefix: "Q")
         results = connection.query(limited_query)
         EOL.log("#{results.count} results", prefix: ".")
         yield(results) if results && results.count > 0
@@ -255,11 +256,51 @@ class TraitBank
       end until results.empty?
     end
 
+    def clear_predicates
+      Rails.cache.delete(predicates_cache_name)
+    end
+
+    def predicates
+      Rails.cache.fetch(predicates_cache_name, expires_in: 1.week) do
+        predicates_rows
+      end
+    end
+
+    def predicates_cache_name
+      "trait_bank/predicates"
+    end
+
+    # Returns an array of [id (a string), uri, name] arrays
+    def predicates_rows
+      EOL.pluck_fields([:known_uri_id, :uri, :name],
+        TranslatedKnownUri.joins(:known_uri).
+          where(language_id: Language.english.id,
+            known_uris: { uri: predicates_uris}).
+          where("name IS NOT NULL AND name != ''").order("name")).
+        map do |string|
+        string.split(',', 3)
+      end
+
+    end
+
+    def predicates_uris
+      predicates_rdf.map { |rdf| rdf[:predicate].to_s }
+    end
+
+    # NOTE: this takes a LONG, long time. Over a minute. You have been warned.
+    def predicates_rdf
+      query = "PREFIX eol: <http://eol.org/schema/> select "\
+        "DISTINCT(?predicate) { graph <http://eol.org/traitbank> "\
+        "{ ?page ?predicate ?trait . ?trait a eol:trait . ?page a eol:page } }"
+      connection.query(query)
+    end
+
     # Given a page, get all of its traits and all of its metadata. Note that
     # this necessarily returns a bunch of predicates of
     # <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>, which you should
     # ignore. Sorry!
     def page_with_traits(page, limit = 10_000, offset = nil)
+      EOL.log_call
       query = "SELECT DISTINCT *
       # page_with_traits
       WHERE {

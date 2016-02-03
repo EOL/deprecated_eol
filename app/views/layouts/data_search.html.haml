@@ -14,8 +14,7 @@
       .page_actions
         %ul
           - if @traits && ! @traits.blank?
-            - limited = (@traits.traits.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_search_limit, count: DataSearchFile::LIMIT) : nil
-            %li.data_download{ data: { alert: limited } }
+            %li.data_download
               = link_to I18n.t(:download_data),
                 download_data_search_path(params: params),
                 method: :post, :class => 'button'

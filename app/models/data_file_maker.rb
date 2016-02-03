@@ -4,7 +4,8 @@ class DataFileMaker
 
   # TODO - logging here is bad; improve. I'm using #error just to ensure it shows up in the log, but that's probably subprime.
   def self.perform(args)
-    Rails.logger.error "++ #{Time.now.strftime('%F %T')} DataFileMaker: #{args.values.join(', ')}"
+    EOL.log_call
+    EOL.log("#{args.values.join(', ')}", prefix: ".")
     # Once upon a time, a job was skipped because it didn't exist... but it should have.
     # I assume this was a case of slight slave lag and bad timing, so to ensure
     # that doesn't cause a problem:
@@ -13,13 +14,14 @@ class DataFileMaker
         begin
           DataSearchFile.find(args["data_file_id"]).build_file
         rescue => e
-          Rails.logger.error "   FAILED: #{e.message}"
+          EOL.log_error(e)
         end
       else
-        Rails.logger.error "   Data file #{args["data_file_id"]} doesn't exist, assuming canceled."
+        EOL.log("ID #{args["data_file_id"]} doesn't exist, canceled?",
+          prefix: ".")
       end
     end
-    Rails.logger.error "   Done."
+    EOL.log("Done #{args["data_file_id"]}.", prefix: ".")
   end
 
 end

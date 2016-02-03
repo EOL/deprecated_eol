@@ -111,7 +111,7 @@ class DataSearchFile < ActiveRecord::Base
     CSV.open(local_file_path, 'wb') do |csv|
       csv_builder(csv, col_heads, rows)
     end
-    update_attributes(row_count: rows.count)
+    update_attributes(row_count: rows.count, failed_at: nil, error: nil)
   end
 
   def send_completion_email

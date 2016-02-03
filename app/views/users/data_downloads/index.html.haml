@@ -27,6 +27,8 @@
                       %span.message= I18n.t('users.data_downloads.processing')
                     - else
                       %span.message= I18n.t('users.data_downloads.error')
+                      /
+                        = truncate(search_file.error, length: 100)
                 - summary_parts = data_search_file_summary(search_file)
                 - unless summary_parts.empty?
                   = raw summary_parts.join(", ")

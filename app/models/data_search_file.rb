@@ -1,6 +1,7 @@
 class DataSearchFile < ActiveRecord::Base
   include FileDownloadHelper
 
+  # TODO: remove file_number ; not using it now
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q,
     :sort, :to, :uri, :user, :user_id, :completed_at, :hosted_file_url,
     :row_count, :unit_uri, :taxon_concept_id, :file_number, :failed_at, :error
@@ -12,13 +13,6 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :language
   belongs_to :known_uri
   belongs_to :taxon_concept
-
-  # Number of results we feel confident to process at one time (ie: one query
-  # for each)
-  PER_PAGE = 5000
-  # Maximum number of "pages" of data to allow in one file.
-  PAGE_LIMIT = 500
-  LIMIT = PAGE_LIMIT * PER_PAGE
 
   def build_file
     unless hosted_file_exists?
@@ -84,30 +78,30 @@ class DataSearchFile < ActiveRecord::Base
         clade: taxon_concept_id, unit: unit_uri }
     results = SearchTraits.new(search)
     total = results.traits.total_entries
-    count = 0
-    # TODO - we should probably add a "hidden" column to the file and allow
-    # admins/master curators to see those rows, (as long as they are marked as
-    # hidden). For now, though, let's just remove the rows:
+    count = results.traits.count
     begin # Always do this at least once...
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
-      count = ((page * PER_PAGE) + ((file_number - 1) * LIMIT))
       results.traits.each do |trait|
         if trait.point.hidden?
-          # data_column_tc_id is used here just because it is the first cloumn in the downloaded file.
+          # TODO - we should probably add a "hidden" column to the file and
+          # allow admins/master curators to see those rows, (as long as they are
+          # marked as hidden). For now, though, let's just remove the rows:
+          # data_column_tc_id is used here just because it is the first cloumn
+          # in the downloaded file.
           rows << { I18n.t(:data_column_tc_id) =>
             I18n.t(:data_search_row_hidden) }
         else
           rows << trait.to_hash
         end
       end
-      # offset = (file_number-1) * LIMIT
-      if (count < total)
+      if (count < total) && results.traits.count > 0
         page += 1
         results = SearchTraits.new(search.merge(page: page))
+        count += results.traits.count
       else
         break
       end
-    end until (count >= total) || page > PAGE_LIMIT
+    end until (count >= total)
     rows
   end
 

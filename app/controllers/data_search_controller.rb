@@ -35,14 +35,8 @@ class DataSearchController < ApplicationController
       search_params = params.dup
     end
     prepare_search_parameters(search_params)
-    total_results = EOL::Sparql.connection.query(EOL::Sparql::SearchQueryBuilder.prepare_search_query(@search_options.merge(only_count: true))).first[:count].to_i
-    #create all download files
-    no_of_files = (total_results.to_f / DataSearchFile::LIMIT).ceil
-    for count in 1..no_of_files
-      df = create_data_search_file
-      df.update_attributes(file_number: count)
-      Resque.enqueue(DataFileMaker, data_file_id: df.id)
-    end
+    df = create_data_search_file
+    Resque.enqueue(DataFileMaker, data_file_id: df.id)
     flash[:notice] = I18n.t(:file_download_pending, link: user_data_downloads_path(current_user.id))
     redirect_to user_data_downloads_path(current_user.id)
   end

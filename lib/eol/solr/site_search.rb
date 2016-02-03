@@ -29,9 +29,9 @@ module EOL
         response = solr_search(query, options)
 
         total_results = response['grouped']['resource_unique_key']['ngroups']
-        query_time = response['grouped']['QTime']
+        query_time = response['responseHeader']['QTime']
         EOL.log("Search: {#{query}} page: #{options[:page]} "\
-          "(#{total_results} results) #{response.keys.join(", ")}", prefix: "S")
+          "(#{total_results} results, #{query_time}ms)", prefix: "S")
         return_hash = { :time => query_time,
                         :total => total_results }
 

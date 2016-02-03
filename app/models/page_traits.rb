@@ -8,22 +8,18 @@ class PageTraits < TraitSet
       TraitBank.page_with_traits(id)
     end
     trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
-    EOL.log("points", prefix: ".")
     @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
       includes(:comments, :taxon_data_exemplars)
     uris = Set.new(@rdf.flat_map { |rdf|
       rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) } })
     uris.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }
     # TODO: associations. We need the names of those taxa.
-    EOL.log("glossary", prefix: ".")
     @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
       includes(toc_items: :translated_toc_items)
     traits = @rdf.group_by { |trait| trait[:trait] }
-    EOL.log("traits", prefix: ".")
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
     source_ids = Set.new(@traits.map { |trait| trait.source_id })
     source_ids.delete(nil) # It happens.
-    EOL.log("sources (#{source_ids.to_a.join(", ")})", prefix: ".")
     @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
   end
 

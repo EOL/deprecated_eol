@@ -1,4 +1,3 @@
-- EOL.log("Starting index view")
 #tabs_sidebar.data
   %ul.tabs.with_icons{ class: 'subtabs' }
     %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
@@ -143,4 +142,3 @@
                         trait.content_partner))
                     - else
                       = I18n.t(:data_point_uri_source_missing)
-- EOL.log("Finished with index view")

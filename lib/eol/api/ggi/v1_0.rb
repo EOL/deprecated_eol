@@ -26,6 +26,8 @@ module EOL
 
         def self.prepare_hash(taxon_concept, params={})
           return_hash = {}
+          # TODO: I am disabling this because I don't know who's calling it anymore.
+          return return_hash
           unless taxon_concept.nil?
             return_hash['identifier'] = taxon_concept.id
             return_hash['scientificName'] = taxon_concept.entry.name.string

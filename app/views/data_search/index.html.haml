@@ -1,4 +1,3 @@
-- EOL.log("Search index", prefix: "V")
 - if @traits.blank?
   .empty
     %p= data_search_results_summary
@@ -29,7 +28,6 @@
             %td.placeholder{colspan: 6}
               = I18n.t(:data_search_row_hidden)
         - else
-          - EOL.log("Rendering trait #{trait.point.anchor}", prefix: "V")
           - classes = []
           - unless trait.point.visible?
             - if current_user.is_curator?

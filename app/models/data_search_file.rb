@@ -103,7 +103,7 @@ class DataSearchFile < ActiveRecord::Base
       # offset = (file_number-1) * LIMIT
       if (count < total)
         page += 1
-        results = TaxonData.search(search.merge(page: page))
+        results = SearchTraits.new(search.merge(page: page))
       else
         break
       end

@@ -39,8 +39,8 @@ class Tramea
       options["articles_per_page"] ||= 1
       options["traits_page"] ||= 1
       options["traits_per_page"] ||= 10
-      # NOTE: this sucks, need to load a fake data helper to make this work: THIS IS REALLY SLOW.
-      data = TaxonData.new(taxon, User.first)
+      data = PageTraits.new(taxon.id).traits
+      # TODO: this will no longer work, because I stopped calling TaxonData. Fix.
       hash = {
         "id" => taxon.id,
         # TODO: "curator" is a PLACEHOLDER, meant to show that, in the future,

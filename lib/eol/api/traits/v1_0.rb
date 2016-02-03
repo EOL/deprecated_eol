@@ -15,19 +15,8 @@ module EOL
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
-          begin
-            taxon_concept = TaxonConcept.find(params[:id])
-          rescue
-            raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"")
-          end
-          raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") if !taxon_concept.published?
-          prepare_hash(taxon_concept, params)
+          JSON.pretty_generate(PageTraits.new(taxon_concept).jsonld)
         end
-
-        def self.prepare_hash(taxon_concept, params={})
-          TaxonData.new(taxon_concept).to_jsonld
-        end
-
       end
     end
   end

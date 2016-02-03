@@ -116,7 +116,7 @@ class CollectionItem < ActiveRecord::Base
     end
   end
 
-  def self.spamy?(item, user)
+  def self.spammy?(item, user)
     # It's never okay to have spam in the sort field. Ever.
     return true if item[:sort_field] =~ EOL.spam_re
     item[:annotation] =~ EOL.spam_re and user.newish?

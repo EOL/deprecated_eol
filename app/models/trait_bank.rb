@@ -10,6 +10,24 @@ class TraitBank
   @taxon_re = Rails.configuration.known_taxon_uri_re
 
   class << self
+    def cache_query(key, &block)
+      result = Rails.cache.fetch(key, expires_in: 1.day) do
+        begin
+          yield
+        rescue EOL::Exceptions::SparqlDataEmpty => e
+          []
+        end
+      end
+      if result.nil? || result.blank?
+        # Don't store empty results:
+        Rails.cache.delete(key)
+        EOL.log("TB.cache_query: #{key} (0 results, not saved)")
+      else
+        EOL.log("TB.cache_query: #{key} (#{result.count} results)")
+      end
+      result
+    end
+
     def connection
       @conneciton ||= EOL::Sparql.connection
     end
@@ -300,7 +318,6 @@ class TraitBank
     # <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>, which you should
     # ignore. Sorry!
     def page_with_traits(page, limit = 10_000, offset = nil)
-      EOL.log_call
       query = "SELECT DISTINCT *
       # page_with_traits
       WHERE {
@@ -313,7 +330,12 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
-      connection.query(query)
+      begin
+        connection.query(query)
+      rescue EOL::Exceptions::SparqlDataEmpty => e
+        EOL.log_error(e)
+        []
+      end
     end
 
     # Given a list of traits, get all the metadata for them:

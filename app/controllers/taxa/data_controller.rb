@@ -2,6 +2,7 @@ class Taxa::DataController < TaxaController
 
   helper DataSearchHelper # Because we include one of its partials.
 
+  before_filter :is_data_available
   before_filter :instantiate_taxon_page, :redirect_if_superceded, :instantiate_preferred_names
   before_filter :load_data, except: [:index]
 
@@ -66,4 +67,7 @@ protected
       : []
   end
 
+  def is_data_available
+    raise "TraitBank temporarily unavailable" unless EolConfig.data?
+  end
 end

@@ -272,22 +272,4 @@ describe User do
     expect_permission_count_to_be(:edit_permissions, count - 1)
     user.permissions.length.should == 0
   end
-
-  it 'should can_see_data? when they have permission' do
-    EolConfig.destroy_all
-    u = User.gen
-    u.can_see_data?.should == false
-    u.grant_permission(:see_data)
-    u.can_see_data?.should == true
-  end
-
-  it 'should can_see_data? when the site configuration option is set' do
-    EolConfig.destroy_all
-    u = User.gen
-    u.can_see_data?.should == false
-    EolConfig.gen(parameter: 'all_users_can_see_data', value: true)
-    u.can_see_data?.should == true
-    u = User.gen
-  end
-
 end

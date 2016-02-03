@@ -2002,7 +2002,8 @@ pt-PT:
   item_type_sound_assistive: Este item é um som
   item_type_taxon_assistive: Este item é um taxon
   item_type_video_assistive: Este item é um vídeo
-  item_not_added_already_in_collection: Este item já esteve adicionado à colecção.
+  item_not_added_already_in_collection: Este item:%{value} já esteve adicionado à
+    colecção.
   item_not_added_to_itself_notice: Desculpe, não pode adicionar <em>%{collection_name}</em>
     a si mesmo.
   item_not_added_to_collection_error: Desculpe, ocorreu um erro, o item selecionado
@@ -2212,6 +2213,7 @@ pt-PT:
   object_curation: Curadoria de objeto
   object: Objeto
   objects_curated: Objectos Curados
+  object_removed: (este objeto foi removido da base de dados)
   object_status: Estado do objeto
   object_status_all_option: Tudo
   object_status_trusted_option: De confiança

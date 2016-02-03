@@ -5,7 +5,6 @@ class KnownUrisController < ApplicationController
 
   before_filter :set_page_title, except: AUTOCOMPLETE_ACTIONS
   before_filter :restrict_to_admins_and_master_curators, except: AUTOCOMPLETE_ACTIONS
-  before_filter :restrict_to_data_viewers
   before_filter :set_stats_filter_options, only: [ :index, :show_stats ]
   skip_before_filter :original_request_params, :global_warning, :set_locale, :check_user_agreed_with_terms,
     only: AUTOCOMPLETE_ACTIONS
@@ -295,7 +294,7 @@ class KnownUrisController < ApplicationController
     @uri_stats = []
     @stats_filter_selected_option = nil
     return true
-    
+
     # NOTE: this is what needs rebuilding:
     case @stats_filter_selected_option
     when 'measurement_types'

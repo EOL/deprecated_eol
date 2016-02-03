@@ -110,9 +110,9 @@ class ContentPage < ActiveRecord::Base
   def not_available_in_languages(force_exist_language)
     if self.id
       languages = []
-      languages << force_exist_language if force_exist_language
+      languages << force_exist_language if force_exist_language          
       languages += Language.find_by_sql("SELECT l.* FROM languages l "\
-          "LEFT JOIN translated_content_pages tcp ON (l.id=tcp.language_id AND"\
+          "LEFT JOIN translated_content_pages tcp ON (l.id=tcp.language_id AND "\
           "tcp.content_page_id=#{self.id}) "\
           "WHERE tcp.id IS NULL AND l.activated_on <= '#{Time.now.to_s(:db)}' "\
           "ORDER BY sort_order ASC")

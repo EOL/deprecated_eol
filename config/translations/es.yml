@@ -970,6 +970,8 @@ es:
     download_taxa_data:
       attribute_header: Atributo
       select_all_checkbox: Seleccionar todo
+      collection_download_under_processing: Ahora se está procesando la descarga de
+        colección. Cuando se complete, se te enviará un correco electrónico
       user_downloaded_collection: Descarga de datos de %{collection_name}
     show:
       meta_description_default: Una colección de Encyclopedia of Life titulada %{collection_name}.
@@ -1239,7 +1241,7 @@ es:
       about_link_what_is_eol: ¿Qué es EOL?
       about_link_traitbank: ¿Qué es TraitBank?
       about_link_eol_blog: El blog de EOL
-      about_link_discover: Descubrir
+      about_link_discover: Educación
       about_link_statistics: Estadísticas
       about_link_glossary: Glosario
       about_link_podcasts: Podcasts
@@ -1602,8 +1604,10 @@ es:
         de descargas en su perfil</a>.
       header: ¡Su descarga está lista!
     collection_download_ready:
+      subject: Los atributos seleccionados de tu colección están listos para su descarga
       message: Puede ver ésta y otras descargas visitando la <a href='%{download_link}'>pestaña
         de descargas de datos en tu perfil</a>.
+      header: Tu descarga de colección está lista.
   sessions:
     new:
       login_with_facebook_assistive: Iniciar sesión en EOL utilizando tus credenciales
@@ -2169,6 +2173,7 @@ es:
         other: '%{count} descargas de datos'
       empty: No tiene descargas. Puede <a href='%{data_search_url}'>buscar datos</a>
         y solicitar la descarga de los resultados.
+      empty_taxa_collection: No se encontraron rasgos en esta colección
       no_selected_attributes: Ningún atributo seleccionado. Selecciona al menos uno
       download: descargar
       page_title: Descarga de datos
@@ -2186,6 +2191,8 @@ es:
       refresh: actualizar
       row_count: Conteo
       search_again: buscar de nuevo
+      file_not_processed: Este archivo no se ha procesado todavía,
+      contact_us: contáctanos para obtener ayuda
     edit:
       form_tip_account: Para iniciar sesión en EOL necesitas un nombre de usuario
         y una contraseña de EOL, o puedes conectarte a una cuenta externa. El nombre
@@ -4091,8 +4098,10 @@ es:
   cannot_be_associated_with_both_a_user_and_a_community: No se puede asociar con un
     usuario y una comunidad
   cannot_be_empty: no puede estar vacío.
-  cannot_create_collection_item_from_class_error: No se puede crear un elemento de
-    la colección de un %{klass}
+  cannot_create_collection_item_from_class_error: 'No podemos crear un elemento de
+    la colección de un tipo: %{klass}'
+  cannot_create_collection_items_from_invalid_types: 'No podemos crear un elemento
+    de la colección de tipo(s): %{types}'
   cannot_create_community_from_watch_collection_error: No puedes crear una comunidad
     a partir de una lista de seguimiento.
   cannot_curate_association_in_preview_mode: La asociación %{name} no puede ser supervisada
@@ -4219,6 +4228,7 @@ es:
   collection_api_sort_field_notes: Si está incluido un parámetro sort_field, sólo
     serán devueltos los elementos de la colección cuyo campo de ordenación coincida
     exactamente con la cadena especificada
+  collection_create_failure: Error al crear la colección.
   collection_created_with_count_notice:
     one: Colección <em>%{collection_name}</em> creado correctamente con %{count} elemento
       de la colección.
@@ -4229,6 +4239,7 @@ es:
   collection_removed: La colección %{collection} se ha eliminado.
   collection_update_failure: Error al actualizar la colección %{collection}. Verifica
     si hay problemas en los elementos de la colección
+  collection_not_existing: La colección %{collection} no existe.
   collection_error_no_items_selected: 'Error: no hay artículos seleccionados, no se
     llevó a a cabo ninguna acción.'
   collection_image: Imagen de colección
@@ -4242,6 +4253,10 @@ es:
     one: '%{count} item'
     zero: Empty
     other: '%{count} items'
+  collection_items_duplicate_ids: No se puede crear una colección a partir de ID(s)
+    duplicado(s) %{type}:(%{values})
+  collection_items_missing_values: ' collected_item_id/collected_item_type no puede
+    ser nulo en:%{item}'
   collection_copy_complete_with_count:
     one: Copiado %{count} elemento de %{from} a %{to}.
     other: Copiado un total de %{count} elementos de %{from} a %{to}.
@@ -5047,7 +5062,7 @@ es:
   details_title: Detalles
   did_you_mean: '¿Quiso decir: %{suggestions} ?'
   disabled_for_now: DISCAPACITADOS EN ESTE MOMENTO
-  discover_link: Descubrir
+  discover_link: Educación
   displaying_numerical_range_eol_records_with_count:
     one: Mostrando %{count} registro en EOL
     other: Mostrando %{start_number} &ndash; %{end_number} de %{count} registros en
@@ -5136,10 +5151,10 @@ es:
   eol_news: Noticias EOL
   eol_pages: Páginas
   error_log_detail: Detalle del registro de error
-  error_revoking_editor_on_watch_collection: No se pueden eliminar a los editores
-    de las colecciones de seguimieto
   error_log: Registro de errores
   error_logging_active: Registro activo de errores
+  error_revoking_editor_on_watch_collection: No se pueden eliminar a los editores
+    de las colecciones de seguimieto
   error_401_page_title: No autorizado
   error_401_description: Lo sentimos, no está autorizado a acceder a esa dirección
     URL.
@@ -5601,7 +5616,8 @@ es:
   item_type_sound_assistive: Este elemento es un sonido
   item_type_taxon_assistive: Este elemento es un taxón
   item_type_video_assistive: Este elemento es un video
-  item_not_added_already_in_collection: Este elemento ya se ha agregado a la colección.
+  item_not_added_already_in_collection: Este elemento:%{value} ya se ha agregado a
+    la colección.
   item_not_added_to_itself_notice: Lo sentimos, no se puede agregar colección <em>%{collection_name}</em>
     a sí mismo.
   item_not_added_to_collection_error: Lo sentimos, ha ocurrido un error, el elemento
@@ -5988,7 +6004,7 @@ es:
   no_collections_apply: Ninguna de las colecciones a las que tienes acceso puede añadir
     administradores.
   no_comments_are_available_for_subject: No hay comentarios disponibles para %{subject}
-  no_comments_have_been_left_yet: Aun no se ha dejado ningún comentario.
+  no_comments_have_been_left_yet: Aún no se ha dejado ningún comentario.
   no_errors_are_available: No hay ningún error disponible.
   no_harvesting_logs_for_this_da: No hay registros de recogida para esta fecha
   no_items_were_copied_to_collections_error: Nimgún elemento fue copiado a las colecciones:%{names}.
@@ -6059,6 +6075,7 @@ es:
   object: Objeto
   object_curated: Objeto conservado.
   objects_curated: Objetos Curados
+  object_removed: (este objeto ha sido eliminado de la base de datos)
   object_status: Estado del objeto
   object_status_all_option: Todos
   object_status_trusted_option: De confianza

@@ -5,7 +5,6 @@ class TaxonData < TaxonUserClassificationFilter
   extend EOL::Sparql::SafeConnection
   DEFAULT_PAGE_SIZE = 30
   MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES = 15000
-  MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH = 60000
 
   GGI_URIS = [
     'http://eol.org/schema/terms/NumberRichSpeciesPagesInEOL',
@@ -71,11 +70,6 @@ class TaxonData < TaxonUserClassificationFilter
     Hash[ counts_of_result_value_uris.collect{ |h| [ h[:value], h[:count] ] } ]
   end
 
-  def self.is_clade_searchable?(taxon_concept)
-    taxon_concept.number_of_descendants <=
-      TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_SEARCH
-  end
-
   def downloadable?
     ! bad_connection? && ! get_data.blank?
   end
@@ -99,7 +93,7 @@ class TaxonData < TaxonUserClassificationFilter
     # #dup used here because the return value is often altered to suit the
     # rendering, and we don't want to much with the data stored here.
     return @taxon_data_set.dup if defined?(@taxon_data_set)
-    unless user.can_see_data?
+    unless EolConfig.data?
       @categories = []
       return @taxon_data_set = []
     end
@@ -126,7 +120,7 @@ class TaxonData < TaxonUserClassificationFilter
   # TODO - spec for can see data check
   # NOTE - nil implies bad connection. Empty set ( [] ) implies nothing to show.
   def get_data_for_overview
-    return nil unless user.can_see_data?
+    return nil unless EolConfig.data?
     picker = TaxonDataExemplarPicker.new(self).pick
   end
 
@@ -176,7 +170,7 @@ class TaxonData < TaxonUserClassificationFilter
 
   # TODO - spec for can see data check
   def ranges_for_overview
-    return nil unless user.can_see_data?
+    return nil unless EolConfig.data?
     ranges_of_values.select{ |range| KnownUri.uris_for_clade_exemplars.include?(range[:attribute].uri) }
   end
 

@@ -4,7 +4,6 @@ class UserAddedDataController < ApplicationController
 
   before_filter :check_authentication, only: [ :create, :edit, :update, :destroy ]
   before_filter :restrict_to_admins_and_master_curators # NOTE - this restriction should be removed when we release this feature, of course.
-  before_filter :restrict_to_data_viewers
 
   # POST /user_added_data
   def create
@@ -33,7 +32,7 @@ class UserAddedDataController < ApplicationController
   def edit
     @user_added_data = UserAddedData.find(params[:id])
     unless current_user.can_update?(@user_added_data)
-      
+
       raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}",
       :only_data_owner_can_edit)
     end
@@ -44,7 +43,7 @@ class UserAddedDataController < ApplicationController
     delete_empty_metadata
     @user_added_data = UserAddedData.find(params[:id])
     unless current_user.can_update?(@user_added_data)
-      
+
       raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}",
       :only_data_owner_can_edit)
     end
@@ -63,7 +62,7 @@ class UserAddedDataController < ApplicationController
   # DELETE /user_added_data/:id
   def destroy
     user_added_data = UserAddedData.find(params[:id])
-    
+
     raise EOL::Exceptions::SecurityViolation.new("User with ID=#{current_user.id} does not have edit access to UserAddedData with ID=#{@user_added_data.id}",
     :only_data_owner_can_delete) unless current_user.can_delete?(user_added_data)
     user_added_data.update_attributes({ deleted_at: Time.now })

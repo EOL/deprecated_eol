@@ -69,6 +69,10 @@ class TaxonConcept < ActiveRecord::Base
     "supercedure_id IS NULL") }
   # A bit of a cheat—we happen to know it will ONLY be unknown, not untrusted.
   scope :untrusted, -> { where(vetted_id: Vetted.unknown.id) }
+  scope :with_title, -> { includes(preferred_entry: { hierarchy_entry:
+    { name: :ranked_canonical_form } }) }
+  scope :with_subtitle, -> { includes(preferred_common_names: :name) }
+  scope :with_titles, -> { with_title.with_subtitle }
 
   attr_accessor :common_names_in_language
 
@@ -244,8 +248,14 @@ class TaxonConcept < ActiveRecord::Base
       # sometimes we preload preferred names in all languages for lots of taxa
       best_name_in_language = common_names_in_language[language.id]
     else
-      # ...but if we don't, its faster to get only the one record in the current language
-      if tcn = preferred_common_names.where("language_id = #{language.id}").first
+      # ...but if we don't, its faster to get only the one record in the current
+      # language
+      pref_name = if preferred_common_names.loaded?
+        preferred_common_names.select { |pcn| pcn.language_id == language.id }
+      else
+        preferred_common_names.where(language_id: language.id)
+      end
+      if tcn = pref_name.first
         best_name_in_language = tcn.name
       end
     end

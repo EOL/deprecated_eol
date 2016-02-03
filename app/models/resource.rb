@@ -467,7 +467,7 @@ class Resource < ActiveRecord::Base
     batch = 250_000 # Huge batches, but I checked that this was okay.
     points = []
     while low < max
-      points += resource.data_point_uris.  ########################## TODO remove the resource! TODO TODO  TODO
+      points += data_point_uris.
         where(["id > ? AND id < ?", low, low + batch]).
         pluck(:uri)
       low += batch

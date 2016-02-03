@@ -59,7 +59,7 @@ class CollectionsController < ApplicationController
     return must_be_logged_in unless logged_in?
     @collection = Collection.new(params[:collection])
     if @collection.description =~ EOL.spam_re or
-      @collection.title =~ EOL.spam_re and
+      @collection.name =~ EOL.spam_re and
       current_user.newish?
       flash[:error] = I18n.t(:error_violates_tos)
       return redirect_to request.referer
@@ -113,7 +113,7 @@ class CollectionsController < ApplicationController
     name_change = params[:collection][:name] != @collection.name
     description_change = params[:collection][:description] != @collection.description
     if params[:collection][:description] =~ EOL.spam_re or
-      params[:collection][:title] =~ EOL.spam_re and
+      params[:collection][:name] =~ EOL.spam_re and
       current_user.newish?
       flash[:error] = I18n.t(:error_violates_tos)
       return render(action: :edit)

@@ -71,7 +71,7 @@ describe 'taxa/data/index' do
   end
 
   context 'logged in' do
-    
+
     before(:each) do
       taxon_concept = build_stubbed(TaxonConcept)
       taxon_concept.stub(:latest_version) { taxon_concept }
@@ -92,11 +92,9 @@ describe 'taxa/data/index' do
       assign(:include_other_category, true)
       assign(:units_for_select, KnownUri.default_units_for_form_select)
       user = build_stubbed(User)
-      user.stub(:can_see_data?) { true }
       view.stub(:current_user) { user }
       view.stub(:current_language) { Language.default }
       view.stub(:logged_in?) { false }
-      view.stub(:is_clade_searchable?) { true }
       @ku = FactoryGirl.build(:known_uri_unit)
       FactoryGirl.build(:translated_known_uri, name: 'chucks', known_uri: @ku)
       @tc = TaxonConcept.gen
@@ -115,17 +113,17 @@ describe 'taxa/data/index' do
                                 vetted: Vetted.trusted,
                                 visibility: Visibility.visible)
         dpu_min.reload
-        dpu_max.reload  
-        ranges = {attribute: @ku, min: dpu_min, max: dpu_max}           
-        assign(:range_data, [ranges])  
-        assign(:data_point_uris, [])  
+        dpu_max.reload
+        ranges = {attribute: @ku, min: dpu_min, max: dpu_max}
+        assign(:range_data, [ranges])
+        assign(:data_point_uris, [])
       end
       it "go to data_summaries subtab by default" do
         render
-        expect(rendered).to have_tag('h3', text: /Data summaries/)   
-      end   
+        expect(rendered).to have_tag('h3', text: /Data summaries/)
+      end
     end
-    
+
     context 'with data' do
       before(:each) do
         @data_point_uris = []
@@ -136,7 +134,7 @@ describe 'taxa/data/index' do
                                               vetted: Vetted.trusted,
                                               visibility: Visibility.visible)
         end
-        curator = User.gen(curator_level_id: 1, curator_approved: 1, :credentials => 'Blah', :curator_scope => 'More blah')   
+        curator = User.gen(curator_level_id: 1, curator_approved: 1, :credentials => 'Blah', :curator_scope => 'More blah')
         session[:user_id] = curator.id
         allow(controller).to receive(:current_user) { curator }
         @comment = Comment.gen(parent_id: @data_point_uris[0].id, parent_type: "DataPointUri", body: "This is a comment")
@@ -177,22 +175,22 @@ describe 'taxa/data/index' do
         render
         expect(rendered).to have_tag('span.stat', text: /Itslifestage, Itssex/)
       end
-        
+
       it "displays the comment" do
         render
         expect(rendered).to include("#{@comment.body}")
       end
-      
+
       it "displays date of comment" do
         render
         expect(rendered).to have_tag('small', text: /ago/)
       end
-      
+
       it "should not display show 1 more" do
         render
         expect(rendered).not_to include("show 1 more")
       end
-      
+
       it "display show n more" do
         extra_one = DataPointUri.gen(unit_of_measure_known_uri: @ku,
                                               object: "100",
@@ -205,11 +203,11 @@ describe 'taxa/data/index' do
         render
         expect(rendered).not_to include("show 2 more")
       end
-      
+
     end
     context "treat values as strings" do
-      
-      before(:all) do 
+
+      before(:all) do
         @known_uri = KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_term_prefix+"verbatim_uri", value_is_verbatim: true)
         @big_value = "199999999999.99999999"
       end

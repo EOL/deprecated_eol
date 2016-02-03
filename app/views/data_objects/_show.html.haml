@@ -1,3 +1,6 @@
+- if !@data_object.published
+  = content_for :head do
+    %meta{name: "googlebot", content: "noindex, nofollow"}
 - en_type ||= en_type(@data_object)
 - for_worklist ||= false
 #main

@@ -1214,7 +1214,7 @@ pms:
       about_link_what_is_eol: Lòn ch'a l'é l'EdV?
       about_link_traitbank: Lòn ch'a l'é TraitBank?
       about_link_eol_blog: Lë scartari ëd l'EdV
-      about_link_discover: Dëscoaté
+      about_link_discover: Educassion
       about_link_statistics: Statìstiche
       about_link_glossary: Glossari
       about_link_podcasts: Podcasts
@@ -2141,6 +2141,8 @@ pms:
       refresh: agiorné
       row_count: Cont
       search_again: sërché torna
+      file_not_processed: S'archivi a l'é ancor nen ëstàit tratà,
+      contact_us: për piasì, ch'an contata për dl'assitensa
     edit:
       form_tip_account: Për rintré ant l'EdV a l'ha damanca ëd në stranòm e na ciav
         dl'EdV opura a peul coleghesse con n'àutr cont. Lë stranòm e la ciav a son
@@ -4018,8 +4020,10 @@ pms:
   cannot_be_associated_with_both_a_user_and_a_community: A peul pa esse associà ant
     l'istess temp a n'utent e a na comunità
   cannot_be_empty: a peul nen esse veuid.
-  cannot_create_collection_item_from_class_error: As peul pa creesse n'element ëd
-    olession a parte da na %{klass}
+  cannot_create_collection_item_from_class_error: 'As peul pa creesse n''element ëd
+    colession a parte da na sòrt: %{klass}'
+  cannot_create_collection_items_from_invalid_types: 'I podoma pa crée n''element
+    ëd colession për le sòrt: (%{types})'
   cannot_create_community_from_watch_collection_error: A peul pa creé na comunità
     a parta da na lista ëd ròba tnua sot-euj.
   cannot_curate_association_in_preview_mode: L'associassion con %{name} a peul nen
@@ -4149,8 +4153,7 @@ pms:
   collection_api_sort_field_notes: Si un paràmeter sort_field a l'é ancludù, mach
     j'element ëd la colession dont ël camp ëd selession a rëspond con precision a
     la stringa fornìa a saran ësmonù.
-  collection_create_failure: La creassion dla colession a l'ha falì. Ch'a controla
-    s'a-i fussa un problema con ij paràmeter dàit.
+  collection_create_failure: La creassion dla colession a l'ha falì.
   collection_created_with_count_notice:
     one: La colession <em>%{collection_name}</em> a l'é stàita creà për da bin e a
       conten %{count} element.
@@ -4176,6 +4179,9 @@ pms:
     zero: Veuida
     one: '%{count} element'
     other: '%{count} element'
+  collection_items_duplicate_ids: Impossìbil creé na colession për n'ID duplicà %{type}:(%{values})
+  collection_items_missing_values: ' collected_item_id/collected_item_type a peul
+    nen esse nul an: %{item}'
   collection_copy_complete_with_count:
     one: Copià %{count} element da %{from} a %{to}.
     other: Copià un total ëd %{count} element da %{from} a %{to}.
@@ -4984,7 +4990,7 @@ pms:
   details_title: Detaj
   did_you_mean: 'Vorij-lo dì: %{suggestions} ?'
   disabled_for_now: AL MOMENT DISATIVÀ
-  discover_link: Dëscoaté
+  discover_link: Educassion
   displaying_numerical_range_eol_records_with_count:
     one: Visualisassion d'%{count} argistrassion su EdV
     other: Visualisassion ëd %{start_number} &ndash; %{end_number} argistrassion su
@@ -5073,10 +5079,12 @@ pms:
   eol_news: Neuve ëd l'EdV
   eol_pages: Pàgine
   error_log_detail: Detaj dl'argistr dj'eror
-  error_revoking_editor_on_watch_collection: J'editor a peulo nen esse gavà da le
-    colession ch'as ten-o sot-euj
   error_log: Argist dj'eror
   error_logging_active: Argistrassion dj'eror ativa
+  error_violates_tos: Sò contnù a smija violé le condission d'usage dël servissi d'EdV.
+    S'a pensa ch'a-i sia n'eror, për piasì ch'an contata për dl'assistensa.
+  error_revoking_editor_on_watch_collection: J'editor a peulo nen esse gavà da le
+    colession ch'as ten-o sot-euj
   error_401_page_title: Nen autorisà
   error_401_description: An dëspias, chiel a l'é nen autorisà a acede a costa adrëssa.
   error_403_page_title: Vietà
@@ -5449,6 +5457,7 @@ pms:
     dë smon-e tut ël contnù.
   reindex_data_object_button: Andicisé torna l'oget
   reindex_page_button: Andicisé torna la pàgina
+  reindex_users_button: Riandicisé ij cont utent
   image: Plancia
   image_cropped_notice: La plancia a l'é stàita rusià për da bin.
   image_crop_failed_error: An dëspias, a-i é staje n'eror, la plancia a l'é nen podusse
@@ -5533,7 +5542,8 @@ pms:
   item_type_sound_assistive: S'element-sì a l'é n'argistrassion sonora
   item_type_taxon_assistive: S'element-sì a l'é na tassonomìa
   item_type_video_assistive: S'element-sì a l'é un filmà
-  item_not_added_already_in_collection: S'element-sì a l'é già stàit giontà a la colession.
+  item_not_added_already_in_collection: S'element-sì:%{value} a l'é già stàit giontà
+    a la colession.
   item_not_added_to_itself_notice: An dëspias, a peul nen gionté la colession <em>%{collection_name}</em>
     a chila-midema.
   item_not_added_to_collection_error: An dëspias, a-i é staje n'eror, l'element selessionà
@@ -5583,4 +5593,449 @@ pms:
   pending_harvests_none: A-ié gnun-e cujìe an atèisa për ël moment
   pending_harvests_title: Cujìe an atèisa
   pause_pending_harvests: Antërompe la cujìa
+  resume_pending_harvests: Arpijé la cujìa
+  label: Tichëtta
+  language: 'Lenga:'
+  languages: Lenghe
+  language_selector_advisory_information: Si-sota a-i é na lista dle lenghe anté che
+    ël contnù dël sit a l'é disponìbil; për modifiché la lenga corenta, ch'a na serna
+    n'àutra da sa lista.
+  language_with_count: '%{language} (%{count})'
+  last_harvest_duration: Durà dl'ùltima cujìa
+  last_updated: Ùltim agiornament
+  last_updated_time_ago: Ùltim agiornament %{time_passed} fa
+  learn_about_collections: '''Me ch''i peuss creene un-a?'
+  learn_about_content_partners: '''Me ch''i peuss ëdventé un ëd lor?'
+  learn_about_communities: '''Me ch''i peuss partissipé?'
+  learn_about_eol: '''Me ch''i peuss dovré l''EdV?'
+  learn_about_contributing: '''Me ch''i peuss contribuì?'
+  learn_about_joining: '''Me ch''i peuss gionteme?'
+  learn_how_to_contribute: Amprende coma contribuì.
+  learn_more_about_communities_link: Savèjne ëd pi an sle comunità
+  learn_more_about_names_for_this_taxon: savèjne ëd pi an sij nòm për costa tassonomìa
+  learn_more_link: (%{learn_more})
+  learn_more_lowercase: savèjne ëd pi
+  leave_community_button: Chité sa comunità
+  leave_a_comment: Lassé un coment
+  leave_reply: Chité la rispòsta
+  left_content_area: Zòna ëd contnù a snistra
+  legend: 'Legenda:'
+  license: Licensa
+  license_none: Gnun
+  license_all_rights_reserved: Tuti ij drit arzervà
+  license_cc_by: Atribussion Creative Commons (CC BY)
+  license_cc_by_2_0: Atribussion Creative Commons 2.0 (CC BY 2.0)
+  license_cc_by_2_5: Atribussion Creative Commons 2.5 (CC BY 2.5)
+  license_cc_by_3_0: Atribussion Creative Commons 3.0 (CC BY 3.0)
+  license_cc_by_nc: Atribussion Creative Commons nen comersial (CC BY-NC)
+  license_cc_by_nc_2_0: Atribussion Creative Commons nen comersial 2.0 (CC BY-NC 2.0)
+  license_cc_by_nc_2_5: Atribussion Creative Commons nen comersial 2.5 (CC BY-NC 2.5)
+  license_cc_by_nc_3_0: Atribussion Creative Commons nen comersial 3.0 (CC BY-NC 3.0)
+  license_cc_by_nc_sa: Atribussion Creative Commons nen comersial - partagi an part
+    uguaj (CC BY-NC-SA)
+  license_cc_by_nc_sa_1_0: Atribussion Creative Commons nen comersial - partagi an
+    part uguaj 1.0 (CC BY-NC-SA 1.0)
+  license_cc_by_nc_sa_2_0: Atribussion Creative Commons nen comersial 2.0 - partagi
+    an part uguaj (CC BY-NC-SA 2.0)
+  license_cc_by_nc_sa_2_5: Atribussion Creative Commons nen comersial - partagi an
+    part uguaj 2.5 (CC BY-NC-SA 2.5)
+  license_cc_by_nc_sa_3_0: Atribussion Creative Commons nen comersial - partagi an
+    part uguaj 3.0 (CC BY-NC-SA 3.0)
+  license_cc_by_sa: Atribussion Creative Commons - partagi an part uguaj (CC BY-SA)
+  license_cc_by_sa_1_0: Atribussion Creative Commons - partagi an part uguaj 1.0 (CC
+    BY-SA 1.0)
+  license_cc_by_sa_2_0: Atribussion Creative Commons - partagi an part uguaj 2.0 (CC
+    BY-SA 2.0)
+  license_cc_by_sa_2_5: Atribussion Creative Commons - partagi an part uguaj 2.5 (CC
+    BY-SA 2.5)
+  license_cc_by_sa_3_0: Atribussion Creative Commons - partagi an part uguaj 3.0 (CC
+    BY-SA 3.0)
+  license_cc_zero: Creative Commons — CC0
+  license_cc_zero_1_0: Creative Commons — CC0 1.0 Universal
+  license_gnu_fdl: Licensa ëd documentassion lìbera GNU (GNU FDL)
+  license_gnu_gpl: Licensa pùblica general GNU (GNU GPL)
+  license_no_known_copyright_restrictions: Gnun-e restrission ëd drit d'autor conossùe
+  license_not_applicable: Licensa nen aplicàbil
+  license_public_domain: Domini pùblich
+  licensing: Licensa
+  limits_the_number_of_returned_image_objects: a lìmita ël nùmer d'oget plancia smonù
+  limits_the_number_of_returned_text_objects: a lìmita ël nùmer d'oget test ësmonù
+  limits_the_number_of_returned_video_objects: a lìmita ël nùmer d'oget filmà smonù
+  limits_the_number_of_returned_sound_objects: a lìmita ël nùmer d'oget son ësmonù
+  limits_the_number_of_returned_map_objects: a lìmita ël nùmer d'oget carta smonù
+  limits_the_number_of_returned_iucn_objects: anclude l'oget dë statù dla Lista rossa
+    ëd l'IUCN
+  link_more_about: Savèjne ëd pi a propòsit ëd sa liura
+  link_name: Nòm ëd la liura
+  link_to_this_term: liura vers ës tèrmin
+  link_to_top_of_page: àut
+  links_with_count:
+    one: '%{count} liura'
+    other: '%{count} liure'
+  list_newsletter_emails: lista dij mëssagi d'anformassion
+  listing_collections: Lista dle colession
+  list_of_activity_combinations: Lista dle combinassion d'atività për na durà ëd 5
+    min.
+  lists_the_identifiers_for_all_hierarchies: a lista j'identificativ për tute le gerarchìe
+    fornìe dai cambrada ëd contnù
+  literature: Literatura
+  literature_bhl_information: La bibliografìa sì-dapress a l'é stàita generà da dij
+    servissi automàtich. BHL a deuvra n'anteligensa tassonòmica për localisé, controlé
+    e argistré ij nòm sientìfich ch'as treuvo ant ël test ëd tuta pàgina numerisà
+    ant la colession numérica ëd BHL.
+  literature_bhl_link: Smon-e la bibliografìa descoatà an BHL
+  literature_empty: Gnun arferiment trovà.
+  literature_header: Arferiment
+  literature_links: Liure bibliogràfiche
+  literature_links_link: Liure bibliogràfiche
+  literature_references: Arferiment bibliogràfich
+  location: Leu
+  location_colon: 'Pòst:'
+  login_required_button: A venta rintré ant ël sistema
+  logging_database_colon: 'Diari:'
+  login: conession
+  login_header: Ch'a intra an sò cont <abbr title="Enciclopedìa dla Vita">EdV</abbr>
+  login_hidden_user_message: Ël cont %{given_name} a l'é pi nen ativ
+  login_or_create_account: Intré ant ël sistema o creé un cont
+  login_to_the_website_as: Ch'a intra ant ël sit coma %{username}
+  logo_header: Marca
+  logo_type_error: La marca a l'ha nen na sòrt ëd plancia vàlida (a dev esse PNG o
+    JPEG).
+  logout: Seurte dal sistema
+  looking_up_url: Arserca ëd l'adrëssa...
+  main_content_area: 'Zòna prinsipal ëd contnù:'
+  main_database_colon: 'Prinsipal:'
+  main_master_database_colon: 'Mèistr prinsipal:'
+  maintained_by: masentà da
+  major_heading: Tìtol prinsipal
+  make_an_editor: creé un mansé
+  make_user_an_editor_title: Permëtte a %{user} ëd gestì le colession sì-dapress
+  manage_your_profile: Gestì sò profil
+  managed_by: Gestì da
+  managed_collections_with_count:
+    one: '%{count} Colession gestìa'
+    other: '%{count} Colession gestìe'
+  manager_endorse_collections_suggestion: Për presenté na colession an sla pàgina
+    ëd costa comunità, ch'a gionta la colession presentà a un-a dle colession masentà
+    da la comunità.
+  manager_parens: (gansé)
+  map_from: carta da
+  master_curators_may_add_data: 'Ij mèistr conservator a peulo gionté dij dàit:'
+  maps_with_count:
+    one: '%{count} carta'
+    other: '%{count} carte'
+  maps_empty: Gnun a l'ha ancor contribuì con na carta su costa pàgina-sì.
+  maps_empty_contribute_instructions: Ch'a lesa coma contribuì a le carte ëd l'EdV.
+  maps_image_maps_header: Mojen marcà tanme 'carta'
+  march_of_life_thumbnail_title: 'Marcia dla vita:'
+  matching_users_found_with_count:
+    one: Un total d'%{count} utent a corëspond a sò criteri.
+    other: Un total ëd %{count} utent a corëspondo a sò criteri.
+  max_collection_items_error: An dëspias, soa arcesta a passa ël lìmit ëd %{max} element
+    dla colession.
+  media: Mojen
+  media_list_empty: Gnun a l'ha ancor contribuì con n'archivi multimojen a costa pàgina-sì.
+  media_list_empty_search: A-i é gnun mojen disponìbil ch'a sodisfa ij sò criteri
+    d'arserca.
+  media_list_empty_contribute_instructions: Ch'a lesa coma contribuì al material multimedial
+    ëd l'EdV.
+  media_with_count:
+    one: '%{count} mojen'
+    other: '%{count} mojen'
+  media_summary_empty: Gnun a l'ha ancor contribuì con na plancia a costa pàgina.
+  media_summary_empty_contribute_instructions: Ch'a lesa coma contribuì a le plance
+    dl'EdV.
+  member_of_professional_society_credential_option: mèmber ëd na socetà professional
+  member_of: mèmber ëd
+  members_like_you: Mèmber coma chiel
+  members_with_count:
+    one: '%{count} mèmber'
+    other: '%{count} mèmber'
+  members_with_count_semi_colon:
+    one: '%{count} mèmber;'
+    other: '%{count} mèmber;'
+  merge_concepts: fonde ij concet
+  merge_data_ready: A l'é pront a fonde ij dàit ëd le classificassion sì-dapress ansima
+    a sa pàgina ëd tassonomìa, o a dividje su soa pròpia pàgina. Për piasì, ch'a sia
+    <i>assolutaman</i> sigur d'avèj selessionà tute le classificassion ch'a arpresento
+    soa tassonomìa d'ariv. Për esempi, s'a gava un parpajon nuité da la pàgina d'un
+    bolé, për piasì ch'a contròla <i>tute</i> le classificassion ësmonùe sì-sota për
+    esse sigur d'avèj selessionà tuti ij parpajon nuité dl'istessa sòrt.
+  merge_data: fonde le classificassion
+  merge_pending: Për s'operassion ëd fusion a-i andrà un pò 'd temp. Le tassonomìe
+    amplicà a son adess blocà da d'àutre modìfiche ëd classificassion fin-a a che
+    la fusion a sia completà. A arseivrà un mëssagi eletrònich cand ël process a sarà
+    finì e a comparirà ant ël fil ëd neuve ëd la pàgina.
+  message_colon: 'Mëssagi:'
+  message_will_disappear: (ës mëssagi a sparirà tòst)
+  meta_description_colon: 'Metadescrission:'
+  meta_keywords_colon: 'Meta paròle ciav:'
+  meta_title_site_name: Enciclopedìa dla Vita
+  method: Métod
+  methods: Métod
+  method_to_get_metadata_about_the_hierarchy: dàit n'identificativ ëd na gerarchìa,
+    ës métod a smon ij metadàit ëd la gerarchìa e a lista le tassonomìe a la rèis
+  missing_interpolation_argument_error: '[tradussion incompleta]'
+  monthly: Mensil
+  more_children_with_count:
+    one: '%{count} ëd pi...'
+    other: '%{count} ëd pi...'
+  more_siblings_with_count:
+    one: '%{count} frej ëd pi...'
+    other: '%{count} frej ëd pi...'
+  more_taxa_with_attribute: vëdde tute le tassonomìe con st'atribù-sì
+  most_active_members: Mèmber pi ativ
+  move: Tramudé
+  move_down: Fé calé giù
+  added_classifications_ready: Ij dàit ëd le classificassion selessionà a son pront
+    për esse tramudà a n'àutra pàgina. Për livré ël process, o bin ch'a selession-a
+    "separé an s'na pàgina neuva" opura ch'a nàviga an sle schede ëd nòm ëd la pàgina
+    anté che a veul avèj ij dàit, peui ch'a selession-a "fonde le classificassion".
+  move_items_to_a_new_collection_with_count:
+    one: Tramudé %{count} element a na neuva colession
+    other: Tramudé %{count} element a na neuva colession
+  move_to_bottom: sposté an bass
+  move_to_top: sposté an àut
+  move_up: Sposté pi an àut
+  moved_all_items_from_collection_with_count:
+    one: '%{count} element tramudà da %{from} a costa colession.'
+    other: Tuti ij %{count} element tramudà da %{from} a costa colession.
+  moved_all_items_to_collections:
+    one: Tuti j'element ëd %{name} tramudà a %{count} colession.
+    other: Tuti j'element ëd %{name} tramudà a %{count} colession.
+  moved_items_from_collection_with_count_notice:
+    one: '%{count} element tramudà da %{name}.'
+    other: '%{count} element tramudà da %{name}.'
+  multimedia_links: Liure multimojen
+  must_be_associated_with_either_a_user_or_a_community: A dev esse associà a n'utent
+    o a na comunità
+  must_provide_search_term_error: A dev buté un criteri d'arserca.
+  must_be_checked_in_to_view: '- a dev esse verificà për esse smonù'
+  must_be_checked_in_to_show: '- a dev esse verificà për esse smonù a l''utent'
+  must_be_less_than_128_characters_long: a dev esse long men che 128 caràter.
+  must_be_logged_in: A dev esse intrà ant ël sistema për fé costa assion.
+  my_activity: Mia atività
+  my_info: Mie anformassion
+  name_colon: 'Nòm:'
+  name: Nòm
+  name_not_in_select_an_alternate: Ël nòm a l'é nen an %{hierarchy}. Ch'a serna n'àutra
+    gerarchìa ant la lista sì-dzora
+  name_preferred_for_language_yes: Preferì
+  name_preferred_for_language_help_tip: '%{icon} a marca ël nòm preferì an minca na
+    lenga.'
+  name_preferred_taxonomically_for_source_help_tip: '%{icon} a marca ël nòm preferì
+    an minca na sorgiss.'
+  name_preferred_taxonomically_for_source_yes: Preferì
+  names: Nòm
+  names_filter: Nòm
+  names_children_column_header: Masnà
+  names_common_empty: Gnun nòm comun a l'é stàit ancor assossià a sa tassonomìa-sì
+  names_common_list_by_language_assistive_header: Nòm comun listà për lenga
+  names_curation_column_header: Conservassion
+  names_et_al: '%{names}, e companìa'
+  names_explanation: Ij siensià a l'han ël but ëd descrive n'ùnich «erbo dla vita»
+    ch'a arfleta le relassion d'evolussion dj'esse vivent. Tutun, le relassion d'evolussion
+    a son na materia sempe an cors ëd dëscuverta, e a-i é d'opinion diferente su coma
+    argropé e ciamé j'esse vivent. L'EdV a arflet se diferense, an pijand an cont
+    vàire 'classificassion' sientìfiche diferente. A chèiche spece a-j é staje daje
+    un nòm pi 'd na vira. Si dobion a son listà tanme sinònim. L'EdV a pija ëdcò an
+    cont ij nòm comun, ch'a peulo varié sconda dle region e le lenghe.
+  names_name_column_header: Nòm
+  names_parents_column_header: Cé
+  names_preferred_column_header: Preferì
+  names_relationship_column_header: Relassion
+  names_sources_column_header: Sorgiss
+  names_status_column_header: Statù
+  names_synonyms_empty: Gnun sinònim a l'é ancora stàit assossià a sa tassonomìa-sì.
+  curator_colon: 'Conservator:'
+  mobile:
+    contents:
+      home: Pàgina d'intrada
+      taxa: Tassonomìe
+      full_site: Sit complet
+      species: Spece
+      explore_eol: Esploré l'EdV
+    taxa:
+      taxon_overview: Vista general ëd la tassonomìa
+      overview: Vista d'ansem
+      details: Detaj
+      media: Mojen
+      maps: Carte
+      nomenclature: Nomencladura
+      literature: Literatura
+      community: Comunità
+      resources: Arsorse
+      taxon_details: Detaj dla tassonomìa
+      taxon_media: Mojen dla tassonomìa
+      images: Plance
+      sounds: Argistrassion sonore
+      videos: Filmà
+    search:
+      suggestions: Sugeriment
+      no_results_found: Gnun arzultà trovà
+      results: Arzultà
+  moderator_colon: 'Moderator:'
+  main_species_page_link_with_spaces: ' &nbsp;&nbsp; pàgina dla spece>>'
+  never: Mai
+  new_collection: Neuva colession
+  new_contact_us_topic: Neuv soget Ch'an contata
+  new_news_item: Neuv element Neuve
+  news_and_event_links: Liure neuve & eveniment
+  news_archive_page: pàgina d'archiviassion dle neuve
+  news_date: Dàita dla neuva
+  new_search_suggestion: Neuv Sugeriment d'arserca
+  news_available_in_languages: 'Costa pàgina a l''é disponìbil an:'
+  news_item_date_as_shown_to_user: 'Dàita d''element ëd neuva coma smonùa a l''utent
+    (ora smonùa mach ant ël fluss RSS):'
+  news_item_is_visible_on_website_after_this_time: 'L''element Neuve a l''é visìbil
+    an sël sit an linia apress cost''ora-sì:'
+  news_item: element neuve
+  news_item_title: Element Neuve
+  news_missing_content_title: Tradussion mancanta
+  news_missing_content_message: An dëspias, sa pàgina a l'é nen disponìbil për la
+    lenga selessionà %{selected_language}.
+  newsfeed: Fil ëd neuve
+  newsfeed_help_for_collection: Ël fil ëd neuve për sa colession EdV a radun-a j'agiornament
+    associà a j'element ch'a-j aparten-o, comprèise j'atività ëd sò propietari e ij
+    coment ëd j'àutri utent ëd l'EdV.
+  newsfeed_help_for_community: Ël fil ëd neuve për sa comunità EdV a radun-a j'agiornament
+    associà a j'element apartenent a le colession che cola-là a masenta, comprèise
+    j'atività dij sò mèmber e ij coment ëd j'àutri utent ëd l'EdV.
+  newsfeed_help_for_focus_list: Ël fil ëd neuve «Lista particolar» a cheuj j'agiornament
+    associà a j'element apartenent a la lista dij but prioritari ëd na comunità EdV,
+    comprèise j'atività dij sò mansé e ij coment ëd j'àutri utent ëd l'EdV.
+  newsfeed_help_for_profile: Ël fil ëd neuve Profil EdV a conten ij coment lassà a
+    sò propietari da j'àutri mèmber, j'anvit dle comunità EdV, e a cheuj j'agiornament
+    associà a j'element ëd la lista ëd lòn ch'as ten sot euj EdV ëd sò propietari.
+  newsfeed_help_for_taxon: Ël fil ëd neuve për costa pàgina ëd tassonomìa dl'EdV a
+    cheuj j'agiornament associà a j'element ch'a son ësmonù ansima a chila, comprèis
+    j'assion ëd conservassion e ij coment ëd j'utent ëd l'EdV.
+  newsfeed_help_for_watchlist: Ël fil ëd neuve ëd la lista ëd ròbe ch'as ten-o sot-euj
+    dl'EdV a cheuj j'agiornament associà a j'element ëd la lista dle ròbe ch'as ten-o
+    sot-euj dl'EdV dël propietari, comprèise j'atività dël propietari.
+  newsletter_banner: Ch'a dventa mèmber dla comunità EdV&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>ch'as
+    marca ancheuj për arsèive ël boletin d'anformassion dl'EdV</a>
+  new_upload: Neuv cariament
+  new_user: Neuv utent
+  next: Apress
+  no_active_members: A-i é staje ancor nen a basta d'atività.
+  no_answer: Nò
+  no_classificaitons_selected: Gnun-a classificassion selessionà. A-i é gnente da
+    tramudé.
+  no_collections_apply: Gnun-e dle colession dont chiel a peul acede a peulo gionté
+    dij mansé.
+  no_comments_are_available_for_subject: Gnun coment a l'é disponìbil për %{subject}
+  no_comments_have_been_left_yet: Gnun coment a l'é stàit ancor lassà.
+  no_errors_are_available: Gnun eror a l'é disponìbil.
+  no_harvesting_logs_for_this_da: Gnun argistr ëd cujìa për sa dàita
+  no_harvesting_events_running_now: Gnun eveniment ëd cujìa a l'é an cors al moment
+  no_items_were_copied_to_collections_error: 'Gnun element a l''é stàit copià ant
+    le colession: %{names}.'
+  no_news_items_for_month_and_year: Gnun-e neuve për %{month_and_year}
+  none: gnun
+  "no": Nò
+  num_content_partners: N. ëd cambrada ëd contnù
+  num_data_objects: N. d'oget ëd dàit
+  no_record_found_matching_your_criteria: Gnun-a argistrassio a l'é stàita trovà ch'a
+    rëspondèissa a sò criteri.
+  no_related_names: Gnun nòm a l'é stàit ancor gropà a sa tassonomìa.
+  no_results_for_search_term: Gnun arzultà për «%{search_term}»
+  no_search_suggestions_are_avai: Gnun sugeriment d'arserca disponìbil a rëspond a
+    sò criteri d'arserca.
+  no_tasks_found: Gnun-a atività trovà
+  no_survey_responses_are_availa: Gnun-a rispòsta a 'n sondage a l'é disponìbil.
+  not_applicable: nen aplicàbil
+  not_evaluated: Nen valutà
+  not_recognized_by_available_hierarchies: Nen arconossù da gnun-a dle classificassion
+    disponìbij
+  not_specified: nen ëspessificà
+  not_yet_implemented_error: An dëspias, sa fonsionalità a l'é ancor nen ëstàita realisà.
+  note: 'Nòta:'
+  note_about_homonym_problems: 'Nòta: ch''a modìfica s''atribù mach s''a l''é sigur
+    - disativelo a podrìa provoché dij grev problema d''omonimìa'
+  notes: Nòte
+  notes_not_shown_to_user: 'Nòte (nen ësmonùe a l''utent):'
+  note_all_times_utc: Noté che tuti j'orari a son an UTC (temp medi ëd Greenwich)
+  note_that_it_may_take_a_few_mi: Ch'a nòta ch'a peulo vorèje vàire minute apress
+    ël cariament për che l'adrëssa an sl'aragnà a marcia, përchè ij sò archivi a devo
+    propaghesse ai servent ëdcontnù.
+  note_that_you_can_reference_im: Ch'a ten-a da ment che a peul deje n'arferiment
+    a le plance con la tichëtta HTML &lt;img&gt;, ma coste a devo esiste a n'adrëssa
+    an sl'aragnà, për esempi ël sit originari o un sit tanme Flickr. A-i é gnun-e
+    opsion për carié dle plance e dovreje diretaman ant l'element ëd neuve.
+  notification_frequency_daily_digest: Resumé cotidian
+  notification_frequency_send_immediately: Mandé dlongh
+  notification_frequency_never: Mai
+  notification_frequency_weekly: Ebdomadari
+  notification_frequency_newsfeed_only: Mach fil ëd neuve
+  notifications_and_messages_review_notice: Për piasì, ch'a contròla le notìfiche
+    ch'a-j saran mandà për pòsta eletrònica
+  email_updates_for_eol_addicts: Agiornament për ij malavi d'EdV.
+  email_updates_for_eol_members: Agiornament che la pi part dij mèmber d'EdV a vorëran
+    arsèive.
+  notifications_tab_name: Notìfiche
+  taxon_not_found_error: '"%{taxon}" nen trouvà'
+  not_published_yet: ancor nen publicà
+  not_shown_on_the_website_note: (nen ësmonù an sël sit dl'aragnà o na liura, mach
+    con un but d'anformassion)
+  no_uploaded_content_is_available: Gnun contnù carià a l'é disponìbil.
+  no_users_matched_search: A-i é gnun utent disponìbil ch'a sodisfa ij sò criteri
+    d'arserca.
+  no_user_submitted_data_objects: Gnun oget ëd dàit mandà da l'utent a rëspond a sò
+    criteri d'arserca.
+  nucleotide_sequences: Sequensa ëd nucleòtid
+  nucleotide_sequences_ncbi_mission: La mission dël <a rel="nofollow" href="%{ncbi_link}">Sènter
+    Nassional për l'Anformassion Biotecnològica</a> a l'é ëd dësvlupé le neuve tecnologìe
+    dl'anformassion për giuté a la comprension dij process molecolar e genétich fondamentaj
+    ch'a contròlo la salute e le maladìe.
+  nucleotide_sequences_ncbi_database: La base ëd dàit ëd <a rel="nofollow" href="%{ncbi_taxonomy_link}">tassonomìa
+    NCBI</a> a conten ij nòm ëd tuti j'organism ch'a son arpresentà ant le base ëd
+    dàit genétiche con almanch na sequensa nucleòtida o proteìnica.
+  nucleotide_sequences_proteins_link: Vëdde le sequense proteìniche e nucleòtide an
+    NCBI
+  object_curation: Conservassion dl'oget
+  object: Oget
+  object_curated: Oget conservà.
+  objects_curated: Oget conservà
+  object_removed: (s'oget-sì a l'é stàit dëscancelà da la base ëd dàit)
+  object_status: Stat ëd l'oget
+  object_status_all_option: Tuti
+  object_status_trusted_option: Fidà
+  object_status_unreviewed_option: Nen revisionà
+  object_status_untrusted_option: Nen fidà
+  object_type: Sòrt d'oget
+  object_type_all_option: Tuti
+  object_type_collection_option: Colession
+  object_type_community_option: Comunità
+  object_type_image_option: Plancia
+  object_type_link_option: Liura
+  object_type_sound_option: Argistrassion sonora
+  object_type_taxon_concept_option: Nossion ëd tassonomìa
+  object_type_text_option: Test
+  object_type_user_option: Utent
+  object_type_video_option: Filmà
+  object_visibility: Visibilità ëd l'oget
+  object_visibility_all_option: Tuti
+  object_visibility_visible_option: Visìbil
+  object_visibility_invisible_option: Stërmà
+  older_version_of_latest_published_data_object_title_link: Veja version ëd %{link}
+  other_version_links: 'Àutre version: %{version_links}'
+  other_category_subtab: Àutr
+  other_measurements_from_this_record: Àutre mzure për s'argistrassion
+  ontology_uri: URI d'ontologìa
+  percentage_of_children_with_images: '% dij cit con plancia'
+  percentage_of_children_with_text: '% dij cit con test'
+  number_of_taxa_at_this_entry: '# ëd tassonomìa ëd costa vos'
+  number_of_trusted_images_at_this_entry: '# ëd plance fidà an costa vos'
+  number_of_trusted_text_objects_at_this_entry: '# d''oget test fidà an costa vos'
+  number_of_unreviewed_images_at_this_entry: nùmer ëd plance nen revisionà an costa
+    vos
+  number_of_unreviewed_text_objects_at_this_entry: nùmer d'oget test nen controlà
+    an costa vos
+  only_alphanum_with_no_spaces: a peul mach esse alfanumérich, sensa spassi
+  only_multi_search_suggestions: (mach s'a-i é vàire sugeriment për ël midem criteri
+    d'arserca, l'ordinament a l'é chërsent)
+  only_show_authoritative_conten: 'Smon-e mach ël contnù ch''a fà autorità:'
+  only_show_unapproved_curators: Smon-e mach ij conservator nen omologà
+  on_time_col_header: ativé
 ...

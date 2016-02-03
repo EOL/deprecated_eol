@@ -7,7 +7,7 @@ describe "layouts/taxa" do
   end
 
   before(:each) do # NOTE - these #double methods *only* work in a before :each block, not an :all. Don't move them.
-    @user = double(EOL::AnonymousUser, watch_collection: nil, can_see_data?: false, min_curator_level?: false, is_curator?: false)
+    @user = double(EOL::AnonymousUser, watch_collection: nil, min_curator_level?: false, is_curator?: false)
     @taxon_concept = double(TaxonConcept)
     @taxon_concept.stub(:id) { 1 }
     @taxon_page = double(TaxonPage)

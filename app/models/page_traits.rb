@@ -2,7 +2,6 @@ class PageTraits < TraitSet
 
   # e.g.: pt = PageTraits.new(328598)
   def initialize(id)
-    EOL.log_call
     @id = id
     @rdf = TraitBank.cache_query("trait_bank/pages/#{id}") do
       TraitBank.page_with_traits(id)
@@ -38,8 +37,6 @@ class PageTraits < TraitSet
     end
     prefixes = {}
     PREFIXES.each { |k,v| prefixes[v] = "#{k}:" }
-    points = @traits.map(&:point)
-    DataPointUri.assign_references(points, Language.english)
     @traits.each do |trait|
       # NOTE: this block was (mostly) stolen from DataPointUri#to_jsonld, and,
       # again, will replace it.

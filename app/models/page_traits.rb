@@ -22,10 +22,8 @@ class PageTraits < TraitSet
     @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
   end
 
-  # NOTE: this is largely copied from TaxonDataSet#to_jsonld, because it will
-  # eventually replace it, so the duplication will go away. No point in
-  # generalizing. TODO: this doesn't belong here; make a new class and pass self
-  # in. NOTE: jsonld is ALWAYS in English. Period. This is expected and normal.
+  # TODO: this doesn't belong here; make a new class and pass self in. NOTE:
+  # jsonld is ALWAYS in English. Period. This is expected and normal.
   def jsonld
     concept = TaxonConcept.find(@id)
     jsonld = { '@graph' => [ concept.to_jsonld ] }
@@ -73,7 +71,6 @@ class PageTraits < TraitSet
     jsonld
   end
 
-  # NOTE: again, stolen from TaxonDataSet#default_context ; replaces it.
   def add_default_context(jsonld)
     # TODO: @context doesn't need all of these. Look through the @graph and
     # add things as needed based on the Sparql headers, then add the @ids.

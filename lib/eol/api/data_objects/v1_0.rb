@@ -17,6 +17,7 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'taxonomy',
               :type => 'Boolean',
+              :default => true,
               :test_value => true,
               :notes => I18n.t('return_any_taxonomy_details_from_different_hierarchy_providers') ),
             EOL::Api::DocumentationParameter.new(

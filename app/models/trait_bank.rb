@@ -318,7 +318,6 @@ class TraitBank
     # <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>, which you should
     # ignore. Sorry!
     def page_with_traits(page, limit = 10_000, offset = nil)
-      EOL.log_call
       query = "SELECT DISTINCT *
       # page_with_traits
       WHERE {

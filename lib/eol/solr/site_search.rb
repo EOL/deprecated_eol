@@ -31,7 +31,7 @@ module EOL
         total_results = response['grouped']['resource_unique_key']['ngroups']
         query_time = response['grouped']['QTime']
         EOL.log("Search: {#{query}} page: #{options[:page]} "\
-          "(#{total_results} results) #{response['grouped'].keys.join(", ")}", prefix: "S")
+          "(#{total_results} results) #{response['grouped']['resource_unique_key'].keys.join(", ")}", prefix: "S")
         return_hash = { :time => query_time,
                         :total => total_results }
 

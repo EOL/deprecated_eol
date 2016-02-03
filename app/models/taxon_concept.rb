@@ -134,6 +134,7 @@ class TaxonConcept < ActiveRecord::Base
     return solr_query_parameters
   end
 
+  # NOTE: this is used for site search summaries and collections only, ATM.
   def self.preload_for_shared_summary(taxon_concepts, options)
     includes = [
       { preferred_entry:
@@ -186,7 +187,6 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def self.load_common_names_in_bulk(taxon_concepts, language_id)
-    EOL.log_call
     taxon_concepts_to_load = taxon_concepts.compact.select do |tc|
       tc.common_names_in_language ||= {}
       ! tc.common_names_in_language.has_key?(language_id)

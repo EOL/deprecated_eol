@@ -73,7 +73,8 @@ class DataSearchFile < ActiveRecord::Base
     rows = []
     page = 1
     search = { querystring: q, attribute: uri, min_value: from, max_value: to,
-        sort: sort, page: page, clade: taxon_concept_id, unit: unit_uri }
+        sort: :none, page: page, per_page: 1000, clade: taxon_concept_id,
+        unit: unit_uri }
     results = SearchTraits.new(search)
     total = results.traits.total_entries
     count = results.traits.count

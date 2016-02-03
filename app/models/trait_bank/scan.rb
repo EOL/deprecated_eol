@@ -52,11 +52,13 @@ class TraitBank
         # TODO: This ORDER BY only really works if numeric! :S
         query += "?trait a eol:trait . "\
           "?trait dwc:measurementValue ?value . } } "
-        unless options[:count]
+        unless options[:count] || options[:sort] == :none
           # TODO: figure out how to sort properly, both numerically and alpha.
           orders = ["xsd:float(REPLACE(?value, \",\", \"\"))"] #, "?value"]
           orders.map! { |ord| "DESC(#{ord})" } if options[:sort] =~ /^desc$/i
           query += "ORDER BY #{orders.join(" ")} "
+        end
+        unless options[:count]
           query += "LIMIT #{size} "
           query += "OFFSET #{offset}" if offset && offset > 0
         end

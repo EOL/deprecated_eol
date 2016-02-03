@@ -7,7 +7,7 @@ describe 'taxa/data/index' do
     assign(:recently_used, nil)
     assign(:taxon_page, @taxon_page)
     assign(:taxon_data, @taxon_page.data)
-    @data = TaxonDataSet.new([])
+    @data = []
     @data.stub(:empty?).and_return(false)
     assign(:data_point_uris, @data)
     assign(:toc_id, nil)

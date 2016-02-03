@@ -263,9 +263,7 @@ class Tramea
       meta = uri.get_metadata(Language.default)
       {
         "id" => uri.id,
-        # This will be some representation of "occurrenceID", something like
-        # #get_other_occurrence_measurements ...but just returning the id (which
-        # it does NOT in that query, sigh).
+        # This will be some representation of "occurrenceID"
         "event_id" => "TODO",
         "subject" => summary_from_taxon_concept(uri.taxon_concept),
         "predicate" => uri_from_known_uri(uri.predicate_known_uri),

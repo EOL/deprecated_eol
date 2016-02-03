@@ -134,6 +134,7 @@ class TaxonConcept < ActiveRecord::Base
     return solr_query_parameters
   end
 
+  # NOTE: this is used for site search summaries and collections only, ATM.
   def self.preload_for_shared_summary(taxon_concepts, options)
     includes = [
       { preferred_entry:
@@ -186,7 +187,6 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def self.load_common_names_in_bulk(taxon_concepts, language_id)
-    EOL.log_call
     taxon_concepts_to_load = taxon_concepts.compact.select do |tc|
       tc.common_names_in_language ||= {}
       ! tc.common_names_in_language.has_key?(language_id)
@@ -752,9 +752,10 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     return nil unless EolConfig.data?
-    iucn_list = TaxonData.new(self).iucn_data_objects
-    desc = choose_iucn_status(iucn_list)
-    DataObject.new(description: desc) unless desc.blank?
+    # TODO.  Sorry!
+    # iucn_list = TaxonData.new(self).iucn_data_objects
+    # desc = choose_iucn_status(iucn_list)
+    # DataObject.new(description: desc) unless desc.blank?
   end
 
   # TODO: re-write this to use a query that gets the scientific name from the
@@ -1070,9 +1071,9 @@ class TaxonConcept < ActiveRecord::Base
     )
   end
 
+  # TODO
   def should_show_clade_range_data
-    return false if species_or_below?
-    number_of_descendants.between?(2, TaxonData::MAXIMUM_DESCENDANTS_FOR_CLADE_RANGES)
+    return false
   end
 
   def wikipedia_entry

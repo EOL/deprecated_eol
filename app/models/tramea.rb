@@ -39,8 +39,8 @@ class Tramea
       options["articles_per_page"] ||= 1
       options["traits_page"] ||= 1
       options["traits_per_page"] ||= 10
-      # NOTE: this sucks, need to load a fake data helper to make this work: THIS IS REALLY SLOW.
-      data = TaxonData.new(taxon, User.first)
+      data = PageTraits.new(taxon.id).traits
+      # TODO: this will no longer work, because I stopped calling TaxonData. Fix.
       hash = {
         "id" => taxon.id,
         # TODO: "curator" is a PLACEHOLDER, meant to show that, in the future,
@@ -263,9 +263,7 @@ class Tramea
       meta = uri.get_metadata(Language.default)
       {
         "id" => uri.id,
-        # This will be some representation of "occurrenceID", something like
-        # #get_other_occurrence_measurements ...but just returning the id (which
-        # it does NOT in that query, sigh).
+        # This will be some representation of "occurrenceID"
         "event_id" => "TODO",
         "subject" => summary_from_taxon_concept(uri.taxon_concept),
         "predicate" => uri_from_known_uri(uri.predicate_known_uri),

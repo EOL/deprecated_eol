@@ -1,4 +1,3 @@
-- EOL.log("Starting index view")
 #tabs_sidebar.data
   %ul.tabs.with_icons{ class: 'subtabs' }
     %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
@@ -94,11 +93,12 @@
                 = format_value(trait).html_safe
                 = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
             %td.source
-              - if trait.resource
-                = link_to(trait.resource.content_partner.name,
-                  [trait.partner, trait.resource])
-              - else
-                = link_to("See original source", trait.source_url)
+              %span.source
+                - if trait.resource
+                  = link_to(trait.resource.content_partner.name,
+                    [trait.partner, trait.resource])
+                - else
+                  = link_to("See original source", trait.source_url)
             %td.comment
               %span.comments
                 - if trait.comments.empty?
@@ -142,4 +142,3 @@
                         trait.content_partner))
                     - else
                       = I18n.t(:data_point_uri_source_missing)
-- EOL.log("Finished with index view")

@@ -22,8 +22,12 @@ class TraitBank
         # Don't store empty results:
         Rails.cache.delete(key)
         EOL.log("TB.cache_query: #{key} (0 results, not saved)")
-      else
+      elsif result.respond_to?(:count)
         EOL.log("TB.cache_query: #{key} (#{result.count} results)")
+      elsif result.is_a?(Fixnum) || result.is_a?(String)
+        EOL.log("TB.cache_query: #{key} (#{result})")
+      else
+        EOL.log("TB.cache_query: uncountable result, sorry.")
       end
       result
     end

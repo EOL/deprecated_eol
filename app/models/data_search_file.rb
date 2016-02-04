@@ -1,8 +1,7 @@
 class DataSearchFile < ActiveRecord::Base
   include FileDownloadHelper
 
-  # TODO: remove file_number ; not using it now. Remove the sort, it's never
-  # used.
+  # TODO: remove file_number ; not using it now.
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q,
     :sort, :to, :uri, :user, :user_id, :completed_at, :hosted_file_url,
     :row_count, :unit_uri, :taxon_concept_id, :file_number, :failed_at, :error
@@ -74,7 +73,7 @@ class DataSearchFile < ActiveRecord::Base
     rows = []
     page = 1
     search = { querystring: q, attribute: uri, min_value: from, max_value: to,
-        sort: :none, page: page, per_page: 1000, clade: taxon_concept_id,
+        sort: sort, page: page, per_page: 1000, clade: taxon_concept_id,
         unit: unit_uri }
     results = SearchTraits.new(search)
     total = results.traits.total_entries

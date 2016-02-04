@@ -2,6 +2,7 @@
 #tabs_sidebar.data
   %ul.tabs.with_icons{ class: 'subtabs' }
     %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
+  -unless @page_traits.blank?
     - @page_traits.categories.each do |category|
       -# TODO: the class needs to be active if its toc_id was passed in...
       %li= link_to category.label, taxon_data_path(@taxon_page, toc_id: category.id), data: { toc_id: category.id }
@@ -22,124 +23,126 @@
         contact_traitbank_path: contact_us_path(subject: 'TraitBank'),
         register_path: new_user_path,
         login_path: login_path(return_to: request.original_url))
-  - unless @page_traits.glossary.blank?
-    .glossary_subtab{ style: 'display: none' }
-      .header_underlined
-        %h3= I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe
-      %ul.glossary
-        - @page_traits.glossary.sort_by { |kn| kn.name.downcase }.each do |known_uri|
-          = render('known_uris/definition', { known_uri: known_uri, glossary_link: true, attribution: true, search_link: true })
+  -unless @page_traits.blank?
+    - unless @page_traits.glossary.blank?
+      .glossary_subtab{ style: 'display: none' }
+        .header_underlined
+          %h3= I18n.t(:data_subtab_glossary, taxon: @taxon_page.scientific_name).html_safe
+        %ul.glossary
+          - @page_traits.glossary.sort_by { |kn| kn.name.downcase }.each do |known_uri|
+            = render('known_uris/definition', { known_uri: known_uri, glossary_link: true, attribution: true, search_link: true })
   .help_text
     %p
       = t(:data_disclaimer,
         traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
         traitbank_info_path: cms_page_path('traitbank')).html_safe
-  - @page_traits.categories.each do |category|
-    .header_underlined
-      %h3= category.label
-    - last_predicate = nil
-    -# TODO: what is this for? Clearly it counts the number of predicates, but
-    -# it's not clear to me (I haven't looked at JS, maybe it's there) what it
-    -# is ultimately used for other than creating a class on the node...
-    - type_index = 0
-    %table.standard.categorized.data{ summary: I18n.t(:data_table_summary,
-      taxon: @taxon_page.scientific_name),
-      data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => category.id } }
-      - @page_traits.traits_by_category(category).each do |trait|
-        - if trait.point.nil?
-          %tr.data
-            %th.predicate
-              %div.term
-                = "Could not find a data point for #{trait.point}"
-          - next
-        - classes = []
-        - unless trait.point.visible?
-          - if current_user.is_curator?
-            - classes << 'hidden'
-          - else
+  -unless @page_traits.blank?
+    - @page_traits.categories.each do |category|
+      .header_underlined
+        %h3= category.label
+      - last_predicate = nil
+      -# TODO: what is this for? Clearly it counts the number of predicates, but
+      -# it's not clear to me (I haven't looked at JS, maybe it's there) what it
+      -# is ultimately used for other than creating a class on the node...
+      - type_index = 0
+      %table.standard.categorized.data{ summary: I18n.t(:data_table_summary,
+        taxon: @taxon_page.scientific_name),
+        data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => category.id } }
+        - @page_traits.traits_by_category(category).each do |trait|
+          - if trait.point.nil?
+            %tr.data
+              %th.predicate
+                %div.term
+                  = "Could not find a data point for #{trait.point}"
             - next
-        - else
-          - first = trait.predicate_name != last_predicate
-          - header_id = nil
-          - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
-          -# using the instance methods as opposed to scopes allows us to use
-          -# preloaded taxon_data_exemplars
-          - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
-          - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
-          - if first
-            - classes << 'first'
-            - type_index += 1
-            - header_id = trait.point.header_anchor
-            - last_predicate = trait.predicate_name
-          %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { loaded: true, type: type_index.nil? ? nil : "type_#{type_index}" } }
-            %th.predicate{ id: header_id }
-              - if first
-                %a.info_icon
-                  \&nbsp;
+          - classes = []
+          - unless trait.point.visible?
+            - if current_user.is_curator?
+              - classes << 'hidden'
+            - else
+              - next
+          - else
+            - first = trait.predicate_name != last_predicate
+            - header_id = nil
+            - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
+            -# using the instance methods as opposed to scopes allows us to use
+            -# preloaded taxon_data_exemplars
+            - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
+            - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
+            - if first
+              - classes << 'first'
+              - type_index += 1
+              - header_id = trait.point.header_anchor
+              - last_predicate = trait.predicate_name
+            %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { loaded: true, type: type_index.nil? ? nil : "type_#{type_index}" } }
+              %th.predicate{ id: header_id }
+                - if first
+                  %a.info_icon
+                    \&nbsp;
+                  .term{ data: { term: "TODO" }}
+                    - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
+                    = trait.predicate_name
+                    - if trait.statistical_method?
+                      %span.stat= trait.statistical_method_names.join(", ")
+                    = render(partial: 'trait_bank/definition', locals: { known_uri: trait.predicate_uri, search_link: true, glossary_link: true })
+              %td.val{ headers: header_id, id: "#{header_id}_d" }
+                %span.fold
+                  = link_to(image_tag("arrow_fold_down.png",
+                    alt: I18n.t(:data_row_additional_detail_alt)),
+                    taxon_data_path(@taxon_concept,
+                    data_point_uri_id: trait.point.id, anchor: trait.anchor),
+                    title: I18n.t(:data_row_additional_detail_assistive))
                 .term{ data: { term: "TODO" }}
                   - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
-                  = trait.predicate_name
-                  - if trait.statistical_method?
-                    %span.stat= trait.statistical_method_names.join(", ")
-                  = render(partial: 'trait_bank/definition', locals: { known_uri: trait.predicate_uri, search_link: true, glossary_link: true })
-            %td.val{ headers: header_id, id: "#{header_id}_d" }
-              %span.fold
-                = link_to(image_tag("arrow_fold_down.png",
-                  alt: I18n.t(:data_row_additional_detail_alt)),
-                  taxon_data_path(@taxon_concept,
-                  data_point_uri_id: trait.point.id, anchor: trait.anchor),
-                  title: I18n.t(:data_row_additional_detail_assistive))
-              .term{ data: { term: "TODO" }}
-                - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
-                = format_value(trait).html_safe
-                = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
-            %td.source
-              - if trait.resource
-                = link_to(trait.resource.content_partner.name,
-                  [trait.partner, trait.resource])
-              - else
-                = link_to("See original source", trait.source_url)
-            %td.comment
-              %span.comments
-                - if trait.comments.empty?
-                  &nbsp;
+                  = format_value(trait).html_safe
+                  = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
+              %td.source
+                - if trait.resource
+                  = link_to(trait.resource.content_partner.name,
+                    [trait.partner, trait.resource])
                 - else
-                  = image_tag('comment_indicator.png')
-          %tr.actions{ id: "#{trait.anchor}_actions", class: (classes + ['actions']).join(' ') }
-            %td{ colspan: 4 }
-              .metadata
-                %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
-                  %caption.title= I18n.t(:data_about_this_record)
-                  - i = 0
-                  - trait.meta.each do |pred, val|
-                    - i += 1
-                    - row_id = "#{trait.point.anchor}_meta_#{i}"
+                  = link_to("See original source", trait.source_url)
+              %td.comment
+                %span.comments
+                  - if trait.comments.empty?
+                    &nbsp;
+                  - else
+                    = image_tag('comment_indicator.png')
+            %tr.actions{ id: "#{trait.anchor}_actions", class: (classes + ['actions']).join(' ') }
+              %td{ colspan: 4 }
+                .metadata
+                  %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
+                    %caption.title= I18n.t(:data_about_this_record)
+                    - i = 0
+                    - trait.meta.each do |pred, val|
+                      - i += 1
+                      - row_id = "#{trait.point.anchor}_meta_#{i}"
+                      %tr
+                        %th{id: "#{row_id}_h"}
+                          - if pred.is_a?(KnownUri)
+                            = pred.name
+                            = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
+                          - else
+                            = pred
+                        %td{id: "#{row_id}_d"}
+                          - if val.is_a?(KnownUri)
+                            = val.name
+                            = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
+                          - else
+                            = raw val.add_missing_hyperlinks
                     %tr
-                      %th{id: "#{row_id}_h"}
-                        - if pred.is_a?(KnownUri)
-                          = pred.name
-                          = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
-                        - else
-                          = pred
-                      %td{id: "#{row_id}_d"}
-                        - if val.is_a?(KnownUri)
-                          = val.name
-                          = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
-                        - else
-                          = raw val.add_missing_hyperlinks
-                  %tr
-                    %th
-                      = I18n.t(:data_link_to_record)
-                      - info_icon
-                    - link = taxon_data_url(@taxon_page, anchor: trait.point.anchor)
-                    %td= link_to link, link
-              .actions
-                %ul
-                  %li
-                    - if trait.content_partner
-                      = raw I18n.t("data_provided_by_content_partner",
-                        whom: link_to(trait.content_partner.name,
-                        trait.content_partner))
-                    - else
-                      = I18n.t(:data_point_uri_source_missing)
+                      %th
+                        = I18n.t(:data_link_to_record)
+                        - info_icon
+                      - link = taxon_data_url(@taxon_page, anchor: trait.point.anchor)
+                      %td= link_to link, link
+                .actions
+                  %ul
+                    %li
+                      - if trait.content_partner
+                        = raw I18n.t("data_provided_by_content_partner",
+                          whom: link_to(trait.content_partner.name,
+                          trait.content_partner))
+                      - else
+                        = I18n.t(:data_point_uri_source_missing)
 - EOL.log("Finished with index view")

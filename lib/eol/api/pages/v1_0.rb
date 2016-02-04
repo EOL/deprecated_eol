@@ -103,6 +103,7 @@ module EOL
               :name => 'taxonomy',
               :type => 'Boolean',
               :test_value => true,
+              :default => true,
               :notes => I18n.t('return_any_taxonomy_details_from_different_hierarchy_providers') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'vetted',
@@ -179,7 +180,6 @@ module EOL
               end
               return_hash['references'].uniq!
             end
-
             if params[:taxonomy]
               return_hash['taxonConcepts'] = []
               taxon_concept.published_sorted_hierarchy_entries_for_api.each do |entry|
@@ -197,7 +197,7 @@ module EOL
             end
           end
 
-          if (params[:text] or params[:images] or params[:videos] or params[:maps] or params[:sounds])
+          unless (params[:text] == 0 && params[:images] == 0 && params[:videos] == 0 && params[:maps] == 0 && params[:sounds] == 0)
             return_hash['dataObjects'] = []
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
             data_objects.each do |data_object|

@@ -66,7 +66,11 @@ describe TaxonDataSet do
       { data_point_uri: 'http://eol.org/8', attribute: uri3 }
     ]
     set = TaxonDataSet.new(rows, taxon_concept: @taxon_concept)
-    set.sort.map { |r| r.predicate }.should == [
+    # debugger
+    puts "positions before: #{set.map{|r| KnownUri.by_uri(r.predicate).position}}"
+   
+    puts "positions after: #{set.sort.map{|r| KnownUri.by_uri(r.predicate).position}}"
+     set.sort.map { |r| r.predicate }.should == [
       uri1.uri, uri2.uri, uri3.uri, uri4.uri, uri5.uri, raw_uri1, raw_uri2, raw_uri3
     ]
   end

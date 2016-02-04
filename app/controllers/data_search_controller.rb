@@ -142,7 +142,7 @@ class DataSearchController < ApplicationController
     else
       @units_for_select = KnownUri.default_units_for_form_select
     end
-    # TODO: Someday we might want a dynamic page size.
+    # TODO: Someday we might want a per_page option.
     @search_options = { querystring: @querystring, attribute: @attribute,
       min_value: @min_value, max_value: @max_value, page: @page,
       unit: @unit, sort: @sort,

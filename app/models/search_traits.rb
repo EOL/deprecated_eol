@@ -16,7 +16,7 @@ class SearchTraits < TraitSet
 
   # search_options = { querystring: @querystring, attribute: @attribute,
     # min_value: @min_value, max_value: @max_value, page: @page,
-    # page_size: @page_size, unit: @unit, sort: @sort, language: current_language,
+    # per_page: @per_page, unit: @unit, sort: @sort, language: current_language,
     # clade: @taxon_concept.id,
     # required_equivalent_attributes: @required_equivalent_attributes,
     # required_equivalent_values: @required_equivalent_values }

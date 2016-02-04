@@ -1,7 +1,8 @@
 class DataSearchFile < ActiveRecord::Base
   include FileDownloadHelper
 
-  # TODO: remove file_number ; not using it now
+  # TODO: remove file_number ; not using it now. Remove the sort, it's never
+  # used.
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q,
     :sort, :to, :uri, :user, :user_id, :completed_at, :hosted_file_url,
     :row_count, :unit_uri, :taxon_concept_id, :file_number, :failed_at, :error

@@ -68,6 +68,7 @@ class TraitBank
           query += "LIMIT #{size} "
           query += "OFFSET #{offset}" if offset && offset > 0
         end
+        EOL.log(query, prefix: "Q")
         query
       end
 

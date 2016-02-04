@@ -78,7 +78,8 @@ class DataSearchFile < ActiveRecord::Base
     results = SearchTraits.new(search)
     total = results.traits.total_entries
     count = results.traits.count
-    begin # Always do this at least once...
+    while count <= total and results.traits.count > 0
+      EOL.log("DSF: page #{page}, count #{count}, total #{total}", prefix: ".")
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
       results.traits.each do |trait|
         if trait.point.hidden?
@@ -93,14 +94,10 @@ class DataSearchFile < ActiveRecord::Base
           rows << trait.to_hash
         end
       end
-      if (count < total) && results.traits.count > 0
-        page += 1
-        results = SearchTraits.new(search.merge(page: page))
-        count += results.traits.count
-      else
-        break
-      end
-    end until (count >= total)
+      page += 1
+      results = SearchTraits.new(search.merge(page: page))
+      count += results.traits.count
+    end
     rows
   end
 

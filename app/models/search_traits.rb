@@ -1,5 +1,5 @@
 class SearchTraits < TraitSet
-  attr_accessor :pages, :page, :attribute
+  attr_accessor :pages, :page, :attribute, :key, :count_key
 
   def self.warm
     EOL.log_call
@@ -36,10 +36,11 @@ class SearchTraits < TraitSet
       @traits = [].paginate
     else
       @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}"
-      @key += "/page/#{@page}" unless @page == 1
-      @key += "/per/#{@per_page}" unless @per_page == 100
       @key += "/clade/#{search_options[:clade]}" unless
         search_options[:clade].blank?
+      @count_key = @key.sub('search', 'search/count')
+      @key += "/page/#{@page}" unless @page == 1
+      @key += "/per/#{@per_page}" unless @per_page == 100
       @key += "/desc" if search_options[:sort] =~ /^desc$/i
       # TODO: some of this could be generalized into TraitSet.
       @rdf = TraitBank.cache_query(@key) do
@@ -60,8 +61,7 @@ class SearchTraits < TraitSet
         Trait.new(rdf_by_trait[trait], self, taxa: @pages,
           predicate: @attribute)
       end
-      total = Rails.cache.fetch(@key.sub('search', 'search/count'),
-        expires_in: 1.day) do
+      total = TraitBank.cache_query(@count_key) do
         TraitBank::Scan.trait_count(search_options)
       end
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|

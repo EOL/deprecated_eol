@@ -17,13 +17,8 @@ class Users::DataDownloadsController < UsersController
     @rel_canonical_href = user_data_downloads_url(@user)
   end
 
-  def destroy
-    @data_file = params[:type] == DATA_SEARCH_FILE_TYPE ? DataSearchFile.find(params[:id]) : CollectionDownloadFile.find(params[:id])
-    # if params[:type] == DATA_SEARCH_FILE_TYPE
-      # @data_file = DataSearchFile.find(params[:id])
-    # else
-      # @data_file = CollectionDownloadFile.find(params[:id])
-    # end
+  def delete
+    @data_file = params[:type].to_i == DATA_SEARCH_FILE_TYPE ? DataSearchFile.find(params[:data_download_id]) : CollectionDownloadFile.find(params[:data_download_id])
     if @data_file.user == current_user || current_user.is_admin? || current_user.min_curator_level?(:master)
       @data_file.destroy
       flash[:notice] = I18n.t(:data_search_destroyed)

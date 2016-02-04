@@ -36,7 +36,7 @@ class TraitBank
       # PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
       # e.g.: http://purl.obolibrary.org/obo/OBA_0000056
       def scan_query(options = {})
-        size = options[:page_size] || 100
+        size = options[:per_page] || 100
         offset = ((options[:page] || 1) - 1) * size
         clade = options[:clade]
         # TODO: You can't go past 10_000 entries with this search. :/ One way
@@ -45,7 +45,7 @@ class TraitBank
         # http://docs.openlinksw.com/virtuoso/rdfsparql.html but I worry that
         # would affect performance. So it might be necessary to CHECK that the
         # limit isn't over 10_000 and use that technique only if it is. Ouch!
-        query = "# data_search part 1\n"
+        query = "# data_search #{options[:count] ? "(count)" : "part 1"}\n"
         fields = "DISTINCT ?page ?trait"
         fields = "COUNT(*)" if options[:count]
         query += "SELECT #{fields} WHERE { "\

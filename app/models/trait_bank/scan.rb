@@ -52,7 +52,7 @@ class TraitBank
         # TODO: This ORDER BY only really works if numeric! :S
         query += "?trait a eol:trait . "\
           "?trait dwc:measurementValue ?value . } } "
-        unless options[:count] || options[:sort] == :none
+        unless options[:count]
           # TODO: figure out how to sort properly, both numerically and alpha.
           orders = ["xsd:float(REPLACE(?value, \",\", \"\"))"] #, "?value"]
           orders.map! { |ord| "DESC(#{ord})" } if options[:sort] =~ /^desc$/i

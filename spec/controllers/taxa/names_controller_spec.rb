@@ -48,7 +48,7 @@ describe Taxa::NamesController do
 
       let(:curator) { build_stubbed(User) }
       let(:synonym) { build_stubbed(Synonym) }
-      let(:taxon_concept) { build_stubbed(TaxonConcept, id: 3542) }
+      let(:taxon_concept) { TaxonConcept.first }
       
       subject do
         post :create, name: { synonym: { language_id: Language.default.id }, string: 'woofer' },
@@ -57,7 +57,7 @@ describe Taxa::NamesController do
 
       before do
         # Not the best way to accomplish this, but:
-        allow(TaxonConcept).to receive(:find).with("3542") { taxon_concept }
+        allow(TaxonConcept).to receive(:find).with(taxon_concept.id) { taxon_concept }
         allow(controller).to receive(:current_user) { curator }
         allow(controller).to receive(:log_action) { curator }
         allow(controller).to receive(:expire_taxa) { curator }

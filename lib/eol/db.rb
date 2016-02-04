@@ -61,7 +61,7 @@ module EOL
       ENV['NAME'] = 'bootstrap'
       # Not sure if reload will work, but otherwise the following will fail; the
       # wrong models are loaded into memory at this point.
-      reload!
+      # reload!
       Rake::Task['scenarios:load'].invoke
       Rake::Task['solr:rebuild_all'].invoke
     end

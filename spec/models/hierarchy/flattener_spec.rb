@@ -25,7 +25,6 @@ describe Hierarchy::Flattener do
       entry_1_2_3 => [entry_1_2, entry_1]
     }.each do |child, ancestors|
       ancestors.each do |ancestor|
-        puts "Flat? entry_id: #{child.id}, ancestor_id: #{ancestor.id}"
         expect(HierarchyEntriesFlattened.exists?(hierarchy_entry_id: child.id,
           ancestor_id: ancestor.id)).to be_true
       end

@@ -17,6 +17,7 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'taxonomy',
               :type => 'Boolean',
+              :default => true,
               :test_value => true,
               :notes => I18n.t('return_any_taxonomy_details_from_different_hierarchy_providers') ),
             EOL::Api::DocumentationParameter.new(
@@ -57,7 +58,7 @@ module EOL
           return_hash['dataObjectVersionID'] = data_object.id
           return_hash['dataType'] = data_object.data_type.schema_value
           return_hash['dataSubtype'] = data_object.data_subtype.label rescue ''
-          return_hash['vettedStatus'] = data_object.vetted.curation_label if data_object.vetted
+          return_hash['vettedStatus'] = data_object.vetted.curation_label if data_object.try(:vetted)
           return_hash['dataRating'] = data_object.data_rating
 
           image_sizes = data_object.image_size if data_object.image?
@@ -78,7 +79,7 @@ module EOL
             end
           end
           return return_hash unless params[:details] == true
-
+          
           return_hash['mimeType']               = data_object.mime_type.label unless data_object.mime_type.blank?
           if return_hash['mimeType'].blank? && data_object.image?
             return_hash['mimeType'] = 'image/jpeg'

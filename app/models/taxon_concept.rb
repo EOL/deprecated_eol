@@ -920,7 +920,7 @@ class TaxonConcept < ActiveRecord::Base
   # them.
   def deep_published_nonbrowsable_hierarchy_entries
     return @deep_nonbrowsables if @deep_nonbrowsables
-    current_entry_id = entry.id  # Don't want to call #entry so many times...
+    current_entry_id = entry.try(:id)  # Don't want to call #entry so many times...
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
     @deep_nonbrowsables.delete_if { |he| he.hierarchy.browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)

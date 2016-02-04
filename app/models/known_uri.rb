@@ -230,7 +230,7 @@ class KnownUri < ActiveRecord::Base
   # for all possible params. Deal with it.
   def self.by_uri(uri)
     build_cache_if_needed
-    kuri = @cache.find { |u| u.uri == uri.to_s }
+    kuri = @cache.find { |u| u.uri == uri.to_s } unless @cache.blank?
     return kuri if kuri
     kuri ||= find_by_uri(uri.to_s) if EOL::Sparql.is_uri?(uri.to_s)
     @cache << kuri if kuri
@@ -254,7 +254,7 @@ class KnownUri < ActiveRecord::Base
 
   def self.update_cache(uri)
     self.build_cache_if_needed
-    @cache.delete_if { |u| u.uri == uri[:uri] }
+    @cache.delete_if { |u| u.uri == uri[:uri] } unless @cache.blank?
     @cache << KnownUri.where(id: uri.id).includes(:translated_known_uris).first
   end
 

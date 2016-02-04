@@ -273,7 +273,7 @@ ActiveRecord::Base.transaction do
   Permission.create_enumerated
 
   def create_known_uri(params)
-    old_instance = KnownUri.by_uri(params[:uri])
+    old_instance = KnownUri.find_by_uri_without_generate(params[:uri])
     instance = if old_instance
       old_instance.update_attributes(uri_type_id: params[:uri_type_id],
                                      vetted_id: Vetted.trusted.id, visibility_id: Visibility.visible.id)

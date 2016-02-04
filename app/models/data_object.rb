@@ -776,7 +776,7 @@ class DataObject < ActiveRecord::Base
     @visibility ||= raw_association.visibility
   end
   def vetted
-    @vetted ||= raw_association.vetted
+    @vetted ||= raw_association.try(:vetted)
   end
 
   # ATM, this is really only used by the User model to get the pages where the user commented...

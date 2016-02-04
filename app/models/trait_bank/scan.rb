@@ -39,12 +39,6 @@ class TraitBank
         size = options[:per_page] || 100
         offset = ((options[:page] || 1) - 1) * size
         clade = options[:clade]
-        # TODO: You can't go past 10_000 entries with this search. :/ One way
-        # around this would be to use a "scrollable cursor" as described in the
-        # "Example: Prevent Limits of Sorted LIMIT/OFFSET query" section here:
-        # http://docs.openlinksw.com/virtuoso/rdfsparql.html but I worry that
-        # would affect performance. So it might be necessary to CHECK that the
-        # limit isn't over 10_000 and use that technique only if it is. Ouch!
         query = "# data_search #{options[:count] ? "(count)" : "part 1"}\n"
         fields = "DISTINCT ?page ?trait"
         fields = "COUNT(*)" if options[:count]
@@ -65,11 +59,18 @@ class TraitBank
           query += "ORDER BY #{orders.join(" ")} "
         end
         unless options[:count]
-          query += "LIMIT #{size} "
-          query += "OFFSET #{offset}" if offset && offset > 0
+          if offset && offset > 0
+            query = scrollable_cursor(query, size, offset)
+          else
+            query += "LIMIT #{size} "
+          end
         end
         EOL.log(query, prefix: "Q")
         query
+      end
+
+      def scrollable_cursor(query, limit, offset)
+        "SELECT * WHERE { { #{query} } } LIMIT #{limit} OFFSET #{offset}"
       end
 
       def metadata(traits)

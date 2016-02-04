@@ -363,7 +363,7 @@ class DataObjectsController < ApplicationController
       if x >= 0 && y >= 0 && w > 0
         api_response = ContentServer.update_data_object_crop(@data_object.id, x, y, w)
         if api_response && api_response.has_key?(:response) &&
-            api_response[:response].is_numeric?
+            api_response[:response].try(:is_numeric?)
           # NOTE: using update_attribute here instead of update_attribute*S* as
           # there can be harvest objects which would fail Rails validations, yet
           # we still want to update their object_cache_url
@@ -373,7 +373,11 @@ class DataObjectsController < ApplicationController
         else
           Rails.logger.error "Crop API failed."
           if api_response
-            Rails.logger.error "  API response: #{api_response}"
+            if api_response.has_key?(:error)
+              Rails.logger.error "  API response: #{api_response[:error]}"
+            else
+              Rails.logger.error "  API response: #{api_response}"
+            end
           else
             Rails.logger.error "  NO response"
           end

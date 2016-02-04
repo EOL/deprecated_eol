@@ -64,7 +64,8 @@ class TraitBank
             query += "LIMIT #{size} "
           end
         end
-        EOL.log(query, prefix: "Q")
+        # NOTE: If you're experiencing Virtuoso problems, this is handy:
+        # EOL.log(query, prefix: "Q")
         query
       end
 

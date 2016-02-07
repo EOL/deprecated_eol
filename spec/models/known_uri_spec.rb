@@ -63,12 +63,6 @@ describe KnownUri do
     expect(KnownUri.unit_of_measure).to eq(@unit_of_measure)
   end
 
-  it 'should create custom URIs' do
-    kn = KnownUri.custom('Body length', Language.english)
-    expect(kn.name).to eq('Body length')
-    expect(kn.uri).to eq(Rails.configuration.uri_term_prefix + 'body_length')
-  end
-
   it 'should extract taxon_concept_ids' do
     expect(KnownUri.taxon_concept_id('http://eol.org/pages/1234')).to eq('1234')
     expect(KnownUri.taxon_concept_id('http://www.eol.org/pages/1234')).to eq('1234')
@@ -147,23 +141,9 @@ describe KnownUri do
 
   it 'should generate a proper RDF Turtle'
 
-  it 'removes leading and trailing whitespaces' do 
+  it 'removes leading and trailing whitespaces' do
     uri ="\t\t"+Rails.configuration.uri_term_prefix+"anything   "
     known_uri= KnownUri.gen(uri: uri)
     expect(known_uri.uri).to eq(Rails.configuration.uri_term_prefix+"anything")
-  end
-
-  describe '.find_by_uri' do 
-    it 'generates a known_uri if not exists' do 
-      uri = Rails.configuration.uri_term_prefix+"a_non_existing_uri"
-      known_uri= KnownUri.find_by_uri(uri)
-      expect(known_uri.class).to eq(KnownUri)
-    end
-
-    it 'does not generate a known_uri if data_object uri' do
-      uri = "http://eol.org/data_objects/"+rand(1000).to_s
-      known_uri= KnownUri.find_by_uri(uri)
-      expect(known_uri).to eq(nil)
-    end
   end
 end

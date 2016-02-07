@@ -16,7 +16,7 @@ describe 'taxa/overview/show' do
     taxon_concept = double(TaxonConcept)
     taxon_concept.stub(:id) { 1 }
     taxon_data = double(TaxonData, distinct_predicates: [])
-    data = double(TaxonDataSet)
+    data = []
     data.stub(:categorize) { {} }
     data.stub(:count) { 0 }
     data.stub(:blank?) { true }

@@ -59,10 +59,10 @@ class KnownUri < ActiveRecord::Base
 
   has_many :translated_known_uris
   has_many :user_added_data
-  has_many :known_uri_relationships_as_subject, class_name: KnownUriRelationship.name, foreign_key: :from_known_uri_id,
-    dependent: :destroy
-  has_many :known_uri_relationships_as_target, class_name: KnownUriRelationship.name, foreign_key: :to_known_uri_id,
-    dependent: :destroy
+  has_many :known_uri_relationships_as_subject, dependent: :destroy,
+    class_name: KnownUriRelationship.name, foreign_key: :from_known_uri_id
+  has_many :known_uri_relationships_as_target, dependent: :destroy,
+    class_name: KnownUriRelationship.name, foreign_key: :to_known_uri_id
 
   has_and_belongs_to_many :toc_items
 
@@ -93,6 +93,8 @@ class KnownUri < ActiveRecord::Base
   scope :metadata, -> { where(uri_type_id: UriType.metadata.id) }
   scope :visible, -> { where(visibility_id: Visibility.get_visible.id) }
   scope :show_in_gui, -> { where(hide_from_gui: false) }
+  scope :full, -> { includes(:toc_items, :known_uri_relationships_as_subject,
+    :known_uri_relationships_as_target, :translated_known_uris) }
 
   COMMON_URIS = [ { uri: Rails.configuration.uri_obo + 'UO_0000022', name: 'milligrams' },
                   { uri: Rails.configuration.uri_obo + 'UO_0000021', name: 'grams' },
@@ -107,13 +109,14 @@ class KnownUri < ActiveRecord::Base
                   { uri: Rails.configuration.uri_term_prefix + 'onetenthdegreescelsius', name: '0.1°C' },
                   { uri: Rails.configuration.uri_term_prefix + 'log10gram', name: 'log10 grams' } ]
 
-  # This gets called a LOT.  ...Like... a *lot* a lot. But... DO NOT make a
+  # This got called a LOT.  ...Like... a *lot* a lot. But... DO NOT make a
   # class variable and forget about it. We will need to flush the cache
   # frequently as we add/remove accepted values for UnitOfMeasure. Use the
-  # cached_with_local_timeout method
+  # cached_with_local_timeout method TODO: is it used anymore? Not sure.
   def self.unit_of_measure
     cached_with_local_timeout('unit_of_measure') do
-      KnownUri.where(uri: Rails.configuration.uri_measurement_unit).includes({ known_uri_relationships_as_subject: :to_known_uri } ).first
+      KnownUri.where(uri: Rails.configuration.uri_measurement_unit).
+        includes({ known_uri_relationships_as_subject: :to_known_uri } ).first
     end
   end
 
@@ -140,24 +143,12 @@ class KnownUri < ActiveRecord::Base
     normal_re = /[^\p{L}0-9 ]/u
     name = input.downcase.gsub(normal_re, '').gsub(/\s+/, ' ') # normalize...
     return [] if name.blank?
-    uris = EOL::Sparql.connection.all_measurement_type_known_uris.
-      select { |uri| uri.is_a?(KnownUri) }.
-      sort_by(&:position)
-    exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name if k.name }.first
+    # TODO: use cached thingie here!  :S
+    uris = KnownUri.full.where(id: TraitBank.predicates.map {|p| p[0] }).order(:position)
+    exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name }.first
     # TODO - this is a little odd, now that we're returning an array. Re-think: do you really want this?
     return [exact_match] if exact_match
-    return uris.select { |k| k.name.gsub(normal_re, '') =~ /#{name}/i if k.name }
-  end
-
-  # TODO: clean up or remove. Only used by user-added data. Probably redundant
-  # with (and inferior to) #find_by_uri_with_generate
-  # with (and inferior to) #find_by_uri_with_generate 
-  def self.custom(name, language)
-    known_uri = KnownUri.find_or_create_by_uri(BASE + EOL::Sparql.to_underscore(name))
-    translated_known_uri =
-      TranslatedKnownUri.where(name: name, language_id: language.id, known_uri_id: known_uri.id).first
-    translated_known_uri ||= TranslatedKnownUri.create(name: name, language: language, known_uri: known_uri)
-    known_uri
+    return uris.select { |k| k.name.gsub(normal_re, '') =~ /#{name}/i }
   end
 
   def self.taxon_concept_id(val)
@@ -230,9 +221,10 @@ class KnownUri < ActiveRecord::Base
   # for all possible params. Deal with it.
   def self.by_uri(uri)
     build_cache_if_needed
-    kuri = @cache.find { |u| u.uri == uri.to_s } unless @cache.blank?
+    kuri = @cache.find { |u| u.uri == uri.to_s }
     return kuri if kuri
-    kuri ||= find_by_uri(uri.to_s) if EOL::Sparql.is_uri?(uri.to_s)
+    kuri ||= where(uri: uri.to_s).full.first if
+       EOL::Sparql.is_uri?(uri.to_s)
     @cache << kuri if kuri
     kuri
   end
@@ -246,7 +238,7 @@ class KnownUri < ActiveRecord::Base
 
   def self.build_cache_if_needed
     if @cache.nil? || @cache_time < 1.week.ago
-      @cache ||= KnownUri.includes(:translated_known_uris).all
+      @cache ||= KnownUri.full.all
       @cache_time = Time.now
     end
     @cache
@@ -254,8 +246,8 @@ class KnownUri < ActiveRecord::Base
 
   def self.update_cache(uri)
     self.build_cache_if_needed
-    @cache.delete_if { |u| u.uri == uri[:uri] } unless @cache.blank?
-    @cache << KnownUri.where(id: uri.id).includes(:translated_known_uris).first
+    @cache.delete_if { |u| u.uri == uri[:uri] }
+    @cache << KnownUri.where(id: uri.id).full.first
   end
 
   def units_for_form_select
@@ -457,26 +449,7 @@ class KnownUri < ActiveRecord::Base
     )
   end
 
-  #this solves the problem of method_missing for alias_method_chain
-  def self.find_by_uri(*args); super; end
-
-  def self.find_by_uri_with_generate(*args)
-    known_uri = find_by_uri_without_generate(*args)
-    if known_uri.nil?
-      uri = args.first
-      name = EOL::Sparql.uri_to_readable_label(uri)
-      return if name.nil?
-      # Auto-generated URIs are well-hidden, but in the DB for speed:
-      known_uri= create(uri: uri, uri_type_id: UriType.measurement.id,
-        visibility_id: Visibility.invisible.id, vetted_id: Vetted.unknown.id,
-        hide_from_gui: true, hide_from_glossary: true)
-      TranslatedKnownUri.create(name: name, known_uri_id: known_uri.id, language_id: Language.english.id)
-    end
-    known_uri
-  end
-  klass = class << self; alias_method_chain :find_by_uri, :generate; end
-
-  private
+private
 
   def update_cache
     KnownUri.update_cache(self)

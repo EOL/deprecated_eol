@@ -89,11 +89,20 @@ module EOL
   def self.log_error(e)
     EOL.log("ERROR: #{e.message}", prefix: "!")
     i = 0
+    @gem_regex = /gems\/(actionpack|journey|newrelic_rpm|rack)/
+    skipped = 0
     while e.backtrace[i] !~ /__pry__/ &&
       i < e.backtrace.length
-      EOL.log("#{e.backtrace[i]}", prefix: "!") unless
-        # Skip Rails (unless it's the most proximal stuff)
-        i > 1 && e.backtrace[i] =~ /gems\/active/
+      # Skip Rails (unless it's the most proximal stuff)
+      if i > 3 && e.backtrace[i] =~ @gem_regex
+        skipped += 1
+      else
+        if skipped > 0
+          EOL.log("." * skipped, prefix: "!")
+        end
+        EOL.log("#{e.backtrace[i]}", prefix: "!")
+        skipped = 0
+      end
       i += 1
     end
   end

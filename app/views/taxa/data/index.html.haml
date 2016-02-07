@@ -1,14 +1,13 @@
-- EOL.log("Starting index view")
 #tabs_sidebar.data
   %ul.tabs.with_icons{ class: 'subtabs' }
     %li.all{ class: 'active' }= link_to I18n.t(:all_categories), taxon_data_path(@taxon_page)
-  -unless @page_traits.blank?
-    - @page_traits.categories.each do |category|
-      -# TODO: the class needs to be active if its toc_id was passed in...
-      %li= link_to category.label, taxon_data_path(@taxon_page, toc_id: category.id), data: { toc_id: category.id }
-    -# TODO: range data, which we do not have yet.
-    - unless @page_traits.glossary.blank?
-      %li.glossary.start_section= link_to I18n.t(:glossary_subhead).html_safe, glossary_taxon_data_path(@taxon_page)
+    - unless @page_traits.blank?
+      - @page_traits.categories.each do |category|
+        -# TODO: the class needs to be active if its toc_id was passed in...
+        %li= link_to category.label, taxon_data_path(@taxon_page, toc_id: category.id), data: { toc_id: category.id }
+      -# TODO: range data, which we do not have yet.
+      - unless @page_traits.glossary.blank?
+        %li.glossary.start_section= link_to I18n.t(:glossary_subhead).html_safe, glossary_taxon_data_path(@taxon_page)
     -# TODO: This class needs to be start_section if the glossary tab is missing.
     %li.about= link_to I18n.t(:data_subtab_about), about_taxon_data_path(@taxon_page)
 .main_container#taxon_data
@@ -23,7 +22,7 @@
         contact_traitbank_path: contact_us_path(subject: 'TraitBank'),
         register_path: new_user_path,
         login_path: login_path(return_to: request.original_url))
-  -unless @page_traits.blank?
+  - unless @page_traits.blank?
     - unless @page_traits.glossary.blank?
       .glossary_subtab{ style: 'display: none' }
         .header_underlined
@@ -36,7 +35,7 @@
       = t(:data_disclaimer,
         traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
         traitbank_info_path: cms_page_path('traitbank')).html_safe
-  -unless @page_traits.blank?
+  - unless @page_traits.blank?
     - @page_traits.categories.each do |category|
       .header_underlined
         %h3= category.label
@@ -97,11 +96,12 @@
                   = format_value(trait).html_safe
                   = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
               %td.source
-                - if trait.resource
-                  = link_to(trait.resource.content_partner.name,
-                    [trait.partner, trait.resource])
-                - else
-                  = link_to("See original source", trait.source_url)
+                %span.source
+                  - if trait.resource
+                    = link_to(trait.resource.content_partner.name,
+                      [trait.partner, trait.resource])
+                  - else
+                    = link_to("See original source", trait.source_url)
               %td.comment
                 %span.comments
                   - if trait.comments.empty?
@@ -145,4 +145,3 @@
                           trait.content_partner))
                       - else
                         = I18n.t(:data_point_uri_source_missing)
-- EOL.log("Finished with index view")

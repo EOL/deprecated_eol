@@ -23,9 +23,9 @@
       %dl
         - placeholder = I18n.t(:attribute, scope: i18n_scope)
         %dt
-          = label_tag :attribute, placeholder
+          = label_tag :attribute_label, placeholder
         %dt{id: "combobox"}
-          = select_tag :attribute, options_for_select(select_options, @attribute || placeholder) , include_blank: placeholder
+          = select_tag :attribute, options_for_select(select_options, @attribute || placeholder), placeholder: placeholder, include_blank: placeholder
     - if @equivalent_attributes && @equivalent_attributes.count > 0
       %br
       %h2{style: "display: inline;"}
@@ -111,15 +111,17 @@
           %dd
             - unit_options = { I18n.t(:not_specified) => nil }.merge(Hash[ @units_for_select.collect{ |u| [ u.label, u.uri ] } ])
             = select_tag :unit, options_for_select(unit_options, @unit)
-    %fieldset.sort
-      %h4= t('.sort_header')
-      %dl
-        %dt
-          = label_tag :sort, I18n.t(:sort_by_label)
-        %dd
-          - sort_options = { I18n.t(:sort_by_value_ascending) => 'asc',
-            I18n.t(:sort_by_value_descending) => 'desc' }
-          = select_tag :sort, options_for_select(sort_options, @sort)
+    - if false
+      -# DISABLED for now... sigh.
+      %fieldset.sort
+        %h4= t('.sort_header')
+        %dl
+          %dt
+            = label_tag :sort, I18n.t(:sort_by_label)
+          %dd
+            - sort_options = { I18n.t(:sort_by_value_ascending) => 'asc',
+              I18n.t(:sort_by_value_descending) => 'desc' }
+            = select_tag :sort, options_for_select(sort_options, @sort)
   %fieldset.actions
     = submit_tag I18n.t(:search)
     = link_to t('.new_search_link'), data_search_path

@@ -80,6 +80,20 @@ class EolConfig < ActiveRecord::Base
     EolConfig.all_users_can_see_data rescue false
   end
 
+  # NOTE: only works if it exists in the DB
+  def self.data_off
+    c = EolConfig.find_by_parameter("all_users_can_see_data")
+    c.update_attribute(:value, nil)
+    c.clear_caches
+  end
+
+  # NOTE: only works if it exists in the DB
+  def self.data_on
+    c = EolConfig.find_by_parameter("all_users_can_see_data")
+    c.update_attribute(:value, "true")
+    c.clear_caches
+  end
+
   def clear_caches
     EolConfig.clear_global_site_warning
     Rails.cache.delete(EolConfig.cached_name_for("parameter/#{self.parameter}"))

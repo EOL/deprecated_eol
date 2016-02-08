@@ -113,27 +113,28 @@ describe DataPointUri do
       grammy.unit_of_measure_uri.should == KnownUri.grams
     end
 
-    context '#to_hash' do
-
-      let(:hashed) { grammy.to_hash }
-
-      it 'should have the units URI' do
-        expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.grams.uri)
-      end
-
-      it 'should have the units label' do
-        expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.grams.label)
-      end
-
-      it 'should have the same original units URI' do
-        expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.grams.uri)
-      end
-
-      it 'should have the same original units label' do
-        expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.grams.label)
-      end
-
-    end
+    # deprecated!
+    # context '#to_hash' do
+# 
+      # let(:hashed) { grammy.to_hash }
+# 
+      # it 'should have the units URI' do
+        # expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.grams.uri)
+      # end
+# 
+      # it 'should have the units label' do
+        # expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.grams.label)
+      # end
+# 
+      # it 'should have the same original units URI' do
+        # expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.grams.uri)
+      # end
+# 
+      # it 'should have the same original units label' do
+        # expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.grams.label)
+      # end
+# 
+    # end
 
   end
 
@@ -192,27 +193,28 @@ describe DataPointUri do
       expect(kelvin.original_unit_of_measure_uri.name).to eq(KnownUri.kelvin.name)
     end
 
-    context '#to_hash' do
-
-      let(:hashed) { kelvin.to_hash }
-
-      it 'should have the new units URI' do
-        expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.celsius.uri)
-      end
-
-      it 'should have the new units label' do
-        expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.celsius.label)
-      end
-
-      it 'should have the original units URI' do
-        expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.kelvin.uri)
-      end
-
-      it 'should have the original units label' do
-        expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.kelvin.label)
-      end
-
-    end
+    # deprecated
+    # context '#to_hash' do
+# 
+      # let(:hashed) { kelvin.to_hash }
+# 
+      # it 'should have the new units URI' do
+        # expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.celsius.uri)
+      # end
+# 
+      # it 'should have the new units label' do
+        # expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.celsius.label)
+      # end
+# 
+      # it 'should have the original units URI' do
+        # expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.kelvin.uri)
+      # end
+# 
+      # it 'should have the original units label' do
+        # expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.kelvin.label)
+      # end
+# 
+    # end
 
   end
 

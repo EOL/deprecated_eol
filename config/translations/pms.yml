@@ -6038,4 +6038,37 @@ pms:
   only_show_authoritative_conten: 'Smon-e mach ël contnù ch''a fà autorità:'
   only_show_unapproved_curators: Smon-e mach ij conservator nen omologà
   on_time_col_header: ativé
+  option_please_select: Për piasì, ch'a selession-a
+  or_add_it_to_an_existing_collection: o giontelo a na colession esistenta
+  or_add_it_to_an_existing_community: o giontelo a na comunità esistenta
+  or_copy_them_to_existing_collection: o copieje an na colession esistenta
+  or_email_education: Opura ch'a manda sò sugeriment për pòsta eletrònica a %{link}.
+  or_move_them_to_existing_collection: o tramudeje an na colession esistenta
+  original_object: Oget original
+  original: 'ORIGINAL:'
+  other_us_dollars_amount: 'Àutr: $US'
+  other_collection_items_with_count:
+    one: '%{count} àutr element'
+    other: '%{count} àutri element'
+  other_community_items_with_count:
+    one: '%{count} àutr element'
+    other: '%{count} àutri element'
+  other_taxa_with_count:
+    one: '%{count} àutra tassonomìa'
+    other: '%{count} àutre tassonomìe'
+  outlink: Liura esterna
+  overview: Vista d'ansem
+  page_linked_to: Pàgina gropà a
+  page_name: Nòm dla pàgina
+  page_navigation: Navigassion ant la pàgina
+  page_not_found: Pàgina nen trovà
+  page_reference: '"%{title}". Enciclopedìa dla Vita, disponìbil su "<a href="http://%{domain_or_ip}%{this_url}"
+    target="_blank">http://%{domain_or_ip}%{this_url}</a>". Visità ai %{date}'
+  page: Pàgina
+  page_results_avg: media dj'arzultà ëd pàgina
+  page_urls: 'Adrëssa o adrësse dla pàgina:'
+  pages_title: Arferiment
+  pages_with_count:
+    one: '%{count}'
+    other: '%{count}'
 ...

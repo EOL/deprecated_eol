@@ -41,8 +41,17 @@ class TraitBank
       connection.send :namespaces_prefixes
     end
 
+    def uri?(uri)
+      EOL::Sparql.is_uri?(uri)
+    end
+
     def quote_literal(literal)
-      "\"#{literal.to_s.gsub(/\n/, " ").gsub(/"/, "\\\"")}\""
+      str = literal.to_s
+      if str.is_numeric?
+        literal
+      else
+        "\"#{str.gsub(/\n/, " ").gsub(/"/, "\\\"")}\""
+      end
     end
 
     def exists?(uri)
@@ -75,7 +84,7 @@ class TraitBank
       # <#{graph_name}>", and then delete all triples with that subject, but
       # filtering out anything that's "?s a eol:page". Yeesh.
       traits.in_groups_of(1000, false) do |group|
-
+        raise NotImplementedError
       end
     end
 
@@ -150,7 +159,7 @@ class TraitBank
             "<#{h[:predicate]}> <#{h[:trait]}>"
           triples << "<#{h[:trait]}> a eol:trait"
           add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/measurementValue",
-            :value, literal: true)
+            :value)
           add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/measurementUnit",
             :units)
           add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/sex",
@@ -183,16 +192,18 @@ class TraitBank
             each do |h|
             # ?trait ?predicate ?meta_trait ?value ?units
             if h[:units].blank?
-              add_meta(triples, h, h[:predicate], :value,
-                literal: h[:value].literal?)
+              add_meta(triples, h, h[:predicate], :value)
             else
               triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}>"
-              val = h[:value].literal? ?
-                "\"#{h[:value].to_s.gsub(/"/, "\\\"")}\"" :
-                "<#{h[:value]}>"
+              val = TraitBank.uri?(h[:value]) ?
+                "<#{h[:value]}>" :
+                quote_literal(h[:value])
+              units = TraitBank.uri?(h[:units]) ?
+                "<#{h[:units]}>" :
+                quote_literal(h[:units]) # TODO: THIS SHOULD NOT HAPPEN. tell someone?
               triples << "<#{h[:meta_trait]}> a eol:trait ;"\
                 "<http://rs.tdwg.org/dwc/terms/measurementValue> #{val} ;"\
-                "<http://rs.tdwg.org/dwc/terms/measurementUnit> <#{h[:units]}>"
+                "<http://rs.tdwg.org/dwc/terms/measurementUnit> #{units}"
             end
           end
         # This was causing a lot of trouble when I was attempting it:  :(
@@ -234,7 +245,7 @@ class TraitBank
     def add_meta(triples, h, uri, key, options = {})
       return if h[key].nil?
       triple = "<#{h[:trait]}> <#{uri}> "
-      if options[:literal]
+      if options[:literal] || ! TraitBank.uri?(h[key])
         triple << quote_literal(h[key])
       else
         triple << "<#{h[key]}>"

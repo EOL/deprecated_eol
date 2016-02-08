@@ -1,6 +1,15 @@
 class SearchTraits < TraitSet
   attr_accessor :pages, :page, :attribute
 
+  def self.warm
+    EOL.log_call
+    preds = TraitBank.predicates
+    preds.each do |p|
+      r = SearchTraits.new(attribute: p[1])
+      EOL.log("#{r.traits.count} results for #{p[1]} (#{p[2]})")
+    end
+  end
+
   # e.g.: @traits = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
 
   # e.g.: s = SearchTraits.new(attribute: "http://purl.obolibrary.org/obo/OBA_0000056")
@@ -15,6 +24,9 @@ class SearchTraits < TraitSet
     @attribute = search_options[:attribute]
     @page = search_options[:page] || 1
     @per_page = search_options[:per_page] || 100
+    # NOTE ********************* IMPORTANT  !!!!! **********************
+    # If you make changes to search, you MUST consider any necessary changes to
+    # the cache key!!!
     if @attribute.blank?
       @rdf = []
       @pages = []
@@ -23,11 +35,15 @@ class SearchTraits < TraitSet
       @sources = []
       @traits = [].paginate
     else
+      @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}"
+      @key += "/page/#{@page}" unless @page == 1
+      @key += "/per/#{@per_page}" unless @per_page == 100
+      @key += "/clade/#{search_options[:clade]}" unless
+        search_options[:clade].blank?
+      @key += "/desc" if search_options[:sort] =~ /^desc$/i
       # TODO: some of this could be generalized into TraitSet.
-      @rdf = begin
+      @rdf = TraitBank.cache_query(@key) do
         TraitBank::Scan.for(search_options)
-      rescue EOL::Exceptions::SparqlDataEmpty => e
-        []
       end
       @pages = get_pages(@rdf.map { |trait| trait[:page].to_s })
       trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
@@ -44,10 +60,13 @@ class SearchTraits < TraitSet
         Trait.new(rdf_by_trait[trait], self, taxa: @pages,
           predicate: @attribute)
       end
-      # TODO: a real count:
-      total = traits.count >= @per_page || @page > 1 ?
-        TraitBank::Scan.trait_count(search_options) :
+      total = if traits.count >= @per_page || @page > 1
+        Rails.cache.fetch(@key.sub('search', 'search/count'), expires_in: 1.day) do
+          TraitBank::Scan.trait_count(search_options)
+        end
+      else
         traits.count
+      end
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|
         pager.replace traits
       end

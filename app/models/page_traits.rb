@@ -2,33 +2,28 @@ class PageTraits < TraitSet
 
   # e.g.: pt = PageTraits.new(328598)
   def initialize(id)
-    EOL.log_call
     @id = id
-    @rdf = TraitBank.page_with_traits(id)
+    @rdf = TraitBank.cache_query("trait_bank/pages/#{id}") do
+      TraitBank.page_with_traits(id)
+    end
     trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })
-    EOL.log("points", prefix: ".")
     @points = DataPointUri.where(uri: trait_uris.to_a.map(&:to_s)).
       includes(:comments, :taxon_data_exemplars)
     uris = Set.new(@rdf.flat_map { |rdf|
       rdf.values.select { |v| EOL::Sparql.is_uri?(v.to_s) } })
     uris.delete_if { |uri| uri.to_s =~ TraitBank::SOURCE_RE }
     # TODO: associations. We need the names of those taxa.
-    EOL.log("glossary", prefix: ".")
     @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
       includes(toc_items: :translated_toc_items)
     traits = @rdf.group_by { |trait| trait[:trait] }
-    EOL.log("traits", prefix: ".")
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
     source_ids = Set.new(@traits.map { |trait| trait.source_id })
     source_ids.delete(nil) # It happens.
-    EOL.log("sources (#{source_ids.to_a.join(", ")})", prefix: ".")
     @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
   end
 
-  # NOTE: this is largely copied from TaxonDataSet#to_jsonld, because it will
-  # eventually replace it, so the duplication will go away. No point in
-  # generalizing. TODO: this doesn't belong here; make a new class and pass self
-  # in. NOTE: jsonld is ALWAYS in English. Period. This is expected and normal.
+  # TODO: this doesn't belong here; make a new class and pass self in. NOTE:
+  # jsonld is ALWAYS in English. Period. This is expected and normal.
   def jsonld
     concept = TaxonConcept.find(@id)
     jsonld = { '@graph' => [ concept.to_jsonld ] }
@@ -40,8 +35,6 @@ class PageTraits < TraitSet
     end
     prefixes = {}
     PREFIXES.each { |k,v| prefixes[v] = "#{k}:" }
-    points = @traits.map(&:point)
-    DataPointUri.assign_references(points, Language.english)
     @traits.each do |trait|
       # NOTE: this block was (mostly) stolen from DataPointUri#to_jsonld, and,
       # again, will replace it.
@@ -78,7 +71,6 @@ class PageTraits < TraitSet
     jsonld
   end
 
-  # NOTE: again, stolen from TaxonDataSet#default_context ; replaces it.
   def add_default_context(jsonld)
     # TODO: @context doesn't need all of these. Look through the @graph and
     # add things as needed based on the Sparql headers, then add the @ids.

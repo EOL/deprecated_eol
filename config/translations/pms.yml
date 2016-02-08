@@ -6026,4 +6026,16 @@ pms:
   percentage_of_children_with_images: '% dij cit con plancia'
   percentage_of_children_with_text: '% dij cit con test'
   number_of_taxa_at_this_entry: '# ëd tassonomìa ëd costa vos'
+  number_of_trusted_images_at_this_entry: '# ëd plance fidà an costa vos'
+  number_of_trusted_text_objects_at_this_entry: '# d''oget test fidà an costa vos'
+  number_of_unreviewed_images_at_this_entry: nùmer ëd plance nen revisionà an costa
+    vos
+  number_of_unreviewed_text_objects_at_this_entry: nùmer d'oget test nen controlà
+    an costa vos
+  only_alphanum_with_no_spaces: a peul mach esse alfanumérich, sensa spassi
+  only_multi_search_suggestions: (mach s'a-i é vàire sugeriment për ël midem criteri
+    d'arserca, l'ordinament a l'é chërsent)
+  only_show_authoritative_conten: 'Smon-e mach ël contnù ch''a fà autorità:'
+  only_show_unapproved_curators: Smon-e mach ij conservator nen omologà
+  on_time_col_header: ativé
 ...

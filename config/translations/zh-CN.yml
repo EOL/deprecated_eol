@@ -2805,7 +2805,7 @@ zh-CN:
     zero: 空
     other: '%{count}项'
   collection_items_duplicate_ids: 不能从重复的ID %{type}:(%{values})创建收藏
-  collection_items_missing_values: ' collected_item_id/collected_item_type不能是in:%{item}'
+  collection_items_missing_values: ' collected_item_id/collected_item_type不能为零in:%{item}'
   collection_copy_complete_with_count:
     one: 从%{from}复制%{count}个项目至%{to}。
     other: 从%{from}复制共计%{count}个项目至%{to}。

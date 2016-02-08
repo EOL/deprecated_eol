@@ -29,6 +29,7 @@ describe Taxa::MediaController do
     end
 
     it 'sets meta description as empty' do
+      allow(assigns[:taxon_media]).to receive(:empty?) {true}
       get :index, id: taxon_concept.id
       # NOTE - this is weird, but we're testing a private method using this syntax, since we need to check that this pseudo-helper (method) works:
       # TODO - these meta_description methods really should be helpers.

@@ -32,7 +32,7 @@ class TaxonUserClassificationFilter
   end
 
   def data
-    @data ||= TaxonData.new(taxon_concept, user, _hierarchy_entry)
+    raise "Don't call this anymore."
   end
 
   # Options include: page, per_page, sort_by, type, and status)

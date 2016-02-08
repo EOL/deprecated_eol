@@ -17,7 +17,8 @@ class Taxa::MediaController < TaxaController
 
   # Can't test this if private:
   def meta_description
-    @meta_description ||= t(".meta_description#{scoped_variables_for_translations[:preferred_common_name] ? '_with_common_name' : ''}#{@taxon_media.empty? ? '_no_data' : ''}", scoped_variables_for_translations.dup)
+    @meta_description ||= t("taxa.media.index.meta_description#{scoped_variables_for_translations[:preferred_common_name] ? '_with_common_name' : ''}#{@taxon_media.empty? ? '_no_data' : ''}",
+     scoped_variables_for_translations.dup.except(:scope))
   end
   
   private

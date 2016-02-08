@@ -230,6 +230,10 @@ class String
     end
   end
 
+  def is_integer?
+    !!(self =~ /\A[-+]?[0-9]+\z/)
+  end
+
   def is_json?
     begin
       !!JSON.parse(self)

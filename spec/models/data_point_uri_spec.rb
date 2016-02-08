@@ -27,7 +27,7 @@ describe DataPointUri do
     # UriType.create_enumerated
     # KnownUri.create_enumerated
   end
-  
+
   it 'should hide/show user_added_data when hidden/show' do
     d = DataPointUri.gen()
     d.reload  # TODO - this shouldn't be needed; but #hide doesn't work without it. I couldn't figure out why, but was rushing.
@@ -90,21 +90,10 @@ describe DataPointUri do
     d.object_uri.should == known_uri
   end
 
-  it 'should use the master for get_references' do
-    DataPointUri.should_receive(:with_master).and_return(true)
-    DataPointUri.gen.get_references(Language.english)
-  end
-
   it 'should use the master for get_metadata' do
     DataPointUri.should_receive(:with_master).and_return(true)
     DataPointUri.gen.get_metadata(Language.english)
   end
-
-  it 'should use the master for get_other_occurrence_measurements' do
-    DataPointUri.should_receive(:with_master).and_return(true)
-    DataPointUri.gen.get_other_occurrence_measurements(Language.english)
-  end
-
 
   context 'with grams as unit of measure' do
 
@@ -124,27 +113,28 @@ describe DataPointUri do
       grammy.unit_of_measure_uri.should == KnownUri.grams
     end
 
-    context '#to_hash' do
-
-      let(:hashed) { grammy.to_hash }
-
-      it 'should have the units URI' do
-        expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.grams.uri)
-      end
-
-      it 'should have the units label' do
-        expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.grams.label)
-      end
-
-      it 'should have the same original units URI' do
-        expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.grams.uri)
-      end
-
-      it 'should have the same original units label' do
-        expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.grams.label)
-      end
-
-    end
+    # deprecated!
+    # context '#to_hash' do
+# 
+      # let(:hashed) { grammy.to_hash }
+# 
+      # it 'should have the units URI' do
+        # expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.grams.uri)
+      # end
+# 
+      # it 'should have the units label' do
+        # expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.grams.label)
+      # end
+# 
+      # it 'should have the same original units URI' do
+        # expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.grams.uri)
+      # end
+# 
+      # it 'should have the same original units label' do
+        # expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.grams.label)
+      # end
+# 
+    # end
 
   end
 
@@ -203,27 +193,28 @@ describe DataPointUri do
       expect(kelvin.original_unit_of_measure_uri.name).to eq(KnownUri.kelvin.name)
     end
 
-    context '#to_hash' do
-
-      let(:hashed) { kelvin.to_hash }
-
-      it 'should have the new units URI' do
-        expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.celsius.uri)
-      end
-
-      it 'should have the new units label' do
-        expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.celsius.label)
-      end
-
-      it 'should have the original units URI' do
-        expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.kelvin.uri)
-      end
-
-      it 'should have the original units label' do
-        expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.kelvin.label)
-      end
-
-    end
+    # deprecated
+    # context '#to_hash' do
+# 
+      # let(:hashed) { kelvin.to_hash }
+# 
+      # it 'should have the new units URI' do
+        # expect(hashed[I18n.t(:data_column_units_uri)]).to eq(KnownUri.celsius.uri)
+      # end
+# 
+      # it 'should have the new units label' do
+        # expect(hashed[I18n.t(:data_column_units)]).to eq(KnownUri.celsius.label)
+      # end
+# 
+      # it 'should have the original units URI' do
+        # expect(hashed[I18n.t(:data_column_raw_units_uri)]).to eq(KnownUri.kelvin.uri)
+      # end
+# 
+      # it 'should have the original units label' do
+        # expect(hashed[I18n.t(:data_column_raw_units)]).to eq(KnownUri.kelvin.label)
+      # end
+# 
+    # end
 
   end
 

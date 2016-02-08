@@ -9,7 +9,6 @@ class DataSearchController < ApplicationController
   layout 'data_search'
   # TODO - optionally but preferentially pass in a known_uri_id (when we have it), to avoid the ugly URL
   def index
-    EOL.log_call
     @page_title = I18n.t('data_search.page_title')
     prepare_search_parameters(params)
     prepare_attribute_options
@@ -71,7 +70,6 @@ class DataSearchController < ApplicationController
   end
 
   def prepare_search_parameters(options)
-    EOL.log_call
     @hide_global_search = true
     @querystring_uri = nil
     @querystring = options[:q]
@@ -86,7 +84,6 @@ class DataSearchController < ApplicationController
     @page = options[:page].try(:to_i) || 1
     @required_equivalent_attributes = params[:required_equivalent_attributes]
     @required_equivalent_values = !options[:q].blank? ?  params[:required_equivalent_values] : nil
-    EOL.log("get equivs", prefix: ".")
     @equivalent_attributes = get_equivalents(@attribute)
     equivalent_attributes_ids = @equivalent_attributes.map{|eq| eq.id.to_s}
     # check if it is really an equivalent attribute
@@ -97,7 +94,6 @@ class DataSearchController < ApplicationController
     end
 
     if ! options[:q].blank?
-      EOL.log("handle q", prefix: ".")
       tku = TranslatedKnownUri.find_by_name(@querystring)
       ku = tku.known_uri if tku
       if ku
@@ -109,7 +105,6 @@ class DataSearchController < ApplicationController
 
     #if entered taxon name returns more than one result choose first
     if options[:taxon_concept_id].blank? && !(options[:taxon_name].blank?)
-      EOL.log("simple taxon search", prefix: ".")
       results_with_suggestions = EOL::Solr::SiteSearch.simple_taxon_search(options[:taxon_name], language: current_language)
       results = results_with_suggestions[:results]
       if !(results.blank?)
@@ -120,14 +115,12 @@ class DataSearchController < ApplicationController
     @taxon_concept ||= TaxonConcept.find_by_id(options[:taxon_concept_id])
     # Look up attribute based on query
     unless @querystring.blank?
-      EOL.log("lookup uri based on query", prefix: ".")
       @attribute_known_uri = KnownUri.by_name(@querystring).first
       if @attribute_known_uri
         @attribute = @attribute_known_uri.uri
         @querystring = options[:q] = ''
       end
     else
-      EOL.log("lookup uri", prefix: ".")
       @attribute_known_uri = KnownUri.where(uri: @attribute).first
     end
     @attributes = @attribute_known_uri ? @attribute_known_uri.label : @attribute
@@ -138,7 +131,6 @@ class DataSearchController < ApplicationController
     end
 
     #@values = @querystring.to_s
-    EOL.log("querystring uri", prefix: ".")
     if @querystring_uri
       known_uri = KnownUri.where(uri: @querystring_uri).first
       @values = known_uri.label if known_uri
@@ -151,7 +143,6 @@ class DataSearchController < ApplicationController
       end
     end
 
-    EOL.log("attribute known uri", prefix: ".")
     if @attribute_known_uri && ! @attribute_known_uri.units_for_form_select.empty?
       @units_for_select = @attribute_known_uri.units_for_form_select
     else
@@ -170,7 +161,6 @@ class DataSearchController < ApplicationController
       user: current_user,
       taxon_concept_id: (@taxon_concept ? @taxon_concept.id : nil),
       unit_uri: @unit }
-    EOL.log("exiting #prepare_search_parameters", prefix: ".")
   end
 
   # TODO - this should be In the DB with an admin/master curator UI behind it. I
@@ -182,7 +172,6 @@ class DataSearchController < ApplicationController
   # That said, we will have to consider how to deal with I18n, both for the
   # "comment" and for the label.
   def prepare_suggested_searches
-    EOL.log_call
     @suggested_searches = [
       # { label_key: 'search_suggestion_whale_mass',
       #   params: {
@@ -209,7 +198,6 @@ class DataSearchController < ApplicationController
   # TODO: the format of @attribute_options is plain stupid. Simplify and change
   # the view.
   def prepare_attribute_options
-    EOL.log_call
     # TODO: attributes within clades (only)
     # TODO: this is sloppy, refactor.
     @attribute_options = TraitBank.predicates.map do |array|

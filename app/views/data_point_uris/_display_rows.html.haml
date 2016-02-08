@@ -72,7 +72,7 @@
 %tr{ id: "#{data_point_uri.anchor}_actions", class: (classes + ['actions']).join(' '), style: row_is_selected ? nil : 'display: none;' }
   %td{ colspan: colspan }
     - if row_is_selected
-      = render 'data_point_uris/metadata', { data_point_uri: data_point_uri, header_id: header_id }
+      -# DEPRECATED = render 'data_point_uris/metadata', { data_point_uri: data_point_uri, header_id: header_id }
     .actions
       %ul
         %li

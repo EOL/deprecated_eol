@@ -20,25 +20,26 @@ class DataSearchFile < ActiveRecord::Base
       mark_as_completed
     else
       write_file
-      response = upload_file(id, local_file_path, local_file_url)
-      if response[:error].blank?
-        # The user may delete the download before it has finished (if it's hung,
-        # the workers are busy or its just taking a very long time). If so,
-        # we should not email them when the process has finished
-        if hosted_file_exists? && instance_still_exists?
-          send_completion_email
-        end
-        mark_as_completed
-      else
-        # something goes wrong with uploading file
-        update_attributes(failed_at: Time.now.utc, error: response[:error])
+    end
+    response = upload_file(id, local_file_path, local_file_url)
+    if response[:error].blank?
+      # The user may delete the download before it has finished (if it's hung,
+      # the workers are busy or its just taking a very long time). If so,
+      # we should not email them when the process has finished
+      if hosted_file_exists? && instance_still_exists?
+        send_completion_email
       end
+      mark_as_completed
+    else
+      # something goes wrong with uploading file
+      update_attributes(failed_at: Time.now.utc, error: response[:error])
     end
   end
 
   def similar_file
     dsf = DataSearchFile.where(q: q, uri: uri, from: from, to: to, sort: sort,
       taxon_concept_id: taxon_concept_id, unit_uri: unit_uri).
+      where(["completed_at > ?", EXPIRATION_TIME.ago]).
       where(["id != ?", id]).last
     return nil unless dsf
     File.exist?(dsf.local_file_path) ? dsf : nil

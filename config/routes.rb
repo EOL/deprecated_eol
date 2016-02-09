@@ -41,6 +41,7 @@ Eol::Application.routes.draw do
   match '/favicon' => redirect('/assets/favicon.ico')
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
   match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
+  match '/resources/:id' => 'content_partners/resources#show'
 
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)

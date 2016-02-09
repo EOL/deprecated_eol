@@ -59,7 +59,7 @@
             - next
         - else
           - first = trait.predicate_name != last_predicate
-          - header_id = nil
+          - header_id = trait.point.anchor
           - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
           -# using the instance methods as opposed to scopes allows us to use
           -# preloaded taxon_data_exemplars
@@ -124,7 +124,7 @@
                       %td{id: "#{row_id}_d"}
                         - if val.is_a?(KnownUri)
                           = val.name
-                          = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
+                          = render(partial: 'trait_bank/definition', locals: { known_uri: val, search_link: true, glossary_link: true })
                         - else
                           = raw val.add_missing_hyperlinks
                   %tr

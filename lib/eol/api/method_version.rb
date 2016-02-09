@@ -33,6 +33,7 @@ module EOL
         end
 
         def validate_and_normalize_input_parameters!(input_params)
+          I18n.locale = :en
           parameters.each do |documented_parameter|
             if incoming_value = input_params[documented_parameter.name]
               if documented_parameter.boolean?

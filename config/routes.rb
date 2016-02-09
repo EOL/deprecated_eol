@@ -252,6 +252,7 @@ Eol::Application.routes.draw do
       get 'revoke_editor'
       get 'pending_notifications'
       get 'reindex'
+      get 'scrub'
       get 'unsubscribe_notifications/:key', :action => 'unsubscribe_notifications',
         :as => 'unsubscribe_notifications'
     end

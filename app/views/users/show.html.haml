@@ -52,7 +52,7 @@
             %dt= I18n.t(:user_activity_stats_wikipedia_nominated, :count => @user.wikipedia_queues_count)
           %br
         %dt= link_to I18n.t(:user_activity_stats_taxa_commented, :count => @user.count_taxa_commented), user_activity_path(@user, :filter => "taxa_comments")
-        %dt= link_to I18n.t(:user_activity_stats_comment_submitted, :count => @user.comments_count), user_activity_path(@user, :filter => "comments")
+        %dt= link_to I18n.t(:user_activity_stats_comment_submitted, :count => @user.total_comment_submitted), user_activity_path(@user, :filter => "comments")
         %dt= link_to I18n.t(:user_activity_stats_articles_added, :count => @user_submitted_text_count), user_activity_path(@user, :filter => "added_data_objects")
         - if EolConfig.data?
           %dt= link_to I18n.t(:user_activity_stats_data_added, :count => @user.count_total_data_records), user_activity_path(@user, :filter => "added_data")

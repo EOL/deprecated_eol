@@ -114,14 +114,21 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'cache_ttl',
               :type => Integer,
-              :notes => I18n.t('api_cache_time_to_live_parameter'))
+              :notes => I18n.t('api_cache_time_to_live_parameter')),
+            EOL::Api::DocumentationParameter.new(
+                name: "language",
+                type: String,
+                values: ["ms", "de", "en", "es", "fr", "gl", "it", "nl", "nb", "oc", "pt-BR", "sv", "tl", "mk", "sr", "uk", "ar", "zh-Hans", "zh-Hant", "ko"],#Language.approved_languages.collect(&:iso_639_1),
+                default: "en",
+                notes: I18n.t(:limits_the_returned_to_a_specific_language))
           ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
-            # TODO: When we called #validate_and_normalize_input_parameters, the
-            # TC was already loaded (but not stored); this is redundant: fix.
+          I18n.locale = params[:language] unless params[:language].blank?
+          # TODO: When we called #validate_and_normalize_input_parameters, the
+          # TC was already loaded (but not stored); this is redundant: fix.
           taxon_concepts = TaxonConcept.find_all_by_id(params[:id].split(","))
           if (params[:batch])
             batch_concepts = []

@@ -108,20 +108,27 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'vetted',
               :type => Integer,
-              :values => [ 0, 1, 2 ],
+              values:  [ 0, 1, 2, 3, 4 ],
               :default => 0,
               :notes => I18n.t('return_content_by_vettedness') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'cache_ttl',
               :type => Integer,
-              :notes => I18n.t('api_cache_time_to_live_parameter'))
+              :notes => I18n.t('api_cache_time_to_live_parameter')),
+            EOL::Api::DocumentationParameter.new(
+                name: "language",
+                type: String,
+                values: ["ms", "de", "en", "es", "fr", "gl", "it", "nl", "nb", "oc", "pt-BR", "sv", "tl", "mk", "sr", "uk", "ar", "zh-Hans", "zh-Hant", "ko"],#Language.approved_languages.collect(&:iso_639_1),
+                default: "en",
+                notes: I18n.t(:limits_the_returned_to_a_specific_language))
           ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
-            # TODO: When we called #validate_and_normalize_input_parameters, the
-            # TC was already loaded (but not stored); this is redundant: fix.
+          I18n.locale = params[:language] unless params[:language].blank?
+          # TODO: When we called #validate_and_normalize_input_parameters, the
+          # TC was already loaded (but not stored); this is redundant: fix.
           taxon_concepts = TaxonConcept.find_all_by_id(params[:id].split(","))
           if (params[:batch])
             batch_concepts = []
@@ -223,6 +230,10 @@ module EOL
             solr_search_params[:vetted_types] = ['trusted']
           elsif options[:vetted] == 2  # 2 = everything except untrusted
             solr_search_params[:vetted_types] = ['trusted', 'unreviewed']
+          elsif options[:vetted] == 3  # 3 = unreviewed
+            solr_search_params[:vetted_types] = ["unreviewed"]
+          elsif options[:vetted] == 4  # 4 = untrusted
+            solr_search_params[:vetted_types] = ["untrusted"]
           else  # 0 = everything
             solr_search_params[:vetted_types] = ['trusted', 'unreviewed', 'untrusted']
           end

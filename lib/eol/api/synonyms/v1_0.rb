@@ -32,11 +32,18 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'sort_field',
               :type => String,
-              :notes => I18n.t('collection_api_sort_field_notes') )
+              :notes => I18n.t('collection_api_sort_field_notes') ),
+              EOL::Api::DocumentationParameter.new(
+                name: "language",
+                type: String,
+                values: Language.approved_languages.collect(&:iso_639_1),
+                default: "en",
+                notes: I18n.t(:limits_the_returned_to_a_specific_language))
           ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
+          I18n.locale = params[:language] unless params[:language].blank?
           begin
             synonym = Synonym.find(params[:id])
           rescue

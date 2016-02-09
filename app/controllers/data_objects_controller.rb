@@ -8,7 +8,8 @@ class DataObjectsController < ApplicationController
   before_filter :authentication_own_user_added_text_objects_only, only: [:edit] # update handled separately
   before_filter :allow_login_then_submit, only: [:rate]
   before_filter :curators_and_owners_only, only: [:add_association, :remove_association]
-  before_filter :restrict_to_admins_and_curators, only: [:crop, :reindex]
+  before_filter :restrict_to_admins_and_curators, only: [:crop]
+  before_filter :restrict_to_admins_and_master_curators, only: [:reindex]
 
   # GET /data_objects/new
   # requires a taxon_id as a parameter.
@@ -226,7 +227,7 @@ class DataObjectsController < ApplicationController
 
   #GET /data_objects/:id/delete
   def delete
-    @data_object.scrub!
+    @data_object.scrub!(current_user)
     log_action(@data_object, :delete, collect: false)
     redirect_to data_object_path(@data_object), notice: I18n.t(:data_object_deleted)
   end

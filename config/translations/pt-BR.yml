@@ -1207,7 +1207,7 @@ pt-BR:
       about_link_what_is_eol: O que é EOL?
       about_link_traitbank: O que é TraitBank?
       about_link_eol_blog: O Blog EOL
-      about_link_discover: Descobrir
+      about_link_discover: Educação
       about_link_statistics: Estatísticas
       about_link_glossary: Glossário
       about_link_podcasts: Podcasts
@@ -3057,6 +3057,10 @@ pt-BR:
           para mostrar dados em uma página desconhecida.
         an_unknown_user_unhide_data_on_taxon: Um usuário desconhecido escolheu para
           mostrar dados sobre "%{taxon}".
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> escolheu mostrar
+          dados em uma pagina desconhecida.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> escolheu mostrar dados
+          em"%{taxon}".
       add_common_name:
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Um
           usuário desconhecido acrescentou um nome comum desconhecido em uma língua
@@ -3473,10 +3477,17 @@ pt-BR:
         merge_of_it_unlocked: A fusão que pediu recentemente sobre esta página foi
           concluída. As paginas estão sendo reindexadas e exigirão 25 horas para estarem
           completas.
+        merge_of_taxon_unlocked: A fusão que pediu recentemente para esta página foi
+          concluída, agora as paginas estão sendo reindexadas e demorarão até 25 horas
+          para estarem completas.
         move_of_an_unknown_taxon_unlocked: O movimento da classificação que você solicitou
           recentemente foi concluída, mas a página não pode ser encontrada.
-        move_of_it_unlocked: O movimento da classificação que você solicitou recentemente
-          nesta página foi concluída.
+        move_of_it_unlocked: A mudança de classificação que você pediu recentemente
+          nessa pagina foi completada, as paginas agora estão sendo reindexadas e
+          demorarão em torno de 25 horas para estarem completas.
+        move_of_taxon_unlocked: A mudança de classificação que você pediu para "%{taxon}"
+          foi completada, as paginas agora estão sendo reindexadas e demorarão em
+          torno de 25 horas para estarem completas.
         split_of_an_unknown_taxon_unlocked: A divisão da classificação que você solicitou
           recentemente foi concluída, mas a página não pode ser encontrada.
       unlock_with_error:

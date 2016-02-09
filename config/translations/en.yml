@@ -3845,7 +3845,7 @@ en:
   if_multiple_media_objects_are_returned: "If multiple media objects are returned, the list will be ordered by object type. Within each type, items are sorted by vetted status ('Trusted' &gt; 'Unreviewed' &gt; 'Untrusted'), and then by data rating. However, within certain data types, specific items are given the highest priority: if one of these items is returned, it will be listed first. For images, exemplar images have highest priority. With text types, the overview text has highest priority."
   if_the_details_parameter_is_not_set: "If the 'details' parameter is not set then only the data object identifier, data type, and, in the case of articles, subject will be returned. The data type will be a value from the %{linka} resource type vocabulary. The text subject will be one of the %{linkb}."
   check_this_to_browse_eol_by_the_hierarchy: "(If this box is checked the classification will be shown on the names tab without having to \"Show All Classifications\".)"
-  return_content_by_vettedness: "If 'vetted' is given a value of '1', then only trusted content will be returned. If 'vetted' is '2', then only trusted and unreviewed content will be returned (untrusted content will not be returned). The default is to return all content."
+  return_content_by_vettedness: "If 'vetted' is given a value of '1', then only trusted content will be returned. If 'vetted' is '2', then only trusted and unreviewed content will be returned (untrusted content will not be returned). If 'vetted' is '3', then only unreviewed content will be returned. If 'vetted' is '4', then only untrusted content will be returned.The default is to return all content."
   reindex_data_object_button: "Reindex object"
   reindex_page_button: "Reindex page"
   reindex_users_button: "Reindex user counts"
@@ -4020,6 +4020,7 @@ en:
   limits_the_number_of_returned_sound_objects: "limits the number of returned sound objects"
   limits_the_number_of_returned_map_objects: "limits the number of returned map objects"
   limits_the_number_of_returned_iucn_objects: "include the IUCN Red List status object"
+  limits_the_returned_to_a_specific_language: "provides the results in the specified language."
   link_more_about: "Learn more about this link"
   link_name: "Link Name"
   link_to_this_term: "link to this term"
@@ -4535,6 +4536,9 @@ en:
   save: "Save"
   scientific_name: "Scientific Name"
   sci_name_avg_table_head: "Sci. Name avg"
+  scrub_user_button: scrub user
+  scrub_user_notice: User successfully scrubbed!
+  scrub_user_warning: "WARNING: this will remove ALL content added by the user and CANNOT BE UNDONE. Are you SURE?"
   search: "Search"
   search_by_term_page_title: "Search: %{term}"
   search_by_provider_method_description_with_link: "get the EOL page IDs given a provider's hierarchy_id and the provider's own unique identifier<br />(e.g. search for the EOL page ID for the ITIS TSN 180542: %{link})"

@@ -453,7 +453,12 @@ class ApplicationController < ActionController::Base
 
   # clear the cached activity logs on homepage
   def clear_cached_homepage_activity_logs
-    Rails.cache.delete('homepage/activity_logs_expiration') if Rails.cache
+    if Rails.cache
+      Rails.cache.delete('homepage/activity_logs_expiration')
+      Language.find_active.each do |language|
+        expire_fragment(controller: '/content', action: 'index', action_suffix: "activity_#{language.iso_639_1}")
+      end
+    end
   end
 
   # TODO - review. This seems quite convoluted; it's certainly obfuscated.

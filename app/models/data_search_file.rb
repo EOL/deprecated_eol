@@ -46,7 +46,7 @@ class DataSearchFile < ActiveRecord::Base
   end
 
   def mark_as_completed
-    update_attributes(completed_at: Time.now.utc)
+    update_attributes(completed_at: Time.now.utc, failed_at: nil)
   end
 
   def failed?

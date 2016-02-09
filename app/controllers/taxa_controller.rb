@@ -122,6 +122,7 @@ private
     with_master_if_curator do
       @taxon_concept = TaxonConcept.with_titles.find(tc_id)
     end
+    debugger
     unless @taxon_concept.published?
       if logged_in?
         raise EOL::Exceptions::SecurityViolation.

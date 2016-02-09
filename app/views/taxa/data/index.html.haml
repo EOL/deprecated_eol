@@ -124,7 +124,7 @@
                       %td{id: "#{row_id}_d"}
                         - if val.is_a?(KnownUri)
                           = val.name
-                          = render(partial: 'trait_bank/definition', locals: { known_uri: val, search_link: true, glossary_link: true })
+                          = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
                         - else
                           = raw val.add_missing_hyperlinks
                   %tr

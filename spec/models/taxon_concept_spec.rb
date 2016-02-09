@@ -759,7 +759,7 @@ describe TaxonConcept do
     tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank_id: '0'),
                              comments: [], toc: [], bhl: [], images: [], sounds: [], flash: [], youtube: [])
     tc.should_receive(:number_of_descendants).and_return(100)
-    expect(tc.should_show_clade_range_data).to eq(true)
+    expect(tc.should_show_clade_range_data).to eq(false)
     # has a right amount descendants, but is a species or below
     clear_rank_caches
     tc = build_taxon_concept(hierarchy_entry: HierarchyEntry.gen(rank: Rank.gen_if_not_exists(label: 'species')),

@@ -15,7 +15,10 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :taxon_concept
 
   def build_file
-    unless hosted_file_exists?
+    if other = similar_file
+      FileUtils.cp(other.local_file_path, local_file_path)
+      mark_as_completed
+    else
       write_file
       response = upload_file(id, local_file_path, local_file_url)
       if response[:error].blank?
@@ -25,12 +28,28 @@ class DataSearchFile < ActiveRecord::Base
         if hosted_file_exists? && instance_still_exists?
           send_completion_email
         end
-        update_attributes(completed_at: Time.now.utc)
+        mark_as_completed
       else
         # something goes wrong with uploading file
         update_attributes(failed_at: Time.now.utc, error: response[:error])
       end
     end
+  end
+
+  def similar_file
+    dsf = DataSearchFile.where(q: q, uri: uri, from: from, to: to, sort: sort,
+      taxon_concept_id: taxon_concept_id, unit_uri: unit_uri).
+      where(["id != ?", id]).last
+    return nil unless dsf
+    File.exist?(dsf.local_file_path) ? dsf : nil
+  end
+
+  def mark_as_completed
+    update_attributes(completed_at: Time.now.utc)
+  end
+
+  def failed?
+    ! failed_at.blank?
   end
 
   def csv(options = {})
@@ -62,11 +81,11 @@ class DataSearchFile < ActiveRecord::Base
     DataPointUri.new(object: to, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
   end
 
-  private
-
   def local_file_path
     Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
+
+  private
 
   def get_data(options = {})
     # TODO - we should also check to see if the job has been canceled.
@@ -101,7 +120,8 @@ class DataSearchFile < ActiveRecord::Base
     rows
   end
 
-  # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file for users of Excel. q.v.:
+  # TODO - we /might/ want to add the utf-8 BOM here to ease opening the file
+  # for users of Excel. q.v.:
   # http://stackoverflow.com/questions/9886705/how-to-write-bom-marker-to-a-file-in-ruby
   def write_file
     rows = get_data

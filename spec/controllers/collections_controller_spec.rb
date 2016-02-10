@@ -83,4 +83,30 @@ describe CollectionsController do
 
   end
 
+  describe '#choose_collect_target' do
+
+    let(:user) { build_stubbed(User) }
+    let(:watch_collection) {build_stubbed(Collection, updated_at: 1.day.ago, user: user)}
+    let(:c1) { build_stubbed(Collection, updated_at: 1.week.ago, user: user) }
+    let(:c2) { build_stubbed(Collection, updated_at: 1.year.ago, user: user) }
+    let(:item) { build_stubbed(TaxonConcept) }
+
+    before do
+      allow(controller).to receive(:current_user) { user }
+      allow(controller).to receive(:logged_in?) { true }
+      allow(TaxonConcept).to receive(:find) { item }
+      allow(user).to receive(:watch_collection) { watch_collection }
+    end
+
+    it 'displays the collections according to the recently updated' do
+      allow(user).to receive(:all_collections) {[ watch_collection, c1, c2 ]}
+       get :choose_collect_target, item_id: item.id, item_type: "TaxonConcept"
+      expect( assigns[:collections].reject{ |c| c.id == watch_collection.id } ).to eq [ c1, c2 ]
+
+      c3 =  build_stubbed(Collection, updated_at: 1.second.ago, user: user) 
+      allow(user).to receive(:all_collections) {[ watch_collection, c1, c2 , c3]}
+      get :choose_collect_target, item_id: item.id, item_type: "TaxonConcept"
+      expect( assigns[:collections].reject{ |c| c.id == watch_collection.id } ).to eq [ c3, c1, c2 ]
+    end
+  end
 end

@@ -99,14 +99,14 @@ describe CollectionsController do
     end
 
     it 'displays the collections according to the recently updated' do
-      allow(user).to receive(:all_collections) {[ watch_collection, c1, c2 ]}
+      allow(user).to receive(:all_collections) {[ c1, c2 ]}
        get :choose_collect_target, item_id: item.id, item_type: "TaxonConcept"
-      expect( assigns[:collections].reject{ |c| c.id == watch_collection.id } ).to eq [ c1, c2 ]
+      expect( assigns[:collections] ).to eq [ c1, c2 ]
 
       c3 =  build_stubbed(Collection, updated_at: 1.second.ago, user: user) 
-      allow(user).to receive(:all_collections) {[ watch_collection, c1, c2 , c3]}
+      allow(user).to receive(:all_collections) {[ c1, c2 , c3 ]}
       get :choose_collect_target, item_id: item.id, item_type: "TaxonConcept"
-      expect( assigns[:collections].reject{ |c| c.id == watch_collection.id } ).to eq [ c3, c1, c2 ]
+      expect( assigns[:collections] ).to eq [ c3, c1, c2 ]
     end
   end
 end

@@ -74,14 +74,6 @@ class DataSearchFile < ActiveRecord::Base
     KnownUri.by_uri(unit_uri)
   end
 
-  def from_as_data_point
-    DataPointUri.new(object: from, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
-  end
-
-  def to_as_data_point
-    DataPointUri.new(object: to, unit_of_measure_known_uri_id: unit_known_uri ? unit_known_uri.id : nil)
-  end
-
   def local_file_path
     Rails.configuration.data_search_file_full_path.sub(/:id/, id.to_s)
   end
@@ -102,7 +94,7 @@ class DataSearchFile < ActiveRecord::Base
       EOL.log("DSF: page #{page}, count #{count}, total #{total}", prefix: ".")
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
       results.traits.each do |trait|
-        if trait.point.hidden?
+        if trait.point && trait.point.hidden?
           # TODO - we should probably add a "hidden" column to the file and
           # allow admins/master curators to see those rows, (as long as they are
           # marked as hidden). For now, though, let's just remove the rows:

@@ -94,7 +94,7 @@ class DataSearchFile < ActiveRecord::Base
       EOL.log("DSF: page #{page}, count #{count}, total #{total}", prefix: ".")
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
       results.traits.each do |trait|
-        if trait.point && trait.point.hidden?
+        if trait.hidden?
           # TODO - we should probably add a "hidden" column to the file and
           # allow admins/master curators to see those rows, (as long as they are
           # marked as hidden). For now, though, let's just remove the rows:

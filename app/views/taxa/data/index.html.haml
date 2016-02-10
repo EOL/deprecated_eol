@@ -49,10 +49,10 @@
           %tr.data
             %th.predicate
               %div.term
-                = "Could not find a data point for #{trait.point}"
+                = "Could not find a data point for #{trait.uri}"
           - next
         - classes = []
-        - unless trait.point.visible?
+        - unless trait.visible?
           - if current_user.is_curator?
             - classes << 'hidden'
           - else
@@ -63,12 +63,12 @@
           - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
           -# using the instance methods as opposed to scopes allows us to use
           -# preloaded taxon_data_exemplars
-          - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
-          - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
+          - exemplar = trait.included?
+          - excluded = trait.excluded?
           - if first
             - classes << 'first'
             - type_index += 1
-            - header_id = trait.point.header_anchor
+            - header_id = trait.header_anchor
             - last_predicate = trait.predicate_name
           %tr.data{ id: trait.anchor, class: (classes + ['data']).join(' '), data: { loaded: true, type: type_index.nil? ? nil : "type_#{type_index}" } }
             %th.predicate{ id: header_id }
@@ -86,7 +86,7 @@
                 = link_to(image_tag("arrow_fold_down.png",
                   alt: I18n.t(:data_row_additional_detail_alt)),
                   taxon_data_path(@taxon_concept,
-                  data_point_uri_id: trait.point.id, anchor: trait.anchor),
+                  data_point_uri_id: trait.point.try(:id), anchor: trait.anchor),
                   title: I18n.t(:data_row_additional_detail_assistive))
               .term{ data: { term: "TODO" }}
                 - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
@@ -113,7 +113,7 @@
                   - i = 0
                   - trait.meta.each do |pred, val|
                     - i += 1
-                    - row_id = "#{trait.point.anchor}_meta_#{i}"
+                    - row_id = "#{trait.anchor}_meta_#{i}"
                     %tr
                       %th{id: "#{row_id}_h"}
                         - if pred.is_a?(KnownUri)
@@ -131,7 +131,7 @@
                     %th
                       = I18n.t(:data_link_to_record)
                       - info_icon
-                    - link = taxon_data_url(@taxon_page, anchor: trait.point.anchor)
+                    - link = taxon_data_url(@taxon_page, anchor: trait.anchor)
                     %td= link_to link, link
               .actions
                 %ul

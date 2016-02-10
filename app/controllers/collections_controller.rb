@@ -209,7 +209,7 @@ class CollectionsController < ApplicationController
 
   def choose_collect_target
     return must_be_logged_in unless logged_in?
-    @collections = current_user.all_collections || []
+    @collections = current_user.all_collections.sort_by(&:updated_at).reverse! || []
     Collection.preload_associations(@collections, [ :resource, :resource_preview ])
     @collections.delete_if { |c| c.is_resource_collection? }
     raise EOL::Exceptions::ObjectNotFound unless @item

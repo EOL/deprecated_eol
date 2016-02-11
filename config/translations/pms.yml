@@ -6071,4 +6071,8 @@ pms:
   pages_with_count:
     one: '%{count}'
     other: '%{count}'
+  page_statistics_and_tools: statìstiche dla pàgina e utiss
+  pages_with_pictures_and_text: Pàgine con le plance e ël test
+  pages_with_pictures_or_text: Pàgine con dle plance o ëd test
+  page_statistics: Statìstiche dla pàgine
 ...

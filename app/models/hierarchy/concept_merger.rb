@@ -254,7 +254,7 @@ class Hierarchy
     end
 
     def fewer_entries_first(h1, h2)
-      [h1, h2].sort_by(&:hierarchy_entries_count).reverse
+      [h1, h2].sort_by(&:hierarchy_entries_count)
     end
 
     def already_compared?(id1, id2)

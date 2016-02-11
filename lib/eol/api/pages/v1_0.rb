@@ -204,8 +204,7 @@ module EOL
               end
             end
           end
-
-          unless (params[:text] == 0 && params[:images] == 0 && params[:videos] == 0 && params[:maps] == 0 && params[:sounds] == 0)
+          unless no_objects_required?(params.dup)
             return_hash['dataObjects'] = []
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
             data_objects.each do |data_object|
@@ -393,7 +392,18 @@ module EOL
           end
           return map_objects
         end
-
+        def self.no_objects_required?(params)
+          return ( params[:action] == "pages" && 
+                   params[:text] == 0 && 
+                   params[:images] == 0 && 
+                   params[:videos] == 0 && 
+                   ( params[:maps] == 0 || !params.has_key?(:maps) ) && 
+                   ( params[:sounds] == 0 || !params.has_key?(:sounds) )
+                 )
+        end
+        class << self
+          private :no_objects_required?
+        end
       end
     end
   end

@@ -101,11 +101,10 @@ module Eol
 
     # This uses Rack CORs gem to enable CORs on EOL API.
     # Currently we allow all origins to access EOL API
-    config.middleware.insert_before 0, "Rack::Cors" do
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
         origins '*'
-
-        resource '/wapi/*',
+        resource '*',
           headers: :any,
           methods: [:get, :post, :options, :put]
       end

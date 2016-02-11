@@ -1,19 +1,9 @@
-# Represents a version of the Tree of Life
-#
-# Because the tree changes as new species are discovered and other species are
-# reclassified, etc, there's a Hierarchy object available for each version
-# of the Tree of Life that's been imported, eg.
-#
-#   >> Hierarchy.all.map &:label
-#   => [
-#        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2007",
-#        "Species 2000 & ITIS Catalogue of Life: Annual Checklist 2008"
-#      ]
-#
+# Represents a resource's concept of the tree of life, arranged by relationships
 require 'invert'
 
 class Hierarchy < ActiveRecord::Base
-  belongs_to :agent           # This is the attribution.
+  # "agent" is the attribution:
+  belongs_to :agent
   has_and_belongs_to_many :collection_types
   has_one :resource
   has_one :dwc_resource, class_name: Resource.to_s, foreign_key: :dwc_hierarchy_id

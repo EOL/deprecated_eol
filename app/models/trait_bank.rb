@@ -331,7 +331,7 @@ class TraitBank
     # Given a page, get all of its traits and all of its metadata. Note that
     # this necessarily returns a bunch of predicates of
     # <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>, which you should
-    # ignore. Sorry!
+    # ignore. Sorry! NOTE: duplication with #page_traits
     def page_with_traits(page, limit = 10_000, offset = nil)
       query = "SELECT DISTINCT *
       # page_with_traits
@@ -345,6 +345,24 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
+      begin
+        connection.query(query)
+      rescue EOL::Exceptions::SparqlDataEmpty => e
+        EOL.log_error(e)
+        []
+      end
+    end
+
+    # JUST the list of triat IDs for the page! NOTE: duplication with
+    # #page_with_traits
+    def page_traits(page, limit = 10_000, offset = nil)
+      query = "SELECT DISTINCT *
+      # page_with_traits
+      WHERE {
+        GRAPH <http://eol.org/traitbank> {
+          <http://eol.org/pages/#{page}> ?predicate ?trait
+        }
+      }"
       begin
         connection.query(query)
       rescue EOL::Exceptions::SparqlDataEmpty => e

@@ -215,7 +215,8 @@ class TaxonConcept < ActiveRecord::Base
     (id1, id2) = [id1, id2].sort
     raise "Missing an ID (#{id1}, #{id2})" if id1 <= 0
     tc2 = TaxonConcept.find(id2)
-    raise "Missing merge-to concept (#{id2})" unless tc2 
+    raise "Missing merge-to concept (#{id2})" unless tc2
+    raise "Cannot merge to unpublished taxon!" unless tc1.published?
     tc2.update_attributes(supercedure_id: id1, published: false)
     HierarchyEntry.where(taxon_concept_id: id2).
       update_all(taxon_concept_id: id1)
@@ -227,12 +228,34 @@ class TaxonConcept < ActiveRecord::Base
     update_ignore_id(DataObjectsTaxonConcept, id1, id2)
     update_ignore_id(TaxonConceptsFlattened, id1, id2)
     update_ignore_ancestor_id(TaxonConceptsFlattened, id1, id2)
+    move_traits(id1, id2)
+    # TODO: We must reindex the new page, of course. :(
     # NOTE: this one used to also do a join to hierarchy_entries and ensure that
     # the tc id was id2. ...But that has already changed by this point, sooo...
     # that never worked. :| Also, it seems entirely superfluous. Just using the
     # tc id on that table:
     update_ignore_id(RandomHierarchyImage, id1, id2)
     TaxonConcept.find(id2)
+  end
+
+  def self.move_traits(id1, id2)
+    traits = TraitBank.page_traits(id2)
+    clauses = []
+    traits.each do |trait|
+      clauses << "#{trait[:predicate].to_ntriples} #{trait[:trait].to_ntriples}"
+    end
+    old_traits = clauses.map { |c| "<http://eol.org/pages/#{id2}> #{c}" }
+    # TODO: we still need a delete method...
+    del_q = "WITH GRAPH <#{TraitBank.graph_name}> DELETE "\
+    "{ #{old_traits.join(" . ")} } WHERE { #{old_traits.join(" . ")} }"
+    begin
+      TraitBank.connection.query(del_q)
+    rescue EOL::Exceptions::SparqlDataEmpty => e
+      # Do nothing... this is acceptable for a delete...
+    end
+    new_traits = clauses.map { |c| "<http://eol.org/pages/#{id1}> #{c}" }
+    TraitBank.connection.insert_data(data: new_traits,
+    graph_name: TraitBank.graph_name)
   end
 
   # TODO: Rails doesn't have a way to UPDATE IGNORE ... WTF?

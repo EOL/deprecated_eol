@@ -19,15 +19,18 @@ class SolrCore
         delete(["hierarchy_entry_id_1:(#{id})", "hierarchy_entry_id_2:(#{id})"])
       end
       EOL.log("Looking up relationships")
-      relationships = []
-      HierarchyEntryRelationship.by_hierarchy_for_hashes(@hierarchy_id).
-        find_each do |relationship|
-        hash = relationship.to_hash
-        # TODO: remove this!
-        debugger unless hash.has_key?("visibility_id_1")
-        relationships << hash unless hash.blank?
+      relationships = Set.new
+      # NOTE: YOU **CANNOT** USE #find_each (or #find_in_batches) HERE. The
+      # scope being applied seems to screw it up; you will *always* get 1000
+      # results (assuming you have more than that to scan through) in
+      # relationships if you try to use it. Don't.
+      HierarchyEntryRelationship.by_hierarchy_for_hashes(hierarchy.id).
+        each do |relationship|
+        relationships << relationship.to_hash
       end
-      relationships.in_groups_of(5000, false) do |group|
+      relationships.delete_if { |r| r.blank? }
+      relationships.to_a.in_groups_of(5000, false) do |group|
+        EOL.log("Adding #{group.size} relationships to Solr...")
         add_items(group)
       end
     end

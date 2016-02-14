@@ -1,4 +1,5 @@
 class Hierarchy
+  # This depends ENTIRELY on Hierarchy::Relator (q.v.) having completed first.
   class ConceptMerger
     def self.merges_for_hierarchy(hierarchy)
       assigner = self.new(hierarchy)
@@ -133,6 +134,8 @@ class Hierarchy
       return(nil) if tc_id1 == tc_id2
       tc_id1 = follow_supercedure_cached(tc_id1)
       tc_id2 = follow_supercedure_cached(tc_id2)
+      # This seems to be a bug (in Solr?), but we have to catch it!
+      return(nil) if tc_id1 == 0 or tc_id2 == 0
       return(nil) if tc_id1 == tc_id2
       EOL.log("Comparing entry #{tc_id1} (hierarchy #{hierarchy1.id}) "\
         "with #{id2} (hierarchy #{hierarchy2.id})", prefix: "?")
@@ -152,7 +155,7 @@ class Hierarchy
       # TODO: store the supercedure somewhere so that we can use it later to
       # know what to clean up, e.g.: in CollectionItem.remove_superceded_taxa
       tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
-      @superceded[tc.id] = tc.supercedure_id
+      @superceded[tc.id] = tc.supercedure_id unless tc.supercedure_id == 0
     end
 
     def assign_local_vars_from_relationship(relationship)
@@ -234,12 +237,12 @@ class Hierarchy
     # table, and I'm not sure it's worth that, either. Worth checking, I
     # suppose.
     def follow_supercedure_cached(id)
-      new_id = if @superceded.has_key?(id)
+      new_id = if @superceded.has_key?(id) && @superceded[id] != 0
         @superceded[id]
       else
         follow_supercedure(id)
       end
-      while @superceded.has_key?(new_id)
+      while @superceded.has_key?(new_id) && @superceded[id] != 0
         new_id = @superceded[new_id]
       end
       new_id
@@ -247,14 +250,14 @@ class Hierarchy
 
     def follow_supercedure(id)
       tc = TaxonConcept.find(id)
-      unless tc.id == id
+      unless tc.id == id || tc.id == 0
         @superceded[id] = tc.id
       end
       tc.id
     end
 
     def fewer_entries_first(h1, h2)
-      [h1, h2].sort_by(&:hierarchy_entries_count).reverse
+      [h1, h2].sort_by(&:hierarchy_entries_count)
     end
 
     def already_compared?(id1, id2)

@@ -6128,6 +6128,10 @@ mk:
   save: Зачувај
   scientific_name: Научно име
   sci_name_avg_table_head: Научно име (прос.)
+  scrub_user_button: исчисти го корисникот
+  scrub_user_notice: Корисникот е успешно исчистен!
+  scrub_user_warning: 'ПРЕДУПРЕДУВАЊЕ: со ова ќе се отстранат СИТЕ содржини додадени
+    од корисникот и ова е НЕПОВРАТНО. Дали сте СИГУРНИ?'
   search: Пребарај
   search_by_term_page_title: 'Пребарување: %{term}'
   search_by_provider_method_description_with_link: 'добијте ја назнаката на страница

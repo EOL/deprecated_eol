@@ -3862,6 +3862,7 @@ en:
   images: "Images"
   images_in_red_are_not_trusted: "Images in red are not trusted."
   images_in_yellow_are_not_reviewed: "Images in yellow are not reviewed."
+  image_objects_page_number: "images page"
   images_sort_worklist_note:
     one: "Images are sorted by EOL import date, with newest items shown first. There is %{count} image in this work list."
     other: "Images are sorted by EOL import date, with newest items shown first. There are %{count} images in this work list."
@@ -4069,6 +4070,7 @@ en:
   manager_parens: "(manager)"
   map_from: "map from"
   master_curators_may_add_data: "Master curators may add data:"
+  map_objects_page_number: "Maps page"
   maps_with_count:
     one: "%{count} Map"
     other: "%{count} Maps"
@@ -4688,6 +4690,7 @@ en:
   sound_file: "Sound File"
   sound_from: "sound from"
   sound_object: "Sound object"
+  sound_objects_page_number: "sounds page"
   sound_of: "Sound of"
   sounds_with_count:
     one: "%{count} sound"
@@ -4806,6 +4809,7 @@ en:
   test_it_out: "Test It Out"
   text_object: "Text object"
   text_object: "Text Object"
+  text_objects_page_number: "Texts page"
   text: "text"
   text_capital: "Text"
   text_summary_empty: "No one has contributed a brief summary to this page yet."
@@ -5091,6 +5095,7 @@ en:
   vetted: "Vetted"
   video_from: "video from"
   video_object: "Video object"
+  video_objects_page_number: "Videos page"
   video_title_not_available_in_language: "Title not available in %{language}"
   videos_with_count:
     one: "%{count} video"

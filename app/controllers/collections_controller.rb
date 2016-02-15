@@ -209,9 +209,14 @@ class CollectionsController < ApplicationController
 
   def choose_collect_target
     return must_be_logged_in unless logged_in?
-    @collections = current_user.all_collections.sort_by(&:updated_at).reverse! || []
+    @collections = current_user.all_collections.sort_by(&:name) || []
+    @sorts = {
+      I18n.t(:sort_by_alphabetical_option) => :alpha,
+      I18n.t(:sort_by_recently_updated_option) => :recent,
+    }
     Collection.preload_associations(@collections, [ :resource, :resource_preview ])
     @collections.delete_if { |c| c.is_resource_collection? }
+    @collections_recently_updated = @collections.sort_by(&:updated_at).reverse || []
     raise EOL::Exceptions::ObjectNotFound unless @item
     @page_title = I18n.t(:collect_item) + " - " + @item.summary_name
     respond_to do |format|

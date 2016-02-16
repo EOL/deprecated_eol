@@ -200,71 +200,8 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
-  # NOTE: this does not update collection items. You may wish to do so. ...Among
-  # many other things (see various denormalization functions, in TODOs). Sigh.
-  # NOTE: you may wish to run this in a transaction (if you aren't in one
-  # already); that is the _caller's_ responsibility. NOTE: this returns the
-  # SUPERCEDED TaxonConcept!!! Why? So you can see both the id that was
-  # superceded as well as the supercedure_id to see where it went. If you're
-  # calling this, you probably care about both. TODO: move this to another
-  # class.
   def self.merge_ids(id1, id2)
-    EOL.log_call
-    return TaxonConcept.find(id1) if id1 == id2
-    # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
-    (id1, id2) = [id1, id2].sort
-    raise "Missing an ID (#{id1}, #{id2})" if id1 <= 0
-    tc2 = TaxonConcept.find(id2)
-    raise "Missing merge-to concept (#{id2})" unless tc2
-    raise "Cannot merge to unpublished taxon!" unless tc1.published?
-    tc2.update_attributes(supercedure_id: id1, published: false)
-    HierarchyEntry.where(taxon_concept_id: id2).
-      update_all(taxon_concept_id: id1)
-    UsersDataObject.where(taxon_concept_id: id2).
-      update_all(taxon_concept_id:id1)
-    # TODO: these don't actually delete records that need to be deleted. This
-    # algorithm is wrong.
-    update_ignore_id(TaxonConceptName, id1, id2)
-    update_ignore_id(DataObjectsTaxonConcept, id1, id2)
-    update_ignore_id(TaxonConceptsFlattened, id1, id2)
-    update_ignore_ancestor_id(TaxonConceptsFlattened, id1, id2)
-    move_traits(id1, id2)
-    # TODO: We must reindex the new page, of course. :(
-    # NOTE: this one used to also do a join to hierarchy_entries and ensure that
-    # the tc id was id2. ...But that has already changed by this point, sooo...
-    # that never worked. :| Also, it seems entirely superfluous. Just using the
-    # tc id on that table:
-    update_ignore_id(RandomHierarchyImage, id1, id2)
-    TaxonConcept.find(id2)
-  end
-
-  def self.move_traits(id1, id2)
-    traits = TraitBank.page_traits(id2)
-    clauses = []
-    traits.each do |trait|
-      clauses << "#{trait[:predicate].to_ntriples} #{trait[:trait].to_ntriples}"
-    end
-    old_traits = clauses.map { |c| "<http://eol.org/pages/#{id2}> #{c}" }
-    # TODO: we still need a delete method...
-    del_q = "WITH GRAPH <#{TraitBank.graph_name}> DELETE "\
-    "{ #{old_traits.join(" . ")} } WHERE { #{old_traits.join(" . ")} }"
-    begin
-      TraitBank.connection.query(del_q)
-    rescue EOL::Exceptions::SparqlDataEmpty => e
-      # Do nothing... this is acceptable for a delete...
-    end
-    new_traits = clauses.map { |c| "<http://eol.org/pages/#{id1}> #{c}" }
-    TraitBank.connection.insert_data(data: new_traits,
-    graph_name: TraitBank.graph_name)
-  end
-
-  # TODO: Rails doesn't have a way to UPDATE IGNORE ... WTF?
-  def self.update_ignore_id(klass, id1, id2)
-    EOL::Db.update_ignore_id_by_field(klass, id1, id2, "taxon_concept_id")
-  end
-
-  def self.update_ignore_ancestor_id(klass, id1, id2)
-    EOL::Db.update_ignore_id_by_field(klass, id1, id2, "ancestor_id")
+    TaxonConcept::Merger.ids(id1, id2)
   end
 
   # TODO: Move to EOL::Db.
@@ -316,9 +253,10 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConceptName.sort_by_language_and_name(@common_names)
   end
 
-  # Return the curators who actually get credit for what they have done (for example, a new curator who hasn't done
-  # anything yet doesn't get a citation).  Also, curators should only get credit on the pages they actually edited,
-  # not all of it's children.  (For example.)
+  # Return the curators who actually get credit for what they have done (for
+  # example, a new curator who hasn't done anything yet doesn't get a citation).
+  # Also, curators should only get credit on the pages they actually edited, not
+  # all of it's children.  (For example.)
   def curators
     curator_activity_logs.collect{ |lcd| lcd.user }.uniq
   end
@@ -407,11 +345,13 @@ class TaxonConcept < ActiveRecord::Base
   def entry(hierarchy = nil)
     @cached_entry ||= {}
     return @cached_entry[hierarchy] if @cached_entry[hierarchy]
-    raise "Cannot find a HierarchyEntry with anything but a Hierarchy" if hierarchy && !hierarchy.is_a?(Hierarchy)
     return preferred_entry.hierarchy_entry if preferred_entry_usable?(hierarchy)
-    TaxonConcept.preload_associations(self, published_hierarchy_entries: [ :vetted, :hierarchy ])
-    @all_entries ||= HierarchyEntry.sort_by_vetted(published_hierarchy_entries)
-    @all_entries = HierarchyEntry.sort_by_vetted(hierarchy_entries) if @all_entries.blank?
+    @all_entries ||= HierarchyEntry.sort_by_vetted(
+      published_hierarchy_entries.includes(:vetted, :hierarchy))
+    if @all_entries.blank?
+      @all_entries = HierarchyEntry.sort_by_vetted(
+        hierarchy_entries.includes(:vetted, :hierarchy))
+    end
     best_entry = hierarchy ?
       @all_entries.detect { |he| he.hierarchy_id == hierarchy.id } || @all_entries.first :
       @all_entries.first

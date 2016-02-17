@@ -45,7 +45,7 @@ class Resource
     # hierarchy have been rebuilt when this is called.
     def publish
       EOL.log_call
-      EOL.log("Publishing #{resource.title}")
+      EOL.log("PUBLISH: #{resource.title}")
       raise "No harvest event!" unless @harvest_event
       raise "Harvest event already published!" if @harvest_event.published?
       raise "Harvest event not complete!" unless @harvest_event.complete?
@@ -89,7 +89,7 @@ class Resource
         ResourceStatus.published.id)
       @resource.save_resource_contributions
       denormalize
-      EOL.log("Completed publish of #{resource.title}")
+      EOL.log_return
       true
     end
   end

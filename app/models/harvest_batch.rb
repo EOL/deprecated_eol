@@ -39,7 +39,7 @@ class HarvestBatch
     ActiveRecord::Base.with_master do
       begin
         @resources.each do |resource|
-          EOL.log("POST-HARVEST: #{resource.title}"
+          EOL.log("POST-HARVEST: #{resource.title}")
           url = "http://eol.org/content_partners/"\
             "#{resource.content_partner_id}/resources/#{resource.id}"
           EOL.log(url)

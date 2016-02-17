@@ -107,24 +107,24 @@ describe 'API:pages' do
     
     context 'JSON response format' do
       it 'should return array of length 1 for one id' do
-        response = get_as_json("/api/pages/1.0.json?batch=true&id=#{@taxon_concept.id}&images=0&text=10&videos=0&details=1")
+        response = get_as_json("/api/pages/1.0.json?batch=true&id=#{@taxon_concept.id}&images_page=0&images_per_page=0&texts_page=10&texts_per_page=1&videos_page=0&videos_per_page=0&details=1")
         expect(response.length).to eq(1)
       end
       
       it 'should return array of length 2 for three ids' do
-        response = get_as_json("/api/pages/1.0.json?batch=true&id=#{@taxon_concept.id}%2C#{@taxon_concept1.id}&images=0&text=10&videos=0&details=1")
+        response = get_as_json("/api/pages/1.0.json?batch=true&id=#{@taxon_concept.id}%2C#{@taxon_concept1.id}&images_page=0&images_per_page=0&texts_page=10&texts_per_page=1&videos_page=0&videos_per_page=0&details=1")
         expect(response.length).to eq(2)
       end
     end
     
     context 'XML response format' do
       it 'should have taxonConcepts element' do
-        response = get_as_xml("/api/pages/1.0.xml?batch=true&id=#{@taxon_concept.id}&images=0&text=10&videos=0&details=1")
+        response = get_as_xml("/api/pages/1.0.xml?batch=true&id=#{@taxon_concept.id}&images_page=0&images_per_page=0&texts_page=10&texts_per_page=1&videos_page=0&videos_per_page=0&details=1")
         expect(response.xpath('//xmlns:taxonConcepts', "xmlns" => "http://www.eol.org/transfer/content/1.0").length).to eq(1)
       end
       
       it 'should return array of length 2 for three ids' do
-        response = get_as_xml("/api/pages/1.0.xml?batch=true&id=#{@taxon_concept.id}%2C#{@taxon_concept1.id}&images=0&text=10&videos=0&details=1")
+        response = get_as_xml("/api/pages/1.0.xml?batch=true&id=#{@taxon_concept.id}%2C#{@taxon_concept1.id}&images_page=0&images_per_page=0&texts_page=10&texts_per_page=1&videos_page=0&videos_per_page=0&details=1")
         expect(response.xpath('//xmlns:taxonConcepts//xmlns:taxonConcept', "xmlns" => "http://www.eol.org/transfer/content/1.0").length).to eq(2)
       end
     end
@@ -155,19 +155,19 @@ describe 'API:pages' do
   end
 
   it 'pages should be able to limit number of media returned' do
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=2")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images_per_page=2&images_page=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 2
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
 
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?videos=2")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?videos_per_page=2&videos_page=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 2
   end
 
   it 'pages should be able to limit number of text returned' do
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?text=2")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?texts_per_page=2&texts_page=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
@@ -179,42 +179,42 @@ describe 'API:pages' do
   it 'pages should be able to take a | delimited list of subjects' do
     label2 = @toc_label_2.gsub(/ /, '%20')
     label3 = @toc_label_3.gsub(/ /, '%20')
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=1&subjects=#{label2}&details=1")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?&images_page=0&images_per_page=0&texts_page=1&texts_per_page=1&videos_page=0&videos_per_page=0&details=1&subjects=#{label2}&details=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
 
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&subjects=#{label3}&details=1")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?&images_page=0&images_per_page=0&texts_page=1&texts_per_page=3&subjects=#{label3}&details=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
 
     # %7C == |
     response =
-    get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=4&subjects=#{label2}%7C#{label3}&details=1")
+    get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images_page=0&images_per_page=0&texts_page=1&texts_per_page=4&subjects=#{label2}%7C#{label3}&details=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
   end
 
   it 'pages should be able to return ALL subjects' do
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?text=5&subjects=all&vetted=1")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?texts_page=1&texts_per_page=5&subjects=all&vetted=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
   end
 
   it 'pages should be able to take a | delimited list of licenses' do
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=2&licenses=cc-by-nc&details=1")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images_page=0&images_per_page=0&texts_page=1&texts_per_page=2&licenses=cc-by-nc&details=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 2
 
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&licenses=pd&details=1")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images_page=0&images_per_page=0&texts_page=1&texts_per_page=3&licenses=pd&details=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 1
 
     # %7C == |
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images=0&text=3&licenses=cc-by-nc%7Cpd&details=1")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images_page=0&images_per_page=0&texts_page=1&texts_per_page=3&licenses=cc-by-nc%7Cpd&details=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 3
   end
 
   it 'pages should be able to return ALL licenses' do
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?text=5&licenses=all&subjects=all&vetted=1")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?texts_page=1&texts_per_page=5&licenses=all&subjects=all&vetted=1")
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/Text"]').length.should == 4
   end
 
   it 'pages should be able to get more details on data objects' do
-    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?image=1&text=0&details=1")
+    response = get_as_xml("/api/pages/0.4/#{@taxon_concept.id}?images_page=1&images_per_page=1&texts_page=0&texts_per_page=0&details=1")
     # should get 1 image, 1 video and their metadata
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/StillImage"]').length.should == 1
     response.xpath('//xmlns:taxon/xmlns:dataObject[xmlns:dataType="http://purl.org/dc/dcmitype/MovingImage"]').length.should == 1
@@ -231,7 +231,7 @@ describe 'API:pages' do
 
   it 'pages should not filter vetted objects by default' do
     vetted_stasuses = []
-    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1")
+    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images_page=0&images_per_page=0&texts_page=1&texts_per_page=10&videos_page=0&videos_per_page=0&details=1")
     response['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], order: 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
@@ -244,7 +244,7 @@ describe 'API:pages' do
 
   it 'pages should filter out all non-trusted objects' do
     vetted_stasuses = []
-    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=1")
+    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images_page=0&images_per_page=0&texts_page=1&texts_per_page=10&videos_page=0&videos_per_page=0&details=1&vetted=1")
     response['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], order: 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
@@ -257,7 +257,7 @@ describe 'API:pages' do
 
   it 'pages should filter out untrusted objects' do
     vetted_stasuses = []
-    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images=0&text=10&videos=0&details=1&vetted=2")
+    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?images_page=0&images_per_page=0&texts_page=1&texts_per_page=10&videos_page=0&videos_per_page=0&details=1&vetted=2")
     response['dataObjects'].each do |data_object|
       data_object = DataObject.find_by_guid(data_object['identifier'], order: 'id desc')
       vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
@@ -267,7 +267,52 @@ describe 'API:pages' do
     vetted_stasuses.include?(Vetted.trusted.id).should == true
     vetted_stasuses.include?(Vetted.untrusted.id).should == false
   end
-
+  it "pages should filter out trusted and untrusted objects" do
+    vetted_stasuses = []
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}."\
+     "json?images_page=0&images_per_page=0&texts_page=1&texts_per_page=10&videos_page=0&videos_per_page=0&details=1&vetted=3")
+    response["dataObjects"].each do |data_object|
+      data_object = DataObject.find_by_guid(data_object["identifier"],
+                                            order: "id desc")
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
+    end
+    vetted_stasuses.uniq!
+    expect(vetted_stasuses.include?(Vetted.unknown.id)).to be_true
+    expect(vetted_stasuses.include?(Vetted.trusted.id)).to be_false
+    expect(vetted_stasuses.include?(Vetted.untrusted.id)).to be_false
+  end
+  it "pages should filter out trusted and untrusted objects in xml" do
+    response = get_as_xml("/api/pages/1.0/#{@taxon_concept.id}"\
+     "?images_page=0&images_per_page=0&texts_page=1&texts_per_page=10&videos_page=0&videos_per_page=0&details=1&vetted=3")
+    response.xpath('//xmlns:taxon/xmlns:dataObject').each do
+      response.xpath('//xmlns:taxon/xmlns:dataObject[i]/'\
+       'xmlns:additionalInformation/xmlns:vettedStatus').
+        inner_text.should == "Unreviewed"
+    end
+  end
+  it "pages should filter out trusted and unknown objects" do
+    vetted_stasuses = []
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}."\
+     "json?images_page=0&images_per_page=0&texts_page=1&texts_per_page=10&videos_page=0&videos_per_page=0&details=1&vetted=4")
+    response["dataObjects"].each do |data_object|
+      data_object = DataObject.find_by_guid(data_object["identifier"],
+                                            order: "id desc")
+      vetted_stasuses << data_object.vetted_by_taxon_concept(@taxon_concept).id
+    end
+    vetted_stasuses.uniq!
+    expect(vetted_stasuses.include?(Vetted.unknown.id)).to be_false
+    expect(vetted_stasuses.include?(Vetted.trusted.id)).to be_false
+    expect(vetted_stasuses.include?(Vetted.untrusted.id)).to be_true
+  end
+  it "pages should filter out trusted and unknown objects in xml" do
+    response = get_as_xml("/api/pages/1.0/#{@taxon_concept.id}"\
+     "?images_page=0&images_per_page=0&texts_page=1&texts_per_page=10&videos_page=0&videos_per_page=0&details=1&vetted=4")
+    response.xpath('//xmlns:taxon/xmlns:dataObject').each do
+      response.xpath('//xmlns:taxon/xmlns:dataObject[i]'\
+       '/xmlns:additionalInformation/xmlns:vettedStatus').
+        inner_text.should == "Untrusted"
+    end
+  end
   it 'pages should be able to toggle common names' do
     visit("/api/pages/0.4/#{@taxon_concept.id}")
     source.should_not include '<commonName'
@@ -311,7 +356,7 @@ describe 'API:pages' do
     visit("/api/pages/1.0/#{taxon.id}?synonyms=1")
     source.should include '<synonym'
   end
-  
+
   describe "synonyms" do
     before(:all) do
       @taxon = TaxonConcept.gen(published: 1, supercedure_id: 0)
@@ -320,21 +365,21 @@ describe 'API:pages' do
       hierarchy_entry = HierarchyEntry.gen(hierarchy: hierarchy, taxon_concept: @taxon, rank: Rank.gen_if_not_exists(label: 'species'))
       name = Name.gen(string: 'my synonym 1')
       relation = SynonymRelation.gen_if_not_exists(label: 'not common name')
-      synonym = Synonym.gen(hierarchy_entry: hierarchy_entry, name: name, synonym_relation: relation)  
+      synonym = Synonym.gen(hierarchy_entry: hierarchy_entry, name: name, synonym_relation: relation)
     end
     it "displays resource_name in json format" do
       visit("/api/pages/1.0/#{@taxon.id}.json?synonyms=1")
       source.should include "#{@resource.title}"
     end
-    
+
     it "displays resource_name in xml format" do
       visit("/api/pages/1.0/#{@taxon.id}?synonyms=1")
-      source.should include "#{@resource.title}"  
+      source.should include "#{@resource.title}"
     end
   end
 
   it 'pages should be able to render a JSON response' do
-    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&text=1&images=1")
+    response = get_as_json("/api/pages/0.4/#{@taxon_concept.id}.json?subjects=all&common_names=1&details=1&texts_per_page=1&texts_page=1&images_per_page=1&images_page=1")
     response.class.should == Hash
     response['identifier'].should == @taxon_concept.id
     response['scientificName'].should == @taxon_concept.entry.name.string
@@ -344,7 +389,7 @@ describe 'API:pages' do
   it 'pages should return exemplar images first' do
     @taxon_concept.taxon_concept_exemplar_image.should be_nil
     first_image = @taxon_concept.images_from_solr.first
-    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&text=0&images=2&videos=0")
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&texts_per_page=0&texts_page=0&images_per_page=2&images_page=1&videos_page=0&videos_per_page=0")
     response['dataObjects'].first['identifier'].should == first_image.guid
 
     all_images = @taxon_concept.images_from_solr
@@ -354,17 +399,17 @@ describe 'API:pages' do
 
     @taxon_concept.reload
     @taxon_concept.taxon_concept_exemplar_image.data_object.guid.should == next_exemplar.guid
-    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&text=0&images=2&videos=0")
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?details=1&texts_per_page=0&texts_page=0&images_per_page=2&images_page=1&videos_per_page=0&videos_page=0")
     response['dataObjects'].first['identifier'].should == next_exemplar.guid
     response['dataObjects'][1]['identifier'].should == first_image.guid
   end
 
-  it 'pages should return exemplar articles first' do
+  it 'pages should return exemplar articles' do
     @taxon_concept.taxon_concept_exemplar_article.should be_nil
     all_texts = @taxon_concept.text_for_user
     first_text = @taxon_concept.overview_text_for_user(nil)
-    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
-    response['dataObjects'].first['identifier'].should == first_text.guid
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&texts_per_page=5&texts_page=1&images_per_page=0&images_page=0&videos_per_page=0&videos_page=0")
+    expect(response['dataObjects']).to include(first_text.guid)
 
     next_exemplar = all_texts.last
     first_text.guid.should_not == next_exemplar.guid
@@ -372,7 +417,7 @@ describe 'API:pages' do
 
     @taxon_concept.reload
     @taxon_concept.overview_text_for_user(nil).guid.should == next_exemplar.guid
-    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&text=5&images=0&videos=0")
+    response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&texts_per_page=5&texts_page=1&images_per_page=0&images_page=0&videos_per_page=0&videos_page=0")
     response['dataObjects'].first['identifier'].should == next_exemplar.guid
     # This next assertion needn't be true; if, say, the second and third had the same rating (the only other criteria by which
     # they are sorted), then first_text could actually now be third instead of second. I'm skipping this test; don't think it's

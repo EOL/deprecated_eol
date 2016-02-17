@@ -5677,9 +5677,11 @@ de:
     alle Klassifizierungen“ angeklickt werden muss.)
   return_content_by_vettedness: Sofern „geprüft“ der Wert „1“ zugewiesen wird, werden
     nur vertrauenswürdige Inhalte ausgegeben. Sofern „geprüft“ der Wert „2“ zugewiesen
-    wird, werden nur vertrauenswürdige und nicht geprüfte Inhalte ausgeben. Nicht
-    vertrauenswürdige Inhalte werden dabei nicht ausgegeben. Die Standardeinstellung
-    gibt alle Inhalte ungeachtet des Status aus.
+    wird, werden nur vertrauenswürdige und nicht geprüfte Inhalte ausgegeben. Nicht
+    vertrauenswürdige Inhalte werden dabei nicht ausgegeben. Falls „untersucht“ der
+    Wert „3“ zugewiesen wird, werden nur ungeprüfte Inhalte zurückgegeben. Falls „untersucht“
+    der Wert „4“ zugewiesen wird, werden nur nichtvertrauenswürdige Inhalte zurückgegeben.
+    Die Standardeinstellung gibt alle Inhalte ungeachtet des Status aus.
   reindex_data_object_button: Objekt reindexieren
   reindex_page_button: Seite reindizieren
   reindex_users_button: Nutzerzähler neu indexieren
@@ -5907,6 +5909,8 @@ de:
     Kartenobjekte
   limits_the_number_of_returned_iucn_objects: den Status aus der Roten Liste der IUCN
     einbeziehen
+  limits_the_returned_to_a_specific_language: Bietet die Ergebnisse in der angegebenen
+    Sprache.
   link_more_about: Erfahren Sie mehr über diesen Link
   link_name: Name des Links
   link_to_this_term: Link zu diesem Begriff
@@ -6591,6 +6595,10 @@ de:
   save: Speichern
   scientific_name: Wissenschaftlicher Name
   sci_name_avg_table_head: Durchschnittlich vorhandene wissenschaftliche Namen
+  scrub_user_button: Benutzer schrubben
+  scrub_user_notice: Benutzer erfolgreich geschrubbt!
+  scrub_user_warning: 'WARNUNG: Dies entfernt den GESAMTEN Inhalt, der von dem Nutzer
+    hinzugefügt wurde und KANN NICHT RÜCKGÄNGIG GEMACHT WERDEN. Sind Sie sich SICHER?'
   search: Suche
   search_by_term_page_title: 'Suche: %{term}'
   search_by_provider_method_description_with_link: 'Die EOL-Seitenkennungen auf Basis

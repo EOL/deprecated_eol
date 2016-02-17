@@ -4,6 +4,7 @@ class TaxaController < ApplicationController
 
   # If we happen to be on an SSL page, go back to http:
   prepend_before_filter :redirect_back_to_http if $USE_SSL_FOR_LOGIN
+  before_filter :redirect_if_superceded
 
   def show
     if this_request_is_really_a_search

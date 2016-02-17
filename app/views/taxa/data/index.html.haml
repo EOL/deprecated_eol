@@ -84,6 +84,12 @@
                     - if trait.statistical_method?
                       %span.stat= trait.statistical_method_names.join(", ")
                     = render(partial: 'trait_bank/definition', locals: { known_uri: trait.predicate_uri, search_link: true, glossary_link: true })
+                - elsif trait.statistical_method?
+                  %a.info_icon
+                    \&nbsp;
+                  %a.info_icon
+                    \&nbsp;
+                  %span.stat= trait.statistical_method_names.join(", ")
               %td.val{ headers: header_id, id: "#{header_id}_d" }
                 %span.fold
                   = link_to(image_tag("arrow_fold_down.png",

@@ -25,12 +25,18 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'cache_ttl',
               :type => Integer,
-              :notes => I18n.t('api_cache_time_to_live_parameter'))
+              :notes => I18n.t('api_cache_time_to_live_parameter')),
+               EOL::Api::DocumentationParameter.new(
+                name: "language",
+                type: String,
+                values: Language.approved_languages.collect(&:iso_639_1),
+                default: "en",
+                notes: I18n.t(:limits_the_returned_to_a_specific_language))
           ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
-
+          I18n.locale = params[:language] unless params[:language].blank?
           if false # TODO: this is more efficient. Really.
             hierarchy_entry = HierarchyEntry.
               where(id: params[:id]).

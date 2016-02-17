@@ -3,10 +3,11 @@
 # natural to be called from the context of a hierachy, so I'm putting it here.
 # It creates HierarchyEntryRelationships, though.
 class Hierarchy
-  # TODO: scores are stored as floats... this is dangerous, and we
-  # don't do anything with them that warrants it (other than multiply, which can
-  # be achieved other ways). Let's switch to using a 0-100 scale, which is more
-  # stable.
+  # This depends entirely on the entries being indexed in
+  # SolrCore::HierarchyEntries (q.v.)! TODO: scores are stored as floats... this
+  # is dangerous, and we don't do anything with them that warrants it (other
+  # than multiply, which can be achieved other ways). Let's switch to using a
+  # 0-100 scale, which is more stable.
   class Relator
     # NOTE: PHP actually had a bug (!) where this was _only_ Kingdom, but the
     # intent was clearly supposed to be this, so I'm going with it: TODO - this
@@ -48,7 +49,8 @@ class Hierarchy
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
       @count = 0
-      @per_page = Rails.configuration.solr_relationships_page_size
+      @per_page = Rails.configuration.solr_relationships_page_size.to_i
+      @per_page = 1000 unless @per_page > 0
       @solr = SolrCore::HierarchyEntries.new
       @relationships = Set.new
     end

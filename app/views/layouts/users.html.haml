@@ -21,6 +21,8 @@
                 %li= link_to I18n.t(:deactivate), {:controller=>'administrator/user', :action=>'deactivate'}, :class => "button", :data => { :confirm => I18n.t(:confirm_deactivate_user) }
               - if current_user.is_admin?
                 %li= link_to I18n.t(:reindex_users_button), reindex_user_path(@user), :class => "button"
+                - if @user != current_user
+                  %li= link_to I18n.t(:scrub_user_button) , scrub_user_path(@user), confirm: I18n.t(:scrub_user_warning), :class => "button"
       = render 'shared/flash_messages'
   #content
     .site_column

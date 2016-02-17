@@ -34,7 +34,7 @@ class HierarchyEntryRelationship < ActiveRecord::Base
       hierarchy_entry_id_1: self["id1"],
       taxon_concept_id_1: self["taxon_concept_id_1"],
       hierarchy_id_1: self["hierarchy_id_1"],
-      visibility_id_1: self["visibility_id_`1"],
+      visibility_id_1: self["visibility_id_1"],
       hierarchy_entry_id_2: self["id2"],
       taxon_concept_id_2: self["taxon_concept_id_2"],
       hierarchy_id_2: self["hierarchy_id_2"],

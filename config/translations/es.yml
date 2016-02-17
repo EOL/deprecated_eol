@@ -3027,7 +3027,7 @@ es:
         an_unknown_user_disassociated_it_from_association: Un usuario desconocido
           eliminó una asociación a "%{association}".
         user_disassociated_it_from_an_unknown_association: <strong>%{user}</strong>
-          elimino una asociación a una página desconocida.
+          eliminó una asociación a una página desconocida.
         user_disassociated_it_from_association: <strong>%{user}</strong> eliminó una
           asociación a "%{association}".
       choose_exemplar_image:

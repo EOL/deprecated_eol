@@ -116,5 +116,19 @@ describe ApplicationController do
     end
   end
 
+  describe '#redirect_if_already_logged_in' do
+    it 'redirects to current user when no url is avaliable' do
+      session[:user_id] = User.gen.id
+      get :redirect_if_already_logged_in , nil
+      expect(response).to redirect_to(controller.current_user)
+    end
+    it 'redirects to url'do
+      session[:user_id] = User.gen.id
+      url = 'http://test.host/return'
+      session[:return_to] = url
+      get :redirect_if_already_logged_in , {return_to: url}
+      expect(response).to redirect_to(url)
+    end
+  end
 end
 

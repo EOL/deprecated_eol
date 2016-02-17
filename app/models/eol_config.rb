@@ -50,6 +50,13 @@ class EolConfig < ActiveRecord::Base
     end
   end
 
+  def self.global_site_warning=(warning)
+    return clear_global_site_warning if warning.blank?
+    EolConfig.delete_all(parameter: 'global_site_warning')
+    EolConfig.create!(parameter: "global_site_warning", value: warning)
+    Rails.cache.delete(cached_name_for('global_site_warning_clean'))
+  end
+
   def self.clear_global_site_warning
     EolConfig.delete_all(parameter: 'global_site_warning')
     Rails.cache.delete(cached_name_for('global_site_warning_clean'))

@@ -39,6 +39,10 @@ class HarvestBatch
     ActiveRecord::Base.with_master do
       begin
         @resources.each do |resource|
+          EOL.log("POST-HARVEST: #{resource.title}"
+          url = "http://eol.org/content_partners/"\
+            "#{resource.content_partner_id}/resources/#{resource.id}"
+          EOL.log(url)
           resource.hierarchy.flatten
           # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
           # resource. Make it run #publish (in the background)! YOU WERE HERE
@@ -47,6 +51,8 @@ class HarvestBatch
           else
             resource.preview
           end
+          EOL.log("POST-HARVEST: #{resource.title} COMPLETE"
+          EOL.log(url)
         end
         #WAIT: needs to be called async'ly: denormalize_tables
       # TODO: there are myriad specific errors that harvesting can throw; catch

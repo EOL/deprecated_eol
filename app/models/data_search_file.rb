@@ -1,6 +1,7 @@
 class DataSearchFile < ActiveRecord::Base
   include FileDownloadHelper
 
+  # TODO: remove file_number ; not using it now.
   attr_accessible :from, :known_uri, :known_uri_id, :language, :language_id, :q,
     :sort, :to, :uri, :user, :user_id, :completed_at, :hosted_file_url,
     :row_count, :unit_uri, :taxon_concept_id, :file_number, :failed_at, :error
@@ -12,13 +13,6 @@ class DataSearchFile < ActiveRecord::Base
   belongs_to :language
   belongs_to :known_uri
   belongs_to :taxon_concept
-
-  # Number of results we feel confident to process at one time (ie: one query
-  # for each)
-  PER_PAGE = 5000
-  # Maximum number of "pages" of data to allow in one file.
-  PAGE_LIMIT = 500
-  LIMIT = PAGE_LIMIT * PER_PAGE
 
   def build_file
     unless hosted_file_exists?
@@ -78,36 +72,32 @@ class DataSearchFile < ActiveRecord::Base
     # TODO - we should also check to see if the job has been canceled.
     rows = []
     page = 1
-    search =
-      { querystring: q, attribute: uri, min_value: from, max_value: to,
-        sort: sort, per_page: PER_PAGE, page: page,
-        clade: taxon_concept_id, unit: unit_uri }
+    search = { querystring: q, attribute: uri, min_value: from, max_value: to,
+        sort: sort, page: page, per_page: 200, clade: taxon_concept_id,
+        unit: unit_uri }
     results = SearchTraits.new(search)
     total = results.traits.total_entries
-    count = 0
-    # TODO - we should probably add a "hidden" column to the file and allow
-    # admins/master curators to see those rows, (as long as they are marked as
-    # hidden). For now, though, let's just remove the rows:
-    begin # Always do this at least once...
+    count = results.traits.count
+    while count <= total and results.traits.count > 0
+      EOL.log("DSF: page #{page}, count #{count}, total #{total}", prefix: ".")
       break unless DataSearchFile.exists?(self) # Someone canceled the job.
-      count = ((page * PER_PAGE) + ((file_number - 1) * LIMIT))
       results.traits.each do |trait|
         if trait.point.hidden?
-          # data_column_tc_id is used here just because it is the first cloumn in the downloaded file.
+          # TODO - we should probably add a "hidden" column to the file and
+          # allow admins/master curators to see those rows, (as long as they are
+          # marked as hidden). For now, though, let's just remove the rows:
+          # data_column_tc_id is used here just because it is the first cloumn
+          # in the downloaded file.
           rows << { I18n.t(:data_column_tc_id) =>
             I18n.t(:data_search_row_hidden) }
         else
           rows << trait.to_hash
         end
       end
-      # offset = (file_number-1) * LIMIT
-      if (count < total)
-        page += 1
-        results = SearchTraits.new(search.merge(page: page))
-      else
-        break
-      end
-    end until (count >= total) || page > PAGE_LIMIT
+      page += 1
+      results = SearchTraits.new(search.merge(page: page))
+      count += results.traits.count
+    end
     rows
   end
 
@@ -119,7 +109,7 @@ class DataSearchFile < ActiveRecord::Base
     CSV.open(local_file_path, 'wb') do |csv|
       csv_builder(csv, col_heads, rows)
     end
-    update_attributes(row_count: rows.count)
+    update_attributes(row_count: rows.count, failed_at: nil, error: nil)
   end
 
   def send_completion_email

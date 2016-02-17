@@ -213,7 +213,9 @@ class TaxonConcept < ActiveRecord::Base
     return TaxonConcept.find(id1) if id1 == id2
     # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
     (id1, id2) = [id1, id2].sort
+    raise "Missing an ID (#{id1}, #{id2})" if id1 <= 0
     tc2 = TaxonConcept.find(id2)
+    raise "Missing merge-to concept (#{id2})" unless tc2 
     tc2.update_attributes(supercedure_id: id1, published: false)
     HierarchyEntry.where(taxon_concept_id: id2).
       update_all(taxon_concept_id: id1)

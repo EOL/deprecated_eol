@@ -30,38 +30,68 @@ module EOL
               :required => true,
               :test_value => (TaxonConcept.find_by_id(1045608) || TaxonConcept.last).id ),
             EOL::Api::DocumentationParameter.new(
-              :name => 'images',
+              :name => 'images_per_page',
               :type => Integer,
               :values => (0..75),
               :default => 1,
               :test_value => 2,
               :notes => I18n.t('limits_the_number_of_returned_image_objects') ),
             EOL::Api::DocumentationParameter.new(
-              :name => 'videos',
+              :name => 'images_page',
+              :type => Integer,
+              :default => 1,
+              :test_value => 1,
+              :notes => I18n.t('image_objects_page_number') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'videos_per_page',
               :type => Integer,
               :values => (0..75),
               :default => 1,
               :test_value => 0,
               :notes => I18n.t('limits_the_number_of_returned_video_objects') ),
             EOL::Api::DocumentationParameter.new(
-              :name => 'sounds',
+              :name => 'videos_page',
+              :type => Integer,
+              :default => 1,
+              :test_value => 1,
+              :notes => I18n.t('video_objects_page_number') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'sounds_per_page',
               :type => Integer,
               :values => (0..75),
               :default => 0,
               :notes => I18n.t('limits_the_number_of_returned_sound_objects') ),
             EOL::Api::DocumentationParameter.new(
-              :name => 'maps',
+              :name => 'sounds_page',
+              :type => Integer,
+              :default => 1,
+              :test_value => 1,
+              :notes => I18n.t('sound_objects_page_number') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'maps_per_page',
               :type => Integer,
               :values => (0..75),
               :default => 0,
               :notes => I18n.t('limits_the_number_of_returned_map_objects') ),
             EOL::Api::DocumentationParameter.new(
-              :name => 'text',
+              :name => 'maps_page',
+              :type => Integer,
+              :default => 1,
+              :test_value => 1,
+              :notes => I18n.t('map_objects_page_number') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'texts_per_page',
               :type => Integer,
               :values => (0..75),
               :default => 1,
               :test_value => 2,
               :notes => I18n.t('limits_the_number_of_returned_text_objects') ),
+            EOL::Api::DocumentationParameter.new(
+              :name => 'texts_page',
+              :type => Integer,
+              :default => 1,
+              :test_value => 1,
+              :notes => I18n.t('text_objects_page_number') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'iucn',
               :type => 'Boolean',
@@ -109,20 +139,27 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'vetted',
               :type => Integer,
-              :values => [ 0, 1, 2 ],
+              values:  [ 0, 1, 2, 3, 4 ],
               :default => 0,
               :notes => I18n.t('return_content_by_vettedness') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'cache_ttl',
               :type => Integer,
-              :notes => I18n.t('api_cache_time_to_live_parameter'))
+              :notes => I18n.t('api_cache_time_to_live_parameter')),
+            EOL::Api::DocumentationParameter.new(
+                name: "language",
+                type: String,
+                values: ["ms", "de", "en", "es", "fr", "gl", "it", "nl", "nb", "oc", "pt-BR", "sv", "tl", "mk", "sr", "uk", "ar", "zh-Hans", "zh-Hant", "ko"],#Language.approved_languages.collect(&:iso_639_1),
+                default: "en",
+                notes: I18n.t(:limits_the_returned_to_a_specific_language))
           ] }
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
-            # TODO: When we called #validate_and_normalize_input_parameters, the
-            # TC was already loaded (but not stored); this is redundant: fix.
+          I18n.locale = params[:language] unless params[:language].blank?
+          # TODO: When we called #validate_and_normalize_input_parameters, the
+          # TC was already loaded (but not stored); this is redundant: fix.
           taxon_concepts = TaxonConcept.find_all_by_id(params[:id].split(","))
           if (params[:batch])
             batch_concepts = []
@@ -197,8 +234,7 @@ module EOL
               end
             end
           end
-
-          unless (params[:text] == 0 && params[:images] == 0 && params[:videos] == 0 && params[:maps] == 0 && params[:sounds] == 0)
+          unless no_objects_required?(params.dup)
             return_hash['dataObjects'] = []
             data_objects = params[:data_object] ? [ params[:data_object] ] : get_data_objects(taxon_concept, params)
             data_objects.each do |data_object|
@@ -223,6 +259,10 @@ module EOL
             solr_search_params[:vetted_types] = ['trusted']
           elsif options[:vetted] == 2  # 2 = everything except untrusted
             solr_search_params[:vetted_types] = ['trusted', 'unreviewed']
+          elsif options[:vetted] == 3  # 3 = unreviewed
+            solr_search_params[:vetted_types] = ["unreviewed"]
+          elsif options[:vetted] == 4  # 4 = untrusted
+            solr_search_params[:vetted_types] = ["untrusted"]
           else  # 0 = everything
             solr_search_params[:vetted_types] = ['trusted', 'unreviewed', 'untrusted']
           end
@@ -286,12 +326,13 @@ module EOL
 
         def self.load_text(taxon_concept, options, solr_search_params)
           text_objects = []
-          if options[:text] && options[:text] > 0
+          if params_found_and_greater_than_zero(options[:texts_page], options[:texts_per_page])
             text_objects = taxon_concept.data_objects_from_solr(solr_search_params.merge({
-              :per_page => options[:text],
-              :toc_ids => options[:toc_items] ? options[:toc_items].collect(&:id) : nil,
-              :data_type_ids => DataType.text_type_ids,
-              :filter_by_subtype => false
+              page: options[:texts_page],
+              per_page: options[:texts_per_page],
+              toc_ids: options[:toc_items] ? options[:toc_items].collect(&:id) : nil,
+              data_type_ids: DataType.text_type_ids,
+              filter_by_subtype: false
             }))
           end
           return text_objects
@@ -309,16 +350,21 @@ module EOL
 
         def self.load_images(taxon_concept, options, solr_search_params)
           image_objects = []
-          if options[:images] && options[:images] > 0
+          if params_found_and_greater_than_zero(options[:images_page], options[:images_per_page])
             image_objects = taxon_concept.data_objects_from_solr(solr_search_params.merge({
-              :per_page => options[:images],
-              :data_type_ids => DataType.image_type_ids,
-              :return_hierarchically_aggregated_objects => true
+              page: options[:images_page],
+              per_page: options[:images_per_page],
+              data_type_ids: DataType.image_type_ids,
+              return_hierarchically_aggregated_objects: true
             }))
             exemplar_image = taxon_concept.published_exemplar_image
             promote_exemplar!(exemplar_image, image_objects, options)
           end
           return image_objects
+        end
+        
+        def self.params_found_and_greater_than_zero(page, per_page)
+          page && per_page && page > 0 && per_page > 0 ? true : false
         end
 
         def self.promote_exemplar!(exemplar_object, existing_objects_of_same_type, options={})
@@ -346,12 +392,13 @@ module EOL
 
         def self.load_videos(taxon_concept, options, solr_search_params)
           video_objects = []
-          if options[:videos] && options[:videos] > 0
+          if params_found_and_greater_than_zero(options[:videos_page], options[:videos_per_page])
             video_objects = taxon_concept.data_objects_from_solr(solr_search_params.merge({
-              :per_page => options[:videos],
-              :data_type_ids => DataType.video_type_ids,
-              :return_hierarchically_aggregated_objects => true,
-              :filter_by_subtype => false
+              page: options[:videos_page],
+              per_page: options[:videos_per_page],
+              data_type_ids: DataType.video_type_ids,
+              return_hierarchically_aggregated_objects: true,
+              filter_by_subtype: false
             }))
             video_objects.each{ |d| d.data_type = DataType.video }
           end
@@ -360,12 +407,13 @@ module EOL
 
         def self.load_sounds(taxon_concept, options, solr_search_params)
           sound_objects = []
-          if options[:sounds] && options[:sounds] > 0
+          if params_found_and_greater_than_zero(options[:sounds_page], options[:sounds_per_page])
             sound_objects = taxon_concept.data_objects_from_solr(solr_search_params.merge({
-              :per_page => options[:sounds],
-              :data_type_ids => DataType.sound_type_ids,
-              :return_hierarchically_aggregated_objects => true,
-              :filter_by_subtype => false
+              page: options[:sounds_page],
+              per_page: options[:sounds_per_page],
+              data_type_ids: DataType.sound_type_ids,
+              return_hierarchically_aggregated_objects: true,
+              filter_by_subtype: false
             }))
           end
           return sound_objects
@@ -373,16 +421,28 @@ module EOL
 
         def self.load_maps(taxon_concept, options, solr_search_params)
           map_objects = []
-          if options[:maps] && options[:maps] > 0
+          if params_found_and_greater_than_zero(options[:maps_page], options[:maps_per_page])
             map_objects = taxon_concept.data_objects_from_solr(solr_search_params.merge({
-              :per_page => options[:maps],
-              :data_type_ids => DataType.image_type_ids,
-              :data_subtype_ids => DataType.map_type_ids
+              page: options[:maps_page],
+              per_page: options[:maps_per_page],
+              data_type_ids: DataType.image_type_ids,
+              data_subtype_ids: DataType.map_type_ids
             }))
           end
           return map_objects
         end
-
+        def self.no_objects_required?(params)
+          return ( params[:action] == "pages" && 
+                   params[:text] == 0 && 
+                   params[:images] == 0 && 
+                   params[:videos] == 0 && 
+                   ( params[:maps] == 0 || !params.has_key?(:maps) ) && 
+                   ( params[:sounds] == 0 || !params.has_key?(:sounds) )
+                 )
+        end
+        class << self
+          private :no_objects_required?
+        end
       end
     end
   end

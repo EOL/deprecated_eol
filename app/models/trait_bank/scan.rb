@@ -22,7 +22,7 @@ class TraitBank
       end
 
       def for(options)
-        traits = trait_list(options)
+        traits = TraitBank.connection.query(scan_query(options))
         metadata(traits)
       end
 
@@ -32,18 +32,19 @@ class TraitBank
           first[:"callret-0"].to_i
       end
 
-      def trait_list(options)
-        TraitBank.connection.query(scan_query(options))
-      end
-
       # NOTE: PREFIX eol: <http://eol.org/schema/>
       # PREFIX dwc: <http://rs.tdwg.org/dwc/terms/>
       # e.g.: http://purl.obolibrary.org/obo/OBA_0000056
       def scan_query(options = {})
-        size = options[:page_size] || 100
+        size = options[:per_page] || 100
+        # This check is because you will lose results if the total number of
+        # rows returned (each line of metadata) exceeds 10,000--an internal
+        # limit of Virtuoso. Pages of 1000 almost never work, 800 MIGHT work...
+        # 500 is MOSTLY safe, but still risky... but I'll allow it as a max:
+        raise "Query page size limit exceeded!" if size > 500
         offset = ((options[:page] || 1) - 1) * size
         clade = options[:clade]
-        query = "# data_search part 1\n"
+        query = "# data_search #{options[:count] ? "(count)" : "part 1"}\n"
         fields = "DISTINCT ?page ?trait"
         fields = "COUNT(*)" if options[:count]
         query += "SELECT #{fields} WHERE { "\
@@ -53,18 +54,27 @@ class TraitBank
         if clade
           query += "?page eol:has_ancestor <http://eol.org/pages/#{clade}> . "
         end
-        # TODO: This ORDER BY only really works if numeric! :S
         query += "?trait a eol:trait . "\
           "?trait dwc:measurementValue ?value . } } "
+        # TODO: This ORDER BY only really works if numeric! :S
         unless options[:count]
           # TODO: figure out how to sort properly, both numerically and alpha.
-          orders = ["xsd:float(REPLACE(?value, \",\", \"\"))"] #, "?value"]
+          orders = ["xsd:float(?value)", "?value"]
           orders.map! { |ord| "DESC(#{ord})" } if options[:sort] =~ /^desc$/i
           query += "ORDER BY #{orders.join(" ")} "
-          query += "LIMIT #{size} "
-          query += "OFFSET #{offset}" if offset && offset > 0
+          if offset && offset > 0
+            query = scrollable_cursor(query, size, offset)
+          else
+            query += "LIMIT #{size} "
+          end
         end
+        # NOTE: If you're experiencing Virtuoso problems, this is handy:
+        # EOL.log(query, prefix: "Q")
         query
+      end
+
+      def scrollable_cursor(query, limit, offset)
+        "SELECT * WHERE { { #{query} } } LIMIT #{limit} OFFSET #{offset}"
       end
 
       def metadata(traits)
@@ -79,8 +89,13 @@ class TraitBank
             FILTER ( ?trait IN (<#{trait_strings.join(">, <")}>) )
           }
         }
-        ORDER BY ?trait"
+        ORDER BY DESC(xsd:float(?value)) DESC(?value)"
         trait_data = TraitBank.connection.query(query)
+        if trait_data.count >= 10_000
+          EOL.log("WARNING! The following query reached a limit in the number "\
+            "of rows returned by Virtuoso (#{trait_data.count}):", prefix: "!")
+          EOL.log(query, prefix: "!")
+        end
         trait_data.each do |td|
           td[:page] = traits.find { |t| t[:trait] == td[:trait] }[:page]
         end

@@ -92,9 +92,14 @@ class ContentPartners::ResourcesController < ContentPartnersController
   # GET /content_partners/:content_partner_id/resources/:id
   def show
     ContentPartner.with_master do
-      @partner = ContentPartner.find(params[:content_partner_id], include: {
-                   resources: [ :resource_status, :collection, :preview_collection, :license, :language, :harvest_events, :hierarchy, :dwc_hierarchy ]})
-      @resource = @partner.resources.find(params[:id])
+      if params[:content_partner_id]
+        @partner = ContentPartner.find(params[:content_partner_id], include: {
+                     resources: [ :resource_status, :collection, :preview_collection, :license, :language, :harvest_events, :hierarchy, :dwc_hierarchy ]})
+        @resource = @partner.resources.find(params[:id])
+      else
+        @resource = Resource.find(params[:id])
+        @partner = @resource.content_partner
+      end
     end
     @page_subheader = I18n.t(:content_partner_resource_show_subheader, resource_title: Sanitize.clean(@resource.title))
     @meta_data = { title: I18n.t(:content_partner_resource_page_title, :content_partner_name => @partner.full_name, :resource_name => @resource.title) }

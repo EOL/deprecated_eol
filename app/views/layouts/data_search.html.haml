@@ -13,9 +13,8 @@
             %h2.greyedout="(#{@querystring_uri})"
       .page_actions
         %ul
-          - if @results && !@results.blank?
-            - limited = (@results.total_entries > DataSearchFile::LIMIT) ? I18n.t(:data_search_limit, count: DataSearchFile::LIMIT) : nil
-            %li.data_download{ data: { alert: limited } }
+          - if @traits && ! @traits.blank?
+            %li.data_download
               = link_to I18n.t(:download_data),
                 download_data_search_path(params: params),
                 method: :post, :class => 'button'

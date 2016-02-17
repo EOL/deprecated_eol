@@ -41,6 +41,7 @@ Eol::Application.routes.draw do
   match '/favicon' => redirect('/assets/favicon.ico')
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
   match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
+  match '/resources/:id' => 'content_partners/resources#show'
 
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
@@ -252,6 +253,7 @@ Eol::Application.routes.draw do
       get 'revoke_editor'
       get 'pending_notifications'
       get 'reindex'
+      get 'scrub'
       get 'unsubscribe_notifications/:key', :action => 'unsubscribe_notifications',
         :as => 'unsubscribe_notifications'
     end
@@ -271,7 +273,9 @@ Eol::Application.routes.draw do
     resources :collections, :only => [:index], :controller => 'users/collections'
     resources :communities, :only => [:index], :controller => 'users/communities'
     resources :content_partners, :only => [:index], :controller => 'users/content_partners'
-    resources :data_downloads, :only => [:index, :destroy], :controller => 'users/data_downloads'
+    resources :data_downloads, :only => [:index], :controller => 'users/data_downloads' do
+      post 'delete'
+    end
     resources :open_authentications, :only => [:index, :new, :update, :destroy], :controller => 'users/open_authentications'
   end
 

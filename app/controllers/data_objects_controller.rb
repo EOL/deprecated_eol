@@ -8,7 +8,8 @@ class DataObjectsController < ApplicationController
   before_filter :authentication_own_user_added_text_objects_only, only: [:edit] # update handled separately
   before_filter :allow_login_then_submit, only: [:rate]
   before_filter :curators_and_owners_only, only: [:add_association, :remove_association]
-  before_filter :restrict_to_admins_and_curators, only: [:crop, :reindex]
+  before_filter :restrict_to_admins_and_curators, only: [:crop]
+  before_filter :restrict_to_admins_and_master_curators, only: [:reindex]
 
   # GET /data_objects/new
   # requires a taxon_id as a parameter.
@@ -363,7 +364,7 @@ class DataObjectsController < ApplicationController
       if x >= 0 && y >= 0 && w > 0
         api_response = ContentServer.update_data_object_crop(@data_object.id, x, y, w)
         if api_response && api_response.has_key?(:response) &&
-            api_response[:response].is_numeric?
+            api_response[:response].try(:is_numeric?)
           # NOTE: using update_attribute here instead of update_attribute*S* as
           # there can be harvest objects which would fail Rails validations, yet
           # we still want to update their object_cache_url
@@ -373,7 +374,11 @@ class DataObjectsController < ApplicationController
         else
           Rails.logger.error "Crop API failed."
           if api_response
-            Rails.logger.error "  API response: #{api_response}"
+            if api_response.has_key?(:error)
+              Rails.logger.error "  API response: #{api_response[:error]}"
+            else
+              Rails.logger.error "  API response: #{api_response}"
+            end
           else
             Rails.logger.error "  NO response"
           end

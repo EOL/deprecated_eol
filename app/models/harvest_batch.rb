@@ -51,7 +51,7 @@ class HarvestBatch
           else
             resource.preview
           end
-          EOL.log("POST-HARVEST: #{resource.title} COMPLETE"
+          EOL.log("POST-HARVEST: #{resource.title} COMPLETE")
           EOL.log(url)
         end
         #WAIT: needs to be called async'ly: denormalize_tables

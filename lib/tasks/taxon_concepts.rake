@@ -3,7 +3,7 @@ namespace :taxon_concepts do
   # entries, so it's quite slow. If they are there, it's relatively fast... but
   # they aren't usually there (they expire).
   desc "Just a list of taxon concept IDs and its preferred scientific name."
-  tasl :names => :environment do
+  task :names => :environment do
     CSV.open("public/taxon_concept_names.tab", "wb", col_sep: "\t") do |csv|
       TaxonConcept.where(published: true, vetted: Vetted.trusted.id).pluck(:id).
                    in_groups_of(10_000, false) do |group|

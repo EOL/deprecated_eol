@@ -80,10 +80,7 @@ class Hierarchy
         "#{hierarchy2.id}")
     end
 
-    # NOTE: This is a REALLY slow query. ...Which sucks. :\ Yes, even for
-    # Solr... it takes a VERY long time.
     def get_page_from_solr(hierarchy1, hierarchy2, page)
-      EOL.log_call
       response = @solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page))
       rhead = response["responseHeader"]
@@ -137,17 +134,15 @@ class Hierarchy
       # This seems to be a bug (in Solr?), but we have to catch it!
       return(nil) if tc_id1 == 0 or tc_id2 == 0
       return(nil) if tc_id1 == tc_id2
-      EOL.log("Comparing entry #{tc_id1} (hierarchy #{hierarchy1.id}) "\
-        "with #{id2} (hierarchy #{hierarchy2.id})", prefix: "?")
+      working_on = "#{hierarchy1.id}->#{id1}->#{tc_id1} vs "\
+        "#{hierarchy2.id}->#{id2}->#{tc_id2}"
       return(nil) if concepts_of_one_already_in_other?(relationship)
       if curators_denied_relationship?(relationship)
-        EOL.log("SKIP: merge of relationship #{id1} (concept #{tc_id1}) with "\
-          " #{id2} (concept #{tc_id2}) rejected by curator", prefix: ".")
+        EOL.log("SKIP (rejected by curator): #{working_on}", prefix: ".")
         return(nil)
       end
       if affected = additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
-        EOL.log("SKIP: A merge of #{id1} (concept #{tc_id1}) and #{id2} "\
-          "(concept #{tc_id2}) is not allowed by complete hierarchy",
+        EOL.log("SKIP (not allowed by complete hierarchy): #{working_on}",
           prefix: ".")
         return(nil)
       end

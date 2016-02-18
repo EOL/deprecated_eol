@@ -83,7 +83,7 @@ class TraitBank
       # TODO: you need to make a query that will find all "?s dc:source
       # <#{graph_name}>", and then delete all triples with that subject, but
       # filtering out anything that's "?s a eol:page". Yeesh.
-      traits.in_groups_of(1000, false) do |group|
+      traits.to_a.in_groups_of(1000, false) do |group|
         raise NotImplementedError
       end
     end
@@ -185,7 +185,7 @@ class TraitBank
       end
       EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
       index = 0
-      traits.in_groups_of(100, false) do |traits|
+      traits.to_a.in_groups_of(100, false) do |traits|
         index += 100
         EOL.log("index #{index}", prefix: ".") if index % 10_000 == 0
         begin

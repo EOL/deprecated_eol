@@ -74,8 +74,6 @@ class TraitBank
       end
     end
 
-    traits.each_with_index { |trait, index| puts "Index #{index}" ; TraitBank.connection.query(TraitBank.metadata_query(@resource, trait)).each { |h| next unless h[:units].blank? ; add_meta(h, h[:predicate], :value) } }
-
     def build_metadata
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
       @traits.each_with_index do |trait, index|

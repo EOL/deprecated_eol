@@ -185,8 +185,8 @@ class TraitBank
       end
       EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
       index = 0
-      traits.to_a.in_groups_of(100, false) do |traits|
-        index += 100
+      traits.to_a.in_groups_of(50, false) do |traits|
+        index += 50
         EOL.log("index #{index}", prefix: ".") if index % 10_000 == 0
         begin
           connection.query(metadata_query(resource, traits)).

@@ -183,12 +183,13 @@ class TraitBank
           traits << h[:trait]
         end
       end
-      # Metadata is VERY SLOW! ...Have to do them ONE AT A TIME! :S
       EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
-      traits.each_with_index do |trait, index|
-        EOL.log("index #{index}", prefix: ".") if index % 1_000 == 0
+      index = 0
+      traits.in_groups_of(100, false) do |traits|
+        index += 100
+        EOL.log("index #{index}", prefix: ".") if index % 10_000 == 0
         begin
-          connection.query(metadata_query(resource, trait)).
+          connection.query(metadata_query(resource, traits)).
             each do |h|
             # ?trait ?predicate ?meta_trait ?value ?units
             if h[:units].blank?
@@ -273,7 +274,7 @@ class TraitBank
     # why ours is different, but I did check it: pagination seems to work just
     # fine (without using an ORDER BY). [shrug] You should probably check!
     def paginate(query, options = {}, &block)
-      EOL.log_call
+      put_query = false
       results = []
       limit = options[:limit] || default_limit
       limit = limit.to_i
@@ -283,7 +284,11 @@ class TraitBank
         limited_query = query + " LIMIT #{limit}"
         limited_query += " OFFSET #{offset}" if offset > 0
         results = connection.query(limited_query)
-        EOL.log("#{results.count} results", prefix: ".")
+        unless put_query
+          EOL.log("#{query[0..110]}...", prefix: "Q")
+          put_query = true
+        end
+        EOL.log("#{results.count} more results (#{query[0..80]}...)", prefix: ".")
         yield(results) if results && results.count > 0
         offset += limit
       end until results.empty?
@@ -448,7 +453,7 @@ class TraitBank
         }"
     end
 
-    def metadata_query(resource, trait)
+    def metadata_query(resource, traits)
       "SELECT DISTINCT *
       # metadata_query
       WHERE {
@@ -491,7 +496,7 @@ class TraitBank
                                      eol:associationType,
                                      dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
                   ) .
-          FILTER (?trait  = <#{trait}>)
+          FILTER (?trait IN (<#{traits.join(">,<")}>))
         }
       }"
     end

@@ -285,11 +285,13 @@ class TraitBank
         limited_query += " OFFSET #{offset}" if offset > 0
         results = connection.query(limited_query)
         unless put_query
-          EOL.log("#{query[0..110]}...", prefix: "Q")
+          EOL.log("#{query[0..110].gsub(/\s+/m, " ")}...", prefix: "Q")
           put_query = true
         end
-        EOL.log("#{results.count} more results (#{query[0..80]}...)", prefix: ".")
-        yield(results) if results && results.count > 0
+        if results && results.count > 0
+          EOL.log("#{offset + results.count}", prefix: ".")
+          yield(results)
+        end
         offset += limit
       end until results.empty?
     end

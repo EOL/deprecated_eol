@@ -126,8 +126,7 @@ class TraitBank
     # 1502, identifier: identifier).taxon_concept_id on each identifier (which
     # you get by pulling off ... the start of the taxonId URL). This sucks, but
     # it's a reasonable workaround. Not sure why this happened!
-    def rebuild_resource(resource, options = {})
-      num_metas = options[:num_metas] || 25
+    def rebuild_resource(resource)
       EOL.log_call
       # TODO: Ideally, we would first get a diff of what's in the graph vs what
       # we're going to put in the graph, and add the new stuff and remove the
@@ -185,12 +184,10 @@ class TraitBank
         end
       end
       EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
-      index = 0
-      traits.to_a.in_groups_of(num_metas, false) do |traits|
-        index += num_metas
-        EOL.log("index #{index}", prefix: ".") if index % 10_000 == 0
+      traits.each_with_index do |trait, index|
+        EOL.log("index #{index}", prefix: ".") if index % 1_000 == 0
         begin
-          connection.query(metadata_query(resource, traits)).
+          connection.query(metadata_query(resource, trait)).
             each do |h|
             # ?trait ?predicate ?meta_trait ?value ?units
             if h[:units].blank?
@@ -424,6 +421,7 @@ class TraitBank
         }"
     end
 
+
     # TODO: http://eol.org/known_uris should probably be a function somewhere.
     def associations_query(resource)
       "SELECT DISTINCT *
@@ -456,7 +454,14 @@ class TraitBank
         }"
     end
 
-    def metadata_query(resource, traits)
+    # NOTE: I tried to have this take multiple traits and use an IN. ...it works
+    # fine... MOST of the time. But there are SPECIFIC URIs that cause the time
+    # estimate to go through the roof (e.g., if
+    # <http://eol.org/resources/737/measurements/a62006f2ac1305d8b4eb9482cf3f6776>
+    # is IN THE SET, the whole query fails because it thinks it will take too
+    # long). I don't have time to figure out why, so we CRAWL through these one
+    # at a time. Sigh.
+    def metadata_query(resource, trait)
       "SELECT DISTINCT *
       # metadata_query
       WHERE {
@@ -499,7 +504,7 @@ class TraitBank
                                      eol:associationType,
                                      dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
                   ) .
-          FILTER (?trait IN (<#{traits.join(">,<")}>))
+          FILTER (?trait = <#{trait}>)
         }
       }"
     end

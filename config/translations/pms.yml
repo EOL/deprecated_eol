@@ -5453,8 +5453,9 @@ pms:
     a sarà smonùa an sij nòm dë schede sensa dovèj "Smon-e tute le classificassion".)
   return_content_by_vettedness: Si 'vetted' a val 1, antlora mach ël contnù afidàbil
     a sarà smonù. Si 'vetted' a l'é 2, antlora mach ël contnù afidàbil e nen revisionà
-    a sarà smonù (ël contnù nen afidàbil a sarà pa smonù). Ël valor predefinì a l'é
-    dë smon-e tut ël contnù.
+    a sarà smonù (ël contnù nen afidàbil a sarà pa smonù). Si 'vetted' a l'é 3, mach
+    ël contnù nen revisionà a sarà smonù. Si 'vetted' a l'é 4, mach ël contnù nen
+    afidàbil a sarà smonù. Ël valor predefinì a l'é dë smon-e tut ël contnù.
   reindex_data_object_button: Andicisé torna l'oget
   reindex_page_button: Andicisé torna la pàgina
   reindex_users_button: Riandicisé ij cont utent
@@ -5665,6 +5666,7 @@ pms:
   limits_the_number_of_returned_map_objects: a lìmita ël nùmer d'oget carta smonù
   limits_the_number_of_returned_iucn_objects: anclude l'oget dë statù dla Lista rossa
     ëd l'IUCN
+  limits_the_returned_to_a_specific_language: a forniss j'arzultà ant la lenga spessificà.
   link_more_about: Savèjne ëd pi a propòsit ëd sa liura
   link_name: Nòm ëd la liura
   link_to_this_term: liura vers ës tèrmin
@@ -6075,4 +6077,51 @@ pms:
   pages_with_pictures_and_text: Pàgine con le plance e ël test
   pages_with_pictures_or_text: Pàgine con dle plance o ëd test
   page_statistics: Statìstiche dla pàgine
+  page_statistics_explanation: <p>EdV a càlcola an automàtich dles statìstiche su
+    soe pàgine. Se statìstiche a son torna calcolà minca un o doi di.</p><h5>Ìndes
+    ëd richisia</h5><p>L’ìndes ëd richisia a l'é na composission ëd vàire fator :<ul><li>la
+    quantità ëd test ch'a conten na paàgina</li><li>vàire archivi multimojen o cartogràfich
+    a son disponìbij</li><li>vàire soget diferent a son tratà</li><li>vàire sorgiss
+    diferentes a fornisso dj'anformassion</li><li>si j'anformassion a son ëstàite
+    revisionà o nò</li></ul></p><p>Si na pàgina a l'ha già tanti archivi moltimojen
+    o test, giontene ëd pi a aumentërà nen sò ìndes ëd richisia.</p><p>L’ìndes ëd
+    richisia a va da 0 a 100. Ch'as sagrin-a nen, dle diferense ëd chèich pont a son
+    nen tant amportante. Con ël passé dël temp, i podroma modifiché la fasson dont
+    i calcoloma ës pontegg pour mej arflete spa esperiensa con ël sit. Ch'an disa
+    lòn ch'a na pensa an lassand un coment an sle pàgine ch'a pensa a sio valutà mal.</p><h5>Pàgine
+    ch'a mérito la fiusa</h5><p>A anclud tute le plance afidàbij për sa pàgina e le
+    pàgine che a comparisso an na classificassion an bass ëd sa pàgina. Sò a anclud
+    sia le plance ch'a ven-o da 'd cambrada fidà che le plance ch'a ven-o da 'd cambrada
+    tanme Flickr o Wikimedia Commons ch'a son ëstàit aprovà da 'n conservator EdV.</p><h5>Plance
+    nen revisionà</h5><p>A anclud tute le plance nen revisionà ëd sa pàgina e dle
+    pàgine che a comparisso an na classificassion an bass ëd costa pàgina. Chèich
+    cambrada ëd l’EdV a fornisso vàire plance d'àuta qualità che a son ancor nen ëstàite
+    esaminà. Sòn a anclud pa le plance che a sont ëstàite marcà tanme nen afidàbil
+    da 'n conservator ëd l’EdV.</p><h5>Artìcoj fidà</h5><p>A comprend tuti j'artìcoj
+    testuaj fidà ëd la scheda Detaj e vàire artìcoj dla scheda Arsorse. Sòn a comprend
+    dj'artìcoj testuaj ëd cambrada dign ëd fiusa. Sòn a comprend ëdcò dj'artìcoj fornì
+    diretaman dai mèmber ëd l’EdV, o da Wikipedia, che a son ëstàit aprovà da 'n conservator
+    ëd l’EdV. Sòn a comprend pa j'artìcoj an sle pàgine che a comparisso an na classificassion
+    an bass ëd sa pàgina.</p><h5>Artìcoj nen revisionà</h5><p>A comprend tuti j'artìcoj
+    testuaj nen revisionà ëd la scheda Detaj ëd sa pàgina e vàire artìcoj ëd la scheda
+    Arsorse. Sòn a comprend dj'articoj testuaj fornì diretaman dai mèmbed ëd l’ElV,
+    ou da Wikipedia, e ch'a speto d'esse controlà da 'n conservator ëd l’EdV. Sòn
+    a comprend pa j'artìcoj an sle pàgine che a comparisso an na classificassion an
+    bass ëd costa pàgina.</p>
+  page_views_th: Pàgine visualisà
+  pages_curator_section_link: Conservator
+  pages_admin_section_link: Aministrator
+  pages_method_description: a pija an intrada n'identificativ ëd pàgina EdV e a smon
+    ël nòm sientìfich për cola pàgina, e eventualman a smon dj'anformassion an sij
+    nòm comun, ij mojen (test, plance e filmà), e j'arferiment a le gerarchìe ch'a
+    arconòsso la tassonomìa descrivùa a sla pàgina
+  pagination_page_number: Pàgina %{number}
+  pagination_next: Sucessiv
+  pagination_next_with_count:
+    one: vëdde ël %{count} apress
+    other: vëdde ij %{count} apress
+  pagination_previous: Precedent
+  pagination_previous_with_count:
+    one: vëdde ël %{count} precedent
+    other: vëdde ij %{count} precedent
 ...

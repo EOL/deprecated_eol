@@ -55,7 +55,7 @@ class TraitBank
         # TODO: This ORDER BY only really works if numeric! :S
         unless options[:count]
           # TODO: figure out how to sort properly, both numerically and alpha.
-          orders = ["xsd:float(REPLACE(?value, \",\", \"\"))"] #, "?value"]
+          orders = ["xsd:float(?value)", "?value"]
           orders.map! { |ord| "DESC(#{ord})" } if options[:sort] =~ /^desc$/i
           query += "ORDER BY #{orders.join(" ")} "
           if offset && offset > 0
@@ -85,7 +85,7 @@ class TraitBank
             FILTER ( ?trait IN (<#{trait_strings.join(">, <")}>) )
           }
         }
-        ORDER BY ?trait"
+        ORDER BY DESC(xsd:float(?value)) DESC(?value)"
         trait_data = TraitBank.connection.query(query)
         if trait_data.count >= 10_000
           EOL.log("WARNING! The following query reached a limit in the number "\

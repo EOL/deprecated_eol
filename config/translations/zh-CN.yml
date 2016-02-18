@@ -2386,6 +2386,15 @@ zh-CN:
         user_untrusted_an_unknown_name_in_language_on_it: <strong>%{user}</strong>使用%{language}将一个未知的常用名标记为不受信任。
         user_untrusted_name_in_an_unknown_language_on_it: <strong>%{user}</strong>使用未知语言将常用名“%{name}”标记为不受信任。
         user_untrusted_name_in_language_on_it: <strong>%{user}</strong>标记%{language}的常用名“%{name}”为不受信任。
+      unreview_common_name:
+        an_unknown_user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: 未知用户使用未知语言将一个未知的常用名标记为未复核。
+        an_unknown_user_unreviewed_an_unknown_name_in_language_on_it: 未知用户使用%{language}将一个未知的常用名标记为未复核。
+        an_unknown_user_unreviewed_name_in_an_unknown_language_on_it: 未知用户使用未知语言将常用名“%{name}”标记为未复核。
+        an_unknown_user_unreviewed_name_in_language_on_it: 未知用户标记%{language}的常用名“%{name}”为未复核。
+        user_unreviewed_an_unknown_name_in_an_unknown_language_on_it: <strong>%{user}</strong>使用未知语言将一个未知的常用名标记为未复核。
+        user_unreviewed_an_unknown_name_in_language_on_it: <strong>%{user}</strong>使用%{language}将一个未知的常用名标记为未复核。
+        user_unreviewed_name_in_an_unknown_language_on_it: <strong>%{user}</strong>使用未知语言将常用名“%{name}”标记为未复核。
+        user_unreviewed_name_in_language_on_it: <strong>%{user}</strong>标记%{language}的常用名“%{name}”为未复核。
       preferred_classification:
         an_unknown_user_preferred_classification_on_an_unknown_taxon: 一个未知用户将 “%{provider}”提供的分类系统标为一个未知类群的首选系统。
         an_unknown_user_preferred_classification_on_it: 一个未知用户将 “%{provider}”提供的分类系统标为首选系统。
@@ -2809,11 +2818,17 @@ zh-CN:
   collection_copy_complete_with_count:
     one: 从%{from}复制%{count}个项目至%{to}。
     other: 从%{from}复制共计%{count}个项目至%{to}。
+  collection_move_complete_with_count:
+    one: 已从%{from}移动%{count}个项目至%{to}。
+    other: 已从%{from}移动%{count}个项目至%{to}。
   collection_remove_complete_with_count:
     one: 已从%{from}移除%{count}个项目。
     other: 已从%{from}移除%{count}个项目。
   collection_copy_choose_all_items_target_title: 从“%{collection}”复制所有项目至：
   collection_move_choose_all_items_target_title: 从“%{collection}”移动所有项目至：
+  collection_copy_choose_target_title_with_count:
+    one: 已从“%{collection}”复制%{count}个项目至：
+    other: 已从“%{collection}”复制%{count}个项目至：
   collection_name_cannot_be_blank: 集合名不能为空
   collection_name_label: 收藏名称
   collection_newsfeed: 收藏动态
@@ -3106,6 +3121,7 @@ zh-CN:
   copy_items_to_a_new_collection_with_count:
     other: ' 拷贝%{count}项到一个新的收藏中'
   copyright: 版权所有：
+  correct_donation_message_with_link: 如果此信息不正确，请<a href='%{link}'>返回</a>以做出更改。
   could_not_find_collection_error: 抱歉，找不到该收藏。
   could_not_find_user: 您不是这个社区的会员。
   count: 数目
@@ -3251,6 +3267,7 @@ zh-CN:
       input_summary_intro: 选择的搜索选项
       new_search_link: 开始一次新搜索
       or_range_header: 或<span class="assistive">输入范围</span>
+      refine_search_header: 改进您的搜索（可选）
       search_suggestions_header: 不确定从何开始？
       search_tools_show_link: 显示搜索选项
       search_tools_hide_link: 隐藏搜索选项
@@ -3258,6 +3275,9 @@ zh-CN:
         other: 在分类组中搜索目前限定为少于%{count}分类群的组。<a href="%{contact_us_tech_url}">联络我们</a>以查找更多有关搜索更大群组的信息。
       sort_header: 排序结果
   data_search_attribute: 在TraitBank搜索带%{attribute}数据的记录
+  data_search_files_with_count:
+    one: '%{count}次数据下载'
+    other: '%{count}次数据下载'
   data_show_n_more_rows: 展示NNN更多......
   data_subtab_about: 关于
   data_subtab_glossary: '%{taxon}的术语表'
@@ -3606,7 +3626,7 @@ zh-CN:
   if_the_details_parameter_is_not_set: 如果没有设置“details”参数，则只返回数据对象标识符、数据类型，以及在文章案例中，将返回主题。数据类型将会是来自
     %{linka} 资源类型词汇中的值。文本主题将会是 %{linkb} 之一。
   check_this_to_browse_eol_by_the_hierarchy: （如果选择此复选框，分类选项将会显示在名字标签上而不用使用“显示所有分类”）
-  return_content_by_vettedness: 如果vetted = 1则仅返回可信内容.如果vetted = 2则返回仅可信和未审核的内容(不返回不可信的内容)。默认返回所有内容。
+  return_content_by_vettedness: 如果“vetted”的取值为“1”，则只返回可信内容。如果“vetted”的取值为“2”，则只返回可信和未复核的内容（不返回不可信内容）。如果“vetted”的取值为“3”，则只返回未复核的内容。如果“vetted”的取值为“4”，则只返回不可信内容。默认返回所有内容。
   reindex_data_object_button: 重新索引对象
   reindex_page_button: 重新索引页面
   reindex_users_button: 重建用户数的索引
@@ -3670,6 +3690,7 @@ zh-CN:
   item_type_community_assistive: 此项是一片社区
   item_type_image_assistive: 此项是一幅图片
   item_type_image_map_assistive: 此项是一幅地图图像
+  item_type_link_assistive: 此项是一个链接
   item_type_map_assistive: 此项是一幅地图
   item_type_person_assistive: 此项是一个人
   item_type_sound_assistive: 此项是一段音频
@@ -3762,6 +3783,7 @@ zh-CN:
   limits_the_number_of_returned_sound_objects: 限定返回的音频数量
   limits_the_number_of_returned_map_objects: 限定返回的地图数量
   limits_the_number_of_returned_iucn_objects: 含IUCN红色物种名录状态
+  limits_the_returned_to_a_specific_language: 提供指定语言中的结果。
   link_more_about: 了解更多关于此链接
   link_name: 链接名称
   link_to_this_term: 连接此术语
@@ -4222,6 +4244,9 @@ zh-CN:
   save: 保存
   scientific_name: 学名
   sci_name_avg_table_head: 学名平均
+  scrub_user_button: 擦除用户
+  scrub_user_notice: 用户已成功擦除！
+  scrub_user_warning: 警告：这将移除所有由用户添加的内容，并且不能撤销。您确定么？
   search: 搜索
   search_by_term_page_title: 搜索： %{term}
   search_by_provider_method_description_with_link: 获取EOL页面ID，提供一个提供方的hierarchy_id和提供方自己的唯一标识符<br
@@ -4437,6 +4462,7 @@ zh-CN:
   taxon_page_content_disclaimer_header: 免责声明
   taxon_page_content_disclaimer: EOL的内容来自许多不同的内容提供者并自动组合在一起。因此，偶尔您会在EOL上发现令人不解的页面。
   taxon_page_content_disclaimer_suggest_improvement: 要请求一个改进，请在该页面留下一个评论。谢谢！
+  taxon_related_organizations_link: 关联组织
   taxonomic_summary_of_content: 内容的分类学概要
   taxon_recognized_by: 类群由%{whom}确认
   taxon_selected_from_search_res: 从搜索结果中选择的分类单元
@@ -4597,6 +4623,7 @@ zh-CN:
   us_dollars_35: 35美元
   us_dollars_50: 50美元
   us_dolars_75: 75美元
+  use_as_examplar_button: 用作范例
   used_for_friendly_url_note: （用来产生一个用户友好的链接，不要包含空格和特殊字符）
   user_activation_failed_resent_validation_email_error: 抱歉，出现了一个错误，您的帐户无法验证。原因可能是您使用的验证链接没有被识别。激活说明已发送到您注册时的邮箱，请确保使用的验证链接和激活邮件中的一致。
   user_activation_failed_user_not_found_error: 抱歉，发生了一个错误，您要验证的帐户不存在。请您确保使用注册后激活邮箱收到的验证链接。

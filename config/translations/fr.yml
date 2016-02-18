@@ -5522,9 +5522,10 @@ fr:
   check_this_to_browse_eol_by_the_hierarchy: (Si cette case est cochée, la classification
     sera affichée sur les noms d’onglet sans avoir à "Afficher toutes les classifications".)
   return_content_by_vettedness: Si 'vetted' vaut 1, alors seul le contenu fiable sera
-    renvoyé. Si 'vetted' vaut 2, alors seul le contenu fiable et non relu est renvoyé
-    (le contenu non fiable n’est pas renvoyé). La valeur par défaut est de retourner
-    tout le contenu.
+    renvoyé. Si 'vetted' vaut 2, alors seul le contenu fiable et non relu sera renvoyé
+    (le contenu non fiable n’est pas renvoyé). Si 'vetted' vaut 3, seul le contenu
+    non relu sera renvoyé. Si 'vetted' vaut 4, seul le contenu non fiable sera renvoyé.
+    La valeur par défaut est de retourner tout le contenu.
   reindex_data_object_button: Réindexer l’objet
   reindex_page_button: Réindexer la page
   reindex_users_button: Réindexer les compteurs utilisateur
@@ -5744,6 +5745,8 @@ fr:
     renvoyés
   limits_the_number_of_returned_iucn_objects: inclure l’objet de statut de la Liste
     rouge de l’UICN
+  limits_the_returned_to_a_specific_language: fournit les résultats dans la langue
+    spécifiée.
   link_more_about: En savoir plus à propos de ce lien
   link_name: Nom du lien
   link_to_this_term: lien vers ce terme
@@ -6415,6 +6418,10 @@ fr:
   save: Publier
   scientific_name: Nom scientifique
   sci_name_avg_table_head: Nom scientifique moyen
+  scrub_user_button: nettoyer l’utilisateur
+  scrub_user_notice: Utilisateur correctement nettoyé !
+  scrub_user_warning: 'ATTENTION : cela supprimera TOUT le contenu ajouté par cet
+    utilisateur et NE POURRA PAS ÊTRE ANNULÉ. Êtes-vous sûr ?'
   search: Rechercher
   search_by_term_page_title: 'Rechercher : %{term}'
   search_by_provider_method_description_with_link: 'obtient les IDs de page de EdlV

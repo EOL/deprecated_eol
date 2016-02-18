@@ -55,7 +55,8 @@ private
     parameters = 'function=admin_upload&file_path=http://' + ip_with_port + $CONTENT_UPLOAD_PATH + content_upload.id.to_s + "."  + content_upload.attachment_file_name.split(".")[-1]
     response = EOLWebService.call(parameters: parameters)
     if response.blank?
-      ErrorLog.create(url: $WEB_SERVICE_BASE_URL, exception_name: "content upload service failed") if $ERROR_LOGGING
+      EOL.log("ERROR: Content upload service failed: #{$WEB_SERVICE_BASE_URL}#{parameters}",
+        prefix: "*")
     else
       response = Hash.from_xml(response)
       if response["response"].key? "file_path"
@@ -64,7 +65,8 @@ private
       end
       if response["response"].key? "error"
         error = response["response"]["error"]
-        ErrorLog.create(url: $WEB_SERVICE_BASE_URL, exception_name: error, backtrace: parameters) if $ERROR_LOGGING
+        EOL.log("ERROR: #{error}: #{$WEB_SERVICE_BASE_URL}#{parameters}",
+          prefix: "*")
       end
     end
   end

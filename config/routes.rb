@@ -590,7 +590,7 @@ Eol::Application.routes.draw do
     resources :content_upload, :controller => 'administrator/content_upload'
     resources :translation_log, :controller => 'administrator/translation_log'
     resources :user_data_object, :controller => 'administrator/user_data_object'
-    resources :error_log, :only => [:index, :show], :controller => 'administrator/error_log'
+    resources :error_log, :only => [:index], :controller => 'administrator/error_log'
     resources :table_of_contents, :only => [:index, :create, :edit, :update, :destroy], :controller => 'administrator/table_of_contents'
     resources :search_suggestion, :only => [:index, :create, :new, :edit, :update, :destroy], :controller => 'administrator/search_suggestion'
   end

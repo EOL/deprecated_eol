@@ -126,7 +126,8 @@ class TraitBank
     # 1502, identifier: identifier).taxon_concept_id on each identifier (which
     # you get by pulling off ... the start of the taxonId URL). This sucks, but
     # it's a reasonable workaround. Not sure why this happened!
-    def rebuild_resource(resource)
+    def rebuild_resource(resource, options = {})
+      num_metas = options[:num_metas] || 25
       EOL.log_call
       # TODO: Ideally, we would first get a diff of what's in the graph vs what
       # we're going to put in the graph, and add the new stuff and remove the
@@ -185,8 +186,8 @@ class TraitBank
       end
       EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
       index = 0
-      traits.to_a.in_groups_of(50, false) do |traits|
-        index += 50
+      traits.to_a.in_groups_of(num_metas, false) do |traits|
+        index += num_metas
         EOL.log("index #{index}", prefix: ".") if index % 10_000 == 0
         begin
           connection.query(metadata_query(resource, traits)).

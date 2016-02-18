@@ -77,7 +77,7 @@ class TraitBank
         raise "Can't convert #{literal.class} into a string: #{literal.inspect}"
       end
       if str.is_numeric?
-        literal
+        str
       else
         "\"#{str.gsub(/\n/, " ").gsub(/"/, "\\\"")}\""
       end

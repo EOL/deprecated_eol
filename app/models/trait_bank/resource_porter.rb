@@ -61,7 +61,7 @@ class TraitBank
     end
 
     def build_associations
-      TraitBank.paginate(associations_query(@resource)) do |results|
+      TraitBank.paginate(TraitBank.associations_query(@resource)) do |results|
         results.each do |row|
           @triples << "<#{row[:page]}> a eol:page ;"\
             "<#{row[:predicate]}> <#{row[:target_page]}> ;"\
@@ -74,12 +74,14 @@ class TraitBank
       end
     end
 
+    traits.each_with_index { |trait, index| puts "Index #{index}" ; TraitBank.connection.query(TraitBank.metadata_query(@resource, trait)).each { |h| next unless h[:units].blank? ; add_meta(h, h[:predicate], :value) } }
+
     def build_metadata
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
       @traits.each_with_index do |trait, index|
         EOL.log("index #{index}", prefix: ".") if index % 1_000 == 0
         begin
-          TraitBank.connection.query(metadata_query(@resource, trait)).
+          TraitBank.connection.query(TraitBank.metadata_query(@resource, trait)).
             each do |h|
             # ?trait ?predicate ?meta_trait ?value ?units
             if h[:units].blank?

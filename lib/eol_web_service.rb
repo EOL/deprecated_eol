@@ -102,13 +102,8 @@ class EOLWebService
         Net::HTTP.get_response(URI.parse(base_url + parameters))
       end
     rescue TimeoutError
-      if $ERROR_LOGGING
-        ErrorLog.create(
-          url: base_url,
-          exception_name: "web service timed out",
-          backtrace: parameters
-        )
-      end
+      EOL.log("ERROR: Web service timed out: #{base_url}#{parameters}",
+        prefix: "*")
       return nil
     end
   end

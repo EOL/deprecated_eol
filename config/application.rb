@@ -274,7 +274,6 @@ module Eol
 
     # ERROR HANDLING CONFIGURATION
     $EXCEPTION_NOTIFY = false # set to false to not be notified of exceptions via email in production mode (set email addresses below)
-    $ERROR_LOGGING = true # set to true to record uncaught application errors in sql database file
     $IGNORED_EXCEPTIONS = ["CGI::Session::CookieStore::TamperedWithCookie","taxa id not supplied"] # array of exceptions to ignore when logging or notifying
     $IGNORED_EXCEPTION_CLASSES = [ 'ActionController::RoutingError', 'EOL::Exceptions::MustBeLoggedIn', 'EOL::Exceptions::SecurityViolation' ] # array of exceptions to ignore when logging or notifying
 

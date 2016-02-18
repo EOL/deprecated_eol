@@ -537,15 +537,11 @@ protected
     end
     render_exception_response(exception, response_code, status_code)
     # Log to database
-    if $ERROR_LOGGING && !$IGNORED_EXCEPTIONS.include?(exception.to_s) && !$IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
-      ErrorLog.create(
-        url: env['REQUEST_URI'],
-        ip_address: EOL::Server.ip_address,
-        user_agent: request.user_agent,
-        user_id: logged_in? ? current_user.id : 0,
-        exception_name: exception.to_s,
-        backtrace: "Application Server: #{EOL::Server.ip_address}\r\n" + exception.backtrace.join("\r\n")
-      )
+    if ! $IGNORED_EXCEPTIONS.include?(exception.to_s) &&
+       ! $IGNORED_EXCEPTION_CLASSES.include?(exception.class.to_s)
+      user_id = logged_in? ? current_user.id : 0
+      EOL.log("ERROR: #{env['REQUEST_URI']} (user #{user_id})", prefix: "*")
+      EOL.log_error(exception)
       # Notify New Relic about exception
       NewRelic::Agent.notice_error(exception) if $PRODUCTION_MODE
     end

@@ -14,8 +14,8 @@
 #---------------------------------------------------------------
 
 # In the development environment your application's code is reloaded on
-# every request.  This slows down response time but is perfect for 
-# development since you don't have to restart the webserver when you make 
+# every request.  This slows down response time but is perfect for
+# development since you don't have to restart the webserver when you make
 # code changes.
 config.cache_classes = false
 
@@ -27,17 +27,14 @@ config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = false
 config.action_view.debug_rjs                         = false
 
-# email error reporting 
+# email error reporting
 config.action_mailer.raise_delivery_errors = false
 
 # logging level
 # config.log_level = :debug
 
-# set to false turn off notification of exceptions via email 
+# set to false turn off notification of exceptions via email
 $EXCEPTION_NOTIFY=false
- 
-# set to true to record uncaught application errors in sql database file
-$ERROR_LOGGING=true 
 
 # set to true to enable recaptcha on registration and contact us form
 $ENABLE_RECAPTCHA=false
@@ -46,8 +43,8 @@ $ENABLE_RECAPTCHA=false
 # Set ENABLE_ANALYTICS to true to enable google analytics.  The
 # GOOGLE_ANALYTICS_ID must be set to the google analytics ID
 # to use if analytics is enabled.
-$ENABLE_ANALYTICS=false 
-$GOOGLE_ANALYTICS_ID="UA-3298646-1" 
+$ENABLE_ANALYTICS=false
+$GOOGLE_ANALYTICS_ID="UA-3298646-1"
 
 #This part of the code should stay at the bottom to ensure that www.eol.org - related settings override everything
 begin

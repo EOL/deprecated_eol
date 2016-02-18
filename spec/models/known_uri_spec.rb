@@ -14,11 +14,8 @@ describe KnownUri do
     before(:all) do
 
       @uri1 = KnownUri.gen_if_not_exists( position: 1, name: 'baz boozer')
-      # allow(@uri1).to receive(:is_a?).with(KnownUri).and_return(true)
       @uri2 = KnownUri.gen_if_not_exists( position: 2, name: 'bar baz')
-      # allow(@uri2).to receive(:is_a?).with(KnownUri).and_return(true)
       @uri3 = KnownUri.gen_if_not_exists( position: 3, name: 'Foo bar')
-      # allow(@uri3).to receive(:is_a?).with(KnownUri).and_return(true)
       @uris = [@uri1, @uri2, @uri3]
     end
 

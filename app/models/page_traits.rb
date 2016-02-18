@@ -39,11 +39,11 @@ class PageTraits < TraitSet
       # NOTE: this block was (mostly) stolen from DataPointUri#to_jsonld, and,
       # again, will replace it.
       trait_json = {
-        '@id' => trait.point.uri,
-        'data_point_uri_id' => trait.point.id,
-        '@type' => trait.association? ? 'eol:Association' : 'dwc:MeasurementOrFact',
-        'dwc:taxonID' => KnownUri.taxon_uri(@id),
+        "@id" => trait.uri,
+        "@type" => trait.association? ? "eol:Association" : "dwc:MeasurementOrFact",
+        "dwc:taxonID" => KnownUri.taxon_uri(@id),
       }
+      trait_json["data_point_uri_id"] = trait.point.id if trait.point
       trait.rdf.each do |rdf|
         predicate = rdf[:trait_predicate].dup.to_s
         # They don't care about the type we store it as...
@@ -56,10 +56,6 @@ class PageTraits < TraitSet
         trait_json['eol:associationType'] =
           trait_json.delete('dwc:measurementType')
         trait_json['eol:targetTaxonID'] = trait.value_name
-      end
-      refs = trait.point.references
-      unless refs.blank?
-        trait_json[I18n.t(:reference)] = refs.map { |r| r[:full_reference].to_s }.join("\n")
       end
       jsonld['@graph'] << trait_json
     end

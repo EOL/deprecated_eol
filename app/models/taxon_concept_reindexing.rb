@@ -1,5 +1,5 @@
-# This is the "long" method, using PHP, to reindex a taxon page, and is not allowed if there are too many
-# descendants.
+# This is the "long" method, using PHP, to reindex a taxon page, and is not
+# allowed if there are too many descendants.
 class TaxonConceptReindexing
 
   attr_reader :taxon_concept

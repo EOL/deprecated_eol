@@ -1,7 +1,7 @@
 module FileDownloadHelper
-  
+
   EXPIRATION_TIME = 2.weeks
-  
+
   def upload_file (id, local_file_path, local_file_url)
     where = local_file_path
     error = ""
@@ -16,7 +16,7 @@ module FileDownloadHelper
           where = uploaded_file_url
           update_attributes(hosted_file_url: Rails.configuration.hosted_dataset_path + where)
           return {error: nil}
-        end  
+        end
       end
     rescue => e
       # TODO: This is an important one to catch!
@@ -24,7 +24,7 @@ module FileDownloadHelper
     end
     return {error: error}
   end
-  
+
   def downloadable?
     complete? && hosted_file_url && ! ( expired? || row_count.blank? || row_count == 0)
   end
@@ -44,7 +44,7 @@ module FileDownloadHelper
   def expires_at
     completed_at + EXPIRATION_TIME
   end
-  
+
   def get_headers(rows)
     col_heads = Set.new
     rows.each do |row|
@@ -52,12 +52,12 @@ module FileDownloadHelper
     end
     col_heads
   end
-  
+
   def csv_builder(csv, col_heads, rows)
     csv << col_heads
     rows.each do |row|
       csv << col_heads.inject([]) { |a, v| a << row[v] } # A little magic to sort the values...
     end
   end
-  
+
 end

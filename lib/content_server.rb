@@ -61,12 +61,16 @@ class ContentServer
         error = response["response"]["error"] rescue nil
         resource_status = ResourceStatus.send(status.downcase.gsub(" ","_"))
         if resource_status != ResourceStatus.validated
-          ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => "content partner dataset service failed", :backtrace => parameters) if $ERROR_LOGGING
+          EOL.log("ERROR: Content partner dataset service failed: "\
+            "#{$WEB_SERVICE_BASE_URL}#{parameters} "\
+            "error: #{error}", prefix: "*")
         end
         return [resource_status, error]
       # response is an error
       elsif response["response"].key? "error"
-        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => "content partner dataset service failed", :backtrace => parameters) if $ERROR_LOGGING
+        EOL.log("ERROR: Content partner dataset service failed: "\
+          "#{$WEB_SERVICE_BASE_URL}#{parameters} "\
+          "error: #{response["response"]["error"]}", prefix: "*")
         return [ResourceStatus.validation_failed, response["response"]["error"]]
       end
     end
@@ -104,8 +108,9 @@ class ContentServer
         response = EOLWebService.call(parameters: parameters)
         return { response: response, exception: nil }
       rescue Exception => ex
-        Rails.logger.error "#{$WEB_SERVICE_BASE_URL} #{method_name} #{ex.message}"
-        ErrorLog.create(:url  => $WEB_SERVICE_BASE_URL, :exception_name  => "#{method_name} has an error") if $ERROR_LOGGING
+        EOL.log("ERROR: #{method_name} #{$WEB_SERVICE_BASE_URL}#{parameters}",
+          prefix: "!")
+        EOL.log_error(ex)
       ensure
         count += 1
       end
@@ -120,8 +125,8 @@ class ContentServer
     error = nil
     if response.blank?
       if exception.nil?
-        ErrorLog.create(url: $WEB_SERVICE_BASE_URL,
-          exception_name: "#{method_name} timed out") if $ERROR_LOGGING
+        EOL.log("ERROR: #{method_name} timed out: "\
+          "#{$WEB_SERVICE_BASE_URL}#{parameters}", prefix: "!")
         error = "#{method_name} timed out"
       else
         error = exception # couldn't connect
@@ -135,11 +140,13 @@ class ContentServer
           "#{msg}")
       end
       if response["response"].class != Hash
-        error = "Bad response: #{response["response"]}"
-        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
+        error = ""
+        EOL.log("ERROR: Bad response: #{response["response"]} "\
+          "#{$WEB_SERVICE_BASE_URL}#{parameters}", prefix: "!")
       elsif response["response"].key? "error"
         error = response["response"]["error"]
-        ErrorLog.create(:url => $WEB_SERVICE_BASE_URL, :exception_name => error, :backtrace => parameters) if $ERROR_LOGGING
+        EOL.log("ERROR: Bad response: #{response["response"]} "\
+          "#{$WEB_SERVICE_BASE_URL}#{parameters}", prefix: "!")
       elsif response["response"].key? "file_path"
         path = response["response"]["file_path"]
         return path.blank? ? {response: nil, error: "File path is nil"} : {response: path, error: nil}

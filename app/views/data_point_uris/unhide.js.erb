@@ -1,6 +1,4 @@
 var $add_cmd = $('#<%= @data_point_uri.anchor %>').removeClass('hidden').next().find('div.additional_commands');
-$add_cmd.find('a.remove_exemplar').show();
-$add_cmd.find('a.add_exemplar').show();
 var $hide = $add_cmd.find('a.hide.button');
 if($hide.length > 0) {
   $hide.show();

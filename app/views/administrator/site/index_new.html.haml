@@ -50,11 +50,6 @@
         = @config.database_configuration['master_data_database']["database"] + ' @ ' + @config.database_configuration['master_data_database']["host"]
         %br
   %tr
-    %td.odd
-      =I18n.t("error_logging_active")
-    %td.odd
-      = $ERROR_LOGGING.to_s
-  %tr
     %td.even
       =I18n.t("web_service_base_url")
     %td.even

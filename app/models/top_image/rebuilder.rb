@@ -1,5 +1,5 @@
-# Rebuilds the (denormalized) tables for TopImage AND (NOTE this!)
-# TopUnpublishedImage.
+# Rebuilds the (denormalized) tables for TopImage **and** TopUnpublishedImage
+# (make NOTE of that!).
 class TopImage
   class Rebuilder
     def self.rebuild

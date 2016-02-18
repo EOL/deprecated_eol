@@ -5491,8 +5491,10 @@ it:
   return_content_by_vettedness: Se a 'controllato' viene assegnato un valore '1' allora
     saranno restituiti solo contenuti attendibili. Se a 'controllato' viene assegnato
     un valore '2' allora saranno restituiti contenuti attendibili e non revisionati
-    (non saranno restituiti contenuti non attendibili). Di default saranno restituiti
-    tutti i contenuti.
+    (non saranno restituiti contenuti non attendibili). Se a 'controllato' viene assegnato
+    un valore '3' allora saranno restituiti solo contenuti non revisionati. Se a 'controllato'
+    viene assegnato un valore '4' allora saranno restituiti solo contenuti non attendibili.
+    Come impostazione predefinita saranno restituiti tutti i contenuti.
   reindex_data_object_button: Indicizza oggetto
   reindex_page_button: Reindirizza la pagina
   reindex_users_button: Indicizza nuovamente il numero degli utenti

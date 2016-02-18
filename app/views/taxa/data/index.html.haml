@@ -49,15 +49,14 @@
           %tr.data
             %th.predicate
               %div.term
-                = "Could not find a data point for #{trait.point}"
+                = "Could not find a data point for #{trait.uri}"
           - next
         - classes = []
-        - unless trait.point.visible?
+        - unless trait.visible?
           - if current_user.is_curator?
             - classes << 'hidden'
           - else
             - next
-
         - first = trait.predicate_name != last_predicate
         - header_id = trait.point.anchor
         - row_is_selected = (@selected_data_point_uri_id && @selected_data_point_uri_id.to_i == data_point_uri.id)
@@ -65,7 +64,6 @@
         -# preloaded taxon_data_exemplars
         - exemplar = trait.point.taxon_data_exemplars.select(&:included?).any?
         - excluded = trait.point.taxon_data_exemplars.select(&:excluded?).any?
-
         - if first
           - classes << 'first'
           - type_index += 1
@@ -163,6 +161,3 @@
                         %span.note= I18n.t(:data_row_excluded_from_overview_notice)
                     - elsif logged_in?
                       %p.note= I18n.t(:annotation_note).html_safe
-
-
-

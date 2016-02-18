@@ -5489,10 +5489,12 @@ nl:
   check_this_to_browse_eol_by_the_hierarchy: Als dit vakje is aangevinkt, dan wordt
     de classificatie weergegeven in het tabblad "namen" zonder dat "Alle classificaties
     weergeven" hoeft te worden gekozen.
-  return_content_by_vettedness: Als "gecontroleerd" de waarde "1" heeft, dan wordt
-    alleen vertrouwde inhoud teruggegeven. Als "gecontroleerd" de waarde "2" heeft,
-    dan wordt alleen vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde
-    inhoud is daar dus geen onderdeel van). Standaard wordt alle inhoud teruggegeven.
+  return_content_by_vettedness: Als "vetted" de waarde "1" heeft, dan wordt alleen
+    vertrouwde inhoud teruggegeven. Als "vetted" de waarde "2" heeft, dan wordt alleen
+    vertrouwde en ongecontroleerde inhoud teruggegeven (niet-vertrouwde inhoud is
+    daar dus geen onderdeel van). Als "vetted" de waarde "3" heeft, dan wordt alleen
+    ongecontroleerde inhoud teruggegeven. Als "vetted" de waarde "4" heeft, dan wordt
+    alleen niet-vertrouwde inhoud teruggegeven. Standaard wordt alle inhoud teruggegeven.
   reindex_data_object_button: Object herindexeren
   reindex_page_button: Pagina opnieuw indexeren
   reindex_users_button: Gebruikerstellingen herindexeren
@@ -5705,6 +5707,8 @@ nl:
   limits_the_number_of_returned_map_objects: beperkt het aantal teruggegeven kaartobjecten
   limits_the_number_of_returned_iucn_objects: Statusobject voor Rode Lijst van IUCN
     opnemen
+  limits_the_returned_to_a_specific_language: geeft de resultaten in de opgegeven
+    taal.
   link_more_about: Meer informatie over deze koppeling
   link_name: Beschrijving voor koppeling
   link_to_this_term: koppeling naar deze term
@@ -6344,6 +6348,10 @@ nl:
   save: Opslaan
   scientific_name: Wetenschappelijke naam
   sci_name_avg_table_head: Gem.Wetensch.naam
+  scrub_user_button: gebruikersbijdragen verwijderen
+  scrub_user_notice: De bijdragen van de gebruiker zijn verwijderd.
+  scrub_user_warning: 'Waarschuwing: hierdoor wordt alle inhoud die door de gebruiker
+    is toegoevoegd verwijderd. Dit kan niet ongedaan gemaakt worden. Weet u het zeker?'
   search: Zoeken
   search_by_term_page_title: 'Zoeken: %{term}'
   search_by_provider_method_description_with_link: 'haal de EOL pagina-ID''s op op

@@ -11,49 +11,52 @@ describe KnownUri do
   # TODO - I added #first to all these calls because I changed the interface.  Fix.
   context '#by_name' do
 
-    before(:each) do
-      @uri1 = double(KnownUri, position: 1, name: 'baz boozer')
-      allow(@uri1).to receive(:is_a?).with(KnownUri).and_return(true)
-      @uri2 = double(KnownUri, position: 2, name: 'bar baz')
-      allow(@uri2).to receive(:is_a?).with(KnownUri).and_return(true)
-      @uri3 = double(KnownUri, position: 3, name: 'Foo bar')
-      allow(@uri3).to receive(:is_a?).with(KnownUri).and_return(true)
+    before(:all) do
+
+      @uri1 = KnownUri.gen_if_not_exists( position: 1, name: 'baz boozer')
+      # allow(@uri1).to receive(:is_a?).with(KnownUri).and_return(true)
+      @uri2 = KnownUri.gen_if_not_exists( position: 2, name: 'bar baz')
+      # allow(@uri2).to receive(:is_a?).with(KnownUri).and_return(true)
+      @uri3 = KnownUri.gen_if_not_exists( position: 3, name: 'Foo bar')
+      # allow(@uri3).to receive(:is_a?).with(KnownUri).and_return(true)
       @uris = [@uri1, @uri2, @uri3]
     end
 
+   before(:each) do 
+     predicate_uris = @uris.sort_by(&:name).map { |u| [u.id, u.uri, u.name] }
+     allow(TraitBank).to receive(:predicates) { predicate_uris }
+   end
     it 'should find an exact match' do
-      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('bar baz').first).to eq(@uri2)
     end
 
     it 'should ignore case' do
-      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('foo BAR').first).to eq(@uri3)
     end
 
     it 'should ignore extra space' do
-      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      # EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('Foo    bar').first).to eq(@uri3)
     end
 
     it 'should match the first single word' do
-      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      # EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('bar').first).to eq(@uri2) # Not 3...
     end
 
     it 'should ignore symbols' do
-      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
+      # EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('foo$#').first).to eq(@uri3)
     end
 
     # NOTE - I fixed this one already (given the TODO above). Just remove this comment.
     it 'should return empty set with no match' do
-      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return([])
+      # EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return([])
       expect(KnownUri.by_name('anything')).to eq([])
     end
 
     it 'should ignore sparql results that are not URIs' do
-      EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(['perfect'])
+      # EOL::Sparql.connection.should_receive(:all_measursement_type_known_uris).and_return(['perfect'])
       expect(KnownUri.by_name('perfect').first).to be_nil
     end
 

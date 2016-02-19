@@ -8,9 +8,8 @@ namespace :taxon_concepts do
       index = 0
       TaxonConcept.where(published: true, vetted_id: Vetted.trusted.id).pluck(:id).
                    in_groups_of(10_000, false) do |group|
-        EOL.log("taxon_concepts:names on row #{index}", prefix: "r") if
-          index % 10_000 == 0
-        index += 1
+        index += 10_000
+        puts "taxon_concepts:names -> #{index}"
         TaxonConcept.with_title.where(id: group).each do |concept|
           csv << [concept.id, concept.entry.name.string]
         end

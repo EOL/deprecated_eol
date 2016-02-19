@@ -59,9 +59,7 @@ class Hierarchy
     def build_ancestry
       EOL.log_call
       @ancestry = {}
-      @children["0"].each do |root|
-        walk_down_tree(root, [])
-      end
+      walk_down_tree("0", [])
     end
 
     def walk_down_tree(id, ancestors)
@@ -81,7 +79,7 @@ class Hierarchy
       @ancestry.keys.each do |child|
         @ancestry[child].each do |ancestor|
           @flat_entries << "#{child},#{ancestor}"
-          @flat_concepts << "#{@taxa[child]},#{@taxa[ancestor]}"
+          @flat_concepts << "#{@taxa[child]},#{@taxa[ancestor] || 0}"
         end
       end
       # Without returning something simple, the return value is huge, slowing

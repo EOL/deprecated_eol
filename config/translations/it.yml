@@ -5517,6 +5517,7 @@ it:
   images: Immagini
   images_in_red_are_not_trusted: Le immagini in rosso non sono attendibili.
   images_in_yellow_are_not_reviewed: Le immagini in giallo non sono state revisionate
+  image_objects_page_number: Pagina immagini
   images_sort_worklist_note:
     one: Le immagini sono ordinate a seconda della data di immissione con la più recente
       mostrata per prima. Vi è %{count} immagine in questa lista.
@@ -5716,6 +5717,7 @@ it:
   limits_the_number_of_returned_map_objects: limita il numero degli oggetti mappa
     restituiti
   limits_the_number_of_returned_iucn_objects: includi la categoria IUCN Red List dell'oggetto
+  limits_the_returned_to_a_specific_language: fornisce i risultati nella lingua specificata.
   link_more_about: Per saperne di più su questo collegamento
   link_name: Nome del collegamento
   link_to_this_term: collegamento a questo termine
@@ -5772,6 +5774,7 @@ it:
   manager_parens: (manager)
   map_from: mappa da
   master_curators_may_add_data: 'Curatori master possono aggiungere dati:'
+  map_objects_page_number: Pagina mappe
   maps_with_count:
     one: '%{count} Mappa'
     other: '%{count} Mappe'
@@ -6380,6 +6383,10 @@ it:
   save: Salva
   scientific_name: Nome scientifico
   sci_name_avg_table_head: Numero medio di richieste sul nome scientifico
+  scrub_user_button: pulisci utente
+  scrub_user_notice: Utente pulito correttamente!
+  scrub_user_warning: 'ATTENZIONE: questa azione rimuoverà TUTTI i contenuti aggiunti
+    dall''utente e NON PUO'' ESSERE ANNULLATA. Sei SICURO?'
   search: Ricerca
   search_by_term_page_title: 'Cerca: %{term}'
   search_by_provider_method_description_with_link: 'ottieni l''ID della pagina EOL
@@ -6562,6 +6569,7 @@ it:
   sound_file: File audio
   sound_from: suono da
   sound_object: Oggetto suono
+  sound_objects_page_number: Pagina suoni
   sound_of: Audio di
   sounds_with_count:
     one: '%{count} suono'
@@ -6731,6 +6739,7 @@ it:
   test: Prova
   test_it_out: Provalo
   text_object: Oggetto di testo
+  text_objects_page_number: Pagina testi
   text: testo
   text_capital: Testo
   text_summary_empty: Nessuno ha ancora provveduto a scrivere un breve riassunto per
@@ -7144,6 +7153,7 @@ it:
   vetted: Controllati
   video_from: video da
   video_object: Oggetto Video
+  video_objects_page_number: Pagina video
   video_title_not_available_in_language: Titolo non disponibile in %{language}
   videos_with_count:
     one: '%{count} video'

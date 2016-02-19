@@ -3642,6 +3642,7 @@ zh-CN:
   images: 图像
   images_in_red_are_not_trusted: 红色标记图像是不可信的。
   images_in_yellow_are_not_reviewed: 黄色标记图像是未经审核的。
+  image_objects_page_number: 图片页面
   images_sort_worklist_note:
     other: 图像按EOL导入时间排序，最新的项目最先展示。在工作列表中有%{count}幅图像。
   images_with_count:
@@ -3827,6 +3828,7 @@ zh-CN:
   manager_endorse_collections_suggestion: '"在本社区的页面为特写一个收藏, 添加特色的收藏到任何社区所管理的收藏集。"'
   manager_parens: (管理员)
   map_from: 地图来自
+  map_objects_page_number: 地图页面
   maps_with_count:
     other: '%{count} 幅地图'
   maps_empty: 本页暂无人提供地图。
@@ -4376,6 +4378,7 @@ zh-CN:
   sound_file: 音频文件
   sound_from: 音频来自
   sound_object: 声音对象
+  sound_objects_page_number: 声音页面
   sound_of: 音频关于
   sounds_with_count:
     other: '%{count}个声音'
@@ -4475,6 +4478,7 @@ zh-CN:
   term_for_search_admin_ui: 项
   test: 测试。
   text_object: 文本对象
+  text_objects_page_number: 文本页面
   text: 文本
   text_capital: 文本
   text_summary_empty: 本页暂无人提供简介信息。
@@ -4727,6 +4731,7 @@ zh-CN:
   vetted: 已审核
   video_from: 视频来自
   video_object: 视频数据
+  video_objects_page_number: 视频页面
   video_title_not_available_in_language: '%{language}标题不可用'
   videos_with_count:
     other: '%{count}个视频'

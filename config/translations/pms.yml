@@ -6124,4 +6124,10 @@ pms:
   pagination_previous_with_count:
     one: vëdde ël %{count} precedent
     other: vëdde ij %{count} precedent
+  pagination_range_with_count:
+    one: Visualisassion ëd la %{count} argistrassion
+    other: Visualisassion ëd %{start_number} &ndash; %{end_number} su %{count}
+  parameters: Paràmeter
+  partner_information: Anformassion an sël cambrada
+  partner_page: pàgina dël cambrada
 ...

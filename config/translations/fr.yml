@@ -5548,6 +5548,7 @@ fr:
   images: Images
   images_in_red_are_not_trusted: Les images en rouge ne sont pas fiables.
   images_in_yellow_are_not_reviewed: Les images en jaune n’ont pas été revues.
+  image_objects_page_number: page d’images
   images_sort_worklist_note:
     one: Les images sont triées par date d’importation dans l’EdlV, avec les éléments
       les plus récents affichés en premier. Il y a une seule image dans cette liste
@@ -5803,6 +5804,7 @@ fr:
   map_from: carte de
   master_curators_may_add_data: 'Les conservateurs maîtres peuvent ajouter des données
     :'
+  map_objects_page_number: Page de cartes
   maps_with_count:
     one: '%{count} carte'
     other: '%{count} cartes'
@@ -6605,6 +6607,7 @@ fr:
   sound_file: Fichier sonore
   sound_from: son de
   sound_object: Objet son
+  sound_objects_page_number: page de sons
   sound_of: Enregistrement sonore de
   sounds_with_count:
     one: '%{count} son'
@@ -6780,6 +6783,7 @@ fr:
   test: Test.
   test_it_out: Le tester
   text_object: Objet texte
+  text_objects_page_number: Page de textes
   text: texte
   text_capital: Texte
   text_summary_empty: Personne n’a encore contribué à une résumé court sur cette page.
@@ -7196,6 +7200,7 @@ fr:
   vetted: Approuvé
   video_from: vidéo de
   video_object: Objet vidéo
+  video_objects_page_number: Page de vidéos
   video_title_not_available_in_language: Titre non disponible dans %{language}
   videos_with_count:
     one: '%{count} vidéo'

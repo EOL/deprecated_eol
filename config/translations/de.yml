@@ -5704,6 +5704,7 @@ de:
   images_in_red_are_not_trusted: Rot gekennzeichneten Bildern wird nicht vertraut.
   images_in_yellow_are_not_reviewed: Gelb gekennzeichnete Bilder wurden noch nicht
     überprüft.
+  image_objects_page_number: Bilderseite
   images_sort_worklist_note:
     one: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befindet
       sich ein Bild in dieser Arbeitsliste.
@@ -5968,6 +5969,7 @@ de:
   manager_parens: (Verwalter)
   map_from: Karte von
   master_curators_may_add_data: 'Hauptkuratoren dürfen Daten hinzufügen:'
+  map_objects_page_number: Kartenseite
   maps_with_count:
     one: '%{count} Karte'
     other: '%{count} Karten'
@@ -6782,6 +6784,7 @@ de:
   sound_file: Tondatei
   sound_from: Geräusch von
   sound_object: Geräuschobjekt
+  sound_objects_page_number: Klängeseite
   sound_of: Geräusch zu
   sounds_with_count:
     one: '%{count} Tonaufnahme'
@@ -6952,6 +6955,7 @@ de:
   test: Test.
   test_it_out: Austesten
   text_object: Textobjekt
+  text_objects_page_number: Texteseite
   text: Text
   text_capital: Text
   text_summary_empty: Bislang hat noch niemand für diese Seite eine Kurzbeschreibung
@@ -7379,6 +7383,7 @@ de:
   vetted: Geprüft
   video_from: Video von
   video_object: Videoobjekt
+  video_objects_page_number: Videoseite
   video_title_not_available_in_language: Der Titel ist nicht auf %{language} vorhanden.
   videos_with_count:
     one: '%{count} Video'

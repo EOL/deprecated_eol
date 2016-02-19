@@ -16,7 +16,7 @@ class TaxonConceptCacheClearing
   # TODO - this should really be for an Association, not a combo of these two:
   def self.clear_for_data_object(taxon_concept, data_object)
     TaxonConceptCacheClearing.new(taxon_concept).clear_for_data_object(data_object)
-  end 
+  end
 
   def self.clear_overview_article_by_id(tc_id)
     Language.find_active.each do |lang|
@@ -28,11 +28,11 @@ class TaxonConceptCacheClearing
     @taxon_concept = taxon_concept
   end
 
-  # TODO - do we want a more generic name for methods, here? :call, :invoke, :run, :go ? ...I'll decide later.
   def clear
     clear_preferred_entry
     clear_media_counts
     clear_images
+    Rails.cache.delete(PageTraits.cache_key(@taxon_concept.id))
   end
 
   # TODO - test

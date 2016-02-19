@@ -1,9 +1,13 @@
 class PageTraits < TraitSet
 
+  def self.cache_key(id)
+    "trait_bank/pages/#{id}"
+  end
+
   # e.g.: pt = PageTraits.new(328598)
   def initialize(id)
     @id = id
-    @rdf = TraitBank.cache_query("trait_bank/pages/#{id}") do
+    @rdf = TraitBank.cache_query(PageTraits.cache_key(id)) do
       TraitBank.page_with_traits(id)
     end
     trait_uris = Set.new(@rdf.map { |trait| trait[:trait] })

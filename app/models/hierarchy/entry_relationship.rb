@@ -12,10 +12,12 @@ class Hierarchy::EntryRelationship
 
   def query
     @solr = SolrCore::HierarchyEntryRelationships.new
+    merger = Hierarchy::ConceptMerger.new(@hierarchy1)
     response = @solr.paginate(
       "hierarchy_entry_id_1:#{@entry1.id} AND "\
       "hierarchy_entry_id_2:#{@entry2.id}",
-      Hierarchy::ConceptMerger.compare_hierarchies_options(1))
+      # YES, this is cheating:
+      merger.instance_eval { compare_hierarchies_options(1) })
     response["response"]["docs"]
   end
 

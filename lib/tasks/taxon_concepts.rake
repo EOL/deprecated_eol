@@ -5,8 +5,12 @@ namespace :taxon_concepts do
   desc "Just a list of taxon concept IDs and its preferred scientific name."
   task :names => :environment do
     CSV.open("public/taxon_concept_names.tab", "wb", col_sep: "\t") do |csv|
-      TaxonConcept.where(published: true, vetted: Vetted.trusted.id).pluck(:id).
+      index = 0
+      TaxonConcept.where(published: true, vetted_id: Vetted.trusted.id).pluck(:id).
                    in_groups_of(10_000, false) do |group|
+        EOL.log("taxon_concepts:names on row #{index}", prefix: "r") if
+          index % 10_000 == 0
+        index += 1
         TaxonConcept.with_title.where(id: group).each do |concept|
           csv << [concept.id, concept.entry.name.string]
         end

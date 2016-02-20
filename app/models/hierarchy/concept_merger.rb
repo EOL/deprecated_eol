@@ -151,13 +151,13 @@ class Hierarchy
       # know what to clean up, e.g.: in CollectionItem.remove_superceded_taxa
       begin
         tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
+        @superceded[tc.id] = tc.supercedure_id unless tc.supercedure_id == 0
       rescue EOL::Exceptions::MergeToUnpublishedTaxon => e
         EOL.log("SKIP (target taxon is unpublished): #{working_on}",
           prefix: ".")
         # TODO: we should *probably* delete the unpublished taxon from Solr,
         # here. ...But that's a lot of work and I'm lazy.
       end
-      @superceded[tc.id] = tc.supercedure_id unless tc.supercedure_id == 0
     end
 
     # TODO: This really hints and an object, doesn't it? :S See

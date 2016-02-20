@@ -149,7 +149,14 @@ class Hierarchy
       EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
       # TODO: store the supercedure somewhere so that we can use it later to
       # know what to clean up, e.g.: in CollectionItem.remove_superceded_taxa
-      tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
+      begin
+        tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
+      rescue EOL::Exceptions::MergeToUnpublishedTaxon => e
+        EOL.log("SKIP (target taxon is unpublished): #{working_on}"),
+          prefix: ".")
+        # TODO: we should *probably* delete the unpublished taxon from Solr,
+        # here. ...But that's a lot of work and I'm lazy.
+      end
       @superceded[tc.id] = tc.supercedure_id unless tc.supercedure_id == 0
     end
 

@@ -14,7 +14,7 @@ class TaxonConcept
         # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
         (id1, id2) = [id1, id2].sort
         raise "Missing an ID (#{id1}, #{id2})" if id1 <= 0
-        raise "Cannot merge to unpublished taxon!" unless tc1.published?
+        raise EOL::Exceptions::MergeToUnpublishedTaxon unless tc1.published?
         tc2 = TaxonConcept.find(id2)
         raise "Missing merge-to concept (#{id2})" unless tc2
         EOL.log("MERGE: concept #{id2} into #{id1}")

@@ -152,7 +152,7 @@ class Hierarchy
       begin
         tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
       rescue EOL::Exceptions::MergeToUnpublishedTaxon => e
-        EOL.log("SKIP (target taxon is unpublished): #{working_on}"),
+        EOL.log("SKIP (target taxon is unpublished): #{working_on}",
           prefix: ".")
         # TODO: we should *probably* delete the unpublished taxon from Solr,
         # here. ...But that's a lot of work and I'm lazy.

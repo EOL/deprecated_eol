@@ -9,7 +9,6 @@ class TaxonConcept
   class Merger
     class << self
       def ids(id1, id2)
-        EOL.log_call
         tc1 = TaxonConcept.find(id1)
         return tc1 if id1 == id2
         # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
@@ -18,6 +17,7 @@ class TaxonConcept
         raise "Cannot merge to unpublished taxon!" unless tc1.published?
         tc2 = TaxonConcept.find(id2)
         raise "Missing merge-to concept (#{id2})" unless tc2
+        EOL.log("MERGE: concept #{id2} into #{id1}")
         tc2.update_attributes(supercedure_id: id1, published: false)
         HierarchyEntry.where(taxon_concept_id: id2).
           update_all(taxon_concept_id: id1)

@@ -4,6 +4,7 @@ namespace :taxon_concepts do
   # they aren't usually there (they expire).
   desc "Just a list of taxon concept IDs and its preferred scientific name."
   task :names => :environment do
+    puts "Started (#{Time.now})"
     CSV.open("public/taxon_concept_names.tab", "wb", col_sep: "\t") do |csv|
       index = 0
       TaxonConcept.where(published: true, vetted_id: Vetted.trusted.id).pluck(:id).

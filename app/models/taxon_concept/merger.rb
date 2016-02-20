@@ -6,7 +6,7 @@ class TaxonConcept
   # SUPERCEDED TaxonConcept!!! Why? So you can see both the id that was
   # superceded as well as the supercedure_id to see where it went. If you're
   # calling this, you probably care about both.
-  class Merge
+  class Merger
     class << self
       def ids(id1, id2)
         EOL.log_call
@@ -30,7 +30,7 @@ class TaxonConcept
         update_ignore_id(TaxonConceptsFlattened, id1, id2)
         update_ignore_ancestor_id(TaxonConceptsFlattened, id1, id2)
         move_traits(id1, id2)
-        TaxonConceptReindexing.reindex(id1)
+        TaxonConceptReindexing.reindex(tc1)
         # NOTE: this one used to also do a join to hierarchy_entries and ensure that
         # the tc id was id2. ...But that has already changed by this point, sooo...
         # that never worked. :| Also, it seems entirely superfluous. Just using the
@@ -39,7 +39,7 @@ class TaxonConcept
         tc2
       end
 
-      def self.move_traits(id1, id2)
+      def move_traits(id1, id2)
         traits = TraitBank.page_traits(id2)
         clauses = []
         traits.each do |trait|
@@ -47,7 +47,7 @@ class TaxonConcept
         end
         old_traits = clauses.map { |c| "<http://eol.org/pages/#{id2}> #{c}" }
         # TODO: we still need a delete method...
-        del_q = "WITH GRAPH <#{TraitBank.graph_name}> DELETE "\
+        del_q = "WITH GRAPH <#{TraitBank.graph}> DELETE "\
         "{ #{old_traits.join(" . ")} } WHERE { #{old_traits.join(" . ")} }"
         begin
           TraitBank.connection.query(del_q)
@@ -56,15 +56,15 @@ class TaxonConcept
         end
         new_traits = clauses.map { |c| "<http://eol.org/pages/#{id1}> #{c}" }
         TraitBank.connection.insert_data(data: new_traits,
-        graph_name: TraitBank.graph_name)
+        graph_name: TraitBank.graph)
       end
 
       # TODO: Rails doesn't have a way to UPDATE IGNORE ... WTF?
-      def self.update_ignore_id(klass, id1, id2)
+      def update_ignore_id(klass, id1, id2)
         EOL::Db.update_ignore_id_by_field(klass, id1, id2, "taxon_concept_id")
       end
 
-      def self.update_ignore_ancestor_id(klass, id1, id2)
+      def update_ignore_ancestor_id(klass, id1, id2)
         EOL::Db.update_ignore_id_by_field(klass, id1, id2, "ancestor_id")
       end
     end

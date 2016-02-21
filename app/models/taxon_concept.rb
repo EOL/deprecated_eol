@@ -690,7 +690,7 @@ class TaxonConcept < ActiveRecord::Base
   # returns a DataObject, not a TaxonConceptExemplarArticle
   def published_visible_exemplar_article_in_language(language)
     return nil unless taxon_concept_exemplar_article
-    if the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language
+    if the_best_article = taxon_concept_exemplar_article.data_object.try(:latest_published_version_in_same_language)
       return nil if the_best_article.language != language
       return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.get_visible.id
     end

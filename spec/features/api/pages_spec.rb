@@ -409,11 +409,12 @@ describe 'API:pages' do
     all_texts = @taxon_concept.text_for_user
     first_text = @taxon_concept.overview_text_for_user(nil)
     response = get_as_json("/api/pages/1.0/#{@taxon_concept.id}.json?subjects=all&details=1&texts_per_page=5&texts_page=1&images_per_page=0&images_page=0&videos_per_page=0&videos_page=0")
-    expect(response['dataObjects']).to include(first_text.guid)
+    datos_identifiers = response['dataObjects'].map { |d| d["identifier"] }
+    expect(datos_identifiers).to include(first_text.guid)
 
     next_exemplar = all_texts.last
     first_text.guid.should_not == next_exemplar.guid
-    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, next_exemplar.id)
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, data_object: next_exemplar.id)
 
     @taxon_concept.reload
     @taxon_concept.overview_text_for_user(nil).guid.should == next_exemplar.guid

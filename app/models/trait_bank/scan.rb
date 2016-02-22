@@ -59,9 +59,8 @@ class TraitBank
             query << "FILTER((  ?value = '#{ querystring }'))."
           else
             query << "FILTER(( REGEX(?value, '(^|\\\\W)#{ querystring }(\\\\W|$)', 'i'))"
-            matching_known_uris = Array(KnownUri.search( querystring ))
-            query << " || ?value IN ( '#{ matching_known_uris.collect(&:uri)
-              .join( "','" ) }')" unless matching_known_uris.blank?
+            matching_known_uris = Array(KnownUri.search( querystring )).collect(&:uri).join( "','" )
+            query << " || ?value IN ( '#{ matching_known_uris }')" unless matching_known_uris.blank?
             query << ") . "
           end
         end

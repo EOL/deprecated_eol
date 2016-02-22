@@ -5548,6 +5548,7 @@ es:
   images: Imágenes
   images_in_red_are_not_trusted: Las imágenes en color rojo no son de confianza.
   images_in_yellow_are_not_reviewed: Las imágenes que están en amarillo no están revisadas.
+  image_objects_page_number: página de imágenes
   images_sort_worklist_note:
     one: Las imágenes están ordenadas por fecha de importación a EOL, con los elementos
       más recientes mostrados en primer lugar. En esta lista de trabajo hay %{count}
@@ -5740,6 +5741,8 @@ es:
   limits_the_number_of_returned_map_objects: limita el número de objetos de mapa retornados
   limits_the_number_of_returned_iucn_objects: incluir el objeto de estado de la lista
     roja de la UICN
+  limits_the_returned_to_a_specific_language: proporciona los resultados en el idioma
+    especificado.
   link_more_about: Aprende más sobre este enlace
   link_name: Nombre del enlace
   link_to_this_term: enlace a este término
@@ -5795,6 +5798,7 @@ es:
   manager_parens: (administrador)
   map_from: mapa de
   master_curators_may_add_data: 'Curadores maestros pueden añadir datos:'
+  map_objects_page_number: Página de mapas
   maps_with_count:
     one: '%{count} Mapa'
     other: '%{count} Mapas'
@@ -6586,6 +6590,7 @@ es:
   sound_file: Archivo de sonido
   sound_from: sonido de
   sound_object: Objeto de sonido
+  sound_objects_page_number: página de sonidos
   sound_of: Sonido de
   sounds_with_count:
     one: '%{count} sonido'
@@ -6760,6 +6765,7 @@ es:
   test: Probar
   test_it_out: Probarlo
   text_object: Objeto de texto
+  text_objects_page_number: Página de textos
   text: texto
   text_capital: Texto
   text_summary_empty: Nadie ha contribuido aún con un breve resumen para este taxón.
@@ -7168,6 +7174,7 @@ es:
   vetted: Aprobados
   video_from: vídeo de
   video_object: Objeto de vídeo
+  video_objects_page_number: Página de videos
   video_title_not_available_in_language: Título no disponible en %{language}
   videos_with_count:
     one: '%{count} vídeo'

@@ -76,18 +76,19 @@
             placeholder: I18n.t('helpers.label.data_search.taxon_name_placeholder'),
             data: taxon_name[:data]
           %p= I18n.t(:taxon_name_more, scope: i18n_scope)
-    - if false # DISABLED FOR NOW.  :(
-      %fieldset
-        %h4= t('.search_value_or_range_header')
-        %dl
-          %dt
-            = label_tag :q, I18n.t(:q, scope: i18n_scope)
-          %dd
-            = search_field_tag :q, @querystring,
-              placeholder: I18n.t(:q_placeholder, scope: i18n_scope),
-              data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
-              scope: i18n_scope)}
-            %p= I18n.t(:q_more, scope: i18n_scope)
+
+    %fieldset
+      %h4= #t('.search_value_or_range_header')
+      %dl
+        %dt
+          = label_tag :q, I18n.t(:q, scope: i18n_scope)
+        %dd
+          = search_field_tag :q, @querystring,
+            placeholder: I18n.t(:q_placeholder, scope: i18n_scope),
+            data: {disabled_placeholder: I18n.t(:q_placeholder_disabled,
+            scope: i18n_scope)}
+          %p= I18n.t(:q_more, scope: i18n_scope)
+      - if false # DISABLED FOR NOW.  :(
         %h5= t('.or_range_header').html_safe
         %dl.range
           %dt

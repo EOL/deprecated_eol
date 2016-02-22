@@ -7162,7 +7162,7 @@ nl:
   what_is_this_question: Wat is dit?
   who_registered_before: aan
   who_registered_from: geregistreerd van
-  wikipedia_queue_create_successful_notice: Wikipedia-artikel %{article} verzie %{rev}
+  wikipedia_queue_create_successful_notice: De versie %{rev} van Wikipediapagina %{article}
     wordt binnenkort geïmporteerd.
   wikipedia_queue_create_unsuccessful_error: Er is een fout opgetreden. De Wikipediapagina
     is niet in de wachtrij van te importeren pagina's opgenomen.<br />. De versie-URL
@@ -7181,7 +7181,7 @@ nl:
   wikipedia_queue_new_instructions_step_four: 'Kopieer de URL van de versie uit de
     adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit
     Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>.'
-  wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
+  wikipedia_queue_new_page_title: Import van Wikipediapagina aanvragen
   will_find_taxon_pages_matching_the_search_term: vindt taxonpagina's als de naam,
     een synoniem of gewone naam precies overeen komt met de zoekterm
   would_you_like_to_become_a_curator_notice: Wilt u conservator worden? U kunt toegang

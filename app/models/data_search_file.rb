@@ -42,7 +42,7 @@ class DataSearchFile < ActiveRecord::Base
       where(["completed_at > ?", EXPIRATION_TIME.ago]).
       where(["id != ?", id]).last
     return nil unless dsf
-    File.exist?(dsf.local_file_path) ? dsf : nil
+    File.exist?(dsf.local_file_path) && dsf.downloadable? ? dsf : nil
   end
 
   def mark_as_completed

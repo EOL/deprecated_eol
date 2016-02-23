@@ -17,6 +17,7 @@ class DataSearchFile < ActiveRecord::Base
   def build_file
     if other = similar_file
       FileUtils.cp(other.local_file_path, local_file_path, preserve: true)
+      update_attributes(row_count: other.row_count, failed_at: nil, error: nil)
       mark_as_completed
     else
       write_file

@@ -347,6 +347,8 @@ EOL.update_unit_select_options = function(known_uri_id) {
 
 $(function() {
 
+  $('table.data tr.actions').hide().prev().find('.fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
+
   $('.has_many').each(function() {
     var $subform = $(this).clone();
     $subform.find('.once').remove();
@@ -393,8 +395,6 @@ $(function() {
   $('fieldset.unit_of_measure').hide();
 
   $('table.data .fold a').on('click', function() { $(this).closest('tr').click(); return(false); }); // These links just click the row, with JS.
-
-  $('table.data tr.actions').hide().prev().find('.fold img').attr('src', '<%= asset_path "arrow_fold_right.png" %>');
 
   $('table.data tr.data').on('click',
     function(e) {

@@ -20,6 +20,7 @@
 # Author: أحمد
 # Author: ترجمان05
 # Author: زكريا
+# Author: محمد أحمد عبد الفتاح
 # Author: مشعل الحربي
 ---
 ar:
@@ -35,7 +36,7 @@ ar:
         additional_annotation_fields: حقول هوامش إضافية
         show_references: مراجع (نص أو عنوان URL)
       collection_job:
-        overwrite: إستبدال المكررات
+        overwrite: استبدال المكررات
       collection_item:
         annotation: تعليق توضيحي
         sort_field: الترتيب حسب
@@ -986,6 +987,9 @@ ar:
       edit: عدّل الرسالة
       deleted_subject: (حذف)
       close_window: أغلق
+  known_uris:
+    add_a_relationship: أضف علاقة
+    select: اختر
   layouts:
     application:
       header_about: عن موسوعة الحياة
@@ -1573,6 +1577,9 @@ ar:
         meta_title: مرادفات %{scientific_name}.
         meta_title_with_common_name: مرادفات%{preferred_common_name} (%{scientific_name})
         tweet_text: مرادفات %{scientific_name}.
+    overview:
+      show:
+        tweet_text: معلومات عن %{scientific_name}
     resources:
       show:
         hierarchy_entry:
@@ -1687,6 +1694,10 @@ ar:
         meta_description: ارتباطات %{user_full_name} بشركاء المحتوى.
         meta_title: شركاء المحتوى الذي يرتبط بهم%{user_full_name}
         tweet_text: شركاء المحتوى الذي يرتبط بهم %{user_full_name}
+    data_downloads:
+      index:
+        meta_description: تنزيلات البيانات المطلوبة من %{user_full_name}
+        meta_title: تنزيلات البيانات للمستخدم %{user_full_name}
     edit:
       form_tip_account: |-
         لكي تتمكن من تسجيل الدخول إلى موسوعة الحياة، أنت في حاجة إما إلى أسم مستخدم وكلمة مرور موسوعة الحياة أو يمكنك تسجيل الدخول عن طريق حساب لطرف ثالث. كلمة المرور وإسم المستخدم مطلوبان إن لم يكن لديك حساب متصل، ومع ذلك، فقط قم بإدخال كلمة مرور جديدة هنا، إن كنت تود في تغيير الكلمة الحالية.

@@ -4705,6 +4705,7 @@ sv:
   images: Bilder
   images_in_red_are_not_trusted: Bilder i rött är inte pålitliga.
   images_in_yellow_are_not_reviewed: Bilder i gult är inte granskade.
+  image_objects_page_number: bildsida
   images_sort_worklist_note:
     one: Bilder sorteras efter importeringsdatumet på EOL, och de nyaste objekten
       visas först. Det finns %{count} bild i denna verklista.
@@ -4898,6 +4899,7 @@ sv:
   manager_parens: (ledare)
   map_from: karta från
   master_curators_may_add_data: 'Mästerkuratorer kan lägga till data:'
+  map_objects_page_number: Kartsida
   maps_with_count:
     one: '%{count} karta'
     other: '%{count} kartor'
@@ -5495,6 +5497,7 @@ sv:
   sound_file: Ljudfil
   sound_from: ljud från
   sound_object: Ljudobjekt
+  sound_objects_page_number: ljussida
   sound_of: Ljud för
   sounds_with_count:
     one: '%{count} ljud'
@@ -5596,6 +5599,7 @@ sv:
   test: Test.
   test_it_out: Prova det
   text_object: Textobjekt
+  text_objects_page_number: Textsida
   text: text
   text_capital: Text
   text_summary_empty: Ingen har bidragit med en kort sammanfattning för detta taxon
@@ -5872,6 +5876,7 @@ sv:
   vetted: Granskad
   video_from: videoklipp från
   video_object: Videoobjekt
+  video_objects_page_number: Videosida
   video_title_not_available_in_language: Titel är inte tillgänglig på %{language}
   videos_with_count:
     one: '%{count} video'

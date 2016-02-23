@@ -6,10 +6,13 @@
 - items_editable = editable && ! @collection.is_resource_collection?
 = content_for :additional_page_actions do
   = render 'collections/editable_actions', { :editable => editable }
-  - if current_user.is_admin? && @collection_results && @collection_results.is_a?(WillPaginate::Collection) && @collection_results.total_entries < Collection::REINDEX_LIMIT
-    %li= link_to I18n.t(:reindex_page_button), reindex_collection_path(@collection), :class => 'button'
+  - if current_user.is_admin? && @collection_results && @collection_results.is_a?(WillPaginate::Collection)
+    - if @collection_results.total_entries < Collection::REINDEX_LIMIT
+      %li= link_to I18n.t(:reindex_page_button), reindex_collection_path(@collection), :class => 'button'
+    - else
+      %li= "(too large to reindex)" # I don't care about the embedded English, here, since it's admin-only and ... Tramea.
     - if @collection.collection_has_data?
-      = link_to I18n.t(:download_collection_data), choose_taxa_data_collections_path(collection_id: @collection), :class => 'button'
+      %li= link_to I18n.t(:download_collection_data), choose_taxa_data_collections_path(collection_id: @collection), :class => 'button'
 - if @collection_items.blank?
   #sidebar
     .collection_contributors

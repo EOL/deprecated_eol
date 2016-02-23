@@ -57,7 +57,7 @@
                     - else
                       - if ! search_file.hosted_file_url
                         %li= "[file missing!]"
-                      - elsif expired?
+                      - elsif search_file.expired?
                         %li= I18n.t(:expired)
                       - elsif search_file.row_count.blank? || search_file.row_count == 0
                         %li= "[empty!]"

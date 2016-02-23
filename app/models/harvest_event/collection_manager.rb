@@ -20,8 +20,8 @@ class HarvestEvent
       index_collection_items_added do
         add_items_collection
       end
-      # NOTE: because it's updated, it will ALSO reindex the collection in Solr:
       collection.fix_item_count
+      EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection)
       if @event.published? && resource.preview_collection
         resource.preview_collection.users = []
         resource.preview_collection.destroy

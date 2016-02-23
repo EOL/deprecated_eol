@@ -54,6 +54,13 @@
                   - if search_file.complete?
                     - if search_file.downloadable?
                       %li= link_to(I18n.t('users.data_downloads.download'), search_file.hosted_file_url)
+                    - else
+                      - if ! search_file.hosted_file_url
+                        %li= "[file missing!]"
+                      - elsif expired?
+                        %li= I18n.t(:expired)
+                      - elsif search_file.row_count.blank? || search_file.row_count == 0
+                        %li= "[empty!]"
                   - if able_to_edit_user?
                     - if search_file.complete? || search_file.failed_at
                       %li= link_to(I18n.t(:delete), user_data_download_delete_path(search_file.user, search_file, type: 0), confirm: I18n.t(:are_you_sure), method: :post)

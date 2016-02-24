@@ -414,7 +414,7 @@ describe 'API:pages' do
 
     next_exemplar = all_texts.last
     first_text.guid.should_not == next_exemplar.guid
-    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, data_object: next_exemplar.id)
+    TaxonConceptExemplarArticle.set_exemplar(@taxon_concept.id, next_exemplar.id)
 
     @taxon_concept.reload
     @taxon_concept.overview_text_for_user(nil).guid.should == next_exemplar.guid

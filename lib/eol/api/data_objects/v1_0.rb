@@ -86,7 +86,7 @@ module EOL
             end
           end
           return return_hash unless params[:details] == true
-          
+
           return_hash['mimeType']               = data_object.mime_type.label unless data_object.mime_type.blank?
           if return_hash['mimeType'].blank? && data_object.image?
             return_hash['mimeType'] = 'image/jpeg'

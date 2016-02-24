@@ -17,10 +17,6 @@ class TraitBank
       #   required_equivalent_attributes: @required_equivalent_attributes,
       #   required_equivalent_values: @required_equivalent_values }
       # TODO: someday we might want to pass in a page size
-      def connection
-       @conneciton ||= EOL::Sparql.connection
-      end
-
       def for(options)
         traits = TraitBank.connection.query(scan_query(options))
         metadata(traits)

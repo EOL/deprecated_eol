@@ -1,5 +1,5 @@
-# This is the "long" method, using PHP, to reindex a taxon page, and is not allowed if there are too many
-# descendants.
+# This is the "long" method, using PHP, to reindex a taxon page, and is not
+# allowed if there are too many descendants.
 class TaxonConceptReindexing
 
   attr_reader :taxon_concept
@@ -16,7 +16,11 @@ class TaxonConceptReindexing
 
   def reindex
     @taxon_concept.disallow_large_curations unless @allow_large_tree # NOTE: this can raise an exception.
-    @taxon_concept.lock_classifications
+    begin
+      @taxon_concept.lock_classifications
+    rescue ActiveRecord::RecordNotUnique => e
+      # Do nothing. It's okay; PHP will handle it.
+    end
     CodeBridge.reindex_taxon_concept(@taxon_concept.id)
     Resque.enqueue(ClearTaxonMedia, @taxon_concept.id)
   end

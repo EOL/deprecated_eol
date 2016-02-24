@@ -1,4 +1,23 @@
 namespace :taxon_concepts do
+  # What sucks about this is that it needs to "make" a bajillion preffered
+  # entries, so it's quite slow. If they are there, it's relatively fast... but
+  # they aren't usually there (they expire).
+  desc "Just a list of taxon concept IDs and its preferred scientific name."
+  task :names => :environment do
+    puts "Started (#{Time.now})"
+    CSV.open("public/taxon_concept_names.tab", "wb", col_sep: "\t") do |csv|
+      index = 0
+      TaxonConcept.where(published: true, vetted_id: Vetted.trusted.id).pluck(:id).
+                   in_groups_of(10_000, false) do |group|
+        index += 10_000
+        puts "taxon_concepts:names -> #{index}"
+        TaxonConcept.with_title.where(id: group).each do |concept|
+          csv << [concept.id, concept.entry.name.string]
+        end
+      end
+    end
+  end
+
   desc 'generate json'
   task :generate_json => :environment do
     puts "Started (#{Time.now})\n"
@@ -10,7 +29,7 @@ namespace :taxon_concepts do
     languages = []
     TranslatedLanguage.where(language_id: Language.english.id).each do |lang|
       iso = Language.find(lang.original_language_id).iso_639_1
-      languages[lang.original_language_id] = iso.blank? ? 'UNKNOWN': iso  
+      languages[lang.original_language_id] = iso.blank? ? 'UNKNOWN': iso
     end
     File.open("public/taxon_concepts.json", "wb") do |file|
       # Headers:
@@ -40,7 +59,7 @@ namespace :taxon_concepts do
           where(['id IN (?)',
             tcpe.published_hierarchy_entry.flattened_ancestors.map(&:ancestor_id)]).
           map(&:taxon_concept_id)
-          
+
         data[:preferred_scientific_names] =
           tcpe.published_taxon_concept.preferred_names.map { |pn| pn.name.try(:string) }.
           compact.sort.uniq

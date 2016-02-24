@@ -101,7 +101,7 @@ module ActiveRecord
           if v = Rails.cache.read(name)
             return v
           else
-            EOL.log("Cache miss: #{name}")
+            EOL.log("Cache miss: #{name}") if EOL.respond_to?(:log)
             Rails.cache.delete(name) if Rails.cache.exist?(name)
             Rails.cache.fetch(name) do
               data_to_cache = yield

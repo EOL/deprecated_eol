@@ -91,19 +91,22 @@ traits.traits # => An WillPaginate::Collection instance, containing Trait instan
 trait = traits.traits.first # => A single instance of a Trait.
 
 # A trait instance:
-trait.page # => (Only for search results:) a TaxonConcept instance.
-trait.point # => A DataPointUri instance.
-trait.predicate_uri # => The KnownUri for the predicate, or an UnknownUri if one wasn't found.
-trait.predicate_name # => The STRING for the predicate. Usually, this is the #name of a KnownUri.
-trait.anchor # => A unique ID suitable for using as the ID in an HTML row.
-trait.statistical_method? # => A boolean; does this trait have any statistical methods?
-trait.trait.statistical_method_names # => An array of strings naming the statistical methods used.
-trait.value_uri # => The KnownUri (or an UnknownUri) for the value.
-trait.value_name # => The string for the value.
-trait.comments # => An array of Comment instances.
-trait.content_partner # => An instance of ContentPartner associated with the trait. Could be nil!
-trait.source_url # => The URI (string) of the source for the trait; could (rarely) be nil.
-trait.meta # => A hash of predicate => value pairs; both predicate and values are either KnownUris (when appropriate) or strings.
+trait.page # (Only for search results:) a TaxonConcept instance.
+trait.point # A DataPointUri instance.
+trait.predicate_uri # The KnownUri for the predicate, or an UnknownUri if one wasn't found.
+trait.predicate_name # The STRING for the predicate. Usually, this is the #name of a KnownUri.
+trait.anchor # A unique ID suitable for using as the ID in an HTML row.
+trait.statistical_method? # A boolean; does this trait have any statistical methods?
+trait.trait.statistical_method_names # An array of strings naming the statistical methods used.
+trait.value_uri # The KnownUri (or an UnknownUri) for the value.
+trait.value_name # The string for the value.
+trait.comments # An array of Comment instances.
+trait.content_partner # An instance of ContentPartner associated with the trait. Could be nil!
+trait.source_url # The URI (string) of the source for the trait; could (rarely) be nil.
+trait.meta # A hash of predicate => value pairs; both predicate and values are either KnownUris (when appropriate) or strings.
+trait.hidden? # true iff the DataPointUri is hidden by curators
+trait.included? # true iff the DataPointUri is forced to show up on the overview by a curator
+trait.excluded? # true iff the DataPointUri is forced to NEVER show up on the overview by a curator
 # Note that in a view, you can use the following helper on the trait instance to render it with all
 # its ancilary information (sex, life stage, etc):
 format_value(trait)

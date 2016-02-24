@@ -17,7 +17,7 @@ describe ContentServer do
       ContentServer.should_receive(:cache_url_to_path).with('url').and_return('nice_path')
       ContentServer.cache_path('url').should =~ /http.*c\d.*#{Rails.configuration.content_path}.*nice_path/
     end
-    
+
     it 'should allow a content host to be specified' do
       ContentServer.should_receive(:cache_url_to_path).with('url').and_return('nice_path')
       ContentServer.cache_path('url', specified_content_host: 'http://someotherhost.com/').should =~ /http:\/\/someotherhost\.com\/#{Rails.configuration.content_path}nice_path/
@@ -125,7 +125,7 @@ describe ContentServer do
       allow(Hash).to receive(:from_xml) { hash }
       allow(ResourceStatus).to receive(:validation_failed) { 'failed' }
       allow(ResourceStatus).to receive(:validated) { 'validated' }
-      allow(ErrorLog).to receive(:create)
+      allow(EOL).to receive(:log)
     end
 
     it 'returns nil without file url' do
@@ -157,7 +157,7 @@ describe ContentServer do
       allow(Hash).to receive(:from_xml) { { "response" => { "status" => "some name" } } }
       allow(ResourceStatus).to receive(:some_name) { 'retval' }
       ContentServer.upload_resource('hello', 'friend')
-      expect(ErrorLog).to have_received(:create)
+      expect(EOL).to have_received(:log)
     end
 
     it 'returns the error if there was one in response' do
@@ -173,15 +173,15 @@ describe ContentServer do
       end
 
       subject { ContentServer.upload_resource('hello', 'friend') }
-      
+
       it 'returns validation_failed' do
         expect(subject.first).to eq('failed')
       end
 
       it 'logs an error' do
-        allow(ErrorLog).to receive(:create)
+        allow(EOL).to receive(:log)
         subject # Calls it.
-        expect(ErrorLog).to have_received(:create)
+        expect(EOL).to have_received(:log)
       end
 
       # NOTE - I added this. It was returning nil before, and not using the error at all. Lame?

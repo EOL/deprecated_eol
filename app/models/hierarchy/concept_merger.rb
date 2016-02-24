@@ -14,7 +14,7 @@ class Hierarchy
       @superceded = {}
       @visible_id = Visibility.get_visible.id
       @preview_id = Visibility.get_preview.id
-      @per_page = Rails.configuration.solr_relationships_page_size
+      @per_page = Rails.configuration.solr_relationships_page_size.to_i
       @solr = SolrCore::HierarchyEntryRelationships.new
     end
 
@@ -80,10 +80,7 @@ class Hierarchy
         "#{hierarchy2.id}")
     end
 
-    # NOTE: This is a REALLY slow query. ...Which sucks. :\ Yes, even for
-    # Solr... it takes a VERY long time.
     def get_page_from_solr(hierarchy1, hierarchy2, page)
-      EOL.log_call
       response = @solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page))
       rhead = response["responseHeader"]
@@ -117,7 +114,7 @@ class Hierarchy
       # "visibility_id_2"=>0, "same_concept"=>true, "relationship"=>"name",
       # "confidence"=>1.0 }
       # TODO: move this criterion to the solr query (see above):
-      return(nil) if relationship["relationship"] == 'syn' &&
+      return(nil) if relationship["relationship"] == "syn" &&
         relationship["confidence"] < 0.25
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
         *assign_local_vars_from_relationship(relationship)
@@ -137,27 +134,34 @@ class Hierarchy
       # This seems to be a bug (in Solr?), but we have to catch it!
       return(nil) if tc_id1 == 0 or tc_id2 == 0
       return(nil) if tc_id1 == tc_id2
-      EOL.log("Comparing entry #{tc_id1} (hierarchy #{hierarchy1.id}) "\
-        "with #{id2} (hierarchy #{hierarchy2.id})", prefix: "?")
+      working_on = "#{hierarchy1.id}->#{id1}->#{tc_id1} vs "\
+        "#{hierarchy2.id}->#{id2}->#{tc_id2}"
       return(nil) if concepts_of_one_already_in_other?(relationship)
       if curators_denied_relationship?(relationship)
-        EOL.log("SKIP: merge of relationship #{id1} (concept #{tc_id1}) with "\
-          " #{id2} (concept #{tc_id2}) rejected by curator", prefix: ".")
+        EOL.log("SKIP (rejected by curator): #{working_on}", prefix: ".")
         return(nil)
       end
       if affected = additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
-        EOL.log("SKIP: A merge of #{id1} (concept #{tc_id1}) and #{id2} "\
-          "(concept #{tc_id2}) is not allowed by complete hierarchy",
+        EOL.log("SKIP (not allowed by complete hierarchy): #{working_on}",
           prefix: ".")
         return(nil)
       end
       EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
       # TODO: store the supercedure somewhere so that we can use it later to
       # know what to clean up, e.g.: in CollectionItem.remove_superceded_taxa
-      tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
-      @superceded[tc.id] = tc.supercedure_id unless tc.supercedure_id == 0
+      begin
+        tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
+        @superceded[tc.id] = tc.supercedure_id unless tc.supercedure_id == 0
+      rescue EOL::Exceptions::MergeToUnpublishedTaxon => e
+        EOL.log("SKIP (target taxon is unpublished): #{working_on}",
+          prefix: ".")
+        # TODO: we should *probably* delete the unpublished taxon from Solr,
+        # here. ...But that's a lot of work and I'm lazy.
+      end
     end
 
+    # TODO: This really hints and an object, doesn't it? :S See
+    # Hierarchy::EntryRelationship for WIP
     def assign_local_vars_from_relationship(relationship)
       [ relationship["hierarchy_entry_id_1"],
         relationship["taxon_concept_id_1"],
@@ -204,27 +208,55 @@ class Hierarchy
     def concepts_of_one_already_in_other?(relationship)
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
         *assign_local_vars_from_relationship(relationship)
-      if entry_published_in_hierarchy?(1, relationship, hierarchy1)
-        EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1}",
-          prefix: ".")
-        return true
+      if hierarchy1.complete?
+        # HE.exists?(concept: 2, hierarchy: 1, visibility: visible)
+        if entry_published_in_hierarchy?(1, relationship)
+          EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1}",
+            prefix: ".")
+          return true
+        end
+        # HE.exists?(concept: 2, hierarchy: 1, visibility: preview)
+        if entry_preview_in_hierarchy?(1, relationship)
+          EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
+            "#{hierarchy1.id}", prefix: ".")
+          return true
+        end
       end
-      if entry_published_in_hierarchy?(2, relationship, hierarchy2)
-        EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
-          "#{hierarchy2.id}", prefix: ".")
-        return true
-      end
-      if entry_preview_in_hierarchy?(1, relationship, hierarchy1)
-        EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
-          "#{hierarchy1.id}", prefix: ".")
-        return true
-      end
-      if entry_preview_in_hierarchy?(2, relationship, hierarchy2)
-        EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
-          "#{hierarchy2.id}", prefix: ".")
-        return true
+      if hierarchy2.complete?
+        # HE.exists?(concept: 1, hierarchy: 2, visibility: visible)
+        if entry_published_in_hierarchy?(2, relationship)
+          EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
+            "#{hierarchy2.id}", prefix: ".")
+          return true
+        end
+        # HE.exists?(concept: 1, hierarchy: 2, visibility: preview)
+        if entry_preview_in_hierarchy?(2, relationship)
+          EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
+            "#{hierarchy2.id}", prefix: ".")
+          return true
+        end
       end
       false
+    end
+
+    def entry_published_in_hierarchy?(which, relationship)
+      entry_has_vis_id_in_hierarchy?(which, relationship, @visible_id)
+    end
+
+    def entry_preview_in_hierarchy?(which, relationship)
+      return false unless @latest_preview_events_by_hierarchy.has_key?(
+        relationship["hierarchy_id_#{which}"])
+      entry_has_vis_id_in_hierarchy?(which, relationship, @preview_id,
+        relationship["hierarchy_id_#{which}"])
+    end
+
+    def entry_has_vis_id_in_hierarchy?(which, relationship, vis_id)
+      other = which == 1 ? 2 : 1
+      relationship["visibility_id_#{which}"] == vis_id &&
+        HierarchyEntry.exists?(
+          taxon_concept_id: relationship["taxon_concept_id_#{other}"],
+          hierarchy_id: relationship["hierarchy_id_#{which}"],
+          visibility_id: vis_id)
     end
 
     # NOTE: we could query the DB to buld this full list, using
@@ -271,32 +303,6 @@ class Hierarchy
 
     def mark_as_compared(id1, id2)
       @compared << compared_key(id1, id2)
-    end
-
-    def entry_published_in_hierarchy?(which, relationship, hierarchy)
-      entry_has_vis_id_in_hierarchy?(which, relationship, @visible_id,
-        hierarchy)
-    end
-
-    def entry_preview_in_hierarchy?(which, relationship, hierarchy)
-      # TODO: I'm not sure this actually saves us much time. Worth it?
-      return false unless
-        @latest_preview_events_by_hierarchy.has_key?(hierarchy.id)
-      entry_has_vis_id_in_hierarchy?(which, relationship, @preview_id,
-        hierarchy)
-    end
-
-    def entry_has_vis_id_in_hierarchy?(which, relationship, vis_id, hierarchy)
-      other = which == 1 ? 2 : 1
-      hierarchy.complete &&
-        relationship["visibility_id_#{which}"] == vis_id &&
-        concept_has_vis_id_in_hierarchy?(relationship["taxon_concept_id_#{other}"],
-          vis_id, hierarchy)
-    end
-
-    def concept_has_vis_id_in_hierarchy?(taxon_concept_id, vis_id, hierarchy)
-      HierarchyEntry.exists?(taxon_concept_id: taxon_concept_id,
-        hierarchy_id: hierarchy.id, visibility_id: vis_id)
     end
 
     def curators_denied_relationship?(relationship)

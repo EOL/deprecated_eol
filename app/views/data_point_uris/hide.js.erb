@@ -1,6 +1,5 @@
-var $row = $('tr#<%= @data_point_uri.anchor %>');
+var $row = $('#<%= @data_point_uri.anchor %>');
 var $add_cmd = $row.addClass('hidden').next().find('div.additional_commands');
-$add_cmd.find('a.add_exemplar').hide();
 var $unhide = $add_cmd.find('a.unhide.button');
 if($unhide.length > 0) {
   $unhide.show();

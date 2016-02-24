@@ -1,5 +1,5 @@
 class Trait
-  attr_reader :predicate, :point, :rdf, :page
+  attr_reader :predicate, :point, :page, :rdf, :uri
 
   # TODO: put this in configuration:
   SOURCE_RE = TraitBank::SOURCE_RE
@@ -14,8 +14,8 @@ class Trait
       @predicate = rdf.first[:predicate].to_s
     end
     # Again, they all have the "trait", sooo:
-    trait_uri = rdf.first[:trait]
-    @point = @source_set.points.find { |point| point.uri == trait_uri }
+    @uri = rdf.first[:trait]
+    @point = @source_set.points.find { |point| point.uri == @uri }
     if rdf.first.has_key?(:page)
       # If there's a page, they all have it:
       if rdf.first[:page].to_s =~ TraitBank.taxon_re
@@ -27,7 +27,11 @@ class Trait
   end
 
   def anchor
-    point.anchor
+    point.try(:anchor) || header_anchor
+  end
+
+  def header_anchor
+    "trait_#{uri.gsub(/[^_A-Za-z0-9]/, '_')}"
   end
 
   def association?
@@ -44,6 +48,22 @@ class Trait
 
   def glossary
     @source_set.glossary
+  end
+
+  def hidden?
+    point.try(:hidden?)
+  end
+
+  def visible?
+    ! hidden?
+  end
+
+  def excluded?
+    point.try(:excluded?)
+  end
+
+  def included?
+    point.try(:included?)
   end
 
   def life_stage

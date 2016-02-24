@@ -579,8 +579,6 @@ describe TaxonConcept do
   it 'should have a smart #entry' do
     tc = TaxonConcept.gen
     he = HierarchyEntry.last
-    # 'which does NOT accept arguments other than a Hierarchy'
-    lambda { tc.entry(he) }.should raise_error
     # 'which uses preferred entry if available'
     TaxonConceptPreferredEntry.create(taxon_concept_id: tc.id, hierarchy_entry_id: he.id)
     tcpe = TaxonConceptPreferredEntry.last

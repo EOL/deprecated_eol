@@ -64,18 +64,11 @@ describe 'API:synonyms' do
     @taxon_concept.add_data_object(@object)
   end
 
-  # not logging API anymore!
-  # it 'should create an API log including API key' do
-    # user = User.gen(api_key: User.generate_key)
-    # check_api_key("/api/data_objects/#{@object.guid}?key=#{user.api_key}", user)
-  # end
-
   it "data objects should show unpublished objects" do
     @object.update_column(:published, 0)
     response = get_as_xml("/api/data_objects/#{@object.guid}")
-    # debugger
     response.xpath('/').inner_html.should_not == ""
-    # response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
+    response.xpath('//xmlns:dataObject/dc:identifier').inner_text.should == @object.guid
     @object.update_column(:published, 1)
   end
 

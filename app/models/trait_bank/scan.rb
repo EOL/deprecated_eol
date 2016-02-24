@@ -46,7 +46,11 @@ class TraitBank
         query += "SELECT #{fields} WHERE { "\
           "GRAPH <http://eol.org/traitbank> { "\
           "?page a eol:page . "\
-          "?page <#{options[:attribute]}> ?trait . "
+          "{?page <#{options[:attribute]}> ?trait}"
+        unless options[:required_equivalent_attributes].blank?
+          required_equivalent_attributes = KnownUri.find_by_id(options[:required_equivalent_attributes]).uri
+          query += "UNION {?page <#{required_equivalent_attributes}> ?trait} ."
+        end
         if clade
           query += "?page eol:has_ancestor <http://eol.org/pages/#{clade}> . "
         end

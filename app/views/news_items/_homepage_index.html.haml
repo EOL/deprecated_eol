@@ -1,6 +1,6 @@
 - if translated_news_items.nil? == false && translated_news_items.size > 0
   %ul
-    - for translated_news_item in translated_news_items
+    - translated_news_items.each do |translated_news_item|
       %li
         .details.news_details
           %h4= link_to translated_news_item.title, news_item_path(translated_news_item.news_item_id)

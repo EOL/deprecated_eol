@@ -89,7 +89,7 @@ module EOL
   def self.log_error(e)
     EOL.log("ERROR: #{e.message}", prefix: "!")
     i = 0
-    @gem_regex = /gems\/(actionpack|activesupport|railties|sinatra|unicorn|journey|newrelic_rpm|rack)/
+    @gem_regex = /gems\/(actionpack|resque|rake|activesupport|railties|sinatra|unicorn|journey|newrelic_rpm|rack)/
     skipped = 0
     while e.backtrace[i] !~ /__pry__/ &&
       i < e.backtrace.length

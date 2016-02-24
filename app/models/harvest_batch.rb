@@ -37,12 +37,15 @@ class HarvestBatch
   def post_harvesting
     EOL.log_call
     ActiveRecord::Base.with_master do
-      begin
-        @resources.each do |resource|
-          EOL.log("POST-HARVEST: #{resource.title}")
-          url = "http://eol.org/content_partners/"\
-            "#{resource.content_partner_id}/resources/#{resource.id}"
-          EOL.log(url)
+      @resources.each do |resource|
+        url = "http://eol.org/content_partners/"\
+          "#{resource.content_partner_id}/resources/#{resource.id}"
+        EOL.log("POST-HARVEST: #{resource.title}")
+        EOL.log(url)
+        unless resource.ready?
+          EOL.log("SKIPPING (not ready): #{resource.id}")
+        end
+        begin
           resource.hierarchy.flatten
           # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
           # resource. Make it run #publish (in the background)! YOU WERE HERE
@@ -53,13 +56,14 @@ class HarvestBatch
           end
           EOL.log("POST-HARVEST: #{resource.title} COMPLETE")
           EOL.log(url)
+        # TODO: there are myriad specific errors that harvesting can throw; catch
+        # them here.
+        rescue => e
+          EOL.log_error(e)
         end
-        #WAIT: needs to be called async'ly: denormalize_tables
-      # TODO: there are myriad specific errors that harvesting can throw; catch
-      # them here.
-      rescue => e
-        EOL.log_error(e)
       end
+      EOL.log("Enqueue 'top_images' in 'php'")
+      Resque.enqueue(CodeBridge, {'cmd' => 'top_images'})
     end
     EOL.log_return
   end
@@ -75,7 +79,6 @@ class HarvestBatch
     # needed, based on what got harvested (i.e.: a list of data objects
     # inserted could be used to figure out where they lie in the sort, and
     # update the orders as needed based on that—much faster.)
-    # WAIT: don't trust this; do it from harvest: TopImage.rebuild
     RandomHierarchyImage.create_random_images_from_rich_taxa
     TaxonConceptPreferredEntry.rebuild
     CollectionItem.remove_superceded_taxa

@@ -246,8 +246,7 @@ class Hierarchy
     def entry_preview_in_hierarchy?(which, relationship)
       return false unless @latest_preview_events_by_hierarchy.has_key?(
         relationship["hierarchy_id_#{which}"])
-      entry_has_vis_id_in_hierarchy?(which, relationship, @preview_id,
-        relationship["hierarchy_id_#{which}"])
+      entry_has_vis_id_in_hierarchy?(which, relationship, @preview_id)
     end
 
     def entry_has_vis_id_in_hierarchy?(which, relationship, vis_id)

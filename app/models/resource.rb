@@ -175,9 +175,8 @@ class Resource < ActiveRecord::Base
       latest_harvest_event.taxon_concept_ids)
   end
 
-  # Just reusing the logic of the scope:
-  def ready?
-    Resource.ready.where(id: id).exists?
+  def ready_to_publish?
+    resource_status == ResourceStatus.processed
   end
 
   def status_can_be_changed_to?(new_status)

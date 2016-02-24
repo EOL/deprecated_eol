@@ -24,6 +24,8 @@ class SearchTraits < TraitSet
     @attribute = search_options[:attribute]
     @page = search_options[:page] || 1
     @per_page = search_options[:per_page] || 100
+    required_equivalent_attributes = KnownUri.find_by_id(search_options[:required_equivalent_attributes]).uri unless
+       search_options[:required_equivalent_attributes].blank?
     # NOTE ********************* IMPORTANT  !!!!! **********************
     # If you make changes to search, you MUST consider any necessary changes to
     # the cache key!!!
@@ -36,6 +38,8 @@ class SearchTraits < TraitSet
       @traits = [].paginate
     else
       @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}"
+      @key += " & #{required_equivalent_attributes.gsub(/\W/, '_')}" unless
+        required_equivalent_attributes.blank?
       @key += "/clade/#{search_options[:clade]}" unless
         search_options[:clade].blank?
       @count_key = @key.sub('search', 'search/count')

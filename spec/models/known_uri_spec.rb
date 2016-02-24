@@ -32,28 +32,23 @@ describe KnownUri do
     end
 
     it 'should ignore extra space' do
-      # EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('Foo    bar').first).to eq(@uri3)
     end
 
     it 'should match the first single word' do
-      # EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('bar').first).to eq(@uri2) # Not 3...
     end
 
     it 'should ignore symbols' do
-      # EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return(@uris)
       expect(KnownUri.by_name('foo$#').first).to eq(@uri3)
     end
 
     # NOTE - I fixed this one already (given the TODO above). Just remove this comment.
     it 'should return empty set with no match' do
-      # EOL::Sparql.connection.should_receive(:all_measurement_type_known_uris).and_return([])
       expect(KnownUri.by_name('anything')).to eq([])
     end
 
     it 'should ignore sparql results that are not URIs' do
-      # EOL::Sparql.connection.should_receive(:all_measursement_type_known_uris).and_return(['perfect'])
       expect(KnownUri.by_name('perfect').first).to be_nil
     end
 

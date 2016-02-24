@@ -13,11 +13,6 @@ describe SchemaController do
   end
 
   describe 'GET terms' do
-    # changed the logic of the code
-    # it 'should give 404 for unknown terms' do
-      # session[:user_id] = @user.id
-      # expect { get :terms, :id => 'a_non_existing_uri' }.to raise_error(ActiveRecord::RecordNotFound)
-    # end
 
     it 'should redirect known terms to the glossary' do
       session[:user_id] = @user.id
@@ -27,10 +22,6 @@ describe SchemaController do
       known_uri.destroy
     end
 
-    # not raising an error anymore!
-    # it "should only allow access from users who can see_data" do
-      # expect { get :terms, :id => 'anything' }.to raise_error(EOL::Exceptions::SecurityViolation)
-    # end
   end
 
 end

@@ -414,7 +414,6 @@ describe 'Taxa page' do
 
   context 'when taxon supercedes another concept' do
     it 'should use supercedure to find taxon if user visits the other concept' do
-      puts "current : #{current_url}, super : #{@testy[:superceded_taxon_concept]}"
       visit taxon_overview_path @testy[:superceded_taxon_concept]
       current_url.should match /#{taxon_overview_path(@taxon_concept)}/
       current_url.should_not match /#{taxon_overview_path(@testy[:superceded_taxon_concept])}/

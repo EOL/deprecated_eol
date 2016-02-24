@@ -42,7 +42,7 @@ describe 'CMS' do
 
       english_translation.meta_keywords = "Some English keywords"
       english_translation.meta_description = "Some English description"
-      english_translation.save!
+      english_translation.save
       visit "/info/#{content_page.id}"
       page.should have_tag("meta[name='keywords'][content='#{english_translation.meta_keywords}']")
       page.should have_tag("meta[name='description'][content='#{english_translation.meta_description}']")

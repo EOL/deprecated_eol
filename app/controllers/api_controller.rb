@@ -84,6 +84,8 @@ class ApiController < ApplicationController
       rescue EOL::Exceptions::ApiException => e
         return render_error(e.message)
       rescue => e
+        EOL.log("API error (#{@api_method})")
+        EOL.log_error(e)
         return render_error('Sorry, there was a problem')
       end
     end

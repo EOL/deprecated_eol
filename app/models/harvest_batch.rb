@@ -42,8 +42,10 @@ class HarvestBatch
           "#{resource.content_partner_id}/resources/#{resource.id}"
         EOL.log("POST-HARVEST: #{resource.title}")
         EOL.log(url)
-        unless resource.ready?
-          EOL.log("SKIPPING (not ready): #{resource.id}")
+        unless resource.ready_to_publish?
+          EOL.log("SKIPPING (status #{resource.resource_status.label}): "\
+            "#{resource.id} - Must be 'Processed' to publish")
+          next
         end
         begin
           resource.hierarchy.flatten

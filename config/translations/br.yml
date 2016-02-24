@@ -2456,6 +2456,9 @@ br:
   common_name_avg: Keidenn an anvioù-boutin
   common_name: Anv-boutin
   common_name_exists: An anv poblek <em>%{name_string}</em> zo anezhañ dija
+  common_names_with_count:
+    one: '%{count} common name'
+    other: '%{count} common names'
   communities_with_count:
     one: '%{count} Kumuniezh'
     other: '%{count} Kumuniezh'

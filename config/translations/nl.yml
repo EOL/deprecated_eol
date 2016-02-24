@@ -690,7 +690,7 @@ nl:
         credentials: Gebruikersgegevens
         curation_priveleges_credentials: Referenties <small>(alleen voor volledige
           en meesterconservatoren)</small>
-        credentials_more: 'Selecteer tenminste één specifieke referentie uit deze
+        credentials_more: 'Selecteer ten minste één specifieke referentie uit deze
           lijst:'
         credentials_more_academic: Faculteitsmedewerker-, staf- or promovendusstatus
           in een relevante universiteit of HBO-opleiding.
@@ -2116,7 +2116,7 @@ nl:
       empty: U hebt geen downloads. U kunt <a href='%{data_search_url}'>naar gegevens
         zoeken</a> en de resultaten downloaden.
       empty_taxa_collection: Er zijn geen kenmerken voor deze collectie
-      no_selected_attributes: Er is geen kenmerk geselecteerd. Selecteer er tenminste
+      no_selected_attributes: Er is geen kenmerk geselecteerd. Selecteer er ten minste
         één
       download: downloaden
       page_title: Gegevensdownloads
@@ -2134,7 +2134,7 @@ nl:
       refresh: vernieuwen
       row_count: Aantal
       search_again: opnieuw zoeken
-      file_not_processed: Het bestand is nog niet verwerkt,
+      file_not_processed: Dit bestand is nog niet verwerkt,
       contact_us: neem contact met ons op voor ondersteuning
     edit:
       form_tip_account: Om bij EOL aan te melden heeft u een gebruikernaam en wachtwoord
@@ -5516,6 +5516,7 @@ nl:
   images: Afbeeldingen
   images_in_red_are_not_trusted: Afbeeldingen in het rood worden niet vertrouwd.
   images_in_yellow_are_not_reviewed: Afbeeldingen in het geel zijn niet gecontroleerd.
+  image_objects_page_number: afbeeldingenpagina
   images_sort_worklist_note:
     one: Afbeeldingen zijn gesorteerd op importdatum in EOL. De meest recente afbeelding
       wordt als eerste weergegeven. Er staat één afbeelding in deze werklijst.
@@ -5762,6 +5763,7 @@ nl:
   manager_parens: (beheerder)
   map_from: kaart van
   master_curators_may_add_data: 'Meesterconservatoren kunnen gegevens toevoegen:'
+  map_objects_page_number: kaartenpagina
   maps_with_count:
     one: '%{count} kaart'
     other: '%{count} kaarten'
@@ -6027,7 +6029,7 @@ nl:
     genetische processen die een rol spelen bij gezondheid en ziekte.
   nucleotide_sequences_ncbi_database: De database <a rel="nofollow" href="%{ncbi_taxonomy_link}">NCBI
     Taxonomy</a> bevat de namen van alle organismen die voorkomen in de genetische
-    databases met tenminste één nucleotide- of proteïnesequentie.
+    databases met ten minste één nucleotide- of proteïnesequentie.
   nucleotide_sequences_proteins_link: Nucleotide- en proteïnesequenties in NCBI bekijken
   object_curation: Objectconservering
   object: Object
@@ -6190,7 +6192,7 @@ nl:
     te bekijken
   please_indicate_curation_reason: 'Selecteer een reden en laat eventueel een opmerking
     achter:'
-  please_state_one_credential: 'Geef tenminste één specifieke referentie uit deze
+  please_state_one_credential: 'Geef ten minste één specifieke referentie uit deze
     lijst:'
   please_note_wiki_etc_are_not_spm: '* Wikipedia, Onderwijs en Barcode zijn interne
     onderwerpen in EOL, en zij zijn geen onderdeel van het SPM (soortenprofielmodel).'
@@ -6528,6 +6530,7 @@ nl:
   sound_file: Geluidsbestand
   sound_from: geluid van
   sound_object: Geluidsobject
+  sound_objects_page_number: geluidenpagina
   sound_of: Geluidsbestand van
   sounds_with_count:
     one: Eén geluid
@@ -6695,6 +6698,7 @@ nl:
   test: Test.
   test_it_out: Probeer het
   text_object: Tekstobject
+  text_objects_page_number: tekstenpagina
   text: tekst
   text_capital: Tekst
   text_summary_empty: Niemand heeft nog een korte samenvatting geschreven voor deze
@@ -7103,6 +7107,7 @@ nl:
   vetted: Doorgelicht
   video_from: video van
   video_object: Video-object
+  video_objects_page_number: videopagina
   video_title_not_available_in_language: Titel niet beschikbaar in %{language}
   videos_with_count:
     one: '%{count} video'
@@ -7128,7 +7133,7 @@ nl:
   view_source: Bron weergeven
   view_video_source: Videobron weergeven
   view_only_pages_with_at_least_a_picture_or_piece_of_text: Alleen pagina's bekijken
-    met tenminste een afbeelding of tekst
+    met ten minste een afbeelding of tekst
   view_this_hierarchy: hiërarchie weergeven
   view_user_comments: gebruikersreacties bekijken
   view_your_curator_profile: Uw conservatorprofiel bekijken
@@ -7157,7 +7162,7 @@ nl:
   what_is_this_question: Wat is dit?
   who_registered_before: aan
   who_registered_from: geregistreerd van
-  wikipedia_queue_create_successful_notice: Wikipedia-artikel %{article} verzie %{rev}
+  wikipedia_queue_create_successful_notice: De versie %{rev} van Wikipediapagina %{article}
     wordt binnenkort geïmporteerd.
   wikipedia_queue_create_unsuccessful_error: Er is een fout opgetreden. De Wikipediapagina
     is niet in de wachtrij van te importeren pagina's opgenomen.<br />. De versie-URL
@@ -7176,7 +7181,7 @@ nl:
   wikipedia_queue_new_instructions_step_four: 'Kopieer de URL van de versie uit de
     adresbalk van uw browser en plak deze in het formulier voor importverzoeken vanuit
     Wikipedia. De versie-URL ziet er ongeveer als volgt uit: <a rel="nofollow" href="https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069">https://en.wikipedia.org/w/index.php?title=Giraffe&oldid=363366069</a>.'
-  wikipedia_queue_new_page_title: Import van Wikipedia-artikel aanvragen
+  wikipedia_queue_new_page_title: Import van Wikipediapagina aanvragen
   will_find_taxon_pages_matching_the_search_term: vindt taxonpagina's als de naam,
     een synoniem of gewone naam precies overeen komt met de zoekterm
   would_you_like_to_become_a_curator_notice: Wilt u conservator worden? U kunt toegang

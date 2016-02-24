@@ -14,6 +14,7 @@ module EOL
     class HarvestPauseTimeExceeded < StandardError; end
     class InvalidCollectionItemType < StandardError; end
     class MaxCollectionItemsExceeded < StandardError; end
+    class MergeToUnpublishedTaxon < StandardError; end
     class MustBeLoggedIn < StandardError; end
     class NoCollectionsApply < StandardError; end
     class NoItemsSelected < StandardError; end

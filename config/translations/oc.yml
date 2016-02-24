@@ -5176,6 +5176,7 @@ oc:
   images: Imatges
   images_in_red_are_not_trusted: Los imatges en roge son pas fisables.
   images_in_yellow_are_not_reviewed: Los imatges en jaune son pas estats revistes.
+  image_objects_page_number: pagina d’imatges
   images_with_count:
     one: '%{count} imatge'
     other: '%{count} imatges'
@@ -5265,7 +5266,7 @@ oc:
   key: Clau
   known_uri_category_header: Categorias
   known_uri_created: URI apondut.
-  known_uri_missing_translation: Pas tradusit, modificatz-lo
+  known_uri_missing_translation: Pas traduch, modificatz-lo
   known_uri_name_and_uri: '%{name} (%{uri})'
   known_uri_updated: URI mes a jorn.
   known_uri_label_inverse: es l’invèrse de
@@ -5406,6 +5407,7 @@ oc:
   map_from: mapa de
   master_curators_may_add_data: 'Los conservators mèstres pòdon apondre de donadas
     :'
+  map_objects_page_number: Pagina de mapas
   maps_with_count:
     one: '%{count} mapa'
     other: '%{count} mapas'
@@ -6017,6 +6019,7 @@ oc:
   sound_file: Fichièr sonòr
   sound_from: son de
   sound_object: Objècte son
+  sound_objects_page_number: pagina de sons
   sound_of: Enregistrament sonòr de
   sounds_with_count:
     one: '%{count} son'
@@ -6162,6 +6165,7 @@ oc:
   test: Tèst.
   test_it_out: Lo testar
   text_object: Objèctes tèxte
+  text_objects_page_number: Pagina de tèxtes
   text: tèxte
   text_capital: Tèxte
   text_summary_empty: Degun a pas encara contribuit a cap de resumit brèu sus aquesta
@@ -6412,6 +6416,7 @@ oc:
   vetted: Aprovat
   video_from: vidèo de
   video_object: Objècte vidèo
+  video_objects_page_number: Pagina de vidèos
   video_title_not_available_in_language: Títol indisponible dins %{language}
   videos_with_count:
     one: '%{count} vidèo'

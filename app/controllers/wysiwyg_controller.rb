@@ -36,10 +36,12 @@ class WysiwygController < ApplicationController
   end
 
   def copy_temp_file(temp_file)
+    EOL.log_call
     path = Rails.configuration.logo_uploads.relative_path + temp_file.original_filename
     File.open("public/" + path, "wb", 0664) do |fp|
       FileUtils.copy_stream(temp_file, fp)
     end
-    ContentServer.upload_content(path, request.port.to_s)
+    resp = ContentServer.upload_content(path, request.port.to_s)
+    resp.has_key?(:response) ? resp[:response] : resp
   end
 end

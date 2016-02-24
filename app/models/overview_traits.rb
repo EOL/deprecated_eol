@@ -16,7 +16,7 @@ class OverviewTraits
   # TODO: the excluded bit might move here, too. Not sure.
   def initialize(traits)
     @traits = traits.sort_by! do |trait|
-      [ trait.point.included? ? 0 : 1, trait.value_name ]
+      [ trait.included? ? 0 : 1, trait.value_name ]
     end
     @more = @traits.count > self.class.max_values_per_row
     @traits = @traits[0..self.class.max_values_per_row - 1]

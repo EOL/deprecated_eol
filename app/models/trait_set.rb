@@ -60,7 +60,7 @@ class TraitSet
   def traits_overview
     uris = predicates[0..OverviewTraits.max_rows]
     overview = traits.select { |trait| uris.include?(trait.predicate_uri) &&
-      ! trait.point.excluded? }.group_by(&:predicate_uri)
+      ! trait.excluded? }.group_by(&:predicate_uri)
     overview.keys.each do |uri|
       overview[uri] = OverviewTraits.new(overview[uri])
     end

@@ -1,13 +1,13 @@
 class TraitBank
   class << self
-    attr_reader :default_limit
-    attr_reader :taxon_re
+    attr_reader :default_limit, :graph, :taxon_re
   end
 
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
 
   @default_limit = 5000
   @taxon_re = Rails.configuration.known_taxon_uri_re
+  @graph = "http://eol.org/traitbank"
 
   class << self
     def cache_query(key, &block)
@@ -45,10 +45,39 @@ class TraitBank
       EOL::Sparql.is_uri?(uri)
     end
 
+    def delete_resource(resource)
+      paginate(resource_predicates_query(resource), limit: 1000) do |results|
+        delete(results.map { |r| "<#{r[:p]}> ?s ?o" })
+      end
+    end
+
+    def resource_predicates_query(resource)
+      "SELECT DISTINCT(?p) { GRAPH <#{graph}> "\
+      "{ ?p dc:source <#{resource.graph_name}> } }"
+    end
+
+    # NOTE that this is stupid syntax, but it's what you have to do with Sparql.
+    # Yes, it looks very redundant! NOTE: limit must be restricted as the SQL
+    # query can get too long. Sigh.
+    def delete(triples)
+      triple_string = triples.join(" .\n")
+      query = "WITH GRAPH <#{graph_name}> DELETE { #{triples} } "\
+        "WHERE { #{triples} }"
+      begin
+        connection.query(query)
+      rescue EOL::Exceptions::SparqlDataEmpty => e
+        # Do nothing... this is acceptable for a delete...
+      end
+    end
+
     def quote_literal(literal)
-      str = literal.to_s
+      str = begin
+        literal.to_s
+      rescue
+        raise "Can't convert #{literal.class} into a string: #{literal.inspect}"
+      end
       if str.is_numeric?
-        literal
+        str
       else
         "\"#{str.gsub(/\n/, " ").gsub(/"/, "\\\"")}\""
       end
@@ -75,19 +104,6 @@ class TraitBank
       exist
     end
 
-    def graph_name
-      "http://eol.org/traitbank"
-    end
-
-    def delete_traits(traits)
-      # TODO: you need to make a query that will find all "?s dc:source
-      # <#{graph_name}>", and then delete all triples with that subject, but
-      # filtering out anything that's "?s a eol:page". Yeesh.
-      traits.in_groups_of(1000, false) do |group|
-        raise NotImplementedError
-      end
-    end
-
     # NOTE: CAREFUL! If you are running the data live, this will destroy all
     # data before it begins and you will have NO DATA ON THE SITE. This is meant
     # to be a _complete_ rebuild, run in emergencies!
@@ -98,14 +114,14 @@ class TraitBank
       # Ruh-roh. After some number of triples (about a million, which comes
       # quickly!), a command like this takes too long, and it times out, and
       # nothing works. :\
-      # connection.query("CLEAR GRAPH <#{graph_name}>")
+      # connection.query("CLEAR GRAPH <#{graph}>")
       taxa = Set.new
       begin
         Resource.where("harvested_at IS NOT NULL").find_each do |resource|
           count = resource.trait_count
           EOL.log("Rebuild resource? #{resource.title} (#{resource.id}): #{count}")
           # Rebuild this one if there are any triples in the (old) graph:
-          taxa += rebuild_resource(resource) if count > 0
+          taxa += TraitBank::ResourcePorter.port(resource) if count > 0
         end
       rescue => e
         EOL.log("FAILED! Will still flatten available taxa...", prefix: "!")
@@ -121,109 +137,6 @@ class TraitBank
       EOL.log_return
     end
 
-    # TODO: the problem is that the mappings graphs appear to be mucked up! So,
-    # bypass them here. :\ We'll have to call HierarchyEntry.where(hierarchy_id:
-    # 1502, identifier: identifier).taxon_concept_id on each identifier (which
-    # you get by pulling off ... the start of the taxonId URL). This sucks, but
-    # it's a reasonable workaround. Not sure why this happened!
-    def rebuild_resource(resource)
-      EOL.log_call
-      # TODO: Ideally, we would first get a diff of what's in the graph vs what
-      # we're going to put in the graph, and add the new stuff and remove the
-      # old. That's a lot of work! Not doing that now.
-      triples = []
-      taxa = Set.new
-      traits = Set.new
-      # TODO: make a delete method? NOTE that this is stupid syntax, but it's
-      # what you have to do with Sparql. Yes, it looks very redundant! NOTE:
-      # limit must be restricted as the SQL query can get too long. Sigh.
-      paginate("SELECT DISTINCT(?p) { GRAPH <http://eol.org/traitbank> "\
-        "{ ?p dc:source <#{resource.graph_name}> } }", limit: 1000) do |results|
-        old_trips = results.map { |r| "  <#{r[:p]}> ?s ?o ." }.join("\n")
-        delete = "WITH GRAPH <#{graph_name}> DELETE {\n"
-        delete += old_trips
-        delete += "} WHERE {\n"
-        delete += old_trips
-        delete += "}"
-        begin
-          connection.query(delete)
-        rescue EOL::Exceptions::SparqlDataEmpty => e
-          # Do nothing... this is acceptable for a delete...
-        end
-      end
-      paginate(measurements_query(resource)) do |results|
-        results.each do |h|
-          raise "No value for #{h[:trait]}!" unless h[:value]
-          taxa << h[:page].to_s.sub(taxon_re, "\\1")
-          triples << "<#{h[:page]}> a eol:page ; "\
-            "<#{h[:predicate]}> <#{h[:trait]}>"
-          triples << "<#{h[:trait]}> a eol:trait"
-          add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/measurementValue",
-            :value)
-          add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/measurementUnit",
-            :units)
-          add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/sex",
-            :sex)
-          add_meta(triples, h, "http://rs.tdwg.org/dwc/terms/lifeStage",
-            :life_stage)
-          add_meta(triples, h, "http://eol.org/schema/terms/statisticalMethod",
-            :statistical_method)
-          triples << "<#{h[:trait]}> dc:source <#{resource.graph_name}>"
-          traits << h[:trait]
-        end
-      end
-      paginate(associations_query(resource)) do |results|
-        results.each do |h|
-          triples << "<#{h[:page]}> a eol:page ;"\
-            "<#{h[:predicate]}> <#{h[:target_page]}> ;"\
-            "dc:source <#{resource.graph_name}>"
-          triples << "<#{h[:target_page]}> a eol:page ;"\
-            "<#{h[:inverse]}> <#{h[:page]}> ;"\
-            "dc:source <#{resource.graph_name}>"
-          traits << h[:trait]
-        end
-      end
-      # Metadata is VERY SLOW! ...Have to do them ONE AT A TIME! :S
-      EOL.log("Finding metadata for #{traits.count} traits...", prefix: ".")
-      traits.each_with_index do |trait, index|
-        EOL.log("index #{index}", prefix: ".") if index % 1_000 == 0
-        begin
-          connection.query(metadata_query(resource, trait)).
-            each do |h|
-            # ?trait ?predicate ?meta_trait ?value ?units
-            if h[:units].blank?
-              add_meta(triples, h, h[:predicate], :value)
-            else
-              triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}>"
-              val = TraitBank.uri?(h[:value]) ?
-                "<#{h[:value]}>" :
-                quote_literal(h[:value])
-              units = TraitBank.uri?(h[:units]) ?
-                "<#{h[:units]}>" :
-                quote_literal(h[:units]) # TODO: THIS SHOULD NOT HAPPEN. tell someone?
-              triples << "<#{h[:meta_trait]}> a eol:trait ;"\
-                "<http://rs.tdwg.org/dwc/terms/measurementValue> #{val} ;"\
-                "<http://rs.tdwg.org/dwc/terms/measurementUnit> #{units}"
-            end
-          end
-        # This was causing a lot of trouble when I was attempting it:  :(
-        rescue => e
-          EOL.log("ERROR: #{e.message}")
-          raise e
-        end
-      end
-      if triples.empty?
-        EOL.log("No data to insert, skipping.", prefix: ".")
-      else
-        unless connection.insert_data(data: triples, graph_name: graph_name)
-          EOL.log("Data not inserted: #{triples.inspect}", prefix: "!")
-          raise "Failed to insert data"
-        end
-      end
-      EOL.log_return
-      taxa
-    end
-
     def flatten_taxa(taxa)
       EOL.log_call
       EOL.log("Flattening #{taxa.count} taxa...", prefix: ".")
@@ -237,20 +150,9 @@ class TraitBank
             "eol:has_ancestor <http://eol.org/pages/#{flat.ancestor_id}>"
         end
         connection.insert_data(data: triples,
-          graph_name: graph_name)
+          graph_name: graph)
         EOL.log("Completed #{group.count}...", prefix: ".")
       end
-    end
-
-    def add_meta(triples, h, uri, key, options = {})
-      return if h[key].nil?
-      triple = "<#{h[:trait]}> <#{uri}> "
-      if options[:literal] || ! TraitBank.uri?(h[key])
-        triple << quote_literal(h[key])
-      else
-        triple << "<#{h[key]}>"
-      end
-      triples << triple
     end
 
     def pages(limit = 1000, offset = nil)
@@ -273,7 +175,7 @@ class TraitBank
     # why ours is different, but I did check it: pagination seems to work just
     # fine (without using an ORDER BY). [shrug] You should probably check!
     def paginate(query, options = {}, &block)
-      EOL.log_call
+      put_query = false
       results = []
       limit = options[:limit] || default_limit
       limit = limit.to_i
@@ -283,8 +185,14 @@ class TraitBank
         limited_query = query + " LIMIT #{limit}"
         limited_query += " OFFSET #{offset}" if offset > 0
         results = connection.query(limited_query)
-        EOL.log("#{results.count} results", prefix: ".")
-        yield(results) if results && results.count > 0
+        if results && results.count > 0
+          unless put_query
+            EOL.log("#{query[0..110].gsub(/\s+/m, " ")}...", prefix: "Q")
+            put_query = true
+          end
+          EOL.log("#{offset + results.count}", prefix: ".")
+          yield(results)
+        end
         offset += limit
       end until results.empty?
     end
@@ -331,7 +239,7 @@ class TraitBank
     # Given a page, get all of its traits and all of its metadata. Note that
     # this necessarily returns a bunch of predicates of
     # <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>, which you should
-    # ignore. Sorry!
+    # ignore. Sorry! NOTE: duplication with #page_traits
     def page_with_traits(page, limit = 10_000, offset = nil)
       query = "SELECT DISTINCT *
       # page_with_traits
@@ -345,6 +253,24 @@ class TraitBank
       }
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
+      begin
+        connection.query(query)
+      rescue EOL::Exceptions::SparqlDataEmpty => e
+        EOL.log_error(e)
+        []
+      end
+    end
+
+    # JUST the list of triat IDs for the page! NOTE: duplication with
+    # #page_with_traits
+    def page_traits(page, limit = 10_000, offset = nil)
+      query = "SELECT DISTINCT *
+      # page_with_traits
+      WHERE {
+        GRAPH <http://eol.org/traitbank> {
+          <http://eol.org/pages/#{page}> ?predicate ?trait
+        }
+      }"
       begin
         connection.query(query)
       rescue EOL::Exceptions::SparqlDataEmpty => e
@@ -398,6 +324,7 @@ class TraitBank
         }"
     end
 
+
     # TODO: http://eol.org/known_uris should probably be a function somewhere.
     def associations_query(resource)
       "SELECT DISTINCT *
@@ -430,6 +357,13 @@ class TraitBank
         }"
     end
 
+    # NOTE: I tried to have this take multiple traits and use an IN. ...it works
+    # fine... MOST of the time. But there are SPECIFIC URIs that cause the time
+    # estimate to go through the roof (e.g., if
+    # <http://eol.org/resources/737/measurements/a62006f2ac1305d8b4eb9482cf3f6776>
+    # is IN THE SET, the whole query fails because it thinks it will take too
+    # long). I don't have time to figure out why, so we CRAWL through these one
+    # at a time. Sigh.
     def metadata_query(resource, trait)
       "SELECT DISTINCT *
       # metadata_query
@@ -473,7 +407,7 @@ class TraitBank
                                      eol:associationType,
                                      dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
                   ) .
-          FILTER (?trait  = <#{trait}>)
+          FILTER (?trait = <#{trait}>)
         }
       }"
     end

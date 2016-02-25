@@ -232,6 +232,7 @@ describe ContentServer do
 
       it 'changes staging_dev to staging' do
         allow(env).to receive(:staging_dev?) { true }
+        allow(Rails).to receive(:env) { :staging }
         allow(ContentServer).to receive(:call_file_upload_api_with_parameters)
         subject # Calls it.
         expect(ContentServer).to have_received(:call_file_upload_api_with_parameters).
@@ -241,6 +242,7 @@ describe ContentServer do
 
       it 'changes bocce_demo_dev to bocce_demo' do
         allow(env).to receive(:bocce_demo_dev?) { true }
+        allow(Rails).to receive(:env) { :bocce_demo }
         allow(ContentServer).to receive(:call_file_upload_api_with_parameters)
         subject # Calls it.
         expect(ContentServer).to have_received(:call_file_upload_api_with_parameters).

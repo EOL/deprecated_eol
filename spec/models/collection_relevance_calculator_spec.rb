@@ -63,7 +63,7 @@ describe CollectionRelevanceCalculator do
   end
 
   it 'uses notification queue' do
-    expect(PrepareAndSendNotifications.class_eval { @queue }).to eq(:notifications)
+    expect(PrepareAndSendNotifications.class_eval { @queue }).to eq("notifications")
   end
 
   it 'always ranks watch collections as 0' do

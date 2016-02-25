@@ -24,6 +24,8 @@ class SearchTraits < TraitSet
     @attribute = search_options[:attribute]
     @page = search_options[:page] || 1
     @per_page = search_options[:per_page] || 100
+    required_equivalent_attributes = KnownUri.find_by_id(search_options[:required_equivalent_attributes]).uri unless
+       search_options[:required_equivalent_attributes].blank?
     # NOTE ********************* IMPORTANT  !!!!! **********************
     # If you make changes to search, you MUST consider any necessary changes to
     # the cache key!!!
@@ -36,8 +38,12 @@ class SearchTraits < TraitSet
       @traits = [].paginate
     else
       @key = "trait_bank/search/#{@attribute.gsub(/\W/, '_')}"
+      @key += " & #{required_equivalent_attributes.gsub(/\W/, '_')}" unless
+        required_equivalent_attributes.blank?
       @key += "/clade/#{search_options[:clade]}" unless
         search_options[:clade].blank?
+      @key += "/q/#{search_options[:querystring].gsub(/\W/, '_')}" unless 
+        search_options[:querystring].blank?
       @count_key = @key.sub('search', 'search/count')
       @key += "/page/#{@page}" unless @page == 1
       @key += "/per/#{@per_page}" unless @per_page == 100
@@ -64,6 +70,7 @@ class SearchTraits < TraitSet
       total = TraitBank.cache_query(@count_key) do
         TraitBank::Scan.trait_count(search_options)
       end
+      total = 0 if total.blank?
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|
         pager.replace traits
       end

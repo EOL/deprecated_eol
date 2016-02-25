@@ -5525,10 +5525,13 @@ es:
     se mostrará en la pestaña de nombres sin necesidad de "Mostrar todas las clasificaciones".)
   return_content_by_vettedness: Si 'vetted' tiene el valor 1 entonces solo se devolverá
     contenido de confianza. Si 'vetted' es 2 entonces solo se devolverá contenido
-    de confianza y no revisado (no se mostrarán contenidos no fiables). Por defecto,
-    se retornará todo el contenido.
+    de confianza y no revisado (no se mostrarán contenidos no fiables). Si 'vetted'
+    es '3', entonces sólo se devolverá el contenido no revisado. Si 'vetted' es '4',  entonces
+    sólo se devolverá el contenido que no es de confianza. Por omisión, se devuelve
+    todo el contenido.
   reindex_data_object_button: Reindizar el objeto
   reindex_page_button: Reindexar la página
+  reindex_users_button: Reindizar las cuentas de usuario
   image: Imagen
   image_cropped_notice: La imagen se recortó correctamente.
   image_crop_failed_error: Lo sentimos, se ha producido un error, la imagen no se

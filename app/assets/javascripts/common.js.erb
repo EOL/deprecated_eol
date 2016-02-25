@@ -332,6 +332,7 @@ $(function() {
         $('#choose_collections a.close').click();
         return(false);
       });
+       
       $('form#new_collection_item :submit').on('click', function() {
         EOL.prep_flashes();
         EOL.ajax_submit($(this), { update: $('#flashes') });
@@ -343,9 +344,9 @@ $(function() {
     afterClose: function() {
       $('a.collect').delay(25).fadeTo(100, 1, function() {$('a.collect').css({filter:''}); });
     },
-    duration: 200
+    duration: 200, 
+    
   });
-
   $('a.reindex').on('click', function() {
     var $reindex = $('a.reindex');
     $reindex.fadeTo(225, 0.3);

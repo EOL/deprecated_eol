@@ -1,4 +1,4 @@
-class DataPointUri
+class DataPointUri < ActiveRecord::Base
   class Culler
     def self.cull
       culled = 0

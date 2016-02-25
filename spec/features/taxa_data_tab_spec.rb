@@ -48,14 +48,15 @@ describe 'Taxa data tab basic tests' do
     body.should include("Supplier: <a href=\"/content_partners/#{@resource.content_partner_id}")
   end
 
-  it 'should display user added data' do
-    @user_added_data.update_triplestore
-    visit taxon_data_path(@taxon_concept.id)
-    body.should have_selector("table.data tr")
-    body.should have_selector("table.data th div", text: 'Length')
-    body.should have_selector("table.data td", text: '9,999.0')
-    body.should include("provided by <a href=\"/users/#{@user.id}\">#{@user.full_name}</a>")
-  end
+  #tramea!
+  # it 'should display user added data' do
+    # @user_added_data.update_triplestore
+    # visit taxon_data_path(@taxon_concept.id)
+    # body.should have_selector("table.data tr")
+    # body.should have_selector("table.data th div", text: 'Length')
+    # body.should have_selector("table.data td", text: '9,999.0')
+    # body.should include("provided by <a href=\"/users/#{@user.id}\">#{@user.full_name}</a>")
+  # end
 
   it 'should display known uri labels when available' do
     @measurement = DataMeasurement.new(@default_data_options.merge(predicate: 'http://eol.org/mass', object: 'http://eol.org/massive'))
@@ -100,27 +101,27 @@ describe 'Taxa data tab basic tests' do
     visit taxon_data_path(@taxon_concept.id)
     body.should have_selector('span.term', text: 'hours')
   end
-
-  it 'should allow master curators to add data' do
-    login_as @master_curator
-    visit taxon_data_path(@taxon_concept.id)
-    Rails.cache.clear
-    body.should_not have_tag("table.data")
-    body.should have_tag("form#new_user_added_data")
-    body.should have_tag("form#new_user_added_data input[@type='submit']", value: "submit data value")
-    within(:xpath, '//form[@id="new_user_added_data"]') do
-      fill_in 'user_added_data_predicate', with: Rails.configuration.uri_term_prefix + 'testingadddata'
-      fill_in 'user_added_data_object', with: 'testingadddata_value'
-      click_button "submit data value"
-      sleep(5)
-    end
-    visit taxon_data_path(@taxon_concept.id)
-    KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_term_prefix + 'testingadddata', name: 'testingadddata')
-    body.should have_tag("table.data")
-    body.should include("testingadddata")
-    body.should include("testingadddata_value")
-    visit('/logout')
-  end
+  # tramea!
+  # it 'should allow master curators to add data' do
+    # login_as @master_curator
+    # visit taxon_data_path(@taxon_concept.id)
+    # Rails.cache.clear
+    # body.should_not have_tag("table.data")
+    # body.should have_tag("form#new_user_added_data")
+    # body.should have_tag("form#new_user_added_data input[@type='submit']", value: "submit data value")
+    # within(:xpath, '//form[@id="new_user_added_data"]') do
+      # fill_in 'user_added_data_predicate', with: Rails.configuration.uri_term_prefix + 'testingadddata'
+      # fill_in 'user_added_data_object', with: 'testingadddata_value'
+      # click_button "submit data value"
+      # sleep(5)
+    # end
+    # visit taxon_data_path(@taxon_concept.id)
+    # KnownUri.gen_if_not_exists(uri: Rails.configuration.uri_term_prefix + 'testingadddata', name: 'testingadddata')
+    # body.should have_tag("table.data")
+    # body.should include("testingadddata")
+    # body.should include("testingadddata_value")
+    # visit('/logout')
+  # end
 
   describe "search" do
     context "clade is searchable" do

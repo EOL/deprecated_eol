@@ -145,10 +145,10 @@ class KnownUri < ActiveRecord::Base
     return [] if name.blank?
     # TODO: use cached thingie here!  :S
     uris = KnownUri.full.where(id: TraitBank.predicates.map {|p| p[0] }).order(:position)
-    exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name }.first
+    exact_match = uris.select { |k| k.name.downcase.gsub(normal_re, '') == name  if k.name}.first
     # TODO - this is a little odd, now that we're returning an array. Re-think: do you really want this?
     return [exact_match] if exact_match
-    return uris.select { |k| k.name.gsub(normal_re, '') =~ /#{name}/i }
+    return uris.select { |k| k.name.gsub(normal_re, '') =~ /#{name}/i  if k.name}
   end
 
   def self.taxon_concept_id(val)

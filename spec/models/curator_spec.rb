@@ -81,6 +81,7 @@ describe 'Curator' do
       data_object = DataObject.gen()
       dotc = DataObjectsTaxonConcept.gen(taxon_concept: taxon_concept, data_object: data_object)
       activity = CuratorActivityLog.gen(user: @curator, target_id: data_object.id, changeable_object_type_id: ChangeableObjectType.data_objects_hierarchy_entry.id, activity_id: TranslatedActivity.find_by_name("trusted").id )
+      Rails.cache.clear
       temp_count2 = @curator.total_species_curated
       temp_count2.should > temp_count
 
@@ -88,6 +89,7 @@ describe 'Curator' do
       data_object = DataObject.gen()
       dotc = DataObjectsTaxonConcept.gen(taxon_concept: taxon_concept, data_object: data_object)
       activity = CuratorActivityLog.gen(user: @curator, target_id: data_object.id, changeable_object_type_id: ChangeableObjectType.data_objects_hierarchy_entry.id, activity_id: TranslatedActivity.find_by_name("trusted").id )
+      Rails.cache.clear
       temp_count = @curator.total_species_curated
       temp_count.should > temp_count2
   end

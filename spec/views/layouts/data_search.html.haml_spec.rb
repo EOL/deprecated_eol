@@ -33,7 +33,7 @@ describe 'layouts/data_search' do
 
     it "should include a drop-down with all attributes" do
       render
-      expect(rendered).to have_tag('select#attributes_select')
+      expect(rendered).to have_tag('select#attribute')
     end
 
     it "displays the uri of the value required" do

@@ -77,13 +77,6 @@ describe KnownUrisController do
 
   describe 'GET autocomplete_known_uri_search' do
 
-    it 'should deny access to normal or non-logged-in users' do
-      session[:user_id] = User.gen.id
-      expect { get :autocomplete_known_uri_search }.to raise_error(EOL::Exceptions::SecurityViolation)
-      session[:user_id] = nil
-      expect { get :autocomplete_known_uri_search }.to raise_error(EOL::Exceptions::SecurityViolation)
-    end
-
     it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_search }.not_to raise_error
     end
@@ -113,13 +106,6 @@ describe KnownUrisController do
   end
 
   describe 'GET autocomplete_known_uri_predicates' do
-
-    it 'should deny access to normal or non-logged-in users' do
-      session[:user_id] = User.gen.id
-      expect { get :autocomplete_known_uri_predicates }.to raise_error(EOL::Exceptions::SecurityViolation)
-      session[:user_id] = nil
-      expect { get :autocomplete_known_uri_predicates }.to raise_error(EOL::Exceptions::SecurityViolation)
-    end
 
     it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_predicates }.not_to raise_error
@@ -153,13 +139,6 @@ describe KnownUrisController do
   end
 
   describe 'GET autocomplete_known_uri_units' do
-
-    it 'should deny access to normal or non-logged-in users' do
-      session[:user_id] = User.gen.id
-      expect { get :autocomplete_known_uri_units }.to raise_error(EOL::Exceptions::SecurityViolation)
-      session[:user_id] = nil
-      expect { get :autocomplete_known_uri_units }.to raise_error(EOL::Exceptions::SecurityViolation)
-    end
 
     it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_units, term: 'foo' }.not_to raise_error
@@ -199,13 +178,6 @@ describe KnownUrisController do
   end
 
   describe 'GET autocomplete_known_uri_metadata' do
-
-    it 'should deny access to normal or non-logged-in users' do
-      session[:user_id] = User.gen.id
-      expect { get :autocomplete_known_uri_metadata }.to raise_error(EOL::Exceptions::SecurityViolation)
-      session[:user_id] = nil
-      expect { get :autocomplete_known_uri_metadata }.to raise_error(EOL::Exceptions::SecurityViolation)
-    end
 
     it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_metadata, term: 'foo' }.not_to raise_error
@@ -249,13 +221,6 @@ describe KnownUrisController do
   end
 
   describe 'GET autocomplete_known_uri_values' do
-
-    it 'should deny access to normal or non-logged-in users' do
-      session[:user_id] = User.gen.id
-      expect { get :autocomplete_known_uri_values }.to raise_error(EOL::Exceptions::SecurityViolation)
-      session[:user_id] = nil
-      expect { get :autocomplete_known_uri_values }.to raise_error(EOL::Exceptions::SecurityViolation)
-    end
 
     it 'should allow access to users with data privilege' do
       expect { get :autocomplete_known_uri_values }.not_to raise_error

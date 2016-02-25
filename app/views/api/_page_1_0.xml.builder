@@ -34,5 +34,5 @@ unless page.blank?
 
   page['dataObjects'].each do |data_object|
     xml << render(partial: 'data_object_1_0', layout: false, locals: { :data_object_hash => data_object, :taxon_concept_id => page['identifier'] } )
-  end
+  end if page['dataObjects']
 end

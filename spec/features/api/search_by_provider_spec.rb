@@ -9,11 +9,12 @@ describe 'API:search_by_provider' do
     @test_hierarchy_entry_unpublished = HierarchyEntry.gen(hierarchy: @test_hierarchy, identifier: 'Plantae',
       parent_id: 0, published: 0, visibility_id: Visibility.invisible.id, rank: Rank.kingdom)
   end
-
-  it 'should create an API log including API key' do
-    user = User.gen(api_key: User.generate_key)
-    check_api_key("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}&key=#{user.api_key}", user)
-  end
+  
+  # not logging API anymore!
+  # it 'should create an API log including API key' do
+    # user = User.gen(api_key: User.generate_key)
+    # check_api_key("/api/search_by_provider/#{@test_hierarchy_entry_unpublished.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_unpublished.hierarchy_id}&key=#{user.api_key}", user)
+  # end
 
   it 'search_by_provider should return the EOL page ID for a provider identifer' do
     response = get_as_xml("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")

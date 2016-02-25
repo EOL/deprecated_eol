@@ -60,14 +60,14 @@ describe 'users/data_downloads/index' do
       data_search_file.from = 1000
       assign(:background_processes, [ data_search_file ])
       render
-      expect(rendered).to match /Lowest value:.*1,000/m
+      expect(rendered).to match /Lowest value:.*1000.0/m
     end
 
     it 'shows highest values' do
       data_search_file.to = 1000
       assign(:background_processes, [ data_search_file ])
       render
-      expect(rendered).to match /Highest value:.*1,000/m
+      expect(rendered).to match /Highest value:.*1000.0/m
     end
   end
 

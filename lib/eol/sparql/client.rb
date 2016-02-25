@@ -170,7 +170,7 @@ module EOL
           self.class.cache_key("all_measurement_type_known_uris"), :expires_in => 1.day) do
             all_uris = all_measurement_type_uris
             all_known_uris = KnownUri.by_uris(all_uris)
-            all_uris.map { |uri| all_known_uris.detect { |kn| kn.uri == uri } }
+            all_uris.map { |uri| all_known_uris.compact.detect { |kn| kn.uri == uri } }
         end
         # If that list is empty, it indicates that Virtuoso is broken. Don't
         # cache this (or any) value, otherwise it will be blank for 24 hours!

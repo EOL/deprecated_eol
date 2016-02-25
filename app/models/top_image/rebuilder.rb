@@ -1,6 +1,6 @@
-# Rebuilds the (denormalized) tables for TopImage **and** TopUnpublishedImage
-# (make NOTE of that!).
-class TopImage
+# Rebuilds the (denormalized) tables for TopImage AND (NOTE this!)
+# TopUnpublishedImage.
+class TopImage < ActiveRecord::Base
   class Rebuilder
     def self.rebuild
       builder = self.new

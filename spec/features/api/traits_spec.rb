@@ -20,11 +20,11 @@ describe 'API:traits' do
     @association.update_triplestore
   end
 
-
-  it 'creates an API log including an API key' do
-    user = User.gen(api_key: User.generate_key)
-    check_api_key("/api/traits/#{@taxon_concept.id}?key=#{user.api_key}", user)
-  end
+  # not logging API anymore!
+  # it 'creates an API log including an API key' do
+    # user = User.gen(api_key: User.generate_key)
+    # check_api_key("/api/traits/#{@taxon_concept.id}?key=#{user.api_key}", user)
+  # end
 
   it 'renders a JSON response' do
     response = get_as_json("/api/traits/1.0/#{@taxon_concept.id}")

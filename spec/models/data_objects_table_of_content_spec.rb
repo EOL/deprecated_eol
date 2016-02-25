@@ -29,7 +29,8 @@ describe DataObjectsTableOfContent do
   end
   
   it 'should insert all DataObjectsTableOfContent' do
-    DataObjectsTableOfContent.rebuild
+    ids = @data_objects.map(&:id)
+    DataObjectsTableOfContent.rebuild_by_ids(ids)
     expect(DataObjectsTableOfContent.count).to equal(6)
     for i in 0..5
       dotoc = DataObjectsTableOfContent.find_by_data_object_id(@data_objects[i])

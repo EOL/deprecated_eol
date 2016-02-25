@@ -31,7 +31,7 @@
                 - if metadata[att]
                   = raw(metadata[att].collect{ |l| (l[:language] ? "<span class='language'>[#{l[:language]}]</span> " : "") |
                     + "<span class='#{att}'>" + l[:text] + "</span>" }.join('<br/>'))                                       |
-          - if known_uri = @existing_known_uris.detect{ |k| k.matches(uri) }
+          - if known_uri = @existing_known_uris.compact.detect{ |k| k.matches(uri) }
             %tr.existing
               %td
               %td.uri= known_uri.uri

@@ -75,6 +75,7 @@ describe 'taxa/overview/show' do
       user.stub(:logo_url) { 'whatever' }
       view.stub(:current_user) { user }
       view.stub(:logged_in?) { false }
+      allow(EolConfig).to receive(:data?) { true }
     end
 
     it "should show quick facts" do

@@ -609,11 +609,13 @@ protected
   end
 
   def meta_description
-    @meta_description ||= t(".meta_description", scoped_variables_for_translations.dup)
+    @meta_description ||= t("#{scoped_variables_for_translations[:scope].join(".")}.meta_description",
+                         scoped_variables_for_translations.except(:scope))
   end
 
   def meta_keywords
-    @meta_keywords ||= t(".meta_keywords", scoped_variables_for_translations.dup)
+    @meta_keywords ||= t("#{scoped_variables_for_translations[:scope].join(".")}.meta_keywords",
+                         scoped_variables_for_translations.except(:scope))
   end
 
   def tweet_data(text = nil, hashtags = nil, lang = I18n.locale.to_s, via = $TWITTER_USERNAME)

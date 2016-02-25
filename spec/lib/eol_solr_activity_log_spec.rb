@@ -64,7 +64,7 @@ describe EOL::Solr::ActivityLog do
       EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{tail}").and_return(@result)
       EOL::Solr::ActivityLog.search_with_pagination('foo', user: user)
       # now grant the permission
-      user.grant_permission(:see_data)
+      allow(EolConfig).to receive(:data?) {true}
       tail = @default_tail
       EOL::Solr::ActivityLog.should_receive(:open).with("#{@request_head}foo#{tail}").and_return(@result)
       EOL::Solr::ActivityLog.search_with_pagination('foo', user: user)

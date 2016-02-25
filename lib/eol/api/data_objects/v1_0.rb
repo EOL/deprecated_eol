@@ -65,7 +65,7 @@ module EOL
           return_hash['dataObjectVersionID'] = data_object.id
           return_hash['dataType'] = data_object.data_type.schema_value
           return_hash['dataSubtype'] = data_object.data_subtype.label rescue ''
-          return_hash['vettedStatus'] = data_object.vetted.curation_label if data_object.vetted
+          return_hash['vettedStatus'] = data_object.vetted.curation_label if data_object.try(:vetted)
           return_hash['dataRating'] = data_object.data_rating
 
           image_sizes = data_object.image_size if data_object.image?

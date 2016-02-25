@@ -21,10 +21,11 @@ describe 'API:search' do
     EOL::Solr::SiteSearchCoreRebuilder.begin_rebuild
   end
 
-  it 'should create an API log including API key' do
-    user = User.gen(api_key: User.generate_key)
-    check_api_key("/api/search/Canis%20lupus.json?key=#{user.api_key}", user)
-  end
+  # not logging API anymore!
+  # it 'should create an API log including API key' do
+    # user = User.gen(api_key: User.generate_key)
+    # check_api_key("/api/search/Canis%20lupus.json?key=#{user.api_key}", user)
+  # end
 
   it 'search should do a contains search by default' do
     response = get_as_json("/api/search/Canis%20lupus.json")

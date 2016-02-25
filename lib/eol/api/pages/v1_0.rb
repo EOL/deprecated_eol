@@ -134,6 +134,7 @@ module EOL
               :type => 'Boolean',
               :default => true,
               :test_value => true,
+              :default => true,
               :notes => I18n.t('return_any_taxonomy_details_from_different_hierarchy_providers') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'vetted',
@@ -146,11 +147,11 @@ module EOL
               :type => Integer,
               :notes => I18n.t('api_cache_time_to_live_parameter')),
             EOL::Api::DocumentationParameter.new(
-                name: "language",
-                type: String,
-                values: ["ms", "de", "en", "es", "fr", "gl", "it", "nl", "nb", "oc", "pt-BR", "sv", "tl", "mk", "sr", "uk", "ar", "zh-Hans", "zh-Hant", "ko"],#Language.approved_languages.collect(&:iso_639_1),
-                default: "en",
-                notes: I18n.t(:limits_the_returned_to_a_specific_language))
+                :name => "language",
+                :type => String,
+                :values => Language.approved_languages.collect(&:iso_639_1),
+                :default => "en",
+                :notes => I18n.t(:limits_the_returned_to_a_specific_language))
           ] }
 
         def self.call(params={})
@@ -283,7 +284,7 @@ module EOL
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
           TaxonUserClassificationFilter.preload_details(all_data_objects)
           # sorting after the preloading has happened
-          text_objects = sort_and_promote_text(taxon_concept, text_objects, options) if options[:text] && options[:text] > 0
+          text_objects = sort_and_promote_text(taxon_concept, text_objects, options) if options[:texts_per_page] && options[:texts_per_page] > 0
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
 
           if options[:iucn]
@@ -433,11 +434,11 @@ module EOL
         end
         def self.no_objects_required?(params)
           return ( params[:action] == "pages" && 
-                   params[:text] == 0 && 
-                   params[:images] == 0 && 
-                   params[:videos] == 0 && 
-                   ( params[:maps] == 0 || !params.has_key?(:maps) ) && 
-                   ( params[:sounds] == 0 || !params.has_key?(:sounds) )
+                   params[:texts_per_page] == 0 && 
+                   params[:images_per_page] == 0 && 
+                   params[:videos_per_page] == 0 && 
+                   ( params[:maps_per_page] == 0 || !params.has_key?(:maps_per_page) ) && 
+                   ( params[:sounds_per_page] == 0 || !params.has_key?(:sounds_per_page) )
                  )
         end
         class << self

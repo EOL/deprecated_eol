@@ -97,9 +97,10 @@ describe 'Taxa page' do
 
     it 'should have sanitized descriptive text alternatives for images in gallery'
 
-    it 'should show IUCN Red List status' do
-      expect(page).to have_tag('div#iucn_status a')
-    end
+    # TODO
+    # it 'should show IUCN Red List status' do
+      # expect(page).to have_tag('div#iucn_status a')
+    # end
 
     it 'should show summary text' do
       # TODO: Test the summary text selection logic - as model spec rather than here (?)

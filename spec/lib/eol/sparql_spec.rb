@@ -143,12 +143,13 @@ describe EOL::Sparql do
     EOL::Sparql.convert("Test \"test\"").should == "Test &quot;test&quot;"
   end
 
-  it 'should count_triples_in_graph' do
-    drop_all_virtuoso_graphs
-    EOL::Sparql.count_triples_in_graph("fictional_graph").should == 0
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
-    UserAddedData.gen
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-  end
+  # moved the feature ro tramea!
+  # it 'should count_triples_in_graph' do
+    # drop_all_virtuoso_graphs
+    # EOL::Sparql.count_triples_in_graph("fictional_graph").should == 0
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+    # UserAddedData.gen
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
+  # end
 end
 

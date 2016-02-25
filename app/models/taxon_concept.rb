@@ -653,7 +653,7 @@ class TaxonConcept < ActiveRecord::Base
   # returns a DataObject, not a TaxonConceptExemplarArticle
   def published_visible_exemplar_article_in_language(language)
     return nil unless taxon_concept_exemplar_article
-    if the_best_article = taxon_concept_exemplar_article.data_object.latest_published_version_in_same_language
+    if the_best_article = taxon_concept_exemplar_article.data_object.try(:latest_published_version_in_same_language)
       return nil if the_best_article.language != language
       return the_best_article if the_best_article.visibility_by_taxon_concept(self).id == Visibility.get_visible.id
     end
@@ -886,7 +886,7 @@ class TaxonConcept < ActiveRecord::Base
   # them.
   def deep_published_nonbrowsable_hierarchy_entries
     return @deep_nonbrowsables if @deep_nonbrowsables
-    current_entry_id = entry.id  # Don't want to call #entry so many times...
+    current_entry_id = entry.try(:id)  # Don't want to call #entry so many times...
     @deep_nonbrowsables = cached_deep_published_hierarchy_entries.dup
     @deep_nonbrowsables.delete_if { |he| he.hierarchy.browsable.to_i == 1 || current_entry_id == he.id }
     HierarchyEntry.preload_deeply_browsable(@deep_nonbrowsables)

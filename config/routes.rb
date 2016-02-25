@@ -39,6 +39,8 @@ Eol::Application.routes.draw do
   match '/index' => redirect('/')
   match '/home.html' => redirect('/')
   match '/favicon' => redirect('/assets/favicon.ico')
+  match '/apple-touch-icon.png' => redirect('/assets/apple-touch-icon.png')
+  match '/apple-touch-icon-precomposed.png' => redirect('/assets/apple-touch-icon-precomposed.png')
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
   match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
   match '/resources/:id' => 'content_partners/resources#show'

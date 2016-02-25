@@ -8,7 +8,7 @@ describe HierarchyReindexing do
   end
 
    it 'uses HierarchyReindexing queue notification queue' do
-    expect(HierarchyReindexing.class_eval { @queue }).to eq('Hierarchy Reindexings')
+    expect(HierarchyReindexing.class_eval { @queue }).to eq('notifications')
   end
 
   it "repopulates the flattened ancestors" do 

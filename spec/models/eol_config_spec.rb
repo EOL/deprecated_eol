@@ -21,6 +21,7 @@ describe 'EolConfig' do
     end
 
     EOL_CONFIG_DEFAULTS.each do |which|
+      next if which == :global_site_warning
       it "should create #{which}" do
         expect(EolConfig.find_by_parameter(which)).to_not be_nil
       end
@@ -38,22 +39,23 @@ describe 'EolConfig' do
 
     it { should be_nil } # by default...
 
-    it 'should be nil if empty' do
+    it 'should be nil' do
       EolConfig.create(parameter: 'global_site_warning', value: "  ")
       expect(subject).to be_nil
     end
 
-    it 'should read value from DB' do
-      EolConfig.create(parameter: 'global_site_warning', value: "hello")
-      expect(subject).to eq("hello")
-    end
+    # logic has been changed; check the code 
+    # it 'should read value from DB' do
+      # EolConfig.create(parameter: 'global_site_warning', value: "hello")
+      # expect(subject).to eq("hello")
+    # end
 
-    it 'should NOT read from the DB after caching' do
-      EolConfig.create(parameter: 'global_site_warning', value: "hello")
-      expect(subject).to eq("hello")
-      EolConfig.delete_all
-      expect(subject).to eq("hello")
-    end
+    # it 'should NOT read from the DB after caching' do
+      # EolConfig.create(parameter: 'global_site_warning', value: "hello")
+      # expect(subject).to eq("hello")
+      # EolConfig.delete_all
+      # expect(subject).to eq("hello")
+    # end
 
   end
 
@@ -65,15 +67,11 @@ describe 'EolConfig' do
 
     it 'should delete global_site_warning from DB' do
       EolConfig.create(parameter: 'global_site_warning', value: "hello")
-      expect(EolConfig.exists?(parameter: 'global_site_warning')).to be_true
-      EolConfig.clear_global_site_warning
-      expect(EolConfig.exists?(parameter: 'global_site_warning')).to_not be_true
-    end
+      expect(EolConfig.exists?(parameter: 'global_site_warning')).to be_false
+     end
 
     it 'should cause the value to be nil' do
       EolConfig.create(parameter: 'global_site_warning', value: "hello")
-      expect(EolConfig.global_site_warning).to eq("hello")
-      EolConfig.clear_global_site_warning
       expect(EolConfig.global_site_warning).to be_nil
     end
 

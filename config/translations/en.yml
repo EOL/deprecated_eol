@@ -4674,6 +4674,7 @@ en:
   sort_by_hierarchy_publish_request_option: "Hierarchy Publish Request"
   sort_by_reverse_alphabetical_option: "Reverse Alphabetical"
   sort_by_recently_added_option: "Recently added"
+  sort_by_recently_updated_option: "Recently updated"
   sort_by_status_option: "Status"
   sort_by_title_ascending: "Title Ascending"
   sort_by_title_descending: "Title Descending"

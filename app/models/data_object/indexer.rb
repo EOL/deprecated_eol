@@ -259,7 +259,7 @@ class DataObject
     # also should NOT be relying on english translations of activities. Sheesh.
     def get_curation(data_object_ids)
       CuratorActivityLog.
-        select("target_id, user_id").
+        select("curator_activity_logs.id, target_id, user_id").
         joins("JOIN translated_activities ta").
         where(["ta.name IN ('trusted', 'untrusted', 'hide', 'show', "\
           "'inappropriate', 'unreviewed', 'add_association', "\

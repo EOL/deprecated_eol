@@ -37,10 +37,11 @@ class HarvestBatch
   def post_harvesting
     EOL.log_call
     ActiveRecord::Base.with_master do
+      any_worked = false
       @resources.each do |resource|
         url = "http://eol.org/content_partners/"\
           "#{resource.content_partner_id}/resources/#{resource.id}"
-        EOL.log("POST-HARVEST: #{resource.title}")
+        EOL.log("POST-HARVEST: #{resource.title}", prefix: "H")
         EOL.log(url)
         unless resource.ready_to_publish?
           EOL.log("SKIPPING (status #{resource.resource_status.label}): "\
@@ -56,16 +57,22 @@ class HarvestBatch
           else
             resource.preview
           end
-          EOL.log("POST-HARVEST: #{resource.title} COMPLETE")
+          EOL.log("POST-HARVEST: #{resource.title} COMPLETE", prefix: "H")
           EOL.log(url)
+          any_worked = true
         # TODO: there are myriad specific errors that harvesting can throw; catch
         # them here.
         rescue => e
+          EOL.log("POST-HARVEST FAILED:", prefix: "H")
           EOL.log_error(e)
         end
       end
-      EOL.log("Enqueue 'top_images' in 'php'")
-      Resque.enqueue(CodeBridge, {'cmd' => 'top_images'})
+      if any_worked
+        EOL.log("Enqueue 'top_images' in 'php'", prefix: ".")
+        Resque.enqueue(CodeBridge, {'cmd' => 'top_images'})
+      else
+        EOL.log("Nothing was published; skipping denormalization", prefix: "!")
+      end
     end
     EOL.log_return
   end

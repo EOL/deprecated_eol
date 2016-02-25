@@ -49,15 +49,18 @@ describe Taxa::NamesController do
       let(:curator) { build_stubbed(User) }
       let(:synonym) { build_stubbed(Synonym) }
       let(:taxon_concept) { build_stubbed(TaxonConcept, id: 3542) }
+      let(:titles) { TaxonConcept.with_titles }
       
       subject do
         post :create, name: { synonym: { language_id: Language.default.id }, string: 'woofer' },
                       commit_add_common_name: 'Add name', taxon_id: taxon_concept.id
       end
 
-      before do
+      before(:each) do
         # Not the best way to accomplish this, but:
-        allow(TaxonConcept).to receive(:find).with("3542") { taxon_concept }
+        allow(TaxonConcept).to receive(:find) { taxon_concept }
+        allow(TaxonConcept).to receive(:with_titles) {taxon_concept} 
+        allow(titles).to receive(:find){ taxon_concept }
         allow(controller).to receive(:current_user) { curator }
         allow(controller).to receive(:log_action) { curator }
         allow(controller).to receive(:expire_taxa) { curator }

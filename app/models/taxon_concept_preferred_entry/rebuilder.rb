@@ -1,5 +1,5 @@
-class TaxonConceptPreferredEntry
-  class Rebuilder
+class TaxonConceptPreferredEntry < ActiveRecord::Base
+  class Rebuilder 
 
     attr_reader :entries, :curated_entries, :best_entries
 

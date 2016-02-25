@@ -1,9 +1,9 @@
-require "spec_helper"
+;require "spec_helper"
 
 describe PrepareAndSendNotifications do
 
   it 'uses notification queue' do
-    expect(PrepareAndSendNotifications.class_eval { @queue }).to eq(:notifications)
+    expect(PrepareAndSendNotifications.class_eval { @queue }).to eq("notifications")
   end
 
   describe '.perform' do

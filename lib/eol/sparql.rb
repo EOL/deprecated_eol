@@ -166,7 +166,7 @@ module EOL
     end
 
     def self.count_triples_in_graph(graph_name)
-      EOL::Sparql.connection.query("SELECT COUNT DISTINCT ?s ?p ?o FROM <" + graph_name + "> WHERE { ?s ?p ?o }").first.values.first.to_i
+      EOL::Sparql.connection.query("SELECT COUNT DISTINCT ?s ?p ?o FROM <" + graph_name + "> WHERE { ?s ?p ?o }").first.try(:values).try(:first).to_i
     end
 
     def self.uris_in_data(rows)

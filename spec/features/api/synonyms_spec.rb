@@ -15,10 +15,11 @@ describe 'API:synonyms' do
     @synonym = Synonym.gen(hierarchy_entry: hierarchy_entry, name: name, synonym_relation: relation)
   end
 
-  it 'should create an API log including API key' do
-    user = User.gen(api_key: User.generate_key)
-    check_api_key("/api/synonyms/#{@synonym.id}?key=#{user.api_key}", user)
-  end
+  # not logging API anymore!
+  # it 'should create an API log including API key' do
+    # user = User.gen(api_key: User.generate_key)
+    # check_api_key("/api/synonyms/#{@synonym.id}?key=#{user.api_key}", user)
+  # end
 
   it 'synonyms should show all information for synonyms in TCS format' do
     response = get_as_xml("/api/synonyms/#{@synonym.id}")

@@ -13,10 +13,10 @@ class Hierarchy
     # intent was clearly supposed to be this, so I'm going with it: TODO - this
     # should be in the DB, anyway. :\
     RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY = [
-      Rank.kingdom.id,
-      Rank.phylum.id,
-      Rank.class_rank.id,
-      Rank.order.id
+      Rank.kingdom.try(:id),
+      Rank.phylum.try(:id),
+      Rank.class_rank.try(:id),
+      Rank.order.try(:id)
     ]
     RANK_WEIGHTS = { "family" => 100, "order" => 80, "class" => 60,
       "phylum" => 40, "kingdom" => 20 }

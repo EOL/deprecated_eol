@@ -120,44 +120,44 @@ describe UserAddedData do
     normalized_results.length.should == 5
   end
 
-  it 'should remove fields from triplestore when deleted' do
-    drop_all_virtuoso_graphs
-    user_added_data = UserAddedData.gen
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-    user_added_data.update_attributes({ deleted_at: Time.now })
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
-  end
+  # it 'should remove fields from triplestore when deleted' do
+    # drop_all_virtuoso_graphs
+    # user_added_data = UserAddedData.gen
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
+    # user_added_data.update_attributes({ deleted_at: Time.now })
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+  # end
 
-  it 'should be able to drop the UserAddedData graph' do
-    drop_all_virtuoso_graphs
-    UserAddedData.gen
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-    UserAddedData.delete_graph
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
-  end
+  # it 'should be able to drop the UserAddedData graph' do
+    # drop_all_virtuoso_graphs
+    # UserAddedData.gen
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
+    # UserAddedData.delete_graph
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+  # end
 
-  it 'should be able to interact with the triplestore' do
-    drop_all_virtuoso_graphs
-    d = UserAddedData.gen
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-    d.remove_from_triplestore
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
-    d.update_triplestore
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-    d.update_triplestore
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-  end
+  # it 'should be able to interact with the triplestore' do
+    # drop_all_virtuoso_graphs
+    # d = UserAddedData.gen
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
+    # d.remove_from_triplestore
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+    # d.update_triplestore
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
+    # d.update_triplestore
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
+  # end
 
-  it 'should be able to recreate the UserAddedData graph' do
-    drop_all_virtuoso_graphs
-    UserAddedData.destroy_all
-    UserAddedData.gen
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-    UserAddedData.delete_graph
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
-    UserAddedData.recreate_triplestore_graph
-    EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
-  end
+  # it 'should be able to recreate the UserAddedData graph' do
+    # drop_all_virtuoso_graphs
+    # UserAddedData.destroy_all
+    # UserAddedData.gen
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
+    # UserAddedData.delete_graph
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 0
+    # UserAddedData.recreate_triplestore_graph
+    # EOL::Sparql.count_triples_in_graph(UserAddedData::GRAPH_NAME).should == 5
+  # end
 
   it 'should create a DataPointURI' do
     d = UserAddedData.gen()

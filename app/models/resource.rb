@@ -447,7 +447,7 @@ class Resource < ActiveRecord::Base
   def port_traits
     EOL.log_call
     TraitBank.delete_resource(self)
-    taxa = TraitBank.rebuild_resource(self)
+    taxa = TraitBank::ResourcePorter.port(self)
     # NOTE: this is depressingly expensive, when it's really not likely to add
     # much value. But we do need to try and add all of the flattened taxa for
     # this resource, so that search will find the children. (Usually, they are

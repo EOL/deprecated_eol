@@ -1,7 +1,7 @@
 class TraitBank
   class ResourcePorter
     def self.port(resource)
-      porter = self.new
+      porter = self.new(resource)
       porter.port
     end
 

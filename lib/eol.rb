@@ -118,7 +118,7 @@ module EOL
     # Have to use #error to get it to show up in production:
     Rails.logger.error("#{options[:prefix]}#{options[:prefix]} "\
       "#{Time.now.strftime("%H:%M:%S.%L")}#{diff} #{msg}")
-    Rails.logger.flush # So we can see it with -f
+    Rails.logger.flush if Rails.logger.respond_to?(:flush)
     @last_log_time = Time.now
   end
 

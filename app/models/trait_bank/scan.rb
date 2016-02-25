@@ -55,7 +55,20 @@ class TraitBank
           query += "?page eol:has_ancestor <http://eol.org/pages/#{clade}> . "
         end
         query += "?trait a eol:trait . "\
-          "?trait dwc:measurementValue ?value . } } "
+          "?trait dwc:measurementValue ?value . "
+        if querystring = options[:querystring].strip
+          if querystring.is_numeric?
+            query <<  "FILTER(xsd:float(?value) = xsd:float(#{ querystring })) . "
+          elsif EOL::Sparql.is_uri?(querystring)
+            query << "FILTER((  ?value = '#{ querystring }'))."
+          else
+            query << "FILTER(( REGEX(?value, '(^|\\\\W)#{ querystring }(\\\\W|$)', 'i'))"
+            matching_known_uris = Array(KnownUri.search( querystring )).collect(&:uri).join( "','" )
+            query << " || ?value IN ( '#{ matching_known_uris }')" unless matching_known_uris.blank?
+            query << ") . "
+          end
+        end
+        query << "} } "
         # TODO: This ORDER BY only really works if numeric! :S
         unless options[:count]
           # TODO: figure out how to sort properly, both numerically and alpha.

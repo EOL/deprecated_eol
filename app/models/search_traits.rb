@@ -42,6 +42,8 @@ class SearchTraits < TraitSet
         required_equivalent_attributes.blank?
       @key += "/clade/#{search_options[:clade]}" unless
         search_options[:clade].blank?
+      @key += "/q/#{search_options[:querystring].gsub(/\W/, '_')}" unless 
+        search_options[:querystring].blank?
       @count_key = @key.sub('search', 'search/count')
       @key += "/page/#{@page}" unless @page == 1
       @key += "/per/#{@per_page}" unless @per_page == 100
@@ -68,6 +70,7 @@ class SearchTraits < TraitSet
       total = TraitBank.cache_query(@count_key) do
         TraitBank::Scan.trait_count(search_options)
       end
+      total = 0 if total.blank?
       @traits = WillPaginate::Collection.create(@page, @per_page, total) do |pager|
         pager.replace traits
       end

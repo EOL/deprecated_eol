@@ -925,6 +925,9 @@ oc:
     new:
       page_title: Entratz vòstres comentaris.
   collections:
+    download_taxa_data:
+      attribute_header: Atribut
+      select_all_checkbox: Seleccionar tot
     show:
       meta_description_default: Una colleccion de l’Enciclopèdia de la Vida intitulada
         %{collection_name}.
@@ -1202,7 +1205,7 @@ oc:
       about_link_what_is_eol: Qu’es aquò l’EdlV ?
       about_link_traitbank: Qu’es aquò TraitBank ?
       about_link_eol_blog: Lo blog de EdlV
-      about_link_discover: Descobrir
+      about_link_discover: Educacion
       about_link_statistics: Estatisticas
       about_link_glossary: Glossari
       about_link_podcasts: Podcasts
@@ -4024,8 +4027,8 @@ oc:
   cannot_be_associated_with_both_a_user_and_a_community: Pòt pas èsser associat a
     l'encòp a un utilizaire e a una comunautat
   cannot_be_empty: pòt pas èsser void.
-  cannot_create_collection_item_from_class_error: Impossible de crear cap d'element
-    de colleccion a partir d’una %{klass}
+  cannot_create_collection_item_from_class_error: 'Se pòt pas crear un element de
+    colleccion a partir d’un tipe : %{klass}'
   cannot_create_community_from_watch_collection_error: Podètz pas crear cap de comunautat
     a partir d’una lista de seguiment.
   cannot_curate_association_in_preview_mode: L'associacion amb %{name} pòt pas èsser
@@ -4687,6 +4690,7 @@ oc:
   current_language: 'Lenga : %{iso_code}'
   currently_running_harvesting: Collècta actualament en cors
   currently_in_eol: Actualament dins l’Enciclopèdia de la Vida (EdlV)
+  create_download_data_file: Crear lo fichièr
   institutional_sponsors: Partenaris institucionals
   currently_published: publicat actualament
   daily: Quotidian
@@ -4861,7 +4865,7 @@ oc:
   details_title: Detalhs
   did_you_mean: 'Voliatz dire : %{suggestions} ?'
   disabled_for_now: DESACTIVAT PEL MOMENT
-  discover_link: Descobrir
+  discover_link: Educacion
   displaying_numerical_range_eol_records_with_count:
     one: Afichatge de l’enregistrament sus EdlV
     other: Afichatge de %{start_number} &ndash; %{end_number} sus %{count} enregistraments
@@ -4874,6 +4878,7 @@ oc:
   do_you_want_to_be_a_curator: Volètz èsser un conservator ?
   download_wav_file: Telecargar lo fichièr WAV
   download_data: Telecargar las donadas
+  download_collection_data: Telecargar las donadas
   dublin_core: Dublin Core
   duplicate_items_were_ignored: Los elements en doble son estats ignorats.
   edit_comment: Modificar lo comentari

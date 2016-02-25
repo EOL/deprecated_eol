@@ -3217,7 +3217,8 @@ ar:
   articles_in_other_languages_with_count:
     one: 'المقالات عن تلك الصفحة متاحة بـلغة واحدة أخرى:'
     other: 'المقالات عن تلك الصفحة متاحة بـ%{count} لغة أخرى:'
-  as_of_time_there_were_unique_visitors: من %{time} وجدنا %{count} زائرًا متفردًا.
+  as_of_time_there_were_unique_visitors:
+    other: من %{time} وجدنا %{count} زائرًا متفردًا.
   a_total_of_comment_were_found_matching_your_criteria:
     one: تم إيجاد %{count} تعليقًا يوافق المعيار الذي تم إدخاله
     other: تم إيجاد %{count} تعليقًا يوافق المعيار الذي تم إدخاله

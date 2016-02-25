@@ -829,7 +829,7 @@ it:
         curation_application: Applica adesso
         curation_privileges: Invia la richiesta
         generate_api_key: Genera una chiave
-        recover_account: Invia e-mail
+        recover_account: Invia email
         notification_settings: Impostazioni notifiche
         sign_up_with_facebook: Iscriviti con Facebook
         sign_up_with_google: Iscriviti con Google
@@ -6494,7 +6494,7 @@ it:
   selected_language_advisory_information: Questa è la lingua attualmente selezionata.
   selected_items: Elementi selezionati
   send_contact_email: Invia e-mail di contatto
-  send_email_colon: 'Invia e-mail:'
+  send_email_colon: 'Invia email:'
   send: Invia
   sent_invitations_to_users:
     one: E' stato inviato un invito a %{users}.

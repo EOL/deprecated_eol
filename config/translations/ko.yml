@@ -8,6 +8,7 @@
 # Author: Cwt96
 # Author: Hwangjy9
 # Author: Hym411
+# Author: Idh0854
 # Author: Jskang
 # Author: Kurousagi
 # Author: Priviet
@@ -4940,7 +4941,7 @@ ko:
     동의하세요.
   terms_agreement_form_header: 이용 약관
   terms_agreement_form_submit: 동의합니다
-  terms_of_use_link: 이용 약관 &amp; 개인 정보 정책
+  terms_of_use_link: 이용 약관 &amp; 개인정보
   term_for_search_admin_ui: 약관
   test: 시험.
   test_it_out: 테스트

@@ -2805,7 +2805,6 @@ zh-TW:
     one: 這個頁面上的文章有 %{count} 種其他語言版本：
     other: 這個頁面上的文章有 %{count} 種其他語言版本：
   as_of_time_there_were_unique_visitors:
-    one: 到 %{time} 為止，有 %{count} 位不重複訪客
     other: 到 %{time} 為止，有 %{count} 位不重複訪客
   a_total_of_comment_were_found_matching_your_criteria:
     one: 共有 %{count} 筆評論符合您的條件。

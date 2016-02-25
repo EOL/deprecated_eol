@@ -3902,6 +3902,8 @@ pms:
   articles_in_other_languages_with_count:
     one: 'J''artìcoj ëd costa pàgina a son disponìbij an %{count} àutra lenga:'
     other: 'J''artìcoj ëd costa pàgina a son disponìbij an %{count} àutre lenghe:'
+  as_of_time_there_were_unique_visitors:
+    other: A %{time} a-i era %{count} visitador ùnich
   a_total_of_comment_were_found_matching_your_criteria:
     one: Un total d'%{count} coment a l'é stàit trovà ch'a sodisfa ij sò criteri.
     other: Un total ëd %{count} coment a son ëstàit trovà ch'a sodisfo ij sò criteri.

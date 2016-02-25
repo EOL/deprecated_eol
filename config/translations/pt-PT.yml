@@ -19,6 +19,7 @@
 # Author: Sarilho1
 # Author: Vitorvicentevalente
 # Author: Waldir
+# Author: Önni
 ---
 pt-PT:
   activerecord:
@@ -161,6 +162,7 @@ pt-PT:
         total_measurement_types: Tipos de medição
         total_association_types: Tipos de associação
         total_user_added_data: Dados adicionados por utilizadores
+        total_data_records: Registos de dados
       forum:
         forum_category_id: Categoria
         name: Nome do fórum
@@ -184,12 +186,17 @@ pt-PT:
         label: Etiqueta
         request_publish: Solicitar publicação
       known_uri:
+        clade_exemplar: Usar como modelo de classificação para Grupo Taxonómico
         description: Descrição
         exclude_from_exemplars: Excluir da Visão geral
+        group_by_clade: Usar para Grupos de Classe Taxonómica
+        hide_from_glossary: Ocultar do Glossário de Dados
         name: Nome
         toc_items: Categorias
         uri: URI
         uri_type: Tipo de URI
+        value_is_text: Os valores não serão URLs, apenas texto
+        value_is_verbatim: Valores não serão números, apenas texto
       known_uri_relationship:
         from_known_uri_id: URI de assunto
         to_known_uri_id: URI de destino
@@ -340,6 +347,8 @@ pt-PT:
         even: deve ser par
         inaccessible: está inacessível
         wrong_type: é do tipo errado
+        models:
+          inaccessible: está inacessível
       full_messages:
         format: '%{attribute} %{message}'
       models:
@@ -457,6 +466,11 @@ pt-PT:
         logo_new: 'Carregar um novo logótipo:'
         notes: Notas do projeto <small>(privado)</small>
         oldest_published_harvest_event: Publicado pela primeira vez
+        is_public_more: Perfis públicos de parceiros de conteúdo são visíveis para
+          todos e informações associadas estão  incluídas na lista de parceiros de
+          conteúdo. Desmarque a opção para excluir detalhes do conteúdo das listas
+          e restringir o acesso ao perfil do usuário que criou o conteúdo associado
+          e administradores EOL.
         user_id: Detalhes do parceiro de conteúdo gerido por
       content_partner_agreement:
         mou_url: URL do ficheiro do acordo <small>(alternativa opcional)</small>

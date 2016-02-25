@@ -2639,7 +2639,8 @@ zh-CN:
     other: 本页文章有 %{count} 种语言版本：
   articles_in_other_languages_with_count:
     other: 本页文章还有 %{count} 种其他语言版本：
-  as_of_time_there_were_unique_visitors: 截止到%{time}，有 %{count} 位唯一身份访问者
+  as_of_time_there_were_unique_visitors:
+    other: 截止到%{time}，有 %{count} 位唯一身份访问者
   a_total_of_comment_were_found_matching_your_criteria:
     other: 总共 %{count}条评论与您的标准匹配。
   a_total_of_items_were_found_matching_your_criteria:

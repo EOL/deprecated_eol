@@ -4129,6 +4129,8 @@ sv:
   count_results_for_search_term:
     one: '%{count} resultat för <em>%{search_term}</em>'
     other: '%{count} resultat för <em>%{search_term}</em>'
+  count_results_for_traitbank:
+    other: '%{count} TraitBank-resultat'
   create_account: skapa ett konto
   create_a_new_collection: Skapa en ny samling
   create_community_unsuccessful_error: Tyvärr, ett fel uppstod. Ditt gemenskap skapades

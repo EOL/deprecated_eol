@@ -446,9 +446,7 @@ class Resource < ActiveRecord::Base
   # new Rails format.
   def port_traits
     EOL.log_call
-    # NOTE that #all_traits uses the OLD format for traits, so this won't work
-    # if we stop creating those!
-    TraitBank.delete_traits(all_traits)
+    TraitBank.delete_resource(self)
     taxa = TraitBank.rebuild_resource(self)
     # NOTE: this is depressingly expensive, when it's really not likely to add
     # much value. But we do need to try and add all of the flattened taxa for

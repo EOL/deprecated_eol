@@ -75,8 +75,8 @@ class SolrCore
         language_id = tcn.language_id
         string = SolrCore.string(tcn.name.string)
         if string.blank?
-          EOL.log("WARNING: Blank string from #{tcn.name.string}; name id "\
-            "#{tcn.name.id} taxon_concept_id #{tcn.taxon_concept_id}")
+          # This happens a lot. I'm not sure how, but these strings are still
+          # matched, so this doesn't appear to be a problem, per se.
           next
         end
         name_vetted_id = tcn.vetted_id

@@ -38,7 +38,7 @@ class DataObjectsTableOfContent < ActiveRecord::Base
         # NOTE: Believe it or not, even though these are the "primary keys",
         # this query is VERY VERY SLOW. With only ONE pair, it takes 8 seconds
         # to run. Fun stuff.
-        where(id: updated_ids).delete_all
+        where(data_object_id: updated_ids).delete_all
         EOL::Db.bulk_insert(self, [:data_object_id, :toc_id], dotocs.to_a)
       end
       EOL.log_return

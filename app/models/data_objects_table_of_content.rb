@@ -32,14 +32,14 @@ class DataObjectsTableOfContent < ActiveRecord::Base
     else
       EOL.log("Found appropriate data object TOC items, rebuilding...", prefix: '.')
       ActiveRecord::Base.transaction do
-        # YOU WERE HERE: this doesn't work. Shoot. We need to find all the old ones. Crappy.
-        Can we just use "ids" (again) and only delete them if the ID is ALSO in the dotocs? I like that idea.
+        # We don't want to delete anything unless we found replacements:
         updated_ids = old_ids.intersection(new_ids).to_a
         # NOTE: Believe it or not, even though these are the "primary keys",
         # this query is VERY VERY SLOW. With only ONE pair, it takes 8 seconds
         # to run. Fun stuff.
         where(data_object_id: updated_ids).delete_all
-        EOL::Db.bulk_insert(self, [:data_object_id, :toc_id], dotocs.to_a)
+        EOL::Db.bulk_insert(self, [:data_object_id, :toc_id], dotocs.to_a,
+          ignore: true)
       end
       EOL.log_return
     end

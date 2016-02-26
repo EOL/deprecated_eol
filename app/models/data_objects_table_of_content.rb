@@ -23,7 +23,7 @@ class DataObjectsTableOfContent < ActiveRecord::Base
       includes(:info_item).
       find_in_batches do |batch|
       batch.each do |doii|
-        dotocs << "#{doii.data_object_id}, #{doii.info_item.toc_id}" }
+        dotocs << "#{doii.data_object_id}, #{doii.info_item.toc_id}"
         old_ids << doii.data_object_id
       end
     end

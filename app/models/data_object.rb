@@ -294,9 +294,11 @@ class DataObject < ActiveRecord::Base
         if object_is_a_link
           new_dato.data_objects_link_type = DataObjectsLinkType.create(data_object: new_dato, link_type_id: options[:link_type_id])
         end
-        # NOTE - associations will be preserved in their current vetted state by virtue of the GUID.
-        # There was once code here to trust all associations, if the user was a curator or admin. We have since
-        # elucidated that we do NOT want to change the vetted state after an update.
+        # NOTE - associations will be preserved in their current vetted state by
+        # virtue of the GUID. There was once code here to trust all
+        # associations, if the user was a curator or admin. We have since
+        # elucidated that we do NOT want to change the vetted state after an
+        # update.
         new_dato.users_data_object = users_data_object.replicate(new_dato)
         DataObjectsTaxonConcept.find_or_create_by_taxon_concept_id_and_data_object_id(users_data_object.taxon_concept_id, new_dato.id)
         new_dato.recalculate_rating

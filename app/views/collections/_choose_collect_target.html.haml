@@ -1,5 +1,5 @@
-= javascript_include_tag 'choose_collect_target' 
-= stylesheet_link_tag 'choose_collect_target' 
+= javascript_include_tag 'choose_collect_target'
+= stylesheet_link_tag 'choose_collect_target'
 #choose_collections
   - if @items
     -# NOTE - @for can either be 'copy' or 'move'.
@@ -26,8 +26,8 @@
   - @collections ||= []
   -# Note the reject simply disallows you from collecting a collection in itself:
   - collections = @collections.reject {|c| @collection && c.id == @collection.id }
-  - collections_sorted = @collections_recently_updated.reject {|c| @collection && c.id == @collection.id }
-  - unless collections.empty?
+  - collections_sorted = @collections_recently_updated && @collections_recently_updated.reject {|c| @collection && c.id == @collection.id }
+  - unless collections.blank?
     - form_target = @items ? @collection : CollectionItem.new(:collected_item => @item)
     = form_for(form_target) do |f|
       - if @selected_collection_items
@@ -50,7 +50,8 @@
             %dt.sort_by
               = label_tag :sort_collection_by, I18n.t(:sort_by_label)
               = select_tag :sort_collection_by, options_for_select(@sorts, :recent) , onchange: "javascript: changeList();"
-      = render 'list_collections_to_choose', collections: collections_sorted , type: "recent"
+      - unless collections_sorted.blank?
+        = render 'list_collections_to_choose', collections: collections_sorted , type: "recent"
       = render 'list_collections_to_choose', collections: collections , display: "none" , type: "alpha"
       %fieldset.actions
         = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user), :class => 'other_actions close_and_go')

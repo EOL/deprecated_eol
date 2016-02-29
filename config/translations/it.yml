@@ -5928,7 +5928,7 @@ it:
       videos: Video
     search:
       suggestions: Suggerimenti
-      no_results_found: Nessun risultato
+      no_results_found: Nessun risultato trovato
       results: Risultati
   moderator_colon: 'Moderatore:'
   main_species_page_link_with_spaces: ' &nbsp;&nbsp; pagina specie>>'
@@ -6551,6 +6551,7 @@ it:
   sort_by_hierarchy_publish_request_option: Richiesta di pubblicazione della gerarchia
   sort_by_reverse_alphabetical_option: Ordine alfabetico inverso
   sort_by_recently_added_option: Aggiunti di recente
+  sort_by_recently_updated_option: Aggiornato di recente
   sort_by_status_option: Stato
   sort_by_title_ascending: Titolo Crescente
   sort_by_title_descending: Titolo Decrescente

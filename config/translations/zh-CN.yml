@@ -2769,6 +2769,7 @@ zh-CN:
   classifications_preferred_column_header: 首选
   classifications_exemplar_column_header: 样本
   classifications_hierarchy_column_header: 分类
+  classifications_merge_providers_match_warning: 您将合并两个页面，而%{provider}已宣称它们的数据应分开。请确认您要<i>推翻</i>他们的声明，并将这些数据放置在相同页面上。
   classifications_recognized_by_column_header: 确认机构
   classifications_rank_column_header: 等级
   classifications_split_column_header: 拆分/移动
@@ -3094,8 +3095,8 @@ zh-CN:
   content_partners_link: 内容合作伙伴
   content_partners_empty: 未找到内容合作伙伴。
   content_partners_page_title: 内容合作伙伴
-  content_partners_page_description: '"网络生命大百科的内容合作伙伴在自己的网站或数据库中，拥有大量关于生物多样性的信息，同时他们也通过EOL页面来分享这些信息。我们非常感谢内容合作伙伴对EOL的重要贡献，并鼓励您更多的去了解他们。了解更多<a
-    href=""%{more_url}"">成为一个内容合作伙伴</a>。"'
+  content_partners_page_description: 网络生命大百科的内容合作伙伴在自己的网站或数据库中，拥有大量关于生物多样性的信息，同时他们也通过EOL页面来分享这些信息。我们非常感谢内容合作伙伴对EOL的重要贡献，并鼓励您更多的去了解他们。了解更多<a
+    href="%{more_url}">成为一个内容合作伙伴。</a>
   content_partners_with_count:
     other: '%{count}位内容合作伙伴'
   content_server_full_url: 内容服务器完整URL
@@ -3853,6 +3854,9 @@ zh-CN:
   members_with_count_semi_colon:
     other: '%{count}名会员;'
   merge_concepts: 合并概念
+  merge_data_ready: 您已经准备从以下分类中合并数据至该分类单元页面，或将其拆分至它们自己的页面上。请<i>确定</i>您选择了所有代表您目标分类单元的分类。For
+    example, if you are removing a moth from a mushroom page, please review <i>all</i>
+    classifications shown above to be sure you have selected all of the (same) moths.
   merge_data: 合并分类
   merge_pending: 此合并操作将需要一些时间。此页面目前被锁定，无法做出更多分类编辑，直到合并完成。在过程结束后您将接收到一封邮件，并且将出现在用于页面的新闻供稿中。
   message_colon: 消息：
@@ -4361,6 +4365,7 @@ zh-CN:
   sort_by_alphabetical_option: 按字母排序
   sort_by_reverse_alphabetical_option: 按字母降序
   sort_by_recently_added_option: 最近新增
+  sort_by_recently_updated_option: 最近已更新
   sort_by_status_option: 状态
   sort_by_title_ascending: 按标题升序
   sort_by_title_descending: 按标题降序
@@ -4704,8 +4709,8 @@ zh-CN:
   user: 用户
   users_about_me_header: 关于我
   users_content_partners_header: 内容合作伙伴
-  users_content_partners_information: '"EOL内容合作伙伴为个人或者组织，它们通过EOL与全世界分享它们的生物多样性数据。了解更多关于<a
-    href=""%{more_url}"">EOL内容合作伙伴</a>。"'
+  users_content_partners_information: EOL内容合作伙伴为个人或者组织，它们通过EOL与全世界分享它们的生物多样性数据。了解更多关于<a
+    href="%{more_url}">EOL内容合作伙伴</a>。
   users_content_partners_with_count:
     other: '%{count}内容合作伙伴'
   users_curation_header: 管理员资格

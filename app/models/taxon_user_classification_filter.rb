@@ -47,7 +47,7 @@ class TaxonUserClassificationFilter
   def hierarchy_entry
     _hierarchy_entry || @taxon_concept.entry
   end
-  alias_method :entry, :_hierarchy_entry
+  alias_method :entry, :hierarchy_entry
 
   def concept
     taxon_concept

@@ -143,9 +143,14 @@
       #classification_browser.browsable.classifications
         = render('navigation/node', { hierarchy_entry: @overview.hierarchy_entry, link_to_taxa: true, show_siblings: true, show_hierarchy_label: !@overview.classification_curated? })
         - if false # Don't want this done yet:
-          %ul.branch
+          :css
+            ul.hoverable li a { position:relative; }
+            ul.hoverable li a span { position:absolute; display:none; z-index:99; }
+            ul.hoverable li a:hover span { display:block; }
+          %ul.branch.hoverable
             - PageSummary.where(id: @overview.entry.ancestors.map(&:taxon_concept_id)).each do |ancestor|
-              %li{ data: ancestor.to_hash }= link_to(raw(ancestor.scientific_name), taxon_concept_overview_path(ancestor.id))
+              %li{ data: ancestor.to_hash }
+                = link_to(raw("#{ancestor.scientific_name}<span>#{image_tag(ancestor.thumbnail, size: "130x130")}</span>"), taxon_overview_path(ancestor.id))
   - cache("taxon_overview_curators_#{@overview.taxon_concept.id}_#{current_language.iso_639_1}") do
     #curators_summary.article.list
       .header

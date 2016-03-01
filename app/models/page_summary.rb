@@ -18,6 +18,7 @@ class PageSummary < ActiveRecord::Base
         scientific_name: concept.title,
         image_key: image,
         common_names: commons.to_s)
+      summary
     else
       PageSummary.create(
         id: concept.id,
@@ -28,9 +29,11 @@ class PageSummary < ActiveRecord::Base
   end
 
   def self.from_ids(ids)
+    all = []
     TaxonConcept.where(id: ids).with_titles.find_each do |concept|
-      from_concept(concept)
+      all << from_concept(concept)
     end
+    all
   end
 
   def thumbnail

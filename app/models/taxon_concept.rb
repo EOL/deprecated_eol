@@ -71,7 +71,9 @@ class TaxonConcept < ActiveRecord::Base
   scope :untrusted, -> { where(vetted_id: Vetted.unknown.id) }
   scope :with_title, -> { includes(preferred_entry: { hierarchy_entry:
     { name: :ranked_canonical_form } }) }
-  scope :with_subtitle, -> { includes(preferred_common_names: :name) }
+  scope :with_subtitle, -> {
+    includes(preferred_common_names: [:name, :language])
+  }
   scope :with_titles, -> { with_title.with_subtitle }
 
   attr_accessor :common_names_in_language

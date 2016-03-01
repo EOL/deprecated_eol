@@ -142,6 +142,10 @@
             = raw(I18n.t(:classification_from_agent_chosen_by_curator, agent: hierarchy_display_title(@overview.classification), curator: link_to(@overview.classification_chosen_by.full_name, user_path(@overview.classification_chosen_by.id))))
       #classification_browser.browsable.classifications
         = render('navigation/node', { hierarchy_entry: @overview.hierarchy_entry, link_to_taxa: true, show_siblings: true, show_hierarchy_label: !@overview.classification_curated? })
+        - if false # Don't want this done yet:
+          %ul.branch
+            - PageSummary.where(id: @overview.entry.ancestors.map(&:taxon_concept_id)).each do |ancestor|
+              %li{ data: ancestor.to_hash }= link_to(raw(ancestor.scientific_name), taxon_concept_overview_path(ancestor.id))
   - cache("taxon_overview_curators_#{@overview.taxon_concept.id}_#{current_language.iso_639_1}") do
     #curators_summary.article.list
       .header

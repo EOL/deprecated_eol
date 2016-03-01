@@ -1,12 +1,14 @@
 class PageSummary < ActiveRecord::Base
   # scientific_name, image_key, common_names. That's it.
   def self.from_concept(concept)
-    commons = {}
+    commons = "{"
     concept.preferred_common_names.
             select { |pcn| pcn.language.activated_on }.
             each do |tcn|
-      commons[tcn.language.iso_639_1] = tcn.name.string
+      commons += "\"#{tcn.language.iso_639_1}\": "\
+        "\"#{tcn.name.string.gsub(/"/, '""')}\""
     end
+    commons += "}"
     image = concept.exemplar_or_best_image_from_solr.try(:object_cache_url)
     if PageSummary.exists?(concept.id)
       summary = PageSummary.find(concept.id)
@@ -27,5 +29,12 @@ class PageSummary < ActiveRecord::Base
     TaxonConcept.where(id: ids).with_titles.find_each do |concept|
       from_concept(concept)
     end
+  end
+
+  def to_hash
+    {
+      id: id, scientific_name: scientific_name, image_key: image_key,
+      common_names: JSON.parse(common_names)
+    }
   end
 end

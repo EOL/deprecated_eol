@@ -47,6 +47,11 @@ class TaxonUserClassificationFilter
   def hierarchy_entry
     _hierarchy_entry || @taxon_concept.entry
   end
+  alias_method :entry, :_hierarchy_entry
+
+  def concept
+    taxon_concept
+  end
 
   # This tells you whether the presenter is being viewed with a classification
   # filter. ...Of course. Please don't trust the return value to be the actual

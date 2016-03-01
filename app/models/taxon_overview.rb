@@ -36,6 +36,7 @@ class TaxonOverview < TaxonUserClassificationFilter
     end
     @entry
   end
+  alias_method :entry, :hierarchy_entry
 
   def classification_chosen_by
     return @classification_chosen_by if @classification_chosen_by
@@ -121,7 +122,7 @@ class TaxonOverview < TaxonUserClassificationFilter
   def iucn_status
     Rails.cache.fetch(cache_id+"_iucn", expires_in: 10.days) do
       iucn.try(:description)
-    end    
+    end
   end
 
   def iucn_url

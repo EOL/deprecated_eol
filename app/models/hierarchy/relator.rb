@@ -156,18 +156,14 @@ class Hierarchy
     def compare_entries_from_solr(entry, matching_entry)
       matching_entry["rank_id"] ||= 0
       # TODO: why bother returning a value rather than just storing it?
-      score = score_comparison(entry,
-        matching_entry)
+      score = score_comparison(entry, matching_entry)
       if score
-        store_relationship(entry["id"],
-          matching_entry["id"], score)
+        store_relationship(entry["id"], matching_entry["id"], score)
       end
       # TODO: examine whether this is REALLY necessary.
-      inverted_score = score_comparison(matching_entry,
-        entry)
+      inverted_score = score_comparison(matching_entry, entry)
       if inverted_score
-        store_relationship(matching_entry["id"],
-          entry["id"], score)
+        store_relationship(matching_entry["id"], entry["id"], score)
       end
     end
 

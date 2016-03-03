@@ -138,12 +138,12 @@ class Hierarchy
         "#{hierarchy2.id}->#{id2}->#{tc_id2}"
       return(nil) if concepts_of_one_already_in_other?(relationship)
       if curators_denied_relationship?(relationship)
-        EOL.log("SKIP (rejected by curator): #{working_on}", prefix: ".")
+        # EOL.log("SKIP (rejected by curator): #{working_on}", prefix: ".")
         return(nil)
       end
       if affected = additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
-        EOL.log("SKIP (not allowed by complete hierarchy): #{working_on}",
-          prefix: ".")
+        # EOL.log("SKIP (not allowed by complete hierarchy): #{working_on}",
+        #   prefix: ".")
         return(nil)
       end
       EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
@@ -211,28 +211,28 @@ class Hierarchy
       if hierarchy1.complete?
         # HE.exists?(concept: 2, hierarchy: 1, visibility: visible)
         if entry_published_in_hierarchy?(1, relationship)
-          EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1}",
-            prefix: ".")
+          # EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1}",
+          #   prefix: ".")
           return true
         end
         # HE.exists?(concept: 2, hierarchy: 1, visibility: preview)
         if entry_preview_in_hierarchy?(1, relationship)
-          EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
-            "#{hierarchy1.id}", prefix: ".")
+          # EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
+          #   "#{hierarchy1.id}", prefix: ".")
           return true
         end
       end
       if hierarchy2.complete?
         # HE.exists?(concept: 1, hierarchy: 2, visibility: visible)
         if entry_published_in_hierarchy?(2, relationship)
-          EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
-            "#{hierarchy2.id}", prefix: ".")
+          # EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
+          #   "#{hierarchy2.id}", prefix: ".")
           return true
         end
         # HE.exists?(concept: 1, hierarchy: 2, visibility: preview)
         if entry_preview_in_hierarchy?(2, relationship)
-          EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
-            "#{hierarchy2.id}", prefix: ".")
+          # EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
+          #   "#{hierarchy2.id}", prefix: ".")
           return true
         end
       end

@@ -300,7 +300,7 @@ class TraitBank
       "SELECT DISTINCT *
         # measurements_query
         WHERE {
-          GRAPH <#{resource.graph}> {
+          GRAPH <#{resource.graph_name}> {
             ?trait dwc:measurementType ?predicate .
             ?trait dwc:measurementValue ?value .
             OPTIONAL { ?trait dwc:measurementUnit ?units } .

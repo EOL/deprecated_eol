@@ -146,6 +146,7 @@
           :css
             ul.hoverable li a { position:relative; }
             ul.hoverable li a span { position:absolute; display:none; z-index:99; }
+            ul.hoverable li a span img { margin-left: 80px; border: 1px solid #d7dadc; }
             ul.hoverable li a:hover span { display:block; }
           %ul.branch.hoverable
             - PageSummary.where(id: @overview.entry.ancestors.map(&:taxon_concept_id)).each do |ancestor|

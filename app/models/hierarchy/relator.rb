@@ -17,22 +17,22 @@ class Hierarchy
       Rank.phylum.try(:id),
       Rank.class_rank.try(:id),
       Rank.order.try(:id)
-    ]
+    ].compact
     RANK_WEIGHTS = { "family" => 100, "order" => 80, "class" => 60,
       "phylum" => 40, "kingdom" => 20 }
 
     # I am not going to freak out about the fact that TODO: this needs to be in
     # the database. I've lost my energy to freak out about such things. :|
     GOOD_SYNONYMY_HIERARCHY_IDS = [
-      903, # ITIS
-      759, # NCBI
       123, # WORMS
-      949, # COL 2012
-      787, # ReptileDB
+      143, # Fishbase
       622, # IUCN
       636, # Tropicos
-      143, # Fishbase
-      860  # Avibase
+      759, # NCBI
+      787, # ReptileDB
+      860, # Avibase
+      903, # ITIS
+      949  # COL 2012
     ]
 
     def self.relate(hierarchy, options = {})
@@ -83,7 +83,7 @@ class Hierarchy
       response = @solr.paginate("hierarchy_id:#{@hierarchy.id}",
         page: page, per_page: @per_page)
       rhead = response["responseHeader"]
-      if rhead["QTime"] && rhead["QTime"].to_i > 1000
+      if rhead["QTime"] && rhead["QTime"].to_i > 200
         EOL.log("relator query: #{rhead["q"]}", prefix: ".")
         EOL.log("relator request took #{rhead["QTime"]}ms", prefix: ".")
       end
@@ -129,6 +129,11 @@ class Hierarchy
         query += " NOT hierarchy_id:1172" if @hierarchy.id == 759
         # TODO: make rows variable configurable
         response = @solr.select(query, rows: 400)
+        rhead = response["responseHeader"]
+        if rhead["QTime"] && rhead["QTime"].to_i > 500
+          EOL.log("compare query: #{rhead["q"]}", prefix: ".")
+          EOL.log("compare request took #{rhead["QTime"]}ms", prefix: ".")
+        end
         matching_entries_from_solr = response["response"]["docs"]
         matching_entries_from_solr.each do |matching_entry|
           compare_entries_from_solr(entry, matching_entry)

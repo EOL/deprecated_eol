@@ -36,6 +36,14 @@ class PageSummary < ActiveRecord::Base
     all
   end
 
+  def common_names_hash
+    @common_names_hash ||= JSON.parse(common_names)
+  end
+
+  def common_name(locale)
+    common_names_hash[locale]
+  end
+
   def thumbnail
     DataObject.image_cache_path(image_key, '130_130')
   end
@@ -43,7 +51,7 @@ class PageSummary < ActiveRecord::Base
   def to_hash
     {
       id: id, scientific_name: scientific_name, image_key: image_key,
-      common_names: JSON.parse(common_names), thumbnail: thumbnail
+      common_names: common_names_hash, thumbnail: thumbnail
     }
   end
 end

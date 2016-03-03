@@ -65,7 +65,7 @@ class HarvestEvent
     end
 
     def collection
-      @collection ||= if @event.published?
+      @collection ||= if @event.published? || @resource.auto_publish?
         EOL.log_call
         if resource.collection.nil?
           resource.collection = create_collection_object

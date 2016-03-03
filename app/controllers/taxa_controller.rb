@@ -121,7 +121,10 @@ private
     # crawlers to think pages don't exist. So throw errors instead
     raise if tc_id.blank? || tc_id == 0
     with_master_if_curator do
-      @taxon_concept = TaxonConcept.with_titles.find(tc_id)
+      # Doing a "dance" here to get the superceded id, then load it with
+      # associations:
+      super_id = TaxonConcept.find(tc_id).id
+      @taxon_concept = TaxonConcept.with_titles.find(super_id)
     end
     unless @taxon_concept.published?
       if logged_in?

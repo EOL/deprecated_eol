@@ -184,7 +184,6 @@ class HierarchyEntry < ActiveRecord::Base
       published: published,
       name: SolrCore.string(name.string),
       canonical_form: name.clean_canonical_form,
-      # TODO: I don't know that we need this anymore:
       canonical_form_string: name.canonical_form.string
     }
     if ancestor_names

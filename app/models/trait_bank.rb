@@ -61,7 +61,7 @@ class TraitBank
     # query can get too long. Sigh.
     def delete(triples)
       triple_string = triples.join(" .\n")
-      query = "WITH GRAPH <#{graph_name}> DELETE { #{triples} } "\
+      query = "WITH GRAPH <#{graph}> DELETE { #{triples} } "\
         "WHERE { #{triples} }"
       begin
         connection.query(query)
@@ -300,7 +300,7 @@ class TraitBank
       "SELECT DISTINCT *
         # measurements_query
         WHERE {
-          GRAPH <#{resource.graph_name}> {
+          GRAPH <#{resource.graph}> {
             ?trait dwc:measurementType ?predicate .
             ?trait dwc:measurementValue ?value .
             OPTIONAL { ?trait dwc:measurementUnit ?units } .

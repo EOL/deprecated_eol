@@ -40,7 +40,8 @@ class SolrCore
         entries += HierarchyEntry.where(id: ids).
           includes(synonyms: { name: :canonical_form}, name: :canonical_form)
       end
-      entries
+      # We can't do anything with it, if the canonical form is blank!
+      entries.delete_if { |e| e.name.canonical_form.nil? }
     end
 
     def add_ancestry(entries, entry_ancestors)

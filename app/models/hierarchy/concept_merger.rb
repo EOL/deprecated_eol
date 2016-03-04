@@ -146,7 +146,7 @@ class Hierarchy
         #   prefix: ".")
         return(nil)
       end
-      EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
+      # EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
       # TODO: store the supercedure somewhere so that we can use it later to
       # know what to clean up, e.g.: in CollectionItem.remove_superceded_taxa
       begin

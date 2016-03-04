@@ -7,9 +7,9 @@ class CodeBridge
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
     EOL.log_call
-    EOL.log("Notifications: #{Resque.size("notifications")})", prefix: ".")
-    EOL.log("Data: #{Resque.size("data")})", prefix: ".")
-    EOL.log("Harvesting: #{Resque.size("harvesting")})", prefix: ".")
+    EOL.log("Notifications queue: #{Resque.size("notifications")}", prefix: ".")
+    EOL.log("Data queue: #{Resque.size("data")}", prefix: ".")
+    EOL.log("Harvesting queue: #{Resque.size("harvesting")}", prefix: ".")
     if args['cmd'] == 'check_status_and_notify'
       EOL.log("Check and Notify", prefix: ".")
       with_error_handling(args) do
@@ -35,6 +35,18 @@ class CodeBridge
       end
     else
       EOL.log("ERROR: NO command responds to #{args['cmd']}", prefix: "*")
+    end
+  end
+
+  def self.top_images_in_queue?
+    begin
+      ! Resque.peek(:php, 0, 1000).
+               select { |j| j["args"].first["cmd"] == "top_images" }.
+               empty?
+    rescue => e
+      EOL.log("WARNING: Failed to read 'php' queue: #{e.message}",
+        prefix: "!")
+      false
     end
   end
 

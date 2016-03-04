@@ -2,7 +2,7 @@ class ResourceValidation
   @queue = "data"
 
   class << self
-    def self.perform(user_id, resource_id, loc)
+    def perform(user_id, resource_id, loc)
       EOL.log_call
       resource = Resource.find(resource_id)
       EOL.log("Resource: ##{resource_id} #{resource.title}", prefix: ".")

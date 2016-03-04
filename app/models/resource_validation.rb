@@ -3,14 +3,16 @@ class ResourceValidation
 
   class << self
     def self.perform(current_user_id, content_partner_id, resource_id, loc)
-      log("START user ##{current_user_id} resource ##{resource_id} loc #{loc}")
+      EOL.log_call
+      EOL.log("START user ##{current_user_id} resource ##{resource_id} loc #{loc}")
       partner = ContentPartner.find(content_partner_id,
                                     include: {resources: :resource_status })
-      log("Content Partner: #{partner.display_name}")
+      EOL.log("Content Partner: #{partner.display_name}")
       resource = partner.resources.find(resource_id)
-      log("Resource: #{resource.title}")
+      EOL.log("Resource: #{resource.title}")
       resource.upload_resource_to_content_master(loc)
       write_log_send_mail(current_user_id, resource_id)
+      EOL.log_return
     end
 
     def write_log_send_mail(user_id, resource_id)
@@ -27,10 +29,6 @@ class ResourceValidation
         reason: 'auto_email_after_validation'
       )
       Resque.enqueue(PrepareAndSendNotifications)
-    end
-
-    def log(msg)
-      Rails.logger.error("++ ResourceValidation: #{msg}")
     end
   end
 end

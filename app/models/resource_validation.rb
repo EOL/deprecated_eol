@@ -1,17 +1,15 @@
 class ResourceValidation
-  @queue = :data
+  @queue = "data"
 
   class << self
-    def self.perform(current_user_id, content_partner_id, resource_id, loc)
+    def self.perform(user_id, resource_id, loc)
       EOL.log_call
-      EOL.log("START user ##{current_user_id} resource ##{resource_id} loc #{loc}")
-      partner = ContentPartner.find(content_partner_id,
-                                    include: {resources: :resource_status })
-      EOL.log("Content Partner: #{partner.display_name}")
-      resource = partner.resources.find(resource_id)
-      EOL.log("Resource: #{resource.title}")
+      resource = Resource.find(resource_id)
+      EOL.log("Resource: ##{resource_id} #{resource.title}", prefix: ".")
+      EOL.log("User ID: ##{user_id}", prefix: ".")
+      EOL.log("Location: #{loc}", prefix: ".")
       resource.upload_resource_to_content_master(loc)
-      write_log_send_mail(current_user_id, resource_id)
+      write_log_send_mail(user_id, resource_id)
       EOL.log_return
     end
 

@@ -42,7 +42,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
       render :new
     end
     @resource.update_attributes(resource_status: ResourceStatus.uploading)
-    enqueue_job(current_user.id, params[:content_partner_id], @resource.id)
+    enqueue_job(current_user.id, @resource.id)
   end
 
   # GET /content_partners/:content_partner_id/resources/:id/edit
@@ -71,7 +71,7 @@ class ContentPartners::ResourcesController < ContentPartnersController
     if @resource.update_attributes(params[:resource])
       if upload_required
         @resource.update_attributes(resource_status: ResourceStatus.uploading)
-        enqueue_job(current_user.id, params[:content_partner_id], params[:id])
+        enqueue_job(current_user.id, params[:id])
       end
       if params[:resource][:auto_publish].to_i == 0
         @resource.delete_resource_contributions_file
@@ -145,9 +145,10 @@ class ContentPartners::ResourcesController < ContentPartnersController
 
 private
 
-  def enqueue_job(user_id, content_partner_id, resource_id)
-    Resque.enqueue(ResourceValidation, user_id, content_partner_id, resource_id,
-      "#{EOL::Server.ip_address}:#{request.port.to_s}")
+  def enqueue_job(user_id, resource_id)
+    EOL.log("BACKGROUND: resource upload for ID: #{@resource.id}")
+    Resque.enqueue(ResourceValidation, user_id, resource_id,
+      EOL::Server.ip_address)
   end
 
   def redirect_if_terms_not_accepted

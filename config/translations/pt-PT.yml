@@ -474,6 +474,11 @@ pt-PT:
         user_id: Detalhes do parceiro de conteúdo gerido por
       content_partner_agreement:
         mou_url: URL do ficheiro do acordo <small>(alternativa opcional)</small>
+        mou_url_more: Opcionalmente digite a URL do ficheiro que contenha o acordo
+          deste provedor de conteúdos associados. Este ficheiro irá sobrescrever qualquer
+          outro texto. Se pretende armazenar o ficheiro (por exemplo num arquivo PDF)
+          nos servidores do conteúdo EOL, então primeiro <a href="%{upload_content_url}">faça
+          o upload do arquivo</a>, para obter a URL.
       data_object:
         bibliographic_citation: Citação bibliográfica
         description: Texto <small>(algumas marcações HTML são permitidas)</small>
@@ -483,7 +488,13 @@ pt-PT:
         object_title: Título
         toc_item: Sub-capítulo
         refs: Referências <small>(colocar cada referência em uma nova linha)</small>
+        refs_order: '*Referências irão aparecer em ordem alfabética'
         rights_holder: Detentor dos direitos
+        rights_holder_more: Especifique uma pessoa ou uma organização que seja a proprietária
+          ou a administre os direitos destes dados. Se você deixar este campo em branco,
+          assumiremos que você é o detentor dos direitos para todas as licenças, excepto
+          do Domínio Público. Licenças de Domínio Público não necessitam de um titular
+          de direitos.
         rights_statement: Declaração de direitos
         source_url: URL para o objeto de dados original
       data_object_link:
@@ -870,6 +881,10 @@ pt-PT:
         page_header: Estatísticas globais
         page_title: 'Administração: Estatísticas globais'
         table_caption: Estatísticas globais do site criadas em %{created_at_time}
+      lifedesks:
+        menu_link: LifeDesks
+        page_header: Estatísticas de LifeDesks
+        page_title: 'Administração: Estatísticas LifeDesks'
       marine:
         menu_link: Estatísticas marinhas
         page_header: Cobertura Marinha na EOL
@@ -897,6 +912,7 @@ pt-PT:
   collections:
     download_taxa_data:
       attribute_header: Atributo
+      select_all_checkbox: Selecionar tudo
     show:
       meta_description_default: Uma colecção da Enciclopédia da Vida intitulada %{collection_name}.
       meta_description_default_focus_collection: Uma colecção da Enciclopédia da Vida

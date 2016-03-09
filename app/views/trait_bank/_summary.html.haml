@@ -30,6 +30,11 @@
             %tr
               %th= display_uri(uri, capitalize: false)
               %td
+                - data.traits.map do |trait|
+                  - if trait.statistical_method?
+                    %span.stat= trait.statistical_method_names.join(", ")
+                    %br
+              %td
                 - text_for_rows = data.traits.map do |trait|
                   - format_value(trait).html_safe
                 - if data.more?

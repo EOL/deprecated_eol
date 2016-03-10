@@ -23,6 +23,9 @@ coverage
 # Eclipse:
 .metadata
 
+# Config for servers:
+config/*.env
+
 # Older stuff:
 *.bundle
 *.o

@@ -158,9 +158,11 @@ module EOL
           validate_and_normalize_input_parameters!(params)
           params[:details] = 1 if params[:format] == 'html'
           I18n.locale = params[:language] unless params[:language].blank?
-          # TODO: When we called #validate_and_normalize_input_parameters, the
-          # TC was already loaded (but not stored); this is redundant: fix.
-          taxon_concepts = TaxonConcept.find_all_by_id(params[:id].split(","))
+          # NOTE: we need to honor supercedure, so this is slower than ideal:
+          taxon_concepts = params[:id].split(",").map do |id|
+            super_id = TaxonConcept.find(id).id
+            TaxonConcept.with_titles.find(super_id)
+          end
           if (params[:batch])
             batch_concepts = []
             taxon_concepts.each do |taxon_concept|
@@ -363,7 +365,7 @@ module EOL
           end
           return image_objects
         end
-        
+
         def self.params_found_and_greater_than_zero(page, per_page)
           page && per_page && page > 0 && per_page > 0 ? true : false
         end
@@ -433,11 +435,11 @@ module EOL
           return map_objects
         end
         def self.no_objects_required?(params)
-          return ( params[:action] == "pages" && 
-                   params[:texts_per_page] == 0 && 
-                   params[:images_per_page] == 0 && 
-                   params[:videos_per_page] == 0 && 
-                   ( params[:maps_per_page] == 0 || !params.has_key?(:maps_per_page) ) && 
+          return ( params[:action] == "pages" &&
+                   params[:texts_per_page] == 0 &&
+                   params[:images_per_page] == 0 &&
+                   params[:videos_per_page] == 0 &&
+                   ( params[:maps_per_page] == 0 || !params.has_key?(:maps_per_page) ) &&
                    ( params[:sounds_per_page] == 0 || !params.has_key?(:sounds_per_page) )
                  )
         end

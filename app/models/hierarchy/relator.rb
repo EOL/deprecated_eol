@@ -74,7 +74,12 @@ class Hierarchy
         page += 1
         entries = get_page_from_solr(page)
         entries.each do |entry|
-          compare_entry(entry) if @new_entry_ids.include?(entry["id"])
+          begin
+            compare_entry(entry) if @new_entry_ids.include?(entry["id"])
+          rescue => e
+            EOL.log("Failed on entry ##{entry.id} (page #{page})")
+            raise e
+          end
         end
       end while entries.count > 0
     end
@@ -94,21 +99,24 @@ class Hierarchy
       response["response"]["docs"]
     end
 
-    # TODO: cleanup. :| TODO: Speed up. This is a very, very slow process, even
-    # with a tiny test database. Definitely need to improve the algorithm, here.
+    def metaquote(string)
+      string.gsub(/\\/, "\\\\\\\\").gsub(/"/, "\\\"")
+    end
+
+    # TODO: cleanup. :|
     def compare_entry(entry)
       matches = []
       entry["rank_id"] ||= 0
       if entry["name"]
         # TODO: do we need to do any unencoding here, since it came from Solr?
-        search_name = entry["name"]
+        search_name = metaquote(entry["name"])
         # PHP TODO: "what about subgenera?"
         search_canonical = ""
         # TODO: store surrogate flag... somewhere. Store virus value there too
         if ! Name.is_surrogate_or_hybrid?(search_name) &&
           ! entry_is_in_virus_kingdom?(entry) &&
           ! entry["canonical_form"].blank?
-          search_canonical = entry["canonical_form"] # TODO: unencode?
+          search_canonical = metaquote(entry["canonical_form"])
         end
         search_canonical = "" if search_canonical =~ /virus$/
         query_or_clause = []

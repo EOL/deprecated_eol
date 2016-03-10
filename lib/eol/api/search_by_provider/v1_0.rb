@@ -66,7 +66,7 @@ module EOL
           unless params[:batch]
             results.compact.each do |tc_id|
               return_hash << { 'eol_page_id' => tc_id }
-               return_hash << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{tc_id}" }
+              return_hash << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{tc_id}" }
             end
             return return_hash
           else
@@ -74,7 +74,7 @@ module EOL
               result_array =[]
               result.each do |id, tc_ids|
                 tc_ids.compact.each do |tc_id|
-                 result_array << { 'eol_page_id' => tc_id}
+                 result_array << { 'eol_page_id' => tc_id }
                  result_array << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{tc_id}" }
                 end
                 return_hash << { id => result_array } unless result_array.blank?
@@ -85,15 +85,17 @@ module EOL
         end
 
         def self.get_taxon_concept_ids(identifier, hierarchy_id)
-          hierarchy_entries = HierarchyEntry.includes(:taxon_concept).where(hierarchy_id: hierarchy_id, identifier: identifier, visibility_id: Visibility.get_visible.id, published: true)
-           debugger 
-          hierarchy_entries_ids = hierarchy_entries.map{ |h| h.taxon_concept_id if h.taxon_concept.published? }
+          tc_ids_from_entries = HierarchyEntry.includes(:taxon_concept)
+          .where('taxon_concepts.published = true')
+          .where(hierarchy_id: hierarchy_id, identifier: identifier, 
+            visibility_id: Visibility.get_visible.id, published: true)
+          .map(&:taxon_concept_id)
 
-          synonyms = Synonym.includes(hierarchy_entry: :taxon_concept).
-           where(hierarchy_id: hierarchy_id, identifier: identifier)
-          synonyms_ids = synonyms.map{ |s| s.taxon_concept.id if s.taxon_concept.published? }
+          tc_ids_from_synonyms = Synonym.includes(hierarchy_entry: :taxon_concept)
+          .where('taxon_concepts.published = true')
+          .where(hierarchy_id: 20, identifier: identifier).map(&:taxon_concept_id)
 
-          return (hierarchy_entries_ids + synonyms_ids).uniq
+          return ( tc_ids_from_entries + tc_ids_from_synonyms ).uniq
         end
       end
     end

@@ -52,7 +52,7 @@ class Hierarchy
       @per_page = Rails.configuration.solr_relationships_page_size.to_i
       @per_page = 1000 unless @per_page > 0
       @solr = SolrCore::HierarchyEntries.new
-      @relationships = Set.new
+      @scores = {}
     end
 
     def relate
@@ -68,7 +68,7 @@ class Hierarchy
     private
 
     def compare_entries
-      EOL.log_call
+      EOL.log("Comparing entries for hierarchy ##{@hierarchy.id}")
       begin
         page ||= 0
         page += 1
@@ -80,12 +80,16 @@ class Hierarchy
     end
 
     def get_page_from_solr(page)
+      # This query is very fast, even at high page numbers:
       response = @solr.paginate("hierarchy_id:#{@hierarchy.id}",
         page: page, per_page: @per_page)
       rhead = response["responseHeader"]
-      if rhead["QTime"] && rhead["QTime"].to_i > 200
+      if rhead["QTime"] && rhead["QTime"].to_i > 100
         EOL.log("relator query: #{rhead["q"]}", prefix: ".")
         EOL.log("relator request took #{rhead["QTime"]}ms", prefix: ".")
+      end
+      if page == 1 && response["response"] && response["response"]["numFound"]
+        EOL.log("Total of #{response["response"]["numFound"]} entries")
       end
       response["response"]["docs"]
     end
@@ -130,7 +134,7 @@ class Hierarchy
         # TODO: make rows variable configurable
         response = @solr.select(query, rows: 400)
         rhead = response["responseHeader"]
-        if rhead["QTime"] && rhead["QTime"].to_i > 500
+        if rhead["QTime"] && rhead["QTime"].to_i > 200
           EOL.log("compare query: #{rhead["q"]}", prefix: ".")
           EOL.log("compare request took #{rhead["QTime"]}ms", prefix: ".")
         end
@@ -147,7 +151,7 @@ class Hierarchy
         # on an entry should be the preferred scientific name, so this error
         # implies we have entries with no such thing... which is... odd. Should
         # it just be the canonical form?
-        EOL.log("WARNING: solr entry had no name: #{entry["id"]} "\
+        EOL.log("WARNING: solr entry with canonical form only: #{entry["id"]} "\
           "(#{entry["canonical_form"]})", prefix: "!")
       end
     end
@@ -163,12 +167,12 @@ class Hierarchy
       # TODO: why bother returning a value rather than just storing it?
       score = score_comparison(entry, matching_entry)
       if score
-        store_relationship(entry["id"], matching_entry["id"], score)
+        store_score(entry["id"], matching_entry["id"], score)
       end
       # TODO: examine whether this is REALLY necessary.
       inverted_score = score_comparison(matching_entry, entry)
       if inverted_score
-        store_relationship(matching_entry["id"], entry["id"], score)
+        store_score(matching_entry["id"], entry["id"], score)
       end
     end
 
@@ -192,7 +196,7 @@ class Hierarchy
       # If it's not a complete match (and not a virus), check for synonyms:
       if ! name_match && ! is_virus
         name_match = compare_synonyms(from_entry, to_entry)
-        synonym = true if name_match > 0 # TODO: ensure this cant be nil
+        synonym = name_match > 0
       end
       ancestry_match = compare_ancestries(from_entry, to_entry)
       total_score = if name_match.nil?
@@ -272,7 +276,8 @@ class Hierarchy
         return 0 unless allowed_to_match_at_kingdom_only?(from_entry, to_entry)
         return 0 if from_entry["rank_id"].blank? || to_entry["rank_id"].blank?
         # TODO: Wait, what? They aren't allowed to match if they are the same
-        # rank? That does not make sense to me. :\ But it's what PHP did!
+        # rank (and they only match at kingom)? That does not make sense to me. :\
+        # But it's what PHP did!
         return 0 if from_entry["rank_id"] == to_entry["rank_id"]
       end
       return score / 100
@@ -305,20 +310,14 @@ class Hierarchy
       true
     end
 
-    # TODO: I'm kind of going to great lengths here to scan existing
-    # relationships... this would be much cleaner code if we stored a parallel
-    # hash, keyed with the "key" below, and with the score as a value, but I'm
-    # _slightly_ worried that this might use more memory and not be as
-    # efficient... This works as-is (AFAICT), but it's sloppy code. Sorry.
-    def store_relationship(from, to, score)
+    def store_score(from, to, score)
       type = score[:synonym] ? 'syn' : 'name'
-      key = "#{from}, #{to}, '#{type}',"
-      old_relationship = @relationships.find { |r| r[0..key.length - 1] == key }
-      old_score = old_relationship && old_relationship.split(', ').last.to_f
-      @relationships << "#{key} #{score[:score]}" unless
-        old_score && old_score < score[:score]
-      count = @relationships.count
-      EOL.log("#{count} relationships...", prefix: ".") if count % 1000 == 0
+      key = "#{from},#{to},'#{type}'"
+      unless @scores.has_key?(key) && @scores[key] < score[:score]
+        @scores[key] = score[:score]
+      end
+      size = @scores.size
+      EOL.log("#{size} relationships...", prefix: ".") if size % 1000 == 0
     end
 
     def add_curator_assertions
@@ -336,9 +335,9 @@ class Hierarchy
           select { |ce| ce.from_hierarchy_entry && ce.to_hierarchy_entry }.
           each do |cher|
           # NOTE: Yes, PHP stores both, but it used two queries (inefficiently):
-          store_relationship(cher.hierarchy_entry_id_1,
+          store_score(cher.hierarchy_entry_id_1,
             cher.hierarchy_entry_id_2, { score: 1, synonym: false })
-          store_relationship(cher.hierarchy_entry_id_2,
+          store_score(cher.hierarchy_entry_id_2,
             cher.hierarchy_entry_id_1, { score: 1, synonym: false })
         end
       end
@@ -356,9 +355,12 @@ class Hierarchy
 
     def insert_relationships
       EOL.log_call
+      relationships = @scores.keys.map do |key|
+        "#{key},#{@scores[key]}"
+      end
       EOL::Db.bulk_insert(HierarchyEntryRelationship,
         [:hierarchy_entry_id_1, :hierarchy_entry_id_2, :relationship, :score],
-        @relationships.to_a)
+        relationships.to_a)
     end
 
     # NOTE: PHP did this before swapping the tmp tables (because it never did,

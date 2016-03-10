@@ -72,8 +72,10 @@ class HarvestBatch
           EOL.log("'top_images' already enqueued in 'php'; skipping",
             prefix: ".")
         else
-          EOL.log("Enqueue 'top_images' in 'php'", prefix: ".")
-          Resque.enqueue(CodeBridge, {'cmd' => 'top_images'})
+          EOL.log("SKIPPING TOP IMAGES! (takes too long)", prefix: "!")
+          denormalize_tables
+          # EOL.log("Enqueue 'top_images' in 'php'", prefix: ".")
+          # Resque.enqueue(CodeBridge, {'cmd' => 'top_images'})
         end
       else
         EOL.log("Nothing was published; skipping denormalization", prefix: "!")

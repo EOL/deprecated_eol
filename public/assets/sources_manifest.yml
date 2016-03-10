@@ -1,4 +1,6 @@
 ---
+apple-touch-icon-precomposed.png: 9de6ee8ce10b9ad7b2662236411f4539
+apple-touch-icon.png: 9de6ee8ce10b9ad7b2662236411f4539
 arrow_blank.gif: 34a8261aa8187ccece3cd3df8efac17c
 arrow_down.gif: 68f369d4d4721bbdd30acc49e17fc1c2
 arrow_down_gray.gif: 565ee54051c15f1dfd4327444ffed4ff
@@ -198,13 +200,14 @@ admin-news-item.js: d8a5650a35087d0048922d486e799545
 admin-toc.js: 8522abed3cb565ef383895edee0e9acc
 admin.js: e2de99a3b4ba284b35eba55d2aeb65a7
 api.js: 925e68eaa3befb800945ad0ffd0acffa
-application.js: 6982444abbbd5548ba22ae7b726c0fa2
+application.js: 8e424442cf16a2fd5e384d7a392d86af
+choose_collect_target.js: 71028161777f0ad6fe3deebe0bd2b1a6
 choose_taxa_data.js: 21245d5382715a8fe4925873a9146e82
 ckeditor/config.js: b797f6c4c638171ca38f71b92af01767
-combobox.js: f40db8282c92e28569e91d692d204fee
+combobox.js: bd564fdf6080d5d24f613b2d321827ae
 comments.js: 74973fec49dfd06da735a3668423b5ac
 common-names.js: a83730031c3ed5cee713d74993b32f39
-common.js: 61e8cf33bb7c1d3784a812c8b451aafc
+common.js: f2ed1c3e5bb2a35b50befdb923a148b3
 communities.js: 406dbbb3942d75cb9a1fc767bd73cc7f
 concept_manager.js: 49d63b9b1d9511e5a5884d1d74cf8369
 cp-passwords.js: 253763fd3ad3499b682ef5d389dd6f9a
@@ -212,9 +215,9 @@ csshover.htc: 6b3297c3ba2e239b3fd877ad6ebf1604
 curation.js: 01c732579569e9b7340abafee662bdad
 curation_tools.js: b0d20fd2fc0e01612254985b33935500
 data_object_show.js: a172e7b0d63859a53103cb38e63badb4
-data_search.js: f2911fd768b6d94e47a9726987e873d8
+data_search.js: 9118052c413da1a4c4183302749c151c
 eol.js: bc9a3b21b5d7a5a3d0e36bee2882d95d
-errors.js: dd157ea994fc635e315a8bf3cc742121
+errors.js: 90ab72fe0ea505a23413531f45694fcf
 exemplar_image.js: ed4445b3390ff59ca7dc43580709160a
 forum.js: 387592003df8ab23f77bd589f09af2bb
 ga_social_tracking.js: 0ddbfa0559e5701eb559d63e714e1a49
@@ -261,7 +264,7 @@ permalink.js: 71485c0ef49df5fcc95a3536de416354
 pngfix.js: 6c72a8ddd1102238d74c91da0c8cfc80
 rating.js: d9b4977d5ee6f02f2967595e6a008e8f
 swfobject.js: 4e6a0fd9f3943da4fe8676c691155228
-taxon_data.js: 8f75e0532bf30a18f35e560c345a4b64
+taxon_data.js: 2a6d3244393e8b8170aca2a31f50443c
 taxon_name.js: 1a43e4fc4c9fa8002300d5bba7211e67
 text-content.js: 2e085baf08f3c4d5737a785a5cd89c75
 touch-gallery/activity-indicator.js: 909dfc14345238c95c61ecb05517c1d3
@@ -282,6 +285,7 @@ application.css: 6f28242fe291aef512e23b363e0f9c28
 application_pack.css: 8dd44e0cd02d1eabed3f4c1d8e1f43d1
 buttons.css: 1bf989ffae9613d3b35e159e72c2d4f9
 calendar.css: 868ef27180b8b0ff64362f7ffb1bc07e
+choose_collect_target.css: 817419f220b94ad02f3d8acccb1e9e0e
 colorbox.css: e6ba0d77bcd2d51c3fd5814daddee15f
 common.css: 3d830f080b52c44c624c99357207c69a
 communities.css: 4f972cc40440d2dbd7d29a3409662d3f

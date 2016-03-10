@@ -1,4 +1,8 @@
 ---
+apple-touch-icon-precomposed.png: apple-touch-icon-precomposed-9de6ee8ce10b9ad7b2662236411f4539.png
+apple-touch-icon-precomposed/index.png: apple-touch-icon-precomposed-9de6ee8ce10b9ad7b2662236411f4539.png
+apple-touch-icon.png: apple-touch-icon-9de6ee8ce10b9ad7b2662236411f4539.png
+apple-touch-icon/index.png: apple-touch-icon-9de6ee8ce10b9ad7b2662236411f4539.png
 arrow_blank.gif: arrow_blank-34a8261aa8187ccece3cd3df8efac17c.gif
 arrow_blank/index.gif: arrow_blank-34a8261aa8187ccece3cd3df8efac17c.gif
 arrow_down.gif: arrow_down-68f369d4d4721bbdd30acc49e17fc1c2.gif
@@ -397,14 +401,16 @@ admin.js: admin-234f97f600ee7c876a30e52fffa8ee6b.js
 admin/index.js: admin-234f97f600ee7c876a30e52fffa8ee6b.js
 api.js: api-3c3b564c38e106e8053b9a1034179da8.js
 api/index.js: api-3c3b564c38e106e8053b9a1034179da8.js
-application.js: application-95dd1edb6072133d07900959e450e11e.js
-application/index.js: application-95dd1edb6072133d07900959e450e11e.js
+application.js: application-64c211c96b4db463dca05a2f8e9e935e.js
+application/index.js: application-64c211c96b4db463dca05a2f8e9e935e.js
+choose_collect_target.js: choose_collect_target-9f703762206dc9c5d7702028474554cd.js
+choose_collect_target/index.js: choose_collect_target-9f703762206dc9c5d7702028474554cd.js
 choose_taxa_data.js: choose_taxa_data-c87b5013b459e5a9460ddde9a81f396a.js
 choose_taxa_data/index.js: choose_taxa_data-c87b5013b459e5a9460ddde9a81f396a.js
 ckeditor/config.js: ckeditor/config-c319d295f0dd47d6b1fba9337ac58cfc.js
 ckeditor/config/index.js: ckeditor/config-c319d295f0dd47d6b1fba9337ac58cfc.js
-combobox.js: combobox-c6f78fad03fc4fd5289b3c1e3ae57e46.js
-combobox/index.js: combobox-c6f78fad03fc4fd5289b3c1e3ae57e46.js
+combobox.js: combobox-fb477a7515658db0ddc305af9c853275.js
+combobox/index.js: combobox-fb477a7515658db0ddc305af9c853275.js
 comments.js: comments-c5adb0edc49874e63b4d150aa2fb4470.js
 comments/index.js: comments-c5adb0edc49874e63b4d150aa2fb4470.js
 common-names.js: common-names-50fc76744517b75d4ed98394b5ad6f55.js
@@ -425,12 +431,12 @@ curation_tools.js: curation_tools-237c388a4a960bdd372f48f7d70af9ef.js
 curation_tools/index.js: curation_tools-237c388a4a960bdd372f48f7d70af9ef.js
 data_object_show.js: data_object_show-92ee4d6736ee8c4ced426cd669361a94.js
 data_object_show/index.js: data_object_show-92ee4d6736ee8c4ced426cd669361a94.js
-data_search.js: data_search-c6b5210f5a6bdcf715865210f309f9bb.js
-data_search/index.js: data_search-c6b5210f5a6bdcf715865210f309f9bb.js
+data_search.js: data_search-dee4440a631ada07d702bf891c7e97d1.js
+data_search/index.js: data_search-dee4440a631ada07d702bf891c7e97d1.js
 eol.js: eol-0943c0c8056a30fe02bcc9be65f4a346.js
 eol/index.js: eol-0943c0c8056a30fe02bcc9be65f4a346.js
-errors.js: errors-e20f77e0c100b48fbcb45d60cf481b08.js
-errors/index.js: errors-e20f77e0c100b48fbcb45d60cf481b08.js
+errors.js: errors-f7d1a90ede23af67ec3ee7d1e4120dcc.js
+errors/index.js: errors-f7d1a90ede23af67ec3ee7d1e4120dcc.js
 exemplar_image.js: exemplar_image-56cb6f1da6cf8a0b539f0a6447e9bf42.js
 exemplar_image/index.js: exemplar_image-56cb6f1da6cf8a0b539f0a6447e9bf42.js
 forum.js: forum-34569a6fa185db16f242e9fde037e919.js
@@ -523,8 +529,8 @@ rating.js: rating-56586e62f3d792adc3baf7356aa45ad4.js
 rating/index.js: rating-56586e62f3d792adc3baf7356aa45ad4.js
 swfobject.js: swfobject-e5e5c2e88ce86da56185f01a8e5b6f42.js
 swfobject/index.js: swfobject-e5e5c2e88ce86da56185f01a8e5b6f42.js
-taxon_data.js: taxon_data-403ac5e6da82dd351c51087c0c89b813.js
-taxon_data/index.js: taxon_data-403ac5e6da82dd351c51087c0c89b813.js
+taxon_data.js: taxon_data-8c21ccd99d72b27efdd414d468b62c52.js
+taxon_data/index.js: taxon_data-8c21ccd99d72b27efdd414d468b62c52.js
 taxon_name.js: taxon_name-412aa99f4f09c729260a48a86bd1d88c.js
 taxon_name/index.js: taxon_name-412aa99f4f09c729260a48a86bd1d88c.js
 text-content.js: text-content-487ad058b1a8004198de1fc81f9e9317.js
@@ -565,6 +571,8 @@ buttons.css: buttons-ee40c3c6e2a689a429a777afa3be8a77.css
 buttons/index.css: buttons-ee40c3c6e2a689a429a777afa3be8a77.css
 calendar.css: calendar-8c1f4da0b65d18af00fed6dd192cbb31.css
 calendar/index.css: calendar-8c1f4da0b65d18af00fed6dd192cbb31.css
+choose_collect_target.css: choose_collect_target-68b130323da4db65905528d6d9d68f30.css
+choose_collect_target/index.css: choose_collect_target-68b130323da4db65905528d6d9d68f30.css
 colorbox.css: colorbox-e8f68aeea2726762703a91b01907826a.css
 colorbox/index.css: colorbox-e8f68aeea2726762703a91b01907826a.css
 common.css: common-3d830f080b52c44c624c99357207c69a.css

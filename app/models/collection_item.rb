@@ -208,6 +208,9 @@ class CollectionItem < ActiveRecord::Base
     if data_object?
       data_object_rating ||= collected_item.data_rating
     end
+    solr_title = SolrCore.string(collected_item.collected_name)
+    solr_title = collected_item_type if title.empty?
+    solr_title = "unknown" if title.empty?
     {
       object_type: collected_item_type,
       object_id: collected_item_id,
@@ -218,7 +221,7 @@ class CollectionItem < ActiveRecord::Base
       # TODO: test whether these defaults are actually needed:
       date_created: SolrCore.date(created_at),
       date_modified: SolrCore.date(updated_at),
-      title: SolrCore.string(collected_item.collected_name) || collected_item_type,
+      title: solr_title,
       richness_score: richness_score || 0,
       data_rating: data_object_rating,
       sort_field: SolrCore.string(sort_field)

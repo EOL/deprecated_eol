@@ -97,6 +97,10 @@ class Synonym < ActiveRecord::Base
     update_attributes!(vetted: vet_obj)
   end
 
+  def taxon_concept
+    hiearchy_entry.taxon_concept
+  end
+
 private
 
   def set_preferred

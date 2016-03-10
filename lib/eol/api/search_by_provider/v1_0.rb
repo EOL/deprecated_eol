@@ -22,7 +22,14 @@ module EOL
             :itis_id => test_hierarchy.id)
         }
         PARAMETERS = Proc.new {
-          [
+          [ 
+            EOL::Api::DocumentationParameter.new(
+              :name => 'batch',
+              :type => 'Boolean',
+              :required => false,
+              :default => false,
+              :test_value => false,
+              :notes => I18n.t('returns_either_a_batch_or_not')),
             EOL::Api::DocumentationParameter.new(
               :name => 'id',
               :type => String,
@@ -42,26 +49,51 @@ module EOL
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
-          hierarchy_entries = HierarchyEntry.includes(:taxon_concept).
-            where(hierarchy_id: params[:hierarchy_id], identifier: params[:id],
-              visibility_id: Visibility.get_visible.id, published: true)
-          hierarchy_entries.keep_if { |h| h.taxon_concept.published? }
-          # synonyms = Synonym.find_all_by_hierarchy_id_and_identifier(params[:hierarchy_id], params[:id])
-          synonyms = Synonym.includes(hierarchy_entry: :taxon_concept).
-            where(hierarchy_id: params[:hierarchy_id], identifier: params[:id])
-          synonyms.keep_if { |s| s.hierarchy_entry.taxon_concept.published? }
-          results = hierarchy_entries + synonyms
-          prepare_hash(results, params)
+          results = []
+          if params[:batch]
+            identifiers = params[:id].split(',')
+            identifiers.each do |id|
+              results << { id => get_taxon_concept_ids(id, params[:hierarchy_id]) }
+            end
+          else
+            results = get_taxon_concept_ids(params[:id], params[:hierarchy_id])
+          end
+           prepare_hash(results, params)
         end
 
         def self.prepare_hash(results, params={})
           return_hash = []
-          results.compact.each do |r|
-            tc_id =  (r.class == HierarchyEntry)  ? r.taxon_concept_id :  HierarchyEntry.find(r.hierarchy_entry_id).taxon_concept_id
-            return_hash << { 'eol_page_id' => tc_id}
-            return_hash << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{tc_id}" }
+          unless params[:batch]
+            results.compact.each do |tc_id|
+              return_hash << { 'eol_page_id' => tc_id }
+               return_hash << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{tc_id}" }
+            end
+            return return_hash
+          else
+            results.each do |result|
+              result_array =[]
+              result.each do |id, tc_ids|
+                tc_ids.compact.each do |tc_id|
+                 result_array << { 'eol_page_id' => tc_id}
+                 result_array << { 'eol_page_link' => "#{Rails.configuration.site_domain}/pages/#{tc_id}" }
+                end
+                return_hash << { id => result_array } unless result_array.blank?
+              end
+            end
+            return return_hash
           end
-          return return_hash.uniq
+        end
+
+        def self.get_taxon_concept_ids(identifier, hierarchy_id)
+          hierarchy_entries = HierarchyEntry.includes(:taxon_concept).where(hierarchy_id: hierarchy_id, identifier: identifier, visibility_id: Visibility.get_visible.id, published: true)
+           debugger 
+          hierarchy_entries_ids = hierarchy_entries.map{ |h| h.taxon_concept_id if h.taxon_concept.published? }
+
+          synonyms = Synonym.includes(hierarchy_entry: :taxon_concept).
+           where(hierarchy_id: hierarchy_id, identifier: identifier)
+          synonyms_ids = synonyms.map{ |s| s.taxon_concept.id if s.taxon_concept.published? }
+
+          return (hierarchy_entries_ids + synonyms_ids).uniq
         end
       end
     end

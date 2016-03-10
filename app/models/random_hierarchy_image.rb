@@ -111,7 +111,7 @@ class RandomHierarchyImage < ActiveRecord::Base
       tc_ids = TaxonConceptMetric.
         where(["richness_score > ?", $HOMEPAGE_MARCH_RICHNESS_THRESHOLD]).
         pluck(:taxon_concept_id)
-      EOL.log("Found #{tc_ids.count} rich taxa", prefix: '.')
+      total = tc_ids.size
       # Not doing this with a big join right now because the top_concept_images
       # table was out of date at the time of writing. TODO - move the trusted
       # check; that should be done when called, not here!
@@ -122,7 +122,8 @@ class RandomHierarchyImage < ActiveRecord::Base
         where(["hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
           "hierarchy_entries.rank_id IN (?)", Rank.species_rank_ids]).
         find_each(batch_size: batch_size) do |taxon|
-        EOL.log(set.count, prefix: ".") if batch_size % 500 == 0
+        EOL.log("Random taxa: #{set.size}/#{total}", prefix: ".") if
+          set.size % 10_000 == 0
         img = taxon.exemplar_or_best_image_from_solr
         next unless img
         set << {

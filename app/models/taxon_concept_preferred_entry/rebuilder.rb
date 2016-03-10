@@ -1,5 +1,5 @@
 class TaxonConceptPreferredEntry < ActiveRecord::Base
-  class Rebuilder 
+  class Rebuilder
 
     attr_reader :entries, :curated_entries, :best_entries
 
@@ -44,7 +44,7 @@ class TaxonConceptPreferredEntry < ActiveRecord::Base
       low = HierarchyEntry.published.first.id
       fields = [:id, :taxon_concept_id, :hierarchy_id, :vetted_id]
       begin
-        EOL.log("#{low}", prefix: ".") if count % 20 == 0
+        EOL.log("Getting entries: #{low}", prefix: ".") if count % 50 == 0
         EOL.pluck_fields(fields, HierarchyEntry.published.
           where(["id > ? AND id < ?", low, low + batch])).each do |row|
           h = EOL.unpluck_ids(fields, row)
@@ -84,8 +84,10 @@ class TaxonConceptPreferredEntry < ActiveRecord::Base
     def get_best_entries
       EOL.log_call
       count = 0
+      total = @entries.size
       @entries.each do |taxon_concept_id, concept_entries|
-        EOL.log("#{count}", prefix: ".") if count % 100_000 == 0
+        EOL.log("Best entries: #{count}/#{total}", prefix: ".") if
+          count % 250_000 == 0
         count += 1
         @best_entries[taxon_concept_id] = concept_entries.
           sort_by { |entry| entry_sort(entry) }.

@@ -32,7 +32,11 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
     pks = Set.new
     ids = hierarchy.hierarchy_entries.pluck(:id)
     ids.in_groups_of(10_000).each do |group|
-      pks += EOL.pluck_pks(self, where(hierarchy_entry_id: group))
+      # NOTE: This was going REALLY (!!!) slow, so I am skipping it for now:
+      # pks += EOL.pluck_pks(self, where(hierarchy_entry_id: group))
+      pks += where(hierarchy_entry_id: group).map do |hef|
+        "#{hef.hierarchy_entry_id},#{hef.ancestor_id}"
+      end
     end
     pks
   end

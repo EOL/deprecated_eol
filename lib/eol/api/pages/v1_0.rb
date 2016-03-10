@@ -166,13 +166,15 @@ module EOL
           if (params[:batch] || taxon_concepts.count > 1)
             batch_concepts = []
             taxon_concepts.each do |taxon_concept|
+              raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless taxon_concept
+              raise ActiveRecord::RecordNotFound.new("Page \"#{taxon_concept.id}\" is no longer available") unless taxon_concept.published?
               batch_concepts.push(prepare_hash(taxon_concept, params))
             end
             batch_concepts
           else
             taxon_concept = taxon_concepts.first
             raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless taxon_concept
-            raise ActiveRecord::RecordNotFound.new("Page \"#{params[:id]}\" is no longer available") unless taxon_concept.published?
+            raise ActiveRecord::RecordNotFound.new("Page \"#{taxon_concept.id}\" is no longer available") unless taxon_concept.published?
             prepare_hash(taxon_concept, params)
           end
         end

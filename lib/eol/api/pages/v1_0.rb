@@ -160,13 +160,13 @@ module EOL
           I18n.locale = params[:language] unless params[:language].blank?
           # NOTE: we need to honor supercedure, so this is slower than ideal:
           taxon_concepts = params[:id].split(",").map do |id|
-            super_id = TaxonConcept.find(id).id
-            TaxonConcept.with_titles.find(super_id)
-          end
-          if (params[:batch])
+            super_id = TaxonConcept.find(id).try(:id)
+            TaxonConcept.with_titles.find(super_id) if super_id
+          end.compact
+          if (params[:batch] || taxon_concepts.count > 1)
             batch_concepts = []
             taxon_concepts.each do |taxon_concept|
-              batch_concepts.push(prepare_hash(taxon_concept, params)) if taxon_concept
+              batch_concepts.push(prepare_hash(taxon_concept, params))
             end
             batch_concepts
           else

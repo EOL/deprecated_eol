@@ -98,7 +98,7 @@ class Synonym < ActiveRecord::Base
   end
 
   def taxon_concept
-    hiearchy_entry.taxon_concept
+    hierarchy_entry.taxon_concept
   end
 
 private

@@ -29,6 +29,7 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   end
 
   def self.pks_in_hierarchy(hierarchy)
+    EOL.log_call
     pks = Set.new
     ids = hierarchy.hierarchy_entries.pluck(:id)
     ids.in_groups_of(10_000).each do |group|

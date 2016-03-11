@@ -30,9 +30,10 @@ class Hierarchy
       # TODO: DON'T hard-code this (this is GBIF Nub Taxonomy). Instead, add an
       # attribute to hierarchies called "never_merge_concepts" and check that.
       # Also make sure curators can set that value from the resource page.
-      @hierarchies = Hierarchy.where(["id NOT in (?)", 129]).
-        order("hierarchy_entries_count DESC")
-      @hierarchies.each do |other_hierarchy|
+      # .where(["id NOT in (?)", 129]).
+      @hierarchies = Hierarchy.browsable.order("hierarchy_entries_count DESC")
+      @hierarchies.each_with_index do |other_hierarchym, index|
+        EOL.log("Comparing hiearchy #{index+1} of #{@hierarchies.size}")
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actuall the "same", so we need to compare those to
         # themselves; otherwise, skip:

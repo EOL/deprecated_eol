@@ -141,6 +141,8 @@ class Hierarchy
         query += " NOT hierarchy_id:1172" if @hierarchy.id == 759
         # TODO: make rows variable configurable
         response = @solr.select(query, rows: 400)
+        # NOTE: this was WAAAAAY too hard on Solr, we needed to gate it:
+        sleep(0.1)
         rhead = response["responseHeader"]
         if rhead["QTime"] && rhead["QTime"].to_i > 200
           EOL.log("compare query: #{query}", prefix: ".")

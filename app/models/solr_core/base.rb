@@ -115,17 +115,29 @@
       begin
         connection.select(params: params)
       rescue Timeout::Error => e
-        if tries >= 5
-          EOL.log("aborting!")
-          raise(e)
-        end
-        tries += 1
-        EOL.log("SOLR TIMEOUT (attempt #{tries}): q: #{params[:q]}",
-          prefix: "!")
-        sleep(tries * 0.25)
-        reconnect
-        select_with_timeout(params, tries)
+        EOL.log("SOLR TIMEOUT: q: #{params[:q]}", prefix: "!")
+        wait_for_recovery
+        EOL.log("Solr appears to have recovered; retrying...")
+        connection.select(params: params)
       end
+    end
+
+    def wait_for_recovery
+      attempts = 0
+      begin
+        try_recovery
+      rescue => e
+        EOL.log("Solr still down (attempt #{attempts}), waiting...")
+        attempts += 1
+        raise(e) if attempts >= 10
+        sleep(attempts * 0.25)
+        wait_for_recovery
+      end
+    end
+
+    def try_recovery
+      reconnect
+      paginate("*:*", per_page: 1)
     end
   end
 end

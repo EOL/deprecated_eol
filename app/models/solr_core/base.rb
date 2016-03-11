@@ -35,10 +35,14 @@
     def connect(name)
       return if @connection
       @core = name
+      reconnect
+    end
+
+    def reconnect
       # TODO: make this timeout dynamic. We don't really want production waiting
       # this long! This was meant for publishing tasks.
-      timeout = 10.minutes.to_i
-      @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{name}",
+      timeout = 15.minutes.to_i
+      @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{@core}",
         read_timeout: timeout, open_timeout: timeout)
     end
 
@@ -118,6 +122,7 @@
         EOL.log("SOLR TIMEOUT (attempt #{tries}): q: #{params[:q]}",
           prefix: "!")
         sleep(tries * 0.25)
+        reconnect
         select_with_timeout(params, tries)
       end
     end

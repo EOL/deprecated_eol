@@ -29,8 +29,11 @@ class SolrCore
         relationships << relationship.to_hash
       end
       relationships.delete_if { |r| r.blank? }
+      count = 0
+      total = relationships.size
       relationships.to_a.in_groups_of(5000, false) do |group|
-        EOL.log("Adding #{group.size} relationships to Solr...")
+        count += group.size
+        EOL.log("Solr reindex: #{count}/#{total}")
         add_items(group)
       end
     end

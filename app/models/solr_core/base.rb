@@ -43,7 +43,8 @@
       # this long! This was meant for publishing tasks.
       timeout = 15.minutes.to_i
       @connection = RSolr.connect(url: "#{$SOLR_SERVER}#{@core}",
-        read_timeout: timeout, open_timeout: timeout)
+        read_timeout: timeout, open_timeout: timeout, retry_503: 3,
+        retry_after_limit: timeout)
     end
 
     def commit

@@ -90,12 +90,11 @@ class Hierarchy
     def update_tables
       EOL.log_call
       currently = @hierarchy.ancestry_set
-      old = currently - @flat_entries
-      create = @flat_entries - currently
-
       EOL.log("Currently: #{currently.count}", prefix: ".")
       EOL.log("Desired: #{@flat_entries.count}", prefix: ".")
+      old = currently - @flat_entries
       EOL.log("Old: #{old.count}", prefix: ".")
+      create = @flat_entries - currently
       EOL.log("New: #{create.count}", prefix: ".")
 
       HierarchyEntriesFlattened.delete_set(old)

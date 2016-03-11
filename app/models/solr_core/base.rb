@@ -115,7 +115,8 @@
           raise(e)
         end
         tries += 1
-        EOL.log("SOLR TIMEOUT (attempt #{tries}): q: #{q}", prefix: "!")
+        EOL.log("SOLR TIMEOUT (attempt #{tries}): q: #{params[:q]}",
+          prefix: "!")
         sleep(tries * 0.25)
         select_with_timeout(params, tries)
       end

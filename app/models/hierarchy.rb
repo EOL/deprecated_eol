@@ -18,7 +18,7 @@ class Hierarchy < ActiveRecord::Base
 
   before_save :reset_request_publish, if: Proc.new { |hierarchy| hierarchy.browsable == 1 }
 
-  scope :browsable, conditions: { browsable: 1 }
+  scope :browsable, conditions: { browsable: true }
 
   alias entries hierarchy_entries
 

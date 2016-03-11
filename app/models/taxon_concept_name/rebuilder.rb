@@ -15,9 +15,14 @@ class TaxonConceptName
 
     def by_taxon_concept_id(tc_ids)
       EOL.log_call
-      Array(tc_ids).in_groups_of(500, false) do |ids|
-        sleep(0.2) # Let's not throttle the DB.
+      tc_ids = Array(tc_ids)
+      size = tc_ids.size
+      index = 0
+      tc_ids.in_groups_of(500, false) do |ids|
+        index += ids.size
+        EOL.log("Rebuilding names: #{index}/#{size}")
         rebuild_tc_ids(ids)
+        sleep(0.1) # Let's not throttle the DB.
       end
     end
 

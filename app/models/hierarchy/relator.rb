@@ -77,7 +77,7 @@ class Hierarchy
           begin
             compare_entry(entry) if @new_entry_ids.include?(entry["id"])
           rescue => e
-            EOL.log("Failed on entry ##{entry.id} (page #{page})")
+            EOL.log("Failed on entry ##{entry["id"]} (page #{page})")
             raise e
           end
         end
@@ -143,7 +143,7 @@ class Hierarchy
         response = @solr.select(query, rows: 400)
         rhead = response["responseHeader"]
         if rhead["QTime"] && rhead["QTime"].to_i > 200
-          EOL.log("compare query: #{rhead["q"]}", prefix: ".")
+          EOL.log("compare query: #{query}", prefix: ".")
           EOL.log("compare request took #{rhead["QTime"]}ms", prefix: ".")
         end
         matching_entries_from_solr = response["response"]["docs"]

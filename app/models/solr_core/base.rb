@@ -99,16 +99,26 @@
     # NOTE: returns eval'ed ruby (a hash):
     def select(q, options = {})
       params = options.merge(q: q)
-      response = begin
-        connection.select(params: params)
-      rescue Timeout::Error => e
-        EOL.log("SOLR TIMEOUT: q: #{q}", prefix: "!")
-        raise(e)
-      end
+      response = select_with_timeout(params, 0)
       unless response["responseHeader"]["status"] == 0
         raise "Solr error! #{response["responseHeader"]}"
       end
       response
+    end
+
+    def select_with_timeout(params, tries)
+      begin
+        connection.select(params: params)
+      rescue Timeout::Error => e
+        if tries >= 5
+          EOL.log("aborting!")
+          raise(e)
+        end
+        tries += 1
+        EOL.log("SOLR TIMEOUT (attempt #{tries}): q: #{q}", prefix: "!")
+        sleep(tries * 0.25)
+        select_with_timeout(params, tries)
+      end
     end
   end
 end

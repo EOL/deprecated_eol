@@ -209,8 +209,8 @@ class CollectionItem < ActiveRecord::Base
       data_object_rating ||= collected_item.data_rating
     end
     solr_title = SolrCore.string(collected_item.collected_name)
-    solr_title = collected_item_type if title.empty?
-    solr_title = "unknown" if title.empty?
+    solr_title = collected_item_type if solr_title.empty?
+    solr_title = "unknown" if solr_title.empty?
     {
       object_type: collected_item_type,
       object_id: collected_item_id,

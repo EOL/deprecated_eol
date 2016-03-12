@@ -32,7 +32,7 @@ class Hierarchy
       # Also make sure curators can set that value from the resource page.
       # .where(["id NOT in (?)", 129]).
       @hierarchies = Hierarchy.browsable.order("hierarchy_entries_count DESC")
-      @hierarchies.each_with_index do |other_hierarchym, index|
+      @hierarchies.each_with_index do |other_hierarchy, index|
         EOL.log("Comparing hiearchy #{index+1} of #{@hierarchies.size}")
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actuall the "same", so we need to compare those to

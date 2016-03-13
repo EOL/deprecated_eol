@@ -50,13 +50,14 @@ module EOL
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
           results = []
+          identifiers = params[:id].split(',')
           if params[:batch]
-            identifiers = params[:id].split(',')
             identifiers.each do |id|
               results << { id => get_taxon_concept_ids(id, params[:hierarchy_id]) }
             end
           else
-            results = get_taxon_concept_ids(params[:id], params[:hierarchy_id])
+            id = identifiers.first
+            results = get_taxon_concept_ids(id, params[:hierarchy_id])
           end
            prepare_hash(results, params)
         end

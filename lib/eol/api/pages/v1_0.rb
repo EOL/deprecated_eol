@@ -23,8 +23,6 @@ module EOL
               :name => 'batch',
               :type => 'Boolean',
               :test_value => false,
-              :default => false,
-              :required => false,
               :notes => I18n.t('returns_either_a_batch_or_not') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'id',

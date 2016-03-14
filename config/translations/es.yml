@@ -6727,7 +6727,7 @@ es:
     identificadores también son accesibles a traves de <a href="%{eol_api_link}">EOL
     API</a>
   taxon_partner_links_link: Vínculos de socio
-  taxon_page_content_disclaimer_header: Descargo de responsabilidad
+  taxon_page_content_disclaimer_header: Descargo
   taxon_page_content_disclaimer: El contenido de EOL se ensambla automáticamente de
     muchos proveedores de contenido. Como resultado, de vez en cuando pueden encontrar
     páginas en EOL que son confusas.

@@ -17,9 +17,9 @@ describe 'API:search_by_provider' do
   # end
 
   it 'search_by_provider should return the EOL page ID for a provider identifer' do
-    response = get_as_xml("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
+    response = get_as_xml("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}.xml?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
     our_result = response.xpath("//eol_page_id")
-    our_result.length.should == 2
+    our_result.length.should == 1
     our_result.inner_text.to_i.should == @test_hierarchy_entry_published.taxon_concept_id
 
     response = get_as_json("/api/search_by_provider/#{@test_hierarchy_entry_published.identifier}.json?hierarchy_id=#{@test_hierarchy_entry_published.hierarchy_id}")
@@ -46,5 +46,38 @@ describe 'API:search_by_provider' do
     debugger if response.length > 1 # I assume this is because something was changed in memory, but I lost the chance to peek at
                                     # it, so I'm using this to catch it next time.
     response.length.should == 0
+  end
+
+  context 'batch mode' do
+
+    let(:hierarchy) { Hierarchy.gen }
+    let(:taxon_concept) { TaxonConcept.gen }
+    let(:hierarchy_entry1) { HierarchyEntry.gen( hierarchy: hierarchy, identifier: "1", taxon_concept: taxon_concept ) }
+    let(:hierarchy_entry2) { HierarchyEntry.gen( hierarchy: hierarchy, identifier: "2", taxon_concept: taxon_concept ) }
+
+    context 'JSON format' do 
+      it 'returns all the existing provided identifiers' do 
+        response = get_as_json("/api/search_by_provider/#{hierarchy_entry1.identifier}%2C#{hierarchy_entry2.identifier}.json?hierarchy_id=#{hierarchy.id}&batch=true")
+        expect(response.length).to eq 2
+      end
+      
+      it "doesn't include the non-existing identifier in the response" do
+        response = get_as_json("/api/search_by_provider/#{hierarchy_entry1.identifier}%2CNonExistingIdentifier.json?hierarchy_id=#{hierarchy.id}&batch=true")
+        expect(response.length).to eq 1
+        expect(response.map(&:keys).flatten).not_to include "NonExistingIdentifier"
+      end
+    end
+    context 'XML format' do 
+        it 'returns all the existing provided identifiers' do 
+        response = get_as_xml("/api/search_by_provider/#{hierarchy_entry1.identifier}%2C#{hierarchy_entry2.identifier}.xml?hierarchy_id=#{hierarchy.id}&batch=true")
+        expect(response.xpath("//page").count).to eq 2
+
+      end
+      
+      it "doesn't include the non-existing identifier in the response" do
+        response = get_as_xml("/api/search_by_provider/#{hierarchy_entry1.identifier}%2CNonExistingIdentifier.xml?hierarchy_id=#{hierarchy.id}&batch=true")
+        expect(response.xpath("//page").count).to eq 1
+      end
+    end
   end
 end

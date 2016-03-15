@@ -125,7 +125,7 @@ private
       # associations:
       super_id = TaxonConcept.find(tc_id).id
       @taxon_concept = TaxonConcept.with_titles.find(super_id)
-      @superceded = super_id != tc_id
+      @superceded = super_id.to_s != tc_id.to_s
     end
     unless @taxon_concept.published?
       if logged_in?

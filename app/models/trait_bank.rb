@@ -45,8 +45,10 @@ class TraitBank
       EOL::Sparql.is_uri?(uri)
     end
 
+    # Even 100 is too many for this paginate... throws a "generated SQL too
+    # long" error. Sigh.
     def delete_resource(resource)
-      paginate(resource_predicates_query(resource), limit: 1000) do |results|
+      paginate(resource_predicates_query(resource), limit: 50) do |results|
         delete(results.map { |r| "<#{r[:p]}> ?s ?o" })
       end
     end
@@ -60,9 +62,9 @@ class TraitBank
     # Yes, it looks very redundant! NOTE: limit must be restricted as the SQL
     # query can get too long. Sigh.
     def delete(triples)
-      triple_string = triples.join(" .\n")
-      query = "WITH GRAPH <#{graph}> DELETE { #{triples} } "\
-        "WHERE { #{triples} }"
+      triple_string = triples.join(" . ")
+      query = "WITH GRAPH <#{graph}> DELETE { #{triple_string} } "\
+        "WHERE { #{triple_string} }"
       begin
         connection.query(query)
       rescue EOL::Exceptions::SparqlDataEmpty => e
@@ -104,17 +106,10 @@ class TraitBank
       exist
     end
 
-    # NOTE: CAREFUL! If you are running the data live, this will destroy all
-    # data before it begins and you will have NO DATA ON THE SITE. This is meant
-    # to be a _complete_ rebuild, run in emergencies!
     def rebuild
       EOL.log_call
       EOL.log("Prefixes, for convenience:", prefix: ".")
       EOL.log(prefixes, prefix: ".")
-      # Ruh-roh. After some number of triples (about a million, which comes
-      # quickly!), a command like this takes too long, and it times out, and
-      # nothing works. :\
-      # connection.query("CLEAR GRAPH <#{graph}>")
       taxa = Set.new
       begin
         Resource.where("harvested_at IS NOT NULL").find_each do |resource|
@@ -137,6 +132,20 @@ class TraitBank
       EOL.log_return
     end
 
+    def create_mappings(resource)
+      triples = []
+      graph = resource.graph_name
+      resource.hierarchy.entries.select([:id, :identifier, :taxon_concept_id]).
+               find_each do |entry|
+        entry_uri = "#{graph}/taxa/#{EOL::Sparql.to_underscore(entry.identifier)}"
+        page_uri = "http://eol.org/pages/#{entry.taxon_concept_id}"
+        triples << "<#{entry_uri}> dwc:taxonConceptID <#{page_uri}>"
+      end
+      map_graph = resource.mappings_graph_name
+      EOL::Sparql.delete_graph(map_graph)
+      connection.insert_data(data: triples, graph_name: map_graph)
+    end
+
     def flatten_taxa(taxa)
       EOL.log_call
       EOL.log("Flattening #{taxa.count} taxa...", prefix: ".")
@@ -149,8 +158,7 @@ class TraitBank
           triples << "<http://eol.org/pages/#{flat.taxon_concept_id}> "\
             "eol:has_ancestor <http://eol.org/pages/#{flat.ancestor_id}>"
         end
-        connection.insert_data(data: triples,
-          graph_name: graph)
+        connection.insert_data(data: triples, graph_name: graph)
         EOL.log("Completed #{group.count}...", prefix: ".")
       end
     end
@@ -296,31 +304,21 @@ class TraitBank
       connection.query(query)
     end
 
+    # NOTE: this used to have a UNION, but I discovered there was exactly ONE
+    # trait in all of TB that actually matched it (and I guess it was old, ID
+    # was 1), so I removed it.
     def measurements_query(resource)
       "SELECT DISTINCT *
         # measurements_query
         WHERE {
-          GRAPH <#{resource.graph_name}> {
-            ?trait dwc:measurementType ?predicate .
-            ?trait dwc:measurementValue ?value .
-            OPTIONAL { ?trait dwc:measurementUnit ?units } .
-            OPTIONAL { ?trait eolterms:statisticalMethod ?statistical_method } .
-          } .
-          {
-            ?trait dwc:taxonConceptID ?page .
-            OPTIONAL { ?trait dwc:lifeStage ?life_stage } .
-            OPTIONAL { ?trait dwc:sex ?sex }
+          ?trait dwc:occurrenceID ?occurrence .
+          ?occurrence dwc:taxonID ?taxon .
+          ?trait eol:measurementOfTaxon eolterms:true .
+          GRAPH <#{resource.mappings_graph_name}> {
+            ?taxon dwc:taxonConceptID ?page
           }
-          UNION {
-            ?trait dwc:occurrenceID ?occurrence .
-            ?occurrence dwc:taxonID ?taxon .
-            ?trait eol:measurementOfTaxon eolterms:true .
-            GRAPH <#{resource.mappings_graph_name}> {
-              ?taxon dwc:taxonConceptID ?page
-            }
-            OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
-            OPTIONAL { ?occurrence dwc:sex ?sex }
-          }
+          OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
+          OPTIONAL { ?occurrence dwc:sex ?sex }
         }"
     end
 

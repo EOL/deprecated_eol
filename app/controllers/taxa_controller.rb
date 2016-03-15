@@ -123,8 +123,9 @@ private
     with_master_if_curator do
       # Doing a "dance" here to get the superceded id, then load it with
       # associations:
-      super_id = TaxonConcept.find(tc_id).id
-      @taxon_concept = TaxonConcept.with_titles.find(super_id)
+      super_concept = TaxonConcept.find(tc_id).id
+      @taxon_concept = TaxonConcept.with_titles.find(super_concept.id)
+      @taxon_concept.superceded_the_requested_id if super_concept.superceded? 
     end
     unless @taxon_concept.published?
       if logged_in?

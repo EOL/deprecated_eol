@@ -442,6 +442,14 @@ class Resource < ActiveRecord::Base
     @all_traits ||= EOL::Sparql.connection.traits_in_resource(self)
   end
 
+  # Creates a mappings graph of entry IDs to taxon IDs. ...only really needed
+  # for old TB, but we need that for port_traits, so this is a prerequisite for
+  # that (but ONLY if it's a recently harvested resource—old resources will
+  # already have an accurate mappings graph)
+  def create_mappings
+    TraitBank.create_mappings(self)
+  end
+
   # "Ports" all of the traits for the resource from the old PHP format to the
   # new Rails format.
   def port_traits

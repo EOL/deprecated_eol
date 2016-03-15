@@ -18,7 +18,7 @@ class Resource
     end
 
     # A "light" version of publishing for resources that we keep in
-    # "preview mode"
+    # "preview mode" NOTE that we don't have "preview" for TraitBank.
     def preview
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       @harvest_event.merge_matching_concepts
@@ -83,6 +83,7 @@ class Resource
       end
       @harvest_event.index_for_site_search
       @harvest_event.index_new_data_objects
+      @resource.create_mappings
       @resource.port_traits
       # TODO: make sure the harvest event is marked as published!
       @resource.update_attribute(:resource_status_id,

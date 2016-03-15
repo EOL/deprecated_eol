@@ -15,6 +15,7 @@ class TaxonConceptReindexing
   end
 
   def reindex
+    Rails.cache.delete(PageTraits.cache_key(@taxon_concept.id)) rescue nil
     @taxon_concept.disallow_large_curations unless @allow_large_tree # NOTE: this can raise an exception.
     begin
       @taxon_concept.lock_classifications

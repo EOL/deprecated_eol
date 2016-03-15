@@ -123,9 +123,9 @@ private
     with_master_if_curator do
       # Doing a "dance" here to get the superceded id, then load it with
       # associations:
-      super_concept = TaxonConcept.find(tc_id)
-      @taxon_concept = TaxonConcept.with_titles.find(super_concept.id)
-      @taxon_concept.superceded_the_requested_id if super_concept.superceded?
+      super_id = TaxonConcept.find(tc_id).id
+      @taxon_concept = TaxonConcept.with_titles.find(super_id)
+      @superceded = super_id != tc_id
     end
     unless @taxon_concept.published?
       if logged_in?
@@ -160,7 +160,7 @@ private
   end
 
   def redirect_if_superceded
-    if @taxon_concept && @taxon_concept.superceded_the_requested_id?
+    if @taxon_concept && @superceded
       redirect_to url_for(controller: params[:controller],
         action: params[:action], taxon_id: @taxon_concept.id),
         status: :moved_permanently

@@ -10,10 +10,10 @@ class TaxonConcept
   class Merger
     class << self
       def ids(id1, id2)
-        tc1 = TaxonConcept.find(id1)
-        return tc1 if id1 == id2
         # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
         (id1, id2) = [id1, id2].sort
+        tc1 = TaxonConcept.find(id1)
+        return tc1 if id1 == id2
         raise "Missing an ID (#{id1}, #{id2})" if id1 <= 0
         raise EOL::Exceptions::MergeToUnpublishedTaxon unless tc1.published?
         tc2 = TaxonConcept.find(id2)

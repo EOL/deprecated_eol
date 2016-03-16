@@ -6,9 +6,10 @@ class Hierarchy
       assigner.merges_for_hierarchy
     end
 
-    def initialize(hierarchy)
+    def initialize(hierarchy, options = {})
       @hierarchy = hierarchy
       @compared = []
+      @all_hierarchies = options[:all_hierarchies]
       @confirmed_exclusions = {}
       @entries_matched = []
       @supercedures = {} # The ones we do
@@ -32,7 +33,8 @@ class Hierarchy
       # attribute to hierarchies called "never_merge_concepts" and check that.
       # Also make sure curators can set that value from the resource page.
       # .where(["id NOT in (?)", 129]).
-      @hierarchies = Hierarchy.browsable.order("hierarchy_entries_count DESC")
+      @hierarchies = Hierarchy.order("hierarchy_entries_count DESC")
+      @hierarchies = @hierarchies.browsable unless @all_hierarchies
       @hierarchies.each_with_index do |other_hierarchy, index|
         EOL.log("Comparing hierarchy #{index + 1} of #{@hierarchies.size}")
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple

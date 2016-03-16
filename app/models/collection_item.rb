@@ -85,35 +85,29 @@ class CollectionItem < ActiveRecord::Base
     all_items # return for chains
   end
 
-  # TODO - would be nice to have a list of superceded taxa from the harvest!
-  def self.remove_superceded_taxa
-    # No appropriate indexes, here, so we have to use ID:
-    last = CollectionItem.maximum(:id)
-    batch = 10_000
-    current = 1
-    while current < last
-      items = []
-      taxa.
-      select("collection_items.*, supercedure_id new_tc_id").
-      includes(collected_item: :taxon_concept_metric).
-        joins("JOIN taxon_concepts ON taxon_concepts.id = "\
-        "collection_items.collected_item_id").
-      where(["supercedure_id != 0 AND collection_items.id > ? AND "\
-        "collection_items.id < ?", current, current + batch]).
-      find_each do |item|
-        begin
-          item.update_attribute(:collected_item_id, item[:new_tc_id])
-          item["richness_score"] =
-            item.collected_item.taxon_concept_metric.try(:richness_score)
-          items << item
-        rescue ActiveRecord::RecordNotUnique
-          # The superceded taxon was already in the collection; safe to ignore:
-          item.destroy
-        end
-        SolrCore::CollectionItems.reindex_items(items)
+  # Pass in a hash of old_id (keys) => new ids (values). Fixes all collection
+  # items using the old ids, including updating the Solr core for collection
+  # items.
+  def self.remove_superceded_taxa(supercedures)
+    EOL.log_call
+    items = []
+    taxa.includes(collected_item: :taxon_concept_metric).
+         where(collected_item_id: supercedures.keys).
+         find_each do |item|
+      begin
+        old_id = item.collected_item_id
+        new_id = supercedures[old_id]
+        item.update_attribute(:collected_item_id, new_id)
+        item["richness_score"] =
+          item.collected_item.taxon_concept_metric.try(:richness_score)
+        items << item
+      rescue ActiveRecord::RecordNotUnique
+        # The superceded taxon was already in the collection; safe to ignore:
+        item.destroy
       end
-      current += batch
+      SolrCore::CollectionItems.reindex_items(items)
     end
+    EOL.log_return
   end
 
   def self.spammy?(item, user)

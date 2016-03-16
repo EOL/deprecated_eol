@@ -11,7 +11,8 @@ class Hierarchy
       @compared = []
       @confirmed_exclusions = {}
       @entries_matched = []
-      @superceded = {}
+      @supercedures = {} # The ones we do
+      @superceded = {} # ALL superceded ids we encounter, ever (saves queries)
       @visible_id = Visibility.get_visible.id
       @preview_id = Visibility.get_preview.id
       @per_page = Rails.configuration.solr_relationships_page_size.to_i
@@ -33,15 +34,16 @@ class Hierarchy
       # .where(["id NOT in (?)", 129]).
       @hierarchies = Hierarchy.browsable.order("hierarchy_entries_count DESC")
       @hierarchies.each_with_index do |other_hierarchy, index|
-        EOL.log("Comparing hiearchy #{index+1} of #{@hierarchies.size}")
+        EOL.log("Comparing hiearchy #{index + 1} of #{@hierarchies.size}")
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
-        # entries that are actuall the "same", so we need to compare those to
+        # entries that are actually the "same", so we need to compare those to
         # themselves; otherwise, skip:
         next if @hierarchy.id == other_hierarchy.id && @hierarchy.complete?
         # TODO: this shouldn't even be required.
         next if already_compared?(@hierarchy.id, other_hierarchy.id)
         compare_hierarchies(@hierarchy, other_hierarchy)
       end
+      CollectionItem.remove_superceded_taxa(@supercedures)
       EOL.log("Completed merges for hierarchy #{@hierarchy.display_title}")
     end
 
@@ -150,11 +152,12 @@ class Hierarchy
         return(nil)
       end
       # EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
-      # TODO: store the supercedure somewhere so that we can use it later to
-      # know what to clean up, e.g.: in CollectionItem.remove_superceded_taxa
       begin
         tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
-        @superceded[tc.id] = tc.supercedure_id unless tc.supercedure_id == 0
+        unless tc.supercedure_id == 0
+          @supercedures[tc.id] = tc.supercedure_id # The ones we did
+          @superceded[tc.id] = tc.supercedure_id # All that we know about
+        end
       rescue EOL::Exceptions::MergeToUnpublishedTaxon => e
         EOL.log("SKIP (target taxon is unpublished): #{working_on}",
           prefix: ".")

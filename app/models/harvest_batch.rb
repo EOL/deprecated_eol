@@ -97,7 +97,6 @@ class HarvestBatch
     # update the orders as needed based on that—much faster.)
     RandomHierarchyImage.create_random_images_from_rich_taxa
     TaxonConceptPreferredEntry.rebuild
-    CollectionItem.remove_superceded_taxa
     EOL.log_return
   end
 

@@ -2,10 +2,11 @@ class TaxonConcept
   # NOTE: this does not update collection items. You may wish to do so. ...Among
   # many other things (see various denormalization functions, in TODOs). Sigh.
   # NOTE: you may wish to run this in a transaction (if you aren't in one
-  # already); that is the _caller's_ responsibility. NOTE: this returns the
-  # SUPERCEDED TaxonConcept!!! Why? So you can see both the id that was
-  # superceded as well as the supercedure_id to see where it went. If you're
-  # calling this, you probably care about both.
+  # already); that is the _caller's_ responsibility. ...but note that changes to
+  # Solr aren't necessarily synced. NOTE: this returns the SUPERCEDED
+  # TaxonConcept!!! Why? So you can see both the id that was superceded as well
+  # as the supercedure_id to see where it went. If you're calling this, you
+  # probably care about both.
   class Merger
     class << self
       def ids(id1, id2)

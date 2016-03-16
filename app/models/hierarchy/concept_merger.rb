@@ -34,7 +34,7 @@ class Hierarchy
       # .where(["id NOT in (?)", 129]).
       @hierarchies = Hierarchy.browsable.order("hierarchy_entries_count DESC")
       @hierarchies.each_with_index do |other_hierarchy, index|
-        EOL.log("Comparing hiearchy #{index + 1} of #{@hierarchies.size}")
+        EOL.log("Comparing hierarchy #{index + 1} of #{@hierarchies.size}")
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actually the "same", so we need to compare those to
         # themselves; otherwise, skip:
@@ -76,7 +76,13 @@ class Hierarchy
         page += 1
         entries = get_page_from_solr(hierarchy1, hierarchy2, page)
         entries.each do |relationship|
-          merge_matching_concepts(relationship)
+          begin
+            merge_matching_concepts(relationship)
+          rescue => e
+            EOL.log("FAILED merge_matching_concepts:", prefix: "!")
+            EOL.log(relationship.inspect, prefix: "!")
+            raise(e)
+          end
         end
       end while entries.count > 0
       EOL.log("Completed comparing hierarchy #{hierarchy1.id} to "\
@@ -178,7 +184,12 @@ class Hierarchy
     end
 
     def find_hierarchy(id)
-      @hierarchies.find { |h| h.id == id }
+      hierarchy = @hierarchies.find { |h| h.id == id }
+      if hierarchy.nil?
+        hierarchy = Hierarchy.find(id)
+        @hierarchies << hierarchy
+      end
+      hierarchy
     end
 
     def lookup_preview_harvests

@@ -17,8 +17,10 @@ class Resource
       @harvest_event = resource.harvest_events.last
     end
 
-    # A "light" version of publishing for resources that we keep in
-    # "preview mode" NOTE that we don't have "preview" for TraitBank.
+    # A "light" version of publishing for resources that we keep in "preview
+    # mode" NOTE that we don't have "preview" for TraitBank. NOTE: This
+    # _requires_ that the flattened hierarchy have been rebuilt when this is
+    # called.
     def preview
       SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
       @harvest_event.merge_matching_concepts

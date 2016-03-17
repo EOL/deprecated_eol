@@ -101,6 +101,7 @@ class CollectionItem < ActiveRecord::Base
         item["richness_score"] =
           item.collected_item.taxon_concept_metric.try(:richness_score)
         items << item
+        sleep(0.1) if items.size % 10 == 0 # Slow down a little...
       rescue ActiveRecord::RecordNotUnique
         # The superceded taxon was already in the collection; safe to ignore:
         item.destroy

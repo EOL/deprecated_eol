@@ -31,6 +31,10 @@ class TaxonConcept
         update_ignore_id(TaxonConceptsFlattened, id1, id2)
         update_ignore_ancestor_id(TaxonConceptsFlattened, id1, id2)
         move_traits(id1, id2)
+        # Removing the old item is NOT handled by reindexing:
+        @solr = SolrCore::SiteSearch.new
+        @solr.delete_item(tc2)
+        # Handles the rest:
         TaxonConceptReindexing.reindex(tc1)
         # NOTE: this one used to also do a join to hierarchy_entries and ensure that
         # the tc id was id2. ...But that has already changed by this point, sooo...

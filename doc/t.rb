@@ -36,7 +36,12 @@ entries = response["response"]["docs"]
 @solr = SolrCore::HierarchyEntries.new
 response = @solr.paginate("hierarchy_id:#{@hierarchy.id}", page: page, per_page: @per_page)
 entries = response["response"]["docs"]
-entries_in_solr = @solr.paginate("hierarchy_id:#{@hierarchy.id}", page: page, per_page: 1)["response"]["num
-Found"]
+entries_in_solr = @solr.paginate("hierarchy_id:#{@hierarchy.id}", page: page, per_page: 1)["response"]["numFound"]
 
-# Found the problem, skipping all the mess (it involved lots of c/p'ed methods)
+from_entry = @solr.paginate("id:#{entry1.id}", page: page, per_page: 1)["response"]["docs"][0]
+to_entry = @solr.paginate("id:#{entry2.id}", page: page, per_page: 1)["response"]["docs"][0]
+
+
+# When ready:
+@resource = Resource.find 974
+@resource.preview

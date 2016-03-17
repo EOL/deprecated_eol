@@ -88,7 +88,7 @@ class Hierarchy
       # This query is very fast, even at high page numbers:
       response = @solr.paginate("hierarchy_id:#{@hierarchy.id}",
         page: page, per_page: @per_page)
-      sleep(0.2) # Less of a hit to production, please!
+      sleep(0.3) # Less of a hit to production, please!
       rhead = response["responseHeader"]
       if rhead["QTime"] && rhead["QTime"].to_i > 100
         EOL.log("relator query: #{rhead["q"]}", prefix: ".")
@@ -143,7 +143,7 @@ class Hierarchy
         # TODO: make rows variable configurable
         response = @solr.select(query, rows: 400)
         # NOTE: this was WAAAAAY too hard on Solr, we needed to gate it:
-        sleep(0.2)
+        sleep(0.3)
         rhead = response["responseHeader"]
         if rhead["QTime"] && rhead["QTime"].to_i > 200
           EOL.log("compare query: #{query}", prefix: ".")

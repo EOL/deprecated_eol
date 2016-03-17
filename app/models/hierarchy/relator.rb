@@ -276,7 +276,7 @@ class Hierarchy
       if score == RANK_WEIGHTS["kingdom"]
         # We _only_ had kingdoms to work with...
         return score / 100 unless
-          has_any_non_kingdom?(e1) && has_any_non_kingdom?(e2)
+          has_any_non_kingdom?(from_entry) && has_any_non_kingdom?(to_entry)
         # the rank of this entry is a kingdom, phylm, class, or order:
         # TODO: delete this unless SPG can explain it...
         kingdom_match_valid_1 =

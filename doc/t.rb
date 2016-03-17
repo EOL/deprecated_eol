@@ -1,5 +1,7 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+@resource = Resource.find 974 # North American Butterflies and Skippers
+
 concept1 = TaxonConcept.find 45882481
 concept2 = TaxonConcept.find 250906
 
@@ -34,3 +36,7 @@ entries = response["response"]["docs"]
 @solr = SolrCore::HierarchyEntries.new
 response = @solr.paginate("hierarchy_id:#{@hierarchy.id}", page: page, per_page: @per_page)
 entries = response["response"]["docs"]
+entries_in_solr = @solr.paginate("hierarchy_id:#{@hierarchy.id}", page: page, per_page: 1)["response"]["num
+Found"]
+
+# Found the problem, skipping all the mess (it involved lots of c/p'ed methods)

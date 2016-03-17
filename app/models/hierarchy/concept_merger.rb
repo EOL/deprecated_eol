@@ -95,7 +95,7 @@ class Hierarchy
       response = @solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page))
       # NOTE: this was really banging on Solr, so we're rate-limiting it a bit:
-      sleep(0.2)
+      sleep(0.3)
       rhead = response["responseHeader"]
       if rhead["QTime"] && rhead["QTime"].to_i > 1000
         EOL.log("gporfs query: #{rhead["q"]}", prefix: ".")

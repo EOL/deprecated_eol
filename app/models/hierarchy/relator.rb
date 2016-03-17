@@ -283,7 +283,7 @@ class Hierarchy
           RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY.include?(from_entry["rank_id"])
         kingdom_match_valid_2 =
           RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY.include?(to_entry["rank_id"])
-        return 0 unless allowed_to_match_at_kingdom_only?(from_entry, to_entry)
+        return 0 unless allowed_to_match_at_kingdom_only?([from_entry, to_entry])
         return 0 if from_entry["rank_id"].blank? || to_entry["rank_id"].blank?
         # TODO: Wait, what? They aren't allowed to match if they are the same
         # rank (and they only match at kingom)? That does not make sense to me. :\

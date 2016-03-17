@@ -224,10 +224,10 @@ class Hierarchy
     end
 
     def rank_ids_conflict?(rid1, rid2)
-      if @rank_groups.has_key?(rid1) || @rank_groups.has_key?(rid2)
+      if @rank_groups.has_key?(rid1) && @rank_groups.has_key?(rid2)
         @rank_groups[rid1] != @rank_groups[rid2]
       else
-        rid1 && rid2 && rid1 != rid2
+        rid1 && rid1 != 0 && rid2 && rid2 != 0 && rid1 != rid2
       end
     end
 
@@ -290,7 +290,7 @@ class Hierarchy
         # But it's what PHP did!
         return 0 if from_entry["rank_id"] == to_entry["rank_id"]
       end
-      return score / 100
+      return score.to_f / 100
     end
 
     def best_matching_weight(from_entry, to_entry)
@@ -303,7 +303,7 @@ class Hierarchy
     end
 
     def empty_ancestry?(entry)
-      entry.values_at(*RANK_WEIGHTS.keys).any? { |v| ! v.blank? }
+      entry.values_at(*RANK_WEIGHTS.keys).all? { |v| v.blank? }
     end
 
     def has_any_non_kingdom?(entry)

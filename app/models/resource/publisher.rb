@@ -46,7 +46,6 @@ class Resource
     # capture that in another way. NOTE: This _requires_ that the flattened
     # hierarchy have been rebuilt when this is called.
     def publish
-      EOL.log_call
       EOL.log("PUBLISH: #{resource.title}")
       raise "No harvest event!" unless @harvest_event
       raise "Harvest event already published!" if @harvest_event.published?

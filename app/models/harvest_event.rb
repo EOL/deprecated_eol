@@ -175,18 +175,15 @@ class HarvestEvent < ActiveRecord::Base
   # name, should be something like publish_objects; mark_as_published should be
   # separate.
   def finish_publishing
-    EOL.log_call
     publish_and_show_hierarchy_entries
     publish_taxon_concepts
     publish_synonyms
     mark_as_published
-    EOL.log_return
   end
 
   # TODO: this would be unnecessary if, during a harvest, we just looked for the
   # previous harvest event's associations and honored those visibilities.
   def preserve_invisible
-    EOL.log_call
     previously = resource.latest_published_harvest_event_uncached
     if previously.nil?
       EOL.log("First harvest! Nothing to preserve.")
@@ -352,7 +349,6 @@ private
   end
 
   def publish_synonyms
-    EOL.log_call
     count = Synonym.unpublished.joins(:hierarchy_entry).
       where(hierarchy_entries: { id: hierarchy_entry_ids_with_ancestors}).
       update_all("synonyms.published = true")

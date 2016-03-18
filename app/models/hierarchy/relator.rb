@@ -49,6 +49,7 @@ class Hierarchy
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
       @count = 0
+      @all_hierarchies = options[:all_hierarchies]
       @per_page = Rails.configuration.solr_relationships_page_size.to_i
       @per_page = 1000 unless @per_page > 0
       @solr = SolrCore::HierarchyEntries.new
@@ -56,7 +57,6 @@ class Hierarchy
     end
 
     def relate
-      EOL.log_call
       return false unless @hierarchy # TODO: necessary?
       compare_entries
       add_curator_assertions
@@ -129,17 +129,25 @@ class Hierarchy
           query_or_clause << "synonym_canonical:\"#{search_canonical}\""
         end
         query = "(#{query_or_clause.join(" OR ")})"
-        # TODO: Never used, currently; saving for later port work:
-        query += " AND hierarchy_id:#{@hierarchy_against.id}" if
-          @hierarchy_against
-        # Complete hierarchies are not compared with themselves. Other (e.g.:
-        # Flickr, which can have multiple occurrences of the "same" concept in
-        # it) _do_ need to be compared with themselves.
-        query += " NOT hierarchy_id:#{@hierarchy.id}" if @hierarchy.complete?
-        # PHP: "don't relate NCBI to itself"
-        # TODO: This should NOT be hard-coded:
-        query += " NOT hierarchy_id:759" if @hierarchy.id == 1172
-        query += " NOT hierarchy_id:1172" if @hierarchy.id == 759
+        if @all_hierarchies
+          # TODO: Never used, currently; saving for later port work:
+          query += " AND hierarchy_id:#{@hierarchy_against.id}" if
+            @hierarchy_against
+          # Complete hierarchies are not compared with themselves. Other (e.g.:
+          # Flickr, which can have multiple occurrences of the "same" concept in
+          # it) _do_ need to be compared with themselves.
+          query += " NOT hierarchy_id:#{@hierarchy.id}" if @hierarchy.complete?
+          # PHP: "don't relate NCBI to itself"
+          # TODO: This should NOT be hard-coded:
+          query += " NOT hierarchy_id:759" if @hierarchy.id == 1172
+          query += " NOT hierarchy_id:1172" if @hierarchy.id == 759
+        else
+          h_ids = Hierarchy.browsable
+          h_ids = h_ids.where(["id != ?", @hierarchy.id]) if
+            @hierarchy.complete?
+          conditions = h_ids.pluck(:id).map { |id| "hierarchy_id:#{id}" }
+          query += " AND (#{conditions.join(" OR ")})"
+        end
         # TODO: make rows variable configurable
         response = @solr.select(query, rows: 400)
         # NOTE: this was WAAAAAY too hard on Solr, we needed to gate it:

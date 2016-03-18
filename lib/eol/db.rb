@@ -123,7 +123,10 @@ module EOL
       table += "_tmp" if options[:tmp]
       fields = Array(fields)
       EOL.log("#{rows.count} rows into #{table}", prefix: '.')
-      Array(rows).in_groups_of(5000, false) do |group|
+      group_num = 0
+      rows = Array(rows)
+      rows.in_groups_of(2000, false) do |group|
+        EOL.log("group #{group_num += 1} (#{group.size})") if rows.size > 2000
         klass.connection.execute(
           "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\
           "(`#{fields.join("`, `")}`) "\

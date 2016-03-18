@@ -160,13 +160,11 @@ class Resource < ActiveRecord::Base
   # NOTE: this can raise various exceptions. You want to wrap any call to this
   # in a begin/rescue block.
   def publish
-    EOL.log_call
     Resource::Publisher.publish(self)
   end
 
   # TODO - this should be doing something different, neh?
   def preview
-    EOL.log_call
     Resource::Publisher.preview(self)
   end
 

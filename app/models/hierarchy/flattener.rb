@@ -36,7 +36,6 @@ class Hierarchy
     private
 
     def study_hierarchy
-      EOL.log_call
       @children = {}
       @taxa = {}
       # I'm changing this... not sure it's for the better, but my thinking is
@@ -57,7 +56,6 @@ class Hierarchy
     end
 
     def build_ancestry
-      EOL.log_call
       @ancestry = {}
       walk_down_tree("0", [])
     end
@@ -73,7 +71,6 @@ class Hierarchy
     end
 
     def build_flat_entries_and_concepts
-      EOL.log_call
       @flat_entries = Set.new
       @flat_concepts = Set.new
       @ancestry.keys.each do |child|
@@ -88,7 +85,6 @@ class Hierarchy
     end
 
     def update_tables
-      EOL.log_call
       currently = @hierarchy.ancestry_set
       EOL.log("Currently: #{currently.count}", prefix: ".")
       EOL.log("Desired: #{@flat_entries.count}", prefix: ".")

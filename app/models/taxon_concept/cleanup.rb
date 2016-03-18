@@ -1,7 +1,6 @@
 class TaxonConcept
   module Cleanup
     def unpublish_and_hide_by_entry_ids(entry_ids)
-      EOL.log_call
       ids = HierarchyEntry.where(id: Array(entry_ids)).pluck(:taxon_concept_id)
       unpublish_concepts_with_no_published_entries(ids)
       untrust_concepts_with_no_visible_trusted_entries(ids)

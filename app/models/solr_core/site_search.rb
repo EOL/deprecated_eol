@@ -66,35 +66,39 @@ class SolrCore
 
     def get_taxon_names(ids)
       EOL.log_call
-      TaxonConceptName.includes(:taxon_concept, :name).joins(:taxon_concept).
-        merge(TaxonConcept.unsuperceded.published.where(id: ids)).
-        find_each do |tcn|
-        next if tcn.name.string.blank?
-        id = tcn.taxon_concept_id
-        vetted_id = tcn.taxon_concept.vetted_id
-        language_id = tcn.language_id
-        string = SolrCore.string(tcn.name.string)
-        if string.blank?
-          # This happens a lot. I'm not sure how, but these strings are still
-          # matched, so this doesn't appear to be a problem, per se.
-          next
-        end
-        name_vetted_id = tcn.vetted_id
-        if tcn.vern?
-          iso = Language.iso_code(language_id) || 'unknown'
-          if tcn.preferred? && iso != 'unknown'
-            add_to_taxa(id, preferred_commons: { iso => string })
-          elsif name_vetted_id != Vetted.untrusted.id &&
-            vetted_id != Vetted.inappropriate.id
-            add_to_taxa(id, commons: { iso => string })
-          end
-        elsif tcn.source_hierarchy_entry_id && tcn.source_hierarchy_entry_id > 0
-          if Name.is_surrogate_or_hybrid?(string)
-            add_to_taxa(id, surrogates: string)
-          elsif tcn.preferred?
-            add_to_taxa(id, preferred_scientifics: string)
-          else
-            add_to_taxa(id, synonyms: string)
+      ids.in_groups_of(1000, false) do |batch|
+        TaxonConcept.unsuperceded.published.
+                     includes(taxon_concept_names: :name).where(id: batch).
+                     each do |concept|
+          id = concept.id
+          vetted_id = concept.vetted_id
+          concept.taxon_concept_names.each do |tcn|
+            next if tcn.name.string.blank?
+            string = SolrCore.string(tcn.name.string)
+            if string.blank?
+              # This happens a lot. I'm not sure how, but these strings are still
+              # matched, so this doesn't appear to be a problem, per se.
+              next
+            end
+            language_id = tcn.language_id
+            name_vetted_id = tcn.vetted_id
+            if tcn.vern?
+              iso = Language.iso_code(language_id) || 'unknown'
+              if tcn.preferred? && iso != 'unknown'
+                add_to_taxa(id, preferred_commons: { iso => string })
+              elsif name_vetted_id != Vetted.untrusted.id &&
+                vetted_id != Vetted.inappropriate.id
+                add_to_taxa(id, commons: { iso => string })
+              end
+            elsif tcn.source_hierarchy_entry_id && tcn.source_hierarchy_entry_id > 0
+              if Name.is_surrogate_or_hybrid?(string)
+                add_to_taxa(id, surrogates: string)
+              elsif tcn.preferred?
+                add_to_taxa(id, preferred_scientifics: string)
+              else
+                add_to_taxa(id, synonyms: string)
+              end
+            end
           end
         end
       end

@@ -16,6 +16,7 @@ class DataObject
       data_object_ids.in_groups_of(10000, false) do |batch|
         index_batch(batch)
       end
+      EOL.log_return
     end
 
     private
@@ -216,7 +217,6 @@ class DataObject
     end
 
     def add_ancestries_from_result(query)
-      EOL.log_call
       query.find_each do |dato|
         # NOTE: this should not happen, but PHP had it. :\
         next unless @objects.has_key?(dato.id)
@@ -278,7 +278,6 @@ class DataObject
     end
 
     def add_attribute(options = {})
-      EOL.log_call
       options[:query].find_each do |item|
         id = item.send(options[:dato_id_field] || :data_object_id)
         next unless @objects.has_key?(id)
@@ -292,7 +291,6 @@ class DataObject
     end
 
     def add_translations(data_object_ids)
-      EOL.log_call
       DataObjectTranslation.
         select("data_object_id, original_data_object_id").
         where(["data_object_id IN (?)", data_object_ids]).

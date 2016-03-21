@@ -4657,7 +4657,7 @@ uk:
         рівнем асистента.
       admin_or_master_curators_only: Вибачте, доступ обмежений адміністраторами і
         кураторами ЕЖ з мінімальним рівнем куратора Майстра.
-      no_access: На жаль, доступ обмежено.
+      no_access: На жаль, ця функція тимчасово відключена. Перевірте пізніше.
   excluded_icon_tip: Рядки, позначені піктограмою виключення %{excluded_icon}, ніколи
     не будуть показані на сторінках огляду таксону.
   expand_all_children: розгорнути усіх нащадків
@@ -4854,7 +4854,7 @@ uk:
   item_type_sound_assistive: Цей елемент є звуком
   item_type_taxon_assistive: Цей елемент є таксоном
   item_type_video_assistive: Цей елемент є відео
-  item_not_added_already_in_collection: Цей елемент уже додано до збірки.
+  item_not_added_already_in_collection: Цей елемент:%{value} уже додано до збірки.
   item_not_added_to_itself_notice: На жаль, неможливо додати збірку <em>%{collection_name}</em>
     для себе.
   item_not_added_to_collection_error: Вибачте, виникла помилка, вибраний елемент не
@@ -5212,7 +5212,7 @@ uk:
   rating_learn_more_link: Що таке рейтинг
   rating_not_added_error: Вибачте, сталася помилка, рейтинг неможливо додати.
   reading_from_ontology: Читання з <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
-  recaptcha: Введіть два слова, які ви бачите нижче
+  recaptcha: Введіть два слова або цифри, які Ви бачите нижче
   recent_updates: Останні оновлення
   recently_visited: Недавно відвідані
   recently_used_link: Недавно використані

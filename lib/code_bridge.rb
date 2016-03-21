@@ -6,7 +6,7 @@ class CodeBridge
 
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
-    EOL.log_call
+    EOL.log("RESQUE: CodeBridge#perform", prefix: ">")
     EOL.log("Notifications queue: #{Resque.size("notifications")}", prefix: ".")
     EOL.log("Data queue: #{Resque.size("data")}", prefix: ".")
     EOL.log("Harvesting queue: #{Resque.size("harvesting")}", prefix: ".")

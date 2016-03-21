@@ -1,5 +1,13 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+resource = Resource.find(544)
+event = resource.harvest_events.last
+@solr = SolrCore::SiteSearch.new
+@solr.index_type(TaxonConcept, HierarchyEntry.where(id: event.new_hierarchy_entry_ids).pluck(:taxon_concept_id))
+
+
+# Delete me later!
+
 @resource = Resource.find 974 # North American Butterflies and Skippers
 
 concept1 = TaxonConcept.find 45882481

@@ -66,7 +66,9 @@ class SolrCore
 
     def get_taxon_names(ids)
       EOL.log_call
-      ids.in_groups_of(1000, false) do |batch|
+      # Smaller than average group because each taxon can have hundreds of
+      # names, so this gets ugly fast.
+      ids.in_groups_of(200, false) do |batch|
         TaxonConcept.unsuperceded.published.
                      includes(taxon_concept_names: :name).where(id: batch).
                      each do |concept|

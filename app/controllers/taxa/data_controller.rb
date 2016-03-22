@@ -19,8 +19,7 @@ class Taxa::DataController < TaxaController
 
   # GET /pages/:taxon_id/data/glossary
   def glossary
-    load_glossary
-    @toc_id = 'glossary'
+    redirect_to taxon_data_path(@taxon_concept.id)
   end
 
   # GET /pages/:taxon_id/data/ranges

@@ -107,7 +107,7 @@ describe HarvestEvent do
       # were NOT in harvest_events_hierarchy_entries.
     end
 
-    describe "#finish_publishing" do
+    describe "#publish_objects" do
       it "should publish all hiearchy entries"
       it "should show all hiearchy entries"
       # NOTE: "show" means "make visible"

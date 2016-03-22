@@ -62,8 +62,8 @@ class Resource
       end
       ActiveRecord::Base.connection.transaction do
         old_entry_ids = Set.new(@resource.unpublish_hierarchy)
-        # TODO: that's a bad name.
-        @harvest_event.finish_publishing
+        @harvest_event.publish_objects
+        @harvest_event.mark_as_published
         new_entry_ids =
           Set.new(@harvest_event.hierarchy_entry_ids_with_ancestors)
         TaxonConcept.unpublish_and_hide_by_entry_ids(

@@ -44,7 +44,7 @@ class TraitBank
       TraitBank.paginate(TraitBank.measurements_query(@resource)) do |results|
         results.each do |row|
           raise "No value for #{row[:trait]}!" unless row[:value]
-          @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\1")
+          @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")
           @triples << "<#{row[:page]}> a eol:page ; "\
             "<#{row[:predicate]}> <#{row[:trait]}>"
           @triples << "<#{row[:trait]}> a eol:trait"

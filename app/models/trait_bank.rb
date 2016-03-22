@@ -310,20 +310,23 @@ class TraitBank
     def measurements_query(resource)
       "SELECT DISTINCT *
         # measurements_query
-        GRAPH <#{resource.graph_name}> {
-          ?trait dwc:measurementType ?predicate .
-          ?trait dwc:measurementValue ?value .
-          OPTIONAL { ?trait dwc:measurementUnit ?units } .
-          OPTIONAL { ?trait eolterms:statisticalMethod ?statistical_method } .
-        } WHERE {
-          ?trait dwc:occurrenceID ?occurrence .
-          ?occurrence dwc:taxonID ?taxon .
-          ?trait eol:measurementOfTaxon eolterms:true .
-          GRAPH <#{resource.mappings_graph_name}> {
-            ?taxon dwc:taxonConceptID ?page
+        WHERE {
+          GRAPH <#{resource.graph_name}> {
+            ?trait dwc:measurementType ?predicate .
+            ?trait dwc:measurementValue ?value .
+            OPTIONAL { ?trait dwc:measurementUnit ?units } .
+            OPTIONAL { ?trait eolterms:statisticalMethod ?statistical_method } .
+          } .
+          {
+            ?trait dwc:occurrenceID ?occurrence .
+            ?occurrence dwc:taxonID ?taxon .
+            ?trait eol:measurementOfTaxon eolterms:true .
+            GRAPH <#{resource.mappings_graph_name}> {
+              ?taxon dwc:taxonConceptID ?page
+            }
+            OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
+            OPTIONAL { ?occurrence dwc:sex ?sex }
           }
-          OPTIONAL { ?occurrence dwc:lifeStage ?life_stage } .
-          OPTIONAL { ?occurrence dwc:sex ?sex }
         }"
     end
 

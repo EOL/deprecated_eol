@@ -7,7 +7,7 @@
         %li= link_to category.label, taxon_data_path(@taxon_page, toc_id: category.id), data: { toc_id: category.id }
       -# TODO: range data, which we do not have yet.
       - unless @page_traits.glossary.blank?
-        %li.glossary.start_section= link_to I18n.t(:glossary_subhead).html_safe, glossary_taxon_data_path(@taxon_page)
+        %li.glossary.start_section= link_to I18n.t(:glossary_subhead).html_safe, '#'
     -# TODO: This class needs to be start_section if the glossary tab is missing.
     %li.about= link_to I18n.t(:data_subtab_about), about_taxon_data_path(@taxon_page)
 .main_container#taxon_data

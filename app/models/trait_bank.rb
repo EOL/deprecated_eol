@@ -96,8 +96,8 @@ class TraitBank
       exist = Set.new
       uris.to_a.in_groups_of(1000, false) do |group|
         begin
-          resp = connection.query("SELECT DISTINCT(?s) { ?s ?o ?p } "\
-            "FILTER ( ?s IN (<#{uris.join(">,<")}>) )")
+          resp = connection.query("SELECT DISTINCT(?s) { ?s ?o ?p . "\
+            "FILTER ( ?s IN (<#{uris.join(">,<")}>) ) }")
           exist += resp.map { |u| u[:s].to_s }
         rescue EOL::Exceptions::SparqlDataEmpty => e
           # Nothing to add.

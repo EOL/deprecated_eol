@@ -302,8 +302,7 @@ class DataObject
 
     def objects_to_hashes
       EOL.log_call
-      # TODO: don't cache this; if we change something, we want it recalculated.
-      @hashes ||= @objects.values.map do |object|
+      @objects.values.map do |object|
         object.delete(:instance).to_hash.merge(object)
       end
     end

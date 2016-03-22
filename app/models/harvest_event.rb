@@ -171,14 +171,12 @@ class HarvestEvent < ActiveRecord::Base
 
   # NOTE: You need to call publish_data_objects before this; we don't do it
   # here, because it ends up being inefficient; it's best to do data_objects in
-  # a separate transaction, so it needed to be separate. TODO: this is a bad
-  # name, should be something like publish_objects; mark_as_published should be
+  # a separate transaction, so it needed to be separate.
   # separate.
-  def finish_publishing
+  def publish_objects
     publish_and_show_hierarchy_entries
     publish_taxon_concepts
     publish_synonyms
-    mark_as_published
   end
 
   # TODO: this would be unnecessary if, during a harvest, we just looked for the

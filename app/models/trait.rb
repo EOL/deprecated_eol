@@ -90,8 +90,10 @@ class Trait
   end
 
   def rdf_meta_units(id)
-    @rdf.find { |r| r[:value].to_s == id &&
+    rdf = @rdf.find { |r| r[:value].to_s == id &&
       r[:meta_predicate].to_s == TraitBank.unit_uri }
+    return "[UNITS MISSING]" unless rdf
+    rdf[:meta_value]
   end
 
   # Returns a hash of metadata. Values are always arrays, because metadata CAN

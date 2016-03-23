@@ -86,7 +86,7 @@
                   %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
                     %caption.title= I18n.t(:data_about_this_record)
                     - i = 0
-                    - trait.meta.each do |pred, val|
+                    - trait.meta.each do |pred, vals|
                       - i += 1
                       - row_id = "#{trait.anchor}_meta_#{i}"
                       %tr

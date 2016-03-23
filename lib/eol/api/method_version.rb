@@ -73,7 +73,7 @@ module EOL
         end
 
         def convert_to_boolean(param)
-          return false if [ nil, '', '0', 0, 'false', false ].include?(param)
+          return false if [ nil, '', '0', 0, 'false', false ].include?(param.downcase)
           true
         end
 

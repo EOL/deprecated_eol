@@ -54,7 +54,7 @@ class TraitBank
           add_meta(row, TraitBank.sex_uri, :sex)
           add_meta(row, TraitBank.life_stage_uri, :life_stage)
           add_meta(row, TraitBank.statistical_method_uri, :statistical_method)
-          @triples << "<#{row[:trait]}> dc:source <#{@resource.graph_name}>"
+          @triples << "<#{row[:trait]}> eolterms:resource <#{@resource.graph_name}>"
           @traits << row[:trait]
         end
       end
@@ -65,10 +65,10 @@ class TraitBank
         results.each do |row|
           @triples << "<#{row[:page]}> a eol:page ;"\
             "<#{row[:predicate]}> <#{row[:target_page]}> ;"\
-            "dc:source <#{@resource.graph_name}>"
+            "eolterms:resource <#{@resource.graph_name}>"
           @triples << "<#{row[:target_page]}> a eol:page ;"\
             "<#{row[:inverse]}> <#{row[:page]}> ;"\
-            "dc:source <#{@resource.graph_name}>"
+            "eolterms:resource <#{@resource.graph_name}>"
           @traits << row[:trait]
         end
       end
@@ -110,7 +110,7 @@ class TraitBank
       TraitBank.paginate(TraitBank.references_query(@resource)) do |results|
         results.each do |row|
           @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
-            "<#{row[:full_reference]}>"
+            "#{TraitBank.quote_literal(row[:full_reference])}"
         end
       end
     end

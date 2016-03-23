@@ -92,7 +92,7 @@ class TraitBank
       if str.is_numeric?
         str
       else
-        "\"#{str.gsub(/\n/, " ").gsub(/\\/, "\\\\").gsub(/"/, "\\\"")}\""
+        "\"#{str.gsub(/\n/, " ").gsub(/\\/, "\\\\\\\\").gsub(/"/, "\\\"")}\""
       end
     end
 

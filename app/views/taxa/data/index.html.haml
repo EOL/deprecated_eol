@@ -90,7 +90,7 @@
                   taxon_data_path(@taxon_concept,
                   data_point_uri_id: trait.point.id, anchor: trait.point.anchor),
                   title: I18n.t(:data_row_additional_detail_assistive))
-              .term{ data: { term: "TODO" }}
+              .term{ data: { term: trait.value_uri }}
                 - add_exemplar_or_excluded_icon(exemplar: exemplar, excluded: excluded)
                 = format_value(trait).html_safe
                 = render(partial: 'trait_bank/definition', locals: { known_uri: trait.value_uri, search_link: true, glossary_link: true })
@@ -113,7 +113,7 @@
                 %table.meta{ summary: I18n.t(:data_metadata_subtable_summary) }
                   %caption.title= I18n.t(:data_about_this_record)
                   - i = 0
-                  - trait.meta.each do |pred, val|
+                  - trait.meta.each do |pred, vals|
                     - i += 1
                     - row_id = "#{trait.point.anchor}_meta_#{i}"
                     %tr
@@ -124,11 +124,22 @@
                         - else
                           = pred
                       %td{id: "#{row_id}_d"}
-                        - if val.is_a?(KnownUri)
-                          = val.name
-                          = render(partial: 'trait_bank/definition', locals: { known_uri: pred, search_link: true, glossary_link: true })
-                        - else
-                          = raw val.add_missing_hyperlinks
+                        - vals.each do |val|
+                          - if val.is_a?(KnownUri)
+                            = val.name
+                            = render(partial: 'trait_bank/definition', locals: { known_uri: val, search_link: true, glossary_link: true })
+                          - elsif val.is_a?(Hash)
+                            - if val[:value].is_a?(KnownUri)
+                              = val[:value].name
+                              = render(partial: 'trait_bank/definition', locals: { known_uri: val[:value], search_link: true, glossary_link: true })
+                            - else
+                              = raw val[:value].add_missing_hyperlinks
+                            - if val[:units].is_a?(KnownUri)
+                              = add_superscripts(trait.val[:units].name)
+                            - else
+                              = add_superscripts(val[:units]).html_safe
+                          - else
+                            = raw val.add_missing_hyperlinks
                   %tr
                     %th
                       = I18n.t(:data_link_to_record)

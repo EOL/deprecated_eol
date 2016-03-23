@@ -48,12 +48,11 @@ class TraitBank
           @triples << "<#{row[:page]}> a eol:page ; "\
             "<#{row[:predicate]}> <#{row[:trait]}>"
           @triples << "<#{row[:trait]}> a eol:trait"
-          add_meta(row, "http://rs.tdwg.org/dwc/terms/measurementValue", :value)
-          add_meta(row, "http://rs.tdwg.org/dwc/terms/measurementUnit", :units)
-          add_meta(row, "http://rs.tdwg.org/dwc/terms/sex", :sex)
-          add_meta(row, "http://rs.tdwg.org/dwc/terms/lifeStage", :life_stage)
-          add_meta(row, "http://eol.org/schema/terms/statisticalMethod",
-            :statistical_method)
+          add_meta(row, TraitBank.value_uri, :value)
+          add_meta(row, TraitBank.unit_uri, :units)
+          add_meta(row, TraitBank.sex_uri, :sex)
+          add_meta(row, TraitBank.life_stage_uri, :life_stage)
+          add_meta(row, TraitBank.statistical_method_uri, :statistical_method)
           @triples << "<#{row[:trait]}> dc:source <#{@resource.graph_name}>"
           @traits << row[:trait]
         end
@@ -94,8 +93,8 @@ class TraitBank
                 # TODO: THIS SHOULD NOT HAPPEN. tell someone?
                 TraitBank.quote_literal(h[:units])
               @triples << "<#{h[:meta_trait]}> a eol:trait ;"\
-                "<http://rs.tdwg.org/dwc/terms/measurementValue> #{val} ;"\
-                "<http://rs.tdwg.org/dwc/terms/measurementUnit> #{units}"
+                "<#{TraitBank.value_uri}> #{val} ;"\
+                "<#{TraitBank.unit_uri}> #{units}"
             end
           end
         # This was causing a lot of trouble when I was attempting it:  :(

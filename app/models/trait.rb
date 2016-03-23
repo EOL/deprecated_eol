@@ -67,7 +67,7 @@ class Trait
   end
 
   def life_stage
-    rdf_value("http://rs.tdwg.org/dwc/terms/lifeStage")
+    rdf_value(TraitBank.life_stage_uri)
   end
 
   def life_stage_name
@@ -78,23 +78,72 @@ class Trait
     rdf_to_uri(life_stage)
   end
 
+  # {:predicate=>#<RDF::URI:0x44071cc(http://eol.org/schema/terms/CingulumType)>, :trait=>#<RDF::URI:0x44070f0(http://eol.org/resources/969/measurements/m1718)>, :trait_predicate=>#<RDF::URI:0x4407050(http://eol.org/schema/terms/Salinity)>, :value=>#<RDF::Literal::Integer:0x4406fd8("35"^^<http://www.w3.org/2001/XMLSchema#integer>)>}
+  # {:predicate=>#<RDF::URI:0x2a11a24(http://eol.org/schema/terms/CingulumType)>, :trait=>#<RDF::URI:0x2a116c8(http://eol.org/resources/969/measurements/m1718)>, :trait_predicate=>#<RDF::URI:0x2a113f8(http://eol.org/schema/terms/SeawaterTemperature)>, :value=>#<RDF::URI:0x2a10fe8(http://eol.org/resources/969/measurements/m1730)>, :meta_predicate=>#<RDF::URI:0x2a108e0(http://rs.tdwg.org/dwc/terms/measurementUnit)>, :meta_value=>#<RDF::URI:0x2a107dc(http://purl.obolibrary.org/obo/UO_0000027)>},
+
+  def rdf_with_meta_units
+    @rdf.select { |r| r[:meta_predicate].to_s == TraitBank.value_uri }
+  end
+
+  def rdf_without_meta_units
+    @rdf.select { |r| r[:meta_predicate].nil? }
+  end
+
+  def rdf_meta_units(id)
+    @rdf.find { |r| r[:value].to_s == id &&
+      r[:meta_predicate].to_s == TraitBank.unit_uri }
+  end
+
+  # Returns a hash of metadata. Values are always arrays, because metadata CAN
+  # have one predicate with multiple values.
   def meta
     return @meta if @meta
     @meta = {}
-    @rdf.each do |rdf|
+    rdf_with_meta_units.
+         each do |rdf|
       pred = rdf[:trait_predicate].to_s
-      val = rdf[:value].to_s
+      pred = glossary.find { |g| g.uri == pred } || pred
+      m_units = rdf_meta_units(rdf[:value].to_s)
+      m_units = glossary.find { |g| g.uri == m_units } || m_units
+      val = rdf[:meta_value].to_s
+      val = glossary.find { |g| g.uri == val } || val
+      @meta[pred] ||= []
+      @meta[pred] << { value: val, units: m_units }
+    end
+    rdf_without_meta_units.each do |rdf|
+      pred = rdf[:trait_predicate].to_s
       # Skip type of row:
-      next if pred == "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
+      next if pred == TraitBank.type_uri
       # Skip the value (that's already shown):
-      next if pred == "http://rs.tdwg.org/dwc/terms/measurementValue"
+      next if pred == TraitBank.value_uri
+      val = rdf[:value].to_s
       # Skip resource as "source"
       next if val =~ SOURCE_RE
-      pred_uri = glossary.find { |g| g.uri == pred }
-      val_uri = glossary.find { |g| g.uri == val }
-      @meta[pred_uri || pred] = val_uri || val
+      pred = glossary.find { |g| g.uri == pred } || pred
+      val = glossary.find { |g| g.uri == val } || val
+      @meta[pred] ||= []
+      @meta[pred] << val
     end
     @meta
+  end
+
+
+  def meta_meta
+    return @meta_meta if @meta_meta
+    @meta_meta = {}
+    @rdf.each do |rdf|
+      next if rdf[:meta_trait].nil?
+      pred = rdf[:meta_predicate].to_s
+      next if pred == TraitBank.type_uri
+      meta = rdf[:value].to_s
+      val = rdf[:meta_value].to_s
+      pred_uri = glossary.find { |g| g.uri == pred }
+      val_uri = glossary.find { |g| g.uri == val }
+      @meta_meta[meta] ||= []
+      # NOTE: meta-metadata only allows ONE value for each predicate!
+      @meta_meta[meta] << { pred_uri || pred => val_uri || val }
+    end
+    @meta_meta
   end
 
   def partner
@@ -141,7 +190,7 @@ class Trait
   end
 
   def sex
-    rdf_value("http://rs.tdwg.org/dwc/terms/sex")
+    rdf_value(TraitBank.sex_uri)
   end
 
   def sex_name
@@ -157,7 +206,7 @@ class Trait
   end
 
   def all_source_rdfs
-    rdf_values("http://purl.org/dc/terms/source")
+    rdf_values(TraitBank.source_uri)
   end
 
   def other_sources
@@ -183,11 +232,11 @@ class Trait
   end
 
   def statistical_method_rdfs
-    rdf_values("http://eol.org/schema/terms/statisticalMethod")
+    rdf_values(TraitBank.statistical_method_uri)
   end
 
   def statistical_method?
-    ! rdf_values("http://eol.org/schema/terms/statisticalMethod").blank?
+    ! rdf_values(TraitBank.statistical_method_uri).blank?
   end
 
   def statistical_methods
@@ -216,7 +265,7 @@ class Trait
   end
 
   def units
-    rdf_value("http://rs.tdwg.org/dwc/terms/measurementUnit")
+    rdf_value(TraitBank.unit_uri)
   end
 
   def units_uri
@@ -228,7 +277,7 @@ class Trait
   end
 
   def value_rdf
-    rdf_value("http://rs.tdwg.org/dwc/terms/measurementValue")
+    rdf_value(TraitBank.value_uri)
   end
 
   def value_name

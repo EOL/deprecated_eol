@@ -1,7 +1,8 @@
 class TraitBank
   class << self
     attr_reader :default_limit, :graph, :taxon_re, :value_uri, :unit_uri,
-      :type_uri, :source_uri, :sex_uri, :life_stage_uri, :statistical_method_uri
+      :type_uri, :source_uri, :sex_uri, :life_stage_uri,
+      :statistical_method_uri, :full_reference_uri
   end
 
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
@@ -15,6 +16,7 @@ class TraitBank
   @sex_uri = "http://rs.tdwg.org/dwc/terms/sex"
   @life_stage_uri = "http://rs.tdwg.org/dwc/terms/lifeStage"
   @statistical_method_uri = "http://eol.org/schema/terms/statisticalMethod"
+  @full_reference_uri = "http://eol.org/schema/reference/full_reference"
   @graph = "http://eol.org/traitbank"
 
   class << self
@@ -424,6 +426,37 @@ class TraitBank
           FILTER (?trait = <#{trait}>)
         }
       }"
+    end
+
+    # OLD: ?parent_uri ?identifier ?publicationType ?full_reference ?primaryTitle
+    # ?title ?pages ?pageStart ?pageEnd ?volume ?edition ?publisher ?authorList
+    # ?editorList ?created ?language ?uri ?doi ?localityName
+    def references_query(resource)
+      # {optional_reference_uris} removed because it never showed up on the old
+      # version of TB, and it's largely redundant. NOTE that storing
+      # full_reference everywhere it's used is quite redundant, but it's much,
+      # much easier to render, so I'm ignoring that.
+      "SELECT DISTINCT *
+       #references_query
+        WHERE {
+          GRAPH <#{resource.graph_name}> {
+            {
+              ?trait eolreference:referenceID ?reference .
+              ?reference a eolreference:Reference .
+              ?reference <#{TraitBank.full_reference_uri}> ?full_reference
+            }
+          }
+        }"
+    end
+
+    def optional_reference_uris
+      return @optional_reference_uris if @optional_reference_uris
+      @optional_reference_uris = []
+      Rails.configuration.optional_reference_uris.each do |var, url|
+        @optional_reference_uris << "OPTIONAL { ?reference <#{url}> ?#{var} } ."
+      end
+      return "" if @optional_reference_uris.empty?
+      @optional_reference_uris.join(" ")
     end
   end
 end

@@ -28,6 +28,7 @@ class TraitBank
       build_traits
       build_associations
       build_metadata
+      build_references
       if @triples.empty?
         EOL.log("No data to insert, skipping.", prefix: ".")
       else
@@ -101,6 +102,15 @@ class TraitBank
         rescue => e
           EOL.log("ERROR: #{e.message}")
           raise e
+        end
+      end
+    end
+
+    def build_references
+      TraitBank.paginate(TraitBank.references_query(@resource)) do |results|
+        results.each do |row|
+          @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
+            "<#{row[:full_reference]}>"
         end
       end
     end

@@ -13,6 +13,7 @@ class TraitBank
   @unit_uri = "http://rs.tdwg.org/dwc/terms/measurementUnit"
   @type_uri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
   @source_uri = "http://purl.org/dc/terms/source"
+  @resource_uri = "http://eol.org/schema/terms/resource"
   @sex_uri = "http://rs.tdwg.org/dwc/terms/sex"
   @life_stage_uri = "http://rs.tdwg.org/dwc/terms/lifeStage"
   @statistical_method_uri = "http://eol.org/schema/terms/statisticalMethod"
@@ -91,7 +92,7 @@ class TraitBank
       if str.is_numeric?
         str
       else
-        "\"#{str.gsub(/\n/, " ").gsub(/"/, "\\\"")}\""
+        "\"#{str.gsub(/\n/, " ").gsub(/\\/, "\\\\").gsub(/"/, "\\\"")}\""
       end
     end
 

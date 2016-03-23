@@ -140,6 +140,8 @@
                               = add_superscripts(val[:units]).html_safe
                           - else
                             = raw val.add_missing_hyperlinks
+                          - if vals.size > 1
+                            %br
                   %tr
                     %th
                       = I18n.t(:data_link_to_record)

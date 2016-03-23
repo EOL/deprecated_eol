@@ -197,7 +197,7 @@ module EOL
                 resource_title = syn.hierarchy.try(:resource).try(:title) || "" #try returns nil when called on nil
                 { "synonym" => syn.name.string, "relationship" => relation, "resource" => resource_title}
               end.sort {|a,b| a["synonym"] <=> b["synonym"] }.uniq
-              end
+            end
 
             if params[:common_names]
               return_hash['vernacularNames'] = []

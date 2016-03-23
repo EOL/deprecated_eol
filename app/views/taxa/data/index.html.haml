@@ -135,7 +135,7 @@
                             - else
                               = raw val[:value].add_missing_hyperlinks
                             - if val[:units].is_a?(KnownUri)
-                              = add_superscripts(trait.val[:units].name)
+                              = add_superscripts(val[:units].name).html_safe
                             - else
                               = add_superscripts(val[:units]).html_safe
                           - else

@@ -1,7 +1,7 @@
 class TraitBank
   class << self
     attr_reader :default_limit, :graph, :taxon_re, :value_uri, :unit_uri,
-      :type_uri, :source_uri, :sex_uri, :life_stage_uri,
+      :type_uri, :source_uri, :resource_uri, :sex_uri, :life_stage_uri,
       :statistical_method_uri, :full_reference_uri
   end
 

@@ -208,7 +208,7 @@ class Trait
   end
 
   def all_source_rdfs
-    rdf_values(TraitBank.source_uri) + rdf_values(TraitBank.source_uri)
+    rdf_values(TraitBank.source_uri) + rdf_values(TraitBank.resource_uri)
   end
 
   def other_sources

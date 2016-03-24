@@ -4367,8 +4367,8 @@ it:
   confirm_delete_community: Sei sicuro di che voler eliminare questa comunità? I membri
     rimanenti saranno ancora in grado di vederla e il newsfeed sarà mantenuto, tuttavia
     essa non apparirà nelle ricerche o sulle pagine taxon e non sarà più modificabile.
-  confirm_delete_data_object: Sei sicuro di voler eliminare questo oggetto dati? Questa
-    azione non può essere annullata.
+  confirm_delete_data_object: Sei sicuro di voler cancellare questo oggetto dati?
+    Questa azione non può essere annullata.
   confirm_leave: Sei sicuro di voler lasciare questa comunità?
   confirm_password_colon: 'Conferma password:'
   contact: Contatto

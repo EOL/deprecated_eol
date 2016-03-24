@@ -46,15 +46,15 @@ class TraitBank
         results.each do |row|
           raise "No value for #{row[:trait]}!" unless row[:value]
           @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")
-          @triples << "<#{row[:page]}> a eol:page ; "\
+          @triples << "<#{row[:page]}> a eol:page ;"\
             "<#{row[:predicate]}> <#{row[:trait]}>"
-          @triples << "<#{row[:trait]}> a eol:trait"
+          @triples << "<#{row[:trait]}> a eol:trait ;"\
+            "eolterms:resource <#{@resource.graph_name}>"
           add_meta(row, TraitBank.value_uri, :value)
           add_meta(row, TraitBank.unit_uri, :units)
           add_meta(row, TraitBank.sex_uri, :sex)
           add_meta(row, TraitBank.life_stage_uri, :life_stage)
           add_meta(row, TraitBank.statistical_method_uri, :statistical_method)
-          @triples << "<#{row[:trait]}> eolterms:resource <#{@resource.graph_name}>"
           @traits << row[:trait]
         end
       end
@@ -64,12 +64,20 @@ class TraitBank
       TraitBank.paginate(TraitBank.associations_query(@resource)) do |results|
         results.each do |row|
           @triples << "<#{row[:page]}> a eol:page ;"\
-            "<#{row[:predicate]}> <#{row[:target_page]}> ;"\
-            "eolterms:resource <#{@resource.graph_name}>"
-          @triples << "<#{row[:target_page]}> a eol:page ;"\
-            "<#{row[:inverse]}> <#{row[:page]}> ;"\
-            "eolterms:resource <#{@resource.graph_name}>"
+            "<#{row[:predicate]}> <#{row[:trait]}>"
+          @triples << "<#{row[:trait]}> a eol:trait ;"\
+            "eolterms:resource <#{@resource.graph_name}> ;"\
+            "eol:associationType <#{row[:predicate]}> ;"\
+            "eol:objectPage <#{row[:target_page]}> ;"\
+            "eol:subjectPage <#{row[:page]}>"
+          unless row[:inverse].blank?
+            @triples << "<#{row[:target_page]}> a eol:page ;"\
+              "<#{row[:inverse]}> <#{row[:trait]}>"
+            @triples << "<#{row[:trait]}> eol:inverseAssociationType <#{row[:inverse]}>"\
+          end
           @traits << row[:trait]
+          @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")
+          @taxa << row[:target_page].to_s.sub(TraitBank.taxon_re, "\\2")
         end
       end
     end

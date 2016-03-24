@@ -43,11 +43,15 @@ class PageTraits < TraitSet
       # NOTE: this block was (mostly) stolen from DataPointUri#to_jsonld, and,
       # again, will replace it.
       trait_json = {
-        "@id" => trait.uri,
+        "@id" => trait.uri.to_s,
         "@type" => trait.association? ? "eol:Association" : "dwc:MeasurementOrFact",
         "dwc:taxonID" => KnownUri.taxon_uri(@id),
       }
-      trait_json["data_point_uri_id"] = trait.point.id if trait.point
+      if trait.point
+        trait_json["data_point_uri_id"] = trait.point.id
+        # I think this is totally redundant with @type, so I exclude it:
+        # trait_json["dwc:measurementType"] = trait.point.class_type
+      end
       trait.rdf.each do |rdf|
         predicate = rdf[:trait_predicate].dup.to_s
         # They don't care about the type we store it as...
@@ -55,13 +59,13 @@ class PageTraits < TraitSet
         prefixes.each { |r,v| predicate.sub!(r,v) }
         trait_json[predicate] = rdf[:value].to_s
       end
-      # Associations needs a _little_ tweaking:
+      # Associations need a _little_ tweaking:
       if trait.association?
-        trait_json['eol:associationType'] =
-          trait_json.delete('dwc:measurementType')
-        trait_json['eol:targetTaxonID'] = trait.value_name
+        trait_json["eol:associationType"] =
+          trait_json.delete("dwc:measurementType")
+        trait_json["eol:targetTaxonID"] = trait.value_name
       end
-      jsonld['@graph'] << trait_json
+      jsonld["@graph"] << trait_json
     end
     add_default_context(jsonld)
     # I'm not sure we were ever doing this "right". :\ TODO: is this even useful?

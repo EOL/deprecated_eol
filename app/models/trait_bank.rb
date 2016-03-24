@@ -2,13 +2,18 @@ class TraitBank
   class << self
     attr_reader :default_limit, :graph, :taxon_re, :value_uri, :unit_uri,
       :type_uri, :source_uri, :resource_uri, :sex_uri, :life_stage_uri,
-      :statistical_method_uri, :full_reference_uri
+      :statistical_method_uri, :full_reference_uri, :association_uri,
+      :inverse_uri, :object_page_uri, :subject_page_uri
   end
 
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
 
   @default_limit = 5000
   @taxon_re = Rails.configuration.known_taxon_uri_re
+  @association_uri = "http://eol.org/schema/associationType"
+  @inverse_uri = "http://eol.org/schema/inverseAssociationType"
+  @object_page_uri = "http://eol.org/schema/objectPage"
+  @subject_page_uri = "http://eol.org/schema/subjectPage"
   @value_uri = "http://rs.tdwg.org/dwc/terms/measurementValue"
   @unit_uri = "http://rs.tdwg.org/dwc/terms/measurementUnit"
   @type_uri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"

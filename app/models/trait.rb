@@ -1,7 +1,6 @@
 class Trait
   attr_reader :predicate, :point, :page, :rdf, :uri
 
-  # TODO: put this in configuration:
   SOURCE_RE = TraitBank::SOURCE_RE
 
   def initialize(rdf, source_set, options = {})
@@ -24,6 +23,12 @@ class Trait
         @page ||= TaxonConcept.find(id) unless id == 0
       end
     end
+    @inverse = false
+    # "Inverted" associations have a different predicate... confusing, but true:
+    if association? && @page == subject_page
+      @predicate = inverse_association.to_s
+      @inverse = true
+    end
   end
 
   def anchor
@@ -34,8 +39,61 @@ class Trait
     "trait_#{uri.gsub(/[^_A-Za-z0-9]/, '_')}"
   end
 
+  def association
+    rdf_value(TraitBank.association_uri)
+  end
+
+  def association_name
+    association_uri.try(:name)
+  end
+
+  def association_uri
+    rdf_to_uri(association)
+  end
+
   def association?
-    value_rdf.to_s =~ TraitBank.taxon_re
+    ! association.nil?
+  end
+
+  def inverse_association
+    rdf_value(TraitBank.inverse_association_uri)
+  end
+
+  def inverse_association_name
+    inverse_association_uri.try(:name)
+  end
+
+  def inverse_association_uri
+    rdf_to_uri(inverse_association)
+  end
+
+  def association?
+    ! association.nil?
+  end
+
+  def object_page
+    find_associated_taxon(TraitBank.object_page_uri)
+  end
+
+  def subject_page
+    find_associated_taxon(TraitBank.subject_page_uri)
+  end
+
+  def target_taxon_name
+    subject_page.title
+  end
+
+  def target_taxon_uri
+    "http://eol.org/pages/#{subject_page.id}"
+  end
+
+  def find_associated_taxon(which)
+    str = rdf_value(which).try(:to_s)
+    return nil if str.nil?
+    id = str.sub(TraitBank.taxon_re, "\\2")
+    return nil if id.blank?
+    tc = TaxonConcept.find(id)
+    TaxonConcept.with_titles.find(tc)
   end
 
   def categories
@@ -77,9 +135,6 @@ class Trait
   def life_stage_uri
     rdf_to_uri(life_stage)
   end
-
-  # {:predicate=>#<RDF::URI:0x44071cc(http://eol.org/schema/terms/CingulumType)>, :trait=>#<RDF::URI:0x44070f0(http://eol.org/resources/969/measurements/m1718)>, :trait_predicate=>#<RDF::URI:0x4407050(http://eol.org/schema/terms/Salinity)>, :value=>#<RDF::Literal::Integer:0x4406fd8("35"^^<http://www.w3.org/2001/XMLSchema#integer>)>}
-  # {:predicate=>#<RDF::URI:0x2a11a24(http://eol.org/schema/terms/CingulumType)>, :trait=>#<RDF::URI:0x2a116c8(http://eol.org/resources/969/measurements/m1718)>, :trait_predicate=>#<RDF::URI:0x2a113f8(http://eol.org/schema/terms/SeawaterTemperature)>, :value=>#<RDF::URI:0x2a10fe8(http://eol.org/resources/969/measurements/m1730)>, :meta_predicate=>#<RDF::URI:0x2a108e0(http://rs.tdwg.org/dwc/terms/measurementUnit)>, :meta_value=>#<RDF::URI:0x2a107dc(http://purl.obolibrary.org/obo/UO_0000027)>},
 
   def rdf_with_meta_units
     @rdf.select { |r| r[:meta_predicate].to_s == TraitBank.value_uri }
@@ -127,25 +182,6 @@ class Trait
       @meta[pred] << val
     end
     @meta
-  end
-
-
-  def meta_meta
-    return @meta_meta if @meta_meta
-    @meta_meta = {}
-    @rdf.each do |rdf|
-      next if rdf[:meta_trait].nil?
-      pred = rdf[:meta_predicate].to_s
-      next if pred == TraitBank.type_uri
-      meta = rdf[:value].to_s
-      val = rdf[:meta_value].to_s
-      pred_uri = glossary.find { |g| g.uri == pred }
-      val_uri = glossary.find { |g| g.uri == val }
-      @meta_meta[meta] ||= []
-      # NOTE: meta-metadata only allows ONE value for each predicate!
-      @meta_meta[meta] << { pred_uri || pred => val_uri || val }
-    end
-    @meta_meta
   end
 
   def partner
@@ -249,15 +285,6 @@ class Trait
     statistical_methods.map(&:name)
   end
 
-  #TODO: associations.  :\
-  def target_taxon_name
-    "TODO: association"
-  end
-
-  def target_taxon_uri
-    "http://eol.org/todo"
-  end
-
   def to_hash
     TraitBank::ToHash.from(self)
   end
@@ -278,17 +305,18 @@ class Trait
     units_uri.try(:name)
   end
 
+  # NOTE: does not apply to associations (at all)
   def value_rdf
     rdf_value(TraitBank.value_uri)
   end
 
   def value_name
-    #TODO: associations. :\
     return "" if value_rdf.nil?
+    return target_taxon_name if association?
     value_uri.respond_to?(:name) ? value_uri.name  : value_rdf.to_s
   end
 
   def value_uri
-    @value_uri ||= rdf_to_uri(value_rdf)
+    @value_uri ||= association? ? target_taxon_uri : rdf_to_uri(value_rdf)
   end
 end

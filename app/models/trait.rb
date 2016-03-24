@@ -31,6 +31,15 @@ class Trait
     end
   end
 
+  def inverse?
+    return false unless association?
+    if @page
+      @page == subject_page
+    else
+      @source_set.id == subject_page.id
+    end
+  end
+
   def anchor
     point.try(:anchor) || header_anchor
   end
@@ -72,11 +81,11 @@ class Trait
   end
 
   def object_page
-    find_associated_taxon(TraitBank.object_page_uri)
+    @object_page ||= find_associated_taxon(TraitBank.object_page_uri)
   end
 
   def subject_page
-    find_associated_taxon(TraitBank.subject_page_uri)
+    @subject_page ||= find_associated_taxon(TraitBank.subject_page_uri)
   end
 
   def target_taxon_name

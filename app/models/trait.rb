@@ -25,7 +25,7 @@ class Trait
     end
     @inverse = false
     # "Inverted" associations have a different predicate... confusing, but true:
-    if association? && @page == subject_page
+    if inverse?
       @predicate = inverse_association.to_s
       @inverse = true
     end
@@ -89,11 +89,11 @@ class Trait
   end
 
   def target_taxon_name
-    subject_page.title
+    (@inverse ? subject_page : object_page).title
   end
 
   def target_taxon_uri
-    "http://eol.org/pages/#{subject_page.id}"
+    "http://eol.org/pages/#{(@inverse ? subject_page : object_page).id}"
   end
 
   def find_associated_taxon(which)

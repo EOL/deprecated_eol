@@ -40,13 +40,13 @@ module EOL
             EOL::Api::DocumentationParameter.new(
               :name => 'cache_ttl',
               :type => Integer,
-              :notes => I18n.t('api_cache_time_to_live_parameter')),  
-              EOL::Api::DocumentationParameter.new(
-                name: "language",
-                type: String,
-                values: Language.approved_languages.collect(&:iso_639_1),
-                default: "en",
-                notes: I18n.t(:limits_the_returned_to_a_specific_language))
+              :notes => I18n.t('api_cache_time_to_live_parameter')),
+            EOL::Api::DocumentationParameter.new(
+              name: "language",
+              type: String,
+              values: Language.approved_languages.collect(&:iso_639_1),
+              default: "en",
+              notes: I18n.t(:limits_the_returned_to_a_specific_language))
           ] }
 
         def self.call(params={})
@@ -55,16 +55,28 @@ module EOL
           if params[:sort_by].class == String && ss = SortStyle.find_by_translated(:name, params[:sort_by].titleize)
             params[:sort_by] = ss
           else
-            params[:sort_by] = collection.default_sort_style
+            params[:sort_by] = nil
           end
-
-          begin
-            collection = Collection.find(params[:id], :include => [ :sort_style ])
-          rescue
-            raise EOL::Exceptions::ApiException.new("Unknown collection id \"#{params[:id]}\"")
+          Rails.cache.fetch(cache_key(params), expires_in: params[:cache_ttl] || 1.day) do
+            begin
+              collection = Collection.find(params[:id], include: [ :sort_style ])
+              params[:sort_by] ||= collection.default_sort_style
+            rescue
+              raise EOL::Exceptions::ApiException.new("Unknown collection id \"#{params[:id]}\"")
+            end
+            prepare_hash(collection, params)
           end
+        end
 
-          prepare_hash(collection, params)
+        def self.cache_key(params)
+          key_parts = [params[:id], "sort_#{params[:sort_by].id}"]
+          key_parts << "#{params[:per_page]}_per_page" if params[:per_page]
+          key_parts << "filter_#{params[:filter].gsub(/\W/, "_")}" if params[:filter]
+          key_parts << "sort_field_#{params[:sort_field].gsub(/\W/, "_")}" if params[:sort_field]
+          key_parts << I18n.locale.to_s
+          key = "/api/collections/#{key_parts.join("/")}"
+          EOL.log("API CACHE: #{key}")
+          key
         end
 
         def self.prepare_hash(collection, params={})

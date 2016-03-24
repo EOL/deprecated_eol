@@ -121,11 +121,11 @@ class Hierarchy
         end
         search_canonical = "" if search_canonical =~ /virus$/
         query_or_clause = []
-        query_or_clause << "canonical_form_string:\"#{search_canonical}\"" if
-          search_canonical
+        query_or_clause << "canonical_form_string:\"#{search_canonical}\"" unless
+          search_canonical.blank?
         query_or_clause << "name:\"#{search_name}\""
         # TODO: should we add this? The PHP code had NO WAY of getting to this:
-        if(false)
+        if (false)
           query_or_clause << "synonym_canonical:\"#{search_canonical}\""
         end
         query = "(#{query_or_clause.join(" OR ")})"

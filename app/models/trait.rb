@@ -65,7 +65,7 @@ class Trait
   end
 
   def inverse_association
-    rdf_value(TraitBank.inverse_association_uri)
+    rdf_value(TraitBank.inverse_uri)
   end
 
   def inverse_association_name

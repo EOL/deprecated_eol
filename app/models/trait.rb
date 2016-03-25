@@ -94,7 +94,7 @@ class Trait
 
   def target_taxon_name
     page = @inverse ? subject_page : object_page
-    page.common_name || page.title_canonical_italicized
+    page.title_canonical_italicized
   end
 
   def target_taxon_uri
@@ -187,6 +187,8 @@ class Trait
       next if pred == TraitBank.type_uri
       # Skip the value (that's already shown):
       next if pred == TraitBank.value_uri
+      # Skip association redundancies:
+      next if association_redundancies.include?(pred)
       val = rdf[:value].to_s
       # Skip resource as "source"
       next if val =~ SOURCE_RE
@@ -196,6 +198,15 @@ class Trait
       @meta[pred] << val
     end
     @meta
+  end
+
+  def association_redundancies
+    @association_redundancies ||= [
+      TraitBank.association_uri,
+      TraitBank.inverse_uri,
+      TraitBank.object_page_uri,
+      TraitBank.subject_page_uri
+    ]
   end
 
   def partner

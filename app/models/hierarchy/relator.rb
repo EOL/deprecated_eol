@@ -45,6 +45,7 @@ class Hierarchy
       @rank_groups = Hash[ *(Rank.where("rank_group_id != 0").
         flat_map { |r| [ r.id, r.rank_group_id ] }) ]
       @hierarchy = hierarchy
+      @browsable = Hierarchy.browsable
       @new_entry_ids = options[:entry_ids]
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
@@ -142,7 +143,7 @@ class Hierarchy
           query += " NOT hierarchy_id:759" if @hierarchy.id == 1172
           query += " NOT hierarchy_id:1172" if @hierarchy.id == 759
         else
-          h_ids = Hierarchy.browsable
+          h_ids = @browsable
           h_ids = h_ids.where(["id != ?", @hierarchy.id]) if
             @hierarchy.complete?
           conditions = h_ids.pluck(:id).map { |id| "hierarchy_id:#{id}" }

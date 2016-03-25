@@ -46,9 +46,9 @@ class TraitBank
         results.each do |row|
           raise "No value for #{row[:trait]}!" unless row[:value]
           @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")
-          @triples << "<#{row[:page]}> a eol:page ;"\
+          @triples << "<#{row[:page]}> a eol:page ; "\
             "<#{row[:predicate]}> <#{row[:trait]}>"
-          @triples << "<#{row[:trait]}> a eol:trait ;"\
+          @triples << "<#{row[:trait]}> a eol:trait ; "\
             "eolterms:resource <#{@resource.graph_name}>"
           add_meta(row, TraitBank.value_uri, :value)
           add_meta(row, TraitBank.unit_uri, :units)
@@ -73,25 +73,18 @@ class TraitBank
           # the correct interpretation... but that's probably only going to fix
           # very weird cases and it would take a lot longer, so likely not
           # actually worth it.
-          if old_trait = @traits.find { |e| e == row[:trait] }
-            EOL.log("Already added trait #{row[:trait]} (#{row[:predicate]} -> #{row[:page]})")
-            next
-          end
-          EOL.log("Adding trait: #{row[:trait]} (#{row[:predicate]} -> #{row[:page]})")
-          @triples << "<#{row[:page]}> a eol:page ;"\
+          next if @traits.include?(row[:trait])
+          @triples << "<#{row[:page]}> a eol:page ; "\
             "<#{row[:predicate]}> <#{row[:trait]}>"
-          EOL.log(@triples.last)
-          @triples << "<#{row[:trait]}> a eol:trait ;"\
-            "eolterms:resource <#{@resource.graph_name}> ;"\
-            "eol:associationType <#{row[:predicate]}> ;"\
-            "eol:objectPage <#{row[:target_page]}> ;"\
+          @triples << "<#{row[:trait]}> a eol:trait ; "\
+            "eolterms:resource <#{@resource.graph_name}> ; "\
+            "eol:associationType <#{row[:predicate]}> ; "\
+            "eol:objectPage <#{row[:target_page]}> ; "\
             "eol:subjectPage <#{row[:page]}>"
-          EOL.log(@triples.last)
           unless row[:inverse].blank?
             # @triples << "<#{row[:target_page]}> a eol:page ;"\
             #   "<#{row[:inverse]}> <#{row[:trait]}>"
             @triples << "<#{row[:trait]}> eol:inverseAssociationType <#{row[:inverse]}>"
-            EOL.log(@triples.last)
           end
           @traits << row[:trait]
           @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")

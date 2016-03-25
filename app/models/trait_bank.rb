@@ -65,13 +65,13 @@ class TraitBank
     # long" error. Sigh.
     def delete_resource(resource)
       paginate(resource_predicates_query(resource), limit: 50) do |results|
-        delete(results.map { |r| "<#{r[:p]}> ?s ?o" })
+        delete(results.map { |r| "<#{r[:s]}> ?s ?o" })
       end
     end
 
     def resource_predicates_query(resource)
-      "SELECT DISTINCT(?p) { GRAPH <#{graph}> "\
-      "{ ?p dc:source <#{resource.graph_name}> } }"
+      "SELECT DISTINCT(?s) { GRAPH <#{graph}> "\
+      "{ ?s <#{TraitBank.resource_uri}> <#{resource.graph_name}> } }"
     end
 
     # NOTE that this is stupid syntax, but it's what you have to do with Sparql.

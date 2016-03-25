@@ -228,6 +228,12 @@ class TaxonConcept < ActiveRecord::Base
     end
   end
 
+  def common_name(language = nil)
+    language ||= Language.default
+    preferred_common_name_in_language(language)
+  end
+  alias :subtitle :common_name
+
   def common_taxon_concept_name(language = nil)
     language ||= Language.default
     taxon_concept_names.preferred.where(language_id: language.id).first

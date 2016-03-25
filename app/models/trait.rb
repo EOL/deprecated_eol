@@ -324,8 +324,8 @@ class Trait
   end
 
   def value_name
-    return "" if value_rdf.nil?
     return target_taxon_name if association?
+    return "" if value_rdf.nil?
     value_uri.respond_to?(:name) ? value_uri.name  : value_rdf.to_s
   end
 

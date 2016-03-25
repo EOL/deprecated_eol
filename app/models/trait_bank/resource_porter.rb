@@ -90,7 +90,7 @@ class TraitBank
           unless row[:inverse].blank?
             # @triples << "<#{row[:target_page]}> a eol:page ;"\
             #   "<#{row[:inverse]}> <#{row[:trait]}>"
-            @triples << "<#{row[:trait]}> eol:inverseAssociationType <#{row[:inverse]}>"\
+            @triples << "<#{row[:trait]}> eol:inverseAssociationType <#{row[:inverse]}>"
             EOL.log(@triples.last)
           end
           @traits << row[:trait]

@@ -48,7 +48,7 @@ module EOL
           # ID is used later when logging API requests
           params[:id] = params[:q]
           validate_and_normalize_input_parameters!(params)
-          params[:per_page] = 30
+          @per_page = 30
 
           # we had a bunch of searches like "link:QLlHJCZzx" which were throwing errors
           if params[:q].match(/^link:[a-z]+$/i)
@@ -63,7 +63,7 @@ module EOL
             params[:exact] = true
           end
           search_response = EOL::Solr::SiteSearch.search_with_pagination(params[:q], :page => params[:page],
-            :per_page => params[:per_page], :type => [ 'taxon_concept' ], :exact => params[:exact],
+            :per_page => @per_page, :type => [ 'taxon_concept' ], :exact => params[:exact],
             :filter_by_taxon_concept_id => params[:filter_by_taxon_concept_id],
             :filter_by_hierarchy_entry_id => params[:filter_by_hierarchy_entry_id],
             :filter_by_string => params[:filter_by_string],
@@ -80,12 +80,12 @@ module EOL
             results << result_hash
           end
 
-          last_page = (solr_results.total_entries/params[:per_page].to_f).ceil
+          last_page = (solr_results.total_entries / @per_page.to_f).ceil
           search_api_url = url_for(:controller => 'api', :action => 'search', :id => params[:q], :format => params[:format], :only_path => false)
           return_hash = {}
           return_hash['totalResults'] = solr_results.total_entries
-          return_hash['startIndex']   = ((params[:page]) * params[:per_page]) - params[:per_page] + 1
-          return_hash['itemsPerPage'] = params[:per_page]
+          return_hash['startIndex']   = ((params[:page]) * @per_page) - @per_page + 1
+          return_hash['itemsPerPage'] = @per_page
           return_hash['results']      = results
           return_hash['first']        = "#{search_api_url}?page=1" if params[:page] <= last_page
           return_hash['previous']     = "#{search_api_url}?page=#{params[:page]-1}" if params[:page] > 1 && params[:page] <= last_page

@@ -23,11 +23,15 @@ class Trait
         @page ||= TaxonConcept.find(id) unless id == 0
       end
     end
-    @inverse = false
-    # "Inverted" associations have a different predicate... confusing, but true:
-    if inverse?
-      @predicate = inverse_association.to_s
-      @inverse = true
+    if association?
+      @inverse = false
+      # "Inverted" associations have a different predicate... confusing, but true:
+      if inverse?
+        @predicate = inverse_association.to_s
+        @inverse = true
+      else
+        @predicate = association.to_s
+      end
     end
   end
 

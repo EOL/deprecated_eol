@@ -70,10 +70,14 @@ class TraitBank
             "eol:associationType <#{row[:predicate]}> ;"\
             "eol:objectPage <#{row[:target_page]}> ;"\
             "eol:subjectPage <#{row[:page]}>"
-          unless row[:inverse].blank?
-            @triples << "<#{row[:target_page]}> a eol:page ;"\
-              "<#{row[:inverse]}> <#{row[:trait]}>"
-            @triples << "<#{row[:trait]}> eol:inverseAssociationType <#{row[:inverse]}>"\
+          # NOTE: removing this as a trial, because I *think* the old TB has it
+          # in there already:
+          if false
+            unless row[:inverse].blank?
+              @triples << "<#{row[:target_page]}> a eol:page ;"\
+                "<#{row[:inverse]}> <#{row[:trait]}>"
+              @triples << "<#{row[:trait]}> eol:inverseAssociationType <#{row[:inverse]}>"\
+            end
           end
           @traits << row[:trait]
           @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")

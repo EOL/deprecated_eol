@@ -444,6 +444,7 @@ class TaxonConcept < ActiveRecord::Base
   end
   alias :non_italicized_unattributed_title :title_canonical
   alias :collected_name :title_canonical
+  alias :canonical_form :title_canonical
 
   def title_canonical_italicized(hierarchy = nil)
     return @title_canonical_italicized unless @title_canonical_italicized.nil?

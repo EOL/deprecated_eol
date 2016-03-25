@@ -1,9 +1,9 @@
 module TraitBankHelper
   def format_value(trait)
-    value = trait.value_name
+    value = trait.value_name.html_safe
     return "[data missing]" if value.nil?
     if trait.association?
-      value = link_to(trait.target_taxon_name, trait.target_taxon_uri)
+      value = link_to(value, trait.target_taxon_uri)
     elsif value.is_numeric? && ! trait.predicate_uri.treat_as_string?
       if value.is_float?
         if value.to_f < 0.1

@@ -93,7 +93,8 @@ class Trait
   end
 
   def target_taxon_name
-    (@inverse ? subject_page : object_page).common_name
+    page = @inverse ? subject_page : object_page
+    page.common_name || page.title_canonical_italicized
   end
 
   def target_taxon_uri

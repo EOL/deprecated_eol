@@ -40,7 +40,7 @@ class Trait
     if @page
       @page == subject_page
     else
-      @source_set.id == subject_page.id
+      @source_set.id == object_page.id
     end
   end
 

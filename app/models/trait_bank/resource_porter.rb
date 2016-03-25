@@ -44,17 +44,6 @@ class TraitBank
     def build_traits
       TraitBank.paginate(TraitBank.measurements_query(@resource)) do |results|
         results.each do |row|
-          # This is a sloppy way to ensure inverse relationships aren't added
-          # twice, because inverse relationships are both stored in the traits
-          # AND read using owl:inverseOf. ...That is not useful (because they
-          # use the same measurement ID but have different values, the porter
-          # stores them both under the same ID and thus you get things like X
-          # eats Y, Y eaten by X, Y eats X, Y eatenBy X, which is clearly bad)!
-          # It would be *better* if we parsed the old triples to ensure we have
-          # the correct interpretation... but that's probably only going to fix
-          # very weird cases and it would take a lot longer, so likely not
-          # actually worth it.
-          next if @traits.include?(row[:trait])
           raise "No value for #{row[:trait]}!" unless row[:value]
           @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")
           @triples << "<#{row[:page]}> a eol:page ;"\
@@ -74,6 +63,17 @@ class TraitBank
     def build_associations
       TraitBank.paginate(TraitBank.associations_query(@resource)) do |results|
         results.each do |row|
+          # This is a sloppy way to ensure inverse relationships aren't added
+          # twice, because inverse relationships are both stored in the traits
+          # AND read using owl:inverseOf. ...That is not useful (because they
+          # use the same measurement ID but have different values, the porter
+          # stores them both under the same ID and thus you get things like X
+          # eats Y, Y eaten by X, Y eats X, Y eatenBy X, which is clearly bad)!
+          # It would be *better* if we parsed the old triples to ensure we have
+          # the correct interpretation... but that's probably only going to fix
+          # very weird cases and it would take a lot longer, so likely not
+          # actually worth it.
+          next if @traits.include?(row[:trait])
           @triples << "<#{row[:page]}> a eol:page ;"\
             "<#{row[:predicate]}> <#{row[:trait]}>"
           @triples << "<#{row[:trait]}> a eol:trait ;"\

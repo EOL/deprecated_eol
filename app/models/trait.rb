@@ -93,7 +93,7 @@ class Trait
   end
 
   def target_taxon_name
-    (@inverse ? subject_page : object_page).title
+    (@inverse ? subject_page : object_page).common_name
   end
 
   def target_taxon_uri

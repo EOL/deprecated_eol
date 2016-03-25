@@ -1,5 +1,30 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+params = {page: 1, exact: true, id: "Cistanthe weberbaueri (Diels) Carolin ex M.A.Hershkovitz"}
+params[:q] = params[:id]
+
+results = EOL::Api::Search::V1_0.prepare_hash(params)
+
+@solr = SolrCore::SiteSearch.new
+query = [params[:q].gsub(/"/, "\\\"").fix_spaces]
+query = if params[:exact]
+  "keyword_exact:\"#{query}\"^5"
+else
+  "(keyword_exact:\"#{query}\"^5 OR "\
+    "#{EOL::Solr::SiteSearch.keyword_field_for_term(query)}:\"#{query}\"~10^2)"
+end
+options = { sort: "resource_weight+asc,score+desc" }
+if id = params[:filter_by_taxon_concept_id]
+  query += "AND (ancestor_taxon_concept_id:#{id})"
+elsif params[:filter_by_hierarchy_entry_id]
+  id = HierarchyEntry.where(id: params[:filter_by_hierarchy_entry_id]).
+    pluck(:taxon_concept_id).first
+  query += "AND (ancestor_taxon_concept_id:#{id})"
+end
+@solr.query(bits, options)
+
+# --
+
 resource = Resource.find(544)
 event = resource.harvest_events.last
 @solr = SolrCore::SiteSearch.new

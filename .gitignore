@@ -9,7 +9,7 @@
 /bundle_bin
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
+/log/*
 /tmp
 !/tmp/cache/
 .sass-cache/
@@ -61,7 +61,6 @@ db/schema.rb
 db/structure.sql
 doc/app
 lang/tmp.yml
-log/*.txt
 public/feeds
 public/*csv
 public/files/solr_import_file_*.csv
@@ -87,4 +86,3 @@ solr/data/site_search/spellchecker/segments.gen
 vendor/eol_org
 tags
 public/files/solr_import_file.csv
-log/*gz

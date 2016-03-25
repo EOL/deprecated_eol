@@ -62,16 +62,29 @@ module EOL
             params[:q] = params[:q][1...-1]
             params[:exact] = true
           end
-          search_response = EOL::Solr::SiteSearch.search_with_pagination(params[:q], :page => params[:page],
-            :per_page => @per_page, :type => [ 'taxon_concept' ], :exact => params[:exact],
-            :filter_by_taxon_concept_id => params[:filter_by_taxon_concept_id],
-            :filter_by_hierarchy_entry_id => params[:filter_by_hierarchy_entry_id],
-            :filter_by_string => params[:filter_by_string],
-            :skip_ancestry => true, :sort_by => 'score')
-          solr_results = search_response[:results]
-
+          @solr = SolrCore::SiteSearch.new
+          query = params[:q].gsub(/"/, "\\\"")
+          query.fix_spaces
+          query = if params[:exact]
+            "keyword_exact:\"#{query}\"^5"
+          else
+            "(keyword_exact:\"#{query}\"^5 OR "\
+              "#{EOL::Solr::SiteSearch.keyword_field_for_term(query)}:\"#{query}\"~10^2)"
+          end
+          if params[:filter_by_string]
+            id = @solr.named_taxon_id(params[:filter_by_string])
+            query += " AND (ancestor_taxon_concept_id:#{id})" if id
+          elsif id = params[:filter_by_taxon_concept_id]
+            query += " AND (ancestor_taxon_concept_id:#{id})"
+          elsif params[:filter_by_hierarchy_entry_id]
+            id = HierarchyEntry.where(id: params[:filter_by_hierarchy_entry_id]).
+              pluck(:taxon_concept_id).first
+            query += " AND (ancestor_taxon_concept_id:#{id})"
+          end
+          query += " AND _val_:richness_score^200"
+          response = @solr.taxa(query)
           results = []
-          solr_results.each do |result|
+          response["docs"].each do |result|
             result_hash = {}
             result_hash['id'] = result['resource_id']
             result_hash['title'] = result['instance'].title.strip_italics
@@ -79,11 +92,10 @@ module EOL
             result_hash['content'] = result['keyword'].join('; ')
             results << result_hash
           end
-
-          last_page = (solr_results.total_entries / @per_page.to_f).ceil
+          last_page = (response["numFound"] / @per_page.to_f).ceil
           search_api_url = url_for(:controller => 'api', :action => 'search', :id => params[:q], :format => params[:format], :only_path => false)
           return_hash = {}
-          return_hash['totalResults'] = solr_results.total_entries
+          return_hash['totalResults'] = response["numFound"]
           return_hash['startIndex']   = ((params[:page]) * @per_page) - @per_page + 1
           return_hash['itemsPerPage'] = @per_page
           return_hash['results']      = results
@@ -92,7 +104,7 @@ module EOL
           return_hash['self']         = "#{search_api_url}?page=#{params[:page]}" if params[:page] <= last_page
           return_hash['next']         = "#{search_api_url}?page=#{params[:page]+1}" if params[:page] < last_page
           return_hash['last']         = "#{search_api_url}?page=#{last_page}" if params[:page] <= last_page
-          return return_hash
+          return_hash
         end
       end
     end

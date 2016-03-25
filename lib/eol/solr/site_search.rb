@@ -219,6 +219,7 @@ module EOL
         url << '&start=' << URI.encode(offset.to_s)
         url << '&rows='  << URI.encode(limit.to_s)
         begin
+          puts "URL!!!!!!!!!!!!!!!!!!!!!!!\n#{url}"
           res = open(url).read
         rescue Timeout::Error => e
           EOL.Log("TIMEOUT: #{url}", prefix: "!")

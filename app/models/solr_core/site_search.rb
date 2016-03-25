@@ -14,6 +14,32 @@ class SolrCore
       connect(CORE_NAME)
     end
 
+    def named_taxon_id(name)
+      name = name[1...-1] if name =~ /^".*"$/
+      name.gsub!(/"/, "\\\"")
+      name.fix_spaces
+      r = connection.paginate(1, 1, "select", params: {
+        q: "keyword_exact:\"#{name}\"^5 AND resource_type:TaxonConcept",
+        sort: "richness_score desc" })
+      if r && r["response"]["docs"] && r["response"]["docs"].size > 0
+        return r["response"]["docs"].first["resource_id"]
+      end
+      nil # Not found.
+    end
+
+    # NOTE: This does NOT include spellchecking and is ONLY sorted by score.
+    def taxa(q, page = 1, per_page = 30)
+      response = connection.paginate(page, per_page, "select",
+        params: { q: q, fq: "resource_type:TaxonConcept", fl: "score",
+          sort: "richness_score desc" })
+      ids = response["response"]["docs"].map { |d| d["resource_id"] }
+      taxa = TaxonConcept.with_titles.where(id: ids)
+      response["response"]["docs"].each do |doc|
+        doc["instance"] = taxa.find { |t| t.id == doc["resource_id"] }
+      end
+      response["response"]
+    end
+
     def index_type(klass, ids)
       ids.in_groups_of(10_000, false) do |batch|
         insert_batch(klass, batch)

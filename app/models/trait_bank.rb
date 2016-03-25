@@ -76,15 +76,17 @@ class TraitBank
 
     # NOTE that this is stupid syntax, but it's what you have to do with Sparql.
     # Yes, it looks very redundant! NOTE: limit must be restricted as the SQL
-    # query can get too long. Sigh.
+    # query can get too long. Sigh. NOTE: ARGH! Doesn't work reliably in batches; must be done one at a time to work...
     def delete(triples)
-      triple_string = triples.join(" . ")
-      query = "WITH GRAPH <#{graph}> DELETE { #{triple_string} } "\
-        "WHERE { #{triple_string} }"
-      begin
-        connection.query(query)
-      rescue EOL::Exceptions::SparqlDataEmpty => e
-        # Do nothing... this is acceptable for a delete...
+      # triple_string = triples.join(" . ")
+      triples.each do |triple_string|
+        query = "WITH GRAPH <#{graph}> DELETE { #{triple_string} } "\
+          "WHERE { #{triple_string} }"
+        begin
+          connection.query(query)
+        rescue EOL::Exceptions::SparqlDataEmpty => e
+          # Do nothing... this is acceptable for a delete...
+        end
       end
     end
 

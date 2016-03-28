@@ -1,5 +1,4 @@
 class TraitSet
-  A_URI = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
   PREFIXES = {
     dc: 'http://purl.org/dc/terms/',
     dwc: 'http://rs.tdwg.org/dwc/terms/',

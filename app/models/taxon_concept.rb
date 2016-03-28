@@ -726,51 +726,9 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return @iucn if @iucn
     return nil unless EolConfig.data?
-    # TODO.  Sorry!
-    # iucn_list = TaxonData.new(self).iucn_data_objects
-    # desc = choose_iucn_status(iucn_list)
-    # DataObject.new(description: desc) unless desc.blank?
-  end
-
-  # TODO: re-write this to use a query that gets the scientific name from the
-  # data, and check that against the preferred scientific name of this taxon,
-  # otherwise take the first.
-  def choose_iucn_status(iucn_list)
-    data = iucn_list.try(:first)
-    return nil unless data
-    uri = data[:value].to_s
-    return nil unless uri
-    # TODO: We probably shouldn't hard-code this, but make it available
-    # somewhere configurable.
-    # TODO: This doesn't include the abbreviations (ie: "LC")
-    status = uri.split('/').last.underscore
-    case status
-    when "extinct"
-      "Extinct (EX)"
-    when "extinct_in_the_wild"
-     	"Extinct in the Wild (EW)"
-    when "extinctinthe_wild"
-     	"Extinct in the Wild (EW)"
-    when "critically_endangered"
-     	"Critically Endangered (CR)"
-    when "endangered"
-     	"Endangered (EN)"
-    when "vulnerable"
-     	"Vulnerable (VU)"
-    when "near_threatened"
-      "Near Threatened (NT)"
-    when "least_concern"
-     	"Least Concern (LC)"
-    when "data_deficient"
-     	"Data Deficient (DD)"
-    else
-      status.humanize.split.map(&:capitalize).join(' ')
-    end
-  end
-
-  # TODO: use this later.
-  def get_taxon_scientific_name
-    self.entry(Hierarchy.iucn_structured_data).italicized_name.firstcap
+    uri = TraitBank.iucn_status(id)
+    return @iucn = nil if uri.nil?
+    @iucn = DataObject.new(description: IucnStatus.from_uri(uri))
   end
 
   # TODO: this belongs in, at worst, TaxonPage... at best, TaxonOverview

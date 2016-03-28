@@ -48,6 +48,9 @@ class PageTraits < TraitSet
         "@id" => trait.uri.to_s,
         "@type" => trait.association? ? "eol:Association" : "dwc:MeasurementOrFact",
         "dwc:taxonID" => KnownUri.taxon_uri(@id),
+        # These two are confusing, buuuuuut:
+        "predicate" => trait.predicate_name,
+        "predicate_uri" => trait.predicate
       }
       if trait.point
         trait_json["data_point_uri_id"] = trait.point.id

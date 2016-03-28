@@ -299,15 +299,14 @@ protected
 private
 
   def periodically_recalculate_homepage_parts
-    Rails.cache.fetch('homepage/activity_logs_expiration/' + current_language.iso_639_1 + '/data-' + EolConfig.data?.to_s, expires_in: $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
-      expire_fragment(action: 'index', action_suffix: "activity_#{current_language.iso_639_1}_data-#{EolConfig.data?.to_s}")
-    end
-    Rails.cache.fetch('homepage/march_of_life_expiration/' + current_language.iso_639_1, expires_in: 120.seconds) do
+    expires_in = 10.minutes
+    key = "homepage/timer"
+    last_clear = Rails.cache.fetch(key) { Time.now }
+    if Time.now - last_clear > 10.minutes
+      expire_fragment(action: 'index', action_suffix: "activity_#{current_language.iso_639_1}_data-#{EolConfig.data?}")
       expire_fragment(action: 'index', action_suffix: "march_of_life_#{current_language.iso_639_1}")
-    end
-    NewsItem
-    Rails.cache.fetch('homepage/news_expiration/' + current_language.iso_639_1, expires_in: $HOMEPAGE_ACTIVITY_LOG_CACHE_TIME.minutes) do
       expire_fragment(action: 'index', action_suffix: "news_#{current_language.iso_639_1}")
+      Rails.cache.delete(key)
     end
   end
 

@@ -10,7 +10,7 @@
       %h3
         = raw I18n.t(:community_activity)
         %small= link_to raw(t('.see_all_recent_activites')), recent_activities_path
-      - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}_data-#{EolConfig.data?.to_s}") do
+      - cache(:action => 'index', :action_suffix => "activity_#{current_language.iso_639_1}_data-#{EolConfig.data?}", expires_in: 10.minutes) do
         = render 'activity_logs/index', { :log => EOL::ActivityLog.global($ACTIVITIES_ON_HOME_PAGE, :user => current_user), :hide_pagination => true, :truncate_comments => true, :editable => false }
     .article.stats
       %h3

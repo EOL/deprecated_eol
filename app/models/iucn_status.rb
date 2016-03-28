@@ -1,5 +1,5 @@
 module IucnStatus
-  def from_uri(uri)
+  def self.from_uri(uri)
     status = uri.split('/').last.underscore
     case status
     when "extinct"

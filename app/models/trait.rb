@@ -218,6 +218,14 @@ class Trait
     predicate_uri.try(:name)
   end
 
+  def predicate_group
+    group = predicate_name
+    if statistical_method?
+      group += "/#{statistical_method_names.join("+")}"
+    end
+    group
+  end
+
   def predicate_uri
     @predicate_uri ||= rdf_to_uri(@predicate)
   end

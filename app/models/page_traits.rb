@@ -54,7 +54,7 @@ class PageTraits < TraitSet
         "value" => trait.value_name
       }
       if trait.units?
-        trait_json[:units] = trait.units.name
+        trait_json[:units] = trait.units_name
       end
       if trait.point
         trait_json["data_point_uri_id"] = trait.point.id

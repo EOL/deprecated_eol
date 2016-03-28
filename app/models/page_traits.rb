@@ -50,17 +50,19 @@ class PageTraits < TraitSet
         "dwc:taxonID" => KnownUri.taxon_uri(@id),
         # These two are confusing, buuuuuut:
         "predicate" => trait.predicate_name,
-        "predicate_uri" => trait.predicate
+        "dwc:measurementType" => trait.predicate,
+        "value" => trait.value_name
       }
+      if trait.units?
+        trait_json[:units] = trait.units.name
+      end
       if trait.point
         trait_json["data_point_uri_id"] = trait.point.id
-        # I think this is totally redundant with @type, so I exclude it:
-        # trait_json["dwc:measurementType"] = trait.point.class_type
       end
       trait.rdf.each do |rdf|
         predicate = rdf[:trait_predicate].dup.to_s
         # They don't care about the type we store it as...
-        next if predicate == A_URI
+        next if predicate == TraitBank.type_uri
         prefixes.each { |r,v| predicate.sub!(r,v) }
         trait_json[predicate] = rdf[:value].to_s
       end

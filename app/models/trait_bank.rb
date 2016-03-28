@@ -3,7 +3,7 @@ class TraitBank
     attr_reader :default_limit, :graph, :taxon_re, :value_uri, :unit_uri,
       :type_uri, :source_uri, :resource_uri, :sex_uri, :life_stage_uri,
       :statistical_method_uri, :full_reference_uri, :association_uri,
-      :inverse_uri, :object_page_uri, :subject_page_uri
+      :inverse_uri, :object_page_uri, :subject_page_uri, :iucn_uri
   end
 
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
@@ -18,6 +18,7 @@ class TraitBank
   @unit_uri = "http://rs.tdwg.org/dwc/terms/measurementUnit"
   @type_uri = "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
   @source_uri = "http://purl.org/dc/terms/source"
+  @iucn_uri = "http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus"
   @resource_uri = "http://eol.org/schema/terms/resource"
   @sex_uri = "http://rs.tdwg.org/dwc/terms/sex"
   @life_stage_uri = "http://rs.tdwg.org/dwc/terms/lifeStage"
@@ -320,6 +321,18 @@ class TraitBank
       LIMIT #{limit}
       #{"OFFSET #{offset}" if offset}"
       connection.query(query)
+    end
+
+    def iucn_status(page_id)
+      TraitBank.cache_query("trait_bank/iucn_status/#{page_id}") do
+        query = "SELECT DISTINCT * "\
+        "WHERE { GRAPH <http://eol.org/traitbank> {"\
+        " <http://eol.org/pages/#{page_id}> <#{TraitBank.iucn_uri}> ?trait ."\
+        " ?trait <http://rs.tdwg.org/dwc/terms/measurementValue> ?value . "\
+        "} } # iucn_status query"
+        result = connection.query(query)
+        result.empty? ? nil : result.first[:value].to_s
+      end
     end
 
     # NOTE: this used to have a UNION, but I discovered there was exactly ONE

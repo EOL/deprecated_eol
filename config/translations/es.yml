@@ -4848,8 +4848,10 @@ es:
     información sobre TraitBank.</p>
   data_results_only_for_search: Resultados de TraitBank para "%{search_term}"
   data_search_limit:
-    one: Las descargas de búsqueda de datos están limitadas a%{count} resultado.
-    other: Las descargas de búsqueda de datos están limitadas a %{count} resultados.
+    one: Los resultados de la búsqueda de datos se descargarán como %{count} registro
+      por archivo.
+    other: Los resultados de la búsqueda de datos se descargarán como %{count} registros
+      por archivo.
   data_about_this_record: Datos acerca de este documento
   data_column_tc_id: ID de página de EOL
   data_column_sci_name: Nombre científico

@@ -1,0 +1,387 @@
+# Messages for Bashkir (башҡортса)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: Sagan
+# Author: Азат Хәлилов
+# Author: Ләйсән
+# Author: Рустам Нурыев
+---
+ba:
+  translated_activities-name-activity_id-19: профиль
+  translated_activities-name-activity_id-50: ышаныслы
+  translated_activities-name-activity_id-51: күрһәт
+  translated_activities-name-activity_id-52: Төҙөргә
+  translated_activities-name-activity_id-53: йәшер
+  translated_activities-name-activity_id-54: Яңыртырға
+  translated_activities-name-activity_id-55: ярамағын ысул
+  translated_activities-name-activity_id-56: юйырға
+  translated_activities-name-activity_id-57: йышлығы
+  translated_activities-name-activity_id-58: тулы хоҡуҡлы
+  translated_activities-name-activity_id-59: ҡаралмаған
+  translated_activities-name-activity_id-63: йыйнау
+  translated_activities-name-activity_id-64: юйырға
+  translated_agent_roles-label-agent_role_id-10: Проект
+  translated_agent_roles-label-agent_role_id-11: Нәшриәт
+  translated_agent_roles-label-agent_role_id-12: Яҙҙарырға
+  translated_agent_roles-label-agent_role_id-13: Сығанаҡ
+  translated_agent_roles-label-agent_role_id-14: Сығанаҡ мәғлүмәт базаһы
+  translated_agent_roles-label-agent_role_id-15: Бәйләнеш өсөн шәхес
+  translated_agent_roles-label-agent_role_id-16: Өлөш индереүселәр
+  translated_agent_roles-label-agent_role_id-1: Аниматор
+  translated_agent_roles-label-agent_role_id-21: тәьмин итеүсе
+  translated_agent_roles-label-agent_role_id-22: Тәржемәсе
+  translated_agent_roles-label-agent_role_id-23: Фәнни Күҙәтеүсе
+  translated_agent_roles-label-agent_role_id-24: Лингвистик Күҙәтеүсе
+  translated_agent_roles-label-agent_role_id-2: Автор
+  translated_agent_roles-label-agent_role_id-3: Төҙөүсе
+  translated_agent_roles-label-agent_role_id-4: Композитор
+  translated_agent_roles-label-agent_role_id-5: Автор
+  translated_agent_roles-label-agent_role_id-6: Директор
+  translated_agent_roles-label-agent_role_id-7: Мөхәррир
+  translated_agent_roles-label-agent_role_id-8: Биҙәүсе рәссам
+  translated_agent_roles-label-agent_role_id-9: Фотограф
+  translated_audiences-label-audience_id-1: Тәжрибәле ҡулланыусылар
+  translated_audiences-label-audience_id-2: Ғәҙәти ҡулланыусы
+  translated_audiences-label-audience_id-3: Балалар
+  translated_collection_types-label-collection_type_id-10: Тауыштар
+  translated_collection_types-label-collection_type_id-11: Һылтанмалар
+  translated_collection_types-label-collection_type_id-12: Әҙәбиәт
+  translated_collection_types-label-collection_type_id-13: Таксономия
+  translated_collection_types-label-collection_type_id-14: Молекула штрих-кодтары
+  translated_collection_types-label-collection_type_id-15: Тасуирлама
+  translated_collection_types-label-collection_type_id-16: Рәсемдәр
+  translated_collection_types-label-collection_type_id-17: Таралышы
+  translated_collection_types-label-collection_type_id-18: Тәбиғәтте һаҡлау статусы
+  translated_collection_types-label-collection_type_id-19: Исем мғлүмәттәре
+  translated_collection_types-label-collection_type_id-1: Таксономия
+  translated_collection_types-label-collection_type_id-20: Молекула мәғлүмәттәре
+  translated_collection_types-label-collection_type_id-21: Номенклатура
+  translated_collection_types-label-collection_type_id-22: Тауыштар
+  translated_collection_types-label-collection_type_id-23: Һылтанмалар
+  translated_collection_types-label-collection_type_id-24: Сығанаҡтар
+  translated_collection_types-label-collection_type_id-2: Молекула штрих-кодтары
+  translated_collection_types-label-collection_type_id-3: Тасуирлама
+  translated_collection_types-label-collection_type_id-4: Рәсемдәр
+  translated_collection_types-label-collection_type_id-5: Таралышы
+  translated_collection_types-label-collection_type_id-6: Тәбиғәтте һаҡлау статусы
+  translated_collection_types-label-collection_type_id-7: Исем мәғлүмәттәре
+  translated_collection_types-label-collection_type_id-8: Молекула мәғлүмәттәре
+  translated_collection_types-label-collection_type_id-9: Номенклатура
+  translated_contact_roles-label-contact_role_id-1: Бәйләнеш өсөн төп кеше
+  translated_contact_roles-label-contact_role_id-2: Хакимдар менән бәйләнеш
+  translated_contact_roles-label-contact_role_id-3: Техник ярҙам менән бәйләнеш
+  translated_contact_subjects-title-contact_subject_id-24: Ағзалыҡ һәм теркәлеү
+  translated_contact_subjects-title-contact_subject_id-25: Ҡулланыу һәм лицензиялау
+    шарттары
+  translated_contact_subjects-title-contact_subject_id-26: Уҡытыу һәм белем биреү
+  translated_contact_subjects-title-contact_subject_id-27: Контент-партнер үҫеше
+  translated_contact_subjects-title-contact_subject_id-28: Контент-партнерҙар өсөн
+    ярҙам
+  translated_contact_subjects-title-contact_subject_id-29: Кураторҙар өсөн ярҙам
+  translated_contact_subjects-title-contact_subject_id-30: Төҙәтеүҙәр (орфография,
+    грамматика, һүрәттәр, мәғлүмәт)
+  translated_contact_subjects-title-contact_subject_id-31: Һүрәттәр, видео йәки тауыштар
+  translated_contact_subjects-title-contact_subject_id-32: Медиа-ресурстар һорауҙары
+    (интервью, пресс-релиз, логотип)
+  translated_contact_subjects-title-contact_subject_id-33: Иғәнә итергә
+  translated_contact_subjects-title-contact_subject_id-34: Техник һорауҙар (эҙләү,
+    сайт функционалы мәсьәләләре)
+  translated_contact_subjects-title-contact_subject_id-35: Дөйөм һорауҙар
+  translated_content_partner_statuses-label-content_partner_status_id-1: Тикшереүҙә
+  translated_content_partner_statuses-label-content_partner_status_id-2: Әүҙем
+  translated_content_partner_statuses-label-content_partner_status_id-3: Архивланған
+  translated_content_partner_statuses-label-content_partner_status_id-4: Әүҙем түгел
+  translated_content_tables-label-content_table_id-1: Ентеклектәр
+  translated_data_types-label-data_type_id-10: Карта
+  translated_data_types-label-data_type_id-1: Рәсем
+  translated_data_types-label-data_type_id-2: Тауыш
+  translated_data_types-label-data_type_id-3: Текст
+  translated_data_types-label-data_type_id-4: Видео
+  translated_data_types-label-data_type_id-5: ГИФБ һүрәте
+  translated_data_types-label-data_type_id-6: МСОП
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Хоҡуҡтар яҡланмаған
+  translated_licenses-description-license_id-29: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-2: © Бар хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-30: Ҡайһы бер хоҡуҡтар яҡланмаған
+  translated_licenses-description-license_id-31: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-32: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-33: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-34: Йәмәғәт милке
+  translated_licenses-description-license_id-35: Йәмәғәт милке
+  translated_licenses-description-license_id-36: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-37: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-38: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-39: Йәмәғәт милке
+  translated_licenses-description-license_id-3: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-42: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-43: Лицензия ҡулланылмай
+  translated_licenses-description-license_id-4: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-5: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-6: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-7: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-8: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_licenses-description-license_id-9: Ҡайһы бер хоҡуҡтар яҡланған
+  translated_ranks-label-rank_id-106: форма
+  translated_ranks-label-rank_id-107: форма
+  translated_ranks-label-rank_id-112: енес
+  translated_ranks-label-rank_id-113: енес.
+  translated_ranks-label-rank_id-118: төркөм
+  translated_ranks-label-rank_id-169: инфраотряд
+  translated_ranks-label-rank_id-175: инфратөр
+  translated_ranks-label-rank_id-183: батшалыҡ
+  translated_ranks-label-rank_id-266: отряд
+  translated_ranks-label-rank_id-280: төр
+  translated_ranks-label-rank_id-313: йыйылма
+  translated_ranks-label-rank_id-314: секция
+  translated_ranks-label-rank_id-317: секция
+  translated_ranks-label-rank_id-324: рәт
+  translated_ranks-label-rank_id-332: ПТ
+  translated_ranks-label-rank_id-333: пт.
+  translated_ranks-label-rank_id-335: төрҙәр
+  translated_ranks-label-rank_id-352: ғаилә төрө
+  translated_ranks-label-rank_id-370: класс төрө
+  translated_ranks-label-rank_id-375: бүлек төрө
+  translated_ranks-label-rank_id-383: ғаилә төрө
+  translated_ranks-label-rank_id-390: төркөм төрө
+  translated_ranks-label-rank_id-391: төркөм төрө.
+  translated_ranks-label-rank_id-394: төркөм төрө
+  translated_ranks-label-rank_id-396: батшалыҡ төрө
+  translated_ranks-label-rank_id-399: өҫтәмә отряд
+  translated_ranks-label-rank_id-401: өҫтәмә төр
+  translated_ranks-label-rank_id-408: өҫтәмә бүлек
+  translated_ranks-label-rank_id-411: бер-бер артлы
+  translated_ranks-label-rank_id-413: өҫтәмә төр
+  translated_ranks-label-rank_id-414: өҫтәмә төр.
+  translated_ranks-label-rank_id-415: өҫтәмә төрҙәр
+  translated_ranks-label-rank_id-422: өҫтәмә триба
+  translated_ranks-label-rank_id-463: ғаилә өҫтө
+  translated_ranks-label-rank_id-472: төр өҫтө
+  translated_ranks-label-rank_id-494: триба
+  translated_ranks-label-rank_id-503: тәртипләнмәгән
+  translated_ranks-label-rank_id-512: төрл.
+  translated_ranks-label-rank_id-513: төрл.
+  translated_ranks-label-rank_id-517: төрҙәр
+  translated_ranks-label-rank_id-518: төрҙәр
+  translated_ranks-label-rank_id-51: класс
+  translated_ranks-label-rank_id-562: нотозат
+  translated_ranks-label-rank_id-563: нототөр
+  translated_ranks-label-rank_id-564: нотоподвид
+  translated_ranks-label-rank_id-565: нототөр
+  translated_ranks-label-rank_id-74: бүлек
+  translated_ranks-label-rank_id-85: с
+  translated_ranks-label-rank_id-86: с.
+  translated_ranks-label-rank_id-91: ғаи
+  translated_ranks-label-rank_id-92: ғаи.
+  translated_ranks-label-rank_id-99: ғаилә
+  translated_resource_statuses-label-resource_status_id-10: Баҫтырылды
+  translated_resource_statuses-label-resource_status_id-11: Баҫтырылыуҙы көтөү
+  translated_resource_statuses-label-resource_status_id-12: Баҫтырылыуҙан төшөрөүҙе
+    көтөү
+  translated_resource_statuses-label-resource_status_id-13: Йыйырға
+  translated_resource_statuses-label-resource_status_id-1: Күсереү
+  translated_resource_statuses-label-resource_status_id-2: Күсерелде
+  translated_resource_statuses-label-resource_status_id-3: Күсереүҙә хата
+  translated_resource_statuses-label-resource_status_id-4: Контент-серверға күсерелде
+  translated_resource_statuses-label-resource_status_id-5: Тикшерелде
+  translated_resource_statuses-label-resource_status_id-6: Тикшереү хатаһы
+  translated_resource_statuses-label-resource_status_id-7: Эшкәртелә
+  translated_resource_statuses-label-resource_status_id-8: Эшкәртелде
+  translated_resource_statuses-label-resource_status_id-9: Эшкәртеү хатаһы
+  translated_service_types-label-service_type_id-1: EOL тапшырыу схемаһы
+  translated_service_types-label-service_type_id-2: Башҡалар
+  translated_sort_styles-name-sort_style_id-1: Яңы ҡушылғандар
+  translated_sort_styles-name-sort_style_id-2: Иң иҫкеләр
+  translated_sort_styles-name-sort_style_id-3: Алфавит буйынса
+  translated_sort_styles-name-sort_style_id-4: Алфавит артынан башланған тәртиптә
+  translated_sort_styles-name-sort_style_id-5: Уңдырышлылыҡ
+  translated_sort_styles-name-sort_style_id-6: Рейтинг
+  translated_statuses-label-status_id-1: Өҫтәлде
+  translated_statuses-label-status_id-2: Яңыртылды
+  translated_statuses-label-status_id-3: Үҙгәртеүһеҙ
+  translated_statuses-label-status_id-4: Ҡабатлап ҡулланыу
+  translated_synonym_relations-label-synonym_relation_id-10: GenBank синонимы
+  translated_synonym_relations-label-synonym_relation_id-11: өлөшләтә
+  translated_synonym_relations-label-synonym_relation_id-12: үҙ эсенә ала
+  translated_synonym_relations-label-synonym_relation_id-13: мәғәнәһен боҙоу
+  translated_synonym_relations-label-synonym_relation_id-14: баҫма хатаһы
+  translated_synonym_relations-label-synonym_relation_id-15: телеоморф
+  translated_synonym_relations-label-synonym_relation_id-16: икеле синоним
+  translated_synonym_relations-label-synonym_relation_id-17: яңылыш исем
+  translated_synonym_relations-label-synonym_relation_id-18: ваҡытлы ҡабул ителгән
+    исем
+  translated_synonym_relations-label-synonym_relation_id-19: ҡабул ителгән исем
+  translated_synonym_relations-label-synonym_relation_id-1: синоним
+  translated_synonym_relations-label-synonym_relation_id-20: мөғлүмәттәр базаһы артефакты
+  translated_synonym_relations-label-synonym_relation_id-21: башҡа, аңлатманы ҡара
+  translated_synonym_relations-label-synonym_relation_id-22: ортогональ вариант (баҫма
+    хатаһы)
+  translated_synonym_relations-label-synonym_relation_id-23: яңылыш исем
+  translated_synonym_relations-label-synonym_relation_id-24: кире ҡағылған исем
+  translated_synonym_relations-label-synonym_relation_id-25: омоним (логикаға нигеҙләнмәгән)
+  translated_synonym_relations-label-synonym_relation_id-26: тулы булмаған ярашлылыҡ
+  translated_synonym_relations-label-synonym_relation_id-27: артыҡ исемде алмаштырыу
+    (логикаға нигеҙләнмәгән)
+  translated_synonym_relations-label-synonym_relation_id-28: nomen oblitum
+  translated_synonym_relations-label-synonym_relation_id-29: кесе синоним
+  translated_synonym_relations-label-synonym_relation_id-2: дөйөм исемдәр
+  translated_synonym_relations-label-synonym_relation_id-30: аңлайышһыҙ, мәғлүмәттәр
+    базаһы артефакты
+  translated_synonym_relations-label-synonym_relation_id-31: кәрәк булмаған алмаштырыу
+  translated_synonym_relations-label-synonym_relation_id-32: киләһе исем/комбинация
+  translated_synonym_relations-label-synonym_relation_id-33: аңлайышһыҙ, әҙәби баҫма
+    хатаһы
+  translated_synonym_relations-label-synonym_relation_id-34: төп исем/берләштереү
+  translated_synonym_relations-label-synonym_relation_id-35: аңлайышһыҙ, дөрөҫ булмаған
+    төп исем
+  translated_synonym_relations-label-synonym_relation_id-36: кесе омоним
+  translated_synonym_relations-label-synonym_relation_id-37: омоним һәм кесе синоним
+  translated_synonym_relations-label-synonym_relation_id-38: аңлыйышһыҙ, суд тарафынан
+    баҫылды
+  translated_synonym_relations-label-synonym_relation_id-39: урынһыҙ төҙәтмә
+  translated_synonym_relations-label-synonym_relation_id-3: акроним
+  translated_synonym_relations-label-synonym_relation_id-40: аңлайышһыҙ, башҡаһы
+  translated_synonym_relations-label-synonym_relation_id-41: аңлайышһыҙ, nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-42: nomen dubium
+  translated_synonym_relations-label-synonym_relation_id-43: баҫтырып булмай, башҡаһы
+  translated_synonym_relations-label-synonym_relation_id-44: рөхсәтһеҙ баҫтырылған,
+    nomen nudum
+  translated_synonym_relations-label-synonym_relation_id-45: базионим
+  translated_synonym_relations-label-synonym_relation_id-46: гетеротипик синоним
+  translated_synonym_relations-label-synonym_relation_id-47: гомотипик синоним
+  translated_synonym_relations-label-synonym_relation_id-48: исеме юҡ
+  translated_synonym_relations-label-synonym_relation_id-49: валидлы исем
+  translated_synonym_relations-label-synonym_relation_id-4: анаморф
+  translated_synonym_relations-label-synonym_relation_id-50: яраҡлы
+  translated_synonym_relations-label-synonym_relation_id-51: ҡабул ителде
+  translated_synonym_relations-label-synonym_relation_id-52: абруйлы
+  translated_synonym_relations-label-synonym_relation_id-53: баҫтырылмаған исем
+  translated_synonym_relations-label-synonym_relation_id-54: шәхси синоним
+  translated_synonym_relations-label-synonym_relation_id-55: дөрөҫ булмаған абруйлы
+    мәғлүмәт
+  translated_synonym_relations-label-synonym_relation_id-56: яңылыш яҙыу
+  translated_synonym_relations-label-synonym_relation_id-57: яҙыу варианты
+  translated_synonym_relations-label-synonym_relation_id-58: лексик вариант
+  translated_synonym_relations-label-synonym_relation_id-59: синоним (объектив = гомотипик)
+  translated_synonym_relations-label-synonym_relation_id-5: домен исеме
+  translated_synonym_relations-label-synonym_relation_id-60: синоним (шәхси = гетеротипик)
+  translated_synonym_relations-label-synonym_relation_id-61: объектив синоним
+  translated_synonym_relations-label-synonym_relation_id-62: оло синоним
+  translated_synonym_relations-label-synonym_relation_id-63: ҡабул ителмәгән
+  translated_synonym_relations-label-synonym_relation_id-64: яраҡһыҙ
+  translated_synonym_relations-label-synonym_relation_id-65: зат синонимы
+  translated_synonym_relations-label-synonym_relation_id-66: альтернатив төшөнсә
+  translated_synonym_relations-label-synonym_relation_id-67: төрҙө эҙләү
+  translated_synonym_relations-label-synonym_relation_id-68: баҡсасылыҡлы
+  translated_synonym_relations-label-synonym_relation_id-6: тиң исем
+  translated_synonym_relations-label-synonym_relation_id-7: GenBank акронимы
+  translated_synonym_relations-label-synonym_relation_id-8: GenBank анаморфы
+  translated_synonym_relations-label-synonym_relation_id-9: GenBank төп исеме
+  translated_table_of_contents-label-table_of_contents_id-13: Дөйөм исемдәр
+  translated_table_of_contents-label-table_of_contents_id-14: МСОП
+  translated_table_of_contents-label-table_of_contents_id-17: Сығанаҡтарға һылтанмалар
+  translated_table_of_contents-label-table_of_contents_id-194: Күләме
+  translated_table_of_contents-label-table_of_contents_id-1: Байҡау
+  translated_table_of_contents-label-table_of_contents_id-218: Таратыу
+  translated_table_of_contents-label-table_of_contents_id-221: Хәүефтәр
+  translated_table_of_contents-label-table_of_contents_id-225: Интернетта
+  translated_table_of_contents-label-table_of_contents_id-226: Контент-партнерҙар
+  translated_table_of_contents-label-table_of_contents_id-227: Интернетта эҙләү
+  translated_table_of_contents-label-table_of_contents_id-242: Дөйөм экология
+  translated_table_of_contents-label-table_of_contents_id-244: Библиографиялар
+  translated_table_of_contents-label-table_of_contents_id-24: Аңлатмалар
+  translated_table_of_contents-label-table_of_contents_id-251: Өҫтөнлөктәр
+  translated_table_of_contents-label-table_of_contents_id-267: Морфология
+  translated_table_of_contents-label-table_of_contents_id-278: Библиография
+  translated_table_of_contents-label-table_of_contents_id-285: Берекмәләр
+  translated_table_of_contents-label-table_of_contents_id-286: Тәбиғәтте һаҡлау статусы
+  translated_table_of_contents-label-table_of_contents_id-289: Эволюция
+  translated_table_of_contents-label-table_of_contents_id-292: Оҡшаш кешеләр
+  translated_table_of_contents-label-table_of_contents_id-293: Диагностик һүрәтләмә
+  translated_table_of_contents-label-table_of_contents_id-296: Идара итеү
+  translated_table_of_contents-label-table_of_contents_id-297: Трофик стратегия
+  translated_table_of_contents-label-table_of_contents_id-299: Мәғариф
+  translated_table_of_contents-label-table_of_contents_id-2: Ҡыҫҡа күҙәтеү
+  translated_table_of_contents-label-table_of_contents_id-300: Википедия
+  translated_table_of_contents-label-table_of_contents_id-303: Исемдәр һәм таксономиялар
+  translated_table_of_contents-label-table_of_contents_id-304: Бәйле исемдәр
+  translated_table_of_contents-label-table_of_contents_id-305: Синонимдар
+  translated_table_of_contents-label-table_of_contents_id-306: Бит статистикаһы
+  translated_table_of_contents-label-table_of_contents_id-307: Ҡыҫҡа йөкмәтке
+  translated_table_of_contents-label-table_of_contents_id-308: Тулы йөкмәтке
+  translated_table_of_contents-label-table_of_contents_id-309: Таралышы
+  translated_table_of_contents-label-table_of_contents_id-310: Асыштар
+  translated_table_of_contents-label-table_of_contents_id-311: Ресурстарҙы һүрәтләү
+  translated_table_of_contents-label-table_of_contents_id-312: Миграция
+  translated_table_of_contents-label-table_of_contents_id-313: Ауырыуҙар һәм паразиттар
+  translated_table_of_contents-label-table_of_contents_id-314: Популяция биологияһы
+  translated_table_of_contents-label-table_of_contents_id-315: Тормош тарихы һәм тәртип
+  translated_table_of_contents-label-table_of_contents_id-316: Тәртип
+  translated_table_of_contents-label-table_of_contents_id-317: Ҡабатлау
+  translated_table_of_contents-label-table_of_contents_id-318: Тормош циклы
+  translated_table_of_contents-label-table_of_contents_id-319: Көтөлгән тормош оҙонлоғо
+  translated_table_of_contents-label-table_of_contents_id-320: Ишәйеү
+  translated_table_of_contents-label-table_of_contents_id-321: Үҫеш
+  translated_table_of_contents-label-table_of_contents_id-322: Ҡаҙылмалар тарихы
+  translated_table_of_contents-label-table_of_contents_id-323: Систематика йәки Филогенетика
+  translated_table_of_contents-label-table_of_contents_id-324: Функциональ яраҡлашыу
+  translated_table_of_contents-label-table_of_contents_id-325: Физиология һәм күҙәнәкле
+    биология
+  translated_table_of_contents-label-table_of_contents_id-326: Молекула биологияһы
+    һәм генетика
+  translated_table_of_contents-label-table_of_contents_id-327: Физиология
+  translated_table_of_contents-label-table_of_contents_id-328: Цитология
+  translated_table_of_contents-label-table_of_contents_id-329: Генетика
+  translated_table_of_contents-label-table_of_contents_id-330: Нуклеотид эҙмә-эҙлелек
+  translated_table_of_contents-label-table_of_contents_id-331: Штрих-код
+  translated_table_of_contents-label-table_of_contents_id-332: Геном
+  translated_table_of_contents-label-table_of_contents_id-333: Молекула биологияһы
+  translated_table_of_contents-label-table_of_contents_id-334: Янауҙар
+  translated_table_of_contents-label-table_of_contents_id-335: Ҡануниәт
+  translated_table_of_contents-label-table_of_contents_id-336: Иҫкәрмәләр
+  translated_table_of_contents-label-table_of_contents_id-337: Мәғариф
+  translated_table_of_contents-label-table_of_contents_id-338: Белем биреү һылтанмалары
+  translated_table_of_contents-label-table_of_contents_id-339: Белем биреү ресурстары
+  translated_table_of_contents-label-table_of_contents_id-33: Йүнәлештәр
+  translated_table_of_contents-label-table_of_contents_id-340: Урта мәктәп лабораторияһы
+  translated_table_of_contents-label-table_of_contents_id-341: Гражданлыҡ фәне
+  translated_table_of_contents-label-table_of_contents_id-342: Гражданлыҡ фәне
+  translated_table_of_contents-label-table_of_contents_id-343: Биотөрлөлөк мираҫы
+    төркөмө
+  translated_table_of_contents-label-table_of_contents_id-344: Мәғлүмәттәр
+  translated_table_of_contents-label-table_of_contents_id-345: Мөғлүмәттәр сығанағы
+  translated_table_of_contents-label-table_of_contents_id-346: Биомедицина атамалары
+  translated_table_of_contents-label-table_of_contents_id-347: Таксономия
+  translated_table_of_contents-label-table_of_contents_id-348: Төр мәғлүмәттәре
+  translated_table_of_contents-label-table_of_contents_id-34: Комментарийҙар
+  translated_table_of_contents-label-table_of_contents_id-3: Физик һүрәтләмә
+  translated_table_of_contents-label-table_of_contents_id-41: Йәшәү мөхите
+  translated_table_of_contents-label-table_of_contents_id-4: Экология
+  translated_table_of_contents-label-table_of_contents_id-5: Эволюция һәм систематика
+  translated_table_of_contents-label-table_of_contents_id-6: Кешеләр һәм экосистемалар
+    өсөн әһәмиәте
+  translated_table_of_contents-label-table_of_contents_id-7: Һылтанмалар һәм өҫтәмә
+    мәғлүмәт
+  translated_table_of_contents-label-table_of_contents_id-8: Консервация
+  translated_untrust_reasons-label-untrust_reason_id-1: хаталы
+  translated_untrust_reasons-label-untrust_reason_id-2: дөрөҫ түгел/яңылыш
+  translated_untrust_reasons-label-untrust_reason_id-3: түбән сифат
+  translated_untrust_reasons-label-untrust_reason_id-4: дубликат
+  translated_untrust_reasons-label-untrust_reason_id-5: Башҡа
+  translated_user_identities-label-user_identity_id-1: энтузиаст
+  translated_user_identities-label-user_identity_id-2: студент
+  translated_user_identities-label-user_identity_id-3: педагог
+  translated_user_identities-label-user_identity_id-4: граждан ғалим
+  translated_user_identities-label-user_identity_id-5: профессиональ ғалим
+  translated_vetted-label-vetted_id-0: Билдәһеҙ
+  translated_vetted-label-vetted_id-4: Ышанысһыҙ
+  translated_vetted-label-vetted_id-5: Ышаныслы
+  translated_vetted-label-vetted_id-6: Тап килмәгән
+  translated_view_styles-name-view_style_id-1: Исемлек
+  translated_view_styles-name-view_style_id-2: Галерея
+  translated_view_styles-name-view_style_id-3: Аннотациялы
+  translated_visibilities-label-visibility_id-0: Йәшерен
+  translated_visibilities-label-visibility_id-1: Күренгән
+  translated_visibilities-label-visibility_id-2: Ҡарап сығырға
+...

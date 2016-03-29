@@ -337,6 +337,7 @@ class TraitBank
         hash = { status: result.first[:value].to_s }
         source_row = result.find { |r| r[:source] !~ TraitBank::SOURCE_RE }
         hash[:source] = source_row[:source].to_s if source_row
+        hash
       end
     end
 

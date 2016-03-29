@@ -2318,7 +2318,7 @@ label.hiddenoverlay
   font-weight: bold
   background: none repeat scroll 0 0 #ffeae6
   border: 1px solid #f2d2cc
-  color: #677682 
+  color: #677682
 #media_list
   #sidebar
     padding-top: 0
@@ -2486,6 +2486,72 @@ label.hiddenoverlay
           border: none
 
 #taxon_maps
+  #gmap
+    margin: 0
+    padding: 0
+  #panel
+    float: left
+    height: 0px
+    width: 0px
+  /* The following was added from Eli's CSS: */
+  #map-container
+    height: 100%
+    background: white
+  #map-canvas
+    height: 500px
+    width: 900px
+  #goBackUI:hover, #goNextUI:hover, #goOrigUI:hover, #goPanelUI:hover, #goFullUI:hover
+    background: #e0ecff
+  #goBackUI, #goNextUI, #goOrigUI, #goPanelUI, #goFullUI
+    background-color: #fff
+    border: 2px solid #fff
+    box-shadow: 0 2px 6px rgba(0,0,0,.3)
+    cursor: pointer
+    float: left
+    text-align: center
+  #goBackText, #goNextText, #goOrigText, #goPanelText, #goFullText
+    color: rgb(25,25,25)
+  #markerlist
+    height: 100%
+    margin: 5px 2px 0 5px
+    overflow: auto
+  #goRadioUI
+    background-color: #fff
+    border: 2px solid #fff
+    box-shadow: 0 2px 6px rgba(0,0,0,.3)
+    cursor: pointer
+    float: left
+    text-align: center
+  #goRadioText
+    color: rgb(25,25,25)
+  .title
+    border-bottom: 1px solid #e0ecff
+    overflow: hidden
+    width: 256px
+    cursor: pointer
+    padding: 2px 0
+    display: block
+    color: #000
+    text-decoration: none
+  .title:visited
+    color: #000
+  .title:hover, #goRadioUI:hover
+    background: #e0ecff
+  .info
+    width: 400px
+  .info img
+    border: 0
+  .info-body
+    width: 400px
+    height: 200px
+    line-height: 200px
+    margin: 2px 0
+    text-align: center
+    overflow: hidden
+  .info-img
+    height: auto
+    width: 100%
+  /* The above was added from Eli's CSS: */
   #map
     p
       margin: 10px

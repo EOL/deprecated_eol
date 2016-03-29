@@ -903,6 +903,7 @@ qqq:
   fragment_caching_enabled: 'Fragment caching is a method of storing in memory various PARTS of pages, in order to speed up page load times for users.  However, it can cause some problems in certain situations, so admins (only) are allowed to turn it on and off.'
   frequency_daily: '{{Identical|Daily}}'
   frequency_weekly: '{{Identical|Weekly}}'
+  georeference_records_colon: "A header used before a count of records... we do NOT have the number available at render-time (it is added by JS), so we cannot use a typical pluralization, here; you will have to use an 'abstract' or 'unknown' pluralization. Typically the number is very large, though (hundreds), but could be very small in some rare cases. Sorry."
   glossary: '{{Identical|Glossary}}'
   glossary_subhead: '{{Identical|Glossary}}'
   glossary_term: |

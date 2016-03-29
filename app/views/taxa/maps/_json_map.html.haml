@@ -1,0 +1,12 @@
+-# These IDs are all used by JavaScript to populate the page with the proper map
+-# content.
+#gmap.article
+  #panel
+    %div
+      = I18n.t(:georeference_records_colon)
+      %span#total_markers
+    #markerlist
+  #map-container
+    #map-canvas
+  %p
+    = raw(I18n.t(:gbif_occurrence_disclaimer))

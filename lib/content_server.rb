@@ -2,10 +2,13 @@
 # theory).
 #
 # TODO - do something when there are NO content servers, ie: in development.
-
 class ContentServer
-
   @@cache_url_re = /(\d{4})(\d{2})(\d{2})(\d{2})(\d+)/
+
+  def self.map(id)
+    prefix = id.to_i % 100
+    "http://media.eol.org/content/maps/#{prefix}/#{id}.json"
+  end
 
   def self.jpg_sizes
     %w[580_360 260_190 130_130 98_68 88_88 orig]

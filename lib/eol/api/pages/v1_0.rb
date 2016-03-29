@@ -175,7 +175,7 @@ module EOL
             prepare_hash(taxon_concept, params)
           end
         end
-        
+
         def self.adjust_sounds_images_videos_texts!(params)
           params[:images_per_page] = adjust_param(params[:images_per_page], params[:images])
           params[:sounds_per_page] = adjust_param(params[:sounds_per_page], params[:sounds])
@@ -184,7 +184,7 @@ module EOL
           params[:texts_per_page] = adjust_param(params[:texts_per_page], params[:texts])
           params
         end
-        
+
         def self.adjust_param(param_per_page, param)
           if param_per_page.blank? || param_per_page.to_i < DEFAULT_OBJECTS_NUMBER
             param.blank? || param.to_i < DEFAULT_OBJECTS_NUMBER ? DEFAULT_OBJECTS_NUMBER : param.to_i
@@ -306,12 +306,8 @@ module EOL
           all_data_objects = [ text_objects, image_objects, video_objects, sound_objects, map_objects ].flatten.compact
 
           if options[:iucn]
-            # we create fake IUCN objects if there isn't a real one. Don't use those in the API
             iucn_object = taxon_concept.iucn
-            if iucn_object && iucn_object.id
-              iucn_object.data_type = DataType.text
-              all_data_objects << iucn_object
-            end
+            all_data_objects << iucn_object if iucn_object
           end
 
           # preload necessary associations for API response

@@ -115,18 +115,12 @@ class TaxonOverview < TaxonUserClassificationFilter
     @map = taxon_concept.get_one_map_from_solr.first
   end
 
-  # The International Union for Conservation of Nature keeps a status for most
-  # known species, representing how endangered that species is.  This will
-  # default to "unknown" for species that are not being tracked.
-
   def iucn_status
-    Rails.cache.fetch(cache_id+"_iucn", expires_in: 10.days) do
-      iucn.try(:description)
-    end
+    iucn.try(:description)
   end
 
   def iucn_url
-    taxon_concept.entry(Hierarchy.iucn_structured_data).outlink_url
+    iucn.try(:source_url)
   end
 
   # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
@@ -180,6 +174,8 @@ private
     @curator_chosen_classification = taxon_concept.published_taxon_concept_preferred_entry
   end
 
+  # The International Union for Conservation of Nature keeps a status for most
+  # known species, representing how endangered that species is.
   def iucn
     return @iucn if @iucn
     @iucn = taxon_concept.iucn

@@ -13,6 +13,7 @@
 # Author: Leosls
 # Author: Luckas
 # Author: Luckas Blade
+# Author: Luk3
 # Author: Macofe
 # Author: Mordecaista
 # Author: PedroMaia
@@ -3477,9 +3478,9 @@ pt-BR:
         merge_of_it_unlocked: A fusão que pediu recentemente sobre esta página foi
           concluída. As paginas estão sendo reindexadas e exigirão 25 horas para estarem
           completas.
-        merge_of_taxon_unlocked: A fusão que pediu recentemente para esta página foi
-          concluída, agora as paginas estão sendo reindexadas e demorarão até 25 horas
-          para estarem completas.
+        merge_of_taxon_unlocked: A fusão de páginas que você solicitou recentemente
+          para "%{taxon}" foi completada; as páginas estão agora sendo reindexadas
+          e precisarão de até 25 horas para serem completadas.
         move_of_an_unknown_taxon_unlocked: O movimento da classificação que você solicitou
           recentemente foi concluída, mas a página não pode ser encontrada.
         move_of_it_unlocked: A mudança de classificação que você pediu recentemente
@@ -3490,6 +3491,10 @@ pt-BR:
           torno de 25 horas para estarem completas.
         split_of_an_unknown_taxon_unlocked: A divisão da classificação que você solicitou
           recentemente foi concluída, mas a página não pode ser encontrada.
+        split_of_it_unlocked: A divisão de classificação que você solicitou recentemente
+          foi completada e as classificações foram movidas para <a href='%{to}'>suas
+          próprias páginas</a>; as páginas serão agora reindexadas e precisarão de
+          até 25 horas para serem completadas.
       unlock_with_error:
         merge_of_it_unlocked_with_error: 'A fusão que pediu recentemente sobre esta
           página <strong>falhou</strong>: %{error}.'
@@ -3511,6 +3516,14 @@ pt-BR:
         an_unknown_user_cropped_it: Um usuário desconhecido alterou a miniatura de
           uma imagem desconhecida.
         user_cropped_it: <strong>%{user}</strong> mudou a imagem em miniatura desconhecida.
+      user_added_data:
+        an_unknown_user_create_data_on_taxon: Um usuário desconhecido adicionou dados
+          a "%{taxon}".
+        user_create_data_on_an_unknown_taxon: <strong>%{user}</strong> adicionou dados
+          a uma página desconhecida.
+        user_create_data_on_taxon: <strong>%{user}</strong> adicionou dados a "%{taxon}".
+        an_unknown_user_update_data_on_an_unknown_taxon: Um usuário desconhecido atualizou
+          dados em uma página desconhecida.
       other_actions:
         an_unknown_user_curated_an_older_data_object: Um usuário desconhecido curador
           de uma versão mais antiga de "%{data_object}".
@@ -3550,6 +3563,7 @@ pt-BR:
   add_a_new_topic_area: Adicionar uma nova área de tópicos
   add_a_new_user: Adicionar um novo usuário
   add_a_taxon_association_label: Adicionar uma associação taxon
+  add_another_metadata_field: Adicionar novo campo de metadados
   add_article_instead: adicionar um artigo ao invés
   add_article_to_page_button: Adicionar um artigo
   add_association_submit_button: Adicionar associação
@@ -3569,6 +3583,7 @@ pt-BR:
   add_link_to_page_button: Adicionar um link
   add_new_association_link: Adicionar nova associação
   add_new_tag_suggestion: Adicionar nova sugestão de tag
+  add_new_known_uri_link: Adicionar um novo URI
   add_page: Adicionar página
   add_sub_chapter: Adicionar sub-capítulo
   add_to_a_community: Adicionar uma comunidade
@@ -3594,6 +3609,7 @@ pt-BR:
   admin_content_page_new_link: Criar nova página
   admin_content_page_new_tip: Insira informações básicas sobre esta página. É %{required_icon}
     necessário um nome único.
+  admin_content_page_parent_option_root: Sem parente
   admin_content_page_root: Raiz
   admin_content_page_sort_order_updated: Ordem das páginas foi alterada.
   admin_content_page_update_successful_notice: Página <a href="#%{anchor}"><em>%{page_name}</em></a>
@@ -3628,6 +3644,10 @@ pt-BR:
     Web para todos os parceiros de conteúdo?
   admin_content_partners_statistics_date_from_label: De
   admin_content_partners_statistics_date_to_label: Para
+  admin_content_partners_statistics_first_published_header: Recursos publicados pela
+    primeira vez
+  admin_content_partners_statistics_first_published_caption: Parceiros de conteúdo
+    com recursos publicados pela primeira vez entre %{date_from} e %{date_to}.
   admin_content_partners_statistics_first_published_download_csv_submit: Download
     como CSV
   admin_content_partners_statistics_link: Estatísticas
@@ -3664,6 +3684,7 @@ pt-BR:
     no processo de transferência de funcionalidade administrativa de V1. Se não aparece
     a seção de administração de que está à procura, visite a <a href="/administrator">V1
     Console de Administração</a>.
+  admin_options_warning: Mudanças aqui podem levar 10 minutos para ter efeito.
   admin_option_all_users_can_see_data: Todos os usuários podem ver os dados, não apenas
     os usuários com permissão
   admin_link: Visão geral
@@ -3671,6 +3692,7 @@ pt-BR:
   admin_resource_delete_confirmation: Tem certeza de que deseja apagar este recurso?
     Este comando leva muito tempo para ser executado. Você pode ter o tempo expirado
     quando o utilizar. Não o submeta novamente.
+  admin_simple_actions_header: 'Ações Simples:'
   admin_spam_delete: Eliminar Spam
   admin_statistics_link: Estatísticas
   admin_translated_content_page_create_successful_notice: Foi adicionada uma tradução
@@ -3764,6 +3786,7 @@ pt-BR:
   jsonp_by_adding_a_callback_parameter: '... e JSONP, adicionando um parâmetro de
     retorno'
   any_integer: qualquer inteiro
+  any_string: qualquer cadeia de texto
   api_cache_time_to_live_parameter: quantos segundos que você deseja ter a resposta
     em cache
   application_version_advisory_information: Versão do aplicativo

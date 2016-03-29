@@ -862,7 +862,7 @@ it:
     day_names_min:
     - dom
     - lun
-    - ma
+    - mar
     - mer
     - gio
     - ven
@@ -4367,8 +4367,8 @@ it:
   confirm_delete_community: Sei sicuro di che voler eliminare questa comunità? I membri
     rimanenti saranno ancora in grado di vederla e il newsfeed sarà mantenuto, tuttavia
     essa non apparirà nelle ricerche o sulle pagine taxon e non sarà più modificabile.
-  confirm_delete_data_object: Sei sicuro di voler eliminare questo oggetto dati? Questa
-    azione non può essere annullata.
+  confirm_delete_data_object: Sei sicuro di voler cancellare questo oggetto dati?
+    Questa azione non può essere annullata.
   confirm_leave: Sei sicuro di voler lasciare questa comunità?
   confirm_password_colon: 'Conferma password:'
   contact: Contatto
@@ -5928,7 +5928,7 @@ it:
       videos: Video
     search:
       suggestions: Suggerimenti
-      no_results_found: Nessun risultato
+      no_results_found: Nessun risultato trovato
       results: Risultati
   moderator_colon: 'Moderatore:'
   main_species_page_link_with_spaces: ' &nbsp;&nbsp; pagina specie>>'
@@ -5972,7 +5972,7 @@ it:
     nonchè le attività dello stesso proprietario.
   newsletter_banner: Diventa parte della comunità EOL&mdash;<a href='https://support.si.edu/site/SPageServer?pagename=EOL_email_signup&s_src=nmnh_web_eol_banner'>iscriviti
     adesso alla Newsletter EOL </a>
-  new_upload: Nuovo Upload
+  new_upload: Nuovo caricamento
   new_user: Nuovo Utente
   next: Successivo
   no_active_members: Non c'è stata ancora abbastanza attività.
@@ -6551,6 +6551,7 @@ it:
   sort_by_hierarchy_publish_request_option: Richiesta di pubblicazione della gerarchia
   sort_by_reverse_alphabetical_option: Ordine alfabetico inverso
   sort_by_recently_added_option: Aggiunti di recente
+  sort_by_recently_updated_option: Aggiornato di recente
   sort_by_status_option: Stato
   sort_by_title_ascending: Titolo Crescente
   sort_by_title_descending: Titolo Decrescente

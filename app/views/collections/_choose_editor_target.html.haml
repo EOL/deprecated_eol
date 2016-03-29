@@ -1,25 +1,26 @@
+= javascript_include_tag 'choose_sort_type'
+= stylesheet_link_tag 'choose_sort_type'
 #choose_collections
-  %h2= @page_title # NOTE this is redundant and should likely be changed.
+  %h2.label= @page_title # NOTE this is redundant and should likely be changed.
+  %dt.sort_by
+    = label_tag :sort_collection_by, I18n.t(:sort_by_label)
+    = select_tag :sort_collection_by, options_for_select(@sorts, :recent) , onchange: "javascript: changeList();"
   - @collections ||= []
+  - @collections_recently_updated ||= []
   -# Note the reject simply disallows you from collecting a collection in itself:
   - unless @collections.empty?
     - path = nil
     - path = make_editor_user_path(@user) if @user
     - path = make_editor_community_path(@community) if @community
     = form_tag(path, :method => :put) do |f|
-      - one_available = false
-      %fieldset
-        %ul
-          - @collections.each do |collection|
-            - has_item = @item.can_edit_collection?(collection)
-            - one_available = true unless has_item
-            = render 'collections_list_item', { :collection => collection,
-              :has_item => has_item, :hide_has_item => true }
+      - @one_available = false
+      = render( 'list_collections_to_add_editor', collections: @collections_recently_updated, type: "recent", item: @item)
+      = render( 'list_collections_to_add_editor', collections: @collections, type: "alpha", display: "none", item: @item)
       %fieldset.actions
         = link_to(I18n.t(:see_all_of_your_collections), user_collections_path(current_user),
           :class => 'other_actions close_and_go')
-        - if one_available
-          - if @user 
+        - if @one_available
+          - if @user
             = submit_tag(I18n.t(:make_an_editor))
           - else
             = submit_tag(I18n.t(:share_a_collection))

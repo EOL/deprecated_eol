@@ -7,6 +7,7 @@
 # Author: Base
 # Author: Dim Grits
 # Author: Erami
+# Author: Green Zero
 # Author: Lxlalexlxl
 # Author: NataChe
 # Author: Olvin
@@ -1168,7 +1169,7 @@ uk:
       about_link_what_is_eol: Що таке EOL?
       about_link_traitbank: Що таке TraitBank?
       about_link_eol_blog: Блоґ EOL
-      about_link_discover: Пізнати
+      about_link_discover: Освіта
       about_link_statistics: Статистика
       about_link_glossary: Словник
       about_link_podcasts: Подкасти
@@ -3327,24 +3328,30 @@ uk:
       unlock:
         merge_of_an_unknown_taxon_unlocked: Злиття сторінок, яке ви запросили, вже
           завершено, але сторінку неможливо знайти.
-        merge_of_it_unlocked: Злиття, яке ви нещодавно запросили на цій сторінці,
-          вже завершено.
+        merge_of_it_unlocked: Злиття, яке Ви нещодавно запросили на цій сторінці,
+          вже завершено; сторінки наразі переіндексовуються, на завершення чого необхідно
+          буде до 25 годин.
         merge_of_taxon_unlocked: Злиття сторінки, яке нещодавно запросили для "%{taxon}",
-          вже завершено.
+          вже завершено; сторінки наразі переіндексовуються, на завершення чого необхідно
+          буде до 25 годин.
         move_of_an_unknown_taxon_unlocked: Переміщення класифікації, яке нещодавно
           ви запросили, вже завершено, але сторінку неможливо знайти.
         move_of_it_unlocked: Переміщення класифікації, яке нещодавно ви запросили
-          на цій сторінці, вже завершено.
+          на цій сторінці, вже завершено; сторінки наразі переіндексовуються, на завершення
+          чого необхідно буде до 25 годин.
         move_of_taxon_unlocked: Переміщення класифікації, яке нещодавно ви запросили
-          для "%{taxon}", вже завершено.
+          для "%{taxon}", вже завершено; сторінки наразі переіндексовуються, на завершення
+          чого необхідно буде до 25 годин.
         split_of_an_unknown_taxon_unlocked: Розділення класифікації, яке нещодавно
           ви запросили, вже завершено, але сторінку неможливо знайти.
         split_of_it_unlocked: Розділення класифікації, яке нещодавно ви запросили
           на цій сторінці, вже завершено і класифікації переміщено на <a href='%{to}'>їхню
-          власну сторінку</a>.
+          власну сторінку</a>; сторінки наразі переіндексовуються, на завершення чого
+          необхідно буде до 25 годин.
         split_of_taxon_unlocked: Розділення класифікації, яке ви нещодавно запросили
           для "%{taxon}", вже завершено і класифікації переміщено на <a href='%{to}'>їхню
-          власну сторінку</a>.
+          власну сторінку</a>; сторінки наразі переіндексовуються, на завершення чого
+          необхідно буде до 25 годин.
       unlock_with_error:
         merge_of_an_unknown_taxon_unlocked_with_error: 'Злиття сторінки, яке ви нещодавно
           запросили, вже  <strong>провалилося</strong>: %{error}. Крім того, зазначену
@@ -3828,8 +3835,8 @@ uk:
   cannot_be_associated_with_both_a_user_and_a_community: Не може бути пов'язано з
     користувачем і спільнотою
   cannot_be_empty: не може бути порожнім.
-  cannot_create_collection_item_from_class_error: Ми не можемо створити елемент збірки
-    із %{klass}
+  cannot_create_collection_item_from_class_error: 'Ми не можемо створити елемент збірки
+    із типу: %{klass}'
   cannot_create_community_from_watch_collection_error: Ви не можете створити спільноту
     зі списку спостереження.
   cannot_expand_children: не вдалося розгорнути дітей
@@ -4539,7 +4546,7 @@ uk:
   details_title: Деталі
   did_you_mean: 'Ви мали на увазі: %{suggestions} ?'
   disabled_for_now: ВИМКНЕНО
-  discover_link: Пізнати
+  discover_link: Освіта
   donate_link: Пожертвувати
   done_already: Уже зроблено
   do_you_want_to_be_a_curator: Ви хочете бути куратором
@@ -4650,7 +4657,7 @@ uk:
         рівнем асистента.
       admin_or_master_curators_only: Вибачте, доступ обмежений адміністраторами і
         кураторами ЕЖ з мінімальним рівнем куратора Майстра.
-      no_access: На жаль, доступ обмежено.
+      no_access: На жаль, ця функція тимчасово відключена. Перевірте пізніше.
   excluded_icon_tip: Рядки, позначені піктограмою виключення %{excluded_icon}, ніколи
     не будуть показані на сторінках огляду таксону.
   expand_all_children: розгорнути усіх нащадків
@@ -4847,7 +4854,7 @@ uk:
   item_type_sound_assistive: Цей елемент є звуком
   item_type_taxon_assistive: Цей елемент є таксоном
   item_type_video_assistive: Цей елемент є відео
-  item_not_added_already_in_collection: Цей елемент уже додано до збірки.
+  item_not_added_already_in_collection: Цей елемент:%{value} уже додано до збірки.
   item_not_added_to_itself_notice: На жаль, неможливо додати збірку <em>%{collection_name}</em>
     для себе.
   item_not_added_to_collection_error: Вибачте, виникла помилка, вибраний елемент не
@@ -5205,7 +5212,7 @@ uk:
   rating_learn_more_link: Що таке рейтинг
   rating_not_added_error: Вибачте, сталася помилка, рейтинг неможливо додати.
   reading_from_ontology: Читання з <a href='%{ontology_uri}' target='_blank'>%{ontology_uri}</a>
-  recaptcha: Введіть два слова, які ви бачите нижче
+  recaptcha: Введіть два слова або цифри, які Ви бачите нижче
   recent_updates: Останні оновлення
   recently_visited: Недавно відвідані
   recently_used_link: Недавно використані

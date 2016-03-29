@@ -445,4 +445,26 @@ describe 'API:pages' do
     expect(response["references"]).to be_nil
     expect(response["agents"]).to be_nil
   end
+
+  it 'adds the crop info in the page only when the details is true' do
+    taxon_concept = TaxonConcept.gen
+    image = DataObject.gen(data_type: DataType.image)
+    image_info = ["height", "width", "crop_x",
+                 "crop_y", "crop_height", "crop_width" ]
+    taxon_concept.hierarchy_entries << HierarchyEntry.gen
+    allow(EOL::Api::Pages::V1_0).to receive(:get_data_objects) {[image]}
+    ImageSize.create(data_object_id: image.id, height: 10,
+                     width: 10, crop_x_pct: 10, crop_y_pct: 10,
+                     crop_width_pct: 10, crop_height_pct: 10)
+    response = get_as_json("/api/pages/1.0/#{taxon_concept.id}.json?details=1")
+    response_dato_keys = response['dataObjects'][0].keys
+    image_info.each do |info|
+      expect(response_dato_keys).to include(info)
+    end
+    response = get_as_json("/api/pages/1.0/#{taxon_concept.id}.json?details=0")
+    response_dato_keys = response['dataObjects'][0].keys
+    image_info.each do |info|
+      expect(response_dato_keys).not_to include(info)
+    end
+  end
 end

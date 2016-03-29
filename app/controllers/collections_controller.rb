@@ -194,11 +194,16 @@ class CollectionsController < ApplicationController
   def choose_editor_target
     return must_be_logged_in unless logged_in?
     @user = User.find(params[:user_id]) rescue nil
+    @sorts = {
+      I18n.t(:sort_by_alphabetical_option) => :alpha,
+      I18n.t(:sort_by_recently_updated_option) => :recent,
+    }
     @community = Community.find(params[:community_id]) rescue nil
     @item = @user || @community # @item is for views, makes life easier.
     @collections = current_user.all_collections
     Collection.preload_associations(@collections, [ :resource, :resource_preview ])
     @collections.delete_if{ |c| c.is_resource_collection? || c.watch_collection? }
+    @collections_recently_updated = @collections.sort_by(&:updated_at).reverse
     raise EOL::Exceptions::NoCollectionsApply if @collections.blank?
     @page_title = I18n.t(:make_user_an_editor_title, user: @item.summary_name)
     respond_to do |format|
@@ -209,7 +214,7 @@ class CollectionsController < ApplicationController
 
   def choose_collect_target
     return must_be_logged_in unless logged_in?
-    @collections = current_user.all_collections.sort_by(&:name) || []
+    @collections = current_user.all_collections || []
     @sorts = {
       I18n.t(:sort_by_alphabetical_option) => :alpha,
       I18n.t(:sort_by_recently_updated_option) => :recent,

@@ -5294,6 +5294,7 @@ mk:
   images: Слики
   images_in_red_are_not_trusted: Сликите со црвено се недоверливи.
   images_in_yellow_are_not_reviewed: Сликите со жолто не се проверени.
+  image_objects_page_number: страница со слики
   images_sort_worklist_note:
     one: Сликите се подредуваат по датум на увоз во EOL - прво најновите. Има %{count}
       слика на овој работен список.
@@ -5542,6 +5543,7 @@ mk:
   manager_parens: (раководител)
   map_from: карта од
   master_curators_may_add_data: 'Вишите кустоси можат да ги додадат податоците:'
+  map_objects_page_number: Страница со карти
   maps_with_count:
     one: '%{count} карта'
     other: '%{count} карти'
@@ -6294,6 +6296,7 @@ mk:
   sort_by_hierarchy_publish_request_option: Барање за објавување на хиерархија
   sort_by_reverse_alphabetical_option: Азбучно (обратно)
   sort_by_recently_added_option: Неодамна додадени
+  sort_by_recently_updated_option: Скоро подновено
   sort_by_status_option: Статус
   sort_by_title_ascending: Наслов - растечки
   sort_by_title_descending: Наслов - опаѓачки
@@ -6312,6 +6315,7 @@ mk:
   sound_file: Звучна податотека
   sound_from: звук од
   sound_object: Звучен објект
+  sound_objects_page_number: страница со звуци
   sound_of: Звук на
   sounds_with_count:
     one: '%{count} звук'
@@ -6478,6 +6482,7 @@ mk:
   test: Проба.
   test_it_out: Испробај
   text_object: Текстуален објект
+  text_objects_page_number: Страница со текстови
   text: текст
   text_capital: Текст
   text_summary_empty: Сè уште никој нема внесено краток опис за овој  таксон.
@@ -6886,6 +6891,7 @@ mk:
   vetted: Проверени
   video_from: видео од
   video_object: Видео објект
+  video_objects_page_number: Страница со видеоснимки
   video_title_not_available_in_language: Насловот не е достапен на %{language}
   videos_with_count:
     one: '%{count} видео'

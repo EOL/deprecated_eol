@@ -3786,6 +3786,7 @@ en:
   full_content_url: "Full Content URL"
   gbif_map: "GBIF map"
   general_site_admin: "general site admin"
+  georeference_records_colon: "Georeference records:"
   get_help_choosing_a_subject: "Get help choosing a subject"
   get_help_choosing_a_subchapter: "Get help choosing a subchapter"
   get_more_tasks: "get more tasks"

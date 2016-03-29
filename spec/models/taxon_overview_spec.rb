@@ -3,8 +3,8 @@ require "spec_helper"
 describe TaxonOverview do
 
   before(:all) do
-    load_foundation_cache  
-    @res = Resource.gen(title: "IUCN Structured Data")  
+    load_foundation_cache
+    @res = Resource.gen(title: "IUCN Structured Data")
   end
 
   before(:each) do # NOTE - we want these 'pristine' for each test, because values get cached.
@@ -15,22 +15,6 @@ describe TaxonOverview do
     @user = User.gen(language: @language)
     @overview = TaxonOverview.new(@taxon_concept, @user)
     @overview_with_entry = TaxonOverview.new(@taxon_concept, @user, @entry)
-  end
-
-  # This is (strangely) necessary because TaxonConcept#has_map? actually checks GBIF, not Solr, so it's possible
-  # (though not likely) that this could happen:
-  it 'should NOT have a map even if the TC says there is one but there is not really one' do
-    @taxon_concept.should_receive(:has_map?).and_return(true)
-    @taxon_concept.should_receive(:get_one_map_from_solr).and_return([nil])
-    @overview.map?.should_not be_true
-  end
-
-  it 'should add the map to media if available' do
-    map = DataObject.gen
-    @taxon_concept.should_receive(:has_map?).at_least(1).times.and_return(true)
-    @taxon_concept.should_receive(:get_one_map_from_solr).at_least(1).times.and_return([map])
-    @overview = TaxonOverview.new(@taxon_concept, @user) # NOTE - you MUST rebuild the overview if you add media to it, since it's preloaded.
-    @overview.media.last.should == map
   end
 
   it 'should promote the exemplar image' do
@@ -72,7 +56,7 @@ describe TaxonOverview do
   # TODO - hard to test, refactor
   it '#details? should check if details exist with only one detail (and not preload)' do
     @taxon_concept.should_receive(:text_for_user).with(
-      @user, 
+      @user,
       language_ids: [ @user.language_id ],
       filter_by_subtype: true,
       allow_nil_languages: @user.default_language?,
@@ -175,15 +159,15 @@ describe TaxonOverview do
 
   # TODO
   it 'should know iucn status' do
-    # (DataMeasurement.new(predicate: "<http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>", object: "Wunderbar", resource: @res, subject: @taxon_concept)).add_to_triplestore    
+    # (DataMeasurement.new(predicate: "<http://rs.tdwg.org/ontology/voc/SPMInfoItems#ConservationStatus>", object: "Wunderbar", resource: @res, subject: @taxon_concept)).add_to_triplestore
     @overview.iucn_status.should == nil
   end
-  
+
   it 'has default iucn status = nil' do
     expect(@overview.iucn_status).to be_nil
   end
-  
-  it 'has default iucn url = nil' do    
+
+  it 'has default iucn url = nil' do
     expect(@overview.iucn_url).to be_nil
   end
 

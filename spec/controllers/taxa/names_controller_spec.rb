@@ -6,7 +6,7 @@ describe Taxa::NamesController do
     load_foundation_cache
     @testy = {}
     @testy[:taxon_concept] =  build_taxon_concept(images: [], toc: [], sname: [], comments: [],
-                              flash: [], sounds: [], gbif_map_id: nil, bhl: [], biomedical_terms: nil)
+                              flash: [], sounds: [], bhl: [], biomedical_terms: nil)
     @testy[:curator] = build_curator(@testy[:taxon_concept] )
     common_name = Faker::Eol.common_name.firstcap + 'tsty'
     @testy[:taxon_concept].add_common_name_synonym(
@@ -50,7 +50,7 @@ describe Taxa::NamesController do
       let(:synonym) { build_stubbed(Synonym) }
       let(:taxon_concept) { build_stubbed(TaxonConcept, id: 3542) }
       let(:titles) { TaxonConcept.with_titles }
-      
+
       subject do
         post :create, name: { synonym: { language_id: Language.default.id }, string: 'woofer' },
                       commit_add_common_name: 'Add name', taxon_id: taxon_concept.id
@@ -59,7 +59,7 @@ describe Taxa::NamesController do
       before(:each) do
         # Not the best way to accomplish this, but:
         allow(TaxonConcept).to receive(:find) { taxon_concept }
-        allow(TaxonConcept).to receive(:with_titles) {taxon_concept} 
+        allow(TaxonConcept).to receive(:with_titles) {taxon_concept}
         allow(titles).to receive(:find){ taxon_concept }
         allow(controller).to receive(:current_user) { curator }
         allow(controller).to receive(:log_action) { curator }
@@ -110,7 +110,7 @@ describe Taxa::NamesController do
 
     it 'should add a new common name in approved languages' do
       approved_language_id = @approved_languages.first
-      post :create, :name => { :synonym => { :language_id => approved_language_id }, :string => "snake" }, 
+      post :create, :name => { :synonym => { :language_id => approved_language_id }, :string => "snake" },
                     :commit_add_common_name => "Add name", :taxon_id => @testy[:taxon_concept].id
       name = Name.find_by_string("snake").should be_true
       TaxonConceptName.find_by_name_id_and_language_id(Name.find_by_string("snake").id, approved_language_id)
@@ -119,7 +119,7 @@ describe Taxa::NamesController do
 
     it 'should add a new common name in non-approved languages' do
       non_approved_language_id = Language.find(:all, :conditions => ["id NOT IN (?)", @approved_languages]).first.id
-      post :create, :name => { :synonym => { :language_id => non_approved_language_id }, :string => "nag" }, 
+      post :create, :name => { :synonym => { :language_id => non_approved_language_id }, :string => "nag" },
                     :commit_add_common_name => "Add name", :taxon_id => @testy[:taxon_concept].id
       name = Name.find_by_string("nag").should be_true
       TaxonConceptName.find_by_name_id_and_language_id(Name.find_by_string("nag").id, non_approved_language_id)

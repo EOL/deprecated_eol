@@ -242,12 +242,4 @@ describe TaxonUserClassificationFilter do
   it 'should intelligently delegate #rank_label' do
     check_delegation_of(:rank_label)
   end
-
-  it 'should delegate #gbif_map_id to hierarchy_entry.taxon_concept when available' do
-    tc = TaxonConcept.gen
-    @entry.should_receive(:taxon_concept).at_least(1).times.and_return(tc)
-    tc.should_receive(:gbif_map_id).and_return(98)
-    @taxon_page_with_entry.gbif_map_id.should == 98
-  end
-
 end

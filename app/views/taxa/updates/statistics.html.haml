@@ -21,7 +21,7 @@
       %dd= number_with_delimiter(@media_facets['unreviewed_text'] || 0, delimiter: ",")
       %dt= I18n.t(:trusted_maps)
       - number_of_trusted_maps = @media_facets['trusted_map'] || 0
-      - number_of_trusted_maps += 1 if @taxon_concept.has_map?
+      - number_of_trusted_maps += 1 if @taxon_concept.json_map?
       %dd= number_with_delimiter(number_of_trusted_maps, delimiter: ",")
       %dt= I18n.t(:unreviewed_maps)
       %dd= number_with_delimiter(@media_facets['unreviewed_map'] || 0, delimiter: ",")

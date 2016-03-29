@@ -123,12 +123,6 @@ class TaxonOverview < TaxonUserClassificationFilter
     iucn.try(:source_url)
   end
 
-  # This is perhaps a bit too confusing: this checks if the *filtered* page really has a map (as opposed to whether
-  # there is any map at all without filters):
-  def map?
-    @has_map ||= map_taxon_concept.has_map? && map
-  end
-
   def cache_id
     "taxon_overview_#{taxon_concept.id}_#{user.language_abbr}"
   end

@@ -58,6 +58,7 @@ class TaxonConcept < ActiveRecord::Base
   has_one :taxon_concept_exemplar_image
   has_one :taxon_concept_exemplar_article
   has_one :preferred_entry, class_name: 'TaxonConceptPreferredEntry'
+  has_one :page_feature, inverse_of: :taxon_concept
 
   has_and_belongs_to_many :data_objects
 
@@ -380,20 +381,6 @@ class TaxonConcept < ActiveRecord::Base
     return entries.nil? ? false : true
   end
 
-  def has_map?
-    return true if (gbif_map_id && GbifIdentifiersWithMap.find_by_gbif_taxon_id(gbif_map_id))
-  end
-
-  def gbif_map_id
-    return @gbif_map_id if @gbif_map_id
-    if h = Hierarchy.gbif
-      if he = HierarchyEntry.where("hierarchy_id = ? AND taxon_concept_id = ?", h.id, id).select(:identifier).first
-        @gbif_map_id = he.identifier
-        return he.identifier
-      end
-    end
-  end
-
   def superceded_the_requested_id?
     @superceded_the_requested_id
   end
@@ -615,6 +602,10 @@ class TaxonConcept < ActiveRecord::Base
     @media_count ||= update_media_count(user: user, entry: selected_hierarchy_entry)
   end
 
+  def json_map?
+    @json_map ||= page_feature.json_map?
+  end
+
   def maps_count
     # TODO - this method (and the next) could move to TaxonUserClassificationFilter... but I don't want to
     # move it because of this cache call. I think we should repurpose TaxonConceptCacheClearing to be
@@ -622,7 +613,7 @@ class TaxonConcept < ActiveRecord::Base
     # and would allow us to put these two methods where they belong:
     @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), expires_in: 1.days) do
       count = get_one_map_from_solr.total_entries
-      count +=1 if self.has_map?
+      count +=1 if self.json_map?
       count
     end
   end

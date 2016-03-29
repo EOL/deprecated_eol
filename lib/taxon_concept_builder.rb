@@ -26,8 +26,6 @@ class TaxonConceptBuilder
   #   +flash+::
   #     Array of flash videos, each member is a hash for the video options.  The keys you will want are
   #     +:description+ and +:object_cache_url+.
-  #   +gbif_map_id+::
-  #     The ID to use for the Map Data Object.
   #   +id+::
   #     Forces the ID of the TaxonConcept to be what you specify, useful for exemplars.
   #   +vetted+::
@@ -92,7 +90,6 @@ private
     add_images unless   @images.blank? # to create light taxon concept
     add_videos unless   @flash.blank? || @youtube.blank? # to create light taxon concept
     add_sounds unless   @sounds.blank? # to create light taxon concept
-    add_map unless @gbif_map_id.nil? # to create light taxon concept
     add_toc unless   @toc.blank? # to create light taxon concept
     add_iucn unless @iucn_status.nil? # to add iucn: should set iucn_status in params
     gen_bhl unless @bhl.blank? # to create light taxon concept
@@ -109,7 +106,7 @@ private
   # That said, sometimes, we want a particular ID, so this method includes a little hacking to get that done.
   def gen_taxon_concept
     puts "** Enter: gen_taxon_concept" if @debugging
-    vetted = Vetted.send(@vetted.to_sym)    
+    vetted = Vetted.send(@vetted.to_sym)
     # TODO - in the future, we may want to be able to muck with the vetted *and* the published fields...
     # HACK!  We need to force the IDs of one of the TaxonConcepts, so that the exmplar array isn't empty.  I
     # hate to do it this way, but, alas, this is how it currently works:
@@ -163,9 +160,9 @@ private
     @common_names.each_with_index do |common_name, count|
       language = (count != 0 && count == @common_names.size) ? Language.find_by_translated(:label, "French") : Language.english
       @tc.add_common_name_synonym(common_name, :agent => Agent.col, :language => language)
-    end    
+    end
   end
-  
+
   def add_scientific_name
     @tc.add_scientific_name_synonym(@sname.string, Agent.col)
   end
@@ -226,18 +223,6 @@ private
     puts "** Enter: add_iucn" if @debugging
     iucn_status = @iucn_status == true ? FactoryGirl.generate(:iucn) : @iucn_status
     build_iucn_entry(@tc, iucn_status, :depth => @depth)
-  end
-
-  def add_map
-    puts "** Enter: add_map" if @debugging
-    #gbif_he = build_hierarchy_entry(@depth, @tc, @sname, :hierarchy => gbif_hierarchy, :map => true,
-    puts "++ Add map!" if @debugging
-    puts "GBIF hierarchy:" if @debugging
-    pp gbif_hierarchy if @debugging
-    gbif_he = build_entry_in_hierarchy(:hierarchy => Hierarchy.gbif, :map => true,
-                                        :identifier => @gbif_map_id)
-    HarvestEventsHierarchyEntry.gen(:hierarchy_entry => gbif_he, :harvest_event => gbif_harvest_event)
-    GbifIdentifiersWithMap.create(:gbif_taxon_id => @gbif_map_id)
   end
 
   def add_toc
@@ -342,7 +327,6 @@ private
     @depth        = options[:depth]
     @event        = options[:event]           || default_harvest_event # Note this method is in eol_spec_helper
     @flash        = options[:flash]           || [{}] # Array with one empty hash, which we will populate with defaults:
-    @gbif_map_id  = options[:gbif_map_id]
     @hierarchy    = options[:hierarchy]
     @id           = options[:id]
     @images       = options[:images]          || [{}, {}]
@@ -394,5 +378,5 @@ private
                 :object_cache_url => FactoryGirl.generate(:image), :visibility => Visibility.preview,
                 :vetted => Vetted.unknown}
     return images
-  end  
+  end
 end

@@ -1,11 +1,11 @@
 - content_for :social_sharing do
   = render 'shared/social_sharing'
 .site_column#taxon_maps
-  - if ! @taxon_concept.has_map? && @maps.blank?
+  - if ! @taxon_concept.json_map? && @maps.blank?
     .empty
       %p= I18n.t(:maps_empty)
       %p= link_to I18n.t(:maps_empty_contribute_instructions), cms_page_path('partners')
-  - if @taxon_concept.has_map?
+  - if @taxon_concept.json_map?
     #map
       = render 'maps'
   - unless @maps.blank?

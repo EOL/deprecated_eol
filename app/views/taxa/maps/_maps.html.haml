@@ -1,7 +1,4 @@
 .article
-  - if @taxon_page.has_map?
-    %iframe{ src: "http://cdn.gbif.org/v0.9/map/index.html?type=TAXON&key=#{@taxon_page.gbif_map_id}&resolution=4&default_zoom=2&style=ocean",
-      frameborder: 0, allowfullscreen: true, height: '500px', width: '100%' }
-    %p
-      = raw(I18n.t(:gbif_occurrence_disclaimer))
-      = link_to I18n.t(:gbif_occurrence_learn_more_link), "http://www.gbif.org/species/#{@taxon_page.gbif_map_id}", rel: :nofollow
+  %iframe{ src: something_TODO, frameborder: 0, allowfullscreen: true, height: '500px', width: '100%' }
+  %p
+    = raw(I18n.t(:gbif_occurrence_disclaimer))

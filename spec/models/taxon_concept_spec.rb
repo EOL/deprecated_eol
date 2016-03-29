@@ -36,7 +36,6 @@ describe TaxonConcept do
     @common_name         = @testy[:common_name]
     @scientific_name     = @testy[:scientific_name]
     @italicized          = @testy[:italicized]
-    @gbif_map_id         = @testy[:gbif_map_id]
     @iucn_status         = @testy[:iucn_status]
     @image_unknown_trust = @testy[:image_unknown_trust]
     @image_untrusted     = @testy[:image_untrusted]
@@ -99,11 +98,6 @@ describe TaxonConcept do
     @taxon_concept.add_common_name_synonym(str, agent: user.agent, language: lang)
     @taxon_concept.preferred_common_name_in_language(lang).should == str
   end
-
-  # temporarily disabled
-  # it 'should find its GBIF map ID' do
-    # @taxon_concept.gbif_map_id.should == @gbif_map_id
-  # end
 
   it 'should be able to show videos' do
     @taxon_concept.data_objects.select{ |d| d.is_video? }.should_not be_nil

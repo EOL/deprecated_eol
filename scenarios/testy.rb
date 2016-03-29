@@ -23,7 +23,6 @@ def build_big_tc(testy)
     :scientific_name => testy[:scientific_name],
     :italicized      => testy[:italicized],
     :iucn_status     => testy[:iucn_status],
-    :gbif_map_id     => testy[:gbif_map_id],
     :map             => {:description => testy[:map_text]},
     :flash           => [{:description => testy[:video_1_text]}, {:description => testy[:video_2_text]}],
     :youtube         => [{:description => testy[:video_3_text]}],
@@ -103,7 +102,6 @@ ActiveRecord::Base.transaction do
   testy[:scientific_name] = "#{testy[:canonical_form]} #{testy[:attribution]}"
   testy[:italicized]      = "<i>#{testy[:canonical_form]}</i> #{testy[:attribution]}"
   testy[:iucn_status]     = FactoryGirl.generate(:iucn)
-  testy[:gbif_map_id]     = '424242'
   testy[:map_text]        = 'Test Map'
   testy[:image_1]         = FactoryGirl.generate(:image)
   testy[:image_2]         = FactoryGirl.generate(:image)

@@ -66,9 +66,9 @@ describe "Collections" do
     Capybara.reset_sessions!
     collections = {}
     collections[:taxon_concept_1] = build_taxon_concept(images: [{},{}], sname: [], comments: [],
-     flash: [], sounds: [], gbif_map_id: nil, toc: [], bhl: [], biomedical_terms: nil)
+     flash: [], sounds: [], toc: [], bhl: [], biomedical_terms: nil)
     collections[:taxon_concept_2] = build_taxon_concept(images: [{},{}], sname: [], comments: [],
-     flash: [], sounds: [], gbif_map_id: nil, toc: [], bhl: [], biomedical_terms: nil)
+     flash: [], sounds: [], toc: [], bhl: [], biomedical_terms: nil)
     collections[:user] = User.gen
     collections[:collection] = Collection.gen
     collections[:collection].users = [collections[:user]]
@@ -468,4 +468,3 @@ describe "Collections" do
   end
 
 end
-

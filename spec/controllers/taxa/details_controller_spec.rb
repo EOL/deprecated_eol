@@ -13,9 +13,9 @@ describe Taxa::DetailsController do
     @testy[:overview] = TocItem.overview
     @testy[:overview_text] = 'This is a test Overview'
     @testy[:image] = FactoryGirl.generate(:image)
-    @testy[:taxon_concept] =  build_taxon_concept(images: [{object_cache_url: @testy[:image], data_rating: 2}], 
+    @testy[:taxon_concept] =  build_taxon_concept(images: [{object_cache_url: @testy[:image], data_rating: 2}],
                               toc: [{toc_item: @testy[:overview], description: @testy[:overview_text]}], sname: [], comments: [],
-                              flash: [], sounds: [], gbif_map_id: nil, bhl: [], biomedical_terms: nil)
+                              flash: [], sounds: [], bhl: [], biomedical_terms: nil)
     @testy[:user] = User.gen
     @testy[:curator] = build_curator(@testy[:taxon_concept] )
     EOL::Solr::DataObjectsCoreRebuilder.begin_rebuild
@@ -63,13 +63,13 @@ describe Taxa::DetailsController do
   describe 'GET set_article_as_exemplar' do
 
     it 'should throw error if user is not logged in' do
-      expect{ get :set_article_as_exemplar, {:taxon_id => @testy[:taxon_concept].id.to_i, 
+      expect{ get :set_article_as_exemplar, {:taxon_id => @testy[:taxon_concept].id.to_i,
                   :data_object_id => @testy[:overview].id.to_i} }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
 
     it 'should throw error if user is not curator' do
       session[:user_id] = @testy[:user].id
-      expect{ get :set_article_as_exemplar, {:taxon_id => @testy[:taxon_concept].id.to_i, 
+      expect{ get :set_article_as_exemplar, {:taxon_id => @testy[:taxon_concept].id.to_i,
                   :data_object_id => @testy[:overview].id.to_i} }.to raise_error(EOL::Exceptions::SecurityViolation)
     end
 

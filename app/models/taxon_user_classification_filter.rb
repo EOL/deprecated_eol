@@ -74,14 +74,10 @@ class TaxonUserClassificationFilter
                             taxon_concept.to_param
   end
 
-  def gbif_map_id
-    map_taxon_concept.gbif_map_id
-  end
-
   # NOTE - this checks if the *filtered* page really has a map (as opposed to
   # whether there is any map at all):
   def map?
-    map_taxon_concept.has_map? && map
+    map_taxon_concept.json_map?
   end
 
   def map_taxon_concept

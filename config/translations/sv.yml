@@ -5481,6 +5481,7 @@ sv:
   sort_by_alphabetical_option: Alfabetisk
   sort_by_reverse_alphabetical_option: Omvänd alfabetisk
   sort_by_recently_added_option: Nyligen tillagda
+  sort_by_recently_updated_option: Nyligen uppdaterade
   sort_by_status_option: Status
   sort_by_title_ascending: Titel stigande
   sort_by_title_descending: Titel fallande

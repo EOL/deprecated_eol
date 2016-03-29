@@ -10,6 +10,10 @@ class CollectionJobsController < ApplicationController
     return redirect_to(@collection_job.collection, notice: I18n.t(:error_no_items_selected)) unless
       @collection_job.has_items?
     create_collection_if_asked
+    @sorts = {
+      I18n.t(:sort_by_alphabetical_option) => :alpha,
+      I18n.t(:sort_by_recently_updated_option) => :recent,
+    }
     unless @collection_job.missing_targets?
       if @collection_job.save
         # TODO - we really want to decide if this is a "big" job and delay it, if so.
@@ -22,6 +26,7 @@ class CollectionJobsController < ApplicationController
       end
     end
     @collections = current_user.all_non_resource_collections # A little weird, but use the 'create' view to get the targets...
+    @collections_recently_updated = @collections.sort_by(&:updated_at).reverse
   end
 
   private

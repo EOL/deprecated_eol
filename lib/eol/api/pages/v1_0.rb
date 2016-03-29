@@ -3,6 +3,7 @@ module EOL
     module Pages
       class V1_0 < EOL::Api::MethodVersion
         VERSION = '1.0'
+        DEFAULT_OBJECTS_NUMBER = 1
         BRIEF_DESCRIPTION = Proc.new { I18n.t(:pages_method_description) }
         DESCRIPTION = Proc.new {
           hierarchy_entries_url = url_for(:controller => '/api/docs', :action => 'hierarchy_entries')
@@ -33,7 +34,6 @@ module EOL
               :name => 'images_per_page',
               :type => Integer,
               :values => (0..75),
-              :default => 1,
               :test_value => 2,
               :notes => I18n.t('limits_the_number_of_returned_image_objects') ),
             EOL::Api::DocumentationParameter.new(
@@ -46,7 +46,6 @@ module EOL
               :name => 'videos_per_page',
               :type => Integer,
               :values => (0..75),
-              :default => 1,
               :test_value => 0,
               :notes => I18n.t('limits_the_number_of_returned_video_objects') ),
             EOL::Api::DocumentationParameter.new(
@@ -59,7 +58,6 @@ module EOL
               :name => 'sounds_per_page',
               :type => Integer,
               :values => (0..75),
-              :default => 0,
               :notes => I18n.t('limits_the_number_of_returned_sound_objects') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'sounds_page',
@@ -71,7 +69,6 @@ module EOL
               :name => 'maps_per_page',
               :type => Integer,
               :values => (0..75),
-              :default => 0,
               :notes => I18n.t('limits_the_number_of_returned_map_objects') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'maps_page',
@@ -83,7 +80,6 @@ module EOL
               :name => 'texts_per_page',
               :type => Integer,
               :values => (0..75),
-              :default => 1,
               :test_value => 2,
               :notes => I18n.t('limits_the_number_of_returned_text_objects') ),
             EOL::Api::DocumentationParameter.new(
@@ -156,6 +152,7 @@ module EOL
 
         def self.call(params={})
           validate_and_normalize_input_parameters!(params)
+          adjust_sounds_images_videos_texts!(params)
           params[:details] = 1 if params[:format] == 'html'
           I18n.locale = params[:language] unless params[:language].blank?
           # NOTE: we need to honor supercedure, so this is slower than ideal:
@@ -176,6 +173,23 @@ module EOL
             raise ActiveRecord::RecordNotFound.new("Unknown page id \"#{params[:id]}\"") unless taxon_concept
             raise ActiveRecord::RecordNotFound.new("Page \"#{taxon_concept.id}\" is no longer available") unless taxon_concept.published?
             prepare_hash(taxon_concept, params)
+          end
+        end
+        
+        def self.adjust_sounds_images_videos_texts!(params)
+          params[:images_per_page] = adjust_param(params[:images_per_page], params[:images])
+          params[:sounds_per_page] = adjust_param(params[:sounds_per_page], params[:sounds])
+          params[:videos_per_page] = adjust_param(params[:videos_per_page], params[:videos])
+          params[:maps_per_page] = adjust_param(params[:maps_per_page], params[:maps])
+          params[:texts_per_page] = adjust_param(params[:texts_per_page], params[:texts])
+          params
+        end
+        
+        def self.adjust_param(param_per_page, param)
+          if param_per_page.blank? || param_per_page.to_i < DEFAULT_OBJECTS_NUMBER
+            param.blank? || param.to_i < DEFAULT_OBJECTS_NUMBER ? DEFAULT_OBJECTS_NUMBER : param.to_i
+          else
+            param_per_page.to_i
           end
         end
 

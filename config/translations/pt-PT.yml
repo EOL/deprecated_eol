@@ -474,6 +474,11 @@ pt-PT:
         user_id: Detalhes do parceiro de conteúdo gerido por
       content_partner_agreement:
         mou_url: URL do ficheiro do acordo <small>(alternativa opcional)</small>
+        mou_url_more: Opcionalmente digite a URL do ficheiro que contenha o acordo
+          deste provedor de conteúdos associados. Este ficheiro irá sobrescrever qualquer
+          outro texto. Se pretende armazenar o ficheiro (por exemplo num arquivo PDF)
+          nos servidores do conteúdo EOL, então primeiro <a href="%{upload_content_url}">faça
+          o upload do arquivo</a>, para obter a URL.
       data_object:
         bibliographic_citation: Citação bibliográfica
         description: Texto <small>(algumas marcações HTML são permitidas)</small>
@@ -483,7 +488,13 @@ pt-PT:
         object_title: Título
         toc_item: Sub-capítulo
         refs: Referências <small>(colocar cada referência em uma nova linha)</small>
+        refs_order: '*Referências irão aparecer em ordem alfabética'
         rights_holder: Detentor dos direitos
+        rights_holder_more: Especifique uma pessoa ou uma organização que seja a proprietária
+          ou a administre os direitos destes dados. Se você deixar este campo em branco,
+          assumiremos que você é o detentor dos direitos para todas as licenças, excepto
+          do Domínio Público. Licenças de Domínio Público não necessitam de um titular
+          de direitos.
         rights_statement: Declaração de direitos
         source_url: URL para o objeto de dados original
       data_object_link:
@@ -491,6 +502,33 @@ pt-PT:
         source_url: URL do link
         toc_item: Assunto
         link_type: Categoria
+      data_search:
+        attribute: Selecione um atributo
+        max: Valor máximo
+        max_with_val: 'Valor maximo: %{val}'
+        max_placeholder: Introduza um número
+        max_placeholder_disabled: Faixa desabilitada
+        min: Valor mínimo
+        min_with_val: 'Valor minimo: %{val}'
+        min_placeholder: Introduza um número
+        min_placeholder_disabled: Faixa desabilitada
+        q: Valor específico
+        q_with_val: 'Valor especifico: %{val}'
+        q_placeholder: Introduza uma palavra, frase ou número
+        q_placeholder_disabled: Faixa introduzida, valor específico desabilitado
+        q_more: Por exemplo, heterotrófico.
+        taxon_name: Grupo de taxonomia
+        taxon_name_with_val: 'Grupo de taxonomia: %{val}'
+        taxon_name_placeholder: Introduza o nome do grupo de taxonomia para o grupo
+          selecionado
+        taxon_name_placeholder_value_removed: '%{taxon_group} removido, selecione
+          novo grupo'
+        taxon_name_more: Por exemplo, insira Trochilidae ou Baleias. APENAS seleções
+          do menu drop-down serão utilizadas, não edite o texto sem selecionar um
+          resultado.
+        taxa_found: Táxon encontrado
+        total_results: 'Resultados: %{total}'
+        unit: Unidade de medida
       eol_statistic:
         date_one: Data
         date_two: Data
@@ -511,12 +549,23 @@ pt-PT:
         published_at: Publicado
         published_status: Estado
       hierarchy:
+        browsable_more: Verificar a navegabilidade para prover esta hierarquia para
+          se tornar uma das hierarquias primárias navegáveis no EOL.
         browsable_status_with_colon: 'Estado navegável:'
         complete: Curado
+        complete_more: 'A hierarquia de curadoria assume que cada entrada se destina
+          a ser única, ou seja, sequências correspondentes de nomes serão tratadas
+          como homónimos. <strong>Aviso: não altere este atributo a menos que esteja
+          seguro do estado dos homónimos na hierarquia, fazendo-o poderá comprometer
+          a integridade dos dados.</strong>'
         request_publish: Foi pedida a publicação
         request_publish_more: Indica se há uma solicitação pendente para promover
           esta hierarquia para se tornar uma das hierarquias navegáveis primárias
           na EOL.
+      known_uri_relationship:
+        from_known_uri: Para URI conhecido
+        relationship_uri: Selecione uma relação
+        to_known_uri: Introduza e selecione o URI de destino
       news_item:
         active: Publicado
         page_name: Nome único <small>(caracteres em minúscula ISO alfanuméricos em
@@ -832,6 +881,10 @@ pt-PT:
         page_header: Estatísticas globais
         page_title: 'Administração: Estatísticas globais'
         table_caption: Estatísticas globais do site criadas em %{created_at_time}
+      lifedesks:
+        menu_link: LifeDesks
+        page_header: Estatísticas de LifeDesks
+        page_title: 'Administração: Estatísticas LifeDesks'
       marine:
         menu_link: Estatísticas marinhas
         page_header: Cobertura Marinha na EOL
@@ -859,6 +912,7 @@ pt-PT:
   collections:
     download_taxa_data:
       attribute_header: Atributo
+      select_all_checkbox: Selecionar tudo
     show:
       meta_description_default: Uma colecção da Enciclopédia da Vida intitulada %{collection_name}.
       meta_description_default_focus_collection: Uma colecção da Enciclopédia da Vida

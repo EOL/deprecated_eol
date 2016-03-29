@@ -4848,8 +4848,10 @@ es:
     información sobre TraitBank.</p>
   data_results_only_for_search: Resultados de TraitBank para "%{search_term}"
   data_search_limit:
-    one: Las descargas de búsqueda de datos están limitadas a%{count} resultado.
-    other: Las descargas de búsqueda de datos están limitadas a %{count} resultados.
+    one: Los resultados de la búsqueda de datos se descargarán como %{count} registro
+      por archivo.
+    other: Los resultados de la búsqueda de datos se descargarán como %{count} registros
+      por archivo.
   data_about_this_record: Datos acerca de este documento
   data_column_tc_id: ID de página de EOL
   data_column_sci_name: Nombre científico
@@ -6575,6 +6577,7 @@ es:
   sort_by_hierarchy_publish_request_option: Solicitud de publicación de jerarquía
   sort_by_reverse_alphabetical_option: Alfabético Inverso
   sort_by_recently_added_option: Añadido recientemente
+  sort_by_recently_updated_option: Actualizaciones recientes
   sort_by_status_option: Estado
   sort_by_title_ascending: Título Ascendente
   sort_by_title_descending: Título Descendentemente
@@ -6726,7 +6729,7 @@ es:
     identificadores también son accesibles a traves de <a href="%{eol_api_link}">EOL
     API</a>
   taxon_partner_links_link: Vínculos de socio
-  taxon_page_content_disclaimer_header: Descargo de responsabilidad
+  taxon_page_content_disclaimer_header: Descargo
   taxon_page_content_disclaimer: El contenido de EOL se ensambla automáticamente de
     muchos proveedores de contenido. Como resultado, de vez en cuando pueden encontrar
     páginas en EOL que son confusas.

@@ -1,0 +1,8 @@
+- display ||= "block"
+%fieldset{id: "collections_#{type}" , style: "display: #{display}; margin-top: 10px"}
+  %ul
+    - collections.each do |collection|
+      - has_item = item.can_edit_collection?(collection)
+      - @one_available = true unless has_item
+      = render 'collections_list_item', { :collection => collection,
+        :has_item => has_item, :hide_has_item => true }

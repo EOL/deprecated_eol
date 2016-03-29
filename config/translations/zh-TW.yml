@@ -1747,14 +1747,15 @@ zh-TW:
       yahoo: Yahoo!
     pending:
       header: 感謝您的註冊！
-      verify_email_instructions: <strong>請確認您的email位址</strong>，有一筆確認訊息已被發送至您所提供的email位址。要完成註冊過程並成為一位EOL會員，請您點擊該email中包含的連結，謝謝您！
+      verify_email_instructions: <strong>請確認您的電子郵件地址</strong>，有一則確認訊息已被傳送至您所提供的電子郵件地址。要完成註冊過程並成為一位
+        EOL 會員，請您按一下此電子郵件中包含的連結，謝謝您！
       verify_email_tip: 請注意：啟動帳戶的email<EM>常</ em>會被email篩選程式標記為'垃圾郵件'。如果您在一個小時內未收到您的email，請檢查您的垃圾郵件資料夾。
     recover_account:
       errors:
         temporary_login_user_not_found: 抱歉，無法找到您要恢復的EOL帳號，請申請一個新的email以恢復您的帳號。
         token_expired_or_invalid: 抱歉，臨時性登入連結已過期或無效，請申請一個新的email以恢復您的帳號。
         user_not_found_by_email_address: 無法找到有此email位址的EOL帳號。
-        unable_to_update_token: 抱歉，出現了錯誤，email未被發送，請您再試一次。
+        unable_to_update_token: 抱歉，出現了錯誤，電子郵件尚未寄出，請您再試一次。
       form_header: 恢復帳號
       form_tip: 要恢復您的EOL帳號，請輸入與該帳號相關的email地址。如果您在一個小時內沒有收到一封'恢復帳號'的email，請檢查您的垃圾郵件資料夾。
       notices:
@@ -4653,7 +4654,7 @@ zh-TW:
     >GBIF網路</a>所提供的發現紀錄，有可能不代表整個分布。
   gbif_occurrence_learn_more_link: 經由GBIF入口網使用這些資料。
   page_method_description: 這個方法用一個EOL頁面識別碼而回報那個頁面的學名，同時可選擇性的回報跟認定頁面上描述分類單元的階層相關的資訊，如俗名、多媒體(文字、影像、影片)和參考文獻。
-  ping_method_description: 這個方法或是失敗(在這種情況下，極可能會回報EOL錯誤頁面)或是回報一個成功訊息；沒有其它訊息是可能的。
+  ping_method_description: 本方法將失敗(在這種情況下，極可能會回報 EOL 錯誤頁面)或回報一則成功訊息；沒有其它可能的訊息。
   provider_hierarchies_method_description: 這個方法將回報EOL內容合作夥伴所提供的所有階層的參考文獻。此回應將包含階層的標籤和代表此階層的EOL唯一ID
   this_method_takes_an_integer_or_string: 這個方法接受來自提供者資料庫中分類單元的整數或字串的唯一識別碼，以及代表提供者的一個hierarchy_id，再回報那個分類單元的EOL頁面ID。例如：使用
     %{link_provider} API，可以發現Integrated Taxonomic Information System (ITIS)的EOL hierarchy_id是
@@ -4672,7 +4673,7 @@ zh-TW:
   topic: 主題
   to_process_your_donation_please_proceed: 要處理您的捐贈，請繼續
   to_remedy_this: 為了補救這點，我們將關閉這些不活躍的帳號並請您到eol.org建立一個新帳號。當您收到確認email時，請點擊連結驗證您的帳號。
-  to_send_email_enter_text: 要發送email給這位使用者，請在下方輸入文字並點擊'送出'。
+  to_send_email_enter_text: 若向這位使用者寄送電子郵件，請在下方輸入文字並按一下'送出'。
   to_submit_a_species_photograph_for: 要提交一張 %{taxon} 的物種照片，請將照片發送至 %{flickr_link}，並按照該群組首頁上的指示操作。
   total_comments_have_been_submitted:
     one: '%{count} 個評論已提交於 %{string}'

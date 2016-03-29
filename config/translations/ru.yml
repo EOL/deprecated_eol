@@ -17,6 +17,7 @@
 # Author: INS Pirat
 # Author: Ilnur efende
 # Author: Iluvatar
+# Author: Jackie
 # Author: Kaganer
 # Author: Lunacy1911
 # Author: Lvova
@@ -1692,6 +1693,8 @@ ru:
     details:
       index:
         hierarchy_entry:
+          meta_description: Описания и статьи об %{scientific_name}, классифицированные
+            %{hierarchy_provider} в Энциклопедии жизни
           meta_description_with_chapter_list: Описание и статьи о %{scientific_name}
             классифицированные %{hierarchy_provider} в Энциклопедии Жизни. Включают
             в себя %{chapter_list} for %{scientific_name}.
@@ -2695,6 +2698,7 @@ ru:
   new_collection: Новая коллекция
   news_archive_page: архив новостей
   no_answer: Нет
+  notifications_tab_name: Уведомления
   nucleotide_sequences: Нуклеотидные последовательности
   object_removed: (этот объект был удалён из базы данных)
   object_type_text_option: Текст

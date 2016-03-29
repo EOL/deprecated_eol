@@ -726,7 +726,7 @@ class TaxonConcept < ActiveRecord::Base
   def iucn
     return nil unless EolConfig.data?
     iucn_object = Rails.cache.fetch("pages/#{id}/iucn", expires_in: 2.weeks) do
-      iucn_data = TraitBank.iucn_status(id)
+      iucn_data = TraitBank.iucn_data(id)
       if iucn_data.nil?
         "" # Because you shouldn't cache nils...
       else

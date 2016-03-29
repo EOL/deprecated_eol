@@ -50,6 +50,8 @@ Rails.configuration.inat_collection_url =
 Rails.configuration.solr_relationships_page_size =
   ENV["SOLR_RELATIONSHIPS_PAGE_SIZE"] || 1000
 
+Rails.configuration.google_maps_key = ENV["EOL_GOOGLE_MAP_API_KEY"] || ''
+
 Eol::Application.configure do
   config.after_initialize do
     no_email = "someguy@some.whe.re"
@@ -59,12 +61,6 @@ Eol::Application.configure do
     $ERROR_EMAIL_ADDRESS = ENV["EOL_ERROR_EMAIL_ADDRESS"] || no_email
     $EDUCATION_EMAIL = ENV["EOL_EDUCATION_EMAIL"] || no_email
     $NO_REPLY_EMAIL_ADDRESS = ENV["EOL_NO_REPLY_EMAIL_ADDRESS"] || no_email
-    $GOOGLE_MAP_API_KEY = ENV["EOL_GOOGLE_MAP_API_KEY"] || ''
-    $MAP_DATA_SERVER_ENDPOINT = ENV["EOL_MAP_DATA_SERVER_ENDPOINT"] || ''
-    $MAP_TILE_SERVER_1 = ENV["EOL_MAP_TILE_SERVER_1"] || ''
-    $MAP_TILE_SERVER_2 = ENV["EOL_MAP_TILE_SERVER_2"] || ''
-    $MAP_TILE_SERVER_3 = ENV["EOL_MAP_TILE_SERVER_3"] || ''
-    $MAP_TILE_SERVER_4 = ENV["EOL_MAP_TILE_SERVER_4"] || ''
     $TWITTER_USERNAME = ENV["EOL_TWITTER_USERNAME"] || ''
     $FLICKR_API_KEY = ENV["EOL_FLICKR_API_KEY"] ||
       'cafecafecafecafecafecafecafecafe'

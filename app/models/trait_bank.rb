@@ -325,8 +325,8 @@ class TraitBank
       connection.query(query)
     end
 
-    def iucn_status(page_id)
-      TraitBank.cache_query("trait_bank/iucn_status/#{page_id}") do
+    def iucn_data(page_id)
+      TraitBank.cache_query("trait_bank/iucn_data/#{page_id}") do
         query = "SELECT DISTINCT * WHERE { GRAPH <#{TraitBank.graph}> {"\
         " <http://eol.org/pages/#{page_id}> <#{TraitBank.iucn_uri}> ?trait ."\
         " ?trait <#{TraitBank.value_uri}> ?value . "\

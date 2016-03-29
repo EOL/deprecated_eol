@@ -724,11 +724,19 @@ class TaxonConcept < ActiveRecord::Base
   # TODO - this belongs in, at worst, TaxonPage... at best, TaxonOverview.
   # ...But the API is using this and I don't want to touch the API quite yet.
   def iucn
-    return @iucn if @iucn
     return nil unless EolConfig.data?
-    uri = TraitBank.iucn_status(id)
-    return @iucn = nil if uri.nil?
-    @iucn = DataObject.new(description: IucnStatus.from_uri(uri))
+    iucn_object = Rails.cache.fetch("pages/#{id}/iucn", expires_in: 2.weeks) do
+      iucn_data = TraitBank.iucn_status(id)
+      if iucn_data.nil?
+        "" # Because you shouldn't cache nils...
+      else
+        DataObject.new(
+          data_type: DataType.text,
+          description: IucnStatus.from_uri(iucn_data[:status]),
+          source_url: iucn_data[:source] )
+      end
+    end
+    iucn_object == "" ? nil : iucn_object
   end
 
   # TODO: this belongs in, at worst, TaxonPage... at best, TaxonOverview

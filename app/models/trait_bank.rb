@@ -188,7 +188,7 @@ class TraitBank
       query = "SELECT DISTINCT *
       # pages
       WHERE {
-        GRAPH <http://eol.org/traitbank> {
+        GRAPH <#{TraitBank.graph}> {
           ?page a eol:page
         }
       }
@@ -260,7 +260,7 @@ class TraitBank
     # NOTE: this takes a LONG, long time. Over a minute. You have been warned.
     def predicates_rdf
       query = "PREFIX eol: <http://eol.org/schema/> select "\
-        "DISTINCT(?predicate) { graph <http://eol.org/traitbank> "\
+        "DISTINCT(?predicate) { graph <#{TraitBank.graph}> "\
         "{ ?page ?predicate ?trait . ?trait a eol:trait . ?page a eol:page } }"
       connection.query(query)
     end
@@ -273,7 +273,7 @@ class TraitBank
       query = "SELECT DISTINCT *
       # page_with_traits
       WHERE {
-        GRAPH <http://eol.org/traitbank> {
+        GRAPH <#{TraitBank.graph}> {
           <http://eol.org/pages/#{page}> ?predicate ?trait .
           ?trait a eol:trait .
           ?trait ?trait_predicate ?value .
@@ -296,7 +296,7 @@ class TraitBank
       query = "SELECT DISTINCT *
       # page_with_traits
       WHERE {
-        GRAPH <http://eol.org/traitbank> {
+        GRAPH <#{TraitBank.graph}> {
           <http://eol.org/pages/#{page}> ?predicate ?trait
         }
       }"
@@ -313,7 +313,7 @@ class TraitBank
       query = "SELECT DISTINCT *
       # get_traits
       WHERE {
-        GRAPH <http://eol.org/traitbank> {
+        GRAPH <#{TraitBank.graph}> {
           ?trait ?predicate ?value .
           ?trait a eol:trait .
           OPTIONAL { ?value a eol:trait . ?value ?meta_predicate ?meta_value }
@@ -327,13 +327,16 @@ class TraitBank
 
     def iucn_status(page_id)
       TraitBank.cache_query("trait_bank/iucn_status/#{page_id}") do
-        query = "SELECT DISTINCT * "\
-        "WHERE { GRAPH <http://eol.org/traitbank> {"\
+        query = "SELECT DISTINCT * WHERE { GRAPH <#{TraitBank.graph}> {"\
         " <http://eol.org/pages/#{page_id}> <#{TraitBank.iucn_uri}> ?trait ."\
-        " ?trait <http://rs.tdwg.org/dwc/terms/measurementValue> ?value . "\
+        " ?trait <#{TraitBank.value_uri}> ?value . "\
+        " ?trait <#{TraitBank.source_uri}> ?source "\
         "} } # iucn_status query"
         result = connection.query(query)
-        result.empty? ? nil : result.first[:value].to_s
+        return nil if result.empty?
+        hash = { status: result.first[:value].to_s }
+        source_row = result.find { |r| r[:source] !~ TraitBank::SOURCE_RE }
+        hash[:source] = source_row[:source].to_s if source_row
       end
     end
 

@@ -1,28 +1,9 @@
-function $(element) {return document.getElementById(element);}
-
 var currCenter = "";
-
-/*
-$header['a'] = "catalogNumber";
-$header['b'] = "sciname";
-$header['c'] = "publisher";
-$header['d'] = "publisher_id";
-$header['e'] = "dataset";
-$header['f'] = "dataset_id";
-$header['g'] = "gbifID";
-$header['h'] = "lat";
-$header['i'] = "lon";
-$header['j'] = "recordedBy";
-$header['k'] = "identifiedBy";
-$header['l'] = "pic_url";
-$header['m'] = "eventDate";
-*/
-
 
 function goFullScreen()
 {
     currCenter = EoLMap.map.getCenter();
-    
+
     var elem = document.getElementById("gmap"); //gmap or map-container
     if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement )
     {
@@ -76,7 +57,7 @@ function goFullScreen()
             document.webkitExitFullscreen();
           }
     }
-    
+
     google.maps.event.trigger(EoLMap.map, 'resize');
     EoLMap.map.setCenter(currCenter);
 }
@@ -89,7 +70,7 @@ if (document.addEventListener) {
     document.addEventListener('MSFullscreenChange', exitHandler, false);
 }
 function exitHandler() {
-    
+
     if(is_full_screen)
     {
         if(!document.webkitIsFullScreen) {
@@ -99,7 +80,7 @@ function exitHandler() {
         }
         if(document.mozFullScreen) $('goFullText').innerHTML = "Fullscreen ON";
     }
-    
+
     if(!is_full_screen()) {
         if ($('goPanelText').innerHTML == "Panel ON") {
             $('panel').style.height      = "500px";
@@ -112,7 +93,7 @@ function exitHandler() {
             $('map-canvas').style.width  = "900px"; //1200
         }
     }
-    
+
     google.maps.event.trigger(EoLMap.map, 'resize');
     EoLMap.map.setCenter(currCenter);
 }
@@ -124,7 +105,7 @@ function is_full_screen()
     if      (elem.requestFullscreen) {}
     else if (elem.msRequestFullscreen) {
         if (document.msFullscreenElement == true) return true;
-    } 
+    }
     else if (elem.mozRequestFullScreen) {
         if (document.mozFullScreen == true) return true;
     }
@@ -138,7 +119,7 @@ function panelShowHide()
 {
     if ($('goPanelText').innerHTML == "Panel ON") $('goPanelText').innerHTML = "Panel OFF";
     else                                          $('goPanelText').innerHTML = "Panel ON";
-    
+
     if (is_full_screen())
     {
         $('map-canvas').style.height = "100%";
@@ -217,7 +198,7 @@ EoLMap.next = function()
 
 //start customized controls
 function CenterControl(controlDiv, map, ctrl_type) {
-    
+
     // Set GO BACK button
     var goBackUI = document.createElement('div');
     goBackUI.id = 'goBackUI';                       //.id here is used in HTML <style>

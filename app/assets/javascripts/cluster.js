@@ -35,7 +35,7 @@ EoLMap.init = function() {
   center_latlong = get_center_lat_long()
   var latlng = new google.maps.LatLng(center_latlong.lat(), center_latlong.lng());
   //end centering map
-  
+
   var options = {
     'zoom': 2,
     'center': latlng,
@@ -54,19 +54,19 @@ EoLMap.init = function() {
 
   EoLMap.recs = data.records;
   $('total_markers').innerHTML = data.actual + "<br>Plotted: " + data.count;
-  
-  
+
+
   EoLMap.map.enableKeyDragZoom();  //for key-drag-zoom
-  
+
   //start spiderfy
   var spiderConfig = {keepSpiderfied: true, event: 'mouseover'};
   markerSpiderfier = new OverlappingMarkerSpiderfier(EoLMap.map, spiderConfig);
   //end spiderfy
-  
+
   EoLMap.infoWindow = new google.maps.InfoWindow();
   EoLMap.showMarkers();
   google.maps.event.addListener(EoLMap.map, 'idle', function(){record_history();}); //for back-button    //other option for event 'tilesloaded'
-  
+
 };
 
 EoLMap.showMarkers = function() {
@@ -78,7 +78,7 @@ EoLMap.showMarkers = function() {
 
   var panel = $('markerlist');
   panel.innerHTML = '';
-  
+
   var numMarkers = EoLMap.recs.length;
   // $('total_markers').innerHTML = numMarkers;
 
@@ -107,19 +107,19 @@ EoLMap.showMarkers = function() {
     google.maps.event.addListener(marker, 'click', fn);
     google.maps.event.addDomListener(title, 'click', fn);
     EoLMap.markers.push(marker);
-    
+
     //start spiderfy
     markerSpiderfier.addMarker(marker); // Adds the Marker to OverlappingMarkerSpiderfier
     //end spiderfy
-    
+
   }//end looping of markers
-  
+
   //start spiderfy
   markerSpiderfier.addListener('click', function(marker, e) {EoLMap.infoWindow.open(EoLMap.map, marker);});
   markerx = EoLMap.markers;
   markerSpiderfier.addListener('spiderfy', function(markerx) {EoLMap.infoWindow.close();});
   //end spiderfy
-  
+
   window.setTimeout(EoLMap.time, 0);
 };
 
@@ -131,7 +131,7 @@ EoLMap.markerClickFunction = function(pic, latlng) {
       e.stopPropagation();
       e.preventDefault();
     }
-    
+
     /*
     $header['a'] = "catalogNumber";
     $header['b'] = "sciname";
@@ -147,7 +147,7 @@ EoLMap.markerClickFunction = function(pic, latlng) {
     $header['l'] = "pic_url";
     $header['m'] = "eventDate";
     */
-    
+
     var title = pic.b;                                                                                                              //sciname
     var infoHtml = '<div class="info"><h3>' + title + '</h3>';
     if(pic.l)       {infoHtml += '<div class="info-body"><img src="' + pic.l + '" class="info-img"/></div><br/>';}                  //pic_url
@@ -159,8 +159,8 @@ EoLMap.markerClickFunction = function(pic, latlng) {
     if(pic.k) {infoHtml += 'Identified by: ' + pic.k + '<br/>';}                                                                    //identifiedBy
     if(pic.m) {infoHtml += 'Event date: ' + pic.m + '<br/>';}                                                                       //eventDate
     infoHtml += '</div>';
-    
-    
+
+
     /*
     var title = pic.sciname;
     var infoHtml = '<div class="info"><h3>' + title + '</h3>';
@@ -174,7 +174,7 @@ EoLMap.markerClickFunction = function(pic, latlng) {
     if(pic.eventDate) {infoHtml += 'Date recorded: ' + pic.eventDate + '<br/>';}
     infoHtml += '</div>';
     */
-    
+
     EoLMap.infoWindow.setContent(infoHtml);
     EoLMap.infoWindow.setPosition(latlng);
     EoLMap.infoWindow.open(EoLMap.map);
@@ -196,7 +196,7 @@ EoLMap.time = function() {
     {
         if ($('goRadioText').innerHTML == "Clusters ON") {
             EoLMap.markerClusterer = new MarkerClusterer(EoLMap.map, EoLMap.markers);
-        } 
+        }
         else {
             for (var i = 0, marker; marker = EoLMap.markers[i]; i++) {marker.setMap(EoLMap.map);}
         }

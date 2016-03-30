@@ -7,19 +7,19 @@ function goFullScreen()
     var elem = document.getElementById("gmap"); // gmap or map-container
     if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement )
     {
-        $('goFullText').innerHTML = "Fullscreen ON";
+        $('#goFullText').innerHTML = "Fullscreen ON";
 
-        if ($('goPanelText').innerHTML == "Panel ON") {
-            $('panel').style.height      = "100%";
-            $('panel').style.width       = "17%";
-            $('map-canvas').style.height = "100%";
-            $('map-canvas').style.width  = "83%";
+        if ($('#goPanelText').innerHTML == "Panel ON") {
+            $('#panel').style.height      = "100%";
+            $('#panel').style.width       = "17%";
+            $('#map-canvas').style.height = "100%";
+            $('#map-canvas').style.width  = "83%";
         }
         else {
-            $('panel').style.height      = "0px";
-            $('panel').style.width       = "0px";
-            $('map-canvas').style.height = "100%";
-            $('map-canvas').style.width  = "100%";
+            $('#panel').style.height      = "0px";
+            $('#panel').style.width       = "0px";
+            $('#map-canvas').style.height = "100%";
+            $('#map-canvas').style.width  = "100%";
         }
 
         if      (elem.requestFullscreen)      {elem.requestFullscreen();}
@@ -33,20 +33,20 @@ function goFullScreen()
     }
     else
     {
-          $('goFullText').innerHTML = "Fullscreen OFF";
-          if ($('goPanelText').innerHTML == "Panel ON")
+          $('#goFullText').innerHTML = "Fullscreen OFF";
+          if ($('#goPanelText').innerHTML == "Panel ON")
           {
-              $('panel').style.height      = "500px";
-              $('panel').style.width       = "200px"; //400
-              $('map-canvas').style.height = "500px";
-              $('map-canvas').style.width  = "700px"; //800
+              $('#panel').style.height      = "500px";
+              $('#panel').style.width       = "200px"; //400
+              $('#map-canvas').style.height = "500px";
+              $('#map-canvas').style.width  = "700px"; //800
           }
           else
           {
-              $('panel').style.height      = "0px";
-              $('panel').style.width       = "0px";
-              $('map-canvas').style.height = "500px";
-              $('map-canvas').style.width  = "900px"; //1200
+              $('#panel').style.height      = "0px";
+              $('#panel').style.width       = "0px";
+              $('#map-canvas').style.height = "500px";
+              $('#map-canvas').style.width  = "900px"; //1200
           }
 
           if      (document.exitFullscreen) {document.exitFullscreen();}
@@ -74,23 +74,23 @@ function exitHandler() {
     if(is_full_screen)
     {
         if(!document.webkitIsFullScreen) {
-            $('goFullText').innerHTML = "Fullscreen OFF";
+            $('#goFullText').innerHTML = "Fullscreen OFF";
             var elem = document.getElementById("gmap"); //gmap or map-container
             elem.style.width = "";
         }
-        if(document.mozFullScreen) $('goFullText').innerHTML = "Fullscreen ON";
+        if(document.mozFullScreen) $('#goFullText').innerHTML = "Fullscreen ON";
     }
 
     if(!is_full_screen()) {
-        if ($('goPanelText').innerHTML == "Panel ON") {
-            $('panel').style.height      = "500px";
-            $('panel').style.width       = "200px"; //400
-            $('map-canvas').style.height = "500px";
-            $('map-canvas').style.width  = "700px"; //800
+        if ($('#goPanelText').innerHTML == "Panel ON") {
+            $('#panel').style.height      = "500px";
+            $('#panel').style.width       = "200px"; //400
+            $('#map-canvas').style.height = "500px";
+            $('#map-canvas').style.width  = "700px"; //800
         }
         else {
-            $('map-canvas').style.height = "500px";
-            $('map-canvas').style.width  = "900px"; //1200
+            $('#map-canvas').style.height = "500px";
+            $('#map-canvas').style.width  = "900px"; //1200
         }
     }
 
@@ -117,39 +117,39 @@ function is_full_screen()
 
 function panelShowHide()
 {
-    if ($('goPanelText').innerHTML == "Panel ON") $('goPanelText').innerHTML = "Panel OFF";
-    else                                          $('goPanelText').innerHTML = "Panel ON";
+    if ($('#goPanelText').innerHTML == "Panel ON") $('#goPanelText').innerHTML = "Panel OFF";
+    else                                          $('#goPanelText').innerHTML = "Panel ON";
 
     if (is_full_screen())
     {
-        $('map-canvas').style.height = "100%";
-        if ($('goPanelText').innerHTML == "Panel ON")
+        $('#map-canvas').style.height = "100%";
+        if ($('#goPanelText').innerHTML == "Panel ON")
         {
-            $('panel').style.width       = "17%";
-            $('panel').style.height      = "100%";
-            $('map-canvas').style.width  = "83%";
+            $('#panel').style.width       = "17%";
+            $('#panel').style.height      = "100%";
+            $('#map-canvas').style.width  = "83%";
         }
         else
         {
-            $('panel').style.width       = "0px";
-            $('panel').style.height      = "0px";
-            $('map-canvas').style.width  = "100%";
+            $('#panel').style.width       = "0px";
+            $('#panel').style.height      = "0px";
+            $('#map-canvas').style.width  = "100%";
         }
     }
     else //not full screen
     {
-        $('map-canvas').style.height = "500px";
-        if ($('goPanelText').innerHTML == "Panel ON")
+        $('#map-canvas').style.height = "500px";
+        if ($('#goPanelText').innerHTML == "Panel ON")
         {
-            $('panel').style.width       = "200px"; //400
-            $('panel').style.height      = "500px";
-            $('map-canvas').style.width  = "700px"; //800
+            $('#panel').style.width       = "200px"; //400
+            $('#panel').style.height      = "500px";
+            $('#map-canvas').style.width  = "700px"; //800
         }
         else
         {
-            $('panel').style.width      = "0px";
-            $('panel').style.height     = "0px";
-            $('map-canvas').style.width = "900px"; //1200
+            $('#panel').style.width      = "0px";
+            $('#panel').style.height     = "0px";
+            $('#map-canvas').style.width = "900px"; //1200
         }
     }
 

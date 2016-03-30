@@ -602,8 +602,8 @@ class TaxonConcept < ActiveRecord::Base
     @media_count ||= update_media_count(user: user, entry: selected_hierarchy_entry)
   end
 
-  def json_map?
-    @json_map ||= page_feature.try(:json_map?)
+  def map_json?
+    @map_json ||= page_feature.try(:map_json?)
   end
 
   def maps_count
@@ -613,7 +613,7 @@ class TaxonConcept < ActiveRecord::Base
     # and would allow us to put these two methods where they belong:
     @maps_count ||= Rails.cache.fetch(TaxonConcept.cached_name_for("maps_count_#{self.id}"), expires_in: 1.days) do
       count = get_one_map_from_solr.total_entries
-      count +=1 if self.json_map?
+      count +=1 if self.map_json?
       count
     end
   end

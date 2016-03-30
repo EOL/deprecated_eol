@@ -12,8 +12,8 @@ var initial_map = false;        //for original map
 
 function clustersOnOff()
 {
-    if ($('#goRadioText').innerHTML == "Clusters ON") {$('#goRadioText').innerHTML = "Clusters OFF";}
-    else                                             {$('#goRadioText').innerHTML = "Clusters ON";}
+    if ($('#goRadioText')[0].innerHTML == "Clusters ON") {$('#goRadioText')[0].innerHTML = "Clusters OFF";}
+    else                                             {$('#goRadioText')[0].innerHTML = "Clusters ON";}
     EoLMap.change();
 }
 
@@ -42,7 +42,7 @@ EoLMap.init = function() {
     'mapTypeId': google.maps.MapTypeId.ROADMAP,
     'scaleControl': true};
 
-  EoLMap.map = new google.maps.Map($('#map-canvas'), options);
+  EoLMap.map = new google.maps.Map($('#map-canvas')[0], options);
 
   //start customized controls
   var centerControlDiv = document.createElement('div');
@@ -53,7 +53,7 @@ EoLMap.init = function() {
   //end customized controls
 
   EoLMap.recs = data.records;
-  $('#total_markers').innerHTML = data.actual + "<br>Plotted: " + data.count;
+  $('#total_markers')[0].innerHTML = data.actual + "<br>Plotted: " + data.count;
 
 
   EoLMap.map.enableKeyDragZoom();  //for key-drag-zoom
@@ -76,7 +76,7 @@ EoLMap.showMarkers = function() {
     EoLMap.markerClusterer.clearMarkers();
   }
 
-  var panel = $('#markerlist');
+  var panel = $('#markerlist')[0];
   panel.innerHTML = '';
 
   var numMarkers = EoLMap.recs.length;
@@ -193,7 +193,7 @@ EoLMap.time = function() {
     if (!document.getElementById("goRadioText")) {EoLMap.markerClusterer = new MarkerClusterer(EoLMap.map, EoLMap.markers);}
     else
     {
-        if ($('#goRadioText').innerHTML == "Clusters ON") {
+        if ($('#goRadioText')[0].innerHTML == "Clusters ON") {
             EoLMap.markerClusterer = new MarkerClusterer(EoLMap.map, EoLMap.markers);
         }
         else {

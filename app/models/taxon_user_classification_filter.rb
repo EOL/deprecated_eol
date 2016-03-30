@@ -77,7 +77,7 @@ class TaxonUserClassificationFilter
   # NOTE - this checks if the *filtered* page really has a map (as opposed to
   # whether there is any map at all):
   def map?
-    map_taxon_concept.json_map?
+    map_taxon_concept.map_json?
   end
 
   def map_taxon_concept

@@ -3864,12 +3864,6 @@ en:
   images_in_red_are_not_trusted: "Images in red are not trusted."
   images_in_yellow_are_not_reviewed: "Images in yellow are not reviewed."
   image_objects_page_number: "images page"
-  images_sort_worklist_note:
-    one: "Images are sorted by EOL import date, with newest items shown first. There is %{count} image in this work list."
-    other: "Images are sorted by EOL import date, with newest items shown first. There are %{count} images in this work list."
-  images_with_count:
-    one: "%{count} image"
-    other: "%{count} images"
   import_once: "Import once"
   import_ontology: "Import Ontology"
   inappropriate: "Inappropriate"

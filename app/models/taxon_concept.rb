@@ -603,7 +603,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def json_map?
-    @json_map ||= page_feature.json_map?
+    @json_map ||= page_feature.try(:json_map?)
   end
 
   def maps_count

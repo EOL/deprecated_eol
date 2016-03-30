@@ -4,7 +4,7 @@ function goFullScreen()
 {
     currCenter = EoLMap.map.getCenter();
 
-    var elem = document.getElementById("gmap"); //gmap or map-container
+    var elem = document.getElementById("gmap"); // gmap or map-container
     if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement )
     {
         $('goFullText').innerHTML = "Fullscreen ON";

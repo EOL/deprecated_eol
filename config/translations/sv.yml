@@ -1930,6 +1930,8 @@ sv:
       refresh: uppdatera
       row_count: Antal
       search_again: sök igen
+      file_not_processed: Denna fil har inte behandlats ännu,
+      contact_us: kontakta oss för hjälp
     edit:
       form_tip_account_oauth: E-postadress och föredraget språk är nödvändigt %{required_icon}
         för alla användare.
@@ -3747,6 +3749,7 @@ sv:
   collection_api_sort_field_notes: Om parametern sort_field inkluderas kommer endast
     samlingsobjekt, vars sorteringsfält är identisk med den angivna strängen, att
     returneras.
+  collection_create_failure: Kunde inte skapa samling.
   collection_created_with_count_notice:
     one: Samlingen <em>%{collection_name}</em> skapades med %{count} samlingsobjekt.
     other: Samlingen <em>%{collection_name}</em> skapades med %{count} samlingsobjekt.

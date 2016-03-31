@@ -118,15 +118,15 @@ module EOL
     # the fields. TODO - this would be better with a hash rather than two
     # arrays.
     def self.bulk_insert(klass, fields, rows, options = {})
-      EOL.log_call
       table = klass.table_name
       table += "_tmp" if options[:tmp]
       fields = Array(fields)
-      EOL.log("#{rows.count} rows into #{table}", prefix: '.')
+      EOL.log("eol/db.rb#bulk_insert #{rows.count} rows into #{table}", prefix: '.')
       group_num = 0
       rows = Array(rows)
       rows.in_groups_of(2000, false) do |group|
-        EOL.log("group #{group_num += 1} (#{group.size})") if rows.size > 2000
+        EOL.log("group #{group_num += 1} (#{group.size})") if
+          rows.size > 2000 && group_num % 20 == 0
         klass.connection.execute(
           "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\
           "(`#{fields.join("`, `")}`) "\

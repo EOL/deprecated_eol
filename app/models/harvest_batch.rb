@@ -6,6 +6,7 @@ class HarvestBatch
     EOL.log_call
     @start_time = Time.now
     @resources = Array(resources)
+    @summary = []
     EOL.log("Resources: #{@resources.map(&:id)}", prefix: ".") unless
       @resources.empty?
   end
@@ -41,11 +42,13 @@ class HarvestBatch
       @resources.each do |resource|
         url = "http://eol.org/content_partners/"\
           "#{resource.content_partner_id}/resources/#{resource.id}"
+        @summary << { title: resource.title, url: url }
         EOL.log("POST-HARVEST: #{resource.title}", prefix: "H")
-        EOL.log(url)
         unless resource.ready_to_publish?
-          EOL.log("SKIPPING (status #{resource.resource_status.label}): "\
+          status = resource.resource_status.label
+          EOL.log("SKIPPING (status #{status}): "\
             "#{resource.id} - Must be 'Processed' to publish")
+          @summary.last[:status] = "Skipped (#{status})"
           next
         end
         begin
@@ -57,14 +60,15 @@ class HarvestBatch
           else
             resource.preview
           end
-          EOL.log("POST-HARVEST: #{resource.title} COMPLETE", prefix: "H")
-          EOL.log(url)
+          EOL.log("POST-HARVEST COMPLETE: #{resource.title}", prefix: "H")
           any_worked = true
+          @summary.last[:status] = "completed"
         # TODO: there are myriad specific errors that harvesting can throw; catch
         # them here.
         rescue => e
-          EOL.log("POST-HARVEST FAILED:", prefix: "H")
+          EOL.log("POST-HARVEST FAILED: #{resource.title}", prefix: "H")
           EOL.log_error(e)
+          @summary.last[:status] = "FAILED"
         end
       end
       if any_worked
@@ -79,6 +83,10 @@ class HarvestBatch
         end
       else
         EOL.log("Nothing was published; skipping denormalization", prefix: "!")
+      end
+      EOL.log("PUBLISHING SUMMARY:", prefix: "<")
+      @summary.each do |stat|
+        EOL.log("[#{stat[:title]}](#{stat[:url]}) #{stat[:status]}")
       end
     end
     EOL.log_return

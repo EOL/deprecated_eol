@@ -58,6 +58,7 @@ class Hierarchy
     end
 
     def relate
+      EOL.log_call
       return false unless @hierarchy # TODO: necessary?
       compare_entries
       add_curator_assertions

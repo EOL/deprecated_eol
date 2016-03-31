@@ -127,7 +127,6 @@ class HarvestEvent < ActiveRecord::Base
   end
 
   def merge_matching_concepts
-    EOL.log_call
     relate_new_hierarchy_entries
     hierarchy.merge_matching_concepts
   end

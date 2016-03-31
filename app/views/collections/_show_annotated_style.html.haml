@@ -4,5 +4,5 @@
     - item_type = en_type(item)
     %li{class: item_type, id: "collection_item_#{item.id}"}
       = render 'collection_items/show', { :collection_item => item, :item_type => item_type,
-        :view_style => 'annotated', :item_editable => editable, 
+        :view_style => 'annotated', :item_editable => editable,
         is_hidden: ['image_map', 'map', 'image', 'video', 'sound', 'link', 'article'].include?(item_type) && item.is_hidden?  }

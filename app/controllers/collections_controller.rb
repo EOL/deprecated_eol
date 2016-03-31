@@ -353,7 +353,7 @@ private
     @collection_results = @filter == 'editors' ?  [] :
       @collection.items_from_solr(facet_type: @filter, page: @page, sort_by: @sort_by,
         per_page: @per_page,view_style: @view_as, language_id: current_language.id)
-    @collection_items = @collection_results.map { |i| i['instance'] }
+    @collection_items = @collection_results.map { |i| i['instance'] }.compact
     if params[:commit_select_all]
       @selected_collection_items = @collection_items.map { |ci| ci.id.to_s }
     end

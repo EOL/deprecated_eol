@@ -20,12 +20,11 @@ class Hierarchy
       @solr = SolrCore::HierarchyEntryRelationships.new
     end
 
-    # NOTE: this used to use DB transactions, but A) it was doing it wrong
-    # (nested), and B) it did them "every 50 batches", which is awkward and...
-    # well... useless anyway. I am going to do this WITHOUT A TRANSACTION. Deal
-    # with it.
+    # NOTE: I am going to do this WITHOUT A DB TRANSACTION. Deal with it.
     def merges_for_hierarchy
-      EOL.log("Start merges for hierarchy #{@hierarchy.display_title}")
+      EOL.log("Start merges for hierarchy #{@hierarchy.id} "\
+        "#{@hierarchy.display_title} (#{@hierarchy.hierarchy_entries_count} "\
+        "entries)")
       fix_entry_counts if fix_entry_counts_needed?
       lookup_preview_harvests
       get_confirmed_exclusions
@@ -36,7 +35,9 @@ class Hierarchy
       @hierarchies = Hierarchy.order("hierarchy_entries_count DESC")
       @hierarchies = @hierarchies.browsable unless @all_hierarchies
       @hierarchies.each_with_index do |other_hierarchy, index|
-        EOL.log("Comparing hierarchy #{index + 1} of #{@hierarchies.size}")
+        EOL.log("...to #{other_hierarchy.id} (#{other_hierarchy.label}; "\
+          "#{other_hierarchy.hierarchy_entries_count} entries): "\
+          "#{index + 1} of #{@hierarchies.size}")
         # "Incomplete" hierarchies (e.g.: Flickr) actually can have multiple
         # entries that are actually the "same", so we need to compare those to
         # themselves; otherwise, skip:
@@ -66,10 +67,6 @@ class Hierarchy
 
     def compare_hierarchies(h1, h2)
       (hierarchy1, hierarchy2) = fewer_entries_first(h1, h2)
-      EOL.log("Comparing hierarchy #{hierarchy1.id} (#{hierarchy1.label}; "\
-        "#{hierarchy1.hierarchy_entries_count} entries) to #{hierarchy2.id} "\
-        "(#{hierarchy2.label}; #{hierarchy2.hierarchy_entries_count} "\
-        "entries)")
       # TODO: add (relationship:name OR confidence:[0.25 TO *]) [see below]
       # TODO: Set?
       entries = [] # Just to prevent weird infinite loops below. :\

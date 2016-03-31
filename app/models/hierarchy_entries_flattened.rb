@@ -29,7 +29,6 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   end
 
   def self.pks_in_hierarchy(hierarchy)
-    EOL.log_call
     pks = Set.new
     ids = hierarchy.hierarchy_entries.pluck(:id)
     num = 0

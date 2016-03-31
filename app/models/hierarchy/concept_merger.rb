@@ -83,7 +83,7 @@ class Hierarchy
             raise(e)
           end
         end
-      end while entries.count > 0
+      end while entries.size > 0
       EOL.log("Completed comparing hierarchy #{hierarchy1.id} to "\
         "#{hierarchy2.id}")
     end

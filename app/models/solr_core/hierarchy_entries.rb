@@ -20,6 +20,8 @@ class SolrCore
       entry_ancestors = build_entry_ancestors(ancestry)
       entries = build_entries(ancestry)
       add_ancestry(entries, entry_ancestors)
+      EOL.log("Found #{entries.size} entries")
+      raise "PROBLEM: no entries found!" if entries.size == 0
       reindex_items(entries)
     end
 

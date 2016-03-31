@@ -59,7 +59,6 @@ class Hierarchy
 
     def relate
       EOL.log_call
-      return false unless @hierarchy # TODO: necessary?
       compare_entries
       add_curator_assertions
       delete_existing_relationships
@@ -71,6 +70,7 @@ class Hierarchy
 
     def compare_entries
       EOL.log("Comparing entries for hierarchy ##{@hierarchy.id}")
+      total = 0
       begin
         page ||= 0
         page += 1
@@ -83,7 +83,9 @@ class Hierarchy
             raise e
           end
         end
-      end while entries.count > 0
+        total += entries.size
+      end while entries.size > 0
+      raise "Nothing compared!" if total == 0
     end
 
     def get_page_from_solr(page)
@@ -185,14 +187,9 @@ class Hierarchy
 
     def compare_entries_from_solr(entry, matching_entry)
       matching_entry["rank_id"] ||= 0
-      # TODO: why bother returning a value rather than just storing it?
       score = score_comparison(entry, matching_entry)
       if score
         store_score(entry["id"], matching_entry["id"], score)
-      end
-      # TODO: examine whether this is REALLY necessary.
-      inverted_score = score_comparison(matching_entry, entry)
-      if inverted_score
         store_score(matching_entry["id"], entry["id"], score)
       end
     end
@@ -229,9 +226,10 @@ class Hierarchy
         # Ancestry was reasonable match:
         name_match * ancestry_match
       else
-        0 # TODO: should we even _store_ scores of 0?!
+        0
       end
-      { score: total_score, synonym: synonym }
+      # DO NOT SCORE ZEROES:
+      total_score <= 0 ? nil : { score: total_score, synonym: synonym }
     end
 
     def rank_ids_conflict?(rid1, rid2)

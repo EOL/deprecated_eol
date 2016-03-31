@@ -107,7 +107,7 @@ class Hierarchy
         "(visibility_id_1:#{@visible_id} OR visibility_id_1:#{@preview_id}) "\
         "AND hierarchy_id_2:#{hierarchy2.id} AND "\
         "(visibility_id_2:#{@visible_id} OR visibility_id_2:#{@preview_id}) "\
-        "AND same_concept:false"
+        "AND same_concept:false AND -confidence:0"
       query
     end
 
@@ -124,7 +124,6 @@ class Hierarchy
       # "taxon_concept_id_2"=>71511, "hierarchy_id_2"=>107,
       # "visibility_id_2"=>0, "same_concept"=>true, "relationship"=>"name",
       # "confidence"=>1.0 }
-      # TODO: move this criterion to the solr query (see above):
       return(nil) if relationship["relationship"] == "syn" &&
         relationship["confidence"] < 0.25
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =

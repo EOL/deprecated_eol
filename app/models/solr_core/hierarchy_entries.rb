@@ -16,7 +16,7 @@ class SolrCore
 
     def reindex_hierarchy(hierarchy)
       EOL.log_call
-      ancestry = hierarchy.ancestry_set
+      ancestry = EOL.wait_for_results { hierarchy.ancestry_set }
       entry_ancestors = build_entry_ancestors(ancestry)
       entries = build_entries(ancestry)
       add_ancestry(entries, entry_ancestors)

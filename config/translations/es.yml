@@ -5155,6 +5155,8 @@ es:
   error_log_detail: Detalle del registro de error
   error_log: Registro de errores
   error_logging_active: Registro activo de errores
+  error_violates_tos: Tu contenido parece que viola los términos de servicio de EOL.
+    Si piensas que esto fue un error, contáctanos para obtener ayuda.
   error_revoking_editor_on_watch_collection: No se pueden eliminar a los editores
     de las colecciones de seguimieto
   error_401_page_title: No autorizado
@@ -6414,6 +6416,8 @@ es:
   save: Guardar
   scientific_name: Nombre científico
   sci_name_avg_table_head: Media del nombre científico
+  scrub_user_warning: 'ADVERTENCIA: esto eliminará TODO el contenido agregado por
+    el usuario y NO SE PUEDE DESHACER. ¿Estás SEGURO?'
   search: Buscar
   search_by_term_page_title: 'Buscar: %{term}'
   search_by_provider_method_description_with_link: 'obtener el identificador ID de

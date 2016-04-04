@@ -106,11 +106,13 @@ class HierarchyEntry < ActiveRecord::Base
     from("#{self.table_name} USE INDEX(#{which})")
   end
 
+  # NOTE: this is unused in the code, but is used manually. Please keep.
   def from_solr
     solr = SolrCore::HierarchyEntries.new
     solr.paginate("id:#{id}")["response"]["docs"]
   end
 
+  # NOTE: this is unused in the code, but is used manually. Please keep.
   def relationships_from_solr(limit = 30)
     solr = SolrCore::HierarchyEntryRelationships.new
     solr.paginate("hierarchy_entry_id_1:#{id}",

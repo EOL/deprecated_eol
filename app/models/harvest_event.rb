@@ -32,17 +32,6 @@ class HarvestEvent < ActiveRecord::Base
     published.order("published_at DESC").first
   end
 
-  def from_solr
-    solr = SolrCore::HierarchyEntries.new
-    solr.paginate("id:#{id}")["response"]["docs"]
-  end
-
-  def relationships_from_solr(limit = 30)
-    solr = SolrCore::HierarchyEntryRelationships.new
-    solr.paginate("hierarchy_entry_id_1:#{id}",
-      per_page: limit)["response"]["docs"]
-  end
-
   def content_partner
     resource.content_partner
   end

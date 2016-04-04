@@ -1,5 +1,87 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+# -- https://github.com/EOL/tramea/issues/239 part 2 - pulling apart entries
+
+@user = User.find(20470)
+pairs = IO.readlines("/app/log/pairs.txt")
+
+splits = {}
+@lines = {}
+pairs.each_with_index do |line, index|
+  line.chomp!
+  EOL.log("#{index}") if index % 500 == 0
+  begin
+    next unless line =~ /-(\d+)\D+-(\d+)/
+    id1 = $1
+    id2 = $2
+    entry1 = HierarchyEntry.includes(name: { canonical_form: :name }).find(id1)
+    entry2 = HierarchyEntry.includes(name: { canonical_form: :name }).find(id2)
+    concept = entry1.taxon_concept
+    if entry1.taxon_concept_id != entry2.taxon_concept_id
+      EOL.log("NOT THE SAME CONCEPT: #{line}")
+      next
+    end
+    splits[concept] ||= Set.new
+    splits[concept] += [entry1, entry2]
+    @lines[concept] ||= Set.new
+    @lines[concept] << line
+  rescue => e
+    EOL.log("OOPS: #{line}")
+    EOL.log_error(e) # Usually UTF-8 PROBLEMS
+  end
+end
+
+def problem(concept)
+  EOL.log("Affected lines:")
+  @lines[concept].each do |line|
+    EOL.log("  #{line}")
+  end
+end
+
+splits.each do |concept, entries|
+  sorted = entries.sort_by { |e| e.name.try(:canonical_form).try(:string) }
+  if sorted.include?(nil)
+    EOL.log("ERROR: Missing a name on concept #{concept.id}.")
+    problem(concept)
+    next
+  end
+  name1 = sorted[0].name.try(:canonical_form).try(:string)
+  # name2 = sorted[1].name.try(:canonical_form).try(:string)
+  # if name1.length == name2.length
+  #   names = entries.map { |e| e.name.try(:canonical_form).try(:string) }
+  #   EOL.log("ERROR: Same length: {#{name1}} and {#{name2}}")
+  #   problem(concept)
+  #   next
+  # end
+  exemplar_id = sorted[0].id
+  index = sorted.index { |e| e.name.try(:canonical_form).try(:string).length > name1.length }
+  if index.nil?
+    EOL.log("ERROR: Couldn't find a longer name")
+    problem(concept)
+    next
+  end
+  other_ids = sorted[index..-1].map(&:id)
+  begin
+    concept.split_classifications(other_ids, user: @user, exemplar_id: exemplar_id)
+  rescue EOL::Exceptions::ClassificationsLocked => e
+    EOL.log("ERROR: LOCKED CLASSIFICATION (TC ##{concept.id}):")
+    problem(concept)
+    next
+  rescue EOL::Exceptions::TooManyDescendantsToCurate => e
+    EOL.log("ERROR: TOO BIG: #{line}")
+    problem(concept)
+    next
+  rescue => e
+    EOL.log("ERROR: MISC... #{line}")
+    EOL.log_error(e)
+    problem(concept)
+    next
+  end
+  sleep(3)
+end
+
+# -- https://github.com/EOL/tramea/issues/239
+
 @solr = SolrCore::HierarchyEntryRelationships.new
 
 def get_page(query, page)
@@ -27,8 +109,8 @@ ids.each do |id|
       entry1 = entries.find { |e| e.id == id1 }
       entry2 = entries.find { |e| e.id == id2 }
       if entry1 && entry2 && entry1.taxon_concept_id == entry2.taxon_concept_id
-        name1 = entry1.name.try(:canonical_form).try(:name).try(:string) || "NONAME!"
-        name2 = entry2.name.try(:canonical_form).try(:name).try(:string) || "NONAME!"
+        name1 = entry1.name.try(:canonical_form).try(:string) || "No name! (really)"
+        name2 = entry2.name.try(:canonical_form).try(:string) || "No name! (really)"
         these_merges << "[#{entry1.taxon_concept_id}](http://eol.org/pages/#{entry1.taxon_concept_id}/overview) -> #{name1} (#{id1}), #{name2} (#{id2})"
       end
     end

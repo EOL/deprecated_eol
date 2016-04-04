@@ -4,18 +4,21 @@ class SolrCore
 
     attr_reader :ancestors
 
-    def self.reindex_hierarchy(hierarchy)
+    def self.reindex_hierarchy(hierarchy, options = {})
       solr = self.new
-      solr.reindex_hierarchy(hierarchy)
+      solr.reindex_hierarchy(hierarchy, options)
     end
 
     def initialize
       connect(CORE_NAME)
       @ancestors = {}
+      @ids = nil
+      @all_ids = Set.new
     end
 
-    def reindex_hierarchy(hierarchy)
+    def reindex_hierarchy(hierarchy, options = {})
       EOL.log_call
+      @ids = Array(options[:ids])
       ancestry = EOL.wait_for_results { hierarchy.ancestry_set }
       entry_ancestors = build_entry_ancestors(ancestry)
       entries = build_entries(ancestry)
@@ -27,18 +30,20 @@ class SolrCore
 
     def build_entry_ancestors(ancestry)
       entry_ancestors = {}
+      EOL.log("Given #{@ids.size} IDs to index.") if @ids
       ancestry.each do |pair|
-        (entry, ancestor) = pair.split(",")
-        entry_ancestors[entry.to_i] ||= []
-        entry_ancestors[entry.to_i] << ancestor.to_i
+        (entry, ancestor) = pair.split(",").map(&:to_i)
+        next unless @ids.include?(entry)
+        entry_ancestors[entry] ||= []
+        entry_ancestors[entry] << ancestor
+        @all_ids += [entry, ancestor]
       end
       entry_ancestors
     end
 
     def build_entries(ancestry)
       entries = []
-      all_ids = Set.new(ancestry.flat_map { |s| s.split(",") })
-      all_ids.to_a.in_groups_of(10_000, false) do |ids|
+      @all_ids.to_a.in_groups_of(10_000, false) do |ids|
         entries += HierarchyEntry.where(id: ids).
           includes(synonyms: { name: :canonical_form}, name: :canonical_form)
       end

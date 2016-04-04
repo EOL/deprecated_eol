@@ -10,6 +10,7 @@ class Hierarchy
       @hierarchy = hierarchy
       @compared = []
       @all_hierarchies = options[:all_hierarchies]
+      @ids = Array(options[:ids])
       @confirmed_exclusions = {}
       @entries_matched = []
       @supercedures = {} # The ones we do
@@ -124,6 +125,11 @@ class Hierarchy
       # "taxon_concept_id_2"=>71511, "hierarchy_id_2"=>107,
       # "visibility_id_2"=>0, "same_concept"=>true, "relationship"=>"name",
       # "confidence"=>1.0 }
+      unless @ids.empty?
+        return(nil) unless
+          @ids.include?(relationship["hierarchy_entry_id_1"]) ||
+          @ids.include?(relationship["hierarchy_entry_id_2"])
+      end
       return(nil) if relationship["relationship"] == "syn" &&
         relationship["confidence"] < 0.25
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =

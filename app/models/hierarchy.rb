@@ -216,9 +216,13 @@ class Hierarchy < ActiveRecord::Base
     EOL.log("done", prefix: ".")
   end
 
-  # This  query takes 10min in production for 533_548 entries:
+  # This  query takes 10min in production for 533_548 entries.
   def ancestry_set
     @ancestry_set ||= HierarchyEntriesFlattened.pks_in_hierarchy(self)
+  end
+
+  def clear_ancestry_set
+    @ancestry_set = nil
   end
 
 private

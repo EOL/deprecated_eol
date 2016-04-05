@@ -18,8 +18,10 @@ class Hierarchy
       Rank.class_rank.try(:id),
       Rank.order.try(:id)
     ].compact
-    RANK_WEIGHTS = { "family" => 100, "order" => 80, "class" => 60,
-      "phylum" => 40, "kingdom" => 20 }
+    # NOTE: Genus is low because, presumedly, a binomial will always match at
+    # the Genus if it's matched the name. :\
+    RANK_WEIGHTS = { "genus" => 50, "family" => 90, "order" => 80,
+      "class" => 60, "phylum" => 40, "kingdom" => 20 }
 
     # I am not going to freak out about the fact that TODO: this needs to be in
     # the database. I've lost my energy to freak out about such things. :|
@@ -58,7 +60,7 @@ class Hierarchy
     end
 
     def relate
-      EOL.log_call
+      EOL.log("RELATE: #{@hierarchy.label} (#{@hierarchy.id})", prefix: "#")
       compare_entries
       add_curator_assertions
       delete_existing_relationships
@@ -113,7 +115,6 @@ class Hierarchy
       matches = []
       entry["rank_id"] ||= 0
       if entry["name"]
-        # TODO: do we need to do any unencoding here, since it came from Solr?
         search_name = metaquote(entry["name"])
         # PHP TODO: "what about subgenera?"
         search_canonical = ""
@@ -278,37 +279,56 @@ class Hierarchy
     def compare_ancestries(from_entry, to_entry)
       return nil if empty_ancestry?(from_entry)
       return nil if empty_ancestry?(to_entry)
-      score = best_matching_weight(from_entry, to_entry)
+      weights = ancestor_weights(from_entry, to_entry)
+      best_matching_weight = weights.values.sort.last || 0
       # TODO: logging. ...We need some kind of record that explains why matches
       # were made or refused for each pair. :|
       # Kingdoms only match if...
-      if score == RANK_WEIGHTS["kingdom"]
-        # We _only_ had kingdoms to work with...
-        return score / 100 unless
-          has_any_non_kingdom?(from_entry) && has_any_non_kingdom?(to_entry)
-        # the rank of this entry is a kingdom, phylm, class, or order:
-        # TODO: delete this unless SPG can explain it...
-        kingdom_match_valid_1 =
-          RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY.include?(from_entry["rank_id"])
-        kingdom_match_valid_2 =
-          RANKS_ALLOWED_TO_MATCH_AT_KINGDOM_ONLY.include?(to_entry["rank_id"])
-        return 0 unless allowed_to_match_at_kingdom_only?([from_entry, to_entry])
-        return 0 if from_entry["rank_id"].blank? || to_entry["rank_id"].blank?
-        # TODO: Wait, what? They aren't allowed to match if they are the same
-        # rank (and they only match at kingom)? That does not make sense to me. :\
-        # But it's what PHP did!
-        return 0 if from_entry["rank_id"] == to_entry["rank_id"]
+      if weights.has_key?("kingdom")
+        # Never ever match bad kingdoms:
+        return 0 if weights["kingdom"] < 0
+        if weights.size > 1
+          # We matched on Kingdom AND something else, which is great!
+          return 1
+        else
+          # We *only* had kingdoms to work with... If both entries have other
+          # ranks (but they didn't match), return the score based on kingdom
+          # only:
+          return weights["kingdom"].to_f / 100 unless
+            has_any_non_kingdom?(from_entry) && has_any_non_kingdom?(to_entry)
+          # If we're here, then one of the entries did NOT have other ranks at
+          # all:
+          return 0 unless allowed_to_match_at_kingdom_only?([from_entry, to_entry])
+          # If we haven't returned, then we're looking at a pair of higher-level
+          # entries that matched only at kingdom (which is fine)
+        end
       end
-      return score.to_f / 100
+      # score based on the lowest matching rank (which is the highest score):
+      return best_matching_weight.to_f / 100
+    end
+
+    def ancestor_weights(from_entry, to_entry)
+      weights = {}
+      RANK_WEIGHTS.sort_by { |k,v| - v }.each do |rank, weight|
+        if from_entry[rank] && to_entry[rank]
+          if from_entry[rank] == to_entry[rank] # MATCH!
+            weights[rank] = weight
+          else # CONTRADICTION!
+            if rank == "kingdom"
+              # If either of them is Animalia, absolutely DO NOT MATCH!
+              if from_entry[rank].downcase == "animalia" ||
+                 to_entry[rank].downcase == "animalia"
+                weights[rank] = -100
+              end
+            end
+          end
+        end
+      end
+      return weights
     end
 
     def best_matching_weight(from_entry, to_entry)
-      RANK_WEIGHTS.sort_by { |k,v| - v }.each do |rank, weight|
-        if from_entry[rank] && to_entry[rank] && from_entry[rank] == to_entry[rank]
-          return weight
-        end
-      end
-      return 0
+      ancestor_weights.values.sort.last || 0
     end
 
     def empty_ancestry?(entry)
@@ -321,6 +341,8 @@ class Hierarchy
       entry.values_at(*ranks).any? { |v| ! v.blank? }
     end
 
+    # This is kinda dumb; returns true basically only if both entries have known
+    # ranks and those ranks are higher than or equal to Order.
     def allowed_to_match_at_kingdom_only?(entries)
       Array(entries).each do |entry|
         return false unless
@@ -374,12 +396,11 @@ class Hierarchy
 
     def insert_relationships
       EOL.log_call
-      relationships = @scores.keys.map do |key|
-        "#{key},#{@scores[key]}"
-      end
+      relationships = @scores.keys.map { |key| "#{key},#{@scores[key]}" }
       EOL::Db.bulk_insert(HierarchyEntryRelationship,
         [:hierarchy_entry_id_1, :hierarchy_entry_id_2, :relationship, :score],
-        relationships.to_a)
+        relationships)
+      relationships.size
     end
 
     # NOTE: PHP did this before swapping the tmp tables (because it never did,

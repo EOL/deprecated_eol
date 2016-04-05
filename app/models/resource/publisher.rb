@@ -37,8 +37,8 @@ class Resource
     # capture that in another way. NOTE: This _requires_ that the flattened
     # hierarchy have been rebuilt when this is called.
     def publish(options = {})
-      was_published = @harvest_event.complete?
-      was_published = false if
+      was_previewed = @harvest_event.complete?
+      was_previewed = false if
       # These are all just aliases for the same thing, so I don't have to look
       # it up every time I use it (BTW, this is only ever used manually at the
       # moment):

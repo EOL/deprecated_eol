@@ -876,8 +876,7 @@ class TaxonConcept < ActiveRecord::Base
   end
 
   def split_classifications(hierarchy_entry_ids, options = {})
-    raise EOL::Exceptions::ClassificationsLocked if
-      classifications_locked?
+    raise EOL::Exceptions::ClassificationsLocked if classifications_locked?
     disallow_large_curations
     lock_classifications
     ClassificationCuration.create(user: options[:user],

@@ -12,7 +12,7 @@ class SolrCore
     def initialize
       connect(CORE_NAME)
       @ancestors = {}
-      @ids = nil
+      @ids = []
       @all_ids = Set.new
     end
 
@@ -33,7 +33,7 @@ class SolrCore
       EOL.log("Given #{@ids.size} IDs to index.") if @ids
       ancestry.each do |pair|
         (entry, ancestor) = pair.split(",").map(&:to_i)
-        next unless @ids.include?(entry)
+        next unless @ids.empty? || @ids.include?(entry)
         entry_ancestors[entry] ||= []
         entry_ancestors[entry] << ancestor
         @all_ids += [entry, ancestor]

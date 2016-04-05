@@ -85,15 +85,19 @@ class Hierarchy
     end
 
     def update_tables
+      # Ensure we're looking at the latest version:
+      @hierarchy.clear_ancestry_set
       currently = @hierarchy.ancestry_set
-      EOL.log("Currently: #{currently.count}", prefix: ".")
-      EOL.log("Desired: #{@flat_entries.count}", prefix: ".")
+      EOL.log("Currently: #{currently.size}", prefix: ".")
+      EOL.log("Desired: #{@flat_entries.size}", prefix: ".")
       old = currently - @flat_entries
-      EOL.log("Old: #{old.count}", prefix: ".")
+      EOL.log("Old: #{old.size}", prefix: ".")
       create = @flat_entries - currently
-      EOL.log("New: #{create.count}", prefix: ".")
+      EOL.log("New: #{create.size}", prefix: ".")
 
       HierarchyEntriesFlattened.delete_set(old)
+      # Now ensure that no later process gets an empty set!
+      @hierarchy.clear_ancestry_set
       EOL::Db.bulk_insert(HierarchyEntriesFlattened,
         [ "hierarchy_entry_id", "ancestor_id" ], create)
 

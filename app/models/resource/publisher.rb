@@ -37,12 +37,7 @@ class Resource
     # capture that in another way. NOTE: This _requires_ that the flattened
     # hierarchy have been rebuilt when this is called.
     def publish(options = {})
-      was_previewed = @harvest_event.complete?
-      was_previewed = false if
-      # These are all just aliases for the same thing, so I don't have to look
-      # it up every time I use it (BTW, this is only ever used manually at the
-      # moment):
-        options[:reindex] || options[:merge] || options[:force]
+      was_previewed = options[:previewed]
       EOL.log("PUBLISH: #{resource.title}")
       raise "Harvest event already published!" if @harvest_event.published?
       raise "Harvest event not complete!" unless @harvest_event.complete?

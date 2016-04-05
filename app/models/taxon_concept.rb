@@ -207,7 +207,6 @@ class TaxonConcept < ActiveRecord::Base
     TaxonConcept::Merger.ids(id1, id2)
   end
 
-  # TODO: Move to EOL::Db.
   def preferred_common_name_in_language(language = Language.default)
     if common_names_in_language && common_names_in_language.has_key?(language.id)
       # sometimes we preload preferred names in all languages for lots of taxa

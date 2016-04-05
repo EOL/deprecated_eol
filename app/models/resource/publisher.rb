@@ -2,9 +2,9 @@ class Resource
   class Publisher
     attr_reader :resource, :harvest_event
 
-    def self.publish(resource)
+    def self.publish(resource, options = {})
       publisher = self.new(resource)
-      publisher.publish
+      publisher.publish(options)
     end
 
     def self.preview(resource)
@@ -15,6 +15,7 @@ class Resource
     def initialize(resource)
       @resource = resource
       @harvest_event = resource.harvest_events.last
+      raise "No hierarchy!" unless @resource.hierarchy
     end
 
     # A "light" version of publishing for resources that we keep in "preview
@@ -22,20 +23,10 @@ class Resource
     # _requires_ that the flattened hierarchy have been rebuilt when this is
     # called.
     def preview
-      SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
-      @harvest_event.merge_matching_concepts
-      @harvest_event.sync_collection
+      reindex_and_merge
+      sync_collection
       denormalize
       true
-    end
-
-    def denormalize
-      @resource.hierarchy.insert_data_objects_taxon_concepts
-      # TODO: this next command isn't technically enough. (it will work, but it
-      # will leave zombie entries). We need to add a step that says "delete all
-      # entries in dotoc where ids in (list of ids that were in previous event
-      # but not this one)"
-      @harvest_event.insert_dotocs
     end
 
     # NOTE: yes, PHP used multiple transactions. I suppose it was to avoid
@@ -45,13 +36,17 @@ class Resource
     # curation of something that gets missed here, but we might be able to
     # capture that in another way. NOTE: This _requires_ that the flattened
     # hierarchy have been rebuilt when this is called.
-    def publish
+    def publish(options = {})
+      was_published = @harvest_event.complete?
+      was_published = false if
+      # These are all just aliases for the same thing, so I don't have to look
+      # it up every time I use it (BTW, this is only ever used manually at the
+      # moment):
+        options[:reindex] || options[:merge] || options[:force]
       EOL.log("PUBLISH: #{resource.title}")
-      raise "No harvest event!" unless @harvest_event
       raise "Harvest event already published!" if @harvest_event.published?
       raise "Harvest event not complete!" unless @harvest_event.complete?
       raise "Publish flag not set!" unless @harvest_event.publish?
-      raise "No hierarchy!" unless @resource.hierarchy
       ActiveRecord::Base.connection.transaction do
         @harvest_event.show_preview_objects
         @harvest_event.preserve_invisible
@@ -69,19 +64,12 @@ class Resource
         TaxonConcept.unpublish_and_hide_by_entry_ids(
           new_entry_ids - old_entry_ids)
       end
-      SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
-      # NOTE: This is a doozy of a method!
-      @harvest_event.merge_matching_concepts
-      # TODO: this really only needs to run if there are any traits in the
-      # resource, so we should add a check for that (actually, I think we have
-      # one...)
+      reindex_and_merge unless was_previewed
       EOL::Sparql::EntryToTaxonMap.create_graph(@resource)
       ActiveRecord::Base.connection.transaction do
         @resource.rebuild_taxon_concept_names
       end
-      ActiveRecord::Base.connection.transaction do
-        @harvest_event.sync_collection
-      end
+      sync_collection unless was_previewed
       @harvest_event.index_for_site_search
       @harvest_event.index_new_data_objects
       @resource.create_mappings
@@ -93,6 +81,27 @@ class Resource
       denormalize
       EOL.log_return
       true
+    end
+
+    def denormalize
+      @resource.hierarchy.insert_data_objects_taxon_concepts
+      # TODO: this next command isn't technically enough. (it will work, but it
+      # will leave zombie entries). We need to add a step that says "delete all
+      # entries in dotoc where ids in (list of ids that were in previous event
+      # but not this one)"
+      @harvest_event.insert_dotocs
+    end
+
+    def reindex_and_merge
+      SolrCore::HierarchyEntries.reindex_hierarchy(@resource.hierarchy)
+      # NOTE: This is a doozy of a method! It's the largest piece of publishing.
+      @harvest_event.merge_matching_concepts
+    end
+
+    def sync_collection
+      ActiveRecord::Base.connection.transaction do
+        @harvest_event.sync_collection
+      end
     end
   end
 end

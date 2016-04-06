@@ -59,9 +59,12 @@ class TaxonConcept
               taxon_concepts(from_concepts.first, to_concept,
                 skip_reindex: true)
               reindex_ids << to_id
+              EOL.log("MERGE: #{from_concepts.first.title} "\
+                "(#{from_concepts.first.id} => #{to_concept.title} "\
+                "(#{to_concept.id})")
             rescue => e
-              EOL.log("SKIP MERGE #{from_ids.first} => #{to_id}: #{e.message}",
-                prefix: "!")
+              EOL.log("SKIP MERGE #{from_ids.first} => #{to_concept.title} "\
+                "(#{to_id}): #{e.message}", prefix: "!")
             end
           else
             # Note the #map because we may have lost one or two, so NOT from_ids:

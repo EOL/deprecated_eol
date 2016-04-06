@@ -49,7 +49,7 @@ class Hierarchy
       end
       EOL.log("Preparing to merge #{@merges.keys.size} taxa into "\
         "#{@merges.values.sort.uniq.size} targets.")
-      TaxonConcept::Merger.in_bulk(@merges)
+      merge_taxa
       CollectionItem.remove_superceded_taxa(@merges)
       EOL.log("Completed merges for hierarchy #{@hierarchy.display_title}")
     end
@@ -166,6 +166,19 @@ class Hierarchy
       @merges[old_id] = new_id
       @superceded[old_id] = new_id
       EOL.log("MATCH: Concept #{old_id} => #{new_id}")
+    end
+
+    def merge_taxa
+      begin
+        TaxonConcept::Merger.in_bulk(@merges)
+      rescue => e
+        merge_map = []
+        @merges.each do |from_id, to_id|
+          merge_map << "#{from_id} => #{to_id}"
+        end
+        EOL.log("ERROR: Merging failed. Merge map: #{merge_map.join(" ; ")}")
+        raise(e)
+      end
     end
 
     # TODO: This really hints and an object, doesn't it? :S See

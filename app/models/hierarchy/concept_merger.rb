@@ -47,6 +47,9 @@ class Hierarchy
         next if already_compared?(@hierarchy.id, other_hierarchy.id)
         compare_hierarchies(@hierarchy, other_hierarchy)
       end
+      EOL.log("Preparing to merge #{@merges.keys.size} taxa into "\
+        "#{@merges.values.sort.uniq.size} targets.")
+      TaxonConcept::Merger.in_bulk(@merges)
       CollectionItem.remove_superceded_taxa(@merges)
       EOL.log("Completed merges for hierarchy #{@hierarchy.display_title}")
     end

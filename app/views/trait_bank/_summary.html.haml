@@ -38,7 +38,7 @@
                 - text_for_rows = data.traits.map do |trait|
                   - format_value(trait).html_safe
                 - if data.more?
+                  - toc_id = uri.toc_items.try(:first).try(:id)
                   - text_for_rows << link_to(I18n.t(:show_more_row_data_link),
-                    taxon_data_path(@overview, toc_id: uri.toc_items.first.id,
-                    anchor: uri))
+                    taxon_data_path(@overview, toc_id: toc_id, anchor: uri))
                 = raw text_for_rows.join("<br/>")

@@ -44,6 +44,10 @@ class Administrator::CommentController  < AdminController
 
     @comment = Comment.find(params[:id])
     @comment.update_attributes(deleted: 1)
+    # I hate that we "know" this key here, but cleaning this up would be
+    # time-consuming and I'm in a rush. :S
+    expire_fragment(action: 'index', controller: "content",
+      action_suffix: "activity_#{Language.default}_data_#{EolConfig.data?}")
 
     redirect_to referred_url, status: :moved_permanently
 

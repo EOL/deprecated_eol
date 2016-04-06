@@ -38,6 +38,10 @@ class TraitBank
         end
       end
       EOL.log_return
+      # Clear caches!
+      @taxa.each do |id|
+        Rails.cache.delete(PageTraits.cache_key(id))
+      end
       @taxa
     end
 

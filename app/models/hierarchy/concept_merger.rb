@@ -13,7 +13,7 @@ class Hierarchy
       @ids = Array(options[:ids])
       @confirmed_exclusions = {}
       @entries_matched = []
-      @supercedures = {} # The ones we do
+      @merges = {} # The merges we do
       @superceded = {} # ALL superceded ids we encounter, ever (saves queries)
       @visible_id = Visibility.get_visible.id
       @preview_id = Visibility.get_preview.id
@@ -47,7 +47,7 @@ class Hierarchy
         next if already_compared?(@hierarchy.id, other_hierarchy.id)
         compare_hierarchies(@hierarchy, other_hierarchy)
       end
-      CollectionItem.remove_superceded_taxa(@supercedures)
+      CollectionItem.remove_superceded_taxa(@merges)
       EOL.log("Completed merges for hierarchy #{@hierarchy.display_title}")
     end
 
@@ -154,27 +154,15 @@ class Hierarchy
         "#{hierarchy2.id}->#{id2}->#{tc_id2}"
       return(nil) if concepts_of_one_already_in_other?(relationship)
       if curators_denied_relationship?(relationship)
-        # EOL.log("SKIP (rejected by curator): #{working_on}", prefix: ".")
         return(nil)
       end
       if affected = additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
-        # EOL.log("SKIP (not allowed by complete hierarchy): #{working_on}",
-        #   prefix: ".")
         return(nil)
       end
-      # EOL.log("MATCH: Concept #{tc_id1} = #{tc_id2}")
-      begin
-        tc = TaxonConcept.merge_ids(tc_id1, tc_id2)
-        unless tc.supercedure_id == 0
-          @supercedures[tc.id] = tc.supercedure_id # The ones we did
-          @superceded[tc.id] = tc.supercedure_id # All that we know about
-        end
-      rescue EOL::Exceptions::MergeToUnpublishedTaxon => e
-        EOL.log("SKIP (target taxon is unpublished): #{working_on}",
-          prefix: ".")
-        # TODO: we should *probably* delete the unpublished taxon from Solr,
-        # here. ...But that's a lot of work and I'm lazy.
-      end
+      (new_id, old_id) = [tc_id1, tc_id2].sort
+      @merges[old_id] = new_id
+      @superceded[old_id] = new_id
+      EOL.log("MATCH: Concept #{old_id} => #{new_id}")
     end
 
     # TODO: This really hints and an object, doesn't it? :S See

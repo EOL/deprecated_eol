@@ -179,5 +179,15 @@ module EOL
       )
       klass.where(["#{field} = ?", id2]).delete_all
     end
+
+    def self.update_ignore_ids_by_field(klass, id1, ids, field)
+      raise "Danger: field '#{field}' not allowed on #{klass}" unless
+        klass.columns.map(&:name).include?(field.to_s)
+      klass.connection.execute(
+        klass.send(:sanitize_sql, ["UPDATE IGNORE #{klass.table_name} "\
+          "SET #{field} = ? WHERE #{field} IN (?)", id1, ids])
+      )
+      klass.where(["#{field} = IN (?)", ids]).delete_all
+    end
   end
 end

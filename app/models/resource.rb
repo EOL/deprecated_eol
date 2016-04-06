@@ -170,7 +170,7 @@ class Resource < ActiveRecord::Base
 
   def rebuild_taxon_concept_names
     TaxonConceptName.rebuild_by_taxon_concept_id(
-      latest_harvest_event.taxon_concept_ids)
+      latest_harvest_event_uncached.taxon_concept_ids)
   end
 
   def ready_to_publish?

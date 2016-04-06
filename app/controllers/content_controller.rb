@@ -299,14 +299,16 @@ protected
 private
 
   def periodically_recalculate_homepage_parts
-    expires_in = 10.minutes
     key = "homepage/timer"
-    last_clear = Rails.cache.fetch(key) { Time.now }
+    last_clear = Rails.cache.read(key) || 1.day.ago
     if Time.now - last_clear > 10.minutes
-      expire_fragment(action: 'index', action_suffix: "activity_#{current_language.iso_639_1}_data-#{EolConfig.data?}")
-      expire_fragment(action: 'index', action_suffix: "march_of_life_#{current_language.iso_639_1}")
-      expire_fragment(action: 'index', action_suffix: "news_#{current_language.iso_639_1}")
-      Rails.cache.delete(key)
+      expire_fragment(action: 'index', controller: "content",
+        action_suffix: "activity_#{current_language}_data_#{EolConfig.data?}")
+      expire_fragment(action: 'index', controller: "content",
+        action_suffix: "march_of_life_#{current_language}")
+      expire_fragment(action: 'index', controller: "content",
+        action_suffix: "news_#{current_language}")
+      Rails.cache.write(key, Time.now)
     end
   end
 

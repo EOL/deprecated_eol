@@ -23,6 +23,10 @@ class HierarchyEntry < ActiveRecord::Base
   has_many :curator_activity_logs
   has_many :hierarchy_entry_moves
   has_many :curated_data_objects_hierarchy_entries
+  has_many :relationships_from, class_name: "HierarchyEntryRelationship",
+    inverse_of: :from_hierarchy_entry, foreign_key: "hierarchy_entry_id_1"
+  has_many :relationships_to, class_name: "HierarchyEntryRelationship",
+    inverse_of: :to_hierarchy_entry, foreign_key: "hierarchy_entry_id_2"
 
   has_and_belongs_to_many :data_objects
   has_and_belongs_to_many :refs

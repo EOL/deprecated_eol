@@ -33,7 +33,7 @@ class TaxonConcept
               "UNPUBLISHED taxon #{concept.id}")
           end
         end
-        reindex_ids = []
+        reindex_concepts = []
         remaining = merges.keys.size + 1
         merges.each do |to_id, from_ids|
           remaining -= 1
@@ -60,7 +60,7 @@ class TaxonConcept
             begin
               taxon_concepts(to_concept, from_concepts.first,
                 skip_reindex: true)
-              reindex_ids << to_id
+              reindex_concepts << to_concept
               EOL.log("MERGE: #{from_concepts.first.title} "\
                 "(#{from_concepts.first.id}) => #{to_concept.title} "\
                 "(#{to_concept.id}) - #{remaining} remaining")
@@ -71,14 +71,14 @@ class TaxonConcept
           else
             # Note the #map because we may have lost one or two, so NOT from_ids:
             multiple_concepts(to_concept, from_concepts.map(&:id))
-            reindex_ids << to_id
+            reindex_concepts << to_id
             EOL.log("MERGE: #{from_concepts.map { |tc| "#{tc.title} "\
               "(#{tc.id})" }.join(", ")} => #{to_concept.title} "\
               "(#{to_concept.id}) - #{remaining} remaining")
           end
         end
         # Second pass; now we're done mucking with Solr, so let PHP have at it:
-        reindex_ids.each do |concept|
+        reindex_concepts.each do |concept|
           TaxonConceptReindexing.reindex(concept, allow_large_tree: true)
         end
       end

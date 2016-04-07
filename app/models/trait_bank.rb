@@ -460,14 +460,14 @@ class TraitBank
           "?meta_trait dwc:measurementType ?predicate . "\
           "?meta_trait dwc:measurementValue ?value . "\
           "OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .",
+        # I'm killing this, as it seems to make everything dreadfully slow. My
+        # alternative is not technically accurate, but it'll do in a pinch.
+        # "FILTER NOT EXISTS { ?meta_trait eol:measurementOfTaxon eolterms:true } . "\
+        # ...replaced with "?meta_trait eol:measurementOfTaxon eolterms:false . "
         "?trait dwc:occurrenceID ?occurrence . "\
           "?meta_trait dwc:occurrenceID ?occurrence . "\
           "?meta_trait dwc:measurementType ?predicate . "\
           "?meta_trait dwc:measurementValue ?value . "\
-          # I'm killing this, as it seems to make everything dreadfully slow. My
-          # alternative is not technically accurate, but it'll do in a pinch.
-          # "FILTER NOT EXISTS { ?meta_trait eol:measurementOfTaxon eolterms:true } . "\
-          # Here's my alternative:
           "?meta_trait eol:measurementOfTaxon eolterms:false . "\
           "OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .",
         "?meta_trait eol:associationID ?trait . "\

@@ -5295,14 +5295,6 @@ mk:
   images_in_red_are_not_trusted: Сликите со црвено се недоверливи.
   images_in_yellow_are_not_reviewed: Сликите со жолто не се проверени.
   image_objects_page_number: страница со слики
-  images_sort_worklist_note:
-    one: Сликите се подредуваат по датум на увоз во EOL - прво најновите. Има %{count}
-      слика на овој работен список.
-    other: Сликите се подредуваат по датум на увоз во EOL - прво најновите. Има %{count}
-      слики на овој работен список.
-  images_with_count:
-    one: '%{count} слика'
-    other: '%{count} слики'
   import_once: Увези еднаш
   import_ontology: Увези онтологија
   inappropriate: Несоодветни

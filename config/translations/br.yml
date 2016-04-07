@@ -2944,9 +2944,6 @@ br:
   image_title_with_taxa: Skeudenn eus %{taxa}
   image_title_without_taxa: Skeudenn un takson dianav
   images: Skeudennoù
-  images_with_count:
-    one: '%{count} skeudenn'
-    other: '%{count} skeudenn'
   import_once: Enporzhiañ ur wech
   inappropriate: Dizereat
   in_collection: en dastumad

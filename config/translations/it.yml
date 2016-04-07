@@ -5518,14 +5518,6 @@ it:
   images_in_red_are_not_trusted: Le immagini in rosso non sono attendibili.
   images_in_yellow_are_not_reviewed: Le immagini in giallo non sono state revisionate
   image_objects_page_number: Pagina immagini
-  images_sort_worklist_note:
-    one: Le immagini sono ordinate a seconda della data di immissione con la più recente
-      mostrata per prima. Vi è %{count} immagine in questa lista.
-    other: Le immagini sono ordinate a seconda della data di immissione con la più
-      recente mostrata per prima. Vi sono %{count} immagini in questa lista.
-  images_with_count:
-    one: '%{count} immagine'
-    other: '%{count} immagini'
   import_once: Importa una volta
   import_ontology: Importa Ontologia
   inappropriate: Inappropriato

@@ -4711,14 +4711,6 @@ sv:
   images_in_red_are_not_trusted: Bilder i rött är inte pålitliga.
   images_in_yellow_are_not_reviewed: Bilder i gult är inte granskade.
   image_objects_page_number: bildsida
-  images_sort_worklist_note:
-    one: Bilder sorteras efter importeringsdatumet på EOL, och de nyaste objekten
-      visas först. Det finns %{count} bild i denna verklista.
-    other: Bilder sorteras efter importeringsdatumet på EOL, och de nyaste objekten
-      visas först. Det finns %{count} bilder i denna verklista.
-  images_with_count:
-    one: '%{count} bild'
-    other: '%{count} bilder'
   import_once: Importera en gång
   import_ontology: Importera ontologi
   inappropriate: Olämplig

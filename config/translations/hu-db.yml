@@ -4,6 +4,7 @@
 # Author: Csega
 # Author: Dani
 # Author: Dj
+# Author: Wolf Rex
 ---
 hu:
   translated_activities-name-activity_id-19: profil
@@ -31,6 +32,7 @@ hu:
   translated_agent_roles-label-agent_role_id-2: Szerző
   translated_agent_roles-label-agent_role_id-3: Fordító
   translated_agent_roles-label-agent_role_id-5: Készítő
+  translated_agent_roles-label-agent_role_id-6: Rendező
   translated_agent_roles-label-agent_role_id-7: Szerkesztő
   translated_agent_roles-label-agent_role_id-8: Illusztrátor
   translated_agent_roles-label-agent_role_id-9: Fotográfus
@@ -123,19 +125,47 @@ hu:
   translated_resource_statuses-label-resource_status_id-7: Feldolgozás alatt
   translated_resource_statuses-label-resource_status_id-8: Feldolgozott
   translated_resource_statuses-label-resource_status_id-9: Feldolgozás nem sikerült
+  translated_service_types-label-service_type_id-2: Egyéb
+  translated_sort_styles-name-sort_style_id-2: Legrégebbi
+  translated_sort_styles-name-sort_style_id-3: Betűrendben
+  translated_sort_styles-name-sort_style_id-4: Fordított betűrendben
+  translated_sort_styles-name-sort_style_id-6: Értékelés
+  translated_statuses-label-status_id-1: Beillesztve
+  translated_statuses-label-status_id-2: Frissítve
+  translated_statuses-label-status_id-3: Változatlan
+  translated_synonym_relations-label-synonym_relation_id-1: szinonima
+  translated_synonym_relations-label-synonym_relation_id-2: ismert név
+  translated_synonym_relations-label-synonym_relation_id-49: valódi név
+  translated_synonym_relations-label-synonym_relation_id-64: érvénytelen
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-194: Méret
   translated_table_of_contents-label-table_of_contents_id-1: Áttekintés
+  translated_table_of_contents-label-table_of_contents_id-299: Oktatás
   translated_table_of_contents-label-table_of_contents_id-2: Rövid összefoglalás
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipédia
+  translated_table_of_contents-label-table_of_contents_id-306: Statisztikák
+  translated_table_of_contents-label-table_of_contents_id-310: Fejlesztés
+  translated_table_of_contents-label-table_of_contents_id-316: Viselkedés
+  translated_table_of_contents-label-table_of_contents_id-321: Növekedés
   translated_table_of_contents-label-table_of_contents_id-327: Pszichológia
   translated_table_of_contents-label-table_of_contents_id-328: Sejtbiológia
   translated_table_of_contents-label-table_of_contents_id-329: Genetika
   translated_table_of_contents-label-table_of_contents_id-331: Vonalkód
   translated_table_of_contents-label-table_of_contents_id-332: Genom
   translated_table_of_contents-label-table_of_contents_id-333: Molekuláris biológia
+  translated_table_of_contents-label-table_of_contents_id-334: Fenyegetések
+  translated_table_of_contents-label-table_of_contents_id-336: Megjegyzések
   translated_table_of_contents-label-table_of_contents_id-337: Oktatás
   translated_table_of_contents-label-table_of_contents_id-33: Trendek
+  translated_table_of_contents-label-table_of_contents_id-345: Adatforrások
   translated_table_of_contents-label-table_of_contents_id-34: Hozzászólások
   translated_table_of_contents-label-table_of_contents_id-4: Ökológia
+  translated_table_of_contents-label-table_of_contents_id-7: Források és további információ
+  translated_untrust_reasons-label-untrust_reason_id-4: másolat
   translated_untrust_reasons-label-untrust_reason_id-5: Egyéb
+  translated_user_identities-label-user_identity_id-1: rajongó
+  translated_user_identities-label-user_identity_id-2: tanuló
+  translated_user_identities-label-user_identity_id-3: oktató
   translated_vetted-label-vetted_id-0: Ismeretlen
   translated_vetted-label-vetted_id-4: Nem megbízható
   translated_vetted-label-vetted_id-5: Megbízható

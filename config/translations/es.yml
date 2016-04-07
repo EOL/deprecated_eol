@@ -5556,16 +5556,6 @@ es:
   images_in_red_are_not_trusted: Las imágenes en color rojo no son de confianza.
   images_in_yellow_are_not_reviewed: Las imágenes que están en amarillo no están revisadas.
   image_objects_page_number: página de imágenes
-  images_sort_worklist_note:
-    one: Las imágenes están ordenadas por fecha de importación a EOL, con los elementos
-      más recientes mostrados en primer lugar. En esta lista de trabajo hay %{count}
-      imagen.
-    other: Las imágenes están ordenadas por fecha de importación a EOL, con los elementos
-      más recientes mostrados en primer lugar. En esta lista de trabajo hay %{count}
-      imágenes.
-  images_with_count:
-    one: '%{count} Imagen'
-    other: '%{count} Imágenes'
   import_once: Importar una vez
   import_ontology: Importar Ontología
   inappropriate: Inapropiado

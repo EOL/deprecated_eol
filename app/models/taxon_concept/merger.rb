@@ -85,11 +85,11 @@ class TaxonConcept
       def ids(id1, id2)
         # Always take the LOWEST id first; id1 is "kept", id2 "goes away"
         (id1, id2) = [id1, id2].sort
-        new_concept = TaxonConcept.find(id1)
+        new_concept = TaxonConcept.find_without_supercedure(id1)
         return new_concept if id1 == id2
         raise "Missing an ID (#{id1}, #{id2})" if id1 <= 0
         raise EOL::Exceptions::MergeToUnpublishedTaxon unless new_concept.published?
-        old_concept = TaxonConcept.find(id2)
+        old_concept = TaxonConcept.find_without_supercedure(id2)
         raise "Missing source concept (#{id2})" unless old_concept
         EOL.log("MERGE: concept #{id2} into #{id1}")
         taxon_concepts(new_concept, old_concept)

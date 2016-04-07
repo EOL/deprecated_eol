@@ -99,32 +99,26 @@ class TraitBank
 
     def build_metadata
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
-      @traits.each_with_index do |trait, index|
-        EOL.log("index #{index}", prefix: ".") if index % 1_000 == 0
-        begin
-          TraitBank.metadata_in_bulk(@resource, trait).
-            each do |h|
-            # ?trait ?predicate ?meta_trait ?value ?units
-            if h[:units].blank?
-              add_meta(h, h[:predicate], :value)
-            else
-              @triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}>"
-              val = TraitBank.uri?(h[:value]) ?
-                "<#{h[:value]}>" :
-                TraitBank.quote_literal(h[:value])
-              units = TraitBank.uri?(h[:units]) ?
-                "<#{h[:units]}>" :
-                # TODO: THIS SHOULD NOT HAPPEN. tell someone?
-                TraitBank.quote_literal(h[:units])
-              @triples << "<#{h[:meta_trait]}> a eol:trait ;"\
-                "<#{TraitBank.value_uri}> #{val} ;"\
-                "<#{TraitBank.unit_uri}> #{units}"
-            end
+      group_number = 0
+      @traits.in_groups_of(1000, false).do |trait_group|
+        EOL.log("group #{group_number}", prefix: ".")
+        TraitBank.metadata_in_bulk(@resource, trait_group).each do |h|
+          # ?trait ?predicate ?meta_trait ?value ?units
+          if h[:units].blank?
+            add_meta(h, h[:predicate], :value)
+          else
+            @triples << "<#{h[:trait]}> <#{h[:predicate]}> <#{h[:meta_trait]}>"
+            val = TraitBank.uri?(h[:value]) ?
+              "<#{h[:value]}>" :
+              TraitBank.quote_literal(h[:value])
+            units = TraitBank.uri?(h[:units]) ?
+              "<#{h[:units]}>" :
+              # TODO: THIS SHOULD NOT HAPPEN. tell someone?
+              TraitBank.quote_literal(h[:units])
+            @triples << "<#{h[:meta_trait]}> a eol:trait ;"\
+              "<#{TraitBank.value_uri}> #{val} ;"\
+              "<#{TraitBank.unit_uri}> #{units}"
           end
-        # This was causing a lot of trouble when I was attempting it:  :(
-        rescue => e
-          EOL.log("ERROR: #{e.message}")
-          raise e
         end
       end
     end

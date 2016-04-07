@@ -170,11 +170,7 @@ class Hierarchy
       begin
         TaxonConcept::Merger.in_bulk(@merges)
       rescue => e
-        merge_map = []
-        @merges.each do |from_id, to_id|
-          merge_map << "#{from_id} => #{to_id}"
-        end
-        EOL.log("ERROR: Merging failed. Merge map: #{merge_map.join(" ; ")}")
+        EOL.log("ERROR: Merging failed. Merge map: #{@merges.inspect}")
         raise(e)
       end
     end

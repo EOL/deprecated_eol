@@ -53,7 +53,9 @@ class SolrCore
     end
 
     def add_ancestry(entries, entry_ancestors)
-      entries.each do |entry|
+      entries.each_with_index do |entry, index|
+        EOL.log("Adding ancestry #{index}/#{entries.size}") if
+          index % 10_000 == 0
         entry.ancestor_names = {}
         if entry_ancestors.has_key?(entry.id)
           entry_ancestors[entry.id].each do |ancestor_id|

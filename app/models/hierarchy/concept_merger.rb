@@ -71,8 +71,6 @@ class Hierarchy
 
     def compare_hierarchies(h1, h2)
       (hierarchy1, hierarchy2) = fewer_entries_first(h1, h2)
-      # TODO: add (relationship:name OR confidence:[0.25 TO *]) [see below]
-      # TODO: Set?
       entries = [] # Just to prevent weird infinite loops below. :\
       begin
         page ||= 0

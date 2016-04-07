@@ -102,7 +102,7 @@ class TraitBank
       @traits.each_with_index do |trait, index|
         EOL.log("index #{index}", prefix: ".") if index % 1_000 == 0
         begin
-          TraitBank.connection.query(TraitBank.metadata_query(@resource, trait)).
+          TraitBank.metadata_in_bulk(@resource, trait).
             each do |h|
             # ?trait ?predicate ?meta_trait ?value ?units
             if h[:units].blank?

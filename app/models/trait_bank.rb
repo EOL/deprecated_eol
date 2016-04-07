@@ -444,15 +444,60 @@ class TraitBank
             ?taxon ?predicate ?value .
             FILTER (?predicate = dwc:scientificName)
           }
-          FILTER (?predicate NOT IN (rdf:type, dwc:taxonConceptID, dwc:measurementType, dwc:measurementValue,
-                                     dwc:measurementID, eolreference:referenceID,
-                                     eol:targetOccurrenceID, dwc:taxonID, dwc:eventID,
-                                     eol:associationType,
-                                     dwc:measurementUnit, dwc:occurrenceID, eol:measurementOfTaxon)
-                  ) .
+          #{metadata_predicate_filter}
           FILTER (?trait = <#{trait}>)
         }
       }"
+    end
+
+    def metadata_in_bulk(resource, traits)
+      unions = [
+        "?trait ?predicate ?value .",
+        "?trait dwc:occurrenceID ?occurrence . ?occurrence ?predicate ?value .",
+        "?meta_trait eol:parentMeasurementID ?trait . "\
+          "?meta_trait dwc:measurementType ?predicate . "\
+          "?meta_trait dwc:measurementValue ?value . "\
+          "OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .",
+        "?trait dwc:occurrenceID ?occurrence . "\
+          "?meta_trait dwc:occurrenceID ?occurrence . "\
+          "?meta_trait dwc:measurementType ?predicate . "\
+          "?meta_trait dwc:measurementValue ?value . "\
+          "FILTER NOT EXISTS { ?meta_trait eol:measurementOfTaxon eolterms:true } . "\
+          "OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .",
+        "?meta_trait eol:associationID ?trait . "\
+          "?meta_trait dwc:measurementType ?predicate . "\
+          "?meta_trait dwc:measurementValue ?value . "\
+          "OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .",
+        "?trait dwc:occurrenceID ?occurrence . "\
+          "?occurrence dwc:eventID ?event . "\
+          "?event ?predicate ?value .",
+        "?trait dwc:occurrenceID ?occurrence . "\
+          "?occurrence dwc:taxonID ?taxon . "\
+          "?taxon ?predicate ?value . "\
+          "FILTER (?predicate = dwc:scientificName)"
+      ]
+      results = []
+      unions.each do |subquery|
+        results +=
+          connection.query(metadata_bulk_query(resource, subquery, traits))
+      end
+      results
+    end
+
+    def metadata_bulk_query(resource, subquery, traits)
+      "SELECT DISTINCT * "\
+        "WHERE { GRAPH <#{resource.graph_name}> { "\
+        "  { #{subquery} } #{metadata_predicate_filter} "\
+        "  FILTER (?trait IN (<#{traits.join(">,<")}>)) } } "\
+        "# metadata_bulk_query "
+    end
+
+    def metadata_predicate_filter
+      "FILTER (?predicate NOT IN (rdf:type, dwc:taxonConceptID, "\
+        "dwc:measurementType, dwc:measurementValue, dwc:measurementID, "\
+        "eolreference:referenceID, eol:targetOccurrenceID, dwc:taxonID, "\
+        "dwc:eventID, eol:associationType, dwc:measurementUnit, "\
+        "dwc:occurrenceID, eol:measurementOfTaxon)) ."
     end
 
     # OLD: ?parent_uri ?identifier ?publicationType ?full_reference ?primaryTitle

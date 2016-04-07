@@ -98,6 +98,7 @@ class TaxonConcept
       def taxon_concepts(new_concept, old_concept, options = {})
         new_id = new_concept.id
         old_id = old_concept.id
+        raise "Wrong IDs!" if new_id > old_id
         old_concept.update_attributes(supercedure_id: new_id, published: false)
         HierarchyEntry.where(taxon_concept_id: old_id).
           update_all(taxon_concept_id: new_id)
@@ -150,7 +151,6 @@ class TaxonConcept
         # tc id on that table:
         update_ignore_ids(RandomHierarchyImage, new_id, old_ids)
       end
-
 
       def move_traits(new_id, old_id)
         traits = TraitBank.page_traits(old_id)

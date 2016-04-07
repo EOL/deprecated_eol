@@ -34,6 +34,7 @@ class TaxonConcept
           end
         end
         reindex_ids = []
+        remaining = merges.keys.size
         merges.each do |to_id, from_ids|
           to_concept = concepts.find { |c| c.id == to_id }
           if to_concept.nil?
@@ -60,8 +61,8 @@ class TaxonConcept
                 skip_reindex: true)
               reindex_ids << to_id
               EOL.log("MERGE: #{from_concepts.first.title} "\
-                "(#{from_concepts.first.id} => #{to_concept.title} "\
-                "(#{to_concept.id})")
+                "(#{from_concepts.first.id}) => #{to_concept.title} "\
+                "(#{to_concept.id}) - #{remaining} remaining")
             rescue => e
               EOL.log("SKIP MERGE #{from_ids.first} => #{to_concept.title} "\
                 "(#{to_id}): #{e.message}", prefix: "!")
@@ -72,7 +73,7 @@ class TaxonConcept
             reindex_ids << to_id
             EOL.log("MERGE: #{from_concepts.map { |tc| "#{tc.title} "\
               "(#{tc.id})" }.join(", ")} => #{to_concept.title} "\
-              "(#{to_concept.id})")
+              "(#{to_concept.id}) - #{remaining} remaining")
           end
         end
         # Second pass; now we're done mucking with Solr, so let PHP have at it:

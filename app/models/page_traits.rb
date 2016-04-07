@@ -28,6 +28,11 @@ class PageTraits < TraitSet
     @sources = Resource.where(id: source_ids.to_a).includes(:content_partner)
   end
 
+  # NOTE: only used manually to fix problems with "Could not find a data point for [trait]"
+  def pointless
+    traits.select { |t| t.point.nil? }
+  end
+
   # TODO: this doesn't belong here; make a new class and pass self in. NOTE:
   # jsonld is ALWAYS in English. Period. This is expected and normal.
   def jsonld

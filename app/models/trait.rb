@@ -48,6 +48,27 @@ class Trait
     point.try(:anchor) || header_anchor
   end
 
+  def make_point
+    @point = DataPointUri.create(
+      uri: uri.to_s,
+      taxon_concept_id: @source_set.id,
+      vetted_id: Vetted.trusted.id,
+      visibility_id: Visibility.visible.id,
+      class_type: "MeasurementOrFact",
+      predicate: predicate.to_s,
+      object: value_name,
+      unit_of_measure: units_name,
+      resource_id: resource.id,
+      user_added_data_id: nil,
+      predicate_known_uri_id: predicate_uri.is_a?(KnownUri) ?
+        predicate_uri.id : nil,
+      object_known_uri_id: value_uri.is_a?(KnownUri) ? value_uri.id : nil,
+      unit_of_measure_known_uri_id: units_uri.is_a?(KnownUri) ?
+        units_uri.id : nil,
+    )
+    EOL.log("WARNING: Created missing DPURI #{uri} (#{@point.id})", prefix: "!")
+  end
+
   def header_anchor
     "trait_#{uri.gsub(/[^_A-Za-z0-9]/, '_')}"
   end

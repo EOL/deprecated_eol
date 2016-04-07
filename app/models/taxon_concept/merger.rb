@@ -57,7 +57,7 @@ class TaxonConcept
             next
           elsif from_concepts.size == 1
             begin
-              taxon_concepts(from_concepts.first, to_concept,
+              taxon_concepts(to_concept, from_concepts.first,
                 skip_reindex: true)
               reindex_ids << to_id
               EOL.log("MERGE: #{from_concepts.first.title} "\

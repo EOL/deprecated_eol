@@ -36,7 +36,8 @@ class SolrCore
         next unless @ids.empty? || @ids.include?(entry)
         entry_ancestors[entry] ||= []
         entry_ancestors[entry] << ancestor
-        @all_ids += [entry, ancestor]
+        @all_ids << entry
+        @all_ids << ancestor
       end
       entry_ancestors
     end

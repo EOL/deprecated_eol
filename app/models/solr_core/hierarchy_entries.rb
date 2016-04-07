@@ -30,7 +30,7 @@ class SolrCore
 
     def build_entry_ancestors(ancestry)
       entry_ancestors = {}
-      EOL.log("Given #{@ids.size} IDs to index.") if @ids
+      EOL.log("Given #{@ids.size} IDs to index.") unless @ids.empty?
       ancestry.each do |pair|
         (entry, ancestor) = pair.split(",").map(&:to_i)
         next unless @ids.empty? || @ids.include?(entry)

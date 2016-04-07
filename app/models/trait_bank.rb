@@ -452,6 +452,8 @@ class TraitBank
       }"
     end
 
+?trait dwc:occurrenceID ?occurrence . ?meta_trait dwc:occurrenceID ?occurrence . ?meta_trait dwc:measurementType ?predicate . ?meta_trait dwc:measurementValue ?value .
+
     def metadata_in_bulk(resource, traits)
       unions = [
         "?trait ?predicate ?value .",
@@ -460,6 +462,7 @@ class TraitBank
           "?meta_trait dwc:measurementType ?predicate . "\
           "?meta_trait dwc:measurementValue ?value . "\
           "OPTIONAL { ?meta_trait dwc:measurementUnit ?units } .",
+        # It looks like this might be the culprit for slow queries:
         "?trait dwc:occurrenceID ?occurrence . "\
           "?meta_trait dwc:occurrenceID ?occurrence . "\
           "?meta_trait dwc:measurementType ?predicate . "\
@@ -480,8 +483,14 @@ class TraitBank
       ]
       results = []
       unions.each do |subquery|
-        results +=
+        results += begin
           connection.query(metadata_bulk_query(resource, subquery, traits))
+        rescue EOL::Exceptions::SparqlDataEmpty => e
+          []
+        rescue => e
+          EOL.log("WARNING metadata may be missing: #{e}", prefix: "!")
+          []
+        end
       end
       results
     end

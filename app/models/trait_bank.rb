@@ -222,7 +222,6 @@ class TraitBank
           count = offset + results.count
           EOL.log("paginating for more results: #{count}", prefix: ".") if
             count % 10_000
-          end
           yield(results)
         end
         offset += limit

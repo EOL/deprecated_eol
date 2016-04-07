@@ -452,8 +452,6 @@ class TraitBank
       }"
     end
 
-?trait dwc:occurrenceID ?occurrence . ?meta_trait dwc:occurrenceID ?occurrence . ?meta_trait dwc:measurementType ?predicate . ?meta_trait dwc:measurementValue ?value .
-
     def metadata_in_bulk(resource, traits)
       unions = [
         "?trait ?predicate ?value .",

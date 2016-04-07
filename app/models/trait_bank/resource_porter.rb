@@ -100,9 +100,9 @@ class TraitBank
     def build_metadata
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
       traits = @traits.to_a
-      size = 250
+      size = 500
       group_number = 0
-      groups = (traits.size.to_f / traits).ceil 
+      groups = (traits.size.to_f / traits).ceil
       traits.in_groups_of(size, false) do |trait_group|
         EOL.log("metdata group #{group_number += 1}/#{groups}", prefix: ".")
         TraitBank.metadata_in_bulk(@resource, trait_group).each do |h|

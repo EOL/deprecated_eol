@@ -34,8 +34,9 @@ class TaxonConcept
           end
         end
         reindex_ids = []
-        remaining = merges.keys.size
+        remaining = merges.keys.size + 1
         merges.each do |to_id, from_ids|
+          remaining -= 1
           to_concept = concepts.find { |c| c.id == to_id }
           if to_concept.nil?
             EOL.log("ERROR: Missing target concept! (#{from_ids.join(", ")}) "\

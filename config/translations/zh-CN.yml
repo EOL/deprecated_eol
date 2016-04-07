@@ -3643,10 +3643,6 @@ zh-CN:
   images_in_red_are_not_trusted: 红色标记图像是不可信的。
   images_in_yellow_are_not_reviewed: 黄色标记图像是未经审核的。
   image_objects_page_number: 图片页面
-  images_sort_worklist_note:
-    other: 图像按EOL导入时间排序，最新的项目最先展示。在工作列表中有%{count}幅图像。
-  images_with_count:
-    other: '%{count}张图像'
   import_once: 一次性导入
   inappropriate: 不恰当
   inaturalist_tab_label: iNaturalist 观测

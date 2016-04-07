@@ -5705,14 +5705,6 @@ de:
   images_in_yellow_are_not_reviewed: Gelb gekennzeichnete Bilder wurden noch nicht
     überprüft.
   image_objects_page_number: Bilderseite
-  images_sort_worklist_note:
-    one: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befindet
-      sich ein Bild in dieser Arbeitsliste.
-    other: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befinden
-      sich %{count} Bilder in dieser Arbeitsliste.
-  images_with_count:
-    one: '%{count} Bild'
-    other: '%{count} Bilder'
   import_once: Einmal importieren
   import_ontology: Ontologie importieren
   inappropriate: Ungeeignet

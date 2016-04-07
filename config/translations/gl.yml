@@ -5138,14 +5138,6 @@ gl:
   images: Imaxes
   images_in_red_are_not_trusted: As imaxes que están en vermello non son de confianza.
   images_in_yellow_are_not_reviewed: As imaxes que están en amarelo non están revisadas.
-  images_sort_worklist_note:
-    one: Na EOL, as imaxes ordénanse segundo a data de importación, as máis novas
-      primeiro. Hai %{count} imaxe nesta lista de obras.
-    other: Na EOL, as imaxes ordénanse segundo a data de importación, as máis novas
-      primeiro. Hai %{count} imaxes nesta lista de obras.
-  images_with_count:
-    one: '%{count} imaxe'
-    other: '%{count} imaxes'
   import_once: Importar unha vez
   import_ontology: Importar a ontoloxía
   inappropriate: Inadecuado

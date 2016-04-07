@@ -4288,11 +4288,6 @@ ar:
   images: الصور
   images_in_red_are_not_trusted: الصور التي باللون الأحمر غير موقوق بها.
   images_in_yellow_are_not_reviewed: الصور التي باللون الأصفر لم تُراجع.
-  images_sort_worklist_note: تم ترتيب الصور حسب تاريخ ورودها على موقع موسوعة الحياة،
-    مع ظهور أحدث العناصر وصولاً أولاً. هناك %{count} صورة في قائمة العمل هذه.
-  images_with_count:
-    one: '%{count} صورة'
-    other: '%{count} صورة'
   import_once: ضف مرة واحدة
   inappropriate: غير لائق
   inaturalist_tab_label: ملاحظات iNaturalist

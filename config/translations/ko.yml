@@ -4110,12 +4110,6 @@ ko:
   images: 그림
   images_in_red_are_not_trusted: 빨간 곳의 그림은 신뢰할 수 없습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
-  images_sort_worklist_note:
-    one: 그림은 EOL 가져오기 날짜별로 최신 항목이 먼저 보이도록 정렬합니다. 이 작업 목록에 그림 %{count}개가 있습니다.
-    other: 그림은 EOL 가져오기 날짜별로 최신 항목이 먼저 보이도록 정렬합니다. 이 작업 목록에 그림 %{count}개가 있습니다.
-  images_with_count:
-    one: 그림 %{count}개
-    other: 그림 %{count}개
   import_once: 한번에 가져오기
   inappropriate: 부적절
   inaturalist_tab_label: iNaturalist 관찰

@@ -3865,9 +3865,6 @@ nb:
   image_object: Bildeobjekt
   image_title_with_taxa: Bilde av %{taxa}
   images: Bilder
-  images_with_count:
-    one: '%{count} bilde'
-    other: '%{count} bilder'
   import_once: Importer en gang
   inappropriate: Upassende
   inaturalist_tab_label: iNaturalist-observasjoner

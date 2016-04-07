@@ -5549,16 +5549,6 @@ fr:
   images_in_red_are_not_trusted: Les images en rouge ne sont pas fiables.
   images_in_yellow_are_not_reviewed: Les images en jaune n’ont pas été revues.
   image_objects_page_number: page d’images
-  images_sort_worklist_note:
-    one: Les images sont triées par date d’importation dans l’EdlV, avec les éléments
-      les plus récents affichés en premier. Il y a une seule image dans cette liste
-      d'œuvres.
-    other: Les images sont triées par date d’importation dans l’EdlV, avec les éléments
-      les plus récents affichés en premier. Il y a %{count} images dans cette liste
-      d'œuvres.
-  images_with_count:
-    one: '%{count} image'
-    other: '%{count} images'
   import_once: Importer une fois
   import_ontology: Importer une ontologie
   inappropriate: Inapproprié

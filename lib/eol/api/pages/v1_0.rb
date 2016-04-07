@@ -182,15 +182,13 @@ module EOL
           params[:videos_per_page] = adjust_param(params[:videos_per_page], params[:videos])
           params[:maps_per_page] = adjust_param(params[:maps_per_page], params[:maps])
           params[:texts_per_page] = adjust_param(params[:texts_per_page], params[:texts])
+          # debugger
           params
         end
         
         def self.adjust_param(param_per_page, param)
-          if param_per_page.blank? || param_per_page.to_i < DEFAULT_OBJECTS_NUMBER
-            param.blank? || param.to_i < DEFAULT_OBJECTS_NUMBER ? DEFAULT_OBJECTS_NUMBER : param.to_i
-          else
-            param_per_page.to_i
-          end
+          val = param_per_page.blank? ? param : param_per_page
+          val.blank? ? DEFAULT_OBJECTS_NUMBER : val.to_i
         end
 
         def self.prepare_hash(taxon_concept, params={})

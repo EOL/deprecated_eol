@@ -1,8 +1,8 @@
 class Hierarchy
   # This depends ENTIRELY on Hierarchy::Relator (q.v.) having completed first.
   class ConceptMerger
-    def self.merges_for_hierarchy(hierarchy)
-      assigner = self.new(hierarchy)
+    def self.merges_for_hierarchy(hierarchy, options = {})
+      assigner = self.new(hierarchy, options)
       assigner.merges_for_hierarchy
     end
 

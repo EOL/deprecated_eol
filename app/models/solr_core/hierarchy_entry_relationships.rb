@@ -22,7 +22,11 @@ class SolrCore
         relationships_from: [:to_hierarchy_entry],
         relationships_to: [:from_hierarchy_entry]
       ).where(id: entry_ids)
-      entries.find_in_batches do |batch|
+      index = 0
+      total = (entries.size / 1000).ceil
+      entries.find_in_batches(batch_size: 1000) do |batch|
+        index += 1
+        EOL.log("batch #{index}/#{total}") if index > 1
         batch.each do |entry|
           relationships += entry.relationships_from.map(&:to_hash)
           relationships += entry.relationships_to.map(&:to_hash)

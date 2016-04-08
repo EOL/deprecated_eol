@@ -6,23 +6,29 @@ pairs = IO.readlines("/app/log/pairs.txt")
 split_entries = Set.new
 pairs.each_with_index do |line, index|
   line.chomp!
-  pairs.each_with_index do |line, index|
-    line.chomp!
-    begin
-      next unless line =~ /-(\d+)\D+-(\d+)/
-      id1 = $1
-      id2 = $2
-      entry1 = HierarchyEntry.find(id1)
-      entry2 = HierarchyEntry.find(id2)
-      concept = entry1.taxon_concept
-      if entry1.taxon_concept_id != entry2.taxon_concept_id
-        (safer, split) = [entry1, entry2].sort_by { |e| e.taxon_concept_id }
-        split_entries << split
-      end
-    rescue => e
-      puts "Yuck, bad UTF8"
+  begin
+    next unless line =~ /-(\d+)\D+-(\d+)/
+    id1 = $1
+    id2 = $2
+    entry1 = HierarchyEntry.find(id1)
+    entry2 = HierarchyEntry.find(id2)
+    concept = entry1.taxon_concept
+    if entry1.taxon_concept_id != entry2.taxon_concept_id
+      (safer, split) = [entry1, entry2].sort_by { |e| e.taxon_concept_id }
+      split_entries << split
     end
+  rescue => e
+    puts "Yuck, bad UTF8"
   end
+end
+
+grouped = split_entries.to_a.group_by { |e| e.hierarchy_id }
+grouped_ids = {}
+grouped.each { |k,v| grouped_ids[k] = v.map(&:id) } ; 1
+
+grouped_ids.each do |hierarchy_id, ids|
+  hierarchy = Hierarchy.find(hierarchy_id)
+  hierarchy.reindex_and_merge_ids(ids)
 end
 
 # -- https://github.com/EOL/tramea/issues/239 part 2 - pulling apart entries

@@ -38,7 +38,7 @@ class Resource
     # hierarchy have been rebuilt when this is called.
     def publish(options = {})
       was_previewed = options[:previewed]
-      EOL.log("PUBLISH: #{resource.title}")
+      EOL.log("PUBLISH: #{resource.title}", prefix: "{")
       raise "Harvest event already published!" if @harvest_event.published?
       raise "Harvest event not complete!" unless @harvest_event.complete?
       raise "Publish flag not set!" unless @harvest_event.publish?
@@ -74,7 +74,7 @@ class Resource
         ResourceStatus.published.id)
       @resource.save_resource_contributions
       denormalize
-      EOL.log_return
+      EOL.log("PUBLISH DONE: #{resource.title}", prefix: "}")
       true
     end
 

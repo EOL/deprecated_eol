@@ -5392,6 +5392,7 @@ it:
   full_content_url: Full Content URL
   gbif_map: Mappa GBIF
   general_site_admin: amministratore sito generale
+  georeference_records_colon: 'Record di georeferenziazione:'
   get_help_choosing_a_subject: Ottieni aiuto nella scelta di un soggetto
   get_help_choosing_a_subchapter: Ottieni aiuto nella scelta di un sottocapitolo
   get_more_tasks: ottieni ulteriori compiti

@@ -920,6 +920,8 @@ gl:
     new:
       page_title: Deixa os teus comentarios
   collections:
+    download_taxa_data:
+      select_all_checkbox: Seleccionar todo
     show:
       meta_description_default: Unha colección da Enciclopedia da vida titulada %{collection_name}.
       meta_description_default_focus_collection: Unha colección de atención da Enciclopedia

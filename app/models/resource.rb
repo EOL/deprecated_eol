@@ -163,9 +163,15 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.publish(self)
   end
 
-  # TODO - this should be doing something different, neh?
   def preview
     Resource::Publisher.preview(self)
+  end
+
+  # NOTE: sadly, there's no way (ATM) to know if something was successfully
+  # previewed (though we could guess, if the resource isn't auto-publish), so we
+  # have to call this method. NOTE ATM this is ONLY called manually.
+  def publish_previewed
+    Resource::Publisher.publish(self, previewed: true)
   end
 
   def rebuild_taxon_concept_names

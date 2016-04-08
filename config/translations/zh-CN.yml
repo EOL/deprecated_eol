@@ -409,7 +409,7 @@ zh-CN:
       contact:
         comments: 你的信息
         contact_subject_id: 主题
-        email: 你的电子邮件地址
+        email: 您的电子邮件地址
         name: 你的名字
       content_page:
         active: 已发布
@@ -3570,6 +3570,7 @@ zh-CN:
   full_content_url: 含全部内容的URL
   gbif_map: GBIF地图
   general_site_admin: 主站管理
+  georeference_records_colon: 地理参考记录：
   get_help_choosing_a_subchapter: 获取关于“如何选择内容条目”的帮助
   get_more_tasks: 获取更多任务
   given_name_colon: 名：

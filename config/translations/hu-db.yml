@@ -136,16 +136,23 @@ hu:
   translated_synonym_relations-label-synonym_relation_id-1: szinonima
   translated_synonym_relations-label-synonym_relation_id-2: ismert név
   translated_synonym_relations-label-synonym_relation_id-49: valódi név
+  translated_synonym_relations-label-synonym_relation_id-50: érvényes
+  translated_synonym_relations-label-synonym_relation_id-51: elfogadott
   translated_synonym_relations-label-synonym_relation_id-64: érvénytelen
   translated_table_of_contents-label-table_of_contents_id-14: IUCN
   translated_table_of_contents-label-table_of_contents_id-194: Méret
   translated_table_of_contents-label-table_of_contents_id-1: Áttekintés
+  translated_table_of_contents-label-table_of_contents_id-227: Keresés az interneten
   translated_table_of_contents-label-table_of_contents_id-299: Oktatás
   translated_table_of_contents-label-table_of_contents_id-2: Rövid összefoglalás
   translated_table_of_contents-label-table_of_contents_id-300: Wikipédia
+  translated_table_of_contents-label-table_of_contents_id-304: Kapcsolódó nevek
+  translated_table_of_contents-label-table_of_contents_id-305: Szinonimák
   translated_table_of_contents-label-table_of_contents_id-306: Statisztikák
   translated_table_of_contents-label-table_of_contents_id-310: Fejlesztés
   translated_table_of_contents-label-table_of_contents_id-316: Viselkedés
+  translated_table_of_contents-label-table_of_contents_id-319: Várható élettartam
+  translated_table_of_contents-label-table_of_contents_id-320: Szaporodás
   translated_table_of_contents-label-table_of_contents_id-321: Növekedés
   translated_table_of_contents-label-table_of_contents_id-327: Pszichológia
   translated_table_of_contents-label-table_of_contents_id-328: Sejtbiológia
@@ -157,6 +164,7 @@ hu:
   translated_table_of_contents-label-table_of_contents_id-336: Megjegyzések
   translated_table_of_contents-label-table_of_contents_id-337: Oktatás
   translated_table_of_contents-label-table_of_contents_id-33: Trendek
+  translated_table_of_contents-label-table_of_contents_id-344: Adat
   translated_table_of_contents-label-table_of_contents_id-345: Adatforrások
   translated_table_of_contents-label-table_of_contents_id-34: Hozzászólások
   translated_table_of_contents-label-table_of_contents_id-4: Ökológia

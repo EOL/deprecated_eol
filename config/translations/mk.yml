@@ -5175,6 +5175,7 @@ mk:
   full_content_url: URL на полната содржина
   gbif_map: GBIF-карта
   general_site_admin: општ раководител на мреж. место
+  georeference_records_colon: 'Геонаводни записи:'
   get_help_choosing_a_subject: Помош со одбирањето на наслов
   get_help_choosing_a_subchapter: Помош со одбирањето на подглава
   get_more_tasks: уште задачи

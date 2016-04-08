@@ -5424,6 +5424,7 @@ fr:
   full_content_url: URL du contenu complet
   gbif_map: Carte GBIF
   general_site_admin: administration générale du site
+  georeference_records_colon: 'Enregistrements de géoréférence :'
   get_help_choosing_a_subject: Obtenir de l’aide pour choisir un sujet
   get_help_choosing_a_subchapter: Obtenir de l’aide pour choisir un sous-chapitre
   get_more_tasks: obtenir davantage de tâches

@@ -5436,6 +5436,7 @@ es:
   full_content_url: URL del contenido completo
   gbif_map: Mapa GBIF
   general_site_admin: administrador general del sitio
+  georeference_records_colon: 'Registros de georreferencia:'
   get_help_choosing_a_subject: Obtener ayuda escogiendo un asunto
   get_help_choosing_a_subchapter: obtenga ayuda escogiendo un subcapítulo
   get_more_tasks: obtener más tareas

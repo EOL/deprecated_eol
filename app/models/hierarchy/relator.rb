@@ -359,7 +359,7 @@ class Hierarchy
         @scores[key] = score[:score]
       end
       size = @scores.size
-      EOL.log("#{size} relationships...", prefix: ".") if size % 10_000 == 0
+      EOL.log("#{size} relationships...", prefix: ".") if size % 1_000 == 0
     end
 
     def add_curator_assertions

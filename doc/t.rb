@@ -1,5 +1,30 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+# -- https://github.com/EOL/tramea/issues/239 part 3 - re-merging split entries...
+
+pairs = IO.readlines("/app/log/pairs.txt")
+split_entries = Set.new
+pairs.each_with_index do |line, index|
+  line.chomp!
+  pairs.each_with_index do |line, index|
+    line.chomp!
+    begin
+      next unless line =~ /-(\d+)\D+-(\d+)/
+      id1 = $1
+      id2 = $2
+      entry1 = HierarchyEntry.find(id1)
+      entry2 = HierarchyEntry.find(id2)
+      concept = entry1.taxon_concept
+      if entry1.taxon_concept_id != entry2.taxon_concept_id
+        (safer, split) = [entry1, entry2].sort_by { |e| e.taxon_concept_id }
+        split_entries << split
+      end
+    rescue => e
+      puts "Yuck, bad UTF8"
+    end
+  end
+end
+
 # -- https://github.com/EOL/tramea/issues/239 part 2 - pulling apart entries
 
 @user = User.find(20470)

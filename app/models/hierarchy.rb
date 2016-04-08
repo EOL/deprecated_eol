@@ -153,9 +153,9 @@ class Hierarchy < ActiveRecord::Base
 
   # NOTE: this is not called in the code, but it's use manually. Please keep.
   def reindex_and_merge_ids(ids)
-    SolrCore::HierarchyEntries.reindex_hierarchy(self, ids: [ids])
+    SolrCore::HierarchyEntries.reindex_hierarchy(self, ids: ids)
     Hierarchy::Relator.relate(self, entry_ids: ids)
-    Hierarchy::ConceptMerger.merges_for_hierarchy(self, ids: [ids])
+    Hierarchy::ConceptMerger.merges_for_hierarchy(self, ids: ids)
   end
 
   # Returns (a potentially VERY large) array of ids that were previously

@@ -10,16 +10,20 @@ class Hierarchy
     # to: one or more hierarchies to compare yours with
     # to_all: compare yours with all other hierarchies (deafult is just browsable)
     # ids: entry IDs to compare; default all entries in hierarchy
+    # NOTE: to_all and ids are currently only used by developers on the
+    # command-line.
     def initialize(hierarchy, options = {})
       @hierarchy = hierarchy
       if options[:to]
         @hierarchies = Array(options[:to])
+        @hierarchies << @hierarchy # Necessary. Please don't remove.
       else
         @hierarchies = Hierarchy.order("hierarchy_entries_count DESC")
         @hierarchies = @hierarchies.browsable unless options[:to_all]
       end
       @ids = Array(options[:ids])
-      @entries_matched = []
+      @debug = options[:debug]
+      @entries_matched = {}
       @compared = []
       @merges = {} # The merges we do
       @superceded = {} # ALL superceded ids we encounter, ever (saves queries)
@@ -37,7 +41,6 @@ class Hierarchy
       EOL.log("Start merges for hierarchy #{@hierarchy.id} "\
         "#{@hierarchy.display_title} (#{@hierarchy.hierarchy_entries_count} "\
         "entries)")
-
       @hierarchies.each_with_index do |other_hierarchy, index|
         EOL.log("...to #{other_hierarchy.id} (#{other_hierarchy.label}; "\
           "#{other_hierarchy.hierarchy_entries_count} entries): "\
@@ -130,37 +133,66 @@ class Hierarchy
       # "visibility_id_2"=>0, "same_concept"=>true, "relationship"=>"name",
       # "confidence"=>1.0 }
       unless @ids.empty?
-        return(nil) unless
-          @ids.include?(relationship["hierarchy_entry_id_1"]) ||
+        unless @ids.include?(relationship["hierarchy_entry_id_1"]) ||
           @ids.include?(relationship["hierarchy_entry_id_2"])
+          EOL.log("Not included in IDs to match.") if @debug
+          return nil
+        end
       end
-      return(nil) if relationship["relationship"] == "syn" &&
+      if relationship["relationship"] == "syn" &&
         relationship["confidence"] < 0.25
+        EOL.log("Synonym with low confidence (#{relationship["confidence"]})") if @debug
+        return(nil)
+      end
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
         *assign_local_vars_from_relationship(relationship)
-      # skip if the node in the hierarchy has already been matched:
-      return(nil) if hierarchy1.complete? && @entries_matched.include?(id2)
-      return(nil) if hierarchy2.complete? && @entries_matched.include?(id1)
-      @entries_matched += [id1, id2]
+      if hierarchy1.complete? && @entries_matched.has_key?(id2)
+        EOL.log("Already matched id2=#{id2} (and heirarchy1 complete)") if @debug
+        return(nil)
+      end
+      if hierarchy2.complete? && @entries_matched.has_key?(id1)
+        EOL.log("Already matched id1=#{id1} (and heirarchy2 complete)") if @debug
+        return(nil)
+      end
+      @entries_matched[id1] = true
+      @entries_matched[id2] = true
       # PHP: "this comparison happens here instead of the query to ensure the
       # sorting is always the same if this happened in the query and the entry
       # was related to more than one taxa, and this function is run more than
       # once then we'll start to get huge groups of concepts - all transitively
       # related to one another" ...Sounds to me like we're doing something
       # wrong, if this is true. :\
-      return(nil) if tc_id1 == tc_id2
+      if tc_id1 == tc_id2
+        EOL.log("Same concept (#{tc_id1})") if @debug
+        return(nil)
+      end
       tc_id1 = follow_supercedure_cached(tc_id1)
       tc_id2 = follow_supercedure_cached(tc_id2)
       # This seems to be a bug (in Solr?), but we have to catch it!
-      return(nil) if tc_id1 == 0 or tc_id2 == 0
-      return(nil) if tc_id1 == tc_id2
-      working_on = "#{hierarchy1.id}->#{id1}->#{tc_id1} vs "\
-        "#{hierarchy2.id}->#{id2}->#{tc_id2}"
-      return(nil) if concepts_of_one_already_in_other?(relationship)
-      if curators_denied_relationship?(relationship)
+      if tc_id1 == 0
+        EOL.log("Concept 1 had no ID after supercedure") if @debug
         return(nil)
       end
-      if affected = additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
+      if tc_id2 == 0
+        EOL.log("Concept 2 had no ID after supercedure") if @debug
+        return(nil)
+      end
+      if tc_id1 == tc_id2
+        EOL.log("Same concept (#{tc_id1}), after supercedure") if @debug
+        return(nil)
+      end
+      working_on = "#{hierarchy1.id}->#{id1}->#{tc_id1} vs "\
+        "#{hierarchy2.id}->#{id2}->#{tc_id2}"
+      if concepts_of_one_already_in_other?(relationship)
+        EOL.log("Concepts of one already in another: #{working_on}") if @debug
+        return(nil)
+      end
+      if excluded_relationship?(relationship)
+        EOL.log("Curators exluded relationship: #{working_on}") if @debug
+        return(nil)
+      end
+      if additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
+        EOL.log("Additional hierarchy affected by merge: #{working_on}") if @debug
         return(nil)
       end
       (new_id, old_id) = [tc_id1, tc_id2].sort
@@ -297,7 +329,7 @@ class Hierarchy
       @compared << compared_key(id1, id2)
     end
 
-    def curators_denied_relationship?(relationship)
+    def excluded_relationship?(relationship)
       if @exclusions.has_key?(relationship["hierarchy_entry_id_1"])
         return exclusions_matches?(relationship["hierarchy_entry_id_1"],
           relationship["taxon_concept_id_2"])

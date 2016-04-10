@@ -6,9 +6,18 @@ class Hierarchy
       assigner.merges_for_hierarchy
     end
 
+    # Options:
+    # to: one or more hierarchies to compare yours with
+    # to_all: compare yours with all other hierarchies (deafult is just browsable)
+    # ids: entry IDs to compare; default all entries in hierarchy
     def initialize(hierarchy, options = {})
       @hierarchy = hierarchy
-      @all_hierarchies = options[:all_hierarchies]
+      if options[:to]
+        @hierarchies = Array(options[:to])
+      else
+        @hierarchies = Hierarchy.order("hierarchy_entries_count DESC")
+        @hierarchies = @hierarchies.browsable unless options[:to_all]
+      end
       @ids = Array(options[:ids])
       @entries_matched = []
       @compared = []
@@ -28,8 +37,7 @@ class Hierarchy
       EOL.log("Start merges for hierarchy #{@hierarchy.id} "\
         "#{@hierarchy.display_title} (#{@hierarchy.hierarchy_entries_count} "\
         "entries)")
-      @hierarchies = Hierarchy.order("hierarchy_entries_count DESC")
-      @hierarchies = @hierarchies.browsable unless @all_hierarchies
+
       @hierarchies.each_with_index do |other_hierarchy, index|
         EOL.log("...to #{other_hierarchy.id} (#{other_hierarchy.label}; "\
           "#{other_hierarchy.hierarchy_entries_count} entries): "\
@@ -85,15 +93,16 @@ class Hierarchy
     end
 
     def get_page_from_solr(hierarchy1, hierarchy2, page)
+      # NOTE: this was *really* banging on Solr, so we're rate-limiting it quite
+      # a bit:
+      sleep(1)
       response = @solr.paginate(compare_hierarchies_query(hierarchy1,
         hierarchy2), compare_hierarchies_options(page))
-      # NOTE: this was *really* banging on Solr, so we're rate-limiting it quite
-      # a bit (I will also reduce the page size by half-ish):
-      sleep(1)
       rhead = response["responseHeader"]
       if rhead["QTime"] && rhead["QTime"].to_i > 1000
-        EOL.log("gporfs query: #{rhead["q"]}", prefix: ".")
-        EOL.log("gporfs Request took #{rhead["QTime"]}ms", prefix: ".")
+        EOL.log("gporfs Request took #{rhead["QTime"]}ms for "\
+          "#{rhead["params"]["rows"]} results", prefix: ".")
+        EOL.log("gporfs query: #{rhead["params"]["q"]}", prefix: ".")
       end
       response["response"]["docs"]
     end

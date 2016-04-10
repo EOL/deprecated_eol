@@ -8,17 +8,19 @@ class Hierarchy
 
     def initialize(hierarchy, options = {})
       @hierarchy = hierarchy
-      @compared = []
       @all_hierarchies = options[:all_hierarchies]
       @ids = Array(options[:ids])
-      @confirmed_exclusions = {}
       @entries_matched = []
+      @compared = []
       @merges = {} # The merges we do
       @superceded = {} # ALL superceded ids we encounter, ever (saves queries)
       @visible_id = Visibility.get_visible.id
       @preview_id = Visibility.get_preview.id
       @per_page = Rails.configuration.solr_relationships_page_size.to_i
       @solr = SolrCore::HierarchyEntryRelationships.new
+      @exclusions = CuratedHierarchyEntryRelationship.exclusions
+      @preview_events_by_hierarchy = HarvestEvent.preview_events_by_hierarchy
+      fix_entry_counts if fix_entry_counts_needed?
     end
 
     # NOTE: I am going to do this WITHOUT A DB TRANSACTION. Deal with it.
@@ -26,13 +28,6 @@ class Hierarchy
       EOL.log("Start merges for hierarchy #{@hierarchy.id} "\
         "#{@hierarchy.display_title} (#{@hierarchy.hierarchy_entries_count} "\
         "entries)")
-      fix_entry_counts if fix_entry_counts_needed?
-      lookup_preview_harvests
-      get_confirmed_exclusions
-      # TODO: DON'T hard-code this (this is GBIF Nub Taxonomy). Instead, add an
-      # attribute to hierarchies called "never_merge_concepts" and check that.
-      # Also make sure curators can set that value from the resource page.
-      # .where(["id NOT in (?)", 129]).
       @hierarchies = Hierarchy.order("hierarchy_entries_count DESC")
       @hierarchies = @hierarchies.browsable unless @all_hierarchies
       @hierarchies.each_with_index do |other_hierarchy, index|
@@ -43,8 +38,6 @@ class Hierarchy
         # entries that are actually the "same", so we need to compare those to
         # themselves; otherwise, skip:
         next if @hierarchy.id == other_hierarchy.id && @hierarchy.complete?
-        # TODO: this shouldn't even be required.
-        next if already_compared?(@hierarchy.id, other_hierarchy.id)
         compare_hierarchies(@hierarchy, other_hierarchy)
       end
       EOL.log("Preparing to merge #{@merges.keys.size} taxa into "\
@@ -66,6 +59,7 @@ class Hierarchy
     end
 
     def fix_entry_counts
+      EOL.log "Fix of entry counts is needed, please wait..."
       HierarchyEntry.counter_culture_fix_counts
     end
 
@@ -195,36 +189,6 @@ class Hierarchy
       hierarchy
     end
 
-    def lookup_preview_harvests
-      @latest_preview_events_by_hierarchy = {}
-      resources = Resource.select("resources.id, resources.hierarchy_id, "\
-        "MAX(harvest_events.id) max").
-        joins(:harvest_events).
-        group(:hierarchy_id)
-      HarvestEvent.unpublished.where(id: resources.map { |r| r["max"] }).
-        each do |event|
-        resource = resources.find { |r| r["max"] == event.id }
-        @latest_preview_events_by_hierarchy[resource.hierarchy_id] = event
-      end
-    end
-
-    def get_confirmed_exclusions
-      CuratedHierarchyEntryRelationship.not_equivalent.
-        includes(:from_hierarchy_entry, :to_hierarchy_entry).
-        # Some of the entries have gone missing! Skip those:
-        select { |ce| ce.from_hierarchy_entry && ce.to_hierarchy_entry }.
-        each do |cher|
-        from_entry = cher.from_hierarchy_entry.id
-        from_tc = cher.from_hierarchy_entry.taxon_concept_id
-        to_entry = cher.to_hierarchy_entry.id
-        to_tc = cher.to_hierarchy_entry.taxon_concept_id
-        @confirmed_exclusions[from_entry] ||= []
-        @confirmed_exclusions[from_entry] << to_tc
-        @confirmed_exclusions[to_entry] ||= []
-        @confirmed_exclusions[to_entry] << from_tc
-      end
-    end
-
     def concepts_of_one_already_in_other?(relationship)
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
         *assign_local_vars_from_relationship(relationship)
@@ -264,7 +228,7 @@ class Hierarchy
     end
 
     def entry_preview_in_hierarchy?(which, relationship)
-      return false unless @latest_preview_events_by_hierarchy.has_key?(
+      return false unless @preview_events_by_hierarchy.has_key?(
         relationship["hierarchy_id_#{which}"])
       entry_has_vis_id_in_hierarchy?(which, relationship, @preview_id)
     end
@@ -325,18 +289,18 @@ class Hierarchy
     end
 
     def curators_denied_relationship?(relationship)
-      if @confirmed_exclusions.has_key?(relationship["hierarchy_entry_id_1"])
-        return confirmed_exclusions_matches?(relationship["hierarchy_entry_id_1"],
+      if @exclusions.has_key?(relationship["hierarchy_entry_id_1"])
+        return exclusions_matches?(relationship["hierarchy_entry_id_1"],
           relationship["taxon_concept_id_2"])
-      elsif @confirmed_exclusions.has_key?(relationship["hierarchy_entry_id_2"])
-        return confirmed_exclusions_matches?(relationship["hierarchy_entry_id_2"],
+      elsif @exclusions.has_key?(relationship["hierarchy_entry_id_2"])
+        return exclusions_matches?(relationship["hierarchy_entry_id_2"],
           relationship["taxon_concept_id_1"])
       end
       false
     end
 
-    def confirmed_exclusions_matches?(id, other_tc_id)
-      @confirmed_exclusions[id].each do |tc_id|
+    def exclusions_matches?(id, other_tc_id)
+      @exclusions[id].each do |tc_id|
         tc_id = follow_supercedure_cached(tc_id)
         return true if tc_id == other_tc_id
       end

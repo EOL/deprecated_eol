@@ -32,6 +32,23 @@ class HarvestEvent < ActiveRecord::Base
     published.order("published_at DESC").first
   end
 
+  # NOTE: this should only take a second or two.
+  def self.preview_events_by_hierarchy
+    preview_events_by_hierarchy = {}
+    resources = Resource.select("resources.id, resources.hierarchy_id, "\
+      "MAX(harvest_events.id) max").
+      joins(:harvest_events).
+      group(:hierarchy_id)
+    HarvestEvent.unpublished.where(id: resources.map { |r| r["max"] }).
+      each do |event|
+      resource = resources.find { |r| r["max"] == event.id }
+      preview_events_by_hierarchy[resource.hierarchy_id] = event
+    end
+    preview_events_by_hierarchy
+  end
+
+
+
   def content_partner
     resource.content_partner
   end

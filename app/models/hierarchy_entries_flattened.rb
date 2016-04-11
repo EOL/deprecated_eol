@@ -23,10 +23,13 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
       end
     end
 
-    def delete_set(group)
-      return if group.empty?
-      where("(hierarchy_entry_id, ancestor_id) IN (#{group.to_a.join(",")})").
-        delete_all
+    def delete_set(id_pairs)
+      return if id_pairs.empty?
+      ids_array = id_pairs.to_a
+      ids_array.in_groups_of(1000, false) do |group|
+        where("(hierarchy_entry_id, ancestor_id) IN (#{group.join(",")})").
+          delete_all
+      end
     end
 
     def pks_in_hierarchy(hierarchy)
@@ -57,38 +60,16 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
     # things considered. ...Had to use raw SQL here, though, to get the
     # performance. :\
     def repopulate(entry)
+      EOL::Db.delete_all_batched(HierarchyEntriesFlattened,
+        ["ancestor_id = ?", entry.id])
       with_master do
-        big = entry.number_of_descendants > 1000
-        begin
-          create_tmp if big
-          delete_all(["ancestor_id = ?", entry.id]) unless big
-          connection.execute(
-            "INSERT INTO #{big ? tmp_table : table_name} "\
-            "(hierarchy_entry_id, ancestor_id) "\
-            "SELECT hierarchy_entries.id, #{entry.id} "\
-            "FROM hierarchy_entries "\
-            "WHERE lft BETWEEN #{entry.lft} + 1 AND #{entry.rgt} AND "\
-            "hierarchy_id = #{entry.hierarchy_id}")
-          if big
-            delete_all(["ancestor_id = ?", entry.id])
-            connection.execute(
-              "INSERT IGNORE INTO hierarchy_entries_flattened "\
-              "(hierarchy_entry_id, ancestor_id) "\
-              "SELECT hierarchy_entry_id, ancestor_id "\
-              "FROM #{tmp_table}"
-            )
-          end
-          ensure
-            if big
-              drop_tmp
-              # This is a VERY expensive process; I'm just allowing a
-              # little breathing room. If it has 150,000 descendants, it will pause
-              # for 15 seconds.
-              time = entry.number_of_descendants / 10000.0
-              time = 1 if time.to_i == 0
-              sleep(time)
-            end
-          end
+        connection.execute(
+          "INSERT INTO #{table_name} "\
+          "(hierarchy_entry_id, ancestor_id) "\
+          "SELECT hierarchy_entries.id, #{entry.id} "\
+          "FROM hierarchy_entries "\
+          "WHERE lft BETWEEN #{entry.lft} + 1 AND #{entry.rgt} AND "\
+          "hierarchy_id = #{entry.hierarchy_id}")
       end
     end
 

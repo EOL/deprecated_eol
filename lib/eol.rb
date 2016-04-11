@@ -1,11 +1,3 @@
-#
-# top level EOL module
-#
-# we might want to use this for global configuration options or ... anything
-#
-# it's also useful to have around for namespacing other classes/modules
-# in the EOL:: namespace
-#
 module EOL
   class << self
     # NOTE: this assumes the tables are empty. If not, Solr will take a while...

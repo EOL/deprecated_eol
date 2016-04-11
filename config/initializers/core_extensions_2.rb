@@ -378,12 +378,6 @@ class ActiveRecord::Migration
   end
 end
 
-
-# I need this to sanitize SQL into strings:
-class << ActiveRecord::Base
-  public :sanitize_sql_array
-end
-
 module ActiveRecord
   class Base
     class << self

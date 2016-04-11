@@ -16,6 +16,12 @@ class Hierarchy
       @hierarchy = hierarchy
       if options[:to]
         @hierarchies = Array(options[:to])
+        [:col, :gbif, :iucn_structured_data, :ubio, :ncbi, :worms, :itis,
+               :wikipedia].each do |h_name|
+          if @heirarchies.delete(h_name)
+            @hierarchies << Hierarchy.send(h_name)
+          end
+        end
         @hierarchies << @hierarchy # Necessary. Please don't remove.
       else
         @hierarchies = Hierarchy.order("hierarchy_entries_count DESC")

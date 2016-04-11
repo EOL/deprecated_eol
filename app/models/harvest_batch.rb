@@ -2,17 +2,17 @@ class HarvestBatch
 
   attr_reader :resources, :start_time
 
-  def initialize(resources = [])
+  def initialize(ids = [])
     EOL.log_call
     @start_time = Time.now
-    @resources = Array(resources)
+    @resource_ids = Array(resources)
     @summary = []
-    EOL.log("Resources: #{@resources.map(&:id)}", prefix: ".") unless
-      @resources.empty?
+    EOL.log("Resources: #{@resource_ids.join(", ")}", prefix: ".") unless
+      @resource_ids.empty?
   end
 
-  def add(resource)
-    @resources << resource
+  def add(id)
+    @resource_ids << id
   end
 
   def complete?
@@ -28,7 +28,7 @@ class HarvestBatch
   end
 
   def count
-    @resources.count
+    @resource_ids.count
   end
 
   def maximum_count?
@@ -39,7 +39,9 @@ class HarvestBatch
     EOL.log_call
     ActiveRecord::Base.with_master do
       any_worked = false
-      @resources.each do |resource|
+      resources = Resource.where(id: @resource_ids).
+        includes([:resource_status, :hierarchy])
+      resources.each do |resource|
         url = "http://eol.org/content_partners/"\
           "#{resource.content_partner_id}/resources/#{resource.id}"
         @summary << { title: resource.title, url: url }

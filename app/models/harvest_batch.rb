@@ -5,7 +5,7 @@ class HarvestBatch
   def initialize(ids = [])
     EOL.log_call
     @start_time = Time.now
-    @resource_ids = Array(resources)
+    @resource_ids = Array(ids)
     @summary = []
     EOL.log("Resources: #{@resource_ids.join(", ")}", prefix: ".") unless
       @resource_ids.empty?

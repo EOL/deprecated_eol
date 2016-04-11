@@ -185,7 +185,7 @@ class TaxonConcept
         EOL::Db.update_ignore_id_by_field(klass, id1, ids, "taxon_concept_id")
       end
 
-      def update_ignore_ancestor_ids(klass, id1, id2)
+      def update_ignore_ancestor_ids(klass, id1, ids)
         EOL::Db.update_ignore_id_by_field(klass, id1, ids, "ancestor_id")
       end
     end

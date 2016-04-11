@@ -188,18 +188,16 @@ class Hierarchy
         EOL.log("Same concept (#{tc_id1}), after supercedure #{relationship.inspect}") if @debug
         return(nil)
       end
-      working_on = "#{hierarchy1.id}->#{id1}->#{tc_id1} vs "\
-        "#{hierarchy2.id}->#{id2}->#{tc_id2}"
       if concepts_of_one_already_in_other?(relationship)
-        EOL.log("Concepts of one already in another: #{working_on} #{relationship.inspect}") if @debug
+        EOL.log("Concepts of one already in another: #{relationship.inspect}") if @debug
         return(nil)
       end
       if excluded_relationship?(relationship)
-        EOL.log("Curators exluded relationship: #{working_on} #{relationship.inspect}") if @debug
+        EOL.log("Curators exluded relationship: #{relationship.inspect}") if @debug
         return(nil)
       end
       if additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
-        EOL.log("Hierarchy asserts separate concepts: #{working_on} #{relationship.inspect}") if @debug
+        EOL.log("Hierarchy asserts separate concepts: #{relationship.inspect}") if @debug
         return(nil)
       end
       (new_id, old_id) = [tc_id1, tc_id2].sort
@@ -241,47 +239,46 @@ class Hierarchy
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
         *assign_local_vars_from_relationship(relationship)
       if hierarchy1.complete?
-        # HE.exists?(concept: 2, hierarchy: 1, visibility: visible)
-        if entry_published_in_hierarchy?(1, relationship)
-          EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1} "\
-            "#{relationship.inspect}") if @debug
+        if visible_entry_in_hierarchy?(1, relationship)
+          EOL.log("concept #{tc_id2} has visible entry in hierarchy "\
+            "#{hierarchy1.id}") if @debug
           return true
         end
         # HE.exists?(concept: 2, hierarchy: 1, visibility: preview)
-        if entry_preview_in_hierarchy?(1, relationship)
-          EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
-            "#{hierarchy1.id} #{relationship.inspect}") if @debug
+        if preview_entry_in_hierarchy?(1, relationship)
+          EOL.log("concept #{tc_id2} has preview entry in hierarchy "\
+            "#{hierarchy1.id}") if @debug
           return true
         end
       end
       if hierarchy2.complete?
         # HE.exists?(concept: 1, hierarchy: 2, visibility: visible)
-        if entry_published_in_hierarchy?(2, relationship)
-          EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
-            "#{hierarchy2.id} #{relationship.inspect}") if @debug
+        if visible_entry_in_hierarchy?(2, relationship)
+          EOL.log("concept #{tc_id1} has visible entry in hierarchy "\
+            "#{hierarchy2.id}") if @debug
           return true
         end
         # HE.exists?(concept: 1, hierarchy: 2, visibility: preview)
-        if entry_preview_in_hierarchy?(2, relationship)
-          EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
-            "#{hierarchy2.id} #{relationship.inspect}") if @debug
+        if preview_entry_in_hierarchy?(2, relationship)
+          EOL.log("concept #{tc_id1} has preview entry in hierarchy "\
+            "#{hierarchy2.id}") if @debug
           return true
         end
       end
       false
     end
 
-    def entry_published_in_hierarchy?(which, relationship)
-      entry_has_vis_id_in_hierarchy?(which, relationship, @visible_id)
+    def visible_entry_in_hierarchy?(which, relationship)
+      entry_with_vis_id_in_hierarchy?(which, relationship, @visible_id)
     end
 
-    def entry_preview_in_hierarchy?(which, relationship)
+    def preview_entry_in_hierarchy?(which, relationship)
       return false unless @preview_events_by_hierarchy.has_key?(
         relationship["hierarchy_id_#{which}"])
-      entry_has_vis_id_in_hierarchy?(which, relationship, @preview_id)
+      entry_with_vis_id_in_hierarchy?(which, relationship, @preview_id)
     end
 
-    def entry_has_vis_id_in_hierarchy?(which, relationship, vis_id)
+    def entry_with_vis_id_in_hierarchy?(which, relationship, vis_id)
       other = which == 1 ? 2 : 1
       relationship["visibility_id_#{which}"] == vis_id &&
         HierarchyEntry.exists?(

@@ -127,7 +127,7 @@ class TaxonConcept
 
       # NOTE: DOES NOT reindex items!
       def multiple_concepts(new_id, old_ids)
-        old_concepts = TaxonConcept.where(ids: old_ids)
+        old_concepts = TaxonConcept.where(id: old_ids)
         old_concepts.update_all(supercedure_id: new_id, published: false)
         HierarchyEntry.where(taxon_concept_id: old_ids).
           update_all(taxon_concept_id: new_id)

@@ -84,7 +84,7 @@ class Hierarchy
         entries = get_page_from_solr(page)
         entries.each do |entry|
           begin
-            compare_entry(entry) if @new_entry_ids.kas_key?(entry["id"])
+            compare_entry(entry) if @new_entry_ids.has_key?(entry["id"])
           rescue => e
             EOL.log("Failed on entry ##{entry["id"]} (page #{page})")
             raise e

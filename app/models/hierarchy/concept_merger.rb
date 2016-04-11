@@ -142,7 +142,7 @@ class Hierarchy
       end
       if relationship["relationship"] == "syn" &&
         relationship["confidence"] < 0.25
-        EOL.log("Synonym with low confidence (#{relationship["confidence"]})") if @debug
+        EOL.log("Synonym with low confidence (#{relationship["confidence"]}) #{relationship.inspect}") if @debug
         return(nil)
       end
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
@@ -171,29 +171,29 @@ class Hierarchy
       tc_id2 = follow_supercedure_cached(tc_id2)
       # This seems to be a bug (in Solr?), but we have to catch it!
       if tc_id1 == 0
-        EOL.log("Concept 1 had no ID after supercedure") if @debug
+        EOL.log("Concept 1 had no ID after supercedure #{relationship.inspect}") if @debug
         return(nil)
       end
       if tc_id2 == 0
-        EOL.log("Concept 2 had no ID after supercedure") if @debug
+        EOL.log("Concept 2 had no ID after supercedure #{relationship.inspect}") if @debug
         return(nil)
       end
       if tc_id1 == tc_id2
-        EOL.log("Same concept (#{tc_id1}), after supercedure") if @debug
+        EOL.log("Same concept (#{tc_id1}), after supercedure #{relationship.inspect}") if @debug
         return(nil)
       end
       working_on = "#{hierarchy1.id}->#{id1}->#{tc_id1} vs "\
         "#{hierarchy2.id}->#{id2}->#{tc_id2}"
       if concepts_of_one_already_in_other?(relationship)
-        EOL.log("Concepts of one already in another: #{working_on}") if @debug
+        EOL.log("Concepts of one already in another: #{working_on} #{relationship.inspect}") if @debug
         return(nil)
       end
       if excluded_relationship?(relationship)
-        EOL.log("Curators exluded relationship: #{working_on}") if @debug
+        EOL.log("Curators exluded relationship: #{working_on} #{relationship.inspect}") if @debug
         return(nil)
       end
       if additional_hierarchy_affected_by_merge(tc_id1, tc_id2)
-        EOL.log("Additional hierarchy affected by merge: #{working_on}") if @debug
+        EOL.log("Hierarchy asserts separate concepts: #{working_on} #{relationship.inspect}") if @debug
         return(nil)
       end
       (new_id, old_id) = [tc_id1, tc_id2].sort
@@ -237,28 +237,28 @@ class Hierarchy
       if hierarchy1.complete?
         # HE.exists?(concept: 2, hierarchy: 1, visibility: visible)
         if entry_published_in_hierarchy?(1, relationship)
-          # EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1}",
-          #   prefix: ".")
+          EOL.log("SKIP: concept #{tc_id2} published in hierarchy of #{id1} "\
+            "#{relationship.inspect}") if @debug
           return true
         end
         # HE.exists?(concept: 2, hierarchy: 1, visibility: preview)
         if entry_preview_in_hierarchy?(1, relationship)
-          # EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
-          #   "#{hierarchy1.id}", prefix: ".")
+          EOL.log("SKIP: concept #{tc_id2} previewing in hierarchy "\
+            "#{hierarchy1.id} #{relationship.inspect}") if @debug
           return true
         end
       end
       if hierarchy2.complete?
         # HE.exists?(concept: 1, hierarchy: 2, visibility: visible)
         if entry_published_in_hierarchy?(2, relationship)
-          # EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
-          #   "#{hierarchy2.id}", prefix: ".")
+          EOL.log("SKIP: concept #{tc_id1} published in hierarchy "\
+            "#{hierarchy2.id} #{relationship.inspect}") if @debug
           return true
         end
         # HE.exists?(concept: 1, hierarchy: 2, visibility: preview)
         if entry_preview_in_hierarchy?(2, relationship)
-          # EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
-          #   "#{hierarchy2.id}", prefix: ".")
+          EOL.log("SKIP: concept #{tc_id1} previewing in hierarchy "\
+            "#{hierarchy2.id} #{relationship.inspect}") if @debug
           return true
         end
       end

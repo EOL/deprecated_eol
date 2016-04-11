@@ -48,7 +48,8 @@ class Hierarchy
         flat_map { |r| [ r.id, r.rank_group_id ] }) ]
       @hierarchy = hierarchy
       @browsable = Hierarchy.browsable
-      @new_entry_ids = options[:entry_ids]
+      @new_entry_ids = {}
+      Array(options[:entry_ids]).each { |id| @new_entry_ids[id] = true }
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
       @count = 0
@@ -83,7 +84,7 @@ class Hierarchy
         entries = get_page_from_solr(page)
         entries.each do |entry|
           begin
-            compare_entry(entry) if @new_entry_ids.include?(entry["id"])
+            compare_entry(entry) if @new_entry_ids.kas_key?(entry["id"])
           rescue => e
             EOL.log("Failed on entry ##{entry["id"]} (page #{page})")
             raise e
@@ -410,7 +411,7 @@ class Hierarchy
     def reindex_relationships
       EOL.log_call
       SolrCore::HierarchyEntryRelationships.
-        reindex_entries_in_hierarchy(@hierarchy, @new_entry_ids)
+        reindex_entries_in_hierarchy(@hierarchy, @new_entry_ids.keys)
     end
   end
 end

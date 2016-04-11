@@ -21,10 +21,11 @@ class Hierarchy
         @hierarchies = Hierarchy.order("hierarchy_entries_count DESC")
         @hierarchies = @hierarchies.browsable unless options[:to_all]
       end
-      @ids = Array(options[:ids])
+      @ids = {}
+      Array(options[:ids]).each { |id| @ids[id] = true }
       @debug = options[:debug]
       @entries_matched = {}
-      @compared = []
+      @compared = {}
       @merges = {} # The merges we do
       @superceded = {} # ALL superceded ids we encounter, ever (saves queries)
       @visible_id = Visibility.get_visible.id
@@ -133,8 +134,8 @@ class Hierarchy
       # "visibility_id_2"=>0, "same_concept"=>true, "relationship"=>"name",
       # "confidence"=>1.0 }
       unless @ids.empty?
-        unless @ids.include?(relationship["hierarchy_entry_id_1"]) ||
-          @ids.include?(relationship["hierarchy_entry_id_2"])
+        unless @ids.has_key?(relationship["hierarchy_entry_id_1"]) ||
+          @ids.has_key?(relationship["hierarchy_entry_id_2"])
           EOL.log("Not included in IDs to match.") if @debug
           return nil
         end
@@ -317,7 +318,7 @@ class Hierarchy
     end
 
     def already_compared?(id1, id2)
-      @compared.include?(compared_key(id1, id2))
+      @compared.has_key?(compared_key(id1, id2))
     end
 
     # This doesn't actually matter, just needs to be consistent.
@@ -326,7 +327,7 @@ class Hierarchy
     end
 
     def mark_as_compared(id1, id2)
-      @compared << compared_key(id1, id2)
+      @compared[compared_key(id1, id2)] = true
     end
 
     def excluded_relationship?(relationship)

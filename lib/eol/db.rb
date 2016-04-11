@@ -201,7 +201,7 @@ module EOL
               "DELETE FROM `#{klass.table_name}` where #{where} LIMIT 1000")
           end
           total += count
-        while count > 0
+        end while count > 0
         total
       end
 

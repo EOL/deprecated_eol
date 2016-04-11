@@ -39,9 +39,11 @@ class Resource
     def publish(options = {})
       was_previewed = options[:previewed]
       EOL.log("PUBLISH: #{resource.title}", prefix: "{")
-      raise "Harvest event already published!" if @harvest_event.published?
-      raise "Harvest event not complete!" unless @harvest_event.complete?
-      raise "Publish flag not set!" unless @harvest_event.publish?
+      unless options[:force]
+        raise "Harvest event already published!" if @harvest_event.published?
+        raise "Harvest event not complete!" unless @harvest_event.complete?
+        raise "Publish flag not set!" unless @harvest_event.publish?
+      end
       ActiveRecord::Base.connection.transaction do
         @harvest_event.show_preview_objects
         @harvest_event.preserve_invisible

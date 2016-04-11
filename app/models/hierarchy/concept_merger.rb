@@ -13,6 +13,7 @@ class Hierarchy
     # NOTE: to_all and ids are currently only used by developers on the
     # command-line.
     def initialize(hierarchy, options = {})
+      EOL.log_call
       @hierarchy = hierarchy
       if options[:to]
         @hierarchies = Array(options[:to])
@@ -188,8 +189,8 @@ class Hierarchy
         EOL.log("Same concept (#{tc_id1}), after supercedure #{relationship.inspect}") if @debug
         return(nil)
       end
-      if concepts_of_one_already_in_other?(relationship)
-        EOL.log("Concepts of one already in another: #{relationship.inspect}") if @debug
+      if separate_concepts?(relationship)
+        EOL.log("Separate concepts: #{relationship.inspect}") if @debug
         return(nil)
       end
       if excluded_relationship?(relationship)
@@ -235,33 +236,33 @@ class Hierarchy
       hierarchy
     end
 
-    def concepts_of_one_already_in_other?(relationship)
+    def separate_concepts?(relationship)
       (id1, tc_id1, hierarchy1, id2, tc_id2, hierarchy2) =
         *assign_local_vars_from_relationship(relationship)
       if hierarchy1.complete?
         if visible_entry_in_hierarchy?(1, relationship)
-          EOL.log("concept #{tc_id2} has visible entry in hierarchy "\
-            "#{hierarchy1.id}") if @debug
+          EOL.log("#{hierarchy1.label} claims these are separate concepts") if
+            @debug
           return true
         end
         # HE.exists?(concept: 2, hierarchy: 1, visibility: preview)
         if preview_entry_in_hierarchy?(1, relationship)
-          EOL.log("concept #{tc_id2} has preview entry in hierarchy "\
-            "#{hierarchy1.id}") if @debug
+          EOL.log("#{hierarchy1.label} claims these are separate concepts") if
+            @debug
           return true
         end
       end
       if hierarchy2.complete?
         # HE.exists?(concept: 1, hierarchy: 2, visibility: visible)
         if visible_entry_in_hierarchy?(2, relationship)
-          EOL.log("concept #{tc_id1} has visible entry in hierarchy "\
-            "#{hierarchy2.id}") if @debug
+          EOL.log("#{hierarchy2.label} claims these are separate concepts") if
+            @debug
           return true
         end
         # HE.exists?(concept: 1, hierarchy: 2, visibility: preview)
         if preview_entry_in_hierarchy?(2, relationship)
-          EOL.log("concept #{tc_id1} has preview entry in hierarchy "\
-            "#{hierarchy2.id}") if @debug
+          EOL.log("#{hierarchy2.label} claims these are separate concepts") if
+            @debug
           return true
         end
       end

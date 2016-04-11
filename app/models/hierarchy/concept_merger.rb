@@ -18,7 +18,7 @@ class Hierarchy
         @hierarchies = Array(options[:to])
         [:col, :gbif, :iucn_structured_data, :ubio, :ncbi, :worms, :itis,
                :wikipedia].each do |h_name|
-          if @heirarchies.delete(h_name)
+          if @hierarchies.delete(h_name)
             @hierarchies << Hierarchy.send(h_name)
           end
         end

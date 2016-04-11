@@ -4941,7 +4941,7 @@ mk:
   exception: Исклучок
   exceptions:
     security_violations:
-      administrators_only: Нажалост, овде имаат пристап само администратори.
+      administrators_only: За жал, овде имаат пристап само администратори.
       default: Пристапот е одбиен.
       hidden_user_login: Нажалост, на таа сметка ѝ е оневозможено најавување.
       hidden_user_recover_account: Нажалост, на таа сметка ѝ е оневозможен повраток.

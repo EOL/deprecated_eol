@@ -82,7 +82,7 @@ class TaxonConceptName < ActiveRecord::Base
   # correctly, so we're bypassing it here:
   def raw_update_attribute(key, val)
     raise "Invalid key" unless self.respond_to? key
-    TaxonConceptName.connection.execute(ActiveRecord::Base.sanitize_sql_array([%Q{
+    TaxonConceptName.connection.execute(EOL::Db.sanitize_array([%Q{
       UPDATE `#{self.class.table_name}`
       SET `#{key}` = ?
       WHERE name_id = ?

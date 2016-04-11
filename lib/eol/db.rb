@@ -175,7 +175,7 @@ module EOL
         raise "Danger: field '#{field}' not allowed on #{klass}" unless
           klass.columns.map(&:name).include?(field.to_s)
         klass.connection.execute(
-          klass.send(:sanitize_sql, ["UPDATE IGNORE #{klass.table_name} "\
+          sanitize_array(["UPDATE IGNORE #{klass.table_name} "\
             "SET #{field} = ? WHERE #{field} = ?", id1, id2])
         )
         klass.where(["#{field} = ?", id2]).delete_all
@@ -185,7 +185,7 @@ module EOL
         raise "Danger: field '#{field}' not allowed on #{klass}" unless
           klass.columns.map(&:name).include?(field.to_s)
         klass.connection.execute(
-          klass.send(:sanitize_sql, ["UPDATE IGNORE #{klass.table_name} "\
+          sanitize_array(["UPDATE IGNORE #{klass.table_name} "\
             "SET #{field} = ? WHERE #{field} IN (?)", id1, ids])
         )
         klass.where(["#{field} = IN (?)", ids]).delete_all
@@ -194,7 +194,7 @@ module EOL
       def delete_all_batched(klass, where)
         total = 0
         count = 0
-        where = klass.send(:sanitize_sql_array, where) if where.is_a?(Array)
+        where = sanitize_array(where) if where.is_a?(Array)
         begin
           count = klass.with_master do
             klass.connection.send(:delete_sql,
@@ -203,6 +203,10 @@ module EOL
           total += count
         while count > 0
         total
+      end
+
+      def sanitize_array(array)
+        ActiveRecord::Base.send(:sanitize_sql_array, array)
       end
     end
   end

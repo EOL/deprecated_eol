@@ -25,7 +25,7 @@ class CollectionJob < ActiveRecord::Base
   validate :user_can_edit_targets, unless: :remove?
 
   def run
-    
+
     raise EOL::Exceptions::SecurityViolation.new("Collection job not valid", :collection_job_not_valid) unless valid?
     affected = method(command).call # Call the method with the name in the 'command' value.
     count = affected.respond_to?(:length) ? affected.length : affected
@@ -91,7 +91,7 @@ private
       columns = user_owns_source? ? unhandled_columns : SAFE_COLUMNS
       affected = watch_inserts do
         collections.each do |target_collection|
-          CollectionItem.connection.update(ActiveRecord::Base.sanitize_sql_array([%(
+          CollectionItem.connection.update(EOL::Db.sanitize_array([%(
             INSERT IGNORE INTO collection_items (collection_id, #{columns})
               SELECT ?, #{columns}
               FROM collection_items
@@ -111,7 +111,7 @@ private
     Ref.joins(:collection_items).where("collection_items.#{source_where_clause}", source_where_argument).each do |ref|
       ref.collection_items.each do |collection_item|
         collections.each do |target_collection|
-          new_collection_item = CollectionItem.where(collected_item_id: collection_item.collected_item_id, 
+          new_collection_item = CollectionItem.where(collected_item_id: collection_item.collected_item_id,
                                                      collected_item_type: collection_item.collected_item_type,
                                                      collection_id: target_collection.id).first
           new_collection_item.refs << ref if new_collection_item && ! new_collection_item.refs.include?(ref)
@@ -125,7 +125,7 @@ private
     transaction do
       delete_duplicates if overwrite? # Since we're overwriting, we need to get rid of conflicts
       collections.each do |target_collection|
-        CollectionItem.connection.update(ActiveRecord::Base.sanitize_sql_array([%{
+        CollectionItem.connection.update(EOL::DB.sanitize_array([%{
           UPDATE IGNORE collection_items
             SET collection_id = ?
             WHERE #{source_where_clause}
@@ -150,11 +150,11 @@ private
       # update collection items count
       collection.update_attributes(collection_items_count: collection.collection_items.count)
       if all_items?
-        EOL::Solr::CollectionItemsCoreRebuilder.remove_collection(collection)        
+        EOL::Solr::CollectionItemsCoreRebuilder.remove_collection(collection)
       else
         EOL::Solr::CollectionItemsCoreRebuilder.remove_collection_items(collection_items)
       end
-    else # move/copy      
+    else # move/copy
       EOL::Solr::CollectionItemsCoreRebuilder.reindex_collection(collection) unless copy?
       if target_needed?
         collections.each do |target_collection|
@@ -190,7 +190,7 @@ private
     @duplicates = []
     collections.each do |target_collection|
       @duplicates +=
-        CollectionItem.find_by_sql(ActiveRecord::Base.sanitize_sql_array([%{
+        CollectionItem.find_by_sql(EOL::Db.sanitize_array([%{
           SELECT target.id
           FROM collection_items source
             INNER JOIN collection_items target

@@ -70,7 +70,7 @@ class TaxonConcept
             end
           else
             # Note the #map because we may have lost one or two, so NOT from_ids:
-            multiple_concepts(to_concept, from_concepts.map(&:id))
+            multiple_concepts(to_concept.id, from_concepts.map(&:id))
             reindex_concepts << to_id
             EOL.log("MERGE: #{from_concepts.map { |tc| "#{tc.title} "\
               "(#{tc.id})" }.join(", ")} => #{to_concept.title} "\
@@ -126,8 +126,7 @@ class TaxonConcept
       end
 
       # NOTE: DOES NOT reindex items!
-      def multiple_concepts(to_concept, old_ids)
-        new_id = new_concept.id
+      def multiple_concepts(new_id, old_ids)
         old_concepts = TaxonConcept.where(ids: old_ids)
         old_concepts.update_all(supercedure_id: new_id, published: false)
         HierarchyEntry.where(taxon_concept_id: old_ids).

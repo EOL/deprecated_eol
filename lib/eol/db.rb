@@ -188,7 +188,7 @@ module EOL
           sanitize_array(["UPDATE IGNORE #{klass.table_name} "\
             "SET #{field} = ? WHERE #{field} IN (?)", id1, ids])
         )
-        klass.where(["#{field} = IN (?)", ids]).delete_all
+        klass.where(["#{field} IN (?)", ids]).delete_all
       end
 
       def delete_all_batched(klass, where)

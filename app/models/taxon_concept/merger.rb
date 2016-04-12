@@ -12,7 +12,7 @@ class TaxonConcept
       def in_bulk(raw_merges)
         ids = Set.new
         merges = {}
-        concepts = []
+        concepts = {}
         # NOTE raw_merges is keyed on the old id; we want one keyed on new IDs.
         raw_merges.each do |old_id, new_id|
           while raw_merges.has_key?(new_id)
@@ -24,9 +24,12 @@ class TaxonConcept
           ids += [old_id, new_id]
         end
         ids.to_a.in_groups_of(10_000, false) do |group|
-          concepts += TaxonConcept.with_titles.where(id: group)
+          concepts +=
+          TaxonConcept.with_titles.where(id: group).each do |concept|
+            concepts[concept.id] = concept
+          end
         end
-        concepts.select { |c| ! c.published? }.each do |concept|
+        concepts.values.select { |c| ! c.published? }.each do |concept|
           if merges.has_key?(concept.id)
             lost = merges.delete(concept.id)
             EOL.log("WARNING: Cannot merge taxa (#{lost.join(", ")}) to "\
@@ -37,7 +40,7 @@ class TaxonConcept
         remaining = merges.keys.size + 1
         merges.each do |to_id, from_ids|
           remaining -= 1
-          to_concept = concepts.find { |c| c.id == to_id }
+          to_concept = concepts[to_id]
           if to_concept.nil?
             EOL.log("ERROR: Missing target concept! (#{from_ids.join(", ")}) "\
               "=> #{to_id}", prefix: "!")
@@ -45,9 +48,8 @@ class TaxonConcept
           end
           from_concepts = []
           from_ids.each do |id|
-            concept =  concepts.find { |c| c.id == id }
-            if concept
-              from_concepts << concept
+            if concepts.has_key?(id)
+              from_concepts << concepts[id]
             else
               EOL.log("Missing source concept (#{id})!")
             end
@@ -71,7 +73,7 @@ class TaxonConcept
           else
             # Note the #map because we may have lost one or two, so NOT from_ids:
             multiple_concepts(to_concept.id, from_concepts.map(&:id))
-            reindex_concepts << to_id
+            reindex_concepts << to_concept
             EOL.log("MERGE: #{from_concepts.map { |tc| "#{tc.title} "\
               "(#{tc.id})" }.join(", ")} => #{to_concept.title} "\
               "(#{to_concept.id}) - #{remaining} remaining")

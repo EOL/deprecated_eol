@@ -64,6 +64,7 @@ class Hierarchy
       @per_page = 1000 unless @per_page > 0
       @solr = SolrCore::HierarchyEntries.new
       @scores = {}
+      @studied = {}
       @rank_conflicts = {}
     end
 

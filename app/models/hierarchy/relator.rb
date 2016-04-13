@@ -116,6 +116,7 @@ class Hierarchy
     end
 
     def metaquote(string)
+      return "" if string.nil?
       string.gsub(/\\/, "\\\\\\\\").gsub(/"/, "\\\"")
     end
 

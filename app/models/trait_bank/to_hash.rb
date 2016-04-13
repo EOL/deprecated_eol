@@ -25,13 +25,15 @@ class TraitBank
       uri = trait.predicate_uri.try(:uri)
       hash[I18n.t(:data_column_measurement_uri)] =
         EOL::Sparql.is_uri?(uri) ? uri : nil
-      uri = trait.value_uri.try(:uri)
+      vuri = trait.value_uri
+      uri = vuri.is_a?(String) ? vuri : vuri.try(:uri)
       hash[I18n.t(:data_column_value_uri)] =
         EOL::Sparql.is_uri?(uri) ? uri : nil
       # Units:
       hash[I18n.t(:data_column_raw_units)] = trait.units_name
       # Units URI:
-      uri = trait.units_uri.try(:uri)
+      uuri = trait.units_uri.try(:uri)
+      uri = uuri.is_a?(String) ? uuri : uuri.try(:uri)
       hash[I18n.t(:data_column_raw_units_uri)] =
         EOL::Sparql.is_uri?(uri) ? uri : nil
       # Sources:

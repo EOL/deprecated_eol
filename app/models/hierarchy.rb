@@ -151,6 +151,11 @@ class Hierarchy < ActiveRecord::Base
     Hierarchy::ConceptMerger.merges_for_hierarchy(self)
   end
 
+  # NOTE: this is only called manually. Pleas keep.
+  def relate
+    resource.harvest_events.last.relate_new_hierarchy_entries
+  end
+
   # NOTE: this is not called in the code, but it's use manually. Please keep.
   def reindex_and_merge_ids(ids)
     SolrCore::HierarchyEntries.reindex_hierarchy(self, ids: ids)

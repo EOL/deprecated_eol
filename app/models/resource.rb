@@ -167,6 +167,11 @@ class Resource < ActiveRecord::Base
     Resource::Publisher.preview(self)
   end
 
+  # NOTE: this is only called manually. Pleas keep.
+  def relate
+    harvest_events.last.relate_new_hierarchy_entries
+  end
+
   # NOTE: sadly, there's no way (ATM) to know if something was successfully
   # previewed (though we could guess, if the resource isn't auto-publish), so we
   # have to call this method. NOTE ATM this is ONLY called manually.

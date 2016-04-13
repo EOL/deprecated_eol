@@ -71,7 +71,7 @@ class TaxonConcept < ActiveRecord::Base
   # A bit of a cheat—we happen to know it will ONLY be unknown, not untrusted.
   scope :untrusted, -> { where(vetted_id: Vetted.unknown.id) }
   scope :with_title, -> { includes(preferred_entry: { hierarchy_entry:
-    { name: :ranked_canonical_form } }) }
+    { name: [:ranked_canonical_form, :canonical_form] } }) }
   scope :with_subtitle, -> {
     includes(preferred_common_names: [:name, :language])
   }
@@ -177,6 +177,18 @@ class TaxonConcept < ActiveRecord::Base
 
   def superceded?
     !supercedure_id.nil? && supercedure_id != 0
+  end
+
+  def self.map_supercedure(ids)
+    map = {}
+    TaxonConcept.with_titles.unsuperceded.where(id: ids).each do |concept|
+      map[concept.id] = concept
+    end
+    TaxonConcept.superceded.where(id: ids).map do |concept|
+      maps_to = TaxonConcept.with_titles.find(concept.supercedure_id)
+      map[concept.id] = maps_to unless maps_to.nil?
+    end
+    map
   end
 
   # this method is helpful when using preloaded taxon_concepts as preloading

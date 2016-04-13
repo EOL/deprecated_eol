@@ -20,6 +20,7 @@ class Trait
       if rdf.first[:page].to_s =~ TraitBank.taxon_re
         id = $2.to_i
         @page = options[:taxa].find { |taxon| taxon.id == id }
+        @page ||= @source_set.taxa[id] unless @source_set.taxa.nil?
         @page ||= TaxonConcept.find(id) unless id == 0
       end
     end
@@ -39,8 +40,10 @@ class Trait
     return false unless association?
     if @page
       @page == subject_page
-    else
+    elsif object_page
       @source_set.id == object_page.id
+    else
+      false
     end
   end
 
@@ -127,8 +130,12 @@ class Trait
     return nil if str.nil?
     id = str.sub(TraitBank.taxon_re, "\\2")
     return nil if id.blank?
-    tc = TaxonConcept.find(id)
-    TaxonConcept.with_titles.find(tc)
+    tc = @source_set.taxa[id.to_i]
+    if tc.nil?
+      tc = TaxonConcept.find(id)
+      tc = TaxonConcept.with_titles.find(tc)
+    end
+    tc
   end
 
   def categories

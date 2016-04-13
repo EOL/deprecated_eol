@@ -9,7 +9,7 @@ class TraitSet
     foaf: 'http://xmlns.com/foaf/0.1/'
   }
 
-  attr_accessor :points, :glossary, :traits, :sources
+  attr_accessor :points, :glossary, :traits, :sources, :taxa
 
   # YOU *NEED* TO IMPLEMENT #initialize ! See PageTraits for an example.
 

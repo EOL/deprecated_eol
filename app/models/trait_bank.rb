@@ -7,6 +7,7 @@ class TraitBank
   end
 
   SOURCE_RE = /http:\/\/eol.org\/resources\/(\d+)$/
+  PAGE_RE = /http:\/\/eol.org\/pages\/(\d+)$/
 
   @default_limit = 5000
   @taxon_re = Rails.configuration.known_taxon_uri_re

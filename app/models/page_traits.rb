@@ -21,6 +21,9 @@ class PageTraits < TraitSet
     # TODO: associations. We need the names of those taxa.
     @glossary = KnownUri.where(uri: uris.to_a.map(&:to_s)).
       includes(toc_items: :translated_toc_items)
+    page_ids = Set.new(@rdf.map { |rdf| rdf[:value].to_s =~
+      TraitBank.taxon_re ? $2 : nil }.compact).to_a
+    @taxa = TaxonConcept.map_supercedure(page_ids) unless page_ids.blank?
     traits = @rdf.group_by { |trait| trait[:trait] }
     @traits = traits.keys.map { |trait| Trait.new(traits[trait], self) }
     source_ids = Set.new(@traits.map { |trait| trait.source_id })
@@ -36,7 +39,7 @@ class PageTraits < TraitSet
   # TODO: this doesn't belong here; make a new class and pass self in. NOTE:
   # jsonld is ALWAYS in English. Period. This is expected and normal.
   def jsonld
-    concept = TaxonConcept.find(@id)
+    concept = TaxonConcept.with_titles.find(@id)
     jsonld = { '@graph' => [ concept.to_jsonld ] }
     if wikipedia_entry = concept.wikipedia_entry
       jsonld['@graph'] << wikipedia_entry.mapping_jsonld

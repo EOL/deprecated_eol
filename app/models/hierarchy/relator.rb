@@ -122,7 +122,6 @@ class Hierarchy
 
     def study(entry)
       if @studied.has_key?(entry["id"])
-        EOL.log("Re-using studied entry #{entry["id"]}")
         return @studied[entry["id"]]
       end
       # April 2016: we decided that missing a scientific name (which is due to
@@ -241,13 +240,13 @@ class Hierarchy
       total_score = if name_score.nil? || name_score == 0
         0
       else
-        ancestry_score = compare_ancestries(from_entry, to_entry)
-        if ancestry_score.nil?
+        compare_ancestries(from_entry, to_entry)
+        if @ancestry_score.nil?
           # One of the ancestries was totally empty:
           name_score * 0.5
-        elsif ancestry_score > 0
+        elsif @ancestry_score > 0
           # Ancestry was reasonable match:
-          name_score * ancestry_score
+          name_score * @ancestry_score
         else
           # Bad match:
           0
@@ -291,18 +290,20 @@ class Hierarchy
     # "check each rank in order of priority and return the respective weight on
     # match"
     def compare_ancestries(from_entry, to_entry)
-      ancestry = study_ancestry(from_entry, to_entry)
-      return nil if ancestry[:empty]
+      @ancestry_score = nil
+      study_ancestry(from_entry, to_entry)
+      return nil if @ancestry_empty
       # Never ever match bad kingdoms:
-      return 0 if ancestry[:bad_kingdom]
-      if ancestry[:match]["kingdom"]
-        if ancestry[:match].size > 1
+      return 0 if @bad_kingdom
+      if @kingdoms_match
+        if @non_kingdoms_match
           # We matched on Kingdom AND something else, which is great!
           return 1
         else
           # We *only* had kingdoms to work with... If neither entry has other
           # ranks at all, return the score based on kingdom only:
-          return RANK_WEIGHTS["kingdom"] unless ancestry[:both_have_non_kingdom]
+          return RANK_WEIGHTS["kingdom"] unless
+            @both_ancestries_have_non_kingdoms
           # So here we've got at least one entry with other ranks *available*,
           # but they didn't match. This is only okay if both entries have a rank
           # that allows this:
@@ -312,47 +313,54 @@ class Hierarchy
           # entries that matched only at kingdom (which is fine)
         end
       end
-      return ancestry[:best_score]
+      @ancestry_score = @ancestry_score
     end
 
     def study_ancestry(from_entry, to_entry)
-      # TODO: This is really a struct.
-      ancestry = { match: {}, only_from: {}, only_to: {}, contradict: {},
-        both_empty: {}, best_score: 0 }
+      # NOTE: I'm using instance variables to stop MALLOC'ing every time we call
+      # this method, which is... a lot.
+      @kingdoms_match = false
+      @from_has_non_kingdom = false
+      @to_has_non_kingdom = false
+      @non_kingdoms_match = false
+      @ancestry_empty = true
+      @ancestry_score = 0
+      @bad_kingdom = false
+      @both_ancestries_have_non_kingdoms = false
       RANK_WEIGHTS.sort_by { |k,v| - v }.each do |rank, weight|
         if from_entry[rank] && to_entry[rank]
+          @ancestry_empty = false
           unless rank == "kingdom"
-            ancestry[:from_has_non_kingdom] = true
-            ancestry[:to_has_non_kingdom] = true
+            @from_has_non_kingdom = true
+            @to_has_non_kingdom = true
           end
           if from_entry[rank] == to_entry[rank] # MATCH!
-            ancestry[:match][rank] = true
-            ancestry[:best_score] = weight if weight > ancestry[:best_score]
+            if rank == "kingdom"
+              @kingdoms_match = true
+            else
+              @non_kingdoms_match = true
+            end
+            @ancestry_score = weight if weight > @ancestry_score
           else # CONTRADICTION!
-            ancestry[:contradict][rank] = true
             if rank == "kingdom"
               # If either of them is Animalia, absolutely DO NOT MATCH!
               if from_entry[rank].downcase == "animalia" ||
                  to_entry[rank].downcase == "animalia"
-                ancestry[:bad_kingdom] = true
+                @bad_kingdom = true
+                return # Nothing more worth doing!
               end
             end
           end
         elsif from_entry[rank]
-          ancestry[:only_from][rank] = true
-          ancestry[:from_has_non_kingdom] = true unless rank == "kingdom"
+          @ancestry_empty = false
+          @from_has_non_kingdom = true unless rank == "kingdom"
         elsif to_entry[rank]
-          ancestry[:only_to][rank] = true
-          ancestry[:to_has_non_kingdom] = true unless rank == "kingdom"
+          @ancestry_empty = false
+          @to_has_non_kingdom = true unless rank == "kingdom"
         end
       end
-      ancestry[:empty] = ancestry[:match].empty? &&
-        ancestry[:only_from].empty? &&
-        ancestry[:only_to].empty? &&
-        ancestry[:contradict].empty?
-      ancestry[:both_have_non_kingdom] = ancestry[:to_has_non_kingdom] &&
-        ancestry[:from_has_non_kingdom]
-      return ancestry
+      @both_ancestries_have_non_kingdoms =
+        @to_has_non_kingdom && @from_has_non_kingdom
     end
 
     def allowed_to_match_at_kingdom_only?(from_entry, to_entry)

@@ -6,6 +6,8 @@ concept = TaxonConcept.find 4327143
 (genus, species) = concept.hierarchy_entries.where(hierarchy_id: 464)
 sim = Hierarchy::Similarity.new
 sim.compare(genus, species)
+entry = concept.entry
+sim.compare(genus, entry)
 
 # -- https://github.com/EOL/tramea/issues/239 part 3 - re-merging split entries...
 

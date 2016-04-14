@@ -49,17 +49,19 @@ class Hierarchy::Similarity
     return :virus if @from_entry["is_virus"] || @to_entry["is_virus"]
     clear_variables
     compare_names
-    if @name_match == :none
+    name_score = if @name_match == :none
       # 0 (none), 0.5 (canon), or 1 (sci):
       @synonym_match = compare_synonyms
       @is_synonym = @synonym_match != :none
+      match_score(@synonym_match)
+    else
+      match_score(@name_match)
     end
     score = if @name_match == :none && @synonym_match == :none
       0
     else
       compare_ancestries
       if @ancestry_score.nil?
-        # One of the ancestries was totally empty:
         name_score * 0.5
       elsif @ancestry_score > 0
         # Ancestry was reasonable match:
@@ -249,6 +251,19 @@ class Hierarchy::Similarity
       entry["synonym"]
     else
       []
+    end
+  end
+
+  def match_score(which)
+    case which
+    when nil
+      0
+    when :none
+      0
+    when :scientific
+      1
+    when :canonical
+      0.5
     end
   end
 end

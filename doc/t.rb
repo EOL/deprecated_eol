@@ -7,9 +7,9 @@ concept = TaxonConcept.find 4327143
 sim = Hierarchy::Similarity.new
 # sim.compare(genus, species)
 entries = concept.hierarchy_entries
-results = []
-entries.each { |entry| next if entry == species ; hash = entry.from_solr.first ; next if hash.nil? ; results << sim.compare(species, hash) }
-results.each { |r| puts r.inspect } ; 1
+# results = []
+# entries.each { |entry| next if entry == species ; hash = entry.from_solr.first ; next if hash.nil? ; results << sim.compare(species, hash) }
+# results.each { |r| puts r.inspect } ; 1
 
 # -- https://github.com/EOL/tramea/issues/239 part 3 - re-merging split entries...
 

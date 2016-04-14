@@ -48,16 +48,16 @@ class Hierarchy::Similarity
     # PHP: "viruses are a pain and will not match properly right now"
     return :virus if @from_entry["is_virus"] || @to_entry["is_virus"]
     clear_variables
-    compare_names(@from_entry, @to_entry)
+    compare_names
     if @name_match == :none
       # 0 (none), 0.5 (canon), or 1 (sci):
-      @synonym_match = compare_synonyms(@from_entry, @to_entry)
+      @synonym_match = compare_synonyms
       @is_synonym = @synonym_match != :none
     end
     score = if @name_match == :none && @synonym_match == :none
       0
     else
-      compare_ancestries(@from_entry, @to_entry)
+      compare_ancestries
       if @ancestry_score.nil?
         # One of the ancestries was totally empty:
         name_score * 0.5
@@ -179,7 +179,7 @@ class Hierarchy::Similarity
   # match"
   def compare_ancestries
     @ancestry_score = nil
-    study_ancestry(@from_entry, @to_entry)
+    study_ancestry
     return nil if @ancestry_empty
     # Never ever match bad kingdoms:
     return 0 if @bad_kingdom
@@ -196,7 +196,7 @@ class Hierarchy::Similarity
         # but they didn't match. This is only okay if both entries have a rank
         # that allows this:
         return 0 unless
-          allowed_to_match_at_kingdom_only?(@from_entry, @to_entry)
+          allowed_to_match_at_kingdom_only?
         # If we haven't returned, then we're looking at a pair of higher-level
         # entries that matched only at kingdom (which is fine)
       end

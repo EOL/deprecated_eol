@@ -921,6 +921,7 @@ gl:
       page_title: Deixa os teus comentarios
   collections:
     download_taxa_data:
+      attribute_header: Atributo
       select_all_checkbox: Seleccionar todo
     show:
       meta_description_default: Unha colección da Enciclopedia da vida titulada %{collection_name}.
@@ -1184,7 +1185,7 @@ gl:
       about_link_what_is_eol: Que é a EOL?
       about_link_traitbank: Que é o TraitBank?
       about_link_eol_blog: O blogue da EOL
-      about_link_discover: Descubrir
+      about_link_discover: Educación
       about_link_statistics: Estatísticas
       about_link_glossary: Glosario
       about_link_podcasts: Podcasts
@@ -4577,6 +4578,7 @@ gl:
     durante %{period} horas
   currently_running_harvesting: Actualmente hai unha colleita en execución
   currently_in_eol: Actualmente na Enciclopedia da vida
+  create_download_data_file: Crear Ficheiro
   institutional_sponsors: Patrocinadores institucionais
   currently_published: publicado actualmente
   daily: Diariamente
@@ -4640,6 +4642,10 @@ gl:
     xeral.'
   data_row_add_exemplar_button: engadir á vista xeral
   data_row_remove_exemplar_button: eliminar da vista xeral
+  data_row_additional_detail_alt: Detalles adicionais
+  data_row_additional_detail_show_alt: Amosar detalles adicionais
+  data_row_additional_detail_hide_alt: Agochar detalles adicionais
+  data_row_additional_detail_loading_alt: Cargando detalles adicionais
   data_row_hide_button: Agochar a ringleira
   data_row_unhide_button: Descubrir a ringleira
   data_search:
@@ -4647,6 +4653,10 @@ gl:
     form:
       equivalent_attributes: 'Valores equivalentes:'
       equivalent_values: 'Valores equivalentes:'
+      header_assistive: Procurar formulario
+      input_summary_intro: Opcións de procura seleccionadas
+      new_search_link: Comezar unha nova busca
+      sort_header: Ordenar os resultados
   data_subtab_about: Acerca de
   data_subtab_glossary: Glosario para %{taxon}
   data_summary_ranges_header_with_count: A EOL ten un resumo dos datos
@@ -4725,7 +4735,7 @@ gl:
   details_title: Detalles
   did_you_mean: 'Quizais quixeches dicir: %{suggestions}'
   disabled_for_now: DESACTIVADO POLO DE AGORA
-  discover_link: Descubrir
+  discover_link: Educación
   donate_link: Doar
   done_already: Xa está feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Non mostrar
@@ -4734,6 +4744,7 @@ gl:
   do_you_want_to_be_a_curator: Queres converterte nun conservador
   download_wav_file: Descargar o ficheiro WAV
   download_data: Descargar os datos
+  download_collection_data: Descargar datos
   dublin_core: Dublin Core
   duplicate_comment_warning: Non se gardou o comentario. Semella que xa publicaches
     este comentario. Premiches no botón "Publicar o comentario" dúas veces?
@@ -5607,6 +5618,7 @@ gl:
   not_evaluated: Sen avaliar
   not_recognized_by_available_hierarchies: Non recoñecido por ningunha das clasificacións
     dispoñibles
+  not_specified: non especificado
   not_yet_implemented_error: Sentímolo, esa característica aínda non está introducida.
   note: 'Nota:'
   note_about_homonym_problems: 'Nota: Cambia este atributo unicamente se estás moi
@@ -5908,6 +5920,10 @@ gl:
     outra vez para recibir unha nova ligazón.
   resource: Recurso
   resource_import_frequency:
+    weekly: Semanalmente
+    monthly: Mensualmente
+    bimonthly: Bimensual
+    quarterly: Trimestralmente
     hours_with_count:
       one: '%{count} hora'
       other: '%{count} horas'
@@ -6155,8 +6171,10 @@ gl:
   subject: asunto
   submit: Enviar
   submitting: Por favor, agarda…
+  submitted_colon: 'Enviado:'
   suggested_result_page_id: 'ID da páxina de resultados suxeridos:'
   suggested_results_avg: Media dos resultados suxeridos
+  suggested_vocab_remove: eliminar recomendación
   summary_thumbnail_title: 'Resumo:'
   supplier: Provedor
   supplier_allcaps: 'PROVEDOR:'

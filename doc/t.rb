@@ -8,7 +8,7 @@ sim = Hierarchy::Similarity.new
 # sim.compare(genus, species)
 entries = concept.hierarchy_entries
 results = []
-entries.each { |entry| results << sim.compare(species, entry) }
+entries.each { |entry| next if entry == species ; results << sim.compare(species, entry) }
 results.each { |r| puts r.inspect } ; 1
 
 # -- https://github.com/EOL/tramea/issues/239 part 3 - re-merging split entries...

@@ -100,6 +100,7 @@ class Hierarchy::Similarity
        @studied.has_key?(entry.to_i)
       return @studied[entry.to_i]
     end
+    raise "No entry!" if entry.nil?
     entry = load_entry(entry) unless entry.is_a?(Hash)
     if @studied.has_key?(entry["id"])
       return @studied[entry["id"]]

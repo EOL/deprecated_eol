@@ -17,15 +17,12 @@ class Hierarchy
 
     def initialize(hierarchy, options = {})
       # We load this at runtime, so new ranks are read in:
-      @rank_groups = Hash[ *(Rank.where("rank_group_id != 0").
-        flat_map { |r| [ r.id, r.rank_group_id ] }) ]
       @hierarchy = hierarchy
       @browsable = Hierarchy.browsable
       @new_entry_ids = {}
       Array(options[:entry_ids]).each { |id| @new_entry_ids[id] = true }
       # TODO: Never used, currently; saving for later port work:
       @hierarchy_against = options[:against]
-      @count = 0
       @all_hierarchies = options[:all_hierarchies]
       hiers = @browsable
       hiers = hiers.where(["id != ?", @hierarchy.id]) if @hierarchy.complete?
@@ -34,7 +31,6 @@ class Hierarchy
       @per_page = 1000 unless @per_page > 0
       @solr = SolrCore::HierarchyEntries.new
       @scores = {}
-      @rank_conflicts = {}
       @similarity = Hierarchy::Similarity.new
     end
 

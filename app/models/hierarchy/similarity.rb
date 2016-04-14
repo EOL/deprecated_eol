@@ -30,10 +30,13 @@ class Hierarchy::Similarity
   def initialize
     @solr ||= SolrCore::HierarchyEntries.new
     @studied = {}
+    @rank_conflicts = {}
+    @rank_groups = Hash[ *(Rank.where("rank_group_id != 0").
+      flat_map { |r| [ r.id, r.rank_group_id ] }) ]
   end
 
   def compare(from_entry, to_entry, options = {})
-    @from_entry = options[:from_studied] ? study(from_entry) : from_entry
+    @from_entry = options[:from_studied] ? from_entry : study(from_entry)
     @to_entry = study(to_entry)
     return :same_entry if @from_entry["id"] == @to_entry["id"]
     return :from_name_blank if @from_entry["name"].blank?

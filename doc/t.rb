@@ -2,6 +2,11 @@
 
 Benchmark.measure { Resource.find(958).relate }
 
+concept = TaxonConcept.find 4327143
+(genus, species) = concept.hierarchy_entries.where(hierarchy_id: 464)
+sim = Hierarchy::Similarity.new
+sim.compare(genus, species)
+
 # -- https://github.com/EOL/tramea/issues/239 part 3 - re-merging split entries...
 
 pairs = IO.readlines("/app/log/pairs.txt")

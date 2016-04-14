@@ -70,14 +70,13 @@ class Hierarchy::Similarity
       end
     end
     { score: score, synonym: @is_synonym, name_match: @name_match,
-      synonym_match: @synonym_match, from: @from_entry.id, to: @to_entry.id,
-      kingdoms_match: @kingdoms_match, bad_kingdom: @bad_kingdom,
-      from_has_non_kingdom: @from_has_non_kingdom,
+      synonym_match: @synonym_match, from: @from_entry["id"],
+      to: @to_entry["id"], kingdoms_match: @kingdoms_match,
+      bad_kingdom: @bad_kingdom, from_has_non_kingdom: @from_has_non_kingdom,
       to_has_non_kingdom: @to_has_non_kingdom,
       non_kingdoms_match: @non_kingdoms_match,
       ancestry_empty: @ancestry_empty, ancestry_score: @ancestry_score,
-      both_ancestries_have_non_kingdoms: @both_ancestries_have_non_kingdoms
-    }
+      both_ancestries_have_non_kingdoms: @both_ancestries_have_non_kingdoms }
   end
 
   def load_entry(entry)

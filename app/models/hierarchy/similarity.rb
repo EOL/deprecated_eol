@@ -69,7 +69,7 @@ class Hierarchy::Similarity
         0
       end
     end
-    { score: score, synonym: @is_synonym, name_match: @name_match,
+    { score: score, is_synonym: @is_synonym, name_match: @name_match,
       synonym_match: @synonym_match, from: @from_entry["id"],
       to: @to_entry["id"], kingdoms_match: @kingdoms_match,
       bad_kingdom: @bad_kingdom, from_has_non_kingdom: @from_has_non_kingdom,
@@ -177,7 +177,6 @@ class Hierarchy::Similarity
   # "check each rank in order of priority and return the respective weight on
   # match"
   def compare_ancestries
-    @ancestry_score = nil
     study_ancestry
     return nil if @ancestry_empty
     # Never ever match bad kingdoms:

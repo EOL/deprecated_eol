@@ -112,15 +112,16 @@ class HierarchyEntry < ActiveRecord::Base
 
   # NOTE: this is unused in the code, but is used manually. Please keep.
   def from_solr
-    solr = SolrCore::HierarchyEntries.new
-    solr.paginate("id:#{id}")["response"]["docs"]
+    @entry_solr ||= SolrCore::HierarchyEntries.new
+    @entry_solr.connection.
+      get("select", params: { q: "id:#{id}" } )["response"]["docs"]
   end
 
   # NOTE: this is unused in the code, but is used manually. Please keep.
   def relationships_from_solr(limit = 30)
-    solr = SolrCore::HierarchyEntryRelationships.new
-    solr.paginate("hierarchy_entry_id_1:#{id}",
-      per_page: limit)["response"]["docs"]
+    @rel_solr ||= SolrCore::HierarchyEntryRelationships.new
+    @rel_solr.connection.get("select", params: {
+      q: "hierarchy_entry_id_1:#{id}", rows: limit })["response"]["docs"]
   end
 
   def has_parent?

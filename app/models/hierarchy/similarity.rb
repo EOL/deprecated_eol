@@ -82,18 +82,14 @@ class Hierarchy::Similarity
   end
 
   def load_entry(entry)
-    puts "Entry is a #{entry.class}"
-    entry = entry.from_solr.first if entry.is_a?(HierarchyEntry)
-    puts "Entry is now a #{entry.class}"
+    if entry.is_a?(HierarchyEntry)
+      id = entry.id
+      entry = entry.from_solr.first
+      raise("Entry #{id} not indexed in Solr!") if entry.nil?
+    end
     unless entry.is_a?(Hash)
-      begin
-        puts "Entry has become a #{entry.class}"
-        entry = @solr.connection.
-          get("select", params: { q: "id:#{entry}" } )["response"]["docs"].first
-      rescue => e
-        puts "AUGH! Couldn't figure out how to query a #{entry.class}!"
-        raise e
-      end
+      entry = @solr.connection.
+        get("select", params: { q: "id:#{entry}" } )["response"]["docs"].first
     end
     entry
   end

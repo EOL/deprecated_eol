@@ -146,7 +146,7 @@ class Hierarchy
     end
 
     def store_score(score)
-      type = score[:synonym] ? 'syn' : 'name'
+      type = score[:is_synonym] ? 'syn' : 'name'
       keys = ["#{score[:from]},#{score[:to]},'#{type}'",
               "#{score[:to]},#{score[:from]},'#{type}'"]
       keys.each do |key|

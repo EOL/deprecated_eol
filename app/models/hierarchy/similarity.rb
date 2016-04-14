@@ -82,9 +82,12 @@ class Hierarchy::Similarity
   end
 
   def load_entry(entry)
+    puts "Entry is a #{entry.class}"
     entry = entry.from_solr.first if entry.is_a?(HierarchyEntry)
+    puts "Entry is now a #{entry.class}"
     unless entry.is_a?(Hash)
       begin
+        puts "Entry has become a #{entry.class}"
         entry = @solr.connection.
           get("select", params: { q: "id:#{entry}" } )["response"]["docs"].first
       rescue => e
@@ -100,7 +103,6 @@ class Hierarchy::Similarity
        @studied.has_key?(entry.to_i)
       return @studied[entry.to_i]
     end
-    raise "No entry!" if entry.nil?
     entry = load_entry(entry) unless entry.is_a?(Hash)
     if @studied.has_key?(entry["id"])
       return @studied[entry["id"]]

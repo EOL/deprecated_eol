@@ -78,7 +78,8 @@ class Hierarchy::Similarity
       to_has_non_kingdom: @to_has_non_kingdom,
       non_kingdoms_match: @non_kingdoms_match,
       ancestry_empty: @ancestry_empty, ancestry_score: @ancestry_score,
-      both_ancestries_have_non_kingdoms: @both_ancestries_have_non_kingdoms }
+      both_ancestries_have_non_kingdoms: @both_ancestries_have_non_kingdoms,
+      ancestry_studied: @ancestry_studied }
   end
 
   def load_entry(entry)
@@ -153,6 +154,7 @@ class Hierarchy::Similarity
     @non_kingdoms_match = nil
     @ancestry_empty = true
     @ancestry_score = 0
+    @ancestry_studied = nil
     @bad_kingdom = nil
     @both_ancestries_have_non_kingdoms = nil
   end
@@ -209,6 +211,7 @@ class Hierarchy::Similarity
   end
 
   def study_ancestry
+    @ancestry_studied = true
     RANK_WEIGHTS.sort_by { |k,v| - v }.each do |rank, weight|
       if @from_entry[rank] && @to_entry[rank]
         @ancestry_empty = false
@@ -269,5 +272,49 @@ class Hierarchy::Similarity
     when :canonical
       0.5
     end
+  end
+
+  # e.g.: {:score=>0, :is_synonym=>nil, :name_match=>:scientific,
+  # :synonym_match=>nil, :from=>62591529, :to=>26759611, :kingdoms_match=>nil,
+  # :bad_kingdom=>nil, :from_has_non_kingdom=>true, :to_has_non_kingdom=>true,
+  # :non_kingdoms_match=>nil, :ancestry_empty=>false, :ancestry_score=>0,
+  # :both_ancestries_have_non_kingdoms=>true}
+  #
+  # {:score=>0.8, :is_synonym=>nil, :name_match=>:scientific,
+  # :synonym_match=>nil, :from=>62591529, :to=>29177966, :kingdoms_match=>true,
+  # :bad_kingdom=>nil, :from_has_non_kingdom=>true, :to_has_non_kingdom=>true,
+  # :non_kingdoms_match=>true, :ancestry_empty=>false, :ancestry_score=>0.8,
+  # :both_ancestries_have_non_kingdoms=>true}
+  def explain(score)
+    entries = HierarchyEntry.includes([:hierarchy, { name: :canonical_form }]).where(id: [score[:from], score[:to]])
+    from_entry = entries.find { |e| e.id == score[:from] }
+    to_entry = entries.find { |e| e.id == score[:to] }
+    exp = "It looks like the entry from `#{from_entry.hierarchy.label}` "
+    exp += "named `#{from_entry.name.string}` (canonical: #{from_entry.name.canonical_form.string}) "
+    exp += "would #{score[:score] == 0 ? "not " : ""} match the entry from "
+    exp += "`#{to_entry.hierarchy.label}` named `#{to_entry.name.string}` "
+    exp += "(canonical: #{to_entry.name.canonical_form.string}) with a confidence "
+    exp += "of #{score[:score]}."
+    if score[:name_match] && score[:name_match] != :none
+      exp += "The #{score[:name_match]} names matched. "
+    else
+      exp += "The names did not match. "
+    end
+    if score[:synonym_match]
+      if score[:synonym_match] != :none
+        exp += "The #{score[:synonym_match]} synonyms matched. "
+      else
+        exp += "The synonyms were checked, but did not match. "
+      end
+    end
+    if score[:ancestry_studied]
+      exp += "The kingdoms #{score[:kingdoms_match] ? "did" : "did NOT"} match. "
+      exp += "The kingdoms conflicted (one was animalia!) " if score[:bad_kingdom]
+      exp += "Non-kingdom ancestors #{score[:non_kingdoms_match] ? "did" : "did NOT"} match. "
+      exp += "The ancestry was empty. " if score[:ancestry_empty]
+      exp += "Ancestry was scored with a multiplier of #{score[:ancestry_score]}. "
+      exp += "Both ancestries had non-kingdoms in them. " if score[:both_ancestries_have_non_kingdoms]
+    end
+    exp.chop
   end
 end

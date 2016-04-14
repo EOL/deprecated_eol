@@ -196,13 +196,12 @@ class Hierarchy::Similarity
       else
         # We *only* had kingdoms to work with... If neither entry has other
         # ranks at all, return the score based on kingdom only:
-        return RANK_WEIGHTS["kingdom"] unless
+        return @ancestry_score = RANK_WEIGHTS["kingdom"] unless
           @both_ancestries_have_non_kingdoms
         # So here we've got at least one entry with other ranks *available*,
         # but they didn't match. This is only okay if both entries have a rank
         # that allows this:
-        return 0 unless
-          allowed_to_match_at_kingdom_only?
+        return @ancestry_score = 0 unless allowed_to_match_at_kingdom_only?
         # If we haven't returned, then we're looking at a pair of higher-level
         # entries that matched only at kingdom (which is fine)
       end
@@ -222,8 +221,12 @@ class Hierarchy::Similarity
         if @from_entry[rank] == @to_entry[rank] # MATCH!
           if rank == "kingdom"
             @kingdoms_match = true
+            # That's all we need:
+            return @ancestry_score = 1 if @non_kingdoms_match
           else
             @non_kingdoms_match = true
+            # That's all we need:
+            return @ancestry_score = 1 if @kingdoms_match
           end
           @ancestry_score = weight if weight > @ancestry_score
         else # CONTRADICTION!
@@ -291,10 +294,10 @@ class Hierarchy::Similarity
     to_entry = entries.find { |e| e.id == score[:to] }
     exp = "It looks like the entry from `#{from_entry.hierarchy.label}` "
     exp += "named `#{from_entry.name.string}` (canonical: #{from_entry.name.canonical_form.string}) "
-    exp += "would #{score[:score] == 0 ? "not " : ""} match the entry from "
+    exp += "would #{score[:score] == 0 ? "NOT match" : "match"} the entry from "
     exp += "`#{to_entry.hierarchy.label}` named `#{to_entry.name.string}` "
     exp += "(canonical: #{to_entry.name.canonical_form.string}) with a confidence "
-    exp += "of #{score[:score]}."
+    exp += "of #{score[:score]}. "
     if score[:name_match] && score[:name_match] != :none
       exp += "The #{score[:name_match]} names matched. "
     else

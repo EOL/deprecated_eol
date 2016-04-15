@@ -289,7 +289,8 @@ class Hierarchy::Similarity
   # :non_kingdoms_match=>true, :ancestry_empty=>false, :ancestry_score=>0.8,
   # :both_ancestries_have_non_kingdoms=>true}
   def explain(score)
-    entries = HierarchyEntry.includes([:hierarchy, { name: :canonical_form }]).where(id: [score[:from], score[:to]])
+    return "Does not match: #{score}" if score.is_a?(Symbol)
+    entries = HierarchyEntry.includes(:hierarchy, { name: :canonical_form }).where(id: [score[:from], score[:to]])
     from_entry = entries.find { |e| e.id == score[:from] }
     to_entry = entries.find { |e| e.id == score[:to] }
     exp = "It looks like the entry from `#{from_entry.hierarchy.label}` "

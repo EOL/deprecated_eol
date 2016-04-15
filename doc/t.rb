@@ -1,5 +1,57 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+# #259 - Looking for bad merges, where one concept has multiple entries OF
+# DIFFERENT RANKS (and names) from the same hierarchy
+
+q_select = %q{SELECT DISTINCT he.taxon_concept_id page, he.id id_1,
+  n.string name_1, he.depth depth_1, he.rank_id rank_1, other.id id_2,
+  o_n.string name_2, other.depth depth_2, other.rank_id rank_2 }
+q_out = %q{  INTO OUTFILE "/var/lib/mysql/bad_merges_HIERID.csv"
+  FIELDS TERMINATED BY ','
+  OPTIONALLY ENCLOSED BY '"'
+  LINES TERMINATED BY '\\n' }
+q_from = %q{
+  FROM hierarchy_entries he
+  JOIN names n ON (he.name_id = n.id)
+  JOIN hierarchies h ON (he.hierarchy_id = h.id)
+  LEFT JOIN hierarchy_entries other
+    ON (he.taxon_concept_id = other.taxon_concept_id
+      AND he.hierarchy_id = HIERID
+      AND he.id != other.id
+      AND other.published = 1 AND other.visibility_id = 1
+      AND (he.rank_id != other.rank_id OR he.depth != other.depth))
+  JOIN names o_n ON (other.name_id = o_n.id)
+WHERE o_n.string != n.string AND he.published = 1 AND he.visibility_id = 1
+ORDER BY he.taxon_concept_id, he.id, other.id }
+
+hiers = Set.new ; events = HarvestEvent.complete.published.includes(resource: :hierarchy).all ; events.each { |e| hiers <<
+ e.resource.hierarchy if e.resource.try :hierarchy } ; 1
+conn = ActiveRecord::Base.connection ; 1
+
+hiers.each do |hierarchy|
+  begin
+    q = (q_select + q_from).gsub(/HIERID/m, hierarchy.id.to_s) ; 1
+    result = conn.execute(q) ; 1
+    if result.size == 0
+      puts "No conflicts in hierarchy #{hierarchy.id} (#{hierarchy.label})"
+      next
+    else
+      puts "Okay, #{result.size} results in #{hierarchy.id} (#{hierarchy.label})"
+      # result.each_with_index { |r,i| puts r.to_csv ; break if i > 100 }
+      lbl = hierarchy.label.sub(/[^ \w].*$/, "").sub(/\s$/, "").sub(/\s/, "_").downcase
+      CSV.open("log/bad_merge_candidates_#{hierarchy.id}_#{lbl}.csv", "wb") do |csv|
+        csv << %w(page_id entry1_id entry1_name entry1_depth
+          entry1_rank_id entry2_id entry2_name entry2_depth entry2_rank_id)
+        result.each { |r| csv << r }
+      end ; 1
+    end
+  rescue => e
+    puts "GAH! #{e.message} from hierarchy #{hierarchy.id} (#{hierarchy.label})"
+  end
+end ; 1
+
+# - errr... later
+
 Benchmark.measure { Resource.find(958).relate }
 
 concept = TaxonConcept.find 4327143

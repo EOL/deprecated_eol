@@ -288,17 +288,21 @@ class Hierarchy::Similarity
   # :bad_kingdom=>nil, :from_has_non_kingdom=>true, :to_has_non_kingdom=>true,
   # :non_kingdoms_match=>true, :ancestry_empty=>false, :ancestry_score=>0.8,
   # :both_ancestries_have_non_kingdoms=>true}
-  def explain(score)
+  def explain(score, options = {})
     return "Does not match: #{score}" if score.is_a?(Symbol)
     entries = HierarchyEntry.includes(:hierarchy, { name: :canonical_form }).where(id: [score[:from], score[:to]])
     from_entry = entries.find { |e| e.id == score[:from] }
     to_entry = entries.find { |e| e.id == score[:to] }
-    exp = "**#{from_entry.hierarchy.label}** > "
-    exp += "*#{from_entry.name.string}* (canonical: *#{from_entry.name.canonical_form.string}*) "
+    exp = "* "
+    exp += "#{from_entry.hierarchy.label} > " unless options[:skip_summary]
+    exp += "*#{from_entry.name.string}* (canonical: "\
+      "*#{from_entry.name.canonical_form.string}*) " unless options[:skip_summary]
+    exp += score[:score] == 0 ? ":x: " : ":white_check_mark: "
     exp += "would **#{score[:score] == 0 ? "NOT match" : "match"}** "
-    exp += "**#{to_entry.hierarchy.label}** > *#{to_entry.name.string}* "
+    exp += ":vs: #{to_entry.hierarchy.label} > *#{to_entry.name.string}* "
+    exp += "```#{to_entry.id}``` "
     exp += "(canonical: *#{to_entry.name.canonical_form.string}*), confidence "
-    exp += "```#{score[:score]}```. "
+    exp += ":signal_strength: ```#{score[:score]}```. "
     if score[:name_match] && score[:name_match] != :none
       exp += "The #{score[:name_match]} names matched. "
     else

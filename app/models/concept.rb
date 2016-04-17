@@ -22,7 +22,7 @@ class Concept
 
   def entries
     @entries ||= @taxon_concept.published_hierarchy_entries.
-      includes(:hierarchy, { name: :canonical_form })
+      includes(hierarchy: :resource, name: :canonical_form)
   end
 
   def method_missing(method, *args, &block)
@@ -34,9 +34,13 @@ class Concept
 
   def explain_entries
     entries.group_by(&:hierarchy).each do |hierarchy, h_entries|
-      puts "**#{hierarchy.label}** (#{hierarchy.id}):"
+      puts ""
+      puts "##### [#{hierarchy.label}]"\
+        "(http://eol.org/resources/#{hierarchy.resource.id}) "\
+        "```#{hierarchy.id}```"
       h_entries.each do |he|
-        puts "  *#{he.name.string}* (*#{he.name.canonical_form.string}*) ```#{he.id}```"
+        puts "* *#{he.name.string}* (*#{he.name.canonical_form.string}*) "\
+          "```#{he.id}```"
       end
     end
     nil
@@ -46,8 +50,12 @@ class Concept
     sim = Hierarchy::Similarity.new
     complete = of_entry.hierarchy.complete?
     ancestry = of_entry.ancestors.includes(name: :canonical_form).
-      map { |e| "*#{e.name.canonical_form.string}* (#{e.id})" }
-    explanation = ["Ancestry: #{ancestry.reverse.join(" > ")}"]
+      map { |e| "*#{e.name.canonical_form.string}* ```#{e.id}```" }
+    explanation = ["##### Explanations for *#{of_entry.name.string}* "\
+        "(*#{of_entry.name.canonical_form.string}*) ```#{of_entry.id}``` from "\
+        "[#{of_entry.hierarchy.label}]"\
+        "(http://eol.org/resources/#{of_entry.hierarchy.resource.id}):",
+      "Ancestry: #{ancestry.join(" > ")}"]
     entries.each do |to_entry|
       next if to_entry == of_entry
       score = sim.compare(of_entry, to_entry, complete: complete)
@@ -55,7 +63,7 @@ class Concept
         explanation << "Does not match with ```#{to_entry.id}``` "\
           "(*#{to_entry.name.string}*): ```#{score}```"
       else
-        explanation << sim.explain(score)
+        explanation << sim.explain(score, skip_summary: true)
       end
     end
     explanation

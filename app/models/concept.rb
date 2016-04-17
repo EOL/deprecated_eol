@@ -21,7 +21,7 @@ class Concept
   end
 
   def entries
-    @taxon_concept.published_hierarchy_entries.
+    @entries ||= @taxon_concept.published_hierarchy_entries.
       includes(:hierarchy, { name: :canonical_form })
   end
 
@@ -34,9 +34,9 @@ class Concept
 
   def explain_entries
     entries.group_by(&:hierarchy).each do |hierarchy, h_entries|
-      puts "#{hierarchy.label} (#{hierarchy.id}):"
+      puts "**#{hierarchy.label}** (#{hierarchy.id}):"
       h_entries.each do |he|
-        puts "  #{he.name.string} (#{he.name.canonical_form.string}) => #{he.id}"
+        puts "  *#{he.name.string}* (*#{he.name.canonical_form.string}*) ```#{he.id}```"
       end
     end
     nil
@@ -45,17 +45,19 @@ class Concept
   def explain_relationships(of_entry)
     sim = Hierarchy::Similarity.new
     complete = of_entry.hierarchy.complete?
-    explanation = []
+    ancestry = of_entry.ancestors.includes(name: :canonical_form).
+      map { |e| "*#{e.name.canonical_form.string}* (#{e.id})" }
+    explanation = ["Ancestry: #{ancestry.reverse.join(" > ")}"]
     entries.each do |to_entry|
       next if to_entry == of_entry
       score = sim.compare(of_entry, to_entry, complete: complete)
       if score.is_a?(Symbol)
-        explanation << "Does not match with #{to_entry.id} "\
-          "(#{to_entry.name.string}): #{score}"
+        explanation << "Does not match with ```#{to_entry.id}``` "\
+          "(*#{to_entry.name.string}*): ```#{score}```"
       else
         explanation << sim.explain(score)
       end
     end
-    puts explanation.join("\n\n")
+    explanation
   end
 end

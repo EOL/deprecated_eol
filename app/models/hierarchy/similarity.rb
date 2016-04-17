@@ -293,12 +293,12 @@ class Hierarchy::Similarity
     entries = HierarchyEntry.includes(:hierarchy, { name: :canonical_form }).where(id: [score[:from], score[:to]])
     from_entry = entries.find { |e| e.id == score[:from] }
     to_entry = entries.find { |e| e.id == score[:to] }
-    exp = "It looks like the entry from `#{from_entry.hierarchy.label}` "
-    exp += "named `#{from_entry.name.string}` (canonical: #{from_entry.name.canonical_form.string}) "
-    exp += "would #{score[:score] == 0 ? "NOT match" : "match"} the entry from "
-    exp += "`#{to_entry.hierarchy.label}` named `#{to_entry.name.string}` "
-    exp += "(canonical: #{to_entry.name.canonical_form.string}) with a confidence "
-    exp += "of #{score[:score]}. "
+    exp = "**#{from_entry.hierarchy.label}** > "
+    exp += "*#{from_entry.name.string}* (canonical: *#{from_entry.name.canonical_form.string}*) "
+    exp += "would **#{score[:score] == 0 ? "NOT match" : "match"}** "
+    exp += "**#{to_entry.hierarchy.label}** > *#{to_entry.name.string}* "
+    exp += "(canonical: *#{to_entry.name.canonical_form.string}*), confidence "
+    exp += "```#{score[:score]}```. "
     if score[:name_match] && score[:name_match] != :none
       exp += "The #{score[:name_match]} names matched. "
     else
@@ -315,8 +315,8 @@ class Hierarchy::Similarity
       exp += "The kingdoms #{score[:kingdoms_match] ? "did" : "did NOT"} match. "
       exp += "The kingdoms conflicted (one was animalia!) " if score[:bad_kingdom]
       exp += "Non-kingdom ancestors #{score[:non_kingdoms_match] ? "did" : "did NOT"} match. "
-      exp += "The ancestry was empty. " if score[:ancestry_empty]
-      exp += "Ancestry was scored with a multiplier of #{score[:ancestry_score]}. "
+      exp += "Both ancestries were empty! " if score[:ancestry_empty]
+      exp += "Ancestry was scored with a multiplier of ```#{score[:ancestry_score]}```. "
       exp += "Both ancestries had non-kingdoms in them. " if score[:both_ancestries_have_non_kingdoms]
     end
     exp.chop

@@ -55,7 +55,7 @@ class Concept
         "(*#{of_entry.name.canonical_form.string}*) ```#{of_entry.id}``` from "\
         "[#{of_entry.hierarchy.label}]"\
         "(http://eol.org/resources/#{of_entry.hierarchy.resource.id}):",
-      "Ancestry: #{ancestry.join(" > ")}"]
+      "Ancestry: #{ancestry.empty? ? "EMPTY!" : ancestry.join(" > ")}"]
     entries.each do |to_entry|
       next if to_entry == of_entry
       score = sim.compare(of_entry, to_entry, complete: complete)

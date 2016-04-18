@@ -128,7 +128,7 @@ module EOL
         done = 0
         rows.in_groups_of(2000, false) do |group|
           EOL.log("group #{group_num += 1} (#{done += group.size}/#{rows.size})") if
-            rows.size > 2000 && group_num % 20 == 0
+            rows.size > 40_000 && group_num % 20 == 0
           klass.connection.execute(
             "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\
             "(`#{fields.join("`, `")}`) "\

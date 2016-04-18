@@ -98,8 +98,13 @@ class Hierarchy
       HierarchyEntriesFlattened.delete_set(old)
       # Now ensure that no later process gets an empty set!
       @hierarchy.clear_ancestry_set
-      EOL::Db.bulk_insert(HierarchyEntriesFlattened,
-        [ "hierarchy_entry_id", "ancestor_id" ], create)
+      begin
+        EOL::Db.bulk_insert(HierarchyEntriesFlattened,
+          [ "hierarchy_entry_id", "ancestor_id" ], create)
+      rescue ActiveRecord::RecordNotUnique => e
+        raise "Did you run this with_master? tried to create a duplicate "\
+          "ancestor. #{e.message.sub(/VALUES.*$/, "VALUES ...")}"
+      end
 
       EOL::Db.bulk_insert(TaxonConceptsFlattened,
         [ "taxon_concept_id", "ancestor_id" ], @flat_concepts, ignore: true)

@@ -203,10 +203,6 @@ class Hierarchy < ActiveRecord::Base
     end
   end
 
-  def repopulate_flattened
-    kingdoms.each(&:repopulate_flattened_hierarchy)
-  end
-
   def reindex
     HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank?
   end

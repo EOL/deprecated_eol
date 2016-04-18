@@ -33,12 +33,14 @@ class Concept
   end
 
   def explain_entries
-    entries.group_by(&:hierarchy).each do |hierarchy, h_entries|
+    grouped = entries.group_by(&:hierarchy)
+
+    grouped.keys.sort_by { |k| k.label }.each do |hierarchy|
       puts ""
       puts "##### [#{hierarchy.label}]"\
         "(http://eol.org/resources/#{hierarchy.resource.id}) "\
         "```#{hierarchy.id}```"
-      h_entries.each do |he|
+      grouped[hierarchy].each do |he|
         puts "* *#{he.name.string}* (*#{he.name.canonical_form.string}*) "\
           "```#{he.id}```"
       end
@@ -46,11 +48,18 @@ class Concept
     nil
   end
 
+  def explain_rels(of_entry)
+    exp = explain_relationships(of_entry)
+    puts "\n\n\n" + exp.join("\n")
+  end
+
   def explain_relationships(of_entry)
     sim = Hierarchy::Similarity.new
+    of_entry = entry(of_entry) unless of_entry.is_a?(HierarchyEntry)
     complete = of_entry.hierarchy.complete?
-    ancestry = of_entry.ancestors.includes(name: :canonical_form).
-      map { |e| "*#{e.name.canonical_form.string}* ```#{e.id}```" }
+    from_solr = of_entry.from_solr.first
+    ancestry = %w{kingdom phylum class order family genus}.
+      map { |c| "#{c.firstcap} #{from_solr[c]}" }
     explanation = ["##### Explanations for *#{of_entry.name.string}* "\
         "(*#{of_entry.name.canonical_form.string}*) ```#{of_entry.id}``` from "\
         "[#{of_entry.hierarchy.label}]"\
@@ -60,7 +69,7 @@ class Concept
       next if to_entry == of_entry
       score = sim.compare(of_entry, to_entry, complete: complete)
       if score.is_a?(Symbol)
-        explanation << "Does not match with ```#{to_entry.id}``` "\
+        explanation << "* Does not match with ```#{to_entry.id}``` "\
           "(*#{to_entry.name.string}*): ```#{score}```"
       else
         explanation << sim.explain(score, skip_summary: true)

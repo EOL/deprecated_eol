@@ -393,21 +393,6 @@ class HierarchyEntry < ActiveRecord::Base
     # Not handling the rest of the tree, here, which I believe is expected.
   end
 
-  def repopulate_flattened_descendants
-    HierarchyEntriesFlattened.repopulate(self)
-  end
-
-  # NOTE: this means "the WHOLE thing, from this node down." You probably mean
-  # to run this on the kingdom, but we're not creating that restriction, so you
-  # have the option of reindexing a lower node if needed.
-  def repopulate_flattened_hierarchy
-    HierarchyEntry.with_master do
-      get_descendants.select([:id, :lft, :rgt, :hierarchy_id]).find_each do |entry|
-        entry.repopulate_flattened_descendants
-      end
-    end
-  end
-
   private
 
   def default_visibility

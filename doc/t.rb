@@ -2,7 +2,9 @@
 
 # Fixing broken hierarchies:
 
-Resource.harvested.includes(:hierarchy).each { |resource| resource.hierarchy.flatten }
+> log/reflatten.log
+nohup bundle exec rails runner -e production "Resource.with_master { Resource.harvested.includes(:hierarchy).each { |resource| resource.hierarchy.try(:flatten) } }" > log/reflatten.log &
+tail -f log/reflatten.log log/production.log
 
 # #259 - Looking for bad merges, where one concept has multiple entries OF
 # DIFFERENT RANKS (and names) from the same hierarchy

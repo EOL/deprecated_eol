@@ -36,8 +36,10 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
       pks = Set.new
       ids = hierarchy.hierarchy_entries.pluck(:id)
       num = 0
+      done = 0
       ids.in_groups_of(10_000).each do |group|
-        EOL.log("Group #{num += 1} (#{group.size})") if ids.size > 10_000
+        EOL.log("Group #{num += 1} (#{done += group.size}/#{ids.size})") if
+          ids.size > 10_000
         # NOTE: This was going REALLY (!!!) slow, so I am skipping it for now:
         # pks += EOL.pluck_pks(self, where(hierarchy_entry_id: group))
         pks += where(hierarchy_entry_id: group).map do |hef|

@@ -3,7 +3,21 @@
 # Fixing broken hierarchies:
 
 > log/reflatten.log
-nohup bundle exec rails runner -e production "Resource.with_master { Resource.harvested.includes(:hierarchy).each { |resource| EOL.log(%Q{#{resource.title} (#{resource.id})}) ; resource.hierarchy.hierarchy_entries.where(depth: 4).first.ancestors.size == 4 ? EOL.log("OK") :  resource.hierarchy.try(:flatten) } }" > log/reflatten.log &
+nohup bundle exec rails runner -e production "
+Resource.with_master {
+  Resource.harvested.includes(:hierarchy).each { |resource|
+    EOL.log(%Q{#{resource.title} (#{resource.id})}) ;
+    h = resource.hierarchy ;
+    EOL.log(%Q{Empty hierarchy!}) unless h ;
+    next unless h ;
+    e = h.hierarchy_entries.where(depth: 4).first ;
+    EOL.log(%Q{Nothing deep enough to check!}) unless e ;
+    EOL.log(%Q{Already OK.}) if e and e.ancestors.size == 4 ;
+    next if e and e.ancestors.size == 4 ;
+    h.try(:flatten)
+  }
+}
+" > log/reflatten.log &
 tail -f log/reflatten.log log/production.log
 
 resource.hierarchy.hierarchy_entries.where(depth: 4).first.ancestors.size == 4

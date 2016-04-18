@@ -1,5 +1,9 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+# Fixing broken hierarchies:
+
+Resource.harvested.includes(:hierarchy).each { |resource| resource.hierarchy.flatten }
+
 # #259 - Looking for bad merges, where one concept has multiple entries OF
 # DIFFERENT RANKS (and names) from the same hierarchy
 

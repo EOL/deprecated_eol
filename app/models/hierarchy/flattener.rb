@@ -21,7 +21,8 @@ class Hierarchy
     # be best if we rebuilt that table periodically, even though doing so would
     # be rather hairy! TODO
     def flatten
-      EOL.log("Flattening #{@hierarchy.label}", prefix: "#")
+      EOL.log("Flattening #{@hierarchy.label} (#{@hierarchy.id}; RID="\
+        "#{@hierarchy.resource.id})", prefix: "#")
       begin
         study_hierarchy
       rescue EOL::Exceptions::EmptyHierarchyFlattened => e

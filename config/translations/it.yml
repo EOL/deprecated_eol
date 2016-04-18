@@ -2196,8 +2196,8 @@ it:
           di notifica potrebbero non essere state aggiornate.
     open_authentications:
       errors:
-        missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-          account di terze parti.
+        missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+          tramite account di terze parti.
         not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
           per la connessione all'account.
         not_authorized_to_login: Spiacenti, non si dispone delle autorizzazioni per
@@ -2215,8 +2215,8 @@ it:
             di Facebook tramite le impostazioni del tuo profilo EOL. Se ancora non
             hai ancora un account EOL <a href="%{register_url}">completa la registrazione
             EOL</a> per crearne uno.
-          missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-            l'account di Facebook.
+          missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+            tramite l'account di Facebook.
           new_authentication_not_added: Spiacenti, si è verificato un errore, non
             è stato possibile collegare il tuo account di Facebook.
           not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
@@ -2240,8 +2240,8 @@ it:
             di Google tramite le impostazioni del tuo profilo EOL. Se ancora non hai
             ancora un account EOL <a href="%{register_url}">completa la registrazione
             EOL</a> per crearne uno.
-          missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-            account di Google.
+          missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+            tramite account di Google.
           new_authentication_not_added: Spiacenti, si è verificato un errore, non
             è stato possibile collegare il tuo account di Google.
           not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
@@ -2265,8 +2265,8 @@ it:
             di Twitter tramite le impostazioni del tuo profilo EOL. Se ancora non
             hai ancora un account EOL <a href="%{register_url}">completa la registrazione
             EOL</a> per crearne uno.
-          missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-            l'account di Twitter.
+          missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+            tramite l'account di Twitter.
           new_authentication_not_added: Spiacenti, si è verificato un errore, non
             è stato possibile collegare il tuo account di Twitter.
           not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
@@ -2290,8 +2290,8 @@ it:
             di Yahoo tramite le impostazioni del tuo profilo EOL. Se ancora non hai
             ancora un account EOL <a href="%{register_url}">completa la registrazione
             EOL</a> per crearne uno.
-          missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-            account di Yahoo.
+          missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+            tramite account di Yahoo.
           new_authentication_not_added: Spiacenti, si è verificato un errore, non
             è stato possibile collegare il tuo account di Yahoo.
           not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
@@ -5149,8 +5149,8 @@ it:
     o selezionare "Tutti gli elementi" dal menu a discesa.
   error_watch_collections_cannot_be_shared: Guarda le collezioni che non possono essere
     condivise
-  error_updating_user: C'è stato un errore di aggiornamento per il record di questo
-    utente
+  error_updating_user: Si è verificato un errore di aggiornamento per il record di
+    questo utente
   every_method_can_also_return_json_response: Ogni metodo può restituire anche una
     risposta JSON aggiungendo un'estensione .json.
   example_colon: 'Esempio:'

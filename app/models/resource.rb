@@ -36,6 +36,7 @@ class Resource < ActiveRecord::Base
   scope :by_priority, -> { order(:position) }
   scope :force_harvest,
     -> { where(resource_status_id: ResourceStatus.force_harvest.id) }
+  scope :harvested, -> { where("harvested_at IS NOT NULL") }
   scope :unharvested, -> { where("harvested_at IS NULL") }
   # This is, of course, ridiculous. But it's what is used in PHP, sooo...
   scope :ready, -> do

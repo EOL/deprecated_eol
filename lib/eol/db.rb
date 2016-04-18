@@ -125,8 +125,9 @@ module EOL
         EOL.log("eol/db.rb#bulk_insert #{rows.count} rows into #{table}", prefix: '.')
         group_num = 0
         rows = Array(rows)
+        done = 0
         rows.in_groups_of(2000, false) do |group|
-          EOL.log("group #{group_num += 1} (#{group.size})") if
+          EOL.log("group #{group_num += 1} (#{done += group.size}/#{rows.size})") if
             rows.size > 2000 && group_num % 20 == 0
           klass.connection.execute(
             "INSERT #{options[:ignore] ? 'IGNORE ' : ''} INTO #{table} "\

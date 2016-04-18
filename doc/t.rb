@@ -3,8 +3,10 @@
 # Fixing broken hierarchies:
 
 > log/reflatten.log
-nohup bundle exec rails runner -e production "Resource.with_master { Resource.harvested.includes(:hierarchy).each { |resource| resource.hierarchy.try(:flatten) } }" > log/reflatten.log &
+nohup bundle exec rails runner -e production "Resource.with_master { Resource.harvested.includes(:hierarchy).each { |resource| EOL.log(%Q{#{resource.title} (#{resource.id})}) ; resource.hierarchy.hierarchy_entries.where(depth: 4).first.ancestors.size == 4 ? EOL.log("OK") :  resource.hierarchy.try(:flatten) } }" > log/reflatten.log &
 tail -f log/reflatten.log log/production.log
+
+resource.hierarchy.hierarchy_entries.where(depth: 4).first.ancestors.size == 4
 
 # #259 - Looking for bad merges, where one concept has multiple entries OF
 # DIFFERENT RANKS (and names) from the same hierarchy

@@ -25,7 +25,7 @@ class HierarchyReindexing < ActiveRecord::Base
 
   def run
     start
-    hierarchy.repopulate_flattened
+    hierarchy.flatten
     complete
   end
 

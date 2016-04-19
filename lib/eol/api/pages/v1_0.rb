@@ -34,7 +34,7 @@ module EOL
               :name => 'images_per_page',
               :type => Integer,
               :values => (0..75),
-              :test_value => 2,
+              :test_value => 1,
               :notes => I18n.t('limits_the_number_of_returned_image_objects') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'images_page',
@@ -46,7 +46,7 @@ module EOL
               :name => 'videos_per_page',
               :type => Integer,
               :values => (0..75),
-              :test_value => 0,
+              :test_value => 1,
               :notes => I18n.t('limits_the_number_of_returned_video_objects') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'videos_page',
@@ -58,6 +58,7 @@ module EOL
               :name => 'sounds_per_page',
               :type => Integer,
               :values => (0..75),
+              :test_value => 1,
               :notes => I18n.t('limits_the_number_of_returned_sound_objects') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'sounds_page',
@@ -69,6 +70,7 @@ module EOL
               :name => 'maps_per_page',
               :type => Integer,
               :values => (0..75),
+              :test_value => 1,
               :notes => I18n.t('limits_the_number_of_returned_map_objects') ),
             EOL::Api::DocumentationParameter.new(
               :name => 'maps_page',
@@ -181,8 +183,8 @@ module EOL
           params[:sounds_per_page] = adjust_param(params[:sounds_per_page], params[:sounds])
           params[:videos_per_page] = adjust_param(params[:videos_per_page], params[:videos])
           params[:maps_per_page] = adjust_param(params[:maps_per_page], params[:maps])
-          params[:texts_per_page] = adjust_param(params[:texts_per_page], params[:texts])
-          # debugger
+          #as text is supported with 3 synonyms
+          params[:texts_per_page] = adjust_param(params[:texts_per_page], (params[:texts].blank? ? params[:text] : params[:texts]))
           params
         end
 

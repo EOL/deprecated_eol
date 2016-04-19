@@ -5,9 +5,9 @@
 > log/reflatten.log
 nohup bundle exec rails runner -e production "
 Resource.with_master {
-  Resource.harvested.includes(:hierarchy).each { |resource|
-    EOL.log(%Q{#{resource.title} (#{resource.id})}) ;
-    h = resource.hierarchy ;
+  Resource.harvested.includes(:hierarchy).each { |r|
+    EOL.log(%Q{#{r.title} (#{r.id})}) ;
+    h = r.hierarchy ;
     EOL.log(%Q{Empty hierarchy!}) unless h ;
     next unless h ;
     e = h.hierarchy_entries.where(depth: 4).first ;

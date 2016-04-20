@@ -47,9 +47,9 @@ class RandomHierarchyImage < ActiveRecord::Base
         starting_id = 0 if starting_id > (hierarchy_count(hierarchy) - limit)
         starting_id = starting_id + min_id()
       else
-        starting_id = rand(max_id() - limit).floor
+        starting_id = rand(max_id() - limit).floor rescue 0
         # This next line only applies when there are very few RandomTaxa.
-        starting_id = 0 if starting_id > (max_id() - limit)
+        starting_id = 0 if starting_id > (max_id() - limit) rescue 0
       end
 
       # this query now grabs all the metadata we'll need including:

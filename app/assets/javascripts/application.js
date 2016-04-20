@@ -12,6 +12,7 @@
 //
 //= require jquery-2.1.3
 //= require jquery-migrate-1.2.1
+//= require angular
 //= require jquery_ujs
 //= require jquery-ui-1.10.3.custom.min
 //= require autocomplete-rails
@@ -20,7 +21,7 @@
 //= require jquery.cycle.all.min
 //= require jquery.modal
 //= require comments
-//= require navigation
+
 //= require combobox
 
 $(document).ajaxSend(function(e, xhr, options) {

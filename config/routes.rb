@@ -1,8 +1,9 @@
 # first created -> highest priority.
 Eol::Application.routes.draw do
 
+  
   # Root should be first, since it's most frequently used and should return quickly:
-  root :to => 'content#index'
+  root :to => 'raffle#index'
 
   #resque
   mount Resque::Server.new, at: "/resque"

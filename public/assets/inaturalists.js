@@ -1,1 +1,0 @@
-function initialize(t){var e=document.getElementById("map-canvas"),i={center:new google.maps.LatLng(44.5403,-78.5463),zoom:3,mapTypeId:google.maps.MapTypeId.ROADMAP},n=new google.maps.Map(e,i),s=new google.maps.KmlLayer({url:t});s.setMap(n)}

@@ -70,6 +70,7 @@ module EOL
 
         def self.cache_key(params)
           key_parts = [params[:id], "sort_#{params[:sort_by].id}"]
+          key_parts << "page_#{params[:page]}" if params[:page]
           key_parts << "#{params[:per_page]}_per_page" if params[:per_page]
           key_parts << "filter_#{params[:filter].gsub(/\W/, "_")}" if params[:filter]
           key_parts << "sort_field_#{params[:sort_field].gsub(/\W/, "_")}" if params[:sort_field]

@@ -110,6 +110,7 @@ group :assets do
   # comment, but may still be true, sigh... though we have node.js on all
   # machines now, so we PROBABLY don't need this anymore? TODO
   gem "therubyracer", "0.10.2"
+  gem 'angularjs-rails'
 end
 
 # IMPORTANT NOTE - any time you update Rails, you really need to double-check
@@ -206,3 +207,5 @@ gem "will_paginate", "~> 3.0" # Used ALL OVER THE SITE for pagination.
 gem "execjs", "2.0.2"  # needed to run rake tasks in cron
 gem 'rack-cors', require: 'rack/cors' #needed to enable CORs for EOL API
 gem 'cached_key_value_store'
+
+# gem 'angular-rails-templates'

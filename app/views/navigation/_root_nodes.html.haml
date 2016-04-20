@@ -1,7 +1,8 @@
-%ul
-  - roots = HierarchyEntry.sort_by_name(@taxon_page.hierarchy.kingdoms(:common_name_language => current_language))
-  - for root in roots
-    - if @taxon_page.kingdom == root
-      = render('navigation/node', { :hierarchy_entry => @taxon_page.hierarchy_entry, :show_siblings => true })
-    - else
-      %li= navigation_node(root, :link_to_taxa => false)
+#classification_browser.browsable.classifications
+  %ul
+    - roots = HierarchyEntry.sort_by_name(@taxon_page.hierarchy.kingdoms(:common_name_language => current_language))
+    - for root in roots
+      - if @taxon_page.kingdom == root
+        = render('navigation/node', { :hierarchy_entry => @taxon_page.hierarchy_entry, :show_siblings => true })
+      - else
+        %li= navigation_node(root, :link_to_taxa => false)

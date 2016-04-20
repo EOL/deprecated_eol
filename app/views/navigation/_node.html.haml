@@ -19,7 +19,7 @@
   - if show_siblings
     -# querying for the first $max_children siblings, ordered by name, and preloading the name strings all at once
     - siblings = hierarchy_entry.siblings.includes(:name).order('names.string').limit(max_children).reject{ |s| s == hierarchy_entry }[0...max_children-1]
-  = raw(show_full_tree(hierarchy_entry, :show_siblings => show_siblings, :siblings => siblings, :expand => expand, :link_to_taxa => link_to_taxa, :max_children => max_children, :show_hierarchy_label => show_hierarchy_label))
+  = raw(show_full_tree(hierarchy_entry, :show_siblings => true, :siblings => siblings, :expand => false, :link_to_taxa => false, :max_children => 10, :show_hierarchy_label => false))
 - else
   %li
     = I18n.t(:hierarchy_node_missing)

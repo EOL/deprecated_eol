@@ -1,1 +1,0 @@
-function changeList(){"alpha"==$("#sort_collection_by").val()?($("#collections_alpha").show(),$("#collections_recent").hide()):"recent"==$("#sort_collection_by").val()&&($("#collections_alpha").hide(),$("#collections_recent").show())}

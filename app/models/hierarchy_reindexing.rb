@@ -2,7 +2,7 @@ class HierarchyReindexing < ActiveRecord::Base
 
   belongs_to :hierarchy
   scope :pending, -> { where( completed_at: nil ) }
-  @queue = 'notifications'
+  @queue = 'new_one'
 
   def self.enqueue(which)
       @self = HierarchyReindexing.create( hierarchy_id: which.id )
@@ -19,7 +19,7 @@ class HierarchyReindexing < ActiveRecord::Base
             " #{e.message}"
         end
     else
-       Rails.logger.error "HierarchyReindexing #{args["id"]} doesn't exist, skippped."
+       Rails.logger.error "HierarchyReindexing #{args["id"]} doesn't exist, skipped."
     end
   end
 

@@ -46,7 +46,7 @@ class TraitBank
     end
 
     def build_traits
-      TraitBank.paginate(TraitBank.measurements_query(@resource)) do |results|
+      TraitBank::Old.paginate_measurements(resource: @resource)) do |results|
         results.each do |row|
           raise "No value for #{row[:trait]}!" unless row[:value]
           @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")
@@ -65,7 +65,7 @@ class TraitBank
     end
 
     def build_associations
-      TraitBank.paginate(TraitBank.associations_query(@resource)) do |results|
+      TraitBank::Old.paginate_associations(resource: @resource)) do |results|
         results.each do |row|
           # This is a sloppy way to ensure inverse relationships aren't added
           # twice, because inverse relationships are both stored in the traits
@@ -97,6 +97,15 @@ class TraitBank
       end
     end
 
+    def build_references
+      TraitBank::Old.paginate_references(@resource)) do |results|
+        results.each do |row|
+          @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
+            "#{TraitBank.quote_literal(row[:full_reference])}"
+        end
+      end
+    end
+
     def build_metadata
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
       traits = @traits.to_a
@@ -105,7 +114,7 @@ class TraitBank
       groups = (traits.size.to_f / size).ceil
       traits.in_groups_of(size, false) do |trait_group|
         EOL.log("metdata group #{group_number += 1}/#{groups}", prefix: ".")
-        TraitBank.metadata_in_bulk(@resource, trait_group).each do |h|
+        TraitBank::Old.metadata_in_bulk(@resource, trait_group).each do |h|
           # ?trait ?predicate ?meta_trait ?value ?units
           if h[:units].blank?
             add_meta(h, h[:predicate], :value)
@@ -122,15 +131,6 @@ class TraitBank
               "<#{TraitBank.value_uri}> #{val} ;"\
               "<#{TraitBank.unit_uri}> #{units}"
           end
-        end
-      end
-    end
-
-    def build_references
-      TraitBank.paginate(TraitBank.references_query(@resource)) do |results|
-        results.each do |row|
-          @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
-            "#{TraitBank.quote_literal(row[:full_reference])}"
         end
       end
     end

@@ -38,8 +38,8 @@ class Concept
     grouped.keys.sort_by { |k| k.label }.each do |hierarchy|
       puts ""
       if hierarchy.resource
-        puts "##### [#{hierarchy.label}]"\
-          "(http://eol.org/resources/#{hierarchy.resource.id}) "\
+        puts "##### [#{hierarchy.resource.title}]"\
+          "(http://eol.org/resources/#{hierarchy.resource.id}) *#{hierarchy.label}* "\
           "```#{hierarchy.id}```"
       else
         puts "##### #{hierarchy.label} (no resource available) ```#{hierarchy.id}```"
@@ -80,5 +80,10 @@ class Concept
       end
     end
     explanation
+  end
+
+  def old_traitbank(resource = nil)
+    TraitBank::Old.measurements(page: @taxon_concept.id, resource: resource) +
+    TraitBank::Old.associations(page: @taxon_concept.id, resource: resource)
   end
 end

@@ -1,0 +1,2 @@
+module RaffleHelper
+end

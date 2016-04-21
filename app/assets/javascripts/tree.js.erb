@@ -1,0 +1,21 @@
+
+var app = angular.module('eol', []);
+app.controller('navigate', function($scope) {
+
+  $scope.name =  function() {return $scope.first +" "+ $scope.last;}
+  $scope.children = 1;
+  
+  $scope.expand = function(obj) {
+    var symbol = obj.target.text;
+    if(symbol == "+")
+    {
+        $scope.children = "Nelly";
+        symbol = "-";
+    }else{
+        $scope.children = "Nancy";
+        symbol = "+";
+    }
+    obj.target.text = symbol;
+  }
+    
+});

@@ -1,0 +1,13 @@
+%li
+  %ul.branch
+    - for child in children
+      %li
+        - tc  = TaxonConcept.find child[:id]
+        = link_to  child[:scientific_name], taxon_overview_path(child[:id])
+        - open_tree_path = taxon_entry_tree_path(tc.id, tc.entry)
+        - unless child['children'].blank?
+          = link_to('+', nil, class: 'show_tree', data_url: open_tree_path)
+          %li
+            %ul.branch
+              %li
+                = render 'children' , children: child["children"]

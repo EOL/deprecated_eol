@@ -1,0 +1,623 @@
+No config for environments/local found, skipping.
+Connecting to database specified by database.yml
+fix_rack_110_quote_parsing.rb not loaded
+                                                      root        /                                                                                                      raffle#index
+                                                                  /resque                                                                                                #<Resque::Server app_file="/home/ba/.rvm/gems/ruby-1.9.3-p392@upgrade/gems/resque-1.25.2/lib/resque/server.rb">
+                                                   podcast        /podcast(.:format)                                                                                     :controller#:action
+                                                                  /pages/:taxon_id/curators(.:format)                                                                    :controller#:action
+                                                                  /pages/:taxon_id/images(.:format)                                                                      :controller#:action
+                                                                  /pages/:taxon_id/classification_attribution(.:format)                                                  :controller#:action
+                                                                  /pages/:taxon_id/entries/:entry_id(.:format)                                                           :controller#:action
+                                                                  /pages/:taxon_id/entries/:entry_id/overview(.:format)                                                  :controller#:action
+                                                                  /pages/:taxon_id/entries/:entry_id/details(.:format)                                                   :controller#:action
+                                                                  /pages/:taxon_id/classification_attribution(.:format)                                                  :controller#:action
+                                                                  /pages/:taxon_id/community(.:format)                                                                   :controller#:action
+                                                                  /pages/:taxon_id/community/collections(.:format)                                                       :controller#:action
+                                                                  /pages/:taxon_id/community/curators(.:format)                                                          :controller#:action
+                                                                  /pages/:taxon_id/hierarchy_entries/:entry_id/community(.:format)                                       :controller#:action
+                                                                  /pages/:taxon_id/hierarchy_entries/:entry_id/community/collections(.:format)                           :controller#:action
+                                                                  /pages/:taxon_id/hierarchy_entries/:entry_id/community/curators(.:format)                              :controller#:action
+                                                                  /taxa/content/:taxon_id(.:format)                                                                      :controller#:action
+                                                                  /taxa/images/:taxon_id(.:format)                                                                       :controller#:action
+                                                                  /taxa/maps/:taxon_id(.:format)                                                                         :controller#:action
+                                                  settings        /settings(.:format)                                                                                    :controller#:action
+                                                                  /account/show/:user_id(.:format)                                                                       :controller#:action
+                                     users_forgot_password        /users/forgot_password(.:format)                                                                       :controller#:action
+                                                                  /users/:user_id/reset_password/:recover_account_token(.:format)                                        :controller#:action
+                                           info_xrayvision        /info/xrayvision(.:format)                                                                             :controller#:action
+                                                                  /info/brian-skerry(.:format)                                                                           :controller#:action
+                                      info_naturesbest2011        /info/naturesbest2011(.:format)                                                                        :controller#:action
+                                      info_naturesbest2012        /info/naturesbest2012(.:format)                                                                        :controller#:action
+                                      info_naturesbest2013        /info/naturesbest2013(.:format)                                                                        :controller#:action
+                                      info_naturesbest2015        /info/naturesbest2015(.:format)                                                                        :controller#:action
+                                     voc_table_of_contents        /voc/table_of_contents(.:format)                                                                       :controller#:action
+                                                                  /voc/table_of_contents#:term(.:format)                                                                 :controller#:action
+                                                     index        /index(.:format)                                                                                       :controller#:action
+                                                                  /home.html(.:format)                                                                                   :controller#:action
+                                                   favicon        /favicon(.:format)                                                                                     :controller#:action
+                                                                  /apple-touch-icon.png(.:format)                                                                        :controller#:action
+                                                                  /apple-touch-icon-precomposed.png(.:format)                                                            :controller#:action
+                                            forum_redirect        /forum(.:format)                                                                                       :controller#:action
+                                              schema_terms        /schema/terms/:id(.:format)                                                                            schema#terms
+                                                                  /resources/:id(.:format)                                                                               content_partners/resources#show
+                                            taxon_overview GET    /pages/:taxon_id/overview(.:format)                                                                    taxa/overview#show
+                                                taxon_tree GET    /pages/:taxon_id/tree(.:format)                                                                        taxa/trees#show
+                                                taxon_maps GET    /pages/:taxon_id/maps(.:format)                                                                        taxa/maps#index
+                                              taxon_medium GET    /pages/:taxon_id/media/:id(.:format)                                                                   taxa/media#show
+                                             taxon_details GET    /pages/:taxon_id/details(.:format)                                                                     taxa/details#index
+                                                           POST   /pages/:taxon_id/details(.:format)                                                                     taxa/details#create
+                                          new_taxon_detail GET    /pages/:taxon_id/details/new(.:format)                                                                 taxa/details#new
+                                         edit_taxon_detail GET    /pages/:taxon_id/details/:id/edit(.:format)                                                            taxa/details#edit
+                                              taxon_detail PUT    /pages/:taxon_id/details/:id(.:format)                                                                 taxa/details#update
+                                                           DELETE /pages/:taxon_id/details/:id(.:format)                                                                 taxa/details#destroy
+                                            taxon_worklist GET    /pages/:taxon_id/worklist(.:format)                                                                    taxa/worklist#show
+                                        taxon_data_objects POST   /pages/:taxon_id/data_objects(.:format)                                                                data_objects#create
+                                     new_taxon_data_object GET    /pages/:taxon_id/data_objects/new(.:format)                                                            data_objects#new
+                                          taxon_reindexing POST   /pages/:taxon_id/taxon_concept_reindexing(.:format)                                                    taxa/taxon_concept_reindexing#create
+                                          about_taxon_data GET    /pages/:taxon_id/data/about(.:format)                                                                  taxa/data#about
+                                       glossary_taxon_data GET    /pages/:taxon_id/data/glossary(.:format)                                                               taxa/data#glossary
+                                         ranges_taxon_data GET    /pages/:taxon_id/data/ranges(.:format)                                                                 taxa/data#ranges
+                                                taxon_data GET    /pages/:taxon_id/data(.:format)                                                                        taxa/data#index
+                                        switch_taxon_entry PUT    /pages/:taxon_id/hierarchy_entries/:id/switch(.:format)                                                hierarchy_entries#switch
+                                      taxon_entry_overview GET    /pages/:taxon_id/hierarchy_entries/:entry_id/overview(.:format)                                        taxa/overview#show
+                                          taxon_entry_tree GET    /pages/:taxon_id/hierarchy_entries/:entry_id/tree(.:format)                                            taxa/trees#show
+                                          taxon_entry_maps GET    /pages/:taxon_id/hierarchy_entries/:entry_id/maps(.:format)                                            taxa/maps#index
+                                         taxon_entry_media GET    /pages/:taxon_id/hierarchy_entries/:entry_id/media(.:format)                                           taxa/media#index
+                                       taxon_entry_details GET    /pages/:taxon_id/hierarchy_entries/:entry_id/details(.:format)                                         taxa/details#index
+                                    about_taxon_entry_data GET    /pages/:taxon_id/hierarchy_entries/:entry_id/data/about(.:format)                                      taxa/data#about
+                                 glossary_taxon_entry_data GET    /pages/:taxon_id/hierarchy_entries/:entry_id/data/glossary(.:format)                                   taxa/data#glossary
+                                   ranges_taxon_entry_data GET    /pages/:taxon_id/hierarchy_entries/:entry_id/data/ranges(.:format)                                     taxa/data#ranges
+                                          taxon_entry_data GET    /pages/:taxon_id/hierarchy_entries/:entry_id/data(.:format)                                            taxa/data#index
+                       collections_taxon_entry_communities GET    /pages/:taxon_id/hierarchy_entries/:entry_id/communities/collections(.:format)                         taxa/communities#collections
+                          curators_taxon_entry_communities GET    /pages/:taxon_id/hierarchy_entries/:entry_id/communities/curators(.:format)                            taxa/communities#curators
+                                   taxon_entry_communities GET    /pages/:taxon_id/hierarchy_entries/:entry_id/communities(.:format)                                     taxa/communities#index
+                            common_names_taxon_entry_names GET    /pages/:taxon_id/hierarchy_entries/:entry_id/names/common_names(.:format)                              taxa/names#common_names
+                           related_names_taxon_entry_names GET    /pages/:taxon_id/hierarchy_entries/:entry_id/names/related_names(.:format)                             taxa/names#related_names
+                                synonyms_taxon_entry_names GET    /pages/:taxon_id/hierarchy_entries/:entry_id/names/synonyms(.:format)                                  taxa/names#synonyms
+                                  delete_taxon_entry_names GET    /pages/:taxon_id/hierarchy_entries/:entry_id/names/delete(.:format)                                    taxa/names#delete
+                          vet_common_name_taxon_entry_name GET    /pages/:taxon_id/hierarchy_entries/:entry_id/names/:id/vet_common_name(.:format)                       taxa/names#vet_common_name
+                                         taxon_entry_names GET    /pages/:taxon_id/hierarchy_entries/:entry_id/names(.:format)                                           taxa/names#index
+                                                           POST   /pages/:taxon_id/hierarchy_entries/:entry_id/names(.:format)                                           taxa/names#create
+                                          taxon_entry_name PUT    /pages/:taxon_id/hierarchy_entries/:entry_id/names/:id(.:format)                                       taxa/names#update
+                                bhl_taxon_entry_literature GET    /pages/:taxon_id/hierarchy_entries/:entry_id/literature/bhl(.:format)                                  taxa/literature#bhl
+                   literature_links_taxon_entry_literature GET    /pages/:taxon_id/hierarchy_entries/:entry_id/literature/literature_links(.:format)                     taxa/literature#literature_links
+                                    taxon_entry_literature GET    /pages/:taxon_id/hierarchy_entries/:entry_id/literature(.:format)                                      taxa/literature#show
+                       partner_links_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/partner_links(.:format)                         taxa/resources#partner_links
+            identification_resources_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/identification_resources(.:format)              taxa/resources#identification_resources
+                           education_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/education(.:format)                             taxa/resources#education
+                nucleotide_sequences_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/nucleotide_sequences(.:format)                  taxa/resources#nucleotide_sequences
+                    biomedical_terms_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/biomedical_terms(.:format)                      taxa/resources#biomedical_terms
+                     citizen_science_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/citizen_science(.:format)                       taxa/resources#citizen_science
+                news_and_event_links_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/news_and_event_links(.:format)                  taxa/resources#news_and_event_links
+               related_organizations_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/related_organizations(.:format)                 taxa/resources#related_organizations
+                    multimedia_links_taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources/multimedia_links(.:format)                      taxa/resources#multimedia_links
+                                     taxon_entry_resources GET    /pages/:taxon_id/hierarchy_entries/:entry_id/resources(.:format)                                       taxa/resources#index
+                            statistics_taxon_entry_updates GET    /pages/:taxon_id/hierarchy_entries/:entry_id/updates/statistics(.:format)                              taxa/updates#statistics
+                                       taxon_entry_updates GET    /pages/:taxon_id/hierarchy_entries/:entry_id/updates(.:format)                                         taxa/updates#index
+                                               taxon_entry GET    /pages/:taxon_id/hierarchy_entries/:id(.:format)                                                       hierarchy_entries#show
+                                               taxon_media GET    /pages/:taxon_id/media(.:format)                                                                       taxa/media#index
+                                  common_names_taxon_names GET    /pages/:taxon_id/names/common_names(.:format)                                                          taxa/names#common_names
+                                 related_names_taxon_names GET    /pages/:taxon_id/names/related_names(.:format)                                                         taxa/names#related_names
+                                      synonyms_taxon_names GET    /pages/:taxon_id/names/synonyms(.:format)                                                              taxa/names#synonyms
+                                        delete_taxon_names GET    /pages/:taxon_id/names/delete(.:format)                                                                taxa/names#delete
+                                vet_common_name_taxon_name GET    /pages/:taxon_id/names/:id/vet_common_name(.:format)                                                   taxa/names#vet_common_name
+                                               taxon_names GET    /pages/:taxon_id/names(.:format)                                                                       taxa/names#index
+                                                           POST   /pages/:taxon_id/names(.:format)                                                                       taxa/names#create
+                                                taxon_name PUT    /pages/:taxon_id/names/:id(.:format)                                                                   taxa/names#update
+                                      bhl_taxon_literature GET    /pages/:taxon_id/literature/bhl(.:format)                                                              taxa/literature#bhl
+                         literature_links_taxon_literature GET    /pages/:taxon_id/literature/literature_links(.:format)                                                 taxa/literature#literature_links
+                                          taxon_literature GET    /pages/:taxon_id/literature(.:format)                                                                  taxa/literature#show
+                             partner_links_taxon_resources GET    /pages/:taxon_id/resources/partner_links(.:format)                                                     taxa/resources#partner_links
+                  identification_resources_taxon_resources GET    /pages/:taxon_id/resources/identification_resources(.:format)                                          taxa/resources#identification_resources
+                                 education_taxon_resources GET    /pages/:taxon_id/resources/education(.:format)                                                         taxa/resources#education
+                      nucleotide_sequences_taxon_resources GET    /pages/:taxon_id/resources/nucleotide_sequences(.:format)                                              taxa/resources#nucleotide_sequences
+                          biomedical_terms_taxon_resources GET    /pages/:taxon_id/resources/biomedical_terms(.:format)                                                  taxa/resources#biomedical_terms
+                           citizen_science_taxon_resources GET    /pages/:taxon_id/resources/citizen_science(.:format)                                                   taxa/resources#citizen_science
+                      news_and_event_links_taxon_resources GET    /pages/:taxon_id/resources/news_and_event_links(.:format)                                              taxa/resources#news_and_event_links
+                     related_organizations_taxon_resources GET    /pages/:taxon_id/resources/related_organizations(.:format)                                             taxa/resources#related_organizations
+                          multimedia_links_taxon_resources GET    /pages/:taxon_id/resources/multimedia_links(.:format)                                                  taxa/resources#multimedia_links
+                                           taxon_resources GET    /pages/:taxon_id/resources(.:format)                                                                   taxa/resources#index
+                             collections_taxon_communities GET    /pages/:taxon_id/communities/collections(.:format)                                                     taxa/communities#collections
+                                curators_taxon_communities GET    /pages/:taxon_id/communities/curators(.:format)                                                        taxa/communities#curators
+                                         taxon_communities GET    /pages/:taxon_id/communities(.:format)                                                                 taxa/communities#index
+                                  statistics_taxon_updates GET    /pages/:taxon_id/updates/statistics(.:format)                                                          taxa/updates#statistics
+                                             taxon_updates GET    /pages/:taxon_id/updates(.:format)                                                                     taxa/updates#index
+                                                     taxon GET    /pages/:id(.:format)                                                                                   taxa#show
+                                                trait_bank GET    /trait_bank/:id(.:format)                                                                              trait_bank#show
+                                        choose_communities GET    /communities/choose(.:format)                                                                          communities#choose
+                                  make_editors_communities PUT    /communities/make_editors(.:format)                                                                    communities#make_editors
+                                            join_community GET    /communities/:id/join(.:format)                                                                        communities#join
+                                           leave_community GET    /communities/:id/leave(.:format)                                                                       communities#leave
+                                          delete_community GET    /communities/:id/delete(.:format)                                                                      communities#delete
+                                     make_editor_community PUT    /communities/:id/make_editor(.:format)                                                                 communities#make_editor
+                                   revoke_editor_community GET    /communities/:id/revoke_editor(.:format)                                                               communities#revoke_editor
+                                        community_newsfeed GET    /communities/:community_id/newsfeed(.:format)                                                          communities/newsfeeds#show
+                                     community_collections GET    /communities/:community_id/collections(.:format)                                                       communities/collections#index
+                                                           POST   /communities/:community_id/collections(.:format)                                                       communities/collections#create
+                                  new_community_collection GET    /communities/:community_id/collections/new(.:format)                                                   communities/collections#new
+                                 edit_community_collection GET    /communities/:community_id/collections/:id/edit(.:format)                                              communities/collections#edit
+                                      community_collection GET    /communities/:community_id/collections/:id(.:format)                                                   communities/collections#show
+                                                           PUT    /communities/:community_id/collections/:id(.:format)                                                   communities/collections#update
+                                                           DELETE /communities/:community_id/collections/:id(.:format)                                                   communities/collections#destroy
+                            grant_manager_community_member GET    /communities/:community_id/members/:id/grant_manager(.:format)                                         members#grant_manager
+                           revoke_manager_community_member GET    /communities/:community_id/members/:id/revoke_manager(.:format)                                        members#revoke_manager
+                                         community_members GET    /communities/:community_id/members(.:format)                                                           members#index
+                                                           POST   /communities/:community_id/members(.:format)                                                           members#create
+                                      new_community_member GET    /communities/:community_id/members/new(.:format)                                                       members#new
+                                     edit_community_member GET    /communities/:community_id/members/:id/edit(.:format)                                                  members#edit
+                                          community_member GET    /communities/:community_id/members/:id(.:format)                                                       members#show
+                                                           PUT    /communities/:community_id/members/:id(.:format)                                                       members#update
+                                                           DELETE /communities/:community_id/members/:id(.:format)                                                       members#destroy
+                                               communities POST   /communities(.:format)                                                                                 communities#create
+                                             new_community GET    /communities/new(.:format)                                                                             communities#new
+                                            edit_community GET    /communities/:id/edit(.:format)                                                                        communities#edit
+                                                 community GET    /communities/:id(.:format)                                                                             communities#show
+                                                           PUT    /communities/:id(.:format)                                                                             communities#update
+                                                           DELETE /communities/:id(.:format)                                                                             communities#destroy
+                                         choose_collection GET    /collections/:id/choose(.:format)                                                                      collections#choose
+                                        reindex_collection GET    /collections/:id/reindex(.:format)                                                                     collections#reindex
+                                      get_name_collections GET    /collections/get_name(.:format)                                                                        collections#get_name
+                                  get_uri_name_collections GET    /collections/get_uri_name(.:format)                                                                    collections#get_uri_name
+                    cache_inaturalist_projects_collections GET    /collections/cache_inaturalist_projects(.:format)                                                      collections#cache_inaturalist_projects
+                         choose_collect_target_collections GET    /collections/choose_collect_target(.:format)                                                           collections#choose_collect_target
+                          choose_editor_target_collections GET    /collections/choose_editor_target(.:format)                                                            collections#choose_editor_target
+                              choose_taxa_data_collections GET    /collections/choose_taxa_data(.:format)                                                                collections#choose_taxa_data
+                                  collect_item_collections POST   /collections/collect_item(.:format)                                                                    collections#collect_item
+                            download_taxa_data_collections POST   /collections/download_taxa_data(.:format)                                                              collections#download_taxa_data
+                                       collection_newsfeed GET    /collections/:collection_id/newsfeed(.:format)                                                         collections/newsfeeds#show
+                                        collection_editors GET    /collections/:collection_id/editors(.:format)                                                          collections/editors#index
+                                    collection_inaturalist GET    /collections/:collection_id/inaturalist(.:format)                                                      collections/inaturalists#show
+                                               collections GET    /collections(.:format)                                                                                 collections#index
+                                                           POST   /collections(.:format)                                                                                 collections#create
+                                            new_collection GET    /collections/new(.:format)                                                                             collections#new
+                                           edit_collection GET    /collections/:id/edit(.:format)                                                                        collections#edit
+                                                collection GET    /collections/:id(.:format)                                                                             collections#show
+                                                           PUT    /collections/:id(.:format)                                                                             collections#update
+                                                           DELETE /collections/:id(.:format)                                                                             collections#destroy
+                                           collection_jobs POST   /collection_jobs(.:format)                                                                             collection_jobs#create
+                                           content_partner POST   /content_partners/:id(.:format)                                                                        content_partners#new
+                            delete_content_partner_contact DELETE /content_partners/:content_partner_id/content_partner_contacts/:id/delete(.:format)                    content_partners/content_partner_contacts#delete
+                                  content_partner_contacts POST   /content_partners/:content_partner_id/content_partner_contacts(.:format)                               content_partners/content_partner_contacts#create
+                               new_content_partner_contact GET    /content_partners/:content_partner_id/content_partner_contacts/new(.:format)                           content_partners/content_partner_contacts#new
+                              edit_content_partner_contact GET    /content_partners/:content_partner_id/content_partner_contacts/:id/edit(.:format)                      content_partners/content_partner_contacts#edit
+                                   content_partner_contact PUT    /content_partners/:content_partner_id/content_partner_contacts/:id(.:format)                           content_partners/content_partner_contacts#update
+                                                           DELETE /content_partners/:content_partner_id/content_partner_contacts/:id(.:format)                           content_partners/content_partner_contacts#destroy
+                                content_partner_agreements POST   /content_partners/:content_partner_id/content_partner_agreements(.:format)                             content_partners/content_partner_agreements#create
+                             new_content_partner_agreement GET    /content_partners/:content_partner_id/content_partner_agreements/new(.:format)                         content_partners/content_partner_agreements#new
+                            edit_content_partner_agreement GET    /content_partners/:content_partner_id/content_partner_agreements/:id/edit(.:format)                    content_partners/content_partner_agreements#edit
+                                 content_partner_agreement GET    /content_partners/:content_partner_id/content_partner_agreements/:id(.:format)                         content_partners/content_partner_agreements#show
+                                                           PUT    /content_partners/:content_partner_id/content_partner_agreements/:id(.:format)                         content_partners/content_partner_agreements#update
+                                content_partner_statistics GET    /content_partners/:content_partner_id/statistics(.:format)                                             content_partners/statistics#show
+                    force_harvest_content_partner_resource GET    /content_partners/:content_partner_id/resources/:id/force_harvest(.:format)                            content_partners/resources#force_harvest
+                                                           POST   /content_partners/:content_partner_id/resources/:id/force_harvest(.:format)                            content_partners/resources#force_harvest
+                   content_partner_resource_harvest_events GET    /content_partners/:content_partner_id/resources/:resource_id/harvest_events(.:format)                  content_partners/resources/harvest_events#index
+                    content_partner_resource_harvest_event PUT    /content_partners/:content_partner_id/resources/:resource_id/harvest_events/:id(.:format)              content_partners/resources/harvest_events#update
+        request_publish_content_partner_resource_hierarchy POST   /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id/request_publish(.:format) content_partners/resources/hierarchies#request_publish
+                   edit_content_partner_resource_hierarchy GET    /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id/edit(.:format)            content_partners/resources/hierarchies#edit
+                        content_partner_resource_hierarchy PUT    /content_partners/:content_partner_id/resources/:resource_id/hierarchies/:id(.:format)                 content_partners/resources/hierarchies#update
+                                 content_partner_resources GET    /content_partners/:content_partner_id/resources(.:format)                                              content_partners/resources#index
+                                                           POST   /content_partners/:content_partner_id/resources(.:format)                                              content_partners/resources#create
+                              new_content_partner_resource GET    /content_partners/:content_partner_id/resources/new(.:format)                                          content_partners/resources#new
+                             edit_content_partner_resource GET    /content_partners/:content_partner_id/resources/:id/edit(.:format)                                     content_partners/resources#edit
+                                  content_partner_resource GET    /content_partners/:content_partner_id/resources/:id(.:format)                                          content_partners/resources#show
+                                                           PUT    /content_partners/:content_partner_id/resources/:id(.:format)                                          content_partners/resources#update
+                                                           DELETE /content_partners/:content_partner_id/resources/:id(.:format)                                          content_partners/resources#destroy
+                                          content_partners GET    /content_partners(.:format)                                                                            content_partners#index
+                                                           POST   /content_partners(.:format)                                                                            content_partners#create
+                                       new_content_partner GET    /content_partners/new(.:format)                                                                        content_partners#new
+                                      edit_content_partner GET    /content_partners/:id/edit(.:format)                                                                   content_partners#edit
+                                                           GET    /content_partners/:id(.:format)                                                                        content_partners#show
+                                                           PUT    /content_partners/:id(.:format)                                                                        content_partners#update
+                                                           DELETE /content_partners/:id(.:format)                                                                        content_partners#destroy
+                                      terms_agreement_user GET    /users/:id/terms_agreement(.:format)                                                                   users#terms_agreement
+                                                           POST   /users/:id/terms_agreement(.:format)                                                                   users#terms_agreement
+                                              pending_user GET    /users/:id/pending(.:format)                                                                           users#pending
+                                            activated_user GET    /users/:id/activated(.:format)                                                                         users#activated
+                                  curation_privileges_user GET    /users/:id/curation_privileges(.:format)                                                               users#curation_privileges
+                                          make_editor_user PUT    /users/:id/make_editor(.:format)                                                                       users#make_editor
+                                     grant_permission_user GET    /users/:id/grant_permission(.:format)                                                                  users#grant_permission
+                                    revoke_permission_user GET    /users/:id/revoke_permission(.:format)                                                                 users#revoke_permission
+                                        revoke_editor_user GET    /users/:id/revoke_editor(.:format)                                                                     users#revoke_editor
+                                pending_notifications_user GET    /users/:id/pending_notifications(.:format)                                                             users#pending_notifications
+                                              reindex_user GET    /users/:id/reindex(.:format)                                                                           users#reindex
+                                                scrub_user GET    /users/:id/scrub(.:format)                                                                             users#scrub
+                            unsubscribe_notifications_user GET    /users/:id/unsubscribe_notifications/:key(.:format)                                                    users#unsubscribe_notifications
+                                           usernames_users GET    /users/usernames(.:format)                                                                             users#usernames
+                                     recover_account_users GET    /users/recover_account(.:format)                                                                       users#recover_account
+                                                           POST   /users/recover_account(.:format)                                                                       users#recover_account
+                          verify_open_authentication_users GET    /users/verify_open_authentication(.:format)                                                            users#verify_open_authentication
+                                    comments_user_newsfeed GET    /users/:user_id/newsfeed/comments(.:format)                                                            users/newsfeeds#comments
+                                             user_newsfeed GET    /users/:user_id/newsfeed(.:format)                                                                     users/newsfeeds#show
+                                    edit_user_notification GET    /users/:user_id/notification/edit(.:format)                                                            users/notifications#edit
+                                         user_notification PUT    /users/:user_id/notification(.:format)                                                                 users/notifications#update
+                                             user_activity GET    /users/:user_id/activity(.:format)                                                                     users/activities#show
+                                          user_collections GET    /users/:user_id/collections(.:format)                                                                  users/collections#index
+                                          user_communities GET    /users/:user_id/communities(.:format)                                                                  users/communities#index
+                                     user_content_partners GET    /users/:user_id/content_partners(.:format)                                                             users/content_partners#index
+                                 user_data_download_delete POST   /users/:user_id/data_downloads/:data_download_id/delete(.:format)                                      users/data_downloads#delete
+                                       user_data_downloads GET    /users/:user_id/data_downloads(.:format)                                                               users/data_downloads#index
+                                 user_open_authentications GET    /users/:user_id/open_authentications(.:format)                                                         users/open_authentications#index
+                              new_user_open_authentication GET    /users/:user_id/open_authentications/register(.:format)                                                users/open_authentications#new
+                                  user_open_authentication PUT    /users/:user_id/open_authentications/:id(.:format)                                                     users/open_authentications#update
+                                                           DELETE /users/:user_id/open_authentications/:id(.:format)                                                     users/open_authentications#destroy
+                                                     users GET    /users(.:format)                                                                                       users#index
+                                                           POST   /users(.:format)                                                                                       users#create
+                                                  new_user GET    /users/register(.:format)                                                                              users#new
+                                                 edit_user GET    /users/:id/edit(.:format)                                                                              users#edit
+                                                      user GET    /users/:id(.:format)                                                                                   users#show
+                                                           PUT    /users/:id(.:format)                                                                                   users#update
+                                                           DELETE /users/:id(.:format)                                                                                   users#destroy
+                           curate_associations_data_object PUT    /data_objects/:id/curate_associations(.:format)                                                        data_objects#curate_associations
+                                      curation_data_object GET    /data_objects/:id/curation(.:format)                                                                   data_objects#curation
+                                   attribution_data_object GET    /data_objects/:id/attribution(.:format)                                                                data_objects#attribution
+                                          rate_data_object GET    /data_objects/:id/rate(.:format)                                                                       data_objects#rate
+                                          crop_data_object GET    /data_objects/:id/crop(.:format)                                                                       data_objects#crop
+                                       reindex_data_object GET    /data_objects/:id/reindex(.:format)                                                                    data_objects#reindex
+                                        delete_data_object GET    /data_objects/:id/delete(.:format)                                                                     data_objects#delete
+                                      data_object_comments GET    /data_objects/:data_object_id/comments(.:format)                                                       comments#index
+                                                           POST   /data_objects/:data_object_id/comments(.:format)                                                       comments#create
+                                   new_data_object_comment GET    /data_objects/:data_object_id/comments/new(.:format)                                                   comments#new
+                                  edit_data_object_comment GET    /data_objects/:data_object_id/comments/:id/edit(.:format)                                              comments#edit
+                                       data_object_comment GET    /data_objects/:data_object_id/comments/:id(.:format)                                                   comments#show
+                                                           PUT    /data_objects/:data_object_id/comments/:id(.:format)                                                   comments#update
+                                                           DELETE /data_objects/:data_object_id/comments/:id(.:format)                                                   comments#destroy
+                                          edit_data_object GET    /data_objects/:id/edit(.:format)                                                                       data_objects#edit
+                                               data_object GET    /data_objects/:id(.:format)                                                                            data_objects#show
+                                                           PUT    /data_objects/:id(.:format)                                                                            data_objects#update
+                               content_partners_statistics GET    /statistics/content_partners(.:format)                                                                 eol_statistics#content_partners
+                                       curators_statistics GET    /statistics/curators(.:format)                                                                         eol_statistics#curators
+                                   data_objects_statistics GET    /statistics/data_objects(.:format)                                                                     eol_statistics#data_objects
+                                      lifedesks_statistics GET    /statistics/lifedesks(.:format)                                                                        eol_statistics#lifedesks
+                                         marine_statistics GET    /statistics/marine(.:format)                                                                           eol_statistics#marine
+                                  page_richness_statistics GET    /statistics/page_richness(.:format)                                                                    eol_statistics#page_richness
+                             users_data_objects_statistics GET    /statistics/users_data_objects(.:format)                                                               eol_statistics#users_data_objects
+                                           data_statistics GET    /statistics/data(.:format)                                                                             eol_statistics#data
+                                                statistics GET    /statistics(.:format)                                                                                  eol_statistics#index
+                            recount_collection_items_admin GET    /admin/recount_collection_items(.:format)                                                              admins#recount_collection_items
+                                move_up_admin_content_page POST   /admin/content_pages/:id/move_up(.:format)                                                             admins/content_pages#move_up
+                              move_down_admin_content_page POST   /admin/content_pages/:id/move_down(.:format)                                                           admins/content_pages#move_down
+                               admin_content_page_children POST   /admin/content_pages/:content_page_id/children(.:format)                                               admins/content_pages#create
+                              new_admin_content_page_child GET    /admin/content_pages/:content_page_id/children/new(.:format)                                           admins/content_pages#new
+                           admin_content_page_translations POST   /admin/content_pages/:content_page_id/translated_content_pages(.:format)                               admins/translated_content_pages#create
+                        new_admin_content_page_translation GET    /admin/content_pages/:content_page_id/translated_content_pages/new(.:format)                           admins/translated_content_pages#new
+                       edit_admin_content_page_translation GET    /admin/content_pages/:content_page_id/translated_content_pages/:id/edit(.:format)                      admins/translated_content_pages#edit
+                            admin_content_page_translation PUT    /admin/content_pages/:content_page_id/translated_content_pages/:id(.:format)                           admins/translated_content_pages#update
+                                                           DELETE /admin/content_pages/:content_page_id/translated_content_pages/:id(.:format)                           admins/translated_content_pages#destroy
+                                       admin_content_pages GET    /admin/content_pages(.:format)                                                                         admins/content_pages#index
+                                                           POST   /admin/content_pages(.:format)                                                                         admins/content_pages#create
+                                    new_admin_content_page GET    /admin/content_pages/new(.:format)                                                                     admins/content_pages#new
+                                   edit_admin_content_page GET    /admin/content_pages/:id/edit(.:format)                                                                admins/content_pages#edit
+                                        admin_content_page GET    /admin/content_pages/:id(.:format)                                                                     admins/content_pages#show
+                                                           PUT    /admin/content_pages/:id(.:format)                                                                     admins/content_pages#update
+                                                           DELETE /admin/content_pages/:id(.:format)                                                                     admins/content_pages#destroy
+                         statistics_admin_content_partners GET    /admin/content_partners/statistics(.:format)                                                           admins/content_partners#statistics
+                                                           POST   /admin/content_partners/statistics(.:format)                                                           admins/content_partners#statistics
+                      notifications_admin_content_partners GET    /admin/content_partners/notifications(.:format)                                                        admins/content_partners#notifications
+                                                           POST   /admin/content_partners/notifications(.:format)                                                        admins/content_partners#notifications
+                                    admin_content_partners GET    /admin/content_partners(.:format)                                                                      admins/content_partners#index
+                         content_partners_admin_statistics GET    /admin/eol_statistics/content_partners(.:format)                                                       eol_statistics#content_partners
+                             data_objects_admin_statistics GET    /admin/eol_statistics/data_objects(.:format)                                                           eol_statistics#data_objects
+                                   marine_admin_statistics GET    /admin/eol_statistics/marine(.:format)                                                                 eol_statistics#marine
+                                 curators_admin_statistics GET    /admin/eol_statistics/curators(.:format)                                                               eol_statistics#curators
+                            page_richness_admin_statistics GET    /admin/eol_statistics/page_richness(.:format)                                                          eol_statistics#page_richness
+                       users_data_objects_admin_statistics GET    /admin/eol_statistics/users_data_objects(.:format)                                                     eol_statistics#users_data_objects
+                                lifedesks_admin_statistics GET    /admin/eol_statistics/lifedesks(.:format)                                                              eol_statistics#lifedesks
+                                          admin_statistics GET    /admin/eol_statistics(.:format)                                                                        eol_statistics#index
+                              admin_news_item_translations POST   /admin/news_items/:news_item_id/translated_news_items(.:format)                                        admins/translated_news_items#create
+                           new_admin_news_item_translation GET    /admin/news_items/:news_item_id/translated_news_items/new(.:format)                                    admins/translated_news_items#new
+                          edit_admin_news_item_translation GET    /admin/news_items/:news_item_id/translated_news_items/:id/edit(.:format)                               admins/translated_news_items#edit
+                               admin_news_item_translation PUT    /admin/news_items/:news_item_id/translated_news_items/:id(.:format)                                    admins/translated_news_items#update
+                                                           DELETE /admin/news_items/:news_item_id/translated_news_items/:id(.:format)                                    admins/translated_news_items#destroy
+                                          admin_news_items GET    /admin/news_items(.:format)                                                                            admins/news_items#index
+                                                           POST   /admin/news_items(.:format)                                                                            admins/news_items#create
+                                       new_admin_news_item GET    /admin/news_items/new(.:format)                                                                        admins/news_items#new
+                                      edit_admin_news_item GET    /admin/news_items/:id/edit(.:format)                                                                   admins/news_items#edit
+                                           admin_news_item GET    /admin/news_items/:id(.:format)                                                                        admins/news_items#show
+                                                           PUT    /admin/news_items/:id(.:format)                                                                        admins/news_items#update
+                                                           DELETE /admin/news_items/:id(.:format)                                                                        admins/news_items#destroy
+                                                     admin GET    /admin(.:format)                                                                                       admins#show
+                                    move_up_forum_category POST   /forum_categories/:id/move_up(.:format)                                                                forums/categories#move_up
+                                  move_down_forum_category POST   /forum_categories/:id/move_down(.:format)                                                              forums/categories#move_down
+                                          forum_categories POST   /forum_categories(.:format)                                                                            forums/categories#create
+                                        new_forum_category GET    /forum_categories/new(.:format)                                                                        forums/categories#new
+                                       edit_forum_category GET    /forum_categories/:id/edit(.:format)                                                                   forums/categories#edit
+                                            forum_category PUT    /forum_categories/:id(.:format)                                                                        forums/categories#update
+                                                           DELETE /forum_categories/:id(.:format)                                                                        forums/categories#destroy
+                                             forums_create GET    /forums/create(.:format)                                                                               forums#create
+                                       forum_topics_create GET    /forums/:forum_id/topics/create(.:format)                                                              forums/topics#create
+                                        forum_posts_create GET    /forums/:forum_id/topics/:topic_id/posts/create(.:format)                                              forums/posts#create
+                                             move_up_forum POST   /forums/:id/move_up(.:format)                                                                          forums#move_up
+                                           move_down_forum POST   /forums/:id/move_down(.:format)                                                                        forums#move_down
+                                    reply_forum_topic_post GET    /forums/:forum_id/topics/:topic_id/posts/:id/reply(.:format)                                           forums/posts#reply
+                                         forum_topic_posts POST   /forums/:forum_id/topics/:topic_id/posts(.:format)                                                     forums/posts#create
+                                      new_forum_topic_post GET    /forums/:forum_id/topics/:topic_id/posts/new(.:format)                                                 forums/posts#new
+                                     edit_forum_topic_post GET    /forums/:forum_id/topics/:topic_id/posts/:id/edit(.:format)                                            forums/posts#edit
+                                          forum_topic_post GET    /forums/:forum_id/topics/:topic_id/posts/:id(.:format)                                                 forums/posts#show
+                                                           PUT    /forums/:forum_id/topics/:topic_id/posts/:id(.:format)                                                 forums/posts#update
+                                                           DELETE /forums/:forum_id/topics/:topic_id/posts/:id(.:format)                                                 forums/posts#destroy
+                                              forum_topics POST   /forums/:forum_id/topics(.:format)                                                                     forums/topics#create
+                                               forum_topic GET    /forums/:forum_id/topics/:id(.:format)                                                                 forums/topics#show
+                                                           DELETE /forums/:forum_id/topics/:id(.:format)                                                                 forums/topics#destroy
+                                                    forums GET    /forums(.:format)                                                                                      forums#index
+                                                           POST   /forums(.:format)                                                                                      forums#create
+                                                 new_forum GET    /forums/new(.:format)                                                                                  forums#new
+                                                edit_forum GET    /forums/:id/edit(.:format)                                                                             forums#edit
+                                                     forum GET    /forums/:id(.:format)                                                                                  forums#show
+                                                           PUT    /forums/:id(.:format)                                                                                  forums#update
+                                                           DELETE /forums/:id(.:format)                                                                                  forums#destroy
+                                     categories_known_uris GET    /known_uris/categories(.:format)                                                                       known_uris#categories
+                  autocomplete_known_uri_search_known_uris GET    /known_uris/autocomplete_known_uri_search(.:format)                                                    known_uris#autocomplete_known_uri_search
+                   autocomplete_known_uri_units_known_uris GET    /known_uris/autocomplete_known_uri_units(.:format)                                                     known_uris#autocomplete_known_uri_units
+                autocomplete_known_uri_metadata_known_uris GET    /known_uris/autocomplete_known_uri_metadata(.:format)                                                  known_uris#autocomplete_known_uri_metadata
+              autocomplete_known_uri_predicates_known_uris GET    /known_uris/autocomplete_known_uri_predicates(.:format)                                                known_uris#autocomplete_known_uri_predicates
+                  autocomplete_known_uri_values_known_uris GET    /known_uris/autocomplete_known_uri_values(.:format)                                                    known_uris#autocomplete_known_uri_values
+                                     show_stats_known_uris GET    /known_uris/show_stats(.:format)                                                                       known_uris#show_stats
+                                import_ontology_known_uris POST   /known_uris/import_ontology(.:format)                                                                  known_uris#import_ontology
+                                           sort_known_uris POST   /known_uris/sort(.:format)                                                                             known_uris#sort
+                                          unhide_known_uri PUT    /known_uris/:id/unhide(.:format)                                                                       known_uris#unhide
+                                            hide_known_uri PUT    /known_uris/:id/hide(.:format)                                                                         known_uris#hide
+                     set_as_exemplar_for_same_as_known_uri PUT    /known_uris/:id/set_as_exemplar_for_same_as(.:format)                                                  known_uris#set_as_exemplar_for_same_as
+                                                known_uris GET    /known_uris(.:format)                                                                                  known_uris#index
+                                                           POST   /known_uris(.:format)                                                                                  known_uris#create
+                                             new_known_uri GET    /known_uris/new(.:format)                                                                              known_uris#new
+                                            edit_known_uri GET    /known_uris/:id/edit(.:format)                                                                         known_uris#edit
+                                                 known_uri GET    /known_uris/:id(.:format)                                                                              known_uris#show
+                                                           PUT    /known_uris/:id(.:format)                                                                              known_uris#update
+                                                           DELETE /known_uris/:id(.:format)                                                                              known_uris#destroy
+                                   known_uri_relationships POST   /known_uri_relationships(.:format)                                                                     known_uri_relationships#create
+                                    known_uri_relationship DELETE /known_uri_relationships/:id(.:format)                                                                 known_uri_relationships#destroy
+                                           user_added_data POST   /user_added_data(.:format)                                                                             user_added_data#create
+                                     edit_user_added_datum GET    /user_added_data/:id/edit(.:format)                                                                    user_added_data#edit
+                                          user_added_datum PUT    /user_added_data/:id(.:format)                                                                         user_added_data#update
+                                                           DELETE /user_added_data/:id(.:format)                                                                         user_added_data#destroy
+                                      taxon_data_exemplars POST   /taxon_data_exemplars(.:format)                                                                        taxon_data_exemplars#create
+                                       data_point_uri_hide PUT    /data_point_uris/:data_point_uri_id/hide(.:format)                                                     data_point_uris#hide
+                                     data_point_uri_unhide PUT    /data_point_uris/:data_point_uri_id/unhide(.:format)                                                   data_point_uris#unhide
+                              data_point_uri_show_metadata GET    /data_point_uris/:data_point_uri_id/show_metadata(.:format)                                            data_point_uris#show_metadata
+                                   data_point_uri_comments GET    /data_point_uris/:data_point_uri_id/comments(.:format)                                                 comments#index
+                                            data_point_uri GET    /data_point_uris/:id(.:format)                                                                         data_point_uris#show
+                             update_attributes_data_search GET    /data_search/update_attributes(.:format)                                                               data_search#update_attributes
+                                               data_search GET    /data_search(.:format)                                                                                 data_search#index
+                                      download_data_search GET    /data_search/download(.:format)                                                                        data_search#download
+                                                           POST   /data_search/download(.:format)                                                                        data_search#download
+                                         data_search_files GET    /data_search_files(.:format)                                                                           data_search_files#index
+                                          data_search_file DELETE /data_search_files/:id(.:format)                                                                       data_search_files#destroy
+                                    news_item_translations POST   /news_items/:news_item_id/translated_news_items(.:format)                                              translated_news_items#create
+                                 new_news_item_translation GET    /news_items/:news_item_id/translated_news_items/new(.:format)                                          translated_news_items#new
+                                edit_news_item_translation GET    /news_items/:news_item_id/translated_news_items/:id/edit(.:format)                                     translated_news_items#edit
+                                     news_item_translation PUT    /news_items/:news_item_id/translated_news_items/:id(.:format)                                          translated_news_items#update
+                                                           DELETE /news_items/:news_item_id/translated_news_items/:id(.:format)                                          translated_news_items#destroy
+                                                news_items GET    /news_items(.:format)                                                                                  news_items#index
+                                                 news_item GET    /news_items/:id(.:format)                                                                              news_items#show
+                 submit_flickr_comments_content_cron_tasks GET    /content_cron_tasks/submit_flickr_comments(.:format)                                                   content_cron_tasks#submit_flickr_comments
+          submit_flickr_curator_actions_content_cron_tasks GET    /content_cron_tasks/submit_flickr_curator_actions(.:format)                                            content_cron_tasks#submit_flickr_curator_actions
+send_monthly_partner_stats_notification_content_cron_tasks GET    /content_cron_tasks/send_monthly_partner_stats_notification(.:format)                                  content_cron_tasks#send_monthly_partner_stats_notification
+                                        content_cron_tasks POST   /content_cron_tasks(.:format)                                                                          content_cron_tasks#create
+                                    new_content_cron_tasks GET    /content_cron_tasks/new(.:format)                                                                      content_cron_tasks#new
+                                   edit_content_cron_tasks GET    /content_cron_tasks/edit(.:format)                                                                     content_cron_tasks#edit
+                                                           GET    /content_cron_tasks(.:format)                                                                          content_cron_tasks#show
+                                                           PUT    /content_cron_tasks(.:format)                                                                          content_cron_tasks#update
+                                                           DELETE /content_cron_tasks(.:format)                                                                          content_cron_tasks#destroy
+                              taxon_concept_exemplar_image POST   /taxon_concept_exemplar_image(.:format)                                                                taxon_concept_exemplar_images#create
+                                             data_glossary GET    /data_glossary(.:format)                                                                               data_glossary#show
+                                 autocomplete_taxon_search GET    /search/autocomplete_taxon(.:format)                                                                   search#autocomplete_taxon
+                                                    search GET    /search(.:format)                                                                                      search#index
+                                                           POST   /search(.:format)                                                                                      search#create
+                                                new_search GET    /search/new(.:format)                                                                                  search#new
+                                               edit_search GET    /search/edit(.:format)                                                                                 search#edit
+                                                           GET    /search(.:format)                                                                                      search#show
+                                                           PUT    /search(.:format)                                                                                      search#update
+                                                           DELETE /search(.:format)                                                                                      search#destroy
+                                         recent_activities GET    /recent_activities(.:format)                                                                           recent_activities#index
+                                     sort_pending_harvests POST   /pending_harvests/sort(.:format)                                                                       pending_harvests#sort
+                         pause_harvesting_pending_harvests POST   /pending_harvests/pause_harvesting(.:format)                                                           pending_harvests#pause_harvesting
+                        resume_harvesting_pending_harvests POST   /pending_harvests/resume_harvesting(.:format)                                                          pending_harvests#resume_harvesting
+                                          pending_harvests GET    /pending_harvests(.:format)                                                                            pending_harvests#index
+                                                           POST   /pending_harvests(.:format)                                                                            pending_harvests#create
+                                       new_pending_harvest GET    /pending_harvests/new(.:format)                                                                        pending_harvests#new
+                                      edit_pending_harvest GET    /pending_harvests/:id/edit(.:format)                                                                   pending_harvests#edit
+                                           pending_harvest GET    /pending_harvests/:id(.:format)                                                                        pending_harvests#show
+                                                           PUT    /pending_harvests/:id(.:format)                                                                        pending_harvests#update
+                                                           DELETE /pending_harvests/:id(.:format)                                                                        pending_harvests#destroy
+                                           classifications POST   /classifications(.:format)                                                                             classifications#create
+                                                  contacts GET    /contacts(.:format)                                                                                    contacts#index
+                                                           POST   /contacts(.:format)                                                                                    contacts#create
+                                               new_contact GET    /contacts/new(.:format)                                                                                contacts#new
+                                          collection_items POST   /collection_items(.:format)                                                                            collection_items#create
+                                      edit_collection_item GET    /collection_items/:id/edit(.:format)                                                                   collection_items#edit
+                                           collection_item GET    /collection_items/:id(.:format)                                                                        collection_items#show
+                                                           PUT    /collection_items/:id(.:format)                                                                        collection_items#update
+                                                  comments POST   /comments(.:format)                                                                                    comments#create
+                                              edit_comment GET    /comments/:id/edit(.:format)                                                                           comments#edit
+                                                   comment PUT    /comments/:id(.:format)                                                                                comments#update
+                                                           DELETE /comments/:id(.:format)                                                                                comments#destroy
+                                           comments_create GET    /comments/create(.:format)                                                                             comments#create
+                                                  sessions POST   /sessions(.:format)                                                                                    sessions#create
+                                               new_session GET    /sessions/new(.:format)                                                                                sessions#new
+                                                   session DELETE /sessions/:id(.:format)                                                                                sessions#destroy
+                                         wikipedia_imports POST   /wikipedia_imports(.:format)                                                                           wikipedia_imports#create
+                                      new_wikipedia_import GET    /wikipedia_imports/new(.:format)                                                                       wikipedia_imports#new
+                                               permissions GET    /permissions(.:format)                                                                                 permissions#index
+                                                permission GET    /permissions/:id(.:format)                                                                             permissions#show
+                                    partner_curation_feeds GET    /feeds/partner_curation(.:format)                                                                      feeds#partner_curation {:format=>"atom"}
+                                                     feeds POST   /feeds(.:format)                                                                                       feeds#create
+                                                 new_feeds GET    /feeds/new(.:format)                                                                                   feeds#new
+                                                edit_feeds GET    /feeds/edit(.:format)                                                                                  feeds#edit
+                                                           GET    /feeds(.:format)                                                                                       feeds#show
+                                                           PUT    /feeds(.:format)                                                                                       feeds#update
+                                                           DELETE /feeds(.:format)                                                                                       feeds#destroy
+                                          wapi_collections GET    /wapi/collections(.:format)                                                                            wapi/v1/collections#index {:format=>"json"}
+                                                           POST   /wapi/collections(.:format)                                                                            wapi/v1/collections#create {:format=>"json"}
+                                       new_wapi_collection GET    /wapi/collections/new(.:format)                                                                        wapi/v1/collections#new {:format=>"json"}
+                                      edit_wapi_collection GET    /wapi/collections/:id/edit(.:format)                                                                   wapi/v1/collections#edit {:format=>"json"}
+                                           wapi_collection GET    /wapi/collections/:id(.:format)                                                                        wapi/v1/collections#show {:format=>"json"}
+                                                           PUT    /wapi/collections/:id(.:format)                                                                        wapi/v1/collections#update {:format=>"json"}
+                                                           DELETE /wapi/collections/:id(.:format)                                                                        wapi/v1/collections#destroy {:format=>"json"}
+                                                 find_feed        /activity_logs/find/:id(.:format)                                                                      feeds#find
+                                                contact_us        /contact_us(.:format)                                                                                  contacts#new
+                                                loggertest        /loggertest(.:format)                                                                                  content#loggertest
+                                                   version        /version(.:format)                                                                                     content#version
+                                                      boom        /boom(.:format)                                                                                        content#boom
+                                                                  /test_timeout/:time(.:format)                                                                          content#test_timeout
+                                              set_language        /set_language(.:format)                                                                                application#set_language
+                                             external_link        /external_link(.:format)                                                                               application#external_link
+                                 fetch_external_page_title        /fetch_external_page_title(.:format)                                                                   application#fetch_external_page_title
+                                                   preview        /preview(.:format)                                                                                     content#preview
+                                              clear_caches        /clear_caches(.:format)                                                                                content#clear_caches
+                                                expire_all        /expire_all(.:format)                                                                                  content#expire_all
+                                                    expire        /expire/:id(.:format)                                                                                  content#expire_single {:id=>/\w+/}
+                                              expire_taxon        /expire_taxon/:id(.:format)                                                                            content#expire_taxon {:id=>/\d+/}
+                                               expire_taxa        /expire_taxa/:id(.:format)                                                                             content#expire_multiple {:id=>/\d+/}
+                                                  language        /language(.:format)                                                                                    content#language
+                                                    search        /search(.:format)                                                                                      search#index
+                                                                  /search/:id(.:format)                                                                                  search#index
+                                                     found        /found/:id(.:format)                                                                                   taxa#show
+                                                     login        /login(.:format)                                                                                       sessions#new
+                                                    logout        /logout(.:format)                                                                                      sessions#destroy
+                                   set_article_as_exemplar        /pages/:taxon_id/details/:data_object_id/set_article_as_exemplar(.:format)                             taxa/details#set_article_as_exemplar
+                                taxon_worklist_data_object        /pages/:id/worklist/data_objects/:data_object_id(.:format)                                             taxa/worklist#data_objects
+                                        data_object_ignore        /data_objects/:id/ignore(.:format)                                                                     data_objects#ignore
+                                           add_association        /data_objects/:id/add_association(.:format)                                                            data_objects#add_association
+                                          save_association        /data_objects/:id/save_association/:hierarchy_entry_id(.:format)                                       data_objects#save_association
+                                        remove_association        /data_objects/:id/remove_association/:hierarchy_entry_id(.:format)                                     data_objects#remove_association
+                                                 bhl_title        /pages/:id/literature/bhl_title/:title_item_id(.:format)                                               taxa/literature#bhl_title
+                                           entry_bhl_title        /pages/:id/entries/:hierarchy_entry_id/literature/bhl_title/:title_item_id(.:format)                   taxa/literature#bhl_title
+                                                      help        /help(.:format)                                                                                        content#show {:id=>"help"}
+                                                     about        /about(.:format)                                                                                       content#show {:id=>"about"}
+                                                      news        /news(.:format)                                                                                        content#show {:id=>"news"}
+                                                  discover        /discover(.:format)                                                                                    content#show {:id=>"discover"}
+                                                   contact        /contact(.:format)                                                                                     content#show {:id=>"contact"}
+                                              terms_of_use        /terms_of_use(.:format)                                                                                content#show {:id=>"terms_of_use"}
+                                                    citing        /citing(.:format)                                                                                      content#show {:id=>"citing"}
+                                                   privacy        /privacy(.:format)                                                                                     content#show {:id=>"privacy"}
+                                                  curators        /curators(.:format)                                                                                    content#show {:id=>"curators"}
+                                                 traitbank        /traitbank(.:format)                                                                                   content#show {:id=>"traitbank"}
+                                                                  /curators/*ignore(.:format)                                                                            content#show {:id=>"curators"}
+                                                  cms_page        /info/:id(.:format)                                                                                    content#show
+                                                cms_crumbs        /info/*crumbs(.:format)                                                                                content#show
+                                       filtered_collection        /collections/:id/:filter(.:format)                                                                     collections#show
+                                               verify_user        /users/:user_id/verify/:validation_code(.:format)                                                      users#verify
+                                      temporary_login_user        /users/:user_id/temporary_login/:recover_account_token(.:format)                                       users#temporary_login
+                                             administrator        /administrator(.:format)                                                                               admin#index
+                        administrator_harvesting_log_index GET    /administrator/harvesting_log(.:format)                                                                administrator/harvesting_log#index
+                             administrator_hierarchy_index GET    /administrator/hierarchy(.:format)                                                                     administrator/hierarchy#index
+                              edit_administrator_hierarchy GET    /administrator/hierarchy/:id/edit(.:format)                                                            administrator/hierarchy#edit
+                     SPM_objects_count_administrator_stats GET    /administrator/stats/SPM_objects_count(.:format)                                                       administrator/stats#SPM_objects_count
+                    SPM_partners_count_administrator_stats GET    /administrator/stats/SPM_partners_count(.:format)                                                      administrator/stats#SPM_partners_count
+                         toc_breakdown_administrator_stats GET    /administrator/stats/toc_breakdown(.:format)                                                           administrator/stats#toc_breakdown
+                     content_taxonomic_administrator_stats GET    /administrator/stats/content_taxonomic(.:format)                                                       administrator/stats#content_taxonomic
+                                       administrator_stats GET    /administrator/stats(.:format)                                                                         administrator/stats#index
+                                   hide_administrator_user GET    /administrator/user/:id/hide(.:format)                                                                 administrator/user#hide
+                                 unhide_administrator_user GET    /administrator/user/:id/unhide(.:format)                                                               administrator/user#unhide
+                          grant_curator_administrator_user GET    /administrator/user/:id/grant_curator(.:format)                                                        administrator/user#grant_curator
+                         revoke_curator_administrator_user GET    /administrator/user/:id/revoke_curator(.:format)                                                       administrator/user#revoke_curator
+                      clear_curatorship_administrator_user GET    /administrator/user/:id/clear_curatorship(.:format)                                                    administrator/user#clear_curatorship
+                          login_as_user_administrator_user GET    /administrator/user/:id/login_as_user(.:format)                                                        administrator/user#login_as_user
+                             deactivate_administrator_user GET    /administrator/user/:id/deactivate(.:format)                                                           administrator/user#deactivate
+           list_newsletter_emails_administrator_user_index GET    /administrator/user/list_newsletter_emails(.:format)                                                   administrator/user#list_newsletter_emails
+                                  administrator_user_index GET    /administrator/user(.:format)                                                                          administrator/user#index
+                                                           POST   /administrator/user(.:format)                                                                          administrator/user#create
+                                    new_administrator_user GET    /administrator/user/new(.:format)                                                                      administrator/user#new
+                                   edit_administrator_user GET    /administrator/user/:id/edit(.:format)                                                                 administrator/user#edit
+                                        administrator_user GET    /administrator/user/:id(.:format)                                                                      administrator/user#show
+                                                           PUT    /administrator/user/:id(.:format)                                                                      administrator/user#update
+                                                           DELETE /administrator/user/:id(.:format)                                                                      administrator/user#destroy
+                                  administrator_site_index GET    /administrator/site(.:format)                                                                          administrator/site#index
+                                                           POST   /administrator/site(.:format)                                                                          administrator/site#create
+                                    new_administrator_site GET    /administrator/site/new(.:format)                                                                      administrator/site#new
+                                   edit_administrator_site GET    /administrator/site/:id/edit(.:format)                                                                 administrator/site#edit
+                                        administrator_site GET    /administrator/site/:id(.:format)                                                                      administrator/site#show
+                                                           PUT    /administrator/site/:id(.:format)                                                                      administrator/site#update
+                                                           DELETE /administrator/site/:id(.:format)                                                                      administrator/site#destroy
+                        export_administrator_curator_index GET    /administrator/curator/export(.:format)                                                                administrator/curator#export
+                               administrator_curator_index GET    /administrator/curator(.:format)                                                                       administrator/curator#index
+                                                           POST   /administrator/curator(.:format)                                                                       administrator/curator#create
+                                 new_administrator_curator GET    /administrator/curator/new(.:format)                                                                   administrator/curator#new
+                                edit_administrator_curator GET    /administrator/curator/:id/edit(.:format)                                                              administrator/curator#edit
+                                     administrator_curator GET    /administrator/curator/:id(.:format)                                                                   administrator/curator#show
+                                                           PUT    /administrator/curator/:id(.:format)                                                                   administrator/curator#update
+                                                           DELETE /administrator/curator/:id(.:format)                                                                   administrator/curator#destroy
+                                hide_administrator_comment GET    /administrator/comment/:id/hide(.:format)                                                              administrator/comment#hide
+                               administrator_comment_index GET    /administrator/comment(.:format)                                                                       administrator/comment#index
+                                                           POST   /administrator/comment(.:format)                                                                       administrator/comment#create
+                                 new_administrator_comment GET    /administrator/comment/new(.:format)                                                                   administrator/comment#new
+                                edit_administrator_comment GET    /administrator/comment/:id/edit(.:format)                                                              administrator/comment#edit
+                                     administrator_comment GET    /administrator/comment/:id(.:format)                                                                   administrator/comment#show
+                                                           PUT    /administrator/comment/:id(.:format)                                                                   administrator/comment#update
+                                                           DELETE /administrator/comment/:id(.:format)                                                                   administrator/comment#destroy
+                        administrator_content_upload_index GET    /administrator/content_upload(.:format)                                                                administrator/content_upload#index
+                                                           POST   /administrator/content_upload(.:format)                                                                administrator/content_upload#create
+                          new_administrator_content_upload GET    /administrator/content_upload/new(.:format)                                                            administrator/content_upload#new
+                         edit_administrator_content_upload GET    /administrator/content_upload/:id/edit(.:format)                                                       administrator/content_upload#edit
+                              administrator_content_upload GET    /administrator/content_upload/:id(.:format)                                                            administrator/content_upload#show
+                                                           PUT    /administrator/content_upload/:id(.:format)                                                            administrator/content_upload#update
+                                                           DELETE /administrator/content_upload/:id(.:format)                                                            administrator/content_upload#destroy
+                       administrator_translation_log_index GET    /administrator/translation_log(.:format)                                                               administrator/translation_log#index
+                                                           POST   /administrator/translation_log(.:format)                                                               administrator/translation_log#create
+                         new_administrator_translation_log GET    /administrator/translation_log/new(.:format)                                                           administrator/translation_log#new
+                        edit_administrator_translation_log GET    /administrator/translation_log/:id/edit(.:format)                                                      administrator/translation_log#edit
+                             administrator_translation_log GET    /administrator/translation_log/:id(.:format)                                                           administrator/translation_log#show
+                                                           PUT    /administrator/translation_log/:id(.:format)                                                           administrator/translation_log#update
+                                                           DELETE /administrator/translation_log/:id(.:format)                                                           administrator/translation_log#destroy
+                      administrator_user_data_object_index GET    /administrator/user_data_object(.:format)                                                              administrator/user_data_object#index
+                                                           POST   /administrator/user_data_object(.:format)                                                              administrator/user_data_object#create
+                        new_administrator_user_data_object GET    /administrator/user_data_object/new(.:format)                                                          administrator/user_data_object#new
+                       edit_administrator_user_data_object GET    /administrator/user_data_object/:id/edit(.:format)                                                     administrator/user_data_object#edit
+                            administrator_user_data_object GET    /administrator/user_data_object/:id(.:format)                                                          administrator/user_data_object#show
+                                                           PUT    /administrator/user_data_object/:id(.:format)                                                          administrator/user_data_object#update
+                                                           DELETE /administrator/user_data_object/:id(.:format)                                                          administrator/user_data_object#destroy
+                             administrator_error_log_index GET    /administrator/error_log(.:format)                                                                     administrator/error_log#index
+                           administrator_table_of_contents GET    /administrator/table_of_contents(.:format)                                                             administrator/table_of_contents#index
+                                                           POST   /administrator/table_of_contents(.:format)                                                             administrator/table_of_contents#create
+                       edit_administrator_table_of_content GET    /administrator/table_of_contents/:id/edit(.:format)                                                    administrator/table_of_contents#edit
+                            administrator_table_of_content PUT    /administrator/table_of_contents/:id(.:format)                                                         administrator/table_of_contents#update
+                                                           DELETE /administrator/table_of_contents/:id(.:format)                                                         administrator/table_of_contents#destroy
+                     administrator_search_suggestion_index GET    /administrator/search_suggestion(.:format)                                                             administrator/search_suggestion#index
+                                                           POST   /administrator/search_suggestion(.:format)                                                             administrator/search_suggestion#create
+                       new_administrator_search_suggestion GET    /administrator/search_suggestion/new(.:format)                                                         administrator/search_suggestion#new
+                      edit_administrator_search_suggestion GET    /administrator/search_suggestion/:id/edit(.:format)                                                    administrator/search_suggestion#edit
+                           administrator_search_suggestion PUT    /administrator/search_suggestion/:id(.:format)                                                         administrator/search_suggestion#update
+                                                           DELETE /administrator/search_suggestion/:id(.:format)                                                         administrator/search_suggestion#destroy
+                                        change_eol_configs POST   /eol_configs/change(.:format)                                                                          eol_configs#change
+                                                eol_config PUT    /eol_configs/:id(.:format)                                                                             eol_configs#update
+                                   browse_stats_navigation GET    /navigation/browse_stats(.:format)                                                                     navigation#browse_stats
+                                                navigation POST   /navigation(.:format)                                                                                  navigation#create
+                                            new_navigation GET    /navigation/new(.:format)                                                                              navigation#new
+                                           edit_navigation GET    /navigation/edit(.:format)                                                                             navigation#edit
+                                                           GET    /navigation(.:format)                                                                                  navigation#show
+                                                           PUT    /navigation(.:format)                                                                                  navigation#update
+                                                           DELETE /navigation(.:format)                                                                                  navigation#destroy
+                                      upload_image_wysiwyg POST   /wysiwyg/upload_image(.:format)                                                                        wysiwyg#upload_image
+                                                   wysiwyg POST   /wysiwyg(.:format)                                                                                     wysiwyg#create
+                                               new_wysiwyg GET    /wysiwyg/new(.:format)                                                                                 wysiwyg#new
+                                              edit_wysiwyg GET    /wysiwyg/edit(.:format)                                                                                wysiwyg#edit
+                                                           GET    /wysiwyg(.:format)                                                                                     wysiwyg#show
+                                                           PUT    /wysiwyg(.:format)                                                                                     wysiwyg#update
+                                                           DELETE /wysiwyg(.:format)                                                                                     wysiwyg#destroy
+                    last_ten_minutes_curator_activity_logs GET    /curator_activity_logs/last_ten_minutes(.:format)                                                      curator_activity_logs#last_ten_minutes
+                                                    donate GET    /donate(.:format)                                                                                      :controller#:action
+                                                  donation GET    /donation(.:format)                                                                                    :controller#:action
+                                                 donations GET    /donations(.:format)                                                                                   :controller#:action
+                                             donations_new GET    /donations/new(.:format)                                                                               :controller#:action
+                                                       api        /api(.:format)                                                                                         api/docs#index
+                                                  api_docs        /api/docs(.:format)                                                                                    api/docs#index
+                                                                  /api/docs/:action(.:format)                                                                            api/docs#:action
+                                                                  /api/docs/:action/:version(.:format)                                                                   api/docs#:action {:version=>/\d\.\d/}
+                                                                  /api/:action(.:format)                                                                                 api#:action
+                                                                  /api/:action/:version(.:format)                                                                        api#:action {:version=>/\d\.\d/}
+                                                                  /api/:action/:id(.:format)                                                                             api#:action
+                                                                  /api/:action/:version/:id(.:format)                                                                    api#:action {:version=>/\d\.\d/}
+                            content_random_homepage_images        /content/random_homepage_images(.:format)                                                              content#random_homepage_images
+                                                                  /content/file/:id(.:format)                                                                            content#file
+                                               maintenance        /maintenance(.:format)                                                                                 content#maintenance
+                                                                  /:id(.:format)                                                                                         :controller#:action {:id=>/\d+/}
+                                                                  /:q(.:format)                                                                                          search#index {:q=>/[A-Za-z% ][A-Za-z0-9% ]*/}
+                                                  ckeditor        /ckeditor                                                                                              Ckeditor::Engine
+
+Routes for Ckeditor::Engine:
+        pictures GET    /pictures(.:format)             ckeditor/pictures#index
+                 POST   /pictures(.:format)             ckeditor/pictures#create
+         picture DELETE /pictures/:id(.:format)         ckeditor/pictures#destroy
+attachment_files GET    /attachment_files(.:format)     ckeditor/attachment_files#index
+                 POST   /attachment_files(.:format)     ckeditor/attachment_files#create
+ attachment_file DELETE /attachment_files/:id(.:format) ckeditor/attachment_files#destroy

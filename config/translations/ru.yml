@@ -182,6 +182,7 @@ ru:
         total_measurement_types: Типы измерений
         total_association_types: Типы ассоциаций
         total_user_added_data: Добавленные пользователем данные
+        total_data_records: Записи данных
       forum:
         forum_category_id: Категория
         name: Имя на форуме
@@ -215,6 +216,7 @@ ru:
         uri: URI
         uri_type: Тип URI
         value_is_text: Значения не будут URI, только текст
+        value_is_verbatim: Значения не будут цифры, только текст
       known_uri_relationship:
         from_known_uri_id: Тема URI
         to_known_uri_id: Целевой URI

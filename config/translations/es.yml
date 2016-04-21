@@ -3729,7 +3729,7 @@ es:
     actualizado correctamente.
   admin_content_page_update_unsuccessful_error: Lo sentimos, ha ocurrido un error,
     la página no se pudo actualizar.
-  admin_content_pages_empty: No se encontraro páginas de contenido.
+  admin_content_pages_empty: No se encontraron páginas de contenido.
   admin_content_pages_index_information: La siguiente lista incluye todas las páginas
     estáticas actualmente disponibles en el sitio web EOL. Cada página tiene una o
     más traducciones. Cuando se crea una nueva página se le pedirá que añada una traducción.

@@ -39,7 +39,7 @@
 it:
   activerecord:
     models:
-      user: account
+      user: utenza
     attributes:
       collection:
         name: Nome della collezione
@@ -3771,7 +3771,7 @@ it:
     solo quelli con permessi
   admin_link: Panoramica
   admin_page_title: 'Amministrazione: Panoramica'
-  admin_resource_delete_confirmation: Sei sicuro di voler eliminare questa risorsa?
+  admin_resource_delete_confirmation: Sei sicuro di voler cancellare questa risorsa?
     Questo comando richiede molto tempo per l'esecuzione. Puoi prenderti una pausa
     nel frattempo. Non inviare la richiesta due volte.
   admin_simple_actions_header: 'Semplici Azioni:'
@@ -4268,7 +4268,7 @@ it:
   comment_added_notice: Commento aggiunto correttamente.
   comment_body_label: Il tuo commento
   comment_created_at: Creato il
-  comment_delete_confirm: Sei sicuro di volere eliminare il commento?
+  comment_delete_confirm: Sei sicuro di volere cancellare il commento?
   comment_edit_by_javascript_not_authorized_error: Spiacenti, non hai i permessi per
     modificare questo commento. Se sei l'autore del commento ricarica la pagina e
     controlla se hai effettuato il login.

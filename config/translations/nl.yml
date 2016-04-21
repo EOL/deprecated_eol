@@ -9,6 +9,7 @@
 # Author: GerardM
 # Author: HanV
 # Author: Inholland
+# Author: Jeleniccz
 # Author: McDutchie
 # Author: MedShot
 # Author: Milenej
@@ -5395,6 +5396,7 @@ nl:
   full_content_url: URL voor volledige inhoud
   gbif_map: GBIF-kaart
   general_site_admin: algemene sitebeheerder
+  georeference_records_colon: 'Georeferentie records:'
   get_help_choosing_a_subject: Hulp bij het kiezen van een onderwerp
   get_help_choosing_a_subchapter: Hulp bij het kiezen van een subhoofdstuk
   get_more_tasks: meer taken vinden
@@ -6504,6 +6506,7 @@ nl:
   sort_by_hierarchy_publish_request_option: Verzoek voor het publiceren van hiërarchie
   sort_by_reverse_alphabetical_option: Omgekeerd alfabetisch
   sort_by_recently_added_option: Recent toegevoegd
+  sort_by_recently_updated_option: Recent bijgewerkt
   sort_by_status_option: Status
   sort_by_title_ascending: Titel oplopend
   sort_by_title_descending: Titel aflopend

@@ -46,7 +46,7 @@ class TraitBank
     end
 
     def build_traits
-      TraitBank::Old.paginate_measurements(resource: @resource)) do |results|
+      TraitBank::Old.paginate_measurements(resource: @resource) do |results|
         results.each do |row|
           raise "No value for #{row[:trait]}!" unless row[:value]
           @taxa << row[:page].to_s.sub(TraitBank.taxon_re, "\\2")
@@ -65,7 +65,7 @@ class TraitBank
     end
 
     def build_associations
-      TraitBank::Old.paginate_associations(resource: @resource)) do |results|
+      TraitBank::Old.paginate_associations(resource: @resource) do |results|
         results.each do |row|
           # This is a sloppy way to ensure inverse relationships aren't added
           # twice, because inverse relationships are both stored in the traits
@@ -98,7 +98,7 @@ class TraitBank
     end
 
     def build_references
-      TraitBank::Old.paginate_references(@resource)) do |results|
+      TraitBank::Old.paginate_references(@resource) do |results|
         results.each do |row|
           @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
             "#{TraitBank.quote_literal(row[:full_reference])}"

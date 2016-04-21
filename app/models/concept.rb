@@ -37,9 +37,13 @@ class Concept
 
     grouped.keys.sort_by { |k| k.label }.each do |hierarchy|
       puts ""
-      puts "##### [#{hierarchy.label}]"\
-        "(http://eol.org/resources/#{hierarchy.resource.id}) "\
-        "```#{hierarchy.id}```"
+      if hierarchy.resource
+        puts "##### [#{hierarchy.label}]"\
+          "(http://eol.org/resources/#{hierarchy.resource.id}) "\
+          "```#{hierarchy.id}```"
+      else
+        puts "##### #{hierarchy.label} (no resource available) ```#{hierarchy.id}```"
+      end
       grouped[hierarchy].each do |he|
         puts "* *#{he.name.string}* (*#{he.name.canonical_form.string}*) "\
           "```#{he.id}```"

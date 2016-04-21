@@ -12,11 +12,13 @@ class TraitBank::Old
     end
 
     def associations(options = {})
+      limit = options[:limit] || 1000
       connection.query(associations_query(options) + " LIMIT #{limit}")
     end
 
     # NOTE: Cannot filter by page, only resource. Careful!
     def references(options = {})
+      limit = options[:limit] || 1000
       connection.query(references_query(options) + " LIMIT #{limit}")
     end
 

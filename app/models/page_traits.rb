@@ -36,8 +36,6 @@ class PageTraits < TraitSet
     traits.select { |t| t.point.nil? }
   end
 
-  # TODO: this doesn't belong here; make a new class and pass self in. NOTE:
-  # jsonld is ALWAYS in English. Period. This is expected and normal.
   def jsonld
     concept = TaxonConcept.with_titles.find(@id)
     jsonld = { '@graph' => [ concept.to_jsonld ] }
@@ -47,63 +45,11 @@ class PageTraits < TraitSet
     concept.common_names.map do |tcn|
       jsonld['@graph'] << tcn.to_jsonld
     end
-    prefixes = {}
-    PREFIXES.each { |k,v| prefixes[v] = "#{k}:" }
-    @traits.each do |trait|
-      # NOTE: this block was (mostly) stolen from DataPointUri#to_jsonld, and,
-      # again, will replace it.
-      trait_json = {
-        "@id" => trait.uri.to_s,
-        "@type" => trait.association? ? "eol:Association" : "dwc:MeasurementOrFact",
-        "dwc:taxonID" => KnownUri.taxon_uri(@id),
-        # These two are confusing, buuuuuut:
-        "predicate" => trait.predicate_name,
-        "dwc:measurementType" => trait.predicate,
-        "value" => trait.value_name
-      }
-      if trait.units?
-        trait_json[:units] = trait.units_name
-      end
-      if trait.point
-        trait_json["data_point_uri_id"] = trait.point.id
-      end
-      trait.rdf.each do |rdf|
-        predicate = rdf[:trait_predicate].dup.to_s
-        # They don't care about the type we store it as...
-        next if predicate == TraitBank.type_uri
-        prefixes.each { |r,v| predicate.sub!(r,v) }
-        trait_json[predicate] = rdf[:value].to_s
-      end
-      # Associations need a _little_ tweaking:
-      if trait.association?
-        trait_json["eol:associationType"] =
-          trait_json.delete("dwc:measurementType")
-        trait_json["eol:targetTaxonID"] = trait.value_name
-      end
-      jsonld["@graph"] << trait_json
-    end
-    add_default_context(jsonld)
+    jsonld['@graph'].merge(TraitBank::JsonLd.graph_traits(@traits))
+    TraitBank::JsonLd.add_default_context(jsonld)
     # I'm not sure we were ever doing this "right". :\ TODO: is this even useful?
     @glossary.each do |uri|
       jsonld['@context'][uri.name] = uri.uri
-    end
-    jsonld
-  end
-
-  def add_default_context(jsonld)
-    # TODO: @context doesn't need all of these. Look through the @graph and
-    # add things as needed based on the Sparql headers, then add the @ids.
-    jsonld['@context'] = {
-      'dwc:taxonID' => { '@type' => '@id' },
-      'dwc:resourceID' => { '@type' => '@id' },
-      'dwc:relatedResourceID' => { '@type' => '@id' },
-      'dwc:relationshipOfResource' => { '@type' => '@id' },
-      'dwc:vernacularName' => { '@container' => '@language' },
-      'eol:associationType' => { '@type' => '@id' },
-      'rdfs:label' => { '@container' => '@language' }
-    }
-    PREFIXES.each do |pre, val|
-      jsonld['@context'][pre.to_s] = val
     end
     jsonld
   end

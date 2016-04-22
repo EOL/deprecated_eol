@@ -1,14 +1,4 @@
 class TraitSet
-  PREFIXES = {
-    dc: 'http://purl.org/dc/terms/',
-    dwc: 'http://rs.tdwg.org/dwc/terms/',
-    eol: 'http://eol.org/schema/',
-    eolterms: 'http://eol.org/schema/terms/',
-    rdfs: 'http://www.w3.org/2000/01/rdf-schema#',
-    gbif: 'http://rs.gbif.org/terms/1.0/',
-    foaf: 'http://xmlns.com/foaf/0.1/'
-  }
-
   attr_accessor :points, :glossary, :traits, :sources, :taxa
 
   # YOU *NEED* TO IMPLEMENT #initialize ! See PageTraits for an example.

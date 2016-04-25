@@ -38,7 +38,11 @@ class PageTraits < TraitSet
 
   def jsonld
     concept = TaxonConcept.with_titles.find(@id)
-    jsonld = { '@graph' => [ concept.to_jsonld ] }
+    jsonld = {}
+    @glossary.each do |uri|
+      jsonld['@context'][uri.name] = uri.uri
+    end
+    jsonld['@graph'] = [ concept.to_jsonld ]
     if wikipedia_entry = concept.wikipedia_entry
       jsonld['@graph'] << wikipedia_entry.mapping_jsonld
     end
@@ -48,9 +52,6 @@ class PageTraits < TraitSet
     jsonld['@graph'].merge(TraitBank::JsonLd.graph_traits(@traits))
     TraitBank::JsonLd.add_default_context(jsonld)
     # I'm not sure we were ever doing this "right". :\ TODO: is this even useful?
-    @glossary.each do |uri|
-      jsonld['@context'][uri.name] = uri.uri
-    end
     jsonld
   end
 end

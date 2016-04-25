@@ -3,6 +3,7 @@ class CreatePageJsons < ActiveRecord::Migration
     create_table :page_jsons do |t|
       t.integer :page_id, null: false
       t.text :ld, null: false
+      t.text :context
       t.timestamps
     end
     add_index(:page_jsons, :page_id, unique: true)

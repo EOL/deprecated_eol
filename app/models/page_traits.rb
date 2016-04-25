@@ -36,17 +36,7 @@ class PageTraits < TraitSet
     traits.select { |t| t.point.nil? }
   end
 
-  # NOTE: We don't just take the PageJson because that isn't stored with
-  # context. Why not? Because it's not always used on a single-page basis... and
-  # when there are multiple pages in a single JSON packet, you only want one
-  # glossary/context.
   def jsonld
-    ld = {}
-    @glossary.each do |uri|
-      ld['@context'][uri.name] = uri.uri
-    end
-    ld.merge!(PageJson.for(@id, traits: @traits).ld)
-    TraitBank::JsonLd.add_default_context(ld)
-    JSON.pretty_generate(ld)
+    TraitBank::JsonLd.for_page(@id, self)
   end
 end

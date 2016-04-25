@@ -16,6 +16,15 @@ class TraitBank::JsonLd
     "http://schema.org/AndroidPlatform" ]
 
   class << self
+    def for_page(page_id, page_traits = nil)
+      page_json = PageJson.for(page_id, page_traits)
+      # NOTE: context first.
+      ld = page_json.context
+      ld.merge!(page_json.ld)
+      add_default_context(ld)
+      JSON.pretty_generate(ld)
+    end
+
     def target(action_type, target_type, url)
       { "@type" => action_type,
         "target" => { "@type": target_type,
@@ -24,17 +33,28 @@ class TraitBank::JsonLd
     end
 
     def data_feed_item(concept_id, traits)
-      concept = TaxonConcept.with_titles.find(concept_id)
+      concept = TaxonConcept.with_titles.with_hierarchies.find(concept_id)
       { "@type" => "DataFeedItem",
-        "dateModified" => Time.now,
+        "dateModified" => Date.today,
         "item" => for_concept(concept, traits) }
+    end
+
+    # NOTE: this isn't used yet, I'm keeping it here because it's TODO to use
+    # this in the case of multi-item feeds where supercedure has occurred.
+    def superceded_feed_item(concept)
+      id = concept.respond_to?(id) ? concept.id : concept
+      { "@type": "DataFeedItem",
+        # Not actually, but we don't have timestamps on TaxonConcept: (sigh)
+        "dateDeleted": Date.today,
+        "item": { "@type": "taxon", "@id": id }
+      }
     end
 
     # NOTE: We look for an ITIS entry first, because it is the most robust,
     # detailed, and stable option. WHEN YOU CHANGE THIS (i.e.: when we get the
     # so-called "Dynamic EOL Hierarchy"), please let Google know that you've done
     # so: they will need to reindex things.
-    def for_concept(concept)
+    def for_concept(concept, traits = nil)
       stable_entry = concept.entry(Hierarchy.itis)
       feed = {
         "@id" => concept.id,
@@ -47,9 +67,7 @@ class TraitBank::JsonLd
       end
       feed["potentialAction"] =
         target("EntryPoint", "Related", "http://eol.org/pages/#{concept.id}")
-      if wikipedia_entry = concept.wikipedia_entry
-        feed["sameAs"] = wikipedia_entry.outlink_url
-      end
+      feed["sameAs"] = concept.published_hierarchy_entries.map(&:outlink_url)
       feed["vernacularNames"] =
         concept.common_names.map { |tcn| tcn.to_json_hash }
       traits ||= PageTraits.new(self[:page_id]).traits
@@ -87,6 +105,14 @@ class TraitBank::JsonLd
         trait_json["eol:targetTaxonID"] = trait.value_name
       end
       trait_json
+    end
+
+    def page_context(glossary)
+      ld = {}
+      glossary.each do |uri|
+        ld['@context'][uri.name] = uri.uri
+      end
+      ld
     end
 
     def add_default_context(jsonld)

@@ -36,22 +36,17 @@ class PageTraits < TraitSet
     traits.select { |t| t.point.nil? }
   end
 
+  # NOTE: We don't just take the PageJson because that isn't stored with
+  # context. Why not? Because it's not always used on a single-page basis... and
+  # when there are multiple pages in a single JSON packet, you only want one
+  # glossary/context.
   def jsonld
-    concept = TaxonConcept.with_titles.find(@id)
-    jsonld = {}
+    ld = {}
     @glossary.each do |uri|
-      jsonld['@context'][uri.name] = uri.uri
+      ld['@context'][uri.name] = uri.uri
     end
-    jsonld['@graph'] = [ concept.to_jsonld ]
-    if wikipedia_entry = concept.wikipedia_entry
-      jsonld['@graph'] << wikipedia_entry.mapping_jsonld
-    end
-    concept.common_names.map do |tcn|
-      jsonld['@graph'] << tcn.to_jsonld
-    end
-    jsonld['@graph'].merge(TraitBank::JsonLd.graph_traits(@traits))
-    TraitBank::JsonLd.add_default_context(jsonld)
-    # I'm not sure we were ever doing this "right". :\ TODO: is this even useful?
-    jsonld
+    ld.merge!(PageJson.for(@id, traits: @traits).ld)
+    TraitBank::JsonLd.add_default_context(ld)
+    JSON.pretty_generate(ld)
   end
 end

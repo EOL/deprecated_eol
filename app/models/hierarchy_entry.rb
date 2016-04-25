@@ -368,19 +368,6 @@ class HierarchyEntry < ActiveRecord::Base
     [ root_ancestor, immediate_parent ]
   end
 
-  # NOTE: Apparently, early in negotiations with Google (early enough that by
-  # the time of this writing, they had forgotten they'd asked), they requested
-  # that we add a link to Wikipedia to the JSON-LD. This is that link. It
-  # references the same article that you could find by going to the "Details"
-  # tab and clicking on "Wikipedia".
-  def mapping_jsonld
-    { '@type' => 'dwc:ResourceRelationship',
-      'dwc:resourceID' => KnownUri.taxon_uri(taxon_concept_id),
-      'dwc:relationshipOfResource' => 'foaf:isPrimaryTopicOf',
-      'dwc:relatedResourceID' => outlink_url,
-      'dwc:relationshipAccordingTo' => 'http://eol.org' }
-  end
-
   def destroy_everything
     top_images.destroy_all
     # takes too long, prolly not needed: top_unpublished_images.destroy_all

@@ -77,6 +77,10 @@ class TaxonConcept < ActiveRecord::Base
     includes(preferred_common_names: [:name, :language])
   }
   scope :with_titles, -> { with_title.with_subtitle }
+  # This may seem redundant with :preferred_entry, but alas, it's a separate
+  # query, so we need both:
+  scope :with_hierarchies, -> {
+    includes(published_hierarchy_entries: :hierarchy) }
 
   attr_accessor :common_names_in_language
 

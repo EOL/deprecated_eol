@@ -42,6 +42,11 @@ class TraitBank
       @taxa.each do |id|
         Rails.cache.delete(PageTraits.cache_key(id))
       end
+      @taxa.in_groups_of(5000, false) do |group|
+        PageJson.where(page_id: group).delete_all
+        # TODO: perhaps we should background a task here to re-create all of
+        # them.
+      end
       @taxa
     end
 

@@ -1,5 +1,13 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+class Comment
+  after_initialize :foo, :if => :new_record?
+  def foo
+    self[:body] += " this was added"
+  end
+end
+c = Comment.new(body: "this again? Yes...", user: User.first, parent: User.first)
+
 # Fixing broken hierarchies:
 
 > log/reflatten.log

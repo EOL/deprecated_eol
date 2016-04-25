@@ -55,14 +55,13 @@ class TaxonConceptName < ActiveRecord::Base
     TaxonConceptName::Rebuilder.by_taxon_concept_id(ids)
   end
 
-  def to_jsonld
-    jsonld = { '@type' => 'gbif:VernacularName',
-                          'dwc:vernacularName' => { language.iso_639_1 => name.string },
-                          'dwc:taxonID' => KnownUri.taxon_uri(taxon_concept_id) }
+  def to_json_hash
+    jhash = { "@language" => language.iso_639_1,
+               "@value" => name.string }
     if preferred?
-      jsonld['gbif:isPreferredName'] = true
+      jhash['gbif:isPreferredName'] = true
     end
-    jsonld
+    jhash
   end
 
   # TODO - why pass in by_whom, here? We don't use it. I'm assuming it's a

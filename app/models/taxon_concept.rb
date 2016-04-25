@@ -53,6 +53,7 @@ class TaxonConcept < ActiveRecord::Base
   has_many :superceded_taxon_concepts, class_name: TaxonConcept.to_s, foreign_key: "supercedure_id"
   has_many :taxon_data_exemplars
 
+  has_one :page_json, inverse_of: :page, foreign_key: "page_id"
   has_one :taxon_classifications_lock
   has_one :taxon_concept_metric
   has_one :taxon_concept_exemplar_image
@@ -456,22 +457,6 @@ class TaxonConcept < ActiveRecord::Base
 
   def to_s
     "TaxonConcept ##{id}: #{title}"
-  end
-
-  # NOTE: We look for an ITIS entry first, because it is the most robust,
-  # detailed, and stable option. WHEN YOU CHANGE THIS (i.e.: when we get the
-  # so-called "Dynamic EOL Hierarchy"), please let Google know that you've done
-  # so: they will need to reindex things.
-  def to_jsonld
-    itis_or_other_entry = entry(Hierarchy.itis)
-    jsonld = { '@id' => KnownUri.taxon_uri(id),
-               '@type' => 'dwc:Taxon',
-               'dwc:scientificName' => itis_or_other_entry.name.string,
-               'dwc:taxonRank' => (itis_or_other_entry.rank) ? itis_or_other_entry.rank.label : nil }
-    if parent = itis_or_other_entry.parent
-      jsonld['dwc:parentNameUsageID'] = KnownUri.taxon_uri(parent.taxon_concept_id)
-    end
-    jsonld
   end
 
   def comment(user, body)

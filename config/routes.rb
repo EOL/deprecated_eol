@@ -1,10 +1,10 @@
 # first created -> highest priority.
 Eol::Application.routes.draw do
 
-  
+
   # Root should be first, since it's most frequently used and should return quickly:
-  root :to => 'raffle#index'
-  match '/children/:id' => "raffle#children"
+  root :to => 'content#index'
+
   #resque
   mount Resque::Server.new, at: "/resque"
   # Permanent redirects. Position them before any routes they take precedence over.
@@ -48,7 +48,7 @@ Eol::Application.routes.draw do
 
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
-  resources :raffle, :controller => 'raffle' do
+  resources :angular_tree, only: :index, :controller => 'angular_tree' do
     get 'children'
   end
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do

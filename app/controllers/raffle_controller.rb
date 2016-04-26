@@ -8,9 +8,11 @@ class RaffleController < ApplicationController
   @tree = TREE
     respond_to do |format|
       format.html {}
-      format.js{}
+      format.js {}
     end
   end
+
+
   def children
     children = nested_hash_value(TREE, :id, params[:raffle_id].to_i )["children"]
     # children = [{:id=>40811, :scientific_name=>"Stygobromus", :image_key=>201005151114434, :common_names=>{}, :thumbnail=>"http://media.eol.org/content/2010/05/15/11/14434_130_130.jpg",

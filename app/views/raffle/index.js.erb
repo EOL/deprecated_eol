@@ -6,18 +6,16 @@ app.controller('navigate', function($scope, $http, $sce) {
    $scope.getHtml = function(html){
       return $sce.trustAsHtml(html);
     };
-  $scope.expand = function(obj) {
+  $scope.expand = function(obj, id) {
     var symbol = obj.target.text;
     if(symbol == "+")
     {
         symbol = "-";
         $http({
             method : "GET",
-            url : "raffle/<%= @tree[0][:id] %>/children/",
-            templateUrl: "views/raffle/_children.html.haml"
+            url : "raffle/" + id +"/children/",
         }).then(function mySucces(response) {
             $scope.children = response.data;
-            $scope.out = $sce.trustAsHtml(response.data);
         }, function myError(response) {
             $scope.myWelcome = response.statusText;
         });

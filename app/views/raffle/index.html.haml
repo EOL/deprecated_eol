@@ -1,15 +1,24 @@
-=# javascript_include_tag 'tree'
+= javascript_include_tag 'index'
 = stylesheet_link_tag 'tree'
-#content{ "ng-app" => "eol", "ng-controller" => "navigate"}
 
-  %ul.branch
-    - for branch in @tree
-      %li
-        - tc  = TaxonConcept.find branch[:id] rescue nil
-        = link_to  branch[:scientific_name], taxon_overview_path(branch[:id])
-        - unless branch['children'].blank?
-          = link_to( "+" , "",
-             "ng-click" => "expand($event)")
-          %div{ "ng-bind-html" => "getHtml(children)"}
+#content{ "ng-app" => "eol", "ng-controller" => "navigate"}
+  #sidebar
+    %div{class: "panel-heading"}
+      %h3{class: "panel-title", "ng-init" => "title = 'Select species on the left to view the img'"}
+      {{title}}
+    %div{class: "panel-body", "ng-init" => ""}
+      %center
+        {{img}}
+  #main
+    %ul.branch.head
+      - for branch in @tree
+        %li
+          - tc  = TaxonConcept.find branch[:id] rescue nil
+          = link_to  branch[:scientific_name], taxon_overview_path(branch[:id]),
+            "ng-click" => "showImg(#{branch[:scientific_name]},#{branch[:id]})" 
+          - unless branch['children'].blank?
+            = link_to( "+" , "",
+               "ng-click" => "expand($event, #{branch[:id]} )")
+            %li{ id: "children_#{branch[:id]}"}
 
 

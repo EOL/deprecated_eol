@@ -1,0 +1,36 @@
+
+var app = angular.module('eol', []);
+
+app.controller('navigate', function($scope, $http, $sce) {
+
+   $scope.getHtml = function(html){
+      return $sce.trustAsHtml(html);
+    };
+  $scope.expand = function(obj) {
+    var symbol = obj.target.text;
+    if(symbol == "+")
+    {
+        symbol = "-";
+        $http({
+            method : "GET",
+            url : "raffle/<%= @tree[0][:id] %>/children/",
+            templateUrl: "views/raffle/_children.html.haml"
+        }).then(function mySucces(response) {
+            $scope.children = response.data;
+            $scope.out = $sce.trustAsHtml(response.data);
+        }, function myError(response) {
+            $scope.myWelcome = response.statusText;
+        });
+    }else{
+        $scope.children = null;
+        symbol = "+";
+    }
+    obj.target.text = symbol;
+  }
+});
+
+app.filter('html', function($sce) {
+    return function(val) {
+        return $sce.trustAsHtml(val);
+    };
+});

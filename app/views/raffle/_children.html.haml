@@ -4,13 +4,8 @@
       %li
         - tc  = TaxonConcept.find child[:id] rescue nil
         = link_to  child[:scientific_name], taxon_overview_path(child[:id])
-        - open_tree_path = taxon_entry_tree_path(tc.id, tc.entry) rescue nil
         - unless child['children'].blank?
           = link_to( "+" , "",
-                    data_url: open_tree_path,
-                     "ng-click" => "expand($event)",
-                    )
-          %li
-            %ul.branch
-              %li
-                = render 'children' , children: child["children"]
+                     "ng-click" => "expand($event)")
+          %div{ "ng-bind-html" => "getHtml(children)"}
+

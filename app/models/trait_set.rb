@@ -41,9 +41,9 @@ class TraitSet
   # sort!
   def traits_by_category(category)
     subset = if category == :other
-      traits.select { |trait| trait.categories.include?(category) }
-    else
       traits.select { |trait| trait.categories.empty? }
+    else
+      traits.select { |trait| trait.categories.include?(category) }
     end
     subset.sort_by do |trait|
       predicate = trait.predicate_name.try(:downcase)

@@ -1,5 +1,94 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+# https://github.com/EOL/tramea/issues/272
+
+@user = User.find(20470)
+lines = IO.readlines("/app/log/AllBad_secser_sample.tsv")
+
+splits = {}
+@lines = {}
+lines.each_with_index do |line, index|
+  line.chomp!
+  EOL.log("#{index}") if index % 500 == 0
+  begin
+    (page, id1, name1, depth1, rank1, id2, name2, depth2, rank2, _, helper) =
+      line.split("\t")
+    if page.blank?
+      EOL.log("Line #{index} was missing data:")
+      [page, id1, name1, depth1, rank1, id2, name2, depth2, rank2, helper].each_with_index do |var, i|
+        EOL.log("  #{i}: #{var}")
+      end
+      next
+    end
+    entry1 = HierarchyEntry.includes(name: { canonical_form: :name }).find(id1)
+    entry2 = HierarchyEntry.includes(name: { canonical_form: :name }).find(id2)
+    concept = entry1.taxon_concept
+    if entry1.taxon_concept_id != entry2.taxon_concept_id
+      EOL.log("NOT THE SAME CONCEPT: #{line} (#{name1})")
+      next
+    elsif entry1.taxon_concept_id != page.to_i
+      EOL.log("Concept changed: #{line} (to #{entry1.taxon_concept_id} from #{page.to_i}) (#{name1})")
+      next
+    end
+    splits[concept] ||= Set.new
+    splits[concept] += [entry1, entry2]
+    @lines[concept] ||= Set.new
+    @lines[concept] << line
+  rescue => e
+    EOL.log("OOPS: #{line}")
+    EOL.log_error(e) # Usually UTF-8 PROBLEMS
+  end
+end
+
+def problem(concept)
+  EOL.log("Affected lines:")
+  @lines[concept].each do |line|
+    EOL.log("  #{line}")
+  end
+end
+
+splits.each do |concept, entries|
+  sorted = entries.sort_by { |e| e.name.try(:canonical_form).try(:string) }
+  if sorted.include?(nil)
+    EOL.log("ERROR: Missing a name on concept #{concept.id}.")
+    problem(concept)
+    next
+  end
+  name1 = sorted[0].name.try(:canonical_form).try(:string)
+  # name2 = sorted[1].name.try(:canonical_form).try(:string)
+  # if name1.length == name2.length
+  #   names = entries.map { |e| e.name.try(:canonical_form).try(:string) }
+  #   EOL.log("ERROR: Same length: {#{name1}} and {#{name2}}")
+  #   problem(concept)
+  #   next
+  # end
+  exemplar_id = sorted[0].id
+  index = sorted.index { |e| e.name.try(:canonical_form).try(:string).length > name1.length }
+  if index.nil?
+    EOL.log("ERROR: Couldn't find a longer name")
+    problem(concept)
+    next
+  end
+  other_ids = sorted[index..-1].map(&:id)
+  begin
+    concept.split_classifications(other_ids, user: @user, exemplar_id: exemplar_id)
+  rescue EOL::Exceptions::ClassificationsLocked => e
+    EOL.log("ERROR: LOCKED CLASSIFICATION (TC ##{concept.id}):")
+    problem(concept)
+    next
+  rescue EOL::Exceptions::TooManyDescendantsToCurate => e
+    EOL.log("ERROR: TOO BIG: #{line}")
+    problem(concept)
+    next
+  rescue => e
+    EOL.log("ERROR: MISC... #{line}")
+    EOL.log_error(e)
+    problem(concept)
+    next
+  end
+  sleep(3)
+end
+
 # Fixing broken hierarchies:
 
 > log/reflatten.log

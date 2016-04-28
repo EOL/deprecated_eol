@@ -202,5 +202,28 @@ class TraitBank::Old
       return "" if @optional_reference_uris.empty?
       @optional_reference_uris.join(" ")
     end
+
+    # NOTE: unused; for debugging only:
+    def triples_count_from_resource(resource)
+      TraitBank.connection.query(
+          "SELECT COUNT(*) { "\
+            "GRAPH <#{resource.graph_name}> { ?s ?p ?o } } LIMIT 1"
+        ).first[:"callret-0"].to_i
+    end
+
+    # NOTE: unused; for debugging only:
+    def measurements_count_from_resource(resource)
+      TraitBank.connection.query(
+        "SELECT COUNT(*) { GRAPH <#{resource.graph_name}> { ?s "\
+          "<http://eol.org/schema/measurementOfTaxon> "\
+          "<http://eol.org/schema/terms/true> } }"
+        ).first[:"callret-0"].to_i
+    end
+
+    # NOTE: unused; for debugging only:
+    def predicates_from_resource(resource)
+      TraitBank.connection.query("SELECT distinct(?p) { "\
+        "GRAPH <#{resource.graph_name}> { ?s ?p ?o } }").map { |t| t[:p].to_s }
+    end
   end
 end

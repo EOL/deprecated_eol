@@ -34,6 +34,7 @@ class Trait
         @predicate = association.to_s
       end
     end
+    make_point if @point.nil?
   end
 
   def inverse?

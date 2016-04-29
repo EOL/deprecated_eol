@@ -179,6 +179,19 @@ class TaxonConcept < ActiveRecord::Base
     !supercedure_id.nil? && supercedure_id != 0
   end
 
+  def can_be_previewed_by?(user)
+    return true if user.admin?
+    entries = hierarchy_entries.
+      includes(hierarchy: { resource: { content_partner: :user } })
+    users = begin
+      entries.map(&:hierarchy).map(&:resource).
+        map(&:content_partner).map(&:user_id)
+    rescue
+      return false
+    end
+    users.include?(user.id)
+  end
+
   def self.map_supercedure(ids)
     map = {}
     TaxonConcept.with_titles.unsuperceded.where(id: ids).each do |concept|

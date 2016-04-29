@@ -129,10 +129,13 @@ private
     end
     unless @taxon_concept.published?
       if logged_in?
-        raise EOL::Exceptions::SecurityViolation.
-          new("User with ID=#{current_user.id} does not have access to "\
-            "TaxonConcept with id=#{@taxon_concept.id}",
-          :can_not_access_unpublished_taxon)
+        unless can_be_previewed_by?(user)
+          raise EOL::Exceptions::SecurityViolation.
+            new("User with ID=#{current_user.id} does not have access to "\
+              "TaxonConcept with id=#{@taxon_concept.id}",
+            :can_not_access_unpublished_taxon)
+        end
+        flash[:notice] = I18n.t(:previewing_unpublished_page)
       else
         raise EOL::Exceptions::MustBeLoggedIn, "Non-authenticated user does "\
           "not have access to TaxonConcept with ID=#{@taxon_concept.id}"

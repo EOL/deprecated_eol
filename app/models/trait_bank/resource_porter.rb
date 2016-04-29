@@ -98,7 +98,7 @@ class TraitBank
     end
 
     def build_references
-      TraitBank::Old.paginate_references(@resource) do |results|
+      TraitBank::Old.paginate_references(resource: @resource) do |results|
         results.each do |row|
           @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
             "#{TraitBank.quote_literal(row[:full_reference])}"

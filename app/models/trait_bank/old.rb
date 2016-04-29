@@ -23,16 +23,16 @@ class TraitBank::Old
     end
 
     def paginate_measurements(options, &block)
-      TraitBank.paginate(measurements_query(options)) { |res| yeild(res) }
+      TraitBank.paginate(measurements_query(options)) { |res| yield(res) }
     end
 
     def paginate_associations(options, &block)
-      TraitBank.paginate(associations_query(options)) { |res| yeild(res) }
+      TraitBank.paginate(associations_query(options)) { |res| yield(res) }
     end
 
     # NOTE: Cannot filter by page, only resource. Careful!
     def paginate_references(options, &block)
-      TraitBank.paginate(references_query(options)) { |res| yeild(res) }
+      TraitBank.paginate(references_query(options)) { |res| yield(res) }
     end
 
     def query_with_options(query, options = {})

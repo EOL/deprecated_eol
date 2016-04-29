@@ -4411,6 +4411,7 @@ en:
   preview_changes: "Preview Changes"
   preview_version_of_latest_published_data_object_title_link: "Preview version of %{link}"
   preview: "preview"
+  previewing_unpublished_page: "This page in unpublished. You have special access to preview it; others users cannot see this page."
   previously_published: "previously published"
   proceed_to_checkout_page: "Proceed to Checkout Page"
   process_name: "Process Name"

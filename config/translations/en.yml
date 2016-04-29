@@ -5162,7 +5162,7 @@ en:
   you_are_not_authorized_to_perform_this_action: "You are not authorized to perform this action."
   you_are_viewing_this_rank_as_classified_by: "You are viewing this %{rank} as classified by:"
   you_can_edit_those_later_if_ne: "You can edit those later if needed."
-  you_can_identify_yourself_to_eol: "You can identify yourself to EOL by adding your API key to your requests (login and generate your key in your preference page):"
+  you_can_identify_yourself_to_eol: "You can identify yourself to EOL by adding your API key to your requests (login and generate your key by opening your EOL profile for editing. The key will be saved here; open your profile for editing again to retrieve it later):"
   you_have_been_logged_in_as_username: "You have been logged in as %{username}"
   you_have_been_logged_out: "You have been logged out."
   you_joined_community: "You have successfully joined this community."

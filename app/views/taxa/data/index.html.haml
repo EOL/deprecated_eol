@@ -102,8 +102,7 @@
             %td.source
               %span.source
                 - if trait.resource
-                  = link_to(trait.resource.content_partner.name,
-                    [trait.partner, trait.resource])
+                  = link_to(trait.resource.content_partner.name, trait.partner)
                 - else
                   = link_to("See original source", trait.source_url)
             %td.comment

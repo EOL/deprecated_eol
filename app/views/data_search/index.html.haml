@@ -70,8 +70,7 @@
               %td.source
                 %span.source
                   - if trait.resource && trait.partner
-                    = link_to(trait.partner.name,
-                      [trait.partner, trait.resource])
+                    = link_to(trait.partner.name, trait.partner)
                   - else
                     = link_to(I18n.t(:source_url), trait.source_url)
               %td.comment

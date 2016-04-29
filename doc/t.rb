@@ -3,75 +3,105 @@
 # https://github.com/EOL/tramea/issues/272
 
 @user = User.find(20470)
-lines = IO.readlines("/app/log/AllBad_secser_sample.tsv")
+# lines = IO.readlines("/app/log/AllBad_other.tsv") ; lines.size
 
-splits = {}
-@lines = {}
-lines.each_with_index do |line, index|
-  line.chomp!
-  EOL.log("#{index}") if index % 500 == 0
+# CSV.foreach("/app/log/AllBad_secser_sample.tsv", col_sep: "\t", encoding: 'windows-1251:utf-8') do |line|
+pairs = {}
+from_entry_ids = Set.new
+to_entry_ids = Set.new
+index = 0
+CSV.foreach("/app/log/AllBad_other.tsv", col_sep: "\t") do |line|
+  index += 1
+  EOL.log("#{index}") if index % 10_000 == 0
   begin
-    (page, id1, name1, depth1, rank1, id2, name2, depth2, rank2, _, helper) =
-      line.split("\t")
-    if page.blank?
-      EOL.log("Line #{index} was missing data:")
-      [page, id1, name1, depth1, rank1, id2, name2, depth2, rank2, helper].each_with_index do |var, i|
-        EOL.log("  #{i}: #{var}")
-      end
-      next
-    end
-    entry1 = HierarchyEntry.includes(name: { canonical_form: :name }).find(id1)
-    entry2 = HierarchyEntry.includes(name: { canonical_form: :name }).find(id2)
-    concept = entry1.taxon_concept
-    if entry1.taxon_concept_id != entry2.taxon_concept_id
-      EOL.log("NOT THE SAME CONCEPT: #{line} (#{name1})")
-      next
-    elsif entry1.taxon_concept_id != page.to_i
-      EOL.log("Concept changed: #{line} (to #{entry1.taxon_concept_id} from #{page.to_i}) (#{name1})")
-      next
-    end
-    splits[concept] ||= Set.new
-    splits[concept] += [entry1, entry2]
-    @lines[concept] ||= Set.new
-    @lines[concept] << line
+    page = line[0]
+    id1 = line[1]
+    id2 = line[5]
+    EOL.log("Line #{index} was missing a page id") && next if page.blank?
+    EOL.log("Line #{index} was missing the first entry id") && next if id1.blank?
+    EOL.log("Line #{index} was missing the second entry id") && next if id2.blank?
+    pairs[page] = [id1, id2]
+    from_entry_ids << id1
+    to_entry_ids << id2
   rescue => e
-    EOL.log("OOPS: #{line}")
-    EOL.log_error(e) # Usually UTF-8 PROBLEMS
+    EOL.log("LINE #{index} BAD (#{e.message}): #{page}:#{id1}:#{id2}")
+  end
+end ; pairs.keys.size
+
+from_entries = {}
+to_entries = {}
+from_entry_ids.to_a.in_groups_of(1000, false) do |group|
+  HierarchyEntry.includes(name: { canonical_form: :name }).
+                 where(id: group).find_each do |entry|
+    from_entries[entry.id] = entry
   end
 end
+to_entry_ids.to_a.in_groups_of(1000, false) do |group|
+  HierarchyEntry.includes(name: { canonical_form: :name }).
+                 where(id: group).find_each do |entry|
+    to_entries[entry.id] = entry
+  end
+end ; from_entries.keys.size + to_entries.keys.size
 
-def problem(concept)
+splits = {}
+lines = {}
+concept_ids = Set.new
+pairs.each do |page, entries|
+  (id1, id2) = entries
+  entry1 = from_entries[id1]
+  entry2 = to_entries[id2]
+  if entry1.taxon_concept_id != entry2.taxon_concept_id
+    EOL.log("NOT THE SAME CONCEPT: #{page}:#{id1}:#{id2}")
+    next
+  elsif entry1.taxon_concept_id != page.to_i
+    EOL.log("Concept changed: #{page}:#{id1}:#{id2} (to #{entry1.taxon_concept_id} from #{page})")
+    next
+  end
+  concept_ids << page.to_i
+  splits[page.to_i] ||= Set.new
+  splits[page.to_i] += [entry1, entry2]
+  lines[page.to_i] ||= Set.new
+  lines[page.to_i] << "#{page}:#{id1}:#{id2}"
+end
+
+concepts = {}
+TaxonConcept.where(id: concept_ids.to_a).find_each do |concept|
+  concepts[concept.id] = concept
+end
+
+def problem(page_id)
   EOL.log("Affected lines:")
-  @lines[concept].each do |line|
+  lines[page_id].each do |line|
     EOL.log("  #{line}")
   end
 end
 
-splits.each do |concept, entries|
-  sorted = entries.sort_by { |e| e.name.try(:canonical_form).try(:string) }
-  if sorted.include?(nil)
-    EOL.log("ERROR: Missing a name on concept #{concept.id}.")
-    problem(concept)
+splits.each do |page_id, entries|
+  unless concepts.has_key?(page_id)
+    EOL.log("Missing concept #{page_id}... superceded, perhaps?")
     next
   end
-  name1 = sorted[0].name.try(:canonical_form).try(:string)
-  # name2 = sorted[1].name.try(:canonical_form).try(:string)
-  # if name1.length == name2.length
-  #   names = entries.map { |e| e.name.try(:canonical_form).try(:string) }
-  #   EOL.log("ERROR: Same length: {#{name1}} and {#{name2}}")
-  #   problem(concept)
-  #   next
-  # end
-  exemplar_id = sorted[0].id
+  if concepts[page_id].superceded?
+    EOL.log("Concept #{page_id} superceded, skipping.")
+    next
+  end
+  sorted = entries.sort_by { |e| e.name.try(:canonical_form).try(:string) }
+  if sorted.include?(nil)
+    EOL.log("ERROR: Missing a name on page #{page_id}.")
+    problem(page_id)
+    next
+  end
+  name1 = sorted.first.name.try(:canonical_form).try(:string)
+  exemplar_id = sorted.first.id
   index = sorted.index { |e| e.name.try(:canonical_form).try(:string).length > name1.length }
   if index.nil?
     EOL.log("ERROR: Couldn't find a longer name")
-    problem(concept)
+    problem(page_id)
     next
   end
   other_ids = sorted[index..-1].map(&:id)
   begin
-    concept.split_classifications(other_ids, user: @user, exemplar_id: exemplar_id)
+    concepts[page_id].split_classifications(other_ids, user: @user, exemplar_id: exemplar_id)
   rescue EOL::Exceptions::ClassificationsLocked => e
     EOL.log("ERROR: LOCKED CLASSIFICATION (TC ##{concept.id}):")
     problem(concept)
@@ -86,7 +116,7 @@ splits.each do |concept, entries|
     problem(concept)
     next
   end
-  sleep(3)
+  sleep(1)
 end
 
 # Fixing broken hierarchies:

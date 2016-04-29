@@ -129,7 +129,7 @@ private
     end
     unless @taxon_concept.published?
       if logged_in?
-        unless can_be_previewed_by?(user)
+        unless can_be_previewed_by?(current_user)
           raise EOL::Exceptions::SecurityViolation.
             new("User with ID=#{current_user.id} does not have access to "\
               "TaxonConcept with id=#{@taxon_concept.id}",

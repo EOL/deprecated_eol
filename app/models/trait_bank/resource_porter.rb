@@ -107,6 +107,7 @@ class TraitBank
     end
 
     def build_metadata
+      return if @traits.empty?
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
       traits = @traits.to_a
       size = 250

@@ -7,8 +7,6 @@
 
 # CSV.foreach("/app/log/AllBad_secser_sample.tsv", col_sep: "\t", encoding: 'windows-1251:utf-8') do |line|
 pairs = {}
-from_entry_ids = Set.new
-to_entry_ids = Set.new
 index = 0
 CSV.foreach("/app/log/AllBad_other.tsv", col_sep: "\t") do |line|
   index += 1
@@ -21,62 +19,72 @@ CSV.foreach("/app/log/AllBad_other.tsv", col_sep: "\t") do |line|
     EOL.log("Line #{index} was missing the first entry id") && next if id1.blank?
     EOL.log("Line #{index} was missing the second entry id") && next if id2.blank?
     pairs[page] = [id1, id2]
-    from_entry_ids << id1
-    to_entry_ids << id2
   rescue => e
     EOL.log("LINE #{index} BAD (#{e.message}): #{page}:#{id1}:#{id2}")
   end
 end ; pairs.keys.size
 
-from_entries = {}
-to_entries = {}
-from_entry_ids.to_a.in_groups_of(1000, false) do |group|
-  HierarchyEntry.includes(name: { canonical_form: :name }).
-                 where(id: group).find_each do |entry|
-    from_entries[entry.id] = entry
+entries = {}
+group_num = 0
+group_size = 1000
+expected_groups = (pairs.keys.size.to_f / group_size).ceil
+pairs.keys.in_groups_of(group_size, false) do |group|
+  group_num += 1
+  EOL.log("Working on group #{group_num}/#{expected_groups}...")
+  ids = Set.new()
+  group.each do |key|
+    ids << pairs[key][0]
+    ids << pairs[key][1]
   end
-end
-to_entry_ids.to_a.in_groups_of(1000, false) do |group|
   HierarchyEntry.includes(name: { canonical_form: :name }).
-                 where(id: group).find_each do |entry|
-    to_entries[entry.id] = entry
+                 where(id: ids.to_a).find_each do |entry|
+    entries[entry.id] = entry
   end
-end ; from_entries.keys.size + to_entries.keys.size
+end ; entries.keys.size
 
 splits = {}
-lines = {}
-concept_ids = Set.new
-pairs.each do |page, entries|
-  (id1, id2) = entries
-  entry1 = from_entries[id1]
-  entry2 = to_entries[id2]
-  if entry1.taxon_concept_id != entry2.taxon_concept_id
+@lines = {}
+concept_ids = Set.new()
+pairs.each do |page, bad_entries|
+  (id1, id2) = bad_entries
+  page_id = page.to_i
+  entry1 = entries[id1.to_i]
+  entry2 = entries[id2.to_i]
+  if entry1.nil?
+    EOL.log("Missing entry #{id1}")
+    next
+  elsif entry2.nil?
+    EOL.log("Missing entry #{id2}")
+    next
+  elsif entry1.taxon_concept_id != entry2.taxon_concept_id
     EOL.log("NOT THE SAME CONCEPT: #{page}:#{id1}:#{id2}")
     next
-  elsif entry1.taxon_concept_id != page.to_i
+  elsif entry1.taxon_concept_id != page_id
     EOL.log("Concept changed: #{page}:#{id1}:#{id2} (to #{entry1.taxon_concept_id} from #{page})")
     next
   end
   concept_ids << page.to_i
-  splits[page.to_i] ||= Set.new
-  splits[page.to_i] += [entry1, entry2]
-  lines[page.to_i] ||= Set.new
-  lines[page.to_i] << "#{page}:#{id1}:#{id2}"
-end
+  splits[page_id] ||= Set.new
+  splits[page_id] << entry1
+  splits[page_id] << entry2
+  @lines[page_id] ||= Set.new
+  @lines[page_id] << "#{page}:#{id1}:#{id2}"
+end ; splits.keys.size
 
 concepts = {}
 TaxonConcept.where(id: concept_ids.to_a).find_each do |concept|
   concepts[concept.id] = concept
-end
+end ; concepts.keys.size
 
 def problem(page_id)
   EOL.log("Affected lines:")
-  lines[page_id].each do |line|
+  @lines[page_id].each do |line|
     EOL.log("  #{line}")
   end
 end
 
-splits.each do |page_id, entries|
+error_count = 0
+splits.each do |page_id, bad_entries|
   unless concepts.has_key?(page_id)
     EOL.log("Missing concept #{page_id}... superceded, perhaps?")
     next
@@ -85,12 +93,27 @@ splits.each do |page_id, entries|
     EOL.log("Concept #{page_id} superceded, skipping.")
     next
   end
-  sorted = entries.sort_by { |e| e.name.try(:canonical_form).try(:string) }
-  if sorted.include?(nil)
-    EOL.log("ERROR: Missing a name on page #{page_id}.")
-    problem(page_id)
+  if bad_entries.include?(nil)
+    EOL.log("Skipping #{page_id} because one of the entries was nil.")
+    error_count += 1
+    # If more than 1% are bad, bail:
+    if error_count > splits.keys.size / 100
+      EOL.log("Whoa! Too many errors, bailing.")
+      break
+    end
     next
   end
+  if bad_entries.any? { |e| e.name.nil? }
+    EOL.log("Skipping #{page_id} because one of the entries had no name.")
+    error_count += 1
+    # If more than 1% are bad, bail:
+    if error_count > splits.keys.size / 100
+      EOL.log("Whoa! Too many errors, bailing.")
+      break
+    end
+    next
+  end
+  sorted = bad_entries.sort_by { |e| e.name.try(:canonical_form).try(:string) }
   name1 = sorted.first.name.try(:canonical_form).try(:string)
   exemplar_id = sorted.first.id
   index = sorted.index { |e| e.name.try(:canonical_form).try(:string).length > name1.length }

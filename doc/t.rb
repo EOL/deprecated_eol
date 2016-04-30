@@ -78,24 +78,29 @@ end ; concepts.keys.size
 
 def problem(page_id)
   EOL.log("Affected lines:")
+  @bad_pages << page_id
   @lines[page_id].each do |line|
     EOL.log("  #{line}")
   end
 end
 
 error_count = 0
+@bad_pages = []
 splits.each do |page_id, bad_entries|
   unless concepts.has_key?(page_id)
     EOL.log("Missing concept #{page_id}... superceded, perhaps?")
+    @bad_pages << page_id
     next
   end
   if concepts[page_id].superceded?
     EOL.log("Concept #{page_id} superceded, skipping.")
+    @bad_pages << page_id
     next
   end
   if bad_entries.include?(nil)
     EOL.log("Skipping #{page_id} because one of the entries was nil.")
     error_count += 1
+    @bad_pages << page_id
     # If more than 1% are bad, bail:
     if error_count > splits.keys.size / 100
       EOL.log("Whoa! Too many errors, bailing.")
@@ -106,6 +111,7 @@ splits.each do |page_id, bad_entries|
   if bad_entries.any? { |e| e.name.nil? }
     EOL.log("Skipping #{page_id} because one of the entries had no name.")
     error_count += 1
+    @bad_pages << page_id
     # If more than 1% are bad, bail:
     if error_count > splits.keys.size / 100
       EOL.log("Whoa! Too many errors, bailing.")
@@ -113,7 +119,7 @@ splits.each do |page_id, bad_entries|
     end
     next
   end
-  sorted = bad_entries.sort_by { |e| e.name.try(:canonical_form).try(:string) }
+  sorted = bad_entries.sort_by { |e| e.name.try(:canonical_form).try(:string).length }
   name1 = sorted.first.name.try(:canonical_form).try(:string)
   exemplar_id = sorted.first.id
   index = sorted.index { |e| e.name.try(:canonical_form).try(:string).length > name1.length }
@@ -141,6 +147,8 @@ splits.each do |page_id, bad_entries|
   end
   sleep(1)
 end
+puts @bad_pages.join(", ")
+EOL.log("Bad pages: #{@bad_pages.join(", ")}")
 
 # Fixing broken hierarchies:
 

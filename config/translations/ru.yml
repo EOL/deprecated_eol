@@ -1502,6 +1502,7 @@ ru:
       style='color:#195184'>свяжитесь с нами</a>.
     see_all_activity: Просмотреть всю активность на <a href='%{activity_url}' style='color:#195184'>странице
       новостей пользователя</a>.
+    resource_validation: 'Проверку ресурса: %{resource} завершено'
     bulk_comments_with_count:
       one: Новый комментарий на %{on}
       other: '%{count} новых комментариев на %{on}'

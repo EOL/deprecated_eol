@@ -3408,8 +3408,8 @@ zh-CN:
   error_404_page_title: 未找到
   error_404_description: 抱歉，我们无法从这个URL找到一个网页。
   error_500_page_title: 糟糕。
-  error_500_description: '"抱歉，我们遇到了一个问题。如果这个问题持续发生，请发送电子邮件至<a href=""mailto:%{email_address}?subject=%{error}"">%{email_address}</a>"'
-  error_default_description: '"抱歉，我们遇到了一个问题。如果这个问题持续发生，请发送电子邮件至<a href=""mailto:%{email_address}?subject=%{error}"">%{email_address}</a>"'
+  error_500_description: 抱歉，我们遇到了一个问题。如果这个问题持续发生，请发送电子邮件至<a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
+  error_default_description: 抱歉，我们遇到了一个问题。如果这个问题持续发生，请发送电子邮件至<a href="mailto:%{email_address}?subject=%{error}">%{email_address}</a>
   error_default_page_title: 糟糕。
   error_couldnt_find_collection_by_id: 未能找到您管理的编号为%{id}的收藏。
   error_couldnt_find_community_by_id: 未能找到您管理的编号为%{id}的社区。

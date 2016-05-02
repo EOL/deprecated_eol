@@ -2,6 +2,7 @@
 # Exported from translatewiki.net
 # Export driver: phpyaml
 # Author: Banjo
+# Author: Elisardojm
 # Author: Macofe
 # Author: McDutchie
 # Author: Toliño
@@ -923,6 +924,9 @@ gl:
     download_taxa_data:
       attribute_header: Atributo
       select_all_checkbox: Seleccionar todo
+      collection_download_under_processing: Agora estase procesando a descarga da
+        colección. Cando se complete, enviaráselle un correco electrónico
+      user_downloaded_collection: Descarga de datos de %{collection_name}
     show:
       meta_description_default: Unha colección da Enciclopedia da vida titulada %{collection_name}.
       meta_description_default_focus_collection: Unha colección de atención da Enciclopedia
@@ -1555,6 +1559,12 @@ gl:
       message: Podes ver esta e outras descargas visitando a <a href='%{download_link}'>lapela
         de descargas de datos do teu perfil</a>.
       header: A túa descarga está lista!
+    collection_download_ready:
+      subject: Os atributos seleccionados da súa colección están listos para a súa
+        descarga
+      message: Pode ver esta e outras descargas visitando a <a href='%{download_link}'>lapela
+        de descargas de datos no seu perfil</a>.
+      header: A súa descarga de colección está lista.
   sessions:
     new:
       login_with_facebook_assistive: Accede á EOL mediante as túas credenciais do
@@ -1637,6 +1647,66 @@ gl:
         meta_title: Conservadores de %{scientific_name}
         meta_title_with_common_name: Expertos en %{preferred_common_name} (%{scientific_name})
         tweet_text: Conservadores de %{scientific_name}
+    data:
+      index:
+        hierarchy_entry:
+          meta_description: Feitos acerca de %{scientific_name} segundo a clasificación
+            de %{hierarchy_provider} na Enciclopedia da vida
+          meta_description_no_data: Non hai feitos dispoñibles para %{scientific_name}
+            segundo a clasificación de %{hierarchy_provider} na Enciclopedia da vida.
+            EOL invítao a achegar feitos sobre %{scientific_name}.
+          meta_description_with_common_name: Feitos sobre %{preferred_common_name},
+            coñecido científicamente como %{scientific_name} clasificado por %{hierarchy_provider}
+            na Enciclopedia da Vida.
+          meta_description_with_common_name_no_data: Non hai feitos dispoñibles para
+            %{preferred_common_name} tamén coñecido como %{scientific_name} segundo
+            a clasificación de %{hierarchy_provider} na Enciclopedia da vida. EOL
+            invítao a contribuír con feitos sobre %{preferred_common_name} (%{scientific_name}).
+          meta_description_with_common_name_with_topics: Feitos sobre %{preferred_common_name}
+            segundo a clasificación de %{hierarchy_provider}? Datos de trazos sobre
+            %{scientific_name} incluíndo información sobre %{topics}.
+          meta_title: Feitos sobre %{scientific_name} segundo a clasificación de %{hierarchy_provider}
+          meta_title_with_common_name: Feitos sobre %{preferred_common_name} (%{scientific_name}
+            segundo a clasificación de %{hierarchy_provider})
+          tweet_text: Feitos sobre %{scientific_name} segundo a clasificación de %{hierarchy_provider}
+        meta_description: Feitos de %{scientific_name} incluíndo medidas e trazos
+          para %{scientific_name}. Datos computables para %{scientific_name} da investigación
+          científica proporcionada por científicos.
+        meta_description_no_data: Non hai feitos dispoñibles para %{scientific_name}
+          na Enciclopedia da vida. EOL invítao a achegar feitos sobre %{scientific_name}.
+        meta_description_with_common_name: Feitos de %{preferred_common_name} incluíndo
+          as medicións e os trazos para %{preferred_common_name} (coñecida científicamente
+          como %{scientific_name}). Datos computables para %{scientific_name} da investigación
+          científica proporcionada por científicos.
+        meta_description_with_common_name_no_data: Non hai feitos dispoñibles para
+          %{preferred_common_name} tamén coñecido como %{scientific_name} na Enciclopedia
+          da vida. EOL invítao a achegar feitos sobre %{preferred_common_name} (%
+          {scientific_name}).
+        meta_description_with_common_name_with_topics: Feitos de %{preferred_common_name}
+          incluíndo as medicións e os trazos para %{preferred_common_name} (coñecida
+          científicamente como %{scientific_name}). Datos computables para %{scientific_name}
+          incluíndo %{topics} da investigación científica proporcionada por científicos.
+        meta_keywords: Feitos de %{scientific_name}, feitos acerca de %{scientific_name},
+          trazos de %{scientific_name}, trazos de %{scientific_name}, medicións de
+          %{scientific_name}, medicións para %{scientific_name}, feito de %{scientific_name},
+          feito sobre %{scientific_name}, trazo de %{scientific_name}, trazo de %{scientific_name},
+          medición de %{scientific_name}, medición para %{scientific_name}
+        meta_keywords_with_common_name: feitos de %{preferred_common_name}, feitos
+          sobre %{preferred_common_name}, trazos de %{preferred_common_name}, trazos
+          de %{preferred_common_name}, medicións de %{preferred_common_name}, medicións
+          para %{preferred_common_name}, feitos de %{scientific_name}, feitos sobre
+          %{scientific_name}, trazos de %{scientific_name}, trazos de %{scientific_name},
+          medicións de %{scientific_name}, medicións para %{scientific_name}, feito
+          de %{preferred_common_name}, feito sobre %{preferred_common_name}, trazo
+          de %{preferred_common_name}, trazo de %{preferred_common_name}, medición
+          de %{preferred_common_name}, medición para %{preferred_common_name}, feito
+          de %{scientific_name}, feito sobre %{scientific_name}, trazo de %{scientific_name},
+          trazo de %{scientific_name}, medición de %{scientific_name}, medición para
+          %{scientific_name}
+        meta_title: Medicións e feitos sobre %{scientific_name}
+        meta_title_with_common_name: Medicións e feitos sobre %{preferred_common_name}
+          (%{scientific_name})
+        tweet_text: Feitos sobre %{scientific_name}
     details:
       index:
         hierarchy_entry:
@@ -1878,6 +1948,31 @@ gl:
         tweet_text: Sinónimos de %{scientific_name}
     overview:
       show:
+        hierarchy_entry:
+          meta_description: Un resumo de información sobre %{scientific_name} tal
+            e como foi recoñecido por %{hierarchy_provider} na Enciclopedia da vida.
+          meta_description_with_common_name: Un resumo de información sobre %{preferred_common_name},
+            temén coñecido como %{scientific_name} tal e como foi recoñecido por %{hierarchy_provider}
+            na Enciclopedia da vida.
+          meta_keywords: '%{scientific_name} recoñecido por %{hierarchy_provider},
+            {scientific_name} clasificado por %{hierarchy_provider}'
+          meta_keywords_with_common_name: '%{scientific_name} recoñecido por %{hierarchy_provider},
+            {scientific_name} clasificado por %{hierarchy_provider}'
+          meta_title: '%{scientific_name} clasificado por %{hierarchy_provider}'
+          meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name}
+            clasificado por %{hierarchy_provider})'
+          tweet_text: Resumo de %{scientific_name} tal e como foi clasificado por
+            %{hierarchy_provider}
+        meta_description: Información de %{scientific_name} na Enciclopedia da vida.
+        meta_description_with_common_name: Información sobre %{preferred_common_name},
+          coñecido científicamente como %{scientific_name} na Enciclopedia da vida.
+        meta_keywords: información sobre %{scientific_name}, información sobre %{scientific_name}
+        meta_keywords_with_common_name: información sobre %{scientific_name}, información
+          sobre %{preferred_common_name}, información e feitos sobre %{scientific_name},
+          información sobre %{preferred_common_name}
+        meta_title: '%{scientific_name} - Información sobre %{scientific_name}'
+        meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})
+          - Información sobre %{preferred_common_name}'
         tweet_text: Información sobre %{scientific_name}
     resources:
       show:
@@ -2013,6 +2108,9 @@ gl:
         other: '%{count} descargas de datos'
       empty: Non tes descargas. Podes <a href='%{data_search_url}'>procurar datos</a>
         e solicitar a descarga dos resultados.
+      empty_taxa_collection: Non se atoparon trazos nesta colección
+      no_selected_attributes: Ningún atributo seleccionado. Seleccione polo menos
+        un
       download: descargar
       page_title: Descargas de datos
       query_head: Pescuda
@@ -2029,6 +2127,8 @@ gl:
       refresh: refrescar
       row_count: Reconto
       search_again: procurar outra vez
+      file_not_processed: Este ficheiro aínda non foi procesado,
+      contact_us: por favor, contacte con nós para obter axuda
     edit:
       form_tip_account: Para acceder ao sistema da EOL necesitas un nome de usuario
         e un contrasinal; tamén podes conectarte mediante unha conta de terceiros.
@@ -2919,6 +3019,31 @@ gl:
           para mostralo na vista xeral dunha páxina descoñecida.
         user_chose_exemplar_it_on_taxon: <strong>%{user}</strong> seleccionouno para
           mostralo na vista xeral de "%{taxon}".
+      data_point_uri:
+        an_unknown_user_set_exemplar_data_on_an_unknown_taxon: Un usuario descoñecido
+          define datos como exemplar nunha páxina descoñecida.
+        an_unknown_user_set_exemplar_data_on_taxon: Un usuario descoñecido define
+          datos como exemplar en "%{taxon}".
+        user_set_exemplar_data_on_an_unknown_taxon: <strong>%{user}</strong> define
+          datos como exemplar nunha páxina descoñecida.
+        user_set_exemplar_data_on_taxon: <strong>%{user}</strong> define datos como
+          exemplar en "%{taxon}".
+        an_unknown_user_hide_data_on_an_unknown_taxon: Un usuario descoñecido elixiu
+          ocultar datos nunha páxina descoñecida.
+        an_unknown_user_hide_data_on_taxon: Un usuario descoñecido elixiu ocultar
+          datos en "%{taxon}".
+        user_hide_data_on_an_unknown_taxon: <strong>%{user}</strong> escolleu ocultar
+          datos nunha páxina descoñecida.
+        user_hide_data_on_taxon: <strong>%{user}</strong> elixiu ocultar datos en
+          "%{taxon}".
+        an_unknown_user_unhide_data_on_an_unknown_taxon: Un usuario descoñecido elixiu
+          mostrar os datos nunha páxina descoñecida.
+        an_unknown_user_unhide_data_on_taxon: Un usuario descoñecido elixiu mostrar
+          os datos en "%{taxon}".
+        user_unhide_data_on_an_unknown_taxon: <strong>%{user}</strong> escolleu mostrar
+          datos nunha páxina descoñecida.
+        user_unhide_data_on_taxon: <strong>%{user}</strong> elixiu mostrar datos en
+          "%{taxon}".
       add_common_name:
         an_unknown_user_added_an_unknown_name_in_an_unknown_language_to_an_unknown_taxon: Un
           usuario descoñecido engadiu un nome común descoñecido nunha lingua descoñecida
@@ -3859,8 +3984,10 @@ gl:
   cannot_be_associated_with_both_a_user_and_a_community: Non pode estar asociado a
     un usuario e a unha comunidade á vez
   cannot_be_empty: non pode quedar baleiro.
-  cannot_create_collection_item_from_class_error: Non podemos crear un elemento de
-    colección a partir de %{klass}
+  cannot_create_collection_item_from_class_error: 'Non podemos crear un elemento de
+    colección a partir dun tipo: %{klass}'
+  cannot_create_collection_items_from_invalid_types: 'Non podemos crear un elemento
+    da colección do(s) tipo(s): (%{types})'
   cannot_create_community_from_watch_collection_error: Non podes crear unha comunidade
     a partir dunha lista de vixilancia.
   cannot_curate_association_in_preview_mode: A asociación a %{name} non se pode conservar
@@ -3987,6 +4114,7 @@ gl:
   collection_api_sort_field_notes: Se houbese un parámetro sort_field incluído, unicamente
     se devolverán os elementos da colección cuxo campo de ordenación coincida coa
     cadea de texto especificada
+  collection_create_failure: Erro ó crear a colección.
   collection_created_with_count_notice:
     one: Creouse a colección <em>%{collection_name}</em> con %{count} elemento.
     other: Creouse a colección <em>%{collection_name}</em> con %{count} elementos.
@@ -3995,6 +4123,7 @@ gl:
   collection_removed: A colección "%{collection}" foi borrada.
   collection_update_failure: Houbo un erro ao actualizar a colección "%{collection}".
     Comproba se hai algún problema nos elementos da colección.
+  collection_not_existing: A colección %{collection} non existe.
   collection_error_no_items_selected: 'Erro: Non se seleccionou elemento ningún. Non
     se levou a cabo ningunha acción.'
   collection_image: Imaxe da colección
@@ -4008,6 +4137,10 @@ gl:
     zero: Baleiro
     one: '%{count} elemento'
     other: '%{count} elementos'
+  collection_items_duplicate_ids: Non se pode crear unha colección a partir de ID(s)
+    duplicado(s) %{type}:(%{values})
+  collection_items_missing_values: ' collected_item_id/collected_item_type non pode
+    ser nulo en:%{item}'
   collection_copy_complete_with_count:
     one: Copiouse %{count} elemento de "%{from}" a "%{to}".
     other: Copiouse un total de %{count} elementos de "%{from}" a "%{to}".
@@ -4586,6 +4719,16 @@ gl:
   dashboard: Panel de control
   data: Datos
   data_about_subtab_header: Acerca dos datos na EOL
+  data_about_subtab_content: <p><a href="%{traitbank_path}">TraitBank</a> reúne os
+    datos e metadatos de múltiples fontes nunha soa vista taxonómica centrada totalmente,
+    referenciada e semánticamente accesible.</p><p><a href="%{contact_contribute_path}">Contáctenos</a>
+    para máis información sobre o intercambio de conxuntos de datos con EOL ou para
+    recomendar un conxunto de datos para a inclusión en TraitBank.</p><p><a href="%{register_path}">Rexistre
+    unha conta gratis</a> ou <a href="%{login_path}">inicie sesión</a> para facer
+    comentarios sobre os datos.</p><p>A financiación para o desenvolvemento da funcionalidade
+    EOL de datos computables foi proporcionada pola Fundación Alfred P. Sloan, a Fundación
+    John D. e Catherine T. MacArthur e os usuarios de EOL ó redor do mundo. <a href="%{contact_traitbank_path}">Contacte
+    coa Secretaría de EOL</a> para máis información sobre TraitBank.</p>
   data_results_only_for_search: Resultados do TraitBank para "%{search_term}"
   data_search_limit:
     one: Os datos da procura vanse descargar como %{count} rexistro por ficheiro.

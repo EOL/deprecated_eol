@@ -1,14 +1,54 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+# Quick fix for bad matches:
+
+# You had to build data and concepts (as a hash) here
+@user = User.find(20470)
+error_count = 0
+@bad_pages = []
+data.each do |line|
+  (page_id, entry1, entry2) = line.split(":")
+  bad_entries = HierarchyEntry.includes(:name).
+    where(id: [entry1, entry2])
+  sorted = bad_entries.sort_by { |e| e.name.try(:string).length }
+  name1 = sorted.first.name.try(:string)
+  exemplar_id = sorted.first.id
+  index = sorted.index { |e| e.name.try(:string).length > name1.length }
+  if index.nil?
+    EOL.log("ERROR: Couldn't find a longer name")
+    problem(page_id)
+    next
+  end
+  other_ids = sorted[index..-1].map(&:id)
+  begin
+    concepts[page_id.to_i].split_classifications(other_ids, user: @user, exemplar_id: exemplar_id)
+  rescue EOL::Exceptions::ClassificationsLocked => e
+    EOL.log("ERROR: LOCKED CLASSIFICATION (TC ##{concept.id}):")
+    problem(concept)
+    next
+  rescue EOL::Exceptions::TooManyDescendantsToCurate => e
+    EOL.log("ERROR: TOO BIG: #{line}")
+    problem(concept)
+    next
+  rescue => e
+    EOL.log("ERROR: MISC... #{line}")
+    EOL.log_error(e)
+    problem(concept)
+    next
+  end
+  sleep(1)
+end
+
 # https://github.com/EOL/tramea/issues/272
 
 @user = User.find(20470)
 # lines = IO.readlines("/app/log/AllBad_other.tsv") ; lines.size
 
 # CSV.foreach("/app/log/AllBad_secser_sample.tsv", col_sep: "\t", encoding: 'windows-1251:utf-8') do |line|
+# CSV.foreach("/app/log/AllBad_other.tsv", col_sep: "\t") do |line|
 pairs = {}
 index = 0
-CSV.foreach("/app/log/AllBad_other.tsv", col_sep: "\t") do |line|
+CSV.foreach("/app/log/AllBad_section_and_series.tsv", col_sep: "\t") do |line|
   index += 1
   EOL.log("#{index}") if index % 10_000 == 0
   begin
@@ -79,8 +119,10 @@ end ; concepts.keys.size
 def problem(page_id)
   EOL.log("Affected lines:")
   @bad_pages << page_id
-  @lines[page_id].each do |line|
-    EOL.log("  #{line}")
+  if @lines.has_key?(page_id)
+    @lines[page_id].each do |line|
+      EOL.log("  #{line}")
+    end
   end
 end
 
@@ -124,25 +166,31 @@ splits.each do |page_id, bad_entries|
   exemplar_id = sorted.first.id
   index = sorted.index { |e| e.name.try(:canonical_form).try(:string).length > name1.length }
   if index.nil?
-    EOL.log("ERROR: Couldn't find a longer name")
-    problem(page_id)
-    next
+    sorted = bad_entries.sort_by { |e| e.name.try(:string).length }
+    name1 = sorted.first.name.try(:string)
+    exemplar_id = sorted.first.id
+    index = sorted.index { |e| e.name.try(:string).length > name1.length }
+    if index.nil?
+      EOL.log("ERROR: Couldn't find a longer name")
+      problem(page_id)
+      next
+    end
   end
   other_ids = sorted[index..-1].map(&:id)
   begin
     concepts[page_id].split_classifications(other_ids, user: @user, exemplar_id: exemplar_id)
   rescue EOL::Exceptions::ClassificationsLocked => e
-    EOL.log("ERROR: LOCKED CLASSIFICATION (TC ##{concept.id}):")
-    problem(concept)
+    EOL.log("ERROR: LOCKED CLASSIFICATION (TC ##{page_id}):")
+    problem(page_id)
     next
   rescue EOL::Exceptions::TooManyDescendantsToCurate => e
     EOL.log("ERROR: TOO BIG: #{line}")
-    problem(concept)
+    problem(page_id)
     next
   rescue => e
     EOL.log("ERROR: MISC... #{line}")
     EOL.log_error(e)
-    problem(concept)
+    problem(page_id)
     next
   end
   sleep(1)

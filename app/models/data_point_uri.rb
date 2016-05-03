@@ -281,6 +281,12 @@ class DataPointUri < ActiveRecord::Base
     end
   end
 
+  # NOTE: this isn't called anywhere; it's purely for debugging.
+  def show_metadata
+    res = TraitBank.connection.query("SELECT * { <#{uri}> ?p ?o }")
+    puts res.map { |r| "#{r[:p]} = #{r[:o]}" }.join("\n")
+  end
+
   def show(user)
     set_visibility(user, Visibility.get_visible.id)
     user_added_data.show(user) if user_added_data

@@ -3,8 +3,8 @@ Eol::Application.routes.draw do
 
 
   # Root should be first, since it's most frequently used and should return quickly:
-  # root :to => 'content#index'
-  root :to => "react_tree#index"
+  root :to => 'content#index'
+  
 
   #resque
   mount Resque::Server.new, at: "/resque"
@@ -621,6 +621,9 @@ Eol::Application.routes.draw do
     get 'last_ten_minutes'
   end
 
+  resources :react_tree, only: :index, :controller => 'react_tree' do
+    get 'children'
+  end
   # Old donation routes (for posterity):
   if Rails.configuration.donate_header_url
     get '/donate', to: redirect(Rails.configuration.donate_header_url)

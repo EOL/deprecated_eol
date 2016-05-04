@@ -1,0 +1,11 @@
+%ul.branch
+  - for child in children
+    %li{ "ng-init" => "parent= #{child[:id]}"}
+      - tc  = TaxonConcept.find child[:id] rescue nil
+      = link_to  child[:scientific_name], "",
+      "ng-click" => "showImg( '#{child[:scientific_name]}','#{child[:thumbnail]}')"
+      - unless child['children'].blank?
+        = link_to( "+" , "",
+                   "ng-click" => "expand($event, #{child[:id]})")
+        %div{  id: "children_#{child[:id]}"}
+

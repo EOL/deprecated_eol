@@ -7,7 +7,6 @@ stuff = {}
 things.each { |t| a = t["args"].first ; stuff.has_key?(a) ? Resque::Job.destroy(:php, CodeBridge, a) : stuff[a] = true } ; 1
 # things.select { |t| t["args"].first["cmd"] == "reindex_taxon_concept" }.each { |t| Resque::Job.destroy(:php, CodeBridge, t["args"].first) }
 
-
 ### https://github.com/EOL/tramea/issues/272
 
 # lines = IO.readlines("/app/log/AllBad_other.tsv") ; lines.size
@@ -165,7 +164,7 @@ end
 puts @bad_pages.join(", ")
 EOL.log("Bad pages: #{@bad_pages.join(", ")}")
 
-# Fixing broken hierarchies:
+### Fixing broken hierarchies:
 
 > log/reflatten.log
 nohup bundle exec rails runner -e production "
@@ -187,7 +186,7 @@ tail -f log/reflatten.log log/production.log
 
 resource.hierarchy.hierarchy_entries.where(depth: 4).first.ancestors.size == 4
 
-# #259 - Looking for bad merges, where one concept has multiple entries OF
+### #259 - Looking for bad merges, where one concept has multiple entries OF
 # DIFFERENT RANKS (and names) from the same hierarchy
 
 q_select = %q{SELECT DISTINCT he.taxon_concept_id page, he.id id_1,
@@ -237,7 +236,7 @@ hiers.each do |hierarchy|
   end
 end ; 1
 
-# - errr... later
+### - errr... later
 
 Benchmark.measure { Resource.find(958).relate }
 
@@ -250,7 +249,7 @@ entries = concept.hierarchy_entries
 # entries.each { |entry| next if entry == species ; hash = entry.from_solr.first ; next if hash.nil? ; results << sim.compare(species, hash) }
 # results.each { |r| puts r.inspect } ; 1
 
-# -- https://github.com/EOL/tramea/issues/239 part 3 - re-merging split entries...
+### -- https://github.com/EOL/tramea/issues/239 part 3 - re-merging split entries...
 
 pairs = IO.readlines("/app/log/pairs.txt")
 split_entries = Set.new
@@ -281,7 +280,7 @@ grouped_ids.each do |hierarchy_id, ids|
   hierarchy.reindex_and_merge_ids(ids)
 end
 
-# -- https://github.com/EOL/tramea/issues/239 part 2 - pulling apart entries
+### -- https://github.com/EOL/tramea/issues/239 part 2 - pulling apart entries
 
 @user = User.find(20470)
 pairs = IO.readlines("/app/log/pairs.txt")
@@ -361,7 +360,7 @@ splits.each do |concept, entries|
   sleep(3)
 end
 
-# -- https://github.com/EOL/tramea/issues/239
+### -- https://github.com/EOL/tramea/issues/239
 
 @solr = SolrCore::HierarchyEntryRelationships.new
 
@@ -408,7 +407,7 @@ File.open("/app/log/resource_merges.md", "w") do |file|
   end
 end
 
-# --
+### --
 
 params = {page: 1, exact: true, id: "Cistanthe weberbaueri (Diels) Carolin ex M.A.Hershkovitz"}
 params[:q] = params[:id]
@@ -426,7 +425,7 @@ params = {page: 1, exact: false, id: "chromatica", filter_by_taxon_concept_id: 7
 params[:q] = params[:id]
 
 
-# --
+### --
 
 resource = Resource.find(544)
 event = resource.harvest_events.last

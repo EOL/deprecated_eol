@@ -27,13 +27,15 @@ class Background
     def stop_duplicates(queue)
       things = Resque.peek(queue, 0, SIZE_LIMIT)
       stuff = {}
+      count = 0
       things.each do |t|
-        a = t["args"].first
+        a = t.dup
+        a.delete("id")
         stuff.has_key?(a) ?
-          Resque::Job.destroy(:php, CodeBridge, a) :
+          Resque::Job.destroy(queue, CodeBridge, a) && count += 1 :
           stuff[a] = true
       end
-      true
+      count
     end
 
     def count_job_types(queue)

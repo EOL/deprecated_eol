@@ -1,14 +1,15 @@
+{ ul, li, a } = React.DOM
 @Children = React.createClass
   render: ->
-    React.DOM.ul
+    ul
       className: 'branch'
       for child in @props.children
-        React.DOM.li
+        li
           key: child.id
-          React.DOM.a
+          a
             child.scientific_name
           if child.children
-            React.DOM.a
+            a
               className: 'expand'
               '+'
           if child.children

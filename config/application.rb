@@ -122,7 +122,7 @@ module Eol
       'EOL::Exceptions::SecurityViolation' => :forbidden,
       'OpenURI::HTTPError'                 => :bad_request
     )
-     # config.react.jsx_transformer_class = React::JSX::JSXTransformer
+       config.react.addons = true # defaults to false
     # By default, we use local thumbnails:
     Rails.configuration.use_content_server_for_thumbnails = false
 

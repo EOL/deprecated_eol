@@ -41,11 +41,11 @@ class Notification < ActiveRecord::Base
   # NOTE - there's a relationship here to the PendingNotification class, which actually references the literal name of
   # the field.  THUS (!) if you create a new field on this table, note that you are limited to 64 characters or less.
   # I think that's a reasonable limit.  ;)
-  
+
   def self.types_to_show_in_activity_feeds
     return [ :i_collected_something, :i_modified_a_community, :i_commented_on_something, :i_curated_something, :i_created_something ]
   end
-  
+
   def self.queue_notifications(notification_recipient_objects, target)
     notification_queue = notification_recipient_objects.select {|o| self.acceptable_notifications(o, target) }
     notification_queue.each do |h|
@@ -53,7 +53,7 @@ class Notification < ActiveRecord::Base
                                  reason: h[:notification_type].to_s)
     end
     begin
-      Resque.enqueue(PrepareAndSendNotifications) unless notification_queue.empty?
+      PrepareAndSendNotifications.enqueue unless notification_queue.empty?
     rescue => e
       logger.error("** #queue_notifications ERROR: '#{e.message}'; ignoring...")
     end
@@ -70,5 +70,5 @@ class Notification < ActiveRecord::Base
       ! object[:user].disable_email_notifications && # User doesn't want any email at all.
       ! (target.class == CuratorActivityLog && target.activity == Activity.crop) # We don't send emails about image crops.
   end
-  
+
 end

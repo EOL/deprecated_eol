@@ -39,7 +39,7 @@ class CodeBridge
 
   def self.top_images_in_queue?
     begin
-      ! Resque.peek(:php, 0, 1000).
+      ! Resque.peek(:php, 0, 20_000).
                select { |j| j["args"].first["cmd"] == "top_images" }.
                empty?
     rescue => e

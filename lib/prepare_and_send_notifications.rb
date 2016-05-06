@@ -29,7 +29,7 @@ class PrepareAndSendNotifications
 
     def pending?
       begin
-        Resque.peek(:notifications, 0, SIZE_LIMIT).
+        Resque.peek(:notifications, 0, 25_000).
                  any? { |j| j["class"] == "PrepareAndSendNotifications" }
       rescue => e
         EOL.log("WARNING: Failed to read 'notifications' queue: #{e.message}",

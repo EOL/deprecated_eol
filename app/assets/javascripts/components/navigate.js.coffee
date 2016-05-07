@@ -1,12 +1,14 @@
 { div, ul, li, a } = React.DOM
+
 @Navigate = React.createClass
 
   handleClick: (e, branch) ->
+    if document.getElementById("expand_#{branch.id}").innerText == "+"
       @setState( "clicked_#{branch.id}" : true)
-
-    
-
-
+      document.getElementById("expand_#{branch.id}").innerText = "-"
+    else
+      @setState( "clicked_#{branch.id}" : false)
+      document.getElementById("expand_#{branch.id}").innerText = "+"
 
   render: ->
     div
@@ -21,7 +23,7 @@
             branch.scientific_name
           if branch.children
             a 
-              className: 'expand'
+              id: "expand_#{branch.id}"
               onClick: @handleClick.bind(this,'click', branch)
               '+'
           if @state && @state["clicked_#{branch.id}"]

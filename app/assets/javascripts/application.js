@@ -22,6 +22,11 @@
 //= require comments
 //= require navigation
 //= require combobox
+//= require angular
+//= require react
+//= require react_ujs
+//= require components
+
 
 $(document).ajaxSend(function(e, xhr, options) {
   var token = $("meta[name='csrf-token']").attr("content");

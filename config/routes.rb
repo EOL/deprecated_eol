@@ -1,6 +1,12 @@
 # first created -> highest priority.
 Eol::Application.routes.draw do
 
+  get "demo/react"
+
+  get "demo/angular"
+
+  get "demo/children"
+
   # Root should be first, since it's most frequently used and should return quickly:
   root :to => 'content#index'
 
@@ -44,7 +50,12 @@ Eol::Application.routes.draw do
   match '/forum' => redirect('/forums'), :as => 'forum_redirect'
   match '/schema/terms/:id' => 'schema#terms', :as => 'schema_terms'
   match '/resources/:id' => 'content_partners/resources#show'
-
+  
+  resources :demo, only: [], :controller => 'demo' do
+    get 'children'
+    get 'angular'
+    get 'react'
+  end
   # Taxa nested resources with pages as alias... this is quite large, sorry. Please keep it high in the routes file,
   # since it's 90% of the website.  :)
   resources :pages, :only => [:show], :controller => 'taxa', :as => 'taxa' do

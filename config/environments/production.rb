@@ -3,7 +3,7 @@ Eol::Application.configure do
 
   # Use content servers for thumbnails. This implies that upload_image will work (ie: you have a PHP server up and running).
   Rails.configuration.use_content_server_for_thumbnails = true
-
+   config.react.variant = :production 
   # Code is not reloaded between requests
   config.cache_classes = true
 

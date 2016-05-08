@@ -1,0 +1,37 @@
+var app = angular.module('eol', []);
+
+app.controller('navigate', function($scope, $http, $compile) {
+
+  $scope.expand = function(obj, id) {
+    var symbol = obj.target.text;
+    if(symbol == "+")
+    {
+        symbol = "-";
+        $http({
+            method : "GET",
+            url : "/demo/" + id +"/children/",
+        }).then(function mySucces(response) {
+            document.querySelector('#children_'+ id).innerHTML = response.data;
+            $compile(document.querySelector('#children_'+ id))($scope);
+        }, function myError(response) {
+            document.querySelector('#children_'+ id).innerHTML = "there is an error!"
+        });
+    }else{
+        document.querySelector('#children_'+ id).innerHTML = null;
+        symbol = "+";
+    }
+    obj.target.text = symbol;
+  }
+
+ $scope.showImg = function(name, thumbnail){
+    $scope.title = name;
+    if(thumbnail){
+      $scope.img = thumbnail;
+    }else{
+       $scope.img = null;
+       $scope.alt = "Image is not available for " + name;
+    }
+      
+ }
+});
+

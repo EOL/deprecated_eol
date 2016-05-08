@@ -10,6 +10,12 @@
       @setState( "clicked_#{branch.id}" : false)
       document.getElementById("expand_#{branch.id}").innerText = "+"
 
+  renderChildren: (branch) -> 
+    div
+      className: 'children'
+      id: "children_#{branch.id}"
+      React.createElement Children, children: branch.children, key: branch.id
+
   render: ->
     div
       className: 'tree'
@@ -24,13 +30,11 @@
           if branch.children
             a 
               id: "expand_#{branch.id}"
+              style: { marginLeft: '5px' }
               onClick: @handleClick.bind(this,'click', branch)
               '+'
           if @state && @state["clicked_#{branch.id}"]
-            div
-              className: 'children'
-              id: "children_#{branch.id}"
-              React.createElement Children, children: branch.children, key: branch.id
+            @renderChildren(branch)
 
 
  

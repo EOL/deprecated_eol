@@ -1,40 +1,38 @@
-{ div, ul, li, a } = React.DOM
+{ div, ul, li, a, h3 , center, img} = React.DOM
+sidebarStyle = {
+   marginRight: '150px'
+   display: 'inline-block'
+   marginLeft: '30px'
+   padding: '10px 15px'
+   width: '300px'
+   float: 'right'
+}
+treeStyle = {
+  marginLeft: '100px'
+  fontSize: '15px'
+  marginTop: '10px'
+  display: 'inline-block'
+}
 
 @Navigate = React.createClass
 
-  handleClick: (e, branch) ->
-    if document.getElementById("expand_#{branch.id}").innerText == "+"
-      @setState( "clicked_#{branch.id}" : true)
-      document.getElementById("expand_#{branch.id}").innerText = "-"
-    else
-      @setState( "clicked_#{branch.id}" : false)
-      document.getElementById("expand_#{branch.id}").innerText = "+"
-
-  renderChildren: (branch) -> 
-    div
-      className: 'children'
-      id: "children_#{branch.id}"
-      React.createElement Children, children: branch.children, key: branch.id
-
   render: ->
     div
-      className: 'tree'
-      for branch in @props.tree
-        ul
-          className: 'branch'
-          key: branch.id
-          id: "branch_#{branch.id}"
-          a
-            className: 'name'
-            branch.scientific_name
-          if branch.children
-            a 
-              id: "expand_#{branch.id}"
-              style: { marginLeft: '5px' }
-              onClick: @handleClick.bind(this,'click', branch)
-              '+'
-          if @state && @state["clicked_#{branch.id}"]
-            @renderChildren(branch)
-
-
- 
+      className: 'content'
+      div
+        className: 'sidebar'
+        style: sidebarStyle
+        h3
+          id: 'title'
+          'Select species on the left to view the img'
+        div
+          center
+            img
+              id: 'speciesImg'
+      div
+        className: 'tree'
+        style: treeStyle
+        for branch in @props.tree
+          React.createElement Children, branch: branch, key: branch.id
+       
+   

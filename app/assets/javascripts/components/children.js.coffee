@@ -2,7 +2,7 @@
 
 @Children = React.createClass
 
-  handleClick: (e, branch) ->
+  handleClick: (branch) ->
     if document.getElementById("expand_#{branch.id}").innerText == "+"
       @setState( "clicked_#{branch.id}" : true)
       document.getElementById("expand_#{branch.id}").innerText = "-"
@@ -10,27 +10,31 @@
       @setState( "clicked_#{branch.id}" : false)
       document.getElementById("expand_#{branch.id}").innerText = "+"
 
+  showImg: (branch) ->
+    document.getElementById('title').innerText = branch.scientific_name
+    if branch.thumbnail
+      document.getElementById('speciesImg').src = branch.thumbnail
+    else
+      document.getElementById('speciesImg').src = null
+      document.getElementById('speciesImg').alt = "Image is not available for \"#{branch.scientific_name} \""
+
   renderChildren: (branch) ->
-    div
-      className: 'children'
-      id: "children_#{branch.id}"
-      React.createElement Children, children: branch.children, key: branch.id
+    React.createElement Children, branch: branch, key: branch.id
 
   render: ->
     ul
       className: 'branch'
+      key: @props.branch.id
       style: { marginLeft: '7px' }
-      for child in @props.children
-        li
-          key: child.id
-          a
-            className: 'name'
-            child.scientific_name
-          if child.children
-            a
-              id: "expand_#{child.id}"
-              style: { marginLeft: '5px' }
-              onClick: @handleClick.bind(this,'click', child)
-              '+'
-          if @state && @state["clicked_#{child.id}"]
-            @renderChildren(child)
+      a
+        className: 'name'
+        onClick: @showImg.bind(this, @props.branch)
+        @props.branch.scientific_name
+      a
+        id: "expand_#{@props.branch.id}"
+        style: { marginLeft: '5px' }
+        onClick: @handleClick.bind(this, @props.branch)
+        '+'
+      if @state && @state["clicked_#{@props.branch.id}"]
+        for child in @props.branch.children
+          @renderChildren(child)

@@ -27,7 +27,7 @@ class TraitBank::JsonLd
 
     def target(action_type, target_type, url)
       { "@type" => action_type,
-        "target" => { "@type": target_type,
+        "target" => { "@type" => target_type,
                       "url" => url,
                       "actionPlatform" => PLATFORMS } }
     end
@@ -43,10 +43,10 @@ class TraitBank::JsonLd
     # this in the case of multi-item feeds where supercedure has occurred.
     def superceded_feed_item(concept)
       id = concept.respond_to?(id) ? concept.id : concept
-      { "@type": "DataFeedItem",
+      { "@type" => "DataFeedItem",
         # Not actually, but we don't have timestamps on TaxonConcept: (sigh)
-        "dateDeleted": Date.today,
-        "item": { "@type": "taxon", "@id": id }
+        "dateDeleted" => Date.today,
+        "item" => { "@type" => "taxon", "@id" => id }
       }
     end
 

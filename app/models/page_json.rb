@@ -23,7 +23,7 @@ class PageJson < ActiveRecord::Base
   def build_json(page_traits)
     page_traits ||= PageTraits.new(self[:page_id])
     self[:ld] =
-      TraitBank::JsonLd.data_feed_item(self[:page_id], page_traits.traits))
+      TraitBank::JsonLd.data_feed_item(self[:page_id], page_traits.traits)
     self[:context] = TraitBank::JsonLd.page_context(page_traits.glossary)
   end
 end

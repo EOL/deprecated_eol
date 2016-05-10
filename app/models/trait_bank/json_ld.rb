@@ -70,7 +70,7 @@ class TraitBank::JsonLd
       feed["sameAs"] = concept.published_hierarchy_entries.map(&:outlink_url)
       feed["vernacularNames"] =
         concept.common_names.map { |tcn| tcn.to_json_hash }
-      traits ||= PageTraits.new(self[:page_id]).traits
+      traits ||= PageTraits.new(concept.id).traits
       feed["traits"] = traits.map { |trait| for_trait(trait) }
       feed
     end
@@ -79,7 +79,7 @@ class TraitBank::JsonLd
       trait_json = {
         "@id" => trait.uri.to_s,
         "@type" => trait.association? ? "eol:Association" : "dwc:MeasurementOrFact",
-        "dwc:taxonID" => KnownUri.taxon_uri(@id),
+        "dwc:taxonID" => KnownUri.taxon_uri(trait.source_id),
         # These two are confusing, buuuuuut:
         "predicate" => trait.predicate_name,
         "dwc:measurementType" => trait.predicate,

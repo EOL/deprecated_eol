@@ -1,7 +1,4 @@
 class PageTraits < TraitSet
-
-  attr_reader :id
-
   def self.cache_key(id)
     "trait_bank/pages/#{id}"
   end

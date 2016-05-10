@@ -67,7 +67,7 @@ class TraitBank::JsonLd
       end
       feed["potentialAction"] =
         target("EntryPoint", "Related", "http://eol.org/pages/#{concept.id}")
-      feed["sameAs"] = concept.published_hierarchy_entries.map(&:outlink_url)
+      feed["sameAs"] = concept.published_hierarchy_entries.map(&:outlink_url).compact
       feed["vernacularNames"] =
         concept.common_names.map { |tcn| tcn.to_json_hash }
       traits ||= PageTraits.new(concept.id).traits
@@ -108,9 +108,9 @@ class TraitBank::JsonLd
     end
 
     def page_context(glossary)
-      ld = {}
+      ld = { "@context" => {} }
       glossary.each do |uri|
-        ld['@context'][uri.name] = uri.uri
+        ld["@context"][uri.name] = uri.uri
       end
       ld
     end

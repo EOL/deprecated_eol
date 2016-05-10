@@ -1,9 +1,12 @@
 class PageJson < ActiveRecord::Base
   @MAX_AGE = 6.months
 
-  attr_accessible :ld, :page_id
+  attr_accessible :ld, :context, :page_id
 
   belongs_to :page, class_name: "TaxonConcept", foreign_key: "page_id", inverse_of: :page_json
+
+  serialize :ld
+  serialize :context
 
   def self.for(page_id, page_traits)
     if PageJson.exists?(page_id: page_id)
@@ -16,6 +19,7 @@ class PageJson < ActiveRecord::Base
     else
       pj = PageJson.new(page_id: page_id)
       pj.build_json(page_traits)
+      pj.save
       pj
     end
   end

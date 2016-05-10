@@ -1,9 +1,11 @@
 # This is a temp file used for notes. Ignore it entirely!
 
-### Fast examplar images for many taxa:
+### Working on GOOG:
 
-
-
+PageJson.where(page_id: 328674).destroy_all
+jld = ""
+Benchmark.measure { TraitBank::JsonLd.for_page(328674) }
+Benchmark.measure { TraitBank::JsonLd.for_page(328674) }
 
 ### names
 

@@ -226,7 +226,7 @@ private
                                 notification_frequency_id: NotificationFrequency.immediately.id,
                                 target: moved_to,
                                 reason: 'auto_email_after_curation')
-    Resque.enqueue(PrepareAndSendNotifications)
+    PrepareAndSendNotifications.enqueue
   rescue => e
     # Do nothing (for now)...
   end

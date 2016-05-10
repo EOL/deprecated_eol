@@ -359,16 +359,19 @@ class DataObject < ActiveRecord::Base
   end
 
   def rate(user, new_rating)
-    if this_users_current_rating = rating_from_user(user)
-      if this_users_current_rating.rating != new_rating
-        this_users_current_rating.update_column(:rating, new_rating)
-        this_users_current_rating.update_column(:weight, user.rating_weight)
+    # NOTE: NOT using rating_from_user here because we need to get it from master:
+    user_rating = DataObject.with_master do
+      users_data_objects_ratings.where(user_id: user.id).first
+    end
+    if user_rating
+      if user_rating.rating != new_rating
+        user_rating.update_column(:rating, new_rating)
+        user_rating.update_column(:weight, user.rating_weight)
       end
     else
       UsersDataObjectsRating.create(data_object_guid: guid, user_id: user.id,
                                     rating: new_rating, weight: user.rating_weight)
     end
-
     users_data_objects_ratings.reload
     self.update_column(:data_rating, average_rating)
   end
@@ -386,7 +389,7 @@ class DataObject < ActiveRecord::Base
     return nil if u.is_a?(EOL::AnonymousUser)
     # more often than not ratings will have been preloaded, so a .detect
     # is faster than a .where here
-    users_data_objects_ratings.detect{ |udor| udor.user_id == u.id }
+    users_data_objects_ratings.detect { |udor| udor.user_id == u.id }
   end
 
   def safe_rating

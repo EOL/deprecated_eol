@@ -36,4 +36,13 @@ class PageTraits < TraitSet
   def jsonld
     TraitBank::JsonLd.for_page(@id, self)
   end
+
+  # Avoid a ton of output in the console:
+  def inspect
+    "<PageTraits @id=#{id} @rdf=(#{@rdf.size}xTriple) "\
+      "@points=(#{@points.size}xDataPointUri) "\
+      "@glossary=(#{@glossary.size}xKnownUri) "\
+      "@taxa=#{@taxa.nil? ? "nil" : "(#{@taxa.size}xTaxonConcept)"} "\
+      "@traits=(#{@traits.size}xTrait) @sources=(#{@sources.size}xResource)>"
+  end
 end

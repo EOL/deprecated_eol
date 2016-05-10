@@ -1,12 +1,12 @@
 class PageJson < ActiveRecord::Base
   @MAX_AGE = 6.months
 
+  serialize :ld, JSON
+  serialize :context, JSON
+
   attr_accessible :ld, :context, :page_id
 
   belongs_to :page, class_name: "TaxonConcept", foreign_key: "page_id", inverse_of: :page_json
-
-  serialize :ld
-  serialize :context
 
   def self.for(page_id, page_traits)
     PageJson.with_master do

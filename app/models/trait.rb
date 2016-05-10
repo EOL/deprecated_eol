@@ -51,11 +51,11 @@ class Trait
   # This keeps the output from a terminal a sane length:
   def inspect
     "<Trait @source_set_id=#{source_set_id} @predicate=#{predicate} @uri=#{uri} "\
-      "@point=#{point.id} @page=#{@page} @inverse=#{inverse}>"
+      "@point=#{point.id} @page=#{@page} @inverse=#{inverse?}>"
   end
 
   def source_set_id
-    source_set.id
+    @source_set.id
   end
 
   def anchor

@@ -1,5 +1,4 @@
 class HarvestBatch
-
   attr_reader :resources, :start_time
 
   def initialize(ids = [])
@@ -97,6 +96,16 @@ class HarvestBatch
   # TODO: this does not belong here. Move it.
   def denormalize_tables
     EOL.log_call
+    last_time = EolConfig.last_denormalize
+    # TODO: in an *ideal* world, this would only run once a day (suggest 7:00
+    # AM), at a prescribed time, and only if something had changed since the
+    # last run... so really we would have a cron task handle this if
+    # EolConfig.denormalize_needed was true... and here we would set that to
+    # true.
+    if Time.parse(last_time) < 1.day.ago
+      EOL.log("Tables were already denormalized on #{last_time}; skipping.")
+      return
+    end
     # TODO: this is not an efficient algorithm. We should change this to store
     # the scores in the DB as well as some kind of tree-structure of taxa
     # (which could also be used elsewhere!), and then build things that way;
@@ -107,6 +116,7 @@ class HarvestBatch
     # update the orders as needed based on that—much faster.)
     RandomHierarchyImage.create_random_images_from_rich_taxa
     TaxonConceptPreferredEntry.rebuild
+    EolConfig.create(parameter: "last_denormalize", value: Time.now)
     EOL.log_return
   end
 

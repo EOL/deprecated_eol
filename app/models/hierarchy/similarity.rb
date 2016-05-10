@@ -108,11 +108,11 @@ class Hierarchy::Similarity
     # non-ansi characters in the name) was insufficient cause to ignore it
     # entirely; match instead on the canonical form, which is clean.
     if entry["name"].blank?
-      entry["name"] = entry["canonical_form"]
+      entry["name"] = entry["canonical_form_string"]
     end
     entry["rank_id"] ||= 0
     entry["kingdom_down"] = entry["kingdom"].try(:downcase)
-    entry["quoted_canonical"] = metaquote(entry["canonical_form"])
+    entry["quoted_canonical"] = metaquote(entry["canonical_form_string"])
     entry["quoted_name"] = metaquote(entry["name"])
     entry["is_virus"] = virus?(entry)
     entry["synonymy"] = synonymy_of(entry)

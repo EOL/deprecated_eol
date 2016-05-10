@@ -1,5 +1,10 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+### Fast examplar images for many taxa:
+
+
+
+
 ### names
 
 things = Resque.peek(:php, 0, 25000) ; things.size

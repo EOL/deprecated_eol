@@ -115,33 +115,43 @@ class RandomHierarchyImage < ActiveRecord::Base
       # Not doing this with a big join right now because the top_concept_images
       # table was out of date at the time of writing. TODO - move the trusted
       # check; that should be done when called, not here!
-      set = Set.new
-      batch_num = 0
-      batch_size = 200
-      total = (tc_ids.size / batch_size).ceil
-      TaxonConcept.includes(hierarchy_entries: [ :name ]).
+      concepts = TaxonConcept.
+        includes(:taxon_concept_exemplar_image,
+                 preferred_entry: { hierarchy_entry: [ :name ] }).
         where(id: tc_ids, vetted_id: Vetted.trusted.id).
         where(["hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\
-          "hierarchy_entries.rank_id IN (?)", Rank.species_rank_ids]).
-        find_each(batch_size: batch_size) do |taxon|
-        batch_num += 1
-        EOL.log("Random taxa: #{batch_num}/#{total}", prefix: ".") if
-          batch_num == 0 || batch_num % 100 == 0
-        img = taxon.exemplar_or_best_image_from_solr
-        next unless img
-        set << {
-          data_object_id: img.id,
-          hierarchy_entry_id: taxon.entry.id,
-          hierarchy_id: taxon.entry.hierarchy_id,
-          taxon_concept_id:taxon.id,
-          name: taxon.entry.name.italicized
+          "hierarchy_entries.rank_id IN (?)", Rank.species_rank_ids])
+      objects = {}
+      num = 0
+      count = concepts.count
+      concepts.find_each(batch_size: 250) do |concept|
+        num += 1
+        EOL.log("Random taxa: #{num}/#{count}", prefix: ".") if
+          num == 1 || num % 20_000 == 0
+        img_id = concept.taxon_concept_exemplar_image.try(:data_object_id) ||
+          solr.best_image_for_page(concept.id)["data_object_id"].to_i
+        objects[img_id] = {
+          data_object_id: img_id,
+          hierarchy_entry_id: concept.entry.id,
+          hierarchy_id: concept.entry.hierarchy_id,
+          taxon_concept_id: concept.id,
+          name: concept.entry.name.italicized
         }
       end
-      EOL.log("Found #{set.count} of species with images", prefix: '.')
+      replacements = {}
+      DataObject.where(id: objects.keys, published: false).select([:id, :guid]).
+                 each do |d|
+        replacements[d.guid] = d.id
+      end
+      DataObject.where(guid: replacements.keys, published: true).
+                 select([:id, :guid]).each do |d|
+        objects[replacements[d.guid]][:data_object_id] = d.id
+      end
+      EOL.log("Found #{objects.size} species with images", prefix: '.')
       RandomHierarchyImage.connection.transaction do
         RandomHierarchyImage.delete_all
         # TODO - this could be much faster with a bulk insert
-        set.to_a.shuffle.each do |values|
+        objects.values.shuffle.each do |values|
           RandomHierarchyImage.create(values)
         end
       end

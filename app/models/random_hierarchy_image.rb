@@ -124,6 +124,7 @@ class RandomHierarchyImage < ActiveRecord::Base
       objects = {}
       num = 0
       count = concepts.count
+      solr = SolrCore::DataObjects.new
       concepts.find_each(batch_size: 250) do |concept|
         num += 1
         EOL.log("Random taxa: #{num}/#{count}", prefix: ".") if

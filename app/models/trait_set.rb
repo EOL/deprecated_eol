@@ -1,5 +1,5 @@
 class TraitSet
-  attr_accessor :points, :glossary, :traits, :sources, :taxa
+  attr_accessor :points, :glossary, :traits, :sources, :taxa, :id
 
   # YOU *NEED* TO IMPLEMENT #initialize ! See PageTraits for an example.
 

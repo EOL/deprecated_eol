@@ -8,6 +8,7 @@ class TaxonConcept
   # as the supercedure_id to see where it went. If you're calling this, you
   # probably care about both.
   class Merger
+    # TODO: RandomHierarchyImage should be scanned and updated, too!
     class << self
       def in_bulk(raw_merges)
         ids = Set.new

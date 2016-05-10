@@ -4,21 +4,38 @@
 class PrepareAndSendNotifications
   @queue = 'notifications'
 
-  def self.perform
-    EOL.log_call
-    PendingNotification.send_notifications(:immediately)
+  class << self
+    def perform
+      EOL.log_call
+      PendingNotification.send_notifications(:immediately)
 
-    if (NotificationEmailerSettings.last_daily_emails_sent + 24.hours) < Time.now
-      EOL.log("Sending daily mail.")
-      PendingNotification.send_notifications(:daily)
-      NotificationEmailerSettings.last_daily_emails_sent = Time.now
+      if (NotificationEmailerSettings.last_daily_emails_sent + 24.hours) < Time.now
+        EOL.log("Sending daily mail.")
+        PendingNotification.send_notifications(:daily)
+        NotificationEmailerSettings.last_daily_emails_sent = Time.now
+      end
+
+      if (NotificationEmailerSettings.last_weekly_emails_sent + 1.week) < Time.now
+        EOL.log("Sending weekly mail.")
+        PendingNotification.send_notifications(:weekly)
+        NotificationEmailerSettings.last_weekly_emails_sent = Time.now
+      end
+      EOL.log_return
     end
 
-    if (NotificationEmailerSettings.last_weekly_emails_sent + 1.week) < Time.now
-      EOL.log("Sending weekly mail.")
-      PendingNotification.send_notifications(:weekly)
-      NotificationEmailerSettings.last_weekly_emails_sent = Time.now
+    def enqueue
+      Resque.enqueue(PrepareAndSendNotifications) unless pending?
     end
-    EOL.log_return
+
+    def pending?
+      begin
+        Resque.peek(:notifications, 0, 25_000).
+                 any? { |j| j["class"] == "PrepareAndSendNotifications" }
+      rescue => e
+        EOL.log("WARNING: Failed to read 'notifications' queue: #{e.message}",
+          prefix: "!")
+        false
+      end
+    end
   end
 end

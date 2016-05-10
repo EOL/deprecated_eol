@@ -103,7 +103,7 @@ class TraitBank
     end
 
     def build_references
-      TraitBank::Old.paginate_references(@resource) do |results|
+      TraitBank::Old.paginate_references(resource: @resource) do |results|
         results.each do |row|
           @triples << "<#{row[:trait]}> <#{TraitBank.full_reference_uri}> "\
             "#{TraitBank.quote_literal(row[:full_reference])}"
@@ -112,6 +112,7 @@ class TraitBank
     end
 
     def build_metadata
+      return if @traits.empty?
       EOL.log("Finding metadata for #{@traits.count} traits...", prefix: ".")
       traits = @traits.to_a
       size = 250

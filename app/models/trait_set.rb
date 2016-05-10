@@ -24,13 +24,17 @@ class TraitSet
   end
 
   def categories_need_other?
-    @need_other
+    @need_other ||= traits.any? { |t| t.categories.empty? }
   end
 
   # NOTE: Sorry this is complex, but: there are a lot of considerations for
   # sort!
   def traits_by_category(category)
-    subset = traits.select { |trait| trait.categories.include?(category) }
+    subset = if category == :other
+      traits.select { |trait| trait.categories.empty? }
+    else
+      traits.select { |trait| trait.categories.include?(category) }
+    end
     subset.sort_by do |trait|
       predicate = trait.predicate_name.try(:downcase)
       value_label = trait.value_name.try(:downcase)

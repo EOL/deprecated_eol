@@ -1,11 +1,13 @@
 # NOTE: jsonld is ALWAYS in English. Period. This is expected and normal.
 class TraitBank::JsonLd
-  # TODO: I feel like we could definitely use this elsewhere! :S
+  # TODO: I feel like we could definitely use this elsewhere! :S NOTE: It's
+  # important to put the longer of two similar prefixes *first* ... "eolterms"
+  # must be matched before "eol" is.
   PREFIXES = {
     "http://purl.org/dc/terms/" => "dc:",
     "http://rs.tdwg.org/dwc/terms/" => "dwc:",
-    "http://eol.org/schema/" => "eol:",
     "http://eol.org/schema/terms/" => "eolterms:",
+    "http://eol.org/schema/" => "eol:",
     "http://www.w3.org/2000/01/rdf-schema#" => "rdfs:",
     "http://rs.gbif.org/terms/1.0/" => "gbif:",
     "http://xmlns.com/foaf/0.1/" => "foaf:"

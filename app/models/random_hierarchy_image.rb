@@ -116,7 +116,7 @@ class RandomHierarchyImage < ActiveRecord::Base
       # table was out of date at the time of writing. TODO - move the trusted
       # check; that should be done when called, not here!
       set = Set.new
-      batch_size = 500
+      batch_size = 200
       TaxonConcept.includes(hierarchy_entries: [ :name ]).
         where(id: tc_ids, vetted_id: Vetted.trusted.id).
         where(["hierarchy_entries.lft = hierarchy_entries.rgt - 1 OR "\

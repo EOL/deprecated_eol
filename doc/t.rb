@@ -4,8 +4,8 @@
 
 PageJson.where(page_id: 328674).destroy_all
 jld = ""
-Benchmark.measure { TraitBank::JsonLd.for_page(328674) }
-Benchmark.measure { TraitBank::JsonLd.for_page(328674) }
+Benchmark.measure { jld = TraitBank::JsonLd.for_page(328674) }
+Benchmark.measure { jld = TraitBank::JsonLd.for_page(328674) }
 
 ### names
 

@@ -79,7 +79,6 @@ class TraitBank::JsonLd
       trait_json = {
         "@id" => trait.uri.to_s,
         "@type" => trait.association? ? "eol:Association" : "dwc:MeasurementOrFact",
-        "dwc:taxonID" => KnownUri.taxon_uri(trait.source_id),
         # These two are confusing, buuuuuut:
         "predicate" => trait.predicate_name,
         "dwc:measurementType" => trait.predicate,

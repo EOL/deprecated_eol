@@ -9,18 +9,20 @@ class PageJson < ActiveRecord::Base
   serialize :context
 
   def self.for(page_id, page_traits)
-    if PageJson.exists?(page_id: page_id)
-      pj = PageJson.find_by_page_id(page_id)
-      if pj.updated_at < @MAX_AGE.ago
+    PageJson.with_master do
+      if PageJson.exists?(page_id: page_id)
+        pj = PageJson.find_by_page_id(page_id)
+        if pj.updated_at < @MAX_AGE.ago
+          pj.build_json(page_traits)
+          pj.save
+        end
+        pj
+      else
+        pj = PageJson.new(page_id: page_id)
         pj.build_json(page_traits)
         pj.save
+        pj
       end
-      pj
-    else
-      pj = PageJson.new(page_id: page_id)
-      pj.build_json(page_traits)
-      pj.save
-      pj
     end
   end
 

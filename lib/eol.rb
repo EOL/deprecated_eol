@@ -81,7 +81,7 @@ module EOL
     def log_error(e)
       EOL.log("ERROR: #{e.message.gsub(/IN \(.*\)/, "IN ([snip])")}", prefix: "!")
       i = 0
-      @gem_regex = /(gems|bin)\/(actionpack|activerecord|resque|rake|activesupport|railties|sinatra|unicorn|journey|newrelic_rpm|rack)/
+      @gem_regex = /(gems|bin)\/(actionpack|activerecord|resque|rake|haml|activesupport|railties|sinatra|unicorn|journey|newrelic_rpm|rack)/
       skipped = 0
       while e.backtrace[i] !~ /__pry__/ &&
         i < e.backtrace.length

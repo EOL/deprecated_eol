@@ -8,7 +8,7 @@ class PageJson < ActiveRecord::Base
 
   belongs_to :page, class_name: "TaxonConcept", foreign_key: "page_id", inverse_of: :page_json
 
-  def self.for(page_id, page_traits)
+  def self.for(page_id, page_traits = nil)
     PageJson.with_master do
       if PageJson.exists?(page_id: page_id)
         pj = PageJson.find_by_page_id(page_id)
@@ -26,7 +26,7 @@ class PageJson < ActiveRecord::Base
     end
   end
 
-  def build_json(page_traits)
+  def build_json(page_traits = nil)
     page_traits ||= PageTraits.new(self[:page_id])
     self[:ld] =
       TraitBank::JsonLd.data_feed_item(self[:page_id], page_traits.traits)

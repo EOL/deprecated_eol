@@ -774,7 +774,7 @@ es:
           pidiendo que EOL ingiera esa revisión particular como de confianza. El sistema
           reemplazará la versión actual de ese artículo en EOL si ya EOL la tiene.
     select:
-      prompt: Por favor seleccione
+      prompt: Selecciona
     submit:
       cancel: Cancelar
       create: Crear %{model}
@@ -1206,9 +1206,9 @@ es:
     more_than_one_field_mapped_to_type: Más de un atributo está asignado a "%{type}"
     no_results: No hay resultados para la estadística seleccionada
     no_relationships: No hay relaciones encontradas para este URI.
-    please_select_field_types: Por favor, seleccione una asignación para cada atributo
+    please_select_field_types: Selecciona una asignación para cada atributo
     please_select_category_for_stats: Selecciona una categoría para ver las estadísticas.
-    please_select_uris_to_import: Por favor seleccione la importación de URI
+    please_select_uris_to_import: Selecciona la importación de URI
     relationships: Relaciones
     relationships_from_this_uri: Relaciones de este URI
     relationships_to_this_uri: Relaciones a este URI
@@ -4183,7 +4183,7 @@ es:
   classifications_recognized_by_column_header: Reconocido por
   classifications_rank_column_header: Posición
   classifications_split_column_header: Separar / Trasladar
-  classifications_split_one_classification_only: Por favor seleccione sólo una clasificación
+  classifications_split_one_classification_only: Selecciona sólo una clasificación
     para dividir. Las otras clasificaciones se pueden mover a la nueva página después
     de que se haya creado
   classifications_summary_header_with_count:
@@ -5402,8 +5402,8 @@ es:
   forgot_password: Olvidó su contraseña
   forgot_password_form_cancel: Cancelar
   forgot_password_form_choose_username_instructions: Hay varias cuentas registradas
-    en la dirección de correo <em>%{email}</em>, por favor, seleccione una cuenta
-    para restablecerle la contraseña.
+    con la dirección de correo <em>%{email}</em>. Selecciona una cuenta para la cual
+    restablecerle la contraseña.
   forgot_password_form_choose_username_legend: Seleccione una cuenta
   forgot_password_form_choose_username_blank_error: Por favor, seleccione la cuenta
     para la que desea restablecer la contraseña.
@@ -6120,7 +6120,7 @@ es:
   only_show_authoritative_conten: 'Mostrar sólo contenido autorizado:'
   only_show_unapproved_curators: Mostrar sólo los supervisores no aprobados
   on_time_col_header: activado
-  option_please_select: Por favor seleccione
+  option_please_select: Selecciona
   or_add_it_to_an_existing_collection: o agregar a una colección existente
   or_add_it_to_an_existing_community: o añadirlo a una comunidad existente
   or_copy_them_to_existing_collection: o copiarlos a una colección existente
@@ -6246,8 +6246,8 @@ es:
     este recurso aquí ***'
   please_refresh: Actualice su navegador para ver la versión más reciente del sitio
     web EOL
-  please_indicate_curation_reason: 'Por favor, seleccione un motivo y, opcionalmente,
-    deje un comentario de curación:'
+  please_indicate_curation_reason: 'Selecciona un motivo y, opcionalmente, deja un
+    comentario de curación:'
   please_state_one_credential: 'Por favor, indique al menos una credencial específica
     de esta lista:'
   please_note_wiki_etc_are_not_spm: '* Tenga en cuenta que Wikipedia, Educación y
@@ -7222,8 +7222,8 @@ es:
     su nombre de usuario antiguo, por lo cual hemos cerrado su sesión. Sin embargo,
     su información antigua de inicio de sesión debería funcionar de nuevo, ¡Lamentamos
     los inconvenientes!
-  welcome_to_the_eol_administrat: Bienvenido a la consola de administración de EOL.  Por
-    favor, seleccione una función de las opciones de navegación de la izquierda.
+  welcome_to_the_eol_administrat: Te damos la bienvenida a la consola de administración
+    de EOL. Selecciona una función de las opciones de navegación de la izquierda.
   welcome: Bienvenido/a
   what_do_these_numbers_mean: ¿Qué significan estas cifras?
   what_is_eol: ¿Qué es EOL?

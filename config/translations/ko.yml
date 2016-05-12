@@ -499,7 +499,7 @@ ko:
         title: 자료 이름
       session:
         password: 비밀번호
-        remember_me: 2주동안 로그인 유지
+        remember_me: 2주 동안 로그인 상태를 유지하기
         username_or_email: 사용자 이름이나 이메일 주소
       translated_content_page:
         active_translation: 게시함
@@ -3358,7 +3358,7 @@ ko:
   comments_with_count:
     one: 댓글 %{count}개
     other: 댓글 %{count}개
-  common_activities_by_logged_in: 로그인한 사용자의 공통 활동입니다.
+  common_activities_by_logged_in: 로그인한 사용자별 공통 활동입니다.
   common_name_avg: 공통 이름 평균
   common_name: 공통 이름
   common_name_exists: <em>%{name_string}</em> 공통 이름이 이미 존재합니다
@@ -3937,7 +3937,7 @@ ko:
       only_admins_can_view_content_pages: 죄송합니다, 관리자만이 문서의 내용을 볼 수 있습니다.
       only_admins_can_view_translated_content_pages: 죄송합니다, 관리자들만 이 문서의 번역본을 볼 수 있습니다.
       only_admins_can_edit_forums: 죄송합니다, 관리자들만 포럼을 편집할 수 있습니다.
-      must_be_logged_in: 죄송합니다, 반드시 로그인 하셔야 합니다.
+      must_be_logged_in: 죄송하지만 로그인해야 합니다
       error_editing_someone_account: 죄송합니다, 계정을 가진 사람만 편집할 수 있습니다.
       can_not_edit_permissions: 죄송합니다, 당신은 권한을 수정할 수 없습니다.
   expand_all_children: 모든 하위 확장
@@ -4356,7 +4356,7 @@ ko:
   must_be_checked_in_to_view: '- 보려면 확인해야 합니다'
   must_be_checked_in_to_show: '- 사용자에게 보려주려면 확인해야 합니다'
   must_be_less_than_128_characters_long: 글자 128개 미만이어야합니다.
-  must_be_logged_in: 이 행동을 수행하려면 로그인해야 합니다.
+  must_be_logged_in: 이 동작을 수행하려면 로그인해야 합니다.
   my_activity: 내 활동
   my_info: 내 정보
   name_colon: '이름:'
@@ -5249,7 +5249,7 @@ ko:
   you_are_not_authorized_to_perform_this_action: 작업을 수행할 권한이 없습니다.
   you_are_viewing_this_rank_as_classified_by: '다음에 의해 분류한 이 %{rank}(을)를 보고 있습니다:'
   you_can_edit_those_later_if_ne: 필요한 경우 나중에 편집할 수 있습니다.
-  you_have_been_logged_in_as_username: '%{username}(으)로 로그인했습니다'
+  you_have_been_logged_in_as_username: '%{username} 사용자로 로그인되어 있습니다'
   you_have_been_logged_out: 로그아웃했습니다.
   you_joined_community: 성공적으로 공동체에 가입했습니다.
   you_left_community: 성공적으로 공동체를 떠났습니다.

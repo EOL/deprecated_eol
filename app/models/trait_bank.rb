@@ -39,7 +39,6 @@ class TraitBank
       if result.nil? || result.blank?
         # Don't store empty results:
         Rails.cache.delete(key)
-        EOL.log("TB.cache_query: #{key} (0 results, not saved)")
       elsif result.is_a?(String)
         EOL.log("TB.cache_query: #{key} (#{result[0..29]})")
       elsif result.is_a?(Fixnum)

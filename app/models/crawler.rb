@@ -36,7 +36,7 @@ class Crawler
       begin
         pj = PageJson.for(concept.id)
         EOL.log("#{index}/#{count}: #{concept.id} (#{pj.ld.to_s.size})",
-          prefix: ".") if index % 10 == 0
+          prefix: ".") if index % 100 == 0
         if options["filename"]
           # NOTE: This means we're NOT adding taxa unless they have traits! This
           # may not be desireable... we might want to know the names and the

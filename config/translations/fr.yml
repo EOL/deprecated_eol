@@ -11,6 +11,7 @@
 # Author: Euloiix
 # Author: Framafan
 # Author: Freak2fast4u
+# Author: Frigory
 # Author: Gomoko
 # Author: Great11
 # Author: Hashar
@@ -35,6 +36,7 @@
 # Author: Tititou36
 # Author: Urhixidur
 # Author: Verdy p
+# Author: Wladek92
 # Author: Wyz
 # Author: Zcqsc06
 ---
@@ -46,7 +48,7 @@ fr:
       collection:
         name: Nom de la collection
         description: Description de la collection
-        sort_style_id: Direction de tri par défaut
+        sort_style_id: Sens de tri par défaut
         logo: Image principale de la collection
         additional_annotation_fields: Champs supplémentaires d’annotation
         show_references: Références (texte ou URL)
@@ -117,8 +119,8 @@ fr:
         pages_with_sound: Pages avec son
         pages_without_text: Pages sans texte
         pages_without_image: Pages sans image
-        pages_with_image_no_text: Pages avec image, mais sans texte
-        pages_with_text_no_image: Pages avec texte, mais sans image
+        pages_with_image_no_text: Pages avec image mais sans texte
+        pages_with_text_no_image: Pages avec texte mais sans image
         base_pages: Pages de base
         pages_with_at_least_a_trusted_object: Pages avec un objet fiable
         pages_with_at_least_a_curatorial_action: Pages avec une action de conservateur
@@ -129,7 +131,7 @@ fr:
         data_objects_texts: Objets textuels
         data_objects_images: Objets image
         data_objects_videos: Objets vidéo
-        data_objects_sounds: Objets sonores
+        data_objects_sounds: Objets audio
         data_objects_maps: Objets cartographiques
         data_objects_trusted: Objets de données fiables
         data_objects_unreviewed: Objets de données non révisés
@@ -143,8 +145,8 @@ fr:
         content_partners_with_published_trusted_resources: Avec des ressources publiées
           fiables
         published_resources: Ressources publiées
-        published_trusted_resources: Ressources fiables publiées
-        published_unreviewed_resources: Ressources publiées mais non révisées
+        published_trusted_resources: Ressources publiées fiables
+        published_unreviewed_resources: Ressources publiées non révisées
         newly_published_resources_in_the_last_30_days: Nouvellement publié au cours
           du mois passé
         marine_pages: Pages marines
@@ -161,8 +163,8 @@ fr:
           actifs
         objects_curated_in_the_last_30_days: Objets supervisés au cours des 30 derniers
           jours
-        curator_actions_in_the_last_30_days: Actions de conservateurs dans les 30
-          derniers jours
+        curator_actions_in_the_last_30_days: Actions des conservateurs des 30 derniers
+          jours
         rich_pages: Pages riches
         hotlist_pages: Pages favorites
         rich_hotlist_pages: Pages favorites riches

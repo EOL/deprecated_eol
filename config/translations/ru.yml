@@ -19,6 +19,7 @@
 # Author: Iluvatar
 # Author: Jackie
 # Author: Kaganer
+# Author: Katunchik
 # Author: Lunacy1911
 # Author: Lvova
 # Author: Mariya
@@ -43,10 +44,10 @@ ru:
       collection:
         name: Название коллекции
         description: Описание коллекции
-        sort_style_id: Направление сортировки по умолчанию
+        sort_style_id: Сортировка по умолчанию
         logo: Основное изображение коллекции
         additional_annotation_fields: Дополнительные поля аннотации
-        show_references: Примечания (текст или URL-адрес)
+        show_references: Ссылки (текст или URL)
       collection_job:
         overwrite: Заменить повторы
       collection_item:
@@ -67,13 +68,13 @@ ru:
       content_page:
         page_name: Уникальное имя
         sort_order: Порядок сортировки
-        active: Опубликовано
+        active: Опубликованный
       content_partner:
         acronym: Аббревиатура проекта
         auto_publish: Авто-публикация
         admin_notes: Заметки администрации
         content_partner_status: Статус проекта
-        created_at: Создано
+        created_at: Созданный
         description: Описание проекта
         display_name: Отображаемое имя
         full_name: Название проекта
@@ -82,7 +83,7 @@ ru:
         notes: Примечания проекта
         is_public: Общий
         resources: Ресурсы
-        user_id: Управляется
+        user_id: Управляемый
         vetted: Проверены
       content_partner_agreement:
         created_at: Создан в
@@ -96,7 +97,7 @@ ru:
         object_title: Заголовок
         rights_holder: Правообладатель
         rights_statement: Заявление о правах
-        source_url: Исходный адрес
+        source_url: URL-адрес источника
       data_object_link:
         description: Описание
         source_url: URL ссылки
@@ -109,7 +110,7 @@ ru:
         pages_with_content: Непустых страниц
         pages_with_text: Страниц с текстом
         pages_with_image: Страниц с изображениями
-        pages_with_map: Страниц с картой
+        pages_with_map: Страниц с картами
         pages_with_video: Страниц с видео
         pages_with_sound: Страниц с аудио
         pages_without_text: Страниц без текста
@@ -131,22 +132,22 @@ ru:
         data_objects_videos: Видеообъекты
         data_objects_sounds: Аудиообъекты
         data_objects_maps: Картографические объекты
-        data_objects_trusted: Проверенные объекты данных
-        data_objects_unreviewed: Нерецензированные объекты данных
-        data_objects_untrusted: Непроверенные объекты данных
+        data_objects_trusted: Объекты с проверенными данными
+        data_objects_unreviewed: Объекты с непроверенными данными
+        data_objects_untrusted: Объекты с недостоверными данными
         data_objects_trusted_or_unreviewed_but_hidden: Проверенные или нерецензированные,
           но скрытые
-        udo_published: Добавленный пользователем текст
-        udo_published_by_curators: Текст, предоставленный куратором
+        udo_published: Предложенный пользователем текст
+        udo_published_by_curators: Предложенный куратором текст
         udo_published_by_non_curators: Текст, предоставленный не-куратором
         content_partners: Контент-партнеры
         content_partners_with_published_resources: С опубликованными ресурсами
         content_partners_with_published_trusted_resources: С проверенными опубликованными
           ресурсами
         published_resources: Опубликованные ресурсы
-        published_trusted_resources: Опубликованные проверенные ресурсы
-        published_unreviewed_resources: Опубликованные нерецензированные ресурсы
-        newly_published_resources_in_the_last_30_days: Последние публикации за прошлый
+        published_trusted_resources: Опубликованные достоверные ресурсы
+        published_unreviewed_resources: Опубликованные непроверенные ресурсы
+        newly_published_resources_in_the_last_30_days: Новые, опубликованные за последний
           месяц
         marine_pages: Страницы с морской тематикой
         marine_pages_in_col: Страницы с морской тематикой, найденные в Каталоге Жизни
@@ -156,10 +157,10 @@ ru:
           объектами данных
         curators: Кураторы
         curators_assistant: Кураторы-помощники
-        curators_full: Полные кураторы
+        curators_full: Полноправные кураторы
         curators_master: Глава кураторов
         active_curators: Активные кураторы
-        pages_curated_by_active_curators: Страницы, проверенные активными кураторами
+        pages_curated_by_active_curators: Страницы, отслеживаемые активными кураторами
         objects_curated_in_the_last_30_days: Объекты, проверенные кураторами за последние
           30 дней
         curator_actions_in_the_last_30_days: Действия кураторов за последние 30 дней
@@ -176,7 +177,7 @@ ru:
         lifedesk_data_objects: Объекты данных LifeDesks
         total_taxa_with_data: Страницы с данными
         total_triples: Тройки
-        total_occurrences: Вхождения
+        total_occurrences: Случаи
         total_measurements: Измерения
         total_associations: Ассоциации
         total_measurement_types: Типы измерений
@@ -185,11 +186,11 @@ ru:
         total_data_records: Записи данных
       forum:
         forum_category_id: Категория
-        name: Имя на форуме
-        description: Описание <small>(необязательно)</small>
+        name: Название форума
+        description: Спецификация <small>(опция)</small>
       forum_category:
         title: Название категории
-        description: Описание <small>(необязательно)</small>
+        description: Спецификация <small>(опция)</small>
       forum_post:
         subject: Тема
         text: Текст сообщения
@@ -202,7 +203,7 @@ ru:
         browsable: Просматриваемый
         complete: Полнота
         description: Описание
-        descriptive_label: Описательные метки
+        descriptive_label: Описательная метка
         label: Ярлык
         request_publish: Запрос публикации
       known_uri:
@@ -1796,6 +1797,8 @@ ru:
         meta_title: Сообщества %{user_full_name}
         tweet_text: сообщества %{user_full_name}
     data_downloads:
+      no_selected_attributes: Не выбран ни один атрибут. Пожалуйста, выберите по крайней
+        мере один.
       download: скачать
       page_title: Загрузка данных
       query_head: Запрос
@@ -1811,6 +1814,7 @@ ru:
       refresh: обновить
       row_count: Количество
       search_again: искать снова
+      contact_us: для получения помощи свяжитесь с нами, пожалуйста
     new:
       complete_registration_header: Завершить регистрацию на EOL
       create_user_header: Создание новой учетной записи <abbr title="Encyclopedia
@@ -1841,6 +1845,35 @@ ru:
         sorry_notification_settings_could_not_be_updated: Извините, не удалось обновить
           настройки уведомлений.
     open_authentications:
+      errors:
+        facebook:
+          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
+            записи  Facebook с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
+            <a href="%{login_url}">войдите в EOL</a>, используя другие учетные данные,
+            а затем подключите Вашу учетную запись  Facebook в настройках Вашего профиля
+            EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
+            в EOL</a> для получения учетной записи.
+        google:
+          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
+            записи  Google  с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
+            <a href="%{login_url}">войдите в EOL</a>, используя другие учетные данные,
+            а затем подключите Вашу учетную запись Google в настройках Вашего профиля
+            EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
+            в EOL</a> для получения учетной записи.
+        twitter:
+          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
+            записи Twitter  с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
+            <a href="%{login_url}">войдите в EOL</a>, используя другие учетные данные,
+            а затем подключите Вашу учетную запись Twitter в настройках Вашего профиля
+            EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
+            в EOL</a> для получения учетной записи.
+        yahoo:
+          login_failed_not_connected: К сожалению, мы не могли найти связь Вашей учетной
+            записи Yahoo!  с EOL. Если у Вас уже есть учетная запись EOL, пожалуйста,
+            <a href="%{login_url}">войдите в EOL</a>, используя другие учетные данные,
+            а затем подключите Вашу учетную запись Yahoo! в настройках Вашего профиля
+            EOL. Если у Вас еще нет учетной записи EOL, пожалуйста, <a href="%{register_url}">зарегистрируйтесь
+            в EOL</a> для получения учетной записи.
       facebook: Facebook
       google: Google
       index:
@@ -1864,13 +1897,31 @@ ru:
       yahoo: Yahoo!
     pending:
       header: Спасибо за регистрацию!
+      verify_email_instructions: <strong>Пожалуйста, проверьте ваш адрес электронной
+        почты</strong>. На указанный Вами адрес электронной почты было отправлено
+        сообщение с подтверждением. Чтобы завершить процесс регистрации и стать членом
+        EOL, пожалуйста, нажмите на ссылку в сообщении. Спасибо!
+      verify_email_tip: Обратите внимание на то, что письма с активацией аккаунта
+        <em>часто</em> распознаются фильтрами электронной почты как "спам". Пожалуйста,
+        проверьте папку со спамом, если Вы не получили письмо в течение часа.
     recover_account:
       errors:
+        token_expired_or_invalid: К сожалению, срок временной ссылки для входа истек
+          или ссылка недействительна, пожалуйста, пошлите новый запрос по электронной
+          почте для восстановления учетной записи.
         user_not_found_by_email_address: Учётная запись EOL с таким адресом электронной
           почты не найдена.
         unable_to_update_token: Извините, произошла ошибка, и письмо не было отправлено,
           пожалуйста, попробуйте еще раз.
       form_header: Восстановить учётную запись
+      form_tip: Для восстановления учетной записи EOL введите привязанный к ней адрес
+        электронной почты. Пожалуйста, проверьте папку со спамом, если в течение часа
+        Вы не получите сообщение по электронной почте для восстановления учетной записи.
+      notices:
+        temporarily_logged_in_update_authentication_details: Вы временно вошли в систему
+          для восстановления учетной записи, пожалуйста, измените Ваш пароль или обновите
+          Ваши подключенные учетные записи, чтобы убедиться, что Вы можете успешно
+          войти в систему.
       meta_title: Восстановить учётную запись
     recover_account_choose_account:
       form_header: Восстановить учётную запись
@@ -2429,33 +2480,86 @@ ru:
   content_partner_administration_notes_header: Заметки администрации
   content_partner_administration_settings_header: Параметры администрирования
   content_partner_column_header_partner: Партнер
+  content_partner_contact_delete_successful_notice: Контакт был удален.
+  content_partner_contact_delete_unsuccessful_error: К сожалению, произошла ошибка,
+    контакт не был удален.
+  content_partner_contact_edit_link: Редактировать контакт
   content_partner_contact_edit_page_subheader: Редактировать контакт
   content_partner_contact_new_link: Добавить новый контакт
   content_partner_contact_new_page_subheader: Добавить контакт
+  content_partner_contact_new_edit_form_header: Контактная информация партнера контента
   content_partner_contact_new_edit_form_tip: '%{required_icon} необходимо указать
     имя, фамилию и электронную почту.'
   content_partner_contact_update_successful_notice: Контакт успешно обновлен.
   content_partner_contact_update_unsuccessful_error: Извините, произошла ошибка, контакт
     не был обновлен.
   content_partner_contacts_header: Контакты
+  content_partner_current_agreement_empty: Договор не указан
+  content_partner_current_agreement_signed_on_with_date: Подписан на дату %{date}
+  content_partner_current_agreement_view_link: Просмотр
   content_partner_current_agreement_edit_link: Редактировать
   content_partner_current_agreement_create_link: Создать новый
   content_partner_current_agreement_not_accepted: Пока не принято
   content_partner_data_description_header: Описание данных
   content_partner_data_description_empty: Никто ещё не добавил описание предоставляемых
     данных.
+  content_partner_default_description: Партнер контента Энциклопедии жизни
+  content_partner_edit_link: Редактирование данных партнера контента
   content_partner_filter_option_vetted_yes: Да
   content_partner_filter_option_vetted_no: Нет
+  content_partner_filter_option_published_never_harvested: Никогда не использовался
+    для сбора данных
+  content_partner_filter_option_published_never_published: Никогда не был опубликован
+  content_partner_filter_option_published_latest_harvest_not_published: Последний
+    неопубликованный
+  content_partner_filter_option_published_latest_harvest_pending_publish: Последний
+    в ожидании публикации
+  content_partner_filter_option_published_latest_harvest_published: Последний опубликованный
+  content_partner_filter_option_published_no_resources: Не содержит ресурсов
   content_partner_filter_published: Опубликовано
+  content_partner_has_unpublished_content_true: Неопубликованный контент
+  content_partner_has_unpublished_content_false: Не содержит неопубликованный контент
   content_partner_homepage_link: Посетить сайт партнёра
+  content_partner_latest_published_harvest_event_time_ago: Последнее обновление состоялось
+    %{time_passed} назад
+  content_partner_logo_alt_text: Логотип партнера контента %{partner_name}
   content_partner_managed_by_header: Управляется
   content_partner_new_page_subheader: Добавить нового контент-партнера
+  content_partner_new_edit_form_profile_header: Информация профиля партнера контента
+  content_partner_new_edit_form_tip: Некоторая информация, введенная Вами здесь, будет
+    общедоступна. Требуется ввести наименование проекта %{required_icon} и его описание
+  content_partner_notes_header: Замечания к проекту
+  content_partner_notes_empty: Для этого проекта нет никаких дополнительных замечаний.
+  content_partner_oldest_published_harvest_event_time_ago: Первый опубликованный на
+    EOL %{time_passed} назад;
+  content_partner_overview_agreement_header: Партнерское соглашение
+  content_partner_overview_agreement_link: Посмотреть текущее соглашение
+  content_partner_overview_link: Обзор партнера
+  content_partner_overview_link_back_to: вернуться к обзору партнера
+  content_partner_profile_menu: Профиль партнера контента
   content_partner_public_false: Частный
   content_partner_public_true: Общий
+  content_partner_registered_time_ago: Зарегистрирован %{time_passed} назад
+  content_partner_reports: Отчеты партнера контента
   content_partner_resource_about_header: О ресурсе
   content_partner_resource_auto_publish_true: Да
   content_partner_resource_auto_publish_false: Нет
+  content_partner_resource_collection_empty: Для этого ресурса не была сгенерирована
+    коллекция.
   content_partner_resource_collections_header: Коллекции
+  content_partner_resource_collection_header: Опубликованная коллекция
+  content_partner_resource_collection_show_link: Посмотреть опубликованную колекцию
+  content_partner_resource_confirm_force_harvest: Вы уверены, что хотите ускорить
+    сбор данных с ресурса %{resource_title}?
+  content_partner_resource_create_successful_notice: 'Детали ресурса партнера контента
+    успешно добавлены. Текущий статус данных ресурса: %{resource_status}.'
+  content_partner_resource_create_unsuccessful_error: К сожалению, произошла ошибка,
+    ресурс не был добавлен.
+  content_partner_resource_validation_finish_notice: Проверка ресурса партнера контента
+    закончена, его статус %{resource_status}.
+  content_partner_resource_dataset_details_header: Набор данных
+  content_partner_resource_delete_with_type_link: Удалить все
+  content_partner_resource_description_empty: Описание для этого ресурса не было предоставлено.
   content_partner_resource_edit_link: Редактировать
   content_partner_resource_edit_subheader: Править исходный текст
   content_partner_resource_edit_with_type_link: Править исходный текст

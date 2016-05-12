@@ -18,27 +18,27 @@ class Crawler
   end
 
   def self.perform(options)
-    if options[:close]
-      File.open(options[:filename], "a") { |f| f.puts(data_feed_closing) }
+    if options["close"]
+      File.open(options["filename"], "a") { |f| f.puts(data_feed_closing) }
       return EOL.log("Crawler COMPLETE! Closed file.", prefix: "C")
     end
-    unless options[:from] && options[:to]
+    unless options["from"] && options["to"]
       return EOL.log("Crawler: FAILED... from/to missing: #{options.inspect}",
         prefix: "!")
     end
-    EOL.log("Crawler: (#{options[:from]}-#{options[:to]})", prefix: "C")
+    EOL.log("Crawler: (#{options["from"]}-#{options["to"]})", prefix: "C")
     EOL.log("NO FILENAME! Only building the caches...") unless
       options.has_key?(:filename)
     taxa = TaxonConcept.published.
-                 where(["id >= ? AND id <= ?", options[:from], options[:to]])
+                 where(["id >= ? AND id <= ?", options["from"], options["to"]])
     count = taxa.count
     taxa.each_with_index do |concept, index|
       begin
         pj = PageJson.for(concept.id)
         EOL.log("#{index}/#{count}: #{concept.id} (#{pj.ld.to_s.size})",
           prefix: ".") if index % 10 == 0
-        if options[:filename]
-          File.open(options[:filename], "a") do |f|
+        if options["filename"]
+          File.open(options["filename"], "a") do |f|
             JSON.pretty_generate(pj.ld).gsub(/^/m, "      ")
           end
         end

@@ -38,6 +38,7 @@ class Crawler
         EOL.log("#{index}/#{count}: #{concept.id} (#{pj.ld.to_s.size})",
           prefix: ".") if index % 10 == 0
         if options["filename"]
+          next unless pj && pj.ld["item"] && pj.ld["item"]["traits"]
           # NOTE: it's inefficient to open and close the file for every taxon...
           # but A) this allows us to see partial results sooner, B) it allows us
           # to run this in the background when there is no file to write to, and

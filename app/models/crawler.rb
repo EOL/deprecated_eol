@@ -28,7 +28,7 @@ class Crawler
     end
     EOL.log("Crawler: (#{options["from"]}-#{options["to"]})", prefix: "C")
     EOL.log("NO FILENAME! Only building the caches...") unless
-      options.has_key?(:filename)
+      options.has_key?("filename")
     taxa = TaxonConcept.published.
                  where(["id >= ? AND id <= ?", options["from"], options["to"]])
     count = taxa.count
@@ -38,8 +38,13 @@ class Crawler
         EOL.log("#{index}/#{count}: #{concept.id} (#{pj.ld.to_s.size})",
           prefix: ".") if index % 10 == 0
         if options["filename"]
+          # NOTE: it's inefficient to open and close the file for every taxon...
+          # but A) this allows us to see partial results sooner, B) it allows us
+          # to run this in the background when there is no file to write to, and
+          # C) we actually don't mind the additional pause, since we're trying
+          # not to hose production with our hasty queries.
           File.open(options["filename"], "a") do |f|
-            JSON.pretty_generate(pj.ld).gsub(/^/m, "      ")
+            f.puts(JSON.pretty_generate(pj.ld).gsub(/^/m, "      "))
           end
         end
       rescue => e

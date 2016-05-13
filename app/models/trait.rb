@@ -63,7 +63,7 @@ class Trait
   end
 
   def make_point
-    res_id = resource.id || nil
+    res_id = resource.try(:id)
     @point = DataPointUri.create(
       uri: uri.to_s,
       taxon_concept_id: @source_set.id,

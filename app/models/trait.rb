@@ -81,7 +81,8 @@ class Trait
       unit_of_measure_known_uri_id: units_uri.is_a?(KnownUri) ?
         units_uri.id : nil,
     )
-    EOL.log("WARNING: Created missing DPURI #{uri} (#{@point.id})", prefix: "!")
+    EOL.log("WARNING: Created missing DPURI #{uri} (#{@point.id})", prefix: "*")
+    EOL.log("WARNING: That DPURI had no resource!", "*") if res_id.nil?
   end
 
   def header_anchor

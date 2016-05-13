@@ -63,6 +63,7 @@ class Trait
   end
 
   def make_point
+    res_id = resource.id || nil
     @point = DataPointUri.create(
       uri: uri.to_s,
       taxon_concept_id: @source_set.id,
@@ -72,7 +73,7 @@ class Trait
       predicate: predicate.to_s,
       object: value_name,
       unit_of_measure: units_name,
-      resource_id: resource.id,
+      resource_id: res_id,
       user_added_data_id: nil,
       predicate_known_uri_id: predicate_uri.is_a?(KnownUri) ?
         predicate_uri.id : nil,

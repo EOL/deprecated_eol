@@ -89,12 +89,11 @@ class Hierarchy
       # Ensure we're looking at the latest version:
       @hierarchy.clear_ancestry_set
       currently = @hierarchy.ancestry_set
-      EOL.log("Currently: #{currently.size}", prefix: ".")
-      EOL.log("Desired: #{@flat_entries.size}", prefix: ".")
       old = currently - @flat_entries
-      EOL.log("Old: #{old.size}", prefix: ".")
       create = @flat_entries - currently
-      EOL.log("New: #{create.size}", prefix: ".")
+      EOL.log("Ancestry is now #{currently.size}, wants to be "\
+        "#{@flat_entries.size} (#{old.size} old, #{create.size} new)",
+        prefix: ".")
 
       HierarchyEntriesFlattened.delete_set(old)
       # Now ensure that no later process gets an empty set!

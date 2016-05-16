@@ -4205,10 +4205,10 @@ it:
   collection_is_empty: Questa collezione è attualmente vuota.
   collection_item_edit_page_title: Modifica elemento nella collezione <em>%{collection_name}</em>
   collection_item_not_found_error: L'elemento della collezione non può essere trovato.
-  collection_item_edit_by_javascript_not_authorized_error: Siamo spiacenti, non hai
-    il permesso di modificare questo elemento della collezione. Se sei il proprietario
-    della collezione o un editor sei pregato di ricaricare la pagina e controllare
-    se hai effettuato il login.
+  collection_item_edit_by_javascript_not_authorized_error: Spiacenti, non si dispone
+    dei permessi necessari per modificare questo elemento della collezione. Se sei
+    il proprietario della collezione o un editor sei pregato di ricaricare la pagina
+    e controllare se hai effettuato l'accesso.
   collection_items_count:
     zero: Vuoto
     one: '%{count} elemento'

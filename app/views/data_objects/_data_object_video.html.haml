@@ -17,7 +17,7 @@
   -# for video/mp4
   - if data_object.mime_type == MimeType.mp4
     %video{ :src => data_object.video_url, :controls => true, :autoplay => true, :width => "540" }
-      %embed{:src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer",
+      %embed{:src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer", :type => "application/x-shockwave-flash",
         :height => "355", :flashvars => "file=#{data_object.video_url}&displayheight=355&usefullscreen=false&autostart=true&usecaptions=false", :width => "450"}
 
   -# for video/x-ms-wmv and video/mpeg
@@ -46,17 +46,18 @@
   - if data_object.data_type == DataType.flash || data_object.data_type == DataType.youtube
     - if File.extname(data_object.video_url).downcase == ".flv"
       %embed{:src => "/flvplayer.swf", :pluginspage => "http://www.macromedia.com/go/getflashplayer",
-             :height => "420",
+             :type => "application/x-shockwave-flash", :height => "420",
              :flashvars => "file=#{data_object.video_url}&displayheight=420&usefullscreen=false&autostart=true&usecaptions=false",
              :width => "540"}
     - else
-      %object{:data => data_object.video_url, :height => "420", :width => "540"}
+      %object{:data => data_object.video_url, :type => "application/x-shockwave-flash", :height => "420", :width => "540"}
         %param{:name => "flashvars", :value => "flickr_show_info_box=true"}
         %param{:name => "wmode", :value => "transparent"}
         %param{:name => "movie", :value => data_object.video_url}
         %param{:name => "bgcolor", :value => "#000000"}
         %param{:name => "allowFullScreen", :value => "true"}
         %embed{:src => data_object.video_url, :allowfullscreen => "true",
+               :type => "application/x-shockwave-flash",
                :height => "420",
                :flashvars => "flickr_show_info_box=true",
                :bgcolor => "#000000",

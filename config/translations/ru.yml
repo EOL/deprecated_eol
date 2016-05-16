@@ -14,6 +14,7 @@
 # Author: Eleferen
 # Author: Eroha
 # Author: Express2000
+# Author: Gas22original
 # Author: INS Pirat
 # Author: Ilnur efende
 # Author: Iluvatar
@@ -936,6 +937,7 @@ ru:
       page_title: Оставьте, пожалуйста, свой отзыв
   collections:
     download_taxa_data:
+      attribute_header: Свойство
       select_all_checkbox: Выбрать все
       collection_download_under_processing: Загрузка началась. Также на Вашу электронную
         почту будет выслано письмо, когда загрузка завершится.

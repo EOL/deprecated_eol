@@ -204,7 +204,7 @@ class Hierarchy < ActiveRecord::Base
   end
 
   def reindex
-    HierarchyReindexing.enqueue(self) if hierarchy_reindexings.pending.blank?
+    HierarchyReindexing.enqueue_unless_pending(which)
   end
 
   def insert_data_objects_taxon_concepts

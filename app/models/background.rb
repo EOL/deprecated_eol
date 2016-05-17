@@ -6,6 +6,20 @@ class Background
       Resque.size(queue)
     end
 
+    def in_queue?(queue, klass, key, value)
+      begin
+        ! Resque.peek(queue, 0, 20_000).
+                 select { |j| j["class"] == klass.to_s &&
+                   j["args"].first[key.to_s] &&
+                   j["args"].first[key.to_s] == value }.
+                 empty?
+      rescue => e
+        EOL.log("WARNING: Failed to read '#{queue}' queue: #{e.message}",
+          prefix: "!")
+        false
+      end
+    end
+
     def stop_top_images
       Resque::Job.destroy(:php, CodeBridge, {"cmd"=>"top_images"})
     end

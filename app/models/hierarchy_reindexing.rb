@@ -15,7 +15,7 @@ class HierarchyReindexing < ActiveRecord::Base
       true
     end
 
-    def self.enqueue(which)
+    def enqueue(which)
       HierarchyReindexing.with_master do
         HierarchyReindexing.where(hierarchy_id: which.id).delete_all
       end
@@ -23,7 +23,7 @@ class HierarchyReindexing < ActiveRecord::Base
       Resque.enqueue(HierarchyReindexing, id: @self.id, hierarchy_id: which.id)
     end
 
-    def self.perform(args)
+    def perform(args)
       Rails.logger.error("HierarchyReindexing: #{args.values.join(', ')}")
       HierarchyReindexing.with_master do
         if HierarchyReindexing.exists?(args["id"])

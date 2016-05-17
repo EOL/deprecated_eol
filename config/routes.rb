@@ -166,9 +166,6 @@ Eol::Application.routes.draw do
     end
   end
 
-  # The trait_bank :only list will grow, TODO:
-  resources :trait_bank, only: [ :show ]
-
   # Communities nested resources
   # TODO - these member methods want to be :put. Capybara always uses :get, so in the interests of simple tests:
   resources :communities, :except => [:index] do

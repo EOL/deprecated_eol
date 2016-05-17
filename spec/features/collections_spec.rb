@@ -16,7 +16,7 @@ def it_should_collect_item(collectable_item_path, collectable_item)
   end
 end
 
-# TODO - errr... you have heard of yeild and block-passing, right?
+# TODO - errr... you have heard of yield and block-passing, right?
 def continue_collect(user, url)
   current_url.should match /#{choose_collect_target_collections_path}/
   check 'collection_id_'

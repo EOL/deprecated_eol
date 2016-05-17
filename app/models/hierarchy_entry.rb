@@ -1,6 +1,7 @@
 # Represents an entry in the Tree of Life (see Hierarchy).  This is one of the major models of the EOL codebase, and
 # most data links to these instances.
 class HierarchyEntry < ActiveRecord::Base
+  BOGUS_SUFFIX_RE = /^[A-Z][a-z]+ [a-z]{3,}([A-Z0-9_]{2,})/
 
   belongs_to :hierarchy
   belongs_to :name
@@ -186,6 +187,21 @@ class HierarchyEntry < ActiveRecord::Base
   # hash. See SolrCore::HierarchyEntries for info on how those are populated,
   # but be warned: it's complex. :| TODO: add a for_hash scope...
   def to_hash
+    # NOTE the difference here. Kind of absurd... there is precicely zero
+    # clarity on where/why the difference is required. The clean form is
+    # lowercase, with spaces around parens (and proably other changes that I
+    # haven't noticed yet). I am *guessing* this was to make Solr searches
+    # cleaner in some way, though how it helps escapes me. Probably something to
+    # do with exact word matches.
+    canonical = name.clean_canonical_form
+    canonical_string = name.canonical_form.string
+
+    if canonical_string =~ BOGUS_SUFFIX_RE
+      suffix = $1
+      canonical.sub!(suffix, "")
+      canonical_string.sub!(suffix, "")
+    end
+
     hash = {
       id: id,
       common_name: synonyms && synonyms.select { |s| s.common_name? }.
@@ -201,8 +217,8 @@ class HierarchyEntry < ActiveRecord::Base
       vetted_id: vetted_id,
       published: published,
       name: SolrCore.string(name.string),
-      canonical_form: name.clean_canonical_form,
-      canonical_form_string: name.canonical_form.string
+      canonical_form: canonical,
+      canonical_form_string: canonical_string
     }
     if ancestor_names
       ancestor_names.keys.each do |key|

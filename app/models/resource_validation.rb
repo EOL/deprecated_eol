@@ -26,7 +26,7 @@ class ResourceValidation
         target: log,
         reason: 'auto_email_after_validation'
       )
-      Resque.enqueue(PrepareAndSendNotifications)
+      PrepareAndSendNotifications.enqueue
     end
   end
 end

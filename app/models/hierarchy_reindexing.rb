@@ -1,25 +1,42 @@
+# TODO: this class is NOT NEEDED. Refactor and remove; simply process by
+# hierarchy id.
 class HierarchyReindexing < ActiveRecord::Base
 
   belongs_to :hierarchy
   scope :pending, -> { where( completed_at: nil ) }
   @queue = 'notifications'
 
-  def self.enqueue(which)
-      @self = HierarchyReindexing.create( hierarchy_id: which.id )
-      Resque.enqueue(HierarchyReindexing, id: @self.id)
-  end
+  class << self
+    def enqueue_unless_pending(which)
+      pending = Background.in_queue?(:notifications, HierarchyReindexing,
+        "hierarchy_id", which.id)
+      return false if pending
+      HierarchyReindexing.enqueue(which)
+      true
+    end
 
-  def self.perform(args)
-    Rails.logger.error("HierarchyReindexing: #{args.values.join(', ')}")
-    if HierarchyReindexing.exists?(args["id"])
-        begin
-          HierarchyReindexing.find(args["id"]).run
-        rescue => e
-          Rails.logger.error "HierarchyReindexing (#{args["id"]}) FAILED: "\
-            " #{e.message}"
+    def enqueue(which)
+      HierarchyReindexing.with_master do
+        HierarchyReindexing.where(hierarchy_id: which.id).delete_all
+      end
+      @self = HierarchyReindexing.create(hierarchy_id: which.id)
+      Resque.enqueue(HierarchyReindexing, id: @self.id, hierarchy_id: which.id)
+    end
+
+    def perform(args)
+      Rails.logger.error("HierarchyReindexing: #{args.values.join(', ')}")
+      HierarchyReindexing.with_master do
+        if HierarchyReindexing.exists?(args["id"])
+            begin
+              HierarchyReindexing.find(args["id"]).run
+            rescue => e
+              Rails.logger.error "HierarchyReindexing (#{args["id"]}) FAILED: "\
+                " #{e.message}"
+            end
+        else
+           Rails.logger.error "HierarchyReindexing #{args["id"]} doesn't exist, skippped."
         end
-    else
-       Rails.logger.error "HierarchyReindexing #{args["id"]} doesn't exist, skippped."
+      end
     end
   end
 

@@ -6,6 +6,8 @@
         -# TODO: the class needs to be active if its toc_id was passed in...
         %li= link_to category.label, taxon_data_path(@taxon_page, toc_id: category.id), data: { toc_id: category.id }
       -# TODO: range data, which we do not have yet.
+      - if @page_traits.categories_need_other?
+        %li= link_to I18n.t(:other_category_subtab), taxon_data_path(@taxon_page, toc_id: "other")
       - unless @page_traits.glossary.blank?
         %li.glossary.start_section= link_to I18n.t(:glossary_subhead).html_safe, '#'
     -# TODO: This class needs to be start_section if the glossary tab is missing.
@@ -36,17 +38,20 @@
         traitbank_search_path: data_search_path(taxon_concept_id: @taxon_concept),
         traitbank_info_path: cms_page_path('traitbank')).html_safe
   - unless @page_traits.blank?
-    - @page_traits.categories.each do |category|
+    - categories = @page_traits.categories
+    - categories << :other if @page_traits.categories_need_other?
+    - categories.each do |category|
       .header_underlined
-        %h3= category.label
+        %h3= category == :other ? I18n.t(:other_category_subtab) : category.label
       - last_predicate_group = nil
       -# TODO: what is this for? Clearly it counts the number of predicates, but
       -# it's not clear to me (I haven't looked at JS, maybe it's there) what it
       -# is ultimately used for other than creating a class on the node...
       - type_index = 0
+      - toc_id = category == :other ? "other" : category.id
       %table.standard.categorized.data{ summary: I18n.t(:data_table_summary,
         taxon: @taxon_page.scientific_name),
-        data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => category.id } }
+        data: { more: I18n.t(:data_show_n_more_rows), 'toc_id' => toc_id } }
         - @page_traits.traits_by_category(category).each do |trait|
           - if trait.point.nil?
             %tr.data
@@ -97,8 +102,7 @@
             %td.source
               %span.source
                 - if trait.resource
-                  = link_to(trait.resource.content_partner.name,
-                    [trait.partner, trait.resource])
+                  = link_to(trait.resource.content_partner.name, trait.partner)
                 - else
                   = link_to("See original source", trait.source_url)
             %td.comment

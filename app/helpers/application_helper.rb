@@ -487,7 +487,7 @@ module ApplicationHelper
           hierarchy_entries = HierarchyEntry.sort_by_name(hierarchy_entries)
           # limit the array to $max_children and iterate
           hierarchy_entries[0...options[:max_children]].each do |hierarchy_entry|
-            haml_tag :li do
+            haml_tag :li, id: "node_#{hierarchy_entry.id}" do
               haml_tag :span, class: (options[:current] ? 'current' : nil) do
                 haml_concat navigation_node(hierarchy_entry, options)
               end

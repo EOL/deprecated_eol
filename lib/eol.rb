@@ -79,7 +79,7 @@ module EOL
     end
 
     def log_error(e)
-      EOL.log("ERROR: #{e.message}", prefix: "!")
+      EOL.log("ERROR: #{e.message.gsub(/IN \(.*\)/, "IN ([snip])")}", prefix: "!")
       i = 0
       @gem_regex = /(gems|bin)\/(actionpack|activerecord|resque|rake|activesupport|railties|sinatra|unicorn|journey|newrelic_rpm|rack)/
       skipped = 0

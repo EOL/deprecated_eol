@@ -8,6 +8,7 @@ class TaxonConcept
   # as the supercedure_id to see where it went. If you're calling this, you
   # probably care about both.
   class Merger
+    # TODO: RandomHierarchyImage should be scanned and updated, too!
     class << self
       def in_bulk(raw_merges)
         ids = Set.new
@@ -24,7 +25,6 @@ class TaxonConcept
           ids += [old_id, new_id]
         end
         ids.to_a.in_groups_of(10_000, false) do |group|
-          concepts +=
           TaxonConcept.with_titles.where(id: group).each do |concept|
             concepts[concept.id] = concept
           end

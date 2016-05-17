@@ -1,8 +1,9 @@
-# This is kind of lame. It would be best if we logged somewhere which keys have ACTUALLY been written for a given
-# taxon concept, but that's expensive and probably not worth the effort.  So we've extracted the logic here to
-# "remember" which keys (might) exist for a taxon concept and to allow us to clear them all with one interaction:
+# This is kind of lame. It would be best if we logged somewhere which keys have
+# ACTUALLY been written for a given taxon concept, but that's expensive and
+# probably not worth the effort.  So we've extracted the logic here to
+# "remember" which keys (might) exist for a taxon concept and to allow us to
+# clear them all with one interaction:
 class TaxonConceptCacheClearing
-
   attr_reader :taxon_concept
 
   def self.clear(taxon_concept)
@@ -105,5 +106,4 @@ private
       Rails.cache.delete(TaxonConcept.cached_name_for(key)) if cached_dato && cached_dato.guid == data_object.guid
     end
   end
-
 end

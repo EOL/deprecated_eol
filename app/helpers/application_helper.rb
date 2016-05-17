@@ -461,7 +461,7 @@ module ApplicationHelper
     ancestors = hierarchy_entry.ancestors
     if ancestor = ancestors.shift
       # using strings here instead of haml.concat because it saves up to 30% of the processing time
-      html = "<ul class='branch'><li>" +
+      html = "<ul class='branch'><li id='entry_#{hierarchy_entry.id}'>" +
         navigation_node(ancestor, options) +
         show_full_tree(hierarchy_entry, options) +
         "</li></ul>"
@@ -555,7 +555,7 @@ module ApplicationHelper
     seconds = seconds_diff
     "#{hours.to_s.rjust(2, '0')}:#{minutes.to_s.rjust(2, '0')}:#{seconds.to_s.rjust(2, '0')}"
   end
-    
+
 
   def format_time(given_seconds)
      Time.at(given_seconds).utc.strftime("%H:%M:%S")

@@ -461,7 +461,7 @@ module ApplicationHelper
     ancestors = hierarchy_entry.ancestors
     if ancestor = ancestors.shift
       # using strings here instead of haml.concat because it saves up to 30% of the processing time
-      html = "<ul class='branch'><li id='entry_#{hierarchy_entry.id}'>" +
+      html = "<ul class='branch' id='entry_#{hierarchy_entry.id}'><li>" +
         navigation_node(ancestor, options) +
         show_full_tree(hierarchy_entry, options) +
         "</li></ul>"

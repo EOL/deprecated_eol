@@ -20,7 +20,7 @@
     .copy
       %p= I18n.t(:names_explanation)
   = render 'menu'
-  = javascript_include_tag 'taxon_name'  
+  = javascript_include_tag 'taxon_name'
   .main_container
     .loader_image
     - if @hierarchy_entries.blank?
@@ -136,7 +136,7 @@
                     %tbody
                       - stored_classifications.each do |he_id_s|
                         - hierarchy_entry = HierarchyEntry.find(he_id_s)
-                        %tr 
+                        %tr
                           %td
                             %strong
                               = hierarchy_entry_display_attribution(hierarchy_entry, show_rank: false, show_link: true)

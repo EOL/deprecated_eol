@@ -39,7 +39,7 @@
       %PARAM{:name => "autoplay", :value => "true"}
       %PARAM{:name => "type", :value => "video/quicktime", :height => "400", :width => "500"}
       %PARAM{:name => "controller", :VALUE => "true"}
-      %EMBED{:src => "#{data_object.video_url}", :controller => "true", :height => "400", :width => "500", :scale => 'aspect',
+      %video{:src => "#{data_object.video_url}", :controller => "true", :height => "400", :width => "500", :scale => 'aspect',
               :autoplay => "true", :type => "video/quicktime", :pluginspage => "http://www.apple.com/quicktime/download/"}
 
   -# video/x-flv

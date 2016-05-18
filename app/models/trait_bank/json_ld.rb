@@ -29,8 +29,7 @@ class TraitBank::JsonLd
 
     def target(action_type, target_type, url)
       { "@type" => action_type,
-        "target" => { "@type" => target_type,
-                      "url" => url,
+        "target" => { "@type" => target_type, "url" => url,
                       "actionPlatform" => PLATFORMS } }
     end
 

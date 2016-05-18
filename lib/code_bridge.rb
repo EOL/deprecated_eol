@@ -3,6 +3,12 @@
 # The library is needed for the translation.
 class CodeBridge
   @queue = 'php' # Anything in the php queue will be handled by php, DUH.
+  # NO, this is not in the "harvesting" queue, BUT IT RUNS FROM THERE. *PHP*
+  # talks to this class as if it's in this queue. The @queue variable is only
+  # for CALLS, not for responses. Don't let that confuse you. I'm putting this
+  # here only to allow it to be a search result, so you'll see this message.
+  # @queue = 'harvesting'
+
 
   # This method is called when PHP talks to Ruby!
   def self.perform(args)

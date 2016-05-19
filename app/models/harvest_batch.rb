@@ -2,11 +2,10 @@ class HarvestBatch
   attr_reader :resources, :start_time
 
   def initialize(ids = [])
-    EOL.log_call
     @start_time = Time.now
     @resource_ids = Array(ids)
     @summary = []
-    EOL.log("Resources: #{@resource_ids.join(", ")}", prefix: ".") unless
+    EOL.log("HARVEST batch: #{@resource_ids.join(", ")}", prefix: ".") unless
       @resource_ids.empty?
   end
 
@@ -35,7 +34,6 @@ class HarvestBatch
   end
 
   def post_harvesting
-    EOL.log_call
     ActiveRecord::Base.with_master do
       any_worked = false
       resources = Resource.where(id: @resource_ids).
@@ -73,7 +71,7 @@ class HarvestBatch
         end
       end
       if any_worked
-        if CodeBridge.top_images_in_queue?
+        if Background.top_images_in_queue?
           EOL.log("'top_images' already enqueued in 'php'; skipping",
             prefix: ".")
         else

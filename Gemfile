@@ -150,7 +150,10 @@ gem "ar-octopus", "0.4.0", git: "https://github.com/pleary/octopus.git",
 gem "escape"
 gem "ezcrypto" # TODO: - remove this, I don"t think we use it.
 # Google API, for pushing notifications of changes:
-gem 'google-api-client', '~> 0.7'
+gem "google-api-client", "~> 0.7",
+  require: ["google/api_client",
+            "google/api_client/client_secrets",
+            "google/api_client/auth/installed_app"]
 # This is how we handle ALL of our HTML, you need to learn this.
 gem "haml", "4.0.4"
 # http://www.rubysec.com/advisories/OSVDB-96425/

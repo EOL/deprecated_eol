@@ -10,19 +10,6 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
   belongs_to :ancestor, class_name: HierarchyEntry.to_s, foreign_key: :ancestor_id
 
   class << self
-    # NOTE: This is very, very, VERY slow. It's using the PK, so that's not the
-    # problem... It's just that deletes are very slow. Don't call this. Seriously.
-    # You probably want to create a diff and delete only the things you need to.
-    def delete_hierarchy_id(hierarchy_id)
-      EOL.log_call
-      ids = in_hierarchy(hierarchy_id).
-        map { |r| "(#{r.hierarchy_entry_id}, #{r.ancestor_id})" }
-      return if ids.empty?
-      ids.in_groups_of(6400, false) do |set|
-        delete_set(set)
-      end
-    end
-
     def delete_set(id_pairs)
       return if id_pairs.empty?
       ids_array = id_pairs.to_a
@@ -32,6 +19,9 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
       end
     end
 
+    # This is how a hierarchy gets its ancestry_set. It's not very fast, but
+    # should only be used during harvesting (and it should be cached after it's
+    # called):
     def pks_in_hierarchy(hierarchy)
       pks = Set.new
       ids = hierarchy.hierarchy_entries.pluck(:id)
@@ -47,51 +37,6 @@ class HierarchyEntriesFlattened < ActiveRecord::Base
         end
       end
       pks
-    end
-
-    # scope :in_hierarchy, ->(hierarchy_id) { where("(hierarchy_entry_id, "\
-    #   "ancestor_id) IN (#{in_hierarchy_pks(hierarchy_id).to_sql})") }
-      # where("product_id IN (#{select("product_id").joins(:artist).where("artist.is_disabled = TRUE").to_sql})")
-
-    # NOTE: this does NOT "cascade": all of these descendants will be aware of
-    # THIS node, but NOT about all interceding nodes. i.e., if you run this on
-    # "Animalia", then "Carnivora" will know "Animalia" is an ancestor, and
-    # "Procyon" will know that "Animalia" is an ancestor, but THIS command will
-    # NOT make "Procyon" know that "Carnivora" is an ancestor!  You have been
-    # warned. On the positive side, this command is actually pretty dern fast, all
-    # things considered. ...Had to use raw SQL here, though, to get the
-    # performance. :\
-    def repopulate(entry)
-      EOL::Db.delete_all_batched(HierarchyEntriesFlattened,
-        ["ancestor_id = ?", entry.id])
-      with_master do
-        connection.execute(
-          "INSERT INTO #{table_name} "\
-          "(hierarchy_entry_id, ancestor_id) "\
-          "SELECT hierarchy_entries.id, #{entry.id} "\
-          "FROM hierarchy_entries "\
-          "WHERE lft BETWEEN #{entry.lft} + 1 AND #{entry.rgt} AND "\
-          "hierarchy_id = #{entry.hierarchy_id}")
-      end
-    end
-
-    # A TEMPORARY table is visible only to the current session, and is dropped
-    # automatically when the session is closed. This means that two different
-    # sessions can use the same temporary table name without conflicting with each
-    # other or with an existing non-TEMPORARY table of the same name.
-    # http://dev.mysql.com/doc/refman/5.1/en/create-table.html
-    def tmp_table
-      "TEMP_hierarchy_entries_flattened"
-    end
-
-    def create_tmp
-      drop_tmp
-      connection.execute("CREATE TEMPORARY TABLE #{tmp_table} "\
-        "SELECT * FROM #{table_name} WHERE 1=0")
-    end
-
-    def drop_tmp
-      connection.execute("DROP TEMPORARY TABLE IF EXISTS #{tmp_table}")
     end
   end
 

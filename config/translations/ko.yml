@@ -13,6 +13,7 @@
 # Author: Kurousagi
 # Author: Priviet
 # Author: Revi
+# Author: Ykhwong
 # Author: 아라
 ---
 ko:
@@ -4652,7 +4653,7 @@ ko:
   reply: 답글
   required: 필수
   revoke_full_curator_link: 해제
-  revoke_manager_link: 관리자 역활 해제
+  revoke_manager_link: 관리자 역할 해제
   revoke_permission: 해제
   removed_count_items_from_collection_notice:
     one: 항목 %{count}개를 이 모음집에서 제거했습니다.

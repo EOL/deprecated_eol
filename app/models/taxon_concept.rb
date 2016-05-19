@@ -468,7 +468,7 @@ class TaxonConcept < ActiveRecord::Base
   # italicized form.
 
   def to_s
-    "TaxonConcept ##{id}: #{title}"
+    "<TaxonConcept ##{id}: #{title_canonical}>"
   end
 
   # NOTE: We look for an ITIS entry first, because it is the most robust,

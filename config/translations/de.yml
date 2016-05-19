@@ -3944,8 +3944,7 @@ de:
   admin_translated_content_page_new_subheader: Eine Übersetzung für Seite <em>%{page_name}</em>
     hinzufügen
   admin_translated_content_page_update_successful_notice: Die Übersetzung auf %{language}
-    für die Seite <a href="#<span class=" notranslate"="">%{anchor}"><em>%{page_name}</em></a>
-    wurde aktualisiert.
+    für die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde aktualisiert.
   admin_translated_content_page_update_unsuccessful_error: Es ist leider ein Fehler
     aufgetreten, so dass die Übersetzung nicht aktualisiert werden konnte.
   admin_translated_news_item_active: Veröffentlicht
@@ -3970,8 +3969,7 @@ de:
     erforderlich.
   admin_translated_news_item_not_active: Unveröffentlicht
   admin_translated_news_item_update_successful_notice: Die Übersetzung auf %{language}
-    für die Seite <a href="#<span class=" notranslate"="">%{anchor}"><em>%{page_name}</em></a>
-    wurde aktualisiert.
+    für die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde aktualisiert.
   admin_translated_news_item_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten,
     so dass die Nachricht nicht aktualisiert werden konnte.
   admin_updated_config: Konfiguration für %{name} aktualisiert

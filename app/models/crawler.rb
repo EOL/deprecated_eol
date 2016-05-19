@@ -55,8 +55,7 @@ class Crawler
     def add_taxon_to_file(filename, concept)
       begin
         pj = PageJson.for(concept.id)
-        return unless pj && pj.ld["item"] && pj.ld["item"]["traits"] &&
-          ! pj.ld["item"]["traits"].empty?
+        return unless pj && pj.has_traits?
         # NOTE: inefficient to open and close the file for every taxon... but
         # this allows us to see partial results sooner, and we don't mind the
         # additional pause:

@@ -12,46 +12,28 @@ class CodeBridge
 
   # This method is called when PHP talks to Ruby!
   def self.perform(args)
-    EOL.log("RESQUE: CodeBridge#perform", prefix: ">")
-    EOL.log("Notifications queue: #{Resque.size("notifications")}", prefix: ".")
-    EOL.log("Data queue: #{Resque.size("data")}", prefix: ".")
-    EOL.log("Harvesting queue: #{Resque.size("harvesting")}", prefix: ".")
+    EOL.log("RESQUE: CodeBridge#perform (#{Resque.size("notifications")} jobs)",
+      prefix: ">")
     if args['cmd'] == 'check_status_and_notify'
-      EOL.log("Check and Notify", prefix: ".")
       with_error_handling(args) do
         ClassificationCuration.find(args['classification_curation_id']).check_status_and_notify
       end
     elsif args['cmd'] == 'publish_batch'
-      EOL.log("Publish Batch", prefix: ".")
       with_error_handling(args) do
         batch = HarvestBatch.new(Array(args['resource_ids']))
         batch.post_harvesting
         Resque.enqueue(CodeBridge, { 'cmd' => 'top_images' })
       end
     elsif args['cmd'] == 'denormalize_tables'
-      EOL.log("Denormalize", prefix: ".")
       batch = HarvestBatch.new
       with_error_handling(args) { batch.denormalize_tables }
     elsif args['cmd'] == 'clear_cache'
-      EOL.log("Clear Cache", prefix: ".")
       tc = TaxonConcept.find(args['taxon_concept_id'])
       if tc
         with_error_handling(args) { TaxonConceptCacheClearing.clear(tc) }
       end
     else
       EOL.log("ERROR: NO command responds to #{args['cmd']}", prefix: "*")
-    end
-  end
-
-  def self.top_images_in_queue?
-    begin
-      ! Resque.peek(:php, 0, 20_000).
-               select { |j| j["args"].first["cmd"] == "top_images" }.
-               empty?
-    rescue => e
-      EOL.log("WARNING: Failed to read 'php' queue: #{e.message}",
-        prefix: "!")
-      false
     end
   end
 

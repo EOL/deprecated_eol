@@ -111,8 +111,15 @@ class ClassificationCuration < ActiveRecord::Base
     moved_to && exemplar
   end
 
+  def type
+    return "split" if split?
+    return "merge" if merge?
+    return "move"
+  end
+
   def check_status_and_notify
-    EOL.log_call
+    EOL.log("#check_status_and_notify (#{type} by #{user.full_name})",
+      prefix: "#")
     if ready_to_complete? && ! already_complete?
       mark_as_complete # Nothing else should pick this up for work, now...
       if failed?
@@ -127,15 +134,20 @@ class ClassificationCuration < ActiveRecord::Base
 
   def reindex_taxa
     # Allowing large trees, here, since you shouldn't have gotten here unless it was okay.
-    TaxonConceptReindexing.reindex(moved_from, allow_large_tree: true) if source_id
+    reindex_taxon(moved_from) if source_id
     if target_id
-      TaxonConceptReindexing.reindex(moved_to, allow_large_tree: true)
+      reindex_taxon(moved_to)
     elsif hierarchy_entry_moves
-      taxon_concepts = hierarchy_entry_moves.collect{ |m| m.hierarchy_entry.taxon_concept }.compact.uniq
+      taxon_concepts = hierarchy_entry_moves.
+        map { |m| m.hierarchy_entry.taxon_concept }.compact.uniq
       taxon_concepts.each do |taxon_concept|
-        TaxonConceptReindexing.reindex(taxon_concept, allow_large_tree: true)
+        reindex_taxon(taxon_concept)
       end
     end
+  end
+
+  def reindex_taxon(which)
+    TaxonConceptReindexing.reindex(which, allow_large_tree: true)
   end
 
   def log_completion

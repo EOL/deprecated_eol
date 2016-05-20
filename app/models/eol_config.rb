@@ -2,8 +2,6 @@ class EolConfig < ActiveRecord::Base
 
   self.table_name = 'site_configuration_options'
 
-  after_create :clear_caches
-  after_update :clear_caches
   validates_uniqueness_of :parameter
 
   # Arbitrary string (stored in cache when there is no global site warning);

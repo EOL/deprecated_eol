@@ -6,7 +6,9 @@ class Crawler
     def enqueue
       Crawler::SiteMapIndex.create
       offset = 0
-      limit = 25_000
+      # GOOG's limit is actually 10MB, which we should check, but this will
+      # almost certainly not exceed that!
+      limit = 5_000
       ids = [] # Probably superfluous, but want to be safe because of #while
       begin
         ids = TaxonConcept.published.limit(limit).order(:id).offset(offset).pluck(:id)

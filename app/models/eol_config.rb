@@ -32,21 +32,26 @@ class EolConfig < ActiveRecord::Base
 
   # This one is a little different, because we need to handle nils with a cache.
   def self.global_site_warning
-    cache_name = cached_name_for('global_site_warning_clean')
+    cache_name = cached_name_for('global_site_warning')
     if Rails.cache.exist?(cache_name)
       warning = Rails.cache.read(cache_name)
-      return nil if warning == EMPTY_WARNING or warning.blank?
+      if warning == EMPTY_WARNING || warning.blank?
+        Rails.cache.delete(cache_name) # Shouldn't even be there.
+        return nil
+      end
       warning
     else
-      if EolConfig.exists?(parameter: 'global_site_warning')
-        warning = EolConfig.find_by_parameter('global_site_warning').value
-        warning = EMPTY_WARNING if warning.blank?
-        Rails.cache.write(cache_name, warning, expires_in: REFRESH_TIME)
-        return nil if warning == EMPTY_WARNING
-        warning
-      else
-        Rails.cache.write(cache_name, EMPTY_WARNING, expires_in: REFRESH_TIME)
-        return nil
+      EolConfig.with_master do
+        if EolConfig.exists?(parameter: 'global_site_warning')
+          warning = EolConfig.find_by_parameter('global_site_warning').value
+          warning = EMPTY_WARNING if warning.blank?
+          Rails.cache.write(cache_name, warning, expires_in: REFRESH_TIME)
+          return nil if warning == EMPTY_WARNING
+          warning
+        else
+          Rails.cache.write(cache_name, EMPTY_WARNING, expires_in: REFRESH_TIME)
+          return nil
+        end
       end
     end
   end
@@ -55,12 +60,12 @@ class EolConfig < ActiveRecord::Base
     return clear_global_site_warning if warning.blank?
     EolConfig.delete_all(parameter: 'global_site_warning')
     EolConfig.create!(parameter: "global_site_warning", value: warning)
-    Rails.cache.delete(cached_name_for('global_site_warning_clean'))
+    Rails.cache.delete(cached_name_for('global_site_warning'))
   end
 
   def self.clear_global_site_warning
     EolConfig.delete_all(parameter: 'global_site_warning')
-    Rails.cache.delete(cached_name_for('global_site_warning_clean'))
+    Rails.cache.delete(cached_name_for('global_site_warning'))
   end
 
   def self.method_missing(name, *args, &block)

@@ -4,7 +4,7 @@ class Crawler
 
   class << self
     def enqueue
-      Crawler::SiteMapIndex.create
+      Crawler::SiteMapIndexer.create
       offset = 0
       # GOOG's limit is actually 10MB, which we should check, but this will
       # almost certainly not exceed that!
@@ -37,18 +37,12 @@ class Crawler
       end
     end
 
-    def get_filename(options)
-      Rails.root.join("public",
-        "traitbank-#{options["from"]}-#{options["to"]}.jsonld").to_s
-    end
-
     def with_output_file(options, &block)
-      filename = get_filename(options)
-      File.unlink(filename) if File.exist?(filename)
-      File.open(filename, "a") { |f| f.puts(data_feed_opening) }
+      filename = Crawler::DataFeeder.create(options)
+      # TODO: all this File stuff belongs in its own Crawler::DataFeeder class.
       yield(filename)
-      File.open(filename, "a") { |f| f.puts(data_feed_closing) }
-      Crawler::SiteMapIndex.add_file(filename)
+      Crawler::DataFeeder.close(filename)
+      Crawler::SiteMapIndexer.add_sitemap(filename)
     end
 
     # NOTE: We're NOT adding taxa unless they have traits! This may not be
@@ -58,41 +52,11 @@ class Crawler
       begin
         pj = PageJson.for(concept.id)
         return unless pj && pj.has_traits?
-        # NOTE: inefficient to open and close the file for every taxon... but
-        # this allows us to see partial results sooner, and we don't mind the
-        # additional pause:
-        File.open(filename, "a") do |f|
-          f.puts(JSON.pretty_generate(pj.ld).gsub(/^/m, "      "))
-        end
+        Crawler::DataFeeder.add_json(pj.ld)
       rescue => e
         EOL.log("ERROR on page #{concept.id}:", prefix: "!")
         EOL.log_error(e)
       end
-    end
-
-    def data_feed_opening
-      context = {}
-      KnownUri.show_in_gui.each do |uri|
-        context[uri.name] = uri.uri
-      end
-      more = {}
-      TraitBank::JsonLd.add_default_context(more)
-      context.merge!(more["@context"])
-      %Q%
-      {
-        "@context": #{JSON.pretty_generate(context).gsub(/^/m, "      ")},
-        "@type": "DataFeed",
-        "name": "Company directory",
-        "dateModified": "#{Date.today}",
-        "dataFeedElement": [
-      %
-    end
-
-    def data_feed_closing
-      %Q%
-        ]
-      }
-      %
     end
   end
 end

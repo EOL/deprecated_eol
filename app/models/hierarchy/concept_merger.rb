@@ -100,7 +100,7 @@ class Hierarchy
         end
       end while entries.size > 0
       EOL.log("Completed comparing hierarchy #{hierarchy1.id} to "\
-        "#{hierarchy2.id}")
+        "#{hierarchy2.id} (new total: #{@merges.keys.count} matches)")
     end
 
     def get_page_from_solr(hierarchy1, hierarchy2, page)
@@ -204,7 +204,6 @@ class Hierarchy
       (new_id, old_id) = [tc_id1, tc_id2].sort
       @merges[old_id] = new_id
       @superceded[old_id] = new_id
-      EOL.log("MATCH: Concept #{old_id} => #{new_id}")
     end
 
     def merge_taxa

@@ -65,6 +65,29 @@ class TraitBank
       EOL::Sparql.is_uri?(uri)
     end
 
+    # NOTE: this is not used in the code, command-line only.
+    def pages_with_traits_in_clade(clade)
+      TraitBank.connection.query("SELECT COUNT(DISTINCT ?page) WHERE "\
+        "{ GRAPH <http://eol.org/traitbank> { ?page a eol:page . "\
+        "?page ?pred ?trait . ?trait a eol:trait . "\
+        "?page eol:has_ancestor <http://eol.org/pages/#{clade}> } } LIMIT 10").
+        first[:"callret-0"].to_i
+    end
+
+    # NOTE this may have duplicates if there are multi traits with diff names:
+    # NOTE: this is not used in the code, command-line only.
+    def pages_and_names_with_traits_in_clade(clade)
+      results = []
+      TraitBank.paginate("SELECT DISTINCT ?page ?name WHERE "\
+        "{ GRAPH <http://eol.org/traitbank> { ?page a eol:page . "\
+        "?page ?foo ?trait . ?trait a eol:trait . "\
+        "?page eol:has_ancestor <http://eol.org/pages/281> . "\
+        "?trait <http://rs.tdwg.org/dwc/terms/scientificName> ?name . } }") do |set|
+          set.each { |r| results << [r[:page].to_s, r[:name].to_s] }
+        end
+      results
+    end
+
     # Even 100 is too many for this paginate... throws a "generated SQL too
     # long" error. Sigh.
     def delete_resource(resource)

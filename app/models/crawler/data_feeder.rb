@@ -33,6 +33,7 @@ class Crawler::DataFeeder
         formatted = JSON.pretty_generate(json).gsub(/^/m, "      ")
         file.puts(formatted)
         file.puts(data_feed_closing)
+        formatted.size
       ensure
         file.close
       end

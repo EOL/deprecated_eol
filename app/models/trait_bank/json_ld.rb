@@ -66,21 +66,25 @@ class TraitBank::JsonLd
         feed["dwc:parentNameUsageID"] =
           KnownUri.taxon_uri(parent.taxon_concept_id)
       end
+      page_url = "http://eol.org/pages/#{concept.id}"
       feed["potentialAction"] =
-        target("EntryPoint", "Related", "http://eol.org/pages/#{concept.id}")
+        target("EntryPoint", "Related", page_url)
       feed["sameAs"] = concept.published_hierarchy_entries.map(&:outlink_url).compact
       feed["vernacularNames"] =
         concept.common_names.map { |tcn| tcn.to_json_hash }
       traits ||= PageTraits.new(concept.id).traits
-      feed["traits"] = traits.map { |trait| for_trait(trait) }
+      feed["traits"] = traits.map { |trait| for_trait(trait, page_url) }
       feed
     end
 
-    def for_trait(trait)
+    def for_trait(trait, page_url)
       trait_json = {
-        "@id" => trait.uri.to_s,
+        "@id" => trait.point ? # NOTE: should ALWAYS be one...
+          "#{page_url}/data##{trait.point.anchor}" :
+          trait.uri.to_s, # <- Shouldn't get here...
+        "eol:traitUri" => trait.uri.to_s,
         "@type" => trait.association? ? "eol:Association" : "dwc:MeasurementOrFact",
-        # These two are confusing, buuuuuut:
+        # These two method names are confusing, buuuuuut:
         "predicate" => trait.predicate_name,
         "dwc:measurementType" => trait.predicate,
         "value" => trait.value_name
@@ -89,7 +93,7 @@ class TraitBank::JsonLd
         trait_json[:units] = trait.units_name
       end
       if trait.point
-        trait_json["data_point_uri_id"] = trait.point.id
+        trait_json["eol:dataPointId"] = trait.point.id
       end
       trait.rdf.each do |rdf|
         predicate = rdf[:trait_predicate].dup.to_s

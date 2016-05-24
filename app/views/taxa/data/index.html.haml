@@ -58,6 +58,8 @@
               %th.predicate
                 %div.term
                   = "Could not find a data point for #{trait.uri}"
+                  -# TODO: this is useless. If there's no point, there will be
+                  -# errors later. Fix, one way or the other...
             - next
           - classes = []
           - unless trait.visible?

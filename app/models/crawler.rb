@@ -35,6 +35,7 @@ class Crawler
           sleep(1)
         end
       end
+      EOL.log("Crawler finished (through #{options["to"]}).")
     end
 
     def with_output_file(options, &block)

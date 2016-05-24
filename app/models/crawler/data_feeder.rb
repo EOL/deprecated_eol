@@ -21,7 +21,7 @@ class Crawler::DataFeeder
     def add_json(name, json)
       file = File.open(name, "r+")
       begin
-        pos_stack = [0, 0]
+        pos_stack = [0, 0, 0]
         content_stack = ["", ""]
         file.each do |line|
           unless file.eof?
@@ -32,7 +32,9 @@ class Crawler::DataFeeder
           end
         end
         file.seek(pos_stack.first, IO::SEEK_SET)
-        file.puts("#{content_stack.first.chomp},")
+        prev_content = content_stack.first.chomp!
+        prev_content += "," unless prev_content[-1] == "["
+        file.puts("#{prev_content}")
         formatted = JSON.pretty_generate(json).gsub(/^/m, "    ")
         file.puts(formatted)
         file.puts(data_feed_closing)

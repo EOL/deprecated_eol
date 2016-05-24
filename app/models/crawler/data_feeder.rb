@@ -21,9 +21,10 @@ class Crawler::DataFeeder
     def add_json(name, json)
       file = File.open(name, "r+")
       begin
-        EOL.log("TODO remove me - add_json open")
+        EOL.log("TODO remove me - add_json open 1")
         pos_stack = [0, 0]
         content_stack = ["", ""]
+        EOL.log("TODO remove me - add_json each 2")
         file.each do |line|
           unless file.eof?
             pos_stack.push(file.pos)
@@ -32,13 +33,18 @@ class Crawler::DataFeeder
             content_stack.shift
           end
         end
+        EOL.log("TODO remove me - add_json seek 3")
         file.seek(pos_stack.first, IO::SEEK_SET)
+        EOL.log("TODO remove me - add_json puts 4")
         file.puts("#{content_stack.first.chomp},")
+        EOL.log("TODO remove me - add_json formatting 5")
         formatted = JSON.pretty_generate(json).gsub(/^/m, "    ")
         file.puts(formatted)
         file.puts(data_feed_closing)
         EOL.log("TODO remove me - add_json closing, size")
         formatted.size
+      rescue => e
+        raise e
       ensure
         EOL.log("TODO remove me - add_json close")
         file.close

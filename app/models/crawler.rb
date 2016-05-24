@@ -30,7 +30,7 @@ class Crawler
         taxa.each_with_index do |concept, index|
           size = add_taxon_to_file(filename, concept)
           EOL.log("#{index}/#{count}: #{concept.id} (#{size})",
-            prefix: ".") if size > 0 && index % 100 == 0
+            prefix: ".") # TODO-remove_this if size > 0 && index % 100 == 0
           # Minimize load on production:
           sleep(1)
         end

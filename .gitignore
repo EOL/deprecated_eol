@@ -63,6 +63,8 @@ doc/app
 lang/tmp.yml
 public/feeds
 public/*csv
+public/*jsonld
+public/*xml
 public/files/solr_import_file_*.csv
 public/javascripts/*packaged.js
 public/opensearch.xml

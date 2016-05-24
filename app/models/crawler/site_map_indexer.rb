@@ -20,6 +20,7 @@ class Crawler::SiteMapIndexer
 
     # NOTE: Only works if the file is in /public.
     def add_sitemap(file)
+      EOL.log("TODO: remove me, but: #add_sitemap (#{file})")
       filename = File.basename(file)
       mtime = File.mtime(file)
       doc = File.open(@filename) do |f|

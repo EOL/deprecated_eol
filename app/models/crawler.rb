@@ -40,7 +40,6 @@ class Crawler
 
     def with_output_file(options, &block)
       filename = Crawler::DataFeeder.create(options)
-      # TODO: all this File stuff belongs in its own Crawler::DataFeeder class.
       yield(filename)
       Crawler::DataFeeder.close(filename)
       Crawler::SiteMapIndexer.add_sitemap(filename)

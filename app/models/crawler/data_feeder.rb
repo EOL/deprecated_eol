@@ -12,6 +12,7 @@ class Crawler::DataFeeder
         f.puts(data_feed_opening)
         f.puts(data_feed_closing)
       end
+      name
     end
 
     # NOTE: inefficient to open and close the file for every taxon... but
@@ -34,6 +35,7 @@ class Crawler::DataFeeder
       ensure
         file.close
       end
+      pj.ld.to_s.size
     end
 
     def close(name)

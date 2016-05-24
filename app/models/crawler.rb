@@ -22,15 +22,15 @@ class Crawler
         return EOL.log("Crawler: FAILED... from/to missing: #{options.inspect}",
           prefix: "!")
       end
-      EOL.log("Crawler: (#{options["from"]}-#{options["to"]})", prefix: "C")
+      EOL.log("Crawler start: (#{options["from"]}-#{options["to"]})", prefix: "C")
       taxa = TaxonConcept.published.
                where(["id >= ? AND id <= ?", options["from"], options["to"]])
       with_output_file(options) do |filename|
         count = taxa.count
         taxa.each_with_index do |concept, index|
-          EOL.log("#{index}/#{count}: #{concept.id} (#{pj.ld.to_s.size})",
-            prefix: ".") if index % 100 == 0
-          add_taxon_to_file(filename, concept)
+          size = add_taxon_to_file(filename, concept)
+          EOL.log("#{index}/#{count}: #{concept.id} (#{size})",
+            prefix: ".") if size > 0 && index % 100 == 0
           # Minimize load on production:
           sleep(1)
         end
@@ -52,10 +52,11 @@ class Crawler
       begin
         pj = PageJson.for(concept.id)
         return unless pj && pj.has_traits?
-        Crawler::DataFeeder.add_json(pj.ld)
+        Crawler::DataFeeder.add_json(filename, pj.ld)
       rescue => e
         EOL.log("ERROR on page #{concept.id}:", prefix: "!")
         EOL.log_error(e)
+        0
       end
     end
   end

@@ -37,8 +37,8 @@ protected
       @taxon_data.topics
       translation_vars[:topics] = @taxon_data.topics.join("; ") unless @taxon_data.topics.empty?
     elsif @page_traits && ! @page_traits.categories.blank?
-      translation_vars[:topics] = @page_traits.categories.map { |c| c.label }.
-        join("; ")
+      translation_vars[:topics] = @page_traits.categories.
+        select { |c| c.respond_to?(:label) }.map { |c| c.label }.join("; ")
     end
     I18n.t("meta_description#{translation_vars[:topics] ? '_with_topics' : '_no_data'}", translation_vars)
   end

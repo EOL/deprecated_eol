@@ -20,7 +20,7 @@ class Crawler::DataFeeder
     # additional pause (because our queries slow down the site):
     def add_json(name, json)
       file = File.open(name, "r+")
-      begin
+      out = begin
         last_line = 0
         prev_line = 0
         file.each do |_|
@@ -30,12 +30,13 @@ class Crawler::DataFeeder
           end
         end
         file.seek(prev_line, IO::SEEK_SET)
-        file.puts(JSON.pretty_generate(json).gsub(/^/m, "      "))
+        formatted = JSON.pretty_generate(json).gsub(/^/m, "      ")
+        file.puts(formatted)
         file.puts(data_feed_closing)
       ensure
         file.close
       end
-      pj.ld.to_s.size
+      json.to_s.size
     end
 
     def close(name)

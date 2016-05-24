@@ -42,7 +42,7 @@ class HarvestBatch
         url = "http://eol.org/content_partners/"\
           "#{resource.content_partner_id}/resources/#{resource.id}"
         @summary << { title: resource.title, url: url }
-        EOL.log("POST-HARVEST: #{resource.title}", prefix: "H")
+        EOL.log("POST-HARVEST: #{resource.title} (#{resource.id})", prefix: "H")
         unless resource.ready_to_publish?
           status = resource.resource_status.label
           EOL.log("SKIPPING (status #{status}): "\
@@ -59,13 +59,15 @@ class HarvestBatch
           else
             resource.preview
           end
-          EOL.log("POST-HARVEST COMPLETE: #{resource.title}", prefix: "H")
+          EOL.log("POST-HARVEST COMPLETE: #{resource.title} (#{resource.id})",
+            prefix: "H")
           any_worked = true
           @summary.last[:status] = "completed"
         # TODO: there are myriad specific errors that harvesting can throw; catch
         # them here.
         rescue => e
-          EOL.log("POST-HARVEST FAILED: #{resource.title}", prefix: "H")
+          EOL.log("POST-HARVEST FAILED: #{resource.title} (#{resource.id})",
+            prefix: "H")
           EOL.log_error(e)
           @summary.last[:status] = "FAILED"
         end

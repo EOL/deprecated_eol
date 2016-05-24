@@ -22,8 +22,8 @@ class Crawler::DataFeeder
       file = File.open(name, "r+")
       begin
         EOL.log("TODO remove me - add_json open")
-        pos_stack = [0, 0, 0]
-        content_stack = ["", "", ""]
+        pos_stack = [0, 0]
+        content_stack = ["", ""]
         file.each do |line|
           unless file.eof?
             pos_stack.push(file.pos)

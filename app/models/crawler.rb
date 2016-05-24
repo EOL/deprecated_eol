@@ -30,7 +30,7 @@ class Crawler
         taxa.each_with_index do |concept, index|
           size = add_taxon_to_file(filename, concept)
           EOL.log("#{index}/#{count}: #{concept.id} (#{size})",
-            prefix: ".") # TODO-remove_this if size > 0 && index % 100 == 0
+            prefix: ".") if size && size > 0 && index % 100 == 0
           # Minimize load on production:
           sleep(1)
         end
@@ -39,21 +39,16 @@ class Crawler
     end
 
     def with_output_file(options, &block)
-      EOL.log("TODO remove me - with_output_file create")
       filename = Crawler::DataFeeder.create(options)
       yield(filename)
-      EOL.log("TODO remove me - with_output_file after yield")
       Crawler::DataFeeder.close(filename)
-      EOL.log("TODO remove me - with_output_file after close (#{filename})")
       Crawler::SiteMapIndexer.add_sitemap(filename)
-      EOL.log("TODO remove me - with_output_file after sitemap (#{filename})")
     end
 
     # NOTE: We're NOT adding taxa unless they have traits! This may not be
     # desireable... we might want to know the names and the sameAs's for the
     # page. ...TODO: choose?
     def add_taxon_to_file(filename, concept)
-      EOL.log("TODO remove me - add_taxon_to_file (#{filename})")
       begin
         pj = PageJson.for(concept.id)
         return unless pj && pj.has_traits?

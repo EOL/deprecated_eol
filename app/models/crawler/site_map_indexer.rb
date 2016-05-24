@@ -20,7 +20,6 @@ class Crawler::SiteMapIndexer
 
     # NOTE: Only works if the file is in /public.
     def add_sitemap(file)
-      EOL.log("TODO: remove me, but: #add_sitemap (#{file})")
       filename = File.basename(file)
       mtime = File.mtime(file)
       doc = File.open(@filename) do |f|
@@ -29,22 +28,18 @@ class Crawler::SiteMapIndexer
           cfg.noblanks
         end
       end
-      EOL.log("TODO remove me - add_sitemap (opened doc)")
       doc.css("//sitemap/loc").each do |loc|
         # puts("Content: /#{loc.content}/")
         # puts("We should remove this") if loc.content =~ /\/#{filename}$/
         loc.parent.remove if loc.content =~ /\/#{filename}$/
       end
-      EOL.log("TODO remove me - add_sitemap (removed parents)")
       Nokogiri::XML::Builder.with(doc.at('sitemapindex')) do |xml|
         xml.sitemap do
           xml.loc "http://#{Rails.configuration.site_domain}/#{filename}"
           xml.lastmod mtime.strftime("%FT%T%z")
         end
       end
-      EOL.log("TODO remove me - add_sitemap (added entry, writing...)")
       File.open(@filename, "w") { |f| f.puts doc.to_xml }
-      EOL.log("TODO remove me - add_sitemap (done)")
     end
   end
 end

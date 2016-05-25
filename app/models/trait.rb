@@ -119,7 +119,7 @@ class Trait
 
   def target_taxon_name
     page = @inverse ? subject_page : object_page
-    page.title_canonical_italicized
+    page.try(:title_canonical_italicized) || "[NAME MISSING]"
   end
 
   def target_taxon_uri

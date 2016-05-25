@@ -117,20 +117,23 @@ class Trait
     @subject_page ||= find_associated_taxon(TraitBank.subject_page_uri)
   end
 
+  def target_taxon
+    @target_taxon ||= @inverse ? subject_page : object_page
+  end
+
   def target_taxon_name
-    page = @inverse ? subject_page : object_page
-    page.title_canonical_italicized
+    target_taxon.title_canonical_italicized
   end
 
   def target_taxon_uri
-    "http://eol.org/pages/#{(@inverse ? subject_page : object_page).id}"
+    "http://eol.org/pages/#{target_taxon.id}"
   end
 
   def find_associated_taxon(which)
     str = rdf_value(which).try(:to_s)
-    return nil if str.nil?
+    return MissingConcept.new(which) if str.nil?
     id = str.sub(TraitBank.taxon_re, "\\2")
-    return nil if id.blank?
+    return MissingConcept.new(str) if id.blank?
     tc = @source_set.taxa[id.to_i]
     if tc.nil?
       tc = TaxonConcept.find(id)

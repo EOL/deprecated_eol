@@ -13,6 +13,7 @@ class DataFileMaker
       if DataSearchFile.exists?(args["data_file_id"])
         begin
           DataSearchFile.find(args["data_file_id"]).build_file
+          move_user_files_to_bottom(args["data_file_id"])
         rescue => e
           EOL.log_error(e)
         end
@@ -24,4 +25,15 @@ class DataFileMaker
     EOL.log("Done #{args["data_file_id"]}.", prefix: ".")
   end
 
+  private
+    def self.move_user_files_to_bottom(data_file_id)
+      user_id = DataSearchFile.find(data_file_id).user_id rescue nil
+      if user_id
+        user_pending_files_ids = DataSearchFile.pending.where(user_id: user_id).map(&:id)
+        user_pending_files_ids.each do |file_id|
+          found = Resque.dequeue(DataFileMaker,data_file_id: file_id)
+          Resque.enqueue(DataFileMaker,data_file_id: file_id) unless found.zero?
+        end
+      end
+    end
 end

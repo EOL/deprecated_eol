@@ -925,7 +925,7 @@ gl:
       attribute_header: Atributo
       select_all_checkbox: Seleccionar todo
       collection_download_under_processing: Agora estase procesando a descarga da
-        colección. Cando se complete, enviaráselle un correco electrónico
+        colección. Cando se complete, recibirás un correco electrónico
       user_downloaded_collection: Descarga de datos de %{collection_name}
     show:
       meta_description_default: Unha colección da Enciclopedia da vida titulada %{collection_name}.
@@ -1560,11 +1560,11 @@ gl:
         de descargas de datos do teu perfil</a>.
       header: A túa descarga está lista!
     collection_download_ready:
-      subject: Os atributos seleccionados da súa colección están listos para a súa
-        descarga
-      message: Pode ver esta e outras descargas visitando a <a href='%{download_link}'>lapela
-        de descargas de datos no seu perfil</a>.
-      header: A súa descarga de colección está lista.
+      subject: Os atributos seleccionados da túa colección na EOL están listos para
+        a súa descarga
+      message: Podes ver esta e outras descargas visitando a <a href='%{download_link}'>lapela
+        de descarga de datos no teu perfil</a>.
+      header: A descarga da túa colección está lista!
   sessions:
     new:
       login_with_facebook_assistive: Accede á EOL mediante as túas credenciais do
@@ -1654,17 +1654,17 @@ gl:
             de %{hierarchy_provider} na Enciclopedia da vida
           meta_description_no_data: Non hai feitos dispoñibles para %{scientific_name}
             segundo a clasificación de %{hierarchy_provider} na Enciclopedia da vida.
-            EOL invítao a achegar feitos sobre %{scientific_name}.
+            A EOL convídate a achegar feitos sobre %{scientific_name}.
           meta_description_with_common_name: Feitos sobre %{preferred_common_name},
-            coñecido científicamente como %{scientific_name} clasificado por %{hierarchy_provider}
-            na Enciclopedia da Vida.
+            cientificamente coñecido como %{scientific_name}, segundo a clasificou
+            %{hierarchy_provider}, na Enciclopedia da vida.
           meta_description_with_common_name_no_data: Non hai feitos dispoñibles para
-            %{preferred_common_name} tamén coñecido como %{scientific_name} segundo
-            a clasificación de %{hierarchy_provider} na Enciclopedia da vida. EOL
-            invítao a contribuír con feitos sobre %{preferred_common_name} (%{scientific_name}).
+            %{preferred_common_name}, tamén coñecido como %{scientific_name}, segundo
+            a clasificou %{hierarchy_provider}, na Enciclopedia da vida. A EOL convídate
+            a achegar feitos sobre %{preferred_common_name} (%{scientific_name}).
           meta_description_with_common_name_with_topics: Feitos sobre %{preferred_common_name}
             segundo a clasificación de %{hierarchy_provider}? Datos de trazos sobre
-            %{scientific_name} incluíndo información sobre %{topics}.
+            %{scientific_name}, incluíndo información sobre %{topics}.
           meta_title: Feitos sobre %{scientific_name} segundo a clasificación de %{hierarchy_provider}
           meta_title_with_common_name: Feitos sobre %{preferred_common_name} (%{scientific_name}
             segundo a clasificación de %{hierarchy_provider})
@@ -4711,7 +4711,7 @@ gl:
     durante %{period} horas
   currently_running_harvesting: Actualmente hai unha colleita en execución
   currently_in_eol: Actualmente na Enciclopedia da vida
-  create_download_data_file: Crear Ficheiro
+  create_download_data_file: Crear o ficheiro
   institutional_sponsors: Patrocinadores institucionais
   currently_published: publicado actualmente
   daily: Diariamente
@@ -4786,9 +4786,9 @@ gl:
   data_row_add_exemplar_button: engadir á vista xeral
   data_row_remove_exemplar_button: eliminar da vista xeral
   data_row_additional_detail_alt: Detalles adicionais
-  data_row_additional_detail_show_alt: Amosar detalles adicionais
-  data_row_additional_detail_hide_alt: Agochar detalles adicionais
-  data_row_additional_detail_loading_alt: Cargando detalles adicionais
+  data_row_additional_detail_show_alt: Mostrar os detalles adicionais
+  data_row_additional_detail_hide_alt: Agochar os detalles adicionais
+  data_row_additional_detail_loading_alt: Cargando os detalles adicionais
   data_row_hide_button: Agochar a ringleira
   data_row_unhide_button: Descubrir a ringleira
   data_search:
@@ -4796,7 +4796,7 @@ gl:
     form:
       equivalent_attributes: 'Valores equivalentes:'
       equivalent_values: 'Valores equivalentes:'
-      header_assistive: Procurar formulario
+      header_assistive: Formulario de procuras
       input_summary_intro: Opcións de procura seleccionadas
       new_search_link: Comezar unha nova busca
       sort_header: Ordenar os resultados
@@ -4887,7 +4887,7 @@ gl:
   do_you_want_to_be_a_curator: Queres converterte nun conservador
   download_wav_file: Descargar o ficheiro WAV
   download_data: Descargar os datos
-  download_collection_data: Descargar datos
+  download_collection_data: Descargar os datos
   dublin_core: Dublin Core
   duplicate_comment_warning: Non se gardou o comentario. Semella que xa publicaches
     este comentario. Premiches no botón "Publicar o comentario" dúas veces?
@@ -6065,7 +6065,7 @@ gl:
   resource_import_frequency:
     weekly: Semanalmente
     monthly: Mensualmente
-    bimonthly: Bimensual
+    bimonthly: Bimensualmente
     quarterly: Trimestralmente
     hours_with_count:
       one: '%{count} hora'
@@ -6317,7 +6317,7 @@ gl:
   submitted_colon: 'Enviado:'
   suggested_result_page_id: 'ID da páxina de resultados suxeridos:'
   suggested_results_avg: Media dos resultados suxeridos
-  suggested_vocab_remove: eliminar recomendación
+  suggested_vocab_remove: eliminar a recomendación
   summary_thumbnail_title: 'Resumo:'
   supplier: Provedor
   supplier_allcaps: 'PROVEDOR:'

@@ -52,13 +52,10 @@ class HarvestBatch
         end
         begin
           resource.hierarchy.flatten
-          # TODO (IMPORTANT) - somewhere in the UI we can trigger a publish on a
-          # resource. Make it run #publish (in the background)! YOU WERE HERE
-          if resource.auto_publish?
-            resource.publish
-          else
-            resource.preview
-          end
+          # TODO - somewhere in the UI we can trigger a publish on a resource.
+          # Make it run #publish (in the background) NOTE: this used to check
+          # for preview vs. publish, but we don't want to preview ever, anymore.
+          resource.publish
           EOL.log("POST-HARVEST COMPLETE: #{resource.title} (#{resource.id})",
             prefix: "H")
           any_worked = true

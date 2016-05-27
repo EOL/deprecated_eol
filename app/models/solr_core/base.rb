@@ -60,6 +60,15 @@
       @connection.commit
     end
 
+    def delete_items(items)
+      items = Array(items)
+      begin
+        delete_by_ids(items.map(&:id))
+      rescue RSolr::Error::Http => e
+        # Doesn't *really* matter, move along.
+      end
+    end
+
     def delete(query)
       @connection.delete_by_query(query)
       # TODO: error-checking
@@ -92,7 +101,7 @@
     # NOTE: this will NOT work on items with composite primary keys.
     def reindex_items(items)
       items = Array(items)
-      delete_by_ids(items.map(&:id))
+      delete_items(items)
       begin
         @connection.add(items.map(&:to_hash))
       rescue RSolr::Error::Http => e

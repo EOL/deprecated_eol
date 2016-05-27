@@ -62,7 +62,7 @@ class Trait
       predicate: predicate.to_s,
       object: value_name,
       unit_of_measure: units_name,
-      resource_id: resource.id,
+      resource_id: resource.try(:id),
       user_added_data_id: nil,
       predicate_known_uri_id: predicate_uri.is_a?(KnownUri) ?
         predicate_uri.id : nil,
@@ -262,6 +262,7 @@ class Trait
     @predicate_uri ||= rdf_to_uri(@predicate)
   end
 
+  # TODO: we need a MissingSource...
   def resource
     return @resource if @resource
     return nil unless source_id && sources

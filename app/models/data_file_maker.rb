@@ -12,8 +12,8 @@ class DataFileMaker
     DataSearchFile.with_master do
       if DataSearchFile.exists?(args["data_file_id"])
         begin
-          DataSearchFile.find(args["data_file_id"]).build_file
           move_user_files_to_bottom(args["data_file_id"])
+          DataSearchFile.find(args["data_file_id"]).build_file
         rescue => e
           EOL.log_error(e)
         end

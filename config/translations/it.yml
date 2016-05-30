@@ -731,11 +731,11 @@ it:
         news_in_preferred_language: visualizza le notizie nella lingua preferita
         notification_settings: Impostazioni notifiche
         notification_settings_more: Configurare le impostazioni di notifica.
-        open_authentications: Account collegati
+        open_authentications: Utenze connesse
         open_authentications_more: Gestisci gli account di terze parti che puoi usare
           per accedere ad EOL. <a href="%{open_authentications_url}">Modifica account
           collegati</a>.
-        open_authentications_connected_accounts: I tuoi account collegati
+        open_authentications_connected_accounts: Le tue utenze connesse
         requested_curator_level: La tua richiesta di diventare %{curator_level_with_indefinite_article}
           è in sospeso.
         requested_curator_level_id_more: Scegli <em>Assistente Curatore</em> se non
@@ -2310,7 +2310,7 @@ it:
         connected_last_verified: Collegato; ultima verifica %{time_passed} fa;
         connected_unverified: Collegato; non verificato;
         not_connected: Non collegato;
-        page_title: Account collegati
+        page_title: Utenze connesse
         page_description: Gestisci le connessioni agli account di terze parti che
           è possibile utilizzare per accedere ad EOL.
         return_link: Ritorna alla modifica del profilo.

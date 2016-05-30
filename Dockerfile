@@ -18,7 +18,8 @@ COPY config/docker/nginx-sites.conf /etc/nginx/sites-enabled/default
 COPY config/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY . /app
-RUN bundle install
+RUN bundle install --without test test_dev development staging staging_dev \
+    bocce_demo bocce_demo_dev staging_dev_cache acceptance
 
 RUN mkdir -p /app/public/uploads/data_search_files && \
     mkdir -p /app/public/uploads/datasets && \

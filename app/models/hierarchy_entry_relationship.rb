@@ -1,5 +1,6 @@
 # Used during harvesting (only). These eventually make their way to Solr, but
-# that's it. ...Why?
+# that's it. We use Solr for the matching queries, because it's "faster than
+# SQL" (IMO, only because we don't index/denormalize in SQL properly, but hey.)
 class HierarchyEntryRelationship < ActiveRecord::Base
   self.primary_keys = :hierarchy_entry_id_1, :hierarchy_entry_id_2
 

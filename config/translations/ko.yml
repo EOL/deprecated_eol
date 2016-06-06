@@ -151,6 +151,7 @@ ko:
         total_associations: 협회
         total_measurement_types: 측정 방식
         total_user_added_data: 사용자가 추가한 데이터
+        total_data_records: 데이터 레코드
       forum:
         forum_category_id: 분류
         name: 포럼 이름
@@ -777,6 +778,8 @@ ko:
     new:
       page_title: 피드백을 남겨주세요
   collections:
+    download_taxa_data:
+      select_all_checkbox: 모두 선택
     show:
       meta_description_default: '%{collection_name} 제목의 생명체 백과사전 모음집입니다.'
       meta_description_default_focus_collection: '%{collection_name} 제목의 생명체 백과사전
@@ -914,6 +917,7 @@ ko:
       page_title: 통계
     data:
       menu_link: 데이터
+      page_header: 데이터 통계
       page_title: 통계
   forums:
     forums_heading: EOL 포럼
@@ -981,7 +985,12 @@ ko:
       delete_successful: 스레드를 성공적으로 삭제했습니다
       delete_failed_not_empty: 스레드가 비어있지 않으므로 스레드를 삭제할 수 없습니다
   known_uris:
+    add_a_relationship: 관계 추가
     relationships: 관계
+    uri_placeholder_text: '예: http://purl.org/dc/terms/contributor'
+    name_placeholder_text: '예: 기여자'
+    ontology_information_url_placeholder_text: '예: http://dublincore.org/documents/dcmi-terms/'
+    ontology_source_url_placeholder_text: '예: http://dublincore.org/2012/06/14/dcterms.rdf'
     preferred_for_equivalence_group: 선호
     select: 선택
   layouts:
@@ -1947,8 +1956,10 @@ ko:
     add_data_header: 자신이 가진 데이터를 기여
     edit_data_header: 데이터 편집
     add_metadata_header: 추가 정보
+    edit_metadata_header: 메타데이터 편집
     create_successful: 데이터가 성공적으로 추가 되었습니다
     delete_successful: 데이터가 지워졌습니다
+    new_field: 새 필드...
     new_value: 값
   data_search_files:
     from: 가장 낮은 값
@@ -2911,6 +2922,7 @@ ko:
   add_a_new_topic_area: 새 주제 영역 추가
   add_a_new_user: 새 사용자 추가
   add_a_taxon_association_label: 분류 연관 추가
+  add_another_metadata_field: 새 메타데이터 필드 추가
   add_article_instead: 대신 문서 추가
   add_article_to_page_button: 문서 추가
   add_association_submit_button: 연관 추가
@@ -3124,6 +3136,7 @@ ko:
     one: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
     other: 기준과 일치하는 용어 총 %{count}개를 찾았습니다.
   assistive_overview_header: 둘러보기
+  assistive_data_header: 사실과 정보
   assistive_media_header: 미디어
   assistive_details_header: 자세한 사항
   assistive_literature_header: 문헌
@@ -3176,6 +3189,7 @@ ko:
   belongs_in_count_communities:
     one: 공동체 %{count}개에 속함
     other: 공동체 %{count}개에 속함
+  beta_warning_header: 사용자는 베타 테스트 기능을 사용하고 있습니다
   beta_warning_note_header: '참고:'
   bhl: 생물 다양성 유산 도서관
   bhl_partner_footer: 생물 다양성 유산 도서관 방문하기
@@ -3718,6 +3732,7 @@ ko:
   your_watch_collection: 내 주시문서 목록
   current_language: '언어: %{iso_code}'
   currently_in_eol: 현재 생명의 백과사전에서
+  create_download_data_file: 파일 만들기
   currently_published: 현재 게시함
   daily: 매일
   darwin_core: 다윈 코어
@@ -4478,6 +4493,7 @@ ko:
   object: 개체
   object_curated: 개체를 큐레이트했습니다.
   objects_curated: 개체 큐레이트함
+  object_removed: (이 오브젝트는 데이터베이스에서 제거되었습니다)
   object_status: 개체 상태
   object_status_all_option: 모두
   object_status_trusted_option: 신뢰할 수 있음
@@ -4622,6 +4638,7 @@ ko:
   quarterly: 분기별
   rails_databases: Rails 데이터베이스
   rails_environment: Rails 환경
+  range: 범위
   rank_recognized_by_agent: '%{agent}에 의해 인정한 %{rank}'
   rank_recognized_by_from_source: '%{source}에 %{agent}에 의해 인정한 %{rank}'
   rank_recognized_by_agent_colon: '%{agent}에 의해 인정한 <b>%{rank}</b>:'
@@ -5029,6 +5046,7 @@ ko:
     one: '%{list}에 초대장을 보낼 수 없습니다.'
     other: '%{list}에 초대장을 보낼 수 없습니다.'
   unique_page_views_th: 고유 문서 보기
+  unit_of_measure: 측정 단위
   unknown: 알 수 없음
   unknown_hierarchy: 알 수 없는 계층
   unknown_data_object_title: 알 수 없는 데이터 개체

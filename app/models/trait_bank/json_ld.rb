@@ -120,19 +120,20 @@ class TraitBank::JsonLd
     end
 
     def add_default_context(jsonld)
-      # TODO: @context doesn't need all of these. Look through the @graph and
+      # TODO: @context doesn"t need all of these. Look through the @graph and
       # add things as needed based on the Sparql headers, then add the @ids.
-      jsonld['@context'] = {
-        'dwc:taxonID' => { '@type' => '@id' },
-        'dwc:resourceID' => { '@type' => '@id' },
-        'dwc:relatedResourceID' => { '@type' => '@id' },
-        'dwc:relationshipOfResource' => { '@type' => '@id' },
-        'dwc:vernacularName' => { '@container' => '@language' },
-        'eol:associationType' => { '@type' => '@id' },
-        'rdfs:label' => { '@container' => '@language' }
+      jsonld["@context"] = {
+        "@vocab" => "http://schema.org/",
+        "dwc:taxonID" => { "@type" => "@id" },
+        "dwc:resourceID" => { "@type" => "@id" },
+        "dwc:relatedResourceID" => { "@type" => "@id" },
+        "dwc:relationshipOfResource" => { "@type" => "@id" },
+        "dwc:vernacularName" => { "@container" => "@language" },
+        "eol:associationType" => { "@type" => "@id" },
+        "rdfs:label" => { "@container" => "@language" }
       }
       PREFIXES.each do |val, pre|
-        jsonld['@context'][pre.chop] = val
+        jsonld["@context"][pre.chop] = val
       end
       jsonld
     end

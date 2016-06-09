@@ -4017,7 +4017,7 @@ oc:
   build_communities: Bastir de comunautats
   by_caps: Per
   by_scientific_name_table_header: per nom scientific
-  cache_store: Emmagazinatge de l'escondedor
+  cache_store: Emmagazinatge de lo cache
   caching_results: Mesa en cache dels resultats
   calculate_averages_slow: Calcular de mejanas (lent)
   call_api: Apelar l'API
@@ -4147,7 +4147,7 @@ oc:
   click: Clicar
   clicked_time: Ora de clic
   click_on_an_activity_to_see_th: Clicatz sus una activitat per visualizar totas las
-    autras activitats que se son produchas dins un interval de 5 minutas.
+    autras activitats que se son produitas dins un interval de 5 minutas.
   click_on_a_username_to_view_the_users_detailed_profile: Clicatz sus un nom d’utilizaire
     per visualizar lo perfil detalhat de l’utilizaire, clicatz sul tipe de donadas
     per visualizar l’objècte comentat (utilizatz lo boton de retorn en arrièr de vòstre
@@ -4577,9 +4577,9 @@ oc:
   content_partners_page_title: Partenaris de contengut
   content_partners_page_description: Los partenaris de l’Enciclopèdia de la Vida possedisson
     una granda quantitat d’informacion a prepaus de la biodiversitat sus lors pròpris
-    sites Internet o dins lors bancas de donadas, que partejan tanben amb l’EdlV.
-    Presam vivament lors apòrts critics a la mission de l’EdlV e vos encoratjam a
-    n'aprene mai sus eles. Ne saber mai suls <a href="%{more_url}">partenaris de contengut</a>.
+    sites Internet o dins lors basas de donadas, que partejan tanben amb l’EdlV. Presam
+    vivament lors apòrts critics a la mission de l’EdlV e vos encoratjam a n'aprene
+    mai sus eles. Ne saber mai suls <a href="%{more_url}">partenaris de contengut</a>.
   content_server_full_url: URL completa del servidor de contengut
   content_servers: Servidors de contengut
   content_setting_colon: 'Paramètres de contengut :'

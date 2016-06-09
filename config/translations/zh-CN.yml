@@ -410,7 +410,7 @@ zh-CN:
         comments: 你的信息
         contact_subject_id: 主题
         email: 您的电子邮件地址
-        name: 你的名字
+        name: 您的名字
       content_page:
         active: 已发布
         active_more: 已发布页面将公开可见。如果你想要阻止普通用户查看该页面任何语言的版本，请取消选中<em>已发布</em>。

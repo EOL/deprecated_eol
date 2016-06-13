@@ -328,7 +328,7 @@ ko:
           attributes:
             rights_holder:
               blank: CC-BY 라이선스를 비워 둘 수 없습니다
-              inclusion: 퍼블릭 도메인 라이선스를 비어두어야 합니다
+              inclusion: 퍼블릭 도메인 라이선스를 비워두어야 합니다
         harvest_event:
           attributes:
             publish:
@@ -1634,6 +1634,9 @@ ko:
         meta_title_with_common_name: '%{preferred_common_name} (%{scientific_name})의
           동의어'
         tweet_text: '%{scientific_name}의 동의어'
+    overview:
+      show:
+        tweet_text: '%{scientific_name} 정보'
     resources:
       show:
         hierarchy_entry:
@@ -1954,13 +1957,16 @@ ko:
       unsubscribe_notifications_failed: 죄송합니다, 오류가 발생해 사용자가 알림을 구독 취소할 수 없습니다.
   user_added_data:
     add_data_header: 자신이 가진 데이터를 기여
+    additional_fields: 이 레코드에 관한 데이터
     edit_data_header: 데이터 편집
     add_metadata_header: 추가 정보
     edit_metadata_header: 메타데이터 편집
-    create_successful: 데이터가 성공적으로 추가 되었습니다
+    create_successful: 데이터가 성공적으로 추가되었습니다
+    create_failed: '사용자의 데이터를 추가할 수 없습니다: %{errors}'
     delete_successful: 데이터가 지워졌습니다
     new_field: 새 필드...
     new_value: 값
+    update_successful: 데이터가 성공적으로 업데이트되었습니다
   data_search_files:
     from: 가장 낮은 값
     to: 가장 높은 값
@@ -3846,7 +3852,7 @@ ko:
   details_title: 자세한 사항
   did_you_mean: '이것을 찾으셨나요: %{suggestions} ?'
   disabled_for_now: 지금 비활성화
-  discover_link: 발견
+  discover_link: 교육
   donate_link: 기부
   done_already: 이미 완료
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: 알 수 없는 등록한
@@ -3954,6 +3960,8 @@ ko:
       only_admins_can_view_translated_content_pages: 죄송합니다, 관리자들만 이 문서의 번역본을 볼 수 있습니다.
       only_admins_can_edit_forums: 죄송합니다, 관리자들만 포럼을 편집할 수 있습니다.
       must_be_logged_in: 죄송하지만 로그인해야 합니다
+      only_data_owner_can_edit: 죄송합니다. 데이터 소유자만이 편집할 수 있습니다.
+      only_data_owner_can_delete: 죄송합니다. 데이터 소유자만이 삭제할 수 있습니다.
       error_editing_someone_account: 죄송합니다, 계정을 가진 사람만 편집할 수 있습니다.
       can_not_edit_permissions: 죄송합니다, 당신은 권한을 수정할 수 없습니다.
   expand_all_children: 모든 하위 확장
@@ -3983,6 +3991,7 @@ ko:
     채우세요. 양식을 제출하면 메시지를 보냅니다:'
   filter_button: 필터
   filter_by_day: 날짜별 필터
+  filter_by_subject: 주제별 필터
   filter_by_status_all_option: 모든 상태
   filter_by_status_trusted_option: 신뢰할 수 있음
   filter_by_status_unreviewed_option: 검토되지 않음

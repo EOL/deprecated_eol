@@ -1586,7 +1586,7 @@ oc:
       problems_signing_in_with_eol_authentication: Avètz doblidat vòstre senhal ?
       tip: Utilizaire existent ? Connectatz vòstre compte EdlV amb Facebook, Google
         e mai dins los paramètres de vòstre perfil. Un còp que vòstres comptes son
-        connectats, los podètz utilizar per dobrir una sesilha a l’EdlV.
+        connectats, los podètz utilizar per dobrir una session a l’EdlV.
   taxa:
     communities:
       index:
@@ -4127,7 +4127,7 @@ oc:
     one: '%{count} classificacion'
     other: '%{count} classificacions'
   clear_all_non_species_pages: Escafar totas las paginas non relativas a las espècias
-  clear_entire_cache_store: Escafar l'emmagazinatge entièr de l'escondedor
+  clear_entire_cache_store: Escafar l'emmagazinatge entièr del cache
   clear_species_page: Escafar la pagina de las espècias
   cms_available_in_languages: 'Aquesta pagina es disponibla en :'
   cms_editor: Editor CMS

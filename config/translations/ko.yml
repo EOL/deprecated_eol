@@ -4976,15 +4976,15 @@ ko:
   text_with_count:
     one: 문서 %{count}개
     other: 문서 %{count}개
-  thanks_for_donation: 생명의 백과 사전에 지원해 주어서 감사합니다.  정보가 제출되었으며 처리됩니다.
+  thanks_for_donation: 생명의 백과사전을 지원해 주셔서 감사합니다. 정보가 제출되었으며 처리될 것입니다.
   thanks_for_your_time: 시간을 내어 주셔서 감사합니다,
   thank_you_for_your_generous_support: 관대한 지원에 감사합니다!
   thank_you: 감사합니다
   the_amount_entered_was: '입력한 금액: %{number} 미국 달러'
   the_comment_was_successfully_updated: 댓글을 성공적으로 업데이트했습니다.
   the_comment_was_successfully_deleted: 댓글을 성공적으로 삭제했습니다.
-  the_content_could_not_be_displ: 컨텐츠를 볼 수 없습니다.
-  the_content_was_updated: 컨텐츠가 업데이트되었습니다.
+  the_content_could_not_be_displ: 콘텐츠를 볼 수 없습니다.
+  the_content_was_updated: 콘텐츠가 업데이트되었습니다.
   the_file_was_uploaded: 파일이 올려졌습니다.
   too_many_descendants_to_curate_with_count:
     one: '오류: 큐레이트는 자동화 시스템을 통해 처리할 수 없습니다. 허용되는 최대 개수를 초과 하는 하위 %{count}개가 있습니다.'

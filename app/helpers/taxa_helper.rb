@@ -260,6 +260,8 @@ module TaxaHelper
     text_for_row_value.gsub!(/\^(\S)/, "<sup style='vertical-align: baseline;position: relative;top: -0.4em;'>\\1</sup>")
   end
 
+  # This actually gets REVMOVED by JS (and replaced with the definition), which
+  # seems a little odd, but I believe it's meant to support non-JS users.
   def info_icon
     haml_tag "a.info_icon" do
       haml_concat "&emsp;" # Width doesn't seem to work.  :|

@@ -47,7 +47,6 @@ EOL.switch_subtab = function(which, options) {
 
 EOL.create_info_dialog = function(match) {
   console.log("create_info_dialog() called");
-  // We need to remember which one is open; click again and it closes.
   var nearest = $(match).closest('[id]').attr('id');
   console.log("...id: " + nearest);
   $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
@@ -139,8 +138,8 @@ EOL.enable_data_tab_glossary_links = function(info) {
   // want to enable this on the data tab, so check for some element that only exists there
   if(info.closest('#taxon_data.main_container').length > 0) {
     info.find('a.glossary').each(function() {
-      console.log("adding tab link message" + $(this).data('tab_link_message'));
-      $(this).text($(this).data('tab_link_message'));
+      console.log("adding tab link message: " + $(this).data('tab-link-message'));
+      $(this).text($(this).data('tab-link-message'));
     });
     info.find('a.glossary').on('click', function(e) {
       e.preventDefault();

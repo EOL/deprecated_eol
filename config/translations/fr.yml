@@ -218,7 +218,7 @@ fr:
         uri: URI
         uri_type: Type d’URI
         value_is_text: Les valeurs ne seront pas des URIs, seulement du texte
-        value_is_verbatim: Les valeurs ne sont pas des nombres, seulement du texte
+        value_is_verbatim: Les valeurs ne seront pas des nombres, seulement du texte
       known_uri_relationship:
         from_known_uri_id: URI du sujet
         to_known_uri_id: URI cible

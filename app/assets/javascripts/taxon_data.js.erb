@@ -308,18 +308,20 @@ $(function() {
   // on click, open row:
   $('table.data tr.data').on('click', function(e) {
     var $targ;
+    var $orig_targ;
     if (e.target) $targ = $(e.target);
     else if (e.srcElement) $targ = $(e.srcElement);
+    $orig_targ = $targ;
     // Grab the TR if they clicked on something lower. Seems odd that this happens, but it does (it's usually a TD).
     if (! $targ.is("tr")) $targ = $targ.closest('tr');
     // Abort if the row is hidden (and in a data search table; it's fine if it's on a data tab):
     if ($targ.hasClass('hidden') && $targ.closest('table.search').length > 0) return;
     // Abort if it's a legitimate link (which will handle itself):
-    if ($(e.target).is('a')) {
+    if ($orig_targ.is('a')) {
       e.stopPropagation();
       return;
     }
-    $targ.find('.info').each(function() { EOL.create_info_dialog(this); });
+    $targ.next().find('.info').each(function() { EOL.create_info_dialog(this); });
     EOL.toggle_actions_row($targ);
   });
   // on click of metadata, close row:

@@ -45,10 +45,10 @@ EOL.switch_subtab = function(which, options) {
   EOL.limit_data_rows();
 };
 
+// $('table.data tr.data .info') ...basically anything for which the "define"
+// helper method is called on... unless it's nested in a row.
 EOL.create_info_dialog = function(match) {
-  console.log("create_info_dialog() called");
   var nearest = $(match).closest('[id]').attr('id');
-  console.log("...id: " + nearest);
   $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
   $(match)
     .attr('id', "info_"+nearest)
@@ -56,21 +56,6 @@ EOL.create_info_dialog = function(match) {
     .addClass('tip')
     .prepend('<a href="#" class="close">&nbsp;</a>');
   EOL.enable_info_dialogs($('#tip_'+nearest),$('table.data tr.data, table.meta tr'));
-  EOL.enable_data_tab_glossary_links($(match));
-  console.log("...appending...");
-  $(match).appendTo(document.body);
-};
-
-EOL.create_info_dialog_for_data_search = function(match) {
-  var $has_id = $(match).closest('[id]');
-  var nearest = $has_id.attr('id'); // We need to remember which one is open; click again and it closes.
-  $(match).parent().children('.info_icon').remove(); // We will replace this with a definition...
-  $(match)
-    .attr('id', "info_"+nearest)
-    .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>') // Spaces 'cause width doesn't work. :\
-    .addClass('tip')
-    .prepend('<a href="#" class="close">&nbsp;</a>');
-  EOL.enable_info_dialogs($('#tip_'+nearest));
   EOL.enable_data_tab_glossary_links($(match));
   $(match).appendTo(document.body);
 };
@@ -134,11 +119,9 @@ EOL.enable_collection_taxa_info_dialogs = function(tip, table_row) {
 };
 
 EOL.enable_data_tab_glossary_links = function(info) {
-  console.log("enable_data_tab_glossary_links");
   // want to enable this on the data tab, so check for some element that only exists there
   if(info.closest('#taxon_data.main_container').length > 0) {
     info.find('a.glossary').each(function() {
-      console.log("adding tab link message: " + $(this).data('tab-link-message'));
       $(this).text($(this).data('tab-link-message'));
     });
     info.find('a.glossary').on('click', function(e) {
@@ -154,7 +137,6 @@ EOL.enable_data_tab_glossary_links = function(info) {
 };
 
 EOL.enable_info_dialogs = function(tip, table_row) {
-  console.log("enable_info_dialogs");
   tip.unbind('click').on('click', function(e) {
     // This will make sure we don't open rows when clicking info icons:
     e.stopPropagation();
@@ -337,6 +319,7 @@ $(function() {
       e.stopPropagation();
       return;
     }
+    $targ.find('.info').each(function() { EOL.create_info_dialog(this); }
     EOL.toggle_actions_row($targ);
   });
   // on click of metadata, close row:
@@ -371,13 +354,12 @@ $(function() {
   // Hide hidden buttons. This isn't in the CSS for accessibility reasons.
   $('a.button.hidden').hide();
   // Definitions of attributes are dialogs if JS is enabled:
-  $('table.data tr .info, table.data.search tr .info').each(function() {
-    console.log("Called loop for create info dialog");
+  $('table.data tr.data .info').each(function() {
     EOL.create_info_dialog(this);
   });
-  // Some fields on data search have info:
-  $('form.copy .vital li .info, form.copy .vital.search li .info').each(function() {
-    EOL.create_info_dialog_for_data_search(this);
+  // Some fields in the data search form have info:
+  $('form.copy .vital li .info').each(function() {
+    EOL.create_info_dialog(this);
   });
   // Ranges (missing at the time of this writing, but hey)
   $('table.ranges tr .info, table.ranges.search tr .info').each(function() {

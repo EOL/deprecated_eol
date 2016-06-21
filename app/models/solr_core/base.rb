@@ -60,6 +60,15 @@
       @connection.commit
     end
 
+    def delete_items(items)
+      items = Array(items)
+      begin
+        delete_by_ids(items.map(&:id))
+      rescue RSolr::Error::Http => e
+        # Doesn't *really* matter, move along.
+      end
+    end
+
     def delete(query)
       @connection.delete_by_query(query)
       # TODO: error-checking
@@ -92,7 +101,7 @@
     # NOTE: this will NOT work on items with composite primary keys.
     def reindex_items(items)
       items = Array(items)
-      delete_by_ids(items.map(&:id))
+      delete_items(items)
       begin
         @connection.add(items.map(&:to_hash))
       rescue RSolr::Error::Http => e
@@ -116,22 +125,24 @@
         connection.select(params: params)
       rescue Timeout::Error => e
         EOL.log("SOLR TIMEOUT: q: #{params[:q]}", prefix: "!")
-        wait_for_recovery(0)
+        wait_for_recovery
         EOL.log("Solr appears to have recovered; retrying...")
         connection.select(params: params)
       end
     end
 
-    def wait_for_recovery(attempts)
+    def wait_for_recovery(attempts = 0)
       attempts ||= 0
       begin
         try_recovery
       rescue => e
-        EOL.log("Solr still down (attempt #{attempts}), waiting...")
         attempts += 1
-        raise(e) if attempts >= 10
-        sleep(attempts * 0.25)
-        wait_for_recovery
+        EOL.log("Solr still down (attempt #{attempts}), waiting...")
+        raise(e) if attempts >= 20
+        # Sleep briefly the first time (try quickly)... otherwise, it's a more
+        # serious problem, so wait a long time...
+        sleep(attempts == 1 ? 0.25 : attempts * 10)
+        wait_for_recovery(attempts)
       end
     end
 

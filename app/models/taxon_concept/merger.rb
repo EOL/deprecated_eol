@@ -37,9 +37,8 @@ class TaxonConcept
           end
         end
         reindex_concepts = []
-        remaining = merges.keys.size + 1
+        EOL.log("Have #{merges.keys.size + 1} merges...")
         merges.each do |to_id, from_ids|
-          remaining -= 1
           to_concept = concepts[to_id]
           if to_concept.nil?
             EOL.log("ERROR: Missing target concept! (#{from_ids.join(", ")}) "\
@@ -51,32 +50,29 @@ class TaxonConcept
             if concepts.has_key?(id)
               from_concepts << concepts[id]
             else
-              EOL.log("Missing source concept (#{id})!")
+              EOL.log("WARNING: Missing source concept (#{id})!", prefix: "*")
             end
           end
           if from_concepts.empty?
-            EOL.log("ERROR: No source concepts to merge to #{to_id}!",
-              prefix: "!")
+            EOL.log("WARNING: No source concepts to merge to #{to_id}!",
+              prefix: "*")
             next
           elsif from_concepts.size == 1
             begin
               taxon_concepts(to_concept, from_concepts.first,
                 skip_reindex: true)
               reindex_concepts << to_concept
-              EOL.log("MERGE: #{from_concepts.first.title} "\
-                "(#{from_concepts.first.id}) => #{to_concept.title} "\
-                "(#{to_concept.id}) - #{remaining} remaining")
+              EOL.log("MERGE: #{from_concepts.first} => #{to_concept}")
             rescue => e
-              EOL.log("SKIP MERGE #{from_ids.first} => #{to_concept.title} "\
-                "(#{to_id}): #{e.message}", prefix: "!")
+              EOL.log("SKIP MERGE #{from_concepts.first} => #{to_concept}: "\
+                "#{e.message}", prefix: "*")
             end
           else
             # Note the #map because we may have lost one or two, so NOT from_ids:
             multiple_concepts(to_concept.id, from_concepts.map(&:id))
             reindex_concepts << to_concept
-            EOL.log("MERGE: #{from_concepts.map { |tc| "#{tc.title} "\
-              "(#{tc.id})" }.join(", ")} => #{to_concept.title} "\
-              "(#{to_concept.id}) - #{remaining} remaining")
+            EOL.log("MERGE multiple to #{to_concept}:")
+            from_concepts.each { |c| EOL.log("  ... #{c}") }
           end
         end
         # Second pass; now we're done mucking with Solr, so let PHP have at it:

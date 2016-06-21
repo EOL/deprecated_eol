@@ -15,7 +15,19 @@ class Background
                  empty?
       rescue => e
         EOL.log("WARNING: Failed to read '#{queue}' queue: #{e.message}",
-          prefix: "!")
+          prefix: "*")
+        false
+      end
+    end
+
+    def top_images_in_queue?
+      begin
+        ! Resque.peek(:php, 0, 20_000).
+                 select { |j| j["args"].first["cmd"] == "top_images" }.
+                 empty?
+      rescue => e
+        EOL.log("WARNING: Failed to read 'php' queue: #{e.message}",
+          prefix: "*")
         false
       end
     end

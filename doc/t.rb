@@ -1,9 +1,34 @@
 # This is a temp file used for notes. Ignore it entirely!
 
-### Fast examplar images for many taxa:
+# Timing an ugly query:
 
+# This one line takes about 10 minutes, so ... sit back?
+entry_ids = hierarchy.ancestry_set.to_a ; 1
 
+entries = HierarchyEntry.includes(
+  relationships_from: [:to_hierarchy_entry],
+  relationships_to: [:from_hierarchy_entry]
+).where(id: entry_ids) ; 1
 
+index = 0
+time = Time.now
+# entries.find_in_batches(batch_size: 1000) do |batch|
+entries.find_in_batches(batch_size: 10) do |batch|
+  index += 1
+  new_time = Time.now
+  diff = if time
+    d = (new_time - time).round(2)
+    d == 0 ? "" : "(#{d})"
+  else
+    ""
+  end
+  time = new_time
+  puts "Index #{index}, time diff: #{diff}sec"
+  batch.each do |thing|
+    thing.relationships_from.map(&:to_hash)
+    thing.relationships_to.map(&:to_hash)
+  end
+end
 
 ### names
 

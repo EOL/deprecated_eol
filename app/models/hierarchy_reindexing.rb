@@ -4,7 +4,10 @@ class HierarchyReindexing < ActiveRecord::Base
 
   belongs_to :hierarchy
   scope :pending, -> { where( completed_at: nil ) }
-  @queue = 'notifications'
+  # Putting this in the harvesting queue because if one of these is running, it
+  # runs the risk of screwing up a harvest (by locking a table and causing a
+  # timeout)
+  @queue = 'harvesting'
 
   class << self
     def enqueue_unless_pending(which)

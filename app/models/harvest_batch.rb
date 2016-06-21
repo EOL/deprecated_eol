@@ -2,11 +2,10 @@ class HarvestBatch
   attr_reader :resources, :start_time
 
   def initialize(ids = [])
-    EOL.log_call
     @start_time = Time.now
     @resource_ids = Array(ids)
     @summary = []
-    EOL.log("Resources: #{@resource_ids.join(", ")}", prefix: ".") unless
+    EOL.log("HARVEST batch: #{@resource_ids.join(", ")}", prefix: ".") unless
       @resource_ids.empty?
   end
 
@@ -35,7 +34,6 @@ class HarvestBatch
   end
 
   def post_harvesting
-    EOL.log_call
     ActiveRecord::Base.with_master do
       any_worked = false
       resources = Resource.where(id: @resource_ids).
@@ -44,7 +42,7 @@ class HarvestBatch
         url = "http://eol.org/content_partners/"\
           "#{resource.content_partner_id}/resources/#{resource.id}"
         @summary << { title: resource.title, url: url }
-        EOL.log("POST-HARVEST: #{resource.title}", prefix: "H")
+        EOL.log("POST-HARVEST: #{resource.title} (#{resource.id})", prefix: "H")
         unless resource.ready_to_publish?
           status = resource.resource_status.label
           EOL.log("SKIPPING (status #{status}): "\
@@ -65,13 +63,14 @@ class HarvestBatch
         # TODO: there are myriad specific errors that harvesting can throw; catch
         # them here.
         rescue => e
-          EOL.log("POST-HARVEST FAILED: #{resource.title}", prefix: "H")
+          EOL.log("POST-HARVEST FAILED: #{resource.title} (#{resource.id})",
+            prefix: "H")
           EOL.log_error(e)
           @summary.last[:status] = "FAILED"
         end
       end
       if any_worked
-        if CodeBridge.top_images_in_queue?
+        if Background.top_images_in_queue?
           EOL.log("'top_images' already enqueued in 'php'; skipping",
             prefix: ".")
         else

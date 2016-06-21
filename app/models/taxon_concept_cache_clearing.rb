@@ -30,6 +30,7 @@ class TaxonConceptCacheClearing
   end
 
   def clear
+    EOL.log("#clear (#{@taxon_concept.id})", prefix: "#")
     clear_preferred_entry
     clear_media_counts
     clear_images

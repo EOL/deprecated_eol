@@ -55,7 +55,7 @@ EOL.create_info_dialog = function(match) {
     .before('<a id="tip_'+nearest+'" class="info_icon def" data-info="'+nearest+'">&emsp;</a>') // Spaces 'cause width doesn't work. :\
     .addClass('tip')
     .prepend('<a href="#" class="close">&nbsp;</a>');
-  EOL.enable_info_dialogs($('#tip_'+nearest),$('table.data tr.data, table.meta tr'));
+  EOL.enable_info_dialogs($('#tip_'+nearest), $('table.data tr.data, table.meta tr'));
   EOL.enable_data_tab_glossary_links($(match));
   $(match).appendTo(document.body);
 };
@@ -73,7 +73,7 @@ EOL.create_info_ranges_dialog = function(match) {
   EOL.enable_data_tab_glossary_links($(match));
   $(match).parent().parent().children('ul.glossary').remove();
   $(match).appendTo(document.body);
-  };
+};
 
 EOL.create_collection_taxon_info_dialog = function(match) {
   var $has_id = $(match).closest('[id]');
@@ -136,19 +136,22 @@ EOL.enable_data_tab_glossary_links = function(info) {
   }
 };
 
+// $('table.data tr.data, table.meta tr')
 EOL.enable_info_dialogs = function(tip, table_row) {
+  console.log("Adding click event for: " + tip.data('info'));
   tip.unbind('click').on('click', function(e) {
     // This will make sure we don't open rows when clicking info icons:
     e.stopPropagation();
     $('.site_column').unbind('click');
     var $link = $(this);
-    var $info = $('#info_'+$(this).data('info'));
+    var $info = $('#info_' + $(this).data('info'));
+    console.log("Clicked on tooltip: " + $(this).data('info'));
     if ($info.is(':visible')) {
       $info.hide('fast');
     } else {
       $('.info.tip').hide('fast');
       var pos = $(this).offset();
-      $info.css({ top: pos.top + $(this).height() + 26, left: pos.left + $(this).width() });
+      $info.css({ top: pos.top + $(this).height(), left: pos.left + $(this).width() });
       $info.show('fast',
         function() {
           $('.site_column').on('click', function() { $('.info').hide('fast'); $('.site_column').unbind('click'); });

@@ -4753,6 +4753,13 @@ gl:
   data_column_raw_units: Unidades brutas (directamente desde a fonte)
   data_column_raw_units_uri: URI das unidades brutas (normalizadas)
   data_column_source: Provedor
+  data_disclaimer: <a href="%{traitbank_info_path}">TraitBank</a> reúne os rexistros
+    de datos de moitos provedores. Seleccione unha fila para obter máis detalles sobre
+    o rexistro, ou <a href="%{traitbank_search_path}">busque en TraitBank</a>.
+  data_disclaimer_with_searchable_clade: <a href="%{traitbank_info_path}">TraitBank</a>
+    reúne os rexistros de datos de moitos provedores. Seleccione unha fila para obter
+    máis detalles sobre o rexistro, ou <a href="%{traitbank_search_path}">busque dentro
+    de %{taxon_name}</a>.
   data_database_colon: 'Datos:'
   data_glossary: Glosario de datos
   data_glossary_contribute: Para achegar novos termos a este glosario, <a href=%{url}>considera
@@ -4772,12 +4779,15 @@ gl:
   data_object_toc_items_list:
     one: Aparece baixo %{quoted_toc_titles}
     other: Aparece baixo %{quoted_toc_titles}
+  data_overview_table_caption: Datos do trazo
   data_point_uri_source_missing: falta a fonte
   data_point_uri_summary_name: datos acerca de %{taxon}
   data_provided_by_user: proporcionados por %{whom}
   data_provided_by_content_partner: 'Provedor: %{whom}'
   data_ranges: Resumos de datos
   data_ranges_subheader: Resumos de datos para este grupo taxonómico
+  data_ranges_subtab_help_text: Para algúns atributos EOL determina o intervalo de
+    valores dispoñibles para unha taxonomía a través de tódalas fontes.
   data_reference_subtable_summary: Referencias adicionais sobre este feito.
   data_row_exemplar_added: Engadido á vista xeral.
   data_row_exemplar_removed: Eliminado da vista xeral.
@@ -4785,6 +4795,9 @@ gl:
     xeral.'
   data_row_add_exemplar_button: engadir á vista xeral
   data_row_remove_exemplar_button: eliminar da vista xeral
+  data_row_additional_detail_assistive: Cargar metadatos acerca deste feito.
+  data_row_additional_detail_assistive_js: Alternar entre mostrar e ocultar os metadatos
+    acerca deste feito.
   data_row_additional_detail_alt: Detalles adicionais
   data_row_additional_detail_show_alt: Mostrar os detalles adicionais
   data_row_additional_detail_hide_alt: Agochar os detalles adicionais
@@ -4796,18 +4809,66 @@ gl:
     form:
       equivalent_attributes: 'Valores equivalentes:'
       equivalent_values: 'Valores equivalentes:'
+      search_again_for_attributes: buscar de novo para incluír os atributos seleccionados
+      search_again_for_values: buscar de novo para incluír os valores seleccionados
       header_assistive: Formulario de procuras
       input_summary_intro: Opcións de procura seleccionadas
       new_search_link: Comezar unha nova busca
+      or_range_header: Ou <span class="assistive">especifique un rango</span>
+      refine_search_header: Refine a súa busca(opcional)
+      search_suggestions_header: Non está seguro por onde comezar?
+      search_suggestions_subheader_colon: 'Probe unha das seguintes buscas de datos:'
+      search_suggestion_whale_mass: Que baleas pesan máis de 10 000 kg?
+      search_suggestion_diatom_shape: Cales son as distintas formas de diatomeas?
+      search_suggestion_cavity_nests: Que especies constrúen nidos en cavidades?
+      search_suggestion_blue_flowers: Que plantas teñen flores de cor azul?
+      search_tools_show_link: Mostrar opcións de busca
+      search_tools_hide_link: Ocultar opcións de busca
+      search_value_or_range_header: Buscar un valor específico ou un rango
+      search_within_taxon_group_header: Busca dentro dun grupo taxón
+      search_within_taxon_group_intro_with_count:
+        other: Buscar dentro dun grupo taxón actualmente está limitado ós grupos con
+          menos de %{count} taxóns. <a href="%{contact_us_tech_url}">Póñase en contacto
+          con nós</a> para obter máis información acerca de buscar en grupos máis
+          grandes.
       sort_header: Ordenar os resultados
+    notice:
+      clade_too_big: Sentímolo, os resultados que se mostran non están filtrados por
+        %{taxon_name} porque é demasiado grande. Elixa un grupo máis pequeno ou <a
+        href="%{contactus_tech_path}">contacte con nós</a> para obter axuda.
+      clade_has_no_data: Ninguén achegou rexistros de datos para %{taxon_name} aínda.
+        <a href="%{contribute_path}">Aprenda como contribuír</a>.
+  data_search_link: Busca de datos científicos en EOL
+  data_search_explanation: Use a busca de datos de EOL para atopar elementos que coincidan
+    con '%{term}' en observacións,<br />medicións e outras afirmacións científicas.
+  data_search_attribute: Buscar en TraitBank para os rexistros con datos de %{attribute}
+  data_search_destroyed: Este traballo non será procesado máis.
+  data_search_files_with_count:
+    one: '%{count} descarga de datos'
+    other: '%{count} descargas de datos'
+  data_search_row_hidden: Un conservador escondeu esta fila de datos.
+  data_server_unavailable: Os datos en EOL non están dispoñibles. Por favor, comprobe
+    despois máis adiante. Desculpe as molestias.
+  data_show_n_more_rows: Mostrar NNN máis...
   data_subtab_about: Acerca de
   data_subtab_glossary: Glosario para %{taxon}
+  data_summary_header_with_count:
+    zero: EOL non ten ningún trazo de datos
+    one: EOL ten datos para 1 trazo
+    other: EOL ten datos para %{count} trazos
   data_summary_ranges_header_with_count: A EOL ten un resumo dos datos
   data_tab_curator_exemplar: Esta ringleira engadiuse á lapela da vista xeral.
   data_tab_curator_excluded: Esta ringleira eliminouse da lapela da vista xeral.
   data_tab_curator_key_exemplar: '%{image} engadiuse á <a href=''%{link}''>vista xeral</a>'
   data_tab_curator_key_excluded: '%{image} eliminouse da <a href=''%{link}''>vista
     xeral</a>'
+  data_table_summary: 'Datos característicos para %{taxon}. Cada fila de datos é un
+    feito separado, proporcionado por un socio de contidos ou usuario. Cada valor
+    pode incluír unha táboa resumindo metadatos acerca do feito: onde se recolectou,
+    cales son os dereitos dos datos e similares. Prema na fila para mostrar estos
+    metadatos. Prema de novo para ocultalos. Mostrar metadatos tamén mostra as anotacións
+    e permite ós usuarios engadir as súas propias anotacións segundo sexa necesario.
+    Os conservadores teñen funcións adicionais cando se mostran metadatos.'
   data_usage_reports: Informes de uso dos datos
   date_caps: Data
   date_uploaded: Data de carga
@@ -4879,6 +4940,10 @@ gl:
   did_you_mean: 'Quizais quixeches dicir: %{suggestions}'
   disabled_for_now: DESACTIVADO POLO DE AGORA
   discover_link: Educación
+  displaying_numerical_range_eol_records_with_count:
+    one: Mostrando %{count} rexistro en EOL
+    other: Mostrando %{start_number} &ndash; %{end_number} de %{count} rexistros en
+      EOL
   donate_link: Doar
   done_already: Xa está feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Non mostrar
@@ -4965,6 +5030,8 @@ gl:
   error_log_detail: Detalles no rexistro de erros
   error_log: Rexistro de erros
   error_logging_active: Rexistro activo dos erros
+  error_violates_tos: O seu contido parece que viola os termos de servizo de EOL.
+    Se pensa que isto foi un erro, contacte con nós para obter axuda.
   error_revoking_editor_on_watch_collection: Non se pode eliminar aos editores das
     coleccións de seguimento
   error_401_page_title: Non autorizado
@@ -5024,6 +5091,22 @@ gl:
         da EOL cun nivel mínimo de conservador axudante.
       admin_or_master_curators_only: Sentímolo, o acceso está restrinxido aos administradores
         da EOL cun nivel mínimo de mestre conservador.
+      no_access: Sentímolo, esta funcionalidade está desactivada temporalmente. Volva
+        pronto.
+      missing_edit_acess_to_forum_category: Sentímolo, só os administradores poden
+        editar esta categoría do foro
+      missing_delete_acess_to_forum_category: Sentímolo, só os administradores poden
+        eliminar esta categoría do foro
+      missing_edit_acess_to_forum_post: Sentímolo, só os administradores ou os propietarios
+        das publicacións poden editar esta publicación do foro
+      missing_delete_acess_to_forum_post: Sentímolo, só os administradores ou os propietarios
+        das publicacións poden eliminar esta publicación do foro
+      missing_set_article_as_exemplar_privilege: Sentímolo, só os conservadores poden
+        establecer artigos como exemplar
+      missing_delete_access_to_synonym: Sentímolo, só os axentes eliminan este sinónimo
+      missing_delete_access_to_data_search_file: Sentímolo, só os administradores,
+        os conservadores maestros ou o propietario do ficheiro poden eliminar este
+        ficheiro
       collection_job_not_valid: Traballo de colección non válido
   excluded_icon_tip: As ringleiras marcadas coa icona de exclusión %{excluded_icon}
     nunca se mostrarán nas páxinas de presentación dos taxons.

@@ -4135,7 +4135,7 @@ ko:
   images: 그림
   images_in_red_are_not_trusted: 빨간 곳의 그림은 신뢰할 수 없습니다.
   images_in_yellow_are_not_reviewed: 노란 그림은 검토하지 않았습니다.
-  import_once: 한번에 가져오기
+  import_once: 한 번에 가져오기
   inappropriate: 부적절
   inaturalist_tab_label: iNaturalist 관찰
   include_all_metadata: 데이터 개체에 대한 모든 메타데이터 포함

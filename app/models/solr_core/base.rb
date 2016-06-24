@@ -60,15 +60,6 @@
       @connection.commit
     end
 
-    def delete_items(items)
-      items = Array(items)
-      begin
-        delete_by_ids(items.map(&:id))
-      rescue RSolr::Error::Http => e
-        # Doesn't *really* matter, move along.
-      end
-    end
-
     def delete(query)
       @connection.delete_by_query(query)
       # TODO: error-checking
@@ -85,23 +76,29 @@
     def paginate(q, options = {})
       page = options.delete(:page) || 1
       per_page = options.delete(:per_page) || 30
-      response = begin
-        connection.paginate(page, per_page, "select", params: options.merge(q: q))
-      rescue Timeout::Error => e
-        EOL.log("SOLR TIMEOUT: page/per: #{page}/#{per_page} ; q: #{q}",
-          prefix: "!")
-        raise(e)
-      end
+      response = paginate_with_timeout(page, per_page, options.merge(q: q))
       unless response["responseHeader"]["status"] == 0
         raise "Solr error! #{response["responseHeader"]}"
       end
       response
     end
 
+    def paginate_with_timeout(page, per_page, params)
+      begin
+        connection.paginate(page, per_page, "select", params: params)
+      rescue Timeout::Error => e
+        EOL.log("SOLR TIMEOUT: page/per: #{page}/#{per_page} ; q: #{params[:q]}",
+          prefix: "!")
+        wait_for_recovery(0)
+        EOL.log("Solr appears to have recovered; retrying...")
+        connection.paginate(page, per_page, "select", params: params)
+      end
+    end
+
     # NOTE: this will NOT work on items with composite primary keys.
     def reindex_items(items)
       items = Array(items)
-      delete_items(items)
+      delete_by_ids(items.map(&:id))
       begin
         @connection.add(items.map(&:to_hash))
       rescue RSolr::Error::Http => e
@@ -125,23 +122,21 @@
         connection.select(params: params)
       rescue Timeout::Error => e
         EOL.log("SOLR TIMEOUT: q: #{params[:q]}", prefix: "!")
-        wait_for_recovery
+        wait_for_recovery(0)
         EOL.log("Solr appears to have recovered; retrying...")
         connection.select(params: params)
       end
     end
 
-    def wait_for_recovery(attempts = 0)
+    def wait_for_recovery(attempts)
       attempts ||= 0
       begin
         try_recovery
       rescue => e
-        attempts += 1
         EOL.log("Solr still down (attempt #{attempts}), waiting...")
-        raise(e) if attempts >= 20
-        # Sleep briefly the first time (try quickly)... otherwise, it's a more
-        # serious problem, so wait a long time...
-        sleep(attempts == 1 ? 0.25 : attempts * 10)
+        attempts += 1
+        raise(e) if attempts >= 56
+        sleep(attempts * 0.25)
         wait_for_recovery(attempts)
       end
     end

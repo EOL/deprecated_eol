@@ -69,6 +69,7 @@ class TaxonMedia < TaxonUserClassificationFilter
       vetted_types: @search_statuses,
       visibility_types: @visibility_statuses,
       exemplar_id: @exemplar_id,
+      published: @published_statuses,
       preload_select: { data_objects: [ :id, :guid, :language_id, :data_type_id, :created_at, :mime_type_id, :object_title,
                                               :object_cache_url, :object_url, :data_rating, :thumbnail_cache_url, :data_subtype_id,
                                               :published ] }
@@ -91,9 +92,11 @@ class TaxonMedia < TaxonUserClassificationFilter
       if user.is_curator?
         @search_statuses = ['trusted', 'unreviewed', 'untrusted']
         @visibility_statuses = ['visible', 'invisible']
+        @published_statuses =  [ true, false ]
       else
         @search_statuses = ['trusted', 'unreviewed']
         @visibility_statuses = ['visible']
+        @published_statuses =  [ true ]
       end
     else
       @search_statuses = @status

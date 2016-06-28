@@ -40,8 +40,8 @@ class Background
       Resque::Job.destroy(:notifications, PrepareAndSendNotifications)
     end
 
-    def stop_hierarchies
-      Resque::Job.destroy(:notifications, HierarchyReindexing)
+    def stop_hierarchy_reindexing
+      Resque::Job.destroy(:harvesting, HierarchyReindexing)
     end
 
     def stop_reindexing

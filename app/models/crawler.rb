@@ -6,8 +6,8 @@ class Crawler
     def enqueue
       Crawler::SiteMapIndexer.create
       offset = 0
-      # GOOG's limit is actually 10MB, which we should check (but it's hard to
-      # predict), but this will almost certainly not exceed that!
+      # GOOG's limit is actually 10MB, which we should check (though it's hard
+      # to predict), but this will almost certainly not exceed that!
       limit = 250
       ids = [] # Probably superfluous, but want to be safe because of #while
       begin
@@ -15,6 +15,20 @@ class Crawler
         Resque.enqueue(Crawler, from: ids.first, to: ids.last)
         offset += limit
       end while ids.size > 0
+    end
+
+    # This is just a test, and it's not actually restricted to mammals, because
+    # we don't do IDs specifically by clade...
+    def enqueue_all_mammals
+      Crawler::SiteMapIndexer.create
+      offset = 0
+      limit = 250
+      all_ids = TaxonConceptsFlattened.descendants_of(1642).pluck(:taxon_concept_id)
+      begin
+        ids = all_ids[offset..offset+limit]
+        Resque.enqueue(Crawler, from: ids.first, to: ids.last)
+        offset += limit
+      end while offset < all_ids.size
     end
 
     def perform(options)

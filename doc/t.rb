@@ -1,5 +1,71 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+
+
+### Harvesting Side
+
+IMAGE_SIZE_LARGE_WIDTH = 1280
+IMAGE_SIZE_LARGE_HEIGHT = 1040
+
+# input: image, with a size of 1440x1230
+
+source_image = file_on_disk
+name = source_image.basename
+large_image = "#{some_dir}/#{name}_1280_1024.jpg"
+orig_size = image_magick.get_size(source_image) # => "1440x1230"  { h: 1440, w: 1230 }
+image_magick.resize(source_image, max_width: IMAGE_SIZE_LARGE_WIDTH,
+  max_height: IMAGE_SIZE_LARGE_HEIGHT, outfile: large_image, format: "jpg")
+large_size = image_magick.get_size(large_image) # { h: 1280, w: 987 }
+large_size = "#{large_size[:x]}x#{large_size[:h]}"
+orig_size = "#{orig_size[:x]}x#{orig_size[:h]}"
+...
+
+db_image = Image.create(..., large_size: large_size, original_size: orig_size)
+
+# On the Rails App Side:
+
+class Content < ActiveRecord::Base
+  # ...common stuff goes here
+  belongs_to :resource
+end
+
+class Image < Content
+  def image_src(size = :medium_square)
+    case size
+    when :medium_square
+      "images/#{base_url}_#{IMAGE_SIZE_MED_SQ}_#{IMAGE_SIZE_MED_SQ}"
+    when :medium
+      "images/#{base_url}_#{IMAGE_SIZE_MED_SQ_W}_#{IMAGE_SIZE_MED_SQ_H}"
+    when :original
+      "iamges/#{base_url}.jpg"
+    end
+  end
+end
+
+
+# HTML:
+
+- media = page.media.first
+# => <img src="234508934_640_480.jpg" size="440x187"/>
+image(media.image_src(:large), size: media.large_size)
+# Original size:
+image(media.image_src(:original), size: media.original_size)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Timing an ugly query:
 
 # This one line takes about 10 minutes, so ... sit back?

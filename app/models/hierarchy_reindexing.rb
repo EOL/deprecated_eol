@@ -11,9 +11,11 @@ class HierarchyReindexing < ActiveRecord::Base
 
   class << self
     def enqueue_unless_pending(which)
-      pending = Background.in_queue?(:notifications, HierarchyReindexing,
-        "hierarchy_id", which.id)
-      return false if pending
+      HierarchyReindexing.with_master do
+        pending = Background.in_queue?(:notifications, HierarchyReindexing,
+          "hierarchy_id", which.id)
+        return false if pending
+      end
       HierarchyReindexing.enqueue(which)
       true
     end
@@ -27,17 +29,18 @@ class HierarchyReindexing < ActiveRecord::Base
     end
 
     def perform(args)
-      Rails.logger.error("HierarchyReindexing: #{args.values.join(', ')}")
       HierarchyReindexing.with_master do
         if HierarchyReindexing.exists?(args["id"])
             begin
+              Rails.logger.error("HierarchyReindexing: #{args.values.join(', ')}")
               HierarchyReindexing.find(args["id"]).run
             rescue => e
               Rails.logger.error "HierarchyReindexing (#{args["id"]}) FAILED: "\
                 " #{e.message}"
             end
         else
-           Rails.logger.error "HierarchyReindexing #{args["id"]} doesn't exist, skippped."
+          Rails.logger.error("HierarchyReindexing #{args["id"]} "\
+            "doesn't exist, skippped.")
         end
       end
     end

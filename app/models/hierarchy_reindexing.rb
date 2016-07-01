@@ -39,8 +39,10 @@ class HierarchyReindexing < ActiveRecord::Base
                 " #{e.message}"
             end
         else
-          Rails.logger.error("HierarchyReindexing #{args["id"]} "\
-            "doesn't exist, skippped.")
+          # Do nothing for now—for some reason this is happening a LOT, so let's
+          # just silently ignore it:
+          # Rails.logger.error("HierarchyReindexing #{args["id"]} "\
+          #   "doesn't exist, skippped.")
         end
       end
     end

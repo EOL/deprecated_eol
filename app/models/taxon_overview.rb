@@ -134,7 +134,7 @@ class TaxonOverview < TaxonUserClassificationFilter
 private
 
   def after_initialize
-    loadables = load_media.push(load_summary)
+    loadables = load_media.push(load_summary).compact
     TaxonUserClassificationFilter.preload_details(loadables, user)
     DataObject.preload_associations(loadables, { agents_data_objects: [ { agent: :user }, :agent_role ] })
     @summary = loadables.pop

@@ -22,7 +22,7 @@ class HarvestEvent
       hids = @harvest_event.new_hierarchy_entry_ids
       EOL.log("HarvestEvent::SiteSearchIndexer#index (#{dids.size} media, "\
         "#{hids.size} entries)")
-      @solr.index_type(DataObject, ids)
+      @solr.index_type(DataObject, dids)
       @solr.index_type(TaxonConcept, HierarchyEntry.where(
         id: hids).pluck(:taxon_concept_id))
     end

@@ -15,11 +15,16 @@ class HarvestEvent
     # the time we're calling this, we've already done it (at least so far as has
     # been ported). TODO: really, we should be able to check whether that's been
     # done and call it if not; worth adding a flag to the DB to indicate that.
+    # NOTE: there is a terribly inefficiency here too, if nothing has changed
+    # about the taxon. ...we end up building it anyway, which is horribly slow.
     def index
-      EOL.log_call
-      @solr.index_type(DataObject, @harvest_event.new_data_object_ids)
+      dids = @harvest_event.new_data_object_ids
+      hids = @harvest_event.new_hierarchy_entry_ids
+      EOL.log("HarvestEvent::SiteSearchIndexer#index (#{dids.size} media, "\
+        "#{hids.size} entries)")
+      @solr.index_type(DataObject, ids)
       @solr.index_type(TaxonConcept, HierarchyEntry.where(
-        id: @harvest_event.new_hierarchy_entry_ids).pluck(:taxon_concept_id))
+        id: hids).pluck(:taxon_concept_id))
     end
   end
 end

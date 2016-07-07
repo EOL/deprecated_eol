@@ -26,6 +26,7 @@ class HarvestEvent
         resource.preview_collection.users = []
         resource.preview_collection.destroy
       end
+      EOL.log_return
     end
 
     private

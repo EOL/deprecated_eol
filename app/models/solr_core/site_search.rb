@@ -2,13 +2,6 @@ class SolrCore
   class SiteSearch < SolrCore::Base
     CORE_NAME = "site_search"
     MIN_CHAR_REGEX = /^[0-9a-z]{32}/i
-    TAXON_NAME_FIELDS = {
-      preferred_scientifics: { keyword: 'PreferredScientific', weight: 1 },
-      synonyms: { keyword: 'Synonym', weight: 3 },
-      surrogates: { keyword: 'Surrogate', weight: 500 },
-      preferred_commons: { keyword: 'PreferredCommonName', weight: 2 },
-      commons: { keyword: 'CommonName', weight: 4 }
-    }
 
     def initialize
       connect(CORE_NAME)
@@ -96,143 +89,81 @@ class SolrCore
       # names, so this gets ugly fast.
       ids.in_groups_of(200, false) do |batch|
         TaxonConcept.unsuperceded.published.
-                     includes(taxon_concept_names: :name).where(id: batch).
+                     includes(:taxon_concept_metric, :flattened_ancestors,
+                       taxon_concept_names: :name).where(id: batch).
                      each do |concept|
           id = concept.id
-          vetted_id = concept.vetted_id
-          concept.taxon_concept_names.each do |tcn|
-            next if tcn.name.string.blank?
-            string = SolrCore.string(tcn.name.string)
-            if string.blank?
-              # This happens a lot. I'm not sure how, but these strings are still
-              # matched, so this doesn't appear to be a problem, per se.
-              next
-            end
-            language_id = tcn.language_id
-            name_vetted_id = tcn.vetted_id
-            if tcn.vern?
-              iso = Language.iso_code(language_id) || 'unknown'
-              if tcn.preferred? && iso != 'unknown'
-                add_to_taxa(id, preferred_commons: { iso => string })
-              elsif name_vetted_id != Vetted.untrusted.id &&
-                vetted_id != Vetted.inappropriate.id
-                add_to_taxa(id, commons: { iso => string })
-              end
-            elsif tcn.source_hierarchy_entry_id && tcn.source_hierarchy_entry_id > 0
-              if Name.is_surrogate_or_hybrid?(string)
-                add_to_taxa(id, surrogates: string)
-              elsif tcn.preferred?
-                add_to_taxa(id, preferred_scientifics: string)
-              else
-                add_to_taxa(id, synonyms: string)
-              end
-            end
+          is_appropriate = concept.vetted_id != Vetted.inappropriate.id
+          solr_strings = {}
+          concept.taxon_concept_names.map { |tcn| tcn.name.string }.uniq.
+            each { |str| solr_strings[str] = SolrCore.string(str) }
+
+          # Break up the TaxonConceptName objects by type. Order matters: each
+          # precludes the next.
+          names = concept.taxon_concept_names
+          (preferred_commons, names) = names.partition { |tcn| tcn.vern? && tcn.preferred? && Language.iso_code(tcn.language_id) }
+          (commons, names) = names.partition { |tcn| tcn.vern? && tcn.vetted_id != Vetted.untrusted.id && is_appropriate }
+          # Lose any remaining names with no entry attached:
+          names.delete_if { |tcn| tcn.source_hierarchy_entry_id.nil? || tcn.source_hierarchy_entry_id <= 0 }
+          (surrogates, names) = names.partition { |tcn| Name.is_surrogate_or_hybrid?(solr_strings[tcn.name.string]) }
+          (preferred_scientifics, synonyms) = names.partition { |tcn| tcn.preferred? }
+
+          # Now pull out unique versions of the normalized names:
+          surrogates = surrogates.map { |tcn| solr_strings[tcn.name.string] }.uniq
+          preferred_scientifics = preferred_scientifics.map { |tcn| solr_strings[tcn.name.string] }.uniq
+          synonyms = synonyms.map { |tcn| solr_strings[tcn.name.string] }.uniq
+          scientifics = preferred_scientifics + synonyms
+
+          # Common names are slightly trickier—they need a language and they
+          # cannot be found in the scientific names...
+          preferred_commons_by_iso = {}
+          preferred_commons.each do |common|
+            string = solr_strings[common.name.string]
+            next if scientifics.include?(string)
+            preferred_commons_by_iso[Language.solr_iso_code(common.language_id)] = string
           end
-        end
-      end
-      remove_common_names_in_scientifics
-    end
-
-    def add_to_taxa(id, add = {})
-      @taxa[id] ||= {}
-      [:surrogates, :preferred_scientifics, :synonyms].each do |attribute|
-        @taxa[id][attribute] ||= Set.new
-        if add.has_key?(attribute)
-          @taxa[id][attribute] << add[attribute]
-        end
-      end
-      # Trickier to set: common languages contain hashes, keyed by language ISO
-      # code and with values of strings in that language.
-      [:preferred_commons, :commons].each do |common_type|
-        @taxa[id][common_type] ||= {}
-        if add.has_key?(common_type)
-          add[common_type].each do |iso, string|
-            @taxa[id][common_type][iso] ||= Set.new
-            @taxa[id][common_type][iso] << string
+          commons_by_iso = {}
+          commons.each do |common|
+            string = solr_strings[common.name.string]
+            next if scientifics.include?(string)
+            commons_by_iso[Language.solr_iso_code(common.language_id)] = string
           end
+
+          # Now build the objects:
+          base = {
+            resource_type:             "TaxonConcept",
+            resource_unique_key:       "TaxonConcept_#{id}",
+            resource_id:               id,
+            ancestor_taxon_concept_id: concept.flattened_ancestors.map(&:ancestor_id),
+            richness_score:            concept.taxon_concept_metric.richness_score
+          }
+          add_scientific_to_objects(base, surrogates, "Surrogate", 500)
+          add_scientific_to_objects(base, preferred_scientifics, "PreferredScientific", 1)
+          add_scientific_to_objects(base, synonyms, "Synonym", 3)
+          add_common_to_objects(base, preferred_commons, "PreferredCommonName", 2)
+          add_common_to_objects(base, preferred_commons, "CommonName", 4)
         end
       end
     end
 
-    def remove_common_names_in_scientifics
-      EOL.log_call
-      @taxa.each do |id, object|
-        remove_duplicate_common_names_in(:preferred_commons, object, id)
-        remove_duplicate_common_names_in(:commons, object, id)
-      end
-    end
-
-    def remove_duplicate_common_names_in(type, object, id)
-      object[type].each do |iso, names|
-        names.each do |name|
-          if object[:preferred_scientifics].include?(name) ||
-             object[:synonyms].include?(name)
-            @taxa[id][type][iso].delete(name)
-            @taxa[id][type].delete(iso) if
-              @taxa[id][type][iso].empty?
-          end
-        end
-      end
-    end
-
-    def get_taxon_ancestors(ids)
-      EOL.log_call
-      TaxonConceptsFlattened.where(["taxon_concept_id IN (?)", @taxa.keys]).
-        find_each do |tcf|
-        @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] ||= []
-        @taxa[tcf.taxon_concept_id][:ancestor_taxon_concept_id] <<
-          tcf.ancestor_id
-      end
-    end
-
-    def get_taxon_richness(ids)
-      EOL.log_call
-      TaxonConceptMetric.select("taxon_concept_id, richness_score").
-        where(["taxon_concept_id IN (?)", @taxa.keys]).find_each do |tcr|
-        @taxa[tcr.taxon_concept_id][:richness_score] = tcr.richness_score
-      end
-    end
-
-    # TODO: it looks like this takes a LONG time to run; improve.
-    def convert_taxa_to_search_objects
-      EOL.log("converting #{@taxa.count} taxa to search objects", prefix: "#")
-      @taxa.each do |id, taxon|
-        base_attributes = {
-          resource_type:             "TaxonConcept",
-          resource_id:               id,
-          resource_unique_key:       "TaxonConcept_#{id}",
-          ancestor_taxon_concept_id: taxon[:ancestor_taxon_concept_id],
-          richness_score:            taxon[:richness_score]
-        }
-        [:preferred_scientifics, :synonyms, :surrogates].each do |field|
-          objs = add_scientific_to_objects(base_attributes, taxon, field)
-          @objects += objs
-        end
-        [:commons, :preferred_commons].each do |field|
-          objs = add_common_to_objects(base_attributes, taxon, field)
-          @objects += objs
-        end
-      end
-    end
-
-    def add_scientific_to_objects(base, object, field)
-      return [] if object[field].empty?
-      [base.merge(
-        keyword_type: TAXON_NAME_FIELDS[field][:keyword],
-        keyword: object[field].to_a,
+    def add_scientific_to_objects(base, names, type, weight)
+      return if names
+      @objects << base.merge(
+        keyword_type: type,
+        keyword: names,
         language: 'sci',
-        resource_weight: TAXON_NAME_FIELDS[field][:weight]
-      )]
+        resource_weight: weight
+      )
     end
 
-    def add_common_to_objects(base, object, field)
-      return [] if object[field].empty?
-      object[field].map do |iso, names|
+    def add_common_to_objects(base, names_by_iso, type, weight)
+      return names_by_iso.empty?
+      @objects += names_by_iso.map do |iso, names|
         base.merge(
-          keyword_type: TAXON_NAME_FIELDS[field][:keyword],
-          keyword: names.to_a,
+          keyword_type: type,
+          keyword: names,
           language: iso,
-          resource_weight: TAXON_NAME_FIELDS[field][:weight]
+          resource_weight: weight
         )
       end
     end

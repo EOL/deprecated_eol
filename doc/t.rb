@@ -2,20 +2,11 @@
 
 ### Re-write of taxa to site_search objects:
 ids = CollectionItem.where(collection_id: 7, collected_item_type: "TaxonConcept").pluck :collected_item_id
-TAXON_NAME_FIELDS = {
-  preferred_scientifics: { keyword: 'PreferredScientific', weight: 1 },
-  synonyms: { keyword: 'Synonym', weight: 3 },
-  surrogates: { keyword: 'Surrogate', weight: 500 },
-  preferred_commons: { keyword: 'PreferredCommonName', weight: 2 },
-  commons: { keyword: 'CommonName', weight: 4 }
-}
+@solr = SolrCore::SiteSearch.new
+Benchmark.measure { 10.times { @solr.index_type(TaxonConcept, ids) } }
+# =>  12.110000   0.180000  12.290000 ( 20.216025)
 
-taxon_hash[id_is_key] = {
-  :surrogates, :preferred_scientifics, :synonyms,
-  # Note the common keys have complex pairs with ISO code and then a set of the names.
-  :preferred_commons, :commons,
-  :ancestor_taxon_concept_id, # This is an array, not a set...
-}
+
 # ... if there are any scientific names that are also in the common names (any
 # language), they are removed from the common names. This is done inefficiently.
 

@@ -78,9 +78,6 @@ class SolrCore
       EOL.log_call
       @taxa ||= {}
       get_taxon_names(ids)
-      get_taxon_ancestors(ids)
-      get_taxon_richness(ids)
-      convert_taxa_to_search_objects
     end
 
     def get_taxon_names(ids)

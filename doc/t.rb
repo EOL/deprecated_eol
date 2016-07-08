@@ -1,6 +1,39 @@
 # This is a temp file used for notes. Ignore it entirely!
 
+### Re-write of taxa to site_search objects:
+ids = CollectionItem.where(collection_id: 7, collected_item_type: "TaxonConcept").pluck :collected_item_id
+TAXON_NAME_FIELDS = {
+  preferred_scientifics: { keyword: 'PreferredScientific', weight: 1 },
+  synonyms: { keyword: 'Synonym', weight: 3 },
+  surrogates: { keyword: 'Surrogate', weight: 500 },
+  preferred_commons: { keyword: 'PreferredCommonName', weight: 2 },
+  commons: { keyword: 'CommonName', weight: 4 }
+}
 
+taxon_hash[id_is_key] = {
+  :surrogates, :preferred_scientifics, :synonyms,
+  # Note the common keys have complex pairs with ISO code and then a set of the names.
+  :preferred_commons, :commons,
+  :ancestor_taxon_concept_id, # This is an array, not a set...
+}
+# ... if there are any scientific names that are also in the common names (any
+# language), they are removed from the common names. This is done inefficiently.
+
+sol_hash = {
+  resource_type:             "TaxonConcept",
+  resource_id:               id,
+  resource_unique_key:       "TaxonConcept_#{id}",
+  ancestor_taxon_concept_id: taxon[:ancestor_taxon_concept_id],
+  richness_score:            taxon[:richness_score]
+  keyword_type: TAXON_NAME_FIELDS[field][:keyword],
+  keyword: object[field].to_a,
+  language: 'sci',
+  resource_weight: TAXON_NAME_FIELDS[field][:weight]
+  keyword_type: TAXON_NAME_FIELDS[field][:keyword],
+  keyword: names.to_a,
+  language: iso,
+  resource_weight: TAXON_NAME_FIELDS[field][:weight]
+}
 
 ### Harvesting Side
 

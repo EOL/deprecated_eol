@@ -62,7 +62,6 @@ class Resource
           new_entry_ids - old_entry_ids)
       end
       reindex_and_merge unless was_previewed
-      EOL::Sparql::EntryToTaxonMap.create_graph(@resource)
       ActiveRecord::Base.connection.transaction do
         @resource.rebuild_taxon_concept_names
       end

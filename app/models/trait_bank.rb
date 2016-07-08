@@ -180,7 +180,7 @@ class TraitBank
     def create_mappings(resource)
       triples = []
       graph = resource.graph_name
-      resource.hierarchy.entries.select([:id, :identifier, :taxon_concept_id]).
+      resource.hierarchy.entries.has_identifier.select([:id, :identifier, :taxon_concept_id]).
                find_each do |entry|
         entry_uri = "#{graph}/taxa/#{EOL::Sparql.to_underscore(entry.identifier)}"
         page_uri = "http://eol.org/pages/#{entry.taxon_concept_id}"

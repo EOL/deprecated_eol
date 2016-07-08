@@ -73,15 +73,13 @@ class SolrCore
       end
     end
 
-    # NOTE: called by #insert_batch via dynamic #send
+    # NOTE: called by #insert_batch via dynamic #send # TODO: long method, break
+    # up. (I couldn't feel a really great place to break it on first pass, so:
+    # think about it.) NOTE: this takes a little less than a second per taxon
+    # (for rich taxa), so ... don't hold your breath.
     def get_taxon_concepts(ids)
-      EOL.log_call
+      EOL.log("SolrCore::SiteSearch#get_taxon_concepts(#{ids.size} taxa) - expect about 1 second per taxon")
       @taxa ||= {}
-      get_taxon_names(ids)
-    end
-
-    def get_taxon_names(ids)
-      EOL.log_call
       # Smaller than average group because each taxon can have hundreds of
       # names, so this gets ugly fast.
       ids.in_groups_of(200, false) do |batch|

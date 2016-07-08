@@ -1,11 +1,13 @@
 # This is a temp file used for notes. Ignore it entirely!
 
 ### Re-write of taxa to site_search objects:
+# 7221 is 84 taxa, all of them quite rich:
+# 7 is 8 taxa, of varying richness:
 ids = CollectionItem.where(collection_id: 7, collected_item_type: "TaxonConcept").pluck :collected_item_id
 @solr = SolrCore::SiteSearch.new
 Benchmark.measure { 10.times { @solr.index_type(TaxonConcept, ids) } }
-# =>  12.110000   0.180000  12.290000 ( 20.216025)
-
+# Old code => 187.820000   7.480000 195.300000 (257.626277)
+# New code =>  50.700000   0.540000  51.240000 ( 76.566389)
 
 # ... if there are any scientific names that are also in the common names (any
 # language), they are removed from the common names. This is done inefficiently.

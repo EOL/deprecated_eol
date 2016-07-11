@@ -1058,7 +1058,7 @@ br:
       about_link_what_is_eol: Petra eo HAB ?
       about_link_traitbank: Petra eo TraitBank ?
       about_link_eol_blog: Blog HAB
-      about_link_discover: Dizoleiñ
+      about_link_discover: Deskadurezh
       about_link_statistics: Stadegoù
       about_link_glossary: Geriaoueg
       about_link_podcasts: Podskignadoù
@@ -1089,6 +1089,8 @@ br:
       learn_more_link_protists: Protozoed
       learn_more_link_archaea: Archaea
       learn_more_link_viruses: Viruzoù
+      learn_more_link_algae: Bezhin
+      questions_link_evolution: Petra eo an emdroadur ?
       questions_link_biodiversity: Petra eo ar vevliesseurted ?
       questions_link_species: Petra eo ur spesad ?
       questions_link_discovering_species: Penaos eo bet dizoloet ar spesadgoù ?

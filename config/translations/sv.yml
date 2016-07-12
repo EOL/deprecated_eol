@@ -1099,6 +1099,7 @@ sv:
       learn_more_link_protists: Protister
       learn_more_link_archaea: Arkéer
       learn_more_link_viruses: Virus
+      learn_more_link_algae: Alger
       questions_link_evolution: Vad är evolution?
       questions_link_biodiversity: Vad är biodiversitet?
       questions_link_species: Vad är en art?
@@ -3634,6 +3635,7 @@ sv:
     inbjuder dig att utforska. Fyll gärna i vår <a href='https://www.surveymonkey.com/s/9FDTDQP'>enkät</a>
     efter att du har granskat vår datakapacitet.
   beta_warning_note_header: 'OBS:'
+  bhl: Biodiversity Heritage Library
   bhl_partner_footer: Besök Biodiversity Heritage Library
   bhl_publication: BHL-publikation
   bi_monthly: Varannan månad
@@ -4711,14 +4713,6 @@ sv:
   images_in_red_are_not_trusted: Bilder i rött är inte pålitliga.
   images_in_yellow_are_not_reviewed: Bilder i gult är inte granskade.
   image_objects_page_number: bildsida
-  images_sort_worklist_note:
-    one: Bilder sorteras efter importeringsdatumet på EOL, och de nyaste objekten
-      visas först. Det finns %{count} bild i denna verklista.
-    other: Bilder sorteras efter importeringsdatumet på EOL, och de nyaste objekten
-      visas först. Det finns %{count} bilder i denna verklista.
-  images_with_count:
-    one: '%{count} bild'
-    other: '%{count} bilder'
   import_once: Importera en gång
   import_ontology: Importera ontologi
   inappropriate: Olämplig

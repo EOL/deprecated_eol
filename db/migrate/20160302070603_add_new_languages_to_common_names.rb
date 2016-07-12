@@ -16,18 +16,18 @@ class AddNewLanguagesToCommonNames < ActiveRecord::Migration
                           activated_on: Time.now)
       TranslatedLanguage.create(language_id: Language.default.id, original_language_id: l.id, label: 'Pulla Fuuta')
     end
-    unless Language.exists?(iso_639_1: 'ff')
-      l = Language.create(iso_639_1: "ff", iso_639_2: "fuk", iso_639_3: "fuk", source_form: "Fulakunda/Fulani", sort_order: 1,
+    unless Language.exists?(iso_639_1: 'fk')
+      l = Language.create(iso_639_1: "fk", iso_639_2: "fuk", iso_639_3: "fuk", source_form: "Fulakunda/Fulani", sort_order: 1,
                           activated_on: Time.now)
       TranslatedLanguage.create(language_id: Language.default.id, original_language_id: l.id, label: 'Fulakunda/Fulani')
     end
-    unless Language.exists?(iso_639_1: 'mn')
-      l = Language.create(iso_639_1: "mn", iso_639_2: "mnk", iso_639_3: "mnk", source_form: "Mandinka", sort_order: 1,
+    unless Language.exists?(iso_639_1: 'md')
+      l = Language.create(iso_639_1: "md", iso_639_2: "mnk", iso_639_3: "mnk", source_form: "Mandinka", sort_order: 1,
                           activated_on: Time.now)
       TranslatedLanguage.create(language_id: Language.default.id, original_language_id: l.id, label: 'Mandinka')
     end
-    unless Language.exists?(iso_639_1: 'se')
-      l = Language.create(iso_639_1: "se", iso_639_2: "srr", iso_639_3: "srr", source_form: "Sereer", sort_order: 1,
+    unless Language.exists?(iso_639_1: 're')
+      l = Language.create(iso_639_1: "re", iso_639_2: "srr", iso_639_3: "srr", source_form: "Sereer", sort_order: 1,
                           activated_on: Time.now)
       TranslatedLanguage.create(language_id: Language.default.id, original_language_id: l.id, label: 'Sereer')
     end

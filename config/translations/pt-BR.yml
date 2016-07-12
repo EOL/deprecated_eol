@@ -4560,7 +4560,7 @@ pt-BR:
   data_column_value_uri: URI de valor
   data_column_units: Unidades (normalizada)
   data_column_units_uri: Unidades URI (normalizada)
-  data_column_source: Fonte
+  data_column_source: Fornecedor
   data_database_colon: 'Dados:'
   data_glossary: Glossário de dados
   data_logging_active: Registro ativo de dados
@@ -4576,16 +4576,16 @@ pt-BR:
   data_object_toc_items_list:
     one: Aparece sobre %{quoted_toc_titles}
     other: Aparece sobre %{quoted_toc_titles}
-  data_overview_table_caption: Fatos rápidos
+  data_overview_table_caption: Dados de características
   data_point_uri_source_missing: falta a fonte
   data_point_uri_summary_name: dados sobre %{taxon}
   data_provided_by_user: provido por %{whom}
   data_provided_by_content_partner: 'Fonte: %{whom}'
   data_reference_subtable_summary: Referências adicionais sobre este fato.
-  data_row_exemplar_added: Fato rápido adicionado.
-  data_row_exemplar_removed: Fato rápido removido.
-  data_row_excluded_from_overview_notice: 'Nota: Esta linha foi excluída dos fatos
-    rápidos.'
+  data_row_exemplar_added: Adicionado à Visão Geral.
+  data_row_exemplar_removed: Removido da Visão Geral.
+  data_row_excluded_from_overview_notice: 'Nota: Esta linha foi excluída da Visão
+    Geral.'
   data_row_additional_detail_alt: Detalhes adicionais
   data_row_additional_detail_show_alt: Mostrar detalhes adicionais
   data_row_additional_detail_hide_alt: Ocultar detalhes adicionais
@@ -4679,7 +4679,7 @@ pt-BR:
   details_title: Detalhes
   did_you_mean: 'Você quis dizer: %{suggestions} ?'
   disabled_for_now: DESABILITADO NESTE MOMENTO
-  discover_link: Descobrir
+  discover_link: Educação
   donate_link: Doar
   done_already: Já feito
   dont_show_unknown_registered_dates_v1_users_all_prior_to_jan_5_2009: Não mostrar
@@ -4985,8 +4985,6 @@ pt-BR:
   images: Imagens
   images_in_red_are_not_trusted: Imagens em vermelho não são confiáveis​​.
   images_in_yellow_are_not_reviewed: Imagens em amarelo não são revisadas.
-  images_with_count:
-    other: uma=%{count} imagem
   import_once: Importar uma vez
   inappropriate: Inadequado
   inaturalist_tab_label: Observações iNaturalist
@@ -5533,7 +5531,7 @@ pt-BR:
   punctuation_semi_colon: ;
   quarterly: Trimestral
   rating_not_added_error: Desculpe, ocorreu um erro, a avaliação não pode ser adicionada.
-  recaptcha: Digite as duas palavras que você vê abaixo
+  recaptcha: Digite as duas palavras ou números que você vê abaixo
   recent_updates: Atualizações recentes
   recently_visited: Visitei recentemente
   recipients: Destinatários

@@ -3944,8 +3944,7 @@ de:
   admin_translated_content_page_new_subheader: Eine Übersetzung für Seite <em>%{page_name}</em>
     hinzufügen
   admin_translated_content_page_update_successful_notice: Die Übersetzung auf %{language}
-    für die Seite <a href="#<span class=" notranslate"="">%{anchor}"><em>%{page_name}</em></a>
-    wurde aktualisiert.
+    für die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde aktualisiert.
   admin_translated_content_page_update_unsuccessful_error: Es ist leider ein Fehler
     aufgetreten, so dass die Übersetzung nicht aktualisiert werden konnte.
   admin_translated_news_item_active: Veröffentlicht
@@ -3970,8 +3969,7 @@ de:
     erforderlich.
   admin_translated_news_item_not_active: Unveröffentlicht
   admin_translated_news_item_update_successful_notice: Die Übersetzung auf %{language}
-    für die Seite <a href="#<span class=" notranslate"="">%{anchor}"><em>%{page_name}</em></a>
-    wurde aktualisiert.
+    für die Seite <a href="#%{anchor}"><em>%{page_name}</em></a> wurde aktualisiert.
   admin_translated_news_item_update_unsuccessful_error: Es ist leider ein Fehler aufgetreten,
     so dass die Nachricht nicht aktualisiert werden konnte.
   admin_updated_config: Konfiguration für %{name} aktualisiert
@@ -5580,6 +5578,7 @@ de:
   full_content_url: Vollständige URL
   gbif_map: GBIF-Karte
   general_site_admin: allgemeine Websiteadministration
+  georeference_records_colon: 'Georeferenzsätze:'
   get_help_choosing_a_subject: Holen Sie sich Hilfe zur Auswahl eines Themas
   get_help_choosing_a_subchapter: Holen Sie sich Hilfe zur Auswahl eines Unterkapitels
   get_more_tasks: weitere Aufgaben abrufen
@@ -5705,14 +5704,6 @@ de:
   images_in_yellow_are_not_reviewed: Gelb gekennzeichnete Bilder wurden noch nicht
     überprüft.
   image_objects_page_number: Bilderseite
-  images_sort_worklist_note:
-    one: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befindet
-      sich ein Bild in dieser Arbeitsliste.
-    other: Bilder werden absteigend nach deren Importdatum in EOL sortiert. Es befinden
-      sich %{count} Bilder in dieser Arbeitsliste.
-  images_with_count:
-    one: '%{count} Bild'
-    other: '%{count} Bilder'
   import_once: Einmal importieren
   import_ontology: Ontologie importieren
   inappropriate: Ungeeignet

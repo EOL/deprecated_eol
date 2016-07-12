@@ -54,7 +54,7 @@ class SolrCore
       @objects.delete(nil)
       @objects.delete({})
       delete_batch(klass, ids)
-      @objects.to_a.in_groups_of(6400, false) do |group|
+      @objects.to_a.in_groups_of(2500, false) do |group|
         EOL.log("Adding #{group.count} items...")
         connection.add(group)
       end

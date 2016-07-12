@@ -39,7 +39,7 @@
 it:
   activerecord:
     models:
-      user: account
+      user: utenza
     attributes:
       collection:
         name: Nome della collezione
@@ -731,11 +731,11 @@ it:
         news_in_preferred_language: visualizza le notizie nella lingua preferita
         notification_settings: Impostazioni notifiche
         notification_settings_more: Configurare le impostazioni di notifica.
-        open_authentications: Account collegati
+        open_authentications: Utenze connesse
         open_authentications_more: Gestisci gli account di terze parti che puoi usare
           per accedere ad EOL. <a href="%{open_authentications_url}">Modifica account
           collegati</a>.
-        open_authentications_connected_accounts: I tuoi account collegati
+        open_authentications_connected_accounts: Le tue utenze connesse
         requested_curator_level: La tua richiesta di diventare %{curator_level_with_indefinite_article}
           è in sospeso.
         requested_curator_level_id_more: Scegli <em>Assistente Curatore</em> se non
@@ -2196,8 +2196,8 @@ it:
           di notifica potrebbero non essere state aggiornate.
     open_authentications:
       errors:
-        missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-          account di terze parti.
+        missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+          tramite account di terze parti.
         not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
           per la connessione all'account.
         not_authorized_to_login: Spiacenti, non si dispone delle autorizzazioni per
@@ -2215,8 +2215,8 @@ it:
             di Facebook tramite le impostazioni del tuo profilo EOL. Se ancora non
             hai ancora un account EOL <a href="%{register_url}">completa la registrazione
             EOL</a> per crearne uno.
-          missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-            l'account di Facebook.
+          missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+            tramite l'account di Facebook.
           new_authentication_not_added: Spiacenti, si è verificato un errore, non
             è stato possibile collegare il tuo account di Facebook.
           not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
@@ -2240,8 +2240,8 @@ it:
             di Google tramite le impostazioni del tuo profilo EOL. Se ancora non hai
             ancora un account EOL <a href="%{register_url}">completa la registrazione
             EOL</a> per crearne uno.
-          missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-            account di Google.
+          missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+            tramite account di Google.
           new_authentication_not_added: Spiacenti, si è verificato un errore, non
             è stato possibile collegare il tuo account di Google.
           not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
@@ -2265,8 +2265,8 @@ it:
             di Twitter tramite le impostazioni del tuo profilo EOL. Se ancora non
             hai ancora un account EOL <a href="%{register_url}">completa la registrazione
             EOL</a> per crearne uno.
-          missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-            l'account di Twitter.
+          missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+            tramite l'account di Twitter.
           new_authentication_not_added: Spiacenti, si è verificato un errore, non
             è stato possibile collegare il tuo account di Twitter.
           not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
@@ -2290,8 +2290,8 @@ it:
             di Yahoo tramite le impostazioni del tuo profilo EOL. Se ancora non hai
             ancora un account EOL <a href="%{register_url}">completa la registrazione
             EOL</a> per crearne uno.
-          missing_attributes: Spiacenti, c'è stato un problema durante l'accesso tramite
-            account di Yahoo.
+          missing_attributes: Spiacenti, si è verificato un problema durante l'accesso
+            tramite account di Yahoo.
           new_authentication_not_added: Spiacenti, si è verificato un errore, non
             è stato possibile collegare il tuo account di Yahoo.
           not_authorized_to_add_authentication: Spiacenti, non si dispone delle autorizzazioni
@@ -2310,7 +2310,7 @@ it:
         connected_last_verified: Collegato; ultima verifica %{time_passed} fa;
         connected_unverified: Collegato; non verificato;
         not_connected: Non collegato;
-        page_title: Account collegati
+        page_title: Utenze connesse
         page_description: Gestisci le connessioni agli account di terze parti che
           è possibile utilizzare per accedere ad EOL.
         return_link: Ritorna alla modifica del profilo.
@@ -3771,7 +3771,7 @@ it:
     solo quelli con permessi
   admin_link: Panoramica
   admin_page_title: 'Amministrazione: Panoramica'
-  admin_resource_delete_confirmation: Sei sicuro di voler eliminare questa risorsa?
+  admin_resource_delete_confirmation: Sei sicuro di voler cancellare questa risorsa?
     Questo comando richiede molto tempo per l'esecuzione. Puoi prenderti una pausa
     nel frattempo. Non inviare la richiesta due volte.
   admin_simple_actions_header: 'Semplici Azioni:'
@@ -4205,10 +4205,10 @@ it:
   collection_is_empty: Questa collezione è attualmente vuota.
   collection_item_edit_page_title: Modifica elemento nella collezione <em>%{collection_name}</em>
   collection_item_not_found_error: L'elemento della collezione non può essere trovato.
-  collection_item_edit_by_javascript_not_authorized_error: Siamo spiacenti, non hai
-    il permesso di modificare questo elemento della collezione. Se sei il proprietario
-    della collezione o un editor sei pregato di ricaricare la pagina e controllare
-    se hai effettuato il login.
+  collection_item_edit_by_javascript_not_authorized_error: Spiacenti, non si dispone
+    dei permessi necessari per modificare questo elemento della collezione. Se sei
+    il proprietario della collezione o un editor sei pregato di ricaricare la pagina
+    e controllare se hai effettuato l'accesso.
   collection_items_count:
     zero: Vuoto
     one: '%{count} elemento'
@@ -4268,7 +4268,7 @@ it:
   comment_added_notice: Commento aggiunto correttamente.
   comment_body_label: Il tuo commento
   comment_created_at: Creato il
-  comment_delete_confirm: Sei sicuro di volere eliminare il commento?
+  comment_delete_confirm: Sei sicuro di volere cancellare il commento?
   comment_edit_by_javascript_not_authorized_error: Spiacenti, non hai i permessi per
     modificare questo commento. Se sei l'autore del commento ricarica la pagina e
     controlla se hai effettuato il login.
@@ -5149,8 +5149,8 @@ it:
     o selezionare "Tutti gli elementi" dal menu a discesa.
   error_watch_collections_cannot_be_shared: Guarda le collezioni che non possono essere
     condivise
-  error_updating_user: C'è stato un errore di aggiornamento per il record di questo
-    utente
+  error_updating_user: Si è verificato un errore di aggiornamento per il record di
+    questo utente
   every_method_can_also_return_json_response: Ogni metodo può restituire anche una
     risposta JSON aggiungendo un'estensione .json.
   example_colon: 'Esempio:'
@@ -5392,6 +5392,7 @@ it:
   full_content_url: Full Content URL
   gbif_map: Mappa GBIF
   general_site_admin: amministratore sito generale
+  georeference_records_colon: 'Record di georeferenziazione:'
   get_help_choosing_a_subject: Ottieni aiuto nella scelta di un soggetto
   get_help_choosing_a_subchapter: Ottieni aiuto nella scelta di un sottocapitolo
   get_more_tasks: ottieni ulteriori compiti
@@ -5518,14 +5519,6 @@ it:
   images_in_red_are_not_trusted: Le immagini in rosso non sono attendibili.
   images_in_yellow_are_not_reviewed: Le immagini in giallo non sono state revisionate
   image_objects_page_number: Pagina immagini
-  images_sort_worklist_note:
-    one: Le immagini sono ordinate a seconda della data di immissione con la più recente
-      mostrata per prima. Vi è %{count} immagine in questa lista.
-    other: Le immagini sono ordinate a seconda della data di immissione con la più
-      recente mostrata per prima. Vi sono %{count} immagini in questa lista.
-  images_with_count:
-    one: '%{count} immagine'
-    other: '%{count} immagini'
   import_once: Importa una volta
   import_ontology: Importa Ontologia
   inappropriate: Inappropriato
@@ -6257,7 +6250,7 @@ it:
   public: Pubblico
   public_domain: Pubblico dominio
   publish_after_utc: Pubblica Dopo (UTC)
-  publish_changes: Pubblica Modifiche
+  publish_changes: Pubblica modifiche
   published: Pubblicato
   published_parens: (Pubblicato)
   publish: pubblica

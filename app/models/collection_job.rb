@@ -1,6 +1,7 @@
 # NOTE - assuming #update returns an accurate row_count (it seems to):
 class CollectionJob < ActiveRecord::Base
-
+  include EOL::Db
+  
   VALID_COMMANDS = %w(copy move remove)
 
   # Columns that users are allowed to copy when they don't own the source:

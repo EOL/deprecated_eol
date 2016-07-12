@@ -4941,7 +4941,7 @@ mk:
   exception: Исклучок
   exceptions:
     security_violations:
-      administrators_only: Нажалост, овде имаат пристап само администратори.
+      administrators_only: За жал, овде имаат пристап само администратори.
       default: Пристапот е одбиен.
       hidden_user_login: Нажалост, на таа сметка ѝ е оневозможено најавување.
       hidden_user_recover_account: Нажалост, на таа сметка ѝ е оневозможен повраток.
@@ -5175,6 +5175,7 @@ mk:
   full_content_url: URL на полната содржина
   gbif_map: GBIF-карта
   general_site_admin: општ раководител на мреж. место
+  georeference_records_colon: 'Геонаводни записи:'
   get_help_choosing_a_subject: Помош со одбирањето на наслов
   get_help_choosing_a_subchapter: Помош со одбирањето на подглава
   get_more_tasks: уште задачи
@@ -5295,14 +5296,6 @@ mk:
   images_in_red_are_not_trusted: Сликите со црвено се недоверливи.
   images_in_yellow_are_not_reviewed: Сликите со жолто не се проверени.
   image_objects_page_number: страница со слики
-  images_sort_worklist_note:
-    one: Сликите се подредуваат по датум на увоз во EOL - прво најновите. Има %{count}
-      слика на овој работен список.
-    other: Сликите се подредуваат по датум на увоз во EOL - прво најновите. Има %{count}
-      слики на овој работен список.
-  images_with_count:
-    one: '%{count} слика'
-    other: '%{count} слики'
   import_once: Увези еднаш
   import_ontology: Увези онтологија
   inappropriate: Несоодветни

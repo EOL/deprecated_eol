@@ -1,0 +1,202 @@
+# Messages for Romanian (română)
+# Exported from translatewiki.net
+# Export driver: phpyaml
+# Author: ANDROBETA
+# Author: Anca42
+# Author: Minisarm
+# Author: Strainu
+---
+ro:
+  translated_activities-name-activity_id-19: profil
+  translated_activities-name-activity_id-50: nu prezintă încredere
+  translated_activities-name-activity_id-51: arată
+  translated_activities-name-activity_id-52: creare
+  translated_activities-name-activity_id-53: ascunde
+  translated_activities-name-activity_id-54: actualizare
+  translated_activities-name-activity_id-55: inadecvat
+  translated_activities-name-activity_id-56: șterge
+  translated_activities-name-activity_id-57: rată
+  translated_activities-name-activity_id-58: de încredere
+  translated_activities-name-activity_id-59: nerevizuit
+  translated_activities-name-activity_id-63: colectează
+  translated_activities-name-activity_id-64: elimină
+  translated_agent_roles-label-agent_role_id-10: Proiect
+  translated_agent_roles-label-agent_role_id-11: Editor
+  translated_agent_roles-label-agent_role_id-12: Înregistrator
+  translated_agent_roles-label-agent_role_id-13: Sursă
+  translated_agent_roles-label-agent_role_id-14: Baza de date a sursei
+  translated_agent_roles-label-agent_role_id-15: Persoană de contact
+  translated_agent_roles-label-agent_role_id-16: Contribuitor
+  translated_agent_roles-label-agent_role_id-1: Animator
+  translated_agent_roles-label-agent_role_id-21: furnizor
+  translated_agent_roles-label-agent_role_id-22: traducător
+  translated_agent_roles-label-agent_role_id-23: Referent științific
+  translated_agent_roles-label-agent_role_id-24: Referent lingvistic
+  translated_agent_roles-label-agent_role_id-2: Autor
+  translated_agent_roles-label-agent_role_id-7: Editor
+  translated_agent_roles-label-agent_role_id-8: Ilustrator
+  translated_agent_roles-label-agent_role_id-9: Fotograf
+  translated_audiences-label-audience_id-1: Utilizatori avansați
+  translated_audiences-label-audience_id-2: Publicul larg
+  translated_audiences-label-audience_id-3: Copiii
+  translated_collection_types-label-collection_type_id-10: Sunete
+  translated_collection_types-label-collection_type_id-11: Legături
+  translated_collection_types-label-collection_type_id-12: Literatură
+  translated_collection_types-label-collection_type_id-13: Taxonomie
+  translated_collection_types-label-collection_type_id-15: Descriere
+  translated_collection_types-label-collection_type_id-16: Imagini
+  translated_collection_types-label-collection_type_id-17: Distribuire
+  translated_collection_types-label-collection_type_id-18: Stare de conservate
+  translated_collection_types-label-collection_type_id-1: Taxonomie
+  translated_collection_types-label-collection_type_id-20: Date moleculare
+  translated_collection_types-label-collection_type_id-21: Nomenclatură
+  translated_collection_types-label-collection_type_id-22: Sunete
+  translated_collection_types-label-collection_type_id-23: Legături
+  translated_collection_types-label-collection_type_id-24: Literatură
+  translated_collection_types-label-collection_type_id-3: Descriere
+  translated_collection_types-label-collection_type_id-4: Imagini
+  translated_collection_types-label-collection_type_id-5: Distribuire
+  translated_collection_types-label-collection_type_id-6: Stare de conservate
+  translated_collection_types-label-collection_type_id-9: Nomenclatură
+  translated_contact_subjects-title-contact_subject_id-26: Învățământ și educație
+  translated_contact_subjects-title-contact_subject_id-27: Devino partener de conținut
+  translated_contact_subjects-title-contact_subject_id-30: Faceți o corectare (ortografie
+    și gramatică, imagini, informații)
+  translated_contact_subjects-title-contact_subject_id-31: Contribuiți cu fișiere
+    video, audio sau imagini
+  translated_contact_subjects-title-contact_subject_id-33: Faceți o donație în bani
+  translated_contact_subjects-title-contact_subject_id-34: Întrebări tehnice (probleme
+    cu căutarea, funcționalitatea saitului)
+  translated_content_partner_statuses-label-content_partner_status_id-1: În așteptare
+  translated_content_partner_statuses-label-content_partner_status_id-2: Activ
+  translated_content_partner_statuses-label-content_partner_status_id-3: Arhivat
+  translated_content_partner_statuses-label-content_partner_status_id-4: Inactiv
+  translated_content_tables-label-content_table_id-1: Detalii
+  translated_data_types-label-data_type_id-10: Hartă
+  translated_data_types-label-data_type_id-1: Imagine
+  translated_data_types-label-data_type_id-2: Sunet
+  translated_data_types-label-data_type_id-3: Text
+  translated_data_types-label-data_type_id-4: Video
+  translated_data_types-label-data_type_id-5: Imagine GBIF
+  translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
+  translated_data_types-label-data_type_id-8: YouTube
+  translated_licenses-description-license_id-1: Niciun drept rezervat
+  translated_licenses-description-license_id-29: Unele drepturi rezervate
+  translated_licenses-description-license_id-2: © Toate drepturile rezervate
+  translated_licenses-description-license_id-30: Unele drepturi rezervate
+  translated_licenses-description-license_id-31: Unele drepturi rezervate
+  translated_licenses-description-license_id-32: Unele drepturi rezervate
+  translated_licenses-description-license_id-33: Unele drepturi rezervate
+  translated_licenses-description-license_id-34: Domeniul public
+  translated_licenses-description-license_id-35: Domeniul public
+  translated_licenses-description-license_id-36: Unele drepturi rezervate
+  translated_licenses-description-license_id-37: Unele drepturi rezervate
+  translated_licenses-description-license_id-38: Unele drepturi rezervate
+  translated_licenses-description-license_id-39: Domeniul public
+  translated_licenses-description-license_id-3: Unele drepturi rezervate
+  translated_licenses-description-license_id-42: Unele drepturi rezervate
+  translated_licenses-description-license_id-43: Licența nu este aplicabilă
+  translated_licenses-description-license_id-4: Unele drepturi rezervate
+  translated_licenses-description-license_id-5: Unele drepturi rezervate
+  translated_licenses-description-license_id-6: Unele drepturi rezervate
+  translated_licenses-description-license_id-7: Unele drepturi rezervate
+  translated_licenses-description-license_id-8: Unele drepturi rezervate
+  translated_licenses-description-license_id-9: Unele drepturi rezervate
+  translated_ranks-label-rank_id-335: specie
+  translated_ranks-label-rank_id-352: subfamilie
+  translated_ranks-label-rank_id-396: subregn
+  translated_resource_statuses-label-resource_status_id-1: Se încarcă
+  translated_resource_statuses-label-resource_status_id-2: Încărcat
+  translated_resource_statuses-label-resource_status_id-3: Încărcarea a eșuat
+  translated_resource_statuses-label-resource_status_id-4: Mutat la serverul conținutului
+  translated_resource_statuses-label-resource_status_id-5: Validat
+  translated_resource_statuses-label-resource_status_id-6: Validarea a eșuat
+  translated_resource_statuses-label-resource_status_id-7: Se procesează
+  translated_resource_statuses-label-resource_status_id-8: Procesat
+  translated_resource_statuses-label-resource_status_id-9: Procesarea a eșuat
+  translated_service_types-label-service_type_id-2: Altele
+  translated_sort_styles-name-sort_style_id-1: Adăugate recent
+  translated_sort_styles-name-sort_style_id-2: Cele mai vechi
+  translated_sort_styles-name-sort_style_id-3: În ordine alfabetică
+  translated_sort_styles-name-sort_style_id-4: În ordine alfabetică inversă
+  translated_statuses-label-status_id-2: Actualizat
+  translated_statuses-label-status_id-3: Nemodificat
+  translated_statuses-label-status_id-4: Refolosit
+  translated_synonym_relations-label-synonym_relation_id-12: include
+  translated_synonym_relations-label-synonym_relation_id-14: greșeală de scriere
+  translated_synonym_relations-label-synonym_relation_id-16: sinonim ambiguu
+  translated_synonym_relations-label-synonym_relation_id-17: nume atribuit greșit
+  translated_synonym_relations-label-synonym_relation_id-18: nume acceptat anterior
+  translated_synonym_relations-label-synonym_relation_id-19: nume acceptat
+  translated_synonym_relations-label-synonym_relation_id-1: sinonim
+  translated_synonym_relations-label-synonym_relation_id-23: atribuit greșit
+  translated_synonym_relations-label-synonym_relation_id-24: nume respins
+  translated_synonym_relations-label-synonym_relation_id-25: omonim (ilegitim)
+  translated_synonym_relations-label-synonym_relation_id-31: înlocuire nenecesară
+  translated_synonym_relations-label-synonym_relation_id-3: acronim
+  translated_table_of_contents-label-table_of_contents_id-225: Pe internet
+  translated_table_of_contents-label-table_of_contents_id-226: Parteneri conținut
+  translated_table_of_contents-label-table_of_contents_id-227: Caută pe internet
+  translated_table_of_contents-label-table_of_contents_id-242: Ecologie generală
+  translated_table_of_contents-label-table_of_contents_id-244: Bibliografii
+  translated_table_of_contents-label-table_of_contents_id-24: Comentarii
+  translated_table_of_contents-label-table_of_contents_id-251: Beneficii
+  translated_table_of_contents-label-table_of_contents_id-267: Morfologie
+  translated_table_of_contents-label-table_of_contents_id-278: Bibliografie
+  translated_table_of_contents-label-table_of_contents_id-285: Asociații
+  translated_table_of_contents-label-table_of_contents_id-289: Evoluție
+  translated_table_of_contents-label-table_of_contents_id-292: Similari
+  translated_table_of_contents-label-table_of_contents_id-293: Descriere diagnostic
+  translated_table_of_contents-label-table_of_contents_id-296: Gestiune
+  translated_table_of_contents-label-table_of_contents_id-299: Educație
+  translated_table_of_contents-label-table_of_contents_id-2: Rezumat
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipedia
+  translated_table_of_contents-label-table_of_contents_id-303: Nume și taxonomie
+  translated_table_of_contents-label-table_of_contents_id-305: Sinonime
+  translated_table_of_contents-label-table_of_contents_id-306: Statisticile paginii
+  translated_table_of_contents-label-table_of_contents_id-307: Rezumat conținut
+  translated_table_of_contents-label-table_of_contents_id-308: Descriere detaliată
+  translated_table_of_contents-label-table_of_contents_id-309: Distribuție
+  translated_table_of_contents-label-table_of_contents_id-310: Dezvoltare
+  translated_table_of_contents-label-table_of_contents_id-312: Migrație
+  translated_table_of_contents-label-table_of_contents_id-313: Boli și paraziți
+  translated_table_of_contents-label-table_of_contents_id-316: Comportament
+  translated_table_of_contents-label-table_of_contents_id-319: Speranța de viață
+  translated_table_of_contents-label-table_of_contents_id-321: Creștere
+  translated_table_of_contents-label-table_of_contents_id-322: Istoricul fosilelor
+  translated_table_of_contents-label-table_of_contents_id-325: Fiziologie și biologie
+    celulară
+  translated_table_of_contents-label-table_of_contents_id-326: Biologie moleculară
+    și genetică
+  translated_table_of_contents-label-table_of_contents_id-327: Fiziologie
+  translated_table_of_contents-label-table_of_contents_id-329: Genetică
+  translated_table_of_contents-label-table_of_contents_id-334: Amenințări
+  translated_table_of_contents-label-table_of_contents_id-335: Legislație
+  translated_table_of_contents-label-table_of_contents_id-336: Note
+  translated_table_of_contents-label-table_of_contents_id-337: Educație
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonomie
+  translated_table_of_contents-label-table_of_contents_id-41: Habitat
+  translated_table_of_contents-label-table_of_contents_id-4: Ecologie
+  translated_table_of_contents-label-table_of_contents_id-7: Referințe și informații
+    suplimentare
+  translated_table_of_contents-label-table_of_contents_id-8: Conservare
+  translated_untrust_reasons-label-untrust_reason_id-3: calitate slabă
+  translated_untrust_reasons-label-untrust_reason_id-4: duplicat
+  translated_untrust_reasons-label-untrust_reason_id-5: Altele
+  translated_user_identities-label-user_identity_id-1: un pasionat
+  translated_user_identities-label-user_identity_id-2: un student
+  translated_user_identities-label-user_identity_id-3: un cadru didactic
+  translated_user_identities-label-user_identity_id-4: un savant civil
+  translated_user_identities-label-user_identity_id-5: un savant profesionist
+  translated_vetted-label-vetted_id-0: Necunoscut
+  translated_vetted-label-vetted_id-4: Nu prezită încredere
+  translated_vetted-label-vetted_id-5: De încredere
+  translated_vetted-label-vetted_id-6: Inadecvat
+  translated_view_styles-name-view_style_id-1: Listă
+  translated_view_styles-name-view_style_id-2: Galerie
+  translated_view_styles-name-view_style_id-3: Adnotat
+  translated_visibilities-label-visibility_id-0: Invizibil
+  translated_visibilities-label-visibility_id-1: Vizibil
+  translated_visibilities-label-visibility_id-2: Previzualizare
+...

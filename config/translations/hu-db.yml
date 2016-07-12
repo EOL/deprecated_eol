@@ -4,6 +4,7 @@
 # Author: Csega
 # Author: Dani
 # Author: Dj
+# Author: Wolf Rex
 ---
 hu:
   translated_activities-name-activity_id-19: profil
@@ -14,11 +15,14 @@ hu:
   translated_activities-name-activity_id-54: frissítés
   translated_activities-name-activity_id-55: nem megfelelő
   translated_activities-name-activity_id-56: törlés
+  translated_activities-name-activity_id-57: értékelés
   translated_activities-name-activity_id-58: megbízható
   translated_activities-name-activity_id-59: nincs átnézve
+  translated_activities-name-activity_id-63: gyűjtés
   translated_activities-name-activity_id-64: eltávolítás
   translated_agent_roles-label-agent_role_id-10: Projekt
   translated_agent_roles-label-agent_role_id-11: Közzétevő
+  translated_agent_roles-label-agent_role_id-12: Felvivő
   translated_agent_roles-label-agent_role_id-13: Forrás
   translated_agent_roles-label-agent_role_id-14: Forrás adatbázis
   translated_agent_roles-label-agent_role_id-15: Kapcsolattartó személy
@@ -30,11 +34,14 @@ hu:
   translated_agent_roles-label-agent_role_id-24: Nyelvi lektor
   translated_agent_roles-label-agent_role_id-2: Szerző
   translated_agent_roles-label-agent_role_id-3: Fordító
+  translated_agent_roles-label-agent_role_id-4: Dalszerző
   translated_agent_roles-label-agent_role_id-5: Készítő
+  translated_agent_roles-label-agent_role_id-6: Rendező
   translated_agent_roles-label-agent_role_id-7: Szerkesztő
   translated_agent_roles-label-agent_role_id-8: Illusztrátor
   translated_agent_roles-label-agent_role_id-9: Fotográfus
   translated_audiences-label-audience_id-1: Szakértő felhasználók
+  translated_audiences-label-audience_id-2: Nyilvánosság
   translated_audiences-label-audience_id-3: Gyermekek
   translated_collection_types-label-collection_type_id-10: Hangok
   translated_collection_types-label-collection_type_id-11: Hivatkozások
@@ -61,10 +68,25 @@ hu:
   translated_collection_types-label-collection_type_id-8: Molekuláris adatok
   translated_collection_types-label-collection_type_id-9: Nevezéktan
   translated_contact_roles-label-contact_role_id-1: Elsődleges kapcsolattartó
+  translated_contact_roles-label-contact_role_id-2: Adminisztratív kapcsolat
   translated_contact_roles-label-contact_role_id-3: Technikai kapcsolattartó
   translated_contact_subjects-title-contact_subject_id-24: Tagság és regisztráció
+  translated_contact_subjects-title-contact_subject_id-25: Felhasználási és licencelési
+    feltételek
   translated_contact_subjects-title-contact_subject_id-26: Tanulás és oktatás
   translated_contact_subjects-title-contact_subject_id-27: Legyél tartalompartner
+  translated_contact_subjects-title-contact_subject_id-28: Tartalomszolgáltatói kapcsolat
+  translated_contact_subjects-title-contact_subject_id-29: Kurátori kapcsolat
+  translated_contact_subjects-title-contact_subject_id-30: Javítás (helyesírás és
+    nyelvtan, képek, információk)
+  translated_contact_subjects-title-contact_subject_id-31: Képek, videók vagy hangok
+    hozzáadása
+  translated_contact_subjects-title-contact_subject_id-32: Felkérések (interjúk, sajtó,
+    logók)
+  translated_contact_subjects-title-contact_subject_id-33: Adományozás
+  translated_contact_subjects-title-contact_subject_id-34: Technikai kérdése (problémák
+    a kereséssel, honlappal)
+  translated_contact_subjects-title-contact_subject_id-35: Általános visszajelzés
   translated_content_partner_statuses-label-content_partner_status_id-1: Függőben
   translated_content_partner_statuses-label-content_partner_status_id-2: Aktív
   translated_content_partner_statuses-label-content_partner_status_id-3: Archiválva
@@ -77,6 +99,7 @@ hu:
   translated_data_types-label-data_type_id-4: Videó
   translated_data_types-label-data_type_id-5: GBIF kép
   translated_data_types-label-data_type_id-6: IUCN
+  translated_data_types-label-data_type_id-7: Flash
   translated_data_types-label-data_type_id-8: YouTube
   translated_licenses-description-license_id-1: Nincsen jog fenntartva
   translated_licenses-description-license_id-29: Néhány jog fenntartva
@@ -93,6 +116,7 @@ hu:
   translated_licenses-description-license_id-39: Közkincs
   translated_licenses-description-license_id-3: Néhány jog fenntartva
   translated_licenses-description-license_id-42: Néhány jog fenntartva
+  translated_licenses-description-license_id-43: A licenc nem alkalmazható
   translated_licenses-description-license_id-4: Néhány jog fenntartva
   translated_licenses-description-license_id-5: Néhány jog fenntartva
   translated_licenses-description-license_id-6: Néhány jog fenntartva
@@ -101,13 +125,43 @@ hu:
   translated_licenses-description-license_id-9: Néhány jog fenntartva
   translated_ranks-label-rank_id-106: űrlap
   translated_ranks-label-rank_id-107: alak
+  translated_ranks-label-rank_id-112: nem
+  translated_ranks-label-rank_id-113: nem.
+  translated_ranks-label-rank_id-118: nemzetség
+  translated_ranks-label-rank_id-169: alrendág
+  translated_ranks-label-rank_id-175: alfajsorág
+  translated_ranks-label-rank_id-183: ország
   translated_ranks-label-rank_id-266: rend
+  translated_ranks-label-rank_id-280: törzs
+  translated_ranks-label-rank_id-313: fajcsop
+  translated_ranks-label-rank_id-314: fajcsop.
+  translated_ranks-label-rank_id-317: fajcsoport
+  translated_ranks-label-rank_id-324: fajsor
   translated_ranks-label-rank_id-335: fajok
+  translated_ranks-label-rank_id-352: alcsalád
   translated_ranks-label-rank_id-370: alosztály
+  translated_ranks-label-rank_id-375: altörzs
   translated_ranks-label-rank_id-383: alcsalád
+  translated_ranks-label-rank_id-390: alt
+  translated_ranks-label-rank_id-391: alt.
+  translated_ranks-label-rank_id-394: alnemzetség
+  translated_ranks-label-rank_id-396: alország
+  translated_ranks-label-rank_id-399: alrend
+  translated_ranks-label-rank_id-401: altörzs
+  translated_ranks-label-rank_id-408: alfajsor
+  translated_ranks-label-rank_id-411: alfajsor
+  translated_ranks-label-rank_id-413: alf
+  translated_ranks-label-rank_id-414: alf.
+  translated_ranks-label-rank_id-415: alfaj
   translated_ranks-label-rank_id-422: altörzs
+  translated_ranks-label-rank_id-463: főcsalád
+  translated_ranks-label-rank_id-472: főtörzs
   translated_ranks-label-rank_id-494: törzs
   translated_ranks-label-rank_id-503: nem besorolt
+  translated_ranks-label-rank_id-512: vált
+  translated_ranks-label-rank_id-513: vált.
+  translated_ranks-label-rank_id-517: változat
+  translated_ranks-label-rank_id-518: változat
   translated_ranks-label-rank_id-51: osztály
   translated_ranks-label-rank_id-74: törzs
   translated_ranks-label-rank_id-99: család
@@ -123,24 +177,119 @@ hu:
   translated_resource_statuses-label-resource_status_id-7: Feldolgozás alatt
   translated_resource_statuses-label-resource_status_id-8: Feldolgozott
   translated_resource_statuses-label-resource_status_id-9: Feldolgozás nem sikerült
+  translated_service_types-label-service_type_id-2: Egyéb
+  translated_sort_styles-name-sort_style_id-1: Mostanában hozzáadott
+  translated_sort_styles-name-sort_style_id-2: Legrégebbi
+  translated_sort_styles-name-sort_style_id-3: Betűrendben
+  translated_sort_styles-name-sort_style_id-4: Fordított betűrendben
+  translated_sort_styles-name-sort_style_id-6: Értékelés
+  translated_statuses-label-status_id-1: Beillesztve
+  translated_statuses-label-status_id-2: Frissítve
+  translated_statuses-label-status_id-3: Változatlan
+  translated_statuses-label-status_id-4: Újrafelhasznált
+  translated_synonym_relations-label-synonym_relation_id-10: génbank szinonima
+  translated_synonym_relations-label-synonym_relation_id-11: része
+  translated_synonym_relations-label-synonym_relation_id-12: tartalmaz
+  translated_synonym_relations-label-synonym_relation_id-13: hibás név
+  translated_synonym_relations-label-synonym_relation_id-14: elírás
+  translated_synonym_relations-label-synonym_relation_id-19: elfogadott név
+  translated_synonym_relations-label-synonym_relation_id-1: szinonima
+  translated_synonym_relations-label-synonym_relation_id-23: téves
+  translated_synonym_relations-label-synonym_relation_id-24: elutasított név
+  translated_synonym_relations-label-synonym_relation_id-26: részlegesen
+  translated_synonym_relations-label-synonym_relation_id-2: ismert név
+  translated_synonym_relations-label-synonym_relation_id-40: nem érhető el, más
+  translated_synonym_relations-label-synonym_relation_id-49: valódi név
+  translated_synonym_relations-label-synonym_relation_id-50: érvényes
+  translated_synonym_relations-label-synonym_relation_id-51: elfogadott
+  translated_synonym_relations-label-synonym_relation_id-56: elírás
+  translated_synonym_relations-label-synonym_relation_id-64: érvénytelen
+  translated_synonym_relations-label-synonym_relation_id-6: azonos név
+  translated_synonym_relations-label-synonym_relation_id-7: génbank mozaikszó
+  translated_table_of_contents-label-table_of_contents_id-13: Ismert nevek
+  translated_table_of_contents-label-table_of_contents_id-14: IUCN
+  translated_table_of_contents-label-table_of_contents_id-17: Irodalmi hivatkozások
+  translated_table_of_contents-label-table_of_contents_id-194: Méret
   translated_table_of_contents-label-table_of_contents_id-1: Áttekintés
+  translated_table_of_contents-label-table_of_contents_id-218: Terjedés
+  translated_table_of_contents-label-table_of_contents_id-221: Kockázatok
+  translated_table_of_contents-label-table_of_contents_id-225: A weben
+  translated_table_of_contents-label-table_of_contents_id-227: Keresés az interneten
+  translated_table_of_contents-label-table_of_contents_id-244: Irodalmak
+  translated_table_of_contents-label-table_of_contents_id-24: Megjegyzések
+  translated_table_of_contents-label-table_of_contents_id-251: Előnyök
+  translated_table_of_contents-label-table_of_contents_id-267: Morfológia
+  translated_table_of_contents-label-table_of_contents_id-278: Irodalom
+  translated_table_of_contents-label-table_of_contents_id-289: Evolúció
+  translated_table_of_contents-label-table_of_contents_id-292: Hasonmások
+  translated_table_of_contents-label-table_of_contents_id-293: Diagnosztikai leírás
+  translated_table_of_contents-label-table_of_contents_id-296: Kezelés
+  translated_table_of_contents-label-table_of_contents_id-299: Oktatás
   translated_table_of_contents-label-table_of_contents_id-2: Rövid összefoglalás
+  translated_table_of_contents-label-table_of_contents_id-300: Wikipédia
+  translated_table_of_contents-label-table_of_contents_id-303: Nevek és taxonómia
+  translated_table_of_contents-label-table_of_contents_id-304: Kapcsolódó nevek
+  translated_table_of_contents-label-table_of_contents_id-305: Szinonimák
+  translated_table_of_contents-label-table_of_contents_id-306: Statisztikák
+  translated_table_of_contents-label-table_of_contents_id-307: Tartalmi összefoglaló
+  translated_table_of_contents-label-table_of_contents_id-308: Átfogó leírás
+  translated_table_of_contents-label-table_of_contents_id-310: Fejlesztés
+  translated_table_of_contents-label-table_of_contents_id-312: Költözés
+  translated_table_of_contents-label-table_of_contents_id-313: Betegségek és paraziták
+  translated_table_of_contents-label-table_of_contents_id-314: Lakossági biológia
+  translated_table_of_contents-label-table_of_contents_id-315: Élettörténet és viselkedés
+  translated_table_of_contents-label-table_of_contents_id-316: Viselkedés
+  translated_table_of_contents-label-table_of_contents_id-317: Körforgás
+  translated_table_of_contents-label-table_of_contents_id-318: Életciklus
+  translated_table_of_contents-label-table_of_contents_id-319: Várható élettartam
+  translated_table_of_contents-label-table_of_contents_id-320: Szaporodás
+  translated_table_of_contents-label-table_of_contents_id-321: Növekedés
+  translated_table_of_contents-label-table_of_contents_id-322: Fosszíliatörténet
   translated_table_of_contents-label-table_of_contents_id-327: Pszichológia
   translated_table_of_contents-label-table_of_contents_id-328: Sejtbiológia
   translated_table_of_contents-label-table_of_contents_id-329: Genetika
   translated_table_of_contents-label-table_of_contents_id-331: Vonalkód
   translated_table_of_contents-label-table_of_contents_id-332: Genom
   translated_table_of_contents-label-table_of_contents_id-333: Molekuláris biológia
+  translated_table_of_contents-label-table_of_contents_id-334: Fenyegetések
+  translated_table_of_contents-label-table_of_contents_id-335: Szabályok
+  translated_table_of_contents-label-table_of_contents_id-336: Megjegyzések
   translated_table_of_contents-label-table_of_contents_id-337: Oktatás
+  translated_table_of_contents-label-table_of_contents_id-338: Oktatási hivatkozások
+  translated_table_of_contents-label-table_of_contents_id-339: Oktatási erőforrások
   translated_table_of_contents-label-table_of_contents_id-33: Trendek
+  translated_table_of_contents-label-table_of_contents_id-341: Polgári tudományok
+  translated_table_of_contents-label-table_of_contents_id-342: Polgári tudományi hivatkozások
+  translated_table_of_contents-label-table_of_contents_id-343: Biológiai Sokféleség
+    Örökségének Könyvtára
+  translated_table_of_contents-label-table_of_contents_id-344: Adat
+  translated_table_of_contents-label-table_of_contents_id-345: Adatforrások
+  translated_table_of_contents-label-table_of_contents_id-346: Orvosbiológiai feltételek
+  translated_table_of_contents-label-table_of_contents_id-347: Taxonómia
+  translated_table_of_contents-label-table_of_contents_id-348: Típusinformációk
   translated_table_of_contents-label-table_of_contents_id-34: Hozzászólások
+  translated_table_of_contents-label-table_of_contents_id-3: Fizikai leírás
+  translated_table_of_contents-label-table_of_contents_id-41: Élőhely
   translated_table_of_contents-label-table_of_contents_id-4: Ökológia
+  translated_table_of_contents-label-table_of_contents_id-5: Evolúció és rendszertan
+  translated_table_of_contents-label-table_of_contents_id-7: Források és további információ
+  translated_untrust_reasons-label-untrust_reason_id-1: félreismert
+  translated_untrust_reasons-label-untrust_reason_id-2: hibás/félrevezető
+  translated_untrust_reasons-label-untrust_reason_id-3: alacsony minőségű
+  translated_untrust_reasons-label-untrust_reason_id-4: másolat
   translated_untrust_reasons-label-untrust_reason_id-5: Egyéb
+  translated_user_identities-label-user_identity_id-1: rajongó
+  translated_user_identities-label-user_identity_id-2: tanuló
+  translated_user_identities-label-user_identity_id-3: oktató
+  translated_user_identities-label-user_identity_id-4: polgári tudós
+  translated_user_identities-label-user_identity_id-5: szakértő tudós
   translated_vetted-label-vetted_id-0: Ismeretlen
   translated_vetted-label-vetted_id-4: Nem megbízható
   translated_vetted-label-vetted_id-5: Megbízható
   translated_vetted-label-vetted_id-6: Nem megfelelő
+  translated_view_styles-name-view_style_id-1: Lista
   translated_view_styles-name-view_style_id-2: Galéria
+  translated_view_styles-name-view_style_id-3: Annotálva
   translated_visibilities-label-visibility_id-0: Láthatatlan
   translated_visibilities-label-visibility_id-1: Látható
   translated_visibilities-label-visibility_id-2: Előnézet

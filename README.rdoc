@@ -266,6 +266,8 @@ Once you have completed the installation of memcache with PECL on the VPS, add m
 
 === Install Virtuoso
 
+For MAC OS X Maverics (May, 2014):
+
   brew install virtuoso
 
 As of May 2014 this installs version 7.1.
@@ -313,11 +315,86 @@ and at the SQL> prompt run:
   GRANT EXECUTE ON DB.DBA.SPARQL_DELETE_DICT_CONTENT TO "SPARQL";
   quit;
 
+For Ubuntu 12.04:
+
+Rebuilding using Ubuntu packages:
+
+  sudo apt-get install dpkg-dev build-essential
+
+Download the Ubuntu source packages:
+
+  sudo apt-get source virtuoso-opensource
+
+Install the build-dependencies:
+
+  sudo apt-get build-dep virtuoso-opensource
+
+Start the package build using dpkg-buildpackage:
+
+  dpkg-buildpackage -rfakeroot
+
+Dpkg the debian files:
+
+  sudo dpkg -i *.deb
+
+
 === Install Redis
+
+For MAC OS X Maverics (May, 2014):
 
   brew install redis
   ln -sfv /usr/local/opt/redis/*.plist ~/Library/LaunchAgents
   launchctl load ~/Library/LaunchAgents/homebrew.mxcl.redis.plist
+
+For Ubuntu 12.04:
+
+Download build-essential
+
+  sudo apt-get install build-essential
+
+Download tcl:
+
+  sudo apt-get install tcl8.5
+
+Download the tarball from google code:
+
+  wget http://download.redis.io/releases/redis-2.8.9.tar.gz
+
+Untar it and switch into that directory:
+
+  tar xzf redis-2.8.9.tar.gz
+  cd redis-2.8.9
+
+Proceed to with the make command:
+
+  make
+  make test
+  sudo make install
+
+To access the scripts move into the utils directory:
+
+  cd utils
+
+Run the Ubuntu/Debian install scripts:
+
+  sudo ./install_server.sh
+
+You can start and stop redist with these commands (the number depends on the port you set during the installation):
+
+  sudo service redis_6379 start
+  sudo service redis_6379 stop
+
+You can then access the redis database by typing the following command:
+
+  redis-ci
+
+You can now have Redis installed and running. The prompt will look like this:
+
+  redis 127.0.0.1:6379>
+
+To set Redis to automatically at boot, run:
+
+  sudo update-rc.d redis_6379 defaults
 
 === Get EOL Private Config
 
@@ -379,7 +456,7 @@ experience it can be a bit buggy.  Not for the faint of heart.
 === Notes on SOLR
 
 EOL requires Solr (a fast indexing engine) to run properly.  Solr is run using
-Java, and the required JAR file is included with the EOL project's source code.
+Java, and the required JAR file is included with the EOL project's source code. Solr uses Virtuoso as data-store.
 There is a rake task for starting (solr:start) and stopping (solr:stop) the
 Solr server.  Solr is used extensively throughout the code for relating
 objects, so the entire codebase requires Solr to run.
@@ -543,7 +620,7 @@ operations tend to fall into two categories: dimensions and facts.  In short, di
 (primary) data. Facts are derived (secondary) caches of information which is more meaningful to the user.  Fact
 table design is highly dependent on the user interface design, because we only need to generate facts if the
 information will actually be shown.  For performance reasons regarding the expected database size, fact tables
-are also intended to be highly denormalized, non-authoritive sources of information.
+are also intended to be highly denormalized, non-authoritative sources of information.
 
 Location-based facts require the primary data to go through a geocoding process which requires an external web
 service.  This process is thus performed asynchronously from the main site. Results of IP location lookups are
